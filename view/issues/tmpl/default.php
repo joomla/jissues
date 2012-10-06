@@ -53,7 +53,10 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 				</div>
 			</td>
 			<td>
-				<?php echo (int) $item->status; ?>
+				<?php echo (int) $item->priority; ?>
+			</td>
+			<td>
+				<?php echo $item->status; ?>
 			</td>
 			<td class="hidden-phone">
 				N/A
