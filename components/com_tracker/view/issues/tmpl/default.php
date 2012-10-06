@@ -20,21 +20,21 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th width="2%" class="nowrap hidden-phone">ID</th>
-			<th>Summary</th>
-			<th width="5%">Priority</th>
-			<th width="5%">Status</th>
-			<th width="10%" class="hidden-phone">Category</th>
-			<th width="10%" class="hidden-phone">Date Opened</th>
-			<th width="10%" class="hidden-phone">Date Closed</th>
-			<th width="10%" class="hidden-phone">Last Modified</th>
+			<th width="2%" class="nowrap hidden-phone"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
+			<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
+			<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
+			<th width="5%"><?php echo JText::_('JSTATUS'); ?></th>
+			<th width="10%" class="hidden-phone"><?php echo JText::_('JCATEGORY'); ?></th>
+			<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_OPENED'); ?></th>
+			<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_CLOSED'); ?></th>
+			<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_LAST_MODIFIED'); ?></th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php if (count($this->items) == 0) : ?>
 		<tr>
 			<td class="center" colspan="8">
-				No items found
+				<?php echo JText::_('COM_TRACKER_NO_ITEMS_FOUND'); ?>
 			</td>
 		</tr>
 	<?php else : ?>
