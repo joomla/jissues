@@ -56,7 +56,7 @@ class TrackerModelIssues extends JModelDatabase
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$query->select($db->quoteName(array('a.id', 'a.title', 'a.description', 'a.priority', 'a.status', 'a.opened', 'a.closed', 'a.modified')));
+		$query->select($db->quoteName(array('a.id', 'a.gh_id', 'a.title', 'a.description', 'a.priority', 'a.status', 'a.opened', 'a.closed', 'a.modified')));
 		$query->from($db->quoteName('#__issues', 'a'));
 
 		// Join over the status.

@@ -21,6 +21,7 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 	<thead>
 		<tr>
 			<th width="2%" class="nowrap hidden-phone"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
+			<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
 			<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
 			<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 			<th width="5%"><?php echo JText::_('JSTATUS'); ?></th>
@@ -50,6 +51,15 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 		<tr <?php echo $rowClass; ?>>
 			<td class="center hidden-phone">
 				<?php echo (int) $item->id; ?>
+			</td>
+			<td class="center hidden-phone">
+				<?php if ($item->gh_id) : ?>
+				<a href="https://github.com/joomla/joomla-cms/issue/<?php echo (int) $item->gh_id; ?>" target="_blank">
+					<?php echo (int) $item->gh_id; ?>
+				</a>
+				<?php else : ?>
+				<?php echo JText::_('COM_TRACKER_NOT_APPLICABLE_SHORT'); ?>
+				<?php endif; ?>
 			</td>
 			<td class="hasContext">
 				<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $item->description, 100); ?>">
