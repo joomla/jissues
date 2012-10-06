@@ -76,7 +76,6 @@ class TrackerTableIssue extends JTable
 		{
 			// Existing item
 			$this->modified = $date->toSql();
-			$this->modified_by = $user->get('id');
 		}
 		else
 		{

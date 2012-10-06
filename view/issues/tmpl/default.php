@@ -65,10 +65,14 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 				<?php echo JHtml::_('date', $item->opened, 'Y-m-d'); ?>
 			</td>
 			<td class="nowrap small hidden-phone">
-				<?php echo JHtml::_('date', $item->closed, 'Y-m-d'); ?>
+				<?php if ($item->closed != '0000-00-00 00:00:00') : ?>
+					<?php echo JHtml::_('date', $item->closed, 'Y-m-d'); ?>
+				<?php endif; ?>
 			</td>
 			<td class="nowrap small hidden-phone">
-				<?php echo JHtml::_('date', $item->modified, 'Y-m-d'); ?>
+				<?php if ($item->modified != '0000-00-00 00:00:00') : ?>
+					<?php echo JHtml::_('date', $item->modified, 'Y-m-d'); ?>
+				<?php endif; ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>

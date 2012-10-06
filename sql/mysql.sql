@@ -11,7 +11,7 @@ CREATE TABLE `#__issues` (
   `catid` int(10) unsigned NOT NULL DEFAULT '0',
   `status` int(10) unsigned NOT NULL DEFAULT '1',
   `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `closed` datetime DEFAULT NULL,
+  `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
