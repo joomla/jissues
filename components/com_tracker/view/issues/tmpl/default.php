@@ -9,7 +9,7 @@
 defined('_JEXEC') or die;
 
 // Initialize values to check for cells
-$blockers = array(1, 2);
+$blockers = array('1', '2');
 
 // Initialize Bootstrap Tooltips
 $ttParams = array();
@@ -41,8 +41,12 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 	<?php foreach ($this->items as $i => $item) :
 	$rowClass = '';
 	if (in_array($item->priority, $blockers)) {
-		$rowClass = 'class="warning"';
-	} ?>
+		$rowClass = 'class="error"';
+	}
+	if ($item->status == '4') {
+		$rowClass = 'class="success"';
+	}
+	?>
 		<tr <?php echo $rowClass; ?>>
 			<td class="center hidden-phone">
 				<?php echo (int) $item->id; ?>
@@ -56,7 +60,7 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 				<?php echo (int) $item->priority; ?>
 			</td>
 			<td>
-				<?php echo $item->status; ?>
+				<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
 			</td>
 			<td class="hidden-phone">
 				N/A
@@ -65,7 +69,7 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 				<?php echo JHtml::_('date', $item->opened, 'Y-m-d'); ?>
 			</td>
 			<td class="nowrap small hidden-phone">
-				<?php if ($item->closed != '0000-00-00 00:00:00') : ?>
+				<?php if ($item->closed_status) : ?>
 					<?php echo JHtml::_('date', $item->closed, 'Y-m-d'); ?>
 				<?php endif; ?>
 			</td>

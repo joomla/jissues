@@ -52,6 +52,35 @@ CREATE TABLE `#__issues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `#__status`
+--
+
+CREATE TABLE `#__status` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `status` varchar(255) DEFAULT NULL,
+  `closed` tinyint NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `#__status`
+--
+
+INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
+(1, 'open', 0),
+(2, 'confirmed', 0),
+(3, 'pending', 0),
+(4, 'rtc', 0),
+(5, 'fixed', 1),
+(6, 'review', 0),
+(7, 'info', 0),
+(8, 'platform', 1),
+(9, 'no_reply', 1),
+(10, 'closed', 1),
+(11, 'expected', 1),
+(12, 'known', 1);
+
+--
 -- Table structure for table `#__versions`
 --
 

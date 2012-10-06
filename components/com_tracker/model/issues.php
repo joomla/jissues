@@ -59,6 +59,10 @@ class TrackerModelIssues extends JModelDatabase
 		$query->select($db->quoteName(array('a.id', 'a.title', 'a.description', 'a.priority', 'a.status', 'a.opened', 'a.closed', 'a.modified')));
 		$query->from($db->quoteName('#__issues', 'a'));
 
+		// Join over the status.
+		$query->select('s.status AS status_title, s.closed AS closed_status');
+		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
 		// TODO: Implement filtering and join to other tables as added
 
 		$query->order('a.id ASC');
