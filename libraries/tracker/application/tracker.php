@@ -107,12 +107,13 @@ final class JApplicationTracker extends JApplicationWeb
 			// Set up the params
 			$document = $this->getDocument();
 
-			// Register the template to the config
-			$this->set('theme', 'template');
-			$this->set('themeParams', new JRegistry);
-
 			// Register the document object with JFactory
 			JFactory::$document = $document;
+
+			// Register the template to the config
+			$template = $this->getTemplate(true);
+			$this->set('theme', $template->template);
+			$this->set('themeParams', $template->params);
 
 			// Set metadata
 			$document->setTitle('Joomla! CMS Issue Tracker');
