@@ -27,3 +27,6 @@ require_once JPATH_LIBRARIES . '/import.legacy.php';
 
 // Import the CMS libraries.
 require_once JPATH_LIBRARIES . '/cms.php';
+
+// Import the application libraries
+require_once JPATH_LIBRARIES . '/tracker.php';

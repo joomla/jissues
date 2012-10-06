@@ -11,10 +11,7 @@ defined('_JEXEC') or die;
 
 // Define the base path and require the other defines
 define('JPATH_BASE', dirname(__DIR__));
-require_once JPATH_BASE . '/application/defines.php';
+require_once __DIR__ . '/defines.php';
 
 // Launch the application
-require_once JPATH_BASE . '/application/framework.php';
-
-// Register the Tracker application
-JLoader::registerPrefix('Tracker', JPATH_BASE);
+require_once __DIR__ . '/framework.php';

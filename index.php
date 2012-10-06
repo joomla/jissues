@@ -2,7 +2,7 @@
 /**
  * @package    BabDev.Tracker
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2012 Michael Babker. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -15,10 +15,10 @@ error_reporting(32767);
 const _JEXEC = 1;
 
 // Bootstrap the application
-require_once __DIR__ . '/application/bootstrap.php';
+require_once __DIR__ . '/includes/bootstrap.php';
 
 // Get the application
-$app = JApplicationWeb::getInstance('TrackerApplicationWeb');
+$app = JApplicationWeb::getInstance('JApplicationTracker');
 
 // Execute the application
 $app->execute();

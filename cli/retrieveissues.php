@@ -19,7 +19,7 @@ if (file_exists(dirname(__DIR__) . '/defines.php'))
 if (!defined('_JDEFINES'))
 {
 	define('JPATH_BASE', dirname(__DIR__));
-	require_once JPATH_BASE . '/application/defines.php';
+	require_once JPATH_BASE . '/includes/defines.php';
 }
 
 // Get the framework.
@@ -28,8 +28,8 @@ require_once JPATH_LIBRARIES . '/import.legacy.php';
 // Bootstrap the CMS libraries.
 require_once JPATH_LIBRARIES . '/cms.php';
 
-// Register the Tracker application
-JLoader::registerPrefix('Tracker', JPATH_BASE);
+// Bootstrap the Tracker application libraries.
+require_once JPATH_LIBRARIES . '/tracker.php';
 
 // Configure error reporting to maximum for CLI output.
 error_reporting(E_ALL);

@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  Application
  * @since       1.0
  */
-final class TrackerApplicationWeb extends JApplicationWeb
+final class JApplicationTracker extends JApplicationWeb
 {
 	/**
 	 * The application message queue.
