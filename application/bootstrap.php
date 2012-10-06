@@ -16,5 +16,5 @@ require_once JPATH_BASE . '/application/defines.php';
 // Launch the application
 require_once JPATH_BASE . '/application/framework.php';
 
-// Register the Upgrade application
+// Register the Tracker application
 JLoader::registerPrefix('Tracker', JPATH_BASE);
