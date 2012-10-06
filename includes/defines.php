@@ -22,4 +22,5 @@ define('JPATH_SITE',          JPATH_ROOT);
 define('JPATH_CONFIGURATION', JPATH_ROOT);
 define('JPATH_ADMINISTRATOR', JPATH_ROOT . '/administrator');
 define('JPATH_LIBRARIES',     JPATH_ROOT . '/libraries');
+define('JPATH_CACHE',         JPATH_BASE . '/cache');
 define('JPATH_THEMES',        JPATH_BASE);

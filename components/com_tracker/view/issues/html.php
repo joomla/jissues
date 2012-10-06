@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  View
  * @since       1.0
  */
-class TrackerViewIssues extends JViewHtml
+class TrackerViewIssuesHtml extends JViewHtml
 {
 	/**
 	 * Redefine the model so the correct type hinting is available.

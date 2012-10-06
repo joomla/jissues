@@ -19,6 +19,14 @@ defined('_JEXEC') or die;
 final class JApplicationTracker extends JApplicationWeb
 {
 	/**
+	 * The scope of the application.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	public $scope = null;
+
+	/**
 	 * The application message queue.
 	 *
 	 * @var    array
@@ -67,6 +75,9 @@ final class JApplicationTracker extends JApplicationWeb
 			JFactory::$session = $this->getSession();
 		}
 
+		// Register the event dispatcher
+		$this->loadDispatcher();
+
 		// Register the application to JFactory
 		JFactory::$application = $this;
 	}
@@ -74,14 +85,22 @@ final class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Dispatch the application
 	 *
+	 * @param   string  $component  The component to dispatch.
+	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function dispatch()
+	protected function dispatch($component = null)
 	{
 		try
 		{
+			// Get the component if not set.
+			if (!$component)
+			{
+				$component = $this->input->get('option', 'com_tracker');
+			}
+
 			// Load the document to the API
 			$this->loadDocument();
 
@@ -98,20 +117,8 @@ final class JApplicationTracker extends JApplicationWeb
 			// Set metadata
 			$document->setTitle('Joomla! CMS Issue Tracker');
 
-			// Define component path
-			define('JPATH_COMPONENT', JPATH_BASE);
-
-			// Register the layout paths for the view
-			// TODO: Need to dynamically handle class names, probably need to bring in controller code as well
-			$paths = new SplPriorityQueue;
-			$paths->insert(JPATH_BASE . '/view/issues/tmpl', 'normal');
-
-			$view = new TrackerViewIssues(new TrackerModelIssues, $paths);
-			$view->setLayout('default');
-
 			// Render our view
-			$contents = $view->render();
-
+			$contents = JComponentHelper::renderComponent($component);
 			$document->setBuffer($contents, 'component');
 		}
 
@@ -121,6 +128,9 @@ final class JApplicationTracker extends JApplicationWeb
 			echo $e->getMessage();
 			$this->close($e->getCode());
 		}
+
+		// Trigger the onAfterDispatch event
+		$this->dispatcher->trigger('onAfterDispatch');
 	}
 
 	/**
