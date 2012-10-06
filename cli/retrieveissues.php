@@ -131,7 +131,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			}
 
 			// Store the item in the database
-			$table = JTable::getInstance('Issue', 'TrackerTable');
+			$table = JTable::getInstance('Issue');
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
 			$table->description = $issue->body;

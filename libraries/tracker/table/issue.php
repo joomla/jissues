@@ -16,7 +16,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Table
  * @since       1.0
  */
-class TrackerTableIssue extends JTable
+class JTableIssue extends JTable
 {
 	/**
 	 * Constructor
