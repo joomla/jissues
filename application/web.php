@@ -19,6 +19,14 @@ defined('_JEXEC') or die;
 final class TrackerApplicationWeb extends JApplicationWeb
 {
 	/**
+	 * The application message queue.
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $_messageQueue = array();
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
@@ -94,6 +102,7 @@ final class TrackerApplicationWeb extends JApplicationWeb
 			define('JPATH_COMPONENT', JPATH_BASE);
 
 			// Register the layout paths for the view
+			// TODO: Need to dynamically handle class names, probably need to bring in controller code as well
 			$paths = new SplPriorityQueue;
 			$paths->insert(JPATH_BASE . '/view/issues/tmpl', 'normal');
 
@@ -128,6 +137,60 @@ final class TrackerApplicationWeb extends JApplicationWeb
 	}
 
 	/**
+	 * Enqueue a system message.
+	 *
+	 * @param   string  $msg   The message to enqueue.
+	 * @param   string  $type  The message type. Default is message.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function enqueueMessage($msg, $type = 'message')
+	{
+		// For empty queue, if messages exists in the session, enqueue them first.
+		if (!count($this->_messageQueue))
+		{
+			$session = JFactory::getSession();
+			$sessionQueue = $session->get('application.queue');
+
+			if (count($sessionQueue))
+			{
+				$this->_messageQueue = $sessionQueue;
+				$session->set('application.queue', null);
+			}
+		}
+
+		// Enqueue the message.
+		$this->_messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+	}
+
+	/**
+	 * Get the system message queue.
+	 *
+	 * @return  array  The system message queue.
+	 *
+	 * @since   1.0
+	 */
+	public function getMessageQueue()
+	{
+		// For empty queue, if messages exists in the session, enqueue them.
+		if (!count($this->_messageQueue))
+		{
+			$session = JFactory::getSession();
+			$sessionQueue = $session->get('application.queue');
+
+			if (count($sessionQueue))
+			{
+				$this->_messageQueue = $sessionQueue;
+				$session->set('application.queue', null);
+			}
+		}
+
+		return $this->_messageQueue;
+	}
+
+	/**
 	 * Get the template information
 	 *
 	 * @param   boolean  $params  True to return the template params
@@ -149,5 +212,19 @@ final class TrackerApplicationWeb extends JApplicationWeb
 		}
 
 		return $template->template;
+	}
+
+	/**
+	 * Set the system message queue.
+	 *
+	 * @param   array  The information to set in the message queue
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function setMessageQueue(array $queue = array())
+	{
+		$this->_messageQueue = $queue;
 	}
 }

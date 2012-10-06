@@ -25,21 +25,14 @@ JHtml::_('bootstrap.framework');
 		<!-- Header -->
 		<div class="header">
 			<img src="<?php echo $this->baseurl ?>/template/images/joomla.png" alt="Joomla" />
-			<hr />
-			<h5>
-				<?php
-				$joomla  = '<a href="http://www.joomla.org">Joomla!<sup>&#174;</sup></a>';
-				$license = '<a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License</a>';
-				echo sprintf('%s is free software released under the %s', $joomla, $license);
-				?>
-			</h5>
 		</div>
 		<!-- Container -->
 		<div class="container">
-			<div id="container-installation">
-				<jdoc:include type="component" />
+			<div class="row-fluid">
+				<div class="span12">
+					<jdoc:include type="component" />
+				</div>
 			</div>
-			<hr />
 		</div>
 	</body>
 </html>

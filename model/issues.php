@@ -18,4 +18,51 @@ defined('_JEXEC') or die;
  */
 class TrackerModelIssues extends JModelDatabase
 {
+	/**
+	 * Method to get an array of data items.
+	 *
+	 * @return  mixed  An array of data items on success, false on failure.
+	 *
+	 * @since   1.0
+	 */
+	public function getItems()
+	{
+		// Load the query for the list
+		$query = $this->getListQuery();
+
+		try
+		{
+			$this->db->setQuery($query);
+			$items = $this->db->loadObjectList();
+		}
+		catch (RuntimeException $e)
+		{
+			$this->setError($e->getMessage());
+			return false;
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
+	 *
+	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
+	 *
+	 * @since   1.0
+	 */
+	protected function getListQuery()
+	{
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
+
+		$query->select($db->quoteName(array('a.id', 'a.title', 'a.description', 'a.priority', 'a.status', 'a.opened', 'a.closed', 'a.modified')));
+		$query->from($db->quoteName('#__issues', 'a'));
+
+		// TODO: Implement filtering and join to other tables as added
+
+		$query->order('a.id ASC');
+
+		return $query;
+	}
 }
