@@ -115,8 +115,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 			try
 			{
-				$result = $db->execute();
-				$result = (int) $result->current_field;
+				$result = $db->loadResult();
 			}
 			catch (RuntimeException $e)
 			{
@@ -127,6 +126,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			// If we have something already, then move on to the next item
 			if ($result >= 1)
 			{
+				$this->out('GitHub issue #' . $issue->number . ' is already in the tracker.', true);
 				continue;
 			}
 
@@ -145,6 +145,9 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$this->out('Added GitHub issue #' . $issue->number . ' to the tracker.', true);
 			$added++;
 		}
+
+		// Update the final result
+		$this->out('Added ' . $added . ' items to the tracker.', true);
 	}
 }
 
