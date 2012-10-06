@@ -50,3 +50,21 @@ CREATE TABLE `#__issues` (
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `#__versions`
+--
+
+CREATE TABLE `#__versions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `version` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `#__versions`
+--
+
+INSERT INTO `#__versions` (`id`, `version`) VALUES
+(1, '2.5'),
+(2, '3.0');
