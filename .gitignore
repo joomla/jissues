@@ -1,0 +1,9 @@
+# IDE based files and folders #
+.buildpath
+.project
+.settings
+.DS_Store
+.idea
+
+# Files that should not be pushed to the repo #
+/configuration.php
