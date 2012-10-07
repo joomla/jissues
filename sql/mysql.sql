@@ -150,6 +150,10 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
+  `database_type` int(11) NOT NULL,
+  `webserver` int(11) NOT NULL,
+  `php_version` int(11) NOT NULL,
+  `browser` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
