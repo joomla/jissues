@@ -16,6 +16,9 @@ $ttParams = array();
 $ttParams['animation'] = true;
 $ttParams['trigger']   = 'hover';
 JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
+JHtml::_('formbehavior.chosen', 'select');
+
+$filterStatus = $this->state->get('filter.status')
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
 	<div class="filters btn-toolbar clearfix">
@@ -27,7 +30,13 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 		<div class="btn-group pull-left">
 			<button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i></button>
 		</div>
-
+		<div class="btn-group pull-right">
+			<label for="status" class="element-invisible"><?php echo JText::_('COM_TRACKER_FILTER_STATUS'); ?></label>
+			<select name="status" id="filter-status" class="input-medium" onchange="document.adminForm.submit();">
+				<option value=""><?php echo JText::_('COM_TRACKER_FILTER_STATUS');?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('status.options'), 'value', 'text', $filterStatus);?>
+			</select>
+		</div>
 		<input type="hidden" name="filter_order" value="" />
 		<input type="hidden" name="filter_order_Dir" value="" />
 		<input type="hidden" name="limitstart" value="" />
@@ -39,7 +48,7 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 				<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
 				<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
 				<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
-				<th width="5%"><?php echo JText::_('JSTATUS'); ?></th>
+				<th width="10%"><?php echo JText::_('JSTATUS'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('JCATEGORY'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_OPENED'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_CLOSED'); ?></th>

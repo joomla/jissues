@@ -77,6 +77,12 @@ class TrackerModelIssues extends JModelDatabase
 			$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $filter . ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter . ')');
 		}
 
+		$status = $this->state->get('filter.status');
+		if ($status)
+		{
+			$query->where($db->quoteName('a.status') . ' = ' . (int) $status);
+		}
+
 		// TODO: Implement filtering and join to other tables as added
 
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.id'));
