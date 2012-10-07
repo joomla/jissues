@@ -2,53 +2,46 @@
 -- Table structure for table `#__select_items`
 --
 
-CREATE TABLE `#__select_items` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `#__select_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `option_id` int(10) NOT NULL,
   `value` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `#__select_items`
 --
 
-INSERT INTO `#__select_items` VALUES(1, 1, 'mysql_5_0_x', 'MySql 5.0.x');
-INSERT INTO `#__select_items` VALUES(2, 1, 'mysql_5_1_x', 'MySql 5.1.x');
-INSERT INTO `#__select_items` VALUES(3, 1, 'mysql_5_2_x', 'MySql 5.2.x');
-INSERT INTO `#__select_items` VALUES(4, 1, 'mssql_svr', 'MS SQL Svr');
-INSERT INTO `#__select_items` VALUES(5, 1, 'azure', 'Azure');
-INSERT INTO `#__select_items` VALUES(6, 1, 'postgres', 'Postgres');
-INSERT INTO `#__select_items` VALUES(7, 1, 'oracle', 'Oracle');
-INSERT INTO `#__select_items` VALUES(8, 1, 'other', 'Other');
-INSERT INTO `#__select_items` VALUES(9, 2, 'apache_1_3_x', 'Apache 1.3.x');
-INSERT INTO `#__select_items` VALUES(10, 2, 'apache_2_0_x', 'Apache 2.0.x');
-INSERT INTO `#__select_items` VALUES(11, 2, 'apache_2_2_x', 'Apache 2.2.x');
-INSERT INTO `#__select_items` VALUES(12, 2, 'iis_4_x', 'IIS 4.x');
-INSERT INTO `#__select_items` VALUES(13, 2, 'iis_5_x', 'IIS 5.x');
-INSERT INTO `#__select_items` VALUES(14, 2, 'iis_6_x', 'IIS 6.x');
-INSERT INTO `#__select_items` VALUES(15, 2, 'iis_7_x', 'IIS 7.x');
-INSERT INTO `#__select_items` VALUES(16, 2, 'other', 'Other');
-INSERT INTO `#__select_items` VALUES(17, 3, 'php_4_3_x', 'PHP 4.3.x');
-INSERT INTO `#__select_items` VALUES(18, 3, 'php_4_4_x', 'PHP 4.4.x');
-INSERT INTO `#__select_items` VALUES(19, 2, 'php_5_0_x', 'PHP 5.0.x');
-INSERT INTO `#__select_items` VALUES(20, 3, 'php_lt_5_2', 'PHP < 5.2');
-INSERT INTO `#__select_items` VALUES(21, 3, 'php_5_1_x', 'PHP 5.1.x');
-INSERT INTO `#__select_items` VALUES(22, 3, 'php_5_2_x', 'PHP 5.2.x');
-INSERT INTO `#__select_items` VALUES(23, 3, 'php_5_3_X', 'PHP 5.3.x');
-INSERT INTO `#__select_items` VALUES(24, 3, 'PHP_5_4_X', 'PHP 5.4.x');
-INSERT INTO `#__select_items` VALUES(25, 4, 'ff_6_x', 'Firefox 6.x');
-INSERT INTO `#__select_items` VALUES(26, 4, 'ff_5_x', 'Firefox 5.x');
-INSERT INTO `#__select_items` VALUES(27, 4, 'ff_4_x', 'Firefox 4.x');
-INSERT INTO `#__select_items` VALUES(28, 4, 'sf_5_x', 'Safari 5.x');
-INSERT INTO `#__select_items` VALUES(29, 4, 'sf_ipod', 'Safari iPod');
-INSERT INTO `#__select_items` VALUES(30, 4, 'sf_other', 'Safari Other');
-INSERT INTO `#__select_items` VALUES(32, 4, 'sf_iphone', 'Safari iPhone');
-INSERT INTO `#__select_items` VALUES(33, 4, 'sf_ipad', 'Safari iPad');
-INSERT INTO `#__select_items` VALUES(34, 4, 'gc_14', 'Google Chrome 14 ');
-INSERT INTO `#__select_items` VALUES(38, 4, 'ff_other', 'Firefox Other');
+INSERT INTO `#__select_items` (`id`, `option_id`, `value`, `label`) VALUES
+(1, 1, 'mysql_5_0_x', 'MySql 5.0.x'),
+(2, 1, 'mysql_5_1_x', 'MySql 5.1.x'),
+(3, 1, 'mysql_5_2_x', 'MySql 5.2.x'),
+(4, 1, 'mssql_svr', 'MS SQL Svr'),
+(5, 1, 'azure', 'Azure'),
+(6, 1, 'postgres', 'Postgres'),
+(7, 1, 'oracle', 'Oracle'),
+(8, 1, 'other', 'Other'),
+(9, 2, 'apache_2_0_x', 'Apache 2.0.x'),
+(10, 2, 'apache_2_2_x', 'Apache 2.2.x'),
+(11, 2, 'iis_7_x', 'IIS 7.x'),
+(12, 2, 'other', 'Other'),
+(13, 3, 'php_5_2_x', 'PHP 5.2.x'),
+(14, 3, 'php_5_3_X', 'PHP 5.3.x'),
+(15, 3, 'PHP_5_4_X', 'PHP 5.4.x'),
+(16, 4, 'ff_pc', 'Firefox (PC)'),
+(17, 4, 'ff_mobile', 'Firefox (Mobile)'),
+(18, 4, 'sf_5_x', 'Safari 5.x'),
+(19, 4, 'sf_ipod', 'Safari iPod'),
+(20, 4, 'sf_other', 'Safari Other'),
+(21, 4, 'sf_iphone', 'Safari iPhone'),
+(22, 4, 'sf_ipad', 'Safari iPad'),
+(23, 4, 'gc', 'Google Chrome'),
+(24, 4, 'ie7', 'Internet Explorer 7'),
+(25, 4, 'ie8', 'Internet Explorer 8'),
+(26, 4, 'ie9', 'Internet Explorer 9');
 
 --
 -- Table structure for table `#__selects`
