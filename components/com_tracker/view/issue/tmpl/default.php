@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die;
 ?>
-<h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
+<h3><?php echo $this->item->title; ?></h3>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span5">
