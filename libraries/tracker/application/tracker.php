@@ -83,24 +83,16 @@ final class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
-	 * Dispatch the application
-	 *
-	 * @param   string  $component  The component to dispatch.
+	 * Method to run the Web application routines.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function dispatch($component = null)
+	protected function doExecute()
 	{
 		try
 		{
-			// Get the component if not set.
-			if (!$component)
-			{
-				$component = $this->input->get('option', 'com_tracker');
-			}
-
 			// Load the document to the API
 			$this->loadDocument();
 
@@ -119,8 +111,14 @@ final class JApplicationTracker extends JApplicationWeb
 			// Set metadata
 			$document->setTitle('Joomla! CMS Issue Tracker');
 
-			// Render our view
-			$contents = JComponentHelper::renderComponent($component);
+			// Load the component
+			$component = $this->input->get('option', 'com_tracker');
+
+			// Fetch the controller
+			$controller = $this->fetchController($component, $this->input->getCmd('task'));
+
+			// Execute the component
+			$contents = $this->executeComponent($controller, $component);
 			$document->setBuffer($contents, 'component');
 		}
 
@@ -130,22 +128,6 @@ final class JApplicationTracker extends JApplicationWeb
 			echo $e->getMessage();
 			$this->close($e->getCode());
 		}
-
-		// Trigger the onAfterDispatch event
-		$this->dispatcher->trigger('onAfterDispatch');
-	}
-
-	/**
-	 * Method to run the Web application routines.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute()
-	{
-		// Dispatch the application
-		$this->dispatch();
 	}
 
 	/**
@@ -175,6 +157,82 @@ final class JApplicationTracker extends JApplicationWeb
 
 		// Enqueue the message.
 		$this->_messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+	}
+
+	/**
+	 * Execute the component.
+	 *
+	 * @param   JController  $controller  The controller instance to execute
+	 * @param   string       $component   The component being executed.
+	 *
+	 * @return  object
+	 *
+	 * @since   11.1
+	 * @throws  Exception
+	 */
+	public function executeComponent($controller, $component)
+	{
+		// Load template language files.
+		$template = $this->getTemplate(true)->template;
+		$lang     = JFactory::getLanguage();
+
+		$lang->load('tpl_' . $template, JPATH_BASE, null, false, false)
+			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", null, false, false)
+			|| $lang->load('tpl_' . $template, JPATH_BASE, $lang->getDefault(), false, false)
+			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", $lang->getDefault(), false, false);
+
+		// Load common and local language files.
+		$lang->load($component, JPATH_BASE, null, false, false)
+			|| $lang->load($component, JPATH_COMPONENT, null, false, false)
+			|| $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false)
+			|| $lang->load($component, JPATH_COMPONENT, $lang->getDefault(), false, false);
+
+		// Start an output buffer.
+		ob_start();
+		$controller->execute();
+		$output = ob_get_clean();
+
+		return $output;
+	}
+
+	/**
+	 * Method to get a controller object.
+	 *
+	 * @param   string  $component  The component being called
+	 * @param   string  $task       The task being executed in the component
+	 *
+	 * @return  JController
+	 *
+	 * @since   1.0
+	 * @throws  RuntimeException
+	 */
+	protected function fetchController($component, $task)
+	{
+		if (is_null($task))
+		{
+			$task = 'default';
+		}
+
+		// Strip com_ off the component
+		$base = substr($component, 4);
+
+		// Set the controller class name based on the task
+		$class = ucfirst($base) . 'Controller' . ucfirst($task);
+
+		// Define component path.
+		define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $component);
+
+		// Register the component with the autoloader
+		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
+
+		// If the requested controller exists let's use it.
+		if (class_exists($class))
+		{
+			return new $class;
+		}
+
+		// Nothing found. Panic.
+		throw new RuntimeException('Class ' . $class . ' not found');
 	}
 
 	/**
