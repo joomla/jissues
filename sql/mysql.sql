@@ -79,7 +79,7 @@ CREATE TABLE `#__issues` (
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`) ON UPDATE CASCADE
+  CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `#__issue_comments` (
   `text` mediumtext NOT NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON UPDATE CASCADE
+  CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
