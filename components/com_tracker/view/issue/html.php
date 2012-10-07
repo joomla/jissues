@@ -18,7 +18,6 @@ defined('_JEXEC') or die;
  * @since       1.0
  */
 
- */
 class TrackerViewIssueHtml extends JViewHtml
 {
 	/**
@@ -35,9 +34,10 @@ class TrackerViewIssueHtml extends JViewHtml
 
 		// Register the document
 		$this->document = $app->getDocument();
-
-		$this->items = $this->model->getItem($id);
-		$this->state = $this->model->getState();
+		
+		$id = JRequest::getVar('id', 1); // update this to the proper get cmd
+		
+		$this->item = $this->model->getItem($id);
 
 		return parent::render();
 	}
