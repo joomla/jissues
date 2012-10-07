@@ -114,6 +114,7 @@ final class JApplicationTracker extends JApplicationWeb
 			$template = $this->getTemplate(true);
 			$this->set('theme', $template->template);
 			$this->set('themeParams', $template->params);
+			$this->set('themeFile', $this->input->get('tmpl', 'index') . '.php');
 
 			// Set metadata
 			$document->setTitle('Joomla! CMS Issue Tracker');
