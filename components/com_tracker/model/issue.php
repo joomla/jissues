@@ -34,5 +34,7 @@ class TrackerModelIssue extends JModelDatabase
 		$data = $db->loadObject();
 		
 		return $data;
+		
+		//please commmit
 	}
 }
