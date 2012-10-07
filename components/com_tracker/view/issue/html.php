@@ -34,10 +34,8 @@ class TrackerViewIssueHtml extends JViewHtml
 
 		// Register the document
 		$this->document = $app->getDocument();
-		
-		$id = JRequest::getVar('id', 1); // update this to the proper get cmd
-		
-		$this->item = $this->model->getItem($id);
+
+		$this->item = $this->model->getItem($app->input->getInt('id'));
 
 		return parent::render();
 	}

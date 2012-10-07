@@ -48,6 +48,7 @@ CREATE TABLE `#__issues` (
   `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `patch_url` varchar(255) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
