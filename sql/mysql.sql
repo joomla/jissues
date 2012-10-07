@@ -3,12 +3,12 @@
 --
 
 CREATE TABLE IF NOT EXISTS `#__select_items` (
-  `id` int(11) NOT NULL,
+  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
   `option_id` int(10) NOT NULL,
   `value` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `#__select_items`
@@ -29,10 +29,10 @@ INSERT INTO `#__select_items` VALUES(8, 1, 'other', 'Other');
 --
 
 CREATE TABLE IF NOT EXISTS `#__selects` (
-  `id` int(11) NOT NULL,
+  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `#__selects`
