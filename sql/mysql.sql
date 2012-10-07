@@ -83,6 +83,20 @@ CREATE TABLE `#__issues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `#__issue_comments`
+--
+
+CREATE TABLE `#__issue_comments` (
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `issue_id` integer unsigned NOT NULL,
+  `submitter` varchar(255) NOT NULL DEFAULT '',
+  `text` mediumtext NOT NULL,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `#__versions`
 --
 
