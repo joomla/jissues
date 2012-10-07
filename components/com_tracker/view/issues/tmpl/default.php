@@ -100,16 +100,16 @@ $filterStatus = $this->state->get('filter.status')
 					N/A
 				</td>
 				<td class="nowrap small hidden-phone">
-					<?php echo JHtml::_('date', $item->opened, 'Y-m-d'); ?>
+					<?php echo JHtml::_('date', $item->opened, 'DATE_FORMAT_LC4'); ?>
 				</td>
 				<td class="nowrap small hidden-phone">
 					<?php if ($item->closed_status) : ?>
-						<?php echo JHtml::_('date', $item->closed, 'Y-m-d'); ?>
+						<?php echo JHtml::_('date', $item->closed, 'DATE_FORMAT_LC4'); ?>
 					<?php endif; ?>
 				</td>
 				<td class="nowrap small hidden-phone">
 					<?php if ($item->modified != '0000-00-00 00:00:00') : ?>
-						<?php echo JHtml::_('date', $item->modified, 'Y-m-d'); ?>
+						<?php echo JHtml::_('date', $item->modified, 'DATE_FORMAT_LC4'); ?>
 					<?php endif; ?>
 				</td>
 			</tr>
