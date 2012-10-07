@@ -214,7 +214,7 @@ final class JApplicationTracker extends JApplicationWeb
 	{
 		// Build the object
 		$template = new stdClass;
-		$template->template = 'template';
+		$template->template = 'protostar';
 		$template->params   = new JRegistry;
 
 		if ($params)
