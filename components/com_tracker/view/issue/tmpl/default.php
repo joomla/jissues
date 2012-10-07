@@ -9,8 +9,8 @@
 defined('_JEXEC') or die;
 
 ?>
-<h3><?php echo $this->item->title; ?></h3>
-<div class="container">
+<h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
+<div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span4">
 			<h4><?php echo JTEXT::_('COM_TRACKER_LABEL_ISSUE_INFO'); ?></h4>
@@ -29,23 +29,23 @@ defined('_JEXEC') or die;
 						<?php
 							if($this->item->priority == 1)
 							{
-								$status_class = "badge-important";
+								$status_class = 'badge-important';
 							}
 							elseif($this->item->priority == 2)
 							{
-								$status_class = "badge-warning";
+								$status_class = 'badge-warning';
 							}
 							elseif($this->item->priority == 3)
 							{
-								$status_class = "badge-info";
+								$status_class = 'badge-info';
 							}
 							elseif($this->item->priority == 4)
 							{
-								$status_class = "badge-inverse";
+								$status_class = 'badge-inverse';
 							}
 							elseif($this->item->priority == 5)
 							{
-								$status_class = "badge";
+								$status_class = 'badge';
 							}
 						?>
 						<span class="badge <?php echo $status_class; ?>">
