@@ -87,7 +87,8 @@ $filterStatus = $this->state->get('filter.status')
 				</td>
 				<td class="hasContext">
 					<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $item->description, 100); ?>">
-						<?php echo $this->escape($item->title); ?>
+						<a href="index.php?option=com_tracker&view=issue&id=<?php echo (int) $item->id;?>">
+						<?php echo $this->escape($item->title); ?></a>
 					</div>
 				</td>
 				<td>

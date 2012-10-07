@@ -32,7 +32,7 @@ class TrackerModelIssue extends JModelDatabase
 		try
 		{
 			$this->db->setQuery($query);
-			$item = $this->db->loadObjectList();
+			$item = $this->db->loadObject();
 		}
 		catch (RuntimeException $e)
 		{
