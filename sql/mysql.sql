@@ -3,12 +3,11 @@
 --
 
 CREATE TABLE IF NOT EXISTS `#__select_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `option_id` int(10) NOT NULL,
   `value` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -16,12 +15,12 @@ CREATE TABLE IF NOT EXISTS `#__select_items` (
 --
 
 INSERT INTO `#__select_items` (`id`, `option_id`, `value`, `label`) VALUES
-(1, 1, 'mysql_5_0_x', 'MySql 5.0.x'),
-(2, 1, 'mysql_5_1_x', 'MySql 5.1.x'),
-(3, 1, 'mysql_5_2_x', 'MySql 5.2.x'),
-(4, 1, 'mssql_svr', 'MS SQL Svr'),
-(5, 1, 'azure', 'Azure'),
-(6, 1, 'postgres', 'Postgres'),
+(1, 1, 'mysql_5_0_x', 'MySQL 5.0.x'),
+(2, 1, 'mysql_5_1_x', 'MySQL 5.1.x'),
+(3, 1, 'mysql_5_2_x', 'MySQL 5.2.x'),
+(4, 1, 'mssql_svr', 'Microsoft SQL Server'),
+(5, 1, 'azure', 'Microsoft SQL Azure'),
+(6, 1, 'postgres', 'PostgreSQL'),
 (7, 1, 'oracle', 'Oracle'),
 (8, 1, 'other', 'Other'),
 (9, 2, 'apache_2_0_x', 'Apache 2.0.x'),
@@ -48,7 +47,7 @@ INSERT INTO `#__select_items` (`id`, `option_id`, `value`, `label`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `#__selects` (
-  `id` integer NOT NULL AUTO_INCREMENT,
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -143,12 +142,12 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
-  `database_type` int(11) NOT NULL,
-  `webserver` int(11) NOT NULL,
-  `php_version` int(11) NOT NULL,
-  `browser` int(11) NOT NULL,
+  `database_type` integer NULL,
+  `webserver` integer NULL,
+  `php_version` integer NULL,
+  `browser` integer NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -162,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `#__issue_comments` (
   `text` mediumtext NOT NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
