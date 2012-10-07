@@ -177,6 +177,22 @@ final class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Gets a configuration value.
+	 *
+	 * @param   string  $varname  The name of the value to get.
+	 * @param   string  $default  Default value to return
+	 *
+	 * @return  mixed  The user state.
+	 *
+	 * @since   1.0
+	 */
+	public function getCfg($varname, $default = null)
+	{
+		$config = JFactory::getConfig();
+		return $config->get($varname, $default);
+	}
+
+	/**
 	 * Get the system message queue.
 	 *
 	 * @return  array  The system message queue.
