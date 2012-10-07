@@ -117,6 +117,24 @@ class JTableIssue extends JTable
 		// Join over the status table
 		$query->select('s.status AS status_title, s.closed AS closed');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+		
+		// Join over the selects table
+		
+		// set up the database_type column
+		$query->select('f.label as database_type');
+		$query->join('LEFT', '#__select_items AS f ON a.database_type = f.id');
+		
+		// set up the web server field
+		$query->select('ws.label as webserver');
+		$query->join('LEFT', '#__select_items AS ws ON a.webserver = ws.id');
+		
+		// set up php version field
+		$query->select('php.label as php_version');
+		$query->join('LEFT', '#__select_items AS php ON a.php_version = php.id');
+		
+		// set up php version field
+		$query->select('br.label as browser');
+		$query->join('LEFT', '#__select_items AS br ON a.browser = br.id');
 
 		$this->_db->setQuery($query);
 

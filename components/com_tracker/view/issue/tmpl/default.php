@@ -75,6 +75,22 @@ defined('_JEXEC') or die;
 						<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC4'); ?></td>
 					</tr>
 				<?php endif; ?>
+				<tr>
+					<td><strong><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DATABASE_TYPE'); ?></strong></td>
+					<td><?php echo $this->item->database_type; ?></td>
+				</tr>
+				<tr>
+					<td><strong><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_WEBSERVER'); ?></strong></td>
+					<td><?php echo $this->item->webserver; ?></td>
+				</tr>
+				<tr>
+					<td><strong><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PHP_VERISON'); ?></strong></td>
+					<td><?php echo $this->item->php_version; ?></td>
+				</tr>
+				<tr>
+					<td><strong><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_BROWSER'); ?></strong></td>
+					<td><?php echo $this->item->browser; ?></td>
+				</tr>
 			</table>
 			<a href="index.php?option=com_tracker&view=issues"><?php echo JTEXT::_('COM_TRACKER_BACK_TO_ISSUES'); ?></a>
 		</div>
