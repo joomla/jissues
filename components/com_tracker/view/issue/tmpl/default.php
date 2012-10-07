@@ -17,7 +17,7 @@ defined('_JEXEC') or die;
 			<table class="table">
 				<tr>
 					<td><strong><?php echo JTEXT::_('COM_TRACKER_LABEL_ISSUE_STATUS'); ?></strong></td>
-					<td><?php echo $this->item->status; ?></td>
+					<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status)); ?></td>
 				</tr>
 				<tr>
 					<td><strong><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></strong></td>
