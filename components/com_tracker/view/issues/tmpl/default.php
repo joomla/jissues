@@ -45,7 +45,7 @@ $filterStatus = $this->state->get('filter.status')
 		<thead>
 			<tr>
 				<th width="2%" class="nowrap hidden-phone"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
-				<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
+				<th class="nowrap hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
 				<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
 				<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 				<th width="10%"><?php echo JText::_('JSTATUS'); ?></th>
