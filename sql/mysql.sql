@@ -3,8 +3,8 @@
 --
 
 CREATE TABLE IF NOT EXISTS `#__select_items` (
-  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
-  `option_id` int(10) NOT NULL,
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `option_id` integer NOT NULL,
   `value` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `#__select_items` (
 -- Dumping data for table `#__select_items`
 --
 
-INSERT INTO `#__status` (`id`, `option_id`, `value`, `label`) VALUES
+INSERT INTO `#__select_items` (`id`, `option_id`, `value`, `label`) VALUES
 (1, 1, 'mysql_5_0', 'MySQL 5.0.x'),
 (2, 1, 'mysql_5_1', 'MySQL 5.1.x'),
 (3, 1, 'mysql_5_2', 'MySQL 5.2.x'),
@@ -37,7 +37,7 @@ INSERT INTO `#__status` (`id`, `option_id`, `value`, `label`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `#__selects` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` integer NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
