@@ -91,8 +91,31 @@ $filterStatus = $this->state->get('filter.status')
 						<?php echo $this->escape($item->title); ?></a>
 					</div>
 				</td>
-				<td>
-					<?php echo (int) $item->priority; ?>
+				<td class="center">
+					<?php if ($item->priority == 1)
+					{
+						$status_class = 'badge-important';
+					}
+					elseif ($item->priority == 2)
+					{
+						$status_class = 'badge-warning';
+					}
+					elseif ($item->priority == 3)
+					{
+						$status_class = 'badge-info';
+					}
+					elseif ($item->priority == 4)
+					{
+						$status_class = 'badge-inverse';
+					}
+					elseif ($item->priority == 5)
+					{
+						$status_class = '';
+					}
+					?>
+					<span class="badge <?php echo $status_class; ?>">
+						<?php echo (int) $item->priority; ?>
+					</span>
 				</td>
 				<td>
 					<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
