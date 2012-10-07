@@ -1,4 +1,49 @@
 --
+-- Table structure for table `jos_select_items`
+--
+
+CREATE TABLE IF NOT EXISTS `jos_select_items` (
+  `id` int(11) NOT NULL,
+  `option_id` int(10) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jos_select_items`
+--
+
+INSERT INTO `jos_select_items` VALUES(1, 1, 'mysql_5_0_x', 'MySql 5.0.x');
+INSERT INTO `jos_select_items` VALUES(2, 1, 'mysql_5_1_x', 'MySql 5.1.x');
+INSERT INTO `jos_select_items` VALUES(3, 1, 'mysql_5_2_x', 'MySql 5.2.x');
+INSERT INTO `jos_select_items` VALUES(4, 1, 'mssql_svr', 'MS SQL Svr');
+INSERT INTO `jos_select_items` VALUES(5, 1, 'azure', 'Azure');
+INSERT INTO `jos_select_items` VALUES(6, 1, 'postgres', 'Postgres');
+INSERT INTO `jos_select_items` VALUES(7, 1, 'oracle', 'Oracle');
+INSERT INTO `jos_select_items` VALUES(8, 1, 'other', 'Other');
+
+
+--
+-- Table structure for table `jos_selects`
+--
+
+CREATE TABLE IF NOT EXISTS `jos_selects` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jos_selects`
+--
+
+INSERT INTO `jos_selects` VALUES(1, 'database');
+INSERT INTO `jos_selects` VALUES(2, 'webserver');
+INSERT INTO `jos_selects` VALUES(3, 'php');
+INSERT INTO `jos_selects` VALUES(4, 'browser');
+
+--
 -- Table structure for table `#__extensions`
 --
 
