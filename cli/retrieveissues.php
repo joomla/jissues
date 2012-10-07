@@ -135,6 +135,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
 			$table->description = str_replace("\n", "<br>", $issue->body);
+			$table->opened      = JFactory::getDate($issue->created_at)->toSql();
 
 			// Add the diff URL if this is a pull request
 			if ($issue->pull_request->diff_url)
