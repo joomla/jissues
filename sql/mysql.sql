@@ -34,30 +34,11 @@ INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`
 (1, 'com_tracker', 'component', 'com_tracker', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0);
 
 --
--- Table structure for table `#__issues`
---
-
-CREATE TABLE `#__issues` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `gh_id` int(11) unsigned DEFAULT NULL,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `description` mediumtext NOT NULL,
-  `priority` tinyint(4) NOT NULL DEFAULT '3',
-  `catid` int(10) unsigned NOT NULL DEFAULT '0',
-  `status` int(10) unsigned NOT NULL DEFAULT '1',
-  `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `patch_url` varchar(255) NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `#__status`
 --
 
 CREATE TABLE `#__status` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(255) DEFAULT NULL,
   `closed` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
@@ -82,11 +63,31 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 (12, 'known', 1);
 
 --
+-- Table structure for table `#__issues`
+--
+
+CREATE TABLE `#__issues` (
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `gh_id` integer unsigned DEFAULT NULL,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `description` mediumtext NOT NULL,
+  `priority` tinyint(4) NOT NULL DEFAULT '3',
+  `catid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` integer unsigned NOT NULL DEFAULT '1',
+  `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `patch_url` varchar(255) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `#__versions`
 --
 
 CREATE TABLE `#__versions` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `version` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
