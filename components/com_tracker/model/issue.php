@@ -17,47 +17,32 @@ defined('_JEXEC') or die;
  * @since       1.0
  */
  
- // Configure error reporting to maximum for CLI output.
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
  
 class TrackerModelIssue extends JModelDatabase
 {
 	public function getItem($id)
 	{
-		// Load the query for the list
-		$query = $this->getItemQuery($id);
-		
-		try
-		{
-			$this->db->setQuery($query);
-			$item = $this->db->loadObject();
-		}
-		catch (RuntimeException $e)
-		{
-			$this->setError($e->getMessage());
-			return false;
-		}
-		
-		//$item = " test";
+		// load the row using JTable and getInstance.
+		$table = JTable::getInstance('Issue');
 
+		
+		if ($id > 0)
+		{
+			// Attempt to load the row.
+			$return = $table->load($id);
+
+			// Check for a table object error.
+			if ($return === false && $table->getError())
+			{
+				$this->setError($table->getError());
+				return false;
+			}
+		}
+		
+		// Convert to the JObject before adding other data.
+		$properties = $table->getProperties(1);
+		$item = JArrayHelper::toObject($properties, 'JObject');
+		
 		return $item;
-	}
-	
-	protected function getItemQuery($id) {
-		
-		//get the item and return
-		$db    = $this->getDb();
-		$query = $db->getQuery(true);
-		
-		$query->select($db->quoteName(array('a.id', 'a.gh_id', 'a.title', 'a.description', 'a.priority', 'a.status', 'a.opened', 'a.closed', 'a.modified')));
-		$query->from($db->quoteName('#__issues', 'a'));
-		$query->where('a.id = ' . (int) $id);
-		
-		//$db->setQuery($query);
-		
-	
-		return $query;
 	}
 }
