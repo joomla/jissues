@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 				<?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?>
 			</strong>
 			<a href="https://github.com/joomla/joomla-cms/issues/<?php echo $this->item->gh_id; ?>" target="_blank"><?php echo $this->item->gh_id; ?></a><br />
-			
+
 			<strong>
 				<?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?>
 			</strong>
