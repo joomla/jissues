@@ -54,7 +54,7 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 			</td>
 			<td class="center hidden-phone">
 				<?php if ($item->gh_id) : ?>
-				<a href="https://github.com/joomla/joomla-cms/issue/<?php echo (int) $item->gh_id; ?>" target="_blank">
+				<a href="https://github.com/joomla/joomla-cms/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
 					<?php echo (int) $item->gh_id; ?>
 				</a>
 				<?php else : ?>
