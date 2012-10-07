@@ -41,7 +41,7 @@ class TrackerControllerDefault extends JControllerBase
 
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT_SITE . '/view/' . $vName . '/tmpl', 'normal');
+		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
 
 		$vClass = 'TrackerView' . ucfirst($vName) . ucfirst($vFormat);
 		$mClass = 'TrackerModel' . ucfirst($vName);
