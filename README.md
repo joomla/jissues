@@ -1,0 +1,19 @@
+Requrements
+===============
+The issue tracker application requires a server running PHP 5.3.1 or later (Joomla Platform minimum version) and MySQL 5.1 with InnoDB support
+
+Setup
+===============
+1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/JTracker/jissues/zipball/master.
+2. Copy `/libraries/config.example.php` to `/configuration.php`
+3. Open configuration.php and rename the class from `JConfigExample` to `JConfig`
+4. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
+5. Open `/sql/mysql.sql` and do a find/replace from `#__` to whatever your prefix is, and save
+6. Import the SQL into your database
+7. View site in browser to verify setup
+8. Open a console a execute cli/retrieveissues.php to get the open issues from GitHub.
+
+Support & Discussion
+===============
+* If you've found a bug, please report it to the Issue Tracker at https://github.com/JTracker/jissues/issues.
+* For discussion about this project, please visit the Google Group at https://groups.google.com/forum/#!forum/jtracker-rebuild.

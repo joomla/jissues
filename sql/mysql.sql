@@ -3,45 +3,54 @@
 --
 
 CREATE TABLE IF NOT EXISTS `#__select_items` (
-  `id` int(11) NOT NULL,
-  `option_id` int(10) NOT NULL,
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `option_id` integer NOT NULL,
   `value` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `#__select_items`
 --
 
-INSERT INTO `#__select_items` VALUES(1, 1, 'mysql_5_0_x', 'MySql 5.0.x');
-INSERT INTO `#__select_items` VALUES(2, 1, 'mysql_5_1_x', 'MySql 5.1.x');
-INSERT INTO `#__select_items` VALUES(3, 1, 'mysql_5_2_x', 'MySql 5.2.x');
-INSERT INTO `#__select_items` VALUES(4, 1, 'mssql_svr', 'MS SQL Svr');
-INSERT INTO `#__select_items` VALUES(5, 1, 'azure', 'Azure');
-INSERT INTO `#__select_items` VALUES(6, 1, 'postgres', 'Postgres');
-INSERT INTO `#__select_items` VALUES(7, 1, 'oracle', 'Oracle');
-INSERT INTO `#__select_items` VALUES(8, 1, 'other', 'Other');
-
+INSERT INTO `#__select_items` (`id`, `option_id`, `value`, `label`) VALUES
+(1, 1, 'mysql_5_0', 'MySQL 5.0.x'),
+(2, 1, 'mysql_5_1', 'MySQL 5.1.x'),
+(3, 1, 'mysql_5_2', 'MySQL 5.2.x'),
+(4, 1, 'mysql_5_5', 'MySQL 5.5.x'),
+(5, 1, 'mssql_svr', 'Microsoft SQL Server'),
+(6, 1, 'azure', 'Microsoft SQL Azure'),
+(7, 1, 'postgres', 'PostgreSQL'),
+(8, 1, 'oracle', 'Oracle'),
+(9, 1, 'other', 'Other'),
+(10, 2, 'apache_2_0', 'Apache 2.0.x'),
+(11, 2, 'apache_2_2', 'Apache 2.2.x'),
+(12, 2, 'apache_2_4', 'Apache 2.4.x'),
+(13, 2, 'iis_7', 'IIS 7.x'),
+(14, 3, 'php_5_2', 'PHP 5.2.x'),
+(15, 3, 'php_5_3', 'PHP 5.3.x'),
+(16, 3, 'php_5_4', 'PHP 5.4.x');
 
 --
 -- Table structure for table `#__selects`
 --
 
 CREATE TABLE IF NOT EXISTS `#__selects` (
-  `id` int(11) NOT NULL,
+  `id` integer NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `#__selects`
 --
 
-INSERT INTO `#__selects` VALUES(1, 'database');
-INSERT INTO `#__selects` VALUES(2, 'webserver');
-INSERT INTO `#__selects` VALUES(3, 'php');
-INSERT INTO `#__selects` VALUES(4, 'browser');
+INSERT INTO `#__selects` (`id`, `name`) VALUES
+(1, 'database'),
+(2, 'webserver'),
+(3, 'php'),
+(4, 'browser');
 
 --
 -- Table structure for table `#__extensions`
@@ -82,7 +91,7 @@ INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`
 -- Table structure for table `#__status`
 --
 
-CREATE TABLE `#__status` (
+CREATE TABLE IF NOT EXISTS `#__status` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(255) DEFAULT NULL,
   `closed` tinyint NOT NULL DEFAULT 0,
@@ -111,7 +120,7 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 -- Table structure for table `#__issues`
 --
 
-CREATE TABLE `#__issues` (
+CREATE TABLE IF NOT EXISTS `#__issues` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `gh_id` integer unsigned DEFAULT NULL,
   `title` varchar(255) NOT NULL DEFAULT '',
@@ -131,7 +140,7 @@ CREATE TABLE `#__issues` (
 -- Table structure for table `#__issue_comments`
 --
 
-CREATE TABLE `#__issue_comments` (
+CREATE TABLE IF NOT EXISTS `#__issue_comments` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `issue_id` integer unsigned NOT NULL,
   `submitter` varchar(255) NOT NULL DEFAULT '',
@@ -145,7 +154,7 @@ CREATE TABLE `#__issue_comments` (
 -- Table structure for table `#__versions`
 --
 
-CREATE TABLE `#__versions` (
+CREATE TABLE IF NOT EXISTS `#__versions` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `version` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
