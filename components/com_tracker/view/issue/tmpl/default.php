@@ -61,18 +61,18 @@ defined('_JEXEC') or die;
 					<td>
 						<strong><?php echo JText::_('COM_TRACKER_HEADING_DATE_OPENED'); ?></strong>
 					</td>
-					<td><?php echo JHtml::_('date', $this->item->opened, 'DATE_FORMAT_LC4'); ?></td>
+					<td><?php echo JHtml::_('date', $this->item->opened, 'DATE_FORMAT_LC2'); ?></td>
 				</tr>
 				<?php if ($this->item->closed) : ?>
 					<tr>
 						<td><strong><?php echo JText::_('COM_TRACKER_HEADING_DATE_CLOSED'); ?></strong></td>
-						<td><?php echo JHtml::_('date', $this->item->closed, 'DATE_FORMAT_LC4'); ?></td>
+						<td><?php echo JHtml::_('date', $this->item->closed, 'DATE_FORMAT_LC2'); ?></td>
 					</tr>
 				<?php endif; ?>
 				<?php if ($this->item->modified != '0000-00-00 00:00:00') : ?>
 					<tr>
 						<td><strong><?php echo JText::_('COM_TRACKER_HEADING_DATE_MODIFIED'); ?></strong></td>
-						<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC4'); ?></td>
+						<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC2'); ?></td>
 					</tr>
 				<?php endif; ?>
 				<tr>
