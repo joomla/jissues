@@ -40,7 +40,7 @@ class TrackerModelIssues extends JModelDatabase
 		}
 		catch (RuntimeException $e)
 		{
-			$this->setError($e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
 

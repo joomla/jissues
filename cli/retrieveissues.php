@@ -134,7 +134,14 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$table = JTable::getInstance('Issue');
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
-			$table->description = str_replace("\n", "<br>",$issue->body);
+			$table->description = str_replace("\n", "<br>", $issue->body);
+
+			// Add the diff URL if this is a pull request
+			if ($issue->pull_request->diff_url)
+			{
+				$table->patch_url = $issue->pull_request->diff_url;
+			}
+
 			if (!$table->store())
 			{
 				$this->out($table->getError(), true);
