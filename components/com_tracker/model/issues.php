@@ -16,36 +16,16 @@ defined('_JEXEC') or die;
  * @subpackage  Model
  * @since       1.0
  */
-class TrackerModelIssues extends JModelDatabase
+class TrackerModelIssues extends JModelTrackerlist
 {
 	/**
-	 * Method to get an array of data items.
+	 * Context string for the model type.  This is used to handle uniqueness
+	 * when dealing with the getStoreId() method and caching data structures.
 	 *
-	 * @return  mixed  An array of data items on success, false on failure.
-	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function getItems()
-	{
-		// Populate the state object
-		$this->populateState();
-
-		// Load the query for the list
-		$query = $this->getListQuery();
-
-		try
-		{
-			$this->db->setQuery($query);
-			$items = $this->db->loadObjectList();
-		}
-		catch (RuntimeException $e)
-		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-			return false;
-		}
-
-		return $items;
-	}
+	protected $context = 'com_tracker.issues';
 
 	/**
 	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
@@ -90,6 +70,28 @@ class TrackerModelIssues extends JModelDatabase
 		$query->order($ordering . ' ' . $direction);
 
 		return $query;
+	}
+
+	/**
+	 * Method to get a store id based on the model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string  $id  An identifier string to generate the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   1.0
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Add the list state to the store id.
+		$id .= ':' . $this->state->get('filter.priority');
+		$id .= ':' . $this->state->get('filter.status');
+
+		parent::getStoreId($id);
 	}
 
 	/**

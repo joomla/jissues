@@ -37,6 +37,10 @@ $filterStatus = $this->state->get('filter.status')
 				<?php echo JHtml::_('select.options', JHtml::_('status.options'), 'value', 'text', $filterStatus);?>
 			</select>
 		</div>
+		<div class="btn-group pull-right hidden-phone">
+			<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
+			<?php //echo $this->pagination->getLimitBox(); ?>
+		</div>
 		<input type="hidden" name="filter_order" value="" />
 		<input type="hidden" name="filter_order_Dir" value="" />
 		<input type="hidden" name="limitstart" value="" />

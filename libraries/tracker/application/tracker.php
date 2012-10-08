@@ -301,6 +301,30 @@ final class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Is admin interface?
+	 *
+	 * @return  boolean  True if this application is administrator.
+	 *
+	 * @since   1.0
+	 */
+	public function isAdmin()
+	{
+		return false;
+	}
+
+	/**
+	 * Is site interface?
+	 *
+	 * @return  boolean  True if this application is site.
+	 *
+	 * @since   1.0
+	 */
+	public function isSite()
+	{
+		return true;
+	}
+
+	/**
 	 * Set the system message queue.
 	 *
 	 * @param   array  The information to set in the message queue
