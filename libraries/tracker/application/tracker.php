@@ -167,7 +167,7 @@ final class JApplicationTracker extends JApplicationWeb
 	 *
 	 * @return  object
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  Exception
 	 */
 	public function executeComponent($controller, $component)
@@ -301,6 +301,59 @@ final class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Gets a user state.
+	 *
+	 * @param   string  $key      The path of the state.
+	 * @param   mixed   $default  Optional default value, returned if the internal value is null.
+	 *
+	 * @return  mixed  The user state or null.
+	 *
+	 * @since   1.0
+	 */
+	public function getUserState($key, $default = null)
+	{
+		$session = JFactory::getSession();
+		$registry = $session->get('registry');
+
+		if (!is_null($registry))
+		{
+			return $registry->get($key, $default);
+		}
+
+		return $default;
+	}
+
+	/**
+	 * Gets the value of a user state variable.
+	 *
+	 * @param   string  $key      The key of the user state variable.
+	 * @param   string  $request  The name of the variable passed in a request.
+	 * @param   string  $default  The default value for the variable if not found. Optional.
+	 * @param   string  $type     Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
+	 *
+	 * @return  The request user state.
+	 *
+	 * @since   1.0
+	 */
+	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none')
+	{
+		$cur_state = $this->getUserState($key, $default);
+		$new_state = $this->input->get($request, null, $type);
+
+		// Save the new value only if it was set in this request.
+		if ($new_state !== null)
+		{
+			$this->setUserState($key, $new_state);
+		}
+		else
+		{
+			$new_state = $cur_state;
+		}
+
+		return $new_state;
+	}
+
+	/**
 	 * Is admin interface?
 	 *
 	 * @return  boolean  True if this application is administrator.
@@ -336,5 +389,28 @@ final class JApplicationTracker extends JApplicationWeb
 	public function setMessageQueue(array $queue = array())
 	{
 		$this->_messageQueue = $queue;
+	}
+
+	/**
+	 * Sets the value of a user state variable.
+	 *
+	 * @param   string  $key    The path of the state.
+	 * @param   string  $value  The value of the variable.
+	 *
+	 * @return  mixed  The previous state, if one existed.
+	 *
+	 * @since   1.0
+	 */
+	public function setUserState($key, $value)
+	{
+		$session = JFactory::getSession();
+		$registry = $session->get('registry');
+
+		if (!is_null($registry))
+		{
+			return $registry->set($key, $value);
+		}
+
+		return null;
 	}
 }

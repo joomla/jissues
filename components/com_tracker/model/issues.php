@@ -90,26 +90,24 @@ class TrackerModelIssues extends JModelTrackerlist
 		// Add the list state to the store id.
 		$id .= ':' . $this->state->get('filter.priority');
 		$id .= ':' . $this->state->get('filter.status');
+		$id .= ':' . $this->state->get('list.filter');
 
-		parent::getStoreId($id);
+		return parent::getStoreId($id);
 	}
 
 	/**
 	 * Method to auto-populate the model state.
 	 *
-	 * @return	void
-	 * @since	1.0
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		$app = JFactory::getApplication();
-
-		// List state information
-		$value = $app->input->get('limit', $app->getCfg('list_limit', 0), 'uint');
-		$this->state->set('list.limit', $value);
-
-		$value = $app->input->get('limitstart', 0, 'uint');
-		$this->state->set('list.start', $value);
 
 		$orderCol = $app->input->get('filter_order', 'a.id');
 		$this->state->set('list.ordering', $orderCol);
@@ -129,5 +127,8 @@ class TrackerModelIssues extends JModelTrackerlist
 
 		// Optional filter text
 		$this->state->set('list.filter', $app->input->get('filter-search', '', 'string'));
+
+		// List state information.
+		parent::populateState('a.id', 'ASC');
 	}
 }

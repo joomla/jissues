@@ -19,6 +19,19 @@ defined('_JEXEC') or die;
 abstract class JModelTrackerlist extends JModelDatabase
 {
 	/**
+	 * Instantiate the model.
+	 *
+	 * @since  1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		// Populate the state
+		$this->populateState();
+	}
+
+	/**
 	 * Internal memory based cache array of data.
 	 *
 	 * @var    array
@@ -214,10 +227,38 @@ abstract class JModelTrackerlist extends JModelDatabase
 	/**
 	 * Method to auto-populate the model state.
 	 *
-	 * @return	void
-	 * @since	1.0
+	 * This method should only be called once per instantiation and is designed
+	 * to be called on the first call to the getState() method unless the model
+	 * configuration flag to ignore the request is set.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
-	abstract protected function populateState();
+	protected function populateState($ordering = null, $direction = null)
+	{
+		// If the context is set, assume that stateful lists are used.
+		if ($this->context)
+		{
+			$app = JFactory::getApplication();
+
+			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'uint');
+			$limit = $value;
+			$this->state->set('list.limit', $limit);
+
+			$value = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0);
+			$limitstart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
+			$this->state->set('list.start', $limitstart);
+		}
+		else
+		{
+			$this->state->set('list.start', 0);
+			$this->state->set('list.limit', 0);
+		}
+	}
 
 	/**
 	 * Gets an array of objects from the results of database query.
