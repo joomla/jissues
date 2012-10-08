@@ -83,24 +83,16 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 	}
 
 	/**
-	 * Dispatch the application
-	 *
-	 * @param   string  $component  The component to dispatch.
+	 * Method to run the Web application routines.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function dispatch($component = null)
+	protected function doExecute()
 	{
 		try
 		{
-			// Get the component if not set.
-			if (!$component)
-			{
-				$component = $this->input->get('option', 'com_tracker');
-			}
-
 			// Load the document to the API
 			$this->loadDocument();
 
@@ -119,8 +111,14 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 			// Set metadata
 			$document->setTitle('Joomla! CMS Issue Tracker');
 
-			// Render our view
-			$contents = JComponentHelper::renderComponent($component);
+			// Load the component
+			$component = $this->input->get('option', 'com_tracker');
+
+			// Fetch the controller
+			$controller = $this->fetchController($component, $this->input->getCmd('task'));
+
+			// Execute the component
+			$contents = $this->executeComponent($controller, $component);
 			$document->setBuffer($contents, 'component');
 		}
 
@@ -130,22 +128,6 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 			echo $e->getMessage();
 			$this->close($e->getCode());
 		}
-
-		// Trigger the onAfterDispatch event
-		$this->dispatcher->trigger('onAfterDispatch');
-	}
-
-	/**
-	 * Method to run the Web application routines.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function doExecute()
-	{
-		// Dispatch the application
-		$this->dispatch();
 	}
 
 	/**
@@ -175,6 +157,82 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 
 		// Enqueue the message.
 		$this->_messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+	}
+
+	/**
+	 * Execute the component.
+	 *
+	 * @param   JController  $controller  The controller instance to execute
+	 * @param   string       $component   The component being executed.
+	 *
+	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  Exception
+	 */
+	public function executeComponent($controller, $component)
+	{
+		// Load template language files.
+		$template = $this->getTemplate(true)->template;
+		$lang     = JFactory::getLanguage();
+
+		$lang->load('tpl_' . $template, JPATH_BASE, null, false, false)
+			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", null, false, false)
+			|| $lang->load('tpl_' . $template, JPATH_BASE, $lang->getDefault(), false, false)
+			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", $lang->getDefault(), false, false);
+
+		// Load common and local language files.
+		$lang->load($component, JPATH_BASE, null, false, false)
+			|| $lang->load($component, JPATH_COMPONENT, null, false, false)
+			|| $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false)
+			|| $lang->load($component, JPATH_COMPONENT, $lang->getDefault(), false, false);
+
+		// Start an output buffer.
+		ob_start();
+		$controller->execute();
+		$output = ob_get_clean();
+
+		return $output;
+	}
+
+	/**
+	 * Method to get a controller object.
+	 *
+	 * @param   string  $component  The component being called
+	 * @param   string  $task       The task being executed in the component
+	 *
+	 * @return  JController
+	 *
+	 * @since   1.0
+	 * @throws  RuntimeException
+	 */
+	protected function fetchController($component, $task)
+	{
+		if (is_null($task))
+		{
+			$task = 'default';
+		}
+
+		// Strip com_ off the component
+		$base = substr($component, 4);
+
+		// Set the controller class name based on the task
+		$class = ucfirst($base) . 'Controller' . ucfirst($task);
+
+		// Define component path.
+		define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $component);
+
+		// Register the component with the autoloader
+		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
+
+		// If the requested controller exists let's use it.
+		if (class_exists($class))
+		{
+			return new $class;
+		}
+
+		// Nothing found. Panic.
+		throw new RuntimeException('Class ' . $class . ' not found');
 	}
 
 	/**
@@ -219,6 +277,32 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 	}
 
 	/**
+	 * Returns the application JRouter object.
+	 *
+	 * @param   string  $name     The name of the application.
+	 * @param   array   $options  An optional associative array of configuration settings.
+	 *
+	 * @return  JRouter  A JRouter object
+	 *
+	 * @since   1.0
+	 */
+	public static function getRouter($name = 'tracker', array $options = array())
+	{
+		jimport('joomla.application.router');
+
+		try
+		{
+			$router = JRouter::getInstance($name, $options);
+		}
+		catch (Exception $e)
+		{
+			return null;
+		}
+
+		return $router;
+	}
+
+	/**
 	 * Get the template information
 	 *
 	 * @param   boolean  $params  True to return the template params
@@ -243,6 +327,83 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 	}
 
 	/**
+	 * Gets a user state.
+	 *
+	 * @param   string  $key      The path of the state.
+	 * @param   mixed   $default  Optional default value, returned if the internal value is null.
+	 *
+	 * @return  mixed  The user state or null.
+	 *
+	 * @since   1.0
+	 */
+	public function getUserState($key, $default = null)
+	{
+		$session = JFactory::getSession();
+		$registry = $session->get('registry');
+
+		if (!is_null($registry))
+		{
+			return $registry->get($key, $default);
+		}
+
+		return $default;
+	}
+
+	/**
+	 * Gets the value of a user state variable.
+	 *
+	 * @param   string  $key      The key of the user state variable.
+	 * @param   string  $request  The name of the variable passed in a request.
+	 * @param   string  $default  The default value for the variable if not found. Optional.
+	 * @param   string  $type     Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
+	 *
+	 * @return  The request user state.
+	 *
+	 * @since   1.0
+	 */
+	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none')
+	{
+		$cur_state = $this->getUserState($key, $default);
+		$new_state = $this->input->get($request, null, $type);
+
+		// Save the new value only if it was set in this request.
+		if ($new_state !== null)
+		{
+			$this->setUserState($key, $new_state);
+		}
+		else
+		{
+			$new_state = $cur_state;
+		}
+
+		return $new_state;
+	}
+
+	/**
+	 * Is admin interface?
+	 *
+	 * @return  boolean  True if this application is administrator.
+	 *
+	 * @since   1.0
+	 */
+	public function isAdmin()
+	{
+		return false;
+	}
+
+	/**
+	 * Is site interface?
+	 *
+	 * @return  boolean  True if this application is site.
+	 *
+	 * @since   1.0
+	 */
+	public function isSite()
+	{
+		return true;
+	}
+
+	/**
 	 * Set the system message queue.
 	 *
 	 * @param   array  The information to set in the message queue
@@ -254,5 +415,28 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 	public function setMessageQueue(array $queue = array())
 	{
 		$this->_messageQueue = $queue;
+	}
+
+	/**
+	 * Sets the value of a user state variable.
+	 *
+	 * @param   string  $key    The path of the state.
+	 * @param   string  $value  The value of the variable.
+	 *
+	 * @return  mixed  The previous state, if one existed.
+	 *
+	 * @since   1.0
+	 */
+	public function setUserState($key, $value)
+	{
+		$session = JFactory::getSession();
+		$registry = $session->get('registry');
+
+		if (!is_null($registry))
+		{
+			return $registry->set($key, $value);
+		}
+
+		return null;
 	}
 }

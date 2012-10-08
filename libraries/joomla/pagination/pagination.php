@@ -465,7 +465,7 @@ class JPagination
 				'select.genericlist',
 				$limits,
 				$this->prefix . 'limit',
-				'class="inputbox" size="1" onchange="Joomla.submitform();"',
+				'class="inputbox input-mini" size="1" onchange="Joomla.submitform();"',
 				'value',
 				'text',
 				$selected
@@ -477,7 +477,7 @@ class JPagination
 				'select.genericlist',
 				$limits,
 				$this->prefix . 'limit',
-				'class="inputbox" size="1" onchange="this.form.submit()"',
+				'class="inputbox input-mini" size="1" onchange="this.form.submit()"',
 				'value',
 				'text',
 				$selected
@@ -707,13 +707,16 @@ class JPagination
 		{
 			$offset = ($i - 1) * $this->limit;
 
+			// Set the empty for removal from route
+			// @todo remove code: $offset = $offset == 0 ? '' : $offset;
+
 			$data->pages[$i] = new JPaginationObject($i, $this->prefix);
 			if ($i != $this->pagesCurrent || $this->viewall)
 			{
 				$data->pages[$i]->base = $offset;
 				$data->pages[$i]->link = JRoute::_($params . '&' . $this->prefix . 'limitstart=' . $offset);
 			}
-			else
+			elseif ($i = $this->pagesCurrent)
 			{
 				$data->pages[$i]->active = true;
 			}

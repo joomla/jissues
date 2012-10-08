@@ -73,7 +73,38 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 		try
 		{
-			$issues = $github->issues->getListByRepository('joomla', 'joomla-cms');
+			$issues = array();
+			foreach(array('open', 'closed') as $state)
+			{
+				$this->out('Retrieving ' . $state . ' items from GitHub.', true);
+				$page = 0;
+				do
+				{
+					$page++;
+					$issues_more = $github->issues->getListByRepository(
+						'joomla',		// Owner
+						'joomla-cms',	// Repository
+						null,			// Milestone
+						$state, 		// State [ open | closed ]
+						null, 			// Assignee
+						null, 			// Creator
+						null,			// Labels
+						'created', 		// Sort
+						'asc', 			// Direction
+						null,			// Since
+						$page,			// Page
+						100				// Count
+						);
+					$count = is_array($issues_more) ? count($issues_more) : 0;
+					$this->out('Retrieved batch of ' . $count . ' items from GitHub.', true);
+					if ($count)
+					{
+						$issues = array_merge($issues, $issues_more);
+					}
+				} while ($count);
+			}
+
+			usort($issues, function($a,$b) { return $a->number - $b->number; } );
 		}
 		// Catch any DomainExceptions and close the script
 		catch (DomainException $e)
@@ -134,7 +165,22 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$table = JTable::getInstance('Issue');
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
-			$table->description = $issue->body;
+			$table->description = str_replace("\n", "<br>", $issue->body);
+			$table->status		= ($issue->state == 'open') ? 1 : 10;
+			$table->opened      = JFactory::getDate($issue->created_at)->toSql();
+
+			// Add the diff URL if this is a pull request
+			if ($issue->pull_request->diff_url)
+			{
+				$table->patch_url = $issue->pull_request->diff_url;
+			}
+
+			// Add the closed date if the status is closed
+			if ($issue->closed_at)
+			{
+				$table->closed_date = $issue->closed_at;
+			}
+
 			if (!$table->store())
 			{
 				$this->out($table->getError(), true);
