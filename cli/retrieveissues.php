@@ -178,7 +178,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			// Add the closed date if the status is closed
 			if ($issue->closed_at)
 			{
-				$table->closed = $issue->closed_at;
+				$table->closed_date = $issue->closed_at;
 			}
 
 			if (!$table->store())

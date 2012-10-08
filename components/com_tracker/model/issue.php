@@ -38,8 +38,8 @@ class TrackerModelIssue extends JModelDatabase
 
 		try
 		{
-			$this->db->setQuery($query);
-			$items = $this->db->loadObjectList();
+			$db->setQuery($query);
+			$items = $db->loadObjectList();
 		}
 		catch (RuntimeException $e)
 		{
@@ -61,26 +61,48 @@ class TrackerModelIssue extends JModelDatabase
 	 */
 	public function getItem($id)
 	{
-		// load the row using JTable and getInstance.
-		$table = JTable::getInstance('Issue');
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
 
-		if ($id > 0)
+		$query->select('a.*');
+		$query->from($db->quoteName('#__issues', 'a'));
+		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
+
+		// Join over the status table
+		$query->select('s.status AS status_title, s.closed AS closed');
+		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+		/*
+		 * Join over the selects table
+		 */
+
+		// Set up the database_type column
+		$query->select('f.label as database_type');
+		$query->join('LEFT', '#__select_items AS f ON a.database_type = f.id');
+
+		// Set up the web server field
+		$query->select('ws.label as webserver');
+		$query->join('LEFT', '#__select_items AS ws ON a.webserver = ws.id');
+
+		// Set up php version field
+		$query->select('php.label as php_version');
+		$query->join('LEFT', '#__select_items AS php ON a.php_version = php.id');
+
+		// Set up php version field
+		$query->select('br.label as browser');
+		$query->join('LEFT', '#__select_items AS br ON a.browser = br.id');
+
+		try
 		{
-			// Attempt to load the row.
-			$return = $table->load($id);
-
-			// Check for a table object error.
-			if ($return === false && $table->getError())
-			{
-				JFactory::getApplication()->enqueueMessage($table->getError(), 'error');
-				return false;
-			}
+			$db->setQuery($query);
+			$item = $db->loadObjectList();
+		}
+		catch (RuntimeException $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			return false;
 		}
 
-		// Convert to the JObject before adding other data.
-		$properties = $table->getProperties(1);
-		$item = JArrayHelper::toObject($properties, 'JObject');
-
-		return $item;
+		return $item[0];
 	}
 }

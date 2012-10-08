@@ -8,7 +8,7 @@
 
 defined('_JEXEC') or die;
 ?>
-<h3><?php echo $this->item->title; ?></h3>
+<h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span5">
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 			<table class="table">
 				<tr>
 					<td><strong><?php echo JText::_('JSTATUS'); ?></strong></td>
-					<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status)); ?></td>
+					<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status_title)); ?></td>
 				</tr>
 				<tr>
 					<td><strong><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></strong></td>
@@ -66,7 +66,7 @@ defined('_JEXEC') or die;
 				<?php if ($this->item->closed) : ?>
 					<tr>
 						<td><strong><?php echo JText::_('COM_TRACKER_HEADING_DATE_CLOSED'); ?></strong></td>
-						<td><?php echo JHtml::_('date', $this->item->closed, 'DATE_FORMAT_LC2'); ?></td>
+						<td><?php echo JHtml::_('date', $this->item->closed_date, 'DATE_FORMAT_LC2'); ?></td>
 					</tr>
 				<?php endif; ?>
 				<?php if ($this->item->modified != '0000-00-00 00:00:00') : ?>

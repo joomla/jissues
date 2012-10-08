@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `catid` int(10) unsigned NOT NULL DEFAULT '0',
   `status` integer unsigned NOT NULL DEFAULT '1',
   `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `closed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
   `database_type` integer NULL,

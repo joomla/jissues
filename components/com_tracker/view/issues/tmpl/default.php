@@ -128,7 +128,7 @@ $filterStatus = $this->state->get('filter.status')
 				</td>
 				<td class="nowrap small hidden-phone">
 					<?php if ($item->closed_status) : ?>
-						<?php echo JHtml::_('date', $item->closed, 'DATE_FORMAT_LC4'); ?>
+						<?php echo JHtml::_('date', $item->closed_date, 'DATE_FORMAT_LC4'); ?>
 					<?php endif; ?>
 				</td>
 				<td class="nowrap small hidden-phone">
