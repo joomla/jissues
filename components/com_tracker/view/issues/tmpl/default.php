@@ -145,4 +145,5 @@ $filterStatus = $this->state->get('filter.status')
 		<?php endif; ?>
 		</tbody>
 	</table>
+	<?php echo $this->pagination->getListFooter(); ?>
 </form>

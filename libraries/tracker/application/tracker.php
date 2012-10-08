@@ -277,6 +277,32 @@ final class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Returns the application JRouter object.
+	 *
+	 * @param   string  $name     The name of the application.
+	 * @param   array   $options  An optional associative array of configuration settings.
+	 *
+	 * @return  JRouter  A JRouter object
+	 *
+	 * @since   1.0
+	 */
+	public static function getRouter($name = 'tracker', array $options = array())
+	{
+		jimport('joomla.application.router');
+
+		try
+		{
+			$router = JRouter::getInstance($name, $options);
+		}
+		catch (Exception $e)
+		{
+			return null;
+		}
+
+		return $router;
+	}
+
+	/**
 	 * Get the template information
 	 *
 	 * @param   boolean  $params  True to return the template params
