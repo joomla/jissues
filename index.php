@@ -18,7 +18,7 @@ const _JEXEC = 1;
 require_once __DIR__ . '/includes/bootstrap.php';
 
 // Get the application
-$app = JApplicationWeb::getInstance('JApplicationTracker');
+$app = JApplicationWeb::getInstance('JApplicationSite');
 
 // Execute the application
 $app->execute();
