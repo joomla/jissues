@@ -19,26 +19,10 @@ class JApplicationTrackerlegacy extends JApplicationWeb
 	{
 		return JMenu::getInstance('site');
 	}
-	public function getUserState($key, $default = null)
-	{
-		return $this->input->get($key, $default, 'none');
-	}
-	public function getUserStateFromRequest($key, $request, $default = null, $type = 'none')
-	{
-		return $this->input->get($request, null, $type);
-	}
-	public function setUserState($key, $value)
-	{
-		$this->input->set($key, $value);
-	}
-	public function isAdmin()
-	{
-		return true;
-	}
 
-	public function getParams($component)
+	public function getParams($component = '')
 	{
-		return JComponentHelper::getParams($component);
+		return $component ? JComponentHelper::getParams($component) : new JRegistry;
 	}
 
 	/**
@@ -212,11 +196,6 @@ class JApplicationTrackerlegacy extends JApplicationWeb
 		$this->triggerEvent('onUserLogoutFailure', array($parameters));
 
 		return false;
-	}
-
-	public function getRouter()
-	{
-		return new FooRouter;
 	}
 
 	/**
