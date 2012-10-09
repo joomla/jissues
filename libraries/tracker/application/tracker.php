@@ -114,11 +114,20 @@ final class JApplicationTracker extends JApplicationTrackerlegacy
 			// Load the component
 			$component = $this->input->get('option', 'com_tracker');
 
-			// Fetch the controller
-			$controller = $this->fetchController($component, $this->input->getCmd('task'));
+			if('com_users' == $component)
+			{
+				// @todo Legacy handling for com_users
+				$contents = JComponentHelper::renderComponent($component);
+			}
+			else
+			{
+				// Fetch the controller
+				$controller = $this->fetchController($component, $this->input->getCmd('task'));
 
-			// Execute the component
-			$contents = $this->executeComponent($controller, $component);
+				// Execute the component
+				$contents = $this->executeComponent($controller, $component);
+			}
+
 			$document->setBuffer($contents, 'component');
 		}
 
