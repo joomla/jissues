@@ -24,3 +24,5 @@ define('JPATH_ADMINISTRATOR', JPATH_ROOT . '/administrator');
 define('JPATH_LIBRARIES',     JPATH_ROOT . '/libraries');
 define('JPATH_CACHE',         JPATH_BASE . '/cache');
 define('JPATH_THEMES',        JPATH_BASE . '/templates');
+
+define('JPATH_PLUGINS',        JPATH_BASE . '/plugins');
