@@ -38,14 +38,14 @@ require_once JPATH_LIBRARIES.'/cms.php';
 
 // Pre-Load configuration.
 ob_start();
-require_once JPATH_CONFIGURATION.'/config.php';
+require_once JPATH_CONFIGURATION.'/configuration.php';
 ob_end_clean();
-
+$config = JFactory::getConfig();
 // System configuration.
-$config = new JConfig;
+//$config = new JConfig;
 
 // Set the error_reporting
-switch ($config->error_reporting)
+switch ($config->get('error_reporting'))
 {
 	case 'default':
 	case '-1':
@@ -72,12 +72,12 @@ switch ($config->error_reporting)
 		break;
 
 	default:
-		error_reporting($config->error_reporting);
+		error_reporting($config->get('error_reporting'));
 		ini_set('display_errors', 1);
 		break;
 }
 
-define('JDEBUG', $config->debug);
+define('JDEBUG', $config->get('debug'));
 
 unset($config);
 
@@ -86,6 +86,4 @@ unset($config);
  */
 
 // System profiler.
-if (JDEBUG) {
-	$_PROFILER = JProfiler::getInstance('Application');
-}
+JDEBUG ? $_PROFILER = JProfiler::getInstance('Application') : null;

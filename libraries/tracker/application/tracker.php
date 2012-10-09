@@ -698,4 +698,81 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		return null;
 	}
+
+	/**
+	 * Provides a secure hash based on a seed
+	 *
+	 * @param   string  $seed  Seed string.
+	 *
+	 * @return  string  A secure hash
+	 *
+	 * @since   11.1
+	 */
+	public static function getHash($seed)
+	{
+		return md5(JFactory::getConfig()->get('secret') . $seed);
+	}
+
+	/**
+	 * Checks the user session.
+	 *
+	 * If the session record doesn't exist, initialise it.
+	 * If session is new, create session variables
+	 *
+	 * @return  void
+	 *
+	 * @since   11.1
+	 */
+	public function checkSession()
+	{
+		$db = JFactory::getDBO();
+		$session = JFactory::getSession();
+		$user = JFactory::getUser();
+
+		$query = $db->getQuery(true);
+		$query->select($query->qn('session_id'))
+			->from($query->qn('#__session'))
+			->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
+
+		$db->setQuery($query, 0, 1);
+		$exists = $db->loadResult();
+
+		// If the session record doesn't exist initialise it.
+		if (!$exists)
+		{
+			$query->clear();
+			if ($session->isNew())
+			{
+				$query->insert($query->qn('#__session'))
+					->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'))
+					->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
+				$db->setQuery($query);
+			}
+			else
+			{
+				$query->insert($query->qn('#__session'))
+					->columns(
+					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
+						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
+				)
+					->values(
+					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
+						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
+				);
+
+				$db->setQuery($query);
+			}
+
+			// If the insert failed, exit the application.
+			try
+			{
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				jexit($e->getMessage());
+			}
+		}
+	}
+
 }
