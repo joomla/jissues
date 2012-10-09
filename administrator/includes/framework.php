@@ -17,7 +17,7 @@ defined('_JEXEC') or die;
 /*
  * Installation check, and check on removal of the install directory.
  */
-if (!file_exists(JPATH_CONFIGURATION.'/config.php'))
+if (!file_exists(JPATH_CONFIGURATION.'/configuration.php'))
 {
 	die('No configuration found');
 }
