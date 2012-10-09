@@ -16,36 +16,16 @@ defined('_JEXEC') or die;
  * @subpackage  Model
  * @since       1.0
  */
-class TrackerModelIssues extends JModelDatabase
+class TrackerModelIssues extends JModelTrackerlist
 {
 	/**
-	 * Method to get an array of data items.
+	 * Context string for the model type.  This is used to handle uniqueness
+	 * when dealing with the getStoreId() method and caching data structures.
 	 *
-	 * @return  mixed  An array of data items on success, false on failure.
-	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function getItems()
-	{
-		// Populate the state object
-		$this->populateState();
-
-		// Load the query for the list
-		$query = $this->getListQuery();
-
-		try
-		{
-			$this->db->setQuery($query);
-			$items = $this->db->loadObjectList();
-		}
-		catch (RuntimeException $e)
-		{
-			$this->setError($e->getMessage());
-			return false;
-		}
-
-		return $items;
-	}
+	protected $context = 'com_tracker.issues';
 
 	/**
 	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
@@ -59,7 +39,7 @@ class TrackerModelIssues extends JModelDatabase
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$query->select($db->quoteName(array('a.id', 'a.gh_id', 'a.title', 'a.description', 'a.priority', 'a.status', 'a.opened', 'a.closed', 'a.modified')));
+		$query->select('a.*');
 		$query->from($db->quoteName('#__issues', 'a'));
 
 		// Join over the status.
@@ -93,21 +73,41 @@ class TrackerModelIssues extends JModelDatabase
 	}
 
 	/**
+	 * Method to get a store id based on the model configuration state.
+	 *
+	 * This is necessary because the model is used by the component and
+	 * different modules that might need different sets of data or different
+	 * ordering requirements.
+	 *
+	 * @param   string  $id  An identifier string to generate the store id.
+	 *
+	 * @return  string  A store id.
+	 *
+	 * @since   1.0
+	 */
+	protected function getStoreId($id = '')
+	{
+		// Add the list state to the store id.
+		$id .= ':' . $this->state->get('filter.priority');
+		$id .= ':' . $this->state->get('filter.status');
+		$id .= ':' . $this->state->get('list.filter');
+
+		return parent::getStoreId($id);
+	}
+
+	/**
 	 * Method to auto-populate the model state.
 	 *
-	 * @return	void
-	 * @since	1.0
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		$app = JFactory::getApplication();
-
-		// List state information
-		$value = $app->input->get('limit', $app->getCfg('list_limit', 0), 'uint');
-		$this->state->set('list.limit', $value);
-
-		$value = $app->input->get('limitstart', 0, 'uint');
-		$this->state->set('list.start', $value);
 
 		$orderCol = $app->input->get('filter_order', 'a.id');
 		$this->state->set('list.ordering', $orderCol);
@@ -127,5 +127,8 @@ class TrackerModelIssues extends JModelDatabase
 
 		// Optional filter text
 		$this->state->set('list.filter', $app->input->get('filter-search', '', 'string'));
+
+		// List state information.
+		parent::populateState('a.id', 'ASC');
 	}
 }

@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die;
 
-
 /**
  * The issues detail view
  *
@@ -17,10 +16,16 @@ defined('_JEXEC') or die;
  * @subpackage  View
  * @since       1.0
  */
-
- */
 class TrackerViewIssueHtml extends JViewHtml
 {
+	/**
+	 * Redefine the model so the correct type hinting is available.
+	 *
+	 * @var     TrackerModelIssue
+	 * @since   1.0
+	 */
+	protected $model;
+
 	/**
 	 * Method to render the view.
 	 *
@@ -36,8 +41,10 @@ class TrackerViewIssueHtml extends JViewHtml
 		// Register the document
 		$this->document = $app->getDocument();
 
-		$this->items = $this->model->getItem($id);
-		$this->state = $this->model->getState();
+		$id = $app->input->getInt('id', 1);
+
+		$this->item     = $this->model->getItem($id);
+		$this->comments = $this->model->getComments($id);
 
 		return parent::render();
 	}

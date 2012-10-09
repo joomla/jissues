@@ -37,6 +37,10 @@ $filterStatus = $this->state->get('filter.status')
 				<?php echo JHtml::_('select.options', JHtml::_('status.options'), 'value', 'text', $filterStatus);?>
 			</select>
 		</div>
+		<div class="btn-group pull-right hidden-phone">
+			<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
+			<?php echo $this->pagination->getLimitBox(); ?>
+		</div>
 		<input type="hidden" name="filter_order" value="" />
 		<input type="hidden" name="filter_order_Dir" value="" />
 		<input type="hidden" name="limitstart" value="" />
@@ -87,11 +91,35 @@ $filterStatus = $this->state->get('filter.status')
 				</td>
 				<td class="hasContext">
 					<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $item->description, 100); ?>">
-						<?php echo $this->escape($item->title); ?>
+						<a href="index.php?option=com_tracker&view=issue&id=<?php echo (int) $item->id;?>">
+						<?php echo $this->escape($item->title); ?></a>
 					</div>
 				</td>
-				<td>
-					<?php echo (int) $item->priority; ?>
+				<td class="center">
+					<?php if ($item->priority == 1)
+					{
+						$status_class = 'badge-important';
+					}
+					elseif ($item->priority == 2)
+					{
+						$status_class = 'badge-warning';
+					}
+					elseif ($item->priority == 3)
+					{
+						$status_class = 'badge-info';
+					}
+					elseif ($item->priority == 4)
+					{
+						$status_class = 'badge-inverse';
+					}
+					elseif ($item->priority == 5)
+					{
+						$status_class = '';
+					}
+					?>
+					<span class="badge <?php echo $status_class; ?>">
+						<?php echo (int) $item->priority; ?>
+					</span>
 				</td>
 				<td>
 					<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
@@ -104,7 +132,7 @@ $filterStatus = $this->state->get('filter.status')
 				</td>
 				<td class="nowrap small hidden-phone">
 					<?php if ($item->closed_status) : ?>
-						<?php echo JHtml::_('date', $item->closed, 'DATE_FORMAT_LC4'); ?>
+						<?php echo JHtml::_('date', $item->closed_date, 'DATE_FORMAT_LC4'); ?>
 					<?php endif; ?>
 				</td>
 				<td class="nowrap small hidden-phone">
@@ -117,4 +145,5 @@ $filterStatus = $this->state->get('filter.status')
 		<?php endif; ?>
 		</tbody>
 	</table>
+	<?php echo $this->pagination->getListFooter(); ?>
 </form>

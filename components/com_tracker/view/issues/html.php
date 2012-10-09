@@ -41,8 +41,9 @@ class TrackerViewIssuesHtml extends JViewHtml
 		// Register the document
 		$this->document = $app->getDocument();
 
-		$this->items = $this->model->getItems();
-		$this->state = $this->model->getState();
+		$this->items      = $this->model->getItems();
+		$this->pagination = $this->model->getPagination();
+		$this->state      = $this->model->getState();
 
 		return parent::render();
 	}
