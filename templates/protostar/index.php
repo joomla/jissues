@@ -41,8 +41,12 @@ JHtmlBootstrap::loadCss($includeMaincss = false, $this->direction);
 			<!-- Header -->
 			<div class="header">
 				<div class="header-inner clearfix">
-					<a class="brand pull-left" href="<?php echo $this->baseurl; ?>">
-						<img src="<?php echo $this->baseurl ?>/templates/protostar/images/joomla.png" alt="Joomla" />
+					<div class="btn-group pull-right">
+                        <a class="btn" href="index.php?option=com_tracker">Tracker</a>
+                        <a class="btn" href="index.php?option=com_users">Users</a>
+					</div>
+                    <a class="brand pull-left" href="<?php echo $this->baseurl; ?>">
+                        <img src="<?php echo $this->baseurl ?>/templates/protostar/images/joomla.png" alt="Joomla" />
 					</a>
 				</div>
 			</div>
