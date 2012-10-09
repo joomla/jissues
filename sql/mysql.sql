@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `#__select_items` (
   `value` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=27;
 
 --
 -- Dumping data for table `#__select_items`
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `#__selects` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=5;
 
 --
 -- Dumping data for table `#__selects`
@@ -63,49 +63,6 @@ INSERT INTO `#__selects` (`id`, `name`) VALUES
 (4, 'browser');
 
 --
--- Table structure for table `#__extensions`
---
-
-CREATE TABLE IF NOT EXISTS `#__extensions` (
-  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `element` varchar(100) NOT NULL,
-  `folder` varchar(100) NOT NULL,
-  `client_id` tinyint(3) NOT NULL,
-  `enabled` tinyint(3) NOT NULL DEFAULT '1',
-  `access` int(10) unsigned NOT NULL DEFAULT '1',
-  `protected` tinyint(3) NOT NULL DEFAULT '0',
-  `manifest_cache` text NOT NULL,
-  `params` text NOT NULL,
-  `custom_data` text NOT NULL,
-  `system_data` text NOT NULL,
-  `checked_out` int(10) unsigned NOT NULL DEFAULT '0',
-  `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `ordering` int(11) DEFAULT '0',
-  `state` int(11) DEFAULT '0',
-  PRIMARY KEY (`extension_id`),
-  KEY `element_clientid` (`element`,`client_id`),
-  KEY `element_folder_clientid` (`element`,`folder`,`client_id`),
-  KEY `extension` (`type`,`element`,`folder`,`client_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10000 ;
-
---
--- Dumping data for table `#__extensions`
---
-
-INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `client_id`, `enabled`, `access`, `protected`, `manifest_cache`, `params`, `custom_data`, `system_data`, `checked_out`, `checked_out_time`, `ordering`, `state`) VALUES
-(1, 'com_tracker', 'component', 'com_tracker', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(9, 'com_cpanel', 'component', 'com_cpanel', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(305, 'mod_menu', 'module', 'mod_menu', '', 1, 1, 1, 0, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(312, 'mod_toolbar', 'module', 'mod_toolbar', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(401, 'plg_authentication_joomla', 'plugin', 'joomla', 'authentication', 0, 1, 1, 1, '', '{}', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(432, 'plg_user_joomla', 'plugin', 'joomla', 'user', 0, 1, 1, 0, '', '{"autoregister":"1"}', '', '', 0, '0000-00-00 00:00:00', 2, 0),
-(10000, 'com_users', 'component', 'com_users', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(10001, 'com_languages', 'component', 'com_languages', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
-(10002, 'com_login', 'component', 'com_login', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0);
-
---
 -- Table structure for table `#__status`
 --
 
@@ -114,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `#__status` (
   `status` varchar(255) DEFAULT NULL,
   `closed` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=13;
 
 --
 -- Dumping data for table `#__status`
@@ -180,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `#__versions` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `version` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;
 
 --
 -- Dumping data for table `#__versions`
@@ -191,7 +148,11 @@ INSERT INTO `#__versions` (`id`, `version`) VALUES
 (2, '3.0');
 
 --
--- Tabellenstruktur für Tabelle `#__assets`
+-- Tables below are core Platform/CMS tables
+--
+
+--
+-- Table structure for table `#__assets`
 --
 
 CREATE TABLE IF NOT EXISTS `#__assets` (
@@ -207,18 +168,67 @@ CREATE TABLE IF NOT EXISTS `#__assets` (
   UNIQUE KEY `idx_asset_name` (`name`),
   KEY `idx_lft_rgt` (`lft`,`rgt`),
   KEY `idx_parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8;
 
 --
--- Daten für Tabelle `#__assets`
+-- Dumping data for table `#__assets`
 --
 
 INSERT INTO `#__assets` (`id`, `parent_id`, `lft`, `rgt`, `level`, `name`, `title`, `rules`) VALUES
-(1, 0, 1, 67, 0, 'root.1', 'Root Asset', '{"core.login.site":{"6":1,"2":1},"core.login.admin":{"6":1},"core.login.offline":{"6":1},"core.admin":{"8":1},"core.manage":{"7":1},"core.create":{"6":1,"3":1},"core.delete":{"6":1},"core.edit":{"6":1,"4":1},"core.edit.state":{"6":1,"5":1},"core.edit.own":{"6":1,"3":1}}'),
-(2, 1, 1, 2, 1, 'com_admin', 'com_admin', '{}');
+(1, 0, 1, 14, 0, 'root.1', 'Root Asset', '{"core.login.site":{"6":1,"2":1},"core.login.admin":{"6":1},"core.login.offline":{"6":1},"core.admin":{"8":1},"core.manage":{"7":1},"core.create":{"6":1,"3":1},"core.delete":{"6":1},"core.edit":{"6":1,"4":1},"core.edit.state":{"6":1,"5":1},"core.edit.own":{"6":1,"3":1}}'),
+(2, 1, 2, 3, 1, 'com_tracker', 'com_tracker', '{}'),
+(3, 1, 4, 5, 1, 'com_cpanel', 'com_cpanel', '{}'),
+(4, 1, 6, 7, 1, 'com_languages', 'com_languages', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}'),
+(5, 1, 8, 9, 1, 'com_login', 'com_login', '{}'),
+(6, 1, 10, 13, 1, 'com_users', 'com_users', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}'),
+(7, 6, 11, 12, 1, 'com_users.category.7', 'Uncategorised', '{"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}');
 
 --
--- Tabellenstruktur für Tabelle `#__messages`
+-- Table structure for table `#__extensions`
+--
+
+CREATE TABLE IF NOT EXISTS `#__extensions` (
+  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `element` varchar(100) NOT NULL,
+  `folder` varchar(100) NOT NULL,
+  `client_id` tinyint(3) NOT NULL,
+  `enabled` tinyint(3) NOT NULL DEFAULT '1',
+  `access` int(10) unsigned NOT NULL DEFAULT '1',
+  `protected` tinyint(3) NOT NULL DEFAULT '0',
+  `manifest_cache` text NOT NULL,
+  `params` text NOT NULL,
+  `custom_data` text NOT NULL,
+  `system_data` text NOT NULL,
+  `checked_out` int(10) unsigned NOT NULL DEFAULT '0',
+  `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ordering` int(11) DEFAULT '0',
+  `state` int(11) DEFAULT '0',
+  PRIMARY KEY (`extension_id`),
+  KEY `element_clientid` (`element`,`client_id`),
+  KEY `element_folder_clientid` (`element`,`folder`,`client_id`),
+  KEY `extension` (`type`,`element`,`folder`,`client_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10000;
+
+--
+-- Dumping data for table `#__extensions`
+--
+
+INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`, `client_id`, `enabled`, `access`, `protected`, `manifest_cache`, `params`, `custom_data`, `system_data`, `checked_out`, `checked_out_time`, `ordering`, `state`) VALUES
+(1, 'com_tracker', 'component', 'com_tracker', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(2, 'com_cpanel', 'component', 'com_cpanel', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(3, 'com_languages', 'component', 'com_languages', '', 1, 1, 1, 1, '', '{"administrator":"en-GB","site":"en-GB"}', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(4, 'com_login', 'component', 'com_login', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(5, 'com_users', 'component', 'com_users', '', 1, 1, 0, 1, '', '{"allowUserRegistration":"1","new_usertype":"2","guest_usergroup":"9","sendpassword":"1","useractivation":"1","mail_to_admin":"0","captcha":"","frontend_userparams":"1","site_language":"0","change_login_name":"0","reset_count":"10","reset_time":"1","mailSubjectPrefix":"","mailBodySuffix":""}', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(301, 'mod_login', 'module', 'mod_login', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(302, 'mod_menu', 'module', 'mod_menu', '', 1, 1, 1, 0, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(303, 'mod_toolbar', 'module', 'mod_toolbar', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(401, 'plg_authentication_joomla', 'plugin', 'joomla', 'authentication', 0, 1, 1, 1, '', '{}', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(402, 'plg_user_joomla', 'plugin', 'joomla', 'user', 0, 1, 1, 0, '', '{"autoregister":"1"}', '', '', 0, '0000-00-00 00:00:00', 2, 0);
+
+--
+-- Table structure for table `#__messages`
 --
 
 CREATE TABLE IF NOT EXISTS `#__messages` (
@@ -233,12 +243,12 @@ CREATE TABLE IF NOT EXISTS `#__messages` (
   `message` text NOT NULL,
   PRIMARY KEY (`message_id`),
   KEY `useridto_state` (`user_id_to`,`state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `#__messages_cfg`
+-- Table structure for table `#__messages_cfg`
 --
 
 CREATE TABLE IF NOT EXISTS `#__messages_cfg` (
@@ -251,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `#__messages_cfg` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `#__modules`
+-- Table structure for table `#__modules`
 --
 
 CREATE TABLE IF NOT EXISTS `#__modules` (
@@ -276,20 +286,21 @@ CREATE TABLE IF NOT EXISTS `#__modules` (
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`),
   KEY `idx_language` (`language`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=88 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4;
 
 --
--- Daten für Tabelle `#__modules`
+-- Dumping data for table `#__modules`
 --
 
 INSERT INTO `#__modules` (`id`, `title`, `note`, `content`, `ordering`, `position`, `checked_out`, `checked_out_time`, `publish_up`, `publish_down`, `published`, `module`, `access`, `showtitle`, `params`, `client_id`, `language`) VALUES
-(12, 'Admin Menu', '', '', 1, 'menu', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'mod_menu', 3, 1, '{"layout":"","moduleclass_sfx":"","shownew":"1","showhelp":"1","cache":"0"}', 1, '*'),
-(87, 'Toolbar', '', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'mod_toolbar', 3, 1, '', 1, '*');
+(1, 'Login', '', '', 1, 'login', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'mod_login', 1, 1, '', 1, '*'),
+(2, 'Toolbar', '', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'mod_toolbar', 3, 1, '', 1, '*'),
+(3, 'Admin Menu', '', '', 1, 'menu', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'mod_menu', 3, 1, '{"layout":"","moduleclass_sfx":"","shownew":"1","showhelp":"1","cache":"0"}', 1, '*');
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `#__modules_menu`
+-- Table structure for table `#__modules_menu`
 --
 
 CREATE TABLE IF NOT EXISTS `#__modules_menu` (
@@ -299,17 +310,18 @@ CREATE TABLE IF NOT EXISTS `#__modules_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Daten für Tabelle `#__modules_menu`
+-- Dumping data for table `#__modules_menu`
 --
 
 INSERT INTO `#__modules_menu` (`moduleid`, `menuid`) VALUES
-(12, 0),
-(87, 0);
+(1, 0),
+(2, 0),
+(3, 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `#__session`
+-- Table structure for table `#__session`
 --
 
 CREATE TABLE IF NOT EXISTS `#__session` (
@@ -326,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `#__session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Tabellenstruktur für Tabelle `#__usergroups`
+-- Table structure for table `#__usergroups`
 --
 
 CREATE TABLE IF NOT EXISTS `#__usergroups` (
@@ -340,10 +352,10 @@ CREATE TABLE IF NOT EXISTS `#__usergroups` (
   KEY `idx_usergroup_title_lookup` (`title`),
   KEY `idx_usergroup_adjacency_lookup` (`parent_id`),
   KEY `idx_usergroup_nested_set_lookup` (`lft`,`rgt`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10;
 
 --
--- Daten für Tabelle `#__usergroups`
+-- Dumping data for table `#__usergroups`
 --
 
 INSERT INTO `#__usergroups` (`id`, `parent_id`, `lft`, `rgt`, `title`) VALUES
@@ -360,7 +372,7 @@ INSERT INTO `#__usergroups` (`id`, `parent_id`, `lft`, `rgt`, `title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `#__users`
+-- Table structure for table `#__users`
 --
 
 CREATE TABLE IF NOT EXISTS `#__users` (
@@ -382,10 +394,10 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idx_block` (`block`),
   KEY `username` (`username`),
   KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=734 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=734;
 
 --
--- Tabellenstruktur für Tabelle `#__user_notes`
+-- Table structure for table `#__user_notes`
 --
 
 CREATE TABLE IF NOT EXISTS `#__user_notes` (
@@ -407,12 +419,12 @@ CREATE TABLE IF NOT EXISTS `#__user_notes` (
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`),
   KEY `idx_category_id` (`catid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `#__user_usergroup_map`
+-- Table structure for table `#__user_usergroup_map`
 --
 
 CREATE TABLE IF NOT EXISTS `#__user_usergroup_map` (
@@ -422,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `#__user_usergroup_map` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Tabellenstruktur für Tabelle `#__viewlevels`
+-- Table structure for table `#__viewlevels`
 --
 
 CREATE TABLE IF NOT EXISTS `#__viewlevels` (
@@ -432,14 +444,14 @@ CREATE TABLE IF NOT EXISTS `#__viewlevels` (
   `rules` varchar(5120) NOT NULL COMMENT 'JSON encoded access control.',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_assetgroup_title_lookup` (`title`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5;
 
 --
--- Daten für Tabelle `#__viewlevels`
+-- Dumping data for table `#__viewlevels`
 --
 
 INSERT INTO `#__viewlevels` (`id`, `title`, `ordering`, `rules`) VALUES
 (1, 'Public', 0, '[1]'),
 (2, 'Registered', 1, '[6,2,8]'),
 (3, 'Special', 2, '[6,3,8]'),
-(5, 'Guest', 0, '[9]');
+(4, 'Guest', 0, '[9]');
