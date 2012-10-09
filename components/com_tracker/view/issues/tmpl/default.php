@@ -62,7 +62,7 @@ $filterStatus = $this->state->get('filter.status')
 		<tbody>
 		<?php if (count($this->items) == 0) : ?>
 			<tr>
-				<td class="center" colspan="8">
+				<td class="center" colspan="9">
 					<?php echo JText::_('COM_TRACKER_NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
