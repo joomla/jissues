@@ -49,7 +49,6 @@ $filterStatus = $this->state->get('filter.status')
 		<thead>
 			<tr>
 				<th width="2%" class="nowrap hidden-phone"><?php echo JText::_('JGRID_HEADING_ID'); ?></th>
-				<th class="nowrap hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
 				<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
 				<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 				<th width="10%"><?php echo JText::_('JSTATUS'); ?></th>
@@ -62,7 +61,7 @@ $filterStatus = $this->state->get('filter.status')
 		<tbody>
 		<?php if (count($this->items) == 0) : ?>
 			<tr>
-				<td class="center" colspan="9">
+				<td class="center" colspan="8">
 					<?php echo JText::_('COM_TRACKER_NO_ITEMS_FOUND'); ?>
 				</td>
 			</tr>
@@ -80,20 +79,28 @@ $filterStatus = $this->state->get('filter.status')
 				<td class="center hidden-phone">
 					<?php echo (int) $item->id; ?>
 				</td>
-				<td class="center hidden-phone">
-					<?php if ($item->gh_id) : ?>
-					<a href="https://github.com/joomla/joomla-cms/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
-						<?php echo (int) $item->gh_id; ?>
-					</a>
-					<?php else : ?>
-					<?php echo JText::_('COM_TRACKER_NOT_APPLICABLE_SHORT'); ?>
-					<?php endif; ?>
-				</td>
 				<td class="hasContext">
 					<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $item->description, 100); ?>">
 						<a href="index.php?option=com_tracker&view=issue&id=<?php echo (int) $item->id;?>">
 						<?php echo $this->escape($item->title); ?></a>
 					</div>
+					<?php if ($item->gh_id || $item->jc_id) : ?>
+					<div class="small">
+						<?php if ($item->gh_id) : ?>
+						<?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?>
+						<a href="https://github.com/joomla/joomla-cms/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
+							<?php echo (int) $item->gh_id; ?>
+						</a>
+						<?php endif; ?>
+						<?php if ($item->gh_id && $item->jc_id) echo '<br />'; ?>
+						<?php if ($item->jc_id) : ?>
+						<?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?>
+						<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo (int) $item->jc_id; ?>" target="_blank">
+							<?php echo (int) $item->jc_id; ?>
+						</a>
+						<?php endif; ?>
+					</div>
+					<?php endif; ?>
 				</td>
 				<td class="center">
 					<?php if ($item->priority == 1)

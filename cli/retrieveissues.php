@@ -181,6 +181,14 @@ class TrackerApplicationRetrieve extends JApplicationCli
 				$table->closed_date = $issue->closed_at;
 			}
 
+			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
+			// TODO - Would be better suited as a regex probably
+			if (strpos($issue->title, '[#'))
+			{
+				$pos = strpos($issue->title, '[#') + 2;
+				$table->jc_id = substr($issue->title, $pos, 5);
+			}
+
 			if (!$table->store())
 			{
 				$this->out($table->getError(), true);
