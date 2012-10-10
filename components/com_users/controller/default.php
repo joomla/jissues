@@ -1,56 +1,89 @@
 <?php
-/**
- * @package     Joomla.Site
- * @subpackage  com_users
- *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
 
-defined('_JEXEC') or die;
-
-/**
- * Base controller class for Users.
- *
- * @package     Joomla.Site
- * @subpackage  com_users
- * @since       1.5
- */
-class UsersController extends JControllerLegacy
+class UsersControllerDefault extends JControllerBase
 {
+	/**
+	 * Execute the controller.
+	 *
+	 * @throws RuntimeException
+	 *
+	 * @return  boolean  True if controller finished execution, false if the controller did not
+	 *                   finish execution. A controller might return false if some precondition for
+	 *                   the controller to run has not been satisfied.
+	 */
+	public function execute()
+	{
+		// Get the application
+		/* @var JApplicationWeb $application */
+		$application = $this->getApplication();
+
+		// Get the document object.
+		$document = $application->getDocument();
+
+		$vName = $application->input->getWord('view', 'login');
+		$vFormat = $document->getType();
+		$lName = $application->input->getWord('layout', 'default');
+
+		$application->input->set('view', $vName);
+
+		// Register the layout paths for the view
+		$paths = new SplPriorityQueue;
+		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
+
+		$vClass = 'UsersView' . ucfirst($vName) . ucfirst($vFormat);
+		$mClass = 'UsersModel' . ucfirst($vName);
+
+		if (false == class_exists($vClass))
+		{
+			throw new RuntimeException('View not found: ' . $vName);
+		}
+
+		/* @var JViewHtml $view */
+		$view = new $vClass(new $mClass, $paths);
+		$view->setLayout($lName);
+
+		// Render our view.
+		echo $view->render();
+
+		return true;
+	}
+
 	/**
 	 * Method to display a view.
 	 *
-	 * @param	boolean			If true, the view output will be cached
-	 * @param	array			An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 * @param    boolean            If true, the view output will be cached
+	 * @param    array              An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
 	 *
-	 * @return	JController		This object to support chaining.
-	 * @since	1.5
+	 * @return    JController        This object to support chaining.
+	 * @since    1.5
 	 */
-	public function display($cachable = false, $urlparams = false)
+	public function THIS_IS_OLD_CODE()
 	{
 		// Get the document object.
-		$document	= JFactory::getDocument();
+		$document = JFactory::getDocument();
 
 		// Set the default view name and format from the Request.
-		$vName   = $this->input->getCmd('view', 'login');
+		$vName = $this->input->getCmd('view', 'login');
 		$vFormat = $document->getType();
-		$lName   = $this->input->getCmd('layout', 'default');
+		$lName = $this->input->getCmd('layout', 'default');
 
-		if ($view = $this->getView($vName, $vFormat)) {
+		if ($view = $this->getView($vName, $vFormat))
+		{
 			// Do any specific processing by view.
-			switch ($vName) {
+			switch ($vName)
+			{
 				case 'registration':
 					// If the user is already logged in, redirect to the profile page.
 					$user = JFactory::getUser();
-					if ($user->get('guest') != 1) {
+					if ($user->get('guest') != 1)
+					{
 						// Redirect to profile page.
 						$this->setRedirect(JRoute::_('index.php?option=com_users&view=profile', false));
 						return;
 					}
 
 					// Check if user registration is enabled
-					if (0)//JComponentHelper::getParams('com_users')->get('allowUserRegistration') == 0)
+					if (0) // JComponentHelper::getParams('com_users')->get('allowUserRegistration') == 0)
 					{
 						// Registration is disabled - Redirect to login page.
 						$this->setRedirect(JRoute::_('index.php?option=com_users&view=login', false));
@@ -66,7 +99,8 @@ class UsersController extends JControllerLegacy
 
 					// If the user is a guest, redirect to the login page.
 					$user = JFactory::getUser();
-					if ($user->get('guest') == 1) {
+					if ($user->get('guest') == 1)
+					{
 						// Redirect to login page.
 						$this->setRedirect(JRoute::_('index.php?option=com_users&view=login', false));
 						return;
@@ -82,7 +116,8 @@ class UsersController extends JControllerLegacy
 				case 'reset':
 					// If the user is already logged in, redirect to the profile page.
 					$user = JFactory::getUser();
-					if ($user->get('guest') != 1) {
+					if ($user->get('guest') != 1)
+					{
 						// Redirect to profile page.
 						$this->setRedirect(JRoute::_('index.php?option=com_users&view=profile', false));
 						return;
@@ -94,7 +129,8 @@ class UsersController extends JControllerLegacy
 				case 'remind':
 					// If the user is already logged in, redirect to the profile page.
 					$user = JFactory::getUser();
-					if ($user->get('guest') != 1) {
+					if ($user->get('guest') != 1)
+					{
 						// Redirect to profile page.
 						$this->setRedirect(JRoute::_('index.php?option=com_users&view=profile', false));
 						return;
@@ -118,4 +154,5 @@ class UsersController extends JControllerLegacy
 			$view->display();
 		}
 	}
+
 }

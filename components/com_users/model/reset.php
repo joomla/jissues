@@ -37,7 +37,6 @@ class UsersModelReset extends JModelTrackerform
 
 		// Load the parameters.
 		$this->state->set('com_users.params', $params);
-
 	}
 
 	/**
@@ -163,8 +162,10 @@ class UsersModelReset extends JModelTrackerform
 			// Get the validation messages from the form.
 			foreach ($form->getErrors() as $message)
 			{
-				$this->setError($message);
+				JFactory::getApplication()->enqueueMessage($message, 'error');
+				//$this->setError($message);
 			}
+
 			return false;
 		}
 
@@ -185,15 +186,17 @@ class UsersModelReset extends JModelTrackerform
 		// Check for a user and that the tokens match.
 		if (empty($user) || $user->activation !== $token)
 		{
-			$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
-			return false;
+			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
+			//$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
+			//return false;
 		}
 
 		// Make sure the user isn't blocked.
 		if ($user->block)
 		{
-			$this->setError(JText::_('COM_USERS_USER_BLOCKED'));
-			return false;
+			throw new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
+			//$this->setError(JText::_('COM_USERS_USER_BLOCKED'));
+			//return false;
 		}
 
 		// Generate the new password hash.
@@ -209,7 +212,10 @@ class UsersModelReset extends JModelTrackerform
 		// Save the user to the database.
 		if (!$user->save(true))
 		{
-			return new JException(JText::sprintf('COM_USERS_USER_SAVE_FAILED', $user->getError()), 500);
+			return new RuntimeException(
+				JText::sprintf('COM_USERS_USER_SAVE_FAILED', $user->getError())
+				, 500
+			);
 		}
 
 		// Flush the user data from the session.
@@ -249,13 +255,15 @@ class UsersModelReset extends JModelTrackerform
 			// Get the validation messages from the form.
 			foreach ($form->getErrors() as $message)
 			{
-				$this->setError($message);
+				JFactory::getApplication()->enqueueMessage($message, 'error');
+				//$this->setError($message);
 			}
+
 			return false;
 		}
 
 		// Find the user id for the given token.
-		$db = $this->getDbo();
+		$db = $this->db;
 		$query = $db->getQuery(true);
 		$query->select('activation');
 		$query->select('id');
@@ -278,16 +286,14 @@ class UsersModelReset extends JModelTrackerform
 		// Check for a user.
 		if (empty($user))
 		{
-			$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
-			return false;
+			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 
 		$parts = explode(':', $user->activation);
 		$crypt = $parts[0];
 		if (!isset($parts[1]))
 		{
-			$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
-			return false;
+			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 		$salt = $parts[1];
 		$testcrypt = JUserHelper::getCryptedPassword($data['token'], $salt);
@@ -295,15 +301,13 @@ class UsersModelReset extends JModelTrackerform
 		// Verify the token
 		if (!($crypt == $testcrypt))
 		{
-			$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
-			return false;
+			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 
 		// Make sure the user isn't blocked.
 		if ($user->block)
 		{
-			$this->setError(JText::_('COM_USERS_USER_BLOCKED'));
-			return false;
+			throw new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
 		}
 
 		// Push the user data into the session.
@@ -348,7 +352,7 @@ class UsersModelReset extends JModelTrackerform
 			// Get the validation messages from the form.
 			foreach ($form->getErrors() as $message)
 			{
-				$this->setError($message);
+				JFactory::getApplication()->enqueueMessage($message, 'error');
 			}
 			return false;
 		}
@@ -370,8 +374,6 @@ class UsersModelReset extends JModelTrackerform
 		if (empty($userId))
 		{
 			throw new InvalidArgumentException(JText::_('COM_USERS_INVALID_EMAIL'));
-			//$this->setError(JText::_('COM_USERS_INVALID_EMAIL'));
-			//return false;
 		}
 
 		// Get the user object.
@@ -381,16 +383,12 @@ class UsersModelReset extends JModelTrackerform
 		if ($user->block)
 		{
 			throw new InvalidArgumentException(JText::_('COM_USERS_USER_BLOCKED'));
-			//$this->setError(JText::_('COM_USERS_USER_BLOCKED'));
-			//return false;
 		}
 
 		// Make sure the user isn't a Super Admin.
 		if ($user->authorise('core.admin'))
 		{
 			throw new InvalidArgumentException(JText::_('COM_USERS_REMIND_SUPERADMIN_ERROR'));
-			//$this->setError(JText::_('COM_USERS_REMIND_SUPERADMIN_ERROR'));
-			//return false;
 		}
 
 		// Make sure the user has not exceeded the reset limit
@@ -401,8 +399,6 @@ class UsersModelReset extends JModelTrackerform
 				'COM_USERS_REMIND_LIMIT_ERROR_N_HOURS'
 				, (int) JFactory::getApplication()->getParams()->get('reset_time')
 			));
-			//$this->setError(JText::plural('COM_USERS_REMIND_LIMIT_ERROR_N_HOURS', $resetLimit));
-			//return false;
 		}
 		// Set the confirmation token.
 		$token = JApplication::getHash(JUserHelper::genRandomPassword());
@@ -415,7 +411,6 @@ class UsersModelReset extends JModelTrackerform
 		if (!$user->save(true))
 		{
 			throw new RuntimeException(JText::sprintf('COM_USERS_USER_SAVE_FAILED', $user->getError()));
-			//return new JException(JText::sprintf('COM_USERS_USER_SAVE_FAILED', $user->getError()), 500);
 		}
 
 		// Assemble the password reset confirmation link.
@@ -462,7 +457,7 @@ class UsersModelReset extends JModelTrackerform
 	/**
 	 * Method to check if user reset limit has been exceeded within the allowed time period.
 	 *
-	 * @param   JUser  the user doing the password reset
+	 * @param   JUser $user the user doing the password reset
 	 *
 	 * @return  boolean true if user can do the reset, false if limit exceeded
 	 *
@@ -478,24 +473,23 @@ class UsersModelReset extends JModelTrackerform
 		$lastResetTime = strtotime($user->lastResetTime) ? strtotime($user->lastResetTime) : 0;
 		$hoursSinceLastReset = (strtotime(JFactory::getDate()->toSql()) - $lastResetTime) / 3600;
 
-		// If it's been long enough, start a new reset count
 		if ($hoursSinceLastReset > $resetHours)
 		{
+			// If it's been long enough, start a new reset count
 			$user->lastResetTime = JFactory::getDate()->toSql();
 			$user->resetCount = 1;
 		}
-
-		// If we are under the max count, just increment the counter
 		elseif ($user->resetCount < $maxCount)
 		{
+			// If we are under the max count, just increment the counter
 			$user->resetCount;
 		}
-
-		// At this point, we know we have exceeded the maximum resets for the time period
 		else
 		{
+			// At this point, we know we have exceeded the maximum resets for the time period
 			$result = false;
 		}
+
 		return $result;
 	}
 }

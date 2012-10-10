@@ -9,10 +9,23 @@
 
 defined('_JEXEC') or die;
 
-if ($this->user->get('guest')):
-	// The user is not logged in.
-	include $this->getPath('login');
-else:
-	// The user is already logged in.
-	include $this->getPath('logout');
-endif;
+?>
+<div class="row-fluid">
+	<div class="span2">
+		<?php echo JHtml::_('sidebar.render'); ?>
+	</div>
+	<div class="span10">
+<?php
+		if ($this->user->get('guest')):
+			// The user is not logged in.
+			include $this->getPath('login');
+		else:
+			// The user is already logged in.
+			include $this->getPath('logout');
+		endif;
+
+?>
+	</div>
+</div>
+
+
