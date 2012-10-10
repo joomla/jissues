@@ -65,9 +65,6 @@ abstract class JModelTrackerlist extends JModelDatabase
 	 */
 	public function getItems()
 	{
-		// Populate the state object
-		$this->populateState();
-
 		// Get a storage key.
 		$store = $this->getStoreId();
 

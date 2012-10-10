@@ -33,6 +33,6 @@ class JConfigExample
 	public $secret			= null;
 	public $editor			= 'none';
 	public $offset			= 'UTC';
-	public $lifetime		= 15;
-	public $session_handler	= 'database';
+	public $sess_lifetime	= 15;
+	public $sess_handler	= 'database';
 }

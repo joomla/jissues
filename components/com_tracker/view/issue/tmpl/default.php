@@ -18,10 +18,22 @@ defined('_JEXEC') or die;
 					<td><strong><?php echo JText::_('JSTATUS'); ?></strong></td>
 					<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status_title)); ?></td>
 				</tr>
+				<?php if ($this->item->gh_id) : ?>
 				<tr>
 					<td><strong><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></strong></td>
 					<td><a href="https://github.com/joomla/joomla-cms/issues/<?php echo $this->item->gh_id; ?>" target="_blank"><?php echo $this->item->gh_id; ?></a></td>
 				</tr>
+				<?php endif; ?>
+				<?php if ($this->item->jc_id) : ?>
+				<tr>
+					<td><strong><?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?></strong></td>
+					<td>
+						<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo (int) $this->item->jc_id; ?>" target="_blank">
+							<?php echo (int) $this->item->jc_id; ?>
+						</a>
+					</td>
+				</tr>
+				<?php endif; ?>
 				<tr>
 					<td><strong><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></strong></td>
 					<td>

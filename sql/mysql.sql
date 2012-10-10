@@ -98,6 +98,7 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 CREATE TABLE IF NOT EXISTS `#__issues` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `gh_id` integer unsigned DEFAULT NULL,
+  `jc_id` integer unsigned DEFAULT NULL,
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` mediumtext NOT NULL,
   `priority` tinyint(4) NOT NULL DEFAULT '3',
