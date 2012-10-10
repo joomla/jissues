@@ -360,6 +360,8 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Method to get the component params
 	 *
+	 * @param string $component
+	 *
 	 * @return  JRegistry  Component params
 	 *
 	 * @since   1.0
@@ -775,4 +777,29 @@ abstract class JApplicationTracker extends JApplicationWeb
 		}
 	}
 
+	/**
+	 * Redirect to another URL.
+	 *
+	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
+	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
+	 * sent this will be accomplished using a JavaScript statement.
+	 *
+	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
+	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
+	 *
+	 * @return  void
+	 *
+	 * @since   11.3
+	 */
+	public function redirect($url, $moved = false)
+	{
+		// Persist messages if they exist.
+		if (count($this->messageQueue))
+		{
+			$session = JFactory::getSession();
+			$session->set('application.queue', $this->messageQueue);
+		}
+
+		parent::redirect($url, $moved);
+	}
 }
