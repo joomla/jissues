@@ -62,7 +62,7 @@ class InstallerApplication extends JApplicationCli
 
 			$this->out('WARNING: A database has been found. Do you want to reinstall ? [y]es / [n]o :', false);
 
-			$resp = $this->in();
+			$resp = trim($this->in());
 
 			if ('yes' != $resp && 'y' != $resp)
 				throw new InstallerAbortException;
