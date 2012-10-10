@@ -130,7 +130,11 @@ abstract class JApplicationTracker extends JApplicationWeb
 			// Load the component
 			$component = $this->input->get('option', 'com_tracker');
 
-			if ('com_users' == $component)
+			$legacyComponents = array();
+
+			//$legacyComponents[] = 'com_users';
+
+			if (in_array($component, $legacyComponents))
 			{
 				// Legacy handling for com_users
 				$contents = JComponentHelper::renderComponent($component);
@@ -161,7 +165,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 * @param   string  $msg   The message to enqueue.
 	 * @param   string  $type  The message type. Default is message.
 	 *
-	 * @return  void
+	 * @return  JApplicationTracker
 	 *
 	 * @since   1.0
 	 */
@@ -182,6 +186,8 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		// Enqueue the message.
 		$this->messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+
+		return $this;
 	}
 
 	/**
