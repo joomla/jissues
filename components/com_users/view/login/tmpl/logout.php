@@ -34,7 +34,7 @@ defined('_JEXEC') or die;
 	</div>
 	<?php endif; ?>
 
-	<form action="<?php echo ('index.php?option=com_users&task=user.logout'); ?>" method="post" class="form-horizontal">
+	<form action="<?php echo ('index.php?option=com_users&task=logout'); ?>" method="post" class="form-horizontal">
 		<div class="control-group">
 			<div class="controls">
 				<button type="submit" class="btn btn-primary"><i class="icon-arrow-left icon-white"></i> <?php echo JText::_('JLOGOUT'); ?></button>

@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.5
  */
-class UsersViewReset extends JViewLegacy
+class UsersViewResetHtml extends JViewHtml
 {
 	protected $form;
 
@@ -25,12 +25,17 @@ class UsersViewReset extends JViewLegacy
 	protected $state;
 
 	/**
-	 * Method to display the view.
+	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @param	string	The template file to include
-	 * @since	1.5
+	 * @var     UsersModelReset
+	 * @since   1.0
 	 */
-	public function display($tpl = null)
+	protected $model;
+
+	/**
+	 * Method to render the view.
+	 */
+	public function render()
 	{
 		// This name will be used to get the model
 		$name = $this->getLayout();
@@ -43,26 +48,23 @@ class UsersViewReset extends JViewLegacy
 		if ('default' == $name) {
 			$formname = 'Form';
 		} else {
-			$formname = ucfirst($this->_name).ucfirst($name).'Form';
+			$formname = ucfirst($this->name).ucfirst($name).'Form';
 		}
+
+		$method = 'get'.$formname;
 
 		// Get the view data.
-		$this->form	= $this->get($formname);
-		$this->state	= $this->get('State');
-		$this->params	= $this->state->params;
-
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
+		$this->form	= $this->model->$method();
+		$this->state	= $this->model->getState();
+		$this->params	= $this->state->get('com_users.params');
 
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
+		$this->document = JFactory::getDocument();
 		$this->prepareDocument();
 
-		parent::display($tpl);
+		return parent::render();
 	}
 
 	/**
