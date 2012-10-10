@@ -16,39 +16,52 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.6
  */
-class UsersViewRegistration extends JViewLegacy
+class UsersViewRegistrationHtml extends JViewHtml
 {
 	protected $data;
 
 	protected $form;
 
+	/**
+	 * @var JRegistry
+	 */
 	protected $params;
 
 	protected $state;
 
+	protected $pageclass_sfx = '';
+
+	/**
+	 * Redefine the model so the correct type hinting is available.
+	 *
+	 * @var     UsersModelRegistration
+	 * @since   1.0
+	 */
+	protected $model;
+
 	/**
 	 * Method to display the view.
-	 *
-	 * @param	string	The template file to include
-	 * @since	1.6
 	 */
-	public function display($tpl = null)
+	public function render()
 	{
-		// Get the view data.
-		$this->data		= $this->get('Data');
-		$this->form		= $this->get('Form');
-		$this->state	= $this->get('State');
-		$this->params	= $this->state->get('params');
+		if(0 == JFactory::getUser()->guest)
+		{
+			JFactory::getApplication()->enqueueMessage('You are already registered.', 'warning');
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
+			return '';
 		}
+
+		// Get the view data.
+		$this->data = $this->model->getData();
+		$this->form = $this->model->getForm();
+		$this->state = $this->model->getState();
+		$this->params = $this->state->get('com_users.params');
 
 		// Check for layout override
 		$active = JFactory::getApplication()->getMenu()->getActive();
-		if (isset($active->query['layout'])) {
+
+		if (isset($active->query['layout']))
+		{
 			$this->setLayout($active->query['layout']);
 		}
 
@@ -57,54 +70,64 @@ class UsersViewRegistration extends JViewLegacy
 
 		$this->prepareDocument();
 
-		parent::display($tpl);
+		UsersHelperSidebar::prepare();
+
+		return parent::render();
 	}
 
 	/**
 	 * Prepares the document.
 	 *
-	 * @since	1.6
+	 * @since    1.6
 	 */
 	protected function prepareDocument()
 	{
-		$app		= JFactory::getApplication();
-		$menus		= $app->getMenu();
-		$title 		= null;
+		$app = JFactory::getApplication();
+		$menus = $app->getMenu();
+		$title = $this->params->get('page_title', '');
+		$document = JFactory::getDocument();
 
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
 		$menu = $menus->getActive();
-		if ($menu) {
+
+		if ($menu)
+		{
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		} else {
+		}
+		else
+		{
 			$this->params->def('page_heading', JText::_('COM_USERS_REGISTRATION'));
 		}
 
-		$title = $this->params->get('page_title', '');
-		if (empty($title)) {
+		if (empty($title))
+		{
 			$title = $app->getCfg('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
+		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		{
 			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
+		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		{
 			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
-		$this->document->setTitle($title);
+
+		$document->setTitle($title);
 
 		if ($this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$document->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+			$document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
+			$document->setMetadata('robots', $this->params->get('robots'));
 		}
 	}
 }

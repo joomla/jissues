@@ -20,9 +20,14 @@ class UsersViewRemindHtml extends JViewHtml
 {
 	protected $form;
 
+	/**
+	 * @var JRegistry
+	 */
 	protected $params;
 
 	protected $state;
+
+	protected $pageclass_sfx = '';
 
 	/**
 	 * Redefine the model so the correct type hinting is available.
@@ -39,10 +44,17 @@ class UsersViewRemindHtml extends JViewHtml
 	 */
 	public function render()
 	{
+		if (0 == JFactory::getUser()->guest)
+		{
+			JFactory::getApplication()->enqueueMessage('You are already registered.', 'warning');
+
+			return '';
+		}
+
 		// Get the view data.
 		$this->form = $this->model->getForm();
 		$this->state = $this->model->getState();
-		$this->params = $this->state->params;
+		$this->params = $this->state->get('com_users.params');
 
 		// Check for layout override
 		$active = JFactory::getApplication()->getMenu()->getActive();
@@ -56,6 +68,8 @@ class UsersViewRemindHtml extends JViewHtml
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
 		$this->prepareDocument();
+
+		UsersHelperSidebar::prepare();
 
 		return parent::render();
 	}
@@ -99,21 +113,21 @@ class UsersViewRemindHtml extends JViewHtml
 			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
 		}
 
-		$this->document->setTitle($title);
+		$document->setTitle($title);
 
 		if ($this->params->get('menu-meta_description'))
 		{
-			$this->document->setDescription($this->params->get('menu-meta_description'));
+			$document->setDescription($this->params->get('menu-meta_description'));
 		}
 
 		if ($this->params->get('menu-meta_keywords'))
 		{
-			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+			$document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
 
 		if ($this->params->get('robots'))
 		{
-			$this->document->setMetadata('robots', $this->params->get('robots'));
+			$document->setMetadata('robots', $this->params->get('robots'));
 		}
 	}
 }

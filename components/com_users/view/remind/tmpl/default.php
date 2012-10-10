@@ -13,36 +13,43 @@ JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 ?>
-<div class="remind <?php echo $this->pageclass_sfx?>">
-	<?php if ($this->params->get('show_page_heading')) : ?>
-	<div class="page-header">
-		<h1>
-			<?php echo $this->escape($this->params->get('page_heading')); ?>
-		</h1>
-	</div>
-	<?php endif; ?>
+<div class="row-fluid">
+    <div class="span2">
+		<?php echo JHtml::_('sidebar.render'); ?>
+    </div>
 
-	<form id="user-registration" action="<?php echo ('index.php?option=com_users&task=remind.remind'); ?>" method="post" class="form-validate form-horizontal">
+    <div class="span10 remind <?php echo $this->pageclass_sfx?>">
+		<?php if ($this->params->get('show_page_heading')) : ?>
+        <div class="page-header">
+            <h1>
+				<?php echo $this->escape($this->params->get('page_heading')); ?>
+            </h1>
+        </div>
+		<?php endif; ?>
 
-		<?php foreach ($this->form->getFieldsets() as $fieldset): ?>
-		<p><?php echo JText::_($fieldset->label); ?></p>
+        <form id="user-registration" action="<?php echo ('index.php?option=com_users&task=remind'); ?>" method="post"
+              class="form-validate form-horizontal">
 
-		<fieldset>
-			<?php foreach ($this->form->getFieldset($fieldset->name) as $name => $field): ?>
-				<div class="control-group">
-					<div class="control-label">
+			<?php foreach ($this->form->getFieldsets() as $fieldset): ?>
+            <p><?php echo JText::_($fieldset->label); ?></p>
+
+            <fieldset>
+				<?php foreach ($this->form->getFieldset($fieldset->name) as $name => $field): ?>
+                <div class="control-group">
+                    <div class="control-label">
 						<?php echo $field->label; ?>
-					</div>
-					<div class="controls">
+                    </div>
+                    <div class="controls">
 						<?php echo $field->input; ?>
-					</div>
-				</div>
+                    </div>
+                </div>
+				<?php endforeach; ?>
+            </fieldset>
 			<?php endforeach; ?>
-		</fieldset>
-		<?php endforeach; ?>
-		<div class="form-actions">
-			<button type="submit" class="btn btn-primary validate"><?php echo JText::_('JSUBMIT'); ?></button>
-			<?php echo JHtml::_('form.token'); ?>
-		</div>
-	</form>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary validate"><?php echo JText::_('JSUBMIT'); ?></button>
+				<?php echo JHtml::_('form.token'); ?>
+            </div>
+        </form>
+    </div>
 </div>

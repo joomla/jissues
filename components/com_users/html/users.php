@@ -176,5 +176,4 @@ abstract class JHtmlUsers
 			}
 		}
 	}
-
 }
