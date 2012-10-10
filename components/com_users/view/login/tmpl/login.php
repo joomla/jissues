@@ -36,7 +36,7 @@ JHtml::_('behavior.keepalive');
 	</div>
 	<?php endif; ?>
 
-	<form action="<?php echo 'index.php?option=com_users&task=user.login'; ?>" method="post" class="form-horizontal">
+	<form action="<?php echo 'index.php?option=com_users&task=login'; ?>" method="post" class="form-horizontal">
 
 		<fieldset class="well">
 			<?php foreach ($this->form->getFieldset('credentials') as $field): ?>

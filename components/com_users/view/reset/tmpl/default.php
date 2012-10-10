@@ -22,7 +22,7 @@ JHtml::_('behavior.formvalidation');
 	</div>
 	<?php endif; ?>
 
-	<form id="user-registration" action="<?php echo ('index.php?option=com_users&task=reset.request'); ?>" method="post" class="form-validate form-horizontal">
+	<form id="user-registration" action="<?php echo ('index.php?option=com_users&task=resetrequest'); ?>" method="post" class="form-validate form-horizontal">
 
 		<?php foreach ($this->form->getFieldsets() as $fieldset): ?>
 		<p><?php echo JText::_($fieldset->label); ?></p>

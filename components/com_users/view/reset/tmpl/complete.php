@@ -19,7 +19,7 @@ JHtml::_('behavior.formvalidation');
 	</h1>
 	<?php endif; ?>
 
-	<form action="<?php echo ('index.php?option=com_users&task=reset.complete'); ?>" method="post" class="form-validate">
+	<form action="<?php echo ('index.php?option=com_users&task=resetcomplete'); ?>" method="post" class="form-validate">
 
 		<?php foreach ($this->form->getFieldsets() as $fieldset): ?>
 		<p><?php echo JText::_($fieldset->label); ?></p>		<fieldset>

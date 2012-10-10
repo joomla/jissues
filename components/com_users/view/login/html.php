@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.5
  */
-class UsersViewLogin extends JViewLegacy
+class UsersViewLoginHtml extends JViewHtml
 {
 	protected $form;
 
@@ -27,24 +27,33 @@ class UsersViewLogin extends JViewLegacy
 	protected $user;
 
 	/**
+	 * Redefine the model so the correct type hinting is available.
+	 *
+	 * @var     UsersModelLogin
+	 * @since   1.0
+	 */
+	protected $model;
+
+	/**
 	 * Method to display the view.
 	 *
 	 * @param	string	The template file to include
 	 * @since	1.5
 	 */
-	public function display($tpl = null)
+	public function render()
 	{
 		// Get the view data.
 		$this->user		= JFactory::getUser();
-		$this->form		= $this->get('Form');
-		$this->state	= $this->get('State');
-		$this->params	= $this->state->get('params');
+		$this->form		= $this->model->getForm();
+		$this->state	= $this->model->getState();
+		$this->params	= $this->state->get('com_users.params');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
+		//if (count($errors = $this->get('Errors'))) {
+		//	throw new Exception(implode('<br />', $errors), 500);
+//			JError::raiseError(500, implode('<br />', $errors));
+//			return false;
+		//}
 
 		/*
 		// Check for layout override
@@ -57,9 +66,13 @@ class UsersViewLogin extends JViewLegacy
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 
+		$this->document = JFactory::getDocument();
 		$this->prepareDocument();
 
-		parent::display($tpl);
+//		parent::display($tpl);
+
+
+		return parent::render();
 	}
 
 	/**
@@ -69,7 +82,7 @@ class UsersViewLogin extends JViewLegacy
 	protected function prepareDocument()
 	{
 		$app		= JFactory::getApplication();
-		$menus		= $app->getMenu();
+	//	$menus		= $app->getMenu();
 		$user		= JFactory::getUser();
 		$login		= $user->get('guest') ? true : false;
 		$title 		= null;
