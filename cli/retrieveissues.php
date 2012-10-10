@@ -183,7 +183,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
 			// TODO - Would be better suited as a regex probably
-			if (strpos($issue->title, '[#'))
+			if (strpos($issue->title, '[#') !== false)
 			{
 				$pos = strpos($issue->title, '[#') + 2;
 				$table->jc_id = substr($issue->title, $pos, 5);
