@@ -70,6 +70,9 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// Run the parent constructor
 		parent::__construct();
 
+		// Register the event dispatcher
+		$this->loadDispatcher();
+
 		// Enable sessions by default.
 		if (is_null($this->config->get('session')))
 		{
@@ -91,11 +94,49 @@ abstract class JApplicationTracker extends JApplicationWeb
 			JFactory::$session = $this->getSession();
 		}
 
-		// Register the event dispatcher
-		$this->loadDispatcher();
-
 		// Register the application to JFactory
 		JFactory::$application = $this;
+	}
+
+	/**
+	 * After the session has been started we need to populate it with some default values.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function afterSessionStart()
+	{
+		parent::afterSessionStart();
+
+		$session = JFactory::getSession();
+
+		// TODO: At some point we need to get away from having session data always in the db.
+		if ($this->getCfg('sess_handler') == 'database')
+		{
+			$db = JFactory::getDBO();
+
+			// Remove expired sessions from the database.
+			$time = time();
+			if ($time % 2)
+			{
+				// The modulus introduces a little entropy, making the flushing less accurate
+				// but fires the query less than half the time.
+				$query = $db->getQuery(true);
+				$query->delete($query->qn('#__session'));
+				$query->where($query->qn('time') . ' < ' . $query->q((int) ($time - $session->getExpire())));
+
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			// Check to see the the session already exists.
+			$handler = $this->getCfg('sess_handler');
+			if (($time % 2 || $session->isNew()) || ($session->isNew()))
+			{
+				$this->checkSession();
+			}
+		}
 	}
 
 	/**
@@ -110,14 +151,14 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 */
 	public function checkSession()
 	{
-		$db = JFactory::getDBO();
+		$db      = JFactory::getDbo();
 		$session = JFactory::getSession();
-		$user = JFactory::getUser();
+		$user    = JFactory::getUser();
 
 		$query = $db->getQuery(true);
-		$query->select($query->qn('session_id'))
-			->from($query->qn('#__session'))
-			->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
+		$query->select($query->qn('session_id'));
+		$query->from($query->qn('#__session'));
+		$query->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
 
 		$db->setQuery($query, 0, 1);
 		$exists = $db->loadResult();
@@ -126,21 +167,21 @@ abstract class JApplicationTracker extends JApplicationWeb
 		if (!$exists)
 		{
 			$query->clear();
+
+			$query->insert($query->qn('#__session'));
 			if ($session->isNew())
 			{
-				$query->insert($query->qn('#__session'))
-					->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'))
-					->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
+				$query->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'));
+				$query->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
 				$db->setQuery($query);
 			}
 			else
 			{
-				$query->insert($query->qn('#__session'))
-					->columns(
+				$query->columns(
 					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
 						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
-				)
-					->values(
+				);
+				$query->values(
 					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
 						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
 				);
