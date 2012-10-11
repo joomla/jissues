@@ -13,12 +13,14 @@ class UsersControllerLogout extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		JSession::checkToken('request') or jexit(JText::_('JInvalid_Token'));
 
-		$app = JFactory::getApplication();
+		$app = $this->getApplication();
 
 		// Perform the log in.
 		$error = $app->logout();

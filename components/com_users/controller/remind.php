@@ -24,16 +24,18 @@ class UsersControllerRemind extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		// Check the request token.
 		JSession::checkToken('post') or jexit(JText::_('JINVALID_TOKEN'));
 
-		$application = JFactory::getApplication();
+		$app = $this->getApplication();
 
 		$model = new UsersModelRemind;
-		$data = $this->input->post->get('jform', array(), 'array');
+		$data  = $this->input->post->get('jform', array(), 'array');
 
 		// Get the route to the next page.
 		$itemid = UsersHelperRoute::getRemindRoute();
@@ -48,17 +50,17 @@ class UsersControllerRemind extends JControllerBase
 			$route = 'index.php?option=com_users&view=login' . $itemid;
 
 			// Proceed to step two.
-			$application->enqueueMessage(JText::_('COM_USERS_REMIND_REQUEST_SUCCESS'));
+			$app->enqueueMessage(JText::_('COM_USERS_REMIND_REQUEST_SUCCESS'));
 		}
 		catch (Exception $e)
 		{
 			// The request failed.
 			$route = 'index.php?option=com_users&view=remind' . $itemid;
 
-			$application->enqueueMessage($e->getMessage(), 'error');
+			$app->enqueueMessage($e->getMessage(), 'error');
 		}
 
-		$application->redirect(JRoute::_($route, false));
+		$app->redirect(JRoute::_($route, false));
 
 		return false;
 	}

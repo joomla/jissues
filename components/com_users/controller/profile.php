@@ -24,22 +24,24 @@ class UsersControllerProfile extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$application = JFactory::getApplication();
-		$user = JFactory::getUser();
+		$app         = $this->getApplication();
+		$user        = JFactory::getUser();
 		$loginUserId = (int) $user->get('id');
 
 		if ($user->guest)
 		{
-			$application->redirect(JRoute::_('index.php?option=com_users', false));
+			$app->redirect(JRoute::_('index.php?option=com_users', false));
 
 			return true;
 		}
 
 		// Get the previous user id (if any) and the current user id.
-		$previousId = (int) $application->getUserState('com_users.edit.profile.id');
+		$previousId = (int) $app->getUserState('com_users.edit.profile.id');
 		$userId = $this->input->getInt('user_id', null, 'array');
 
 		// Check if the user is trying to edit another users profile.
@@ -51,7 +53,7 @@ class UsersControllerProfile extends JControllerBase
 		}
 
 		// Set the user id for the user to edit in the session.
-		$application->setUserState('com_users.edit.profile.id', $userId);
+		$app->setUserState('com_users.edit.profile.id', $userId);
 
 		// Get the model.
 		$model = new UsersModelProfile;
@@ -69,6 +71,6 @@ class UsersControllerProfile extends JControllerBase
 		}
 
 		// Redirect to the edit screen.
-		$application->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit', false));
+		$app->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit', false));
 	}
 }

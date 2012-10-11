@@ -194,11 +194,9 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 			$legacyComponents = array();
 
-			//$legacyComponents[] = 'com_users';
-
 			if (in_array($component, $legacyComponents))
 			{
-				// Legacy handling for com_users
+				// Legacy component rendering
 				$contents = JComponentHelper::renderComponent($component);
 			}
 			else

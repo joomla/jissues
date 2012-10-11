@@ -13,19 +13,21 @@ class UsersControllerSave extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$app = JFactory::getApplication();
-		$model = new UsersModelProfile;
-		$user = JFactory::getUser();
+		$app    = $this->getApplication();
+		$model  = new UsersModelProfile;
+		$user   = JFactory::getUser();
 		$userId = (int) $user->get('id');
 
 		// Get the user data.
-		$data = $app->input->post->get('jform', array(), 'array');
+		$data = $this->input->post->get('jform', array(), 'array');
 
 		// Force the ID to this user.
 		$data['id'] = $userId;
@@ -118,5 +120,4 @@ class UsersControllerSave extends JControllerBase
 		// Flush the data from the session.
 		$app->setUserState('com_users.edit.profile.data', null);
 	}
-
 }

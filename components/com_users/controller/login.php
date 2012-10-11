@@ -13,18 +13,21 @@ class UsersControllerLogin extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		JSession::checkToken('post') or jexit(JText::_('JInvalid_Token'));
 
-		$application = JFactory::getApplication();
+		$app   = $this->getApplication();
+		$input = $this->getInput();
 
 		// Populate the data array:
 		$data = array();
-		$data['return'] = base64_decode($application->input->post->get('return', '', 'BASE64'));
-		$data['username'] = $application->input->post->getUsername('username');
-		$data['password'] = $application->input->post->get('password', 'none');
+		$data['return'] = base64_decode($input->post->get('return', '', 'BASE64'));
+		$data['username'] = $input->post->getUsername('username');
+		$data['password'] = $input->post->get('password', 'none');
 
 		// Set the return URL if empty.
 		if (empty($data['return']))
@@ -33,12 +36,12 @@ class UsersControllerLogin extends JControllerBase
 		}
 
 		// Set the return URL in the user state to allow modification by plugins
-		$application->setUserState('users.login.form.return', $data['return']);
+		$app->setUserState('users.login.form.return', $data['return']);
 
 		// Get the log in options.
 		$options = array();
-		$options['remember'] = $this->input->getBool('remember', false);
-		$options['return'] = $data['return'];
+		$options['remember'] = $input->getBool('remember', false);
+		$options['return']   = $data['return'];
 
 		// Get the log in credentials.
 		$credentials = array();
@@ -48,33 +51,32 @@ class UsersControllerLogin extends JControllerBase
 		try
 		{
 			// Perform the log in.
-			$legacyReturn = $application->login($credentials, $options);
+			$legacyReturn = $app->login($credentials, $options);
 
 			if (false === $legacyReturn)
 			{
 				// Login failed !
 				$data['remember'] = (int) $options['remember'];
-				$application->setUserState('users.login.form.data', $data);
-				$application->redirect(JRoute::_('index.php?option=com_users&view=login', false));
+				$app->setUserState('users.login.form.data', $data);
+				$app->redirect(JRoute::_('index.php?option=com_users&view=login', false));
 
 				return false;
 			}
 
 			// Success
-			$application->setUserState('users.login.form.data', array());
-			$application->redirect(JRoute::_($application->getUserState('users.login.form.return', 'index.php'), false));
+			$app->setUserState('users.login.form.data', array());
+			$app->redirect(JRoute::_($app->getUserState('users.login.form.return', 'index.php'), false));
 		}
 		catch (Exception $e)
 		{
 			// Login failed !
-			$application->enqueueMessage($e->getMessage(), 'error');
+			$app->enqueueMessage($e->getMessage(), 'error');
 
 			$data['remember'] = (int) $options['remember'];
-			$application->setUserState('users.login.form.data', $data);
-			$application->redirect(JRoute::_('index.php?option=com_users&view=login', false));
+			$app->setUserState('users.login.form.data', $data);
+			$app->redirect(JRoute::_('index.php?option=com_users&view=login', false));
 
 			return false;
-
 		}
 
 		return true;

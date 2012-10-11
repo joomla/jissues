@@ -12,15 +12,17 @@ class UsersControllerResetconfirm extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		// Check the request token.
 		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
 
-		$app = JFactory::getApplication();
+		$app   = $this->getApplication();
 		$model = $this->getModel('Reset', 'UsersModel');
-		$data = $this->input->get('jform', array(), 'array');
+		$data  = $this->input->get('jform', array(), 'array');
 
 		// Confirm the password reset request.
 		$return = $model->processResetConfirm($data);
@@ -73,6 +75,4 @@ class UsersControllerResetconfirm extends JControllerBase
 			return true;
 		}
 	}
-
-
 }

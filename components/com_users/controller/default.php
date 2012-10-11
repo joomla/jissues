@@ -5,11 +5,12 @@ class UsersControllerDefault extends JControllerBase
 	/**
 	 * Execute the controller.
 	 *
-	 * @throws RuntimeException
-	 *
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
+	 * @throws  RuntimeException if view class not found
 	 */
 	public function execute()
 	{
@@ -20,9 +21,9 @@ class UsersControllerDefault extends JControllerBase
 		// Get the document object.
 		$document = $application->getDocument();
 
-		$vName = $application->input->getWord('view', 'login');
+		$vName   = $application->input->getWord('view', 'login');
 		$vFormat = $document->getType();
-		$lName = $application->input->getWord('layout', 'default');
+		$lName   = $application->input->getWord('layout', 'default');
 
 		$application->input->set('view', $vName);
 

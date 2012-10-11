@@ -44,10 +44,10 @@ class UsersModelLogin extends JModelTrackerform
 	 * The base form is loaded from XML and then an event is fired
 	 * for users plugins to extend the form with extra fields.
 	 *
-	 * @param    array      $data        An optional array of data for the form to interogate.
-	 * @param    boolean    $loadData    True if the form is to load its own data (default case), false if not.
+	 * @param    array    $data      An optional array of data for the form to interogate.
+	 * @param    boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
+	 * @return   JForm  A JForm object on success, false on failure
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -66,8 +66,9 @@ class UsersModelLogin extends JModelTrackerform
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return    array    The default data is an empty array.
-	 * @since    1.6
+	 * @return  array    The default data is an empty array.
+	 *
+	 * @since   1.6
 	 */
 	protected function loadFormData()
 	{
@@ -79,7 +80,7 @@ class UsersModelLogin extends JModelTrackerform
 		if ($return = $app->input->get('return', base64_encode('index.php'), 'base64'))
 		{
 			$data['return'] = base64_decode($return);
-			if (!JURI::isInternal($data['return']))
+			if (!JUri::isInternal($data['return']))
 			{
 				$data['return'] = '';
 			}

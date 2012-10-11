@@ -24,13 +24,15 @@ class UsersControllerRegister extends JControllerBase
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$app = JFactory::getApplication();
+		$app   = $this->getApplication();
 		$model = new UsersModelRegistration;
 
 		// If registration is disabled - Redirect to login page.
