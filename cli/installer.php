@@ -97,21 +97,78 @@ class InstallerApplication extends JApplicationCli
 		}
 
 		// Install.
+		$sql = file_get_contents(JPATH_ROOT . '/sql/mysql.sql');
 
-		// @todo move file list - to config ?
-		$files = array(
-			'sql/mysql.sql'
-			, 'sql/adminuser.sql'
-		);
+		if (false == $sql)
+			throw new UnexpectedValueException('SQL file not found.');
 
-		foreach ($files as $file)
+		$this->out('Creating tables from file /sql/mysql.sql', false);
+
+		foreach ($db->splitSql($sql) as $query)
 		{
-			$sql = file_get_contents(JPATH_ROOT . '/'.$file);
+			$q = trim($db->replacePrefix($query));
+
+			if ('' == trim($q))
+				continue;
+
+			$db->setQuery($q)->execute();
+
+			$this->out('.', false);
+		}
+
+		$this->out('ok');
+		
+		$this->out('Do you want to create an admin user? [y]es / [n]o :', false);	
+
+		$resp = trim($this->in());
+
+		if ('yes' == $resp || 'y' == $resp)
+		{
+			$this->out('Enter username: ', false);
+			$username = trim($this->in());
+			$this->out('Enter password: ', false);
+			$password = trim($this->in());
+			$salt = JUserHelper::genRandomPassword(32);
+			$crypt = JUserHelper::getCryptedPassword($password, $salt);
+
+			$query = $db->getQuery(true);	
+			$query->insert('#__users');
+			$query->set('name = "Super User"');
+			$query->set('username = '. $db->quote($username));
+			$query->set('password = '. $db->quote($crypt . ':' . $salt));
+			$query->set('email = "test@localhost.test"');
+			$query->set('block = 0');
+			$query->set('sendEmail = 1');
+			$query->set('registerDate = "0000-00-00 00:00:00"');
+			$query->set('lastvisitDate = "0000-00-00 00:00:00"');
+			$query->set('activation = 0');
+			$query->set('params = "{}"');
+			$query->set('lastResetTime = "0000-00-00 00:00:00"');
+			$query->set('resetCount = 0');
+
+			$db->setQuery($query)->execute();
+			$userId = $db->insertid();
+			
+			$query->clear();
+			$query->insert('#__user_usergroup_map');
+			$query->set('user_id = '.  $db->quote($userId) );
+			$query->set('group_id = 8');
+			$db->setQuery($query)->execute();
+			$this->out('User created');	
+		}
+
+		$this->out('Do you want to import sample Github issues? [y]es / [n]o :', false);	
+
+		$resp = trim($this->in());
+
+		if ('yes' == $resp || 'y' == $resp)
+		{
+			$sql = file_get_contents(JPATH_ROOT . '/sql/sampledata.sql');
 
 			if (false == $sql)
 				throw new UnexpectedValueException('SQL file not found.');
 
-			$this->out(sprintf('Creating tables from %s ', $file), false);
+			$this->out('Importing sample Github issues from /sql/sampledata.sql', false);
 
 			foreach ($db->splitSql($sql) as $query)
 			{
@@ -125,11 +182,11 @@ class InstallerApplication extends JApplicationCli
 				$this->out('.', false);
 			}
 
-			$this->out('ok');
-		}
-
+			$this->out('ok');	
+		}	
+		
 		$this->out()
-			->out(sprintf('%s installer has terminated successfully.', $this->appName));
+			 ->out(sprintf('%s installer has terminated successfully.', $this->appName));
 	}
 
 	/**
