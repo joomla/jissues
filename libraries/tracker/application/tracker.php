@@ -99,6 +99,68 @@ abstract class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Checks the user session.
+	 *
+	 * If the session record doesn't exist, initialise it.
+	 * If session is new, create session variables
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function checkSession()
+	{
+		$db = JFactory::getDBO();
+		$session = JFactory::getSession();
+		$user = JFactory::getUser();
+
+		$query = $db->getQuery(true);
+		$query->select($query->qn('session_id'))
+			->from($query->qn('#__session'))
+			->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
+
+		$db->setQuery($query, 0, 1);
+		$exists = $db->loadResult();
+
+		// If the session record doesn't exist initialise it.
+		if (!$exists)
+		{
+			$query->clear();
+			if ($session->isNew())
+			{
+				$query->insert($query->qn('#__session'))
+					->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'))
+					->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
+				$db->setQuery($query);
+			}
+			else
+			{
+				$query->insert($query->qn('#__session'))
+					->columns(
+					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
+						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
+				)
+					->values(
+					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
+						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
+				);
+
+				$db->setQuery($query);
+			}
+
+			// If the insert failed, exit the application.
+			try
+			{
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				jexit($e->getMessage());
+			}
+		}
+	}
+
+	/**
 	 * Method to run the Web application routines.
 	 *
 	 * @return  void
@@ -292,6 +354,20 @@ abstract class JApplicationTracker extends JApplicationWeb
 	public function getClientId()
 	{
 		return $this->clientId;
+	}
+
+	/**
+	 * Provides a secure hash based on a seed
+	 *
+	 * @param   string  $seed  Seed string.
+	 *
+	 * @return  string  A secure hash
+	 *
+	 * @since   1.0
+	 */
+	public static function getHash($seed)
+	{
+		return md5(JFactory::getConfig()->get('secret') . $seed);
 	}
 
 	/**
@@ -671,6 +747,32 @@ abstract class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Redirect to another URL.
+	 *
+	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
+	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
+	 * sent this will be accomplished using a JavaScript statement.
+	 *
+	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
+	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function redirect($url, $moved = false)
+	{
+		// Persist messages if they exist.
+		if (count($this->messageQueue))
+		{
+			$session = JFactory::getSession();
+			$session->set('application.queue', $this->messageQueue);
+		}
+
+		parent::redirect($url, $moved);
+	}
+
+	/**
 	 * Set the system message queue.
 	 *
 	 * @param   array  The information to set in the message queue
@@ -705,107 +807,5 @@ abstract class JApplicationTracker extends JApplicationWeb
 		}
 
 		return null;
-	}
-
-	/**
-	 * Provides a secure hash based on a seed
-	 *
-	 * @param   string  $seed  Seed string.
-	 *
-	 * @return  string  A secure hash
-	 *
-	 * @since   11.1
-	 */
-	public static function getHash($seed)
-	{
-		return md5(JFactory::getConfig()->get('secret') . $seed);
-	}
-
-	/**
-	 * Checks the user session.
-	 *
-	 * If the session record doesn't exist, initialise it.
-	 * If session is new, create session variables
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function checkSession()
-	{
-		$db = JFactory::getDBO();
-		$session = JFactory::getSession();
-		$user = JFactory::getUser();
-
-		$query = $db->getQuery(true);
-		$query->select($query->qn('session_id'))
-			->from($query->qn('#__session'))
-			->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
-
-		$db->setQuery($query, 0, 1);
-		$exists = $db->loadResult();
-
-		// If the session record doesn't exist initialise it.
-		if (!$exists)
-		{
-			$query->clear();
-			if ($session->isNew())
-			{
-				$query->insert($query->qn('#__session'))
-					->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'))
-					->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
-				$db->setQuery($query);
-			}
-			else
-			{
-				$query->insert($query->qn('#__session'))
-					->columns(
-					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
-						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
-				)
-					->values(
-					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
-						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
-				);
-
-				$db->setQuery($query);
-			}
-
-			// If the insert failed, exit the application.
-			try
-			{
-				$db->execute();
-			}
-			catch (RuntimeException $e)
-			{
-				jexit($e->getMessage());
-			}
-		}
-	}
-
-	/**
-	 * Redirect to another URL.
-	 *
-	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
-	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
-	 * sent this will be accomplished using a JavaScript statement.
-	 *
-	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
-	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
-	 *
-	 * @return  void
-	 *
-	 * @since   11.3
-	 */
-	public function redirect($url, $moved = false)
-	{
-		// Persist messages if they exist.
-		if (count($this->messageQueue))
-		{
-			$session = JFactory::getSession();
-			$session->set('application.queue', $this->messageQueue);
-		}
-
-		parent::redirect($url, $moved);
 	}
 }
