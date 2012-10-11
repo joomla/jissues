@@ -19,9 +19,9 @@ class UsersControllerResetrequest extends JControllerBase
 		// Check the request token.
 		JSession::checkToken('post') or jexit(JText::_('JINVALID_TOKEN'));
 
-		$app = JFactory::getApplication();
+		$app   = $this->getApplication();
 		$model = new UsersModelReset;
-		$data = $this->input->post->get('jform', array(), 'array');
+		$data  = $this->input->post->get('jform', array(), 'array');
 
 		try
 		{
