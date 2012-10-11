@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+JHtml::_('script', 'system/core.js', false, true);
+
 /**
  * The issues list view
  *

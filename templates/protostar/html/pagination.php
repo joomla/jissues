@@ -13,46 +13,46 @@ defined('_JEXEC') or die;
  * This is a file to add template specific chrome to pagination rendering.
  *
  * pagination_list_footer
- * 	Input variable $list is an array with offsets:
- * 		$list[limit]		: int
- * 		$list[limitstart]	: int
- * 		$list[total]		: int
- * 		$list[limitfield]	: string
- * 		$list[pagescounter]	: string
- * 		$list[pageslinks]	: string
+ *     Input variable $list is an array with offsets:
+ *         $list[limit]        : int
+ *         $list[limitstart]    : int
+ *         $list[total]        : int
+ *         $list[limitfield]    : string
+ *         $list[pagescounter]    : string
+ *         $list[pageslinks]    : string
  *
  * pagination_list_render
- * 	Input variable $list is an array with offsets:
- * 		$list[all]
- * 			[data]		: string
- * 			[active]	: boolean
- * 		$list[start]
- * 			[data]		: string
- * 			[active]	: boolean
- * 		$list[previous]
- * 			[data]		: string
- * 			[active]	: boolean
- * 		$list[next]
- * 			[data]		: string
- * 			[active]	: boolean
- * 		$list[end]
- * 			[data]		: string
- * 			[active]	: boolean
- * 		$list[pages]
- * 			[{PAGE}][data]		: string
- * 			[{PAGE}][active]	: boolean
+ *     Input variable $list is an array with offsets:
+ *         $list[all]
+ *             [data]        : string
+ *             [active]    : boolean
+ *         $list[start]
+ *             [data]        : string
+ *             [active]    : boolean
+ *         $list[previous]
+ *             [data]        : string
+ *             [active]    : boolean
+ *         $list[next]
+ *             [data]        : string
+ *             [active]    : boolean
+ *         $list[end]
+ *             [data]        : string
+ *             [active]    : boolean
+ *         $list[pages]
+ *             [{PAGE}][data]        : string
+ *             [{PAGE}][active]    : boolean
  *
  * pagination_item_active
- * 	Input variable $item is an object with fields:
- * 		$item->base	: integer
- * 		$item->link	: string
- * 		$item->text	: string
+ *     Input variable $item is an object with fields:
+ *         $item->base    : integer
+ *         $item->link    : string
+ *         $item->text    : string
  *
  * pagination_item_inactive
- * 	Input variable $item is an object with fields:
- * 		$item->base	: integer
- * 		$item->link	: string
- * 		$item->text	: string
+ *     Input variable $item is an object with fields:
+ *         $item->base    : integer
+ *         $item->link    : string
+ *         $item->text    : string
  *
  * This gives template designers ultimate control over how pagination is rendered.
  *
@@ -72,7 +72,7 @@ function pagination_list_footer($list)
 {
 	$html = "<div class=\"pagination\">\n";
 	$html .= $list['pageslinks'];
-	$html .= "\n<input type=\"hidden\" name=\"" . $list['prefix'] . "limitstart\" value=\"" . $list['limitstart'] . "\" />";
+	//$html .= "\n<input type=\"hidden\" name=\"" . $list['prefix'] . "limitstart\" value=\"" . $list['limitstart'] . "\" />";
 	$html .= "\n</div>";
 
 	return $html;
@@ -112,11 +112,11 @@ function pagination_list_render($list)
 		}
 	}
 
-	$html = '<ul class="pagination-list">';
+	$html = '<div class="btn-group">';
 	$html .= $list['start']['data'];
 	$html .= $list['previous']['data'];
 
-	foreach($list['pages'] as $k => $page)
+	foreach ($list['pages'] as $page)
 	{
 		$html .= $page['data'];
 	}
@@ -124,7 +124,7 @@ function pagination_list_render($list)
 	$html .= $list['next']['data'];
 	$html .= $list['end']['data'];
 
-	$html .= '</ul>';
+	$html .= '</div>';
 	return $html;
 }
 
@@ -139,38 +139,29 @@ function pagination_list_render($list)
  */
 function pagination_item_active(&$item)
 {
-	// Check for "Start" item
-	if ($item->text == JText::_('JLIB_HTML_START'))
+	// Find the icon to display
+	$display = pagination_find_icon($item->text);
+
+	$prefix = '';
+
+	// This requires JavaScript !
+	if ($item->base >= 0)
 	{
-		$display = '<i class="icon-first"></i>';
+		return '<span class="btn" title="' . $item->text . '"'
+			. ' onclick="document.adminForm.' . $prefix . 'limitstart.value=' . $item->base
+			. '; Joomla.submitform();return false;">' . $display . '</span>';
+	}
+	else
+	{
+		return '<span class="btn disabled" title="' . $item->text . '" onclick="document.adminForm.' . $prefix
+			. 'limitstart.value=0; Joomla.submitform();return false;">' . $display . '</span>';
 	}
 
-	// Check for "Prev" item
-	if ($item->text == JText::_('JPREV'))
-	{
-		$display = '<i class="icon-previous"></i>';
-	}
 
-	// Check for "Next" item
-	if ($item->text == JText::_('JNEXT'))
-	{
-		$display = '<i class="icon-next"></i>';
-	}
-
-	// Check for "End" item
-	if ($item->text == JText::_('JLIB_HTML_END'))
-	{
-		$display = '<i class="icon-last"></i>';
-	}
-
-	// If the display object isn't set already, just render the item with its text
-	if (!isset($display))
-	{
-		$display = $item->text;
-	}
-
-	return "<li><a title=\"" . $item->text . "\" href=\"" . $item->link . "\" class=\"pagenav\">" . $display . "</a><li>";
+	// <noscript> solution:
+	//return "<li><a title=\"" . $item->text . "\" href=\"" . $item->link . "\" class=\"pagenav\">" . $display . "</a><li>";
 }
+
 
 /**
  * Renders an inactive item in the pagination block
@@ -183,36 +174,45 @@ function pagination_item_active(&$item)
  */
 function pagination_item_inactive(&$item)
 {
-	// Check for "Start" item
-	if ($item->text == JText::_('JLIB_HTML_START'))
-	{
-		return '<li class="disabled"><a><i class="icon-first"></i></a></li>';
-	}
-
-	// Check for "Prev" item
-	if ($item->text == JText::_('JPREV'))
-	{
-		return '<li class="disabled"><a><i class="icon-previous"></i></a></li>';
-	}
-
-	// Check for "Next" item
-	if ($item->text == JText::_('JNEXT'))
-	{
-		return '<li class="disabled"><a><i class="icon-next"></i></a></li>';
-	}
-
-	// Check for "End" item
-	if ($item->text == JText::_('JLIB_HTML_END'))
-	{
-		return '<li class="disabled"><a><i class="icon-last"></i></a></li>';
-	}
+	// Find the icon to display
+	$display = pagination_find_icon($item->text);
 
 	// Check if the item is the active page
-	if (isset($item->active) && ($item->active))
-	{
-		return '<li class="active"><a>' . $item->text . '</a></li>';
-	}
+	$active = (isset($item->active) && ($item->active)) ? ' active' : ' disabled';
 
 	// Doesn't match any other condition, render a normal item
-	return '<li class="disabled"><a>' . $item->text . '</a></li>';
+	return '<span class="btn' . $active . '">' . $display . '</span>';
+}
+
+/**
+ * @param $text
+ *
+ * @return string
+ */
+function pagination_find_icon($text)
+{
+	switch ($text)
+	{
+		// Check for "Start" item
+		case JText::_('JLIB_HTML_START') :
+			return '<i class="icon-first"></i>';
+			break;
+
+		// Check for "Prev" item
+		case JText::_('JPREV') :
+			return '<i class="icon-previous"></i>';
+			break;
+
+		// Check for "Next" item
+		case JText::_('JNEXT') :
+			return '<i class="icon-next"></i>';
+			break;
+
+		// Check for "End" item
+		case JText::_('JLIB_HTML_END') :
+			return '<i class="icon-last"></i>';
+			break;
+	}
+
+	return $text;
 }
