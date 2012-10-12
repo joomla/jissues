@@ -19,53 +19,33 @@ defined('_JEXEC') or die;
 class UsersModelRegistration extends JModelTrackerform
 {
 	/**
-	 * @var        object    The user registration data.
-	 * @since    1.6
+	 * @var    object  The user registration data.
+	 * @since  1.6
 	 */
 	protected $data;
-
-	/**
-	 * Instantiate the model.
-	 *
-	 * @param   JRegistry  $state  The model state.
-	 *
-	 * @since   12.1
-	 */
-	public function __construct(JRegistry $state = null)
-	{
-		// Setup the model.
-		$this->state = is_null($state) ? $this->loadState() : $state;
-
-		// @todo JModelBase incorrectly resets the state in its __construct()or :(
-		parent::__construct($state);
-
-		$params = JFactory::getApplication()->getParams('com_users');
-
-		// Load the parameters.
-		$this->state->set('com_users.params', $params);
-	}
 
 	/**
 	 * Method to activate a user account.
 	 *
 	 * @param   string  $token  The activation token.
 	 *
-	 * @throws RuntimeException
-	 * @return    mixed        False on failure, user object on success.
-	 * @since    1.6
+	 * @return  mixed  False on failure, user object on success.
+	 *
+	 * @since   1.6
+	 * @throws  RuntimeException
 	 */
 	public function activate($token)
 	{
-		$config = JFactory::getConfig();
+		$config     = JFactory::getConfig();
 		$userParams = JComponentHelper::getParams('com_users');
-		$db = $this->db;
+		$db         = $this->getDb();
 
 		// Get the user id based on the token.
 		$db->setQuery(
 			'SELECT ' . $db->quoteName('id') . ' FROM ' . $db->quoteName('#__users') .
-				' WHERE ' . $db->quoteName('activation') . ' = ' . $db->Quote($token) .
+				' WHERE ' . $db->quoteName('activation') . ' = ' . $db->quote($token) .
 				' AND ' . $db->quoteName('block') . ' = 1' .
-				' AND ' . $db->quoteName('lastvisitDate') . ' = ' . $db->Quote($db->getNullDate())
+				' AND ' . $db->quoteName('lastvisitDate') . ' = ' . $db->quote($db->getNullDate())
 		);
 		$userId = (int) $db->loadResult();
 
@@ -73,8 +53,6 @@ class UsersModelRegistration extends JModelTrackerform
 		if (!$userId)
 		{
 			throw new RuntimeException(JText::_('COM_USERS_ACTIVATION_TOKEN_NOT_FOUND'));
-			//$this->setError(JText::_('COM_USERS_ACTIVATION_TOKEN_NOT_FOUND'));
-			//return false;
 		}
 
 		// Load the users plugin group.
@@ -86,7 +64,7 @@ class UsersModelRegistration extends JModelTrackerform
 		// Admin activation is on and user is verifying their email
 		if (($userParams->get('useractivation') == 2) && !$user->getParam('activate', 0))
 		{
-			$uri = JURI::getInstance();
+			$uri = JUri::getInstance();
 
 			// Compile the admin notification mail values.
 			$data = $user->getProperties();
@@ -94,7 +72,7 @@ class UsersModelRegistration extends JModelTrackerform
 			$user->set('activation', $data['activation']);
 			$data['siteurl'] = JUri::base();
 			$base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-			$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=registration.activate&token=' . $data['activation'], false);
+			$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=activate&token=' . $data['activation'], false);
 			$data['fromname'] = $config->get('fromname');
 			$data['mailfrom'] = $config->get('mailfrom');
 			$data['sitename'] = $config->get('sitename');
@@ -111,7 +89,7 @@ class UsersModelRegistration extends JModelTrackerform
 				$data['name'],
 				$data['email'],
 				$data['username'],
-				$data['siteurl'] . 'index.php?option=com_users&task=registration.activate&token=' . $data['activation']
+				$data['siteurl'] . 'index.php?option=com_users&task=activate&token=' . $data['activation']
 			);
 
 			// get all admin users
@@ -134,20 +112,18 @@ class UsersModelRegistration extends JModelTrackerform
 					if ($return !== true)
 					{
 						throw new RuntimeException(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
-						//$this->setError(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
-						//return false;
 					}
 				}
 			}
 		}
 
-		//Admin activation is on and admin is activating the account
+		// Admin activation is on and admin is activating the account
 		elseif (($userParams->get('useractivation') == 2) && $user->getParam('activate', 0))
 		{
 			$user->set('activation', '');
 			$user->set('block', '0');
 
-			$uri = JURI::getInstance();
+			$uri = JUri::getInstance();
 
 			// Compile the user activated notification mail values.
 			$data = $user->getProperties();
@@ -175,8 +151,6 @@ class UsersModelRegistration extends JModelTrackerform
 			if ($return !== true)
 			{
 				throw new RuntimeException(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
-				//$this->setError(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
-				//return false;
 			}
 		}
 		else
@@ -189,8 +163,6 @@ class UsersModelRegistration extends JModelTrackerform
 		if (!$user->save())
 		{
 			throw new RuntimeException(JText::sprintf('COM_USERS_REGISTRATION_ACTIVATION_SAVE_FAILED', $user->getError()));
-			//$this->setError(JText::sprintf('COM_USERS_REGISTRATION_ACTIVATION_SAVE_FAILED', $user->getError()));
-			//return false;
 		}
 
 		return $user;
@@ -202,15 +174,16 @@ class UsersModelRegistration extends JModelTrackerform
 	 * The base form data is loaded and then an event is fired
 	 * for users plugins to extend the data.
 	 *
-	 * @return    mixed        Data object on success, false on failure.
-	 * @since    1.6
+	 * @return  mixed  Data object on success, false on failure.
+	 *
+	 * @since   1.6
 	 */
 	public function getData()
 	{
 		if ($this->data === null)
 		{
 			$this->data = new stdClass;
-			$app = JFactory::getApplication();
+			$app    = JFactory::getApplication();
 			$params = JComponentHelper::getParams('com_users');
 
 			// Override the base user data with any data in the session.
@@ -243,7 +216,6 @@ class UsersModelRegistration extends JModelTrackerform
 			if (count($results) && in_array(false, $results, true))
 			{
 				JFactory::getApplication()->enqueueMessage($dispatcher->getError(), 'error');
-				//$this->setError($dispatcher->getError());
 				$this->data = false;
 			}
 		}
@@ -257,11 +229,12 @@ class UsersModelRegistration extends JModelTrackerform
 	 * The base form is loaded from XML and then an event is fired
 	 * for users plugins to extend the form with extra fields.
 	 *
-	 * @param    array      $data        An optional array of data for the form to interogate.
-	 * @param    boolean    $loadData    True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      An optional array of data for the form to interogate.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
-	 * @since    1.6
+	 * @return  JForm  A JForm object on success, false on failure
+	 *
+	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -278,8 +251,9 @@ class UsersModelRegistration extends JModelTrackerform
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return    mixed    The data for the form.
-	 * @since    1.6
+	 * @return  mixed  The data for the form.
+	 *
+	 * @since   1.6
 	 */
 	protected function loadFormData()
 	{
@@ -287,14 +261,17 @@ class UsersModelRegistration extends JModelTrackerform
 	}
 
 	/**
-	 * Override preprocessForm to load the user plugin group instead of content.
+	 * Method to preprocess the form.
 	 *
-	 * @param JForm  $form  A form object.
-	 * @param mixed  $data  The data expected for the form.
-	 * @param string $group
+	 * @param   JForm   $form   A JForm object.
+	 * @param   mixed   $data   The data expected for the form.
+	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
-	 * @throws    Exception if there is an error in the form event.
-	 * @since    1.6
+	 * @return  void
+	 *
+	 * @see     JFormField
+	 * @since   1.0
+	 * @throws  Exception if there is an error in the form event.
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'user')
 	{
@@ -310,34 +287,35 @@ class UsersModelRegistration extends JModelTrackerform
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Load the model state.
 	 *
-	 * Note. Calling getState in this method will result in recursion.
+	 * @return  JRegistry  The state object.
 	 *
-	 * @since    1.6
+	 * @since   1.0
 	 */
-	protected function populateState()
+	protected function loadState()
 	{
 		// Get the application object.
-		$app = JFactory::getApplication();
-		$params = $app->getParams('com_users');
+		$params = JComponentHelper::getParams('com_users');
 
 		// Load the parameters.
-		$this->setState('params', $params);
+		$this->state->set('com_users.params', $params);
 	}
 
 	/**
 	 * Method to save the form data.
 	 *
-	 * @param    array  $temp  The form data.
+	 * @param   array  $temp  The form data.
 	 *
-	 * @return    mixed        The user id on success, false on failure.
-	 * @since    1.6
+	 * @return  mixed  The user id on success, false on failure.
+	 *
+	 * @since   1.6
+	 * @throws  RuntimeException
 	 */
 	public function register($temp)
 	{
 		$config = JFactory::getConfig();
-		$db = $this->db;
+		$db     = $this->getDb();
 		$params = JComponentHelper::getParams('com_users');
 
 		// Initialise the table with JUser.
@@ -351,10 +329,10 @@ class UsersModelRegistration extends JModelTrackerform
 		}
 
 		// Prepare the data for the user object.
-		$data['email'] = $data['email1'];
+		$data['email']    = $data['email1'];
 		$data['password'] = $data['password1'];
-		$useractivation = $params->get('useractivation');
-		$sendpassword = $params->get('sendpassword', 1);
+		$useractivation   = $params->get('useractivation');
+		$sendpassword     = $params->get('sendpassword', 1);
 
 		// Check if the user needs to activate their account.
 		if (($useractivation == 1) || ($useractivation == 2))
@@ -367,8 +345,6 @@ class UsersModelRegistration extends JModelTrackerform
 		if (!$user->bind($data))
 		{
 			throw new RuntimeException(JText::sprintf('COM_USERS_REGISTRATION_BIND_FAILED', $user->getError()));
-			//$this->setError(JText::sprintf('COM_USERS_REGISTRATION_BIND_FAILED', $user->getError()));
-			//return false;
 		}
 
 		// Load the users plugin group.
@@ -378,8 +354,6 @@ class UsersModelRegistration extends JModelTrackerform
 		if (!$user->save())
 		{
 			throw new RuntimeException(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $user->getError()));
-			//$this->setError(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $user->getError()));
-			//return false;
 		}
 
 		// Compile the notification mail values.
@@ -387,15 +361,15 @@ class UsersModelRegistration extends JModelTrackerform
 		$data['fromname'] = $config->get('fromname');
 		$data['mailfrom'] = $config->get('mailfrom');
 		$data['sitename'] = $config->get('sitename');
-		$data['siteurl'] = JUri::root();
+		$data['siteurl']  = JUri::root();
 
 		// Handle account activation/confirmation emails.
 		if ($useractivation == 2)
 		{
 			// Set the link to confirm the user email.
-			$uri = JURI::getInstance();
+			$uri  = JUri::getInstance();
 			$base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-			$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=registration.activate&token=' . $data['activation'], false);
+			$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=activate&token=' . $data['activation'], false);
 
 			$emailSubject = JText::sprintf(
 				'COM_USERS_EMAIL_ACCOUNT_DETAILS',
@@ -409,7 +383,7 @@ class UsersModelRegistration extends JModelTrackerform
 					'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY',
 					$data['name'],
 					$data['sitename'],
-					$data['siteurl'] . 'index.php?option=com_users&task=registration.activate&token=' . $data['activation'],
+					$data['siteurl'] . 'index.php?option=com_users&task=activate&token=' . $data['activation'],
 					$data['siteurl'],
 					$data['username'],
 					$data['password_clear']
@@ -421,7 +395,7 @@ class UsersModelRegistration extends JModelTrackerform
 					'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY_NOPW',
 					$data['name'],
 					$data['sitename'],
-					$data['siteurl'] . 'index.php?option=com_users&task=registration.activate&token=' . $data['activation'],
+					$data['siteurl'] . 'index.php?option=com_users&task=activate&token=' . $data['activation'],
 					$data['siteurl'],
 					$data['username']
 				);
@@ -430,9 +404,9 @@ class UsersModelRegistration extends JModelTrackerform
 		elseif ($useractivation == 1)
 		{
 			// Set the link to activate the user account.
-			$uri = JURI::getInstance();
+			$uri = JUri::getInstance();
 			$base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-			$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=registration.activate&token=' . $data['activation'], false);
+			$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=activate&token=' . $data['activation'], false);
 
 			$emailSubject = JText::sprintf(
 				'COM_USERS_EMAIL_ACCOUNT_DETAILS',
@@ -446,7 +420,7 @@ class UsersModelRegistration extends JModelTrackerform
 					'COM_USERS_EMAIL_REGISTERED_WITH_ACTIVATION_BODY',
 					$data['name'],
 					$data['sitename'],
-					$data['siteurl'] . 'index.php?option=com_users&task=registration.activate&token=' . $data['activation'],
+					$data['siteurl'] . 'index.php?option=com_users&task=activate&token=' . $data['activation'],
 					$data['siteurl'],
 					$data['username'],
 					$data['password_clear']
@@ -458,7 +432,7 @@ class UsersModelRegistration extends JModelTrackerform
 					'COM_USERS_EMAIL_REGISTERED_WITH_ACTIVATION_BODY_NOPW',
 					$data['name'],
 					$data['sitename'],
-					$data['siteurl'] . 'index.php?option=com_users&task=registration.activate&token=' . $data['activation'],
+					$data['siteurl'] . 'index.php?option=com_users&task=activate&token=' . $data['activation'],
 					$data['siteurl'],
 					$data['username']
 				);
@@ -517,18 +491,14 @@ class UsersModelRegistration extends JModelTrackerform
 				if ($return !== true)
 				{
 					throw new RuntimeException(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
-					//$this->setError(JText::_('COM_USERS_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED'));
-					//return false;
 				}
 			}
 		}
 		// Check for an error.
 		if ($return !== true)
 		{
-			//$this->setError(JText::_('COM_USERS_REGISTRATION_SEND_MAIL_FAILED'));
-
 			// Send a system message to administrators receiving system mails
-			$db = JFactory::getDBO();
+			$db = $this->getDb();
 			$q = "SELECT id
 				FROM #__users
 				WHERE block = 0
@@ -554,8 +524,6 @@ class UsersModelRegistration extends JModelTrackerform
 			}
 
 			throw new RuntimeException(JText::_('COM_USERS_REGISTRATION_SEND_MAIL_FAILED'));
-
-//			return false;
 		}
 
 		if ($useractivation == 1)

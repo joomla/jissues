@@ -46,22 +46,6 @@ class UsersControllerSave extends JControllerBase
 		// Check for errors.
 		if ($data === false)
 		{
-			// Get the validation messages.
-			$errors = $model->getErrors();
-
-			// Push up to three validation messages out to the user.
-			for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++)
-			{
-				if ($errors[$i] instanceof Exception)
-				{
-					$app->enqueueMessage($errors[$i]->getMessage(), 'warning');
-				}
-				else
-				{
-					$app->enqueueMessage($errors[$i], 'warning');
-				}
-			}
-
 			// Save the data in the session.
 			$app->setUserState('com_users.edit.profile.data', $data);
 
@@ -72,17 +56,18 @@ class UsersControllerSave extends JControllerBase
 		}
 
 		// Attempt to save the data.
-		$return = $model->save($data);
-
-		// Check for errors.
-		if ($return === false)
+		try
+		{
+			$return = $model->save($data);
+		}
+		catch (RuntimeException $e)
 		{
 			// Save the data in the session.
 			$app->setUserState('com_users.edit.profile.data', $data);
 
 			// Redirect back to the edit screen.
 			$userId = (int) $app->getUserState('com_users.edit.profile.id');
-			$app->enqueueMessage(JText::sprintf('COM_USERS_PROFILE_SAVE_FAILED', $model->getError()), 'warning');
+			$app->enqueueMessage($e->getMessage(), 'warning');
 			$app->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit&user_id=' . $userId, false));
 			return false;
 		}

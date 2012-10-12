@@ -5,15 +5,28 @@
  * Time: 20:32
  */
 
-class JModelTrackerform extends JModelDatabase
+abstract class JModelTrackerform extends JModelDatabase
 {
 	/**
 	 * Array of form objects.
 	 *
 	 * @var    array
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $forms = array();
+
+	/**
+	 * Instantiate the model.
+	 *
+	 * @since  1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		// Populate the state
+		$this->loadState();
+	}
 
 	/**
 	 * Method to get a form object.
@@ -27,7 +40,7 @@ class JModelTrackerform extends JModelDatabase
 	 * @return  mixed  JForm object on success, False on error.
 	 *
 	 * @see     JForm
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	protected function loadForm($name, $source = null, $options = array(), $clear = false, $xpath = false)
 	{
@@ -73,6 +86,18 @@ class JModelTrackerform extends JModelDatabase
 	}
 
 	/**
+	 * Method to get the data that should be injected in the form.
+	 *
+	 * @return  array  The default data is an empty array.
+	 *
+	 * @since   1.0
+	 */
+	protected function loadFormData()
+	{
+		return array();
+	}
+
+	/**
 	 * Method to allow derived classes to preprocess the form.
 	 *
 	 * @param   JForm   $form   A JForm object.
@@ -82,7 +107,7 @@ class JModelTrackerform extends JModelDatabase
 	 * @return  void
 	 *
 	 * @see     JFormField
-	 * @since   12.2
+	 * @since   1.0
 	 * @throws  Exception if there is an error in the form event.
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'content')
@@ -120,19 +145,18 @@ class JModelTrackerform extends JModelDatabase
 	 *
 	 * @see     JFormRule
 	 * @see     JFilterInput
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	public function validate(JForm $form, $data, $group = null)
 	{
 		// Filter and validate the form data.
-		$data = $form->filter($data);
+		$data   = $form->filter($data);
 		$result = $form->validate($data, $group);
 
 		// Check for an error.
 		if ($result instanceof Exception)
 		{
 			JFactory::getApplication()->enqueueMessage($result->getMessage());
-			//$this->setError($return->getMessage());
 			return false;
 		}
 
@@ -145,7 +169,6 @@ class JModelTrackerform extends JModelDatabase
 			foreach ($form->getErrors() as $message)
 			{
 				$application->enqueueMessage($message, 'warning');
-//				$this->setError($message);
 			}
 
 			return false;
@@ -153,18 +176,4 @@ class JModelTrackerform extends JModelDatabase
 
 		return $data;
 	}
-
-	/**
-	 * Method to get the data that should be injected in the form.
-	 *
-	 * @return  array    The default data is an empty array.
-	 *
-	 * @since   12.2
-	 */
-	protected function loadFormData()
-	{
-		return array();
-	}
-
-
 }

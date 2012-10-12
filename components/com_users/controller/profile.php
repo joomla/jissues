@@ -61,13 +61,27 @@ class UsersControllerProfile extends JControllerBase
 		// Check out the user.
 		if ($userId)
 		{
-			$model->checkout($userId);
+			try
+			{
+				$model->checkout($userId);
+			}
+			catch (RuntimeException $e)
+			{
+				$app->enqueueMessage($e->getMessage());
+			}
 		}
 
 		// Check in the previous user.
 		if ($previousId)
 		{
-			$model->checkin($previousId);
+			try
+			{
+				$model->checkin($previousId);
+			}
+			catch (RuntimeException $e)
+			{
+				$app->enqueueMessage($e->getMessage());
+			}
 		}
 
 		// Redirect to the edit screen.

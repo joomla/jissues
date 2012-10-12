@@ -19,39 +19,20 @@ defined('_JEXEC') or die;
 class UsersModelProfile extends JModelTrackerform
 {
 	/**
-	 * @var        object    The user profile data.
-	 * @since    1.6
+	 * @var    object  The user profile data.
+	 * @since  1.6
 	 */
 	protected $data;
-
-	/**
-	 * Instantiate the model.
-	 *
-	 * @param   JRegistry  $state  The model state.
-	 *
-	 * @since   12.1
-	 */
-	public function __construct(JRegistry $state = null)
-	{
-		// Setup the model.
-		$this->state = is_null($state) ? $this->loadState() : $state;
-
-		// @todo JModelBase incorrectly resets the state in its __construct()or :(
-		parent::__construct($state);
-
-		$params = JFactory::getApplication()->getParams('com_users');
-
-		// Load the parameters.
-		$this->state->set('com_users.params', $params);
-	}
 
 	/**
 	 * Method to check in a user.
 	 *
 	 * @param   integer  $userId  The id of the row to check out.
 	 *
-	 * @return    boolean        True on success, false on failure.
-	 * @since    1.6
+	 * @return  boolean  True on success, false on failure.
+	 *
+	 * @since   1.6
+	 * @throws  RuntimeException
 	 */
 	public function checkin($userId = null)
 	{
@@ -67,8 +48,6 @@ class UsersModelProfile extends JModelTrackerform
 			if (!$table->checkin($userId))
 			{
 				throw new RuntimeException($table->getError());
-				//$this->setError($table->getError());
-				//return false;
 			}
 		}
 
@@ -80,9 +59,10 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @param   integer  $userId  The id of the row to check out.
 	 *
-	 * @throws RuntimeException
-	 * @return boolean
-	 * @since    1.6
+	 * @return  boolean
+	 *
+	 * @since   1.6
+	 * @throws  RuntimeException
 	 */
 	public function checkout($userId = null)
 	{
@@ -101,8 +81,6 @@ class UsersModelProfile extends JModelTrackerform
 			if (!$table->checkout($user->get('id'), $userId))
 			{
 				throw new RuntimeException($table->getError());
-				//$this->setError($table->getError());
-				//return false;
 			}
 		}
 
@@ -115,14 +93,14 @@ class UsersModelProfile extends JModelTrackerform
 	 * The base form data is loaded and then an event is fired
 	 * for users plugins to extend the data.
 	 *
-	 * @return    mixed        Data object on success, false on failure.
-	 * @since    1.6
+	 * @return  mixed  Data object on success, false on failure.
+	 *
+	 * @since   1.6
 	 */
 	public function getData()
 	{
 		if ($this->data === null)
 		{
-
 			$userId = $this->state->get('com_users.user_id');
 
 			// Initialise the table with JUser.
@@ -158,7 +136,6 @@ class UsersModelProfile extends JModelTrackerform
 			{
 				// @todo legacy exception handling
 				JFactory::getApplication()->enqueueMessage($dispatcher->getError(), 'error');
-				//$this->setError($dispatcher->getError());
 				$this->data = false;
 			}
 		}
@@ -172,11 +149,11 @@ class UsersModelProfile extends JModelTrackerform
 	 * The base form is loaded from XML and then an event is fired
 	 * for users plugins to extend the form with extra fields.
 	 *
-	 * @param    array      $data        An optional array of data for the form to interogate.
-	 * @param    boolean    $loadData    True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      An optional array of data for the form to interogate.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
-	 * @since    1.6
+	 * @return  JForm  A JForm object on success, false on failure
+	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -186,9 +163,10 @@ class UsersModelProfile extends JModelTrackerform
 		{
 			return false;
 		}
+
 		if (!JComponentHelper::getParams('com_users')->get('change_login_name'))
 		{
-			$form->setFieldAttribute('username', 'class', '');
+			$form->setFieldAttribute('username', 'class', 'uneditable-input');
 			$form->setFieldAttribute('username', 'filter', '');
 			$form->setFieldAttribute('username', 'description', 'COM_USERS_PROFILE_NOCHANGE_USERNAME_DESC');
 			$form->setFieldAttribute('username', 'validate', '');
@@ -203,7 +181,8 @@ class UsersModelProfile extends JModelTrackerform
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
-	 * @return    mixed    The data for the form.
+	 * @return   mixed    The data for the form.
+	 *
 	 * @since    1.6
 	 */
 	protected function loadFormData()
@@ -212,13 +191,17 @@ class UsersModelProfile extends JModelTrackerform
 	}
 
 	/**
-	 * Override preprocessForm to load the user plugin group instead of content.
+	 * Method to preprocess the form.
 	 *
-	 * @param    object    A form object.
-	 * @param    mixed     The data expected for the form.
+	 * @param   JForm   $form   A JForm object.
+	 * @param   mixed   $data   The data expected for the form.
+	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
-	 * @throws    Exception if there is an error in the form event.
-	 * @since    1.6
+	 * @return  void
+	 *
+	 * @see     JFormField
+	 * @since   1.0
+	 * @throws  Exception if there is an error in the form event.
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'user')
 	{
@@ -231,20 +214,18 @@ class UsersModelProfile extends JModelTrackerform
 			}
 		}
 
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Load the model state.
 	 *
-	 * Note. Calling getState in this method will result in recursion.
+	 * @return  JRegistry  The state object.
 	 *
-	 * @since    1.6
+	 * @since   1.0
 	 */
 	protected function loadState()
 	{
-		$state = parent::loadState();
-
 		// Get the application object.
 		$params = JFactory::getApplication()->getParams('com_users');
 
@@ -253,12 +234,10 @@ class UsersModelProfile extends JModelTrackerform
 		$userId = !empty($userId) ? $userId : (int) JFactory::getUser()->get('id');
 
 		// Set the user id.
-		$state->set('com_users.user_id', $userId);
+		$this->state->set('com_users.user_id', $userId);
 
 		// Load the parameters.
-		$state->set('com_users.params', $params);
-
-		return $state;
+		$this->state->set('com_users.params', $params);
 	}
 
 	/**
@@ -266,18 +245,19 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @param   array  $data  The form data.
 	 *
-	 * @throws RuntimeException
-	 * @return    mixed        The user id on success, false on failure.
-	 * @since    1.6
+	 * @return  mixed  The user id on success, false on failure.
+	 *
+	 * @since   1.6
+	 * @throws  RuntimeException
 	 */
 	public function save($data)
 	{
-		$userId = (!empty($data['id'])) ? $data['id'] : (int) $this->getState('user.id');
+		$userId = (!empty($data['id'])) ? $data['id'] : (int) $this->state->get('user.id');
 
 		$user = new JUser($userId);
 
 		// Prepare the data for the user object.
-		$data['email'] = $data['email1'];
+		$data['email']    = $data['email1'];
 		$data['password'] = $data['password1'];
 
 		// Unset the username so it does not get overwritten
@@ -293,8 +273,6 @@ class UsersModelProfile extends JModelTrackerform
 		if (!$user->bind($data))
 		{
 			throw new RuntimeException(JText::sprintf('USERS PROFILE BIND FAILED', $user->getError()));
-			//$this->setError(JText::sprintf('USERS PROFILE BIND FAILED', $user->getError()));
-			//return false;
 		}
 
 		// Load the users plugin group.
@@ -307,8 +285,6 @@ class UsersModelProfile extends JModelTrackerform
 		if (!$user->save())
 		{
 			throw new RuntimeException($user->getError());
-			//$this->setError($user->getError());
-			//return false;
 		}
 
 		return $user->id;

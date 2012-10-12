@@ -19,33 +19,12 @@ defined('_JEXEC') or die;
 class UsersModelReset extends JModelTrackerform
 {
 	/**
-	 * Instantiate the model.
-	 *
-	 * @param   JRegistry  $state  The model state.
-	 *
-	 * @since   12.1
-	 */
-	public function __construct(JRegistry $state = null)
-	{
-		// Setup the model.
-		$this->state = is_null($state) ? $this->loadState() : $state;
-
-		// @todo JModelBase incorrectly resets the state in its __construct()or :(
-		parent::__construct($state);
-
-		$params = JFactory::getApplication()->getParams('com_users');
-
-		// Load the parameters.
-		$this->state->set('com_users.params', $params);
-	}
-
-	/**
 	 * Method to get the password reset request form.
 	 *
-	 * @param    array      $data        Data for the form.
-	 * @param    boolean    $loadData    True if the form is to load its own data (default case), false if not.
+	 * @param    array    $data      An optional array of data for the form to interogate.
+	 * @param    boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
+	 * @return   JForm  A JForm object on success, false on failure
 	 * @since    1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -63,11 +42,12 @@ class UsersModelReset extends JModelTrackerform
 	/**
 	 * Method to get the password reset complete form.
 	 *
-	 * @param    array      $data        Data for the form.
-	 * @param    boolean    $loadData    True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      Data for the form.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
-	 * @since    1.6
+	 * @return  JForm  A JForm object on success, false on failure
+	 *
+	 * @since   1.6
 	 */
 	public function getResetCompleteForm($data = array(), $loadData = true)
 	{
@@ -84,11 +64,12 @@ class UsersModelReset extends JModelTrackerform
 	/**
 	 * Method to get the password reset confirm form.
 	 *
-	 * @param    array      $data        Data for the form.
-	 * @param    boolean    $loadData    True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      Data for the form.
+	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return    JForm    A JForm object on success, false on failure
-	 * @since    1.6
+	 * @return  JForm  A JForm object on success, false on failure
+	 *
+	 * @since   1.6
 	 */
 	public function getResetConfirmForm($data = array(), $loadData = true)
 	{
@@ -103,33 +84,21 @@ class UsersModelReset extends JModelTrackerform
 	}
 
 	/**
-	 * Override preprocessForm to load the user plugin group instead of content.
+	 * Method to preprocess the form.
 	 *
-	 * @param    object    A form object.
-	 * @param    mixed     The data expected for the form.
+	 * @param   JForm   $form   A JForm object.
+	 * @param   mixed   $data   The data expected for the form.
+	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
-	 * @throws    Exception if there is an error in the form event.
-	 * @since    1.6
+	 * @return  void
+	 *
+	 * @see     JFormField
+	 * @since   1.0
+	 * @throws  Exception if there is an error in the form event.
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'user')
 	{
 		parent::preprocessForm($form, $data, $group);
-	}
-
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @since    1.6
-	 */
-	protected function populateState()
-	{
-		// Get the application object.
-		$params = JFactory::getApplication()->getParams('com_users');
-
-		// Load the parameters.
-		$this->setState('params', $params);
 	}
 
 	/**
@@ -163,7 +132,6 @@ class UsersModelReset extends JModelTrackerform
 			foreach ($form->getErrors() as $message)
 			{
 				JFactory::getApplication()->enqueueMessage($message, 'error');
-				//$this->setError($message);
 			}
 
 			return false;
@@ -187,21 +155,17 @@ class UsersModelReset extends JModelTrackerform
 		if (empty($user) || $user->activation !== $token)
 		{
 			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
-			//$this->setError(JText::_('COM_USERS_USER_NOT_FOUND'));
-			//return false;
 		}
 
 		// Make sure the user isn't blocked.
 		if ($user->block)
 		{
 			throw new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
-			//$this->setError(JText::_('COM_USERS_USER_BLOCKED'));
-			//return false;
 		}
 
 		// Generate the new password hash.
-		$salt = JUserHelper::genRandomPassword(32);
-		$crypted = JUserHelper::getCryptedPassword($data['password1'], $salt);
+		$salt     = JUserHelper::genRandomPassword(32);
+		$crypted  = JUserHelper::getCryptedPassword($data['password1'], $salt);
 		$password = $crypted . ':' . $salt;
 
 		// Update the user object.
@@ -240,7 +204,7 @@ class UsersModelReset extends JModelTrackerform
 		}
 
 		// Filter and validate the form data.
-		$data = $form->filter($data);
+		$data   = $form->filter($data);
 		$return = $form->validate($data);
 
 		// Check for an error.
@@ -256,14 +220,13 @@ class UsersModelReset extends JModelTrackerform
 			foreach ($form->getErrors() as $message)
 			{
 				JFactory::getApplication()->enqueueMessage($message, 'error');
-				//$this->setError($message);
 			}
 
 			return false;
 		}
 
 		// Find the user id for the given token.
-		$db = $this->db;
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 		$query->select('activation');
 		$query->select('id');
@@ -337,7 +300,7 @@ class UsersModelReset extends JModelTrackerform
 		}
 
 		// Filter and validate the form data.
-		$data = $form->filter($data);
+		$data   = $form->filter($data);
 		$return = $form->validate($data);
 
 		// Check for an error.
@@ -358,15 +321,14 @@ class UsersModelReset extends JModelTrackerform
 		}
 
 		// Find the user id for the given email address.
-		$db = $this->db;
-
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 		$query->select('id');
 		$query->from($db->quoteName('#__users'));
 		$query->where($db->quoteName('email') . ' = ' . $db->Quote($data['email']));
 
 		// Get the user object.
-		$db->setQuery((string) $query);
+		$db->setQuery($query);
 
 		$userId = $db->loadResult();
 
@@ -448,7 +410,6 @@ class UsersModelReset extends JModelTrackerform
 		if ($return !== true)
 		{
 			throw new RuntimeException(JText::_('COM_USERS_MAIL_FAILED'));
-			//return new JException(JText::_('COM_USERS_MAIL_FAILED'), 500);
 		}
 
 		return true;
@@ -465,10 +426,10 @@ class UsersModelReset extends JModelTrackerform
 	 */
 	public function checkResetLimit($user)
 	{
-		$params = JFactory::getApplication()->getParams();
-		$maxCount = (int) $params->get('reset_count');
+		$params     = JFactory::getApplication()->getParams();
+		$maxCount   = (int) $params->get('reset_count');
 		$resetHours = (int) $params->get('reset_time');
-		$result = true;
+		$result     = true;
 
 		$lastResetTime = strtotime($user->lastResetTime) ? strtotime($user->lastResetTime) : 0;
 		$hoursSinceLastReset = (strtotime(JFactory::getDate()->toSql()) - $lastResetTime) / 3600;

@@ -96,17 +96,16 @@ class TrackerModelIssues extends JModelTrackerlist
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Load the model state.
 	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
-	 *
-	 * @return  void
+	 * @return  JRegistry  The state object.
 	 *
 	 * @since   1.0
 	 */
-	protected function populateState($ordering = null, $direction = null)
+	protected function loadState()
 	{
+		$this->state = new JRegistry;
+
 		$app = JFactory::getApplication();
 
 		$orderCol = $app->input->get('filter_order', 'a.id');
@@ -129,6 +128,6 @@ class TrackerModelIssues extends JModelTrackerlist
 		$this->state->set('list.filter', $app->input->get('filter-search', '', 'string'));
 
 		// List state information.
-		parent::populateState('a.id', 'ASC');
+		parent::loadState();
 	}
 }
