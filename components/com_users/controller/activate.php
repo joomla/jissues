@@ -47,13 +47,14 @@ class UsersControllerActivate extends JControllerBase
 		}
 
 		// Attempt to activate the user.
-		$return = $model->activate($token);
-
-		// Check for errors.
-		if ($return === false)
+		try
+		{
+			$return = $model->activate($token);
+		}
+		catch (RuntimeException $e)
 		{
 			// Redirect back to the homepage.
-			$app->enqueueMessage(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $model->getError()), 'warning');
+			$app->enqueueMessage(JText::sprintf('COM_USERS_REGISTRATION_SAVE_FAILED', $e->getMessage()), 'warning');
 			$app->redirect('index.php');
 			return false;
 		}

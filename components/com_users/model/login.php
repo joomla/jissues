@@ -19,26 +19,6 @@ defined('_JEXEC') or die;
 class UsersModelLogin extends JModelTrackerform
 {
 	/**
-	 * Instantiate the model.
-	 *
-	 * @param   JRegistry  $state  The model state.
-	 *
-	 * @since   12.1
-	 */
-	public function __construct(JRegistry $state = null)
-	{
-		// Setup the model.
-		$this->state = is_null($state) ? $this->loadState() : $state;
-
-		$params = JFactory::getApplication()->getParams('com_users');
-
-		// Load the parameters.
-		$this->state->set('com_users.params', $params);
-
-		//parent::__construct($state);
-	}
-
-	/**
 	 * Method to get the login form.
 	 *
 	 * The base form is loaded from XML and then an event is fired
@@ -73,7 +53,7 @@ class UsersModelLogin extends JModelTrackerform
 	protected function loadFormData()
 	{
 		// Check the session for previously entered login form data.
-		$app = JFactory::getApplication();
+		$app  = JFactory::getApplication();
 		$data = $app->getUserState('users.login.form.data', array());
 
 		// check for return URL from the request first
@@ -98,17 +78,17 @@ class UsersModelLogin extends JModelTrackerform
 	}
 
 	/**
-	 * Method to allow derived classes to preprocess the form.
+	 * Method to preprocess the form.
 	 *
-	 * @param JForm  $form
-	 * @param mixed  $data
-	 * @param string $group The name of the plugin group to import (defaults to "content").
+	 * @param   JForm   $form   A JForm object.
+	 * @param   mixed   $data   The data expected for the form.
+	 * @param   string  $group  The name of the plugin group to import (defaults to "content").
 	 *
-	 * @throws Exception
-	 * @return void
-	 * @internal param \A $object form object.
-	 * @internal param \The $mixed data expected for the form.
-	 * @since    1.6
+	 * @return  void
+	 *
+	 * @see     JFormField
+	 * @since   1.0
+	 * @throws  Exception if there is an error in the form event.
 	 */
 	protected function preprocessForm(JForm $form, $data, $group = 'user')
 	{
