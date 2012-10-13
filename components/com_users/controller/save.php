@@ -36,7 +36,7 @@ class UsersControllerSave extends JControllerBase
 		$form = $model->getForm();
 		if (!$form)
 		{
-			JError::raiseError(500, $model->getError());
+			//JError::raiseError(500, $model->getError());
 			return false;
 		}
 

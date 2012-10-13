@@ -40,7 +40,7 @@ class UsersViewResetHtml extends JViewHtml
 	 */
 	public function render()
 	{
-		if(0 == JFactory::getUser()->guest)
+		if (0 == JFactory::getUser()->guest)
 		{
 			JFactory::getApplication()->enqueueMessage('You are already registered.', 'warning');
 

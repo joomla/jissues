@@ -163,7 +163,7 @@ class UsersModelReset extends JModelTrackerform
 		// Check the token and user id.
 		if (empty($token) || empty($userId))
 		{
-			return new JException(JText::_('COM_USERS_RESET_COMPLETE_TOKENS_MISSING'), 403);
+			return new RuntimeException(JText::_('COM_USERS_RESET_COMPLETE_TOKENS_MISSING'), 403);
 		}
 
 		// Get the user object.
@@ -172,13 +172,13 @@ class UsersModelReset extends JModelTrackerform
 		// Check for a user and that the tokens match.
 		if (empty($user) || $user->activation !== $token)
 		{
-			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
+			return new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 
 		// Make sure the user isn't blocked.
 		if ($user->block)
 		{
-			throw new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
+			return new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
 		}
 
 		// Generate the new password hash.
@@ -261,20 +261,20 @@ class UsersModelReset extends JModelTrackerform
 		}
 		catch (RuntimeException $e)
 		{
-			return new JException(JText::sprintf('COM_USERS_DATABASE_ERROR', $e->getMessage()), 500);
+			return new RuntimeException(JText::sprintf('COM_USERS_DATABASE_ERROR', $e->getMessage()), 500);
 		}
 
 		// Check for a user.
 		if (empty($user))
 		{
-			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
+			return new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 
 		$parts = explode(':', $user->activation);
 		$crypt = $parts[0];
 		if (!isset($parts[1]))
 		{
-			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
+			return new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 		$salt = $parts[1];
 		$testcrypt = JUserHelper::getCryptedPassword($data['token'], $salt);
@@ -282,13 +282,13 @@ class UsersModelReset extends JModelTrackerform
 		// Verify the token
 		if (!($crypt == $testcrypt))
 		{
-			throw new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
+			return new RuntimeException(JText::_('COM_USERS_USER_NOT_FOUND'));
 		}
 
 		// Make sure the user isn't blocked.
 		if ($user->block)
 		{
-			throw new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
+			return new RuntimeException(JText::_('COM_USERS_USER_BLOCKED'));
 		}
 
 		// Push the user data into the session.
@@ -314,7 +314,7 @@ class UsersModelReset extends JModelTrackerform
 		// Check for an error.
 		if ($form instanceof Exception)
 		{
-			return $form;
+			throw $form;
 		}
 
 		// Filter and validate the form data.
@@ -324,7 +324,7 @@ class UsersModelReset extends JModelTrackerform
 		// Check for an error.
 		if ($return instanceof Exception)
 		{
-			return $return;
+			throw $return;
 		}
 
 		// Check the validation results.

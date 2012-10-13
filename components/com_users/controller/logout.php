@@ -22,16 +22,15 @@ class UsersControllerLogout extends JControllerBase
 
 		$app = $this->getApplication();
 
-		// Perform the log in.
+		// Perform the log out.
 		$error = $app->logout();
 
 		// Check if the log out succeeded.
 		if (!($error instanceof Exception))
 		{
 			// Get the return url from the request and validate that it is internal.
-			$return = JRequest::getVar('return', '', 'method', 'base64');
-			$return = base64_decode($return);
-			if (!JURI::isInternal($return))
+			$return = base64_decode($input->post->get('return', '', 'BASE64'));
+			if (!JUri::isInternal($return))
 			{
 				$return = '';
 			}

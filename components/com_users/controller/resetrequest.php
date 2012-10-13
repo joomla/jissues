@@ -52,57 +52,5 @@ class UsersControllerResetrequest extends JControllerBase
 		}
 
 		return true;
-
-		// Submit the password reset request.
-		$return = $model->processResetRequest($data);
-
-		// Check for a hard error.
-		if ($return instanceof Exception)
-		{
-			// Get the error message to display.
-			if ($app->getCfg('error_reporting'))
-			{
-				$message = $return->getMessage();
-			}
-			else
-			{
-				$message = JText::_('COM_USERS_RESET_REQUEST_ERROR');
-			}
-
-			// Get the route to the next page.
-			$itemid = UsersHelperRoute::getResetRoute();
-			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-			$route = 'index.php?option=com_users&view=reset' . $itemid;
-
-			// Go back to the request form.
-			$this->setRedirect(JRoute::_($route, false), $message, 'error');
-			return false;
-		}
-		elseif ($return === false)
-		{
-			// The request failed.
-			// Get the route to the next page.
-			$itemid = UsersHelperRoute::getResetRoute();
-			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-			$route = 'index.php?option=com_users&view=reset' . $itemid;
-
-			// Go back to the request form.
-			$message = JText::sprintf('COM_USERS_RESET_REQUEST_FAILED', $model->getError());
-			$this->setRedirect(JRoute::_($route, false), $message, 'notice');
-			return false;
-		}
-		else
-		{
-			// The request succeeded.
-			// Get the route to the next page.
-			$itemid = UsersHelperRoute::getResetRoute();
-			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-			$route = 'index.php?option=com_users&view=reset&layout=confirm' . $itemid;
-
-			// Proceed to step two.
-			$this->setRedirect(JRoute::_($route, false));
-			return true;
-		}
 	}
-
 }
