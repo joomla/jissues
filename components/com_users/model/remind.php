@@ -40,6 +40,24 @@ class UsersModelRemind extends JModelTrackerform
 	}
 
 	/**
+	 * Load the model state.
+	 *
+	 * @return  JRegistry  The state object.
+	 *
+	 * @since   1.0
+	 */
+	protected function loadState()
+	{
+		$this->state = new JRegistry;
+
+		// Get the parameters.
+		$params = JComponentHelper::getParams('com_users');
+
+		// Load the parameters.
+		$this->state->set('com_users.params', $params);
+	}
+
+	/**
 	 * Method to preprocess the form.
 	 *
 	 * @param   JForm   $form   A JForm object.

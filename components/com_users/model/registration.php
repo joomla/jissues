@@ -295,7 +295,9 @@ class UsersModelRegistration extends JModelTrackerform
 	 */
 	protected function loadState()
 	{
-		// Get the application object.
+		$this->state = new JRegistry;
+
+		// Get the parameters.
 		$params = JComponentHelper::getParams('com_users');
 
 		// Load the parameters.
