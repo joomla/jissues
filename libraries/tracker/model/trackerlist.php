@@ -28,7 +28,7 @@ abstract class JModelTrackerlist extends JModelDatabase
 		parent::__construct();
 
 		// Populate the state
-		$this->populateState();
+		$this->loadState();
 	}
 
 	/**
@@ -222,21 +222,20 @@ abstract class JModelTrackerlist extends JModelDatabase
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Load the model state.
 	 *
-	 * This method should only be called once per instantiation and is designed
-	 * to be called on the first call to the getState() method unless the model
-	 * configuration flag to ignore the request is set.
-	 *
-	 * @param   string  $ordering   An optional ordering field.
-	 * @param   string  $direction  An optional direction (asc|desc).
-	 *
-	 * @return  void
+	 * @return  JRegistry  The state object.
 	 *
 	 * @since   1.0
 	 */
-	protected function populateState($ordering = null, $direction = null)
+	protected function loadState()
 	{
+		// Check whether the state has already been loaded
+		if (!($this->state instanceof JRegistry))
+		{
+			$this->state = parent::loadState();
+		}
+
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{

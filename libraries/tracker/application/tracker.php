@@ -70,6 +70,9 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// Run the parent constructor
 		parent::__construct();
 
+		// Register the event dispatcher
+		$this->loadDispatcher();
+
 		// Enable sessions by default.
 		if (is_null($this->config->get('session')))
 		{
@@ -91,11 +94,111 @@ abstract class JApplicationTracker extends JApplicationWeb
 			JFactory::$session = $this->getSession();
 		}
 
-		// Register the event dispatcher
-		$this->loadDispatcher();
-
 		// Register the application to JFactory
 		JFactory::$application = $this;
+	}
+
+	/**
+	 * After the session has been started we need to populate it with some default values.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function afterSessionStart()
+	{
+		parent::afterSessionStart();
+
+		$session = JFactory::getSession();
+
+		// TODO: At some point we need to get away from having session data always in the db.
+		if ($this->getCfg('sess_handler') == 'database')
+		{
+			$db = JFactory::getDBO();
+
+			// Remove expired sessions from the database.
+			$time = time();
+			if ($time % 2)
+			{
+				// The modulus introduces a little entropy, making the flushing less accurate
+				// but fires the query less than half the time.
+				$query = $db->getQuery(true);
+				$query->delete($query->qn('#__session'));
+				$query->where($query->qn('time') . ' < ' . $query->q((int) ($time - $session->getExpire())));
+
+				$db->setQuery($query);
+				$db->execute();
+			}
+
+			// Check to see the the session already exists.
+			$handler = $this->getCfg('sess_handler');
+			if (($time % 2 || $session->isNew()) || ($session->isNew()))
+			{
+				$this->checkSession();
+			}
+		}
+	}
+
+	/**
+	 * Checks the user session.
+	 *
+	 * If the session record doesn't exist, initialise it.
+	 * If session is new, create session variables
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function checkSession()
+	{
+		$db      = JFactory::getDbo();
+		$session = JFactory::getSession();
+		$user    = JFactory::getUser();
+
+		$query = $db->getQuery(true);
+		$query->select($query->qn('session_id'));
+		$query->from($query->qn('#__session'));
+		$query->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
+
+		$db->setQuery($query, 0, 1);
+		$exists = $db->loadResult();
+
+		// If the session record doesn't exist initialise it.
+		if (!$exists)
+		{
+			$query->clear();
+
+			$query->insert($query->qn('#__session'));
+			if ($session->isNew())
+			{
+				$query->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'));
+				$query->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
+				$db->setQuery($query);
+			}
+			else
+			{
+				$query->columns(
+					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
+						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
+				);
+				$query->values(
+					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
+						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
+				);
+
+				$db->setQuery($query);
+			}
+
+			// If the insert failed, exit the application.
+			try
+			{
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				jexit($e->getMessage());
+			}
+		}
 	}
 
 	/**
@@ -130,9 +233,11 @@ abstract class JApplicationTracker extends JApplicationWeb
 			// Load the component
 			$component = $this->input->get('option', 'com_tracker');
 
-			if ('com_users' == $component)
+			$legacyComponents = array();
+
+			if (in_array($component, $legacyComponents))
 			{
-				// Legacy handling for com_users
+				// Legacy component rendering
 				$contents = JComponentHelper::renderComponent($component);
 			}
 			else
@@ -161,7 +266,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 * @param   string  $msg   The message to enqueue.
 	 * @param   string  $type  The message type. Default is message.
 	 *
-	 * @return  void
+	 * @return  JApplicationTracker
 	 *
 	 * @since   1.0
 	 */
@@ -182,6 +287,8 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		// Enqueue the message.
 		$this->messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+
+		return $this;
 	}
 
 	/**
@@ -289,6 +396,20 @@ abstract class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Provides a secure hash based on a seed
+	 *
+	 * @param   string  $seed  Seed string.
+	 *
+	 * @return  string  A secure hash
+	 *
+	 * @since   1.0
+	 */
+	public static function getHash($seed)
+	{
+		return md5(JFactory::getConfig()->get('secret') . $seed);
+	}
+
+	/**
 	 * Get the system message queue.
 	 *
 	 * @return  array  The system message queue.
@@ -360,7 +481,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Method to get the component params
 	 *
-	 * @param   string  $component  Component name.
+	 * @param string $component
 	 *
 	 * @return  JRegistry  Component params
 	 *
@@ -665,6 +786,32 @@ abstract class JApplicationTracker extends JApplicationWeb
 	}
 
 	/**
+	 * Redirect to another URL.
+	 *
+	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
+	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
+	 * sent this will be accomplished using a JavaScript statement.
+	 *
+	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
+	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function redirect($url, $moved = false)
+	{
+		// Persist messages if they exist.
+		if (count($this->messageQueue))
+		{
+			$session = JFactory::getSession();
+			$session->set('application.queue', $this->messageQueue);
+		}
+
+		parent::redirect($url, $moved);
+	}
+
+	/**
 	 * Set the system message queue.
 	 *
 	 * @param   array  $queue  The information to set in the message queue
@@ -700,81 +847,4 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		return null;
 	}
-
-	/**
-	 * Provides a secure hash based on a seed
-	 *
-	 * @param   string  $seed  Seed string.
-	 *
-	 * @return  string  A secure hash
-	 *
-	 * @since   11.1
-	 */
-	public static function getHash($seed)
-	{
-		return md5(JFactory::getConfig()->get('secret') . $seed);
-	}
-
-	/**
-	 * Checks the user session.
-	 *
-	 * If the session record doesn't exist, initialise it.
-	 * If session is new, create session variables
-	 *
-	 * @return  void
-	 *
-	 * @since   11.1
-	 */
-	public function checkSession()
-	{
-		$db = JFactory::getDBO();
-		$session = JFactory::getSession();
-		$user = JFactory::getUser();
-
-		$query = $db->getQuery(true);
-		$query->select($query->qn('session_id'))
-			->from($query->qn('#__session'))
-			->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
-
-		$db->setQuery($query, 0, 1);
-		$exists = $db->loadResult();
-
-		// If the session record doesn't exist initialise it.
-		if (!$exists)
-		{
-			$query->clear();
-			if ($session->isNew())
-			{
-				$query->insert($query->qn('#__session'))
-					->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'))
-					->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
-				$db->setQuery($query);
-			}
-			else
-			{
-				$query->insert($query->qn('#__session'))
-					->columns(
-					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
-						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
-				)
-					->values(
-					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
-						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
-				);
-
-				$db->setQuery($query);
-			}
-
-			// If the insert failed, exit the application.
-			try
-			{
-				$db->execute();
-			}
-			catch (RuntimeException $e)
-			{
-				jexit($e->getMessage());
-			}
-		}
-	}
-
 }
