@@ -57,9 +57,7 @@ final class JApplicationSite extends JApplicationTracker
 	 */
 	public function getMenu($name = null, $options = array())
 	{
-		$menu = parent::getMenu('site', $options);
-
-		return $menu;
+		return parent::getMenu('site', $options);
 	}
 
 	/**
@@ -102,5 +100,10 @@ final class JApplicationSite extends JApplicationTracker
 		}
 
 		return $template->template;
+	}
+
+	public function getLanguageFilter()
+	{
+		return false;
 	}
 }
