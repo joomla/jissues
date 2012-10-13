@@ -42,10 +42,9 @@ class UsersViewProfileHtml extends JViewHtml
 	 */
 	public function render($tpl = null)
 	{
-		if(JFactory::getUser()->guest)
+		if (JFactory::getUser()->guest)
 		{
 			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-
 			return '';
 		}
 
@@ -53,7 +52,6 @@ class UsersViewProfileHtml extends JViewHtml
 		$this->data = $this->model->getData();
 		$this->form = $this->model->getForm();
 		$this->state = $this->model->getState();
-
 		$this->params = $this->state->get('com_users.params');
 
 		// Check if a user was found.

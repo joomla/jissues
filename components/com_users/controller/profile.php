@@ -42,14 +42,12 @@ class UsersControllerProfile extends JControllerBase
 
 		// Get the previous user id (if any) and the current user id.
 		$previousId = (int) $app->getUserState('com_users.edit.profile.id');
-		$userId = $this->input->getInt('user_id', null, 'array');
+		$userId     = $this->input->getInt('user_id', null, 'array');
 
 		// Check if the user is trying to edit another users profile.
 		if ($userId != $loginUserId)
 		{
-			//throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
-//			JError::raiseError(403, );
-//			return false;
+			throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'), 403);
 		}
 
 		// Set the user id for the user to edit in the session.

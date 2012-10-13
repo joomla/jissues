@@ -15,17 +15,18 @@ class UsersControllerDefault extends JControllerBase
 	public function execute()
 	{
 		// Get the application
-		/* @var JApplicationWeb $application */
-		$application = $this->getApplication();
+		/* @var JApplicationWeb $app */
+		$app   = $this->getApplication();
+		$input = $this->getInput();
 
 		// Get the document object.
-		$document = $application->getDocument();
+		$document = $app->getDocument();
 
-		$vName   = $application->input->getWord('view', 'login');
+		$vName   = $input->getWord('view', 'login');
 		$vFormat = $document->getType();
-		$lName   = $application->input->getWord('layout', 'default');
+		$lName   = $input->getWord('layout', 'default');
 
-		$application->input->set('view', $vName);
+		$input->set('view', $vName);
 
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
@@ -34,7 +35,7 @@ class UsersControllerDefault extends JControllerBase
 		$vClass = 'UsersView' . ucfirst($vName) . ucfirst($vFormat);
 		$mClass = 'UsersModel' . ucfirst($vName);
 
-		if (false == class_exists($vClass))
+		if (!class_exists($vClass))
 		{
 			throw new RuntimeException('View not found: ' . $vName);
 		}
