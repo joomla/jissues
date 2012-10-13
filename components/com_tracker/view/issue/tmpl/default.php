@@ -8,9 +8,18 @@
 
 defined('_JEXEC') or die;
 ?>
-<h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
+
+<form method="post" name="adminForm" id="adminForm">
 <div class="container-fluid">
-	<div class="row-fluid">
+    <div class="row-fluid">
+        <div class="pull-right btn-group">
+            <a class="btn btn-small" href="index.php?option=com_tracker&view=issues"><?php echo JTEXT::_('Cancel'); ?></a>
+            <input type="submit" class="btn btn-success" value="Save" />
+	    </div>
+	</div>
+    <h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
+
+    <div class="row-fluid">
 		<div class="span5">
 			<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_INFO'); ?></h4>
 			<table class="table">
@@ -63,6 +72,10 @@ defined('_JEXEC') or die;
 						</span>
 					</td>
 				</tr>
+				<tr>
+					<th><?= JText::_('Category') ?></th>
+					<td><?= $this->categoryList ?></td>
+				</tr>
 				<?php if ($this->item->patch_url) : ?>
 				<tr>
 					<td><strong><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PATCH_URL'); ?></strong></td>
@@ -112,7 +125,9 @@ defined('_JEXEC') or die;
 				</tr>
 				<?php endif; ?>
 			</table>
-			<a href="index.php?option=com_tracker&view=issues"><?php echo JTEXT::_('COM_TRACKER_BACK_TO_ISSUES'); ?></a>
+
+			<?php include $this->getPath('fields'); ?>
+
 		</div>
 		<div class="span7">
 			<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DESC'); ?></h4>
@@ -139,3 +154,6 @@ defined('_JEXEC') or die;
 	<?php endforeach; ?>
 	<?php endif; ?>
 </div>
+	<input type="hidden" name="id" value="<?= $this->item->id ?>" />
+	<input type="hidden" name="task" value="save" />
+</form>
