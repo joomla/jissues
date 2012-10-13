@@ -360,6 +360,8 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Method to get the component params
 	 *
+	 * @param   string  $component  Component name.
+	 *
 	 * @return  JRegistry  Component params
 	 *
 	 * @since   1.0
@@ -665,7 +667,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Set the system message queue.
 	 *
-	 * @param   array  The information to set in the message queue
+	 * @param   array  $queue  The information to set in the message queue
 	 *
 	 * @return  void
 	 *
