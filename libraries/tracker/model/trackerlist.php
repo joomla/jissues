@@ -84,7 +84,7 @@ abstract class JModelTrackerlist extends JModelDatabase
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-			return false;
+			return array();
 		}
 
 		// Add the items to the internal cache.
@@ -211,7 +211,7 @@ abstract class JModelTrackerlist extends JModelDatabase
 		}
 		catch (RuntimeException $e)
 		{
-			$this->setError($e->getMessage());
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
 
