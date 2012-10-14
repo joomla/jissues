@@ -18,10 +18,16 @@ $ttParams['trigger']   = 'hover';
 JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 JHtml::_('formbehavior.chosen', 'select');
 
-$filterStatus = $this->state->get('filter.status')
+$filterStatus = $this->state->get('filter.status');
+
+$fields = new JRegistry(JFactory::getApplication()->input->get('fields', array(), 'array'));
+
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
 	<div class="filters btn-toolbar clearfix">
+        <div class="btn-group pull-left">
+			<?php echo JHtmlProjects::select('com_tracker', 'project', (int) $fields->get('project'), JText::_('Filter by Project')); ?>
+        </div>
 		<div class="filter-search btn-group pull-left input-append">
 			<label class="filter-search-lbl element-invisible" for="filter-search"><?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?></label>
 			<input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?>" placeholder="<?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?>" />
@@ -30,7 +36,7 @@ $filterStatus = $this->state->get('filter.status')
 		<div class="btn-group pull-left">
 			<button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i></button>
 		</div>
-		<div class="btn-group pull-right">
+        <div class="btn-group pull-right">
 			<label for="status" class="element-invisible"><?php echo JText::_('COM_TRACKER_FILTER_STATUS'); ?></label>
 			<select name="status" id="filter-status" class="input-medium" onchange="document.adminForm.submit();">
 				<option value=""><?php echo JText::_('COM_TRACKER_FILTER_STATUS');?></option>
@@ -132,7 +138,7 @@ $filterStatus = $this->state->get('filter.status')
 					<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
 				</td>
 				<td class="hidden-phone">
-					N/A
+					<?php echo $item->category ? : 'N/A'; ?>
 				</td>
 				<td class="nowrap small hidden-phone">
 					<?php echo JHtml::_('date', $item->opened, 'DATE_FORMAT_LC4'); ?>

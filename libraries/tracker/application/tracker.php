@@ -814,7 +814,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Set the system message queue.
 	 *
-	 * @param   array  The information to set in the message queue
+	 * @param   array  $queue  The information to set in the message queue
 	 *
 	 * @return  void
 	 *
