@@ -21,7 +21,7 @@ JHtml::_('bootstrap.framework');
 $doc->addStyleSheet('templates/protostar/css/template.css');
 
 // Load optional rtl Bootstrap css and Bootstrap bugfixes
-JHtmlBootstrap::loadCss($includeMaincss = false, $this->direction);
+JHtmlBootstrap::loadCss(false, $this->direction);
 
 ?>
 <!DOCTYPE html>
@@ -41,13 +41,24 @@ JHtmlBootstrap::loadCss($includeMaincss = false, $this->direction);
 			<!-- Header -->
 			<div class="header">
 				<div class="header-inner clearfix">
-					<div class="btn-group pull-right">
-                        <a class="btn" href="index.php?option=com_tracker">Tracker</a>
-                        <a class="btn" href="index.php?option=com_users">Users</a>
-					</div>
                     <a class="brand pull-left" href="<?php echo $this->baseurl; ?>">
                         <img src="<?php echo $this->baseurl ?>/templates/protostar/images/joomla.png" alt="Joomla" />
 					</a>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span7">
+					<ul class="nav nav-pills">
+						<li><a href="<?php echo JRoute::_('index.php?option=com_tracker'); ?>">Tracker</a></li>
+						<li><a href="<?php echo JRoute::_('index.php?option=com_users'); ?>">Users</a></li>
+					</ul>
+				</div>
+				<div class="span5">
+					<div class="btn-toolbar pull-right">
+						<div class="btn-group">
+							<jdoc:include type="modules" name="toolbar" style="no" />
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row-fluid">
