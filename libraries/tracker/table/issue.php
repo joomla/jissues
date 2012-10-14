@@ -31,6 +31,48 @@ class JTableIssue extends JTable
 	}
 
 	/**
+	 * Method to bind an associative array or object to the JTable instance.This
+	 * method only binds properties that are publicly accessible and optionally
+	 * takes an array of properties to ignore when binding.
+	 *
+	 * @param   mixed  $src     An associative array or object to bind to the JTable instance.
+	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @link    http://docs.joomla.org/JTable/bind
+	 * @since   11.1
+	 * @throws  InvalidArgumentException
+	 */
+	public function bind($src, $ignore = array())
+	{
+		if (is_array($src))
+		{
+			return parent::bind($src, $ignore);
+		}
+		elseif ($src instanceof JInput)
+		{
+			$data = new stdClass;
+			$data->id = $src->get('id');
+			$fields   = $src->get('fields', array(), 'array');
+
+			JArrayHelper::toInteger($fields);
+
+			if (isset($fields['catid']))
+			{
+				$data->catid = $fields['catid'];
+				unset($fields['catid']);
+			}
+
+			$this->fieldValues = $fields;
+
+			return parent::bind($data, $ignore);
+		}
+
+		throw new InvalidArgumentException(sprintf('%s::bind(*%s*)', get_class($this), gettype($src)));
+	}
+
+	/**
 	 * Overloaded check function
 	 *
 	 * @return  boolean  True on success, false on failure
@@ -67,6 +109,7 @@ class JTableIssue extends JTable
 	 * @return  boolean  True on success.
 	 *
 	 * @since   1.0
+	 * @throws  RuntimeException
 	 */
 	public function store($updateNulls = false)
 	{
@@ -85,6 +128,59 @@ class JTableIssue extends JTable
 				$this->opened = $date->toSql();
 			}
 		}
-		return parent::store($updateNulls);
+
+		if (!parent::store($updateNulls))
+		{
+			throw new RuntimeException($this->getError());
+		}
+
+		if (!$this->fieldValues)
+		{
+			return true;
+		}
+
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		// Check the tracker table to see if the extra fields are already present
+		$query->select('fv.field_id');
+		$query->from('#__tracker_fields_values AS fv');
+		$query->where($db->qn('fv.issue_id') . '=' . (int) $this->id);
+
+		$db->setQuery($query);
+		$ids = $db->loadColumn();
+
+		$queryInsert = $db->getQuery(true);
+		$queryInsert->insert($this->_db->qn('#__tracker_fields_values'));
+		$queryInsert->columns('issue_id, field_id, value');
+
+		$queryUpdate = $db->getQuery(true);
+		$queryUpdate->update($this->_db->qn('#__tracker_fields_values'));
+
+		foreach ($this->fieldValues as $k => $v)
+		{
+			if (in_array($k, $ids))
+			{
+				$queryUpdate->clear('set')->clear('where');
+				$queryUpdate->set($db->qn('value') . '=' . (int) $v);
+				$queryUpdate->where($db->qn('issue_id') . '=' . (int) $this->id);
+				$queryUpdate->where($db->qn('field_id') . '=' . (int) $k);
+
+				// Update item
+				$db->setQuery($query);
+				$db->execute();
+			}
+			else
+			{
+				$queryInsert->clear('values');
+				$queryInsert->values(implode(', ', array((int) $this->id, (int) $k, (int) $v)));
+
+				// New item
+				$db->setQuery($query);
+				$db->execute();
+			}
+		}
+
+		return true;
 	}
 }

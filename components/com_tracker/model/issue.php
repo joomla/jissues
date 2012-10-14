@@ -72,28 +72,9 @@ class TrackerModelIssue extends JModelDatabase
 		$query->select('s.status AS status_title, s.closed AS closed');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
-		$query->select(('c.title AS category'));
-		$query->leftJoin('#__categories AS c ON a.catid = c.id');
-
 		/*
 		 * Join over the selects table
 		 */
-
-		// Set up the database_type column
-		$query->select('f.label as database_type');
-		$query->join('LEFT', '#__select_items AS f ON a.database_type = f.id');
-
-		// Set up the web server field
-		$query->select('ws.label as webserver');
-		$query->join('LEFT', '#__select_items AS ws ON a.webserver = ws.id');
-
-		// Set up php version field
-		$query->select('php.label as php_version');
-		$query->join('LEFT', '#__select_items AS php ON a.php_version = php.id');
-
-		// Set up php version field
-		$query->select('br.label as browser');
-		$query->join('LEFT', '#__select_items AS br ON a.browser = br.id');
 
 		try
 		{
@@ -106,18 +87,39 @@ class TrackerModelIssue extends JModelDatabase
 			return false;
 		}
 
-		$fields = $db->setQuery(
-			$query->clear()
-				->select('fv.field_id, fv.value')
-				->from('#__tracker_fields_values AS fv')
-				->where($db->qn('issue_id') . '=' . $item->id)
-		)->loadObjectList();
+		// Get the field data
+		$query->clear();
+		$query->select('fv.field_id, fv.value');
+		$query->from($db->quoteName('#__tracker_fields_values', 'fv'));
+		$query->where($db->quoteName('issue_id') . '=' . $item->id);
+
+		// Join over the categories table to get the field name
+		$query->select('f.title AS field_name');
+		$query->join('LEFT', '#__categories AS f ON fv.field_id = f.id');
+
+		// Join over the categories table to get the field value
+		$query->select('v.title AS field_value');
+		$query->join('LEFT', '#__categories AS v ON fv.value = v.id');
+
+		try
+		{
+			$db->setQuery($query);
+			$fields = $db->loadObjectList();
+		}
+		catch (RuntimeException $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			return false;
+		}
 
 		$arr = array();
 
+		// Prepare the fields for display
 		foreach ($fields as $field)
 		{
-			$arr[$field->field_id] = $field->value;
+			$name  = strtolower(str_replace(' ', '_', $field->field_name));
+			$value = strtolower(str_replace(' ', '_', $field->field_value));
+			$arr[$name] = $value;
 		}
 
 		$item->fields = new JRegistry($arr);
