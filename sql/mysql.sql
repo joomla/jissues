@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `gh_id` integer unsigned DEFAULT NULL,
   `jc_id` integer unsigned DEFAULT NULL,
+  `project_id` integer unsigned DEFAULT NULL,
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` mediumtext NOT NULL,
   `priority` tinyint(4) NOT NULL DEFAULT '3',
@@ -128,6 +129,18 @@ CREATE TABLE IF NOT EXISTS `#__issue_comments` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `#__tracker_fields_values`
+--
+
+CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `issue_id` int(11) NOT NULL,
+  `field_id` int(11) NOT NULL,
+  `value` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -176,13 +189,12 @@ CREATE TABLE IF NOT EXISTS `#__assets` (
 --
 
 INSERT INTO `#__assets` (`id`, `parent_id`, `lft`, `rgt`, `level`, `name`, `title`, `rules`) VALUES
-(1, 0, 1, 14, 0, 'root.1', 'Root Asset', '{"core.login.site":{"6":1,"2":1},"core.login.admin":{"6":1},"core.login.offline":{"6":1},"core.admin":{"8":1},"core.manage":{"7":1},"core.create":{"6":1,"3":1},"core.delete":{"6":1},"core.edit":{"6":1,"4":1},"core.edit.state":{"6":1,"5":1},"core.edit.own":{"6":1,"3":1}}'),
+(1, 0, 1, 12, 0, 'root.1', 'Root Asset', '{"core.login.site":{"6":1,"2":1},"core.login.admin":{"6":1},"core.login.offline":{"6":1},"core.admin":{"8":1},"core.manage":{"7":1},"core.create":{"6":1,"3":1},"core.delete":{"6":1},"core.edit":{"6":1,"4":1},"core.edit.state":{"6":1,"5":1},"core.edit.own":{"6":1,"3":1}}'),
 (2, 1, 2, 3, 1, 'com_tracker', 'com_tracker', '{}'),
 (3, 1, 4, 5, 1, 'com_cpanel', 'com_cpanel', '{}'),
 (4, 1, 6, 7, 1, 'com_languages', 'com_languages', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}'),
 (5, 1, 8, 9, 1, 'com_login', 'com_login', '{}'),
-(6, 1, 10, 13, 1, 'com_users', 'com_users', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}'),
-(7, 6, 11, 12, 1, 'com_users.category.7', 'Uncategorised', '{"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}');
+(6, 1, 10, 11, 1, 'com_users', 'com_users', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}');
 
 --
 -- Table structure for table `#__extensions`
@@ -228,7 +240,9 @@ INSERT INTO `#__extensions` (`extension_id`, `name`, `type`, `element`, `folder`
 (303, 'mod_toolbar', 'module', 'mod_toolbar', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
 (401, 'plg_authentication_joomla', 'plugin', 'joomla', 'authentication', 0, 1, 1, 1, '', '{}', '', '', 0, '0000-00-00 00:00:00', 0, 0),
 (402, 'plg_user_joomla', 'plugin', 'joomla', 'user', 0, 1, 1, 0, '', '{"autoregister":"1"}', '', '', 0, '0000-00-00 00:00:00', 2, 0),
-(411, 'plg_editors_none', 'plugin', 'none', 'editors', 0, 1, 1, 1, '', '{}', '', '', 0, '0000-00-00 00:00:00', 2, 0);
+(403, 'plg_editors_none', 'plugin', 'none', 'editors', 0, 1, 1, 1, '', '{}', '', '', 0, '0000-00-00 00:00:00', 2, 0),
+(600, 'English (United Kingdom)', 'language', 'en-GB', '', 0, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0),
+(601, 'English (United Kingdom)', 'language', 'en-GB', '', 1, 1, 1, 1, '', '', '', '', 0, '0000-00-00 00:00:00', 0, 0);
 
 --
 -- Table structure for table `#__messages`
@@ -397,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idx_block` (`block`),
   KEY `username` (`username`),
   KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=734;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `#__user_notes`
@@ -502,11 +516,11 @@ CREATE TABLE IF NOT EXISTS `#__categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
--- Daten für Tabelle `jos_categories`
+-- Dumping data for table `#__categories`
 --
 
 INSERT INTO `#__categories` (`id`, `asset_id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `extension`, `title`, `alias`, `note`, `description`, `published`, `checked_out`, `checked_out_time`, `access`, `params`, `metadesc`, `metakey`, `metadata`, `created_user_id`, `created_time`, `modified_user_id`, `modified_time`, `hits`, `language`, `version`) VALUES
-(1, 0, 0, 0, 17, 0, '', 'system', 'ROOT', 'root', '', '', 1, 0, '0000-00-00 00:00:00', 1, '{}', '', '', '', 42, '2011-01-01 00:00:01', 0, '0000-00-00 00:00:00', 0, '*', 1);
+(1, 0, 0, 0, 0, 0, '', 'system', 'ROOT', 'root', '', '', 1, 0, '0000-00-00 00:00:00', 1, '{}', '', '', '', 42, '2011-01-01 00:00:01', 0, '0000-00-00 00:00:00', 0, '*', 1);
 
 --
 -- Table structure for table `#__languages`
@@ -540,15 +554,3 @@ CREATE TABLE IF NOT EXISTS `#__languages` (
 
 INSERT INTO `#__languages` (`lang_id`, `lang_code`, `title`, `title_native`, `sef`, `image`, `description`, `metakey`, `metadesc`, `sitename`, `published`, `access`, `ordering`) VALUES
 (1, 'en-GB', 'English (UK)', 'English (UK)', 'en', 'en', '', '', '', '', 1, 0, 1);
-
---
--- Tabellenstruktur für Tabelle `#__tracker_fields_values`
---
-
-CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `issue_id` int(11) NOT NULL,
-  `field_id` int(11) NOT NULL,
-  `value` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
