@@ -7,7 +7,11 @@
  */
 
 defined('_JEXEC') or die;
+
+$editor = JEditor::getInstance('kisskontent');
+$editorParams = array('preview-url' => 'index.php?option=com_tracker&task=preview&format=raw')
 ?>
+
 <h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -118,24 +122,37 @@ defined('_JEXEC') or die;
 			<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DESC'); ?></h4>
 			<div class="well well-small issue">
 				<p><?php echo $this->item->description; ?></p>
+				<?php echo $editor->display('description', $this->item->description_raw, '100%', 100, 10, 10, false, 'editor-description', null, null, $editorParams); ?>
 			</div>
 		</div>
 	</div>
-	<?php if ($this->comments) : ?>
+
 	<div class="row-fluid">
 		<div class="span12">
 			<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></h4>
 		</div>
 	</div>
-	<?php foreach ($this->comments as $comment) : ?>
+
+	<?php foreach ($this->comments as $i => $comment) : ?>
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="well well-small">
-				<h5><?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->submitter, $comment->created); ?></h5>
+				<h5>
+					<a href="#issue-comment-<?php echo $i + 1; ?>" id="issue-comment-<?php echo $i + 1; ?>">#<?php echo $i + 1; ?></a>
+					<?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->submitter, $comment->created); ?>
+				</h5>
 				<p><?php echo $comment->text; ?></p>
 			</div>
 		</div>
 	</div>
 	<?php endforeach; ?>
-	<?php endif; ?>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <hr />
+            <h4>Add a comment...</h4>
+			<?php echo $editor->display('comment', '', '100%', 100, 10, 10, false, 'editor-comment', null, null, $editorParams); ?>
+        </div>
+    </div>
+
 </div>

@@ -46,6 +46,24 @@ class TrackerViewIssueHtml extends JViewHtml
 		$this->item     = $this->model->getItem($id);
 		$this->comments = $this->model->getComments($id);
 
+		$dispatcher	= JEventDispatcher::getInstance();
+
+		$o = new stdClass;
+		$o->text = $this->item->description;
+
+		$params = new JRegistry;
+
+		JPluginHelper::importPlugin('content');
+		$dispatcher->trigger('onContentPrepare', array ('com_content.article', &$o, $params));
+
+		$this->item->description_raw = $this->item->description;
+		$this->item->description = $o->text;
+
+		foreach ($this->comments as &$comment)
+		{
+			$dispatcher->trigger('onContentPrepare', array ('com_content.article', &$comment, $params));
+		}
+
 		return parent::render();
 	}
 }
