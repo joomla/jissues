@@ -166,7 +166,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$table = JTable::getInstance('Issue');
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
-			$table->description = str_replace("\n", "<br>", $issue->body);
+			$table->description = $issue->body;
 			$table->status		= ($issue->state == 'open') ? 1 : 10;
 			$table->opened      = JFactory::getDate($issue->created_at)->toSql();
 
