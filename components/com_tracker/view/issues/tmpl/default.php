@@ -157,6 +157,12 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		<?php endforeach; ?>
 		<?php endif; ?>
 		</tbody>
+		<tfoot>
+			<?php echo $this->pagination->getListFooter(); ?>
+
+		</tfoot>
 	</table>
 	<?php echo $this->pagination->getListFooter(); ?>
+
+
 </form>
