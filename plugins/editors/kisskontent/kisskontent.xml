@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="editors">
+    <name>Editors - KISSKontent</name>
+    <version>1.0</version>
+    <creationDate>October 2012</creationDate>
+    <author>Nikolai Plath</author>
+    <authorEmail>der.el.kuku@gmail.com</authorEmail>
+    <authorUrl>https://github.com/elkuku</authorUrl>
+    <copyright>(C)</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <description>This parses content and converts it to Kontent</description>
+    <files>
+        <filename plugin="kisskontent">kisskontent.php</filename>
+    </files>
+</extension>
