@@ -126,11 +126,11 @@ $webserver = $this->fields->get('web_server');
 			<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DESC'); ?></h4>
 			<div class="well well-small issue">
 				<p><?php echo $this->item->description; ?></p>
-				<?php echo $editor->display('description', $this->item->description_raw, '100%', 100, 10, 10, false, 'editor-description', null, null, $editorParams); ?>
 			</div>
 		</div>
 	</div>
 
+	<?php if ($this->comments) : ?>
 	<div class="row-fluid">
 		<div class="span12">
 			<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></h4>
@@ -150,13 +150,6 @@ $webserver = $this->fields->get('web_server');
 		</div>
 	</div>
 	<?php endforeach; ?>
-
-    <div class="row-fluid">
-        <div class="span12">
-            <hr />
-            <h4>Add a comment...</h4>
-			<?php echo $editor->display('comment', '', '100%', 100, 10, 10, false, 'editor-comment', null, null, $editorParams); ?>
-        </div>
-    </div>
+	<?php endif; ?>
 
 </div>

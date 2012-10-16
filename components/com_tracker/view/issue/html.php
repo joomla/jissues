@@ -62,14 +62,15 @@ class TrackerViewIssueHtml extends JViewHtml
 		$params = new JRegistry;
 
 		JPluginHelper::importPlugin('content');
-		$dispatcher->trigger('onContentPrepare', array ('com_content.article', &$o, $params));
+		$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$o, $params));
 
 		$this->item->description_raw = $this->item->description;
 		$this->item->description = $o->text;
 
 		foreach ($this->comments as &$comment)
 		{
-			$dispatcher->trigger('onContentPrepare', array ('com_content.article', &$comment, $params));
+			// @todo Maybe we should parse the comments on retrieval and write the result to the database
+			$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$comment, $params));
 		}
 
 		return parent::render();
