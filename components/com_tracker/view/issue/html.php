@@ -21,10 +21,18 @@ class TrackerViewIssueHtml extends JViewHtml
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     TrackerModelIssue
-	 * @since   1.0
+	 * @var    TrackerModelIssue
+	 * @since  1.0
 	 */
 	protected $model;
+
+	/**
+	 * Object containing the additional field data
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
+	 */
+	protected $fields = array();
 
 	/**
 	 * Method to render the view.
@@ -42,9 +50,9 @@ class TrackerViewIssueHtml extends JViewHtml
 		$this->document = $app->getDocument();
 
 		$id = $app->input->getInt('id', 1);
-
 		$this->item     = $this->model->getItem($id);
 		$this->comments = $this->model->getComments($id);
+		$this->fields   = $this->item->fields;
 
 		$dispatcher	= JEventDispatcher::getInstance();
 
