@@ -85,14 +85,14 @@ class JMenuSite extends JMenu
 	{
 		$attributes = (array) $attributes;
 		$values 	= (array) $values;
-		$app		= JFactory::getApplication('site');
+		$app		= JApplication::getInstance('site');
 
 		if ($app->isSite())
 		{
 			// Filter by language if not set
 			if (($key = array_search('language', $attributes)) === false)
 			{
-				if ($app->getLanguageFilter())
+				if (JLanguageMultilang::isEnabled())
 				{
 					$attributes[] 	= 'language';
 					$values[] 		= array(JFactory::getLanguage()->getTag(), '*');
@@ -116,6 +116,10 @@ class JMenuSite extends JMenu
 				unset($values[$key]);
 			}
 		}
+
+		// Reset arrays or we get a notice if some values were unset
+		$attributes = array_values($attributes);
+		$values = array_values($values);
 
 		return parent::getItems($attributes, $values, $firstonly);
 	}
