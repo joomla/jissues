@@ -253,7 +253,7 @@ class ElephantMarkdown
 	public function doUserSHA($text)
 	{
 		$text = preg_replace_callback(
-			'%([0-9A-z\-]+)@([0-9a-z]{40})%',
+			'%([0-9a-zA-Z\-]+)@([0-9a-z]{40})%',
 			array(&$this, 'doSHA_callback'),
 			$text
 		);
@@ -264,7 +264,7 @@ class ElephantMarkdown
 	public function doUserProjectSHA($text)
 	{
 		$text = preg_replace_callback(
-			'%([0-9A-z\-]+)/([0-9A-z\-]+)@([0-9a-z]{40})%',
+			'%([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)@([0-9a-z]{40})%',
 			array(&$this, 'doSHA_callback'),
 			$text
 		);
@@ -285,14 +285,12 @@ class ElephantMarkdown
 			case 2:
 				$sha = $matches[1];
 				$title = substr($sha, 0, 7);
-
 				break;
 
 			case 3:
 				$user = $matches[1];
 				$sha = $matches[2];
 				$title = $user.'@'.substr($sha, 0, 7);
-
 				break;
 
 			case 4:
@@ -301,6 +299,9 @@ class ElephantMarkdown
 				$sha = $matches[3];
 				$title = $user.'/'.$project.'@'.substr($sha, 0, 7);
 				break;
+
+			default :
+				$title = 'unknown';
 		}
 
 		$href = $baseHref.'/'.$user.'/'.$project.'/commit/'.$sha;
@@ -310,6 +311,9 @@ class ElephantMarkdown
 
 	public function doIssues($text)
 	{
+		if ($this->inAnchor)
+			return $text;
+
 		$text = preg_replace_callback(
 			'%#([0-9]+)%',
 			array(&$this, 'doIssues_callback'),
@@ -322,7 +326,7 @@ class ElephantMarkdown
 	public function doUserIssues($text)
 	{
 		$text = preg_replace_callback(
-			'%([0-9A-z\-]+)#([0-9]+)%',
+			'%([0-9a-zA-Z\-]+)#([0-9]+)%',
 			array(&$this, 'doIssues_callback'),
 			$text
 		);
@@ -333,7 +337,7 @@ class ElephantMarkdown
 	public function doUserProjectIssues($text)
 	{
 		$text = preg_replace_callback(
-			'%([0-9A-z\-]+)/([0-9A-z\-]+)#([0-9]+)%',
+			'%([0-9a-zA-Z\-]+)/([0-9a-zA-Z\-]+)#([0-9]+)%',
 			array(&$this, 'doIssues_callback'),
 			$text
 		);
@@ -341,7 +345,7 @@ class ElephantMarkdown
 		return $text;
 	}
 
-	public function doIssues_callback($matches, $type = 'commit')
+	public function doIssues_callback($matches)
 	{
 		$baseHref = 'https://github.com';
 
@@ -354,14 +358,14 @@ class ElephantMarkdown
 			case 2:
 				// #Num
 				$id = $matches[1];
-				$title = '#'.substr($id, 0, 7);
+				$title = '#'.$id;
 				break;
 
 			case 3:
 				// User#Num
 				$user = $matches[1];
 				$id = $matches[2];
-				$title = $user.'#'.substr($id, 0, 7);
+				$title = $user.'#'.$id;
 				break;
 
 			case 4:
@@ -369,14 +373,14 @@ class ElephantMarkdown
 				$user = $matches[1];
 				$project = $matches[2];
 				$id = $matches[3];
-				$title = $user.'/'.$project.'#'.substr($id, 0, 7);
+				$title = $user.'/'.$project.'#'.$id;
 				break;
 			default :
 				$title = 'unknown';
 				break;
 		}
 
-		$href = $baseHref.'/'.$user.'/'.$project.'/issues/#issue/'.$id;
+		$href = $baseHref.'/'.$user.'/'.$project.'/issues/'.$id;
 
 		return $this->hashPart('<a href="'.$this->encodeAttribute($href).'">'.$title.'</a>');
 	}
@@ -385,7 +389,7 @@ class ElephantMarkdown
 	{
 		$profileUrl = ' <a href="https://github.com/$1">@$1</a>';
 
-		$text = preg_replace('%[\s|\n]@([A-z0-9]+)%', $profileUrl, $text);
+		$text = preg_replace('%[\s|\n]@([a-zA-Z0-9]+)%', $profileUrl, $text);
 
 		return $this->hashPart($text);
 	}
