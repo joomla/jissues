@@ -86,7 +86,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 					<?php echo (int) $item->id; ?>
 				</td>
 				<td class="hasContext">
-					<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $item->description, 100); ?>">
+					<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $this->escape($item->description), 100); ?>">
 						<a href="index.php?option=com_tracker&view=issue&id=<?php echo (int) $item->id;?>">
 						<?php echo $this->escape($item->title); ?></a>
 					</div>
@@ -159,4 +159,5 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		</tbody>
 	</table>
 	<?php echo $this->pagination->getListFooter(); ?>
+	<input type="hidden" name="task" />
 </form>

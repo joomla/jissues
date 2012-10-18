@@ -204,7 +204,7 @@ class TrackerApplicationComments extends JApplicationCli
 					(int) $comment->id . ', '
 					. (int) $issue->id . ', '
 					. $this->db->quote($comment->user->login) . ', '
-					. $this->db->quote(str_replace("\n", "<br>", $comment->body)) . ', '
+					. $this->db->quote($comment->body) . ', '
 					. $this->db->quote(JFactory::getDate($comment->created_at)->toSql())
 				);
 				$this->db->setQuery($query);
