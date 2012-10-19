@@ -45,6 +45,12 @@ class TrackerControllerDefault extends JControllerBase
 
 		$vClass = 'TrackerView' . ucfirst($vName) . ucfirst($vFormat);
 		$mClass = 'TrackerModel' . ucfirst($vName);
+
+		if(false == class_exists($mClass))
+		{
+			$mClass = 'TrackerModelDefault';
+		}
+
 		$view = new $vClass(new $mClass, $paths);
 		$view->setLayout($lName);
 
