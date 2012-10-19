@@ -24,7 +24,7 @@ class TrackerControllerSave extends JModelBase
 	 */
 	public function execute()
 	{
-		$table = new TrackerTableIssues;
+		$table = new JTableIssue;
 
 		$table->save(JFactory::getApplication()->input->post);
 
