@@ -134,7 +134,7 @@ class JTableIssue extends JTable
 			throw new RuntimeException($this->getError());
 		}
 
-		if (!$this->fieldValues)
+		if (!(isset($this->fieldValues)) || !$this->fieldValues)
 		{
 			return true;
 		}
