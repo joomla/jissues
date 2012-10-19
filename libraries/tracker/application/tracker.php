@@ -362,6 +362,15 @@ abstract class JApplicationTracker extends JApplicationWeb
 		{
 			return new $class;
 		}
+		else
+		{
+			$class = ucfirst($base) . 'ControllerDefault';
+
+			if (class_exists($class))
+			{
+				return new $class;
+			}
+		}
 
 		// Nothing found. Panic.
 		throw new RuntimeException('Class ' . $class . ' not found');

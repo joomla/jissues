@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<extension version="1.7" type="plugin" group="content">
+    <name>Content - KISSKontent</name>
+    <creationDate>September 2011</creationDate>
+    <author>Nikolai Plath</author>
+    <authorEmail>der.el.kuku@gmail.com</authorEmail>
+    <authorUrl>http://joomlacode.org/gf/project/elkuku</authorUrl>
+    <copyright>Copyright 2011 - Nikolai Plath</copyright>
+    <license>License, GNU/GPL</license>
+    <version>1.0</version>
+    <description>Allow formatting of content using various formatters</description>
+    <files>
+        <filename plugin="kisskontent">kisskontent.php</filename>
+        <folder>parser</folder>
+    </files>
+</extension>

@@ -23,7 +23,7 @@ class TrackerModelIssue extends JModelDatabase
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
-	 * @return  mixed  An array of data items on success, false on failure.
+	 * @return  array  An array of data items on success, false on failure.
 	 *
 	 * @since   1.0
 	 */
@@ -44,7 +44,7 @@ class TrackerModelIssue extends JModelDatabase
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-			return false;
+			return array();
 		}
 
 		return $items;
