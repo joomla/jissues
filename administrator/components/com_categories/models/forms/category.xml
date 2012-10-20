@@ -10,11 +10,6 @@
 		readonly="true"/>
 
 	<field
-		name="asset_id"
-		type="hidden"
-		filter="unset"/>
-
-	<field
 		name="parent_id"
 		type="categoryedit"
 		label="COM_CATEGORIES_FIELD_PARENT_LABEL"
