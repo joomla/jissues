@@ -8,12 +8,8 @@
  * @todo improveme =;)
  */
 
-'cli' == PHP_SAPI || die('This script must be run from the command line');
-
 // We are a valid entry point.
 const _JEXEC = 1;
-
-error_reporting(-1);
 
 // Load system defines
 if (file_exists(dirname(__DIR__) . '/defines.php'))
@@ -28,7 +24,17 @@ if (!defined('_JDEFINES'))
 }
 
 // Get the framework.
-require_once JPATH_LIBRARIES . '/import.php';
+require_once JPATH_LIBRARIES . '/import.legacy.php';
+
+// Bootstrap the CMS libraries.
+require_once JPATH_LIBRARIES . '/cms.php';
+
+// Bootstrap the Tracker application libraries.
+require_once JPATH_LIBRARIES . '/tracker.php';
+
+// Configure error reporting to maximum for CLI output.
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 /**
  * Simple Installer.
@@ -57,7 +63,6 @@ class InstallerApplication extends JApplicationCli
 		try
 		{
 			// Check if the database "exists"
-
 			$tables = $db->getTableList();
 
 			$this->out('WARNING: A database has been found. Do you want to reinstall ? [y]es / [n]o :', false);
@@ -68,13 +73,19 @@ class InstallerApplication extends JApplicationCli
 				throw new InstallerAbortException;
 
 			// Remove existing tables
-
 			$this->out('Remove existing tables...', false);
+
+			// First, need to drop the tables with FKs in specific order
+			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__issue_comments'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
+			foreach ($keyTables as $table)
+			{
+				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
+				$this->out('.', false);
+			}
 
 			foreach ($tables as $table)
 			{
-				$db->setQuery('DROP TABLE ' . $table)->execute();
-
+				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
 				$this->out('.', false);
 			}
 
@@ -82,18 +93,22 @@ class InstallerApplication extends JApplicationCli
 		}
 		catch (RuntimeException $e)
 		{
-			// Note: we may end up here if the db has not been found *OR* if the db server is down.
-			// @todo check $e->getCode()
+			// Check if the message is "Could not connect to database."  Odds are, this means the DB isn't there or the server is down.
+			if (strpos($e->getMessage(), 'Could not connect to database.') !== false)
+			{
+				$this->out('No database found.');// ? really..
 
-			$this->out('No database found.');// ? really..
+				$this->out('Creating the database...', false);
 
-			$this->out('Creating the database...', false);
+				$dbOptions = new stdClass;
+				$dbOptions->db_name = $this->config->get('db');
+				$dbOptions->db_user = $this->config->get('user');
 
-			$db->setQuery('CREATE DATABASE ' . JFactory::getConfig()->get('db'))->execute();
+				$db->createDatabase($dbOptions);
+				$db->select($this->config->get('db'));
 
-			$db->select(JFactory::getConfig()->get('db'));
-
-			$this->out('ok');
+				$this->out('ok');
+			}
 		}
 
 		// Install.
@@ -111,14 +126,23 @@ class InstallerApplication extends JApplicationCli
 			if ('' == trim($q))
 				continue;
 
-			$db->setQuery($q)->execute();
+			$db->setQuery($q);
+
+			try
+			{
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				throw new RuntimeException($e->getMessage());
+			}
 
 			$this->out('.', false);
 		}
 
 		$this->out('ok');
-		
-		$this->out('Do you want to create an admin user? [y]es / [n]o :', false);	
+
+		$this->out('Do you want to create an admin user? [y]es / [n]o :', false);
 
 		$resp = trim($this->in());
 
@@ -131,7 +155,7 @@ class InstallerApplication extends JApplicationCli
 			$salt = JUserHelper::genRandomPassword(32);
 			$crypt = JUserHelper::getCryptedPassword($password, $salt);
 
-			$query = $db->getQuery(true);	
+			$query = $db->getQuery(true);
 			$query->insert('#__users');
 			$query->set('name = "Super User"');
 			$query->set('username = '. $db->quote($username));
@@ -148,16 +172,16 @@ class InstallerApplication extends JApplicationCli
 
 			$db->setQuery($query)->execute();
 			$userId = $db->insertid();
-			
+
 			$query->clear();
 			$query->insert('#__user_usergroup_map');
 			$query->set('user_id = '.  $db->quote($userId) );
 			$query->set('group_id = 8');
 			$db->setQuery($query)->execute();
-			$this->out('User created');	
+			$this->out('User created');
 		}
 
-		$this->out('Do you want to import sample Github issues? [y]es / [n]o :', false);	
+		$this->out('Do you want to import sample Github issues? [y]es / [n]o :', false);
 
 		$resp = trim($this->in());
 
@@ -182,9 +206,9 @@ class InstallerApplication extends JApplicationCli
 				$this->out('.', false);
 			}
 
-			$this->out('ok');	
-		}	
-		
+			$this->out('ok');
+		}
+
 		$this->out()
 			 ->out(sprintf('%s installer has terminated successfully.', $this->appName));
 	}

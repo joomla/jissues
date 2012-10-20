@@ -1,68 +1,4 @@
 --
--- Table structure for table `#__select_items`
---
-
-CREATE TABLE IF NOT EXISTS `#__select_items` (
-  `id` integer unsigned NOT NULL AUTO_INCREMENT,
-  `option_id` int(10) NOT NULL,
-  `value` varchar(255) NOT NULL,
-  `label` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=27;
-
---
--- Dumping data for table `#__select_items`
---
-
-INSERT INTO `#__select_items` (`id`, `option_id`, `value`, `label`) VALUES
-(1, 1, 'mysql_5_0_x', 'MySQL 5.0.x'),
-(2, 1, 'mysql_5_1_x', 'MySQL 5.1.x'),
-(3, 1, 'mysql_5_2_x', 'MySQL 5.2.x'),
-(4, 1, 'mssql_svr', 'Microsoft SQL Server'),
-(5, 1, 'azure', 'Microsoft SQL Azure'),
-(6, 1, 'postgres', 'PostgreSQL'),
-(7, 1, 'oracle', 'Oracle'),
-(8, 1, 'other', 'Other'),
-(9, 2, 'apache_2_0_x', 'Apache 2.0.x'),
-(10, 2, 'apache_2_2_x', 'Apache 2.2.x'),
-(11, 2, 'iis_7_x', 'IIS 7.x'),
-(12, 2, 'other', 'Other'),
-(13, 3, 'php_5_2_x', 'PHP 5.2.x'),
-(14, 3, 'php_5_3_X', 'PHP 5.3.x'),
-(15, 3, 'PHP_5_4_X', 'PHP 5.4.x'),
-(16, 4, 'ff_pc', 'Firefox (PC)'),
-(17, 4, 'ff_mobile', 'Firefox (Mobile)'),
-(18, 4, 'sf_5_x', 'Safari 5.x'),
-(19, 4, 'sf_ipod', 'Safari iPod'),
-(20, 4, 'sf_other', 'Safari Other'),
-(21, 4, 'sf_iphone', 'Safari iPhone'),
-(22, 4, 'sf_ipad', 'Safari iPad'),
-(23, 4, 'gc', 'Google Chrome'),
-(24, 4, 'ie7', 'Internet Explorer 7'),
-(25, 4, 'ie8', 'Internet Explorer 8'),
-(26, 4, 'ie9', 'Internet Explorer 9');
-
---
--- Table structure for table `#__selects`
---
-
-CREATE TABLE IF NOT EXISTS `#__selects` (
-  `id` integer unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=5;
-
---
--- Dumping data for table `#__selects`
---
-
-INSERT INTO `#__selects` (`id`, `name`) VALUES
-(1, 'database'),
-(2, 'webserver'),
-(3, 'php'),
-(4, 'browser');
-
---
 -- Table structure for table `#__status`
 --
 
@@ -109,12 +45,9 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
-  `database_type` integer NULL,
-  `webserver` integer NULL,
-  `php_version` integer NULL,
-  `browser` integer NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
+  KEY `status` (`status`),
+  CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -128,7 +61,8 @@ CREATE TABLE IF NOT EXISTS `#__issue_comments` (
   `text` mediumtext NOT NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  CONSTRAINT FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
+  KEY `issue_id` (`issue_id`),
+  CONSTRAINT `#__issue_comments_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -136,30 +70,14 @@ CREATE TABLE IF NOT EXISTS `#__issue_comments` (
 --
 
 CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `issue_id` int(11) NOT NULL,
-  `field_id` int(11) NOT NULL,
-  `value` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Table structure for table `#__versions`
---
-
-CREATE TABLE IF NOT EXISTS `#__versions` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
-  `version` varchar(5) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;
-
---
--- Dumping data for table `#__versions`
---
-
-INSERT INTO `#__versions` (`id`, `version`) VALUES
-(1, '2.5'),
-(2, '3.0');
+  `issue_id` integer unsigned NOT NULL,
+  `field_id` integer NOT NULL,
+  `value` integer NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `issue_id` (`issue_id`),
+  CONSTRAINT `#__tracker_fields_values_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `#__categories`
@@ -191,14 +109,53 @@ CREATE TABLE IF NOT EXISTS `#__categories` (
   KEY `idx_path` (`path`),
   KEY `idx_left_right` (`lft`,`rgt`),
   KEY `idx_alias` (`alias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41;
 
 --
 -- Dumping data for table `#__categories`
 --
 
 INSERT INTO `#__categories` (`id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `extension`, `title`, `alias`, `published`, `checked_out`, `checked_out_time`, `access`, `created_user_id`, `created_time`, `modified_user_id`, `modified_time`, `version`) VALUES
-(1, 0, 0, 0, 0, '', 'system', 'ROOT', 'root', 1, 0, '0000-00-00 00:00:00', 1, 42, '2011-01-01 00:00:01', 0, '0000-00-00 00:00:00', 1);
+(1, 0, 0, 78, 0, '', 'system', 'ROOT', 'root', 1, 0, '0000-00-00 00:00:00', 1, 42, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(2, 1, 0, 1, 1, 'joomla-cms-issue-tracker', 'com_tracker', 'Joomla! CMS Issue Tracker', 'joomla-cms-issue-tracker', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(3, 1, 2, 3, 1, 'components', 'com_tracker.categories', 'Components', 'components', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(4, 1, 4, 5, 1, 'language', 'com_tracker.categories', 'Language', 'language', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(5, 1, 6, 7, 1, 'templates', 'com_tracker.categories', 'Templates', 'templates', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(6, 1, 8, 9, 1, 'php-version', 'com_tracker.fields', 'PHP Version', 'php-version', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(7, 1, 10, 11, 1, 'browser', 'com_tracker.fields', 'Browser', 'browser', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(8, 1, 12, 13, 1, 'web-server', 'com_tracker.fields', 'Web Server', 'web-server', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(9, 1, 14, 15, 1, 'database', 'com_tracker.fields', 'Database', 'database', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(10, 1, 16, 17, 1, '5-2-x', 'com_tracker.fields.6', '5.2.x', '5-2-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(11, 1, 18, 19, 1, '5-3-x', 'com_tracker.fields.6', '5.3.x', '5-3-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(12, 1, 20, 21, 1, '5-4-x', 'com_tracker.fields.6', '5.4.x', '5-4-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(13, 1, 22, 29, 1, 'internet-explorer', 'com_tracker.fields.7', 'Internet Explorer', 'internet-explorer', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(14, 1, 30, 37, 1, 'mozilla-firefox', 'com_tracker.fields.7', 'Mozilla Firefox', 'mozilla-firefox', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(15, 1, 38, 43, 1, 'google-chrome', 'com_tracker.fields.7', 'Google Chrome', 'google-chrome', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(16, 1, 44, 45, 1, 'safari', 'com_tracker.fields.7', 'Safari', 'safari', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(17, 13, 23, 24, 2, 'internet-explorer/internet-explorer-7', 'com_tracker.fields.7', 'Internet Explorer 7', 'internet-explorer-7', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(18, 13, 25, 26, 2, 'internet-explorer/internet-explorer-8', 'com_tracker.fields.7', 'Internet Explorer 8', 'internet-explorer-8', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(19, 13, 27, 28, 2, 'internet-explorer/internet-explorer-9', 'com_tracker.fields.7', 'Internet Explorer 9', 'internet-explorer-9', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(20, 14, 31, 32, 2, 'mozilla-firefox/firefox-14', 'com_tracker.fields.7', 'Firefox 14', 'firefox-14', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(21, 14, 33, 34, 2, 'mozilla-firefox/firefox-15', 'com_tracker.fields.7', 'Firefox 15', 'firefox-15', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(22, 14, 35, 36, 2, 'mozilla-firefox/firefox-16', 'com_tracker.fields.7', 'Firefox 16', 'firefox-16', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(23, 15, 39, 40, 2, 'google-chrome/chrome-desktop', 'com_tracker.fields.7', 'Chrome (Desktop)', 'chrome-desktop', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(24, 15, 41, 42, 2, 'google-chrome/chrome-mobile', 'com_tracker.fields.7', 'Chrome (Mobile)', 'chrome-mobile', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(25, 1, 46, 51, 1, 'apache', 'com_tracker.fields.8', 'Apache', 'apache', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(26, 1, 52, 55, 1, 'iis', 'com_tracker.fields.8', 'IIS', 'iis', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(27, 25, 47, 48, 2, 'apache/apache-2-2-x', 'com_tracker.fields.8', 'Apache 2.2.x', 'apache-2-2-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(28, 25, 49, 50, 2, 'apache/apache-2-4-x', 'com_tracker.fields.8', 'Apache 2.4.x', 'apache-2-4-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(29, 26, 53, 54, 2, 'iis/iis-7', 'com_tracker.fields.8', 'IIS 7', 'iis-7', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(30, 1, 56, 63, 1, 'mysql', 'com_tracker.fields.9', 'MySQL', 'mysql', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(31, 1, 64, 67, 1, 'microsoft-sql-server', 'com_tracker.fields.9', 'Microsoft SQL Server', 'microsoft-sql-server', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(32, 1, 68, 77, 1, 'postgresql', 'com_tracker.fields.9', 'PostgreSQL', 'postgresql', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(33, 30, 57, 58, 2, 'mysql/mysql-5-0-x', 'com_tracker.fields.9', 'MySQL 5.0.x', 'mysql-5-0-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(34, 30, 59, 60, 2, 'mysql/mysql-5-1-x', 'com_tracker.fields.9', 'MySQL 5.1.x', 'mysql-5-1-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(35, 30, 61, 62, 2, 'mysql/mysql-5-5-x', 'com_tracker.fields.9', 'MySQL 5.5.x', 'mysql-5-5-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(36, 31, 65, 66, 2, 'microsoft-sql-server/sql-server-2008-r2-10-50-1600-1', 'com_tracker.fields.9', 'SQL Server 2008 R2 (10.50.1600.1)', 'sql-server-2008-r2-10-50-1600-1', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(37, 32, 69, 70, 2, 'postgresql/postgresql-8-3-x', 'com_tracker.fields.9', 'PostgreSQL 8.3.x', 'postgresql-8-3-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(38, 32, 71, 72, 2, 'postgresql/postgresql-8-4-x', 'com_tracker.fields.9', 'PostgreSQL 8.4.x', 'postgresql-8-4-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(39, 32, 73, 74, 2, 'postgresql/postgresql-9-0-x', 'com_tracker.fields.9', 'PostgreSQL 9.0.x', 'postgresql-9-0-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
+(40, 32, 75, 76, 2, 'postgresql/postgresql-9-1-x', 'com_tracker.fields.9', 'PostgreSQL 9.1.x', 'postgresql-9-1-x', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1);
 
 --
 -- Tables below are core Platform/CMS tables
@@ -229,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `#__assets` (
 
 INSERT INTO `#__assets` (`id`, `parent_id`, `lft`, `rgt`, `level`, `name`, `title`, `rules`) VALUES
 (1, 0, 1, 12, 0, 'root.1', 'Root Asset', '{"core.login.site":{"6":1,"2":1},"core.login.admin":{"6":1},"core.login.offline":{"6":1},"core.admin":{"8":1},"core.manage":{"7":1},"core.create":{"6":1,"3":1},"core.delete":{"6":1},"core.edit":{"6":1,"4":1},"core.edit.state":{"6":1,"5":1},"core.edit.own":{"6":1,"3":1}}'),
-(2, 1, 2, 3, 1, 'com_tracker', 'com_tracker', '{}'),
+(2, 1, 2, 3, 1, 'com_tracker', 'com_tracker', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}'),
 (3, 1, 4, 5, 1, 'com_cpanel', 'com_cpanel', '{}'),
 (4, 1, 6, 7, 1, 'com_languages', 'com_languages', '{"core.admin":{"7":1},"core.manage":[],"core.create":[],"core.delete":[],"core.edit":[],"core.edit.state":[]}'),
 (5, 1, 8, 9, 1, 'com_login', 'com_login', '{}'),
