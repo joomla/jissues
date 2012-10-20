@@ -25,29 +25,6 @@ class CategoriesModelCategory extends JModelAdmin
 	protected $text_prefix = 'COM_CATEGORIES';
 
 	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param   object  $record  A record object.
-	 *
-	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
-	 *
-	 * @since	1.6
-	 */
-	protected function canDelete($record)
-	{
-		if (!empty($record->id))
-		{
-			if ($record->published != -2)
-			{
-				return;
-			}
-			$user = JFactory::getUser();
-
-			return $user->authorise('core.delete', $record->extension . '.category.' . (int) $record->id);
-		}
-	}
-
-	/**
 	 * Method to test whether a record can have its state changed.
 	 *
 	 * @param   object  $record  A record object.
@@ -60,21 +37,7 @@ class CategoriesModelCategory extends JModelAdmin
 	{
 		$user = JFactory::getUser();
 
-		// Check for existing category.
-		if (!empty($record->id))
-		{
-			return $user->authorise('core.edit.state', $record->extension . '.category.' . (int) $record->id);
-		}
-		// New category, so check against the parent.
-		elseif (!empty($record->parent_id))
-		{
-			return $user->authorise('core.edit.state', $record->extension . '.category.' . (int) $record->parent_id);
-		}
-		// Default to component settings if neither category nor parent known.
-		else
-		{
-			return $user->authorise('core.edit.state', $record->extension);
-		}
+		return $user->authorise('core.edit.state', $record->extension);
 	}
 
 	/**
@@ -141,18 +104,12 @@ class CategoriesModelCategory extends JModelAdmin
 	{
 		if ($result = parent::getItem($pk))
 		{
-
 			// Prime required properties.
 			if (empty($result->id))
 			{
 				$result->parent_id = $this->getState('category.parent_id');
 				$result->extension = $this->getState('category.extension');
 			}
-
-			// Convert the metadata field to an array.
-			$registry = new JRegistry;
-			$registry->loadString($result->metadata);
-			$result->metadata = $registry->toArray();
 
 			// Convert the created and modified dates to local user time for display in the form.
 			$tz = new DateTimeZone(JFactory::getApplication()->getCfg('offset'));
@@ -225,12 +182,10 @@ class CategoriesModelCategory extends JModelAdmin
 		if (!$user->authorise('core.edit.state', $extension . '.category.' . $jinput->get('id')))
 		{
 			// Disable fields for display.
-			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
 
 			// Disable fields while saving.
 			// The controller has already verified this is a record you can edit.
-			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
 
@@ -249,7 +204,7 @@ class CategoriesModelCategory extends JModelAdmin
 	 */
 	protected function getReorderConditions($table)
 	{
-		return 'extension = ' . $this->_db->Quote($table->extension);
+		return 'extension = ' . $this->_db->quote($table->extension);
 	}
 
 	/**
@@ -342,10 +297,6 @@ class CategoriesModelCategory extends JModelAdmin
 			}
 		}
 
-		// Set the access control rules field component value.
-		$form->setFieldAttribute('rules', 'component', $component);
-		$form->setFieldAttribute('rules', 'section', $name);
-
 		// Trigger the default form events.
 		parent::preprocessForm($form, $data, $group);
 	}
@@ -396,13 +347,6 @@ class CategoriesModelCategory extends JModelAdmin
 		{
 			$this->setError($table->getError());
 			return false;
-		}
-
-		// Bind the rules.
-		if (isset($data['rules']))
-		{
-			$rules = new JAccessRules($data['rules']);
-			$table->setRules($rules);
 		}
 
 		// Check the data.
@@ -572,14 +516,6 @@ class CategoriesModelCategory extends JModelAdmin
 					$parentId = 0;
 				}
 			}
-			// Check that user has create permission for parent category
-			$canCreate = ($parentId == $table->getRootId()) ? $user->authorise('core.create', $extension) : $user->authorise('core.create', $extension . '.category.' . $parentId);
-			if (!$canCreate)
-			{
-				// Error since user cannot create in parent category
-				$this->setError(JText::_('COM_CATEGORIES_BATCH_CANNOT_CREATE'));
-				return false;
-			}
 		}
 
 		// If the parent is 0, set it to the ID of the root item in the tree
@@ -674,10 +610,7 @@ class CategoriesModelCategory extends JModelAdmin
 			// Set the new location in the tree for the node.
 			$table->setLocation($table->parent_id, 'last-child');
 
-			// TODO: Deal with ordering?
-			//$table->ordering	= 1;
 			$table->level = null;
-			$table->asset_id = null;
 			$table->lft = null;
 			$table->rgt = null;
 
@@ -760,26 +693,6 @@ class CategoriesModelCategory extends JModelAdmin
 					// Non-fatal error
 					$this->setError(JText::_('JGLOBAL_BATCH_MOVE_PARENT_NOT_FOUND'));
 					$parentId = 0;
-				}
-			}
-			// Check that user has create permission for parent category
-			$canCreate = ($parentId == $table->getRootId()) ? $user->authorise('core.create', $extension) : $user->authorise('core.create', $extension . '.category.' . $parentId);
-			if (!$canCreate)
-			{
-				// Error since user cannot create in parent category
-				$this->setError(JText::_('COM_CATEGORIES_BATCH_CANNOT_CREATE'));
-				return false;
-			}
-
-			// Check that user has edit permission for every category being moved
-			// Note that the entire batch operation fails if any category lacks edit permission
-			foreach ($pks as $pk)
-			{
-				if (!$user->authorise('core.edit', $extension . '.category.' . $pk))
-				{
-					// Error since user cannot edit this category
-					$this->setError(JText::_('COM_CATEGORIES_BATCH_CANNOT_EDIT'));
-					return false;
 				}
 			}
 		}
@@ -867,15 +780,6 @@ class CategoriesModelCategory extends JModelAdmin
 		$extension = JFactory::getApplication()->input->get('extension');
 		switch ($extension)
 		{
-			case 'com_content':
-				parent::cleanCache('com_content');
-				parent::cleanCache('mod_articles_archive');
-				parent::cleanCache('mod_articles_categories');
-				parent::cleanCache('mod_articles_category');
-				parent::cleanCache('mod_articles_latest');
-				parent::cleanCache('mod_articles_news');
-				parent::cleanCache('mod_articles_popular');
-				break;
 			default:
 				parent::cleanCache($extension);
 				break;

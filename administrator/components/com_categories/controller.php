@@ -37,7 +37,7 @@ class CategoriesController extends JControllerLegacy
 
 		// Guess the JText message prefix. Defaults to the option.
 		if (empty($this->extension)) {
-			$this->extension = $this->input->get('extension', 'com_content');
+			$this->extension = $this->input->get('extension', 'com_tracker');
 		}
 	}
 
