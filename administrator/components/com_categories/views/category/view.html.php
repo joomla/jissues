@@ -105,7 +105,7 @@ class CategoriesViewCategory extends JViewLegacy
 		JToolbarHelper::title($title, 'category-'.($isNew?'add':'edit').' '.substr($component, 4).($section?"-$section":'').'-category-'.($isNew?'add':'edit'));
 
 		// For new records, check the create permission.
-		if ($isNew && (count($user->getAuthorisedCategories($component, 'core.create')) > 0)) {
+		if ($isNew) {
 			JToolbarHelper::apply('category.apply');
 			JToolbarHelper::save('category.save');
 			JToolbarHelper::save2new('category.save2new');

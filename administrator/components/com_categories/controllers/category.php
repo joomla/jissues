@@ -41,7 +41,7 @@ class CategoriesControllerCategory extends JControllerForm
 		// Guess the JText message prefix. Defaults to the option.
 		if (empty($this->extension))
 		{
-			$this->extension = $this->input->get('extension', 'com_content');
+			$this->extension = $this->input->get('extension', 'com_tracker');
 		}
 	}
 
@@ -57,7 +57,7 @@ class CategoriesControllerCategory extends JControllerForm
 	protected function allowAdd($data = array())
 	{
 		$user = JFactory::getUser();
-		return ($user->authorise('core.create', $this->extension) || count($user->getAuthorisedCategories($this->extension, 'core.create')));
+		return $user->authorise('core.create', $this->extension);
 	}
 
 	/**
@@ -72,48 +72,8 @@ class CategoriesControllerCategory extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'parent_id')
 	{
-		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		$user = JFactory::getUser();
-		$userId = $user->get('id');
-
-		// Check general edit permission first.
-		if ($user->authorise('core.edit', $this->extension))
-		{
-			return true;
-		}
-
-		// Check specific edit permission.
-		if ($user->authorise('core.edit', $this->extension . '.category.' . $recordId))
-		{
-			return true;
-		}
-
-		// Fallback on edit.own.
-		// First test if the permission is available.
-		if ($user->authorise('core.edit.own', $this->extension . '.category.' . $recordId) || $user->authorise('core.edit.own', $this->extension))
-		{
-			// Now test the owner is the user.
-			$ownerId = (int) isset($data['created_user_id']) ? $data['created_user_id'] : 0;
-			if (empty($ownerId) && $recordId)
-			{
-				// Need to do a lookup from the model.
-				$record = $this->getModel()->getItem($recordId);
-
-				if (empty($record))
-				{
-					return false;
-				}
-
-				$ownerId = $record->created_user_id;
-			}
-
-			// If the owner matches 'me' then do the test.
-			if ($ownerId == $userId)
-			{
-				return true;
-			}
-		}
-		return false;
+		return $user->authorise('core.edit', $this->extension);
 	}
 
 	/**

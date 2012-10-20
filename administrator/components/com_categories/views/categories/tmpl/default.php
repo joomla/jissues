@@ -20,13 +20,6 @@ $userId		= $user->get('id');
 $extension	= $this->escape($this->state->get('filter.extension'));
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
-$ordering 	= ($listOrder == 'a.lft');
-$saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
-if ($saveOrder)
-{
-	$saveOrderingUrl = 'index.php?option=com_categories&task=categories.saveOrderAjax&tmpl=component';
-	JHtml::_('sortablelist.sortable', 'categoryList', 'adminForm', strtolower($listDirn), $saveOrderingUrl, false, true);
-}
 $sortFields = $this->getSortFields();
 ?>
 <script type="text/javascript">
@@ -100,9 +93,6 @@ $sortFields = $this->getSortFields();
 					<th width="10%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
 					</th>
-					<th width="5%" class="nowrap hidden-phone">
-						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $this->state->get('list.direction'), $this->state->get('list.ordering')); ?>
-					</th>
 					<th width="1%" class="nowrap hidden-phone">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 					</th>
@@ -120,10 +110,10 @@ $sortFields = $this->getSortFields();
 				$originalOrders = array();
 				foreach ($this->items as $i => $item) :
 					$orderkey   = array_search($item->id, $this->ordering[$item->parent_id]);
-					$canEdit    = $user->authorise('core.edit',       $extension . '.category.' . $item->id);
+					$canEdit    = $user->authorise('core.edit',       $extension);
 					$canCheckin = $user->authorise('core.admin',      'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-					$canEditOwn = $user->authorise('core.edit.own',   $extension . '.category.' . $item->id) && $item->created_user_id == $userId;
-					$canChange  = $user->authorise('core.edit.state', $extension . '.category.' . $item->id) && $canCheckin;
+					$canEditOwn = $user->authorise('core.edit.own',   $extension) && $item->created_user_id == $userId;
+					$canChange  = $user->authorise('core.edit.state', $extension) && $canCheckin;
 
 					// Get the parents of item for sorting
 					if ($item->level > 1)
@@ -153,22 +143,9 @@ $sortFields = $this->getSortFields();
 					?>
 				<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->parent_id;?>" item-id="<?php echo $item->id?>" parents="<?php echo $parentsStr?>" level="<?php echo $item->level?>">
 					<td class="order nowrap center hidden-phone">
-					<?php if ($canChange) :
-						$disableClassName = '';
-						$disabledLabel    = '';
-						if (!$saveOrder) :
-							$disabledLabel    = JText::_('JORDERINGDISABLED');
-							$disableClassName = 'inactive tip-top';
-						endif; ?>
-						<span class="sortable-handler hasTooltip <?php echo $disableClassName?>" title="<?php echo $disabledLabel?>">
-							<i class="icon-menu"></i>
-						</span>
-
-					<?php else : ?>
 						<span class="sortable-handler inactive">
 							<i class="icon-menu"></i>
 						</span>
-					<?php endif; ?>
 						<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $orderkey + 1;?>" />
 					</td>
 					<td class="center hidden-phone">
@@ -198,13 +175,6 @@ $sortFields = $this->getSortFields();
 					</td>
 					<td class="small hidden-phone">
 						<?php echo $this->escape($item->access_level); ?>
-					</td>
-					<td class="small nowrap hidden-phone">
-					<?php if ($item->language == '*'):?>
-						<?php echo JText::alt('JALL', 'language'); ?>
-					<?php else:?>
-						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
-					<?php endif;?>
 					</td>
 					<td class="center hidden-phone">
 						<span title="<?php echo sprintf('%d-%d', $item->lft, $item->rgt);?>">

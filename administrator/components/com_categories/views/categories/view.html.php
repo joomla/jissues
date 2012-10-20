@@ -117,7 +117,7 @@ class CategoriesViewCategories extends JViewLegacy
 		// Prepare the toolbar.
 		JToolbarHelper::title($title, 'categories '.substr($component, 4).($section?"-$section":'').'-categories');
 
-		if ($canDo->get('core.create') || (count($user->getAuthorisedCategories($component, 'core.create'))) > 0 ) {
+		if ($canDo->get('core.create')) {
 			JToolbarHelper::addNew('category.add');
 		}
 
@@ -197,12 +197,6 @@ class CategoriesViewCategories extends JViewLegacy
 			'filter_access',
 			JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
 		);
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_LANGUAGE'),
-			'filter_language',
-			JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'))
-		);
 	}
 
 	/**
@@ -219,7 +213,6 @@ class CategoriesViewCategories extends JViewLegacy
 			'a.state' => JText::_('JSTATUS'),
 			'a.title' => JText::_('JGLOBAL_TITLE'),
 			'a.access' => JText::_('JGRID_HEADING_ACCESS'),
-			'language' => JText::_('JGRID_HEADING_LANGUAGE'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
 	}

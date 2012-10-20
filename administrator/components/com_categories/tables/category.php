@@ -64,37 +64,6 @@ class CategoriesTableCategory extends JTableNested
 	}
 
 	/**
-	 * Overloaded bind function.
-	 *
-	 * @param   array   $array   named array
-	 * @param   string  $ignore  An optional array or space separated list of properties
-	 *                           to ignore while binding.
-	 *
-	 * @return  mixed   Null if operation was satisfactory, otherwise returns an error
-	 *
-	 * @see     JTable::bind
-	 * @since   11.1
-	 */
-	public function bind($array, $ignore = '')
-	{
-		if (isset($array['params']) && is_array($array['params']))
-		{
-			$registry = new JRegistry;
-			$registry->loadArray($array['params']);
-			$array['params'] = (string) $registry;
-		}
-
-		if (isset($array['metadata']) && is_array($array['metadata']))
-		{
-			$registry = new JRegistry;
-			$registry->loadArray($array['metadata']);
-			$array['metadata'] = (string) $registry;
-		}
-
-		return parent::bind($array, $ignore);
-	}
-
-	/**
 	 * Overridden JTable::store to set created/modified and user id.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.

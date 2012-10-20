@@ -34,7 +34,6 @@ class CategoriesModelCategories extends JModelList
 				'alias', 'a.alias',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
-				'language', 'a.language',
 				'checked_out', 'a.checked_out',
 				'checked_out_time', 'a.checked_out_time',
 				'created_time', 'a.created_time',
@@ -88,9 +87,6 @@ class CategoriesModelCategories extends JModelList
 		$published = $this->getUserStateFromRequest($context.'.filter.published', 'filter_published', '');
 		$this->setState('filter.published', $published);
 
-		$language = $this->getUserStateFromRequest($context.'.filter.language', 'filter_language', '');
-		$this->setState('filter.language', $language);
-
 		// List state information.
 		parent::populateState('a.lft', 'asc');
 	}
@@ -113,7 +109,6 @@ class CategoriesModelCategories extends JModelList
 		$id	.= ':'.$this->getState('filter.search');
 		$id	.= ':'.$this->getState('filter.extension');
 		$id	.= ':'.$this->getState('filter.published');
-		$id	.= ':'.$this->getState('filter.language');
 
 		return parent::getStoreId($id);
 	}
@@ -133,17 +128,12 @@ class CategoriesModelCategories extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'a.id, a.title, a.alias, a.note, a.published, a.access' .
+				'a.id, a.title, a.alias, a.published, a.access' .
 				', a.checked_out, a.checked_out_time, a.created_user_id' .
-				', a.path, a.parent_id, a.level, a.lft, a.rgt' .
-				', a.language'
+				', a.path, a.parent_id, a.level, a.lft, a.rgt'
 			)
 		);
 		$query->from('#__categories AS a');
-
-		// Join over the language
-		$query->select('l.title AS language_title');
-		$query->join('LEFT', $db->quoteName('#__languages').' AS l ON l.lang_code = a.language');
 
 		// Join over the users for the checked out user.
 		$query->select('uc.name AS editor');
@@ -202,11 +192,6 @@ class CategoriesModelCategories extends JModelList
 				$search = $db->Quote('%'.$db->escape($search, true).'%');
 				$query->where('(a.title LIKE '.$search.' OR a.alias LIKE '.$search.' OR a.note LIKE '.$search.')');
 			}
-		}
-
-		// Filter on the language.
-		if ($language = $this->getState('filter.language')) {
-			$query->where('a.language = '.$db->quote($language));
 		}
 
 		// Add the list ordering clause
