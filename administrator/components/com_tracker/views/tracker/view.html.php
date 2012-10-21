@@ -34,6 +34,16 @@ class TrackerViewTracker extends JViewLegacy
 	 */
 	protected $fields = null;
 
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
+	 *
+	 * @see     fetch()
+	 * @since   12.2
+	 */
 	public function display($tpl = null)
 	{
 		$this->input = JFactory::getApplication()->input;
@@ -44,12 +54,12 @@ class TrackerViewTracker extends JViewLegacy
 
 		$this->lists = new JRegistry;
 
-		if($this->project)
+		if ($this->project)
 		{
-			$this->lists->set('categories', JHtmlProjects::listing('com_tracker.' . $this->project.'.categories'));
-			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project.'.textfields'));
-			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project.'.fields'));
-			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project.'.checkboxes'));
+			$this->lists->set('categories', JHtmlProjects::listing('com_tracker.' . $this->project . '.categories'));
+			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project . '.textfields'));
+			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project . '.fields'));
+			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project . '.checkboxes'));
 		}
 
 		parent::display($tpl);

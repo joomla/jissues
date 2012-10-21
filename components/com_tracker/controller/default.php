@@ -33,9 +33,9 @@ class TrackerControllerDefault extends JControllerBase
 		// Get the document object.
 		$document = $app->getDocument();
 
-		$vName = $app->input->getWord('view', 'issues');
+		$vName   = $app->input->getWord('view', 'issues');
 		$vFormat = $document->getType();
-		$lName = $app->input->getWord('layout', 'default');
+		$lName   = $app->input->getWord('layout', 'default');
 
 		$app->input->set('view', $vName);
 
@@ -46,7 +46,7 @@ class TrackerControllerDefault extends JControllerBase
 		$vClass = 'TrackerView' . ucfirst($vName) . ucfirst($vFormat);
 		$mClass = 'TrackerModel' . ucfirst($vName);
 
-		if(false == class_exists($mClass))
+		if (false == class_exists($mClass))
 		{
 			$mClass = 'TrackerModelDefault';
 		}
