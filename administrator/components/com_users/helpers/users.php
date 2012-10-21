@@ -86,7 +86,7 @@ class UsersHelper
 			$user = JFactory::getUser();
 			self::$actions = new JObject;
 
-			$actions = JAccess::getActions('com_users');
+			$actions = JAccess::getActionsFromFile(JPATH_ADMINISTRATOR . '/components/com_users/access.xml');
 
 			foreach ($actions as $action)
 			{

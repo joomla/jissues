@@ -75,7 +75,7 @@ class UsersHelperDebug
 
 		// Try to get actions for the component
 		if (!empty($component)) {
-			$component_actions = JAccess::getActions($component);
+			$component_actions = JAccess::getActionsFromFile(JPATH_ADMINISTRATOR . '/components/' . $component . '/access.xml');
 
 			if (!empty($component_actions)) {
 				foreach($component_actions as &$action)
