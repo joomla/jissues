@@ -1,10 +1,21 @@
 <?php
 /**
- * User: elkuku
- * Date: 10.10.12
- * Time: 18:01
+ * @package     JTracker
+ * @subpackage  com_tracker
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
+
+/**
+ * JTracker helper class.
+ *
+ * @package     JTracker
+ * @subpackage  com_tracker
+ * @since       1.0
+ */
 abstract class TrackerHelper
 {
 	/**
@@ -54,10 +65,13 @@ abstract class TrackerHelper
 
 		if (isset($matches[1]))
 		{
+			$item = new JTableCategory(JFactory::getDbo());
+			$item->load((int) $matches[1]);
+
 			JHtmlSidebar::addEntry(
-				sprintf(JText::_('Selectlists %s'), $matches[1])
-				, 'index.php?option=com_categories&extension=com_tracker.fields.' . $matches[1]
-				, true
+				sprintf(JText::_('Selectlists %s'), $item->title),
+				'index.php?option=com_categories&extension=com_tracker.fields.' . $matches[1],
+				true
 			);
 		}
 
@@ -83,38 +97,50 @@ abstract class TrackerHelper
 				return;
 			}
 
+			$item = new JTableCategory(JFactory::getDbo());
+			$item->load($p);
+
+			var_dump($item);
+
 			JHtmlSidebar::addEntry(
-				sprintf(JText::_('Project %s'), $p)
-				, 'index.php?option=com_tracker&project=' . $p
-				, (boolean) $project
+				sprintf(JText::_('Project %s'), $p),
+				'index.php?option=com_tracker&project=' . $p,
+				(boolean) $project
 			);
 
 			JHtmlSidebar::addEntry(
-				sprintf(JText::_('%s Categories'), $p)
-				, sprintf($baseLink . '.%s.%s', $p, 'categories')
-				, preg_match('/com_tracker.[0-9]+.categories/', $extension)
+				sprintf(JText::_('%s Categories'), $p),
+				sprintf($baseLink . '.%s.%s', $p, 'categories'),
+				preg_match('/com_tracker.[0-9]+.categories/', $extension)
 			);
 
 			JHtmlSidebar::addEntry(
-				sprintf(JText::_('%s Textfields'), $p)
-				, sprintf($baseLink . '.%s.%s', $p, 'textfields')
-				, preg_match('/com_tracker.[0-9]+.textfields/', $extension)
+				sprintf(JText::_('%s Textfields'), $p),
+				sprintf($baseLink . '.%s.%s', $p, 'textfields'),
+				preg_match('/com_tracker.[0-9]+.textfields/', $extension)
 			);
 
 			JHtmlSidebar::addEntry(
-				sprintf(JText::_('%s Selectlists'), $p)
-				, sprintf($baseLink . '.%s.%s', $p, 'fields')
-				, preg_match('/com_tracker.[0-9]+.fields/', $extension)
+				sprintf(JText::_('%s Selectlists'), $p),
+				sprintf($baseLink . '.%s.%s', $p, 'fields'),
+				preg_match('/com_tracker.[0-9]+.fields/', $extension)
 			);
 
 			JHtmlSidebar::addEntry(
-				sprintf(JText::_('%s Checkboxes'), $p)
-				, sprintf($baseLink . '.%s.%s', $p, 'checkboxes')
-				, preg_match('/com_tracker.[0-9]+.checkboxes/', $extension)
+				sprintf(JText::_('%s Checkboxes'), $p),
+				sprintf($baseLink . '.%s.%s', $p, 'checkboxes'),
+				preg_match('/com_tracker.[0-9]+.checkboxes/', $extension)
 			);
 		}
 	}
 
+	/**
+	 * Set the Toolbar title in com_categories.
+	 *
+	 * @param   string  $extension  The extension section.
+	 *
+	 * @return void
+	 */
 	private static function setCategoriesTitle($extension)
 	{
 		$parts = explode('.', $extension);
@@ -124,15 +150,18 @@ abstract class TrackerHelper
 
 		if (2 == count($parts))
 		{
-			$section = $parts[1];
+			$section = ucfirst($parts[1]);
 		}
 
 		if (3 == count($parts))
 		{
-			$section    = $parts[2];
-			$subSection = $parts[1];
+			$item = new JTableCategory(JFactory::getDbo());
+			$item->load((int) $parts[2]);
+
+			$section    = $item->title;
+			$subSection = ucfirst($parts[1]);
 		}
 
-		JToolbarHelper::title(sprintf('Tracker %1$s %2$s', $section, $subSection));
+		JToolbarHelper::title(sprintf('JTracker: %2$s %1$s', $section, $subSection));
 	}
 }
