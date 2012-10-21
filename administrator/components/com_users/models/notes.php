@@ -76,7 +76,7 @@ class UsersModelNotes extends JModelList
 		$query->from('#__user_notes AS a');
 
 		// Join over the category
-		$query->select('c.title AS category_title, c.params AS category_params');
+		$query->select('c.title AS category_title');
 		$query->leftJoin('#__categories AS c ON c.id = a.catid');
 
 		// Join over the users for the note user.
