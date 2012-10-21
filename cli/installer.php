@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 /**
- * User: elkuku
- * Date: 08.10.12
- * Time: 20:30
+ * @package     JTracker
+ * @subpackage  CLI
  *
- * @todo improveme =;)
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 // We are a valid entry point.

@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     Joomla.Platform
+ * @package     JTracker
  * @subpackage  Document
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('JPATH_PLATFORM') or die;
@@ -12,9 +12,11 @@ defined('JPATH_PLATFORM') or die;
 /**
  * JDocument system message renderer
  *
- * @package     Joomla.Platform
+ * @package     JTracker
  * @subpackage  Document
- * @since       11.1
+ * @since       1.0
+ *
+ * @note        Due to autoloading, overrides file at libraries/joomla/document/html/renderer/message.php
  */
 class JDocumentRendererMessage extends JDocumentRenderer
 {
@@ -27,7 +29,7 @@ class JDocumentRendererMessage extends JDocumentRenderer
 	 *
 	 * @return  string  The output of the script or an empty string id the message queue is empty.
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function render($name, $params = array(), $content = null)
 	{
@@ -47,7 +49,9 @@ class JDocumentRendererMessage extends JDocumentRenderer
 
 		// Return an empty string if the message queue is empty !
 		if (false == is_array($messages) || empty($messages))
+		{
 			return '';
+		}
 
 		// Build the sorted message list
 		foreach ($messages as $msg)

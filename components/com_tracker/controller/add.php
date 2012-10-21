@@ -1,10 +1,21 @@
 <?php
 /**
- * User: elkuku
- * Date: 15.10.12
- * Time: 21:57
+ * @package     JTracker
+ * @subpackage  com_tracker
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
+
+/**
+ * Controller class to add an item via the tracker component.
+ *
+ * @package     JTracker
+ * @subpackage  com_tracker
+ * @since       1.0
+ */
 class TrackerControllerAdd extends TrackerControllerDefault
 {
 	/**
@@ -14,7 +25,7 @@ class TrackerControllerAdd extends TrackerControllerDefault
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
 	 *
-	 * @since            12.1
+	 * @since   1.0
 	 * @throws  LogicException
 	 * @throws  RuntimeException
 	 */

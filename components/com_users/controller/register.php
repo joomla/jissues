@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Registration controller class for Users.
+ * Controller class to register a user.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 class UsersControllerRegister extends JControllerBase
 {

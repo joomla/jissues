@@ -1,9 +1,9 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -12,24 +12,26 @@ defined('_JEXEC') or die;
 /**
  * Users Route Helper
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
-class UsersHelperRoute
+abstract class UsersHelperRoute
 {
 	/**
 	 * Method to get the menu items for the component.
 	 *
-	 * @return	array		An array of menu items.
-	 * @since	1.6
+	 * @return  array  An array of menu items.
+	 *
+	 * @since   1.0
 	 */
 	public static function &getItems()
 	{
 		static $items;
 
 		// Get the menu items for this component.
-		if (!isset($items)) {
+		if (!isset($items))
+		{
 			// Include the site app in case we are loading this from the admin.
 			//require_once JPATH_SITE.'/includes/application.php';
 
@@ -39,7 +41,8 @@ class UsersHelperRoute
 			$items	= $menu->getItems('component_id', $com->id);
 
 			// If no items found, set to empty array.
-			if (!$items) {
+			if (!$items)
+			{
 				$items = array();
 			}
 		}
@@ -48,143 +51,102 @@ class UsersHelperRoute
 	}
 
 	/**
-	 * Method to get a route configuration for the login view.
+	 * Method to get the route for the given view
 	 *
-	 * @return	mixed		Integer menu id on success, null on failure.
-	 * @since	1.6
-	 * @static
+	 * @param   string  $view  The view to retrieve the route for
+	 *
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
 	 */
-	public static function getLoginRoute()
+	protected static function getRoute($view)
 	{
 		// Get the items.
 		$items	= self::getItems();
 		$itemid	= null;
 
 		// Search for a suitable menu id.
-		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'login') {
+		foreach ($items as $item)
+		{
+			if (isset($item->query['view']) && $item->query['view'] === $view)
+			{
 				$itemid = $item->id;
 				break;
 			}
 		}
 
 		return $itemid;
+	}
+
+	/**
+	 * Method to get a route configuration for the login view.
+	 *
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
+	 */
+	public static function getLoginRoute()
+	{
+		return self::getRoute('login');
 	}
 
 	/**
 	 * Method to get a route configuration for the profile view.
 	 *
-	 * @return	mixed		Integer menu id on success, null on failure.
-	 * @since	1.6
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
 	 */
 	public static function getProfileRoute()
 	{
-		// Get the items.
-		$items	= self::getItems();
-		$itemid	= null;
-
-		// Search for a suitable menu id.
-		//Menu link can only go to users own profile.
-
-		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'profile') {
-				$itemid = $item->id;
-				break;
-			}
-
-		}
-		return $itemid;
+		return self::getRoute('profile');
 	}
 
 	/**
 	 * Method to get a route configuration for the registration view.
 	 *
-	 * @return	mixed		Integer menu id on success, null on failure.
-	 * @since	1.6
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
 	 */
 	public static function getRegistrationRoute()
 	{
-		// Get the items.
-		$items	= self::getItems();
-		$itemid	= null;
-
-		// Search for a suitable menu id.
-		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'registration') {
-				$itemid = $item->id;
-				break;
-			}
-		}
-
-		return $itemid;
+		return self::getRoute('registration');
 	}
 
 	/**
 	 * Method to get a route configuration for the remind view.
 	 *
-	 * @return	mixed		Integer menu id on success, null on failure.
-	 * @since	1.6
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
 	 */
 	public static function getRemindRoute()
 	{
-		// Get the items.
-		$items	= self::getItems();
-		$itemid	= null;
-
-		// Search for a suitable menu id.
-		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'remind') {
-				$itemid = $item->id;
-				break;
-			}
-		}
-
-		return $itemid;
+		return self::getRoute('remind');
 	}
 
 	/**
 	 * Method to get a route configuration for the resend view.
 	 *
-	 * @return	mixed		Integer menu id on success, null on failure.
-	 * @since	1.6
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
 	 */
 	public static function getResendRoute()
 	{
-		// Get the items.
-		$items	= self::getItems();
-		$itemid	= null;
-
-		// Search for a suitable menu id.
-		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'resend') {
-				$itemid = $item->id;
-				break;
-			}
-		}
-
-		return $itemid;
+		return self::getRoute('resend');
 	}
 
 	/**
 	 * Method to get a route configuration for the reset view.
 	 *
-	 * @return	mixed		Integer menu id on success, null on failure.
-	 * @since	1.6
+	 * @return  mixed  Integer menu id on success, null on failure.
+	 *
+	 * @since   1.0
 	 */
 	public static function getResetRoute()
 	{
-		// Get the items.
-		$items	= self::getItems();
-		$itemid	= null;
-
-		// Search for a suitable menu id.
-		foreach ($items as $item) {
-			if (isset($item->query['view']) && $item->query['view'] === 'reset') {
-				$itemid = $item->id;
-				break;
-			}
-		}
-
-		return $itemid;
+		return self::getRoute('reset');
 	}
 }

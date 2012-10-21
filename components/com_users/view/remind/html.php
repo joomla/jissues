@@ -1,46 +1,69 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Registration view class for Users.
+ * The user reminder view
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.5
+ * @since       1.0
  */
 class UsersViewRemindHtml extends JViewHtml
 {
+	/**
+	 * The form object
+	 *
+	 * @var    JForm
+	 * @since  1.0
+	 */
 	protected $form;
 
 	/**
-	 * @var JRegistry
+	 * The component params
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
 	 */
 	protected $params;
 
+	/**
+	 * The state object
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
+	 */
 	protected $state;
-
-	protected $pageclass_sfx = '';
 
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     UsersModelRemind
+	 * @var     UsersModelRegistration
 	 * @since   1.0
 	 */
 	protected $model;
 
 	/**
-	 * Method to display the view.
+	 * The page class suffix
 	 *
-	 * @since    1.5
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $pageclass_sfx = '';
+
+	/**
+	 * Method to render the view.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
 	 */
 	public function render()
 	{
@@ -76,7 +99,9 @@ class UsersViewRemindHtml extends JViewHtml
 	/**
 	 * Prepares the document.
 	 *
-	 * @since    1.6
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function prepareDocument()
 	{

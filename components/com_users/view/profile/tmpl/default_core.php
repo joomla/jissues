@@ -1,14 +1,15 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+/* @var UsersViewProfileHtml $this */
 
+defined('_JEXEC') or die;
 ?>
 
 <fieldset id="users-profile-core">
@@ -48,6 +49,5 @@ defined('_JEXEC') or die;
 				<?php echo JText::_('COM_USERS_PROFILE_NEVER_VISITED'); ?>
 			</dd>
 		<?php } ?>
-
 	</dl>
 </fieldset>

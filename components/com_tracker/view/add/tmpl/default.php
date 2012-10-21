@@ -1,9 +1,15 @@
 <?php
 /**
- * User: elkuku
- * Date: 15.10.12
- * Time: 22:03
+ * @package     JTracker
+ * @subpackage  com_tracker
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+/* @var TrackerViewAddHtml $this */
+
+defined('_JEXEC') or die;
 
 // @todo move the "template" to ... a template ¿
 $template = "

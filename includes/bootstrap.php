@@ -1,10 +1,9 @@
 <?php
 /**
- * @package     BabDev.Tracker
- * @subpackage  Application
+ * @package    JTracker
  *
- * @copyright   Copyright (C) 2012 Michael Babker. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;

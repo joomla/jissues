@@ -1,32 +1,36 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Users Html Helper
+ * Users HTML Helper
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 abstract class JHtmlUsers
 {
 	public static function value($value)
 	{
-		if (is_string($value)) {
+		if (is_string($value))
+		{
 			$value = trim($value);
 		}
-		if (empty($value)) {
+
+		if (empty($value))
+		{
 			return JText::_('COM_USERS_PROFILE_VALUE_NOT_FOUND');
 		}
-		else {
+		else
+		{
 			return htmlspecialchars($value);
 		}
 	}
@@ -44,7 +48,7 @@ abstract class JHtmlUsers
 		}
 		else
 		{
-			$pathToXml = JPATH_ADMINISTRATOR.'/help/helpsites.xml';
+			$pathToXml = JPATH_ADMINISTRATOR . '/help/helpsites.xml';
 
 			$text = $value;
 			if (!empty($pathToXml) && $xml = simplexml_load_file($pathToXml))
@@ -64,7 +68,8 @@ abstract class JHtmlUsers
 			{
 				return '<a href="'.$value.'">'.$text.'</a>';
 			}
-			else {
+			else
+			{
 				return '<a href="http://'.$value.'">'.$text.'</a>';
 			}
 		}
@@ -85,10 +90,12 @@ abstract class JHtmlUsers
 			$query->where('id = '.$db->quote($value));
 			$db->setQuery($query);
 			$title = $db->loadResult();
-			if ($title) {
+			if ($title)
+			{
 				return htmlspecialchars($title);
 			}
-			else {
+			else
+			{
 				return self::value('');
 			}
 		}
@@ -106,14 +113,17 @@ abstract class JHtmlUsers
 			$file = "$value.xml";
 
 			$result = null;
-			if (is_file("$path/$file")) {
+			if (is_file("$path/$file"))
+			{
 				$result = JLanguage::parseXMLLanguageFile("$path/$file");
 			}
 
-			if ($result) {
+			if ($result)
+			{
 				return htmlspecialchars($result['name']);
 			}
-			else {
+			else
+			{
 				return self::value('');
 			}
 		}
@@ -131,14 +141,17 @@ abstract class JHtmlUsers
 			$file = "$value.xml";
 
 			$result = null;
-			if (is_file("$path/$file")) {
+			if (is_file("$path/$file"))
+			{
 				$result = JLanguage::parseXMLLanguageFile("$path/$file");
 			}
 
-			if ($result) {
+			if ($result)
+			{
 				return htmlspecialchars($result['name']);
 			}
-			else {
+			else
+			{
 				return self::value('');
 			}
 		}

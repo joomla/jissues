@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  CLI
  *
- * @copyright   Copyright (C) 2012 Michael Babker. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -42,7 +42,7 @@ ini_set('display_errors', 1);
  * NOTE: Since this pulls each GitHub Issue's comments separately and inserts each record to the database separately,
  * this will be a time consuming script.
  *
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  CLI
  * @since       1.0
  */

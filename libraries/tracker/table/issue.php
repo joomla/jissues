@@ -1,9 +1,9 @@
 <?php
 /**
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  Table
  *
- * @copyright   Copyright (C) 2012 Michael Babker. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -12,7 +12,7 @@ defined('JPATH_PLATFORM') or die;
 /**
  * Table interface class for the issues table
  *
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  Table
  * @since       1.0
  */
@@ -41,7 +41,7 @@ class JTableIssue extends JTable
 	 * @return  boolean  True on success.
 	 *
 	 * @link    http://docs.joomla.org/JTable/bind
-	 * @since   11.1
+	 * @since   1.0
 	 * @throws  InvalidArgumentException
 	 */
 	public function bind($src, $ignore = array())

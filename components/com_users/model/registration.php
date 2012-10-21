@@ -1,26 +1,26 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Registration model class for Users.
+ * Model class to register a user.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 class UsersModelRegistration extends JModelTrackerform
 {
 	/**
 	 * @var    object  The user registration data.
-	 * @since  1.6
+	 * @since  1.0
 	 */
 	protected $data;
 
@@ -31,7 +31,7 @@ class UsersModelRegistration extends JModelTrackerform
 	 *
 	 * @return  mixed  False on failure, user object on success.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function activate($token)
@@ -176,7 +176,7 @@ class UsersModelRegistration extends JModelTrackerform
 	 *
 	 * @return  mixed  Data object on success, false on failure.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getData()
 	{
@@ -234,7 +234,7 @@ class UsersModelRegistration extends JModelTrackerform
 	 *
 	 * @return  JForm  A JForm object on success, false on failure
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -253,7 +253,7 @@ class UsersModelRegistration extends JModelTrackerform
 	 *
 	 * @return  mixed  The data for the form.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	protected function loadFormData()
 	{
@@ -311,7 +311,7 @@ class UsersModelRegistration extends JModelTrackerform
 	 *
 	 * @return  mixed  The user id on success, false on failure.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function register($temp)

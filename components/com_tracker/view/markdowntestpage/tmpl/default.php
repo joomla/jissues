@@ -1,11 +1,13 @@
 <?php
 /**
  * @package     JTracker
- * @subpackage  View
+ * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 X. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+/* @var TrackerViewMarkdowntestpageHtml $this */
 
 defined('_JEXEC') or die;
 ?>

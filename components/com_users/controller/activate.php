@@ -1,8 +1,20 @@
 <?php
 /**
- * User: elkuku
- * Date: 09.10.12
- * Time: 23:34
+ * @package     JTracker
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+defined('_JEXEC') or die;
+
+/**
+ * Controller class to activate a user.
+ *
+ * @package     JTracker
+ * @subpackage  com_users
+ * @since       1.0
  */
 class UsersControllerActivate extends JControllerBase
 {

@@ -1,5 +1,12 @@
 #!/usr/bin/php
 <?php
+/**
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
 if (php_sapi_name() != "cli")
 {

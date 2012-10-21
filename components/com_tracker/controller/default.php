@@ -1,9 +1,9 @@
 <?php
 /**
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Michael Babker. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -12,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Default controller class for the Tracker component.
  *
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  com_tracker
- * @since       3.0
+ * @since       1.0
  */
 class TrackerControllerDefault extends JControllerBase
 {

@@ -1,26 +1,26 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Profile model class for Users.
+ * Model class to retrieve a user profile.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 class UsersModelProfile extends JModelTrackerform
 {
 	/**
 	 * @var    object  The user profile data.
-	 * @since  1.6
+	 * @since  1.0
 	 */
 	protected $data;
 
@@ -31,7 +31,7 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @return  boolean  True on success, false on failure.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function checkin($userId = null)
@@ -61,7 +61,7 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @return  boolean
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function checkout($userId = null)
@@ -95,7 +95,7 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @return  mixed  Data object on success, false on failure.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getData()
 	{
@@ -153,7 +153,7 @@ class UsersModelProfile extends JModelTrackerform
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return  JForm  A JForm object on success, false on failure
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -183,7 +183,7 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @return   mixed    The data for the form.
 	 *
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	protected function loadFormData()
 	{
@@ -247,7 +247,7 @@ class UsersModelProfile extends JModelTrackerform
 	 *
 	 * @return  mixed  The user id on success, false on failure.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 * @throws  RuntimeException
 	 */
 	public function save($data)

@@ -1,9 +1,9 @@
 <?php
 /**
  * @package     JTracker
- * @subpackage  View
+ * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 X. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -13,13 +13,16 @@ defined('_JEXEC') or die;
  * A Markdowntestpage view
  *
  * @package     JTracker
- * @subpackage  View
+ * @subpackage  com_tracker
  * @since       1.0
  */
 class TrackerViewMarkdowntestpageHtml extends JViewHtml
 {
 	/**
-	 * @var JEventDispatcher
+	 * The dispatcher object
+	 *
+	 * @var    JEventDispatcher
+	 * @since  1.0
 	 */
 	protected $dispatcher;
 
@@ -46,7 +49,9 @@ class TrackerViewMarkdowntestpageHtml extends JViewHtml
 	 * @param   string   $raw      The raw string.
 	 * @param   boolean  $comment  If TRUE, the raw text will be prepended for documentation.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	protected function parse($raw, $comment = false)
 	{
