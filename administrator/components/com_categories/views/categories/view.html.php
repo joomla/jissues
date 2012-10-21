@@ -35,8 +35,7 @@ class CategoriesViewCategories extends JViewLegacy
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
+			throw new Exception(implode("\n", $errors));
 		}
 
 		// Preprocess the list of items to find ordering divisions.
@@ -115,7 +114,11 @@ class CategoriesViewCategories extends JViewLegacy
 		JHtml::_('stylesheet', $component.'/administrator/categories.css', array(), true);
 
 		// Prepare the toolbar.
-		JToolbarHelper::title($title, 'categories '.substr($component, 4).($section?"-$section":'').'-categories');
+		if('com_tracker' != $component)
+		{
+			// My lil hack.. this works only for "single section sections" - not for us...
+			JToolbarHelper::title($title, 'categories '.substr($component, 4).($section?"-$section":'').'-categories');
+		}
 
 		if ($canDo->get('core.create')) {
 			JToolbarHelper::addNew('category.add');
