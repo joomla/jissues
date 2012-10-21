@@ -61,6 +61,16 @@
 		class="inputbox"
 		size="40"/>
 
+    <field
+            name="description"
+            type="textarea"
+            label="JGLOBAL_DESCRIPTION"
+            description="The description will be used for Tooltips."
+            class="inputbox"
+            filter="JComponentHelper::filterText"
+            buttons="false"
+            hide="readmore,pagebreak"/>
+
 	<field
 		name="published"
 		type="list"
