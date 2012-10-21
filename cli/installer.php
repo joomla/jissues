@@ -65,15 +65,16 @@ class InstallerApplication extends JApplicationCli
 			// Check if the database "exists"
 			$tables = $db->getTableList();
 
-			$this->out('WARNING: A database has been found. Do you want to reinstall ? [y]es / [n]o :', false);
+			$this->out('WARNING: A database has been found !!')->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
 
-			$resp = trim($this->in());
+			$in = trim($this->in());
 
-			if ('yes' != $resp && 'y' != $resp)
+			if ('yes' != $in && 'y' != $in)
 				throw new InstallerAbortException;
 
 			// Remove existing tables
-			$this->out('Remove existing tables...', false);
+
+			$this->out('Removing existing tables...', false);
 
 			// First, need to drop the tables with FKs in specific order
 			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__issue_comments'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
@@ -112,12 +113,23 @@ class InstallerApplication extends JApplicationCli
 		}
 
 		// Install.
-		$sql = file_get_contents(JPATH_ROOT . '/sql/mysql.sql');
+
+		$dbType = $this->config->get('dbtype');
+
+		if('mysqli' == $dbType)
+		{
+			$dbType = 'mysql';
+		}
+
+		if(false == file_exists(JPATH_ROOT . '/sql/'.$dbType.'.sql'))
+			throw new UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
+
+		$sql = file_get_contents(JPATH_ROOT . '/sql/'.$dbType.'.sql');
 
 		if (false == $sql)
 			throw new UnexpectedValueException('SQL file not found.');
 
-		$this->out('Creating tables from file /sql/mysql.sql', false);
+		$this->out('Creating tables from file /sql/'.$dbType.'.sql', false);
 
 		foreach ($db->splitSql($sql) as $query)
 		{
@@ -142,16 +154,62 @@ class InstallerApplication extends JApplicationCli
 
 		$this->out('ok');
 
-		$this->out('Do you want to create an admin user? [y]es / [n]o :', false);
-
-		$resp = trim($this->in());
-
-		if ('yes' == $resp || 'y' == $resp)
+		/* @var DirectoryIterator $fileInfo */
+		foreach (new DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
 		{
-			$this->out('Enter username: ', false);
+			if($fileInfo->isDot())
+				continue;
+
+			$fileName = $fileInfo->getFilename();
+
+			if('index.html' == $fileName
+			|| $dbType.'.sql' == $fileName)
+				continue;
+
+			// Process optional SQL files
+			$this->out(sprintf('Process: %s? [[y]]es / [n]o :', $fileName), false);
+
+			$in = trim($this->in());
+
+			if ('no' == $in || 'n' == $in)
+				continue;
+
+			$sql = file_get_contents(JPATH_ROOT . '/sql/'.$fileName);
+
+			if (false == $sql)
+				throw new UnexpectedValueException('SQL file not found.');
+
+			$this->out(sprintf('Processing %s', $fileName), false);
+
+			foreach ($db->splitSql($sql) as $query)
+			{
+				$q = trim($db->replacePrefix($query));
+
+				if ('' == trim($q))
+					continue;
+
+				$db->setQuery($q)->execute();
+
+				$this->out('.', false);
+			}
+
+			$this->out('ok');
+		}
+
+		$this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
+
+		$in = trim($this->in());
+
+		if ('no' != $in && 'n' != $in)
+		{
+			$this->out('Enter username [[admin]]: ', false);
 			$username = trim($this->in());
-			$this->out('Enter password: ', false);
+			$username = $username ?: 'admin';
+
+			$this->out('Enter password [[test]]: ', false);
 			$password = trim($this->in());
+			$password = $password ? : 'test';
+
 			$salt = JUserHelper::genRandomPassword(32);
 			$crypt = JUserHelper::getCryptedPassword($password, $salt);
 
@@ -178,35 +236,7 @@ class InstallerApplication extends JApplicationCli
 			$query->set('user_id = '.  $db->quote($userId) );
 			$query->set('group_id = 8');
 			$db->setQuery($query)->execute();
-			$this->out('User created');
-		}
-
-		$this->out('Do you want to import sample Github issues? [y]es / [n]o :', false);
-
-		$resp = trim($this->in());
-
-		if ('yes' == $resp || 'y' == $resp)
-		{
-			$sql = file_get_contents(JPATH_ROOT . '/sql/sampledata.sql');
-
-			if (false == $sql)
-				throw new UnexpectedValueException('SQL file not found.');
-
-			$this->out('Importing sample Github issues from /sql/sampledata.sql', false);
-
-			foreach ($db->splitSql($sql) as $query)
-			{
-				$q = trim($db->replacePrefix($query));
-
-				if ('' == trim($q))
-					continue;
-
-				$db->setQuery($q)->execute();
-
-				$this->out('.', false);
-			}
-
-			$this->out('ok');
+			$this->out('User created.');
 		}
 
 		$this->out()
