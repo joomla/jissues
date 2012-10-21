@@ -35,6 +35,16 @@ class TrackerViewAddHtml extends JViewHtml
 	protected $editorParams = array();
 
 	/**
+	 * @var JRegistry
+	 */
+	protected $lists;
+
+	/**
+	 * @var JTableIssue
+	 */
+	protected $item;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -50,6 +60,15 @@ class TrackerViewAddHtml extends JViewHtml
 			'preview-url'     => 'index.php?option=com_tracker&task=preview&format=raw',
 			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
 		);
+
+		$this->item = new JTableIssue(JFactory::getDbo());
+
+		$this->lists = new JRegistry;
+
+		$this->lists->set('categories', JHtmlProjects::select('com_tracker.categories', 'category', '', 'Select a category', ''));
+		$this->lists->set('selects', JHtmlProjects::items('com_tracker.fields'));
+		$this->lists->set('textfields', JHtmlProjects::items('com_tracker.textfields'));
+		$this->lists->set('checkboxes', JHtmlProjects::items('com_tracker.checkboxes'));
 
 		return parent::render();
 	}
