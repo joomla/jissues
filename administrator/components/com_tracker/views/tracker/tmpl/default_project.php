@@ -7,13 +7,23 @@
 ?>
 
 <div class="row">
-    <div class="span6">
-        <h3>Categories</h3>
+    <div class="span12">
+        <h2>Categories</h2>
 		<?= $this->lists->get('categories') ? : 'Use global' ?>
     </div>
-    <div class="span6">
-        <h3>Fields</h3>
-	    <?= $this->lists->get('fields') ? : 'Use global' ?>
+</div>
+<div class="row">
+    <div class="span4">
+        <h2>Textfields</h2>
+		<?= $this->lists->get('textfields') ? : 'Use global' ?>
+    </div>
+    <div class="span4">
+        <h2>Selectlists</h2>
+		<?= $this->lists->get('fields') ? : 'Use global' ?>
+    </div>
+    <div class="span4">
+        <h2>Checkboxes</h2>
+		<?= $this->lists->get('checkboxes') ? : 'Use global' ?>
     </div>
 </div>
 

@@ -36,7 +36,9 @@ class TrackerViewTracker extends JViewLegacy
 		if($this->project)
 		{
 			$this->lists->set('categories', JHtmlProjects::listing('com_tracker.' . $this->project.'.categories'));
+			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project.'.textfields'));
 			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project.'.fields'));
+			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project.'.checkboxes'));
 		}
 
 		parent::display($tpl);
