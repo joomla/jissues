@@ -145,7 +145,7 @@ abstract class JHtmlProjects
 	 */
 	public static function textfield($name, $value, $description = '')
 	{
-		$description = ($description) ? ' class="hasTooltip" title="' . $description . '"' : '';
+		$description = ($description) ? ' class="hasTooltip" title="' . htmlspecialchars($description, ENT_COMPAT, 'UTF-8') . '"' : '';
 
 		return '<input type="text" name="fields[' . $name . ']" '
 			. ' id="txt-' . $name . '" value="' . $value . '"' . $description . ' />';
@@ -164,7 +164,7 @@ abstract class JHtmlProjects
 	 */
 	public static function checkbox($name, $checked = false, $description = '')
 	{
-		$description = ($description) ? ' class="hasTooltip" title="' . $description . '"' : '';
+		$description = ($description) ? ' class="hasTooltip" title="' . htmlspecialchars($description, ENT_COMPAT, 'UTF-8') . '"' : '';
 		$checked = $checked ? ' checked="checked"' : '';
 
 		return '<input type="checkbox" name="fields[' . $name . ']" '
