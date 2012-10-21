@@ -1,32 +1,53 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Profile view class for Users.
+ * The user profile view
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 class UsersViewProfileHtml extends JViewHtml
 {
+	/**
+	 * The data object
+	 *
+	 * @var    object
+	 * @since  1.0
+	 */
 	protected $data;
 
+	/**
+	 * The form object
+	 *
+	 * @var    JForm
+	 * @since  1.0
+	 */
 	protected $form;
 
 	/**
-	 * @var JRegistry
+	 * The component params
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
 	 */
 	protected $params;
 
+	/**
+	 * The state object
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
+	 */
 	protected $state;
 
 	/**
@@ -38,9 +59,21 @@ class UsersViewProfileHtml extends JViewHtml
 	protected $model;
 
 	/**
-	 * Method to display the view.
+	 * The page class suffix
+	 *
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function render($tpl = null)
+	protected $pageclass_sfx = '';
+
+	/**
+	 * Method to render the view.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
+	 */
+	public function render()
 	{
 		if (JFactory::getUser()->guest)
 		{
@@ -49,9 +82,9 @@ class UsersViewProfileHtml extends JViewHtml
 		}
 
 		// Get the view data.
-		$this->data = $this->model->getData();
-		$this->form = $this->model->getForm();
-		$this->state = $this->model->getState();
+		$this->data   = $this->model->getData();
+		$this->form   = $this->model->getForm();
+		$this->state  = $this->model->getState();
 		$this->params = $this->state->get('com_users.params');
 
 		// Check if a user was found.
@@ -82,7 +115,9 @@ class UsersViewProfileHtml extends JViewHtml
 	/**
 	 * Prepares the document
 	 *
-	 * @since    1.6
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function prepareDocument()
 	{

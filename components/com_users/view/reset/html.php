@@ -1,42 +1,69 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Reset view class for Users.
+ * The user reset view
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.5
+ * @since       1.0
  */
 class UsersViewResetHtml extends JViewHtml
 {
+	/**
+	 * The form object
+	 *
+	 * @var    JForm
+	 * @since  1.0
+	 */
 	protected $form;
 
 	/**
-	 * @var JRegistry
+	 * The component params
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
 	 */
 	protected $params;
 
+	/**
+	 * The state object
+	 *
+	 * @var    JRegistry
+	 * @since  1.0
+	 */
 	protected $state;
 
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     UsersModelReset
+	 * @var     UsersModelRegistration
 	 * @since   1.0
 	 */
 	protected $model;
 
 	/**
+	 * The page class suffix
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $pageclass_sfx = '';
+
+	/**
 	 * Method to render the view.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
 	 */
 	public function render()
 	{

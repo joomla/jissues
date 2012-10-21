@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Rest model class for Users.
+ * Model class to reset a user's credentials.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.5
+ * @since       1.0
  */
 class UsersModelReset extends JModelTrackerform
 {
@@ -25,7 +25,7 @@ class UsersModelReset extends JModelTrackerform
 	 * @param    boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return   JForm  A JForm object on success, false on failure
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -47,7 +47,7 @@ class UsersModelReset extends JModelTrackerform
 	 *
 	 * @return  JForm  A JForm object on success, false on failure
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getResetCompleteForm($data = array(), $loadData = true)
 	{
@@ -69,7 +69,7 @@ class UsersModelReset extends JModelTrackerform
 	 *
 	 * @return  JForm  A JForm object on success, false on failure
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getResetConfirmForm($data = array(), $loadData = true)
 	{
@@ -120,7 +120,7 @@ class UsersModelReset extends JModelTrackerform
 	}
 
 	/**
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	function processResetComplete($data)
 	{
@@ -208,7 +208,7 @@ class UsersModelReset extends JModelTrackerform
 	}
 
 	/**
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	function processResetConfirm($data)
 	{
@@ -302,7 +302,7 @@ class UsersModelReset extends JModelTrackerform
 	/**
 	 * Method to start the password reset process.
 	 *
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	public function processResetRequest($data)
 	{
@@ -440,7 +440,7 @@ class UsersModelReset extends JModelTrackerform
 	 *
 	 * @return  boolean true if user can do the reset, false if limit exceeded
 	 *
-	 * @since    2.5
+	 * @since   1.0
 	 */
 	public function checkResetLimit($user)
 	{

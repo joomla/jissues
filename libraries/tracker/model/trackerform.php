@@ -1,10 +1,21 @@
 <?php
 /**
- * User: elkuku
- * Date: 09.10.12
- * Time: 20:32
+ * @package     JTracker
+ * @subpackage  Model
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('JPATH_PLATFORM') or die;
+
+/**
+ * Abstract model to get data for a form view
+ *
+ * @package     JTracker
+ * @subpackage  Model
+ * @since       1.0
+ */
 abstract class JModelTrackerform extends JModelDatabase
 {
 	/**

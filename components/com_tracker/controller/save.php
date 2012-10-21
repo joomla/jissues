@@ -1,35 +1,38 @@
 <?php
 /**
- * @package     X
- * @subpackage  X.Y
+ * @package     JTracker
+ * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 X. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
 
 /**
- * Controller "save" class.
+ * Controller class to save an item via the tracker component.
  *
- * @package  X
- *
- * @since    1.0
+ * @package     JTracker
+ * @subpackage  com_tracker
+ * @since       1.0
  */
-class TrackerControllerSave extends JModelBase
+class TrackerControllerSave extends JControllerBase
 {
 	/**
 	 * Execute the task.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
 		$table = new JTableIssue;
 
-		$table->save(JFactory::getApplication()->input->post);
+		$table->save($this->input->post);
 
-		JFactory::getApplication()->enqueueMessage('Table saved successfully', 'success');
+		$this->app->enqueueMessage('Table saved successfully', 'success');
 
-		JFactory::getApplication()->redirect('index.php?option=com_tracker');
+		$this->app->redirect('index.php?option=com_tracker');
 	}
 }

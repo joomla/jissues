@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Remind model class for Users.
+ * Model class to remind a user of their credentials.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.5
+ * @since       1.0
  */
 class UsersModelRemind extends JModelTrackerform
 {
@@ -25,7 +25,7 @@ class UsersModelRemind extends JModelTrackerform
 	 * @param    boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return   JForm  A JForm object on success, false on failure
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -76,7 +76,7 @@ class UsersModelRemind extends JModelTrackerform
 	}
 
 	/**
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	public function processRemindRequest($data)
 	{

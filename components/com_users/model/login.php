@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Rest model class for Users.
+ * Model class to log in a user.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 class UsersModelLogin extends JModelTrackerform
 {
@@ -28,7 +28,7 @@ class UsersModelLogin extends JModelTrackerform
 	 * @param    boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return   JForm  A JForm object on success, false on failure
-	 * @since    1.6
+	 * @since    1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -48,7 +48,7 @@ class UsersModelLogin extends JModelTrackerform
 	 *
 	 * @return  array    The default data is an empty array.
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	protected function loadFormData()
 	{

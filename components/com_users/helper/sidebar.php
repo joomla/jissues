@@ -1,19 +1,36 @@
 <?php
 /**
- * User: elkuku
- * Date: 10.10.12
- * Time: 12:55
+ * @package     JTracker
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
+
+/**
+ * Users Sidebar Helper
+ *
+ * @package     JTracker
+ * @subpackage  com_users
+ * @since       1.0
+ */
 abstract class UsersHelperSidebar
 {
-
+	/**
+	 * Method to prepare the sidebar
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public static function prepare()
 	{
 		$vName = JFactory::getApplication()->input->get('view');
-		$user = JFactory::getUser();
+		$user  = JFactory::getUser();
 
-		$stdViews = array('login');
+		$stdViews    = array('login');
 		$actionViews = array('reset', 'remind', 'registration');
 
 		JHtmlSidebar::addEntry(
@@ -41,7 +58,5 @@ abstract class UsersHelperSidebar
 			'index.php?option=com_users&view=profile',
 			$vName == 'profile'
 		);
-
 	}
-
 }

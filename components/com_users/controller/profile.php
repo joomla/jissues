@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Profile controller class for Users.
+ * Controller class to display a user profile.
  *
- * @package     Joomla.Site
+ * @package     JTracker
  * @subpackage  com_users
- * @since       1.6
+ * @since       1.0
  */
 class UsersControllerProfile extends JControllerBase
 {
@@ -26,6 +26,7 @@ class UsersControllerProfile extends JControllerBase
 	 *                   the controller to run has not been satisfied.
 	 *
 	 * @since   1.0
+	 * @throws  Exception
 	 */
 	public function execute()
 	{
@@ -36,7 +37,6 @@ class UsersControllerProfile extends JControllerBase
 		if ($user->guest)
 		{
 			$app->redirect(JRoute::_('index.php?option=com_users', false));
-
 			return true;
 		}
 

@@ -1,18 +1,18 @@
 <?php
 /**
- * @package     X
- * @subpackage  X.Y
+ * @package     JTracker
+ * @subpackage  HTML
  *
- * @copyright   Copyright (C) 2012 X. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_BASE') or die;
+defined('JPATH_PLATFORM') or die;
 
 /**
- * Utility class for projects
+ * HTML Utility class for projects
  *
- * @package     X
+ * @package     JTracker
  * @subpackage  HTML
  * @since       1.0
  */
@@ -27,7 +27,9 @@ abstract class JHtmlProjects
 	 * @param   string  $title     Title to show
 	 * @param   string  $js        Javascript
 	 *
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	public static function select($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
 	{
@@ -59,7 +61,7 @@ abstract class JHtmlProjects
 	}
 
 	/**
-	 * Returns a html list of categories for the given extension.
+	 * Returns a HTML list of categories for the given extension.
 	 *
 	 * @param   string  $section   The extension option.
 	 * @param   bool    $links     Links or simple list items.
@@ -105,7 +107,9 @@ abstract class JHtmlProjects
 	 *
 	 * @param   string  $section  A section
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public static function items($section)
 	{

@@ -1,10 +1,21 @@
 <?php
 /**
- * User: elkuku
- * Date: 14.10.12
- * Time: 00:20
+ * @package     JTracker
+ * @subpackage  com_tracker
+ *
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
+
+/**
+ * Controller class to preview an item via the tracker component.
+ *
+ * @package     JTracker
+ * @subpackage  com_tracker
+ * @since       1.0
+ */
 class TrackerControllerPreview extends JControllerBase
 {
 	/**
@@ -14,20 +25,19 @@ class TrackerControllerPreview extends JControllerBase
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
 	 *
-	 * @since            12.1
+	 * @since   1.0
 	 * @throws  LogicException
 	 * @throws  RuntimeException
 	 */
 	public function execute()
 	{
 		$o       = new stdClass;
-		$o->text = JFactory::getApplication()->input->get('text', '', 'html');
+		$o->text = $this->input->getHtml('text', '');
 
 		if (!$o->text)
 		{
 			echo 'Nothing to preview...';
-
-			jexit();
+			$this->app->close();
 		}
 
 		$params = new JRegistry;
@@ -35,11 +45,10 @@ class TrackerControllerPreview extends JControllerBase
 
 		JPluginHelper::importPlugin('content');
 
-		JEventDispatcher::getInstance()
-			->trigger('onContentPrepare', array('com_content.article', &$o, $params));
+		JEventDispatcher::getInstance()->trigger('onContentPrepare', array('com_content.article', &$o, $params));
 
 		echo $o->text ? : 'Nothing to preview...';
 
-		jexit();
+		$this->app->close();
 	}
 }

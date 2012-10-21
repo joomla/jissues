@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  CLI
  *
- * @copyright   Copyright (C) 2012 Michael Babker. All rights reserved.
+ * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -40,7 +40,7 @@ ini_set('display_errors', 1);
 /**
  * CLI Script to pull open issues from GitHub and inject them to the database if not already present
  *
- * @package     BabDev.Tracker
+ * @package     JTracker
  * @subpackage  CLI
  * @since       1.0
  */
