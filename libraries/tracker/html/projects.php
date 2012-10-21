@@ -35,29 +35,23 @@ abstract class JHtmlProjects
 	{
 		$title = $title ? : JText::_('Select an Option');
 
-		$options = JHtml::_('category.options', $section);
+		$options = JHtmlCategory::options($section);
 
-		if ($options)
-		{
-			$options = array_merge(
-				array(JHtml::_('select.option', '', $title)),
-				$options
-			);
-		}
-		else
+		if ( ! $options)
 		{
 			return '';
 		}
 
-		return
-			JHtml::_(
-				'select.genericlist',
-				$options,
-				'fields[' . $name . ']',
-				$js,
-				'value', 'text', // Hate it..
-				$selected
-			);
+		$options = array_merge(array(JHtmlSelect::option('', $title)), $options);
+
+		return JHtmlSelect::genericlist(
+	//		'select.genericlist',
+			$options,
+			'fields[' . $name . ']',
+			$js,
+			'value', 'text', // Hate it..
+			$selected, 'select-'.$name
+		);
 	}
 
 	/**
@@ -76,18 +70,20 @@ abstract class JHtmlProjects
 		$items = self::items($section);
 
 		if (0 == count($items))
+		{
 			return '';
+		}
 
 		$html = array();
 
 		$link = 'index.php?option=com_categories&extension=%s.%s';
 
-		$html[] = '<ul>';
+		$html[] = '<ul class="unstyled">';
 
 		foreach ($items as $item)
 		{
-			$selected = ($selected == $item->id) ? ' selected' : '';
-			$repeat = ($item->level - 1 >= 0) ? $item->level - 1 : 0;
+			$selected    = ($selected == $item->id) ? ' selected' : '';
+			$repeat      = ($item->level - 1 >= 0) ? $item->level - 1 : 0;
 			$item->title = str_repeat('- ', $repeat) . $item->title;
 
 			$html[] = '<li>';
@@ -124,7 +120,7 @@ abstract class JHtmlProjects
 
 		$items = $db->setQuery(
 			$db->getQuery(true)
-				->select('id, title, alias, level, parent_id')
+				->select('id, title, alias, description, level, parent_id')
 				->from('#__categories')
 				->where('parent_id > 0')
 				->where('extension = ' . $db->q($section))
@@ -134,6 +130,45 @@ abstract class JHtmlProjects
 		$sections[$section] = $items;
 
 		return $sections[$section];
+	}
+
+	/**
+	 * Draws a text input.
+	 *
+	 * @todo moveme
+	 *
+	 * @param        $name
+	 * @param        $value
+	 * @param string $description
+	 *
+	 * @return string
+	 */
+	public static function textfield($name, $value, $description = '')
+	{
+		$description = ($description) ? ' class="hasTooltip" title="' . $description . '"' : '';
+
+		return '<input type="text" name="fields[' . $name . ']" '
+			. ' id="txt-' . $name . '" value="' . $value . '"' . $description . ' />';
+	}
+
+	/**
+	 * Draws a checkbox
+	 *
+	 * @todo     moveme
+	 *
+	 * @param        $name
+	 * @param bool   $checked
+	 * @param string $description
+	 *
+	 * @return string
+	 */
+	public static function checkbox($name, $checked = false, $description = '')
+	{
+		$description = ($description) ? ' class="hasTooltip" title="' . $description . '"' : '';
+		$checked = $checked ? ' checked="checked"' : '';
+
+		return '<input type="checkbox" name="fields[' . $name . ']" '
+			. ' id="chk-' . $name . '"' . $checked . $description . ' />';
 	}
 
 }
