@@ -61,7 +61,7 @@ class LanguagesHelper
 		$result		= new JObject;
 		$assetName	= 'com_languages';
 
-		$actions = JAccess::getActions($assetName);
+		$actions = JAccess::getActionsFromFile(JPATH_ADMINISTRATOR . '/components/' . $assetName . '/access.xml');
 
 		foreach ($actions as $action) {
 			$result->set($action->name,	$user->authorise($action->name, $assetName));
