@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-/* @var TrackerViewIssueHtml $this */
+/* @var TrackerViewEditHtml $this */
 
 defined('_JEXEC') or die;
 
@@ -20,7 +20,7 @@ $webserver = $this->fields->get('web_server');
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="container-fluid">
-		<h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
+		<h3><?php echo JText::_('Edit Item') . ' [#' . $this->item->id . ']'; ?></h3>
 
 		<div class="row-fluid">
 			<div class="span5">
@@ -133,28 +133,6 @@ $webserver = $this->fields->get('web_server');
 				</div>
 			</div>
 		</div>
-
-		<?php if ($this->comments) : ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></h4>
-			</div>
-		</div>
-
-		<?php foreach ($this->comments as $i => $comment) : ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="well well-small">
-					<h5>
-						<a href="#issue-comment-<?php echo $i + 1; ?>" id="issue-comment-<?php echo $i + 1; ?>">#<?php echo $i + 1; ?></a>
-						<?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->submitter, $comment->created); ?>
-					</h5>
-					<p><?php echo $comment->text; ?></p>
-				</div>
-			</div>
-		</div>
-		<?php endforeach; ?>
-		<?php endif; ?>
 	</div>
 	<input type="hidden" name="task" />
 </form>
