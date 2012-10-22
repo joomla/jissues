@@ -33,6 +33,7 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 
 CREATE TABLE IF NOT EXISTS `#__issues` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `asset_id` integer unsigned NOT NULL default '0',
   `gh_id` integer unsigned DEFAULT NULL,
   `jc_id` integer unsigned DEFAULT NULL,
   `project_id` integer unsigned DEFAULT NULL,
