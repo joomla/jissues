@@ -79,15 +79,13 @@ abstract class JModelTrackerform extends JModelDatabase
 			// Check if this is the user having previously checked out the row.
 			if ($this->table->checked_out > 0 && $this->table->checked_out != $user->get('id'))
 			{
-				$this->setError(JText::_('JLIB_APPLICATION_ERROR_CHECKOUT_USER_MISMATCH'));
-				return false;
+				throw new RuntimeException(JText::_('JLIB_APPLICATION_ERROR_CHECKOUT_USER_MISMATCH'));
 			}
 
 			// Attempt to check the row out.
 			if (!$this->table->checkout($user->get('id'), $pk))
 			{
-				$this->setError($this->table->getError());
-				return false;
+				throw new RuntimeException($this->table->getError());
 			}
 		}
 
