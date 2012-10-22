@@ -362,6 +362,16 @@ abstract class JApplicationTracker extends JApplicationWeb
 		{
 			return new $class;
 		}
+		// See if there's an action class in the libraries if we aren't calling the default task
+		elseif ($task != 'default')
+		{
+			$class = 'JController' . ucfirst($task);
+
+			if (class_exists($class))
+			{
+				return new $class;
+			}
+		}
 		else
 		{
 			$class = ucfirst($base) . 'ControllerDefault';
