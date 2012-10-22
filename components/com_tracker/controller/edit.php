@@ -57,7 +57,7 @@ class TrackerControllerEdit extends JControllerTracker
 		}
 
 		// Attempt to check-out the new record for editing and redirect.
-		if ($checkin && !$model->checkout($recordId))
+		if ($checkin)
 		{
 			try
 			{
