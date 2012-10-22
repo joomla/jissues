@@ -33,7 +33,7 @@ abstract class JControllerTracker extends JControllerBase
 	 */
 	protected function allowEdit($option, $data = array(), $key = 'id')
 	{
-		return JFactory::getUser()->authorise('core.edit', $this->option);
+		return JFactory::getUser()->authorise('core.edit', $option);
 	}
 
 	/**

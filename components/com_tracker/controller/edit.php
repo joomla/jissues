@@ -51,7 +51,7 @@ class TrackerControllerEdit extends JControllerTracker
 		if (!$this->allowEdit('com_tracker'))
 		{
 			$app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'), 'error');
-			$app->redirect(JRoute::_('index.php?option=com_tracker&view=issues'. $this->getRedirectToListAppend()));
+			$app->redirect(JRoute::_('index.php?option=com_tracker&view=issues'. $this->getRedirectToListAppend(), false));
 
 			return false;
 		}
@@ -67,20 +67,18 @@ class TrackerControllerEdit extends JControllerTracker
 			{
 				// Check-out failed, display a notice but allow the user to see the record.
 				$app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'), 'error');
-				$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit'. $this->getRedirectToItemAppend()));
+				$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit'. $this->getRedirectToItemAppend(), false));
 			}
 
 			return false;
 		}
-		else
-		{
-			// Check-out succeeded, push the new record id into the session.
-			$this->holdEditId($context, $recordId);
-			$app->setUserState($context . '.data', null);
 
-			$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit'. $this->getRedirectToItemAppend($recordId, $urlVar)));
+		// Check-out succeeded, push the new record id into the session.
+		$this->holdEditId($context, $recordId);
+		$app->setUserState($context . '.data', null);
 
-			return true;
-		}
+		$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit'. $this->getRedirectToItemAppend($recordId, $urlVar), false));
+
+		return true;
 	}
 }
