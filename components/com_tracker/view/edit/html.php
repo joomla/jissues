@@ -10,13 +10,13 @@
 defined('_JEXEC') or die;
 
 /**
- * The issues detail view
+ * The issues edit view
  *
  * @package     JTracker
  * @subpackage  View
  * @since       1.0
  */
-class TrackerViewIssueHtml extends JViewHtml
+class TrackerViewEditHtml extends JViewHtml
 {
 	/**
 	 * Redefine the model so the correct type hinting is available.
@@ -50,28 +50,8 @@ class TrackerViewIssueHtml extends JViewHtml
 		$this->document = $app->getDocument();
 
 		$id = $app->input->getInt('id', 1);
-		$this->item     = $this->model->getItem($id);
-		$this->comments = $this->model->getComments($id);
-		$this->fields   = $this->item->fields;
-
-		$dispatcher	= JEventDispatcher::getInstance();
-
-		$o = new stdClass;
-		$o->text = $this->item->description;
-
-		$params = new JRegistry;
-
-		JPluginHelper::importPlugin('content');
-		$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$o, $params));
-
-		$this->item->description_raw = $this->item->description;
-		$this->item->description = $o->text;
-
-		foreach ($this->comments as &$comment)
-		{
-			// @todo Maybe we should parse the comments on retrieval and write the result to the database
-			$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$comment, $params));
-		}
+		$this->item   = $this->model->getItem($id);
+		$this->fields = $this->item->fields;
 
 		// Build the toolbar
 		$this->buildToolbar();
@@ -88,9 +68,5 @@ class TrackerViewIssueHtml extends JViewHtml
 	 */
 	protected function buildToolbar()
 	{
-		$toolbar = JToolbar::getInstance('toolbar');
-
-		// Add a button to submit a new item.
-		$toolbar->appendButton('Standard', 'edit', 'COM_TRACKER_TOOLBAR_EDIT', 'edit', false);
 	}
 }

@@ -16,8 +16,21 @@ defined('_JEXEC') or die;
  * @subpackage  Model
  * @since       1.0
  */
-class TrackerModelIssue extends JModelDatabase
+class TrackerModelIssue extends JModelTrackerform
 {
+	/**
+	 * Instantiate the model.
+	 *
+	 * @since  1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		// Load the JTable object
+		$this->table = JTable::getInstance('Issue');
+	}
+
 	/**
 	 * Method to get the comments for an item.
 	 *

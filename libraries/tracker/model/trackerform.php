@@ -27,6 +27,14 @@ abstract class JModelTrackerform extends JModelDatabase
 	protected $forms = array();
 
 	/**
+	 * JTable instance
+	 *
+	 * @var   JTable
+	 * @since 1.0
+	 */
+	protected $table;
+
+	/**
 	 * Instantiate the model.
 	 *
 	 * @since  1.0
@@ -37,6 +45,53 @@ abstract class JModelTrackerform extends JModelDatabase
 
 		// Populate the state
 		$this->loadState();
+	}
+
+	/**
+	 * Method to check-out a row for editing.
+	 *
+	 * @param   integer  $pk  The numeric id of the primary key.
+	 *
+	 * @return  boolean  False on failure or error, true otherwise.
+	 *
+	 * @since   1.0
+	 * @throws  InvalidArgumentException
+	 * @throws  RuntimeException
+	 */
+	public function checkout($pk = null)
+	{
+		// Ensure the child class set the table object before continuing
+		if (!($this->table instanceof JTable))
+		{
+			throw new InvalidArgumentException('JTable class must be instantiated.');
+		}
+		// Only attempt to check the row in if it exists.
+		if ($pk)
+		{
+			$user = JFactory::getUser();
+
+			// Get an instance of the row to checkout.
+			if (!$this->table->load($pk))
+			{
+				throw new RuntimeException($this->table->getError());
+			}
+
+			// Check if this is the user having previously checked out the row.
+			if ($this->table->checked_out > 0 && $this->table->checked_out != $user->get('id'))
+			{
+				$this->setError(JText::_('JLIB_APPLICATION_ERROR_CHECKOUT_USER_MISMATCH'));
+				return false;
+			}
+
+			// Attempt to check the row out.
+			if (!$this->table->checkout($user->get('id'), $pk))
+			{
+				$this->setError($this->table->getError());
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
