@@ -100,8 +100,6 @@ abstract class TrackerHelper
 			$item = new JTableCategory(JFactory::getDbo());
 			$item->load($p);
 
-			var_dump($item);
-
 			JHtmlSidebar::addEntry(
 				sprintf(JText::_('Project %s'), $p),
 				'index.php?option=com_tracker&project=' . $p,
