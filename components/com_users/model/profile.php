@@ -153,6 +153,7 @@ class UsersModelProfile extends JModelTrackerform
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
 	 * @return  JForm  A JForm object on success, false on failure
+	 *
 	 * @since   1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
@@ -226,6 +227,8 @@ class UsersModelProfile extends JModelTrackerform
 	 */
 	protected function loadState()
 	{
+		$this->state = new JRegistry;
+
 		// Get the application object.
 		$params = JFactory::getApplication()->getParams('com_users');
 
