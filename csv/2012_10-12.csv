@@ -1,0 +1,109 @@
+ID,Summary,Priority,Assignee,Submitted By,Category,Status,Easy,Open Date,Close Date,Last Modified Date
+29404,The text of the menu items is not fit to menu in Hathor template,3,none,smart,User Interface,Open,None,2012-10-01,,2012-10-01
+29405,JSEARCH_FILTER_LABEL is not suitable in placeholder's,3,none,smart,Languages,Confirmed,None,2012-10-01,,2012-10-21
+29406,Postgres - Add new menu item,3,none,szaki,Administration,Open,None,2012-10-01,,2012-10-16
+29407,*Isis wong implementation of the color parameter,3,none,infograf768,Templates,Fixed in SVN/GitHub,None,2012-10-01,2012-10-01,2012-10-01
+29408,images upload to the wrong folder in image manager,2,none,webdongle,Media Manager,Fixed in SVN/GitHub,None,2012-10-01,2012-10-02,2012-10-02
+29409,RTL problem in isis administrator template login,3,none,novinfard,RTL,Information Required,None,2012-10-01,,2012-10-02
+29410,Beez3 template_Details.xml needs a rework and beez3 itselfs needs additional files,3,none,lintzy,Templates,Fixed in SVN/GitHub,None,2012-10-01,2012-10-04,2012-10-04
+29411,Missing function _unix2DOSTime in libraries/joomla/archive/zip.php.,3,none,mliebler,CMS Libraries,Fixed in SVN/GitHub,None,2012-10-01,2012-10-14,2012-10-14
+29414,Isis template showing User Name is not a good idea,4,none,martijnmaandag,Templates,Fixed in SVN/GitHub,None,2012-10-02,2012-10-05,2012-10-05
+29416,Remove id from sef urls .,3,none,draculinos,Administration,Expected Behavior,None,2012-10-02,2012-10-04,2012-10-04
+29417,sendMail automatically adds sender as replyTo,3,none,turmis,Platform,Pending,None,2012-10-02,,2012-10-07
+29418,Advanced parameters of the plugins are not separated,3,none,thelordofweb,Plugins,Duplicate Report,None,2012-10-02,2012-10-06,2012-10-06
+29419,*Missing client field (and other fields) when creating a new banner,3,none,unworthyslave,Administration,Fixed in SVN/GitHub,None,2012-10-02,2012-10-02,2012-10-02
+29420,JHtml subclasses + autoloading,3,none,bembelimen,Code Quality,Pending,None,2012-10-02,,2012-10-18
+29421,Auto update doesn't work in version 3.0.0,2,none,dextercowley,Installation,Fixed in SVN/GitHub,None,2012-10-02,2012-10-03,2012-10-03
+29423,Protostar JForm Rendering Problems in Frontend,3,none,geraint,Templates,Confirmed,None,2012-10-03,,2012-10-05
+29424,Multilevel select collapsed,3,none,serhioromano,User Interface,Platform Pull Request,None,2012-10-03,,2012-10-03
+29425,Supported document types missing in htaccess and web.config,3,none,locutus,Search Engine Friendly,Confirmed,None,2012-10-03,,2012-10-11
+29426,*Missing list limit in Extensions Manager =&gt; Manage and Install Languages,3,none,infograf768,Administration,Fixed in SVN/GitHub,None,2012-10-03,2012-10-03,2012-10-03
+29428,The Joomla router allows site visitors to create fake URLs.,3,none,joomila,None,Pending,None,2012-10-03,,2012-10-18
+29429,Can't install Joomla update as an extension,3,none,dextercowley,Installation,Fixed in SVN/GitHub,None,2012-10-03,2012-10-04,2012-10-04
+29430,php_network_getaddresses: getaddrinfo failed: Name or service not known ,3,none,alledia,None,Information Required,None,2012-10-03,,2012-10-21
+29431,Prostar Template not honouring module Title Hide.,3,none,webdongle,Templates,Fixed in SVN/GitHub,None,2012-10-03,2012-10-04,2012-10-04
+29432,All parameters passed to Bootstrap's modal window always set to true,3,none,mneri,Platform,Pending,None,2012-10-03,,2012-10-04
+29434,J3.0 Stable - Missing language value JLIB_INSTALLER_ABORT_PACKAGE_INSTALL_MANIFEST,3,none,humvee,Languages,Open,None,2012-10-04,,2012-10-04
+29435,PHP strict notices on front-end,3,none,kuchta1212,Code Quality,Information Required,None,2012-10-04,,2012-10-18
+29436,Cannot get articles displaying as most recent first.,3,none,onlineivan,Layouts,Expected Behavior,None,2012-10-04,2012-10-10,2012-10-10
+29437,*Hotpatch to let users update later to 3.0.1,1,none,infograf768,Administration,Fixed in SVN/GitHub,None,2012-10-04,2012-10-07,2012-10-08
+29438,Joomla 3.0 will report it is up to date even when another version of Joomla 3 is available,2,none,webdongle,Components,Duplicate Report,None,2012-10-04,2012-10-05,2012-10-05
+29439,Bootstrap clearfix improperly used.,3,none,okonomiyaki3000,Templates,Pending,None,2012-10-05,,2012-10-09
+29441,Bootstrap drop down menu not working on Google Nexus 7,3,none,adster101,Administration,Open,None,2012-10-05,,2012-10-05
+29442,Automatic updates are confusing - better handling required,3,none,lintzy,User Interface,Confirmed,None,2012-10-05,,2012-10-07
+29443,*Normalising isis UI part1 administrator folder,3,none,infograf768,User Interface,Fixed in SVN/GitHub,None,2012-10-05,2012-10-05,2012-10-05
+29446,One character too much in JFeedPerson,3,none,locutus,CMS Libraries,Fixed in SVN/GitHub,None,2012-10-06,2012-10-07,2012-10-07
+29447,Broken installation with PostgreSQL,2,none,vietvh,Installation,Fixed in SVN/GitHub,None,2012-10-06,2012-10-07,2012-10-07
+29449,*Normalising isis UI part2 components  modules  plugins,3,none,infograf768,User Interface,Fixed in SVN/GitHub,None,2012-10-06,2012-10-07,2012-10-07
+29450,Location icon,4,none,n9iels,Layouts,Confirmed,None,2012-10-07,,2012-10-21
+29451,beez3: element closed before opened,3,none,harmageddon,Templates,Fixed in SVN/GitHub,None,2012-10-07,2012-10-08,2012-10-08
+29452,beez3: change meta tag name from apple-touch-fullscreen to apple-mobile-web-app-capable,4,none,harmageddon,Templates,Fixed in SVN/GitHub,None,2012-10-07,2012-10-08,2012-10-08
+29453,Update platform version to 12.2,3,none,mcsmom,Code Quality,Fixed in SVN/GitHub,None,2012-10-07,2012-10-08,2012-10-08
+29454,multi level menus not support RTL languages well,3,none,kurdish_joomla,RTL,Fixed in SVN/GitHub,None,2012-10-07,2012-10-08,2012-10-08
+29457,RTLing Debug,3,none,kurdish_joomla,RTL,Open,None,2012-10-08,,2012-10-08
+29462,Can't add new user.,3,none,etrenank,Administration,Duplicate Report,None,2012-10-08,2012-10-16,2012-10-16
+29463,Notice in language manager when FTP layer is enabled.,3,none,mcsmom,Components,Fixed in SVN/GitHub,None,2012-10-08,2012-10-08,2012-10-08
+29464,Untranslated string COM_INSTALLER_INSTALL_FTP,3,none,mcsmom,Languages,Fixed in SVN/GitHub,None,2012-10-08,2012-10-08,2012-10-08
+29465,ipad issue with menus/dropdown,4,none,euoceo,Administration,Open,None,2012-10-08,,2012-10-08
+29467,CodeMirror: line-height of line numbers doesn't match,3,none,harmageddon,Plugins,Pending,None,2012-10-08,,2012-10-10
+29468,Additional places where null should be changed to array(),3,none,mcsmom,Platform,Fixed in SVN/GitHub,None,2012-10-08,2012-10-08,2012-10-08
+29469,CodeMirror looks a little bad,3,none,okonomiyaki3000,Plugins,Pending,None,2012-10-08,,2012-10-10
+29470,*Hathor submenus broken,3,none,infograf768,Templates,Fixed in SVN/GitHub,None,2012-10-09,2012-10-17,2012-10-17
+29471,Save as Copy Overwrites Menu Titles (always) for External URL,3,none,wparus,Administration,Fixed in SVN/GitHub,None,2012-10-09,2012-10-14,2012-10-14
+29473,Fixed issue with hits_class not being defined when hits is 24,3,none,nonumber,Administration,Pending,None,2012-10-09,,2012-10-10
+29475,Warning: curl_setopt_array() [function.curl-setopt-array]:,3,none,zero24,Administration,Information Required,None,2012-10-10,,2012-10-10
+29476,Isis: Fixed btn-group labels not getting right colors in component subtemplate,3,none,nonumber,User Interface,Fixed in SVN/GitHub,None,2012-10-10,2012-10-14,2012-10-14
+29477,Missing style for Cancel,4,none,effe8,Layouts,Fixed in SVN/GitHub,None,2012-10-10,2012-10-17,2012-10-17
+29478,Incorrect Home link from 500 error page Joomla 3.0,5,none,russellmd,Front End,Fixed in SVN/GitHub,None,2012-10-10,2012-10-12,2012-10-12
+29479,Event onContentAfterSave not work,3,none,risk2711,Plugins,Not a bug,None,2012-10-10,2012-10-11,2012-10-15
+29480,Removed class=&quot; form closing tag in contacts default view,4,none,bcordis,Components,Fixed in SVN/GitHub,None,2012-10-11,2012-10-14,2012-10-14
+29481,strict standards message after activating plugin &quot;System - Cache&quot;,3,none,zero24,Platform,Referred to Platform,None,2012-10-11,,2012-10-17
+29483,Controlpanel,3,none,quantz,Administration,Confirmed,None,2012-10-11,,2012-10-11
+29484,Add ability to use custom filters,3,none,locutus,Administration,Pending,None,2012-10-11,,2012-10-20
+29485,Menu item type display jumbled on IE9,3,none,kofoster,None,Confirmed,None,2012-10-11,,2012-10-21
+29486,Search box overlapping first item of the drop down list,4,none,vladsava,Layouts,Open,None,2012-10-12,,2012-10-12
+29487,isis error.php is accessing unexisting object $this-&gt;params,3,none,the_ai,Templates,Fixed in SVN/GitHub,None,2012-10-12,2012-10-14,2012-10-14
+29488,Missing JText In Language Installer,4,none,mortti,Languages,Fixed in SVN/GitHub,None,2012-10-12,2012-10-12,2012-10-12
+29489,Contact form removes backslashes in sent email,3,none,cimpo,Components,Information Required,None,2012-10-12,,2012-10-17
+29491,Get info_block_positioncascade is not working,3,none,betagoo,Front End,Confirmed,None,2012-10-13,,2012-10-17
+29493,JUser getInstance test for username unreliable,3,none,counterpoint,Platform,Referred to Platform,None,2012-10-14,,2012-10-17
+29494,*Normalising Edit Category page,3,none,infograf768,User Interface,Fixed in SVN/GitHub,None,2012-10-14,2012-10-17,2012-10-17
+29498,&quot;onContentBeforeSave&quot; and &quot;onContentAfterSave&quot; events do not work.,3,none,marcanuy,None,Duplicate Report,None,2012-10-14,2012-10-14,2012-10-14
+29499,&quot;Browser Page Title&quot; Not Considered in Category Blog Layouts,3,none,imanickam,Components,Fixed in SVN/GitHub,None,2012-10-14,2012-10-17,2012-10-17
+29500,Browser Page Title Not Considered in Category Blog Layouts,3,none,imanickam,Components,Duplicate Report,None,2012-10-14,2012-10-15,2012-10-15
+29504,*Multilanguage: Alternate links issue for default site language-SEO,3,none,infograf768,Search Engine Friendly,Pending,None,2012-10-15,,2012-10-16
+29515,Article Manager Options disappeared,3,none,froechtling,Components,Information Required,None,2012-10-17,,2012-10-22
+29516,Method loadResultArray used in Oracle driver but missed in base classes,3,none,smart,Platform,Referred to Platform,None,2012-10-17,,2012-10-17
+29517,Debug plugin system and empty object,3,none,obsidev,Plugins,Pending,None,2012-10-17,,2012-10-20
+29519,*Edit Menu Item layout usability,3,none,infograf768,User Interface,Fixed in SVN/GitHub,None,2012-10-17,2012-10-18,2012-10-18
+29520,Cannot add new menu item. [qlsrv],3,none,salsolo,Database,Confirmed,None,2012-10-18,,2012-10-21
+29521,J3.0.1 JLIB_FILESYSTEM_ERROR_PATH_IS_NOT_A_FOLDER_FILES INSTL_ERROR_INITIALISE_SCHEMA,3,none,humvee,Languages,Fixed in SVN/GitHub,None,2012-10-18,2012-10-18,2012-10-18
+29524,J3.0.1 JLIB_APPLICATION_ERROR_VIEW_NOT_FOUND,3,none,humvee,Languages,Information Required,None,2012-10-18,,2012-10-20
+29525,No tooltip help for Global Configuration Text Filters,3,none,dextercowley,User Interface,Fixed in SVN/GitHub,None,2012-10-18,2012-10-20,2012-10-20
+29527,*Beez category list display issue,3,none,infograf768,Templates,Fixed in SVN/GitHub,Easy,2012-10-18,2012-10-20,2012-10-20
+29528,Incorrect arrows in table heading.,3,none,denitz,User Interface,Confirmed,None,2012-10-19,,2012-10-22
+29529,Default value for &quot;Collapse Administrator Menu&quot; of Isis,3,none,denitz,User Interface,Confirmed,None,2012-10-19,,2012-10-22
+29530,*Language override search broken,3,none,infograf768,None,Fixed in SVN/GitHub,Easy,2012-10-19,2012-10-20,2012-10-20
+29533,Missing closing link tag in submenu layout,3,none,shumisha,Administration,Pending,Easy,2012-10-19,,2012-10-19
+29534,Fix for contentPrepare for category blog pages.,3,none,jmcameron,Plugins,Confirmed,Easy,2012-10-19,,2012-10-20
+29535,Invalid XHTML syntax in Protostar Joomla 3.0.1,4,none,denia,Templates,Ready to commit,Easy,2012-10-19,,2012-10-22
+29536,XHTML syntax error in default system Breadcrumbs module,4,none,denia,Modules,Confirmed,Easy,2012-10-19,,2012-10-20
+29537,Backend extensions use calls to JhtmlSidebar::* instead of Jhtml::_(*)  thus preventing overriding,3,none,shumisha,Administration,Duplicate Report,None,2012-10-19,2012-10-19,2012-10-19
+29540,Problem with content plugins and GET request data,3,none,thelordofweb,Plugins,Information Required,None,2012-10-20,,2012-10-21
+29541,User Manager tab for User Profile plugin is inaccessible,3,none,monkeyt,Administration,Confirmed,None,2012-10-20,,2012-10-21
+29543,Category on article is sometimes not displayed,3,none,denia,Templates,Pending,Easy,2012-10-20,,2012-10-21
+29544,Parent category not displayed in categroy blog,3,none,denia,Components,Pending,Easy,2012-10-20,,2012-10-21
+29545,Incorrect label / date in article created date,3,none,denia,Components,Pending,Easy,2012-10-20,,2012-10-21
+29546,Save as Copy Overwrites Article Titles (always),3,none,wparus,Administration,Expected Behavior,None,2012-10-20,2012-10-21,2012-10-21
+29547,Category parent link missing,3,none,denia,Components,Pending,Easy,2012-10-20,,2012-10-22
+29548,Template Manager: Edit File source code editor doesn't fill page Firefox (16.0.1),3,none,skaughtx0r,User Interface,Open,None,2012-10-20,,2012-10-20
+29550,Postgresql : disable escape_string_warning option,3,none,pilou_,Database,Open,None,2012-10-20,,2012-10-20
+29551,Fixed list_price and sale_price,3,none,gpongelli,Database,Fixed in SVN/GitHub,None,2012-10-21,2012-10-21,2012-10-21
+29552,*Com_messages &quot;My Settings&quot; broken,3,none,infograf768,User Interface,Fixed in SVN/GitHub,Easy,2012-10-21,2012-10-22,2012-10-22
+29553,Convert Hathor's brown color scheme to Less,3,none,mbabker,Templates,Fixed in SVN/GitHub,Easy,2012-10-21,2012-10-22,2012-10-22
+29554,Fix broken module installation in Postgresql because of NULL constraint,2,none,vietvh,Platform,Pending,None,2012-10-21,,2012-10-21
+29556,Legacy component helper error,3,none,denitz,CMS Libraries,Open,None,2012-10-22,,2012-10-22
+29558,Incorrect current menu item highlighting in mod_menu if 'Base Item' is not current.,3,none,denitz,Modules,Open,None,2012-10-22,,2012-10-22
+29560,jumping column in Contact Manager: Contacts,5,none,piggydoughnut,User Interface,Pending,None,2012-10-22,,2012-10-22
+29562,Banner details shows trashed client,3,none,biomehaniker,Components,Open,None,2012-10-22,,2012-10-22
+29563,Error msg when an invalid back-end template is selected,3,none,elf,Platform,Open,None,2012-10-22,,2012-10-22
