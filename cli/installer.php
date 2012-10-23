@@ -38,6 +38,10 @@ ini_set('display_errors', 1);
 
 /**
  * Simple Installer.
+ *
+ * @package     JTracker
+ * @subpackage  CLI
+ * @since       1.0
  */
 class InstallerApplication extends JApplicationCli
 {
@@ -49,9 +53,9 @@ class InstallerApplication extends JApplicationCli
 	/**
 	 * Method to run the application routines.
 	 *
-	 * @throws UnexpectedValueException
+	 * @throws RuntimeException
 	 * @throws InstallerAbortException
-	 *
+	 * @throws UnexpectedValueException
 	 * @return  void
 	 */
 	protected function doExecute()
@@ -70,7 +74,9 @@ class InstallerApplication extends JApplicationCli
 			$in = trim($this->in());
 
 			if ('yes' != $in && 'y' != $in)
+			{
 				throw new InstallerAbortException;
+			}
 
 			// Remove existing tables
 
@@ -97,11 +103,12 @@ class InstallerApplication extends JApplicationCli
 			// Check if the message is "Could not connect to database."  Odds are, this means the DB isn't there or the server is down.
 			if (strpos($e->getMessage(), 'Could not connect to database.') !== false)
 			{
-				$this->out('No database found.');// ? really..
+				// ? really..
+				$this->out('No database found.');
 
 				$this->out('Creating the database...', false);
 
-				$dbOptions = new stdClass;
+				$dbOptions          = new stdClass;
 				$dbOptions->db_name = $this->config->get('db');
 				$dbOptions->db_user = $this->config->get('user');
 
@@ -116,27 +123,33 @@ class InstallerApplication extends JApplicationCli
 
 		$dbType = $this->config->get('dbtype');
 
-		if('mysqli' == $dbType)
+		if ('mysqli' == $dbType)
 		{
 			$dbType = 'mysql';
 		}
 
-		if(false == file_exists(JPATH_ROOT . '/sql/'.$dbType.'.sql'))
+		if (false == file_exists(JPATH_ROOT . '/sql/' . $dbType . '.sql'))
+		{
 			throw new UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
+		}
 
-		$sql = file_get_contents(JPATH_ROOT . '/sql/'.$dbType.'.sql');
+		$sql = file_get_contents(JPATH_ROOT . '/sql/' . $dbType . '.sql');
 
 		if (false == $sql)
+		{
 			throw new UnexpectedValueException('SQL file not found.');
+		}
 
-		$this->out('Creating tables from file /sql/'.$dbType.'.sql', false);
+		$this->out('Creating tables from file /sql/' . $dbType . '.sql', false);
 
 		foreach ($db->splitSql($sql) as $query)
 		{
 			$q = trim($db->replacePrefix($query));
 
 			if ('' == trim($q))
+			{
 				continue;
+			}
 
 			$db->setQuery($q);
 
@@ -157,14 +170,18 @@ class InstallerApplication extends JApplicationCli
 		/* @var DirectoryIterator $fileInfo */
 		foreach (new DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
 		{
-			if($fileInfo->isDot())
+			if ($fileInfo->isDot())
+			{
 				continue;
+			}
 
 			$fileName = $fileInfo->getFilename();
 
-			if('index.html' == $fileName
-			|| $dbType.'.sql' == $fileName)
+			if ('index.html' == $fileName
+				|| $dbType . '.sql' == $fileName)
+			{
 				continue;
+			}
 
 			// Process optional SQL files
 			$this->out(sprintf('Process: %s? [[y]]es / [n]o :', $fileName), false);
@@ -172,12 +189,16 @@ class InstallerApplication extends JApplicationCli
 			$in = trim($this->in());
 
 			if ('no' == $in || 'n' == $in)
+			{
 				continue;
+			}
 
-			$sql = file_get_contents(JPATH_ROOT . '/sql/'.$fileName);
+			$sql = file_get_contents(JPATH_ROOT . '/sql/' . $fileName);
 
 			if (false == $sql)
+			{
 				throw new UnexpectedValueException('SQL file not found.');
+			}
 
 			$this->out(sprintf('Processing %s', $fileName), false);
 
@@ -186,7 +207,9 @@ class InstallerApplication extends JApplicationCli
 				$q = trim($db->replacePrefix($query));
 
 				if ('' == trim($q))
+				{
 					continue;
+				}
 
 				$db->setQuery($q)->execute();
 
@@ -204,20 +227,20 @@ class InstallerApplication extends JApplicationCli
 		{
 			$this->out('Enter username [[admin]]: ', false);
 			$username = trim($this->in());
-			$username = $username ?: 'admin';
+			$username = $username ? : 'admin';
 
 			$this->out('Enter password [[test]]: ', false);
 			$password = trim($this->in());
 			$password = $password ? : 'test';
 
-			$salt = JUserHelper::genRandomPassword(32);
+			$salt  = JUserHelper::genRandomPassword(32);
 			$crypt = JUserHelper::getCryptedPassword($password, $salt);
 
 			$query = $db->getQuery(true);
 			$query->insert('#__users');
 			$query->set('name = "Super User"');
-			$query->set('username = '. $db->quote($username));
-			$query->set('password = '. $db->quote($crypt . ':' . $salt));
+			$query->set('username = ' . $db->quote($username));
+			$query->set('password = ' . $db->quote($crypt . ':' . $salt));
 			$query->set('email = "test@localhost.test"');
 			$query->set('block = 0');
 			$query->set('sendEmail = 1');
@@ -233,22 +256,22 @@ class InstallerApplication extends JApplicationCli
 
 			$query->clear();
 			$query->insert('#__user_usergroup_map');
-			$query->set('user_id = '.  $db->quote($userId) );
+			$query->set('user_id = ' . $db->quote($userId));
 			$query->set('group_id = 8');
 			$db->setQuery($query)->execute();
 			$this->out('User created.');
 		}
 
 		$this->out()
-			 ->out(sprintf('%s installer has terminated successfully.', $this->appName));
+			->out(sprintf('%s installer has terminated successfully.', $this->appName));
 	}
 
 	/**
 	 * Output a nicely formatted title for the application.
 	 *
-	 * @param string $title    The title to display.
-	 * @param string $subTitle A subtitle
-	 * @param int    $width    Total width in chars
+	 * @param   string  $title     The title to display.
+	 * @param   string  $subTitle  A subtitle
+	 * @param   int     $width     Total width in chars
 	 *
 	 * @return InstallerApplication
 	 */
@@ -258,7 +281,9 @@ class InstallerApplication extends JApplicationCli
 		$this->out(str_repeat(' ', $width / 2 - (strlen($title) / 2)) . $title);
 
 		if ($subTitle)
+		{
 			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . $subTitle);
+		}
 
 		$this->out(str_repeat('-', $width))
 			->out();
@@ -269,9 +294,16 @@ class InstallerApplication extends JApplicationCli
 
 /**
  * Exception class
+ *
  * @todo move
+ *
+ * @package     JTracker
+ * @subpackage  CLI
+ * @since       1.0
  */
-class InstallerAbortException extends Exception{}
+class InstallerAbortException extends Exception
+{
+}
 
 /*
  * Main

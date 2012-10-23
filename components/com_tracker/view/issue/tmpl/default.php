@@ -49,26 +49,18 @@ $webserver = $this->fields->get('web_server');
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 						<td>
-							<?php if($this->item->priority == 1)
-							{
+							<?php
+							if($this->item->priority == 1) :
 								$status_class = 'badge-important';
-							}
-							elseif ($this->item->priority == 2)
-							{
+							elseif ($this->item->priority == 2) :
 								$status_class = 'badge-warning';
-							}
-							elseif ($this->item->priority == 3)
-							{
+							elseif ($this->item->priority == 3) :
 								$status_class = 'badge-info';
-							}
-							elseif ($this->item->priority == 4)
-							{
+							elseif ($this->item->priority == 4) :
 								$status_class = 'badge-inverse';
-							}
-							elseif ($this->item->priority == 5)
-							{
+							elseif ($this->item->priority == 5) :
 								$status_class = '';
-							}
+							endif;
 							?>
 							<span class="badge <?php echo $status_class; ?>">
 								<?php echo $this->item->priority; ?>
