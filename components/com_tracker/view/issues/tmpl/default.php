@@ -77,12 +77,12 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		<?php else : ?>
 		<?php foreach ($this->items as $i => $item) :
 		$rowClass = '';
-		if (in_array($item->priority, $blockers)) {
+		if (in_array($item->priority, $blockers)) :
 			$rowClass = 'class="error"';
-		}
-		if ($item->status == '4') {
+		endif;
+		if ($item->status == '4') :
 			$rowClass = 'class="success"';
-		}
+		endif
 		?>
 			<tr <?php echo $rowClass; ?>>
 				<td class="center hidden-phone">
@@ -112,26 +112,18 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 					<?php endif; ?>
 				</td>
 				<td class="center">
-					<?php if ($item->priority == 1)
-					{
+					<?php
+					if ($item->priority == 1) :
 						$status_class = 'badge-important';
-					}
-					elseif ($item->priority == 2)
-					{
+					elseif ($item->priority == 2) :
 						$status_class = 'badge-warning';
-					}
-					elseif ($item->priority == 3)
-					{
+					elseif ($item->priority == 3) :
 						$status_class = 'badge-info';
-					}
-					elseif ($item->priority == 4)
-					{
+					elseif ($item->priority == 4) :
 						$status_class = 'badge-inverse';
-					}
-					elseif ($item->priority == 5)
-					{
+					elseif ($item->priority == 5) :
 						$status_class = '';
-					}
+					endif;
 					?>
 					<span class="badge <?php echo $status_class; ?>">
 						<?php echo (int) $item->priority; ?>

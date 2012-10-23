@@ -25,15 +25,15 @@ class TrackerControllerEdit extends JControllerTracker
 	 *                   finish execution. A controller might return false if some precondition for
 	 *                   the controller to run has not been satisfied.
 	 *
-	 * @since   1.0
+	 * @since            1.0
 	 */
 	public function execute()
 	{
 		/* @var JApplicationSite $app */
-		$app   = $this->getApplication();
-		$model = new TrackerModelIssue;
-		$table = JTable::getInstance('Issue');
-		$cid   = $this->input->post->get('cid', array(), 'array');
+		$app     = $this->getApplication();
+		$model   = new TrackerModelIssue;
+		$table   = JTable::getInstance('Issue');
+		$cid     = $this->input->post->get('cid', array(), 'array');
 		$context = 'com_tracker.edit.issue';
 
 		// Determine the name of the primary key for the data.
@@ -45,13 +45,13 @@ class TrackerControllerEdit extends JControllerTracker
 
 		// Get the previous record id (if any) and the current record id.
 		$recordId = (int) (count($cid) ? $cid[0] : $this->input->getInt($urlVar));
-		$checkin = property_exists($table, 'checked_out');
+		$checkin  = property_exists($table, 'checked_out');
 
 		// Access check.
 		if (!$this->allowEdit('com_tracker'))
 		{
 			$app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'), 'error');
-			$app->redirect(JRoute::_('index.php?option=com_tracker&view=issues'. $this->getRedirectToListAppend(), false));
+			$app->redirect(JRoute::_('index.php?option=com_tracker&view=issues' . $this->getRedirectToListAppend(), false));
 
 			return false;
 		}
@@ -67,7 +67,7 @@ class TrackerControllerEdit extends JControllerTracker
 			{
 				// Check-out failed, display a notice but allow the user to see the record.
 				$app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'), 'error');
-				$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit'. $this->getRedirectToItemAppend(), false));
+				$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit' . $this->getRedirectToItemAppend(), false));
 			}
 
 			return false;
@@ -77,7 +77,7 @@ class TrackerControllerEdit extends JControllerTracker
 		$this->holdEditId($context, $recordId);
 		$app->setUserState($context . '.data', null);
 
-		$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit'. $this->getRedirectToItemAppend($recordId, $urlVar), false));
+		$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit' . $this->getRedirectToItemAppend($recordId, $urlVar), false));
 
 		return true;
 	}
