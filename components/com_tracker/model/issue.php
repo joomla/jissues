@@ -68,7 +68,7 @@ class TrackerModelIssue extends JModelTrackerform
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
-	 * @return  array  An array of data items on success, false on failure.
+	 * @return  JRegistry  JRegistry object containing the field data.
 	 *
 	 * @since   1.0
 	 */
@@ -131,6 +131,10 @@ class TrackerModelIssue extends JModelTrackerform
 		$query->select('a.*');
 		$query->from($db->quoteName('#__issues', 'a'));
 		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
+
+		// Join over the category table to get the project title
+		$query->select(('c.title AS category'));
+		$query->leftJoin('#__categories AS c ON a.catid = c.id');
 
 		// Join over the status table
 		$query->select('s.status AS status_title, s.closed AS closed');

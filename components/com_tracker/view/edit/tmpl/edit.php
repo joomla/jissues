@@ -11,11 +11,7 @@
 
 defined('_JEXEC') or die;
 
-// Get the additional fields
-$browser   = $this->fields->get('browser');
-$database  = $this->fields->get('database');
-$php       = $this->fields->get('php_version');
-$webserver = $this->fields->get('web_server');
+JHtml::_('formbehavior.chosen', 'select');
 ?>
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
@@ -28,7 +24,7 @@ $webserver = $this->fields->get('web_server');
 				<table class="table">
 					<tr>
 						<th><?php echo JText::_('JSTATUS'); ?></th>
-						<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status_title)); ?></td>
+						<td><?php echo JHtmlStatus::options(); ?></td>
 					</tr>
 					<?php if ($this->item->gh_id) : ?>
 					<tr>
@@ -48,24 +44,7 @@ $webserver = $this->fields->get('web_server');
 					<?php endif; ?>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
-						<td>
-							<?php
-							if ($this->item->priority == 1) :
-								$status_class = 'badge-important';
-							elseif ($this->item->priority == 2) :
-								$status_class = 'badge-warning';
-							elseif ($this->item->priority == 3) :
-								$status_class = 'badge-info';
-							elseif ($this->item->priority == 4) :
-								$status_class = 'badge-inverse';
-							elseif ($this->item->priority == 5) :
-								$status_class = '';
-							endif;
-							?>
-							<span class="badge <?php echo $status_class; ?>">
-								<?php echo $this->item->priority; ?>
-							</span>
-						</td>
+						<td><?php echo JHtmlSelect::integerlist(1, 5, 1, 'priority-select', 'size="5"', $this->item->priority); ?></td>
 					</tr>
 					<?php if ($this->item->patch_url) : ?>
 					<tr>
@@ -91,30 +70,7 @@ $webserver = $this->fields->get('web_server');
 							<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC2'); ?></td>
 						</tr>
 					<?php endif; ?>
-					<?php if ($database): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DATABASE_TYPE'); ?></th>
-						<td><?php echo $database; ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if ($webserver): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_WEBSERVER'); ?></th>
-						<td><?php echo $webserver; ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if ($php): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PHP_VERISON'); ?></th>
-						<td><?php echo $php; ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if ($browser): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_BROWSER'); ?></th>
-						<td><?php echo $browser; ?></td>
-					</tr>
-					<?php endif; ?>
+					<?php include $this->getPath('fields'); ?>
 				</table>
 
 			</div>
