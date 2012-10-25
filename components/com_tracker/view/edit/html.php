@@ -27,12 +27,36 @@ class TrackerViewEditHtml extends JViewHtml
 	protected $model;
 
 	/**
+	 * HTML Markup for a category list
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $categoryList;
+
+	/**
 	 * Object containing the additional field data
 	 *
 	 * @var    JRegistry
 	 * @since  1.0
 	 */
-	protected $fields = array();
+	protected $fieldData;
+
+	/**
+	 * Object containing the list of fields
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $fieldList = array();
+
+	/**
+	 * HTML Markup for the fields
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $fields;
 
 	/**
 	 * Method to render the view.
@@ -51,7 +75,38 @@ class TrackerViewEditHtml extends JViewHtml
 
 		$id = $app->input->getInt('id', 1);
 		$this->item   = $this->model->getItem($id);
-		$this->fields = $this->model->getFields($id);
+		$this->fieldData = $this->model->getFields($id);
+
+		// Categories
+		$section = 'com_tracker.' . $this->item->project_id . '.categories';
+		$this->categoryList = JHtmlProjects::items($section)
+			? JHtmlProjects::select($section, 'catid', $this->item->catid, 'N/A', '')
+			: JHtmlProjects::select('com_tracker.categories', 'catid', $this->item->catid, 'N/A', '');
+
+		// Fields
+		$this->fields = JHtmlProjects::items('com_tracker.' . $this->item->project_id . '.fields');
+		if (count($this->fields) == 0)
+		{
+			$this->fields = JHtmlProjects::items('com_tracker.fields');
+		}
+
+		foreach ($this->fields as $field)
+		{
+			// Project fields
+			$this->fieldList[$field->alias] = JHtmlProjects::select(
+				'com_tracker.' . $this->item->project_id . '.fields.' . $field->id,
+				$field->id, $this->fieldData->get($field->id), 'N/A', ''
+			);
+
+			// Use global fields if no project fields are set.
+			if ($this->fieldList[$field->alias] == '')
+			{
+				$this->fieldList[$field->alias] = JHtmlProjects::select(
+					'com_tracker.fields.' . $field->id,
+					$field->id, $this->fieldData->get($field->id), 'N/A', ''
+				);
+			}
+		}
 
 		// Build the toolbar
 		$this->buildToolbar();

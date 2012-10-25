@@ -51,16 +51,22 @@ abstract class JHtmlStatus
 			$items = $db->loadObjectList();
 
 			// Assemble the list options.
-			self::$items[$hash] = array();
+			self::$items = array();
 
 			foreach ($items as $item)
 			{
 				self::$items[] = JHtml::_('select.option', $item->id, JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status)));
 			}
 
+			self::$items = array(
+				'<select name="status[id]" class="inputbox" id="status-select-id">',
+				JHtml::_('select.options', self::$items),
+				'</select>'
+			);
+
 			$loaded = true;
 		}
 
-		return self::$items;
+		return implode("\n", self::$items);
 	}
 }

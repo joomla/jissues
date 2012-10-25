@@ -23,7 +23,7 @@ class TrackerModelEdit extends TrackerModelIssue
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
-	 * @return  array  An array of data items on success, false on failure.
+	 * @return  JRegistry  JRegistry object containing the field data.
 	 *
 	 * @since   1.0
 	 */
