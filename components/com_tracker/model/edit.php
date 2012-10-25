@@ -18,4 +18,44 @@ defined('_JEXEC') or die;
  */
 class TrackerModelEdit extends TrackerModelIssue
 {
+	/**
+	 * Method to get the comments for an item.
+	 *
+	 * @param   integer  $id  The id of the primary key.
+	 *
+	 * @return  array  An array of data items on success, false on failure.
+	 *
+	 * @since   1.0
+	 */
+	public function getFields($id)
+	{
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
+		$query->select('fv.field_id, fv.value');
+		$query->from($db->quoteName('#__tracker_fields_values', 'fv'));
+		$query->where($db->quoteName('issue_id') . '=' . $id);
+
+		try
+		{
+			$db->setQuery($query);
+			$fields = $db->loadObjectList();
+		}
+		catch (RuntimeException $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			return false;
+		}
+
+		$arr = array();
+
+		// Prepare the fields for display
+		foreach ($fields as $field)
+		{
+			$arr[$field->field_id] = $field->value;
+		}
+
+		$item = new JRegistry($arr);
+
+		return $item;
+	}
 }

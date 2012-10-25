@@ -52,7 +52,7 @@ class TrackerViewIssueHtml extends JViewHtml
 		$id = $app->input->getInt('id', 1);
 		$this->item     = $this->model->getItem($id);
 		$this->comments = $this->model->getComments($id);
-		$this->fields   = $this->item->fields;
+		$this->fields   = $this->model->getFields($id);
 
 		$dispatcher	= JEventDispatcher::getInstance();
 

@@ -51,7 +51,7 @@ class TrackerViewEditHtml extends JViewHtml
 
 		$id = $app->input->getInt('id', 1);
 		$this->item   = $this->model->getItem($id);
-		$this->fields = $this->item->fields;
+		$this->fields = $this->model->getFields($id);
 
 		// Build the toolbar
 		$this->buildToolbar();

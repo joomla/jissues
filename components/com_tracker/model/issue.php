@@ -64,47 +64,21 @@ class TrackerModelIssue extends JModelTrackerform
 	}
 
 	/**
-	 * Method to get a single record.
+	 * Method to get the comments for an item.
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
-	 * @return  mixed  Object on success, false on failure.
+	 * @return  array  An array of data items on success, false on failure.
 	 *
 	 * @since   1.0
 	 */
-	public function getItem($id)
+	public function getFields($id)
 	{
-		$db = $this->getDb();
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
-
-		$query->select('a.*');
-		$query->from($db->quoteName('#__issues', 'a'));
-		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
-
-		// Join over the status table
-		$query->select('s.status AS status_title, s.closed AS closed');
-		$query->join('LEFT', '#__status AS s ON a.status = s.id');
-
-		/*
-		 * Join over the selects table
-		 */
-
-		try
-		{
-			$db->setQuery($query);
-			$item = $db->loadObject();
-		}
-		catch (RuntimeException $e)
-		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-			return false;
-		}
-
-		// Get the field data
-		$query->clear();
 		$query->select('fv.field_id, fv.value');
 		$query->from($db->quoteName('#__tracker_fields_values', 'fv'));
-		$query->where($db->quoteName('issue_id') . '=' . $item->id);
+		$query->where($db->quoteName('issue_id') . '=' . $id);
 
 		// Join over the categories table to get the field name
 		$query->select('f.title AS field_name');
@@ -135,8 +109,42 @@ class TrackerModelIssue extends JModelTrackerform
 			$arr[$name] = $value;
 		}
 
-		$item->fields = new JRegistry($arr);
+		$item = new JRegistry($arr);
 
 		return $item;
+	}
+
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param   integer  $id  The id of the primary key.
+	 *
+	 * @return  mixed  Object on success, false on failure.
+	 *
+	 * @since   1.0
+	 */
+	public function getItem($id)
+	{
+		$db = $this->getDb();
+		$query = $db->getQuery(true);
+
+		$query->select('a.*');
+		$query->from($db->quoteName('#__issues', 'a'));
+		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
+
+		// Join over the status table
+		$query->select('s.status AS status_title, s.closed AS closed');
+		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+		try
+		{
+			$db->setQuery($query);
+			return $db->loadObject();
+		}
+		catch (RuntimeException $e)
+		{
+			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			return false;
+		}
 	}
 }
