@@ -74,19 +74,19 @@ abstract class JApplicationTracker extends JApplicationWeb
 		$this->loadDispatcher();
 
 		// Enable sessions by default.
-		if (is_null($this->config->get('session')))
+		if (is_null($this->get('session')))
 		{
-			$this->config->set('session', true);
+			$this->set('session', true);
 		}
 
 		// Set the session default name.
-		if (is_null($this->config->get('session_name')))
+		if (is_null($this->get('session_name')))
 		{
-			$this->config->set('session_name', 'jissues');
+			$this->set('session_name', 'jissues');
 		}
 
 		// Create the session if a session name is passed.
-		if ($this->config->get('session') !== false)
+		if ($this->get('session') !== false)
 		{
 			$this->loadSession();
 
@@ -110,7 +110,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 		parent::afterSessionStart();
 
 		// TODO: At some point we need to get away from having session data always in the db.
-		if ($this->getCfg('sess_handler') == 'database')
+		if ($this->get('sess_handler') == 'database')
 		{
 			$session = JFactory::getSession();
 			$db      = JFactory::getDBO();
@@ -130,7 +130,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 			}
 
 			// Check to see the the session already exists.
-			$handler = $this->getCfg('sess_handler');
+			$handler = $this->get('sess_handler');
 			if (($time % 2 || $session->isNew()) || ($session->isNew()))
 			{
 				$this->checkSession();
@@ -379,21 +379,6 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		// Instantiate and return the controller
 		return new $class($this->input, $this);
-	}
-
-	/**
-	 * Gets a configuration value.
-	 *
-	 * @param   string  $varname  The name of the value to get.
-	 * @param   string  $default  Default value to return
-	 *
-	 * @return  mixed  The user state.
-	 *
-	 * @since   1.0
-	 */
-	public function getCfg($varname, $default = null)
-	{
-		return JFactory::getConfig()->get($varname, $default);
 	}
 
 	/**
@@ -713,8 +698,8 @@ abstract class JApplicationTracker extends JApplicationWeb
 					$lifetime = time() + 365 * 24 * 60 * 60;
 
 					// Use domain and path set in config for cookie if it exists.
-					$cookie_domain = $this->getCfg('cookie_domain', '');
-					$cookie_path   = $this->getCfg('cookie_path', '/');
+					$cookie_domain = $this->get('cookie_domain', '');
+					$cookie_path   = $this->get('cookie_path', '/');
 					setcookie(JApplication::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
 				}
 
@@ -783,8 +768,8 @@ abstract class JApplicationTracker extends JApplicationWeb
 		if (!in_array(false, $results, true))
 		{
 			// Use domain and path set in config for cookie if it exists.
-			$cookie_domain = $this->getCfg('cookie_domain', '');
-			$cookie_path   = $this->getCfg('cookie_path', '/');
+			$cookie_domain = $this->get('cookie_domain', '');
+			$cookie_path   = $this->get('cookie_path', '/');
 			setcookie(self::getHash('JLOGIN_REMEMBER'), false, time() - 86400, $cookie_path, $cookie_domain);
 
 			return true;

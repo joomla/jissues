@@ -32,6 +32,7 @@ class UsersControllerResetcomplete extends JControllerBase
 		// Check for request forgeries
 		JSession::checkToken('post') or jexit(JText::_('JINVALID_TOKEN'));
 
+		/** @var $app JApplicationTracker */
 		$app   = $this->getApplication();
 		$model = new UsersModelReset;
 		$data  = $this->input->post->get('jform', array(), 'array');
@@ -43,7 +44,7 @@ class UsersControllerResetcomplete extends JControllerBase
 		if ($return instanceof Exception)
 		{
 			// Get the error message to display.
-			if ($app->getCfg('error_reporting'))
+			if ($app->get('error_reporting'))
 			{
 				$message = $return->getMessage();
 			}

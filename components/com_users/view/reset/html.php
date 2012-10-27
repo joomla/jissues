@@ -116,6 +116,7 @@ class UsersViewResetHtml extends JViewHtml
 	 */
 	protected function prepareDocument()
 	{
+		/** @var $application JApplicationTracker */
 		$application = JFactory::getApplication();
 		$menus = $application->getMenu();
 		$title = null;
@@ -137,15 +138,15 @@ class UsersViewResetHtml extends JViewHtml
 
 		if (empty($title))
 		{
-			$title = $application->getCfg('sitename');
+			$title = $application->get('sitename');
 		}
-		elseif ($application->getCfg('sitename_pagetitles', 0) == 1)
+		elseif ($application->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $application->getCfg('sitename'), $title);
+			$title = JText::sprintf('JPAGETITLE', $application->get('sitename'), $title);
 		}
-		elseif ($application->getCfg('sitename_pagetitles', 0) == 2)
+		elseif ($application->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $application->getCfg('sitename'));
+			$title = JText::sprintf('JPAGETITLE', $title, $application->get('sitename'));
 		}
 
 		$document->setTitle($title);
