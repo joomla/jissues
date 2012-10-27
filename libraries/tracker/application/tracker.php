@@ -341,9 +341,6 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// Define component path.
 		define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $component);
 
-		// Register the component with the autoloader
-		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
-
 		if (is_null($task))
 		{
 			$task = 'default';
@@ -351,6 +348,9 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		// Strip com_ off the component
 		$base = substr($component, 4);
+
+		// Register the component with the autoloader
+		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
 
 		// Set the controller class name based on the task
 		$class = ucfirst($base) . 'Controller' . ucfirst($task);
