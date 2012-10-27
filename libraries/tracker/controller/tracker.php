@@ -37,6 +37,49 @@ abstract class JControllerTracker extends JControllerBase
 	}
 
 	/**
+	 * Method to check whether an ID is in the edit list.
+	 *
+	 * @param   string   $context  The context for the session storage.
+	 * @param   integer  $id       The ID of the record to add to the edit list.
+	 *
+	 * @return  boolean  True if the ID is in the edit list.
+	 *
+	 * @since   1.0
+	 */
+	protected function checkEditId($context, $id)
+	{
+		if ($id)
+		{
+			$app    = JFactory::getApplication();
+			$values = (array) $app->getUserState($context . '.id');
+
+			$result = in_array((int) $id, $values);
+
+			if (defined('JDEBUG') && JDEBUG)
+			{
+				JLog::add(
+					sprintf(
+						'Checking edit ID %s.%s: %d %s',
+						$context,
+						$id,
+						(int) $result,
+						str_replace("\n", ' ', print_r($values, 1))
+					),
+					JLog::INFO,
+					'controller'
+				);
+			}
+
+			return $result;
+		}
+		else
+		{
+			// No id for a new item.
+			return true;
+		}
+	}
+
+	/**
 	 * Gets the URL arguments to append to an item redirect.
 	 *
 	 * @param   integer  $recordId  The primary key id for the item.
@@ -119,6 +162,45 @@ abstract class JControllerTracker extends JControllerBase
 				JLog::add(
 					sprintf(
 						'Holding edit ID %s.%s %s',
+						$context,
+						$id,
+						str_replace("\n", ' ', print_r($values, 1))
+					),
+					JLog::INFO,
+					'controller'
+				);
+			}
+		}
+	}
+
+	/**
+	 * Method to check whether an ID is in the edit list.
+	 *
+	 * @param   string   $context  The context for the session storage.
+	 * @param   integer  $id       The ID of the record to add to the edit list.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function releaseEditId($context, $id)
+	{
+		$app    = JFactory::getApplication();
+		$values = (array) $app->getUserState($context . '.id');
+
+		// Do a strict search of the edit list values.
+		$index = array_search((int) $id, $values, true);
+
+		if (is_int($index))
+		{
+			unset($values[$index]);
+			$app->setUserState($context . '.id', $values);
+
+			if (defined('JDEBUG') && JDEBUG)
+			{
+				JLog::add(
+					sprintf(
+						'Releasing edit ID %s.%s %s',
 						$context,
 						$id,
 						str_replace("\n", ' ', print_r($values, 1))

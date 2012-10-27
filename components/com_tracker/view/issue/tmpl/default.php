@@ -149,4 +149,5 @@ $webserver = $this->fields->get('web_server');
 		<?php endif; ?>
 	</div>
 	<input type="hidden" name="task" />
+	<?php echo JHtml::_('form.token'); ?>
 </form>

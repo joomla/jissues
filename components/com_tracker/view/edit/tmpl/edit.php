@@ -87,4 +87,5 @@ $priorityOptions['size'] = '5';
 		</div>
 	</div>
 	<input type="hidden" name="task" />
+	<?php echo JHtml::_('form.token'); ?>
 </form>

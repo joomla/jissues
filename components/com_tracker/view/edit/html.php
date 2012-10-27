@@ -147,5 +147,13 @@ class TrackerViewEditHtml extends JViewHtml
 	 */
 	protected function buildToolbar()
 	{
+		// Get the user object
+		$user = JFactory::getUser();
+
+		// Instantiate the JToolbar object
+		$toolbar = JToolbar::getInstance('toolbar');
+
+		// Add a button to cancel editting the item.
+		$toolbar->appendButton('Standard', 'cancel', 'COM_TRACKER_TOOLBAR_CANCEL', 'cancel', false);
 	}
 }
