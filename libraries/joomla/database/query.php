@@ -339,6 +339,7 @@ abstract class JDatabaseQuery
 			case 'select':
 				$query .= (string) $this->select;
 				$query .= (string) $this->from;
+
 				if ($this->join)
 				{
 					// Special case for joins
@@ -432,6 +433,7 @@ abstract class JDatabaseQuery
 					}
 
 					$elements = $this->values->getElements();
+
 					if (!($elements[0] instanceof $this))
 					{
 						$query .= ' VALUES ';
@@ -1069,8 +1071,8 @@ abstract class JDatabaseQuery
 	 *
 	 * Usage:
 	 * $query->insert('#__a')->set('id = 1');
-	 * $query->insert('#__a)->columns('id, title')->values('1,2')->values->('3,4');
-	 * $query->insert('#__a)->columns('id, title')->values(array('1,2', '3,4'));
+	 * $query->insert('#__a')->columns('id, title')->values('1,2')->values('3,4');
+	 * $query->insert('#__a')->columns('id, title')->values(array('1,2', '3,4'));
 	 *
 	 * @param   mixed    $table           The name of the table to insert data into.
 	 * @param   boolean  $incrementField  The name of the field to auto increment.
