@@ -88,9 +88,16 @@ class TrackerViewIssueHtml extends JViewHtml
 	 */
 	protected function buildToolbar()
 	{
+		// Get the user object
+		$user = JFactory::getUser();
+
+		// Instantiate the JToolbar object
 		$toolbar = JToolbar::getInstance('toolbar');
 
-		// Add a button to submit a new item.
-		$toolbar->appendButton('Standard', 'edit', 'COM_TRACKER_TOOLBAR_EDIT', 'edit', false);
+		// Add a button to edit the item.
+		if ($user->authorise('core.edit', 'com_tracker.issue.' . $this->item->id))
+		{
+			$toolbar->appendButton('Standard', 'edit', 'COM_TRACKER_TOOLBAR_EDIT', 'edit', false);
+		}
 	}
 }
