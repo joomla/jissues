@@ -241,7 +241,7 @@ abstract class JModelTrackerlist extends JModelDatabase
 		{
 			$app = JFactory::getApplication();
 
-			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit', 20), 'uint');
+			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit', 20), 'uint');
 			$limit = $value;
 			$this->state->set('list.limit', $limit);
 
