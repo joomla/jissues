@@ -1,0 +1,7 @@
+This is a running log showing which library files from the CMS and Platform have been modified and in what commit the change was made.
+
+If a change is removed due to the upstream taking the change or the change no longer being necessary, it can be removed from this file.
+
+Entries should be in the format of "Commit SHA - File modified" (for readability, please use only the first seven characters of the SHA).
+
+6632155 - libraries/cms/menu/site.php
