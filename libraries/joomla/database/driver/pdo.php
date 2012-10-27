@@ -109,6 +109,12 @@ abstract class JDatabaseDriverPdo extends JDatabaseDriver
 			return;
 		}
 
+		// Make sure the PDO extension for PHP is installed and enabled.
+		if (!self::isSupported())
+		{
+			throw new RuntimeException('PDO Extension is not available.', 1);
+		}
+
 		// Initialize the connection string variable:
 		$connectionString = '';
 		$replace = array();
@@ -279,12 +285,6 @@ abstract class JDatabaseDriverPdo extends JDatabaseDriver
 		// Create the connection string:
 		$connectionString = str_replace($replace, $with, $format);
 
-		// Make sure the PDO extension for PHP is installed and enabled.
-		if (!self::isSupported())
-		{
-			throw new RuntimeException('PDO Extension is not available.', 1);
-		}
-
 		try
 		{
 			$this->connection = new PDO(
@@ -367,6 +367,7 @@ abstract class JDatabaseDriverPdo extends JDatabaseDriver
 
 		// Take a local copy so that we don't modify the original query and cause issues later
 		$sql = $this->replacePrefix((string) $this->sql);
+
 		if ($this->limit > 0 || $this->offset > 0)
 		{
 			// @TODO
@@ -391,12 +392,14 @@ abstract class JDatabaseDriverPdo extends JDatabaseDriver
 
 		// Execute the query.
 		$this->executed = false;
+
 		if ($this->prepared instanceof PDOStatement)
 		{
 			// Bind the variables:
 			if ($this->sql instanceof JDatabaseQueryPreparable)
 			{
 				$bounded =& $this->sql->getBounded();
+
 				foreach ($bounded as $key => $obj)
 				{
 					$this->prepared->bindParam($key, $obj->value, $obj->dataType, $obj->length, $obj->driverOptions);
