@@ -12,11 +12,23 @@
 defined('_JEXEC') or die;
 
 JHtml::_('formbehavior.chosen', 'select');
+
+// Set up the options array for the priority field
+$priorityOptions = array();
+$priorityOptions['id'] = 'jform_priority';
+$priorityOptions['size'] = '5';
 ?>
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="container-fluid">
 		<h3><?php echo JText::_('Edit Item') . ' [#' . $this->item->id . ']'; ?></h3>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="input-prepend">
+				<span class="add-on"><strong><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></strong></span>
+				<input type="text" name="jform[title]" id="jform_title" class="input-xxlarge" value="<?php echo htmlspecialchars($this->item->title, ENT_COMPAT, 'UTF-8'); ?>" maxlength="100">
+			</div>
+		</div>
 
 		<div class="row-fluid">
 			<div class="span5">
@@ -26,30 +38,22 @@ JHtml::_('formbehavior.chosen', 'select');
 						<th><?php echo JText::_('JSTATUS'); ?></th>
 						<td><?php echo JHtmlStatus::options(); ?></td>
 					</tr>
-					<?php if ($this->item->gh_id) : ?>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
-						<td><a href="https://github.com/joomla/joomla-cms/issues/<?php echo $this->item->gh_id; ?>" target="_blank"><?php echo $this->item->gh_id; ?></a></td>
+						<td><input type="text" name="jform[gh_id]" id="jform_gh_id" class="input-small" value="<?php echo htmlspecialchars($this->item->gh_id, ENT_COMPAT, 'UTF-8'); ?>" maxlength="5"></td>
 					</tr>
-					<?php endif; ?>
-					<?php if ($this->item->jc_id) : ?>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?></th>
-						<td>
-							<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo (int) $this->item->jc_id; ?>" target="_blank">
-								<?php echo (int) $this->item->jc_id; ?>
-							</a>
-						</td>
+						<td><input type="text" name="jform[jc_id]" id="jform_jc_id" class="input-small" value="<?php echo htmlspecialchars($this->item->jc_id, ENT_COMPAT, 'UTF-8'); ?>" maxlength="5"></td>
 					</tr>
-					<?php endif; ?>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
-						<td><?php echo JHtmlSelect::integerlist(1, 5, 1, 'priority-select', 'size="5"', $this->item->priority); ?></td>
+						<td><?php echo JHtmlSelect::integerlist(1, 5, 1, 'jform[priority]', $priorityOptions, $this->item->priority); ?></td>
 					</tr>
 					<?php if ($this->item->patch_url) : ?>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PATCH_URL'); ?></th>
-						<td><a href="<?php echo $this->item->patch_url; ?>" target="_blank"><?php echo $this->item->patch_url; ?></a></td>
+						<td><input type="text" name="jform[patch_url]" id="jform_patch_url" value="<?php echo htmlspecialchars($this->item->patch_url, ENT_COMPAT, 'UTF-8'); ?>"></td>
 					</tr>
 					<?php endif; ?>
 					<tr>

@@ -59,7 +59,7 @@ abstract class JHtmlStatus
 			}
 
 			self::$items = array(
-				'<select name="status[id]" class="inputbox" id="status-select-id">',
+				'<select name="jform[status]" class="inputbox" id="jform_status">',
 				JHtml::_('select.options', self::$items),
 				'</select>'
 			);
