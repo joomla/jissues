@@ -35,6 +35,22 @@ class TrackerViewEditHtml extends JViewHtml
 	protected $categoryList;
 
 	/**
+	 * Container for the JEditor object
+	 *
+	 * @var    JEditor
+	 * @since  1.0
+	 */
+	protected $editor;
+
+	/**
+	 * Array containing the editor params
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $editorParams = array();
+
+	/**
 	 * Object containing the additional field data
 	 *
 	 * @var    JRegistry
@@ -76,6 +92,14 @@ class TrackerViewEditHtml extends JViewHtml
 		$id = $app->input->getInt('id', 1);
 		$this->item   = $this->model->getItem($id);
 		$this->fieldData = $this->model->getFields($id);
+
+		// Set up the editor object
+		$this->editor = JEditor::getInstance('kisskontent');
+
+		$this->editorParams = array(
+			'preview-url'     => 'index.php?option=com_tracker&task=preview&format=raw',
+			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
+		);
 
 		// Categories
 		$section = 'com_tracker.' . $this->item->project_id . '.categories';
