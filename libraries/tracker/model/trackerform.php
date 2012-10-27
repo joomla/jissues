@@ -48,6 +48,51 @@ abstract class JModelTrackerform extends JModelDatabase
 	}
 
 	/**
+	 * Method to checkin a row.
+	 *
+	 * @param   integer  $pk  The numeric id of the primary key.
+	 *
+	 * @return  boolean  False on failure or error, true otherwise.
+	 *
+	 * @since   1.0
+	 * @throws  InvalidArgumentException
+	 * @throws  RuntimeException
+	 */
+	public function checkin($pk = null)
+	{
+		// Ensure the child class set the table object before continuing
+		if (!($this->table instanceof JTable))
+		{
+			throw new InvalidArgumentException('JTable class must be instantiated.');
+		}
+
+		// Only attempt to check the row in if it exists.
+		if ($pk)
+		{
+			$user = JFactory::getUser();
+
+			if (!$this->table->load($pk))
+			{
+				throw new RuntimeException($this->table->getError());
+			}
+
+			// Check if this is the user having previously checked out the row.
+			if ($this->table->checked_out > 0 && $this->table->checked_out != $user->get('id'))
+			{
+				throw new RuntimeException(JText::_('JLIB_APPLICATION_ERROR_CHECKIN_USER_MISMATCH'));
+			}
+
+			// Attempt to check the row in.
+			if (!$this->table->checkin($pk))
+			{
+				throw new RuntimeException($this->table->getError());
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Method to check-out a row for editing.
 	 *
 	 * @param   integer  $pk  The numeric id of the primary key.
@@ -65,6 +110,7 @@ abstract class JModelTrackerform extends JModelDatabase
 		{
 			throw new InvalidArgumentException('JTable class must be instantiated.');
 		}
+
 		// Only attempt to check the row in if it exists.
 		if ($pk)
 		{

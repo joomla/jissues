@@ -39,12 +39,8 @@ class TrackerControllerEdit extends JControllerTracker
 		// Determine the name of the primary key for the data.
 		$key = $table->getKeyName();
 
-		// To avoid data collisions the urlVar may be different from the primary key.
-		// TODO - Any way to make this configurable?
-		$urlVar = $key;
-
 		// Get the previous record id (if any) and the current record id.
-		$recordId = (int) (count($cid) ? $cid[0] : $this->input->getInt($urlVar));
+		$recordId = (int) (count($cid) ? $cid[0] : $this->input->getInt($key));
 		$checkin  = property_exists($table, 'checked_out');
 
 		// Access check.
@@ -77,7 +73,7 @@ class TrackerControllerEdit extends JControllerTracker
 		$this->holdEditId($context, $recordId);
 		$app->setUserState($context . '.data', null);
 
-		$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit' . $this->getRedirectToItemAppend($recordId, $urlVar), false));
+		$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
 
 		return true;
 	}
