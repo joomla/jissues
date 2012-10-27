@@ -338,6 +338,12 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 */
 	protected function fetchController($component, $task)
 	{
+		// Define component path.
+		define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $component);
+
+		// Register the component with the autoloader
+		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
+
 		if (is_null($task))
 		{
 			$task = 'default';
@@ -349,39 +355,30 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// Set the controller class name based on the task
 		$class = ucfirst($base) . 'Controller' . ucfirst($task);
 
-		// Define component path.
-		define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $component);
-
-		// Register the component with the autoloader
-		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
-
-		// If the requested controller exists let's use it.
-		if (class_exists($class))
+		// Check for the requested controller.
+		if (!class_exists($class) || !is_subclass_of($class, 'JController'))
 		{
-			return new $class;
-		}
-		// See if there's an action class in the libraries if we aren't calling the default task
-		elseif ($task && $task != 'default')
-		{
-			$class = 'JController' . ucfirst($task);
-
-			if (class_exists($class))
+			// See if there's an action class in the libraries if we aren't calling the default task
+			if ($task && $task != 'default')
 			{
-				return new $class;
+				$class = 'JController' . ucfirst($task);
 			}
-		}
-		else
-		{
-			$class = ucfirst($base) . 'ControllerDefault';
 
-			if (class_exists($class))
+			if (!class_exists($class) || !is_subclass_of($class, 'JController'))
 			{
-				return new $class;
+				// Look for a default controller for the component
+				$class = ucfirst($base) . 'ControllerDefault';
+
+				if (!class_exists($class) || !is_subclass_of($class, 'JController'))
+				{
+					// Nothing found. Panic.
+					throw new RuntimeException(sprintf('Controller not found for %s task', $task));
+				}
 			}
 		}
 
-		// Nothing found. Panic.
-		throw new RuntimeException(sprintf('Class %s not found', $class));
+		// Instantiate and return the controller
+		return new $class($this->input, $this);
 	}
 
 	/**
