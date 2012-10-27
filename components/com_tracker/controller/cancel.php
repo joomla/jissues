@@ -29,6 +29,9 @@ class TrackerControllerCancel extends JControllerTracker
 	 */
 	public function execute()
 	{
+		// Check for request forgeries.
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
 		/* @var JApplicationSite $app */
 		$app     = $this->getApplication();
 		$model   = new TrackerModelIssue;
