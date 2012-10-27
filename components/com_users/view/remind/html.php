@@ -105,6 +105,7 @@ class UsersViewRemindHtml extends JViewHtml
 	 */
 	protected function prepareDocument()
 	{
+		/** @var $app JApplicationTracker */
 		$app = JFactory::getApplication();
 		$menus = $app->getMenu();
 		$title = null;
@@ -126,15 +127,15 @@ class UsersViewRemindHtml extends JViewHtml
 		$title = $this->params->get('page_title', '');
 		if (empty($title))
 		{
-			$title = $app->getCfg('sitename');
+			$title = $app->get('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1)
+		elseif ($app->get('sitename_pagetitles', 0) == 1)
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2)
+		elseif ($app->get('sitename_pagetitles', 0) == 2)
 		{
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$document->setTitle($title);
