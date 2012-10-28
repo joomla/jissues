@@ -129,7 +129,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
 		$table->description = $data->issue->body;
-		$table->status		= ($data->issue->status) == 'open' ? 1 : 10;
+		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
 
@@ -183,7 +183,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$table->title       = $data->issue->title;
 		$table->description = $data->issue->body;
-		$table->status		= ($data->issue->status) == 'open' ? 1 : 10;
+		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
 
 		// Add the closed date if the status is closed
