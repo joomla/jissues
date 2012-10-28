@@ -189,7 +189,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// Add the closed date if the status is closed
 		if ($data->issue->closed_at)
 		{
-			$table->closed_date = $data->issue->closed_at;
+			$table->closed_date = JFactory::getDate($data->issue->closed_at)->toSql();
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID, only check for a Joomlacode ID if one's not already inserted
