@@ -104,8 +104,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// If the item is already in the databse, update it; else, insert it
 		if ($issueID)
 		{
-			$table = $table->load($issueID);
-			$this->updateData($table, $data);
+			$this->updateData($issueID, $data);
 		}
 		else
 		{
@@ -125,11 +124,28 @@ final class TrackerReceiveIssues extends JApplicationHooks
 	 */
 	protected function insertData(JTableIssue $table, $data)
 	{
+		// Figure out the state based on the action
+		$action = $data->action;
+
+		switch ($action)
+		{
+			case 'closed':
+				$status = 10;
+				break;
+
+			case 'opened':
+			case 'reopened':
+			default:
+				$status = 1;
+				break;
+
+		}
+
 		$table = JTable::getInstance('Issue');
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
 		$table->description = $data->issue->body;
-		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
+		$table->status		= $status;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
 
@@ -171,43 +187,61 @@ final class TrackerReceiveIssues extends JApplicationHooks
 	/**
 	 * Method to update data for an issue from GitHub
 	 *
-	 * @param   JTableIssue  $table  Issue table instance
-	 * @param   object       $data   The hook data
+	 * @param   integer  $issueID  Issue ID in the database
+	 * @param   object   $data     The hook data
 	 *
 	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
 	 */
-	protected function updateData(JTableIssue $table, $data)
+	protected function updateData($issueID, $data)
 	{
+		// Figure out the state based on the action
+		$action = $data->action;
+
+		switch ($action)
+		{
+			case 'closed':
+				$status = 10;
+				break;
+
+			case 'opened':
+			case 'reopened':
+			default:
+				$status = 1;
+				break;
+
+		}
+
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$table->title       = $data->issue->title;
-		$table->description = $data->issue->body;
-		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
-		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->update($db->quoteName('#__issues'));
+		$query->set($db->quoteName('title') . ' = ' . $db->quote($data->issue->title));
+		$query->set($db->quoteName('description') . ' = ' . $db->quote($data->issue->body));
+		$query->set($db->quoteName('status') . ' = ' . $status);
+		$query->set($db->quoteName('modified') . ' = ' . $db->quote(JFactory::getDate($data->issue->updated_at)->toSql()));
+		$query->where($db->quoteName('id') . ' = ' . $issueID);
 
 		// Add the closed date if the status is closed
 		if ($data->issue->closed_at)
 		{
-			$table->closed_date = JFactory::getDate($data->issue->closed_at)->toSql();
+			$query->set($db->quoteName('closed_date') . ' = ' . $db->quote(JFactory::getDate($data->issue->closed_at)->toSql()));
 		}
 
-		// If the title has a [# in it, assume it's a Joomlacode Tracker ID, only check for a Joomlacode ID if one's not already inserted
-		// TODO - Would be better suited as a regex probably
-		if (!$table->jc_id && (strpos($data->issue->title, '[#') !== false))
+		try
 		{
-			$pos = strpos($data->issue->title, '[#') + 2;
-			$table->jc_id = substr($data->issue->title, $pos, 5);
+			$db->setQuery($query);
+			$db->execute();
 		}
-
-		if (!$table->store())
+		catch (RuntimeException $e)
 		{
-			JLog::add(sprintf('Error updating issue %s in the database: %s', $table->id, $table->getError()), JLog::INFO);
+			JLog::add('Error updating the database for issue ' . $issueID . ':' . $e->getMessage(), JLog::INFO);
 			$this->close();
 		}
 
 		// Store was successful, update status
-		JLog::add(sprintf('Updated issue %s in the tracker.', $table->id), JLog::INFO);
+		JLog::add(sprintf('Updated issue %s in the tracker.', $issueID), JLog::INFO);
 
 		return true;
 	}
