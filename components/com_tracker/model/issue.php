@@ -64,7 +64,7 @@ class TrackerModelIssue extends JModelTrackerform
 	}
 
 	/**
-	 * Method to get the comments for an item.
+	 * Method to get the fields values of an issue.
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
