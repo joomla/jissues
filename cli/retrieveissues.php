@@ -191,6 +191,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$table->description = $issue->body;
 			$table->status		= ($issue->state == 'open') ? 1 : 10;
 			$table->opened      = JFactory::getDate($issue->created_at)->toSql();
+			$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
 
 			// Add the diff URL if this is a pull request
 			if ($issue->pull_request->diff_url)
@@ -201,7 +202,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			// Add the closed date if the status is closed
 			if ($issue->closed_at)
 			{
-				$table->closed_date = $issue->closed_at;
+				$table->closed_date = JFactory::getDate($issue->closed_at)->toSql();
 			}
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
