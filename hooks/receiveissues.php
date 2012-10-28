@@ -2,7 +2,7 @@
 <?php
 /**
  * @package     JTracker
- * @subpackage  CLI
+ * @subpackage  Hooks
  *
  * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -39,9 +39,9 @@ require_once JPATH_LIBRARIES . '/import.legacy.php';
 // Bootstrap the CMS libraries.
 require_once JPATH_LIBRARIES . '/cms.php';
 
-// Configure error reporting to maximum for CLI output.
+// Configure error reporting to maximum for logging.
 error_reporting(32767);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 /**
  * Web application to receive and inject issue reports from GitHub
@@ -104,9 +104,8 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// If the item is already in the databse, update it; else, insert it
 		if ($issueID)
 		{
-			$table->load($issueID);
-
-			// TODO: Write some code!
+			$table = $table->load($issueID);
+			$this->updateData($table, $data);
 		}
 		else
 		{
@@ -115,7 +114,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 	}
 
 	/**
-	 * Method to insert data for a new issue into the database
+	 * Method to insert data for an issue from GitHub
 	 *
 	 * @param   JTableIssue  $table  Issue table instance
 	 * @param   object       $data   The hook data
@@ -130,7 +129,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
 		$table->description = $data->issue->body;
-		$table->status		= 1;
+		$table->status		= $data->issue->status = 'opened' ? 1 : 10;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
 
@@ -165,6 +164,50 @@ final class TrackerReceiveIssues extends JApplicationHooks
 
 		// Store was successful, update status
 		JLog::add(sprintf('Added GitHub issue %s to the tracker.', $data->issue->number), JLog::INFO);
+
+		return true;
+	}
+
+	/**
+	 * Method to update data for an issue from GitHub
+	 *
+	 * @param   JTableIssue  $table  Issue table instance
+	 * @param   object       $data   The hook data
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since   1.0
+	 */
+	protected function updateData(JTableIssue $table, $data)
+	{
+		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
+		$table->title       = $data->issue->title;
+		$table->description = $data->issue->body;
+		$table->status		= $data->issue->status = 'opened' ? 1 : 10;
+		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
+
+		// Add the closed date if the status is closed
+		if ($data->issue->closed_at)
+		{
+			$table->closed_date = $data->issue->closed_at;
+		}
+
+		// If the title has a [# in it, assume it's a Joomlacode Tracker ID, only check for a Joomlacode ID if one's not already inserted
+		// TODO - Would be better suited as a regex probably
+		if (!$table->jc_id && (strpos($data->issue->title, '[#') !== false))
+		{
+			$pos = strpos($data->issue->title, '[#') + 2;
+			$table->jc_id = substr($data->issue->title, $pos, 5);
+		}
+
+		if (!$table->store())
+		{
+			JLog::add(sprintf('Error updating issue %s in the database: %s', $table->id, $table->getError()), JLog::INFO);
+			$this->close();
+		}
+
+		// Store was successful, update status
+		JLog::add(sprintf('Updated issue %s in the tracker.', $table->id), JLog::INFO);
 
 		return true;
 	}
