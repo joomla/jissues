@@ -8,6 +8,13 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+// Check the request is coming from GitHub
+$validIps = array('207.97.227.253', '50.57.128.197', '108.171.174.178');
+if (!in_array($_SERVER['REMOTE_ADDR'], $validIps))
+{
+	die("You don't belong here!");
+}
+
 // We are a valid entry point.
 const _JEXEC = 1;
 
@@ -74,14 +81,12 @@ final class TrackerReceiveIssues extends JApplicationHooks
 
 		// Get the issue ID
 		$githubID = $data->issue->number;
-		JLog::add(sprintf('GitHub ID - %s', $data->issue->number), JLog::INFO);
 
 		// Check to see if the issue is already in the database
 		$query->select($db->quoteName('id'));
 		$query->from($db->quoteName('#__issues'));
 		$query->where($db->quoteName('gh_id') . ' = ' . (int) $githubID);
 		$db->setQuery($query);
-		JLog::add(sprintf('Check if exists query - %s', (string) $query), JLog::INFO);
 
 		try
 		{
