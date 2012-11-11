@@ -500,11 +500,11 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 *
 	 * @since   1.0
 	 */
-	public static function getRouter($name = null, array $options = array())
+	public function getRouter($name = null, array $options = array())
 	{
 		if (!isset($name))
 		{
-			$name = JFactory::getApplication()->getName();
+			$name = $this->name;
 		}
 
 		jimport('joomla.application.router');
