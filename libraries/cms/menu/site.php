@@ -85,7 +85,7 @@ class JMenuSite extends JMenu
 	{
 		$attributes = (array) $attributes;
 		$values 	= (array) $values;
-		$app		= JApplication::getInstance('site');
+		$app		= JFactory::getApplication('site');
 
 		if ($app->isSite())
 		{
