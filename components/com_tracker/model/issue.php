@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  Model
  * @since       1.0
  */
-class TrackerModelIssue extends JModelTrackerform
+class TrackerModelIssue extends JModelTrackerForm
 {
 	/**
 	 * Instantiate the model.

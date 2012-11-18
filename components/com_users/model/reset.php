@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersModelReset extends JModelTrackerform
+class UsersModelReset extends JModelTrackerForm
 {
 	/**
 	 * Method to get the password reset request form.

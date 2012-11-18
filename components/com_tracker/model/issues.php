@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_tracker
  * @since       1.0
  */
-class TrackerModelIssues extends JModelTrackerlist
+class TrackerModelIssues extends JModelTrackerList
 {
 	/**
 	 * Context string for the model type.  This is used to handle uniqueness

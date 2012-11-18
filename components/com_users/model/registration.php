@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersModelRegistration extends JModelTrackerform
+class UsersModelRegistration extends JModelTrackerForm
 {
 	/**
 	 * @var    object  The user registration data.

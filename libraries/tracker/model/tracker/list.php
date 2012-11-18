@@ -16,7 +16,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Model
  * @since       1.0
  */
-abstract class JModelTrackerlist extends JModelDatabase
+abstract class JModelTrackerList extends JModelTracker
 {
 	/**
 	 * Instantiate the model.

@@ -16,7 +16,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Model
  * @since       1.0
  */
-abstract class JModelTrackerform extends JModelDatabase
+abstract class JModelTrackerForm extends JModelTracker
 {
 	/**
 	 * Array of form objects.
