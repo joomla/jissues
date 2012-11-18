@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerActivate extends JControllerBase
+class UsersControllerActivate extends JControllerTracker
 {
 	/**
 	 * Method to activate a user.

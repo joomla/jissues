@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerRegister extends JControllerBase
+class UsersControllerRegister extends JControllerTracker
 {
 	/**
 	 * Method to register a user.

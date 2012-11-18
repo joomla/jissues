@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerProfile extends JControllerBase
+class UsersControllerProfile extends JControllerTracker
 {
 	/**
 	 * Method to check out a user for editing and redirect to the edit form.

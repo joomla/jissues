@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerDefault extends JControllerBase
+class UsersControllerDefault extends JControllerTracker
 {
 	/**
 	 * Execute the controller.

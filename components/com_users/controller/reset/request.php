@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerResetrequest extends JControllerBase
+class UsersControllerResetRequest extends JControllerTracker
 {
 	/**
 	 * Method to request a password reset.
