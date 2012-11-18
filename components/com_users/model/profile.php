@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersModelProfile extends JModelTrackerform
+class UsersModelProfile extends JModelTrackerForm
 {
 	/**
 	 * @var    object  The user profile data.

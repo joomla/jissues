@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersModelRemind extends JModelTrackerform
+class UsersModelRemind extends JModelTrackerForm
 {
 	/**
 	 * Method to get the username reminder form.

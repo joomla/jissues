@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersModelLogin extends JModelTrackerform
+class UsersModelLogin extends JModelTrackerForm
 {
 	/**
 	 * Method to get the login form.
