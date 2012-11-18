@@ -19,50 +19,15 @@ defined('_JEXEC') or die;
 class UsersControllerDefault extends JControllerTracker
 {
 	/**
-	 * Execute the controller.
-	 *
-	 * @return  boolean  True if controller finished execution, false if the controller did not
-	 *                   finish execution. A controller might return false if some precondition for
-	 *                   the controller to run has not been satisfied.
+	 * Constructor
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException if view class not found
 	 */
-	public function execute()
+	public function __construct()
 	{
-		// Get the application
-		/* @var JApplicationWeb $app */
-		$app   = $this->getApplication();
-		$input = $this->getInput();
+		parent::__construct();
 
-		// Get the document object.
-		$document = $app->getDocument();
-
-		$vName   = $input->getWord('view', 'login');
-		$vFormat = $document->getType();
-		$lName   = $input->getWord('layout', 'default');
-
-		$input->set('view', $vName);
-
-		// Register the layout paths for the view
-		$paths = new SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
-
-		$vClass = 'UsersView' . ucfirst($vName) . ucfirst($vFormat);
-		$mClass = 'UsersModel' . ucfirst($vName);
-
-		if (!class_exists($vClass))
-		{
-			throw new RuntimeException('View not found: ' . $vName);
-		}
-
-		/* @var JViewHtml $view */
-		$view = new $vClass(new $mClass, $paths);
-		$view->setLayout($lName);
-
-		// Render our view.
-		echo $view->render();
-
-		return true;
+		// Set the default views
+		$this->default_list_view = 'login';
 	}
 }

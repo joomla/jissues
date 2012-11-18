@@ -19,6 +19,14 @@ defined('JPATH_PLATFORM') or die;
 abstract class JControllerTracker extends JControllerBase
 {
 	/**
+	 * The default list view for the component
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $default_list_view;
+
+	/**
 	 * The URL option for the component.
 	 *
 	 * @var    string
@@ -102,6 +110,66 @@ abstract class JControllerTracker extends JControllerBase
 			// No id for a new item.
 			return true;
 		}
+	}
+
+	/**
+	 * Execute the controller.
+	 *
+	 * This is a generic method to execute and render a view and is not suitable for tasks.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
+	 * @throws  RuntimeException
+	 */
+	public function execute()
+	{
+		// Get the application
+		/* @var JApplicationTracker $app */
+		$app = $this->getApplication();
+
+		// Get the document object.
+		$document = $app->getDocument();
+
+		$vName   = $app->input->getWord('view', $this->default_list_view);
+		$vFormat = $document->getType();
+		$lName   = $app->input->getWord('layout', 'default');
+
+		$app->input->set('view', $vName);
+
+		// Register the layout paths for the view
+		$paths = new SplPriorityQueue;
+		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
+
+		$base   = ucfirst(substr($this->option, 4));
+		$vClass = $base . 'View' . ucfirst($vName) . ucfirst($vFormat);
+		$mClass = $base . 'Model' . ucfirst($vName);
+
+		// If a model doesn't exist for our view, revert to the default model
+		if (!class_exists($mClass))
+		{
+			$mClass = $base . 'ModelDefault';
+
+			if (!class_exists($mClass))
+			{
+				throw new RuntimeException(sprintf('No model found for view %s or a default model for %s', $vName, $this->option));
+			}
+		}
+
+		// Make sure the view class exists
+		if (!class_exists($vClass))
+		{
+			throw new RuntimeException(sprintf('Class %s not found', $vClass));
+		}
+
+		/* @var JViewHtml $view */
+		$view = new $vClass(new $mClass, $paths);
+		$view->setLayout($lName);
+
+		// Render our view.
+		echo $view->render();
+
+		return true;
 	}
 
 	/**

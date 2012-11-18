@@ -19,44 +19,15 @@ defined('_JEXEC') or die;
 class TrackerControllerDefault extends JControllerTracker
 {
 	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
+	 * Constructor
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	public function __construct()
 	{
-		// Get the application
-		$app = $this->getApplication();
+		parent::__construct();
 
-		// Get the document object.
-		$document = $app->getDocument();
-
-		$vName   = $app->input->getWord('view', 'issues');
-		$vFormat = $document->getType();
-		$lName   = $app->input->getWord('layout', 'default');
-
-		$app->input->set('view', $vName);
-
-		// Register the layout paths for the view
-		$paths = new SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
-
-		$vClass = 'TrackerView' . ucfirst($vName) . ucfirst($vFormat);
-		$mClass = 'TrackerModel' . ucfirst($vName);
-
-		if (false == class_exists($mClass))
-		{
-			$mClass = 'TrackerModelDefault';
-		}
-
-		$view = new $vClass(new $mClass, $paths);
-		$view->setLayout($lName);
-
-		// Render our view.
-		echo $view->render();
-
-		return true;
+		// Set the default views
+		$this->default_list_view = 'issues';
 	}
 }
