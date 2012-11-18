@@ -136,6 +136,10 @@ class PlgEditorKisskontent extends JPlugin
 			$id = $name;
 		}
 
+		// Replace [] characters
+		$name = str_replace('[', '-', $name);
+		$name = str_replace(']', '', $name);
+
 		// Only add "px" to width and height if they are not given as a percentage
 		if (is_numeric($width))
 		{
