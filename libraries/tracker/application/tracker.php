@@ -230,7 +230,14 @@ abstract class JApplicationTracker extends JApplicationWeb
 			$document->setTitle('Joomla! CMS Issue Tracker');
 
 			// Load the component
-			$component = $this->input->get('option', 'com_tracker');
+			$component = $this->input->getCmd('option', '');
+
+			// If the component isn't set in the input option, set our default
+			if ($component == '')
+			{
+				$this->input->set('option', 'com_tracker');
+				$component = 'com_tracker';
+			}
 
 			$legacyComponents = array();
 
