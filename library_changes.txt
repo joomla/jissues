@@ -5,3 +5,4 @@ If a change is removed due to the upstream taking the change or the change no lo
 Entries should be in the format of "Commit SHA - File modified" (for readability, please use only the first seven characters of the SHA).
 
 6632155 - libraries/cms/menu/site.php
+ - libraries/cms/toolbar/button/standard.php

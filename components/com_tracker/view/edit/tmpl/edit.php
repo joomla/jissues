@@ -36,7 +36,7 @@ $priorityOptions['size'] = '5';
 				<table class="table">
 					<tr>
 						<th><?php echo JText::_('JSTATUS'); ?></th>
-						<td><?php echo JHtmlStatus::options(); ?></td>
+						<td><?php echo JHtmlStatus::options($this->item->status); ?></td>
 					</tr>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
