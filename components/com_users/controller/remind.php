@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerRemind extends JControllerBase
+class UsersControllerRemind extends JControllerTracker
 {
 	/**
 	 * Method to request a username reminder.

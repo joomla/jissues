@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerLogout extends JControllerBase
+class UsersControllerLogout extends JControllerTracker
 {
 	/**
 	 * Method to log out a user.

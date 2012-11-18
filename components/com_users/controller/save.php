@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerSave extends JControllerBase
+class UsersControllerSave extends JControllerTracker
 {
 	/**
 	 * Method to save a user's profile data.

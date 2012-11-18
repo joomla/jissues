@@ -10,16 +10,16 @@
 defined('_JEXEC') or die;
 
 /**
- * Controller class to confirm the reset token.
+ * Controller class to complete the user reset process.
  *
  * @package     JTracker
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerResetconfirm extends JControllerBase
+class UsersControllerResetComplete extends JControllerTracker
 {
 	/**
-	 * Method to confirm the password request.
+	 * Method to complete the password reset process.
 	 *
 	 * @return  boolean  True if controller finished execution, false if the controller did not
 	 *                   finish execution. A controller might return false if some precondition for
@@ -29,16 +29,16 @@ class UsersControllerResetconfirm extends JControllerBase
 	 */
 	public function execute()
 	{
-		// Check the request token.
-		JSession::checkToken('request') or jexit(JText::_('JINVALID_TOKEN'));
+		// Check for request forgeries
+		JSession::checkToken('post') or jexit(JText::_('JINVALID_TOKEN'));
 
 		/** @var $app JApplicationTracker */
 		$app   = $this->getApplication();
 		$model = new UsersModelReset;
-		$data  = $this->input->get('jform', array(), 'array');
+		$data  = $this->input->post->get('jform', array(), 'array');
 
-		// Confirm the password reset request.
-		$return = $model->processResetConfirm($data);
+		// Complete the password reset request.
+		$return = $model->processResetComplete($data);
 
 		// Check for a hard error.
 		if ($return instanceof Exception)
@@ -50,40 +50,41 @@ class UsersControllerResetconfirm extends JControllerBase
 			}
 			else
 			{
-				$message = JText::_('COM_USERS_RESET_CONFIRM_ERROR');
+				$message = JText::_('COM_USERS_RESET_COMPLETE_ERROR');
 			}
 			$app->enqueueMessage($message, 'error');
 
 			// Get the route to the next page.
 			$itemid = UsersHelperRoute::getResetRoute();
 			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-			$route = 'index.php?option=com_users&view=reset&layout=confirm' . $itemid;
+			$route = 'index.php?option=com_users&view=reset&layout=complete' . $itemid;
 
-			// Go back to the confirm form.
+			// Go back to the complete form.
 			$app->redirect(JRoute::_($route, false));
 			return false;
 		}
 		elseif ($return === false)
 		{
-			// Confirm failed.
-			// Get the route to the next page.
-			$itemid = UsersHelperRoute::getResetRoute();
-			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-			$route = 'index.php?option=com_users&view=reset&layout=confirm' . $itemid;
-
-			// Go back to the confirm form.
-			$app->redirect(JRoute::_($route, false));
-			return false;
-		}
-		else
-		{
-			// Confirm succeeded.
+			// Complete failed.
 			// Get the route to the next page.
 			$itemid = UsersHelperRoute::getResetRoute();
 			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 			$route = 'index.php?option=com_users&view=reset&layout=complete' . $itemid;
 
-			// Proceed to step three.
+			// Go back to the complete form.
+			$app->redirect(JRoute::_($route, false));
+			return false;
+		}
+		else
+		{
+			// Complete succeeded.
+			// Get the route to the next page.
+			$itemid = UsersHelperRoute::getLoginRoute();
+			$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
+			$route = 'index.php?option=com_users&view=login' . $itemid;
+
+			// Proceed to the login form.
+			$app->enqueueMessage(JText::_('COM_USERS_RESET_COMPLETE_SUCCESS'));
 			$app->redirect(JRoute::_($route, false));
 			return true;
 		}
