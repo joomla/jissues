@@ -19,15 +19,6 @@ defined('_JEXEC') or die;
 class TrackerModelIssues extends JModelTrackerList
 {
 	/**
-	 * Context string for the model type.  This is used to handle uniqueness
-	 * when dealing with the getStoreId() method and caching data structures.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $context = 'com_tracker.issues';
-
-	/**
 	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
 	 *
 	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
@@ -81,39 +72,6 @@ class TrackerModelIssues extends JModelTrackerList
 		$query->order($ordering . ' ' . $direction);
 
 		return $query;
-	}
-
-	/**
-	 * Returns a record count for the query
-	 *
-	 * @param   string  $query  The query.
-	 *
-	 * @return  integer  Number of rows for query
-	 *
-	 * @since   1.0
-	 */
-	protected function _getListCount($query)
-	{
-		if ($query instanceof JDatabaseQuery)
-		{
-			// Create COUNT(*) query to allow database engine to optimize the query.
-			$query = clone $query;
-			$query->clear('select')->clear('order')->select('COUNT(*)');
-			$this->db->setQuery($query);
-
-			return (int) $this->db->loadResult();
-		}
-		else
-		{
-			/* Performance of this query is very bad as it forces database engine to go
-			 * through all items in the database. If you don't use JDatabaseQuery object,
-			 * you should override this function in your model.
-			 */
-			$this->db->setQuery($query);
-			$this->db->execute();
-
-			return $this->db->getNumRows();
-		}
 	}
 
 	/**

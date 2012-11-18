@@ -27,14 +27,6 @@ abstract class JModelTrackerForm extends JModelTracker
 	protected $forms = array();
 
 	/**
-	 * JTable instance
-	 *
-	 * @var   JTable
-	 * @since 1.0
-	 */
-	protected $table;
-
-	/**
 	 * Instantiate the model.
 	 *
 	 * @since  1.0
@@ -60,10 +52,10 @@ abstract class JModelTrackerForm extends JModelTracker
 	 */
 	public function checkin($pk = null)
 	{
-		// Ensure the child class set the table object before continuing
+		// Ensure the table object is already instantiated
 		if (!($this->table instanceof JTable))
 		{
-			throw new InvalidArgumentException('JTable class must be instantiated.');
+			$this->getTable();
 		}
 
 		// Only attempt to check the row in if it exists.
@@ -105,10 +97,10 @@ abstract class JModelTrackerForm extends JModelTracker
 	 */
 	public function checkout($pk = null)
 	{
-		// Ensure the child class set the table object before continuing
+		// Ensure the table object is already instantiated
 		if (!($this->table instanceof JTable))
 		{
-			throw new InvalidArgumentException('JTable class must be instantiated.');
+			$this->getTable();
 		}
 
 		// Only attempt to check the row in if it exists.

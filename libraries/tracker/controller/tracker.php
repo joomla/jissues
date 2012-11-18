@@ -19,6 +19,31 @@ defined('JPATH_PLATFORM') or die;
 abstract class JControllerTracker extends JControllerBase
 {
 	/**
+	 * The URL option for the component.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $option;
+
+	/**
+	 * Constructor
+	 *
+	 * @since   1.0
+	 * @throws  Exception
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		// Get the option from the input object
+		if (empty($this->option))
+		{
+			$this->option = $this->input->getCmd('option');
+		}
+	}
+
+	/**
 	 * Method to check if you can add a new record.
 	 *
 	 * Extended classes can override this if necessary.

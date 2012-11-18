@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_tracker
  * @since       1.0
  */
-class TrackerControllerDefault extends JControllerBase
+class TrackerControllerDefault extends JControllerTracker
 {
 	/**
 	 * Execute the controller.

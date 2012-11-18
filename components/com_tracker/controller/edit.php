@@ -35,9 +35,9 @@ class TrackerControllerEdit extends JControllerTracker
 		/* @var JApplicationSite $app */
 		$app     = $this->getApplication();
 		$model   = new TrackerModelIssue;
-		$table   = JTable::getInstance('Issue');
+		$table   = $model->getTable('Issue');
 		$cid     = $this->input->post->get('cid', array(), 'array');
-		$context = 'com_tracker.edit.issue';
+		$context = $this->option . '.edit.' . $model->getName();
 
 		// Determine the name of the primary key for the data.
 		$key = $table->getKeyName();
@@ -47,10 +47,10 @@ class TrackerControllerEdit extends JControllerTracker
 		$checkin  = property_exists($table, 'checked_out');
 
 		// Access check.
-		if (!$this->allowEdit('com_tracker'))
+		if (!$this->allowEdit($this->option))
 		{
 			$app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'), 'error');
-			$app->redirect(JRoute::_('index.php?option=com_tracker&view=issues' . $this->getRedirectToListAppend(), false));
+			$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=issues' . $this->getRedirectToListAppend(), false));
 
 			return false;
 		}
@@ -66,7 +66,7 @@ class TrackerControllerEdit extends JControllerTracker
 			{
 				// Check-out failed, display a notice but allow the user to see the record.
 				$app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'), 'error');
-				$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit' . $this->getRedirectToItemAppend(), false));
+				$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=edit' . $this->getRedirectToItemAppend(), false));
 			}
 
 			return false;
@@ -76,7 +76,7 @@ class TrackerControllerEdit extends JControllerTracker
 		$this->holdEditId($context, $recordId);
 		$app->setUserState($context . '.data', null);
 
-		$app->redirect(JRoute::_('index.php?option=com_tracker&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
+		$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
 
 		return true;
 	}

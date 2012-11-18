@@ -35,9 +35,9 @@ class TrackerControllerCancel extends JControllerTracker
 		/* @var JApplicationSite $app */
 		$app     = $this->getApplication();
 		$model   = new TrackerModelIssue;
-		$table   = JTable::getInstance('Issue');
+		$table   = $model->getTable('Issue');
 		$checkin = property_exists($table, 'checked_out');
-		$context = 'com_tracker.edit.issue';
+		$context = $this->option . '.edit.' . $model->getName();
 
 		// Determine the name of the primary key for the data.
 		$key = $table->getKeyName();
@@ -52,7 +52,7 @@ class TrackerControllerCancel extends JControllerTracker
 			{
 				// Somehow the person just went to the form - we don't allow that.
 				$app->enqueueMessage(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $recordId), 'error');
-				$app->redirect(JRoute::_('index.php?option=com_tracker&view=issue' . $this->getRedirectToListAppend(), false));
+				$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=issue' . $this->getRedirectToListAppend(), false));
 
 				return false;
 			}
@@ -67,7 +67,7 @@ class TrackerControllerCancel extends JControllerTracker
 				{
 					// Check-in failed, go back to the record and display a notice.
 					$app->enqueueMessage($e->getMessage(), 'error');
-					$app->redirect(JRoute::_('index.php?option=com_tracker&view=issue&id=' . $recordId . $this->getRedirectToListAppend(), false));
+					$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=issue&id=' . $recordId . $this->getRedirectToListAppend(), false));
 				}
 			}
 		}
@@ -76,7 +76,7 @@ class TrackerControllerCancel extends JControllerTracker
 		$this->releaseEditId($context, $recordId);
 		$app->setUserState($context . '.data', null);
 
-		$app->redirect(JRoute::_('index.php?option=com_tracker&view=issue&id=' . $recordId . $this->getRedirectToListAppend(), false));
+		$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=issue&id=' . $recordId . $this->getRedirectToListAppend(), false));
 
 		return true;
 	}

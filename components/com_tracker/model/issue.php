@@ -25,10 +25,10 @@ class TrackerModelIssue extends JModelTrackerForm
 	 */
 	public function __construct()
 	{
-		parent::__construct();
+		// Set the name
+		$this->name = 'issue';
 
-		// Load the JTable object
-		$this->table = JTable::getInstance('Issue');
+		parent::__construct();
 	}
 
 	/**

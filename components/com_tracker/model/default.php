@@ -16,6 +16,6 @@ defined('_JEXEC') or die;
  * @subpackage  com_tracker
  * @since       1.0
  */
-class TrackerModelDefault extends JModelBase
+class TrackerModelDefault extends JModelTracker
 {
 }
