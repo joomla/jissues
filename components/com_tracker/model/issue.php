@@ -151,4 +151,44 @@ class TrackerModelIssue extends JModelTrackerForm
 			return false;
 		}
 	}
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success, False on error.
+	 *
+	 * @since   1.0
+	 * @throws  RuntimeException
+	 */
+	public function save($data)
+	{
+		$dispatcher = JEventDispatcher::getInstance();
+		$table = $this->getTable('Issue');
+		$key = $table->getKeyName();
+		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->state->get($this->getName() . '.id');
+		$isNew = true;
+
+		// Load the row if saving an existing record.
+		if ($pk > 0)
+		{
+			$table->load($pk);
+			$isNew = false;
+		}
+
+		// Save the record
+		if (!$table->save($data, false))
+		{
+			throw new RuntimeException('Could not save record.');
+		}
+
+		if (isset($table->$key))
+		{
+			$this->state->set($this->getName() . '.id', $table->$key);
+		}
+		$this->state->set($this->getName() . '.new', $isNew);
+
+		return true;
+	}
 }

@@ -153,6 +153,9 @@ class TrackerViewEditHtml extends JViewHtml
 		// Instantiate the JToolbar object
 		$toolbar = JToolbar::getInstance('toolbar');
 
+		// Add a button to save the item.
+		$toolbar->appendButton('Standard', 'save', 'COM_TRACKER_TOOLBAR_SAVE', 'save', false);
+
 		// Add a button to cancel editting the item.
 		$toolbar->appendButton('Standard', 'cancel', 'COM_TRACKER_TOOLBAR_CANCEL', 'cancel', false);
 	}

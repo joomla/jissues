@@ -29,11 +29,13 @@ abstract class JHtmlStatus
 	/**
 	 * Returns an array of statuses.
 	 *
+	 * @param   integer  $active  The active item
+	 *
 	 * @return  array
 	 *
 	 * @since   1.0
 	 */
-	public static function options()
+	public static function options($active = null)
 	{
 		static $loaded;
 
@@ -60,7 +62,7 @@ abstract class JHtmlStatus
 
 			self::$items = array(
 				'<select name="jform[status]" class="inputbox" id="jform_status">',
-				JHtml::_('select.options', self::$items),
+				JHtml::_('select.options', self::$items, 'value', 'text', $active),
 				'</select>'
 			);
 
