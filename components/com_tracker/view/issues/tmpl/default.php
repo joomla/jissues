@@ -43,7 +43,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 			<label for="status" class="element-invisible"><?php echo JText::_('COM_TRACKER_FILTER_STATUS'); ?></label>
 			<select name="status" id="filter-status" class="input-medium" onchange="document.adminForm.submit();">
 				<option value=""><?php echo JText::_('COM_TRACKER_FILTER_STATUS');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('status.options'), 'value', 'text', $filterStatus);?>
+				<?php echo JHtml::_('select.options', JHtml::_('status.filter'), 'value', 'text', $filterStatus);?>
 			</select>
 		</div>
 		<div class="btn-group pull-right hidden-phone">
