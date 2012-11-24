@@ -120,9 +120,7 @@ class TrackerModelIssues extends JModelTrackerList
 		$app = JFactory::getApplication();
 		$input = JFactory::getApplication()->input;
 
-		$fields = new JRegistry($input->get('fields', array(), 'array'));
-
-		$this->state->set('filter.project', (int) $fields->get('project'));
+		$this->state->set('filter.project', $input->getUint('filter-project'));
 
 		$this->state->set('list.ordering', $input->get('filter_order', 'a.id'));
 
@@ -135,7 +133,7 @@ class TrackerModelIssues extends JModelTrackerList
 
 		$this->state->set('filter.priority', $input->getUint('priority', 3));
 
-		$this->state->set('filter.status', $input->getUint('status'));
+		$this->state->set('filter.status', $input->getUint('filter-status'));
 
 		// Optional filter text
 		$this->state->set('list.filter', $input->getString('filter-search'));
