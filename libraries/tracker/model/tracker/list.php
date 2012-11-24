@@ -52,14 +52,14 @@ abstract class JModelTrackerList extends JModelTracker
 	{
 		parent::__construct();
 
-		// Populate the state
-		$this->loadState();
-
 		// Set the context if not already done
-		if (empty($this->context))
+		if (is_null($this->context))
 		{
 			$this->context = strtolower($this->option . '.' . $this->getName());
 		}
+
+		// Populate the state
+		$this->loadState();
 	}
 
 	/**

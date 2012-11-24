@@ -19,6 +19,15 @@ defined('_JEXEC') or die;
 class TrackerModelIssues extends JModelTrackerList
 {
 	/**
+	 * Context string for the model type.  This is used to handle uniqueness
+	 * when dealing with the getStoreId() method and caching data structures.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $context = 'com_tracker.issues';
+
+	/**
 	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
 	 *
 	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
