@@ -175,6 +175,7 @@ abstract class JControllerTracker extends JControllerBase
 
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
+		$paths->insert(JPATH_THEMES . '/' . $app->getTemplate() . '/html/' . $this->option . '/' . $vName, 'normal');
 		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
 
 		$base   = ucfirst(substr($this->option, 4));
