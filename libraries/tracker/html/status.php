@@ -27,6 +27,27 @@ abstract class JHtmlStatus
 	protected static $items = array();
 
 	/**
+	 * Returns an array of statuses for a filter list.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public static function filter()
+	{
+		static $loaded;
+
+		if (!$loaded)
+		{
+			self::_load();
+
+			$loaded = true;
+		}
+
+		return self::$items;
+	}
+
+	/**
 	 * Returns an array of statuses.
 	 *
 	 * @param   integer  $active  The active item
@@ -40,6 +61,31 @@ abstract class JHtmlStatus
 		static $loaded;
 
 		if (!$loaded)
+		{
+			self::_load();
+
+			self::$items = array(
+				'<select name="jform[status]" class="inputbox" id="jform_status">',
+				JHtmlSelect::options(self::$items, 'value', 'text', $active),
+				'</select>'
+			);
+
+			$loaded = true;
+		}
+
+		return implode("\n", self::$items);
+	}
+
+	/**
+	 * Loads the statuses from the database
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	private static function _load()
+	{
+		if (empty(self::$items))
 		{
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true);
@@ -57,18 +103,8 @@ abstract class JHtmlStatus
 
 			foreach ($items as $item)
 			{
-				self::$items[] = JHtml::_('select.option', $item->id, JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status)));
+				self::$items[] = JHtmlSelect::option($item->id, JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status)));
 			}
-
-			self::$items = array(
-				'<select name="jform[status]" class="inputbox" id="jform_status">',
-				JHtml::_('select.options', self::$items, 'value', 'text', $active),
-				'</select>'
-			);
-
-			$loaded = true;
 		}
-
-		return implode("\n", self::$items);
 	}
 }
