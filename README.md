@@ -9,6 +9,7 @@ Setup
 3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
 
 From this point, you can setup your database in one of two ways:
+
 *Option 1*
 1. Open `/sql/mysql.sql` and do a find/replace from `#__` to whatever your prefix is, and save
 2. Import the SQL into your database
@@ -17,6 +18,7 @@ From this point, you can setup your database in one of two ways:
 1. From a command prompt, run the script located at cli/installer.php to set up your database
 
 After setting up your database, verify the installation is successful by doing the following:
+
 1. View site in browser to verify setup
 2. Open a console a execute cli/retrieveissues.php to get the open issues from GitHub.
 
