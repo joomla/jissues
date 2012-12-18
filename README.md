@@ -16,7 +16,6 @@ From this point, you can setup your database in one of two ways:
 2. Import the SQL into your database
 
 *Option 2*
-
 1. From a command prompt, run the script located at cli/installer.php to set up your database
 
 After setting up your database, verify the installation is successful by doing the following:
