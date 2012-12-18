@@ -11,12 +11,12 @@ Setup
 
 From this point, you can setup your database in one of two ways:
 
-*Option 1*
+*Option 1:*
 
 1. Open `/sql/mysql.sql` and do a find/replace from `#__` to whatever your prefix is, and save
 2. Import the SQL into your database
 
-*Option 2*
+*Option 2:*
 
 1. From a command prompt, run the script located at cli/installer.php to set up your database
 
