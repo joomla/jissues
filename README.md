@@ -18,6 +18,7 @@ From this point, you can setup your database in one of two ways:
 1. From a command prompt, run the script located at cli/installer.php to set up your database
 
 After setting up your database, verify the installation is successful by doing the following:
+
 1. View site in browser to verify setup
 2. Open a console a execute cli/retrieveissues.php to get the open issues from GitHub.
 
