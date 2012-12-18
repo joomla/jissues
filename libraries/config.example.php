@@ -1,5 +1,5 @@
 <?php
-class JConfigExample
+class JConfig
 {
 	public $dbtype			= 'mysqli';
 	public $host			= 'localhost';
