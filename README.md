@@ -6,8 +6,7 @@ Setup
 ===============
 1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/JTracker/jissues/zipball/master.
 2. Copy `/libraries/config.example.php` to `/configuration.php`
-3. Open configuration.php and rename the class from `JConfigExample` to `JConfig`
-4. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
+3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
 
 From this point, you can setup your database in one of two ways:
 *Option 1*
