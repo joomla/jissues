@@ -1,6 +1,8 @@
-Requrements
+Requirements
 ===============
-The issue tracker application requires a server running PHP 5.3.1 or later (Joomla Platform minimum version) and MySQL 5.1 with InnoDB support
+The issue tracker application requires a server running:
+- PHP 5.3.1 or later (Joomla Platform minimum version)  
+- MySQL 5.1 with InnoDB support  
 
 Setup
 ===============
@@ -8,7 +10,7 @@ Setup
 2. Copy `/libraries/config.example.php` to `/configuration.php`
 3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
 
-From this point, you can setup your database in one of two ways:
+From this point, you can setup your database	 in one of two ways:
 
 *Option 1*
 
@@ -32,3 +34,4 @@ Support & Discussion
 ===============
 * If you've found a bug, please report it to the Issue Tracker at https://github.com/JTracker/jissues/issues.
 * For discussion about this project, please visit the Google Group at https://groups.google.com/forum/#!forum/jtracker-rebuild.
+P
