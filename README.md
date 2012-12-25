@@ -34,4 +34,3 @@ Support & Discussion
 ===============
 * If you've found a bug, please report it to the Issue Tracker at https://github.com/JTracker/jissues/issues.
 * For discussion about this project, please visit the Google Group at https://groups.google.com/forum/#!forum/jtracker-rebuild.
-P
