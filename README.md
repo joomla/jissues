@@ -10,7 +10,7 @@ Setup
 2. Copy `/libraries/config.example.php` to `/configuration.php`
 3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
 
-From this point, you can setup your database	 in one of two ways:
+From this point, you can setup your database in one of two ways:
 
 *Option 1*
 
