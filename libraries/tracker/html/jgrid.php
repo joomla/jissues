@@ -66,8 +66,8 @@ abstract class JHtmlJGrid
 			$html[] = '<a class="btn btn-micro ' . ($active_class == "publish" ? 'active' : '') . ($tip ? ' hasTip' : '') . '"';
 			$html[] = ' href="javascript:void(0);" onclick="return listItemTask(\'' . $checkbox . $i . '\',\'' . $prefix . $task . '\')"';
 			$html[] = ' title="' . addslashes(htmlspecialchars($translate ? JText::_($active_title) : $active_title, ENT_COMPAT, 'UTF-8')) . '">';
-			$html[] = '<i class="icon-' . $active_class . '">';
-			$html[] = '</i>';
+			$html[] = '<span class="icon-' . $active_class . '">';
+			$html[] = '</span>';
 			$html[] = '</a>';
 		}
 		else
@@ -76,11 +76,11 @@ abstract class JHtmlJGrid
 			$html[] = ' title="' . addslashes(htmlspecialchars($translate ? JText::_($inactive_title) : $inactive_title, ENT_COMPAT, 'UTF-8')) . '">';
 			if ($active_class == "protected")
 			{
-				$html[] = '<i class="icon-lock"></i>';
+				$html[] = '<span class="icon-lock"></span>';
 			}
 			else
 			{
-				$html[] = '<i class="icon-' . $inactive_class . '"></i>';
+				$html[] = '<span class="icon-' . $inactive_class . '"></span>';
 			}
 			$html[] = '</a>';
 		}

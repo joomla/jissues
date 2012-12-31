@@ -25,7 +25,7 @@ JHtmlBootstrap::tooltip();
                 <div class="span12 well well-small">
 					<?= JHtmlprojects::select('com_tracker', 'project', $this->project, JText::_('Select a Project')); ?>
                     <span style="color: orange; font-size: 1.5em; cursor: help;" class="hasTooltip"
-                          title="Select a project to define project specific items."><i class="icon-comment"></i></span>
+                          title="Select a project to define project specific items."><span class="icon-comment"></span></span>
                 </div>
             </div>
 
