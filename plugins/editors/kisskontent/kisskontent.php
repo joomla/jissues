@@ -136,7 +136,8 @@ class PlgEditorKisskontent extends JPlugin
 			$id = $name;
 		}
 
-		// Replace [] characters
+		// Replace [] characters in the $name param, copy it for the textarea name
+		$tname = $name;
 		$name = str_replace('[', '-', $name);
 		$name = str_replace(']', '', $name);
 
@@ -171,7 +172,7 @@ class PlgEditorKisskontent extends JPlugin
 
 		$html[] = '<div class="tab-content">';
 		$html[] = '  <div class="tab-pane active" id="' . $name . '-write">';
-		$html[] = "   <textarea name=\"$name\" id=\"$id\" cols=\"$col\" rows=\"$row\" style=\"width: $width; height: $height;\">$content</textarea>";
+		$html[] = "   <textarea name=\"$tname\" id=\"$id\" cols=\"$col\" rows=\"$row\" style=\"width: $width; height: $height;\">$content</textarea>";
 		$html[] = $buttons;
 		$html[] = '  </div>';
 		$html[] = '  <div class="tab-pane fade well well-small" id="' . $name . '-preview" style="min-height: ' . $height . '">Loading...</div>';
