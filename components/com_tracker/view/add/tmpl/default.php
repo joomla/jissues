@@ -44,17 +44,17 @@ Example:
 ?>
 <h1>Add a new Issue</h1>
 
-<form class="form form-horizontal">
+<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form form-horizontal">
     <h3>1) Summary</h3>
 
     <div class="well well-small">
-        <input style="font-size: 1.5em;" type="text" name="title" size="30" class="span12"/>
+        <input style="font-size: 1.5em;" name="jform[title]" id="jform_title" type="text" class="span12" />
     </div>
 
     <h3>2) Description.</h3>
 
     <div class="description">
-		<?php echo $this->editor->display('description', $template, '100%', 300, 10, 10, false, 'editor-comment', null, null, $this->editorParams); ?>
+		<?php echo $this->editor->display('jform[description]', $template, '100%', 300, 10, 10, false, 'jform_description', null, null, $this->editorParams); ?>
     </div>
 
     <h3>3) Category</h3>
@@ -123,4 +123,6 @@ Example:
         </div>
     </div>
 
+	<input type="hidden" name="task" value="save" />
+	<?php echo JHtml::_('form.token'); ?>
 </form>

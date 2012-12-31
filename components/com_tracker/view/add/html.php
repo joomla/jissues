@@ -61,10 +61,7 @@ class TrackerViewAddHtml extends JViewHtml
 			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
 		);
 
-		$this->item = new JTableIssue(JFactory::getDbo());
-
 		$this->lists = new JRegistry;
-
 		$this->lists->set('categories', JHtmlProjects::select('com_tracker.categories', 'category', '', 'Select a category', ''));
 		$this->lists->set('selects', JHtmlProjects::items('com_tracker.fields'));
 		$this->lists->set('textfields', JHtmlProjects::items('com_tracker.textfields'));
