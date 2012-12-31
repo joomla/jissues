@@ -50,6 +50,10 @@ class TrackerModelIssues extends JModelTrackerList
 		$query->select('c.title AS category');
 		$query->leftJoin('#__categories AS c ON a.catid = c.id');
 
+		// Comments count
+		$query->select('COUNT(ic.id) AS comment_count');
+		$query->leftJoin('#__issue_comments AS ic ON ic.issue_id = a.id');
+
 		$filter = $this->state->get('filter.project');
 
 		if ($filter)
@@ -73,6 +77,8 @@ class TrackerModelIssues extends JModelTrackerList
 		{
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $status);
 		}
+
+		$query->group('a.id');
 
 		// TODO: Implement filtering and join to other tables as added
 
