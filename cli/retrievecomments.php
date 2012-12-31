@@ -155,11 +155,37 @@ class TrackerApplicationComments extends JApplicationCli
 	 */
 	protected function getIssues()
 	{
+		$rangeFrom = 0;
+		$rangeTo   = 0;
+
+		// Limit issues to process
+		$this->out('GH issues to process? [a]ll / [r]ange :', false);
+
+		$resp = trim($this->in());
+
+		if ($resp == 'r' || $resp == 'range')
+		{
+			// Get the first GitHub issue (from)
+			$this->out('Enter the first GitHub issue ID to process (from) :', false);
+			$rangeFrom = (int) trim($this->in());
+
+			// Get the ending GitHub issue (to)
+			$this->out('Enter the latest GitHub issue ID to process (to) :', false);
+			$rangeTo = (int) trim($this->in());
+		}
+
 		$query = $this->db->getQuery(true);
 
 		$query->select($this->db->quoteName(array('id', 'gh_id')));
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('gh_id') . ' IS NOT NULL');
+
+		// Issues range selected?
+		if ($rangeTo != 0 && $rangeTo >= $rangeFrom)
+		{
+			$query->where($this->db->quoteName('gh_id') . ' >= ' . (int) $rangeFrom);
+			$query->where($this->db->quoteName('gh_id') . ' <= ' . (int) $rangeTo);
+		}
 
 		$this->db->setQuery($query);
 
