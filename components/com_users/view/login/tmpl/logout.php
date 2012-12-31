@@ -39,7 +39,7 @@ defined('_JEXEC') or die;
 	<form action="<?php echo ('index.php?option=com_users&task=logout'); ?>" method="post" class="form-horizontal">
 		<div class="control-group">
 			<div class="controls">
-				<button type="submit" class="btn btn-primary"><i class="icon-arrow-left icon-white"></i> <?php echo JText::_('JLOGOUT'); ?></button>
+				<button type="submit" class="btn btn-primary"><span class="icon-arrow-left icon-white"></span> <?php echo JText::_('JLOGOUT'); ?></button>
 			</div>
 		</div>
 		<input type="hidden" name="return" value="<?php echo base64_encode($this->params->get('logout_redirect_url', $this->form->getValue('return'))); ?>" />
