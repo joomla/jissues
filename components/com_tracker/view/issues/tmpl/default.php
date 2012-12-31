@@ -31,10 +31,10 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		<div class="filter-search btn-group pull-left input-append">
 			<label class="filter-search-lbl element-invisible" for="filter-search"><?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?></label>
 			<input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('list.filter')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?>" placeholder="<?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?>" />
-			<button class="btn tip hasTooltip" type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
+			<button class="btn tip hasTooltip" type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"><span class="icon-search"></span></button>
 		</div>
 		<div class="btn-group pull-left">
-			<button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i></button>
+			<button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><span class="icon-remove"></span></button>
 		</div>
 		<div class="btn-group pull-left">
 			<?php echo JHtmlProjects::select('com_tracker', 'filter-project', (int) $this->state->get('filter.project'), JText::_('Filter by Project')); ?>
