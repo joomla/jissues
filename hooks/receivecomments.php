@@ -59,6 +59,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @todo    Refactor to work with JTableComment
 	 */
 	public function doExecute()
 	{
@@ -88,7 +89,6 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$query->from($db->quoteName('#__issue_comments'));
 		$query->where($db->quoteName('id') . ' = ' . (int) $commentID);
 		$db->setQuery($query);
-		JLog::add('Check query: ' . (string) $query, JLog::INFO);
 
 		try
 		{
