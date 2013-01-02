@@ -141,11 +141,10 @@ final class TrackerReceiveIssues extends JApplicationHooks
 
 		}
 
-		$table = JTable::getInstance('Issue');
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
 		$table->description = $data->issue->body;
-		$table->status		= $status;
+		$table->status      = $status;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
 
