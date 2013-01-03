@@ -153,13 +153,16 @@ final class TrackerReceiveComments extends JApplicationHooks
 			$db->quoteName('id'), $db->quoteName('issue_id'), $db->quoteName('submitter'), $db->quoteName('text'), $db->quoteName('created')
 		);
 
+		// Get a JGithub instance to parse the body through their parser
+		$github = new JGithub;
+
 		$query->insert($db->quoteName('#__issue_comments'));
 		$query->columns($columnsArray);
 		$query->values(
 			(int) $data->comment->id . ', '
 			. (int) $issueID . ', '
 			. $db->quote($data->comment->user->login) . ', '
-			. $db->quote($data->comment->body) . ', '
+			. $db->quote($github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues')) . ', '
 			. $db->quote(JFactory::getDate($data->comment->created_at)->toSql())
 		);
 		$db->setQuery($query);
@@ -191,10 +194,13 @@ final class TrackerReceiveComments extends JApplicationHooks
 	 */
 	protected function insertIssue($data)
 	{
+		// Get a JGithub instance to parse the body through their parser
+		$github = new JGithub;
+
 		$table = JTable::getInstance('Issue');
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
-		$table->description = $data->issue->body;
+		$table->description = $github->markdown->render($data->issue->body, 'gfm', 'JTracker/jissues');
 		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();

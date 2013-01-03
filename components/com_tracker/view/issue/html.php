@@ -54,25 +54,6 @@ class TrackerViewIssueHtml extends JViewHtml
 		$this->comments = $this->model->getComments($id);
 		$this->fields   = $this->model->getFields($id);
 
-		$dispatcher	= JEventDispatcher::getInstance();
-
-		$o = new stdClass;
-		$o->text = $this->item->description;
-
-		$params = new JRegistry;
-
-		JPluginHelper::importPlugin('content');
-		$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$o, $params));
-
-		$this->item->description_raw = $this->item->description;
-		$this->item->description = $o->text;
-
-		foreach ($this->comments as &$comment)
-		{
-			// @todo Maybe we should parse the comments on retrieval and write the result to the database
-			$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$comment, $params));
-		}
-
 		// Build the toolbar
 		$this->buildToolbar();
 
