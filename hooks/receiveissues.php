@@ -141,9 +141,12 @@ final class TrackerReceiveIssues extends JApplicationHooks
 
 		}
 
+		// Get a JGithub instance to parse the body through their parser
+		$github = new JGithub;
+
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
-		$table->description = $data->issue->body;
+		$table->description = $github->markdown->render($data->issue->body, 'gfm', 'JTracker/jissues');
 		$table->status      = $status;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();

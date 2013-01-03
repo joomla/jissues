@@ -25,13 +25,13 @@ class JGithubMarkdown extends JGithubObject
 	 * @param   string  $mode     The parsing mode; valid options are 'markdown' or 'gfm'.
 	 * @param   string  $context  An optional repository context, only used in 'gfm' mode.
 	 *
-	 * @return  object
+	 * @return  string  Formatted HTML
 	 *
 	 * @since   1.0
 	 * @throws  DomainException
 	 * @throws  InvalidArgumentException
 	 */
-	public function create($text, $mode = 'gfm', $context = null)
+	public function render($text, $mode = 'gfm', $context = null)
 	{
 		// The valid modes
 		$validModes = array('gfm', 'markdown');
@@ -46,13 +46,13 @@ class JGithubMarkdown extends JGithubObject
 		$path = '/markdown';
 
 		// Build the request data.
-		$data = json_encode(
+		$data = str_replace('\\/', '/', json_encode(
 			array(
 				'text' => $text,
 				'mode' => $mode,
 				'context' => $context
 			)
-		);
+		));
 
 		// Send the request.
 		$response = $this->client->post($this->fetchUrl($path), $data);
@@ -65,6 +65,6 @@ class JGithubMarkdown extends JGithubObject
 			throw new DomainException($error->message, $response->code);
 		}
 
-		return json_decode($response->body);
+		return $response->body;
 	}
 }

@@ -31,23 +31,23 @@ class TrackerControllerPreview extends JControllerBase
 	 */
 	public function execute()
 	{
-		$o       = new stdClass;
-		$o->text = $this->input->getHtml('text', '');
+		$text = $this->input->getHtml('text', '');
 
-		if (!$o->text)
+		// Check if we actually have something to parse
+		if (!$text)
 		{
 			echo 'Nothing to preview...';
 			$this->app->close();
 		}
 
-		$params = new JRegistry;
-		$params->set('luminous.format', 'html-full');
+		// Instantiate JGithub
+		$github = new JGithub;
 
-		JPluginHelper::importPlugin('content');
+		// Parse the text
+		$text = $github->markdown->render($text, 'gfm', 'JTracker/jissues');
 
-		JEventDispatcher::getInstance()->trigger('onContentPrepare', array('com_content.article', &$o, $params));
-
-		echo $o->text ? : 'Nothing to preview...';
+		// Echo out the text for
+		echo $text ? : 'Nothing to preview...';
 
 		$this->app->close();
 	}
