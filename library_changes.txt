@@ -6,3 +6,4 @@ Entries should be in the format of "Commit SHA - File modified" (for readability
 
 6632155 - libraries/cms/menu/site.php
 9a2357d - libraries/cms/toolbar/button/standard.php
+a8a6ca7 - libraries/joomla/github/github.php
