@@ -161,7 +161,7 @@ class PlgEditorKisskontent extends JPlugin
 		if ($syntaxPageLink)
 		{
 			$html[] = '<div class="pull-right">';
-			$html[] = sprintf('Text is parsed with %s', JHtml::link($syntaxPageLink, 'Enhanced ElephantMarkdown'));
+			$html[] = sprintf('Text is parsed with %s', JHtml::_('link', $syntaxPageLink, 'GitHub Flavored Markdown'));
 			$html[] = '</div>';
 		}
 
