@@ -31,7 +31,7 @@ abstract class JHtmlProjects
 	 *
 	 * @since   1.0
 	 */
-	public static function select($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
+	public static function select($section, $name, $selected = '', $title = '', $js = '')
 	{
 		$title = $title ? : JText::_('Select an Option');
 
