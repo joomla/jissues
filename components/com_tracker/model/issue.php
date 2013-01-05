@@ -48,6 +48,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		$query->select('*');
 		$query->from($db->quoteName('#__activity', 'a'));
 		$query->where($db->quoteName('a.issue_id') . ' = ' . (int) $id);
+		$query->order('a.created ASC');
 
 		try
 		{
@@ -60,7 +61,27 @@ class TrackerModelIssue extends JModelTrackerForm
 			return array();
 		}
 
-		return $items;
+		// Build the activities array
+		$activities = array();
+		$activities['comments'] = array();
+		$activities['events']   = array();
+
+		// Separate the event types into different area pieces
+		foreach ($items as $item)
+		{
+			switch ($item->event)
+			{
+				case 'comment' :
+					$activities['comments'][] = $item;
+					break;
+
+				default :
+					$activities['events'][] = $item;
+					break;
+			}
+		}
+
+		return $activities;
 	}
 
 	/**
