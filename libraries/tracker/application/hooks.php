@@ -19,6 +19,14 @@ defined('JPATH_PLATFORM') or die;
 abstract class JApplicationHooks extends JApplicationWeb
 {
 	/**
+	 * The database object
+	 *
+	 * @var    JDatabaseDriver
+	 * @since  1.0
+	 */
+	protected $db;
+
+	/**
 	 * The application message queue.
 	 *
 	 * @var    array
@@ -48,6 +56,9 @@ abstract class JApplicationHooks extends JApplicationWeb
 
 		// Register the application to JFactory
 		JFactory::$application = $this;
+
+		// Get a database object
+		$this->db = JFactory::getDbo();
 	}
 
 	/**
