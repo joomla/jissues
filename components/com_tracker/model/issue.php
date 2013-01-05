@@ -32,7 +32,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	}
 
 	/**
-	 * Method to get the comments for an item.
+	 * Method to get the activity for an item.
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
@@ -40,7 +40,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	 *
 	 * @since   1.0
 	 */
-	public function getComments($id)
+	public function getActivity($id)
 	{
 		$db = $this->getDb();
 		$query = $db->getQuery(true);

@@ -57,9 +57,11 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
 
 CREATE TABLE IF NOT EXISTS `#__activity` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `gh_comment_id` integer unsigned NULL,
   `issue_id` integer unsigned NOT NULL,
-  `submitter` varchar(255) NOT NULL DEFAULT '',
-  `text` mediumtext NOT NULL,
+  `user` varchar(255) NOT NULL DEFAULT '',
+  `event` varchar(32) NOT NULL,
+  `text` mediumtext NULL,
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `issue_id` (`issue_id`),

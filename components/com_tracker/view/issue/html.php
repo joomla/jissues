@@ -51,7 +51,7 @@ class TrackerViewIssueHtml extends JViewHtml
 
 		$id = $app->input->getInt('id', 1);
 		$this->item     = $this->model->getItem($id);
-		$this->comments = $this->model->getComments($id);
+		$this->activity = $this->model->getActivity($id);
 		$this->fields   = $this->model->getFields($id);
 
 		// Build the toolbar

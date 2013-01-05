@@ -184,7 +184,9 @@ class JTableIssue extends JTable
 	{
 		$date = JFactory::getDate();
 
-		if ($this->id)
+		$isNew = ($this->id < 1);
+
+		if (!$isNew)
 		{
 			// Existing item
 			$this->modified = $date->toSql();
@@ -198,11 +200,39 @@ class JTableIssue extends JTable
 			}
 		}
 
+		// Execute the parent store method
 		if (!parent::store($updateNulls))
 		{
 			throw new RuntimeException($this->getError());
 		}
 
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+
+		// Add a record to the activity table if a new item
+		// TODO: Remove the check for CLI once moved to live instance
+		if ($isNew && JFactory::getApplication()->get('cli_app') != true)
+		{
+			$columnsArray = array(
+				$db->quoteName('issue_id'),
+				$db->quoteName('user'),
+				$db->quoteName('event'),
+				$db->quoteName('created')
+			);
+
+			$query->insert($db->quoteName('#__activity'));
+			$query->columns($columnsArray);
+			$query->values(
+				(int) $this->id . ', '
+				. $db->quote(JFactory::getUser()->username) . ', '
+				. $db->quote('open') . ', '
+				. $db->quote($this->opened)
+			);
+			$db->setQuery($query);
+			$db->execute();
+		}
+
+		// If we don't have the extra fields, return here
 		if (!(isset($this->fieldValues)) || !$this->fieldValues)
 		{
 			return true;

@@ -81,6 +81,34 @@ class TrackerApplicationComments extends JApplicationCli
 	protected $issues;
 
 	/**
+	 * Class constructor.
+	 *
+	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
+	 *                              input object.  If the argument is a JInputCli object that object will become
+	 *                              the application's input object, otherwise a default input object is created.
+	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
+	 *                              config object.  If the argument is a JRegistry object that object will become
+	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
+	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
+	 *                              the application's event dispatcher, if it is null then the default event dispatcher
+	 *                              will be created based on the application's loadDispatcher() method.
+	 *
+	 * @see     loadDispatcher()
+	 * @since   1.0
+	 */
+	public function __construct(JInputCli $input = null, JRegistry $config = null, JEventDispatcher $dispatcher = null)
+	{
+		parent::__construct($input, $config, $dispatcher);
+
+		// Set the app as CLI.
+		$this->set('cli_app', true);
+
+		// Register the application to JFactory
+		JFactory::$application = $this;
+	}
+
+	/**
 	 * Method to run the application routines.
 	 *
 	 * @return  void
@@ -229,7 +257,7 @@ class TrackerApplicationComments extends JApplicationCli
 				$query->clear();
 				$query->select('COUNT(*)');
 				$query->from($this->db->quoteName('#__activity'));
-				$query->where($this->db->quoteName('id') . ' = ' . (int) $comment->id);
+				$query->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id);
 				$this->db->setQuery($query);
 
 				try
@@ -250,7 +278,12 @@ class TrackerApplicationComments extends JApplicationCli
 
 				// Store the item in the database
 				$columnsArray = array(
-					$this->db->quoteName('id'), $this->db->quoteName('issue_id'), $this->db->quoteName('submitter'), $this->db->quoteName('text'), $this->db->quoteName('created')
+					$this->db->quoteName('gh_comment_id'),
+					$this->db->quoteName('issue_id'),
+					$this->db->quoteName('user'),
+					$this->db->quoteName('event'),
+					$this->db->quoteName('text'),
+					$this->db->quoteName('created')
 				);
 
 				// Parse the body through GitHub's markdown parser
@@ -263,6 +296,7 @@ class TrackerApplicationComments extends JApplicationCli
 					(int) $comment->id . ', '
 					. (int) $issue->id . ', '
 					. $this->db->quote($comment->user->login) . ', '
+					. $this->db->quote('comment') . ', '
 					. $this->db->quote($body) . ', '
 					. $this->db->quote(JFactory::getDate($comment->created_at)->toSql())
 				);
