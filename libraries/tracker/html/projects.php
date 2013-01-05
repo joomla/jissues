@@ -31,7 +31,7 @@ abstract class JHtmlProjects
 	 *
 	 * @since   1.0
 	 */
-	public static function select($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
+	public static function select($section, $name, $selected = '', $title = '', $js = '')
 	{
 		$title = $title ? : JText::_('Select an Option');
 
@@ -53,7 +53,28 @@ abstract class JHtmlProjects
 			$selected, 'select-'.$name
 		);
 	}
+	public static function select_project($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
+	{
+		$title = $title ? : JText::_('Select an Option');
 
+		$options = JHtmlCategory::options($section);
+
+		if ( ! $options)
+		{
+			return '';
+		}
+
+		$options = array_merge(array(JHtmlSelect::option('', $title)), $options);
+
+		return JHtmlSelect::genericlist(
+	//		'select.genericlist',
+			$options,
+			$name,
+			$js,
+			'value', 'text', // Hate it..
+			$selected, 'select-'.$name
+		);
+	}
 	/**
 	 * Returns a HTML list of categories for the given extension.
 	 *
