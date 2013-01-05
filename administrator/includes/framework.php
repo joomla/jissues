@@ -26,9 +26,6 @@ if (!file_exists(JPATH_CONFIGURATION.'/configuration.php'))
 // Joomla system startup.
 //
 
-// Import the application libraries, load it before the rest of the Platform to allow class overrides
-require_once JPATH_LIBRARIES . '/tracker.php';
-
 // System includes.
 require_once JPATH_LIBRARIES.'/import.legacy.php';
 
@@ -38,6 +35,9 @@ JError::setErrorHandling(E_ERROR, 'message', array('JError', 'customErrorPage'))
 
 // Botstrap the CMS libraries.
 require_once JPATH_LIBRARIES.'/cms.php';
+
+// Import the application libraries
+require_once JPATH_LIBRARIES . '/tracker.php';
 
 // Pre-Load configuration.
 ob_start();
