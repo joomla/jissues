@@ -83,7 +83,7 @@ class InstallerApplication extends JApplicationCli
 			$this->out('Removing existing tables...', false);
 
 			// First, need to drop the tables with FKs in specific order
-			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__issue_comments'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
+			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__activity'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
 			foreach ($keyTables as $table)
 			{
 				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();

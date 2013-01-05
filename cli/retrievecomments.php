@@ -228,7 +228,7 @@ class TrackerApplicationComments extends JApplicationCli
 			{
 				$query->clear();
 				$query->select('COUNT(*)');
-				$query->from($this->db->quoteName('#__issue_comments'));
+				$query->from($this->db->quoteName('#__activity'));
 				$query->where($this->db->quoteName('id') . ' = ' . (int) $comment->id);
 				$this->db->setQuery($query);
 
@@ -257,7 +257,7 @@ class TrackerApplicationComments extends JApplicationCli
 				$body = $this->github->markdown->render($comment->body, 'gfm', 'JTracker/jissues');
 
 				$query->clear();
-				$query->insert($this->db->quoteName('#__issue_comments'));
+				$query->insert($this->db->quoteName('#__activity'));
 				$query->columns($columnsArray);
 				$query->values(
 					(int) $comment->id . ', '

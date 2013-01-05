@@ -46,7 +46,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		$query = $db->getQuery(true);
 
 		$query->select('*');
-		$query->from($db->quoteName('#__issue_comments', 'a'));
+		$query->from($db->quoteName('#__activity', 'a'));
 		$query->where($db->quoteName('a.issue_id') . ' = ' . (int) $id);
 
 		try

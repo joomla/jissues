@@ -1049,9 +1049,9 @@ INSERT INTO `#__issues` (`id`, `asset_id`, `gh_id`, `jc_id`, `project_id`, `titl
 (516, 522, 516, 29547, NULL, '[#29547] Category parent link missing', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=29547', 3, 0, 1, '2012-10-20 17:34:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'https://github.com/joomla/joomla-cms/pull/516.diff');
 
 --
--- Dumping data for table `#__issue_comments`
+-- Dumping data for table `#__activity`
 --
-INSERT INTO `#__issue_comments` (`id`, `issue_id`, `submitter`, `text`, `created`) VALUES
+INSERT INTO `#__activity` (`id`, `issue_id`, `submitter`, `text`, `created`) VALUES
 (2218599, 1, 'eddieajau', 'I wouldn''t have approved it anyway :)', '2011-09-28 01:35:56'),
 (2312907, 4, 'elinw', 'Matt,\r\n\r\nWe are still using gforge and svn to process patches for now. Would you please make this a patch and put as an issue on joomlacode.\r\n\r\nElin', '2011-10-06 17:54:07'),
 (2316263, 5, 'elinw', 'Kyle,\r\n\r\nCan you please make a patch and post it in the joomlacode tracker since that is where the jbs looks for patches to test. Currently all commits are to be done via that route not by pull requests (though we all hope that is coming soon).\r\n\r\n Thanks.\r\n\r\nElin', '2011-10-06 23:19:33'),

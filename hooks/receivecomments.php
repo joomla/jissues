@@ -86,7 +86,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 
 		// Check to see if the comment is already in the database
 		$query->select($db->quoteName('id'));
-		$query->from($db->quoteName('#__issue_comments'));
+		$query->from($db->quoteName('#__activity'));
 		$query->where($db->quoteName('id') . ' = ' . (int) $commentID);
 		$db->setQuery($query);
 
@@ -156,7 +156,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// Get a JGithub instance to parse the body through their parser
 		$github = new JGithub;
 
-		$query->insert($db->quoteName('#__issue_comments'));
+		$query->insert($db->quoteName('#__activity'));
 		$query->columns($columnsArray);
 		$query->values(
 			(int) $data->comment->id . ', '
