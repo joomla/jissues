@@ -63,22 +63,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	 */
 	protected function doExecute()
 	{
-		// Pull in the data from GitHub
-		$issues = $this->getData();
-
-		// Process the issues now
-		$this->processIssues($issues);
-	}
-
-	/**
-	 * Method to pull the list of issues from GitHub
-	 *
-	 * @return  array  Issue data
-	 *
-	 * @since   1.0
-	 */
-	protected function getData()
-	{
+		// Set up JGithub
 		$options = new JRegistry;
 
 		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
@@ -96,9 +81,26 @@ class TrackerApplicationRetrieve extends JApplicationCli
 		// Instantiate JGithub
 		$this->github = new JGithub($options);
 
+		// Pull in the data from GitHub
+		$issues = $this->getData();
+
+		// Process the issues now
+		$this->processIssues($issues);
+	}
+
+	/**
+	 * Method to pull the list of issues from GitHub
+	 *
+	 * @return  array  Issue data
+	 *
+	 * @since   1.0
+	 */
+	protected function getData()
+	{
 		try
 		{
 			$issues = array();
+
 			foreach(array('open', 'closed') as $state)
 			{
 				$this->out('Retrieving ' . $state . ' items from GitHub.', true);
@@ -140,6 +142,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 		// Retrieved items, report status
 		$this->out('Retrieved ' . count($issues) . ' items from GitHub, checking database now.', true);
+
 		return $issues;
 	}
 
