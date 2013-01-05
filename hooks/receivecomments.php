@@ -83,7 +83,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// Check to see if the comment is already in the database
 		$query->select($this->db->quoteName('id'));
 		$query->from($this->db->quoteName('#__activity'));
-		$query->where($this->db->quoteName('id') . ' = ' . (int) $commentID);
+		$query->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $commentID);
 		$this->db->setQuery($query);
 
 		try
@@ -313,35 +313,34 @@ final class TrackerReceiveComments extends JApplicationHooks
 	/**
 	 * Method to update data for an issue from GitHub
 	 *
-	 * @param   object   $data     The hook data
-	 * @param   integer  $comment  The comment ID
+	 * @param   object   $data  The hook data
+	 * @param   integer  $id    The comment ID
 	 *
 	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
 	 */
-	protected function updateComment($data)
+	protected function updateComment($data, $id)
 	{
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$db = JFactory::getDbo();
-		$query = $db->getQuery(true);
-		$query->update($db->quoteName('#__issue_comments'));
-		$query->set($db->quoteName('text') . ' = ' . $db->quote($github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues')));
-		$query->where($db->quoteName('id') . ' = ' . $comment);
+		$query = $this->db->getQuery(true);
+		$query->update($this->db->quoteName('#__activity'));
+		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues')));
+		$query->where($this->db->quoteName('id') . ' = ' . $id);
 
 		try
 		{
-			$db->setQuery($query);
-			$db->execute();
+			$this->db->setQuery($query);
+			$this->db->execute();
 		}
 		catch (RuntimeException $e)
 		{
-			JLog::add('Error updating the database for issue ' . $issueID . ':' . $e->getMessage(), JLog::INFO);
+			JLog::add('Error updating the database for comment ' . $id . ':' . $e->getMessage(), JLog::INFO);
 			$this->close();
 		}
 
 		// Store was successful, update status
-		JLog::add(sprintf('Updated issue %s in the tracker.', $issueID), JLog::INFO);
+		JLog::add(sprintf('Updated comment %s in the tracker.', $id), JLog::INFO);
 
 		return true;
 	}
