@@ -117,17 +117,9 @@ class TrackerApplicationComments extends JApplicationCli
 
 		if ($resp == 'y' || $resp == 'yes')
 		{
-			// Get the username
-			$this->out('Enter your GitHub username :', false);
-			$username = trim($this->in());
-
-			// Get the password
-			$this->out('Enter your GitHub password :', false);
-			$password = trim($this->in());
-
 			// Set the options
-			$options->set('api.username', $username);
-			$options->set('api.password', $password);
+			$options->set('api.username', $this->config->get('github_user', ''));
+			$options->set('api.password', $this->config->get('github_password', ''));
 		}
 
 		// Instantiate JGithub
