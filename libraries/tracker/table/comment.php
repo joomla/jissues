@@ -27,7 +27,7 @@ class JTableComment extends JTable
 	 */
 	public function __construct(JDatabaseDriver $db)
 	{
-		parent::__construct('#__issue_comments', 'id', $db);
+		parent::__construct('#__activity', 'id', $db);
 	}
 
 	/**
