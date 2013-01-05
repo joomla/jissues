@@ -274,7 +274,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 				$this->close();
 			}
 
-			// Add a record to the activity table
+			// Add a open record to the activity table
 			$columnsArray = array(
 				$db->quoteName('issue_id'),
 				$db->quoteName('user'),
@@ -289,7 +289,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 				(int) $issueID . ', '
 				. $db->quote($issue->user->login) . ', '
 				. $db->quote('open') . ', '
-				. $db->quote(JFactory::getDate($table->opened)->toSql())
+				. $db->quote($table->opened)
 			);
 			$db->setQuery($query);
 
@@ -301,6 +301,29 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			{
 				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
 				$this->close();
+			}
+
+			// Add a close record to the activity table if the status is closed
+			if ($issue->closed_at)
+			{
+				$query->clear('values');
+				$query->values(
+					(int) $issueID . ', '
+					. $db->quote($issue->user->login) . ', '
+					. $db->quote('close') . ', '
+					. $db->quote($table->closed_date)
+				);
+				$db->setQuery($query);
+
+				try
+				{
+					$db->execute();
+				}
+				catch (RuntimeException $e)
+				{
+					$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+					$this->close();
+				}
 			}
 
 			// Store was successful, update status
