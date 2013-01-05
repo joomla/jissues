@@ -103,7 +103,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// If the item is already in the databse, update it; else, insert it
 		if ($comment)
 		{
-			$this->updateComment($data);
+			$this->updateComment($data, $comment);
 		}
 		else
 		{
@@ -243,7 +243,8 @@ final class TrackerReceiveComments extends JApplicationHooks
 	/**
 	 * Method to update data for an issue from GitHub
 	 *
-	 * @param   object  $data  The hook data
+	 * @param   object   $data     The hook data
+	 * @param   integer  $comment  The comment ID
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -251,6 +252,27 @@ final class TrackerReceiveComments extends JApplicationHooks
 	 */
 	protected function updateComment($data)
 	{
+		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->update($db->quoteName('#__issue_comments'));
+		$query->set($db->quoteName('text') . ' = ' . $db->quote($github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues')));
+		$query->where($db->quoteName('id') . ' = ' . $comment);
+
+		try
+		{
+			$db->setQuery($query);
+			$db->execute();
+		}
+		catch (RuntimeException $e)
+		{
+			JLog::add('Error updating the database for issue ' . $issueID . ':' . $e->getMessage(), JLog::INFO);
+			$this->close();
+		}
+
+		// Store was successful, update status
+		JLog::add(sprintf('Updated issue %s in the tracker.', $issueID), JLog::INFO);
+
 		return true;
 	}
 }
