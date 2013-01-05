@@ -89,6 +89,24 @@ class TrackerApplicationComments extends JApplicationCli
 	{
 		$this->db = JFactory::getDbo();
 
+		// Set up JGithub
+		$options = new JRegistry;
+
+		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
+		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
+
+		$resp = trim($this->in());
+
+		if ($resp == 'y' || $resp == 'yes')
+		{
+			// Set the options
+			$options->set('api.username', $this->config->get('github_user', ''));
+			$options->set('api.password', $this->config->get('github_password', ''));
+		}
+
+		// Instantiate JGithub
+		$this->github = new JGithub($options);
+
 		// Get the issues and their GitHub ID from the database
 		$this->getIssues();
 
@@ -108,23 +126,6 @@ class TrackerApplicationComments extends JApplicationCli
 	 */
 	protected function getComments()
 	{
-		$options = new JRegistry;
-
-		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
-
-		$resp = trim($this->in());
-
-		if ($resp == 'y' || $resp == 'yes')
-		{
-			// Set the options
-			$options->set('api.username', $this->config->get('github_user', ''));
-			$options->set('api.password', $this->config->get('github_password', ''));
-		}
-
-		// Instantiate JGithub
-		$this->github = new JGithub($options);
-
 		try
 		{
 			foreach ($this->issues as $issue)
