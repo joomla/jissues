@@ -37,7 +37,7 @@ abstract class JHtmlProjects
 
 		$options = JHtmlCategory::options($section);
 
-		if ( ! $options)
+		if (!$options)
 		{
 			return '';
 		}
@@ -45,36 +45,34 @@ abstract class JHtmlProjects
 		$options = array_merge(array(JHtmlSelect::option('', $title)), $options);
 
 		return JHtmlSelect::genericlist(
-	//		'select.genericlist',
 			$options,
 			$name,
 			$js,
-			'value', 'text', // Hate it..
-			$selected, 'select-'.$name
+			'value',
+			'text', // Hate it..
+			$selected,
+		'select-'.$name
 		);
 	}
-	public static function select_project($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
+
+	/**
+	 * Get a select list, defaults to using JS onchange.
+	 *
+	 * @param   string  $section   The section
+	 * @param   string  $name      Name for the control
+	 * @param   string  $selected  The selected field
+	 * @param   string  $title     Title to show
+	 * @param   string  $js        Javascript
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 */
+	public static function selectProject($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
 	{
-		$title = $title ? : JText::_('Select an Option');
-
-		$options = JHtmlCategory::options($section);
-
-		if ( ! $options)
-		{
-			return '';
-		}
-
-		$options = array_merge(array(JHtmlSelect::option('', $title)), $options);
-
-		return JHtmlSelect::genericlist(
-	//		'select.genericlist',
-			$options,
-			$name,
-			$js,
-			'value', 'text', // Hate it..
-			$selected, 'select-'.$name
-		);
+		return static::select($section, $name, $selected, $title, $js);
 	}
+
 	/**
 	 * Returns a HTML list of categories for the given extension.
 	 *
@@ -88,7 +86,7 @@ abstract class JHtmlProjects
 	 */
 	public static function listing($section = '', $links = false, $selected = '')
 	{
-		$items = self::items($section);
+		$items = static::items($section);
 
 		if (0 == count($items))
 		{
@@ -191,5 +189,4 @@ abstract class JHtmlProjects
 		return '<input type="checkbox" name="fields[' . $name . ']" '
 			. ' id="chk-' . $name . '"' . $checked . $description . ' />';
 	}
-
 }

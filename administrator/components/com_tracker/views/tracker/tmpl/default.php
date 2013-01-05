@@ -23,7 +23,7 @@ JHtmlBootstrap::tooltip();
         <form class="form" name="adminForm" id="adminForm" method="post">
             <div class="row">
                 <div class="span12 well well-small">
-					<?= JHtmlprojects::select_project('com_tracker', 'project', $this->project, JText::_('Select a Project')); ?>
+					<?= JHtmlprojects::selectProject('com_tracker', 'project', $this->project, JText::_('Select a Project')); ?>
                     <span style="color: orange; font-size: 1.5em; cursor: help;" class="hasTooltip"
                           title="Select a project to define project specific items."><span class="icon-comment"></span></span>
                 </div>
