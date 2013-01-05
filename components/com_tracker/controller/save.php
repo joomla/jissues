@@ -36,6 +36,8 @@ class TrackerControllerSave extends JControllerTracker
 		$model   = new TrackerModelIssue;
 		$table   = $model->getTable('Issue');
 		$data    = $this->input->post->get('jform', array(), 'array');
+		// Lets get the category ID and merge it into the data array.
+		$data['catid']	 = $this->input->post->get('category');
 		$checkin = property_exists($table, 'checked_out');
 		$context = $this->option . '.edit.' . $model->getName();
 
