@@ -173,7 +173,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		}
 		catch (RuntimeException $e)
 		{
-			$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+			JLog::add(sprintf('Error storing new item %s in the database: %s', $data->comment->id, $e->getMessage()), JLog::INFO);
 			$this->close();
 		}
 

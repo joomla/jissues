@@ -91,6 +91,24 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	 */
 	protected function doExecute()
 	{
+		// Set up JGithub
+		$options = new JRegistry;
+
+		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
+		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
+
+		$resp = trim($this->in());
+
+		if ($resp == 'y' || $resp == 'yes')
+		{
+			// Set the options
+			$options->set('api.username', $this->config->get('github_user', ''));
+			$options->set('api.password', $this->config->get('github_password', ''));
+		}
+
+		// Instantiate JGithub
+		$this->github = new JGithub($options);
+
 		// Pull in the data from GitHub
 		$issues = $this->getData();
 
@@ -107,34 +125,10 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	 */
 	protected function getData()
 	{
-		$options = new JRegistry;
-
-		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
-
-		$resp = trim($this->in());
-
-		if ($resp == 'y' || $resp == 'yes')
-		{
-			// Get the username
-			$this->out('Enter your GitHub username :', false);
-			$username = trim($this->in());
-
-			// Get the password
-			$this->out('Enter your GitHub password :', false);
-			$password = trim($this->in());
-
-			// Set the options
-			$options->set('api.username', $username);
-			$options->set('api.password', $password);
-		}
-
-		// Instantiate JGithub
-		$this->github = new JGithub($options);
-
 		try
 		{
 			$issues = array();
+
 			foreach(array('open', 'closed') as $state)
 			{
 				$this->out('Retrieving ' . $state . ' items from GitHub.', true);
@@ -176,6 +170,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 		// Retrieved items, report status
 		$this->out('Retrieved ' . count($issues) . ' items from GitHub, checking database now.', true);
+
 		return $issues;
 	}
 

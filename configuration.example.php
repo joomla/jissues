@@ -1,6 +1,12 @@
 <?php
 class JConfig
 {
+	/*
+	 * Enter your GitHub account credentials for the $github** params
+	 * When prompted to authenticate to GitHub, these values will be used
+	 */
+	public $github_user		= '';
+	public $github_password	= '';
 	public $dbtype			= 'mysqli';
 	public $host			= 'localhost';
 	public $user			= '';
