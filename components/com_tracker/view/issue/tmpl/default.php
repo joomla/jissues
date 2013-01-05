@@ -126,27 +126,51 @@ $webserver = $this->fields->get('web_server');
 			</div>
 		</div>
 
-		<?php if ($this->comments) : ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></h4>
-			</div>
-		</div>
-
-		<?php foreach ($this->comments as $i => $comment) : ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="well well-small">
-					<h5>
-						<a href="#issue-comment-<?php echo $i + 1; ?>" id="issue-comment-<?php echo $i + 1; ?>">#<?php echo $i + 1; ?></a>
-						<?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->submitter, $comment->created); ?>
-					</h5>
-					<p><?php echo $comment->text; ?></p>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#comments" data-toggle="tab"><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></a></li>
+			<li><a href="#events" data-toggle="tab"><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_EVENTS'); ?></a></li>
+		</ul>
+		<div class="tab-content">
+		    <div class="tab-pane active" id="comments">
+				<?php if (count($this->activity['comments']) >= 1) : ?>
+				<?php foreach ($this->activity['comments'] as $i => $comment) : ?>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="well well-small">
+							<h5>
+								<a href="#issue-comment-<?php echo $i + 1; ?>" id="issue-comment-<?php echo $i + 1; ?>">#<?php echo $i + 1; ?></a>
+								<?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->user, $comment->created); ?>
+							</h5>
+							<p><?php echo $comment->text; ?></p>
+						</div>
+					</div>
 				</div>
+				<?php endforeach; ?>
+				<?php else : ?>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="alert alert-info">
+							<h5>No comments on this issue.</h5>
+						</div>
+					</div>
+				</div>
+				<?php endif; ?>
+			</div>
+			<div class="tab-pane" id="events">
+				<?php foreach ($this->activity['events'] as $i => $event) : ?>
+				<?php $langKey = 'COM_TRACKER_EVENT_' . strtoupper($event->event); ?>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="well well-small">
+							<h5>
+								<?php echo JText::sprintf($langKey, $event->user, $event->created); ?>
+							</h5>
+						</div>
+					</div>
+				</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
-		<?php endforeach; ?>
-		<?php endif; ?>
 	</div>
 	<input type="hidden" name="task" />
 	<?php echo JHtml::_('form.token'); ?>
