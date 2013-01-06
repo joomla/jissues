@@ -46,9 +46,6 @@ class TrackerViewIssueHtml extends JViewHtml
 	{
 		$app = JFactory::getApplication();
 
-		// Register the document
-		$this->document = $app->getDocument();
-
 		$id = $app->input->getInt('id', 1);
 		$this->item     = $this->model->getItem($id);
 		$this->comments = $this->model->getComments($id);

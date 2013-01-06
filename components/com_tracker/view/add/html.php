@@ -35,14 +35,10 @@ class TrackerViewAddHtml extends JViewHtml
 	protected $editorParams = array();
 
 	/**
-	 * @var JRegistry
+	 * @var    JRegistry
+	 * @since  1.0
 	 */
 	protected $lists;
-
-	/**
-	 * @var JTableIssue
-	 */
-	protected $item;
 
 	/**
 	 * Method to render the view.
