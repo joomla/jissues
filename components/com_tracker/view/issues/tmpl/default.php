@@ -37,7 +37,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 			<button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><span class="icon-remove"></span></button>
 		</div>
 		<div class="btn-group pull-left">
-			<?php echo JHtmlProjects::selectProject('com_tracker', 'filter-project', (int) $this->state->get('filter.project'), JText::_('Filter by Project')); ?>
+			<?php echo JHtmlProjects::selectProject('com_tracker', 'filter-project', (int) $this->state->get('filter.project'), JText::_('Filter by Project'), 'onchange="document.adminForm.submit();'); ?>
 		</div>
 		<div class="btn-group pull-right">
 			<label for="status" class="element-invisible"><?php echo JText::_('COM_TRACKER_FILTER_STATUS'); ?></label>
