@@ -86,9 +86,6 @@ class TrackerViewEditHtml extends JViewHtml
 	{
 		$app = JFactory::getApplication();
 
-		// Register the document
-		$this->document = $app->getDocument();
-
 		$id = $app->input->getInt('id', 1);
 		$this->item   = $this->model->getItem($id);
 		$this->fieldData = $this->model->getFields($id);
