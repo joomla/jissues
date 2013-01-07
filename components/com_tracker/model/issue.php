@@ -72,7 +72,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	 *
 	 * @since   1.0
 	 */
-	public function getFields($id)
+	public function getFieldsData($id)
 	{
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
@@ -96,7 +96,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-			return false;
+			return array();
 		}
 
 		$arr = array();
@@ -104,14 +104,10 @@ class TrackerModelIssue extends JModelTrackerForm
 		// Prepare the fields for display
 		foreach ($fields as $field)
 		{
-			$name  = strtolower(str_replace(' ', '_', $field->field_name));
-			$value = strtolower(str_replace(' ', '_', $field->field_value));
-			$arr[$name] = $value;
+			$arr[$field->field_id] = $field;
 		}
 
-		$item = new JRegistry($arr);
-
-		return $item;
+		return $arr;
 	}
 
 	/**
@@ -143,11 +139,13 @@ class TrackerModelIssue extends JModelTrackerForm
 		try
 		{
 			$db->setQuery($query);
+
 			return $db->loadObject();
 		}
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
 			return false;
 		}
 	}
@@ -164,7 +162,6 @@ class TrackerModelIssue extends JModelTrackerForm
 	 */
 	public function save($data)
 	{
-		$dispatcher = JEventDispatcher::getInstance();
 		$table = $this->getTable('Issue');
 		$key = $table->getKeyName();
 		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->state->get($this->getName() . '.id');
@@ -187,6 +184,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		{
 			$this->state->set($this->getName() . '.id', $table->$key);
 		}
+
 		$this->state->set($this->getName() . '.new', $isNew);
 
 		return true;

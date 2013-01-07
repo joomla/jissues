@@ -35,14 +35,9 @@ class TrackerViewAddHtml extends JViewHtml
 	protected $editorParams = array();
 
 	/**
-	 * @var JRegistry
+	 * @var ?
 	 */
-	protected $lists;
-
-	/**
-	 * @var JTableIssue
-	 */
-	protected $item;
+	protected $project;
 
 	/**
 	 * Method to render the view.
@@ -61,11 +56,9 @@ class TrackerViewAddHtml extends JViewHtml
 			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
 		);
 
-		$this->lists = new JRegistry;
-		$this->lists->set('categories', JHtmlProjects::select('com_tracker.categories', 'category', '', 'Select a category', ''));
-		$this->lists->set('selects', JHtmlProjects::items('com_tracker.fields'));
-		$this->lists->set('textfields', JHtmlProjects::items('com_tracker.textfields'));
-		$this->lists->set('checkboxes', JHtmlProjects::items('com_tracker.checkboxes'));
+		// @todo Before adding a new issue we need the project id !
+		$this->project = new stdClass;
+		$this->project->id = 1;
 
 		return parent::render();
 	}
