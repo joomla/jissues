@@ -45,7 +45,11 @@ Example:
 <h1>Add a new Issue</h1>
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form form-horizontal">
-    <h3>1) Summary</h3>
+
+	<!-- @todo project id selector or value ? -->
+	<input type="hidden" name="project_id" value="<?= $this->project->id ?>">
+
+	<h3>1) Summary</h3>
 
     <div class="well well-small">
         <input style="font-size: 1.5em;" name="jform[title]" id="jform_title" type="text" class="span12" />
@@ -61,7 +65,7 @@ Example:
 
     <div class="row">
         <div class="span12">
-			<?= $this->lists->get('categories') ?>
+			<?= JHtmlCustomfields::select('categories', $this->project->id, 0, '', 'Select a category', '') ?>
 
             @todo Some more info about categories
 
@@ -73,12 +77,13 @@ Example:
     <div class="row">
         <div class="span6">
 
-			<?php foreach ($this->lists->get('selects') as $select) : ?>
+	        <!-- Select lists ! -->
+			<?php foreach (JHtmlCustomfields::items('fields', $this->project->id) as $field) : ?>
             <div class="control-group">
-                <label class="control-label" for="select-<?=$select->alias?>"><?= $select->title ?></label>
+                <label class="control-label" for="select-<?=$field->id?>"><?= $field->title ?></label>
 
                 <div class="controls">
-					<?= JHtmlProjects::select('com_tracker.fields.' . $select->id, $select->alias) ?>
+					<?= JHtmlCustomfields::select('fields.' . $field->id, $this->project->id, $field->id) ?>
                 </div>
             </div>
 			<?php endforeach; ?>
@@ -87,22 +92,22 @@ Example:
 
         <div class="span6">
 
-			<?php foreach ($this->lists->get('textfields') as $field) : ?>
+			<?php foreach (JHtmlCustomfields::items('textfields', $this->project->id) as $field) : ?>
             <div class="control-group">
-                <label class="control-label" for="txt-<?=$field->alias?>"><?= $field->title ?></label>
+                <label class="control-label" for="txt-<?=$field->id?>"><?= $field->title ?></label>
 
                 <div class="controls">
-					<?= JHtmlProjects::textfield($field->alias, '', $field->description) ?>
+					<?= JHtmlCustomfields::textfield($field->id, '', $field->description) ?>
                 </div>
             </div>
 			<?php endforeach; ?>
 
-	        <?php foreach ($this->lists->get('checkboxes') as $field) : ?>
+	        <?php foreach (JHtmlCustomfields::items('checkboxes', $this->project->id) as $field) : ?>
             <div class="control-group">
-                <label class="control-label" for="chk-<?=$field->alias?>"><?= $field->title ?></label>
+                <label class="control-label" for="chk-<?=$field->id?>"><?= $field->title ?></label>
 
                 <div class="controls">
-			        <?= JHtmlProjects::checkbox($field->alias, '', $field->description) ?>
+			        <?= JHtmlCustomfields::checkbox($field->id, '', $field->description) ?>
                 </div>
             </div>
 	        <?php endforeach; ?>

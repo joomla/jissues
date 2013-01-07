@@ -74,7 +74,35 @@ $priorityOptions['size'] = '5';
 							<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC2'); ?></td>
 						</tr>
 					<?php endif; ?>
-					<?php include $this->getPath('fields'); ?>
+
+					<!-- select lists -->
+					<?php foreach (JHtmlCustomfields::items('fields', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?php echo $field->title; ?></th>
+							<td>
+								<?= JHtmlCustomfields::select('fields.' . $field->id, $this->item->project_id, $field->id, (isset($this->fieldsData[$field->id]) ? $this->fieldsData[$field->id] : 0)) ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
+					<?php foreach (JHtmlCustomfields::items('textfields', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?php echo $field->title; ?></th>
+							<td>
+								<?= JHtmlCustomfields::textfield($field->id, (isset($this->fieldsData[$field->id]) ? $this->fieldsData[$field->id] : ''), $field->description) ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
+					<?php foreach (JHtmlCustomfields::items('checkboxes', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?php echo $field->title; ?></th>
+							<td>
+								<?= JHtmlCustomfields::checkbox($field->id, (isset($this->fieldsData[$field->id]) ? true : false), $field->description) ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
 				</table>
 
 			</div>

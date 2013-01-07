@@ -19,74 +19,22 @@ defined('JPATH_PLATFORM') or die;
 abstract class JHtmlProjects
 {
 	/**
-	 * Get a select list.
-	 *
-	 * @param   string  $section   The section
-	 * @param   string  $name      Name for the control
-	 * @param   string  $selected  The selected field
-	 * @param   string  $title     Title to show
-	 * @param   string  $js        Javascript
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 */
-	public static function select($section, $name, $selected = '', $title = '', $js = '')
-	{
-		$title = $title ? : JText::_('Select an Option');
-
-		$options = JHtmlCategory::options($section);
-
-		if (!$options)
-		{
-			return '';
-		}
-
-		$options = array_merge(array(JHtmlSelect::option('', $title)), $options);
-
-		return JHtmlSelect::genericlist(
-			$options,
-			$name,
-			$js,
-			'value',
-			'text', // Hate it..
-			$selected,
-		'select-'.$name
-		);
-	}
-
-	/**
-	 * Get a select list, defaults to using JS onchange.
-	 *
-	 * @param   string  $section   The section
-	 * @param   string  $name      Name for the control
-	 * @param   string  $selected  The selected field
-	 * @param   string  $title     Title to show
-	 * @param   string  $js        Javascript
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 */
-	public static function selectProject($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
-	{
-		return static::select($section, $name, $selected, $title, $js);
-	}
-
-	/**
 	 * Returns a HTML list of categories for the given extension.
 	 *
-	 * @param   string  $section   The extension option.
-	 * @param   bool    $links     Links or simple list items.
-	 * @param   string  $selected  The selected item.
+	 * @param   string   $section    The extension option.
+	 * @param   integer  $projectId  The project id.
+	 * @param   bool     $links      Links or simple list items.
+	 * @param   string   $selected   The selected item.
 	 *
 	 * @return  string
 	 *
-	 * @since   1.0
+	 * @deprecated - used only in backend
+	 *
+	 * @since      1.0
 	 */
-	public static function listing($section = '', $links = false, $selected = '')
+	public static function listing($section = '', $projectId = 0, $links = false, $selected = '')
 	{
-		$items = static::items($section);
+		$items = JHtmlCustomfields::items($section, $projectId);
 
 		if (0 == count($items))
 		{
@@ -107,7 +55,7 @@ abstract class JHtmlProjects
 
 			$html[] = '<li>';
 			$html[] = $links
-				? JHtml::link(sprintf($link, $section, $item->id), $item->title, array('class' => $selected))
+				? JHtml::link(sprintf($link, 'com_tracker' . ($section ? '.' . $section : ''), $item->id), $item->title, array('class' => $selected))
 				: $item->title;
 			$html[] = '</li>';
 		}
@@ -115,78 +63,5 @@ abstract class JHtmlProjects
 		$html[] = '</ul>';
 
 		return implode("\n", $html);
-	}
-
-	/**
-	 * Get the items list.
-	 *
-	 * @param   string  $section  A section
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public static function items($section)
-	{
-		static $sections = array();
-
-		if (isset($sections[$section]))
-		{
-			return $sections[$section];
-		}
-
-		$db = JFactory::getDbo();
-
-		$items = $db->setQuery(
-			$db->getQuery(true)
-				->select('id, title, alias, description, level, parent_id')
-				->from('#__categories')
-				->where('parent_id > 0')
-				->where('extension = ' . $db->q($section))
-				->order('lft')
-		)->loadObjectList();
-
-		$sections[$section] = $items;
-
-		return $sections[$section];
-	}
-
-	/**
-	 * Draws a text input.
-	 *
-	 * @todo moveme
-	 *
-	 * @param        $name
-	 * @param        $value
-	 * @param string $description
-	 *
-	 * @return string
-	 */
-	public static function textfield($name, $value, $description = '')
-	{
-		$description = ($description) ? ' class="hasTooltip" title="' . htmlspecialchars($description, ENT_COMPAT, 'UTF-8') . '"' : '';
-
-		return '<input type="text" name="fields[' . $name . ']" '
-			. ' id="txt-' . $name . '" value="' . $value . '"' . $description . ' />';
-	}
-
-	/**
-	 * Draws a checkbox
-	 *
-	 * @todo     moveme
-	 *
-	 * @param        $name
-	 * @param bool   $checked
-	 * @param string $description
-	 *
-	 * @return string
-	 */
-	public static function checkbox($name, $checked = false, $description = '')
-	{
-		$description = ($description) ? ' class="hasTooltip" title="' . htmlspecialchars($description, ENT_COMPAT, 'UTF-8') . '"' : '';
-		$checked = $checked ? ' checked="checked"' : '';
-
-		return '<input type="checkbox" name="fields[' . $name . ']" '
-			. ' id="chk-' . $name . '"' . $checked . $description . ' />';
 	}
 }

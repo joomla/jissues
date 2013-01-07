@@ -32,7 +32,7 @@ class TrackerViewIssueHtml extends JViewHtml
 	 * @var    JRegistry
 	 * @since  1.0
 	 */
-	protected $fields = array();
+	protected $fieldsData = array();
 
 	/**
 	 * Method to render the view.
@@ -52,7 +52,7 @@ class TrackerViewIssueHtml extends JViewHtml
 		$id = $app->input->getInt('id', 1);
 		$this->item     = $this->model->getItem($id);
 		$this->comments = $this->model->getComments($id);
-		$this->fields   = $this->model->getFields($id);
+		$this->fieldsData   = $this->model->getFieldsData($id);
 
 		// Build the toolbar
 		$this->buildToolbar();

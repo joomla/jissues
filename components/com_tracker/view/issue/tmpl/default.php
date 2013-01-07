@@ -11,14 +11,9 @@
 
 defined('_JEXEC') or die;
 
-// Get the additional fields
-$browser   = $this->fields->get('browser');
-$database  = $this->fields->get('database');
-$php       = $this->fields->get('php_version');
-$webserver = $this->fields->get('web_server');
 ?>
-
-<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm"
+      id="adminForm">
 	<div class="container-fluid">
 		<h3><?php echo '[#' . $this->item->id . '] - ' . $this->item->title; ?></h3>
 
@@ -31,26 +26,28 @@ $webserver = $this->fields->get('web_server');
 						<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status_title)); ?></td>
 					</tr>
 					<?php if ($this->item->gh_id) : ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
-						<td><a href="https://github.com/joomla/joomla-cms/issues/<?php echo $this->item->gh_id; ?>" target="_blank"><?php echo $this->item->gh_id; ?></a></td>
-					</tr>
+						<tr>
+							<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
+							<td><a href="https://github.com/joomla/joomla-cms/issues/<?php echo $this->item->gh_id; ?>"
+							       target="_blank"><?php echo $this->item->gh_id; ?></a></td>
+						</tr>
 					<?php endif; ?>
 					<?php if ($this->item->jc_id) : ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?></th>
-						<td>
-							<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo (int) $this->item->jc_id; ?>" target="_blank">
-								<?php echo (int) $this->item->jc_id; ?>
-							</a>
-						</td>
-					</tr>
+						<tr>
+							<th><?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?></th>
+							<td>
+								<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo (int) $this->item->jc_id; ?>"
+								   target="_blank">
+									<?php echo (int) $this->item->jc_id; ?>
+								</a>
+							</td>
+						</tr>
 					<?php endif; ?>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 						<td>
 							<?php
-							if($this->item->priority == 1) :
+							if ($this->item->priority == 1) :
 								$status_class = 'badge-important';
 							elseif ($this->item->priority == 2) :
 								$status_class = 'badge-warning';
@@ -68,10 +65,11 @@ $webserver = $this->fields->get('web_server');
 						</td>
 					</tr>
 					<?php if ($this->item->patch_url) : ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PATCH_URL'); ?></th>
-						<td><a href="<?php echo $this->item->patch_url; ?>" target="_blank"><?php echo $this->item->patch_url; ?></a></td>
-					</tr>
+						<tr>
+							<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PATCH_URL'); ?></th>
+							<td><a href="<?php echo $this->item->patch_url; ?>"
+							       target="_blank"><?php echo $this->item->patch_url; ?></a></td>
+						</tr>
 					<?php endif; ?>
 					<tr>
 						<td>
@@ -91,35 +89,37 @@ $webserver = $this->fields->get('web_server');
 							<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC2'); ?></td>
 						</tr>
 					<?php endif; ?>
-					<?php if ($database): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DATABASE_TYPE'); ?></th>
-						<td><?php echo $database; ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if ($webserver): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_WEBSERVER'); ?></th>
-						<td><?php echo $webserver; ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if ($php): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_PHP_VERISON'); ?></th>
-						<td><?php echo $php; ?></td>
-					</tr>
-					<?php endif; ?>
-					<?php if ($browser): ?>
-					<tr>
-						<th><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_BROWSER'); ?></th>
-						<td><?php echo $browser; ?></td>
-					</tr>
-					<?php endif; ?>
+
+					<!-- Select lists ! -->
+					<?php foreach (JHtmlCustomfields::items('fields', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?= JText::_($field->title); ?></th>
+							<td><?= isset($this->fieldsData[$field->id]) && $this->fieldsData[$field->id]->field_value ? $this->fieldsData[$field->id]->field_value : 'N/A'; ?>
+						</tr>
+					<?php endforeach; ?>
+
+					<!-- Text fields -->
+					<?php foreach (JHtmlCustomfields::items('textfields', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?= JText::_($field->title); ?></th>
+							<td><?= isset($this->fieldsData[$field->id]) && $this->fieldsData[$field->id]->value ? $this->fieldsData[$field->id]->value : 'N/A'; ?>
+						</tr>
+					<?php endforeach; ?>
+
+					<!-- Checkboxes -->
+					<?php foreach (JHtmlCustomfields::items('checkboxes', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?= JText::_($field->title); ?></th>
+							<td><?= isset($this->fieldsData[$field->id]) ? 'yes' : 'no'; ?>
+						</tr>
+					<?php endforeach; ?>
+
 				</table>
 
 			</div>
 			<div class="span7">
 				<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_DESC'); ?></h4>
+
 				<div class="well well-small issue">
 					<p><?php echo $this->item->description; ?></p>
 				</div>
@@ -127,27 +127,28 @@ $webserver = $this->fields->get('web_server');
 		</div>
 
 		<?php if ($this->comments) : ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></h4>
-			</div>
-		</div>
-
-		<?php foreach ($this->comments as $i => $comment) : ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="well well-small">
-					<h5>
-						<a href="#issue-comment-<?php echo $i + 1; ?>" id="issue-comment-<?php echo $i + 1; ?>">#<?php echo $i + 1; ?></a>
-						<?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->submitter, $comment->created); ?>
-					</h5>
-					<p><?php echo $comment->text; ?></p>
+			<div class="row-fluid">
+				<div class="span12">
+					<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?></h4>
 				</div>
 			</div>
-		</div>
-		<?php endforeach; ?>
+
+			<?php foreach ($this->comments as $i => $comment) : ?>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="well well-small">
+							<h5>
+								<a href="#issue-comment-<?php echo $i + 1; ?>" id="issue-comment-<?php echo $i + 1; ?>">#<?php echo $i + 1; ?></a>
+								<?php echo JText::sprintf('COM_TRACKER_LABEL_SUBMITTED_BY', $comment->submitter, $comment->created); ?>
+							</h5>
+
+							<p><?php echo $comment->text; ?></p>
+						</div>
+					</div>
+				</div>
+			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
-	<input type="hidden" name="task" />
+	<input type="hidden" name="task"/>
 	<?php echo JHtml::_('form.token'); ?>
 </form>

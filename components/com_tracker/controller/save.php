@@ -32,7 +32,6 @@ class TrackerControllerSave extends JControllerTracker
 
 		/* @var JApplicationSite $app */
 		$app     = $this->getApplication();
-		$lang    = JFactory::getLanguage();
 		$model   = new TrackerModelIssue;
 		$table   = $model->getTable('Issue');
 		$data    = $this->input->post->get('jform', array(), 'array');
@@ -53,12 +52,6 @@ class TrackerControllerSave extends JControllerTracker
 
 		// Populate the row id from the session.
 		$data[$key] = $recordId;
-
-		// Get the fields data from the request and merge it to our data array
-		//$data['fields'] = $this->input->post->get('fields', array(), 'array');
-
-		// Lets get the category ID and merge it into the data array.
-		$data['catid']	 = $this->input->post->get('category');
 
 		// Access check.
 		if (!$this->allowSave($data, $key))
