@@ -48,18 +48,24 @@ class TrackerViewTracker extends JViewLegacy
 	{
 		$this->input = JFactory::getApplication()->input;
 
-		$this->fields = new JRegistry($this->input->get('fields', array(), 'array'));
+		$this->project = new stdClass;
+		$this->project->id = 0;
 
-		$this->project = $this->fields->get('project');
+		$data = $this->input->post->get('jform', array(), 'array');
+
+		if (isset($data['fields']['selects'][0]))
+		{
+			$this->project->id = (int) $data['fields']['selects'][0];
+		}
 
 		$this->lists = new JRegistry;
 
-		if ($this->project)
+		if ($this->project->id)
 		{
-			$this->lists->set('categories', JHtmlProjects::listing('com_tracker.' . $this->project . '.categories'));
-			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project . '.textfields'));
-			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project . '.fields'));
-			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project . '.checkboxes'));
+			$this->lists->set('categories', JHtmlProjects::listing('categories', 0, 'com_tracker.' . $this->project->id . '.categories'));
+			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project->id . '.textfields'));
+			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project->id . '.fields'));
+			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project->id . '.checkboxes'));
 		}
 
 		parent::display($tpl);

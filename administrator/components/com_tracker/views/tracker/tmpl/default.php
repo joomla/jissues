@@ -23,13 +23,13 @@ JHtmlBootstrap::tooltip();
         <form class="form" name="adminForm" id="adminForm" method="post">
             <div class="row">
                 <div class="span12 well well-small">
-					<?= JHtmlprojects::selectProject('com_tracker', 'project', $this->project, JText::_('Select a Project')); ?>
+					<?= JHtmlCustomfields::select('', $this->project->id, 0, $this->project->id, JText::_('Select a Project'), 'onchange="document.adminForm.submit();"'); ?>
                     <span style="color: orange; font-size: 1.5em; cursor: help;" class="hasTooltip"
                           title="Select a project to define project specific items."><span class="icon-comment"></span></span>
                 </div>
             </div>
 
-			<?php if ($this->project) : ?>
+			<?php if ($this->project->id) : ?>
 
 			<?= $this->loadTemplate('project') ?>
 
@@ -39,7 +39,7 @@ JHtmlBootstrap::tooltip();
                     <h2>Projects</h2>
 					<?= JHtml::link($baseLinkAdd, 'Add a Project', $buttonStyles) ?>
                     <div class="well well-small">
-						<?= JHtmlProjects::listing('com_tracker') ?>
+						<?= JHtmlProjects::listing('') ?>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@ JHtmlBootstrap::tooltip();
                     <h2>Categories</h2>
 					<?= JHtml::link($baseLinkAdd . '.categories', 'Add a Category', $buttonStyles) ?>
                     <div class="well well-small">
-						<?= JHtmlProjects::listing('com_tracker.categories') ?>
+						<?= JHtmlProjects::listing('categories') ?>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@ JHtmlBootstrap::tooltip();
                     <h3>Textfields</h3>
 					<?= JHtml::link($baseLinkAdd . '.textfields', 'Add a Textfield', $buttonStyles) ?>
                     <div class="well well-small">
-						<?= JHtmlProjects::listing('com_tracker.textfields') ?>
+						<?= JHtmlProjects::listing('textfields') ?>
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@ JHtmlBootstrap::tooltip();
                     <h3>Selectlists</h3>
 					<?= JHtml::link($baseLinkAdd . '.fields', 'Add a Selectlist', $buttonStyles) ?>
                     <div class="well well-small">
-						<?= JHtmlProjects::listing('com_tracker.fields', true) ?>
+						<?= JHtmlProjects::listing('fields', 0, true) ?>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@ JHtmlBootstrap::tooltip();
                     <h3>Checkboxes</h3>
 					<?= JHtml::link($baseLinkAdd . '.checkboxes', 'Add a Checkbox', $buttonStyles) ?>
                     <div class="well well-small">
-						<?= JHtmlProjects::listing('com_tracker.checkboxes') ?>
+						<?= JHtmlProjects::listing('checkboxes') ?>
                     </div>
                 </div>
             </div>
