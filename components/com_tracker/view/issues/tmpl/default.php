@@ -93,6 +93,12 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 					<div class="hasTooltip" title="<?php echo JHtml::_('string.truncate', $this->escape($item->description), 100); ?>">
 						<a href="index.php?option=com_tracker&view=issue&id=<?php echo (int) $item->id;?>">
 						<?php echo $this->escape($item->title); ?></a>
+						<!-- Comment count -->
+						<?php if (isset($item->comment_count) && $item->comment_count > 0): ?>
+							<span class="comment_count">
+								[<?php echo $item->comment_count; ?> <?php echo JText::_('COM_TRACKER_LABEL_ISSUE_COMMENTS'); ?>]
+							</span>
+						<?php endif; ?>
 					</div>
 					<?php if ($item->gh_id || $item->jc_id) : ?>
 					<div class="small">
