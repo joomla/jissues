@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `issue_id` integer unsigned NOT NULL,
   `field_id` integer NOT NULL,
-  `value` integer NOT NULL,
+  `value` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `issue_id` (`issue_id`),
   CONSTRAINT `#__tracker_fields_values_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
