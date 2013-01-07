@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  View
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -45,9 +45,6 @@ class TrackerViewIssueHtml extends JViewHtml
 	public function render()
 	{
 		$app = JFactory::getApplication();
-
-		// Register the document
-		$this->document = $app->getDocument();
 
 		$id = $app->input->getInt('id', 1);
 		$this->item     = $this->model->getItem($id);
