@@ -61,18 +61,7 @@ Example:
 		<?php echo $this->editor->display('jform[description]', $template, '100%', 300, 10, 10, false, 'jform_description', null, null, $this->editorParams); ?>
     </div>
 
-    <h3>3) Category</h3>
-
-    <div class="row">
-        <div class="span12">
-			<?= JHtmlCustomfields::select('categories', $this->project->id, 0, '', 'Select a category', '') ?>
-
-            @todo Some more info about categories
-
-        </div>
-    </div>
-
-    <h3>4) Technical details.</h3>
+    <h3>3) Technical details.</h3>
 
     <div class="row">
         <div class="span6">
@@ -115,7 +104,7 @@ Example:
         </div>
     </div>
 
-    <h3>5) Notifications</h3>
+    <h3>4) Notifications (@todo)</h3>
 
     <div class="row well well-small">
         <div class="span6">

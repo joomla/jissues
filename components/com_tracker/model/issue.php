@@ -128,10 +128,6 @@ class TrackerModelIssue extends JModelTrackerForm
 		$query->from($db->quoteName('#__issues', 'a'));
 		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
 
-		// Join over the category table to get the project title
-		$query->select(('c.title AS category'));
-		$query->leftJoin('#__categories AS c ON a.catid = c.id');
-
 		// Join over the status table
 		$query->select('s.status AS status_title, s.closed AS closed');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');

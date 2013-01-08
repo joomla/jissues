@@ -46,10 +46,6 @@ class TrackerModelIssues extends JModelTrackerList
 		$query->select('s.status AS status_title, s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
-		// Join over the category
-		$query->select('c.title AS category');
-		$query->leftJoin('#__categories AS c ON a.catid = c.id');
-
 		$filter = $this->state->get('filter.project');
 
 		if ($filter)
