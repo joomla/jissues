@@ -62,7 +62,6 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 				<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
 				<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 				<th width="10%"><?php echo JText::_('JSTATUS'); ?></th>
-				<th width="10%" class="hidden-phone"><?php echo JText::_('JCATEGORY'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_OPENED'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_CLOSED'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_LAST_MODIFIED'); ?></th>
@@ -132,9 +131,6 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 				</td>
 				<td>
 					<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
-				</td>
-				<td class="hidden-phone">
-					<?php echo $item->category ? : 'N/A'; ?>
 				</td>
 				<td class="nowrap small hidden-phone">
 					<?php echo JHtml::_('date', $item->opened, 'DATE_FORMAT_LC4'); ?>
