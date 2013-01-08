@@ -38,6 +38,7 @@ class TrackerControllerSave extends JControllerTracker
 		$data    = $this->input->post->get('jform', array(), 'array');
 		$checkin = property_exists($table, 'checked_out');
 		$context = $this->option . '.edit.' . $model->getName();
+        $user = Jfactory::getUser()->id;
 
 		// Determine the name of the primary key for the data.
 		$key = $table->getKeyName();
@@ -53,6 +54,7 @@ class TrackerControllerSave extends JControllerTracker
 
 		// Populate the row id from the session.
 		$data[$key] = $recordId;
+        $data['modified_by'] = $user;
 
 		// Get the fields data from the request and merge it to our data array
 		//$data['fields'] = $this->input->post->get('fields', array(), 'array');
