@@ -56,9 +56,7 @@ class TrackerViewAddHtml extends JViewHtml
 			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
 		);
 
-		// @todo Before adding a new issue we need the project id !
-		$this->project = new stdClass;
-		$this->project->id = 1;
+		$this->project = $this->model->getProject();
 
 		return parent::render();
 	}

@@ -23,10 +23,15 @@ JHtml::_('formbehavior.chosen', 'select');
 
 $filterStatus = $this->state->get('filter.status');
 
-$fields = new JRegistry(JFactory::getApplication()->input->get('fields', array(), 'array'));
-
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
+	<?php if (!$this->project) : ?>
+	<div class="btn-group pull-left">
+		<h2>Please select a project</h2>
+		<?= JHtmlProjects::select(0, '', 'onchange="document.adminForm.submit();"') ?>
+	</div>
+	<?php else : ?>
+
 	<div class="filters btn-toolbar clearfix">
 		<div class="filter-search btn-group pull-left input-append">
 			<label class="filter-search-lbl element-invisible" for="filter-search"><?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?></label>
@@ -38,7 +43,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		</div>
 		<div class="btn-group pull-left">
 			<?php // @todo: project selector ?>
-			<?php echo JHtmlCustomfields::select('', null, 'filter-project', (int) $this->state->get('filter.project'), JText::_('Filter by Project'), 'onchange="document.adminForm.submit();'); ?>
+			<?= JHtmlProjects::select((int) $this->state->get('filter.project'), JText::_('Filter by Project'), 'onchange="document.adminForm.submit();"') ?>
 		</div>
 		<div class="btn-group pull-right">
 			<label for="status" class="element-invisible"><?php echo JText::_('COM_TRACKER_FILTER_STATUS'); ?></label>
@@ -97,7 +102,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 					<div class="small">
 						<?php if ($item->gh_id) : ?>
 						<?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?>
-						<a href="https://github.com/joomla/joomla-cms/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
+						<a href="https://github.com/<?= $this->project->gh_user . '/' . $this->project->gh_project ?>/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
 							<?php echo (int) $item->gh_id; ?>
 						</a>
 						<?php endif; ?>
@@ -151,5 +156,6 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		</tbody>
 	</table>
 	<?php echo $this->pagination->getListFooter(); ?>
+	<?php endif; ?>
 	<input type="hidden" name="task" />
 </form>

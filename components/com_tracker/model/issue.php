@@ -132,6 +132,10 @@ class TrackerModelIssue extends JModelTrackerForm
 		$query->select('s.status AS status_title, s.closed AS closed');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
+		// Get the project title
+		$query->select('p.title AS project_title');
+		$query->join('LEFT', '#__tracker_projects AS p ON a.project_id = p.project_id');
+
 		try
 		{
 			$db->setQuery($query);

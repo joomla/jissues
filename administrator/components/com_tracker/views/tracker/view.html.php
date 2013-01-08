@@ -51,12 +51,7 @@ class TrackerViewTracker extends JViewLegacy
 		$this->project = new stdClass;
 		$this->project->id = 0;
 
-		$data = $this->input->post->get('jform', array(), 'array');
-
-		if (isset($data['fields']['selects'][0]))
-		{
-			$this->project->id = (int) $data['fields']['selects'][0];
-		}
+		$this->project->id = $this->input->post->getUint('project_id');
 
 		$this->lists = new JRegistry;
 
