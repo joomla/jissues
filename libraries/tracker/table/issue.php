@@ -281,22 +281,46 @@ class JTableIssue extends JTable
 	 */
 	private function _cleanFields(array $fields)
 	{
-		// Selects are ints.
-		JArrayHelper::toInteger($fields['selects']);
-
-		// Textfields are strings.
 		$filter = JFilterInput::getInstance();
 
-		// Funny ? JArrayHelper::toString($fields['textfields']);
+		// Selects are integers.
 		foreach (array_keys($fields['textfields']) as $key)
 		{
-			$fields['textfields'][$key] = $filter->clean($fields['textfields'][$key]);
+			if (!$fields['textfields'][$key])
+			{
+				unset($fields['textfields'][$key]);
+			}
+			else
+			{
+				$fields['textfields'][$key] = (int) $fields['textfields'][$key];
+			}
 		}
 
-		// Checkboxes are selected if thay are present.
+
+		// Textfields are strings.
+		foreach (array_keys($fields['textfields']) as $key)
+		{
+			if (!$fields['textfields'][$key])
+			{
+				unset($fields['textfields'][$key]);
+			}
+			else
+			{
+				$fields['textfields'][$key] = $filter->clean($fields['textfields'][$key]);
+			}
+		}
+
+		// Checkboxes are selected if they are present.
 		foreach (array_keys($fields['checkboxes']) as $key)
 		{
-			$fields['checkboxes'][$key] = 1;
+			if (!$fields['textfields'][$key])
+			{
+				unset($fields['textfields'][$key]);
+			}
+			else
+			{
+				$fields['textfields'][$key] = 1;
+			}
 		}
 
 		return $fields;
