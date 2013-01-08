@@ -21,7 +21,8 @@ $priorityOptions['size'] = '5';
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="container-fluid">
-		<h3><?php echo JText::_('Edit Item') . ' [#' . $this->item->id . ']'; ?></h3>
+		<h3><?php echo sprintf('%1$s: [#%2$d] %3$s', $this->item->project_title, $this->item->id, $this->item->title); ?></h3>
+
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="input-prepend">

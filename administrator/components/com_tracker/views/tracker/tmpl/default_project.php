@@ -16,16 +16,6 @@ $buttonStyles = array('class' => 'btn btn-small btn-success');
 
 <div class="row">
 	<div class="span4">
-		<h2>Categories</h2>
-		<?= JHtml::link($baseLinkAdd . '.categories', 'Add a Category', $buttonStyles) ?>
-		<div class="well well-small">
-			<?= JHtmlCustomfields::getItems('categories', $this->project->id) ? JHtmlProjects::listing('categories', $this->project->id) : 'Use global' ?>
-		</div>
-
-	</div>
-</div>
-<div class="row">
-	<div class="span4">
 		<h2>Textfields</h2>
 		<?= JHtml::link($baseLinkAdd . '.textfields', 'Add a Textfield', $buttonStyles) ?>
 		<div class="well well-small">
@@ -37,7 +27,7 @@ $buttonStyles = array('class' => 'btn btn-small btn-success');
 		<h2>Selectlists</h2>
 		<?= JHtml::link($baseLinkAdd . '.fields', 'Add a Selectlist', $buttonStyles) ?>
 		<div class="well well-small">
-			<?= JHtmlCustomfields::getItems('fields', $this->project->id) ? JHtmlProjects::listing('fields', $this->project->id) : 'Use global' ?>
+			<?= JHtmlCustomfields::getItems('fields', $this->project->id) ? JHtmlProjects::listing('fields', $this->project->id, true) : 'Use global' ?>
 		</div>
 
 	</div>

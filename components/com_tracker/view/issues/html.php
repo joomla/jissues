@@ -43,6 +43,11 @@ class TrackerViewIssuesHtml extends JViewHtml
 	protected $pagination;
 
 	/**
+	 * @var stdClass
+	 */
+	protected $project;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -52,11 +57,10 @@ class TrackerViewIssuesHtml extends JViewHtml
 	 */
 	public function render()
 	{
-		$app = JFactory::getApplication();
-
 		$this->items      = $this->model->getItems();
 		$this->pagination = $this->model->getPagination();
 		$this->state      = $this->model->getState();
+		$this->project    = $this->model->getProject();
 
 		// Build the toolbar
 		$this->buildToolbar();
@@ -79,10 +83,13 @@ class TrackerViewIssuesHtml extends JViewHtml
 		// Instantiate the JToolbar object
 		$toolbar = JToolbar::getInstance('toolbar');
 
-		// Add a button to submit a new item.
-		if ($user->authorise('core.create', 'com_tracker'))
+		if ($this->project)
 		{
-			$toolbar->appendButton('Standard', 'new', 'COM_TRACKER_TOOLBAR_ADD', 'add', false);
+			// Add a button to submit a new item.
+			if ($user->authorise('core.create', 'com_tracker'))
+			{
+				$toolbar->appendButton('Standard', 'new', 'COM_TRACKER_TOOLBAR_ADD', 'add', false);
+			}
 		}
 	}
 }

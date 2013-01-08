@@ -44,10 +44,12 @@ Example:
 ?>
 <h1>Add a new Issue</h1>
 
+<h2><?= $this->project->title ?></h2>
+
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form form-horizontal">
 
 	<!-- @todo project id selector or value ? -->
-	<input type="hidden" name="project_id" value="<?= $this->project->id ?>">
+	<input type="hidden" name="jform[project_id]" value="<?= $this->project->project_id ?>">
 
 	<h3>1) Summary</h3>
 
@@ -67,12 +69,12 @@ Example:
         <div class="span6">
 
 	        <!-- Select lists ! -->
-			<?php foreach (JHtmlCustomfields::items('fields', $this->project->id) as $field) : ?>
+			<?php foreach (JHtmlCustomfields::items('fields', $this->project->project_id) as $field) : ?>
             <div class="control-group">
                 <label class="control-label" for="select-<?=$field->id?>"><?= $field->title ?></label>
 
                 <div class="controls">
-					<?= JHtmlCustomfields::select('fields.' . $field->id, $this->project->id, $field->id) ?>
+					<?= JHtmlCustomfields::select('fields.' . $field->id, $this->project->project_id, $field->id) ?>
                 </div>
             </div>
 			<?php endforeach; ?>
@@ -81,7 +83,7 @@ Example:
 
         <div class="span6">
 
-			<?php foreach (JHtmlCustomfields::items('textfields', $this->project->id) as $field) : ?>
+			<?php foreach (JHtmlCustomfields::items('textfields', $this->project->project_id) as $field) : ?>
             <div class="control-group">
                 <label class="control-label" for="txt-<?=$field->id?>"><?= $field->title ?></label>
 
@@ -91,7 +93,7 @@ Example:
             </div>
 			<?php endforeach; ?>
 
-	        <?php foreach (JHtmlCustomfields::items('checkboxes', $this->project->id) as $field) : ?>
+	        <?php foreach (JHtmlCustomfields::items('checkboxes', $this->project->project_id) as $field) : ?>
             <div class="control-group">
                 <label class="control-label" for="chk-<?=$field->id?>"><?= $field->title ?></label>
 

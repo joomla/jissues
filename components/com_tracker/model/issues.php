@@ -112,11 +112,20 @@ class TrackerModelIssues extends JModelTrackerList
 	protected function loadState()
 	{
 		$this->state = new JRegistry;
+		$session = JFactory::getSession();
 
-		$app = JFactory::getApplication();
 		$input = JFactory::getApplication()->input;
 
-		$this->state->set('filter.project', $input->getUint('filter-project'));
+		$projectId = $input->getUint('project_id');
+
+		if(!$projectId)
+		{
+			$projectId = $session->get('tracker.project_id');
+		}
+
+		$session->set('tracker.project_id', $projectId);
+
+		$this->state->set('filter.project', $projectId);
 
 		$this->state->set('list.ordering', $input->get('filter_order', 'a.id'));
 
@@ -136,5 +145,33 @@ class TrackerModelIssues extends JModelTrackerList
 
 		// List state information.
 		parent::loadState();
+	}
+
+	/**
+	 * Get a project by its id.
+	 *
+	 * @todo move to its own model.
+	 *
+	 * @return mixed|null
+	 */
+	public function getProject()
+	{
+		$id = JFactory::getApplication()->input->getUint('project_id', $this->state->get('filter.project'));
+
+		if (!$id)
+		{
+			return null;
+		}
+
+		$db = JFactory::getDbo();
+
+		$project = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->from('#__tracker_projects')
+				->select('*')
+				->where($db->qn('project_id') . '=' . (int) $id)
+		)->loadObject();
+
+		return $project;
 	}
 }

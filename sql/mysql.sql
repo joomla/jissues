@@ -80,6 +80,28 @@ CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `#__tracker_projects`
+--
+
+CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
+  `project_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `alias` varchar(150) NOT NULL,
+  `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
+  `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
+  `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
+  PRIMARY KEY (`project_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
+
+--
+-- Dumping data `#__tracker_projects`
+--
+
+INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`, `ext_tracker_link`) VALUES
+(1, 'Joomla! CMS 3 issues', 'joomla-cms-3-issues', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d'),
+(2, 'J!Tracker Bugs', 'jtracker-bugs', 'JTracker', 'jissues', '');
+
+--
 -- Table structure for table `#__categories`
 --
 

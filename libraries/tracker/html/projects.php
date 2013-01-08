@@ -19,6 +19,85 @@ defined('JPATH_PLATFORM') or die;
 abstract class JHtmlProjects
 {
 	/**
+	 * Get a project selector.
+	 *
+	 * @param   string  $selected  The selected entry.
+	 * @param   string  $toolTip   The text for the tooltip.
+	 * @param   string  $js        Javascript.
+	 *
+	 * @return string
+	 */
+	public static function select($selected = '', $toolTip = '', $js = '')
+	{
+		$projects = self::projects();
+
+		if (!$projects)
+		{
+			return '';
+		}
+
+		$options = array();
+		$html    = array();
+
+		$options[] = JHtmlSelect::option('', JText::_('Select a Project'));
+
+		foreach ($projects as $project)
+		{
+			$options[] = JHtmlSelect::option($project->project_id, $project->title);
+		}
+
+		$input = JHtmlSelect::genericlist($options, 'project_id', $js, 'value', 'text', $selected, 'select-project');
+
+		if ($toolTip)
+		{
+			$html[] = '<div class="input-append">';
+			$html[] = $input;
+			$html[] = '<span class="add-on hasTooltip" data-placement="right" style="cursor: help;" title="'
+				. htmlspecialchars($toolTip, ENT_COMPAT, 'UTF-8') . '">?</span>';
+			$html[] = '</div>';
+		}
+		else
+		{
+			$html[] = $input;
+		}
+
+		return implode("\n", $html);
+	}
+
+	/**
+	 * Get the defined projects.
+	 *
+	 * @todo move to a model.
+	 *
+	 * @return array
+	 */
+	public static function projects()
+	{
+		static $projects = null;
+
+		if ($projects)
+		{
+			return $projects;
+		}
+
+		$db = JFactory::getDbo();
+
+		$projects = $db->setQuery(
+			$db->getQuery(true)
+				->from('#__tracker_projects')
+				->select('*')
+		)->loadObjectList();
+
+		if(false == is_array($projects))
+		{
+			$projects = array();
+		}
+
+		return $projects;
+	}
+
+
+	/**
 	 * Returns a HTML list of categories for the given extension.
 	 *
 	 * @param   string   $section    The extension option.
