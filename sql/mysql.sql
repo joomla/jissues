@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` varchar(255) NULL DEFAULT NULL, 
   `patch_url` varchar(255) NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
