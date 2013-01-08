@@ -81,7 +81,7 @@ class JTableIssue extends JTable
 		}
 		elseif ($src instanceof JInput)
 		{
-			$data = new stdClass;
+			$data     = new stdClass;
 			$data->id = $src->get('id');
 
 			$this->fieldValues = $this->_cleanFields($src->get('fields', array(), 'array'));
@@ -157,21 +157,24 @@ class JTableIssue extends JTable
 	 */
 	public function check()
 	{
+		$app = JFactory::getApplication();
+		$valid = true;
+
 		if (trim($this->title) == '')
 		{
-			$this->setError('A title is required.');
+			$app->enqueueMessage('A title is required.', 'error');
 
-			return false;
+			$valid = false;
 		}
 
 		if (trim($this->description) == '')
 		{
-			$this->setError('A description is required.');
+			$app->enqueueMessage('A description is required.', 'error');
 
-			return false;
+			$valid =  false;
 		}
 
-		return true;
+		return $valid;
 	}
 
 	/**

@@ -72,7 +72,15 @@ class TrackerControllerSave extends JControllerTracker
 
 			// Redirect back to the edit screen.
 			$app->enqueueMessage($e->getMessage(), 'error');
-			$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
+
+			if($recordId)
+			{
+				$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
+			}
+			else
+			{
+				$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=add', false));
+			}
 		}
 
 		// Save succeeded, so check-in the record.
