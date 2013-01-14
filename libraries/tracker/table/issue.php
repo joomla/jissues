@@ -287,15 +287,15 @@ class JTableIssue extends JTable
 		$filter = JFilterInput::getInstance();
 
 		// Selects are integers.
-		foreach (array_keys($fields['textfields']) as $key)
+		foreach (array_keys($fields['selects']) as $key)
 		{
-			if (!$fields['textfields'][$key])
+			if (!$fields['selects'][$key])
 			{
-				unset($fields['textfields'][$key]);
+				unset($fields['selects'][$key]);
 			}
 			else
 			{
-				$fields['textfields'][$key] = (int) $fields['textfields'][$key];
+				$fields['selects'][$key] = (int) $fields['selects'][$key];
 			}
 		}
 
@@ -316,13 +316,13 @@ class JTableIssue extends JTable
 		// Checkboxes are selected if they are present.
 		foreach (array_keys($fields['checkboxes']) as $key)
 		{
-			if (!$fields['textfields'][$key])
+			if (!$fields['checkboxes'][$key])
 			{
-				unset($fields['textfields'][$key]);
+				unset($fields['checkboxes'][$key]);
 			}
 			else
 			{
-				$fields['textfields'][$key] = 1;
+				$fields['checkboxes'][$key] = 1;
 			}
 		}
 
