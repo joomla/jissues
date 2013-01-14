@@ -54,7 +54,7 @@ class TrackerControllerSave extends JControllerTracker
 
 		// Populate the row id from the session.
 		$data[$key] = $recordId;
-        $data['modified_by'] = $user;
+        $table->save(array('modified_by' => $user));
 
 		// Get the fields data from the request and merge it to our data array
 		//$data['fields'] = $this->input->post->get('fields', array(), 'array');
