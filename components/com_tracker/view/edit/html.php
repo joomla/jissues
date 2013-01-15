@@ -50,7 +50,17 @@ class TrackerViewEditHtml extends JViewHtml
 	 */
 	protected $fieldsData;
 
+	/**
+	 * @var stdClass
+	 * @since  1.0
+	 */
 	protected $item;
+
+	/**
+	 * @var JTrackerProject
+	 * @since  1.0
+	 */
+	protected $project;
 
 	/**
 	 * Method to render the view.
@@ -69,6 +79,8 @@ class TrackerViewEditHtml extends JViewHtml
 		{
 			throw new RuntimeException('Invalid item');
 		}
+
+		$this->project = new JTrackerProject($this->item->project_id);
 
 		$this->fieldsData = $this->model->getFieldsData($id);
 

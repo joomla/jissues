@@ -21,7 +21,7 @@ $priorityOptions['size'] = '5';
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="container-fluid">
-		<h3><?php echo sprintf('%1$s: [#%2$d] %3$s', $this->item->project_title, $this->item->id, $this->item->title); ?></h3>
+		<h3><?php echo sprintf('%1$s: [#%2$d] %3$s', $this->project->title, $this->item->id, $this->item->title); ?></h3>
 
 		<div class="row-fluid">
 			<div class="span12">
@@ -46,6 +46,10 @@ $priorityOptions['size'] = '5';
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?></th>
 						<td><input type="text" name="jform[jc_id]" id="jform_jc_id" class="input-small" value="<?php echo htmlspecialchars($this->item->jc_id, ENT_COMPAT, 'UTF-8'); ?>" maxlength="5"></td>
+					</tr>
+					<tr>
+						<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_CLOSED_SHA'); ?></th>
+						<td><input type="text" name="jform[closed_sha]" id="jform_closed_sha" class="input-small" value="<?php echo htmlspecialchars($this->item->closed_sha, ENT_COMPAT, 'UTF-8'); ?>" maxlength="40"></td>
 					</tr>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>

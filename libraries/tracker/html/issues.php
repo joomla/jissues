@@ -18,6 +18,15 @@ defined('JPATH_PLATFORM') or die;
  */
 class JHtmlIssues
 {
+	/**
+	 * Display a link to an issue.
+	 *
+	 * @param   integer  $id      The issue id.
+	 * @param   boolean  $closed  True if the issue is closed
+	 * @param   string   $text    The text to display
+	 *
+	 * @return string
+	 */
 	public static function link($id, $closed = false, $text = '')
 	{
 		$text = ($text) ? : ' #' . $id;
@@ -25,5 +34,21 @@ class JHtmlIssues
 		$link = JHtml::link(JRoute::_('index.php?option=com_tracker&view=issue&id=' . $id), $text);
 
 		return ($closed) ? '<del>' . $link . '</del>' : $link;
+	}
+
+	/**
+	 * Display a link to a commit on GitHub.
+	 *
+	 * @param   JTrackerProject  $project  The project.
+	 * @param   string           $sha      The commit SHA.
+	 *
+	 * @return string
+	 */
+	public static function commit(JTrackerProject $project, $sha)
+	{
+		return JHtml::link(
+			'https://github.com/' . $project->gh_user . '/' . $project->gh_project . '/commit/' . $sha,
+			substr($sha, 0, 10)
+		);
 	}
 }
