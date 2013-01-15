@@ -46,10 +46,17 @@ class TrackerViewIssueHtml extends JViewHtml
 	{
 		$app = JFactory::getApplication();
 
-		$id = $app->input->getInt('id', 1);
-		$this->item     = $this->model->getItem($id);
-		$this->comments = $this->model->getComments($id);
-		$this->fieldsData   = $this->model->getFieldsData($id);
+		$id         = $app->input->getInt('id', 1);
+		$this->item = $this->model->getItem($id);
+
+		if (!$this->item)
+		{
+			// We expect an error message in the message queue..
+			return '';
+		}
+
+		$this->comments   = $this->model->getComments($id);
+		$this->fieldsData = $this->model->getFieldsData($id);
 
 		// Build the toolbar
 		$this->buildToolbar();

@@ -45,6 +45,8 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
+  `rel_id` integer unsigned DEFAULT NULL,
+  `rel_type` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)

@@ -42,7 +42,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	 */
 	public function getComments($id)
 	{
-		$db = $this->getDb();
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
 		$query->select('*');
@@ -57,6 +57,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
 			return array();
 		}
 
@@ -96,6 +97,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
 			return array();
 		}
 
@@ -121,26 +123,72 @@ class TrackerModelIssue extends JModelTrackerForm
 	 */
 	public function getItem($id)
 	{
-		$db = $this->getDb();
-		$query = $db->getQuery(true);
-
-		$query->select('a.*');
-		$query->from($db->quoteName('#__issues', 'a'));
-		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
-
-		// Join over the status table
-		$query->select('s.status AS status_title, s.closed AS closed');
-		$query->join('LEFT', '#__status AS s ON a.status = s.id');
-
-		// Get the project title
-		$query->select('p.title AS project_title');
-		$query->join('LEFT', '#__tracker_projects AS p ON a.project_id = p.project_id');
-
 		try
 		{
+			$db    = $this->getDb();
+			$query = $db->getQuery(true);
+
+			$query->select('a.*');
+			$query->from($db->quoteName('#__issues', 'a'));
+			$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
+
+			// Join over the status table
+			$query->select('s.status AS status_title, s.closed AS closed');
+			$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+			// Get the project title
+			$query->select('p.title AS project_title');
+			$query->join('LEFT', '#__tracker_projects AS p ON a.project_id = p.project_id');
+
+			// Get the relation information
+			$query->select('a1.title AS rel_title, a1.status AS rel_status');
+			$query->join('LEFT', '#__issues AS a1 ON a.rel_id = a1.id');
+
+			// Join over the status table
+			$query->select('s1.closed AS rel_closed');
+			$query->join('LEFT', '#__status AS s1 ON a1.status = s1.id');
+
+			// Join over the status table
+			$query->select('t.name AS rel_name');
+			$query->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id');
+
 			$db->setQuery($query);
 
-			return $db->loadObject();
+			$item = $db->loadObject();
+
+			$item->relations_f = ($item)
+				? $db->setQuery(
+					$db->getQuery(true)
+						->from($db->qn('#__issues', 'a'))
+						->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
+						->join('LEFT', '#__status AS s ON a.status = s.id')
+						->select('a.id, a.title, a.rel_type')
+						->select('t.name AS rel_name')
+						->select('s.status AS status_title, s.closed AS closed')
+						->where($db->quoteName('a.rel_id') . '=' . (int) $item->id)
+						->order(array('a.id', 'a.rel_type'))
+				)->loadObjectList()
+				: array();
+
+			if ($item->relations_f)
+			{
+				$arr = array();
+
+				foreach ($item->relations_f as $relation)
+				{
+					if (false == isset($arr[$relation->rel_name]))
+					{
+
+						$arr[$relation->rel_name] = array();
+					}
+
+					$arr[$relation->rel_name][] = $relation;
+				}
+
+				$item->relations_f = $arr;
+			}
+
+			return $item;
 		}
 		catch (RuntimeException $e)
 		{
@@ -163,8 +211,8 @@ class TrackerModelIssue extends JModelTrackerForm
 	public function save($data)
 	{
 		$table = $this->getTable('Issue');
-		$key = $table->getKeyName();
-		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->state->get($this->getName() . '.id');
+		$key   = $table->getKeyName();
+		$pk    = (!empty($data[$key])) ? $data[$key] : (int) $this->state->get($this->getName() . '.id');
 		$isNew = true;
 
 		// Load the row if saving an existing record.
