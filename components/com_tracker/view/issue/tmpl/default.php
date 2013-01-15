@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm"
       id="adminForm">
 	<div class="container-fluid">
-		<h3><?php echo sprintf('%1$s: [#%2$d] %3$s', $this->item->project_title, $this->item->id, $this->item->title); ?></h3>
+		<h3><?php echo sprintf('%1$s: [#%2$d] %3$s', $this->project->title, $this->item->id, $this->item->title); ?></h3>
 
 		<div class="row-fluid">
 			<div class="span5">
@@ -44,10 +44,16 @@ defined('_JEXEC') or die;
 						<th><?php echo JText::_('JSTATUS'); ?></th>
 						<td><?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($this->item->status_title)); ?></td>
 					</tr>
+					<?php if ($this->item->closed_sha) : ?>
+						<tr>
+							<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_CLOSED_SHA'); ?></th>
+							<td><?php echo JHtmlIssues::commit($this->project, $this->item->closed_sha) ?></td>
+						</tr>
+					<?php endif; ?>
 					<?php if ($this->item->gh_id) : ?>
 						<tr>
 							<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?></th>
-							<td><a href="https://github.com/joomla/joomla-cms/issues/<?php echo $this->item->gh_id; ?>"
+							<td><a href="https://github.com/<?php echo $this->project->gh_user . '/' . $this->project->gh_project . '/issues/' . $this->item->gh_id; ?>"
 							       target="_blank"><?php echo $this->item->gh_id; ?></a></td>
 						</tr>
 					<?php endif; ?>

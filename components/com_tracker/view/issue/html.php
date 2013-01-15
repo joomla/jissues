@@ -35,6 +35,18 @@ class TrackerViewIssueHtml extends JViewHtml
 	protected $fieldsData = array();
 
 	/**
+	 * @var stdClass
+	 * @since  1.0
+	 */
+	protected $item;
+
+	/**
+	 * @var JTrackerProject
+	 * @since  1.0
+	 */
+	protected $project;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -54,6 +66,8 @@ class TrackerViewIssueHtml extends JViewHtml
 			// We expect an error message in the message queue..
 			return '';
 		}
+
+		$this->project = new JTrackerProject($this->item->project_id);
 
 		$this->comments   = $this->model->getComments($id);
 		$this->fieldsData = $this->model->getFieldsData($id);

@@ -136,10 +136,6 @@ class TrackerModelIssue extends JModelTrackerForm
 			$query->select('s.status AS status_title, s.closed AS closed');
 			$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
-			// Get the project title
-			$query->select('p.title AS project_title');
-			$query->join('LEFT', '#__tracker_projects AS p ON a.project_id = p.project_id');
-
 			// Get the relation information
 			$query->select('a1.title AS rel_title, a1.status AS rel_status');
 			$query->join('LEFT', '#__issues AS a1 ON a.rel_id = a1.id');
@@ -156,19 +152,24 @@ class TrackerModelIssue extends JModelTrackerForm
 
 			$item = $db->loadObject();
 
-			$item->relations_f = ($item)
-				? $db->setQuery(
-					$db->getQuery(true)
-						->from($db->qn('#__issues', 'a'))
-						->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
-						->join('LEFT', '#__status AS s ON a.status = s.id')
-						->select('a.id, a.title, a.rel_type')
-						->select('t.name AS rel_name')
-						->select('s.status AS status_title, s.closed AS closed')
-						->where($db->quoteName('a.rel_id') . '=' . (int) $item->id)
-						->order(array('a.id', 'a.rel_type'))
-				)->loadObjectList()
-				: array();
+			if (!$item)
+			{
+				JFactory::getApplication()->enqueueMessage('Invalid project', 'error');
+
+				return false;
+			}
+
+			$item->relations_f = $db->setQuery(
+				$db->getQuery(true)
+					->from($db->qn('#__issues', 'a'))
+					->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
+					->join('LEFT', '#__status AS s ON a.status = s.id')
+					->select('a.id, a.title, a.rel_type')
+					->select('t.name AS rel_name')
+					->select('s.status AS status_title, s.closed AS closed')
+					->where($db->quoteName('a.rel_id') . '=' . (int) $item->id)
+					->order(array('a.id', 'a.rel_type'))
+			)->loadObjectList();
 
 			if ($item->relations_f)
 			{
