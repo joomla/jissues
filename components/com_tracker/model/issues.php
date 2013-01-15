@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -45,10 +45,6 @@ class TrackerModelIssues extends JModelTrackerList
 		// Join over the status.
 		$query->select('s.status AS status_title, s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
-
-		// Join over the category
-		$query->select('c.title AS category');
-		$query->leftJoin('#__categories AS c ON a.catid = c.id');
 
 		$filter = $this->state->get('filter.project');
 
@@ -116,11 +112,20 @@ class TrackerModelIssues extends JModelTrackerList
 	protected function loadState()
 	{
 		$this->state = new JRegistry;
+		$session = JFactory::getSession();
 
-		$app = JFactory::getApplication();
 		$input = JFactory::getApplication()->input;
 
-		$this->state->set('filter.project', $input->getUint('filter-project'));
+		$projectId = $input->getUint('project_id');
+
+		if(!$projectId)
+		{
+			$projectId = $session->get('tracker.project_id');
+		}
+
+		$session->set('tracker.project_id', $projectId);
+
+		$this->state->set('filter.project', $projectId);
 
 		$this->state->set('list.ordering', $input->get('filter_order', 'a.id'));
 
@@ -140,5 +145,33 @@ class TrackerModelIssues extends JModelTrackerList
 
 		// List state information.
 		parent::loadState();
+	}
+
+	/**
+	 * Get a project by its id.
+	 *
+	 * @todo move to its own model.
+	 *
+	 * @return mixed|null
+	 */
+	public function getProject()
+	{
+		$id = JFactory::getApplication()->input->getUint('project_id', $this->state->get('filter.project'));
+
+		if (!$id)
+		{
+			return null;
+		}
+
+		$db = JFactory::getDbo();
+
+		$project = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->from('#__tracker_projects')
+				->select('*')
+				->where($db->qn('project_id') . '=' . (int) $id)
+		)->loadObject();
+
+		return $project;
 	}
 }

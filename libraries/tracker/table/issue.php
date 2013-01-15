@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  Table
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -18,6 +18,13 @@ defined('JPATH_PLATFORM') or die;
  */
 class JTableIssue extends JTable
 {
+	/**
+	 * Internal array of field values.
+	 *
+	 * @var array
+	 */
+	protected $fieldValues = array();
+
 	/**
 	 * Constructor
 	 *
@@ -41,8 +48,7 @@ class JTableIssue extends JTable
 	 */
 	protected function _getAssetName()
 	{
-		$k = $this->_tbl_key;
-		return 'com_tracker.issue.' . (int) $this->$k;
+		return 'com_tracker.issue.' . (int) $this->{$this->_tbl_key};
 	}
 
 	/**
@@ -63,28 +69,27 @@ class JTableIssue extends JTable
 	{
 		if (is_array($src))
 		{
+			if (isset($src['fields']))
+			{
+				// "Save" the field values and store them later.
+				$this->fieldValues = $this->_cleanFields($src['fields']);
+
+				unset($src['fields']);
+			}
+
 			return parent::bind($src, $ignore);
 		}
 		elseif ($src instanceof JInput)
 		{
-			$data = new stdClass;
+			$data     = new stdClass;
 			$data->id = $src->get('id');
-			$fields   = $src->get('fields', array(), 'array');
 
-			JArrayHelper::toInteger($fields);
-
-			if (isset($fields['catid']))
-			{
-				$data->catid = $fields['catid'];
-				unset($fields['catid']);
-			}
-
-			$this->fieldValues = $fields;
+			$this->fieldValues = $this->_cleanFields($src->get('fields', array(), 'array'));
 
 			return parent::bind($data, $ignore);
 		}
 
-		throw new InvalidArgumentException(sprintf('%s::bind(*%s*)', get_class($this), gettype($src)));
+		throw new InvalidArgumentException(sprintf('%1$s can not bind to %2$s', __METHOD__, gettype($src)));
 	}
 
 	/**
@@ -124,6 +129,7 @@ class JTableIssue extends JTable
 
 			// Get the asset id from the database.
 			$this->_db->setQuery($query);
+
 			if ($result = $this->_db->loadResult())
 			{
 				$assetId = (int) $result;
@@ -151,19 +157,24 @@ class JTableIssue extends JTable
 	 */
 	public function check()
 	{
+		$app = JFactory::getApplication();
+		$valid = true;
+
 		if (trim($this->title) == '')
 		{
-			$this->setError('A title is required.');
-			return false;
+			$app->enqueueMessage('A title is required.', 'error');
+
+			$valid = false;
 		}
 
 		if (trim($this->description) == '')
 		{
-			$this->setError('A description is required.');
-			return false;
+			$app->enqueueMessage('A description is required.', 'error');
+
+			$valid =  false;
 		}
 
-		return true;
+		return $valid;
 	}
 
 	/**
@@ -189,14 +200,14 @@ class JTableIssue extends JTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified = $date->toSql();
+			$this->modified = JFactory::getDate()->toSql();
 		}
 		else
 		{
 			// New item
 			if (!(int) $this->opened)
 			{
-				$this->opened = $date->toSql();
+				$this->opened = JFactory::getDate()->toSql();
 			}
 		}
 
@@ -234,52 +245,121 @@ class JTableIssue extends JTable
 
 		// If we don't have the extra fields, return here
 		if (!(isset($this->fieldValues)) || !$this->fieldValues)
+		if (!$this->fieldValues)
 		{
 			return true;
 		}
 
-		$db = $this->getDbo();
-		$query = $db->getQuery(true);
+		// Store the extra fields.
+		$db = $this->_db;
+
+		$issueId = ($this->id)
+			// Existing issue
+			? $this->id
+			// New issue - ugly..
+			: $this->_db->setQuery(
+				$this->_db->getQuery(true)
+					->from($this->_tbl)
+					->select('MAX(' . $this->_tbl_key . ')')
+			)->loadResult();
 
 		// Check the tracker table to see if the extra fields are already present
-		$query->select('fv.field_id');
-		$query->from('#__tracker_fields_values AS fv');
-		$query->where($db->qn('fv.issue_id') . '=' . (int) $this->id);
 
-		$db->setQuery($query);
-		$ids = $db->loadColumn();
+		$ids = $db->setQuery($db->getQuery(true)
+				->select('fv.field_id')
+				->from('#__tracker_fields_values AS fv')
+				->where($db->qn('fv.issue_id') . '=' . (int) $issueId)
+		)->loadColumn();
 
-		$queryInsert = $db->getQuery(true);
-		$queryInsert->insert($this->_db->qn('#__tracker_fields_values'));
-		$queryInsert->columns('issue_id, field_id, value');
+		$queryInsert = $db->getQuery(true)
+			->insert($db->qn('#__tracker_fields_values'))
+			->columns('issue_id, field_id, value');
 
-		$queryUpdate = $db->getQuery(true);
-		$queryUpdate->update($this->_db->qn('#__tracker_fields_values'));
+		$queryUpdate = $db->getQuery(true)
+			->update($db->qn('#__tracker_fields_values'));
 
-		foreach ($this->fieldValues as $k => $v)
+		foreach ($this->fieldValues as $fields)
 		{
-			if (in_array($k, $ids))
+			foreach ($fields as $k => $v)
 			{
-				$queryUpdate->clear('set')->clear('where');
-				$queryUpdate->set($db->qn('value') . '=' . (int) $v);
-				$queryUpdate->where($db->qn('issue_id') . '=' . (int) $this->id);
-				$queryUpdate->where($db->qn('field_id') . '=' . (int) $k);
-
-				// Update item
-				$db->setQuery($query);
-				$db->execute();
-			}
-			else
-			{
-				$queryInsert->clear('values');
-				$queryInsert->values(implode(', ', array((int) $this->id, (int) $k, (int) $v)));
-
-				// New item
-				$db->setQuery($query);
-				$db->execute();
+				if (in_array($k, $ids))
+				{
+					// Update item
+					$db->setQuery($queryUpdate->clear('set')->clear('where')
+						->set($db->qn('value') . '=' . $db->q($v))
+						->where($db->qn('issue_id') . '=' . (int) $issueId)
+						->where($db->qn('field_id') . '=' . (int) $k))
+						->execute();
+				}
+				else
+				{
+					// New item
+					$db->setQuery($queryInsert->clear('values')
+						->values(implode(', ', array(
+							(int) $issueId,
+							(int) $k,
+							$db->q($v)
+						))))
+						->execute();
+				}
 			}
 		}
 
 		return true;
 	}
+
+	/**
+	 * Clean the field values.
+	 *
+	 * @param   array  $fields  The field array.
+	 *
+	 * @return array
+	 */
+	private function _cleanFields(array $fields)
+	{
+		$filter = JFilterInput::getInstance();
+
+		// Selects are integers.
+		foreach (array_keys($fields['selects']) as $key)
+		{
+			if (!$fields['selects'][$key])
+			{
+				unset($fields['selects'][$key]);
+			}
+			else
+			{
+				$fields['selects'][$key] = (int) $fields['selects'][$key];
+			}
+		}
+
+
+		// Textfields are strings.
+		foreach (array_keys($fields['textfields']) as $key)
+		{
+			if (!$fields['textfields'][$key])
+			{
+				unset($fields['textfields'][$key]);
+			}
+			else
+			{
+				$fields['textfields'][$key] = $filter->clean($fields['textfields'][$key]);
+			}
+		}
+
+		// Checkboxes are selected if they are present.
+		foreach (array_keys($fields['checkboxes']) as $key)
+		{
+			if (!$fields['checkboxes'][$key])
+			{
+				unset($fields['checkboxes'][$key]);
+			}
+			else
+			{
+				$fields['checkboxes'][$key] = 1;
+			}
+		}
+
+		return $fields;
+	}
+
 }

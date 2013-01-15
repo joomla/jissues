@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -48,18 +48,19 @@ class TrackerViewTracker extends JViewLegacy
 	{
 		$this->input = JFactory::getApplication()->input;
 
-		$this->fields = new JRegistry($this->input->get('fields', array(), 'array'));
+		$this->project = new stdClass;
+		$this->project->id = 0;
 
-		$this->project = $this->fields->get('project');
+		$this->project->id = $this->input->post->getUint('project_id');
 
 		$this->lists = new JRegistry;
 
-		if ($this->project)
+		if ($this->project->id)
 		{
-			$this->lists->set('categories', JHtmlProjects::listing('com_tracker.' . $this->project . '.categories'));
-			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project . '.textfields'));
-			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project . '.fields'));
-			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project . '.checkboxes'));
+			$this->lists->set('categories', JHtmlProjects::listing('categories', 0, 'com_tracker.' . $this->project->id . '.categories'));
+			$this->lists->set('textfields', JHtmlProjects::listing('com_tracker.' . $this->project->id . '.textfields'));
+			$this->lists->set('fields', JHtmlProjects::listing('com_tracker.' . $this->project->id . '.fields'));
+			$this->lists->set('checkboxes', JHtmlProjects::listing('com_tracker.' . $this->project->id . '.checkboxes'));
 		}
 
 		parent::display($tpl);
