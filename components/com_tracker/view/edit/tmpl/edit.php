@@ -76,6 +76,12 @@ $priorityOptions['size'] = '5';
 						</tr>
 					<?php endif; ?>
 
+					<tr>
+						<td colspan="2">
+							<?= JHtmlRelations::input($this->item->rel_type, $this->item->rel_id) ?>
+						</td>
+					</tr>
+
 					<!-- select lists -->
 					<?php foreach (JHtmlCustomfields::items('fields', $this->item->project_id) as $field) : ?>
 						<tr>

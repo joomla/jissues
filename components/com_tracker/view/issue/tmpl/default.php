@@ -19,6 +19,25 @@ defined('_JEXEC') or die;
 
 		<div class="row-fluid">
 			<div class="span5">
+				<?php if ($this->item->rel_id) : ?>
+					<div class="alert">
+						<?php echo JText::_('COM_TRACKER_RELTYPE_' . $this->item->rel_name) ?>
+						<?php echo JHtmlIssues::link($this->item->rel_id, $this->item->rel_closed) ?>
+					</div>
+				<?php endif; ?>
+
+				<?php if ($this->item->relations_f) : ?>
+					<div class="well well-small">
+						<h5><?php echo JText::_('COM_TRACKER_LABEL_REFERENCES'); ?></h5>
+						<?php foreach ($this->item->relations_f as $rel_name => $relations) : ?>
+						<strong><?php echo JText::_('COM_TRACKER_RELTYPE_AS_' . $rel_name) ?></strong>
+							<?php foreach ($relations as $relation) : ?>
+								<?php echo JHtmlIssues::link($relation->id, $relation->closed) ?>
+							<?php endforeach; ?>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+
 				<h4><?php echo JText::_('COM_TRACKER_LABEL_ISSUE_INFO'); ?></h4>
 				<table class="table">
 					<tr>
