@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -32,7 +32,6 @@ class TrackerControllerSave extends JControllerTracker
 
 		/* @var JApplicationSite $app */
 		$app     = $this->getApplication();
-		$lang    = JFactory::getLanguage();
 		$model   = new TrackerModelIssue;
 		$table   = $model->getTable('Issue');
 		$data    = $this->input->post->get('jform', array(), 'array');
@@ -54,9 +53,6 @@ class TrackerControllerSave extends JControllerTracker
 		// Populate the row id from the session.
 		$data[$key] = $recordId;
 
-		// Get the fields data from the request and merge it to our data array
-		//$data['fields'] = $this->input->post->get('fields', array(), 'array');
-
 		// Access check.
 		if (!$this->allowSave($data, $key))
 		{
@@ -76,7 +72,15 @@ class TrackerControllerSave extends JControllerTracker
 
 			// Redirect back to the edit screen.
 			$app->enqueueMessage($e->getMessage(), 'error');
-			$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
+
+			if($recordId)
+			{
+				$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=edit' . $this->getRedirectToItemAppend($recordId, $key), false));
+			}
+			else
+			{
+				$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=add', false));
+			}
 		}
 
 		// Save succeeded, so check-in the record.

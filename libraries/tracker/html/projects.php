@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  HTML
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -19,55 +19,101 @@ defined('JPATH_PLATFORM') or die;
 abstract class JHtmlProjects
 {
 	/**
-	 * Get a select list.
+	 * Get a project selector.
 	 *
-	 * @param   string  $section   The section
-	 * @param   string  $name      Name for the control
-	 * @param   string  $selected  The selected field
-	 * @param   string  $title     Title to show
-	 * @param   string  $js        Javascript
+	 * @param   string  $selected  The selected entry.
+	 * @param   string  $toolTip   The text for the tooltip.
+	 * @param   string  $js        Javascript.
 	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
+	 * @return string
 	 */
-	public static function select($section, $name, $selected = '', $title = '', $js = 'onchange="document.adminForm.submit();"')
+	public static function select($selected = '', $toolTip = '', $js = '')
 	{
-		$title = $title ? : JText::_('Select an Option');
+		$projects = self::projects();
 
-		$options = JHtmlCategory::options($section);
-
-		if ( ! $options)
+		if (!$projects)
 		{
 			return '';
 		}
 
-		$options = array_merge(array(JHtmlSelect::option('', $title)), $options);
+		$options = array();
+		$html    = array();
 
-		return JHtmlSelect::genericlist(
-	//		'select.genericlist',
-			$options,
-			$name,
-			$js,
-			'value', 'text', // Hate it..
-			$selected, 'select-'.$name
-		);
+		$options[] = JHtmlSelect::option('', JText::_('Select a Project'));
+
+		foreach ($projects as $project)
+		{
+			$options[] = JHtmlSelect::option($project->project_id, $project->title);
+		}
+
+		$input = JHtmlSelect::genericlist($options, 'project_id', $js, 'value', 'text', $selected, 'select-project');
+
+		if ($toolTip)
+		{
+			$html[] = '<div class="input-append">';
+			$html[] = $input;
+			$html[] = '<span class="add-on hasTooltip" data-placement="right" style="cursor: help;" title="'
+				. htmlspecialchars($toolTip, ENT_COMPAT, 'UTF-8') . '">?</span>';
+			$html[] = '</div>';
+		}
+		else
+		{
+			$html[] = $input;
+		}
+
+		return implode("\n", $html);
 	}
+
+	/**
+	 * Get the defined projects.
+	 *
+	 * @todo move to a model.
+	 *
+	 * @return array
+	 */
+	public static function projects()
+	{
+		static $projects = null;
+
+		if ($projects)
+		{
+			return $projects;
+		}
+
+		$db = JFactory::getDbo();
+
+		$projects = $db->setQuery(
+			$db->getQuery(true)
+				->from('#__tracker_projects')
+				->select('*')
+		)->loadObjectList();
+
+		if(false == is_array($projects))
+		{
+			$projects = array();
+		}
+
+		return $projects;
+	}
+
 
 	/**
 	 * Returns a HTML list of categories for the given extension.
 	 *
-	 * @param   string  $section   The extension option.
-	 * @param   bool    $links     Links or simple list items.
-	 * @param   string  $selected  The selected item.
+	 * @param   string   $section    The extension option.
+	 * @param   integer  $projectId  The project id.
+	 * @param   bool     $links      Links or simple list items.
+	 * @param   string   $selected   The selected item.
 	 *
 	 * @return  string
 	 *
-	 * @since   1.0
+	 * @deprecated - used only in backend
+	 *
+	 * @since      1.0
 	 */
-	public static function listing($section = '', $links = false, $selected = '')
+	public static function listing($section = '', $projectId = 0, $links = false, $selected = '')
 	{
-		$items = self::items($section);
+		$items = JHtmlCustomfields::items($section, $projectId);
 
 		if (0 == count($items))
 		{
@@ -88,7 +134,7 @@ abstract class JHtmlProjects
 
 			$html[] = '<li>';
 			$html[] = $links
-				? JHtml::link(sprintf($link, $section, $item->id), $item->title, array('class' => $selected))
+				? JHtml::link(sprintf($link, 'com_tracker' . ($section ? '.' . $section : ''), $item->id), $item->title, array('class' => $selected))
 				: $item->title;
 			$html[] = '</li>';
 		}
@@ -97,78 +143,4 @@ abstract class JHtmlProjects
 
 		return implode("\n", $html);
 	}
-
-	/**
-	 * Get the items list.
-	 *
-	 * @param   string  $section  A section
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public static function items($section)
-	{
-		static $sections = array();
-
-		if (isset($sections[$section]))
-		{
-			return $sections[$section];
-		}
-
-		$db = JFactory::getDbo();
-
-		$items = $db->setQuery(
-			$db->getQuery(true)
-				->select('id, title, alias, description, level, parent_id')
-				->from('#__categories')
-				->where('parent_id > 0')
-				->where('extension = ' . $db->q($section))
-				->order('lft')
-		)->loadObjectList();
-
-		$sections[$section] = $items;
-
-		return $sections[$section];
-	}
-
-	/**
-	 * Draws a text input.
-	 *
-	 * @todo moveme
-	 *
-	 * @param        $name
-	 * @param        $value
-	 * @param string $description
-	 *
-	 * @return string
-	 */
-	public static function textfield($name, $value, $description = '')
-	{
-		$description = ($description) ? ' class="hasTooltip" title="' . htmlspecialchars($description, ENT_COMPAT, 'UTF-8') . '"' : '';
-
-		return '<input type="text" name="fields[' . $name . ']" '
-			. ' id="txt-' . $name . '" value="' . $value . '"' . $description . ' />';
-	}
-
-	/**
-	 * Draws a checkbox
-	 *
-	 * @todo     moveme
-	 *
-	 * @param        $name
-	 * @param bool   $checked
-	 * @param string $description
-	 *
-	 * @return string
-	 */
-	public static function checkbox($name, $checked = false, $description = '')
-	{
-		$description = ($description) ? ' class="hasTooltip" title="' . htmlspecialchars($description, ENT_COMPAT, 'UTF-8') . '"' : '';
-		$checked = $checked ? ' checked="checked"' : '';
-
-		return '<input type="checkbox" name="fields[' . $name . ']" '
-			. ' id="chk-' . $name . '"' . $checked . $description . ' />';
-	}
-
 }

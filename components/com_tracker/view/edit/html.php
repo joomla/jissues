@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  View
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -21,18 +21,10 @@ class TrackerViewEditHtml extends JViewHtml
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var    TrackerModelIssue
+	 * @var    TrackerModelEdit
 	 * @since  1.0
 	 */
 	protected $model;
-
-	/**
-	 * HTML Markup for a category list
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $categoryList;
 
 	/**
 	 * Container for the JEditor object
@@ -56,23 +48,19 @@ class TrackerViewEditHtml extends JViewHtml
 	 * @var    JRegistry
 	 * @since  1.0
 	 */
-	protected $fieldData;
+	protected $fieldsData;
 
 	/**
-	 * Object containing the list of fields
-	 *
-	 * @var    array
+	 * @var stdClass
 	 * @since  1.0
 	 */
-	protected $fieldList = array();
+	protected $item;
 
 	/**
-	 * HTML Markup for the fields
-	 *
-	 * @var    string
+	 * @var JTrackerProject
 	 * @since  1.0
 	 */
-	protected $fields;
+	protected $project;
 
 	/**
 	 * Method to render the view.
@@ -84,14 +72,17 @@ class TrackerViewEditHtml extends JViewHtml
 	 */
 	public function render()
 	{
-		$app = JFactory::getApplication();
+		$id         = JFactory::getApplication()->input->getInt('id', 0);
+		$this->item = $this->model->getItem($id);
 
-		// Register the document
-		$this->document = $app->getDocument();
+		if (!$this->item)
+		{
+			throw new RuntimeException('Invalid item');
+		}
 
-		$id = $app->input->getInt('id', 1);
-		$this->item   = $this->model->getItem($id);
-		$this->fieldData = $this->model->getFields($id);
+		$this->project = new JTrackerProject($this->item->project_id);
+
+		$this->fieldsData = $this->model->getFieldsData($id);
 
 		// Set up the editor object
 		$this->editor = JEditor::getInstance('kisskontent');
@@ -100,37 +91,6 @@ class TrackerViewEditHtml extends JViewHtml
 			'preview-url'     => 'index.php?option=com_tracker&task=preview',
 			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
 		);
-
-		// Categories
-		$section = 'com_tracker.' . $this->item->project_id . '.categories';
-		$this->categoryList = JHtmlProjects::items($section)
-			? JHtmlProjects::select($section, 'catid', $this->item->catid, 'N/A', '')
-			: JHtmlProjects::select('com_tracker.categories', 'catid', $this->item->catid, 'N/A', '');
-
-		// Fields
-		$this->fields = JHtmlProjects::items('com_tracker.' . $this->item->project_id . '.fields');
-		if (count($this->fields) == 0)
-		{
-			$this->fields = JHtmlProjects::items('com_tracker.fields');
-		}
-
-		foreach ($this->fields as $field)
-		{
-			// Project fields
-			$this->fieldList[$field->alias] = JHtmlProjects::select(
-				'com_tracker.' . $this->item->project_id . '.fields.' . $field->id,
-				$field->id, $this->fieldData->get($field->id), 'N/A', ''
-			);
-
-			// Use global fields if no project fields are set.
-			if ($this->fieldList[$field->alias] == '')
-			{
-				$this->fieldList[$field->alias] = JHtmlProjects::select(
-					'com_tracker.fields.' . $field->id,
-					$field->id, $this->fieldData->get($field->id), 'N/A', ''
-				);
-			}
-		}
 
 		// Build the toolbar
 		$this->buildToolbar();
@@ -147,9 +107,6 @@ class TrackerViewEditHtml extends JViewHtml
 	 */
 	protected function buildToolbar()
 	{
-		// Get the user object
-		$user = JFactory::getUser();
-
 		// Instantiate the JToolbar object
 		$toolbar = JToolbar::getInstance('toolbar');
 

@@ -40,12 +40,14 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` mediumtext NOT NULL,
   `priority` tinyint(4) NOT NULL DEFAULT '3',
-  `catid` int(10) unsigned NOT NULL DEFAULT '0',
   `status` integer unsigned NOT NULL DEFAULT '1',
   `opened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `closed_sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been closed',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `patch_url` varchar(255) NULL,
+  `rel_id` integer unsigned DEFAULT NULL COMMENT 'Relation id user',
+  `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
@@ -69,6 +71,25 @@ CREATE TABLE IF NOT EXISTS `#__activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `#_issues_relations_types`
+--
+
+CREATE TABLE IF NOT EXISTS `#_issues_relations_types` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data `#_issues_relations_types`
+--
+
+INSERT INTO `#_issues_relations_types` (`id`, `name`) VALUES
+(1, 'duplicate_of'),
+(2, 'related_to'),
+(3, 'not_before');
+
+--
 -- Table structure for table `#__tracker_fields_values`
 --
 
@@ -76,11 +97,33 @@ CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT,
   `issue_id` integer unsigned NOT NULL,
   `field_id` integer NOT NULL,
-  `value` integer NOT NULL,
+  `value` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `issue_id` (`issue_id`),
   CONSTRAINT `#__tracker_fields_values_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `#__tracker_projects`
+--
+
+CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
+  `project_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `alias` varchar(150) NOT NULL,
+  `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
+  `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
+  `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
+  PRIMARY KEY (`project_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
+
+--
+-- Dumping data `#__tracker_projects`
+--
+
+INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`, `ext_tracker_link`) VALUES
+(1, 'Joomla! CMS 3 issues', 'joomla-cms-3-issues', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d'),
+(2, 'J!Tracker Bugs', 'jtracker-bugs', 'JTracker', 'jissues', '');
 
 --
 -- Table structure for table `#__categories`
@@ -122,9 +165,6 @@ CREATE TABLE IF NOT EXISTS `#__categories` (
 INSERT INTO `#__categories` (`id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `extension`, `title`, `alias`, `description`, `published`, `checked_out`, `checked_out_time`, `access`, `created_user_id`, `created_time`, `modified_user_id`, `modified_time`, `version`) VALUES
 (1, 0, 0, 82, 0, '', 'system', 'ROOT', 'root', '', 1, 0, '0000-00-00 00:00:00', 1, 42, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
 (2, 1, 0, 1, 1, 'joomla-cms-issue-tracker', 'com_tracker', 'Joomla! CMS Issue Tracker', 'joomla-cms-issue-tracker', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
-(3, 1, 2, 3, 1, 'components', 'com_tracker.categories', 'Components', 'components', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
-(4, 1, 4, 5, 1, 'language', 'com_tracker.categories', 'Language', 'language', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
-(5, 1, 6, 7, 1, 'templates', 'com_tracker.categories', 'Templates', 'templates', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
 (6, 1, 8, 9, 1, 'php-version', 'com_tracker.fields', 'PHP Version', 'php-version', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
 (7, 1, 10, 11, 1, 'browser', 'com_tracker.fields', 'Browser', 'browser', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
 (8, 1, 12, 13, 1, 'web-server', 'com_tracker.fields', 'Web Server', 'web-server', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
@@ -161,7 +201,11 @@ INSERT INTO `#__categories` (`id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `
 (39, 32, 73, 74, 2, 'postgresql/postgresql-9-0-x', 'com_tracker.fields.9', 'PostgreSQL 9.0.x', 'postgresql-9-0-x', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
 (40, 32, 75, 76, 2, 'postgresql/postgresql-9-1-x', 'com_tracker.fields.9', 'PostgreSQL 9.1.x', 'postgresql-9-1-x', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2012-10-20 12:00:00', 0, '0000-00-00 00:00:00', 1),
 (41, 1, 78, 79, 1, 'build', 'com_tracker.textfields', 'Build', 'build', 'The build number where the issue occurs.', 1, 0, '0000-00-00 00:00:00', 4, 1, '2012-10-21 21:19:08', 0, '0000-00-00 00:00:00', 1),
-(42, 1, 80, 81, 1, 'easy', 'com_tracker.checkboxes', 'Easy', 'easy', 'Is this an "easy" issue ?', 1, 1, '2012-10-21 21:21:04', 4, 1, '2012-10-21 21:20:28', 0, '0000-00-00 00:00:00', 1);
+(42, 1, 80, 81, 1, 'easy', 'com_tracker.checkboxes', 'Easy', 'easy', 'Is this an "easy" issue ?', 1, 1, '2012-10-21 21:21:04', 4, 1, '2012-10-21 21:20:28', 0, '0000-00-00 00:00:00', 1),
+(43, 1, 83, 84, 1, 'category', 'com_tracker.fields', 'Category', 'category', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2013-01-07 23:17:33', 0, '0000-00-00 00:00:00', 1),
+(44, 1, 85, 86, 1, 'languages', 'com_tracker.fields.43', 'Languages', 'languages', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2013-01-07 23:18:04', 0, '0000-00-00 00:00:00', 1),
+(45, 1, 87, 88, 1, 'components', 'com_tracker.fields.43', 'Components', 'components', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2013-01-07 23:18:44', 0, '0000-00-00 00:00:00', 1),
+(46, 1, 89, 90, 1, 'templates', 'com_tracker.fields.43', 'Templates', 'templates', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2013-01-07 23:18:51', 0, '0000-00-00 00:00:00', 1);
 
 --
 -- Tables below are core Platform/CMS tables

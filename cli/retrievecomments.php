@@ -4,7 +4,7 @@
  * @package     JTracker
  * @subpackage  CLI
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -81,6 +81,11 @@ class TrackerApplicationComments extends JApplicationCli
 	protected $issues;
 
 	/**
+	 * @var stdClass
+	 */
+	protected $project = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
@@ -115,13 +120,15 @@ class TrackerApplicationComments extends JApplicationCli
 	 */
 	protected function doExecute()
 	{
+		$this->getProject();
+
 		$this->db = JFactory::getDbo();
 
 		// Set up JGithub
 		$options = new JRegistry;
 
 		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
+		$this->out('Do you wish to authenticate to GitHub? [y]es / [[n]]o :', false);
 
 		$resp = trim($this->in());
 
@@ -146,6 +153,67 @@ class TrackerApplicationComments extends JApplicationCli
 	}
 
 	/**
+	 * Get the project.
+	 *
+	 * @todo this might go to a base class.
+	 *
+	 * @throws RuntimeException
+	 * @throws UnderflowException
+	 *
+	 * @return TrackerApplicationRetrieve
+	 */
+	protected function getProject()
+	{
+		// @todo get the data from - a model ?
+		$projects = JHtmlProjects::projects();
+
+		$id = $this->input->getInt('project', $this->input->getInt('p'));
+
+		if (!$id)
+		{
+			foreach ($projects as $i => $project)
+			{
+				$this->out(($i + 1) . ') ' . $project->title);
+			}
+
+			$this->out('Select a project: ', false);
+
+			$resp = (int) trim($this->in());
+
+			if (!$resp)
+			{
+				throw new UnderflowException('Aborted');
+			}
+
+			if (false == array_key_exists($resp - 1, $projects))
+			{
+				throw new RuntimeException('Invalid project');
+			}
+
+			$this->project = $projects[$resp - 1];
+		}
+		else
+		{
+			foreach ($projects as $project)
+			{
+				if ($project->id == $id)
+				{
+					$this->project = $project;
+
+					break;
+				}
+			}
+
+			if (is_null($this->project))
+			{
+				throw new RuntimeException('Invalid project');
+			}
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Method to get the comments on items from GitHub
 	 *
 	 * @return  array  Issue data
@@ -161,7 +229,7 @@ class TrackerApplicationComments extends JApplicationCli
 				$id = $issue->gh_id;
 				$this->out('Retrieving comments for issue #' . $id . ' from GitHub.', true);
 
-				$this->comments[$id] = $this->github->issues->getComments('joomla', 'joomla-cms', $id);
+				$this->comments[$id] = $this->github->issues->getComments($this->project->gh_user, $this->project->gh_project, $id);
 			}
 		}
 		// Catch any DomainExceptions and close the script
@@ -188,7 +256,7 @@ class TrackerApplicationComments extends JApplicationCli
 		$rangeTo   = 0;
 
 		// Limit issues to process
-		$this->out('GH issues to process? [a]ll / [r]ange :', false);
+		$this->out('GH issues to process? [[a]]ll / [r]ange :', false);
 
 		$resp = trim($this->in());
 
@@ -208,6 +276,7 @@ class TrackerApplicationComments extends JApplicationCli
 		$query->select($this->db->quoteName(array('id', 'gh_id')));
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('gh_id') . ' IS NOT NULL');
+		$query->where($this->db->quoteName('project_id') . '=' . (int) $this->project->project_id);
 
 		// Issues range selected?
 		if ($rangeTo != 0 && $rangeTo >= $rangeFrom)
@@ -280,7 +349,7 @@ class TrackerApplicationComments extends JApplicationCli
 				);
 
 				// Parse the body through GitHub's markdown parser
-				$body = $this->github->markdown->render($comment->body, 'gfm', 'JTracker/jissues');
+				$body = $this->github->markdown->render($comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
 
 				$query->clear();
 				$query->insert($this->db->quoteName('#__activity'));
@@ -310,4 +379,17 @@ class TrackerApplicationComments extends JApplicationCli
 	}
 }
 
-JApplicationCli::getInstance('TrackerApplicationComments')->execute();
+try
+{
+	$app = JApplicationCli::getInstance('TrackerApplicationComments');
+
+	JFactory::$application = $app;
+
+	$app->execute();
+}
+catch (Exception $e)
+{
+	echo $e->getMessage() . "\n\n";
+
+	echo $e->getTraceAsString();
+}

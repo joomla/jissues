@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -35,14 +35,9 @@ class TrackerViewAddHtml extends JViewHtml
 	protected $editorParams = array();
 
 	/**
-	 * @var JRegistry
+	 * @var ?
 	 */
-	protected $lists;
-
-	/**
-	 * @var JTableIssue
-	 */
-	protected $item;
+	protected $project;
 
 	/**
 	 * Method to render the view.
@@ -61,11 +56,7 @@ class TrackerViewAddHtml extends JViewHtml
 			'syntaxpage-link' => 'index.php?option=com_tracker&view=markdowntestpage',
 		);
 
-		$this->lists = new JRegistry;
-		$this->lists->set('categories', JHtmlProjects::select('com_tracker.categories', 'category', '', 'Select a category', ''));
-		$this->lists->set('selects', JHtmlProjects::items('com_tracker.fields'));
-		$this->lists->set('textfields', JHtmlProjects::items('com_tracker.textfields'));
-		$this->lists->set('checkboxes', JHtmlProjects::items('com_tracker.checkboxes'));
+		$this->project = $this->model->getProject();
 
 		return parent::render();
 	}

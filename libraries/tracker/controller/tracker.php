@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  Controller
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -187,16 +187,23 @@ abstract class JControllerTracker extends JControllerBase
 		{
 			$mClass = $base . 'ModelDefault';
 
+			// If there still isn't a class, panic.
 			if (!class_exists($mClass))
 			{
 				throw new RuntimeException(sprintf('No model found for view %s or a default model for %s', $vName, $this->option));
 			}
 		}
 
-		// Make sure the view class exists
+		// Make sure the view class exists, otherwise revert to the default
 		if (!class_exists($vClass))
 		{
-			throw new RuntimeException(sprintf('Class %s not found', $vClass));
+			$vClass = $base . 'ViewDefault';
+
+			// If there still isn't a class, panic.
+			if (!class_exists($vClass))
+			{
+				throw new RuntimeException(sprintf('Class %s not found', $vClass));
+			}
 		}
 
 		/* @var JViewHtml $view */
