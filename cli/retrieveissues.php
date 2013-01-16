@@ -4,7 +4,7 @@
  * @package     JTracker
  * @subpackage  CLI
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -23,14 +23,14 @@ if (!defined('_JDEFINES'))
 	require_once JPATH_BASE . '/includes/defines.php';
 }
 
-// Bootstrap the Tracker application libraries.
-require_once JPATH_LIBRARIES . '/tracker.php';
-
 // Bootstrap the Joomla Platform.
 require_once JPATH_LIBRARIES . '/import.legacy.php';
 
 // Bootstrap the CMS libraries.
 require_once JPATH_LIBRARIES . '/cms.php';
+
+// Bootstrap the Tracker application libraries.
+require_once JPATH_LIBRARIES . '/tracker.php';
 
 // Configure error reporting to maximum for CLI output.
 error_reporting(E_ALL);
@@ -47,17 +47,141 @@ ini_set('display_errors', 1);
 class TrackerApplicationRetrieve extends JApplicationCli
 {
 	/**
+	 * JGithub object
+	 *
+	 * @var    JGithub
+	 * @since  1.0
+	 */
+	protected $github;
+
+	/**
+	 * @var stdClass
+	 */
+	protected $project = null;
+
+	/**
+	 * Class constructor.
+	 *
+	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
+	 *                              input object.  If the argument is a JInputCli object that object will become
+	 *                              the application's input object, otherwise a default input object is created.
+	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
+	 *                              config object.  If the argument is a JRegistry object that object will become
+	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
+	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
+	 *                              the application's event dispatcher, if it is null then the default event dispatcher
+	 *                              will be created based on the application's loadDispatcher() method.
+	 *
+	 * @see     loadDispatcher()
+	 * @since   1.0
+	 */
+	public function __construct(JInputCli $input = null, JRegistry $config = null, JEventDispatcher $dispatcher = null)
+	{
+		parent::__construct($input, $config, $dispatcher);
+
+		// Set the app as CLI.
+		$this->set('cli_app', true);
+
+		// Register the application to JFactory
+		JFactory::$application = $this;
+	}
+
+	/**
 	 * Method to run the application routines.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function doExecute()
 	{
+		$this->getProject();
+
+		// Set up JGithub
+		$options = new JRegistry;
+
+		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
+		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
+
+		$resp = trim($this->in());
+
+		if ($resp == 'y' || $resp == 'yes')
+		{
+			// Set the options
+			$options->set('api.username', $this->config->get('github_user', ''));
+			$options->set('api.password', $this->config->get('github_password', ''));
+		}
+
+		// Instantiate JGithub
+		$this->github = new JGithub($options);
+
 		// Pull in the data from GitHub
 		$issues = $this->getData();
 
 		// Process the issues now
 		$this->processIssues($issues);
+	}
+
+	/**
+	 * Get the project.
+	 *
+	 * @todo this might go to a base class.
+	 *
+	 * @throws RuntimeException
+	 * @throws UnderflowException
+	 *
+	 * @return TrackerApplicationRetrieve
+	 */
+	protected function getProject()
+	{
+		// @todo get the data from - a model ?
+		$projects = JHtmlProjects::projects();
+
+		$id = $this->input->getInt('project', $this->input->getInt('p'));
+
+		if (!$id)
+		{
+			foreach ($projects as $i => $project)
+			{
+				$this->out(($i + 1) . ') ' . $project->title);
+			}
+
+			$this->out('Select a project: ', false);
+
+			$resp = (int) trim($this->in());
+
+			if (!$resp)
+			{
+				throw new UnderflowException('Aborted');
+			}
+
+			if (false == array_key_exists($resp - 1, $projects))
+			{
+				throw new RuntimeException('Invalid project');
+			}
+
+			$this->project = $projects[$resp - 1];
+		}
+		else
+		{
+			foreach ($projects as $project)
+			{
+				if ($project->id == $id)
+				{
+					$this->project = $project;
+
+					break;
+				}
+			}
+
+			if (is_null($this->project))
+			{
+				throw new RuntimeException('Invalid project');
+			}
+		}
+
+		return $this;
 	}
 
 	/**
@@ -69,56 +193,32 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	 */
 	protected function getData()
 	{
-		$options = new JRegistry;
-
-		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
-
-		$resp = trim($this->in());
-
-		if ($resp == 'y' || $resp == 'yes')
-		{
-			// Get the username
-			$this->out('Enter your GitHub username :', false);
-			$username = trim($this->in());
-
-			// Get the password
-			$this->out('Enter your GitHub password :', false);
-			$password = trim($this->in());
-
-			// Set the options
-			$options->set('api.username', $username);
-			$options->set('api.password', $password);
-		}
-
-		// Instantiate JGithub
-		$github = new JGithub($options);
-
 		try
 		{
 			$issues = array();
-			foreach(array('open', 'closed') as $state)
+
+			foreach (array('open', 'closed') as $state)
 			{
 				$this->out('Retrieving ' . $state . ' items from GitHub.', true);
 				$page = 0;
 				do
 				{
 					$page++;
-					$issues_more = $github->issues->getListByRepository(
-						'joomla',		// Owner
-						'joomla-cms',	// Repository
-						null,			// Milestone
-						$state, 		// State [ open | closed ]
-						null, 			// Assignee
-						null, 			// Creator
-						null,			// Labels
-						'created', 		// Sort
-						'asc', 			// Direction
-						null,			// Since
-						$page,			// Page
-						100				// Count
-						);
-					$count = is_array($issues_more) ? count($issues_more) : 0;
+					$issues_more = $this->github->issues->getListByRepository(
+						$this->project->gh_user, // Owner
+						$this->project->gh_project, // Repository
+						null, // Milestone
+						$state, // State [ open | closed ]
+						null, // Assignee
+						null, // Creator
+						null, // Labels
+						'created', // Sort
+						'asc', // Direction
+						null, // Since
+						$page, // Page
+						100 // Count
+					);
+					$count       = is_array($issues_more) ? count($issues_more) : 0;
 					$this->out('Retrieved batch of ' . $count . ' items from GitHub.', true);
 					if ($count)
 					{
@@ -127,9 +227,13 @@ class TrackerApplicationRetrieve extends JApplicationCli
 				} while ($count);
 			}
 
-			usort($issues, function($a,$b) { return $a->number - $b->number; } );
+			usort($issues, function ($a, $b)
+			{
+				return $a->number - $b->number;
+			});
 		}
-		// Catch any DomainExceptions and close the script
+
+			// Catch any DomainExceptions and close the script
 		catch (DomainException $e)
 		{
 			$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
@@ -138,6 +242,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 		// Retrieved items, report status
 		$this->out('Retrieved ' . count($issues) . ' items from GitHub, checking database now.', true);
+
 		return $issues;
 	}
 
@@ -165,6 +270,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$query->select('COUNT(*)');
 			$query->from($db->quoteName('#__issues'));
 			$query->where($db->quoteName('gh_id') . ' = ' . (int) $issue->number);
+			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 			$db->setQuery($query);
 
 			try
@@ -185,13 +291,14 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			}
 
 			// Store the item in the database
-			$table = JTable::getInstance('Issue');
+			$table              = JTable::getInstance('Issue');
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
-			$table->description = $issue->body;
-			$table->status		= ($issue->state == 'open') ? 1 : 10;
+			$table->description = $this->github->markdown->render($issue->body, 'gfm', 'JTracker/jissues');
+			$table->status      = ($issue->state == 'open') ? 1 : 10;
 			$table->opened      = JFactory::getDate($issue->created_at)->toSql();
 			$table->modified    = JFactory::getDate($issue->updated_at)->toSql();
+			$table->project_id  = $this->project->project_id;
 
 			// Add the diff URL if this is a pull request
 			if ($issue->pull_request->diff_url)
@@ -209,7 +316,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			// TODO - Would be better suited as a regex probably
 			if (strpos($issue->title, '[#') !== false)
 			{
-				$pos = strpos($issue->title, '[#') + 2;
+				$pos          = strpos($issue->title, '[#') + 2;
 				$table->jc_id = substr($issue->title, $pos, 5);
 			}
 
@@ -217,6 +324,76 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			{
 				$this->out($table->getError(), true);
 				$this->close();
+			}
+
+			// Get the ID for the new issue
+			$query->clear();
+			$query->select('id');
+			$query->from($db->quoteName('#__issues'));
+			$query->where($db->quoteName('gh_id') . ' = ' . (int) $issue->number);
+			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+			$db->setQuery($query);
+
+			try
+			{
+				$issueID = $db->loadResult();
+			}
+			catch (RuntimeException $e)
+			{
+				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+				$this->close();
+			}
+
+			// Add a open record to the activity table
+			$columnsArray = array(
+				$db->quoteName('issue_id'),
+				$db->quoteName('user'),
+				$db->quoteName('event'),
+				$db->quoteName('created')
+			);
+
+			$query->clear();
+			$query->insert($db->quoteName('#__activity'));
+			$query->columns($columnsArray);
+			$query->values(
+				(int) $issueID . ', '
+				. $db->quote($issue->user->login) . ', '
+				. $db->quote('open') . ', '
+				. $db->quote($table->opened)
+			);
+			$db->setQuery($query);
+
+			try
+			{
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+				$this->close();
+			}
+
+			// Add a close record to the activity table if the status is closed
+			if ($issue->closed_at)
+			{
+				$query->clear('values');
+				$query->values(
+					(int) $issueID . ', '
+					. $db->quote($issue->user->login) . ', '
+					. $db->quote('close') . ', '
+					. $db->quote($table->closed_date)
+				);
+				$db->setQuery($query);
+
+				try
+				{
+					$db->execute();
+				}
+				catch (RuntimeException $e)
+				{
+					$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+					$this->close();
+				}
 			}
 
 			// Store was successful, update status
@@ -229,4 +406,17 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	}
 }
 
-JApplicationCli::getInstance('TrackerApplicationRetrieve')->execute();
+try
+{
+	$app = JApplicationCli::getInstance('TrackerApplicationRetrieve');
+
+	JFactory::$application = $app;
+
+	$app->execute();
+}
+catch (Exception $e)
+{
+	echo $e->getMessage() . "\n\n";
+
+	echo $e->getTraceAsString();
+}

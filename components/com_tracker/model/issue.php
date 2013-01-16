@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -32,7 +32,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	}
 
 	/**
-	 * Method to get the comments for an item.
+	 * Method to get the activity for an item.
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
@@ -40,14 +40,15 @@ class TrackerModelIssue extends JModelTrackerForm
 	 *
 	 * @since   1.0
 	 */
-	public function getComments($id)
+	public function getActivity($id)
 	{
-		$db = $this->getDb();
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
 		$query->select('*');
-		$query->from($db->quoteName('#__issue_comments', 'a'));
+		$query->from($db->quoteName('#__activity', 'a'));
 		$query->where($db->quoteName('a.issue_id') . ' = ' . (int) $id);
+		$query->order('a.created ASC');
 
 		try
 		{
@@ -57,10 +58,31 @@ class TrackerModelIssue extends JModelTrackerForm
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
 			return array();
 		}
 
-		return $items;
+		// Build the activities array
+		$activities = array();
+		$activities['comments'] = array();
+		$activities['events']   = array();
+
+		// Separate the event types into different area pieces
+		foreach ($items as $item)
+		{
+			switch ($item->event)
+			{
+				case 'comment' :
+					$activities['comments'][] = $item;
+					break;
+
+				default :
+					$activities['events'][] = $item;
+					break;
+			}
+		}
+
+		return $activities;
 	}
 
 	/**
@@ -72,7 +94,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	 *
 	 * @since   1.0
 	 */
-	public function getFields($id)
+	public function getFieldsData($id)
 	{
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
@@ -96,7 +118,8 @@ class TrackerModelIssue extends JModelTrackerForm
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-			return false;
+
+			return array();
 		}
 
 		$arr = array();
@@ -104,14 +127,10 @@ class TrackerModelIssue extends JModelTrackerForm
 		// Prepare the fields for display
 		foreach ($fields as $field)
 		{
-			$name  = strtolower(str_replace(' ', '_', $field->field_name));
-			$value = strtolower(str_replace(' ', '_', $field->field_value));
-			$arr[$name] = $value;
+			$arr[$field->field_id] = $field;
 		}
 
-		$item = new JRegistry($arr);
-
-		return $item;
+		return $arr;
 	}
 
 	/**
@@ -125,29 +144,78 @@ class TrackerModelIssue extends JModelTrackerForm
 	 */
 	public function getItem($id)
 	{
-		$db = $this->getDb();
-		$query = $db->getQuery(true);
-
-		$query->select('a.*');
-		$query->from($db->quoteName('#__issues', 'a'));
-		$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
-
-		// Join over the category table to get the project title
-		$query->select(('c.title AS category'));
-		$query->leftJoin('#__categories AS c ON a.catid = c.id');
-
-		// Join over the status table
-		$query->select('s.status AS status_title, s.closed AS closed');
-		$query->join('LEFT', '#__status AS s ON a.status = s.id');
-
 		try
 		{
+			$db    = $this->getDb();
+			$query = $db->getQuery(true);
+
+			$query->select('a.*');
+			$query->from($db->quoteName('#__issues', 'a'));
+			$query->where($db->quoteName('a.id') . ' = ' . (int) $id);
+
+			// Join over the status table
+			$query->select('s.status AS status_title, s.closed AS closed');
+			$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+			// Get the relation information
+			$query->select('a1.title AS rel_title, a1.status AS rel_status');
+			$query->join('LEFT', '#__issues AS a1 ON a.rel_id = a1.id');
+
+			// Join over the status table
+			$query->select('s1.closed AS rel_closed');
+			$query->join('LEFT', '#__status AS s1 ON a1.status = s1.id');
+
+			// Join over the status table
+			$query->select('t.name AS rel_name');
+			$query->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id');
+
 			$db->setQuery($query);
-			return $db->loadObject();
+
+			$item = $db->loadObject();
+
+			if (!$item)
+			{
+				JFactory::getApplication()->enqueueMessage('Invalid project', 'error');
+
+				return false;
+			}
+
+			$item->relations_f = $db->setQuery(
+				$db->getQuery(true)
+					->from($db->qn('#__issues', 'a'))
+					->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
+					->join('LEFT', '#__status AS s ON a.status = s.id')
+					->select('a.id, a.title, a.rel_type')
+					->select('t.name AS rel_name')
+					->select('s.status AS status_title, s.closed AS closed')
+					->where($db->quoteName('a.rel_id') . '=' . (int) $item->id)
+					->order(array('a.id', 'a.rel_type'))
+			)->loadObjectList();
+
+			if ($item->relations_f)
+			{
+				$arr = array();
+
+				foreach ($item->relations_f as $relation)
+				{
+					if (false == isset($arr[$relation->rel_name]))
+					{
+
+						$arr[$relation->rel_name] = array();
+					}
+
+					$arr[$relation->rel_name][] = $relation;
+				}
+
+				$item->relations_f = $arr;
+			}
+
+			return $item;
 		}
 		catch (RuntimeException $e)
 		{
 			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
 			return false;
 		}
 	}
@@ -164,10 +232,9 @@ class TrackerModelIssue extends JModelTrackerForm
 	 */
 	public function save($data)
 	{
-		$dispatcher = JEventDispatcher::getInstance();
 		$table = $this->getTable('Issue');
-		$key = $table->getKeyName();
-		$pk = (!empty($data[$key])) ? $data[$key] : (int) $this->state->get($this->getName() . '.id');
+		$key   = $table->getKeyName();
+		$pk    = (!empty($data[$key])) ? $data[$key] : (int) $this->state->get($this->getName() . '.id');
 		$isNew = true;
 
 		// Load the row if saving an existing record.
@@ -187,6 +254,7 @@ class TrackerModelIssue extends JModelTrackerForm
 		{
 			$this->state->set($this->getName() . '.id', $table->$key);
 		}
+
 		$this->state->set($this->getName() . '.new', $isNew);
 
 		return true;

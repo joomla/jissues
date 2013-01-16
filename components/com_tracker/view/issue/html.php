@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  View
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -32,7 +32,25 @@ class TrackerViewIssueHtml extends JViewHtml
 	 * @var    JRegistry
 	 * @since  1.0
 	 */
-	protected $fields = array();
+	protected $fieldsData = array();
+
+	/**
+	 * @var stdClass
+	 * @since  1.0
+	 */
+	protected $item;
+
+	/**
+	 * @var JTrackerProject
+	 * @since  1.0
+	 */
+	protected $project;
+
+	/**
+	 * @var array
+	 * @since  1.0
+	 */
+	protected $activity;
 
 	/**
 	 * Method to render the view.
@@ -46,32 +64,19 @@ class TrackerViewIssueHtml extends JViewHtml
 	{
 		$app = JFactory::getApplication();
 
-		// Register the document
-		$this->document = $app->getDocument();
+		$id         = $app->input->getInt('id', 1);
+		$this->item = $this->model->getItem($id);
 
-		$id = $app->input->getInt('id', 1);
-		$this->item     = $this->model->getItem($id);
-		$this->comments = $this->model->getComments($id);
-		$this->fields   = $this->model->getFields($id);
-
-		$dispatcher	= JEventDispatcher::getInstance();
-
-		$o = new stdClass;
-		$o->text = $this->item->description;
-
-		$params = new JRegistry;
-
-		JPluginHelper::importPlugin('content');
-		$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$o, $params));
-
-		$this->item->description_raw = $this->item->description;
-		$this->item->description = $o->text;
-
-		foreach ($this->comments as &$comment)
+		if (!$this->item)
 		{
-			// @todo Maybe we should parse the comments on retrieval and write the result to the database
-			$dispatcher->trigger('onContentPrepare', array ('com_tracker.markdown', &$comment, $params));
+			// We expect an error message in the message queue..
+			return '';
 		}
+
+		$this->project = new JTrackerProject($this->item->project_id);
+
+		$this->fieldsData = $this->model->getFieldsData($id);
+		$this->activity = $this->model->getActivity($id);
 
 		// Build the toolbar
 		$this->buildToolbar();

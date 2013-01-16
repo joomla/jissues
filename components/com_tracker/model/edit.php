@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -27,7 +27,7 @@ class TrackerModelEdit extends TrackerModelIssue
 	 *
 	 * @since   1.0
 	 */
-	public function getFields($id)
+	public function getFieldsData($id)
 	{
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
@@ -54,8 +54,6 @@ class TrackerModelEdit extends TrackerModelIssue
 			$arr[$field->field_id] = $field->value;
 		}
 
-		$item = new JRegistry($arr);
-
-		return $item;
+		return $arr;
 	}
 }

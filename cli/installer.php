@@ -4,7 +4,7 @@
  * @package     JTracker
  * @subpackage  CLI
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -23,14 +23,14 @@ if (!defined('_JDEFINES'))
 	require_once JPATH_BASE . '/includes/defines.php';
 }
 
-// Bootstrap the Tracker application libraries.
-require_once JPATH_LIBRARIES . '/tracker.php';
-
 // Bootstrap the Joomla Platform.
 require_once JPATH_LIBRARIES . '/import.legacy.php';
 
 // Bootstrap the CMS libraries.
 require_once JPATH_LIBRARIES . '/cms.php';
+
+// Bootstrap the Tracker application libraries.
+require_once JPATH_LIBRARIES . '/tracker.php';
 
 // Configure error reporting to maximum for CLI output.
 error_reporting(E_ALL);
@@ -83,7 +83,7 @@ class InstallerApplication extends JApplicationCli
 			$this->out('Removing existing tables...', false);
 
 			// First, need to drop the tables with FKs in specific order
-			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__issue_comments'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
+			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__activity'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
 			foreach ($keyTables as $table)
 			{
 				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
