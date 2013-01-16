@@ -71,20 +71,20 @@ CREATE TABLE IF NOT EXISTS `#__activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `#_issues_relations_types`
+-- Table structure for table `#__issues_relations_types`
 --
 
-CREATE TABLE IF NOT EXISTS `#_issues_relations_types` (
+CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data `#_issues_relations_types`
+-- Dumping data `#__issues_relations_types`
 --
 
-INSERT INTO `#_issues_relations_types` (`id`, `name`) VALUES
+INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
 (3, 'not_before');
