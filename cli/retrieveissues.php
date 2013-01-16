@@ -60,6 +60,34 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	protected $project = null;
 
 	/**
+	 * Class constructor.
+	 *
+	 * @param   mixed  $input       An optional argument to provide dependency injection for the application's
+	 *                              input object.  If the argument is a JInputCli object that object will become
+	 *                              the application's input object, otherwise a default input object is created.
+	 * @param   mixed  $config      An optional argument to provide dependency injection for the application's
+	 *                              config object.  If the argument is a JRegistry object that object will become
+	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   mixed  $dispatcher  An optional argument to provide dependency injection for the application's
+	 *                              event dispatcher.  If the argument is a JEventDispatcher object that object will become
+	 *                              the application's event dispatcher, if it is null then the default event dispatcher
+	 *                              will be created based on the application's loadDispatcher() method.
+	 *
+	 * @see     loadDispatcher()
+	 * @since   1.0
+	 */
+	public function __construct(JInputCli $input = null, JRegistry $config = null, JEventDispatcher $dispatcher = null)
+	{
+		parent::__construct($input, $config, $dispatcher);
+
+		// Set the app as CLI.
+		$this->set('cli_app', true);
+
+		// Register the application to JFactory
+		JFactory::$application = $this;
+	}
+
+	/**
 	 * Method to run the application routines.
 	 *
 	 * @return  void
@@ -296,6 +324,75 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			{
 				$this->out($table->getError(), true);
 				$this->close();
+			}
+
+			// Get the ID for the new issue
+			$query->clear();
+			$query->select('id');
+			$query->from($db->quoteName('#__issues'));
+			$query->where($db->quoteName('gh_id') . ' = ' . (int) $issue->number);
+			$db->setQuery($query);
+
+			try
+			{
+				$issueID = $db->loadResult();
+			}
+			catch (RuntimeException $e)
+			{
+				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+				$this->close();
+			}
+
+			// Add a open record to the activity table
+			$columnsArray = array(
+				$db->quoteName('issue_id'),
+				$db->quoteName('user'),
+				$db->quoteName('event'),
+				$db->quoteName('created')
+			);
+
+			$query->clear();
+			$query->insert($db->quoteName('#__activity'));
+			$query->columns($columnsArray);
+			$query->values(
+				(int) $issueID . ', '
+				. $db->quote($issue->user->login) . ', '
+				. $db->quote('open') . ', '
+				. $db->quote($table->opened)
+			);
+			$db->setQuery($query);
+
+			try
+			{
+				$db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+				$this->close();
+			}
+
+			// Add a close record to the activity table if the status is closed
+			if ($issue->closed_at)
+			{
+				$query->clear('values');
+				$query->values(
+					(int) $issueID . ', '
+					. $db->quote($issue->user->login) . ', '
+					. $db->quote('close') . ', '
+					. $db->quote($table->closed_date)
+				);
+				$db->setQuery($query);
+
+				try
+				{
+					$db->execute();
+				}
+				catch (RuntimeException $e)
+				{
+					$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+					$this->close();
+				}
 			}
 
 			// Store was successful, update status
