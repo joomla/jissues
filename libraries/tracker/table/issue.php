@@ -201,6 +201,7 @@ class JTableIssue extends JTable
 		{
 			// Existing item
 			$this->modified = JFactory::getDate()->toSql();
+            $this->modified_by = JFactory::getUser()->id;
 		}
 		else
 		{

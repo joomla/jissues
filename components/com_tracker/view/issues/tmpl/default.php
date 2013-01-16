@@ -22,8 +22,8 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 JHtml::_('formbehavior.chosen', 'select');
 
 $filterStatus = $this->state->get('filter.status');
-
 $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array(), 'array'));
+
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
 	<?php if (!$this->project) : ?>
@@ -149,7 +149,9 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 				<td class="nowrap small hidden-phone">
 					<?php if ($item->modified != '0000-00-00 00:00:00') : ?>
 						<?php echo JHtml::_('date', $item->modified, 'DATE_FORMAT_LC4') . '<br />'; ?>
+						<?php if ((bool)$item->modified_by) { ?>
 						<?php echo 'By ' . JFactory::getUser($item->modified_by)->username ?>
+						<?php } ?>
 					<?php endif; ?>
 				</td>
 			</tr>
