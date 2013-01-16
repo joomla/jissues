@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -21,7 +21,8 @@ $priorityOptions['size'] = '5';
 
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="container-fluid">
-		<h3><?php echo JText::_('Edit Item') . ' [#' . $this->item->id . ']'; ?></h3>
+		<h3><?php echo sprintf('%1$s: [#%2$d] %3$s', $this->project->title, $this->item->id, $this->item->title); ?></h3>
+
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="input-prepend">
@@ -45,6 +46,10 @@ $priorityOptions['size'] = '5';
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_JOOMLACODE_ID'); ?></th>
 						<td><input type="text" name="jform[jc_id]" id="jform_jc_id" class="input-small" value="<?php echo htmlspecialchars($this->item->jc_id, ENT_COMPAT, 'UTF-8'); ?>" maxlength="5"></td>
+					</tr>
+					<tr>
+						<th><?php echo JText::_('COM_TRACKER_HEADING_GITHUB_CLOSED_SHA'); ?></th>
+						<td><input type="text" name="jform[closed_sha]" id="jform_closed_sha" class="input-small" value="<?php echo htmlspecialchars($this->item->closed_sha, ENT_COMPAT, 'UTF-8'); ?>" maxlength="40"></td>
 					</tr>
 					<tr>
 						<th><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
@@ -74,7 +79,41 @@ $priorityOptions['size'] = '5';
 							<td><?php echo JHtml::_('date', $this->item->modified, 'DATE_FORMAT_LC2'); ?></td>
 						</tr>
 					<?php endif; ?>
-					<?php include $this->getPath('fields'); ?>
+
+					<tr>
+						<td colspan="2">
+							<?= JHtmlRelations::input($this->item->rel_type, $this->item->rel_id) ?>
+						</td>
+					</tr>
+
+					<!-- select lists -->
+					<?php foreach (JHtmlCustomfields::items('fields', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?php echo $field->title; ?></th>
+							<td>
+								<?= JHtmlCustomfields::select('fields.' . $field->id, $this->item->project_id, $field->id, (isset($this->fieldsData[$field->id]) ? $this->fieldsData[$field->id] : 0)) ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
+					<?php foreach (JHtmlCustomfields::items('textfields', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?php echo $field->title; ?></th>
+							<td>
+								<?= JHtmlCustomfields::textfield($field->id, (isset($this->fieldsData[$field->id]) ? $this->fieldsData[$field->id] : ''), $field->description) ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
+					<?php foreach (JHtmlCustomfields::items('checkboxes', $this->item->project_id) as $field) : ?>
+						<tr>
+							<th><?php echo $field->title; ?></th>
+							<td>
+								<?= JHtmlCustomfields::checkbox($field->id, (isset($this->fieldsData[$field->id]) ? true : false), $field->description) ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
 				</table>
 
 			</div>

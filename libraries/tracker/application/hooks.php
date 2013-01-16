@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  Application
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -18,6 +18,14 @@ defined('JPATH_PLATFORM') or die;
  */
 abstract class JApplicationHooks extends JApplicationWeb
 {
+	/**
+	 * The database object
+	 *
+	 * @var    JDatabaseDriver
+	 * @since  1.0
+	 */
+	protected $db;
+
 	/**
 	 * The application message queue.
 	 *
@@ -48,6 +56,9 @@ abstract class JApplicationHooks extends JApplicationWeb
 
 		// Register the application to JFactory
 		JFactory::$application = $this;
+
+		// Get a database object
+		$this->db = JFactory::getDbo();
 	}
 
 	/**

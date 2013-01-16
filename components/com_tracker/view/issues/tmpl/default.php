@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  com_tracker
  *
- * @copyright   Copyright (C) 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -24,11 +24,15 @@ JHtml::_('formbehavior.chosen', 'select');
 $filterStatus = $this->state->get('filter.status');
 
 $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array(), 'array'));
-
-
-
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
+	<?php if (!$this->project) : ?>
+	<div class="btn-group pull-left">
+		<h2>Please select a project</h2>
+		<?= JHtmlProjects::select(0, '', 'onchange="document.adminForm.submit();"') ?>
+	</div>
+	<?php else : ?>
+
 	<div class="filters btn-toolbar clearfix">
 		<div class="filter-search btn-group pull-left input-append">
 			<label class="filter-search-lbl element-invisible" for="filter-search"><?php echo JText::_('COM_TRACKER_FILTER_SEARCH_DESCRIPTION'); ?></label>
@@ -39,7 +43,8 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 			<button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><span class="icon-remove"></span></button>
 		</div>
 		<div class="btn-group pull-left">
-			<?php echo JHtmlProjects::select('com_tracker', 'filter-project', (int) $this->state->get('filter.project'), JText::_('Filter by Project')); ?>
+			<?php // @todo: project selector ?>
+			<?= JHtmlProjects::select((int) $this->state->get('filter.project'), JText::_('Filter by Project'), 'onchange="document.adminForm.submit();"') ?>
 		</div>
 		<div class="btn-group pull-right">
 			<label for="status" class="element-invisible"><?php echo JText::_('COM_TRACKER_FILTER_STATUS'); ?></label>
@@ -63,7 +68,6 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 				<th><?php echo JText::_('COM_TRACKER_HEADING_SUMMARY'); ?></th>
 				<th width="5%"><?php echo JText::_('COM_TRACKER_HEADING_PRIORITY'); ?></th>
 				<th width="10%"><?php echo JText::_('JSTATUS'); ?></th>
-				<th width="10%" class="hidden-phone"><?php echo JText::_('JCATEGORY'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_OPENED'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_DATE_CLOSED'); ?></th>
 				<th width="10%" class="hidden-phone"><?php echo JText::_('COM_TRACKER_HEADING_LAST_MODIFIED'); ?></th>
@@ -99,7 +103,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 					<div class="small">
 						<?php if ($item->gh_id) : ?>
 						<?php echo JText::_('COM_TRACKER_HEADING_GITHUB_ID'); ?>
-						<a href="https://github.com/joomla/joomla-cms/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
+						<a href="https://github.com/<?= $this->project->gh_user . '/' . $this->project->gh_project ?>/issues/<?php echo (int) $item->gh_id; ?>" target="_blank">
 							<?php echo (int) $item->gh_id; ?>
 						</a>
 						<?php endif; ?>
@@ -134,9 +138,6 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 				<td>
 					<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
 				</td>
-				<td class="hidden-phone">
-					<?php echo $item->category ? : 'N/A'; ?>
-				</td>
 				<td class="nowrap small hidden-phone">
 					<?php echo JHtml::_('date', $item->opened, 'DATE_FORMAT_LC4'); ?>
 				</td>
@@ -157,5 +158,6 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		</tbody>
 	</table>
 	<?php echo $this->pagination->getListFooter(); ?>
+	<?php endif; ?>
 	<input type="hidden" name="task" />
 </form>

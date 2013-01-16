@@ -3,7 +3,7 @@
  * @package     JTracker
  * @subpackage  Table
  *
- * @copyright   Copyright (C) 2012 Open Source Matters. All rights reserved.
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -27,7 +27,7 @@ class JTableComment extends JTable
 	 */
 	public function __construct(JDatabaseDriver $db)
 	{
-		parent::__construct('#__issue_comments', 'id', $db);
+		parent::__construct('#__activity', 'id', $db);
 	}
 
 	/**
