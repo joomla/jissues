@@ -61,17 +61,13 @@ final class TrackerReceiveIssues extends JApplicationHooks
 	 */
 	public function doExecute()
 	{
-		// Register the application to JFactory, just in case
-		JFactory::$application = $this;
-
 		// Initialize the logger
 		$options['format']    = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
 		$options['text_file'] = 'github_issues.php';
 		JLog::addLogger($options);
 
 		// Initialize the database
-		$db    = JFactory::getDbo();
-		$query = $db->getQuery(true);
+		$query = $this->db->getQuery(true);
 
 		// Get the data directly from the $_POST superglobal.  I've yet to make this work with JInput.
 		$data = $_POST['payload'];
@@ -83,14 +79,14 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		$githubID = $data->issue->number;
 
 		// Check to see if the issue is already in the database
-		$query->select($db->quoteName('id'));
-		$query->from($db->quoteName('#__issues'));
-		$query->where($db->quoteName('gh_id') . ' = ' . (int) $githubID);
-		$db->setQuery($query);
+		$query->select($this->db->quoteName('id'));
+		$query->from($this->db->quoteName('#__issues'));
+		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $githubID);
+		$this->db->setQuery($query);
 
 		try
 		{
-			$issueID = $db->loadResult();
+			$issueID = $this->db->loadResult();
 		}
 		catch (RuntimeException $e)
 		{
@@ -163,7 +159,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// Add the closed date if the status is closed
 		if ($data->issue->closed_at)
 		{
-			$table->closed_date = $data->issue->closed_at;
+			$table->closed_date = JFactory::getDate($data->issue->closed_at)->toSql();
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
@@ -178,6 +174,98 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		{
 			JLog::add(sprintf('Error storing new item %s in the database: %s', $data->issue->number, $table->getError()), JLog::INFO);
 			$this->close();
+		}
+
+		// Get the ID for the new issue
+		$query = $this->db->getQuery(true);
+		$query->select('id');
+		$query->from($this->db->quoteName('#__issues'));
+		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $data->issue->number);
+		$this->db->setQuery($query);
+
+		try
+		{
+			$issueID = $this->db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			JLog::add(sprintf('Error retrieving ID for GitHub issue %s in the database: %s', $data->issue->number, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
+		// Add a open record to the activity table
+		$columnsArray = array(
+			$this->db->quoteName('issue_id'),
+			$this->db->quoteName('user'),
+			$this->db->quoteName('event'),
+			$this->db->quoteName('created')
+		);
+
+		$query->clear();
+		$query->insert($this->db->quoteName('#__activity'));
+		$query->columns($columnsArray);
+		$query->values(
+			(int) $issueID . ', '
+			. $this->db->quote($data->issue->user->login) . ', '
+			. $this->db->quote('open') . ', '
+			. $this->db->quote($table->opened)
+		);
+		$this->db->setQuery($query);
+
+		try
+		{
+			$this->db->execute();
+		}
+		catch (RuntimeException $e)
+		{
+			JLog::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
+		// Add a reopen record to the activity table if the status is closed
+		if ($action == 'reopened')
+		{
+			$query->clear('values');
+			$query->values(
+				(int) $data->issueID . ', '
+				. $this->db->quote($data->issue->user->login) . ', '
+				. $this->db->quote('reopen') . ', '
+				. $this->db->quote($table->modified)
+			);
+			$this->db->setQuery($query);
+
+			try
+			{
+				$this->db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+				$this->close();
+			}
+		}
+
+		// Add a close record to the activity table if the status is closed
+		if ($data->issue->closed_at)
+		{
+			$query->clear('values');
+			$query->values(
+				(int) $data->issueID . ', '
+				. $this->db->quote($data->issue->user->login) . ', '
+				. $this->db->quote('close') . ', '
+				. $this->db->quote($table->closed_date)
+			);
+			$this->db->setQuery($query);
+
+			try
+			{
+				$this->db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				JLog::add(sprintf('Error storing close activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+				$this->close();
+			}
 		}
 
 		// Store was successful, update status
@@ -216,30 +304,87 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		}
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$db = JFactory::getDbo();
-		$query = $db->getQuery(true);
-		$query->update($db->quoteName('#__issues'));
-		$query->set($db->quoteName('title') . ' = ' . $db->quote($data->issue->title));
-		$query->set($db->quoteName('description') . ' = ' . $db->quote($data->issue->body));
-		$query->set($db->quoteName('status') . ' = ' . $status);
-		$query->set($db->quoteName('modified') . ' = ' . $db->quote(JFactory::getDate($data->issue->updated_at)->toSql()));
-		$query->where($db->quoteName('id') . ' = ' . $issueID);
+		$query = $this->db->getQuery(true);
+		$query->update($this->db->quoteName('#__issues'));
+		$query->set($this->db->quoteName('title') . ' = ' . $this->db->quote($data->issue->title));
+		$query->set($this->db->quoteName('description') . ' = ' . $this->db->quote($data->issue->body));
+		$query->set($this->db->quoteName('status') . ' = ' . $status);
+		$query->set($this->db->quoteName('modified') . ' = ' . $this->db->quote(JFactory::getDate($data->issue->updated_at)->toSql()));
+		$query->where($this->db->quoteName('id') . ' = ' . $issueID);
 
 		// Add the closed date if the status is closed
 		if ($data->issue->closed_at)
 		{
-			$query->set($db->quoteName('closed_date') . ' = ' . $db->quote(JFactory::getDate($data->issue->closed_at)->toSql()));
+			$query->set($this->db->quoteName('closed_date') . ' = ' . $this->db->quote(JFactory::getDate($data->issue->closed_at)->toSql()));
 		}
 
 		try
 		{
-			$db->setQuery($query);
-			$db->execute();
+			$this->db->setQuery($query);
+			$this->db->execute();
 		}
 		catch (RuntimeException $e)
 		{
 			JLog::add('Error updating the database for issue ' . $issueID . ':' . $e->getMessage(), JLog::INFO);
 			$this->close();
+		}
+
+		// Set up the activity logging
+		$columnsArray = array(
+			$this->db->quoteName('issue_id'),
+			$this->db->quoteName('user'),
+			$this->db->quoteName('event'),
+			$this->db->quoteName('created')
+		);
+
+		$query->clear();
+		$query->insert($this->db->quoteName('#__activity'));
+		$query->columns($columnsArray);
+
+		// Add a reopen record to the activity table if the status is closed
+		if ($action == 'reopened')
+		{
+			$query->clear('values');
+			$query->values(
+				(int) $data->issueID . ', '
+				. $this->db->quote($data->issue->user->login) . ', '
+				. $this->db->quote('reopen') . ', '
+				. $this->db->quote($table->modified)
+			);
+			$this->db->setQuery($query);
+
+			try
+			{
+				$this->db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+				$this->close();
+			}
+		}
+
+		// Add a close record to the activity table if the status is closed
+		if ($data->issue->closed_at)
+		{
+			$query->clear('values');
+			$query->values(
+				(int) $data->issueID . ', '
+				. $this->db->quote($data->issue->user->login) . ', '
+				. $this->db->quote('close') . ', '
+				. $this->db->quote($table->closed_date)
+			);
+			$this->db->setQuery($query);
+
+			try
+			{
+				$this->db->execute();
+			}
+			catch (RuntimeException $e)
+			{
+				JLog::add(sprintf('Error storing close activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+				$this->close();
+			}
 		}
 
 		// Store was successful, update status
