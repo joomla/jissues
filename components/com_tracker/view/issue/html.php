@@ -47,6 +47,12 @@ class TrackerViewIssueHtml extends JViewHtml
 	protected $project;
 
 	/**
+	 * @var array
+	 * @since  1.0
+	 */
+	protected $activity;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -69,12 +75,8 @@ class TrackerViewIssueHtml extends JViewHtml
 
 		$this->project = new JTrackerProject($this->item->project_id);
 
-		$this->comments   = $this->model->getComments($id);
 		$this->fieldsData = $this->model->getFieldsData($id);
-		$id = $app->input->getInt('id', 1);
-		$this->item     = $this->model->getItem($id);
 		$this->activity = $this->model->getActivity($id);
-		$this->fields   = $this->model->getFields($id);
 
 		// Build the toolbar
 		$this->buildToolbar();
