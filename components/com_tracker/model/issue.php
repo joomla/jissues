@@ -32,7 +32,7 @@ class TrackerModelIssue extends JModelTrackerForm
 	}
 
 	/**
-	 * Method to get the comments for an item.
+	 * Method to get the activity for an item.
 	 *
 	 * @param   integer  $id  The id of the primary key.
 	 *
@@ -40,14 +40,15 @@ class TrackerModelIssue extends JModelTrackerForm
 	 *
 	 * @since   1.0
 	 */
-	public function getComments($id)
+	public function getActivity($id)
 	{
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
 		$query->select('*');
-		$query->from($db->quoteName('#__issue_comments', 'a'));
+		$query->from($db->quoteName('#__activity', 'a'));
 		$query->where($db->quoteName('a.issue_id') . ' = ' . (int) $id);
+		$query->order('a.created ASC');
 
 		try
 		{
@@ -61,7 +62,27 @@ class TrackerModelIssue extends JModelTrackerForm
 			return array();
 		}
 
-		return $items;
+		// Build the activities array
+		$activities = array();
+		$activities['comments'] = array();
+		$activities['events']   = array();
+
+		// Separate the event types into different area pieces
+		foreach ($items as $item)
+		{
+			switch ($item->event)
+			{
+				case 'comment' :
+					$activities['comments'][] = $item;
+					break;
+
+				default :
+					$activities['events'][] = $item;
+					break;
+			}
+		}
+
+		return $activities;
 	}
 
 	/**
