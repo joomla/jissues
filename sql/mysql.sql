@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `closed_sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been closed',
   `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `modified_by` varchar(255) NULL DEFAULT NULL, 
+  `modified_by` tinyint(4) NULL DEFAULT NULL, 
   `patch_url` varchar(255) NULL,
   `rel_id` integer unsigned DEFAULT NULL COMMENT 'Relation id user',
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
