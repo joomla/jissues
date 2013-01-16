@@ -331,6 +331,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$query->select('id');
 			$query->from($db->quoteName('#__issues'));
 			$query->where($db->quoteName('gh_id') . ' = ' . (int) $issue->number);
+			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 			$db->setQuery($query);
 
 			try
