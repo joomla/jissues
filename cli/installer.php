@@ -54,8 +54,10 @@ class InstallerApplication extends JApplicationCli
 	 * Method to run the application routines.
 	 *
 	 * @throws RuntimeException
+	 * @throws Exception|RuntimeException
 	 * @throws InstallerAbortException
 	 * @throws UnexpectedValueException
+	 *
 	 * @return  void
 	 */
 	protected function doExecute()
@@ -69,13 +71,17 @@ class InstallerApplication extends JApplicationCli
 			// Check if the database "exists"
 			$tables = $db->getTableList();
 
-			$this->out('WARNING: A database has been found !!')->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
-
-			$in = trim($this->in());
-
-			if ('yes' != $in && 'y' != $in)
+			if (!$this->input->get('reinstall'))
 			{
-				throw new InstallerAbortException;
+				$this->out('WARNING: A database has been found !!')
+					->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
+
+				$in = trim($this->in());
+
+				if ('yes' != $in && 'y' != $in)
+				{
+					throw new InstallerAbortException;
+				}
 			}
 
 			// Remove existing tables
@@ -83,7 +89,13 @@ class InstallerApplication extends JApplicationCli
 			$this->out('Removing existing tables...', false);
 
 			// First, need to drop the tables with FKs in specific order
-			$keyTables = array($db->replacePrefix('#__tracker_fields_values'), $db->replacePrefix('#__activity'), $db->replacePrefix('#__issues'), $db->replacePrefix('#__status'));
+			$keyTables = array(
+				$db->replacePrefix('#__tracker_fields_values'),
+				$db->replacePrefix('#__activity'),
+				$db->replacePrefix('#__issues'),
+				$db->replacePrefix('#__status')
+			);
+
 			foreach ($keyTables as $table)
 			{
 				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
@@ -92,6 +104,11 @@ class InstallerApplication extends JApplicationCli
 
 			foreach ($tables as $table)
 			{
+				if('sqlite_sequence' == $table)
+				{
+					continue;
+				}
+
 				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
 				$this->out('.', false);
 			}
@@ -116,6 +133,10 @@ class InstallerApplication extends JApplicationCli
 				$db->select($this->config->get('db'));
 
 				$this->out('ok');
+			}
+			else
+			{
+				throw $e;
 			}
 		}
 
@@ -225,11 +246,11 @@ class InstallerApplication extends JApplicationCli
 
 		if ('no' != $in && 'n' != $in)
 		{
-			$this->out('Enter username [[admin]]: ', false);
+			$this->out('Username [[admin]]: ', false);
 			$username = trim($this->in());
 			$username = $username ? : 'admin';
 
-			$this->out('Enter password [[test]]: ', false);
+			$this->out('Password [[test]]: ', false);
 			$password = trim($this->in());
 			$password = $password ? : 'test';
 
@@ -237,28 +258,42 @@ class InstallerApplication extends JApplicationCli
 			$crypt = JUserHelper::getCryptedPassword($password, $salt);
 
 			$query = $db->getQuery(true);
-			$query->insert('#__users');
-			$query->set('name = "Super User"');
-			$query->set('username = ' . $db->quote($username));
-			$query->set('password = ' . $db->quote($crypt . ':' . $salt));
-			$query->set('email = "test@localhost.test"');
-			$query->set('block = 0');
-			$query->set('sendEmail = 1');
-			$query->set('registerDate = "0000-00-00 00:00:00"');
-			$query->set('lastvisitDate = "0000-00-00 00:00:00"');
-			$query->set('activation = 0');
-			$query->set('params = "{}"');
-			$query->set('lastResetTime = "0000-00-00 00:00:00"');
-			$query->set('resetCount = 0');
 
-			$db->setQuery($query)->execute();
+			$data = array(
+				$db->quoteName('name')          => $db->quote('Super User'),
+				$db->quoteName('username')      => $db->quote($username),
+				$db->quoteName('password')      => $db->quote($crypt . ':' . $salt),
+				$db->quoteName('email')         => $db->quote('test@localhost.test'),
+				$db->quoteName('block')         => 0,
+				$db->quoteName('sendEmail')     => 1,
+				$db->quoteName('registerDate')  => $db->quote('0000-00-00 00:00:00'),
+				$db->quoteName('lastvisitDate') => $db->quote('0000-00-00 00:00:00'),
+				$db->quoteName('activation')    => 0,
+				$db->quoteName('params')        => $db->quote('{}'),
+				$db->quoteName('lastResetTime') => $db->quote('0000-00-00 00:00:00'),
+				$db->quoteName('resetCount')    => 0
+			);
+
+			$db->setQuery(
+				$query->insert('#__users')
+					->columns(array_keys($data))
+					->values(implode(',', $data))
+			)->execute();
+
 			$userId = $db->insertid();
 
-			$query->clear();
-			$query->insert('#__user_usergroup_map');
-			$query->set('user_id = ' . $db->quote($userId));
-			$query->set('group_id = 8');
-			$db->setQuery($query)->execute();
+			$data = array(
+				$db->quoteName('user_id')  => $userId,
+				$db->quoteName('group_id') => 8
+			);
+
+			$db->setQuery(
+				$query->clear()
+					->insert('#__user_usergroup_map')
+					->columns(array_keys($data))
+					->values(implode(',', $data))
+			)->execute();
+
 			$this->out('User created.');
 		}
 
@@ -295,7 +330,7 @@ class InstallerApplication extends JApplicationCli
 /**
  * Exception class
  *
- * @todo move
+ * @todo        move
  *
  * @package     JTracker
  * @subpackage  CLI

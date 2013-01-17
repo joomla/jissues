@@ -101,10 +101,17 @@ class TrackerApplicationRetrieve extends JApplicationCli
 		// Set up JGithub
 		$options = new JRegistry;
 
-		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-		$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
+		if ($this->input->get('auth'))
+		{
+			$resp = 'yes';
+		}
+		else
+		{
+			// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
+			$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
 
-		$resp = trim($this->in());
+			$resp = trim($this->in());
+		}
 
 		if ($resp == 'y' || $resp == 'yes')
 		{
@@ -167,7 +174,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 		{
 			foreach ($projects as $project)
 			{
-				if ($project->id == $id)
+				if ($project->project_id == $id)
 				{
 					$this->project = $project;
 
@@ -193,52 +200,42 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	 */
 	protected function getData()
 	{
-		try
-		{
-			$issues = array();
+		$issues = array();
 
-			foreach (array('open', 'closed') as $state)
+		foreach (array('open', 'closed') as $state)
+		{
+			$this->out('Retrieving ' . $state . ' items from GitHub.', true);
+			$page = 0;
+			do
 			{
-				$this->out('Retrieving ' . $state . ' items from GitHub.', true);
-				$page = 0;
-				do
+				$page++;
+				$issues_more = $this->github->issues->getListByRepository(
+					$this->project->gh_user, // Owner
+					$this->project->gh_project, // Repository
+					null, // Milestone
+					$state, // State [ open | closed ]
+					null, // Assignee
+					null, // Creator
+					null, // Labels
+					'created', // Sort
+					'asc', // Direction
+					null, // Since
+					$page, // Page
+					100 // Count
+				);
+				$count       = is_array($issues_more) ? count($issues_more) : 0;
+				$this->out('Retrieved batch of ' . $count . ' items from GitHub.', true);
+				if ($count)
 				{
-					$page++;
-					$issues_more = $this->github->issues->getListByRepository(
-						$this->project->gh_user, // Owner
-						$this->project->gh_project, // Repository
-						null, // Milestone
-						$state, // State [ open | closed ]
-						null, // Assignee
-						null, // Creator
-						null, // Labels
-						'created', // Sort
-						'asc', // Direction
-						null, // Since
-						$page, // Page
-						100 // Count
-					);
-					$count       = is_array($issues_more) ? count($issues_more) : 0;
-					$this->out('Retrieved batch of ' . $count . ' items from GitHub.', true);
-					if ($count)
-					{
-						$issues = array_merge($issues, $issues_more);
-					}
-				} while ($count);
-			}
-
-			usort($issues, function ($a, $b)
-			{
-				return $a->number - $b->number;
-			});
+					$issues = array_merge($issues, $issues_more);
+				}
+			} while ($count);
 		}
 
-			// Catch any DomainExceptions and close the script
-		catch (DomainException $e)
+		usort($issues, function ($a, $b)
 		{
-			$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-			$this->close();
-		}
+			return $a->number - $b->number;
+		});
 
 		// Retrieved items, report status
 		$this->out('Retrieved ' . count($issues) . ' items from GitHub, checking database now.', true);
@@ -251,6 +248,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 	 *
 	 * @param   array  $issues  Array containing the issues pulled from GitHub
 	 *
+	 * @throws RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
@@ -273,15 +271,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 			$db->setQuery($query);
 
-			try
-			{
-				$result = $db->loadResult();
-			}
-			catch (RuntimeException $e)
-			{
-				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-				$this->close();
-			}
+			$result = $db->loadResult();
 
 			// If we have something already, then move on to the next item
 			if ($result >= 1)
@@ -334,14 +324,15 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 			$db->setQuery($query);
 
-			try
+			$issueID = $db->loadResult();
+
+			if (!$issueID)
 			{
-				$issueID = $db->loadResult();
-			}
-			catch (RuntimeException $e)
-			{
-				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-				$this->close();
+				// Bad coder :(
+				throw new RuntimeException(sprintf(
+						'Invalid issue id for issue: %1$d in project id %2$s',
+						$issue->number, $this->project->project_id)
+				);
 			}
 
 			// Add a open record to the activity table
@@ -357,43 +348,27 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$query->columns($columnsArray);
 			$query->values(
 				(int) $issueID . ', '
-				. $db->quote($issue->user->login) . ', '
-				. $db->quote('open') . ', '
-				. $db->quote($table->opened)
+					. $db->quote($issue->user->login) . ', '
+					. $db->quote('open') . ', '
+					. $db->quote($table->opened)
 			);
+
 			$db->setQuery($query);
 
-			try
-			{
-				$db->execute();
-			}
-			catch (RuntimeException $e)
-			{
-				$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-				$this->close();
-			}
+			$db->execute();
 
 			// Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
 			{
-				$query->clear('values');
-				$query->values(
-					(int) $issueID . ', '
-					. $db->quote($issue->user->login) . ', '
-					. $db->quote('close') . ', '
-					. $db->quote($table->closed_date)
-				);
-				$db->setQuery($query);
-
-				try
-				{
-					$db->execute();
-				}
-				catch (RuntimeException $e)
-				{
-					$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-					$this->close();
-				}
+				$db->setQuery(
+					$query->clear('values')
+						->values(
+							(int) $issueID . ', '
+								. $db->quote($issue->user->login) . ', '
+								. $db->quote('close') . ', '
+								. $db->quote($table->closed_date)
+						)
+				)->execute();
 			}
 
 			// Store was successful, update status
@@ -408,15 +383,21 @@ class TrackerApplicationRetrieve extends JApplicationCli
 
 try
 {
-	$app = JApplicationCli::getInstance('TrackerApplicationRetrieve');
+	JApplicationCli::getInstance('TrackerApplicationRetrieve')
+		->execute();
+}
+catch (UnderflowException $e)
+{
+	// In our App this means abort.
+	echo "\nThe installation has been aborted.\n\n";
 
-	JFactory::$application = $app;
-
-	$app->execute();
+	exit(0);
 }
 catch (Exception $e)
 {
-	echo $e->getMessage() . "\n\n";
+	echo "\nERROR: " . $e->getMessage() . "\n\n";
 
 	echo $e->getTraceAsString();
+
+	exit($e->getCode() ? : 1);
 }
