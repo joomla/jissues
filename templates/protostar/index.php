@@ -34,6 +34,8 @@ $doc->addStyleSheet('templates/protostar/css/template.css');
 // Load optional rtl Bootstrap css and Bootstrap bugfixes
 JHtml::_('bootstrap.loadCss', false, $this->direction);
 
+$ghUserName = JFactory::getSession()->get('gh_user_name');
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->language; ?>" lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
@@ -55,6 +57,13 @@ JHtml::_('bootstrap.loadCss', false, $this->direction);
 	<!-- Body -->
 	<div class="body">
 		<div class="container-fluid">
+			<div class="pull-right">
+				<?php if($ghUserName) : ?>
+					<?php echo JHtml::link('index.php?option=com_users&task=ghlogout', sprintf('Logout %s', $ghUserName)) ?>
+				<?php else : ?>
+					<?php echo JHtmlGithub::loginButton() ?>
+				<?php endif; ?>
+			</div>
 			<!-- Header -->
 			<div class="header">
 				<div class="header-inner clearfix">

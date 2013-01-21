@@ -12,6 +12,18 @@
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.keepalive');
+
+$ghUserName = JFactory::getSession()->get('gh_user_name');
+
+if ($ghUserName)
+{
+	echo sprintf('You are logged in by %1$s as %2$s',
+		JHtml::link('https://github.com', 'GitHub'),
+		JHtml::link('https://github.com/' . $ghUserName, $ghUserName)
+	);
+
+	return;
+}
 ?>
 <div class="login <?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
@@ -82,4 +94,8 @@ JHtml::_('behavior.keepalive');
 		</li>
 		<?php endif; ?>
 	</ul>
+</div>
+
+<div>
+	<?php echo JHtmlGithub::loginButton() ?>
 </div>
