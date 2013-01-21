@@ -7,6 +7,13 @@ class JConfig
 	 */
 	public $github_user		= '';
 	public $github_password	= '';
+
+	/*
+	 * The client id and client secret assigned by GitHub for the application.
+	 */
+	public $github_client_id = '';
+	public $github_client_secret = '';
+
 	public $dbtype			= 'mysqli';
 	public $host			= 'localhost';
 	public $user			= '';
