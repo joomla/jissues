@@ -22,6 +22,7 @@ JHtml::_('bootstrap.tooltip', '.hasTooltip', $ttParams);
 JHtml::_('formbehavior.chosen', 'select');
 
 $filterStatus = $this->state->get('filter.status');
+$fields = new JRegistry(JFactory::getApplication()->input->get('fields', array(), 'array'));
 
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm"
@@ -151,29 +152,32 @@ $filterStatus = $this->state->get('filter.status');
 							<span class="badge <?php echo $status_class; ?>">
 						<?php echo (int) $item->priority; ?>
 					</span>
-						</td>
-						<td>
-							<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
-						</td>
-						<td class="nowrap small hidden-phone">
-							<?php echo JHtml::_('date', $item->opened, 'DATE_FORMAT_LC4'); ?>
-						</td>
-						<td class="nowrap small hidden-phone">
-							<?php if ($item->closed_status) : ?>
-								<?php echo JHtml::_('date', $item->closed_date, 'DATE_FORMAT_LC4'); ?>
-							<?php endif; ?>
-						</td>
-						<td class="nowrap small hidden-phone">
-							<?php if ($item->modified != '0000-00-00 00:00:00') : ?>
-								<?php echo JHtml::_('date', $item->modified, 'DATE_FORMAT_LC4'); ?>
-							<?php endif; ?>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			<?php endif; ?>
-			</tbody>
-		</table>
-		<?php echo $this->pagination->getListFooter(); ?>
+				</td>
+				<td>
+					<?php echo JText::_('COM_TRACKER_STATUS_' . strtoupper($item->status_title)); ?>
+				</td>
+				<td class="nowrap small hidden-phone">
+					<?php echo JHtml::_('date', $item->opened, 'DATE_FORMAT_LC4'); ?>
+				</td>
+				<td class="nowrap small hidden-phone">
+					<?php if ($item->closed_status) : ?>
+						<?php echo JHtml::_('date', $item->closed_date, 'DATE_FORMAT_LC4'); ?>
+					<?php endif; ?>
+				</td>
+				<td class="nowrap small hidden-phone">
+					<?php if ($item->modified != '0000-00-00 00:00:00') : ?>
+						<?php echo JHtml::_('date', $item->modified, 'DATE_FORMAT_LC4') . '<br />'; ?>
+						<?php if ((bool)$item->modified_by) { ?>
+						<?php echo 'By ' . JFactory::getUser($item->modified_by)->username ?>
+						<?php } ?>
+					<?php endif; ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		<?php endif; ?>
+		</tbody>
+	</table>
+	<?php echo $this->pagination->getListFooter(); ?>
 	<?php endif; ?>
 	<input type="hidden" name="task"/>
 </form>
