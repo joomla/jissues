@@ -76,6 +76,29 @@ abstract class JHtmlStatus
 		return implode("\n", self::$items);
 	}
 
+	public static function item($id)
+	{
+		static $items;
+
+		if (!isset($items[$id]))
+		{
+			$db = JFactory::getDbo();
+
+			$statuses = $db->setQuery(
+				$db->getQuery(true)
+				->from($db->quoteName('#__status'))
+				->select($db->quoteName(array('id', 'status')))
+			)->loadObjectList();
+
+			foreach ($statuses as $status)
+			{
+				$items[$status->id] = JText::_('COM_TRACKER_STATUS_' . $status->status);
+			}
+		}
+
+		return (isset($items[$id])) ? $items[$id] : '';
+	}
+
 	/**
 	 * Loads the statuses from the database
 	 *
