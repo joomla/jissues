@@ -37,7 +37,7 @@ class TrackerControllerSave extends JControllerTracker
 		$data    = $this->input->post->get('jform', array(), 'array');
 		$checkin = property_exists($table, 'checked_out');
 		$context = $this->option . '.edit.' . $model->getName();
-
+        
 		// Determine the name of the primary key for the data.
 		$key = $table->getKeyName();
 
@@ -52,6 +52,7 @@ class TrackerControllerSave extends JControllerTracker
 
 		// Populate the row id from the session.
 		$data[$key] = $recordId;
+        $table->save(array('modified_by' => $user));
 
 		// Access check.
 		if (!$this->allowSave($data, $key))
