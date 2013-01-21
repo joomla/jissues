@@ -11,6 +11,11 @@
 
 defined('_JEXEC') or die;
 
+$gh_user_name = JFactory::getSession()->get('gh_user_name');
+
+// @todo support for avatars from gravatar or github
+$gh_user_avatar = 'media/jtracker/avatars/amor.png';
+
 ?>
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" name="adminForm"
       id="adminForm">
@@ -180,6 +185,31 @@ defined('_JEXEC') or die;
 					</div>
 				</div>
 				<?php endif; ?>
+			    <?php if ($gh_user_name) : ?>
+				    <div class="well well-small">
+					    <a name="comment-section"></a>
+					    <form method="post" action="index.php">
+						    <div class="row-fluid">
+						        <div class="span1 pagination-centered">
+							        <img src="<?php echo $gh_user_avatar ?>" class="img-polaroid" alt="Avatar <?php echo $gh_user_name ?>" title="Avatar <?php echo $gh_user_name ?>"/>
+						        </div>
+							    <div class="span11">
+									<textarea name="comment" placeholder="Add a comment..." style="width: 99%;"></textarea>
+							    </div>
+							 </div>
+						    <div class="row-fluid">
+							    <div class="span12">
+								    <input type="submit" class="btn btn-success btn-large pull-right" value="Comment" />
+							    </div>
+							</div>
+							<input type="hidden" name="option" value="com_tracker" />
+							<input type="hidden" name="task" value="comment" />
+						    <input type="hidden" name="usr_return" value="<?php echo base64_encode(JUri::getInstance().'#comment-section') ?>">
+						</form>
+				    </div>
+			    <?php else : ?>
+				    <?php echo JHtmlGithub::loginButton('Login with GitHub to add a comment', JUri::current().'#comment-section') ?>
+			    <?php endif; ?>
 			</div>
 			<div class="tab-pane" id="events">
 				<?php foreach ($this->activity['events'] as $i => $event) : ?>
