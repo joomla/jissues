@@ -127,10 +127,17 @@ class TrackerApplicationComments extends JApplicationCli
 		// Set up JGithub
 		$options = new JRegistry;
 
-		// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-		$this->out('Do you wish to authenticate to GitHub? [y]es / [[n]]o :', false);
+		if ($this->input->get('auth'))
+		{
+			$resp = 'yes';
+		}
+		else
+		{
+			// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
+			$this->out('Do you wish to authenticate to GitHub? [y]es / [[n]]o :', false);
 
-		$resp = trim($this->in());
+			$resp = trim($this->in());
+		}
 
 		if ($resp == 'y' || $resp == 'yes')
 		{
@@ -196,7 +203,7 @@ class TrackerApplicationComments extends JApplicationCli
 		{
 			foreach ($projects as $project)
 			{
-				if ($project->id == $id)
+				if ($project->project_id == $id)
 				{
 					$this->project = $project;
 
@@ -232,9 +239,9 @@ class TrackerApplicationComments extends JApplicationCli
 				$this->comments[$id] = $this->github->issues->getComments($this->project->gh_user, $this->project->gh_project, $id);
 			}
 		}
-		// Catch any DomainExceptions and close the script
 		catch (DomainException $e)
 		{
+			// Catch any DomainExceptions and close the script
 			$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
 			$this->close();
 		}
@@ -255,20 +262,34 @@ class TrackerApplicationComments extends JApplicationCli
 		$rangeFrom = 0;
 		$rangeTo   = 0;
 
-		// Limit issues to process
-		$this->out('GH issues to process? [[a]]ll / [r]ange :', false);
+		$issue = $this->input->getInt('issue');
 
-		$resp = trim($this->in());
-
-		if ($resp == 'r' || $resp == 'range')
+		if ($issue)
 		{
-			// Get the first GitHub issue (from)
-			$this->out('Enter the first GitHub issue ID to process (from) :', false);
-			$rangeFrom = (int) trim($this->in());
+			$rangeFrom = $issue;
+			$rangeTo   = $issue;
+		}
+		elseif ($this->input->get('all'))
+		{
+			// Do nothing
+		}
+		else
+		{
+			// Limit issues to process
+			$this->out('GH issues to process? [[a]]ll / [r]ange :', false);
 
-			// Get the ending GitHub issue (to)
-			$this->out('Enter the latest GitHub issue ID to process (to) :', false);
-			$rangeTo = (int) trim($this->in());
+			$resp = trim($this->in());
+
+			if ($resp == 'r' || $resp == 'range')
+			{
+				// Get the first GitHub issue (from)
+				$this->out('Enter the first GitHub issue ID to process (from) :', false);
+				$rangeFrom = (int) trim($this->in());
+
+				// Get the ending GitHub issue (to)
+				$this->out('Enter the latest GitHub issue ID to process (to) :', false);
+				$rangeTo = (int) trim($this->in());
+			}
 		}
 
 		$query = $this->db->getQuery(true);
@@ -356,11 +377,11 @@ class TrackerApplicationComments extends JApplicationCli
 				$query->columns($columnsArray);
 				$query->values(
 					(int) $comment->id . ', '
-					. (int) $issue->id . ', '
-					. $this->db->quote($comment->user->login) . ', '
-					. $this->db->quote('comment') . ', '
-					. $this->db->quote($body) . ', '
-					. $this->db->quote(JFactory::getDate($comment->created_at)->toSql())
+						. (int) $issue->id . ', '
+						. $this->db->quote($comment->user->login) . ', '
+						. $this->db->quote('comment') . ', '
+						. $this->db->quote($body) . ', '
+						. $this->db->quote(JFactory::getDate($comment->created_at)->toSql())
 				);
 				$this->db->setQuery($query);
 
@@ -392,4 +413,6 @@ catch (Exception $e)
 	echo $e->getMessage() . "\n\n";
 
 	echo $e->getTraceAsString();
+
+	exit($e->getCode() ? : 1);
 }
