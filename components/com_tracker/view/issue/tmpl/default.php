@@ -190,6 +190,16 @@ defined('_JEXEC') or die;
 							<h5>
 								<?php echo JText::sprintf($langKey, $event->user, $event->created); ?>
 							</h5>
+							<?php
+							switch($event->event):
+								case 'change' :
+									echo JHtmlTrackerevent::displayTable($this->project, $event->text);
+									break;
+								default :
+									break;
+
+							endswitch;
+							?>
 						</div>
 					</div>
 				</div>

@@ -25,6 +25,8 @@ class JTableIssue extends JTable
 	 */
 	protected $fieldValues = array();
 
+	protected $oldObject;
+
 	/**
 	 * Constructor
 	 *
@@ -67,6 +69,12 @@ class JTableIssue extends JTable
 	 */
 	public function bind($src, $ignore = array())
 	{
+		if ($this->id)
+		{
+			// Store the table to compute the differences later.
+			$this->oldObject = clone($this);
+		}
+
 		if (is_array($src))
 		{
 			if (isset($src['fields']))
@@ -157,7 +165,7 @@ class JTableIssue extends JTable
 	 */
 	public function check()
 	{
-		$app = JFactory::getApplication();
+		$app   = JFactory::getApplication();
 		$valid = true;
 
 		if (trim($this->title) == '')
@@ -171,7 +179,7 @@ class JTableIssue extends JTable
 		{
 			$app->enqueueMessage('A description is required.', 'error');
 
-			$valid =  false;
+			$valid = false;
 		}
 
 		return $valid;
@@ -193,8 +201,6 @@ class JTableIssue extends JTable
 	 */
 	public function store($updateNulls = false)
 	{
-		$date = JFactory::getDate();
-
 		$isNew = ($this->id < 1);
 
 		if (!$isNew)
@@ -217,7 +223,11 @@ class JTableIssue extends JTable
 			throw new RuntimeException($this->getError());
 		}
 
-		$db = $this->getDbo();
+		/*
+		 * Post-Save Actions
+		 */
+
+		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
 
 		// Add a record to the activity table if a new item
@@ -235,16 +245,68 @@ class JTableIssue extends JTable
 			$query->columns($columnsArray);
 			$query->values(
 				(int) $this->id . ', '
-				. $db->quote(JFactory::getUser()->username) . ', '
-				. $db->quote('open') . ', '
-				. $db->quote($this->opened)
+					. $db->quote(JFactory::getUser()->username) . ', '
+					. $db->quote('open') . ', '
+					. $db->quote($this->opened)
 			);
 			$db->setQuery($query);
 			$db->execute();
 		}
 
+		// Add a record to the activities table including the changes made to an item.
+		if ($this->oldObject)
+		{
+			// Compute the changes
+			$changes = array();
+
+			foreach ($this->getFields() as $fName => $field)
+			{
+				if (!$this->$fName && !$this->oldObject->$fName)
+				{
+					// Both values are "empty"
+					continue;
+				}
+
+				if ($this->$fName != $this->oldObject->$fName)
+				{
+					$change = new stdClass;
+
+					$change->name = $fName;
+					$change->old  = $this->oldObject->$fName;
+					$change->new  = $this->$fName;
+
+					switch ($fName)
+					{
+						case 'modified' :
+							break;
+
+						default :
+							$changes[] = $change;
+							break;
+					}
+				}
+			}
+
+			if ($changes)
+			{
+				$data = array(
+					$db->quoteName('issue_id') => (int) $this->id,
+					$db->quoteName('user')     => $db->quote(JFactory::getUser()->username),
+					$db->quoteName('event')    => $db->quote('change'),
+					$db->quoteName('text')     => $db->quote(json_encode($changes)),
+					$db->quoteName('created')  => $db->quote(JFactory::getDate()->toSql())
+				);
+
+				$db->setQuery(
+					$query->clear()
+						->insert($db->quoteName('#__activity'))
+						->columns(array_keys($data))
+						->values(implode(',', $data))
+				)->execute();
+			}
+		}
+
 		// If we don't have the extra fields, return here
-		if (!(isset($this->fieldValues)) || !$this->fieldValues)
 		if (!$this->fieldValues)
 		{
 			return true;
