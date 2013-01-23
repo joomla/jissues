@@ -29,6 +29,8 @@ class UsersControllerLogin extends JControllerTracker
 	 */
 	public function execute()
 	{
+		die('disabled');
+
 		JSession::checkToken('post') or jexit(JText::_('JInvalid_Token'));
 
 		$app   = $this->getApplication();

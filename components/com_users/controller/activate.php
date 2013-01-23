@@ -29,6 +29,8 @@ class UsersControllerActivate extends JControllerTracker
 	 */
 	public function execute()
 	{
+		die('disabled');
+
 		$user    = JFactory::getUser();
 		$input   = $this->getInput();
 		$uParams = JComponentHelper::getParams('com_users');

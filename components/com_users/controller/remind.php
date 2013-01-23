@@ -29,6 +29,8 @@ class UsersControllerRemind extends JControllerTracker
 	 */
 	public function execute()
 	{
+		die('disabled');
+
 		// Check the request token.
 		JSession::checkToken('post') or jexit(JText::_('JINVALID_TOKEN'));
 
