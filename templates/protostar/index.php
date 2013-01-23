@@ -34,7 +34,7 @@ $doc->addStyleSheet('templates/protostar/css/template.css');
 // Load optional rtl Bootstrap css and Bootstrap bugfixes
 JHtml::_('bootstrap.loadCss', false, $this->direction);
 
-$ghUserName = JFactory::getSession()->get('gh_user_name');
+$user = JFactory::getUser();
 
 ?>
 <!DOCTYPE html>
@@ -58,8 +58,8 @@ $ghUserName = JFactory::getSession()->get('gh_user_name');
 	<div class="body">
 		<div class="container-fluid">
 			<div class="pull-right">
-				<?php if($ghUserName) : ?>
-					<?php echo JHtml::link('index.php?option=com_users&task=ghlogout', sprintf('Logout %s', $ghUserName)) ?>
+				<?php if($user->id) : ?>
+					<?php echo JHtml::link('index.php?option=com_users&task=ghlogout', sprintf('Logout %s', $user->username)) ?>
 				<?php else : ?>
 					<?php echo JHtmlGithub::loginButton() ?>
 				<?php endif; ?>

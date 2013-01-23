@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_users
  * @since       1.0
  */
-class UsersControllerGhlogin extends JControllerTracker
+class UsersControllerGhlogin extends JControllerBase
 {
 	/**
 	 * Method to log in a user using oAuth on GitHub.
@@ -34,24 +34,73 @@ class UsersControllerGhlogin extends JControllerTracker
 	 */
 	public function execute()
 	{
-		if (false == JGithubLoginhelper::login())
+		/* @var $app JApplicationSite */
+		$app = $this->getApplication();
+
+		$redirect = $this->input->getBase64('usr_redirect')
+			? base64_decode($this->input->getBase64('usr_redirect'))
+			: JRoute::_('index.php?option=com_users&view=login');
+
+		$user = JGithubLoginhelper::login();
+
+		if (false == $user)
 		{
-			JFactory::getApplication()->redirect(JRoute::_('index.php?option=com_users&view=login', false));
+			$app->redirect($redirect);
 
 			return false;
 		}
 
-		JFactory::getApplication()->enqueueMessage('Login successful');
+		$theHardCodedPassword = '123456789012';
 
-		$usrRedirect = $this->input->getBase64('usr_redirect');
+		// Check if the user is already a registered JUser
 
-		if ($usrRedirect)
+		if ($user->id)
 		{
-			JFactory::getApplication()->redirect(base64_decode($usrRedirect), false);
+			// The user is already a JUser
 
-			return false;
+			$credentials = array(
+				'username' => $user->username,
+				'password' => $theHardCodedPassword
+			);
+		}
+		else
+		{
+			// Register a new JUser
+
+			$credentials = array(
+				'username'  => $user->username,
+				'password'  => $theHardCodedPassword,
+				'password1' => $theHardCodedPassword,
+				'name'      => $user->name,
+				'email1'    => $user->email
+			);
+
+			// Register a dummy mailer. - @todo remove
+			JFactory::$mailer = new JTrackerDummymailer;
+
+			$model = new UsersModelRegistration;
+
+			if (false == $model->register($credentials))
+			{
+				$app->enqueueMessage('Can not register.', 'error');
+
+				$app->redirect($redirect);
+			}
 		}
 
-		return true;
+		// Login
+
+		if (false == $app->login($credentials))
+		{
+			$app->enqueueMessage('Can not login.', 'error');
+		}
+		else
+		{
+			$app->enqueueMessage('Login successful');
+		}
+
+		$app->redirect($redirect);
+
+		return false;
 	}
 }

@@ -30,7 +30,9 @@ class UsersControllerGhlogout extends JControllerTracker
 	 */
 	public function execute()
 	{
-		JGithubLoginhelper::clearCredentials();
+		JGithubLoginhelper::logout();
+
+		JFactory::getApplication()->logout();
 
 		JFactory::getApplication()->redirect(JRoute::_('index.php', false));
 

@@ -11,7 +11,7 @@
 
 defined('_JEXEC') or die;
 
-$gh_user_name = JFactory::getSession()->get('gh_user_name');
+$user = JFactory::getUser();
 
 // @todo support for avatars from gravatar or github
 $gh_user_avatar = 'media/jtracker/avatars/amor.png';
@@ -185,13 +185,15 @@ $gh_user_avatar = 'media/jtracker/avatars/amor.png';
 					</div>
 				</div>
 				<?php endif; ?>
-			    <?php if ($gh_user_name) : ?>
+			    <?php if ($user->id) : ?>
 				    <div class="well well-small">
 					    <a name="comment-section"></a>
 					    <form method="post" action="index.php">
 						    <div class="row-fluid">
 						        <div class="span1 pagination-centered">
-							        <img src="<?php echo $gh_user_avatar ?>" class="img-polaroid" alt="Avatar <?php echo $gh_user_name ?>" title="Avatar <?php echo $gh_user_name ?>"/>
+							        <img src="<?php echo $gh_user_avatar ?>" class="img-polaroid"
+							             alt="Avatar <?php echo $user->username ?>"
+							             title="Avatar <?php echo $user->username ?>"/>
 						        </div>
 							    <div class="span11">
 									<textarea name="comment" placeholder="Add a comment..." style="width: 99%;"></textarea>
