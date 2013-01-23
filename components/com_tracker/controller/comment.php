@@ -39,6 +39,13 @@ class TrackerControllerComment extends TrackerControllerDefault
 			throw new RuntimeException('Missing issue id');
 		}
 
+		$token = JGithubLoginhelper::getToken();
+
+		if (!$token)
+		{
+			throw new RuntimeException('Missing gh token');
+		}
+
 		$modelIssue = new TrackerModelIssue;
 
 		$issue = $modelIssue->getItem($issueId);
@@ -50,22 +57,47 @@ class TrackerControllerComment extends TrackerControllerDefault
 
 		$project = new JTrackerProject($issue->project_id);
 
-		// Post the comment
+		try
+		{
+			$comment = $this->input->getHtml('comment');
 
-		JGithubLoginhelper::comment($project, $issue->gh_id, $this->input->getHtml('comment'));
+			$comment .= sprintf(
+				'<hr />You may blame the <a href="%1$s">%2$s Application</a> for transmitting this comment.',
+				'https://github.com/JTracker/jissues', 'JTracker'
+			);
 
-		// Retrieve the comment from GitHub and store it to the database.
+			$options = new JRegistry;
+			$options->set('gh.token', $token);
 
-		$cmd = JPATH_ROOT . '/cli/retrievecomments.php'
-			. ' --auth'
-			. ' --issue=' . (int) $issue->gh_id
-			. ' --project=' . (int) $issue->project_id;
+			$github = new JGithub($options);
 
-		exec($cmd, $output, $retVar);
+			$response = $github->issues->createComment($project->gh_user, $project->gh_project, $issue->gh_id, $comment);
+
+			// @todo - $response contains all the information needed to add the comment to our local db.
+			// @todo - But we're sooo lazy and someone already wrote a CLI script :P
+
+			// Retrieve the comment from GitHub and store it to the database.
+
+			$cmd = JPATH_ROOT . '/cli/retrievecomments.php'
+				. ' --auth'
+				. ' --issue=' . (int) $issue->gh_id
+				. ' --project=' . (int) $issue->project_id;
+
+			exec($cmd, $output, $retVar);
+
+			// finally...
+			JFactory::getApplication()->enqueueMessage('Your comment has been added');
+		}
+		catch (DomainException $e)
+		{
+			JFactory::getApplication()->enqueueMessage('Error posting the comment to GitHub: ' . $e->getMessage());
+
+			return false;
+		}
 
 		$usrReturn = $this->input->getBase64('usr_return');
 
-		if($usrReturn)
+		if ($usrReturn)
 		{
 			JFactory::getApplication()->redirect(base64_decode($usrReturn));
 
