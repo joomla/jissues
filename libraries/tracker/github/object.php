@@ -30,8 +30,6 @@ abstract class JGithubObject
 	 */
 	protected $client;
 
-	protected $token = null;
-
 	/**
 	 * Constructor.
 	 *
@@ -64,12 +62,14 @@ abstract class JGithubObject
 		// Get a new JUri object fousing the api url and given path.
 		$uri = new JUri($this->options->get('api.url') . $path);
 
-		if ($this->options->get('gh.token'))
+		if ($this->options->get('gh.token', false))
 		{
+			// Use oAuth - @todo set in request header ?
 			$uri->setVar('access_token', $this->options->get('gh.token'));
 		}
 		else
 		{
+			// Use basic authentication
 			if ($this->options->get('api.username', false))
 			{
 				$uri->setUser($this->options->get('api.username'));
