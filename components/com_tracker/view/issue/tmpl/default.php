@@ -191,9 +191,7 @@ $gh_user_avatar = 'media/jtracker/avatars/amor.png';
 					    <form method="post" action="index.php">
 						    <div class="row-fluid">
 						        <div class="span1 pagination-centered">
-							        <img src="<?php echo $gh_user_avatar ?>" class="img-polaroid"
-							             alt="Avatar <?php echo $user->username ?>"
-							             title="Avatar <?php echo $user->username ?>"/>
+							        <?php echo JHtmlGithub::avatar($user, 50) ?>
 						        </div>
 							    <div class="span11">
 									<textarea name="comment" placeholder="Add a comment..." style="width: 99%;"></textarea>

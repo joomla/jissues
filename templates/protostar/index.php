@@ -59,6 +59,7 @@ $user = JFactory::getUser();
 		<div class="container-fluid">
 			<div class="pull-right">
 				<?php if($user->id) : ?>
+					<?php echo JHtmlGithub::avatar($user, 20) ?>
 					<?php echo JHtml::link('index.php?option=com_users&task=ghlogout', sprintf('Logout %s', $user->username)) ?>
 				<?php else : ?>
 					<?php echo JHtmlGithub::loginButton() ?>

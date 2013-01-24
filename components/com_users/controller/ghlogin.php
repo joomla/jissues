@@ -86,11 +86,13 @@ class UsersControllerGhlogin extends JControllerBase
 
 				$app->redirect($redirect);
 			}
+
+			$this->saveAvatar($user);
 		}
 
 		// Login
 
-		if (false == $app->login($credentials))
+		if (false == $app->login($credentials, array('entry_url' => $redirect)))
 		{
 			$app->enqueueMessage('Can not login.', 'error');
 		}
@@ -102,5 +104,30 @@ class UsersControllerGhlogin extends JControllerBase
 		$app->redirect($redirect);
 
 		return false;
+	}
+
+	protected function saveAvatar(JGithubUser $user)
+	{
+		$fileName = basename(urldecode($user->avatar_url));
+		$localFile = $user->username . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+		$imageBase = JPATH_ROOT . '/media/jtracker/avatars/';
+
+		if (false == file_exists($imageBase . $localFile))
+		{
+			$ch = curl_init($user->avatar_url);
+
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+			$data = curl_exec($ch);
+
+			curl_close($ch);
+
+			if($data)
+			{
+				file_put_contents($imageBase . $localFile, $data);
+			}
+		}
 	}
 }

@@ -22,14 +22,14 @@ class JHtmlGithub
 	{
 		$gh_client_id = JFactory::getConfig()->get('github_client_id');
 
-		if(!$gh_client_id)
+		if (!$gh_client_id)
 		{
 			return 'Please set your GitHub client id in configuration.php';
 		}
 
 		$uri = JUri::getInstance();
 
-		if($redirect)
+		if ($redirect)
 		{
 			$uri->parse($redirect);
 		}
@@ -44,9 +44,36 @@ class JHtmlGithub
 
 		$url = 'https://github.com/login/oauth/authorize?scope=public_repo'
 			. '&client_id=' . $gh_client_id
-			. '&redirect_uri=' . urlencode($redirect)
-		;
+			. '&redirect_uri=' . urlencode($redirect);
 
 		return JHtml::link($url, $text, 'class="btn btn-primary"');
+	}
+
+	public static function avatar(JUser $user, $maxWidth = 0)
+	{
+		static $avatar;
+
+		$imageBase = 'media/jtracker/avatars';
+
+		if (!$avatar)
+		{
+			jimport('joomla.filesystem.folder');
+
+			$files = JFolder::files(JPATH_ROOT . '/' . $imageBase, '^'.$user->username.'\.');
+
+			$avatar = (isset($files[0])) ? $files[0] : 'amor.png';
+		}
+
+		$attribs = array();
+
+		$attribs ['title'] = $user->username;
+
+		if ($maxWidth)
+		{
+			$attribs['height'] = $maxWidth;
+			$attribs['width']  = $maxWidth;
+		}
+
+		return JHtml::image($imageBase . '/' . $avatar, $user->username, $attribs);
 	}
 }

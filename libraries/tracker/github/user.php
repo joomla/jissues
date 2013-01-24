@@ -18,6 +18,8 @@ defined('_JEXEC') or die;
  */
 class JGithubUser extends JUser
 {
+	public $avatar_url;
+
 	/**
 	 * Constructor.
 	 *
