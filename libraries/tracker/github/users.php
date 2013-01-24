@@ -103,7 +103,7 @@ class JGithubUsers extends JGithubObject
 		$path = '/user';
 
 		// Send the request.
-		$response = $this->client->patch($this->fetchUrl($path), $data);
+		$response = $this->client->patch($this->fetchUrl($path), json_encode($data));
 
 		// Validate the response code.
 		if ($response->code != 200)
@@ -129,7 +129,7 @@ class JGithubUsers extends JGithubObject
 	public function getUsers($since = 0)
 	{
 		// Build the request path.
-		$path = '/user';
+		$path = '/users';
 
 		$path .= ($since) ? '?since=' . $since : '';
 
