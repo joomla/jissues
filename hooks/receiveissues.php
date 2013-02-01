@@ -223,30 +223,14 @@ final class TrackerReceiveIssues extends JApplicationHooks
 			$this->close();
 		}
 
-		// Add a open record to the activity table
-		$columnsArray = array(
-			$this->db->quoteName('issue_id'),
-			$this->db->quoteName('user'),
-			$this->db->quoteName('event'),
-			$this->db->quoteName('created')
-		);
+		// Add an open record to the activity table
+		$activity = new JTableActivity($this->db);
+		$activity->issue_id = (int) $issueID;
+		$activity->user     = $data->issue->user->login;
+		$activity->event    = 'open';
+		$activity->created  = $table->opened;
 
-		$query->clear();
-		$query->insert($this->db->quoteName('#__activity'));
-		$query->columns($columnsArray);
-		$query->values(
-			(int) $issueID . ', '
-			. $this->db->quote($data->issue->user->login) . ', '
-			. $this->db->quote('open') . ', '
-			. $this->db->quote($table->opened)
-		);
-		$this->db->setQuery($query);
-
-		try
-		{
-			$this->db->execute();
-		}
-		catch (RuntimeException $e)
+		if (!$table->store())
 		{
 			JLog::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 			$this->close();
@@ -255,20 +239,13 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
-			$query->clear('values');
-			$query->values(
-				(int) $data->issueID . ', '
-				. $this->db->quote($data->issue->user->login) . ', '
-				. $this->db->quote('reopen') . ', '
-				. $this->db->quote($table->modified)
-			);
-			$this->db->setQuery($query);
+			$activity = new JTableActivity($this->db);
+			$activity->issue_id = (int) $issueID;
+			$activity->user     = $data->issue->user->login;
+			$activity->event    = 'reopen';
+			$activity->created  = $table->modified;
 
-			try
-			{
-				$this->db->execute();
-			}
-			catch (RuntimeException $e)
+			if (!$table->store())
 			{
 				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 				$this->close();
@@ -278,22 +255,15 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// Add a close record to the activity table if the status is closed
 		if ($data->issue->closed_at)
 		{
-			$query->clear('values');
-			$query->values(
-				(int) $data->issueID . ', '
-				. $this->db->quote($data->issue->user->login) . ', '
-				. $this->db->quote('close') . ', '
-				. $this->db->quote($table->closed_date)
-			);
-			$this->db->setQuery($query);
+			$activity = new JTableActivity($this->db);
+			$activity->issue_id = (int) $issueID;
+			$activity->user     = $data->issue->user->login;
+			$activity->event    = 'close';
+			$activity->created  = $table->closed_date;
 
-			try
+			if (!$table->store())
 			{
-				$this->db->execute();
-			}
-			catch (RuntimeException $e)
-			{
-				JLog::add(sprintf('Error storing close activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 				$this->close();
 			}
 		}
@@ -362,35 +332,16 @@ final class TrackerReceiveIssues extends JApplicationHooks
 			$this->close();
 		}
 
-		// Set up the activity logging
-		$columnsArray = array(
-			$this->db->quoteName('issue_id'),
-			$this->db->quoteName('user'),
-			$this->db->quoteName('event'),
-			$this->db->quoteName('created')
-		);
-
-		$query->clear();
-		$query->insert($this->db->quoteName('#__activity'));
-		$query->columns($columnsArray);
-
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
-			$query->clear('values');
-			$query->values(
-				(int) $data->issueID . ', '
-				. $this->db->quote($data->issue->user->login) . ', '
-				. $this->db->quote('reopen') . ', '
-				. $this->db->quote($table->modified)
-			);
-			$this->db->setQuery($query);
+			$activity = new JTableActivity($this->db);
+			$activity->issue_id = $issueID;
+			$activity->user     = $data->issue->user->login;
+			$activity->event    = 'reopen';
+			$activity->created  = JFactory::getDate($data->issue->updated_at)->toSql();
 
-			try
-			{
-				$this->db->execute();
-			}
-			catch (RuntimeException $e)
+			if (!$table->store())
 			{
 				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 				$this->close();
@@ -400,22 +351,15 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		// Add a close record to the activity table if the status is closed
 		if ($data->issue->closed_at)
 		{
-			$query->clear('values');
-			$query->values(
-				(int) $data->issueID . ', '
-				. $this->db->quote($data->issue->user->login) . ', '
-				. $this->db->quote('close') . ', '
-				. $this->db->quote($table->closed_date)
-			);
-			$this->db->setQuery($query);
+			$activity = new JTableActivity($this->db);
+			$activity->issue_id = $issueID;
+			$activity->user     = $data->issue->user->login;
+			$activity->event    = 'close';
+			$activity->created  = JFactory::getDate($data->issue->closed_at)->toSql();
 
-			try
+			if (!$table->store())
 			{
-				$this->db->execute();
-			}
-			catch (RuntimeException $e)
-			{
-				JLog::add(sprintf('Error storing close activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
+				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 				$this->close();
 			}
 		}
