@@ -143,38 +143,22 @@ final class TrackerReceiveComments extends JApplicationHooks
 			$issueID = $this->insertIssue($data);
 		}
 
-		// Store the item in the database
-		$columnsArray = array(
-			$this->db->quoteName('gh_comment_id'),
-			$this->db->quoteName('issue_id'),
-			$this->db->quoteName('user'),
-			$this->db->quoteName('event'),
-			$this->db->quoteName('text'),
-			$this->db->quoteName('created')
-		);
-
 		// Get a JGithub instance to parse the body through their parser
 		$github = new JGithub;
 
-		$query->insert($this->db->quoteName('#__activity'));
-		$query->columns($columnsArray);
-		$query->values(
-			(int) $data->comment->id . ', '
-			. (int) $issueID . ', '
-			. $this->db->quote($data->comment->user->login) . ', '
-			. $this->db->quote('comment') . ', '
-			. $this->db->quote($github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues')) . ', '
-			. $this->db->quote(JFactory::getDate($data->comment->created_at)->toSql())
-		);
-		$this->db->setQuery($query);
+		// Initialize our JTableActivity instance to insert the new record
+		$table = JTable::getInstance('Activity');
 
-		try
+		$table->gh_comment_id = $data->comment->id;
+		$table->issue_id      = (int) $issueID;
+		$table->user          = $data->comment->user->login;
+		$table->event         = 'comment';
+		$table->text          = $github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues');
+		$table->created       = JFactory::getDate($data->comment->created_at)->toSql();
+
+		if (!$table->store())
 		{
-			$this->db->execute();
-		}
-		catch (RuntimeException $e)
-		{
-			JLog::add(sprintf('Error storing new item %s in the database: %s', $data->comment->id, $e->getMessage()), JLog::INFO);
+			JLog::add(sprintf('Error storing new comment %s in the database: %s', $data->comment->id, $table->getError()), JLog::INFO);
 			$this->close();
 		}
 
