@@ -359,39 +359,19 @@ class TrackerApplicationComments extends JApplicationCli
 					continue;
 				}
 
-				// Store the item in the database
-				$columnsArray = array(
-					$this->db->quoteName('gh_comment_id'),
-					$this->db->quoteName('issue_id'),
-					$this->db->quoteName('user'),
-					$this->db->quoteName('event'),
-					$this->db->quoteName('text'),
-					$this->db->quoteName('created')
-				);
+				// Initialize our JTableActivity instance to insert the new record
+				$table = JTable::getInstance('Activity');
 
-				// Parse the body through GitHub's markdown parser
-				$body = $this->github->markdown->render($comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+				$table->gh_comment_id = $comment->id;
+				$table->issue_id      = (int) $issue->id;
+				$table->user          = $comment->user->login;
+				$table->event         = 'comment';
+				$table->text          = $this->github->markdown->render($comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+				$table->created       = JFactory::getDate($comment->created_at)->toSql();
 
-				$query->clear();
-				$query->insert($this->db->quoteName('#__activity'));
-				$query->columns($columnsArray);
-				$query->values(
-					(int) $comment->id . ', '
-						. (int) $issue->id . ', '
-						. $this->db->quote($comment->user->login) . ', '
-						. $this->db->quote('comment') . ', '
-						. $this->db->quote($body) . ', '
-						. $this->db->quote(JFactory::getDate($comment->created_at)->toSql())
-				);
-				$this->db->setQuery($query);
-
-				try
+				if (!$table->store())
 				{
-					$this->db->execute();
-				}
-				catch (RuntimeException $e)
-				{
-					$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
+					$this->out(sprintf('Error storing new comment %s in the database: %s', $comment->id, $table->getError()));
 					$this->close();
 				}
 			}
