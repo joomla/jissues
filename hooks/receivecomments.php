@@ -266,7 +266,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$activity->event    = 'open';
 		$activity->created  = $table->opened;
 
-		if (!$table->store())
+		if (!$activity->store())
 		{
 			JLog::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 			$this->close();
@@ -281,7 +281,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 			$activity->event    = 'close';
 			$activity->created  = $table->closed_date;
 
-			if (!$table->store())
+			if (!$activity->store())
 			{
 				JLog::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), JLog::INFO);
 				$this->close();
