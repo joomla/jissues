@@ -137,6 +137,30 @@ final class TrackerReceiveIssues extends JApplicationHooks
 
 		}
 
+		// Get the ID for the project on our tracker
+		$query = $this->db->getQuery(true);
+		$query->select($this->db->quoteName('project_id'));
+		$query->from($this->db->quoteName('#__tracker_projects'));
+		$query->where($this->db->quoteName('gh_project') . ' = ' . $this->db->quote($data->repository->name));
+		$this->db->setQuery($query);
+
+		try
+		{
+			$projectID = (int) $this->db->loadResult();
+		}
+		catch (RuntimeException $e)
+		{
+			JLog::add(sprintf('Error retrieving the project ID for GitHub repo %s in the database: %s', $data->repository->name, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
+		// Make sure we have a valid project ID
+		if ($projectID == 0)
+		{
+			JLog::add(sprintf('A project does not exist for the %s GitHub repo in the database, cannot add issues for it.', $data->repository->name), JLog::INFO);
+			$this->close();
+		}
+
 		// Get a JGithub instance to parse the body through their parser
 		$github = new JGithub;
 
@@ -146,9 +170,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		$table->status      = $status;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
-
-		// Hard code the project ID for the tracker project
-		$table->project_id  = 43;
+		$table->project_id  = $projectID;
 
 		// Add the diff URL if this is a pull request
 		if ($data->issue->pull_request->diff_url)
@@ -177,7 +199,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		}
 
 		// Get the ID for the new issue
-		$query = $this->db->getQuery(true);
+		$query->clear();
 		$query->select('id');
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $data->issue->number);
