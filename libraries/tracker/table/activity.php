@@ -10,13 +10,13 @@
 defined('JPATH_PLATFORM') or die;
 
 /**
- * Table interface class for the comments table
+ * Table interface class for the activity table
  *
  * @package     JTracker
  * @subpackage  Table
  * @since       1.0
  */
-class JTableComment extends JTable
+class JTableActivity extends JTable
 {
 	/**
 	 * Constructor
@@ -40,15 +40,15 @@ class JTableComment extends JTable
 	 */
 	public function check()
 	{
-		if (trim($this->submitter) == '')
+		if (trim($this->user) == '')
 		{
-			$this->setError('A name of the submitter is required.');
+			$this->setError('A user is required to be associated with an activity.');
 			return false;
 		}
 
-		if (trim($this->text) == '')
+		if (trim($this->event) == '')
 		{
-			$this->setError('A comment is required.');
+			$this->setError('An event is required.');
 			return false;
 		}
 
