@@ -157,7 +157,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$query->select($this->db->quoteName('id'));
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $data->issue->number);
-		$query->where($this->db->quoteName('project_id') . ' = ' . $this->projectID);
+		$query->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id);
 		$this->db->setQuery($query);
 
 		try
@@ -222,7 +222,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
-		$table->project_id  = $this->projectID;
+		$table->project_id  = $this->project->project_id;
 
 		// Add the diff URL if this is a pull request
 		if ($data->issue->pull_request->diff_url)
