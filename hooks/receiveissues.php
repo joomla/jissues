@@ -75,7 +75,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 
 		// Get the info for the project on our tracker
 		$query->clear();
-		$query->select($this->db->quoteName('*'));
+		$query->select('*');
 		$query->from($this->db->quoteName('#__tracker_projects'));
 		$query->where($this->db->quoteName('gh_project') . ' = ' . $this->db->quote($data->repository->name));
 		$this->db->setQuery($query);
