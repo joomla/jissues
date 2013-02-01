@@ -8,41 +8,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// Check the request is coming from GitHub
-$validIps = array('207.97.227.253', '50.57.128.197', '108.171.174.178', '50.57.231.61');
-if (!in_array($_SERVER['REMOTE_ADDR'], $validIps))
-{
-	die("You don't belong here!");
-}
-
 // We are a valid entry point.
 const _JEXEC = 1;
 
-// Load system defines
-if (file_exists(dirname(__DIR__) . '/defines.php'))
-{
-	require_once dirname(__DIR__) . '/defines.php';
-}
-
-if (!defined('_JDEFINES'))
-{
-	define('JPATH_BASE', dirname(__DIR__));
-	require_once JPATH_BASE . '/includes/defines.php';
-}
-
-// Bootstrap the Joomla Platform.
-require_once JPATH_LIBRARIES . '/import.legacy.php';
-
-// Bootstrap the CMS libraries.
-require_once JPATH_LIBRARIES . '/cms.php';
-
-// Bootstrap the Tracker application libraries.
-require_once JPATH_LIBRARIES . '/tracker.php';
-
-// Configure error reporting to maximum for logging.
-error_reporting(32767);
-ini_set('display_errors', 0);
-const JDEBUG = true;
+// Bootstrap the hook application
+require_once __DIR__ . '/bootstrap.php';
 
 /**
  * Web application to receive and inject issue comments from GitHub
@@ -179,6 +149,17 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// Get a JGithub instance to parse the body through their parser
 		$github = new JGithub;
 
+		// Try to render the comment with GitHub markdown
+		try
+		{
+			$text = $github->markdown->render($data->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+		}
+		catch (DomainException $e)
+		{
+			JLog::add(sprintf('Error parsing comment %s with GH Markdown: %s', $data->comment->id, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
 		// Initialize our JTableActivity instance to insert the new record
 		$table = JTable::getInstance('Activity');
 
@@ -186,7 +167,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$table->issue_id      = (int) $issueID;
 		$table->user          = $data->comment->user->login;
 		$table->event         = 'comment';
-		$table->text          = $github->markdown->render($data->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+		$table->text          = $text;
 		$table->created       = JFactory::getDate($data->comment->created_at)->toSql();
 
 		if (!$table->store())
@@ -215,10 +196,21 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// Get a JGithub instance to parse the body through their parser
 		$github = new JGithub;
 
+		// Try to render the description with GitHub markdown
+		try
+		{
+			$issue = $github->markdown->render($data->issue->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+		}
+		catch (DomainException $e)
+		{
+			JLog::add(sprintf('Error parsing issue text for ID %s with GH Markdown: %s', $data->issue->number, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
 		$table = JTable::getInstance('Issue');
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
-		$table->description = $github->markdown->render($data->issue->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+		$table->description = $issue;
 		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
@@ -314,10 +306,24 @@ final class TrackerReceiveComments extends JApplicationHooks
 	 */
 	protected function updateComment($data, $id)
 	{
+		// Get a JGithub instance to parse the body through their parser
+		$github = new JGithub;
+
+		// Try to render the comment with GitHub markdown
+		try
+		{
+			$text = $github->markdown->render($data->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
+		}
+		catch (DomainException $e)
+		{
+			JLog::add(sprintf('Error parsing comment %s with GH Markdown: %s', $data->comment->id, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$query = $this->db->getQuery(true);
 		$query->update($this->db->quoteName('#__activity'));
-		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($github->markdown->render($data->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project)));
+		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($text));
 		$query->where($this->db->quoteName('id') . ' = ' . $id);
 
 		try
