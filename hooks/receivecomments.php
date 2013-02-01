@@ -130,7 +130,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 
 		// Get the ID for the project on our tracker
 		$query = $this->db->getQuery(true);
-		$query->select($this->db->quoteName('*'));
+		$query->select('*');
 		$query->from($this->db->quoteName('#__tracker_projects'));
 		$query->where($this->db->quoteName('gh_project') . ' = ' . $this->db->quote($data->repository->name));
 		$this->db->setQuery($query);
