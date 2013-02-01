@@ -54,12 +54,19 @@ const JDEBUG = true;
 final class TrackerReceiveComments extends JApplicationHooks
 {
 	/**
+	 * The project information of the project whose data has been received
+	 *
+	 * @var    object
+	 * @since  1.0
+	 */
+	protected $project;
+
+	/**
 	 * Method to run the application routines.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Refactor to work with JTableComment
 	 */
 	public function doExecute()
 	{
@@ -121,10 +128,36 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// Initialize the database
 		$query = $this->db->getQuery(true);
 
+		// Get the ID for the project on our tracker
+		$query = $this->db->getQuery(true);
+		$query->select($this->db->quoteName('project_id'));
+		$query->from($this->db->quoteName('#__tracker_projects'));
+		$query->where($this->db->quoteName('gh_project') . ' = ' . $this->db->quote($data->repository->name));
+		$this->db->setQuery($query);
+
+		try
+		{
+			$this->project = $this->db->loadObject();
+		}
+		catch (RuntimeException $e)
+		{
+			JLog::add(sprintf('Error retrieving the project ID for GitHub repo %s in the database: %s', $data->repository->name, $e->getMessage()), JLog::INFO);
+			$this->close();
+		}
+
+		// Make sure we have a valid project ID
+		if (!$this->project->project_id)
+		{
+			JLog::add(sprintf('A project does not exist for the %s GitHub repo in the database, cannot add data for it.', $data->repository->name), JLog::INFO);
+			$this->close();
+		}
+
 		// First, make sure the issue is already in the database
+		$query->clear();
 		$query->select($this->db->quoteName('id'));
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $data->issue->number);
+		$query->where($this->db->quoteName('project_id') . ' = ' . $this->projectID);
 		$this->db->setQuery($query);
 
 		try
@@ -153,7 +186,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$table->issue_id      = (int) $issueID;
 		$table->user          = $data->comment->user->login;
 		$table->event         = 'comment';
-		$table->text          = $github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues');
+		$table->text          = $github->markdown->render($data->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
 		$table->created       = JFactory::getDate($data->comment->created_at)->toSql();
 
 		if (!$table->store())
@@ -185,13 +218,11 @@ final class TrackerReceiveComments extends JApplicationHooks
 		$table = JTable::getInstance('Issue');
 		$table->gh_id       = $data->issue->number;
 		$table->title       = $data->issue->title;
-		$table->description = $github->markdown->render($data->issue->body, 'gfm', 'JTracker/jissues');
+		$table->description = $github->markdown->render($data->issue->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
 		$table->status		= ($data->issue->state) == 'open' ? 1 : 10;
 		$table->opened      = JFactory::getDate($data->issue->created_at)->toSql();
 		$table->modified    = JFactory::getDate($data->issue->updated_at)->toSql();
-
-		// Hard code the project ID for the tracker project
-		$table->project_id  = 43;
+		$table->project_id  = $this->projectID;
 
 		// Add the diff URL if this is a pull request
 		if ($data->issue->pull_request->diff_url)
@@ -309,7 +340,7 @@ final class TrackerReceiveComments extends JApplicationHooks
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$query = $this->db->getQuery(true);
 		$query->update($this->db->quoteName('#__activity'));
-		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($github->markdown->render($data->comment->body, 'gfm', 'JTracker/jissues')));
+		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($github->markdown->render($data->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project)));
 		$query->where($this->db->quoteName('id') . ' = ' . $id);
 
 		try
