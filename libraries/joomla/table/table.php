@@ -716,7 +716,7 @@ abstract class JTable extends JObject
 		}
 		else
 		{
-			$this->_db->insertObject($this->_tbl, $this, $this->_tbl_keys);
+			$this->_db->insertObject($this->_tbl, $this, $this->_tbl_key);
 		}
 
 		// If the table is not set to track assets return true.
