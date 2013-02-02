@@ -335,40 +335,33 @@ class TrackerApplicationRetrieve extends JApplicationCli
 				);
 			}
 
-			// Add a open record to the activity table
-			$columnsArray = array(
-				$db->quoteName('issue_id'),
-				$db->quoteName('user'),
-				$db->quoteName('event'),
-				$db->quoteName('created')
-			);
+			// Add an open record to the activity table
+			$activity = new JTableActivity($db);
+			$activity->issue_id = (int) $issueID;
+			$activity->user     = $issue->user->login;
+			$activity->event    = 'open';
+			$activity->created  = $table->opened;
 
-			$query->clear();
-			$query->insert($db->quoteName('#__activity'));
-			$query->columns($columnsArray);
-			$query->values(
-				(int) $issueID . ', '
-					. $db->quote($issue->user->login) . ', '
-					. $db->quote('open') . ', '
-					. $db->quote($table->opened)
-			);
-
-			$db->setQuery($query);
-
-			$db->execute();
+			if (!$activity->store())
+			{
+				$this->out(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $activity->getError()), JLog::INFO);
+				$this->close();
+			}
 
 			// Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
 			{
-				$db->setQuery(
-					$query->clear('values')
-						->values(
-							(int) $issueID . ', '
-								. $db->quote($issue->user->login) . ', '
-								. $db->quote('close') . ', '
-								. $db->quote($table->closed_date)
-						)
-				)->execute();
+				$activity = new JTableActivity($db);
+				$activity->issue_id = (int) $issueID;
+				$activity->user     = $issue->user->login;
+				$activity->event    = 'close';
+				$activity->created  = $table->closed_date;
+
+				if (!$activity->store())
+				{
+					$this->out(sprintf('Error storing close activity for issue %s in the database: %s', $issueID, $activity->getError()), JLog::INFO);
+					$this->close();
+				}
 			}
 
 			// Store was successful, update status
