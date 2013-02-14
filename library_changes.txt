@@ -8,3 +8,4 @@ Entries should be in the format of "Commit SHA - File modified" (for readability
 9a2357d - libraries/cms/toolbar/button/standard.php
 a8a6ca7 - libraries/joomla/github/github.php
 dbe8c5b - libraries/joomla/table/table.php
+d7457a9 - libraries/joomla/github/github.php
