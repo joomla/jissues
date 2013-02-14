@@ -29,6 +29,8 @@ class UsersControllerRegister extends JControllerTracker
 	 */
 	public function execute()
 	{
+		die('disabled');
+
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 

@@ -23,6 +23,7 @@ defined('JPATH_PLATFORM') or die;
  * @property-read  JGithubAccount     $account     GitHub API object for account references.
  * @property-read  JGithubHooks       $hooks       GitHub API object for hooks.
  * @property-read  JGithubMarkdown    $markdown    GitHub API object for markdown.
+ * @property-read  JGithubUsers       $users       GitHub API object for users.
  *
  * @package     Joomla.Platform
  * @subpackage  GitHub
@@ -107,6 +108,12 @@ class JGithub
 	 * @since  12.3
 	 */
 	protected $markdown;
+
+	/**
+	 * @var    JGithubUsers  GitHub API object for users.
+	 * @since  ¿
+	 */
+	protected $users;
 
 	/**
 	 * Constructor.
@@ -233,6 +240,15 @@ class JGithub
 				$this->markdown = new JGithubMarkdown($this->options, $this->client);
 			}
 			return $this->markdown;
+		}
+
+		if ($name == 'users')
+		{
+			if ($this->users == null)
+			{
+				$this->users = new JGithubUsers($this->options, $this->client);
+			}
+			return $this->users;
 		}
 	}
 

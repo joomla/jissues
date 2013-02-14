@@ -11,6 +11,10 @@
 
 defined('_JEXEC') or die;
 
+echo '<h1>Disabled :(</h1>';
+
+return;
+
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');

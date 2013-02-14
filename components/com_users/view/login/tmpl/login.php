@@ -12,6 +12,11 @@
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.keepalive');
+
+echo JHtmlGithub::loginButton();
+
+return;
+
 ?>
 <div class="login <?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>

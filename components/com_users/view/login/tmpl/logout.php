@@ -10,6 +10,14 @@
 /* @var UsersViewLoginHtml $this */
 
 defined('_JEXEC') or die;
+
+echo sprintf('You are logged in by %1$s as %2$s',
+	JHtml::link('https://github.com', 'GitHub'),
+	JHtml::link('https://github.com/' . $this->user->username, $this->user->username)
+);
+
+return;
+
 ?>
 <div class="logout <?php echo $this->pageclass_sfx?>">
 	<?php if ($this->params->get('show_page_heading')) : ?>
