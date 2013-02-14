@@ -90,6 +90,14 @@ abstract class JApplicationHooks extends JApplicationWeb
 		// Instantiate JGithub
 		$this->github = new JGithub;
 
+		// Check the request is coming from GitHub
+		$validIps = $this->github->meta->getMeta();
+
+		if (!in_array($_SERVER['REMOTE_ADDR'], $validIps))
+		{
+			$this->close();
+		}
+
 		// Get the data directly from the $_POST superglobal.  I've yet to make this work with JInput.
 		$data = $_POST['payload'];
 
