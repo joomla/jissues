@@ -95,6 +95,8 @@ abstract class JApplicationHooks extends JApplicationWeb
 
 		if (!in_array($_SERVER['REMOTE_ADDR'], $validIps))
 		{
+			// Log the unauthorized request
+			JLog::add('Unauthorized request from ' . $_SERVER['REMOTE_ADDR'], JLog::NOTICE);
 			$this->close();
 		}
 
