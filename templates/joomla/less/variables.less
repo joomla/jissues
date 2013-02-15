@@ -158,7 +158,9 @@
 
 // Navbar
 // -------------------------
-@navbarCollapseWidth:             979px;
+/* >>> JUI >>> */
+@navbarCollapseWidth:             738px;
+/* <<< JUI <<< */
 
 @navbarHeight:                    40px;
 @navbarBackground:                darken(@navbarBackgroundHighlight, 5%);
@@ -175,21 +177,23 @@
 @navbarBrandColor:                @navbarLinkColor;
 
 // Inverted navbar
-@navbarInverseBackground:                #111111;
-@navbarInverseBackgroundHighlight:       #222222;
-@navbarInverseBorder:                    #252525;
+/* >>> JUI >>> */
+@navbarInverseBackground:                darken(@headerBackground, 10%);
+@navbarInverseBackgroundHighlight:       darken(@headerBackground, 5%);
+@navbarInverseBorder:                    darken(@headerBackground, 15%);
 
-@navbarInverseText:                      @grayLight;
-@navbarInverseLinkColor:                 @grayLight;
+@navbarInverseText:                      lighten(@grayLight, 25%);
+@navbarInverseLinkColor:                 lighten(@grayLight, 25%);
+/* <<< JUI <<< */
 @navbarInverseLinkColorHover:            @white;
 @navbarInverseLinkColorActive:           @navbarInverseLinkColorHover;
 @navbarInverseLinkBackgroundHover:       transparent;
 @navbarInverseLinkBackgroundActive:      @navbarInverseBackground;
 
-@navbarInverseSearchBackground:          lighten(@navbarInverseBackground, 25%);
+@navbarInverseSearchBackground:          darken(@white, 15%);
 @navbarInverseSearchBackgroundFocus:     @white;
 @navbarInverseSearchBorder:              @navbarInverseBackground;
-@navbarInverseSearchPlaceholderColor:    #ccc;
+@navbarInverseSearchPlaceholderColor:    #888;
 
 @navbarInverseBrandColor:                @navbarInverseLinkColor;
 
@@ -280,3 +284,30 @@
 @fluidGridColumnWidth768:      6.382978723%;
 @fluidGridGutterWidth768:      2.127659574%;
 /* <<< JUI <<< */
+
+/* >>> CUSTOM >>> */
+// Login
+// -------------------------
+@loginBackground:                 #142849;
+@loginBackgroundHighlight:        #165387;
+
+// Header
+// -------------------------
+@headerBackground:                 #1a3867;
+@headerBackgroundHighlight:        #17568c;
+
+// Extra Labels and Badges
+@oneText:                darken(@oneBackground, 15%);
+@oneBackground:          #69A73D;
+@oneBorder:              darken(spin(@oneBackground, -10), 7%);
+
+@twoText:                darken(@twoBackground, 15%);
+@twoBackground:          #1881B4;
+@twoBorder:              darken(spin(@twoBackground, -10), 7%);
+
+@threeText:                darken(@threeBackground, 15%);
+@threeBackground:          #142B4F;
+@threeBorder:              darken(spin(@threeBackground, -10), 7%);
+
+
+/* <<< CUSTOM <<< */
