@@ -85,6 +85,26 @@
 // Bootstrap 2.2.2 Media
 @import "media.less";
 
+/* TRACKER MOD - Input Append Chosen Select Boxes */
+.input-append .chzn-container-single .chzn-single {
+	border-color: @inputBorder;
+	height: 26px;
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.input-append .chzn-container-active .chzn-single-with-drop {
+	-webkit-border-radius: 3px 0 0 3px;
+	-moz-border-radius: 3px 0 0 3px;
+	border-radius: 3px 0 0 3px;
+}
+.input-append .chzn-container-single .chzn-drop {
+	border-color: @inputBorder;
+}
+
 /* Site Body Styles */
 body.site{
 	padding-top: 37px;
@@ -280,18 +300,18 @@ h6 { font-size: 12px; line-height: 14px; }
 		-webkit-background-clip: padding-box;
 		 -moz-background-clip: padding;
 		      background-clip: padding-box;
-		
+
 		// Aligns the dropdown menu to right
 		&.pull-right {
 			right: 0;
 			left: auto;
 		}
-		
+
 		// Dividers (basically an hr) within the dropdown
 		.divider {
 			.nav-divider(@dropdownDividerTop, @dropdownDividerBottom);
 		}
-		
+
 		// Links within the dropdown menu
 		a {
 			display: block;
@@ -403,7 +423,7 @@ body .navbar-fixed-top{
 	border-bottom: 1px solid darken(@headerBackground, 10%);
 	padding: 5px;
 	margin-bottom: 10px;
-	
+
 	.nav-pills {
 		margin-bottom: 0;
 	}
@@ -412,7 +432,7 @@ body .navbar-fixed-top{
 		text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
 		border: 1px solid transparent;
 		.transition(all .5s ease-in-out);
-		
+
 		&:hover {
 			.box-shadow (inset 0px -1px 0px rgba(255, 255, 255, 0.2));
 			background-color: darken(@headerBackgroundHighlight, 10%);
@@ -423,7 +443,7 @@ body .navbar-fixed-top{
 		.box-shadow (inset 0px 1px 0px rgba(255, 255, 255, 0.5));
 		border: 1px solid darken(@headerBackgroundHighlight, 10%);
 		background-color: lighten(@headerBackgroundHighlight, 10%);
-		
+
 		&:hover {
 			background-color: darken(@headerBackgroundHighlight, 5%);
 			border: 1px solid darken(@headerBackgroundHighlight, 10%);
@@ -442,7 +462,7 @@ body .navbar-fixed-top{
 	list-style: none;
 	margin: 0 0 10px 0;
 	padding: 0;
-	
+
 	li {
 		display: inline;
 		margin: 0 5px;
