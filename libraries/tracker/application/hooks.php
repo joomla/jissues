@@ -93,7 +93,7 @@ abstract class JApplicationHooks extends JApplicationWeb
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
 
-		if (!in_array($_SERVER['REMOTE_ADDR'], $validIps))
+		if (!in_array($_SERVER['REMOTE_ADDR'], $validIps['hooks']))
 		{
 			// Log the unauthorized request
 			JLog::add('Unauthorized request from ' . $_SERVER['REMOTE_ADDR'], JLog::NOTICE);
