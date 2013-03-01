@@ -231,15 +231,6 @@ else
 	<div class="subnav" data-spy="affix" data-offset-top="68">
 		<div class="container">
 			<jdoc:include type="modules" name="position-1" style="none" />
-			<?php // TRACKER MOD: Hard coded submenu ?>
-			<ul class="nav menu nav-pills">
-				<li class="<?php echo (!$option || 'com_tracker' == $option) ? 'current active' : '' ?>">
-					<a href="<?php echo JRoute::_('index.php?option=com_tracker'); ?>">Tracker</a>
-				</li>
-				<li class="<?php echo 'com_users' == $option ? 'current active' : '' ?>">
-					<a href="<?php echo JRoute::_('index.php?option=com_users'); ?>">Users</a>
-				</li>
-			</ul>
 		</div>
 	</div>
 	<!-- Body -->
