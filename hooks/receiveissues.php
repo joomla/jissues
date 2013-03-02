@@ -159,7 +159,7 @@ final class TrackerReceiveIssues extends JApplicationHooks
 		}
 
 		// Get the ID for the new issue
-		$query->clear();
+		$query = $this->db->getQuery(true);
 		$query->select('id');
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $this->hookData->issue->number);
