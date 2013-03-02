@@ -3,7 +3,7 @@
  * @package     Joomla.Libraries
  * @subpackage  Toolbar
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -44,7 +44,7 @@ class JToolbarButtonStandard extends JToolbarButton
 		$class = $this->fetchIconClass($name);
 		$doTask = $this->_getCommand($text, $task, $list);
 
-		if ($name == "apply" || $name == "new" || ($name == "save" && JFactory::getApplication()->isSite()))
+		if ($name == "apply" || $name == "new")
 		{
 			$btnClass = "btn btn-small btn-success";
 			$iconWhite = "icon-white";
