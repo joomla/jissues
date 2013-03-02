@@ -96,6 +96,9 @@ abstract class JApplicationTracker extends JApplicationWeb
 
 		// Register the application to JFactory
 		JFactory::$application = $this;
+
+		// Load the library language file
+		JFactory::getLanguage()->load('lib_joomla', JPATH_BASE);
 	}
 
 	/**
