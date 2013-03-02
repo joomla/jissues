@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Installer
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -508,9 +508,11 @@ class JInstallerTemplate extends JAdapterInstance
 			$extension->set('type', 'template');
 			$extension->set('client_id', $site_info->id);
 			$extension->set('element', $template);
+			$extension->set('folder', '');
 			$extension->set('name', $template);
 			$extension->set('state', -1);
 			$extension->set('manifest_cache', json_encode($manifest_details));
+			$extension->set('params', '{}');
 			$results[] = $extension;
 		}
 
@@ -527,9 +529,11 @@ class JInstallerTemplate extends JAdapterInstance
 			$extension->set('type', 'template');
 			$extension->set('client_id', $admin_info->id);
 			$extension->set('element', $template);
+			$extension->set('folder', '');
 			$extension->set('name', $template);
 			$extension->set('state', -1);
 			$extension->set('manifest_cache', json_encode($manifest_details));
+			$extension->set('params', '{}');
 			$results[] = $extension;
 		}
 
