@@ -91,7 +91,7 @@ final class JApplicationSite extends JApplicationTracker
 	{
 		// Build the object
 		$template = new stdClass;
-		$template->template = 'protostar';
+		$template->template = 'joomla';
 		$template->params   = new JRegistry;
 
 		if ($params)
