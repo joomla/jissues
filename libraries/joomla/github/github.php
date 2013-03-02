@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  GitHub
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -22,7 +22,7 @@ defined('JPATH_PLATFORM') or die;
  * @property-read  JGithubStatuses    $statuses    GitHub API object for commits.
  * @property-read  JGithubAccount     $account     GitHub API object for account references.
  * @property-read  JGithubHooks       $hooks       GitHub API object for hooks.
- * @property-read  JGithubMarkdown    $markdown    GitHub API object for markdown.
+ * @property-read  JGithubUsers       $users       GitHub API object for users.
  * @property-read  JGithubMeta        $meta        GitHub API object for meta.
  *
  * @package     Joomla.Platform
@@ -104,14 +104,14 @@ class JGithub
 	protected $hooks;
 
 	/**
-	 * @var    JGithubMarkdown  GitHub API object for markdown.
-	 * @since  1.0
+	 * @var    JGithubUsers  GitHub API object for users.
+	 * @since  12.4
 	 */
-	protected $markdown;
+	protected $users;
 
 	/**
 	 * @var    JGithubMeta  GitHub API object for meta.
-	 * @since  1.0
+	 * @since  13.1
 	 */
 	protected $meta;
 
@@ -233,13 +233,13 @@ class JGithub
 			return $this->hooks;
 		}
 
-		if ($name == 'markdown')
+		if ($name == 'users')
 		{
-			if ($this->markdown == null)
+			if ($this->users == null)
 			{
-				$this->markdown = new JGithubMarkdown($this->options, $this->client);
+				$this->users = new JGithubUsers($this->options, $this->client);
 			}
-			return $this->markdown;
+			return $this->users;
 		}
 
 		if ($name == 'meta')

@@ -1,10 +1,10 @@
 <?php
 /**
- * @package     JTracker
+ * @package     Joomla.Platform
  * @subpackage  GitHub
  *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
 defined('JPATH_PLATFORM') or die;
@@ -12,9 +12,9 @@ defined('JPATH_PLATFORM') or die;
 /**
  * GitHub API Meta class.
  *
- * @package     JTracker
+ * @package     Joomla.Platform
  * @subpackage  GitHub
- * @since       1.0
+ * @since       13.1
  */
 class JGithubMeta extends JGithubObject
 {
@@ -23,7 +23,7 @@ class JGithubMeta extends JGithubObject
 	 *
 	 * @return  array  Authorized IP addresses
 	 *
-	 * @since   1.0
+	 * @since   13.1
 	 * @throws  DomainException
 	 */
 	public function getMeta()
@@ -31,16 +31,7 @@ class JGithubMeta extends JGithubObject
 		// Build the request path.
 		$path = '/meta';
 
-		// Send the request.
-		$response = $this->client->get($this->fetchUrl($path));
-
-		// Validate the response code.
-		if ($response->code != 200)
-		{
-			// Decode the error response and throw an exception.
-			$error = json_decode($response->body);
-			throw new DomainException($error->message, $response->code);
-		}
+		$githubIps = $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 
 		/*
 		 * The response body returns the IP addresses in CIDR format
@@ -50,7 +41,6 @@ class JGithubMeta extends JGithubObject
 		 */
 
 		$authorizedIps = array();
-		$githubIps     = json_decode($response->body);
 
 		foreach ($githubIps as $key => $serviceIps)
 		{

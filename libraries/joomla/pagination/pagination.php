@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Pagination
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -468,14 +468,13 @@ class JPagination
 		$selected = $this->viewall ? 0 : $this->limit;
 
 		// Build the select list.
-		// TRACKER ADDITION: 'input-mini' class
 		if ($app->isAdmin())
 		{
 			$html = JHtml::_(
 				'select.genericlist',
 				$limits,
 				$this->prefix . 'limit',
-				'class="inputbox input-mini" size="1" onchange="Joomla.submitform();"',
+				'class="inputbox" size="1" onchange="Joomla.submitform();"',
 				'value',
 				'text',
 				$selected
@@ -487,7 +486,7 @@ class JPagination
 				'select.genericlist',
 				$limits,
 				$this->prefix . 'limit',
-				'class="inputbox input-mini" size="1" onchange="this.form.submit()"',
+				'class="inputbox" size="1" onchange="this.form.submit()"',
 				'value',
 				'text',
 				$selected
