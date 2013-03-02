@@ -37,7 +37,7 @@ class TrackerControllerSave extends JControllerTracker
 		$data    = $this->input->post->get('jform', array(), 'array');
 		$checkin = property_exists($table, 'checked_out');
 		$context = $this->option . '.edit.' . $model->getName();
-        
+
 		// Determine the name of the primary key for the data.
 		$key = $table->getKeyName();
 
@@ -105,11 +105,11 @@ class TrackerControllerSave extends JControllerTracker
 		$this->releaseEditId($context, $recordId);
 		$app->setUserState($context . '.data', null);
 
-		// Redirect to the list screen.
-		$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=issues' . $this->getRedirectToListAppend(), false));
-
 		// Invoke the postSave method to allow for the child class to access the model.
 		$this->postSaveHook($model, $data);
+
+		// Redirect to the list screen.
+		$app->redirect(JRoute::_('index.php?option=' . $this->option . '&view=issues' . $this->getRedirectToListAppend(), false));
 
 		return true;
 	}
