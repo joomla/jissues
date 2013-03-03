@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -121,7 +121,7 @@ class UsersModelNote extends JModelAdmin
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return	void
+	 * @return  void
 	 *
 	 * @since   2.5
 	 */
@@ -132,4 +132,54 @@ class UsersModelNote extends JModelAdmin
 		$userId = JFactory::getApplication()->input->get('u_id', 0, 'int');
 		$this->setState('note.user_id', $userId);
 	}
+
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   2.5
+	 */
+	/*public function save($data)
+	{
+		$pk		= (!empty($data['id'])) ? $data['id'] : (int) $this->getState('note.id');
+		$table	= $this->getTable();
+		$isNew	= empty($pk);
+
+		if (!$table->bind($data))
+		{
+			$this->setError($table->getError());
+
+			return false;
+		}
+
+		// JTableCategory doesn't bind the params, so we need to do that by hand.
+		if (isset($data['params']) && is_array($data['params']))
+		{
+			$registry = new JRegistry();
+			$registry->loadArray($data['params']);
+			$table->params = $registry->toString();
+			// This will give us INI format.
+		}
+
+		if (!$table->check())
+		{
+			$this->setError($table->getError());
+
+			return false;
+		}
+
+		if (!$table->store())
+		{
+			$this->setError($table->getError());
+
+			return false;
+		}
+
+		$this->setState('note.id', $table->id);
+
+		return true;
+	}*/
 }

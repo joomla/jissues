@@ -37,7 +37,7 @@ class JConfig
 	public $cache_handler	= 'file';
 	public $language		= 'en-GB';
 	public $secret			= null;
-	public $editor			= 'none';
+	public $editor			= 'kisskontent';
 	public $offset			= 'UTC';
 	public $sess_lifetime	= 15;
 	public $sess_handler	= 'database';

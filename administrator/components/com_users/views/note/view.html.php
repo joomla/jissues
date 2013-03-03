@@ -3,7 +3,7 @@
  * @package     Joomla.Administrator
  * @subpackage  com_users
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -91,19 +91,19 @@ class UsersViewNote extends JViewLegacy
 		JToolbarHelper::title(JText::_('COM_USERS_NOTES'), 'user');
 
 		// If not checked out, can save the item.
-		if (!$checkedOut && ($canDo->get('core.edit')))
+		if (!$checkedOut && ($canDo->get('core.edit') || (count($user->getAuthorisedCategories('com_users', 'core.create')))))
 		{
 			JToolbarHelper::apply('note.apply');
 			JToolbarHelper::save('note.save');
 		}
 
-		if (!$checkedOut)
+		if (!$checkedOut && (count($user->getAuthorisedCategories('com_users', 'core.create'))))
 		{
 			JToolbarHelper::save2new('note.save2new');
 		}
 
 		// If an existing item, can save to a copy.
-		if (!$isNew)
+		if (!$isNew && (count($user->getAuthorisedCategories('com_users', 'core.create')) > 0))
 		{
 			JToolbarHelper::save2copy('note.save2copy');
 		}
