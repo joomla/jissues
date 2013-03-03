@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.Administrator
  *
- * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -17,9 +17,10 @@ defined('_JEXEC') or die;
 /*
  * Installation check, and check on removal of the install directory.
  */
-if (!file_exists(JPATH_CONFIGURATION.'/configuration.php'))
+if (!file_exists(JPATH_CONFIGURATION.'/configuration.php') || (filesize(JPATH_CONFIGURATION.'/configuration.php') < 10) /*|| file_exists(JPATH_INSTALLATION.'/index.php')*/)
 {
-	die('No configuration found');
+	header('Location: ../installation/index.php');
+	exit();
 }
 
 //
@@ -36,19 +37,16 @@ JError::setErrorHandling(E_ERROR, 'message', array('JError', 'customErrorPage'))
 // Botstrap the CMS libraries.
 require_once JPATH_LIBRARIES.'/cms.php';
 
-// Import the application libraries
-require_once JPATH_LIBRARIES . '/tracker.php';
-
 // Pre-Load configuration.
 ob_start();
 require_once JPATH_CONFIGURATION.'/configuration.php';
 ob_end_clean();
-$config = JFactory::getConfig();
+
 // System configuration.
-//$config = new JConfig;
+$config = new JConfig;
 
 // Set the error_reporting
-switch ($config->get('error_reporting'))
+switch ($config->error_reporting)
 {
 	case 'default':
 	case '-1':
@@ -75,12 +73,12 @@ switch ($config->get('error_reporting'))
 		break;
 
 	default:
-		error_reporting($config->get('error_reporting'));
+		error_reporting($config->error_reporting);
 		ini_set('display_errors', 1);
 		break;
 }
 
-define('JDEBUG', $config->get('debug'));
+define('JDEBUG', $config->debug);
 
 unset($config);
 
@@ -89,4 +87,7 @@ unset($config);
  */
 
 // System profiler.
-JDEBUG ? $_PROFILER = JProfiler::getInstance('Application') : null;
+if (JDEBUG)
+{
+	$_PROFILER = JProfiler::getInstance('Application');
+}
