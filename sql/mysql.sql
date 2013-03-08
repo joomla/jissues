@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
 
 INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`, `ext_tracker_link`) VALUES
 (1, 'Joomla! CMS 3 issues', 'joomla-cms-3-issues', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d'),
-(2, 'J!Tracker Bugs', 'jtracker-bugs', 'JTracker', 'jissues', '');
+(2, 'J!Tracker Bugs', 'jtracker-bugs', 'joomla', 'jissues', '');
 
 --
 -- Table structure for table `#__categories`

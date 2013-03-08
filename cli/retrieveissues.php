@@ -284,7 +284,7 @@ class TrackerApplicationRetrieve extends JApplicationCli
 			$table              = JTable::getInstance('Issue');
 			$table->gh_id       = $issue->number;
 			$table->title       = $issue->title;
-			$table->description = $this->github->markdown->render($issue->body, 'gfm', 'JTracker/jissues');
+			$table->description = $this->github->markdown->render($issue->body, 'gfm', 'joomla/jissues');
 			$table->status      = ($issue->state == 'open') ? 1 : 10;
 			$table->opened      = JFactory::getDate($issue->created_at)->toSql();
 			$table->modified    = JFactory::getDate($issue->updated_at)->toSql();

@@ -6,7 +6,7 @@ The issue tracker application requires a server running:
 
 Setup
 ===============
-1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/JTracker/jissues/zipball/master.
+1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/joomla/jissues/zipball/master.
 2. Copy `/configuration.example.php` to `/configuration.php`
 3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
 
@@ -35,5 +35,5 @@ After setting up your database, verify the installation is successful by doing t
 
 Support & Discussion
 ===============
-* If you've found a bug, please report it to the Issue Tracker at https://github.com/JTracker/jissues/issues.
+* If you've found a bug, please report it to the Issue Tracker at https://github.com/joomla/jissues/issues.
 * For discussion about this project, please visit the Google Group at https://groups.google.com/forum/#!forum/jtracker-rebuild.

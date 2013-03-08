@@ -44,7 +44,7 @@ class TrackerControllerPreview extends JControllerBase
 		$github = new JGithub;
 
 		// Parse the text
-		$text = $github->markdown->render($text, 'gfm', 'JTracker/jissues');
+		$text = $github->markdown->render($text, 'gfm', 'joomla/jissues');
 
 		// Echo out the text for
 		echo $text ? : 'Nothing to preview...';
