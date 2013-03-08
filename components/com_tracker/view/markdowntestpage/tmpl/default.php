@@ -407,14 +407,14 @@ You can apply span-level formatting to the content of each cell using regular Ma
 			<div class="span6">
                 <ul>
                     <li>SHA:
-                        <a href="https://github.com/JTracker/jissues/commit/935fef6f37e2c049ed2534b11c0d28e18e5e3f9c" class="commit-link"><tt>935fef6</tt></a>
+                        <a href="https://github.com/joomla/jissues/commit/935fef6f37e2c049ed2534b11c0d28e18e5e3f9c" class="commit-link"><tt>935fef6</tt></a>
                     </li>
                     <li>User@SHA: <a href="https://github.com/mbabker/jissues/commit/935fef6f37e2c049ed2534b11c0d28e18e5e3f9c" class="commit-link">mbabker@<tt>935fef6</tt></a>
                     </li>
                     <li>User/Project@SHA:
                         <a href="https://github.com/mbabker/jissues/commit/935fef6f37e2c049ed2534b11c0d28e18e5e3f9c" class="commit-link">mbabker/jissues@<tt>935fef6</tt></a>
                     </li>
-                    <li>#Num: <a href="https://github.com/JTracker/jissues/issues/1" class="issue-link" title="Sorting and Filtering options">#1</a>
+                    <li>#Num: <a href="https://github.com/joomla/jissues/issues/1" class="issue-link" title="Sorting and Filtering options">#1</a>
                     </li>
                     <li>User/#Num: mbabker#1</li>
                     <li>User/Project#Num: mbabker/jissues#1</li>
