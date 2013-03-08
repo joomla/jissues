@@ -31,29 +31,6 @@ class JGithubMeta extends JGithubObject
 		// Build the request path.
 		$path = '/meta';
 
-		$githubIps = $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
-
-		/*
-		 * The response body returns the IP addresses in CIDR format
-		 * Decode the response body and strip the subnet mask information prior to
-		 * returning the data to the user.  We're assuming quite a bit here that all
-		 * masks will be /32 as they are as of the time of development.
-		 */
-
-		$authorizedIps = array();
-
-		foreach ($githubIps as $key => $serviceIps)
-		{
-			// The first level contains an array of IPs based on the service
-			$authorizedIps[$key] = array();
-
-			foreach ($serviceIps as $serviceIp)
-			{
-				// The second level is each individual IP address, strip the mask here
-				$authorizedIps[$key][] = substr($serviceIp, 0, -3);
-			}
-		}
-
-		return $authorizedIps;
+		return $this->processResponse($this->client->get($this->fetchUrl($path)), 200);
 	}
 }

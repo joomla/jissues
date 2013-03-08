@@ -93,7 +93,7 @@ abstract class JApplicationHooks extends JApplicationWeb
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
 
-		if (!in_array($_SERVER['REMOTE_ADDR'], $validIps['hooks']))
+		if (!$this->checkIp($_SERVER['REMOTE_ADDR'], $validIps->hooks))
 		{
 			// Log the unauthorized request
 			JLog::add('Unauthorized request from ' . $_SERVER['REMOTE_ADDR'], JLog::NOTICE);
@@ -105,6 +105,38 @@ abstract class JApplicationHooks extends JApplicationWeb
 
 		// Decode it
 		$this->hookData = json_decode($data);
+	}
+
+	/**
+	 * Determines if the requestor IP address is in the authorized IP range
+	 *
+	 * @param   string  $requestor  The requestor's IP address
+	 * @param   array   $validIps   The valid IP array
+	 *
+	 * @return  boolean  True if authorized
+	 *
+	 * @since   1.0
+	 */
+	protected function checkIp($requestor, $validIps)
+	{
+		foreach ($validIps as $githubIp)
+		{
+			// Split the CIDR address into a separate IP address and bits
+			list ($subnet, $bits) = explode('/', $githubIp);
+
+			// Convert the requestor IP and network address into number format
+			$ip    = ip2long($requestor);
+			$start = ip2long($subnet);
+			$end   = $start + (int) $bits;
+
+			// Real easy from here, check to make sure the IP is in range
+			if ($ip >= $start && $ip <= $end)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
