@@ -19,6 +19,32 @@ defined('JPATH_PLATFORM') or die;
 abstract class JApplicationHooks extends JApplicationWeb
 {
 	/**
+	 * An array of how many addresses are in each CIDR mask
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $cidrRanges = array(
+		16 => 65536,
+		17 => 32768,
+		18 => 16382,
+		19 => 8192,
+		20 => 4096,
+		21 => 2048,
+		22 => 1024,
+		23 => 512,
+		24 => 256,
+		25 => 128,
+		26 => 64,
+		27 => 32,
+		28 => 16,
+		29 => 8,
+		30 => 4,
+		31 => 2,
+		32 => 1
+	);
+
+	/**
 	 * The database object
 	 *
 	 * @var    JDatabaseDriver
@@ -127,7 +153,7 @@ abstract class JApplicationHooks extends JApplicationWeb
 			// Convert the requestor IP and network address into number format
 			$ip    = ip2long($requestor);
 			$start = ip2long($subnet);
-			$end   = $start + (int) $bits;
+			$end   = $start + ($this->cidrRanges[(int) $bits] - 1);
 
 			// Real easy from here, check to make sure the IP is in range
 			if ($ip >= $start && $ip <= $end)
