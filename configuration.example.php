@@ -13,6 +13,7 @@ class JConfig
 	public $password		= '';
 	public $db				= '';
 	public $dbprefix		= 'jos_';
+	public $error_reporting = 'maximum';
 	public $ftp_host		= '127.0.0.1';
 	public $ftp_port		= '21';
 	public $ftp_user		= '';
