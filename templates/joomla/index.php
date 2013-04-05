@@ -118,6 +118,8 @@ else
 						<ul id="nav-joomla" class="nav ">
 							<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span aria-hidden="true" class="icon-joomla"></span> Joomla! <span class="caret"></span></a>
 							<ul class="dropdown-menu">
+								<li><a href="http://www.joomla.org/"><span aria-hidden="true" class="icon-joomla"></span> Joomla! Home</a></li>
+								<li class="divider"><span></span></li>
 								<li class="nav-header"><span>Recent News</span></li>
 								<li><a href="http://www.joomla.org/announcements.html">Announcements</a></li>
 								<li><a href="http://community.joomla.org/blogs/community.html">Blogs</a></li>
@@ -155,8 +157,7 @@ else
 							</li>
 							<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Extend <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li class="active"><a href="http://extensions.joomla.org/">Extensions Directory</a></li>
-									<li><a href="http://extensions.joomla.org/">Extension Directory</a></li>
+									<li><a href="http://extensions.joomla.org/">Extensions Directory</a></li>
 									<li><a href="http://community.joomla.org/showcase/">Showcase Directory</a></li>
 									<li><a href="http://resources.joomla.org/">Resource Directory</a></li>
 									<li><a href="http://community.joomla.org/translations.html">Translations</a></li>
