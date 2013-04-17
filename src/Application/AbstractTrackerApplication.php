@@ -10,6 +10,9 @@ namespace Joomla\Tracker\Application;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
+use Joomla\Crypt\Crypt;
+use Joomla\Crypt\Key;
+use Joomla\Crypt\Password\Simple;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Loader;
@@ -253,27 +256,17 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 				$component = 'com_tracker';
 			}
 
-			$legacyComponents = array();
+			// Fetch the controller
+			$controller = $this->fetchController($component, $this->input->getCmd('task'));
 
-			if (in_array($component, $legacyComponents))
-			{
-				// Legacy component rendering
-				$contents = JComponentHelper::renderComponent($component);
-			}
-			else
-			{
-				// Fetch the controller
-				$controller = $this->fetchController($component, $this->input->getCmd('task'));
-
-				// Execute the component
-				$contents = $this->executeComponent($controller, $component);
-			}
+			// Execute the component
+			$contents = $this->executeComponent($controller, $component);
 
 			$document->setBuffer($contents, 'component');
 		}
 
 			// Mop up any uncaught exceptions.
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			echo $e->getMessage();
 			$this->close($e->getCode());
@@ -620,7 +613,7 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 		// Get the session handler from the configuration.
 		$handler = $this->get('sess_handler', 'none');
 
-		// Initialize the options for JSession.
+		// Initialize the options for Session.
 		$options = array(
 			'name' => $name,
 			'expire' => $lifetime,
@@ -730,17 +723,17 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 				if (isset($options['remember']) && $options['remember'])
 				{
 					// Create the encryption key, apply extra hardening using the user agent string.
-					$privateKey = JApplication::getHash(@$_SERVER['HTTP_USER_AGENT']);
+					$privateKey = static::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
-					$key      = new JCryptKey('simple', $privateKey, $privateKey);
-					$crypt    = new JCrypt(new JCryptCipherSimple, $key);
+					$key      = new Key('simple', $privateKey, $privateKey);
+					$crypt    = new Crypt(new Simple, $key);
 					$rcookie  = $crypt->encrypt(serialize($credentials));
 					$lifetime = time() + 365 * 24 * 60 * 60;
 
 					// Use domain and path set in config for cookie if it exists.
 					$cookie_domain = $this->get('cookie_domain', '');
 					$cookie_path   = $this->get('cookie_path', '/');
-					setcookie(JApplication::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
+					setcookie(static::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
 				}
 
 				return true;
@@ -810,7 +803,7 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 			// Use domain and path set in config for cookie if it exists.
 			$cookie_domain = $this->get('cookie_domain', '');
 			$cookie_path   = $this->get('cookie_path', '/');
-			setcookie(self::getHash('JLOGIN_REMEMBER'), false, time() - 86400, $cookie_path, $cookie_domain);
+			setcookie(static::getHash('JLOGIN_REMEMBER'), false, time() - 86400, $cookie_path, $cookie_domain);
 
 			return true;
 		}

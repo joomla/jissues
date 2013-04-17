@@ -36,39 +36,6 @@ final class SiteApplication extends AbstractTrackerApplication
 	}
 
 	/**
-	 * Returns the application JMenu object.
-	 *
-	 * @param   string  $name     The name of the application/client.
-	 * @param   array   $options  An optional associative array of configuration settings.
-	 *
-	 * @return  JMenu  JMenu object.
-	 *
-	 * @since   1.0
-	 */
-	public function getMenu($name = null, $options = array())
-	{
-		return parent::getMenu('site', $options);
-	}
-
-	/**
-	 * Returns the application JRouter object.
-	 *
-	 * @param   string  $name     The name of the application.
-	 * @param   array   $options  An optional associative array of configuration settings.
-	 *
-	 * @return  JRouter  A JRouter object
-	 *
-	 * @since   1.0
-	 */
-	public function getRouter($name = null, array $options = array())
-	{
-		// TODO: Probably need to build a proper JRouter class...
-		$router = parent::getRouter('tracker', $options);
-
-		return $router;
-	}
-
-	/**
 	 * Get the template information
 	 *
 	 * @param   boolean  $params  True to return the template params
