@@ -1,7 +1,7 @@
 Requirements
 ===============
 The issue tracker application requires a server running:
-- PHP 5.3.1 or later (Joomla Platform minimum version)
+- PHP 5.3.10 or later (Joomla Framework minimum version)
 - MySQL 5.1 with InnoDB support
 
 Setup

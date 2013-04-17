@@ -1,22 +1,26 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Application
+ * @package     JTracker\Application
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Tracker\Application;
+
+use Joomla\Application\AbstractWebApplication;
+use Joomla\Database\DatabaseDriver;
+use Joomla\Factory;
+use Joomla\Github\Github;
+use Joomla\Log\Log;
 
 /**
  * Joomla! Issue Tracker Application class for web hook instances
  *
- * @package     JTracker
- * @subpackage  Application
- * @since       1.0
+ * @package  JTracker\Application
+ * @since    1.0
  */
-abstract class JApplicationHooks extends JApplicationWeb
+abstract class AbstractHooksApplication extends AbstractWebApplication
 {
 	/**
 	 * An array of how many addresses are in each CIDR mask
@@ -47,7 +51,7 @@ abstract class JApplicationHooks extends JApplicationWeb
 	/**
 	 * The database object
 	 *
-	 * @var    JDatabaseDriver
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $db;
@@ -69,9 +73,9 @@ abstract class JApplicationHooks extends JApplicationWeb
 	protected $hookType;
 
 	/**
-	 * JGithub instance
+	 * Github instance
 	 *
-	 * @var    JGithub
+	 * @var    Github
 	 * @since  1.0
 	 */
 	protected $github;
@@ -102,19 +106,19 @@ abstract class JApplicationHooks extends JApplicationWeb
 		// Initialize the logger
 		$options['format']    = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
 		$options['text_file'] = 'github_' . $this->hookType . '.php';
-		JLog::addLogger($options);
+		Log::addLogger($options);
 
 		// Run the parent constructor
 		parent::__construct();
 
 		// Register the application to JFactory
-		JFactory::$application = $this;
+		Factory::$application = $this;
 
 		// Get a database object
-		$this->db = JFactory::getDbo();
+		$this->db = Factory::getDbo();
 
-		// Instantiate JGithub
-		$this->github = new JGithub;
+		// Instantiate Github
+		$this->github = new Github;
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
@@ -122,11 +126,11 @@ abstract class JApplicationHooks extends JApplicationWeb
 		if (!$this->checkIp($_SERVER['REMOTE_ADDR'], $validIps->hooks))
 		{
 			// Log the unauthorized request
-			JLog::add('Unauthorized request from ' . $_SERVER['REMOTE_ADDR'], JLog::NOTICE);
+			Log::add('Unauthorized request from ' . $_SERVER['REMOTE_ADDR'], Log::NOTICE);
 			$this->close();
 		}
 
-		// Get the data directly from the $_POST superglobal.  I've yet to make this work with JInput.
+		// Get the data directly from the $_POST superglobal.  I've yet to make this work with Input.
 		$data = $_POST['payload'];
 
 		// Decode it
@@ -171,7 +175,7 @@ abstract class JApplicationHooks extends JApplicationWeb
 	 * @param   string  $msg   The message to enqueue.
 	 * @param   string  $type  The message type. Default is message.
 	 *
-	 * @return  JApplicationTracker
+	 * @return  AbstractHooksApplication
 	 *
 	 * @since   1.0
 	 */
@@ -205,14 +209,14 @@ abstract class JApplicationHooks extends JApplicationWeb
 		}
 		catch (RuntimeException $e)
 		{
-			JLog::add(sprintf('Error retrieving the project ID for GitHub repo %s in the database: %s', $this->hookData->repository->name, $e->getMessage()), JLog::INFO);
+			Log::add(sprintf('Error retrieving the project ID for GitHub repo %s in the database: %s', $this->hookData->repository->name, $e->getMessage()), Log::INFO);
 			$this->close();
 		}
 
 		// Make sure we have a valid project ID
 		if (!$this->project->project_id)
 		{
-			JLog::add(sprintf('A project does not exist for the %s GitHub repo in the database, cannot add data for it.', $this->hookData->repository->name), JLog::INFO);
+			Log::add(sprintf('A project does not exist for the %s GitHub repo in the database, cannot add data for it.', $this->hookData->repository->name), Log::INFO);
 			$this->close();
 		}
 	}

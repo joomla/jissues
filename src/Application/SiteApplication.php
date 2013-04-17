@@ -1,39 +1,29 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Application
+ * @package     JTracker\Application
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Tracker\Application;
+
+use Joomla\Registry\Registry;
 
 /**
  * Joomla! Issue Tracker Site Application class
  *
- * @package     JTracker
- * @subpackage  Application
- * @since       1.0
+ * @package  JTracker\Application
+ * @since    1.0
  */
-final class JApplicationSite extends JApplicationTracker
+final class SiteApplication extends AbstractTrackerApplication
 {
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a JInput object that object will become
-	 *                          the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a JRegistry object that object will become
-	 *                          the application's config object, otherwise a default config object is created.
-	 * @param   mixed  $client  An optional argument to provide dependency injection for the application's
-	 *                          client object.  If the argument is a JApplicationWebClient object that object will become
-	 *                          the application's client object, otherwise a default client object is created.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(JInput $input = null, JRegistry $config = null, JApplicationWebClient $client = null)
+	public function __construct()
 	{
 		// Set the client ID
 		$this->clientId = 0;
@@ -42,7 +32,7 @@ final class JApplicationSite extends JApplicationTracker
 		$this->name = 'site';
 
 		// Run the parent constructor
-		parent::__construct($input, $config, $client);
+		parent::__construct();
 	}
 
 	/**
@@ -92,7 +82,7 @@ final class JApplicationSite extends JApplicationTracker
 		// Build the object
 		$template = new stdClass;
 		$template->template = 'joomla';
-		$template->params   = new JRegistry;
+		$template->params   = new Registry;
 
 		if ($params)
 		{
@@ -107,7 +97,7 @@ final class JApplicationSite extends JApplicationTracker
 	 *
 	 * @return  boolean
 	 *
-	 * @since   1.6
+	 * @since   1.0
 	 */
 	public function getLanguageFilter()
 	{
@@ -129,7 +119,7 @@ final class JApplicationSite extends JApplicationTracker
 		// Set the application login entry point
 		if (!array_key_exists('entry_url', $options))
 		{
-			$options['entry_url'] = JUri::base().'index.php?option=com_users&task=login';
+			$options['entry_url'] = JUri::base() . 'index.php?option=com_users&task=login';
 		}
 
 		// Set the access control action to check.

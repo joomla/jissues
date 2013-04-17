@@ -1,22 +1,28 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Application
+ * @package     JTracker\Application
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Tracker\Application;
+
+use Joomla\Application\AbstractWebApplication;
+use Joomla\Controller\ControllerInterface;
+use Joomla\Event\Dispatcher;
+use Joomla\Factory;
+use Joomla\Loader;
+use Joomla\Registry\Registry;
+use Joomla\Session\Session;
 
 /**
  * Joomla! Issue Tracker Application class
  *
- * @package     JTracker
- * @subpackage  Application
- * @since       1.0
+ * @package  JTracker\Application
+ * @since    1.0
  */
-abstract class JApplicationTracker extends JApplicationWeb
+abstract class AbstractTrackerApplication extends AbstractWebApplication
 {
 	/**
 	 * The scope of the application.
@@ -33,6 +39,14 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 * @since  1.0
 	 */
 	protected $clientId = null;
+
+	/**
+	 * The application dispatcher object.
+	 *
+	 * @var    Dispatcher
+	 * @since  1.0
+	 */
+	protected $dispatcher;
 
 	/**
 	 * The application message queue.
@@ -53,19 +67,9 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Class constructor.
 	 *
-	 * @param   mixed  $input   An optional argument to provide dependency injection for the application's
-	 *                          input object.  If the argument is a JInput object that object will become
-	 *                          the application's input object, otherwise a default input object is created.
-	 * @param   mixed  $config  An optional argument to provide dependency injection for the application's
-	 *                          config object.  If the argument is a JRegistry object that object will become
-	 *                          the application's config object, otherwise a default config object is created.
-	 * @param   mixed  $client  An optional argument to provide dependency injection for the application's
-	 *                          client object.  If the argument is a JApplicationWebClient object that object will become
-	 *                          the application's client object, otherwise a default client object is created.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(JInput $input = null, JRegistry $config = null, JApplicationWebClient $client = null)
+	public function __construct()
 	{
 		// Run the parent constructor
 		parent::__construct();
@@ -90,15 +94,15 @@ abstract class JApplicationTracker extends JApplicationWeb
 		{
 			$this->loadSession();
 
-			// Register the session with JFactory
-			JFactory::$session = $this->getSession();
+			// Register the session with Factory
+			Factory::$session = $this->getSession();
 		}
 
-		// Register the application to JFactory
-		JFactory::$application = $this;
+		// Register the application to Factory
+		Factory::$application = $this;
 
 		// Load the library language file
-		JFactory::getLanguage()->load('lib_joomla', JPATH_BASE);
+		Factory::getLanguage()->load('lib_joomla', JPATH_BASE);
 	}
 
 	/**
@@ -110,13 +114,19 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 */
 	public function afterSessionStart()
 	{
-		parent::afterSessionStart();
+		$session = Factory::getSession();
+
+		if ($session->isNew())
+		{
+			$session->set('registry', new Registry('session'));
+			$session->set('user', new JUser);
+		}
 
 		// TODO: At some point we need to get away from having session data always in the db.
 		if ($this->get('sess_handler') == 'database')
 		{
-			$session = JFactory::getSession();
-			$db      = JFactory::getDBO();
+			$session = Factory::getSession();
+			$db      = Factory::getDbo();
 
 			// Remove expired sessions from the database.
 			$time = time();
@@ -150,12 +160,13 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @todo    Figure out user portion of code
 	 */
 	public function checkSession()
 	{
-		$db      = JFactory::getDbo();
-		$session = JFactory::getSession();
-		$user    = JFactory::getUser();
+		$db      = Factory::getDbo();
+		$session = Factory::getSession();
+		//$user    = Factory::getUser();
 
 		$query = $db->getQuery(true);
 		$query->select($query->qn('session_id'));
@@ -198,7 +209,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 			}
 			catch (RuntimeException $e)
 			{
-				jexit($e->getMessage());
+				$this->close($e->getCode());
 			}
 		}
 	}
@@ -221,7 +232,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 			$document = $this->getDocument();
 
 			// Register the document object with JFactory
-			JFactory::$document = $document;
+			Factory::$document = $document;
 
 			// Register the template to the config
 			$template = $this->getTemplate(true);
@@ -275,7 +286,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 * @param   string  $msg   The message to enqueue.
 	 * @param   string  $type  The message type. Default is message.
 	 *
-	 * @return  JApplicationTracker
+	 * @return  TrackerApplication
 	 *
 	 * @since   1.0
 	 */
@@ -284,7 +295,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// For empty queue, if messages exists in the session, enqueue them first.
 		if (!count($this->messageQueue))
 		{
-			$session      = JFactory::getSession();
+			$session      = Factory::getSession();
 			$sessionQueue = $session->get('application.queue');
 
 			if (count($sessionQueue))
@@ -303,19 +314,19 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Execute the component.
 	 *
-	 * @param   JController  $controller  The controller instance to execute
-	 * @param   string       $component   The component being executed.
+	 * @param   ControllerInterface  $controller  The controller instance to execute
+	 * @param   string               $component   The component being executed.
 	 *
 	 * @return  object
 	 *
 	 * @since   1.0
-	 * @throws  Exception
+	 * @throws  \Exception
 	 */
 	public function executeComponent($controller, $component)
 	{
 		// Load template language files.
 		$template = $this->getTemplate(true)->template;
-		$lang     = JFactory::getLanguage();
+		$lang     = Factory::getLanguage();
 
 		$lang->load('tpl_' . $template, JPATH_BASE, null, false, false)
 			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", null, false, false)
@@ -341,10 +352,10 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 * @param   string  $component  The component being called
 	 * @param   string  $task       The task being executed in the component
 	 *
-	 * @return  JController
+	 * @return  ControllerInterface
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	protected function fetchController($component, $task)
 	{
@@ -360,7 +371,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 		$base = substr($component, 4);
 
 		// Register the component with the autoloader
-		JLoader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
+		Loader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
 
 		// Set the controller class name based on the task
 		$class = ucfirst($base) . 'Controller' . ucfirst($task);
@@ -382,7 +393,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 				if (!class_exists($class) || !is_subclass_of($class, 'JController'))
 				{
 					// Nothing found. Panic.
-					throw new RuntimeException(sprintf('Controller not found for %s task', $task));
+					throw new \RuntimeException(sprintf('Controller not found for %s task', $task));
 				}
 			}
 		}
@@ -414,7 +425,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 */
 	public static function getHash($seed)
 	{
-		return md5(JFactory::getConfig()->get('secret') . $seed);
+		return md5(Factory::getConfig()->get('secret') . $seed);
 	}
 
 	/**
@@ -429,7 +440,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// For empty queue, if messages exists in the session, enqueue them.
 		if (!count($this->messageQueue))
 		{
-			$session      = JFactory::getSession();
+			$session      = Factory::getSession();
 			$sessionQueue = $session->get('application.queue');
 
 			if (count($sessionQueue))
@@ -440,35 +451,6 @@ abstract class JApplicationTracker extends JApplicationWeb
 		}
 
 		return $this->messageQueue;
-	}
-
-	/**
-	 * Returns the application JMenu object.
-	 *
-	 * @param   string  $name     The name of the application/client.
-	 * @param   array   $options  An optional associative array of configuration settings.
-	 *
-	 * @return  JMenu  JMenu object.
-	 *
-	 * @since   1.0
-	 */
-	public function getMenu($name = null, $options = array())
-	{
-		if (!isset($name))
-		{
-			$name = $this->name;
-		}
-
-		try
-		{
-			$menu = JMenu::getInstance($name, $options);
-		}
-		catch (Exception $e)
-		{
-			return null;
-		}
-
-		return $menu;
 	}
 
 	/**
@@ -489,46 +471,15 @@ abstract class JApplicationTracker extends JApplicationWeb
 	/**
 	 * Method to get the component params
 	 *
-	 * @param string $component
+	 * @param   string  $component  The component to retrieve the params for
 	 *
-	 * @return  JRegistry  Component params
+	 * @return  Registry  Component params
 	 *
 	 * @since   1.0
 	 */
 	public function getParams($component = '')
 	{
-		return $component ? JComponentHelper::getParams($component) : new JRegistry;
-	}
-
-	/**
-	 * Returns the application JRouter object.
-	 *
-	 * @param   string  $name     The name of the application.
-	 * @param   array   $options  An optional associative array of configuration settings.
-	 *
-	 * @return  JRouter  A JRouter object
-	 *
-	 * @since   1.0
-	 */
-	public function getRouter($name = null, array $options = array())
-	{
-		if (!isset($name))
-		{
-			$name = $this->name;
-		}
-
-		jimport('joomla.application.router');
-
-		try
-		{
-			$router = JRouter::getInstance($name, $options);
-		}
-		catch (Exception $e)
-		{
-			return null;
-		}
-
-		return $router;
+		return $component ? JComponentHelper::getParams($component) : new Registry;
 	}
 
 	/**
@@ -554,7 +505,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 */
 	public function getUserState($key, $default = null)
 	{
-		$registry = JFactory::getSession()->get('registry');
+		$registry = Factory::getSession()->get('registry');
 
 		if (!is_null($registry))
 		{
@@ -616,6 +567,85 @@ abstract class JApplicationTracker extends JApplicationWeb
 	public function isSite()
 	{
 		return ($this->clientId == 0);
+	}
+
+	/**
+	 * Allows the application to load a custom or default dispatcher.
+	 *
+	 * The logic and options for creating this object are adequately generic for default cases
+	 * but for many applications it will make sense to override this method and create event
+	 * dispatchers, if required, based on more specific needs.
+	 *
+	 * @param   Dispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
+	 *
+	 * @return  TrackerApplication This method is chainable.
+	 *
+	 * @since   1.0
+	 */
+	public function loadDispatcher(Dispatcher $dispatcher = null)
+	{
+		$this->dispatcher = ($dispatcher === null) ? new Dispatcher : $dispatcher;
+
+		return $this;
+	}
+
+	/**
+	 * Allows the application to load a custom or default session.
+	 *
+	 * The logic and options for creating this object are adequately generic for default cases
+	 * but for many applications it will make sense to override this method and create a session,
+	 * if required, based on more specific needs.
+	 *
+	 * @param   Session  $session  An optional session object. If omitted, the session is created.
+	 *
+	 * @return  TrackerApplication  This method is chainable.
+	 *
+	 * @since   1.0
+	 */
+	public function loadSession(Session $session = null)
+	{
+		if ($session !== null)
+		{
+			$this->setSession($session);
+
+			return $this;
+		}
+
+		// Generate a session name.
+		$name = md5($this->get('secret') . $this->get('session_name', get_class($this)));
+
+		// Calculate the session lifetime.
+		$lifetime = (($this->get('sess_lifetime')) ? $this->get('sess_lifetime') * 60 : 900);
+
+		// Get the session handler from the configuration.
+		$handler = $this->get('sess_handler', 'none');
+
+		// Initialize the options for JSession.
+		$options = array(
+			'name' => $name,
+			'expire' => $lifetime,
+			'force_ssl' => $this->get('force_ssl')
+		);
+
+		$this->registerEvent('onAfterSessionStart', array($this, 'afterSessionStart'));
+
+		// Instantiate the session object.
+		$session = Session::getInstance($handler, $options);
+		$session->initialise($this->input, $this->dispatcher);
+
+		if ($session->getState() == 'expired')
+		{
+			$session->restart();
+		}
+		else
+		{
+			$session->start();
+		}
+
+		// Set the session object.
+		$this->setSession($session);
+
+		return $this;
 	}
 
 	/**
@@ -810,7 +840,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 		// Persist messages if they exist.
 		if (count($this->messageQueue))
 		{
-			JFactory::getSession()->set('application.queue', $this->messageQueue);
+			Factory::getSession()->set('application.queue', $this->messageQueue);
 		}
 
 		parent::redirect($url, $moved);
@@ -842,7 +872,7 @@ abstract class JApplicationTracker extends JApplicationWeb
 	 */
 	public function setUserState($key, $value)
 	{
-		$registry = JFactory::getSession()->get('registry');
+		$registry = Factory::getSession()->get('registry');
 
 		if (!is_null($registry))
 		{

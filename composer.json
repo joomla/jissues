@@ -1,0 +1,17 @@
+{
+    "name": "joomla/tracker",
+    "description": "Issue Tracking application built on the Joomla! Framework integrating with GitHub to replace the existing Joomlacode solution.",
+    "keywords": ["joomla","tracker"],
+    "homepage": "https://github.com/joomla/jissues",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10",
+        "joomla/framework": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Joomla\\Tracker": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
