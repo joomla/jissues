@@ -1,4 +1,4 @@
 {
-	"issue/:id/edit": "\\Tracker\\Controller\\Edit",
-	"login": "\\User\\Controller\\Default"
+	"issue/:id/edit": "\\Tracker\\Controller\\EditController",
+	"login": "\\Users\\Controller\\DefaultController"
 }
