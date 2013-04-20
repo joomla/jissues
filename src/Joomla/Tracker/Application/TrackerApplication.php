@@ -26,7 +26,7 @@ use Joomla\Tracker\Router\TrackerRouter;
  * @package  JTracker\Application
  * @since    1.0
  */
-abstract class AbstractTrackerApplication extends AbstractWebApplication
+final class TrackerApplication extends AbstractWebApplication
 {
 	/**
 	 * The scope of the application.
@@ -417,6 +417,18 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 	}
 
 	/**
+	 * Return the current state of the language filter.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguageFilter()
+	{
+		return false;
+	}
+
+	/**
 	 * Get the system message queue.
 	 *
 	 * @return  array  The system message queue.
@@ -479,7 +491,20 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 	 *
 	 * @since   1.0
 	 */
-	abstract public function getTemplate($params = false);
+	public function getTemplate($params = false)
+	{
+		// Build the object
+		$template = new stdClass;
+		$template->template = 'joomla';
+		$template->params   = new Registry;
+
+		if ($params)
+		{
+			return $template;
+		}
+
+		return $template->template;
+	}
 
 	/**
 	 * Gets a user state.
@@ -659,6 +684,15 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 	{
 		// Get the global JAuthentication object.
 		jimport('joomla.user.authentication');
+
+		// Set the application login entry point
+		if (!array_key_exists('entry_url', $options))
+		{
+			$options['entry_url'] = JUri::base() . 'index.php?option=com_users&task=login';
+		}
+
+		// Set the access control action to check.
+		$options['action'] = 'core.login.site';
 
 		$authenticate = JAuthentication::getInstance();
 		$response     = $authenticate->authenticate($credentials, $options);

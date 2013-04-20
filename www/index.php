@@ -13,7 +13,7 @@ error_reporting(32767);
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Instantiate the application.
-$application = new Joomla\Tracker\Application\SiteApplication;
+$application = new Joomla\Tracker\Application\TrackerApplication;
 
 // Execute the application.
 $application->execute();
