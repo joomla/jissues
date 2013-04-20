@@ -78,6 +78,9 @@ final class TrackerApplication extends AbstractWebApplication
 		// Run the parent constructor
 		parent::__construct();
 
+		// Load the configuration object.
+		$this->loadConfiguration($this->fetchConfigurationData());
+
 		// Register the event dispatcher
 		$this->loadDispatcher();
 
@@ -241,6 +244,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
+			$router->addMaps(json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'), true));
 			$router->setControllerPrefix('Joomla\\Tracker\\Components');
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
@@ -252,6 +256,9 @@ final class TrackerApplication extends AbstractWebApplication
 
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
+
+			// Temporarily echo the $contents to prove it is working
+			echo $contents;
 
 			//$document->setBuffer($contents, 'component');
 		}
@@ -329,71 +336,51 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to get a controller object.
+	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
+	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
+	 * for your specific application.
 	 *
-	 * @param   string  $component  The component being called
-	 * @param   string  $task       The task being executed in the component
+	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
+	 *                          in JPATH_BASE will be used.
+	 * @param   string  $class  The class name to instantiate.
 	 *
-	 * @return  ControllerInterface
+	 * @return  mixed   Either an array or object to be loaded into the configuration object.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetchController($component, $task)
+	protected function fetchConfigurationData($file = '', $class = 'JConfig')
 	{
-		// Define component path.
-		define('JPATH_COMPONENT', JPATH_BASE . '/components/' . $component);
+		// Instantiate variables.
+		$config = array();
 
-		if (is_null($task))
+		if (empty($file) && defined('JPATH_BASE'))
 		{
-			$task = 'default';
-		}
+			$file = JPATH_BASE . '/configuration.php';
 
-		// Strip com_ off the component
-		$base = substr($component, 4);
-
-		// Register the component with the autoloader
-		Loader::registerPrefix(ucfirst($base), JPATH_COMPONENT);
-
-		// Set the controller class name based on the task
-		$class = ucfirst($base) . 'Controller' . ucfirst($task);
-
-		// Check for the requested controller.
-		if (!class_exists($class) || !is_subclass_of($class, 'JController'))
-		{
-			// See if there's an action class in the libraries if we aren't calling the default task
-			if ($task && $task != 'default')
+			// Applications can choose not to have any configuration data
+			// by not implementing this method and not having a config file.
+			if (!file_exists($file))
 			{
-				$class = 'JController' . ucfirst($task);
-			}
-
-			if (!class_exists($class) || !is_subclass_of($class, 'JController'))
-			{
-				// Look for a default controller for the component
-				$class = ucfirst($base) . 'ControllerDefault';
-
-				if (!class_exists($class) || !is_subclass_of($class, 'JController'))
-				{
-					// Nothing found. Panic.
-					throw new \RuntimeException(sprintf('Controller not found for %s task', $task));
-				}
+				$file = '';
 			}
 		}
 
-		// Instantiate and return the controller
-		return new $class($this->input, $this);
-	}
+		if (!empty($file))
+		{
+			Loader::register($class, $file);
 
-	/**
-	 * Gets the client id of the current running application.
-	 *
-	 * @return  integer  A client identifier.
-	 *
-	 * @since   1.0
-	 */
-	public function getClientId()
-	{
-		return $this->clientId;
+			if (class_exists($class))
+			{
+				$config = new $class;
+			}
+			else
+			{
+				throw new \RuntimeException('Configuration class does not exist.');
+			}
+		}
+
+		return $config;
 	}
 
 	/**
@@ -553,27 +540,27 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Is admin interface?
+	 * Load an object or array into the application configuration object.
 	 *
-	 * @return  boolean  True if this application is administrator.
+	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
+	 *
+	 * @return  TrackerApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function isAdmin()
+	public function loadConfiguration($data)
 	{
-		return ($this->clientId == 1);
-	}
+		// Load the data into the configuration object.
+		if (is_array($data))
+		{
+			$this->config->loadArray($data);
+		}
+		elseif (is_object($data))
+		{
+			$this->config->loadObject($data);
+		}
 
-	/**
-	 * Is site interface?
-	 *
-	 * @return  boolean  True if this application is site.
-	 *
-	 * @since   1.0
-	 */
-	public function isSite()
-	{
-		return ($this->clientId == 0);
+		return $this;
 	}
 
 	/**

@@ -17,6 +17,7 @@ require dirname(__DIR__) . '/vendor/joomla/framework/src/import.php';
 
 // Define required paths
 define('JPATH_BASE',   dirname(__DIR__));
+define('JPATH_SITE',   JPATH_BASE);
 define('JPATH_THEMES', JPATH_BASE . '/www');
 
 // Instantiate the application.

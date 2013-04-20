@@ -59,10 +59,28 @@ class TrackerRouter extends Router
 		// Derive the controller class name.
 		$class = $this->controllerPrefix . ucfirst($name);
 
-		// If the controller class does not exist panic.
+		// Check for the requested controller.
 		if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 		{
-			throw new \RuntimeException(sprintf('Unable to locate controller `%s`.', $class), 404);
+			// See if there's an action class in the libraries if we aren't calling the default task
+			$task = $this->input->getCmd('task');
+			if ($task && $task != 'default')
+			{
+				$class = '\\Joomla\\Tracker\\Controller\\' . ucfirst($task) . 'Controller';
+			}
+
+			if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
+			{
+				// Look for a default controller for the component
+				// @TODO - Fix this up
+				//$class = ucfirst($base) . 'DefaultController';
+
+				if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
+				{
+					// Nothing found. Panic.
+					throw new \RuntimeException(sprintf('Controller not found for %s task', $task));
+				}
+			}
 		}
 
 		// Instantiate the controller.
