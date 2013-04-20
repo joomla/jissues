@@ -18,6 +18,7 @@ use Joomla\Factory;
 use Joomla\Loader;
 use Joomla\Registry\Registry;
 use Joomla\Session\Session;
+use Joomla\Tracker\Router\TrackerRouter;
 
 /**
  * Joomla! Issue Tracker Application class
@@ -246,18 +247,12 @@ abstract class AbstractTrackerApplication extends AbstractWebApplication
 			// Set metadata
 			$document->setTitle('Joomla! CMS Issue Tracker');
 
-			// Load the component
-			$component = $this->input->getCmd('option', '');
-
-			// If the component isn't set in the input option, set our default
-			if ($component == '')
-			{
-				$this->input->set('option', 'com_tracker');
-				$component = 'com_tracker';
-			}
+			// Instantiate the router
+			$router = new TrackerRouter($this->input, $this);
+			$router->setControllerPrefix('\\Joomla\\Tracker\\Components');
 
 			// Fetch the controller
-			$controller = $this->fetchController($component, $this->input->getCmd('task'));
+			$controller = $router->getController($this->get('uri.route'));
 
 			// Execute the component
 			$contents = $this->executeComponent($controller, $component);
