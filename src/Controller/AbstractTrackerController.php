@@ -1,22 +1,23 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Controller
+ * @package     JTracker\Controller
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Tracker\Controller;
+
+use Joomla\Controller\AbstractController;
+use Joomla\Log\Log;
 
 /**
  * Generic Joomla! Issue Tracker Controller class
  *
- * @package     JTracker
- * @subpackage  Controller
- * @since       1.0
+ * @package  JTracker\Controller
+ * @since    1.0
  */
-abstract class JControllerTracker extends JControllerBase
+abstract class AbstractTrackerController extends AbstractController
 {
 	/**
 	 * The default list view for the component
@@ -47,7 +48,7 @@ abstract class JControllerTracker extends JControllerBase
 		// Get the option from the input object
 		if (empty($this->option))
 		{
-			$this->option = $this->input->getCmd('option');
+			$this->option = $this->getInput()->getCmd('option');
 		}
 	}
 
@@ -58,7 +59,7 @@ abstract class JControllerTracker extends JControllerBase
 	 *
 	 * @return  boolean
 	 *
-	 * @since   12.2
+	 * @since   1.0
 	 */
 	protected function allowAdd($data = array())
 	{
@@ -119,14 +120,14 @@ abstract class JControllerTracker extends JControllerBase
 	{
 		if ($id)
 		{
-			$app    = JFactory::getApplication();
+			$app    = $this->getApplication();
 			$values = (array) $app->getUserState($context . '.id');
 
 			$result = in_array((int) $id, $values);
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				JLog::add(
+				Log::add(
 					sprintf(
 						'Checking edit ID %s.%s: %d %s',
 						$context,
@@ -134,7 +135,7 @@ abstract class JControllerTracker extends JControllerBase
 						(int) $result,
 						str_replace("\n", ' ', print_r($values, 1))
 					),
-					JLog::INFO,
+					Log::INFO,
 					'controller'
 				);
 			}
@@ -161,17 +162,17 @@ abstract class JControllerTracker extends JControllerBase
 	public function execute()
 	{
 		// Get the application
-		/* @var JApplicationTracker $app */
-		$app = $this->getApplication();
+		$app   = $this->getApplication();
+		$input = $this->getInput();
 
 		// Get the document object.
 		$document = $app->getDocument();
 
-		$vName   = $app->input->getWord('view', $this->default_list_view);
+		$vName   = $input->getWord('view', $this->default_list_view);
 		$vFormat = $document->getType();
-		$lName   = $app->input->getWord('layout', 'default');
+		$lName   = $input->getWord('layout', 'default');
 
-		$app->input->set('view', $vName);
+		$input->set('view', $vName);
 
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
@@ -228,8 +229,9 @@ abstract class JControllerTracker extends JControllerBase
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
 	{
-		$tmpl   = $this->input->get('tmpl');
-		$layout = $this->input->get('layout', 'edit');
+		$input  = $this->getInput();
+		$tmpl   = $input->get('tmpl');
+		$layout = $input->get('layout', 'edit');
 		$append = '';
 
 		// Setup redirect info.
@@ -260,7 +262,7 @@ abstract class JControllerTracker extends JControllerBase
 	 */
 	protected function getRedirectToListAppend()
 	{
-		$tmpl = $this->input->get('tmpl');
+		$tmpl = $this->getInput()->get('tmpl');
 		$append = '';
 
 		// Setup redirect info.
@@ -296,14 +298,14 @@ abstract class JControllerTracker extends JControllerBase
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				JLog::add(
+				Log::add(
 					sprintf(
 						'Holding edit ID %s.%s %s',
 						$context,
 						$id,
 						str_replace("\n", ' ', print_r($values, 1))
 					),
-					JLog::INFO,
+					Log::INFO,
 					'controller'
 				);
 			}
@@ -322,7 +324,7 @@ abstract class JControllerTracker extends JControllerBase
 	 */
 	protected function releaseEditId($context, $id)
 	{
-		$app    = JFactory::getApplication();
+		$app    = $this->getApplication();
 		$values = (array) $app->getUserState($context . '.id');
 
 		// Do a strict search of the edit list values.
@@ -335,14 +337,14 @@ abstract class JControllerTracker extends JControllerBase
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				JLog::add(
+				Log::add(
 					sprintf(
 						'Releasing edit ID %s.%s %s',
 						$context,
 						$id,
 						str_replace("\n", ' ', print_r($values, 1))
 					),
-					JLog::INFO,
+					Log::INFO,
 					'controller'
 				);
 			}

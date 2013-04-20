@@ -15,7 +15,7 @@ use Joomla\Router\Router;
 /**
  * Joomla! Issue Tracker Router
  *
- * @package  JTracker\Application
+ * @package  JTracker\Router
  * @since    1.0
  */
 class TrackerRouter extends Router
