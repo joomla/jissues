@@ -1,22 +1,23 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Model
+ * @package     JTracker\Model
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Tracker\Model;
+
+use Joomla\Factory;
+use Joomla\Model\AbstractDatabaseModel;
 
 /**
  * Abstract base model for the tracker application
  *
- * @package     JTracker
- * @subpackage  Model
- * @since       1.0
+ * @package  JTracker\Model
+ * @since    1.0
  */
-abstract class JModelTracker extends JModelDatabase
+abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 {
 	/**
 	 * The model (base) name
@@ -46,24 +47,25 @@ abstract class JModelTracker extends JModelDatabase
 	 * Constructor
 	 *
 	 * @since   1.0
-	 * @throws  Exception
 	 */
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct(Factory::getDbo());
 
 		// Guess the option from the class name (Option)Model(View).
 		if (empty($this->option))
 		{
-			$classname = get_class($this);
-			$modelpos = strpos($classname, 'Model');
+			// Get the fully qualified class name for the current object
+			$fqcn = (get_class($this));
 
-			if ($modelpos === false)
-			{
-				throw new RuntimeException(JText::_('Model name does not follow standard.'), 500);
-			}
+			// Strip the base component namespace off
+			$className = str_replace('Joomla\\Tracker\\Components\\', '', $fqcn);
 
-			$this->option = 'com_' . strtolower(substr($classname, 0, $modelpos));
+			// Explode the remaining name into an array
+			$classArray = explode('\\', $className);
+
+			// Set the component as the first object in this array
+			$this->component = $classArray[0];
 		}
 
 		// Set the view name
@@ -88,15 +90,17 @@ abstract class JModelTracker extends JModelDatabase
 	{
 		if (empty($this->name))
 		{
-			$classname = get_class($this);
-			$modelpos = strpos($classname, 'Model');
+			// Get the fully qualified class name for the current object
+			$fqcn = (get_class($this));
 
-			if ($modelpos === false)
-			{
-				throw new Exception(JText::_('JLIB_APPLICATION_ERROR_MODEL_GET_NAME'), 500);
-			}
+			// Explode the name into an array
+			$classArray = explode('\\', $fqcn);
 
-			$this->name = strtolower(substr($classname, $modelpos + 5));
+			// Get the last element from the array
+			$class = array_pop($classArray);
+
+			// Remove Model from the name and store it
+			$this->name = str_replace('Model', '', $class);
 		}
 
 		return $this->name;
@@ -127,7 +131,7 @@ abstract class JModelTracker extends JModelDatabase
 			throw new RuntimeException(sprintf('Table class %s not found or is not an instance of JTable', $class));
 		}
 
-		$this->table = new $class($this->db);
+		$this->table = new $class($this->getDb());
 
 		return $this->table;
 	}

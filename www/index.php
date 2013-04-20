@@ -12,6 +12,13 @@ error_reporting(32767);
 // Load the Composer autoloader
 require dirname(__DIR__) . '/vendor/autoload.php';
 
+// Load the Joomla Framework
+require dirname(__DIR__) . '/vendor/joomla/framework/src/import.php';
+
+// Define required paths
+define('JPATH_BASE',   dirname(__DIR__));
+define('JPATH_THEMES', JPATH_BASE . '/www');
+
 // Instantiate the application.
 $application = new Joomla\Tracker\Application\TrackerApplication;
 

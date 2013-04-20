@@ -7,10 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-/* @var TrackerViewIssuesHtml $this */
-
-defined('_JEXEC') or die;
-
 // Initialize values to check for cells
 $blockers = array('1', '2');
 
@@ -55,7 +51,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		</div>
 		<div class="btn-group pull-right hidden-phone">
 			<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
-			<?php echo $this->pagination->getLimitBox(); ?>
+			<?php //echo $this->pagination->getLimitBox(); ?>
 		</div>
 		<input type="hidden" name="filter_order" value="" />
 		<input type="hidden" name="filter_order_Dir" value="" />
@@ -159,7 +155,7 @@ $fields = new JRegistry(JFactory::getApplication()->input->get('fields', array()
 		<?php endif; ?>
 		</tbody>
 	</table>
-	<?php echo $this->pagination->getListFooter(); ?>
+	<?php //echo $this->pagination->getListFooter(); ?>
 	<?php endif; ?>
 	<input type="hidden" name="task" />
 </form>

@@ -1,22 +1,26 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  com_tracker
+ * @package     JTracker\Components\Tracker
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+namespace Joomla\Tracker\Components\Tracker\Model;
+
+use Joomla\Factory;
+use Joomla\Database\DatabaseQuery;
+use Joomla\Registry\Registry;
+use Joomla\String\String;
+use Joomla\Tracker\Model\AbstractTrackerListModel;
 
 /**
  * Model to get data for the issue list view
  *
- * @package     JTracker
- * @subpackage  com_tracker
- * @since       1.0
+ * @package  JTracker\Components\Tracker
+ * @since    1.0
  */
-class TrackerModelIssues extends JModelTrackerList
+class IssuesModel extends AbstractTrackerListModel
 {
 	/**
 	 * Context string for the model type.  This is used to handle uniqueness
@@ -28,9 +32,9 @@ class TrackerModelIssues extends JModelTrackerList
 	protected $context = 'com_tracker.issues';
 
 	/**
-	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
+	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
-	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
+	 * @return  DatabaseQuery   A DatabaseQuery object to retrieve the data set.
 	 *
 	 * @since   1.0
 	 */
@@ -58,7 +62,7 @@ class TrackerModelIssues extends JModelTrackerList
 		if ($filter)
 		{
 			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(JString::strtolower($filter), true) . '%', false);
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
 
 			// Check the author, title, and publish_up fields
 			$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $filter . ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter . ')');
@@ -105,25 +109,25 @@ class TrackerModelIssues extends JModelTrackerList
 	/**
 	 * Load the model state.
 	 *
-	 * @return  JRegistry  The state object.
+	 * @return  Registry  The state object.
 	 *
 	 * @since   1.0
 	 */
 	protected function loadState()
 	{
-		$this->state = new JRegistry;
-		$session = JFactory::getSession();
+		$this->state = new Registry;
+		//$session = JFactory::getSession();
 
-		$input = JFactory::getApplication()->input;
+		$input = Factory::$application->input;
 
 		$projectId = $input->getUint('project_id');
 
-		if(!$projectId)
+		/*if (!$projectId)
 		{
 			$projectId = $session->get('tracker.project_id');
 		}
 
-		$session->set('tracker.project_id', $projectId);
+		$session->set('tracker.project_id', $projectId);*/
 
 		$this->state->set('filter.project', $projectId);
 
@@ -156,14 +160,14 @@ class TrackerModelIssues extends JModelTrackerList
 	 */
 	public function getProject()
 	{
-		$id = JFactory::getApplication()->input->getUint('project_id', $this->state->get('filter.project'));
+		$id = Factory::$application->input->getUint('project_id', $this->state->get('filter.project'));
 
 		if (!$id)
 		{
 			return null;
 		}
 
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$project = $this->db->setQuery(
 			$this->db->getQuery(true)

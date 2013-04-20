@@ -8,6 +8,8 @@
 
 namespace Joomla\Tracker\Components\Tracker\Controller;
 
+use Joomla\Application\AbstractApplication;
+use Joomla\Input\Input;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
@@ -21,11 +23,14 @@ class DefaultController extends AbstractTrackerController
 	/**
 	 * Constructor
 	 *
-	 * @since   1.0
+	 * @param   Input                $input  The input object.
+	 * @param   AbstractApplication  $app    The application object.
+	 *
+	 * @since  1.0
 	 */
-	public function __construct()
+	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
-		parent::__construct();
+		parent::__construct($input, $app);
 
 		// Set the default views
 		$this->default_list_view = 'issues';

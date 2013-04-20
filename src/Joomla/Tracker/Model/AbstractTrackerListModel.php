@@ -1,13 +1,16 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Model
+ * @package     JTracker\Model
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('JPATH_PLATFORM') or die;
+namespace Joomla\Tracker\Model;
+
+use Joomla\Factory;
+use Joomla\Database\DatabaseQuery;
+use Joomla\Registry\Registry;
 
 /**
  * Abstract model to get data for a list view
@@ -16,7 +19,7 @@ defined('JPATH_PLATFORM') or die;
  * @subpackage  Model
  * @since       1.0
  */
-abstract class JModelTrackerList extends JModelTracker
+abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 {
 	/**
 	 * Internal memory based cache array of data.
@@ -38,7 +41,7 @@ abstract class JModelTrackerList extends JModelTracker
 	/**
 	 * An internal cache for the last query used.
 	 *
-	 * @var    JDatabaseQuery
+	 * @var    DatabaseQuery
 	 * @since  1.0
 	 */
 	protected $query = array();
@@ -87,9 +90,9 @@ abstract class JModelTrackerList extends JModelTracker
 		{
 			$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			Factory::$application->enqueueMessage($e->getMessage(), 'error');
 			return array();
 		}
 
@@ -100,9 +103,9 @@ abstract class JModelTrackerList extends JModelTracker
 	}
 
 	/**
-	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
+	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
-	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
+	 * @return  DatabaseQuery   A DatabaseQuery object to retrieve the data set.
 	 *
 	 * @since   1.0
 	 */
@@ -211,13 +214,14 @@ abstract class JModelTrackerList extends JModelTracker
 
 		// Load the total.
 		$query = $this->_getListQuery();
+
 		try
 		{
 			$total = (int) $this->_getListCount($query);
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
-			JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			Factory::$application->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
 
@@ -230,14 +234,14 @@ abstract class JModelTrackerList extends JModelTracker
 	/**
 	 * Load the model state.
 	 *
-	 * @return  JRegistry  The state object.
+	 * @return  Registry  The state object.
 	 *
 	 * @since   1.0
 	 */
 	protected function loadState()
 	{
 		// Check whether the state has already been loaded
-		if (!($this->state instanceof JRegistry))
+		if (!($this->state instanceof Registry))
 		{
 			$this->state = parent::loadState();
 		}
@@ -245,7 +249,7 @@ abstract class JModelTrackerList extends JModelTracker
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{
-			$app = JFactory::getApplication();
+			$app = Factory::$application;
 
 			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit', 20), 'uint');
 			$limit = $value;
@@ -293,7 +297,7 @@ abstract class JModelTrackerList extends JModelTracker
 	 */
 	protected function _getListCount($query)
 	{
-		if ($query instanceof JDatabaseQuery)
+		if ($query instanceof DatabaseQuery)
 		{
 			// Create COUNT(*) query to allow database engine to optimize the query.
 			$query = clone $query;
@@ -320,7 +324,7 @@ abstract class JModelTrackerList extends JModelTracker
 	 *
 	 * This method ensures that the query is constructed only once for a given state of the model.
 	 *
-	 * @return  JDatabaseQuery  A JDatabaseQuery object
+	 * @return  DatabaseQuery  A DatabaseQuery object
 	 *
 	 * @since   1.0
 	 */

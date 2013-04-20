@@ -1,22 +1,23 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  com_tracker
+ * @package     JTracker\Components\Tracker
  *
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+namespace Joomla\Tracker\Components\Tracker\View\Issues;
+
+use Joomla\Tracker\Components\Tracker\Model\IssuesModel;
+use Joomla\View\AbstractHtmlView;
 
 /**
  * The issues list view
  *
- * @package     JTracker
- * @subpackage  com_tracker
- * @since       1.0
+ * @package  JTracker\Components\Tracker
+ * @since    1.0
  */
-class TrackerViewIssuesHtml extends JViewHtml
+class IssuesHtmlView extends AbstractHtmlView
 {
 	/**
 	 * Container for the view's items
@@ -29,7 +30,7 @@ class TrackerViewIssuesHtml extends JViewHtml
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     TrackerModelIssues
+	 * @var     IssuesModel
 	 * @since   1.0
 	 */
 	protected $model;
@@ -43,7 +44,8 @@ class TrackerViewIssuesHtml extends JViewHtml
 	protected $pagination;
 
 	/**
-	 * @var stdClass
+	 * @var    stdClass
+	 * @since  1.0
 	 */
 	protected $project;
 
@@ -53,17 +55,17 @@ class TrackerViewIssuesHtml extends JViewHtml
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function render()
 	{
 		$this->items      = $this->model->getItems();
-		$this->pagination = $this->model->getPagination();
+		//$this->pagination = $this->model->getPagination();
 		$this->state      = $this->model->getState();
 		$this->project    = $this->model->getProject();
 
 		// Build the toolbar
-		$this->buildToolbar();
+		//$this->buildToolbar();
 
 		return parent::render();
 	}

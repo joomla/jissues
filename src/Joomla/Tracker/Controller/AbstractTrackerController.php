@@ -8,8 +8,12 @@
 
 namespace Joomla\Tracker\Controller;
 
+use Joomla\Application\AbstractApplication;
 use Joomla\Controller\AbstractController;
+use Joomla\Input\Input;
 use Joomla\Log\Log;
+use Joomla\Tracker\Components;
+use Joomla\View\AbstractHtmlView;
 
 /**
  * Generic Joomla! Issue Tracker Controller class
@@ -28,27 +32,39 @@ abstract class AbstractTrackerController extends AbstractController
 	protected $default_list_view;
 
 	/**
-	 * The URL option for the component.
+	 * The component being executed.
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $option;
+	protected $component;
 
 	/**
 	 * Constructor
 	 *
-	 * @since   1.0
-	 * @throws  Exception
+	 * @param   Input                $input  The input object.
+	 * @param   AbstractApplication  $app    The application object.
+	 *
+	 * @since  1.0
 	 */
-	public function __construct()
+	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
-		parent::__construct();
+		parent::__construct($input, $app);
 
 		// Get the option from the input object
-		if (empty($this->option))
+		if (empty($this->component))
 		{
-			$this->option = $this->getInput()->getCmd('option');
+			// Get the fully qualified class name for the current object
+			$fqcn = (get_class($this));
+
+			// Strip the base component namespace off
+			$className = str_replace('Joomla\\Tracker\\Components\\', '', $fqcn);
+
+			// Explode the remaining name into an array
+			$classArray = explode('\\', $className);
+
+			// Set the component as the first object in this array
+			$this->component = $classArray[0];
 		}
 	}
 
@@ -157,7 +173,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -165,49 +181,46 @@ abstract class AbstractTrackerController extends AbstractController
 		$app   = $this->getApplication();
 		$input = $this->getInput();
 
-		// Get the document object.
-		$document = $app->getDocument();
-
+		// Get some data from the request
 		$vName   = $input->getWord('view', $this->default_list_view);
-		$vFormat = $document->getType();
+		$vFormat = $input->getWord('format', 'html');
 		$lName   = $input->getWord('layout', 'default');
 
 		$input->set('view', $vName);
 
 		// Register the layout paths for the view
-		$paths = new SplPriorityQueue;
-		$paths->insert(JPATH_THEMES . '/' . $app->getTemplate() . '/html/' . $this->option . '/' . $vName, 'normal');
+		$paths = new \SplPriorityQueue;
 		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
 
-		$base   = ucfirst(substr($this->option, 4));
-		$vClass = $base . 'View' . ucfirst($vName) . ucfirst($vFormat);
-		$mClass = $base . 'Model' . ucfirst($vName);
+		$base   = '\\Joomla\\Tracker\\Components\\' . $this->component;
+		$vClass = $base . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
+		$mClass = $base . '\\Model\\' . ucfirst($vName) . 'Model';
 
 		// If a model doesn't exist for our view, revert to the default model
 		if (!class_exists($mClass))
 		{
-			$mClass = $base . 'ModelDefault';
+			$mClass = $base . '\\Model\\DefaultModel';
 
 			// If there still isn't a class, panic.
 			if (!class_exists($mClass))
 			{
-				throw new RuntimeException(sprintf('No model found for view %s or a default model for %s', $vName, $this->option));
+				throw new \RuntimeException(sprintf('No model found for view %s or a default model for %s', $vName, $this->component));
 			}
 		}
 
 		// Make sure the view class exists, otherwise revert to the default
 		if (!class_exists($vClass))
 		{
-			$vClass = $base . 'ViewDefault';
+			$vClass = $base . '\\View\\DefaultView';
 
 			// If there still isn't a class, panic.
 			if (!class_exists($vClass))
 			{
-				throw new RuntimeException(sprintf('Class %s not found', $vClass));
+				throw new \RuntimeException(sprintf('Class %s not found', $vClass));
 			}
 		}
 
-		/* @var JViewHtml $view */
+		/* @var AbstractHtmlView $view */
 		$view = new $vClass(new $mClass, $paths);
 		$view->setLayout($lName);
 
@@ -251,6 +264,18 @@ abstract class AbstractTrackerController extends AbstractController
 		}
 
 		return $append;
+	}
+
+	/**
+	 * Returns the current component
+	 *
+	 * @return  string  The component being executed.
+	 *
+	 * @since   1.0
+	 */
+	public function getComponent()
+	{
+		return $this->component;
 	}
 
 	/**

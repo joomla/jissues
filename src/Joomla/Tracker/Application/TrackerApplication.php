@@ -81,6 +81,7 @@ final class TrackerApplication extends AbstractWebApplication
 		// Register the event dispatcher
 		$this->loadDispatcher();
 
+		/* Disable sessions for the moment
 		// Enable sessions by default.
 		if (is_null($this->get('session')))
 		{
@@ -100,7 +101,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			// Register the session with Factory
 			Factory::$session = $this->getSession();
-		}
+		}*/
 
 		// Register the application to Factory
 		Factory::$application = $this;
@@ -229,15 +230,6 @@ final class TrackerApplication extends AbstractWebApplication
 	{
 		try
 		{
-			// Load the document to the API
-			$this->loadDocument();
-
-			// Set up the params
-			$document = $this->getDocument();
-
-			// Register the document object with JFactory
-			Factory::$document = $document;
-
 			// Register the template to the config
 			$template = $this->getTemplate(true);
 			$this->set('theme', $template->template);
@@ -245,19 +237,23 @@ final class TrackerApplication extends AbstractWebApplication
 			$this->set('themeFile', $this->input->get('tmpl', 'index') . '.php');
 
 			// Set metadata
-			$document->setTitle('Joomla! CMS Issue Tracker');
+			//$document->setTitle('Joomla! CMS Issue Tracker');
 
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
-			$router->setControllerPrefix('\\Joomla\\Tracker\\Components');
+			$router->setControllerPrefix('Joomla\\Tracker\\Components');
+			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
 			// Fetch the controller
 			$controller = $router->getController($this->get('uri.route'));
 
-			// Execute the component
-			$contents = $this->executeComponent($controller, $component);
+			// Define the component path
+			define('JPATH_COMPONENT', dirname(__DIR__) . '/Components/' . ucfirst($controller->getComponent()));
 
-			$document->setBuffer($contents, 'component');
+			// Execute the component
+			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
+
+			//$document->setBuffer($contents, 'component');
 		}
 
 			// Mop up any uncaught exceptions.
@@ -323,9 +319,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Load common and local language files.
 		$lang->load($component, JPATH_BASE, null, false, false)
-			|| $lang->load($component, JPATH_COMPONENT, null, false, false)
-			|| $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false)
-			|| $lang->load($component, JPATH_COMPONENT, $lang->getDefault(), false, false);
+			|| $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false);
 
 		// Start an output buffer.
 		ob_start();
@@ -494,7 +488,7 @@ final class TrackerApplication extends AbstractWebApplication
 	public function getTemplate($params = false)
 	{
 		// Build the object
-		$template = new stdClass;
+		$template = new \stdClass;
 		$template->template = 'joomla';
 		$template->params   = new Registry;
 
