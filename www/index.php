@@ -9,16 +9,17 @@
 // Set error reporting for development
 error_reporting(32767);
 
+// Define required paths
+define('JPATH_BASE',          dirname(__DIR__));
+define('JPATH_CONFIGURATION', JPATH_BASE . '/etc');
+define('JPATH_SITE',          JPATH_BASE);
+define('JPATH_THEMES',        JPATH_BASE . '/www');
+
 // Load the Composer autoloader
-require dirname(__DIR__) . '/vendor/autoload.php';
+require JPATH_BASE . '/vendor/autoload.php';
 
 // Load the Joomla Framework
-require dirname(__DIR__) . '/vendor/joomla/framework/src/import.php';
-
-// Define required paths
-define('JPATH_BASE',   dirname(__DIR__));
-define('JPATH_SITE',   JPATH_BASE);
-define('JPATH_THEMES', JPATH_BASE . '/www');
+require JPATH_BASE . '/vendor/joomla/framework/src/import.php';
 
 // Instantiate the application.
 $application = new Joomla\Tracker\Application\TrackerApplication;

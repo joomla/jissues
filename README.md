@@ -7,7 +7,7 @@ The issue tracker application requires a server running:
 Setup
 ===============
 1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/joomla/jissues/zipball/master.
-2. Copy `/configuration.example.php` to `/configuration.php`
+2. Copy `/etc/configuration.example.php` to `/etc/configuration.php`
 3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_)
 
 From this point, you can setup your database in one of two ways:
@@ -22,9 +22,8 @@ From this point, you can setup your database in one of two ways:
 
 If you are in an environment where you cannot execute PHP scripts from the command line, you can set up your database with the following steps:
 
-1. Open `/sql/mysql.sql` and do a find/replace from `#__` to whatever your prefix is, and save
+1. Open `/etc/mysql.sql` and do a find/replace from `#__` to whatever your prefix is, and save
 2. Import the SQL into your database
-3. You can optionally import the sample data found at `/sql/sampledata.sql` by repeating steps 1 and 2 with this file
 
 - When using this option, you will need to manually create an Adminstrative user account.
 
