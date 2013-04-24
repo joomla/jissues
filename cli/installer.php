@@ -8,32 +8,19 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// We are a valid entry point.
-const _JEXEC = 1;
+include '../vendor/autoload.php';
 
-// Load system defines
-if (file_exists(dirname(__DIR__) . '/defines.php'))
-{
-	require_once dirname(__DIR__) . '/defines.php';
-}
+// @todo used by JFactory::getConfig() and getDbo()
+define('JPATH_FRAMEWORK', 'dooo');
 
-if (!defined('_JDEFINES'))
-{
-	define('JPATH_BASE', dirname(__DIR__));
-	require_once JPATH_BASE . '/includes/defines.php';
-}
+use Joomla\Application\AbstractCliApplication;
+use Joomla\Factory;
 
-// Bootstrap the Joomla Platform.
-require_once JPATH_LIBRARIES . '/import.legacy.php';
-
-// Bootstrap the CMS libraries.
-require_once JPATH_LIBRARIES . '/cms.php';
-
-// Bootstrap the Tracker application libraries.
-require_once JPATH_LIBRARIES . '/tracker.php';
+// @todo Parent App should load the config
+include '../etc/configuration.php';
 
 // Configure error reporting to maximum for CLI output.
-error_reporting(E_ALL);
+error_reporting(-1);
 ini_set('display_errors', 1);
 
 /**
@@ -43,12 +30,17 @@ ini_set('display_errors', 1);
  * @subpackage  CLI
  * @since       1.0
  */
-class InstallerApplication extends JApplicationCli
+class InstallerApplication extends AbstractCliApplication
 {
 	/**
 	 * @var string
 	 */
 	protected $appName = 'JTracker';
+
+	/**
+	 * @var string
+	 */
+	protected $appVersion = '2.0';
 
 	/**
 	 * Method to run the application routines.
@@ -62,9 +54,10 @@ class InstallerApplication extends JApplicationCli
 	 */
 	protected function doExecute()
 	{
-		$this->outputTitle($this->appName . ' Installer', '(C)');
+		$this->outputTitle($this->appName . ' Installer', $this->appVersion);
 
-		$db = JFactory::getDbo();
+		$config = Factory::getConfig();
+		$db     = Factory::getDbo();
 
 		try
 		{
@@ -104,7 +97,7 @@ class InstallerApplication extends JApplicationCli
 
 			foreach ($tables as $table)
 			{
-				if('sqlite_sequence' == $table)
+				if ('sqlite_sequence' == $table)
 				{
 					continue;
 				}
@@ -126,11 +119,13 @@ class InstallerApplication extends JApplicationCli
 				$this->out('Creating the database...', false);
 
 				$dbOptions          = new stdClass;
-				$dbOptions->db_name = $this->config->get('db');
-				$dbOptions->db_user = $this->config->get('user');
+				$dbOptions->db_name = $config->get('db');
+				$dbOptions->db_user = $config->get('user');
 
-				$db->createDatabase($dbOptions);
-				$db->select($this->config->get('db'));
+				$db->setQuery('CREATE DATABASE ' . $db->quoteName($dbOptions->db_name))
+					->execute();
+
+				$db->select($config->get('db'));
 
 				$this->out('ok');
 			}
@@ -142,26 +137,28 @@ class InstallerApplication extends JApplicationCli
 
 		// Install.
 
-		$dbType = $this->config->get('dbtype');
+		$dbType = $config->get('dbtype');
 
 		if ('mysqli' == $dbType)
 		{
 			$dbType = 'mysql';
 		}
 
-		if (false == file_exists(JPATH_ROOT . '/sql/' . $dbType . '.sql'))
+		$fName = '../etc/' . $dbType . '.sql';
+
+		if (false == file_exists($fName))
 		{
 			throw new UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
 		}
 
-		$sql = file_get_contents(JPATH_ROOT . '/sql/' . $dbType . '.sql');
+		$sql = file_get_contents($fName);
 
 		if (false == $sql)
 		{
-			throw new UnexpectedValueException('SQL file not found.');
+			throw new UnexpectedValueException('SQL file corrupted.');
 		}
 
-		$this->out('Creating tables from file /sql/' . $dbType . '.sql', false);
+		$this->out(sprintf('Creating tables from file %s', realpath($fName)), false);
 
 		foreach ($db->splitSql($sql) as $query)
 		{
@@ -189,6 +186,7 @@ class InstallerApplication extends JApplicationCli
 		$this->out('ok');
 
 		/* @var DirectoryIterator $fileInfo */
+		/*
 		foreach (new DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
 		{
 			if ($fileInfo->isDot())
@@ -239,10 +237,12 @@ class InstallerApplication extends JApplicationCli
 
 			$this->out('ok');
 		}
+		*/
 
-		$this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
+		// @todo disabled
+		// $this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
 
-		$in = trim($this->in());
+		$in = 'no'; //trim($this->in());
 
 		if ('no' != $in && 'n' != $in)
 		{
@@ -345,8 +345,8 @@ class InstallerAbortException extends Exception
  */
 try
 {
-	JApplicationCli::getInstance('InstallerApplication')
-		->execute();
+	$app = new InstallerApplication;
+	$app->execute();
 }
 catch (InstallerAbortException $e)
 {
