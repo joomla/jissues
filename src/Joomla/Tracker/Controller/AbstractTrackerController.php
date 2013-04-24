@@ -189,7 +189,7 @@ abstract class AbstractTrackerController extends AbstractController
 
 		// Register the layout paths for the view
 		$paths = new \SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT . '/view/' . $vName . '/tmpl', 'normal');
+		$paths->insert(JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl', 'normal');
 
 		$base   = '\\Joomla\\Tracker\\Components\\' . $this->component;
 		$vClass = $base . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
