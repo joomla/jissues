@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "6b5a7017b260d999f18bad1eba619c9d6ae71fe8"
+                "reference": "c77e88c3b731f13b02f3d2c9122293f2d0009d4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/6b5a7017b260d999f18bad1eba619c9d6ae71fe8",
-                "reference": "6b5a7017b260d999f18bad1eba619c9d6ae71fe8",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/c77e88c3b731f13b02f3d2c9122293f2d0009d4f",
+                "reference": "c77e88c3b731f13b02f3d2c9122293f2d0009d4f",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-04-16 16:51:33"
+            "time": "2013-04-23 03:03:58"
         },
         {
             "name": "psr/log",
