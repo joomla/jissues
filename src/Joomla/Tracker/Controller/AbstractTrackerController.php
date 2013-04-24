@@ -12,7 +12,6 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Controller\AbstractController;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
-use Joomla\Tracker\Components;
 use Joomla\View\AbstractHtmlView;
 
 /**
@@ -24,12 +23,12 @@ use Joomla\View\AbstractHtmlView;
 abstract class AbstractTrackerController extends AbstractController
 {
 	/**
-	 * The default list view for the component
+	 * The default view for the component
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $default_list_view;
+	protected $defaultView;
 
 	/**
 	 * The component being executed.
@@ -182,7 +181,7 @@ abstract class AbstractTrackerController extends AbstractController
 		$input = $this->getInput();
 
 		// Get some data from the request
-		$vName   = $input->getWord('view', $this->default_list_view);
+		$vName   = $input->getWord('view', $this->defaultView);
 		$vFormat = $input->getWord('format', 'html');
 		$lName   = $input->getWord('layout', 'default');
 

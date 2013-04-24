@@ -1,4 +1,7 @@
 {
+	"issue/add": "\\Tracker\\Controller\\AddController",
+	"issue/:id": "\\Tracker\\Controller\\DefaultController",
 	"issue/:id/edit": "\\Tracker\\Controller\\EditController",
-	"login": "\\Users\\Controller\\DefaultController"
+	"login": "\\Users\\Controller\\DefaultController",
+	"markdownpreview": "\\Tracker\\Controller\\DefaultController"
 }

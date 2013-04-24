@@ -10,15 +10,14 @@ namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
-use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Default controller class for the Tracker component.
+ * Controller class to add an item via the tracker component.
  *
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class DefaultController extends AbstractTrackerController
+class AddController extends DefaultController
 {
 	/**
 	 * Constructor
@@ -33,18 +32,6 @@ class DefaultController extends AbstractTrackerController
 		parent::__construct($input, $app);
 
 		// Set the default view
-		$this->defaultView = 'issues';
-
-		// Set the view based on the request
-		$input = $this->getInput();
-
-		if ($input->getInt('id', 0) >= 1)
-		{
-			$input->set('view', 'issue');
-		}
-		elseif ($input->getString('_rawRoute', '') == 'markdownpreview')
-		{
-			$input->set('view', 'markdownpreview');
-		}
+		$this->getInput()->set('view', 'add');
 	}
 }

@@ -6,10 +6,6 @@
  * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-
-/* @var TrackerViewMarkdowntestpageHtml $this */
-
-defined('_JEXEC') or die;
 ?>
 <h1>Markdown TEST Page</h1>
 <ul class="nav nav-tabs">
