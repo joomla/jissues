@@ -1,63 +1,23 @@
-#!/usr/bin/env php
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * User: elkuku
+ * Date: 24.04.13
+ * Time: 18:29
  */
 
-include '../vendor/autoload.php';
+namespace CliApp\Command\Install;
 
-// @todo used by JFactory::getConfig() and getDbo()
-define('JPATH_FRAMEWORK', 'dooo');
-
-use Joomla\Application\AbstractCliApplication;
 use Joomla\Factory;
 
-// @todo Parent App should load the config
-include '../etc/configuration.php';
+use CliApp\Command\TrackerCommand;
+use CliApp\Exception\AbortException;
 
-// Configure error reporting to maximum for CLI output.
-error_reporting(-1);
-ini_set('display_errors', 1);
-
-/**
- * Simple Installer.
- *
- * @package     JTracker
- * @subpackage  CLI
- * @since       1.0
- */
-class InstallerApplication extends AbstractCliApplication
+class Install extends TrackerCommand
 {
-	/**
-	 * @var string
-	 */
-	protected $appName = 'JTracker';
 
-	/**
-	 * @var string
-	 */
-	protected $appVersion = '2.0';
-
-	/**
-	 * Method to run the application routines.
-	 *
-	 * @throws RuntimeException
-	 * @throws Exception|RuntimeException
-	 * @throws InstallerAbortException
-	 * @throws UnexpectedValueException
-	 *
-	 * @return  void
-	 */
-	protected function doExecute()
+	public function execute()
 	{
-		$this->outputTitle($this->appName . ' Installer', $this->appVersion);
-
-		$config = Factory::getConfig();
-		$db     = Factory::getDbo();
+		$db = Factory::getDbo();
 
 		try
 		{
@@ -69,11 +29,11 @@ class InstallerApplication extends AbstractCliApplication
 				$this->out('WARNING: A database has been found !!')
 					->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
 
-				$in = trim($this->in());
+				$in = trim($this->application->in());
 
 				if ('yes' != $in && 'y' != $in)
 				{
-					throw new InstallerAbortException;
+					throw new AbortException;
 				}
 			}
 
@@ -91,7 +51,8 @@ class InstallerApplication extends AbstractCliApplication
 
 			foreach ($keyTables as $table)
 			{
-				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
+				$db->setQuery('DROP TABLE IF EXISTS ' . $table)
+					->execute();
 				$this->out('.', false);
 			}
 
@@ -102,13 +63,14 @@ class InstallerApplication extends AbstractCliApplication
 					continue;
 				}
 
-				$db->setQuery('DROP TABLE IF EXISTS ' . $table)->execute();
+				$db->setQuery('DROP TABLE IF EXISTS ' . $table)
+					->execute();
 				$this->out('.', false);
 			}
 
 			$this->out('ok');
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			// Check if the message is "Could not connect to database."  Odds are, this means the DB isn't there or the server is down.
 			if (strpos($e->getMessage(), 'Could not connect to database.') !== false)
@@ -118,14 +80,10 @@ class InstallerApplication extends AbstractCliApplication
 
 				$this->out('Creating the database...', false);
 
-				$dbOptions          = new stdClass;
-				$dbOptions->db_name = $config->get('db');
-				$dbOptions->db_user = $config->get('user');
-
-				$db->setQuery('CREATE DATABASE ' . $db->quoteName($dbOptions->db_name))
+				$db->setQuery('CREATE DATABASE ' . $db->quoteName($this->application->get('db')))
 					->execute();
 
-				$db->select($config->get('db'));
+				$db->select($this->application->get('db'));
 
 				$this->out('ok');
 			}
@@ -137,7 +95,7 @@ class InstallerApplication extends AbstractCliApplication
 
 		// Install.
 
-		$dbType = $config->get('dbtype');
+		$dbType = $this->application->get('dbtype');
 
 		if ('mysqli' == $dbType)
 		{
@@ -148,14 +106,14 @@ class InstallerApplication extends AbstractCliApplication
 
 		if (false == file_exists($fName))
 		{
-			throw new UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
+			throw new \UnexpectedValueException(sprintf('Install SQL file for %s not found.', $dbType));
 		}
 
 		$sql = file_get_contents($fName);
 
 		if (false == $sql)
 		{
-			throw new UnexpectedValueException('SQL file corrupted.');
+			throw new \UnexpectedValueException('SQL file corrupted.');
 		}
 
 		$this->out(sprintf('Creating tables from file %s', realpath($fName)), false);
@@ -175,9 +133,9 @@ class InstallerApplication extends AbstractCliApplication
 			{
 				$db->execute();
 			}
-			catch (RuntimeException $e)
+			catch (\RuntimeException $e)
 			{
-				throw new RuntimeException($e->getMessage());
+				throw new \RuntimeException($e->getMessage());
 			}
 
 			$this->out('.', false);
@@ -185,7 +143,7 @@ class InstallerApplication extends AbstractCliApplication
 
 		$this->out('ok');
 
-		/* @var DirectoryIterator $fileInfo */
+		/* @var \DirectoryIterator $fileInfo */
 		/*
 		foreach (new DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
 		{
@@ -247,7 +205,7 @@ class InstallerApplication extends AbstractCliApplication
 		if ('no' != $in && 'n' != $in)
 		{
 			$this->out('Username [[admin]]: ', false);
-			$username = trim($this->in());
+			$username = trim($this->application->in());
 			$username = $username ? : 'admin';
 
 			$this->out('Password [[test]]: ', false);
@@ -298,67 +256,8 @@ class InstallerApplication extends AbstractCliApplication
 		}
 
 		$this->out()
-			->out(sprintf('%s installer has terminated successfully.', $this->appName));
+			->out('Installer has terminated successfully.');
+
+
 	}
-
-	/**
-	 * Output a nicely formatted title for the application.
-	 *
-	 * @param   string  $title     The title to display.
-	 * @param   string  $subTitle  A subtitle
-	 * @param   int     $width     Total width in chars
-	 *
-	 * @return InstallerApplication
-	 */
-	protected function outputTitle($title, $subTitle = '', $width = 40)
-	{
-		$this->out(str_repeat('-', $width));
-		$this->out(str_repeat(' ', $width / 2 - (strlen($title) / 2)) . $title);
-
-		if ($subTitle)
-		{
-			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . $subTitle);
-		}
-
-		$this->out(str_repeat('-', $width))
-			->out();
-
-		return $this;
-	}
-}
-
-/**
- * Exception class
- *
- * @todo        move
- *
- * @package     JTracker
- * @subpackage  CLI
- * @since       1.0
- */
-class InstallerAbortException extends Exception
-{
-}
-
-/*
- * Main
- */
-try
-{
-	$app = new InstallerApplication;
-	$app->execute();
-}
-catch (InstallerAbortException $e)
-{
-	echo 'Installation aborted.' . "\n";
-
-	exit(0);
-}
-catch (Exception $e)
-{
-	echo $e->getMessage() . "\n\n";
-
-	echo $e->getTraceAsString();
-
-	exit($e->getCode() ? : 1);
 }
