@@ -86,6 +86,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// Load the query for the list
 		$query = $this->_getListQuery();
 
+		$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
+
+		/*
 		try
 		{
 			$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
@@ -95,6 +98,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			Factory::$application->enqueueMessage($e->getMessage(), 'error');
 			return array();
 		}
+		*/
 
 		// Add the items to the internal cache.
 		$this->cache[$store] = $items;
@@ -215,6 +219,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// Load the total.
 		$query = $this->_getListQuery();
 
+		$total = (int) $this->_getListCount($query);
+		/*
 		try
 		{
 			$total = (int) $this->_getListCount($query);
@@ -224,6 +230,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			Factory::$application->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
+		*/
 
 		// Add the total to the internal cache.
 		$this->cache[$store] = $total;
