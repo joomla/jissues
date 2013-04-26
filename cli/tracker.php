@@ -22,7 +22,7 @@ use CliApp\Exception\AbortException;
 use Joomla\Factory;
 
 // @todo remove - used by JFactory::getConfig() and getDbo()
-//define('JPATH_FRAMEWORK', 'dooo');
+// define('JPATH_FRAMEWORK', 'dooo');
 
 try
 {
@@ -47,4 +47,3 @@ catch (\Exception $e)
 
 	exit($e->getCode() ? : 1);
 }
-

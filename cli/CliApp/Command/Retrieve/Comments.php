@@ -1,8 +1,10 @@
 <?php
 /**
- * User: elkuku
- * Date: 25.04.13
- * Time: 14:58
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Retrieve;
@@ -11,6 +13,11 @@ use Joomla\Date\Date;
 
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 
+/**
+ * Class Comments.
+ *
+ * @since  1.0
+ */
 class Comments extends Retrieve
 {
 	/**
@@ -29,6 +36,11 @@ class Comments extends Retrieve
 	 */
 	protected $issues;
 
+	/**
+	 * Execute the command.
+	 *
+	 * @return void
+	 */
 	public function execute()
 	{
 		$this->selectProject()

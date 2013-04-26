@@ -1,8 +1,10 @@
 <?php
 /**
- * User: elkuku
- * Date: 26.04.13
- * Time: 10:55
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Application;
@@ -31,6 +33,13 @@ class TrackerApplication extends AbstractCliApplication
 	 * @var  DatabaseDriver
 	 */
 	private $database = null;
+
+	/**
+	 * Quiet mode - no output.
+	 *
+	 * @var bool
+	 */
+	private $quiet = false;
 
 	/**
 	 * Execute the application.
@@ -75,7 +84,6 @@ class TrackerApplication extends AbstractCliApplication
 	{
 		$args = $this->input->args;
 
-
 		if (!$args)
 		{
 			$command = 'help';
@@ -106,9 +114,32 @@ class TrackerApplication extends AbstractCliApplication
 		$class->execute();
 	}
 
+	/**
+	 * Write a string to standard output.
+	 *
+	 * @param   string   $text  The text to display.
+	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
+	 *
+	 * @return  TrackerApplication
+	 *
+	 * @codeCoverageIgnore
+	 * @since   1.0
+	 */
+	public function out($text = '', $nl = true)
+	{
+		return ($this->quiet) ? $this : parent::out($text, $nl);
+	}
+
+	/**
+	 * Load the application configuration.
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return $this
+	 */
 	protected function loadConfiguration()
 	{
-		$path = realpath(__DIR__ . '/../../..').'/etc/configuration.php';
+		$path = realpath(__DIR__ . '/../../..') . '/etc/configuration.php';
 
 		if (false == file_exists($path))
 		{

@@ -1,8 +1,10 @@
 <?php
 /**
- * User: elkuku
- * Date: 24.04.13
- * Time: 20:00
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Exception;
@@ -10,9 +12,7 @@ namespace CliApp\Exception;
 /**
  * Exception class
  *
- * @package     JTracker
- * @subpackage  CLI
- * @since       1.0
+ * @since  1.0
  */
 class AbortException extends \Exception
 {

@@ -1,8 +1,10 @@
 <?php
 /**
- * User: elkuku
- * Date: 24.04.13
- * Time: 18:29
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Install;
@@ -10,9 +12,22 @@ namespace CliApp\Command\Install;
 use CliApp\Command\TrackerCommand;
 use CliApp\Exception\AbortException;
 
+/**
+ * Class Install.
+ *
+ * @since  1.0
+ */
 class Install extends TrackerCommand
 {
-
+	/**
+	 * Execute the command.
+	 *
+	 * @throws \CliApp\Exception\AbortException
+	 * @throws \Exception|\RuntimeException
+	 * @throws \RuntimeException
+	 * @throws \UnexpectedValueException
+	 * @return void
+	 */
 	public function execute()
 	{
 		$db = $this->application->getDatabase();
@@ -158,7 +173,8 @@ class Install extends TrackerCommand
 				continue;
 			}
 
-			// Process optional SQL files
+			...// Process optional SQL files
+
 			$this->out(sprintf('Process: %s? [[y]]es / [n]o :', $fileName), false);
 
 			$in = trim($this->in());
@@ -198,7 +214,8 @@ class Install extends TrackerCommand
 		// @todo disabled
 		// $this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
 
-		$in = 'no'; //trim($this->in());
+		// $in = trim($this->in());
+		$in = 'no';
 
 		if ('no' != $in && 'n' != $in)
 		{
@@ -255,7 +272,5 @@ class Install extends TrackerCommand
 
 		$this->out()
 			->out('Installer has terminated successfully.');
-
-
 	}
 }

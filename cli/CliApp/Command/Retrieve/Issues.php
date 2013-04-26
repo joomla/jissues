@@ -1,8 +1,10 @@
 <?php
 /**
- * User: elkuku
- * Date: 24.04.13
- * Time: 20:19
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Retrieve;
@@ -12,8 +14,18 @@ use Joomla\Date\Date;
 use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 
+/**
+ * Class Issues.
+ *
+ * @since  1.0
+ */
 class Issues extends Retrieve
 {
+	/**
+	 * Execute the command.
+	 *
+	 * @return void
+	 */
 	public function execute()
 	{
 		$this->selectProject()
@@ -52,18 +64,30 @@ class Issues extends Retrieve
 			{
 				$page++;
 				$issues_more = $this->github->issues->getListByRepository(
-					$this->project->gh_user, // Owner
-					$this->project->gh_project, // Repository
-					null, // Milestone
-					$state, // State [ open | closed ]
-					null, // Assignee
-					null, // Creator
-					null, // Labels
-					'created', // Sort
-					'asc', // Direction
-					null, // Since
-					$page, // Page
-					100 // Count
+					// Owner
+					$this->project->gh_user,
+					// Repository
+					$this->project->gh_project,
+					// Milestone
+					null,
+					// State [ open | closed ]
+					$state,
+					// Assignee
+					null,
+					// Creator
+					null,
+					// Labels
+					null,
+					// Sort
+					'created',
+					// Direction
+					'asc',
+					// Since
+					null,
+					// Page
+					$page,
+					// Count
+					100
 				);
 
 				$count = is_array($issues_more) ? count($issues_more) : 0;
@@ -74,16 +98,19 @@ class Issues extends Retrieve
 				{
 					$issues = array_merge($issues, $issues_more);
 				}
+			}
 
-			} while ($count);
+			while ($count);
 
 			$this->out();
 		}
 
-		usort($issues, function ($a, $b)
-		{
-			return $a->number - $b->number;
-		});
+		usort(
+			$issues, function ($a, $b)
+			{
+				return $a->number - $b->number;
+			}
+		);
 
 		$this->out('Retrieved ' . count($issues) . ' items from GitHub, checking database now.');
 
@@ -187,9 +214,11 @@ class Issues extends Retrieve
 			if (!$issueID)
 			{
 				// Bad coder :(
-				throw new \RuntimeException(sprintf(
+				throw new \RuntimeException(
+					sprintf(
 						'Invalid issue id for issue: %1$d in project id %2$s',
-						$issue->number, $this->project->project_id)
+						$issue->number, $this->project->project_id
+					)
 				);
 			}
 

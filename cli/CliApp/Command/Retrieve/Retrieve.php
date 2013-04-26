@@ -1,8 +1,10 @@
 <?php
 /**
- * User: elkuku
- * Date: 24.04.13
- * Time: 18:29
+ * @package     JTracker
+ * @subpackage  CLI
+ *
+ * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Retrieve;
@@ -15,6 +17,11 @@ use Joomla\Tracker\Components\Tracker\Model\ProjectsModel;
 use CliApp\Exception\AbortException;
 use CliApp\Command\TrackerCommand;
 
+/**
+ * Class Retrieve.
+ *
+ * @since  1.0
+ */
 class Retrieve extends TrackerCommand
 {
 	/**
@@ -30,6 +37,11 @@ class Retrieve extends TrackerCommand
 	 */
 	protected $project = null;
 
+	/**
+	 * Execute the command.
+	 *
+	 * @return void
+	 */
 	public function execute()
 	{
 		$this->out('Please select either "comments" or "issues"');
@@ -96,6 +108,11 @@ class Retrieve extends TrackerCommand
 		return $this;
 	}
 
+	/**
+	 * Setup the github object.
+	 *
+	 * @return $this
+	 */
 	protected function setupGitHub()
 	{
 		// Set up JGithub
