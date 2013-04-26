@@ -10,6 +10,7 @@ namespace Joomla\Tracker\Model;
 
 use Joomla\Factory;
 use Joomla\Model\AbstractDatabaseModel;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * Abstract base model for the tracker application
@@ -48,9 +49,11 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(DatabaseDriver $database = null)
 	{
-		parent::__construct(Factory::getDbo());
+		$database = (is_null($database)) ? Factory::getDbo() : $database;
+
+		parent::__construct($database);
 
 		// Guess the option from the class name (Option)Model(View).
 		if (empty($this->option))

@@ -177,7 +177,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 		// Add a record to the activity table if a new item
 		// TODO: Remove the check for CLI once moved to live instance
-		if ($isNew && JFactory::getApplication()->get('cli_app') != true)
+		if ($isNew)// && JFactory::getApplication()->get('cli_app') != true)
 		{
 			$columnsArray = array(
 				$this->db->quoteName('issue_id'),

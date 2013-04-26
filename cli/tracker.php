@@ -16,12 +16,15 @@ $loader->add('CliApp', __DIR__);
 // @todo used by JFactory::getConfig() and getDbo()
 //define('JPATH_FRAMEWORK', 'dooo');
 
-use CliApp\Command\TrackerCommand;
 use Joomla\Application\AbstractCliApplication;
-use Joomla\Factory;
 use Joomla\Input;
 use Joomla\Registry\Registry;
+use Joomla\Database\DatabaseDriver;
 
+// @todo remove
+use Joomla\Factory;
+
+use CliApp\Command\TrackerCommand;
 use CliApp\Exception\AbortException;
 
 // Configure error reporting to maximum for CLI output.
@@ -38,6 +41,11 @@ ini_set('display_errors', 1);
 class TrackerApplication extends AbstractCliApplication
 {
 	/**
+	 * @var  DatabaseDriver
+	 */
+	private $database = null;
+
+	/**
 	 * Execute the application.
 	 *
 	 * @return  void
@@ -48,14 +56,24 @@ class TrackerApplication extends AbstractCliApplication
 	{
 		include '../etc/configuration.php';
 
-		$config = new \JConfig;
-
-		$this->config->loadObject($config);
-
-		Factory::$config      = $this->config;
-		Factory::$application = $this;
+		$this->config->loadObject(new \JConfig);
 
 		parent::execute();
+	}
+
+	/**
+	 * Get a database driver object.
+	 *
+	 * @return DatabaseDriver
+	 */
+	public function getDatabase()
+	{
+		if (is_null($this->database))
+		{
+			return $this->createDatabase();
+		}
+
+		return $this->database;
 	}
 
 	/**
@@ -75,7 +93,7 @@ class TrackerApplication extends AbstractCliApplication
 		if (!$args)
 		{
 			$command = 'help';
-			$action = 'help';
+			$action  = 'help';
 		}
 		else
 		{
@@ -103,6 +121,34 @@ class TrackerApplication extends AbstractCliApplication
 	}
 
 	/**
+	 * Create an database object.
+	 *
+	 * @return  DatabaseDriver
+	 *
+	 * @see     DatabaseDriver
+	 * @since   1.0
+	 */
+	protected function createDatabase()
+	{
+		$options = array(
+			'driver'   => $this->get('dbtype'),
+			'host'     => $this->get('host'),
+			'user'     => $this->get('user'),
+			'password' => $this->get('password'),
+			'database' => $this->get('db'),
+			'prefix'   => $this->get('dbprefix')
+		);
+
+		$database = DatabaseDriver::getInstance($options);
+
+		$database->setDebug($this->get('debug'));
+
+		$this->database = $database;
+
+		return $database;
+	}
+
+	/**
 	 * This is a useless legacy function.
 	 *
 	 * @todo remove
@@ -120,8 +166,12 @@ class TrackerApplication extends AbstractCliApplication
  */
 try
 {
-	$app = new TrackerApplication;
-	$app->execute();
+	$application = new TrackerApplication;
+
+	// @todo remove
+	Factory::$application = $application;
+
+	$application->execute();
 }
 catch (AbortException $e)
 {

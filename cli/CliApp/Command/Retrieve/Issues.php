@@ -7,7 +7,6 @@
 
 namespace CliApp\Command\Retrieve;
 
-use Joomla\Factory;
 use Joomla\Date\Date;
 
 use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
@@ -104,9 +103,9 @@ class Issues extends Retrieve
 	protected function processIssues($issues)
 	{
 		// Initialize our database object
-		$db    = Factory::getDbo();
-		$query = $db->getQuery(true);
-		$added = 0;
+		$dbS = $this->application->getDatabase();
+		$query    = $db->getQuery(true);
+		$added    = 0;
 
 		// Start processing the pulls now
 		foreach ($issues as $issue)
@@ -131,7 +130,7 @@ class Issues extends Retrieve
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($db); // JTable::getInstance('Issue');
+			$table = new IssuesTable($db);
 
 			$table->gh_id = $issue->number;
 			$table->title = $issue->title;

@@ -7,15 +7,12 @@
 
 namespace CliApp\Command\Retrieve;
 
-use Joomla\Factory;
-use Joomla\Registry\Registry;
 use Joomla\Github\Github;
-use Joomla\Date\Date;
+use Joomla\Registry\Registry;
 
 use Joomla\Tracker\Components\Tracker\Model\ProjectsModel;
 
 use CliApp\Exception\AbortException;
-
 use CliApp\Command\TrackerCommand;
 
 class Retrieve extends TrackerCommand
@@ -50,7 +47,7 @@ class Retrieve extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projectsModel = new ProjectsModel;
+		$projectsModel = new ProjectsModel($this->application->getDatabase());
 		$projects      = $projectsModel->getItems();
 
 		$id = $this->input->getInt('project', $this->input->getInt('p'));

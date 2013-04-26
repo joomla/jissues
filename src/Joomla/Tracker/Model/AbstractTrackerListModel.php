@@ -9,6 +9,7 @@
 namespace Joomla\Tracker\Model;
 
 use Joomla\Factory;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
 
@@ -51,9 +52,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since  1.0
 	 */
-	public function __construct()
+	public function __construct(DatabaseDriver $database = null)
 	{
-		parent::__construct();
+		parent::__construct($database);
 
 		// Set the context if not already done
 		if (is_null($this->context))

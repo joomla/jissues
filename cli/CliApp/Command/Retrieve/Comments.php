@@ -7,10 +7,8 @@
 
 namespace CliApp\Command\Retrieve;
 
-use Joomla\Factory;
 use Joomla\Date\Date;
 
-//use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 
 class Comments extends Retrieve
@@ -33,8 +31,6 @@ class Comments extends Retrieve
 
 	public function execute()
 	{
-		$this->db = Factory::getDbo();
-
 		$this->selectProject()
 			->setupGitHub()
 			// Get the issues and their GitHub ID from the database.
@@ -54,6 +50,7 @@ class Comments extends Retrieve
 	 */
 	protected function getIssues()
 	{
+		$db = $this->application->getDatabase();
 		$rangeFrom = 0;
 		$rangeTo   = 0;
 
@@ -87,25 +84,25 @@ class Comments extends Retrieve
 			}
 		}
 
-		$query = $this->db->getQuery(true);
+		$query = $db->getQuery(true);
 
-		$query->select($this->db->quoteName(array('id', 'gh_id')));
-		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('gh_id') . ' IS NOT NULL');
-		$query->where($this->db->quoteName('project_id') . '=' . (int) $this->project->project_id);
+		$query->select($db->quoteName(array('id', 'gh_id')));
+		$query->from($db->quoteName('#__issues'));
+		$query->where($db->quoteName('gh_id') . ' IS NOT NULL');
+		$query->where($db->quoteName('project_id') . '=' . (int) $this->project->project_id);
 
 		// Issues range selected?
 		if ($rangeTo != 0 && $rangeTo >= $rangeFrom)
 		{
-			$query->where($this->db->quoteName('gh_id') . ' >= ' . (int) $rangeFrom);
-			$query->where($this->db->quoteName('gh_id') . ' <= ' . (int) $rangeTo);
+			$query->where($db->quoteName('gh_id') . ' >= ' . (int) $rangeFrom);
+			$query->where($db->quoteName('gh_id') . ' <= ' . (int) $rangeTo);
 		}
 
-		$this->db->setQuery($query);
+		$db->setQuery($query);
 
 		try
 		{
-			$this->issues = $this->db->loadObjectList();
+			$this->issues = $db->loadObjectList();
 		}
 		catch (\RuntimeException $e)
 		{
@@ -157,8 +154,10 @@ class Comments extends Retrieve
 	 */
 	protected function processComments()
 	{
+		$db = $this->application->getDatabase();
+
 		// Initialize our database object
-		$query = $this->db->getQuery(true);
+		$query = $db->getQuery(true);
 
 		// Start processing the comments now
 		foreach ($this->issues as $issue)
@@ -168,15 +167,15 @@ class Comments extends Retrieve
 			{
 				$query->clear();
 				$query->select('COUNT(*)');
-				$query->from($this->db->quoteName('#__activity'));
-				$query->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id);
-				$this->db->setQuery($query);
+				$query->from($db->quoteName('#__activity'));
+				$query->where($db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id);
+				$db->setQuery($query);
 
 				$result = 0;
 
 				try
 				{
-					$result = (int) $this->db->loadResult();
+					$result = (int) $db->loadResult();
 				}
 				catch (\RuntimeException $e)
 				{
@@ -191,7 +190,7 @@ class Comments extends Retrieve
 				}
 
 				// Initialize our JTableActivity instance to insert the new record
-				$table = new ActivitiesTable($this->db);
+				$table = new ActivitiesTable($db);
 
 				$table->gh_comment_id = $comment->id;
 				$table->issue_id      = (int) $issue->id;
