@@ -86,7 +86,7 @@ class TrackerApplication extends AbstractCliApplication
 
 		$args = $this->input->args;
 
-		if (!$args)
+		if (!$args || (isset($args[0]) && 'help' == $args[0]))
 		{
 			$command = 'help';
 			$action  = 'help';

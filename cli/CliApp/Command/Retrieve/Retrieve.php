@@ -14,6 +14,7 @@ use Joomla\Registry\Registry;
 
 use Joomla\Tracker\Components\Tracker\Model\ProjectsModel;
 
+use CliApp\Application\TrackerApplication;
 use CliApp\Exception\AbortException;
 use CliApp\Command\TrackerCommand;
 
@@ -36,6 +37,18 @@ class Retrieve extends TrackerCommand
 	 * @var \stdClass
 	 */
 	protected $project = null;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   TrackerApplication  $application  The application object.
+	 */
+	public function __construct(TrackerApplication $application)
+	{
+		parent::__construct($application);
+
+		$this->description = 'Retrieve [issues] or [comments].';
+	}
 
 	/**
 	 * Execute the command.

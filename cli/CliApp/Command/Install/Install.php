@@ -9,7 +9,9 @@
 
 namespace CliApp\Command\Install;
 
+use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommand;
+use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
 /**
@@ -19,6 +21,25 @@ use CliApp\Exception\AbortException;
  */
 class Install extends TrackerCommand
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param   TrackerApplication  $application  The application object.
+	 */
+	public function __construct(TrackerApplication $application)
+	{
+		parent::__construct($application);
+
+		$this->description = 'Install the application.';
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'reinstall', '',
+				'Reinstall the application (without confirmation)'
+			)
+		);
+	}
+
 	/**
 	 * Execute the command.
 	 *

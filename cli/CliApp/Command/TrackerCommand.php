@@ -33,6 +33,15 @@ abstract class TrackerCommand
 	 */
 	protected $input;
 
+	protected $options = array();
+
+	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var string
+	 */
+	protected $description = '';
+
 	/**
 	 * Constructor.
 	 *
@@ -51,6 +60,30 @@ abstract class TrackerCommand
 	 * @return void
 	 */
 	abstract public function execute();
+
+	/**
+	 * Get a description text.
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
+
+	/**
+	 * Add a command option.
+	 *
+	 * @param   TrackerCommandOption  $option  The command option.
+	 *
+	 * @return $this
+	 */
+	protected function addOption(TrackerCommandOption $option)
+	{
+		$this->options[] = $option;
+
+		return $this;
+	}
 
 	/**
 	 * Write a string to standard output.
