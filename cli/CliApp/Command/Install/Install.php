@@ -7,8 +7,6 @@
 
 namespace CliApp\Command\Install;
 
-use Joomla\Factory;
-
 use CliApp\Command\TrackerCommand;
 use CliApp\Exception\AbortException;
 
@@ -17,7 +15,7 @@ class Install extends TrackerCommand
 
 	public function execute()
 	{
-		$db = Factory::getDbo();
+		$db = $this->application->getDatabase();
 
 		try
 		{
