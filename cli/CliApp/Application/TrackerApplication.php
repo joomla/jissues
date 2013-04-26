@@ -82,6 +82,8 @@ class TrackerApplication extends AbstractCliApplication
 	 */
 	protected function doExecute()
 	{
+		$this->outputTitle('Joomla! Tracker CLI Application', '1.1');
+
 		$args = $this->input->args;
 
 		if (!$args)
@@ -100,7 +102,11 @@ class TrackerApplication extends AbstractCliApplication
 
 		if (false == class_exists($className))
 		{
-			throw new \RuntimeException('Missing class: ' . $className);
+			$this->out()
+				->out('Invalid command: ' . (($command == $action) ? $command : $command . ' ' . $action))
+				->out();
+
+			$className = 'CliApp\\Command\\Help\\Help';
 		}
 
 		if (false == method_exists($className, 'execute'))
@@ -128,6 +134,32 @@ class TrackerApplication extends AbstractCliApplication
 	public function out($text = '', $nl = true)
 	{
 		return ($this->quiet) ? $this : parent::out($text, $nl);
+	}
+
+	/**
+	 * Output a nicely formatted title for the application.
+	 *
+	 * @param   string  $title     The title to display.
+	 * @param   string  $subTitle  A subtitle
+	 * @param   int     $width     Total width in chars
+	 *
+	 * @return TrackerApplication
+	 */
+	public function outputTitle($title, $subTitle = '', $width = 40)
+	{
+		$this->out(str_repeat('-', $width));
+
+		$this->out(str_repeat(' ', $width / 2 - (strlen($title) / 2)) . $title);
+
+		if ($subTitle)
+		{
+			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . $subTitle);
+		}
+
+		$this->out(str_repeat('-', $width))
+			->out();
+
+		return $this;
 	}
 
 	/**

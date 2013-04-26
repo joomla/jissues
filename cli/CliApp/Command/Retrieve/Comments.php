@@ -43,8 +43,11 @@ class Comments extends Retrieve
 	 */
 	public function execute()
 	{
+		$this->application->outputTitle('Retrieve Comments');
+
 		$this->selectProject()
 			->setupGitHub()
+			->displayGitHubRateLimit()
 			// Get the issues and their GitHub ID from the database.
 			->getIssues()
 			// Get the comments from GitHub.

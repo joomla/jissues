@@ -142,4 +142,22 @@ class Retrieve extends TrackerCommand
 
 		return $this;
 	}
+
+	/**
+	 * Display the GitHub rate limit.
+	 *
+	 * @return $this
+	 */
+	protected function displayGitHubRateLimit()
+	{
+		$this->out()
+			->out('GitHub rate limit:... ', false);
+
+		$rate = $this->github->authorization->getRateLimit()->rate;
+
+		$this->out(sprintf('%1$d (remaining: %2$d)', $rate->limit, $rate->remaining))
+			->out();
+
+		return $this;
+	}
 }

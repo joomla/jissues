@@ -28,12 +28,11 @@ class Issues extends Retrieve
 	 */
 	public function execute()
 	{
+		$this->application->outputTitle('Retrieve Issues');
+
 		$this->selectProject()
-			->setupGitHub();
-
-		$rate = $this->github->authorization->getRateLimit()->rate;
-
-		$this->out(sprintf('GitHub rate limit: %1$d (remaining: %2$d)', $rate->limit, $rate->remaining));
+			->setupGitHub()
+			->displayGitHubRateLimit();
 
 		// Pull in the data from GitHub
 		$issues = $this->getData();

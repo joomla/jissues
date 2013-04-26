@@ -30,6 +30,8 @@ class Install extends TrackerCommand
 	 */
 	public function execute()
 	{
+		$this->application->outputTitle('Installer');
+
 		$db = $this->application->getDatabase();
 
 		try
@@ -115,7 +117,7 @@ class Install extends TrackerCommand
 			$dbType = 'mysql';
 		}
 
-		$fName = '../etc/' . $dbType . '.sql';
+		$fName = __DIR__ . '/../../../../etc/' . $dbType . '.sql';
 
 		if (false == file_exists($fName))
 		{
