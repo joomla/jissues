@@ -19,4 +19,5 @@ Available commands:
 ### Retrieve new Issues and Comments
 
 `tracker.php retrieve issues`
+
 `tracker.php retrieve comments`
