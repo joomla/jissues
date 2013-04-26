@@ -130,14 +130,16 @@ class Issues extends Retrieve
 	protected function processIssues($issues)
 	{
 		// Initialize our database object
-		$dbS = $this->application->getDatabase();
+		$db = $this->application->getDatabase();
 		$query    = $db->getQuery(true);
 		$added    = 0;
+
+		$this->out('Adding issues to the database');
 
 		// Start processing the pulls now
 		foreach ($issues as $issue)
 		{
-			$this->out('Adding GitHub issue #' . $issue->number . '...', false);
+			$this->out($issue->number . '...', false);
 
 			// First, query to see if the issue is already in the database
 			$query->clear();
@@ -244,7 +246,6 @@ class Issues extends Retrieve
 			}
 
 			// Store was successful, update status
-			$this->out('ok');
 			$added++;
 		}
 
