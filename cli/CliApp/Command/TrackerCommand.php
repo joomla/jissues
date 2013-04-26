@@ -9,7 +9,7 @@ namespace CliApp\Command;
 
 use Joomla\Database\DatabaseDriver;
 
-use CliApp\TrackerApplication;
+use CliApp\Application\TrackerApplication;
 
 abstract class TrackerCommand
 {
