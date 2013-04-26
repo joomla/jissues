@@ -26,12 +26,12 @@ $fields = new Registry(Factory::$application->input->get('fields', array(), 'arr
 
 ?>
 <form action="<?php echo htmlspecialchars('index.php'); ?>" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
-	<?php if (!$this->project) : ?>
-	<div class="btn-group pull-left">
+	<?php //if (!$this->project) : ?>
+	<!-- <div class="btn-group pull-left">
 		<h2>Please select a project</h2>
 		<?php //echo JHtmlProjects::select(0, '', 'onchange="document.adminForm.submit();"') ?>
-	</div>
-	<?php else : ?>
+	</div> -->
+	<?php //else : ?>
 
 	<div class="filters btn-toolbar clearfix">
 		<div class="filter-search btn-group pull-left input-append">
@@ -96,7 +96,7 @@ $fields = new Registry(Factory::$application->input->get('fields', array(), 'arr
 				</td>
 				<td class="hasContext">
 					<div class="hasTooltip" title="<?php //echo JHtml::_('string.truncate', $this->escape($item->description), 100); ?>">
-						<a href="index.php?option=com_tracker&view=issue&id=<?php echo (int) $item->id;?>">
+						<a href="issue/<?php echo (int) $item->id;?>">
 						<?php echo $this->escape($item->title); ?></a>
 					</div>
 					<?php if ($item->gh_id || $item->jc_id) : ?>
@@ -160,6 +160,6 @@ $fields = new Registry(Factory::$application->input->get('fields', array(), 'arr
 		</tbody>
 	</table>
 	<?php //echo $this->pagination->getListFooter(); ?>
-	<?php endif; ?>
+	<?php //endif; ?>
 	<input type="hidden" name="task" />
 </form>

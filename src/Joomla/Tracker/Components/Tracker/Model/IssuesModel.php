@@ -120,7 +120,8 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$input = Factory::$application->input;
 
-		$projectId = $input->getUint('project_id');
+		// TODO: Remove the default 1 after the session stuff is working again
+		$projectId = $input->getUint('project_id', 1);
 
 		/*if (!$projectId)
 		{
