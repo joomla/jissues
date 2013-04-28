@@ -32,15 +32,15 @@ class Help extends TrackerCommand
 	{
 		$this->commands = $this->getCommands();
 
-		if (isset($this->input->args[1]))
+		if (isset($this->application->input->args[1]))
 		{
-			$this->helpCommand($this->input->args[1]);
+			$this->helpCommand($this->application->input->args[1]);
 
 			return;
 		}
 
 		$this->out(
-			sprintf('Usage: %s [command]',
+			sprintf('Usage: %s <command>',
 				basename($this->application->input->executable)
 			)
 		);
@@ -62,7 +62,20 @@ class Help extends TrackerCommand
 			$this->out();
 		}
 
-		$this->out('Form more information use "help [command]".');
+		$this->out('For more information use "help <command>".')
+			->out();
+
+		$options = $this->application->getCommandOptions();
+
+		if ($options)
+		{
+			$this->out('Application command options');
+
+			foreach ($options as $option)
+			{
+				$this->displayOption($option);
+			}
+		}
 	}
 
 	/**
@@ -74,6 +87,8 @@ class Help extends TrackerCommand
 	 */
 	protected function helpCommand($command)
 	{
+		$actions = $this->getActions($command);
+
 		if (false == array_key_exists($command, $this->commands))
 		{
 			$this->out()
@@ -85,31 +100,60 @@ class Help extends TrackerCommand
 		/* @var TrackerCommand $c */
 		$c = $this->commands[$command];
 
-		$this->out('Command: ' . $command)
+		$this->out('Command: ' . $command . ($actions ? ' <action>' : ''))
 			->out()
-			->out($c->description);
+			->out('    ' . $c->description);
 
 		if ($c->options)
 		{
 			$this->out()
 				->out('Available options:');
 
-			/* @var TrackerCommandOption $option */
 			foreach ($c->options as $option)
 			{
-				$this->out()
-					->out(
-						'--' . $option->longArg
-							. ($option->shortArg ? ' [-' . $option->shortArg . ']' : '')
-					)
-					->out('    ' . $option->description);
+				$this->displayOption($option);
 			}
 		}
-		else
+
+		if ($actions)
 		{
 			$this->out()
-				->out('No further options available.');
+				->out('Available actions:');
+
+			foreach ($actions as $aName => $action)
+			{
+				$this->out($aName)
+					->out('    ' . $action->description);
+
+				if ($action->options)
+				{
+					$this->out()
+						->out('Available options:');
+
+					foreach ($action->options as $option)
+					{
+						$this->displayOption($option);
+					}
+				}
+			}
 		}
+	}
+
+	/**
+	 * Display a command option.
+	 *
+	 * @param   TrackerCommandOption  $option  The command option.
+	 *
+	 * @return TrackerCommand
+	 */
+	private function displayOption(TrackerCommandOption $option)
+	{
+		return $this->out()
+			->out(
+				'--' . $option->longArg
+					. ($option->shortArg ? ' -' . $option->shortArg : '')
+			)
+			->out('    ' . $option->description);
 	}
 
 	/**
@@ -117,7 +161,7 @@ class Help extends TrackerCommand
 	 *
 	 * @return array
 	 */
-	protected function getCommands()
+	private function getCommands()
 	{
 		$commands = array();
 
@@ -131,19 +175,51 @@ class Help extends TrackerCommand
 
 			$c = $fileInfo->getFilename();
 
-			if ('Help' == $c)
-			{
-				$command = clone($this);
-			}
-			else
-			{
-				$className = "CliApp\\Command\\$c\\$c";
-				$command   = new $className($this->application);
-			}
+			$className = "CliApp\\Command\\$c\\$c";
 
-			$commands[strtolower($fileInfo->getFilename())] = $command;
+			$command   = new $className($this->application);
+
+			$commands[strtolower($c)] = $command;
 		}
 
 		return $commands;
+	}
+
+	/**
+	 * Get available actions for a command.
+	 *
+	 * @param   string  $commandName  The command name.
+	 *
+	 * @return array
+	 */
+	protected function getActions($commandName)
+	{
+		$actions = array();
+		$cName = ucfirst($commandName);
+
+		/* @var \DirectoryIterator $fileInfo */
+		foreach (new \DirectoryIterator(__DIR__ . '/../' . $cName) as $fileInfo)
+		{
+			if ($fileInfo->isDot())
+			{
+				continue;
+			}
+
+			$c = $fileInfo->getFilename();
+
+			$p = strrpos($c, '.');
+			$a = substr($c, 0, strrpos($c, '.'));
+
+			if ($a != $cName)
+			{
+				$className = "CliApp\\Command\\$cName\\$a";
+
+				$action   = new $className($this->application);
+
+				$actions[strtolower($a)] = $action;
+			}
+		}
+
+		return $actions;
 	}
 }

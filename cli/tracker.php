@@ -8,21 +8,25 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-'cli' == PHP_SAPI || die("\nThis script must be run from the command line interface.\n\n");
+'cli' == PHP_SAPI
+	|| die("\nThis script must be run from the command line interface.\n\n");
 
-version_compare(PHP_VERSION, '5.3.10') >= 0 || die("\nThis script requires PHP version >= 5.3.10 (" . PHP_VERSION . ")\n\n");
+version_compare(PHP_VERSION, '5.3.10') >= 0
+	|| die("\nThis script requires PHP version >= 5.3.10 (" . PHP_VERSION . ")\n\n");
+
+// Configure error reporting to maximum for CLI output.
+error_reporting(-1);
+ini_set('display_errors', 1);
 
 $loader = require __DIR__ . '/../vendor/autoload.php';
+
+// Add the namespace for our application to the autoloader.
 $loader->add('CliApp', __DIR__);
 
 use CliApp\Application\TrackerApplication;
-use CliApp\Exception\AbortException;
 
 // @todo remove
 use Joomla\Factory;
-
-// @todo remove - used by JFactory::getConfig() and getDbo()
-// define('JPATH_FRAMEWORK', 'dooo');
 
 try
 {
@@ -32,12 +36,6 @@ try
 	Factory::$application = $application;
 
 	$application->execute();
-}
-catch (AbortException $e)
-{
-	echo "\nProcess aborted.\n";
-
-	exit(0);
 }
 catch (\Exception $e)
 {

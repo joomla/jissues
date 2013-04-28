@@ -9,6 +9,7 @@
 
 namespace CliApp\Command\Retrieve;
 
+use CliApp\Application\TrackerApplication;
 use Joomla\Date\Date;
 
 use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
@@ -21,6 +22,18 @@ use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
  */
 class Issues extends Retrieve
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param   TrackerApplication  $application  The application object.
+	 */
+	public function __construct(TrackerApplication $application)
+	{
+		$this->application = $application;
+
+		$this->description = 'Retrieve issues from GitHub.';
+	}
+
 	/**
 	 * Execute the command.
 	 *
@@ -153,7 +166,7 @@ class Issues extends Retrieve
 			// If we have something already, then move on to the next item
 			if ($result >= 1)
 			{
-				$this->out('Already added.', true);
+				$this->out('Already added.', false);
 				continue;
 			}
 

@@ -26,13 +26,8 @@ abstract class TrackerCommand
 	protected $application;
 
 	/**
-	 * The application input object.
-	 *
-	 * @var    \Joomla\Input\Input
-	 * @since  1.0
+	 * @var array
 	 */
-	protected $input;
-
 	protected $options = array();
 
 	/**
@@ -50,8 +45,6 @@ abstract class TrackerCommand
 	public function __construct(TrackerApplication $application)
 	{
 		$this->application = $application;
-
-		$this->input = $application->input;
 	}
 
 	/**
@@ -99,6 +92,20 @@ abstract class TrackerCommand
 	protected function out($text = '', $nl = true)
 	{
 		$this->application->out($text, $nl);
+
+		return $this;
+	}
+
+	/**
+	 * Write a string to standard output in "verbose" mode.
+	 *
+	 * @param   string  $text  The text to display.
+	 *
+	 * @return TrackerApplication
+	 */
+	protected function debugOut($text)
+	{
+		$this->application->debugOut($text);
 
 		return $this;
 	}

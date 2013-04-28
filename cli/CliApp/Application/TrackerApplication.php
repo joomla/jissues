@@ -15,10 +15,9 @@ use Joomla\Registry\Registry;
 use Joomla\Database\DatabaseDriver;
 
 use CliApp\Command\TrackerCommand;
+use CliApp\Command\TrackerCommandOption;
+use CliApp\Exception\AbortException;
 
-// Configure error reporting to maximum for CLI output.
-error_reporting(-1);
-ini_set('display_errors', 1);
 
 /**
  * Simple Installer.
@@ -42,18 +41,44 @@ class TrackerApplication extends AbstractCliApplication
 	private $quiet = false;
 
 	/**
-	 * Execute the application.
+	 * Verbose mode - debug output.
 	 *
-	 * @throws \RuntimeException
-	 * @return  void
+	 * @var bool
+	 */
+	private $verbose = false;
+
+	/**
+	 * @var array
+	 */
+	protected $commandOptions = array();
+
+	/**
+	 * Class constructor.
+	 *
+	 * @param   Input\Cli  $input   An optional argument to provide dependency injection for the application's
+	 *                              input object.  If the argument is a InputCli object that object will become
+	 *                              the application's input object, otherwise a default input object is created.
+	 * @param   Registry   $config  An optional argument to provide dependency injection for the application's
+	 *                              config object.  If the argument is a Registry object that object will become
+	 *                              the application's config object, otherwise a default config object is created.
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	public function __construct(Input\Cli $input = null, Registry $config = null)
 	{
-		$this->loadConfiguration();
+		parent::__construct($input, $config);
 
-		parent::execute();
+		$this->commandOptions[] = new TrackerCommandOption(
+			'quiet', 'q',
+			'Be quiet - suppress output.'
+		);
+
+		$this->commandOptions[] = new TrackerCommandOption(
+			'verbose', 'v',
+			'Verbose output for debugging purpose.'
+		);
+
+		$this->loadConfiguration();
 	}
 
 	/**
@@ -114,10 +139,31 @@ class TrackerApplication extends AbstractCliApplication
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
 
+		$this->quiet   = $this->input->get('quiet', $this->input->get('q'));
+		$this->verbose = $this->input->get('verbose', $this->input->get('v'));
+
 		/* @var TrackerCommand $class */
 		$class = new $className($this);
 
-		$class->execute();
+		try
+		{
+			$class->execute();
+		}
+		catch (AbortException $e)
+		{
+			$this->out('')
+				->out('Process aborted.');
+		}
+
+		$this->out()
+			->out(str_repeat('_', 40))
+			->out(
+				sprintf(
+					'Execution time: %d sec.',
+					time() - $this->get('execution.timestamp')
+				)
+			)
+			->out(str_repeat('_', 40));
 	}
 
 	/**
@@ -134,6 +180,18 @@ class TrackerApplication extends AbstractCliApplication
 	public function out($text = '', $nl = true)
 	{
 		return ($this->quiet) ? $this : parent::out($text, $nl);
+	}
+
+	/**
+	 * Write a string to standard output in "verbose" mode.
+	 *
+	 * @param   string  $text  The text to display.
+	 *
+	 * @return TrackerApplication
+	 */
+	public function debugOut($text)
+	{
+		return ($this->verbose) ? $this->out('DEBUG ' . $text) : $this;
 	}
 
 	/**
@@ -156,8 +214,7 @@ class TrackerApplication extends AbstractCliApplication
 			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . $subTitle);
 		}
 
-		$this->out(str_repeat('-', $width))
-			->out();
+		$this->out(str_repeat('-', $width));
 
 		return $this;
 	}
@@ -211,6 +268,16 @@ class TrackerApplication extends AbstractCliApplication
 		$this->database = $database;
 
 		return $database;
+	}
+
+	/**
+	 * Get the command options.
+	 *
+	 * @return array
+	 */
+	public function getCommandOptions()
+	{
+		return $this->commandOptions;
 	}
 
 	/**

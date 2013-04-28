@@ -15,8 +15,9 @@ use Joomla\Registry\Registry;
 use Joomla\Tracker\Components\Tracker\Model\ProjectsModel;
 
 use CliApp\Application\TrackerApplication;
-use CliApp\Exception\AbortException;
 use CliApp\Command\TrackerCommand;
+use CliApp\Command\TrackerCommandOption;
+use CliApp\Exception\AbortException;
 
 /**
  * Class Retrieve.
@@ -47,7 +48,19 @@ class Retrieve extends TrackerCommand
 	{
 		parent::__construct($application);
 
-		$this->description = 'Retrieve [issues] or [comments].';
+		$this->description = 'Retrieve <issues> or <comments>.';
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'project', 'p',
+				'Process the project with the given ID.'
+			)
+		)->addOption(
+			new TrackerCommandOption(
+				'auth', '',
+				'Use GitHub credentials from configuration for authentication.'
+			)
+		);
 	}
 
 	/**
@@ -75,7 +88,7 @@ class Retrieve extends TrackerCommand
 		$projectsModel = new ProjectsModel($this->application->getDatabase());
 		$projects      = $projectsModel->getItems();
 
-		$id = $this->input->getInt('project', $this->input->getInt('p'));
+		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 
 		if (!$id)
 		{
@@ -116,6 +129,8 @@ class Retrieve extends TrackerCommand
 			{
 				throw new AbortException('Invalid project');
 			}
+
+			$this->out('Processing project: ' . $this->project->title);
 		}
 
 		return $this;
@@ -131,7 +146,7 @@ class Retrieve extends TrackerCommand
 		// Set up JGithub
 		$options = new Registry;
 
-		if ($this->input->get('auth'))
+		if ($this->application->input->get('auth'))
 		{
 			$resp = 'yes';
 		}
@@ -148,6 +163,8 @@ class Retrieve extends TrackerCommand
 			// Set the options
 			$options->set('api.username', $this->application->get('github_user', ''));
 			$options->set('api.password', $this->application->get('github_password', ''));
+
+			$this->application->debugOut(print_r($options, true));
 		}
 
 		// Instantiate JGithub

@@ -9,9 +9,12 @@
 
 namespace CliApp\Command\Retrieve;
 
+use CliApp\Command\TrackerCommandOption;
 use Joomla\Date\Date;
 
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
+
+use CliApp\Application\TrackerApplication;
 
 /**
  * Class Comments.
@@ -36,6 +39,34 @@ class Comments extends Retrieve
 	 */
 	protected $issues;
 
+	protected $rangeFrom = 0;
+
+	protected $rangeTo = 0;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   TrackerApplication  $application  The application object.
+	 */
+	public function __construct(TrackerApplication $application)
+	{
+		$this->application = $application;
+
+		$this->description = 'Retrieve comments from GitHub.';
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'issue', '',
+				'<n> Process only a single issue.'
+			)
+		)->addOption(
+			new TrackerCommandOption(
+				'all', '',
+				'Process all issues.'
+			)
+		);
+	}
+
 	/**
 	 * Execute the command.
 	 *
@@ -46,6 +77,7 @@ class Comments extends Retrieve
 		$this->application->outputTitle('Retrieve Comments');
 
 		$this->selectProject()
+			->selectRange()
 			->setupGitHub()
 			->displayGitHubRateLimit()
 			// Get the issues and their GitHub ID from the database.
@@ -57,26 +89,20 @@ class Comments extends Retrieve
 	}
 
 	/**
-	 * Method to get the GitHub issues from the database
+	 * Select the range of issues to process.
 	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
+	 * @return $this
 	 */
-	protected function getIssues()
+	protected function selectRange()
 	{
-		$db = $this->application->getDatabase();
-		$rangeFrom = 0;
-		$rangeTo   = 0;
-
-		$issue = $this->input->getInt('issue');
+		$issue = $this->application->input->getInt('issue');
 
 		if ($issue)
 		{
-			$rangeFrom = $issue;
-			$rangeTo   = $issue;
+			$this->rangeFrom = $issue;
+			$this->rangeTo   = $issue;
 		}
-		elseif ($this->input->get('all'))
+		elseif ($this->application->input->get('all'))
 		{
 			// Do nothing
 		}
@@ -91,39 +117,45 @@ class Comments extends Retrieve
 			{
 				// Get the first GitHub issue (from)
 				$this->out('Enter the first GitHub issue ID to process (from) :', false);
-				$rangeFrom = (int) trim($this->application->in());
+				$this->rangeFrom = (int) trim($this->application->in());
 
 				// Get the ending GitHub issue (to)
 				$this->out('Enter the latest GitHub issue ID to process (to) :', false);
-				$rangeTo = (int) trim($this->application->in());
+				$this->rangeTo = (int) trim($this->application->in());
 			}
 		}
 
+		return $this;
+	}
+
+	/**
+	 * Method to get the GitHub issues from the database
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function getIssues()
+	{
+		$db = $this->application->getDatabase();
+
 		$query = $db->getQuery(true);
 
-		$query->select($db->quoteName(array('id', 'gh_id')));
-		$query->from($db->quoteName('#__issues'));
-		$query->where($db->quoteName('gh_id') . ' IS NOT NULL');
-		$query->where($db->quoteName('project_id') . '=' . (int) $this->project->project_id);
+		$query->select($db->quoteName(array('id', 'gh_id')))
+			->from($db->quoteName('#__issues'))
+			->where($db->quoteName('gh_id') . ' IS NOT NULL')
+			->where($db->quoteName('project_id') . '=' . (int) $this->project->project_id);
 
 		// Issues range selected?
-		if ($rangeTo != 0 && $rangeTo >= $rangeFrom)
+		if ($this->rangeTo != 0 && $this->rangeTo >= $this->rangeFrom)
 		{
-			$query->where($db->quoteName('gh_id') . ' >= ' . (int) $rangeFrom);
-			$query->where($db->quoteName('gh_id') . ' <= ' . (int) $rangeTo);
+			$query->where($db->quoteName('gh_id') . ' >= ' . (int) $this->rangeFrom);
+			$query->where($db->quoteName('gh_id') . ' <= ' . (int) $this->rangeTo);
 		}
 
 		$db->setQuery($query);
 
-		try
-		{
-			$this->issues = $db->loadObjectList();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-			$this->application->close();
-		}
+		$this->issues = $db->loadObjectList();
 
 		return $this;
 	}
@@ -137,25 +169,19 @@ class Comments extends Retrieve
 	 */
 	protected function getComments()
 	{
-		try
-		{
-			foreach ($this->issues as $issue)
-			{
-				$id = $issue->gh_id;
-				$this->out('Retrieving comments for issue #' . $id . ' from GitHub.', true);
+		$this->out(sprintf('Retrieving issue comments from GitHub (%d)...', count($this->issues)), false);
 
-				$this->comments[$id] = $this->github->issues->comments->getList($this->project->gh_user, $this->project->gh_project, $id);
-			}
-		}
-		catch (\DomainException $e)
+		foreach ($this->issues as $i => $issue)
 		{
-			// Catch any DomainExceptions and close the script
-			$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-			$this->application->close();
+			$this->out($i + 1 . '...', false);
+
+			$this->comments[$issue->gh_id] = $this->github->issues->comments->getList(
+				$this->project->gh_user, $this->project->gh_project, $issue->gh_id
+			);
 		}
 
 		// Retrieved items, report status
-		$this->out('Finished retrieving comments for all issues.', true);
+		$this->out('Finished.');
 
 		return $this;
 	}
@@ -174,33 +200,28 @@ class Comments extends Retrieve
 		// Initialize our database object
 		$query = $db->getQuery(true);
 
+		$this->out('Adding comments to the database...', false);
+
 		// Start processing the comments now
-		foreach ($this->issues as $issue)
+		foreach ($this->issues as $i => $issue)
 		{
+			$this->out($i + 1 . '...', false);
+
 			// First, we need to check if the issue is already in the database, we're injecting the GitHub comment ID for that
 			foreach ($this->comments[$issue->gh_id] as $comment)
 			{
-				$query->clear();
-				$query->select('COUNT(*)');
-				$query->from($db->quoteName('#__activity'));
-				$query->where($db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id);
+				$query->clear()
+					->select('COUNT(*)')
+					->from($db->quoteName('#__activity'))
+					->where($db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id);
+
 				$db->setQuery($query);
 
-				$result = 0;
+				$result = (int) $db->loadResult();
 
-				try
-				{
-					$result = (int) $db->loadResult();
-				}
-				catch (\RuntimeException $e)
-				{
-					$this->out('Error ' . $e->getCode() . ' - ' . $e->getMessage(), true);
-					$this->application->close();
-				}
-
-				// If we have something already, then move on to the next item
 				if ($result >= 1)
 				{
+					// If we have something already, then move on to the next item
 					continue;
 				}
 
@@ -224,8 +245,9 @@ class Comments extends Retrieve
 				$table->store();
 			}
 
-			$this->out('Added comments for issue #' . $issue->gh_id . ' from GitHub.', true);
 		}
+
+		$this->out('Finished');
 
 		return $this;
 	}

@@ -60,7 +60,7 @@ class Install extends TrackerCommand
 			// Check if the database "exists"
 			$tables = $db->getTableList();
 
-			if (!$this->input->get('reinstall'))
+			if (!$this->application->input->get('reinstall'))
 			{
 				$this->out('WARNING: A database has been found !!')
 					->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
@@ -247,11 +247,14 @@ class Install extends TrackerCommand
 			$username = $username ? : 'admin';
 
 			$this->out('Password [[test]]: ', false);
-			$password = trim($this->in());
+			$password = trim($this->application->in());
 			$password = $password ? : 'test';
 
-			$salt  = JUserHelper::genRandomPassword(32);
-			$crypt = JUserHelper::getCryptedPassword($password, $salt);
+			// JUserHelper::genRandomPassword(32);
+			$salt  = 'a';
+
+			// JUserHelper::getCryptedPassword($password, $salt);
+			$crypt = 'b';
 
 			$query = $db->getQuery(true);
 
