@@ -164,11 +164,26 @@ class Retrieve extends TrackerCommand
 			$options->set('api.username', $this->application->get('github_user', ''));
 			$options->set('api.password', $this->application->get('github_password', ''));
 
-			$this->application->debugOut(print_r($options, true));
+			$this->application->debugOut('GitHub credentials: ' . print_r($options, true));
 		}
 
+		// @todo temporary fix to avoid the "Socket" transport protocol
+		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl', 'stream'));
+
+		if (is_a($transport, 'Joomla\\Http\\Transport\\Socket'))
+		{
+			throw new \RuntimeException('Please either enable cURL or url_fopen');
+		}
+
+		$http = new \Joomla\Github\Http($options, $transport);
+
+		$this->application->debugOut(get_class($transport));
+
 		// Instantiate JGithub
-		$this->github = new Github($options);
+		$this->github = new Github($options, $http);
+
+		// @todo after fix:
+		// $this->github = new Github($options);
 
 		return $this;
 	}
