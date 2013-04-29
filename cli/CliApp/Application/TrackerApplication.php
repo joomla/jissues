@@ -231,7 +231,7 @@ class TrackerApplication extends AbstractCliApplication
 		$config = array();
 
 		// Set the configuration file path for the application.
-		$file = JPATH_CONFIGURATION . '/config.json';
+		$file = realpath(__DIR__ . '/../../..') . '/etc/config.json';
 
 		// Verify the configuration exists and is readable.
 		if (!is_readable($file))
