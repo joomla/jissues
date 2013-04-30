@@ -74,8 +74,11 @@ class Install extends TrackerCommand
 			}
 
 			// Remove existing tables
-
 			$this->out('Removing existing tables...', false);
+
+			// Foreign key constraint fails fix
+			$db->setQuery('SET FOREIGN_KEY_CHECKS=0')
+				->execute();
 
 			// First, need to drop the tables with FKs in specific order
 			$keyTables = array(
@@ -104,6 +107,9 @@ class Install extends TrackerCommand
 				$this->out('.', false);
 			}
 
+			$db->setQuery('SET FOREIGN_KEY_CHECKS=1')
+				->execute();
+
 			$this->out('ok');
 		}
 		catch (\RuntimeException $e)
@@ -116,10 +122,10 @@ class Install extends TrackerCommand
 
 				$this->out('Creating the database...', false);
 
-				$db->setQuery('CREATE DATABASE ' . $db->quoteName($this->application->get('db')))
+				$db->setQuery('CREATE DATABASE ' . $db->quoteName($this->application->get('database.name')))
 					->execute();
 
-				$db->select($this->application->get('db'));
+				$db->select($this->application->get('database.name'));
 
 				$this->out('ok');
 			}
@@ -131,7 +137,7 @@ class Install extends TrackerCommand
 
 		// Install.
 
-		$dbType = $this->application->get('dbtype');
+		$dbType = $this->application->get('database.driver');
 
 		if ('mysqli' == $dbType)
 		{
