@@ -27,7 +27,7 @@ $user = Factory::$application->getUser();
 	<?php echo HtmlGithub::avatar($user, 20) ?>
 	<?php echo Html::link('logout', sprintf('Logout %s', $user->username)) ?>
 <?php else : ?>
-	<?php echo HtmlGithub::loginButton(Factory::$application->get('github_client_id')) ?>
+	<?php echo HtmlGithub::loginButton(Factory::$application->get('github.client_id')) ?>
 <?php endif; ?>
 <?php
 

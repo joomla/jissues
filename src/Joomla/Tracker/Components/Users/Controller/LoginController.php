@@ -65,7 +65,7 @@ class LoginController extends AbstractTrackerController
 
 		// Do login
 
-		$loginHelper = new GitHubLoginHelper($app->get('github_client_id'), $app->get('github_client_secret'));
+		$loginHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
 
 		$accessToken = $loginHelper->requestToken($code);
 
