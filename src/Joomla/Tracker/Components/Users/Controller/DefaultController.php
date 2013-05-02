@@ -1,9 +1,9 @@
 <?php
 /**
- * @package     JTracker\Components\Users
+ * @package    JTracker\Components\Users
  *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Components\Users\Controller;
@@ -33,6 +33,6 @@ class DefaultController extends AbstractTrackerController
 		parent::__construct($input, $app);
 
 		// Set the default views
-		$this->default_list_view = 'login';
+		$this->default_list_view = 'users';
 	}
 }
