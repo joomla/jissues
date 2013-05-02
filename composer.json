@@ -6,7 +6,8 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.3.10",
-        "joomla/framework": "dev-master"
+        "joomla/framework": "dev-master",
+        "symfony/http-foundation": "2.2.*"
     },
     "autoload": {
         "psr-0": {
