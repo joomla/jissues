@@ -11,6 +11,28 @@ use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Registry\Registry;
 
+/* SNIP ---> */
+
+/*
+ *This is a "module" that displays a "login with GitHub" / "Logout" link
+ */
+
+use Joomla\Tracker\Components\Tracker\HTML\Html;
+use Joomla\Tracker\Components\Tracker\HTML\HtmlGitHub;
+
+$user = Factory::$application->getUser();
+
+?>
+<?php if($user->id) : ?>
+	<?php echo HtmlGithub::avatar($user, 20) ?>
+	<?php echo Html::link('logout', sprintf('Logout %s', $user->username)) ?>
+<?php else : ?>
+	<?php echo HtmlGithub::loginButton(Factory::$application->get('github_client_id')) ?>
+<?php endif; ?>
+<?php
+
+/* <--- SNAP */
+
 // Initialize values to check for cells
 $blockers = array('1', '2');
 
