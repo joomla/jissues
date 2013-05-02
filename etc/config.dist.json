@@ -1,0 +1,25 @@
+{
+	"database":{
+		"driver":"mysqli",
+		"host":"",
+		"user":"",
+		"password":"",
+		"name":"",
+		"prefix":""
+	},
+
+	"github":{
+		"username": "",
+		"password": ""
+	},
+
+	"debug":"0",
+	"debug_lang":"0",
+	"gzip":"0",
+	"list_limit":"20",
+	"offset":"UTC",
+	"secret":"",
+
+	"sess_lifetime":"60",
+	"sess_handler":"database"
+}

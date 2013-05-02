@@ -18,7 +18,6 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
-
 /**
  * Simple Installer.
  *
@@ -228,16 +227,27 @@ class TrackerApplication extends AbstractCliApplication
 	 */
 	protected function loadConfiguration()
 	{
-		$path = realpath(__DIR__ . '/../../..') . '/etc/configuration.php';
+		// Instantiate variables.
+		$config = array();
 
-		if (false == file_exists($path))
+		// Set the configuration file path for the application.
+		$file = realpath(__DIR__ . '/../../..') . '/etc/config.json';
+
+		// Verify the configuration exists and is readable.
+		if (!is_readable($file))
 		{
-			throw new \RuntimeException('Configuration missing: ' . $path);
+			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
 		}
 
-		include $path;
+		// Load the configuration file into an object.
+		$config = json_decode(file_get_contents($file));
 
-		$this->config->loadObject(new \JConfig);
+		if ($config === null)
+		{
+			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
+		}
+
+		$this->config->loadObject($config);
 
 		return $this;
 	}
@@ -245,20 +255,20 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Create an database object.
 	 *
-	 * @return  DatabaseDriver
+	 * @return  DatabaseDriver  Database driver instance
 	 *
-	 * @see     DatabaseDriver
+	 * @see     DatabaseDriver::getInstance()
 	 * @since   1.0
 	 */
 	protected function createDatabase()
 	{
 		$options = array(
-			'driver'   => $this->get('dbtype'),
-			'host'     => $this->get('host'),
-			'user'     => $this->get('user'),
-			'password' => $this->get('password'),
-			'database' => $this->get('db'),
-			'prefix'   => $this->get('dbprefix')
+			'driver' => $this->get('database.driver'),
+			'host' => $this->get('database.host'),
+			'user' => $this->get('database.user'),
+			'password' => $this->get('database.password'),
+			'database' => $this->get('database.name'),
+			'prefix' => $this->get('database.prefix')
 		);
 
 		$database = DatabaseDriver::getInstance($options);

@@ -7,6 +7,7 @@
 
 # Files that should not be pushed to the repo #
 /etc/configuration.php
+/etc/config.json
 
 # Apple Files #
 .DS_STORE

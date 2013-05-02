@@ -7,8 +7,8 @@ The issue tracker application requires a server running:
 Setup
 ===============
 1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/joomla/jissues/zipball/master.
-2. Copy `/etc/configuration.example.php` to `/etc/configuration.php`.
-3. Enter your database credentials in the `JConfig` class. Change $prefix if desired. (defaults to jos_).
+2. Copy `/etc/config.dist.php` to `/etc/config.php`.
+3. Enter your database credentials in the `/etc/config.php` file.
 4. Install dependencies from Composer by running `composer install` (or the equivalent for your system).  If you need to install Composer, you can do so from http://getcomposer.org/download/.
 
 From this point, you can setup your database in one of two ways:

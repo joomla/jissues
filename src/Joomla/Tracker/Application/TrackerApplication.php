@@ -16,7 +16,6 @@ use Joomla\Crypt\Password\Simple;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
-use Joomla\Loader;
 use Joomla\Registry\Registry;
 
 //use Joomla\Session\Session;
@@ -149,6 +148,9 @@ final class TrackerApplication extends AbstractWebApplication
 		Factory::$config = $this->config;
 		Factory::$session = $this->newSession;
 		Factory::$database = $this->database;
+
+		// Load the database and register to Factory
+		Factory::$database = $this->loadDatabase();
 
 		// Load the library language file
 		Factory::getLanguage()->load('lib_joomla', JPATH_BASE);
@@ -483,54 +485,6 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to load a PHP configuration class file based on convention and return the instantiated data object.  You
-	 * will extend this method in child classes to provide configuration data from whatever data source is relevant
-	 * for your specific application.
-	 *
-	 * @param   string  $file   The path and filename of the configuration file. If not provided, configuration.php
-	 *                          in JPATH_BASE will be used.
-	 * @param   string  $class  The class name to instantiate.
-	 *
-	 * @return  mixed   Either an array or object to be loaded into the configuration object.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function fetchConfigurationData($file = '', $class = 'JConfig')
-	{
-		// Instantiate variables.
-		$config = array();
-
-		if (empty($file) && defined('JPATH_CONFIGURATION'))
-		{
-			$file = JPATH_CONFIGURATION . '/configuration.php';
-
-			// Applications can choose not to have any configuration data
-			// by not implementing this method and not having a config file.
-			if (!file_exists($file))
-			{
-				$file = '';
-			}
-		}
-
-		if (!empty($file))
-		{
-			Loader::register($class, $file);
-
-			if (class_exists($class))
-			{
-				$config = new $class;
-			}
-			else
-			{
-				throw new \RuntimeException('Configuration class does not exist.');
-			}
-		}
-
-		return $config;
-	}
-
-	/**
 	 * Provides a secure hash based on a seed
 	 *
 	 * @param   string  $seed  Seed string.
@@ -686,88 +640,68 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Get a session object.
-	 *
-	 * @return Session
-	 */
-	public function getSession()
-	{
-		return $this->newSession;
-	}
-
-	/**
-	 * Get a user object.
-	 *
-	 * @return User
-	 */
-	public function getUser()
-	{
-		return $this->user;
-	}
-
-	/**
-	 * Login or logout a user.
-	 *
-	 * @param   User  $user  The user object.
-	 *
-	 * @return $this
-	 */
-	public function setUser(User $user = null)
-	{
-		if (is_null($user))
-		{
-			// Logout
-
-			$this->user = new GitHubUser;
-
-			$this->newSession->set('user', $this->user);
-
-			// @todo cleanup more ?
-		}
-		else
-		{
-			// Login
-
-			$this->user  = $user;
-
-			$this->newSession->set('user', $user);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Get a database driver object.
-	 *
-	 * @return DatabaseDriver
-	 */
-	public function getDatabase()
-	{
-		return $this->database;
-	}
-
-	/**
 	 * Load an object or array into the application configuration object.
-	 *
-	 * @param   mixed  $data  Either an array or object to be loaded into the configuration object.
 	 *
 	 * @return  TrackerApplication  Instance of $this to allow chaining.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	public function loadConfiguration($data)
+	public function loadConfiguration()
 	{
-		// Load the data into the configuration object.
-		if (is_array($data))
+		// Instantiate variables.
+		$config = array();
+
+		// Set the configuration file path for the application.
+		$file = JPATH_CONFIGURATION . '/config.json';
+
+		// Verify the configuration exists and is readable.
+		if (!is_readable($file))
 		{
-			$this->config->loadArray($data);
-		}
-		elseif (is_object($data))
-		{
-			$this->config->loadObject($data);
+			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
 		}
 
+		// Load the configuration file into an object.
+		$config = json_decode(file_get_contents($file));
+
+		if ($config === null)
+		{
+			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
+		}
+
+		$this->config->loadObject($config);
+
 		return $this;
+	}
+
+	/**
+	 * Method to create a database driver for the application.
+	 *
+	 * @return  DatabaseDriver  Database driver instance
+	 *
+	 * @see     DatabaseDriver::getInstance()
+	 * @since   1.0
+	 */
+	public function loadDatabase()
+	{
+		$db = DatabaseDriver::getInstance(
+			array(
+				'driver' => $this->get('database.driver'),
+				'host' => $this->get('database.host'),
+				'user' => $this->get('database.user'),
+				'password' => $this->get('database.password'),
+				'database' => $this->get('database.name'),
+				'prefix' => $this->get('database.prefix')
+			)
+		);
+
+		// Select the database.
+		$db->select($this->get('database.name'));
+
+		// Set the debug flag.
+		$db->setDebug($this->get('debug'));
+
+		return $db;
 	}
 
 	/**

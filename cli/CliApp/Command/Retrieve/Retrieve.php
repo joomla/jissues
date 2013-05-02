@@ -161,8 +161,8 @@ class Retrieve extends TrackerCommand
 		if ($resp == 'y' || $resp == 'yes')
 		{
 			// Set the options
-			$options->set('api.username', $this->application->get('github_user', ''));
-			$options->set('api.password', $this->application->get('github_password', ''));
+			$options->set('api.username', $this->application->get('github.username', ''));
+			$options->set('api.password', $this->application->get('github.password', ''));
 
 			$this->application->debugOut('GitHub credentials: ' . print_r($options, true));
 		}
