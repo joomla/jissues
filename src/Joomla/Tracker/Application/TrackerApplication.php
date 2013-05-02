@@ -13,11 +13,17 @@ use Joomla\Controller\ControllerInterface;
 use Joomla\Crypt\Crypt;
 use Joomla\Crypt\Key;
 use Joomla\Crypt\Password\Simple;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Loader;
 use Joomla\Registry\Registry;
-use Joomla\Session\Session;
+
+//use Joomla\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+use Joomla\Tracker\Authentication\GitHub\GitHubUser;
+use Joomla\Tracker\Authentication\User;
 use Joomla\Tracker\Router\TrackerRouter;
 
 /**
@@ -69,6 +75,29 @@ final class TrackerApplication extends AbstractWebApplication
 	protected $name = null;
 
 	/**
+	 * A session object.
+	 *
+	 * @todo this has been created to avoid a conflict with the $session member var from the parent class.
+	 *
+	 * @var Session
+	 */
+	private $newSession = null;
+
+	/**
+	 * The user object.
+	 *
+	 * @var User
+	 */
+	private $user;
+
+	/**
+	 * The database driver object.
+	 *
+	 * @var    DatabaseDriver
+	 */
+	private $database;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -78,11 +107,19 @@ final class TrackerApplication extends AbstractWebApplication
 		// Run the parent constructor
 		parent::__construct();
 
+		$this
+			->loadConfiguration($this->fetchConfigurationData())
+			//->initConfiguration()
+			->initDatabase()
+			->loadDispatcher()
+			->initSession()
+			->initUser();
+
 		// Load the configuration object.
-		$this->loadConfiguration($this->fetchConfigurationData());
+		//$this->loadConfiguration($this->fetchConfigurationData());
 
 		// Register the event dispatcher
-		$this->loadDispatcher();
+		//$this->loadDispatcher();
 
 		/* Disable sessions for the moment
 		// Enable sessions by default.
@@ -106,11 +143,122 @@ final class TrackerApplication extends AbstractWebApplication
 			Factory::$session = $this->getSession();
 		}*/
 
+		// @todo remove
 		// Register the application to Factory
 		Factory::$application = $this;
+		Factory::$config = $this->config;
+		Factory::$session = $this->newSession;
+		Factory::$database = $this->database;
 
 		// Load the library language file
 		Factory::getLanguage()->load('lib_joomla', JPATH_BASE);
+	}
+
+	/**
+	 * Initialize the configuration object.
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return $this
+	 */
+	private function initConfiguration()
+	{
+		$path = realpath(JPATH_BASE . '/etc/config.json');
+
+		if ('' == $path)
+		{
+			if (JDEBUG)
+			{
+				throw new \RuntimeException('Configuration file not found at: ' . JPATH_BASE . '/etc/config.json');
+			}
+
+			throw new \RuntimeException('Configuration file does not exist.');
+		}
+
+		$config = json_decode(file_get_contents($path));
+
+		if (null === $config)
+		{
+			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $path));
+		}
+
+		$this->config->loadObject($config);
+
+		return $this;
+	}
+
+	/**
+	 * Initialize the database object.
+	 *
+	 * @return $this
+	 */
+	private function initDatabase()
+	{
+		$this->database = DatabaseDriver::getInstance(
+			array(
+				'driver' => $this->get('dbtype'),
+				'host' => $this->get('host'),
+				'user' => $this->get('user'),
+				'password' => $this->get('password'),
+				'database' => $this->get('db'),
+				'prefix' => $this->get('dbprefix')
+			)
+		)->setDebug($this->get('debug'));
+
+		return $this;
+	}
+
+	/**
+	 * Initialize the session.
+	 *
+	 * @return $this
+	 */
+	private function initSession()
+	{
+		// @todo Review other session handler possibilities and init here.
+
+		$this->newSession = new Session;
+		$this->newSession->start();
+
+		return $this;
+
+		// Old J! handling...
+
+		$handler = $this->get('session_handler', 'none');
+
+		// Config time is in minutes
+		$options['expire'] = ($this->get('lifetime'))
+			? $this->get('lifetime') * 60
+			: 900;
+
+		$session = Session::getInstance($handler, $options);
+
+		if ($session->getState() == 'expired')
+		{
+			$session->restart();
+		}
+
+		$session->initialise($this->input);
+
+		$session->start();
+
+		$this->newSession = $session;
+
+		return $this;
+	}
+
+	/**
+	 * Initialize the user object.
+	 *
+	 * @return $this
+	 */
+	private function initUser()
+	{
+		$user = $this->newSession->get('user');
+
+		$this->user = ($user) ? : new GitHubUser;
+
+		return $this;
 	}
 
 	/**
@@ -120,7 +268,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @since   1.0
 	 */
-	public function afterSessionStart()
+	public function OLD_afterSessionStart()
 	{
 		$session = Factory::getSession();
 
@@ -170,7 +318,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @since   1.0
 	 * @todo    Figure out user portion of code
 	 */
-	public function checkSession()
+	public function OLD_checkSession()
 	{
 		$db      = Factory::getDbo();
 		$session = Factory::getSession();
@@ -286,13 +434,12 @@ final class TrackerApplication extends AbstractWebApplication
 		// For empty queue, if messages exists in the session, enqueue them first.
 		if (!count($this->messageQueue))
 		{
-			$session      = Factory::getSession();
-			$sessionQueue = $session->get('application.queue');
+			$sessionQueue = $this->newSession->get('application.queue');
 
 			if (count($sessionQueue))
 			{
 				$this->messageQueue = $sessionQueue;
-				$session->set('application.queue', null);
+				$this->newSession->set('application.queue', null);
 			}
 		}
 
@@ -400,9 +547,9 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Return the current state of the language filter.
 	 *
-	 * @return  boolean
-	 *
 	 * @since   1.0
+	 *
+	 * @return  boolean
 	 */
 	public function getLanguageFilter()
 	{
@@ -421,13 +568,12 @@ final class TrackerApplication extends AbstractWebApplication
 		// For empty queue, if messages exists in the session, enqueue them.
 		if (!count($this->messageQueue))
 		{
-			$session      = Factory::getSession();
-			$sessionQueue = $session->get('application.queue');
+			$sessionQueue = $this->newSession->get('application.queue');
 
 			if (count($sessionQueue))
 			{
 				$this->messageQueue = $sessionQueue;
-				$session->set('application.queue', null);
+				$this->newSession->set('application.queue', null);
 			}
 		}
 
@@ -499,7 +645,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getUserState($key, $default = null)
 	{
-		$registry = Factory::getSession()->get('registry');
+		$registry = $this->newSession->get('registry');
 
 		if (!is_null($registry))
 		{
@@ -517,7 +663,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @param   string  $default  The default value for the variable if not found. Optional.
 	 * @param   string  $type     Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
 	 *
-	 * @return  The request user state.
+	 * @return  mixed The request user state.
 	 *
 	 * @since   1.0
 	 */
@@ -537,6 +683,67 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		return $new_state;
+	}
+
+	/**
+	 * Get a session object.
+	 *
+	 * @return Session
+	 */
+	public function getSession()
+	{
+		return $this->newSession;
+	}
+
+	/**
+	 * Get a user object.
+	 *
+	 * @return User
+	 */
+	public function getUser()
+	{
+		return $this->user;
+	}
+
+	/**
+	 * Login or logout a user.
+	 *
+	 * @param   User  $user  The user object.
+	 *
+	 * @return $this
+	 */
+	public function setUser(User $user = null)
+	{
+		if (is_null($user))
+		{
+			// Logout
+
+			$this->user = new GitHubUser;
+
+			$this->newSession->set('user', $this->user);
+
+			// @todo cleanup more ?
+		}
+		else
+		{
+			// Login
+
+			$this->user  = $user;
+
+			$this->newSession->set('user', $user);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get a database driver object.
+	 *
+	 * @return DatabaseDriver
+	 */
+	public function getDatabase()
+	{
+		return $this->database;
 	}
 
 	/**
@@ -596,7 +803,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @since   1.0
 	 */
-	public function loadSession(Session $session = null)
+	public function OLD_loadSession(Session $session = null)
 	{
 		if ($session !== null)
 		{
@@ -661,7 +868,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @since   1.0
 	 */
-	public function login($credentials, $options = array())
+	public function OLD_login($credentials, $options = array())
 	{
 		// Get the global JAuthentication object.
 		jimport('joomla.user.authentication');
@@ -785,7 +992,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @since   1.0
 	 */
-	public function logout($userid = null, $options = array())
+	public function OLD_logout($userid = null, $options = array())
 	{
 		// Get a user object from the JApplication.
 		$user = JFactory::getUser($userid);
@@ -843,7 +1050,7 @@ final class TrackerApplication extends AbstractWebApplication
 		// Persist messages if they exist.
 		if (count($this->messageQueue))
 		{
-			Factory::getSession()->set('application.queue', $this->messageQueue);
+			$this->newSession->set('application.queue', $this->messageQueue);
 		}
 
 		parent::redirect($url, $moved);
@@ -875,7 +1082,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function setUserState($key, $value)
 	{
-		$registry = Factory::getSession()->get('registry');
+		$registry = $this->newSession->get('registry');
 
 		if (!is_null($registry))
 		{
