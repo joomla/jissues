@@ -162,16 +162,16 @@ final class TrackerApplication extends AbstractWebApplication
 			// $document->setBuffer($contents, 'component');
 		}
 
-			// Mop up any uncaught exceptions.
+		// Mop up any uncaught exceptions.
 		catch (\Exception $e)
 		{
 			echo $e->getMessage();
 
 			if (JDEBUG)
 			{
-				echo '<pre>';
-				echo $e->getTraceAsString();
-				echo '</pre>';
+				echo '<pre>'
+					. str_replace(JPATH_ROOT, 'JROOT', $e->getTraceAsString())
+					. '</pre>';
 			}
 
 			$this->close($e->getCode());
@@ -323,10 +323,17 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Get a user object.
 	 *
+	 * @param   integer  $id  The user id or the current user.
+	 *
 	 * @return User
 	 */
-	public function getUser()
+	public function getUser($id = 0)
 	{
+		if ($id)
+		{
+			return new GitHubUser($id);
+		}
+
 		if (is_null($this->user))
 		{
 			$user = $this->getSession()->get('user');
