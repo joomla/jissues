@@ -6,10 +6,11 @@
 
 namespace Joomla\Tracker\Components\Tracker\HTML;
 
-use Joomla\Uri\Uri;
 use Joomla\Factory;
+use Joomla\Uri\Uri;
 
 use Joomla\Tracker\Authentication\User;
+use Joomla\Tracker\HTML\Html;
 
 /**
  * Class HtmlGitHub.

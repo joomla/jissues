@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Tracker\Components\Tracker\HTML;
+namespace Joomla\Tracker\HTML;
 
 use Joomla\Utilities\ArrayHelper;
 
