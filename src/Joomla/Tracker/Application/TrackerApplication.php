@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Application
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Application;
@@ -13,9 +11,9 @@ use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
+use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
-//use Joomla\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
@@ -95,6 +93,11 @@ final class TrackerApplication extends AbstractWebApplication
 	private $database;
 
 	/**
+	 * @var Language
+	 */
+	private $language;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -105,21 +108,16 @@ final class TrackerApplication extends AbstractWebApplication
 		parent::__construct();
 
 		$this
-			->initConfiguration()
-			->initDatabase()
-			->loadDispatcher()
-			->initSession()
-			->initUser();
+			->loadConfiguration()
+			->loadDispatcher();
 
 		// Register the application to Factory
-		// @todo remove
+		// @todo remove factory usage
 		Factory::$application = $this;
 		Factory::$config = $this->config;
-		Factory::$session = $this->newSession;
-		Factory::$database = $this->database;
 
 		// Load the library language file
-		Factory::getLanguage()->load('lib_joomla', JPATH_BASE);
+		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
 	}
 
 	/**
@@ -140,7 +138,7 @@ final class TrackerApplication extends AbstractWebApplication
 			$this->set('themeFile', $this->input->get('tmpl', 'index') . '.php');
 
 			// Set metadata
-			//$document->setTitle('Joomla! CMS Issue Tracker');
+			// $document->setTitle('Joomla! CMS Issue Tracker');
 
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
@@ -161,13 +159,21 @@ final class TrackerApplication extends AbstractWebApplication
 			// Temporarily echo the $contents to prove it is working
 			echo $contents;
 
-			//$document->setBuffer($contents, 'component');
+			// $document->setBuffer($contents, 'component');
 		}
 
 			// Mop up any uncaught exceptions.
 		catch (\Exception $e)
 		{
 			echo $e->getMessage();
+
+			if (JDEBUG)
+			{
+				echo '<pre>';
+				echo $e->getTraceAsString();
+				echo '</pre>';
+			}
+
 			$this->close($e->getCode());
 		}
 	}
@@ -179,9 +185,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @return $this
 	 */
-	private function initConfiguration()
+	private function loadConfiguration()
 	{
-
 		// Set the configuration file path for the application.
 		$file = JPATH_CONFIGURATION . '/config.json';
 
@@ -208,58 +213,6 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Initialize the database object.
-	 *
-	 * @return $this
-	 */
-	private function initDatabase()
-	{
-		$this->database = DatabaseDriver::getInstance(
-			array(
-				'driver' => $this->get('database.driver'),
-				'host' => $this->get('database.host'),
-				'user' => $this->get('database.user'),
-				'password' => $this->get('database.password'),
-				'database' => $this->get('database.name'),
-				'prefix' => $this->get('database.prefix')
-			)
-		);
-
-		$this->database->setDebug($this->get('debug'));
-
-		return $this;
-	}
-
-	/**
-	 * Initialize the session.
-	 *
-	 * @return $this
-	 */
-	private function initSession()
-	{
-		// @todo Review other session handler possibilities and init here.
-
-		$this->newSession = new Session;
-		$this->newSession->start();
-
-		return $this;
-	}
-
-	/**
-	 * Initialize the user object.
-	 *
-	 * @return $this
-	 */
-	private function initUser()
-	{
-		$user = $this->newSession->get('user');
-
-		$this->user = ($user) ? : new GitHubUser;
-
-		return $this;
-	}
-
-	/**
 	 * Enqueue a system message.
 	 *
 	 * @param   string  $msg   The message to enqueue.
@@ -274,12 +227,12 @@ final class TrackerApplication extends AbstractWebApplication
 		// For empty queue, if messages exists in the session, enqueue them first.
 		if (!count($this->messageQueue))
 		{
-			$sessionQueue = $this->newSession->get('application.queue');
+			$sessionQueue = $this->getSession()->get('application.queue');
 
 			if (count($sessionQueue))
 			{
 				$this->messageQueue = $sessionQueue;
-				$this->newSession->set('application.queue', null);
+				$this->getSession()->set('application.queue', null);
 			}
 		}
 
@@ -353,20 +306,36 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @return Session
 	 */
- 	public function getSession()
- 	{
- 		return $this->newSession;
- 	}
+	public function getSession()
+	{
+		if (is_null($this->newSession))
+		{
+			$this->newSession = new Session;
+			$this->newSession->start();
 
- 	/**
- 	 * Get a user object.
- 	 *
- 	 * @return User
- 	 */
- 	public function getUser()
- 	{
+			// @todo remove factory usage
+			Factory::$session = $this->newSession;
+		}
+
+		return $this->newSession;
+	}
+
+	/**
+	 * Get a user object.
+	 *
+	 * @return User
+	 */
+	public function getUser()
+	{
+		if (is_null($this->user))
+		{
+			$user = $this->getSession()->get('user');
+
+			$this->user = ($user) ? : new GitHubUser;
+		}
+
 		return $this->user;
- 	}
+	}
 
 	/**
 	 * Get a database driver object.
@@ -375,7 +344,47 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getDatabase()
 	{
+		if (is_null($this->database))
+		{
+			$this->database = DatabaseDriver::getInstance(
+				array(
+					'driver' => $this->get('database.driver'),
+					'host' => $this->get('database.host'),
+					'user' => $this->get('database.user'),
+					'password' => $this->get('database.password'),
+					'database' => $this->get('database.name'),
+					'prefix' => $this->get('database.prefix')
+				)
+			);
+
+			$this->database->setDebug($this->get('debug'));
+
+			// @todo remove factory usage
+			Factory::$database = $this->database;
+		}
+
 		return $this->database;
+	}
+
+	/**
+	 * Get a language object.
+	 *
+	 * @return Language
+	 */
+	public function getLanguage()
+	{
+		if (is_null($this->language))
+		{
+			$this->language = Language::getInstance(
+				$this->get('language'),
+				$this->get('debug_lang')
+			);
+
+			// @todo remove factory usage
+			Factory::$language = $this->language;
+		}
+
+		return $this->language;
 	}
 
 	/**
@@ -393,7 +402,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->user = new GitHubUser;
 
-			$this->newSession->set('user', $this->user);
+			$this->getSession()->set('user', $this->user);
 
 			// @todo cleanup more ?
 		}
@@ -403,7 +412,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->user  = $user;
 
-			$this->newSession->set('user', $user);
+			$this->getSession()->set('user', $user);
 		}
 
 		return $this;
@@ -421,12 +430,12 @@ final class TrackerApplication extends AbstractWebApplication
 		// For empty queue, if messages exists in the session, enqueue them.
 		if (!count($this->messageQueue))
 		{
-			$sessionQueue = $this->newSession->get('application.queue');
+			$sessionQueue = $this->getSession()->get('application.queue');
 
 			if (count($sessionQueue))
 			{
 				$this->messageQueue = $sessionQueue;
-				$this->newSession->set('application.queue', null);
+				$this->getSession()->set('application.queue', null);
 			}
 		}
 
@@ -450,7 +459,7 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Method to get the application name.
 	 *
-	 * The dispatcher name is by default parsed using the classname, or it can be set
+	 * The dispatcher name is by default parsed using the class name, or it can be set
 	 * by passing a $config['name'] in the class constructor.
 	 *
 	 * @return  string  The name of the dispatcher.
@@ -465,7 +474,7 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Method to get the component params
 	 *
-	 * @param   string $component  The component to retrieve the params for
+	 * @param   string  $component  The component to retrieve the params for
 	 *
 	 * @throws \RuntimeException
 	 * @return  Registry  Component params
@@ -476,7 +485,8 @@ final class TrackerApplication extends AbstractWebApplication
 	public function getParams($component = '')
 	{
 		throw new \RuntimeException('unsupported');
-		//return $component ? JComponentHelper::getParams($component) : new Registry;
+
+		// @return $component ? JComponentHelper::getParams($component) : new Registry;
 	}
 
 	/**
@@ -515,7 +525,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getUserState($key, $default = null)
 	{
-		$registry = $this->newSession->get('registry');
+		/* @var Registry $registry */
+		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))
 		{
@@ -567,7 +578,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function setUserState($key, $value)
 	{
-		$registry = $this->newSession->get('registry');
+		/* @var Registry $registry */
+		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))
 		{
@@ -616,7 +628,7 @@ final class TrackerApplication extends AbstractWebApplication
 		// Persist messages if they exist.
 		if (count($this->messageQueue))
 		{
-			$this->newSession->set('application.queue', $this->messageQueue);
+			$this->getSession()->set('application.queue', $this->messageQueue);
 		}
 
 		parent::redirect($url, $moved);
