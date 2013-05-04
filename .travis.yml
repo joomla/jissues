@@ -8,6 +8,9 @@ before_script:
   - composer update --dev
   - pyrus channel-discover pear.phpunit.de
   - pyrus install --force phpunit/DbUnit
+  - pyrus install pear/PHP_CodeSniffer
+  - phpenv rehash
 
 script:
   - phpunit --configuration phpunit.travis.xml
+  - phpcs --standard=vendor/elkuku/joomla-coding-standards/ src/
