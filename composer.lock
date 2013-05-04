@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/coding-standards.git",
-                "reference": "ca883df173c5fd4c0f0707cef1b05339a898a26d"
+                "reference": "63315f15d4fe5b567a8a65d0900464ab85c013c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/coding-standards/zipball/ca883df173c5fd4c0f0707cef1b05339a898a26d",
-                "reference": "ca883df173c5fd4c0f0707cef1b05339a898a26d",
+                "url": "https://api.github.com/repos/elkuku/coding-standards/zipball/63315f15d4fe5b567a8a65d0900464ab85c013c5",
+                "reference": "63315f15d4fe5b567a8a65d0900464ab85c013c5",
                 "shasum": ""
             },
             "type": "library",
@@ -34,7 +34,7 @@
             "keywords": [
                 "joomla"
             ],
-            "time": "2013-05-04 22:59:47"
+            "time": "2013-05-04 23:38:17"
         },
         {
             "name": "joomla/framework",
