@@ -12,7 +12,7 @@
 
 	<testsuites>
 		<testsuite name="Unit">
-			<directory>src/Joomla/*/Tests</directory>
+			<directory>tests/tracker</directory>
 		</testsuite>
 	</testsuites>
 
