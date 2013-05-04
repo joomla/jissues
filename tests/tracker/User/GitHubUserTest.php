@@ -27,6 +27,7 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	    $ghData = new \stdClass;
 
 	    $ghData->login = 'elkuku';
+	    $ghData->avatar_url = 'http://my_avatar.png';
 
 	    $this->object->loadGitHubData($ghData);
 
@@ -49,9 +50,11 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException \RuntimeException
 	 */
-	public function testLoadGitHubDataFail()
+	public function testLoadGitHubDataFailure()
 	{
 		$ghData = new \stdClass;
+
+		// Missing login !
 
 		$this->object->loadGitHubData($ghData);
 	}
