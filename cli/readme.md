@@ -21,7 +21,7 @@ For more information use `tracker.php help <command>`.
 
 ## Install the application
 
-Copy `/etc/configuration.example.php` to `/etc/configuration.php` and fill in your database details.
+Copy `/etc/config.example.json` to `/etc/config.json` and fill in your database details.
 
 Then run:
 `tracker.php install`
@@ -38,4 +38,4 @@ GitHub limits requests to its API to 60 per hour for unauthenticated requests, a
 
 For the initial import of issues and issue comments to the database we need to authenticate with GitHub to avoid to exceed the rate limit.
 
-To use your GitHub credentials from the CLI script, edit the `configurqation.php` file and fill in your GitHub username and password, answer "yes" to the question if you whish to authenticate, or pass the `--auth` option.
+To use your GitHub credentials from the CLI script, edit the `config.json` file and fill in your GitHub username and password, answer "yes" to the question if you whish to authenticate, or pass the `--auth` option.
