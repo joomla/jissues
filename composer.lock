@@ -3,20 +3,51 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d12c13ed6060b67f083d1e6906bf9a34",
+    "hash": "53900c2934c40a6794f2a603476310b1",
     "packages": [
+        {
+            "name": "elkuku/joomla-coding-standards",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elkuku/coding-standards.git",
+                "reference": "ca883df173c5fd4c0f0707cef1b05339a898a26d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elkuku/coding-standards/zipball/ca883df173c5fd4c0f0707cef1b05339a898a26d",
+                "reference": "ca883df173c5fd4c0f0707cef1b05339a898a26d",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "The Joomla! Project",
+                    "homepage": "http://joomla.org"
+                }
+            ],
+            "description": "Joomla Coding Standards Definition. - tweaked by elkuku.",
+            "keywords": [
+                "joomla"
+            ],
+            "time": "2013-05-04 22:59:47"
+        },
         {
             "name": "joomla/framework",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "c77e88c3b731f13b02f3d2c9122293f2d0009d4f"
+                "reference": "fbf290f5a3603163339caa45df0d427e9816ab2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/c77e88c3b731f13b02f3d2c9122293f2d0009d4f",
-                "reference": "c77e88c3b731f13b02f3d2c9122293f2d0009d4f",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fbf290f5a3603163339caa45df0d427e9816ab2a",
+                "reference": "fbf290f5a3603163339caa45df0d427e9816ab2a",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +108,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-04-23 03:03:58"
+            "time": "2013-05-03 16:21:59"
         },
         {
             "name": "psr/log",
@@ -116,6 +147,56 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/HttpFoundation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "4c8eea472b4103cb00013a48c592ac6fc5043457"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/4c8eea472b4103cb00013a48c592ac6fc5043457",
+                "reference": "4c8eea472b4103cb00013a48c592ac6fc5043457",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Symfony/Component/HttpFoundation/Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-04-30 17:05:10"
         }
     ],
     "packages-dev": [
@@ -126,7 +207,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "joomla/framework": 20
+        "joomla/framework": 20,
+        "elkuku/joomla-coding-standards": 20
     },
     "platform": {
         "php": ">=5.3.10"
