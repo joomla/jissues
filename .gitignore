@@ -15,3 +15,6 @@
 # COMPOSER Files #
 vendor/*
 composer.phar
+
+# Build/Test related files #
+cache.properties
