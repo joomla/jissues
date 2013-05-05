@@ -3,39 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "53900c2934c40a6794f2a603476310b1",
+    "hash": "1084b5110a2ad40d658c2a0b0a5a0124",
     "packages": [
-        {
-            "name": "elkuku/joomla-coding-standards",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/elkuku/coding-standards.git",
-                "reference": "63315f15d4fe5b567a8a65d0900464ab85c013c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/coding-standards/zipball/63315f15d4fe5b567a8a65d0900464ab85c013c5",
-                "reference": "63315f15d4fe5b567a8a65d0900464ab85c013c5",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL"
-            ],
-            "authors": [
-                {
-                    "name": "The Joomla! Project",
-                    "homepage": "http://joomla.org"
-                }
-            ],
-            "description": "Joomla Coding Standards Definition. - tweaked by elkuku.",
-            "keywords": [
-                "joomla"
-            ],
-            "time": "2013-05-04 23:38:17"
-        },
         {
             "name": "joomla/framework",
             "version": "dev-master",
@@ -207,8 +176,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "joomla/framework": 20,
-        "elkuku/joomla-coding-standards": 20
+        "joomla/framework": 20
     },
     "platform": {
         "php": ">=5.3.10"

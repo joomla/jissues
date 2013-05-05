@@ -14,3 +14,4 @@ before_script:
 script:
   - phpunit --configuration phpunit.travis.xml
   - phpcs --standard=vendor/elkuku/joomla-coding-standards/Joomla --report=checkstyle src/
+  - ant
