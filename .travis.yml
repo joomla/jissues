@@ -11,7 +11,7 @@ before_script:
   - pyrus channel-discover pear.pdepend.org
   - pyrus install --force phpunit/DbUnit
   - pyrus install pear/PHP_CodeSniffer
-  - pyrus install --alldeps phpmd/PHP_PMD
+  - pyrus install phpmd/PHP_PMD
   - phpenv rehash
 
 script:
