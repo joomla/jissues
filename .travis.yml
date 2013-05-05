@@ -7,11 +7,12 @@ php:
 before_script:
   - composer update --dev
   - pyrus channel-discover pear.phpunit.de
+  - pyrus channel-discover pear.phpmd.org
+  - pyrus channel-discover pear.pdepend.org
   - pyrus install --force phpunit/DbUnit
   - pyrus install pear/PHP_CodeSniffer
+  - pyrus install --alldeps phpmd/PHP_PMD
   - phpenv rehash
 
 script:
-  - phpunit --configuration phpunit.travis.xml
-  - phpcs --standard=vendor/elkuku/joomla-coding-standards/Joomla --report=checkstyle src/
   - ant
