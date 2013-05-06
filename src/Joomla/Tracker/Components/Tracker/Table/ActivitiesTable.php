@@ -19,7 +19,6 @@ namespace Joomla\Tracker\Components\Tracker\Table;
 use Joomla\Database\DatabaseDriver;
 
 use Joomla\Tracker\Database\AbstractDatabaseTable;
-use Psr\Log\InvalidArgumentException;
 
 /**
  * Class ActivitiesTable.

@@ -6,6 +6,7 @@
 
 namespace Joomla\Tracker\Components\Users\Controller;
 
+use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 
@@ -91,6 +92,9 @@ class LoginController extends AbstractTrackerController
 		if (!$table->id)
 		{
 			// Register a new user
+
+			$date = new Date;
+			$user->registerDate = $date->format('Y-m-d H:i:s');
 
 			$table->bind($user)
 				->store();

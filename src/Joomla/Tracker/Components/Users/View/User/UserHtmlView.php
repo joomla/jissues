@@ -29,9 +29,9 @@ class UserHtmlView extends AbstractHtmlView
 	 */
 	public function render()
 	{
-		$id = Factory::$application->input->getUint('id');
+		$itemId = Factory::$application->input->getUint('id');
 
-		if (!$id)
+		if (!$itemId)
 		{
 			$user = Factory::$application->getUser();
 
@@ -40,10 +40,10 @@ class UserHtmlView extends AbstractHtmlView
 				throw new \RuntimeException('You are not logged in');
 			}
 
-			$id = $user->id;
+			$itemId = $user->id;
 		}
 
-		$this->item = $this->model->getItem($id);
+		$this->item = $this->model->getItem($itemId);
 
 		return parent::render();
 	}

@@ -17,19 +17,17 @@ use Joomla\Registry\Registry;
  *This is a "module" that displays a "login with GitHub" / "Logout" link
  */
 
-use Joomla\Tracker\Components\Tracker\HTML\Html;
 use Joomla\Tracker\Components\Tracker\HTML\HtmlGitHub;
+use Joomla\Tracker\HTML\Html;
 
 $user = Factory::$application->getUser();
 
-?>
-<?php if($user->id) : ?>
-	<?php echo HtmlGithub::avatar($user, 20) ?>
-	<?php echo Html::link('logout', sprintf('Logout %s', $user->username)) ?>
-<?php else : ?>
-	<?php echo HtmlGithub::loginButton(Factory::$application->get('github.client_id')) ?>
-<?php endif; ?>
-<?php
+if($user->id) :
+	echo HtmlGithub::avatar($user, 20);
+	echo Html::link('logout', sprintf('Logout %s', $user->username));
+else :
+	echo HtmlGithub::loginButton(Factory::$application->get('github.client_id'));
+endif;
 
 /* <--- SNAP */
 

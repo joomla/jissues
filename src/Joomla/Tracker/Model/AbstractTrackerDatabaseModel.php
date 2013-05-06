@@ -11,6 +11,7 @@ namespace Joomla\Tracker\Model;
 use Joomla\Factory;
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Tracker\Database\AbstractDatabaseTable;
 
 /**
  * Abstract base model for the tracker application
@@ -37,9 +38,9 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	protected $option = null;
 
 	/**
-	 * JTable instance
+	 * Table instance
 	 *
-	 * @var    JTable
+	 * @var    AbstractDatabaseTable
 	 * @since  1.0
 	 */
 	protected $table;
@@ -51,7 +52,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 */
 	public function __construct(DatabaseDriver $database = null)
 	{
-		$database = (is_null($database)) ? Factory::getDbo() : $database;
+		$database = (is_null($database)) ? Factory::$application->getDatabase() : $database;
 
 		parent::__construct($database);
 
@@ -81,13 +82,12 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	/**
 	 * Method to get the model name
 	 *
-	 * The model name. By default parsed using the classname or it can be set
+	 * The model name. By default parsed using the class name or it can be set
 	 * by passing a $config['name'] in the class constructor
 	 *
 	 * @return  string  The name of the model
 	 *
 	 * @since   1.0
-	 * @throws  Exception
 	 */
 	public function getName()
 	{
@@ -115,12 +115,12 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 * @param   string  $name     The table name. Optional.
 	 * @param   string  $prefix   The class prefix. Optional.
 	 *
-	 * @return  JTable  A JTable object
+	 * @return  AbstractDatabaseTable  A Table object
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	public function getTable($name = '', $prefix = 'JTable')
+	public function getTable($name = '', $prefix = 'Table')
 	{
 		if (empty($name))
 		{
@@ -129,9 +129,9 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 
 		$class = $prefix . ucfirst($name);
 
-		if (!class_exists($class) && !($class instanceof JTable))
+		if (!class_exists($class) && !($class instanceof AbstractDatabaseTable))
 		{
-			throw new RuntimeException(sprintf('Table class %s not found or is not an instance of JTable', $class));
+			throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of JTable', $class));
 		}
 
 		$this->table = new $class($this->getDb());

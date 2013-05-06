@@ -89,18 +89,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
 
-		/*
-		try
-		{
-			$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
-		}
-		catch (\RuntimeException $e)
-		{
-			Factory::$application->enqueueMessage($e->getMessage(), 'error');
-			return array();
-		}
-		*/
-
 		// Add the items to the internal cache.
 		$this->cache[$store] = $items;
 
@@ -278,17 +266,17 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * Gets an array of objects from the results of database query.
 	 *
 	 * @param   string   $query       The query.
-	 * @param   integer  $limitstart  Offset.
+	 * @param   integer  $limitStart  Offset.
 	 * @param   integer  $limit       The number of records.
 	 *
 	 * @return  array  An array of results.
 	 *
 	 * @since   1.0
-	 * @throws  RuntimeException
+	 * @throws  \RuntimeException
 	 */
-	protected function _getList($query, $limitstart = 0, $limit = 0)
+	protected function _getList($query, $limitStart = 0, $limit = 0)
 	{
-		$this->db->setQuery($query, $limitstart, $limit);
+		$this->db->setQuery($query, $limitStart, $limit);
 		$result = $this->db->loadObjectList();
 
 		return $result;

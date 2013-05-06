@@ -12,6 +12,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Language\Language;
+use Joomla\Profiler\Profiler;
 use Joomla\Registry\Registry;
 
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -98,6 +99,11 @@ final class TrackerApplication extends AbstractWebApplication
 	private $language;
 
 	/**
+	 * @var Profiler
+	 */
+	private $profiler;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -110,6 +116,17 @@ final class TrackerApplication extends AbstractWebApplication
 		$this
 			->loadConfiguration()
 			->loadDispatcher();
+
+		// Define the debug constant
+		define('JDEBUG', $this->config->get('system.debug'));
+
+		if (JDEBUG)
+		{
+			$this->profiler = new Profiler('Tracker');
+
+			$this->mark('App started');
+		}
+
 
 		// Register the application to Factory
 		// @todo remove factory usage
@@ -156,6 +173,10 @@ final class TrackerApplication extends AbstractWebApplication
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
 
+			$this->mark('App terminated');
+
+			$contents .= $this->fetchDebugOutput();
+
 			// Temporarily echo the $contents to prove it is working
 			echo $contents;
 
@@ -170,12 +191,43 @@ final class TrackerApplication extends AbstractWebApplication
 			if (JDEBUG)
 			{
 				echo '<pre>'
-					. str_replace(JPATH_ROOT, 'JROOT', $e->getTraceAsString())
+					. str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString())
 					. '</pre>';
+
+				$this->mark('App terminated with an ERROR');
+
+				echo $this->fetchDebugOutput();
 			}
 
 			$this->close($e->getCode());
 		}
+	}
+
+	private function fetchDebugOutput()
+	{
+		if(!JDEBUG)
+		{
+			return '';
+		}
+
+		$debug = array();
+
+		$debug[] = '<div class="debug">';
+		$debug[] = '<p>Profile</p>';
+		$debug[] =  $this->profiler->render();
+		$debug[] = '</div>';
+
+		return implode("\n", $debug);
+	}
+
+	public function mark($name)
+	{
+		if (!JDEBUG)
+		{
+			return;
+		}
+
+		$this->profiler->mark($name);
 	}
 
 	/**
@@ -205,9 +257,6 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		$this->config->loadObject($config);
-
-		// Define the debug constant
-		define('JDEBUG', $this->config->get('debug'));
 
 		return $this;
 	}

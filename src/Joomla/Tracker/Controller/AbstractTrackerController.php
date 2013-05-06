@@ -38,6 +38,8 @@ abstract class AbstractTrackerController extends AbstractController
 	 */
 	protected $component;
 
+	protected $view;
+
 	/**
 	 * Constructor
 	 *
@@ -65,6 +67,8 @@ abstract class AbstractTrackerController extends AbstractController
 			// Set the component as the first object in this array
 			$this->component = $classArray[0];
 		}
+
+		$this->setup();
 	}
 
 	/**
@@ -176,8 +180,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 */
 	public function execute()
 	{
-		// Get the application
-		$app   = $this->getApplication();
+		// Get the input
 		$input = $this->getInput();
 
 		// Get some data from the request
@@ -227,6 +230,11 @@ abstract class AbstractTrackerController extends AbstractController
 		echo $view->render();
 
 		return true;
+	}
+
+	protected function setup()
+	{
+
 	}
 
 	/**

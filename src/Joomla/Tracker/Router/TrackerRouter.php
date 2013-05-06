@@ -9,6 +9,7 @@
 namespace Joomla\Tracker\Router;
 
 use Joomla\Application\AbstractApplication;
+use Joomla\Controller\ControllerInterface;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
 

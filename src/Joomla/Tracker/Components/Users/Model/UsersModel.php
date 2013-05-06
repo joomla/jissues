@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
+use Joomla\Factory;
 use Joomla\Tracker\Model\AbstractTrackerListModel;
 
 /**
@@ -26,6 +27,8 @@ class UsersModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
+		Factory::$application->mark('Fetch users list');
+
 		return $this->db->getQuery(true)
 			->select(array('id', 'username'))
 			->from('#__users');
