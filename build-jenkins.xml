@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="joomla-tracker" default="build" basedir=".">
+	<property name="source" value="src" />
+	<property name="cli" value="cli" />
+	<property name="joomlasource" value="cli,src" />
+	<property name="testsource" value="" />
+
+	<condition property="script-suffix" value=".bat" else="">
+		<os family="windows" />
+	</condition>
+
+	<condition property="script-null" value="NUL" else="/dev/null">
+		<os family="windows" />
+	</condition>
+
+	<target name="clean" description="Clean up and create artifact directories">
+		<delete dir="${basedir}/build/api" />
+		<delete dir="${basedir}/build/coverage" />
+		<delete dir="${basedir}/build/logs" />
+        <delete dir="${basedir}/build/pdepend" />
+        <delete dir="${basedir}/htmlreports/API_Documentation" />
+
+		<mkdir dir="${basedir}/build/api" />
+		<mkdir dir="${basedir}/build/coverage" />
+		<mkdir dir="${basedir}/build/logs" />
+        <mkdir dir="${basedir}/build/pdepend" />
+        <mkdir dir="${basedir}/htmlreports/API_Documentation" />
+	</target>
+
+	<target name="installdep" description="Install build dependencies using composer">
+		<exec executable="composer">
+			<arg value="update" />
+			<arg value="--dev" />
+		</exec>
+	</target>
+
+	<target name="parallelTasks" description="Run the pdepend, phpmd, phpcpd, phpcs, phpdoc and phploc tasks in parallel using a maximum of 2 threads.">
+		<parallel threadCount="2">
+            <sequential>
+                <antcall target="pdepend" />
+                <antcall target="phpmd" />
+            </sequential>
+            <antcall target="phpcpd" />
+            <antcall target="phpcs" />
+            <antcall target="phploc" />
+		</parallel>
+	</target>
+
+    <target name="pdepend" description="Generate jdepend.xml and software metrics charts using PHP_Depend">
+        <exec executable="pdepend${script-suffix}">
+            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+            <arg path="${source}" />
+        </exec>
+    </target>
+
+	<target name="phpmd" description="Generate pmd.xml using PHPMD">
+		<exec executable="phpmd${script-suffix}">
+			<arg path="${joomlasource}" />
+			<arg value="xml" />
+			<arg value="${basedir}/build/phpmd.xml" />
+			<arg value="--reportfile" />
+			<arg value="${basedir}/build/logs/pmd.xml" />
+		</exec>
+	</target>
+
+	<target name="phpcs" description="Generate checkstyle.xml using PHP_CodeSniffer">
+		<exec executable="phpcs${script-suffix}">
+			<arg value="--report=checkstyle" />
+			<arg value="--extensions=php" />
+			<arg value="-p" />
+			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
+			<!--
+			<arg value="- -ignore=${basedir}/build,${basedir}/etc,${basedir}/language,${basedir}/platformApp,${basedir}/vendor,${basedir}/www,${basedir}/*tmpl/*" />
+			-->
+            <arg value="--ignore=${basedir}/*tmpl/*" />
+			<arg path="${source}" />
+			<arg path="${cli}" />
+		</exec>
+	</target>
+
+	<target name="lint" description="Perform syntax check of sourcecode files">
+		<apply executable="php" failonerror="true">
+			<arg value="-l" />
+
+			<fileset dir="src">
+				<include name="**/*.php" />
+				<modified />
+			</fileset>
+			<fileset dir="cli">
+				<include name="**/*.php" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+
+	<target name="composervalidate" description="Perform validation of composer.json files.">
+		<exec executable="composer" failonerror="true">
+			<arg value="validate" />
+		</exec>
+
+		<apply executable="composer" failonerror="true">
+			<arg value="validate" />
+
+			<fileset dir="${source}">
+				<include name="**/composer.json" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+
+    <target name="phpunit" description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
+        <exec executable="phpunit${script-suffix}">
+            <arg value="-c${basedir}/phpunit-jenkins.xml" />
+        </exec>
+    </target>
+
+    <target name="phpcpd" description="Generate pmd-cpd.xml using PHPCPD">
+        <exec executable="phpcpd${script-suffix}">
+            <arg value="--log-pmd" />
+            <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+            <arg path="${source}" />
+        </exec>
+    </target>
+
+    <target name="phploc" description="Generate phploc.csv">
+        <exec executable="phploc${script-suffix}">
+            <arg value="--log-csv" />
+            <arg value="${basedir}/build/logs/phploc.csv" />
+            <arg path="${source}" />
+        </exec>
+    </target>
+
+
+
+    <target name="build" depends="clean,phpunit,composervalidate,installdep,parallelTasks" />
+</project>
