@@ -236,15 +236,6 @@ final class TrackerApplication extends AbstractWebApplication
 	{
 		try
 		{
-			// Register the template to the config
-			$template = $this->getTemplate(true);
-			$this->set('theme', $template->template);
-			$this->set('themeParams', $template->params);
-			$this->set('themeFile', $this->input->get('tmpl', 'index') . '.php');
-
-			// Set metadata
-			//$document->setTitle('Joomla! CMS Issue Tracker');
-
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
 			$router->addMaps(json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'), true));
@@ -262,8 +253,6 @@ final class TrackerApplication extends AbstractWebApplication
 
 			// Temporarily echo the $contents to prove it is working
 			echo $contents;
-
-			//$document->setBuffer($contents, 'component');
 		}
 
 			// Mop up any uncaught exceptions.
@@ -319,13 +308,12 @@ final class TrackerApplication extends AbstractWebApplication
 	public function executeComponent($controller, $component)
 	{
 		// Load template language files.
-		$template = $this->getTemplate(true)->template;
-		$lang     = Factory::getLanguage();
+		$lang = Factory::getLanguage();
 
-		$lang->load('tpl_' . $template, JPATH_BASE, null, false, false)
-			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", null, false, false)
-			|| $lang->load('tpl_' . $template, JPATH_BASE, $lang->getDefault(), false, false)
-			|| $lang->load('tpl_' . $template, JPATH_THEMES . "/$template", $lang->getDefault(), false, false);
+		$lang->load('tpl_joomla', JPATH_BASE, null, false, false)
+			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', null, false, false)
+			|| $lang->load('tpl_joomla', JPATH_BASE, $lang->getDefault(), false, false)
+			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', $lang->getDefault(), false, false);
 
 		// Load common and local language files.
 		$lang->load($component, JPATH_BASE, null, false, false)
@@ -416,30 +404,6 @@ final class TrackerApplication extends AbstractWebApplication
 	public function getParams($component = '')
 	{
 		return $component ? JComponentHelper::getParams($component) : new Registry;
-	}
-
-	/**
-	 * Get the template information
-	 *
-	 * @param   boolean  $params  True to return the template params
-	 *
-	 * @return  mixed  String with the template name or an object containing the name and params
-	 *
-	 * @since   1.0
-	 */
-	public function getTemplate($params = false)
-	{
-		// Build the object
-		$template = new \stdClass;
-		$template->template = 'joomla';
-		$template->params   = new Registry;
-
-		if ($params)
-		{
-			return $template;
-		}
-
-		return $template->template;
 	}
 
 	/**
