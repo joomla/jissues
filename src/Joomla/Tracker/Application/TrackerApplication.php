@@ -114,12 +114,11 @@ final class TrackerApplication extends AbstractWebApplication
 		// Run the parent constructor
 		parent::__construct();
 
-		$this
-			->loadConfiguration()
-			->loadDispatcher();
+		// Load the configuration object.
+		$this->loadConfiguration();
 
-		// Define the debug constant
-		define('JDEBUG', $this->config->get('system.debug'));
+		// Register the event dispatcher
+		$this->loadDispatcher();
 
 		if (JDEBUG)
 		{
