@@ -247,7 +247,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		{
 			$app = Factory::$application;
 
-			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit', 20), 'uint');
+			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
 			$limit = $value;
 			$this->state->set('list.limit', $limit);
 
