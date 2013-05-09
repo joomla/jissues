@@ -15,6 +15,7 @@ use Joomla\Language\Language;
 use Joomla\Profiler\Profiler;
 use Joomla\Registry\Registry;
 
+use Joomla\Tracker\Authentication\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
@@ -127,7 +128,6 @@ final class TrackerApplication extends AbstractWebApplication
 			$this->mark('App started');
 		}
 
-
 		// Register the application to Factory
 		// @todo remove factory usage
 		Factory::$application = $this;
@@ -184,6 +184,28 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		// Mop up any uncaught exceptions.
+		catch (AuthenticationException $e)
+		{
+			// Do something here on authentication failure.
+
+			echo 'Authentication failure<br />';
+
+			if (JDEBUG)
+			{
+				// The exceptions contains a public property "user" that holds the current user object.
+				echo 'user: ' . $e->user->username . '<br />';
+				echo 'id: ' . $e->user->id . '<br />';
+				echo 'action: ' . $e->action . '<br />';
+
+				echo '<pre>'
+					. str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString())
+					. '</pre>';
+
+				$this->mark('App terminated with an ERROR');
+
+				echo $this->fetchDebugOutput();
+			}
+		}
 		catch (\Exception $e)
 		{
 			echo $e->getMessage();
@@ -203,9 +225,14 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 	}
 
+	/**
+	 * Generate a call stack for debugging purpose.
+	 *
+	 * @return string
+	 */
 	private function fetchDebugOutput()
 	{
-		if(!JDEBUG)
+		if (!JDEBUG)
 		{
 			return '';
 		}
@@ -214,20 +241,27 @@ final class TrackerApplication extends AbstractWebApplication
 
 		$debug[] = '<div class="debug">';
 		$debug[] = '<p>Profile</p>';
-		$debug[] =  $this->profiler->render();
+		$debug[] = $this->profiler->render();
 		$debug[] = '</div>';
 
 		return implode("\n", $debug);
 	}
 
-	public function mark($name)
+	/**
+	 * Add a profiler mark.
+	 *
+	 * @param   string  $text  The message for the mark.
+	 *
+	 * @return void
+	 */
+	public function mark($text)
 	{
 		if (!JDEBUG)
 		{
 			return;
 		}
 
-		$this->profiler->mark($name);
+		$this->profiler->mark($text);
 	}
 
 	/**
@@ -335,7 +369,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		return md5(Factory::getConfig()->get('secret') . $seed);
+		return md5(Factory::getConfig()->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -540,7 +574,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getParams($component = '')
 	{
-		throw new \RuntimeException('unsupported');
+		throw new \RuntimeException(__METHOD__ . ' is unsupported.');
 
 		// @return $component ? JComponentHelper::getParams($component) : new Registry;
 	}
@@ -561,12 +595,7 @@ final class TrackerApplication extends AbstractWebApplication
 		$template->template = 'joomla';
 		$template->params   = new Registry;
 
-		if ($params)
-		{
-			return $template;
-		}
-
-		return $template->template;
+		return ($params) ? $template : $template->template;
 	}
 
 	/**
