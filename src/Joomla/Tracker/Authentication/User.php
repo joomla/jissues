@@ -1,30 +1,51 @@
 <?php
 /**
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Authentication;
 
 use Joomla\Factory;
 use Joomla\Tracker\Authentication\Database\TableUsers;
+use Joomla\Tracker\Authentication\Exception\AuthenticationException;
 
+/**
+ * Class User.
+ *
+ * @since  1.0
+ */
 abstract class User
 {
+	/**
+	 * @var integer
+	 */
 	public $id = 0;
 
+	/**
+	 * @var string
+	 */
 	public $username = '';
 
+	/**
+	 * @var string
+	 */
 	public $name = '';
 
+	/**
+	 * @var string
+	 */
 	public $email = '';
 
+	/**
+	 * @var string
+	 */
 	public $registerDate = '';
 
 	/**
-	 * Constructor activating the default information of the language
+	 * Constructor.
 	 *
-	 * @param   integer  $identifier  The primary key of the user to load (optional).
+	 * @param   integer  $identifier  The primary key of the user to load..
 	 *
 	 * @since   11.1
 	 */
@@ -38,9 +59,9 @@ abstract class User
 	}
 
 	/**
-	 * Method to load a JUser object by user id number
+	 * Method to load a User object by user id number.
 	 *
-	 * @param   mixed $id  The user id of the user to load
+	 * @param   mixed  $id  The user id of the user to load.
 	 *
 	 * @throws \RuntimeException
 	 * @since   1.0
@@ -50,7 +71,7 @@ abstract class User
 	protected function load($id)
 	{
 		// Create the user table object
-		//$table = $this->getTable();
+		// $table = $this->getTable();
 		$table = new TableUsers(Factory::$application->getDatabase());
 
 		// Load the JUserModel object based on the user id or throw a warning.
@@ -71,14 +92,44 @@ abstract class User
 
 		// Assuming all is well at this point let's bind the data
 
-		foreach ($table->getFields() as $k => $v)
+		foreach ($table->getFields() as $key => $vlaue)
 		{
-			if (isset($this->$k))
+			if (isset($this->$key))
 			{
-				$this->$k = $table->$k;
+				$this->$key = $table->$key;
 			}
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Authorize a given action.
+	 *
+	 * @param   string  $action  The action.
+	 *
+	 * @throws Exception\AuthenticationException
+	 *
+	 * @return $this
+	 */
+	public function authorize($action)
+	{
+		$adminUsers = Factory::$application->get('acl.admin_users');
+
+		$adminUsers = ($adminUsers) ? explode(',', $adminUsers) : array();
+
+		if (in_array($this->username, $adminUsers))
+		{
+			// "Admin users" are granted all permissions.
+
+			return $this;
+		}
+
+		switch ($action)
+		{
+			// @todo - group based ACL
+		}
+
+		throw new AuthenticationException($this, $action);
 	}
 }
