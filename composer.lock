@@ -3,8 +3,52 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d12c13ed6060b67f083d1e6906bf9a34",
+    "hash": "1dfb264009d12e6f4316b366374a4327",
     "packages": [
+        {
+            "name": "elkuku/console-progressbar",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elkuku/ConsoleProgressBar.git",
+                "reference": "1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
+                "reference": "1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Elkuku": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stefan Walk",
+                    "email": "et@php.net"
+                },
+                {
+                    "name": "Nikolai Plath",
+                    "email": "der.elkuku@gmail.com",
+                    "homepage": "https://github.com/elkuku"
+                }
+            ],
+            "description": "This class provides you with an easy-to-use interface to progress bars.",
+            "keywords": [
+                "console"
+            ],
+            "time": "2013-04-22 19:52:37"
+        },
         {
             "name": "joomla/framework",
             "version": "dev-master",
