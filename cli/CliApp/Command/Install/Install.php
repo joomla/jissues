@@ -62,7 +62,7 @@ class Install extends TrackerCommand
 
 			if (!$this->application->input->get('reinstall'))
 			{
-				$this->out('WARNING: A database has been found !!')
+				$this->out('<fg=black;bg=yellow>WARNING: A database has been found !!</fg=black;bg=yellow>')
 					->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
 
 				$in = trim($this->application->in());
@@ -110,7 +110,7 @@ class Install extends TrackerCommand
 			$db->setQuery('SET FOREIGN_KEY_CHECKS=1')
 				->execute();
 
-			$this->out('ok');
+			$this->out('<ok>ok</ok>');
 		}
 		catch (\RuntimeException $e)
 		{
@@ -127,7 +127,7 @@ class Install extends TrackerCommand
 
 				$db->select($this->application->get('database.name'));
 
-				$this->out('ok');
+				$this->out('<ok>ok</ok>');
 			}
 			else
 			{
@@ -183,7 +183,7 @@ class Install extends TrackerCommand
 			$this->out('.', false);
 		}
 
-		$this->out('ok');
+		$this->out('<ok>ok</ok>');
 
 		/* @var \DirectoryIterator $fileInfo */
 		/*
@@ -236,7 +236,7 @@ class Install extends TrackerCommand
 				$this->out('.', false);
 			}
 
-			$this->out('ok');
+			$this->out('<ok>ok</ok>');
 		}
 		*/
 
@@ -299,10 +299,10 @@ class Install extends TrackerCommand
 					->values(implode(',', $data))
 			)->execute();
 
-			$this->out('User created.');
+			$this->out('<ok>User created.</ok>');
 		}
 
 		$this->out()
-			->out('Installer has terminated successfully.');
+			->out('<ok>Installer has terminated successfully.</ok>');
 	}
 }

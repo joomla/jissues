@@ -32,6 +32,8 @@ class Issues extends Retrieve
 		$this->application = $application;
 
 		$this->description = 'Retrieve issues from GitHub.';
+
+		$this->usePBar = $this->application->get('cli-application.progress-bar');
 	}
 
 	/**
@@ -47,13 +49,11 @@ class Issues extends Retrieve
 			->setupGitHub()
 			->displayGitHubRateLimit();
 
-		// Pull in the data from GitHub
-		$issues = $this->getData();
+		// Process the data from GitHub
+		$this->processIssues($this->getData());
 
-		// Process the issues now
-		$this->processIssues($issues);
-
-		$this->out('Finished');
+		$this->out()
+			->out('Finished');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Issues extends Retrieve
 
 		foreach (array('open', 'closed') as $state)
 		{
-			$this->out('Retrieving ' . $state . ' items from GitHub...', false);
+			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
 			$page = 0;
 
 			do
@@ -104,11 +104,11 @@ class Issues extends Retrieve
 
 				$count = is_array($issues_more) ? count($issues_more) : 0;
 
-				$this->out('(' . $count . ')', false);
-
 				if ($count)
 				{
 					$issues = array_merge($issues, $issues_more);
+
+					$this->out('(' . $count . ')', false);
 				}
 			}
 
@@ -118,13 +118,13 @@ class Issues extends Retrieve
 		}
 
 		usort(
-			$issues, function ($a, $b)
+			$issues, function ($first, $second)
 			{
-				return $a->number - $b->number;
+				return $first->number - $second->number;
 			}
 		);
 
-		$this->out('Retrieved ' . count($issues) . ' items from GitHub, checking database now.');
+		$this->out(sprintf('Retrieved <b>%d</b> items from GitHub.', count($issues)));
 
 		return $issues;
 	}
@@ -142,16 +142,22 @@ class Issues extends Retrieve
 	protected function processIssues($issues)
 	{
 		// Initialize our database object
-		$db = $this->application->getDatabase();
+		$db       = $this->application->getDatabase();
 		$query    = $db->getQuery(true);
 		$added    = 0;
 
-		$this->out('Adding issues to the database');
+		$this->out('Adding issues to the database...', false);
+
+		$progressBar = $this->getProgressBar(count($issues));
+
+		$this->usePBar ? $this->out() : null;
 
 		// Start processing the pulls now
-		foreach ($issues as $issue)
+		foreach ($issues as $count => $issue)
 		{
-			$this->out($issue->number . '...', false);
+			$this->usePBar
+				? $progressBar->update($count + 1)
+				: $this->out($issue->number . '...', false);
 
 			// First, query to see if the issue is already in the database
 			$query->clear();
@@ -166,7 +172,7 @@ class Issues extends Retrieve
 			// If we have something already, then move on to the next item
 			if ($result >= 1)
 			{
-				$this->out('Already added.', false);
+				$this->usePBar ? null : $this->out('found.', false);
 				continue;
 			}
 
@@ -261,7 +267,8 @@ class Issues extends Retrieve
 			$added++;
 		}
 
-		// Update the final result
-		$this->out('Added ' . $added . ' items to the tracker.', true);
+		// Output the final result
+		$this->out()
+		->out(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
 	}
 }

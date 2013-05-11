@@ -10,6 +10,8 @@
 namespace CliApp\Application;
 
 use Joomla\Application\AbstractCliApplication;
+use Joomla\Application\Cli\ColorProcessor;
+use Joomla\Application\Cli\ColorStyle;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 use Joomla\Database\DatabaseDriver;
@@ -77,7 +79,29 @@ class TrackerApplication extends AbstractCliApplication
 			'Verbose output for debugging purpose.'
 		);
 
+		$this->commandOptions[] = new TrackerCommandOption(
+			'nocolors', '',
+			'Supprees ANSI colors on unsupported terminals.'
+		);
+
 		$this->loadConfiguration();
+
+		/* @var ColorProcessor $processor */
+		$processor = $this->getOutput()->getProcessor();
+
+		if ($this->input->get('nocolors')
+			|| !$this->get('cli-application.colors')
+		)
+		{
+			$processor->noColors = true;
+		}
+
+		// Setup app colors (also required in "nocolors" mode - to strip them).
+
+		$processor
+			->addStyle('b', new ColorStyle('', '', array('bold')))
+			->addStyle('title', new ColorStyle('yellow', '', array('bold')))
+			->addStyle('ok', new ColorStyle('green', '', array('bold')));
 	}
 
 	/**
@@ -106,6 +130,9 @@ class TrackerApplication extends AbstractCliApplication
 	 */
 	protected function doExecute()
 	{
+		$this->quiet   = $this->input->get('quiet', $this->input->get('q'));
+		$this->verbose = $this->input->get('verbose', $this->input->get('v'));
+
 		$this->outputTitle('Joomla! Tracker CLI Application', '1.1');
 
 		$args = $this->input->args;
@@ -127,7 +154,7 @@ class TrackerApplication extends AbstractCliApplication
 		if (false == class_exists($className))
 		{
 			$this->out()
-				->out('Invalid command: ' . (($command == $action) ? $command : $command . ' ' . $action))
+				->out('<error>Invalid command</error>: ' . (($command == $action) ? $command : $command . ' ' . $action))
 				->out();
 
 			$className = 'CliApp\\Command\\Help\\Help';
@@ -137,9 +164,6 @@ class TrackerApplication extends AbstractCliApplication
 		{
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
-
-		$this->quiet   = $this->input->get('quiet', $this->input->get('q'));
-		$this->verbose = $this->input->get('verbose', $this->input->get('v'));
 
 		/* @var TrackerCommand $class */
 		$class = new $className($this);
@@ -151,14 +175,14 @@ class TrackerApplication extends AbstractCliApplication
 		catch (AbortException $e)
 		{
 			$this->out('')
-				->out('Process aborted.');
+				->out('<comment>Process aborted.</comment>');
 		}
 
 		$this->out()
 			->out(str_repeat('_', 40))
 			->out(
 				sprintf(
-					'Execution time: %d sec.',
+					'Execution time: <b>%d sec.</b>',
 					time() - $this->get('execution.timestamp')
 				)
 			)
@@ -169,16 +193,16 @@ class TrackerApplication extends AbstractCliApplication
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text  The text to display.
-	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
+	 * @param   boolean  $newline    True (default) to append a new line at the end of the output string.
 	 *
 	 * @return  TrackerApplication
 	 *
 	 * @codeCoverageIgnore
 	 * @since   1.0
 	 */
-	public function out($text = '', $nl = true)
+	public function out($text = '', $newline = true)
 	{
-		return ($this->quiet) ? $this : parent::out($text, $nl);
+		return ($this->quiet) ? $this : parent::out($text, $newline);
 	}
 
 	/**
@@ -202,15 +226,15 @@ class TrackerApplication extends AbstractCliApplication
 	 *
 	 * @return TrackerApplication
 	 */
-	public function outputTitle($title, $subTitle = '', $width = 40)
+	public function outputTitle($title, $subTitle = '', $width = 60)
 	{
 		$this->out(str_repeat('-', $width));
 
-		$this->out(str_repeat(' ', $width / 2 - (strlen($title) / 2)) . $title);
+		$this->out(str_repeat(' ', $width / 2 - (strlen($title) / 2)) . '<title>' . $title . '</title>');
 
 		if ($subTitle)
 		{
-			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . $subTitle);
+			$this->out(str_repeat(' ', $width / 2 - (strlen($subTitle) / 2)) . '<b>' . $subTitle . '</b>');
 		}
 
 		$this->out(str_repeat('-', $width));
@@ -227,9 +251,6 @@ class TrackerApplication extends AbstractCliApplication
 	 */
 	protected function loadConfiguration()
 	{
-		// Instantiate variables.
-		$config = array();
-
 		// Set the configuration file path for the application.
 		$file = realpath(__DIR__ . '/../../..') . '/etc/config.json';
 

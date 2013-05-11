@@ -20,6 +20,11 @@
 	"offset":"UTC",
 	"secret":"",
 
-	"sess_lifetime":"60",
+    "cli-application": {
+        "colors": "0",
+        "progress-bar": "0"
+    },
+
+    "sess_lifetime":"60",
 	"sess_handler":"database"
 }
