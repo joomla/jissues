@@ -11,6 +11,9 @@ namespace CliApp\Command\Help;
 
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
+use Joomla\Application\Cli\ColorProcessor;
+use Joomla\Application\Cli\ColorStyle;
+use Joomla\Factory;
 
 /**
  * Class Help.
@@ -30,6 +33,15 @@ class Help extends TrackerCommand
 	 */
 	public function execute()
 	{
+		/* @var ColorProcessor $processor */
+		$processor = $this->application->getOutput()->getProcessor();
+
+		$processor
+			->addStyle('cmd', new ColorStyle('magenta'))
+			->addStyle('opt', new ColorStyle('cyan'));
+
+		$executable = basename($this->application->input->executable);
+
 		$this->commands = $this->getCommands();
 
 		if (isset($this->application->input->args[1]))
@@ -40,8 +52,8 @@ class Help extends TrackerCommand
 		}
 
 		$this->out(
-			sprintf('Usage: %s <command>',
-				basename($this->application->input->executable)
+			sprintf('<b>Usage:</b> <info>%s</info> <cmd><command></cmd> <opt>[options]</opt>',
+				$executable
 			)
 		);
 
@@ -52,7 +64,7 @@ class Help extends TrackerCommand
 		/* @var  TrackerCommand $command */
 		foreach ($this->commands as $cName => $command)
 		{
-			$this->out($cName);
+			$this->out('<cmd>' . $cName . '</cmd>');
 
 			if ($command->description)
 			{
@@ -62,14 +74,14 @@ class Help extends TrackerCommand
 			$this->out();
 		}
 
-		$this->out('For more information use "help <command>".')
+		$this->out('<b>For more information use</b> <info>' . $executable . ' help</info> <cmd><command></cmd>.')
 			->out();
 
 		$options = $this->application->getCommandOptions();
 
 		if ($options)
 		{
-			$this->out('Application command options');
+			$this->out('Application command <opt>options</opt>');
 
 			foreach ($options as $option)
 			{
@@ -87,8 +99,6 @@ class Help extends TrackerCommand
 	 */
 	protected function helpCommand($command)
 	{
-		$actions = $this->getActions($command);
-
 		if (false == array_key_exists($command, $this->commands))
 		{
 			$this->out()
@@ -96,6 +106,8 @@ class Help extends TrackerCommand
 
 			return;
 		}
+
+		$actions = $this->getActions($command);
 
 		/* @var TrackerCommand $c */
 		$c = $this->commands[$command];
@@ -150,8 +162,8 @@ class Help extends TrackerCommand
 	{
 		return $this->out()
 			->out(
-				'--' . $option->longArg
-					. ($option->shortArg ? ' -' . $option->shortArg : '')
+				($option->shortArg ? '<opt>-' . $option->shortArg . '</opt> | ' : '')
+				. '<opt>--' . $option->longArg . '</opt>'
 			)
 			->out('    ' . $option->description);
 	}
@@ -207,7 +219,6 @@ class Help extends TrackerCommand
 
 			$c = $fileInfo->getFilename();
 
-			$p = strrpos($c, '.');
 			$a = substr($c, 0, strrpos($c, '.'));
 
 			if ($a != $cName)
