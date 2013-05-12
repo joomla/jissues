@@ -280,6 +280,8 @@ final class TrackerApplication extends AbstractWebApplication
 
 		$this->config->loadObject($config);
 
+		define('JDEBUG', $this->get('system.debug'));
+
 		return $this;
 	}
 
