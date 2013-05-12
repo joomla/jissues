@@ -168,13 +168,11 @@ class IssuesModel extends AbstractTrackerListModel
 			return null;
 		}
 
-		$db = Factory::getDbo();
-
 		$project = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->from('#__tracker_projects')
 				->select('*')
-				->where($db->qn('project_id') . '=' . (int) $id)
+				->where($this->db->quoteName('project_id') . '=' . (int) $id)
 		)->loadObject();
 
 		return $project;

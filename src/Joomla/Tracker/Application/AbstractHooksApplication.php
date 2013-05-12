@@ -193,9 +193,6 @@ abstract class AbstractHooksApplication extends AbstractWebApplication
 	 */
 	protected function getProjectData()
 	{
-		// Initialize the database
-		$query = $this->db->getQuery(true);
-
 		// Get the ID for the project on our tracker
 		$query = $this->db->getQuery(true);
 		$query->select('*');

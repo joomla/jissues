@@ -23,9 +23,10 @@ use Psr\Log\InvalidArgumentException;
  *
  * @package  Joomla\Tracker\Components\Tracker\Table
  *
- * @property   integer  $id     PK.
- * @property   string   $title  Issue title.
- * @property   integer  $gh_id  GitHub id.
+ * @property   integer  $id           PK.
+ * @property   string   $title        Issue title.
+ * @property   string   $description  Issue description.
+ * @property   integer  $gh_id        GitHub id.
  *
  * @since    1.0
  */

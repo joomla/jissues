@@ -2,6 +2,12 @@
 	"issue/add": "\\Tracker\\Controller\\AddController",
 	"issue/:id": "\\Tracker\\Controller\\DefaultController",
 	"issue/:id/edit": "\\Tracker\\Controller\\EditController",
-	"login": "\\Users\\Controller\\DefaultController",
-	"markdownpreview": "\\Tracker\\Controller\\DefaultController"
+	"markdownpreview": "\\Tracker\\Controller\\DefaultController",
+	"login": "\\Users\\Controller\\LoginController",
+	"logout": "\\Users\\Controller\\LogoutController",
+	"users": "\\Users\\Controller\\UsersController",
+	"user": "\\Users\\Controller\\UserController",
+	"user/:id": "\\Users\\Controller\\UserController",
+	"config": "\\System\\Controller\\ConfigController",
+	"saveconfig": "\\System\\Controller\\Config\\SaveController"
 }

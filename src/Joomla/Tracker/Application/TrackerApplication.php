@@ -1,23 +1,26 @@
 <?php
 /**
- * @package     JTracker\Application
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Application;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
-use Joomla\Crypt\Crypt;
-use Joomla\Crypt\Key;
-use Joomla\Crypt\Password\Simple;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
+use Joomla\Language\Language;
+use Joomla\Profiler\Profiler;
 use Joomla\Registry\Registry;
-use Joomla\Session\Session;
+
+use Joomla\Tracker\Authentication\Exception\AuthenticationException;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+use Joomla\Tracker\Authentication\GitHub\GitHubUser;
+use Joomla\Tracker\Authentication\User;
+use Joomla\Tracker\Controller\AbstractTrackerController;
 use Joomla\Tracker\Router\TrackerRouter;
 
 /**
@@ -69,6 +72,39 @@ final class TrackerApplication extends AbstractWebApplication
 	protected $name = null;
 
 	/**
+	 * A session object.
+	 *
+	 * @todo this has been created to avoid a conflict with the $session member var from the parent class.
+	 *
+	 * @var Session
+	 */
+	private $newSession = null;
+
+	/**
+	 * The user object.
+	 *
+	 * @var User
+	 */
+	private $user;
+
+	/**
+	 * The database driver object.
+	 *
+	 * @var    DatabaseDriver
+	 */
+	private $database;
+
+	/**
+	 * @var Language
+	 */
+	private $language;
+
+	/**
+	 * @var Profiler
+	 */
+	private $profiler;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -84,145 +120,20 @@ final class TrackerApplication extends AbstractWebApplication
 		// Register the event dispatcher
 		$this->loadDispatcher();
 
-		/* Disable sessions for the moment
-		// Enable sessions by default.
-		if (is_null($this->get('session')))
+		if (JDEBUG)
 		{
-			$this->set('session', true);
+			$this->profiler = new Profiler('Tracker');
+
+			$this->mark('App started');
 		}
-
-		// Set the session default name.
-		if (is_null($this->get('session_name')))
-		{
-			$this->set('session_name', 'jissues');
-		}
-
-		// Create the session if a session name is passed.
-		if ($this->get('session') !== false)
-		{
-			$this->loadSession();
-
-			// Register the session with Factory
-			Factory::$session = $this->getSession();
-		}*/
 
 		// Register the application to Factory
+		// @todo remove factory usage
 		Factory::$application = $this;
-
-		// Load the database and register to Factory
-		Factory::$database = $this->loadDatabase();
+		Factory::$config = $this->config;
 
 		// Load the library language file
-		Factory::getLanguage()->load('lib_joomla', JPATH_BASE);
-	}
-
-	/**
-	 * After the session has been started we need to populate it with some default values.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function afterSessionStart()
-	{
-		$session = Factory::getSession();
-
-		if ($session->isNew())
-		{
-			$session->set('registry', new Registry('session'));
-			$session->set('user', new JUser);
-		}
-
-		// TODO: At some point we need to get away from having session data always in the db.
-		if ($this->get('sess_handler') == 'database')
-		{
-			$session = Factory::getSession();
-			$db      = Factory::getDbo();
-
-			// Remove expired sessions from the database.
-			$time = time();
-			if ($time % 2)
-			{
-				// The modulus introduces a little entropy, making the flushing less accurate
-				// but fires the query less than half the time.
-				$query = $db->getQuery(true);
-				$query->delete($query->qn('#__session'));
-				$query->where($query->qn('time') . ' < ' . $query->q((int) ($time - $session->getExpire())));
-
-				$db->setQuery($query);
-				$db->execute();
-			}
-
-			// Check to see the the session already exists.
-			$handler = $this->get('sess_handler');
-			if (($time % 2 || $session->isNew()) || ($session->isNew()))
-			{
-				$this->checkSession();
-			}
-		}
-	}
-
-	/**
-	 * Checks the user session.
-	 *
-	 * If the session record doesn't exist, initialise it.
-	 * If session is new, create session variables
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @todo    Figure out user portion of code
-	 */
-	public function checkSession()
-	{
-		$db      = Factory::getDbo();
-		$session = Factory::getSession();
-		//$user    = Factory::getUser();
-
-		$query = $db->getQuery(true);
-		$query->select($query->qn('session_id'));
-		$query->from($query->qn('#__session'));
-		$query->where($query->qn('session_id') . ' = ' . $query->q($session->getId()));
-
-		$db->setQuery($query, 0, 1);
-		$exists = $db->loadResult();
-
-		// If the session record doesn't exist initialise it.
-		if (!$exists)
-		{
-			$query->clear();
-
-			$query->insert($query->qn('#__session'));
-			if ($session->isNew())
-			{
-				$query->columns($query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('time'));
-				$query->values($query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . $query->q((int) time()));
-				$db->setQuery($query);
-			}
-			else
-			{
-				$query->columns(
-					$query->qn('session_id') . ', ' . $query->qn('client_id') . ', ' . $query->qn('guest') . ', ' .
-						$query->qn('time') . ', ' . $query->qn('userid') . ', ' . $query->qn('username')
-				);
-				$query->values(
-					$query->q($session->getId()) . ', ' . (int) $this->getClientId() . ', ' . (int) $user->get('guest') . ', ' .
-						$query->q((int) $session->get('session.timer.start')) . ', ' . (int) $user->get('id') . ', ' . $query->q($user->get('username'))
-				);
-
-				$db->setQuery($query);
-			}
-
-			// If the insert failed, exit the application.
-			try
-			{
-				$db->execute();
-			}
-			catch (RuntimeException $e)
-			{
-				$this->close($e->getCode());
-			}
-		}
+		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
 	}
 
 	/**
@@ -243,6 +154,7 @@ final class TrackerApplication extends AbstractWebApplication
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
 			// Fetch the controller
+			/* @var AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
 			// Define the component path
@@ -251,16 +163,124 @@ final class TrackerApplication extends AbstractWebApplication
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
 
+			$this->mark('App terminated');
+
+			$contents .= $this->fetchDebugOutput();
+
 			// Temporarily echo the $contents to prove it is working
 			echo $contents;
 		}
 
-			// Mop up any uncaught exceptions.
+		// Mop up any uncaught exceptions.
+		catch (AuthenticationException $e)
+		{
+			// Do something here on authentication failure.
+
+			echo 'Authentication failure<br />';
+
+			if (JDEBUG)
+			{
+				// The exceptions contains a public property "user" that holds the current user object.
+				echo 'user: ' . $e->user->username . '<br />';
+				echo 'id: ' . $e->user->id . '<br />';
+				echo 'action: ' . $e->action . '<br />';
+
+				echo '<pre>'
+					. str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString())
+					. '</pre>';
+
+				$this->mark('App terminated with an ERROR');
+
+				echo $this->fetchDebugOutput();
+			}
+		}
 		catch (\Exception $e)
 		{
 			echo $e->getMessage();
+
+			if (JDEBUG)
+			{
+				echo '<pre>'
+					. str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString())
+					. '</pre>';
+
+				$this->mark('App terminated with an ERROR');
+
+				echo $this->fetchDebugOutput();
+			}
+
 			$this->close($e->getCode());
 		}
+	}
+
+	/**
+	 * Generate a call stack for debugging purpose.
+	 *
+	 * @return string
+	 */
+	private function fetchDebugOutput()
+	{
+		if (!JDEBUG)
+		{
+			return '';
+		}
+
+		$debug = array();
+
+		$debug[] = '<div class="debug">';
+		$debug[] = '<p>Profile</p>';
+		$debug[] = $this->profiler->render();
+		$debug[] = '</div>';
+
+		return implode("\n", $debug);
+	}
+
+	/**
+	 * Add a profiler mark.
+	 *
+	 * @param   string  $text  The message for the mark.
+	 *
+	 * @return void
+	 */
+	public function mark($text)
+	{
+		if (!JDEBUG)
+		{
+			return;
+		}
+
+		$this->profiler->mark($text);
+	}
+
+	/**
+	 * Initialize the configuration object.
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return $this
+	 */
+	private function loadConfiguration()
+	{
+		// Set the configuration file path for the application.
+		$file = JPATH_CONFIGURATION . '/config.json';
+
+		// Verify the configuration exists and is readable.
+		if (!is_readable($file))
+		{
+			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
+		}
+
+		// Load the configuration file into an object.
+		$config = json_decode(file_get_contents($file));
+
+		if ($config === null)
+		{
+			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
+		}
+
+		$this->config->loadObject($config);
+
+		return $this;
 	}
 
 	/**
@@ -278,13 +298,12 @@ final class TrackerApplication extends AbstractWebApplication
 		// For empty queue, if messages exists in the session, enqueue them first.
 		if (!count($this->messageQueue))
 		{
-			$session      = Factory::getSession();
-			$sessionQueue = $session->get('application.queue');
+			$sessionQueue = $this->getSession()->get('application.queue');
 
 			if (count($sessionQueue))
 			{
 				$this->messageQueue = $sessionQueue;
-				$session->set('application.queue', null);
+				$this->getSession()->set('application.queue', null);
 			}
 		}
 
@@ -337,19 +356,143 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		return md5(Factory::getConfig()->get('secret') . $seed);
+		return md5(Factory::getConfig()->get('acl.secret') . $seed);
 	}
 
 	/**
 	 * Return the current state of the language filter.
 	 *
-	 * @return  boolean
-	 *
 	 * @since   1.0
+	 *
+	 * @return  boolean
 	 */
 	public function getLanguageFilter()
 	{
 		return false;
+	}
+
+	/**
+	 * Get a session object.
+	 *
+	 * @return Session
+	 */
+	public function getSession()
+	{
+		if (is_null($this->newSession))
+		{
+			$this->newSession = new Session;
+			$this->newSession->start();
+
+			// @todo remove factory usage
+			Factory::$session = $this->newSession;
+		}
+
+		return $this->newSession;
+	}
+
+	/**
+	 * Get a user object.
+	 *
+	 * @param   integer  $id  The user id or the current user.
+	 *
+	 * @return User
+	 */
+	public function getUser($id = 0)
+	{
+		if ($id)
+		{
+			return new GitHubUser($id);
+		}
+
+		if (is_null($this->user))
+		{
+			$user = $this->getSession()->get('user');
+
+			$this->user = ($user) ? : new GitHubUser;
+		}
+
+		return $this->user;
+	}
+
+	/**
+	 * Get a database driver object.
+	 *
+	 * @return DatabaseDriver
+	 */
+	public function getDatabase()
+	{
+		if (is_null($this->database))
+		{
+			$this->database = DatabaseDriver::getInstance(
+				array(
+					'driver' => $this->get('database.driver'),
+					'host' => $this->get('database.host'),
+					'user' => $this->get('database.user'),
+					'password' => $this->get('database.password'),
+					'database' => $this->get('database.name'),
+					'prefix' => $this->get('database.prefix')
+				)
+			);
+
+			$this->database->setDebug($this->get('debug'));
+
+			// @todo remove factory usage
+			Factory::$database = $this->database;
+		}
+
+		return $this->database;
+	}
+
+	/**
+	 * Get a language object.
+	 *
+	 * @return Language
+	 */
+	public function getLanguage()
+	{
+		if (is_null($this->language))
+		{
+			$this->language = Language::getInstance(
+				$this->get('language'),
+				$this->get('debug_lang')
+			);
+
+			// @todo remove factory usage
+			Factory::$language = $this->language;
+		}
+
+		return $this->language;
+	}
+
+	/**
+	 * Login or logout a user.
+	 *
+	 * @param   User  $user  The user object.
+	 *
+	 * @return $this
+	 */
+	public function setUser(User $user = null)
+	{
+		if (is_null($user))
+		{
+			// Logout
+
+			$this->user = new GitHubUser;
+
+			$this->getSession()->set('user', $this->user);
+
+			// @todo cleanup more ?
+		}
+		else
+		{
+			// Login
+
+			$this->user  = $user;
+
+			$this->getSession()->set('user', $user);
+		}
+
+		return $this;
 	}
 
 	/**
@@ -364,13 +507,12 @@ final class TrackerApplication extends AbstractWebApplication
 		// For empty queue, if messages exists in the session, enqueue them.
 		if (!count($this->messageQueue))
 		{
-			$session      = Factory::getSession();
-			$sessionQueue = $session->get('application.queue');
+			$sessionQueue = $this->getSession()->get('application.queue');
 
 			if (count($sessionQueue))
 			{
 				$this->messageQueue = $sessionQueue;
-				$session->set('application.queue', null);
+				$this->getSession()->set('application.queue', null);
 			}
 		}
 
@@ -378,9 +520,23 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
+	 * Set the system message queue.
+	 *
+	 * @param   array  $queue  The information to set in the message queue
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function setMessageQueue(array $queue = array())
+	{
+		$this->messageQueue = $queue;
+	}
+
+	/**
 	 * Method to get the application name.
 	 *
-	 * The dispatcher name is by default parsed using the classname, or it can be set
+	 * The dispatcher name is by default parsed using the class name, or it can be set
 	 * by passing a $config['name'] in the class constructor.
 	 *
 	 * @return  string  The name of the dispatcher.
@@ -397,8 +553,10 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   string  $component  The component to retrieve the params for
 	 *
+	 * @throws \RuntimeException
 	 * @return  Registry  Component params
 	 *
+	 * @deprecated
 	 * @since   1.0
 	 */
 	public function getParams($component = '')
@@ -418,7 +576,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getUserState($key, $default = null)
 	{
-		$registry = Factory::getSession()->get('registry');
+		/* @var Registry $registry */
+		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))
 		{
@@ -436,7 +595,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @param   string  $default  The default value for the variable if not found. Optional.
 	 * @param   string  $type     Filter for the variable, for valid values see {@link JFilterInput::clean()}. Optional.
 	 *
-	 * @return  The request user state.
+	 * @return  mixed The request user state.
 	 *
 	 * @since   1.0
 	 */
@@ -459,68 +618,26 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Load an object into the application configuration object.
+	 * Sets the value of a user state variable.
 	 *
-	 * @return  TrackerApplication  Instance of $this to allow chaining.
+	 * @param   string  $key    The path of the state.
+	 * @param   string  $value  The value of the variable.
+	 *
+	 * @return  mixed  The previous state, if one existed.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function loadConfiguration()
+	public function setUserState($key, $value)
 	{
-		// Instantiate variables.
-		$config = array();
+		/* @var Registry $registry */
+		$registry = $this->getSession()->get('registry');
 
-		// Set the configuration file path for the application.
-		$file = JPATH_CONFIGURATION . '/config.json';
-
-		// Verify the configuration exists and is readable.
-		if (!is_readable($file))
+		if (!is_null($registry))
 		{
-			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
+			return $registry->set($key, $value);
 		}
 
-		// Load the configuration file into an object.
-		$config = json_decode(file_get_contents($file));
-
-		if ($config === null)
-		{
-			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
-		}
-
-		$this->config->loadObject($config);
-
-		return $this;
-	}
-
-	/**
-	 * Method to create a database driver for the application.
-	 *
-	 * @return  DatabaseDriver  Database driver instance
-	 *
-	 * @see     DatabaseDriver::getInstance()
-	 * @since   1.0
-	 */
-	public function loadDatabase()
-	{
-		$db = DatabaseDriver::getInstance(
-			array(
-				'driver' => $this->get('database.driver'),
-				'host' => $this->get('database.host'),
-				'user' => $this->get('database.user'),
-				'password' => $this->get('database.password'),
-				'database' => $this->get('database.name'),
-				'prefix' => $this->get('database.prefix')
-			)
-		);
-
-		// Select the database.
-		$db->select($this->get('database.name'));
-
-		// Set the debug flag.
-		$db->setDebug($this->get('debug'));
-
-		return $db;
+		return null;
 	}
 
 	/**
@@ -544,247 +661,6 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Allows the application to load a custom or default session.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create a session,
-	 * if required, based on more specific needs.
-	 *
-	 * @param   Session  $session  An optional session object. If omitted, the session is created.
-	 *
-	 * @return  TrackerApplication  This method is chainable.
-	 *
-	 * @since   1.0
-	 */
-	public function loadSession(Session $session = null)
-	{
-		if ($session !== null)
-		{
-			$this->setSession($session);
-
-			return $this;
-		}
-
-		// Generate a session name.
-		$name = md5($this->get('secret') . $this->get('session_name', get_class($this)));
-
-		// Calculate the session lifetime.
-		$lifetime = (($this->get('sess_lifetime')) ? $this->get('sess_lifetime') * 60 : 900);
-
-		// Get the session handler from the configuration.
-		$handler = $this->get('sess_handler', 'none');
-
-		// Initialize the options for Session.
-		$options = array(
-			'name' => $name,
-			'expire' => $lifetime,
-			'force_ssl' => $this->get('force_ssl')
-		);
-
-		$this->registerEvent('onAfterSessionStart', array($this, 'afterSessionStart'));
-
-		// Instantiate the session object.
-		$session = Session::getInstance($handler, $options);
-		$session->initialise($this->input, $this->dispatcher);
-
-		if ($session->getState() == 'expired')
-		{
-			$session->restart();
-		}
-		else
-		{
-			$session->start();
-		}
-
-		// Set the session object.
-		$this->setSession($session);
-
-		return $this;
-	}
-
-	/**
-	 * Login authentication function.
-	 *
-	 * Username and encoded password are passed the onUserLogin event which
-	 * is responsible for the user validation. A successful validation updates
-	 * the current session record with the user's details.
-	 *
-	 * Username and encoded password are sent as credentials (along with other
-	 * possibilities) to each observer (authentication plugin) for user
-	 * validation.  Successful validation will update the current session with
-	 * the user details.
-	 *
-	 * @param   array  $credentials  Array('username' => string, 'password' => string)
-	 * @param   array  $options      Array('remember' => boolean)
-	 *
-	 * @return  boolean  True on success.
-	 *
-	 * @since   1.0
-	 */
-	public function login($credentials, $options = array())
-	{
-		// Get the global JAuthentication object.
-		jimport('joomla.user.authentication');
-
-		// Set the application login entry point
-		if (!array_key_exists('entry_url', $options))
-		{
-			$options['entry_url'] = JUri::base() . 'index.php?option=com_users&task=login';
-		}
-
-		// Set the access control action to check.
-		$options['action'] = 'core.login.site';
-
-		$authenticate = JAuthentication::getInstance();
-		$response     = $authenticate->authenticate($credentials, $options);
-
-		if ($response->status === JAuthentication::STATUS_SUCCESS)
-		{
-			// Validate that the user should be able to login (different to being authenticated).
-			// This permits authentication plugins blocking the user
-			$authorisations = $authenticate->authorise($response, $options);
-			foreach ($authorisations as $authorisation)
-			{
-				$denied_states = array(JAuthentication::STATUS_EXPIRED, JAuthentication::STATUS_DENIED);
-				if (in_array($authorisation->status, $denied_states))
-				{
-					// Trigger onUserAuthorisationFailure Event.
-					$this->triggerEvent('onUserAuthorisationFailure', array((array) $authorisation));
-
-					// If silent is set, just return false.
-					if (isset($options['silent']) && $options['silent'])
-					{
-						return false;
-					}
-
-					// Return the error.
-					switch ($authorisation->status)
-					{
-						case JAuthentication::STATUS_EXPIRED:
-							return JError::raiseWarning('102002', JText::_('JLIB_LOGIN_EXPIRED'));
-							break;
-						case JAuthentication::STATUS_DENIED:
-							return JError::raiseWarning('102003', JText::_('JLIB_LOGIN_DENIED'));
-							break;
-						default:
-							return JError::raiseWarning('102004', JText::_('JLIB_LOGIN_AUTHORISATION'));
-							break;
-					}
-				}
-			}
-
-			// Import the user plugin group.
-			JPluginHelper::importPlugin('user');
-
-			// OK, the credentials are authenticated and user is authorised.  Lets fire the onLogin event.
-			$results = $this->triggerEvent('onUserLogin', array((array) $response, $options));
-
-			/*
-			 * If any of the user plugins did not successfully complete the login routine
-			 * then the whole method fails.
-			 *
-			 * Any errors raised should be done in the plugin as this provides the ability
-			 * to provide much more information about why the routine may have failed.
-			 */
-
-			if (!in_array(false, $results, true))
-			{
-				// Set the remember me cookie if enabled.
-				if (isset($options['remember']) && $options['remember'])
-				{
-					// Create the encryption key, apply extra hardening using the user agent string.
-					$privateKey = static::getHash(@$_SERVER['HTTP_USER_AGENT']);
-
-					$key      = new Key('simple', $privateKey, $privateKey);
-					$crypt    = new Crypt(new Simple, $key);
-					$rcookie  = $crypt->encrypt(serialize($credentials));
-					$lifetime = time() + 365 * 24 * 60 * 60;
-
-					// Use domain and path set in config for cookie if it exists.
-					$cookie_domain = $this->get('cookie_domain', '');
-					$cookie_path   = $this->get('cookie_path', '/');
-					setcookie(static::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, $cookie_path, $cookie_domain);
-				}
-
-				return true;
-			}
-		}
-
-		// Trigger onUserLoginFailure Event.
-		$this->triggerEvent('onUserLoginFailure', array((array) $response));
-
-		// If silent is set, just return false.
-		if (isset($options['silent']) && $options['silent'])
-		{
-			return false;
-		}
-
-		// If status is success, any error will have been raised by the user plugin
-		if ($response->status !== JAuthentication::STATUS_SUCCESS)
-		{
-			JLog::add($response->error_message, JLog::WARNING, 'jerror');
-		}
-
-		return false;
-	}
-
-	/**
-	 * Logout authentication function.
-	 *
-	 * Passed the current user information to the onUserLogout event and reverts the current
-	 * session record back to 'anonymous' parameters.
-	 * If any of the authentication plugins did not successfully complete
-	 * the logout routine then the whole method fails. Any errors raised
-	 * should be done in the plugin as this provides the ability to give
-	 * much more information about why the routine may have failed.
-	 *
-	 * @param   integer  $userid   The user to load - Can be an integer or string - If string, it is converted to ID automatically
-	 * @param   array    $options  Array('clientid' => array of client id's)
-	 *
-	 * @return  boolean  True on success
-	 *
-	 * @since   1.0
-	 */
-	public function logout($userid = null, $options = array())
-	{
-		// Get a user object from the JApplication.
-		$user = JFactory::getUser($userid);
-
-		// Build the credentials array.
-		$parameters['username'] = $user->get('username');
-		$parameters['id']       = $user->get('id');
-
-		// Set clientid in the options array if it hasn't been set already.
-		if (!isset($options['clientid']))
-		{
-			$options['clientid'] = $this->getClientId();
-		}
-
-		// Import the user plugin group.
-		JPluginHelper::importPlugin('user');
-
-		// OK, the credentials are built. Lets fire the onLogout event.
-		$results = $this->triggerEvent('onUserLogout', array($parameters, $options));
-
-		// Check if any of the plugins failed. If none did, success.
-
-		if (!in_array(false, $results, true))
-		{
-			// Use domain and path set in config for cookie if it exists.
-			$cookie_domain = $this->get('cookie_domain', '');
-			$cookie_path   = $this->get('cookie_path', '/');
-			setcookie(static::getHash('JLOGIN_REMEMBER'), false, time() - 86400, $cookie_path, $cookie_domain);
-
-			return true;
-		}
-
-		// Trigger onUserLoginFailure Event.
-		$this->triggerEvent('onUserLogoutFailure', array($parameters));
-
-		return false;
-	}
-
-	/**
 	 * Redirect to another URL.
 	 *
 	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
@@ -803,45 +679,9 @@ final class TrackerApplication extends AbstractWebApplication
 		// Persist messages if they exist.
 		if (count($this->messageQueue))
 		{
-			Factory::getSession()->set('application.queue', $this->messageQueue);
+			$this->getSession()->set('application.queue', $this->messageQueue);
 		}
 
 		parent::redirect($url, $moved);
-	}
-
-	/**
-	 * Set the system message queue.
-	 *
-	 * @param   array  $queue  The information to set in the message queue
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setMessageQueue(array $queue = array())
-	{
-		$this->messageQueue = $queue;
-	}
-
-	/**
-	 * Sets the value of a user state variable.
-	 *
-	 * @param   string  $key    The path of the state.
-	 * @param   string  $value  The value of the variable.
-	 *
-	 * @return  mixed  The previous state, if one existed.
-	 *
-	 * @since   1.0
-	 */
-	public function setUserState($key, $value)
-	{
-		$registry = Factory::getSession()->get('registry');
-
-		if (!is_null($registry))
-		{
-			return $registry->set($key, $value);
-		}
-
-		return null;
 	}
 }

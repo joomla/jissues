@@ -10,21 +10,27 @@
 
 	"github":{
 		"username": "",
-		"password": ""
+		"password": "",
+		"client_id": "",
+		"client_secret": ""
 	},
 
-	"debug":"0",
-	"debug_lang":"0",
-	"gzip":"0",
-	"list_limit":"20",
-	"offset":"UTC",
-	"secret":"",
+    "system": {
+        "debug": "1",
+        "debug_lang":"0",
+        "list_limit":"20"
+    },
+
+    "acl" : {
+        "admin_users": "",
+        "secret":""
+    },
 
     "cli-application": {
         "colors": "0",
         "progress-bar": "0"
     },
 
-    "sess_lifetime":"60",
-	"sess_handler":"database"
+	"gzip":"0",
+	"offset":"UTC"
 }
