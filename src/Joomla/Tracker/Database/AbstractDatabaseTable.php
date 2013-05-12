@@ -225,6 +225,125 @@ class AbstractDatabaseTable
 	}
 
 	/**
+	 * Method to load a row from the database by primary key and bind the fields
+	 * to the JTable instance properties.
+	 *
+	 * @param   mixed   $keys   An optional primary key value to load the row by, or an array of fields to match.  If not
+	 *                          set the instance property value is used.
+	 * @param   boolean $reset  True to reset the default values before loading the new row.
+	 *
+	 * @throws \RuntimeException
+	 * @throws \UnexpectedValueException
+	 * @throws \InvalidArgumentException
+	 *
+	 * @link    http://docs.joomla.org/JTable/load
+	 * @since   11.1
+	 *
+	 * @return  $this
+	 */
+	public function load($keys = null, $reset = true)
+	{
+		if (empty($keys))
+		{
+			$empty = true;
+			$keys  = array();
+
+			// If empty, use the value of the current key
+			foreach ($this->tableKeys as $key)
+			{
+				$empty      = $empty && empty($this->$key);
+				$keys[$key] = $this->$key;
+			}
+
+			// If empty primary key there's is no need to load anything
+			if ($empty)
+			{
+				return true;
+			}
+		}
+		elseif (!is_array($keys))
+		{
+			// Load by primary key.
+			$keyCount = count($this->tableKeys);
+
+			if ($keyCount)
+			{
+				if ($keyCount > 1)
+				{
+					throw new \InvalidArgumentException('Table has multiple primary keys specified, only one primary key value provided.');
+				}
+
+				$keys = array($this->getKeyName() => $keys);
+			}
+			else
+			{
+				throw new \RuntimeException('No table keys defined.');
+			}
+		}
+
+		if ($reset)
+		{
+			$this->reset();
+		}
+
+		// Initialise the query.
+		$query = $this->db->getQuery(true);
+		$query->select('*');
+		$query->from($this->tableName);
+
+		foreach ($keys as $field => $value)
+		{
+			// Check that $field is in the table.
+
+			if (isset($this->tableFields->$field) || is_null($this->tableFields->$field))
+			{
+				// Add the search tuple to the query.
+				$query->where($this->db->quoteName($field) . ' = ' . $this->db->quote($value));
+			}
+			else
+			{
+				throw new \UnexpectedValueException(sprintf('Missing field in database: %s &#160; %s.', get_class($this), $field));
+			}
+		}
+
+		$this->db->setQuery($query);
+
+		$row = $this->db->loadAssoc();
+
+		// Check that we have a result.
+		if (empty($row))
+		{
+			return false;
+		}
+
+		// Bind the object with the row and return.
+		return $this->bind($row);
+	}
+
+	/**
+	 * Method to reset class properties to the defaults set in the class
+	 * definition. It will ignore the primary key as well as any private class
+	 * properties.
+	 *
+	 * @return  void
+	 *
+	 * @link    http://docs.joomla.org/JTable/reset
+	 * @since   11.1
+	 */
+	public function reset()
+	{
+		// Get the default values for the class from the table.
+		foreach ($this->getFields() as $k => $v)
+		{
+			// If the property is not the primary key, reset it.
+			if (!in_array($k, $this->tableKeys))
+			{
+				$this->$k = $v->Default;
+			}
+		}
+	}
+
+	/**
 	 * Method to perform sanity checks on the JTable instance properties to ensure
 	 * they are safe to store in the database.  Child classes should override this
 	 * method to make sure the data they are storing in the database is safe and

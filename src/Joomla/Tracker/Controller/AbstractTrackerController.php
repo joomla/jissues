@@ -12,6 +12,7 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Controller\AbstractController;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
+use Joomla\Tracker\Application\TrackerApplication;
 use Joomla\View\AbstractHtmlView;
 
 /**
@@ -65,6 +66,22 @@ abstract class AbstractTrackerController extends AbstractController
 			// Set the component as the first object in this array
 			$this->component = $classArray[0];
 		}
+
+		$this->setup();
+	}
+
+	/**
+	 * Get the application object.
+	 *
+	 * NOTE: This method only exists to provide autocomplete for the child classes
+	 *
+	 * @since   1.0
+	 *
+	 * @return  TrackerApplication
+	 */
+	public function getApplication()
+	{
+		return parent::getApplication();
 	}
 
 	/**
@@ -176,8 +193,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 */
 	public function execute()
 	{
-		// Get the application
-		$app   = $this->getApplication();
+		// Get the input
 		$input = $this->getInput();
 
 		// Get some data from the request
@@ -227,6 +243,11 @@ abstract class AbstractTrackerController extends AbstractController
 		echo $view->render();
 
 		return true;
+	}
+
+	protected function setup()
+	{
+
 	}
 
 	/**
