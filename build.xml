@@ -55,9 +55,6 @@
 			<arg value="-p" />
 			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
 			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
-			<!--
-			<arg value="- -ignore=${basedir}/build,${basedir}/etc,${basedir}/language,${basedir}/platformApp,${basedir}/vendor,${basedir}/www,${basedir}/*tmpl/*" />
-			-->
             <arg value="--ignore=${basedir}/*tmpl/*" />
 			<arg path="${source}" />
 			<arg path="${cli}" />

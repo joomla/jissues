@@ -4,9 +4,11 @@ The issue tracker application requires a server running:
 - PHP 5.3.10 or later (Joomla Framework minimum version)
 - MySQL 5.1 with InnoDB support
 
+The application also has external dependencies installable via Composer.  You can run `ant installdep` if you have ANT installed or `composer update --dev` from the command line.
+
 Setup
 ===============
-1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/joomla/jissues/zipball/master<br />**NOTE** The currently active working branch is the [framework branch](https://github.com/joomla/jissues/tree/framework)
+1. Clone the git repo to where ever your test environment is located or download the ZIP from https://github.com/joomla/jissues/zipball/framework<br />**NOTE** The currently active working branch is the [framework branch](https://github.com/joomla/jissues/tree/framework)
 2. Copy `/etc/config.dist.json` to `/etc/config.json`.
 3. Enter your database credentials in the `/etc/config.json` file.
 4. Install dependencies from Composer by running `composer install` (or the equivalent for your system).  If you need to install Composer, you can do so from http://getcomposer.org/download/.

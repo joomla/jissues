@@ -1,36 +1,36 @@
 {
-	"database":{
-		"driver":"mysqli",
-		"host":"",
-		"user":"",
-		"password":"",
-		"name":"",
-		"prefix":""
+	"database": {
+		"driver"  : "mysqli",
+		"host"    : "",
+		"user"    : "",
+		"password": "",
+		"name"    : "",
+		"prefix"  : ""
 	},
 
-	"github":{
-		"username": "",
-		"password": "",
-		"client_id": "",
+	"github": {
+		"username"     : "",
+		"password"     : "",
+		"client_id"    : "",
 		"client_secret": ""
 	},
 
-    "system": {
-        "debug": "1",
-        "debug_lang":"0",
-        "list_limit":"20"
-    },
+	"system": {
+		"debug"     : "1",
+		"debug_lang": "0",
+		"list_limit": "20"
+	},
 
-    "acl" : {
-        "admin_users": "",
-        "secret":""
-    },
+	"acl": {
+		"admin_users": "",
+		"secret"     : ""
+	},
 
-    "cli-application": {
-        "colors": "0",
-        "progress-bar": "0"
-    },
+	"cli-application": {
+		"colors"      : "0",
+		"progress-bar": "0"
+	},
 
-	"gzip":"0",
-	"offset":"UTC"
+	"gzip"  : "0",
+	"offset": "UTC"
 }
