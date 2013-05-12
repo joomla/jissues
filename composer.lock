@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1dfb264009d12e6f4316b366374a4327",
+    "hash": "b7b3c9037c4f478c2046d75b0b45200a",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "e7dbabb2f7a400d7f3cb3d9b44d8e8e915ae19f1"
+                "reference": "9939e4f31d093b6c3e7d72cb7ce5236b34737370"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/e7dbabb2f7a400d7f3cb3d9b44d8e8e915ae19f1",
-                "reference": "e7dbabb2f7a400d7f3cb3d9b44d8e8e915ae19f1",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/9939e4f31d093b6c3e7d72cb7ce5236b34737370",
+                "reference": "9939e4f31d093b6c3e7d72cb7ce5236b34737370",
                 "shasum": ""
             },
             "require": {
@@ -121,7 +121,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-05-08 23:11:02"
+            "time": "2013-05-12 03:08:41"
         },
         {
             "name": "psr/log",
