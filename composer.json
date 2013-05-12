@@ -7,7 +7,8 @@
     "require": {
         "php": ">=5.3.10",
         "joomla/framework": "dev-master",
-        "symfony/http-foundation": "2.2.*"
+        "symfony/http-foundation": "2.2.*",
+        "elkuku/console-progressbar": "1.0"
     },
     "autoload": {
         "psr-0": {

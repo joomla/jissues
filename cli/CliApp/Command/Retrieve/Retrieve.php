@@ -9,6 +9,7 @@
 
 namespace CliApp\Command\Retrieve;
 
+use Elkuku\Console\Helper\ConsoleProgressBar;
 use Joomla\Github\Github;
 use Joomla\Registry\Registry;
 
@@ -38,6 +39,20 @@ class Retrieve extends TrackerCommand
 	 * @var \stdClass
 	 */
 	protected $project = null;
+
+	/**
+	 * Use the progress bar.
+	 *
+	 * @var  boolean
+	 */
+	protected $usePBar;
+
+	/**
+	 * Progress bar format.
+	 *
+	 * @var string
+	 */
+	protected $pBarFormat = '[%bar%] %fraction% %elapsed% ETA: %estimate%';
 
 	/**
 	 * Constructor.
@@ -70,7 +85,13 @@ class Retrieve extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->out('Please select either "comments" or "issues"');
+		$this->application->outputTitle('Retrieve');
+
+		$this->out('<error>                                    </error>');
+		$this->out('<error>  Please use one of the following:  </error>');
+		$this->out('<error>  retrieve comments                 </error>');
+		$this->out('<error>  retrieve issues                   </error>');
+		$this->out('<error>                                    </error>');
 	}
 
 	/**
@@ -92,12 +113,17 @@ class Retrieve extends TrackerCommand
 
 		if (!$id)
 		{
+			$this->out()
+				->out('<b>Available projects:</b>')
+				->out();
+
 			foreach ($projects as $i => $project)
 			{
 				$this->out(($i + 1) . ') ' . $project->title);
 			}
 
-			$this->out('Select a project: ', false);
+			$this->out()
+			->out('<question>Select a project:</question> ', false);
 
 			$resp = (int) trim($this->application->in());
 
@@ -130,7 +156,7 @@ class Retrieve extends TrackerCommand
 				throw new AbortException('Invalid project');
 			}
 
-			$this->out('Processing project: ' . $this->project->title);
+			$this->out('Processing project: <info>' . $this->project->title.'</info>');
 		}
 
 		return $this;
@@ -153,7 +179,7 @@ class Retrieve extends TrackerCommand
 		else
 		{
 			// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-			$this->out('Do you wish to authenticate to GitHub? [y]es / [n]o :', false);
+			$this->out('<question>Do you wish to authenticate to GitHub?</question> [y]es / <b>[n]o</b> :', false);
 
 			$resp = trim($this->application->in());
 		}
@@ -182,7 +208,7 @@ class Retrieve extends TrackerCommand
 		// Instantiate JGithub
 		$this->github = new Github($options, $http);
 
-		// @todo after fix:
+		// @todo after fix this should be enough:
 		// $this->github = new Github($options);
 
 		return $this;
@@ -196,13 +222,35 @@ class Retrieve extends TrackerCommand
 	protected function displayGitHubRateLimit()
 	{
 		$this->out()
-			->out('GitHub rate limit:... ', false);
+			->out('<info>GitHub rate limit:...</info> ', false);
 
 		$rate = $this->github->authorization->getRateLimit()->rate;
 
-		$this->out(sprintf('%1$d (remaining: %2$d)', $rate->limit, $rate->remaining))
+		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
 			->out();
 
 		return $this;
+	}
+
+	/**
+	 * Get a progress bar object.
+	 *
+	 * @param   integer  $targetNum  The target number.
+	 *
+	 * @return ConsoleProgressBar
+	 */
+	protected function getProgressBar($targetNum)
+	{
+		if(!$this->usePBar)
+		{
+			return null;
+		}
+
+		$bar = '=>';
+		$preFill = ' ';
+		$width = 60;
+		$progressBar = new ConsoleProgressBar($this->pBarFormat, $bar, $preFill, $width, $targetNum);
+
+		return $progressBar;
 	}
 }

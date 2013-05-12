@@ -26,6 +26,11 @@
         "secret":""
     },
 
+    "cli-application": {
+        "colors": "0",
+        "progress-bar": "0"
+    },
+
 	"gzip":"0",
 	"offset":"UTC"
 }

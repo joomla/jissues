@@ -9,12 +9,12 @@
 
 namespace CliApp\Command\Retrieve;
 
-use CliApp\Command\TrackerCommandOption;
 use Joomla\Date\Date;
 
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 
 use CliApp\Application\TrackerApplication;
+use CliApp\Command\TrackerCommandOption;
 
 /**
  * Class Comments.
@@ -39,8 +39,14 @@ class Comments extends Retrieve
 	 */
 	protected $issues;
 
+	/**
+	 * @var integer
+	 */
 	protected $rangeFrom = 0;
 
+	/**
+	 * @var integer
+	 */
 	protected $rangeTo = 0;
 
 	/**
@@ -65,6 +71,8 @@ class Comments extends Retrieve
 				'Process all issues.'
 			)
 		);
+
+		$this->usePBar = $this->application->get('cli-application.progress-bar');
 	}
 
 	/**
@@ -109,18 +117,18 @@ class Comments extends Retrieve
 		else
 		{
 			// Limit issues to process
-			$this->out('GH issues to process? [[a]]ll / [r]ange :', false);
+			$this->out('<question>GH issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
 
 			$resp = trim($this->application->in());
 
 			if ($resp == 'r' || $resp == 'range')
 			{
 				// Get the first GitHub issue (from)
-				$this->out('Enter the first GitHub issue ID to process (from) :', false);
+				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
 				$this->rangeFrom = (int) trim($this->application->in());
 
 				// Get the ending GitHub issue (to)
-				$this->out('Enter the latest GitHub issue ID to process (to) :', false);
+				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
 				$this->rangeTo = (int) trim($this->application->in());
 			}
 		}
@@ -169,11 +177,17 @@ class Comments extends Retrieve
 	 */
 	protected function getComments()
 	{
-		$this->out(sprintf('Retrieving issue comments from GitHub (%d)...', count($this->issues)), false);
+		$this->out(sprintf('Retrieving <b>%d</b> issue comment(s) from GitHub...', count($this->issues)), false);
 
-		foreach ($this->issues as $i => $issue)
+		$progressBar = $this->getProgressBar(count($this->issues));
+
+		$this->usePBar ? $this->out() : null;
+
+		foreach ($this->issues as $count => $issue)
 		{
-			$this->out($i + 1 . '...', false);
+			$this->usePBar
+				? $progressBar->update($count + 1)
+				: $this->out($count + 1 . '...', false);
 
 			$this->comments[$issue->gh_id] = $this->github->issues->comments->getList(
 				$this->project->gh_user, $this->project->gh_project, $issue->gh_id
@@ -181,7 +195,8 @@ class Comments extends Retrieve
 		}
 
 		// Retrieved items, report status
-		$this->out('Finished.');
+		$this->out()
+			->out('<ok>ok</ok>');
 
 		return $this;
 	}
@@ -202,12 +217,17 @@ class Comments extends Retrieve
 
 		$this->out('Adding comments to the database...', false);
 
-		// Start processing the comments now
-		foreach ($this->issues as $i => $issue)
-		{
-			$this->out($i + 1 . '...', false);
+		$progressBar = $this->getProgressBar(count($this->issues));
 
-			// First, we need to check if the issue is already in the database, we're injecting the GitHub comment ID for that
+		// Start processing the comments now
+		foreach ($this->issues as $count => $issue)
+		{
+			$this->usePBar
+				? $progressBar->update($count + 1)
+				: $this->out($issue->number . '...', false);
+
+			// First, we need to check if the issue is already in the database,
+			// we're injecting the GitHub comment ID for that
 			foreach ($this->comments[$issue->gh_id] as $comment)
 			{
 				$query->clear()
@@ -222,8 +242,12 @@ class Comments extends Retrieve
 				if ($result >= 1)
 				{
 					// If we have something already, then move on to the next item
+					$this->usePBar ? null : $this->out('-', false);
+
 					continue;
 				}
+
+				$this->usePBar ? null : $this->out('+', false);
 
 				// Initialize our JTableActivity instance to insert the new record
 				$table = new ActivitiesTable($db);
@@ -247,7 +271,8 @@ class Comments extends Retrieve
 
 		}
 
-		$this->out('Finished');
+		$this->out()
+			->out('<ok>ok</ok>');
 
 		return $this;
 	}
