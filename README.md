@@ -1,4 +1,4 @@
-Requirements
+Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=framework)](https://travis-ci.org/joomla/jissues)
 ===============
 The issue tracker application requires a server running:
 - PHP 5.3.10 or later (Joomla Framework minimum version)
