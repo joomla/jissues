@@ -17,7 +17,7 @@ use Joomla\Database\DatabaseQuery;
  * @package  Joomla\Tracker\Database
  * @since    ¿
  */
-class AbstractDatabaseTable
+class AbstractDatabaseTable implements \IteratorAggregate
 {
 	/**
 	 * Name of the database table to model.
@@ -532,5 +532,17 @@ class AbstractDatabaseTable
 	public function getTableName()
 	{
 		return $this->tableName;
+	}
+
+	/**
+	 * Get an iterator object.
+	 *
+	 * @since  1.0
+	 *
+	 * @return \ArrayIterator
+	 */
+	public function getIterator()
+	{
+		return new \ArrayIterator($this->tableFields);
 	}
 }
