@@ -224,7 +224,7 @@ class Comments extends Retrieve
 		{
 			$this->usePBar
 				? $progressBar->update($count + 1)
-				: $this->out($issue->number . '...', false);
+				: $this->out(($count + 1) . ':', false);
 
 			// First, we need to check if the issue is already in the database,
 			// we're injecting the GitHub comment ID for that
