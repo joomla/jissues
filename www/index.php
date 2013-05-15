@@ -14,6 +14,7 @@ define('JPATH_BASE',          dirname(__DIR__));
 define('JPATH_CONFIGURATION', JPATH_BASE . '/etc');
 define('JPATH_SITE',          JPATH_BASE);
 define('JPATH_THEMES',        JPATH_BASE . '/www');
+define('JPATH_TEMPLATES',     JPATH_BASE . '/templates');
 
 // Load the Composer autoloader
 require JPATH_BASE . '/vendor/autoload.php';

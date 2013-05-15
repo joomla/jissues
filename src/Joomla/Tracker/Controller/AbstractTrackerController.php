@@ -13,7 +13,7 @@ use Joomla\Controller\AbstractController;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
 use Joomla\Tracker\Application\TrackerApplication;
-use Joomla\View\AbstractHtmlView;
+use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
  * Generic Joomla! Issue Tracker Controller class
@@ -199,13 +199,9 @@ abstract class AbstractTrackerController extends AbstractController
 		// Get some data from the request
 		$vName   = $input->getWord('view', $this->defaultView);
 		$vFormat = $input->getWord('format', 'html');
-		$lName   = $input->getWord('layout', 'default');
+		$lName   = $input->getWord('layout', 'index');
 
 		$input->set('view', $vName);
-
-		// Register the layout paths for the view
-		$paths = new \SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl', 'normal');
 
 		$base   = '\\Joomla\\Tracker\\Components\\' . $this->component;
 		$vClass = $base . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
@@ -235,9 +231,14 @@ abstract class AbstractTrackerController extends AbstractController
 			}
 		}
 
-		/* @var AbstractHtmlView $view */
+		// Register the templates paths for the view
+		$paths = array();
+		$paths[] = JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl';
+		//$paths[] = JPATH_TEMPLATES . '/' . strtolower($this->component);
+
+		/* @var AbstractTrackerHtmlView $view */
 		$view = new $vClass(new $mClass, $paths);
-		$view->setLayout($lName);
+		$view->setLayout($vName . '.' . $lName);
 
 		// Render our view.
 		echo $view->render();

@@ -10,7 +10,7 @@ namespace Joomla\Tracker\Components\Tracker\View\Issues;
 
 use Joomla\Language\Text;
 use Joomla\Tracker\Components\Tracker\Model\IssuesModel;
-use Joomla\View\AbstractHtmlView;
+use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
  * The issues list view
@@ -18,7 +18,7 @@ use Joomla\View\AbstractHtmlView;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class IssuesHtmlView extends AbstractHtmlView
+class IssuesHtmlView extends AbstractTrackerHtmlView
 {
 	/**
 	 * Container for the view's items
@@ -64,6 +64,10 @@ class IssuesHtmlView extends AbstractHtmlView
 		//$this->pagination = $this->model->getPagination();
 		$this->state      = $this->model->getState();
 		$this->project    = $this->model->getProject();
+
+		$this->renderer->set('items',   $this->items);
+		$this->renderer->set('state',   $this->state);
+		$this->renderer->set('project', $this->project);
 
 		// Build the toolbar
 		//$this->buildToolbar();
