@@ -8,7 +8,9 @@
         "php": ">=5.3.10",
         "joomla/framework": "dev-master",
         "symfony/http-foundation": "2.2.*",
-        "elkuku/console-progressbar": "1.0"
+        "elkuku/console-progressbar": "1.0",
+        "twig/twig" : "1.*",
+        "mustache/mustache" : "2.1.*"
     },
     "autoload": {
         "psr-0": {
