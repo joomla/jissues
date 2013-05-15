@@ -8,15 +8,18 @@
 
 namespace Joomla\Tracker\View;
 
+use Joomla\Factory;
+use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
+use Joomla\Tracker\Application\TrackerApplication;
+use Joomla\Tracker\Authentication\GitHub\GitHubLoginHelper;
 use Joomla\View\AbstractView;
 use Joomla\Tracker\View\Renderer\TrackerExtension;
-use Joomla\Tracker\View\Renderer\Twig;
 
 /**
- * JTracker Html View class.
+ * Tracker Html View class.
  *
- * @package  Joomla\Tracker\View
+ * @package Joomla\Tracker\View
  */
 abstract class AbstractTrackerHtmlView extends AbstractView
 {
@@ -31,7 +34,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	/**
 	 * The view template engine.
 	 *
-	 * @var    Twig
+	 * @var    RendererInterface
 	 * @since  1.0
 	 */
 	protected $renderer = null;
@@ -42,25 +45,65 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	 * @param   ModelInterface  $model           The model object.
 	 * @param   string|array    $templatesPaths  The templates paths.
 	 *
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
 	public function __construct(ModelInterface $model, $templatesPaths = '')
 	{
 		parent::__construct($model);
 
-		// Load the renderer.
-		$config = array(
-			'templates_base_dir' => JPATH_TEMPLATES
-		);
-		$this->renderer = new Twig($config);
+		/* @var TrackerApplication $app */
+		$app = Factory::$application;
 
-		// Register tracker's Twig extension.
-		$this->renderer->addExtension(new TrackerExtension());
+		$renderer = $app->get('renderer.type');
+
+		$className = 'Joomla\\Tracker\\View\\Renderer\\' . ucfirst($renderer);
+
+		if (false == class_exists($className))
+		{
+			throw new \RuntimeException(sprintf('Invalid renderer: %s', $renderer));
+		}
+
+		$config = array();
+
+		switch ($renderer)
+		{
+			case 'twig':
+				$config['templates_base_dir'] = JPATH_TEMPLATES;
+				$config['environment']['debug'] = JDEBUG ? true : false;
+
+				break;
+		}
+
+		// Load the renderer.
+
+		$this->renderer = new $className($config);
+
+		// Register tracker's extension.
+		$this->renderer->addExtension(new TrackerExtension);
 
 		// Register additional paths.
 		if (!empty($templatesPaths))
 		{
 			$this->renderer->setTemplatesPaths($templatesPaths, true);
+		}
+
+		$gitHubHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
+
+		$this->renderer
+			->set('loginUrl', $gitHubHelper->getLoginUri())
+			->set('user', $app->getUser())
+			->set('uri', $app->get('uri'))
+			->set('jdebug', JDEBUG);
+
+		switch ($renderer)
+		{
+			case 'twig':
+				// Register Text for translation.
+
+				$this->renderer->addExtension(new \Twig_Extension_Debug);
+
+				break;
 		}
 	}
 
@@ -102,6 +145,11 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	public function getLayout()
 	{
 		return $this->layout;
+	}
+
+	public function getRenderer()
+	{
+		return $this->renderer;
 	}
 
 	/**
