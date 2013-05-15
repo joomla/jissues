@@ -8,7 +8,7 @@
 
 namespace Joomla\Tracker\Components\Tracker\View;
 
-use Joomla\View\AbstractHtmlView;
+use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
  * Default view class for the tracker component
@@ -16,6 +16,6 @@ use Joomla\View\AbstractHtmlView;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class DefaultView extends AbstractHtmlView
+class DefaultView extends AbstractTrackerHtmlView
 {
 }
