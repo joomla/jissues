@@ -1,0 +1,120 @@
+{% extends "index.twig" %}
+
+{% block title %}Issues List{% endblock %}
+
+{% block content %}
+    <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
+        <div class="filters btn-toolbar clearfix">
+            <div class="filter-search btn-group pull-left input-append">
+                <label class="filter-search-lbl element-invisible" for="filter-search">{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}</label>
+                <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search" value="{{ state.get('list.filter') }}" onchange="document.adminForm.submit();" title="{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}" placeholder="{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}" />
+                <button class="btn tip hasTooltip" type="submit" title="{{ translate('JSEARCH_FILTER_SUBMIT') }}">
+                    <span class="icon-search"></span></button>
+            </div>
+            <div class="btn-group pull-left">
+                <button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();"
+                        title="{{ translate('JSEARCH_FILTER_CLEAR') }}"><span class="icon-remove"></span></button>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th width="2%" class="nowrap hidden-phone">{{ translate('JGRID_HEADING_ID') }}</th>
+                <th>{{ translate('COM_TRACKER_HEADING_SUMMARY') }}</th>
+                <th width="5%">{{ translate('COM_TRACKER_HEADING_PRIORITY') }}</th>
+                <th width="10%">{{ translate('JSTATUS') }}</th>
+                <th width="10%" class="hidden-phone">{{ translate('COM_TRACKER_HEADING_DATE_OPENED') }}</th>
+                <th width="10%" class="hidden-phone">{{ translate('COM_TRACKER_HEADING_DATE_CLOSED') }}</th>
+                <th width="10%" class="hidden-phone">{{ translate('COM_TRACKER_HEADING_LAST_MODIFIED') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if items %}
+                {% set blockers = [1, 2] %}
+                {% for item in items %}
+
+                    {% set rowClass = '' %}
+                    {% if item.priority in blockers %}
+                        {% set rowClass = ' class=error' %}
+                    {% endif %}
+                    {% if item.status == 4 %}
+                        {% set rowClass = ' class=success' %}
+                    {% endif %}
+
+                    <tr{{ rowClass }}>
+                        <td class="center hidden-phone">
+                            {{ item.id }}
+                        </td>
+                        <td class="hasContext">
+                            <div class="hasTooltip" title="">
+                                <a href="issue/{{ item.id }}">{{ item.title|e }}</a>
+                            </div>
+                            {% if item.gh_id or item.jc_id %}
+                                <div class="small">
+                                    {% if item.gh_id %}
+                                        {{ translate('COM_TRACKER_HEADING_GITHUB_ID') }}
+                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.gh_id }}" target="_blank">
+                                            {{ item.gh_id }}
+                                        </a>
+                                    {% endif %}
+                                    {% if item.gh_id and item.jc_id %}
+                                        <br />
+                                    {% endif %}
+                                    {% if item.jc_id %}
+                                        {{ translate('COM_TRACKER_HEADING_JOOMLACODE_ID') }}
+                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.jc_id }}" target="_blank">
+                                            {{ item.jc_id }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="center">
+                            {% if item.priority == 1 %}
+                                {% set statusClass = 'badge-important' %}
+                            {% elseif item.priority == 2 %}
+                                {% set statusClass = 'badge-warning' %}
+                            {% elseif item.priority == 3 %}
+                                {% set statusClass = 'badge-info' %}
+                            {% elseif item.priority == 4 %}
+                                {% set statusClass = 'badge-inverse' %}
+                            {% elseif item.priority == 4 %}
+                                {% set statusClass = '' %}
+                            {% endif %}
+                            <span class="badge {{ statusClass }}">{{ item.priority }}</span>
+                        </td>
+
+                        <td>
+                            {{ translate('COM_TRACKER_STATUS_' ~ item.status_title|upper) }}
+                        </td>
+
+                        <td class="nowrap small hidden-phone">
+                            {{ item.opened|date('Y-m-d') }}
+                        </td>
+                        <td class="nowrap small hidden-phone">
+                            {% if item.closed_status %}
+                                {{ item.closed_date|date('Y-m-d') }}
+                            {% endif %}
+                        </td>
+                        <td class="nowrap small hidden-phone">
+                            {% if item.modified != '0000-00-00 00:00:00' %}
+                                {{ item.modified|date('Y-m-d') }}
+                                {% if item.modified_by %}
+                                    <br />
+                                    {#<?php //echo 'By ' . JFactory::getUser($item->modified_by)->username ?>#}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td class="center" colspan="8">
+                        {{ translate('COM_TRACKER_NO_ITEMS_FOUND') }}
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </form>
+{% endblock %}
