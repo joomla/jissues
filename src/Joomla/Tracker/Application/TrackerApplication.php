@@ -22,6 +22,7 @@ use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 use Joomla\Tracker\Router\TrackerRouter;
+use Twig_SimpleFilter;
 
 /**
  * Joomla! Issue Tracker Application class
@@ -176,38 +177,31 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Do something here on authentication failure.
 
-			echo 'Authentication failure<br />';
+			$message = '<h4>Authentication failure</h4>';
 
 			if (JDEBUG)
 			{
 				// The exceptions contains a public property "user" that holds the current user object.
-				echo 'user: ' . $e->user->username . '<br />';
-				echo 'id: ' . $e->user->id . '<br />';
-				echo 'action: ' . $e->action . '<br />';
-
-				echo '<pre>'
-					. str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString())
-					. '</pre>';
-
-				$this->mark('App terminated with an ERROR');
-
-				echo $this->fetchDebugOutput();
+				$message .= 'user: ' . $e->user->username . '<br />'
+					. 'id: ' . $e->user->id . '<br />'
+					. 'action: ' . $e->action . '<br />';
 			}
+
+			echo $this->renderException($e, $message);
+
+			echo $this->fetchDebugOutput();
+
+			$this->mark('App terminated with an ERROR');
+
+			$this->close($e->getCode());
 		}
 		catch (\Exception $e)
 		{
-			echo $e->getMessage();
+			echo $this->renderException($e);
 
-			if (JDEBUG)
-			{
-				echo '<pre>'
-					. str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString())
-					. '</pre>';
+			echo $this->fetchDebugOutput();
 
-				$this->mark('App terminated with an ERROR');
-
-				echo $this->fetchDebugOutput();
-			}
+			$this->mark('App terminated with an ERROR');
 
 			$this->close($e->getCode());
 		}
@@ -685,5 +679,28 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		parent::redirect($url, $moved);
+	}
+
+	public function renderException(\Exception $e, $message = '')
+	{
+		//return $e->getMessage();
+
+		$base   = '\\Joomla\\Tracker\\Components\\Tracker';
+		$vClass = $base . '\\View\\DefaultView';
+		$mClass = '\\Joomla\\Tracker\\Model\\TrackerDefaultModel';
+
+		/* @var \Joomla\Tracker\View\AbstractTrackerHtmlView $view */
+		$view = new $vClass(new $mClass);
+
+		$view->setLayout('exception');
+
+		$view->getRenderer()
+			->set('exception', $e)
+			->set('message', $message);
+
+		$view->getRenderer()->addFilter(new Twig_SimpleFilter('base', 'basename'));
+		$view->getRenderer()->addFilter(new Twig_SimpleFilter('typeof', 'get_class'));
+
+		return $view->render();
 	}
 }
