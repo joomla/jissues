@@ -6,8 +6,6 @@
 
 namespace Joomla\Tracker\Components\Tracker\Controller\Project;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
 use Joomla\Tracker\Components\Tracker\Controller\DefaultController;
 
 /**
@@ -21,18 +19,19 @@ class EditController extends DefaultController
 	protected $defaultView = 'project';
 
 	/**
-	 * Constructor
+	 * Execute the controller.
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
+	 * @return  string  The rendered view.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function execute()
 	{
-		parent::__construct($input, $app);
+		$input = $this->getInput();
 
-		// Set the default view
-		$this->getInput()->set('layout', 'project.edit');
+		$input->set('layout', 'edit');
+		$input->set('view', 'project');
+
+		return parent::execute();
 	}
 }

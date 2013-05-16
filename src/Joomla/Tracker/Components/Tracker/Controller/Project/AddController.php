@@ -33,7 +33,7 @@ class AddController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getInput()->set('layout', 'project.edit');
+		$this->getInput()->set('layout', 'edit');
 
 		return parent::execute();
 	}

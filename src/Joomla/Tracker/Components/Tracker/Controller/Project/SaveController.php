@@ -33,6 +33,8 @@ class SaveController extends DefaultController
 
 		$table->save($app->input->get('project', array(), 'array'));
 
+		$this->getInput()->set('view', 'projects');
+
 		parent::execute();
 	}
 }
