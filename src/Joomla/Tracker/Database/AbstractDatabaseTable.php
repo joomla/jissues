@@ -258,7 +258,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 			// If empty primary key there's is no need to load anything
 			if ($empty)
 			{
-				return true;
+				return $this;
 			}
 		}
 		elseif (!is_array($keys))
@@ -313,11 +313,42 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		// Check that we have a result.
 		if (empty($row))
 		{
-			return false;
+			throw new \RuntimeException(__METHOD__ . ' can not bind.');
 		}
 
 		// Bind the object with the row and return.
 		return $this->bind($row);
+	}
+
+	/**
+	 * Method to delete a row from the database table by primary key value.
+	 *
+	 * @param   mixed  $pKey  An optional primary key value to delete.  If not set the instance property value is used.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
+	public function delete($pKey = null)
+	{
+		$key = $this->getKeyName();
+
+		$pKey = (is_null($pKey)) ? $this->$key : $pKey;
+
+		// If no primary key is given, return false.
+		if ($pKey === null)
+		{
+			throw new \UnexpectedValueException('Null primary key not allowed.');
+		}
+
+		// Delete the row by primary key.
+		$this->db->setQuery($this->db->getQuery(true)
+			->delete($this->db->quoteName($this->tableName))
+			->where($this->db->quoteName($key) . ' = ' . $this->db->quote($pKey)))
+			->execute();
+
+		return $this;
 	}
 
 	/**
@@ -403,7 +434,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 
 			foreach ($this->tableKeys as $key)
 			{
-				$empty = $empty && empty($this->$key);
+				$empty = $empty && !$this->$key;
 			}
 		}
 		else
