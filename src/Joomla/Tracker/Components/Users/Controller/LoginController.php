@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Users\Controller;
 
 use Joomla\Date\Date;
+use Joomla\Oauth2\Client as oAuthClient;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 
@@ -66,6 +67,27 @@ class LoginController extends AbstractTrackerController
 
 		// Do login
 
+		/*
+		 * @todo J\oAuth scrambles our redirects - investigate..
+		 *
+
+		$options = new Registry(
+			array(
+
+				'tokenurl' => 'https://github.com/login/oauth/access_token',
+				'redirect_uri' => $app->get('uri.request'),
+				'clientid' => $app->get('github.client_id'),
+				'clientsecret' => $app->get('github.client_secret')
+			)
+		);
+
+		$oAuth = new oAuthClient($options);
+
+		$token = $oAuth->authenticate();
+
+		$accessToken = $token['access_token'];
+		*/
+
 		$loginHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
 
 		$accessToken = $loginHelper->requestToken($code);
@@ -105,7 +127,11 @@ class LoginController extends AbstractTrackerController
 		// User login
 		$app->setUser($user);
 
-		$app->redirect('');
+		$redirect = $app->input->getBase64('usr_redirect');
+
+		$redirect = $redirect ? base64_decode($redirect) : '';
+
+		$app->redirect($redirect);
 
 		return '';
 	}
