@@ -6,7 +6,8 @@
 
 namespace Joomla\Tracker\Components\Users\View\Users;
 
-use Joomla\View\AbstractHtmlView;
+use Joomla\Tracker\Components\Users\Model\UsersModel;
+use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
  * View class for the tracker component
@@ -14,9 +15,14 @@ use Joomla\View\AbstractHtmlView;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class UsersHtmlView extends AbstractHtmlView
+class UsersHtmlView extends AbstractTrackerHtmlView
 {
 	protected $items = array();
+
+	/**
+	 * @var UsersModel
+	 */
+	protected $model;
 
 	/**
 	 * Method to render the view.
@@ -24,11 +30,10 @@ class UsersHtmlView extends AbstractHtmlView
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function render()
 	{
-		$this->items = $this->model->getItems();
+		$this->renderer->set('items', $this->model->getItems());
 
 		return parent::render();
 	}

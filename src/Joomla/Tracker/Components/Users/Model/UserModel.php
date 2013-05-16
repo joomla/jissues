@@ -6,7 +6,9 @@
 
 namespace Joomla\Tracker\Components\Users\Model;
 
+use Joomla\Factory;
 use Joomla\Tracker\Authentication\Database\TableUsers;
+use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -19,17 +21,32 @@ class UserModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get an item.
 	 *
-	 * @param   integer  $id  The item id.
+	 * @param   integer  $itemId  The item id.
 	 *
 	 * @return TableUsers
 	 */
-	public function getItem($id)
+	public function getItem($itemId = null)
 	{
-		// $table = $this->getTable();
-		$table = new TableUsers($this->db);
+		if ($itemId)
+		{
+			try
+			{
+				$user = new GitHubUser($itemId);
+			}
+			catch(\RuntimeException $e)
+			{
+				echo $e->getMessage();
+				Factory::$application->enqueueMessage($e->getMessage(), 'error');
 
-		$table->load($id);
+				// Load a blank user
+				$user = new GitHubUser;
+			}
+		}
+		else
+		{
+			$user = Factory::$application->getUser();
+		}
 
-		return $table;
+		return $user;
 	}
 }

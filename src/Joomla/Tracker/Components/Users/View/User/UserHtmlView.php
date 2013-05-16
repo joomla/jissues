@@ -7,7 +7,7 @@
 namespace Joomla\Tracker\Components\Users\View\User;
 
 use Joomla\Factory;
-use Joomla\View\AbstractHtmlView;
+use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
  * Default view class for the tracker component
@@ -15,7 +15,7 @@ use Joomla\View\AbstractHtmlView;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class UserHtmlView extends AbstractHtmlView
+class UserHtmlView extends AbstractTrackerHtmlView
 {
 	protected $item;
 
@@ -29,21 +29,7 @@ class UserHtmlView extends AbstractHtmlView
 	 */
 	public function render()
 	{
-		$itemId = Factory::$application->input->getUint('id');
-
-		if (!$itemId)
-		{
-			$user = Factory::$application->getUser();
-
-			if (!$user->id)
-			{
-				throw new \RuntimeException('You are not logged in');
-			}
-
-			$itemId = $user->id;
-		}
-
-		$this->item = $this->model->getItem($itemId);
+		$this->renderer->set('item', $this->model->getItem(Factory::$application->input->getUint('id')));
 
 		return parent::render();
 	}
