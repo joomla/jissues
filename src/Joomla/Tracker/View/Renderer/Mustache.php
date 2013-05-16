@@ -7,6 +7,7 @@
  */
 
 namespace Joomla\Tracker\View\Renderer;
+use Joomla\Tracker\View\RendererInterface;
 
 /**
  * Mustache class for rendering output.
@@ -15,7 +16,7 @@ namespace Joomla\Tracker\View\Renderer;
  *
  * @since   1.0
  */
-class Mustache extends \Mustache_Engine
+class Mustache extends \Mustache_Engine implements RendererInterface
 {
 	/**
 	 * The renderer default configuration parameters.
@@ -138,7 +139,7 @@ class Mustache extends \Mustache_Engine
 	 *
 	 * @since   1.0
 	 */
-	public function render($template = '', $data = '')
+	public function render($template = '', array $data = '')
 	{
 		if (!empty($template))
 		{
@@ -175,5 +176,52 @@ class Mustache extends \Mustache_Engine
 	private function load()
 	{
 		return $this->loadTemplate($this->template);
+	}
+
+	/**
+	 * Set the templates location paths.
+	 *
+	 * @param   string $path  Templates location path.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function addPath($path)
+	{
+		// TODO: Implement addPath() method.
+	}
+
+	/**
+	 * Add a filter.
+	 *
+	 * @param   string $name    The filter name.
+	 * @param   object $filter  The filter.
+	 *
+	 * @return mixed
+	 */
+	public function addFilter($name, $filter = null)
+	{
+		// TODO: Implement addFilter() method.
+	}
+
+	/**
+	 * Sets the paths where templates are stored.
+	 *
+	 * @param   string|array $paths            A path or an array of paths where to look for templates.
+	 * @param   bool         $overrideBaseDir  If true a path can be outside themes base directory.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setTemplatesPaths($paths, $overrideBaseDir = false)
+	{
+		// TODO: Implement setTemplatesPaths() method.
+	}
+
+	public function addFunction($function)
+	{
+		// TODO: Implement addFunction() method.
 	}
 }

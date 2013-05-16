@@ -8,6 +8,9 @@
 
 namespace Joomla\Tracker\View\Renderer;
 
+use Joomla\Factory;
+use Joomla\Tracker\View\RendererInterface;
+
 /**
  * Twig class for rendering output.
  *
@@ -15,7 +18,7 @@ namespace Joomla\Tracker\View\Renderer;
  *
  * @since    1.0
  */
-class Twig extends \Twig_Environment
+class Twig extends \Twig_Environment implements RendererInterface
 {
 	/**
 	 * The renderer default configuration parameters.
@@ -160,12 +163,7 @@ class Twig extends \Twig_Environment
 	 */
 	public function unsetData($key)
 	{
-		if (array_key_exists($key, $this->data))
-		{
-			unset($this->data[$key]);
-		}
-
-		return $this;
+		return $this->unsetData($key);
 	}
 
 	/**
@@ -196,7 +194,8 @@ class Twig extends \Twig_Environment
 		}
 		catch (\Twig_Error_Loader $e)
 		{
-			echo $e->getRawMessage();
+			echo Factory::$application->renderException($e);
+			//echo $e->getRawMessage();
 		}
 	}
 
@@ -245,6 +244,20 @@ class Twig extends \Twig_Environment
 	}
 
 	/**
+	 * Add a path to the templates location array.
+	 *
+	 * @param   string  $path  Templates location path.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function addPath($path)
+	{
+		return $this->setTemplatesPaths($path, true);
+	}
+
+	/**
 	 * Set the template.
 	 *
 	 * @param   string  $name  The name of the template file.
@@ -266,7 +279,7 @@ class Twig extends \Twig_Environment
 	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
 	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  void
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -301,6 +314,8 @@ class Twig extends \Twig_Environment
 				echo $e->getRawMessage();
 			}
 		}
+
+		return $this;
 	}
 
 	/**
@@ -312,6 +327,6 @@ class Twig extends \Twig_Environment
 	 */
 	private function load()
 	{
-		return $this->loadTemplate($this->template . $this->config['template_file_ext']);
+		return $this->loadTemplate($this->getTemplate() . $this->config['template_file_ext']);
 	}
 }
