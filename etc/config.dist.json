@@ -16,13 +16,16 @@
 	},
 
 	"renderer": {
-		"type":"twig"
+		"type" : "twig",
+        "debug": "1"
 	},
 
 	"system": {
 		"debug"     : "1",
 		"debug_lang": "0",
-		"list_limit": "20"
+		"list_limit": "20",
+        "gzip"      : "0",
+        "offset"    : "UTC"
 	},
 
 	"acl": {
@@ -31,10 +34,7 @@
 	},
 
 	"cli-application": {
-		"colors"      : "0",
-		"progress-bar": "0"
-	},
-
-	"gzip"  : "0",
-	"offset": "UTC"
+		"colors"      : "1",
+		"progress-bar": "1"
+	}
 }
