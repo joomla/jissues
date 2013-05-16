@@ -15,6 +15,10 @@
 		"client_secret": ""
 	},
 
+	"renderer": {
+		"type":"twig"
+	},
+
 	"system": {
 		"debug"     : "1",
 		"debug_lang": "0",
