@@ -6,14 +6,16 @@
 
 namespace Joomla\Tracker\Components\System\View\Config;
 
-use Joomla\View\AbstractHtmlView;
+use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use Joomla\Utilities\ArrayHelper;
+use Twig_SimpleFilter;
 
 /**
  * Config view.
  *
  * @since  1.0
  */
-class ConfigHtmlView extends AbstractHtmlView
+class ConfigHtmlView extends AbstractTrackerHtmlView
 {
 	/**
 	 * @var    \stdClass
@@ -31,7 +33,25 @@ class ConfigHtmlView extends AbstractHtmlView
 	 */
 	public function render()
 	{
-		$this->config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/config.json'));
+		$config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/config.json'));
+
+		// @todo Twig can not foreach() over stdclasses...
+		$cfx = ArrayHelper::fromObject($config);
+
+		$this->renderer->set('config', $cfx);
+
+		// Format a string.
+		$this->renderer->addFilter(
+			new Twig_SimpleFilter(
+				'tformat', function ($string)
+				{
+					$string = str_replace(array('_', '-'), ' ', $string);
+					$string = ucfirst($string);
+
+					return $string;
+				}
+			)
+		);
 
 		return parent::render();
 	}
