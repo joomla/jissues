@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Components\Tracker
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Components\Tracker\View\Issues;
@@ -45,7 +43,7 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	protected $pagination;
 
 	/**
-	 * @var    stdClass
+	 * @var    \stdClass
 	 * @since  1.0
 	 */
 	protected $project;
@@ -60,17 +58,13 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->items      = $this->model->getItems();
-		//$this->pagination = $this->model->getPagination();
-		$this->state      = $this->model->getState();
-		$this->project    = $this->model->getProject();
-
-		$this->renderer->set('items',   $this->items);
-		$this->renderer->set('state',   $this->state);
-		$this->renderer->set('project', $this->project);
-
 		// Build the toolbar
-		//$this->buildToolbar();
+		// $this->buildToolbar();
+
+		// Set the vars to the template.
+		$this->renderer->set('items', $this->model->getItems());
+		$this->renderer->set('state', $this->model->getState());
+		$this->renderer->set('project', $this->model->getProject());
 
 		return parent::render();
 	}

@@ -1,13 +1,14 @@
 <?php
 /**
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Tracker\Components\Tracker\Controller;
+namespace Joomla\Tracker\Components\Tracker\Controller\Project;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
+use Joomla\Tracker\Components\Tracker\Controller\DefaultController;
 
 /**
  * Controller class to add an item via the tracker component.
@@ -15,8 +16,10 @@ use Joomla\Input\Input;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class AddController extends DefaultController
+class EditController extends DefaultController
 {
+	protected $defaultView = 'project';
+
 	/**
 	 * Constructor
 	 *
@@ -30,6 +33,6 @@ class AddController extends DefaultController
 		parent::__construct($input, $app);
 
 		// Set the default view
-		$this->getInput()->set('view', 'add');
+		$this->getInput()->set('layout', 'project.edit');
 	}
 }

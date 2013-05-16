@@ -1,15 +1,14 @@
 <?php
 /**
- * @package     JTracker\Components\Tracker
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
+use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
@@ -38,13 +37,25 @@ class DefaultController extends AbstractTrackerController
 		// Set the view based on the request
 		$input = $this->getInput();
 
+		$projectAlias = $input->get('project_alias');
+
+		$projectModel = new ProjectModel;
+
+		$project = $projectModel->getByAlias($projectAlias);
+
+		if ($project)
+		{
+			$input->set('project_id', $project->project_id);
+		}
+		else
+		{
+			// No project... CRY :(
+		}
+
 		if ($input->getInt('id', 0) >= 1)
 		{
 			$input->set('view', 'issue');
-		}
-		elseif ($input->getString('_rawRoute', '') == 'markdownpreview')
-		{
-			$input->set('view', 'markdownpreview');
+			$this->defaultView = 'issue';
 		}
 	}
 }

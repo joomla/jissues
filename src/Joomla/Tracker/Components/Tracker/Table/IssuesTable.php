@@ -177,6 +177,7 @@ class IssuesTable extends AbstractDatabaseTable
 		$query = $this->db->getQuery(true);
 
 		// Add a record to the activity table if a new item
+
 		// TODO: Remove the check for CLI once moved to live instance
 		if ($isNew)// && JFactory::getApplication()->get('cli_app') != true)
 		{

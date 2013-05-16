@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Components\Tracker
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Components\Tracker\Model;
@@ -69,6 +67,7 @@ class IssuesModel extends AbstractTrackerListModel
 		}
 
 		$status = $this->state->get('filter.status');
+
 		if ($status)
 		{
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $status);
@@ -116,7 +115,8 @@ class IssuesModel extends AbstractTrackerListModel
 	protected function loadState()
 	{
 		$this->state = new Registry;
-		//$session = JFactory::getSession();
+
+		// $session = JFactory::getSession();
 
 		$input = Factory::$application->input;
 
@@ -135,10 +135,12 @@ class IssuesModel extends AbstractTrackerListModel
 		$this->state->set('list.ordering', $input->get('filter_order', 'a.id'));
 
 		$listOrder = $input->get('filter_order_Dir', 'ASC');
+
 		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
 		{
 			$listOrder = 'ASC';
 		}
+
 		$this->state->set('list.direction', $listOrder);
 
 		$this->state->set('filter.priority', $input->getUint('priority', 3));
