@@ -40,7 +40,7 @@ abstract class AbstractTrackerController extends AbstractController
 	protected $component;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 *
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
@@ -66,8 +66,6 @@ abstract class AbstractTrackerController extends AbstractController
 			// Set the component as the first object in this array
 			$this->component = $classArray[0];
 		}
-
-		$this->setup();
 	}
 
 	/**
@@ -199,7 +197,7 @@ abstract class AbstractTrackerController extends AbstractController
 		// Get some data from the request
 		$vName   = $input->getWord('view', $this->defaultView);
 		$vFormat = $input->getWord('format', 'html');
-		$lName   = $input->getWord('layout', 'index');
+		$lName   = $input->getCmd('layout', 'index');
 
 		$input->set('view', $vName);
 
@@ -233,22 +231,36 @@ abstract class AbstractTrackerController extends AbstractController
 
 		// Register the templates paths for the view
 		$paths = array();
-		$paths[] = JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl';
-		//$paths[] = JPATH_TEMPLATES . '/' . strtolower($this->component);
+
+		$path = JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl';
+
+		if(is_dir($path))
+		{
+			$paths[] = $path;
+		}
+
+		$path = JPATH_TEMPLATES . '/' . strtolower($this->component);
+
+		if(is_dir($path))
+		{
+			$paths[] = $path;
+		}
 
 		/* @var AbstractTrackerHtmlView $view */
 		$view = new $vClass(new $mClass, $paths);
 		$view->setLayout($vName . '.' . $lName);
 
-		// Render our view.
-		echo $view->render();
+		try
+		{
+			// Render our view.
+			echo $view->render();
+		}
+		catch (\Exception $e)
+		{
+			echo $this->getApplication()->renderException($e);
+		}
 
 		return true;
-	}
-
-	protected function setup()
-	{
-
 	}
 
 	/**
