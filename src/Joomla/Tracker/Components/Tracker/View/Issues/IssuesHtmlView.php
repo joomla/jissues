@@ -8,8 +8,11 @@
 
 namespace Joomla\Tracker\Components\Tracker\View\Issues;
 
+use Joomla\Factory;
 use Joomla\Language\Text;
+use Joomla\Tracker\Components\Tracker\HTML\HtmlGitHub;
 use Joomla\Tracker\Components\Tracker\Model\IssuesModel;
+use Joomla\Tracker\HTML\Html;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -69,10 +72,38 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('state',   $this->state);
 		$this->renderer->set('project', $this->project);
 
+		// Prepare the login module
+		$this->renderer->set('login', $this->buildLoginModule());
+
 		// Build the toolbar
 		//$this->buildToolbar();
 
 		return parent::render();
+	}
+
+	/**
+	 * Method to build the login module
+	 *
+	 * @return  string  HTML markup for the login module
+	 *
+	 * @since   1.0
+	 * @todo    Implement this in Twig
+	 */
+	protected function buildLoginModule()
+	{
+		$user = Factory::$application->getUser();
+
+		if ($user->id)
+		{
+			//$output  = HtmlGitHub::avatar($user, 20);
+			$output = Html::link('logout', sprintf('Logout %s', $user->username), 'class="btn btn-primary"');
+		}
+		else
+		{
+			$output = HtmlGithub::loginButton(Factory::$application->get('github.client_id'));
+		}
+
+		return $output;
 	}
 
 	/**
