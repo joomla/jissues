@@ -6,7 +6,9 @@
 
 namespace Joomla\Tracker\Authentication\GitHub;
 
+use Joomla\Factory;
 use Joomla\Http\Http;
+use Joomla\Uri\Uri;
 
 /**
  * Class GitHubLoginHelper.
@@ -29,6 +31,24 @@ class GitHubLoginHelper
 	{
 		$this->clientId     = $clientId;
 		$this->clientSecret = $clientSecret;
+	}
+
+	public function getLoginUri()
+	{
+		$redirect = Factory::$application->get('uri.base.full') . 'login';
+
+		$uri = new Uri($redirect);
+
+		$usrRedirect = base64_encode((string) new Uri(Factory::$application->get('uri.request')));
+
+		$uri->setVar('usr_redirect', $usrRedirect);
+
+		$redirect = (string) $uri;
+
+		// Use "raw URI" here to partial encode the url.
+		return 'https://github.com/login/oauth/authorize?scope=public_repo'
+			. '&client_id=' . $this->clientId
+			. '&redirect_uri=' . urlencode($redirect);
 	}
 
 	/**
