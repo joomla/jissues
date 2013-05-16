@@ -32,7 +32,7 @@ final class HtmlGitHub
 	{
 		if (!$gh_client_id)
 		{
-			return 'Please set your GitHub client id in configuration.php';
+			return 'Please set your GitHub client id in your configuration file.';
 		}
 
 		$redirect = $redirect ? : Factory::$application->get('uri.request') . 'login';
