@@ -1,0 +1,20 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+    {% if user.id == item.id %}
+        <h1>My Profile</h1>
+    {% else %}
+        <h1>Profile</h1>
+    {% endif %}
+
+    <ul class="unstyled">
+        <li><b>Id</b>: {{ item.id }}</li>
+        <li><b>Username</b>: {{ item.username }}</li>
+        <li><b>Name</b>: {{ item.name }}</li>
+        <li><b>email</b>: {{ item.email }}</li>
+    </ul>
+{% endblock %}

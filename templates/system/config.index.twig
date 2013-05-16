@@ -1,0 +1,35 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block subnav %}
+    <a class="btn btn-success btn-small" href="javascript:;" onclick="document.configForm.submit();">
+        Save
+    </a>
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Edit Configuration</h1>
+
+    <form method="post" action="../../index.php" class="form-inline" name="configForm">
+
+        {% for group, fields in config %}
+            <fieldset>
+                <legend>{{ group|tformat }}</legend>
+                {% for name, value in fields %}
+                    <ul class="unstyled">
+                        <li>
+                            <label for="config{{ group }}{{ name }}">{{ name|tformat }}</label>
+
+                            <input type="text" name="config[{{ group }}][{{ name }}]"
+                                   id="config{{ group }}{{ name }}" value="{{ value }}"/>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </fieldset>
+        {% endfor %}
+    </form>
+{% endblock %}

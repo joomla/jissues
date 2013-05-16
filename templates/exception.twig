@@ -1,0 +1,37 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+    <div class="alert alert-error">
+
+        <h4>{{ exception|typeof }}</h4>
+
+        <p>{{ exception.message }}</p>
+
+        {% if message %}
+            <p>{{ message|raw }}</p>
+        {% endif %}
+    </div>
+
+    {% if jdebug %}
+        In: <a href="xdebug://{{ exception.file }}@{{ exception.line }}">{{ exception.file }}@{{ exception.line }}</a>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>File</th>
+                <th>Line</th>
+                <th>Class->Method()</th>
+            </tr>
+            {% for stack in exception.trace %}
+            <tr>
+                <td><a href="xdebug://{{ stack.file }}@{{ stack.line }}">{{ stack.file|base }}</a></td>
+                <td>{{ stack.line }}</td>
+                <td>{{ stack.class }}{{ stack.type }}{{ stack.function }}()</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

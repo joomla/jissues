@@ -1,0 +1,33 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+<a class="btn btn-small" href="{{ uri.base.path }}tracker">Tracker</a>
+<a class="btn btn-small" href="{{ uri.base.path }}projects">Projects</a>
+<a class="btn btn-small" href="{{ uri.base.path }}users">Users</a>
+
+<a class="btn btn-small" href="{{ uri.base.path }}markdownpreview">MDPreview</a>
+
+{#{% if user.admin %}#}
+{% if user.id %}
+    <a class="btn btn-small" href="{{ uri.base.path }}config">Config</a>
+{% endif %}
+
+<div class="pull-right">
+    {% if user.id %}
+        <ul class="nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle btn btn-small" data-toggle="dropdown" href="../index.php#">{{ user.username }}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ uri.base.path }}user">Profile</a></li>
+                    <li class="divider"><span></span></li>
+                    <li><a href="{{ uri.base.path }}logout">Logout </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    {% else %}
+        <a class="btn btn-success btn-small login" href="{{ loginUrl }}">Login with GitHub</a>
+    {% endif %}
+</div>

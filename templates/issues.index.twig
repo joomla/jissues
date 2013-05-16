@@ -1,6 +1,11 @@
+{# Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
 {% extends "index.twig" %}
 
 {% block title %}Issues List{% endblock %}
+
+{% block headerText %}{{ project.title }}{% endblock %}
 
 {% block content %}
     <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
@@ -47,7 +52,7 @@
                         </td>
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
-                                <a href="issue/{{ item.id }}">{{ item.title|e }}</a>
+                                <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.gh_id }}">{{ item.title|e }}</a>
                             </div>
                             {% if item.gh_id or item.jc_id %}
                                 <div class="small">
