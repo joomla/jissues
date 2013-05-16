@@ -42,4 +42,5 @@ For more information on the CLI script see the [cli/readme.md](cli/readme.md) fi
 Support & Discussion
 ===============
 * If you've found a bug, please report it to the Issue Tracker at https://github.com/joomla/jissues/issues.
+* Please note this repository is _not_ for the Joomla CMS. Take all Joomla CMS issues, bug reports, etc.. to: http://github.com/joomla/joomla-cms
 * For discussion about this project, please visit the Google Group at https://groups.google.com/forum/#!forum/jtracker-rebuild.
