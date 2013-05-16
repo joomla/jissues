@@ -29,6 +29,8 @@ class DeleteController extends DefaultController
 	{
 		$app = $this->getApplication();
 
+		$app->getUser()->authorize('admin');
+
 		$table = new ProjectsTable($app->getDatabase());
 
 		$table->delete($app->input->getInt('project_id'));

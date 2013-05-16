@@ -27,6 +27,8 @@ class EditController extends DefaultController
 	 */
 	public function execute()
 	{
+		$this->getApplication()->getUser()->authorize('admin');
+
 		$input = $this->getInput();
 
 		$input->set('layout', 'edit');

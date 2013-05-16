@@ -29,6 +29,8 @@ class SaveController extends DefaultController
 	{
 		$app = $this->getApplication();
 
+		$app->getUser()->authorize('admin');
+
 		$table = new ProjectsTable($app->getDatabase());
 
 		$table->save($app->input->get('project', array(), 'array'));

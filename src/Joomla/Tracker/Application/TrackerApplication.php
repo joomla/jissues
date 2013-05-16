@@ -483,7 +483,9 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Login
 
-			$this->user  = $user;
+			$user->admin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
+
+			$this->user = $user;
 
 			$this->getSession()->set('user', $user);
 		}

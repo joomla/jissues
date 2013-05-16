@@ -33,6 +33,8 @@ class AddController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
+		$this->getApplication()->getUser()->authorize('admin');
+
 		$this->getInput()->set('layout', 'edit');
 
 		return parent::execute();

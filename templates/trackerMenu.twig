@@ -7,8 +7,7 @@
 
 <a class="btn btn-small" href="{{ uri.base.path }}markdownpreview">MDPreview</a>
 
-{#{% if user.admin %}#}
-{% if user.id %}
+{% if user.admin %}
     <a class="btn btn-small" href="{{ uri.base.path }}config">Config</a>
 {% endif %}
 

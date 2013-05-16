@@ -11,7 +11,7 @@
         <tr>
             <th>ID</th>
             <th>Username</th>
-            {% if user.id %}
+            {% if user.admin %}
                 <th style="width: 10%">Actions</th>
             {% endif %}
         </tr>
@@ -20,7 +20,7 @@
                 <td>{{ u.id }}</td>
                 <td><a href="{{ uri.base.path }}user/{{ u.id }}">{{ u.username }}</a></td>
 
-                {% if user.id %}
+                {% if user.admin %}
                     <td>Block...</td>
                 {% endif %}
             </tr>

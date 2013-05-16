@@ -22,8 +22,7 @@
             <th>GitHub</th>
             <th>Stats</th>
 
-            {#{% if user.admin %}#}
-            {% if user.id %}
+            {% if user.admin %}
                 <th style="width: 10%;">Actions</th>
             {% endif %}
 
@@ -48,8 +47,7 @@
                     <a href="{{ uri.base.path }}tracker/{{ project.alias }}/stats">Stats</a>
                 </td>
 
-                {#{% if user.admin %}#}
-                {% if user.id %}
+                {% if user.admin %}
                     <td style="white-space: nowrap;">
                         <a href="{{ uri.base.path }}project/{{ project.project_id }}">Show</a>
                         <a href="{{ uri.base.path }}project/{{ project.project_id }}/edit">Edit</a>
