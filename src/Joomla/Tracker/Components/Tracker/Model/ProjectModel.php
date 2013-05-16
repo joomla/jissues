@@ -49,11 +49,11 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
+	 * Method to get a project by its alias.
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @return  DatabaseQuery   A DatabaseQuery object to retrieve the data set.
+	 * @return  ProjectsTable
 	 *
 	 * @since   1.0
 	 */
