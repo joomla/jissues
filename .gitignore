@@ -5,9 +5,10 @@
 .DS_Store
 .idea
 
-# Files that should not be pushed to the repo #
+# Files and folders that should not be pushed to the repo #
 /etc/configuration.php
 /etc/config.json
+/logs
 
 # Apple Files #
 .DS_STORE

@@ -1,26 +1,26 @@
 <?php
 /**
- * @package     JTracker\Application
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Tracker\Application;
+namespace Joomla\Tracker\Components\Tracker\Controller;
 
-use Joomla\Application\AbstractWebApplication;
+use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Factory;
 use Joomla\Github\Github;
+use Joomla\Input\Input;
 use Joomla\Log\Log;
+use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Joomla! Issue Tracker Application class for web hook instances
+ * Abstract controller class for web hook requests
  *
- * @package  JTracker\Application
+ * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-abstract class AbstractHooksApplication extends AbstractWebApplication
+abstract class AbstractHookController extends AbstractTrackerController
 {
 	/**
 	 * An array of how many addresses are in each CIDR mask
@@ -97,22 +97,23 @@ abstract class AbstractHooksApplication extends AbstractWebApplication
 	protected $project;
 
 	/**
-	 * Class constructor.
+	 * Constructor.
 	 *
-	 * @since   1.0
+	 * @param   Input                $input  The input object.
+	 * @param   AbstractApplication  $app    The application object.
+	 *
+	 * @since  1.0
 	 */
-	public function __construct()
+	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
-		// Initialize the logger
-		$options['format']    = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
-		$options['text_file'] = 'github_' . $this->hookType . '.php';
-		Log::addLogger($options);
-
 		// Run the parent constructor
-		parent::__construct();
+		parent::__construct($input, $app);
 
-		// Register the application to JFactory
-		Factory::$application = $this;
+		// Initialize the logger
+		$options['format']         = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
+		$options['text_file_path'] = JPATH_BASE . '/logs';
+		$options['text_file']      = 'github_' . $this->hookType . '.php';
+		Log::addLogger($options);
 
 		// Get a database object
 		$this->db = Factory::getDbo();
@@ -123,15 +124,15 @@ abstract class AbstractHooksApplication extends AbstractWebApplication
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
 
-		if (!$this->checkIp($_SERVER['REMOTE_ADDR'], $validIps->hooks))
+		if (!$this->checkIp($this->getInput()->server->getString('REMOTE_ADDR'), $validIps->hooks))
 		{
 			// Log the unauthorized request
-			Log::add('Unauthorized request from ' . $_SERVER['REMOTE_ADDR'], Log::NOTICE);
-			$this->close();
+			Log::add('Unauthorized request from ' . $this->getInput()->server->getString('REMOTE_ADDR'), Log::NOTICE);
+			$this->getApplication()->close();
 		}
 
-		// Get the data directly from the $_POST superglobal.  I've yet to make this work with Input.
-		$data = $_POST['payload'];
+		// Get the payload data
+		$data = $this->getInput()->post->get('payload', null, 'raw');
 
 		// Decode it
 		$this->hookData = json_decode($data);
@@ -170,21 +171,6 @@ abstract class AbstractHooksApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Enqueue a system message.
-	 *
-	 * @param   string  $msg   The message to enqueue.
-	 * @param   string  $type  The message type. Default is message.
-	 *
-	 * @return  AbstractHooksApplication
-	 *
-	 * @since   1.0
-	 */
-	public function enqueueMessage($msg, $type = 'message')
-	{
-		return $this;
-	}
-
-	/**
 	 * Retrieves the project data from the database
 	 *
 	 * @return  void
@@ -207,14 +193,14 @@ abstract class AbstractHooksApplication extends AbstractWebApplication
 		catch (RuntimeException $e)
 		{
 			Log::add(sprintf('Error retrieving the project ID for GitHub repo %s in the database: %s', $this->hookData->repository->name, $e->getMessage()), Log::INFO);
-			$this->close();
+			$this->getApplication()->close();
 		}
 
 		// Make sure we have a valid project ID
 		if (!$this->project->project_id)
 		{
 			Log::add(sprintf('A project does not exist for the %s GitHub repo in the database, cannot add data for it.', $this->hookData->repository->name), Log::INFO);
-			$this->close();
+			$this->getApplication()->close();
 		}
 	}
 }
