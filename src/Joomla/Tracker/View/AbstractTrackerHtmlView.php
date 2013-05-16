@@ -76,7 +76,6 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		}
 
 		// Load the renderer.
-
 		$this->renderer = new $className($config);
 
 		// Register tracker's extension.
