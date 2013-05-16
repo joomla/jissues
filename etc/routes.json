@@ -15,7 +15,7 @@
 	"config": "\\System\\Controller\\ConfigController",
 	"saveconfig": "\\System\\Controller\\Config\\SaveController",
 
-	"stats": "\\System\\Controller\\StatsController",
+	"tracker/:project_alias/stats": "\\System\\Controller\\StatsController",
 
 	"projects": "\\Tracker\\Controller\\ProjectsController",
 	"project/add": "\\Tracker\\Controller\\Project\\AddController",

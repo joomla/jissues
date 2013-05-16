@@ -20,6 +20,7 @@
         <tr>
             <th>Tracker</th>
             <th>GitHub</th>
+            <th>Stats</th>
 
             {#{% if user.admin %}#}
             {% if user.id %}
@@ -41,6 +42,10 @@
                             {{ project.gh_user }}/{{ project.gh_project }}
                         </a>
                     {% endif %}
+                </td>
+
+                <td>
+                    <a href="{{ uri.base.path }}tracker/{{ project.alias }}/stats">Stats</a>
                 </td>
 
                 {#{% if user.admin %}#}
