@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Model
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Model;
@@ -112,8 +110,8 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
-	 * @param   string  $name     The table name. Optional.
-	 * @param   string  $prefix   The class prefix. Optional.
+	 * @param   string  $name    The table name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
 	 *
 	 * @return  AbstractDatabaseTable  A Table object
 	 *
