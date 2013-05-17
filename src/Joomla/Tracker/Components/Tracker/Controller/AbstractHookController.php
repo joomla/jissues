@@ -116,7 +116,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 		Log::addLogger($options);
 
 		// Get a database object
-		$this->db = Factory::getDbo();
+		$this->db = $this->getApplication()->getDatabase();
 
 		// Instantiate Github
 		$this->github = new Github;

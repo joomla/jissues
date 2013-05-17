@@ -1,12 +1,17 @@
 <?php
 /**
+ * @package    JTracker\View\Renderer
+ *
  * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\View\Renderer;
 
+use Joomla\Factory;
 use Joomla\Language\Text;
+
+use Joomla\Tracker\Application\TrackerApplication;
 
 /**
  * JTracker Twig extension class.
@@ -21,6 +26,8 @@ class TrackerExtension extends \Twig_Extension
 	 * Returns the name of the extension.
 	 *
 	 * @return  string  The extension name.
+	 *
+	 * @since   1.0
 	 */
 	public function getName()
 	{
@@ -31,11 +38,16 @@ class TrackerExtension extends \Twig_Extension
 	 * Returns a list of global variables to add to the existing list.
 	 *
 	 * @return  array  An array of global variables.
+	 *
+	 * @since   1.0
 	 */
 	public function getGlobals()
 	{
+		/* @var TrackerApplication $app */
+		$app = Factory::$application;
+
 		return array(
-			'www'    => JPATH_THEMES,
+			'uri'    => $app->get('uri'),
 			'jdebug' => JDEBUG,
 		);
 	}
