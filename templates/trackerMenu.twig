@@ -1,27 +1,27 @@
 {# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
-{# GNU General Public License version 2 or later; see LICENSE.txt #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 <ul class="nav menu nav-pills">
-    <li>
+    <li class="{{ "" == uri.route or "tracker" == uri.route|split("/")|first ? "active" : "" }}">
         <a href="{{ uri.base.path }}tracker">Tracker</a>
     </li>
-    <li>
+    <li class="{{ "projects" == uri.route or "project" == uri.route|split("/")|first ? "active" : "" }}">
         <a href="{{ uri.base.path }}projects">Projects</a>
     </li>
-    <li>
+    <li class="{{ "users" == uri.route or "user" == uri.route|split("/")|first ? "active" : "" }}">
         <a href="{{ uri.base.path }}users">Users</a>
     </li>
-    <li>
+    <li class="{{ "markdownpreview" == uri.route ? "active" : "" }}">
         <a href="{{ uri.base.path }}markdownpreview">MDPreview</a>
     </li>
 
-{% if user.admin %}
-    <li>
-        <a href="{{ uri.base.path }}config">Config</a>
-    </li>
-{% endif %}
+    {% if user.admin %}
+        <li class="{{ "config" == uri.route ? "active" : "" }}">
+            <a href="{{ uri.base.path }}config">Config</a>
+        </li>
+    {% endif %}
 
-{% if user.id %}
+    {% if user.id %}
     <li class="dropdown pull-right">
         <a class="dropdown-toggle btn btn-small" data-toggle="dropdown" href="../index.php#">{{ user.username }}
             <span class="caret"></span>
