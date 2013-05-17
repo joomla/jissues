@@ -22,7 +22,6 @@ use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 use Joomla\Tracker\Router\TrackerRouter;
-use Twig_SimpleFilter;
 
 /**
  * Joomla! Issue Tracker Application class
@@ -699,9 +698,6 @@ final class TrackerApplication extends AbstractWebApplication
 		$view->getRenderer()
 			->set('exception', $e)
 			->set('message', $message);
-
-		$view->getRenderer()->addFilter(new Twig_SimpleFilter('base', 'basename'));
-		$view->getRenderer()->addFilter(new Twig_SimpleFilter('typeof', 'get_class'));
 
 		return $view->render();
 	}

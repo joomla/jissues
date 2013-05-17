@@ -8,7 +8,10 @@
 
 namespace Joomla\Tracker\View\Renderer;
 
+use Joomla\Factory;
 use Joomla\Language\Text;
+
+use Joomla\Tracker\Application\TrackerApplication;
 
 /**
  * JTracker Twig extension class.
@@ -23,6 +26,8 @@ class TrackerExtension extends \Twig_Extension
 	 * Returns the name of the extension.
 	 *
 	 * @return  string  The extension name.
+	 *
+	 * @since   1.0
 	 */
 	public function getName()
 	{
@@ -33,11 +38,32 @@ class TrackerExtension extends \Twig_Extension
 	 * Returns a list of global variables to add to the existing list.
 	 *
 	 * @return  array  An array of global variables.
+	 *
+	 * @since   1.0
 	 */
 	public function getGlobals()
 	{
+		/* @var TrackerApplication $app */
+		$app = Factory::$application;
+
 		return array(
-			'www' => JPATH_THEMES,
+			'uri'    => $app->get('uri'),
+			'jdebug' => JDEBUG,
+		);
+	}
+
+	/**
+	 * Returns a list of filters to add to the existing list.
+	 *
+	 * @return  array  An array of filters.
+	 *
+	 * @since   1.0
+	 */
+	public function getFilters()
+	{
+		return array(
+			new \Twig_SimpleFilter('base', 'basename'),
+			new \Twig_SimpleFilter('typeof', 'get_class'),
 		);
 	}
 
@@ -45,6 +71,8 @@ class TrackerExtension extends \Twig_Extension
 	 * Returns a list of functions to add to the existing list.
 	 *
 	 * @return  array  An array of functions.
+	 *
+	 * @since   1.0
 	 */
 	public function getFunctions()
 	{
@@ -53,6 +81,15 @@ class TrackerExtension extends \Twig_Extension
 		);
 	}
 
+	/**
+	 * Translates a string into the current language.
+	 *
+	 * @param   string  $string  The string to translate.
+	 *
+	 * @return  string  The translated string.
+	 *
+	 * @since   1.0
+	 */
 	public function translate($string)
 	{
 		return Text::_($string);

@@ -91,9 +91,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 
 		$this->renderer
 			->set('loginUrl', $gitHubHelper->getLoginUri())
-			->set('user', $app->getUser())
-			->set('uri', $app->get('uri'))
-			->set('jdebug', JDEBUG);
+			->set('user', $app->getUser());
 
 		switch ($renderer)
 		{
