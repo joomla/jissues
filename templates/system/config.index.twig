@@ -14,7 +14,7 @@
 
     <h1>Edit Configuration</h1>
 
-    <form method="post" action="../../index.php" class="form-inline" name="configForm">
+    <form method="post" action="{{ uri.base.path }}saveconfig" class="form-inline" name="configForm">
 
         {% for group, fields in config %}
             <fieldset>
