@@ -75,16 +75,4 @@ interface RendererInterface
 	 * @return  $this
 	 */
 	public function unsetData($key);
-
-	/**
-	 * Add a filter.
-	 *
-	 * @param   string  $name    The filter name.
-	 * @param   object  $filter  The filter.
-	 *
-	 * @return mixed
-	 */
-	public function addFilter($name, $filter = null);
-
-	public function addFunction($function);
 }
