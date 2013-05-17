@@ -73,6 +73,23 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 				$config['environment']['debug'] = JDEBUG ? true : false;
 
 				break;
+
+			case 'mustache':
+				$config['templates_base_dir'] = JPATH_TEMPLATES;
+				$config['partials_base_dir'] = JPATH_TEMPLATES . '/partials';
+				$config['environment']['debug'] = JDEBUG ? true : false;
+
+				break;
+
+			case 'php':
+				$config['templates_base_dir'] = JPATH_TEMPLATES;
+				$config['debug'] = JDEBUG ? true : false;
+
+				break;
+
+			default:
+				throw new \RuntimeException('Unsupported renderer: ' . $renderer);
+				break;
 		}
 
 		// Load the renderer.
@@ -91,19 +108,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 
 		$this->renderer
 			->set('loginUrl', $gitHubHelper->getLoginUri())
-			->set('user', $app->getUser())
-			->set('uri', $app->get('uri'))
-			->set('jdebug', JDEBUG);
-
-		switch ($renderer)
-		{
-			case 'twig':
-				// Register Text for translation.
-
-				$this->renderer->addExtension(new \Twig_Extension_Debug);
-
-				break;
-		}
+			->set('user', $app->getUser());
 	}
 
 	/**

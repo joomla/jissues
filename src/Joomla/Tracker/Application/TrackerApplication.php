@@ -22,7 +22,6 @@ use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 use Joomla\Tracker\Router\TrackerRouter;
-use Twig_SimpleFilter;
 
 /**
  * Joomla! Issue Tracker Application class
@@ -683,25 +682,34 @@ final class TrackerApplication extends AbstractWebApplication
 		parent::redirect($url, $moved);
 	}
 
-	public function renderException(\Exception $e, $message = '')
+	/**
+	 * @param \Exception $exception
+	 * @param string     $message
+	 *
+	 * @return string
+	 */
+	public function renderException(\Exception $exception, $message = '')
 	{
-		//return $e->getMessage();
+		static $loaded = false;
 
-		$base   = '\\Joomla\\Tracker\\Components\\Tracker';
-		$vClass = $base . '\\View\\DefaultView';
-		$mClass = '\\Joomla\\Tracker\\Model\\TrackerDefaultModel';
+		if ($loaded)
+		{
+			// Seems that we're recursing...
+			return $exception->getMessage()
+				. '<pre>' . $exception->getTraceAsString() . '</pre>';
+		}
+
+		$viewClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
 
 		/* @var \Joomla\Tracker\View\AbstractTrackerHtmlView $view */
-		$view = new $vClass(new $mClass);
+		$view = new $viewClass;
 
-		$view->setLayout('exception');
-
-		$view->getRenderer()
-			->set('exception', $e)
+		$view->setLayout('exception')
+			->getRenderer()
+			->set('exception', $exception)
 			->set('message', $message);
 
-		$view->getRenderer()->addFilter(new Twig_SimpleFilter('base', 'basename'));
-		$view->getRenderer()->addFilter(new Twig_SimpleFilter('typeof', 'get_class'));
+		$loaded = true;
 
 		return $view->render();
 	}

@@ -220,7 +220,7 @@ abstract class AbstractTrackerController extends AbstractController
 		// Make sure the view class exists, otherwise revert to the default
 		if (!class_exists($vClass))
 		{
-			$vClass = $base . '\\View\\DefaultView';
+			$vClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
 
 			// If there still isn't a class, panic.
 			if (!class_exists($vClass))
@@ -234,14 +234,14 @@ abstract class AbstractTrackerController extends AbstractController
 
 		$path = JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl';
 
-		if(is_dir($path))
+		if (is_dir($path))
 		{
 			$paths[] = $path;
 		}
 
 		$path = JPATH_TEMPLATES . '/' . strtolower($this->component);
 
-		if(is_dir($path))
+		if (is_dir($path))
 		{
 			$paths[] = $path;
 		}

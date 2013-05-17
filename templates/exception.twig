@@ -7,7 +7,7 @@
 
     <div class="alert alert-error">
 
-        <h4>{{ exception|typeof }}</h4>
+        <h4>{{ exception|get_class }}</h4>
 
         <p>{{ exception.message }}</p>
 
@@ -26,12 +26,15 @@
             </tr>
             {% for stack in exception.trace %}
             <tr>
-                <td><a href="xdebug://{{ stack.file }}@{{ stack.line }}">{{ stack.file|base }}</a></td>
+                <td><a href="xdebug://{{ stack.file }}@{{ stack.line }}">{{ stack.file|basename }}</a></td>
                 <td>{{ stack.line }}</td>
                 <td>{{ stack.class }}{{ stack.type }}{{ stack.function }}()</td>
             </tr>
             {% endfor %}
         </table>
+
+        <pre>{{ exception.traceAsString|stripJRoot }}</pre>
+
     {% endif %}
 
 {% endblock %}
