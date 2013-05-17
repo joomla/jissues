@@ -100,7 +100,23 @@ class LoginController extends AbstractTrackerController
 		$options = new Registry;
 		$options->set('gh.token', $accessToken);
 
-		$gitHub = new Github($options);
+		// @todo temporary fix to avoid the "Socket" transport protocol
+		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl', 'stream'));
+
+		if (is_a($transport, 'Joomla\\Http\\Transport\\Socket'))
+		{
+			throw new \RuntimeException('Please either enable cURL or url_fopen');
+		}
+
+		$http = new \Joomla\Github\Http($options, $transport);
+
+		//$app->debugOut(get_class($transport));
+
+		// Instantiate J\Github
+		$gitHub = new Github($options, $http);
+
+		// @todo after fix this should be enough:
+		// $this->github = new Github($options);
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
