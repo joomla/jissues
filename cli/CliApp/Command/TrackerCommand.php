@@ -21,19 +21,22 @@ use CliApp\Application\TrackerApplication;
 abstract class TrackerCommand
 {
 	/**
-	 * @var TrackerApplication
+	 * @var    TrackerApplication
+	 * @since  1.0
 	 */
 	protected $application;
 
 	/**
-	 * @var array
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $options = array();
 
 	/**
 	 * The command "description" used for help texts.
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $description = '';
 
@@ -41,6 +44,8 @@ abstract class TrackerCommand
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application object.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(TrackerApplication $application)
 	{
@@ -50,14 +55,18 @@ abstract class TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	abstract public function execute();
 
 	/**
 	 * Get a description text.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getDescription()
 	{
@@ -69,7 +78,9 @@ abstract class TrackerCommand
 	 *
 	 * @param   TrackerCommandOption  $option  The command option.
 	 *
-	 * @return $this
+	 * @return  TrackerCommand
+	 *
+	 * @since   1.0
 	 */
 	protected function addOption(TrackerCommandOption $option)
 	{
@@ -101,7 +112,9 @@ abstract class TrackerCommand
 	 *
 	 * @param   string  $text  The text to display.
 	 *
-	 * @return TrackerApplication
+	 * @return  TrackerApplication
+	 *
+	 * @since   1.0
 	 */
 	protected function debugOut($text)
 	{

@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Retrieve;
@@ -17,7 +14,7 @@ use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommandOption;
 
 /**
- * Class Comments.
+ * Class for retrieving comments from GitHub for selected projects
  *
  * @since  1.0
  */
@@ -40,12 +37,14 @@ class Comments extends Retrieve
 	protected $issues;
 
 	/**
-	 * @var integer
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $rangeFrom = 0;
 
 	/**
-	 * @var integer
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $rangeTo = 0;
 
@@ -53,6 +52,8 @@ class Comments extends Retrieve
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application object.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(TrackerApplication $application)
 	{
@@ -78,7 +79,9 @@ class Comments extends Retrieve
 	/**
 	 * Execute the command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -99,7 +102,9 @@ class Comments extends Retrieve
 	/**
 	 * Select the range of issues to process.
 	 *
-	 * @return $this
+	 * @return  Comments
+	 *
+	 * @since   1.0
 	 */
 	protected function selectRange()
 	{
@@ -139,7 +144,7 @@ class Comments extends Retrieve
 	/**
 	 * Method to get the GitHub issues from the database
 	 *
-	 * @return  $this
+	 * @return  Comments
 	 *
 	 * @since   1.0
 	 */
@@ -171,7 +176,7 @@ class Comments extends Retrieve
 	/**
 	 * Method to get the comments on items from GitHub
 	 *
-	 * @return  $this
+	 * @return  Comments
 	 *
 	 * @since   1.0
 	 */
@@ -204,7 +209,7 @@ class Comments extends Retrieve
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
-	 * @return  $this
+	 * @return  Comments
 	 *
 	 * @since   1.0
 	 */
@@ -268,7 +273,6 @@ class Comments extends Retrieve
 
 				$table->store();
 			}
-
 		}
 
 		$this->out()

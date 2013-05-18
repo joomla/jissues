@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command;
@@ -16,10 +13,28 @@ namespace CliApp\Command;
  */
 class TrackerCommandOption
 {
+	/**
+	 * Long argument
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	public $longArg = '';
 
+	/**
+	 * Short argument
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	public $shortArg = '';
 
+	/**
+	 * Description argument
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	public $description = '';
 
 	/**

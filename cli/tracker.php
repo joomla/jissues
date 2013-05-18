@@ -1,11 +1,8 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 use CliApp\Application\TrackerApplication;
@@ -14,7 +11,7 @@ use CliApp\Application\TrackerApplication;
 	|| die("\nThis script must be run from the command line interface.\n\n");
 
 version_compare(PHP_VERSION, '5.3.10') >= 0
-	|| die("\nThis script requires PHP version >= 5.3.10 (Your version: " . PHP_VERSION . ")\n\n");
+	|| die("\nThis application requires PHP version >= 5.3.10 (Your version: " . PHP_VERSION . ")\n\n");
 
 // Configure error reporting to maximum for CLI output.
 error_reporting(-1);

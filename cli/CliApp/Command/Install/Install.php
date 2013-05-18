@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Install;
@@ -15,7 +12,7 @@ use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
 /**
- * Class Install.
+ * Class to install the tracker application.
  *
  * @since  1.0
  */
@@ -25,6 +22,8 @@ class Install extends TrackerCommand
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application object.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(TrackerApplication $application)
 	{
@@ -43,11 +42,12 @@ class Install extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @throws \CliApp\Exception\AbortException
-	 * @throws \Exception|\RuntimeException
-	 * @throws \RuntimeException
-	 * @throws \UnexpectedValueException
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \CliApp\Exception\AbortException
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function execute()
 	{
@@ -136,7 +136,6 @@ class Install extends TrackerCommand
 		}
 
 		// Install.
-
 		$dbType = $this->application->get('database.driver');
 
 		if ('mysqli' == $dbType)
@@ -185,7 +184,7 @@ class Install extends TrackerCommand
 
 		$this->out('<ok>ok</ok>');
 
-		/* @var \DirectoryIterator $fileInfo */
+		/* @type \DirectoryIterator $fileInfo */
 		/*
 		foreach (new DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
 		{

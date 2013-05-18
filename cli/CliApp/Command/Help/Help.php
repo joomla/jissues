@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Help;
@@ -16,14 +13,26 @@ use Joomla\Application\Cli\ColorStyle;
 use Joomla\Factory;
 
 /**
- * Class Help.
+ * Class for displaying help data for the installer application.
  *
  * @since  1.0
  */
 class Help extends TrackerCommand
 {
+	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $description = 'Displays helpful information.';
 
+	/**
+	 * Array containing the available commands
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	private $commands = array();
 
 	/**
@@ -33,7 +42,7 @@ class Help extends TrackerCommand
 	 */
 	public function execute()
 	{
-		/* @var ColorProcessor $processor */
+		/* @type ColorProcessor $processor */
 		$processor = $this->application->getOutput()->getProcessor();
 
 		$processor
@@ -61,7 +70,7 @@ class Help extends TrackerCommand
 			->out('Available commands:')
 			->out();
 
-		/* @var  TrackerCommand $command */
+		/* @type  TrackerCommand $command */
 		foreach ($this->commands as $cName => $command)
 		{
 			$this->out('<cmd>' . $cName . '</cmd>');
@@ -95,7 +104,9 @@ class Help extends TrackerCommand
 	 *
 	 * @param   string  $command  The command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function helpCommand($command)
 	{
@@ -109,7 +120,7 @@ class Help extends TrackerCommand
 
 		$actions = $this->getActions($command);
 
-		/* @var TrackerCommand $c */
+		/* @type TrackerCommand $c */
 		$c = $this->commands[$command];
 
 		$this->out('Command: ' . $command . ($actions ? ' <action>' : ''))
@@ -156,7 +167,9 @@ class Help extends TrackerCommand
 	 *
 	 * @param   TrackerCommandOption  $option  The command option.
 	 *
-	 * @return TrackerCommand
+	 * @return  TrackerCommand
+	 *
+	 * @since   1.0
 	 */
 	private function displayOption(TrackerCommandOption $option)
 	{
@@ -171,13 +184,15 @@ class Help extends TrackerCommand
 	/**
 	 * Get the available commands.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	private function getCommands()
 	{
 		$commands = array();
 
-		/* @var \DirectoryIterator $fileInfo */
+		/* @type \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/..') as $fileInfo)
 		{
 			if ($fileInfo->isDot() || $fileInfo->isFile())
@@ -202,7 +217,9 @@ class Help extends TrackerCommand
 	 *
 	 * @param   string  $commandName  The command name.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	protected function getActions($commandName)
 	{
