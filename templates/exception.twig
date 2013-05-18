@@ -9,7 +9,7 @@
 
         <h4>{{ exception|get_class }}</h4>
 
-        <p>{{ exception.message }}</p>
+        <p>{{ exception.message|stripJRoot }}</p>
 
         {% if message %}
             <p>{{ message|raw }}</p>

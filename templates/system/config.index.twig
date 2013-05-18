@@ -4,15 +4,15 @@
 {% extends "index.twig" %}
 
 {% block subnav %}
+    {{ parent() }}
     <a class="btn btn-success btn-small" href="javascript:;" onclick="document.configForm.submit();">
         Save
     </a>
-    {{ parent() }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Edit Configuration</h1>
+    <h2>Edit Configuration</h2>
 
     <form method="post" action="{{ uri.base.path }}saveconfig" class="form-inline" name="configForm">
 

@@ -8,6 +8,7 @@
 {% block headerText %}Projects{% endblock %}
 
 {% block subnav %}
+    {{ parent() }}
     {% if user.id %}
     <a class="btn btn-warning btn-small" href="{{ uri.base.path }}project/{{ project.project_id }}/edit">
         Edit
@@ -16,7 +17,6 @@
         Delete
     </a>
     {% endif %}
-    {{ parent() }}
 {% endblock %}
 
 {% block content %}

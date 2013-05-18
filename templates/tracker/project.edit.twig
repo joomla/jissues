@@ -5,13 +5,11 @@
 
 {% block title %}Project{% endblock %}
 
-{% block headerText %}Projects{% endblock %}
-
 {% block subnav %}
+    {{ parent() }}
     <a class="btn btn-success btn-small" href="javascript:;" onclick="document.editForm.submit();">
         Save
     </a>
-    {{ parent() }}
 {% endblock %}
 
 {% block content %}
