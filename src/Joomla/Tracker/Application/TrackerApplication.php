@@ -482,7 +482,7 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Login
 
-			$user->admin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
+			$user->isAdmin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
 
 			$this->user = $user;
 
@@ -695,7 +695,7 @@ final class TrackerApplication extends AbstractWebApplication
 		if ($loaded)
 		{
 			// Seems that we're recursing...
-			return $exception->getMessage()
+			return str_replace(JPATH_BASE, 'JROOT', $exception->getMessage())
 				. '<pre>' . $exception->getTraceAsString() . '</pre>';
 		}
 
@@ -707,7 +707,7 @@ final class TrackerApplication extends AbstractWebApplication
 		$view->setLayout('exception')
 			->getRenderer()
 			->set('exception', $exception)
-			->set('message', $message);
+			->set('message', str_replace(JPATH_BASE, 'JROOT', $message));
 
 		$loaded = true;
 
