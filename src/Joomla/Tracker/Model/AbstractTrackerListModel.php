@@ -296,7 +296,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		{
 			// Create COUNT(*) query to allow database engine to optimize the query.
 			$query = clone $query;
-			$query->clear('select')->clear('order')->clear('join')->select('COUNT(*)');
+			$query->clear('select')->clear('order')->select('COUNT(*)');
 			$this->db->setQuery($query);
 
 			return (int) $this->db->loadResult();
