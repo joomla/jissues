@@ -12,10 +12,12 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Language\Language;
-use Joomla\Profiler\Profiler;
+use Joomla\Log\Log;
 use Joomla\Registry\Registry;
 
 use Joomla\Tracker\Authentication\Exception\AuthenticationException;
+use Joomla\Tracker\Components\Debug\Logger\CallbackLogger;
+use Joomla\Tracker\Components\Debug\TrackerDebugger;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
@@ -89,12 +91,12 @@ final class TrackerApplication extends AbstractWebApplication
 	private $language;
 
 	/**
-	 * The Profiler object
+	 * The Debugger object
 	 *
-	 * @var    Profiler
+	 * @var  TrackerDebugger
 	 * @since  1.0
 	 */
-	private $profiler;
+	private $debugger;
 
 	/**
 	 * Class constructor.
@@ -114,9 +116,9 @@ final class TrackerApplication extends AbstractWebApplication
 
 		if (JDEBUG)
 		{
-			$this->profiler = new Profiler('Tracker');
+			$this->debugger = new TrackerDebugger;
 
-			$this->mark('App started');
+			$this->mark('Application started');
 		}
 
 		// Register the application to Factory
@@ -155,11 +157,13 @@ final class TrackerApplication extends AbstractWebApplication
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
 
-			$this->mark('App terminated');
+			$this->mark('Application terminated');
 
-			$contents .= $this->fetchDebugOutput();
+			if (JDEBUG)
+			{
+				$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
+			}
 
-			// Temporarily echo the $contents to prove it is working
 			echo $contents;
 		}
 
@@ -167,6 +171,8 @@ final class TrackerApplication extends AbstractWebApplication
 		catch (AuthenticationException $e)
 		{
 			// Do something here on authentication failure.
+
+			$this->mark('Application terminated with an AUTH EXCEPTION');
 
 			$message = '<h4>Authentication failure</h4>';
 
@@ -180,46 +186,20 @@ final class TrackerApplication extends AbstractWebApplication
 
 			echo $this->renderException($e, $message);
 
-			echo $this->fetchDebugOutput();
-
-			$this->mark('App terminated with an ERROR');
+			echo JDEBUG ? $this->debugger->getOutput() : '';
 
 			$this->close($e->getCode());
 		}
 		catch (\Exception $e)
 		{
+			$this->mark('Application terminated with an EXCEPTION');
+
 			echo $this->renderException($e);
 
-			echo $this->fetchDebugOutput();
-
-			$this->mark('App terminated with an ERROR');
+			echo JDEBUG ? $this->debugger->getOutput() : '';
 
 			$this->close($e->getCode());
 		}
-	}
-
-	/**
-	 * Generate a call stack for debugging purpose.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	private function fetchDebugOutput()
-	{
-		if (!JDEBUG)
-		{
-			return '';
-		}
-
-		$debug = array();
-
-		$debug[] = '<div class="debug">';
-		$debug[] = '<p>Profile</p>';
-		$debug[] = $this->profiler->render();
-		$debug[] = '</div>';
-
-		return implode("\n", $debug);
 	}
 
 	/**
@@ -227,7 +207,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   string  $text  The message for the mark.
 	 *
-	 * @return  void
+	 * @return  TrackerApplication
 	 *
 	 * @since   1.0
 	 */
@@ -235,10 +215,12 @@ final class TrackerApplication extends AbstractWebApplication
 	{
 		if (!JDEBUG)
 		{
-			return;
+			return $this;
 		}
 
-		$this->profiler->mark($text);
+		$this->debugger->mark($text);
+
+		return $this;
 	}
 
 	/**
@@ -420,7 +402,16 @@ final class TrackerApplication extends AbstractWebApplication
 				)
 			);
 
-			$this->database->setDebug($this->get('debug'));
+			if ($this->get('system.debug'))
+			{
+				$this->database->setDebug(true);
+
+				$this->database->setLogger(
+					new CallbackLogger(
+						array($this->debugger, 'addDatabaseEntry')
+					)
+				);
+			}
 
 			// @todo Decouple from Factory
 			Factory::$database = $this->database;
@@ -466,6 +457,7 @@ final class TrackerApplication extends AbstractWebApplication
 		if (is_null($user))
 		{
 			// Logout
+
 			$this->user = new GitHubUser;
 
 			$this->getSession()->set('user', $this->user);
@@ -678,12 +670,13 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Seems that we're recursing...
 			return str_replace(JPATH_BASE, 'JROOT', $exception->getMessage())
-				. '<pre>' . $exception->getTraceAsString() . '</pre>';
+				. '<pre>' . $exception->getTraceAsString() . '</pre>'
+				. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
 		$viewClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
 
-		/* @type \Joomla\Tracker\View\AbstractTrackerHtmlView $view */
+		/* @type \Joomla\Tracker\View\TrackerDefaultView $view */
 		$view = new $viewClass;
 
 		$view->setLayout('exception')
