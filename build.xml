@@ -62,6 +62,19 @@
 		</exec>
 	</target>
 
+	<target name="travis-phpcs" description="Generate codestyle report using PHP_CodeSniffer for output on Travis-CI builds">
+		<exec executable="phpcs${script-suffix}">
+			<arg value="--report=full" />
+			<arg value="--extensions=php" />
+			<arg value="-p" />
+			<arg value="--standard=${basedir}/build/phpcs/Joomla" />
+            <arg value="--ignore=${basedir}/*tmpl/*" />
+			<arg path="${source}" />
+			<arg path="${cli}" />
+			<arg path="www/index.php" />
+		</exec>
+	</target>
+
 	<target name="lint" description="Perform syntax check of sourcecode files">
 		<apply executable="php" failonerror="true">
 			<arg value="-l" />
@@ -88,4 +101,6 @@
 	</target>
 
 	<target name="build" depends="clean,composervalidate,installdep,parallelTasks" />
+
+	<target name="travis-build" depends="clean,composervalidate,installdep,travis-phpcs,phpmd" />
 </project>
