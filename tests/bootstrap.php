@@ -11,7 +11,7 @@
 @ini_set('magic_quotes_runtime', 0);
 
 // Maximise error reporting.
-error_reporting(E_ALL & ~E_STRICT);
+error_reporting(-1);
 ini_set('display_errors', 1);
 
 /*
@@ -22,10 +22,12 @@ if (!defined('JPATH_TESTS'))
 {
 	define('JPATH_TESTS', realpath(__DIR__));
 }
+
 if (!defined('JPATH_BASE'))
 {
 	define('JPATH_BASE', realpath(JPATH_TESTS . '/tmp'));
 }
+
 if (!defined('JPATH_ROOT'))
 {
 	define('JPATH_ROOT', JPATH_BASE);
@@ -40,17 +42,12 @@ if (file_exists($composerAutoload))
 }
 
 // Import the platform.
-require_once dirname(__DIR__) . '/vendor/joomla/framework/src/import.php';
+// @todo - used by "legacy functions" ?
 
-// Register the core Joomla test classes.
-JLoader::registerPrefix('Test', __DIR__ . '/tracker');
+// @ require_once dirname(__DIR__) . '/vendor/joomla/framework/src/import.php';
 
-/*
- * The following classes still depend on `JVersion` so we must load it until they are dealt with.
- *
- * JFactory
- */
-//require_once __DIR__ . '/version.php';
+// Register the test classes.
+// JLoader::registerPrefix('Test', __DIR__ . '/tracker');
 
 /*
  * The PHP garbage collector can be too aggressive in closing circular references before they are no longer needed.  This can cause
@@ -59,6 +56,3 @@ JLoader::registerPrefix('Test', __DIR__ . '/tracker');
  * forwards.  This is only a problem PHP 5.3+.
  */
 gc_disable();
-
-// We need this to test JSession for now.  We should really fix this.
-// ob_start();
