@@ -285,7 +285,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		// Initialise the query.
 		$query = $this->db->getQuery(true);
 		$query->select('*');
-		$query->from($this->tableName);
+		$query->from($this->db->quoteName($this->tableName));
 
 		foreach ($keys as $field => $value)
 		{
