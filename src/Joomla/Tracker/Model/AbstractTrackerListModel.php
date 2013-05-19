@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Model
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Model;
@@ -16,9 +14,7 @@ use Joomla\Registry\Registry;
 /**
  * Abstract model to get data for a list view
  *
- * @package     JTracker
- * @subpackage  Model
- * @since       1.0
+ * @since  1.0
  */
 abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 {
@@ -50,7 +46,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Instantiate the model.
 	 *
-	 * @since  1.0
+	 * @param   DatabaseDriver  $database  The database adapter.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(DatabaseDriver $database = null)
 	{
@@ -98,7 +96,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
-	 * @return  DatabaseQuery   A DatabaseQuery object to retrieve the data set.
+	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
 	 *
 	 * @since   1.0
 	 */
@@ -152,6 +150,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		$start = (int) $this->state->get('list.start');
 		$limit = (int) $this->state->get('list.limit');
 		$total = $this->getTotal();
+
 		if ($start > $total - $limit)
 		{
 			$start = max(0, (int) (ceil($total / $limit) - 1) * $limit);

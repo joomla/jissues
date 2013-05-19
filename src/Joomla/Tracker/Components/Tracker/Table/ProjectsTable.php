@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Table
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Components\Tracker\Table;
@@ -15,7 +12,7 @@ use Joomla\Filter\OutputFilter;
 use Joomla\Tracker\Database\AbstractDatabaseTable;
 
 /**
- * Class ProjectsTable.
+ * Table interface class for the #__tracker_projects table
  *
  * @property   integer  $project_id
  * @property   string   $title
@@ -43,10 +40,10 @@ class ProjectsTable extends AbstractDatabaseTable
 	 * method to make sure the data they are storing in the database is safe and
 	 * as expected before storage.
 	 *
-	 * @return  $this
+	 * @return  ProjectsTable
 	 *
 	 * @link    http://docs.joomla.org/JTable/check
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function check()
 	{

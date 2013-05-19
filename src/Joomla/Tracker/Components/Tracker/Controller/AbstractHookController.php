@@ -17,8 +17,7 @@ use Joomla\Tracker\Controller\AbstractTrackerController;
 /**
  * Abstract controller class for web hook requests
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 abstract class AbstractHookController extends AbstractTrackerController
 {
@@ -192,14 +191,27 @@ abstract class AbstractHookController extends AbstractTrackerController
 		}
 		catch (RuntimeException $e)
 		{
-			Log::add(sprintf('Error retrieving the project ID for GitHub repo %s in the database: %s', $this->hookData->repository->name, $e->getMessage()), Log::INFO);
+			Log::add(
+				sprintf(
+					'Error retrieving the project ID for GitHub repo %s in the database: %s',
+					$this->hookData->repository->name,
+					$e->getMessage()
+				),
+				Log::INFO
+			);
 			$this->getApplication()->close();
 		}
 
 		// Make sure we have a valid project ID
 		if (!$this->project->project_id)
 		{
-			Log::add(sprintf('A project does not exist for the %s GitHub repo in the database, cannot add data for it.', $this->hookData->repository->name), Log::INFO);
+			Log::add(
+				sprintf(
+					'A project does not exist for the %s GitHub repo in the database, cannot add data for it.',
+					$this->hookData->repository->name
+				),
+				Log::INFO
+			);
 			$this->getApplication()->close();
 		}
 	}

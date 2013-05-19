@@ -17,7 +17,7 @@ use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Class LoginController.
+ * Login controller class for the users component
  *
  * @since  1.0
  */
@@ -26,14 +26,13 @@ class LoginController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @since   1.0
-	 * @throws \Exception
-	 *
 	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function execute()
 	{
-		/* @var \Joomla\Tracker\Application\TrackerApplication $app */
 		$app = $this->getApplication();
 
 		$user = $app->getUser();
@@ -41,7 +40,6 @@ class LoginController extends AbstractTrackerController
 		if ($user->id)
 		{
 			// The user is already logged in.
-
 			$app->redirect('');
 
 			return '';
@@ -52,7 +50,6 @@ class LoginController extends AbstractTrackerController
 		if ($error)
 		{
 			// GitHub reported an error.
-
 			throw new \Exception($error);
 		}
 
@@ -61,7 +58,6 @@ class LoginController extends AbstractTrackerController
 		if (!$code)
 		{
 			// No auth code supplied.
-
 			throw new \Exception('Missing login code');
 		}
 
@@ -73,7 +69,6 @@ class LoginController extends AbstractTrackerController
 
 		$options = new Registry(
 			array(
-
 				'tokenurl' => 'https://github.com/login/oauth/access_token',
 				'redirect_uri' => $app->get('uri.request'),
 				'clientid' => $app->get('github.client_id'),
@@ -96,7 +91,6 @@ class LoginController extends AbstractTrackerController
 		$app->getSession()->set('gh_oauth_access_token', $accessToken);
 
 		// Get the current logged in GitHub user
-
 		$options = new Registry;
 		$options->set('gh.token', $accessToken);
 
@@ -110,7 +104,7 @@ class LoginController extends AbstractTrackerController
 
 		$http = new \Joomla\Github\Http($options, $transport);
 
-		//$app->debugOut(get_class($transport));
+		// $app->debugOut(get_class($transport));
 
 		// Instantiate J\Github
 		$gitHub = new Github($options, $http);
@@ -130,7 +124,6 @@ class LoginController extends AbstractTrackerController
 		if (!$table->id)
 		{
 			// Register a new user
-
 			$date = new Date;
 			$user->registerDate = $date->format('Y-m-d H:i:s');
 

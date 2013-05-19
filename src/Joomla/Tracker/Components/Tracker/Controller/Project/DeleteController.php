@@ -10,20 +10,26 @@ use Joomla\Tracker\Components\Tracker\Controller\DefaultController;
 use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Controller class to delete a project.
  *
  * @since  1.0
  */
 class DeleteController extends DefaultController
 {
+	/**
+	 * The default view for the component
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $defaultView = 'projects';
 
 	/**
 	 * Execute the controller.
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
 	 */
 	public function execute()
 	{

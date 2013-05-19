@@ -7,13 +7,14 @@
 namespace Joomla\Tracker\Components\Tracker\HTML;
 
 use Joomla\Factory;
+use Joomla\Filesystem\Folder;
 use Joomla\Uri\Uri;
 
 use Joomla\Tracker\Authentication\User;
 use Joomla\Tracker\HTML\Html;
 
 /**
- * Class HtmlGitHub.
+ * HTML Helper class for rendering items interacting with GitHub
  *
  * @since  1.0
  */
@@ -26,7 +27,9 @@ final class HtmlGitHub
 	 * @param   string  $text          Button text.
 	 * @param   string  $redirect      Redirect link.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public static function loginButton($gh_client_id, $text = 'Login with GitHub', $redirect = null)
 	{
@@ -59,13 +62,15 @@ final class HtmlGitHub
 	 * @param   User     $user      User object.
 	 * @param   integer  $maxWidth  Max image width.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public static function avatar(User $user, $maxWidth = 0)
 	{
 		return '[avatar]';
 
-		// @todo re-enable ?
+		// @todo re-enable?
 
 		static $avatar;
 
@@ -73,16 +78,14 @@ final class HtmlGitHub
 
 		if (!$avatar)
 		{
-			jimport('joomla.filesystem.folder');
-
-			$files = JFolder::files(JPATH_ROOT . '/' . $imageBase, '^' . $user->username . '\.');
+			$files = Folder::files(JPATH_BASE . '/' . $imageBase, '^' . $user->username . '\.');
 
 			$avatar = (isset($files[0])) ? $files[0] : 'amor.png';
 		}
 
 		$attribs = array();
 
-		$attribs ['title'] = $user->username;
+		$attribs['title'] = $user->username;
 
 		if ($maxWidth)
 		{
@@ -90,6 +93,6 @@ final class HtmlGitHub
 			$attribs['width']  = $maxWidth;
 		}
 
-		return JHtml::image($imageBase . '/' . $avatar, $user->username, $attribs);
+		return Html::image($imageBase . '/' . $avatar, $user->username, $attribs);
 	}
 }

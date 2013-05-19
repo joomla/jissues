@@ -9,7 +9,7 @@ namespace Joomla\Tracker\Components\System\Controller\Config;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Class SaveController.
+ * Controller class to save the configuration
  *
  * @since  1.0
  */
@@ -18,11 +18,10 @@ class SaveController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @throws \UnexpectedValueException
+	 * @return  void
 	 *
 	 * @since   1.0
-	 *
-	 * @return  void
+	 * @throws  \UnexpectedValueException
 	 */
 	public function execute()
 	{

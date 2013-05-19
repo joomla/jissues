@@ -1,7 +1,5 @@
 <?php
 /**
- * @package    JTracker\Database
- *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,10 +10,9 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 
 /**
- * Class AbstractDatabaseTable
+ * Abstract Table class
  *
- * @package  Joomla\Tracker\Database
- * @since    ¿
+ * @since  1.0
  */
 class AbstractDatabaseTable implements \IteratorAggregate
 {
@@ -23,7 +20,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * Name of the database table to model.
 	 *
 	 * @var    string
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $tableName = '';
 
@@ -31,7 +28,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * Name of the primary key fields in the table.
 	 *
 	 * @var    array
-	 * @since  12.2
+	 * @since  1.0
 	 */
 	protected $tableKeys = array();
 
@@ -39,19 +36,20 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * Indicates that the primary keys autoincrement.
 	 *
 	 * @var    boolean
-	 * @since  12.3
+	 * @since  1.0
 	 */
 	protected $autoIncrement = true;
 
 	/**
 	 * The fields of the database table.
 	 *
-	 * @var \stdClass
+	 * @var    \stdClass
+	 * @since  1.0
 	 */
 	protected $tableFields = null;
 
 	/**
-	 * JDatabaseDriver object.
+	 * DatabaseDriver object.
 	 *
 	 * @var    DatabaseDriver
 	 * @since  11.1
@@ -65,9 +63,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @param   string          $table  Name of the table to model.
 	 * @param   mixed           $keys   Name of the primary key field in the table or array of field names that compose the primary key.
-	 * @param   DatabaseDriver  $db     JDatabaseDriver object.
+	 * @param   DatabaseDriver  $db     DatabaseDriver object.
 	 *
-	 * @since   ¿
+	 * @since   1.0
 	 */
 	public function __construct($table, $keys, DatabaseDriver $db)
 	{
@@ -104,14 +102,15 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Set a table field.
+	 * Magic setter to set a table field.
 	 *
 	 * @param   string  $key    The key name.
 	 * @param   mixed   $value  The value to set.
 	 *
-	 * @throws \InvalidArgumentException
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __set($key, $value)
 	{
@@ -126,13 +125,14 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Get a table field.
+	 * Magic getter to get a table field.
 	 *
 	 * @param   string  $key  The key name.
 	 *
-	 * @throws \InvalidArgumentException
-	 *
 	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function __get($key)
 	{
@@ -145,21 +145,20 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to provide a shortcut to binding, checking and storing a JTable
+	 * Method to provide a shortcut to binding, checking and storing a AbstractDatabaseTable
 	 * instance to the database table.  The method will check a row in once the
 	 * data has been stored and if an ordering filter is present will attempt to
 	 * reorder the table rows based on the filter.  The ordering filter is an instance
 	 * property name.  The rows that will be reordered are those whose value matches
-	 * the JTable instance for the property specified.
+	 * the AbstractDatabaseTable instance for the property specified.
 	 *
-	 * @param   mixed  $src     An associative array or object to bind to the JTable instance.
+	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties
-	 *                           to ignore while binding.
+	 *                          to ignore while binding.
 	 *
 	 * @return  boolean
 	 *
-	 * @link    http://docs.joomla.org/JTable/save
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function save($src, $ignore = '')
 	{
@@ -175,18 +174,17 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to bind an associative array or object to the JTable instance.This
+	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.This
 	 * method only binds properties that are publicly accessible and optionally
 	 * takes an array of properties to ignore when binding.
 	 *
-	 * @param   mixed  $src     An associative array or object to bind to the JTable instance.
+	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @throws \InvalidArgumentException
-	 * @return  $this
+	 * @return  AbstractDatabaseTable
 	 *
-	 * @link    http://docs.joomla.org/JTable/bind
-	 * @since   11.1
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function bind($src, $ignore = array())
 	{
@@ -226,20 +224,18 @@ class AbstractDatabaseTable implements \IteratorAggregate
 
 	/**
 	 * Method to load a row from the database by primary key and bind the fields
-	 * to the JTable instance properties.
+	 * to the AbstractDatabaseTable instance properties.
 	 *
-	 * @param   mixed   $keys   An optional primary key value to load the row by, or an array of fields to match.  If not
-	 *                          set the instance property value is used.
-	 * @param   boolean $reset  True to reset the default values before loading the new row.
+	 * @param   mixed    $keys   An optional primary key value to load the row by, or an array of fields to match.  If not
+	 *                           set the instance property value is used.
+	 * @param   boolean  $reset  True to reset the default values before loading the new row.
 	 *
-	 * @throws \RuntimeException
-	 * @throws \UnexpectedValueException
-	 * @throws \InvalidArgumentException
+	 * @return  AbstractDatabaseTable
 	 *
-	 * @link    http://docs.joomla.org/JTable/load
-	 * @since   11.1
-	 *
-	 * @return  $this
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function load($keys = null, $reset = true)
 	{
@@ -325,7 +321,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @param   mixed  $pKey  An optional primary key value to delete.  If not set the instance property value is used.
 	 *
-	 * @return  $this
+	 * @return  AbstractDatabaseTable
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -343,10 +339,12 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		}
 
 		// Delete the row by primary key.
-		$this->db->setQuery($this->db->getQuery(true)
+		$this->db->setQuery(
+			$this->db->getQuery(true)
 			->delete($this->db->quoteName($this->tableName))
-			->where($this->db->quoteName($key) . ' = ' . $this->db->quote($pKey)))
-			->execute();
+			->where($this->db->quoteName($key) . ' = ' . $this->db->quote($pKey))
+		)
+		->execute();
 
 		return $this;
 	}
@@ -358,8 +356,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @return  void
 	 *
-	 * @link    http://docs.joomla.org/JTable/reset
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function reset()
 	{
@@ -375,15 +372,14 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to perform sanity checks on the JTable instance properties to ensure
+	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
 	 * they are safe to store in the database.  Child classes should override this
 	 * method to make sure the data they are storing in the database is safe and
 	 * as expected before storage.
 	 *
-	 * @return  $this
+	 * @return  AbstractDatabaseTable
 	 *
-	 * @link    http://docs.joomla.org/JTable/check
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function check()
 	{
@@ -391,18 +387,17 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to store a row in the database from the JTable instance properties.
+	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
 	 * If a primary key value is set the row with that primary key value will be
 	 * updated with the instance property values.  If no primary key value is set
 	 * a new row will be inserted into the database with the properties from the
-	 * JTable instance.
+	 * AbstractDatabaseTable instance.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  boolean  True on success.
+	 * @return  AbstractDatabaseTable
 	 *
-	 * @link    http://docs.joomla.org/JTable/store
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function store($updateNulls = false)
 	{
@@ -424,7 +419,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @return  boolean  True if the primary key(s) have been set.
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function hasPrimaryKey()
 	{
@@ -466,9 +461,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @param   DatabaseQuery  $query  A query object to append.
 	 * @param   mixed          $pk     Optional primary key parameter.
 	 *
-	 * @return  $this
+	 * @return  AbstractDatabaseTable
 	 *
-	 * @since   12.3
+	 * @since   1.0
 	 */
 	public function appendPrimaryKeys($query, $pk = null)
 	{
@@ -504,8 +499,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @return  mixed  Array of primary key field names or string containing the first primary key field.
 	 *
-	 * @link    http://docs.joomla.org/JTable/getKeyName
-	 * @since   ¿
+	 * @since   1.0
 	 */
 	public function getKeyName($multiple = false)
 	{
@@ -530,10 +524,10 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	/**
 	 * Get the columns from database table.
 	 *
-	 * @throws \UnexpectedValueException
 	 * @return  mixed  An array of the field names, or false if an error occurs.
 	 *
-	 * @since   ¿
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getFields()
 	{
@@ -558,7 +552,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	/**
 	 * Get the table name.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getTableName()
 	{
@@ -568,9 +564,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	/**
 	 * Get an iterator object.
 	 *
-	 * @since  1.0
+	 * @return  \ArrayIterator
 	 *
-	 * @return \ArrayIterator
+	 * @since   1.0
 	 */
 	public function getIterator()
 	{

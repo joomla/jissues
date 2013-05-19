@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Controller
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Controller;
@@ -16,10 +14,9 @@ use Joomla\Tracker\Application\TrackerApplication;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
- * Generic Joomla! Issue Tracker Controller class
+ * Base Controller class for the tracker application
  *
- * @package  JTracker\Controller
- * @since    1.0
+ * @since  1.0
  */
 abstract class AbstractTrackerController extends AbstractController
 {
@@ -45,7 +42,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
@@ -73,9 +70,9 @@ abstract class AbstractTrackerController extends AbstractController
 	 *
 	 * NOTE: This method only exists to provide autocomplete for the child classes
 	 *
-	 * @since   1.0
-	 *
 	 * @return  TrackerApplication
+	 *
+	 * @since   1.0
 	 */
 	public function getApplication()
 	{
@@ -234,19 +231,19 @@ abstract class AbstractTrackerController extends AbstractController
 
 		$path = JPATH_COMPONENT . '/View/' . ucfirst($vName) . '/tmpl';
 
-		if(is_dir($path))
+		if (is_dir($path))
 		{
 			$paths[] = $path;
 		}
 
 		$path = JPATH_TEMPLATES . '/' . strtolower($this->component);
 
-		if(is_dir($path))
+		if (is_dir($path))
 		{
 			$paths[] = $path;
 		}
 
-		/* @var AbstractTrackerHtmlView $view */
+		/* @type AbstractTrackerHtmlView $view */
 		$view = new $vClass(new $mClass, $paths);
 		$view->setLayout($vName . '.' . $lName);
 

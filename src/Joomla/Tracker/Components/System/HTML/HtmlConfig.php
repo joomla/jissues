@@ -7,20 +7,22 @@
 namespace Joomla\Tracker\Components\System\HTML;
 
 /**
- * Class HtmlGitHub.
+ * HTML Helper class to display the configuration
  *
  * @since  1.0
  */
 final class HtmlConfig
 {
 	/**
-	 * Display a form field for editing configuration files..
+	 * Display a form field for editing configuration files.
 	 *
 	 * @param   string  $key    The key.
 	 * @param   string  $value  The value.
 	 * @param   string  $group  The group.
 	 *
-	 * @return string
+	 * @return  string  HTML markup for the selected field
+	 *
+	 * @since   1.0
 	 */
 	public static function field($key, $value, $group = '')
 	{

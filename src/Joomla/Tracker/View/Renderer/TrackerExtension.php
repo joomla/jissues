@@ -1,7 +1,5 @@
 <?php
 /**
- * @package    JTracker\View\Renderer
- *
  * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -14,11 +12,9 @@ use Joomla\Language\Text;
 use Joomla\Tracker\Application\TrackerApplication;
 
 /**
- * JTracker Twig extension class.
+ * Tracker Twig extension class.
  *
- * @package  JTracker\View\Renderer
- *
- * @since    1.0
+ * @since  1.0
  */
 class TrackerExtension extends \Twig_Extension
 {
@@ -82,7 +78,7 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
-	 * Translates a string into the current language.
+	 * Twig template function to translate a string into the current language.
 	 *
 	 * @param   string  $string  The string to translate.
 	 *

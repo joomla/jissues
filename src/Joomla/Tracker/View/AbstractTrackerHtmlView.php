@@ -1,7 +1,5 @@
 <?php
 /**
- * @package    JTracker\View
- *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -17,9 +15,9 @@ use Joomla\View\AbstractView;
 use Joomla\Tracker\View\Renderer\TrackerExtension;
 
 /**
- * Tracker Html View class.
+ * Abstract HTML view class for the Tracker application
  *
- * @package Joomla\Tracker\View
+ * @since  1.0
  */
 abstract class AbstractTrackerHtmlView extends AbstractView
 {
@@ -45,14 +43,14 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	 * @param   ModelInterface  $model           The model object.
 	 * @param   string|array    $templatesPaths  The templates paths.
 	 *
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
 	 * @since   1.0
 	 */
 	public function __construct(ModelInterface $model, $templatesPaths = '')
 	{
 		parent::__construct($model);
 
-		/* @var TrackerApplication $app */
+		/* @type TrackerApplication $app */
 		$app = Factory::$application;
 
 		$renderer = $app->get('renderer.type');
@@ -144,6 +142,13 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		return $this->layout;
 	}
 
+	/**
+	 * Method to get the renderer object.
+	 *
+	 * @return  RendererInterface  The renderer object.
+	 *
+	 * @since   1.0
+	 */
 	public function getRenderer()
 	{
 		return $this->renderer;

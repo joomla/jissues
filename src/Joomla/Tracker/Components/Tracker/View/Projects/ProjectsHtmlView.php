@@ -11,10 +11,9 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**
- * The issues item view
+ * The projects list view
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class ProjectsHtmlView extends AbstractTrackerHtmlView
 {
@@ -29,8 +28,8 @@ class ProjectsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     ProjectsModel
-	 * @since   1.0
+	 * @var    ProjectsModel
+	 * @since  1.0
 	 */
 	protected $model;
 

@@ -10,17 +10,17 @@ use Joomla\Tracker\Components\Users\Model\UsersModel;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
- * View class for the tracker component
+ * Users view class for the Users component
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class UsersHtmlView extends AbstractTrackerHtmlView
 {
-	protected $items = array();
-
 	/**
-	 * @var UsersModel
+	 * Redefine the model so the correct type hinting is available.
+	 *
+	 * @var     UsersModel
+	 * @since   1.0
 	 */
 	protected $model;
 

@@ -113,7 +113,6 @@ class ReceiveIssuesHook extends AbstractHookController
 			default:
 				$status = 1;
 				break;
-
 		}
 
 		// Try to render the description with GitHub markdown
@@ -260,7 +259,6 @@ class ReceiveIssuesHook extends AbstractHookController
 			default:
 				$status = 1;
 				break;
-
 		}
 
 		// Try to render the description with GitHub markdown

@@ -14,8 +14,7 @@ use Joomla\Tracker\Controller\AbstractTrackerController;
 /**
  * Default controller class for the Tracker component.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class DefaultController extends AbstractTrackerController
 {
@@ -25,7 +24,7 @@ class DefaultController extends AbstractTrackerController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{

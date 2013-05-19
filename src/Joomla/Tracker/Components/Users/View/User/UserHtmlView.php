@@ -10,15 +10,12 @@ use Joomla\Factory;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
- * Default view class for the tracker component
+ * User view class for the Users component
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class UserHtmlView extends AbstractTrackerHtmlView
 {
-	protected $item;
-
 	/**
 	 * Method to render the view.
 	 *

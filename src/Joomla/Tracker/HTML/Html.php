@@ -9,7 +9,7 @@ namespace Joomla\Tracker\HTML;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Class Html.
+ * HTML Renderer class
  *
  * !!
  * !! NOTE: This class *must* only contain "dumb", HTML producing, functions !!
@@ -20,11 +20,32 @@ use Joomla\Utilities\ArrayHelper;
 class Html
 {
 	/**
+	 * Write a <img></img> element
+	 *
+	 * @param   string  $file        The URL to use for the src attribute
+	 * @param   string  $alt         The alt text
+	 * @param   mixed   $attributes  String or associative array of attribute(s) to use
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public static function image($file, $alt, $attributes = null)
+	{
+		if (is_array($attributes))
+		{
+			$attributes = ArrayHelper::toString($attributes);
+		}
+
+		return '<img src="' . $file . '" alt="' . $alt . '" ' . $attributes . ' />';
+	}
+
+	/**
 	 * Write a <a></a> element
 	 *
 	 * @param   string  $url         The relative URL to use for the href attribute
-	 * @param   string  $text        The target attribute to use
-	 * @param   array   $attributes  An associative array of attributes to add
+	 * @param   string  $text        The text for the link
+	 * @param   mixed   $attributes  String or associative array of attribute(s) to use
 	 *
 	 * @return  string
 	 *

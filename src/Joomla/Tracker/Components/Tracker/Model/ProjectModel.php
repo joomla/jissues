@@ -13,19 +13,20 @@ use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Tracker\Model\AbstractTrackerListModel;
 
 /**
- * Model to get data for the projects list view
+ * Model to get data for the project list view
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class ProjectModel extends AbstractTrackerDatabaseModel
 {
 	/**
-	 * Het an item.
+	 * Get an item.
 	 *
-	 * @param   null  $projectId  The project id.
+	 * @param   integer  $projectId  The project id.
 	 *
-	 * @return ProjectsTable
+	 * @return  ProjectsTable
+	 *
+	 * @since   1.0
 	 */
 	public function getItem($projectId = null)
 	{
@@ -37,15 +38,6 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 		$table = new ProjectsTable($this->db);
 
 		return $table->load($projectId);
-
-		/*
-		return $this->db->setQuery(
-			$this->db->getQuery(true)
-		->from($this->db->quoteName('#__tracker_projects', 'a'))
-		->select('*')
-		->where($this->db->quote(''))
-		)
-			*/
 	}
 
 	/**

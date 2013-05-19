@@ -1,7 +1,5 @@
 <?php
 /**
- * @package    JTracker\Components\Users
- *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -11,12 +9,17 @@ namespace Joomla\Tracker\Components\Tracker\Controller;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Default controller class for the Users component.
+ * Controller class for the projects view
  *
- * @package  JTracker\Components\Users
- * @since    1.0
+ * @since  1.0
  */
 class ProjectsController extends AbstractTrackerController
 {
+	/**
+	 * The default view for the component
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $defaultView = 'projects';
 }

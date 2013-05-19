@@ -11,9 +11,9 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Tracker\Database\AbstractDatabaseTable;
 
 /**
- * Class TableUsers.
+ * Table class for interfacing with the #__users table
  *
- * @property integer $id Primary key
+ * @property  integer  $id  Primary key
  *
  * @since  1.0
  */
@@ -36,7 +36,9 @@ class TableUsers extends AbstractDatabaseTable
 	 *
 	 * @param   string  $userName  The user name
 	 *
-	 * @return TableUsers
+	 * @return  TableUsers
+	 *
+	 * @since   1.0
 	 */
 	public function loadByUserName($userName)
 	{

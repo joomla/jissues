@@ -13,8 +13,7 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 /**
  * The issues item view
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class IssueHtmlView extends AbstractTrackerHtmlView
 {

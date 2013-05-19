@@ -58,6 +58,7 @@
             <arg value="--ignore=${basedir}/*tmpl/*" />
 			<arg path="${source}" />
 			<arg path="${cli}" />
+			<arg path="www/index.php" />
 		</exec>
 	</target>
 
@@ -73,6 +74,10 @@
 				<include name="**/*.php" />
 				<modified />
 			</fileset>
+			<fileset dir="www">
+				<include name="index.php" />
+				<modified />
+			</fileset>
 		</apply>
 	</target>
 
@@ -80,15 +85,6 @@
 		<exec executable="composer" failonerror="true">
 			<arg value="validate" />
 		</exec>
-
-		<apply executable="composer" failonerror="true">
-			<arg value="validate" />
-
-			<fileset dir="${source}">
-				<include name="**/composer.json" />
-				<modified />
-			</fileset>
-		</apply>
 	</target>
 
 	<target name="build" depends="clean,composervalidate,installdep,parallelTasks" />

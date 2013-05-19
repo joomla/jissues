@@ -10,7 +10,7 @@ use Joomla\Factory;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Class ConfigController.
+ * Controller class to display the application configuration
  *
  * @since  1.0
  */
@@ -27,10 +27,9 @@ class ConfigController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{

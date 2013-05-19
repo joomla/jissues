@@ -9,10 +9,9 @@ namespace Joomla\Tracker\Components\Tracker\Controller\Project;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Controller class to add a project.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class AddController extends AbstractTrackerController
 {

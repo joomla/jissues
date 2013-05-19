@@ -11,7 +11,7 @@ use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
- * Class ConfigController.
+ * Controller class to display project statistics
  *
  * @since  1.0
  */
@@ -25,6 +25,13 @@ class StatsController extends AbstractTrackerController
 	 */
 	protected $defaultView = 'stats';
 
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public function execute()
 	{
 		$projectAlias = $this->getInput()->get('project_alias');

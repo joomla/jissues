@@ -1,9 +1,7 @@
 <?php
 /**
- * @package     JTracker\Router
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Router;
@@ -16,8 +14,7 @@ use Joomla\Router\Router;
 /**
  * Joomla! Issue Tracker Router
  *
- * @package  JTracker\Router
- * @since    1.0
+ * @since  1.0
  */
 class TrackerRouter extends Router
 {
@@ -32,15 +29,15 @@ class TrackerRouter extends Router
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input  $input              An optional input object from which to derive the route.  If none
-	 *                                     is given than the input from the application object will be used.
-	 * @param   AbstractApplication  $app  An optional application object to inject to controllers
+	 * @param   Input                $input  An optional input object from which to derive the route.  If none
+	 *                                       is given than the input from the application object will be used.
+	 * @param   AbstractApplication  $app    An optional application object to inject to controllers
 	 *
 	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
-		parent::__construct($input);
+		parent::__construct($app->input);
 
 		$this->app = $app;
 	}
@@ -65,6 +62,7 @@ class TrackerRouter extends Router
 		{
 			// See if there's an action class in the libraries if we aren't calling the default task
 			$task = $this->input->getCmd('task');
+
 			if ($task && $task != 'default')
 			{
 				$class = '\\Joomla\\Tracker\\Controller\\' . ucfirst($task) . 'Controller';
@@ -73,8 +71,7 @@ class TrackerRouter extends Router
 			if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 			{
 				// Look for a default controller for the component
-				// @TODO - Fix this up
-				//$class = ucfirst($base) . 'DefaultController';
+				$class = ucfirst($base) . 'DefaultController';
 
 				if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 				{

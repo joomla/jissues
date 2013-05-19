@@ -11,17 +11,16 @@ use Joomla\Factory;
 use Joomla\Tracker\Model\AbstractTrackerListModel;
 
 /**
- * Default model class for the Tracker component.
+ * Users model class for the Users component.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class UsersModel extends AbstractTrackerListModel
 {
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
-	 * @return  DatabaseQuery   A DatabaseQuery object to retrieve the data set.
+	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
 	 *
 	 * @since   1.0
 	 */

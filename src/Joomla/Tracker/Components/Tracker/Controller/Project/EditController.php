@@ -9,13 +9,18 @@ namespace Joomla\Tracker\Components\Tracker\Controller\Project;
 use Joomla\Tracker\Components\Tracker\Controller\DefaultController;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Controller class to edit a project.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class EditController extends DefaultController
 {
+	/**
+	 * The default view for the component
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $defaultView = 'project';
 
 	/**

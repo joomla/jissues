@@ -32,23 +32,7 @@ use Joomla\Tracker\Router\TrackerRouter;
 final class TrackerApplication extends AbstractWebApplication
 {
 	/**
-	 * The scope of the application.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	public $scope = null;
-
-	/**
-	 * The client identifier.
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	protected $clientId = null;
-
-	/**
-	 * The application dispatcher object.
+	 * The Dispatcher object.
 	 *
 	 * @var    Dispatcher
 	 * @since  1.0
@@ -74,16 +58,17 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * A session object.
 	 *
-	 * @todo this has been created to avoid a conflict with the $session member var from the parent class.
-	 *
-	 * @var Session
+	 * @var    Session
+	 * @since  1.0
+	 * @note   This has been created to avoid a conflict with the $session member var from the parent class.
 	 */
 	private $newSession = null;
 
 	/**
-	 * The user object.
+	 * The User object.
 	 *
-	 * @var User
+	 * @var    User
+	 * @since  1.0
 	 */
 	private $user;
 
@@ -91,16 +76,23 @@ final class TrackerApplication extends AbstractWebApplication
 	 * The database driver object.
 	 *
 	 * @var    DatabaseDriver
+	 * @since  1.0
 	 */
 	private $database;
 
 	/**
-	 * @var Language
+	 * The Language object
+	 *
+	 * @var    Language
+	 * @since  1.0
 	 */
 	private $language;
 
 	/**
-	 * @var Profiler
+	 * The Profiler object
+	 *
+	 * @var    Profiler
+	 * @since  1.0
 	 */
 	private $profiler;
 
@@ -128,7 +120,7 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		// Register the application to Factory
-		// @todo remove factory usage
+		// @todo Decouple from Factory
 		Factory::$application = $this;
 		Factory::$config = $this->config;
 
@@ -154,7 +146,7 @@ final class TrackerApplication extends AbstractWebApplication
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
 			// Fetch the controller
-			/* @var AbstractTrackerController $controller */
+			/* @type AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
 			// Define the component path
@@ -209,7 +201,9 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Generate a call stack for debugging purpose.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	private function fetchDebugOutput()
 	{
@@ -233,7 +227,9 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   string  $text  The message for the mark.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function mark($text)
 	{
@@ -248,9 +244,10 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Initialize the configuration object.
 	 *
-	 * @throws \RuntimeException
+	 * @return  $this
 	 *
-	 * @return $this
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	private function loadConfiguration()
 	{
@@ -322,7 +319,7 @@ final class TrackerApplication extends AbstractWebApplication
 	public function executeComponent($controller, $component)
 	{
 		// Load template language files.
-		$lang = Factory::getLanguage();
+		$lang = $this->getLanguage();
 
 		$lang->load('tpl_joomla', JPATH_BASE, null, false, false)
 			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', null, false, false)
@@ -355,21 +352,11 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Return the current state of the language filter.
-	 *
-	 * @since   1.0
-	 *
-	 * @return  boolean
-	 */
-	public function getLanguageFilter()
-	{
-		return false;
-	}
-
-	/**
 	 * Get a session object.
 	 *
-	 * @return Session
+	 * @return  Session
+	 *
+	 * @since   1.0
 	 */
 	public function getSession()
 	{
@@ -378,7 +365,7 @@ final class TrackerApplication extends AbstractWebApplication
 			$this->newSession = new Session;
 			$this->newSession->start();
 
-			// @todo remove factory usage
+			// @todo Decouple from Factory
 			Factory::$session = $this->newSession;
 		}
 
@@ -390,7 +377,9 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   integer  $id  The user id or the current user.
 	 *
-	 * @return User
+	 * @return  User
+	 *
+	 * @since   1.0
 	 */
 	public function getUser($id = 0)
 	{
@@ -412,7 +401,9 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Get a database driver object.
 	 *
-	 * @return DatabaseDriver
+	 * @return  DatabaseDriver
+	 *
+	 * @since   1.0
 	 */
 	public function getDatabase()
 	{
@@ -431,7 +422,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->database->setDebug($this->get('debug'));
 
-			// @todo remove factory usage
+			// @todo Decouple from Factory
 			Factory::$database = $this->database;
 		}
 
@@ -441,7 +432,9 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Get a language object.
 	 *
-	 * @return Language
+	 * @return  Language
+	 *
+	 * @since   1.0
 	 */
 	public function getLanguage()
 	{
@@ -452,7 +445,7 @@ final class TrackerApplication extends AbstractWebApplication
 				$this->get('debug_lang')
 			);
 
-			// @todo remove factory usage
+			// @todo Decouple from Factory
 			Factory::$language = $this->language;
 		}
 
@@ -464,14 +457,15 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   User  $user  The user object.
 	 *
-	 * @return $this
+	 * @return  TrackerApplication
+	 *
+	 * @since   1.0
 	 */
 	public function setUser(User $user = null)
 	{
 		if (is_null($user))
 		{
 			// Logout
-
 			$this->user = new GitHubUser;
 
 			$this->getSession()->set('user', $this->user);
@@ -481,7 +475,6 @@ final class TrackerApplication extends AbstractWebApplication
 		else
 		{
 			// Login
-
 			$user->admin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
 
 			$this->user = $user;
@@ -546,22 +539,6 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to get the component params
-	 *
-	 * @param   string  $component  The component to retrieve the params for
-	 *
-	 * @throws \RuntimeException
-	 * @return  Registry  Component params
-	 *
-	 * @deprecated
-	 * @since   1.0
-	 */
-	public function getParams($component = '')
-	{
-		return $component ? JComponentHelper::getParams($component) : new Registry;
-	}
-
-	/**
 	 * Gets a user state.
 	 *
 	 * @param   string  $key      The path of the state.
@@ -573,7 +550,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getUserState($key, $default = null)
 	{
-		/* @var Registry $registry */
+		/* @type Registry $registry */
 		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))
@@ -626,7 +603,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function setUserState($key, $value)
 	{
-		/* @var Registry $registry */
+		/* @type Registry $registry */
 		$registry = $this->getSession()->get('registry');
 
 		if (!is_null($registry))
@@ -682,15 +659,23 @@ final class TrackerApplication extends AbstractWebApplication
 		parent::redirect($url, $moved);
 	}
 
+	/**
+	 * Method to render an exception in a user friendly format
+	 *
+	 * @param   \Exception  $e        The caught exception
+	 * @param   string      $message  The message to display
+	 *
+	 * @return  string  The exception output in rendered format
+	 *
+	 * @since   1.0
+	 */
 	public function renderException(\Exception $e, $message = '')
 	{
-		//return $e->getMessage();
-
 		$base   = '\\Joomla\\Tracker\\Components\\Tracker';
 		$vClass = $base . '\\View\\DefaultView';
 		$mClass = '\\Joomla\\Tracker\\Model\\TrackerDefaultModel';
 
-		/* @var \Joomla\Tracker\View\AbstractTrackerHtmlView $view */
+		/* @type \Joomla\Tracker\View\AbstractTrackerHtmlView $view */
 		$view = new $vClass(new $mClass);
 
 		$view->setLayout('exception');

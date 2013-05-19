@@ -11,34 +11,39 @@ use Joomla\Tracker\Authentication\Database\TableUsers;
 use Joomla\Tracker\Authentication\Exception\AuthenticationException;
 
 /**
- * Class User.
+ * Class containing a user object
  *
  * @since  1.0
  */
 abstract class User
 {
 	/**
-	 * @var integer
+	 * @var    integer
+	 * @since  1.0
 	 */
 	public $id = 0;
 
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $username = '';
 
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $name = '';
 
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $email = '';
 
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $registerDate = '';
 
@@ -47,7 +52,7 @@ abstract class User
 	 *
 	 * @param   integer  $identifier  The primary key of the user to load..
 	 *
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function __construct($identifier = 0)
 	{
@@ -63,10 +68,10 @@ abstract class User
 	 *
 	 * @param   mixed  $id  The user id of the user to load.
 	 *
-	 * @throws \RuntimeException
-	 * @since   1.0
+	 * @return  User
 	 *
-	 * @return $this
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function load($id)
 	{
@@ -108,9 +113,10 @@ abstract class User
 	 *
 	 * @param   string  $action  The action.
 	 *
-	 * @throws Exception\AuthenticationException
+	 * @return  User
 	 *
-	 * @return $this
+	 * @since   1.0
+	 * @throws  AuthenticationException
 	 */
 	public function authorize($action)
 	{
@@ -121,7 +127,6 @@ abstract class User
 		if (in_array($this->username, $adminUsers))
 		{
 			// "Admin users" are granted all permissions.
-
 			return $this;
 		}
 

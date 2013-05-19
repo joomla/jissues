@@ -1,7 +1,5 @@
 <?php
 /**
- * @package    JTracker\View\Renderer
- *
  * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,9 +10,7 @@ use Joomla\Tracker\View\RendererInterface;
 /**
  * Mustache class for rendering output.
  *
- * @package  JTracker\View\Renderer
- *
- * @since   1.0
+ * @since  1.0
  */
 class Mustache extends \Mustache_Engine implements RendererInterface
 {
@@ -48,18 +44,19 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	/**
 	 * Instantiate the renderer.
 	 *
-	 * @param  array  $config  The array of configuration parameters.
+	 * @param   array  $config  The array of configuration parameters.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($config = array())
 	{
 		// Merge the config.
 		$this->config = array_merge($this->config, $config);
 
-		parent::__construct(array(
+		parent::__construct(
+			array(
 				'loader'          => new \Mustache_Loader_FilesystemLoader($this->config['templates_base_dir']),
-				'partials_loader' => new \Mustache_Loader_FilesystemLoader($this->config['partials_base_dir']),
+				'partials_loader' => new \Mustache_Loader_FilesystemLoader($this->config['partials_base_dir'])
 			)
 		);
 	}
@@ -67,8 +64,8 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	/**
 	 * Set the data for the renderer.
 	 *
-	 * @param   mixed   $key    The variable name or an array of variable names with values.
-	 * @param   mixed   $value  The value.
+	 * @param   mixed  $key    The variable name or an array of variable names with values.
+	 * @param   mixed  $value  The value.
 	 *
 	 * @return  Mustache  Method supports chaining.
 	 *
@@ -79,7 +76,10 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	{
 		if (is_array($key))
 		{
-			foreach ($key as $k => $v) $this->set($k, $v);
+			foreach ($key as $k => $v)
+			{
+				$this->set($k, $v);
+			}
 		}
 		else
 		{
@@ -97,7 +97,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	/**
 	 * Unset a particular variable.
 	 *
-	 * @param   mixed   $key  The variable name.
+	 * @param   mixed  $key  The variable name.
 	 *
 	 * @return  Mustache  Method supports chaining.
 	 *
@@ -181,47 +181,58 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	/**
 	 * Set the templates location paths.
 	 *
-	 * @param   string $path  Templates location path.
+	 * @param   string  $path  Templates location path.
 	 *
-	 * @return  $this
+	 * @return  Mustache
 	 *
 	 * @since   1.0
+	 * @todo    Implement addPath() method.
 	 */
 	public function addPath($path)
 	{
-		// TODO: Implement addPath() method.
 	}
 
 	/**
 	 * Add a filter.
 	 *
-	 * @param   string $name    The filter name.
-	 * @param   object $filter  The filter.
+	 * @param   string  $name    The filter name.
+	 * @param   object  $filter  The filter.
 	 *
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @todo    Implement addFilter() method.
 	 */
 	public function addFilter($name, $filter = null)
 	{
-		// TODO: Implement addFilter() method.
 	}
 
 	/**
 	 * Sets the paths where templates are stored.
 	 *
-	 * @param   string|array $paths            A path or an array of paths where to look for templates.
-	 * @param   bool         $overrideBaseDir  If true a path can be outside themes base directory.
+	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
+	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  $this
+	 * @return  Mustache
 	 *
 	 * @since   1.0
+	 * @todo    Implement setTemplatesPaths() method.
 	 */
 	public function setTemplatesPaths($paths, $overrideBaseDir = false)
 	{
-		// TODO: Implement setTemplatesPaths() method.
 	}
 
+	/**
+	 * Add a function.
+	 *
+	 * @param   string  $function  The function name to add
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @todo    Implement addFunction() method.
+	 */
 	public function addFunction($function)
 	{
-		// TODO: Implement addFunction() method.
 	}
 }

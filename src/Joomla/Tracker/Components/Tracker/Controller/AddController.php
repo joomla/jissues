@@ -12,8 +12,7 @@ use Joomla\Input\Input;
 /**
  * Controller class to add an item via the tracker component.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class AddController extends DefaultController
 {
@@ -23,7 +22,7 @@ class AddController extends DefaultController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{

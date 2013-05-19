@@ -11,14 +11,26 @@ use Joomla\Http\Http;
 use Joomla\Uri\Uri;
 
 /**
- * Class GitHubLoginHelper.
+ * Helper class for logging into the application via GitHub.
  *
  * @since  1.0
  */
 class GitHubLoginHelper
 {
+	/**
+	 * The client ID
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	private $clientId;
 
+	/**
+	 * The client secret
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	private $clientSecret;
 
 	/**
@@ -26,6 +38,8 @@ class GitHubLoginHelper
 	 *
 	 * @param   string  $clientId      The client id.
 	 * @param   string  $clientSecret  The client secret.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct($clientId, $clientSecret)
 	{
@@ -33,6 +47,13 @@ class GitHubLoginHelper
 		$this->clientSecret = $clientSecret;
 	}
 
+	/**
+	 * Method to retrieve the correct URI for login via GitHub
+	 *
+	 * @return  string  The login URI
+	 *
+	 * @since   1.0
+	 */
 	public function getLoginUri()
 	{
 		$redirect = Factory::$application->get('uri.base.full') . 'login';
@@ -56,8 +77,10 @@ class GitHubLoginHelper
 	 *
 	 * @param   string  $code  The code obtained form GitHub on the previous step.
 	 *
-	 * @throws \DomainException
-	 * @return mixed
+	 * @return  string  The oAuth token
+	 *
+	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function requestToken($code)
 	{

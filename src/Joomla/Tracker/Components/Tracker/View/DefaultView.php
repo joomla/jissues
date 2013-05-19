@@ -11,8 +11,7 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 /**
  * Default view class for the tracker component
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class DefaultView extends AbstractTrackerHtmlView
 {
