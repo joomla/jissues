@@ -20,6 +20,8 @@ interface RendererInterface
 	 * @param   mixed   $data      The data to pass to the template
 	 *
 	 * @return  string  compiled HTML
+	 *
+	 * @since   1.0
 	 */
 	public function render($template = '', array $data = array());
 
@@ -28,9 +30,9 @@ interface RendererInterface
 	 *
 	 * @param   string  $name  The name of the template file.
 	 *
-	 * @return  $this
+	 * @return  RendererInterface
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function setTemplate($name);
 
@@ -40,7 +42,7 @@ interface RendererInterface
 	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
 	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  $this
+	 * @return  RendererInterface
 	 *
 	 * @since   1.0
 	 */
@@ -51,7 +53,7 @@ interface RendererInterface
 	 *
 	 * @param   string  $path  Templates location path.
 	 *
-	 * @return  $this
+	 * @return  RendererInterface
 	 *
 	 * @since   1.0
 	 */
@@ -63,7 +65,9 @@ interface RendererInterface
 	 * @param   mixed  $key    The variable name or an array of variable names with values.
 	 * @param   mixed  $value  The value.
 	 *
-	 * @return  $this
+	 * @return  RendererInterface
+	 *
+	 * @since   1.0
 	 */
 	public function set($key, $value);
 
@@ -72,7 +76,9 @@ interface RendererInterface
 	 *
 	 * @param   mixed  $key  The variable name
 	 *
-	 * @return  $this
+	 * @return  RendererInterface
+	 *
+	 * @since   1.0
 	 */
 	public function unsetData($key);
 }

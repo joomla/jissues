@@ -12,7 +12,7 @@ use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
 
 /**
- * Model class for the Tracker component.
+ * User model class for the Users component.
  *
  * @since  1.0
  */
@@ -23,7 +23,9 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $itemId  The item id.
 	 *
-	 * @return TableUsers
+	 * @return  TableUsers
+	 *
+	 * @since   1.0
 	 */
 	public function getItem($itemId = null)
 	{
@@ -33,7 +35,7 @@ class UserModel extends AbstractTrackerDatabaseModel
 			{
 				$user = new GitHubUser($itemId);
 			}
-			catch(\RuntimeException $e)
+			catch (\RuntimeException $e)
 			{
 				echo $e->getMessage();
 				Factory::$application->enqueueMessage($e->getMessage(), 'error');

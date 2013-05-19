@@ -1,19 +1,9 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Table
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-/**
- * Table interface class for the activity table
- *
- * @package     JTracker
- * @subpackage  Table
- * @since       1.0
- */
 namespace Joomla\Tracker\Components\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
@@ -21,7 +11,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Tracker\Database\AbstractDatabaseTable;
 
 /**
- * Class ActivitiesTable.
+ * Table interface class for the #__activity table
  *
  * @property   integer  $id
  * @property   integer  $gh_comment_id;
@@ -31,9 +21,7 @@ use Joomla\Tracker\Database\AbstractDatabaseTable;
  * @property   string   $text;
  * @property   string   $created;
  *
- * @package  Joomla\Tracker\Components\Tracker\Table
- *
- * @since    1.0
+ * @since  1.0
  */
 class ActivitiesTable extends AbstractDatabaseTable
 {
@@ -52,10 +40,10 @@ class ActivitiesTable extends AbstractDatabaseTable
 	/**
 	 * Overloaded check function.
 	 *
-	 * @throws \InvalidArgumentException
+	 * @return  boolean
 	 *
 	 * @since   1.0
-	 * @return  boolean
+	 * @throws  \InvalidArgumentException
 	 */
 	public function check()
 	{
@@ -80,16 +68,16 @@ class ActivitiesTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to store a row in the database from the JTable instance properties.
+	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
 	 *
 	 * If a primary key value is set the row with that primary key value will be
 	 * updated with the instance property values.  If no primary key value is set
 	 * a new row will be inserted into the database with the properties from the
-	 * JTable instance.
+	 * AbstractDatabaseTable instance.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  $this.
+	 * @return  ActivitiesTable
 	 *
 	 * @since   1.0
 	 */

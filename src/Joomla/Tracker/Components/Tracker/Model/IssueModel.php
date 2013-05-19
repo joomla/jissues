@@ -16,8 +16,7 @@ use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
 /**
  * Model to get data for the issue list view
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class IssueModel extends AbstractTrackerDatabaseModel
 {
@@ -28,15 +27,17 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $context = 'com_tracker.issues';
+	protected $context = 'com_tracker.issue';
 
 	/**
 	 * Get an item.
 	 *
 	 * @param   integer  $identifier  The item identifier.
 	 *
-	 * @throws \RuntimeException
-	 * @return IssuesTable
+	 * @return  IssuesTable
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getItem($identifier = null)
 	{
@@ -69,12 +70,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
-	 * Get an item.
+	 * Get a project.
 	 *
-	 * @param   integer  $identifier  The item identifier.
+	 * @param   integer  $identifier  The project identifier.
 	 *
-	 * @throws \RuntimeException
-	 * @return IssuesTable
+	 * @return  ProjectsTable
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getProject($identifier = null)
 	{

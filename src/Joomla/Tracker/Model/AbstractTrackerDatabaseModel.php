@@ -14,8 +14,7 @@ use Joomla\Tracker\Database\AbstractDatabaseTable;
 /**
  * Abstract base model for the tracker application
  *
- * @package  JTracker\Model
- * @since    1.0
+ * @since  1.0
  */
 abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 {
@@ -44,7 +43,9 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	protected $table;
 
 	/**
-	 * Constructor
+	 * Instantiate the model.
+	 *
+	 * @param   DatabaseDriver  $database  The database adapter.
 	 *
 	 * @since   1.0
 	 */
@@ -129,7 +130,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 
 		if (!class_exists($class) && !($class instanceof AbstractDatabaseTable))
 		{
-			throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of JTable', $class));
+			throw new \RuntimeException(sprintf('Table class %s not found or is not an instance of AbstractDatabaseTable', $class));
 		}
 
 		$this->table = new $class($this->getDb());

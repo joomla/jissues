@@ -12,7 +12,7 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Config view.
+ * System statistics view.
  *
  * @since  1.0
  */
@@ -27,10 +27,9 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Method to render the view.
 	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 *
 	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
 	 */
 	public function render()
 	{

@@ -11,25 +11,18 @@ use Joomla\Utilities\ArrayHelper;
 use Twig_SimpleFilter;
 
 /**
- * Config view.
+ * System configuration view.
  *
  * @since  1.0
  */
 class ConfigHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * @var    \stdClass
-	 * @since  1.0
-	 */
-	protected $config;
-
-	/**
 	 * Method to render the view.
 	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 *
 	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
 	 */
 	public function render()
 	{

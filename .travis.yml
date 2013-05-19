@@ -6,14 +6,14 @@ php:
 
 before_script:
   - composer update --dev
-  - pyrus channel-discover pear.phpunit.de
-  - pyrus install --force phpunit/DbUnit
-  - pyrus install pear/PHP_CodeSniffer
+  - pear channel-discover pear.phpunit.de
   - pear channel-discover pear.phpmd.org
   - pear channel-discover pear.pdepend.org
-  - pear install phpmd/PHP_PMD
+  - pear install --force phpunit/DbUnit
+  - pear install --force pear/PHP_CodeSniffer
+  - pear install --force phpmd/PHP_PMD
   - phpenv rehash
 
 script:
-  - ant
+  - ant travis-build
   - phpunit --configuration phpunit.travis.xml

@@ -9,10 +9,9 @@ namespace Joomla\Tracker\Components\Users\Model;
 use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
 
 /**
- * Default model class for the Tracker component.
+ * Default model class for the Users component.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class DefaultModel extends AbstractTrackerDatabaseModel
 {

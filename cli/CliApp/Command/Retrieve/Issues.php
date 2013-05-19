@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Retrieve;
@@ -16,7 +13,7 @@ use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 
 /**
- * Class Issues.
+ * Class for retrieving issues from GitHub for selected projects
  *
  * @since  1.0
  */
@@ -26,6 +23,8 @@ class Issues extends Retrieve
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application object.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(TrackerApplication $application)
 	{
@@ -39,7 +38,9 @@ class Issues extends Retrieve
 	/**
 	 * Execute the command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -134,10 +135,10 @@ class Issues extends Retrieve
 	 *
 	 * @param   array  $issues  Array containing the issues pulled from GitHub
 	 *
-	 * @throws \RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function processIssues($issues)
 	{

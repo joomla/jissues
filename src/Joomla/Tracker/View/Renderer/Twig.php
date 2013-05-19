@@ -14,9 +14,7 @@ use Joomla\Tracker\View\RendererInterface;
 /**
  * Twig class for rendering output.
  *
- * @package  JTracker\View\Renderer
- *
- * @since    1.0
+ * @since  1.0
  */
 class Twig extends \Twig_Environment implements RendererInterface
 {
@@ -31,9 +29,9 @@ class Twig extends \Twig_Environment implements RendererInterface
 		'template_file_ext'  => '.twig',
 		'twig_cache_dir'     => 'cache/twig/',
 		'delimiters'         => array(
-			'tag_comment'  => array('{#', '#}'),
-			'tag_block'    => array('{%', '%}'),
-			'tag_variable' => array('{{', '}}')
+			'tag_comment'    => array('{#', '#}'),
+			'tag_block'      => array('{%', '%}'),
+			'tag_variable'   => array('{{', '}}')
 		),
 		'environment'        => array()
 	);
@@ -73,10 +71,9 @@ class Twig extends \Twig_Environment implements RendererInterface
 	/**
 	 * Instantiate the renderer.
 	 *
-	 * @param  array $config  The array of configuration parameters.
+	 * @param   array  $config  The array of configuration parameters.
 	 *
-	 * @throws \RuntimeException
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($config = array())
 	{
@@ -123,20 +120,23 @@ class Twig extends \Twig_Environment implements RendererInterface
 	/**
 	 * Set the data for the renderer.
 	 *
-	 * @param   mixed   $key     The variable name or an array of variable names with values.
-	 * @param   mixed   $value   The value.
-	 * @param   boolean $global  Is this a global variable?
+	 * @param   mixed    $key     The variable name or an array of variable names with values.
+	 * @param   mixed    $value   The value.
+	 * @param   boolean  $global  Is this a global variable?
 	 *
 	 * @return  Twig  Method supports chaining.
 	 *
 	 * @since   1.0
-	 * @throws \InvalidArgumentException
+	 * @throws  \InvalidArgumentException
 	 */
 	public function set($key, $value = null, $global = false)
 	{
 		if (is_array($key))
 		{
-			foreach ($key as $k => $v) $this->set($k, $v, $global);
+			foreach ($key as $k => $v)
+			{
+				$this->set($k, $v, $global);
+			}
 		}
 		else
 		{
@@ -161,7 +161,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	/**
 	 * Unset a particular variable.
 	 *
-	 * @param   mixed   $key  The variable name.
+	 * @param   mixed  $key  The variable name.
 	 *
 	 * @return  Twig  Method supports chaining.
 	 *
@@ -284,7 +284,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
 	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  $this
+	 * @return  Twig
 	 *
 	 * @since   1.0
 	 */

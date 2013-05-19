@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  CLI
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Application;
@@ -21,35 +18,41 @@ use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
 /**
- * Simple Installer.
+ * CLI application for installing the tracker application
  *
- * @package     JTracker
- * @subpackage  CLI
- * @since       1.0
+ * @since  1.0
  */
 class TrackerApplication extends AbstractCliApplication
 {
 	/**
-	 * @var  DatabaseDriver
+	 * Database object
+	 *
+	 * @var    DatabaseDriver
+	 * @since  1.0
 	 */
 	private $database = null;
 
 	/**
 	 * Quiet mode - no output.
 	 *
-	 * @var bool
+	 * @var    boolean
+	 * @since  1.0
 	 */
 	private $quiet = false;
 
 	/**
 	 * Verbose mode - debug output.
 	 *
-	 * @var bool
+	 * @var    bool
+	 * @since  1.0
 	 */
 	private $verbose = false;
 
 	/**
-	 * @var array
+	 * Array of TrackerCommandOption objects
+	 *
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $commandOptions = array();
 
@@ -86,18 +89,15 @@ class TrackerApplication extends AbstractCliApplication
 
 		$this->loadConfiguration();
 
-		/* @var ColorProcessor $processor */
+		/* @type ColorProcessor $processor */
 		$processor = $this->getOutput()->getProcessor();
 
-		if ($this->input->get('nocolors')
-			|| !$this->get('cli-application.colors')
-		)
+		if ($this->input->get('nocolors') || !$this->get('cli-application.colors'))
 		{
 			$processor->noColors = true;
 		}
 
 		// Setup app colors (also required in "nocolors" mode - to strip them).
-
 		$processor
 			->addStyle('b', new ColorStyle('', '', array('bold')))
 			->addStyle('title', new ColorStyle('yellow', '', array('bold')))
@@ -107,7 +107,9 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Get a database driver object.
 	 *
-	 * @return DatabaseDriver
+	 * @return  DatabaseDriver
+	 *
+	 * @since   1.0
 	 */
 	public function getDatabase()
 	{
@@ -123,10 +125,10 @@ class TrackerApplication extends AbstractCliApplication
 	 * Method to run the application routines.  Most likely you will want to instantiate a controller
 	 * and execute it, or perform some sort of task directly.
 	 *
-	 * @throws \RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function doExecute()
 	{
@@ -165,7 +167,7 @@ class TrackerApplication extends AbstractCliApplication
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
 
-		/* @var TrackerCommand $class */
+		/* @type TrackerCommand $class */
 		$class = new $className($this);
 
 		try
@@ -192,8 +194,8 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Write a string to standard output.
 	 *
-	 * @param   string   $text  The text to display.
-	 * @param   boolean  $newline    True (default) to append a new line at the end of the output string.
+	 * @param   string   $text     The text to display.
+	 * @param   boolean  $newline  True (default) to append a new line at the end of the output string.
 	 *
 	 * @return  TrackerApplication
 	 *
@@ -210,7 +212,9 @@ class TrackerApplication extends AbstractCliApplication
 	 *
 	 * @param   string  $text  The text to display.
 	 *
-	 * @return TrackerApplication
+	 * @return  TrackerApplication
+	 *
+	 * @since   1.0
 	 */
 	public function debugOut($text)
 	{
@@ -220,11 +224,13 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Output a nicely formatted title for the application.
 	 *
-	 * @param   string  $title     The title to display.
-	 * @param   string  $subTitle  A subtitle
-	 * @param   int     $width     Total width in chars
+	 * @param   string   $title     The title to display.
+	 * @param   string   $subTitle  A subtitle
+	 * @param   integer  $width     Total width in chars
 	 *
-	 * @return TrackerApplication
+	 * @return  TrackerApplication
+	 *
+	 * @since   1.0
 	 */
 	public function outputTitle($title, $subTitle = '', $width = 60)
 	{
@@ -245,9 +251,10 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Load the application configuration.
 	 *
-	 * @throws \RuntimeException
+	 * @return  TrackerApplication
 	 *
-	 * @return $this
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function loadConfiguration()
 	{
@@ -304,7 +311,9 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Get the command options.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getCommandOptions()
 	{
@@ -314,9 +323,10 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * This is a useless legacy function.
 	 *
-	 * @todo remove
+	 * @return  string
 	 *
-	 * @return string
+	 * @since   1.0
+	 * @todo    Remove
 	 */
 	public function getUserStateFromRequest()
 	{

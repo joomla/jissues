@@ -21,7 +21,7 @@ use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
 /**
- * Class Retrieve.
+ * Class for retrieving data from GitHub for selected projects
  *
  * @since  1.0
  */
@@ -36,21 +36,24 @@ class Retrieve extends TrackerCommand
 	protected $github;
 
 	/**
-	 * @var \stdClass
+	 * @var    object
+	 * @since  1.0
 	 */
 	protected $project = null;
 
 	/**
 	 * Use the progress bar.
 	 *
-	 * @var  boolean
+	 * @var    boolean
+	 * @since  1.0
 	 */
 	protected $usePBar;
 
 	/**
 	 * Progress bar format.
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $pBarFormat = '[%bar%] %fraction% %elapsed% ETA: %estimate%';
 
@@ -58,6 +61,8 @@ class Retrieve extends TrackerCommand
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application object.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(TrackerApplication $application)
 	{
@@ -81,7 +86,9 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -97,12 +104,12 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Select the project.
 	 *
+	 * @return  Retrieve
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  AbortException
 	 * @todo this might go to a base class.
-	 *
-	 * @throws \RuntimeException
-	 * @throws AbortException
-	 *
-	 * @return $this
 	 */
 	protected function selectProject()
 	{
@@ -156,20 +163,23 @@ class Retrieve extends TrackerCommand
 				throw new AbortException('Invalid project');
 			}
 
-			$this->out('Processing project: <info>' . $this->project->title.'</info>');
+			$this->out('Processing project: <info>' . $this->project->title . '</info>');
 		}
 
 		return $this;
 	}
 
 	/**
-	 * Setup the github object.
+	 * Setup the Github object.
 	 *
-	 * @return $this
+	 * @return  Retrieve
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function setupGitHub()
 	{
-		// Set up JGithub
+		// Set up Github
 		$options = new Registry;
 
 		if ($this->application->input->get('auth'))
@@ -205,7 +215,7 @@ class Retrieve extends TrackerCommand
 
 		$this->application->debugOut(get_class($transport));
 
-		// Instantiate JGithub
+		// Instantiate Github
 		$this->github = new Github($options, $http);
 
 		// @todo after fix this should be enough:
@@ -217,7 +227,9 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Display the GitHub rate limit.
 	 *
-	 * @return $this
+	 * @return  Retrieve
+	 *
+	 * @since   1.0
 	 */
 	protected function displayGitHubRateLimit()
 	{
@@ -237,11 +249,13 @@ class Retrieve extends TrackerCommand
 	 *
 	 * @param   integer  $targetNum  The target number.
 	 *
-	 * @return ConsoleProgressBar
+	 * @return  ConsoleProgressBar
+	 *
+	 * @since   1.0
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		if(!$this->usePBar)
+		if (!$this->usePBar)
 		{
 			return null;
 		}

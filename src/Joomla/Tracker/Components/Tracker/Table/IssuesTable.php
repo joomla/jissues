@@ -1,10 +1,7 @@
 <?php
 /**
- * @package     JTracker
- * @subpackage  Table
- *
- * @copyright   Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Components\Tracker\Table;
@@ -19,26 +16,31 @@ use Joomla\Tracker\Database\AbstractDatabaseTable;
 use Psr\Log\InvalidArgumentException;
 
 /**
- * Class IssuesTable.
+ * Table interface class for the #__issues table
  *
- * @package  Joomla\Tracker\Components\Tracker\Table
- *
- * @property   integer  $id           PK.
+ * @property   integer  $id           Primary Key.
  * @property   string   $title        Issue title.
  * @property   string   $description  Issue description.
  * @property   integer  $gh_id        GitHub id.
  *
- * @since    1.0
+ * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable
 {
 	/**
 	 * Internal array of field values.
 	 *
-	 * @var array
+	 * @var    array
+	 * @since  1.0
 	 */
 	protected $fieldValues = array();
 
+	/**
+	 * Container for an IssuesTable object to compare differences
+	 *
+	 * @var    IssuesTable
+	 * @since  1.0
+	 */
 	protected $oldObject;
 
 	/**
@@ -54,16 +56,15 @@ class IssuesTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to bind an associative array or object to the JTable instance.This
+	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.  This
 	 * method only binds properties that are publicly accessible and optionally
 	 * takes an array of properties to ignore when binding.
 	 *
-	 * @param   mixed  $src     An associative array or object to bind to the JTable instance.
+	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
 	 * @return  boolean  True on success.
 	 *
-	 * @link    http://docs.joomla.org/JTable/bind
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
 	 */
@@ -103,10 +104,10 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Overloaded check function
 	 *
-	 * @throws \Psr\Log\InvalidArgumentException
-	 * @since   1.0
+	 * @return  IssuesTable
 	 *
-	 * @return  $this
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function check()
 	{
@@ -131,15 +132,15 @@ class IssuesTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to store a row in the database from the JTable instance properties.
+	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
 	 * If a primary key value is set the row with that primary key value will be
 	 * updated with the instance property values.  If no primary key value is set
 	 * a new row will be inserted into the database with the properties from the
-	 * JTable instance.
+	 * AbstractDatabaseTable instance.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  boolean  True on success.
+	 * @return  IssuesTable
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -333,7 +334,9 @@ class IssuesTable extends AbstractDatabaseTable
 	 *
 	 * @param   array  $fields  The field array.
 	 *
-	 * @return array
+	 * @return  array  Container with cleaned fields
+	 *
+	 * @since   1.0
 	 */
 	private function _cleanFields(array $fields)
 	{

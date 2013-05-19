@@ -17,9 +17,7 @@ use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 /**
  * Controller class receive and inject issue comments from GitHub
  *
- * @package     JTracker
- * @subpackage  Hooks
- * @since       1.0
+ * @since  1.0
  */
 class ReceiveCommentsHook extends AbstractHookController
 {

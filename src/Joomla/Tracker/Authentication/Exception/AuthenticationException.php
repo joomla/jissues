@@ -18,14 +18,16 @@ class AuthenticationException extends \Exception
 	/**
 	 * The user object.
 	 *
-	 * @var User
+	 * @var    User
+	 * @since  1.0
 	 */
 	public $user;
 
 	/**
 	 * The action the user tried to perform.
 	 *
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $action;
 
@@ -34,6 +36,8 @@ class AuthenticationException extends \Exception
 	 *
 	 * @param   User    $user    The user object
 	 * @param   string  $action  The action the user tried to perform.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(User $user, $action)
 	{

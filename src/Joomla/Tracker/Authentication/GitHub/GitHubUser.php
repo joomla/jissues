@@ -11,9 +11,7 @@ use Joomla\Tracker\Authentication\User;
 /**
  * GitHub user class.
  *
- * @package     JTracker
- * @subpackage  GitHub
- * @since       1.0
+ * @since  1.0
  */
 class GitHubUser extends User
 {
@@ -24,9 +22,10 @@ class GitHubUser extends User
 	 *
 	 * @param   \stdClass  $data  A JSON string from GitHub containing user data.
 	 *
-	 * @throws \RuntimeException
+	 * @return  $this
 	 *
-	 * @return $this
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function loadGitHubData(\stdClass $data)
 	{
