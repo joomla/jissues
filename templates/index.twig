@@ -156,7 +156,14 @@
 
 <div class="body">
     <div class="container">
+        <noscript><h1>Please activate JavaScript in your browser.</h1></noscript>
         {% block content %}{% endblock %}
+        {% if jdebug %}
+            <div class="debug">
+                <!-- @todo find a way to replace debug output after processing the renderer -->
+                %%%DEBUG%%%
+            </div>
+        {% endif %}
     </div>
 </div>
 
@@ -198,7 +205,10 @@
     </div>
 </div>
 
+{% block JavaScriptBottom %}
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="{{ uri.base.path }}js/bootstrap.min.js"></script>
+{% endblock %}
+
 </body>
 </html>
