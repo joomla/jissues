@@ -17,9 +17,7 @@ use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 /**
  * Controller class receive and inject issue reports from GitHub
  *
- * @package     JTracker
- * @subpackage  Hooks
- * @since       1.0
+ * @since  1.0
  */
 class ReceiveIssuesHook extends AbstractHookController
 {
@@ -29,7 +27,7 @@ class ReceiveIssuesHook extends AbstractHookController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
@@ -160,9 +158,13 @@ class ReceiveIssuesHook extends AbstractHookController
 			$table->jc_id = substr($this->hookData->issue->title, $pos, 5);
 		}
 
-		if (!$table->store())
+		try
 		{
-			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $table->getError()), Log::INFO);
+			$table->store();
+		}
+		catch (\RuntimeException $e)
+		{
+			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -190,9 +192,13 @@ class ReceiveIssuesHook extends AbstractHookController
 		$activity->event    = 'open';
 		$activity->created  = $table->opened;
 
-		if (!$activity->store())
+		try
 		{
-			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+			$activity->store();
+		}
+		catch (\RuntimeException $e)
+		{
+			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -205,9 +211,13 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event    = 'reopen';
 			$activity->created  = $table->modified;
 
-			if (!$activity->store())
+			try
 			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+				$activity->store();
+			}
+			catch (\RuntimeException $e)
+			{
+				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
 			}
 		}
@@ -221,9 +231,13 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event    = 'close';
 			$activity->created  = $table->closed_date;
 
-			if (!$activity->store())
+			try
 			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+				$activity->store();
+			}
+			catch (\RuntimeException $e)
+			{
+				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
 			}
 		}
@@ -316,7 +330,11 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event    = 'reopen';
 			$activity->created  = $modified->format($dateFormat);
 
-			if (!$activity->store())
+			try
+			{
+				$activity->store();
+			}
+			catch (\RuntimeException $e)
 			{
 				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
@@ -332,7 +350,11 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event    = 'close';
 			$activity->created  = $closed->format($dateFormat);
 
-			if (!$activity->store())
+			try
+			{
+				$activity->store();
+			}
+			catch (\RuntimeException $e)
 			{
 				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();

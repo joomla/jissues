@@ -189,7 +189,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 		{
 			$this->project = $this->db->loadObject();
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			Log::add(
 				sprintf(
