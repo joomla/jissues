@@ -14,9 +14,9 @@
 		<th>Username</th>
 	</tr>
 	<?php foreach ($this->items as $item) : ?>
-	<tr>
-		<td><?php echo $item->id; ?></td>
-		<td><?php echo $item->username; ?></td>
-	</tr>
+		<tr>
+			<td><?php echo $item->id; ?></td>
+			<td><?php echo $item->username; ?></td>
+		</tr>
 	<?php endforeach; ?>
 </table>
