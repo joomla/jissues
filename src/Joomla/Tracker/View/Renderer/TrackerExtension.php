@@ -57,7 +57,9 @@ class TrackerExtension extends \Twig_Extension
 	{
 		return array(
 			new \Twig_SimpleFunction('translate', array($this, 'translate')),
+			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
+			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 		);
 	}
 
@@ -97,5 +99,54 @@ class TrackerExtension extends \Twig_Extension
 	public function stripJRoot($string)
 	{
 		return str_replace(JPATH_BASE, 'JROOT', $string);
+	}
+
+	/**
+	 * Fetch an avatar.
+	 *
+	 * @param   string   $userName  The user name.
+	 * @param   integer  $width     The with in pixel.
+	 *
+	 * @return string
+	 */
+	public function fetchAvatar($userName = '', $width = 0)
+	{
+		static $avatars = array();
+
+		if (array_key_exists($userName, $avatars))
+		{
+			$avatar = $avatars[$userName];
+		}
+		else
+		{
+			if (!$userName)
+			{
+				$avatar = 'user-default.png';
+			}
+			else
+			{
+				/* @type \Joomla\Database\DatabaseDriver $db */
+				$db = Factory::$application->getDatabase();
+
+				$avatar = $db->setQuery(
+					$db->getQuery(true)
+						->from($db->quoteName('#__users'))
+						->select($db->quoteName('avatar'))
+						->where($db->quoteName('username') . ' = ' . $db->quote($userName))
+				)->loadResult();
+
+				$avatar = $avatar ? : 'user-default.png';
+			}
+
+			$avatars[$userName] = $avatar;
+		}
+
+		$width = $width ? ' width="' . $width . 'px"' : '';
+
+		return '<img'
+		. ' alt="avatar ' . $userName . '"'
+		. ' src="/images/avatars/' . $avatar . '"'
+		. $width
+		. ' />';
 	}
 }

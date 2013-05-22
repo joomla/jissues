@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Authentication\GitHub;
 
 use Joomla\Factory;
+use Joomla\Filesystem\Folder;
 use Joomla\Http\Http;
 use Joomla\Uri\Uri;
 
@@ -50,9 +51,8 @@ class GitHubLoginHelper
 	/**
 	 * Method to retrieve the correct URI for login via GitHub
 	 *
-	 * @return  string  The login URI
-	 *
 	 * @since   1.0
+	 * @return  string  The login URI
 	 */
 	public function getLoginUri()
 	{
@@ -130,5 +130,71 @@ class GitHubLoginHelper
 		}
 
 		return $body->access_token;
+	}
+
+	/**
+	 * Save an avatar.
+	 *
+	 * @param   GithubUser  $user  The user.
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return void
+	 */
+	public static function saveAvatar(GithubUser $user)
+	{
+		$fileName = basename(urldecode($user->avatar_url));
+		$localFile = $user->username . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+		$imageBase = JPATH_THEMES . '/images/avatars';
+
+		if (false == file_exists($imageBase . '/' . $localFile))
+		{
+			if (false == function_exists('curl_setopt'))
+			{
+				throw new \RuntimeException('cURL is not installed - no avatar support ;(');
+			}
+
+			$ch = curl_init($user->avatar_url);
+
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+			$data = curl_exec($ch);
+
+			curl_close($ch);
+
+			if ($data)
+			{
+				file_put_contents($imageBase . '/' . $localFile, $data);
+			}
+		}
+	}
+
+	/**
+	 * Get an avatar path.
+	 *
+	 * @param   GitHubUser  $user  The user.
+	 *
+	 * @return string
+	 */
+	public static function getAvatarPath(GitHubUser $user)
+	{
+		static $avatars;
+
+		if (array_key_exists($user->username, $avatars))
+		{
+			return $avatars[$user->username];
+		}
+
+		$imageBase = JPATH_THEMES . '/images/avatars';
+
+		$files = Folder::files($imageBase, '^' . $user->username . '\.');
+
+		$avatar = (isset($files[0])) ? $files[0] : 'user-default.png';
+
+		$avatars[$user->username] = $avatar;
+
+		return $avatar;
 	}
 }

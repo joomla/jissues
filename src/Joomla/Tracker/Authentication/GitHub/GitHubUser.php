@@ -15,17 +15,27 @@ use Joomla\Tracker\Authentication\User;
  */
 class GitHubUser extends User
 {
+	/**
+	 * @var  string
+	 * @since  1.0
+	 */
 	public $avatar_url;
+
+	/**
+	 * @var  string
+	 * @since  1.0
+	 */
+	public $avatar;
 
 	/**
 	 * Load user data from GitHub.
 	 *
 	 * @param   \stdClass  $data  A JSON string from GitHub containing user data.
 	 *
-	 * @return  $this
+	 * @throws  \RuntimeException
+	 * @return  GitHubUser
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function loadGitHubData(\stdClass $data)
 	{
@@ -44,15 +54,9 @@ class GitHubUser extends User
 
 		$this->username = $data->login;
 
-		if (!$this->email)
-		{
-			$this->email = 'email@example.com';
-		}
+		GitHubLoginHelper::saveAvatar($this);
 
-		if (!$this->name)
-		{
-			$this->name = $this->username;
-		}
+		$this->avatar = GitHubLoginHelper::getAvatarPath($this);
 
 		return $this;
 	}
