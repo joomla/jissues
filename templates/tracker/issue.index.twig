@@ -11,25 +11,67 @@
 
     <h2>{{ project.title }}</h2>
 
-    <h3>#{{ item.gh_id }}: {{ item.title }}</h3>
-
-    <div class="well well-small">
-        <strong>Description</strong>
-        <p>
+    <div class="row-fluid">
+        <div class="span1 well-small">
+            {{ avatar(item.opened_by)|raw }}
+        </div>
+        <div class="span9 well well-small">
+            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date) }}
+            <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
-        </p>
+        </div>
+        <div class="span2">
+            <ul class="unstyled">
+                <li>Status: {{ item.status }}</li>
+                <li>Priority: {{ item.priority }}</li>
+                {% if item.status == 10 %}
+                    <li>Closed: {{ item.closed_date }} by {{ item.closed_by }} at {{ item.closed_sha }}</li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 
-    <hr />
+    <hr/>
 
-    <b>Just for ref.:</b>
+    {% for activity in activities %}
+        <div class="row-fluid">
+            <div class="span1 well-small">
+                {{ avatar(activity.user)|raw }}
+            </div>
+            <div class="span11 well well-small">
+                <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
+                     alt="{{ activity.event }}" title="{{ activity.event }}"/>
 
-    <ul class="unstyled">
-        {% for name, value in item %}
-            <li><b>{{ name }}</b>: {{ value }}</li>
-        {% endfor %}
-    </ul>
+                {{ activity.event }} - {{ activity.user }} - {{ activity.created_date }}
 
-    {{ dump(item) }}
+                {{ activity.text|raw }}
+            </div>
+        </div>
+    {% endfor %}
 
+    <h4>
+        Add a Comment
+    </h4>
+
+    {% if user.id %}
+        {% if user.check("create") or user.check("manage") %}
+            <div class="row-fluid">
+                <div class="span1 well-small">
+                    {{ avatar(user.username)|raw }}
+                </div>
+                <div class="span11">
+                    {# Editor object here... #}
+                    <textarea id="comment" class="span12"></textarea>
+                </div>
+            </div>
+            <a href="javascript:" onclick="alert('Not yet :(');" class="btn btn-success">
+                Add Comment
+            </a>
+        {% else %}
+            {# The user is not authorized #}
+        {% endif %}
+
+    {% else %}
+        <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub</a>
+    {% endif %}
 {% endblock %}

@@ -5,11 +5,22 @@
 
 {% block title %}Project{% endblock %}
 
-{% block subnav %}
+{% block prependMenu %}
+    <li>
+        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
+            Save
+        </a>
+    </li>
+    {% if project.project_id %}
+        <li>
+            <a href="{{ uri.base.path }}project/{{ project.project_id }}/delete" class="btn-danger">
+                Delete
+            </a>
+        </li>
+    {% endif %}
+
     {{ parent() }}
-    <a class="btn btn-success btn-small" href="javascript:;" onclick="document.editForm.submit();">
-        Save
-    </a>
+
 {% endblock %}
 
 {% block content %}

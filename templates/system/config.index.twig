@@ -3,11 +3,17 @@
 
 {% extends "index.twig" %}
 
-{% block subnav %}
+{% block prependMenu %}
+    {% if user.check("create") %}
+        <li>
+            <a class="btn-success" href="javascript:;" onclick="document.configForm.submit();">
+                Save
+            </a>
+        </li>
+    {% endif %}
+
     {{ parent() }}
-    <a class="btn btn-success btn-small" href="javascript:;" onclick="document.configForm.submit();">
-        Save
-    </a>
+
 {% endblock %}
 
 {% block content %}
