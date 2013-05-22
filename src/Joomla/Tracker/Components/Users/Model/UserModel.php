@@ -38,7 +38,8 @@ class UserModel extends AbstractTrackerDatabaseModel
 			catch (\RuntimeException $e)
 			{
 				echo $e->getMessage();
-				Factory::$application->enqueueMessage($e->getMessage(), 'error');
+
+				// Factory::$application->enqueueMessage($e->getMessage(), 'error');
 
 				// Load a blank user
 				$user = new GitHubUser;

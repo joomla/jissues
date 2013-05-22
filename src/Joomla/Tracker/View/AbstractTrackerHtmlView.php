@@ -74,7 +74,10 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 
 			case 'mustache':
 				$config['templates_base_dir'] = JPATH_TEMPLATES;
-				$config['partials_base_dir'] = JPATH_TEMPLATES . '/partials';
+
+				// . '/partials';
+				$config['partials_base_dir'] = JPATH_TEMPLATES;
+
 				$config['environment']['debug'] = JDEBUG ? true : false;
 
 				break;

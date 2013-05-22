@@ -13,7 +13,16 @@ use Joomla\Tracker\Database\AbstractDatabaseTable;
 /**
  * Table class for interfacing with the #__users table
  *
- * @property  integer  $id  Primary key
+ * @property   integer  $id             PK
+ * @property   string   $name           The users name
+ * @property   string   $username       The users username
+ * @property   string   $email          The users e-mail
+ * @property   integer  $block          If the user is blocked
+ * @property   integer  $sendEmail      If the users receives e-mail
+ * @property   string   $registerDate   The register date
+ * @property   string   $lastvisitDate  The last visit date
+ * @property   string   $avatar         The users avatar image file name
+ * @property   string   $params         Parameters
  *
  * @since  1.0
  */

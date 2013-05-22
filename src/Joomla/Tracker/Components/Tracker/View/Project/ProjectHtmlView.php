@@ -7,10 +7,8 @@
 namespace Joomla\Tracker\Components\Tracker\View\Project;
 
 use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
-use Joomla\Tracker\Components\Tracker\Model\ProjectsModel;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
-use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**
  * The projects item view

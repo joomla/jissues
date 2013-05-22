@@ -9,6 +9,11 @@ namespace Joomla\Tracker\View;
 use Joomla\Model\ModelInterface;
 use Joomla\Tracker\Model\TrackerDefaultModel;
 
+/**
+ * Class TrackerDefaultView.
+ *
+ * @since  1.0
+ */
 class TrackerDefaultView  extends AbstractTrackerHtmlView
 {
 	/**
