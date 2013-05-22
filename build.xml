@@ -22,6 +22,12 @@
 		<mkdir dir="${basedir}/build/logs" />
 	</target>
 
+    <target name="composerupdate" description="Composer self-update">
+        <exec executable="composer">
+            <arg value="self-update" />
+        </exec>
+    </target>
+
 	<target name="installdep" description="Install build dependencies using composer">
 		<exec executable="composer">
 			<arg value="update" />
@@ -101,7 +107,7 @@
 		</exec>
 	</target>
 
-	<target name="build" depends="clean,composervalidate,installdep,parallelTasks" />
+	<target name="build" depends="clean,composerupdate,composervalidate,installdep,parallelTasks" />
 
-	<target name="travis-build" depends="clean,composervalidate,installdep,travis-phpcs,phpmd" />
+	<target name="travis-build" depends="clean,composerupdate,composervalidate,installdep,travis-phpcs,phpmd" />
 </project>
