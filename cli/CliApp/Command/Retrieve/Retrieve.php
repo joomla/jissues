@@ -19,6 +19,7 @@ use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
+use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
 
 /**
  * Class for retrieving data from GitHub for selected projects
@@ -36,7 +37,7 @@ class Retrieve extends TrackerCommand
 	protected $github;
 
 	/**
-	 * @var    object
+	 * @var    ProjectsTable
 	 * @since  1.0
 	 */
 	protected $project = null;
@@ -126,7 +127,10 @@ class Retrieve extends TrackerCommand
 
 			foreach ($projects as $i => $project)
 			{
-				$this->out(($i + 1) . ') ' . $project->title);
+				if ($project->gh_user && $project->gh_project)
+				{
+					$this->out('  <b>' . ($i + 1) . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+				}
 			}
 
 			$this->out()
