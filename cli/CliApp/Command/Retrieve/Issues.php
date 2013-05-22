@@ -77,7 +77,7 @@ class Issues extends Retrieve
 			{
 				$page++;
 				$issues_more = $this->github->issues->getListByRepository(
-					// Owner
+				// Owner
 					$this->project->gh_user,
 					// Repository
 					$this->project->gh_project,
@@ -143,9 +143,9 @@ class Issues extends Retrieve
 	protected function processIssues($issues)
 	{
 		// Initialize our database object
-		$db       = $this->application->getDatabase();
-		$query    = $db->getQuery(true);
-		$added    = 0;
+		$db    = $this->application->getDatabase();
+		$query = $db->getQuery(true);
+		$added = 0;
 
 		$this->out('Adding issues to the database...', false);
 
@@ -181,6 +181,7 @@ class Issues extends Retrieve
 			$table = new IssuesTable($db);
 
 			$table->gh_id = $issue->number;
+			$table->issue_number = $issue->number;
 			$table->title = $issue->title;
 
 			$table->description = $this->github->markdown->render(
@@ -189,26 +190,29 @@ class Issues extends Retrieve
 				$this->project->gh_user . '/' . $this->project->gh_project
 			);
 
+			$table->description_raw = $issue->body;
+
 			$table->status = ($issue->state == 'open') ? 1 : 10;
 
-			$date          = new Date($issue->created_at);
-			$table->opened = $date->format('Y-m-d H:i:s');
+			$date               = new Date($issue->created_at);
+			$table->opened_date = $date->format('Y-m-d H:i:s');
+			$table->opened_by   = $issue->user->login;
 
-			$date            = new Date($issue->updated_at);
-			$table->modified = $date->format('Y-m-d H:i:s');
+			$date                 = new Date($issue->updated_at);
+			$table->modified_date = $date->format('Y-m-d H:i:s');
 
 			$table->project_id = $this->project->project_id;
 
 			// Add the diff URL if this is a pull request
 			if ($issue->pull_request->diff_url)
 			{
-				$table->patch_url = $issue->pull_request->diff_url;
+				//$table->patch_url = $issue->pull_request->diff_url;
 			}
 
 			// Add the closed date if the status is closed
 			if ($issue->closed_at)
 			{
-				$date               = new Date($issue->updated_at);
+				$date               = new Date($issue->closed_at);
 				$table->closed_date = $date->format('Y-m-d H:i:s');
 			}
 
@@ -222,17 +226,7 @@ class Issues extends Retrieve
 
 			$table->store();
 
-			// Get the ID for the new issue
-			$query->clear();
-			$query->select('id');
-			$query->from($db->quoteName('#__issues'));
-			$query->where($db->quoteName('gh_id') . ' = ' . (int) $issue->number);
-			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
-			$db->setQuery($query);
-
-			$issueID = $db->loadResult();
-
-			if (!$issueID)
+			if (!$table->id)
 			{
 				// Bad coder :(
 				throw new \RuntimeException(
@@ -244,22 +238,25 @@ class Issues extends Retrieve
 			}
 
 			// Add an open record to the activity table
-			$activity           = new ActivitiesTable($db);
-			$activity->issue_id = (int) $issueID;
-			$activity->user     = $issue->user->login;
-			$activity->event    = 'open';
-			$activity->created  = $table->opened;
+			$activity               = new ActivitiesTable($db);
+			$activity->project_id   = $this->project->project_id;
+			$activity->issue_id     = (int) $table->issue_number;
+			$activity->user         = $issue->user->login;
+			$activity->event        = 'open';
+			$activity->created_date = $table->opened_date;
 
 			$activity->store();
 
 			// Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
 			{
-				$activity           = new ActivitiesTable($db);
-				$activity->issue_id = (int) $issueID;
-				$activity->user     = $issue->user->login;
-				$activity->event    = 'close';
-				$activity->created  = $table->closed_date;
+				$activity             = new ActivitiesTable($db);
+				$activity->project_id = $this->project->project_id;
+				$activity->issue_id   = (int) $table->issue_number;
+				$activity->event        = 'close';
+				$activity->created_date = $issue->closed_at;
+
+				// $activity->user     = $issue->user->login;
 
 				$activity->store();
 			}
@@ -270,6 +267,6 @@ class Issues extends Retrieve
 
 		// Output the final result
 		$this->out()
-		->out(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
+			->out(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
 	}
 }

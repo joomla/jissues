@@ -142,7 +142,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Add the diff URL if this is a pull request
 		if ($this->hookData->issue->pull_request->diff_url)
 		{
-			$table->patch_url = $this->hookData->issue->pull_request->diff_url;
+			// $table->patch_url = $this->hookData->issue->pull_request->diff_url;
 		}
 
 		// Add the closed date if the status is closed

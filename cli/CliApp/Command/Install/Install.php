@@ -83,7 +83,7 @@ class Install extends TrackerCommand
 			// First, need to drop the tables with FKs in specific order
 			$keyTables = array(
 				$db->replacePrefix('#__tracker_fields_values'),
-				$db->replacePrefix('#__activity'),
+				$db->replacePrefix('#__activities'),
 				$db->replacePrefix('#__issues'),
 				$db->replacePrefix('#__status')
 			);

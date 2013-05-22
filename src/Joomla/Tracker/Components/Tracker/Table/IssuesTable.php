@@ -18,10 +18,25 @@ use Psr\Log\InvalidArgumentException;
 /**
  * Table interface class for the #__issues table
  *
- * @property   integer  $id           Primary Key.
- * @property   string   $title        Issue title.
- * @property   string   $description  Issue description.
- * @property   integer  $gh_id        GitHub id.
+ * @property   integer  $id               PK
+ * @property   integer  $issue_number     THE issue number (ID)
+ * @property   integer  $gh_id            GitHub tracker id
+ * @property   integer  $jc_id            Foreign tracker id
+ * @property   integer  $project_id       Project id
+ * @property   string   $title            Issue title
+ * @property   string   $description      Issue description
+ * @property   string   $description_raw  The raw issue description (markdown)
+ * @property   integer  $priority         Issue priority
+ * @property   integer  $status           Issue status
+ * @property   string   $opened_date      Issue open date
+ * @property   string   $opened_by        Opened by username
+ * @property   string   $closed_date      Issue closed date
+ * @property   string   $closed_by        Issue closed by username
+ * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
+ * @property   string   $modified_date    Issue modified date
+ * @property   string   $modified_by      Issue modified by username
+ * @property   integer  $rel_id           Relation id user
+ * @property   string   $rel_type         Relation type
  *
  * @since  1.0
  */
@@ -154,7 +169,7 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified = $date;
+			$this->modified_date = $date;
 
 			// Factory::getUser()->id;
 			$this->modified_by = 0;
@@ -162,9 +177,9 @@ class IssuesTable extends AbstractDatabaseTable
 		else
 		{
 			// New item
-			if (!(int) $this->opened)
+			if (!(int) $this->opened_date)
 			{
-				$this->opened = $date;
+				$this->opened_date = $date;
 			}
 		}
 
@@ -180,23 +195,24 @@ class IssuesTable extends AbstractDatabaseTable
 		// Add a record to the activity table if a new item
 
 		// TODO: Remove the check for CLI once moved to live instance
-		if ($isNew)// && JFactory::getApplication()->get('cli_app') != true)
+		if ($isNew && Factory::$application->get('cli_app') != true)
 		{
 			$columnsArray = array(
 				$this->db->quoteName('issue_id'),
 				$this->db->quoteName('user'),
 				$this->db->quoteName('event'),
-				$this->db->quoteName('created')
+				$this->db->quoteName('created_date'),
+				$this->db->quoteName('project_id')
 			);
 
-			$query->insert($this->db->quoteName('#__activity'));
+			$query->insert($this->db->quoteName('#__activities'));
 			$query->columns($columnsArray);
 			$query->values(
 				(int) $this->id . ', '
-					// . $this->db->quote(JFactory::getUser()->username) . ', '
-					. $this->db->quote('') . ', '
+					. $this->db->quote(Factory::$application->getUser()->username) . ', '
 					. $this->db->quote('open') . ', '
-					. $this->db->quote($this->opened)
+					. $this->db->quote($this->opened_date) . ', '
+					. (int) $this->project_id
 			);
 
 			$this->db->setQuery($query);
@@ -247,12 +263,12 @@ class IssuesTable extends AbstractDatabaseTable
 					$this->db->quoteName('user')     => $this->db->quote(''),
 					$this->db->quoteName('event')    => $this->db->quote('change'),
 					$this->db->quoteName('text')     => $this->db->quote(json_encode($changes)),
-					$this->db->quoteName('created')  => $this->db->quote($date->format('Y-m-d H:i:s'))
+					$this->db->quoteName('created_date')  => $this->db->quote($date->format('Y-m-d H:i:s'))
 				);
 
 				$this->db->setQuery(
 					$query->clear()
-						->insert($this->db->quoteName('#__activity'))
+						->insert($this->db->quoteName('#__activities'))
 						->columns(array_keys($data))
 						->values(implode(',', $data))
 				)->execute();

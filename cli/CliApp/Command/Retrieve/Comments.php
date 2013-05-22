@@ -224,6 +224,8 @@ class Comments extends Retrieve
 
 		$progressBar = $this->getProgressBar(count($this->issues));
 
+		$this->usePBar ? $this->out() : null;
+
 		// Start processing the comments now
 		foreach ($this->issues as $count => $issue)
 		{
@@ -237,8 +239,9 @@ class Comments extends Retrieve
 			{
 				$query->clear()
 					->select('COUNT(*)')
-					->from($db->quoteName('#__activity'))
-					->where($db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id);
+					->from($db->quoteName('#__activities'))
+					->where($db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id)
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 
 				$db->setQuery($query);
 
@@ -254,13 +257,15 @@ class Comments extends Retrieve
 
 				$this->usePBar ? null : $this->out('+', false);
 
-				// Initialize our JTableActivity instance to insert the new record
+				// Initialize our ActivitiesTable instance to insert the new record
 				$table = new ActivitiesTable($db);
 
 				$table->gh_comment_id = $comment->id;
-				$table->issue_id      = (int) $issue->id;
+				$table->issue_id      = (int) $issue->gh_id;
+				$table->project_id    = $this->project->project_id;
 				$table->user          = $comment->user->login;
 				$table->event         = 'comment';
+				$table->text_raw      = $comment->body;
 
 				$table->text = $this->github->markdown->render(
 					$comment->body,
@@ -269,7 +274,7 @@ class Comments extends Retrieve
 				);
 
 				$date           = new Date($comment->created_at);
-				$table->created = $date->format('Y-m-d H:i:s');
+				$table->created_date = $date->format('Y-m-d H:i:s');
 
 				$table->store();
 			}

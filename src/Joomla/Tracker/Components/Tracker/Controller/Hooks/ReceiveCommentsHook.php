@@ -58,7 +58,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Check to see if the comment is already in the database
 		$query->select($this->db->quoteName('id'));
-		$query->from($this->db->quoteName('#__activity'));
+		$query->from($this->db->quoteName('#__activities'));
 		$query->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $commentID);
 		$this->db->setQuery($query);
 
@@ -192,7 +192,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Add the diff URL if this is a pull request
 		if ($this->hookData->issue->pull_request->diff_url)
 		{
-			$table->patch_url = $this->hookData->issue->pull_request->diff_url;
+			// $table->patch_url = $this->hookData->issue->pull_request->diff_url;
 		}
 
 		// Add the closed date if the status is closed
@@ -292,7 +292,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$query = $this->db->getQuery(true);
-		$query->update($this->db->quoteName('#__activity'));
+		$query->update($this->db->quoteName('#__activities'));
 		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($text));
 		$query->where($this->db->quoteName('id') . ' = ' . $id);
 
