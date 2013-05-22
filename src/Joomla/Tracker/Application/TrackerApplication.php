@@ -12,21 +12,21 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Language\Language;
-use Joomla\Log\Log;
 use Joomla\Registry\Registry;
 
 use Joomla\Tracker\Authentication\Exception\AuthenticationException;
-use Joomla\Tracker\Components\Debug\Logger\CallbackLogger;
-use Joomla\Tracker\Components\Debug\TrackerDebugger;
-use Symfony\Component\HttpFoundation\Session\Session;
-
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
+use Joomla\Tracker\Components\Debug\Logger\CallbackLogger;
+use Joomla\Tracker\Components\Debug\TrackerDebugger;
 use Joomla\Tracker\Controller\AbstractTrackerController;
+use Joomla\Tracker\Router\Exception\RoutingException;
 use Joomla\Tracker\Router\TrackerRouter;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
- * Joomla! Issue Tracker Application class
+ * Joomla! Tracker Application class.
  *
  * @package  JTracker\Application
  * @since    1.0
@@ -116,7 +116,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 		if (JDEBUG)
 		{
-			$this->debugger = new TrackerDebugger;
+			$this->debugger = new TrackerDebugger($this);
 
 			$this->mark('Application started');
 		}
@@ -143,7 +143,14 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
-			$router->addMaps(json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'), true));
+			$maps = json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'));
+
+			if (!$maps)
+			{
+				throw new \RuntimeException('Invalid router file.', 500);
+			}
+
+			$router->addMaps($maps, true);
 			$router->setControllerPrefix('Joomla\\Tracker\\Components');
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
@@ -164,13 +171,11 @@ final class TrackerApplication extends AbstractWebApplication
 				$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
 			}
 
-			echo $contents;
+			$this->setBody($contents);
 		}
-
-		// Mop up any uncaught exceptions.
 		catch (AuthenticationException $e)
 		{
-			// Do something here on authentication failure.
+			header('HTTP/1.1 403 Forbidden', true, 403);
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
@@ -178,27 +183,50 @@ final class TrackerApplication extends AbstractWebApplication
 
 			if (JDEBUG)
 			{
-				// The exceptions contains a public property "user" that holds the current user object.
-				$message .= 'user: ' . $e->user->username . '<br />'
-					. 'id: ' . $e->user->id . '<br />'
-					. 'action: ' . $e->action . '<br />';
+				// The exceptions contains the User object and the action.
+				$message .=
+					($e->getUser()->username ? 'user: ' . $e->getUser()->username . '<br />' : '')
+					. 'id: ' . $e->getUser()->id . '<br />'
+					. 'action: ' . $e->getAction();
 			}
 
-			echo $this->renderException($e, $message);
+			$contents = $this->renderException($e, $message);
 
-			echo JDEBUG ? $this->debugger->getOutput() : '';
+			$debug = JDEBUG ? $this->debugger->getOutput() : '';
 
-			$this->close($e->getCode());
+			$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
+
+			$this->setBody($contents);
+		}
+		catch (RoutingException $e)
+		{
+			header('HTTP/1.1 404 Not Found', true, 403);
+
+			$this->mark('Application terminated with an ROUTING EXCEPTION');
+
+			$message = JDEBUG ? $e->getRawRoute() : '';
+
+			$contents = $this->renderException($e, $message);
+
+			$debug = JDEBUG ? $this->debugger->getOutput() : '';
+
+			$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
+
+			$this->setBody($contents);
 		}
 		catch (\Exception $e)
 		{
+			header('HTTP/1.1 500 Internal Server Error', true, 500);
+
 			$this->mark('Application terminated with an EXCEPTION');
 
-			echo $this->renderException($e);
+			$contents = $this->renderException($e);
 
-			echo JDEBUG ? $this->debugger->getOutput() : '';
+			$debug = JDEBUG ? $this->debugger->getOutput() : '';
 
-			$this->close($e->getCode());
+			$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
+
+			$this->setBody($contents);
 		}
 	}
 

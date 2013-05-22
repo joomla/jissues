@@ -6,8 +6,9 @@
 
 namespace Joomla\Tracker\Components\Debug;
 
-use Joomla\Factory;
 use Joomla\Profiler\Profiler;
+
+use Joomla\Tracker\Application\TrackerApplication;
 
 /**
  * Class TrackerDebugger.
@@ -16,6 +17,11 @@ use Joomla\Profiler\Profiler;
  */
 class TrackerDebugger
 {
+	/**
+	 * @var TrackerApplication
+	 */
+	private $application;
+
 	/**
 	 * @var array
 	 * @since   1.0
@@ -30,9 +36,13 @@ class TrackerDebugger
 
 	/**
 	 * Constructor.
+	 *
+	 * @param   TrackerApplication  $application  The application
 	 */
-	public function __construct()
+	public function __construct(TrackerApplication $application)
 	{
+		$this->application = $application;
+
 		$this->profiler = new Profiler('Tracker');
 
 		$this->log['db'] = array();
@@ -66,6 +76,29 @@ class TrackerDebugger
 		$this->log['db'][] = isset($context['sql'])
 			? $context['sql']
 			: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
+
+		// Log to a text file
+
+		$log = array();
+
+		$log[] = '';
+		$log[] = date('y-m-d H:i:s') . ' DB Query';
+		$log[] = $this->application->get('uri.request');
+
+		$log[] = isset($context['sql'])
+			? $message . ' - SQL: ' . $context['sql']
+			: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
+
+		$log[] = '';
+
+		$fName = JPATH_BASE . '/logs/database.log';
+
+		$returnVal = file_put_contents($fName, implode("\n", $log), FILE_APPEND | LOCK_EX);
+
+		if (!$returnVal)
+		{
+			echo __METHOD__ . 'File could not be written :(';
+		}
 
 		return $this;
 	}
@@ -133,7 +166,7 @@ class TrackerDebugger
 
 			$debug[] = count($dbLog) . ' Queries.';
 
-			$prefix = Factory::$application->getDatabase()->getPrefix();
+			$prefix = $this->application->getDatabase()->getPrefix();
 
 			foreach ($dbLog as $entry)
 			{

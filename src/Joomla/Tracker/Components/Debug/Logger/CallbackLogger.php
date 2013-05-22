@@ -6,14 +6,14 @@
 
 namespace Joomla\Tracker\Components\Debug\Logger;
 
-use Psr\Log\LoggerInterface;
+use Psr\Log\AbstractLogger;
 
 /**
  * Class CallbackLogger.
  *
  * @since  1.0
  */
-class CallbackLogger implements LoggerInterface
+class CallbackLogger extends AbstractLogger
 {
 	/**
 	 * The callback function
@@ -37,129 +37,6 @@ class CallbackLogger implements LoggerInterface
 		}
 
 		$this->callback = $callback;
-	}
-
-	/**
-	 * System is unusable.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function emergency($message, array $context = array())
-	{
-		$this->log('emergency', $message, $context);
-	}
-
-	/**
-	 * Action must be taken immediately.
-	 *
-	 * Example: Entire website down, database unavailable, etc. This should
-	 * trigger the SMS alerts and wake you up.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function alert($message, array $context = array())
-	{
-		$this->log('alert', $message, $context);
-	}
-
-	/**
-	 * Critical conditions.
-	 *
-	 * Example: Application component unavailable, unexpected exception.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function critical($message, array $context = array())
-	{
-		$this->log('critical', $message, $context);
-	}
-
-	/**
-	 * Runtime errors that do not require immediate action but should typically
-	 * be logged and monitored.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function error($message, array $context = array())
-	{
-		$this->log('error', $message, $context);
-	}
-
-	/**
-	 * Exceptional occurrences that are not errors.
-	 *
-	 * Example: Use of deprecated APIs, poor use of an API, undesirable things
-	 * that are not necessarily wrong.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function warning($message, array $context = array())
-	{
-		$this->log('warning', $message, $context);
-	}
-
-	/**
-	 * Normal but significant events.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function notice($message, array $context = array())
-	{
-		$this->log('notice', $message, $context);
-	}
-
-	/**
-	 * Interesting events.
-	 *
-	 * Example: User logs in, SQL logs.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function info($message, array $context = array())
-	{
-		$this->log('info', $message, $context);
-	}
-
-	/**
-	 * Detailed debug information.
-	 *
-	 * @param   string  $message  The log message
-	 * @param   array   $context  The context
-	 *
-	 * @since  1.0
-	 * @return null
-	 */
-	public function debug($message, array $context = array())
-	{
-		$this->log('debug', $message, $context);
 	}
 
 	/**
