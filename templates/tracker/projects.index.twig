@@ -5,31 +5,36 @@
 
 {% block title %}Projects{% endblock %}
 
-{% block subnav %}
-    {{ parent() }}
+{% block prependMenu %}
     {% if user.isAdmin %}
-        <a class="btn btn-success btn-small" href="{{ uri.base.path }}project/add">
-            Add Project
-        </a>
-{% endif %}
+        <li>
+            <a class="btn-success" href="{{ uri.base.path }}project/add">
+                Add Project
+            </a>
+        </li>
+    {% endif %}
+
+    {{ parent() }}
+
 {% endblock %}
 
 {% block content %}
 
-    <h2>Project list</h2>
+    <h2>Projects List</h2>
 
     <table class="table table-bordered table-hover">
 
         <tr>
             <th>Tracker</th>
             <th>GitHub</th>
-            <th>Stats</th>
+            <th style="width: 5%;">Stats</th>
 
             {% if user.isAdmin %}
+                <th style="width: 5%;">Groups</th>
                 <th style="width: 10%;">Actions</th>
             {% endif %}
 
-            <th  style="width: 5%;">Id</th>
+            <th style="width: 5%;">Id</th>
         </tr>
 
         {% for project in projects %}
@@ -51,6 +56,9 @@
                 </td>
 
                 {% if user.isAdmin %}
+                    <td>
+                        <a href="{{ uri.base.path }}project/{{ project.project_id }}/groups">Groups</a>
+                    </td>
                     <td style="white-space: nowrap;">
                         <a href="{{ uri.base.path }}project/{{ project.project_id }}">Show</a>
                         <a href="{{ uri.base.path }}project/{{ project.project_id }}/edit">Edit</a>
