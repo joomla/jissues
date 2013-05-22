@@ -16,6 +16,7 @@ use Joomla\Database\DatabaseDriver;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
+use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 
 /**
  * CLI application for installing the tracker application
@@ -102,6 +103,8 @@ class TrackerApplication extends AbstractCliApplication
 			->addStyle('b', new ColorStyle('', '', array('bold')))
 			->addStyle('title', new ColorStyle('yellow', '', array('bold')))
 			->addStyle('ok', new ColorStyle('green', '', array('bold')));
+
+		$this->set('cli_app', true);
 	}
 
 	/**
@@ -331,5 +334,22 @@ class TrackerApplication extends AbstractCliApplication
 	public function getUserStateFromRequest()
 	{
 		return '';
+	}
+
+	/**
+	 * Get a user object.
+	 *
+	 * Some methods check for an authenticated user...
+	 *
+	 * @since  1.0
+	 * @return GitHubUser
+	 */
+	public function getUser()
+	{
+		// Urgh..
+		$user = new GitHubUser;
+		$user->isAdmin = true;
+
+		return $user;
 	}
 }

@@ -28,7 +28,10 @@ class AddController extends DefaultController
 	{
 		parent::__construct($input, $app);
 
+		$this->getApplication()->getUser()->authorize('create');
+
 		// Set the default view
-		$this->getInput()->set('view', 'add');
+		$this->getInput()->set('view', 'issue');
+		$this->getInput()->set('layout', 'add');
 	}
 }

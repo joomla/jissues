@@ -9,7 +9,7 @@ namespace Joomla\Tracker\Authentication\Exception;
 use Joomla\Tracker\Authentication\User;
 
 /**
- * Class AuthenticationException
+ * Class AuthenticationException.
  *
  * @since  1.0
  */
@@ -21,7 +21,7 @@ class AuthenticationException extends \Exception
 	 * @var    User
 	 * @since  1.0
 	 */
-	public $user;
+	protected $user;
 
 	/**
 	 * The action the user tried to perform.
@@ -29,7 +29,7 @@ class AuthenticationException extends \Exception
 	 * @var    string
 	 * @since  1.0
 	 */
-	public $action;
+	protected $action;
 
 	/**
 	 * Constructor.
@@ -41,7 +41,30 @@ class AuthenticationException extends \Exception
 	 */
 	public function __construct(User $user, $action)
 	{
-		$this->user = $user;
+		$this->user   = $user;
 		$this->action = $action;
+		$this->code   = 403;
+	}
+
+	/**
+	 * Get the critical action.
+	 *
+	 * @since  1.0
+	 * @return string
+	 */
+	public function getAction()
+	{
+		return $this->action;
+	}
+
+	/**
+	 * Get the user object.
+	 *
+	 * @since  1.0
+	 * @return \Joomla\Tracker\Authentication\User
+	 */
+	public function getUser()
+	{
+		return $this->user;
 	}
 }

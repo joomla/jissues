@@ -35,6 +35,7 @@ class AddController extends AbstractTrackerController
 		$this->getApplication()->getUser()->authorize('admin');
 
 		$this->getInput()->set('layout', 'edit');
+		$this->getInput()->set('project_id', 0);
 
 		return parent::execute();
 	}

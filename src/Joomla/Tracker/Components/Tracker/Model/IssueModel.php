@@ -58,7 +58,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException(__METHOD__ . ' - No project id :(');
 		}
 
-		$project = $this->db->setQuery(
+		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->from('#__issues')
 				->select('*')
@@ -66,7 +66,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('gh_id') . '=' . (int) $identifier)
 		)->loadObject();
 
-		return $project;
+		return $item;
 	}
 
 	/**

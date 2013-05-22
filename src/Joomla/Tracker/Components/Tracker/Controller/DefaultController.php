@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
+use Joomla\Factory;
 use Joomla\Input\Input;
 use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\Controller\AbstractTrackerController;
@@ -38,17 +39,22 @@ class DefaultController extends AbstractTrackerController
 
 		$projectAlias = $input->get('project_alias');
 
-		$projectModel = new ProjectModel;
-
-		$project = $projectModel->getByAlias($projectAlias);
-
-		if ($project)
+		if ($projectAlias)
 		{
-			$input->set('project_id', $project->project_id);
-		}
-		else
-		{
-			// No project... CRY :(
+			$projectModel = new ProjectModel;
+
+			$project = $projectModel->getByAlias($projectAlias);
+
+			if ($project)
+			{
+				$input->set('project_id', $project->project_id);
+
+				Factory::$application->getUser()->authorize('view');
+			}
+			else
+			{
+				// No project... CRY :(
+			}
 		}
 
 		if ($input->getInt('id', 0) >= 1)
