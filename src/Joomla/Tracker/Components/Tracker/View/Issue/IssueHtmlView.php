@@ -6,8 +6,11 @@
 
 namespace Joomla\Tracker\Components\Tracker\View\Issue;
 
+use Joomla\Factory;
 use Joomla\Language\Text;
+use Joomla\Tracker\Components\Tracker\Model\ActivitiesModel;
 use Joomla\Tracker\Components\Tracker\Model\IssueModel;
+use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -43,7 +46,25 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('item', $this->model->getItem());
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		$id = $application->input->getUint('id');
+
+		if ($id)
+		{
+			$item = $this->model->getItem($id);
+
+			$activitiesModel = new ActivitiesModel;
+
+			$this->renderer->set('activities', $activitiesModel->getItems());
+		}
+		else
+		{
+			$item = new IssuesTable($application->getDatabase());
+		}
+
+		$this->renderer->set('item', $item);
 		$this->renderer->set('project', $this->model->getProject()->getIterator());
 
 		return parent::render();
