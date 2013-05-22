@@ -10,6 +10,7 @@ use Joomla\Factory;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
+use Joomla\Tracker\Pagination\TrackerPagination;
 
 /**
  * Abstract model to get data for a list view
@@ -105,7 +106,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Method to get a JPagination object for the data set.
 	 *
-	 * @return  JPagination  A JPagination object for the data set.
+	 * @return  TrackerPagination  A JPagination object for the data set.
 	 *
 	 * @since   1.0
 	 */
@@ -122,7 +123,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		// Create the pagination object.
 		$limit = (int) $this->state->get('list.limit') - (int) $this->state->get('list.links');
-		$page  = new JPagination($this->getTotal(), $this->getStart(), $limit);
+		$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
 
 		// Add the object to the internal cache.
 		$this->cache[$store] = $page;
@@ -208,17 +209,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		$query = $this->_getListQuery();
 
 		$total = (int) $this->_getListCount($query);
-		/*
-		try
-		{
-			$total = (int) $this->_getListCount($query);
-		}
-		catch (\RuntimeException $e)
-		{
-			Factory::$application->enqueueMessage($e->getMessage(), 'error');
-			return false;
-		}
-		*/
 
 		// Add the total to the internal cache.
 		$this->cache[$store] = $total;
@@ -238,7 +228,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// Check whether the state has already been loaded
 		if (!($this->state instanceof Registry))
 		{
-			$this->state = parent::loadState();
+			$this->state = new Registry;
 		}
 
 		// If the context is set, assume that stateful lists are used.
@@ -246,13 +236,16 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		{
 			$app = Factory::$application;
 
-			$value = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
-			$limit = $value;
-			$this->state->set('list.limit', $limit);
+			$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
 
-			$value = $app->getUserStateFromRequest($this->context . '.limitstart', 'limitstart', 0);
-			$limitstart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
-			$this->state->set('list.start', $limitstart);
+			// @todo huge change here - no more session state...
+			$page = $app->input->getInt('page');
+
+			$value = $page ? ($page - 1) * $limit : 0;
+			$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
+
+			$this->state->set('list.start', $limitStart);
+			$this->state->set('list.limit', $limit);
 		}
 		else
 		{

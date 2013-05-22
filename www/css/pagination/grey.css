@@ -1,0 +1,27 @@
+ul.trackerPagination li.details{
+   color:#888888;
+}
+
+ul.trackerPagination li a
+{
+	color:#FFFFFF;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+
+ul.trackerPagination li a
+{
+	color:#474747;
+	border:solid 1px #B6B6B6;
+	padding:6px 9px 6px 9px;
+	background:#E6E6E6;
+	background:-moz-linear-gradient(top,#FFFFFF 1px,#F3F3F3 1px,#E6E6E6);
+	background:-webkit-gradient(linear,0 0,0 100%,color-stop(0.02,#FFFFFF),color-stop(0.02,#F3F3F3),color-stop(1,#E6E6E6));
+}
+
+ul.trackerPagination li a:hover,
+ul.trackerPagination li a.current
+{
+	background:#FFFFFF;
+}

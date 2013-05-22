@@ -1,0 +1,36 @@
+	ul.trackerPagination li.details{
+	   color:#3390CA;
+	}
+	ul.trackerPagination li a
+	{
+		border:solid 1px;
+		border-radius:3px;
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+		padding:6px 9px 6px 9px;
+	}
+
+	ul.trackerPagination li
+	{
+		padding-bottom:1px;
+	}
+
+	ul.trackerPagination li a:hover,
+	ul.trackerPagination li a.current
+	{
+		color:#FFFFFF;
+		box-shadow:0px 1px #EDEDED;
+		-moz-box-shadow:0px 1px #EDEDED;
+		-webkit-box-shadow:0px 1px #EDEDED;
+		text-shadow:0px 1px #388DBE;
+		border-color:#3390CA;
+		background:#58B0E7;
+		background:-moz-linear-gradient(top,#B4F6FF 1px,#63D0FE 1px,#58B0E7);
+		background:-webkit-gradient(linear,0 0,0 100%,color-stop(0.02,#B4F6FF),color-stop(0.02,#63D0FE),color-stop(1,#58B0E7));
+	}
+	ul.trackerPagination li a
+	{
+		color:#0A7EC5;
+		border-color:#8DC5E6;
+		background:#F8FCFF;
+	}

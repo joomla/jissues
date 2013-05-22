@@ -18,34 +18,12 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 class IssuesHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * Container for the view's items
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $items;
-
-	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
 	 * @var     IssuesModel
 	 * @since   1.0
 	 */
 	protected $model;
-
-	/**
-	 * Pagination object
-	 *
-	 * @var    JPagination
-	 * @since  1.0
-	 */
-	protected $pagination;
-
-	/**
-	 * @var    \stdClass
-	 * @since  1.0
-	 */
-	protected $project;
 
 	/**
 	 * Method to render the view.
@@ -57,39 +35,12 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		// Build the toolbar
-		// $this->buildToolbar();
-
 		// Set the vars to the template.
 		$this->renderer->set('items', $this->model->getItems());
+		$this->renderer->set('pagination', $this->model->getPagination());
 		$this->renderer->set('state', $this->model->getState());
 		$this->renderer->set('project', $this->model->getProject());
 
 		return parent::render();
-	}
-
-	/**
-	 * Method to build the view's toolbar
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function buildToolbar()
-	{
-		// Get the user object
-		$user = JFactory::getUser();
-
-		// Instantiate the JToolbar object
-		$toolbar = JToolbar::getInstance('toolbar');
-
-		if ($this->project)
-		{
-			// Add a button to submit a new item.
-			if ($user->authorise('core.create', 'com_tracker'))
-			{
-				$toolbar->appendButton('Standard', 'new', 'COM_TRACKER_TOOLBAR_ADD', 'add', false);
-			}
-		}
 	}
 }
