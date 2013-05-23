@@ -6,7 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
-namespace Joomla\Tracker\Authentication\GitHub;
+namespace Joomla\Tracker\Tests\Authentication\GitHub;
+
+use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 
 /**
  * Class GitHubUserTest.

@@ -15,39 +15,18 @@ error_reporting(-1);
 ini_set('display_errors', 1);
 
 /*
- * Ensure that required path constants are defined.  These can be overridden within the phpunit.xml file
- * if you chose to create a custom version of that file.
+ * Ensure that required path constants are defined.
  */
-if (!defined('JPATH_TESTS'))
-{
-	define('JPATH_TESTS', realpath(__DIR__));
-}
+define('JPATH_TESTS', realpath(__DIR__));
+define('JPATH_BASE', realpath(JPATH_TESTS . '/tmp'));
+define('JPATH_ROOT', JPATH_BASE);
 
-if (!defined('JPATH_BASE'))
-{
-	define('JPATH_BASE', realpath(JPATH_TESTS . '/tmp'));
-}
-
-if (!defined('JPATH_ROOT'))
-{
-	define('JPATH_ROOT', JPATH_BASE);
-}
-
-// Search for the Composer autoload file
-$composerAutoload = dirname(__DIR__) . '/vendor/autoload.php';
-
-if (file_exists($composerAutoload))
-{
-	include_once $composerAutoload;
-}
-
-// Import the platform.
-// @todo - used by "legacy functions" ?
-
-// @ require_once dirname(__DIR__) . '/vendor/joomla/framework/src/import.php';
 
 // Register the test classes.
-// JLoader::registerPrefix('Test', __DIR__ . '/tracker');
+$loader = require __DIR__ . '/../vendor/autoload.php';
+
+// Add the namespace for our application to the autoloader.
+$loader->add('Test', __DIR__);
 
 /*
  * The PHP garbage collector can be too aggressive in closing circular references before they are no longer needed.  This can cause
