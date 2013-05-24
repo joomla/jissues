@@ -42,11 +42,11 @@
         <div class="row-fluid">
             <div class="span6">
     				<pre># H1
-    ## H2
-    ### H3
-    #### H4
-    ##### H5
-    ###### H6</pre>
+## H2
+### H3
+#### H4
+##### H5
+###### H6</pre>
             </div>
             <div class="span6">
                 <h1>H1</h1>
@@ -70,16 +70,16 @@
         <div class="row-fluid">
             <div class="span6">
     				<pre>* A list
-    * Of
-    * Items
+* Of
+* Items
 
-    * A List
-    	* With a subitem (indent with 4 spaces)
-    * Nice..
+* A List
+    * With a subitem (indent with 4 spaces)
+* Nice..
 
-    1. A numbered list
-    2. Of
-    3. Items</pre>
+1. A numbered list
+2. Of
+3. Items</pre>
             </div>
             <div class="span6">
                 <ul>
@@ -114,7 +114,7 @@
             <div class="span6">
     				<pre>See: http://joomla.org for more information.
 
-    See: [The Joomla! home page](http://joomla.org) for more information.</pre>
+See: [The Joomla! home page](http://joomla.org) for more information.</pre>
             </div>
             <div class="span6">
                 <p>See: <a href="http://joomla.org">http://joomla.org</a> for more information.</p>
@@ -135,7 +135,7 @@
             <div class="span6">
     				<pre>*emphasis* or _emphasis_  (e.g., _italics_)
 
-    **strong emphasis** or __strong emphasis__ (e.g., **boldface**)</pre>
+**strong emphasis** or __strong emphasis__ (e.g., **boldface**)</pre>
             </div>
             <div class="span6">
                 <p><em>emphasis</em> or <em>emphasis</em> (e.g., <em>italics</em>)</p>
@@ -158,31 +158,31 @@
             <div class="span6">
     				<pre>Some text with `some code` inside.
 
-    	line 1 of code indented by 4 spaces
-    	line 2 of code indented by 4 spaces
-    	line 3 of code indented by 4 spaces
+    line 1 of code indented by 4 spaces
+    line 2 of code indented by 4 spaces
+    line 3 of code indented by 4 spaces
 
-    Some text with ```some fenced code``` inside.
+Some text with ```some fenced code``` inside.
 
-    ```
-    line 1 of fenced code
-    line 2 of fenced code
-    line 3 of fenced code
-    ```
+```
+line 1 of fenced code
+line 2 of fenced code
+line 3 of fenced code
+```
 
-    Syntax highlighting provided by [GitHub Flavored Markdown](http://github.github.com/github-flavored-markdown/)
+Syntax highlighting provided by [GitHub Flavored Markdown](http://github.github.com/github-flavored-markdown/)
 
-    ```php
-    protected function parse($raw)
-    {
-    	$o = new stdClass;
-    	$o->text = $raw;
+```php
+protected function parse($raw)
+{
+    $o = new stdClass;
+    $o->text = $raw;
 
-    	$this->dispatcher->trigger('onContentPrepare', array('com_tracker.markdown', &$o, new JRegistry));
+    $this->dispatcher->trigger('onContentPrepare', array('com_tracker.markdown', &$o, new JRegistry));
 
-    	echo $o->text;
-    }
-    ```</pre>
+    echo $o->text;
+}
+```</pre>
             </div>
             <div class="span6">
                 <p>Some text with <code>some code</code> inside.</p>
@@ -238,9 +238,9 @@
         <div class="row-fluid">
             <div class="span6">
     				<pre>> "This entire paragraph of text will be enclosed in an HTML blockquote element.
-    Blockquote elements are reflowable. You may arbitrarily
-    wrap the text to your liking, and it will all be parsed
-    into a single blockquote element."</pre>
+Blockquote elements are reflowable. You may arbitrarily
+wrap the text to your liking, and it will all be parsed
+into a single blockquote element."</pre>
             </div>
             <div class="span6">
                 <blockquote>
@@ -265,9 +265,9 @@
         <div class="row-fluid">
             <div class="span6">
     				<pre>* * *
-    ***
-    *****
-    - - -</pre>
+***
+*****
+- - -</pre>
             </div>
             <div class="span6">
                 <hr>
@@ -289,28 +289,28 @@
         <div class="row-fluid">
             <div class="span6">
     				<pre>First Header  | Second Header
-    ------------- | -------------
-    Content Cell  | Content Cell
-    Content Cell  | Content Cell
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
 
-    ### Alignment
-    If you wish, you can add a leading and tailing pipe to each line of the table.
+### Alignment
+If you wish, you can add a leading and tailing pipe to each line of the table.
 
-    You can specify alignement for each column by adding colons to separator lines. A colon at the left of the separator line will make the column left-aligned; a colon on the right of the line will make the column right-aligned; colons at both side means the column is center-aligned.
+You can specify alignement for each column by adding colons to separator lines. A colon at the left of the separator line will make the column left-aligned; a colon on the right of the line will make the column right-aligned; colons at both side means the column is center-aligned.
 
-    | Item      | Value |
-    | --------- | -----:|
-    | Computer  | $1600 |
-    | Phone     |   $12 |
-    | Pipe      |    $1 |
+| Item      | Value |
+| --------- | -----:|
+| Computer  | $1600 |
+| Phone     |   $12 |
+| Pipe      |    $1 |
 
-    ### Formatting
-    You can apply span-level formatting to the content of each cell using regular Markdown syntax:
+### Formatting
+You can apply span-level formatting to the content of each cell using regular Markdown syntax:
 
-    | Function name | Description                    |
-    | ------------- | ------------------------------ |
-    | `help()`      | Display the help window.       |
-    | `destroy()`   | **Destroy your computer!**     |</pre>
+| Function name | Description                    |
+| ------------- | ------------------------------ |
+| `help()`      | Display the help window.       |
+| `destroy()`   | **Destroy your computer!**     |</pre>
             </div>
             <div class="span6">
                 <table>
@@ -410,12 +410,12 @@
         <div class="row-fluid">
             <div class="span6">
     				<pre>* SHA: 935fef6f37e2c049ed2534b11c0d28e18e5e3f9c
-    * User@SHA: mbabker@935fef6f37e2c049ed2534b11c0d28e18e5e3f9c
-    * User/Project@SHA: mbabker/jissues@935fef6f37e2c049ed2534b11c0d28e18e5e3f9c
-    * #Num: #1
-    * User/#Num: mbabker#1
-    * User/Project#Num: mbabker/jissues#1
-    * It is in no way the fault of @mbabker that you are looking at this page here and now...</pre>
+* User@SHA: mbabker@935fef6f37e2c049ed2534b11c0d28e18e5e3f9c
+* User/Project@SHA: mbabker/jissues@935fef6f37e2c049ed2534b11c0d28e18e5e3f9c
+* #Num: #1
+* User/#Num: mbabker#1
+* User/Project#Num: mbabker/jissues#1
+* It is in no way the fault of @mbabker that you are looking at this page here and now...</pre>
             </div>
             <div class="span6">
                 <ul>
