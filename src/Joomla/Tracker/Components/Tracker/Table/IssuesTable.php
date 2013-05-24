@@ -20,8 +20,7 @@ use Psr\Log\InvalidArgumentException;
  *
  * @property   integer  $id               PK
  * @property   integer  $issue_number     THE issue number (ID)
- * @property   integer  $gh_id            GitHub tracker id
- * @property   integer  $jc_id            Foreign tracker id
+ * @property   integer  $foreign_number   Foreign tracker id
  * @property   integer  $project_id       Project id
  * @property   string   $title            Issue title
  * @property   string   $description      Issue description

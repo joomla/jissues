@@ -98,7 +98,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// First, make sure the issue is already in the database
 		$query->select($this->db->quoteName('id'));
 		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $this->hookData->issue->number);
+		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$query->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id);
 		$this->db->setQuery($query);
 
@@ -181,13 +181,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		$modified   = new Date($this->hookData->issue->updated_at);
 
 		$table = new IssuesTable($this->db);
-		$table->gh_id       = $this->hookData->issue->number;
-		$table->title       = $this->hookData->issue->title;
-		$table->description = $issue;
-		$table->status		= ($this->hookData->issue->state) == 'open' ? 1 : 10;
-		$table->opened      = $opened->format($dateFormat);
-		$table->modified    = $modified->format($dateFormat);
-		$table->project_id  = $this->project->project_id;
+		$table->issue_number = $this->hookData->issue->number;
+		$table->title        = $this->hookData->issue->title;
+		$table->description  = $issue;
+		$table->status		 = ($this->hookData->issue->state) == 'open' ? 1 : 10;
+		$table->opened       = $opened->format($dateFormat);
+		$table->modified     = $modified->format($dateFormat);
+		$table->project_id   = $this->project->project_id;
 
 		// Add the diff URL if this is a pull request
 		if ($this->hookData->issue->pull_request->diff_url)
@@ -207,7 +207,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		if (strpos($this->hookData->issue->title, '[#') !== false)
 		{
 			$pos = strpos($this->hookData->issue->title, '[#') + 2;
-			$table->jc_id = substr($this->hookData->issue->title, $pos, 5);
+			$table->foreign_number = substr($this->hookData->issue->title, $pos, 5);
 		}
 
 		if (!$table->store())
@@ -220,7 +220,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		$query = $this->db->getQuery(true);
 		$query->select('id');
 		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $this->hookData->issue->number);
+		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$this->db->setQuery($query);
 
 		try

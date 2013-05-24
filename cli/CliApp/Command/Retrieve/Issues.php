@@ -33,6 +33,11 @@ class Issues extends Retrieve
 		$this->description = 'Retrieve issues from GitHub.';
 
 		$this->usePBar = $this->application->get('cli-application.progress-bar');
+
+		if ($this->application->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 	}
 
 	/**
@@ -72,6 +77,8 @@ class Issues extends Retrieve
 		{
 			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
 			$page = 0;
+
+			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
 
 			do
 			{
@@ -164,7 +171,7 @@ class Issues extends Retrieve
 			$query->clear();
 			$query->select('COUNT(*)');
 			$query->from($db->quoteName('#__issues'));
-			$query->where($db->quoteName('gh_id') . ' = ' . (int) $issue->number);
+			$query->where($db->quoteName('issue_number') . ' = ' . (int) $issue->number);
 			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 			$db->setQuery($query);
 
@@ -180,9 +187,8 @@ class Issues extends Retrieve
 			// Store the item in the database
 			$table = new IssuesTable($db);
 
-			$table->gh_id = $issue->number;
 			$table->issue_number = $issue->number;
-			$table->title = $issue->title;
+			$table->title        = $issue->title;
 
 			$table->description = $this->github->markdown->render(
 				$issue->body,
@@ -206,7 +212,7 @@ class Issues extends Retrieve
 			// Add the diff URL if this is a pull request
 			if ($issue->pull_request->diff_url)
 			{
-				//$table->patch_url = $issue->pull_request->diff_url;
+				// $table->patch_url = $issue->pull_request->diff_url;
 			}
 
 			// Add the closed date if the status is closed
@@ -221,7 +227,7 @@ class Issues extends Retrieve
 			if (strpos($issue->title, '[#') !== false)
 			{
 				$pos          = strpos($issue->title, '[#') + 2;
-				$table->jc_id = substr($issue->title, $pos, 5);
+				$table->foreign_number = substr($issue->title, $pos, 5);
 			}
 
 			$table->store();
@@ -240,7 +246,7 @@ class Issues extends Retrieve
 			// Add an open record to the activity table
 			$activity               = new ActivitiesTable($db);
 			$activity->project_id   = $this->project->project_id;
-			$activity->issue_id     = (int) $table->issue_number;
+			$activity->issue_number = (int) $table->issue_number;
 			$activity->user         = $issue->user->login;
 			$activity->event        = 'open';
 			$activity->created_date = $table->opened_date;
@@ -250,9 +256,9 @@ class Issues extends Retrieve
 			// Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
 			{
-				$activity             = new ActivitiesTable($db);
-				$activity->project_id = $this->project->project_id;
-				$activity->issue_id   = (int) $table->issue_number;
+				$activity               = new ActivitiesTable($db);
+				$activity->project_id   = $this->project->project_id;
+				$activity->issue_number = (int) $table->issue_number;
 				$activity->event        = 'close';
 				$activity->created_date = $issue->closed_at;
 

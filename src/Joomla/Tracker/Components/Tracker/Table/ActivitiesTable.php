@@ -15,7 +15,7 @@ use Joomla\Tracker\Database\AbstractDatabaseTable;
  *
  * @property   integer  $activities_id  PK
  * @property   integer  $gh_comment_id  The GitHub comment id
- * @property   integer  $issue_id       issue_id
+ * @property   integer  $issue_number   THE issue number
  * @property   integer  $project_id     The Project id
  * @property   string   $user           The user name
  * @property   string   $event          The event type

@@ -76,8 +76,7 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 CREATE TABLE IF NOT EXISTS `#__issues` (
   `id` integer unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `issue_number` integer unsigned DEFAULT NULL COMMENT 'THE issue number (ID)',
-  `gh_id` integer unsigned DEFAULT NULL COMMENT 'GitHub tracker id',
-  `jc_id` integer unsigned DEFAULT NULL COMMENT 'Foreign tracker id',
+  `foreign_number` integer unsigned DEFAULT NULL COMMENT 'Foreign tracker id',
   `project_id` integer unsigned DEFAULT NULL COMMENT 'Project id',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
   `description` mediumtext NOT NULL COMMENT 'Issue description',
@@ -95,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
+  KEY `issue_number` (`issue_number`),
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
 CREATE TABLE IF NOT EXISTS `#__activities` (
   `activities_id` integer unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `gh_comment_id` integer unsigned NULL COMMENT 'The GitHub comment id',
-  `issue_id` integer unsigned NOT NULL,
+  `issue_number` integer unsigned NOT NULL COMMENT 'THE issue number (ID)',
   `project_id` integer unsigned NOT NULL COMMENT 'The Project id',
   `user` varchar(255) NOT NULL DEFAULT '' COMMENT 'The user name',
   `event` varchar(32) NOT NULL COMMENT 'The event type',
@@ -113,8 +113,8 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `text_raw` mediumtext NULL COMMENT 'The raw event text',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
-  KEY `issue_id` (`issue_id`),
-  CONSTRAINT `#__activities_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
+  KEY `issue_number` (`issue_number`),
+  CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
