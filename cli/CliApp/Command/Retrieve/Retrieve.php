@@ -69,19 +69,27 @@ class Retrieve extends TrackerCommand
 	{
 		parent::__construct($application);
 
-		$this->description = 'Retrieve <issues> or <comments>.';
+		$this->description = 'Retrieve <cmd><issues></cmd>, <cmd><comments></cmd> or <cmd><avatars></cmd>.';
 
-		$this->addOption(
-			new TrackerCommandOption(
-				'project', 'p',
-				'Process the project with the given ID.'
+		$this
+			->addOption(
+				new TrackerCommandOption(
+					'project', 'p',
+					'Process the project with the given ID.'
+				)
 			)
-		)->addOption(
-			new TrackerCommandOption(
-				'auth', '',
-				'Use GitHub credentials from configuration for authentication.'
+			->addOption(
+				new TrackerCommandOption(
+					'auth', '',
+					'Use GitHub credentials from configuration for authentication.'
+				)
 			)
-		);
+			->addOption(
+				new TrackerCommandOption(
+					'noprogress', '',
+					'Don\'t use a progress bar.'
+				)
+			);
 	}
 
 	/**
@@ -110,7 +118,7 @@ class Retrieve extends TrackerCommand
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 * @throws  AbortException
-	 * @todo this might go to a base class.
+	 * @todo    this might go to a base class.
 	 */
 	protected function selectProject()
 	{
@@ -125,16 +133,22 @@ class Retrieve extends TrackerCommand
 				->out('<b>Available projects:</b>')
 				->out();
 
-			foreach ($projects as $i => $project)
+			$cnt = 1;
+
+			$checks = array();
+
+			foreach ($projects as $project)
 			{
 				if ($project->gh_user && $project->gh_project)
 				{
-					$this->out('  <b>' . ($i + 1) . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+					$this->out('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+					$checks[$cnt] = $project;
+					$cnt++;
 				}
 			}
 
 			$this->out()
-			->out('<question>Select a project:</question> ', false);
+				->out('<question>Select a project:</question> ', false);
 
 			$resp = (int) trim($this->application->in());
 
@@ -143,12 +157,12 @@ class Retrieve extends TrackerCommand
 				throw new AbortException('Aborted');
 			}
 
-			if (false == array_key_exists($resp - 1, $projects))
+			if (false == array_key_exists($resp, $checks))
 			{
 				throw new AbortException('Invalid project');
 			}
 
-			$this->project = $projects[$resp - 1];
+			$this->project = $checks[$resp];
 		}
 		else
 		{
@@ -264,9 +278,9 @@ class Retrieve extends TrackerCommand
 			return null;
 		}
 
-		$bar = '=>';
-		$preFill = ' ';
-		$width = 60;
+		$bar         = '=>';
+		$preFill     = ' ';
+		$width       = 60;
 		$progressBar = new ConsoleProgressBar($this->pBarFormat, $bar, $preFill, $width, $targetNum);
 
 		return $progressBar;
