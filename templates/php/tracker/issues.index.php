@@ -73,25 +73,27 @@ var_dump($this);
 					</td>
 					<td class="hasContext">
 						<div class="hasTooltip" title="">
-							<a href="<?php echo $this->uri->base->path ?>tracker/<?php echo $this->project->alias ?>/<?php echo $item->gh_id ?>"><?php echo $item->title ?></a>
+							<a href="<?php echo $this->uri->base->path ?>tracker/<?php echo $this->project->alias ?>/<?php echo $item->issue_number ?>">
+								<?php echo $item->title ?>
+							</a>
 						</div>
-						<?php if ($item->gh_id or $item->jc_id) : ?>
+						<?php if ($item->issue_number or $item->foreign_number) : ?>
 							<div class="small">
-								<?php if ($item->gh_id) : ?>
+								<?php if ($item->issue_number) : ?>
 									<?php echo Text::_('COM_TRACKER_HEADING_GITHUB_ID') ?>
-									<a href="https://github.com/<?php echo $this->project->gh_user ?>/<?php echo $this->project->gh_project ?>/issues/<?php echo $item->gh_id ?>"
+									<a href="https://github.com/<?php echo $this->project->gh_user ?>/<?php echo $this->project->gh_project ?>/issues/<?php echo $item->issue_number ?>"
 									   target="_blank">
-										<?php echo $item->gh_id ?>
+										<?php echo $item->issue_number ?>
 									</a>
 								<?php endif ?>
-								<?php if ($item->gh_id and $item->jc_id) : ?>
+								<?php if ($item->issue_number and $item->foreign_number) : ?>
 									<br/>
 								<?php endif ?>
-								<?php if ($item->jc_id) : ?>
+								<?php if ($item->foreign_number) : ?>
 									<?php echo Text::_('COM_TRACKER_HEADING_JOOMLACODE_ID') ?>
-									<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo $item->jc_id ?>"
+									<a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=<?php echo $item->foreign_number ?>"
 									   target="_blank">
-										<?php echo $item->jc_id ?>
+										<?php echo $item->foreign_number ?>
 									</a>
 								<?php endif ?>
 							</div>

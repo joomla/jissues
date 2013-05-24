@@ -45,38 +45,88 @@
 {% endif %}
 
 <li class="{{ "projects" == uri.route or "projectxx" == firstPart ? "active" : "" }}">
-    <a href="{{ uri.base.path }}projects">Projects</a>
+    <a href="{{ uri.base.path }}projects">
+        Projects
+    </a>
 </li>
 <li class="{{ "users" == uri.route or "user" == firstPart ? "active" : "" }}">
-    <a href="{{ uri.base.path }}users">Users</a>
-</li>
-<li class="{{ "markdownpreview" == uri.route ? "active" : "" }}">
-    <a href="{{ uri.base.path }}markdownpreview">MDPreview</a>
+    <a href="{{ uri.base.path }}users">
+        Users
+    </a>
 </li>
 
 {% if user.isAdmin %}
-    <li class="{{ "config" == uri.route ? "active" : "" }}">
-        <a href="{{ uri.base.path }}config">Config</a>
+    <li class="dropdown {{ "config" == uri.route or "logs" == firstPart ? " active" : "" }}">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+            System
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="{{ "config" == uri.route ? "active" : "" }}">
+                <a href="{{ uri.base.path }}config">
+                    Config
+                </a>
+            </li>
+            <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">
+                    Logs
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="{{ "logs/403" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/403">403</a>
+                    </li>
+                    <li class="{{ "logs/404" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/404">404</a>
+                    </li>
+                    <li class="{{ "logs/500" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/500">500</a>
+                    </li>
+                    <li class="{{ "logs/database" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/database">
+                            Database
+                        </a>
+                    </li>
+                    <li class="{{ "logs/php" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/php">PHP</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </li>
 {% endif %}
 
-    {% if user.id %}
-        <li class="dropdown pull-right">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                <img src="{{ uri.base.path }}images/avatars/elkuku.png" width="20px" height="20px" alt="avatar image">
-                &nbsp;
-                {{ user.username }}
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ uri.base.path }}user">Profile</a></li>
-                <li class="divider"><span></span></li>
-                <li><a href="{{ uri.base.path }}logout">Logout </a>
-                </li>
-            </ul>
-        </li>
-    {% else %}
-        <li class="pull-right">
-            <a class="btn-success" href="{{ loginUrl }}">Login with GitHub</a>
-        </li>
-    {% endif %}
+<li class="{{ "markdownpreview" == uri.route ? "active" : "" }}">
+    <a href="{{ uri.base.path }}markdownpreview">
+        Markdown
+    </a>
+</li>
+
+{% if user.id %}
+    <li class="dropdown pull-right">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+            <img src="{{ uri.base.path }}images/avatars/elkuku.png" width="20px" height="20px" alt="avatar image">
+            &nbsp;
+            {{ user.username }}
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="{{ uri.base.path }}user">
+                    Profile
+                </a>
+            </li>
+            <li class="divider"><span></span></li>
+            <li>
+                <a href="{{ uri.base.path }}logout">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </li>
+{% else %}
+    <li class="pull-right">
+        <a class="btn-success" href="{{ loginUrl }}">
+            Login with GitHub
+        </a>
+    </li>
+{% endif %}

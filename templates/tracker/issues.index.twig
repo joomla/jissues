@@ -78,47 +78,33 @@
 
                     <tr{{ rowClass }}>
                         <td class="center hidden-phone">
-                            {{ item.id }}
+                            {{ item.issue_number }}
                         </td>
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
-                                <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.gh_id }}">{{ item.title|e }}</a>
-                            </div>
-                            {% if item.gh_id or item.jc_id %}
-                                <div class="small">
-                                    {% if item.gh_id %}
-                                        {{ translate('COM_TRACKER_HEADING_GITHUB_ID') }}
-                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.gh_id }}"
-                                           target="_blank">
-                                            {{ item.gh_id }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.gh_id and item.jc_id %}
+                                <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+                                    {{ item.title|e }}
+                                </a>
+                                    {% if project.gh_user and project.gh_project %}
                                         <br/>
-                                    {% endif %}
-                                    {% if item.jc_id %}
-                                        {{ translate('COM_TRACKER_HEADING_JOOMLACODE_ID') }}
-                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.jc_id }}"
+                                        {{ translate('COM_TRACKER_HEADING_GITHUB_ID') }}
+                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
                                            target="_blank">
-                                            {{ item.jc_id }}
+                                            {{ item.issue_number }}
                                         </a>
                                     {% endif %}
-                                </div>
-                            {% endif %}
+                                    {% if item.foreign_number %}
+                                        <br/>
+                                        {{ translate('COM_TRACKER_HEADING_JOOMLACODE_ID') }}
+                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                                           target="_blank">
+                                            {{ item.foreign_number }}
+                                        </a>
+                                    {% endif %}
+                            </div>
                         </td>
                         <td class="center">
-                            {% if item.priority == 1 %}
-                                {% set statusClass = 'badge-important' %}
-                            {% elseif item.priority == 2 %}
-                                {% set statusClass = 'badge-warning' %}
-                            {% elseif item.priority == 3 %}
-                                {% set statusClass = 'badge-info' %}
-                            {% elseif item.priority == 4 %}
-                                {% set statusClass = 'badge-inverse' %}
-                            {% elseif item.priority == 4 %}
-                                {% set statusClass = '' %}
-                            {% endif %}
-                            <span class="badge {{ statusClass }}">{{ item.priority }}</span>
+                            <span class="badge {{ prioClass(item.priority) }}">{{ item.priority  }}</span>
                         </td>
 
                         <td>

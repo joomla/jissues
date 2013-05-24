@@ -12,7 +12,7 @@
         <p>{{ exception.message|stripJRoot }}</p>
 
         {% if message %}
-            <p>{{ message|raw }}</p>
+            <p>{{ message|stripJRoot|nl2br|raw }}</p>
         {% endif %}
     </div>
 
@@ -33,7 +33,7 @@
             {% endfor %}
         </table>
 
-        <pre>{{ exception.traceAsString|stripJRoot }}</pre>
+        {#<pre>{{ exception.traceAsString|stripJRoot }}</pre>#}
 
     {% endif %}
 

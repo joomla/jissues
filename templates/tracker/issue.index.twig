@@ -3,47 +3,84 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} #{{ item.gh_id }}{% endblock %}
+{% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
 
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block content %}
 
-    <h2>{{ project.title }}</h2>
+    <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
     <div class="row-fluid">
         <div class="span1 well-small">
             {{ avatar(item.opened_by)|raw }}
         </div>
-        <div class="span9 well well-small">
+        <div class="span9 well-small">
             {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date) }}
             <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
-        <div class="span2">
+        <div class="span2 well well-small">
             <ul class="unstyled">
-                <li>Status: {{ item.status }}</li>
-                <li>Priority: {{ item.priority }}</li>
-                {% if item.status == 10 %}
-                    <li>Closed: {{ item.closed_date }} by {{ item.closed_by }} at {{ item.closed_sha }}</li>
+                <li>
+                    <span class="badge badge-{{ item.closed ? "important" : "success" }}">{{ item.status_title }}</span>
+                </li>
+                {% if item.closed %}
+                    <li>{{ item.closed_date }}</li>
+                    {% if item.closed_sha %}
+                        <li>SHA: {{ item.closed_sha }}</li>
+                    {% endif %}
                 {% endif %}
+                <li>
+                    <span class="badge {{ prioClass(item.priority) }}">
+                        {{ sprintf("Priority %d", item.priority) }}
+                    </span>
+                </li>
+                {% if project.gh_user and project.gh_project %}
+                    <li>
+                        <i class="icon-github"></i>
+                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                       target="_blank">
+                        GitHub # {{ item.issue_number }}
+                    </a>
+                </li>
+                {% endif %}
+                {% if item.foreign_number %}
+                <li>
+                    <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                       target="_blank">
+                        {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
+                        {{ item.foreign_number }}
+                    </a>
+                </li>
+                {% endif %}
+
+                <li>@todo code ? (PR)</li>
+
             </ul>
         </div>
     </div>
 
-    <hr/>
+    <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
-    {% for activity in activities %}
+    {% for activity in item.activities %}
         <div class="row-fluid">
             <div class="span1 well-small">
                 {{ avatar(activity.user)|raw }}
             </div>
-            <div class="span11 well well-small">
-                <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
-                     alt="{{ activity.event }}" title="{{ activity.event }}"/>
+            <div class="span11">
+                <div class="well well-small">
+                    <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
+                         alt="{{ activity.event }}" title="{{ activity.event }}"/>
+                    {{ activity.created_date }}
+                    {% if activity.gh_comment_id %}
+                        - <a name ="comment-{{ activity.gh_comment_id }}" href="/{{ uri.route }}#comment-{{ activity.gh_comment_id }}">{{ activity.event }}</a>
+                    {% else %}
+                        - {{ activity.event }}
+                    {% endif %}
+                    - {{ activity.user }}
 
-                {{ activity.event }} - {{ activity.user }} - {{ activity.created_date }}
-
+                </div>
                 {{ activity.text|raw }}
             </div>
         </div>
@@ -64,14 +101,17 @@
                     <textarea id="comment" class="span12"></textarea>
                 </div>
             </div>
-            <a href="javascript:" onclick="alert('Not yet :(');" class="btn btn-success">
-                Add Comment
-            </a>
+            <div class="pull-right">
+                <a href="javascript:" onclick="alert('Not yet :(');" class="btn btn-success">
+                    Post Comment
+                </a>
+            </div>
         {% else %}
             {# The user is not authorized #}
         {% endif %}
 
     {% else %}
-        <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub</a>
+        <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
     {% endif %}
+    {{ dump(item) }}
 {% endblock %}

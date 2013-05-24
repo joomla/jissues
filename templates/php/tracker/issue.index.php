@@ -5,7 +5,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} #{{ item.gh_id }}{% endblock %}
+{% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
 
 {% block headerText %}{{ project.title }}{% endblock %}
 
@@ -14,7 +14,7 @@
 ?>
 <h2><?= $this->project['title'] ?></h2>
 
-<h3>#{{ item.gh_id }}: {{ item.title }}</h3>
+<h3>#{{ item.issue_number }}: {{ item.title }}</h3>
 
 <div class="well well-small">
 	<strong>Description</strong>

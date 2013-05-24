@@ -34,7 +34,9 @@
                 <th style="width: 10%;">Actions</th>
             {% endif %}
 
-            <th style="width: 5%;">Id</th>
+            {% if jdebug %}
+                <th style="width: 5%;">Id</th>
+            {% endif %}
         </tr>
 
         {% for project in projects %}
@@ -66,7 +68,9 @@
                     </td>
                 {% endif %}
 
-                <td>{{ project.project_id }}</td>
+                {% if jdebug %}
+                  <td>{{ project.project_id }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
