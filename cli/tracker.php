@@ -23,6 +23,8 @@ $loader = require __DIR__ . '/../vendor/autoload.php';
 // Add the namespace for our application to the autoloader.
 $loader->add('CliApp', __DIR__);
 
+define('JPATH_ROOT', realpath(__DIR__ . '/..'));
+
 try
 {
 	$application = new TrackerApplication;

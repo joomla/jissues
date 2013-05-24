@@ -60,6 +60,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
+			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 		);
 	}
 
@@ -111,35 +112,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function fetchAvatar($userName = '', $width = 0)
 	{
-		static $avatars = array();
-
-		if (array_key_exists($userName, $avatars))
-		{
-			$avatar = $avatars[$userName];
-		}
-		else
-		{
-			if (!$userName)
-			{
-				$avatar = 'user-default.png';
-			}
-			else
-			{
-				/* @type \Joomla\Database\DatabaseDriver $db */
-				$db = Factory::$application->getDatabase();
-
-				$avatar = $db->setQuery(
-					$db->getQuery(true)
-						->from($db->quoteName('#__users'))
-						->select($db->quoteName('avatar'))
-						->where($db->quoteName('username') . ' = ' . $db->quote($userName))
-				)->loadResult();
-
-				$avatar = $avatar ? : 'user-default.png';
-			}
-
-			$avatars[$userName] = $avatar;
-		}
+		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
 		$width = $width ? ' width="' . $width . 'px"' : '';
 
@@ -148,5 +121,38 @@ class TrackerExtension extends \Twig_Extension
 		. ' src="/images/avatars/' . $avatar . '"'
 		. $width
 		. ' />';
+	}
+
+	/**
+	 * Get a CSS class according to the item priority.
+	 *
+	 * @param   integer  $priority  The priority
+	 *
+	 * @return string
+	 */
+	public function getPrioClass($priority)
+	{
+		$class = '';
+
+		switch ($priority)
+		{
+			case 1 :
+				$class = 'badge-important';
+				break;
+
+			case 2 :
+				$class = 'badge-warning';
+				break;
+
+			case 3 :
+				$class = 'badge-info';
+				break;
+
+			case 4 :
+				$class = 'badge-inverse';
+				break;
+		}
+
+		return $class;
 	}
 }

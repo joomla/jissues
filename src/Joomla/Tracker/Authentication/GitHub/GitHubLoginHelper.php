@@ -180,7 +180,7 @@ class GitHubLoginHelper
 	 */
 	public static function getAvatarPath(GitHubUser $user)
 	{
-		static $avatars;
+		static $avatars = array();
 
 		if (array_key_exists($user->username, $avatars))
 		{
