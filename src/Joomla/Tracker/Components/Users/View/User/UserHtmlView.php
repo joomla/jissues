@@ -17,6 +17,11 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 class UserHtmlView extends AbstractTrackerHtmlView
 {
 	/**
+	 * @var \Joomla\Tracker\Components\Users\Model\UserModel
+	 */
+	protected $model;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
