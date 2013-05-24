@@ -200,7 +200,12 @@ abstract class AbstractTrackerController extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-			echo $this->getApplication()->renderException($e);
+			$debugger = $this->getApplication()->getDebugger();
+
+			if ($debugger)
+			{
+				echo $debugger->renderException($e);
+			}
 		}
 
 		return true;

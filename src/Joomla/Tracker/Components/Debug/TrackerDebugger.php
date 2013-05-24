@@ -97,7 +97,7 @@ class TrackerDebugger
 
 		if (!$returnVal)
 		{
-			echo __METHOD__ . 'File could not be written :(';
+			echo __METHOD__ . ' - File could not be written :(';
 		}
 
 		return $this;
@@ -190,6 +190,145 @@ class TrackerDebugger
 	public function renderProfile()
 	{
 		return $this->profiler->render();
+	}
+
+	/**
+	 * Method to render an exception in a user friendly format
+	 *
+	 * @param   \Exception  $exception   The caught exception.
+	 * @param   string      $message     The message to display.
+	 * @param   integer     $statusCode  The status code.
+	 *
+	 * @return  string  The exception output in rendered format.
+	 *
+	 * @since   1.0
+	 */
+	public function renderException(\Exception $exception, $message = '', $statusCode = 500)
+	{
+		static $loaded = false;
+
+		if ($loaded)
+		{
+			// Seems that we're recursing...
+			return str_replace(JPATH_BASE, 'JROOT', $exception->getMessage())
+			. '<pre>' . $exception->getTraceAsString() . '</pre>'
+			. 'Previous: ' . get_class($exception->getPrevious());
+		}
+
+		$viewClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
+
+		/* @type \Joomla\Tracker\View\TrackerDefaultView $view */
+		$view = new $viewClass;
+
+		$view->setLayout('exception')
+			->getRenderer()
+			->set('exception', $exception)
+			->set('message', str_replace(JPATH_BASE, 'JROOT', $message));
+
+		$loaded = true;
+
+		$contents = $view->render();
+
+		$debug = JDEBUG ? $this->getOutput() : '';
+
+		$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
+
+		if ($this->application->get('debug.logging'))
+		{
+			$this->writeLog($exception, $message, $statusCode);
+		}
+
+		return $contents;
+	}
+
+	/**
+	 * Write a log file entry.
+	 *
+	 * @param   \Exception  $exception   The Exception.
+	 * @param   string      $message     An additional message.
+	 * @param   integer     $statusCode  The status code.
+	 *
+	 * @return  void
+	 */
+	protected function writeLog(\Exception $exception, $message, $statusCode)
+	{
+		$code = $exception->getCode();
+		$code = $code ? : $statusCode;
+
+		$log = array();
+
+		switch ($code)
+		{
+			case 404 :
+			case 403 :
+			case 500 :
+				$log[] = '';
+				$log[] = $exception->getMessage();
+
+				if ($message)
+				{
+					$log[] = $message;
+				}
+
+				$log[] = '';
+				break;
+
+			default :
+				$log[] = '';
+				$log[] = 'Unknown status code: ' . $code;
+				$log[] = $exception->getMessage();
+
+				if ($message)
+				{
+					$log[] = $message;
+				}
+
+				$log[] = '';
+
+				$code = 500;
+				break;
+		}
+
+		$path = $this->getLogPath($code);
+
+		if (!$path)
+		{
+			return;
+		}
+
+		if (!file_put_contents($path, implode("\n", $log), FILE_APPEND | LOCK_EX))
+		{
+			echo __METHOD__ . ' - File could not be written :( - ' . $path;
+		}
+	}
+
+	/**
+	 * Get a log path.
+	 *
+	 * @param   string  $type  The log type.
+	 *
+	 * @return string
+	 */
+	public function getLogPath($type)
+	{
+		if ('php' == $type)
+		{
+			return ini_get('error_log');
+		}
+
+		$logPath = $this->application->get('debug.' . $type . '-log');
+
+		if (!realpath(dirname($logPath)))
+		{
+			$logPath = JPATH_ROOT . '/' . $logPath;
+		}
+
+		if (realpath(dirname($logPath)))
+		{
+			return $logPath;
+		}
+
+		return '';
 	}
 
 	/**

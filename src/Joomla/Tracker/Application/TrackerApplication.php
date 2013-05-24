@@ -131,6 +131,17 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
+	 * Get a debugger object.
+	 *
+	 * @since   1.0
+	 * @return TrackerDebugger
+	 */
+	public function getDebugger()
+	{
+		return $this->debugger;
+	}
+
+	/**
 	 * Method to run the Web application routines.
 	 *
 	 * @return  void
@@ -173,60 +184,46 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->setBody($contents);
 		}
-		catch (AuthenticationException $e)
+		catch (AuthenticationException $exception)
 		{
 			header('HTTP/1.1 403 Forbidden', true, 403);
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
-			$message = '<h4>Authentication failure</h4>';
+			$message = array();
+			$message[] = 'Authentication failure';
 
 			if (JDEBUG)
 			{
 				// The exceptions contains the User object and the action.
-				$message .=
-					($e->getUser()->username ? 'user: ' . $e->getUser()->username . '<br />' : '')
-					. 'id: ' . $e->getUser()->id . '<br />'
-					. 'action: ' . $e->getAction();
+				if ($exception->getUser()->username)
+				{
+					$message[] = 'user: ' . $exception->getUser()->username;
+				}
+
+				$message[] = 'id: ' . $exception->getUser()->id;
+				$message[] = 'action: ' . $exception->getAction();
 			}
 
-			$contents = $this->renderException($e, $message);
-
-			$debug = JDEBUG ? $this->debugger->getOutput() : '';
-
-			$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
-
-			$this->setBody($contents);
+			$this->setBody($this->debugger->renderException($exception, implode("\n", $message)));
 		}
-		catch (RoutingException $e)
+		catch (RoutingException $exception)
 		{
 			header('HTTP/1.1 404 Not Found', true, 403);
 
-			$this->mark('Application terminated with an ROUTING EXCEPTION');
+			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
-			$message = JDEBUG ? $e->getRawRoute() : '';
+			$message = JDEBUG ? $exception->getRawRoute() : '';
 
-			$contents = $this->renderException($e, $message);
-
-			$debug = JDEBUG ? $this->debugger->getOutput() : '';
-
-			$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
-
-			$this->setBody($contents);
+			$this->setBody($this->debugger->renderException($exception, $message));
 		}
-		catch (\Exception $e)
+		catch (\Exception $exception)
 		{
 			header('HTTP/1.1 500 Internal Server Error', true, 500);
 
 			$this->mark('Application terminated with an EXCEPTION');
 
-			$contents = $this->renderException($e);
-
-			$debug = JDEBUG ? $this->debugger->getOutput() : '';
-
-			$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
-
-			$this->setBody($contents);
+			$this->setBody($this->debugger->renderException($exception));
 		}
 	}
 
@@ -678,42 +675,5 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		parent::redirect($url, $moved);
-	}
-
-	/**
-	 * Method to render an exception in a user friendly format
-	 *
-	 * @param   \Exception  $exception  The caught exception
-	 * @param   string      $message    The message to display
-	 *
-	 * @return  string  The exception output in rendered format
-	 *
-	 * @since   1.0
-	 */
-	public function renderException(\Exception $exception, $message = '')
-	{
-		static $loaded = false;
-
-		if ($loaded)
-		{
-			// Seems that we're recursing...
-			return str_replace(JPATH_BASE, 'JROOT', $exception->getMessage())
-				. '<pre>' . $exception->getTraceAsString() . '</pre>'
-				. 'Previous: ' . get_class($exception->getPrevious());
-		}
-
-		$viewClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
-
-		/* @type \Joomla\Tracker\View\TrackerDefaultView $view */
-		$view = new $viewClass;
-
-		$view->setLayout('exception')
-			->getRenderer()
-			->set('exception', $exception)
-			->set('message', str_replace(JPATH_BASE, 'JROOT', $message));
-
-		$loaded = true;
-
-		return $view->render();
 	}
 }
