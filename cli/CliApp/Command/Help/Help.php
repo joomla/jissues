@@ -123,14 +123,14 @@ class Help extends TrackerCommand
 		/* @type TrackerCommand $c */
 		$c = $this->commands[$command];
 
-		$this->out('Command: ' . $command . ($actions ? ' <action>' : ''))
+		$this->out('Command: <b>' . $command . '</b>' . ($actions ? ' <cmd><action></cmd>' : ''))
 			->out()
 			->out('    ' . $c->description);
 
 		if ($c->options)
 		{
 			$this->out()
-				->out('Available options:');
+				->out('  Available options:');
 
 			foreach ($c->options as $option)
 			{
@@ -141,17 +141,18 @@ class Help extends TrackerCommand
 		if ($actions)
 		{
 			$this->out()
-				->out('Available actions:');
+				->out('  Available <cmd>actions</cmd>:')
+			->out();
 
 			foreach ($actions as $aName => $action)
 			{
-				$this->out($aName)
+				$this->out('<cmd>' . $aName . '</cmd>')
 					->out('    ' . $action->description);
 
 				if ($action->options)
 				{
 					$this->out()
-						->out('Available options:');
+						->out('  Available options:');
 
 					foreach ($action->options as $option)
 					{
@@ -236,15 +237,13 @@ class Help extends TrackerCommand
 
 			$c = $fileInfo->getFilename();
 
-			$a = substr($c, 0, strrpos($c, '.'));
+			$action = substr($c, 0, strrpos($c, '.'));
 
-			if ($a != $cName)
+			if ($action != $cName)
 			{
-				$className = "CliApp\\Command\\$cName\\$a";
+				$className = "CliApp\\Command\\$cName\\$action";
 
-				$action   = new $className($this->application);
-
-				$actions[strtolower($a)] = $action;
+				$actions[strtolower($action)] = new $className($this->application);
 			}
 		}
 
