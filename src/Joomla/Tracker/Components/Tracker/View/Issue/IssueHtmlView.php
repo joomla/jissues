@@ -8,7 +8,6 @@ namespace Joomla\Tracker\Components\Tracker\View\Issue;
 
 use Joomla\Factory;
 use Joomla\Language\Text;
-use Joomla\Tracker\Components\Tracker\Model\ActivitiesModel;
 use Joomla\Tracker\Components\Tracker\Model\IssueModel;
 use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
@@ -54,10 +53,6 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		if ($id)
 		{
 			$item = $this->model->getItem($id);
-
-			$activitiesModel = new ActivitiesModel;
-
-			$this->renderer->set('activities', $activitiesModel->getItems());
 		}
 		else
 		{
