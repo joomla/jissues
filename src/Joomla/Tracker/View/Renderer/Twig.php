@@ -74,6 +74,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	 * @param   array  $config  The array of configuration parameters.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct($config = array())
 	{
@@ -181,6 +182,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	 * @return  string  Compiled HTML.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function render($template = '', array $data = array())
 	{

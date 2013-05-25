@@ -113,5 +113,8 @@
     {% else %}
         <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
     {% endif %}
-    {{ dump(item) }}
+
+    {% if jdebug %}
+        {{ dump(item) }}
+    {% endif %}
 {% endblock %}
