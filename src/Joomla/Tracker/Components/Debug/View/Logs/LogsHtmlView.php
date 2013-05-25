@@ -31,63 +31,63 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		$type = $application->input->get('log_type');
 
-		$log = array();
-
 		$debugger = $application->getDebugger();
 
 		$path = $debugger ? $debugger->getLogPath($type) ? : '' : '';
 
-		if ($path)
-		{
-			switch ($type)
-			{
-				case 'php':
-					if (false == file_exists($path))
-					{
-						$log = array('File not found in path: ' . $path);
-					}
-					else
-					{
-						// @todo beautifyMe
-						$log = explode("\n\n", file_get_contents($path));
-					}
-					break;
-
-				case 'database':
-					if (false == file_exists($path))
-					{
-						$log = array('File not found in path: ' . $path);
-					}
-					else
-					{
-						$log = explode("\n\n", file_get_contents($path));
-					}
-
-					break;
-
-				case '403':
-				case '404':
-				case '500':
-					if (false == file_exists($path))
-					{
-						$log = array('File not found in path: ' . $path);
-					}
-					else
-					{
-						$log = explode("\n\n", file_get_contents($path));
-					}
-
-					break;
-
-				default :
-					throw new \UnexpectedValueException(__METHOD__ . ' - undefined type: ' . $type);
-					break;
-			}
-		}
+		$log = ($path)
+			? $this->processLog($type, $path)
+			: array(sprintf('No %s log file found.', $type));
 
 		$this->renderer->set('log', $log);
 		$this->renderer->set('log_type', $type);
 
 		return parent::render();
+	}
+
+	/**
+	 * Process a log file.
+	 *
+	 * @param   string  $type  The log type
+	 * @param   string  $path  Path to log file
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return array
+	 */
+	protected function processLog($type, $path)
+	{
+		if (false == file_exists($path))
+		{
+			return array('File not found in path: ' . $path);
+		}
+
+		switch ($type)
+		{
+			case 'php':
+				// @todo beautifyMe
+				$log = explode("\n\n", file_get_contents($path));
+				break;
+
+			case 'database':
+				// @todo beautifyMe
+				$log = explode("\n\n", file_get_contents($path));
+				break;
+
+			case '403':
+			case '404':
+			case '500':
+				// @todo beautifyMe
+				$log = explode("\n\n", file_get_contents($path));
+				break;
+
+			default :
+				throw new \UnexpectedValueException(__METHOD__ . ' - undefined type: ' . $type);
+				break;
+		}
+
+		// Reverse log
+		$log = array_reverse($log);
+
+		return $log;
 	}
 }
