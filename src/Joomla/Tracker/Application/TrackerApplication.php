@@ -114,10 +114,11 @@ final class TrackerApplication extends AbstractWebApplication
 		// Register the event dispatcher
 		$this->loadDispatcher();
 
+		// Set the debugger.
+		$this->debugger = new TrackerDebugger($this);
+
 		if (JDEBUG)
 		{
-			$this->debugger = new TrackerDebugger($this);
-
 			$this->mark('Application started');
 		}
 
