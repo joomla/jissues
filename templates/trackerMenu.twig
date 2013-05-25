@@ -104,7 +104,7 @@
 {% if user.id %}
     <li class="dropdown pull-right">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-            <img src="{{ uri.base.path }}images/avatars/elkuku.png" width="20px" height="20px" alt="avatar image">
+            {{ avatar(user.username, 20)|raw }}
             &nbsp;
             {{ user.username }}
             <span class="caret"></span>
