@@ -41,7 +41,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 		{
 			switch ($type)
 			{
-				case 'php';
+				case 'php':
 					if (false == file_exists($path))
 					{
 						$log = array('File not found in path: ' . $path);
@@ -53,7 +53,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 					}
 					break;
 
-				case 'database';
+				case 'database':
 					if (false == file_exists($path))
 					{
 						$log = array('File not found in path: ' . $path);
@@ -65,9 +65,9 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 					break;
 
-				case '403';
-				case '404';
-				case '500';
+				case '403':
+				case '404':
+				case '500':
 					if (false == file_exists($path))
 					{
 						$log = array('File not found in path: ' . $path);
