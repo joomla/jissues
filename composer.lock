@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "369f1bea08a2ec782878b847afef97a1",
+    "hash": "a4a9de5ebbda5d48eb90317f42a9e555",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "4b68e072122a6bf4aa60ea0f8f95b055497cee8e"
+                "reference": "04b8d92fc4344ffac273c4b4e0ed50a9215bcac0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/4b68e072122a6bf4aa60ea0f8f95b055497cee8e",
-                "reference": "4b68e072122a6bf4aa60ea0f8f95b055497cee8e",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/04b8d92fc4344ffac273c4b4e0ed50a9215bcac0",
+                "reference": "04b8d92fc4344ffac273c4b4e0ed50a9215bcac0",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-05-15 14:21:58"
+            "time": "2013-05-19 23:46:08"
         },
         {
             "name": "mustache/mustache",
@@ -268,12 +268,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "f6ebd46fad09d88302f6511db6b1f08d22a80fba"
+                "reference": "b081e3f1ed64b8246bfcadef3e66233ab2c0ffd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/f6ebd46fad09d88302f6511db6b1f08d22a80fba",
-                "reference": "f6ebd46fad09d88302f6511db6b1f08d22a80fba",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/b081e3f1ed64b8246bfcadef3e66233ab2c0ffd9",
+                "reference": "b081e3f1ed64b8246bfcadef3e66233ab2c0ffd9",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-05-15 14:22:32"
+            "time": "2013-05-25 15:56:42"
         }
     ],
     "packages-dev": [
