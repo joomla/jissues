@@ -61,29 +61,27 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
+				->select('i.*')
 				->from($this->db->quoteName('#__issues', 'i'))
-				->select('*')
-				->where($this->db->quoteName('i.project_id') . '=' . (int) $projectId)
-				->where($this->db->quoteName('i.issue_number') . '=' . (int) $identifier)
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $projectId)
+				->where($this->db->quoteName('i.issue_number') . ' = ' . (int) $identifier)
 
 				// Join over the status table
 				->select('s.status AS status_title, s.closed AS closed')
 				->join('LEFT', '#__status AS s ON i.status = s.id')
-/*
-	// Get the relation information
-->select('a1.title AS rel_title, a1.status AS rel_status')
-->join('LEFT', '#__issues AS a1 ON i.rel_id = a1.id')
 
-// Join over the status table
-->select('s1.closed AS rel_closed')
-->join('LEFT', '#__status AS s1 ON a1.status = s1.id')
+				// Get the relation information
+				->select('a1.title AS rel_title, a1.status AS rel_status')
+				->join('LEFT', '#__issues AS a1 ON i.rel_id = a1.id')
 
-// Join over the status table
-->select('t.name AS rel_name')
-->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+				// Join over the status table
+				->select('s1.closed AS rel_closed')
+				->join('LEFT', '#__status AS s1 ON a1.status = s1.id')
 
-*/
-	)->loadObject();
+				// Join over the status table
+				->select('t.name AS rel_name')
+				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+		)->loadObject();
 
 		$table = new ActivitiesTable($this->db);
 		$query = $this->db->getQuery(true);
