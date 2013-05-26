@@ -47,6 +47,8 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 
 		$ghData->login      = 'elkuku';
 		$ghData->avatar_url = 'http://my_avatar.png';
+		$ghData->name       = 'elkuku';
+		$ghData->email      = 'email@example.com';
 
 		$this->object->loadGitHubData($ghData);
 
