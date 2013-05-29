@@ -68,7 +68,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		{
 			case 'twig':
 				$config['templates_base_dir'] = JPATH_TEMPLATES;
-				$config['environment']['debug'] = true;
+				$config['environment']['debug'] = JDEBUG ? true : false;
 
 				break;
 
