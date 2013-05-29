@@ -55,19 +55,26 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getFunctions()
 	{
-		return array(
+		$functions = array(
 			new \Twig_SimpleFunction('translate', array($this, 'translate')),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 		);
+
+		if (!JDEBUG)
+		{
+			array_push($functions, new \Twig_SimpleFunction('dump', array($this, 'dump')));
+		}
+
+		return $functions;
 	}
 
 	/**
 	 * Returns a list of filters to add to the existing list.
 	 *
-	 * @return array An array of filters
+	 * @return  array An array of filters
 	 */
 	public function getFilters()
 	{
@@ -95,7 +102,7 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   string  $string  The string to process.
 	 *
-	 * @return mixed
+	 * @return  mixed
 	 */
 	public function stripJRoot($string)
 	{
@@ -108,7 +115,7 @@ class TrackerExtension extends \Twig_Extension
 	 * @param   string   $userName  The user name.
 	 * @param   integer  $width     The with in pixel.
 	 *
-	 * @return string
+	 * @return  string
 	 */
 	public function fetchAvatar($userName = '', $width = 0)
 	{
@@ -128,7 +135,7 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   integer  $priority  The priority
 	 *
-	 * @return string
+	 * @return  string
 	 */
 	public function getPrioClass($priority)
 	{
@@ -154,5 +161,15 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $class;
+	}
+
+	/**
+	 * Dummy function to prevent throwing exception on dump function in the non-debug mode.
+	 *
+	 * @return  void
+	 */
+	public function dump()
+	{
+		return;
 	}
 }
