@@ -81,7 +81,8 @@ class ProjectsModel extends AbstractTrackerListModel
 			{
 				$where .= ') OR ('
 					. $db->quoteName('g.group_id') . ' IN (' . implode(',', $userGroups) . ')'
-					. ' AND ' . $db->quoteName('g.can_view') . ' = 1';
+					. ' AND ' . $db->quoteName('g.can_view') . ' = 1'
+					. ')';
 			}
 			else
 			{
