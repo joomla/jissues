@@ -61,6 +61,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
+			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
 		);
 	}
 
@@ -74,6 +75,7 @@ class TrackerExtension extends \Twig_Extension
 		return array(
 			new \Twig_SimpleFilter('basename', 'basename'),
 			new \Twig_SimpleFilter('get_class', 'get_class'),
+			new \Twig_SimpleFilter('json_decode', 'json_decode'),
 			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
 		);
 	}
@@ -112,13 +114,18 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function fetchAvatar($userName = '', $width = 0)
 	{
+		/* @var TrackerApplication $app */
+		$app = Factory::$application;
+
+		$base = $app->get('uri.base.path');
+
 		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
 		$width = $width ? ' width="' . $width . 'px"' : '';
 
 		return '<img'
 		. ' alt="avatar ' . $userName . '"'
-		. ' src="/images/avatars/' . $avatar . '"'
+		. ' src="' . $base . 'images/avatars/' . $avatar . '"'
 		. $width
 		. ' />';
 	}
@@ -154,5 +161,45 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $class;
+	}
+
+	/**
+	 * Get a status object based on its id.
+	 *
+	 * @param   integer  $id  The id
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return object
+	 */
+	public function getStatus($id)
+	{
+		static $statuses = array();
+
+		if (!$statuses)
+		{
+			/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+			$application = Factory::$application;
+
+			$db = $application->getDatabase();
+
+			$items = $db->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName('#__status'))
+					->select('*')
+			)->loadObjectList();
+
+			foreach ($items as $status)
+			{
+				$status->cssClass = $status->closed ? 'error' : 'success';
+				$statuses[$status->id] = $status;
+			}
+		}
+
+		if (!array_key_exists($id, $statuses))
+		{
+			throw new \UnexpectedValueException('Unknown status id:' . (int) $id);
+		}
+
+		return $statuses[$id];
 	}
 }
