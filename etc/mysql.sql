@@ -295,7 +295,6 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `sendEmail` tinyint(4) DEFAULT '0' COMMENT 'If the users recieves e-mail',
   `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The register date',
   `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The last visit date',
-  `avatar` varchar(150) NOT NULL COMMENT 'The users avatar image file name',
   `params` text NOT NULL COMMENT 'Parameters',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`),
