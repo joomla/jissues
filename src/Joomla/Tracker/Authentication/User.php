@@ -241,7 +241,7 @@ abstract class User implements \Serializable
 	{
 		if (array_key_exists($action, $this->cleared))
 		{
-			return $this->cleared[$action];
+			return $this->cleared[$action] ? true : false;
 		}
 
 		try
