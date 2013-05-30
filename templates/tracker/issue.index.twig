@@ -12,18 +12,23 @@
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
     <div class="row-fluid">
+
         <div class="span1 well-small">
             {{ avatar(item.opened_by)|raw }}
         </div>
+
         <div class="span9 well-small">
             {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date) }}
             <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
+
         <div class="span2 well well-small">
             <ul class="unstyled">
                 <li>
-                    <span class="badge badge-{{ item.closed ? "important" : "success" }}">{{ item.status_title }}</span>
+                    <span class="badge badge-{{ item.closed ? "important" : "success" }}">
+                        {{ translate('COM_TRACKER_STATUS_' ~ item.status_title|upper) }}
+                    </span>
                 </li>
                 {% if item.closed %}
                     <li>{{ item.closed_date }}</li>
@@ -57,6 +62,14 @@
 
                 <li>@todo code ? (PR)</li>
 
+                {% if user.check("edit") %}
+                    <li>
+                        <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                            <span data-icon="&#xe003;"></span>
+                        </a>
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
     </div>
@@ -73,15 +86,35 @@
                     <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
                          alt="{{ activity.event }}" title="{{ activity.event }}"/>
                     {{ activity.created_date }}
-                    {% if activity.gh_comment_id %}
-                        - <a name ="comment-{{ activity.gh_comment_id }}" href="/{{ uri.route }}#comment-{{ activity.gh_comment_id }}">{{ activity.event }}</a>
-                    {% else %}
-                        - {{ activity.event }}
-                    {% endif %}
+                    - <a name ="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - {{ activity.user }}
-
                 </div>
-                {{ activity.text|raw }}
+            </div>
+            <div class="span12">
+                {% if "change" == activity.event %}
+                    <table class="table">
+                    {% for change in activity.text|json_decode %}
+                        <tr>
+                            <td style="width: 13%">{{ change.name|title }}</td>
+                            {% if "status" == change.name %}
+                                <td style="width: 44%" class="alert-{{ statuses(change.old).closed ? "error" : "success" }}">
+                                    {{ translate('COM_TRACKER_STATUS_' ~ statuses(change.old).status|upper) }}
+                                </td>
+                                <td style="width: 1%">&rArr;</td>
+                                <td style="width: 44%" class="alert-{{ statuses(change.new).closed ? "error" : "success" }}">
+                                    {{ translate('COM_TRACKER_STATUS_' ~ statuses(change.new).status|upper) }}
+                                </td>
+                            {% else %}
+                                <td style="width: 44%">{{ change.old }}</td>
+                                <td style="width: 1%">&rArr;</td>
+                                <td style="width: 44%">{{ change.new }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% else %}
+                    {{ activity.text|raw }}
+                {% endif %}
             </div>
         </div>
     {% endfor %}

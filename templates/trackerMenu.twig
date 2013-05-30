@@ -8,8 +8,7 @@
         Tracker
     </a>
 </li>
-
-{% if user.isAdmin and project.project_id %}
+{% if project.project_id and user.check("manage") %}
     <li class="dropdown {{ "projectsxx" == uri.route or "project" == firstPart ? "active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             Project
@@ -23,20 +22,26 @@
             <li class="divider"><span></span></li>
 
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.project_id }}">
+                <a href="{{ uri.base.path }}project/{{ project.alias }}">
+                    <i class="icon-eye"></i>
                     Show
                 </a>
             </li>
+
+            {% if user.check("admin") %}
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.project_id }}/edit">
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
+                    <i class="icon-pencil"></i>
                     Edit
                 </a>
             </li>
+            {% endif %}
 
             <li class="divider"><span></span></li>
 
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.project_id }}/groups">
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">
+                    <i class="icon-user-2"></i>
                     Access Groups
                 </a>
             </li>
@@ -64,11 +69,13 @@
         <ul class="dropdown-menu">
             <li class="{{ "config" == uri.route ? "active" : "" }}">
                 <a href="{{ uri.base.path }}config">
+                    <i class="icon-dashboard"></i>
                     Config
                 </a>
             </li>
             <li class="dropdown-submenu">
                 <a tabindex="-1" href="#">
+                    <i class="icon-copy"></i>
                     Logs
                 </a>
                 <ul class="dropdown-menu">
@@ -83,6 +90,7 @@
                     </li>
                     <li class="{{ "logs/database" == uri.route ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/database">
+                            <i class="icon-database"></i>
                             Database
                         </a>
                     </li>
@@ -90,6 +98,12 @@
                         <a href="{{ uri.base.path }}logs/php">PHP</a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{ "icons" == uri.route ? "active" : "" }}">
+                <a href="{{ uri.base.path }}icons">
+                    <i class="icon-happy"></i>
+                    Icons
+                </a>
             </li>
         </ul>
     </li>
@@ -110,14 +124,19 @@
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+            {% if user.isAdmin %}
+                <li class="nav-header"><i class="icon-user-3"></i> Admin</li>
+            {% endif %}
             <li>
                 <a href="{{ uri.base.path }}user">
+                    <i class="icon-user"></i>
                     Profile
                 </a>
             </li>
             <li class="divider"><span></span></li>
             <li>
                 <a href="{{ uri.base.path }}logout">
+                    <i class="icon-lock"></i>
                     Logout
                 </a>
             </li>

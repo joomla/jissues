@@ -18,24 +18,39 @@
 
 {% block content %}
 
-    <h2>Edit Configuration</h2>
-
-    <form method="post" action="{{ uri.base.path }}saveconfig" class="form-inline" name="configForm">
-
-        {% for group, fields in config %}
-            <fieldset>
-                <legend>{{ group|tformat }}</legend>
-                {% for name, value in fields %}
-                    <ul class="unstyled">
-                        <li>
-                            <label for="config{{ group }}{{ name }}">{{ name|tformat }}</label>
-
-                            <input type="text" name="config[{{ group }}][{{ name }}]"
-                                   id="config{{ group }}{{ name }}" value="{{ value }}"/>
-                        </li>
-                    </ul>
+    <div class="row-fluid">
+        <div class="span4">
+            <ul class="well nav nav-list affix">
+                {% for group, fields in config %}
+                    <li class="">
+                        <a href="#{{ group }}">{{ group|title }}</a>
+                    </li>
                 {% endfor %}
-            </fieldset>
-        {% endfor %}
-    </form>
+            </ul>
+        </div>
+
+        <div class="span8">
+
+            <h2>Edit Configuration</h2>
+
+            <form method="post" action="{{ uri.base.path }}saveconfig" class="form-inline" name="configForm">
+
+                {% for group, fields in config %}
+                    <fieldset id="{{ group }}">
+                        <legend>{{ group|title }}</legend>
+                        {% for name, value in fields %}
+                            <ul class="unstyled">
+                                <li>
+                                    <label for="config{{ group }}{{ name }}">{{ name|tformat }}</label>
+
+                                    <input type="text" name="config[{{ group }}][{{ name }}]"
+                                           id="config{{ group }}{{ name }}" value="{{ value }}"/>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    </fieldset>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
 {% endblock %}

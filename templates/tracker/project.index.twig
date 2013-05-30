@@ -11,10 +11,16 @@
 
     <h2>{{ project.title }}</h2>
 
+    Some stuff about the Project here...
+
     <ul class="unstyled">
-        {% for name, value in project %}
-            <li><b>{{ name }}</b>: {{ value }}</li>
-        {% endfor %}
+        {% if project.gh_user and project.gh_project %}
+            <li>
+                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
+                    GitHub
+                </a>
+            </li>
+        {% endif %}
     </ul>
 
 {% endblock %}

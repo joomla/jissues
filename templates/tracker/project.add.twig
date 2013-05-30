@@ -1,0 +1,59 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}Project{% endblock %}
+
+{% block prependMenu %}
+    <li>
+        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
+            Save
+        </a>
+    </li>
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+    <h2>New project</h2>
+
+    <form method="post" action="{{ uri.base.path }}saveproject" class="form-inline" name="editForm">
+        <fieldset>
+            <legend>Details</legend>
+            <ul class="unstyled">
+
+                <li>
+                    <label for="title">Title</label>
+                    <input type="text" name="project[title]" id="title" />
+                </li>
+
+                <li>
+                    <label for="alias">Alias</label>
+                    <input type="text" name="project[alias]" id="alias" />
+                </li>
+
+                <li>
+                    <label for="gh_user">GitHub Owner</label>
+                    <input type="text" name="project[gh_user]" id="gh_user" />
+                </li>
+
+                <li>
+                    <label for="gh_project">GitHub Repo</label>
+                    <input type="text" name="project[gh_project]" id="gh_project" />
+                </li>
+
+                <li>
+                    <label for="ext_tracker_link">External Tracker Link</label>
+                    <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link" />
+                </li>
+
+            </ul>
+
+            <input type="hidden" name="project[project_id]" />
+
+        </fieldset>
+    </form>
+
+{% endblock %}

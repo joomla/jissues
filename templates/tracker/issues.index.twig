@@ -26,7 +26,6 @@
 {% endblock %}
 
 {% block content %}
-
     <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="filter-search btn-group pull-left input-append">
@@ -82,6 +81,12 @@
                         </td>
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
+                                {#
+                                {% if user.check("edit") %}
+                                <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                                    <span data-icon="&#xe003;"></span>
+                                {% endif %}
+                                #}
                                 <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
                                     {{ item.title|e }}
                                 </a>
@@ -95,7 +100,7 @@
                                     {% endif %}
                                     {% if item.foreign_number %}
                                         <br/>
-                                        {{ translate('COM_TRACKER_HEADING_JOOMLACODE_ID') }}
+                                        {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
                                         <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
                                            target="_blank">
                                             {{ item.foreign_number }}

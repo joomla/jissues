@@ -5,38 +5,45 @@
 
 {% block content %}
 
-    {% if user.id == item.id %}
-        <h1>My Profile</h1>
+    {% if 0 == item.id %}
+        <h2>Sorry, we don't know this user...</h2>
     {% else %}
-        <h1>Profile</h1>
+        {% if user.id == item.id %}
+            <h1>My Profile</h1>
+        {% else %}
+            <h1>Profile</h1>
+        {% endif %}
+
+        <div class="row-fluid">
+            <div class="span2">
+                {{ avatar(item.username, 100)|raw }}
+            </div>
+            <div class="span5">
+                <ul class="unstyled">
+                    <li><h2>{{ item.username }}</h2></li>
+                    {% if item.name %}
+                        <li>{{ item.name }}</li>
+                    {% endif %}
+                    {% if item.email %}
+                        <li>{{ item.email }}</li>
+                    {% endif %}
+                    {% if jdebug %}
+                        <li><b>Id</b>: {{ item.id }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="span5">
+                <ul class="unstyled">
+                    <li>
+                        <i class="icon-github"></i>
+                        <a href="https://github.com/{{ item.username }}">{{ item.username }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>@todo add stuff ...</h2>
+
+        ....here
     {% endif %}
-
-    <div class="row-fluid">
-        <div class="span2">
-            {{ avatar(item.username, 100)|raw }}
-        </div>
-        <div class="span5">
-            <ul class="unstyled">
-                <li><b>Id</b>: {{ item.id }}</li>
-                <li><b>Username</b>: {{ item.username }}</li>
-                <li><b>Name</b>: {{ item.name }}</li>
-                {% if item.email %}
-                    <li><b>email</b>: {{ item.email }}</li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="span5">
-            <ul class="unstyled">
-                <li>
-                    <i class="icon-github"></i>
-                    <a href="https://github.com/{{ item.username }}">{{ item.username }}</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <h2>... @todo add stuff ...</h2>
-
-    ....
-
 {% endblock %}

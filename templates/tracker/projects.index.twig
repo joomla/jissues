@@ -59,12 +59,12 @@
 
                 {% if user.isAdmin %}
                     <td>
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}/groups">Groups</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">Groups</a>
                     </td>
                     <td style="white-space: nowrap;">
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}">Show</a>
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}/edit">Edit</a>
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}/delete">Delete</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}">Show</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">Edit</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">Delete</a>
                     </td>
                 {% endif %}
 
