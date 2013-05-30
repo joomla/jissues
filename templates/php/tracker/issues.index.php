@@ -122,7 +122,7 @@ var_dump($this);
 					</td>
 
 					<td class="nowrap small hidden-phone">
-						<?php echo $item->opened //|date('Y-m-d') ?>
+						<?php echo $item->opened_date //|date('Y-m-d') ?>
 					</td>
 					<td class="nowrap small hidden-phone">
 						<?php if ($item->closed_status) : ?>
@@ -130,8 +130,8 @@ var_dump($this);
 						<?php endif ?>
 					</td>
 					<td class="nowrap small hidden-phone">
-						<?php if ($item->modified != '0000-00-00 00:00:00') : ?>
-							<?php echo $item->modified //|date('Y-m-d') ?>
+						<?php if ($item->modified_date != '0000-00-00 00:00:00') : ?>
+							<?php echo $item->modified_date //|date('Y-m-d') ?>
 							<?php if ($item->modified_by) : ?>
 								<br/>
 								{#<?php //echo 'By ' . JFactory::getUser($item->modified_by)->username ?>#}

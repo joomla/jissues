@@ -35,7 +35,7 @@ class Php implements RendererInterface
 	 */
 	public function __construct(array $config = array())
 	{
-		$this->addPath(JPATH_TEMPLATES);
+		$this->addPath((isset($config['templates_base_dir']) ? $config['templates_base_dir'] : JPATH_TEMPLATES));
 
 		$this->debug   = JDEBUG;
 		$this->globals = new Registry;

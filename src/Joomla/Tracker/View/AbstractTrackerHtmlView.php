@@ -83,7 +83,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 				break;
 
 			case 'php':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
+				$config['templates_base_dir'] = JPATH_TEMPLATES . '/php';
 				$config['debug'] = JDEBUG ? true : false;
 
 				break;
