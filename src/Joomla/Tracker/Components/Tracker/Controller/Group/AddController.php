@@ -33,7 +33,7 @@ class AddController extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->getApplication()->getUser()->authorize('manage');
 
 		$this->getInput()->set('layout', 'edit');
 		$this->getInput()->set('view', 'group');

@@ -26,7 +26,7 @@ class SaveController extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->getApplication()->getUser()->authorize('manage');
 
 		$input = $this->getInput();
 
@@ -34,19 +34,9 @@ class SaveController extends DefaultController
 
 		$table = new GroupsTable($this->getApplication()->getDatabase());
 
-		// $group_id = (int) (isset($group['group_id'])) ? $group['group_id'] : 0;
-		$project_id = (int) (isset($group['project_id'])) ? $group['project_id'] : 0;
-
-		// $group_id)
-		if (0)
-		{
-			// $table->load($group_id);
-		}
-
 		$table->save($group);
 
 		$this->getInput()->set('view', 'groups');
-		$this->getInput()->set('project_id', $project_id);
 
 		return parent::execute();
 	}

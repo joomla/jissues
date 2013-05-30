@@ -7,7 +7,6 @@
 namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
-use Joomla\Factory;
 use Joomla\Input\Input;
 
 /**
@@ -28,11 +27,24 @@ class GroupsController extends DefaultController
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
-		Factory::$application->getUser()->authorize('admin');
-
 		parent::__construct($input, $app);
 
 		// Set the default view
 		$this->getInput()->set('view', 'groups');
+	}
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
+	 * @return void
+	 */
+	public function execute()
+	{
+		$this->getApplication()->getUser()->authorize('manage');
+
+		parent::execute();
 	}
 }

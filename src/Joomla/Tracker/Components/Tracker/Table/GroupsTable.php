@@ -65,14 +65,15 @@ class GroupsTable extends AbstractDatabaseTable
 
 		$this->title = $filter->clean($src->get('title'));
 
-		$this->group_id = (int) $src->get('group_id');
+		$this->group_id   = (int) $src->get('group_id');
 		$this->project_id = (int) $src->get('project_id');
+		$this->system     = (int) $src->get('system');
 
+		// The following values come in as checkboxes ¡: "ON" or not set.
+		$this->can_view   = $src->get('can_view')   ? 1 : 0;
 		$this->can_create = $src->get('can_create') ? 1 : 0;
-		$this->can_view = $src->get('can_view') ? 1 : 0;
-		$this->can_edit = $src->get('can_edit') ? 1 : 0;
+		$this->can_edit   = $src->get('can_edit')   ? 1 : 0;
 		$this->can_manage = $src->get('can_manage') ? 1 : 0;
-		$this->system = (int) $src->get('system');
 
 		return $this;
 	}
@@ -97,6 +98,30 @@ class GroupsTable extends AbstractDatabaseTable
 		{
 			throw new \UnexpectedValueException('No project id set');
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Method to delete a row from the database table by primary key value.
+	 *
+	 * @param   mixed  $pKey  An optional primary key value to delete.  If not set the instance property value is used.
+	 *
+	 * @return  AbstractDatabaseTable
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
+	public function delete($pKey = null)
+	{
+		parent::delete($pKey);
+
+		// Delete the entries in the map table.
+		$this->db->setQuery(
+			$this->db->getQuery(true)
+			->delete($this->db->quoteName('#__user_accessgroup_map'))
+			->where($this->db->quoteName('group_id') . ' = ' . (int) $this->group_id)
+		)->execute();
 
 		return $this;
 	}
