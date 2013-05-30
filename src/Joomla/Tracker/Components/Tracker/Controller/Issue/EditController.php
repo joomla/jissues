@@ -4,17 +4,18 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Tracker\Components\Tracker\Controller;
+namespace Joomla\Tracker\Components\Tracker\Controller\Issue;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
+use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to add an item via the tracker component.
  *
  * @since  1.0
  */
-class AddController extends DefaultController
+class EditController extends AbstractTrackerController
 {
 	/**
 	 * Constructor
@@ -28,10 +29,10 @@ class AddController extends DefaultController
 	{
 		parent::__construct($input, $app);
 
-		$this->getApplication()->getUser()->authorize('create');
+		$this->getApplication()->getUser()->authorize('edit');
 
 		// Set the default view
 		$this->getInput()->set('view', 'issue');
-		$this->getInput()->set('layout', 'add');
+		$this->getInput()->set('layout', 'edit');
 	}
 }
