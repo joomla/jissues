@@ -54,10 +54,6 @@ class GitHubUser extends User
 
 		$this->username = $data->login;
 
-		GitHubLoginHelper::saveAvatar($this);
-
-		$this->avatar = GitHubLoginHelper::getAvatarPath($this);
-
 		return $this;
 	}
 }

@@ -7,7 +7,6 @@
 namespace Joomla\Tracker\Authentication\GitHub;
 
 use Joomla\Factory;
-use Joomla\Filesystem\Folder;
 use Joomla\Http\Http;
 use Joomla\Uri\Uri;
 
@@ -56,11 +55,14 @@ class GitHubLoginHelper
 	 */
 	public function getLoginUri()
 	{
-		$redirect = Factory::$application->get('uri.base.full') . 'login';
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		$redirect = $application->get('uri.base.full') . 'login';
 
 		$uri = new Uri($redirect);
 
-		$usrRedirect = base64_encode((string) new Uri(Factory::$application->get('uri.request')));
+		$usrRedirect = base64_encode((string) new Uri($application->get('uri.request')));
 
 		$uri->setVar('usr_redirect', $usrRedirect);
 
@@ -135,6 +137,8 @@ class GitHubLoginHelper
 	/**
 	 * Save an avatar.
 	 *
+	 * NOTE: A redirect is expected while fetching the avatar.
+	 *
 	 * @param   GithubUser  $user  The user.
 	 *
 	 * @throws \RuntimeException
@@ -143,11 +147,9 @@ class GitHubLoginHelper
 	 */
 	public static function saveAvatar(GithubUser $user)
 	{
-		$fileName = basename(urldecode($user->avatar_url));
-		$localFile = $user->username . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-		$imageBase = JPATH_THEMES . '/images/avatars';
+		$path = JPATH_THEMES . '/images/avatars/' . $user->username . '.png';
 
-		if (false == file_exists($imageBase . '/' . $localFile))
+		if (false == file_exists($path))
 		{
 			if (false == function_exists('curl_setopt'))
 			{
@@ -166,7 +168,7 @@ class GitHubLoginHelper
 
 			if ($data)
 			{
-				file_put_contents($imageBase . '/' . $localFile, $data);
+				file_put_contents($path, $data);
 			}
 		}
 	}
@@ -187,14 +189,12 @@ class GitHubLoginHelper
 			return $avatars[$user->username];
 		}
 
-		$imageBase = JPATH_THEMES . '/images/avatars';
+		$base = JPATH_THEMES . '/images/avatars/' . $user->username . '.png';
 
-		$files = Folder::files($imageBase, '^' . $user->username . '\.');
+		$avatar = $base . '/' . $user->username . '.png';
 
-		$avatar = (isset($files[0])) ? $files[0] : 'user-default.png';
+		$avatars[$user->username] = file_exists($avatar) ? $avatar : $base . '/user-default.png';
 
-		$avatars[$user->username] = $avatar;
-
-		return $avatar;
+		return $avatars[$user->username];
 	}
 }
