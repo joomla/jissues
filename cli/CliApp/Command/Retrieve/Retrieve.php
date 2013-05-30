@@ -113,7 +113,7 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Select the project.
 	 *
-	 * @return  Retrieve
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -122,8 +122,7 @@ class Retrieve extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projectsModel = new ProjectsModel($this->application->getDatabase());
-		$projects      = $projectsModel->getItems();
+		$projects = with(new ProjectsModel($this->application->getDatabase()))->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 
@@ -190,7 +189,7 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Setup the Github object.
 	 *
-	 * @return  Retrieve
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -245,7 +244,7 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Display the GitHub rate limit.
 	 *
-	 * @return  Retrieve
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -273,16 +272,8 @@ class Retrieve extends TrackerCommand
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		if (!$this->usePBar)
-		{
-			return null;
-		}
-
-		$bar         = '=>';
-		$preFill     = ' ';
-		$width       = 60;
-		$progressBar = new ConsoleProgressBar($this->pBarFormat, $bar, $preFill, $width, $targetNum);
-
-		return $progressBar;
+		return ($this->usePBar)
+			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
+			: null;
 	}
 }

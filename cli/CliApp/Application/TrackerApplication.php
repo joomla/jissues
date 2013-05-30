@@ -13,7 +13,6 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 use Joomla\Database\DatabaseDriver;
 
-use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
@@ -170,12 +169,9 @@ class TrackerApplication extends AbstractCliApplication
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
 
-		/* @type TrackerCommand $class */
-		$class = new $className($this);
-
 		try
 		{
-			$class->execute();
+			with(new $className($this))->execute();
 		}
 		catch (AbortException $e)
 		{

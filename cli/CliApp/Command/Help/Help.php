@@ -205,9 +205,7 @@ class Help extends TrackerCommand
 
 			$className = "CliApp\\Command\\$c\\$c";
 
-			$command   = new $className($this->application);
-
-			$commands[strtolower($c)] = $command;
+			$commands[strtolower($c)] = new $className($this->application);
 		}
 
 		return $commands;

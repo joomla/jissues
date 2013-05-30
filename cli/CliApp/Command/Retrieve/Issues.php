@@ -200,12 +200,10 @@ class Issues extends Retrieve
 
 			$table->status = ($issue->state == 'open') ? 1 : 10;
 
-			$date               = new Date($issue->created_at);
-			$table->opened_date = $date->format('Y-m-d H:i:s');
+			$table->opened_date = with(new Date($issue->created_at))->format('Y-m-d H:i:s');
 			$table->opened_by   = $issue->user->login;
 
-			$date                 = new Date($issue->updated_at);
-			$table->modified_date = $date->format('Y-m-d H:i:s');
+			$table->modified_date = with(new Date($issue->updated_at))->format('Y-m-d H:i:s');
 
 			$table->project_id = $this->project->project_id;
 
@@ -218,8 +216,7 @@ class Issues extends Retrieve
 			// Add the closed date if the status is closed
 			if ($issue->closed_at)
 			{
-				$date               = new Date($issue->closed_at);
-				$table->closed_date = $date->format('Y-m-d H:i:s');
+				$table->closed_date = with(new Date($issue->closed_at))->format('Y-m-d H:i:s');
 			}
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID

@@ -278,8 +278,7 @@ class Comments extends Retrieve
 					$this->project->gh_user . '/' . $this->project->gh_project
 				);
 
-				$date           = new Date($comment->created_at);
-				$table->created_date = $date->format('Y-m-d H:i:s');
+				$table->created_date = with(new Date($comment->created_at))->format('Y-m-d H:i:s');
 
 				$table->store();
 			}
