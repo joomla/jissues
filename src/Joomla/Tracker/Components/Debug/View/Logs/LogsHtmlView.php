@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Debug\View\Logs;
 
 use Joomla\Factory;
+use Joomla\Tracker\Components\Debug\TrackerDebugger;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -31,9 +32,9 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		$type = $application->input->get('log_type');
 
-		$debugger = $application->getDebugger();
+		$debugger = new TrackerDebugger($application);
 
-		$path = $debugger ? $debugger->getLogPath($type) ? : '' : '';
+		$path = $debugger->getLogPath($type) ? : '';
 
 		$log = ($path)
 			? $this->processLog($type, $path)

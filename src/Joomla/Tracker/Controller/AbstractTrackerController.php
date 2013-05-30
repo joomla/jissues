@@ -127,7 +127,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 *
 	 * This is a generic method to execute and render a view and is not suitable for tasks.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -182,7 +182,9 @@ abstract class AbstractTrackerController extends AbstractController
 			$paths[] = $path;
 		}
 
-		$path = JPATH_TEMPLATES . '/' . strtolower($this->component);
+		$sub = ('php' == $this->getApplication()->get('renderer.type')) ? '/php' : '';
+
+		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->component);
 
 		if (is_dir($path))
 		{
@@ -200,15 +202,11 @@ abstract class AbstractTrackerController extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-			$debugger = $this->getApplication()->getDebugger();
-
-			if ($debugger)
-			{
-				echo $debugger->renderException($e);
-			}
+			echo $this->getApplication()->getDebugger()
+				->renderException($e);
 		}
 
-		return true;
+		return;
 	}
 
 	/**

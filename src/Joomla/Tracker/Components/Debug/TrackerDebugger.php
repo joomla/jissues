@@ -6,6 +6,7 @@
 
 namespace Joomla\Tracker\Components\Debug;
 
+use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
 use Joomla\Tracker\Application\TrackerApplication;
@@ -43,9 +44,27 @@ class TrackerDebugger
 	{
 		$this->application = $application;
 
-		$this->profiler = new Profiler('Tracker');
+		$this->profiler = JDEBUG ? new Profiler('Tracker') : null;
 
 		$this->log['db'] = array();
+
+		/*
+		/ Register an error handler.
+		if (JDEBUG)
+		{
+			$handler = new \Whoops\Handler\PrettyPageHandler;
+		}
+		else
+		{
+			$handler = new \Joomla\Tracker\Components\Debug\Handler\ProductionHandler;
+		}
+
+		/ $handler = new \Whoops\Handler\JsonResponseHandler;
+
+		$run = new \Whoops\Run;
+		$run->pushHandler($handler);
+		$run->register();
+*/
 	}
 
 	/**
@@ -145,10 +164,11 @@ class TrackerDebugger
 		// It's kinda "hidden" here, so evil template designers won't find it :P
 		$css = '
 		<style>
+			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
 			span.dbgTable { color: yellow; }
 			span.dbgCommand { color: lime; }
 			span.dbgOperator { color: red; }
-			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
+			h2.debug { background-color: #333; color: lime; border-radius: 10px; padding: 0.5em; }
 		</style>
 		';
 
@@ -156,13 +176,13 @@ class TrackerDebugger
 
 		$debug[] = $css;
 
-		$debug[] = '<h3>Debug</h3>';
+		$debug[] = '<h2 class="debug">Debug</h2>';
 
 		$dbLog = $this->getLog('db');
 
 		if ($dbLog)
 		{
-			$debug[] = '<h4>Database</h4>';
+			$debug[] = '<h3>Database</h3>';
 
 			$debug[] = count($dbLog) . ' Queries.';
 
@@ -174,9 +194,20 @@ class TrackerDebugger
 			}
 		}
 
-		$debug[] = '<h4>Profile</h4>';
+		$debug[] = '<h3>Profile</h3>';
 		$debug[] = $this->renderProfile();
 		$debug[] = '</div>';
+
+		$session = Factory::$application->getSession();
+
+		ob_start();
+		echo '<h3>User</h3>';
+		var_dump($session->get('user'));
+		echo '<h3>Project</h3>';
+		var_dump($session->get('project'));
+		$session = ob_get_clean();
+
+		$debug[] = $session;
 
 		return implode("\n", $debug);
 	}
@@ -259,8 +290,8 @@ class TrackerDebugger
 
 		switch ($code)
 		{
-			case 404 :
 			case 403 :
+			case 404 :
 			case 500 :
 				$log[] = '';
 				$log[] = $exception->getMessage();
