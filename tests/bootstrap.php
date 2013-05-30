@@ -20,7 +20,7 @@ ini_set('display_errors', 1);
 define('JPATH_TESTS',  realpath(__DIR__));
 define('JPATH_BASE',   realpath(JPATH_TESTS . '/tmp'));
 define('JPATH_ROOT',   JPATH_BASE);
-define('JPATH_THEMES', JPATH_BASE . '/www');
+define('JPATH_THEMES', JPATH_TESTS . '/themes_base');
 
 
 // Register the test classes.
