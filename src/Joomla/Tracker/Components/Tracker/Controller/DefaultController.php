@@ -7,9 +7,7 @@
 namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
-use Joomla\Factory;
 use Joomla\Input\Input;
-use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
@@ -33,34 +31,22 @@ class DefaultController extends AbstractTrackerController
 
 		// Set the default view
 		$this->defaultView = 'issues';
+	}
 
-		// Set the view based on the request
-		$input = $this->getInput();
-
-		$projectAlias = $input->get('project_alias');
-
-		if ($projectAlias)
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
+	 */
+	public function execute()
+	{
+		if ($this->getApplication()->getProject()->project_id)
 		{
-			$projectModel = new ProjectModel;
-
-			$project = $projectModel->getByAlias($projectAlias);
-
-			if ($project)
-			{
-				$input->set('project_id', $project->project_id);
-
-				Factory::$application->getUser()->authorize('view');
-			}
-			else
-			{
-				// No project... CRY :(
-			}
+			$this->getApplication()->getUser()->authorize('view');
 		}
 
-		if ($input->getInt('id', 0) >= 1)
-		{
-			$input->set('view', 'issue');
-			$this->defaultView = 'issue';
-		}
+		return parent::execute();
 	}
 }

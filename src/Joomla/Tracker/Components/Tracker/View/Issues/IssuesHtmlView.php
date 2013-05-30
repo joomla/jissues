@@ -6,6 +6,7 @@
 
 namespace Joomla\Tracker\Components\Tracker\View\Issues;
 
+use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Tracker\Components\Tracker\Model\IssuesModel;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
@@ -39,7 +40,7 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('items', $this->model->getItems());
 		$this->renderer->set('pagination', $this->model->getPagination());
 		$this->renderer->set('state', $this->model->getState());
-		$this->renderer->set('project', $this->model->getProject());
+		$this->renderer->set('project', Factory::$application->getProject());
 
 		return parent::render();
 	}

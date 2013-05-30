@@ -6,9 +6,9 @@
 
 namespace Joomla\Tracker\Components\Tracker\View\Groups;
 
+use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Tracker\Components\Tracker\Model\GroupsModel;
-use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -51,11 +51,9 @@ class GroupsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$projectModel = new ProjectModel;
-
 		// Set the vars to the template.
 		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('project', $projectModel->getItem()->getIterator());
+		$this->renderer->set('project', Factory::$application->getProject());
 
 		return parent::render();
 	}

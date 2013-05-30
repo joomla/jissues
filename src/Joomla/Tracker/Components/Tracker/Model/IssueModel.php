@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Tracker\Model;
 
 use Joomla\Factory;
+use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
 use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
@@ -52,23 +53,24 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			}
 		}
 
-		$projectId = Factory::$application->input->get('project_id');
-
-		if (!$projectId)
-		{
-			throw new \RuntimeException(__METHOD__ . ' - No project id :(');
-		}
+		$project = Factory::$application->getProject();
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('i.*')
 				->from($this->db->quoteName('#__issues', 'i'))
-				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $projectId)
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $project->project_id)
 				->where($this->db->quoteName('i.issue_number') . ' = ' . (int) $identifier)
 
 				// Join over the status table
-				->select('s.status AS status_title, s.closed AS closed')
-				->join('LEFT', '#__status AS s ON i.status = s.id')
+				->select($this->db->quoteName('s.status', 'status_title'))
+				->select($this->db->quoteName('s.closed', 'closed'))
+				->leftJoin(
+					$this->db->quoteName('#__status', 's')
+					. ' ON '
+					. $this->db->quoteName('i.status')
+					. ' = ' . $this->db->quoteName('s.id')
+				)
 
 				// Get the relation information
 				->select('a1.title AS rel_title, a1.status AS rel_status')
@@ -88,8 +90,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$query->select('a.*');
 		$query->from($this->db->quoteName($table->getTableName(), 'a'));
-		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $projectId);
-		$query->where($this->db->quoteName('a.issue_number') . ' = ' . $item->issue_number);
+		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $project->project_id);
+		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
 
 		$item->activities = $this->db->setQuery($query)->loadObjectList();
@@ -122,5 +124,52 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$table = new ProjectsTable($this->db);
 
 		return $table->load($identifier);
+	}
+
+	/**
+	 * Get a status list.
+	 *
+	 * @return array
+	 */
+	public function getStatuses()
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->from($this->db->quoteName('#__status'))
+				->select('*')
+		)->loadObjectList();
+	}
+
+	/**
+	 * Save the item.
+	 *
+	 * @param   array  $src  The source.
+	 *
+	 * @throws \RuntimeException
+	 * @return $this
+	 */
+	public function save(array $src)
+	{
+		$filter = new InputFilter;
+
+		$data = array();
+
+		$data['id']              = $filter->clean($src['id'], 'int');
+		$data['status']          = $filter->clean($src['status'], 'int');
+		$data['priority']        = $filter->clean($src['priority'], 'int');
+		$data['title']           = $filter->clean($src['title'], 'string');
+		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
+
+		if (!$data['id'])
+		{
+			throw new \RuntimeException('Missing ID');
+		}
+
+		$table = new IssuesTable($this->db);
+
+		$table->load($data['id'])
+			->save($data);
+
+		return $this;
 	}
 }

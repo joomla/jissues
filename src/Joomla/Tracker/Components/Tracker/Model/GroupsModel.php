@@ -28,7 +28,7 @@ class GroupsModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		$projectId = Factory::$application->input->getInt('project_id');
+		$projectId = Factory::$application->getProject()->project_id;
 
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);

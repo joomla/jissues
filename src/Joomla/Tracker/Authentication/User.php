@@ -19,7 +19,7 @@ use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
  *
  * @since  1.0
  */
-abstract class User
+abstract class User implements \Serializable
 {
 	/**
 	 * @var    integer
@@ -67,6 +67,8 @@ abstract class User
 	 */
 	protected $accessGroups = array();
 
+	private $cleared = array();
+
 	/**
 	 * Constructor.
 	 *
@@ -84,6 +86,24 @@ abstract class User
 	}
 
 	/**
+	 * Get the model used for authentication.
+	 *
+	 * @since  1.0
+	 * @return ProjectModel
+	 */
+	public function getAuthModel()
+	{
+		static $authModel;
+
+		if (is_null($authModel))
+		{
+			$authModel = new ProjectModel;
+		}
+
+		return $authModel;
+	}
+
+	/**
 	 * Load data by a given user name.
 	 *
 	 * @param   string  $userName  The user name
@@ -93,7 +113,8 @@ abstract class User
 	 */
 	public function loadByUserName($userName)
 	{
-		/* @var TrackerApplication $application */
+		// @todo Decouple from J\Factory
+		/* @type TrackerApplication $application */
 		$application = Factory::$application;
 
 		$database = $application->getDatabase();
@@ -113,6 +134,8 @@ abstract class User
 		}
 
 		$this->id = $table->id;
+
+		$this->loadAccessGroups();
 
 		return $this;
 	}
@@ -140,7 +163,8 @@ abstract class User
 	 */
 	protected function load($identifier)
 	{
-		/* @var TrackerApplication $application */
+		// @todo Decouple from J\Factory
+		/* @type TrackerApplication $application */
 		$application = Factory::$application;
 
 		$db = $application->getDatabase();
@@ -190,7 +214,8 @@ abstract class User
 	 */
 	protected function loadAccessGroups()
 	{
-		/* @var TrackerApplication $application */
+		// @todo Decouple from J\Factory
+		/* @type TrackerApplication $application */
 		$application = Factory::$application;
 
 		$db = $application->getDatabase();
@@ -214,6 +239,11 @@ abstract class User
 	 */
 	public function check($action)
 	{
+		if (array_key_exists($action, $this->cleared))
+		{
+			return $this->cleared[$action];
+		}
+
 		try
 		{
 			$this->authorize($action);
@@ -239,10 +269,13 @@ abstract class User
 	 */
 	public function authorize($action)
 	{
-		static $cleared = array();
-
-		if (in_array($action, $cleared))
+		if (array_key_exists($action, $this->cleared))
 		{
+			if (0 == $this->cleared[$action])
+			{
+				throw new AuthenticationException($this, $action);
+			}
+
 			return $this;
 		}
 
@@ -255,50 +288,94 @@ abstract class User
 		if ('admin' == $action)
 		{
 			// "Admin action" requested for non "Admin user".
+			$this->cleared[$action] = 0;
 			throw new AuthenticationException($this, $action);
 		}
 
-		if (false == in_array($action, array('view', 'create', 'edit')))
+		if (false == in_array($action, array('view', 'create', 'edit', 'manage')))
 		{
 			throw new \InvalidArgumentException('Undefined action: ' . $action);
 		}
 
-		$projectModel = new ProjectModel;
+		/* @type \Joomla\Tracker\Components\Tracker\TrackerProject $project */
+		$project = Factory::$application->getProject();
 
-		$project = $projectModel->getItem();
-
-		if ($projectModel->getAccessGroups($project->project_id, $action, 'Public'))
+		if ($project->getAccessGroups($action, 'Public'))
 		{
 			// Project has public access for the action.
-			$cleared[] = $action;
+			$this->cleared[$action] = 1;
 
 			return $this;
 		}
 
 		if ($this->id)
 		{
-			if ($projectModel->getAccessGroups($project->project_id, $action, 'User'))
+			if ($project->getAccessGroups($action, 'User'))
 			{
 				// Project has User access for the action.
-				$cleared[] = $action;
+				$this->cleared[$action] = 1;
 
 				return $this;
 			}
 
-			$groups = $projectModel->getAccessGroups($project->project_id, $action);
+			// Check if a User has access to a custom group
+			$groups = $project->getAccessGroups($action);
 
 			foreach ($groups as $group)
 			{
 				if (in_array($group, $this->accessGroups))
 				{
-					// The user is member of the group.
-					$cleared[] = $action;
+					// The User is member of the group.
+					$this->cleared[$action] = 1;
 
 					return $this;
 				}
 			}
 		}
 
+		$this->cleared[$action] = 0;
+
 		throw new AuthenticationException($this, $action);
+	}
+
+	/**
+	 * Serialize.
+	 *
+	 * @since  1.0
+	 * @return string the string representation of the object or null
+	 */
+	public function serialize()
+	{
+		$props = array();
+
+		foreach (get_object_vars($this) as $key => $value)
+		{
+			if (in_array($key, array('authModel', 'cleared', 'authId')))
+			{
+				continue;
+			}
+
+			$props[$key] = $value;
+		}
+
+		return serialize($props);
+	}
+
+	/**
+	 * Unserialize.
+	 *
+	 * @param   string  $serialized  The serialized string
+	 *
+	 * @since  1.0
+	 * @return void
+	 */
+	public function unserialize($serialized)
+	{
+		$data = unserialize($serialized);
+
+		foreach ($data as $key => $value)
+		{
+			$this->$key = $value;
+		}
 	}
 }

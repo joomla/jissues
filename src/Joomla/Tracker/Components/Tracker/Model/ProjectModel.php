@@ -7,7 +7,7 @@
 namespace Joomla\Tracker\Components\Tracker\Model;
 
 use Joomla\Factory;
-use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
+use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -22,9 +22,9 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $projectId  The project id.
 	 *
-	 * @return  ProjectsTable
-	 *
+	 * @throws \UnexpectedValueException
 	 * @since   1.0
+	 * @return  TrackerProject
 	 */
 	public function getItem($projectId = null)
 	{
@@ -33,9 +33,19 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 			$projectId = Factory::$application->input->get('project_id', 1);
 		}
 
-		$table = new ProjectsTable($this->db);
+		if (!$projectId)
+		{
+			throw new \UnexpectedValueException('No project id');
+		}
 
-		return $table->load($projectId);
+		$data = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->from($this->db->quoteName('#__tracker_projects', 'p'))
+				->select('p.*')
+				->where($this->db->quoteName('p.project_id') . ' = ' . (int) $projectId)
+		)->loadObject();
+
+		return new TrackerProject($data);
 	}
 
 	/**
@@ -43,80 +53,18 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @return  ProjectsTable
-	 *
 	 * @since   1.0
+	 * @return  TrackerProject
 	 */
 	public function getByAlias($alias)
 	{
-		return $this->db->setQuery(
+		$data = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->from($this->db->quoteName('#__tracker_projects', 'p'))
-				->select($this->db->quoteName('p.project_id'))
+				->select('p.*')
 				->where($this->db->quoteName('p.alias') . ' = ' . $this->db->quote($alias))
-		)
-			->loadObject();
-	}
+		)->loadObject();
 
-	/**
-	 * Get the access groups for a project.
-	 *
-	 * NOTE: It is intended that this method is coupled to the project model ;)
-	 *
-	 * @param   integer  $projectId  The project id.
-	 * @param   string   $action     The action.
-	 * @param   string   $filter     The filter.
-	 *
-	 * @throws \UnexpectedValueException
-	 * @throws \InvalidArgumentException
-	 *
-	 * @return mixed
-	 */
-	public function getAccessGroups($projectId, $action, $filter = '')
-	{
-		if (false == in_array($action, array('view', 'create', 'edit')))
-		{
-			throw new \InvalidArgumentException(__METHOD__ . ' - Invalid action: ' . $action);
-		}
-
-		if ($filter && false == in_array($filter, array('Public', 'User')))
-		{
-			throw new \InvalidArgumentException(__METHOD__ . ' - Invalid filter: ' . $filter);
-		}
-
-		$query = $this->db->getQuery(true)
-			->from($this->db->quoteName('#__accessgroups'))
-			->select('group_id')
-			->where($this->db->quoteName('project_id') . ' = ' . (int) $projectId)
-			->where($this->db->quoteName('can_' . $action) . ' = 1');
-
-		if ($filter)
-		{
-			// Get a "system group"
-			$query->where($this->db->quoteName('title') . ' = ' . $this->db->quote($filter));
-		}
-		else
-		{
-			// Get only "custom groups"
-			$query->where(
-				$this->db->quoteName('title')
-				. ' NOT IN ('
-				. $this->db->quote('Public') . ','
-				. $this->db->quote('User')
-				. ')'
-			);
-		}
-
-		$groups = $this->db->setQuery($query)
-			->loadRow();
-
-		if (!$groups)
-		{
-			// PANIC
-
-			return array();
-		}
-
-		return $groups;
+		return new TrackerProject($data);
 	}
 }

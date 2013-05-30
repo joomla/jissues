@@ -19,6 +19,9 @@ use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
 use Joomla\Tracker\Components\Debug\Logger\CallbackLogger;
 use Joomla\Tracker\Components\Debug\TrackerDebugger;
+use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
+use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
+use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 use Joomla\Tracker\Router\Exception\RoutingException;
 use Joomla\Tracker\Router\TrackerRouter;
@@ -75,6 +78,11 @@ final class TrackerApplication extends AbstractWebApplication
 	private $user;
 
 	/**
+	 * @var  TrackerProject
+	 */
+	private $project;
+
+	/**
 	 * The database driver object.
 	 *
 	 * @var    DatabaseDriver
@@ -111,16 +119,11 @@ final class TrackerApplication extends AbstractWebApplication
 		// Load the configuration object.
 		$this->loadConfiguration();
 
-		// Register the event dispatcher
-		$this->loadDispatcher();
-
 		// Set the debugger.
 		$this->debugger = new TrackerDebugger($this);
 
-		if (JDEBUG)
-		{
-			$this->mark('Application started');
-		}
+		// Register the event dispatcher
+		$this->loadDispatcher();
 
 		// Register the application to Factory
 		// @todo Decouple from Factory
@@ -129,6 +132,8 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Load the library language file
 		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
+
+		$this->mark('Application started');
 	}
 
 	/**
@@ -398,9 +403,8 @@ final class TrackerApplication extends AbstractWebApplication
 
 		if (is_null($this->user))
 		{
-			$user = $this->getSession()->get('user');
-
-			$this->user = ($user) ? : new GitHubUser;
+			$this->user = ($this->getSession()->get('user'))
+				? : new GitHubUser;
 		}
 
 		return $this->user;
@@ -676,5 +680,84 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		parent::redirect($url, $moved);
+	}
+
+	/**
+	 * Get the current project.
+	 *
+	 * @param   boolean  $reload  Reload the project.
+	 *
+	 * @since  1.0
+	 * @return ProjectsTable
+	 */
+	public function getProject($reload = false)
+	{
+		if (is_null($this->project) || $reload)
+		{
+			$this->loadProject($reload);
+		}
+
+		return $this->project;
+	}
+
+	/**
+	 * Load the current project.
+	 *
+	 * @param   boolean  $reload  Reload the project.
+	 *
+	 * @throws \InvalidArgumentException
+	 * @since  1.0
+	 * @return $this
+	 */
+	private function loadProject($reload = false)
+	{
+		$alias = $this->input->get('project_alias');
+
+		$sessionProject = $this->getSession()->get('project');
+
+		if ($alias)
+		{
+			// A Project is set
+			if ($sessionProject
+				&& $alias == $sessionProject->alias
+				&& false == $reload)
+			{
+				// Use the Project stored in the session
+				$this->project = $sessionProject;
+
+				return $this;
+			}
+
+			// Change the project
+			$projectModel = new ProjectModel;
+			$project = $projectModel->getByAlias($alias);
+
+			if (!$project)
+			{
+				// No project...
+				throw new \InvalidArgumentException('Invalid project');
+			}
+		}
+		else
+		{
+			// No Project set
+			if ($sessionProject)
+			{
+				// No Project set - use the session Project.
+				$project = $sessionProject;
+			}
+			else
+			{
+				// Nothing found - Set a default project !
+				$projectModel = new ProjectModel;
+				$project = $projectModel->getItem(1);
+			}
+		}
+
+		$this->getSession()->set('project', $project);
+
+		$this->project = $project;
+
+		return $this;
 	}
 }
