@@ -26,7 +26,7 @@ class AddController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -34,9 +34,9 @@ class AddController extends AbstractTrackerController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-		$this->getInput()->set('layout', 'edit');
+		$this->getInput()->set('layout', 'add');
 		$this->getInput()->set('project_id', 0);
 
-		return parent::execute();
+		parent::execute();
 	}
 }

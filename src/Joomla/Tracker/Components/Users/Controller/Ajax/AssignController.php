@@ -46,7 +46,7 @@ class AssignController extends AbstractTrackerController
 			$input = $this->getInput();
 			$db    = $this->getApplication()->getDatabase();
 
-			$user    = $input->getWord('user');
+			$user    = $input->getCmd('user');
 			$groupId = $input->getInt('group_id');
 			$assign  = $input->getInt('assign');
 

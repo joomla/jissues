@@ -21,8 +21,6 @@ use Joomla\Tracker\Database\AbstractDatabaseTable;
  * @property   string   $gh_project        GitHub project
  * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  *
- * @property   array    $accessGroups
- *
  * @since  1.0
  */
 class ProjectsTable extends AbstractDatabaseTable
@@ -93,23 +91,23 @@ class ProjectsTable extends AbstractDatabaseTable
 
 			if ($newId)
 			{
-				$table = new GroupsTable($this->db);
+				$group = new GroupsTable($this->db);
 
-				$table->project_id = $newId;
-				$table->title = 'Public';
-				$table->can_view = 1;
-				$table->can_create = 0;
-				$table->can_edit = 0;
-				$table->can_manage = 0;
-				$table->system = 1;
+				$group->project_id = $newId;
+				$group->title = 'Public';
+				$group->can_view = 1;
+				$group->can_create = 0;
+				$group->can_edit = 0;
+				$group->can_manage = 0;
+				$group->system = 1;
 
-				$table->store();
+				$group->store();
 
-				$table->group_id = null;
-				$table->title = 'User';
-				$table->can_create = 1;
+				$group->group_id = null;
+				$group->title = 'User';
+				$group->can_create = 1;
 
-				$table->store();
+				$group->store();
 			}
 		}
 
