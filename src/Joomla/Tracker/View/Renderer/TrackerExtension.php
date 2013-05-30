@@ -61,6 +61,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
+			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
 		);
 
 		if (!JDEBUG)
@@ -81,6 +82,7 @@ class TrackerExtension extends \Twig_Extension
 		return array(
 			new \Twig_SimpleFilter('basename', 'basename'),
 			new \Twig_SimpleFilter('get_class', 'get_class'),
+			new \Twig_SimpleFilter('json_decode', 'json_decode'),
 			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
 		);
 	}
