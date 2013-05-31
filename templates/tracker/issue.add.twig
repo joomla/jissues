@@ -9,8 +9,8 @@
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:" onclick="alert('Not yet :(');return false;document.editForm.submit()
-        ;">
+        <a class="btn-success" href="javascript:"
+           onclick="alert('Not yet :(');return false;document.editForm.submit();">
             Submit
         </a>
     </li>
@@ -18,10 +18,84 @@
     {{ parent() }}
 
 {% endblock %}
+
+{% block headerCSS %}
+    {{ parent() }}
+    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet"
+          media="screen">
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+    <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+    <script type="text/javascript">
+
+        // Show and hide help texts
+        $('#helpSwitch').on('switch-change', function (e, data) {
+            if (data.value) {
+                $('.helpText').show();
+            }
+            else {
+                $('.helpText').hide();
+            }
+        });
+
+        // Set the initial state
+        if ($('#helpSwitch').children('input').attr('checked')) {
+            $('.helpText').show();
+        }
+        else {
+            $('.helpText').hide();
+        }
+
+    </script>
+{% endblock %}
+
 {% block content %}
+    <form name="editForm">
 
-    <h2>New Item</h2>
+        <div class="pull-right well well-small">
 
-    <input type="text"/>
+            <label for="viewMode" class="btn btn-small">View Mode</label>
+            <br />
+            <div class="switch switch-large" id="helpSwitch"
+                 data-on-label="Help" data-off-label="Pro"
+                 data-on="success" data-off="info">
+                <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
+            </div>
 
+            <div class="divider">-</div>
+
+            <label for="priority">Priority</label>
+            <select name="item[priority]" id="priority" class="span2">
+                {% for i in range(1, 4) %}
+                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="helpText alert alert-info">help priority...</div>
+
+        </div>
+
+        <h2>New Item</h2>
+
+        <div class="helpText alert alert-info">help intro...</div>
+
+        {% if(user.username) %}
+            {{ avatar(user.username, 100)|raw }}
+        {% endif %}
+
+        <fieldset>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title"/>
+
+            <div class="helpText alert alert-info">help title...</div>
+
+            <label for="description">Description</label>
+            <textarea name="description" id="description"></textarea>
+
+            <div class="helpText alert alert-info">help description...</div>
+
+        </fieldset>
+    </form>
 {% endblock %}
