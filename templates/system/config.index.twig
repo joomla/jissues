@@ -3,6 +3,14 @@
 
 {% extends "index.twig" %}
 
+{% block headerCSS %}
+    <style>
+        fieldset:target {
+            border: 1px solid silver;
+            background-color: #f5f5f5;
+        }
+    </style>
+{% endblock %}
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
@@ -19,6 +27,7 @@
 {% block content %}
 
     <div class="row-fluid">
+
         <div class="span4">
             <ul class="well nav nav-list affix">
                 {% for group, fields in config %}
@@ -33,24 +42,24 @@
 
             <h2>Edit Configuration</h2>
 
-            <form method="post" action="{{ uri.base.path }}saveconfig" class="form-inline" name="configForm">
-
+            <form method="post" action="{{ uri.base.path }}saveconfig" class="form-horizontal" name="configForm">
                 {% for group, fields in config %}
                     <fieldset id="{{ group }}">
                         <legend>{{ group|title }}</legend>
                         {% for name, value in fields %}
-                            <ul class="unstyled">
-                                <li>
-                                    <label for="config{{ group }}{{ name }}">{{ name|tformat }}</label>
-
+                            <div class="control-group">
+                                <label for="config{{ group }}{{ name }}" class="control-label">{{ name|tformat }}</label>
+                                <div class="controls">
                                     <input type="text" name="config[{{ group }}][{{ name }}]"
-                                           id="config{{ group }}{{ name }}" value="{{ value }}"/>
-                                </li>
-                            </ul>
+                                       id="config{{ group }}{{ name }}" value="{{ value }}"/>
+                                </div>
+                            </div>
                         {% endfor %}
                     </fieldset>
                 {% endfor %}
             </form>
+
         </div>
+
     </div>
 {% endblock %}
