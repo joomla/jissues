@@ -29,7 +29,7 @@ try
 	// Execute the application.
 	$application->execute();
 }
-catch (Exception $e)
+catch (\Exception $e)
 {
 	echo get_class($e) . ': ' . $e->getMessage();
 

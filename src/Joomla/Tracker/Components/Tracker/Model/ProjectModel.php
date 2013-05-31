@@ -33,11 +33,6 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 			$projectId = Factory::$application->input->get('project_id', 1);
 		}
 
-		if (!$projectId)
-		{
-			throw new \UnexpectedValueException('No project id');
-		}
-
 		$data = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->from($this->db->quoteName('#__tracker_projects', 'p'))
@@ -56,8 +51,18 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 * @since   1.0
 	 * @return  TrackerProject
 	 */
-	public function getByAlias($alias)
+	public function getByAlias($alias = null)
 	{
+		if (!$alias)
+		{
+			$alias = Factory::$application->input->get('project_alias');
+
+			if (!$alias)
+			{
+				return new TrackerProject;
+			}
+		}
+
 		$data = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->from($this->db->quoteName('#__tracker_projects', 'p'))

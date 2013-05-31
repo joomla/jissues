@@ -16,6 +16,11 @@ use Joomla\Tracker\View\AbstractTrackerHtmlView;
 class ProjectHtmlView extends AbstractTrackerHtmlView
 {
 	/**
+	 * @var  \Joomla\Tracker\Components\Tracker\Model\ProjectModel
+	 */
+	protected $model;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @since   1.0
@@ -23,7 +28,7 @@ class ProjectHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('project', $this->model->getItem());
+		$this->renderer->set('project', $this->model->getByAlias());
 
 		return parent::render();
 	}

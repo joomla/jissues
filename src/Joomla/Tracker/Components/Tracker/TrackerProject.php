@@ -46,7 +46,7 @@ class TrackerProject
 	//  A tracker link format (e.g. http://tracker.com/issue/%d)
 	protected $ext_tracker_link;
 
-	private $accessMap = array();
+	protected $accessMap = array();
 
 	private $defaultActions = array('view', 'create', 'edit', 'manage');
 
@@ -59,11 +59,11 @@ class TrackerProject
 	 *
 	 * @throws \UnexpectedValueException
 	 */
-	public function __construct($data)
+	public function __construct($data = null)
 	{
-		if (!$data)
+		if (is_null($data))
 		{
-			throw new \UnexpectedValueException('Empty project');
+			return;
 		}
 
 		foreach ($data as $key => $value)
@@ -75,7 +75,7 @@ class TrackerProject
 				continue;
 			}
 
-			throw new \UnexpectedValueException(__METHOD__ . ' - unepected key: ' . $key);
+			throw new \UnexpectedValueException(__METHOD__ . ' - unexpected key: ' . $key);
 		}
 	}
 

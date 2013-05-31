@@ -7,7 +7,6 @@
 namespace Joomla\Tracker\Components\System\Controller;
 
 use Joomla\Factory;
-use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
@@ -24,31 +23,4 @@ class StatsController extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'stats';
-
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$projectAlias = $this->getInput()->get('project_alias');
-
-		$projectModel = new ProjectModel;
-
-		$project = $projectModel->getByAlias($projectAlias);
-
-		if ($project)
-		{
-			$this->getInput()->set('project_id', $project->project_id);
-		}
-		else
-		{
-			// No project... CRY :(
-		}
-
-		parent::execute();
-	}
 }
