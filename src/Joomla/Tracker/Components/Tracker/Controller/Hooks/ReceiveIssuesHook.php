@@ -55,14 +55,14 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Initialize the database
 		$query = $this->db->getQuery(true);
 
-		// Get the issue ID
-		$githubID = $this->hookData->issue->number;
-
 		// Check to see if the issue is already in the database
 		$query->select($this->db->quoteName('id'));
 		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $githubID);
+		$query->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$this->db->setQuery($query);
+
+		$issueID = 0;
 
 		try
 		{
@@ -115,6 +115,8 @@ class ReceiveIssuesHook extends AbstractHookController
 				break;
 		}
 
+		$issue = '';
+
 		// Try to render the description with GitHub markdown
 		try
 		{
@@ -122,7 +124,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\DomainException $e)
 		{
-			Log::add(sprintf('Error parsing issue text for ID %s with GH Markdown: %s', $issueID, $e->getMessage()), Log::INFO);
+			Log::add(sprintf('Error parsing issue text for ID %s with GH Markdown: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -160,9 +162,13 @@ class ReceiveIssuesHook extends AbstractHookController
 			$table->foreign_number = substr($this->hookData->issue->title, $pos, 5);
 		}
 
-		if (!$table->store())
+		try
 		{
-			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $table->getError()), Log::INFO);
+			$table->store();
+		}
+		catch (\Exception $e)
+		{
+			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -172,6 +178,8 @@ class ReceiveIssuesHook extends AbstractHookController
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$this->db->setQuery($query);
+
+		$issueID = 0;
 
 		try
 		{
@@ -190,9 +198,13 @@ class ReceiveIssuesHook extends AbstractHookController
 		$activity->event        = 'open';
 		$activity->created_date = $table->opened_date;
 
-		if (!$activity->store())
+		try
 		{
-			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+			$activity->store();
+		}
+		catch (\Exception $e)
+		{
+			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -205,9 +217,13 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event        = 'reopen';
 			$activity->created_date = $table->modified_date;
 
-			if (!$activity->store())
+			try
 			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+				$activity->store();
+			}
+			catch (\Exception $e)
+			{
+				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
 			}
 		}
@@ -221,9 +237,13 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event        = 'close';
 			$activity->created_date = $table->closed_date;
 
-			if (!$activity->store())
+			try
 			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+				$activity->store();
+			}
+			catch (\Exception $e)
+			{
+				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
 			}
 		}
@@ -261,6 +281,8 @@ class ReceiveIssuesHook extends AbstractHookController
 				break;
 		}
 
+		$issue = '';
+
 		// Try to render the description with GitHub markdown
 		try
 		{
@@ -276,10 +298,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$dateFormat = $this->db->getDateFormat();
 		$modified   = new Date($this->hookData->issue->updated_at);
 
-		if ($this->hookData->issue->closed_at)
-		{
-			$closed = new Date($this->hookData->issue->closed_at);
-		}
+		$closed = null;
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$query = $this->db->getQuery(true);
@@ -293,6 +312,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
+			$closed = new Date($this->hookData->issue->closed_at);
 			$query->set($this->db->quoteName('closed_date') . ' = ' . $this->db->quote($closed->format($dateFormat)));
 		}
 
@@ -316,7 +336,11 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event        = 'reopen';
 			$activity->created_date = $modified->format($dateFormat);
 
-			if (!$activity->store())
+			try
+			{
+				$activity->store();
+			}
+			catch (\Exception $e)
 			{
 				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
@@ -332,7 +356,11 @@ class ReceiveIssuesHook extends AbstractHookController
 			$activity->event        = 'close';
 			$activity->created_date = $closed->format($dateFormat);
 
-			if (!$activity->store())
+			try
+			{
+				$activity->store();
+			}
+			catch (\Exception $e)
 			{
 				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();

@@ -57,16 +57,18 @@ class ReceiveCommentsHook extends AbstractHookController
 		$commentID = $this->hookData->comment->id;
 
 		// Check to see if the comment is already in the database
-		$query->select($this->db->quoteName('id'));
+		$query->select($this->db->quoteName('activities_id'));
 		$query->from($this->db->quoteName('#__activities'));
 		$query->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $commentID);
 		$this->db->setQuery($query);
+
+		$comment = null;
 
 		try
 		{
 			$comment = $this->db->loadResult();
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			Log::add('Error checking the database for comment ID:' . $e->getMessage(), Log::INFO);
 			$this->getApplication()->close();
@@ -102,11 +104,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		$query->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id);
 		$this->db->setQuery($query);
 
+		$issueID = null;
+
 		try
 		{
 			$issueID = $this->db->loadResult();
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			Log::add('Error checking the database for GitHub ID:' . $e->getMessage(), Log::INFO);
 			$this->getApplication()->close();
@@ -117,6 +121,8 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			$issueID = $this->insertIssue();
 		}
+
+		$text = '';
 
 		// Try to render the comment with GitHub markdown
 		try
@@ -137,15 +143,20 @@ class ReceiveCommentsHook extends AbstractHookController
 		$created    = new Date($this->hookData->comment->created_at);
 
 		$table->gh_comment_id = $this->hookData->comment->id;
-		$table->issue_id      = (int) $issueID;
+		$table->issue_number  = (int) $this->hookData->issue->number;
+		$table->project_id    = (int) $this->project->project_id;
 		$table->user          = $this->hookData->comment->user->login;
 		$table->event         = 'comment';
 		$table->text          = $text;
-		$table->created       = $created->format($dateFormat);
+		$table->created_date  = $created->format($dateFormat);
 
-		if (!$table->store())
+		try
 		{
-			Log::add(sprintf('Error storing new comment %s in the database: %s', $this->hookData->comment->id, $table->getError()), Log::INFO);
+			$table->store();
+		}
+		catch (\Exception $e)
+		{
+			Log::add(sprintf('Error storing new comment %s in the database: %s', $this->hookData->comment->id, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -164,6 +175,8 @@ class ReceiveCommentsHook extends AbstractHookController
 	 */
 	protected function insertIssue()
 	{
+		$issue = '';
+
 		// Try to render the description with GitHub markdown
 		try
 		{
@@ -181,13 +194,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		$modified   = new Date($this->hookData->issue->updated_at);
 
 		$table = new IssuesTable($this->db);
-		$table->issue_number = $this->hookData->issue->number;
-		$table->title        = $this->hookData->issue->title;
-		$table->description  = $issue;
-		$table->status		 = ($this->hookData->issue->state) == 'open' ? 1 : 10;
-		$table->opened       = $opened->format($dateFormat);
-		$table->modified     = $modified->format($dateFormat);
-		$table->project_id   = $this->project->project_id;
+		$table->issue_number  = $this->hookData->issue->number;
+		$table->title         = $this->hookData->issue->title;
+		$table->description   = $issue;
+		$table->status		  = ($this->hookData->issue->state) == 'open' ? 1 : 10;
+		$table->opened_date   = $opened->format($dateFormat);
+		$table->modified_date = $modified->format($dateFormat);
+		$table->project_id    = $this->project->project_id;
 
 		// Add the diff URL if this is a pull request
 		if ($this->hookData->issue->pull_request->diff_url)
@@ -210,9 +223,13 @@ class ReceiveCommentsHook extends AbstractHookController
 			$table->foreign_number = substr($this->hookData->issue->title, $pos, 5);
 		}
 
-		if (!$table->store())
+		try
 		{
-			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $table->getError()), Log::INFO);
+			$table->store();
+		}
+		catch (\Exception $e)
+		{
+			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -222,6 +239,8 @@ class ReceiveCommentsHook extends AbstractHookController
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$this->db->setQuery($query);
+
+		$issueID = null;
 
 		try
 		{
@@ -235,14 +254,18 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Add an open record to the activity table
 		$activity = new ActivitiesTable($this->db);
-		$activity->issue_id = (int) $issueID;
-		$activity->user     = $this->hookData->issue->user->login;
-		$activity->event    = 'open';
-		$activity->created  = $table->opened;
+		$activity->issue_number = (int) $issueID;
+		$activity->user         = $this->hookData->issue->user->login;
+		$activity->event        = 'open';
+		$activity->created_date = $table->opened_date;
 
-		if (!$activity->store())
+		try
 		{
-			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+			$activity->store();
+		}
+		catch (\Exception $e)
+		{
+			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
 
@@ -250,14 +273,18 @@ class ReceiveCommentsHook extends AbstractHookController
 		if ($this->hookData->issue->closed_at)
 		{
 			$activity = new ActivitiesTable($this->db);
-			$activity->issue_id = (int) $issueID;
-			$activity->user     = $this->hookData->issue->user->login;
-			$activity->event    = 'close';
-			$activity->created  = $table->closed_date;
+			$activity->issue_number = (int) $issueID;
+			$activity->user         = $this->hookData->issue->user->login;
+			$activity->event        = 'close';
+			$activity->created_date = $table->closed_date;
 
-			if (!$activity->store())
+			try
 			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $activity->getError()), Log::INFO);
+				$activity->store();
+			}
+			catch (\Exception $e)
+			{
+				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 				$this->getApplication()->close();
 			}
 		}
@@ -279,12 +306,14 @@ class ReceiveCommentsHook extends AbstractHookController
 	 */
 	protected function updateComment($id)
 	{
+		$text = '';
+
 		// Try to render the comment with GitHub markdown
 		try
 		{
 			$text = $this->github->markdown->render($this->hookData->comment->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
 		}
-		catch (DomainException $e)
+		catch (\DomainException $e)
 		{
 			Log::add(sprintf('Error parsing comment %s with GH Markdown: %s', $this->hookData->comment->id, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();

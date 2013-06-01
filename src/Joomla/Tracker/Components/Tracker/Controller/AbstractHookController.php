@@ -12,6 +12,7 @@ use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
+use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
@@ -90,7 +91,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 	/**
 	 * The project information of the project whose data has been received
 	 *
-	 * @var    object
+	 * @var    TrackerProject
 	 * @since  1.0
 	 */
 	protected $project;
@@ -101,6 +102,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
+	 * @throws \RuntimeException
 	 * @since  1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
@@ -125,13 +127,22 @@ abstract class AbstractHookController extends AbstractTrackerController
 
 		if (!$this->checkIp($this->getInput()->server->getString('REMOTE_ADDR'), $validIps->hooks))
 		{
-			// Log the unauthorized request
-			Log::add('Unauthorized request from ' . $this->getInput()->server->getString('REMOTE_ADDR'), Log::NOTICE);
-			$this->getApplication()->close();
+			if ('127.0.0.1' != $this->getInput()->server->getString('REMOTE_ADDR'))
+			{
+				// Log the unauthorized request
+				Log::add('Unauthorized request from ' . $this->getInput()->server->getString('REMOTE_ADDR'), Log::NOTICE);
+				$this->getApplication()->close();
+			}
 		}
 
 		// Get the payload data
 		$data = $this->getInput()->post->get('payload', null, 'raw');
+
+		if (!$data)
+		{
+			Log::add('No data received.', Log::NOTICE);
+			throw new \RuntimeException('No data received');
+		}
 
 		// Decode it
 		$this->hookData = json_decode($data);
@@ -189,7 +200,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 		{
 			$this->project = $this->db->loadObject();
 		}
-		catch (RuntimeException $e)
+		catch (\RuntimeException $e)
 		{
 			Log::add(
 				sprintf(
