@@ -8,10 +8,12 @@ namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Date\Date;
 use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
+use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
@@ -234,5 +236,94 @@ abstract class AbstractHookController extends AbstractTrackerController
 			);
 			$this->getApplication()->close();
 		}
+	}
+
+	/**
+	 * Add a new event and store it to the database.
+	 *
+	 * @param   string   $event       The event name.
+	 * @param   string   $dateTime    Date and time.
+	 * @param   string   $userName    User name.
+	 * @param   integer  $projectId   Project id.
+	 * @param   integer  $itemNumber  THE item number.
+	 * @param   integer  $commentId   The comment id
+	 * @param   string   $text        The parsed html comment text.
+	 * @param   string   $textRaw     The raw comment text.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
+	{
+		$activity = new ActivitiesTable($this->db);
+
+		$date = new Date($dateTime);
+		$activity->created_date = $date->format($this->db->getDateFormat());
+
+		$activity->event = $event;
+		$activity->user  = $userName;
+
+		$activity->project_id    = (int) $projectId;
+		$activity->issue_number  = (int) $itemNumber;
+		$activity->gh_comment_id = (int) $commentId;
+
+		$activity->text     = $text;
+		$activity->text_raw = $textRaw;
+
+		try
+		{
+			$activity->store();
+		}
+		catch (\Exception $exception)
+		{
+			Log::add(
+				sprintf(
+					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d): %s',
+					$event,
+					$projectId, $itemNumber,
+					$exception->getMessage()
+				),
+				Log::INFO
+			);
+
+			$this->getApplication()->close();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Parse a text with GitHub Markdown.
+	 *
+	 * @param   string  $text  The text to parse.
+	 *
+	 * @since  1.0
+	 * @return string
+	 */
+	protected function parseText($text)
+	{
+		try
+		{
+			return $this->github->markdown->render(
+				$text,
+				'gfm',
+				$this->project->gh_user . '/' . $this->project->gh_project
+			);
+		}
+		catch (\DomainException $exception)
+		{
+			Log::add(
+				sprintf(
+					'Error parsing comment %d with GH Markdown: %s',
+					$this->hookData->comment->id,
+					$exception->getMessage()
+				),
+				Log::INFO
+			);
+		}
+
+		$this->getApplication()->close();
+
+		return '';
 	}
 }

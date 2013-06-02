@@ -173,7 +173,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 		$isNew = ($this->id < 1);
 		$date  = new Date;
-		$date  = $date->format('Y-m-d H:i:s');
+		$date  = $date->format($this->db->getDateFormat());
 
 		if (!$isNew)
 		{
@@ -198,33 +198,20 @@ class IssuesTable extends AbstractDatabaseTable
 		 * Post-Save Actions
 		 */
 
-		$query = $this->db->getQuery(true);
-
 		// Add a record to the activity table if a new item
 
 		// TODO: Remove the check for CLI once moved to live instance
 		if ($isNew && $application->get('cli_app') != true)
 		{
-			$columnsArray = array(
-				$this->db->quoteName('issue_id'),
-				$this->db->quoteName('user'),
-				$this->db->quoteName('event'),
-				$this->db->quoteName('created_date'),
-				$this->db->quoteName('project_id')
-			);
+			$table = new ActivitiesTable($this->db);
 
-			$query->insert($this->db->quoteName('#__activities'));
-			$query->columns($columnsArray);
-			$query->values(
-				(int) $this->id . ', '
-					. $this->db->quote($application->getUser()->username) . ', '
-					. $this->db->quote('open') . ', '
-					. $this->db->quote($this->opened_date) . ', '
-					. (int) $this->project_id
-			);
+			$table->event = 'open';
+			$table->created_date = $this->opened_date;
+			$table->user = $application->getUser()->username;
+			$table->issue_number = (int) $this->issue_number;
+			$table->project_id = (int) $this->project_id;
 
-			$this->db->setQuery($query);
-			$this->db->execute();
+			$table->store();
 		}
 
 		if ($this->oldObject)

@@ -79,7 +79,7 @@ class GitHubLoginHelper
 	/**
 	 * Request an oAuth token from GitHub.
 	 *
-	 * @param   string $code  The code obtained form GitHub on the previous step.
+	 * @param   string  $code  The code obtained form GitHub on the previous step.
 	 *
 	 * @throws \RuntimeException
 	 * @throws \DomainException

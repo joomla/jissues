@@ -74,31 +74,28 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
-		// Instantiate the IssuesTable instance
-		$table = new IssuesTable($this->db);
-
-		// If the item is already in the databse, update it; else, insert it
+		// If the item is already in the database, update it; else, insert it.
 		if ($issueID)
 		{
-			$this->updateData($issueID);
+			$this->updateData();
 		}
 		else
 		{
-			$this->insertData($table);
+			$this->insertData();
 		}
 	}
 
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @param   IssuesTable  $table  Issue table instance
-	 *
 	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
 	 */
-	protected function insertData(IssuesTable $table)
+	protected function insertData()
 	{
+		$table = new IssuesTable($this->db);
+
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
@@ -115,18 +112,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				break;
 		}
 
-		$issue = '';
-
-		// Try to render the description with GitHub markdown
-		try
-		{
-			$issue = $this->github->markdown->render($this->hookData->issue->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
-		}
-		catch (\DomainException $e)
-		{
-			Log::add(sprintf('Error parsing issue text for ID %s with GH Markdown: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
-			$this->getApplication()->close();
-		}
+		$parsedText = $this->parseText($this->hookData->issue->body);
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
@@ -134,13 +120,13 @@ class ReceiveIssuesHook extends AbstractHookController
 		$modified   = new Date($this->hookData->issue->updated_at);
 
 		$table->issue_number  = $this->hookData->issue->number;
+		$table->project_id    = $this->project->project_id;
 		$table->title         = $this->hookData->issue->title;
-		$table->description   = $issue;
+		$table->description   = $parsedText;
 		$table->status        = $status;
 		$table->opened_by     = $this->hookData->issue->user->login;
 		$table->opened_date   = $opened->format($dateFormat);
 		$table->modified_date = $modified->format($dateFormat);
-		$table->project_id    = $this->project->project_id;
 
 		// Add the diff URL if this is a pull request
 		if ($this->hookData->issue->pull_request->diff_url)
@@ -153,6 +139,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
 			$table->closed_date = $closed->format($dateFormat);
+			$table->closed_by = $this->hookData->issue->user->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
@@ -173,14 +160,15 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
-		// Get the ID for the new issue
+		/*
+		/ Get the ID for the new issue
 		$query = $this->db->getQuery(true);
 		$query->select('id');
 		$query->from($this->db->quoteName('#__issues'));
 		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$this->db->setQuery($query);
 
-		$issueID = 0;
+		$issueID = null;
 
 		try
 		{
@@ -191,10 +179,14 @@ class ReceiveIssuesHook extends AbstractHookController
 			Log::add(sprintf('Error retrieving ID for GitHub issue %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
+		*/
 
 		// Add an open record to the activity table
+
+		/* This should be done by the issues table object
 		$activity = new ActivitiesTable($this->db);
-		$activity->issue_number = (int) $issueID;
+		$activity->issue_number = (int) $this->hookData->issue->number;
+		$activity->project_id   = $this->project->project_id;
 		$activity->user         = $this->hookData->issue->user->login;
 		$activity->event        = 'open';
 		$activity->created_date = $table->opened_date;
@@ -208,45 +200,30 @@ class ReceiveIssuesHook extends AbstractHookController
 			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
 			$this->getApplication()->close();
 		}
+		*/
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
-			$activity = new ActivitiesTable($this->db);
-			$activity->issue_number = (int) $issueID;
-			$activity->user         = $this->hookData->issue->user->login;
-			$activity->event        = 'reopen';
-			$activity->created_date = $table->modified_date;
-
-			try
-			{
-				$activity->store();
-			}
-			catch (\Exception $e)
-			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
-				$this->getApplication()->close();
-			}
+			$this->addActivityEvent(
+				'reopen',
+				$table->modified_date,
+				$this->hookData->issue->user->login,
+				$this->project->project_id,
+				$this->hookData->issue->number
+			);
 		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$activity = new ActivitiesTable($this->db);
-			$activity->issue_number = (int) $issueID;
-			$activity->user         = $this->hookData->issue->user->login;
-			$activity->event        = 'close';
-			$activity->created_date = $table->closed_date;
-
-			try
-			{
-				$activity->store();
-			}
-			catch (\Exception $e)
-			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
-				$this->getApplication()->close();
-			}
+			$this->addActivityEvent(
+				'close',
+				$table->closed_date,
+				$this->hookData->issue->user->login,
+				$this->project->project_id,
+				$this->hookData->issue->number
+			);
 		}
 
 		// Store was successful, update status
@@ -258,13 +235,11 @@ class ReceiveIssuesHook extends AbstractHookController
 	/**
 	 * Method to update data for an issue from GitHub
 	 *
-	 * @param   integer  $issueID  Issue ID in the database
-	 *
 	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
 	 */
-	protected function updateData($issueID)
+	protected function updateData()
 	{
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
@@ -282,18 +257,8 @@ class ReceiveIssuesHook extends AbstractHookController
 				break;
 		}
 
-		$issue = '';
-
 		// Try to render the description with GitHub markdown
-		try
-		{
-			$issue = $this->github->markdown->render($this->hookData->issue->body, 'gfm', $this->project->gh_user . '/' . $this->project->gh_project);
-		}
-		catch (\DomainException $e)
-		{
-			Log::add(sprintf('Error parsing issue text for ID %s with GH Markdown: %s', $issueID, $e->getMessage()), Log::INFO);
-			$this->getApplication()->close();
-		}
+		$parsedText = $this->parseText($this->hookData->issue->body);
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
@@ -305,10 +270,12 @@ class ReceiveIssuesHook extends AbstractHookController
 		$query = $this->db->getQuery(true);
 		$query->update($this->db->quoteName('#__issues'));
 		$query->set($this->db->quoteName('title') . ' = ' . $this->db->quote($this->hookData->issue->title));
-		$query->set($this->db->quoteName('description') . ' = ' . $this->db->quote($issue));
+		$query->set($this->db->quoteName('description') . ' = ' . $this->db->quote($parsedText));
+		$query->set($this->db->quoteName('description_raw') . ' = ' . $this->db->quote($this->hookData->issue->body));
 		$query->set($this->db->quoteName('status') . ' = ' . $status);
 		$query->set($this->db->quoteName('modified_date') . ' = ' . $this->db->quote($modified->format($dateFormat)));
-		$query->where($this->db->quoteName('id') . ' = ' . $issueID);
+		$query->where($this->db->quoteName('issue_number') . ' = ' . $this->hookData->issue->number);
+		$query->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id);
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -319,57 +286,41 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$this->db->setQuery($query);
-			$this->db->execute();
+			$this->db->setQuery($query)
+				->execute();
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Error updating the database for issue ' . $issueID . ':' . $e->getMessage(), Log::INFO);
+			Log::add('Error updating the database:' . $e->getMessage(), Log::INFO);
 			$this->getApplication()->close();
 		}
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
-			$activity = new ActivitiesTable($this->db);
-			$activity->issue_number = $issueID;
-			$activity->user         = $this->hookData->issue->user->login;
-			$activity->event        = 'reopen';
-			$activity->created_date = $modified->format($dateFormat);
-
-			try
-			{
-				$activity->store();
-			}
-			catch (\Exception $e)
-			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
-				$this->getApplication()->close();
-			}
+			$this->addActivityEvent(
+				'reopen',
+				$this->hookData->issue->updated_at,
+				$this->hookData->issue->user->login,
+				$this->project->project_id,
+				$this->hookData->issue->number
+			);
 		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$activity = new ActivitiesTable($this->db);
-			$activity->issue_number = $issueID;
-			$activity->user         = $this->hookData->issue->user->login;
-			$activity->event        = 'close';
-			$activity->created_date = $closed->format($dateFormat);
-
-			try
-			{
-				$activity->store();
-			}
-			catch (\Exception $e)
-			{
-				Log::add(sprintf('Error storing reopen activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
-				$this->getApplication()->close();
-			}
+			$this->addActivityEvent(
+				'close',
+				$this->hookData->issue->closed_at,
+				$this->hookData->issue->user->login,
+				$this->project->project_id,
+				$this->hookData->issue->number
+			);
 		}
 
 		// Store was successful, update status
-		Log::add(sprintf('Updated issue %s in the tracker.', $issueID), Log::INFO);
+		Log::add(sprintf('Updated issue %s in the tracker.', $this->hookData->issue->number), Log::INFO);
 
 		return true;
 	}
