@@ -35,6 +35,10 @@
 	"project/:project_alias/addgroup": "\\Tracker\\Controller\\Group\\AddController",
 	"project/:project_alias/savegroup": "\\Tracker\\Controller\\Group\\SaveController",
 
+	"project/:project_alias/hooks": "\\Tracker\\Controller\\HooksController",
+	"project/:project_alias/hooks-list": "\\Tracker\\Controller\\Hooks\\Ajax\\ListController",
+	"project/:project_alias/hooks-add": "\\Tracker\\Controller\\Hooks\\Ajax\\AddController",
+
     "tracker/:project_alias": "\\Tracker\\Controller\\Issue\\ListController",
     "tracker/:project_alias/add": "\\Tracker\\Controller\\Issue\\AddController",
     "tracker/:project_alias/:id": "\\Tracker\\Controller\\Issue\\ItemController",
