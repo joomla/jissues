@@ -307,7 +307,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$query->set($this->db->quoteName('title') . ' = ' . $this->db->quote($this->hookData->issue->title));
 		$query->set($this->db->quoteName('description') . ' = ' . $this->db->quote($issue));
 		$query->set($this->db->quoteName('status') . ' = ' . $status);
-		$query->set($this->db->quoteName('modified') . ' = ' . $this->db->quote($modified->format($dateFormat)));
+		$query->set($this->db->quoteName('modified_date') . ' = ' . $this->db->quote($modified->format($dateFormat)));
 		$query->where($this->db->quoteName('id') . ' = ' . $issueID);
 
 		// Add the closed date if the status is closed
