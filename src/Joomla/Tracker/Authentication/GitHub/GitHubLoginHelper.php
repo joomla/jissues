@@ -8,6 +8,8 @@ namespace Joomla\Tracker\Authentication\GitHub;
 
 use Joomla\Factory;
 use Joomla\Http\Http;
+use Joomla\Http\HttpFactory;
+use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
@@ -77,16 +79,26 @@ class GitHubLoginHelper
 	/**
 	 * Request an oAuth token from GitHub.
 	 *
-	 * @param   string  $code  The code obtained form GitHub on the previous step.
+	 * @param   string $code  The code obtained form GitHub on the previous step.
 	 *
-	 * @return  string  The oAuth token
+	 * @throws \RuntimeException
+	 * @throws \DomainException
 	 *
 	 * @since   1.0
-	 * @throws  \DomainException
+	 * @return  string  The oAuth token
 	 */
 	public function requestToken($code)
 	{
-		$http = new Http;
+		// @todo temporary fix to avoid the "Socket" transport protocol - ADD: and the "stream"...
+		$options = new Registry;
+		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+
+		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
+		{
+			throw new \RuntimeException('Please enable cURL.');
+		}
+
+		$http = new Http($options, $transport);
 
 		$data = array(
 			'client_id'     => $this->clientId,
