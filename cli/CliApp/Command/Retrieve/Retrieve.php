@@ -221,11 +221,11 @@ class Retrieve extends TrackerCommand
 		}
 
 		// @todo temporary fix to avoid the "Socket" transport protocol
-		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl', 'stream'));
+		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
 
-		if (is_a($transport, 'Joomla\\Http\\Transport\\Socket'))
+		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
 		{
-			throw new \RuntimeException('Please either enable cURL or url_fopen');
+			throw new \RuntimeException('Please enable cURL.');
 		}
 
 		$http = new \Joomla\Github\Http($options, $transport);
