@@ -120,19 +120,26 @@ abstract class AbstractHookController extends AbstractTrackerController
 		$this->db = $this->getApplication()->getDatabase();
 
 		// Instantiate Github
-		$this->github = new Github;
+		$this->github = $this->getApplication()->getGitHub();
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
 
-		if (!$this->checkIp($this->getInput()->server->getString('REMOTE_ADDR'), $validIps->hooks))
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
 		{
-			if ('127.0.0.1' != $this->getInput()->server->getString('REMOTE_ADDR'))
-			{
-				// Log the unauthorized request
-				Log::add('Unauthorized request from ' . $this->getInput()->server->getString('REMOTE_ADDR'), Log::NOTICE);
-				$this->getApplication()->close();
-			}
+			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+			$myIP = $parts[0];
+		}
+		else
+		{
+			$myIP = $this->getInput()->server->getString('REMOTE_ADDR');
+		}
+
+		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
+		{
+			// Log the unauthorized request
+			Log::add('Unauthorized request from ' . $myIP, Log::NOTICE);
+			$this->getApplication()->close();
 		}
 
 		// Get the payload data
@@ -143,6 +150,8 @@ abstract class AbstractHookController extends AbstractTrackerController
 			Log::add('No data received.', Log::NOTICE);
 			throw new \RuntimeException('No data received');
 		}
+
+		Log::add('Data received.' . (JDEBUG ? print_r($data, 1) : ''), Log::NOTICE);
 
 		// Decode it
 		$this->hookData = json_decode($data);
