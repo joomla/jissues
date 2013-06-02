@@ -137,6 +137,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$table->title         = $this->hookData->issue->title;
 		$table->description   = $issue;
 		$table->status        = $status;
+		$table->opened_by     = $this->hookData->issue->user->login;
 		$table->opened_date   = $opened->format($dateFormat);
 		$table->modified_date = $modified->format($dateFormat);
 		$table->project_id    = $this->project->project_id;
