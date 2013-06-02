@@ -85,7 +85,7 @@ class Avatars extends Retrieve
 
 			$g->username = $user;
 
-			if ('user-default.png' != GitHubLoginHelper::getAvatarPath($g))
+			if (false === strpos(GitHubLoginHelper::getAvatarPath($g), 'user-default.png'))
 			{
 				$this->usePBar
 					? $progressBar->update($i + 1)
