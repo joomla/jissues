@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a4a9de5ebbda5d48eb90317f42a9e555",
+    "hash": "9706fd969b07e955751326cc24cfdf82",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "04b8d92fc4344ffac273c4b4e0ed50a9215bcac0"
+                "reference": "76e7e992542b24dfba1cf55f281c9f8a724eb466"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/04b8d92fc4344ffac273c4b4e0ed50a9215bcac0",
-                "reference": "04b8d92fc4344ffac273c4b4e0ed50a9215bcac0",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/76e7e992542b24dfba1cf55f281c9f8a724eb466",
+                "reference": "76e7e992542b24dfba1cf55f281c9f8a724eb466",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-05-19 23:46:08"
+            "time": "2013-06-04 02:30:21"
         },
         {
             "name": "mustache/mustache",
@@ -214,17 +214,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "2.2.x-dev",
+            "version": "2.3.x-dev",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "4c8eea472b4103cb00013a48c592ac6fc5043457"
+                "reference": "v2.3.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/4c8eea472b4103cb00013a48c592ac6fc5043457",
-                "reference": "4c8eea472b4103cb00013a48c592ac6fc5043457",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.0-RC1",
+                "reference": "v2.3.0-RC1",
                 "shasum": ""
             },
             "require": {
@@ -233,7 +233,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -260,7 +260,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-04-30 17:05:10"
+            "time": "2013-05-10 06:00:03"
         },
         {
             "name": "twig/twig",
@@ -268,12 +268,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "b081e3f1ed64b8246bfcadef3e66233ab2c0ffd9"
+                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/b081e3f1ed64b8246bfcadef3e66233ab2c0ffd9",
-                "reference": "b081e3f1ed64b8246bfcadef3e66233ab2c0ffd9",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
+                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-05-25 15:56:42"
+            "time": "2013-05-29 14:58:12"
         }
     ],
     "packages-dev": [
