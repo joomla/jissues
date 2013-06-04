@@ -23,6 +23,22 @@ $loader = require __DIR__ . '/../vendor/autoload.php';
 // Add the namespace for our application to the autoloader.
 $loader->add('CliApp', __DIR__);
 
+define('JPATH_ROOT', realpath(__DIR__ . '/..'));
+
+/**
+ * Return the given object. Useful for chaining.
+ *
+ * This is a legacy function to ease the transition from PHP 5.3 to 5.4
+ *
+ * @param   mixed  $object  The object
+ *
+ * @return mixed
+ */
+function with($object)
+{
+	return $object;
+}
+
 try
 {
 	$application = new TrackerApplication;

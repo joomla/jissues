@@ -1,0 +1,26 @@
+	ul.trackerPagination li.details{
+	   color:#D22020;
+	}
+
+    ul.trackerPagination li a
+	{
+		border-radius:3px;
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+		padding:6px 9px 6px 9px;
+	}
+
+	ul.trackerPagination li a
+	{
+	    color: #fff;
+		background:#D22020;
+		background:-moz-linear-gradient(top,#DB2B2B,#D22020);
+		background:-webkit-gradient(linear,0 0,0 100%,from(#DB2B2B),to(#D22020));
+	}
+
+	ul.trackerPagination li a:hover,
+	ul.trackerPagination li a.current
+	{
+		color:#9F0F0F;
+		background:#FFE0E0;
+	}

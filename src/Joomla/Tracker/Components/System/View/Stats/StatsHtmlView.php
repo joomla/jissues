@@ -9,7 +9,6 @@ namespace Joomla\Tracker\Components\System\View\Stats;
 use Joomla\Github\Github;
 use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\View\AbstractTrackerHtmlView;
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * System statistics view.
@@ -35,7 +34,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	{
 		$projectModel = new ProjectModel;
 
-		$project = $projectModel->getItem();
+		$project = $projectModel->getByAlias();
 
 		$gitHub = new Github;
 
@@ -45,7 +44,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 
 		$this->renderer
 			->set('data', $data)
-			->set('project', $project->getIterator());
+			->set('project', $project);
 
 		return parent::render();
 	}

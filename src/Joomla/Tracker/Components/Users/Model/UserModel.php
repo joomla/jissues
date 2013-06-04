@@ -29,24 +29,26 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($itemId = null)
 	{
-		if ($itemId)
-		{
-			try
-			{
-				$user = new GitHubUser($itemId);
-			}
-			catch (\RuntimeException $e)
-			{
-				echo $e->getMessage();
-				Factory::$application->enqueueMessage($e->getMessage(), 'error');
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
 
-				// Load a blank user
-				$user = new GitHubUser;
-			}
-		}
-		else
+		if (!$itemId)
 		{
-			$user = Factory::$application->getUser();
+			return  $application->getUser();
+		}
+
+		try
+		{
+			$user = new GitHubUser($itemId);
+		}
+		catch (\RuntimeException $e)
+		{
+			// @@@echo $e->getMessage();
+
+			// Factory::$application->enqueueMessage($e->getMessage(), 'error');
+
+			// Load a blank user
+			$user = new GitHubUser;
 		}
 
 		return $user;

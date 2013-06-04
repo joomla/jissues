@@ -30,7 +30,7 @@ class LogoutController extends AbstractTrackerController
 		// Logout the user.
 		$app->setUser();
 
-		$app->redirect('');
+		$app->redirect(' ');
 
 		return '';
 	}

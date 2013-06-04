@@ -50,17 +50,19 @@ class GitHubLoginHelper
 	/**
 	 * Method to retrieve the correct URI for login via GitHub
 	 *
-	 * @return  string  The login URI
-	 *
 	 * @since   1.0
+	 * @return  string  The login URI
 	 */
 	public function getLoginUri()
 	{
-		$redirect = Factory::$application->get('uri.base.full') . 'login';
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		$redirect = $application->get('uri.base.full') . 'login';
 
 		$uri = new Uri($redirect);
 
-		$usrRedirect = base64_encode((string) new Uri(Factory::$application->get('uri.request')));
+		$usrRedirect = base64_encode((string) new Uri($application->get('uri.request')));
 
 		$uri->setVar('usr_redirect', $usrRedirect);
 
@@ -130,5 +132,69 @@ class GitHubLoginHelper
 		}
 
 		return $body->access_token;
+	}
+
+	/**
+	 * Save an avatar.
+	 *
+	 * NOTE: A redirect is expected while fetching the avatar.
+	 *
+	 * @param   GithubUser  $user  The user.
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @return void
+	 */
+	public static function saveAvatar(GithubUser $user)
+	{
+		$path = JPATH_THEMES . '/images/avatars/' . $user->username . '.png';
+
+		if (false == file_exists($path))
+		{
+			if (false == function_exists('curl_setopt'))
+			{
+				throw new \RuntimeException('cURL is not installed - no avatar support ;(');
+			}
+
+			$ch = curl_init($user->avatar_url);
+
+			curl_setopt($ch, CURLOPT_HEADER, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+			$data = curl_exec($ch);
+
+			curl_close($ch);
+
+			if ($data)
+			{
+				file_put_contents($path, $data);
+			}
+		}
+	}
+
+	/**
+	 * Get an avatar path.
+	 *
+	 * @param   GitHubUser  $user  The user.
+	 *
+	 * @return string
+	 */
+	public static function getAvatarPath(GitHubUser $user)
+	{
+		static $avatars = array();
+
+		if (array_key_exists($user->username, $avatars))
+		{
+			return $avatars[$user->username];
+		}
+
+		$base = JPATH_THEMES . '/images/avatars/' . $user->username . '.png';
+
+		$avatar = $base . '/' . $user->username . '.png';
+
+		$avatars[$user->username] = file_exists($avatar) ? $avatar : $base . '/user-default.png';
+
+		return $avatars[$user->username];
 	}
 }

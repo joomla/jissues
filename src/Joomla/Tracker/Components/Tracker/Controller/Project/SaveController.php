@@ -43,6 +43,9 @@ class SaveController extends DefaultController
 
 		$this->getInput()->set('view', 'projects');
 
+		// Reload the project.
+		$app->getProject(true);
+
 		parent::execute();
 	}
 }

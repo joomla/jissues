@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Tracker\Controller\Project;
 
 use Joomla\Tracker\Components\Tracker\Controller\DefaultController;
+use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
 
 /**
@@ -37,9 +38,13 @@ class DeleteController extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
+		$model = new ProjectModel;
+
+		$project = $model->getByAlias();
+
 		$table = new ProjectsTable($app->getDatabase());
 
-		$table->delete($app->input->getInt('project_id'));
+		$table->delete($project->project_id);
 
 		$this->getInput()->set('view', 'projects');
 

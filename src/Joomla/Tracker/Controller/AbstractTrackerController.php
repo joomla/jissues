@@ -80,60 +80,6 @@ abstract class AbstractTrackerController extends AbstractController
 	}
 
 	/**
-	 * Method to check if you can add a new record.
-	 *
-	 * @param   array  $data  An array of input data.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	protected function allowAdd($data = array())
-	{
-		return JFactory::getUser()->authorise('core.create', $this->option);
-	}
-
-	/**
-	 * Method to check if you can edit an existing record.
-	 *
-	 * @param   string  $option  The component to check the permissions of
-	 * @param   array   $data    An array of input data.
-	 * @param   string  $key     The name of the key for the primary key; default is id.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	protected function allowEdit($option, $data = array(), $key = 'id')
-	{
-		return JFactory::getUser()->authorise('core.edit', $option);
-	}
-
-	/**
-	 * Method to check if you can save a new or existing record.
-	 *
-	 * @param   array   $data  An array of input data.
-	 * @param   string  $key   The name of the key for the primary key.
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0
-	 */
-	protected function allowSave($data, $key = 'id')
-	{
-		$recordId = isset($data[$key]) ? $data[$key] : '0';
-
-		if ($recordId)
-		{
-			return $this->allowEdit($data, $key);
-		}
-		else
-		{
-			return $this->allowAdd($data);
-		}
-	}
-
-	/**
 	 * Method to check whether an ID is in the edit list.
 	 *
 	 * @param   string   $context  The context for the session storage.
@@ -181,7 +127,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 *
 	 * This is a generic method to execute and render a view and is not suitable for tasks.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -217,7 +163,7 @@ abstract class AbstractTrackerController extends AbstractController
 		// Make sure the view class exists, otherwise revert to the default
 		if (!class_exists($vClass))
 		{
-			$vClass = $base . '\\View\\DefaultView';
+			$vClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
 
 			// If there still isn't a class, panic.
 			if (!class_exists($vClass))
@@ -236,7 +182,9 @@ abstract class AbstractTrackerController extends AbstractController
 			$paths[] = $path;
 		}
 
-		$path = JPATH_TEMPLATES . '/' . strtolower($this->component);
+		$sub = ('php' == $this->getApplication()->get('renderer.type')) ? '/php' : '';
+
+		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->component);
 
 		if (is_dir($path))
 		{
@@ -254,10 +202,11 @@ abstract class AbstractTrackerController extends AbstractController
 		}
 		catch (\Exception $e)
 		{
-			echo $this->getApplication()->renderException($e);
+			echo $this->getApplication()->getDebugger()
+				->renderException($e);
 		}
 
-		return true;
+		return;
 	}
 
 	/**

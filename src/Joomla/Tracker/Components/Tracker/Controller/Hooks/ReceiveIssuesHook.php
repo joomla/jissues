@@ -59,7 +59,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Check to see if the issue is already in the database
 		$query->select($this->db->quoteName('id'));
 		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $githubID);
+		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $githubID);
 		$this->db->setQuery($query);
 
 		try
@@ -129,18 +129,18 @@ class ReceiveIssuesHook extends AbstractHookController
 		$opened     = new Date($this->hookData->issue->created_at);
 		$modified   = new Date($this->hookData->issue->updated_at);
 
-		$table->gh_id       = $this->hookData->issue->number;
-		$table->title       = $this->hookData->issue->title;
-		$table->description = $issue;
-		$table->status      = $status;
-		$table->opened      = $opened->format($dateFormat);
-		$table->modified    = $modified->format($dateFormat);
-		$table->project_id  = $this->project->project_id;
+		$table->issue_number  = $this->hookData->issue->number;
+		$table->title         = $this->hookData->issue->title;
+		$table->description   = $issue;
+		$table->status        = $status;
+		$table->opened_date   = $opened->format($dateFormat);
+		$table->modified_date = $modified->format($dateFormat);
+		$table->project_id    = $this->project->project_id;
 
 		// Add the diff URL if this is a pull request
 		if ($this->hookData->issue->pull_request->diff_url)
 		{
-			$table->patch_url = $this->hookData->issue->pull_request->diff_url;
+			// $table->patch_url = $this->hookData->issue->pull_request->diff_url;
 		}
 
 		// Add the closed date if the status is closed
@@ -155,7 +155,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		if (strpos($this->hookData->issue->title, '[#') !== false)
 		{
 			$pos = strpos($this->hookData->issue->title, '[#') + 2;
-			$table->jc_id = substr($this->hookData->issue->title, $pos, 5);
+			$table->foreign_number = substr($this->hookData->issue->title, $pos, 5);
 		}
 
 		try
@@ -172,7 +172,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$query = $this->db->getQuery(true);
 		$query->select('id');
 		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('gh_id') . ' = ' . (int) $this->hookData->issue->number);
+		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
 		$this->db->setQuery($query);
 
 		try
@@ -187,10 +187,10 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Add an open record to the activity table
 		$activity = new ActivitiesTable($this->db);
-		$activity->issue_id = (int) $issueID;
-		$activity->user     = $this->hookData->issue->user->login;
-		$activity->event    = 'open';
-		$activity->created  = $table->opened;
+		$activity->issue_number = (int) $issueID;
+		$activity->user         = $this->hookData->issue->user->login;
+		$activity->event        = 'open';
+		$activity->created_date = $table->opened_date;
 
 		try
 		{
@@ -206,10 +206,10 @@ class ReceiveIssuesHook extends AbstractHookController
 		if ($action == 'reopened')
 		{
 			$activity = new ActivitiesTable($this->db);
-			$activity->issue_id = (int) $issueID;
-			$activity->user     = $this->hookData->issue->user->login;
-			$activity->event    = 'reopen';
-			$activity->created  = $table->modified;
+			$activity->issue_number = (int) $issueID;
+			$activity->user         = $this->hookData->issue->user->login;
+			$activity->event        = 'reopen';
+			$activity->created_date = $table->modified_date;
 
 			try
 			{
@@ -226,10 +226,10 @@ class ReceiveIssuesHook extends AbstractHookController
 		if ($this->hookData->issue->closed_at)
 		{
 			$activity = new ActivitiesTable($this->db);
-			$activity->issue_id = (int) $issueID;
-			$activity->user     = $this->hookData->issue->user->login;
-			$activity->event    = 'close';
-			$activity->created  = $table->closed_date;
+			$activity->issue_number = (int) $issueID;
+			$activity->user         = $this->hookData->issue->user->login;
+			$activity->event        = 'close';
+			$activity->created_date = $table->closed_date;
 
 			try
 			{
@@ -325,10 +325,10 @@ class ReceiveIssuesHook extends AbstractHookController
 		if ($action == 'reopened')
 		{
 			$activity = new ActivitiesTable($this->db);
-			$activity->issue_id = $issueID;
-			$activity->user     = $this->hookData->issue->user->login;
-			$activity->event    = 'reopen';
-			$activity->created  = $modified->format($dateFormat);
+			$activity->issue_number = $issueID;
+			$activity->user         = $this->hookData->issue->user->login;
+			$activity->event        = 'reopen';
+			$activity->created_date = $modified->format($dateFormat);
 
 			try
 			{
@@ -345,10 +345,10 @@ class ReceiveIssuesHook extends AbstractHookController
 		if ($this->hookData->issue->closed_at)
 		{
 			$activity = new ActivitiesTable($this->db);
-			$activity->issue_id = $issueID;
-			$activity->user     = $this->hookData->issue->user->login;
-			$activity->event    = 'close';
-			$activity->created  = $closed->format($dateFormat);
+			$activity->issue_number = $issueID;
+			$activity->user         = $this->hookData->issue->user->login;
+			$activity->event        = 'close';
+			$activity->created_date = $closed->format($dateFormat);
 
 			try
 			{

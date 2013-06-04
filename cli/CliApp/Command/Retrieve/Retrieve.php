@@ -19,6 +19,7 @@ use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
+use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
 
 /**
  * Class for retrieving data from GitHub for selected projects
@@ -36,7 +37,7 @@ class Retrieve extends TrackerCommand
 	protected $github;
 
 	/**
-	 * @var    object
+	 * @var    ProjectsTable
 	 * @since  1.0
 	 */
 	protected $project = null;
@@ -68,19 +69,27 @@ class Retrieve extends TrackerCommand
 	{
 		parent::__construct($application);
 
-		$this->description = 'Retrieve <issues> or <comments>.';
+		$this->description = 'Retrieve <cmd><issues></cmd>, <cmd><comments></cmd> or <cmd><avatars></cmd>.';
 
-		$this->addOption(
-			new TrackerCommandOption(
-				'project', 'p',
-				'Process the project with the given ID.'
+		$this
+			->addOption(
+				new TrackerCommandOption(
+					'project', 'p',
+					'Process the project with the given ID.'
+				)
 			)
-		)->addOption(
-			new TrackerCommandOption(
-				'auth', '',
-				'Use GitHub credentials from configuration for authentication.'
+			->addOption(
+				new TrackerCommandOption(
+					'auth', '',
+					'Use GitHub credentials from configuration for authentication.'
+				)
 			)
-		);
+			->addOption(
+				new TrackerCommandOption(
+					'noprogress', '',
+					'Don\'t use a progress bar.'
+				)
+			);
 	}
 
 	/**
@@ -104,17 +113,16 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Select the project.
 	 *
-	 * @return  Retrieve
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 * @throws  AbortException
-	 * @todo this might go to a base class.
+	 * @todo    this might go to a base class.
 	 */
 	protected function selectProject()
 	{
-		$projectsModel = new ProjectsModel($this->application->getDatabase());
-		$projects      = $projectsModel->getItems();
+		$projects = with(new ProjectsModel($this->application->getDatabase()))->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 
@@ -124,13 +132,22 @@ class Retrieve extends TrackerCommand
 				->out('<b>Available projects:</b>')
 				->out();
 
-			foreach ($projects as $i => $project)
+			$cnt = 1;
+
+			$checks = array();
+
+			foreach ($projects as $project)
 			{
-				$this->out(($i + 1) . ') ' . $project->title);
+				if ($project->gh_user && $project->gh_project)
+				{
+					$this->out('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+					$checks[$cnt] = $project;
+					$cnt++;
+				}
 			}
 
 			$this->out()
-			->out('<question>Select a project:</question> ', false);
+				->out('<question>Select a project:</question> ', false);
 
 			$resp = (int) trim($this->application->in());
 
@@ -139,12 +156,12 @@ class Retrieve extends TrackerCommand
 				throw new AbortException('Aborted');
 			}
 
-			if (false == array_key_exists($resp - 1, $projects))
+			if (false == array_key_exists($resp, $checks))
 			{
 				throw new AbortException('Invalid project');
 			}
 
-			$this->project = $projects[$resp - 1];
+			$this->project = $checks[$resp];
 		}
 		else
 		{
@@ -172,7 +189,7 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Setup the Github object.
 	 *
-	 * @return  Retrieve
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -227,7 +244,7 @@ class Retrieve extends TrackerCommand
 	/**
 	 * Display the GitHub rate limit.
 	 *
-	 * @return  Retrieve
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -255,16 +272,8 @@ class Retrieve extends TrackerCommand
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		if (!$this->usePBar)
-		{
-			return null;
-		}
-
-		$bar = '=>';
-		$preFill = ' ';
-		$width = 60;
-		$progressBar = new ConsoleProgressBar($this->pBarFormat, $bar, $preFill, $width, $targetNum);
-
-		return $progressBar;
+		return ($this->usePBar)
+			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
+			: null;
 	}
 }

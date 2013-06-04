@@ -7,24 +7,20 @@
 
 {% block headerText %}Projects{% endblock %}
 
-{% block subnav %}
-    {% if user.id %}
-    <a class="btn btn-warning btn-small" href="{{ uri.base.path }}project/{{ project.project_id }}/edit">
-        Edit
-    </a>
-    <a class="btn btn-danger btn-small" href="{{ uri.base.path }}project/{{ project.project_id }}/delete">
-        Delete
-    </a>
-    {% endif %}
-    {{ parent() }}
-{% endblock %}
-
 {% block content %}
+
     <h2>{{ project.title }}</h2>
+
+    Some stuff about the Project here...
+
     <ul class="unstyled">
-        {% for name, value in project %}
-            <li><b>{{ name }}</b>: {{ value }}</li>
-        {% endfor %}
+        {% if project.gh_user and project.gh_project %}
+            <li>
+                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
+                    GitHub
+                </a>
+            </li>
+        {% endif %}
     </ul>
-    {{ dump(project) }}
+
 {% endblock %}

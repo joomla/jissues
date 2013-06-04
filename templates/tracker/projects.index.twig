@@ -5,28 +5,38 @@
 
 {% block title %}Projects{% endblock %}
 
-{% block headerText %}Projects{% endblock %}
+{% block prependMenu %}
+    {% if user.isAdmin %}
+        <li>
+            <a class="btn-success" href="{{ uri.base.path }}project/add">
+                Add Project
+            </a>
+        </li>
+    {% endif %}
 
-{% block subnav %}
-    <a class="btn btn-success btn-small" href="{{ uri.base.path }}project/add">
-        Add Project
-    </a>
     {{ parent() }}
+
 {% endblock %}
 
 {% block content %}
+
+    <h2>Projects List</h2>
+
     <table class="table table-bordered table-hover">
 
         <tr>
             <th>Tracker</th>
             <th>GitHub</th>
-            <th>Stats</th>
+            <th style="width: 5%;">Stats</th>
 
-            {% if user.admin %}
+            {% if user.isAdmin %}
+                <th style="width: 5%;">Groups</th>
                 <th style="width: 10%;">Actions</th>
             {% endif %}
 
-            <th  style="width: 5%;">Id</th>
+            {% if jdebug %}
+                <th style="width: 5%;">Id</th>
+            {% endif %}
         </tr>
 
         {% for project in projects %}
@@ -47,15 +57,20 @@
                     <a href="{{ uri.base.path }}tracker/{{ project.alias }}/stats">Stats</a>
                 </td>
 
-                {% if user.admin %}
+                {% if user.isAdmin %}
+                    <td>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">Groups</a>
+                    </td>
                     <td style="white-space: nowrap;">
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}">Show</a>
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}/edit">Edit</a>
-                        <a href="{{ uri.base.path }}project/{{ project.project_id }}/delete">Delete</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}">Show</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">Edit</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">Delete</a>
                     </td>
                 {% endif %}
 
-                <td>{{ project.project_id }}</td>
+                {% if jdebug %}
+                  <td>{{ project.project_id }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

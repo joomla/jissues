@@ -7,6 +7,7 @@
 namespace Joomla\Tracker\Components\Tracker\Model;
 
 use Joomla\Database\DatabaseQuery;
+use Joomla\Factory;
 use Joomla\Tracker\Model\AbstractTrackerListModel;
 
 /**
@@ -25,11 +26,71 @@ class ProjectsModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		$db    = $this->getDb();
+		$db = $this->getDb();
+
+		/* @var \Joomla\Tracker\Authentication\GitHub\GitHubUser $user */
+		$user = Factory::$application->getUser();
+
 		$query = $db->getQuery(true);
 
-		$query->select('a.*');
-		$query->from($db->quoteName('#__tracker_projects', 'a'));
+		$query->select('DISTINCT ' . $db->quoteName('p.project_id'));
+		$query->select($db->quoteName(array('p.title', 'p.alias', 'p.gh_user', 'p.gh_project')));
+
+		$query->from($db->quoteName('#__tracker_projects', 'p'));
+
+		if ($user->isAdmin)
+		{
+			// No filters for admin users.
+			return $query;
+		}
+
+		// Public
+		$query->leftJoin(
+			$db->quoteName('#__accessgroups', 'g')
+			. ' ON ' . $db->quoteName('g.project_id')
+			. ' = ' . $db->quoteName('p.project_id')
+		);
+
+		$query->where($db->quoteName('g.title') . ' = ' . $db->quote('Public'));
+		$query->where($db->quoteName('g.can_view') . ' = 1');
+
+		// By user
+		if ($user->id)
+		{
+			$query->leftJoin(
+				$db->quoteName('#__accessgroups', 'g1')
+				. ' ON ' . $db->quoteName('g1.project_id')
+				. ' = ' . $db->quoteName('p.project_id')
+			);
+
+			$query->clear('where');
+
+			$where = '';
+
+			$where .=
+				'('
+				. $db->quoteName('g.title') . ' = ' . $db->quote('Public')
+				. ' AND ' . $db->quoteName('g.can_view') . ' = 1'
+				. ') OR ('
+				. $db->quoteName('g1.title') . ' = ' . $db->quote('User')
+				. ' AND ' . $db->quoteName('g1.can_view') . ' = 1';
+
+			$userGroups = $user->getAccessGroups();
+
+			if ($userGroups)
+			{
+				$where .= ') OR ('
+					. $db->quoteName('g.group_id') . ' IN (' . implode(',', $userGroups) . ')'
+					. ' AND ' . $db->quoteName('g.can_view') . ' = 1'
+					. ')';
+			}
+			else
+			{
+				$where .= ')';
+			}
+
+			$query->where($where);
+		}
 
 		return $query;
 	}

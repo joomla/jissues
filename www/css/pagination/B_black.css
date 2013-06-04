@@ -1,0 +1,36 @@
+	ul.trackerPagination li.details{
+	   color:#202020;
+	}
+	ul.trackerPagination li a
+	{
+		border:solid 1px;
+		border-radius:3px;
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+		padding:6px 9px 6px 9px;
+	}
+
+	ul.trackerPagination li
+	{
+		padding-bottom:1px;
+	}
+
+	ul.trackerPagination li a:hover,
+	ul.trackerPagination li a.current
+	{
+		color:#FFFFFF;
+		box-shadow:0px 1px #EDEDED;
+		-moz-box-shadow:0px 1px #EDEDED;
+		-webkit-box-shadow:0px 1px #EDEDED;
+		text-shadow:0px 1px #3C3C3C;
+		border-color:#202020;
+		background:#525252;
+		background:-moz-linear-gradient(top,#9F9F9F 1px,#6C6C6C 1px,#525252);
+		background:-webkit-gradient(linear,0 0,0 100%,color-stop(0.02,#9F9F9F),color-stop(0.02,#6C6C6C),color-stop(1,#525252));
+	}
+	ul.trackerPagination li a
+	{
+		color:#444444;
+		border-color:#BEBEBE;
+		background:#FAFAFA;
+	}
