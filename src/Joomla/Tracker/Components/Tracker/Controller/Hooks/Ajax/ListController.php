@@ -42,9 +42,8 @@ class ListController extends AbstractTrackerController
 
 			$project = $this->getApplication()->getProject();
 
-			$gitHub = $this->getApplication()->getGitHub();
-
-			$response->data = $gitHub->repositories->hooks->getList(
+			$response->data = $this->getApplication()->getGitHub()
+				->repositories->hooks->getList(
 				$project->gh_user, $project->gh_project
 			);
 		}

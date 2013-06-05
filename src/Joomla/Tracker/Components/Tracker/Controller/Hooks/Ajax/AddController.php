@@ -47,25 +47,24 @@ class AddController extends AbstractTrackerController
 
 			$gitHub = $this->getApplication()->getGitHub();
 
-			$name = 'web';
+			$name   = 'web';
+			$active = 1;
 
 			$config = array();
 			$config['url'] = $url;
 			$config['content-type'] = 'json';
 
-			$events = explode(',', $events);
-
-			$active = 1;
-
+			// Create the hook.
 			$gitHub->repositories->hooks->create(
 				$project->gh_user,
 				$project->gh_project,
 				$name,
 				$config,
-				$events,
+				explode(',', $events),
 				$active
 			);
 
+			// Get the current hooks list.
 			$response->data = $gitHub->repositories->hooks->getList($project->gh_user, $project->gh_project);
 		}
 		catch (\Exception $e)
