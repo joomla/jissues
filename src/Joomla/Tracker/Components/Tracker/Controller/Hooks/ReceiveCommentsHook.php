@@ -11,7 +11,6 @@ use Joomla\Date\Date;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
 use Joomla\Tracker\Components\Tracker\Controller\AbstractHookController;
-use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
 use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 
 /**
@@ -161,12 +160,6 @@ class ReceiveCommentsHook extends AbstractHookController
 		$table->modified_date   = $modified->format($dateFormat);
 		$table->project_id      = $this->project->project_id;
 
-		// Add the diff URL if this is a pull request
-		if ($this->hookData->issue->pull_request->diff_url)
-		{
-			// $table->patch_url = $this->hookData->issue->pull_request->diff_url;
-		}
-
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
@@ -176,11 +169,9 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
-		// TODO - Would be better suited as a regex probably
-		if (strpos($this->hookData->issue->title, '[#') !== false)
+		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
 		{
-			$pos = strpos($this->hookData->issue->title, '[#') + 2;
-			$table->foreign_number = substr($this->hookData->issue->title, $pos, 5);
+			$table->foreign_number = $matches[1];
 		}
 
 		try
@@ -193,45 +184,14 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
-		// Get the ID for the new issue
-		$query = $this->db->getQuery(true);
-		$query->select('id');
-		$query->from($this->db->quoteName('#__issues'));
-		$query->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number);
-		$this->db->setQuery($query);
-
-		$issueID = null;
-
-		try
-		{
-			$issueID = $this->db->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			Log::add(sprintf('Error retrieving ID for GitHub issue %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
-			$this->getApplication()->close();
-		}
-
 		// Add an open record to the activity table
-
-		/* This should be done by the issues table object
-		$activity = new ActivitiesTable($this->db);
-		$activity->issue_number = (int) $this->hookData->issue->number;
-		$activity->project_id   = $this->project->project_id;
-		$activity->user         = $this->hookData->issue->user->login;
-		$activity->event        = 'open';
-		$activity->created_date = $table->opened_date;
-
-		try
-		{
-			$activity->store();
-		}
-		catch (\Exception $e)
-		{
-			Log::add(sprintf('Error storing open activity for issue %s in the database: %s', $issueID, $e->getMessage()), Log::INFO);
-			$this->getApplication()->close();
-		}
-		*/
+		$this->addActivityEvent(
+			'open',
+			$table->opened_date,
+			$this->hookData->issue->user->login,
+			$this->project->project_id,
+			$this->hookData->issue->number
+		);
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -248,7 +208,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Store was successful, update status
 		Log::add(sprintf('Added GitHub issue %s to the tracker.', $this->hookData->issue->number), Log::INFO);
 
-		return $issueID;
+		return $this;
 	}
 
 	/**

@@ -198,11 +198,12 @@ class IssuesTable extends AbstractDatabaseTable
 		 * Post-Save Actions
 		 */
 
-		// Add a record to the activity table if a new item
 
-		// TODO: Remove the check for CLI once moved to live instance
-		if ($isNew && $application->get('cli_app') != true)
+		 // TODO: Remove the check for CLI once moved to live instance
+		 // TODO 2) This has been deactivated. every action should perform a proper entry in the activities table.
+		if (0)//$isNew && $application->get('cli_app') != true)
 		{
+			// Add a record to the activity table if a new item
 			$table = new ActivitiesTable($this->db);
 
 			$table->event = 'open';

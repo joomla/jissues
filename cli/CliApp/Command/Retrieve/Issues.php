@@ -220,11 +220,9 @@ class Issues extends Retrieve
 			}
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
-			// TODO - Would be better suited as a regex probably
-			if (strpos($issue->title, '[#') !== false)
+			if (preg_match('/\[#([0-9]+)\]/', $issue->title, $matches))
 			{
-				$pos          = strpos($issue->title, '[#') + 2;
-				$table->foreign_number = substr($issue->title, $pos, 5);
+				$table->foreign_number = $matches[1];
 			}
 
 			$table->store();
