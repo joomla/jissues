@@ -206,9 +206,9 @@ final class TrackerApplication extends AbstractWebApplication
 				if ($exception->getUser()->username)
 				{
 					$message[] = 'user: ' . $exception->getUser()->username;
+					$message[] = 'id: ' . $exception->getUser()->id;
 				}
 
-				$message[] = 'id: ' . $exception->getUser()->id;
 				$message[] = 'action: ' . $exception->getAction();
 			}
 
@@ -216,7 +216,7 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 		catch (RoutingException $exception)
 		{
-			header('HTTP/1.1 404 Not Found', true, 403);
+			header('HTTP/1.1 404 Not Found', true, 404);
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
@@ -284,7 +284,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 		$this->config->loadObject($config);
 
-		define('JDEBUG', $this->get('system.debug'));
+		define('JDEBUG', $this->get('debug.system'));
 
 		return $this;
 	}
@@ -433,7 +433,7 @@ final class TrackerApplication extends AbstractWebApplication
 				)
 			);
 
-			if ($this->get('system.debug'))
+			if ($this->get('debug.system'))
 			{
 				$this->database->setDebug(true);
 

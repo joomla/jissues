@@ -36,7 +36,8 @@ use Joomla\Utilities\ArrayHelper;
  * @property   string   $modified_by      Issue modified by username
  * @property   integer  $rel_id           Relation id user
  * @property   string   $rel_type         Relation type
- *
+ * @property   integer  $has_code         If the issue has code attached - aka a pull request.
+
  * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable
@@ -198,11 +199,11 @@ class IssuesTable extends AbstractDatabaseTable
 		 * Post-Save Actions
 		 */
 
-
-		 // TODO: Remove the check for CLI once moved to live instance
-		 // TODO 2) This has been deactivated. every action should perform a proper entry in the activities table.
-		if (0)//$isNew && $application->get('cli_app') != true)
+		// TODO: Remove the check for CLI once moved to live instance
+		// TODO 2) This has been deactivated. every action should perform a proper entry in the activities table.
+		if (0)
 		{
+			// $isNew && $application->get('cli_app') != true)
 			// Add a record to the activity table if a new item
 			$table = new ActivitiesTable($this->db);
 
