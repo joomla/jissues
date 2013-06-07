@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `modified_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue modified by username',
   `rel_id` integer unsigned DEFAULT NULL COMMENT 'Relation id user',
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
+  `has_code` tinyint(1)NOT NULL DEFAULT '0' COMMENT 'If the issue has code attached - aka a pull request',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
