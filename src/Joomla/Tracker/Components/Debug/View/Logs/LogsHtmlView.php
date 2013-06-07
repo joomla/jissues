@@ -34,9 +34,31 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		$debugger = new TrackerDebugger($application);
 
-		$path = $debugger->getLogPath($type) ? : '';
+		switch ($type)
+		{
+			case 'php' :
+				$path = $debugger->getLogPath('php');
+				break;
 
-		$log = ($path)
+			case '403' :
+			case '404' :
+			case '500' :
+			case 'database' :
+				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
+				break;
+
+			case 'github_issues' :
+			case 'github_comments' :
+			case 'github_pulls' :
+				$path = $debugger->getLogPath('root') . '/' . $type . '.php';
+				break;
+
+			default :
+				throw new \UnexpectedValueException('Invalid log type');
+			break;
+		}
+
+		$log = (realpath($path))
 			? $this->processLog($type, $path)
 			: array(sprintf('No %s log file found.', $type));
 
@@ -77,6 +99,13 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case '403':
 			case '404':
 			case '500':
+				// @todo beautifyMe
+				$log = explode("\n\n", file_get_contents($path));
+				break;
+
+			case 'github_issues' :
+			case 'github_comments' :
+			case 'github_pulls' :
 				// @todo beautifyMe
 				$log = explode("\n\n", file_get_contents($path));
 				break;

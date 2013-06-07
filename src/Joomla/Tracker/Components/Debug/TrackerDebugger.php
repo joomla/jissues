@@ -92,25 +92,54 @@ class TrackerDebugger
 	 */
 	public function addDatabaseEntry($level, $message, $context)
 	{
-		$this->log['db'][] = isset($context['sql'])
-			? $context['sql']
-			: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
+		/* @type TrackerApplication $application */
+		//$application = Factory::$application;
+		//$db = $application->getDatabase();
+
+		$entry = new \stdClass;
+
+		$entry->sql     = isset($context['sql'])     ? $context['sql']     : 'n/a';
+		$entry->time    = isset($context['time'])    ? $context['time']    : 'n/a';
+		$entry->trace   = isset($context['trace'])   ? $context['trace']   : 'n/a';
+
+		if ($entry->sql == 'SHOW PROFILE')
+		{
+			return $this;
+		}
+
+/*		$db->setQuery('SHOW PROFILE');
+		/ Get the profiling information
+		$entry->profile = $db->loadAssocList();
+			$cursor = mysqli_query($this->connection, 'SHOW PROFILE');
+			$profile = '';
+*/
+
+		// $entry->profile = isset($context['profile']) ? $context['profile'] : 'n/a';
+
+		$this->log['db'][] = $entry;
+
+		if (0)
+		{
+			$this->log['db'][] = isset($context['sql'])
+				? $context['sql']
+				: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
+		}
 
 		// Log to a text file
 
 		$log = array();
 
 		$log[] = '';
-		$log[] = date('y-m-d H:i:s') . ' DB Query';
+		$log[] = date('y-m-d H:i:s');
 		$log[] = $this->application->get('uri.request');
 
 		$log[] = isset($context['sql'])
-			? $message . ' - SQL: ' . $context['sql']
+			? ('{sql}' == $message ? '' : $message . ' - ') . $context['sql']
 			: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
 
 		$log[] = '';
 
-		$fName = JPATH_BASE . '/logs/database.log';
+		$fName = $this->getLogPath('root') . '/database.log';
 
 		$returnVal = file_put_contents($fName, implode("\n", $log), FILE_APPEND | LOCK_EX);
 
@@ -188,9 +217,44 @@ class TrackerDebugger
 
 			$prefix = $this->application->getDatabase()->getPrefix();
 
-			foreach ($dbLog as $entry)
+			foreach ($dbLog as $i => $entry)
 			{
-				$debug[] = '<pre class="dbQuery">' . $this->highlightQuery($entry, $prefix) . '</pre>';
+				// @is_object($entry))
+				if (0)
+				{
+					$debug[] = '<pre class="dbQuery">' . $this->highlightQuery($entry->sql, $prefix) . '</pre>';
+					$debug[] = sprintf('Query Time: %.3f ms', $entry->time * 1000) . '<br />';
+
+					$debug[] = '';
+					$debug[] = '<ul class="nav nav-tabs">';
+					$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
+					$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
+					$debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+					$debug[] = '</ul>';
+
+					$debug[] = '<div class="tab-content">';
+
+					$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
+
+					// $debug[] = $this->getExplain($entry->sql);
+					$debug[] = '</div>';
+					$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
+
+					// $debug[] = $this->traceToHtmlTable($entry->trace);
+					$debug[] = '</div>';
+					$debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
+
+					// $debug[] = $this->tableToHtml($entry->profile);
+					$debug[] = '</div>';
+
+					$debug[] = '</div>';
+				}
+				else
+				{
+					$debug[] = '<pre class="dbQuery">' . $this->highlightQuery($entry->sql, $prefix) . '</pre>';
+
+					// $debug[] = $this->getExplain($entry->sql);
+				}
 			}
 		}
 
@@ -210,6 +274,119 @@ class TrackerDebugger
 		$debug[] = $session;
 
 		return implode("\n", $debug);
+	}
+
+	/**
+	 * Get a database explain statement.
+	 *
+	 * @param   string  $query  The query.
+	 *
+	 * @since  1.0
+	 * @return string
+	 */
+	protected function getExplain($query)
+	{
+		/* @type TrackerApplication $application */
+		$application = Factory::$application;
+		$db = $application->getDatabase();
+
+		$db->setDebug(false);
+
+		// Run an EXPLAIN EXTENDED query on the SQL query if possible:
+		$explain = '';
+
+		if (in_array($db->name, array('mysqli','mysql', 'postgresql')))
+		{
+			$dbVersion56 = ( strncmp($db->name, 'mysql', 5) == 0 ) && version_compare($db->getVersion(), '5.6', '>=');
+
+			if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0)||(stripos($query, 'update') === 0))))
+			{
+				$db->setQuery('EXPLAIN ' . ($dbVersion56 ? 'EXTENDED ' : '') . $query);
+
+				if ($db->execute())
+				{
+					$explainTable = $db->loadAssocList();
+					$explain = $this->tableToHtml($explainTable);
+				}
+				else
+				{
+					$explain = 'Failed EXPLAIN on query: ' . htmlspecialchars($query);
+				}
+			}
+		}
+
+		$db->setDebug(true);
+
+		return $explain;
+	}
+
+	/**
+	 * Get a db profile.
+	 *
+	 * @param   string  $query  The query.
+	 *
+	 * @return string
+	 */
+	protected function getProfile($query)
+	{
+		/* @type TrackerApplication $application */
+		$application = Factory::$application;
+		$db = $application->getDatabase();
+
+		// Run a SHOW PROFILE query:
+		$profile = '';
+
+		if (false == in_array($db->name, array('mysqli','mysql')))
+		{
+			return sprintf('%d database is not supported yet.', $db->name);
+		}
+
+		$db->setDebug(false);
+
+		$dbVersion5037 = (strncmp($db->name, 'mysql', 5) == 0 ) && version_compare($db->getVersion(), '5.0.37', '>=');
+
+		if ($dbVersion5037)
+		{
+			// Run a SHOW PROFILE query:
+			// SHOW PROFILE ALL FOR QUERY ' . (int) ($k+1));
+			$db->setQuery('SHOW PROFILES');
+			$profiles = $db->loadAssocList();
+
+			if ($profiles)
+			{
+				foreach ($profiles as $qn)
+				{
+					$db->setQuery('SHOW PROFILE FOR QUERY ' . (int) ($qn['Query_ID']));
+					$this->sqlShowProfileEach[(int) ($qn['Query_ID'] - 1)] = $db->loadAssocList();
+				}
+			}
+		}
+
+		if (in_array($db->name, array('mysqli','mysql', 'postgresql')))
+		{
+			$log = $db->getLog();
+
+			foreach ($log as $k => $query)
+			{
+				$dbVersion56 = ( strncmp($db->name, 'mysql', 5) == 0 ) && version_compare($db->getVersion(), '5.6', '>=');
+
+				if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0)||(stripos($query, 'update') === 0))))
+				{
+					$db->setQuery('EXPLAIN ' . ($dbVersion56 ? 'EXTENDED ' : '') . $query);
+					$this->explains[$k] = $db->loadAssocList();
+				}
+			}
+		}
+
+			if (isset($this->sqlShowProfileEach[$k]))
+			{
+				$profileTable = $this->sqlShowProfileEach[$k];
+				$profile = $this->tableToHtml($profileTable);
+			}
+			else
+			{
+				$profile = 'No SHOW PROFILE (maybe because more than 100 queries)';
+			}
 	}
 
 	/**
@@ -320,12 +497,7 @@ class TrackerDebugger
 				break;
 		}
 
-		$path = $this->getLogPath($code);
-
-		if (!$path)
-		{
-			return;
-		}
+		$path = $this->getLogPath('root') . '/' . $code . '.log';
 
 		if (!file_put_contents($path, implode("\n", $log), FILE_APPEND | LOCK_EX))
 		{
@@ -342,10 +514,29 @@ class TrackerDebugger
 	 */
 	public function getLogPath($type)
 	{
+		if ('root' == $type)
+		{
+			$logPath = $this->application->get('debug.log-path');
+
+			if (!realpath($logPath))
+			{
+				$logPath = JPATH_ROOT . '/' . $logPath;
+			}
+
+			if (realpath($logPath))
+			{
+				return realpath($logPath);
+			}
+
+			return JPATH_ROOT;
+		}
+
 		if ('php' == $type)
 		{
 			return ini_get('error_log');
 		}
+
+		// @todo: remove the rest..
 
 		$logPath = $this->application->get('debug.' . $type . '-log');
 
@@ -356,10 +547,10 @@ class TrackerDebugger
 
 		if (realpath(dirname($logPath)))
 		{
-			return $logPath;
+			return realpath($logPath);
 		}
 
-		return '';
+		return JPATH_ROOT;
 	}
 
 	/**
@@ -399,5 +590,92 @@ class TrackerDebugger
 		$query = str_replace('*', '<b style="color: red;">*</b>', $query);
 
 		return $query;
+	}
+
+	/**
+	 * Convert a stack trace ta a HTML table.
+	 *
+	 * @param   array  $trace  The stack trace
+	 *
+	 * @since  1.0
+	 * @return string
+	 */
+	protected function traceToHtmlTable(array $trace)
+	{
+		$html = array();
+
+		$html[] = '<table class="table table-hover">';
+
+		foreach ($trace as $entry)
+		{
+			$html[] = '<tr>';
+			$html[] = '<td>';
+
+			if (isset($entry['file']))
+			{
+				$html[] = basename($entry['file']) . '@' . $entry['line'];
+			}
+
+			$html[] = '</td>';
+			$html[] = '<td>';
+
+			if (isset($entry['class']))
+			{
+				$html[] = $entry['class'] . $entry['type'] . $entry['function'];
+			}
+			elseif (isset($entry['function']))
+			{
+				$html[] = $entry['function'];
+			}
+
+			$html[] = '</td>';
+			$html[] = '</tr>';
+		}
+
+		$html[] = '</table>';
+
+		return implode("\n", $html);
+	}
+
+	/**
+	 * Displays errors in language files.
+	 *
+	 * @param   array  $table  The table.
+	 *
+	 * @return string
+	 *
+	 * @since CMS 3.1.2
+	 */
+	protected function tableToHtml($table)
+	{
+		if (! $table)
+		{
+			return null;
+		}
+
+		$html = '<table class="table table-striped dbgQueryTable"><tr>';
+
+		foreach (array_keys($table[0]) as $k)
+		{
+			$html .= '<th>' . htmlspecialchars($k) . '</th>';
+		}
+
+		$html .= '</tr>';
+
+		foreach ($table as $tr)
+		{
+			$html .= '<tr>';
+
+			foreach ($tr as $td)
+			{
+				$html .= '<td>' . ($td === null ? 'NULL' : htmlspecialchars($td) ) . '</td>';
+			}
+
+			$html .= '</tr>';
+		}
+
+		$html .= '</table>';
+
+		return $html;
 	}
 }
