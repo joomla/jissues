@@ -4,6 +4,7 @@
 	"markdownpreview": "\\Tracker\\Controller\\MdpreviewController",
 
 	"hooks/issues": "\\Tracker\\Controller\\Hooks\\ReceiveIssuesHook",
+	"hooks/pulls": "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
 	"hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
 
 	"login": "\\Users\\Controller\\LoginController",
