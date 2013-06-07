@@ -21,8 +21,6 @@
 	},
 
 	"system": {
-		"debug"     : "1",
-		"debug_lang": "0",
 		"list_limit": "20",
         "gzip"      : "0",
         "offset"    : "UTC"
@@ -39,10 +37,10 @@
     },
 
     "debug": {
+        "system": "0",
+        "hooks": "0",
+        "language": "not-used-yet",
         "logging": "0",
-        "database-log": "logs/database.log",
-        "403-log": "logs/403.log",
-        "404-log": "logs/404.log",
-        "500-log": "logs/500.log"
+        "log-path": "logs"
 	}
 }
