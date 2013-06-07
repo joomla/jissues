@@ -67,14 +67,6 @@ abstract class AbstractHookController extends AbstractTrackerController
 	protected $hookData;
 
 	/**
-	 * The type of hook being activated
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $hookType;
-
-	/**
 	 * Github instance
 	 *
 	 * @var    Github
@@ -99,6 +91,14 @@ abstract class AbstractHookController extends AbstractTrackerController
 	protected $project;
 
 	/**
+	 * Debug mode.
+	 *
+	 * @var integer
+	 * @since  1.0
+	 */
+	protected $debug;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   Input                $input  The input object.
@@ -112,10 +112,22 @@ abstract class AbstractHookController extends AbstractTrackerController
 		// Run the parent constructor
 		parent::__construct($input, $app);
 
+		$this->debug = $this->getApplication()->get('debug.hooks');
+
+		if (preg_match('/Receive([A-z]+)Hook/', get_class($this), $matches))
+		{
+			$fileName = $matches[1];
+		}
+		else
+		{
+			// Bad class name or regex :P
+			$fileName = 'standard';
+		}
+
 		// Initialize the logger
 		$options['format']         = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
-		$options['text_file_path'] = JPATH_BASE . '/logs';
-		$options['text_file']      = 'github_' . $this->hookType . '.php';
+		$options['text_file_path'] = $this->getApplication()->getDebugger()->getLogPath('root');
+		$options['text_file']      = 'github_' . strtolower($fileName) . '.php';
 		Log::addLogger($options);
 
 		// Get a database object
@@ -150,13 +162,16 @@ abstract class AbstractHookController extends AbstractTrackerController
 		if (!$data)
 		{
 			Log::add('No data received.', Log::NOTICE);
-			throw new \RuntimeException('No data received');
+			$this->getApplication()->close();
 		}
 
-		Log::add('Data received.' . (JDEBUG ? print_r($data, 1) : ''), Log::NOTICE);
+		Log::add('Data received.' . ($this->debug ? print_r($data, 1) : ''), Log::NOTICE);
 
 		// Decode it
 		$this->hookData = json_decode($data);
+
+		// Get the project data
+		$this->getProjectData();
 	}
 
 	/**

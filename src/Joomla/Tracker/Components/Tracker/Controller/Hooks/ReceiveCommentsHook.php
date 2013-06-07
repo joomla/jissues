@@ -6,10 +6,9 @@
 
 namespace Joomla\Tracker\Components\Tracker\Controller\Hooks;
 
-use Joomla\Application\AbstractApplication;
 use Joomla\Date\Date;
-use Joomla\Input\Input;
 use Joomla\Log\Log;
+
 use Joomla\Tracker\Components\Tracker\Controller\AbstractHookController;
 use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
 
@@ -20,26 +19,6 @@ use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
  */
 class ReceiveCommentsHook extends AbstractHookController
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since  1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		// Set the type of hook
-		$this->hookType = 'comments';
-
-		// Run the parent constructor
-		parent::__construct($input, $app);
-
-		// Get the project data
-		$this->getProjectData();
-	}
-
 	/**
 	 * Execute the controller.
 	 *
@@ -128,7 +107,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		);
 
 		// Store was successful, update status
-		Log::add(sprintf('Added GitHub comment %s to the tracker.', $this->hookData->comment->id), Log::INFO);
+		Log::add(
+				sprintf(
+				'Added GitHub comment %s/%s #%d to the tracker.',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->comment->id
+			), Log::INFO
+		);
 
 		return true;
 	}
@@ -206,7 +192,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 
 		// Store was successful, update status
-		Log::add(sprintf('Added GitHub issue %s to the tracker.', $this->hookData->issue->number), Log::INFO);
+		Log::add(
+				sprintf(
+				'Added GitHub issue %s/%s #%d to the tracker.',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number
+			), Log::INFO
+		);
 
 		return $this;
 	}
@@ -244,7 +237,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 
 		// Store was successful, update status
-		Log::add(sprintf('Updated comment %s in the tracker.', $id), Log::INFO);
+		Log::add(
+				sprintf(
+				'Updated comment %s/%s #%d to the tracker.',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$id
+			), Log::INFO
+		);
 
 		return true;
 	}
