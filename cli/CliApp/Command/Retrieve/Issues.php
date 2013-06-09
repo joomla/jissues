@@ -207,10 +207,10 @@ class Issues extends Retrieve
 
 			$table->project_id = $this->project->project_id;
 
-			// Add the diff URL if this is a pull request
+			// If the issue has a diff URL, it is a pull request.
 			if ($issue->pull_request->diff_url)
 			{
-				// $table->patch_url = $issue->pull_request->diff_url;
+				$table->has_code =  1;
 			}
 
 			// Add the closed date if the status is closed
