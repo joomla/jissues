@@ -11,6 +11,10 @@ use Joomla\Profiler\Profiler;
 
 use Joomla\Tracker\Application\TrackerApplication;
 
+use Joomla\Tracker\Components\Debug\Database\DatabaseDebugger;
+use Joomla\Tracker\Components\Debug\Format\Html\SqlFormat;
+use Joomla\Tracker\Components\Debug\Format\Html\TableFormat;
+
 /**
  * Class TrackerDebugger.
  *
@@ -93,8 +97,8 @@ class TrackerDebugger
 	public function addDatabaseEntry($level, $message, $context)
 	{
 		/* @type TrackerApplication $application */
-		//$application = Factory::$application;
-		//$db = $application->getDatabase();
+		// $application = Factory::$application;
+		// $db = $application->getDatabase();
 
 		$entry = new \stdClass;
 
@@ -177,7 +181,7 @@ class TrackerDebugger
 	}
 
 	/**
-	 * Generate a call stack for debugging purpose.
+	 * Get the debug output.
 	 *
 	 * @since   1.0
 	 * @return  string
@@ -189,6 +193,9 @@ class TrackerDebugger
 			return '';
 		}
 
+		$dbDebugger = new DatabaseDebugger($this->application->getDatabase());
+		$tableFormat = new TableFormat;
+
 		// OK, here comes some very beautiful CSS !!
 		// It's kinda "hidden" here, so evil template designers won't find it :P
 		$css = '
@@ -198,6 +205,7 @@ class TrackerDebugger
 			span.dbgCommand { color: lime; }
 			span.dbgOperator { color: red; }
 			h2.debug { background-color: #333; color: lime; border-radius: 10px; padding: 0.5em; }
+			h3:target { margin-top: 200px;}
 		</style>
 		';
 
@@ -205,188 +213,93 @@ class TrackerDebugger
 
 		$debug[] = $css;
 
-		$debug[] = '<h2 class="debug">Debug</h2>';
+		$debug[] = '<div class="well well-small navbar navbar-fixed-bottom">';
+		$debug[] = '<a class="brand" href="javascript:;">Debug</a>';
+		$debug[] = '<ul class="nav">
+    <li><a href="#dbgDatabase">Database</a></li>
+    <li><a href="#dbgProfile">Profile</a></li>
+    <li><a href="#dbgUser">User</a></li>
+    <li><a href="#dbgProject">Project</a></li>
+    </ul>';
+		$debug[] = '</div>';
 
 		$dbLog = $this->getLog('db');
 
 		if ($dbLog)
 		{
-			$debug[] = '<h3>Database</h3>';
+			$sqlFormat = new SqlFormat;
+
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgDatabase">Database</a></h3>';
 
 			$debug[] = count($dbLog) . ' Queries.';
 
-			$prefix = $this->application->getDatabase()->getPrefix();
+			$prefix = $dbDebugger->getPrefix();
 
 			foreach ($dbLog as $i => $entry)
 			{
 				// @is_object($entry))
-				if (0)
+				if (1)
 				{
-					$debug[] = '<pre class="dbQuery">' . $this->highlightQuery($entry->sql, $prefix) . '</pre>';
+					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
 					$debug[] = sprintf('Query Time: %.3f ms', $entry->time * 1000) . '<br />';
 
 					$debug[] = '';
 					$debug[] = '<ul class="nav nav-tabs">';
+
 					$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
 					$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
-					$debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+
+					// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
 					$debug[] = '</ul>';
 
 					$debug[] = '<div class="tab-content">';
 
 					$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
 
-					// $debug[] = $this->getExplain($entry->sql);
+					$debug[] = $dbDebugger->getExplain($entry->sql);
 					$debug[] = '</div>';
+
 					$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
 
-					// $debug[] = $this->traceToHtmlTable($entry->trace);
+					if (is_array($entry->trace))
+					{
+						$debug[] = $tableFormat->fromTrace($entry->trace);
+					}
+
 					$debug[] = '</div>';
-					$debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
+
+					// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
 
 					// $debug[] = $this->tableToHtml($entry->profile);
-					$debug[] = '</div>';
+					// $debug[] = '</div>';
 
 					$debug[] = '</div>';
 				}
 				else
 				{
-					$debug[] = '<pre class="dbQuery">' . $this->highlightQuery($entry->sql, $prefix) . '</pre>';
-
-					// $debug[] = $this->getExplain($entry->sql);
+					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
+					$debug[] = $dbDebugger->getExplain($entry->sql);
 				}
 			}
 		}
 
-		$debug[] = '<h3>Profile</h3>';
+		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
 		$debug[] = $this->renderProfile();
 		$debug[] = '</div>';
 
-		$session = Factory::$application->getSession();
+		$session = $this->application->getSession();
 
 		ob_start();
-		echo '<h3>User</h3>';
-		var_dump($session->get('user'));
-		echo '<h3>Project</h3>';
-		var_dump($session->get('project'));
-		$session = ob_get_clean();
 
-		$debug[] = $session;
+		echo '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
+		var_dump($session->get('user'));
+
+		echo '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
+		var_dump($session->get('project'));
+
+		$debug[] = ob_get_clean();
 
 		return implode("\n", $debug);
-	}
-
-	/**
-	 * Get a database explain statement.
-	 *
-	 * @param   string  $query  The query.
-	 *
-	 * @since  1.0
-	 * @return string
-	 */
-	protected function getExplain($query)
-	{
-		/* @type TrackerApplication $application */
-		$application = Factory::$application;
-		$db = $application->getDatabase();
-
-		$db->setDebug(false);
-
-		// Run an EXPLAIN EXTENDED query on the SQL query if possible:
-		$explain = '';
-
-		if (in_array($db->name, array('mysqli','mysql', 'postgresql')))
-		{
-			$dbVersion56 = ( strncmp($db->name, 'mysql', 5) == 0 ) && version_compare($db->getVersion(), '5.6', '>=');
-
-			if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0)||(stripos($query, 'update') === 0))))
-			{
-				$db->setQuery('EXPLAIN ' . ($dbVersion56 ? 'EXTENDED ' : '') . $query);
-
-				if ($db->execute())
-				{
-					$explainTable = $db->loadAssocList();
-					$explain = $this->tableToHtml($explainTable);
-				}
-				else
-				{
-					$explain = 'Failed EXPLAIN on query: ' . htmlspecialchars($query);
-				}
-			}
-		}
-
-		$db->setDebug(true);
-
-		return $explain;
-	}
-
-	/**
-	 * Get a db profile.
-	 *
-	 * @param   string  $query  The query.
-	 *
-	 * @return string
-	 */
-	protected function getProfile($query)
-	{
-		/* @type TrackerApplication $application */
-		$application = Factory::$application;
-		$db = $application->getDatabase();
-
-		// Run a SHOW PROFILE query:
-		$profile = '';
-
-		if (false == in_array($db->name, array('mysqli','mysql')))
-		{
-			return sprintf('%d database is not supported yet.', $db->name);
-		}
-
-		$db->setDebug(false);
-
-		$dbVersion5037 = (strncmp($db->name, 'mysql', 5) == 0 ) && version_compare($db->getVersion(), '5.0.37', '>=');
-
-		if ($dbVersion5037)
-		{
-			// Run a SHOW PROFILE query:
-			// SHOW PROFILE ALL FOR QUERY ' . (int) ($k+1));
-			$db->setQuery('SHOW PROFILES');
-			$profiles = $db->loadAssocList();
-
-			if ($profiles)
-			{
-				foreach ($profiles as $qn)
-				{
-					$db->setQuery('SHOW PROFILE FOR QUERY ' . (int) ($qn['Query_ID']));
-					$this->sqlShowProfileEach[(int) ($qn['Query_ID'] - 1)] = $db->loadAssocList();
-				}
-			}
-		}
-
-		if (in_array($db->name, array('mysqli','mysql', 'postgresql')))
-		{
-			$log = $db->getLog();
-
-			foreach ($log as $k => $query)
-			{
-				$dbVersion56 = ( strncmp($db->name, 'mysql', 5) == 0 ) && version_compare($db->getVersion(), '5.6', '>=');
-
-				if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0)||(stripos($query, 'update') === 0))))
-				{
-					$db->setQuery('EXPLAIN ' . ($dbVersion56 ? 'EXTENDED ' : '') . $query);
-					$this->explains[$k] = $db->loadAssocList();
-				}
-			}
-		}
-
-			if (isset($this->sqlShowProfileEach[$k]))
-			{
-				$profileTable = $this->sqlShowProfileEach[$k];
-				$profile = $this->tableToHtml($profileTable);
-			}
-			else
-			{
-				$profile = 'No SHOW PROFILE (maybe because more than 100 queries)';
-			}
 	}
 
 	/**
@@ -551,131 +464,5 @@ class TrackerDebugger
 		}
 
 		return JPATH_ROOT;
-	}
-
-	/**
-	 * Simple highlight for SQL queries.
-	 *
-	 * @param   string  $query   The query to highlight
-	 * @param   string  $prefix  Table prefix.
-	 *
-	 * @since   1.0
-	 * @return  string
-	 */
-	protected function highlightQuery($query, $prefix)
-	{
-		$newlineKeywords = '#\b(FROM|LEFT|INNER|OUTER|WHERE|SET|VALUES|ORDER|GROUP|HAVING|LIMIT|ON|AND|CASE)\b#i';
-
-		$query = htmlspecialchars($query, ENT_QUOTES);
-
-		$query = preg_replace($newlineKeywords, '<br />&#160;&#160;\\0', $query);
-
-		$regex = array(
-
-			// Tables are identified by the prefix
-			'/(=)/'
-			=> '<span class="dbgOperator">$1</span>',
-
-			// All uppercase words have a special meaning
-			'/(?<!\w|>)([A-Z_]{2,})(?!\w)/x'
-			=> '<span class="dbgCommand">$1</span>',
-
-			// Tables are identified by the prefix
-			'/(' . $prefix . '[a-z_0-9]+)/'
-			=> '<span class="dbgTable">$1</span>'
-		);
-
-		$query = preg_replace(array_keys($regex), array_values($regex), $query);
-
-		$query = str_replace('*', '<b style="color: red;">*</b>', $query);
-
-		return $query;
-	}
-
-	/**
-	 * Convert a stack trace ta a HTML table.
-	 *
-	 * @param   array  $trace  The stack trace
-	 *
-	 * @since  1.0
-	 * @return string
-	 */
-	protected function traceToHtmlTable(array $trace)
-	{
-		$html = array();
-
-		$html[] = '<table class="table table-hover">';
-
-		foreach ($trace as $entry)
-		{
-			$html[] = '<tr>';
-			$html[] = '<td>';
-
-			if (isset($entry['file']))
-			{
-				$html[] = basename($entry['file']) . '@' . $entry['line'];
-			}
-
-			$html[] = '</td>';
-			$html[] = '<td>';
-
-			if (isset($entry['class']))
-			{
-				$html[] = $entry['class'] . $entry['type'] . $entry['function'];
-			}
-			elseif (isset($entry['function']))
-			{
-				$html[] = $entry['function'];
-			}
-
-			$html[] = '</td>';
-			$html[] = '</tr>';
-		}
-
-		$html[] = '</table>';
-
-		return implode("\n", $html);
-	}
-
-	/**
-	 * Displays errors in language files.
-	 *
-	 * @param   array  $table  The table.
-	 *
-	 * @return string
-	 *
-	 * @since CMS 3.1.2
-	 */
-	protected function tableToHtml($table)
-	{
-		if (! $table)
-		{
-			return null;
-		}
-
-		$html = '<table class="table table-striped dbgQueryTable"><tr>';
-
-		foreach (array_keys($table[0]) as $k)
-		{
-			$html .= '<th>' . htmlspecialchars($k) . '</th>';
-		}
-
-		$html .= '</tr>';
-
-		foreach ($table as $tr)
-		{
-			$html .= '<tr>';
-
-			foreach ($tr as $td)
-			{
-				$html .= '<td>' . ($td === null ? 'NULL' : htmlspecialchars($td) ) . '</td>';
-			}
-
-			$html .= '</tr>';
-		}
-
-		$html .= '</table>';
-
-		return $html;
 	}
 }
