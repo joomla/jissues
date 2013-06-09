@@ -17,13 +17,13 @@
 
 	"renderer": {
 		"type" : "twig",
-        "debug": "1"
+		"debug": "1"
 	},
 
 	"system": {
 		"list_limit": "20",
-        "gzip"      : "0",
-        "offset"    : "UTC"
+		"gzip"      : "0",
+		"offset"    : "UTC"
 	},
 
 	"acl": {
@@ -34,13 +34,13 @@
 	"cli-application": {
 		"colors"      : "1",
 		"progress-bar": "1"
-    },
+	},
 
-    "debug": {
-        "system": "0",
-        "hooks": "0",
-        "language": "not-used-yet",
-        "logging": "0",
-        "log-path": "logs"
+	"debug": {
+		"system"  : "0",
+		"hooks"   : "0",
+		"language": "not-used-yet",
+		"logging" : "0",
+		"log-path": "logs"
 	}
 }
