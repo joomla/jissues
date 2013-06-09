@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "76e7e992542b24dfba1cf55f281c9f8a724eb466"
+                "reference": "77381f52ff227ae177de0f5bc7cc58f55a8afa3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/76e7e992542b24dfba1cf55f281c9f8a724eb466",
-                "reference": "76e7e992542b24dfba1cf55f281c9f8a724eb466",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/77381f52ff227ae177de0f5bc7cc58f55a8afa3b",
+                "reference": "77381f52ff227ae177de0f5bc7cc58f55a8afa3b",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-06-04 02:30:21"
+            "time": "2013-06-08 21:29:50"
         },
         {
             "name": "mustache/mustache",
@@ -268,12 +268,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c"
+                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
-                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f753205834b511269a97fe35108bbd5c8d245f5",
+                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-05-29 14:58:12"
+            "time": "2013-06-09 06:03:21"
         }
     ],
     "packages-dev": [
