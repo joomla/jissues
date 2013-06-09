@@ -76,7 +76,7 @@
         </div>
 
         <div class="span11 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date) }}
+            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
             <ul class="unstyled">
                 <li>
                     <label for="title">Title</label>

@@ -43,7 +43,7 @@
         </li>
 
         {% if item.closed %}
-            <li>{{ formatDate(item.closed_date) }}</li>
+            <li>{{ item.closed_date|date("j M y") }}</li>
             <!-- @todo SHA link -->
             {% if item.closed_sha %}
                 <li>SHA: {{ item.closed_sha }}</li>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="span11 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, formatDate(item.opened_date)) }}
+            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
             <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
@@ -119,7 +119,7 @@
                     <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
                          alt="{{ activity.event }} on {{ activity.created_date }}"
                          title="{{ activity.event }} on {{ activity.created_date }}"/>
-                    {{ formatDate(activity.created_date) }}
+                    {{ activity.created_date|date("j M y") }}
                     - <a name ="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - {{ activity.user }}
                 </div>
