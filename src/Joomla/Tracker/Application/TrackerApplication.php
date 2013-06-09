@@ -466,9 +466,6 @@ final class TrackerApplication extends AbstractWebApplication
 				$this->get('language'),
 				$this->get('debug_lang')
 			);
-
-			// @todo Decouple from Factory
-			Factory::$language = $this->language;
 		}
 
 		return $this->language;
