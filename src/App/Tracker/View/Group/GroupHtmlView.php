@@ -9,7 +9,7 @@ namespace App\Tracker\View\Group;
 use Joomla\Factory;
 use Joomla\Language\Text;
 use App\Tracker\Model\GroupModel;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
 
 /**

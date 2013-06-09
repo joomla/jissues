@@ -7,7 +7,7 @@
 namespace App\Tracker\View\Hooks;
 
 use Joomla\Factory;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The issues item view

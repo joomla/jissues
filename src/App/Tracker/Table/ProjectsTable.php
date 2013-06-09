@@ -9,7 +9,7 @@ namespace App\Tracker\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\InputFilter;
 use Joomla\Filter\OutputFilter;
-use Joomla\Tracker\Database\AbstractDatabaseTable;
+use JTracker\Database\AbstractDatabaseTable;
 
 /**
  * Table interface class for the #__tracker_projects table

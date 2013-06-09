@@ -17,7 +17,7 @@ use Joomla\Github\Github;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
 
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Abstract controller class for web hook requests

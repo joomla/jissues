@@ -9,7 +9,7 @@ namespace App\Tracker\Model;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
 use App\Tracker\Table\GroupsTable;
-use Joomla\Tracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractTrackerListModel;
 
 /**
  * Model to get data for the projects list view

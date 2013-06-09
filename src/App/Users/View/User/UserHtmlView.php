@@ -7,7 +7,7 @@
 namespace App\Users\View\User;
 
 use Joomla\Factory;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * User view class for the Users component

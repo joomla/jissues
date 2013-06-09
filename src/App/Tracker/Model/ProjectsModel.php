@@ -8,7 +8,7 @@ namespace App\Tracker\Model;
 
 use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
-use Joomla\Tracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractTrackerListModel;
 
 /**
  * Model to get data for the projects list view
@@ -28,7 +28,7 @@ class ProjectsModel extends AbstractTrackerListModel
 	{
 		$db = $this->getDb();
 
-		/* @var \Joomla\Tracker\Authentication\GitHub\GitHubUser $user */
+		/* @var \JTracker\Authentication\GitHub\GitHubUser $user */
 		$user = Factory::$application->getUser();
 
 		$query = $db->getQuery(true);

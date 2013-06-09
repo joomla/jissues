@@ -8,7 +8,7 @@ namespace App\Tracker\Controller\Issue;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to add an item via the tracker component.

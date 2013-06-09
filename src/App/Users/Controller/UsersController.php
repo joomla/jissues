@@ -6,7 +6,7 @@
 
 namespace App\Users\Controller;
 
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Users controller class for the users component

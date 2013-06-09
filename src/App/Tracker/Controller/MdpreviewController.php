@@ -6,7 +6,7 @@
 
 namespace App\Tracker\Controller;
 
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to load the markdown preview page.

@@ -6,7 +6,7 @@
 
 namespace App\Tracker\View\Icons;
 
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The issues item view

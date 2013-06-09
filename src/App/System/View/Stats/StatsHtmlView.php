@@ -8,7 +8,7 @@ namespace App\System\View\Stats;
 
 use Joomla\Github\Github;
 use App\Tracker\Model\ProjectModel;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * System statistics view.

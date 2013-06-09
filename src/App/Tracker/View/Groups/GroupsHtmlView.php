@@ -9,7 +9,7 @@ namespace App\Tracker\View\Groups;
 use Joomla\Factory;
 use Joomla\Language\Text;
 use App\Tracker\Model\GroupsModel;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The issues list view

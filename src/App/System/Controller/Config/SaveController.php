@@ -6,7 +6,7 @@
 
 namespace App\System\Controller\Config;
 
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to save the configuration

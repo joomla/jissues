@@ -8,8 +8,8 @@
 
 namespace App\Users\Controller\Ajax;
 
-use Joomla\Tracker\Authentication\Database\TableUsers;
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Authentication\Database\TableUsers;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Default controller class for the Users component.

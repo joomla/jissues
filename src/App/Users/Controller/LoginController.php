@@ -10,9 +10,9 @@ use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 
-use Joomla\Tracker\Authentication\GitHub\GitHubLoginHelper;
-use Joomla\Tracker\Authentication\GitHub\GitHubUser;
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Login controller class for the users component

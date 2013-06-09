@@ -6,7 +6,7 @@
 
 namespace App\System\View\Config;
 
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
 use Twig_SimpleFilter;
 

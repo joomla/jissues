@@ -7,7 +7,7 @@
 namespace App\Debug\View\Debug;
 
 use Joomla\Factory;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * System configuration view.
@@ -25,7 +25,7 @@ class DebugHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application\TrackerApplication $application */
 		// $application = Factory::$application;
 
 		return parent::render();

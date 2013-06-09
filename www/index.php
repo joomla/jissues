@@ -24,7 +24,7 @@ require JPATH_BASE . '/vendor/joomla/framework/src/import.php';
 try
 {
 	// Instantiate the application.
-	$application = new Joomla\Tracker\Application\TrackerApplication;
+	$application = new JTracker\Application\TrackerApplication;
 
 	// Execute the application.
 	$application->execute();

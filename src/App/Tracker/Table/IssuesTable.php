@@ -12,7 +12,7 @@ use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Factory;
 
-use Joomla\Tracker\Database\AbstractDatabaseTable;
+use JTracker\Database\AbstractDatabaseTable;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -169,7 +169,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application\TrackerApplication $application */
 		$application = Factory::$application;
 
 		$isNew = ($this->id < 1);
@@ -239,7 +239,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	private function processChanges()
 	{
-		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application\TrackerApplication $application */
 		$application = Factory::$application;
 
 		$changes = array();

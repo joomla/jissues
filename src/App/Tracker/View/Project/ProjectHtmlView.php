@@ -6,7 +6,7 @@
 
 namespace App\Tracker\View\Project;
 
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The projects item view

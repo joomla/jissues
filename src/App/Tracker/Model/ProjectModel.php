@@ -8,7 +8,7 @@ namespace App\Tracker\Model;
 
 use Joomla\Factory;
 use App\Tracker\TrackerProject;
-use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Model to get data for the project list view

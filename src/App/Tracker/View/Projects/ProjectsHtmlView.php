@@ -7,7 +7,7 @@
 namespace App\Tracker\View\Projects;
 
 use App\Tracker\Model\ProjectsModel;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**

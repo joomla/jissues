@@ -6,7 +6,7 @@
 
 namespace App\Tracker\Controller\Project;
 
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to add a project.

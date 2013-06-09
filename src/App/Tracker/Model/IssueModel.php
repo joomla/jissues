@@ -13,7 +13,7 @@ use Joomla\String\String;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ProjectsTable;
-use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Model to get data for the issue list view

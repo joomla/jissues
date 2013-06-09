@@ -8,7 +8,7 @@ namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
 
-use Joomla\Tracker\Database\AbstractDatabaseTable;
+use JTracker\Database\AbstractDatabaseTable;
 
 /**
  * Table interface class for the #__activities table

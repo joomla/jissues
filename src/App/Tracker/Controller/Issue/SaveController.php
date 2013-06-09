@@ -12,7 +12,7 @@ use Joomla\Input\Input;
 
 use App\Tracker\Model\IssueModel;
 use App\Tracker\ValidationException;
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to add an item via the tracker component.

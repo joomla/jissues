@@ -6,7 +6,7 @@
 
 namespace App\Debug\Controller;
 
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to display the application configuration

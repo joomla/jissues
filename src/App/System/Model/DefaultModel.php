@@ -6,7 +6,7 @@
 
 namespace App\System\Model;
 
-use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Default odel class for the System component.

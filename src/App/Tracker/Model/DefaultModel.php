@@ -6,7 +6,7 @@
 
 namespace App\Tracker\Model;
 
-use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Default model class for the Tracker component.

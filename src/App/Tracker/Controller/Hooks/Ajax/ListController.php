@@ -9,7 +9,7 @@
 namespace App\Tracker\Controller\Hooks\Ajax;
 
 use Joomla\Factory;
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Default controller class for the Users component.

@@ -144,7 +144,7 @@ class TrackerProject
 	 */
 	protected function loadMap()
 	{
-		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application\TrackerApplication $application */
 		$application = Factory::$application;
 
 		$db = $application->getDatabase();

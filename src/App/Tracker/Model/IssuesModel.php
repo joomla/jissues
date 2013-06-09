@@ -10,7 +10,7 @@ use Joomla\Factory;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
-use Joomla\Tracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractTrackerListModel;
 
 /**
  * Model to get data for the issue list view
@@ -113,7 +113,7 @@ class IssuesModel extends AbstractTrackerListModel
 	 */
 	protected function loadState()
 	{
-		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application\TrackerApplication $application */
 		$application = Factory::$application;
 
 		$project = $application->getProject();

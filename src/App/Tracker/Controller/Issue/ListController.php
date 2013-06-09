@@ -9,7 +9,7 @@ namespace App\Tracker\Controller\Issue;
 use Joomla\Application\AbstractApplication;
 use Joomla\Factory;
 use Joomla\Input\Input;
-use Joomla\Tracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Default controller class for the Tracker component.

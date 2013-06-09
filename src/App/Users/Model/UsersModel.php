@@ -8,7 +8,7 @@ namespace App\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
-use Joomla\Tracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractTrackerListModel;
 
 /**
  * Users model class for the Users component.

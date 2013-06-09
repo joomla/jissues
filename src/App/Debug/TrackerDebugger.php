@@ -9,7 +9,7 @@ namespace App\Debug;
 use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
-use Joomla\Tracker\Application\TrackerApplication;
+use JTracker\Application\TrackerApplication;
 
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
@@ -336,9 +336,9 @@ class TrackerDebugger
 			. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
-		$viewClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
+		$viewClass = '\\JTracker\\View\\TrackerDefaultView';
 
-		/* @type \Joomla\Tracker\View\TrackerDefaultView $view */
+		/* @type \JTracker\View\TrackerDefaultView $view */
 		$view = new $viewClass;
 
 		$view->setLayout('exception')

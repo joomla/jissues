@@ -9,7 +9,7 @@ namespace App\Tracker\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
-use Joomla\Tracker\Database\AbstractDatabaseTable;
+use JTracker\Database\AbstractDatabaseTable;
 
 /**
  * Class GroupsTable.

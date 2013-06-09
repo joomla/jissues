@@ -10,7 +10,7 @@ use Joomla\Factory;
 use Joomla\Language\Text;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
-use Joomla\Tracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * The issues item view
@@ -45,7 +45,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application\TrackerApplication $application */
 		$application = Factory::$application;
 
 		$id = $application->input->getUint('id');
