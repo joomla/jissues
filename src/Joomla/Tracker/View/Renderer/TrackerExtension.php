@@ -6,6 +6,7 @@
 
 namespace Joomla\Tracker\View\Renderer;
 
+use Joomla\Date\Date;
 use Joomla\Factory;
 use Joomla\Language\Text;
 
@@ -62,6 +63,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
+			new \Twig_SimpleFunction('formatDate', array($this, 'formatDate')),
 		);
 
 		if (!JDEBUG)
@@ -218,5 +220,12 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $statuses[$id];
+	}
+
+	public function formatDate($dateTime, $format = 'j M y')
+	{
+		$date = new Date($dateTime);
+
+		return $date->format($format);
 	}
 }
