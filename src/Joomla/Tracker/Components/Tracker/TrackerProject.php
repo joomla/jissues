@@ -153,25 +153,37 @@ class TrackerProject
 
 		foreach ($this->defaultGroups as $group)
 		{
-			$map[$group] = array();
+			$map[$group] = new \stdClass;
 		}
 
 		foreach ($this->defaultActions as $action)
 		{
 			$map['Custom'][$action] = array();
+
+			foreach ($this->defaultGroups as $group)
+			{
+				$map[$group]->{'can_' . $action} = 0;
+			}
 		}
 
-		$groups = $db->setQuery(
-			$db->getQuery(true)
-			->from($db->quoteName('#__accessgroups'))
-			->select('*')
-			->where($db->quoteName('project_id') . ' = ' . (int) $this->project_id)
-		)->loadObjectList();
+		$groups = array();
 
-		if (!$groups)
+		if ($this->project_id)
 		{
-			// PANIC - There must be at least two system groups.
-			throw new \RuntimeException('No project groups defined.');
+			// Only for existing projects
+
+			$groups = $db->setQuery(
+				$db->getQuery(true)
+				->from($db->quoteName('#__accessgroups'))
+				->select('*')
+				->where($db->quoteName('project_id') . ' = ' . (int) $this->project_id)
+			)->loadObjectList();
+
+			if (!$groups)
+			{
+				// PANIC - There must be at least two system groups.
+				throw new \RuntimeException('No project groups defined.');
+			}
 		}
 
 		/* @type \Joomla\Tracker\Components\Tracker\Table\GroupsTable $group */
