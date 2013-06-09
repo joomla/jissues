@@ -7,20 +7,49 @@
 
 {% block headerText %}{{ project.title }}{% endblock %}
 
+{% block headerCSS %}
+    <link href="{{ uri.base.path }}css/pagination/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}css/pagination/B_black.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block prependMenu %}
+    {% if user.check("create") %}
+        <li>
+            <a class="btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">
+                New Item
+            </a>
+        </li>
+    {% endif %}
+
+    {{ parent() }}
+
+{% endblock %}
+
 {% block content %}
-    <form action="index.php" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
+    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="filter-search btn-group pull-left input-append">
-                <label class="filter-search-lbl element-invisible" for="filter-search">{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}</label>
-                <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search" value="{{ state.get('list.filter') }}" onchange="document.adminForm.submit();" title="{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}" placeholder="{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}" />
+                <label class="filter-search-lbl element-invisible"
+                       for="filter-search">{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}</label>
+                <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
+                       value="{{ state.get('list.filter') }}" onchange="document.adminForm.submit();"
+                       title="{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}"
+                       placeholder="{{ translate('COM_TRACKER_FILTER_SEARCH_DESCRIPTION') }}"/>
                 <button class="btn tip hasTooltip" type="submit" title="{{ translate('JSEARCH_FILTER_SUBMIT') }}">
                     <span class="icon-search"></span></button>
             </div>
             <div class="btn-group pull-left">
-                <button class="btn tip hasTooltip" type="button" onclick="jQuery('#filter-search').val('');document.adminForm.submit();"
+                <button class="btn tip hasTooltip" type="button"
+                        onclick="jQuery('#filter-search').val('');document.adminForm.submit();"
                         title="{{ translate('JSEARCH_FILTER_CLEAR') }}"><span class="icon-remove"></span></button>
             </div>
         </div>
+
+        {% if pagination.pagesTotal > 1 %}
+            {{ pagination.bar|raw }}
+            {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+        {% endif %}
+
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -48,45 +77,37 @@
 
                     <tr{{ rowClass }}>
                         <td class="center hidden-phone">
-                            {{ item.id }}
+                            {{ item.issue_number }}
                         </td>
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
-                                <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.gh_id }}">{{ item.title|e }}</a>
-                            </div>
-                            {% if item.gh_id or item.jc_id %}
-                                <div class="small">
-                                    {% if item.gh_id %}
+                                {% if user.check("edit") %}
+                                <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                                    <span data-icon="&#xe003;"></span>
+                                {% endif %}
+                                <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+                                    {{ item.title|e }}
+                                </a>
+                                    {% if project.gh_user and project.gh_project %}
+                                        <br/>
                                         {{ translate('COM_TRACKER_HEADING_GITHUB_ID') }}
-                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.gh_id }}" target="_blank">
-                                            {{ item.gh_id }}
+                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                                           target="_blank">
+                                            {{ item.issue_number }}
                                         </a>
                                     {% endif %}
-                                    {% if item.gh_id and item.jc_id %}
-                                        <br />
-                                    {% endif %}
-                                    {% if item.jc_id %}
-                                        {{ translate('COM_TRACKER_HEADING_JOOMLACODE_ID') }}
-                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.jc_id }}" target="_blank">
-                                            {{ item.jc_id }}
+                                    {% if item.foreign_number %}
+                                        <br/>
+                                        {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
+                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                                           target="_blank">
+                                            {{ item.foreign_number }}
                                         </a>
                                     {% endif %}
-                                </div>
-                            {% endif %}
+                            </div>
                         </td>
                         <td class="center">
-                            {% if item.priority == 1 %}
-                                {% set statusClass = 'badge-important' %}
-                            {% elseif item.priority == 2 %}
-                                {% set statusClass = 'badge-warning' %}
-                            {% elseif item.priority == 3 %}
-                                {% set statusClass = 'badge-info' %}
-                            {% elseif item.priority == 4 %}
-                                {% set statusClass = 'badge-inverse' %}
-                            {% elseif item.priority == 4 %}
-                                {% set statusClass = '' %}
-                            {% endif %}
-                            <span class="badge {{ statusClass }}">{{ item.priority }}</span>
+                            <span class="badge {{ prioClass(item.priority) }}">{{ item.priority  }}</span>
                         </td>
 
                         <td>
@@ -105,7 +126,7 @@
                             {% if item.modified != '0000-00-00 00:00:00' %}
                                 {{ item.modified|date('Y-m-d') }}
                                 {% if item.modified_by %}
-                                    <br />
+                                    <br/>
                                     {#<?php //echo 'By ' . JFactory::getUser($item->modified_by)->username ?>#}
                                 {% endif %}
                             {% endif %}
@@ -122,4 +143,10 @@
             </tbody>
         </table>
     </form>
+
+    {% if pagination.pagesTotal > 1 %}
+        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+        {{ pagination.bar|raw }}
+    {% endif %}
+
 {% endblock %}

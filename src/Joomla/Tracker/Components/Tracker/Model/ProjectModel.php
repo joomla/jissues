@@ -6,11 +6,9 @@
 
 namespace Joomla\Tracker\Components\Tracker\Model;
 
-use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
-use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
+use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Model\AbstractTrackerDatabaseModel;
-use Joomla\Tracker\Model\AbstractTrackerListModel;
 
 /**
  * Model to get data for the project list view
@@ -24,20 +22,25 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $projectId  The project id.
 	 *
-	 * @return  ProjectsTable
-	 *
+	 * @throws \UnexpectedValueException
 	 * @since   1.0
+	 * @return  TrackerProject
 	 */
 	public function getItem($projectId = null)
 	{
 		if (is_null($projectId))
 		{
-			$projectId = Factory::$application->input->get('project_id');
+			$projectId = Factory::$application->input->get('project_id', 1);
 		}
 
-		$table = new ProjectsTable($this->db);
+		$data = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->from($this->db->quoteName('#__tracker_projects', 'p'))
+				->select('p.*')
+				->where($this->db->quoteName('p.project_id') . ' = ' . (int) $projectId)
+		)->loadObject();
 
-		return $table->load($projectId);
+		return new TrackerProject($data);
 	}
 
 	/**
@@ -45,18 +48,28 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @return  ProjectsTable
-	 *
 	 * @since   1.0
+	 * @return  TrackerProject
 	 */
-	public function getByAlias($alias)
+	public function getByAlias($alias = null)
 	{
-		return $this->db->setQuery(
+		if (!$alias)
+		{
+			$alias = Factory::$application->input->get('project_alias');
+
+			if (!$alias)
+			{
+				return new TrackerProject;
+			}
+		}
+
+		$data = $this->db->setQuery(
 			$this->db->getQuery(true)
-				->from($this->db->quoteName('#__tracker_projects', 'a'))
-				->select('*')
-				->where($this->db->quoteName('a.alias') . ' = ' . $this->db->quote($alias))
-		)
-			->loadObject();
+				->from($this->db->quoteName('#__tracker_projects', 'p'))
+				->select('p.*')
+				->where($this->db->quoteName('p.alias') . ' = ' . $this->db->quote($alias))
+		)->loadObject();
+
+		return new TrackerProject($data);
 	}
 }

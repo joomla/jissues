@@ -113,22 +113,16 @@ class IssuesModel extends AbstractTrackerListModel
 	 */
 	protected function loadState()
 	{
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		$project = $application->getProject();
+
 		$this->state = new Registry;
 
-		$session = Factory::$application->getSession();
+		$input = $application->input;
 
-		$input = Factory::$application->input;
-
-		$projectId = $input->getUint('project_id', 1);
-
-		if (!$projectId)
-		{
-			$projectId = $session->get('tracker.project_id');
-		}
-
-		$session->set('tracker.project_id', $projectId);
-
-		$this->state->set('filter.project', $projectId);
+		$this->state->set('filter.project', $project->project_id);
 
 		$this->state->set('list.ordering', $input->get('filter_order', 'a.id'));
 
@@ -150,32 +144,5 @@ class IssuesModel extends AbstractTrackerListModel
 
 		// List state information.
 		parent::loadState();
-	}
-
-	/**
-	 * Get a project by its ID.
-	 *
-	 * @return  mixed|null
-	 *
-	 * @since   1.0
-	 * @todo    Move to its own model.
-	 */
-	public function getProject()
-	{
-		$id = Factory::$application->input->getUint('project_id', $this->state->get('filter.project'));
-
-		if (!$id)
-		{
-			return null;
-		}
-
-		$project = $this->db->setQuery(
-			$this->db->getQuery(true)
-				->from('#__tracker_projects')
-				->select('*')
-				->where($this->db->quoteName('project_id') . '=' . (int) $id)
-		)->loadObject();
-
-		return $project;
 	}
 }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * @package    JTracker\View\Renderer
+ *
  * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -72,6 +74,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	 * @param   array  $config  The array of configuration parameters.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct($config = array())
 	{
@@ -81,13 +84,18 @@ class Twig extends \Twig_Environment implements RendererInterface
 		// Set the templates location path.
 		$this->setTemplatesPaths($this->config['templates_base_dir'], true);
 
+		if ($this->config['environment']['debug'])
+		{
+			$this->addExtension(new \Twig_Extension_Debug);
+		}
+
 		try
 		{
 			$this->twigLoader = new \Twig_Loader_Filesystem($this->templatesPaths);
 		}
 		catch (\Twig_Error_Loader $e)
 		{
-			echo $e->getRawMessage();
+			throw new \RuntimeException($e->getRawMessage());
 		}
 
 		parent::__construct($this->twigLoader, $this->config['environment']);
@@ -174,6 +182,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	 * @return  string  Compiled HTML.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function render($template = '', array $data = array())
 	{
@@ -193,7 +202,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 		}
 		catch (\Twig_Error_Loader $e)
 		{
-			echo Factory::$application->renderException($e);
+			throw new \RuntimeException($e->getRawMessage());
 		}
 	}
 
@@ -319,7 +328,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 	/**
 	 * Load the template and return an output object.
 	 *
-	 * @return  \Twig_TemplateInterface  A template instance representing the given template name
+	 * @return  object  Output object.
 	 *
 	 * @since   1.0
 	 */

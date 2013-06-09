@@ -11,15 +11,17 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Tracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__activity table
+ * Table interface class for the #__activities table
  *
- * @property   integer  $id
- * @property   integer  $gh_comment_id;
- * @property   integer  $issue_id;
- * @property   string   $user;
- * @property   string   $event;
- * @property   string   $text;
- * @property   string   $created;
+ * @property   integer  $activities_id  PK
+ * @property   integer  $gh_comment_id  The GitHub comment id
+ * @property   integer  $issue_number   THE issue number
+ * @property   integer  $project_id     The Project id
+ * @property   string   $user           The user name
+ * @property   string   $event          The event type
+ * @property   string   $text           The event text
+ * @property   string   $text_raw       The raw  event text
+ * @property   string   $created_date   created_date
  *
  * @since  1.0
  */
@@ -34,7 +36,7 @@ class ActivitiesTable extends AbstractDatabaseTable
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
-		parent::__construct('#__activity', 'id', $db);
+		parent::__construct('#__activities', 'activities_id', $db);
 	}
 
 	/**
@@ -83,13 +85,13 @@ class ActivitiesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		if (!$this->id)
+		if (!$this->activities_id)
 		{
 			// New item
-			if (!$this->created)
+			if (!$this->created_date)
 			{
 				$date = new \DateTime;
-				$this->created = $date->format('Y-m-d H:i:s');
+				$this->created_date = $date->format('Y-m-d H:i:s');
 			}
 		}
 

@@ -49,45 +49,174 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
+	 * Returns a list of functions to add to the existing list.
+	 *
+	 * @return  array  An array of functions.
+	 */
+	public function getFunctions()
+	{
+		$functions = array(
+			new \Twig_SimpleFunction('translate', array($this, 'translate')),
+			new \Twig_SimpleFunction('sprintf', 'sprintf'),
+			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
+			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
+			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
+			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
+		);
+
+		if (!JDEBUG)
+		{
+			array_push($functions, new \Twig_SimpleFunction('dump', array($this, 'dump')));
+		}
+
+		return $functions;
+	}
+
+	/**
 	 * Returns a list of filters to add to the existing list.
 	 *
-	 * @return  array  An array of filters.
-	 *
-	 * @since   1.0
+	 * @return  array An array of filters
 	 */
 	public function getFilters()
 	{
 		return array(
-			new \Twig_SimpleFilter('base', 'basename'),
-			new \Twig_SimpleFilter('typeof', 'get_class'),
+			new \Twig_SimpleFilter('basename', 'basename'),
+			new \Twig_SimpleFilter('get_class', 'get_class'),
+			new \Twig_SimpleFilter('json_decode', 'json_decode'),
+			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
 		);
 	}
 
 	/**
-	 * Returns a list of functions to add to the existing list.
-	 *
-	 * @return  array  An array of functions.
-	 *
-	 * @since   1.0
-	 */
-	public function getFunctions()
-	{
-		return array(
-			new \Twig_SimpleFunction('translate', array($this, 'translate')),
-		);
-	}
-
-	/**
-	 * Twig template function to translate a string into the current language.
+	 * Translate a string using Joomla\Text.
 	 *
 	 * @param   string  $string  The string to translate.
 	 *
-	 * @return  string  The translated string.
-	 *
-	 * @since   1.0
+	 * @return string
 	 */
 	public function translate($string)
 	{
 		return Text::_($string);
+	}
+
+	/**
+	 * Replaces the Joomla! root path defined by the constant "JPATH_BASE" with the string "JROOT".
+	 *
+	 * @param   string  $string  The string to process.
+	 *
+	 * @return  mixed
+	 */
+	public function stripJRoot($string)
+	{
+		return str_replace(JPATH_BASE, 'JROOT', $string);
+	}
+
+	/**
+	 * Fetch an avatar.
+	 *
+	 * @param   string   $userName  The user name.
+	 * @param   integer  $width     The with in pixel.
+	 *
+	 * @return  string
+	 */
+	public function fetchAvatar($userName = '', $width = 0)
+	{
+		/* @var TrackerApplication $app */
+		$app = Factory::$application;
+
+		$base = $app->get('uri.base.path');
+
+		$avatar = $userName ? $userName . '.png' : 'user-default.png';
+
+		$width = $width ? ' width="' . $width . 'px"' : '';
+
+		return '<img'
+		. ' alt="avatar ' . $userName . '"'
+		. ' src="' . $base . 'images/avatars/' . $avatar . '"'
+		. $width
+		. ' />';
+	}
+
+	/**
+	 * Get a CSS class according to the item priority.
+	 *
+	 * @param   integer  $priority  The priority
+	 *
+	 * @return  string
+	 */
+	public function getPrioClass($priority)
+	{
+		$class = '';
+
+		switch ($priority)
+		{
+			case 1 :
+				$class = 'badge-important';
+				break;
+
+			case 2 :
+				$class = 'badge-warning';
+				break;
+
+			case 3 :
+				$class = 'badge-info';
+				break;
+
+			case 4 :
+				$class = 'badge-inverse';
+				break;
+		}
+
+		return $class;
+	}
+
+	/**
+	 * Dummy function to prevent throwing exception on dump function in the non-debug mode.
+	 *
+	 * @return  void
+	 */
+	public function dump()
+	{
+		return;
+	}
+
+	/**
+	 * Get a status object based on its id.
+	 *
+	 * @param   integer  $id  The id
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return object
+	 */
+	public function getStatus($id)
+	{
+		static $statuses = array();
+
+		if (!$statuses)
+		{
+			/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+			$application = Factory::$application;
+
+			$db = $application->getDatabase();
+
+			$items = $db->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName('#__status'))
+					->select('*')
+			)->loadObjectList();
+
+			foreach ($items as $status)
+			{
+				$status->cssClass = $status->closed ? 'error' : 'success';
+				$statuses[$status->id] = $status;
+			}
+		}
+
+		if (!array_key_exists($id, $statuses))
+		{
+			throw new \UnexpectedValueException('Unknown status id:' . (int) $id);
+		}
+
+		return $statuses[$id];
 	}
 }

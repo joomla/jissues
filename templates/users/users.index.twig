@@ -9,20 +9,20 @@
 
     <table class="table table-bordered table-hover">
         <tr>
-            <th>ID</th>
             <th>Username</th>
-            {% if user.admin %}
+            {% if user.isAdmin %}
                 <th style="width: 10%">Actions</th>
             {% endif %}
+            <th>ID</th>
         </tr>
         {% for u in items %}
             <tr>
-                <td>{{ u.id }}</td>
                 <td><a href="{{ uri.base.path }}user/{{ u.id }}">{{ u.username }}</a></td>
 
-                {% if user.admin %}
+                {% if user.isAdmin %}
                     <td>Block...</td>
                 {% endif %}
+                <td>{{ u.id }}</td>
             </tr>
         {% endfor %}
     </table>

@@ -10,6 +10,7 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
+use Joomla\Tracker\Router\Exception\RoutingException;
 
 /**
  * Joomla! Issue Tracker Router
@@ -43,6 +44,34 @@ class TrackerRouter extends Router
 	}
 
 	/**
+	 * Find and execute the appropriate controller based on a given route.
+	 *
+	 * @param   string  $route  The route string for which to find and execute a controller.
+	 *
+	 * @throws Exception\RoutingException
+	 *
+	 * @since   1.0
+	 * @return  ControllerInterface
+	 */
+	public function getController($route)
+	{
+		try
+		{
+			return parent::getController($route);
+		}
+		catch (\InvalidArgumentException $e)
+		{
+			// 404
+			throw new RoutingException($e->getMessage());
+		}
+		catch (\RuntimeException $e)
+		{
+			// 404
+			throw new RoutingException($e->getMessage());
+		}
+	}
+
+	/**
 	 * Get a ControllerInterface object for a given name.
 	 *
 	 * @param   string  $name  The controller name (excluding prefix) for which to fetch and instance.
@@ -71,7 +100,7 @@ class TrackerRouter extends Router
 			if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 			{
 				// Look for a default controller for the component
-				$class = ucfirst($base) . 'DefaultController';
+				$class = '\\Joomla\\Tracker\\Components\\Tracker\\Controller\\DefaultController';
 
 				if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 				{

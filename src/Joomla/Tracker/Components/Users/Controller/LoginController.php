@@ -7,11 +7,9 @@
 namespace Joomla\Tracker\Components\Users\Controller;
 
 use Joomla\Date\Date;
-use Joomla\Oauth2\Client as oAuthClient;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 
-use Joomla\Tracker\Authentication\Database\TableUsers;
 use Joomla\Tracker\Authentication\GitHub\GitHubLoginHelper;
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Controller\AbstractTrackerController;
@@ -115,23 +113,12 @@ class LoginController extends AbstractTrackerController
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
 		$user = new GithubUser;
-		$user->loadGitHubData($gitHubUser);
 
-		$table = new TableUsers($app->getDatabase());
+		$user->loadGitHubData($gitHubUser)
+			->loadByUserName($user->username);
 
-		$table->loadByUserName($gitHubUser->login);
-
-		if (!$table->id)
-		{
-			// Register a new user
-			$date = new Date;
-			$user->registerDate = $date->format('Y-m-d H:i:s');
-
-			$table->bind($user)
-				->store();
-		}
-
-		$user->id = $table->id;
+		// Save the avatar
+		GitHubLoginHelper::saveAvatar($user);
 
 		// User login
 		$app->setUser($user);

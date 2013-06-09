@@ -12,19 +12,24 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Language\Language;
-use Joomla\Profiler\Profiler;
 use Joomla\Registry\Registry;
 
 use Joomla\Tracker\Authentication\Exception\AuthenticationException;
-use Symfony\Component\HttpFoundation\Session\Session;
-
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
+use Joomla\Tracker\Components\Debug\Logger\CallbackLogger;
+use Joomla\Tracker\Components\Debug\TrackerDebugger;
+use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
+use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
+use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Controller\AbstractTrackerController;
+use Joomla\Tracker\Router\Exception\RoutingException;
 use Joomla\Tracker\Router\TrackerRouter;
 
+use Symfony\Component\HttpFoundation\Session\Session;
+
 /**
- * Joomla! Issue Tracker Application class
+ * Joomla! Tracker Application class.
  *
  * @package  JTracker\Application
  * @since    1.0
@@ -73,6 +78,11 @@ final class TrackerApplication extends AbstractWebApplication
 	private $user;
 
 	/**
+	 * @var  TrackerProject
+	 */
+	private $project;
+
+	/**
 	 * The database driver object.
 	 *
 	 * @var    DatabaseDriver
@@ -89,12 +99,12 @@ final class TrackerApplication extends AbstractWebApplication
 	private $language;
 
 	/**
-	 * The Profiler object
+	 * The Debugger object
 	 *
-	 * @var    Profiler
+	 * @var  TrackerDebugger
 	 * @since  1.0
 	 */
-	private $profiler;
+	private $debugger;
 
 	/**
 	 * Class constructor.
@@ -109,15 +119,11 @@ final class TrackerApplication extends AbstractWebApplication
 		// Load the configuration object.
 		$this->loadConfiguration();
 
+		// Set the debugger.
+		$this->debugger = new TrackerDebugger($this);
+
 		// Register the event dispatcher
 		$this->loadDispatcher();
-
-		if (JDEBUG)
-		{
-			$this->profiler = new Profiler('Tracker');
-
-			$this->mark('App started');
-		}
 
 		// Register the application to Factory
 		// @todo Decouple from Factory
@@ -126,6 +132,19 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Load the library language file
 		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
+
+		$this->mark('Application started');
+	}
+
+	/**
+	 * Get a debugger object.
+	 *
+	 * @since   1.0
+	 * @return TrackerDebugger
+	 */
+	public function getDebugger()
+	{
+		return $this->debugger;
 	}
 
 	/**
@@ -141,7 +160,14 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
-			$router->addMaps(json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'), true));
+			$maps = json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'));
+
+			if (!$maps)
+			{
+				throw new \RuntimeException('Invalid router file.', 500);
+			}
+
+			$router->addMaps($maps, true);
 			$router->setControllerPrefix('Joomla\\Tracker\\Components');
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
@@ -155,71 +181,56 @@ final class TrackerApplication extends AbstractWebApplication
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
 
-			$this->mark('App terminated');
-
-			$contents .= $this->fetchDebugOutput();
-
-			// Temporarily echo the $contents to prove it is working
-			echo $contents;
-		}
-
-		// Mop up any uncaught exceptions.
-		catch (AuthenticationException $e)
-		{
-			// Do something here on authentication failure.
-
-			$message = '<h4>Authentication failure</h4>';
+			$this->mark('Application terminated');
 
 			if (JDEBUG)
 			{
-				// The exceptions contains a public property "user" that holds the current user object.
-				$message .= 'user: ' . $e->user->username . '<br />'
-					. 'id: ' . $e->user->id . '<br />'
-					. 'action: ' . $e->action . '<br />';
+				$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
 			}
 
-			echo $this->renderException($e, $message);
-
-			echo $this->fetchDebugOutput();
-
-			$this->mark('App terminated with an ERROR');
-
-			$this->close($e->getCode());
+			$this->setBody($contents);
 		}
-		catch (\Exception $e)
+		catch (AuthenticationException $exception)
 		{
-			echo $this->renderException($e);
+			header('HTTP/1.1 403 Forbidden', true, 403);
 
-			echo $this->fetchDebugOutput();
+			$this->mark('Application terminated with an AUTH EXCEPTION');
 
-			$this->mark('App terminated with an ERROR');
+			$message = array();
+			$message[] = 'Authentication failure';
 
-			$this->close($e->getCode());
+			if (JDEBUG)
+			{
+				// The exceptions contains the User object and the action.
+				if ($exception->getUser()->username)
+				{
+					$message[] = 'user: ' . $exception->getUser()->username;
+				}
+
+				$message[] = 'id: ' . $exception->getUser()->id;
+				$message[] = 'action: ' . $exception->getAction();
+			}
+
+			$this->setBody($this->debugger->renderException($exception, implode("\n", $message)));
 		}
-	}
-
-	/**
-	 * Generate a call stack for debugging purpose.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	private function fetchDebugOutput()
-	{
-		if (!JDEBUG)
+		catch (RoutingException $exception)
 		{
-			return '';
+			header('HTTP/1.1 404 Not Found', true, 403);
+
+			$this->mark('Application terminated with a ROUTING EXCEPTION');
+
+			$message = JDEBUG ? $exception->getRawRoute() : '';
+
+			$this->setBody($this->debugger->renderException($exception, $message));
 		}
+		catch (\Exception $exception)
+		{
+			header('HTTP/1.1 500 Internal Server Error', true, 500);
 
-		$debug = array();
+			$this->mark('Application terminated with an EXCEPTION');
 
-		$debug[] = '<div class="debug">';
-		$debug[] = '<p>Profile</p>';
-		$debug[] = $this->profiler->render();
-		$debug[] = '</div>';
-
-		return implode("\n", $debug);
+			$this->setBody($this->debugger->renderException($exception));
+		}
 	}
 
 	/**
@@ -227,7 +238,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   string  $text  The message for the mark.
 	 *
-	 * @return  void
+	 * @return  TrackerApplication
 	 *
 	 * @since   1.0
 	 */
@@ -235,10 +246,12 @@ final class TrackerApplication extends AbstractWebApplication
 	{
 		if (!JDEBUG)
 		{
-			return;
+			return $this;
 		}
 
-		$this->profiler->mark($text);
+		$this->debugger->mark($text);
+
+		return $this;
 	}
 
 	/**
@@ -390,9 +403,8 @@ final class TrackerApplication extends AbstractWebApplication
 
 		if (is_null($this->user))
 		{
-			$user = $this->getSession()->get('user');
-
-			$this->user = ($user) ? : new GitHubUser;
+			$this->user = ($this->getSession()->get('user'))
+				? : new GitHubUser;
 		}
 
 		return $this->user;
@@ -420,7 +432,16 @@ final class TrackerApplication extends AbstractWebApplication
 				)
 			);
 
-			$this->database->setDebug($this->get('debug'));
+			if ($this->get('system.debug'))
+			{
+				$this->database->setDebug(true);
+
+				$this->database->setLogger(
+					new CallbackLogger(
+						array($this->debugger, 'addDatabaseEntry')
+					)
+				);
+			}
 
 			// @todo Decouple from Factory
 			Factory::$database = $this->database;
@@ -466,6 +487,7 @@ final class TrackerApplication extends AbstractWebApplication
 		if (is_null($user))
 		{
 			// Logout
+
 			$this->user = new GitHubUser;
 
 			$this->getSession()->set('user', $this->user);
@@ -475,7 +497,8 @@ final class TrackerApplication extends AbstractWebApplication
 		else
 		{
 			// Login
-			$user->admin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
+
+			$user->isAdmin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
 
 			$this->user = $user;
 
@@ -660,30 +683,81 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to render an exception in a user friendly format
+	 * Get the current project.
 	 *
-	 * @param   \Exception  $e        The caught exception
-	 * @param   string      $message  The message to display
+	 * @param   boolean  $reload  Reload the project.
 	 *
-	 * @return  string  The exception output in rendered format
-	 *
-	 * @since   1.0
+	 * @since  1.0
+	 * @return ProjectsTable
 	 */
-	public function renderException(\Exception $e, $message = '')
+	public function getProject($reload = false)
 	{
-		$base   = '\\Joomla\\Tracker\\Components\\Tracker';
-		$vClass = $base . '\\View\\DefaultView';
-		$mClass = '\\Joomla\\Tracker\\Model\\TrackerDefaultModel';
+		if (is_null($this->project) || $reload)
+		{
+			$this->loadProject($reload);
+		}
 
-		/* @type \Joomla\Tracker\View\AbstractTrackerHtmlView $view */
-		$view = new $vClass(new $mClass);
+		return $this->project;
+	}
 
-		$view->setLayout('exception');
+	/**
+	 * Load the current project.
+	 *
+	 * @param   boolean  $reload  Reload the project.
+	 *
+	 * @throws \InvalidArgumentException
+	 * @since  1.0
+	 * @return $this
+	 */
+	private function loadProject($reload = false)
+	{
+		$alias = $this->input->get('project_alias');
 
-		$view->getRenderer()
-			->set('exception', $e)
-			->set('message', $message);
+		$sessionProject = $this->getSession()->get('project');
 
-		return $view->render();
+		if ($alias)
+		{
+			// A Project is set
+			if ($sessionProject
+				&& $alias == $sessionProject->alias
+				&& false == $reload)
+			{
+				// Use the Project stored in the session
+				$this->project = $sessionProject;
+
+				return $this;
+			}
+
+			// Change the project
+			$projectModel = new ProjectModel;
+			$project = $projectModel->getByAlias($alias);
+
+			if (!$project)
+			{
+				// No project...
+				throw new \InvalidArgumentException('Invalid project');
+			}
+		}
+		else
+		{
+			// No Project set
+			if ($sessionProject)
+			{
+				// No Project set - use the session Project.
+				$project = $sessionProject;
+			}
+			else
+			{
+				// Nothing found - Set a default project !
+				$projectModel = new ProjectModel;
+				$project = $projectModel->getItem(1);
+			}
+		}
+
+		$this->getSession()->set('project', $project);
+
+		$this->project = $project;
+
+		return $this;
 	}
 }

@@ -1,21 +1,25 @@
 <?php
 /**
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Joomla\Tracker\Authentication;
 
+use Joomla\Database\DatabaseDriver;
+use Joomla\Date\Date;
 use Joomla\Factory;
+use Joomla\Tracker\Application\TrackerApplication;
 use Joomla\Tracker\Authentication\Database\TableUsers;
 use Joomla\Tracker\Authentication\Exception\AuthenticationException;
+use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
 
 /**
  * Class containing a user object
  *
  * @since  1.0
  */
-abstract class User
+abstract class User implements \Serializable
 {
 	/**
 	 * @var    integer
@@ -48,6 +52,24 @@ abstract class User
 	public $registerDate = '';
 
 	/**
+	 * If a user has special "admin" rights.
+	 *
+	 * @var boolean
+	 * @since  1.0
+	 */
+	public $isAdmin = false;
+
+	/**
+	 * A list of groups a user has access to.
+	 *
+	 * @var array
+	 * @since  1.0
+	 */
+	protected $accessGroups = array();
+
+	private $cleared = array();
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   integer  $identifier  The primary key of the user to load..
@@ -64,25 +86,97 @@ abstract class User
 	}
 
 	/**
+	 * Get the model used for authentication.
+	 *
+	 * @since  1.0
+	 * @return ProjectModel
+	 */
+	public function getAuthModel()
+	{
+		static $authModel;
+
+		if (is_null($authModel))
+		{
+			$authModel = new ProjectModel;
+		}
+
+		return $authModel;
+	}
+
+	/**
+	 * Load data by a given user name.
+	 *
+	 * @param   string  $userName  The user name
+	 *
+	 * @since  1.0
+	 * @return TableUsers
+	 */
+	public function loadByUserName($userName)
+	{
+		// @todo Decouple from J\Factory
+		/* @type TrackerApplication $application */
+		$application = Factory::$application;
+
+		$database = $application->getDatabase();
+
+		$table = new TableUsers($database);
+
+		$table->loadByUserName($userName);
+
+		if (!$table->id)
+		{
+			// Register a new user
+
+			$date               = new Date;
+			$this->registerDate = $date->format('Y-m-d H:i:s');
+
+			$table->save($this);
+		}
+
+		$this->id = $table->id;
+
+		$this->loadAccessGroups();
+
+		return $this;
+	}
+
+	/**
+	 * Get available access groups.
+	 *
+	 * @since  1.0
+	 * @return array
+	 */
+	public function getAccessGroups()
+	{
+		return $this->accessGroups;
+	}
+
+	/**
 	 * Method to load a User object by user id number.
 	 *
-	 * @param   mixed  $id  The user id of the user to load.
+	 * @param   mixed  $identifier  The user id of the user to load.
 	 *
 	 * @return  User
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function load($id)
+	protected function load($identifier)
 	{
+		// @todo Decouple from J\Factory
+		/* @type TrackerApplication $application */
+		$application = Factory::$application;
+
+		$db = $application->getDatabase();
+
 		// Create the user table object
 		// $table = $this->getTable();
-		$table = new TableUsers(Factory::$application->getDatabase());
+		$table = new TableUsers($db);
 
 		// Load the JUserModel object based on the user id or throw a warning.
-		if (!$table->load($id))
+		if (!$table->load($identifier))
 		{
-			throw new \RuntimeException('Unable to load the user with id: ' . $id);
+			throw new \RuntimeException('Unable to load the user with id: ' . $identifier);
 		}
 
 		/*
@@ -97,6 +191,8 @@ abstract class User
 
 		// Assuming all is well at this point let's bind the data
 
+		// $doo = array_keys($table->getFields());
+
 		foreach ($table->getFields() as $key => $vlaue)
 		{
 			if (isset($this->$key))
@@ -105,7 +201,59 @@ abstract class User
 			}
 		}
 
+		$this->loadAccessGroups();
+
 		return $this;
+	}
+
+	/**
+	 * Load the access groups.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	protected function loadAccessGroups()
+	{
+		// @todo Decouple from J\Factory
+		/* @type TrackerApplication $application */
+		$application = Factory::$application;
+
+		$db = $application->getDatabase();
+
+		$this->accessGroups = $db->setQuery(
+			$db->getQuery(true)
+				->from($db->quoteName('#__user_accessgroup_map'))
+				->select($db->quoteName('group_id'))
+				->where($db->quoteName('user_id') . '=' . (int) $this->id)
+		)->loadColumn();
+
+		return $this;
+	}
+
+	/**
+	 * Check if a user is authorized to perform a given action.
+	 *
+	 * @param   string  $action  The action to check.
+	 *
+	 * @return boolean
+	 */
+	public function check($action)
+	{
+		if (array_key_exists($action, $this->cleared))
+		{
+			return $this->cleared[$action] ? true : false;
+		}
+
+		try
+		{
+			$this->authorize($action);
+
+			return true;
+		}
+		catch (AuthenticationException $e)
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -113,28 +261,121 @@ abstract class User
 	 *
 	 * @param   string  $action  The action.
 	 *
-	 * @return  User
+	 * @throws \InvalidArgumentException
+	 * @throws AuthenticationException
 	 *
 	 * @since   1.0
-	 * @throws  AuthenticationException
+	 * @return  User
 	 */
 	public function authorize($action)
 	{
-		$adminUsers = Factory::$application->get('acl.admin_users');
-
-		$adminUsers = ($adminUsers) ? explode(',', $adminUsers) : array();
-
-		if (in_array($this->username, $adminUsers))
+		if (array_key_exists($action, $this->cleared))
 		{
-			// "Admin users" are granted all permissions.
+			if (0 == $this->cleared[$action])
+			{
+				throw new AuthenticationException($this, $action);
+			}
+
 			return $this;
 		}
 
-		switch ($action)
+		if ($this->isAdmin)
 		{
-			// @todo - group based ACL
+			// "Admin users" are granted all permissions - globally.
+			return $this;
 		}
 
+		if ('admin' == $action)
+		{
+			// "Admin action" requested for non "Admin user".
+			$this->cleared[$action] = 0;
+			throw new AuthenticationException($this, $action);
+		}
+
+		if (false == in_array($action, array('view', 'create', 'edit', 'manage')))
+		{
+			throw new \InvalidArgumentException('Undefined action: ' . $action);
+		}
+
+		/* @type \Joomla\Tracker\Components\Tracker\TrackerProject $project */
+		$project = Factory::$application->getProject();
+
+		if ($project->getAccessGroups($action, 'Public'))
+		{
+			// Project has public access for the action.
+			$this->cleared[$action] = 1;
+
+			return $this;
+		}
+
+		if ($this->id)
+		{
+			if ($project->getAccessGroups($action, 'User'))
+			{
+				// Project has User access for the action.
+				$this->cleared[$action] = 1;
+
+				return $this;
+			}
+
+			// Check if a User has access to a custom group
+			$groups = $project->getAccessGroups($action);
+
+			foreach ($groups as $group)
+			{
+				if (in_array($group, $this->accessGroups))
+				{
+					// The User is member of the group.
+					$this->cleared[$action] = 1;
+
+					return $this;
+				}
+			}
+		}
+
+		$this->cleared[$action] = 0;
+
 		throw new AuthenticationException($this, $action);
+	}
+
+	/**
+	 * Serialize.
+	 *
+	 * @since  1.0
+	 * @return string the string representation of the object or null
+	 */
+	public function serialize()
+	{
+		$props = array();
+
+		foreach (get_object_vars($this) as $key => $value)
+		{
+			if (in_array($key, array('authModel', 'cleared', 'authId')))
+			{
+				continue;
+			}
+
+			$props[$key] = $value;
+		}
+
+		return serialize($props);
+	}
+
+	/**
+	 * Unserialize.
+	 *
+	 * @param   string  $serialized  The serialized string
+	 *
+	 * @since  1.0
+	 * @return void
+	 */
+	public function unserialize($serialized)
+	{
+		$data = unserialize($serialized);
+
+		foreach ($data as $key => $value)
+		{
+			$this->$key = $value;
+		}
 	}
 }

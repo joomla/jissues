@@ -13,15 +13,29 @@ use Joomla\Date\Date;
 use Joomla\Factory;
 
 use Joomla\Tracker\Database\AbstractDatabaseTable;
-use Psr\Log\InvalidArgumentException;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Table interface class for the #__issues table
  *
- * @property   integer  $id           Primary Key.
- * @property   string   $title        Issue title.
- * @property   string   $description  Issue description.
- * @property   integer  $gh_id        GitHub id.
+ * @property   integer  $id               PK
+ * @property   integer  $issue_number     THE issue number (ID)
+ * @property   integer  $foreign_number   Foreign tracker id
+ * @property   integer  $project_id       Project id
+ * @property   string   $title            Issue title
+ * @property   string   $description      Issue description
+ * @property   string   $description_raw  The raw issue description (markdown)
+ * @property   integer  $priority         Issue priority
+ * @property   integer  $status           Issue status
+ * @property   string   $opened_date      Issue open date
+ * @property   string   $opened_by        Opened by username
+ * @property   string   $closed_date      Issue closed date
+ * @property   string   $closed_by        Issue closed by username
+ * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
+ * @property   string   $modified_date    Issue modified date
+ * @property   string   $modified_by      Issue modified by username
+ * @property   integer  $rel_id           Relation id user
+ * @property   string   $rel_type         Relation type
  *
  * @since  1.0
  */
@@ -63,7 +77,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @return  boolean  True on success.
+	 * @return  IssuesTable
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -72,8 +86,15 @@ class IssuesTable extends AbstractDatabaseTable
 	{
 		if ($this->id)
 		{
-			// Store the table to compute the differences later.
-			$this->oldObject = clone($this);
+			$oldValues = array();
+
+			foreach ($this as $k => $v)
+			{
+				$oldValues[$k] = $v;
+			}
+
+			// Store the old values to compute the differences later.
+			$this->oldObject = ArrayHelper::toObject($oldValues);
 		}
 
 		if (is_array($src))
@@ -125,7 +146,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($errors)
 		{
-			throw new InvalidArgumentException(implode("\n", $errors));
+			throw new \InvalidArgumentException(implode("\n", $errors));
 		}
 
 		return $this;
@@ -147,6 +168,9 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
 		$isNew = ($this->id < 1);
 		$date  = new Date;
 		$date  = $date->format('Y-m-d H:i:s');
@@ -154,17 +178,16 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified = $date;
+			$this->modified_date = $date;
 
-			// Factory::getUser()->id;
-			$this->modified_by = 0;
+			$this->modified_by = $application->getUser()->username;
 		}
 		else
 		{
 			// New item
-			if (!(int) $this->opened)
+			if (!(int) $this->opened_date)
 			{
-				$this->opened = $date;
+				$this->opened_date = $date;
 			}
 		}
 
@@ -180,91 +203,127 @@ class IssuesTable extends AbstractDatabaseTable
 		// Add a record to the activity table if a new item
 
 		// TODO: Remove the check for CLI once moved to live instance
-		if ($isNew)// && JFactory::getApplication()->get('cli_app') != true)
+		if ($isNew && $application->get('cli_app') != true)
 		{
 			$columnsArray = array(
 				$this->db->quoteName('issue_id'),
 				$this->db->quoteName('user'),
 				$this->db->quoteName('event'),
-				$this->db->quoteName('created')
+				$this->db->quoteName('created_date'),
+				$this->db->quoteName('project_id')
 			);
 
-			$query->insert($this->db->quoteName('#__activity'));
+			$query->insert($this->db->quoteName('#__activities'));
 			$query->columns($columnsArray);
 			$query->values(
 				(int) $this->id . ', '
-					// . $this->db->quote(JFactory::getUser()->username) . ', '
-					. $this->db->quote('') . ', '
+					. $this->db->quote($application->getUser()->username) . ', '
 					. $this->db->quote('open') . ', '
-					. $this->db->quote($this->opened)
+					. $this->db->quote($this->opened_date) . ', '
+					. (int) $this->project_id
 			);
 
 			$this->db->setQuery($query);
 			$this->db->execute();
 		}
 
-		// Add a record to the activities table including the changes made to an item.
 		if ($this->oldObject)
 		{
-			// Compute the changes
-			$changes = array();
-
-			foreach ($this->getFields() as $fName => $field)
-			{
-				if (!$this->$fName && !$this->oldObject->$fName)
-				{
-					// Both values are "empty"
-					continue;
-				}
-
-				if ($this->$fName != $this->oldObject->$fName)
-				{
-					$change = new \stdClass;
-
-					$change->name = $fName;
-					$change->old  = $this->oldObject->$fName;
-					$change->new  = $this->$fName;
-
-					switch ($fName)
-					{
-						case 'modified' :
-							break;
-
-						default :
-							$changes[] = $change;
-							break;
-					}
-				}
-			}
-
-			if ($changes)
-			{
-				$date = new Date;
-
-				$data = array(
-					$this->db->quoteName('issue_id') => (int) $this->id,
-					// $this->db->quoteName('user')     => $db->quote(JFactory::getUser()->username),
-					$this->db->quoteName('user')     => $this->db->quote(''),
-					$this->db->quoteName('event')    => $this->db->quote('change'),
-					$this->db->quoteName('text')     => $this->db->quote(json_encode($changes)),
-					$this->db->quoteName('created')  => $this->db->quote($date->format('Y-m-d H:i:s'))
-				);
-
-				$this->db->setQuery(
-					$query->clear()
-						->insert($this->db->quoteName('#__activity'))
-						->columns(array_keys($data))
-						->values(implode(',', $data))
-				)->execute();
-			}
+			// Add a record to the activities table including the changes made to an item.
+			$this->processChanges();
 		}
 
-		// If we don't have the extra fields, return here
-		if (!$this->fieldValues)
+		if ($this->fieldValues)
 		{
-			return true;
+			// If we have extra fields, process them.
+			$this->processFields();
 		}
 
+		return $this;
+	}
+
+	/**
+	 * Compute the changes.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	private function processChanges()
+	{
+		/* @type \Joomla\Tracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		$changes = array();
+
+		foreach ($this as $fName => $field)
+		{
+			if (!$this->$fName && !$this->oldObject->$fName)
+			{
+				// Both values are "empty"
+				continue;
+			}
+
+			if ($this->$fName != $this->oldObject->$fName)
+			{
+				$change = new \stdClass;
+
+				$change->name = $fName;
+				$change->old  = $this->oldObject->$fName;
+				$change->new  = $this->$fName;
+
+				switch ($fName)
+				{
+					case 'modified_date' :
+					case 'modified_by' :
+						// Expected change ;)
+						break;
+
+					case 'description_raw' :
+
+						// @todo do something ?
+						$changes[] = $change;
+
+						break;
+
+					default :
+						$changes[] = $change;
+						break;
+				}
+			}
+		}
+
+		if ($changes)
+		{
+			$date = new Date;
+
+			$data = array(
+				$this->db->quoteName('issue_number') => (int) $this->issue_number,
+				$this->db->quoteName('user')         => $this->db->quote($application->getUser()->username),
+				$this->db->quoteName('project_id')   => (int) $this->project_id,
+				$this->db->quoteName('event')        => $this->db->quote('change'),
+				$this->db->quoteName('text')         => $this->db->quote(json_encode($changes)),
+				$this->db->quoteName('created_date') => $this->db->quote($date->format('Y-m-d H:i:s'))
+			);
+
+			$this->db->setQuery(
+				$this->db->getQuery(true)
+					->insert($this->db->quoteName('#__activities'))
+					->columns(array_keys($data))
+					->values(implode(',', $data))
+			)->execute();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Process extra fields.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	private function processFields()
+	{
 		// Store the extra fields.
 		$db = $this->db;
 

@@ -1,0 +1,37 @@
+ul.trackerPagination{
+	margin:0px;
+	padding:0px;
+	height:100%;
+	overflow:hidden;
+	font:12px 'Tahoma';
+	list-style-type:none;
+}
+
+ul.trackerPagination li.details{
+    padding:7px 10px 7px 10px;
+    font-size:14px;
+}
+
+ul.trackerPagination li.dot{padding: 3px 0;}
+
+ul.trackerPagination li{
+	float:left;
+	margin:0px;
+	padding:0px;
+	margin-left:5px;
+}
+
+ul.trackerPagination li:first-child{
+	margin-left:0px;
+}
+
+ul.trackerPagination li a{
+	color:black;
+	display:block;
+	text-decoration:none;
+	padding:7px 10px 7px 10px;
+}
+
+ul.trackerPagination li a img{
+	border:none;
+}
