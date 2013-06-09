@@ -152,10 +152,7 @@ abstract class AbstractTrackerController extends AbstractController
 		// If a model doesn't exist for our view, revert to the default model
 		if (!class_exists($mClass))
 		{
-			if (!class_exists($mClass))
-			{
-				$mClass = $base . '\\Model\\DefaultModel';
-			}
+			$mClass = $base . '\\Model\\DefaultModel';
 
 			// If there still isn't a class, panic.
 			if (!class_exists($mClass))
@@ -167,11 +164,7 @@ abstract class AbstractTrackerController extends AbstractController
 		// Make sure the view class exists, otherwise revert to the default
 		if (!class_exists($vClass))
 		{
-			// If there still isn't a class, panic.
-			if (!class_exists($vClass))
-			{
-				$vClass = '\\JTracker\\View\\TrackerDefaultView';
-			}
+			$vClass = '\\JTracker\\View\\TrackerDefaultView';
 
 			// If there still isn't a class, panic.
 			if (!class_exists($vClass))
