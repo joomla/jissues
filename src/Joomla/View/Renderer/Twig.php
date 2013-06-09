@@ -6,10 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace JTracker\View\Renderer;
-
-use Joomla\Factory;
-use JTracker\View\RendererInterface;
+namespace Joomla\View\Renderer;
 
 /**
  * Twig class for rendering output.

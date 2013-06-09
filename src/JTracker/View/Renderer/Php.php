@@ -8,7 +8,7 @@ namespace JTracker\View\Renderer;
 
 use Joomla\Factory;
 use Joomla\Registry\Registry;
-use JTracker\View\RendererInterface;
+use Joomla\View\Renderer\RendererInterface;
 
 /**
  * Class Php.

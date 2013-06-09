@@ -7,6 +7,7 @@
 namespace JTracker\View;
 
 use Joomla\Model\ModelInterface;
+
 use JTracker\Model\TrackerDefaultModel;
 
 /**

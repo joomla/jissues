@@ -9,9 +9,11 @@ namespace JTracker\View;
 use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
+use Joomla\View\AbstractView;
+use Joomla\View\Renderer\RendererInterface;
+
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use Joomla\View\AbstractView;
 use JTracker\View\Renderer\TrackerExtension;
 
 /**
@@ -55,11 +57,16 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 
 		$renderer = $app->get('renderer.type');
 
-		$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
+		$className = 'Joomla\\View\\Renderer\\' . ucfirst($renderer);
 
 		if (false == class_exists($className))
 		{
-			throw new \RuntimeException(sprintf('Invalid renderer: %s', $renderer));
+			$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
+
+			if (false == class_exists($className))
+			{
+				throw new \RuntimeException(sprintf('Invalid renderer: %s', $renderer));
+			}
 		}
 
 		$config = array();

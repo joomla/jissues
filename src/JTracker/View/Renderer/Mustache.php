@@ -5,7 +5,8 @@
  */
 
 namespace JTracker\View\Renderer;
-use JTracker\View\RendererInterface;
+
+use Joomla\View\Renderer\RendererInterface;
 
 /**
  * Mustache class for rendering output.

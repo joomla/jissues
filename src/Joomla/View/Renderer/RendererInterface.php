@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace JTracker\View;
+namespace Joomla\View\Renderer;
 
 /**
  * Class RendererInterface.
