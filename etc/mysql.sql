@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
+  KEY `project_id` (`project_id`),
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -162,7 +163,8 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-  PRIMARY KEY (`project_id`)
+  PRIMARY KEY (`project_id`),
+  KEY `alias` (`alias`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
