@@ -46,6 +46,10 @@
                 </td>
                 <td>
                     {% if project.gh_user %}
+                        {% if user.isAdmin %}
+                            <i class="icon-github"></i>
+                            <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">Hooks</a>
+                        {% endif %}
                         <i class="icon-github"></i>
                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
                             {{ project.gh_user }}/{{ project.gh_project }}

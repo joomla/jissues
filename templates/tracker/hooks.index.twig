@@ -1,0 +1,236 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+    <h2>{{ project.title }} - Hooks</h2>
+
+    <div class="btn" onclick="listHooks('{{ project.alias }}');">List Hooks</div>
+
+    <div id="listHooks"></div>
+    <div id="ajaxDebug" class="alert-error"></div>
+
+    <h3>New Hook</h3>
+
+    <form name="newHook" class="form-inline">
+        <div class="row-fluid well well-small">
+            <div class="span5">
+                <label for="url">URL</label><br/>
+                <input type="text" id="url" name="url" placeholder="http://domain.tld / web / hook"/>
+            </div>
+            <div class="span5">
+                <label for="events">Events</label><br />
+                <input type="text" id="events" name="events" placeholder="event,event,n..."/><br />
+                (comma separated, no spaces)
+            </div>
+            <div class="span2 left">
+                <a href="#eventsModal" role="button" class="btn btn-info btn-small pull-right" data-toggle="modal">
+                    Help: Events
+                </a>
+                <div class="btn btn-large btn-success" onclick="addHook('{{ project.alias }}');">Add Hook</div>
+            </div>
+        </div>
+    </form>
+
+    <!-- +++++++++++++++++++++ -->
+    <!-- +  Modal "Windows"  + -->
+    <!-- +++++++++++++++++++++ -->
+
+    <div id="eventsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Events"
+         aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Hook Events</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li><b>push</b> - Any git push to a Repository.</li>
+                <li><b>issues</b> - Any time an Issue is opened or closed.</li>
+                <li><b>issue_comment</b> - Any time an Issue is commented on.</li>
+                <li><b>commit_comment</b> - Any time a Commit is commented on.</li>
+                <li><b>pull_request</b> - Any time a Pull Request is opened, closed,
+                    or synchronized (updated due to a new push in the branch that the pull request is tracking).
+                </li>
+                <li><b>pull_request_review_comment</b> - Any time a Commit is commented on while inside a Pull Request
+                    review (the Files Changed tab).
+                </li>
+                <li><b>gollum</b> - Any time a Wiki page is updated.</li>
+                <li><b>watch</b> - Any time a User watches the Repository.</li>
+                <li><b>download</b> - Any time a Download is added to the Repository.</li>
+                <li><b>fork</b> - Any time a Repository is forked.</li>
+                <li><b>fork_apply</b> - Any time a patch is applied to the Repository from the Fork Queue.</li>
+                <li><b>member</b> - Any time a User is added as a collaborator to a non-Organization Repository.</li>
+                <li><b>public</b> - Any time a Repository changes from private to public.</li>
+                <li><b>team_add</b> - Any time a team is added or modified on a Repository.</li>
+                <li><b>status</b> - Any time a Repository has a status update from the API</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplHooks">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Status</th>
+                <th>URL</th>
+                <th>Events</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            [% for (var i=0; i < o.data.length; i++) { %]
+            <tr>
+                <td>[%= o.data[i].name %]</td>
+                <td>
+                    [% if (o.data[i].active) { %]
+                    <span class="label label-success">Active</span>
+                    [% } else { %]
+                    <span class="label label-inverse">Inactive</span>
+                    [% } %]
+                </td>
+                <td>[%= o.data[i].config.url %]</td>
+                <td>[%= o.data[i].events.join(', ') %]</td>
+                <td>
+                    [% if (o.data[i].active) { %]
+                    <a href="javascript:"
+                       onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'deactivate');">
+                        Deactivate
+                    </a>
+                    [% } else { %]
+                    <a href="javascript:"
+                       onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'activate');">
+                        Activate
+                    </a>
+                    [% } %]
+                    <a href="javascript:"
+                       onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'delete');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            [% } %]
+            </tbody>
+        </table>
+    </script>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * Setup custom tags for the JS template engine.
+         * @type {RegExp}
+         */
+        tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+
+        /**
+         * List hooks.
+         * @param alias
+         */
+        function listHooks(alias) {
+            var out = $('#listHooks');
+            var debug = $('#ajaxDebug');
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '/project/' + alias + '/hooks-list',
+                    {  },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No hooks found.');
+                        }
+                        else {
+                            out.html(tmpl("tplHooks", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Add a hook.
+         *
+         * @param alias
+         */
+        function addHook(alias) {
+
+            var out = $('#listHooks');
+            var debug = $('#ajaxDebug');
+
+            var url = $('input[name="url"]').val();
+            var events = $('input[name="events"]').val();
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '/project/' + alias + '/hooks-add',
+                    { url: url, events: events },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No hooks found.');
+                        }
+                        else {
+                            out.html(tmpl("tplHooks", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Modify a hook.
+         *
+         * @param alias
+         * @param hookId
+         * @param action
+         */
+        function modifyHook(alias, hookId, action) {
+            var out = $('#listHooks');
+            var debug = $('#ajaxDebug');
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '/project/' + alias + '/hooks-modify',
+                    { hook_id: hookId, action: action },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No hooks found.');
+                        }
+                        else {
+                            out.html(tmpl("tplHooks", response));
+                        }
+                    }
+            );
+        }
+    </script>
+{% endblock %}

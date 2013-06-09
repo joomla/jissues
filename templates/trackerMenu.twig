@@ -94,6 +94,24 @@
                             Database
                         </a>
                     </li>
+                    <li class="{{ "logs/github_issues" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/github_issues">
+                            <i class="icon-github"></i>
+                            GitHub Issues
+                        </a>
+                    </li>
+                    <li class="{{ "logs/github_comments" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/github_comments">
+                            <i class="icon-github"></i>
+                            GitHub Comments
+                        </a>
+                    </li>
+                    <li class="{{ "logs/github_pulls" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/github_pulls">
+                            <i class="icon-github"></i>
+                            GitHub Pulls
+                        </a>
+                    </li>
                     <li class="{{ "logs/php" == uri.route ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/php">PHP</a>
                     </li>

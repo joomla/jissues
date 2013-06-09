@@ -8,10 +8,13 @@ namespace Joomla\Tracker\Components\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Date\Date;
 use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
+use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
+use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 
 /**
@@ -64,14 +67,6 @@ abstract class AbstractHookController extends AbstractTrackerController
 	protected $hookData;
 
 	/**
-	 * The type of hook being activated
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $hookType;
-
-	/**
 	 * Github instance
 	 *
 	 * @var    Github
@@ -90,10 +85,18 @@ abstract class AbstractHookController extends AbstractTrackerController
 	/**
 	 * The project information of the project whose data has been received
 	 *
-	 * @var    object
+	 * @var    TrackerProject
 	 * @since  1.0
 	 */
 	protected $project;
+
+	/**
+	 * Debug mode.
+	 *
+	 * @var integer
+	 * @since  1.0
+	 */
+	protected $debug;
 
 	/**
 	 * Constructor.
@@ -101,6 +104,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
+	 * @throws \RuntimeException
 	 * @since  1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
@@ -108,33 +112,66 @@ abstract class AbstractHookController extends AbstractTrackerController
 		// Run the parent constructor
 		parent::__construct($input, $app);
 
+		$this->debug = $this->getApplication()->get('debug.hooks');
+
+		if (preg_match('/Receive([A-z]+)Hook/', get_class($this), $matches))
+		{
+			$fileName = $matches[1];
+		}
+		else
+		{
+			// Bad class name or regex :P
+			$fileName = 'standard';
+		}
+
 		// Initialize the logger
 		$options['format']         = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
-		$options['text_file_path'] = JPATH_BASE . '/logs';
-		$options['text_file']      = 'github_' . $this->hookType . '.php';
+		$options['text_file_path'] = $this->getApplication()->getDebugger()->getLogPath('root');
+		$options['text_file']      = 'github_' . strtolower($fileName) . '.php';
 		Log::addLogger($options);
 
 		// Get a database object
 		$this->db = $this->getApplication()->getDatabase();
 
 		// Instantiate Github
-		$this->github = new Github;
+		$this->github = $this->getApplication()->getGitHub();
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
 
-		if (!$this->checkIp($this->getInput()->server->getString('REMOTE_ADDR'), $validIps->hooks))
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+		{
+			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+			$myIP = $parts[0];
+		}
+		else
+		{
+			$myIP = $this->getInput()->server->getString('REMOTE_ADDR');
+		}
+
+		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
-			Log::add('Unauthorized request from ' . $this->getInput()->server->getString('REMOTE_ADDR'), Log::NOTICE);
+			Log::add('Unauthorized request from ' . $myIP, Log::NOTICE);
 			$this->getApplication()->close();
 		}
 
 		// Get the payload data
 		$data = $this->getInput()->post->get('payload', null, 'raw');
 
+		if (!$data)
+		{
+			Log::add('No data received.', Log::NOTICE);
+			$this->getApplication()->close();
+		}
+
+		Log::add('Data received.' . ($this->debug ? print_r($data, 1) : ''), Log::NOTICE);
+
 		// Decode it
 		$this->hookData = json_decode($data);
+
+		// Get the project data
+		$this->getProjectData();
 	}
 
 	/**
@@ -214,5 +251,94 @@ abstract class AbstractHookController extends AbstractTrackerController
 			);
 			$this->getApplication()->close();
 		}
+	}
+
+	/**
+	 * Add a new event and store it to the database.
+	 *
+	 * @param   string   $event       The event name.
+	 * @param   string   $dateTime    Date and time.
+	 * @param   string   $userName    User name.
+	 * @param   integer  $projectId   Project id.
+	 * @param   integer  $itemNumber  THE item number.
+	 * @param   integer  $commentId   The comment id
+	 * @param   string   $text        The parsed html comment text.
+	 * @param   string   $textRaw     The raw comment text.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
+	{
+		$activity = new ActivitiesTable($this->db);
+
+		$date = new Date($dateTime);
+		$activity->created_date = $date->format($this->db->getDateFormat());
+
+		$activity->event = $event;
+		$activity->user  = $userName;
+
+		$activity->project_id    = (int) $projectId;
+		$activity->issue_number  = (int) $itemNumber;
+		$activity->gh_comment_id = (int) $commentId;
+
+		$activity->text     = $text;
+		$activity->text_raw = $textRaw;
+
+		try
+		{
+			$activity->store();
+		}
+		catch (\Exception $exception)
+		{
+			Log::add(
+				sprintf(
+					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d): %s',
+					$event,
+					$projectId, $itemNumber,
+					$exception->getMessage()
+				),
+				Log::INFO
+			);
+
+			$this->getApplication()->close();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Parse a text with GitHub Markdown.
+	 *
+	 * @param   string  $text  The text to parse.
+	 *
+	 * @since  1.0
+	 * @return string
+	 */
+	protected function parseText($text)
+	{
+		try
+		{
+			return $this->github->markdown->render(
+				$text,
+				'gfm',
+				$this->project->gh_user . '/' . $this->project->gh_project
+			);
+		}
+		catch (\DomainException $exception)
+		{
+			Log::add(
+				sprintf(
+					'Error parsing comment %d with GH Markdown: %s',
+					$this->hookData->comment->id,
+					$exception->getMessage()
+				),
+				Log::INFO
+			);
+		}
+
+		$this->getApplication()->close();
+
+		return '';
 	}
 }

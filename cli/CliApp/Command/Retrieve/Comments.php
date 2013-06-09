@@ -161,7 +161,6 @@ class Comments extends Retrieve
 
 		$query->select($db->quoteName('issue_number'))
 			->from($db->quoteName('#__issues'))
-			->where($db->quoteName('issue_number') . ' IS NOT NULL')
 			->where($db->quoteName('project_id') . '=' . (int) $this->project->project_id);
 
 		// Issues range selected?
@@ -199,9 +198,30 @@ class Comments extends Retrieve
 				? $progressBar->update($count + 1)
 				: $this->out($count + 1 . '...', false);
 
-			$this->comments[$issue->issue_number] = $this->github->issues->comments->getList(
-				$this->project->gh_user, $this->project->gh_project, $issue->issue_number
-			);
+			$page = 0;
+			$this->comments[$issue->issue_number] = array();
+
+			do
+			{
+				$page++;
+
+				$comments = $this->github->issues->comments->getList(
+					$this->project->gh_user, $this->project->gh_project, $issue->issue_number, $page, 100
+				);
+
+				$count = is_array($comments) ? count($comments) : 0;
+
+				if ($count)
+				{
+					$this->comments[$issue->issue_number] = array_merge($this->comments[$issue->issue_number], $comments);
+
+						$this->usePBar
+						? null
+						: $this->out($count . ' ', false);
+				}
+			}
+
+			while ($count);
 		}
 
 		// Retrieved items, report status

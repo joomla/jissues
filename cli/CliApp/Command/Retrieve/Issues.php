@@ -207,10 +207,10 @@ class Issues extends Retrieve
 
 			$table->project_id = $this->project->project_id;
 
-			// Add the diff URL if this is a pull request
+			// If the issue has a diff URL, it is a pull request.
 			if ($issue->pull_request->diff_url)
 			{
-				// $table->patch_url = $issue->pull_request->diff_url;
+				$table->has_code =  1;
 			}
 
 			// Add the closed date if the status is closed
@@ -220,11 +220,9 @@ class Issues extends Retrieve
 			}
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
-			// TODO - Would be better suited as a regex probably
-			if (strpos($issue->title, '[#') !== false)
+			if (preg_match('/\[#([0-9]+)\]/', $issue->title, $matches))
 			{
-				$pos          = strpos($issue->title, '[#') + 2;
-				$table->foreign_number = substr($issue->title, $pos, 5);
+				$table->foreign_number = $matches[1];
 			}
 
 			$table->store();

@@ -85,6 +85,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
 		)->loadObject();
 
+		if (!$item)
+		{
+			throw new \RuntimeException('Invalid Issue');
+		}
+
 		$table = new ActivitiesTable($this->db);
 		$query = $this->db->getQuery(true);
 

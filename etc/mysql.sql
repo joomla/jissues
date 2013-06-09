@@ -92,9 +92,11 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `modified_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue modified by username',
   `rel_id` integer unsigned DEFAULT NULL COMMENT 'Relation id user',
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
+  `has_code` tinyint(1)NOT NULL DEFAULT '0' COMMENT 'If the issue has code attached - aka a pull request',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
+  KEY `project_id` (`project_id`),
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -161,7 +163,8 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-  PRIMARY KEY (`project_id`)
+  PRIMARY KEY (`project_id`),
+  KEY `alias` (`alias`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --

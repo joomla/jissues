@@ -11,6 +11,7 @@ use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
+use Joomla\Github\Github;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
@@ -205,9 +206,9 @@ final class TrackerApplication extends AbstractWebApplication
 				if ($exception->getUser()->username)
 				{
 					$message[] = 'user: ' . $exception->getUser()->username;
+					$message[] = 'id: ' . $exception->getUser()->id;
 				}
 
-				$message[] = 'id: ' . $exception->getUser()->id;
 				$message[] = 'action: ' . $exception->getAction();
 			}
 
@@ -215,7 +216,7 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 		catch (RoutingException $exception)
 		{
-			header('HTTP/1.1 404 Not Found', true, 403);
+			header('HTTP/1.1 404 Not Found', true, 404);
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
@@ -283,7 +284,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 		$this->config->loadObject($config);
 
-		define('JDEBUG', $this->get('system.debug'));
+		define('JDEBUG', $this->get('debug.system'));
 
 		return $this;
 	}
@@ -432,7 +433,7 @@ final class TrackerApplication extends AbstractWebApplication
 				)
 			);
 
-			if ($this->get('system.debug'))
+			if ($this->get('debug.system'))
 			{
 				$this->database->setDebug(true);
 
@@ -698,6 +699,47 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		return $this->project;
+	}
+
+	/**
+	 * Get a GitHub object.
+	 *
+	 * @since  1.0
+	 * @throws \RuntimeException
+	 * @return Github
+	 */
+	public function getGitHub()
+	{
+		$options = new Registry;
+
+		$token = $this->getSession()->get('gh_oauth_access_token');
+
+		if ($token)
+		{
+			$options->set('gh.token', $token);
+		}
+		else
+		{
+			$options->set('api.username', $this->get('github.username'));
+			$options->set('api.password', $this->get('github.password'));
+		}
+
+		// @todo temporary fix to avoid the "Socket" transport protocol - ADD: and the "stream"...
+		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
+
+		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
+		{
+			throw new \RuntimeException('Please enable cURL.');
+		}
+
+		$http = new \Joomla\Github\Http($options, $transport);
+
+		// $app->debugOut(get_class($transport));
+
+		// Instantiate J\Github
+		$gitHub = new Github($options, $http);
+
+		return $gitHub;
 	}
 
 	/**

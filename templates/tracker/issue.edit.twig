@@ -25,6 +25,48 @@
 
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
+    <!-- Status bar -->
+    <ul class="breadcrumb">
+        <li>
+            <label for="status">Status</label>
+            <select name="item[status]" id="status" class="span2">
+                {% for status in statuses %}
+                    <option {{ status.id == item.status ? "selected='selected'" : ""  }}
+                            value="{{ status.id }}">
+                        {{ status.status }}
+                    </option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="priority">Priority</label>
+            <select name="item[priority]" id="priority" class="span1">
+                {% for i in range(1, 4) %}
+                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </li>
+        {% if project.gh_user and project.gh_project %}
+            <li>
+                <i class="icon-github"></i>
+                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                   target="_blank" class="external">
+                    GitHub # {{ item.issue_number }}
+                </a>
+            </li>
+        {% endif %}
+        {% if item.foreign_number %}
+            <li>
+                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                   target="_blank">
+                    {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
+                    {{ item.foreign_number }}
+                </a>
+            </li>
+        {% endif %}
+
+    </ul>
+
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm">
 
     <div class="row-fluid">
@@ -33,8 +75,8 @@
             {{ avatar(item.opened_by)|raw }}
         </div>
 
-        <div class="span9 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date) }}
+        <div class="span11 well-small">
+            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
             <ul class="unstyled">
                 <li>
                     <label for="title">Title</label>
@@ -45,51 +87,6 @@
                     <textarea id="description" name="item[description_raw]" class="span12"
                       style="min-height: 150px; resize: vertical;">{{ item.description_raw }}</textarea>
                 </li>
-            </ul>
-        </div>
-
-        <div class="span2 well well-small">
-            <ul class="unstyled">
-                <li>
-                    <label for="status">Status</label>
-                    <select name="item[status]" id="status" class="span12">
-                        {% for status in statuses %}
-                        <option {{ status.id == item.status ? "selected='selected'" : ""  }}
-                                value="{{ status.id }}">
-                            {{ status.status }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </li>
-                <li>
-                    <label for="priority">Priority</label>
-                    <select name="item[priority]" id="priority" class="span12">
-                        {% for i in range(1, 4) %}
-                        <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </li>
-                {% if project.gh_user and project.gh_project %}
-                    <li>
-                        <i class="icon-github"></i>
-                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                        target="_blank" class="external">
-                        GitHub # {{ item.issue_number }}
-                    </a>
-                </li>
-                {% endif %}
-                {% if item.foreign_number %}
-                <li>
-                    <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                       target="_blank">
-                        {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
-                        {{ item.foreign_number }}
-                    </a>
-                </li>
-                {% endif %}
-
-                <li>@todo code ? (PR)</li>
-
             </ul>
         </div>
 

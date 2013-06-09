@@ -7,9 +7,89 @@
 
 {% block headerText %}{{ project.title }}{% endblock %}
 
+{% block headerCSS %}
+    {{ parent() }}
+    <style type="text/css">
+        a:target {
+            /* Anchor links in events and fixed top bar */
+            padding-top: 120px;;
+        }
+    </style>
+{% endblock %}
+
+{% block prependMenu %}
+    {% if user.check("edit") %}
+        <li>
+            <a class="btn-warning" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+            Edit
+            </a>
+        </li>
+    {% endif %}
+
+    {{ parent() }}
+
+{% endblock %}
+
 {% block content %}
 
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
+
+    <!-- Status bar -->
+    <ul class="breadcrumb">
+        <li>
+            <span class="badge badge-{{ item.closed ? "important" : "success" }}">
+                {{ translate('COM_TRACKER_STATUS_' ~ item.status_title|upper) }}
+            </span>
+        </li>
+
+        {% if item.closed %}
+            <li>{{ item.closed_date|date("j M y") }}</li>
+            <!-- @todo SHA link -->
+            {% if item.closed_sha %}
+                <li>SHA: {{ item.closed_sha }}</li>
+            {% endif %}
+        {% endif %}
+
+        <li>
+            <span class="badge {{ prioClass(item.priority) }}">
+                {{ sprintf("Priority %d", item.priority) }}
+            </span>
+        </li>
+
+        {% if project.gh_user and project.gh_project %}
+            <li>
+                <i class="icon-github"></i>
+                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                   target="_blank">
+                    GitHub # {{ item.issue_number }}
+                </a>
+            </li>
+
+            {% if item.has_code %}
+                <li>
+                    &nbsp;&bull;&nbsp;
+                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/pull/{{ item.issue_number }}.diff"
+                       target="_blank">
+                        diff
+                    </a>
+                </li>
+            {% endif %}
+
+        {% endif %}
+
+        {% if item.foreign_number %}
+            <li>
+                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                   target="_blank">
+                    {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
+                    {{ item.foreign_number }}
+                </a>
+            </li>
+        {% endif %}
+
+    </ul>
+
+    <!-- Main content -->
 
     <div class="row-fluid">
 
@@ -17,62 +97,15 @@
             {{ avatar(item.opened_by)|raw }}
         </div>
 
-        <div class="span9 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date) }}
+        <div class="span11 well-small">
+            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
             <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
 
-        <div class="span2 well well-small">
-            <ul class="unstyled">
-                <li>
-                    <span class="badge badge-{{ item.closed ? "important" : "success" }}">
-                        {{ translate('COM_TRACKER_STATUS_' ~ item.status_title|upper) }}
-                    </span>
-                </li>
-                {% if item.closed %}
-                    <li>{{ item.closed_date }}</li>
-                    {% if item.closed_sha %}
-                        <li>SHA: {{ item.closed_sha }}</li>
-                    {% endif %}
-                {% endif %}
-                <li>
-                    <span class="badge {{ prioClass(item.priority) }}">
-                        {{ sprintf("Priority %d", item.priority) }}
-                    </span>
-                </li>
-                {% if project.gh_user and project.gh_project %}
-                    <li>
-                        <i class="icon-github"></i>
-                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                       target="_blank">
-                        GitHub # {{ item.issue_number }}
-                    </a>
-                </li>
-                {% endif %}
-                {% if item.foreign_number %}
-                <li>
-                    <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                       target="_blank">
-                        {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
-                        {{ item.foreign_number }}
-                    </a>
-                </li>
-                {% endif %}
-
-                <li>@todo code ? (PR)</li>
-
-                {% if user.check("edit") %}
-                    <li>
-                        <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-                            <span data-icon="&#xe003;"></span>
-                        </a>
-                    </li>
-                {% endif %}
-
-            </ul>
-        </div>
     </div>
+
+    <!-- Activity stream -->
 
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
@@ -84,8 +117,9 @@
             <div class="span11">
                 <div class="well well-small">
                     <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
-                         alt="{{ activity.event }}" title="{{ activity.event }}"/>
-                    {{ activity.created_date }}
+                         alt="{{ activity.event }} on {{ activity.created_date }}"
+                         title="{{ activity.event }} on {{ activity.created_date }}"/>
+                    {{ activity.created_date|date("j M y") }}
                     - <a name ="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                     - {{ activity.user }}
                 </div>
@@ -119,6 +153,8 @@
         </div>
     {% endfor %}
 
+    <!-- Add form -->
+
     <h4>
         Add a Comment
     </h4>
@@ -150,4 +186,5 @@
     {% if jdebug %}
         {{ dump(item) }}
     {% endif %}
+
 {% endblock %}
