@@ -6,6 +6,12 @@
 
 namespace Joomla\Tracker\Application;
 
+use App\Debug\Logger\CallbackLogger;
+use App\Debug\TrackerDebugger;
+use App\Tracker\Model\ProjectModel;
+use App\Tracker\Table\ProjectsTable;
+use App\Tracker\TrackerProject;
+
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
@@ -18,11 +24,6 @@ use Joomla\Registry\Registry;
 use Joomla\Tracker\Authentication\Exception\AuthenticationException;
 use Joomla\Tracker\Authentication\GitHub\GitHubUser;
 use Joomla\Tracker\Authentication\User;
-use Joomla\Tracker\Components\Debug\Logger\CallbackLogger;
-use Joomla\Tracker\Components\Debug\TrackerDebugger;
-use Joomla\Tracker\Components\Tracker\Model\ProjectModel;
-use Joomla\Tracker\Components\Tracker\Table\ProjectsTable;
-use Joomla\Tracker\Components\Tracker\TrackerProject;
 use Joomla\Tracker\Controller\AbstractTrackerController;
 use Joomla\Tracker\Router\Exception\RoutingException;
 use Joomla\Tracker\Router\TrackerRouter;
@@ -169,7 +170,8 @@ final class TrackerApplication extends AbstractWebApplication
 			}
 
 			$router->addMaps($maps, true);
-			$router->setControllerPrefix('Joomla\\Tracker\\Components');
+			//$router->setControllerPrefix('Joomla\\Tracker\\Components');
+			$router->setControllerPrefix('\\App');
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
 			// Fetch the controller
@@ -466,9 +468,6 @@ final class TrackerApplication extends AbstractWebApplication
 				$this->get('language'),
 				$this->get('debug_lang')
 			);
-
-			// @todo Decouple from Factory
-			Factory::$language = $this->language;
 		}
 
 		return $this->language;

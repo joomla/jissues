@@ -9,8 +9,8 @@ namespace CliApp\Command\Retrieve;
 use CliApp\Application\TrackerApplication;
 use Joomla\Date\Date;
 
-use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
-use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\IssuesTable;
+use App\Tracker\Table\ActivitiesTable;
 
 /**
  * Class for retrieving issues from GitHub for selected projects

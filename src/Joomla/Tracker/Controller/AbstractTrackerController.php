@@ -56,6 +56,7 @@ abstract class AbstractTrackerController extends AbstractController
 
 			// Strip the base component namespace off
 			$className = str_replace('Joomla\\Tracker\\Components\\', '', $fqcn);
+			$className = str_replace('App\\', '', $className);
 
 			// Explode the remaining name into an array
 			$classArray = explode('\\', $className);
@@ -145,13 +146,25 @@ abstract class AbstractTrackerController extends AbstractController
 		$input->set('view', $vName);
 
 		$base   = '\\Joomla\\Tracker\\Components\\' . $this->component;
+		$base2   = '\\App\\' . $this->component;
+
 		$vClass = $base . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
 		$mClass = $base . '\\Model\\' . ucfirst($vName) . 'Model';
 
 		// If a model doesn't exist for our view, revert to the default model
 		if (!class_exists($mClass))
 		{
-			$mClass = $base . '\\Model\\DefaultModel';
+			$mClass = $base2 . '\\Model\\' . ucfirst($vName) . 'Model';
+
+			if (!class_exists($mClass))
+			{
+				$mClass = $base . '\\Model\\DefaultModel';
+			}
+
+			if (!class_exists($mClass))
+			{
+				$mClass = $base2 . '\\Model\\DefaultModel';
+			}
 
 			// If there still isn't a class, panic.
 			if (!class_exists($mClass))
@@ -163,7 +176,13 @@ abstract class AbstractTrackerController extends AbstractController
 		// Make sure the view class exists, otherwise revert to the default
 		if (!class_exists($vClass))
 		{
-			$vClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
+			$vClass = $base2 . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
+
+			// If there still isn't a class, panic.
+			if (!class_exists($vClass))
+			{
+				$vClass = '\\Joomla\\Tracker\\View\\TrackerDefaultView';
+			}
 
 			// If there still isn't a class, panic.
 			if (!class_exists($vClass))
