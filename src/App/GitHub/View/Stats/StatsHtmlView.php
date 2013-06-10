@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\System\View\Stats;
+namespace App\GitHub\View\Stats;
 
 use Joomla\Github\Github;
 use App\Tracker\Model\ProjectModel;

@@ -6,9 +6,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Hooks\Ajax;
+namespace App\GitHub\Controller\Hooks\Ajax;
 
-use Joomla\Factory;
 use JTracker\Controller\AbstractTrackerController;
 
 /**

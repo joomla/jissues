@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\System\Controller;
+namespace App\GitHub\Controller;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -23,3 +23,4 @@ class StatsController extends AbstractTrackerController
 	 */
 	protected $defaultView = 'stats';
 }
+

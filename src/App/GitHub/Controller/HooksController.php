@@ -4,10 +4,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller;
+namespace App\GitHub\Controller;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**

@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\View\Hooks;
+namespace App\GitHub\View\Hooks;
 
 use Joomla\Factory;
 use JTracker\View\AbstractTrackerHtmlView;
