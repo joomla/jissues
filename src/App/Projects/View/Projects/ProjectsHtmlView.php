@@ -4,11 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\View\Projects;
+namespace App\Projects\View\Projects;
 
-use App\Tracker\Model\ProjectsModel;
+use App\Projects\Model\ProjectsModel;
 use JTracker\View\AbstractTrackerHtmlView;
-use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**
  * The projects list view

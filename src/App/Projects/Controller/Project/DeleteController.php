@@ -4,11 +4,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Project;
+namespace App\Projects\Controller\Project;
 
 use App\Tracker\Controller\DefaultController;
-use App\Tracker\Model\ProjectModel;
-use App\Tracker\Table\ProjectsTable;
+use App\Projects\Model\ProjectModel;
+use App\Projects\Table\ProjectsTable;
 
 /**
  * Controller class to delete a project.
@@ -45,6 +45,9 @@ class DeleteController extends DefaultController
 		$table = new ProjectsTable($app->getDatabase());
 
 		$table->delete($project->project_id);
+
+		// Reload thee  project
+		$this->getApplication()->getProject(true);
 
 		$this->getInput()->set('view', 'projects');
 

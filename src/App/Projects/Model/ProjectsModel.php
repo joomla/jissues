@@ -4,10 +4,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Model;
+namespace App\Projects\Model;
 
 use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
+
 use JTracker\Model\AbstractTrackerListModel;
 
 /**

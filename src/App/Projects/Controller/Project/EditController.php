@@ -4,16 +4,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Project;
+namespace App\Projects\Controller\Project;
 
-use JTracker\Controller\AbstractTrackerController;
+use App\Tracker\Controller\DefaultController;
 
 /**
- * Controller class to add a project.
+ * Controller class to edit a project.
  *
  * @since  1.0
  */
-class AddController extends AbstractTrackerController
+class EditController extends DefaultController
 {
 	/**
 	 * The default view for the component
@@ -26,7 +26,7 @@ class AddController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
 	 */
@@ -34,8 +34,11 @@ class AddController extends AbstractTrackerController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-		$this->getInput()->set('layout', 'edit');
+		$input = $this->getInput();
 
-		parent::execute();
+		$input->set('layout', 'edit');
+		$input->set('view', 'project');
+
+		return parent::execute();
 	}
 }

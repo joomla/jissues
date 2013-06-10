@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\View\Project;
+namespace App\Projects\View\Project;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -16,7 +16,7 @@ use JTracker\View\AbstractTrackerHtmlView;
 class ProjectHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * @var  \App\Tracker\Model\ProjectModel
+	 * @var  \App\Projects\Model\ProjectModel
 	 */
 	protected $model;
 

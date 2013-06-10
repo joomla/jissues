@@ -8,9 +8,10 @@ namespace JTracker\Application;
 
 use App\Debug\Logger\CallbackLogger;
 use App\Debug\TrackerDebugger;
-use App\Tracker\Model\ProjectModel;
-use App\Tracker\Table\ProjectsTable;
-use App\Tracker\TrackerProject;
+
+use App\Projects\Model\ProjectModel;
+use App\Projects\Table\ProjectsTable;
+use App\Projects\TrackerProject;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;

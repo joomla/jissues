@@ -4,10 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Project;
+namespace App\Projects\Controller\Project;
 
 use App\Tracker\Controller\DefaultController;
-use App\Tracker\Table\ProjectsTable;
+use App\Projects\Table\ProjectsTable;
 
 /**
  * Controller class to save a project.
