@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller;
+namespace App\Support\Controller;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -13,7 +13,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class MdpreviewController extends AbstractTrackerController
+class MarkdownController extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -21,5 +21,5 @@ class MdpreviewController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'markdownpreview';
+	protected $defaultView = 'markdown';
 }
