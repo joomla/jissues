@@ -1,37 +1,37 @@
 {
-	"tracker": "\\Tracker\\Controller\\DefaultController",
+    "tracker": "\\Tracker\\Controller\\DefaultController",
 
-	"hooks/issues": "\\Tracker\\Controller\\Hooks\\ReceiveIssuesHook",
-	"hooks/pulls": "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
-	"hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
+    "hooks/issues": "\\Tracker\\Controller\\Hooks\\ReceiveIssuesHook",
+    "hooks/pulls": "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
+    "hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
 
-	"login": "\\Users\\Controller\\LoginController",
-	"logout": "\\Users\\Controller\\LogoutController",
-	"users": "\\Users\\Controller\\UsersController",
-	"user": "\\Users\\Controller\\UserController",
+    "login": "\\Users\\Controller\\LoginController",
+    "logout": "\\Users\\Controller\\LogoutController",
+    "users": "\\Users\\Controller\\UsersController",
+    "user": "\\Users\\Controller\\UserController",
 
-    "user/search" : "\\Users\\Controller\\Ajax\\SearchController",
-    "user/assign" : "\\Users\\Controller\\Ajax\\AssignController",
-    "users/list" : "\\Users\\Controller\\Ajax\\ListController",
+    "user/search": "\\Users\\Controller\\Ajax\\SearchController",
+    "user/assign": "\\Users\\Controller\\Ajax\\AssignController",
+    "users/list": "\\Users\\Controller\\Ajax\\ListController",
 
-	"user/:id": "\\Users\\Controller\\UserController",
+    "user/:id": "\\Users\\Controller\\UserController",
 
     "config": "\\System\\Controller\\ConfigController",
-	"saveconfig": "\\System\\Controller\\Config\\SaveController",
+    "saveconfig": "\\System\\Controller\\Config\\SaveController",
 
-	"projects": "\\Projects\\Controller\\ProjectsController",
+    "projects": "\\Projects\\Controller\\ProjectsController",
 
-	"project/add": "\\Projects\\Controller\\Project\\AddController",
-	"project/:project_alias": "\\Projects\\Controller\\ProjectController",
-	"project/:project_alias/edit": "\\Projects\\Controller\\Project\\EditController",
-	"project/:project_alias/delete": "\\Projects\\Controller\\Project\\DeleteController",
-	"saveproject": "\\Projects\\Controller\\Project\\SaveController",
+    "project/add": "\\Projects\\Controller\\Project\\AddController",
+    "project/:project_alias": "\\Projects\\Controller\\ProjectController",
+    "project/:project_alias/edit": "\\Projects\\Controller\\Project\\EditController",
+    "project/:project_alias/delete": "\\Projects\\Controller\\Project\\DeleteController",
+    "saveproject": "\\Projects\\Controller\\Project\\SaveController",
 
-	"project/:project_alias/groups": "\\Groups\\Controller\\GroupsController",
-	"project/:project_alias/group/:group_id": "\\Groups\\Controller\\GroupController",
-	"project/:project_alias/group/:group_id/delete": "\\Groups\\Controller\\Group\\DeleteController",
-	"project/:project_alias/addgroup": "\\Groups\\Controller\\Group\\AddController",
-	"project/:project_alias/savegroup": "\\Groups\\Controller\\Group\\SaveController",
+    "project/:project_alias/groups": "\\Groups\\Controller\\GroupsController",
+    "project/:project_alias/group/:group_id": "\\Groups\\Controller\\GroupController",
+    "project/:project_alias/group/:group_id/delete": "\\Groups\\Controller\\Group\\DeleteController",
+    "project/:project_alias/addgroup": "\\Groups\\Controller\\Group\\AddController",
+    "project/:project_alias/savegroup": "\\Groups\\Controller\\Group\\SaveController",
 
     "tracker/:project_alias/stats": "\\GitHub\\Controller\\StatsController",
 
