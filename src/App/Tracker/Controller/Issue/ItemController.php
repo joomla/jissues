@@ -45,6 +45,6 @@ class ItemController extends AbstractTrackerController
 	{
 		$this->getApplication()->getUser()->authorize('view');
 
-		return parent::execute();
+		parent::execute();
 	}
 }

@@ -4,9 +4,12 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Group;
+namespace App\Groups\Controller;
 
 use App\Tracker\Controller\DefaultController;
+
+use Joomla\Application\AbstractApplication;
+use Joomla\Input\Input;
 
 /**
  * Controller class to add an item via the tracker component.
@@ -14,15 +17,23 @@ use App\Tracker\Controller\DefaultController;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class AddController extends DefaultController
+class GroupsController extends DefaultController
 {
 	/**
-	 * The default view for the component.
+	 * Constructor
 	 *
-	 * @var    string
+	 * @param   Input                $input  The input object.
+	 * @param   AbstractApplication  $app    The application object.
+	 *
 	 * @since  1.0
 	 */
-	protected $defaultView = 'group';
+	public function __construct(Input $input = null, AbstractApplication $app = null)
+	{
+		parent::__construct($input, $app);
+
+		// Set the default view
+		$this->getInput()->set('view', 'groups');
+	}
 
 	/**
 	 * Execute the controller.
@@ -30,14 +41,12 @@ class AddController extends DefaultController
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
+	 * @return void
 	 */
 	public function execute()
 	{
 		$this->getApplication()->getUser()->authorize('manage');
 
-		$this->getInput()->set('layout', 'edit');
-		$this->getInput()->set('view', 'group');
-
-		return parent::execute();
+		parent::execute();
 	}
 }

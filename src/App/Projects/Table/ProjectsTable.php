@@ -6,7 +6,7 @@
 
 namespace App\Projects\Table;
 
-use App\Tracker\Table\GroupsTable;
+use App\Groups\Table\GroupsTable;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\InputFilter;

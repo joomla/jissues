@@ -4,8 +4,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller;
+namespace App\Groups\Controller;
 
+use App\Tracker\Controller\DefaultController;
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
@@ -15,7 +16,7 @@ use Joomla\Input\Input;
  * @package  JTracker\Components\Tracker
  * @since    1.0
  */
-class GroupsController extends DefaultController
+class GroupController extends DefaultController
 {
 	/**
 	 * Constructor
@@ -30,7 +31,8 @@ class GroupsController extends DefaultController
 		parent::__construct($input, $app);
 
 		// Set the default view
-		$this->getInput()->set('view', 'groups');
+		$this->getInput()->set('view', 'group');
+		$this->getInput()->set('layout', 'edit');
 	}
 
 	/**
@@ -39,7 +41,6 @@ class GroupsController extends DefaultController
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @return void
 	 */
 	public function execute()
 	{

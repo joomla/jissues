@@ -47,6 +47,6 @@ class DefaultController extends AbstractTrackerController
 			$this->getApplication()->getUser()->authorize('view');
 		}
 
-		return parent::execute();
+		parent::execute();
 	}
 }

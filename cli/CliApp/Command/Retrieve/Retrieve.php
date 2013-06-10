@@ -9,17 +9,18 @@
 
 namespace CliApp\Command\Retrieve;
 
+use App\Projects\Model\ProjectsModel;
+use App\Projects\Table\ProjectsTable;
+
 use Elkuku\Console\Helper\ConsoleProgressBar;
+
 use Joomla\Github\Github;
 use Joomla\Registry\Registry;
-
-use App\Tracker\Model\ProjectsModel;
 
 use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
-use App\Tracker\Table\ProjectsTable;
 
 /**
  * Class for retrieving data from GitHub for selected projects

@@ -71,6 +71,6 @@ class SaveController extends AbstractTrackerController
 			// $this->getInput()->set('layout', 'edit');
 		}
 
-		return parent::execute();
+		parent::execute();
 	}
 }

@@ -6,8 +6,6 @@
 
 namespace App\Support\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
 use JTracker\Controller\AbstractTrackerController;
 
 /**

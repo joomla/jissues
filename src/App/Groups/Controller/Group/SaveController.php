@@ -4,10 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Group;
+namespace App\Groups\Controller\Group;
 
+use App\Groups\Table\GroupsTable;
 use App\Tracker\Controller\DefaultController;
-use App\Tracker\Table\GroupsTable;
 
 /**
  * Controller class to add an item via the tracker component.

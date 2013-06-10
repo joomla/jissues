@@ -4,10 +4,10 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Group;
+namespace App\Groups\Controller\Group;
 
+use App\Groups\Table\GroupsTable;
 use App\Tracker\Controller\DefaultController;
-use App\Tracker\Table\GroupsTable;
 
 /**
  * Controller class to delete a project.
@@ -41,6 +41,8 @@ class DeleteController extends DefaultController
 
 		$table->load($app->input->getInt('group_id'))
 			->delete();
+
+		$this->getInput()->set('view', 'groups');
 
 		parent::execute();
 	}

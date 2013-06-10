@@ -4,11 +4,13 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\View\Group;
+namespace App\Groups\View\Group;
+
+use App\Groups\Model\GroupModel;
 
 use Joomla\Factory;
 use Joomla\Language\Text;
-use App\Tracker\Model\GroupModel;
+
 use JTracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
 

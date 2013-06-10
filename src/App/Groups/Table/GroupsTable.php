@@ -4,11 +4,12 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Table;
+namespace App\Groups\Table;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
+
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
