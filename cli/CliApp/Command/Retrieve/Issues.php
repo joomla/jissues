@@ -9,8 +9,8 @@ namespace CliApp\Command\Retrieve;
 use CliApp\Application\TrackerApplication;
 use Joomla\Date\Date;
 
-use Joomla\Tracker\Components\Tracker\Table\IssuesTable;
-use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\IssuesTable;
+use App\Tracker\Table\ActivitiesTable;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -210,7 +210,7 @@ class Issues extends Retrieve
 			// If the issue has a diff URL, it is a pull request.
 			if ($issue->pull_request->diff_url)
 			{
-				$table->has_code =  1;
+				$table->has_code = 1;
 			}
 
 			// Add the closed date if the status is closed

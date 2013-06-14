@@ -15,7 +15,9 @@
     },
     "autoload": {
         "psr-0": {
-            "Joomla\\Tracker": "src/"
+            "Joomla": "src/",
+            "JTracker": "src/",
+            "App": "src/"
         }
     },
     "minimum-stability": "dev"

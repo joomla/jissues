@@ -15,7 +15,7 @@ use Joomla\Database\DatabaseDriver;
 
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
-use Joomla\Tracker\Authentication\GitHub\GitHubUser;
+use JTracker\Authentication\GitHub\GitHubUser;
 
 /**
  * CLI application for installing the tracker application
