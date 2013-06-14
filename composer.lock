@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9706fd969b07e955751326cc24cfdf82",
+    "hash": "a7db671763913ebce91f014a3b675edc",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "77381f52ff227ae177de0f5bc7cc58f55a8afa3b"
+                "reference": "8032df33125c900a16ef564ba3ebae5ba538143b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/77381f52ff227ae177de0f5bc7cc58f55a8afa3b",
-                "reference": "77381f52ff227ae177de0f5bc7cc58f55a8afa3b",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/8032df33125c900a16ef564ba3ebae5ba538143b",
+                "reference": "8032df33125c900a16ef564ba3ebae5ba538143b",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-06-08 21:29:50"
+            "time": "2013-06-10 14:33:53"
         },
         {
             "name": "mustache/mustache",
@@ -219,12 +219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "v2.3.0-RC1"
+                "reference": "v2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.0-RC1",
-                "reference": "v2.3.0-RC1",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.1",
+                "reference": "v2.3.1",
                 "shasum": ""
             },
             "require": {
