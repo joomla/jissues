@@ -8,7 +8,7 @@ namespace CliApp\Command\Retrieve;
 
 use Joomla\Date\Date;
 
-use Joomla\Tracker\Components\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\ActivitiesTable;
 
 use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommandOption;

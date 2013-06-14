@@ -8,7 +8,7 @@
 
 namespace Joomla\Tracker\Tests\Authentication\GitHub;
 
-use Joomla\Tracker\Authentication\GitHub\GitHubUser;
+use JTracker\Authentication\GitHub\GitHubUser;
 
 /**
  * Class GitHubUserTest.

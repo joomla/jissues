@@ -8,8 +8,8 @@ namespace CliApp\Command\Retrieve;
 
 use CliApp\Application\TrackerApplication;
 
-use Joomla\Tracker\Authentication\GitHub\GitHubLoginHelper;
-use Joomla\Tracker\Authentication\GitHub\GitHubUser;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Authentication\GitHub\GitHubUser;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
