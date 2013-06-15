@@ -124,9 +124,6 @@
                             </ul>
                         </li>
                     </ul>
-                    <form id="nav-search" class="navbar-search pull-right">
-                        <input type="text" class="search-query" placeholder="Search">
-                    </form>
                 </div>
             </div>
         </div>
@@ -215,7 +212,7 @@
                     </li>
                 </ul>
 
-                <p>&copy; 2005 - 2013
+                <p>&copy; 2005 - {{ now|date("Y") }}
                     <a href="http://www.opensourcematters.org">Open Source Matters, Inc.</a> All rights reserved.</p>
             </div>
         {% endblock %}
