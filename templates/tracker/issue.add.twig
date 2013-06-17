@@ -29,9 +29,10 @@
     {{ parent() }}
     <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
     <script type="text/javascript">
+        var switcher = $('#helpSwitch');
 
         // Show and hide help texts
-        $('#helpSwitch').on('switch-change', function (e, data) {
+        switcher.on('switch-change', function (e, data) {
             if (data.value) {
                 $('.helpText').show();
             }
@@ -41,13 +42,39 @@
         });
 
         // Set the initial state
-        if ($('#helpSwitch').children('input').attr('checked')) {
+        if (switcher.children('input').attr('checked')) {
             $('.helpText').show();
         }
         else {
             $('.helpText').hide();
         }
 
+        $('a[data-toggle="tab"]').on('shown', function (e)
+        {
+            if('#preview' == $(e.target).attr('href'))
+            {
+                var out = $('#preview');
+
+                out.html('Loading preview...');
+
+                $.post(
+                        '/preview',
+                        { text: $('#description').val() },
+                        function (response) {
+                            out.empty();
+                            if (response.error) {
+                                out.html(response.error);
+                            }
+                            else if (!response.data.length) {
+                                out.html('Invalid response.');
+                            }
+                            else {
+                                out.html(response.data);
+                            }
+                        }
+                );
+            }
+        });
     </script>
 {% endblock %}
 
@@ -92,7 +119,10 @@
             <div class="helpText alert alert-info">help title...</div>
 
             <label for="description">Description</label>
-            <textarea name="description" id="description"></textarea>
+
+            {% set editorId="description" %}
+            {% set editorPlaceholder="Description text" %}
+            {% include "editor.twig" %}
 
             <div class="helpText alert alert-info">help description...</div>
 

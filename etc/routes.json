@@ -45,6 +45,7 @@
     "project/:project_alias/hooks-list": "\\GitHub\\Controller\\Hooks\\Ajax\\ListController",
     "project/:project_alias/hooks-add": "\\GitHub\\Controller\\Hooks\\Ajax\\AddController",
     "project/:project_alias/hooks-modify": "\\GitHub\\Controller\\Hooks\\Ajax\\ModifyController",
+    "preview": "\\GitHub\\Controller\\PreviewController",
 
     "logs/:log_type": "\\Debug\\Controller\\LogsController",
 
