@@ -102,18 +102,19 @@ class TrackerDebugger
 
 		$entry = new \stdClass;
 
-		$entry->sql     = isset($context['sql'])     ? $context['sql']     : 'n/a';
-		$entry->time    = isset($context['time'])    ? $context['time']    : 'n/a';
-		$entry->trace   = isset($context['trace'])   ? $context['trace']   : 'n/a';
+		$entry->sql   = isset($context['sql'])   ? $context['sql']   : 'n/a';
+		$entry->times = isset($context['times']) ? $context['times'] : 'n/a';
+		$entry->trace = isset($context['trace']) ? $context['trace'] : 'n/a';
 
 		if ($entry->sql == 'SHOW PROFILE')
 		{
 			return $this;
 		}
 
-/*		$db->setQuery('SHOW PROFILE');
+		//$db->setQuery('SHOW PROFILE');
+		$entry->profile = '';// $db->loadAssocList();
+/*
 		/ Get the profiling information
-		$entry->profile = $db->loadAssocList();
 			$cursor = mysqli_query($this->connection, 'SHOW PROFILE');
 			$profile = '';
 */
@@ -240,23 +241,29 @@ class TrackerDebugger
 				// @is_object($entry))
 				if (1)
 				{
-					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
-					$debug[] = sprintf('Query Time: %.3f ms', $entry->time * 1000) . '<br />';
+					$explain = $dbDebugger->getExplain($entry->sql);
 
-					$debug[] = '';
+					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
+					$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
+
 					$debug[] = '<ul class="nav nav-tabs">';
 
-					$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
+					if ($explain)
+					{
+						$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
+					}
+
 					$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
 
 					// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+
 					$debug[] = '</ul>';
 
 					$debug[] = '<div class="tab-content">';
 
 					$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
 
-					$debug[] = $dbDebugger->getExplain($entry->sql);
+					$debug[] = $explain;
 					$debug[] = '</div>';
 
 					$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
@@ -269,8 +276,7 @@ class TrackerDebugger
 					$debug[] = '</div>';
 
 					// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
-
-					// $debug[] = $this->tableToHtml($entry->profile);
+					// $debug[] = $tableFormat->fromArray($entry->profile);
 					// $debug[] = '</div>';
 
 					$debug[] = '</div>';
