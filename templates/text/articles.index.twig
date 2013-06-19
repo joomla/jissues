@@ -1,0 +1,67 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}Articles{% endblock %}
+
+{% block headerText %}Articles{% endblock %}
+
+{% block headerCSS %}
+    <link href="{{ uri.base.path }}css/pagination/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}css/pagination/B_black.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block prependMenu %}
+    {% if user.check("create") %}
+        <li>
+            <a class="btn-success" href="{{ uri.base.path }}text/add">
+                New Article
+            </a>
+        </li>
+    {% endif %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <h2>Articles List</h2>
+
+    <table class="table table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>Title/Alias</th>
+            <th style="width: 10%">Actions</th>
+        </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+        <tbody>
+        {% for a in items %}
+            <tr>
+                <td>
+                    <a href="{{ uri.base.path }}text/edit/{{ a.article_id }}">
+                        {{ a.title ? : '---' }} / {{ a.alias }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ uri.base.path }}page/{{ a.alias }}">
+                        View
+                    </a>
+                    <a href="{{ uri.base.path }}text/delete/{{ a.article_id }}">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3"><div class="alert alert-warning"> No articles found</div></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

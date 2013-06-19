@@ -1,0 +1,51 @@
+<?php
+/**
+ * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+namespace App\Text\View\Article;
+
+use App\Text\Model\ArticleModel;
+use App\Text\Table\ArticlesTable;
+use Joomla\Factory;
+use JTracker\View\AbstractTrackerHtmlView;
+
+/**
+ * Users view class for the Users component
+ *
+ * @since  1.0
+ */
+class ArticleHtmlView extends AbstractTrackerHtmlView
+{
+	/**
+	 * Redefine the model so the correct type hinting is available.
+	 *
+	 * @var     ArticleModel
+	 * @since   1.0
+	 */
+	protected $model;
+
+	/**
+	 * Method to render the view.
+	 *
+	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
+	 */
+	public function render()
+	{
+		/* @type \JTracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		$id = $application->input->getInt('id');
+
+		$item = $id
+			? $this->model->getItem($id)
+			: new ArticlesTable($application->getDatabase());
+
+		$this->renderer->set('item', $item);
+
+		return parent::render();
+	}
+}

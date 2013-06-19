@@ -1,0 +1,17 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+    {% if page.title %}
+        <h2>{{ page.title }}</h2>
+    {% endif %}
+
+    <!-- Note that using RAW output format here should be save -->
+    <!-- since the text is the result of a request to GitHub's markdown parser -->
+
+    {{ page.text|raw }}
+
+{% endblock %}
