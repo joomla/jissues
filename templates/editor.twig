@@ -5,9 +5,12 @@
     <li class="active"><a href="#write" data-toggle="tab">Write</a></li>
     <li><a href="#preview" data-toggle="tab">Preview</a></li>
 </ul>
+
 <div class="tab-content">
     <div class="tab-pane active" id="write">
-        <textarea id="{{ editorId }}" class="span12" style="resize: vertical; min-height: 150px;" placeholder="{{ editorPlaceholder }}"></textarea>
+        <textarea name="{{ editorName }}" id="{{ editorId ? editorId : editorName }}"
+                  class="span12" style="resize: vertical; min-height: 150px;"
+                  placeholder="{{ editorPlaceholder }}">{{ editorText }}</textarea>
     </div>
     <div class="tab-pane" id="preview">.......</div>
 </div>
