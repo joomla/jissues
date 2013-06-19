@@ -16,7 +16,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class HooksController extends AbstractTrackerController
+class Hooks extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component

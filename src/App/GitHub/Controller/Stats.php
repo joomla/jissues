@@ -13,7 +13,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class StatsController extends AbstractTrackerController
+class Stats extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component

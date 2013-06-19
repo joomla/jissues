@@ -16,7 +16,7 @@ use JTracker\Controller\AbstractTrackerController;
  * @package  JTracker\Components\Users
  * @since    1.0
  */
-class ModifyController extends AbstractTrackerController
+class Modify extends AbstractTrackerController
 {
 	/**
 	 * Execute the controller.

@@ -13,7 +13,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class PreviewController extends AbstractTrackerController
+class Preview extends AbstractTrackerController
 {
 	/**
 	 * Execute the controller.

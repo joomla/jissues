@@ -16,7 +16,7 @@ use JTracker\Controller\AbstractTrackerController;
  * @package  JTracker\Components\Users
  * @since    1.0
  */
-class ListController extends AbstractTrackerController
+class Add extends AbstractTrackerController
 {
 	/**
 	 * Execute the controller.
@@ -39,12 +39,32 @@ class ListController extends AbstractTrackerController
 		{
 			$this->getApplication()->getUser()->authorize('admin');
 
+			$url = $this->getInput()->getHtml('url');
+			$events = $this->getInput()->getHtml('events');
+
 			$project = $this->getApplication()->getProject();
 
-			$response->data = $this->getApplication()->getGitHub()
-				->repositories->hooks->getList(
-				$project->gh_user, $project->gh_project
+			$gitHub = $this->getApplication()->getGitHub();
+
+			$name   = 'web';
+			$active = 1;
+
+			$config = array();
+			$config['url'] = $url;
+			$config['content-type'] = 'json';
+
+			// Create the hook.
+			$gitHub->repositories->hooks->create(
+				$project->gh_user,
+				$project->gh_project,
+				$name,
+				$config,
+				explode(',', $events),
+				$active
 			);
+
+			// Get the current hooks list.
+			$response->data = $gitHub->repositories->hooks->getList($project->gh_user, $project->gh_project);
 		}
 		catch (\Exception $e)
 		{
