@@ -12,8 +12,6 @@ namespace CliApp\Command\Retrieve;
 use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
 
-use Elkuku\Console\Helper\ConsoleProgressBar;
-
 use Joomla\Github\Github;
 use Joomla\Registry\Registry;
 
@@ -197,47 +195,7 @@ class Retrieve extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		// Set up Github
-		$options = new Registry;
-
-		if ($this->application->input->get('auth'))
-		{
-			$resp = 'yes';
-		}
-		else
-		{
-			// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-			$this->out('<question>Do you wish to authenticate to GitHub?</question> [y]es / <b>[n]o</b> :', false);
-
-			$resp = trim($this->application->in());
-		}
-
-		if ($resp == 'y' || $resp == 'yes')
-		{
-			// Set the options
-			$options->set('api.username', $this->application->get('github.username', ''));
-			$options->set('api.password', $this->application->get('github.password', ''));
-
-			$this->application->debugOut('GitHub credentials: ' . print_r($options, true));
-		}
-
-		// @todo temporary fix to avoid the "Socket" transport protocol
-		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
-
-		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
-		{
-			throw new \RuntimeException('Please enable cURL.');
-		}
-
-		$http = new \Joomla\Github\Http($options, $transport);
-
-		$this->application->debugOut(get_class($transport));
-
-		// Instantiate Github
-		$this->github = new Github($options, $http);
-
-		// @todo after fix this should be enough:
-		// $this->github = new Github($options);
+		$this->github = $this->application->getGitHub();
 
 		return $this;
 	}
@@ -251,13 +209,7 @@ class Retrieve extends TrackerCommand
 	 */
 	protected function displayGitHubRateLimit()
 	{
-		$this->out()
-			->out('<info>GitHub rate limit:...</info> ', false);
-
-		$rate = $this->github->authorization->getRateLimit()->rate;
-
-		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
-			->out();
+		$this->application->displayGitHubRateLimit();
 
 		return $this;
 	}
@@ -267,14 +219,12 @@ class Retrieve extends TrackerCommand
 	 *
 	 * @param   integer  $targetNum  The target number.
 	 *
-	 * @return  ConsoleProgressBar
+	 * @return  \Elkuku\Console\Helper\ConsoleProgressBar
 	 *
 	 * @since   1.0
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		return ($this->usePBar)
-			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
-			: null;
+		return $this->application->getProgressBar($targetNum);
 	}
 }

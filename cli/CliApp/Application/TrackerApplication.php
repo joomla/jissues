@@ -6,9 +6,11 @@
 
 namespace CliApp\Application;
 
+use Elkuku\Console\Helper\ConsoleProgressBar;
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
+use Joomla\Github\Github;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 use Joomla\Database\DatabaseDriver;
@@ -33,6 +35,11 @@ class TrackerApplication extends AbstractCliApplication
 	private $database = null;
 
 	/**
+	 * @var Github
+	 */
+	private $gitHub = null;
+
+	/**
 	 * Quiet mode - no output.
 	 *
 	 * @var    boolean
@@ -47,6 +54,22 @@ class TrackerApplication extends AbstractCliApplication
 	 * @since  1.0
 	 */
 	private $verbose = false;
+
+	/**
+	 * Use the progress bar.
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
+	protected $usePBar;
+
+	/**
+	 * Progress bar format.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $pBarFormat = '[%bar%] %fraction% %elapsed% ETA: %estimate%';
 
 	/**
 	 * Array of TrackerCommandOption objects
@@ -103,7 +126,12 @@ class TrackerApplication extends AbstractCliApplication
 			->addStyle('title', new ColorStyle('yellow', '', array('bold')))
 			->addStyle('ok', new ColorStyle('green', '', array('bold')));
 
-		$this->set('cli_app', true);
+		$this->usePBar = $this->get('cli-application.progress-bar');
+
+		if ($this->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 	}
 
 	/**
@@ -151,6 +179,12 @@ class TrackerApplication extends AbstractCliApplication
 			$command = $args[0];
 
 			$action = (isset($args[1])) ? $args[1] : $command;
+		}
+
+		if ('retrieve' == $command)
+		{
+			// @legacy JTracker
+			$command = 'get';
 		}
 
 		$className = 'CliApp\\Command\\' . ucfirst($command) . '\\' . ucfirst($action);
@@ -211,9 +245,8 @@ class TrackerApplication extends AbstractCliApplication
 	 *
 	 * @param   string  $text  The text to display.
 	 *
-	 * @return  TrackerApplication
-	 *
 	 * @since   1.0
+	 * @return  TrackerApplication
 	 */
 	public function debugOut($text)
 	{
@@ -347,5 +380,97 @@ class TrackerApplication extends AbstractCliApplication
 		$user->isAdmin = true;
 
 		return $user;
+	}
+
+	/**
+	 * Get a GitHub object.
+	 *
+	 * @since  1.0
+	 * @throws \RuntimeException
+	 * @return Github
+	 */
+	public function getGitHub()
+	{
+		if (is_null($this->gitHub))
+		{
+			$options = new Registry;
+
+			if ($this->input->get('auth'))
+			{
+				$resp = 'yes';
+			}
+			else
+			{
+				// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
+				$this->out('<question>Do you wish to authenticate to GitHub?</question> [y]es / <b>[n]o</b> :', false);
+
+				$resp = trim($this->in());
+			}
+
+			if ($resp == 'y' || $resp == 'yes')
+			{
+				// Set the options
+				$options->set('api.username', $this->get('github.username', ''));
+				$options->set('api.password', $this->get('github.password', ''));
+
+				$this->debugOut('GitHub credentials: ' . print_r($options, true));
+			}
+
+			// @todo temporary fix to avoid the "Socket" transport protocol
+			$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
+
+			if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
+			{
+				throw new \RuntimeException('Please enable cURL.');
+			}
+
+			$http = new \Joomla\Github\Http($options, $transport);
+
+			$this->debugOut(get_class($transport));
+
+			// Instantiate Github
+			$this->gitHub = new Github($options, $http);
+
+			// @todo after fix this should be enough:
+			// $this->github = new Github($options);
+		}
+
+		return $this->gitHub;
+	}
+
+	/**
+	 * Display the GitHub rate limit.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function displayGitHubRateLimit()
+	{
+		$this->out()
+			->out('<info>GitHub rate limit:...</info> ', false);
+
+		$rate = $this->getGitHub()->authorization->getRateLimit()->rate;
+
+		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
+			->out();
+
+		return $this;
+	}
+
+	/**
+	 * Get a progress bar object.
+	 *
+	 * @param   integer  $targetNum  The target number.
+	 *
+	 * @return  ConsoleProgressBar
+	 *
+	 * @since   1.0
+	 */
+	public function getProgressBar($targetNum)
+	{
+		return ($this->usePBar)
+			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
+			: null;
 	}
 }
