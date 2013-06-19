@@ -359,8 +359,4 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles`
 (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
-('',
- 'dox-documentation',
- '<h2>Documentation</h2>\n\n<p>The developer documentation is written in markdown syntax in plain text documents, managed in an git repository ready for contribution:</p>\n\n<p><a href="https://github.com/joomla/jissues/tree/framework/Documentation">https://github.com/joomla/jissues/tree/framework/Documentation</a></p>\n\n<p>To parse and display the documentation on a live site, the markdow sources can be also uploaded to the server.<br>\nThen the CLI cript is executed with the <code>make docu</code> option, which will send requests to GitHub''s markdown parser.<br>\nThe resulting HTML is then stored to the database.</p>\n\n<p>It is also possible to perform these operations locally and then synchronize th remote database.</p>',
- '## Documentation\n\nThe developer documentation is written in markdown syntax in plain text documents, managed in an git repository ready for contribution:\n\nhttps://github.com/joomla/jissues/tree/framework/Documentation\n\nTo parse and display the documentation on a live site, the markdow sources can be also uploaded to the server.\nThen the CLI cript is executed with the `make docu` option, which will send requests to GitHub''s markdown parser.\nThe resulting HTML is then stored to the database.\n\nIt is also possible to perform these operations locally and then synchronize th remote database.\n',
- '2013-06-18 14:46:37');
+('The J!Tracker Project', 'about', '<p>Some info about the project here...</p>', 'Some info about the project here...', '2013-06-18 20:20:41');
