@@ -16,11 +16,8 @@
         </a>
 
         <ul class="dropdown-menu">
-
             <li class="nav-header">{{ project.title }}</li>
-
             <li class="divider"><span></span></li>
-
             <li>
                 <a href="{{ uri.base.path }}project/{{ project.alias }}">
                     <i class="icon-eye"></i>
@@ -29,12 +26,12 @@
             </li>
 
             {% if user.check("admin") %}
-            <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
-                    <i class="icon-pencil"></i>
-                    Edit
-                </a>
-            </li>
+                <li>
+                    <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
+                        <i class="icon-pencil"></i>
+                        Edit
+                    </a>
+                </li>
             {% endif %}
 
             <li class="divider"><span></span></li>
@@ -61,7 +58,14 @@
 </li>
 
 {% if user.isAdmin %}
-    <li class="dropdown {{ "config" == uri.route or "logs" == firstPart ? " active" : "" }}">
+    <li class="dropdown
+    {{ "config" == uri.route
+    or "text" == uri.route
+    or "icons" == uri.route
+    or "logs" == firstPart
+    ? " active"
+    : "" }}
+    ">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             System
             <span class="caret"></span>
@@ -123,14 +127,46 @@
                     Icons
                 </a>
             </li>
+            <li class="{{ "text" == uri.route ? "active" : "" }}">
+                <a href="{{ uri.base.path }}text">
+                    <i class="icon-pencil-2"></i>
+                    Text
+                </a>
+            </li>
         </ul>
     </li>
 {% endif %}
 
-<li class="{{ "markdownpreview" == uri.route ? "active" : "" }}">
-    <a href="{{ uri.base.path }}markdown">
-        Markdown
+<li class="dropdown {{
+"page/about" == uri.route
+or "markdown" == uri.route
+or "devdox" == firstPart
+? "active" : ""
+}}">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+        /etc
+        <span class="caret"></span>
     </a>
+
+    <ul class="dropdown-menu">
+
+        <li class="{{ "page/about" == uri.route ? "active" : "" }}">
+            <a href="{{ uri.base.path }}page/about">
+                About
+            </a>
+        </li>
+        <li class="{{ "markdown" == uri.route ? "active" : "" }}">
+            <a href="{{ uri.base.path }}markdown">
+                Markdown
+            </a>
+        </li>
+        <li class="{{ "devdox" == firstPart ? "active" : "" }}">
+            <a href="{{ uri.base.path }}devdox">
+                Dev Dox
+            </a>
+        </li>
+
+    </ul>
 </li>
 
 {% if user.id %}
