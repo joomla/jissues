@@ -10,6 +10,12 @@
 {% block headerCSS %}
     <link href="{{ uri.base.path }}css/pagination/pagination.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}css/pagination/B_black.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+        td.issueInfo:hover {
+            background-color: #eee;
+            cursor: help;
+        }
+    </style>
 {% endblock %}
 
 {% block prependMenu %}
@@ -50,7 +56,7 @@
             {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
         {% endif %}
 
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-condensed">
             <thead>
             <tr>
                 <th width="2%" class="nowrap hidden-phone">{{ translate('JGRID_HEADING_ID') }}</th>
@@ -76,8 +82,12 @@
                     {% endif %}
 
                     <tr{{ rowClass }}>
-                        <td class="center hidden-phone">
-                            {{ item.issue_number }}
+                        <td class="center hidden-phone issueInfo">
+                            <div title="{{ project.title }} # {{ item.issue_number }}"
+                                  data-issue="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/info">
+                                {{ item.issue_number }}
+                                Info
+                            </div>
                         </td>
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
@@ -126,8 +136,6 @@
                             {% if item.modified != '0000-00-00 00:00:00' %}
                                 {{ item.modified|date('Y-m-d') }}
                                 {% if item.modified_by %}
-                                    <br/>
-                                    {#<?php //echo 'By ' . JFactory::getUser($item->modified_by)->username ?>#}
                                 {% endif %}
                             {% endif %}
                         </td>
@@ -148,5 +156,48 @@
         {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
         {{ pagination.bar|raw }}
     {% endif %}
+
+<!-- ++++++++++++++++++++++++++ -->
+<!-- +  JavaScript templates  + -->
+<!-- ++++++++++++++++++++++++++ -->
+
+<script type="text/x-tmpl" id="tplIssueInfo">
+    <ul class="unstyled">
+        <li>Opened by: [%= o.opened_by %]</li>
+        <li>Comments: [%= o.comment_count %]</li>
+    </ul>
+</script>
+
+{% endblock %}
+
+{% block JavaScriptBottom %}
+
+    {{ parent() }}
+
+    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript">
+
+    /**
+     * Setup custom tags for the JS template engine.
+     * @type {RegExp}
+     */
+    tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+
+    $('*[data-issue]').hover(
+            function () {
+                var el = $(this);
+                $.get(el.data('issue'), function(r) {
+                    el.popover({
+                       content: tmpl("tplIssueInfo", r.data),
+                       html: true
+                   }).popover('show');
+                });
+            },
+            function () {
+                $(this).popover('hide');
+            }
+    );
+    </script>
 
 {% endblock %}
