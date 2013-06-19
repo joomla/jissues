@@ -6,8 +6,8 @@
 
 namespace App\GitHub\View\Stats;
 
+use App\Projects\Model\ProjectModel;
 use Joomla\Github\Github;
-use App\Tracker\Model\ProjectModel;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
