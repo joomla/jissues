@@ -111,8 +111,11 @@ class TrackerDebugger
 			return $this;
 		}
 
-		//$db->setQuery('SHOW PROFILE');
-		$entry->profile = '';// $db->loadAssocList();
+		// $db->setQuery('SHOW PROFILE');
+		$entry->profile = '';
+
+		// $db->loadAssocList();
+
 /*
 		/ Get the profiling information
 			$cursor = mysqli_query($this->connection, 'SHOW PROFILE');
@@ -276,6 +279,7 @@ class TrackerDebugger
 					$debug[] = '</div>';
 
 					// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
+
 					// $debug[] = $tableFormat->fromArray($entry->profile);
 					// $debug[] = '</div>';
 

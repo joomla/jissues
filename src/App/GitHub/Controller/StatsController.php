@@ -23,4 +23,3 @@ class StatsController extends AbstractTrackerController
 	 */
 	protected $defaultView = 'stats';
 }
-

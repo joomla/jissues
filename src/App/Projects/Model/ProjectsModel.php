@@ -29,7 +29,7 @@ class ProjectsModel extends AbstractTrackerListModel
 	{
 		$db = $this->getDb();
 
-		/* @var \JTracker\Authentication\GitHub\GitHubUser $user */
+		/* @type \JTracker\Authentication\GitHub\GitHubUser $user */
 		$user = Factory::$application->getUser();
 
 		$query = $db->getQuery(true);

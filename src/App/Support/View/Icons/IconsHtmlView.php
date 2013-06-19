@@ -33,7 +33,7 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 		{
 			if (preg_match('/.(icon-[a-z0-9\-]+)/', $line, $matches))
 			{
-				if('icon-bar' == $matches[1])
+				if ('icon-bar' == $matches[1])
 				{
 					continue;
 				}

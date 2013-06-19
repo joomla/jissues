@@ -17,8 +17,13 @@
     </div>
 
     {% if jdebug %}
-        In: <a href="xdebug://{{ exception.file }}@{{ exception.line }}">{{ exception.file }}@{{ exception.line }}</a>
-        <table class="table table-bordered table-hover">
+
+        In:
+        <a href="xdebug://{{ exception.file }}@{{ exception.line }}">
+            {{ exception.file }}@{{ exception.line }}
+        </a>
+
+        <table class="table table-bordered table-hover table-condensed">
             <tr>
                 <th>File</th>
                 <th>Line</th>
@@ -32,8 +37,6 @@
                 </tr>
             {% endfor %}
         </table>
-
-        {#<pre>{{ exception.traceAsString|stripJRoot }}</pre>#}
 
     {% endif %}
 
