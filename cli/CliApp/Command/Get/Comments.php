@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Retrieve;
+namespace CliApp\Command\Get;
 
 use Joomla\Date\Date;
 
@@ -18,7 +18,7 @@ use CliApp\Command\TrackerCommandOption;
  *
  * @since  1.0
  */
-class Comments extends Retrieve
+class Comments extends Get
 {
 	/**
 	 * Comment data from GitHub

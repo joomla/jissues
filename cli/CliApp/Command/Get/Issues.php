@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Retrieve;
+namespace CliApp\Command\Get;
 
 use CliApp\Application\TrackerApplication;
 use Joomla\Date\Date;
@@ -17,7 +17,7 @@ use App\Tracker\Table\ActivitiesTable;
  *
  * @since  1.0
  */
-class Issues extends Retrieve
+class Issues extends Get
 {
 	/**
 	 * Constructor.

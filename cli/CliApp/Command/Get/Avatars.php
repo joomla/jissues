@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Retrieve;
+namespace CliApp\Command\Get;
 
 use CliApp\Application\TrackerApplication;
 
@@ -16,7 +16,7 @@ use JTracker\Authentication\GitHub\GitHubUser;
  *
  * @since  1.0
  */
-class Avatars extends Retrieve
+class Avatars extends Get
 {
 	/**
 	 * Constructor.

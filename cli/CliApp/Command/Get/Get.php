@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Retrieve;
+namespace CliApp\Command\Get;
 
 use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
@@ -25,7 +25,7 @@ use CliApp\Exception\AbortException;
  *
  * @since  1.0
  */
-class Retrieve extends TrackerCommand
+class Get extends TrackerCommand
 {
 	/**
 	 * Joomla! Github object

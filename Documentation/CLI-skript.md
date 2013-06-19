@@ -14,7 +14,8 @@ Usage:
 Available commands:
 
 * `install` Install the application.
-* `retrieve` Retrieve new issues and comments
+* `get` Retrieve new issues, comments, avatars, ...
+* `make` Make documentation, ...
 * `help` Display some helpful text.
 
 For more information use `tracker.php help <command>`.
