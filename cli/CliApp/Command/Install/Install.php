@@ -73,44 +73,8 @@ class Install extends TrackerCommand
 				}
 			}
 
-			// Remove existing tables
-			$this->out('Removing existing tables...', false);
-
-			// Foreign key constraint fails fix
-			$db->setQuery('SET FOREIGN_KEY_CHECKS=0')
-				->execute();
-
-			// First, need to drop the tables with FKs in specific order
-			$keyTables = array(
-				$db->replacePrefix('#__tracker_fields_values'),
-				$db->replacePrefix('#__activities'),
-				$db->replacePrefix('#__issues'),
-				$db->replacePrefix('#__status')
-			);
-
-			foreach ($keyTables as $table)
-			{
-				$db->setQuery('DROP TABLE IF EXISTS ' . $table)
-					->execute();
-				$this->out('.', false);
-			}
-
-			foreach ($tables as $table)
-			{
-				if ('sqlite_sequence' == $table)
-				{
-					continue;
-				}
-
-				$db->setQuery('DROP TABLE IF EXISTS ' . $table)
-					->execute();
-				$this->out('.', false);
-			}
-
-			$db->setQuery('SET FOREIGN_KEY_CHECKS=1')
-				->execute();
-
-			$this->out('<ok>ok</ok>');
+			$this->cleanDatabase($tables)
+				->out('<ok>ok</ok>');
 		}
 		catch (\RuntimeException $e)
 		{
@@ -118,9 +82,9 @@ class Install extends TrackerCommand
 			if (strpos($e->getMessage(), 'Could not connect to database.') !== false)
 			{
 				// ? really..
-				$this->out('No database found.');
-
-				$this->out('Creating the database...', false);
+				$this
+					->out('No database found.')
+					->out('Creating the database...', false);
 
 				$db->setQuery('CREATE DATABASE ' . $db->quoteName($this->application->get('database.name')))
 					->execute();
@@ -134,6 +98,78 @@ class Install extends TrackerCommand
 				throw $e;
 			}
 		}
+
+		// Perform the installation
+		$this
+			->processSql()
+			->processOptionalSql()
+			->createAdminUser()
+			->out()
+			->out('<ok>Installer has terminated successfully.</ok>');
+	}
+
+	/**
+	 * Cleanup the database.
+	 *
+	 * @param   array  $tables  Tables to remove.
+	 *
+	 * @return $this
+	 */
+	private function cleanDatabase(array $tables)
+	{
+		$db = $this->application->getDatabase();
+
+		// Remove existing tables
+		$this->out('Removing existing tables...', false);
+
+		// Foreign key constraint fails fix
+		$db->setQuery('SET FOREIGN_KEY_CHECKS=0')
+			->execute();
+
+		// First, need to drop the tables with FKs in specific order
+		$keyTables = array(
+			$db->replacePrefix('#__tracker_fields_values'),
+			$db->replacePrefix('#__activities'),
+			$db->replacePrefix('#__issues'),
+			$db->replacePrefix('#__status')
+		);
+
+		foreach ($keyTables as $table)
+		{
+			$db->setQuery('DROP TABLE IF EXISTS ' . $table)
+				->execute();
+			$this->out('.', false);
+		}
+
+		foreach ($tables as $table)
+		{
+			if ('sqlite_sequence' == $table)
+			{
+				continue;
+			}
+
+			$db->setQuery('DROP TABLE IF EXISTS ' . $table)
+				->execute();
+			$this->out('.', false);
+		}
+
+		$db->setQuery('SET FOREIGN_KEY_CHECKS=1')
+			->execute();
+
+		return $this;
+	}
+
+	/**
+	 * Process the main SQL file.
+	 *
+	 * @since  1.0
+	 * @throws \RuntimeException
+	 * @throws \UnexpectedValueException
+	 * @return $this
+	 */
+	private function processSql()
+	{
+		$db = $this->application->getDatabase();
 
 		// Install.
 		$dbType = $this->application->get('database.driver');
@@ -168,25 +204,35 @@ class Install extends TrackerCommand
 				continue;
 			}
 
-			$db->setQuery($q);
-
-			try
-			{
-				$db->execute();
-			}
-			catch (\RuntimeException $e)
-			{
-				throw new \RuntimeException($e->getMessage());
-			}
+			$db->setQuery($q)
+				->execute();
 
 			$this->out('.', false);
 		}
 
 		$this->out('<ok>ok</ok>');
 
+		return $this;
+	}
+
+	/**
+	 * Process optional SQL files.
+	 *
+	 * @since  1.0
+	 * @throws \UnexpectedValueException
+	 * @return $this
+	 */
+	private function processOptionalSql()
+	{
+		// @todo disabled
+
+		return $this;
+
+		$dbType = $this->application->get('database.driver');
+		$db = $this->application->getDatabase();
+
 		/* @type \DirectoryIterator $fileInfo */
-		/*
-		foreach (new DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
+		foreach (new \DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
 		{
 			if ($fileInfo->isDot())
 			{
@@ -201,11 +247,11 @@ class Install extends TrackerCommand
 				continue;
 			}
 
-			...// Process optional SQL files
+			// Process optional SQL files
 
 			$this->out(sprintf('Process: %s? [[y]]es / [n]o :', $fileName), false);
 
-			$in = trim($this->in());
+			$in = trim($this->application->in());
 
 			if ('no' == $in || 'n' == $in)
 			{
@@ -216,7 +262,7 @@ class Install extends TrackerCommand
 
 			if (false == $sql)
 			{
-				throw new UnexpectedValueException('SQL file not found.');
+				throw new \UnexpectedValueException('SQL file not found.');
 			}
 
 			$this->out(sprintf('Processing %s', $fileName), false);
@@ -237,13 +283,27 @@ class Install extends TrackerCommand
 
 			$this->out('<ok>ok</ok>');
 		}
-		*/
 
+		return $this;
+	}
+
+	/**
+	 * Create an admin user account.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	private function createAdminUser()
+	{
 		// @todo disabled
-		// $this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
 
-		// $in = trim($this->in());
-		$in = 'no';
+		return $this;
+
+		$db = $this->application->getDatabase();
+
+		$this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
+
+		$in = trim($this->application->in());
 
 		if ('no' != $in && 'n' != $in)
 		{
@@ -301,7 +361,6 @@ class Install extends TrackerCommand
 			$this->out('<ok>User created.</ok>');
 		}
 
-		$this->out()
-			->out('<ok>Installer has terminated successfully.</ok>');
+		return $this;
 	}
 }
