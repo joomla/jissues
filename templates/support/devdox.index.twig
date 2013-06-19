@@ -1,0 +1,35 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+    {% if page %}
+        <ul class="breadcrumb">
+            <li><a href="{{ uri.base.path }}devdox">DevDox</a></li>
+            <li class="active">{{ page.title ? : page.alias }}</li>
+        </ul>
+
+        <h2>{{ page.title }}</h2>
+
+        <!-- Note that using RAW output format here should be save -->
+        <!-- since the text is the result of a request to GitHub's markdown parser -->
+
+        {{ page.text|raw }}
+
+    {% else %}
+        <h2>Dev Dox</h2>
+
+        <ul class="unstyled">
+            {% for name, page in pages %}
+                <li>
+                    <a href="{{ uri.base.path }}devdox/{{ page }}">
+                        {{ name|title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

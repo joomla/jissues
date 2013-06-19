@@ -6,6 +6,7 @@
 
 namespace App\Support\Model;
 
+use App\Text\Table\ArticlesTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -15,4 +16,19 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
  */
 class DefaultModel extends AbstractTrackerDatabaseModel
 {
+	/**
+	 * Get an item.
+	 *
+	 * @param   string  $alias  The item alias.
+	 *
+	 * @return  ArticlesTable
+	 *
+	 * @since   1.0
+	 */
+	public function getItem($alias)
+	{
+		$table = new ArticlesTable($this->db);
+
+		return $table->load(array('alias' => $alias));
+	}
 }
