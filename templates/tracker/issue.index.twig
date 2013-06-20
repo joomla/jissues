@@ -173,8 +173,10 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right">
-                <a href="javascript:" onclick="alert('Not yet :(');" class="btn btn-success">
+            <div class="pull-right" id="commentResult">
+                <div id="commentStatus"></div>
+                <a href="javascript:" class="btn btn-success"
+                   onclick="postComment('{{ item.issue_number }}');">
                     Post Comment
                 </a>
             </div>
@@ -218,6 +220,32 @@
                 );
             }
         });
+
+        function postComment(issue_number) {
+            var out = $('#commentResult');
+            var status = $('#commentStatus');
+
+            status.html('Submitting comment...');
+
+            $.post(
+                    '/comment',
+                    { text: $('#comment').val(), issue_number: issue_number },
+                    function (response) {
+                        if (!response.data) {
+                            // Misc failure
+                            status.html('Invalid response.');
+                        }
+                        else if (response.error) {
+                            // Failure
+                            status.html(response.error);
+                        }
+                        else {
+                            // Success
+                            out.html(response.message);
+                        }
+                    }
+            );
+        }
     </script>
 
 {% endblock %}

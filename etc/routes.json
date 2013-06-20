@@ -46,6 +46,7 @@
 	"project/:project_alias/hooks-add"   : "\\GitHub\\Controller\\Hooks\\Ajax\\Add",
 	"project/:project_alias/hooks-modify": "\\GitHub\\Controller\\Hooks\\Ajax\\Modify",
 	"preview"                            : "\\GitHub\\Controller\\Preview",
+	"comment"                            : "\\GitHub\\Controller\\Ajax\\Comment\\Add",
 
 	"logs/:log_type": "\\Debug\\Controller\\LogsController",
 
