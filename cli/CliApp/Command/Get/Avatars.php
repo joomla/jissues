@@ -43,9 +43,9 @@ class Avatars extends Get
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
-	 *
 	 * @since   1.0
+	 * @throws \UnexpectedValueException
+	 * @return  void
 	 */
 	public function execute()
 	{
@@ -64,6 +64,11 @@ class Avatars extends Get
 				->order($db->quoteName('user'))
 		)->loadColumn();
 
+		if (!count($users))
+		{
+			throw new \UnexpectedValueException('No users found in database');
+		}
+
 		$this->out(sprintf("Found %d users in the database", count($users)));
 
 		$g = new GitHubUser;
@@ -72,39 +77,36 @@ class Avatars extends Get
 
 		$this->usePBar ? $this->out() : null;
 
+		$base = JPATH_THEMES . '/images/avatars/';
+
 		foreach ($users as $i => $user)
 		{
 			if (!$user)
 			{
-				$this->usePBar
-					? $progressBar->update($i + 1)
-					: null;
-
 				continue;
 			}
 
-			$g->username = $user;
-
-			if (false === strpos(GitHubLoginHelper::getAvatarPath($g), 'user-default.png'))
+			if (file_exists($base . '/' . $user . '.png'))
 			{
+				$this->debugOut('User already fetched: ' . $user);
+
 				$this->usePBar
 					? $progressBar->update($i + 1)
 					: $this->out('-', false);
 
-				$this->debugOut('User already fetched: ' . $user);
-
 				continue;
 			}
+
+			$this->debugOut('Fetching avatar for user: ' . $user);
+
+			$g->username   = $user;
+			$g->avatar_url = $this->github->users->get($user)->avatar_url;
+
+			GitHubLoginHelper::saveAvatar($g);
 
 			$this->usePBar
 				? $progressBar->update($i + 1)
 				: $this->out('+', false);
-
-			$this->debugOut('Fetching avatar for user: ' . $user);
-
-			$g->avatar_url = $this->github->users->get($user)->avatar_url;
-
-			GitHubLoginHelper::saveAvatar($g);
 		}
 
 		$this->out()
