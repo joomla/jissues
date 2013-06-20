@@ -21,61 +21,9 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet"
-          media="screen">
-{% endblock %}
-
-{% block JavaScriptBottom %}
-    {{ parent() }}
-    <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
-    <script type="text/javascript">
-        var switcher = $('#helpSwitch');
-
-        // Show and hide help texts
-        switcher.on('switch-change', function (e, data) {
-            if (data.value) {
-                $('.helpText').show();
-            }
-            else {
-                $('.helpText').hide();
-            }
-        });
-
-        // Set the initial state
-        if (switcher.children('input').attr('checked')) {
-            $('.helpText').show();
-        }
-        else {
-            $('.helpText').hide();
-        }
-
-        $('a[data-toggle="tab"]').on('shown', function (e)
-        {
-            if('#preview' == $(e.target).attr('href'))
-            {
-                var out = $('#preview');
-
-                out.html('Loading preview...');
-
-                $.post(
-                        '/preview',
-                        { text: $('#description').val() },
-                        function (response) {
-                            out.empty();
-                            if (response.error) {
-                                out.html(response.error);
-                            }
-                            else if (!response.data.length) {
-                                out.html('Invalid response.');
-                            }
-                            else {
-                                out.html(response.data);
-                            }
-                        }
-                );
-            }
-        });
-    </script>
+    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -128,4 +76,66 @@
 
         </fieldset>
     </form>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function() {
+            $('#description').markItUp(myMarkdownSettings);
+        });
+    </script>
+
+    <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+    <script type="text/javascript">
+        var switcher = $('#helpSwitch');
+
+        // Show and hide help texts
+        switcher.on('switch-change', function (e, data) {
+            if (data.value) {
+                $('.helpText').show();
+            }
+            else {
+                $('.helpText').hide();
+            }
+        });
+
+        // Set the initial state
+        if (switcher.children('input').attr('checked')) {
+            $('.helpText').show();
+        }
+        else {
+            $('.helpText').hide();
+        }
+
+        $('a[data-toggle="tab"]').on('shown', function (e)
+        {
+            if('#preview' == $(e.target).attr('href'))
+            {
+                var out = $('#preview');
+
+                out.html('Loading preview...');
+
+                $.post(
+                        '/preview',
+                        { text: $('#description').val() },
+                        function (response) {
+                            out.empty();
+                            if (response.error) {
+                                out.html(response.error);
+                            }
+                            else if (!response.data.length) {
+                                out.html('Invalid response.');
+                            }
+                            else {
+                                out.html(response.data);
+                            }
+                        }
+                );
+            }
+        });
+    </script>
 {% endblock %}

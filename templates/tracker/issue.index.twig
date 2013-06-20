@@ -11,6 +11,8 @@
     {{ parent() }}
     <!-- CSS for coloured code -->
     <link href="{{ uri.base.path }}css/code.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
     <style type="text/css">
         a:target {
             /* Anchor links in events and fixed top bar */
@@ -190,6 +192,14 @@
 
 {% block JavaScriptBottom %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function() {
+            $('#comment').markItUp(myMarkdownSettings);
+        });
+    </script>
 
     <script type="text/javascript">
         $('a[data-toggle="tab"]').on('shown', function (e)
