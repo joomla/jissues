@@ -21,13 +21,74 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet"
-          media="screen">
+    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <form name="editForm">
+
+        <div class="pull-right well well-small">
+
+            <label for="viewMode" class="btn btn-small">View Mode</label>
+            <br />
+            <div class="switch switch-large" id="helpSwitch"
+                 data-on-label="Help" data-off-label="Pro"
+                 data-on="success" data-off="info">
+                <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
+            </div>
+
+            <div class="divider">-</div>
+
+            <label for="priority">Priority</label>
+            <select name="item[priority]" id="priority" class="span2">
+                {% for i in range(1, 4) %}
+                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="helpText alert alert-info">help priority...</div>
+
+        </div>
+
+        <h2>New Item</h2>
+
+        <div class="helpText alert alert-info">help intro...</div>
+
+        {% if(user.username) %}
+            {{ avatar(user.username, 100)|raw }}
+        {% endif %}
+
+        <fieldset>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title"/>
+
+            <div class="helpText alert alert-info">help title...</div>
+
+            <label for="description">Description</label>
+
+            {% set editorId="description" %}
+            {% set editorPlaceholder="Description text" %}
+            {% include "editor.twig" %}
+
+            <div class="helpText alert alert-info">help description...</div>
+
+        </fieldset>
+    </form>
 {% endblock %}
 
 {% block JavaScriptBottom %}
 
     {{ parent() }}
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function() {
+            $('#description').markItUp(myMarkdownSettings);
+        });
+    </script>
 
     <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
 
