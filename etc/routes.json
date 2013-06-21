@@ -32,21 +32,21 @@
 	"project/:project_alias/addgroup"              : "\\Groups\\Controller\\Group\\AddController",
 	"project/:project_alias/savegroup"             : "\\Groups\\Controller\\Group\\SaveController",
 
-	"tracker/:project_alias/stats": "\\GitHub\\Controller\\Stats",
-
 	"tracker/:project_alias"              : "\\Tracker\\Controller\\Issue\\ListController",
 	"tracker/:project_alias/add"          : "\\Tracker\\Controller\\Issue\\AddController",
 	"tracker/:project_alias/:id"          : "\\Tracker\\Controller\\Issue\\ItemController",
 	"tracker/:project_alias/:id/edit"     : "\\Tracker\\Controller\\Issue\\EditController",
 	"tracker/:project_alias/:id/edit-save": "\\Tracker\\Controller\\Issue\\SaveController",
-	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Issue\\Ajax\\Info",
+	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Ajax\\Issue\\Info",
+	"submit/issue"                        : "\\Tracker\\Controller\\Ajax\\Issue\\Submit",
+	"submit/comment"                      : "\\Tracker\\Controller\\Ajax\\Comment\\Submit",
 
 	"project/:project_alias/hooks"       : "\\GitHub\\Controller\\Hooks",
-	"project/:project_alias/hooks-list"  : "\\GitHub\\Controller\\Hooks\\Ajax\\GetList",
-	"project/:project_alias/hooks-add"   : "\\GitHub\\Controller\\Hooks\\Ajax\\Add",
-	"project/:project_alias/hooks-modify": "\\GitHub\\Controller\\Hooks\\Ajax\\Modify",
-	"preview"                            : "\\GitHub\\Controller\\Preview",
-	"comment"                            : "\\GitHub\\Controller\\Ajax\\Comment\\Add",
+	"project/:project_alias/stats"       : "\\GitHub\\Controller\\Stats",
+	"project/:project_alias/hooks-list"  : "\\GitHub\\Controller\\Ajax\\Hooks\\GetList",
+	"project/:project_alias/hooks-add"   : "\\GitHub\\Controller\\Ajax\\Hooks\\Add",
+	"project/:project_alias/hooks-modify": "\\GitHub\\Controller\\Ajax\\Hooks\\Modify",
+	"preview"                            : "\\GitHub\\Controller\\Ajax\\Markdown\\Preview",
 
 	"logs/:log_type": "\\Debug\\Controller\\LogsController",
 
