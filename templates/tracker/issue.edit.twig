@@ -5,6 +5,12 @@
 
 {% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
 
+{% block headerCSS %}
+    {{ parent() }}
+    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+{% endblock %}
+
 {% block prependMenu %}
     <li>
         <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">
@@ -25,7 +31,14 @@
 
     {{ parent() }}
 
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#description').markItUp(myMarkdownSettings);
+        });
+
         $('a[data-toggle="tab"]').on('shown', function (e) {
             if('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#description', '#preview');
