@@ -18,7 +18,7 @@
         </a>
     </li>
     <li>
-        <a class="btn-warning" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+        <a class="btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
             Cancel
         </a>
     </li>
@@ -107,7 +107,9 @@
         <div class="span11 well-small">
             <ul class="unstyled">
                 <li>
-                    <input type="text" id="title" name="item[title]" value="{{ item.title }}" />
+                    <input type="text" name="item[title]"
+                    style="width: 80%; font-size: 1.3em;"
+                    value="{{ item.title }}" />
                 </li>
                 <li>
 
