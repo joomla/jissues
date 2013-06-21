@@ -72,22 +72,10 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        $('a[data-toggle="tab"]').on('shown', function (e)
-        {
-            if('#preview' != $(e.target).attr('href')) { return; }
-
-            var out = $('#preview');
-            out.html('Loading preview...');
-
-            $.post(
-                    '/preview',
-                    { text: $('#text').val() },
-                    function (response) {
-                        if (response.error) { out.html(response.error); }
-                        else if (!response.data.length) { out.html('Invalid response.'); }
-                        else { out.html(response.data); }
-                    }
-            );
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+            if('#preview' == $(e.target).attr('href')) {
+                JTracker.preview('#text', '#preview', '#preview');
+            }
         });
     </script>
 {% endblock %}

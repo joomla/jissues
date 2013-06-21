@@ -8,9 +8,9 @@
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block prependMenu %}
-    <li>
+    <li id="issueResult">
         <a class="btn-success" href="javascript:"
-           onclick="alert('Not yet :(');return false;document.editForm.submit();">
+           onclick="JTracker.submitIssue('#issueResult', '#issueDebug');">
             Submit
         </a>
     </li>
@@ -26,59 +26,39 @@
 {% endblock %}
 
 {% block JavaScriptBottom %}
+
     {{ parent() }}
+
     <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+
     <script type="text/javascript">
         var switcher = $('#helpSwitch');
 
         // Show and hide help texts
         switcher.on('switch-change', function (e, data) {
-            if (data.value) {
-                $('.helpText').show();
-            }
-            else {
-                $('.helpText').hide();
-            }
+            if (data.value) { $('.helpText').show(); }
+            else { $('.helpText').hide(); }
         });
 
         // Set the initial state
-        if (switcher.children('input').attr('checked')) {
-            $('.helpText').show();
-        }
-        else {
-            $('.helpText').hide();
-        }
+        if (switcher.children('input').attr('checked')) { $('.helpText').show(); }
+        else { $('.helpText').hide(); }
 
         $('a[data-toggle="tab"]').on('shown', function (e)
         {
             if('#preview' == $(e.target).attr('href'))
             {
-                var out = $('#preview');
-
-                out.html('Loading preview...');
-
-                $.post(
-                        '/preview',
-                        { text: $('#description').val() },
-                        function (response) {
-                            out.empty();
-                            if (response.error) {
-                                out.html(response.error);
-                            }
-                            else if (!response.data.length) {
-                                out.html('Invalid response.');
-                            }
-                            else {
-                                out.html(response.data);
-                            }
-                        }
-                );
+                JTracker.preview('#description', '#preview');
             }
         });
+
     </script>
 {% endblock %}
 
 {% block content %}
+
+    <div id="issueDebug"></div>
+
     <form name="editForm">
 
         <div class="pull-right well well-small">
@@ -91,10 +71,10 @@
                 <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
             </div>
 
-            <div class="divider">-</div>
+            <div class="divider"></div>
 
             <label for="priority">Priority</label>
-            <select name="item[priority]" id="priority" class="span2">
+            <select name="priority" class="span2">
                 {% for i in range(1, 4) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
                 {% endfor %}
@@ -121,7 +101,10 @@
             <label for="description">Description</label>
 
             {% set editorId="description" %}
+            {% set editorName="body" %}
+            {% set editorText=item.description_raw %}
             {% set editorPlaceholder="Description text" %}
+
             {% include "editor.twig" %}
 
             <div class="helpText alert alert-info">help description...</div>
