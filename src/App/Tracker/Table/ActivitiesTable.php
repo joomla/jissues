@@ -42,7 +42,7 @@ class ActivitiesTable extends AbstractDatabaseTable
 	/**
 	 * Overloaded check function.
 	 *
-	 * @return  boolean
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
