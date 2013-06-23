@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a7db671763913ebce91f014a3b675edc",
+    "hash": "df86f65dc44295b227bd59209ac79ab4",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -214,7 +214,7 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "2.3.x-dev",
+            "version": "v2.3.1",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
@@ -320,7 +320,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "joomla/framework": 20
+        "joomla/framework": 20,
+        "symfony/http-foundation": 0
     },
     "platform": {
         "php": ">=5.3.10"
