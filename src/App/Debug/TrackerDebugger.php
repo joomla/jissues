@@ -6,6 +6,9 @@
 
 namespace App\Debug;
 
+use g11n\g11n;
+use g11n\Language\Debugger;
+
 use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
@@ -223,8 +226,14 @@ class TrackerDebugger
     <li><a href="#dbgDatabase">Database</a></li>
     <li><a href="#dbgProfile">Profile</a></li>
     <li><a href="#dbgUser">User</a></li>
-    <li><a href="#dbgProject">Project</a></li>
-    </ul>';
+    <li><a href="#dbgProject">Project</a></li>';
+
+		if ($this->application->get('debug.language'))
+		{
+			$debug[] = '<li><a href="#dbgLanguage">Language</a></li>';
+		}
+
+		$debug[] = '</ul>';
 		$debug[] = '</div>';
 
 		$dbLog = $this->getLog('db');
@@ -307,7 +316,14 @@ class TrackerDebugger
 		echo '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
 		var_dump($session->get('project'));
 
+		if ($this->application->get('debug.language'))
+		{
+			echo '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
+			$this->renderLanguage();
+		}
+
 		$debug[] = ob_get_clean();
+		$debug[] = '</div>';
 
 		return implode("\n", $debug);
 	}
@@ -321,6 +337,20 @@ class TrackerDebugger
 	public function renderProfile()
 	{
 		return $this->profiler->render();
+	}
+
+	/**
+	 * Render language debug information.
+	 *
+	 * @since  1.0
+	 * @return void
+	 */
+	public function renderLanguage()
+	{
+		g11n::debugPrintTranslateds();
+
+		echo '<h2>Language files loaded</h2>';
+		g11n::printEvents();
 	}
 
 	/**
