@@ -47,13 +47,25 @@
                     <fieldset id="{{ group }}">
                         <legend>{{ group|title }}</legend>
                         {% for name, value in fields %}
-                            <div class="control-group">
-                                <label for="config{{ group }}{{ name }}" class="control-label">{{ name|tformat }}</label>
-                                <div class="controls">
-                                    <input type="text" name="config[{{ group }}][{{ name }}]"
-                                       id="config{{ group }}{{ name }}" value="{{ value }}"/>
-                                </div>
-                            </div>
+                            {% if value[0] is not defined %}
+								<div class="control-group">
+									<label for="config{{ group ~ name }}" class="control-label">{{ name|title }}</label>
+									<div class="controls">
+										<input type="text" name="config[{{ group }}][{{ name }}]"
+										   id="config{{ group ~ name }}" value="{{ value }}"/>
+									</div>
+								</div>
+                            {% else %}
+                                {% for i, v in value %}
+                                    <div class="control-group">
+                                        <label for="config{{ group ~ name ~ i }}" class="control-label">{{ name|title ~ " " ~ (i + 1) }}</label>
+                                        <div class="controls">
+                                            <input type="text" name="config[{{ group }}][{{ name }}][]"
+                                                   id="config{{ group ~ name ~ i }}" value="{{ v }}"/>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                            {% endif %}
                         {% endfor %}
                     </fieldset>
                 {% endfor %}

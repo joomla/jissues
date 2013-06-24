@@ -1,5 +1,5 @@
 {# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
-{# GNU General Public License version 2 or later; see LICENSE.txt #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 {% extends "index.twig" %}
 
@@ -42,7 +42,7 @@
     <ul class="breadcrumb">
         <li>
             <span class="badge badge-{{ item.closed ? "important" : "success" }}">
-                {{ translate('COM_TRACKER_STATUS_' ~ item.status_title|upper) }}
+                {{ translate(item.status_title) }}
             </span>
         </li>
 
@@ -85,7 +85,7 @@
             <li>
                 <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
                    target="_blank">
-                    {{ translate('COM_TRACKER_HEADING_FOREIGN_ID') }}
+                    {{ translate('Foreign ID') }}
                     {{ item.foreign_number }}
                 </a>
             </li>
@@ -136,11 +136,11 @@
                             <td style="width: 13%">{{ change.name|title }}</td>
                             {% if "status" == change.name %}
                                 <td style="width: 44%" class="alert-{{ statuses(change.old).closed ? "error" : "success" }}">
-                                    {{ translate('COM_TRACKER_STATUS_' ~ statuses(change.old).status|upper) }}
+                                    {{ translate(statuses(change.old).status) }}
                                 </td>
                                 <td style="width: 1%">&rArr;</td>
                                 <td style="width: 44%" class="alert-{{ statuses(change.new).closed ? "error" : "success" }}">
-                                    {{ translate('COM_TRACKER_STATUS_' ~ statuses(change.new).status|upper) }}
+                                    {{ translate(statuses(change.new).status) }}
                                 </td>
                             {% else %}
                                 <td style="width: 44%">{{ change.old }}</td>

@@ -1,17 +1,17 @@
 {# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
-{% set firstPart = uri.route|split("/")|first %}
+{% set firstPart = uri.route|split("?")|first|split("/")|first %}
 
 <li class="{{ "" == uri.route or "tracker" == firstPart ? "active" : "" }}">
     <a href="{{ uri.base.path }}tracker/{{ project.alias }}">
-        Tracker
+        {{ "Tracker"|_ }}
     </a>
 </li>
 {% if project.project_id and user.check("manage") %}
-    <li class="dropdown {{ "projectsxx" == uri.route or "project" == firstPart ? "active" : "" }}">
+    <li class="dropdown {{ "project" == firstPart ? "active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-            Project
+            {{ "Project"|_ }}
             <span class="caret"></span>
         </a>
 
@@ -21,7 +21,7 @@
             <li>
                 <a href="{{ uri.base.path }}project/{{ project.alias }}">
                     <i class="icon-eye"></i>
-                    Show
+                    {{ "Show"|_ }}
                 </a>
             </li>
 
@@ -29,7 +29,7 @@
                 <li>
                     <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
                         <i class="icon-pencil"></i>
-                        Edit
+                        {{ "Edit"|_ }}
                     </a>
                 </li>
             {% endif %}
@@ -39,42 +39,42 @@
             <li>
                 <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">
                     <i class="icon-user-2"></i>
-                    Access Groups
+                    {{ "Access Groups"|_ }}
                 </a>
             </li>
         </ul>
     </li>
 {% endif %}
 
-<li class="{{ "projects" == uri.route or "projectxx" == firstPart ? "active" : "" }}">
+<li class="{{ "projects" == firstPart ? "active" : "" }}">
     <a href="{{ uri.base.path }}projects">
-        Projects
+        {{ "Projects"|_ }}
     </a>
 </li>
-<li class="{{ "users" == uri.route or "user" == firstPart ? "active" : "" }}">
+<li class="{{ "users" == firstPart or "user" == firstPart ? "active" : "" }}">
     <a href="{{ uri.base.path }}users">
-        Users
+        {{ "Users"|_ }}
     </a>
 </li>
 
 {% if user.isAdmin %}
     <li class="dropdown
-    {{ "config" == uri.route
-    or "text" == uri.route
-    or "icons" == uri.route
+    {{ "config" == firstPart
+    or "text" == firstPart
+    or "icons" == firstPart
     or "logs" == firstPart
     ? " active"
     : "" }}
     ">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-            System
+            {{ "System"|_ }}
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li class="{{ "config" == uri.route ? "active" : "" }}">
+            <li class="{{ "config" == firstPart ? "active" : "" }}">
                 <a href="{{ uri.base.path }}config">
                     <i class="icon-dashboard"></i>
-                    Config
+                    {{ "Configuration"|_ }}
                 </a>
             </li>
             <li class="dropdown-submenu">
@@ -83,54 +83,54 @@
                     Logs
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="{{ "logs/403" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/403" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/403">403</a>
                     </li>
-                    <li class="{{ "logs/404" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/404" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/404">404</a>
                     </li>
-                    <li class="{{ "logs/500" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/500" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/500">500</a>
                     </li>
-                    <li class="{{ "logs/database" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/database" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/database">
                             <i class="icon-database"></i>
-                            Database
+                            {{ "Database"|_ }}
                         </a>
                     </li>
-                    <li class="{{ "logs/github_issues" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/github_issues" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_issues">
                             <i class="icon-github"></i>
                             GitHub Issues
                         </a>
                     </li>
-                    <li class="{{ "logs/github_comments" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/github_comments" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_comments">
                             <i class="icon-github"></i>
                             GitHub Comments
                         </a>
                     </li>
-                    <li class="{{ "logs/github_pulls" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/github_pulls" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_pulls">
                             <i class="icon-github"></i>
                             GitHub Pulls
                         </a>
                     </li>
-                    <li class="{{ "logs/php" == uri.route ? "active" : "" }}">
+                    <li class="{{ "logs/php" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/php">PHP</a>
                     </li>
                 </ul>
             </li>
-            <li class="{{ "icons" == uri.route ? "active" : "" }}">
+            <li class="{{ "icons" == firstPart ? "active" : "" }}">
                 <a href="{{ uri.base.path }}icons">
                     <i class="icon-happy"></i>
-                    Icons
+                    {{ "Icons"|_ }}
                 </a>
             </li>
-            <li class="{{ "text" == uri.route ? "active" : "" }}">
+            <li class="{{ "text" == firstPart ? "active" : "" }}">
                 <a href="{{ uri.base.path }}text">
                     <i class="icon-pencil-2"></i>
-                    Text
+                    {{ "Text"|_ }}
                 </a>
             </li>
         </ul>
@@ -138,8 +138,8 @@
 {% endif %}
 
 <li class="dropdown {{
-"page/about" == uri.route
-or "markdown" == uri.route
+"page/about" == firstPart
+or "markdown" == firstPart
 or "devdox" == firstPart
 ? "active" : ""
 }}">
@@ -150,12 +150,12 @@ or "devdox" == firstPart
 
     <ul class="dropdown-menu">
 
-        <li class="{{ "page/about" == uri.route ? "active" : "" }}">
+        <li class="{{ "page/about" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}page/about">
-                About
+                {{ "About Us"|_ }}
             </a>
         </li>
-        <li class="{{ "markdown" == uri.route ? "active" : "" }}">
+        <li class="{{ "markdown" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}markdown">
                 Markdown
             </a>
@@ -179,19 +179,19 @@ or "devdox" == firstPart
         </a>
         <ul class="dropdown-menu">
             {% if user.isAdmin %}
-                <li class="nav-header"><i class="icon-user-3"></i> Admin</li>
+                <li class="nav-header"><i class="icon-user-3"></i> {{ "Admin"|_ }}</li>
             {% endif %}
             <li>
                 <a href="{{ uri.base.path }}user">
                     <i class="icon-user"></i>
-                    Profile
+                    {{ "Profile"|_ }}
                 </a>
             </li>
             <li class="divider"><span></span></li>
             <li>
                 <a href="{{ uri.base.path }}logout">
                     <i class="icon-lock"></i>
-                    Logout
+                    {{ "Logout"|_ }}
                 </a>
             </li>
         </ul>
@@ -199,7 +199,7 @@ or "devdox" == firstPart
 {% else %}
     <li class="pull-right">
         <a class="btn-success" href="{{ loginUrl }}">
-            Login with GitHub
+            {{ "Login with GitHub"|_ }}
         </a>
     </li>
 {% endif %}
