@@ -1,0 +1,79 @@
+# Language de-DE translations for Tracker - App package.
+# Copyright (C) 2013 JTracker(C)
+# This file is distributed under the same license as the Tracker - App package.
+# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tracker - App 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-06-23 22:28-0500\n"
+"PO-Revision-Date: 2013-06-23 23:57-0500\n"
+"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
+"Language-Team: Language de-DE\n"
+"Language: de-DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /cache/twig/Tracker/95/94/9c111027583aa6c4a8dff11c047d.php:226
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:310
+#: /cache/twig/Tracker/d2/79/2958ac7c47ba7c9403661d66c019.php:222
+msgid "Foreign ID"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:107
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:116
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:120
+msgid "Filter the list by summary or description."
+msgstr "Filtern Sie die Liste nach Zusammenfassung oder Beschreibung."
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:124
+msgid "Submit search"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:133
+msgid "Clear search"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:147
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:410
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Seite %1$s von %2$s"
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:158
+msgid "ID"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:162
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:166
+msgid "Priority"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:170
+msgid "Status"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:174
+msgid "Date Opened"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:178
+msgid "Date Closed"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:182
+msgid "Last Modified"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:285
+msgid "GitHub ID"
+msgstr ""
+
+#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:394
+msgid "No items found."
+msgstr "Keine Einträge gefunden"

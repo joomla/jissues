@@ -1,0 +1,92 @@
+# Nikolai Plath <der.el.kuku@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"PO-Revision-Date: 2010-10-28 20:29-0500\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: JTracker <der.el.kuku@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:37
+msgid "Tracker"
+msgstr "филер"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:51
+msgid "Project"
+msgstr "проект"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:72
+msgid "Show"
+msgstr "показывать"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:91
+msgid "Edit"
+msgstr "редактировать"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:111
+msgid "Access Groups"
+msgstr "Группы доступа"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:131
+msgid "Projects"
+msgstr "Проекты"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:145
+msgid "Users"
+msgstr "Пользователи"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:164
+msgid "System"
+msgstr "система"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:180
+msgid "Configuration"
+msgstr "конфигурация"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:228
+msgid "Database"
+msgstr "база данных"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:290
+msgid "Icons"
+msgstr "Иконки"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:305
+msgid "Text"
+msgstr "текст"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:337
+msgid "About Us"
+msgstr "О нас"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:390
+msgid "Admin"
+msgstr "Админ"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:403
+msgid "Profile"
+msgstr "профиль"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:416
+msgid "Logout"
+msgstr "Выход"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:432
+msgid "Login with GitHub"
+msgstr "Войти с GitHub"
+
+#: /cache/twig/JTracker/eb/28/e38c1f3684f8d6c0755e60b5c73d.php:23
+msgid "Write"
+msgstr "запись"
+
+#: /cache/twig/JTracker/eb/28/e38c1f3684f8d6c0755e60b5c73d.php:27
+msgid "Preview"
+msgstr "анонс"
+

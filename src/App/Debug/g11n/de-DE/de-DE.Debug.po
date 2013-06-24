@@ -1,0 +1,17 @@
+# Language de-DE translations for Debug - App package.
+# Copyright (C) 2013 JTracker(C)
+# This file is distributed under the same license as the Debug - App package.
+# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Debug - App 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"PO-Revision-Date: 2013-06-24 17:59-0500\n"
+"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
+"Language-Team: Language de-DE\n"
+"Language: de-DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"

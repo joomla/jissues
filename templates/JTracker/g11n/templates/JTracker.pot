@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR JTracker(C)
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker - Template 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:37
+msgid "Tracker"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:51
+msgid "Project"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:72
+msgid "Show"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:91
+msgid "Edit"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:111
+msgid "Access Groups"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:131
+msgid "Projects"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:145
+msgid "Users"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:164
+msgid "System"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:180
+msgid "Configuration"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:228
+msgid "Database"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:290
+msgid "Icons"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:305
+msgid "Text"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:337
+msgid "About Us"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:390
+msgid "Admin"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:403
+msgid "Profile"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:416
+msgid "Logout"
+msgstr ""
+
+#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:432
+msgid "Login with GitHub"
+msgstr ""
+
+#: /cache/twig/JTracker/eb/28/e38c1f3684f8d6c0755e60b5c73d.php:23
+msgid "Write"
+msgstr ""
+
+#: /cache/twig/JTracker/eb/28/e38c1f3684f8d6c0755e60b5c73d.php:27
+msgid "Preview"
+msgstr ""

@@ -1,0 +1,17 @@
+# Language ru-RU translations for Text - App package.
+# Copyright (C) 2013 JTracker(C)
+# This file is distributed under the same license as the Text - App package.
+# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Text - App 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-06-23 22:28-0500\n"
+"PO-Revision-Date: 2013-06-23 23:57-0500\n"
+"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
+"Language-Team: Language ru-RU\n"
+"Language: ru-RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
