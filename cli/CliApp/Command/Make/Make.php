@@ -11,6 +11,8 @@ use CliApp\Application\TrackerApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
+use g11n\Support\ExtensionHelper;
+
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -69,6 +71,8 @@ class Make extends TrackerCommand
 		$this->out('<error>                                    </error>');
 		$this->out('<error>  Please use one of the following:  </error>');
 		$this->out('<error>  make docu                         </error>');
+		$this->out('<error>  make langfiles                    </error>');
+		$this->out('<error>  make langtemplates                </error>');
 		$this->out('<error>                                    </error>');
 	}
 }
