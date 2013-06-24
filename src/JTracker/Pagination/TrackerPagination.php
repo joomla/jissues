@@ -197,13 +197,13 @@ class TrackerPagination
 
 		if ($page < $counter - 1)
 		{
-			$bar[] = '<li><a href="' . $this->uri($next) . '">Next</a></li>';
-			$bar[] = '<li><a href="' . $this->uri($lastPage) . '">Last</a></li>';
+			$bar[] = '<li><a href="' . $this->uri($next) . '">' . g11n3t('Next') . '</a></li>';
+			$bar[] = '<li><a href="' . $this->uri($lastPage) . '">' . g11n3t('Last') . '</a></li>';
 		}
 		else
 		{
-			$bar[] = '<li><a class="current">Next</a></li>';
-			$bar[] = '<li><a class="current">Last</a></li>';
+			$bar[] = '<li><a class="current">' . g11n3t('Next') . '</a></li>';
+			$bar[] = '<li><a class="current">' . g11n3t('Last') . '</a></li>';
 		}
 
 		$bar[] = '</ul>';
