@@ -13,13 +13,15 @@ use App\Projects\Model\ProjectModel;
 use App\Projects\Table\ProjectsTable;
 use App\Projects\TrackerProject;
 
+use g11n\g11n;
+use g11n\Support\ExtensionHelper;
+
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Github\Github;
-use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -94,14 +96,6 @@ final class TrackerApplication extends AbstractWebApplication
 	private $database;
 
 	/**
-	 * The Language object
-	 *
-	 * @var    Language
-	 * @since  1.0
-	 */
-	private $language;
-
-	/**
 	 * The Debugger object
 	 *
 	 * @var  TrackerDebugger
@@ -122,6 +116,10 @@ final class TrackerApplication extends AbstractWebApplication
 		// Load the configuration object.
 		$this->loadConfiguration();
 
+		$this->loadLanguage();
+
+		$this->loadTemplate();
+
 		// Set the debugger.
 		$this->debugger = new TrackerDebugger($this);
 
@@ -132,9 +130,6 @@ final class TrackerApplication extends AbstractWebApplication
 		// @todo Decouple from Factory
 		Factory::$application = $this;
 		Factory::$config = $this->config;
-
-		// Load the library language file
-		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
 
 		$this->mark('Application started');
 	}
@@ -182,7 +177,7 @@ final class TrackerApplication extends AbstractWebApplication
 			define('JPATH_COMPONENT', dirname(__DIR__) . '/Components/' . ucfirst($controller->getComponent()));
 
 			// Execute the component
-			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
+			$contents = $this->executeApp($controller, $controller->getComponent());
 
 			$this->mark('Application terminated');
 
@@ -322,32 +317,25 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Execute the component.
+	 * Execute the App.
 	 *
 	 * @param   ControllerInterface  $controller  The controller instance to execute
-	 * @param   string               $component   The component being executed.
+	 * @param   string               $app         The App being executed.
 	 *
-	 * @return  object
+	 * @return  string The App output
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
 	 */
-	public function executeComponent($controller, $component)
+	protected function executeApp(ControllerInterface $controller, $app)
 	{
-		// Load template language files.
-		$lang = $this->getLanguage();
-
-		$lang->load('tpl_joomla', JPATH_BASE, null, false, false)
-			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', null, false, false)
-			|| $lang->load('tpl_joomla', JPATH_BASE, $lang->getDefault(), false, false)
-			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', $lang->getDefault(), false, false);
-
-		// Load common and local language files.
-		$lang->load($component, JPATH_BASE, null, false, false)
-			|| $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false);
+		// Load the App language file
+		ExtensionHelper::addDomainPath('App', JPATH_BASE . '/src/App');
+		g11n::loadLanguage($app, 'App');
 
 		// Start an output buffer.
 		ob_start();
+
 		$controller->execute();
 
 		return ob_get_clean();
@@ -454,23 +442,38 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Get a language object.
+	 * Load the language object.
 	 *
-	 * @return  Language
-	 *
-	 * @since   1.0
+	 * @since  1.0
+	 * @return $this
 	 */
-	public function getLanguage()
+	protected function loadLanguage()
 	{
-		if (is_null($this->language))
-		{
-			$this->language = Language::getInstance(
-				$this->get('language'),
-				$this->get('debug_lang')
-			);
-		}
+		g11n::setApplication($this);
+		g11n::setDebug($this->get('debug.language'));
 
-		return $this->language;
+		ExtensionHelper::setCacheDir(JPATH_BASE . '/cache');
+
+		// Load the core language file
+		ExtensionHelper::addDomainPath('Core', JPATH_BASE . '/src');
+		g11n::loadLanguage('JTracker', 'Core');
+
+		return $this;
+	}
+
+	/**
+	 * Load the template.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	protected function loadTemplate()
+	{
+		// Load template language files.
+		ExtensionHelper::addDomainPath('Template', JPATH_BASE . '/templates');
+		g11n::loadLanguage('JTracker', 'Template');
+
+		return $this;
 	}
 
 	/**
@@ -498,7 +501,7 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Login
 
-			$user->isAdmin = in_array($user->username, explode(',', $this->get('acl.admin_users')));
+			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
 
 			$this->user = $user;
 
