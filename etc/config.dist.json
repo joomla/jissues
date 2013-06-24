@@ -42,5 +42,9 @@
 		"language": "0",
 		"logging" : "0",
 		"log-path": "logs"
-	}
+	},
+
+	"languages": [
+		"en-GB", "de-DE", "ru-RU"
+	]
 }
