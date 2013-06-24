@@ -27,8 +27,8 @@
 	},
 
 	"acl": {
-		"admin_users": "",
-		"secret"     : ""
+		"admin_users": [],
+		"secret"     : "not-used-yet"
 	},
 
 	"cli-application": {
@@ -39,7 +39,7 @@
 	"debug": {
 		"system"  : "0",
 		"hooks"   : "0",
-		"language": "not-used-yet",
+		"language": "0",
 		"logging" : "0",
 		"log-path": "logs"
 	}
