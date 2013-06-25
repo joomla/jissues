@@ -26,19 +26,20 @@ use App\Debug\Format\Html\TableFormat;
 class TrackerDebugger
 {
 	/**
-	 * @var TrackerApplication
+	 * @var    TrackerApplication
+	 * @since  1.0
 	 */
 	private $application;
 
 	/**
-	 * @var array
-	 * @since   1.0
+	 * @var    array
+	 * @since  1.0
 	 */
 	private $log = array();
 
 	/**
-	 * @var Profiler
-	 * @since   1.0
+	 * @var    Profiler
+	 * @since  1.0
 	 */
 	private $profiler;
 
@@ -46,6 +47,8 @@ class TrackerDebugger
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application
+	 *
+	 * @since   1.0
 	 */
 	public function __construct(TrackerApplication $application)
 	{
@@ -79,8 +82,9 @@ class TrackerDebugger
 	 *
 	 * @param   string  $name  The profile point name.
 	 *
+	 * @return  \Joomla\Profiler\ProfilerInterface
+	 *
 	 * @since   1.0
-	 * @return \Joomla\Profiler\ProfilerInterface
 	 */
 	public function mark($name)
 	{
@@ -94,8 +98,9 @@ class TrackerDebugger
 	 * @param   string  $message  The message
 	 * @param   array   $context  The log context.
 	 *
+	 * @return  $this
+	 *
 	 * @since   1.0
-	 * @return $this
 	 */
 	public function addDatabaseEntry($level, $message, $context)
 	{
@@ -167,10 +172,10 @@ class TrackerDebugger
 	 *
 	 * @param   string  $category  The log category.
 	 *
-	 * @throws \UnexpectedValueException
+	 * @return  array
 	 *
 	 * @since   1.0
-	 * @return array
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getLog($category = '')
 	{
@@ -190,8 +195,9 @@ class TrackerDebugger
 	/**
 	 * Get the debug output.
 	 *
-	 * @since   1.0
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getOutput()
 	{
@@ -331,8 +337,9 @@ class TrackerDebugger
 	/**
 	 * Render the profiler output.
 	 *
+	 * @return  string
+	 *
 	 * @since   1.0
-	 * @return string
 	 */
 	public function renderProfile()
 	{
@@ -410,6 +417,8 @@ class TrackerDebugger
 	 * @param   integer     $statusCode  The status code.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function writeLog(\Exception $exception, $message, $statusCode)
 	{
@@ -424,6 +433,8 @@ class TrackerDebugger
 			case 404 :
 			case 500 :
 				$log[] = '';
+				$log[] = date('y-m-d H:i:s');
+				$log[] = $this->application->get('uri.request');
 				$log[] = $exception->getMessage();
 
 				if ($message)
@@ -436,6 +447,8 @@ class TrackerDebugger
 
 			default :
 				$log[] = '';
+				$log[] = date('y-m-d H:i:s');
+				$log[] = $this->application->get('uri.request');
 				$log[] = 'Unknown status code: ' . $code;
 				$log[] = $exception->getMessage();
 
@@ -463,7 +476,9 @@ class TrackerDebugger
 	 *
 	 * @param   string  $type  The log type.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getLogPath($type)
 	{
