@@ -46,7 +46,7 @@ class TrackerExtension extends \Twig_Extension
 		return array(
 			'uri'    => $app->get('uri'),
 			'jdebug' => JDEBUG,
-			'lang'   => g11n::getDefault(),
+			'lang'   => g11n::getCurrent(),
 			'languages' => $app->get('languages')
 		);
 	}
