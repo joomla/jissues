@@ -14,7 +14,6 @@ use App\Projects\Table\ProjectsTable;
 use App\Projects\TrackerProject;
 
 use g11n\g11n;
-use g11n\Support\ExtensionHelper;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
@@ -330,7 +329,7 @@ final class TrackerApplication extends AbstractWebApplication
 	protected function executeApp(ControllerInterface $controller, $app)
 	{
 		// Load the App language file
-		ExtensionHelper::addDomainPath('App', JPATH_BASE . '/src/App');
+		g11n::addDomainPath('App', JPATH_BASE . '/src/App');
 		g11n::loadLanguage($app, 'App');
 
 		// Start an output buffer.
@@ -449,13 +448,36 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	protected function loadLanguage()
 	{
-		g11n::setApplication($this);
+		// Get the language tag from user input.
+		$lang = $this->input->get('lang');
+
+		if ($lang)
+		{
+			// @todo CHECK if language exists..
+
+			// Store the language tag to the session.
+			$this->getSession()->set('lang', $lang);
+		}
+		else
+		{
+			// Get the language tag from the session.
+			$lang = $this->getSession()->get('lang');
+		}
+
+		if ($lang)
+		{
+			// Set the current language if anything has been found.
+			g11n::setCurrent($lang);
+		}
+
+		// Set language debugging
 		g11n::setDebug($this->get('debug.language'));
 
-		ExtensionHelper::setCacheDir(JPATH_BASE . '/cache');
+		// Set the directory used to store language cache files
+		g11n::setCacheDir(JPATH_BASE . '/cache');
 
 		// Load the core language file
-		ExtensionHelper::addDomainPath('Core', JPATH_BASE . '/src');
+		g11n::addDomainPath('Core', JPATH_BASE . '/src');
 		g11n::loadLanguage('JTracker', 'Core');
 
 		return $this;
@@ -470,7 +492,7 @@ final class TrackerApplication extends AbstractWebApplication
 	protected function loadTemplate()
 	{
 		// Load template language files.
-		ExtensionHelper::addDomainPath('Template', JPATH_BASE . '/templates');
+		g11n::addDomainPath('Template', JPATH_BASE . '/templates');
 		g11n::loadLanguage('JTracker', 'Template');
 
 		return $this;
