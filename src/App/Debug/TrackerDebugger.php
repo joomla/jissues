@@ -354,9 +354,10 @@ class TrackerDebugger
 	 */
 	public function renderLanguage()
 	{
-		g11n::debugPrintTranslateds();
+		echo '<h4>Strings</h4>';
+		echo $this->renderLanguageStrings();
 
-		echo '<h2>Language files loaded</h2>';
+		echo '<h4>Language files loaded</h4>';
 		g11n::printEvents();
 	}
 
@@ -519,5 +520,48 @@ class TrackerDebugger
 		}
 
 		return JPATH_ROOT;
+	}
+
+	/**
+	 * Prints out translated and untranslated strings.
+	 *
+	 * @return string
+	 */
+	protected function renderLanguageStrings()
+	{
+		$html = array();
+
+		$items = g11n::get('processedItems');
+
+		$html[] = '<table class="table table-hover table-condensed">';
+		$html[] = '<tr>';
+		$html[] = '<th>String</th><th>File (line)</th><th></th>';
+		$html[] = '</tr>';
+
+		$tableFormat = new TableFormat;
+
+		$i = 0;
+
+		foreach ($items as $string => $item)
+		{
+			$color =('-' == $item->status)
+				? '#ffb2b2;'
+				: '#e5ff99;';
+
+			$html[] = '<tr>';
+			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($string) . '</td>';
+			$html[] = '<td>' . str_replace(JPATH_ROOT, 'ROOT', $item->file) . ' (' . $item->line . ')</td>';
+			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
+			$html[] = '</tr>';
+
+			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">' . $tableFormat->fromTrace($item->trace) . '</div>';
+			$html[] = '</td></tr>';
+
+			$i ++;
+		}
+
+		$html[] = '</table>';
+
+		return implode("\n", $html);
 	}
 }
