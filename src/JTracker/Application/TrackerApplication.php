@@ -180,10 +180,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated');
 
-			if (JDEBUG)
-			{
-				$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
-			}
+			$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
 
 			$this->setBody($contents);
 		}
@@ -422,7 +419,7 @@ final class TrackerApplication extends AbstractWebApplication
 				)
 			);
 
-			if ($this->get('debug.system'))
+			if ($this->get('debug.database'))
 			{
 				$this->database->setDebug(true);
 
@@ -453,7 +450,11 @@ final class TrackerApplication extends AbstractWebApplication
 
 		if ($lang)
 		{
-			// @todo CHECK if language exists..
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown language from user input - fall back to default
+				$lang = g11n::getDefault();
+			}
 
 			// Store the language tag to the session.
 			$this->getSession()->set('lang', $lang);
