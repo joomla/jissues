@@ -12,6 +12,7 @@ use g11n\Language\Debugger;
 use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
+use Joomla\Utilities\ArrayHelper;
 use JTracker\Application\TrackerApplication;
 
 use App\Debug\Database\DatabaseDebugger;
@@ -54,7 +55,7 @@ class TrackerDebugger
 	{
 		$this->application = $application;
 
-		$this->profiler = JDEBUG ? new Profiler('Tracker') : null;
+		$this->profiler = $application->get('debug.system') ? new Profiler('Tracker') : null;
 
 		$this->log['db'] = array();
 
@@ -201,11 +202,6 @@ class TrackerDebugger
 	 */
 	public function getOutput()
 	{
-		if (!JDEBUG)
-		{
-			return '';
-		}
-
 		$dbDebugger = new DatabaseDebugger($this->application->getDatabase());
 		$tableFormat = new TableFormat;
 
@@ -224,24 +220,6 @@ class TrackerDebugger
 
 		$debug = array();
 
-		$debug[] = $css;
-
-		$debug[] = '<div class="well well-small navbar navbar-fixed-bottom">';
-		$debug[] = '<a class="brand" href="javascript:;">Debug</a>';
-		$debug[] = '<ul class="nav">
-    <li><a href="#dbgDatabase">Database</a></li>
-    <li><a href="#dbgProfile">Profile</a></li>
-    <li><a href="#dbgUser">User</a></li>
-    <li><a href="#dbgProject">Project</a></li>';
-
-		if ($this->application->get('debug.language'))
-		{
-			$debug[] = '<li><a href="#dbgLanguage">Language</a></li>';
-		}
-
-		$debug[] = '</ul>';
-		$debug[] = '</div>';
-
 		$dbLog = $this->getLog('db');
 
 		if ($dbLog)
@@ -256,82 +234,127 @@ class TrackerDebugger
 
 			foreach ($dbLog as $i => $entry)
 			{
-				// @is_object($entry))
-				if (1)
+				$explain = $dbDebugger->getExplain($entry->sql);
+
+				$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
+				$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
+
+				$debug[] = '<ul class="nav nav-tabs">';
+
+				if ($explain)
 				{
-					$explain = $dbDebugger->getExplain($entry->sql);
-
-					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
-					$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
-
-					$debug[] = '<ul class="nav nav-tabs">';
-
-					if ($explain)
-					{
-						$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
-					}
-
-					$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
-
-					// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
-
-					$debug[] = '</ul>';
-
-					$debug[] = '<div class="tab-content">';
-
-					$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
-
-					$debug[] = $explain;
-					$debug[] = '</div>';
-
-					$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
-
-					if (is_array($entry->trace))
-					{
-						$debug[] = $tableFormat->fromTrace($entry->trace);
-					}
-
-					$debug[] = '</div>';
-
-					// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
-
-					// $debug[] = $tableFormat->fromArray($entry->profile);
-					// $debug[] = '</div>';
-
-					$debug[] = '</div>';
+					$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
 				}
-				else
+
+				$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
+
+				// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+
+				$debug[] = '</ul>';
+
+				$debug[] = '<div class="tab-content">';
+
+				$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
+				$debug[] = $explain;
+				$debug[] = '</div>';
+
+				$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
+
+				if (is_array($entry->trace))
 				{
-					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
-					$debug[] = $dbDebugger->getExplain($entry->sql);
+					$debug[] = $tableFormat->fromTrace($entry->trace);
 				}
+
+				$debug[] = '</div>';
+
+				// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
+
+				// $debug[] = $tableFormat->fromArray($entry->profile);
+				// $debug[] = '</div>';
+
+				// End tab content
+				$debug[] = '</div>';
 			}
 		}
 
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
-		$debug[] = $this->renderProfile();
-		$debug[] = '</div>';
-
-		$session = $this->application->getSession();
-
-		ob_start();
-
-		echo '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
-		var_dump($session->get('user'));
-
-		echo '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
-		var_dump($session->get('project'));
+		if ($this->application->get('debug.system'))
+		{
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
+			$debug[] = $this->renderProfile();
+		}
 
 		if ($this->application->get('debug.language'))
 		{
-			echo '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
-			$this->renderLanguage();
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
+			$debug[] = '<h4>Strings</h4>';
+			$debug[] = $this->renderLanguageStrings();
+
+			$debug[] = '<h4>Language files loaded</h4>';
+
+			$events = array();
+
+			foreach(g11n::getEvents() as $e)
+			{
+				$events[] = ArrayHelper::fromObject($e);
+			}
+
+			$debug[] = $tableFormat->fromArray($events);
 		}
 
-		$debug[] = ob_get_clean();
-		$debug[] = '</div>';
+		ob_start();
 
-		return implode("\n", $debug);
+		if ($this->application->get('debug.system'))
+		{
+			$session = $this->application->getSession();
+
+			echo '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
+			var_dump($session->get('user'));
+
+			echo '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
+			var_dump($session->get('project'));
+		}
+
+		$output = ob_get_clean();
+
+		if ($output)
+		{
+			$debug[] = $output;
+		}
+
+		$nav = array();
+
+		if ($debug)
+		{
+			$nav = array();
+
+			$nav[] = $css;
+
+			$nav[] = '<div class="well well-small navbar navbar-fixed-bottom">';
+			$nav[] = '<a class="brand" href="javascript:;">Debug</a>';
+			$nav[] = '<ul class="nav">';
+
+			if ($this->application->get('debug.database'))
+			{
+				$nav[] = '<li><a href="#dbgDatabase">Database</a></li>';
+			}
+
+			if ($this->application->get('debug.system'))
+			{
+				$nav[] = '<li><a href="#dbgProfile">Profile</a></li>';
+				$nav[] = '<li><a href="#dbgUser">User</a></li>';
+				$nav[] = '<li><a href="#dbgProject">Project</a></li>';
+			}
+
+			if ($this->application->get('debug.language'))
+			{
+				$nav[] = '<li><a href="#dbgLanguage">Language</a></li>';
+			}
+
+			$nav[] = '</ul>';
+			$nav[] = '</div>';
+		}
+
+		return implode("\n", $nav) . implode("\n", $debug);
 	}
 
 	/**
@@ -344,21 +367,6 @@ class TrackerDebugger
 	public function renderProfile()
 	{
 		return $this->profiler->render();
-	}
-
-	/**
-	 * Render language debug information.
-	 *
-	 * @since  1.0
-	 * @return void
-	 */
-	public function renderLanguage()
-	{
-		echo '<h4>Strings</h4>';
-		echo $this->renderLanguageStrings();
-
-		echo '<h4>Language files loaded</h4>';
-		g11n::printEvents();
 	}
 
 	/**
@@ -554,8 +562,9 @@ class TrackerDebugger
 			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
 			$html[] = '</tr>';
 
-			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">' . $tableFormat->fromTrace($item->trace) . '</div>';
-			$html[] = '</td></tr>';
+			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">'
+				. $tableFormat->fromTrace($item->trace)
+				. '</td></tr>';
 
 			$i ++;
 		}
