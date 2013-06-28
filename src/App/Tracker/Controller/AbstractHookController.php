@@ -272,7 +272,11 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	}
 
 	/**
-	 * @param LoggerInterface $logger
+	 * Set a logger.
+	 *
+	 * @param   LoggerInterface  $logger  The logger.
+	 *
+	 * @since  1.0
 	 * @return null|void
 	 */
 	public function setLogger(LoggerInterface $logger)
