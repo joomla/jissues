@@ -15,12 +15,23 @@ use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 
+use Kint;
+
+use Monolog\Handler\FirePHPHandler;
+use Monolog\Handler\NullHandler;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\WebProcessor;
+
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+
 /**
  * Class TrackerDebugger.
  *
  * @since  1.0
  */
-class TrackerDebugger
+class TrackerDebugger implements LoggerAwareInterface
 {
 	/**
 	 * @var    TrackerApplication
@@ -41,6 +52,11 @@ class TrackerDebugger
 	private $profiler;
 
 	/**
+	 * @var Logger
+	 */
+	private $logger;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   TrackerApplication  $application  The application
@@ -53,7 +69,7 @@ class TrackerDebugger
 
 		$this->profiler = JDEBUG ? new Profiler('Tracker') : null;
 
-		$this->log['db'] = array();
+		$this->setupLogging();
 
 		/*
 		/ Register an error handler.
@@ -75,6 +91,55 @@ class TrackerDebugger
 	}
 
 	/**
+	 * Set up loggers.
+	 *
+	 * @since  1.0
+	 * @return $this
+	 */
+	protected function setupLogging()
+	{
+		$this->log['db'] = array();
+
+		if (!$this->application->get('debug.logging'))
+		{
+			return $this;
+		}
+
+		$logger = new Logger('JTracker');
+
+		$logger->pushHandler(
+			new StreamHandler(
+				$this->getLogPath('root') . '/error.log',
+				Logger::ERROR
+			)
+		);
+
+		$logger->pushProcessor(new WebProcessor);
+
+		$this->setLogger($logger);
+
+		if ($this->application->get('debug.database'))
+		{
+			$logger = new Logger('JTracker');
+
+			$logger->pushHandler(
+				new StreamHandler(
+					$this->getLogPath('root') . '/database.log',
+					Logger::DEBUG
+				)
+			);
+
+			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
+			$logger->pushProcessor(new WebProcessor);
+
+			$this->application->getDatabase()->setLogger($logger);
+			$this->application->getDatabase()->setDebug(true);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Mark a profile point.
 	 *
 	 * @param   string  $name  The profile point name.
@@ -91,19 +156,24 @@ class TrackerDebugger
 	/**
 	 * Add an entry from the database.
 	 *
-	 * @param   mixed   $level    The log level.
-	 * @param   string  $message  The message
-	 * @param   array   $context  The log context.
+	 * @param   array  $record  The log record.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function addDatabaseEntry($level, $message, $context)
+	public function addDatabaseEntry($record)
 	{
 		/* @type TrackerApplication $application */
 		// $application = Factory::$application;
 		// $db = $application->getDatabase();
+
+		if (false == isset($record['context']))
+		{
+			return $record;
+		}
+
+		$context = $record['context'];
 
 		$entry = new \stdClass;
 
@@ -121,47 +191,17 @@ class TrackerDebugger
 
 		// $db->loadAssocList();
 
-/*
-		/ Get the profiling information
-			$cursor = mysqli_query($this->connection, 'SHOW PROFILE');
-			$profile = '';
-*/
+		/*
+				/ Get the profiling information
+					$cursor = mysqli_query($this->connection, 'SHOW PROFILE');
+					$profile = '';
+		*/
 
 		// $entry->profile = isset($context['profile']) ? $context['profile'] : 'n/a';
 
 		$this->log['db'][] = $entry;
 
-		if (0)
-		{
-			$this->log['db'][] = isset($context['sql'])
-				? $context['sql']
-				: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
-		}
-
-		// Log to a text file
-
-		$log = array();
-
-		$log[] = '';
-		$log[] = date('y-m-d H:i:s');
-		$log[] = $this->application->get('uri.request');
-
-		$log[] = isset($context['sql'])
-			? ('{sql}' == $message ? '' : $message . ' - ') . $context['sql']
-			: 'DATABASE - Level: ' . $level . ' - Message: ' . $message;
-
-		$log[] = '';
-
-		$fName = $this->getLogPath('root') . '/database.log';
-
-		$returnVal = file_put_contents($fName, implode("\n", $log), FILE_APPEND | LOCK_EX);
-
-		if (!$returnVal)
-		{
-			echo __METHOD__ . ' - File could not be written :(';
-		}
-
-		return $this;
+		return $record;
 	}
 
 	/**
@@ -180,7 +220,7 @@ class TrackerDebugger
 		{
 			if (false == array_key_exists($category, $this->log))
 			{
-				throw new \UnexpectedValueException(__METHOD__ . ' unkown category: ' . $category);
+				throw new \UnexpectedValueException(__METHOD__ . ' unknown category: ' . $category);
 			}
 
 			return $this->log[$category];
@@ -198,14 +238,6 @@ class TrackerDebugger
 	 */
 	public function getOutput()
 	{
-		if (!JDEBUG)
-		{
-			return '';
-		}
-
-		$dbDebugger = new DatabaseDebugger($this->application->getDatabase());
-		$tableFormat = new TableFormat;
-
 		// OK, here comes some very beautiful CSS !!
 		// It's kinda "hidden" here, so evil template designers won't find it :P
 		$css = '
@@ -225,95 +257,58 @@ class TrackerDebugger
 
 		$debug[] = '<div class="well well-small navbar navbar-fixed-bottom">';
 		$debug[] = '<a class="brand" href="javascript:;">Debug</a>';
-		$debug[] = '<ul class="nav">
-    <li><a href="#dbgDatabase">Database</a></li>
-    <li><a href="#dbgProfile">Profile</a></li>
-    <li><a href="#dbgUser">User</a></li>
-    <li><a href="#dbgProject">Project</a></li>
-    </ul>';
+		$debug[] = '<ul class="nav">';
+
+		if ($this->application->get('debug.database'))
+		{
+			$debug[] = '<li><a href="#dbgDatabase">Database</a></li>';
+		}
+
+		if ($this->application->get('debug.system'))
+		{
+			$debug[] = '<li><a href="#dbgProfile">Profile</a></li>';
+			$debug[] = '<li><a href="#dbgUser">User</a></li>';
+			$debug[] = '<li><a href="#dbgProject">Project</a></li>';
+		}
+
+		if ($this->application->get('debug.language'))
+		{
+			$debug[] = '<li><a href="#dbgLanguage">Language</a></li>';
+		}
+
+		$debug[] = '</ul>';
 		$debug[] = '</div>';
 
-		$dbLog = $this->getLog('db');
-
-		if ($dbLog)
+		if ($this->application->get('debug.database'))
 		{
-			$sqlFormat = new SqlFormat;
-
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgDatabase">Database</a></h3>';
 
-			$debug[] = count($dbLog) . ' Queries.';
-
-			$prefix = $dbDebugger->getPrefix();
-
-			foreach ($dbLog as $i => $entry)
-			{
-				// @is_object($entry))
-				if (1)
-				{
-					$explain = $dbDebugger->getExplain($entry->sql);
-
-					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
-					$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
-
-					$debug[] = '<ul class="nav nav-tabs">';
-
-					if ($explain)
-					{
-						$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
-					}
-
-					$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
-
-					// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
-
-					$debug[] = '</ul>';
-
-					$debug[] = '<div class="tab-content">';
-
-					$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
-
-					$debug[] = $explain;
-					$debug[] = '</div>';
-
-					$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
-
-					if (is_array($entry->trace))
-					{
-						$debug[] = $tableFormat->fromTrace($entry->trace);
-					}
-
-					$debug[] = '</div>';
-
-					// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
-
-					// $debug[] = $tableFormat->fromArray($entry->profile);
-					// $debug[] = '</div>';
-
-					$debug[] = '</div>';
-				}
-				else
-				{
-					$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
-					$debug[] = $dbDebugger->getExplain($entry->sql);
-				}
-			}
+			$debug[] = $this->renderDatabase();
 		}
 
 		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
 		$debug[] = $this->renderProfile();
-		$debug[] = '</div>';
 
 		$session = $this->application->getSession();
 
-		ob_start();
+		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
+		$debug[] = @Kint::dump($session->get('user'));
 
-		echo '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
-		var_dump($session->get('user'));
+		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
+		$debug[] = @Kint::dump($session->get('project'));
 
-		echo '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
-		var_dump($session->get('project'));
+		if ($this->application->get('debug.language'))
+		{
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
 
-		$debug[] = ob_get_clean();
+			ob_start();
+
+			//$this->renderLanguage();
+
+			$debug[] = ob_get_clean();
+		}
+
+		$debug[] = '</div>';
 
 		return implode("\n", $debug);
 	}
@@ -331,23 +326,39 @@ class TrackerDebugger
 	}
 
 	/**
+	 * Render language debug information.
+	 *
+	 * @since  1.0
+	 * @return void
+	 */
+	public function renderLanguage()
+	{
+		echo '<h4>Strings</h4>';
+		echo $this->renderLanguageStrings();
+
+		echo '<h4>Language files loaded</h4>';
+		g11n::printEvents();
+	}
+
+	/**
 	 * Method to render an exception in a user friendly format
 	 *
-	 * @param   \Exception  $exception   The caught exception.
-	 * @param   string      $message     The message to display.
-	 * @param   integer     $statusCode  The status code.
+	 * @param   \Exception  $exception  The caught exception.
+	 * @param   array       $context    The message to display.
 	 *
 	 * @return  string  The exception output in rendered format.
 	 *
 	 * @since   1.0
 	 */
-	public function renderException(\Exception $exception, $message = '', $statusCode = 500)
+	public function renderException(\Exception $exception, array $context = array())
 	{
 		static $loaded = false;
 
 		if ($loaded)
 		{
 			// Seems that we're recursing...
+			$this->logger->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
+
 			return str_replace(JPATH_BASE, 'JROOT', $exception->getMessage())
 			. '<pre>' . $exception->getTraceAsString() . '</pre>'
 			. 'Previous: ' . get_class($exception->getPrevious());
@@ -358,10 +369,17 @@ class TrackerDebugger
 		/* @type \JTracker\View\TrackerDefaultView $view */
 		$view = new $viewClass;
 
+		$message = '';
+
+		foreach ($context as $key => $value)
+		{
+			$message .= $key . ': ' . $value . "\n";
+		}
+
 		$view->setLayout('exception')
 			->getRenderer()
 			->set('exception', $exception)
-			->set('message', str_replace(JPATH_BASE, 'JROOT', $message));
+			->set('message', str_replace(JPATH_BASE, 'ROOT', $message));
 
 		$loaded = true;
 
@@ -371,74 +389,9 @@ class TrackerDebugger
 
 		$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
 
-		if ($this->application->get('debug.logging'))
-		{
-			$this->writeLog($exception, $message, $statusCode);
-		}
+		$this->logger->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
 
 		return $contents;
-	}
-
-	/**
-	 * Write a log file entry.
-	 *
-	 * @param   \Exception  $exception   The Exception.
-	 * @param   string      $message     An additional message.
-	 * @param   integer     $statusCode  The status code.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function writeLog(\Exception $exception, $message, $statusCode)
-	{
-		$code = $exception->getCode();
-		$code = $code ? : $statusCode;
-
-		$log = array();
-
-		switch ($code)
-		{
-			case 403 :
-			case 404 :
-			case 500 :
-				$log[] = '';
-				$log[] = date('y-m-d H:i:s');
-				$log[] = $this->application->get('uri.request');
-				$log[] = $exception->getMessage();
-
-				if ($message)
-				{
-					$log[] = $message;
-				}
-
-				$log[] = '';
-				break;
-
-			default :
-				$log[] = '';
-				$log[] = date('y-m-d H:i:s');
-				$log[] = $this->application->get('uri.request');
-				$log[] = 'Unknown status code: ' . $code;
-				$log[] = $exception->getMessage();
-
-				if ($message)
-				{
-					$log[] = $message;
-				}
-
-				$log[] = '';
-
-				$code = 500;
-				break;
-		}
-
-		$path = $this->getLogPath('root') . '/' . $code . '.log';
-
-		if (!file_put_contents($path, implode("\n", $log), FILE_APPEND | LOCK_EX))
-		{
-			echo __METHOD__ . ' - File could not be written :( - ' . $path;
-		}
 	}
 
 	/**
@@ -489,5 +442,89 @@ class TrackerDebugger
 		}
 
 		return JPATH_ROOT;
+	}
+
+	/**
+	 * Sets a logger instance on the object
+	 *
+	 * @param   LoggerInterface  $logger  The logger.
+	 *
+	 * @return null
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
+
+	/**
+	 * Render database information.
+	 *
+	 * @since  1.0
+	 * @return string
+	 */
+	protected function renderDatabase()
+	{
+		$debug = array();
+
+		$dbLog = $this->getLog('db');
+
+		if (!$dbLog)
+		{
+			return '';
+		}
+
+		$tableFormat = new TableFormat;
+		$sqlFormat   = new SqlFormat;
+		$dbDebugger  = new DatabaseDebugger($this->application->getDatabase());
+
+		$debug[] = count($dbLog) . ' Queries.';
+
+		$prefix = $dbDebugger->getPrefix();
+
+		foreach ($dbLog as $i => $entry)
+		{
+			$explain = $dbDebugger->getExplain($entry->sql);
+
+			$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
+			$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
+
+			$debug[] = '<ul class="nav nav-tabs">';
+
+			if ($explain)
+			{
+				$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
+			}
+
+			$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
+
+			// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+
+			$debug[] = '</ul>';
+
+			$debug[] = '<div class="tab-content">';
+
+			$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
+
+			$debug[] = $explain;
+			$debug[] = '</div>';
+
+			$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
+
+			if (is_array($entry->trace))
+			{
+				$debug[] = $tableFormat->fromTrace($entry->trace);
+			}
+
+			$debug[] = '</div>';
+
+			// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
+
+			// $debug[] = $tableFormat->fromArray($entry->profile);
+			// $debug[] = '</div>';
+
+			$debug[] = '</div>';
+		}
+
+		return implode("\n", $debug);
 	}
 }
