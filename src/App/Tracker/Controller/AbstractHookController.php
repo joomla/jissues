@@ -6,8 +6,8 @@
 
 namespace App\Tracker\Controller;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\TrackerProject;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
@@ -15,16 +15,21 @@ use Joomla\Date\Date;
 use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
-use Joomla\Log\Log;
 
 use JTracker\Controller\AbstractTrackerController;
+
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Abstract controller class for web hook requests
  *
  * @since  1.0
  */
-abstract class AbstractHookController extends AbstractTrackerController
+abstract class AbstractHookController extends AbstractTrackerController implements LoggerAwareInterface
 {
 	/**
 	 * An array of how many addresses are in each CIDR mask
@@ -101,6 +106,14 @@ abstract class AbstractHookController extends AbstractTrackerController
 	protected $debug;
 
 	/**
+	 * Logger object.
+	 *
+	 * @var \Monolog\Logger
+	 * @since  1.0
+	 */
+	protected $logger;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   Input                $input  The input object.
@@ -127,10 +140,13 @@ abstract class AbstractHookController extends AbstractTrackerController
 		}
 
 		// Initialize the logger
-		$options['format']         = '{DATE}\t{TIME}\t{LEVEL}\t{CODE}\t{MESSAGE}';
-		$options['text_file_path'] = $this->getApplication()->getDebugger()->getLogPath('root');
-		$options['text_file']      = 'github_' . strtolower($fileName) . '.php';
-		Log::addLogger($options);
+		$this->logger = new Logger('JTracker');
+
+		$this->logger->pushHandler(
+			new StreamHandler(
+				$this->getApplication()->get('debug.log-path') . '/github_' . strtolower($fileName) . '.log'
+			)
+		);
 
 		// Get a database object
 		$this->db = $this->getApplication()->getDatabase();
@@ -154,7 +170,7 @@ abstract class AbstractHookController extends AbstractTrackerController
 		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
-			Log::add('Unauthorized request from ' . $myIP, Log::NOTICE);
+			$this->logger->error('Unauthorized request from ' . $myIP);
 			$this->getApplication()->close();
 		}
 
@@ -163,11 +179,11 @@ abstract class AbstractHookController extends AbstractTrackerController
 
 		if (!$data)
 		{
-			Log::add('No data received.', Log::NOTICE);
+			$this->logger->error('No data received.');
 			$this->getApplication()->close();
 		}
 
-		Log::add('Data received.' . ($this->debug ? print_r($data, 1) : ''), Log::NOTICE);
+		$this->logger->info('Data received.' . ($this->debug ? print_r($data, 1) : ''));
 
 		// Decode it
 		$this->hookData = json_decode($data);
@@ -230,29 +246,38 @@ abstract class AbstractHookController extends AbstractTrackerController
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add(
+			$this->logger->info(
 				sprintf(
 					'Error retrieving the project ID for GitHub repo %s in the database: %s',
 					$this->hookData->repository->name,
 					$e->getMessage()
-				),
-				Log::INFO
+				)
 			);
+
 			$this->getApplication()->close();
 		}
 
 		// Make sure we have a valid project ID
 		if (!$this->project->project_id)
 		{
-			Log::add(
+			$this->logger->info(
 				sprintf(
 					'A project does not exist for the %s GitHub repo in the database, cannot add data for it.',
 					$this->hookData->repository->name
-				),
-				Log::INFO
+				)
 			);
+
 			$this->getApplication()->close();
 		}
+	}
+
+	/**
+	 * @param LoggerInterface $logger
+	 * @return null|void
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
 	}
 
 	/**
@@ -293,14 +318,13 @@ abstract class AbstractHookController extends AbstractTrackerController
 		}
 		catch (\Exception $exception)
 		{
-			Log::add(
+			$this->logger->info(
 				sprintf(
 					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d): %s',
 					$event,
 					$projectId, $itemNumber,
 					$exception->getMessage()
-				),
-				Log::INFO
+				)
 			);
 
 			$this->getApplication()->close();
@@ -329,13 +353,12 @@ abstract class AbstractHookController extends AbstractTrackerController
 		}
 		catch (\DomainException $exception)
 		{
-			Log::add(
+			$this->logger->info(
 				sprintf(
 					'Error parsing comment %d with GH Markdown: %s',
 					$this->hookData->comment->id,
 					$exception->getMessage()
-				),
-				Log::INFO
+				)
 			);
 		}
 
