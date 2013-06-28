@@ -82,11 +82,12 @@
                     {% endif %}
 
                     <tr{{ rowClass }}>
-                        <td class="center hidden-phone issueInfo">
-                            <div title="{{ project.title }} # {{ item.issue_number }}"
+                        <td class="center hidden-phone">
+                            <div
+                                    class="btn btn-small issueInfo"
+                                    title="{{ project.title }} # {{ item.issue_number }}"
                                   data-issue="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/info">
                                 {{ item.issue_number }}
-                                Info
                             </div>
                         </td>
                         <td class="hasContext">
@@ -161,6 +162,8 @@
 <!-- +  JavaScript templates  + -->
 <!-- ++++++++++++++++++++++++++ -->
 
+    <!-- @todo add much more info =;) -->
+
 <script type="text/x-tmpl" id="tplIssueInfo">
     <ul class="unstyled">
         <li>Opened by: [%= o.opened_by %]</li>
@@ -184,7 +187,7 @@
      */
     tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
 
-    $('*[data-issue]').hover(
+    $('*[data-issue]').click(
             function () {
                 var el = $(this);
                 $.get(el.data('issue'), function(r) {
@@ -193,9 +196,8 @@
                        html: true
                    }).popover('show');
                 });
-            },
-            function () {
-                $(this).popover('hide');
+                el.unbind('click');
+                return false;
             }
     );
     </script>

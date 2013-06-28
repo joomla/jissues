@@ -175,8 +175,10 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right">
-                <a href="javascript:" onclick="alert('Not yet :(');" class="btn btn-success">
+            <div class="pull-right" id="commentResult">
+                <div id="commentStatus"></div>
+                <a href="javascript:" class="btn btn-success"
+                   onclick="JTracker.submitComment('{{ item.issue_number }}');">
                     Post Comment
                 </a>
             </div>
@@ -206,26 +208,7 @@
         {
             if('#preview' == $(e.target).attr('href'))
             {
-                var out = $('#preview');
-
-                out.html('Loading preview...');
-
-                $.post(
-                        '/preview',
-                        { text: $('#comment').val() },
-                        function (response) {
-                            out.empty();
-                            if (response.error) {
-                                out.html(response.error);
-                            }
-                            else if (!response.data.length) {
-                                out.html('Invalid response.');
-                            }
-                            else {
-                                out.html(response.data);
-                            }
-                        }
-                );
+                JTracker.preview('#comment', '#preview');
             }
         });
     </script>

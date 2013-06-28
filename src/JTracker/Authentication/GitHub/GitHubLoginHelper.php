@@ -201,7 +201,7 @@ class GitHubLoginHelper
 			return $avatars[$user->username];
 		}
 
-		$base = JPATH_THEMES . '/images/avatars/' . $user->username . '.png';
+		$base = JPATH_THEMES . '/images/avatars/';
 
 		$avatar = $base . '/' . $user->username . '.png';
 
