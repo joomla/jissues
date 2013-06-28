@@ -7,7 +7,6 @@
 namespace App\Tracker\Controller\Hooks;
 
 use Joomla\Date\Date;
-use Joomla\Log\Log;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
@@ -42,7 +41,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Error checking the database for comment ID:' . $e->getMessage(), Log::INFO);
+			$this->logger->error('Error checking the database for comment ID:' . $e->getMessage());
 			$this->getApplication()->close();
 		}
 
@@ -81,7 +80,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Error checking the database for GitHub ID:' . $e->getMessage(), Log::INFO);
+			$this->logger->error('Error checking the database for GitHub ID:' . $e->getMessage());
 			$this->getApplication()->close();
 		}
 
@@ -107,13 +106,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		);
 
 		// Store was successful, update status
-		Log::add(
+		$this->logger->info(
 				sprintf(
 				'Added GitHub comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->hookData->comment->id
-			), Log::INFO
+			)
 		);
 
 		return true;
@@ -166,7 +165,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
+			$this->logger->error(
+				sprintf(
+					'Error storing new item %s in the database: %s',
+					$this->hookData->issue->number,
+					$e->getMessage()
+				)
+			);
+
 			$this->getApplication()->close();
 		}
 
@@ -192,13 +198,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 
 		// Store was successful, update status
-		Log::add(
+		$this->logger->info(
 				sprintf(
 				'Added GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->hookData->issue->number
-			), Log::INFO
+			)
 		);
 
 		return $this;
@@ -232,18 +238,21 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Error updating the database for comment ' . $id . ':' . $e->getMessage(), Log::INFO);
+			$this->logger->error(
+				'Error updating the database for comment ' . $id . ':' . $e->getMessage()
+			);
+
 			$this->getApplication()->close();
 		}
 
 		// Store was successful, update status
-		Log::add(
+		$this->logger->info(
 				sprintf(
 				'Updated comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$id
-			), Log::INFO
+			)
 		);
 
 		return true;

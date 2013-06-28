@@ -21,20 +21,8 @@ require JPATH_BASE . '/vendor/autoload.php';
 // Load the Joomla Framework
 require JPATH_BASE . '/vendor/joomla/framework/src/import.php';
 
-try
-{
-	// Instantiate the application.
-	$application = new JTracker\Application\TrackerApplication;
+// Instantiate the application.
+$application = new JTracker\Application\TrackerApplication;
 
-	// Execute the application.
-	$application->execute();
-}
-catch (\Exception $e)
-{
-	echo get_class($e) . ': ' . $e->getMessage();
-
-	if (defined('JDEBUG') && JDEBUG)
-	{
-		echo '<pre>' . str_replace(JPATH_BASE, 'JROOT', $e->getTraceAsString()) . '</pre>';
-	}
-}
+// Execute the application.
+$application->execute();

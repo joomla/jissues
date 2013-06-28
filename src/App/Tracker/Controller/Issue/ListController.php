@@ -33,4 +33,17 @@ class ListController extends AbstractTrackerController
 		// Set the default view
 		$this->defaultView = 'issues';
 	}
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @since   1.0
+	 * @return  string  The rendered view.
+	 */
+	public function execute()
+	{
+		$this->getApplication()->getUser()->authorize('view');
+
+		parent::execute();
+	}
 }

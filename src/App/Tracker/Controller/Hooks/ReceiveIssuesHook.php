@@ -7,7 +7,6 @@
 namespace App\Tracker\Controller\Hooks;
 
 use Joomla\Date\Date;
-use Joomla\Log\Log;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
@@ -43,7 +42,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Error checking the database for the GitHub ID:' . $e->getMessage(), Log::INFO);
+			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
 			$this->getApplication()->close();
 		}
 
@@ -122,7 +121,14 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			Log::add(sprintf('Error storing new item %s in the database: %s', $this->hookData->issue->number, $e->getMessage()), Log::INFO);
+			$this->logger->error(
+				sprintf(
+					'Error storing new item %s in the database: %s',
+					$this->hookData->issue->number,
+					$e->getMessage()
+				)
+			);
+
 			$this->getApplication()->close();
 		}
 
@@ -163,13 +169,13 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 
 		// Store was successful, update status
-		Log::add(
+		$this->logger->info(
 				sprintf(
 				'Added GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->hookData->issue->number
-			), Log::INFO
+			)
 		);
 
 		return true;
@@ -234,7 +240,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			Log::add('Error updating the database:' . $e->getMessage(), Log::INFO);
+			$this->logger->error('Error updating the database:' . $e->getMessage());
 			$this->getApplication()->close();
 		}
 
@@ -263,13 +269,13 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 
 		// Store was successful, update status
-		Log::add(
+		$this->logger->info(
 				sprintf(
 				'Updated GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->hookData->issue->number
-			), Log::INFO
+			)
 		);
 
 		return true;

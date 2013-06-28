@@ -6,7 +6,6 @@
 
 namespace JTracker\Application;
 
-use App\Debug\Logger\CallbackLogger;
 use App\Debug\TrackerDebugger;
 
 use App\Projects\Model\ProjectModel;
@@ -93,6 +92,14 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @since  1.0
 	 */
 	private $database;
+
+	/**
+	 * The Language object
+	 *
+	 * @var    Language
+	 * @since  1.0
+	 */
+	private $language;
 
 	/**
 	 * The Debugger object
@@ -190,22 +197,22 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
-			$message = array();
-			$message[] = 'Authentication failure';
+			$context = array();
+			$context['message'] = 'Authentication failure';
 
 			if (JDEBUG)
 			{
 				// The exceptions contains the User object and the action.
 				if ($exception->getUser()->username)
 				{
-					$message[] = 'user: ' . $exception->getUser()->username;
-					$message[] = 'id: ' . $exception->getUser()->id;
+					$context['user'] = $exception->getUser()->username;
+					$context['id'] = $exception->getUser()->id;
 				}
 
-				$message[] = 'action: ' . $exception->getAction();
+				$context['action'] = $exception->getAction();
 			}
 
-			$this->setBody($this->debugger->renderException($exception, implode("\n", $message)));
+			$this->setBody($this->debugger->renderException($exception, $context));
 		}
 		catch (RoutingException $exception)
 		{
@@ -213,9 +220,9 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
-			$message = JDEBUG ? $exception->getRawRoute() : '';
+			$context = JDEBUG ? array('message' => $exception->getRawRoute()) : array();
 
-			$this->setBody($this->debugger->renderException($exception, $message));
+			$this->setBody($this->debugger->renderException($exception, $context));
 		}
 		catch (\Exception $exception)
 		{
@@ -418,17 +425,6 @@ final class TrackerApplication extends AbstractWebApplication
 					'prefix' => $this->get('database.prefix')
 				)
 			);
-
-			if ($this->get('debug.database'))
-			{
-				$this->database->setDebug(true);
-
-				$this->database->setLogger(
-					new CallbackLogger(
-						array($this->debugger, 'addDatabaseEntry')
-					)
-				);
-			}
 
 			// @todo Decouple from Factory
 			Factory::$database = $this->database;
