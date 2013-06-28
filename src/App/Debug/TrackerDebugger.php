@@ -14,6 +14,7 @@ use JTracker\Application\TrackerApplication;
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
+use App\Debug\Handler\ProductionHandler;
 
 use Kint;
 
@@ -25,6 +26,9 @@ use Monolog\Processor\WebProcessor;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
+
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 /**
  * Class TrackerDebugger.
@@ -71,23 +75,19 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$this->setupLogging();
 
-		/*
-		/ Register an error handler.
+		// Register an error handler.
 		if (JDEBUG)
 		{
-			$handler = new \Whoops\Handler\PrettyPageHandler;
+			$handler = new PrettyPageHandler;
 		}
 		else
 		{
-			$handler = new \App\Debug\Handler\ProductionHandler;
+			$handler = new ProductionHandler;
 		}
 
-		/ $handler = new \Whoops\Handler\JsonResponseHandler;
-
-		$run = new \Whoops\Run;
+		$run = new Run;
 		$run->pushHandler($handler);
 		$run->register();
-*/
 	}
 
 	/**
