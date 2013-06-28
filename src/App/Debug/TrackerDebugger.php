@@ -277,7 +277,8 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.language'))
 		{
-			$debug[] = '<li><a href="#dbgLanguage">Language</a></li>';
+			$debug[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
+			$debug[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
 		}
 
 		$debug[] = '</ul>';
@@ -303,13 +304,11 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.language'))
 		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageStrings">Language Strings</a></h3>';
+			$debug[] = $this->renderLanguageStrings();
 
-			ob_start();
-
-			//$this->renderLanguage();
-
-			$debug[] = ob_get_clean();
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageFiles">Language Files</a></h3>';
+			$debug[] = $this->renderLanguageFiles();
 		}
 
 		$debug[] = '</div>';
@@ -333,15 +332,19 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * Render language debug information.
 	 *
 	 * @since  1.0
-	 * @return void
+	 * @return string
 	 */
-	public function renderLanguage()
+	public function renderLanguageFiles()
 	{
-		echo '<h4>Strings</h4>';
-		echo $this->renderLanguageStrings();
+		$events = array();
+		$tableFormat = new TableFormat;
 
-		echo '<h4>Language files loaded</h4>';
-		g11n::printEvents();
+		foreach (g11n::getEvents() as $e)
+		{
+			$events[] = ArrayHelper::fromObject($e);
+		}
+
+		return $tableFormat->fromArray($events);
 	}
 
 	/**
