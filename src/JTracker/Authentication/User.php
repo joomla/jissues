@@ -9,10 +9,10 @@ namespace JTracker\Authentication;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 use Joomla\Factory;
+
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
-use JTracker\Components\Tracker\Model\ProjectModel;
 
 /**
  * Class containing a user object
@@ -67,6 +67,12 @@ abstract class User implements \Serializable
 	 */
 	protected $accessGroups = array();
 
+	/**
+	 * A list of cleared access rights.
+	 *
+	 * @var array
+	 * @since  1.0
+	 */
 	private $cleared = array();
 
 	/**
@@ -83,24 +89,6 @@ abstract class User implements \Serializable
 		{
 			$this->load($identifier);
 		}
-	}
-
-	/**
-	 * Get the model used for authentication.
-	 *
-	 * @since  1.0
-	 * @return ProjectModel
-	 */
-	public function getAuthModel()
-	{
-		static $authModel;
-
-		if (is_null($authModel))
-		{
-			$authModel = new ProjectModel;
-		}
-
-		return $authModel;
 	}
 
 	/**
@@ -297,7 +285,7 @@ abstract class User implements \Serializable
 			throw new \InvalidArgumentException('Undefined action: ' . $action);
 		}
 
-		/* @type \JTracker\Components\Tracker\TrackerProject $project */
+		/* @type \App\Projects\TrackerProject $project */
 		$project = Factory::$application->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))
