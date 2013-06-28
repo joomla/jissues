@@ -52,11 +52,26 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 
 		if ($id)
 		{
+			// Edit item
 			$item = $this->model->getItem($id);
 		}
 		else
 		{
+			// New item
 			$item = new IssuesTable($application->getDatabase());
+
+			$path = __DIR__ . '/../../tpl/new-issue-template.md';
+
+			if (!file_exists($path))
+			{
+				throw new \RuntimeException('New issue template not found.');
+			}
+
+			$item->issue_number    = 0;
+			$item->priority        = 3;
+			$item->description_raw = file_get_contents($path);
+
+			$item = $item->getIterator();
 		}
 
 		$this->renderer->set('item', $item);

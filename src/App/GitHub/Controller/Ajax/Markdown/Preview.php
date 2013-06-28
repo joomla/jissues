@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller;
+namespace App\GitHub\Controller\Ajax\Markdown;
 
 use JTracker\Controller\AbstractTrackerController;
 

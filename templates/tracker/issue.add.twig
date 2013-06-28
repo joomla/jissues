@@ -8,15 +8,13 @@
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block prependMenu %}
-    <li>
+    <li id="issueResult">
         <a class="btn-success" href="javascript:"
-           onclick="alert('Not yet :(');return false;document.editForm.submit();">
+           onclick="JTracker.submitIssue('#issueResult', '#issueDebug');">
             Submit
         </a>
     </li>
-
     {{ parent() }}
-
 {% endblock %}
 
 {% block headerCSS %}
@@ -27,6 +25,9 @@
 {% endblock %}
 
 {% block content %}
+
+    <div id="issueDebug"></div>
+
     <form name="editForm">
 
         <div class="pull-right well well-small">
@@ -62,14 +63,17 @@
 
         <fieldset>
             <label for="title">Title</label>
-            <input type="text" name="title" id="title"/>
+            <input type="text" name="title" style="width: 80%; font-size: 1.3em;"/>
 
             <div class="helpText alert alert-info">help title...</div>
 
             <label for="description">Description</label>
 
             {% set editorId="description" %}
+            {% set editorName="body" %}
+            {% set editorText=item.description_raw %}
             {% set editorPlaceholder="Description text" %}
+
             {% include "editor.twig" %}
 
             <div class="helpText alert alert-info">help description...</div>
@@ -79,62 +83,32 @@
 {% endblock %}
 
 {% block JavaScriptBottom %}
+
     {{ parent() }}
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
 
-    <script language="javascript">
+    <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
         });
-    </script>
 
-    <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
-    <script type="text/javascript">
         var switcher = $('#helpSwitch');
 
         // Show and hide help texts
         switcher.on('switch-change', function (e, data) {
-            if (data.value) {
-                $('.helpText').show();
-            }
-            else {
-                $('.helpText').hide();
-            }
+            if (data.value) { $('.helpText').show(); }
+            else { $('.helpText').hide(); }
         });
 
         // Set the initial state
-        if (switcher.children('input').attr('checked')) {
-            $('.helpText').show();
-        }
-        else {
-            $('.helpText').hide();
-        }
+        if (switcher.children('input').attr('checked')) { $('.helpText').show(); }
+        else { $('.helpText').hide(); }
 
-        $('a[data-toggle="tab"]').on('shown', function (e)
-        {
-            if('#preview' == $(e.target).attr('href'))
-            {
-                var out = $('#preview');
-
-                out.html('Loading preview...');
-
-                $.post(
-                        '/preview',
-                        { text: $('#description').val() },
-                        function (response) {
-                            out.empty();
-                            if (response.error) {
-                                out.html(response.error);
-                            }
-                            else if (!response.data.length) {
-                                out.html('Invalid response.');
-                            }
-                            else {
-                                out.html(response.data);
-                            }
-                        }
-                );
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+            if('#preview' == $(e.target).attr('href')) {
+                JTracker.preview('#description', '#preview');
             }
         });
     </script>

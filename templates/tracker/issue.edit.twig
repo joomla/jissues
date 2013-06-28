@@ -5,6 +5,12 @@
 
 {% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
 
+{% block headerCSS %}
+    {{ parent() }}
+    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+{% endblock %}
+
 {% block prependMenu %}
     <li>
         <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">
@@ -12,13 +18,33 @@
         </a>
     </li>
     <li>
-        <a class="btn-warning" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+        <a class="btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
             Cancel
         </a>
     </li>
 
     {{ parent() }}
 
+{% endblock %}
+
+{% block JavaScriptBottom %}
+
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#description').markItUp(myMarkdownSettings);
+        });
+
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+            if('#preview' == $(e.target).attr('href')) {
+                JTracker.preview('#description', '#preview');
+            }
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -65,6 +91,9 @@
             </li>
         {% endif %}
 
+        <li>
+            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
+        </li>
     </ul>
 
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm">
@@ -76,26 +105,29 @@
         </div>
 
         <div class="span11 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
             <ul class="unstyled">
                 <li>
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="item[title]" value="{{ item.title }}" />
+                    <input type="text" name="item[title]"
+                    style="width: 80%; font-size: 1.3em;"
+                    value="{{ item.title }}" />
                 </li>
                 <li>
-                    <label for="description">Description</label>
-                    <textarea id="description" name="item[description_raw]" class="span12"
-                      style="min-height: 150px; resize: vertical;">{{ item.description_raw }}</textarea>
+
+                    {% set editorId="description" %}
+                    {% set editorName="item[description_raw]" %}
+                    {% set editorText=item.description_raw %}
+                    {% set editorPlaceholder="Description text" %}
+
+                    {% include "editor.twig" %}
+
                 </li>
             </ul>
         </div>
 
-    </div>
-
         <input type="hidden" name="item[id]" value="{{ item.id }}">
 
+    </div>
+
     </form>
-{% if jdebug %}
-        {{ dump(item) }}
-{% endif %}
+
 {% endblock %}

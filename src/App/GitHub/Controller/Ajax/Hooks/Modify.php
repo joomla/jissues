@@ -6,9 +6,9 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller\Hooks\Ajax;
+namespace App\GitHub\Controller\Ajax\Hooks;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractAjaxController;
 
 /**
  * Default controller class for the Users component.
@@ -16,74 +16,45 @@ use JTracker\Controller\AbstractTrackerController;
  * @package  JTracker\Components\Users
  * @since    1.0
  */
-class Modify extends AbstractTrackerController
+class Modify extends AbstractAjaxController
 {
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
 	 * @since  1.0
-	 *
-	 * @return  boolean
+	 * @return void
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
-		$response = new \stdClass;
+		$this->getApplication()->getUser()->authorize('admin');
 
-		$response->data  = new \stdClass;
-		$response->error = '';
-		$response->message = '';
+		$action = $this->getInput()->getCmd('action');
+		$hookId = $this->getInput()->getInt('hook_id');
 
-		ob_start();
+		$project = $this->getApplication()->getProject();
 
-		try
+		// Get a valid hook object
+		$hook = $this->getHook($hookId);
+
+		if ('delete' == $action)
 		{
-			$this->getApplication()->getUser()->authorize('admin');
-
-			$action = $this->getInput()->getCmd('action');
-			$hookId = $this->getInput()->getInt('hook_id');
-
-			$project = $this->getApplication()->getProject();
-
-			// Get a valid hook object
-			$hook = $this->getHook($hookId);
-
-			if ('delete' == $action)
-			{
-				// Delete the hook
-				$this->getApplication()->getGitHub()
-					->repositories->hooks->delete(
-						$project->gh_user, $project->gh_project, $hookId
-					);
-			}
-			else
-			{
-				// Process other actions
-				$this->processAction($action, $hook);
-			}
-
-			// Get the current hooks list.
-			$response->data = $this->getApplication()->getGitHub()
-				->repositories->hooks->getList(
-					$project->gh_user, $project->gh_project
+			// Delete the hook
+			$this->getApplication()->getGitHub()
+				->repositories->hooks->delete(
+					$project->gh_user, $project->gh_project, $hookId
 				);
 		}
-		catch (\Exception $e)
+		else
 		{
-			$response->error = $e->getMessage();
+			// Process other actions
+			$this->processAction($action, $hook);
 		}
 
-		$errors = ob_get_clean();
-
-		if ($errors)
-		{
-			$response->error .= $errors;
-		}
-
-		header('Content-type: application/json');
-
-		echo json_encode($response);
-
-		exit(0);
+		// Get the current hooks list.
+		$this->response->data = $this->getApplication()->getGitHub()
+			->repositories->hooks->getList(
+				$project->gh_user, $project->gh_project
+			);
 	}
 
 	/**
@@ -117,16 +88,16 @@ class Modify extends AbstractTrackerController
 		// Create the hook.
 		$this->getApplication()->getGitHub()
 			->repositories->hooks->edit(
-			$project->gh_user,
-			$project->gh_project,
-			$hook->id,
-			$hook->name,
-			$hook->config,
-			$hook->events,
-			array(),
-			array(),
-			$hook->active
-		);
+				$project->gh_user,
+				$project->gh_project,
+				$hook->id,
+				$hook->name,
+				$hook->config,
+				$hook->events,
+				array(),
+				array(),
+				$hook->active
+			);
 
 		return $this;
 	}
@@ -146,8 +117,8 @@ class Modify extends AbstractTrackerController
 
 		$hooks = $this->getApplication()->getGitHub()
 			->repositories->hooks->getList(
-			$project->gh_user, $project->gh_project
-		);
+				$project->gh_user, $project->gh_project
+			);
 
 		if (!$hooks)
 		{
