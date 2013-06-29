@@ -102,6 +102,9 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if (!$this->application->get('debug.logging'))
 		{
+			$this->logger =  new Logger('JTracker');
+			$this->logger->pushHandler(new NullHandler);
+
 			return $this;
 		}
 
