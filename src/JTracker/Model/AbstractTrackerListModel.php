@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Model Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -104,9 +106,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	abstract protected function getListQuery();
 
 	/**
-	 * Method to get a JPagination object for the data set.
+	 * Method to get the pagination object for the data set.
 	 *
-	 * @return  TrackerPagination  A JPagination object for the data set.
+	 * @return  TrackerPagination  The pagination object for the data set.
 	 *
 	 * @since   1.0
 	 */

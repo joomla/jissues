@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Authentication Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -16,13 +18,13 @@ use JTracker\Authentication\User;
 class GitHubUser extends User
 {
 	/**
-	 * @var  string
+	 * @var    string
 	 * @since  1.0
 	 */
 	public $avatar_url;
 
 	/**
-	 * @var  string
+	 * @var    string
 	 * @since  1.0
 	 */
 	public $avatar;
@@ -32,10 +34,10 @@ class GitHubUser extends User
 	 *
 	 * @param   \stdClass  $data  A JSON string from GitHub containing user data.
 	 *
-	 * @throws  \RuntimeException
-	 * @return  GitHubUser
+	 * @return  $this
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function loadGitHubData(\stdClass $data)
 	{

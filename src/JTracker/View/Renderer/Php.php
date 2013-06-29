@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker View Package
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -11,19 +13,28 @@ use Joomla\Registry\Registry;
 use Joomla\View\Renderer\RendererInterface;
 
 /**
- * Class Php.
+ * PHP view renderer
  *
  * @since  1.0
  */
 class Php implements RendererInterface
 {
 	/**
-	 * @var Registry
+	 * @var    Registry
+	 * @since  1.0
 	 */
 	protected $globals;
 
+	/**
+	 * @var    array
+	 * @since  1.0
+	 */
 	protected $templatePaths = array();
 
+	/**
+	 * @var    boolean
+	 * @since  1.0
+	 */
 	protected $debug = false;
 
 	/**
@@ -31,7 +42,7 @@ class Php implements RendererInterface
 	 *
 	 * @param   array  $config  The array of configuration parameters.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(array $config = array())
 	{
@@ -49,7 +60,9 @@ class Php implements RendererInterface
 	 *
 	 * @param   string  $key  The template var key.
 	 *
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	public function __get($key)
 	{
@@ -72,7 +85,9 @@ class Php implements RendererInterface
 	 * @param   string  $template  The template file name
 	 * @param   mixed   $data      The data to pass to the template
 	 *
-	 * @return  string  compiled HTML
+	 * @return  string  Compiled HTML
+	 *
+	 * @since   1.0
 	 */
 	public function render($template = '', array $data = array())
 	{
@@ -104,9 +119,10 @@ class Php implements RendererInterface
 	 *
 	 * @param   string  $template  The layout file name
 	 *
-	 * @throws \RuntimeException
+	 * @return  string  The valid file path
 	 *
-	 * @return string The valid file path
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function fetchLayoutPath($template)
 	{
@@ -139,9 +155,9 @@ class Php implements RendererInterface
 	 *
 	 * @param   string  $name  The name of the template file.
 	 *
-	 * @return  object  Instance of this class.
+	 * @return  $this  Method allows chaining
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function setTemplate($name)
 	{
@@ -157,7 +173,9 @@ class Php implements RendererInterface
 	 * @param   mixed  $key    The variable name or an array of variable names with values.
 	 * @param   mixed  $value  The value.
 	 *
-	 * @return  object   Instance of this class
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	public function set($key, $value)
 	{
@@ -171,7 +189,9 @@ class Php implements RendererInterface
 	 *
 	 * @param   mixed  $key  The variable name
 	 *
-	 * @return  object  Instance of this class
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	public function unsetData($key)
 	{
@@ -186,7 +206,7 @@ class Php implements RendererInterface
 	 *
 	 * @param   string  $path  Templates location path.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -203,7 +223,9 @@ class Php implements RendererInterface
 	 * @param   string  $name    Test.
 	 * @param   object  $filter  Test.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	public function addFilter($name, $filter = null)
 	{
@@ -219,7 +241,7 @@ class Php implements RendererInterface
 	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
 	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -243,7 +265,9 @@ class Php implements RendererInterface
 	 *
 	 * @param   object  $function  @todo not really sure yet..
 	 *
-	 * @return mixed
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	public function addFunction($function)
 	{
@@ -260,7 +284,9 @@ class Php implements RendererInterface
 	 *
 	 * @param   object  $extension  The extension.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	public function addExtension($extension)
 	{

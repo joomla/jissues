@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Authentication Package
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -15,7 +17,7 @@ use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
 
 /**
- * Class containing a user object
+ * Abstract class containing the application user object
  *
  * @since  1.0
  */
@@ -54,7 +56,7 @@ abstract class User implements \Serializable
 	/**
 	 * If a user has special "admin" rights.
 	 *
-	 * @var boolean
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	public $isAdmin = false;
@@ -62,7 +64,7 @@ abstract class User implements \Serializable
 	/**
 	 * A list of groups a user has access to.
 	 *
-	 * @var array
+	 * @var    array
 	 * @since  1.0
 	 */
 	protected $accessGroups = array();
@@ -70,7 +72,7 @@ abstract class User implements \Serializable
 	/**
 	 * A list of cleared access rights.
 	 *
-	 * @var array
+	 * @var    array
 	 * @since  1.0
 	 */
 	private $cleared = array();
@@ -96,8 +98,9 @@ abstract class User implements \Serializable
 	 *
 	 * @param   string  $userName  The user name
 	 *
-	 * @since  1.0
-	 * @return TableUsers
+	 * @return  TableUsers
+	 *
+	 * @since   1.0
 	 */
 	public function loadByUserName($userName)
 	{
@@ -114,7 +117,6 @@ abstract class User implements \Serializable
 		if (!$table->id)
 		{
 			// Register a new user
-
 			$date               = new Date;
 			$this->registerDate = $date->format('Y-m-d H:i:s');
 
@@ -131,8 +133,9 @@ abstract class User implements \Serializable
 	/**
 	 * Get available access groups.
 	 *
-	 * @since  1.0
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getAccessGroups()
 	{
@@ -144,7 +147,7 @@ abstract class User implements \Serializable
 	 *
 	 * @param   mixed  $identifier  The user id of the user to load.
 	 *
-	 * @return  User
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -197,8 +200,9 @@ abstract class User implements \Serializable
 	/**
 	 * Load the access groups.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	protected function loadAccessGroups()
 	{
@@ -223,7 +227,9 @@ abstract class User implements \Serializable
 	 *
 	 * @param   string  $action  The action to check.
 	 *
-	 * @return boolean
+	 * @return  boolean
+	 *
+	 * @since   1.0
 	 */
 	public function check($action)
 	{
@@ -245,15 +251,15 @@ abstract class User implements \Serializable
 	}
 
 	/**
-	 * Authorize a given action.
+	 * Check if the user is authorized to perform a given action.
 	 *
 	 * @param   string  $action  The action.
 	 *
-	 * @throws \InvalidArgumentException
-	 * @throws AuthenticationException
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
-	 * @return  User
+	 * @throws  \InvalidArgumentException
+	 * @throws  AuthenticationException
 	 */
 	public function authorize($action)
 	{
@@ -327,10 +333,11 @@ abstract class User implements \Serializable
 	}
 
 	/**
-	 * Serialize.
+	 * Serialize the object
 	 *
-	 * @since  1.0
-	 * @return string the string representation of the object or null
+	 * @return  string  The string representation of the object or null
+	 *
+	 * @since   1.0
 	 */
 	public function serialize()
 	{
@@ -350,12 +357,13 @@ abstract class User implements \Serializable
 	}
 
 	/**
-	 * Unserialize.
+	 * Unserialize the object
 	 *
 	 * @param   string  $serialized  The serialized string
 	 *
-	 * @since  1.0
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function unserialize($serialized)
 	{
