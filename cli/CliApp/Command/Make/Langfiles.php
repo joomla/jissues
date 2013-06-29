@@ -169,7 +169,7 @@ class Langfiles extends Make
 			$cmd = 'msgmerge --'
 				. implode(' --', $options)
 				. ' "' . implode('" "', $paths) . '"'
-				.  ' 2>&1';
+				. ' 2>&1';
 
 			$this->debugOut($cmd);
 
