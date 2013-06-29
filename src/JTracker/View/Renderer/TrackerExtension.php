@@ -294,9 +294,9 @@ class TrackerExtension extends \Twig_Extension
 				$color   = 'ffffff';
 			}
 
-			$html[] = '<label class="label"' . ' style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
+			$html[] = '<span class="label"' . ' style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
 			$html[] = $labels[$id]->name;
-			$html[] = '</label>';
+			$html[] = '</span>';
 		}
 
 		return implode("\n", $html);
