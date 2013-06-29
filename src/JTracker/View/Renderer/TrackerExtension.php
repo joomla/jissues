@@ -84,6 +84,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFilter('get_class', 'get_class'),
 			new \Twig_SimpleFilter('json_decode', 'json_decode'),
 			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
+			new \Twig_SimpleFilter('contrastColor', array($this, 'getContrastColor')),
 		);
 	}
 
@@ -218,5 +219,24 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $statuses[$id];
+	}
+
+	/**
+	 * Get a contrasting color (black or white).
+	 *
+	 * http://24ways.org/2010/calculating-color-contrast/
+	 *
+	 * @param   string  $hexColor  The hex color.
+	 *
+	 * @return string
+	 */
+	public function getContrastColor($hexColor)
+	{
+		$r = hexdec(substr($hexColor, 0, 2));
+		$g = hexdec(substr($hexColor, 2, 2));
+		$b = hexdec(substr($hexColor, 4, 2));
+		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+		return ($yiq >= 128) ? 'black' : 'white';
 	}
 }
