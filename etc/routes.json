@@ -18,6 +18,7 @@
 
 	"config"    : "\\System\\Controller\\ConfigController",
 	"saveconfig": "\\System\\Controller\\Config\\SaveController",
+	"phpinfo"   : "\\System\\Controller\\PhpInfoController",
 
 	"projects"                     : "\\Projects\\Controller\\ProjectsController",
 	"project/add"                  : "\\Projects\\Controller\\Project\\AddController",
