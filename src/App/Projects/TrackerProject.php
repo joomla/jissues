@@ -6,6 +6,7 @@
 
 namespace App\Projects;
 
+use App\Projects\Table\LabelsTable;
 use Joomla\Factory;
 
 /**
@@ -186,7 +187,7 @@ class TrackerProject
 			}
 		}
 
-		/* @type \App\Tracker\Table\GroupsTable $group */
+		/* @type \App\Groups\Table\GroupsTable $group */
 		foreach ($groups as $group)
 		{
 			// Process a system group.
@@ -216,6 +217,47 @@ class TrackerProject
 		}
 
 		return $map;
+	}
+
+	/**
+	 * Get a list of labels defined for the project.
+	 *
+	 * @return array
+	 *
+	 * @since  1.0
+	 */
+	public function getLabels()
+	{
+		static $labels = array();
+
+		if (!$labels)
+		{
+			/* @type \JTracker\Application\TrackerApplication $application */
+			$application = Factory::$application;
+
+			$db = $application->getDatabase();
+
+			$table = new LabelsTable($db);
+
+			$labelList = $db ->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('label_id', 'name', 'color'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+			)->loadObjectList();
+
+			foreach ($labelList as $labelObject)
+			{
+				$l = new \stdClass;
+
+				$l->name  = $labelObject->name;
+				$l->color = $labelObject->color;
+
+				$labels[$labelObject->label_id] = $l;
+			}
+		}
+
+		return $labels;
 	}
 
 	/*

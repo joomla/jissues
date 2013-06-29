@@ -91,6 +91,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFilter('json_decode', 'json_decode'),
 			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFilter('contrastColor', array($this, 'getContrastColor')),
+			new \Twig_SimpleFilter('labels', array($this, 'renderLabels')),
 		);
 	}
 
@@ -256,5 +257,48 @@ class TrackerExtension extends \Twig_Extension
 		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
 
 		return ($yiq >= 128) ? 'black' : 'white';
+	}
+
+	/**
+	 * Render a list of labels.
+	 *
+	 * @param   string  $idsString  Comma separated list of IDs.
+	 *
+	 * @return string
+	 *
+	 * @since  1.0
+	 */
+	public function renderLabels($idsString)
+	{
+		static $labels;
+
+		if (!$labels)
+		{
+			$labels = Factory::$application->getProject()->getLabels();
+		}
+
+		$html = array();
+
+		$ids = ($idsString) ? explode(',', $idsString) : array();
+
+		foreach ($ids as $id)
+		{
+			if (array_key_exists($id, $labels))
+			{
+				$bgColor = $labels[$id]->color;
+				$color   = $this->getContrastColor($bgColor);
+			}
+			else
+			{
+				$bgColor = '000000';
+				$color   = 'ffffff';
+			}
+
+			$html[] = '<label class="label"' . ' style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
+			$html[] = $labels[$id]->name;
+			$html[] = '</label>';
+		}
+
+		return implode("\n", $html);
 	}
 }

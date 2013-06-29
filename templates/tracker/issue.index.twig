@@ -39,6 +39,9 @@
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
     <!-- Status bar -->
+
+    <span class="pull-right">{{ item.labels|labels|raw }}</span>
+
     <ul class="breadcrumb">
         <li>
             <span class="badge badge-{{ item.closed ? "important" : "success" }}">

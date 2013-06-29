@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_id` integer unsigned DEFAULT NULL COMMENT 'Relation id user',
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT '0' COMMENT 'If the issue has code attached - aka a pull request',
+  `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),

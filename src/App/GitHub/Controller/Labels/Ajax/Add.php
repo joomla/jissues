@@ -39,12 +39,11 @@ class Add extends AbstractTrackerController
 		{
 			$this->getApplication()->getUser()->authorize('admin');
 
-			$name  = $this->getInput()->getHtml('name');
-			$color = $this->getInput()->getHtml('color');
+			$name  = $this->getInput()->getCmd('name');
+			$color = $this->getInput()->getCmd('color');
 
 			$project = $this->getApplication()->getProject();
-
-			$gitHub = $this->getApplication()->getGitHub();
+			$gitHub  = $this->getApplication()->getGitHub();
 
 			// Create the label.
 			$gitHub->issues->labels->create(

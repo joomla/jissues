@@ -6,6 +6,7 @@
 
 namespace CliApp\Command\Get;
 
+use App\Projects\Table\LabelsTable;
 use CliApp\Application\TrackerApplication;
 use Joomla\Date\Date;
 
@@ -225,6 +226,8 @@ class Issues extends Get
 				$table->foreign_number = $matches[1];
 			}
 
+			$table->labels = implode(',', $this->getLabelIds($issue->labels));
+
 			$table->store();
 
 			if (!$table->id)
@@ -269,5 +272,52 @@ class Issues extends Get
 		// Output the final result
 		$this->out()
 			->out(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
+	}
+
+	/**
+	 * Get a set of ids from label names.
+	 *
+	 * @param   array  $labelObjects  Array of label objects
+	 *
+	 * @return array
+	 */
+	private function getLabelIds($labelObjects)
+	{
+		static $labels = array();
+
+		if (!$labels)
+		{
+			$db = $this->application->getDatabase();
+
+			$table = new LabelsTable($db);
+
+			$labelList = $db ->setQuery(
+				$db->getQuery(true)
+			->from($db->quoteName($table->getTableName()))
+			->select(array('label_id', 'name'))
+			->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
+			)->loadObjectList();
+
+			foreach ($labelList as $labelObject)
+			{
+				$labels[$labelObject->name] = $labelObject->label_id;
+			}
+		}
+
+		$ids = array();
+
+		foreach ($labelObjects as $label)
+		{
+			if (!array_key_exists($label->name, $labels))
+			{
+				// @todo Label does not exist :( - reload labels for the project
+			}
+			else
+			{
+				$ids[] = $labels[$label->name];
+			}
+		}
+
+		return $ids;
 	}
 }
