@@ -10,6 +10,12 @@
     }}
 {% endblock %}
 
+{% block headerCSS %}
+    {{ parent() }}
+    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+{% endblock %}
+
 {% block prependMenu %}
     <li>
         <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
@@ -71,23 +77,15 @@
 
     {{ parent() }}
 
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
     <script type="text/javascript">
-        $('a[data-toggle="tab"]').on('shown', function (e)
-        {
-            if('#preview' != $(e.target).attr('href')) { return; }
+        $('#text').markItUp(myMarkdownSettings);
 
-            var out = $('#preview');
-            out.html('Loading preview...');
-
-            $.post(
-                    '/preview',
-                    { text: $('#text').val() },
-                    function (response) {
-                        if (response.error) { out.html(response.error); }
-                        else if (!response.data.length) { out.html('Invalid response.'); }
-                        else { out.html(response.data); }
-                    }
-            );
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+            if('#preview' == $(e.target).attr('href')) {
+                JTracker.preview('#text', '#preview', '#preview');
+            }
         });
     </script>
 {% endblock %}

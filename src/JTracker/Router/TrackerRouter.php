@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Router Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -13,7 +15,7 @@ use Joomla\Router\Router;
 use JTracker\Router\Exception\RoutingException;
 
 /**
- * Joomla! Issue Tracker Router
+ * Joomla! Tracker Router
  *
  * @since  1.0
  */
@@ -48,10 +50,10 @@ class TrackerRouter extends Router
 	 *
 	 * @param   string  $route  The route string for which to find and execute a controller.
 	 *
-	 * @throws Exception\RoutingException
+	 * @return  ControllerInterface
 	 *
 	 * @since   1.0
-	 * @return  ControllerInterface
+	 * @throws  RoutingException
 	 */
 	public function getController($route)
 	{

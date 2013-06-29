@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker View Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -189,7 +191,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	 *
 	 * @param   string  $layout  The layout name.
 	 *
-	 * @return  AbstractTrackerHtmlView  Method supports chaining.
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 */

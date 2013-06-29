@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker View Package
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -9,7 +11,7 @@ namespace JTracker\View\Renderer;
 use Joomla\View\Renderer\RendererInterface;
 
 /**
- * Mustache class for rendering output.
+ * Mustache view renderer
  *
  * @since  1.0
  */
@@ -68,7 +70,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 * @param   mixed  $key    The variable name or an array of variable names with values.
 	 * @param   mixed  $value  The value.
 	 *
-	 * @return  Mustache  Method supports chaining.
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -100,7 +102,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 *
 	 * @param   mixed  $key  The variable name.
 	 *
-	 * @return  Mustache  Method supports chaining.
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 */
@@ -119,7 +121,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 *
 	 * @param   string  $name  The name of the template file.
 	 *
-	 * @return  Mustache  Method supports chaining.
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 */
@@ -136,7 +138,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 * @param   string  $template  The template file name.
 	 * @param   mixed   $data      The data to pass to the template.
 	 *
-	 * @return  string  Compiled HTML.
+	 * @return  string  Compiled HTML
 	 *
 	 * @since   1.0
 	 */
@@ -184,7 +186,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 *
 	 * @param   string  $path  Templates location path.
 	 *
-	 * @return  Mustache
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @todo    Implement addPath() method.
@@ -214,7 +216,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
 	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  Mustache
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @todo    Implement setTemplatesPaths() method.

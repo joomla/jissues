@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Pagination Package
+ *
  * Taken from:
  * http://www.awcore.com/dev/1/3/Create-Awesome-PHPMYSQL-Pagination_en
  * and modified by "The Joomla! Tracker Project".
@@ -27,32 +29,32 @@ class TrackerPagination
 	/**
 	 * Total pages.
 	 *
+	 * @var    integer
 	 * @since  1.0
-	 * @var integer
 	 */
 	protected $total;
 
 	/**
 	 * Current page number.
 	 *
+	 * @var    integer
 	 * @since  1.0
-	 * @var integer
 	 */
 	protected $page;
 
 	/**
 	 * Items per page.
 	 *
+	 * @var    integer
 	 * @since  1.0
-	 * @var integer
 	 */
 	protected $perPage;
 
 	/**
 	 * The current URI.
 	 *
+	 * @var    Uri
 	 * @since  1.0
-	 * @var Uri
 	 */
 	protected $uri;
 
@@ -62,6 +64,8 @@ class TrackerPagination
 	 * @param   integer  $total    Total items count.
 	 * @param   integer  $current  The current item number.
 	 * @param   integer  $perPage  Items per page.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct($total, $current, $perPage)
 	{
@@ -74,8 +78,9 @@ class TrackerPagination
 	/**
 	 * Get the current page number.
 	 *
-	 * @since  1.0
-	 * @return integer
+	 * @return  integer
+	 *
+	 * @since   1.0
 	 */
 	public function getPageNo()
 	{
@@ -85,8 +90,9 @@ class TrackerPagination
 	/**
 	 * Get the total pages count.
 	 *
-	 * @since  1.0
-	 * @return integer
+	 * @return  integer
+	 *
+	 * @since   1.0
 	 */
 	public function getPagesTotal()
 	{
@@ -96,8 +102,9 @@ class TrackerPagination
 	/**
 	 * Get the rendered pagination.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getBar()
 	{
@@ -212,12 +219,13 @@ class TrackerPagination
 	}
 
 	/**
-	 * Get the uri with a given page.
+	 * Get the Uri object for a given page.
 	 *
 	 * @param   integer  $page  The page number.
 	 *
-	 * @since  1.0
-	 * @return Uri
+	 * @return  Uri
+	 *
+	 * @since   1.0
 	 */
 	private function uri($page)
 	{
