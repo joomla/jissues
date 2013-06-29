@@ -68,7 +68,7 @@ class Submit extends AbstractAjaxController
 
 			$data->created_at = $gitHubResponse->created_at;
 			$data->opened_by  = $gitHubResponse->user->login;
-			$data->comment_id = $gitHubResponse->number;
+			$data->comment_id = $gitHubResponse->id;
 			$data->text_raw   = $gitHubResponse->body;
 
 			$data->text = $this->getApplication()->getGitHub()->markdown
