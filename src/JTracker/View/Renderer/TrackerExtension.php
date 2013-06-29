@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker View Package
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -13,7 +15,7 @@ use Joomla\Factory;
 use JTracker\Application\TrackerApplication;
 
 /**
- * Tracker Twig extension class.
+ * Twig extension class
  *
  * @since  1.0
  */
@@ -55,6 +57,8 @@ class TrackerExtension extends \Twig_Extension
 	 * Returns a list of functions to add to the existing list.
 	 *
 	 * @return  array  An array of functions.
+	 *
+	 * @since   1.0
 	 */
 	public function getFunctions()
 	{
@@ -78,7 +82,9 @@ class TrackerExtension extends \Twig_Extension
 	/**
 	 * Returns a list of filters to add to the existing list.
 	 *
-	 * @return  array An array of filters
+	 * @return  array  An array of filters
+	 *
+	 * @since   1.0
 	 */
 	public function getFilters()
 	{
@@ -97,6 +103,8 @@ class TrackerExtension extends \Twig_Extension
 	 * @param   string  $string  The string to process.
 	 *
 	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	public function stripJRoot($string)
 	{
@@ -110,10 +118,12 @@ class TrackerExtension extends \Twig_Extension
 	 * @param   integer  $width     The with in pixel.
 	 *
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function fetchAvatar($userName = '', $width = 0)
 	{
-		/* @var TrackerApplication $app */
+		/* @type TrackerApplication $app */
 		$app = Factory::$application;
 
 		$base = $app->get('uri.base.path');
@@ -135,6 +145,8 @@ class TrackerExtension extends \Twig_Extension
 	 * @param   integer  $priority  The priority
 	 *
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getPrioClass($priority)
 	{
@@ -166,6 +178,8 @@ class TrackerExtension extends \Twig_Extension
 	 * Dummy function to prevent throwing exception on dump function in the non-debug mode.
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function dump()
 	{
@@ -177,8 +191,10 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   integer  $id  The id
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return object
+	 * @return  object
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getStatus($id)
 	{
@@ -186,7 +202,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$statuses)
 		{
-			/* @type \JTracker\Application\TrackerApplication $application */
+			/* @type TrackerApplication $application */
 			$application = Factory::$application;
 
 			$db = $application->getDatabase();

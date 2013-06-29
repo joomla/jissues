@@ -1,13 +1,15 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker Router Package
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace JTracker\Router\Exception;
 
 /**
- * Class RoutingException.
+ * RoutingException
  *
  * @since  1.0
  */
@@ -16,8 +18,8 @@ class RoutingException extends \Exception
 	/**
 	 * The raw route.
 	 *
+	 * @var    string
 	 * @since  1.0
-	 * @var string
 	 */
 	protected $rawRoute = '';
 
@@ -25,6 +27,8 @@ class RoutingException extends \Exception
 	 * Constructor.
 	 *
 	 * @param   string  $rawRoute  The raw route.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct($rawRoute)
 	{
@@ -36,8 +40,9 @@ class RoutingException extends \Exception
 	/**
 	 * Get the raw route.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getRawRoute()
 	{

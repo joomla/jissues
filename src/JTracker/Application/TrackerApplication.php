@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Application Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -32,10 +34,9 @@ use JTracker\Router\TrackerRouter;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * Joomla! Tracker Application class.
+ * Joomla Tracker web application class
  *
- * @package  JTracker\Application
- * @since    1.0
+ * @since  1.0
  */
 final class TrackerApplication extends AbstractWebApplication
 {
@@ -81,7 +82,10 @@ final class TrackerApplication extends AbstractWebApplication
 	private $user;
 
 	/**
-	 * @var  TrackerProject
+	 * The Project object
+	 *
+	 * @var    TrackerProject
+	 * @since  1.0
 	 */
 	private $project;
 
@@ -104,7 +108,7 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * The Debugger object
 	 *
-	 * @var  TrackerDebugger
+	 * @var    TrackerDebugger
 	 * @since  1.0
 	 */
 	private $debugger;
@@ -143,8 +147,9 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Get a debugger object.
 	 *
+	 * @return  TrackerDebugger
+	 *
 	 * @since   1.0
-	 * @return TrackerDebugger
 	 */
 	public function getDebugger()
 	{
@@ -239,7 +244,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   string  $text  The message for the mark.
 	 *
-	 * @return  TrackerApplication
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -258,7 +263,7 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Initialize the configuration object.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -295,7 +300,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @param   string  $msg   The message to enqueue.
 	 * @param   string  $type  The message type. Default is message.
 	 *
-	 * @return  TrackerApplication
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -500,7 +505,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   User  $user  The user object.
 	 *
-	 * @return  TrackerApplication
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -509,7 +514,6 @@ final class TrackerApplication extends AbstractWebApplication
 		if (is_null($user))
 		{
 			// Logout
-
 			$this->user = new GitHubUser;
 
 			$this->getSession()->set('user', $this->user);
@@ -519,7 +523,6 @@ final class TrackerApplication extends AbstractWebApplication
 		else
 		{
 			// Login
-
 			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
 
 			$this->user = $user;
@@ -668,7 +671,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   Dispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
 	 *
-	 * @return  TrackerApplication This method is chainable.
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -709,8 +712,9 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   boolean  $reload  Reload the project.
 	 *
-	 * @since  1.0
-	 * @return ProjectsTable
+	 * @return  ProjectsTable
+	 *
+	 * @since   1.0
 	 */
 	public function getProject($reload = false)
 	{
@@ -725,9 +729,10 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Get a GitHub object.
 	 *
-	 * @since  1.0
-	 * @throws \RuntimeException
-	 * @return Github
+	 * @return  Github
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getGitHub()
 	{
@@ -768,9 +773,10 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   boolean  $reload  Reload the project.
 	 *
-	 * @throws \InvalidArgumentException
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	private function loadProject($reload = false)
 	{

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Database Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -10,7 +12,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 
 /**
- * Abstract Table class
+ * Abstract Database Table class
  *
  * @since  1.0
  */
@@ -52,7 +54,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * DatabaseDriver object.
 	 *
 	 * @var    DatabaseDriver
-	 * @since  11.1
+	 * @since  1.0
 	 */
 	protected $db;
 
@@ -156,7 +158,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @param   mixed  $ignore  An optional array or space separated list of properties
 	 *                          to ignore while binding.
 	 *
-	 * @return  boolean
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -181,7 +183,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @return  AbstractDatabaseTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -230,7 +232,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *                           set the instance property value is used.
 	 * @param   boolean  $reset  True to reset the default values before loading the new row.
 	 *
-	 * @return  AbstractDatabaseTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -321,7 +323,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @param   mixed  $pKey  An optional primary key value to delete.  If not set the instance property value is used.
 	 *
-	 * @return  AbstractDatabaseTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -377,7 +379,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * method to make sure the data they are storing in the database is safe and
 	 * as expected before storage.
 	 *
-	 * @return  AbstractDatabaseTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -395,7 +397,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  AbstractDatabaseTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -461,7 +463,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @param   DatabaseQuery  $query  A query object to append.
 	 * @param   mixed          $pk     Optional primary key parameter.
 	 *
-	 * @return  AbstractDatabaseTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -576,8 +578,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	/**
 	 * Clone the table.
 	 *
+	 * @return  \ArrayIterator
+	 *
 	 * @since   1.0
-	 * @return \ArrayIterator
 	 */
 	public function __clone()
 	{

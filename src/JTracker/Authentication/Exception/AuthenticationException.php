@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Authentication Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -9,7 +11,7 @@ namespace JTracker\Authentication\Exception;
 use JTracker\Authentication\User;
 
 /**
- * Class AuthenticationException.
+ * AuthenticationException
  *
  * @since  1.0
  */
@@ -49,8 +51,9 @@ class AuthenticationException extends \Exception
 	/**
 	 * Get the critical action.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getAction()
 	{
@@ -60,8 +63,9 @@ class AuthenticationException extends \Exception
 	/**
 	 * Get the user object.
 	 *
-	 * @since  1.0
-	 * @return \JTracker\Authentication\User
+	 * @return  \JTracker\Authentication\User
+	 *
+	 * @since   1.0
 	 */
 	public function getUser()
 	{

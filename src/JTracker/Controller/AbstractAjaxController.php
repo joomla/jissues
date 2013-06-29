@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Controller Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -10,14 +12,15 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
 /**
- * Class AbstractAjaxController
+ * Abstract controller for AJAX requests
  *
  * @since  1.0
  */
 abstract class AbstractAjaxController extends AbstractTrackerController
 {
 	/**
-	 * @var AjaxResponse
+	 * @var    AjaxResponse
+	 * @since  1.0
 	 */
 	protected $response;
 
@@ -39,9 +42,7 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * This is a generic method to execute and render a view and is not suitable for tasks.
-	 *
-	 * @return  void.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -76,36 +77,42 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	/**
 	 * Prepare the response.
 	 *
-	 * @since  1.0
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	abstract protected function prepareResponse();
 }
 
 /**
- * Class AjaxResponse.
+ * AJAX response object
  *
  * @since  1.0
  */
 class AjaxResponse
 {
 	/**
-	 * @var \stdClass
+	 * @var    \stdClass
+	 * @since  1.0
 	 */
 	public $data;
 
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $error = '';
 
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	public $message = '';
 
 	/**
-	 * Constructor.
+	 * Constructor
+	 *
+	 * @since  1.0
 	 */
 	public function __construct()
 	{

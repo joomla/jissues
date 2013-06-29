@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Authentication Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -52,8 +54,9 @@ class GitHubLoginHelper
 	/**
 	 * Method to retrieve the correct URI for login via GitHub
 	 *
-	 * @since   1.0
 	 * @return  string  The login URI
+	 *
+	 * @since   1.0
 	 */
 	public function getLoginUri()
 	{
@@ -81,11 +84,11 @@ class GitHubLoginHelper
 	 *
 	 * @param   string  $code  The code obtained form GitHub on the previous step.
 	 *
-	 * @throws \RuntimeException
-	 * @throws \DomainException
+	 * @return  string  The OAuth token
 	 *
 	 * @since   1.0
-	 * @return  string  The oAuth token
+	 * @throws  \RuntimeException
+	 * @throws  \DomainException
 	 */
 	public function requestToken($code)
 	{
@@ -151,11 +154,12 @@ class GitHubLoginHelper
 	 *
 	 * NOTE: A redirect is expected while fetching the avatar.
 	 *
-	 * @param   GithubUser  $user  The user.
+	 * @param   GithubUser  $user  The user object.
 	 *
-	 * @throws \RuntimeException
+	 * @return  void
 	 *
-	 * @return void
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public static function saveAvatar(GithubUser $user)
 	{
@@ -190,7 +194,9 @@ class GitHubLoginHelper
 	 *
 	 * @param   GitHubUser  $user  The user.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public static function getAvatarPath(GitHubUser $user)
 	{

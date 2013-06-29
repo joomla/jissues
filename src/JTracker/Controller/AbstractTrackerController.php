@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker Controller Package
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -14,14 +16,14 @@ use JTracker\Application\TrackerApplication;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
- * Base Controller class for the tracker application
+ * Abstract Controller class for the Tracker Application
  *
  * @since  1.0
  */
 abstract class AbstractTrackerController extends AbstractController
 {
 	/**
-	 * The default view for the component
+	 * The default view for the app
 	 *
 	 * @var    string
 	 * @since  1.0
@@ -29,7 +31,7 @@ abstract class AbstractTrackerController extends AbstractController
 	protected $defaultView;
 
 	/**
-	 * The component being executed.
+	 * The app being executed.
 	 *
 	 * @var    string
 	 * @since  1.0
@@ -127,7 +129,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 *
 	 * This is a generic method to execute and render a view and is not suitable for tasks.
 	 *
-	 * @return  void.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
