@@ -40,8 +40,6 @@ class Hooks extends AbstractTrackerController
 
 		// Set the default view
 		$this->defaultView = 'hooks';
-
-		// $this->getInput()->set('view', 'icons');
 	}
 
 	/**
