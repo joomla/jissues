@@ -47,6 +47,11 @@
 	"project/:project_alias/hooks-modify": "\\GitHub\\Controller\\Hooks\\Ajax\\Modify",
 	"preview"                            : "\\GitHub\\Controller\\Preview",
 
+	"project/:project_alias/labels"       : "\\GitHub\\Controller\\Labels",
+	"project/:project_alias/labels-list"  : "\\GitHub\\Controller\\Labels\\Ajax\\GetList",
+	"project/:project_alias/labels-add"   : "\\GitHub\\Controller\\Labels\\Ajax\\Add",
+	"project/:project_alias/labels-delete": "\\GitHub\\Controller\\Labels\\Ajax\\Delete",
+
 	"logs/:log_type": "\\Debug\\Controller\\LogsController",
 
 	"markdown"     : "\\Support\\Controller\\MarkdownController",

@@ -1,0 +1,197 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+
+    <h2>{{ project.title }} - Labels</h2>
+
+    <div class="btn" onclick="listLabels('{{ project.alias }}');">List Labels</div>
+
+    <div id="listLabels"></div>
+    <div id="ajaxDebug" class="alert-error"></div>
+
+    <h3>New Label</h3>
+
+    <form name="newLabel" class="form-inline">
+        <div class="row-fluid well well-small">
+            <div class="span5">
+                <label for="name">Name</label><br/>
+                <input type="text" id="name" name="name" placeholder="Label name"/>
+            </div>
+            <div class="span5">
+                <label for="color">Color</label><br />
+                <input type="text" id="color" name="color" placeholder="Label color"/>
+            </div>
+            <div class="span2 left">
+                <div class="btn btn-large btn-success" onclick="addLabel('{{ project.alias }}');">Add Label</div>
+            </div>
+        </div>
+    </form>
+
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplLabels">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>URL</th>
+                <th>Name</th>
+                <th>Color</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            [% for (var i=0; i < o.data.length; i++) { %]
+            <tr>
+                <td>[%= o.data[i].url %]</td>
+                <td>[%= o.data[i].name %]</td>
+                <td style="border: 1px solid silver; color: [% print(getContrastYIQ(o.data[i].color)); %];); background-color: #[%= o.data[i].color %];">[%= o.data[i].color %]</td>
+                <td>
+                    <a href="javascript:"
+                       onclick="deleteLabel('{{ project.alias }}', '[%= o.data[i].name %]');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            [% } %]
+            </tbody>
+        </table>
+    </script>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * Setup custom tags for the JS template engine.
+         * @type {RegExp}
+         */
+        tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+
+        /**
+         * List hooks.
+         *
+         * @param alias
+         *
+         * @since  1.0
+         */
+        function listLabels(alias) {
+            var out = $('#listLabels');
+            var debug = $('#ajaxDebug');
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '/project/' + alias + '/labels-list',
+                    {  },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No labels found.');
+                        }
+                        else {
+                            out.html(tmpl("tplLabels", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Add a label.
+         *
+         * @param alias
+         *
+         * @since  1.0
+         */
+        function addLabel(alias) {
+
+            var out = $('#listLabels');
+            var debug = $('#ajaxDebug');
+
+            var name = $('input[name="name"]').val();
+            var color = $('input[name="color"]').val();
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '/project/' + alias + '/labels-add',
+                    { name: name, color: color },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No labels found.');
+                        }
+                        else {
+                            out.html(tmpl("tplLabels", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Modify a hook.
+         *
+         * @param alias
+         *
+         * @since  1.0
+         */
+        function deleteLabel(alias, name) {
+            var out = $('#listLabels');
+            var debug = $('#ajaxDebug');
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '/project/' + alias + '/labels-delete',
+                    { name: name },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No labels found.');
+                        }
+                        else {
+                            out.html(tmpl("tplLabels", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Calculate a contrast color (black or white)
+         *
+         * http://24ways.org/2010/calculating-color-contrast/
+         *
+         * @param hexcolor
+         *
+         * @since  1.0
+         * @returns {string}
+         */
+        function getContrastYIQ(hexcolor){
+            var r = parseInt(hexcolor.substr(0,2),16);
+            var g = parseInt(hexcolor.substr(2,2),16);
+            var b = parseInt(hexcolor.substr(4,2),16);
+            var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+            return (yiq >= 128) ? 'black' : 'white';
+        }
+    </script>
+{% endblock %}

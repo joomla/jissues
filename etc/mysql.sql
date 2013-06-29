@@ -343,7 +343,7 @@ INSERT INTO `#__languages` (`lang_id`, `lang_code`, `title`, `title_native`, `se
 (1, 'en-GB', 'English (UK)', 'English (UK)', 'en', 'en', '', '', '', '', 1, 0, 1);
 
 --
--- Dumping data for table `#__articles`
+-- Dumping structure for table `#__articles`
 --
 
 CREATE TABLE IF NOT EXISTS `#__articles` (
@@ -359,4 +359,19 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles`
 (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
-('The J!Tracker Project', 'about', '<p>Some info about the project here...</p>', 'Some info about the project here...', '2013-06-18 20:20:41');
+('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-06-18 20:20:41');
+
+
+--
+-- Dumping structure for table `#__tracker_labels`
+--
+
+CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
+  `label_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `project_id` int(11) NOT NULL COMMENT 'Project ID',
+  `name` varchar(50) NOT NULL COMMENT 'Label name',
+  `color` varchar(6) NOT NULL COMMENT 'Label color',
+  PRIMARY KEY (`label_id`),
+  KEY `name` (`name`),
+  KEY `project_id` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
