@@ -27,7 +27,9 @@
 	},
 
 	"acl": {
-		"admin_users": [],
+		"admin_users": [
+			"", ""
+		],
 		"secret"     : "not-used-yet"
 	},
 
@@ -38,8 +40,9 @@
 
 	"debug": {
 		"system"  : "0",
-		"hooks"   : "0",
+		"database": "0",
 		"language": "0",
+		"hooks"   : "0",
 		"logging" : "0",
 		"log-path": "logs"
 	},
