@@ -21,7 +21,7 @@ class PhpInfoController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'phpinfo';
+	protected $defaultView = 'phpInfo';
 
 	/**
 	 * Execute the controller.

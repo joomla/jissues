@@ -4,7 +4,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\System\View\Phpinfo;
+namespace App\System\View\PhpInfo;
 
 use JTracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
@@ -15,7 +15,7 @@ use Twig_SimpleFilter;
  *
  * @since  1.0
  */
-class PhpinfoHtmlView extends AbstractTrackerHtmlView
+class PhpInfoHtmlView extends AbstractTrackerHtmlView
 {
 	/**
 	 * Method to render the view.
