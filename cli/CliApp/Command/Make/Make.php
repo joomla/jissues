@@ -7,11 +7,8 @@
 namespace CliApp\Command\Make;
 
 use CliApp\Application\CliApplication;
-
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
-
-use g11n\Support\ExtensionHelper;
 
 /**
  * Class for retrieving issues from GitHub for selected projects

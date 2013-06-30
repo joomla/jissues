@@ -6,7 +6,8 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
+
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
@@ -20,11 +21,11 @@ class Langfiles extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		$this->application = $application;
 		$this->description = 'Create and update language files.';
