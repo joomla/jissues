@@ -256,14 +256,10 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.system'))
 		{
+			$session = $this->application->getSession();
+
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
 			$debug[] = $this->renderProfile();
-
-		if ($this->application->get('debug.language'))
-		{
-			$debug[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
-			$debug[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
-		}
 
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
 			$debug[] = @Kint::dump($session->get('user'));
@@ -316,7 +312,8 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			if ($this->application->get('debug.language'))
 			{
-				$navigation[] = '<li><a href="#dbgLanguage">Language</a></li>';
+				$navigation[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
+				$navigation[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
 			}
 
 			$navigation[] = '</ul>';
