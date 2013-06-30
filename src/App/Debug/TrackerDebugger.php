@@ -104,6 +104,24 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$this->log['db'] = array();
 
+		if ($this->application->get('debug.database'))
+		{
+			$logger = new Logger('JTracker');
+
+			$logger->pushHandler(
+				new StreamHandler(
+					$this->getLogPath('root') . '/database.log',
+					Logger::DEBUG
+				)
+			);
+
+			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
+			$logger->pushProcessor(new WebProcessor);
+
+			$this->application->getDatabase()->setLogger($logger);
+			$this->application->getDatabase()->setDebug(true);
+		}
+
 		if (!$this->application->get('debug.logging'))
 		{
 			$this->logger = new Logger('JTracker');
@@ -124,24 +142,6 @@ class TrackerDebugger implements LoggerAwareInterface
 		$logger->pushProcessor(new WebProcessor);
 
 		$this->setLogger($logger);
-
-		if ($this->application->get('debug.database'))
-		{
-			$logger = new Logger('JTracker');
-
-			$logger->pushHandler(
-				new StreamHandler(
-					$this->getLogPath('root') . '/database.log',
-					Logger::DEBUG
-				)
-			);
-
-			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
-			$logger->pushProcessor(new WebProcessor);
-
-			$this->application->getDatabase()->setLogger($logger);
-			$this->application->getDatabase()->setDebug(true);
-		}
 
 		return $this;
 	}
@@ -245,47 +245,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function getOutput()
 	{
-		// OK, here comes some very beautiful CSS !!
-		// It's kinda "hidden" here, so evil template designers won't find it :P
-		$css = '
-		<style>
-			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
-			span.dbgTable { color: yellow; }
-			span.dbgCommand { color: lime; }
-			span.dbgOperator { color: red; }
-			h2.debug { background-color: #333; color: lime; border-radius: 10px; padding: 0.5em; }
-			h3:target { margin-top: 200px;}
-		</style>
-		';
-
 		$debug = array();
-
-		$debug[] = $css;
-
-		$debug[] = '<div class="well well-small navbar navbar-fixed-bottom">';
-		$debug[] = '<a class="brand" href="javascript:;">Debug</a>';
-		$debug[] = '<ul class="nav">';
-
-		if ($this->application->get('debug.database'))
-		{
-			$debug[] = '<li><a href="#dbgDatabase">Database</a></li>';
-		}
-
-		if ($this->application->get('debug.system'))
-		{
-			$debug[] = '<li><a href="#dbgProfile">Profile</a></li>';
-			$debug[] = '<li><a href="#dbgUser">User</a></li>';
-			$debug[] = '<li><a href="#dbgProject">Project</a></li>';
-		}
-
-		if ($this->application->get('debug.language'))
-		{
-			$debug[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
-			$debug[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
-		}
-
-		$debug[] = '</ul>';
-		$debug[] = '</div>';
 
 		if ($this->application->get('debug.database'))
 		{
@@ -294,16 +254,23 @@ class TrackerDebugger implements LoggerAwareInterface
 			$debug[] = $this->renderDatabase();
 		}
 
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
-		$debug[] = $this->renderProfile();
+		if ($this->application->get('debug.system'))
+		{
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
+			$debug[] = $this->renderProfile();
 
-		$session = $this->application->getSession();
+		if ($this->application->get('debug.language'))
+		{
+			$debug[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
+			$debug[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
+		}
 
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
-		$debug[] = @Kint::dump($session->get('user'));
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
+			$debug[] = @Kint::dump($session->get('user'));
 
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
-		$debug[] = @Kint::dump($session->get('project'));
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
+			$debug[] = @Kint::dump($session->get('project'));
+		}
 
 		if ($this->application->get('debug.language'))
 		{
@@ -314,9 +281,49 @@ class TrackerDebugger implements LoggerAwareInterface
 			$debug[] = $this->renderLanguageFiles();
 		}
 
-		$debug[] = '</div>';
+		$navigation = array();
 
-		return implode("\n", $debug);
+		if ($debug)
+		{
+			// OK, here comes some very beautiful CSS !!
+			// It's kinda "hidden" here, so evil template designers won't find it :P
+			$navigation[] = '
+		<style>
+			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
+			span.dbgTable { color: yellow; }
+			span.dbgCommand { color: lime; }
+			span.dbgOperator { color: red; }
+			h2.debug { background-color: #333; color: lime; border-radius: 10px; padding: 0.5em; }
+			h3:target { margin-top: 200px;}
+		</style>
+		';
+
+			$navigation[] = '<div class="well well-small navbar navbar-fixed-bottom">';
+			$navigation[] = '<a class="brand" href="javascript:;">Debug</a>';
+			$navigation[] = '<ul class="nav">';
+
+			if ($this->application->get('debug.database'))
+			{
+				$navigation[] = '<li><a href="#dbgDatabase">Database</a></li>';
+			}
+
+			if ($this->application->get('debug.system'))
+			{
+				$navigation[] = '<li><a href="#dbgProfile">Profile</a></li>';
+				$navigation[] = '<li><a href="#dbgUser">User</a></li>';
+				$navigation[] = '<li><a href="#dbgProject">Project</a></li>';
+			}
+
+			if ($this->application->get('debug.language'))
+			{
+				$navigation[] = '<li><a href="#dbgLanguage">Language</a></li>';
+			}
+
+			$navigation[] = '</ul>';
+			$navigation[] = '</div>';
+		}
+
+		return implode("\n", $navigation) . implode("\n", $debug);
 	}
 
 	/**
