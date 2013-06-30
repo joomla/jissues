@@ -48,14 +48,6 @@ final class TrackerApplication extends AbstractWebApplication
 	protected $dispatcher;
 
 	/**
-	 * The application message queue.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $messageQueue = array();
-
-	/**
 	 * The name of the application.
 	 *
 	 * @var    array
@@ -304,20 +296,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function enqueueMessage($msg, $type = 'message')
 	{
-		// For empty queue, if messages exists in the session, enqueue them first.
-		if (!count($this->messageQueue))
-		{
-			$sessionQueue = $this->getSession()->get('application.queue');
-
-			if (count($sessionQueue))
-			{
-				$this->messageQueue = $sessionQueue;
-				$this->getSession()->set('application.queue', null);
-			}
-		}
-
-		// Enqueue the message.
-		$this->messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+		$this->getSession()->getFlashBag()->add($type, $msg);
 
 		return $this;
 	}
@@ -497,6 +476,18 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
+	 * Clear the system message queue.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function clearMessageQueue()
+	{
+		$this->getSession()->getFlashBag()->clear();
+	}
+
+	/**
 	 * Get the system message queue.
 	 *
 	 * @return  array  The system message queue.
@@ -505,33 +496,22 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getMessageQueue()
 	{
-		// For empty queue, if messages exists in the session, enqueue them.
-		if (!count($this->messageQueue))
-		{
-			$sessionQueue = $this->getSession()->get('application.queue');
-
-			if (count($sessionQueue))
-			{
-				$this->messageQueue = $sessionQueue;
-				$this->getSession()->set('application.queue', null);
-			}
-		}
-
-		return $this->messageQueue;
+		return $this->getSession()->getFlashBag()->peekAll();
 	}
 
 	/**
-	 * Set the system message queue.
+	 * Set the system message queue for a given type.
 	 *
-	 * @param   array  $queue  The information to set in the message queue
+	 * @param   string  $type   The type of message to set
+	 * @param   mixed   $queue  Either a single message or an array of messages
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function setMessageQueue(array $queue = array())
+	public function setMessageQueue($type, $message = '')
 	{
-		$this->messageQueue = $queue;
+		$this->getSession()->getFlashBag()->set($type, $message);
 	}
 
 	/**
