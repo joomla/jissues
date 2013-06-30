@@ -232,7 +232,7 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Add a profiler mark.
 	 *
-	 * @param   string $text  The message for the mark.
+	 * @param   string  $text  The message for the mark.
 	 *
 	 * @return  $this  Method allows chaining
 	 *
