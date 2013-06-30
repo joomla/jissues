@@ -190,10 +190,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated');
 
-			if (JDEBUG)
-			{
-				$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
-			}
+			$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
 
 			$this->setBody($contents);
 		}
