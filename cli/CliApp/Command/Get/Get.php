@@ -12,13 +12,13 @@ namespace CliApp\Command\Get;
 use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
 
-use Joomla\Github\Github;
-use Joomla\Registry\Registry;
-
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
+
+use Joomla\Github\Github;
+use Joomla\Registry\Registry;
 
 /**
  * Class for retrieving data from GitHub for selected projects
@@ -60,11 +60,11 @@ class Get extends TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		parent::__construct($application);
 

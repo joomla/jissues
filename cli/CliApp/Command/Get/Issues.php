@@ -6,11 +6,12 @@
 
 namespace CliApp\Command\Get;
 
-use CliApp\Application\TrackerApplication;
-use Joomla\Date\Date;
-
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ActivitiesTable;
+
+use CliApp\Application\CliApplication;
+
+use Joomla\Date\Date;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -22,11 +23,11 @@ class Issues extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		$this->application = $application;
 

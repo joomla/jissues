@@ -6,7 +6,7 @@
 
 namespace CliApp\Command\Get;
 
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
@@ -21,11 +21,11 @@ class Avatars extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		$this->application = $application;
 		$this->description = 'Retrieve avatar images from GitHub.';

@@ -5,7 +5,8 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
+use Joomla\Factory;
 
 'cli' == PHP_SAPI
 	|| die("\nThis script must be run from the command line interface.\n\n");
@@ -33,6 +34,8 @@ define('JPATH_ROOT', realpath(__DIR__ . '/..'));
  * @param   mixed  $object  The object
  *
  * @return mixed
+ *
+ * @since  1.0
  */
 function with($object)
 {
@@ -41,10 +44,9 @@ function with($object)
 
 try
 {
-	$application = new TrackerApplication;
+	$application = new CliApplication;
 
-	// @todo remove
-	Joomla\Factory::$application = $application;
+	Factory::$application = $application;
 
 	$application->execute();
 }
