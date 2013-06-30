@@ -232,7 +232,7 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Add a profiler mark.
 	 *
-	 * @param   string  $text  The message for the mark.
+	 * @param   string $text  The message for the mark.
 	 *
 	 * @return  $this  Method allows chaining
 	 *
@@ -307,7 +307,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @param   ControllerInterface  $controller  The controller instance to execute
 	 * @param   string               $component   The component being executed.
 	 *
-	 * @return  object
+	 * @return  string
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
@@ -502,8 +502,8 @@ final class TrackerApplication extends AbstractWebApplication
 	/**
 	 * Set the system message queue for a given type.
 	 *
-	 * @param   string  $type   The type of message to set
-	 * @param   mixed   $queue  Either a single message or an array of messages
+	 * @param   string  $type     The type of message to set
+	 * @param   mixed   $message  Either a single message or an array of messages
 	 *
 	 * @return  void
 	 *
@@ -623,31 +623,6 @@ final class TrackerApplication extends AbstractWebApplication
 		$this->dispatcher = ($dispatcher === null) ? new Dispatcher : $dispatcher;
 
 		return $this;
-	}
-
-	/**
-	 * Redirect to another URL.
-	 *
-	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
-	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
-	 * sent this will be accomplished using a JavaScript statement.
-	 *
-	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
-	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function redirect($url, $moved = false)
-	{
-		// Persist messages if they exist.
-		if (count($this->messageQueue))
-		{
-			$this->getSession()->set('application.queue', $this->messageQueue);
-		}
-
-		parent::redirect($url, $moved);
 	}
 
 	/**
