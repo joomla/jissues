@@ -24,7 +24,7 @@ use JTracker\Authentication\GitHub\GitHubUser;
  *
  * @since  1.0
  */
-class TrackerApplication extends AbstractCliApplication
+class CliApplication extends AbstractCliApplication
 {
 	/**
 	 * Database object
@@ -230,7 +230,7 @@ class TrackerApplication extends AbstractCliApplication
 	 * @param   string   $text     The text to display.
 	 * @param   boolean  $newline  True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  TrackerApplication
+	 * @return  CliApplication
 	 *
 	 * @codeCoverageIgnore
 	 * @since   1.0
@@ -246,7 +246,7 @@ class TrackerApplication extends AbstractCliApplication
 	 * @param   string  $text  The text to display.
 	 *
 	 * @since   1.0
-	 * @return  TrackerApplication
+	 * @return  CliApplication
 	 */
 	public function debugOut($text)
 	{
@@ -260,7 +260,7 @@ class TrackerApplication extends AbstractCliApplication
 	 * @param   string   $subTitle  A subtitle
 	 * @param   integer  $width     Total width in chars
 	 *
-	 * @return  TrackerApplication
+	 * @return  CliApplication
 	 *
 	 * @since   1.0
 	 */
@@ -283,7 +283,7 @@ class TrackerApplication extends AbstractCliApplication
 	/**
 	 * Load the application configuration.
 	 *
-	 * @return  TrackerApplication
+	 * @return  CliApplication
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

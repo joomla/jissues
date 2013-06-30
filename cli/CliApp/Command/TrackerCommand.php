@@ -9,9 +9,9 @@
 
 namespace CliApp\Command;
 
-use Joomla\Database\DatabaseDriver;
+use CliApp\Application\CliApplication;
 
-use CliApp\Application\TrackerApplication;
+use Joomla\Database\DatabaseDriver;
 
 /**
  * TrackerCommand class
@@ -21,7 +21,7 @@ use CliApp\Application\TrackerApplication;
 abstract class TrackerCommand
 {
 	/**
-	 * @var    TrackerApplication
+	 * @var    CliApplication
 	 * @since  1.0
 	 */
 	protected $application;
@@ -43,11 +43,11 @@ abstract class TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		$this->application = $application;
 	}
@@ -112,7 +112,7 @@ abstract class TrackerCommand
 	 *
 	 * @param   string  $text  The text to display.
 	 *
-	 * @return  TrackerApplication
+	 * @return  CliApplication
 	 *
 	 * @since   1.0
 	 */
