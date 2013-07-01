@@ -56,8 +56,10 @@ class Langtemplates extends Make
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
-		// Process core files
+		// Cleanup
+		$this->delTree(JPATH_ROOT . '/cache/twig');
 
+		// Process core files
 		$extension = 'JTracker';
 		$domain    = 'Core';
 
@@ -76,13 +78,17 @@ class Langtemplates extends Make
 
 		$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$this->makePhpFromTwig(JPATH_ROOT . '/templates', JPATH_ROOT . '/cache/twig/JTracker');
+		$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
+
+		$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
 
 		$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
 		$paths = array(ExtensionHelper::getDomainPath($domain));
 
 		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+
+		$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
 
 		// Process App templates
 
@@ -110,6 +116,8 @@ class Langtemplates extends Make
 			);
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+
+			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
 	}
 
@@ -367,5 +375,103 @@ class Langtemplates extends Make
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Replace a compiled twig template path with the real path.
+	 *
+	 * @param   string  $sourcePath    Path to the twig sources.
+	 * @param   string  $twigPath      Path to the compiled twig files.
+	 * @param   string  $templateFile  Path to the template file.
+	 *
+	 * @return $this
+	 *
+	 * @throws \RuntimeException
+	 *
+	 * @since  1.0
+	 */
+	private function replacePaths($sourcePath, $twigPath, $templateFile)
+	{
+		$pathMap = array();
+
+		/* @type \DirectoryIterator $fileInfo */
+		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($twigPath)) as $fileInfo)
+		{
+			if ('php' == $fileInfo->getExtension())
+			{
+				$f = new \stdClass;
+
+				$f->twigPhpPath = str_replace(JPATH_ROOT, '', $fileInfo->getPathname());
+				$f->lines = file($fileInfo->getPathname());
+
+				if (false == isset($f->lines[2]) || false == preg_match('/([A-z0-9\.\-]+)/', $f->lines[2], $matches))
+				{
+					throw new \RuntimeException('Can not parse the twig template at: ' . $fileInfo->getPathname());
+				}
+
+				$f->twigTwigPath = str_replace(JPATH_ROOT, '', $sourcePath) . '/' . $matches[1];
+
+				$pathMap[$f->twigPhpPath] = $f;
+			}
+		}
+
+		$lines = file($templateFile);
+
+		foreach ($lines as $i => $line)
+		{
+			if (preg_match('/#: ([A-z0-9\/\.]+):([0-9]+)/', $line, $matches))
+			{
+				$path = $matches[1];
+				$lineNo = $matches[2];
+
+				if (false == array_key_exists($path, $pathMap))
+				{
+					throw new \RuntimeException('Unknown file: ' . $path);
+				}
+
+				$twigPhp = $pathMap[$path];
+
+				$pLine = $twigPhp->lines[$lineNo - 2];
+
+				if (false == preg_match('#// line ([0-9]+)#', $pLine, $matches))
+				{
+					$pLine = $twigPhp->lines[$lineNo - 3];
+
+					if (false == preg_match('#// line ([0-9]+)#', $pLine, $matches))
+					{
+						throw new \RuntimeException('Can not fetch the line number in ' . $line . $pLine);
+					}
+				}
+
+				$lines[$i] = '#: ' . $twigPhp->twigTwigPath . ':' . $matches[1] . "\n";
+			}
+		}
+
+		file_put_contents($templateFile, implode('', $lines));
+
+		return $this;
+	}
+
+	/**
+	 * Delete a directory recursively.
+	 *
+	 * @param   string  $dir  The directory to delete.
+	 *
+	 * @return bool
+	 *
+	 * @since  1.0
+	 */
+	private function delTree($dir)
+	{
+		$files = array_diff(scandir($dir), array('.', '..'));
+
+		foreach ($files as $file)
+		{
+			(is_dir($dir . '/' . $file))
+				? $this->delTree($dir . '/' . $file)
+				: unlink($dir . '/' . $file);
+		}
+
+		return rmdir($dir);
 	}
 }
