@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker - Template 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"POT-Creation-Date: 2013-07-01 12:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,78 +17,78 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:37
+#: /templates/trackerMenu.twig:8
 msgid "Tracker"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:51
+#: /templates/trackerMenu.twig:14
 msgid "Project"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:72
+#: /templates/trackerMenu.twig:24
 msgid "Show"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:91
+#: /templates/trackerMenu.twig:32
 msgid "Edit"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:111
+#: /templates/trackerMenu.twig:42
 msgid "Access Groups"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:131
+#: /templates/trackerMenu.twig:51
 msgid "Projects"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:145
+#: /templates/trackerMenu.twig:56
 msgid "Users"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:164
+#: /templates/trackerMenu.twig:70
 msgid "System"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:180
+#: /templates/trackerMenu.twig:77
 msgid "Configuration"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:228
+#: /templates/trackerMenu.twig:104
 msgid "Database"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:290
+#: /templates/trackerMenu.twig:133
 msgid "Icons"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:305
+#: /templates/trackerMenu.twig:139
 msgid "Text"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:337
+#: /templates/trackerMenu.twig:161
 msgid "About Us"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:390
+#: /templates/trackerMenu.twig:188
 msgid "Admin"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:403
+#: /templates/trackerMenu.twig:193
 msgid "Profile"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:416
+#: /templates/trackerMenu.twig:200
 msgid "Logout"
 msgstr ""
 
-#: /cache/twig/JTracker/d7/19/b984e8f6babf0a199b3b83c34315.php:432
+#: /templates/trackerMenu.twig:208
 msgid "Login with GitHub"
 msgstr ""
 
-#: /cache/twig/JTracker/eb/28/e38c1f3684f8d6c0755e60b5c73d.php:23
+#: /templates/editor.twig:5
 msgid "Write"
 msgstr ""
 
-#: /cache/twig/JTracker/eb/28/e38c1f3684f8d6c0755e60b5c73d.php:27
+#: /templates/editor.twig:6
 msgid "Preview"
 msgstr ""

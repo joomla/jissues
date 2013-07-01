@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-23 22:28-0500\n"
+"POT-Creation-Date: 2013-07-01 12:58-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -14,14 +14,14 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: /cache/twig/Projects/4a/13/28acb484e9bef7177f0ff6cb46f3.php:49
+#: /templates/projects/projects.index.twig:12
 msgid "New Project"
 msgstr "Новый проект"
 
-#: /cache/twig/Projects/4a/13/28acb484e9bef7177f0ff6cb46f3.php:72
+#: /templates/projects/projects.index.twig:23
 msgid "Projects List"
 msgstr "Список проектов"
 
-#: /cache/twig/Projects/4a/13/28acb484e9bef7177f0ff6cb46f3.php:80
+#: /templates/projects/projects.index.twig:28
 msgid "Tracker"
 msgstr "Tracker"

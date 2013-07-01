@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tracker - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"POT-Creation-Date: 2013-07-01 12:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,64 +17,64 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /cache/twig/Tracker/95/94/9c111027583aa6c4a8dff11c047d.php:226
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:310
-#: /cache/twig/Tracker/d2/79/2958ac7c47ba7c9403661d66c019.php:222
+#: /templates/tracker/issue.index.twig:88
+#: /templates/tracker/issues.index.twig:111
+#: /templates/tracker/issue.edit.twig:88
 msgid "Foreign ID"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:107
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:116
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:120
+#: /templates/tracker/issues.index.twig:39
+#: /templates/tracker/issues.index.twig:42
+#: /templates/tracker/issues.index.twig:43
 msgid "Filter the list by summary or description."
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:124
+#: /templates/tracker/issues.index.twig:44
 msgid "Submit search"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:133
+#: /templates/tracker/issues.index.twig:50
 msgid "Clear search"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:147
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:410
+#: /templates/tracker/issues.index.twig:56
+#: /templates/tracker/issues.index.twig:156
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:158
+#: /templates/tracker/issues.index.twig:62
 msgid "ID"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:162
+#: /templates/tracker/issues.index.twig:63
 msgid "Summary"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:166
+#: /templates/tracker/issues.index.twig:64
 msgid "Priority"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:170
+#: /templates/tracker/issues.index.twig:65
 msgid "Status"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:174
+#: /templates/tracker/issues.index.twig:66
 msgid "Date Opened"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:178
+#: /templates/tracker/issues.index.twig:67
 msgid "Date Closed"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:182
+#: /templates/tracker/issues.index.twig:68
 msgid "Last Modified"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:285
+#: /templates/tracker/issues.index.twig:103
 msgid "GitHub ID"
 msgstr ""
 
-#: /cache/twig/Tracker/e5/60/1eef635c21b348e3271ab7fc6fc8.php:394
+#: /templates/tracker/issues.index.twig:147
 msgid "No items found."
 msgstr ""

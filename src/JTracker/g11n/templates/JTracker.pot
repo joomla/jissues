@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker - Core 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"POT-Creation-Date: 2013-07-01 12:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /src/JTracker/Pagination/TrackerPagination.php:200
-#: /src/JTracker/Pagination/TrackerPagination.php:205
+#: /src/JTracker/Pagination/TrackerPagination.php:207
+#: /src/JTracker/Pagination/TrackerPagination.php:212
 msgid "Next"
 msgstr ""
 
-#: /src/JTracker/Pagination/TrackerPagination.php:201
-#: /src/JTracker/Pagination/TrackerPagination.php:206
+#: /src/JTracker/Pagination/TrackerPagination.php:208
+#: /src/JTracker/Pagination/TrackerPagination.php:213
 msgid "Last"
 msgstr ""
