@@ -45,7 +45,6 @@ class Submit extends AbstractTrackerController
 			throw new \Exception('No body received.');
 		}
 
-
 		$data = new \stdClass;
 
 		if ($project->gh_user && $project->gh_project)

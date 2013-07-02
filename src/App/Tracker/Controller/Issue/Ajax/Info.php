@@ -7,7 +7,7 @@
 namespace App\Tracker\Controller\Issue\Ajax;
 
 use App\Tracker\Model\IssueModel;
-use Joomla\Factory;
+
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -27,14 +27,11 @@ class Info extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
-
-		$id = $application->input->getUint('id');
+		$id = $this->getApplication()->input->getUint('id');
 
 		if (!$id)
 		{
-			throw new \RuntimeException('No id');
+			throw new \RuntimeException('No id received.');
 		}
 
 		$model = new IssueModel;
