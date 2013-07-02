@@ -57,37 +57,13 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 	);
 };
 
-JTracker.submitIssue = function(result, debug) {
-	var title = $('input[name=title]').val();
-	var body = $('textarea[name=body]').val();
-	var priority = $('select[name=priority]').val();
+JTracker.submitIssue = function(button) {
 
-	var out = $(result);
-	var status = $(debug);
+	// @todo validate
 
-	status.html('Submitting issue report...');
+	$(button).html('Submitting...');
 
-	$.post(
-		'/submit/issue',
-		{
-			title: title,
-			body: body,
-			priority: priority
-		},
-		function (r) {
-			if (!r.data) {
-				// Misc failure
-				status.html('Invalid response.');
-			}
-			else if (r.error) {
-				// Failure
-				status.html(r.error);
-			}
-			else {
-				// Success
-				out.html(r.message);
-			}
-		}
-	);
+	document.editForm.submit();
 
+	return false;
 };
