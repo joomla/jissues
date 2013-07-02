@@ -178,14 +178,9 @@
     {{ parent() }}
 
     <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}js/jtracker-js-templates.js"></script>
 
     <script type="text/javascript">
-
-    /**
-     * Setup custom tags for the JS template engine.
-     * @type {RegExp}
-     */
-    tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
 
     $('*[data-issue]').click(
             function () {
