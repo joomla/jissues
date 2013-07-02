@@ -29,7 +29,7 @@ JTracker.preview = function(text, preview) {
 	);
 };
 
-JTracker.submitComment = function (issue_number, outContainer, debugContainer) {
+JTracker.submitComment = function (issue_number, debugContainer, outContainer, template) {
 	var out = $(outContainer);
 	var status = $(debugContainer);
 
@@ -49,7 +49,9 @@ JTracker.submitComment = function (issue_number, outContainer, debugContainer) {
 			}
 			else {
 				// Success
-				out.html(r.message);
+				status.html(r.message);
+
+				out.html(out.html() + tmpl(template, r.data));
 			}
 		}
 	);

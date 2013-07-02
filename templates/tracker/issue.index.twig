@@ -157,6 +157,8 @@
         </div>
     {% endfor %}
 
+    <div id="newComment"></div>
+
     <!-- Add form -->
 
     <h4>
@@ -175,10 +177,10 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right" id="commentResult">
+            <div class="pull-right">
                 <div id="commentStatus"></div>
                 <a href="javascript:" class="btn btn-success"
-                   onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentResult', '#commentStatus');">
+                   onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
                     Post Comment
                 </a>
             </div>
@@ -190,6 +192,28 @@
         <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
     {% endif %}
 
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplNewComment">
+        <div class="row-fluid">
+            <div class="span1 well-small">
+                {{ avatar(user.username)|raw }}
+            </div>
+            <div class="span11">
+                <div class="well well-small">
+                    <img src="{{ uri.base.path }}images/tracker/action_comment.png"
+                         alt="comment on [%= o.created_at %]"
+                         title="comment on [%= o.created_at %]"/>
+                        [%= o.created_at %]
+                    - <a name ="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
+                    - {{ user.username }}
+                </div>
+            </div>
+            <div class="span12">[%# o.text %]</div>
+        </div>
+    </script>
 {% endblock %}
 
 {% block JavaScriptBottom %}
@@ -197,17 +221,23 @@
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
 
-    <script language="javascript">
+    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * Setup custom tags for the JS template engine.
+         * @type {RegExp}
+         */
+        tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
+
         $(document).ready(function() {
             $('#comment').markItUp(myMarkdownSettings);
         });
-    </script>
 
-    <script type="text/javascript">
         $('a[data-toggle="tab"]').on('shown', function (e)
         {
-            if('#preview' == $(e.target).attr('href'))
-            {
+            if('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#comment', '#preview');
             }
         });
