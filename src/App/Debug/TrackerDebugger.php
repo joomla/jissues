@@ -71,7 +71,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$this->application = $application;
 
-		$this->profiler = JDEBUG ? new Profiler('Tracker') : null;
+		$this->profiler = $application->get('debug.system') ? new Profiler('Tracker') : null;
 
 		$this->setupLogging();
 
@@ -255,24 +255,20 @@ class TrackerDebugger implements LoggerAwareInterface
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
 			$debug[] = $this->renderProfile();
 
-			$session = $this->application->getSession();
-
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
-			$debug[] = @Kint::dump($session->get('user'));
+			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
 
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
-			$debug[] = @Kint::dump($session->get('project'));
+			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
 		}
 
 		if ($this->application->get('debug.language'))
 		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageStrings">Language Strings</a></h3>';
+			$debug[] = $this->renderLanguageStrings();
 
-			ob_start();
-
-			// $this->renderLanguage();
-
-			$debug[] = ob_get_clean();
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageFiles">Language Files</a></h3>';
+			$debug[] = $this->renderLanguageFiles();
 		}
 
 		$navigation = array();
@@ -292,7 +288,8 @@ class TrackerDebugger implements LoggerAwareInterface
 		</style>
 		';
 
-			$navigation[] = '<div class="well well-small navbar navbar-fixed-bottom">';
+			$navigation[] = '<div class="navbar navbar-fixed-bottom" id="debugBar">';
+			$navigation[] = '<div class="navbar-inner">';
 			$navigation[] = '<a class="brand" href="javascript:;">Debug</a>';
 			$navigation[] = '<ul class="nav">';
 
@@ -310,10 +307,12 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			if ($this->application->get('debug.language'))
 			{
-				$navigation[] = '<li><a href="#dbgLanguage">Language</a></li>';
+				$navigation[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
+				$navigation[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
 			}
 
 			$navigation[] = '</ul>';
+			$navigation[] = '</div>';
 			$navigation[] = '</div>';
 		}
 
@@ -336,15 +335,19 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * Render language debug information.
 	 *
 	 * @since  1.0
-	 * @return void
+	 * @return string
 	 */
-	public function renderLanguage()
+	public function renderLanguageFiles()
 	{
-		echo '<h4>Strings</h4>';
-		echo $this->renderLanguageStrings();
+		$events = array();
+		$tableFormat = new TableFormat;
 
-		echo '<h4>Language files loaded</h4>';
-		g11n::printEvents();
+		foreach (g11n::getEvents() as $e)
+		{
+			$events[] = ArrayHelper::fromObject($e);
+		}
+
+		return $tableFormat->fromArray($events);
 	}
 
 	/**
@@ -533,5 +536,49 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		return implode("\n", $debug);
+	}
+
+	/**
+	 * Prints out translated and untranslated strings.
+	 *
+	 * @return string
+	 */
+	protected function renderLanguageStrings()
+	{
+		$html = array();
+
+		$items = g11n::get('processedItems');
+
+		$html[] = '<table class="table table-hover table-condensed">';
+		$html[] = '<tr>';
+		$html[] = '<th>String</th><th>File (line)</th><th></th>';
+		$html[] = '</tr>';
+
+		$tableFormat = new TableFormat;
+
+		$i = 0;
+
+		foreach ($items as $string => $item)
+		{
+			$color =('-' == $item->status)
+				? '#ffb2b2;'
+				: '#e5ff99;';
+
+			$html[] = '<tr>';
+			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($string) . '</td>';
+			$html[] = '<td>' . str_replace(JPATH_ROOT, 'ROOT', $item->file) . ' (' . $item->line . ')</td>';
+			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
+			$html[] = '</tr>';
+
+			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">'
+				. $tableFormat->fromTrace($item->trace)
+				. '</td></tr>';
+
+			$i ++;
+		}
+
+		$html[] = '</table>';
+
+		return implode("\n", $html);
 	}
 }
