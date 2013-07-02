@@ -69,6 +69,8 @@ class Make extends TrackerCommand
 		$this->out('<error>                                    </error>');
 		$this->out('<error>  Please use one of the following:  </error>');
 		$this->out('<error>  make docu                         </error>');
+		$this->out('<error>  make autocomplete                 </error>');
+		$this->out('<error>  make dbcomments                   </error>');
 		$this->out('<error>                                    </error>');
 	}
 }

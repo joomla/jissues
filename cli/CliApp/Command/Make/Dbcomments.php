@@ -1,45 +1,46 @@
-#!/usr/bin/env php
 <?php
 /**
- * This scans the database and generates doc blocks for the table fields.
+ * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use CliApp\Application\TrackerApplication;
+namespace CliApp\Command\Make;
 
-'cli' == PHP_SAPI
-|| die("\nThis script must be run from the command line interface.\n\n");
-
-version_compare(PHP_VERSION, '5.3.10') >= 0
-|| die("\nThis application requires PHP version >= 5.3.10 (Your version: " . PHP_VERSION . ")\n\n");
-
-// Configure error reporting to maximum for CLI output.
-error_reporting(-1);
-ini_set('display_errors', 1);
-
-// Load the autoloader
-$loader = require __DIR__ . '/../vendor/autoload.php';
-
-// Add the namespace for our application to the autoloader.
-$loader->add('CliApp', __DIR__ . '/../cli');
+use CliApp\Application\CliApplication;
+use CliApp\Command\TrackerCommand;
 
 /**
- * CLI application for installing the tracker application
+ * Class for retrieving issues from GitHub for selected projects
  *
  * @since  1.0
  */
-class MyApplication extends TrackerApplication
+class Dbcomments extends Make
 {
 	/**
-	 * Method to run the application routines.  Most likely you will want to instantiate a controller
-	 * and execute it, or perform some sort of task directly.
+	 * Constructor.
+	 *
+	 * @param   CliApplication  $application  The application object.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(CliApplication $application)
+	{
+		$this->application = $application;
+		$this->description = 'Generate file headers for Table classes.';
+	}
+
+	/**
+	 * Execute the command.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function doExecute()
+	public function execute()
 	{
-		$db = $this->getDatabase();
+		$this->application->outputTitle('Make DB Comments');
+
+		$db = $this->application->getDatabase();
 
 		$tables = $db->getTableList();
 
@@ -53,7 +54,7 @@ class MyApplication extends TrackerApplication
 
 			foreach ($fields as $field)
 			{
-				$com = new stdClass;
+				$com = new \stdClass;
 
 				$com->type    = $this->getType($field->Type);
 				$com->name    = '$' . $field->Field;
@@ -86,9 +87,19 @@ class MyApplication extends TrackerApplication
 
 			$this->out();
 		}
+
+		$this->out()
+			->out('Finished =;)');
 	}
 
-	private function getMaxVals($lines)
+	/**
+	 * Get the maximum values to align doc comments.
+	 *
+	 * @param   array  $lines  The doc comment.
+	 *
+	 * @return \stdClass
+	 */
+	private function getMaxVals(array $lines)
 	{
 		$mType = 0;
 		$mName = 0;
@@ -102,7 +113,7 @@ class MyApplication extends TrackerApplication
 			$mName = $len > $mName ? $len : $mName;
 		}
 
-		$v = new stdClass;
+		$v = new \stdClass;
 
 		$v->maxType = $mType;
 		$v->maxName = $mName;
@@ -110,11 +121,17 @@ class MyApplication extends TrackerApplication
 		return $v;
 	}
 
+	/**
+	 * Get a PHP data type from a SQL data type.
+	 *
+	 * @param   string  $type  The SQL data type.
+	 *
+	 * @return string
+	 */
 	private function getType($type)
 	{
 		if (0 === strpos($type, 'int')
-			|| 0 === strpos($type, 'tinyint')
-		)
+			|| 0 === strpos($type, 'tinyint'))
 		{
 			return 'integer';
 		}
@@ -122,26 +139,11 @@ class MyApplication extends TrackerApplication
 		if (0 === strpos($type, 'varchar')
 			|| 0 === strpos($type, 'text')
 			|| 0 === strpos($type, 'mediumtext')
-			|| 0 === strpos($type, 'datetime')
-		)
+			|| 0 === strpos($type, 'datetime'))
 		{
 			return 'string';
 		}
 
 		return $type;
 	}
-}
-
-
-try
-{
-	(new MyApplication)->execute();
-}
-catch (\Exception $e)
-{
-	echo "\n\nERROR: " . $e->getMessage() . "\n\n";
-
-	echo $e->getTraceAsString();
-
-	exit($e->getCode() ? : 255);
 }
