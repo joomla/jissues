@@ -35,6 +35,10 @@
         <help>Compile documentation using GitHub markdown.</help>
     </command>
     <command>
+        <name>make dbcomments</name>
+        <help>Generate file headers for Table classes.</help>
+    </command>
+    <command>
         <name>make autocomplete</name>
         <help>Generate an auto complete file for PHPStorm.</help>
     </command>
