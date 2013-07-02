@@ -9,6 +9,7 @@ namespace App\Debug;
 use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
+use Joomla\Utilities\ArrayHelper;
 use JTracker\Application\TrackerApplication;
 
 use App\Debug\Database\DatabaseDebugger;
@@ -339,15 +340,16 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function renderLanguageFiles()
 	{
-		$events = array();
+		$items = array();
 		$tableFormat = new TableFormat;
+		$events =(class_exists('g11n')) ? g11n::getEvents() : array();
 
-		foreach (g11n::getEvents() as $e)
+		foreach ($events as $e)
 		{
-			$events[] = ArrayHelper::fromObject($e);
+			$items[] = ArrayHelper::fromObject($e);
 		}
 
-		return $tableFormat->fromArray($events);
+		return $tableFormat->fromArray($items);
 	}
 
 	/**
@@ -547,7 +549,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$html = array();
 
-		$items = g11n::get('processedItems');
+		$items =(class_exists('g11n')) ? g11n::get('processedItems') : array();
 
 		$html[] = '<table class="table table-hover table-condensed">';
 		$html[] = '<tr>';
