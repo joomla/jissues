@@ -44,6 +44,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case '404' :
 			case '500' :
 			case 'database' :
+			case 'error' :
 				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
 				break;
 
@@ -86,26 +87,15 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		switch ($type)
 		{
-			case 'php':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
-
-			case 'database':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
-
 			case '403':
 			case '404':
 			case '500':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
-
-			case 'github_issues' :
-			case 'github_comments' :
-			case 'github_pulls' :
+			case 'database':
+			case 'error':
+			case 'php':
+			case 'github_issues':
+			case 'github_comments':
+			case 'github_pulls':
 				// @todo beautifyMe
 				$log = explode("\n\n", file_get_contents($path));
 				break;
