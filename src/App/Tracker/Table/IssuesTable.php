@@ -37,6 +37,7 @@ use Joomla\Utilities\ArrayHelper;
  * @property   integer  $rel_id           Relation id user
  * @property   string   $rel_type         Relation type
  * @property   integer  $has_code         If the issue has code attached - aka a pull request.
+ * @property   string   $labels           Comma separated list of label IDs
 
  * @since  1.0
  */
