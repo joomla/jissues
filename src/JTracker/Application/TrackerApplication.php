@@ -48,14 +48,6 @@ final class TrackerApplication extends AbstractWebApplication
 	protected $dispatcher;
 
 	/**
-	 * The application message queue.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $messageQueue = array();
-
-	/**
 	 * The name of the application.
 	 *
 	 * @var    array
@@ -190,10 +182,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated');
 
-			if (JDEBUG)
-			{
-				$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
-			}
+			$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
 
 			$this->setBody($contents);
 		}
@@ -307,20 +296,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function enqueueMessage($msg, $type = 'message')
 	{
-		// For empty queue, if messages exists in the session, enqueue them first.
-		if (!count($this->messageQueue))
-		{
-			$sessionQueue = $this->getSession()->get('application.queue');
-
-			if (count($sessionQueue))
-			{
-				$this->messageQueue = $sessionQueue;
-				$this->getSession()->set('application.queue', null);
-			}
-		}
-
-		// Enqueue the message.
-		$this->messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+		$this->getSession()->getFlashBag()->add($type, $msg);
 
 		return $this;
 	}
@@ -331,7 +307,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @param   ControllerInterface  $controller  The controller instance to execute
 	 * @param   string               $component   The component being executed.
 	 *
-	 * @return  object
+	 * @return  string
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
@@ -500,6 +476,18 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
+	 * Clear the system message queue.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function clearMessageQueue()
+	{
+		$this->getSession()->getFlashBag()->clear();
+	}
+
+	/**
 	 * Get the system message queue.
 	 *
 	 * @return  array  The system message queue.
@@ -508,33 +496,22 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getMessageQueue()
 	{
-		// For empty queue, if messages exists in the session, enqueue them.
-		if (!count($this->messageQueue))
-		{
-			$sessionQueue = $this->getSession()->get('application.queue');
-
-			if (count($sessionQueue))
-			{
-				$this->messageQueue = $sessionQueue;
-				$this->getSession()->set('application.queue', null);
-			}
-		}
-
-		return $this->messageQueue;
+		return $this->getSession()->getFlashBag()->peekAll();
 	}
 
 	/**
-	 * Set the system message queue.
+	 * Set the system message queue for a given type.
 	 *
-	 * @param   array  $queue  The information to set in the message queue
+	 * @param   string  $type     The type of message to set
+	 * @param   mixed   $message  Either a single message or an array of messages
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function setMessageQueue(array $queue = array())
+	public function setMessageQueue($type, $message = '')
 	{
-		$this->messageQueue = $queue;
+		$this->getSession()->getFlashBag()->set($type, $message);
 	}
 
 	/**
@@ -646,31 +623,6 @@ final class TrackerApplication extends AbstractWebApplication
 		$this->dispatcher = ($dispatcher === null) ? new Dispatcher : $dispatcher;
 
 		return $this;
-	}
-
-	/**
-	 * Redirect to another URL.
-	 *
-	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
-	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
-	 * sent this will be accomplished using a JavaScript statement.
-	 *
-	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
-	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function redirect($url, $moved = false)
-	{
-		// Persist messages if they exist.
-		if (count($this->messageQueue))
-		{
-			$this->getSession()->set('application.queue', $this->messageQueue);
-		}
-
-		parent::redirect($url, $moved);
 	}
 
 	/**

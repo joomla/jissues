@@ -8,7 +8,6 @@ namespace App\System\View\Config;
 
 use JTracker\View\AbstractTrackerHtmlView;
 use Joomla\Utilities\ArrayHelper;
-use Twig_SimpleFilter;
 
 /**
  * System configuration view.
@@ -32,19 +31,6 @@ class ConfigHtmlView extends AbstractTrackerHtmlView
 		$cfx = ArrayHelper::fromObject($config);
 
 		$this->renderer->set('config', $cfx);
-
-		// Format a string.
-		$this->renderer->addFilter(
-			new Twig_SimpleFilter(
-				'tformat', function ($string)
-				{
-					$string = str_replace(array('_', '-'), ' ', $string);
-					$string = ucfirst($string);
-
-					return $string;
-				}
-			)
-		);
 
 		return parent::render();
 	}

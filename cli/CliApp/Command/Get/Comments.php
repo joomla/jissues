@@ -6,12 +6,12 @@
 
 namespace CliApp\Command\Get;
 
-use Joomla\Date\Date;
-
 use App\Tracker\Table\ActivitiesTable;
 
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommandOption;
+
+use Joomla\Date\Date;
 
 /**
  * Class for retrieving comments from GitHub for selected projects
@@ -51,11 +51,11 @@ class Comments extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		$this->application = $application;
 

@@ -9,6 +9,7 @@ namespace App\Debug;
 use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
+use Joomla\Utilities\ArrayHelper;
 use JTracker\Application\TrackerApplication;
 
 use App\Debug\Database\DatabaseDebugger;
@@ -71,7 +72,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$this->application = $application;
 
-		$this->profiler = JDEBUG ? new Profiler('Tracker') : null;
+		$this->profiler = $application->get('debug.system') ? new Profiler('Tracker') : null;
 
 		$this->setupLogging();
 
@@ -100,6 +101,24 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$this->log['db'] = array();
 
+		if ($this->application->get('debug.database'))
+		{
+			$logger = new Logger('JTracker');
+
+			$logger->pushHandler(
+				new StreamHandler(
+					$this->getLogPath('root') . '/database.log',
+					Logger::DEBUG
+				)
+			);
+
+			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
+			$logger->pushProcessor(new WebProcessor);
+
+			$this->application->getDatabase()->setLogger($logger);
+			$this->application->getDatabase()->setDebug(true);
+		}
+
 		if (!$this->application->get('debug.logging'))
 		{
 			$this->logger = new Logger('JTracker');
@@ -120,24 +139,6 @@ class TrackerDebugger implements LoggerAwareInterface
 		$logger->pushProcessor(new WebProcessor);
 
 		$this->setLogger($logger);
-
-		if ($this->application->get('debug.database'))
-		{
-			$logger = new Logger('JTracker');
-
-			$logger->pushHandler(
-				new StreamHandler(
-					$this->getLogPath('root') . '/database.log',
-					Logger::DEBUG
-				)
-			);
-
-			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
-			$logger->pushProcessor(new WebProcessor);
-
-			$this->application->getDatabase()->setLogger($logger);
-			$this->application->getDatabase()->setDebug(true);
-		}
 
 		return $this;
 	}
@@ -241,9 +242,43 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function getOutput()
 	{
-		// OK, here comes some very beautiful CSS !!
-		// It's kinda "hidden" here, so evil template designers won't find it :P
-		$css = '
+		$debug = array();
+
+		if ($this->application->get('debug.database'))
+		{
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgDatabase">Database</a></h3>';
+
+			$debug[] = $this->renderDatabase();
+		}
+
+		if ($this->application->get('debug.system'))
+		{
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
+			$debug[] = $this->renderProfile();
+
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
+			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
+
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
+			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
+		}
+
+		if ($this->application->get('debug.language'))
+		{
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageStrings">Language Strings</a></h3>';
+			$debug[] = $this->renderLanguageStrings();
+
+			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageFiles">Language Files</a></h3>';
+			$debug[] = $this->renderLanguageFiles();
+		}
+
+		$navigation = array();
+
+		if ($debug)
+		{
+			// OK, here comes some very beautiful CSS !!
+			// It's kinda "hidden" here, so evil template designers won't find it :P
+			$navigation[] = '
 		<style>
 			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
 			span.dbgTable { color: yellow; }
@@ -254,66 +289,35 @@ class TrackerDebugger implements LoggerAwareInterface
 		</style>
 		';
 
-		$debug = array();
+			$navigation[] = '<div class="navbar navbar-fixed-bottom" id="debugBar">';
+			$navigation[] = '<div class="navbar-inner">';
+			$navigation[] = '<a class="brand" href="javascript:;">Debug</a>';
+			$navigation[] = '<ul class="nav">';
 
-		$debug[] = $css;
+			if ($this->application->get('debug.database'))
+			{
+				$navigation[] = '<li><a href="#dbgDatabase">Database</a></li>';
+			}
 
-		$debug[] = '<div class="well well-small navbar navbar-fixed-bottom">';
-		$debug[] = '<a class="brand" href="javascript:;">Debug</a>';
-		$debug[] = '<ul class="nav">';
+			if ($this->application->get('debug.system'))
+			{
+				$navigation[] = '<li><a href="#dbgProfile">Profile</a></li>';
+				$navigation[] = '<li><a href="#dbgUser">User</a></li>';
+				$navigation[] = '<li><a href="#dbgProject">Project</a></li>';
+			}
 
-		if ($this->application->get('debug.database'))
-		{
-			$debug[] = '<li><a href="#dbgDatabase">Database</a></li>';
+			if ($this->application->get('debug.language'))
+			{
+				$navigation[] = '<li><a href="#dbgLanguageStrings">Lang Strings</a></li>';
+				$navigation[] = '<li><a href="#dbgLanguageFiles">Lang Files</a></li>';
+			}
+
+			$navigation[] = '</ul>';
+			$navigation[] = '</div>';
+			$navigation[] = '</div>';
 		}
 
-		if ($this->application->get('debug.system'))
-		{
-			$debug[] = '<li><a href="#dbgProfile">Profile</a></li>';
-			$debug[] = '<li><a href="#dbgUser">User</a></li>';
-			$debug[] = '<li><a href="#dbgProject">Project</a></li>';
-		}
-
-		if ($this->application->get('debug.language'))
-		{
-			$debug[] = '<li><a href="#dbgLanguage">Language</a></li>';
-		}
-
-		$debug[] = '</ul>';
-		$debug[] = '</div>';
-
-		if ($this->application->get('debug.database'))
-		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgDatabase">Database</a></h3>';
-
-			$debug[] = $this->renderDatabase();
-		}
-
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
-		$debug[] = $this->renderProfile();
-
-		$session = $this->application->getSession();
-
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
-		$debug[] = @Kint::dump($session->get('user'));
-
-		$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
-		$debug[] = @Kint::dump($session->get('project'));
-
-		if ($this->application->get('debug.language'))
-		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguage">Language</a></h3>';
-
-			ob_start();
-
-			// $this->renderLanguage();
-
-			$debug[] = ob_get_clean();
-		}
-
-		$debug[] = '</div>';
-
-		return implode("\n", $debug);
+		return implode("\n", $navigation) . implode("\n", $debug);
 	}
 
 	/**
@@ -332,15 +336,20 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * Render language debug information.
 	 *
 	 * @since  1.0
-	 * @return void
+	 * @return string
 	 */
-	public function renderLanguage()
+	public function renderLanguageFiles()
 	{
-		echo '<h4>Strings</h4>';
-		echo $this->renderLanguageStrings();
+		$items = array();
+		$tableFormat = new TableFormat;
+		$events =(class_exists('g11n')) ? g11n::getEvents() : array();
 
-		echo '<h4>Language files loaded</h4>';
-		g11n::printEvents();
+		foreach ($events as $e)
+		{
+			$items[] = ArrayHelper::fromObject($e);
+		}
+
+		return $tableFormat->fromArray($items);
 	}
 
 	/**
@@ -529,5 +538,49 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		return implode("\n", $debug);
+	}
+
+	/**
+	 * Prints out translated and untranslated strings.
+	 *
+	 * @return string
+	 */
+	protected function renderLanguageStrings()
+	{
+		$html = array();
+
+		$items =(class_exists('g11n')) ? g11n::get('processedItems') : array();
+
+		$html[] = '<table class="table table-hover table-condensed">';
+		$html[] = '<tr>';
+		$html[] = '<th>String</th><th>File (line)</th><th></th>';
+		$html[] = '</tr>';
+
+		$tableFormat = new TableFormat;
+
+		$i = 0;
+
+		foreach ($items as $string => $item)
+		{
+			$color =('-' == $item->status)
+				? '#ffb2b2;'
+				: '#e5ff99;';
+
+			$html[] = '<tr>';
+			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($string) . '</td>';
+			$html[] = '<td>' . str_replace(JPATH_ROOT, 'ROOT', $item->file) . ' (' . $item->line . ')</td>';
+			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
+			$html[] = '</tr>';
+
+			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">'
+				. $tableFormat->fromTrace($item->trace)
+				. '</td></tr>';
+
+			$i ++;
+		}
+
+		$html[] = '</table>';
+
+		return implode("\n", $html);
 	}
 }

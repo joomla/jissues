@@ -6,7 +6,7 @@
 
 namespace CliApp\Command\Install;
 
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
@@ -21,11 +21,11 @@ class Install extends TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		parent::__construct($application);
 

@@ -18,7 +18,8 @@ Available commands:
 * `make` Make documentation, ...
 * `help` Display some helpful text.
 
-For more information use `tracker.php help <command>`.
+For more information use `tracker.php help`.
+For more information on a specific command use `tracker.php help <command>`.
 
 ## Install the application
 
@@ -29,9 +30,9 @@ Then run:
 
 ## Retrieve new Issues and Comments
 
-`tracker.php retrieve issues`
+`tracker.php get issues`
 
-`tracker.php retrieve comments`
+`tracker.php get comments`
 
 ## Colors
 Recently a new feature has been added to the framework that allows CLI applications to display colorful output on ANSI enabled terminals. So I thought we might see how it looks and feels ;)
@@ -60,7 +61,13 @@ Example:
 
 To turn the feature(s) off permanently edit `etc/config.json` and set the values for the undesired features from `1` to `0`.
 
-----
-Since most of the code in this PR has been used to actually test this feature before submitting it to the framework, I thought I could give this here back too.
+## Auto Complete
+If you use PHPStorm, you may use the [Command Line Tools Console](http://www.jetbrains.com/phpstorm/webhelp/command-line-tools-console-tool-window.html) to execute the tracker.php script.
 
-If you have any strong feelings against this, please raise your voice here and now or I am going to merge it ;)
+To get auto complete for the tracker.php commands, copy the file `Custom_jtracker.xml` to the folder `.idea/commandlinetools` inside your JTracker project. This will set up an alias `jtracker` that points to the `/cli/tracker.php` script.
+
+![cli-auto-complete](https://f.cloud.github.com/assets/2059654/738999/cc8f5ba2-e351-11e2-8389-8fbb1e4a3243.png)
+
+Don't miss the documentation - Press <kbd>Ctrl</kbd> + <kbd>Q</kbd>
+
+![cli-auto-complete1](https://f.cloud.github.com/assets/2059654/739003/d0295894-e351-11e2-8ee6-973d8741a3cd.png)

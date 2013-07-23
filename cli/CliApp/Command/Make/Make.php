@@ -6,7 +6,7 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\TrackerApplication;
+use CliApp\Application\CliApplication;
 
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
@@ -37,11 +37,11 @@ class Make extends TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application object.
+	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(CliApplication $application)
 	{
 		parent::__construct($application);
 
@@ -69,6 +69,8 @@ class Make extends TrackerCommand
 		$this->out('<error>                                    </error>');
 		$this->out('<error>  Please use one of the following:  </error>');
 		$this->out('<error>  make docu                         </error>');
+		$this->out('<error>  make autocomplete                 </error>');
+		$this->out('<error>  make dbcomments                   </error>');
 		$this->out('<error>                                    </error>');
 	}
 }

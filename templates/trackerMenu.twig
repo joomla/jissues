@@ -77,6 +77,12 @@
                     Config
                 </a>
             </li>
+            <li class="{{ "phpinfo" == uri.route ? "active" : "" }}">
+                <a href="{{ uri.base.path }}phpinfo">
+                    <i class="icon-code"></i>
+                    phpinfo()
+                </a>
+            </li>
             <li class="dropdown-submenu">
                 <a tabindex="-1" href="#">
                     <i class="icon-copy"></i>
@@ -118,6 +124,9 @@
                     </li>
                     <li class="{{ "logs/php" == uri.route ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/php">PHP</a>
+                    </li>
+                    <li class="{{ "logs/error" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/error">Error</a>
                     </li>
                 </ul>
             </li>

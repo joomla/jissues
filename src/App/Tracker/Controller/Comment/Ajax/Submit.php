@@ -4,17 +4,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Ajax\Issue;
+namespace App\Tracker\Controller\Ajax\Comment;
 
 use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssuesTable;
-
 use Joomla\Date\Date;
+use Joomla\Registry\Registry;
 
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Add issues controller class.
+ * Add comments controller class.
  *
  * @since  1.0
  */
@@ -25,20 +24,30 @@ class Submit extends AbstractAjaxController
 	 *
 	 * @since  1.0
 	 * @throws \Exception
-	 * @return void
+	 * @return mixed
 	 */
 	protected function prepareResponse()
 	{
 		$this->getApplication()->getUser()->authorize('create');
 
-		$title    = $this->getInput()->getString('title');
-		$body     = $this->getInput()->get('body', '', 'raw');
-		$priority = $this->getInput()->getInt('priority');
+		$comment      = $this->getInput()->get('text', '', 'raw');
+		$issue_number = $this->getInput()->getInt('issue_number');
 
-		if (!$body)
+		if (!$issue_number)
 		{
-			throw new \Exception('No body received.');
+			throw new \Exception('No issue number received.');
 		}
+
+		if (!$comment)
+		{
+			throw new \Exception('You should write a comment first...');
+		}
+
+		// @todo removeMe :(
+		$comment .= sprintf(
+			'<br />*You may blame the <a href="%1$s">%2$s Application</a> for transmitting this comment.*',
+			'https://github.com/joomla/jissues', 'J!Tracker'
+		);
 
 		$project = $this->getApplication()->getProject();
 
@@ -47,9 +56,9 @@ class Submit extends AbstractAjaxController
 		if ($project->gh_user && $project->gh_project)
 		{
 			$gitHubResponse = $this->getApplication()->getGitHub()
-				->issues->create(
+				->issues->comments->create(
 					$project->gh_user, $project->gh_project,
-					$title, $body
+					$issue_number, $comment
 				);
 
 			if (!isset($gitHubResponse->id))
@@ -59,12 +68,12 @@ class Submit extends AbstractAjaxController
 
 			$data->created_at = $gitHubResponse->created_at;
 			$data->opened_by  = $gitHubResponse->user->login;
-			$data->number     = $gitHubResponse->number;
-			$data->text       = $gitHubResponse->body;
+			$data->comment_id = $gitHubResponse->id;
+			$data->text_raw   = $gitHubResponse->body;
 
 			$data->text = $this->getApplication()->getGitHub()->markdown
 				->render(
-					$body,
+					$comment,
 					'gfm',
 					$project->gh_user . '/' . $project->gh_project
 				);
@@ -75,39 +84,30 @@ class Submit extends AbstractAjaxController
 
 			$data->created_at = $date->format($this->getApplication()->getDatabase()->getDateFormat());
 			$data->opened_by  = $this->getApplication()->getUser()->username;
-			$data->number     = '???';
+			$data->comment_id = '???';
 
-			$data->text_raw = $body;
+			$data->text_raw = $comment;
 
 			$data->text = $this->getApplication()->getGitHub()->markdown
-				->render($body, 'markdown');
+				->render($comment, 'markdown');
 		}
 
-		// Store the issue
-		$table = new IssuesTable($this->getApplication()->getDatabase());
-
-		$table->opened_date     = $data->created_at;
-		$table->opened_by       = $data->opened_by;
-		$table->project_id      = $project->project_id;
-		$table->issue_number    = $data->number;
-		$table->priority        = $priority;
-		$table->title           = $title;
-		$table->description     = $data->text;
-		$table->description_raw = $body;
-
-		$table->check()->store();
-
-		// Store the activity
 		$table = new ActivitiesTable($this->getApplication()->getDatabase());
 
-		$table->event        = 'open';
-		$table->created_date = $data->created_at;
-		$table->project_id   = $project->project_id;
-		$table->issue_number = $data->number;
-		$table->user         = $data->opened_by;
+		$table->event         = 'comment';
+		$table->created_date  = $data->created_at;
+		$table->project_id    = $project->project_id;
+		$table->issue_number  = $issue_number;
+		$table->gh_comment_id = $data->comment_id;
+		$table->user          = $data->opened_by;
+		$table->text          = $data->text;
+		$table->text_raw      = $data->text_raw;
 
-		$table->check()->store();
+		$table->store();
 
-		$this->response->message = 'Your issue report has been submitted';
+		$data->activities_id = $table->activities_id;
+
+		$this->response->data    = $data;
+		$this->response->message = 'Your comment has been submitted';
 	}
 }

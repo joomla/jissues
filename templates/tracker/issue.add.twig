@@ -9,10 +9,11 @@
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success" href="javascript:"
-           onclick="JTracker.submitIssue('#issueResult', '#issueDebug');">
+        <a class="btn-success" href="javascript:" id="submit"
+           onclick="JTracker.submitIssue('#submit', '#issueDebug');">
             Submit
         </a>
+        <div id="issueDebug"></div>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -26,9 +27,9 @@
 
 {% block content %}
 
-    <div id="issueDebug"></div>
 
-    <form name="editForm">
+
+    <form method="post" action="/{{ uri.route }}-submit" name="editForm">
 
         <div class="pull-right well well-small">
 
