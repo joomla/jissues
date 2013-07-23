@@ -16,7 +16,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class Hooks extends AbstractTrackerController
+class Labels extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -24,23 +24,7 @@ class Hooks extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'hooks';
-
-	/**
-	 * Constructor
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		parent::__construct($input, $app);
-
-		// Set the default view
-		$this->defaultView = 'hooks';
-	}
+	protected $defaultView = 'labels';
 
 	/**
 	 * Execute the controller.
