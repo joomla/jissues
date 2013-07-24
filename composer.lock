@@ -55,17 +55,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "8032df33125c900a16ef564ba3ebae5ba538143b"
+                "reference": "324e14455e504efce18c5080c8cc925dfe6c3ebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/8032df33125c900a16ef564ba3ebae5ba538143b",
-                "reference": "8032df33125c900a16ef564ba3ebae5ba538143b",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/324e14455e504efce18c5080c8cc925dfe6c3ebb",
+                "reference": "324e14455e504efce18c5080c8cc925dfe6c3ebb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.10",
-                "psr/log": ">=1.0,<2.0"
+                "psr/log": "~1.0"
             },
             "replace": {
                 "joomla/application": "self.version",
@@ -105,7 +105,7 @@
                 "joomla/view": "self.version"
             },
             "require-dev": {
-                "symfony/yaml": ">=2.0,<3.0"
+                "symfony/yaml": "~2.0"
             },
             "suggest": {
                 "symfony/yaml": "Install symfony/yaml 2.* if you require YAML support."
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-06-10 14:33:53"
+            "time": "2013-07-11 06:00:24"
         },
         {
             "name": "mustache/mustache",
@@ -214,17 +214,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.1",
+            "version": "v2.3.2",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "v2.3.1"
+                "reference": "v2.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.1",
-                "reference": "v2.3.1",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.2",
+                "reference": "v2.3.2",
                 "shasum": ""
             },
             "require": {
@@ -260,7 +260,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-10 06:00:03"
+            "time": "2013-07-17 05:57:53"
         },
         {
             "name": "twig/twig",
@@ -268,12 +268,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac"
+                "reference": "9fa5410a861427d378f9665e370e997483797cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f0753f0ff4047a870f57e7567446242b38b37ac",
-                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/9fa5410a861427d378f9665e370e997483797cac",
+                "reference": "9fa5410a861427d378f9665e370e997483797cac",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-27 06:24:36"
+            "time": "2013-07-23 15:49:22"
         }
     ],
     "packages-dev": [
