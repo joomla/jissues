@@ -45,13 +45,10 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case '500' :
 			case 'database' :
 			case 'error' :
-				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
-				break;
-
 			case 'github_issues' :
 			case 'github_comments' :
 			case 'github_pulls' :
-				$path = $debugger->getLogPath('root') . '/' . $type . '.php';
+				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
 				break;
 
 			default :
