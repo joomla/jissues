@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
 --
 
 CREATE TABLE IF NOT EXISTS `#__status` (
-  `id` integer unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(255) DEFAULT NULL,
   `closed` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
@@ -114,15 +114,15 @@ INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `#__issues` (
-  `id` integer unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `issue_number` integer unsigned DEFAULT NULL COMMENT 'THE issue number (ID)',
-  `foreign_number` integer unsigned DEFAULT NULL COMMENT 'Foreign tracker id',
-  `project_id` integer unsigned DEFAULT NULL COMMENT 'Project id',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `issue_number` int(11) unsigned DEFAULT NULL COMMENT 'THE issue number (ID)',
+  `foreign_number` int(11) unsigned DEFAULT NULL COMMENT 'Foreign tracker id',
+  `project_id` int(11) unsigned DEFAULT NULL COMMENT 'Project id',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
   `description` mediumtext NOT NULL COMMENT 'Issue description',
   `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
   `priority` tinyint(4) NOT NULL DEFAULT '3' COMMENT 'Issue priority',
-  `status` integer unsigned NOT NULL DEFAULT '1' COMMENT 'Issue status',
+  `status` int(11) unsigned NOT NULL DEFAULT '1' COMMENT 'Issue status',
   `opened_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue open date',
   `opened_by` varchar(50) NULL DEFAULT NULL COMMENT 'Opened by username',
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue closed date',
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed_sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been closed',
   `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue modified date',
   `modified_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue modified by username',
-  `rel_id` integer unsigned DEFAULT NULL COMMENT 'Relation id user',
+  `rel_id` int(11) unsigned DEFAULT NULL COMMENT 'Relation id user',
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT '0' COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
@@ -148,10 +148,10 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
 --
 
 CREATE TABLE IF NOT EXISTS `#__activities` (
-  `activities_id` integer unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `gh_comment_id` integer unsigned NULL COMMENT 'The GitHub comment id',
-  `issue_number` integer unsigned NOT NULL COMMENT 'THE issue number (ID)',
-  `project_id` integer unsigned NOT NULL COMMENT 'The Project id',
+  `activities_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `gh_comment_id` int(11) unsigned NULL COMMENT 'The GitHub comment id',
+  `issue_number` int(11) unsigned NOT NULL COMMENT 'THE issue number (ID)',
+  `project_id` int(11) NOT NULL COMMENT 'The Project id',
   `user` varchar(255) NOT NULL DEFAULT '' COMMENT 'The user name',
   `event` varchar(32) NOT NULL COMMENT 'The event type',
   `text` mediumtext NULL COMMENT 'The event text',
@@ -159,6 +159,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
+  KEY `project_id` (`project_id`),
   CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`),
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -227,8 +228,8 @@ INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `c
 --
 
 CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__users.id',
-  `group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__accessgroups.id',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__users.id',
+  `group_id` int(11) NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__accessgroups.id',
   PRIMARY KEY (`user_id`,`group_id`),
   CONSTRAINT `#__user_accessgroup_map_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`),
   CONSTRAINT `#__user_accessgroup_map_fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `#__accessgroups` (`group_id`)
@@ -241,9 +242,9 @@ CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
 --
 
 CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
-  `id` integer unsigned NOT NULL AUTO_INCREMENT,
-  `issue_id` integer unsigned NOT NULL,
-  `field_id` integer NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `issue_id` int(11) unsigned NOT NULL,
+  `field_id` int(11) NOT NULL,
   `value` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `issue_id` (`issue_id`),

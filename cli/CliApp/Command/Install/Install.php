@@ -126,21 +126,6 @@ class Install extends TrackerCommand
 		$db->setQuery('SET FOREIGN_KEY_CHECKS=0')
 			->execute();
 
-		// First, need to drop the tables with FKs in specific order
-		$keyTables = array(
-			$db->replacePrefix('#__tracker_fields_values'),
-			$db->replacePrefix('#__activities'),
-			$db->replacePrefix('#__issues'),
-			$db->replacePrefix('#__status')
-		);
-
-		foreach ($keyTables as $table)
-		{
-			$db->setQuery('DROP TABLE IF EXISTS ' . $table)
-				->execute();
-			$this->out('.', false);
-		}
-
 		foreach ($tables as $table)
 		{
 			if ('sqlite_sequence' == $table)
