@@ -260,30 +260,6 @@ INSERT INTO `#__categories` (`id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `
 (45, 1, 87, 88, 1, 'components', 'com_tracker.fields.43', 'Components', 'components', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2013-01-07 23:18:44', 0, '0000-00-00 00:00:00', 1),
 (46, 1, 89, 90, 1, 'templates', 'com_tracker.fields.43', 'Templates', 'templates', '', 1, 0, '0000-00-00 00:00:00', 1, 1, '2013-01-07 23:18:51', 0, '0000-00-00 00:00:00', 1);
 
---
--- Tables below are core Platform/CMS tables
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `#__session`
---
-
-CREATE TABLE IF NOT EXISTS `#__session` (
-  `session_id` varchar(200) NOT NULL DEFAULT '',
-  `client_id` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `guest` tinyint(4) unsigned DEFAULT '1',
-  `time` varchar(14) DEFAULT '',
-  `data` mediumtext,
-  `userid` int(11) DEFAULT '0',
-  `username` varchar(150) DEFAULT '',
-  PRIMARY KEY (`session_id`),
-  KEY `userid` (`userid`),
-  KEY `time` (`time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 -- --------------------------------------------------------
 
 --
@@ -311,39 +287,6 @@ CREATE TABLE IF NOT EXISTS `#__users` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__languages`
---
-
-CREATE TABLE IF NOT EXISTS `#__languages` (
-  `lang_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `lang_code` char(7) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `title_native` varchar(50) NOT NULL,
-  `sef` varchar(50) NOT NULL,
-  `image` varchar(50) NOT NULL,
-  `description` varchar(512) NOT NULL,
-  `metakey` text NOT NULL,
-  `metadesc` text NOT NULL,
-  `sitename` varchar(1024) NOT NULL DEFAULT '',
-  `published` int(11) NOT NULL DEFAULT '0',
-  `access` int(10) unsigned NOT NULL DEFAULT '0',
-  `ordering` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`lang_id`),
-  UNIQUE KEY `idx_sef` (`sef`),
-  UNIQUE KEY `idx_image` (`image`),
-  UNIQUE KEY `idx_langcode` (`lang_code`),
-  KEY `idx_access` (`access`),
-  KEY `idx_ordering` (`ordering`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `#__languages`
---
-
-INSERT INTO `#__languages` (`lang_id`, `lang_code`, `title`, `title_native`, `sef`, `image`, `description`, `metakey`, `metadesc`, `sitename`, `published`, `access`, `ordering`) VALUES
-(1, 'en-GB', 'English (UK)', 'English (UK)', 'en', 'en', '', '', '', '', 1, 0, 1);
-
---
 -- Dumping structure for table `#__articles`
 --
 
@@ -361,7 +304,6 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 INSERT INTO `#__articles`
 (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-06-18 20:20:41');
-
 
 --
 -- Dumping structure for table `#__tracker_labels`
