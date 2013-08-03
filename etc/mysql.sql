@@ -1,44 +1,61 @@
 --
--- Table structure for table `#__accessgroups`
+-- Table setup order:
+-- #__tracker_projects
+-- #__tracker_labels
+-- #__status
+-- #__issues_relations_types
+-- #__issues
+-- #__activities
+-- #__users
+-- #__accessgroups
+-- #__user_accessgroup_map
+-- #__tracker_fields_values
+-- #__categories (Currently unused)
+-- #__articles
 --
 
-CREATE TABLE IF NOT EXISTS `#__accessgroups` (
-  `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) NOT NULL,
-  `title` varchar(150) NOT NULL,
-  `can_view` int(11) NOT NULL,
-  `can_create` int(11) NOT NULL,
-  `can_manage` int(11) NOT NULL,
-  `can_edit` int(11) NOT NULL,
-  `system` int(11) NOT NULL,
-  PRIMARY KEY (`group_id`),
-  KEY `project_id` (`project_id`)
+--
+-- Table structure for table `#__tracker_projects`
+--
+
+CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
+  `project_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `title` varchar(150) NOT NULL COMMENT 'Project title',
+  `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
+  `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
+  `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
+  `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
+  PRIMARY KEY (`project_id`),
+  KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Daten für Tabelle `#__accessgroups`
+-- Dumping data `#__tracker_projects`
 --
 
-INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `can_create`, `can_manage`,
-                                 `can_edit`, `system`) VALUES
-(1, 1, 'Public', 1, 0, 0, 0, 1),
-(2, 1, 'User', 1, 1, 0, 0, 1),
-(3, 2, 'Public', 1, 0, 0, 0, 1),
-(4, 2, 'User', 1, 1, 0, 0, 1),
-(5, 3, 'Public', 0, 0, 0, 0, 1),
-(6, 3, 'User', 0, 0, 0, 0, 1),
-(7, 3, 'JSST', 1, 1, 0, 1, 0),
-(8, 3, 'JBS Managers', 1, 1, 1, 1, 0);
+INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`, `ext_tracker_link`) VALUES
+(1, 'Joomla! CMS 3 issues', 'joomla-cms-3-issues', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d'),
+(2, 'J!Tracker Bugs', 'jtracker-bugs', 'joomla', 'jissues', ''),
+(3, 'Joomla! Security', 'joomla-security', '', '', '');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `#__user_accessgroup_map`
+-- Table structure for table `#__tracker_labels`
 --
 
-CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__users.id',
-  `group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__usergroups.id',
-  PRIMARY KEY (`user_id`,`group_id`)
+CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
+  `label_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `project_id` int(11) NOT NULL COMMENT 'Project ID',
+  `name` varchar(50) NOT NULL COMMENT 'Label name',
+  `color` varchar(6) NOT NULL COMMENT 'Label color',
+  PRIMARY KEY (`label_id`),
+  KEY `name` (`name`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__tracker_labels_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `#__status`
@@ -68,6 +85,29 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 (10, 'closed', 1),
 (11, 'expected', 1),
 (12, 'known', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_relations_types`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data `#__issues_relations_types`
+--
+
+INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
+(1, 'duplicate_of'),
+(2, 'related_to'),
+(3, 'not_before');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `#__issues`
@@ -101,6 +141,8 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `#__activities`
 --
@@ -117,27 +159,82 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
-  CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`)
+  CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`),
+  CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__users`
+--
+
+CREATE TABLE IF NOT EXISTS `#__users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'The users name',
+  `username` varchar(150) NOT NULL DEFAULT '' COMMENT 'The users username',
+  `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
+  `block` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'If the user is blocked',
+  `sendEmail` tinyint(4) DEFAULT '0' COMMENT 'If the users recieves e-mail',
+  `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The register date',
+  `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The last visit date',
+  `params` text NOT NULL COMMENT 'Parameters',
+  PRIMARY KEY (`id`),
+  KEY `idx_name` (`name`),
+  KEY `idx_block` (`block`),
+  KEY `username` (`username`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__accessgroups`
+--
+
+CREATE TABLE IF NOT EXISTS `#__accessgroups` (
+  `group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` int(11) NOT NULL,
+  `title` varchar(150) NOT NULL,
+  `can_view` int(11) NOT NULL,
+  `can_create` int(11) NOT NULL,
+  `can_manage` int(11) NOT NULL,
+  `can_edit` int(11) NOT NULL,
+  `system` int(11) NOT NULL,
+  PRIMARY KEY (`group_id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__accessgroups_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `#__issues_relations_types`
+-- Dumping data for table `#__accessgroups`
 --
 
-CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `can_create`, `can_manage`, `can_edit`, `system`) VALUES
+(1, 1, 'Public', 1, 0, 0, 0, 1),
+(2, 1, 'User', 1, 1, 0, 0, 1),
+(3, 2, 'Public', 1, 0, 0, 0, 1),
+(4, 2, 'User', 1, 1, 0, 0, 1),
+(5, 3, 'Public', 0, 0, 0, 0, 1),
+(6, 3, 'User', 0, 0, 0, 0, 1),
+(7, 3, 'JSST', 1, 1, 0, 1, 0),
+(8, 3, 'JBS Managers', 1, 1, 1, 1, 0);
+
+-- --------------------------------------------------------
 
 --
--- Dumping data `#__issues_relations_types`
+-- Table structure for table `#__user_accessgroup_map`
 --
 
-INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
-(1, 'duplicate_of'),
-(2, 'related_to'),
-(3, 'not_before');
+CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__users.id',
+  `group_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Foreign Key to #__accessgroups.id',
+  PRIMARY KEY (`user_id`,`group_id`),
+  CONSTRAINT `#__user_accessgroup_map_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`),
+  CONSTRAINT `#__user_accessgroup_map_fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `#__accessgroups` (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `#__tracker_fields_values`
@@ -153,30 +250,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
   CONSTRAINT `#__tracker_fields_values_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `#__tracker_projects`
---
-
-CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
-  `project_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `title` varchar(150) NOT NULL COMMENT 'Project title',
-  `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
-  `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
-  `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
-  `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-  PRIMARY KEY (`project_id`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
---
--- Dumping data `#__tracker_projects`
---
-
-INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`,
-                                     `ext_tracker_link`) VALUES
-(1, 'Joomla! CMS 3 issues', 'joomla-cms-3-issues', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d'),
-(2, 'J!Tracker Bugs', 'jtracker-bugs', 'joomla', 'jissues', ''),
-(3, 'Joomla! Security', 'joomla-security', '', '', '');
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `#__categories`
@@ -209,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `#__categories` (
   KEY `idx_path` (`path`),
   KEY `idx_left_right` (`lft`,`rgt`),
   KEY `idx_alias` (`alias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=47;
 
 --
 -- Dumping data for table `#__categories`
@@ -263,31 +337,7 @@ INSERT INTO `#__categories` (`id`, `parent_id`, `lft`, `rgt`, `level`, `path`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__users`
---
-
-CREATE TABLE IF NOT EXISTS `#__users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'The users name',
-  `username` varchar(150) NOT NULL DEFAULT '' COMMENT 'The users username',
-  `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
-  `block` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'If the user is blocked',
-  `sendEmail` tinyint(4) DEFAULT '0' COMMENT 'If the users recieves e-mail',
-  `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The register date',
-  `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The last visit date',
-  `params` text NOT NULL COMMENT 'Parameters',
-  PRIMARY KEY (`id`),
-  KEY `idx_name` (`name`),
-  KEY `idx_block` (`block`),
-  KEY `username` (`username`),
-  KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- --------------------------------------------------------
-
---
--- Dumping structure for table `#__articles`
+-- Table structure for table `#__articles`
 --
 
 CREATE TABLE IF NOT EXISTS `#__articles` (
@@ -301,20 +351,9 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `#__articles`
-(`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
+--
+-- Dumping data for table `#__articles`
+--
+
+INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-06-18 20:20:41');
-
---
--- Dumping structure for table `#__tracker_labels`
---
-
-CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
-  `label_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `project_id` int(11) NOT NULL COMMENT 'Project ID',
-  `name` varchar(50) NOT NULL COMMENT 'Label name',
-  `color` varchar(6) NOT NULL COMMENT 'Label color',
-  PRIMARY KEY (`label_id`),
-  KEY `name` (`name`),
-  KEY `project_id` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
