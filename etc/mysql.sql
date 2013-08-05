@@ -9,7 +9,6 @@
 -- #__users
 -- #__accessgroups
 -- #__user_accessgroup_map
--- #__tracker_fields_values
 -- #__articles
 --
 
@@ -232,22 +231,6 @@ CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
   PRIMARY KEY (`user_id`,`group_id`),
   CONSTRAINT `#__user_accessgroup_map_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`),
   CONSTRAINT `#__user_accessgroup_map_fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `#__accessgroups` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `#__tracker_fields_values`
---
-
-CREATE TABLE IF NOT EXISTS `#__tracker_fields_values` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `issue_id` int(11) unsigned NOT NULL,
-  `field_id` int(11) NOT NULL,
-  `value` mediumtext NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `issue_id` (`issue_id`),
-  CONSTRAINT `#__tracker_fields_values_fk_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

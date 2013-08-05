@@ -314,67 +314,6 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	private function processFields()
 	{
-		// Store the extra fields.
-		$db = $this->db;
-
-		$issueId = ($this->id)
-			// Existing issue
-			? $this->id
-			// New issue - ugly..
-			: $this->db->setQuery(
-				$this->db->getQuery(true)
-					->from($this->tableName)
-					->select('MAX(' . $this->getKeyName() . ')')
-			)->loadResult();
-
-		// Check the tracker table to see if the extra fields are already present
-
-		$ids = $db->setQuery(
-			$db->getQuery(true)
-				->select('fv.field_id')
-				->from('#__tracker_fields_values AS fv')
-				->where($db->qn('fv.issue_id') . '=' . (int) $issueId)
-		)->loadColumn();
-
-		$queryInsert = $db->getQuery(true)
-			->insert($db->qn('#__tracker_fields_values'))
-			->columns('issue_id, field_id, value');
-
-		$queryUpdate = $db->getQuery(true)
-			->update($db->qn('#__tracker_fields_values'));
-
-		foreach ($this->fieldValues as $fields)
-		{
-			foreach ($fields as $k => $v)
-			{
-				if (in_array($k, $ids))
-				{
-					// Update item
-					$db->setQuery(
-						$queryUpdate->clear('set')->clear('where')
-							->set($db->qn('value') . '=' . $db->q($v))
-							->where($db->qn('issue_id') . '=' . (int) $issueId)
-							->where($db->qn('field_id') . '=' . (int) $k)
-					)->execute();
-				}
-				else
-				{
-					// New item
-					$db->setQuery(
-						$queryInsert->clear('values')
-							->values(
-								implode(', ', array(
-										(int) $issueId,
-										(int) $k,
-										$db->q($v)
-									)
-								)
-							)
-					)->execute();
-				}
-			}
-		}
-
 		return $this;
 	}
 
