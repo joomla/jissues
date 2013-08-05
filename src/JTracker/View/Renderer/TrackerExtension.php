@@ -66,6 +66,8 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
+			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
+			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
 		);
 
 		if (!JDEBUG)
@@ -274,7 +276,10 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$labels)
 		{
-			$labels = Factory::$application->getProject()->getLabels();
+			/* @type TrackerApplication $application */
+			$application = Factory::$application;
+
+			$labels = $application->getProject()->getLabels();
 		}
 
 		$html = array();
@@ -300,5 +305,62 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return implode("\n", $html);
+	}
+
+	/**
+	 * Get HTML for an issue link.
+	 *
+	 * @param   integer  $number  Issue number.
+	 * @param   boolean  $closed  Issue closed status.
+	 * @param   string   $title   Issue title.
+	 *
+	 * @return string
+	 *
+	 * @since  1.0
+	 */
+	public function issueLink($number, $closed, $title = '')
+	{
+		/* @type TrackerApplication $application */
+		$application = Factory::$application;
+
+		$html = array();
+
+		$title = ($title) ? : ' #' . $number;
+		$href = $application->get('uri')->base->path . 'tracker/' . $application->getProject()->alias . '/' . $number;
+
+		$html[] = '<a href="' . $href . '"' . ' title="' . $title . '"' . '>';
+		$html[] = $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
+		$html[] = '</a>';
+
+		return implode("\n", $html);
+	}
+
+	/**
+	 * Get relation types.
+	 *
+	 * @return array
+	 *
+	 * @since  1.0
+	 */
+	public function getRelTypes()
+	{
+		static $relTypes = array();
+
+		if (!$relTypes)
+		{
+			/* @type TrackerApplication $application */
+			$application = Factory::$application;
+
+			$db = $application->getDatabase();
+
+			$relTypes = $db->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName('#__issues_relations_types'))
+					->select($db->quoteName('id', 'value'))
+					->select($db->quoteName('name', 'text'))
+			)->loadObjectList();
+		}
+
+		return $relTypes;
 	}
 }

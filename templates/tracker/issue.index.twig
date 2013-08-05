@@ -96,6 +96,27 @@
 
     </ul>
 
+    <!-- Relations -->
+
+    {% if item.rel_number %}
+        <div class="alert">
+            {{ item.rel_name }}
+            {{ issueLink(item.rel_number, item.rel_closed, item.rel_title)|raw }}
+        </div>
+    {% endif %}
+
+    {% if item.relations_f %}
+        <div class="alert">
+            Referenced as
+            {% for rel_name, relations in item.relations_f %}
+                <strong>{{ rel_name }}: </strong>
+                {% for relation in relations %}
+                    {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
+              {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- Main content -->
 
     <div class="row-fluid">

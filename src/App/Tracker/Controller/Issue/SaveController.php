@@ -53,6 +53,8 @@ class SaveController extends AbstractTrackerController
 			$model = new IssueModel;
 			$model->save($src);
 
+			$this->getApplication()->enqueueMessage('The changes have been saved.', 'success');
+
 			$this->getApplication()->redirect(
 				'/tracker/' . $this->getApplication()->input->get('project_alias')
 			);
