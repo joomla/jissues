@@ -168,6 +168,13 @@
 
 <div class="body">
     <div class="container">
+        {% for type, flashMessages in flashBag %}
+            {% for flashMessage in flashMessages %}
+                <div class="alert alert-{{ type }}">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% endfor %}
 
         <noscript><h2 class="alert">Please activate JavaScript in your browser.</h2></noscript>
 

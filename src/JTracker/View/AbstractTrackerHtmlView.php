@@ -119,6 +119,10 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		$this->renderer
 			->set('loginUrl', $gitHubHelper->getLoginUri())
 			->set('user', $app->getUser());
+
+		// Retrieve and clear the message queue
+		$this->renderer->set('flashBag', $app->getMessageQueue());
+		$app->clearMessageQueue();
 	}
 
 	/**
