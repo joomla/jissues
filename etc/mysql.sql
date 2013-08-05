@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `closed_sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been closed',
   `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue modified date',
   `modified_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue modified by username',
-  `rel_id` int(11) unsigned DEFAULT NULL COMMENT 'Relation id user',
+  `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` varchar(150) DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT '0' COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
