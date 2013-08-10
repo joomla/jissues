@@ -317,14 +317,8 @@ final class TrackerApplication extends AbstractWebApplication
 		// Load template language files.
 		$lang = $this->getLanguage();
 
-		$lang->load('tpl_joomla', JPATH_BASE, null, false, false)
-			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', null, false, false)
-			|| $lang->load('tpl_joomla', JPATH_BASE, $lang->getDefault(), false, false)
-			|| $lang->load('tpl_joomla', JPATH_THEMES . '/joomla', $lang->getDefault(), false, false);
-
 		// Load common and local language files.
-		$lang->load($component, JPATH_BASE, null, false, false)
-			|| $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false);
+		$lang->load($component, JPATH_BASE, null, false, false) || $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false);
 
 		// Start an output buffer.
 		ob_start();
