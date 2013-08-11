@@ -123,6 +123,17 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		// Retrieve and clear the message queue
 		$this->renderer->set('flashBag', $app->getMessageQueue());
 		$app->clearMessageQueue();
+
+		// Add build commit if available
+		if (file_exists(JPATH_BASE . '/current_SHA'))
+		{
+			$data = trim(file_get_contents(JPATH_BASE . '/current_SHA'));
+			$this->renderer->set('buildSHA', $data);
+		}
+		else
+		{
+			$this->renderer->set('buildSHA', '');
+		}
 	}
 
 	/**
