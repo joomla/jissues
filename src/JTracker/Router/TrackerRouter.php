@@ -96,19 +96,13 @@ class TrackerRouter extends Router
 
 			if ($task && $task != 'default')
 			{
-				$class = '\\Joomla\\Tracker\\Controller\\' . ucfirst($task) . 'Controller';
+				$class = '\\JTracker\\Controller\\' . ucfirst($task) . 'Controller';
 			}
 
 			if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
 			{
-				// Look for a default controller for the component
-				$class = '\\Joomla\\Tracker\\Components\\Tracker\\Controller\\DefaultController';
-
-				if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
-				{
-					// Nothing found. Panic.
-					throw new \RuntimeException(sprintf('Controller not found for %s task', $task));
-				}
+				// Nothing found. Panic.
+				throw new \RuntimeException(sprintf('Controller not found for %s task', $task));
 			}
 		}
 

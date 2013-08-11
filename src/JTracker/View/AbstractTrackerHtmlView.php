@@ -59,12 +59,14 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 
 		$renderer = $app->get('renderer.type');
 
-		$className = 'Joomla\\View\\Renderer\\' . ucfirst($renderer);
+		$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
 
+		// Check if the specified renderer exists in the application
 		if (false == class_exists($className))
 		{
-			$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
+			$className = 'Joomla\\View\\Renderer\\' . ucfirst($renderer);
 
+			// Check if the specified renderer exists in the Framework
 			if (false == class_exists($className))
 			{
 				throw new \RuntimeException(sprintf('Invalid renderer: %s', $renderer));

@@ -164,28 +164,23 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getPrioClass($priority)
 	{
-		$class = '';
-
 		switch ($priority)
 		{
 			case 1 :
-				$class = 'badge-important';
-				break;
+				return 'badge-important';
 
 			case 2 :
-				$class = 'badge-warning';
-				break;
+				return 'badge-warning';
 
 			case 3 :
-				$class = 'badge-info';
-				break;
+				return 'badge-info';
 
 			case 4 :
-				$class = 'badge-inverse';
-				break;
-		}
+				return 'badge-inverse';
 
-		return $class;
+			default :
+				return '';
+		}
 	}
 
 	/**
@@ -249,7 +244,9 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   string  $hexColor  The hex color.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getContrastColor($hexColor)
 	{
@@ -266,9 +263,9 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   string  $idsString  Comma separated list of IDs.
 	 *
-	 * @return string
+	 * @return  string
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function renderLabels($idsString)
 	{
@@ -314,9 +311,9 @@ class TrackerExtension extends \Twig_Extension
 	 * @param   boolean  $closed  Issue closed status.
 	 * @param   string   $title   Issue title.
 	 *
-	 * @return string
+	 * @return  string
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function issueLink($number, $closed, $title = '')
 	{
@@ -338,9 +335,9 @@ class TrackerExtension extends \Twig_Extension
 	/**
 	 * Get relation types.
 	 *
-	 * @return array
+	 * @return  array
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function getRelTypes()
 	{

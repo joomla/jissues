@@ -11,6 +11,7 @@ namespace JTracker\Model;
 use Joomla\Factory;
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
+
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -64,7 +65,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 			$fqcn = (get_class($this));
 
 			// Strip the base component namespace off
-			$className = str_replace('Joomla\\Tracker\\Components\\', '', $fqcn);
+			$className = str_replace('App\\', '', $fqcn);
 
 			// Explode the remaining name into an array
 			$classArray = explode('\\', $className);

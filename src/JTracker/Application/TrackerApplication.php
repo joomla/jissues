@@ -11,7 +11,6 @@ namespace JTracker\Application;
 use App\Debug\TrackerDebugger;
 
 use App\Projects\Model\ProjectModel;
-use App\Projects\Table\ProjectsTable;
 use App\Projects\TrackerProject;
 
 use Joomla\Application\AbstractWebApplication;
@@ -20,6 +19,8 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Factory;
 use Joomla\Github\Github;
+use Joomla\Github\Http;
+use Joomla\Http\HttpFactory;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
@@ -174,8 +175,8 @@ final class TrackerApplication extends AbstractWebApplication
 			/* @type AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
-			// Define the component path
-			define('JPATH_COMPONENT', dirname(__DIR__) . '/Components/' . ucfirst($controller->getComponent()));
+			// Define the app path
+			define('JPATH_APP', JPATH_BASE . '/src/App/' . ucfirst($controller->getComponent()));
 
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
@@ -240,12 +241,10 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function mark($text)
 	{
-		if (!JDEBUG)
+		if (JDEBUG)
 		{
-			return $this;
+			$this->debugger->mark($text);
 		}
-
-		$this->debugger->mark($text);
 
 		return $this;
 	}
@@ -662,19 +661,12 @@ final class TrackerApplication extends AbstractWebApplication
 			$options->set('api.password', $this->get('github.password'));
 		}
 
-		// @todo temporary fix to avoid the "Socket" transport protocol - ADD: and the "stream"...
-		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
+		// GitHub API works best with cURL
+		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
-		{
-			throw new \RuntimeException('Please enable cURL.');
-		}
+		$http = new Http($options, $transport);
 
-		$http = new \Joomla\Github\Http($options, $transport);
-
-		// $app->debugOut(get_class($transport));
-
-		// Instantiate J\Github
+		// Instantiate Github
 		$gitHub = new Github($options, $http);
 
 		return $gitHub;
