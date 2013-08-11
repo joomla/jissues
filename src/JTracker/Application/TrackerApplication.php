@@ -624,7 +624,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 *
 	 * @param   boolean  $reload  Reload the project.
 	 *
-	 * @return  ProjectsTable
+	 * @return  TrackerProject
 	 *
 	 * @since   1.0
 	 */
