@@ -8,6 +8,7 @@
 
 namespace JTracker\Authentication\GitHub;
 
+use Joomla\Date\Date;
 use Joomla\Factory;
 use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
@@ -214,5 +215,33 @@ class GitHubLoginHelper
 		$avatars[$user->username] = file_exists($avatar) ? $avatar : $base . '/user-default.png';
 
 		return $avatars[$user->username];
+	}
+
+	/**
+	 * Set the last visited time for a newly logged in user
+	 *
+	 * @param   integer  $id  The user ID to update
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public static function setLastVisitTime($id)
+	{
+		// @todo Decouple from J\Factory
+		/* @type \JTracker\Application\TrackerApplication $application */
+		$application = Factory::$application;
+
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $application->getDatabase();
+
+		$date = new Date;
+
+		$db->setQuery(
+			$db->getQuery(true)
+				->update($db->quoteName('#__users'))
+				->set($db->quoteName('lastvisitDate') . '=' . $db->quote($date->format($db->getDateFormat())))
+				->where($db->quoteName('id') . '=' . (int) $id)
+		)->execute();
 	}
 }

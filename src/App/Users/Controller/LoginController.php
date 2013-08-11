@@ -120,6 +120,9 @@ class LoginController extends AbstractTrackerController
 		// Save the avatar
 		GitHubLoginHelper::saveAvatar($user);
 
+		// Set the last visit time
+		GitHubLoginHelper::setLastVisitTime($user->id);
+
 		// User login
 		$app->setUser($user);
 
