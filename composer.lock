@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "48e7d0636385a143e553516753dc0282",
+    "hash": "c73be4dd299e8524fcdba9acff28fa8c",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "324e14455e504efce18c5080c8cc925dfe6c3ebb"
+                "reference": "1.0-alpha"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/324e14455e504efce18c5080c8cc925dfe6c3ebb",
-                "reference": "324e14455e504efce18c5080c8cc925dfe6c3ebb",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/1.0-alpha",
+                "reference": "1.0-alpha",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-07-11 06:00:24"
+            "time": "2013-07-24 19:51:20"
         },
         {
             "name": "mustache/mustache",
@@ -214,17 +214,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "v2.3.2"
+                "reference": "v2.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.2",
-                "reference": "v2.3.2",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.3",
+                "reference": "v2.3.3",
                 "shasum": ""
             },
             "require": {
@@ -260,20 +260,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-17 05:57:53"
+            "time": "2013-08-07 14:02:06"
         },
         {
             "name": "twig/twig",
-            "version": "dev-master",
+            "version": "v1.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "9fa5410a861427d378f9665e370e997483797cac"
+                "reference": "v1.13.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/9fa5410a861427d378f9665e370e997483797cac",
-                "reference": "9fa5410a861427d378f9665e370e997483797cac",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.13.2",
+                "reference": "v1.13.2",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-07-23 15:49:22"
+            "time": "2013-08-03 15:35:31"
         }
     ],
     "packages-dev": [
@@ -432,12 +432,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "7220259ffb228626d29dc4143738a8d4e7c8c31f"
+                "reference": "5de72698494bad75ebfbb76b04fad9ef60fb0ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/7220259ffb228626d29dc4143738a8d4e7c8c31f",
-                "reference": "7220259ffb228626d29dc4143738a8d4e7c8c31f",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/5de72698494bad75ebfbb76b04fad9ef60fb0ec7",
+                "reference": "5de72698494bad75ebfbb76b04fad9ef60fb0ec7",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +470,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-06-17 19:29:28"
+            "time": "2013-07-31 13:47:17"
         }
     ],
     "aliases": [
@@ -480,6 +480,7 @@
     "stability-flags": {
         "joomla/framework": 20,
         "symfony/http-foundation": 0,
+        "twig/twig": 0,
         "raveren/kint": 20
     },
     "platform": {

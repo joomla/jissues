@@ -10,7 +10,7 @@
         "joomla/framework": "dev-master",
         "symfony/http-foundation": "2.3.*@stable",
         "elkuku/console-progressbar": "1.0",
-        "twig/twig" : "1.*",
+        "twig/twig" : "1.*@stable",
         "mustache/mustache" : "2.1.*"
     },
 	"require-dev": {
