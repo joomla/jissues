@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -17,15 +19,7 @@ use JTracker\View\AbstractTrackerHtmlView;
 class ProjectsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * Container for the view's items
-	 *
-	 * @var    object
-	 * @since  1.0
-	 */
-	protected $item;
-
-	/**
-	 * Redefine the model so the correct type hinting is available.
+	 * The model object.
 	 *
 	 * @var    ProjectsModel
 	 * @since  1.0

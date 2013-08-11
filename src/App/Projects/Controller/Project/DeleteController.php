@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Projects Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -46,11 +48,11 @@ class DeleteController extends DefaultController
 
 		$table->delete($project->project_id);
 
-		// Reload thee  project
+		// Reload the project
 		$this->getApplication()->getProject(true);
 
 		$this->getInput()->set('view', 'projects');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

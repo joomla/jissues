@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Groups Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -14,17 +16,16 @@ use Joomla\Factory;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
- * Model to get data for the projects list view
+ * Model to get data for the group edit view
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class GroupModel extends AbstractTrackerDatabaseModel
 {
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
-	 * @return  DatabaseQuery   A DatabaseQuery object to retrieve the data set.
+	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
 	 *
 	 * @since   1.0
 	 */

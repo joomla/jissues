@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -24,9 +26,9 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $projectId  The project id.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since   1.0
 	 * @return  TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getItem($projectId = null)
 	{
@@ -50,8 +52,9 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @since   1.0
 	 * @return  TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getByAlias($alias = null)
 	{

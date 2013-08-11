@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Groups Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -10,7 +12,7 @@ use App\Groups\Table\GroupsTable;
 use App\Tracker\Controller\DefaultController;
 
 /**
- * Controller class to delete a project.
+ * Controller class to delete a group.
  *
  * @since  1.0
  */
@@ -44,6 +46,6 @@ class DeleteController extends DefaultController
 
 		$this->getInput()->set('view', 'groups');
 
-		parent::execute();
+		return parent::execute();
 	}
 }
