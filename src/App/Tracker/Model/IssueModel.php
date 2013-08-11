@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -168,7 +170,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get a status list.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getStatuses()
 	{
@@ -184,8 +188,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   array  $src  The source.
 	 *
-	 * @throws \RuntimeException
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function save(array $src)
 	{

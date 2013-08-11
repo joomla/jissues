@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Users Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,6 +10,7 @@ namespace App\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
+
 use JTracker\Model\AbstractTrackerListModel;
 
 /**

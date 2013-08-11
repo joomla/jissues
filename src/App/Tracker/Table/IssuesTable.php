@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -79,7 +81,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @return  IssuesTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -125,9 +127,10 @@ class IssuesTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Overloaded check function
+	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+	 * they are safe to store in the database.
 	 *
-	 * @return  IssuesTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -163,7 +166,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  IssuesTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -200,22 +203,16 @@ class IssuesTable extends AbstractDatabaseTable
 		 * Post-Save Actions
 		 */
 
-		// TODO: Remove the check for CLI once moved to live instance
-		// TODO 2) This has been deactivated. every action should perform a proper entry in the activities table.
-		if (0)
-		{
-			// $isNew && $application->get('cli_app') != true)
-			// Add a record to the activity table if a new item
-			$table = new ActivitiesTable($this->db);
+		// Add a record to the activity table if a new item
+		$table = new ActivitiesTable($this->db);
 
-			$table->event = 'open';
-			$table->created_date = $this->opened_date;
-			$table->user = $application->getUser()->username;
-			$table->issue_number = (int) $this->issue_number;
-			$table->project_id = (int) $this->project_id;
+		$table->event = 'open';
+		$table->created_date = $this->opened_date;
+		$table->user = $application->getUser()->username;
+		$table->issue_number = (int) $this->issue_number;
+		$table->project_id = (int) $this->project_id;
 
-			$table->store();
-		}
+		$table->store();
 
 		if ($this->oldObject)
 		{
@@ -235,8 +232,9 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Compute the changes.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	private function processChanges()
 	{
@@ -269,7 +267,6 @@ class IssuesTable extends AbstractDatabaseTable
 						break;
 
 					case 'description_raw' :
-
 						// @todo do something ?
 						$changes[] = $change;
 
@@ -292,7 +289,7 @@ class IssuesTable extends AbstractDatabaseTable
 				$this->db->quoteName('project_id')   => (int) $this->project_id,
 				$this->db->quoteName('event')        => $this->db->quote('change'),
 				$this->db->quoteName('text')         => $this->db->quote(json_encode($changes)),
-				$this->db->quoteName('created_date') => $this->db->quote($date->format('Y-m-d H:i:s'))
+				$this->db->quoteName('created_date') => $this->db->quote($date->format($this->db->getDateFormat()))
 			);
 
 			$this->db->setQuery(
@@ -309,8 +306,9 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Process extra fields.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	private function processFields()
 	{

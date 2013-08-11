@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Support Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -10,7 +12,7 @@ use App\Text\Table\ArticlesTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
- * Default model class for the Tracker component.
+ * Default model class for the Support component.
  *
  * @since  1.0
  */

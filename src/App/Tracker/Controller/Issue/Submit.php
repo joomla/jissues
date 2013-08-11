@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -26,6 +28,7 @@ class Submit extends AbstractTrackerController
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function execute()
 	{

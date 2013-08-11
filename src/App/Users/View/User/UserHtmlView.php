@@ -1,12 +1,17 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Users Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Users\View\User;
 
+use App\Users\Model\UserModel;
+
 use Joomla\Factory;
+
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -17,7 +22,10 @@ use JTracker\View\AbstractTrackerHtmlView;
 class UserHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * @var \App\Users\Model\UserModel
+	 * The model object.
+	 *
+	 * @var    UserModel
+	 * @since  1.0
 	 */
 	protected $model;
 
@@ -27,7 +35,6 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function render()
 	{

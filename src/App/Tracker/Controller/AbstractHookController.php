@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -100,7 +102,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	/**
 	 * Debug mode.
 	 *
-	 * @var integer
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $debug;
@@ -108,7 +110,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	/**
 	 * Logger object.
 	 *
-	 * @var \Monolog\Logger
+	 * @var    \Monolog\Logger
 	 * @since  1.0
 	 */
 	protected $logger;
@@ -119,8 +121,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @throws \RuntimeException
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
@@ -276,9 +277,9 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 *
 	 * @param   LoggerInterface  $logger  The logger.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
@@ -299,8 +300,9 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 * @param   string   $text        The parsed html comment text.
 	 * @param   string   $textRaw     The raw comment text.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
 	{
@@ -345,8 +347,9 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 *
 	 * @param   string  $text  The text to parse.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	protected function parseText($text)
 	{
@@ -367,10 +370,8 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 					$exception->getMessage()
 				)
 			);
+
+			return '';
 		}
-
-		$this->getApplication()->close();
-
-		return '';
 	}
 }
