@@ -6,13 +6,15 @@
 
 namespace App\Tracker\Model;
 
+use App\Projects\Table\ProjectsTable;
+use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\IssuesTable;
+
 use Joomla\Factory;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
-use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssuesTable;
-use App\Tracker\Table\ProjectsTable;
+
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -74,13 +76,13 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 				// Get the relation information
 				->select('a1.title AS rel_title, a1.status AS rel_status')
-				->join('LEFT', '#__issues AS a1 ON i.rel_id = a1.id')
+				->join('LEFT', '#__issues AS a1 ON i.rel_number = a1.issue_number')
 
 				// Join over the status table
 				->select('s1.closed AS rel_closed')
 				->join('LEFT', '#__status AS s1 ON a1.status = s1.id')
 
-				// Join over the status table
+				// Join over the relations_types table
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
 		)->loadObject();
@@ -90,6 +92,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException('Invalid Issue');
 		}
 
+		// Fetch activities
 		$table = new ActivitiesTable($this->db);
 		$query = $this->db->getQuery(true);
 
@@ -100,6 +103,37 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$query->order($this->db->quoteName('a.created_date'));
 
 		$item->activities = $this->db->setQuery($query)->loadObjectList();
+
+		// Fetch foreign relations
+		$item->relations_f = $this->db->setQuery(
+				$this->db->getQuery(true)
+					->from($this->db->quoteName('#__issues', 'a'))
+					->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
+					->join('LEFT', '#__status AS s ON a.status = s.id')
+					->select('a.issue_number, a.title, a.rel_type')
+					->select('t.name AS rel_name')
+					->select('s.status AS status_title, s.closed AS closed')
+					->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
+					->order(array('a.issue_number', 'a.rel_type'))
+			)->loadObjectList();
+
+		// Group relations by type
+		if ($item->relations_f)
+		{
+			$arr = array();
+
+			foreach ($item->relations_f as $relation)
+			{
+				if (false == isset($arr[$relation->rel_name]))
+				{
+					$arr[$relation->rel_name] = array();
+				}
+
+				$arr[$relation->rel_name][] = $relation;
+			}
+
+			$item->relations_f = $arr;
+		}
 
 		return $item;
 	}
@@ -164,6 +198,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['priority']        = $filter->clean($src['priority'], 'int');
 		$data['title']           = $filter->clean($src['title'], 'string');
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
+		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
+		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 
 		if (!$data['id'])
 		{
