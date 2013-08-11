@@ -93,14 +93,9 @@ class GitHubLoginHelper
 	 */
 	public function requestToken($code)
 	{
-		// @todo temporary fix to avoid the "Socket" transport protocol - ADD: and the "stream"...
+		// GitHub API works best with cURL
 		$options = new Registry;
 		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
-
-		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
-		{
-			throw new \RuntimeException('Please enable cURL.');
-		}
 
 		$http = new Http($options, $transport);
 

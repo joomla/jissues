@@ -6,12 +6,12 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller\Ajax\Hooks;
+namespace App\GitHub\Controller\Labels\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Controller class to display authorized webhooks on the GitHub repository.
+ * Controller class to display authorized labels on the GitHub repository.
  *
  * @since  1.0
  */
@@ -31,8 +31,8 @@ class GetList extends AbstractAjaxController
 		$project = $this->getApplication()->getProject();
 
 		$this->response->data = $this->getApplication()->getGitHub()
-			->repositories->hooks->getList(
-				$project->gh_user, $project->gh_project
-			);
+			->issues->labels->getList(
+			$project->gh_user, $project->gh_project
+		);
 	}
 }

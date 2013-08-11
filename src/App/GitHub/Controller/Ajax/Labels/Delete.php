@@ -6,16 +6,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller\Ajax\Hooks;
+namespace App\GitHub\Controller\Labels\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Controller class to display authorized webhooks on the GitHub repository.
+ * Controller class to delete labels from the GitHub repository.
  *
  * @since  1.0
  */
-class GetList extends AbstractAjaxController
+class Delete extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.
@@ -28,10 +28,19 @@ class GetList extends AbstractAjaxController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
+		$name = $this->getInput()->getCmd('name');
+
 		$project = $this->getApplication()->getProject();
 
+		// Delete the label
+		$this->getApplication()->getGitHub()
+			->issues->labels->delete(
+				$project->gh_user, $project->gh_project, $name
+			);
+
+		// Get the current labels list.
 		$this->response->data = $this->getApplication()->getGitHub()
-			->repositories->hooks->getList(
+			->issues->labels->getList(
 				$project->gh_user, $project->gh_project
 			);
 	}

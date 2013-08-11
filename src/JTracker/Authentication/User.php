@@ -108,9 +108,9 @@ abstract class User implements \Serializable
 		/* @type TrackerApplication $application */
 		$application = Factory::$application;
 
-		$database = $application->getDatabase();
+		$db = $application->getDatabase();
 
-		$table = new TableUsers($database);
+		$table = new TableUsers($db);
 
 		$table->loadByUserName($userName);
 
@@ -118,7 +118,7 @@ abstract class User implements \Serializable
 		{
 			// Register a new user
 			$date               = new Date;
-			$this->registerDate = $date->format('Y-m-d H:i:s');
+			$this->registerDate = $date->format($db->getDateFormat());
 
 			$table->save($this);
 		}

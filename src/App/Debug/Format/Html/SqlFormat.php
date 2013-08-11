@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Debug Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -19,8 +21,9 @@ class SqlFormat
 	 * @param   string  $query   The query to highlight
 	 * @param   string  $prefix  Table prefix.
 	 *
-	 * @since   1.0
 	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function highlightQuery($query, $prefix)
 	{

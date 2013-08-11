@@ -20,10 +20,10 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Method to render the view.
 	 *
-	 * @throws \UnexpectedValueException
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function render()
 	{
@@ -72,8 +72,10 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 * @param   string  $type  The log type
 	 * @param   string  $path  Path to log file
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function processLog($type, $path)
 	{

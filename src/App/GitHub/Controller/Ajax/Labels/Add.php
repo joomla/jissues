@@ -6,12 +6,12 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller\Ajax\Hooks;
+namespace App\GitHub\Controller\Labels\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Controller class to add new webhooks to the GitHub repository.
+ * Controller class to add new labels to the GitHub repository.
  *
  * @since  1.0
  */
@@ -28,31 +28,23 @@ class Add extends AbstractAjaxController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-		$url    = $this->getInput()->getHtml('url');
-		$events = $this->getInput()->getHtml('events');
+		$name  = $this->getInput()->getCmd('name');
+		$color = $this->getInput()->getCmd('color');
 
 		$project = $this->getApplication()->getProject();
 		$gitHub  = $this->getApplication()->getGitHub();
 
-		$name   = 'web';
-		$active = 1;
-
-		$config = array(
-			'url'          => $url,
-			'content-type' => 'json'
-		);
-
-		// Create the hook.
-		$gitHub->repositories->hooks->create(
+		// Create the label.
+		$gitHub->issues->labels->create(
 			$project->gh_user,
 			$project->gh_project,
 			$name,
-			$config,
-			explode(',', $events),
-			$active
+			$color
 		);
 
 		// Get the current hooks list.
-		$this->response->data = $gitHub->repositories->hooks->getList($project->gh_user, $project->gh_project);
+		$this->response->data = $gitHub->issues->labels->getList(
+			$project->gh_user, $project->gh_project
+		);
 	}
 }

@@ -57,7 +57,8 @@ class TrackerDebugger implements LoggerAwareInterface
 	private $profiler;
 
 	/**
-	 * @var Logger
+	 * @var    Logger
+	 * @since  1.0
 	 */
 	private $logger;
 
@@ -94,8 +95,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Set up loggers.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	protected function setupLogging()
 	{
@@ -342,7 +344,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$items = array();
 		$tableFormat = new TableFormat;
-		$events =(class_exists('g11n')) ? g11n::getEvents() : array();
+		$events = (class_exists('g11n')) ? g11n::getEvents() : array();
 
 		foreach ($events as $e)
 		{
