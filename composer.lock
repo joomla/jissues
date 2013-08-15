@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "1.0-alpha"
+                "reference": "0d2ee550b6266e9799c40feeccf8196e2eed602c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/1.0-alpha",
-                "reference": "1.0-alpha",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/0d2ee550b6266e9799c40feeccf8196e2eed602c",
+                "reference": "0d2ee550b6266e9799c40feeccf8196e2eed602c",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-07-24 19:51:20"
+            "time": "2013-08-15 21:59:56"
         },
         {
             "name": "mustache/mustache",
@@ -432,12 +432,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "5de72698494bad75ebfbb76b04fad9ef60fb0ec7"
+                "reference": "v0.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/5de72698494bad75ebfbb76b04fad9ef60fb0ec7",
-                "reference": "5de72698494bad75ebfbb76b04fad9ef60fb0ec7",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/v0.9",
+                "reference": "v0.9",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +470,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-07-31 13:47:17"
+            "time": "2013-08-12 22:46:16"
         }
     ],
     "aliases": [
