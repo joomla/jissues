@@ -290,8 +290,13 @@ class CliApplication extends AbstractCliApplication
 	 */
 	protected function loadConfiguration()
 	{
+		// Check for a custom configuration.
+		$type = getenv('JTRACKER_ENVIRONMENT');
+
+		$name = ($type) ? 'config.' . $type : 'config';
+
 		// Set the configuration file path for the application.
-		$file = realpath(__DIR__ . '/../../..') . '/etc/config.json';
+		$file = realpath(__DIR__ . '/../../..') . '/etc/' . $name . '.json';
 
 		// Verify the configuration exists and is readable.
 		if (!is_readable($file))
