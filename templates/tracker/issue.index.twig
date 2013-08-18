@@ -59,9 +59,33 @@
 
         <li>
             <span class="badge {{ prioClass(item.priority) }}">
-                {{ sprintf("Priority %d", item.priority) }}
+                Priority {{ item.priority }}
             </span>
         </li>
+
+        {% if item.build %}
+            <li>
+                <span class="badge">
+                    Build: {{ item.build }}
+                </span>
+            </li>
+        {% endif %}
+
+        {% if item.easy %}
+            <li>
+                <span class="badge badge-success">
+                    Easy Test
+                </span>
+            </li>
+        {% endif %}
+
+        {% if item.tests %}
+            <li>
+                <span class="badge">
+                    # of Successful Tests: {{ item.tests }}
+                </span>
+            </li>
+        {% endif %}
 
         {% if project.gh_user and project.gh_project %}
             <li>
@@ -93,7 +117,6 @@
                 </a>
             </li>
         {% endif %}
-
     </ul>
 
     <!-- Relations -->

@@ -41,6 +41,9 @@ use Joomla\Utilities\ArrayHelper;
  * @property   integer  $has_code         If the issue has code attached - aka a pull request.
  * @property   string   $labels           Comma separated list of label IDs
  * @property   integer  $vote_id          Vote id
+ * @property   integer  $build            Build the issue is reported on
+ * @property   integer  $tests            Number of successful tests
+ * @property   integer  $easy             Flag if item is an easy test
  *
  * @since  1.0
  */

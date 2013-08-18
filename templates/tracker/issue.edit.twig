@@ -95,7 +95,7 @@
         <li>
             <label for="priority">Priority</label>
             <select name="item[priority]" id="priority" class="span1">
-                {% for i in range(1, 4) %}
+                {% for i in range(1, 5) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
                 {% endfor %}
             </select>
@@ -113,6 +113,28 @@
         <li>
             <label for="rel_number">Relation Number</label>
             <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
+        </li>
+    </ul>
+
+    <ul class="breadcrumb">
+        <li>
+            <label for="build">Build</label>
+            <input name="item[build]" id="build" type="text" class="span1" value="{{ item.build }}" />
+        </li>
+        <li>
+            <label for="tests"># of Successful Tests</label>
+            <select name="item[tests]" id="tests" class="span1">
+                {% for i in range(0, 5) %}
+                    <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="tests">Easy Test</label>
+            <select name="item[easy]" id="easy" class="span1">
+                <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">No</option>
+                <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">Yes</option>
+            </select>
         </li>
     </ul>
 
