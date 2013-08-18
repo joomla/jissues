@@ -61,7 +61,7 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 	var importance = $('input[name=importanceRadios]').filter(':checked').val();
 	var experienced = $('input[name=experiencedRadios]').filter(':checked').val();
 
-	status.html('Adding vote...');
+	status.addClass('disabled').removeAttr('onclick').html('Adding vote...');
 
 	$.post(
 		'/submit/vote',
@@ -69,7 +69,7 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 		function (r) {
 			if (r.error) {
 				// Failure
-				status.html(r.error);
+				status.addClass('btn-danger').removeClass('btn-success').html(r.error);
 			}
 			else {
 				// Success

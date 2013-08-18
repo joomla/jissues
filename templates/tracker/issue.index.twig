@@ -208,10 +208,9 @@
                     </label>
                 </fieldset>
                 <hr />
-                <div id="voteStatus"></div>
-                <a href="javascript:" class="btn btn-success" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteStatus');">
+                <button href="javascript:" class="btn btn-success" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
                     Vote
-                </a>
+                </button>
             </form>
         </div>
     </div>
