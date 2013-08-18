@@ -45,13 +45,17 @@
 
             <label for="priority">Priority</label>
             <select name="item[priority]" id="priority" class="span2">
-                {% for i in range(1, 4) %}
+                {% for i in range(1, 5) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
                 {% endfor %}
             </select>
 
-            <div class="helpText alert alert-info">The priority of which this issue should be resolved.  Please see the <a href="http://docs.joomla.org/Bug_Tracking_Process#Issue_Priorities" target="_blank">Bug Tracking Process</a> page for detailed information about the project's priorities.</div>
+            <div class="helpText span2 alert alert-info">The priority of which this issue should be resolved.  Please see the <a href="http://docs.joomla.org/Bug_Tracking_Process#Issue_Priorities" target="_blank">Bug Tracking Process</a> page for detailed information about the project's priorities.</div>
 
+            <label for="build">Build</label>
+            <input name="item[build]" id="build" type="text" class="span2" />
+
+            <div class="helpText span2 alert alert-info">The version(s) of the project on which this issue is found.</div>
         </div>
 
         <h2>New Item</h2>
