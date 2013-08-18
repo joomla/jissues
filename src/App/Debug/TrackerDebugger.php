@@ -246,6 +246,15 @@ class TrackerDebugger implements LoggerAwareInterface
 	{
 		$debug = array();
 
+		// Check if debug is only displayed for admin users
+		if ($this->application->get('debug.admin'))
+		{
+			if (!$this->application->getUser()->isAdmin)
+			{
+				return '';
+			}
+		}
+
 		if ($this->application->get('debug.database'))
 		{
 			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgDatabase">Database</a></h3>';
