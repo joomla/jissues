@@ -40,7 +40,8 @@ use Joomla\Utilities\ArrayHelper;
  * @property   string   $rel_type         Relation type
  * @property   integer  $has_code         If the issue has code attached - aka a pull request.
  * @property   string   $labels           Comma separated list of label IDs
-
+ * @property   integer  $vote_id          Vote id
+ *
  * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable

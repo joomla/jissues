@@ -4,6 +4,7 @@
 -- #__tracker_labels
 -- #__status
 -- #__issues_relations_types
+-- #__issues_voting
 -- #__issues
 -- #__activities
 -- #__users
@@ -108,6 +109,20 @@ INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `#__issues_voting`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_voting` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `votes` int(11) unsigned NOT NULL COMMENT 'Number of votes for item',
+	`experienced` int(11) unsigned NOT NULL COMMENT 'Number of users who have experienced the issue',
+	`score` int(11) unsigned NOT NULL COMMENT 'Total score of issue importance',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `#__issues`
 --
 
@@ -132,12 +147,14 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT '0' COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
+	`vote_id` int(11) unsigned DEFAULT NULL COMMENT 'FK to #__issues_voting',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
-	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
+	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`),
+	CONSTRAINT `#__issues_fk_vote_id` FOREIGN KEY (`vote_id`) REFERENCES `#__issues_voting` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

@@ -87,6 +87,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the relations_types table
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+
+				// Join over the relations_types table
+				->select('v.*')
+				->join('LEFT', '#__issues_voting AS v ON i.vote_id = v.id')
 		)->loadObject();
 
 		if (!$item)
@@ -135,6 +139,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			}
 
 			$item->relations_f = $arr;
+		}
+
+		// Set the score if we have the vote_id
+		if ($item->vote_id)
+		{
+			$item->importanceScore = $item->score / $item->votes;
+		}
+		else
+		{
+			$item->importanceScore = 0;
 		}
 
 		return $item;
@@ -218,5 +232,67 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			->save($data);
 
 		return $this;
+	}
+
+	/**
+	 * Update vote data for an issue
+	 *
+	 * @param   integer  $id           The issue ID
+	 * @param   integer  $experienced  Whether the user has experienced the issue
+	 * @param   integer  $importance   The importance of the issue to the user
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function vote($id, $experienced, $importance)
+	{
+		$db = $this->getDb();
+
+		$table = new IssuesTable($db);
+		$table->load($id);
+
+		// Insert a new record if no vote_id is associated
+		if (is_null($table->vote_id))
+		{
+			$columnsArray = array(
+				$db->quoteName('votes'),
+				$db->quoteName('experienced'),
+				$db->quoteName('score')
+			);
+
+			$query = $db->getQuery()
+				->insert($db->quoteName('#__issues_voting'))
+				->columns($columnsArray)
+				->values(
+					'1, '
+					. $experienced . ', '
+					. $importance
+				);
+		}
+		else
+		{
+			$query = $db->getQuery()
+				->update($db->quoteName('#__issues_voting'))
+				->set($db->quoteName('votes') . ' = ' . $db->quoteName('votes') . ' + 1')
+				->set($db->quoteName('experienced') . ' = ' . $db->quoteName('experienced') . ' + ' . $experienced)
+				->set($db->quoteName('score') . ' = ' . $db->quoteName('score') . ' + ' . $importance)
+				->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
+		}
+
+		$db->setQuery($query)->execute();
+
+		// Add the vote_id if a new record
+		if (is_null($table->vote_id))
+		{
+			$query = $db->getQuery()
+				->update($db->quoteName('#__issues'))
+				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
+				->where($db->quoteName('id') . ' = ' . (int) $table->id);
+
+			$db->setQuery($query)->execute();
+		}
+
+		return;
 	}
 }

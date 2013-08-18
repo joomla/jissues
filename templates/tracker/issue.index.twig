@@ -120,17 +120,77 @@
     <!-- Main content -->
 
     <div class="row-fluid">
-
         <div class="span1 well-small">
             {{ avatar(item.opened_by)|raw }}
         </div>
 
-        <div class="span11 well-small">
+        <div class="span8 well-small">
             {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
             <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
 
+        <div class="span3 well">
+            {% if item.vote_id %}
+            <table>
+                <tr>
+                    <th># of Votes</th>
+                    <td>{{ item.votes }}</td>
+                </tr>
+                <tr>
+                    <th># of Users Experiencing Issue</th>
+                    <td>{{ item.experienced }}</td>
+                </tr>
+                <tr>
+                    <th>Average Importance Score</th>
+                    <td>{{ item.importanceScore }}</td>
+                </tr>
+            </table>
+            <hr />
+            {% endif %}
+            <form class="form-inline" name="voteForm">
+                <fieldset>
+                    <p>I've experienced this issue</p>
+                    <label class="radio">
+                        <input type="radio" name="experiencedRadios" id="experiencedRadiosYes" value="1">
+                        Yes
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="experiencedRadios" id="experiencedRadiosNo" value="0" checked>
+                        No
+                    </label>
+                </fieldset>
+                <hr />
+                <fieldset>
+                    <p>Importance of issue to me</p>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios1" value="1">
+                        1
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios2" value="2">
+                        2
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios3" value="3" checked>
+                        3
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios4" value="4">
+                        4
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios5" value="5">
+                        5
+                    </label>
+                </fieldset>
+                <hr />
+                <div id="voteStatus"></div>
+                <a href="javascript:" class="btn btn-success" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteStatus');">
+                    Vote
+                </a>
+            </form>
+        </div>
     </div>
 
     <!-- Activity stream -->

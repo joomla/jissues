@@ -56,6 +56,29 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 	);
 };
 
+JTracker.submitVote = function (issue_number, debugContainer) {
+	var status = $(debugContainer);
+	var importance = $('input[name=importanceRadios]').filter(':checked').val();
+	var experienced = $('input[name=experiencedRadios]').filter(':checked').val();
+
+	status.html('Adding vote...');
+
+	$.post(
+		'/submit/vote',
+		{ issue_number: issue_number, experienced: experienced, importance: importance },
+		function (r) {
+			if (r.error) {
+				// Failure
+				status.html(r.error);
+			}
+			else {
+				// Success
+				status.html(r.message);
+			}
+		}
+	);
+};
+
 JTracker.submitIssue = function(button) {
 
 	// @todo validate
