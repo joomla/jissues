@@ -134,6 +134,12 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
+		// Pull the user's avatar if it does not exist
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
+		{
+			GitHubLoginHelper::saveAvatar($this->hookData->issue->user->login);
+		}
+
 		// Add an open record to the activity table
 		if ('opened' == $action)
 		{

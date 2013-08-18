@@ -152,6 +152,12 @@ class ReceivePullsHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
+		// Pull the user's avatar if it does not exist
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->data->user->login . '.png'))
+		{
+			GitHubLoginHelper::saveAvatar($this->data->user->login);
+		}
+
 		// Add an open record to the activity table
 		if ('opened' == $action)
 		{

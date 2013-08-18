@@ -12,6 +12,7 @@ use Joomla\Date\Date;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
  * Controller class receive and inject issue comments from GitHub
@@ -107,6 +108,12 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->hookData->comment->body
 		);
 
+		// Pull the user's avatar if it does not exist
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
+		{
+			GitHubLoginHelper::saveAvatar($this->hookData->comment->user->login);
+		}
+
 		// Store was successful, update status
 		$this->logger->info(
 				sprintf(
@@ -186,6 +193,12 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->project->project_id,
 			$this->hookData->issue->number
 		);
+
+		// Pull the user's avatar if it does not exist
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
+		{
+			GitHubLoginHelper::saveAvatar($this->hookData->issue->user->login);
+		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
