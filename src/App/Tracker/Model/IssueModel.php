@@ -241,7 +241,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   integer  $experienced  Whether the user has experienced the issue
 	 * @param   integer  $importance   The importance of the issue to the user
 	 *
-	 * @return  void
+	 * @return  object
 	 *
 	 * @since   1.0
 	 */
@@ -293,6 +293,12 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$db->setQuery($query)->execute();
 		}
 
-		return;
+		// Get the updated vote data to update the display
+		$query->clear()
+			->select('*')
+			->from($db->quoteName('#__issues_voting'))
+			->where($db->quoteName('id') . ' = ' . (int) $table->id);
+
+		return $db->setQuery($query)->loadObject();
 	}
 }

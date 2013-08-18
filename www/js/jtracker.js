@@ -61,7 +61,7 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 	var importance = $('input[name=importanceRadios]').filter(':checked').val();
 	var experienced = $('input[name=experiencedRadios]').filter(':checked').val();
 
-	status.addClass('disabled').removeAttr('onclick').html('Adding vote...');
+	status.addClass('disabled').removeAttr('href').removeAttr('onclick').html('Adding vote...');
 
 	$.post(
 		'/submit/vote',
@@ -74,6 +74,13 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 			else {
 				// Success
 				status.html(r.message);
+
+				// Update votes display if this is not the first vote on an item
+				if (r.data.votes > 1) {
+					$('td[id=votes]').html(r.data.votes);
+					$('td[id=experienced]').html(r.data.experienced);
+					$('td[id=importance]').html(r.data.importanceScore);
+				}
 			}
 		}
 	);

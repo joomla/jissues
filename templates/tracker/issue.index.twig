@@ -158,15 +158,15 @@
             <table>
                 <tr>
                     <th># of Votes</th>
-                    <td>{{ item.votes }}</td>
+                    <td id="votes">{{ item.votes }}</td>
                 </tr>
                 <tr>
                     <th># of Users Experiencing Issue</th>
-                    <td>{{ item.experienced }}</td>
+                    <td id="experienced">{{ item.experienced }}</td>
                 </tr>
                 <tr>
                     <th>Average Importance Score</th>
-                    <td>{{ item.importanceScore }}</td>
+                    <td id="importance">{{ item.importanceScore }}</td>
                 </tr>
             </table>
             <hr />
@@ -208,9 +208,9 @@
                     </label>
                 </fieldset>
                 <hr />
-                <button href="javascript:" class="btn btn-success" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
+                <a href="javascript:" class="btn btn-success" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
                     Vote
-                </button>
+                </a>
             </form>
         </div>
     </div>

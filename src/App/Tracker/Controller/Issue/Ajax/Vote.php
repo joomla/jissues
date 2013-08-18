@@ -38,11 +38,6 @@ class Vote extends AbstractAjaxController
 			throw new \Exception('No issue ID received.');
 		}
 
-		if (!$experienced)
-		{
-			throw new \Exception('Experienced issue option not received.');
-		}
-
 		if (!$importance)
 		{
 			throw new \Exception('Issue importance not received');
@@ -50,8 +45,12 @@ class Vote extends AbstractAjaxController
 
 		$model = new IssueModel;
 
-		$model->vote($issue, $experienced, $importance);
+		$data = $model->vote($issue, $experienced, $importance);
 
+		// Add the new score
+		$data->importanceScore = $data->score / $data->votes;
+
+		$this->response->data    = $data;
 		$this->response->message = 'Vote successfully added';
 	}
 }
