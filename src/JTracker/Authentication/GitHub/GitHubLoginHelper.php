@@ -150,16 +150,16 @@ class GitHubLoginHelper
 	 *
 	 * NOTE: A redirect is expected while fetching the avatar.
 	 *
-	 * @param   GithubUser  $user  The user object.
+	 * @param   string  $user  The username to retrieve the avatar for.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public static function saveAvatar(GithubUser $user)
+	public static function saveAvatar($username)
 	{
-		$path = JPATH_THEMES . '/images/avatars/' . $user->username . '.png';
+		$path = JPATH_THEMES . '/images/avatars/' . $username . '.png';
 
 		if (false == file_exists($path))
 		{

@@ -110,7 +110,7 @@ class LoginController extends AbstractTrackerController
 			->loadByUserName($user->username);
 
 		// Save the avatar
-		GitHubLoginHelper::saveAvatar($user);
+		GitHubLoginHelper::saveAvatar($user->username);
 
 		// Set the last visit time
 		GitHubLoginHelper::setLastVisitTime($user->id);
