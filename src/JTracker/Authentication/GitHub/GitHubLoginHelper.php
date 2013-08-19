@@ -168,6 +168,10 @@ class GitHubLoginHelper
 				throw new \RuntimeException('cURL is not installed - no avatar support ;(');
 			}
 
+			/* @type \JTracker\Application\TrackerApplication $app */
+			$app = Factory::$application;
+			$user = $app->getGitHub()->users->get($username);
+
 			$ch = curl_init($user->avatar_url);
 
 			curl_setopt($ch, CURLOPT_HEADER, false);
