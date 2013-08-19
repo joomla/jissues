@@ -12,6 +12,7 @@ use Joomla\Date\Date;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
  * Controller class receive and inject issue reports from GitHub.
