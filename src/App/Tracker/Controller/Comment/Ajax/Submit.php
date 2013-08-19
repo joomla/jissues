@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Ajax\Comment;
+namespace App\Tracker\Controller\Comment\Ajax;
 
 use App\Tracker\Table\ActivitiesTable;
 use Joomla\Date\Date;
