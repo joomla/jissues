@@ -259,8 +259,13 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	private function loadConfiguration()
 	{
+		// Check for a custom configuration.
+		$type = getenv('JTRACKER_ENVIRONMENT');
+
+		$name = ($type) ? 'config.' . $type : 'config';
+
 		// Set the configuration file path for the application.
-		$file = JPATH_CONFIGURATION . '/config.json';
+		$file = JPATH_CONFIGURATION . '/' . $name . '.json';
 
 		// Verify the configuration exists and is readable.
 		if (!is_readable($file))
