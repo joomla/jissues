@@ -40,7 +40,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 
 		$gitHub = new Github;
 
-		$data = $gitHub->repositories->statistics->contributors(
+		$data = $gitHub->repositories->statistics->getListContributors(
 			$project->gh_user, $project->gh_project
 		);
 
