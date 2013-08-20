@@ -12,6 +12,7 @@ use Joomla\Factory;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
+
 use JTracker\Model\AbstractTrackerListModel;
 
 /**
@@ -76,8 +77,8 @@ class IssuesModel extends AbstractTrackerListModel
 
 		// TODO: Implement filtering and join to other tables as added
 
-		$ordering  = $db->escape($this->state->get('list.ordering', 'a.id'));
-		$direction = $db->escape($this->state->get('list.direction', 'ASC'));
+		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
+		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
 		$query->order($ordering . ' ' . $direction);
 
 		return $query;
@@ -126,9 +127,9 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('filter.project', $project->project_id);
 
-		$this->state->set('list.ordering', $input->get('filter_order', 'a.id'));
+		$this->state->set('list.ordering', $input->get('filter_order', 'a.issue_number'));
 
-		$listOrder = $input->get('filter_order_Dir', 'ASC');
+		$listOrder = $input->get('filter_order_Dir', 'DESC');
 
 		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
 		{
