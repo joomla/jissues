@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller\Labels\Ajax;
+namespace App\GitHub\Controller\Ajax\Labels;
 
 use JTracker\Controller\AbstractAjaxController;
 
