@@ -137,7 +137,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	protected function insertIssue()
 	{
 		// Try to render the description with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->comment->body);
+		$parsedText = $this->parseText($this->hookData->issue->body);
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
