@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "fec93bea38f740229bbaa552858074d7fd2d0cc1"
+                "reference": "253d80186c0df3b0d692b18040e474943c6bb0ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fec93bea38f740229bbaa552858074d7fd2d0cc1",
-                "reference": "fec93bea38f740229bbaa552858074d7fd2d0cc1",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/253d80186c0df3b0d692b18040e474943c6bb0ff",
+                "reference": "253d80186c0df3b0d692b18040e474943c6bb0ff",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-08-17 19:28:37"
+            "time": "2013-08-20 21:00:47"
         },
         {
             "name": "mustache/mustache",
@@ -433,12 +433,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "v0.9"
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/v0.9",
-                "reference": "v0.9",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/ada810111ced4e3a926b4040da9b86442e43b613",
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613",
                 "shasum": ""
             },
             "require": {
