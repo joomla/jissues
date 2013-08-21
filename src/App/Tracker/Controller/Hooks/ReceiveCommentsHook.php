@@ -87,31 +87,55 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
-		// If we don't have an ID, we need to insert the issue
+		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
 		if (!$issueID)
 		{
 			$this->insertIssue();
+
+			$comments = $this->github->issues->comments->getList(
+				$this->project->gh_user, $this->project->gh_project, $this->hookData->issue->number
+			);
+
+			foreach ($comments as $comment)
+			{
+				// Try to render the comment with GitHub markdown
+				$parsedText = $this->parseText($comment->body);
+
+				// Add the comment
+				$this->addActivityEvent(
+					'comment',
+					$comment->created_at,
+					$comment->user->login,
+					$this->project->project_id,
+					$this->hookData->issue->number,
+					$comment->id,
+					$parsedText,
+					$comment->body
+				);
+			}
 		}
-
-		// Try to render the comment with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->comment->body);
-
-		// Add the comment
-		$this->addActivityEvent(
-			'comment',
-			$this->hookData->comment->created_at,
-			$this->hookData->comment->user->login,
-			$this->project->project_id,
-			$this->hookData->issue->number,
-			$this->hookData->comment->id,
-			$parsedText,
-			$this->hookData->comment->body
-		);
-
-		// Pull the user's avatar if it does not exist
-		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
+		else
 		{
-			GitHubLoginHelper::saveAvatar($this->hookData->comment->user->login);
+			// Try to render the comment with GitHub markdown
+			$parsedText = $this->parseText($this->hookData->comment->body);
+
+			// Add the comment
+			$this->addActivityEvent(
+				'comment',
+				$this->hookData->comment->created_at,
+				$this->hookData->comment->user->login,
+				$this->project->project_id,
+				$this->hookData->issue->number,
+				$this->hookData->comment->id,
+				$parsedText,
+				$this->hookData->comment->body
+			);
+
+			// Pull the user's avatar if it does not exist
+			if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
+			{
+				GitHubLoginHelper::saveAvatar($this->hookData->comment->user->login);
+			}
 		}
 
 		// Store was successful, update status
@@ -184,15 +208,6 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			$this->getApplication()->close();
 		}
-
-		// Add an open record to the activity table
-		$this->addActivityEvent(
-			'open',
-			$table->opened_date,
-			$this->hookData->issue->user->login,
-			$this->project->project_id,
-			$this->hookData->issue->number
-		);
 
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))

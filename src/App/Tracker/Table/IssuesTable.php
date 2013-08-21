@@ -212,7 +212,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 		$table->event = 'open';
 		$table->created_date = $this->opened_date;
-		$table->user = $application->getUser()->username;
+		$table->user = $this->user;
 		$table->issue_number = (int) $this->issue_number;
 		$table->project_id = (int) $this->project_id;
 

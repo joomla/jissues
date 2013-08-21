@@ -141,18 +141,6 @@ class ReceiveIssuesHook extends AbstractHookController
 			GitHubLoginHelper::saveAvatar($this->hookData->issue->user->login);
 		}
 
-		// Add an open record to the activity table
-		if ('opened' == $action)
-		{
-			$this->addActivityEvent(
-				'open',
-				$table->opened_date,
-				$this->hookData->issue->user->login,
-				$this->project->project_id,
-				$this->hookData->issue->number
-			);
-		}
-
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
