@@ -173,8 +173,9 @@ class ReceiveCommentsHook extends AbstractHookController
 		$table->title           = $this->hookData->issue->title;
 		$table->description     = $parsedText;
 		$table->description_raw = $this->hookData->issue->body;
-		$table->status		    = ($this->hookData->issue->state) == 'open' ? 1 : 10;
+		$table->status	        = ($this->hookData->issue->state) == 'open' ? 1 : 10;
 		$table->opened_date     = $opened->format($dateFormat);
+		$table->opened_by       = $this->hookData->issue->user->login;
 		$table->modified_date   = $modified->format($dateFormat);
 		$table->project_id      = $this->project->project_id;
 
