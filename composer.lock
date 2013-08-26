@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "253d80186c0df3b0d692b18040e474943c6bb0ff"
+                "reference": "4cba9b31013d6f2211c0ac0f6fb2f01ef4dbc832"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/253d80186c0df3b0d692b18040e474943c6bb0ff",
-                "reference": "253d80186c0df3b0d692b18040e474943c6bb0ff",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/4cba9b31013d6f2211c0ac0f6fb2f01ef4dbc832",
+                "reference": "4cba9b31013d6f2211c0ac0f6fb2f01ef4dbc832",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-08-20 21:00:47"
+            "time": "2013-08-21 02:37:40"
         },
         {
             "name": "mustache/mustache",
