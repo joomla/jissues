@@ -143,12 +143,13 @@
     <!-- Main content -->
 
     <div class="row-fluid">
-        <div class="span1 well-small">
-            {{ avatar(item.opened_by)|raw }}
+        <div class="span2 well-small">
+            {{ avatar(item.opened_by, 80)|raw }}<br />
+            <span class="icon-github"></span> {{ item.opened_by }}<br />
+            <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="span8 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
+        <div class="span7 well-small">
             <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
@@ -208,7 +209,7 @@
                     </label>
                 </fieldset>
                 <hr />
-                <a href="javascript:" class="btn btn-success" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
+                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
                     Vote
                 </a>
             </form>
@@ -229,9 +230,9 @@
                     <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
                          alt="{{ activity.event }} on {{ activity.created_date }}"
                          title="{{ activity.event }} on {{ activity.created_date }}"/>
-                    {{ activity.created_date|date("j M y") }}
-                    - <a name ="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - {{ activity.user }}
+                    <b>{{ activity.user }}</b>
+                    - <a name="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - {{ activity.created_date|date("j M y") }}
                 </div>
             </div>
             <div class="span12">
