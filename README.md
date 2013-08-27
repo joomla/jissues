@@ -45,4 +45,4 @@ See: [Virtual server documentation](Documentation/virtual-test-server.md)
 
 * If you've found a bug, please report it to the Issue Tracker at https://github.com/joomla/jissues/issues.
 * Please note this repository is _not_ for the Joomla CMS. Take all Joomla CMS issues, bug reports, etc.. to: http://github.com/joomla/joomla-cms
-* For discussion about this project, please visit the Google Group at https://groups.google.com/forum/#!forum/jtracker-rebuild.
+* For discussion about this project, please visit the Google+ Community at https://plus.google.com/u/0/communities/102541713885101375024.
