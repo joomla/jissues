@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c73be4dd299e8524fcdba9acff28fa8c",
+    "hash": "9b200c9e897a87bd0666ffe7d4da3511",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "4cba9b31013d6f2211c0ac0f6fb2f01ef4dbc832"
+                "reference": "436253110c9e47c8cbfb9a6b2780e812480a31ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/4cba9b31013d6f2211c0ac0f6fb2f01ef4dbc832",
-                "reference": "4cba9b31013d6f2211c0ac0f6fb2f01ef4dbc832",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/436253110c9e47c8cbfb9a6b2780e812480a31ab",
+                "reference": "436253110c9e47c8cbfb9a6b2780e812480a31ab",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-08-21 02:37:40"
+            "time": "2013-08-29 11:32:20"
         },
         {
             "name": "mustache/mustache",
@@ -215,17 +215,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.3",
+            "version": "v2.3.4",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "v2.3.3"
+                "reference": "fdf130fe65457aedbc4639a22f4ef9d3be5c002c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/fdf130fe65457aedbc4639a22f4ef9d3be5c002c",
+                "reference": "fdf130fe65457aedbc4639a22f4ef9d3be5c002c",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +261,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-07 14:02:06"
+            "time": "2013-08-26 05:49:51"
         },
         {
             "name": "twig/twig",
@@ -316,16 +316,16 @@
     "packages-dev": [
         {
             "name": "filp/whoops",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "1.0.7"
+                "reference": "d086796e7cfb59f532d07738e5e4cf0ac3c6deb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/1.0.7",
-                "reference": "1.0.7",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/d086796e7cfb59f532d07738e5e4cf0ac3c6deb8",
+                "reference": "d086796e7cfb59f532d07738e5e4cf0ac3c6deb8",
                 "shasum": ""
             },
             "require": {
@@ -363,30 +363,30 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2013-06-10 12:22:13"
+            "time": "2013-08-06 20:39:59"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "1.5.0"
+                "reference": "f72392d0e6eb855118f5a84e89ac2d257c704abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1.5.0",
-                "reference": "1.5.0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f72392d0e6eb855118f5a84e89ac2d257c704abd",
+                "reference": "f72392d0e6eb855118f5a84e89ac2d257c704abd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "psr/log": ">=1.0,<2.0"
+                "psr/log": "~1.0"
             },
             "require-dev": {
                 "doctrine/couchdb": "dev-master",
                 "mlehner/gelf-php": "1.0.*",
-                "raven/raven": "0.3.*"
+                "raven/raven": "0.5.*"
             },
             "suggest": {
                 "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
@@ -398,7 +398,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -425,7 +425,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-04-23 10:09:48"
+            "time": "2013-07-28 22:38:30"
         },
         {
             "name": "raveren/kint",
@@ -482,7 +482,8 @@
         "joomla/framework": 20,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
-        "raveren/kint": 20
+        "raveren/kint": 20,
+        "filp/whoops": 0
     },
     "platform": {
         "php": ">=5.3.10"
