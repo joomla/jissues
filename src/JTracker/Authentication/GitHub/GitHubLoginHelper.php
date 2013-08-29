@@ -15,6 +15,8 @@ use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
+use JTracker\Container;
+
 /**
  * Helper class for logging into the application via GitHub.
  *
@@ -62,7 +64,7 @@ class GitHubLoginHelper
 	public function getLoginUri()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$redirect = $application->get('uri.base.full') . 'login';
 
@@ -169,7 +171,7 @@ class GitHubLoginHelper
 			}
 
 			/* @type \JTracker\Application\TrackerApplication $app */
-			$app = Factory::$application;
+			$app = Container::retrieve('app');
 			$user = $app->getGitHub()->users->get($username);
 
 			$ch = curl_init($user->avatar_url);
@@ -227,12 +229,8 @@ class GitHubLoginHelper
 	 */
 	public static function setLastVisitTime($id)
 	{
-		// @todo Decouple from J\Factory
-		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
-
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		$date = new Date;
 

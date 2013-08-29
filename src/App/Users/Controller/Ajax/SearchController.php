@@ -11,6 +11,7 @@ namespace App\Users\Controller\Ajax;
 use Joomla\Factory;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
@@ -37,7 +38,7 @@ class SearchController extends AbstractAjaxController
 
 		if ($search)
 		{
-			$db = $this->getApplication()->getDatabase();
+			$db = Container::retrieve('db');
 
 			$query = $db->getQuery(true)
 				->select('DISTINCT ' . $db->quoteName('u.username'))

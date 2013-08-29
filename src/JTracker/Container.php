@@ -77,9 +77,9 @@ class Container extends JoomlaContainer
 	 *
 	 * @since   1.0
 	 */
-	public static function retrieve($key)
+	public static function retrieve($key, $forceNew = false)
 	{
-		return static::getInstance()->get($key);
+		return static::getInstance()->get($key, $forceNew);
 	}
 
 	/**

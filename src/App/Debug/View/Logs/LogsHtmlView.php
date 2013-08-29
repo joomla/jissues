@@ -9,6 +9,7 @@ namespace App\Debug\View\Logs;
 use Joomla\Factory;
 use App\Debug\TrackerDebugger;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * System configuration view.
@@ -28,7 +29,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$type = $application->input->get('log_type');
 

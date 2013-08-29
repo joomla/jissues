@@ -14,6 +14,7 @@ use Joomla\Database\DatabaseQuery;
 use Joomla\Factory;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the group edit view
@@ -33,7 +34,8 @@ class GroupModel extends AbstractTrackerDatabaseModel
 	{
 		$table = new GroupsTable($this->getDb());
 
-		$groupId = Factory::$application->input->getInt('group_id');
+		$app = Container::retrieve('app');
+		$groupId = $app->input->getInt('group_id');
 
 		return $groupId ? $table->load($groupId)->getIterator() : $table->getIterator();
 	}

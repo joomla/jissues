@@ -14,6 +14,7 @@ use Joomla\Factory;
 
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * Page view class
@@ -41,7 +42,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$alias = $application->input->getCmd('alias');
 

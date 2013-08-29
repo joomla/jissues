@@ -16,6 +16,7 @@ use Joomla\View\Renderer\RendererInterface;
 
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Container;
 use JTracker\View\Renderer\TrackerExtension;
 
 /**
@@ -55,7 +56,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		parent::__construct($model);
 
 		/* @type TrackerApplication $app */
-		$app = Factory::$application;
+		$app = Container::retrieve('app');
 
 		$renderer = $app->get('renderer.type');
 

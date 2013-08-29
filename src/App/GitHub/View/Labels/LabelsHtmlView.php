@@ -10,6 +10,7 @@ namespace App\GitHub\View\Labels;
 
 use Joomla\Factory;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * The labels view
@@ -28,7 +29,8 @@ class LabelsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('project', Factory::$application->getProject());
+		$app = Container::retrieve('app');
+		$this->renderer->set('project', $app->getProject());
 
 		return parent::render();
 	}

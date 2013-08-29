@@ -27,9 +27,12 @@ use Joomla\Registry\Registry;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
+use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
+use JTracker\Service\ApplicationServiceProvider;
+use JTracker\Service\DatabaseServiceProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -117,6 +120,11 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Load the configuration object.
 		$this->loadConfiguration();
+
+		// Build the DI Container
+		$container = Container::getInstance();
+		$container->registerServiceProvider(new ApplicationServiceProvider($this))
+			->registerServiceProvider(new DatabaseServiceProvider);
 
 		// Set the debugger.
 		$this->debugger = new TrackerDebugger($this);
@@ -389,35 +397,6 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		return $this->user;
-	}
-
-	/**
-	 * Get a database driver object.
-	 *
-	 * @return  DatabaseDriver
-	 *
-	 * @since   1.0
-	 */
-	public function getDatabase()
-	{
-		if (is_null($this->database))
-		{
-			$this->database = DatabaseDriver::getInstance(
-				array(
-					'driver' => $this->get('database.driver'),
-					'host' => $this->get('database.host'),
-					'user' => $this->get('database.user'),
-					'password' => $this->get('database.password'),
-					'database' => $this->get('database.name'),
-					'prefix' => $this->get('database.prefix')
-				)
-			);
-
-			// @todo Decouple from Factory
-			Factory::$database = $this->database;
-		}
-
-		return $this->database;
 	}
 
 	/**

@@ -11,6 +11,7 @@ use Joomla\Profiler\Profiler;
 
 use Joomla\Utilities\ArrayHelper;
 use JTracker\Application\TrackerApplication;
+use JTracker\Container;
 
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
@@ -117,8 +118,9 @@ class TrackerDebugger implements LoggerAwareInterface
 			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
 			$logger->pushProcessor(new WebProcessor);
 
-			$this->application->getDatabase()->setLogger($logger);
-			$this->application->getDatabase()->setDebug(true);
+			$db = Container::retrieve('db');
+			$db->setLogger($logger);
+			$db->setDebug(true);
 		}
 
 		if (!$this->application->get('debug.logging'))
@@ -170,9 +172,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function addDatabaseEntry($record)
 	{
-		/* @type TrackerApplication $application */
-		// $application = Factory::$application;
-		// $db = $application->getDatabase();
+		// $db = Container::retrieve('db');
 
 		if (false == isset($record['context']))
 		{
@@ -498,7 +498,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$tableFormat = new TableFormat;
 		$sqlFormat   = new SqlFormat;
-		$dbDebugger  = new DatabaseDebugger($this->application->getDatabase());
+		$dbDebugger  = new DatabaseDebugger(Container::retrieve('db'));
 
 		$debug[] = count($dbLog) . ' Queries.';
 

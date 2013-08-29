@@ -13,6 +13,7 @@ use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
 
 use JTracker\Database\AbstractDatabaseTable;
+use JTracker\Container;
 
 /**
  * Abstract base model for the tracker application
@@ -54,7 +55,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 */
 	public function __construct(DatabaseDriver $database = null)
 	{
-		$database = (is_null($database)) ? Factory::$application->getDatabase() : $database;
+		$database = (is_null($database)) ? Container::retrieve('db') : $database;
 
 		parent::__construct($database);
 

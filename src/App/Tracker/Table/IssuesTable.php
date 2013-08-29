@@ -15,6 +15,7 @@ use Joomla\Date\Date;
 use Joomla\Factory;
 
 use JTracker\Database\AbstractDatabaseTable;
+use JTracker\Container;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -178,7 +179,7 @@ class IssuesTable extends AbstractDatabaseTable
 	public function store($updateNulls = false)
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$isNew = ($this->id < 1);
 		$date  = new Date;
@@ -243,7 +244,7 @@ class IssuesTable extends AbstractDatabaseTable
 	private function processChanges()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$changes = array();
 
