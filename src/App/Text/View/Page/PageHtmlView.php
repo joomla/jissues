@@ -10,8 +10,6 @@ namespace App\Text\View\Page;
 
 use App\Text\Model\PageModel;
 
-use Joomla\Factory;
-
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;

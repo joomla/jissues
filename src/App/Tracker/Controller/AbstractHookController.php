@@ -14,7 +14,6 @@ use App\Tracker\Table\ActivitiesTable;
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
-use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 

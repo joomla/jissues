@@ -12,11 +12,10 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Input\Input;
 use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
-use Joomla\Factory;
+use Joomla\Utilities\ArrayHelper;
 
 use JTracker\Database\AbstractDatabaseTable;
 use JTracker\Container;
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * Table interface class for the #__issues table

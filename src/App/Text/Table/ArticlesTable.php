@@ -9,7 +9,6 @@
 namespace App\Text\Table;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Factory;
 use Joomla\Filter\OutputFilter;
 
 use JTracker\Database\AbstractDatabaseTable;

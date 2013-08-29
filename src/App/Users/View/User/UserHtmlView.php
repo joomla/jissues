@@ -10,8 +10,6 @@ namespace App\Users\View\User;
 
 use App\Users\Model\UserModel;
 
-use Joomla\Factory;
-
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;
 

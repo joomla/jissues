@@ -6,7 +6,6 @@
 
 namespace App\Debug;
 
-use Joomla\Factory;
 use Joomla\Profiler\Profiler;
 
 use Joomla\Utilities\ArrayHelper;

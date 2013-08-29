@@ -8,7 +8,6 @@
 
 namespace App\Tracker\Model;
 
-use Joomla\Factory;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
 use Joomla\String\String;

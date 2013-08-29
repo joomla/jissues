@@ -8,7 +8,6 @@
 
 namespace App\GitHub\View\Labels;
 
-use Joomla\Factory;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;
 

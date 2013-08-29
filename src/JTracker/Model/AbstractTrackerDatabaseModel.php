@@ -8,7 +8,6 @@
 
 namespace JTracker\Model;
 
-use Joomla\Factory;
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
 

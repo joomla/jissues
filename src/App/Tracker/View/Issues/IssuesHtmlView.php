@@ -8,7 +8,6 @@
 
 namespace App\Tracker\View\Issues;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 use App\Tracker\Model\IssuesModel;
 use JTracker\View\AbstractTrackerHtmlView;

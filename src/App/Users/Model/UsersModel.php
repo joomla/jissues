@@ -9,7 +9,6 @@
 namespace App\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\Factory;
 
 use JTracker\Model\AbstractTrackerListModel;
 use JTracker\Container;

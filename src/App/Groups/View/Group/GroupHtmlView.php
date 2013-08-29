@@ -10,7 +10,6 @@ namespace App\Groups\View\Group;
 
 use App\Groups\Model\GroupModel;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 
 use JTracker\View\AbstractTrackerHtmlView;

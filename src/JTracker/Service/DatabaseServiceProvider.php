@@ -11,7 +11,6 @@ namespace JTracker\Service;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container as JoomlaContainer;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Factory;
 use JTracker\Container;
 
 class DatabaseServiceProvider implements ServiceProviderInterface
@@ -48,9 +47,6 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 					$db = DatabaseDriver::getInstance($options);
 					$db->setDebug($app->get('debug.database', false));
 				}
-
-				// @todo Decouple from Factory
-				Factory::$database = $db;
 
 				return $db;
 			}, true, true

@@ -8,7 +8,6 @@
 
 namespace App\Tracker\View\Issue;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;

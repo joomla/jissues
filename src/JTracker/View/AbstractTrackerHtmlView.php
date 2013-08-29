@@ -8,7 +8,6 @@
 
 namespace JTracker\View;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;

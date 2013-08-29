@@ -10,8 +10,6 @@ namespace App\Projects\Model;
 
 use App\Projects\TrackerProject;
 
-use Joomla\Factory;
-
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use JTracker\Container;
 

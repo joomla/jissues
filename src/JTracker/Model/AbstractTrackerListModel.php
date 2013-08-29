@@ -8,10 +8,10 @@
 
 namespace JTracker\Model;
 
-use Joomla\Factory;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
+
 use JTracker\Pagination\TrackerPagination;
 use JTracker\Container;
 

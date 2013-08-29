@@ -8,8 +8,6 @@
 
 namespace App\Users\Controller\Ajax;
 
-use Joomla\Factory;
-
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Container;
 

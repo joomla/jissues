@@ -9,7 +9,6 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
-use Joomla\Factory;
 use JTracker\Container;
 
 /**

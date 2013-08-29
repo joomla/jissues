@@ -9,7 +9,6 @@
 namespace JTracker\Authentication\GitHub;
 
 use Joomla\Date\Date;
-use Joomla\Factory;
 use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;

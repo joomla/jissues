@@ -8,7 +8,6 @@
 
 namespace App\GitHub\View\Hooks;
 
-use Joomla\Factory;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;
 

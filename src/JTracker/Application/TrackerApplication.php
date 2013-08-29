@@ -17,7 +17,6 @@ use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
-use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
@@ -131,11 +130,6 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
-
-		// Register the application to Factory
-		// @todo Decouple from Factory
-		Factory::$application = $this;
-		Factory::$config = $this->config;
 
 		// Load the library language file
 		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
@@ -350,7 +344,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		return md5(Factory::getConfig()->get('acl.secret') . $seed);
+		$app = Container::retrieve('app');
+		return md5($app->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -366,9 +361,6 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			$this->newSession = new Session;
 			$this->newSession->start();
-
-			// @todo Decouple from Factory
-			Factory::$session = $this->newSession;
 		}
 
 		return $this->newSession;

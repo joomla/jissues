@@ -6,7 +6,6 @@
 
 namespace App\Debug\View\Logs;
 
-use Joomla\Factory;
 use App\Debug\TrackerDebugger;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;

@@ -9,8 +9,8 @@
 namespace App\Tracker\Controller\Issue;
 
 use Joomla\Application\AbstractApplication;
-use Joomla\Factory;
 use Joomla\Input\Input;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**

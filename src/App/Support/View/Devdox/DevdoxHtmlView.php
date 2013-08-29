@@ -9,7 +9,6 @@
 namespace App\Support\View\Devdox;
 
 use App\Support\Model\DefaultModel;
-use Joomla\Factory;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;

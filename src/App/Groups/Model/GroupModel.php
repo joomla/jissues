@@ -11,7 +11,6 @@ namespace App\Groups\Model;
 use App\Groups\Table\GroupsTable;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\Factory;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use JTracker\Container;

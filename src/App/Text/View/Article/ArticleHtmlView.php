@@ -10,7 +10,7 @@ namespace App\Text\View\Article;
 
 use App\Text\Model\ArticleModel;
 use App\Text\Table\ArticlesTable;
-use Joomla\Factory;
+
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;
 

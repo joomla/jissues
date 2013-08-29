@@ -8,7 +8,6 @@
 
 namespace JTracker\View\Renderer;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 
 use JTracker\Application\TrackerApplication;

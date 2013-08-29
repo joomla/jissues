@@ -9,7 +9,7 @@
 namespace App\Text\Model;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\Factory;
+
 use JTracker\Model\AbstractTrackerListModel;
 
 /**

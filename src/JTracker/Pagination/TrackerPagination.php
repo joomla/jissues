@@ -12,8 +12,8 @@
 
 namespace JTracker\Pagination;
 
-use Joomla\Factory;
 use Joomla\Uri\Uri;
+
 use JTracker\Container;
 
 /**

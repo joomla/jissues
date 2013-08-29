@@ -8,8 +8,6 @@
 
 namespace App\Users\Model;
 
-use Joomla\Factory;
-
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use JTracker\Container;

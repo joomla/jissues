@@ -10,7 +10,6 @@ namespace JTracker\Authentication;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
-use Joomla\Factory;
 
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\Database\TableUsers;
@@ -281,6 +280,7 @@ abstract class User implements \Serializable
 		}
 
 		/* @type \App\Projects\TrackerProject $project */
+		/* @type TrackerApplication $app */
 		$app = Container::retrieve('app');
 		$project = $app->getProject();
 
