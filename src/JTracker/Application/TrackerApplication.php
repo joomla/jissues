@@ -132,7 +132,7 @@ final class TrackerApplication extends AbstractWebApplication
 		$this->loadDispatcher();
 
 		// Load the library language file
-		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
+		$this->getLanguage()->load('lib_joomla', JPATH_ROOT);
 
 		$this->mark('Application started');
 	}
@@ -162,7 +162,7 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
-			$maps = json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'));
+			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
 			{
@@ -178,7 +178,7 @@ final class TrackerApplication extends AbstractWebApplication
 			$controller = $router->getController($this->get('uri.route'));
 
 			// Define the app path
-			define('JPATH_APP', JPATH_BASE . '/src/App/' . ucfirst($controller->getComponent()));
+			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getComponent()));
 
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
@@ -324,7 +324,7 @@ final class TrackerApplication extends AbstractWebApplication
 		$lang = $this->getLanguage();
 
 		// Load common and local language files.
-		$lang->load($component, JPATH_BASE, null, false, false) || $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false);
+		$lang->load($component, JPATH_ROOT, null, false, false) || $lang->load($component, JPATH_ROOT, $lang->getDefault(), false, false);
 
 		// Start an output buffer.
 		ob_start();

@@ -112,7 +112,7 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
-	 * Replaces the Joomla! root path defined by the constant "JPATH_BASE" with the string "JROOT".
+	 * Replaces the Joomla! root path defined by the constant "JPATH_ROOT" with the string "JROOT".
 	 *
 	 * @param   string  $string  The string to process.
 	 *
@@ -122,7 +122,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function stripJRoot($string)
 	{
-		return str_replace(JPATH_BASE, 'JROOT', $string);
+		return str_replace(JPATH_ROOT, 'JROOT', $string);
 	}
 
 	/**

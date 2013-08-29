@@ -381,7 +381,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			// Seems that we're recursing...
 			$this->logger->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
 
-			return str_replace(JPATH_BASE, 'JROOT', $exception->getMessage())
+			return str_replace(JPATH_ROOT, 'JROOT', $exception->getMessage())
 			. '<pre>' . $exception->getTraceAsString() . '</pre>'
 			. 'Previous: ' . get_class($exception->getPrevious());
 		}
@@ -401,7 +401,7 @@ class TrackerDebugger implements LoggerAwareInterface
 		$view->setLayout('exception')
 			->getRenderer()
 			->set('exception', $exception)
-			->set('message', str_replace(JPATH_BASE, 'ROOT', $message));
+			->set('message', str_replace(JPATH_ROOT, 'ROOT', $message));
 
 		$loaded = true;
 
