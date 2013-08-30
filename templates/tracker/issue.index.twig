@@ -36,7 +36,7 @@
 
 {% block content %}
 
-    <h2>{{ project.title }} #{{ item.issue_number }}</h2>
+    <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
 
     <!-- Status bar -->
 
@@ -150,7 +150,6 @@
         </div>
 
         <div class="span7 well-small">
-            <h3>{{ item.title }}</h3>
             {{ item.description|raw }}
         </div>
 

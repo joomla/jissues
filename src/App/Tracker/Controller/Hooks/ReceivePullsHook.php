@@ -234,29 +234,26 @@ class ReceivePullsHook extends AbstractHookController
 		$closed = null;
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$query = $this->db->getQuery(true);
-		$query->update($this->db->quoteName('#__issues'));
-		$query->set($this->db->quoteName('title') . ' = ' . $this->db->quote($this->data->title));
-		$query->set($this->db->quoteName('description') . ' = ' . $this->db->quote($parsedText));
-		$query->set($this->db->quoteName('description_raw') . ' = ' . $this->db->quote($this->data->body));
-		$query->set($this->db->quoteName('status') . ' = ' . $status);
-		$query->set($this->db->quoteName('modified_date') . ' = ' . $this->db->quote($modified->format($dateFormat)));
-		$query->where($this->db->quoteName('issue_number') . ' = ' . $this->data->number);
-		$query->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id);
+		$table = new IssuesTable($this->db);
+		$table->load(array('issue_number' => $this->data->number, 'project_id' => $this->project->project_id));
+		$table->title = $this->data->title;
+		$table->description = $parsedText;
+		$table->description_raw = $this->data->body;
+		$table->status = $status;
+		$table->modified_date = $modified->format($dateFormat);
 
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)
 		{
 			$closed = new Date($this->data->closed_at);
-			$query->set($this->db->quoteName('closed_date') . ' = ' . $this->db->quote($closed->format($dateFormat)));
+			$table->closed_date = $closed->format($dateFormat);
 		}
 
 		try
 		{
-			$this->db->setQuery($query)
-				->execute();
+			$table->store();
 		}
-		catch (\RuntimeException $e)
+		catch (\Exception $e)
 		{
 			$this->logger->error('Error updating the database:' . $e->getMessage());
 			$this->getApplication()->close();
