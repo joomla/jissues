@@ -108,7 +108,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
-			$data['closed_by']   = $this->hookData->issue->user->login;
+			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
@@ -149,7 +149,7 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->addActivityEvent(
 				'reopen',
 				$data['modified_date'],
-				$this->hookData->issue->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
 			);
@@ -219,6 +219,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['description_raw'] = $this->hookData->issue->body;
 		$data['status']          = $status;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -254,7 +255,7 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->addActivityEvent(
 				'reopen',
 				$this->hookData->issue->updated_at,
-				$this->hookData->issue->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
 			);
@@ -266,7 +267,7 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->addActivityEvent(
 				'close',
 				$this->hookData->issue->closed_at,
-				$this->hookData->issue->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
 			);

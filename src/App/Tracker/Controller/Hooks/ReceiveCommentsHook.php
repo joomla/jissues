@@ -185,7 +185,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
-			$data['closed_by']   = $this->hookData->issue->user->login;
+			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
@@ -224,7 +224,7 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->addActivityEvent(
 				'close',
 				$data['closed_date'],
-				$this->hookData->issue->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
 			);

@@ -132,7 +132,7 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$closed = new Date($this->data->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
-			$data['closed_by']   = $this->data->user->login;
+			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
@@ -173,7 +173,7 @@ class ReceivePullsHook extends AbstractHookController
 			$this->addActivityEvent(
 				'reopen',
 				$data['modified_date'],
-				$this->data->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->data->number
 			);
@@ -185,7 +185,7 @@ class ReceivePullsHook extends AbstractHookController
 			$this->addActivityEvent(
 				'close',
 				$data['closed_date'],
-				$this->data->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->data->number
 			);
@@ -246,6 +246,7 @@ class ReceivePullsHook extends AbstractHookController
 		$data['description_raw'] = $this->data->body;
 		$data['status']          = $status;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)
@@ -281,7 +282,7 @@ class ReceivePullsHook extends AbstractHookController
 			$this->addActivityEvent(
 				'reopen',
 				$this->data->updated_at,
-				$this->data->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->data->number
 			);
@@ -293,7 +294,7 @@ class ReceivePullsHook extends AbstractHookController
 			$this->addActivityEvent(
 				'synchronize',
 				$this->data->updated_at,
-				$this->data->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->data->number
 			);
@@ -305,7 +306,7 @@ class ReceivePullsHook extends AbstractHookController
 			$this->addActivityEvent(
 				'close',
 				$this->data->closed_at,
-				$this->data->user->login,
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->data->number
 			);
