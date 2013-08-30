@@ -69,8 +69,6 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function insertData()
 	{
-		$table = new IssuesTable($this->db);
-
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
@@ -94,39 +92,43 @@ class ReceiveIssuesHook extends AbstractHookController
 		$opened   = new Date($this->hookData->issue->created_at);
 		$modified = new Date($this->hookData->issue->updated_at);
 
-		$table->title           = $this->hookData->issue->title;
-		$table->description     = $parsedText;
-		$table->description_raw = $parsedText;
-		$table->issue_number    = $this->hookData->issue->number;
-		$table->project_id      = $this->project->project_id;
-		$table->status          = $status;
-		$table->opened_date     = $opened->format($dateFormat);
-		$table->opened_by       = $this->hookData->issue->user->login;
-		$table->modified_date   = $modified->format($dateFormat);
+		$data = array();
+		$data['issue_number']    = $this->hookData->issue->number;
+		$data['title']           = $this->hookData->issue->title;
+		$data['description']     = $parsedText;
+		$data['description_raw'] = $this->hookData->issue->body;
+		$data['status']          = $status;
+		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_by']       = $this->hookData->issue->user->login;
+		$data['modified_date']   = $modified->format($dateFormat);
+		$data['project_id']      = $this->project->project_id;
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
-			$table->closed_date = $closed->format($dateFormat);
-			$table->closed_by   = $this->hookData->issue->user->login;
+			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_by']   = $this->hookData->issue->user->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
 		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
 		{
-			$table->foreign_number = $matches[1];
+			$data['foreign_number'] = $matches[1];
 		}
 
 		try
 		{
-			$table->store();
+			$table = new IssuesTable($this->db);
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
 			$this->logger->error(
 				sprintf(
-					'Error storing new item %s in the database: %s',
+					'Error adding GitHub issue %s/%s #%d to the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
 					$this->hookData->issue->number,
 					$e->getMessage()
 				)
@@ -146,7 +148,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->addActivityEvent(
 				'reopen',
-				$table->modified_date,
+				$data['modified_date'],
 				$this->hookData->issue->user->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
@@ -158,7 +160,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->addActivityEvent(
 				'close',
-				$table->closed_date,
+				$data['closed_date'],
 				$this->hookData->issue->user->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
@@ -167,7 +169,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Added GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
@@ -211,28 +213,38 @@ class ReceiveIssuesHook extends AbstractHookController
 		$modified   = new Date($this->hookData->issue->updated_at);
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$table = new IssuesTable($this->db);
-		$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
-		$table->title = $this->hookData->issue->title;
-		$table->description = $parsedText;
-		$table->description_raw = $this->hookData->issue->body;
-		$table->status = $status;
-		$table->modified_date = $modified->format($dateFormat);
+		$data = array();
+		$data['title']           = $this->hookData->issue->title;
+		$data['description']     = $parsedText;
+		$data['description_raw'] = $this->hookData->issue->body;
+		$data['status']          = $status;
+		$data['modified_date']   = $modified->format($dateFormat);
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
-			$table->closed_date = $closed->format($dateFormat);
+			$data['closed_date'] = $closed->format($dateFormat);
 		}
 
 		try
 		{
-			$table->store();
+			$table = new IssuesTable($this->db);
+			$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error('Error updating the database:' . $e->getMessage());
+			$this->logger->error(
+				sprintf(
+					'Error updating GitHub issue %s/%s #%d in the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->hookData->issue->number,
+					$e->getMessage()
+				)
+			);
+
 			$this->getApplication()->close();
 		}
 
@@ -262,7 +274,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Updated GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,

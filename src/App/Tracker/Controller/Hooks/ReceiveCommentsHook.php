@@ -169,34 +169,35 @@ class ReceiveCommentsHook extends AbstractHookController
 		$opened     = new Date($this->hookData->issue->created_at);
 		$modified   = new Date($this->hookData->issue->updated_at);
 
-		$table = new IssuesTable($this->db);
-		$table->issue_number    = $this->hookData->issue->number;
-		$table->title           = $this->hookData->issue->title;
-		$table->description     = $parsedText;
-		$table->description_raw = $this->hookData->issue->body;
-		$table->status	        = ($this->hookData->issue->state) == 'open' ? 1 : 10;
-		$table->opened_date     = $opened->format($dateFormat);
-		$table->opened_by       = $this->hookData->issue->user->login;
-		$table->modified_date   = $modified->format($dateFormat);
-		$table->project_id      = $this->project->project_id;
+		$data = array();
+		$data['issue_number']    = $this->hookData->issue->number;
+		$data['title']           = $this->hookData->issue->title;
+		$data['description']     = $parsedText;
+		$data['description_raw'] = $this->hookData->issue->body;
+		$data['status']          = ($this->hookData->issue->state) == 'open' ? 1 : 10;
+		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_by']       = $this->hookData->issue->user->login;
+		$data['modified_date']   = $modified->format($dateFormat);
+		$data['project_id']      = $this->project->project_id;
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
-			$table->closed_date = $closed->format($dateFormat);
-			$table->closed_by = $this->hookData->issue->user->login;
+			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_by']   = $this->hookData->issue->user->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
 		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
 		{
-			$table->foreign_number = $matches[1];
+			$data['foreign_number'] = $matches[1];
 		}
 
 		try
 		{
-			$table->store();
+			$table = new IssuesTable($this->db);
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
@@ -222,7 +223,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			$this->addActivityEvent(
 				'close',
-				$table->closed_date,
+				$data['closed_date'],
 				$this->hookData->issue->user->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
@@ -231,7 +232,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Added GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
@@ -257,14 +258,16 @@ class ReceiveCommentsHook extends AbstractHookController
 		$parsedText = $this->parseText($this->hookData->comment->body);
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$table = new ActivitiesTable($this->db);
-		$table->load($id);
-		$table->text = $parsedText;
-		$table->text_raw = $this->hookData->comment->body;
+		$data = array();
+		$data['activities_id'] = $id;
+		$data['text'] = $parsedText;
+		$data['text_raw'] = $this->hookData->comment->body;
 
 		try
 		{
-			$table->store();
+			$table = new ActivitiesTable($this->db);
+			$table->load(array('activities_id' => $id));
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
@@ -277,7 +280,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Updated comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,

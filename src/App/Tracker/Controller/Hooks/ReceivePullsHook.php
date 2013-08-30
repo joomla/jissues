@@ -89,8 +89,6 @@ class ReceivePullsHook extends AbstractHookController
 	 */
 	protected function insertData()
 	{
-		$table = new IssuesTable($this->db);
-
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
@@ -117,39 +115,49 @@ class ReceivePullsHook extends AbstractHookController
 		$opened = new Date($this->data->created_at);
 		$modified   = new Date($this->data->updated_at);
 
-		$table->title         = $this->data->title;
-		$table->description   = $parsedText;
-		$table->issue_number  = $this->data->number;
-		$table->project_id    = $this->project->project_id;
-		$table->status        = $status;
-		$table->opened_date   = $opened->format($dateFormat);
-		$table->opened_by     = $this->data->user->login;
-		$table->modified_date = $modified->format($dateFormat);
-
-		// If pull request
-		$table->has_code = 1;
+		$data = array();
+		$data['issue_number']    = $this->data->number;
+		$data['title']           = $this->data->title;
+		$data['description']     = $parsedText;
+		$data['description_raw'] = $this->data->body;
+		$data['status']          = $status;
+		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_by']       = $this->data->user->login;
+		$data['modified_date']   = $modified->format($dateFormat);
+		$data['project_id']      = $this->project->project_id;
+		$data['has_code']        = 1;
 
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)
 		{
 			$closed = new Date($this->data->closed_at);
-			$table->closed_date = $closed->format($dateFormat);
-			$table->closed_by   = $this->data->user->login;
+			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_by']   = $this->data->user->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
 		if (preg_match('/\[#([0-9]+)\]/', $this->data->title, $matches))
 		{
-			$table->foreign_number = $matches[1];
+			$data['foreign_number'] = $matches[1];
 		}
 
 		try
 		{
-			$table->store();
+			$table = new IssuesTable($this->db);
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(sprintf('Error storing new item %s in the database: %s', $this->data->number, $e->getMessage()));
+			$this->logger->error(
+				sprintf(
+					'Error adding GitHub pull request %s/%s #%d to the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->data->number,
+					$e->getMessage()
+				)
+			);
+
 			$this->getApplication()->close();
 		}
 
@@ -164,7 +172,7 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->addActivityEvent(
 				'reopen',
-				$table->modified_date,
+				$data['modified_date'],
 				$this->data->user->login,
 				$this->project->project_id,
 				$this->data->number
@@ -176,7 +184,7 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->addActivityEvent(
 				'close',
-				$table->closed_date,
+				$data['closed_date'],
 				$this->data->user->login,
 				$this->project->project_id,
 				$this->data->number
@@ -186,7 +194,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Added GitHub issue %s/%s #%d to the tracker.',
+				'Added GitHub pull request %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->data->number
@@ -232,28 +240,38 @@ class ReceivePullsHook extends AbstractHookController
 		$closed = null;
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$table = new IssuesTable($this->db);
-		$table->load(array('issue_number' => $this->data->number, 'project_id' => $this->project->project_id));
-		$table->title = $this->data->title;
-		$table->description = $parsedText;
-		$table->description_raw = $this->data->body;
-		$table->status = $status;
-		$table->modified_date = $modified->format($dateFormat);
+		$data = array();
+		$data['title']           = $this->hookData->issue->title;
+		$data['description']     = $parsedText;
+		$data['description_raw'] = $this->hookData->issue->body;
+		$data['status']          = $status;
+		$data['modified_date']   = $modified->format($dateFormat);
 
 		// Add the closed date if the status is closed
-		if ($this->data->closed_at)
+		if ($this->hookData->issue->closed_at)
 		{
-			$closed = new Date($this->data->closed_at);
-			$table->closed_date = $closed->format($dateFormat);
+			$closed = new Date($this->hookData->issue->closed_at);
+			$data['closed_date'] = $closed->format($dateFormat);
 		}
 
 		try
 		{
-			$table->store();
+			$table = new IssuesTable($this->db);
+			$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error('Error updating the database:' . $e->getMessage());
+			$this->logger->error(
+				sprintf(
+					'Error updating GitHub pull request %s/%s #%d to the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->data->number,
+					$e->getMessage()
+				)
+			);
+
 			$this->getApplication()->close();
 		}
 
@@ -296,7 +314,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Updated GitHub comment %s/%s #%d to the tracker.',
+				'Updated GitHub pull request %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->data->number
