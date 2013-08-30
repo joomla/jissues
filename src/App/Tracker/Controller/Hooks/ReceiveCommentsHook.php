@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\Hooks;
 
+use App\Tracker\Table\ActivitiesTable;
 use Joomla\Date\Date;
 
 use App\Tracker\Controller\AbstractHookController;
@@ -256,18 +257,16 @@ class ReceiveCommentsHook extends AbstractHookController
 		$parsedText = $this->parseText($this->hookData->comment->body);
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$query = $this->db->getQuery(true);
-		$query->update($this->db->quoteName('#__activities'));
-		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($parsedText));
-		$query->set($this->db->quoteName('text_raw') . ' = ' . $this->db->quote($this->hookData->comment->body));
-		$query->where($this->db->quoteName('id') . ' = ' . $id);
+		$table = new ActivitiesTable($this->db);
+		$table->load($id);
+		$table->text = $parsedText;
+		$table->text_raw = $this->hookData->comment->body;
 
 		try
 		{
-			$this->db->setQuery($query);
-			$this->db->execute();
+			$table->store();
 		}
-		catch (\RuntimeException $e)
+		catch (\Exception $e)
 		{
 			$this->logger->error(
 				'Error updating the database for comment ' . $id . ':' . $e->getMessage()
