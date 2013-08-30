@@ -127,7 +127,7 @@
                         </td>
 
                         <td class="nowrap small hidden-phone">
-                            {{ item.opened|date('Y-m-d') }}
+                            {{ item.opened_date|date('Y-m-d') }}
                         </td>
                         <td class="nowrap small hidden-phone">
                             {% if item.closed_status %}
@@ -135,8 +135,8 @@
                             {% endif %}
                         </td>
                         <td class="nowrap small hidden-phone">
-                            {% if item.modified != '0000-00-00 00:00:00' %}
-                                {{ item.modified|date('Y-m-d') }}
+                            {% if item.modified_date != '0000-00-00 00:00:00' %}
+                                {{ item.modified_date|date('Y-m-d') }}
                                 {% if item.modified_by %}
                                 {% endif %}
                             {% endif %}
