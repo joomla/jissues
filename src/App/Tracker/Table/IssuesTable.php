@@ -208,15 +208,17 @@ class IssuesTable extends AbstractDatabaseTable
 		 */
 
 		// Add a record to the activity table if a new item
-		$table = new ActivitiesTable($this->db);
+		if ($isNew)
+		{
+			$table               = new ActivitiesTable($this->db);
+			$table->event        = 'open';
+			$table->created_date = $this->opened_date;
+			$table->user         = $this->opened_by;
+			$table->issue_number = (int) $this->issue_number;
+			$table->project_id   = (int) $this->project_id;
 
-		$table->event = 'open';
-		$table->created_date = $this->opened_date;
-		$table->user = $this->opened_by;
-		$table->issue_number = (int) $this->issue_number;
-		$table->project_id = (int) $this->project_id;
-
-		$table->store();
+			$table->store();
+		}
 
 		if ($this->oldObject)
 		{
@@ -287,21 +289,15 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			$date = new Date;
 
-			$data = array(
-				$this->db->quoteName('issue_number') => (int) $this->issue_number,
-				$this->db->quoteName('user')         => $this->db->quote($application->getUser()->username),
-				$this->db->quoteName('project_id')   => (int) $this->project_id,
-				$this->db->quoteName('event')        => $this->db->quote('change'),
-				$this->db->quoteName('text')         => $this->db->quote(json_encode($changes)),
-				$this->db->quoteName('created_date') => $this->db->quote($date->format($this->db->getDateFormat()))
-			);
+			$table               = new ActivitiesTable($this->db);
+			$table->event        = 'change';
+			$table->created_date = $date->format($this->db->getDateFormat());
+			$table->user         = $application->getUser()->username;
+			$table->issue_number = (int) $this->issue_number;
+			$table->project_id   = (int) $this->project_id;
+			$table->text         = json_encode($changes);
 
-			$this->db->setQuery(
-				$this->db->getQuery(true)
-					->insert($this->db->quoteName('#__activities'))
-					->columns(array_keys($data))
-					->values(implode(',', $data))
-			)->execute();
+			$table->store();
 		}
 
 		return $this;
