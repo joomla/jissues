@@ -217,8 +217,6 @@ class ReceivePullsHook extends AbstractHookController
 			case 'opened':
 				// Issues: reopened
 			case 'reopened' :
-				// Pulls: synchronized
-			case 'synchronized' :
 			default:
 				$status = 1;
 				break;
@@ -272,7 +270,7 @@ class ReceivePullsHook extends AbstractHookController
 		}
 
 		// Add a synchronize record to the activity table if the action is synchronized
-		if ($action == 'synchronized')
+		if ($action == 'synchronize')
 		{
 			$this->addActivityEvent(
 				'synchronize',
