@@ -241,23 +241,23 @@ class ReceivePullsHook extends AbstractHookController
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
-		$data['title']           = $this->hookData->issue->title;
+		$data['title']           = $this->data->title;
 		$data['description']     = $parsedText;
-		$data['description_raw'] = $this->hookData->issue->body;
+		$data['description_raw'] = $this->data->body;
 		$data['status']          = $status;
 		$data['modified_date']   = $modified->format($dateFormat);
 
 		// Add the closed date if the status is closed
-		if ($this->hookData->issue->closed_at)
+		if ($this->data->closed_at)
 		{
-			$closed = new Date($this->hookData->issue->closed_at);
+			$closed = new Date($this->data->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
 		}
 
 		try
 		{
 			$table = new IssuesTable($this->db);
-			$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
+			$table->load(array('issue_number' => $this->data->number, 'project_id' => $this->project->project_id));
 			$table->save($data);
 		}
 		catch (\Exception $e)
