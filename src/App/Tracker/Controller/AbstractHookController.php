@@ -306,24 +306,25 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 */
 	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
 	{
-		$activity = new ActivitiesTable($this->db);
+		$data = array();
 
 		$date = new Date($dateTime);
-		$activity->created_date = $date->format($this->db->getDateFormat());
+		$data['created_date'] = $date->format($this->db->getDateFormat());
 
-		$activity->event = $event;
-		$activity->user  = $userName;
+		$data['event'] = $event;
+		$data['user']  = $userName;
 
-		$activity->project_id    = (int) $projectId;
-		$activity->issue_number  = (int) $itemNumber;
-		$activity->gh_comment_id = (int) $commentId;
+		$data['project_id']    = (int) $projectId;
+		$data['issue_number']  = (int) $itemNumber;
+		$data['gh_comment_id'] = (int) $commentId;
 
-		$activity->text     = $text;
-		$activity->text_raw = $textRaw;
+		$data['text']     = $text;
+		$data['text_raw'] = $textRaw;
 
 		try
 		{
-			$activity->store();
+			$activity = new ActivitiesTable($this->db);
+			$activity->save($data);
 		}
 		catch (\Exception $exception)
 		{
