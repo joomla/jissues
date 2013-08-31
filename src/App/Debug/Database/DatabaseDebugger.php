@@ -8,8 +8,9 @@
 
 namespace App\Debug\Database;
 
-use Joomla\Database\DatabaseDriver;
 use App\Debug\Format\Html\TableFormat;
+use Joomla\Database\DatabaseDriver;
+use JTracker\Container;
 
 /**
  * Class DatabaseDebugger.
@@ -106,9 +107,7 @@ class DatabaseDebugger
 	 */
 	public function getProfile($query)
 	{
-		/* @type TrackerApplication $application */
-		$application = Factory::$application;
-		$db          = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		// Run a SHOW PROFILE query:
 		$profile = '';

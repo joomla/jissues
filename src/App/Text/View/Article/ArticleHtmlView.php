@@ -10,8 +10,9 @@ namespace App\Text\View\Article;
 
 use App\Text\Model\ArticleModel;
 use App\Text\Table\ArticlesTable;
-use Joomla\Factory;
+
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * Article view class
@@ -38,13 +39,13 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$id = $application->input->getInt('id');
 
 		$item = $id
 			? $this->model->getItem($id)
-			: new ArticlesTable($application->getDatabase());
+			: new ArticlesTable(Container::retrieve('db'));
 
 		$this->renderer->set('item', $item);
 

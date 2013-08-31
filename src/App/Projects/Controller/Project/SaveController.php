@@ -10,6 +10,7 @@ namespace App\Projects\Controller\Project;
 
 use App\Tracker\Controller\DefaultController;
 use App\Projects\Table\ProjectsTable;
+use JTracker\Container;
 
 /**
  * Controller class to save a project.
@@ -39,7 +40,7 @@ class SaveController extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ProjectsTable($app->getDatabase());
+		$table = new ProjectsTable(Container::retrieve('db'));
 
 		$table->save($app->input->get('project', array(), 'array'));
 

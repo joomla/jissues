@@ -8,10 +8,9 @@
 
 namespace App\Users\Model;
 
-use Joomla\Factory;
-
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * User model class for the Users component.
@@ -32,7 +31,7 @@ class UserModel extends AbstractTrackerDatabaseModel
 	public function getItem($itemId = null)
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		if (!$itemId)
 		{

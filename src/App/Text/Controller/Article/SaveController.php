@@ -10,6 +10,7 @@ namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
 use App\Tracker\Controller\DefaultController;
+use JTracker\Container;
 
 /**
  * Controller class to save an article.
@@ -39,7 +40,7 @@ class SaveController extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($app->getDatabase());
+		$table = new ArticlesTable(Container::retrieve('db'));
 
 		$table->save($app->input->get('article', array(), 'array'));
 

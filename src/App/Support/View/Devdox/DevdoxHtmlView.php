@@ -9,9 +9,9 @@
 namespace App\Support\View\Devdox;
 
 use App\Support\Model\DefaultModel;
-use Joomla\Factory;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * The developer documentation view
@@ -39,7 +39,7 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$alias = $application->input->getCmd('alias');
 

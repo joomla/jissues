@@ -8,8 +8,8 @@
 
 namespace App\Users\Controller\Ajax;
 
-use Joomla\Factory;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
@@ -37,7 +37,7 @@ class ListController extends AbstractTrackerController
 
 		if ($groupId)
 		{
-			$db = $this->getApplication()->getDatabase();
+			$db = Container::retrieve('db');
 
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('u.id', 'u.username')))

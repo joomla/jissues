@@ -14,11 +14,11 @@ use App\Tracker\Table\ActivitiesTable;
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
-use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Container;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -150,7 +150,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		);
 
 		// Get a database object
-		$this->db = $this->getApplication()->getDatabase();
+		$this->db = Container::retrieve('db');
 
 		// Instantiate Github
 		$this->github = $this->getApplication()->getGitHub();

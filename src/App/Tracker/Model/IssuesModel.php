@@ -8,12 +8,12 @@
 
 namespace App\Tracker\Model;
 
-use Joomla\Factory;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
 
 use JTracker\Model\AbstractTrackerListModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the issue list view
@@ -117,7 +117,7 @@ class IssuesModel extends AbstractTrackerListModel
 	protected function loadState()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$project = $application->getProject();
 

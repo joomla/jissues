@@ -8,10 +8,10 @@
 
 namespace JTracker\View\Renderer;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 
 use JTracker\Application\TrackerApplication;
+use JTracker\Container;
 
 /**
  * Twig extension class
@@ -42,7 +42,7 @@ class TrackerExtension extends \Twig_Extension
 	public function getGlobals()
 	{
 		/* @var TrackerApplication $app */
-		$app = Factory::$application;
+		$app = Container::retrieve('app');
 
 		return array(
 			'uri'    => $app->get('uri'),
@@ -112,7 +112,7 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
-	 * Replaces the Joomla! root path defined by the constant "JPATH_BASE" with the string "JROOT".
+	 * Replaces the Joomla! root path defined by the constant "JPATH_ROOT" with the string "JROOT".
 	 *
 	 * @param   string  $string  The string to process.
 	 *
@@ -122,7 +122,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function stripJRoot($string)
 	{
-		return str_replace(JPATH_BASE, 'JROOT', $string);
+		return str_replace(JPATH_ROOT, 'JROOT', $string);
 	}
 
 	/**
@@ -138,7 +138,7 @@ class TrackerExtension extends \Twig_Extension
 	public function fetchAvatar($userName = '', $width = 0)
 	{
 		/* @type TrackerApplication $app */
-		$app = Factory::$application;
+		$app = Container::retrieve('app');
 
 		$base = $app->get('uri.base.path');
 
@@ -211,10 +211,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$statuses)
 		{
-			/* @type TrackerApplication $application */
-			$application = Factory::$application;
-
-			$db = $application->getDatabase();
+			$db = Container::retrieve('db');
 
 			$items = $db->setQuery(
 				$db->getQuery(true)
@@ -274,7 +271,7 @@ class TrackerExtension extends \Twig_Extension
 		if (!$labels)
 		{
 			/* @type TrackerApplication $application */
-			$application = Factory::$application;
+			$application = Container::retrieve('app');
 
 			$labels = $application->getProject()->getLabels();
 		}
@@ -318,7 +315,7 @@ class TrackerExtension extends \Twig_Extension
 	public function issueLink($number, $closed, $title = '')
 	{
 		/* @type TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$html = array();
 
@@ -345,10 +342,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$relTypes)
 		{
-			/* @type TrackerApplication $application */
-			$application = Factory::$application;
-
-			$db = $application->getDatabase();
+			$db = Container::retrieve('db');
 
 			$relTypes = $db->setQuery(
 				$db->getQuery(true)

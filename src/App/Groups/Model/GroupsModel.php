@@ -11,9 +11,9 @@ namespace App\Groups\Model;
 use App\Groups\Table\GroupsTable;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\Factory;
 
 use JTracker\Model\AbstractTrackerListModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the groups list view
@@ -31,7 +31,8 @@ class GroupsModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		$projectId = Factory::$application->getProject()->project_id;
+		$app = Container::retrieve('app');
+		$projectId = $app->getProject()->project_id;
 
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);

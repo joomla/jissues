@@ -12,12 +12,12 @@ use App\Projects\Table\ProjectsTable;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
-use Joomla\Factory;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the issue list view
@@ -47,9 +47,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($identifier = null)
 	{
+		$app = Container::retrieve('app');
+
 		if (!$identifier)
 		{
-			$identifier = Factory::$application->input->getUint('id');
+			$identifier = $app->input->getUint('id');
 
 			if (!$identifier)
 			{
@@ -57,7 +59,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			}
 		}
 
-		$project = Factory::$application->getProject();
+		$project = $app->getProject();
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
@@ -168,7 +170,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$identifier)
 		{
-			$identifier = Factory::$application->input->getUint('project_id');
+			$app = Container::retrieve('app');
+			$identifier = $app->input->getUint('project_id');
 
 			if (!$identifier)
 			{

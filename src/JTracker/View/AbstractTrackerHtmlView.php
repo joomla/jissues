@@ -8,7 +8,6 @@
 
 namespace JTracker\View;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
@@ -16,6 +15,7 @@ use Joomla\View\Renderer\RendererInterface;
 
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Container;
 use JTracker\View\Renderer\TrackerExtension;
 
 /**
@@ -55,7 +55,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		parent::__construct($model);
 
 		/* @type TrackerApplication $app */
-		$app = Factory::$application;
+		$app = Container::retrieve('app');
 
 		$renderer = $app->get('renderer.type');
 
@@ -127,9 +127,9 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		$app->clearMessageQueue();
 
 		// Add build commit if available
-		if (file_exists(JPATH_BASE . '/current_SHA'))
+		if (file_exists(JPATH_ROOT . '/current_SHA'))
 		{
-			$data = trim(file_get_contents(JPATH_BASE . '/current_SHA'));
+			$data = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
 			$this->renderer->set('buildSHA', $data);
 		}
 		else
