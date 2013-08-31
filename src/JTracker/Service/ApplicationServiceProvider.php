@@ -54,7 +54,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 			}, true, true
 		);
 
-		// Alias the database
-		$container->alias('db', 'Joomla\\Database\\DatabaseDriver');
+		// Alias the application
+		$container->alias('app', 'JTracker\\Application\\TrackerApplication');
 	}
 }
