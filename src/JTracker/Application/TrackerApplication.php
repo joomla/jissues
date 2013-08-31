@@ -17,7 +17,6 @@ use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
-use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
@@ -27,9 +26,12 @@ use Joomla\Registry\Registry;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
+use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
+use JTracker\Service\ApplicationServiceProvider;
+use JTracker\Service\DatabaseServiceProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -118,19 +120,19 @@ final class TrackerApplication extends AbstractWebApplication
 		// Load the configuration object.
 		$this->loadConfiguration();
 
+		// Build the DI Container
+		$container = Container::getInstance();
+		$container->registerServiceProvider(new ApplicationServiceProvider($this))
+			->registerServiceProvider(new DatabaseServiceProvider);
+
 		// Set the debugger.
 		$this->debugger = new TrackerDebugger($this);
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
 
-		// Register the application to Factory
-		// @todo Decouple from Factory
-		Factory::$application = $this;
-		Factory::$config = $this->config;
-
 		// Load the library language file
-		$this->getLanguage()->load('lib_joomla', JPATH_BASE);
+		$this->getLanguage()->load('lib_joomla', JPATH_ROOT);
 
 		$this->mark('Application started');
 	}
@@ -160,7 +162,7 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
-			$maps = json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'));
+			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
 			{
@@ -176,7 +178,7 @@ final class TrackerApplication extends AbstractWebApplication
 			$controller = $router->getController($this->get('uri.route'));
 
 			// Define the app path
-			define('JPATH_APP', JPATH_BASE . '/src/App/' . ucfirst($controller->getComponent()));
+			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getComponent()));
 
 			// Execute the component
 			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
@@ -322,7 +324,7 @@ final class TrackerApplication extends AbstractWebApplication
 		$lang = $this->getLanguage();
 
 		// Load common and local language files.
-		$lang->load($component, JPATH_BASE, null, false, false) || $lang->load($component, JPATH_BASE, $lang->getDefault(), false, false);
+		$lang->load($component, JPATH_ROOT, null, false, false) || $lang->load($component, JPATH_ROOT, $lang->getDefault(), false, false);
 
 		// Start an output buffer.
 		ob_start();
@@ -342,7 +344,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		return md5(Factory::getConfig()->get('acl.secret') . $seed);
+		$app = Container::retrieve('app');
+		return md5($app->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -358,9 +361,6 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			$this->newSession = new Session;
 			$this->newSession->start();
-
-			// @todo Decouple from Factory
-			Factory::$session = $this->newSession;
 		}
 
 		return $this->newSession;
@@ -389,35 +389,6 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		return $this->user;
-	}
-
-	/**
-	 * Get a database driver object.
-	 *
-	 * @return  DatabaseDriver
-	 *
-	 * @since   1.0
-	 */
-	public function getDatabase()
-	{
-		if (is_null($this->database))
-		{
-			$this->database = DatabaseDriver::getInstance(
-				array(
-					'driver' => $this->get('database.driver'),
-					'host' => $this->get('database.host'),
-					'user' => $this->get('database.user'),
-					'password' => $this->get('database.password'),
-					'database' => $this->get('database.name'),
-					'prefix' => $this->get('database.prefix')
-				)
-			);
-
-			// @todo Decouple from Factory
-			Factory::$database = $this->database;
-		}
-
-		return $this->database;
 	}
 
 	/**

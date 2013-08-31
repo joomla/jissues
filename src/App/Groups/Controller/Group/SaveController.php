@@ -10,6 +10,7 @@ namespace App\Groups\Controller\Group;
 
 use App\Groups\Table\GroupsTable;
 use App\Tracker\Controller\DefaultController;
+use JTracker\Container;
 
 /**
  * Controller class to save a group.
@@ -33,7 +34,7 @@ class SaveController extends DefaultController
 
 		$group = $input->get('group', array(), 'array');
 
-		$table = new GroupsTable($this->getApplication()->getDatabase());
+		$table = new GroupsTable(Container::retrieve('db'));
 
 		$table->save($group);
 

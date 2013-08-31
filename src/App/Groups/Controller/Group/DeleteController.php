@@ -10,6 +10,7 @@ namespace App\Groups\Controller\Group;
 
 use App\Groups\Table\GroupsTable;
 use App\Tracker\Controller\DefaultController;
+use JTracker\Container;
 
 /**
  * Controller class to delete a group.
@@ -39,7 +40,7 @@ class DeleteController extends DefaultController
 
 		$app->getUser()->authorize('manage');
 
-		$table = new GroupsTable($app->getDatabase());
+		$table = new GroupsTable(Container::retrieve('db'));
 
 		$table->load($app->input->getInt('group_id'))
 			->delete();

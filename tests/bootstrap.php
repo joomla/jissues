@@ -18,8 +18,7 @@ ini_set('display_errors', 1);
  * Ensure that required path constants are defined.
  */
 define('JPATH_TESTS',  realpath(__DIR__));
-define('JPATH_BASE',   realpath(JPATH_TESTS . '/tmp'));
-define('JPATH_ROOT',   JPATH_BASE);
+define('JPATH_ROOT',   realpath(JPATH_TESTS . '/tmp'));
 define('JPATH_THEMES', JPATH_TESTS . '/themes_base');
 
 

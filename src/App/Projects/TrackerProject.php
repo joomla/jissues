@@ -9,7 +9,7 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
-use Joomla\Factory;
+use JTracker\Container;
 
 /**
  * Class TrackerProject.
@@ -187,10 +187,7 @@ class TrackerProject
 	 */
 	protected function loadMap()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
-
-		$db = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		$map = array();
 
@@ -273,10 +270,7 @@ class TrackerProject
 
 		if (!$labels)
 		{
-			/* @type \JTracker\Application\TrackerApplication $application */
-			$application = Factory::$application;
-
-			$db = $application->getDatabase();
+			$db = Container::retrieve('db');
 
 			$table = new LabelsTable($db);
 

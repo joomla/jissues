@@ -10,11 +10,11 @@ namespace JTracker\Authentication;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
-use Joomla\Factory;
 
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
+use JTracker\Container;
 
 /**
  * Abstract class containing the application user object
@@ -104,11 +104,7 @@ abstract class User implements \Serializable
 	 */
 	public function loadByUserName($userName)
 	{
-		// @todo Decouple from J\Factory
-		/* @type TrackerApplication $application */
-		$application = Factory::$application;
-
-		$db = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		$table = new TableUsers($db);
 
@@ -154,11 +150,7 @@ abstract class User implements \Serializable
 	 */
 	protected function load($identifier)
 	{
-		// @todo Decouple from J\Factory
-		/* @type TrackerApplication $application */
-		$application = Factory::$application;
-
-		$db = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		// Create the user table object
 		// $table = $this->getTable();
@@ -206,11 +198,7 @@ abstract class User implements \Serializable
 	 */
 	protected function loadAccessGroups()
 	{
-		// @todo Decouple from J\Factory
-		/* @type TrackerApplication $application */
-		$application = Factory::$application;
-
-		$db = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		$this->accessGroups = $db->setQuery(
 			$db->getQuery(true)
@@ -292,7 +280,9 @@ abstract class User implements \Serializable
 		}
 
 		/* @type \App\Projects\TrackerProject $project */
-		$project = Factory::$application->getProject();
+		/* @type TrackerApplication $app */
+		$app = Container::retrieve('app');
+		$project = $app->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))
 		{

@@ -11,6 +11,7 @@ namespace App\Projects\Controller\Project;
 use App\Tracker\Controller\DefaultController;
 use App\Projects\Model\ProjectModel;
 use App\Projects\Table\ProjectsTable;
+use JTracker\Container;
 
 /**
  * Controller class to delete a project.
@@ -44,7 +45,7 @@ class DeleteController extends DefaultController
 
 		$project = $model->getByAlias();
 
-		$table = new ProjectsTable($app->getDatabase());
+		$table = new ProjectsTable(Container::retrieve('db'));
 
 		$table->delete($project->project_id);
 

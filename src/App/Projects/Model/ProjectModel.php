@@ -10,9 +10,8 @@ namespace App\Projects\Model;
 
 use App\Projects\TrackerProject;
 
-use Joomla\Factory;
-
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the project list view
@@ -34,7 +33,8 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		if (is_null($projectId))
 		{
-			$projectId = Factory::$application->input->get('project_id', 1);
+			$app = Container::retrieve('app');
+			$projectId = $app->input->get('project_id', 1);
 		}
 
 		$data = $this->db->setQuery(
@@ -60,7 +60,8 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$alias)
 		{
-			$alias = Factory::$application->input->get('project_alias');
+			$app = Container::retrieve('app');
+			$alias = $app->input->get('project_alias');
 
 			if (!$alias)
 			{

@@ -10,6 +10,7 @@ namespace App\Users\Controller\Ajax;
 
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Container;
 
 /**
  * Controller class to assign users to groups
@@ -24,6 +25,7 @@ class AssignController extends AbstractAjaxController
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	protected function prepareResponse()
 	{
@@ -33,7 +35,7 @@ class AssignController extends AbstractAjaxController
 		}
 
 		$input = $this->getInput();
-		$db    = $this->getApplication()->getDatabase();
+		$db    = Container::retrieve('db');
 
 		$user    = $input->getCmd('user');
 		$groupId = $input->getInt('group_id');
@@ -97,7 +99,7 @@ class AssignController extends AbstractAjaxController
 	 */
 	private function assign($userId, $groupId)
 	{
-		$db = $this->getApplication()->getDatabase();
+		$db = Container::retrieve('db');
 
 		$data = array(
 			$db->quoteName('user_id')  => (int) $userId,
@@ -126,7 +128,7 @@ class AssignController extends AbstractAjaxController
 	 */
 	private function unAssign($userId, $groupId)
 	{
-		$db = $this->getApplication()->getDatabase();
+		$db = Container::retrieve('db');
 
 		$db->setQuery(
 			$db->getQuery(true)

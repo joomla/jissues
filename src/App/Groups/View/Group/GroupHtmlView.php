@@ -10,10 +10,10 @@ namespace App\Groups\View\Group;
 
 use App\Groups\Model\GroupModel;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -42,8 +42,9 @@ class GroupHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
+		$app = Container::retrieve('app');
 		$this->renderer->set('group', ArrayHelper::fromObject($this->model->getItem()));
-		$this->renderer->set('project', Factory::$application->getProject());
+		$this->renderer->set('project', $app->getProject());
 
 		return parent::render();
 	}

@@ -10,7 +10,6 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
-use Joomla\Factory;
 
 /**
  * Class for displaying help data for the installer application.

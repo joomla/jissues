@@ -9,10 +9,10 @@
 namespace App\Text\Table;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Factory;
 use Joomla\Filter\OutputFilter;
 
 use JTracker\Database\AbstractDatabaseTable;
+use JTracker\Container;
 
 /**
  * Table interface class for the #__articles table
@@ -125,7 +125,7 @@ class ArticlesTable extends AbstractDatabaseTable
 		}
 
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		// Render markdown
 		$this->text = $application->getGitHub()

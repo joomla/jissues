@@ -10,9 +10,8 @@ namespace App\Users\View\User;
 
 use App\Users\Model\UserModel;
 
-use Joomla\Factory;
-
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * User view class for the Users component
@@ -38,7 +37,8 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('item', $this->model->getItem(Factory::$application->input->getUint('id')));
+		$app = Container::retrieve('app');
+		$this->renderer->set('item', $this->model->getItem($app->input->getUint('id')));
 
 		return parent::render();
 	}
