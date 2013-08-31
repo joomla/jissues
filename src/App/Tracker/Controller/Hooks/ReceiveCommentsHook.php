@@ -203,7 +203,9 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error storing new item %s in the database: %s',
+					'Error adding GitHub issue %s/%s #%d to the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
 					$this->hookData->issue->number,
 					$e->getMessage()
 				)
