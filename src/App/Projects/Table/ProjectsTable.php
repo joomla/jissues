@@ -94,23 +94,23 @@ class ProjectsTable extends AbstractDatabaseTable
 
 			if ($newId)
 			{
+				$data = array();
+				$data['project_id'] = $newId;
+				$data['title']      = 'Public';
+				$data['can_view']   = 1;
+				$data['can_create'] = 0;
+				$data['can_edit']   = 0;
+				$data['can_manage'] = 0;
+				$data['system']     = 1;
+
 				$group = new GroupsTable($this->db);
+				$group->save($data);
 
-				$group->project_id = $newId;
-				$group->title = 'Public';
-				$group->can_view = 1;
-				$group->can_create = 0;
-				$group->can_edit = 0;
-				$group->can_manage = 0;
-				$group->system = 1;
+				$data['title']      = 'User';
+				$data['can_create'] = 1;
 
-				$group->store();
-
-				$group->group_id = null;
-				$group->title = 'User';
-				$group->can_create = 1;
-
-				$group->store();
+				$group = new GroupsTable($this->db);
+				$group->save($data);
 			}
 		}
 
