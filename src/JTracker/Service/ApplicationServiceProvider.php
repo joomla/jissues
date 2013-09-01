@@ -48,9 +48,11 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->set('app', function ($c)
+		$app = static::$app;
+
+		$container->set('JTracker\\Application\\TrackerApplication', function () use ($app)
 			{
-				return static::$app;
+				return $app;
 			}, true, true
 		);
 
