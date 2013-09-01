@@ -148,10 +148,11 @@ class IssuesTable extends AbstractDatabaseTable
 			$errors[] = 'A title is required.';
 		}
 
-		if (trim($this->description) == '')
+		// Commented for now because many GitHub requests are received without a description
+		/*if (trim($this->description) == '')
 		{
 			$errors[] = 'A description is required.';
-		}
+		}*/
 
 		if ($errors)
 		{
@@ -187,9 +188,15 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified_date = $date;
+			if (!$this->modified_date)
+			{
+				$this->modified_date = $date;
+			}
 
-			$this->modified_by = $application->getUser()->username;
+			if (!$this->modified_by)
+			{
+				$this->modified_by = $application->getUser()->username;
+			}
 		}
 		else
 		{
@@ -210,14 +217,15 @@ class IssuesTable extends AbstractDatabaseTable
 		// Add a record to the activity table if a new item
 		if ($isNew)
 		{
-			$table               = new ActivitiesTable($this->db);
-			$table->event        = 'open';
-			$table->created_date = $this->opened_date;
-			$table->user         = $this->opened_by;
-			$table->issue_number = (int) $this->issue_number;
-			$table->project_id   = (int) $this->project_id;
+			$data = array();
+			$data['event']        = 'open';
+			$data['created_date'] = $this->opened_date;
+			$data['user']         = $this->opened_by;
+			$data['issue_number'] = (int) $this->issue_number;
+			$data['project_id']   = (int) $this->project_id;
 
-			$table->store();
+			$table = new ActivitiesTable($this->db);
+			$table->save($data);
 		}
 
 		if ($this->oldObject)
@@ -287,17 +295,16 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($changes)
 		{
-			$date = new Date;
+			$data = array();
+			$data['event']        = 'change';
+			$data['created_date'] = $this->modified_date;
+			$data['user']         = $this->modified_by;
+			$data['issue_number'] = (int) $this->issue_number;
+			$data['project_id']   = (int) $this->project_id;
+			$data['text']         = json_encode($changes);
 
-			$table               = new ActivitiesTable($this->db);
-			$table->event        = 'change';
-			$table->created_date = $date->format($this->db->getDateFormat());
-			$table->user         = $application->getUser()->username;
-			$table->issue_number = (int) $this->issue_number;
-			$table->project_id   = (int) $this->project_id;
-			$table->text         = json_encode($changes);
-
-			$table->store();
+			$table = new ActivitiesTable($this->db);
+			$table->save($data);
 		}
 
 		return $this;
