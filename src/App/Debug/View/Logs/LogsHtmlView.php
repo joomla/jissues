@@ -6,9 +6,9 @@
 
 namespace App\Debug\View\Logs;
 
-use Joomla\Factory;
 use App\Debug\TrackerDebugger;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * System configuration view.
@@ -20,15 +20,15 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Method to render the view.
 	 *
-	 * @throws \UnexpectedValueException
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$type = $application->input->get('log_type');
 
@@ -44,13 +44,11 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case '404' :
 			case '500' :
 			case 'database' :
-				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
-				break;
-
+			case 'error' :
 			case 'github_issues' :
 			case 'github_comments' :
 			case 'github_pulls' :
-				$path = $debugger->getLogPath('root') . '/' . $type . '.php';
+				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
 				break;
 
 			default :
@@ -74,8 +72,10 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 * @param   string  $type  The log type
 	 * @param   string  $path  Path to log file
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function processLog($type, $path)
 	{
@@ -86,26 +86,15 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		switch ($type)
 		{
-			case 'php':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
-
-			case 'database':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
-
 			case '403':
 			case '404':
 			case '500':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
-
-			case 'github_issues' :
-			case 'github_comments' :
-			case 'github_pulls' :
+			case 'database':
+			case 'error':
+			case 'php':
+			case 'github_issues':
+			case 'github_comments':
+			case 'github_pulls':
 				// @todo beautifyMe
 				$log = explode("\n\n", file_get_contents($path));
 				break;

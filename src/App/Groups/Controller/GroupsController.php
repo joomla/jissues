@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Groups Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,10 +14,9 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Controller class to manage the application usergroups.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class GroupsController extends DefaultController
 {
@@ -25,7 +26,7 @@ class GroupsController extends DefaultController
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
@@ -38,15 +39,14 @@ class GroupsController extends DefaultController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void
 	 *
 	 * @since   1.0
-	 * @return void
 	 */
 	public function execute()
 	{
 		$this->getApplication()->getUser()->authorize('manage');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -7,12 +9,12 @@
 namespace App\Tracker\Controller\Issue;
 
 use Joomla\Application\AbstractApplication;
-use Joomla\Factory;
 use Joomla\Input\Input;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Default controller class for the Tracker component.
+ * List controller class for the Tracker component.
  *
  * @since  1.0
  */
@@ -37,8 +39,9 @@ class ListController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @since   1.0
 	 * @return  string  The rendered view.
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,9 +10,8 @@ namespace App\Projects\Model;
 
 use App\Projects\TrackerProject;
 
-use Joomla\Factory;
-
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the project list view
@@ -24,15 +25,16 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $projectId  The project id.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since   1.0
 	 * @return  TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getItem($projectId = null)
 	{
 		if (is_null($projectId))
 		{
-			$projectId = Factory::$application->input->get('project_id', 1);
+			$app = Container::retrieve('app');
+			$projectId = $app->input->get('project_id', 1);
 		}
 
 		$data = $this->db->setQuery(
@@ -50,14 +52,16 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @since   1.0
 	 * @return  TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getByAlias($alias = null)
 	{
 		if (!$alias)
 		{
-			$alias = Factory::$application->input->get('project_alias');
+			$app = Container::retrieve('app');
+			$alias = $app->input->get('project_alias');
 
 			if (!$alias)
 			{

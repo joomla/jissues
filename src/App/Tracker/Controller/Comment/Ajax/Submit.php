@@ -1,16 +1,19 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Ajax\Comment;
+namespace App\Tracker\Controller\Comment\Ajax;
 
 use App\Tracker\Table\ActivitiesTable;
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Container;
 
 /**
  * Add comments controller class.
@@ -22,9 +25,10 @@ class Submit extends AbstractAjaxController
 	/**
 	 * Prepare the response.
 	 *
-	 * @since  1.0
-	 * @throws \Exception
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	protected function prepareResponse()
 	{
@@ -81,8 +85,9 @@ class Submit extends AbstractAjaxController
 		else
 		{
 			$date = new Date;
+			$db   = Container::retrieve('db');
 
-			$data->created_at = $date->format($this->getApplication()->getDatabase()->getDateFormat());
+			$data->created_at = $date->format($db->getDateFormat());
 			$data->opened_by  = $this->getApplication()->getUser()->username;
 			$data->comment_id = '???';
 
@@ -92,7 +97,7 @@ class Submit extends AbstractAjaxController
 				->render($comment, 'markdown');
 		}
 
-		$table = new ActivitiesTable($this->getApplication()->getDatabase());
+		$table = new ActivitiesTable($db);
 
 		$table->event         = 'comment';
 		$table->created_date  = $data->created_at;
@@ -105,6 +110,9 @@ class Submit extends AbstractAjaxController
 
 		$table->store();
 
+		$data->activities_id = $table->activities_id;
+
+		$this->response->data    = $data;
 		$this->response->message = 'Your comment has been submitted';
 	}
 }

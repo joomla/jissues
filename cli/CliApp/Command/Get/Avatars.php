@@ -102,7 +102,7 @@ class Avatars extends Get
 			$g->username   = $user;
 			$g->avatar_url = $this->github->users->get($user)->avatar_url;
 
-			GitHubLoginHelper::saveAvatar($g);
+			GitHubLoginHelper::saveAvatar($g->username);
 
 			$this->usePBar
 				? $progressBar->update($i + 1)

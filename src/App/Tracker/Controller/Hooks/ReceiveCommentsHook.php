@@ -1,15 +1,19 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Tracker\Controller\Hooks;
 
+use App\Tracker\Table\ActivitiesTable;
 use Joomla\Date\Date;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
  * Controller class receive and inject issue comments from GitHub
@@ -84,26 +88,56 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
-		// If we don't have an ID, we need to insert the issue
+		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
 		if (!$issueID)
 		{
 			$this->insertIssue();
+
+			$comments = $this->github->issues->comments->getList(
+				$this->project->gh_user, $this->project->gh_project, $this->hookData->issue->number
+			);
+
+			foreach ($comments as $comment)
+			{
+				// Try to render the comment with GitHub markdown
+				$parsedText = $this->parseText($comment->body);
+
+				// Add the comment
+				$this->addActivityEvent(
+					'comment',
+					$comment->created_at,
+					$comment->user->login,
+					$this->project->project_id,
+					$this->hookData->issue->number,
+					$comment->id,
+					$parsedText,
+					$comment->body
+				);
+			}
 		}
+		else
+		{
+			// Try to render the comment with GitHub markdown
+			$parsedText = $this->parseText($this->hookData->comment->body);
 
-		// Try to render the comment with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->comment->body);
+			// Add the comment
+			$this->addActivityEvent(
+				'comment',
+				$this->hookData->comment->created_at,
+				$this->hookData->comment->user->login,
+				$this->project->project_id,
+				$this->hookData->issue->number,
+				$this->hookData->comment->id,
+				$parsedText,
+				$this->hookData->comment->body
+			);
 
-		// Add the comment
-		$this->addActivityEvent(
-			'comment',
-			$this->hookData->comment->created_at,
-			$this->hookData->comment->user->login,
-			$this->project->project_id,
-			$this->hookData->issue->number,
-			$this->hookData->comment->id,
-			$parsedText,
-			$this->hookData->comment->body
-		);
+			// Pull the user's avatar if it does not exist
+			if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
+			{
+				GitHubLoginHelper::saveAvatar($this->hookData->comment->user->login);
+			}
+		}
 
 		// Store was successful, update status
 		$this->logger->info(
@@ -128,46 +162,50 @@ class ReceiveCommentsHook extends AbstractHookController
 	protected function insertIssue()
 	{
 		// Try to render the description with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->comment->body);
+		$parsedText = $this->parseText($this->hookData->issue->body);
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
 		$opened     = new Date($this->hookData->issue->created_at);
 		$modified   = new Date($this->hookData->issue->updated_at);
 
-		$table = new IssuesTable($this->db);
-		$table->issue_number    = $this->hookData->issue->number;
-		$table->title           = $this->hookData->issue->title;
-		$table->description     = $parsedText;
-		$table->description_raw = $this->hookData->issue->body;
-		$table->status		    = ($this->hookData->issue->state) == 'open' ? 1 : 10;
-		$table->opened_date     = $opened->format($dateFormat);
-		$table->modified_date   = $modified->format($dateFormat);
-		$table->project_id      = $this->project->project_id;
+		$data = array();
+		$data['issue_number']    = $this->hookData->issue->number;
+		$data['title']           = $this->hookData->issue->title;
+		$data['description']     = $parsedText;
+		$data['description_raw'] = $this->hookData->issue->body;
+		$data['status']          = ($this->hookData->issue->state) == 'open' ? 1 : 10;
+		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_by']       = $this->hookData->issue->user->login;
+		$data['modified_date']   = $modified->format($dateFormat);
+		$data['project_id']      = $this->project->project_id;
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
 			$closed = new Date($this->hookData->issue->closed_at);
-			$table->closed_date = $closed->format($dateFormat);
-			$table->closed_by = $this->hookData->issue->user->login;
+			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
 		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
 		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
 		{
-			$table->foreign_number = $matches[1];
+			$data['foreign_number'] = $matches[1];
 		}
 
 		try
 		{
-			$table->store();
+			$table = new IssuesTable($this->db);
+			$table->save($data);
 		}
 		catch (\Exception $e)
 		{
 			$this->logger->error(
 				sprintf(
-					'Error storing new item %s in the database: %s',
+					'Error adding GitHub issue %s/%s #%d to the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
 					$this->hookData->issue->number,
 					$e->getMessage()
 				)
@@ -176,22 +214,19 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getApplication()->close();
 		}
 
-		// Add an open record to the activity table
-		$this->addActivityEvent(
-			'open',
-			$table->opened_date,
-			$this->hookData->issue->user->login,
-			$this->project->project_id,
-			$this->hookData->issue->number
-		);
+		// Pull the user's avatar if it does not exist
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
+		{
+			GitHubLoginHelper::saveAvatar($this->hookData->issue->user->login);
+		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
 			$this->addActivityEvent(
 				'close',
-				$table->closed_date,
-				$this->hookData->issue->user->login,
+				$data['closed_date'],
+				$this->hookData->sender->login,
 				$this->project->project_id,
 				$this->hookData->issue->number
 			);
@@ -199,7 +234,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Added GitHub issue %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
@@ -225,18 +260,18 @@ class ReceiveCommentsHook extends AbstractHookController
 		$parsedText = $this->parseText($this->hookData->comment->body);
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$query = $this->db->getQuery(true);
-		$query->update($this->db->quoteName('#__activities'));
-		$query->set($this->db->quoteName('text') . ' = ' . $this->db->quote($parsedText));
-		$query->set($this->db->quoteName('text_raw') . ' = ' . $this->db->quote($this->hookData->comment->body));
-		$query->where($this->db->quoteName('id') . ' = ' . $id);
+		$data = array();
+		$data['activities_id'] = $id;
+		$data['text'] = $parsedText;
+		$data['text_raw'] = $this->hookData->comment->body;
 
 		try
 		{
-			$this->db->setQuery($query);
-			$this->db->execute();
+			$table = new ActivitiesTable($this->db);
+			$table->load(array('activities_id' => $id));
+			$table->save($data);
 		}
-		catch (\RuntimeException $e)
+		catch (\Exception $e)
 		{
 			$this->logger->error(
 				'Error updating the database for comment ' . $id . ':' . $e->getMessage()
@@ -247,7 +282,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Updated comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,

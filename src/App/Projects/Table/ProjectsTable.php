@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -41,13 +43,13 @@ class ProjectsTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to perform sanity checks on the J\Table instance properties to ensure
+	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
 	 * they are safe to store in the database.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since   1.0
+	 * @return  $this  Method allows chaining
 	 *
-	 * @return  ProjectsTable
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function check()
 	{
@@ -67,18 +69,17 @@ class ProjectsTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to store a row in the database from the JTable instance properties.
+	 * Method to store a row in the database from the AbstractDatabaseTable instance properties.
 	 * If a primary key value is set the row with that primary key value will be
 	 * updated with the instance property values.  If no primary key value is set
 	 * a new row will be inserted into the database with the properties from the
-	 * JTable instance.
+	 * AbstractDatabaseTable instance.
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  boolean  True on success.
+	 * @return  $this  Method allows chaining
 	 *
-	 * @link    http://docs.joomla.org/JTable/store
-	 * @since   11.1
+	 * @since   1.0
 	 */
 	public function store($updateNulls = false)
 	{
@@ -89,7 +90,6 @@ class ProjectsTable extends AbstractDatabaseTable
 		if (!$oldId)
 		{
 			// New item - Create default access groups.
-
 			$newId = $this->{$this->getKeyName()};
 
 			if ($newId)

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Groups Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,40 +10,25 @@ namespace App\Groups\View\Groups;
 
 use App\Groups\Model\GroupsModel;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
- * The issues list view
+ * The groups list view
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class GroupsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * Container for the view's items
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $items;
-
-	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     GroupsModel
-	 * @since   1.0
-	 */
-	protected $model;
-
-	/**
-	 * @var    \stdClass
+	 * @var    GroupsModel
 	 * @since  1.0
 	 */
-	protected $project;
+	protected $model;
 
 	/**
 	 * Method to render the view.
@@ -54,8 +41,9 @@ class GroupsHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
+		$app = Container::retrieve('app');
 		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('project', Factory::$application->getProject());
+		$this->renderer->set('project', $app->getProject());
 
 		return parent::render();
 	}

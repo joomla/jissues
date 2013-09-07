@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -13,14 +15,20 @@ namespace App\Tracker;
  */
 class ValidationException extends \Exception
 {
+	/**
+	 * Errors array
+	 *
+	 * @var    array|string
+	 * @since  1.0
+	 */
 	protected $errors = array();
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   string  $errors  The errors encountered during validation.
+	 * @param   array|string  $errors  The errors encountered during validation.
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($errors)
 	{
@@ -32,8 +40,9 @@ class ValidationException extends \Exception
 	/**
 	 * Get validation errors.
 	 *
-	 * @since  1.0
-	 * @return array|string
+	 * @return  array|string
+	 *
+	 * @since   1.0
 	 */
 	public function getErrors()
 	{

@@ -44,7 +44,8 @@
 		"language": "0",
 		"hooks"   : "0",
 		"logging" : "0",
-		"log-path": "logs"
+		"log-path": "logs",
+		"admin"   : "1"
 	},
 
 	"languages": [

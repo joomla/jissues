@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -7,9 +9,9 @@
 namespace App\Projects\Model;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\Factory;
 
 use JTracker\Model\AbstractTrackerListModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the projects list view
@@ -30,7 +32,8 @@ class ProjectsModel extends AbstractTrackerListModel
 		$db = $this->getDb();
 
 		/* @type \JTracker\Authentication\GitHub\GitHubUser $user */
-		$user = Factory::$application->getUser();
+		$app = Container::retrieve('app');
+		$user = $app->getUser();
 
 		$query = $db->getQuery(true);
 

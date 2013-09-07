@@ -9,10 +9,11 @@
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success" href="javascript:"
-           onclick="JTracker.submitIssue('#issueResult', '#issueDebug');">
+        <a class="btn-success" href="javascript:" id="submit"
+           onclick="JTracker.submitIssue('#submit', '#issueDebug');">
             Submit
         </a>
+        <div id="issueDebug"></div>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -26,9 +27,9 @@
 
 {% block content %}
 
-    <div id="issueDebug"></div>
 
-    <form name="editForm">
+
+    <form method="post" action="/{{ uri.route }}-submit" name="editForm">
 
         <div class="pull-right well well-small">
 
@@ -44,13 +45,17 @@
 
             <label for="priority">Priority</label>
             <select name="item[priority]" id="priority" class="span2">
-                {% for i in range(1, 4) %}
+                {% for i in range(1, 5) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
                 {% endfor %}
             </select>
 
-            <div class="helpText alert alert-info">help priority...</div>
+            <div class="helpText span2 alert alert-info">The priority of which this issue should be resolved.  Please see the <a href="http://docs.joomla.org/Bug_Tracking_Process#Issue_Priorities" target="_blank">Bug Tracking Process</a> page for detailed information about the project's priorities.</div>
 
+            <label for="build">Build</label>
+            <input name="item[build]" id="build" type="text" class="span2" />
+
+            <div class="helpText span2 alert alert-info">The version(s) of the project on which this issue is found.</div>
         </div>
 
         <h2>New Item</h2>
@@ -65,7 +70,7 @@
             <label for="title">Title</label>
             <input type="text" name="title" style="width: 80%; font-size: 1.3em;"/>
 
-            <div class="helpText alert alert-info">help title...</div>
+            <div class="helpText alert alert-info">Enter a descriptive summary of the issue</div>
 
             <label for="description">Description</label>
 
@@ -76,7 +81,7 @@
 
             {% include "editor.twig" %}
 
-            <div class="helpText alert alert-info">help description...</div>
+            <div class="helpText alert alert-info">Enter a detailed description of the issue you are experiencing.  Please include steps to reproduce the issue and any error messages you may be receiving.</div>
 
         </fieldset>
     </form>

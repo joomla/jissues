@@ -1,17 +1,18 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Text Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Text\Model;
 
 use App\Text\Table\ArticlesTable;
-use JTracker\Authentication\Database\TableUsers;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
- * User model class for the Users component.
+ * Page model class.
  *
  * @since  1.0
  */
@@ -22,7 +23,7 @@ class PageModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The item alias.
 	 *
-	 * @return  TableUsers
+	 * @return  ArticlesTable
 	 *
 	 * @since   1.0
 	 */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    JTracker\Components\Users
+ * Part of the Joomla Tracker's Users Application
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
@@ -8,8 +8,8 @@
 
 namespace App\Users\Controller\Ajax;
 
-use Joomla\Factory;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
@@ -20,69 +20,41 @@ use JTracker\Controller\AbstractTrackerController;
 class ListController extends AbstractTrackerController
 {
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return  boolean
+	 * @since   1.0
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
-		ob_start();
+		// TODO: do we need access control here ?
+		// @$this->getApplication()->getUser()->authorize('admin');
 
-		try
+		$input = $this->getInput();
+
+		$groupId = $input->getInt('group_id');
+
+		if ($groupId)
 		{
-			// TODO: do we need access control here ?
-			// @$this->getApplication()->getUser()->authorize('admin');
+			$db = Container::retrieve('db');
 
-			$input = $this->getInput();
+			$query = $db->getQuery(true)
+				->select($db->quoteName(array('u.id', 'u.username')))
+				->from($db->quoteName('#__users', 'u'));
 
-			$groupId = $input->getInt('group_id');
+			$query->leftJoin(
+				$db->quoteName('#__user_accessgroup_map', 'm')
+				. ' ON ' . $db->quoteName('m.user_id')
+				. ' = ' . $db->quoteName('u.id')
+			);
 
-			$response = new \stdClass;
+			$query->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId);
 
-			$response->data  = new \stdClass;
-			$response->error = '';
-			$response->message = '';
+			$users = $db->setQuery($query, 0, 10)
+				->loadAssocList();
 
-			if ($groupId)
-			{
-				$db = $this->getApplication()->getDatabase();
-
-				$query = $db->getQuery(true)
-					->select($db->quoteName(array('u.id', 'u.username')))
-					->from($db->quoteName('#__users', 'u'));
-
-				$query->leftJoin(
-					$db->quoteName('#__user_accessgroup_map', 'm')
-					. ' ON ' . $db->quoteName('m.user_id')
-					. ' = ' . $db->quoteName('u.id')
-				);
-
-				$query->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId);
-
-				$users = $db->setQuery($query, 0, 10)
-					->loadAssocList();
-
-				$response->data->options = $users ? : array();
-			}
+			$this->response->data->options = $users ? : array();
 		}
-		catch (\Exception $e)
-		{
-			$response->error = $e->getMessage();
-		}
-
-		$errors = ob_get_clean();
-
-		if ($errors)
-		{
-			$response->error = $errors;
-		}
-
-		header('Content-type: application/json');
-
-		echo json_encode($response);
-
-		exit(0);
 	}
 }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Debug Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -18,9 +20,9 @@ class TableFormat
 	 *
 	 * @param   array  $array  The array to generate the table from.
 	 *
-	 * @return string
+	 * @return  string
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function fromArray($array)
 	{
@@ -60,8 +62,9 @@ class TableFormat
 	 *
 	 * @param   array  $trace  The stack trace
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function fromTrace(array $trace)
 	{

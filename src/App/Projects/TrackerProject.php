@@ -1,55 +1,93 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Projects;
 
-use Joomla\Factory;
+use App\Projects\Table\LabelsTable;
+use JTracker\Container;
 
 /**
  * Class TrackerProject.
- *
- * @property   integer  $project_id        PK
- * @property   string   $title             Project title
- * @property   string   $alias             Project URL alias
- * @property   string   $gh_user           GitHub user
- * @property   string   $gh_project        GitHub project
- * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
- *
- * @property   array    $accessGroups
  *
  * @since  1.0
  */
 class TrackerProject
 {
 	/**
-	 * PK
+	 * Primary Key
 	 *
-	 * @var  integer
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $project_id = 0;
 
-	//             Project title
+	/**
+	 * Project title
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $title;
 
-	//             Project URL alias
+	/**
+	 * Project URL alias
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $alias;
 
-	//           GitHub user
+	/**
+	 * GitHub User
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $gh_user;
 
-	//        GitHub project
+	/**
+	 * GitHub Project
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $gh_project;
 
-	//  A tracker link format (e.g. http://tracker.com/issue/%d)
+	/**
+	 * External issue tracker link
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
 	protected $ext_tracker_link;
 
+	/**
+	 * Access map
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	protected $accessMap = array();
 
+	/**
+	 * Array containing default actions
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	private $defaultActions = array('view', 'create', 'edit', 'manage');
 
+	/**
+	 * Array containing default user groups
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
 	private $defaultGroups = array('Public', 'User');
 
 	/**
@@ -57,7 +95,8 @@ class TrackerProject
 	 *
 	 * @param   object  $data  The project data.
 	 *
-	 * @throws \UnexpectedValueException
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function __construct($data = null)
 	{
@@ -84,7 +123,9 @@ class TrackerProject
 	 *
 	 * @param   string  $key  The key name
 	 *
-	 * @return mixed
+	 * @return  mixed
+	 *
+	 * @since   1.0
 	 */
 	public function __get($key)
 	{
@@ -104,9 +145,10 @@ class TrackerProject
 	 * @param   string  $action  The action.
 	 * @param   string  $filter  The filter.
 	 *
-	 * @throws \InvalidArgumentException
+	 * @return  array
 	 *
-	 * @return array
+	 * @since   1.0
+	 * @throws  \InvalidArgumentException
 	 */
 	public function getAccessGroups($action, $filter = '')
 	{
@@ -138,16 +180,14 @@ class TrackerProject
 	 *
 	 * This method is supposed to be called only once per session or, if the project changes.
 	 *
-	 * @since  1.0
-	 * @throws \RuntimeException
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function loadMap()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
-
-		$db = $application->getDatabase();
+		$db = Container::retrieve('db');
 
 		$map = array();
 
@@ -171,7 +211,6 @@ class TrackerProject
 		if ($this->project_id)
 		{
 			// Only for existing projects
-
 			$groups = $db->setQuery(
 				$db->getQuery(true)
 				->from($db->quoteName('#__accessgroups'))
@@ -186,7 +225,7 @@ class TrackerProject
 			}
 		}
 
-		/* @type \App\Tracker\Table\GroupsTable $group */
+		/* @type \App\Groups\Table\GroupsTable $group */
 		foreach ($groups as $group)
 		{
 			// Process a system group.
@@ -218,6 +257,44 @@ class TrackerProject
 		return $map;
 	}
 
+	/**
+	 * Get a list of labels defined for the project.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function getLabels()
+	{
+		static $labels = array();
+
+		if (!$labels)
+		{
+			$db = Container::retrieve('db');
+
+			$table = new LabelsTable($db);
+
+			$labelList = $db ->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('label_id', 'name', 'color'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+			)->loadObjectList();
+
+			foreach ($labelList as $labelObject)
+			{
+				$l = new \stdClass;
+
+				$l->name  = $labelObject->name;
+				$l->color = $labelObject->color;
+
+				$labels[$labelObject->label_id] = $l;
+			}
+		}
+
+		return $labels;
+	}
+
 	/*
 	 * NOTE: The following functions have been added to make the properties "visible"
 	 * for the Twig template engine.
@@ -226,8 +303,9 @@ class TrackerProject
 	/**
 	 * Get the project id.
 	 *
-	 * @since  1.0
-	 * @return integer
+	 * @return  integer
+	 *
+	 * @since   1.0
 	 */
 	public function getProject_Id()
 	{
@@ -237,8 +315,9 @@ class TrackerProject
 	/**
 	 * Get the project title.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getTitle()
 	{
@@ -248,8 +327,9 @@ class TrackerProject
 	/**
 	 * Get the project URL alias.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getAlias()
 	{
@@ -259,8 +339,9 @@ class TrackerProject
 	/**
 	 * Get the GitHub user (owner).
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getGh_User()
 	{
@@ -270,8 +351,9 @@ class TrackerProject
 	/**
 	 * Get the GitHub project (repo).
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getGh_Project()
 	{
@@ -281,8 +363,9 @@ class TrackerProject
 	/**
 	 * Get the external link.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function getExt_Tracker_Link()
 	{

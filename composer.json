@@ -10,14 +10,14 @@
         "joomla/framework": "dev-master",
         "symfony/http-foundation": "2.3.*@stable",
         "elkuku/console-progressbar": "1.0",
+        "twig/twig" : "1.*@stable",
 		"elkuku/g11n": "dev-master",
-		"twig/twig" : "1.*",
         "mustache/mustache" : "2.1.*"
     },
 	"require-dev": {
-		"monolog/monolog": "1.5.0",
+		"monolog/monolog": "1.6.0",
 		"raveren/kint": "dev-master",
-		"filp/whoops": "1.0.7"
+		"filp/whoops": "1.0.*@stable"
 	},
     "autoload": {
         "psr-0": {

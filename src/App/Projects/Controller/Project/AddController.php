@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Projects Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -36,6 +38,6 @@ class AddController extends AbstractTrackerController
 
 		$this->getInput()->set('layout', 'edit');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

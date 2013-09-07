@@ -26,11 +26,9 @@
 
         <tr>
             <th>{{ "Tracker"|_ }}</th>
-            <th>GitHub</th>
-            <th style="width: 5%;">Stats</th>
+            <th><i class="icon-github"></i>&nbsp;GitHub</th>
 
             {% if user.isAdmin %}
-                <th style="width: 5%;">Groups</th>
                 <th style="width: 10%;">Actions</th>
             {% endif %}
 
@@ -47,9 +45,10 @@
                 <td>
                     {% if project.gh_user %}
                         {% if user.isAdmin %}
-                            <i class="icon-github"></i>
                             <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">Hooks</a>
+                            <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">Labels</a>
                         {% endif %}
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">Stats</a>
                         <i class="icon-github"></i>
                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
                             {{ project.gh_user }}/{{ project.gh_project }}
@@ -57,15 +56,9 @@
                     {% endif %}
                 </td>
 
-                <td>
-                    <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">Stats</a>
-                </td>
-
                 {% if user.isAdmin %}
-                    <td>
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">Groups</a>
-                    </td>
                     <td style="white-space: nowrap;">
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">Groups</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}">Show</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">Edit</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">Delete</a>

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -10,10 +12,10 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Input\Input;
 use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
-use Joomla\Factory;
+use Joomla\Utilities\ArrayHelper;
 
 use JTracker\Database\AbstractDatabaseTable;
-use Joomla\Utilities\ArrayHelper;
+use JTracker\Container;
 
 /**
  * Table interface class for the #__issues table
@@ -37,7 +39,12 @@ use Joomla\Utilities\ArrayHelper;
  * @property   integer  $rel_id           Relation id user
  * @property   string   $rel_type         Relation type
  * @property   integer  $has_code         If the issue has code attached - aka a pull request.
-
+ * @property   string   $labels           Comma separated list of label IDs
+ * @property   integer  $vote_id          Vote id
+ * @property   integer  $build            Build the issue is reported on
+ * @property   integer  $tests            Number of successful tests
+ * @property   integer  $easy             Flag if item is an easy test
+ *
  * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable
@@ -78,7 +85,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @param   mixed  $src     An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @return  IssuesTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -124,9 +131,10 @@ class IssuesTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Overloaded check function
+	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+	 * they are safe to store in the database.
 	 *
-	 * @return  IssuesTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
@@ -140,10 +148,11 @@ class IssuesTable extends AbstractDatabaseTable
 			$errors[] = 'A title is required.';
 		}
 
-		if (trim($this->description) == '')
+		// Commented for now because many GitHub requests are received without a description
+		/*if (trim($this->description) == '')
 		{
 			$errors[] = 'A description is required.';
-		}
+		}*/
 
 		if ($errors)
 		{
@@ -162,7 +171,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 *
 	 * @param   boolean  $updateNulls  True to update fields even if they are null.
 	 *
-	 * @return  IssuesTable
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -170,7 +179,7 @@ class IssuesTable extends AbstractDatabaseTable
 	public function store($updateNulls = false)
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$isNew = ($this->id < 1);
 		$date  = new Date;
@@ -179,9 +188,15 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified_date = $date;
+			if (!$this->modified_date)
+			{
+				$this->modified_date = $date;
+			}
 
-			$this->modified_by = $application->getUser()->username;
+			if (!$this->modified_by)
+			{
+				$this->modified_by = $application->getUser()->username;
+			}
 		}
 		else
 		{
@@ -199,21 +214,18 @@ class IssuesTable extends AbstractDatabaseTable
 		 * Post-Save Actions
 		 */
 
-		// TODO: Remove the check for CLI once moved to live instance
-		// TODO 2) This has been deactivated. every action should perform a proper entry in the activities table.
-		if (0)
+		// Add a record to the activity table if a new item
+		if ($isNew)
 		{
-			// $isNew && $application->get('cli_app') != true)
-			// Add a record to the activity table if a new item
+			$data = array();
+			$data['event']        = 'open';
+			$data['created_date'] = $this->opened_date;
+			$data['user']         = $this->opened_by;
+			$data['issue_number'] = (int) $this->issue_number;
+			$data['project_id']   = (int) $this->project_id;
+
 			$table = new ActivitiesTable($this->db);
-
-			$table->event = 'open';
-			$table->created_date = $this->opened_date;
-			$table->user = $application->getUser()->username;
-			$table->issue_number = (int) $this->issue_number;
-			$table->project_id = (int) $this->project_id;
-
-			$table->store();
+			$table->save($data);
 		}
 
 		if ($this->oldObject)
@@ -234,13 +246,14 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Compute the changes.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	private function processChanges()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$changes = array();
 
@@ -268,7 +281,6 @@ class IssuesTable extends AbstractDatabaseTable
 						break;
 
 					case 'description_raw' :
-
 						// @todo do something ?
 						$changes[] = $change;
 
@@ -283,23 +295,16 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($changes)
 		{
-			$date = new Date;
+			$data = array();
+			$data['event']        = 'change';
+			$data['created_date'] = $this->modified_date;
+			$data['user']         = $this->modified_by;
+			$data['issue_number'] = (int) $this->issue_number;
+			$data['project_id']   = (int) $this->project_id;
+			$data['text']         = json_encode($changes);
 
-			$data = array(
-				$this->db->quoteName('issue_number') => (int) $this->issue_number,
-				$this->db->quoteName('user')         => $this->db->quote($application->getUser()->username),
-				$this->db->quoteName('project_id')   => (int) $this->project_id,
-				$this->db->quoteName('event')        => $this->db->quote('change'),
-				$this->db->quoteName('text')         => $this->db->quote(json_encode($changes)),
-				$this->db->quoteName('created_date') => $this->db->quote($date->format('Y-m-d H:i:s'))
-			);
-
-			$this->db->setQuery(
-				$this->db->getQuery(true)
-					->insert($this->db->quoteName('#__activities'))
-					->columns(array_keys($data))
-					->values(implode(',', $data))
-			)->execute();
+			$table = new ActivitiesTable($this->db);
+			$table->save($data);
 		}
 
 		return $this;
@@ -308,72 +313,12 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Process extra fields.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	private function processFields()
 	{
-		// Store the extra fields.
-		$db = $this->db;
-
-		$issueId = ($this->id)
-			// Existing issue
-			? $this->id
-			// New issue - ugly..
-			: $this->db->setQuery(
-				$this->db->getQuery(true)
-					->from($this->tableName)
-					->select('MAX(' . $this->getKeyName() . ')')
-			)->loadResult();
-
-		// Check the tracker table to see if the extra fields are already present
-
-		$ids = $db->setQuery(
-			$db->getQuery(true)
-				->select('fv.field_id')
-				->from('#__tracker_fields_values AS fv')
-				->where($db->qn('fv.issue_id') . '=' . (int) $issueId)
-		)->loadColumn();
-
-		$queryInsert = $db->getQuery(true)
-			->insert($db->qn('#__tracker_fields_values'))
-			->columns('issue_id, field_id, value');
-
-		$queryUpdate = $db->getQuery(true)
-			->update($db->qn('#__tracker_fields_values'));
-
-		foreach ($this->fieldValues as $fields)
-		{
-			foreach ($fields as $k => $v)
-			{
-				if (in_array($k, $ids))
-				{
-					// Update item
-					$db->setQuery(
-						$queryUpdate->clear('set')->clear('where')
-							->set($db->qn('value') . '=' . $db->q($v))
-							->where($db->qn('issue_id') . '=' . (int) $issueId)
-							->where($db->qn('field_id') . '=' . (int) $k)
-					)->execute();
-				}
-				else
-				{
-					// New item
-					$db->setQuery(
-						$queryInsert->clear('values')
-							->values(
-								implode(', ', array(
-										(int) $issueId,
-										(int) $k,
-										$db->q($v)
-									)
-								)
-							)
-					)->execute();
-				}
-			}
-		}
-
 		return $this;
 	}
 

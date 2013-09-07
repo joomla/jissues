@@ -1,0 +1,10 @@
+###
+# For domain: http://issues.joomla.org
+###
+
+User-agent: *
+Disallow: /bootstrap-switch/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /images/
+Disallow: /js/

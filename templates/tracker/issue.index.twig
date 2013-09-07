@@ -36,9 +36,12 @@
 
 {% block content %}
 
-    <h2>{{ project.title }} #{{ item.issue_number }}</h2>
+    <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
 
     <!-- Status bar -->
+
+    <span class="pull-right">{{ item.labels|labels|raw }}</span>
+
     <ul class="breadcrumb">
         <li>
             <span class="badge badge-{{ item.closed ? "important" : "success" }}">
@@ -56,9 +59,33 @@
 
         <li>
             <span class="badge {{ prioClass(item.priority) }}">
-                {{ sprintf("Priority %d", item.priority) }}
+                Priority {{ item.priority }}
             </span>
         </li>
+
+        {% if item.build %}
+            <li>
+                <span class="badge">
+                    Build: {{ item.build }}
+                </span>
+            </li>
+        {% endif %}
+
+        {% if item.easy %}
+            <li>
+                <span class="badge badge-success">
+                    Easy Test
+                </span>
+            </li>
+        {% endif %}
+
+        {% if item.tests %}
+            <li>
+                <span class="badge">
+                    # of Successful Tests: {{ item.tests }}
+                </span>
+            </li>
+        {% endif %}
 
         {% if project.gh_user and project.gh_project %}
             <li>
@@ -90,23 +117,102 @@
                 </a>
             </li>
         {% endif %}
-
     </ul>
+
+    <!-- Relations -->
+
+    {% if item.rel_number %}
+        <div class="alert">
+            {{ item.rel_name }}
+            {{ issueLink(item.rel_number, item.rel_closed, item.rel_title)|raw }}
+        </div>
+    {% endif %}
+
+    {% if item.relations_f %}
+        <div class="alert">
+            Referenced as
+            {% for rel_name, relations in item.relations_f %}
+                <strong>{{ rel_name }}: </strong>
+                {% for relation in relations %}
+                    {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
+              {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <!-- Main content -->
 
     <div class="row-fluid">
-
-        <div class="span1 well-small">
-            {{ avatar(item.opened_by)|raw }}
+        <div class="span2 well-small">
+            {{ avatar(item.opened_by, 80)|raw }}<br />
+            <span class="icon-github"></span> {{ item.opened_by }}<br />
+            <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="span11 well-small">
-            {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
-            <h3>{{ item.title }}</h3>
+        <div class="span7 well-small">
             {{ item.description|raw }}
         </div>
 
+        <div class="span3 well">
+            {% if item.vote_id %}
+            <table>
+                <tr>
+                    <th># of Votes</th>
+                    <td id="votes">{{ item.votes }}</td>
+                </tr>
+                <tr>
+                    <th># of Users Experiencing Issue</th>
+                    <td id="experienced">{{ item.experienced }}</td>
+                </tr>
+                <tr>
+                    <th>Average Importance Score</th>
+                    <td id="importance">{{ item.importanceScore }}</td>
+                </tr>
+            </table>
+            <hr />
+            {% endif %}
+            <form class="form-inline" name="voteForm">
+                <fieldset>
+                    <p>I've experienced this issue</p>
+                    <label class="radio">
+                        <input type="radio" name="experiencedRadios" id="experiencedRadiosYes" value="1">
+                        Yes
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="experiencedRadios" id="experiencedRadiosNo" value="0" checked>
+                        No
+                    </label>
+                </fieldset>
+                <hr />
+                <fieldset>
+                    <p>Importance of issue to me</p>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios1" value="1">
+                        1
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios2" value="2">
+                        2
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios3" value="3" checked>
+                        3
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios4" value="4">
+                        4
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="importanceRadios" id="importanceRadios5" value="5">
+                        5
+                    </label>
+                </fieldset>
+                <hr />
+                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
+                    Vote
+                </a>
+            </form>
+        </div>
     </div>
 
     <!-- Activity stream -->
@@ -114,48 +220,56 @@
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
     {% for activity in item.activities %}
-        <div class="row-fluid">
-            <div class="span1 well-small">
-                {{ avatar(activity.user)|raw }}
-            </div>
-            <div class="span11">
-                <div class="well well-small">
-                    <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
-                         alt="{{ activity.event }} on {{ activity.created_date }}"
-                         title="{{ activity.event }} on {{ activity.created_date }}"/>
-                    {{ activity.created_date|date("j M y") }}
-                    - <a name ="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - {{ activity.user }}
+        <div class="row-fluid" id="activity-{{ activity.activities_id }}">
+            <div class="row-fluid">
+                <div class="span1 well-small">
+                    {{ avatar(activity.user)|raw }}
+                </div>
+                <div class="span11">
+                    <div class="well well-small">
+                        <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
+                             alt="{{ activity.event }} on {{ activity.created_date }}"
+                             title="{{ activity.event }} on {{ activity.created_date }}"/>
+                        <b>{{ activity.user }}</b>
+                        - <a name="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                        - {{ activity.created_date|date("j M y") }}
+                    </div>
                 </div>
             </div>
-            <div class="span12">
-                {% if "change" == activity.event %}
-                    <table class="table">
-                    {% for change in activity.text|json_decode %}
-                        <tr>
-                            <td style="width: 13%">{{ change.name|title }}</td>
-                            {% if "status" == change.name %}
-                                <td style="width: 44%" class="alert-{{ statuses(change.old).closed ? "error" : "success" }}">
-                                    {{ translate(statuses(change.old).status) }}
-                                </td>
-                                <td style="width: 1%">&rArr;</td>
-                                <td style="width: 44%" class="alert-{{ statuses(change.new).closed ? "error" : "success" }}">
-                                    {{ translate(statuses(change.new).status) }}
-                                </td>
-                            {% else %}
-                                <td style="width: 44%">{{ change.old }}</td>
-                                <td style="width: 1%">&rArr;</td>
-                                <td style="width: 44%">{{ change.new }}</td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                    </table>
-                {% else %}
-                    {{ activity.text|raw }}
-                {% endif %}
-            </div>
+            {% if activity.event == "change" or activity.text != '' %}
+                <div class="row-fluid">
+                    <div class="span12">
+                        {% if "change" == activity.event %}
+                            <table class="table">
+                            {% for change in activity.text|json_decode %}
+                                <tr>
+                                    <td class="span2">{{ change.name|title }}</td>
+                                    {% if "status" == change.name %}
+                                    <td class="span4 alert-{{ statuses(change.old).closed ? "error" : "success" }}">
+                                        {{ translate(statuses(change.old).status) }}
+                                    </td>
+                                    <td class="span1">&rArr;</td>
+                                    <td class="span4 alert-{{ statuses(change.new).closed ? "error" : "success" }}">
+                                        {{ translate(statuses(change.new).status) }}
+                                    </td>
+                                    {% else %}
+                                    <td class="span4">{{ change.old }}</td>
+                                    <td class="span1">&rArr;</td>
+                                    <td class="span4">{{ change.new }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        {% else %}
+                            {{ activity.text|raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
+
+    <div id="newComment"></div>
 
     <!-- Add form -->
 
@@ -175,10 +289,10 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right" id="commentResult">
+            <div class="pull-right">
                 <div id="commentStatus"></div>
                 <a href="javascript:" class="btn btn-success"
-                   onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentResult', '#commentStatus');">
+                   onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
                     Post Comment
                 </a>
             </div>
@@ -190,6 +304,28 @@
         <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
     {% endif %}
 
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplNewComment">
+        <div class="row-fluid">
+            <div class="span1 well-small">
+                {{ avatar(user.username)|raw }}
+            </div>
+            <div class="span11">
+                <div class="well well-small">
+                    <img src="{{ uri.base.path }}images/tracker/action_comment.png"
+                         alt="comment on [%= o.created_at %]"
+                         title="comment on [%= o.created_at %]"/>
+                        [%= o.created_at %]
+                    - <a name ="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
+                    - {{ user.username }}
+                </div>
+            </div>
+            <div class="span12">[%# o.text %]</div>
+        </div>
+    </script>
 {% endblock %}
 
 {% block JavaScriptBottom %}
@@ -197,17 +333,18 @@
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
 
-    <script language="javascript">
+    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}js/jtracker-js-templates.js"></script>
+
+    <script type="text/javascript">
+
         $(document).ready(function() {
             $('#comment').markItUp(myMarkdownSettings);
         });
-    </script>
 
-    <script type="text/javascript">
         $('a[data-toggle="tab"]').on('shown', function (e)
         {
-            if('#preview' == $(e.target).attr('href'))
-            {
+            if('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#comment', '#preview');
             }
         });

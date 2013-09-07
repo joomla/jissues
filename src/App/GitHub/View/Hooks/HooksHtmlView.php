@@ -1,16 +1,18 @@
 <?php
 /**
+ * Part of the Joomla Tracker's GitHub Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\GitHub\View\Hooks;
 
-use Joomla\Factory;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
- * The issues item view
+ * The hooks view
  *
  * @since  1.0
  */
@@ -26,7 +28,8 @@ class HooksHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('project', Factory::$application->getProject());
+		$app = Container::retrieve('app');
+		$this->renderer->set('project', $app->getProject());
 
 		return parent::render();
 	}

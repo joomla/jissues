@@ -11,7 +11,6 @@ namespace JTracker\Application;
 use App\Debug\TrackerDebugger;
 
 use App\Projects\Model\ProjectModel;
-use App\Projects\Table\ProjectsTable;
 use App\Projects\TrackerProject;
 
 use g11n\g11n;
@@ -20,16 +19,21 @@ use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
-use Joomla\Factory;
 use Joomla\Github\Github;
+use Joomla\Github\Http;
+use Joomla\Http\HttpFactory;
+use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
+use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
+use JTracker\Service\ApplicationServiceProvider;
+use JTracker\Service\DatabaseServiceProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -47,14 +51,6 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @since  1.0
 	 */
 	protected $dispatcher;
-
-	/**
-	 * The application message queue.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $messageQueue = array();
 
 	/**
 	 * The name of the application.
@@ -126,6 +122,11 @@ final class TrackerApplication extends AbstractWebApplication
 		// Load the configuration object.
 		$this->loadConfiguration();
 
+		// Build the DI Container
+		$container = Container::getInstance();
+		$container->registerServiceProvider(new ApplicationServiceProvider($this))
+			->registerServiceProvider(new DatabaseServiceProvider);
+
 		$this->loadLanguage();
 
 		$this->loadTemplate();
@@ -135,11 +136,6 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
-
-		// Register the application to Factory
-		// @todo Decouple from Factory
-		Factory::$application = $this;
-		Factory::$config = $this->config;
 
 		$this->mark('Application started');
 	}
@@ -169,7 +165,7 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->input, $this);
-			$maps = json_decode(file_get_contents(JPATH_BASE . '/etc/routes.json'));
+			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
 			{
@@ -184,8 +180,8 @@ final class TrackerApplication extends AbstractWebApplication
 			/* @type AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
-			// Define the component path
-			define('JPATH_COMPONENT', dirname(__DIR__) . '/Components/' . ucfirst($controller->getComponent()));
+			// Define the app path
+			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getComponent()));
 
 			// Execute the component
 			$contents = $this->executeApp($controller, $controller->getComponent());
@@ -250,12 +246,10 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function mark($text)
 	{
-		if (!JDEBUG)
+		if (JDEBUG)
 		{
-			return $this;
+			$this->debugger->mark($text);
 		}
-
-		$this->debugger->mark($text);
 
 		return $this;
 	}
@@ -270,8 +264,13 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	private function loadConfiguration()
 	{
+		// Check for a custom configuration.
+		$type = getenv('JTRACKER_ENVIRONMENT');
+
+		$name = ($type) ? 'config.' . $type : 'config';
+
 		// Set the configuration file path for the application.
-		$file = JPATH_CONFIGURATION . '/config.json';
+		$file = JPATH_CONFIGURATION . '/' . $name . '.json';
 
 		// Verify the configuration exists and is readable.
 		if (!is_readable($file))
@@ -306,20 +305,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function enqueueMessage($msg, $type = 'message')
 	{
-		// For empty queue, if messages exists in the session, enqueue them first.
-		if (!count($this->messageQueue))
-		{
-			$sessionQueue = $this->getSession()->get('application.queue');
-
-			if (count($sessionQueue))
-			{
-				$this->messageQueue = $sessionQueue;
-				$this->getSession()->set('application.queue', null);
-			}
-		}
-
-		// Enqueue the message.
-		$this->messageQueue[] = array('message' => $msg, 'type' => strtolower($type));
+		$this->getSession()->getFlashBag()->add($type, $msg);
 
 		return $this;
 	}
@@ -360,7 +346,8 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		return md5(Factory::getConfig()->get('acl.secret') . $seed);
+		$app = Container::retrieve('app');
+		return md5($app->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -376,9 +363,6 @@ final class TrackerApplication extends AbstractWebApplication
 		{
 			$this->newSession = new Session;
 			$this->newSession->start();
-
-			// @todo Decouple from Factory
-			Factory::$session = $this->newSession;
 		}
 
 		return $this->newSession;
@@ -410,36 +394,7 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Get a database driver object.
-	 *
-	 * @return  DatabaseDriver
-	 *
-	 * @since   1.0
-	 */
-	public function getDatabase()
-	{
-		if (is_null($this->database))
-		{
-			$this->database = DatabaseDriver::getInstance(
-				array(
-					'driver' => $this->get('database.driver'),
-					'host' => $this->get('database.host'),
-					'user' => $this->get('database.user'),
-					'password' => $this->get('database.password'),
-					'database' => $this->get('database.name'),
-					'prefix' => $this->get('database.prefix')
-				)
-			);
-
-			// @todo Decouple from Factory
-			Factory::$database = $this->database;
-		}
-
-		return $this->database;
-	}
-
-	/**
-	 * Load the language object.
+	 * Get a language object.
 	 *
 	 * @since  1.0
 	 * @return $this
@@ -534,6 +489,18 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
+	 * Clear the system message queue.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function clearMessageQueue()
+	{
+		$this->getSession()->getFlashBag()->clear();
+	}
+
+	/**
 	 * Get the system message queue.
 	 *
 	 * @return  array  The system message queue.
@@ -542,33 +509,22 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getMessageQueue()
 	{
-		// For empty queue, if messages exists in the session, enqueue them.
-		if (!count($this->messageQueue))
-		{
-			$sessionQueue = $this->getSession()->get('application.queue');
-
-			if (count($sessionQueue))
-			{
-				$this->messageQueue = $sessionQueue;
-				$this->getSession()->set('application.queue', null);
-			}
-		}
-
-		return $this->messageQueue;
+		return $this->getSession()->getFlashBag()->peekAll();
 	}
 
 	/**
-	 * Set the system message queue.
+	 * Set the system message queue for a given type.
 	 *
-	 * @param   array  $queue  The information to set in the message queue
+	 * @param   string  $type     The type of message to set
+	 * @param   mixed   $message  Either a single message or an array of messages
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	public function setMessageQueue(array $queue = array())
+	public function setMessageQueue($type, $message = '')
 	{
-		$this->messageQueue = $queue;
+		$this->getSession()->getFlashBag()->set($type, $message);
 	}
 
 	/**
@@ -683,36 +639,11 @@ final class TrackerApplication extends AbstractWebApplication
 	}
 
 	/**
-	 * Redirect to another URL.
-	 *
-	 * If the headers have not been sent the redirect will be accomplished using a "301 Moved Permanently"
-	 * or "303 See Other" code in the header pointing to the new location. If the headers have already been
-	 * sent this will be accomplished using a JavaScript statement.
-	 *
-	 * @param   string   $url    The URL to redirect to. Can only be http/https URL
-	 * @param   boolean  $moved  True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function redirect($url, $moved = false)
-	{
-		// Persist messages if they exist.
-		if (count($this->messageQueue))
-		{
-			$this->getSession()->set('application.queue', $this->messageQueue);
-		}
-
-		parent::redirect($url, $moved);
-	}
-
-	/**
 	 * Get the current project.
 	 *
 	 * @param   boolean  $reload  Reload the project.
 	 *
-	 * @return  ProjectsTable
+	 * @return  TrackerProject
 	 *
 	 * @since   1.0
 	 */
@@ -750,19 +681,12 @@ final class TrackerApplication extends AbstractWebApplication
 			$options->set('api.password', $this->get('github.password'));
 		}
 
-		// @todo temporary fix to avoid the "Socket" transport protocol - ADD: and the "stream"...
-		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
+		// GitHub API works best with cURL
+		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-		if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
-		{
-			throw new \RuntimeException('Please enable cURL.');
-		}
+		$http = new Http($options, $transport);
 
-		$http = new \Joomla\Github\Http($options, $transport);
-
-		// $app->debugOut(get_class($transport));
-
-		// Instantiate J\Github
+		// Instantiate Github
 		$gitHub = new Github($options, $http);
 
 		return $gitHub;

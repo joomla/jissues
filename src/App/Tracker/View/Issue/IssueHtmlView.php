@@ -1,16 +1,18 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Tracker\View\Issue;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
  * The issues item view
@@ -19,14 +21,6 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class IssueHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Container for the view's items
-	 *
-	 * @var    object
-	 * @since  1.0
-	 */
-	protected $item;
-
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
@@ -46,7 +40,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$id = $application->input->getUint('id');
 
@@ -58,7 +52,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		else
 		{
 			// New item
-			$item = new IssuesTable($application->getDatabase());
+			$item = new IssuesTable(Container::retrieve('db'));
 
 			$path = __DIR__ . '/../../tpl/new-issue-template.md';
 

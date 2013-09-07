@@ -1,7 +1,6 @@
 /**
- * User: elkuku
- * Date: 20.06.13
- * Time: 10:20
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 var JTracker = {};
@@ -29,7 +28,7 @@ JTracker.preview = function(text, preview) {
 	);
 };
 
-JTracker.submitComment = function (issue_number, outContainer, debugContainer) {
+JTracker.submitComment = function (issue_number, debugContainer, outContainer, template) {
 	var out = $(outContainer);
 	var status = $(debugContainer);
 
@@ -49,43 +48,51 @@ JTracker.submitComment = function (issue_number, outContainer, debugContainer) {
 			}
 			else {
 				// Success
-				out.html(r.message);
+				status.html(r.message);
+
+				out.html(out.html() + tmpl(template, r.data));
 			}
 		}
 	);
 };
 
-JTracker.submitIssue = function(result, debug) {
-	var title = $('input[name=title]').val();
-	var body = $('textarea[name=body]').val();
-	var priority = $('select[name=priority]').val();
+JTracker.submitVote = function (issue_number, debugContainer) {
+	var status = $(debugContainer);
+	var importance = $('input[name=importanceRadios]').filter(':checked').val();
+	var experienced = $('input[name=experiencedRadios]').filter(':checked').val();
 
-	var out = $(result);
-	var status = $(debug);
-
-	status.html('Submitting issue report...');
+	status.addClass('disabled').removeAttr('href').removeAttr('onclick').html('Adding vote...');
 
 	$.post(
-		'/submit/issue',
-		{
-			title: title,
-			body: body,
-			priority: priority
-		},
+		'/submit/vote',
+		{ issue_number: issue_number, experienced: experienced, importance: importance },
 		function (r) {
-			if (!r.data) {
-				// Misc failure
-				status.html('Invalid response.');
-			}
-			else if (r.error) {
+			if (r.error) {
 				// Failure
-				status.html(r.error);
+				status.addClass('btn-danger').removeClass('btn-success').html(r.error);
 			}
 			else {
 				// Success
-				out.html(r.message);
+				status.html(r.message);
+
+				// Update votes display if this is not the first vote on an item
+				if (r.data.votes > 1) {
+					$('td[id=votes]').html(r.data.votes);
+					$('td[id=experienced]').html(r.data.experienced);
+					$('td[id=importance]').html(r.data.importanceScore);
+				}
 			}
 		}
 	);
+};
 
+JTracker.submitIssue = function(button) {
+
+	// @todo validate
+
+	$(button).html('Submitting...');
+
+	document.editForm.submit();
+
+	return false;
 };

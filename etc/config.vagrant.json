@@ -1,0 +1,53 @@
+{
+	"database": {
+		"driver"  : "mysqli",
+		"host"    : "localhost",
+		"user"    : "root",
+		"password": "",
+		"name"    : "jtracker",
+		"prefix"  : "jtr_"
+	},
+
+	"github": {
+		"username"     : "",
+		"password"     : "",
+		"client_id"    : "",
+		"client_secret": ""
+	},
+
+	"renderer": {
+		"type" : "twig",
+		"debug": "1"
+	},
+
+	"system": {
+		"list_limit": "20",
+		"gzip"      : "0",
+		"offset"    : "UTC"
+	},
+
+	"acl": {
+		"admin_users": [
+			"", ""
+		],
+		"secret"     : "not-used-yet"
+	},
+
+	"cli-application": {
+		"colors"      : "1",
+		"progress-bar": "1"
+	},
+
+	"debug": {
+		"system"  : "1",
+		"database": "1",
+		"language": "0",
+		"hooks"   : "0",
+		"logging" : "1",
+		"log-path": "/vagrant/logs"
+	},
+
+	"languages": [
+		"en-GB", "de-DE", "ru-RU"
+	]
+}

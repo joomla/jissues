@@ -1,20 +1,21 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Ajax\Issue;
+namespace App\Tracker\Controller\Issue\Ajax;
 
 use App\Tracker\Model\IssueModel;
-use Joomla\Factory;
+
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Default controller class for the Users component.
+ * AJAX Controller class to retrieve issue information
  *
- * @package  JTracker\Components\Users
- * @since    1.0
+ * @since  1.0
  */
 class Info extends AbstractAjaxController
 {
@@ -27,14 +28,11 @@ class Info extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
-
-		$id = $application->input->getUint('id');
+		$id = $this->getApplication()->input->getUint('id');
 
 		if (!$id)
 		{
-			throw new \RuntimeException('No id');
+			throw new \RuntimeException('No id received.');
 		}
 
 		$model = new IssueModel;

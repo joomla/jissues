@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Groups Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,12 +10,12 @@ namespace App\Groups\Controller\Group;
 
 use App\Groups\Table\GroupsTable;
 use App\Tracker\Controller\DefaultController;
+use JTracker\Container;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Controller class to save a group.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class SaveController extends DefaultController
 {
@@ -32,7 +34,7 @@ class SaveController extends DefaultController
 
 		$group = $input->get('group', array(), 'array');
 
-		$table = new GroupsTable($this->getApplication()->getDatabase());
+		$table = new GroupsTable(Container::retrieve('db'));
 
 		$table->save($group);
 

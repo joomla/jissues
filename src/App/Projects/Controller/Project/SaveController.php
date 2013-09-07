@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Projects Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,6 +10,7 @@ namespace App\Projects\Controller\Project;
 
 use App\Tracker\Controller\DefaultController;
 use App\Projects\Table\ProjectsTable;
+use JTracker\Container;
 
 /**
  * Controller class to save a project.
@@ -37,7 +40,7 @@ class SaveController extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ProjectsTable($app->getDatabase());
+		$table = new ProjectsTable(Container::retrieve('db'));
 
 		$table->save($app->input->get('project', array(), 'array'));
 
@@ -46,6 +49,6 @@ class SaveController extends DefaultController
 		// Reload the project.
 		$app->getProject(true);
 
-		parent::execute();
+		return parent::execute();
 	}
 }

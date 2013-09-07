@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,11 +14,11 @@ use App\Tracker\Table\ActivitiesTable;
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
-use Joomla\Factory;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Container;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -100,7 +102,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	/**
 	 * Debug mode.
 	 *
-	 * @var integer
+	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $debug;
@@ -108,7 +110,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	/**
 	 * Logger object.
 	 *
-	 * @var \Monolog\Logger
+	 * @var    \Monolog\Logger
 	 * @since  1.0
 	 */
 	protected $logger;
@@ -119,8 +121,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 * @param   Input                $input  The input object.
 	 * @param   AbstractApplication  $app    The application object.
 	 *
-	 * @throws \RuntimeException
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct(Input $input = null, AbstractApplication $app = null)
 	{
@@ -149,7 +150,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		);
 
 		// Get a database object
-		$this->db = $this->getApplication()->getDatabase();
+		$this->db = Container::retrieve('db');
 
 		// Instantiate Github
 		$this->github = $this->getApplication()->getGitHub();
@@ -276,9 +277,9 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 *
 	 * @param   LoggerInterface  $logger  The logger.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
@@ -299,29 +300,31 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 * @param   string   $text        The parsed html comment text.
 	 * @param   string   $textRaw     The raw comment text.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
 	{
-		$activity = new ActivitiesTable($this->db);
+		$data = array();
 
 		$date = new Date($dateTime);
-		$activity->created_date = $date->format($this->db->getDateFormat());
+		$data['created_date'] = $date->format($this->db->getDateFormat());
 
-		$activity->event = $event;
-		$activity->user  = $userName;
+		$data['event'] = $event;
+		$data['user']  = $userName;
 
-		$activity->project_id    = (int) $projectId;
-		$activity->issue_number  = (int) $itemNumber;
-		$activity->gh_comment_id = (int) $commentId;
+		$data['project_id']    = (int) $projectId;
+		$data['issue_number']  = (int) $itemNumber;
+		$data['gh_comment_id'] = (int) $commentId;
 
-		$activity->text     = $text;
-		$activity->text_raw = $textRaw;
+		$data['text']     = $text;
+		$data['text_raw'] = $textRaw;
 
 		try
 		{
-			$activity->store();
+			$activity = new ActivitiesTable($this->db);
+			$activity->save($data);
 		}
 		catch (\Exception $exception)
 		{
@@ -345,8 +348,9 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 *
 	 * @param   string  $text  The text to parse.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	protected function parseText($text)
 	{
@@ -367,10 +371,8 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 					$exception->getMessage()
 				)
 			);
+
+			return '';
 		}
-
-		$this->getApplication()->close();
-
-		return '';
 	}
 }

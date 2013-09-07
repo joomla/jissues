@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Text Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -8,11 +10,12 @@ namespace App\Text\View\Article;
 
 use App\Text\Model\ArticleModel;
 use App\Text\Table\ArticlesTable;
-use Joomla\Factory;
+
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
- * Users view class for the Users component
+ * Article view class
  *
  * @since  1.0
  */
@@ -36,13 +39,13 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$id = $application->input->getInt('id');
 
 		$item = $id
 			? $this->model->getItem($id)
-			: new ArticlesTable($application->getDatabase());
+			: new ArticlesTable(Container::retrieve('db'));
 
 		$this->renderer->set('item', $item);
 

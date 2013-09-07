@@ -12,8 +12,9 @@
 
 namespace JTracker\Pagination;
 
-use Joomla\Factory;
 use Joomla\Uri\Uri;
+
+use JTracker\Container;
 
 /**
  * Class TrackerPagination.
@@ -69,10 +70,11 @@ class TrackerPagination
 	 */
 	public function __construct($total, $current, $perPage)
 	{
+		$app = Container::retrieve('app');
 		$this->total   = $total;
 		$this->perPage = $perPage;
 		$this->page    = $current ? floor($current / $perPage) + 1 : 1;
-		$this->uri     = new Uri(Factory::$application->get('uri.request'));
+		$this->uri     = new Uri($app->get('uri.request'));
 	}
 
 	/**

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -11,7 +13,7 @@ use Joomla\Input\Input;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Controller class to edit an item via the tracker component.
  *
  * @since  1.0
  */

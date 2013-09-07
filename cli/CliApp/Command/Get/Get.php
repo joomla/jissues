@@ -100,12 +100,14 @@ class Get extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve');
+		$this->application->outputTitle('Get');
 
 		$this->out('<error>                                    </error>');
 		$this->out('<error>  Please use one of the following:  </error>');
-		$this->out('<error>  retrieve comments                 </error>');
-		$this->out('<error>  retrieve issues                   </error>');
+		$this->out('<error>                                    </error>');
+		$this->out('<error>  get issues                        </error>');
+		$this->out('<error>  get comments                      </error>');
+		$this->out('<error>  get avatars                       </error>');
 		$this->out('<error>                                    </error>');
 	}
 

@@ -6,7 +6,6 @@
  */
 
 use CliApp\Application\CliApplication;
-use Joomla\Factory;
 
 'cli' == PHP_SAPI
 	|| die("\nThis script must be run from the command line interface.\n\n");
@@ -45,8 +44,6 @@ function with($object)
 try
 {
 	$application = new CliApplication;
-
-	Factory::$application = $application;
 
 	$application->execute();
 }

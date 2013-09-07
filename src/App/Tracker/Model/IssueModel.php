@@ -1,19 +1,23 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Tracker Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Tracker\Model;
 
-use Joomla\Factory;
+use App\Projects\Table\ProjectsTable;
+use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\IssuesTable;
+
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
-use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssuesTable;
-use App\Tracker\Table\ProjectsTable;
+
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * Model to get data for the issue list view
@@ -43,9 +47,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($identifier = null)
 	{
+		$app = Container::retrieve('app');
+
 		if (!$identifier)
 		{
-			$identifier = Factory::$application->input->getUint('id');
+			$identifier = $app->input->getUint('id');
 
 			if (!$identifier)
 			{
@@ -53,7 +59,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			}
 		}
 
-		$project = Factory::$application->getProject();
+		$project = $app->getProject();
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
@@ -74,15 +80,19 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 				// Get the relation information
 				->select('a1.title AS rel_title, a1.status AS rel_status')
-				->join('LEFT', '#__issues AS a1 ON i.rel_id = a1.id')
+				->join('LEFT', '#__issues AS a1 ON i.rel_number = a1.issue_number')
 
 				// Join over the status table
 				->select('s1.closed AS rel_closed')
 				->join('LEFT', '#__status AS s1 ON a1.status = s1.id')
 
-				// Join over the status table
+				// Join over the relations_types table
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+
+				// Join over the relations_types table
+				->select('v.*')
+				->join('LEFT', '#__issues_voting AS v ON i.vote_id = v.id')
 		)->loadObject();
 
 		if (!$item)
@@ -90,6 +100,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException('Invalid Issue');
 		}
 
+		// Fetch activities
 		$table = new ActivitiesTable($this->db);
 		$query = $this->db->getQuery(true);
 
@@ -100,6 +111,47 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$query->order($this->db->quoteName('a.created_date'));
 
 		$item->activities = $this->db->setQuery($query)->loadObjectList();
+
+		// Fetch foreign relations
+		$item->relations_f = $this->db->setQuery(
+				$this->db->getQuery(true)
+					->from($this->db->quoteName('#__issues', 'a'))
+					->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
+					->join('LEFT', '#__status AS s ON a.status = s.id')
+					->select('a.issue_number, a.title, a.rel_type')
+					->select('t.name AS rel_name')
+					->select('s.status AS status_title, s.closed AS closed')
+					->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
+					->order(array('a.issue_number', 'a.rel_type'))
+			)->loadObjectList();
+
+		// Group relations by type
+		if ($item->relations_f)
+		{
+			$arr = array();
+
+			foreach ($item->relations_f as $relation)
+			{
+				if (false == isset($arr[$relation->rel_name]))
+				{
+					$arr[$relation->rel_name] = array();
+				}
+
+				$arr[$relation->rel_name][] = $relation;
+			}
+
+			$item->relations_f = $arr;
+		}
+
+		// Set the score if we have the vote_id
+		if ($item->vote_id)
+		{
+			$item->importanceScore = $item->score / $item->votes;
+		}
+		else
+		{
+			$item->importanceScore = 0;
+		}
 
 		return $item;
 	}
@@ -118,7 +170,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$identifier)
 		{
-			$identifier = Factory::$application->input->getUint('project_id');
+			$app = Container::retrieve('app');
+			$identifier = $app->input->getUint('project_id');
 
 			if (!$identifier)
 			{
@@ -134,7 +187,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get a status list.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	public function getStatuses()
 	{
@@ -150,8 +205,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   array  $src  The source.
 	 *
-	 * @throws \RuntimeException
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function save(array $src)
 	{
@@ -164,6 +221,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['priority']        = $filter->clean($src['priority'], 'int');
 		$data['title']           = $filter->clean($src['title'], 'string');
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
+		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
+		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 
 		if (!$data['id'])
 		{
@@ -176,5 +235,73 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			->save($data);
 
 		return $this;
+	}
+
+	/**
+	 * Update vote data for an issue
+	 *
+	 * @param   integer  $id           The issue ID
+	 * @param   integer  $experienced  Whether the user has experienced the issue
+	 * @param   integer  $importance   The importance of the issue to the user
+	 *
+	 * @return  object
+	 *
+	 * @since   1.0
+	 */
+	public function vote($id, $experienced, $importance)
+	{
+		$db = $this->getDb();
+
+		$table = new IssuesTable($db);
+		$table->load($id);
+
+		// Insert a new record if no vote_id is associated
+		if (is_null($table->vote_id))
+		{
+			$columnsArray = array(
+				$db->quoteName('votes'),
+				$db->quoteName('experienced'),
+				$db->quoteName('score')
+			);
+
+			$query = $db->getQuery()
+				->insert($db->quoteName('#__issues_voting'))
+				->columns($columnsArray)
+				->values(
+					'1, '
+					. $experienced . ', '
+					. $importance
+				);
+		}
+		else
+		{
+			$query = $db->getQuery()
+				->update($db->quoteName('#__issues_voting'))
+				->set($db->quoteName('votes') . ' = ' . $db->quoteName('votes') . ' + 1')
+				->set($db->quoteName('experienced') . ' = ' . $db->quoteName('experienced') . ' + ' . $experienced)
+				->set($db->quoteName('score') . ' = ' . $db->quoteName('score') . ' + ' . $importance)
+				->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
+		}
+
+		$db->setQuery($query)->execute();
+
+		// Add the vote_id if a new record
+		if (is_null($table->vote_id))
+		{
+			$query = $db->getQuery()
+				->update($db->quoteName('#__issues'))
+				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
+				->where($db->quoteName('id') . ' = ' . (int) $table->id);
+
+			$db->setQuery($query)->execute();
+		}
+
+		// Get the updated vote data to update the display
+		$query->clear()
+			->select('*')
+			->from($db->quoteName('#__issues_voting'))
+			->where($db->quoteName('id') . ' = ' . (int) $table->id);
+
+		return $db->setQuery($query)->loadObject();
 	}
 }

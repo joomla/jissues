@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    JTracker\Components\Users
+ * Part of the Joomla Tracker's Users Application
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,104 +9,82 @@
 namespace App\Users\Controller\Ajax;
 
 use JTracker\Authentication\Database\TableUsers;
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractAjaxController;
+use JTracker\Container;
 
 /**
- * Default controller class for the Users component.
+ * Controller class to assign users to groups
  *
- * @package  JTracker\Components\Users
- * @since    1.0
+ * @since  1.0
  */
-class AssignController extends AbstractTrackerController
+class AssignController extends AbstractAjaxController
 {
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @return  boolean
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
-		$response = new \stdClass;
-
-		$response->data  = new \stdClass;
-		$response->error = '';
-		$response->debug = '';
-
-		ob_start();
-
-		try
+		if (false == $this->getApplication()->getUser()->check('manage'))
 		{
-			if (false == $this->getApplication()->getUser()->check('manage'))
-			{
-				throw new \Exception('You are not authorized');
-			}
-
-			$input = $this->getInput();
-			$db    = $this->getApplication()->getDatabase();
-
-			$user    = $input->getCmd('user');
-			$groupId = $input->getInt('group_id');
-			$assign  = $input->getInt('assign');
-
-			if (!$groupId)
-			{
-				throw new \Exception('Missing group id');
-			}
-
-			$tableUsers = new TableUsers($db);
-
-			$tableUsers->loadByUserName($user);
-
-			if (!$tableUsers->id)
-			{
-				throw new \Exception('User not found');
-			}
-
-			$check = $db->setQuery(
-				$db->getQuery(true)
-					->from($db->quoteName('#__user_accessgroup_map', 'm'))
-					->select('COUNT(*)')
-					->where($db->quoteName('group_id') . ' = ' . (int) $groupId)
-					->where($db->quoteName('user_id') . ' = ' . (int) $tableUsers->id)
-			)->loadResult();
-
-			if ($assign)
-			{
-				if ($check)
-				{
-					throw new \Exception('The user is already assigned to this group.');
-				}
-
-				$this->assign($tableUsers->id, $groupId);
-
-				$response->data->message = 'The user has been assigned.';
-			}
-			else
-			{
-				if (!$check)
-				{
-					throw new \Exception('The user is not assigned to this group.');
-				}
-
-				$this->unAssign($tableUsers->id, $groupId);
-
-				$response->data->message = 'The user has been unassigned.';
-			}
-		}
-		catch (\Exception $e)
-		{
-			$response->error = $e->getMessage();
+			throw new \Exception('You are not authorized');
 		}
 
-		$response->debug = ob_get_clean();
+		$input = $this->getInput();
+		$db    = Container::retrieve('db');
 
-		header('Content-type: application/json');
+		$user    = $input->getCmd('user');
+		$groupId = $input->getInt('group_id');
+		$assign  = $input->getInt('assign');
 
-		echo json_encode($response);
+		if (!$groupId)
+		{
+			throw new \Exception('Missing group id');
+		}
 
-		exit(0);
+		$tableUsers = new TableUsers($db);
+
+		$tableUsers->loadByUserName($user);
+
+		if (!$tableUsers->id)
+		{
+			throw new \Exception('User not found');
+		}
+
+		$check = $db->setQuery(
+			$db->getQuery(true)
+				->from($db->quoteName('#__user_accessgroup_map', 'm'))
+				->select('COUNT(*)')
+				->where($db->quoteName('group_id') . ' = ' . (int) $groupId)
+				->where($db->quoteName('user_id') . ' = ' . (int) $tableUsers->id)
+		)->loadResult();
+
+		if ($assign)
+		{
+			if ($check)
+			{
+				throw new \Exception('The user is already assigned to this group.');
+			}
+
+			$this->assign($tableUsers->id, $groupId);
+
+			$this->response->data->message = 'The user has been assigned.';
+		}
+		else
+		{
+			if (!$check)
+			{
+				throw new \Exception('The user is not assigned to this group.');
+			}
+
+			$this->unAssign($tableUsers->id, $groupId);
+
+			$this->response->data->message = 'The user has been unassigned.';
+		}
 	}
 
 	/**
@@ -115,11 +93,13 @@ class AssignController extends AbstractTrackerController
 	 * @param   integer  $userId   The user id.
 	 * @param   integer  $groupId  The group id.
 	 *
-	 * @return AssignController
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	private function assign($userId, $groupId)
 	{
-		$db = $this->getApplication()->getDatabase();
+		$db = Container::retrieve('db');
 
 		$data = array(
 			$db->quoteName('user_id')  => (int) $userId,
@@ -142,11 +122,13 @@ class AssignController extends AbstractTrackerController
 	 * @param   integer  $userId   The user id.
 	 * @param   integer  $groupId  The group id.
 	 *
-	 * @return AssignController
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	private function unAssign($userId, $groupId)
 	{
-		$db = $this->getApplication()->getDatabase();
+		$db = Container::retrieve('db');
 
 		$db->setQuery(
 			$db->getQuery(true)

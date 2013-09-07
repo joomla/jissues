@@ -176,7 +176,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	}
 
 	/**
-	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.This
+	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.  This
 	 * method only binds properties that are publicly accessible and optionally
 	 * takes an array of properties to ignore when binding.
 	 *

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Debug Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -15,13 +17,17 @@ class LinkFormat
 {
 	/**
 	 * The format used to format links.
-	 * @see http://xdebug.org/docs/all_settings#file_link_format
-	 * @var  string
+	 *
+	 * @var    string
+	 * @since  1.0
+	 * @see    http://xdebug.org/docs/all_settings#file_link_format
 	 */
 	private $linkFormat;
 
 	/**
 	 * Constructor.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct()
 	{
@@ -34,8 +40,9 @@ class LinkFormat
 	 * @param   string  $file  The file.
 	 * @param   string  $line  The line number.
 	 *
-	 * @since  1.0
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	public function formatLink($file, $line = '')
 	{

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Groups Application
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -41,17 +43,17 @@ class GroupsTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.This
+	 * Method to bind an associative array or object to the AbstractDatabaseTable instance.  This
 	 * method only binds properties that are publicly accessible and optionally
 	 * takes an array of properties to ignore when binding.
 	 *
 	 * @param   mixed  $source  An associative array or object to bind to the AbstractDatabaseTable instance.
 	 * @param   mixed  $ignore  An optional array or space separated list of properties to ignore while binding.
 	 *
-	 * @throws \UnexpectedValueException
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
-	 * @return GroupsTable
+	 * @throws  \UnexpectedValueException
 	 */
 	public function bind($source, $ignore = array())
 	{
@@ -80,13 +82,13 @@ class GroupsTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * Method to perform sanity checks on the J\Table instance properties to ensure
+	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
 	 * they are safe to store in the database.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since   11.1
+	 * @return  $this  Method allows chaining
 	 *
-	 * @return  $this
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function check()
 	{

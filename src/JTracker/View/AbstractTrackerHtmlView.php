@@ -8,7 +8,6 @@
 
 namespace JTracker\View;
 
-use Joomla\Factory;
 use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
@@ -16,6 +15,7 @@ use Joomla\View\Renderer\RendererInterface;
 
 use JTracker\Application\TrackerApplication;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Container;
 use JTracker\View\Renderer\TrackerExtension;
 
 /**
@@ -55,16 +55,18 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		parent::__construct($model);
 
 		/* @type TrackerApplication $app */
-		$app = Factory::$application;
+		$app = Container::retrieve('app');
 
 		$renderer = $app->get('renderer.type');
 
-		$className = 'Joomla\\View\\Renderer\\' . ucfirst($renderer);
+		$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
 
+		// Check if the specified renderer exists in the application
 		if (false == class_exists($className))
 		{
-			$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
+			$className = 'Joomla\\View\\Renderer\\' . ucfirst($renderer);
 
+			// Check if the specified renderer exists in the Framework
 			if (false == class_exists($className))
 			{
 				throw new \RuntimeException(sprintf('Invalid renderer: %s', $renderer));
@@ -119,6 +121,21 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		$this->renderer
 			->set('loginUrl', $gitHubHelper->getLoginUri())
 			->set('user', $app->getUser());
+
+		// Retrieve and clear the message queue
+		$this->renderer->set('flashBag', $app->getMessageQueue());
+		$app->clearMessageQueue();
+
+		// Add build commit if available
+		if (file_exists(JPATH_ROOT . '/current_SHA'))
+		{
+			$data = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
+			$this->renderer->set('buildSHA', $data);
+		}
+		else
+		{
+			$this->renderer->set('buildSHA', '');
+		}
 	}
 
 	/**

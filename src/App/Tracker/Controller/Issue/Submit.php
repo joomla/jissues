@@ -1,35 +1,44 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller\Ajax\Issue;
+namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
 use Joomla\Date\Date;
 
-use JTracker\Controller\AbstractAjaxController;
+use JTracker\Controller\AbstractTrackerController;
+use JTracker\Container;
 
 /**
  * Add issues controller class.
  *
  * @since  1.0
  */
-class Submit extends AbstractAjaxController
+class Submit extends AbstractTrackerController
 {
 	/**
-	 * Prepare the response.
+	 * Execute the controller.
 	 *
-	 * @since  1.0
-	 * @throws \Exception
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
-	protected function prepareResponse()
+	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('create');
+		$application = $this->getApplication();
+		$database    = Container::retrieve('db');
+		$gitHub      = $application->getGitHub();
+		$project     = $application->getProject();
+
+		$application->getUser()->authorize('create');
 
 		$title    = $this->getInput()->getString('title');
 		$body     = $this->getInput()->get('body', '', 'raw');
@@ -40,14 +49,11 @@ class Submit extends AbstractAjaxController
 			throw new \Exception('No body received.');
 		}
 
-		$project = $this->getApplication()->getProject();
-
 		$data = new \stdClass;
 
 		if ($project->gh_user && $project->gh_project)
 		{
-			$gitHubResponse = $this->getApplication()->getGitHub()
-				->issues->create(
+			$gitHubResponse = $gitHub->issues->create(
 					$project->gh_user, $project->gh_project,
 					$title, $body
 				);
@@ -62,8 +68,7 @@ class Submit extends AbstractAjaxController
 			$data->number     = $gitHubResponse->number;
 			$data->text       = $gitHubResponse->body;
 
-			$data->text = $this->getApplication()->getGitHub()->markdown
-				->render(
+			$data->text = $gitHub->markdown->render(
 					$body,
 					'gfm',
 					$project->gh_user . '/' . $project->gh_project
@@ -73,18 +78,17 @@ class Submit extends AbstractAjaxController
 		{
 			$date = new Date;
 
-			$data->created_at = $date->format($this->getApplication()->getDatabase()->getDateFormat());
-			$data->opened_by  = $this->getApplication()->getUser()->username;
+			$data->created_at = $date->format($database->getDateFormat());
+			$data->opened_by  = $application->getUser()->username;
 			$data->number     = '???';
 
 			$data->text_raw = $body;
 
-			$data->text = $this->getApplication()->getGitHub()->markdown
-				->render($body, 'markdown');
+			$data->text = $gitHub->markdown->render($body, 'markdown');
 		}
 
 		// Store the issue
-		$table = new IssuesTable($this->getApplication()->getDatabase());
+		$table = new IssuesTable($database);
 
 		$table->opened_date     = $data->created_at;
 		$table->opened_by       = $data->opened_by;
@@ -98,7 +102,7 @@ class Submit extends AbstractAjaxController
 		$table->check()->store();
 
 		// Store the activity
-		$table = new ActivitiesTable($this->getApplication()->getDatabase());
+		$table = new ActivitiesTable($database);
 
 		$table->event        = 'open';
 		$table->created_date = $data->created_at;
@@ -108,6 +112,13 @@ class Submit extends AbstractAjaxController
 
 		$table->check()->store();
 
-		$this->response->message = 'Your issue report has been submitted';
+		$application->enqueueMessage('Your issue report has been submitted', 'success');
+
+		$application->redirect(
+			$application->get('uri.base.path')
+			. 'tracker/' . $project->alias . '/' . $data->number
+		);
+
+		return;
 	}
 }

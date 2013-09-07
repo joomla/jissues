@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+
+        DocumentRoot /var/www/jissues
+
+        <Directory /var/www/jissues>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        CustomLog /vagrant/logs/vagrant-apache-access.log combined
+        ErrorLog /vagrant/logs/vagrant-apache-error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
+
+        LogLevel debug
+
+        SetEnv JTRACKER_ENVIRONMENT vagrant
+
+        ServerAdmin webmaster@localhost
+</VirtualHost>

@@ -1,6 +1,8 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Text Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -8,9 +10,10 @@ namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
 use App\Tracker\Controller\DefaultController;
+use JTracker\Container;
 
 /**
- * Controller class to save a project.
+ * Controller class to save an article.
  *
  * @since  1.0
  */
@@ -37,7 +40,7 @@ class SaveController extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($app->getDatabase());
+		$table = new ArticlesTable(Container::retrieve('db'));
 
 		$table->save($app->input->get('article', array(), 'array'));
 

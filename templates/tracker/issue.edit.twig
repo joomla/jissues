@@ -49,29 +49,13 @@
 
 {% block content %}
 
+    <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm">
+
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
     <!-- Status bar -->
+
     <ul class="breadcrumb">
-        <li>
-            <label for="status">Status</label>
-            <select name="item[status]" id="status" class="span2">
-                {% for status in statuses %}
-                    <option {{ status.id == item.status ? "selected='selected'" : ""  }}
-                            value="{{ status.id }}">
-                        {{ status.status }}
-                    </option>
-                {% endfor %}
-            </select>
-        </li>
-        <li>
-            <label for="priority">Priority</label>
-            <select name="item[priority]" id="priority" class="span1">
-                {% for i in range(1, 4) %}
-                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
-        </li>
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
@@ -96,7 +80,63 @@
         </li>
     </ul>
 
-    <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm">
+    <ul class="breadcrumb">
+        <li>
+            <label for="status">Status</label>
+            <select name="item[status]" id="status" class="span2">
+                {% for status in statuses %}
+                    <option {{ status.id == item.status ? "selected='selected'" : ""  }}
+                            value="{{ status.id }}">
+                        {{ status.status }}
+                    </option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="priority">Priority</label>
+            <select name="item[priority]" id="priority" class="span1">
+                {% for i in range(1, 5) %}
+                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="rel_type">Relation type</label>
+            <select name="item[rel_type]" id="rel_type" class="span2">
+                <option></option>
+                {% for relType in getRelTypes() %}
+                    {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
+                    <option {{ selected }} value="{{ relType.value }}">{{ relType.text }}</option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="rel_number">Relation Number</label>
+            <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
+        </li>
+    </ul>
+
+    <ul class="breadcrumb">
+        <li>
+            <label for="build">Build</label>
+            <input name="item[build]" id="build" type="text" class="span1" value="{{ item.build }}" />
+        </li>
+        <li>
+            <label for="tests"># of Successful Tests</label>
+            <select name="item[tests]" id="tests" class="span1">
+                {% for i in range(0, 5) %}
+                    <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+        </li>
+        <li>
+            <label for="tests">Easy Test</label>
+            <select name="item[easy]" id="easy" class="span1">
+                <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">No</option>
+                <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">Yes</option>
+            </select>
+        </li>
+    </ul>
 
     <div class="row-fluid">
 

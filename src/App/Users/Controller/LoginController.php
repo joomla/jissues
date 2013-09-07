@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Users Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -9,6 +11,8 @@ namespace App\Users\Controller;
 use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
+use Joomla\Github\Http;
+use Joomla\Http\HttpFactory;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
@@ -39,8 +43,6 @@ class LoginController extends AbstractTrackerController
 		{
 			// The user is already logged in.
 			$app->redirect('');
-
-			return '';
 		}
 
 		$error = $app->input->get('error');
@@ -92,23 +94,13 @@ class LoginController extends AbstractTrackerController
 		$options = new Registry;
 		$options->set('gh.token', $accessToken);
 
-		// @todo temporary fix to avoid the "Socket" transport protocol
-		$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl', 'stream'));
+		// GitHub API works best with cURL
+		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-		if (is_a($transport, 'Joomla\\Http\\Transport\\Socket'))
-		{
-			throw new \RuntimeException('Please either enable cURL or url_fopen');
-		}
+		$http = new Http($options, $transport);
 
-		$http = new \Joomla\Github\Http($options, $transport);
-
-		// $app->debugOut(get_class($transport));
-
-		// Instantiate J\Github
+		// Instantiate Github
 		$gitHub = new Github($options, $http);
-
-		// @todo after fix this should be enough:
-		// $this->github = new Github($options);
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
@@ -118,7 +110,10 @@ class LoginController extends AbstractTrackerController
 			->loadByUserName($user->username);
 
 		// Save the avatar
-		GitHubLoginHelper::saveAvatar($user);
+		GitHubLoginHelper::saveAvatar($user->username);
+
+		// Set the last visit time
+		GitHubLoginHelper::setLastVisitTime($user->id);
 
 		// User login
 		$app->setUser($user);
@@ -128,7 +123,5 @@ class LoginController extends AbstractTrackerController
 		$redirect = $redirect ? base64_decode($redirect) : '';
 
 		$app->redirect($redirect);
-
-		return '';
 	}
 }

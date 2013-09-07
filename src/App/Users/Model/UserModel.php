@@ -1,15 +1,16 @@
 <?php
 /**
+ * Part of the Joomla Tracker's Users Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Users\Model;
 
-use Joomla\Factory;
-use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Container;
 
 /**
  * User model class for the Users component.
@@ -23,18 +24,18 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $itemId  The item id.
 	 *
-	 * @return  TableUsers
+	 * @return  GitHubUser
 	 *
 	 * @since   1.0
 	 */
 	public function getItem($itemId = null)
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		if (!$itemId)
 		{
-			return  $application->getUser();
+			return $application->getUser();
 		}
 
 		try
@@ -43,10 +44,6 @@ class UserModel extends AbstractTrackerDatabaseModel
 		}
 		catch (\RuntimeException $e)
 		{
-			// @@@echo $e->getMessage();
-
-			// Factory::$application->enqueueMessage($e->getMessage(), 'error');
-
 			// Load a blank user
 			$user = new GitHubUser;
 		}

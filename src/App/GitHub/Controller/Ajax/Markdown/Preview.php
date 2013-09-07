@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla Tracker's GitHub Application
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -9,7 +11,7 @@ namespace App\GitHub\Controller\Ajax\Markdown;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Default controller class for the Tracker component.
+ * Controller class to render a text entry in GitHub Flavored Markdown format.
  *
  * @since  1.0
  */
@@ -18,10 +20,10 @@ class Preview extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @since  1.0
+	 * @return  void
 	 *
-	 * @throws \Exception
-	 * @return  boolean
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function execute()
 	{

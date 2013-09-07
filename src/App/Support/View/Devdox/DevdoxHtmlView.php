@@ -1,39 +1,45 @@
 <?php
 /**
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * Part of the Joomla Tracker's Support Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Support\View\Devdox;
 
 use App\Support\Model\DefaultModel;
-use Joomla\Factory;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\Container;
 
 /**
- * The issues item view
+ * The developer documentation view
  *
  * @since  1.0
  */
 class DevdoxHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * @var  DefaultModel
+	 * The model object.
+	 *
+	 * @var    DefaultModel
+	 * @since  1.0
 	 */
 	protected $model;
 
 	/**
 	 * Method to render the view.
 	 *
+	 * @return  string  The rendered view.
+	 *
 	 * @since   1.0
 	 * @throws  RoutingException
-	 * @return  string  The rendered view.
 	 */
 	public function render()
 	{
 		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Factory::$application;
+		$application = Container::retrieve('app');
 
 		$alias = $application->input->getCmd('alias');
 
