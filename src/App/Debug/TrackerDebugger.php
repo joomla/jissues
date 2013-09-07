@@ -348,16 +348,16 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Render language debug information.
 	 *
-	 * @since  1.0
 	 * @return string
+	 *
+	 * @since  1.0
 	 */
 	public function renderLanguageFiles()
 	{
 		$items = array();
 		$tableFormat = new TableFormat;
-		$events = (class_exists('g11n')) ? g11n::getEvents() : array();
 
-		foreach ($events as $e)
+		foreach (g11n::getEvents() as $e)
 		{
 			$items[] = ArrayHelper::fromObject($e);
 		}
@@ -475,6 +475,8 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * @param   LoggerInterface  $logger  The logger.
 	 *
 	 * @return null
+	 *
+	 * @since   1.0
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
@@ -484,8 +486,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Render database information.
 	 *
-	 * @since  1.0
 	 * @return string
+	 *
+	 * @since  1.0
 	 */
 	protected function renderDatabase()
 	{
@@ -557,12 +560,14 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * Prints out translated and untranslated strings.
 	 *
 	 * @return string
+	 *
+	 * @since   1.0
 	 */
 	protected function renderLanguageStrings()
 	{
 		$html = array();
 
-		$items =(class_exists('g11n')) ? g11n::get('processedItems') : array();
+		$items = g11n::get('processedItems');
 
 		$html[] = '<table class="table table-hover table-condensed">';
 		$html[] = '<tr>';
