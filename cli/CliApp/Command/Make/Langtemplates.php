@@ -426,7 +426,8 @@ class Langtemplates extends Make
 
 				if (false == array_key_exists($path, $pathMap))
 				{
-					throw new \RuntimeException('Unknown file: ' . $path);
+					// Not a twig template
+					continue;
 				}
 
 				$twigPhp = $pathMap[$path];

@@ -6,18 +6,23 @@
 
 namespace CliApp\Application;
 
+use CliApp\Command\TrackerCommandOption;
+use CliApp\Exception\AbortException;
+use CliApp\Service\Provider\Application;
+
 use Elkuku\Console\Helper\ConsoleProgressBar;
+
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Github\Github;
 use Joomla\Input;
 use Joomla\Registry\Registry;
-use Joomla\Database\DatabaseDriver;
 
-use CliApp\Command\TrackerCommandOption;
-use CliApp\Exception\AbortException;
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Container;
+use JTracker\Service\DatabaseServiceProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -111,6 +116,11 @@ class CliApplication extends AbstractCliApplication
 		);
 
 		$this->loadConfiguration();
+
+		// Build the DI Container
+		$container = Container::getInstance();
+		$container->registerServiceProvider(new Application($this))
+			->registerServiceProvider(new DatabaseServiceProvider);
 
 		/* @type ColorProcessor $processor */
 		$processor = $this->getOutput()->getProcessor();
