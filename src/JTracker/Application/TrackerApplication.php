@@ -17,12 +17,10 @@ use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
-use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Github\Github;
 use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
-use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -84,22 +82,6 @@ final class TrackerApplication extends AbstractWebApplication
 	 * @since  1.0
 	 */
 	private $project;
-
-	/**
-	 * The database driver object.
-	 *
-	 * @var    DatabaseDriver
-	 * @since  1.0
-	 */
-	private $database;
-
-	/**
-	 * The Language object
-	 *
-	 * @var    Language
-	 * @since  1.0
-	 */
-	private $language;
 
 	/**
 	 * The Debugger object
@@ -324,7 +306,7 @@ final class TrackerApplication extends AbstractWebApplication
 	protected function executeApp(ControllerInterface $controller, $app)
 	{
 		// Load the App language file
-		g11n::addDomainPath('App', JPATH_BASE . '/src/App');
+		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 		g11n::loadLanguage($app, 'App');
 
 		// Start an output buffer.
@@ -431,10 +413,10 @@ final class TrackerApplication extends AbstractWebApplication
 		g11n::setDebug($this->get('debug.language'));
 
 		// Set the directory used to store language cache files
-		g11n::setCacheDir(JPATH_BASE . '/cache');
+		g11n::setCacheDir(JPATH_ROOT . '/cache');
 
 		// Load the core language file
-		g11n::addDomainPath('Core', JPATH_BASE . '/src');
+		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
 		g11n::loadLanguage('JTracker', 'Core');
 
 		return $this;
@@ -449,7 +431,7 @@ final class TrackerApplication extends AbstractWebApplication
 	protected function loadTemplate()
 	{
 		// Load template language files.
-		g11n::addDomainPath('Template', JPATH_BASE . '/templates');
+		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
 		g11n::loadLanguage('JTracker', 'Template');
 
 		return $this;
