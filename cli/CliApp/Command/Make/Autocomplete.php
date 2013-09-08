@@ -6,7 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommand;
 
 /**
@@ -19,13 +18,12 @@ class Autocomplete extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
+
 		$this->description = 'Generate an auto complete file for PHPStorm.';
 	}
 
@@ -102,7 +100,8 @@ class Autocomplete extends Make
 
 		$domNode = dom_import_simplexml($xml);
 		$domNode = $doc->importNode($domNode, true);
-		$domNode = $doc->appendChild($domNode);
+
+		$doc->appendChild($domNode);
 
 		echo $doc->saveXML();
 

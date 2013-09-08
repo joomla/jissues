@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
@@ -37,13 +35,11 @@ class Make extends TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		parent::__construct($application);
+		parent::__construct();
 
 		$this->description = 'The make engine.';
 

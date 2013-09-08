@@ -9,9 +9,7 @@
 
 namespace CliApp\Command;
 
-use CliApp\Application\CliApplication;
-
-use Joomla\Database\DatabaseDriver;
+use JTracker\Container;
 
 /**
  * TrackerCommand class
@@ -21,7 +19,7 @@ use Joomla\Database\DatabaseDriver;
 abstract class TrackerCommand
 {
 	/**
-	 * @var    CliApplication
+	 * @var    \CliApp\Application\CliApplication
 	 * @since  1.0
 	 */
 	protected $application;
@@ -43,13 +41,11 @@ abstract class TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		$this->application = Container::retrieve('app');
 	}
 
 	/**
@@ -95,7 +91,7 @@ abstract class TrackerCommand
 	 * @param   string   $text  The text to display.
 	 * @param   boolean  $nl    True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  TrackerCommand
+	 * @return  $this
 	 *
 	 * @codeCoverageIgnore
 	 * @since   1.0
@@ -112,7 +108,7 @@ abstract class TrackerCommand
 	 *
 	 * @param   string  $text  The text to display.
 	 *
-	 * @return  CliApplication
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -121,5 +117,17 @@ abstract class TrackerCommand
 		$this->application->debugOut($text);
 
 		return $this;
+	}
+
+	/**
+	 * Write a string to the standard output if an operation has terminated successfully.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	protected function outOK()
+	{
+		return $this->out('<ok>ok</ok>');
 	}
 }

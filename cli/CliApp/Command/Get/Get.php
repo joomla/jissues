@@ -12,13 +12,13 @@ namespace CliApp\Command\Get;
 use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
 
-use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
 use Joomla\Github\Github;
-use Joomla\Registry\Registry;
+
+use JTracker\Container;
 
 /**
  * Class for retrieving data from GitHub for selected projects
@@ -60,13 +60,11 @@ class Get extends TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		parent::__construct($application);
+		parent::__construct();
 
 		$this->description = 'Retrieve <cmd><issues></cmd>, <cmd><comments></cmd> or <cmd><avatars></cmd>.';
 
@@ -123,7 +121,7 @@ class Get extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel($this->application->getDatabase()))->getItems();
+		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 

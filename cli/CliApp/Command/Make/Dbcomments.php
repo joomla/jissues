@@ -6,8 +6,7 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-use CliApp\Command\TrackerCommand;
+use JTracker\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -19,13 +18,12 @@ class Dbcomments extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
+
 		$this->description = 'Generate file headers for Table classes.';
 	}
 
@@ -40,7 +38,8 @@ class Dbcomments extends Make
 	{
 		$this->application->outputTitle('Make DB Comments');
 
-		$db = $this->application->getDatabase();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
 
 		$tables = $db->getTableList();
 

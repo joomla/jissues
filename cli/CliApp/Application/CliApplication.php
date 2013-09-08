@@ -6,18 +6,22 @@
 
 namespace CliApp\Application;
 
+use CliApp\Command\TrackerCommandOption;
+use CliApp\Exception\AbortException;
+use CliApp\Service\Provider\Application;
+
 use Elkuku\Console\Helper\ConsoleProgressBar;
+
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\Github\Github;
 use Joomla\Input;
 use Joomla\Registry\Registry;
-use Joomla\Database\DatabaseDriver;
 
-use CliApp\Command\TrackerCommandOption;
-use CliApp\Exception\AbortException;
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Container;
+use JTracker\Service\DatabaseServiceProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -26,14 +30,6 @@ use JTracker\Authentication\GitHub\GitHubUser;
  */
 class CliApplication extends AbstractCliApplication
 {
-	/**
-	 * Database object
-	 *
-	 * @var    DatabaseDriver
-	 * @since  1.0
-	 */
-	private $database = null;
-
 	/**
 	 * @var Github
 	 */
@@ -95,6 +91,13 @@ class CliApplication extends AbstractCliApplication
 	{
 		parent::__construct($input, $config);
 
+		$this->loadConfiguration();
+
+		// Build the DI Container
+		Container::getInstance()
+			->registerServiceProvider(new Application($this))
+			->registerServiceProvider(new DatabaseServiceProvider);
+
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
 			'Be quiet - suppress output.'
@@ -109,8 +112,6 @@ class CliApplication extends AbstractCliApplication
 			'nocolors', '',
 			'Supprees ANSI colors on unsupported terminals.'
 		);
-
-		$this->loadConfiguration();
 
 		/* @type ColorProcessor $processor */
 		$processor = $this->getOutput()->getProcessor();
@@ -132,23 +133,6 @@ class CliApplication extends AbstractCliApplication
 		{
 			$this->usePBar = false;
 		}
-	}
-
-	/**
-	 * Get a database driver object.
-	 *
-	 * @return  DatabaseDriver
-	 *
-	 * @since   1.0
-	 */
-	public function getDatabase()
-	{
-		if (is_null($this->database))
-		{
-			return $this->createDatabase();
-		}
-
-		return $this->database;
 	}
 
 	/**
@@ -315,34 +299,6 @@ class CliApplication extends AbstractCliApplication
 		$this->config->loadObject($config);
 
 		return $this;
-	}
-
-	/**
-	 * Create an database object.
-	 *
-	 * @return  DatabaseDriver  Database driver instance
-	 *
-	 * @see     DatabaseDriver::getInstance()
-	 * @since   1.0
-	 */
-	protected function createDatabase()
-	{
-		$options = array(
-			'driver' => $this->get('database.driver'),
-			'host' => $this->get('database.host'),
-			'user' => $this->get('database.user'),
-			'password' => $this->get('database.password'),
-			'database' => $this->get('database.name'),
-			'prefix' => $this->get('database.prefix')
-		);
-
-		$database = DatabaseDriver::getInstance($options);
-
-		$database->setDebug($this->get('debug'));
-
-		$this->database = $database;
-
-		return $database;
 	}
 
 	/**
