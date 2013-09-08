@@ -25,7 +25,7 @@ class Application implements ServiceProviderInterface
 	 * @var    AbstractApplication
 	 * @since  1.0
 	 */
-	private static $app;
+	private $app;
 
 	/**
 	 * Constructor
@@ -36,7 +36,7 @@ class Application implements ServiceProviderInterface
 	 */
 	public function __construct(AbstractApplication $app)
 	{
-		static::$app = $app;
+		$this->app = $app;
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Application implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$app = static::$app;
+		$app = $this->app;
 
 		$container->set(
 			'app',
