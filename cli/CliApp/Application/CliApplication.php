@@ -21,6 +21,7 @@ use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Container;
+use JTracker\Service\Configuration;
 use JTracker\Service\DatabaseServiceProvider;
 
 /**
@@ -91,11 +92,10 @@ class CliApplication extends AbstractCliApplication
 	{
 		parent::__construct($input, $config);
 
-		$this->loadConfiguration();
-
 		// Build the DI Container
 		Container::getInstance()
 			->registerServiceProvider(new Application($this))
+			->registerServiceProvider(new Configuration($this->config))
 			->registerServiceProvider(new DatabaseServiceProvider);
 
 		$this->commandOptions[] = new TrackerCommandOption(
@@ -260,43 +260,6 @@ class CliApplication extends AbstractCliApplication
 		}
 
 		$this->out(str_repeat('-', $width));
-
-		return $this;
-	}
-
-	/**
-	 * Load the application configuration.
-	 *
-	 * @return  CliApplication
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function loadConfiguration()
-	{
-		// Check for a custom configuration.
-		$type = getenv('JTRACKER_ENVIRONMENT');
-
-		$name = ($type) ? 'config.' . $type : 'config';
-
-		// Set the configuration file path for the application.
-		$file = realpath(__DIR__ . '/../../..') . '/etc/' . $name . '.json';
-
-		// Verify the configuration exists and is readable.
-		if (!is_readable($file))
-		{
-			throw new \RuntimeException('Configuration file does not exist or is unreadable.');
-		}
-
-		// Load the configuration file into an object.
-		$config = json_decode(file_get_contents($file));
-
-		if ($config === null)
-		{
-			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
-		}
-
-		$this->config->loadObject($config);
 
 		return $this;
 	}

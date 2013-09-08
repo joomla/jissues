@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "436253110c9e47c8cbfb9a6b2780e812480a31ab"
+                "reference": "860791f6de6958fdbc8c080302b31aa9e25002c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/436253110c9e47c8cbfb9a6b2780e812480a31ab",
-                "reference": "436253110c9e47c8cbfb9a6b2780e812480a31ab",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/860791f6de6958fdbc8c080302b31aa9e25002c4",
+                "reference": "860791f6de6958fdbc8c080302b31aa9e25002c4",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-08-29 11:32:20"
+            "time": "2013-09-06 16:32:10"
         },
         {
             "name": "mustache/mustache",
@@ -433,12 +433,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "ada810111ced4e3a926b4040da9b86442e43b613"
+                "reference": "56f995a5f8eccbb814dad195dc34d1aa963301d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/ada810111ced4e3a926b4040da9b86442e43b613",
-                "reference": "ada810111ced4e3a926b4040da9b86442e43b613",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/56f995a5f8eccbb814dad195dc34d1aa963301d6",
+                "reference": "56f995a5f8eccbb814dad195dc34d1aa963301d6",
                 "shasum": ""
             },
             "require": {
@@ -471,7 +471,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-08-12 22:46:16"
+            "time": "2013-09-09 08:33:57"
         }
     ],
     "aliases": [
