@@ -6737,8 +6737,8 @@ input.invalid {
 }
 @font-face {
   font-family: 'IcoMoon';
-  src: url('../fonts/icomoon.eot');
-  src: url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'), url('../fonts/icomoon.svg#IcoMoon') format('svg'), url('../fonts/icomoon.woff') format('woff'), url('../fonts/icomoon.ttf') format('truetype');
+  src: url('../fonts/icomoon-extended.eot');
+  src: url('../fonts/icomoon-extended.eot?#iefix') format('embedded-opentype'), url('../fonts/icomoon-extended.svg#IcoMoon') format('svg'), url('../fonts/icomoon-extended.woff') format('woff'), url('../fonts/icomoon-extended.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -8287,6 +8287,13 @@ body .navbar-fixed-top {
 /* Button Toggle Fix */
 .btn-group > .btn + .dropdown-toggle {
   height: 18px;
+}
+/* nav-search form mod */
+div#nav-search form {
+  margin: 0;
+}
+div#nav-search form input[type="text"] {
+  color: #777777;
 }
 @media (max-width: 738px) {
   body.site {
