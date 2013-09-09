@@ -8,7 +8,7 @@ namespace CliApp\Command\Get;
 
 use App\Projects\Table\LabelsTable;
 
-use CliApp\Application\CliApplication;
+use JTracker\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -20,13 +20,11 @@ class Project extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
 
 		$this->description = 'Get the project info from GitHub.';
 
@@ -78,7 +76,8 @@ class Project extends Get
 	{
 		$this->out('Fetching labels...', false);
 
-		$db = $this->application->getDatabase();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
 
 		$table = new LabelsTable($db);
 

@@ -10,9 +10,9 @@ use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ActivitiesTable;
 
-use CliApp\Application\CliApplication;
-
 use Joomla\Date\Date;
+
+use JTracker\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -24,13 +24,11 @@ class Issues extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
 
 		$this->description = 'Retrieve issues from GitHub.';
 
@@ -152,7 +150,8 @@ class Issues extends Get
 	protected function processIssues($issues)
 	{
 		// Initialize our database object
-		$db    = $this->application->getDatabase();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
 		$query = $db->getQuery(true);
 		$added = 0;
 
@@ -288,7 +287,8 @@ class Issues extends Get
 
 		if (!$labels)
 		{
-			$db = $this->application->getDatabase();
+			/* @type \Joomla\Database\DatabaseDriver $db */
+			$db = Container::getInstance()->get('db');
 
 			$table = new LabelsTable($db);
 

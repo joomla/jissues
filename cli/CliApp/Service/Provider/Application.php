@@ -8,10 +8,9 @@
 
 namespace CliApp\Service\Provider;
 
-use CliApp\Application\CliApplication;
+use Joomla\Application\AbstractApplication;
+use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-
-use JTracker\Container;
 
 /**
  * Class Application service.
@@ -23,45 +22,42 @@ class Application implements ServiceProviderInterface
 	/**
 	 * Application instance
 	 *
-	 * @var    CliApplication
+	 * @var    AbstractApplication
 	 * @since  1.0
 	 */
-	private static $app;
+	private $app;
 
 	/**
 	 * Constructor
 	 *
-	 * @param   CliApplication  $app  Application instance
+	 * @param   AbstractApplication  $app  Application instance
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $app)
+	public function __construct(AbstractApplication $app)
 	{
-		static::$app = $app;
+		$this->app = $app;
 	}
 
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   \Joomla\DI\Container  $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns itself to support chaining.
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function register(\Joomla\DI\Container $container)
+	public function register(Container $container)
 	{
-		$app = static::$app;
+		$app = $this->app;
 
 		$container->set(
-			'JTracker\\Application\\TrackerApplication',
+			'app',
 			function () use ($app)
 			{
 				return $app;
 			}, true, true
 		);
-
-		// Alias the application
-		$container->alias('app', 'JTracker\\Application\\TrackerApplication');
 	}
 }

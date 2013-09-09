@@ -8,6 +8,7 @@ namespace CliApp\Command\Help;
 
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
+
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 

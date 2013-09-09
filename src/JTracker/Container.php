@@ -36,8 +36,8 @@ class Container extends JoomlaContainer
 	/**
 	 * Method to create an alias for a service provider
 	 *
-	 * @param   $alias    The alias to create
-	 * @param   $binding  The object to create the alias for
+	 * @param   string  $alias    The alias to create
+	 * @param   string  $binding  The object to create the alias for
 	 *
 	 * @return  $this  Method supports chaining
 	 *

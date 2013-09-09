@@ -8,10 +8,11 @@ namespace CliApp\Command\Get;
 
 use App\Tracker\Table\ActivitiesTable;
 
-use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
+
+use JTracker\Container;
 
 /**
  * Class for retrieving comments from GitHub for selected projects
@@ -51,13 +52,11 @@ class Comments extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
 
 		$this->description = 'Retrieve comments from GitHub.';
 
@@ -155,7 +154,8 @@ class Comments extends Get
 	 */
 	protected function getIssues()
 	{
-		$db = $this->application->getDatabase();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
 
 		$query = $db->getQuery(true);
 
@@ -226,7 +226,7 @@ class Comments extends Get
 
 		// Retrieved items, report status
 		$this->out()
-			->out('<ok>ok</ok>');
+			->outOK();
 
 		return $this;
 	}
@@ -240,7 +240,8 @@ class Comments extends Get
 	 */
 	protected function processComments()
 	{
-		$db = $this->application->getDatabase();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
 
 		// Initialize our database object
 		$query = $db->getQuery(true);

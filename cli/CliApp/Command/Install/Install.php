@@ -6,10 +6,11 @@
 
 namespace CliApp\Command\Install;
 
-use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
+
+use JTracker\Container;
 
 /**
  * Class to install the tracker application.
@@ -19,15 +20,20 @@ use CliApp\Exception\AbortException;
 class Install extends TrackerCommand
 {
 	/**
+	 *  @var \Joomla\Database\DatabaseDriver
+	 */
+	private $db = null;
+
+	/**
 	 * Constructor.
-	 *
-	 * @param   CliApplication  $application  The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		parent::__construct($application);
+		parent::__construct();
+
+		$this->db = Container::getInstance()->get('db');
 
 		$this->description = 'Install the application.';
 
@@ -53,12 +59,10 @@ class Install extends TrackerCommand
 	{
 		$this->application->outputTitle('Installer');
 
-		$db = $this->application->getDatabase();
-
 		try
 		{
 			// Check if the database "exists"
-			$tables = $db->getTableList();
+			$tables = $this->db->getTableList();
 
 			if (!$this->application->input->get('reinstall'))
 			{
@@ -74,7 +78,7 @@ class Install extends TrackerCommand
 			}
 
 			$this->cleanDatabase($tables)
-				->out('<ok>ok</ok>');
+				->outOK();
 		}
 		catch (\RuntimeException $e)
 		{
@@ -86,12 +90,12 @@ class Install extends TrackerCommand
 					->out('No database found.')
 					->out('Creating the database...', false);
 
-				$db->setQuery('CREATE DATABASE ' . $db->quoteName($this->application->get('database.name')))
+				$this->db->setQuery('CREATE DATABASE ' . $this->db->quoteName($this->application->get('database.name')))
 					->execute();
 
-				$db->select($this->application->get('database.name'));
+				$this->db->select($this->application->get('database.name'));
 
-				$this->out('<ok>ok</ok>');
+				$this->outOK();
 			}
 			else
 			{
@@ -102,8 +106,6 @@ class Install extends TrackerCommand
 		// Perform the installation
 		$this
 			->processSql()
-			->processOptionalSql()
-			->createAdminUser()
 			->out()
 			->out('<ok>Installer has terminated successfully.</ok>');
 	}
@@ -117,13 +119,10 @@ class Install extends TrackerCommand
 	 */
 	private function cleanDatabase(array $tables)
 	{
-		$db = $this->application->getDatabase();
-
-		// Remove existing tables
 		$this->out('Removing existing tables...', false);
 
 		// Foreign key constraint fails fix
-		$db->setQuery('SET FOREIGN_KEY_CHECKS=0')
+		$this->db->setQuery('SET FOREIGN_KEY_CHECKS=0')
 			->execute();
 
 		foreach ($tables as $table)
@@ -133,12 +132,12 @@ class Install extends TrackerCommand
 				continue;
 			}
 
-			$db->setQuery('DROP TABLE IF EXISTS ' . $table)
+			$this->db->setQuery('DROP TABLE IF EXISTS ' . $table)
 				->execute();
 			$this->out('.', false);
 		}
 
-		$db->setQuery('SET FOREIGN_KEY_CHECKS=1')
+		$this->db->setQuery('SET FOREIGN_KEY_CHECKS=1')
 			->execute();
 
 		return $this;
@@ -154,7 +153,7 @@ class Install extends TrackerCommand
 	 */
 	private function processSql()
 	{
-		$db = $this->application->getDatabase();
+		//$db = $this->application->getDatabase();
 
 		// Install.
 		$dbType = $this->application->get('database.driver');
@@ -180,171 +179,22 @@ class Install extends TrackerCommand
 
 		$this->out(sprintf('Creating tables from file %s', realpath($fName)), false);
 
-		foreach ($db->splitSql($sql) as $query)
+		foreach ($this->db->splitSql($sql) as $query)
 		{
-			$q = trim($db->replacePrefix($query));
+			$q = trim($this->db->replacePrefix($query));
 
 			if ('' == trim($q))
 			{
 				continue;
 			}
 
-			$db->setQuery($q)
+			$this->db->setQuery($q)
 				->execute();
 
 			$this->out('.', false);
 		}
 
-		$this->out('<ok>ok</ok>');
-
-		return $this;
-	}
-
-	/**
-	 * Process optional SQL files.
-	 *
-	 * @since  1.0
-	 * @throws \UnexpectedValueException
-	 * @return $this
-	 */
-	private function processOptionalSql()
-	{
-		// @todo disabled
-
-		return $this;
-
-		$dbType = $this->application->get('database.driver');
-		$db = $this->application->getDatabase();
-
-		/* @type \DirectoryIterator $fileInfo */
-		foreach (new \DirectoryIterator(JPATH_ROOT . '/sql') as $fileInfo)
-		{
-			if ($fileInfo->isDot())
-			{
-				continue;
-			}
-
-			$fileName = $fileInfo->getFilename();
-
-			if ('index.html' == $fileName
-				|| $dbType . '.sql' == $fileName)
-			{
-				continue;
-			}
-
-			// Process optional SQL files
-
-			$this->out(sprintf('Process: %s? [[y]]es / [n]o :', $fileName), false);
-
-			$in = trim($this->application->in());
-
-			if ('no' == $in || 'n' == $in)
-			{
-				continue;
-			}
-
-			$sql = file_get_contents(JPATH_ROOT . '/sql/' . $fileName);
-
-			if (false == $sql)
-			{
-				throw new \UnexpectedValueException('SQL file not found.');
-			}
-
-			$this->out(sprintf('Processing %s', $fileName), false);
-
-			foreach ($db->splitSql($sql) as $query)
-			{
-				$q = trim($db->replacePrefix($query));
-
-				if ('' == trim($q))
-				{
-					continue;
-				}
-
-				$db->setQuery($q)->execute();
-
-				$this->out('.', false);
-			}
-
-			$this->out('<ok>ok</ok>');
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Create an admin user account.
-	 *
-	 * @since  1.0
-	 * @return $this
-	 */
-	private function createAdminUser()
-	{
-		// @todo disabled
-
-		return $this;
-
-		$db = $this->application->getDatabase();
-
-		$this->out('Do you want to create an admin user? [[y]]es / [n]o :', false);
-
-		$in = trim($this->application->in());
-
-		if ('no' != $in && 'n' != $in)
-		{
-			$this->out('Username [[admin]]: ', false);
-			$username = trim($this->application->in());
-			$username = $username ? : 'admin';
-
-			$this->out('Password [[test]]: ', false);
-			$password = trim($this->application->in());
-			$password = $password ? : 'test';
-
-			// JUserHelper::genRandomPassword(32);
-			$salt  = 'a';
-
-			// JUserHelper::getCryptedPassword($password, $salt);
-			$crypt = 'b';
-
-			$query = $db->getQuery(true);
-
-			$data = array(
-				$db->quoteName('name')          => $db->quote('Super User'),
-				$db->quoteName('username')      => $db->quote($username),
-				$db->quoteName('password')      => $db->quote($crypt . ':' . $salt),
-				$db->quoteName('email')         => $db->quote('test@localhost.test'),
-				$db->quoteName('block')         => 0,
-				$db->quoteName('sendEmail')     => 1,
-				$db->quoteName('registerDate')  => $db->quote('0000-00-00 00:00:00'),
-				$db->quoteName('lastvisitDate') => $db->quote('0000-00-00 00:00:00'),
-				$db->quoteName('activation')    => 0,
-				$db->quoteName('params')        => $db->quote('{}'),
-				$db->quoteName('lastResetTime') => $db->quote('0000-00-00 00:00:00'),
-				$db->quoteName('resetCount')    => 0
-			);
-
-			$db->setQuery(
-				$query->insert('#__users')
-					->columns(array_keys($data))
-					->values(implode(',', $data))
-			)->execute();
-
-			$userId = $db->insertid();
-
-			$data = array(
-				$db->quoteName('user_id')  => $userId,
-				$db->quoteName('group_id') => 8
-			);
-
-			$db->setQuery(
-				$query->clear()
-					->insert('#__user_usergroup_map')
-					->columns(array_keys($data))
-					->values(implode(',', $data))
-			)->execute();
-
-			$this->out('<ok>User created.</ok>');
-		}
+		$this->outOk();
 
 		return $this;
 	}

@@ -6,10 +6,9 @@
 
 namespace CliApp\Command\Get;
 
-use CliApp\Application\CliApplication;
-
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -21,13 +20,12 @@ class Avatars extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
+
 		$this->description = 'Retrieve avatar images from GitHub.';
 		$this->usePBar     = $this->application->get('cli-application.progress-bar');
 
@@ -55,7 +53,8 @@ class Avatars extends Get
 			->setupGitHub()
 			->displayGitHubRateLimit();
 
-		$db = $this->application->getDatabase();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
 
 		$users = $db->setQuery(
 			$db->getQuery(true)
