@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Service\Provider;
+namespace CliApp\Service;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\DI\Container;
@@ -17,7 +17,7 @@ use Joomla\DI\ServiceProviderInterface;
  *
  * @since  1.0
  */
-class Application implements ServiceProviderInterface
+class ApplicationProvider implements ServiceProviderInterface
 {
 	/**
 	 * Application instance

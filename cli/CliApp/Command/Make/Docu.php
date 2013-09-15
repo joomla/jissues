@@ -46,7 +46,7 @@ class Docu extends Make
 	{
 		$this->application->outputTitle('Make Documentation');
 
-		$this->github = $this->application->getGitHub();
+		$this->github = Container::retrieve('gitHub');
 
 		$this->application->displayGitHubRateLimit();
 
