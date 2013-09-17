@@ -151,7 +151,7 @@ class GitHubLoginHelper
 	 *
 	 * NOTE: A redirect is expected while fetching the avatar.
 	 *
-	 * @param   string  $user  The username to retrieve the avatar for.
+	 * @param   string  $username  The username to retrieve the avatar for.
 	 *
 	 * @return  void
 	 *
@@ -169,11 +169,10 @@ class GitHubLoginHelper
 				throw new \RuntimeException('cURL is not installed - no avatar support ;(');
 			}
 
-			/* @type \JTracker\Application\TrackerApplication $app */
-			$app = Container::retrieve('app');
-			$user = $app->getGitHub()->users->get($username);
+			/* @type \Joomla\Github\Github $github */
+			$github = Container::retrieve('gitHub');
 
-			$ch = curl_init($user->avatar_url);
+			$ch = curl_init($github->users->get($username)->avatar_url);
 
 			curl_setopt($ch, CURLOPT_HEADER, false);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
