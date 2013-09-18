@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "860791f6de6958fdbc8c080302b31aa9e25002c4"
+                "reference": "8129e98260a0bd6ab91241e6dec4cb1c1841b5cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/860791f6de6958fdbc8c080302b31aa9e25002c4",
-                "reference": "860791f6de6958fdbc8c080302b31aa9e25002c4",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/8129e98260a0bd6ab91241e6dec4cb1c1841b5cb",
+                "reference": "8129e98260a0bd6ab91241e6dec4cb1c1841b5cb",
                 "shasum": ""
             },
             "require": {
@@ -119,6 +119,9 @@
                 },
                 "classmap": [
                     "src/Joomla/Compat/JsonSerializable.php"
+                ],
+                "files": [
+                    "src/Joomla/PHP/methods.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -131,7 +134,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-09-06 16:32:10"
+            "time": "2013-09-16 21:30:33"
         },
         {
             "name": "mustache/mustache",
