@@ -15,6 +15,11 @@ use Joomla\Registry\Registry;
 
 use JTracker\Container;
 
+/**
+ * Class GitHubProvider
+ *
+ * @since  1.0
+ */
 class GitHubProvider implements ServiceProviderInterface
 {
 	/**
@@ -43,23 +48,14 @@ class GitHubProvider implements ServiceProviderInterface
 
 			$app = Container::retrieve('app');
 
-			if ($app->input->get('auth'))
-			{
-				$resp = 'yes';
-			}
-			else
-			{
-				// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-				$app->out('<question>Do you wish to authenticate to GitHub?</question> [y]es / <b>[n]o</b> :', false);
+			$user = $app->get('github.username');
+			$password = $app->get('github.password');
 
-				$resp = trim($app->in());
-			}
-
-			if ($resp == 'y' || $resp == 'yes')
+			if ($user && $password)
 			{
 				// Set the options
-				$options->set('api.username', $app->get('github.username', ''));
-				$options->set('api.password', $app->get('github.password', ''));
+				$options->set('api.username', $user);
+				$options->set('api.password', $password);
 
 				//$this->debugOut('GitHub credentials: ' . print_r($options, true));
 			}
