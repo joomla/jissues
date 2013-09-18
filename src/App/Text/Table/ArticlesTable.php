@@ -45,7 +45,7 @@ class ArticlesTable extends AbstractDatabaseTable
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @return  void
+	 * @return  ArticlesTable
 	 *
 	 * @since   1.0
 	 */
