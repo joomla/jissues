@@ -6,6 +6,7 @@
 
 namespace App\Debug;
 
+use Joomla\Application\AbstractApplication;
 use Joomla\Profiler\Profiler;
 
 use Joomla\Utilities\ArrayHelper;
@@ -19,7 +20,6 @@ use App\Debug\Handler\ProductionHandler;
 
 use Kint;
 
-use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -65,11 +65,11 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerApplication  $application  The application
+	 * @param   AbstractApplication  $application  The application
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $application)
+	public function __construct(AbstractApplication $application)
 	{
 		$this->application = $application;
 
