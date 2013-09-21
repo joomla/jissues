@@ -153,8 +153,6 @@ class Install extends TrackerCommand
 	 */
 	private function processSql()
 	{
-		//$db = $this->application->getDatabase();
-
 		// Install.
 		$dbType = $this->application->get('database.driver');
 

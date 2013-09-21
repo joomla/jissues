@@ -33,7 +33,7 @@ class GitHubProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param \Joomla\DI\Container $container The DI container.
+	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
 	 * @throws \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
@@ -56,8 +56,6 @@ class GitHubProvider implements ServiceProviderInterface
 				// Set the options
 				$options->set('api.username', $user);
 				$options->set('api.password', $password);
-
-				//$this->debugOut('GitHub credentials: ' . print_r($options, true));
 			}
 
 			// @todo temporary fix to avoid the "Socket" transport protocol
@@ -70,22 +68,19 @@ class GitHubProvider implements ServiceProviderInterface
 
 			$http = new \Joomla\Github\Http($options, $transport);
 
-			//$this->debugOut(get_class($transport));
-
 			// Instantiate Github
 			static::$object = new JoomlaGitHub($options, $http);
 
 			// @todo after fix this should be enough:
 			// $this->github = new JoomlaGitHub($options);
-
 		}
 
 		$object = static::$object;
 
 		$container->set('Joomla\\Github\\Github', function () use ($object)
-			{
-				return $object;
-			}, true, true
+		{
+			return $object;
+		}, true, true
 		);
 
 		// Alias the object
