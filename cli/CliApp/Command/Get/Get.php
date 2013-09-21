@@ -100,13 +100,15 @@ class Get extends TrackerCommand
 	{
 		$this->application->outputTitle('Get');
 
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  Please use one of the following:  </error>');
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  get issues                        </error>');
-		$this->out('<error>  get comments                      </error>');
-		$this->out('<error>  get avatars                       </error>');
-		$this->out('<error>                                    </error>');
+		$this
+			->out('<error>                                    </error>')
+			->out('<error>  Please use one of the following:  </error>')
+			->out('<error>                                    </error>')
+			->out('<error>  get project                       </error>')
+			->out('<error>  get issues                        </error>')
+			->out('<error>  get comments                      </error>')
+			->out('<error>  get avatars                       </error>')
+			->out('<error>                                    </error>');
 	}
 
 	/**
@@ -178,9 +180,9 @@ class Get extends TrackerCommand
 			{
 				throw new AbortException('Invalid project');
 			}
-
-			$this->out('Processing project: <info>' . $this->project->title . '</info>');
 		}
+
+		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
 
 		return $this;
 	}

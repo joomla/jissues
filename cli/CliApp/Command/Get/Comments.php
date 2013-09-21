@@ -91,16 +91,16 @@ class Comments extends Get
 	{
 		$this->application->outputTitle('Retrieve Comments');
 
-		$this->selectProject()
+		$this->logOut('Start retrieve Comments')
+			->selectProject()
 			->selectRange()
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			// Get the issues and their GitHub ID from the database.
 			->getIssues()
-			// Get the comments from GitHub.
 			->getComments()
-			// Process the comments.
-			->processComments();
+			->processComments()
+			->out()
+			->logOut('Finished');
 	}
 
 	/**
@@ -126,7 +126,7 @@ class Comments extends Get
 		else
 		{
 			// Limit issues to process
-			$this->out('<question>GH issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
+			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
 
 			$resp = trim($this->application->in());
 
@@ -252,6 +252,8 @@ class Comments extends Get
 
 		$this->usePBar ? $this->out() : null;
 
+		$adds = 0;
+
 		// Start processing the comments now
 		foreach ($this->issues as $count => $issue)
 		{
@@ -302,11 +304,14 @@ class Comments extends Get
 				$table->created_date = with(new Date($comment->created_at))->format('Y-m-d H:i:s');
 
 				$table->store();
+
+				++ $adds;
 			}
 		}
 
 		$this->out()
-			->out('<ok>ok</ok>');
+			->outOK()
+			->logOut(sprintf('Added %d new comments to the database', $adds));
 
 		return $this;
 	}

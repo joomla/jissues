@@ -6,10 +6,6 @@
 
 namespace CliApp\Command\Get;
 
-use App\Projects\Table\LabelsTable;
-
-use JTracker\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -26,14 +22,7 @@ class Project extends Get
 	{
 		parent::__construct();
 
-		$this->description = 'Get the project info from GitHub.';
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
+		$this->description = 'Get the whole project info from GitHub, including issues and issue comments.';
 	}
 
 	/**
@@ -47,101 +36,86 @@ class Project extends Get
 	{
 		$this->application->outputTitle('Retrieve Project');
 
-		$this->selectProject()
-			->setupGitHub()
-			->displayGitHubRateLimit();
+		$this->logOut('Bulk Start retrieve Project');
 
-		$this->out(
-			sprintf(
-				'Updating project info for project: %s/%s',
-				$this->project->gh_user,
-				$this->project->gh_project
-			)
-		);
+		$this->selectProject();
 
-		// Process the data from GitHub
-		$this->processLabels();
+		$this->application->input->set('project', $this->project->project_id);
 
-		$this->out()
-			->out('Finished');
+		$this->setupGitHub()
+			->displayGitHubRateLimit()
+			->out(
+				sprintf(
+						'Updating project info for project: %s/%s',
+						$this->project->gh_user,
+						$this->project->gh_project
+					)
+				)
+			->processLabels()
+			->processIssues()
+			->processComments()
+			->processAvatars()
+			->out()
+			->logOut('Bulk Finished');
 	}
 
 	/**
-	 * Get the projects labels.
+	 * Process the project labels.
+	 *
+	 * @return $this
 	 *
 	 * @since  1.0
-	 * @return $this
 	 */
 	protected function processLabels()
 	{
-		$this->out('Fetching labels...', false);
+		with(new Labels)
+			->execute();
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		return $this;
+	}
 
-		$table = new LabelsTable($db);
+	/**
+	 * Process the project issues.
+	 *
+	 * @return $this
+	 *
+	 * @since  1.0
+	 */
+	protected function processIssues()
+	{
+		with(new Issues)
+			->execute();
 
-		$labels = $this->github->issues->labels->getList(
-			$this->project->gh_user, $this->project->gh_project
-		);
+		return $this;
+	}
 
-		$names = array();
+	/**
+	 * Process the project comments.
+	 *
+	 * @return $this
+	 *
+	 * @since  1.0
+	 */
+	protected function processComments()
+	{
+		with(new Comments)
+			->execute();
 
-		foreach ($labels as $label)
-		{
-			try
-			{
-				$table->label_id = null;
+		return $this;
+	}
 
-				// Check if the label exists
-				$table->load(
-					array(
-						'project_id' => $this->project->project_id,
-						'name'       => $label->name
-					)
-				);
+	/**
+	 * Process the project avatars.
+	 *
+	 * @return $this
+	 *
+	 * @since  1.0
+	 */
+	protected function processAvatars()
+	{
+		with(new Avatars)
+			->execute();
 
-				// Values that may have changed
-				$table->color = $label->color;
-
-				$table->store();
-			}
-			catch (\RuntimeException $e)
-			{
-				// New label
-				$table->project_id = $this->project->project_id;
-				$table->name       = $label->name;
-				$table->color      = $label->color;
-
-				$table->store();
-			}
-
-			$names[] = $label->name;
-		}
-
-		// Check for deleted labels
-		$ids = $db->setQuery(
-			$db->getQuery(true)
-				->from($db->quoteName($table->getTableName()))
-				->select('label_id')
-				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
-				->where($db->quoteName('name') . ' NOT IN (\'' . implode("', '", $names) . '\')')
-		)->loadRowList();
-
-		if ($ids)
-		{
-			// Kill the orphans
-			$db->setQuery(
-				$db->getQuery(true)
-					->delete($db->quoteName($table->getTableName()))
-					->where(
-						$db->quoteName('label_id') . ' IN ('
-						. implode(', ', $ids)
-						. ')'
-					)
-			)->execute();
-		}
-
-		return $this->out('ok');
+		return $this;
 	}
 }
