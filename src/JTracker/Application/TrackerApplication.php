@@ -9,13 +9,11 @@
 namespace JTracker\Application;
 
 use App\Debug\TrackerDebugger;
-
 use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
-use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Github\Github;
 use Joomla\Github\Http;
@@ -33,6 +31,7 @@ use JTracker\Router\TrackerRouter;
 use JTracker\Service\ApplicationServiceProvider;
 use JTracker\Service\Configuration;
 use JTracker\Service\DatabaseServiceProvider;
+use JTracker\Service\DebuggerProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -85,28 +84,12 @@ final class TrackerApplication extends AbstractWebApplication
 	private $project;
 
 	/**
-	 * The database driver object.
-	 *
-	 * @var    DatabaseDriver
-	 * @since  1.0
-	 */
-	private $database;
-
-	/**
 	 * The Language object
 	 *
 	 * @var    Language
 	 * @since  1.0
 	 */
 	private $language;
-
-	/**
-	 * The Debugger object
-	 *
-	 * @var    TrackerDebugger
-	 * @since  1.0
-	 */
-	private $debugger;
 
 	/**
 	 * Class constructor.
@@ -119,15 +102,11 @@ final class TrackerApplication extends AbstractWebApplication
 		parent::__construct();
 
 		// Build the DI Container
-		$container = Container::getInstance();
-		$container->registerServiceProvider(new ApplicationServiceProvider($this))
+		Container::getInstance()
+			->registerServiceProvider(new ApplicationServiceProvider($this))
 			->registerServiceProvider(new Configuration($this->config))
-			->registerServiceProvider(new DatabaseServiceProvider);
-
-		define('JDEBUG', $this->get('debug.system'));
-
-		// Set the debugger.
-		$this->debugger = new TrackerDebugger($this);
+			->registerServiceProvider(new DatabaseServiceProvider)
+			->registerServiceProvider(new DebuggerProvider);
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
@@ -147,7 +126,7 @@ final class TrackerApplication extends AbstractWebApplication
 	 */
 	public function getDebugger()
 	{
-		return $this->debugger;
+		return Container::retrieve('debugger');
 	}
 
 	/**
@@ -186,7 +165,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated');
 
-			$contents = str_replace('%%%DEBUG%%%', $this->debugger->getOutput(), $contents);
+			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
 
 			$this->setBody($contents);
 		}
@@ -211,7 +190,7 @@ final class TrackerApplication extends AbstractWebApplication
 				$context['action'] = $exception->getAction();
 			}
 
-			$this->setBody($this->debugger->renderException($exception, $context));
+			$this->setBody($this->getDebugger()->renderException($exception, $context));
 		}
 		catch (RoutingException $exception)
 		{
@@ -221,7 +200,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$context = JDEBUG ? array('message' => $exception->getRawRoute()) : array();
 
-			$this->setBody($this->debugger->renderException($exception, $context));
+			$this->setBody($this->getDebugger()->renderException($exception, $context));
 		}
 		catch (\Exception $exception)
 		{
@@ -229,7 +208,7 @@ final class TrackerApplication extends AbstractWebApplication
 
 			$this->mark('Application terminated with an EXCEPTION');
 
-			$this->setBody($this->debugger->renderException($exception));
+			$this->setBody($this->getDebugger()->renderException($exception));
 		}
 	}
 
@@ -246,7 +225,7 @@ final class TrackerApplication extends AbstractWebApplication
 	{
 		if (JDEBUG)
 		{
-			$this->debugger->mark($text);
+			$this->getDebugger()->mark($text);
 		}
 
 		return $this;

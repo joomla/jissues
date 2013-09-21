@@ -10,6 +10,7 @@ use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 use CliApp\Service\GitHubProvider;
 use CliApp\Service\ApplicationProvider;
+use CliApp\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
@@ -23,6 +24,7 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Container;
 use JTracker\Service\Configuration;
 use JTracker\Service\DatabaseServiceProvider;
+use JTracker\Service\DebuggerProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -92,7 +94,9 @@ class CliApplication extends AbstractCliApplication
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new Configuration($this->config))
 			->registerServiceProvider(new DatabaseServiceProvider)
-			->registerServiceProvider(new GitHubProvider);
+			->registerServiceProvider(new GitHubProvider)
+			->registerServiceProvider(new DebuggerProvider)
+			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))));
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
@@ -237,8 +241,8 @@ class CliApplication extends AbstractCliApplication
 	 * Output a nicely formatted title for the application.
 	 *
 	 * @param   string   $title     The title to display.
-	 * @param   string   $subTitle  A subtitle
-	 * @param   integer  $width     Total width in chars
+	 * @param   string   $subTitle  A subtitle.
+	 * @param   integer  $width     Total width in chars.
 	 *
 	 * @return  CliApplication
 	 *
