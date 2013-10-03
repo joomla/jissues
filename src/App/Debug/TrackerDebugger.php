@@ -87,9 +87,9 @@ class TrackerDebugger implements LoggerAwareInterface
 			$handler = new ProductionHandler;
 		}
 
-		$run = new Run;
-		$run->pushHandler($handler);
-		$run->register();
+		with(new Run)
+			->pushHandler($handler)
+			->register();
 	}
 
 	/**
@@ -202,7 +202,7 @@ class TrackerDebugger implements LoggerAwareInterface
 					$profile = '';
 		*/
 
-		// $entry->profile = isset($context['profile']) ? $context['profile'] : 'n/a';
+		$entry->profile = isset($context['profile']) ? $context['profile'] : 'n/a';
 
 		$this->log['db'][] = $entry;
 
@@ -508,7 +508,13 @@ class TrackerDebugger implements LoggerAwareInterface
 			$explain = $dbDebugger->getExplain($entry->sql);
 
 			$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
-			$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
+
+			if (isset($entry->times) && is_array($entry->times))
+			{
+				$debug[] = sprintf('Query Time: %.3f ms', ($entry->times[1] - $entry->times[0]) * 1000) . '<br />';
+			}
+
+			// Tabs headers
 
 			$debug[] = '<ul class="nav nav-tabs">';
 
@@ -517,32 +523,43 @@ class TrackerDebugger implements LoggerAwareInterface
 				$debug[] = '<li><a data-toggle="tab" href="#queryExplain-' . $i . '">Explain</a></li>';
 			}
 
-			$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
+			if (isset($entry->trace) && is_array($entry->trace))
+			{
+				$debug[] = '<li><a data-toggle="tab" href="#queryTrace-' . $i . '">Trace</a></li>';
+			}
 
-			// $debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+			if (isset($entry->profile) && is_array($entry->profile))
+			{
+				$debug[] = '<li><a data-toggle="tab" href="#queryProfile-' . $i . '">Profile</a></li>';
+			}
 
 			$debug[] = '</ul>';
 
+			// Tabs contents
+
 			$debug[] = '<div class="tab-content">';
 
-			$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
-
-			$debug[] = $explain;
-			$debug[] = '</div>';
-
-			$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
-
-			if (is_array($entry->trace))
+			if ($explain)
 			{
-				$debug[] = $tableFormat->fromTrace($entry->trace);
+				$debug[] = '<div id="queryExplain-' . $i . '" class="tab-pane">';
+
+				$debug[] = $explain;
+				$debug[] = '</div>';
 			}
 
-			$debug[] = '</div>';
+			if (isset($entry->trace) && is_array($entry->trace))
+			{
+				$debug[] = '<div id="queryTrace-' . $i . '" class="tab-pane">';
+				$debug[] = $tableFormat->fromTrace($entry->trace);
+				$debug[] = '</div>';
+			}
 
-			// $debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
-
-			// $debug[] = $tableFormat->fromArray($entry->profile);
-			// $debug[] = '</div>';
+			if (isset($entry->profile) && is_array($entry->profile))
+			{
+				$debug[] = '<div id="queryProfile-' . $i . '" class="tab-pane">';
+				$debug[] = $tableFormat->fromArray($entry->profile);
+				$debug[] = '</div>';
+			}
 
 			$debug[] = '</div>';
 		}
