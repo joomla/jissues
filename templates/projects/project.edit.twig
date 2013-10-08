@@ -30,38 +30,43 @@
         <h2>New project</h2>
     {% endif %}
 
-    <form method="post" action="{{ uri.base.path }}saveproject" class="form-inline" name="editForm">
+    <form method="post" action="{{ uri.base.path }}saveproject" class="form-horizontal" name="editForm">
         <fieldset>
             <legend>Details</legend>
-            <ul class="unstyled">
-
-                <li>
-                    <label for="title">Title</label>
+            <div class="control-group">
+                <label class="control-label" for="title">Title</label>
+                <div class="controls">
                     <input type="text" name="project[title]" id="title" value="{{ project.title }}">
-                </li>
+                </div>
+            </div>
 
-                <li>
-                    <label for="alias">Alias</label>
+            <div class="control-group">
+                <label class="control-label" for="alias">Alias</label>
+                <div class="controls">
                     <input type="text" name="project[alias]" id="alias" value="{{ project.alias }}">
-                </li>
+                </div>
+            </div>
 
-                <li>
-                    <label for="gh_user">GitHub Owner</label>
+            <div class="control-group">
+                <label class="control-label" for="gh_user">GitHub Owner</label>
+                <div class="controls">
                     <input type="text" name="project[gh_user]" id="gh_user" value="{{ project.gh_user }}">
-                </li>
+                </div>
+            </div>
 
-                <li>
-                    <label for="gh_project">GitHub Repo</label>
+            <div class="control-group">
+                <label class="control-label" for="gh_project">GitHub Repo</label>
+                <div class="controls">
                     <input type="text" name="project[gh_project]" id="gh_project" value="{{ project.gh_project }}">
-                </li>
+                </div>
+            </div>
 
-                <li>
-                    <label for="ext_tracker_link">External Tracker Link</label>
-                    <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link"
-                           value="{{ project.ext_tracker_link }}">
-                </li>
-
-            </ul>
+            <div class="control-group">
+                <label class="control-label" for="ext_tracker_link">External Tracker Link</label>
+                <div class="controls">
+                    <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link" value="{{ project.ext_tracker_link }}">
+                </div>
+            </div>
 
             <input type="hidden" name="project[project_id]" value="{{ project.project_id }}">
 
