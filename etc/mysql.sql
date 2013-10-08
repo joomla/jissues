@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
 	`vote_id` int(11) unsigned DEFAULT NULL COMMENT 'FK to #__issues_voting',
-	`build` varchar(25) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
+	`build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
 	`tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
 	`easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
   PRIMARY KEY (`id`),
