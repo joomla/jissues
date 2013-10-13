@@ -25,11 +25,11 @@
                 <input type="text" id="events" name="events" placeholder="event,event,n..."/><br />
                 (comma separated, no spaces)
             </div>
-            <div class="span2 left">
-                <a href="#eventsModal" role="button" class="btn btn-info btn-small pull-right" data-toggle="modal">
+            <div class="span2">
+                <div class="btn btn-large btn-success btn-block" onclick="addHook('{{ project.alias }}');">Add Hook</div>
+                <a href="#eventsModal" role="button" class="btn btn-info btn-small btn-block" data-toggle="modal">
                     Help: Events
                 </a>
-                <div class="btn btn-large btn-success" onclick="addHook('{{ project.alias }}');">Add Hook</div>
             </div>
         </div>
     </form>
