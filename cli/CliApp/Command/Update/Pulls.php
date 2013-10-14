@@ -110,7 +110,7 @@ class Pulls extends Update
 				$labelSet   = false;
 
 				// Get the labels for the pull's issue
-				$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $pullID)->labels;
+				$labels = $this->github->issues->labels->getListByIssue($this->project->gh_user, $this->project->gh_project, $pullID);
 
 				// Check if the PR- label present
 				foreach ($labels as $label);
@@ -119,6 +119,7 @@ class Pulls extends Update
 					{
 						$this->out('PR joomla/joomla-cms#' . $pullID . ' already has branch label, skipping.');
 						$labelSet = true;
+
 						continue;
 					}
 				}
@@ -126,22 +127,11 @@ class Pulls extends Update
 				// Add the label if we need to
 				if (!$labelSet)
 				{
-					// Get the current labels so we don't lose them
-					$currentLabels = array();
-
-					foreach ($labels as $label);
-					{
-						$currentLabels[] = $label->name;
-					}
-
-					// Add the issue label
-					$currentLabels[] = $issueLabel;
-
 					// Post the new label on the object
 					$this->out('Adding branch label to joomla/joomla-cms#' . $pullID);
 
-					$this->github->issues->edit(
-						$this->project->gh_user, $this->project->gh_project, $pullID, null, null, null, null, null, $currentLabels
+					$this->github->issues->labels->add(
+						$this->project->gh_user, $this->project->gh_project, $pullID, array($label->name)
 					);
 				}
 			}

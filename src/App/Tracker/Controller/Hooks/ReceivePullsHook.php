@@ -259,21 +259,10 @@ class ReceivePullsHook extends AbstractHookController
 			// Add the label if we need to
 			if (!$labelSet)
 			{
-				// Get the current labels so we don't lose them
-				$currentLabels = array();
-
-				foreach ($labels as $label);
-				{
-					$currentLabels[] = $label->name;
-				}
-
-				// Add the issue label
-				$currentLabels[] = $issueLabel;
-
 				try
 				{
-					$this->github->issues->edit(
-						$this->project->gh_user, $this->project->gh_project, $pullID, null, null, null, null, null, $currentLabels
+					$this->github->issues->labels->add(
+						$this->project->gh_user, $this->project->gh_project, $pullID, array(issueLabel)
 					);
 
 					// Post the new label on the object
