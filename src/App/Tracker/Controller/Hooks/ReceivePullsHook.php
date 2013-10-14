@@ -262,7 +262,7 @@ class ReceivePullsHook extends AbstractHookController
 				try
 				{
 					$this->github->issues->labels->add(
-						$this->project->gh_user, $this->project->gh_project, $pullID, array(issueLabel)
+						$this->project->gh_user, $this->project->gh_project, $pullID, array($issueLabel)
 					);
 
 					// Post the new label on the object
