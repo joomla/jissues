@@ -211,7 +211,24 @@ class ReceivePullsHook extends AbstractHookController
 			$labelSet   = false;
 
 			// Get the labels for the pull's issue
-			$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $pullID)->labels;
+			try
+			{
+				$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $pullID)->labels;
+			}
+			catch (\DomainException $e)
+			{
+				$this->logger->error(
+					sprintf(
+						'Error retrieving labels for GitHub item %s/%s #%d - %s',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->data->number,
+						$e->getMessage()
+					)
+				);
+
+				$this->getApplication()->close();
+			}
 
 			$i = 0;
 
@@ -250,19 +267,34 @@ class ReceivePullsHook extends AbstractHookController
 				// Add the issue label
 				$currentLabels[] = $issueLabel;
 
-				// Post the new label on the object
-				$this->logger->info(
-					sprintf(
-						'Adding branch label to %s/%s #%d',
-						$this->project->gh_user,
-						$this->project->gh_project,
-						$this->data->number
-					)
-				);
+				try
+				{
+					$this->github->issues->edit(
+						$this->project->gh_user, $this->project->gh_project, $pullID, null, null, null, null, null, $currentLabels
+					);
 
-				$this->github->issues->edit(
-					$this->project->gh_user, $this->project->gh_project, $pullID, null, null, null, null, null, $currentLabels
-				);
+					// Post the new label on the object
+					$this->logger->info(
+						sprintf(
+							'Added branch label to %s/%s #%d',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number
+						)
+					);
+				}
+				catch (\DomainException $e)
+				{
+					$this->logger->error(
+						sprintf(
+							'Error adding the branch label to GitHub pull request %s/%s #%d - %s',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number,
+							$e->getMessage()
+						)
+					);
+				}
 			}
 		}
 
