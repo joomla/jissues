@@ -207,16 +207,14 @@ class ReceivePullsHook extends AbstractHookController
 		// For joomla/joomla-cms, add PR-<branch> label
 		if ($action == 'opened' && $this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
 		{
-			// Extract some data
-			$pullID     = $this->data->number;
-			$target     = $this->data->base->ref;
-			$issueLabel = 'PR-' . $target;
+			// Set some data
+			$issueLabel = 'PR-' . $this->data->base->ref;
 			$labelSet   = false;
 
 			// Get the labels for the pull's issue
 			try
 			{
-				$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $pullID)->labels;
+				$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $this->data->number)->labels;
 			}
 			catch (\DomainException $e)
 			{
@@ -233,28 +231,27 @@ class ReceivePullsHook extends AbstractHookController
 				$this->getApplication()->close();
 			}
 
-			$i = 0;
-
 			// Check if the PR- label present
-			do
+			if (count($labels) > 0)
 			{
-				if ($labels[$i]->name == $issueLabel)
+				foreach ($labels as $label);
 				{
-					$this->logger->info(
-						sprintf(
-							'Pull request %s/%s #%d already has branch label, skipping.',
-							$this->project->gh_user,
-							$this->project->gh_project,
-							$this->data->number
-						)
-					);
+					if (!$labelSet && $label->name == $issueLabel)
+					{
+						$this->logger->info(
+							sprintf(
+								'GitHub item %s/%s #%d already has the %s label.',
+								$this->project->gh_user,
+								$this->project->gh_project,
+								$this->data->number,
+								$issueLabel
+							)
+						);
 
-					$labelSet = true;
+						$labelSet = true;
+					}
 				}
-
-				$i++;
 			}
-			while (!$labelSet || $i < count($labels));
 
 			// Add the label if we need to
 			if (!$labelSet)
@@ -262,13 +259,14 @@ class ReceivePullsHook extends AbstractHookController
 				try
 				{
 					$this->github->issues->labels->add(
-						$this->project->gh_user, $this->project->gh_project, $pullID, array($issueLabel)
+						$this->project->gh_user, $this->project->gh_project, $this->data->number, array($issueLabel)
 					);
 
 					// Post the new label on the object
 					$this->logger->info(
 						sprintf(
-							'Added branch label to %s/%s #%d',
+							'Added %s label to %s/%s #%d',
+							$issueLabel,
 							$this->project->gh_user,
 							$this->project->gh_project,
 							$this->data->number
@@ -279,7 +277,8 @@ class ReceivePullsHook extends AbstractHookController
 				{
 					$this->logger->error(
 						sprintf(
-							'Error adding the branch label to GitHub pull request %s/%s #%d - %s',
+							'Error adding the %s label to GitHub pull request %s/%s #%d - %s',
+							$issueLabel,
 							$this->project->gh_user,
 							$this->project->gh_project,
 							$this->data->number,
