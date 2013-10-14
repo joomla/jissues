@@ -9,6 +9,7 @@
 namespace App\Tracker\Controller;
 
 use App\Projects\TrackerProject;
+use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
 
 use Joomla\Application\AbstractApplication;
@@ -373,6 +374,96 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			);
 
 			return '';
+		}
+	}
+
+	/**
+	 * Process labels for adding into the issues table
+	 *
+	 * @param   integer  $issueId  Issue ID to process
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	protected function processLabels($issueId)
+	{
+		try
+		{
+			$githubLabels = $this->github->issues->labels->getListByIssue($this->project->gh_user, $this->project->gh_project, $issueId);
+		}
+		catch (\DomainException $exception)
+		{
+			$this->logger->info(
+				sprintf(
+					'Error parsing the labels for GitHub issue %s/%s #%d - %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$issueId,
+					$exception->getMessage()
+				)
+			);
+
+			return '';
+		}
+
+		$appLabelIds = array();
+
+		// Make sure the label is present in the database by pulling the ID, add it if it isn't
+		$query = $this->db->getQuery(true);
+
+		foreach ($githubLabels as $label)
+		{
+			$query->clear()
+				->select('label_id')
+				->from($db->quoteName('#__tracker_labels'))
+				->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
+				->where($db->quoteName('name') . ' = ' . $db->quote($label->name));
+
+			$id = $this->db->setQuery($query)->loadResult();
+
+			// If null, add the label
+			if ($id == null)
+			{
+				$table = new LabelsTable($this->db);
+
+				$data = array();
+				$data['project_id'] = $this->project->project_id;
+				$data['name']       = $label->name;
+				$data['color']      = $label->color;
+
+				try
+				{
+					$table->save($data);
+				}
+				catch (\RuntimeException $exception)
+				{
+					$this->logger->info(
+						sprintf(
+							'Error adding label %s for project %s/%s to the database: %s',
+							$label->name,
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$exception->getMessage()
+						)
+					);
+				}
+
+				$id = $table->label_id;
+			}
+
+			// Add the ID to the array
+			$appLabelIds[] = $id;
+		}
+
+		// Return the array as a string
+		if (count($appLabelIds) === 0)
+		{
+			return '';
+		}
+		else
+		{
+			return explode(',', $appLabelIds);
 		}
 	}
 }

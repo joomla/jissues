@@ -141,6 +141,9 @@ class ReceivePullsHook extends AbstractHookController
 			$data['foreign_number'] = $matches[1];
 		}
 
+		// Process labels for the item
+		$data['labels'] = $this->processLabels($this->data->number);
+
 		try
 		{
 			$table = new IssuesTable($this->db);
@@ -351,6 +354,9 @@ class ReceivePullsHook extends AbstractHookController
 			$closed = new Date($this->data->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
 		}
+
+		// Process labels for the item
+		$data['labels'] = $this->processLabels($this->data->number);
 
 		try
 		{
