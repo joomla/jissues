@@ -326,8 +326,6 @@ class ReceivePullsHook extends AbstractHookController
 		$dateFormat = $this->db->getDateFormat();
 		$modified   = new Date($this->data->updated_at);
 
-		$closed = null;
-
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
 		$data['title']           = $this->data->title;

@@ -185,7 +185,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			$this->getApplication()->close();
 		}
 
-		$this->logger->info('Data received.' . ($this->debug ? print_r($data, 1) : ''));
+		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
 
 		// Decode it
 		$this->hookData = json_decode($data);
@@ -390,11 +390,11 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	{
 		try
 		{
-			$githubLabels = $this->github->issues->labels->getListByIssue($this->project->gh_user, $this->project->gh_project, $issueId);
+			$githubLabels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $issueId)->labels;
 		}
 		catch (\DomainException $exception)
 		{
-			$this->logger->info(
+			$this->logger->error(
 				sprintf(
 					'Error parsing the labels for GitHub issue %s/%s #%d - %s',
 					$this->project->gh_user,
@@ -415,15 +415,16 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		foreach ($githubLabels as $label)
 		{
 			$query->clear()
-				->select('label_id')
-				->from($db->quoteName('#__tracker_labels'))
-				->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
-				->where($db->quoteName('name') . ' = ' . $db->quote($label->name));
+				->select($this->db->quoteName('label_id'))
+				->from($this->db->quoteName('#__tracker_labels'))
+				->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
+				->where($this->db->quoteName('name') . ' = ' . $this->db->quote($label->name));
 
-			$id = $this->db->setQuery($query)->loadResult();
+			$this->db->setQuery($query);
+			$id = $this->db->loadResult();
 
 			// If null, add the label
-			if ($id == null)
+			if ($id === null)
 			{
 				$table = new LabelsTable($this->db);
 
@@ -435,10 +436,12 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				try
 				{
 					$table->save($data);
+
+					$id = $table->label_id;
 				}
 				catch (\RuntimeException $exception)
 				{
-					$this->logger->info(
+					$this->logger->error(
 						sprintf(
 							'Error adding label %s for project %s/%s to the database: %s',
 							$label->name,
@@ -448,8 +451,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 						)
 					);
 				}
-
-				$id = $table->label_id;
 			}
 
 			// Add the ID to the array
@@ -463,7 +464,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		}
 		else
 		{
-			return explode(',', $appLabelIds);
+			return implode(',', $appLabelIds);
 		}
 	}
 }
