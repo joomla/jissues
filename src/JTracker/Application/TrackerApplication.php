@@ -15,9 +15,6 @@ use App\Projects\TrackerProject;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Event\Dispatcher;
-use Joomla\Github\Github;
-use Joomla\Github\Http;
-use Joomla\Http\HttpFactory;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
@@ -32,6 +29,7 @@ use JTracker\Service\ApplicationServiceProvider;
 use JTracker\Service\Configuration;
 use JTracker\Service\DatabaseServiceProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\GitHubProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -106,7 +104,8 @@ final class TrackerApplication extends AbstractWebApplication
 			->registerServiceProvider(new ApplicationServiceProvider($this))
 			->registerServiceProvider(new Configuration($this->config))
 			->registerServiceProvider(new DatabaseServiceProvider)
-			->registerServiceProvider(new DebuggerProvider);
+			->registerServiceProvider(new DebuggerProvider)
+			->registerServiceProvider(new GitHubProvider);
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
@@ -552,41 +551,6 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		return $this->project;
-	}
-
-	/**
-	 * Get a GitHub object.
-	 *
-	 * @return  Github
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getGitHub()
-	{
-		$options = new Registry;
-
-		$token = $this->getSession()->get('gh_oauth_access_token');
-
-		if ($token)
-		{
-			$options->set('gh.token', $token);
-		}
-		else
-		{
-			$options->set('api.username', $this->get('github.username'));
-			$options->set('api.password', $this->get('github.password'));
-		}
-
-		// GitHub API works best with cURL
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
-
-		$http = new Http($options, $transport);
-
-		// Instantiate Github
-		$gitHub = new Github($options, $http);
-
-		return $gitHub;
 	}
 
 	/**
