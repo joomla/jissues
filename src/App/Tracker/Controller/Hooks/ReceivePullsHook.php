@@ -15,7 +15,7 @@ use App\Tracker\Table\IssuesTable;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
- * Controller class receive and inject issue reports from GitHub.
+ * Controller class receive and inject pull requests from GitHub.
  *
  *        >>>             !!!   N O T E   !!!                      <<<<<<<<<<<<<<<<<<<   !
  *                        ___________________
@@ -112,7 +112,7 @@ class ReceivePullsHook extends AbstractHookController
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
-		$opened = new Date($this->data->created_at);
+		$opened     = new Date($this->data->created_at);
 		$modified   = new Date($this->data->updated_at);
 
 		$data = array();
@@ -140,6 +140,9 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$data['foreign_number'] = $matches[1];
 		}
+
+		// Process labels for the item
+		$data['labels'] = $this->processLabels($this->data->number);
 
 		try
 		{
@@ -201,6 +204,91 @@ class ReceivePullsHook extends AbstractHookController
 			)
 		);
 
+		// For joomla/joomla-cms, add PR-<branch> label
+		if ($action == 'opened' && $this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
+		{
+			// Set some data
+			$issueLabel = 'PR-' . $this->data->base->ref;
+			$labelSet   = false;
+
+			// Get the labels for the pull's issue
+			try
+			{
+				$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $this->data->number)->labels;
+			}
+			catch (\DomainException $e)
+			{
+				$this->logger->error(
+					sprintf(
+						'Error retrieving labels for GitHub item %s/%s #%d - %s',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->data->number,
+						$e->getMessage()
+					)
+				);
+
+				$this->getApplication()->close();
+			}
+
+			// Check if the PR- label present
+			if (count($labels) > 0)
+			{
+				foreach ($labels as $label);
+				{
+					if (!$labelSet && $label->name == $issueLabel)
+					{
+						$this->logger->info(
+							sprintf(
+								'GitHub item %s/%s #%d already has the %s label.',
+								$this->project->gh_user,
+								$this->project->gh_project,
+								$this->data->number,
+								$issueLabel
+							)
+						);
+
+						$labelSet = true;
+					}
+				}
+			}
+
+			// Add the label if we need to
+			if (!$labelSet)
+			{
+				try
+				{
+					$this->github->issues->labels->add(
+						$this->project->gh_user, $this->project->gh_project, $this->data->number, array($issueLabel)
+					);
+
+					// Post the new label on the object
+					$this->logger->info(
+						sprintf(
+							'Added %s label to %s/%s #%d',
+							$issueLabel,
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number
+						)
+					);
+				}
+				catch (\DomainException $e)
+				{
+					$this->logger->error(
+						sprintf(
+							'Error adding the %s label to GitHub pull request %s/%s #%d - %s',
+							$issueLabel,
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number,
+							$e->getMessage()
+						)
+					);
+				}
+			}
+		}
+
 		return true;
 	}
 
@@ -237,8 +325,6 @@ class ReceivePullsHook extends AbstractHookController
 		$dateFormat = $this->db->getDateFormat();
 		$modified   = new Date($this->data->updated_at);
 
-		$closed = null;
-
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
 		$data['title']           = $this->data->title;
@@ -254,6 +340,9 @@ class ReceivePullsHook extends AbstractHookController
 			$closed = new Date($this->data->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
 		}
+
+		// Process labels for the item
+		$data['labels'] = $this->processLabels($this->data->number);
 
 		try
 		{
