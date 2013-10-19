@@ -15,7 +15,7 @@ use App\Tracker\Table\IssuesTable;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
- * Controller class receive and inject issue reports from GitHub.
+ * Controller class receive and inject pull requests from GitHub.
  *
  *        >>>             !!!   N O T E   !!!                      <<<<<<<<<<<<<<<<<<<   !
  *                        ___________________
@@ -112,7 +112,7 @@ class ReceivePullsHook extends AbstractHookController
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
-		$opened = new Date($this->data->created_at);
+		$opened     = new Date($this->data->created_at);
 		$modified   = new Date($this->data->updated_at);
 
 		$data = array();
@@ -200,6 +200,92 @@ class ReceivePullsHook extends AbstractHookController
 				$this->data->number
 			)
 		);
+
+		// For joomla/joomla-cms, add PR-<branch> label
+		if ($action == 'opened' && $this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
+		{
+			// Extract some data
+			$pullID     = $this->data->number;
+			$target     = $this->data->base->ref;
+			$issueLabel = 'PR-' . $target;
+			$labelSet   = false;
+
+			// Get the labels for the pull's issue
+			try
+			{
+				$labels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $pullID)->labels;
+			}
+			catch (\DomainException $e)
+			{
+				$this->logger->error(
+					sprintf(
+						'Error retrieving labels for GitHub item %s/%s #%d - %s',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->data->number,
+						$e->getMessage()
+					)
+				);
+
+				$this->getApplication()->close();
+			}
+
+			$i = 0;
+
+			// Check if the PR- label present
+			do
+			{
+				if ($labels[$i]->name == $issueLabel)
+				{
+					$this->logger->info(
+						sprintf(
+							'Pull request %s/%s #%d already has branch label, skipping.',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number
+						)
+					);
+
+					$labelSet = true;
+				}
+
+				$i++;
+			}
+			while (!$labelSet || $i < count($labels));
+
+			// Add the label if we need to
+			if (!$labelSet)
+			{
+				try
+				{
+					$this->github->issues->labels->add(
+						$this->project->gh_user, $this->project->gh_project, $pullID, array($issueLabel)
+					);
+
+					// Post the new label on the object
+					$this->logger->info(
+						sprintf(
+							'Added branch label to %s/%s #%d',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number
+						)
+					);
+				}
+				catch (\DomainException $e)
+				{
+					$this->logger->error(
+						sprintf(
+							'Error adding the branch label to GitHub pull request %s/%s #%d - %s',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number,
+							$e->getMessage()
+						)
+					);
+				}
+			}
+		}
 
 		return true;
 	}

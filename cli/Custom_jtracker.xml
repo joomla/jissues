@@ -42,4 +42,13 @@
         <name>make autocomplete</name>
         <help>Generate an auto complete file for PHPStorm.</help>
     </command>
+    <command>
+        <name>update</name>
+        <help>Update data on GitHub.</help>
+        <params>option</params>
+    </command>
+    <command>
+        <name>update pulls</name>
+        <help>Update pull requests on GitHub.</help>
+    </command>
 </framework>
