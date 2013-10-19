@@ -3764,6 +3764,7 @@ input[type="submit"].btn.btn-mini {
 
   *zoom: 1;
   text-shadow: 0 1px 0 #ffffff;
+  padding-right: 5px;
 }
 .breadcrumb > li > .divider {
   padding: 0 5px;
@@ -8544,3 +8545,5 @@ div#nav-search form input[type="text"] {
     display: none;
   }
 }
+.helpText{float: none; margin-left: 0}
+label.error{color: #b94a48;}
