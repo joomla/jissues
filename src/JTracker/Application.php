@@ -110,9 +110,6 @@ final class Application extends AbstractWebApplication
 		// Register the event dispatcher
 		$this->loadDispatcher();
 
-		// Load the library language file
-		$this->getLanguage()->load('lib_joomla', JPATH_ROOT);
-
 		$this->mark('Application started');
 	}
 
