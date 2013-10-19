@@ -11,7 +11,7 @@ namespace JTracker\Service;
 use Joomla\DI\Container as JoomlaContainer;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Github\Github as JoomlaGitHub;
-use Joomla\Http\Http;
+use Joomla\Github\Http as JoomlaGitHubHttp;
 use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 
@@ -67,7 +67,7 @@ class GitHubProvider implements ServiceProviderInterface
 			// GitHub API works best with cURL
 			$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-			$http = new Http($options, $transport);
+			$http = new JoomlaGitHubHttp($options, $transport);
 
 			// Instantiate Github
 			static::$object = new JoomlaGitHub($options, $http);
@@ -75,13 +75,15 @@ class GitHubProvider implements ServiceProviderInterface
 
 		$object = static::$object;
 
-		$container->set('Joomla\\Github\\Github', function () use ($object)
-		{
-			return $object;
-		}, true, true
+		$container->set('Joomla\\Github\\Github',
+			function () use ($object)
+			{
+				return $object;
+			}, true, true
 		);
 
-		// Alias the object
+		// Alias the object - this is a custom function
+		/* @type \JTracker\Container $container */
 		$container->alias('gitHub', 'Joomla\\Github\\Github');
 	}
 }
