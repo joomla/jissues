@@ -38,7 +38,7 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$id = $application->input->getInt('id');

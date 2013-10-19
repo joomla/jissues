@@ -13,7 +13,12 @@ use Joomla\DI\Container as JoomlaContainer;
 use Joomla\DI\ServiceProviderInterface;
 use JTracker\Container;
 
-class DatabaseServiceProvider implements ServiceProviderInterface
+/**
+ * Database service provider
+ *
+ * @since  1.0
+ */
+class DatabaseProvider implements ServiceProviderInterface
 {
 	/**
 	 * Registers the service provider with a DI container.

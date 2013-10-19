@@ -27,7 +27,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$type = $application->input->get('log_type');

@@ -62,7 +62,7 @@ class GitHubLoginHelper
 	 */
 	public function getLoginUri()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$redirect = $application->get('uri.base.full') . 'login';

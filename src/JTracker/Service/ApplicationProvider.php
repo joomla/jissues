@@ -11,15 +11,20 @@ namespace JTracker\Service;
 use Joomla\DI\Container as JoomlaContainer;
 use Joomla\DI\ServiceProviderInterface;
 
-use JTracker\Application\TrackerApplication;
+use JTracker\Application;
 use JTracker\Container;
 
-class ApplicationServiceProvider implements ServiceProviderInterface
+/**
+ * Application service provider
+ *
+ * @since  1.0
+ */
+class ApplicationProvider implements ServiceProviderInterface
 {
 	/**
 	 * Application instance
 	 *
-	 * @var    TrackerApplication
+	 * @var    Application
 	 * @since  1.0
 	 */
 	private static $app;
@@ -27,11 +32,11 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 	/**
 	 * Constructor
 	 *
-	 * @param   TrackerApplication  $app  Application instance
+	 * @param   Application  $app  Application instance
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(TrackerApplication $app)
+	public function __construct(Application $app)
 	{
 		static::$app = $app;
 	}
@@ -39,7 +44,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   Container $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
@@ -50,7 +55,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 	{
 		$app = static::$app;
 
-		$container->set('JTracker\\Application\\TrackerApplication', function () use ($app)
+		$container->set('JTracker\\Application', function () use ($app)
 			{
 				define('JDEBUG', $app->get('debug.system'));
 
@@ -59,6 +64,6 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 		);
 
 		// Alias the application
-		$container->alias('app', 'JTracker\\Application\\TrackerApplication');
+		$container->alias('app', 'JTracker\\Application');
 	}
 }

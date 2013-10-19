@@ -1,12 +1,12 @@
 <?php
 /**
- * Part of the Joomla Tracker Application Package
+ * Part of the Joomla Tracker
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace JTracker\Application;
+namespace JTracker;
 
 use App\Debug\TrackerDebugger;
 use App\Projects\Model\ProjectModel;
@@ -15,9 +15,6 @@ use App\Projects\TrackerProject;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Event\Dispatcher;
-use Joomla\Github\Github;
-use Joomla\Github\Http;
-use Joomla\Http\HttpFactory;
 use Joomla\Language\Language;
 use Joomla\Registry\Registry;
 
@@ -28,10 +25,11 @@ use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
-use JTracker\Service\ApplicationServiceProvider;
-use JTracker\Service\Configuration;
-use JTracker\Service\DatabaseServiceProvider;
+use JTracker\Service\ApplicationProvider;
+use JTracker\Service\ConfigurationProvider;
+use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\GitHubProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -40,7 +38,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @since  1.0
  */
-final class TrackerApplication extends AbstractWebApplication
+final class Application extends AbstractWebApplication
 {
 	/**
 	 * The Dispatcher object.
@@ -103,10 +101,11 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Build the DI Container
 		Container::getInstance()
-			->registerServiceProvider(new ApplicationServiceProvider($this))
-			->registerServiceProvider(new Configuration($this->config))
-			->registerServiceProvider(new DatabaseServiceProvider)
-			->registerServiceProvider(new DebuggerProvider);
+			->registerServiceProvider(new ApplicationProvider($this))
+			->registerServiceProvider(new ConfigurationProvider($this->config))
+			->registerServiceProvider(new DatabaseProvider)
+			->registerServiceProvider(new DebuggerProvider)
+			->registerServiceProvider(new GitHubProvider);
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
@@ -552,41 +551,6 @@ final class TrackerApplication extends AbstractWebApplication
 		}
 
 		return $this->project;
-	}
-
-	/**
-	 * Get a GitHub object.
-	 *
-	 * @return  Github
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getGitHub()
-	{
-		$options = new Registry;
-
-		$token = $this->getSession()->get('gh_oauth_access_token');
-
-		if ($token)
-		{
-			$options->set('gh.token', $token);
-		}
-		else
-		{
-			$options->set('api.username', $this->get('github.username'));
-			$options->set('api.password', $this->get('github.password'));
-		}
-
-		// GitHub API works best with cURL
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
-
-		$http = new Http($options, $transport);
-
-		// Instantiate Github
-		$gitHub = new Github($options, $http);
-
-		return $gitHub;
 	}
 
 	/**
