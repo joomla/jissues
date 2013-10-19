@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `#__status` (
   `status` varchar(255) DEFAULT NULL,
   `closed` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=13;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `#__status`
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data `#__issues_relations_types`
@@ -136,19 +136,19 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
   `priority` tinyint(4) NOT NULL DEFAULT 3 COMMENT 'Issue priority',
   `status` int(11) unsigned NOT NULL DEFAULT 1 COMMENT 'Issue status',
-  `opened_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue open date',
+  `opened_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Issue open date',
   `opened_by` varchar(50) NULL DEFAULT NULL COMMENT 'Opened by username',
   `closed_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue closed date',
   `closed_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue closed by username',
   `closed_sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been closed',
-  `modified_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue modified date',
+  `modified_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Issue modified date',
   `modified_by` varchar(50) NULL DEFAULT NULL COMMENT 'Issue modified by username',
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
 	`vote_id` int(11) unsigned DEFAULT NULL COMMENT 'FK to #__issues_voting',
-	`build` varchar(25) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
+	`build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
 	`tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
 	`easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
   PRIMARY KEY (`id`),
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `event` varchar(32) NOT NULL COMMENT 'The event type',
   `text` mediumtext NULL COMMENT 'The event text',
   `text_raw` mediumtext NULL COMMENT 'The raw event text',
-  `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
   `alias` varchar(250) NOT NULL COMMENT 'The article alias.',
   `text` text NOT NULL COMMENT 'The article text.',
   `text_md` text NOT NULL COMMENT 'The raw article text.',
-  `created_date` datetime NOT NULL COMMENT 'The created date.',
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'The created date.',
   PRIMARY KEY (`article_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -275,5 +275,5 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 -- Dumping data for table `#__articles`
 --
 
-INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
-('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-06-18 20:20:41');
+INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`) VALUES
+('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more');

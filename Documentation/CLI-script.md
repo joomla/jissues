@@ -14,9 +14,9 @@ Usage:
 Available commands:
 
 * `install` Install the application.
-* `get` Retrieve new issues, comments, avatars, ...
-* `make` Make documentation, ...
-* `help` Display some helpful text.
+* `get` Retrieve new issues, issue comments, avatars, ...
+* `make` Make documentation, database table comments, autocomplete files, ...
+* `help` Display a lot of helpful text.
 
 For more information use `tracker.php help`.
 For more information on a specific command use `tracker.php help <command>`.
@@ -28,11 +28,16 @@ Copy `/etc/config.example.json` to `/etc/config.json` and fill in your database 
 Then run:
 `tracker.php install`
 
-## Retrieve new Issues and Comments
+## Import a project from GitHub
 
-`tracker.php get issues`
+The command `tracker.php get project` will retrieve the information for a given project from GitHub.
+This should be used during installation and periodical executions.
 
-`tracker.php get comments`
+To bypass inputs and write the output to a log file during cron execution, a similar command could be used:
+
+`/path/to/tracker.php get project -p 2 --all --quiet --log cron.log`
+
+*Note* `get project` will "batch run" the available `get` commands in the correct (..erm) order.
 
 ## Colors
 Recently a new feature has been added to the framework that allows CLI applications to display colorful output on ANSI enabled terminals. So I thought we might see how it looks and feels ;)

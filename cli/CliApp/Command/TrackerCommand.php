@@ -11,18 +11,29 @@ namespace CliApp\Command;
 
 use JTracker\Container;
 
+use Monolog\Logger;
+
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+
 /**
  * TrackerCommand class
  *
  * @since  1.0
  */
-abstract class TrackerCommand
+abstract class TrackerCommand implements LoggerAwareInterface
 {
 	/**
 	 * @var    \CliApp\Application\CliApplication
 	 * @since  1.0
 	 */
 	protected $application;
+
+	/**
+	 * @var    Logger
+	 * @since  1.0
+	 */
+	protected $logger;
 
 	/**
 	 * @var    array
@@ -46,6 +57,7 @@ abstract class TrackerCommand
 	public function __construct()
 	{
 		$this->application = Container::retrieve('app');
+		$this->logger      = Container::retrieve('logger');
 	}
 
 	/**
@@ -120,6 +132,23 @@ abstract class TrackerCommand
 	}
 
 	/**
+	 * Pass a string to the attached logger.
+	 *
+	 * @param   string  $text  The text to display.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function logOut($text)
+	{
+		// Send text to the logger and remove color chars.
+		$this->logger->info(preg_replace('/\<[a-z\/]+\>/', '', $text));
+
+		return $this;
+	}
+
+	/**
 	 * Write a string to the standard output if an operation has terminated successfully.
 	 *
 	 * @return $this
@@ -129,5 +158,17 @@ abstract class TrackerCommand
 	protected function outOK()
 	{
 		return $this->out('<ok>ok</ok>');
+	}
+
+	/**
+	 * Sets a logger instance on the object
+	 *
+	 * @param   LoggerInterface  $logger  The logger interface
+	 *
+	 * @return null
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
 	}
 }

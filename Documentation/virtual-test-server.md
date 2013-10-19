@@ -15,7 +15,7 @@ So you basically have to issue only one line on the CLI to get a working instanc
 * Clone or download this repository.
 * `cd to/the/path` where you downloaded/checked out the code
 * `vagrant up` - **NOTE**: The very first startup will probably take some minutes to complete, since packages have to be downloaded. Time depends, as always, on you ISP.<br />Subsequent starts will take about 10 secs.
-* Open http://127.0.0.1:2345 in your browser. (The site should show up with a database error => proceed with setup)
+* **Test**: Open http://127.0.0.1:2345 in your browser. (The site should show up with a database error => proceed with setup)
 
 ### Setup
 

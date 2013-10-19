@@ -7,7 +7,6 @@
 namespace CliApp\Command\Get;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Container;
 
 /**
@@ -41,53 +40,66 @@ class Avatars extends Get
 	/**
 	 * Execute the command.
 	 *
-	 * @since   1.0
-	 * @throws \UnexpectedValueException
 	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Issues');
+		$this->application->outputTitle('Retrieve Avatars');
 
-		$this
+		$this->logOut('Start retrieve Avatars.')
 			->setupGitHub()
-			->displayGitHubRateLimit();
+			->displayGitHubRateLimit()
+			->fetchAvatars()
+			->out()
+			->logOut('Finished.');
+	}
 
+	/**
+	 * Fetch avatars.
+	 *
+	 * @return $this
+	 *
+	 * @throws \UnexpectedValueException
+	 * @since  1.0
+	 */
+	private function fetchAvatars()
+	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = Container::getInstance()->get('db');
 
-		$users = $db->setQuery(
+		$usernames = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__activities'))
 				->select('DISTINCT ' . $db->quoteName('user'))
 				->order($db->quoteName('user'))
 		)->loadColumn();
 
-		if (!count($users))
+		if (!count($usernames))
 		{
-			throw new \UnexpectedValueException('No users found in database');
+			throw new \UnexpectedValueException('No users found in database.');
 		}
 
-		$this->out(sprintf("Found %d users in the database", count($users)));
+		$this->logOut(sprintf('Processing avatars for %d users.', count($usernames)));
 
-		$g = new GitHubUser;
-
-		$progressBar = $this->getProgressBar(count($users));
+		$progressBar = $this->getProgressBar(count($usernames));
 
 		$this->usePBar ? $this->out() : null;
 
 		$base = JPATH_THEMES . '/images/avatars/';
+		$adds = 0;
 
-		foreach ($users as $i => $user)
+		foreach ($usernames as $i => $username)
 		{
-			if (!$user)
+			if (!$username)
 			{
 				continue;
 			}
 
-			if (file_exists($base . '/' . $user . '.png'))
+			if (file_exists($base . '/' . $username . '.png'))
 			{
-				$this->debugOut('User already fetched: ' . $user);
+				$this->debugOut('User avatar already fetched: ' . $username);
 
 				$this->usePBar
 					? $progressBar->update($i + 1)
@@ -96,19 +108,25 @@ class Avatars extends Get
 				continue;
 			}
 
-			$this->debugOut('Fetching avatar for user: ' . $user);
+			$this->debugOut('Fetching avatar for user: ' . $username);
 
-			$g->username   = $user;
-			$g->avatar_url = $this->github->users->get($user)->avatar_url;
+			try
+			{
+				GitHubLoginHelper::saveAvatar($username);
 
-			GitHubLoginHelper::saveAvatar($g->username);
+				++ $adds;
+			}
+			catch (\DomainException $e)
+			{
+				$this->debugOut($e->getMessage());
+			}
 
 			$this->usePBar
 				? $progressBar->update($i + 1)
 				: $this->out('+', false);
 		}
 
-		$this->out()
-			->out('Finished =;)');
+		return $this->out()
+			->logOut(sprintf('Added %d new user avatars', $adds));
 	}
 }

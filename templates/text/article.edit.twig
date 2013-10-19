@@ -40,23 +40,22 @@
         }}
     </h2>
 
-    <form method="post" action="{{ uri.base.path }}text/save" class="form-inline" name="editForm">
+    <form method="post" action="{{ uri.base.path }}text/save" class="form-horizontal" name="editForm">
        <div>
         <fieldset>
-            <ul class="unstyled">
-
-                <li>
-                    <label for="title">Title</label>
+            <div class="control-group">
+                <label class="control-label" for="title">Title</label>
+                <div class="controls">
                     <input type="text" name="article[title]" id="title" value="{{ item.title }}" />
-                </li>
+                </div>
+            </div>
 
-                <li>
-                    <label for="alias">Alias</label>
+            <div class="control-group">
+                <label class="control-label" for="alias">Alias</label>
+                <div class="controls">
                     <input type="text" name="article[alias]" id="alias" value="{{ item.alias }}" />
-                </li>
-
-            </ul>
-
+                </div>
+            </div>
         </fieldset>
 
         {% set editorId="text" %}

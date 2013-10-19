@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "860791f6de6958fdbc8c080302b31aa9e25002c4"
+                "reference": "506fc94411bc400856229cac3a6f28851be22aa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/860791f6de6958fdbc8c080302b31aa9e25002c4",
-                "reference": "860791f6de6958fdbc8c080302b31aa9e25002c4",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/506fc94411bc400856229cac3a6f28851be22aa2",
+                "reference": "506fc94411bc400856229cac3a6f28851be22aa2",
                 "shasum": ""
             },
             "require": {
@@ -119,6 +119,9 @@
                 },
                 "classmap": [
                     "src/Joomla/Compat/JsonSerializable.php"
+                ],
+                "files": [
+                    "src/Joomla/PHP/methods.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -131,7 +134,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-09-06 16:32:10"
+            "time": "2013-10-04 13:41:16"
         },
         {
             "name": "mustache/mustache",
@@ -215,17 +218,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.4",
+            "version": "v2.3.5",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "fdf130fe65457aedbc4639a22f4ef9d3be5c002c"
+                "reference": "ed17ea8ee67ae25371bdb63f691c22b453ea4bc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/fdf130fe65457aedbc4639a22f4ef9d3be5c002c",
-                "reference": "fdf130fe65457aedbc4639a22f4ef9d3be5c002c",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/ed17ea8ee67ae25371bdb63f691c22b453ea4bc0",
+                "reference": "ed17ea8ee67ae25371bdb63f691c22b453ea4bc0",
                 "shasum": ""
             },
             "require": {
@@ -261,20 +264,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-26 05:49:51"
+            "time": "2013-09-19 09:45:20"
         },
         {
             "name": "twig/twig",
-            "version": "v1.13.2",
+            "version": "v1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "v1.13.2"
+                "reference": "224fc55635d544a2ec8edb3592be18db5a093f59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.13.2",
-                "reference": "v1.13.2",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/224fc55635d544a2ec8edb3592be18db5a093f59",
+                "reference": "224fc55635d544a2ec8edb3592be18db5a093f59",
                 "shasum": ""
             },
             "require": {
@@ -283,7 +286,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -310,7 +313,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-08-03 15:35:31"
+            "time": "2013-10-03 06:41:20"
         }
     ],
     "packages-dev": [
@@ -433,12 +436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "56f995a5f8eccbb814dad195dc34d1aa963301d6"
+                "reference": "aa4f10f0f5bdeabff515513f3a31388f196a5b5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/56f995a5f8eccbb814dad195dc34d1aa963301d6",
-                "reference": "56f995a5f8eccbb814dad195dc34d1aa963301d6",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/aa4f10f0f5bdeabff515513f3a31388f196a5b5f",
+                "reference": "aa4f10f0f5bdeabff515513f3a31388f196a5b5f",
                 "shasum": ""
             },
             "require": {
@@ -471,7 +474,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-09-09 08:33:57"
+            "time": "2013-09-23 13:37:34"
         }
     ],
     "aliases": [

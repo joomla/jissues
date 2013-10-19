@@ -39,7 +39,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$alias = $application->input->getCmd('alias');

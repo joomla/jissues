@@ -178,7 +178,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$isNew = ($this->id < 1);
@@ -252,7 +252,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	private function processChanges()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$changes = array();

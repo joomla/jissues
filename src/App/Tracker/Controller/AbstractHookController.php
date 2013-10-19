@@ -153,7 +153,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		$this->db = Container::retrieve('db');
 
 		// Instantiate Github
-		$this->github = $this->getApplication()->getGitHub();
+		$this->github = Container::retrieve('gitHub');
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();

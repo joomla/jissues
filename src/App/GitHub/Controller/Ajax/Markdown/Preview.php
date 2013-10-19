@@ -8,75 +8,48 @@
 
 namespace App\GitHub\Controller\Ajax\Markdown;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractAjaxController;
+use JTracker\Container;
 
 /**
  * Controller class to render a text entry in GitHub Flavored Markdown format.
  *
  * @since  1.0
  */
-class Preview extends AbstractTrackerController
+class Preview extends AbstractAjaxController
 {
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
-		$response = new \stdClass;
-
-		$response->data    = new \stdClass;
-		$response->error   = '';
-		$response->message = '';
-
-		ob_start();
-
-		try
+		// Only registered users are able to use the preview using their credentials.
+		if (!$this->getApplication()->getUser()->id)
 		{
-			// Only registered users are able to use the preview
-			// using their credentials.
-
-			if (!$this->getApplication()->getUser()->id)
-			{
-				throw new \Exception('not auth..');
-			}
-
-			$text = $this->getInput()->get('text', '', 'raw');
-
-			if (!$text)
-			{
-				throw new \Exception('Nothing to preview...');
-			}
-
-			$project = $this->getApplication()->getProject();
-
-			$response->data = $this->getApplication()->getGitHub()->markdown
-				->render(
-					$text,
-					'gfm',
-					$project->gh_user . '/' . $project->gh_project
-				);
-		}
-		catch (\Exception $e)
-		{
-			$response->error = $e->getMessage();
+			throw new \Exception('not auth..');
 		}
 
-		$errors = ob_get_clean();
+		$text = $this->getInput()->get('text', '', 'raw');
 
-		if ($errors)
+		if (!$text)
 		{
-			$response->error .= $errors;
+			throw new \Exception('Nothing to preview...');
 		}
 
-		header('Content-type: application/json');
+		$project = $this->getApplication()->getProject();
 
-		echo json_encode($response);
+		/* @type \Joomla\Github\Github $github */
+		$github = Container::retrieve('gitHub');
 
-		exit(0);
+		$this->response->data = $github->markdown->render(
+			$text,
+			'gfm',
+			$project->gh_user . '/' . $project->gh_project
+		);
 	}
 }

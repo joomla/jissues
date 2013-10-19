@@ -9,6 +9,7 @@
 namespace App\GitHub\Controller\Ajax\Hooks;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Container;
 
 /**
  * Controller class to add new webhooks to the GitHub repository.
@@ -32,7 +33,9 @@ class Add extends AbstractAjaxController
 		$events = $this->getInput()->getHtml('events');
 
 		$project = $this->getApplication()->getProject();
-		$gitHub  = $this->getApplication()->getGitHub();
+
+		/* @type \Joomla\Github\Github $github */
+		$github = Container::retrieve('gitHub');
 
 		$name   = 'web';
 		$active = 1;

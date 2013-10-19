@@ -21,7 +21,7 @@ require JPATH_ROOT . '/vendor/autoload.php';
 require JPATH_ROOT . '/vendor/joomla/framework/src/import.php';
 
 // Instantiate the application.
-$application = new JTracker\Application\TrackerApplication;
+$application = new JTracker\Application;
 
 // Execute the application.
 $application->execute();

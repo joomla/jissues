@@ -51,15 +51,13 @@ class Issues extends Get
 	{
 		$this->application->outputTitle('Retrieve Issues');
 
-		$this->selectProject()
+		$this->logOut('Start retrieve Issues')
+			->selectProject()
 			->setupGitHub()
-			->displayGitHubRateLimit();
-
-		// Process the data from GitHub
-		$this->processIssues($this->getData());
-
-		$this->out()
-			->out('Finished');
+			->displayGitHubRateLimit()
+			->processIssues($this->getData())
+			->out()
+			->logOut('Finished');
 	}
 
 	/**
@@ -76,9 +74,9 @@ class Issues extends Get
 		foreach (array('open', 'closed') as $state)
 		{
 			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
-			$page = 0;
-
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+
+			$page = 0;
 
 			do
 			{
@@ -132,7 +130,7 @@ class Issues extends Get
 			}
 		);
 
-		$this->out(sprintf('Retrieved <b>%d</b> items from GitHub.', count($issues)));
+		$this->logOut(sprintf('Retrieved <b>%d</b> items from GitHub.', count($issues)));
 
 		return $issues;
 	}
@@ -142,7 +140,7 @@ class Issues extends Get
 	 *
 	 * @param   array  $issues  Array containing the issues pulled from GitHub
 	 *
-	 * @return  void
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -266,12 +264,14 @@ class Issues extends Get
 			}
 
 			// Store was successful, update status
-			$added++;
+			++ $added;
 		}
 
 		// Output the final result
 		$this->out()
-			->out(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
+			->logOut(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
+
+		return $this;
 	}
 
 	/**
@@ -294,9 +294,9 @@ class Issues extends Get
 
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
-			->from($db->quoteName($table->getTableName()))
-			->select(array('label_id', 'name'))
-			->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
+				->from($db->quoteName($table->getTableName()))
+				->select(array('label_id', 'name'))
+				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 			)->loadObjectList();
 
 			foreach ($labelList as $labelObject)

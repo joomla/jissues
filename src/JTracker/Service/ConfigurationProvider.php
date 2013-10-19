@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Tracker CLI Service Package
+ * Part of the Joomla Tracker Service Package
  *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
@@ -13,11 +13,11 @@ use Joomla\DI\ServiceProviderInterface;
 use Joomla\Registry\Registry;
 
 /**
- * Class Application service.
+ * Configuration service provider
  *
  * @since  1.0
  */
-class Configuration implements ServiceProviderInterface
+class ConfigurationProvider implements ServiceProviderInterface
 {
 	/**
 	 * Configuration instance
@@ -32,9 +32,8 @@ class Configuration implements ServiceProviderInterface
 	 *
 	 * @param   Registry  $config  The config object.
 	 *
-	 * @throws \RuntimeException
-	 *
-	 * @since    1.0
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function __construct(Registry $config)
 	{
@@ -70,7 +69,7 @@ class Configuration implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  $this
+	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */

@@ -55,15 +55,16 @@ class Submit extends AbstractAjaxController
 
 		$project = $this->getApplication()->getProject();
 
+		/* @type \Joomla\Github\Github $github */
+		$github = Container::retrieve('gitHub');
+
 		$data = new \stdClass;
 
 		if ($project->gh_user && $project->gh_project)
 		{
-			$gitHubResponse = $this->getApplication()->getGitHub()
-				->issues->comments->create(
-					$project->gh_user, $project->gh_project,
-					$issue_number, $comment
-				);
+			$gitHubResponse = $github->issues->comments->create(
+				$project->gh_user, $project->gh_project, $issue_number, $comment
+			);
 
 			if (!isset($gitHubResponse->id))
 			{
@@ -75,12 +76,11 @@ class Submit extends AbstractAjaxController
 			$data->comment_id = $gitHubResponse->id;
 			$data->text_raw   = $gitHubResponse->body;
 
-			$data->text = $this->getApplication()->getGitHub()->markdown
-				->render(
-					$comment,
-					'gfm',
-					$project->gh_user . '/' . $project->gh_project
-				);
+			$data->text = $github->markdown->render(
+				$comment,
+				'gfm',
+				$project->gh_user . '/' . $project->gh_project
+			);
 		}
 		else
 		{
@@ -93,8 +93,7 @@ class Submit extends AbstractAjaxController
 
 			$data->text_raw = $comment;
 
-			$data->text = $this->getApplication()->getGitHub()->markdown
-				->render($comment, 'markdown');
+			$data->text = $github->markdown->render($comment, 'markdown');
 		}
 
 		$table = new ActivitiesTable($db);

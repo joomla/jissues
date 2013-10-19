@@ -8,22 +8,23 @@ namespace CliApp\Application;
 
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
-use CliApp\Service\Provider\Application;
+use CliApp\Service\GitHubProvider;
+use CliApp\Service\ApplicationProvider;
+use CliApp\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
-use Joomla\Database\DatabaseDriver;
-use Joomla\Github\Github;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Container;
-use JTracker\Service\Configuration;
-use JTracker\Service\DatabaseServiceProvider;
+use JTracker\Service\ConfigurationProvider;
+use JTracker\Service\DatabaseProvider;
+use JTracker\Service\DebuggerProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -32,11 +33,6 @@ use JTracker\Service\DatabaseServiceProvider;
  */
 class CliApplication extends AbstractCliApplication
 {
-	/**
-	 * @var Github
-	 */
-	private $gitHub = null;
-
 	/**
 	 * Quiet mode - no output.
 	 *
@@ -95,9 +91,12 @@ class CliApplication extends AbstractCliApplication
 
 		// Build the DI Container
 		Container::getInstance()
-			->registerServiceProvider(new Application($this))
-			->registerServiceProvider(new Configuration($this->config))
-			->registerServiceProvider(new DatabaseServiceProvider);
+			->registerServiceProvider(new ApplicationProvider($this))
+			->registerServiceProvider(new ConfigurationProvider($this->config))
+			->registerServiceProvider(new DatabaseProvider)
+			->registerServiceProvider(new GitHubProvider)
+			->registerServiceProvider(new DebuggerProvider)
+			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))));
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
@@ -111,7 +110,7 @@ class CliApplication extends AbstractCliApplication
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'nocolors', '',
-			'Supprees ANSI colors on unsupported terminals.'
+			'Suppress ANSI colors on unsupported terminals.'
 		);
 
 		/* @type ColorProcessor $processor */
@@ -242,8 +241,8 @@ class CliApplication extends AbstractCliApplication
 	 * Output a nicely formatted title for the application.
 	 *
 	 * @param   string   $title     The title to display.
-	 * @param   string   $subTitle  A subtitle
-	 * @param   integer  $width     Total width in chars
+	 * @param   string   $subTitle  A subtitle.
+	 * @param   integer  $width     Total width in chars.
 	 *
 	 * @return  CliApplication
 	 *
@@ -308,62 +307,6 @@ class CliApplication extends AbstractCliApplication
 	}
 
 	/**
-	 * Get a GitHub object.
-	 *
-	 * @since  1.0
-	 * @throws \RuntimeException
-	 * @return Github
-	 */
-	public function getGitHub()
-	{
-		if (is_null($this->gitHub))
-		{
-			$options = new Registry;
-
-			if ($this->input->get('auth'))
-			{
-				$resp = 'yes';
-			}
-			else
-			{
-				// Ask if the user wishes to authenticate to GitHub.  Advantage is increased rate limit to the API.
-				$this->out('<question>Do you wish to authenticate to GitHub?</question> [y]es / <b>[n]o</b> :', false);
-
-				$resp = trim($this->in());
-			}
-
-			if ($resp == 'y' || $resp == 'yes')
-			{
-				// Set the options
-				$options->set('api.username', $this->get('github.username', ''));
-				$options->set('api.password', $this->get('github.password', ''));
-
-				$this->debugOut('GitHub credentials: ' . print_r($options, true));
-			}
-
-			// @todo temporary fix to avoid the "Socket" transport protocol
-			$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
-
-			if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
-			{
-				throw new \RuntimeException('Please enable cURL.');
-			}
-
-			$http = new \Joomla\Github\Http($options, $transport);
-
-			$this->debugOut(get_class($transport));
-
-			// Instantiate Github
-			$this->gitHub = new Github($options, $http);
-
-			// @todo after fix this should be enough:
-			// $this->github = new Github($options);
-		}
-
-		return $this->gitHub;
-	}
-
-	/**
 	 * Display the GitHub rate limit.
 	 *
 	 * @return  $this
@@ -375,7 +318,7 @@ class CliApplication extends AbstractCliApplication
 		$this->out()
 			->out('<info>GitHub rate limit:...</info> ', false);
 
-		$rate = $this->getGitHub()->authorization->getRateLimit()->rate;
+		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->rate;
 
 		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
 			->out();

@@ -35,7 +35,7 @@ class Submit extends AbstractTrackerController
 	{
 		$application = $this->getApplication();
 		$database    = Container::retrieve('db');
-		$gitHub      = $application->getGitHub();
+		$gitHub      = Container::retrieve('gitHub');
 		$project     = $application->getProject();
 
 		$application->getUser()->authorize('create');

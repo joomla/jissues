@@ -45,7 +45,7 @@ class ArticlesTable extends AbstractDatabaseTable
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @return  void
+	 * @return  ArticlesTable
 	 *
 	 * @since   1.0
 	 */
@@ -116,20 +116,16 @@ class ArticlesTable extends AbstractDatabaseTable
 	{
 		if (!$this->created_date)
 		{
-			// New item
-			if (!$this->created_date)
-			{
-				$date               = new \DateTime;
-				$this->created_date = $date->format('Y-m-d H:i:s');
-			}
+			// New item - set an (arbitrary) created date..
+			$this->created_date = with(new \DateTime)->format('Y-m-d H:i:s');
 		}
 
-		/* @type \JTracker\Application\TrackerApplication $application */
-		$application = Container::retrieve('app');
+		/* @type \Joomla\Github\Github $gitHub */
+		$gitHub = Container::retrieve('gitHub');
 
 		// Render markdown
-		$this->text = $application->getGitHub()
-			->markdown->render($this->text_md);
+		$this->text = $gitHub->markdown
+			->render($this->text_md);
 
 		return parent::store($updateNulls);
 	}
