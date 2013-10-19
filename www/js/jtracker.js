@@ -85,14 +85,3 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 		}
 	);
 };
-
-JTracker.submitIssue = function(button) {
-
-	// @todo validate
-
-	$(button).html('Submitting...');
-
-	document.editForm.submit();
-
-	return false;
-};

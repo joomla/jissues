@@ -2,14 +2,15 @@
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#write" data-toggle="tab">Write</a></li>
-    <li><a href="#preview" data-toggle="tab">Preview</a></li>
+    <li class="active"><a href="#write" data-toggle="tab">{{ translate('COM_TRACKER_WRITE') }}</a></li>
+    <li><a href="#preview" data-toggle="tab">{{ translate('COM_TRACKER_PREVIEW') }}</a></li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane active" id="write">
-        <textarea name="{{ editorName }}" id="{{ editorId ? editorId : editorName }}"
-                  style="width: 99%; resize: vertical; min-height: 150px;"
+        <textarea class="validateDescription"
+                  name="{{ editorName }}" id="{{ editorId ? editorId : editorName }}"
+                  style="width: 98%; resize: vertical; min-height: 150px;"
                   placeholder="{{ editorPlaceholder }}">{{ editorText }}</textarea>
     </div>
     <div class="tab-pane" style="min-height: 200px;" id="preview"></div>
