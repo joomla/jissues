@@ -14,7 +14,12 @@ use Joomla\DI\ServiceProviderInterface;
 use JTracker\Application\TrackerApplication;
 use JTracker\Container;
 
-class ApplicationServiceProvider implements ServiceProviderInterface
+/**
+ * Application service provider
+ *
+ * @since  1.0
+ */
+class ApplicationProvider implements ServiceProviderInterface
 {
 	/**
 	 * Application instance
@@ -39,7 +44,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   Container $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *

@@ -22,8 +22,8 @@ use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Container;
-use JTracker\Service\Configuration;
-use JTracker\Service\DatabaseServiceProvider;
+use JTracker\Service\ConfigurationProvider;
+use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
 
 /**
@@ -92,8 +92,8 @@ class CliApplication extends AbstractCliApplication
 		// Build the DI Container
 		Container::getInstance()
 			->registerServiceProvider(new ApplicationProvider($this))
-			->registerServiceProvider(new Configuration($this->config))
-			->registerServiceProvider(new DatabaseServiceProvider)
+			->registerServiceProvider(new ConfigurationProvider($this->config))
+			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))));

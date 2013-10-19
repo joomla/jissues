@@ -18,7 +18,7 @@ use Joomla\Registry\Registry;
 use JTracker\Container;
 
 /**
- * Class GitHubProvider
+ * GitHub service provider
  *
  * @since  1.0
  */

@@ -25,9 +25,9 @@ use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
-use JTracker\Service\ApplicationServiceProvider;
-use JTracker\Service\Configuration;
-use JTracker\Service\DatabaseServiceProvider;
+use JTracker\Service\ApplicationProvider;
+use JTracker\Service\ConfigurationProvider;
+use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
 use JTracker\Service\GitHubProvider;
 
@@ -101,9 +101,9 @@ final class TrackerApplication extends AbstractWebApplication
 
 		// Build the DI Container
 		Container::getInstance()
-			->registerServiceProvider(new ApplicationServiceProvider($this))
-			->registerServiceProvider(new Configuration($this->config))
-			->registerServiceProvider(new DatabaseServiceProvider)
+			->registerServiceProvider(new ApplicationProvider($this))
+			->registerServiceProvider(new ConfigurationProvider($this->config))
+			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
 

@@ -15,6 +15,11 @@ use Joomla\DI\ServiceProviderInterface;
 
 use JTracker\Container;
 
+/**
+ * Debug service provider
+ *
+ * @since  1.0
+ */
 class DebuggerProvider implements ServiceProviderInterface
 {
 	/**
@@ -28,12 +33,12 @@ class DebuggerProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param \Joomla\DI\Container $container The DI container.
+	 * @param   \Joomla\DI\Container $container The DI container.
 	 *
-	 * @throws \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function register(JoomlaContainer $container)
 	{
