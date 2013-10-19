@@ -30,7 +30,7 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($itemId = null)
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		if (!$itemId)

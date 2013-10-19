@@ -116,7 +116,7 @@ class IssuesModel extends AbstractTrackerListModel
 	 */
 	protected function loadState()
 	{
-		/* @type \JTracker\Application\TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$project = $application->getProject();

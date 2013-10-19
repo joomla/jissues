@@ -10,7 +10,7 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Profiler\Profiler;
 
 use Joomla\Utilities\ArrayHelper;
-use JTracker\Application\TrackerApplication;
+use JTracker\Application;
 use JTracker\Container;
 
 use App\Debug\Database\DatabaseDebugger;
@@ -39,7 +39,7 @@ use Whoops\Run;
 class TrackerDebugger implements LoggerAwareInterface
 {
 	/**
-	 * @var    TrackerApplication
+	 * @var    Application
 	 * @since  1.0
 	 */
 	private $application;

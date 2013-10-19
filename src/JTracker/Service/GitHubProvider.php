@@ -48,7 +48,7 @@ class GitHubProvider implements ServiceProviderInterface
 		{
 			$options = new Registry;
 
-			/* @var \JTracker\Application\TrackerApplication $app */
+			/* @var \JTracker\Application $app */
 			$app     = Container::retrieve('app');
 			$session = $app->getSession();
 

@@ -10,7 +10,6 @@ namespace JTracker\View\Renderer;
 
 use Joomla\Language\Text;
 
-use JTracker\Application\TrackerApplication;
 use JTracker\Container;
 
 /**
@@ -41,7 +40,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getGlobals()
 	{
-		/* @var TrackerApplication $app */
+		/* @var \JTracker\Application $app */
 		$app = Container::retrieve('app');
 
 		return array(
@@ -137,7 +136,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function fetchAvatar($userName = '', $width = 0)
 	{
-		/* @type TrackerApplication $app */
+		/* @type \JTracker\Application $app */
 		$app = Container::retrieve('app');
 
 		$base = $app->get('uri.base.path');
@@ -270,7 +269,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$labels)
 		{
-			/* @type TrackerApplication $application */
+			/* @type \JTracker\Application $application */
 			$application = Container::retrieve('app');
 
 			$labels = $application->getProject()->getLabels();
@@ -314,7 +313,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function issueLink($number, $closed, $title = '')
 	{
-		/* @type TrackerApplication $application */
+		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
 		$html = array();
