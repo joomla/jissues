@@ -8,9 +8,8 @@
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block prependMenu %}
-    <li id="issueResult" xmlns="http://www.w3.org/1999/html">
+    <li id="issueResult">
         <a class="btn-success" href="javascript:" id="submit">{{ translate('COM_TRACKER_SUBMIT') }}</a>
-        <div id="issueDebug"></div>
     </li>
     {{ parent() }}
 {% endblock %}
