@@ -91,13 +91,13 @@ class php {
 		require => Exec['apt-get update'],
 	}
 
-	file { '/etc/php5/apache2/conf.d/21-xdebug.ini':
+	file { '/etc/php5/conf.d/21-xdebug.ini':
 		ensure  => present,
 		require => Package['php5'],
 		source  => '/vagrant/build/puppet/files/php/21-xdebug.ini';
 	}
 
-	file { '/etc/php5/apache2/conf.d/666-php.ini':
+	file { '/etc/php5/conf.d/666-php.ini':
 		ensure  => present,
 		require => Package['php5'],
 		source  => '/vagrant/build/puppet/files/php/666-php.ini';
