@@ -131,6 +131,20 @@ I have not tried any of the above currently beside my own linux box, but I belie
 * JavaScript translations and pluralizations are supported but not implemented yet. WIP
 * Performance... This will be the last time that I mention that I'm lazy but... to avoid ugly escaping/unescaping of quotes, I simply base64 encode and decode the string and md5 encode the key which is, I admit that, very very time consuming W-I-P...
 
+#### Usage in the virtual environment
+
+The [virtual environment](https://github.com/joomla/jissues/blob/framework/Documentation/virtual-test-server.md) already has the gettext package added, so creating and updating language files can be done from here, in case a developer can/will not install gettext on his/her operating system.
+
+It goes like this:
+
+```
+vagrant ssh
+cd /vagrant/cli
+./tracker.php make langtemplates
+./tracker.php make langfiles
+```
+It would be nice if a "non-Linux" user could test this :wink:
+
 #### Refs
 
 * https://github.com/elkuku/g11n - The experimental language handler oO
