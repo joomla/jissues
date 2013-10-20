@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-07-01 12:58-0500\n"
+"POT-Creation-Date: 2013-10-20 01:49-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -54,31 +54,31 @@ msgstr "конфигурация"
 msgid "Database"
 msgstr "база данных"
 
-#: /templates/trackerMenu.twig:133
+#: /templates/trackerMenu.twig:136
 msgid "Icons"
 msgstr "Иконки"
 
-#: /templates/trackerMenu.twig:139
+#: /templates/trackerMenu.twig:142
 msgid "Text"
 msgstr "текст"
 
-#: /templates/trackerMenu.twig:161
+#: /templates/trackerMenu.twig:164
 msgid "About Us"
 msgstr "О нас"
 
-#: /templates/trackerMenu.twig:188
+#: /templates/trackerMenu.twig:191
 msgid "Admin"
 msgstr "Админ"
 
-#: /templates/trackerMenu.twig:193
+#: /templates/trackerMenu.twig:196
 msgid "Profile"
 msgstr "профиль"
 
-#: /templates/trackerMenu.twig:200
+#: /templates/trackerMenu.twig:203
 msgid "Logout"
 msgstr "Выход"
 
-#: /templates/trackerMenu.twig:208
+#: /templates/trackerMenu.twig:211
 msgid "Login with GitHub"
 msgstr "Войти с GitHub"
 
