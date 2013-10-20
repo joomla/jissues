@@ -417,7 +417,7 @@ class Langtemplates extends Make
 
 		$lines = file($templateFile);
 
-		foreach ($lines as $i => $line)
+		foreach ($lines as $cnt => $line)
 		{
 			if (preg_match('/#: ([A-z0-9\/\.]+):([0-9]+)/', $line, $matches))
 			{
@@ -432,19 +432,24 @@ class Langtemplates extends Make
 
 				$twigPhp = $pathMap[$path];
 
-				$pLine = $twigPhp->lines[$lineNo - 2];
+				$matches = null;
 
-				if (false == preg_match('#// line ([0-9]+)#', $pLine, $matches))
+				for ($i = $lineNo - 2; $i >=0; $i --)
 				{
-					$pLine = $twigPhp->lines[$lineNo - 3];
+					$pLine = $twigPhp->lines[$i];
 
-					if (false == preg_match('#// line ([0-9]+)#', $pLine, $matches))
+					if (preg_match('#// line ([0-9]+)#', $pLine, $matches))
 					{
-						throw new \RuntimeException('Can not fetch the line number in ' . $line . $pLine);
+						break;
 					}
 				}
 
-				$lines[$i] = '#: ' . $twigPhp->twigTwigPath . ':' . $matches[1] . "\n";
+				if (!$matches)
+				{
+					throw new \RuntimeException('Can not fetch the line number in: ' . $line);
+				}
+
+				$lines[$cnt] = '#: ' . $twigPhp->twigTwigPath . ':' . $matches[1] . "\n";
 			}
 		}
 
