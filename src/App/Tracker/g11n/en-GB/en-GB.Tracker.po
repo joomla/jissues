@@ -1,0 +1,37 @@
+# Language de-DE translations for Tracker - App package.
+# Copyright (C) 2013 JTracker(C)
+# This file is distributed under the same license as the Tracker - App package.
+# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tracker - App 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-10-20 01:49-0500\n"
+"PO-Revision-Date: 2013-06-23 23:57-0500\n"
+"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
+"Language-Team: Language en-GB\n"
+"Language: en-GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/tracker/issue.add.twig:48
+msgid "COM_TRACKER_HELP_PRIORITY"
+msgstr "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+
+#: /templates/tracker/issue.add.twig:54
+msgid "COM_TRACKER_HELP_ISSUE_BUILD"
+msgstr "The version(s) of the project on which this issue is found."
+
+#: /templates/tracker/issue.add.twig:59
+msgid "COM_TRACKER_HELP_ISSUE_INTRO"
+msgstr "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
+
+#: /templates/tracker/issue.add.twig:65
+msgid "COM_TRACKER_HELP_ISSUE_TITLE"
+msgstr "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
+
+#: /templates/tracker/issue.add.twig:76
+msgid "COM_TRACKER_HELP_ISSUE_DESCRIPTION"
+msgstr "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
