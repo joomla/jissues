@@ -117,6 +117,9 @@ class ReceiveIssuesHook extends AbstractHookController
 			$data['foreign_number'] = $matches[1];
 		}
 
+		// Process labels for the item
+		$data['labels'] = $this->processLabels($this->hookData->issue->number);
+
 		try
 		{
 			$table = new IssuesTable($this->db);
@@ -227,6 +230,9 @@ class ReceiveIssuesHook extends AbstractHookController
 			$closed = new Date($this->hookData->issue->closed_at);
 			$data['closed_date'] = $closed->format($dateFormat);
 		}
+
+		// Process labels for the item
+		$data['labels'] = $this->processLabels($this->hookData->issue->number);
 
 		try
 		{

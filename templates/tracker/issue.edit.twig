@@ -13,43 +13,21 @@
 
 {% block prependMenu %}
     <li>
-        <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">
-            Save
-        </a>
+       <a class="btn-success" href="javascript:" id="submit">{{ translate('COM_TRACKER_SAVE') }}</a>
     </li>
     <li>
         <a class="btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
-            Cancel
+            {{ translate('COM_TRACKER_CANCEL') }}
         </a>
     </li>
 
     {{ parent() }}
 
-{% endblock %}
-
-{% block JavaScriptBottom %}
-
-    {{ parent() }}
-
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#description').markItUp(myMarkdownSettings);
-        });
-
-        $('a[data-toggle="tab"]').on('shown', function (e) {
-            if('#preview' == $(e.target).attr('href')) {
-                JTracker.preview('#description', '#preview');
-            }
-        });
-    </script>
 {% endblock %}
 
 {% block content %}
 
-    <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm">
+    <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
 
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
@@ -82,7 +60,7 @@
 
     <ul class="breadcrumb">
         <li>
-            <label for="status">Status</label>
+            <label for="status">{{ translate('COM_TRACKER_STATUS') }}</label>
             <select name="item[status]" id="status" class="span2">
                 {% for status in statuses %}
                     <option {{ status.id == item.status ? "selected='selected'" : ""  }}
@@ -93,7 +71,7 @@
             </select>
         </li>
         <li>
-            <label for="priority">Priority</label>
+            <label for="priority">{{ translate('COM_TRACKER_PRIORITY') }}</label>
             <select name="item[priority]" id="priority" class="span1">
                 {% for i in range(1, 5) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
@@ -101,7 +79,7 @@
             </select>
         </li>
         <li>
-            <label for="rel_type">Relation type</label>
+            <label for="rel_type">{{ translate('COM_TRACKER_RELATION_TYPE') }}</label>
             <select name="item[rel_type]" id="rel_type" class="span2">
                 <option></option>
                 {% for relType in getRelTypes() %}
@@ -111,18 +89,18 @@
             </select>
         </li>
         <li>
-            <label for="rel_number">Relation Number</label>
+            <label for="rel_number">{{ translate('COM_TRACKER_RELATION_NUMBER') }}</label>
             <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
         </li>
     </ul>
 
     <ul class="breadcrumb">
         <li>
-            <label for="build">Build</label>
-            <input name="item[build]" id="build" type="text" class="span1" value="{{ item.build }}" />
+            <label for="build">{{ translate('COM_TRACKER_BUILD') }}</label>
+            <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
         </li>
         <li>
-            <label for="tests"># of Successful Tests</label>
+            <label for="tests">{{ translate('COM_TRACKER_SUCCESSFUL_TESTS') }}</label>
             <select name="item[tests]" id="tests" class="span1">
                 {% for i in range(0, 5) %}
                     <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
@@ -130,7 +108,7 @@
             </select>
         </li>
         <li>
-            <label for="tests">Easy Test</label>
+            <label for="tests">{{ translate('COM_TRACKER_EASY_TEST') }}</label>
             <select name="item[easy]" id="easy" class="span1">
                 <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">No</option>
                 <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">Yes</option>
@@ -139,17 +117,13 @@
     </ul>
 
     <div class="row-fluid">
-
-        <div class="span1 well-small">
-            {{ avatar(item.opened_by)|raw }}
-        </div>
-
         <div class="span11 well-small">
             <ul class="unstyled">
                 <li>
                     <input type="text" name="item[title]"
-                    style="width: 80%; font-size: 1.3em;"
-                    value="{{ item.title }}" />
+                    style="width: 80%; font-size: 1.2em;"
+                    value="{{ item.title }}"
+                    class="validateTitle" />
                 </li>
                 <li>
 
@@ -170,4 +144,35 @@
 
     </form>
 
+{% endblock %}
+
+{% block JavaScriptBottom %}
+
+    {{ parent() }}
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jtracker-rules.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#description').markItUp(myMarkdownSettings);
+        });
+
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+            if('#preview' == $(e.target).attr('href')) {
+                JTracker.preview('#description', '#preview');
+            }
+        });
+
+        // Validate and submit form
+        var form = $('#issueForm');
+        form.validate();
+        $('#submit').click(function() {
+            if (form.valid()) {
+                $('#submit').html('Saving...');
+            }
+            form.submit();
+        });
+    </script>
 {% endblock %}

@@ -470,21 +470,6 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
-	 * Method to get the application name.
-	 *
-	 * The dispatcher name is by default parsed using the class name, or it can be set
-	 * by passing a $config['name'] in the class constructor.
-	 *
-	 * @return  string  The name of the dispatcher.
-	 *
-	 * @since   1.0
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
-
-	/**
 	 * Gets a user state.
 	 *
 	 * @param   string  $key      The path of the state.
