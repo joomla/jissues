@@ -13,11 +13,11 @@
 
 {% block prependMenu %}
     <li>
-       <a class="btn-success" href="javascript:" id="submit">{{ translate('COM_TRACKER_SAVE') }}</a>
+       <a class="btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
     </li>
     <li>
         <a class="btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
-            {{ translate('COM_TRACKER_CANCEL') }}
+            {{ translate('Cancel') }}
         </a>
     </li>
 
@@ -60,7 +60,7 @@
 
     <ul class="breadcrumb">
         <li>
-            <label for="status">{{ translate('COM_TRACKER_STATUS') }}</label>
+            <label for="status">{{ translate('Status') }}</label>
             <select name="item[status]" id="status" class="span2">
                 {% for status in statuses %}
                     <option {{ status.id == item.status ? "selected='selected'" : ""  }}
@@ -71,7 +71,7 @@
             </select>
         </li>
         <li>
-            <label for="priority">{{ translate('COM_TRACKER_PRIORITY') }}</label>
+            <label for="priority">{{ translate('Priority') }}</label>
             <select name="item[priority]" id="priority" class="span1">
                 {% for i in range(1, 5) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
@@ -79,7 +79,7 @@
             </select>
         </li>
         <li>
-            <label for="rel_type">{{ translate('COM_TRACKER_RELATION_TYPE') }}</label>
+            <label for="rel_type">{{ translate('Type') }}</label>
             <select name="item[rel_type]" id="rel_type" class="span2">
                 <option></option>
                 {% for relType in getRelTypes() %}
@@ -89,18 +89,18 @@
             </select>
         </li>
         <li>
-            <label for="rel_number">{{ translate('COM_TRACKER_RELATION_NUMBER') }}</label>
+            <label for="rel_number">{{ translate('Number') }}</label>
             <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
         </li>
     </ul>
 
     <ul class="breadcrumb">
         <li>
-            <label for="build">{{ translate('COM_TRACKER_BUILD') }}</label>
+            <label for="build">{{ translate('Build') }}</label>
             <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
         </li>
         <li>
-            <label for="tests">{{ translate('COM_TRACKER_SUCCESSFUL_TESTS') }}</label>
+            <label for="tests">{{ translate('Successful tests') }}</label>
             <select name="item[tests]" id="tests" class="span1">
                 {% for i in range(0, 5) %}
                     <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
@@ -108,7 +108,7 @@
             </select>
         </li>
         <li>
-            <label for="tests">{{ translate('COM_TRACKER_EASY_TEST') }}</label>
+            <label for="easy">{{ translate('Easy test') }}</label>
             <select name="item[easy]" id="easy" class="span1">
                 <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">No</option>
                 <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">Yes</option>
