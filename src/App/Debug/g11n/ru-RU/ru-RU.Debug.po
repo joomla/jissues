@@ -7,26 +7,61 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debug - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-20 21:53-0500\n"
+"POT-Creation-Date: 2013-10-21 12:47-0500\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language ru-RU\n"
 "Language: ru-RU\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: /src/App/Debug/TrackerDebugger.php:321
+#: /src/App/Debug/TrackerDebugger.php:320
+msgid "Go up"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:330
+#: /src/App/Debug/TrackerDebugger.php:587
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
+msgstr[0] "%d FORM 0 запросы"
+msgstr[1] "%d FORM 1 запросы"
+msgstr[2] "%d FORM 2 запросы"
+
+#: /src/App/Debug/TrackerDebugger.php:341
+msgid "Profile"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:356
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
-#: /src/App/Debug/TrackerDebugger.php:343
+#: /src/App/Debug/TrackerDebugger.php:362
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: /src/App/Debug/TrackerDebugger.php:373
+msgid "No Project"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:376
+msgid "User"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:378
 msgid "Guest"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:347
-msgid "No Project"
+#: /src/App/Debug/TrackerDebugger.php:382
+msgid "Project"
 msgstr ""

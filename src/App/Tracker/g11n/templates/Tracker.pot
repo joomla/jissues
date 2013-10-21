@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tracker - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-20 02:13-0500\n"
+"POT-Creation-Date: 2013-10-21 13:05-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: /templates/tracker/issue.edit.twig:74
 #: /templates/tracker/issues.index.twig:64
-#: /templates/tracker/issue.add.twig:40
+#: /templates/tracker/issue.add.twig:39
 msgid "Priority"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgid "Number"
 msgstr ""
 
 #: /templates/tracker/issue.edit.twig:99
-#: /templates/tracker/issue.add.twig:51
+#: /templates/tracker/issue.add.twig:50
 msgid "Build"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgid "No items found."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:57
+#: /templates/tracker/issue.add.twig:56
 msgid "New Item"
 msgstr ""
 
@@ -120,42 +120,42 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:30
+#: /templates/tracker/issue.add.twig:29
 msgid "View Mode"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:33
+#: /templates/tracker/issue.add.twig:32
 msgid "Help"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:33
+#: /templates/tracker/issue.add.twig:32
 msgid "Pro"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:48
+#: /templates/tracker/issue.add.twig:47
 msgid "COM_TRACKER_HELP_PRIORITY"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:54
+#: /templates/tracker/issue.add.twig:53
 msgid "COM_TRACKER_HELP_ISSUE_BUILD"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:59
+#: /templates/tracker/issue.add.twig:58
 msgid "COM_TRACKER_HELP_ISSUE_INTRO"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:62
+#: /templates/tracker/issue.add.twig:61
 msgid "Title"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.add.twig:64
 msgid "COM_TRACKER_HELP_ISSUE_TITLE"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:67
+#: /templates/tracker/issue.add.twig:66
 msgid "Description"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:76
+#: /templates/tracker/issue.add.twig:75
 msgid "COM_TRACKER_HELP_ISSUE_DESCRIPTION"
 msgstr ""

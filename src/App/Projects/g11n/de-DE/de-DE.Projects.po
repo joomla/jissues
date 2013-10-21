@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-07-01 12:58-0500\n"
+"POT-Creation-Date: 2013-10-21 09:52-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -23,5 +23,12 @@ msgid "Projects List"
 msgstr "Projektliste"
 
 #: /templates/projects/projects.index.twig:28
+#, php-format
+msgid "One little indian"
+msgid_plural "%d little indians"
+msgstr[0] "Ein kleiner Indianer"
+msgstr[1] "%d kleine Indianer"
+
+#: /templates/projects/projects.index.twig:37
 msgid "Tracker"
 msgstr "Tracker"

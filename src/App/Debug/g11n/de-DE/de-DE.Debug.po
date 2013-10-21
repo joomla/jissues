@@ -7,26 +7,57 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debug - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-20 21:53-0500\n"
+"POT-Creation-Date: 2013-10-21 12:47-0500\n"
 "PO-Revision-Date: 2013-06-24 17:59-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
 "Language: de-DE\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /src/App/Debug/TrackerDebugger.php:321
+#: /src/App/Debug/TrackerDebugger.php:320
+msgid "Go up"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:330
+#: /src/App/Debug/TrackerDebugger.php:587
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
 msgstr[0] "Eine Datenbankabfrage"
 msgstr[1] "%d Datenbankabfragen"
 
-#: /src/App/Debug/TrackerDebugger.php:343
+#: /src/App/Debug/TrackerDebugger.php:341
+msgid "Profile"
+msgstr "Profil"
+
+#: /src/App/Debug/TrackerDebugger.php:356
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] "Eine nicht übersetzte Zeichenkette von %2$d"
+msgstr[1] "%1$d nicht übersetzte Zeichenketten von %2$d"
+
+#: /src/App/Debug/TrackerDebugger.php:362
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] "Eine geladene Sprachdatei"
+msgstr[1] "%d geladene Sprachdateien"
+
+#: /src/App/Debug/TrackerDebugger.php:373
+msgid "No Project"
+msgstr "Kein Projekt"
+
+#: /src/App/Debug/TrackerDebugger.php:376
+msgid "User"
+msgstr "Benutzer"
+
+#: /src/App/Debug/TrackerDebugger.php:378
 msgid "Guest"
 msgstr "Gast"
 
-#: /src/App/Debug/TrackerDebugger.php:347
-msgid "No Project"
-msgstr "Kein Projekt"
+#: /src/App/Debug/TrackerDebugger.php:382
+msgid "Project"
+msgstr "Projekt"
