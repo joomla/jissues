@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debug - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-24 13:36-0500\n"
+"POT-Creation-Date: 2013-10-20 21:53-0500\n"
 "PO-Revision-Date: 2013-06-24 17:59-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
@@ -15,3 +15,18 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /src/App/Debug/TrackerDebugger.php:321
+#, php-format
+msgid "One database query"
+msgid_plural "%d database queries"
+msgstr[0] "Eine Datenbankabfrage"
+msgstr[1] "%d Datenbankabfragen"
+
+#: /src/App/Debug/TrackerDebugger.php:343
+msgid "Guest"
+msgstr "Gast"
+
+#: /src/App/Debug/TrackerDebugger.php:347
+msgid "No Project"
+msgstr "Kein Projekt"

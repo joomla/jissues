@@ -7,7 +7,6 @@
 namespace App\Debug;
 
 use g11n\g11n;
-use g11n\Language\Debugger;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Profiler\Profiler;
@@ -314,8 +313,12 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.database'))
 		{
-			$navigation[] = '<li><a href="#dbgDatabase"><i class="icon icon-database"></i> '
-				. $this->getBadge(count($this->getLog('db')))
+			$count = count($this->getLog('db'));
+
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . sprintf(g11n4t('One database query', '%d database queries', $count), $count) . '">'
+				. '<a href="#dbgDatabase"><i class="icon icon-database"></i> '
+				. $this->getBadge($count)
 				. '</a></li>';
 		}
 
