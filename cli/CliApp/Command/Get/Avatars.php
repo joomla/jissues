@@ -34,7 +34,6 @@ class Avatars extends Get
 		}
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
-		defined('JPATH_SITE') || define('JPATH_SITE', JPATH_ROOT);
 	}
 
 	/**

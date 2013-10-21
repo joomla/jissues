@@ -10,7 +10,6 @@ error_reporting(32767);
 // Define required paths
 define('JPATH_ROOT',          dirname(__DIR__));
 define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');
-define('JPATH_SITE',          JPATH_ROOT);
 define('JPATH_THEMES',        JPATH_ROOT . '/www');
 define('JPATH_TEMPLATES',     JPATH_ROOT . '/templates');
 
