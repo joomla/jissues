@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "1fec340c8951ef30da9c7c2ac3c210a91532b268"
+                "reference": "5513821386f4c01daa09a28587a5f6f9ef546827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/1fec340c8951ef30da9c7c2ac3c210a91532b268",
-                "reference": "1fec340c8951ef30da9c7c2ac3c210a91532b268",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/5513821386f4c01daa09a28587a5f6f9ef546827",
+                "reference": "5513821386f4c01daa09a28587a5f6f9ef546827",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2013-10-21 03:39:42"
+            "time": "2013-10-21 16:10:33"
         },
         {
             "name": "joomla/framework",
