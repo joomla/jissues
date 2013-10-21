@@ -326,6 +326,9 @@ class TrackerDebugger implements LoggerAwareInterface
 		{
 			$profile = $this->getProfile();
 			$user    = $this->application->getSession()->get('user');
+			$project = $this->application->getSession()->get('project');
+
+			$title = $project ? $project->title : g11n3t('No Project');
 
 			$navigation[] = '<li><a href="#dbgProfile"><i class="icon icon-lightning"></i> '
 				. sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 3)))
@@ -338,7 +341,7 @@ class TrackerDebugger implements LoggerAwareInterface
 				.'</span></a></li>';
 
 			$navigation[] = '<li><a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
-				. ($this->application->getSession()->get('project')->title ? : g11n3t('No Project'))
+				. $title
 				.'</span></a></li>';
 		}
 
