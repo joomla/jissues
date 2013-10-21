@@ -86,14 +86,6 @@ final class Application extends AbstractWebApplication
 	private $project;
 
 	/**
-	 * The Debugger object
-	 *
-	 * @var    TrackerDebugger
-	 * @since  1.0
-	 */
-	private $debugger;
-
-	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -111,14 +103,9 @@ final class Application extends AbstractWebApplication
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
 
-		$this->loadLanguage();
-
-		$this->loadTemplate();
-
-		// Register the event dispatcher
-		$this->loadDispatcher();
-
-		$this->mark('Application started');
+		$this->loadLanguage()
+			->loadDispatcher()
+			->mark('Application started');
 	}
 
 	/**
@@ -266,7 +253,6 @@ final class Application extends AbstractWebApplication
 	protected function executeApp(ControllerInterface $controller, $app)
 	{
 		// Load the App language file
-		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 		g11n::loadLanguage($app, 'App');
 
 		// Start an output buffer.
@@ -379,20 +365,18 @@ final class Application extends AbstractWebApplication
 		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
 		g11n::loadLanguage('JTracker', 'Core');
 
-		return $this;
-	}
-
-	/**
-	 * Load the template.
-	 *
-	 * @since  1.0
-	 * @return $this
-	 */
-	protected function loadTemplate()
-	{
 		// Load template language files.
 		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
 		g11n::loadLanguage('JTracker', 'Template');
+
+		// Add the App domain path
+		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
+
+		if (JDEBUG)
+		{
+			// Load the Debug App language file
+			g11n::loadLanguage('Debug', 'App');
+		}
 
 		return $this;
 	}
