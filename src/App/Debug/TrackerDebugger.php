@@ -289,6 +289,13 @@ class TrackerDebugger implements LoggerAwareInterface
 		return implode("\n", $navigation) . implode("\n", $debug);
 	}
 
+	/**
+	 * Get the navigation bar.
+	 *
+	 * @return array
+	 *
+	 * @since  1.0
+	 */
 	private function getNavigation()
 	{
 		$navigation = array();
@@ -297,6 +304,8 @@ class TrackerDebugger implements LoggerAwareInterface
 		// It's kinda "hidden" here, so evil template designers won't find it :P
 		$navigation[] = '
 		<style>
+			div#debugBar { background-color: #eee; }
+			div#debugBar a:hover { background-color: #ddd; }
 			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
 			span.dbgTable { color: yellow; }
 			span.dbgCommand { color: lime; }
@@ -307,8 +316,10 @@ class TrackerDebugger implements LoggerAwareInterface
 		';
 
 		$navigation[] = '<div class="navbar navbar-fixed-bottom" id="debugBar">';
-		$navigation[] = '<div class="navbar-inner">';
-		$navigation[] = '<a class="brand" href="#top">&nbsp;<i class="icon icon-joomla"></i></a>';
+
+		$navigation[] = '<a class="brand" href="#top" class="hasTooltip" title="' . g11n3t('Go up') . '">'
+			. '&nbsp;<i class="icon icon-joomla"></i></a>';
+
 		$navigation[] = '<ul class="nav">';
 
 		if ($this->application->get('debug.database'))
@@ -325,37 +336,56 @@ class TrackerDebugger implements LoggerAwareInterface
 		if ($this->application->get('debug.system'))
 		{
 			$profile = $this->getProfile();
-			$user    = $this->application->getSession()->get('user');
-			$project = $this->application->getSession()->get('project');
 
-			$title = $project ? $project->title : g11n3t('No Project');
-
-			$navigation[] = '<li><a href="#dbgProfile"><i class="icon icon-lightning"></i> '
-				. sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 3)))
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . g11n3t('Profile') . '">'
+				. '<a href="#dbgProfile"><i class="icon icon-lightning"></i> '
+				. sprintf('%s MB', $this->getBadge(number_format($profile->peak / 1000000, 2)))
 				. ' '
-				. sprintf('%s sec.', $this->getBadge(number_format($profile->time, 3)))
+				. sprintf('%s ms', $this->getBadge(number_format($profile->time * 1000)))
 				. '</a></li>';
-
-			$navigation[] = '<li><a href="#dbgUser"><i class="icon icon-user"></i> <span class="badge">'
-				. ($user && $user->username ? $user->username : g11n3t('Guest'))
-				.'</span></a></li>';
-
-			$navigation[] = '<li><a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
-				. $title
-				.'</span></a></li>';
 		}
 
 		if ($this->application->get('debug.language'))
 		{
 			$info = $this->getLanguageStringsInfo();
 			$badge = $this->getBadge($info->untranslateds, array(1 => 'badge-warning'));
+			$count = count(g11n::getEvents());
 
-			$navigation[] = '<li><a href="#dbgLanguageStrings"><i class="icon icon-question-sign"></i>  ' . $badge . '/' . $this->getBadge($info->total) . '</a></li>';
-			$navigation[] = '<li><a href="#dbgLanguageFiles"><i class="icon icon-file-word"></i> ' . $this->getBadge(count(g11n::getEvents())) . '</a></li>';
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . sprintf(g11n4t('One untranslated string of %2$d', '%1$d untranslated strings of %2$d', $info->untranslateds), $info->untranslateds, $info->total) . '">'
+				. '<a href="#dbgLanguageStrings"><i class="icon icon-question-sign"></i>  '
+				. $badge . '/' . $this->getBadge($info->total)
+				. '</a></li>';
+
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . sprintf(g11n4t('One language file loaded', '%d language files loaded', $count), $count) . '">'
+				. '<a href="#dbgLanguageFiles"><i class="icon icon-file-word"></i> '
+				. $this->getBadge($count)
+				. '</a></li>';
+		}
+
+		if ($this->application->get('debug.system'))
+		{
+			$user    = $this->application->getSession()->get('user');
+			$project = $this->application->getSession()->get('project');
+
+			$title = $project ? $project->title : g11n3t('No Project');
+
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . g11n3t('User') . '">'
+				. '<a href="#dbgUser"><i class="icon icon-user"></i> <span class="badge">'
+				. ($user && $user->username ? $user->username : g11n3t('Guest'))
+				. '</span></a></li>';
+
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . g11n3t('Project') . '">'
+				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
+				. $title
+				. '</span></a></li>';
 		}
 
 		$navigation[] = '</ul>';
-		$navigation[] = '</div>';
 		$navigation[] = '</div>';
 
 		return $navigation;
@@ -412,7 +442,9 @@ class TrackerDebugger implements LoggerAwareInterface
 			$items[] = ArrayHelper::fromObject($e);
 		}
 
-		return $tableFormat->fromArray($items);
+		$pluralInfo = sprintf('Plural forms: %d<br />Plural function: %s', g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'));
+
+		return $tableFormat->fromArray($items) . $pluralInfo;
 	}
 
 	/**
@@ -552,7 +584,7 @@ class TrackerDebugger implements LoggerAwareInterface
 		$sqlFormat   = new SqlFormat;
 		$dbDebugger  = new DatabaseDebugger(Container::retrieve('db'));
 
-		$debug[] = count($dbLog) . ' Queries.';
+		$debug[] = sprintf(g11n4t('One database query', '%d database queries', count($dbLog)), count($dbLog));
 
 		$prefix = $dbDebugger->getPrefix();
 
@@ -699,7 +731,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * an array with optional css class can be supplied. If the $count value exceeds the option value this class will be used.
 	 * E.g.: [5 => 'warning', 15 => 'danger']
 	 *
-	 * @param   integer  $count  The number to display inside the badge.
+	 * @param   integer  $count    The number to display inside the badge.
 	 * @param   array    $options  An indexed array of values and CSS classes.
 	 *
 	 * @return string
