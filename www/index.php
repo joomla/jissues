@@ -17,9 +17,6 @@ define('JPATH_TEMPLATES',     JPATH_ROOT . '/templates');
 // Load the Composer autoloader
 require JPATH_ROOT . '/vendor/autoload.php';
 
-// Load the Joomla Framework
-require JPATH_ROOT . '/vendor/joomla/framework/src/import.php';
-
 // Instantiate the application.
 $application = new JTracker\Application;
 
