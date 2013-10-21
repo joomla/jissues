@@ -62,6 +62,7 @@ class TrackerExtension extends \Twig_Extension
 	{
 		$functions = array(
 			new \Twig_SimpleFunction('translate', 'g11n3t'),
+			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
