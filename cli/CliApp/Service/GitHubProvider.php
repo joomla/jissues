@@ -26,14 +26,6 @@ use JTracker\Container;
 class GitHubProvider implements ServiceProviderInterface
 {
 	/**
-	 * Object instance
-	 *
-	 * @var    GitHub
-	 * @since  1.0
-	 */
-	private static $object;
-
-	/**
 	 * Registers the service provider with a DI container.
 	 *
 	 * @param   \Joomla\DI\Container  $container  The DI container.
