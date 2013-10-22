@@ -60,6 +60,7 @@
 	"icons"        : "\\Support\\Controller\\IconsController",
 	"devdox"       : "\\Support\\Controller\\DevdoxController",
 	"devdox/:alias": "\\Support\\Controller\\DevdoxController",
+	"clearcache"   : "\\Support\\Controller\\Clearcache",
 
 	"text"           : "\\Text\\Controller\\ArticlesController",
 	"text/add"       : "\\Text\\Controller\\Article\\AddController",

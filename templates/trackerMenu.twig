@@ -142,6 +142,12 @@
                     {{ "Text"|_ }}
                 </a>
             </li>
+            <li class="{{ "clearcache" == firstPart ? "active" : "" }}">
+                <a href="{{ uri.base.path }}clearcache">
+                    <i class="icon-pencil-2"></i>
+                    {{ "Clear Cache"|_ }}
+                </a>
+            </li>
         </ul>
     </li>
 {% endif %}
