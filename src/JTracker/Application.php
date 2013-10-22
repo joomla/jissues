@@ -359,7 +359,14 @@ final class Application extends AbstractWebApplication
 		g11n::setDebug($this->get('debug.language'));
 
 		// Set the directory used to store language cache files
-		g11n::setCacheDir(JPATH_ROOT . '/cache');
+		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
+		{
+			g11n::setCacheDir('/tmp');
+		}
+		else
+		{
+			g11n::setCacheDir(JPATH_ROOT . '/cache');
+		}
 
 		// Load the core language file
 		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
