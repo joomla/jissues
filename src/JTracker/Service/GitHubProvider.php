@@ -25,14 +25,6 @@ use JTracker\Container;
 class GitHubProvider implements ServiceProviderInterface
 {
 	/**
-	 * Object instance
-	 *
-	 * @var    JoomlaGitHub
-	 * @since  1.0
-	 */
-	private static $object;
-
-	/**
 	 * Registers the service provider with a DI container.
 	 *
 	 * @param   \Joomla\DI\Container  $container  The DI container.
@@ -44,12 +36,11 @@ class GitHubProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		if (is_null(static::$object))
-		{
+		$container->set('Joomla\\Github\\Github', function () use ($container) {
 			$options = new Registry;
 
 			/* @var \JTracker\Application $app */
-			$app     = Container::retrieve('app');
+			$app     = $container->get('app');
 			$session = $app->getSession();
 
 			$token = $session->get('gh_oauth_access_token');
@@ -70,17 +61,8 @@ class GitHubProvider implements ServiceProviderInterface
 			$http = new JoomlaGitHubHttp($options, $transport);
 
 			// Instantiate Github
-			static::$object = new JoomlaGitHub($options, $http);
-		}
-
-		$object = static::$object;
-
-		$container->set('Joomla\\Github\\Github',
-			function () use ($object)
-			{
-				return $object;
-			}, true, true
-		);
+			return new JoomlaGitHub($options, $http);
+		});
 
 		// Alias the object - this is a custom function
 		/* @type \JTracker\Container $container */

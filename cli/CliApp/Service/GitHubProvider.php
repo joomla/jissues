@@ -38,17 +38,17 @@ class GitHubProvider implements ServiceProviderInterface
 	 *
 	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->share('Joomla\\Github\\Github', function (JoomlaContainer $c) {
+		$container->share('Joomla\\Github\\Github', function () use ($container) {
 			$options = new Registry;
 
-			$app = $c->get('app');
+			$app = $container->get('app');
 
 			$user = $app->get('github.username');
 			$password = $app->get('github.password');

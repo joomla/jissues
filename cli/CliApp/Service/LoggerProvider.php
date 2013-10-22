@@ -63,7 +63,7 @@ class LoggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->share('Monolog\\Logger', function (JoomlaContainer $c) {
+		$container->share('Monolog\\Logger', function () use ($container) {
 
 			// Instantiate the object
 			$logger = new Logger('JTracker');
