@@ -14,6 +14,7 @@ use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 use Joomla\Http\Transport\Curl;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\Container as JoomlaContainer;
 
 use JTracker\Container;
 
@@ -42,9 +43,9 @@ class GitHubProvider implements ServiceProviderInterface
 	 *
 	 * @since   1.0
 	 */
-	public function register(Container $container)
+	public function register(JoomlaContainer $container)
 	{
-		$container->share('Joomla\\Github\\Github', function (Container $c) {
+		$container->share('Joomla\\Github\\Github', function (JoomlaContainer $c) {
 			$options = new Registry;
 
 			$app = $c->get('app');

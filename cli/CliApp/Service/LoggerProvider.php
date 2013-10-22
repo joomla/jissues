@@ -9,6 +9,7 @@
 namespace CliApp\Service;
 
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\Container as JoomlaContainer;
 
 use JTracker\Container;
 
@@ -60,9 +61,9 @@ class LoggerProvider implements ServiceProviderInterface
 	 *
 	 * @since   1.0
 	 */
-	public function register(Container $container)
+	public function register(JoomlaContainer $container)
 	{
-		$container->share('Monolog\\Logger', function (Container $c) {
+		$container->share('Monolog\\Logger', function (JoomlaContainer $c) {
 
 			// Instantiate the object
 			$logger = new Logger('JTracker');
