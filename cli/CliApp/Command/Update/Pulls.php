@@ -99,6 +99,7 @@ class Pulls extends Update
 					$this->out('(' . $count . ')', false);
 				}
 			}
+
 			while ($count);
 
 			foreach ($pulls as $pull)
@@ -112,7 +113,7 @@ class Pulls extends Update
 				$labels = $this->github->issues->labels->getListByIssue($this->project->gh_user, $this->project->gh_project, $pullID);
 
 				// Check if the PR- label present
-				foreach ($labels as $label);
+				foreach ($labels as $label)
 				{
 					if ($label->name == $issueLabel)
 					{

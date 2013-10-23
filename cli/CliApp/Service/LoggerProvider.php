@@ -48,7 +48,7 @@ class LoggerProvider implements ServiceProviderInterface
 	public function __construct($fileName = '', $quiet = false)
 	{
 		$this->fileName = $fileName;
-		$this->quiet = $quiet;
+		$this->quiet    = $quiet;
 	}
 
 	/**
@@ -63,35 +63,38 @@ class LoggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->share('Monolog\\Logger', function () use ($container) {
-
-			// Instantiate the object
-			$logger = new Logger('JTracker');
-
-			if ($this->fileName)
+		$container->share('Monolog\\Logger',
+			function () use ($container)
 			{
-				// Log to a file
-				$logger->pushHandler(
-					new StreamHandler(
-						$container->get('debugger')->getLogPath('root') . '/' . $this->fileName,
-						Logger::INFO
-					)
-				);
-			}
-			elseif ('1' != $this->quiet)
-			{
-				// Log to screen
-				$logger->pushHandler(
-					new StreamHandler('php://stdout')
-				);
-			}
-			else
-			{
-				$logger = new NullLogger;
-			}
 
-			return $logger;
-		}, true);
+				// Instantiate the object
+				$logger = new Logger('JTracker');
+
+				if ($this->fileName)
+				{
+					// Log to a file
+					$logger->pushHandler(
+						new StreamHandler(
+							$container->get('debugger')->getLogPath('root') . '/' . $this->fileName,
+							Logger::INFO
+						)
+					);
+				}
+				elseif ('1' != $this->quiet)
+				{
+					// Log to screen
+					$logger->pushHandler(
+						new StreamHandler('php://stdout')
+					);
+				}
+				else
+				{
+					$logger = new NullLogger;
+				}
+
+				return $logger;
+			}, true
+		);
 
 		// Alias the object
 		$container->alias('logger', 'Monolog\\Logger');

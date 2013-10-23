@@ -37,37 +37,40 @@ class GitHubProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->share('Joomla\\Github\\Github', function () use ($container) {
-			$options = new Registry;
-
-			$app = $container->get('app');
-
-			$user = $app->get('github.username');
-			$password = $app->get('github.password');
-
-			if ($user && $password)
+		$container->share('Joomla\\Github\\Github',
+			function () use ($container)
 			{
-				// Set the options
-				$options->set('api.username', $user);
-				$options->set('api.password', $password);
-			}
+				$options = new Registry;
 
-			// @todo temporary fix to avoid the "Socket" transport protocol
-			$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+				$app = $container->get('app');
 
-			if (!($transport instanceof Curl))
-			{
-				throw new \RuntimeException('Please enable cURL.');
-			}
+				$user     = $app->get('github.username');
+				$password = $app->get('github.password');
 
-			$http = new Http($options, $transport);
+				if ($user && $password)
+				{
+					// Set the options
+					$options->set('api.username', $user);
+					$options->set('api.password', $password);
+				}
 
-			// Instantiate Github
-			return new GitHub($options, $http);
+				// @todo temporary fix to avoid the "Socket" transport protocol
+				$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-			// @todo after fix this should be enough:
-			// return new GitHub($options);
-		}, true);
+				if (!($transport instanceof Curl))
+				{
+					throw new \RuntimeException('Please enable cURL.');
+				}
+
+				$http = new Http($options, $transport);
+
+				// Instantiate Github
+				return new GitHub($options, $http);
+
+				// @todo after fix this should be enough:
+				// return new GitHub($options);
+			}, true
+		);
 
 		// Alias the object
 		$container->alias('gitHub', 'Joomla\\Github\\Github');
