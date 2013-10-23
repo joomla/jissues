@@ -26,7 +26,9 @@ class system {
 	}
 	file { '/etc/environment':
 		ensure  => present,
-		source  => '/vagrant/build/puppet/files/etc/environment';
+		source  => '/vagrant/build/puppet/files/etc/environment',
+		owner => 'root',
+		group => 'root';
 	}
 }
 
@@ -85,7 +87,8 @@ class php {
 		'php5',
 		'php5-mysql',
 		'php5-curl',
-	    'php5-xdebug'
+		'php5-xdebug',
+		'php-cli'
 	]:
 		ensure  => 'installed',
 		require => Exec['apt-get update'],
