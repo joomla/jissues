@@ -1,1 +1,1 @@
-export JTRACKER_ENVIRONMENT="vagrant"
+export JTRACKER_ENVIRONMENT=vagrant

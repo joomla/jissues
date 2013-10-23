@@ -38,7 +38,7 @@ class ConfigurationProvider implements ServiceProviderInterface
 	public function __construct(Registry $config)
 	{
 		// Check for a custom configuration.
-		$type = getenv('JTRACKER_ENVIRONMENT');
+		$type = trim(getenv('JTRACKER_ENVIRONMENT'));
 
 		$name = ($type) ? 'config.' . $type : 'config';
 
