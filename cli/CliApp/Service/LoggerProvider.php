@@ -8,8 +8,8 @@
 
 namespace CliApp\Service;
 
-use Joomla\DI\Container as JoomlaContainer;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\Container as JoomlaContainer;
 
 use JTracker\Container;
 
@@ -25,14 +25,6 @@ use Psr\Log\NullLogger;
  */
 class LoggerProvider implements ServiceProviderInterface
 {
-	/**
-	 * Object instance
-	 *
-	 * @var    Logger
-	 * @since  1.0
-	 */
-	private static $object = null;
-
 	/**
 	 * @var string
 	 * @since  1.0
@@ -56,7 +48,7 @@ class LoggerProvider implements ServiceProviderInterface
 	public function __construct($fileName = '', $quiet = false)
 	{
 		$this->fileName = $fileName;
-		$this->quiet = $quiet;
+		$this->quiet    = $quiet;
 	}
 
 	/**
@@ -71,41 +63,37 @@ class LoggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		if (is_null(static::$object))
-		{
-			if ($this->fileName)
+		$container->share('Monolog\\Logger',
+			function () use ($container)
 			{
+
 				// Instantiate the object
-				static::$object = static::$object ? : new Logger('JTracker');
+				$logger = new Logger('JTracker');
 
-				// Log to a file
-				static::$object->pushHandler(
-					new StreamHandler(
-						Container::retrieve('debugger')->getLogPath('root') . '/' . $this->fileName,
-						Logger::INFO
-					)
-				);
-			}
+				if ($this->fileName)
+				{
+					// Log to a file
+					$logger->pushHandler(
+						new StreamHandler(
+							$container->get('debugger')->getLogPath('root') . '/' . $this->fileName,
+							Logger::INFO
+						)
+					);
+				}
+				elseif ('1' != $this->quiet)
+				{
+					// Log to screen
+					$logger->pushHandler(
+						new StreamHandler('php://stdout')
+					);
+				}
+				else
+				{
+					$logger = new NullLogger;
+				}
 
-			if ('1' != $this->quiet)
-			{
-				// Instantiate the object
-				static::$object = static::$object ? : new Logger('JTracker');
-
-				// Log to screen
-				static::$object->pushHandler(
-					new StreamHandler('php://stdout')
-				);
-			}
-		}
-
-		$object = static::$object ? : new NullLogger;
-
-		$container->set(
-			'Monolog\\Logger', function () use ($object)
-			{
-				return $object;
-			}, true, true
+				return $logger;
+			}, true
 		);
 
 		// Alias the object

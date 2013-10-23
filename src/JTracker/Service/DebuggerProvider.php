@@ -23,17 +23,9 @@ use JTracker\Container;
 class DebuggerProvider implements ServiceProviderInterface
 {
 	/**
-	 * Object instance
-	 *
-	 * @var    TrackerDebugger
-	 * @since  1.0
-	 */
-	private static $object;
-
-	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   \Joomla\DI\Container $container The DI container.
+	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
@@ -42,18 +34,10 @@ class DebuggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		if (is_null(static::$object))
-		{
-			$app = Container::retrieve('app');
-
-			static::$object = new TrackerDebugger($app);
-		}
-
-		$object = static::$object;
-
-		$container->set('App\\Debug\\TrackerDebugger', function () use ($object)
+		$container->set('App\\Debug\\TrackerDebugger',
+			function () use ($container)
 			{
-				return $object;
+				return new TrackerDebugger($container->get('app'));
 			}, true, true
 		);
 

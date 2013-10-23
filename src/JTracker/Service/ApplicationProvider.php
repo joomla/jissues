@@ -27,7 +27,7 @@ class ApplicationProvider implements ServiceProviderInterface
 	 * @var    Application
 	 * @since  1.0
 	 */
-	private static $app;
+	private $app;
 
 	/**
 	 * Constructor
@@ -38,13 +38,13 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function __construct(Application $app)
 	{
-		static::$app = $app;
+		$this->app = $app;
 	}
 
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   JoomlaContainer  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
@@ -53,12 +53,11 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$app = static::$app;
+		$app = $this->app;
 
-		$container->set('JTracker\\Application', function () use ($app)
+		$container->set('JTracker\\Application',
+			function () use ($app)
 			{
-				define('JDEBUG', $app->get('debug.system'));
-
 				return $app;
 			}, true, true
 		);

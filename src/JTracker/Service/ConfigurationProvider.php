@@ -38,7 +38,7 @@ class ConfigurationProvider implements ServiceProviderInterface
 	public function __construct(Registry $config)
 	{
 		// Check for a custom configuration.
-		$type = getenv('JTRACKER_ENVIRONMENT');
+		$type = trim(getenv('JTRACKER_ENVIRONMENT'));
 
 		$name = ($type) ? 'config.' . $type : 'config';
 
@@ -61,6 +61,8 @@ class ConfigurationProvider implements ServiceProviderInterface
 
 		$config->loadObject($configObject);
 
+		define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
+
 		$this->config = $config;
 	}
 
@@ -77,8 +79,7 @@ class ConfigurationProvider implements ServiceProviderInterface
 	{
 		$config = $this->config;
 
-		$container->set(
-			'config',
+		$container->set('config',
 			function () use ($config)
 			{
 				return $config;

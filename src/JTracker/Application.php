@@ -25,7 +25,6 @@ use Joomla\Registry\Registry;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
-use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
@@ -275,6 +274,7 @@ final class Application extends AbstractWebApplication
 	public static function getHash($seed)
 	{
 		$app = Container::retrieve('app');
+
 		return md5($app->get('acl.secret') . $seed);
 	}
 

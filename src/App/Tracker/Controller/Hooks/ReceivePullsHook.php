@@ -234,7 +234,7 @@ class ReceivePullsHook extends AbstractHookController
 			// Check if the PR- label present
 			if (count($labels) > 0)
 			{
-				foreach ($labels as $label);
+				foreach ($labels as $label)
 				{
 					if (!$labelSet && $label->name == $issueLabel)
 					{

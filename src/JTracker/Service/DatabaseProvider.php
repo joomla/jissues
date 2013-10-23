@@ -23,35 +23,30 @@ class DatabaseProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   Container $container  The DI container.
+	 * @param   JoomlaContainer  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->set('Joomla\\Database\\DatabaseDriver', function ()
+		$container->set('Joomla\\Database\\DatabaseDriver',
+			function () use ($container)
 			{
-				static $db;
+				$app = $container->get('app');
 
-				if (is_null($db))
-				{
-					$app = Container::retrieve('app');
+				$options = array(
+					'driver' => $app->get('database.driver'),
+					'host' => $app->get('database.host'),
+					'user' => $app->get('database.user'),
+					'password' => $app->get('database.password'),
+					'database' => $app->get('database.name'),
+					'prefix' => $app->get('database.prefix')
+				);
 
-					$options = array(
-						'driver' => $app->get('database.driver'),
-						'host' => $app->get('database.host'),
-						'user' => $app->get('database.user'),
-						'password' => $app->get('database.password'),
-						'database' => $app->get('database.name'),
-						'prefix' => $app->get('database.prefix')
-					);
-
-					$db = DatabaseDriver::getInstance($options);
-					$db->setDebug($app->get('debug.database', false));
-				}
+				$db = DatabaseDriver::getInstance($options);
+				$db->setDebug($app->get('debug.database', false));
 
 				return $db;
 			}, true, true

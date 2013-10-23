@@ -87,7 +87,7 @@ class php {
 		'php5',
 		'php5-mysql',
 		'php5-curl',
-	    'php5-xdebug',
+		'php5-xdebug',
 		'php5-cli'
 	]:
 		ensure  => 'installed',
