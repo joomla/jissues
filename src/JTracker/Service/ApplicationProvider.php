@@ -56,8 +56,6 @@ class ApplicationProvider implements ServiceProviderInterface
 		$app = $this->app;
 
 		$container->set('JTracker\\Application', function () use ($app) {
-			define('JDEBUG', $app->get('debug.system'));
-
 			return $app;
 		}, true, true);
 

@@ -21,7 +21,6 @@ use Joomla\Registry\Registry;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
-use JTracker\Container;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\Router\TrackerRouter;
@@ -106,6 +105,8 @@ final class Application extends AbstractWebApplication
 			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
+
+		define('JDEBUG', $this->get('debug.system'));
 
 		// Register the event dispatcher
 		$this->loadDispatcher();
