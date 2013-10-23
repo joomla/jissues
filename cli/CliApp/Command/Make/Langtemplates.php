@@ -434,7 +434,7 @@ class Langtemplates extends Make
 
 				$matches = null;
 
-				for ($i = $lineNo - 2; $i >=0; $i --)
+				for ($i = $lineNo - 2; $i >= 0; $i --)
 				{
 					$pLine = $twigPhp->lines[$i];
 

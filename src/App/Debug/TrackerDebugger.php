@@ -353,7 +353,11 @@ class TrackerDebugger implements LoggerAwareInterface
 			$count = count(g11n::getEvents());
 
 			$navigation[] = '<li class="hasTooltip"'
-				. ' title="' . sprintf(g11n4t('One untranslated string of %2$d', '%1$d untranslated strings of %2$d', $info->untranslateds), $info->untranslateds, $info->total) . '">'
+				. ' title="' . sprintf(
+					g11n4t(
+							'One untranslated string of %2$d', '%1$d untranslated strings of %2$d', $info->untranslateds
+						), $info->untranslateds, $info->total
+					) . '">'
 				. '<a href="#dbgLanguageStrings"><i class="icon icon-question-sign"></i>  '
 				. $badge . '/' . $this->getBadge($info->total)
 				. '</a></li>';

@@ -27,6 +27,13 @@ class Clearcache extends AbstractTrackerController
 	 */
 	protected $defaultView = 'icons';
 
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public function execute()
 	{
 		$application = $this->getApplication();
