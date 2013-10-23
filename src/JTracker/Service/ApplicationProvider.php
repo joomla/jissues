@@ -27,7 +27,7 @@ class ApplicationProvider implements ServiceProviderInterface
 	 * @var    Application
 	 * @since  1.0
 	 */
-	private static $app;
+	private $app;
 
 	/**
 	 * Constructor
@@ -38,7 +38,7 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function __construct(Application $app)
 	{
-		static::$app = $app;
+		$this->app = $app;
 	}
 
 	/**
@@ -53,15 +53,13 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$app = static::$app;
+		$app = $this->app;
 
-		$container->set('JTracker\\Application', function () use ($app)
-			{
-				define('JDEBUG', $app->get('debug.system'));
+		$container->set('JTracker\\Application', function () use ($app) {
+			define('JDEBUG', $app->get('debug.system'));
 
-				return $app;
-			}, true, true
-		);
+			return $app;
+		}, true, true);
 
 		// Alias the application
 		$container->alias('app', 'JTracker\\Application');

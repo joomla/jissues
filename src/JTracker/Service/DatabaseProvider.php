@@ -32,30 +32,23 @@ class DatabaseProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->set('Joomla\\Database\\DatabaseDriver', function ()
-			{
-				static $db;
+		$container->set('Joomla\\Database\\DatabaseDriver', function () use ($container) {
+			$app = $container->get('app');
 
-				if (is_null($db))
-				{
-					$app = Container::retrieve('app');
+			$options = array(
+				'driver' => $app->get('database.driver'),
+				'host' => $app->get('database.host'),
+				'user' => $app->get('database.user'),
+				'password' => $app->get('database.password'),
+				'database' => $app->get('database.name'),
+				'prefix' => $app->get('database.prefix')
+			);
 
-					$options = array(
-						'driver' => $app->get('database.driver'),
-						'host' => $app->get('database.host'),
-						'user' => $app->get('database.user'),
-						'password' => $app->get('database.password'),
-						'database' => $app->get('database.name'),
-						'prefix' => $app->get('database.prefix')
-					);
+			$db = DatabaseDriver::getInstance($options);
+			$db->setDebug($app->get('debug.database', false));
 
-					$db = DatabaseDriver::getInstance($options);
-					$db->setDebug($app->get('debug.database', false));
-				}
-
-				return $db;
-			}, true, true
-		);
+			return $db;
+		}, true, true);
 
 		// Alias the database
 		$container->alias('db', 'Joomla\\Database\\DatabaseDriver');

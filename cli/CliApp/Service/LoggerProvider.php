@@ -8,8 +8,8 @@
 
 namespace CliApp\Service;
 
-use Joomla\DI\Container as JoomlaContainer;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\Container as JoomlaContainer;
 
 use JTracker\Container;
 
@@ -25,14 +25,6 @@ use Psr\Log\NullLogger;
  */
 class LoggerProvider implements ServiceProviderInterface
 {
-	/**
-	 * Object instance
-	 *
-	 * @var    Logger
-	 * @since  1.0
-	 */
-	private static $object = null;
-
 	/**
 	 * @var string
 	 * @since  1.0
@@ -71,42 +63,35 @@ class LoggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		if (is_null(static::$object))
-		{
+		$container->share('Monolog\\Logger', function () use ($container) {
+
+			// Instantiate the object
+			$logger = new Logger('JTracker');
+
 			if ($this->fileName)
 			{
-				// Instantiate the object
-				static::$object = static::$object ? : new Logger('JTracker');
-
 				// Log to a file
-				static::$object->pushHandler(
+				$logger->pushHandler(
 					new StreamHandler(
-						Container::retrieve('debugger')->getLogPath('root') . '/' . $this->fileName,
+						$c->get('debugger')->getLogPath('root') . '/' . $this->fileName,
 						Logger::INFO
 					)
 				);
 			}
-
-			if ('1' != $this->quiet)
+			elseif ('1' != $this->quiet)
 			{
-				// Instantiate the object
-				static::$object = static::$object ? : new Logger('JTracker');
-
 				// Log to screen
-				static::$object->pushHandler(
+				$logger->pushHandler(
 					new StreamHandler('php://stdout')
 				);
 			}
-		}
-
-		$object = static::$object ? : new NullLogger;
-
-		$container->set(
-			'Monolog\\Logger', function () use ($object)
+			else
 			{
-				return $object;
-			}, true, true
-		);
+				$logger = new NullLogger;
+			}
+
+			return $logger;
+		}, true);
 
 		// Alias the object
 		$container->alias('logger', 'Monolog\\Logger');

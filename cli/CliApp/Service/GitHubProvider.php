@@ -8,10 +8,13 @@
 
 namespace CliApp\Service;
 
-use Joomla\DI\Container as JoomlaContainer;
-use Joomla\DI\ServiceProviderInterface;
-use Joomla\Github\Github as JoomlaGitHub;
+use Joomla\Github\Http;
+use Joomla\Github\Github;
+use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
+use Joomla\Http\Transport\Curl;
+use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\Container as JoomlaContainer;
 
 use JTracker\Container;
 
@@ -23,30 +26,21 @@ use JTracker\Container;
 class GitHubProvider implements ServiceProviderInterface
 {
 	/**
-	 * Object instance
-	 *
-	 * @var    JoomlaGitHub
-	 * @since  1.0
-	 */
-	private static $object;
-
-	/**
 	 * Registers the service provider with a DI container.
 	 *
 	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		if (is_null(static::$object))
-		{
+		$container->share('Joomla\\Github\\Github', function () use ($container) {
 			$options = new Registry;
 
-			$app = Container::retrieve('app');
+			$app = $container->get('app');
 
 			$user = $app->get('github.username');
 			$password = $app->get('github.password');
@@ -59,29 +53,21 @@ class GitHubProvider implements ServiceProviderInterface
 			}
 
 			// @todo temporary fix to avoid the "Socket" transport protocol
-			$transport = \Joomla\Http\HttpFactory::getAvailableDriver($options, array('curl'));
+			$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-			if (false == is_a($transport, 'Joomla\\Http\\Transport\\Curl'))
+			if (!($transport instanceof Curl))
 			{
 				throw new \RuntimeException('Please enable cURL.');
 			}
 
-			$http = new \Joomla\Github\Http($options, $transport);
+			$http = new Http($options, $transport);
 
 			// Instantiate Github
-			static::$object = new JoomlaGitHub($options, $http);
+			return new GitHub($options, $http);
 
 			// @todo after fix this should be enough:
-			// $this->github = new JoomlaGitHub($options);
-		}
-
-		$object = static::$object;
-
-		$container->set('Joomla\\Github\\Github', function () use ($object)
-		{
-			return $object;
-		}, true, true
-		);
+			// return new GitHub($options);
+		}, true);
 
 		// Alias the object
 		$container->alias('gitHub', 'Joomla\\Github\\Github');

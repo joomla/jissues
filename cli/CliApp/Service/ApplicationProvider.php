@@ -9,8 +9,8 @@
 namespace CliApp\Service;
 
 use Joomla\Application\AbstractApplication;
-use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\Container as JoomlaContainer;
 
 /**
  * Class Application service.
@@ -19,14 +19,6 @@ use Joomla\DI\ServiceProviderInterface;
  */
 class ApplicationProvider implements ServiceProviderInterface
 {
-	/**
-	 * Application instance
-	 *
-	 * @var    AbstractApplication
-	 * @since  1.0
-	 */
-	private $app;
-
 	/**
 	 * Constructor
 	 *
@@ -42,24 +34,20 @@ class ApplicationProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   JoomlaContainer  $container  The DI container.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function register(Container $container)
+	public function register(JoomlaContainer $container)
 	{
 		$app = $this->app;
 
-		$container->set(
-			'app',
-			function () use ($app)
-			{
-				define('JDEBUG', $app->get('debug.system'));
+		$container->set('app', function () use ($app) {
+			define('JDEBUG', $app->get('debug.system'));
 
-				return $app;
-			}, true, true
-		);
+			return $app;
+		}, true, true);
 	}
 }
