@@ -25,7 +25,7 @@ class DebuggerProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   \Joomla\DI\Container $container The DI container.
+	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
@@ -34,9 +34,12 @@ class DebuggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->set('App\\Debug\\TrackerDebugger', function () use ($container) {
-			return new TrackerDebugger($container->get('app'));
-		}, true, true);
+		$container->set('App\\Debug\\TrackerDebugger',
+			function () use ($container)
+			{
+				return new TrackerDebugger($container->get('app'));
+			}, true, true
+		);
 
 		// Alias the object
 		$container->alias('debugger', 'App\\Debug\\TrackerDebugger');

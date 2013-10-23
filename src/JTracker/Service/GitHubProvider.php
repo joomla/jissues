@@ -36,33 +36,36 @@ class GitHubProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->set('Joomla\\Github\\Github', function () use ($container) {
-			$options = new Registry;
-
-			/* @var \JTracker\Application $app */
-			$app     = $container->get('app');
-			$session = $app->getSession();
-
-			$token = $session->get('gh_oauth_access_token');
-
-			if ($token)
+		$container->set('Joomla\\Github\\Github',
+			function () use ($container)
 			{
-				$options->set('gh.token', $token);
+				$options = new Registry;
+
+				/* @var \JTracker\Application $app */
+				$app     = $container->get('app');
+				$session = $app->getSession();
+
+				$token = $session->get('gh_oauth_access_token');
+
+				if ($token)
+				{
+					$options->set('gh.token', $token);
+				}
+				else
+				{
+					$options->set('api.username', $app->get('github.username'));
+					$options->set('api.password', $app->get('github.password'));
+				}
+
+				// GitHub API works best with cURL
+				$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+
+				$http = new JoomlaGitHubHttp($options, $transport);
+
+				// Instantiate Github
+				return new JoomlaGitHub($options, $http);
 			}
-			else
-			{
-				$options->set('api.username', $app->get('github.username'));
-				$options->set('api.password', $app->get('github.password'));
-			}
-
-			// GitHub API works best with cURL
-			$transport = HttpFactory::getAvailableDriver($options, array('curl'));
-
-			$http = new JoomlaGitHubHttp($options, $transport);
-
-			// Instantiate Github
-			return new JoomlaGitHub($options, $http);
-		});
+		);
 
 		// Alias the object - this is a custom function
 		/* @type \JTracker\Container $container */

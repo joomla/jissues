@@ -149,6 +149,7 @@ class IssuesTable extends AbstractDatabaseTable
 		}
 
 		// Commented for now because many GitHub requests are received without a description
+
 		/*if (trim($this->description) == '')
 		{
 			$errors[] = 'A description is required.';

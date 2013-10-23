@@ -44,7 +44,7 @@ class ApplicationProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   JoomlaContainer  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
@@ -55,9 +55,12 @@ class ApplicationProvider implements ServiceProviderInterface
 	{
 		$app = $this->app;
 
-		$container->set('JTracker\\Application', function () use ($app) {
-			return $app;
-		}, true, true);
+		$container->set('JTracker\\Application',
+			function () use ($app)
+			{
+				return $app;
+			}, true, true
+		);
 
 		// Alias the application
 		$container->alias('app', 'JTracker\\Application');

@@ -283,6 +283,7 @@ final class Application extends AbstractWebApplication
 	public static function getHash($seed)
 	{
 		$app = Container::retrieve('app');
+
 		return md5($app->get('acl.secret') . $seed);
 	}
 
