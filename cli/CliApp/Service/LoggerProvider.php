@@ -73,7 +73,7 @@ class LoggerProvider implements ServiceProviderInterface
 				// Log to a file
 				$logger->pushHandler(
 					new StreamHandler(
-						$c->get('debugger')->getLogPath('root') . '/' . $this->fileName,
+						$container->get('debugger')->getLogPath('root') . '/' . $this->fileName,
 						Logger::INFO
 					)
 				);
