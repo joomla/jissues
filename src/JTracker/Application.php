@@ -106,8 +106,6 @@ final class Application extends AbstractWebApplication
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
 
-		define('JDEBUG', $this->get('debug.system'));
-
 		// Register the event dispatcher
 		$this->loadDispatcher();
 

@@ -61,6 +61,8 @@ class ConfigurationProvider implements ServiceProviderInterface
 
 		$config->loadObject($configObject);
 
+		define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
+
 		$this->config = $config;
 	}
 

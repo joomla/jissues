@@ -47,8 +47,6 @@ class ApplicationProvider implements ServiceProviderInterface
 		$container->set('app',
 			function () use ($app)
 			{
-				define('JDEBUG', $app->get('debug.system'));
-
 				return $app;
 			}, true, true
 		);
