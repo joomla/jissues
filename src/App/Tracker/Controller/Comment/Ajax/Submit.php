@@ -59,6 +59,7 @@ class Submit extends AbstractAjaxController
 		$github = Container::retrieve('gitHub');
 
 		$data = new \stdClass;
+		$db   = Container::retrieve('db');
 
 		if ($project->gh_user && $project->gh_project)
 		{
@@ -85,7 +86,6 @@ class Submit extends AbstractAjaxController
 		else
 		{
 			$date = new Date;
-			$db   = Container::retrieve('db');
 
 			$data->created_at = $date->format($db->getDateFormat());
 			$data->opened_by  = $this->getApplication()->getUser()->username;

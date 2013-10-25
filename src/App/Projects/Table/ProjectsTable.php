@@ -11,8 +11,6 @@ namespace App\Projects\Table;
 use App\Groups\Table\GroupsTable;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Filter\InputFilter;
-use Joomla\Filter\OutputFilter;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -63,9 +61,39 @@ class ProjectsTable extends AbstractDatabaseTable
 			$this->alias = $this->title;
 		}
 
-		$this->alias = OutputFilter::stringURLSafe($this->alias);
+		$this->alias = $this->stringURLSafe($this->alias);
 
 		return $this;
+	}
+
+	/**
+	 * This method processes a string and replaces all accented UTF-8 characters by unaccented
+	 * ASCII-7 "equivalents", whitespaces are replaced by hyphens and the string is lowercase.
+	 *
+	 * @param   string  $string  String to process
+	 *
+	 * @return  string  Processed string
+	 *
+	 * @since   1.0
+	 */
+	public static function stringURLSafe($string)
+	{
+		// Remove any '-' from the string since they will be used as concatenaters
+		$str = str_replace('-', ' ', $string);
+
+		// $lang = Language::getInstance();
+		// $str = $lang->transliterate($str);
+
+		// Trim white spaces at beginning and end of alias and make lowercase
+		$str = trim(strtolower($str));
+
+		// Remove any duplicate whitespace, and ensure all characters are alphanumeric
+		$str = preg_replace('/(\s|[^A-Za-z0-9\-])+/', '-', $str);
+
+		// Trim dashes at beginning and end of alias
+		$str = trim($str, '-');
+
+		return $str;
 	}
 
 	/**
