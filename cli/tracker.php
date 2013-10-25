@@ -18,9 +18,17 @@ error_reporting(-1);
 ini_set('display_errors', 1);
 
 // Load the autoloader
-$loader = require __DIR__ . '/../vendor/autoload.php';
+$loader = include __DIR__ . '/../vendor/autoload.php';
+
+if (false == $loader)
+{
+	echo 'ERROR: Composer not properly set up! Run "composer install" or see README.md for more details' . PHP_EOL;
+
+	exit(1);
+}
 
 // Add the namespace for our application to the autoloader.
+/* @type Composer\Autoload\ClassLoader $loader */
 $loader->add('CliApp', __DIR__);
 
 define('JPATH_ROOT', realpath(__DIR__ . '/..'));

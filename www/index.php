@@ -5,7 +5,7 @@
  */
 
 // Set error reporting for development
-error_reporting(32767);
+error_reporting(-1);
 
 // Define required paths
 define('JPATH_ROOT',          dirname(__DIR__));
@@ -14,7 +14,12 @@ define('JPATH_THEMES',        JPATH_ROOT . '/www');
 define('JPATH_TEMPLATES',     JPATH_ROOT . '/templates');
 
 // Load the Composer autoloader
-require JPATH_ROOT . '/vendor/autoload.php';
+if (false == include JPATH_ROOT . '/vendor/autoload.php')
+{
+	echo 'ERROR: Composer not properly set up! Run "composer install" or see README.md for more details' . PHP_EOL;
+
+	exit(1);
+}
 
 // Instantiate the application.
 $application = new JTracker\Application;
