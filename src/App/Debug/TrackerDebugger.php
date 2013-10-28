@@ -260,31 +260,43 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.database'))
 		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgDatabase">Database</a></h3>';
+			$debug[] = '<div id="dbgDatabase">';
+            $debug[] = '<h3>Database</h3>';
 
 			$debug[] = $this->renderDatabase();
+            $debug[] = '</div>';
 		}
 
 		if ($this->application->get('debug.system'))
 		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProfile">Profile</a></h3>';
+			$debug[] = '<div id="dbgProfile">';
+            $debug[] = '<h3>Profile</h3>';
 			$debug[] = $this->renderProfile();
+            $debug[] = '</div>';
 
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgUser">User</a></h3>';
+            $debug[] = '<div id="dbgUser">';
+            $debug[] = '<h3>User</h3>';
 			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
+            $debug[] = '</div>';
 
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgProject">Project</a></h3>';
+			$debug[] = '<div id="dbgProject">';
+            $debug[] = '<h3>Project</h3>';
 			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
-		}
+            $debug[] = '</div>';
+        }
 
 		if ($this->application->get('debug.language'))
 		{
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageStrings">Language Strings</a></h3>';
+            $debug[] = '<div id="dbgLanguageStrings">';
+            $debug[] = '<h3>Language Strings</h3>';
 			$debug[] = $this->renderLanguageStrings();
+            $debug[] = '</div>';
 
-			$debug[] = '<h3><a class="muted" href="javascript:;" name="dbgLanguageFiles">Language Files</a></h3>';
+            $debug[] = '<div id="dbgLanguageFiles">';
+            $debug[] = '<h3>Language Files</h3>';
 			$debug[] = $this->renderLanguageFiles();
-		}
+            $debug[] = '</div>';
+        }
 
 		return implode("\n", $navigation) . implode("\n", $debug);
 	}
@@ -306,12 +318,12 @@ class TrackerDebugger implements LoggerAwareInterface
 		<style>
 			div#debugBar { background-color: #eee; }
 			div#debugBar a:hover { background-color: #ddd; }
+			div#debugBar a:active { background-color: #ccc; }
 			pre.dbQuery { background-color: #333; color: white; font-weight: bold; }
 			span.dbgTable { color: yellow; }
 			span.dbgCommand { color: lime; }
 			span.dbgOperator { color: red; }
-			h2.debug { background-color: #333; color: lime; border-radius: 10px; padding: 0.5em; }
-			h3:target { margin-top: 200px;}
+			div:target { border: 2px dashed orange; padding: 5px; padding-top: 100px; }
 		</style>
 		';
 
