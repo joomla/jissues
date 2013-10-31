@@ -43,6 +43,7 @@ class Submit extends AbstractTrackerController
 		$title    = $this->getInput()->getString('title');
 		$body     = $this->getInput()->get('body', '', 'raw');
 		$priority = $this->getInput()->getInt('priority');
+		$build    = $this->getInput()->getString('build');
 
 		if (!$body)
 		{
@@ -98,8 +99,23 @@ class Submit extends AbstractTrackerController
 		$table->title           = $title;
 		$table->description     = $data->text;
 		$table->description_raw = $body;
+		$table->build           = $build;
 
-		$table->check()->store();
+		try
+		{
+			$table->check();
+		}
+		catch (\InvalidArgumentException $e)
+		{
+			$application->enqueueMessage($e->getMessage(), 'error');
+
+			$application->redirect(
+				$application->get('uri.base.path')
+				. 'tracker/' . $project->alias . '/add'
+			);
+		}
+
+		$table->store();
 
 		// Store the activity
 		$table = new ActivitiesTable($database);

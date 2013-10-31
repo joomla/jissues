@@ -143,9 +143,32 @@ class IssuesTable extends AbstractDatabaseTable
 	{
 		$errors = array();
 
-		if (trim($this->title) == '')
+		$this->title = trim($this->title);
+
+		if ($this->title == '')
 		{
 			$errors[] = 'A title is required.';
+		}
+		elseif (strlen($this->title) < 15)
+		{
+			$errors[] = 'A title min length is 15 chars.';
+		}
+		elseif (strlen($this->title) > 50)
+		{
+			$errors[] = 'A title max length is 50 chars.';
+		}
+		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\?\(\)\'"\+_@&$#%: ]+$/u', $this->title))
+		{
+			$errors[] = 'Some characters are not allowed here.';
+		}
+
+		if (trim($this->build) == '')
+		{
+			$errors[] = 'A build is required.';
+		}
+		elseif (strlen($this->build) > 40)
+		{
+			$errors[] = 'A build max length is 40 chars.';
 		}
 
 		// Commented for now because many GitHub requests are received without a description

@@ -47,6 +47,8 @@ class SaveController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
+		$application = $this->getApplication();
+
 		$src = $this->getInput()->get('item', array(), 'array');
 
 		try
@@ -54,24 +56,21 @@ class SaveController extends AbstractTrackerController
 			$model = new IssueModel;
 			$model->save($src);
 
-			$this->getApplication()->enqueueMessage('The changes have been saved.', 'success');
+			$application->enqueueMessage('The changes have been saved.', 'success');
 
-			$this->getApplication()->redirect(
-				'/tracker/' . $this->getApplication()->input->get('project_alias')
+			$application->redirect(
+				$application->get('uri.base.path')
+				. '/tracker/' . $application->input->get('project_alias')
 			);
 		}
-		catch (ValidationException $e)
+		catch (\Exception $e)
 		{
-			echo $e->getMessage();
+			$application->enqueueMessage($e->getMessage(), 'error');
 
-			var_dump($e->getErrors());
-
-			exit(255);
-
-			// @todo move on to somewhere =;)
-
-			// $this->getInput()->set('view', 'issue');
-			// $this->getInput()->set('layout', 'edit');
+			$application->redirect(
+				$application->get('uri.base.path')
+				. 'tracker/' . $application->input->get('project_alias') . '/' . $src['id'] . '/edit'
+			);
 		}
 
 		parent::execute();
