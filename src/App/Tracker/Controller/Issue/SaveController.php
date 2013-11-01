@@ -66,10 +66,20 @@ class SaveController extends AbstractTrackerController
 		{
 			$application->enqueueMessage($e->getMessage(), 'error');
 
-			$application->redirect(
-				$application->get('uri.base.path')
-				. 'tracker/' . $application->input->get('project_alias') . '/' . $src['id'] . '/edit'
-			);
+			if (!empty($src['id']))
+			{
+				$application->redirect(
+					$application->get('uri.base.path')
+					. 'tracker/' . $application->input->get('project_alias') . '/' . $src['id'] . '/edit'
+				);
+			}
+			else
+			{
+				$application->redirect(
+					$application->get('uri.base.path')
+					. 'tracker/' . $application->input->get('project_alias')
+				);
+			}
 		}
 
 		parent::execute();
