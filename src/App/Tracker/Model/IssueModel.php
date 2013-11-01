@@ -90,8 +90,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
 
-				// Join over the relations_types table
-				->select('v.*')
+				// Join over the issues_voting table
+				->select('v.votes, v.experienced, v.score')
 				->join('LEFT', '#__issues_voting AS v ON i.vote_id = v.id')
 		)->loadObject();
 
