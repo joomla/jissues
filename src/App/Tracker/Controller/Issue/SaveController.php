@@ -12,7 +12,6 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
 use App\Tracker\Model\IssueModel;
-use App\Tracker\ValidationException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -60,7 +59,7 @@ class SaveController extends AbstractTrackerController
 
 			$application->redirect(
 				$application->get('uri.base.path')
-				. '/tracker/' . $application->input->get('project_alias')
+				. '/tracker/' . $application->input->get('project_alias') . '/' . $src['id']
 			);
 		}
 		catch (\Exception $e)
