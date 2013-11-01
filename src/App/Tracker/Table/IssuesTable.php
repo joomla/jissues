@@ -151,15 +151,15 @@ class IssuesTable extends AbstractDatabaseTable
 		}
 		elseif (strlen($this->title) < 15)
 		{
-			$errors[] = 'A title min length is 15 chars.';
+			$errors[] = 'The title min length is 15 chars.';
 		}
 		elseif (strlen($this->title) > 50)
 		{
-			$errors[] = 'A title max length is 50 chars.';
+			$errors[] = 'The title max length is 50 chars.';
 		}
 		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\?\(\)\'"\+_@&$#%: ]+$/u', $this->title))
 		{
-			$errors[] = 'Some characters are not allowed here.';
+			$errors[] = 'Some characters are not allowed in the title.';
 		}
 
 		if (trim($this->build) == '')

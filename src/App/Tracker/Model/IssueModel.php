@@ -201,6 +201,37 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Add the item.
+	 *
+	 * @param   array  $src  The source.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function add(array $src)
+	{
+		$filter = new InputFilter;
+
+		$src['description_raw'] = $filter->clean($src['description_raw'], 'string');
+
+		// Store the issue
+		$table = new IssuesTable($this->db);
+
+		$table->save($src);
+
+		// Store the activity
+		$table = new ActivitiesTable($this->db);
+
+		$src['event']   = 'open';
+		$src['user']    = $src['opened_by'];
+
+		$table->save($src);
+
+		return $this;
+	}
+
+	/**
 	 * Save the item.
 	 *
 	 * @param   array  $src  The source.
