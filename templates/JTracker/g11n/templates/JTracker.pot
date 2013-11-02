@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR JTracker(C)
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker - Template 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-10-21 13:05-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr ""
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr ""
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr ""
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr ""
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr ""
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr ""
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr ""
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr ""
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr ""
+
+#: /templates/trackerMenu.twig:104
+msgid "Database"
+msgstr ""
+
+#: /templates/trackerMenu.twig:136
+msgid "Icons"
+msgstr ""
+
+#: /templates/trackerMenu.twig:142
+msgid "Text"
+msgstr ""
+
+#: /templates/trackerMenu.twig:164
+msgid "About Us"
+msgstr ""
+
+#: /templates/trackerMenu.twig:191
+msgid "Admin"
+msgstr ""
+
+#: /templates/trackerMenu.twig:196
+msgid "Profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:203
+msgid "Logout"
+msgstr ""
+
+#: /templates/trackerMenu.twig:211
+msgid "Login with GitHub"
+msgstr ""
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr ""
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr ""

@@ -3,13 +3,13 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} - {{ translate('COM_TRACKER_NEW_ITEM') }}{% endblock %}
+{% block title %}{{ project.title }} - {{ translate('New Item') }}{% endblock %}
 
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success" href="javascript:" id="submit">{{ translate('COM_TRACKER_SUBMIT') }}</a>
+        <a class="btn-success" href="javascript:" id="submit">{{ translate('Submit') }}</a>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -26,17 +26,17 @@
 
         <div class="pull-right well well-small" style="margin-left: 15px">
 
-            <label for="viewMode" class="btn btn-small">{{ translate('COM_TRACKER_VIEW_MODE') }}</label>
+            <label for="viewMode" class="btn btn-small">{{ translate('View Mode') }}</label>
             <br />
             <div class="switch switch-large" id="helpSwitch"
-                 data-on-label="{{ translate('COM_TRACKER_HELP') }}" data-off-label="{{ translate('COM_TRACKER_PRO') }}"
+                 data-on-label="{{ translate('Help') }}" data-off-label="{{ translate('Pro') }}"
                  data-on="success" data-off="info">
                 <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
             </div>
 
             <div class="divider">-</div>
 
-            <label for="priority">{{ translate('COM_TRACKER_PRIORITY') }}</label>
+            <label for="priority">{{ translate('Priority') }}</label>
             <select name="item[priority]" id="priority" class="span2" >
                 {% for i in range(1, 5) %}
                     <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
@@ -44,26 +44,26 @@
             </select>
 
             <div class="helpText span2 alert alert-info">
-                {{ translate('COM_TRACKER_PRIORITY_DESC') }}
+                {{ translate('COM_TRACKER_HELP_PRIORITY')|raw }}
             </div>
 
-            <label for="build">{{ translate('COM_TRACKER_BUILD') }}</label>
+            <label for="build">{{ translate('Build') }}</label>
             <input class="validateBuild" name="item[build]" id="build" type="text" class="span2" />
 
             <div class="helpText span2 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_BUILD') }}</div>
         </div>
 
-        <h2>{{ translate('COM_TRACKER_NEW_ITEM') }}</h2>
+        <h2>{{ translate('New Item') }}</h2>
 
         <div class="helpText span6 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_INTRO') }}</div>
 
         <fieldset>
-            <label for="title">{{ translate('COM_TRACKER_LABEL_TITLE') }}</label>
-            <input class="validateTitle" type="text" name="title" style="width: 80%; font-size: 1.2em;" />
+            <label for="title">{{ translate('Title') }}</label>
+            <input class="validateTitle" type="text" name="title" id="title" style="width: 80%; font-size: 1.2em;" />
 
             <div class="helpText span6 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_TITLE') }}</div>
 
-            <label for="description">{{ translate('COM_TRACKER_LABEL_DESCRIPTION') }}</label>
+            <label for="description">{{ translate('Description') }}</label>
 
             {% set editorId="description" %}
             {% set editorName="body" %}

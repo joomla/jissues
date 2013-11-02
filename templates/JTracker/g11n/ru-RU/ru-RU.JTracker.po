@@ -1,0 +1,91 @@
+# Nikolai Plath <der.el.kuku@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-10-20 01:49-0500\n"
+"PO-Revision-Date: 2010-10-28 20:29-0500\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: JTracker <der.el.kuku@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "филер"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "проект"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "показывать"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "редактировать"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Группы доступа"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Проекты"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Пользователи"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "система"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "конфигурация"
+
+#: /templates/trackerMenu.twig:104
+msgid "Database"
+msgstr "база данных"
+
+#: /templates/trackerMenu.twig:136
+msgid "Icons"
+msgstr "Иконки"
+
+#: /templates/trackerMenu.twig:142
+msgid "Text"
+msgstr "текст"
+
+#: /templates/trackerMenu.twig:164
+msgid "About Us"
+msgstr "О нас"
+
+#: /templates/trackerMenu.twig:191
+msgid "Admin"
+msgstr "Админ"
+
+#: /templates/trackerMenu.twig:196
+msgid "Profile"
+msgstr "профиль"
+
+#: /templates/trackerMenu.twig:203
+msgid "Logout"
+msgstr "Выход"
+
+#: /templates/trackerMenu.twig:211
+msgid "Login with GitHub"
+msgstr "Войти с GitHub"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "запись"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "анонс"

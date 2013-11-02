@@ -12,10 +12,14 @@ use App\Debug\TrackerDebugger;
 use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
+use g11n\g11n;
+
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Event\Dispatcher;
-use Joomla\Language\Language;
+use Joomla\Github\Github;
+use Joomla\Github\Http;
+use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -81,14 +85,6 @@ final class Application extends AbstractWebApplication
 	private $project;
 
 	/**
-	 * The Language object
-	 *
-	 * @var    Language
-	 * @since  1.0
-	 */
-	private $language;
-
-	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -106,10 +102,9 @@ final class Application extends AbstractWebApplication
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
 
-		// Register the event dispatcher
-		$this->loadDispatcher();
-
-		$this->mark('Application started');
+		$this->loadLanguage()
+			->loadDispatcher()
+			->mark('Application started');
 	}
 
 	/**
@@ -156,7 +151,7 @@ final class Application extends AbstractWebApplication
 			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getComponent()));
 
 			// Execute the component
-			$contents = $this->executeComponent($controller, strtolower($controller->getComponent()));
+			$contents = $this->executeApp($controller, $controller->getComponent());
 
 			$this->mark('Application terminated');
 
@@ -244,26 +239,24 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
-	 * Execute the component.
+	 * Execute the App.
 	 *
 	 * @param   ControllerInterface  $controller  The controller instance to execute
-	 * @param   string               $component   The component being executed.
+	 * @param   string               $app         The App being executed.
 	 *
-	 * @return  string
+	 * @return  string The App output
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
 	 */
-	public function executeComponent($controller, $component)
+	protected function executeApp(ControllerInterface $controller, $app)
 	{
-		// Load template language files.
-		$lang = $this->getLanguage();
-
-		// Load common and local language files.
-		$lang->load($component, JPATH_ROOT, null, false, false) || $lang->load($component, JPATH_ROOT, $lang->getDefault(), false, false);
+		// Load the App language file
+		g11n::loadLanguage($app, 'App');
 
 		// Start an output buffer.
 		ob_start();
+
 		$controller->execute();
 
 		return ob_get_clean();
@@ -331,21 +324,68 @@ final class Application extends AbstractWebApplication
 	/**
 	 * Get a language object.
 	 *
-	 * @return  Language
-	 *
-	 * @since   1.0
+	 * @since  1.0
+	 * @return $this
 	 */
-	public function getLanguage()
+	protected function loadLanguage()
 	{
-		if (is_null($this->language))
+		// Get the language tag from user input.
+		$lang = $this->input->get('lang');
+
+		if ($lang)
 		{
-			$this->language = Language::getInstance(
-				$this->get('language'),
-				$this->get('debug_lang')
-			);
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown language from user input - fall back to default
+				$lang = g11n::getDefault();
+			}
+
+			// Store the language tag to the session.
+			$this->getSession()->set('lang', $lang);
+		}
+		else
+		{
+			// Get the language tag from the session.
+			$lang = $this->getSession()->get('lang');
 		}
 
-		return $this->language;
+		if ($lang)
+		{
+			// Set the current language if anything has been found.
+			g11n::setCurrent($lang);
+		}
+
+		// Set language debugging
+		g11n::setDebug($this->get('debug.language'));
+
+		// Set the directory used to store language cache files
+		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
+		{
+			g11n::setCacheDir('/tmp');
+		}
+		else
+		{
+			g11n::setCacheDir(JPATH_ROOT . '/cache');
+		}
+
+		// Load the core language file
+		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
+		g11n::loadLanguage('JTracker', 'Core');
+
+		// Load template language files.
+		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
+		g11n::loadLanguage('JTracker', 'Template');
+
+		// Add the App domain path
+		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
+
+		if (JDEBUG)
+		{
+			// Load the Debug App language file
+			g11n::loadLanguage('Debug', 'App');
+		}
+
+		return $this;
 	}
 
 	/**

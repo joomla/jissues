@@ -5,8 +5,14 @@
 
 {% block title %}GitHub Flavored Markdown Preview{% endblock %}
 
+{% block headerCSS %}
+    {{ parent() }}
+    <!-- CSS for coloured code -->
+    <link href="{{ uri.base.path }}css/code.css" rel="stylesheet" media="screen">
+{% endblock %}
+
 {% block content %}
-    <h2>Markdown TEST Page</h2>
+    <h2>{{ "Markdown TEST Page"|_ }}</h2>
     <ul class="nav nav-tabs">
         <li class="active"><a href="#info" data-toggle="tab">Info</a></li>
         <li><a href="#headers" data-toggle="tab">Headers</a></li>
@@ -170,8 +176,6 @@ line 2 of fenced code
 line 3 of fenced code
 ```
 
-Syntax highlighting provided by [GitHub Flavored Markdown](http://github.github.com/github-flavored-markdown/)
-
 ```php
 protected function parse($raw)
 {
@@ -187,41 +191,43 @@ protected function parse($raw)
             <div class="span6">
                 <p>Some text with <code>some code</code> inside.</p>
     				<pre>
-    <code>line 1 of code indented by 4 spaces
-        line 2 of code indented by 4 spaces
-        line 3 of code indented by 4 spaces</code></pre>
+<code>line 1 of code indented by 4 spaces
+line 2 of code indented by 4 spaces
+line 3 of code indented by 4 spaces</code></pre>
 
-                <p>Some text with <code>some fenced code</code> inside.</p>
+<p>Some text with <code>some fenced code</code> inside.</p>
 
-    				<pre>
-    <code>line 1 of fenced code
-        line 2 of fenced code
-        line 3 of fenced code</code></pre>
+<pre>
+<code>line 1 of fenced code
+line 2 of fenced code
+line 3 of fenced code</code></pre>
 
-                <p>Syntax highlighting provided by <a href="http://github.github.com/github-flavored-markdown/">GitHub
-                        Flavored Markdown</a></p>
+<p>Syntax highlighting provided by <a href="http://github.github.com/github-flavored-markdown/">
+        GitHub Flavored Markdown</a>
+</p>
 
-                <div class="highlight">
-    					<pre>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">parse</span><span
-                                    class="p">(</span><span class="nv">$raw</span><span class="p">)</span>
-    <span class="p">{</span>
-    	<span class="nv">$o</span> <span class="o">=</span> <span class="k">new</span> <span
-                                    class="k">stdClass</span><span class="p">;</span>
-    	<span class="nv">$o</span><span class="o">-&gt;</span><span class="na">text</span> <span
-                                    class="o">=</span> <span class="nv">$raw</span><span class="p">;</span>
+<div class="highlight">
+<pre>
+<span class="k">protected</span> <span class="k">function</span> <span class="nf">parse</span><span
+                                class="p">(</span><span class="nv">$raw</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$o</span> <span class="o">=</span> <span class="k">new</span> <span
+                                class="k">stdClass</span><span class="p">;</span>
+    <span class="nv">$o</span><span class="o">-&gt;</span><span class="na">text</span> <span
+                                class="o">=</span> <span class="nv">$raw</span><span class="p">;</span>
 
-    	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dispatcher</span><span
-                                    class="o">-&gt;</span><span class="na">trigger</span><span class="p">(</span><span
-                                    class="s1">'onContentPrepare'</span><span class="p">,</span> <span
-                                    class="k">array</span><span class="p">(</span><span class="s1">'com_tracker.markdown'</span><span
-                                    class="p">,</span> <span class="o">&amp;</span><span class="nv">$o</span><span
-                                    class="p">,</span> <span class="k">new</span> <span class="nx">JRegistry</span><span
-                                    class="p">));</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dispatcher</span><span
+                                class="o">-&gt;</span><span class="na">trigger</span><span class="p">(</span><span
+                                class="s1">'onContentPrepare'</span><span class="p">,</span> <span
+                                class="k">array</span><span class="p">(</span><span class="s1">'com_tracker.markdown'</span><span
+                                class="p">,</span> <span class="o">&amp;</span><span class="nv">$o</span><span
+                                class="p">,</span> <span class="k">new</span> <span class="nx">JRegistry</span><span
+                                class="p">));</span>
 
-    	<span class="k">echo</span> <span class="nv">$o</span><span class="o">-&gt;</span><span
-                                    class="na">text</span><span class="p">;</span>
-    <span class="p">}</span></pre>
+    <span class="k">echo</span> <span class="nv">$o</span><span class="o">-&gt;</span><span
+                                class="na">text</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
                 </div>
             </div>
         </div>
