@@ -261,42 +261,42 @@ class TrackerDebugger implements LoggerAwareInterface
 		if ($this->application->get('debug.database'))
 		{
 			$debug[] = '<div id="dbgDatabase">';
-            $debug[] = '<h3>Database</h3>';
+			$debug[] = '<h3>Database</h3>';
 
 			$debug[] = $this->renderDatabase();
-            $debug[] = '</div>';
+			$debug[] = '</div>';
 		}
 
 		if ($this->application->get('debug.system'))
 		{
 			$debug[] = '<div id="dbgProfile">';
-            $debug[] = '<h3>Profile</h3>';
+			$debug[] = '<h3>Profile</h3>';
 			$debug[] = $this->renderProfile();
-            $debug[] = '</div>';
+			$debug[] = '</div>';
 
-            $debug[] = '<div id="dbgUser">';
-            $debug[] = '<h3>User</h3>';
+			$debug[] = '<div id="dbgUser">';
+			$debug[] = '<h3>User</h3>';
 			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
-            $debug[] = '</div>';
+			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgProject">';
-            $debug[] = '<h3>Project</h3>';
+			$debug[] = '<h3>Project</h3>';
 			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
-            $debug[] = '</div>';
-        }
+			$debug[] = '</div>';
+		}
 
 		if ($this->application->get('debug.language'))
 		{
-            $debug[] = '<div id="dbgLanguageStrings">';
-            $debug[] = '<h3>Language Strings</h3>';
+			$debug[] = '<div id="dbgLanguageStrings">';
+			$debug[] = '<h3>Language Strings</h3>';
 			$debug[] = $this->renderLanguageStrings();
-            $debug[] = '</div>';
+			$debug[] = '</div>';
 
-            $debug[] = '<div id="dbgLanguageFiles">';
-            $debug[] = '<h3>Language Files</h3>';
+			$debug[] = '<div id="dbgLanguageFiles">';
+			$debug[] = '<h3>Language Files</h3>';
 			$debug[] = $this->renderLanguageFiles();
-            $debug[] = '</div>';
-        }
+			$debug[] = '</div>';
+		}
 
 		return implode("\n", $navigation) . implode("\n", $debug);
 	}
@@ -324,6 +324,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			span.dbgCommand { color: lime; }
 			span.dbgOperator { color: red; }
 			div:target { border: 2px dashed orange; padding: 5px; padding-top: 100px; }
+			div:target { transition:all 0.5s ease; }
 		</style>
 		';
 
