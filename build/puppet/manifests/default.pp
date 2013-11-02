@@ -20,7 +20,7 @@ class jissues {
 include system
 
 class system {
-	package { ['curl']:
+	package { ['curl', 'gettext']:
 		ensure  => installed,
 		require => Exec['apt-get update'],
 	}

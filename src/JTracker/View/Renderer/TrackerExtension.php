@@ -8,7 +8,7 @@
 
 namespace JTracker\View\Renderer;
 
-use Joomla\Language\Text;
+use g11n\g11n;
 
 use JTracker\Container;
 
@@ -46,6 +46,8 @@ class TrackerExtension extends \Twig_Extension
 		return array(
 			'uri'    => $app->get('uri'),
 			'jdebug' => JDEBUG,
+			'lang'   => g11n::getCurrent(),
+			'languages' => $app->get('languages')
 		);
 	}
 
@@ -59,7 +61,8 @@ class TrackerExtension extends \Twig_Extension
 	public function getFunctions()
 	{
 		$functions = array(
-			new \Twig_SimpleFunction('translate', array($this, 'translate')),
+			new \Twig_SimpleFunction('translate', 'g11n3t'),
+			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
@@ -93,21 +96,8 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFilter('contrastColor', array($this, 'getContrastColor')),
 			new \Twig_SimpleFilter('labels', array($this, 'renderLabels')),
+			new \Twig_SimpleFilter('_', 'g11n3t'),
 		);
-	}
-
-	/**
-	 * Translate a string using Joomla\Text.
-	 *
-	 * @param   string  $string  The string to translate.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function translate($string)
-	{
-		return Text::_($string);
 	}
 
 	/**

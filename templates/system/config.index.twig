@@ -48,13 +48,13 @@
                         <legend>{{ group|title }}</legend>
                         {% for name, value in fields %}
                             {% if value[0] is not defined %}
-                            <div class="control-group">
+								<div class="control-group">
 									<label for="config{{ group ~ name }}" class="control-label">{{ name|title }}</label>
-                                <div class="controls">
-                                    <input type="text" name="config[{{ group }}][{{ name }}]"
+									<div class="controls">
+										<input type="text" name="config[{{ group }}][{{ name }}]"
 										   id="config{{ group ~ name }}" value="{{ value }}"/>
-                                </div>
-                            </div>
+									</div>
+								</div>
                             {% else %}
                                 {% for i, v in value %}
                                     <div class="control-group">

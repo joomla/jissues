@@ -1,0 +1,24 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
+
+{% set baseURI = uri.base.path ~ uri.route|split("?")|first %}
+
+<li class="dropdown pull-right">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+        <img src="{{ uri.base.path }}images/flags/{{ lang|split("-")|first }}.gif" alt="{{ lang }}" title="{{ lang }}"/>
+        <span class="caret"></span>
+    </a>
+
+    <ul class="dropdown-menu">
+        {% for l in languages %}
+            {% if l != lang %}
+                <li>
+                    <a href="{{ baseURI }}?lang={{ l }}" title="{{ l }}">
+                        <img src="{{ uri.base.path }}images/flags/{{ l|split("-")|first }}.gif" />
+                        {{ l }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</li>

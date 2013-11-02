@@ -139,6 +139,7 @@
         {% block subnav %}
             <ul class="nav menu nav-pills">
                 {% block prependMenu %}{% endblock %}
+                {% include "lang-switcher.twig" %}
                 {% include "trackerMenu.twig" %}
             </ul>
         {% endblock %}

@@ -17,6 +17,7 @@ Available commands:
 * `get` Retrieve new issues, issue comments, avatars, ...
 * `make` Make documentation, database table comments, autocomplete files, ...
 * `help` Display a lot of helpful text.
+* `update` Update GitHub data
 
 For more information use `tracker.php help`.
 For more information on a specific command use `tracker.php help <command>`.

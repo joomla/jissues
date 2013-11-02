@@ -9,7 +9,7 @@
     {% if user.isAdmin %}
         <li>
             <a class="btn-success" href="{{ uri.base.path }}project/add">
-                Add Project
+                {{ "New Project"|_ }}
             </a>
         </li>
     {% endif %}
@@ -20,12 +20,12 @@
 
 {% block content %}
 
-    <h2>Projects List</h2>
+    <h2>{{ "Projects List"|_ }}</h2>
 
     <table class="table table-bordered table-hover">
 
         <tr>
-            <th>Tracker</th>
+            <th>{{ "Tracker"|_ }}</th>
             <th><i class="icon-github"></i>&nbsp;GitHub</th>
 
             {% if user.isAdmin %}
