@@ -70,9 +70,9 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$status = $this->state->get('filter.status');
 
-		if ($status)
+		if (!is_null($status))
 		{
-			$query->where($db->quoteName('a.status') . ' = ' . (int) $status);
+			$query->where($db->quoteName('s.closed') . ' = ' . (int) $status);
 		}
 
 		// TODO: Implement filtering and join to other tables as added
@@ -140,7 +140,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('filter.priority', $input->getUint('priority', 3));
 
-		$this->state->set('filter.status', $input->getUint('filter-status'));
+		$this->state->set('filter.status', $input->getUint('filter-status', 0));
 
 		// Optional filter text
 		$this->state->set('list.filter', $input->getString('filter-search'));
