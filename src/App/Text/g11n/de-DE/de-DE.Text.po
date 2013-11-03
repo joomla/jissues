@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Text - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-23 22:28-0500\n"
+"POT-Creation-Date: 2013-11-03 09:04-0500\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
@@ -15,3 +15,60 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Artikel"
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
+msgstr "Neuer Artikel"
+
+#: /templates/text/articles.index.twig:35
+msgid "Title/Alias"
+msgstr "Titel/Alias"
+
+#: /templates/text/articles.index.twig:36
+msgid "Actions"
+msgstr "Aktionen"
+
+#: /templates/text/articles.index.twig:52
+msgid "View"
+msgstr "Ansehen"
+
+#: /templates/text/articles.index.twig:55
+msgid "Delete"
+msgstr "Löschen"
+
+#: /templates/text/articles.index.twig:61
+msgid "No articles found"
+msgstr "Keine Artikel gefunden."
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Artikel bearbeiten"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Speichern"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Titel"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
+#: /src/App/Text/Table/ArticlesTable.php:83
+msgid "An alias or a title is required."
+msgstr "Ein Alias oder ein Titel sind erforderlich."
+
+#: /src/App/Text/Table/ArticlesTable.php:89
+msgid "Some text is required."
+msgstr "Etwas Text ist erforderlich."
