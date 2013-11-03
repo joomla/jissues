@@ -8,7 +8,7 @@
 {% block prependMenu %}
     <li>
         <a class="btn-success" href="{{ uri.base.path }}project/{{ project.alias }}/addgroup">
-            Add Group
+            {{ "Add Group"|_ }}
         </a>
     </li>
 
@@ -19,19 +19,19 @@
 {% block content %}
     <h2>{{ project.title }}</h2>
 
-    <h3>Access Groups</h3>
+    <h3>{{ "Access Groups"|_ }}</h3>
 
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>Title</th>
-            <th style="width: 5%;">View</th>
-            <th style="width: 5%;">Create</th>
-            <th style="width: 5%;">Edit</th>
-            <th style="width: 5%;">Manage</th>
-            <th style="width: 10%;">Actions</th>
+            <th>{{ "Title"|_ }}</th>
+            <th style="width: 5%;">{{ "View"|_ }}</th>
+            <th style="width: 5%;">{{ "Create"|_ }}</th>
+            <th style="width: 5%;">{{ "Edit"|_ }}</th>
+            <th style="width: 5%;">{{ "Manage"|_ }}</th>
+            <th style="width: 10%;">{{ "Actions"|_ }}</th>
             {% if jdebug %}
-                <th style="width: 5%;">Id</th>
+                <th style="width: 5%;">{{ "Id"|_ }}</th>
             {% endif %}
         </tr>
         </thead>
@@ -43,24 +43,24 @@
                 </td>
 
                 <td class="{{ group.can_view ? "alert-success" : "alert-error" }}">
-                    {{ group.can_view ? "Yes" : "No" }}
+                    {{ group.can_view|yesno }}
                 </td>
                 <td class="{{ group.can_create ? "alert-success" : "alert-error" }}">
-                    {{ group.can_create ? "Yes" : "No" }}
+                    {{ group.can_create|yesno }}
                 </td>
                 <td class="{{ group.can_edit ? "alert-success" : "alert-error" }}">
-                    {{ group.can_edit ? "Yes" : "No" }}
+                    {{ group.can_edit|yesno }}
                 </td>
                 <td class="{{ group.can_manage ? "alert-success" : "alert-error" }}">
-                    {{ group.can_manage ? "Yes" : "No" }}
+                    {{ group.can_manage|yesno }}
                 </td>
 
                 <td>
                     {% if group.system %}
-                        System
+                        {{ "System"|_ }}
                     {% else %}
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/group/{{ group.group_id }}/delete">
-                            Delete
+                            {{ "Delete"|_ }}
                         </a>
                     {% endif %}
                 </td>
@@ -72,7 +72,7 @@
         {% else %}
             <tr>
                 <td colspan="5">
-                    <div class="alert alert-error">No groups defined !</div>
+                    <div class="alert alert-error">{{ "No groups defined !"|_ }}</div>
                 </td>
             </tr>
         {% endfor %}

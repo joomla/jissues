@@ -8,7 +8,7 @@
 {% block prependMenu %}
     <li>
         <a class="btn-success" href="javascript:" onclick="document.editForm.submit();">
-            Save
+            {{ "Save"|_ }}
         </a>
     </li>
 
@@ -121,9 +121,9 @@
     <h2>{{ project.title }}</h2>
 
     {% if group.group_id %}
-        <h3>Edit Access Group</h3>
+        <h3>{{ "Edit Access Group"|_ }}</h3>
     {% else %}
-        <h3>Add Access Group</h3>
+        <h3>{{ "Add Access Group"|_ }}</h3>
     {% endif %}
 
     <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/savegroup" class="form-inline" name="editForm">
@@ -132,16 +132,15 @@
             <div class="span6">
                 <fieldset>
 
-                    <legend>Details</legend>
+                    <legend>{{ "Details"|_ }}</legend>
 
                     {% if group.system %}
                         <h4>{{ group.title }} (system)</h4>
                         <input type="hidden" name="group[title]" id="title" value="{{ group.title }}">
                     {% else %}
                         <ul class="unstyled">
-
                             <li>
-                                <label for="title">Title</label>
+                                <label for="title">{{ "Title"|_ }}</label>
                                 <input type="text" name="group[title]" id="title" value="{{ group.title }}">
                             </li>
                         </ul>
@@ -151,13 +150,13 @@
             <div class="span6">
                 <fieldset>
 
-                    <legend>Permissions</legend>
+                    <legend>{{ "Permissions"|_ }}</legend>
 
                     <div class="row">
                         <div class="span3">
                             <label for="can_view" class="btn span12">
                                 <i class="icon-eye-2"></i>
-                                View
+                                {{ "View"|_ }}
                             </label>
                             <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                                 <input type="checkbox" {{ group.can_view ? "checked='checked'" : "" }}
@@ -167,7 +166,7 @@
                         <div class="span3">
                             <label for="can_create" class="btn span12">
                                 <i class="icon-plus-2"></i>
-                                Create
+                                {{ "Create"|_ }}
                             </label>
                             <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_create ? "checked='checked'" : "" }}
@@ -177,7 +176,7 @@
                         <div class="span3">
                             <label for="can_edit" class="btn span12">
                                 <i class="icon-pencil"></i>
-                                Edit
+                                {{ "Edit"|_ }}
                             </label>
                             <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_edit ? "checked='checked'" : "" }}
@@ -187,7 +186,7 @@
                         <div class="span3">
                             <label for="can_manage" class="btn span12">
                                 <i class="icon-user-3"></i>
-                                Manage
+                                {{ "Manage"|_ }}
                             </label>
                             <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_manage ? "checked='checked'" : "" }}
@@ -205,7 +204,7 @@
             {% if not group.system %}
                 <fieldset>
 
-                <legend>Users</legend>
+                <legend>{{ "Users"|_ }}</legend>
 
                 <div class="row-fluid" style="min-height: 200px;">
                     <div class="span4">
@@ -217,7 +216,7 @@
                            onclick="assignUser(
                                    $('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser'
                                    );">
-                            Add User
+                            {{ "Add User"|_ }}
                         </a>
                     </div>
                     <div class="span4">
@@ -229,12 +228,12 @@
                            onclick="assignUser(
                                    $('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup'
                                    );">
-                            Remove User
+                            {{ "Remove User"|_ }}
                         </a>
                     </div>
                     <div class="span4">
                         <a class="btn" href="javascript:" onclick="listUsers({{ group.group_id }});">
-                            List assigned Users
+                            {{ "List assigned Users"|_ }}
                         </a>
 
                         <div class="well-small" id="ajaxListUsers"></div>
@@ -246,7 +245,7 @@
             {% endif %}
         {% else %}
             <div class="alert alert-info">
-                Save the group to assign users.
+                {{ "Save the group to assign users."|_ }}
             </div>
         {% endif %}
 
