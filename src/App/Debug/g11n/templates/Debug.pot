@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debug - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-21 13:05-0500\n"
+"POT-Creation-Date: 2013-11-03 09:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,48 +18,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /src/App/Debug/TrackerDebugger.php:320
+#: /src/App/Debug/Database/DatabaseDebugger.php:88
+#, php-format
+msgid "Failed EXPLAIN on query: %s"
+msgstr ""
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:117
+#, php-format
+msgid "%s database is not supported yet."
+msgstr ""
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:61
+#, php-format
+msgid "No %s log file found."
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:264
+msgid "Database"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:273
+#: /src/App/Debug/TrackerDebugger.php:354
+msgid "Profile"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:278
+#: /src/App/Debug/TrackerDebugger.php:393
+msgid "User"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:283
+#: /src/App/Debug/TrackerDebugger.php:399
+msgid "Project"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:291
+msgid "Language Strings"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:296
+msgid "Language Files"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:333
 msgid "Go up"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:330
-#: /src/App/Debug/TrackerDebugger.php:587
+#: /src/App/Debug/TrackerDebugger.php:343
+#: /src/App/Debug/TrackerDebugger.php:604
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /src/App/Debug/TrackerDebugger.php:341
-msgid "Profile"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:356
+#: /src/App/Debug/TrackerDebugger.php:371
 #, php-format
 msgid "One untranslated string of %2$d"
 msgid_plural "%1$d untranslated strings of %2$d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /src/App/Debug/TrackerDebugger.php:362
+#: /src/App/Debug/TrackerDebugger.php:379
 #, php-format
 msgid "One language file loaded"
 msgid_plural "%d language files loaded"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /src/App/Debug/TrackerDebugger.php:373
+#: /src/App/Debug/TrackerDebugger.php:390
 msgid "No Project"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:376
-msgid "User"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:378
+#: /src/App/Debug/TrackerDebugger.php:395
 msgid "Guest"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:382
-msgid "Project"
+#: /src/App/Debug/TrackerDebugger.php:462
+#, php-format
+msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:687
+msgid "String"
+msgstr ""
+
+#: /src/App/Debug/TrackerDebugger.php:687
+msgid "File (line)"
 msgstr ""

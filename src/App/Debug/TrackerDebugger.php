@@ -261,7 +261,7 @@ class TrackerDebugger implements LoggerAwareInterface
 		if ($this->application->get('debug.database'))
 		{
 			$debug[] = '<div id="dbgDatabase">';
-			$debug[] = '<h3>Database</h3>';
+			$debug[] = '<h3>' . g11n3t('Database') . '</h3>';
 
 			$debug[] = $this->renderDatabase();
 			$debug[] = '</div>';
@@ -270,17 +270,17 @@ class TrackerDebugger implements LoggerAwareInterface
 		if ($this->application->get('debug.system'))
 		{
 			$debug[] = '<div id="dbgProfile">';
-			$debug[] = '<h3>Profile</h3>';
+			$debug[] = '<h3>' . g11n3t('Profile') . '</h3>';
 			$debug[] = $this->renderProfile();
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgUser">';
-			$debug[] = '<h3>User</h3>';
+			$debug[] = '<h3>' . g11n3t('User') . '</h3>';
 			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgProject">';
-			$debug[] = '<h3>Project</h3>';
+			$debug[] = '<h3>' . g11n3t('Project') . '</h3>';
 			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
 			$debug[] = '</div>';
 		}
@@ -288,12 +288,12 @@ class TrackerDebugger implements LoggerAwareInterface
 		if ($this->application->get('debug.language'))
 		{
 			$debug[] = '<div id="dbgLanguageStrings">';
-			$debug[] = '<h3>Language Strings</h3>';
+			$debug[] = '<h3>' . g11n3t('Language Strings') . '</h3>';
 			$debug[] = $this->renderLanguageStrings();
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgLanguageFiles">';
-			$debug[] = '<h3>Language Files</h3>';
+			$debug[] = '<h3>' . g11n3t('Language Files') . '</h3>';
 			$debug[] = $this->renderLanguageFiles();
 			$debug[] = '</div>';
 		}
@@ -323,7 +323,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			span.dbgTable { color: yellow; }
 			span.dbgCommand { color: lime; }
 			span.dbgOperator { color: red; }
-			div:target { border: 2px dashed orange; padding: 5px; padding-top: 100px; }
+			div:target { border: 2px dashed orange; padding: 5px; padding-top: 70px; }
 			div:target { transition:all 0.5s ease; }
 		</style>
 		';
@@ -459,7 +459,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			$items[] = ArrayHelper::fromObject($e);
 		}
 
-		$pluralInfo = sprintf('Plural forms: %d<br />Plural function: %s', g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'));
+		$pluralInfo = sprintf(g11n3t('Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'), g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'));
 
 		return $tableFormat->fromArray($items) . $pluralInfo;
 	}
@@ -684,7 +684,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$html[] = '<table class="table table-hover table-condensed">';
 		$html[] = '<tr>';
-		$html[] = '<th>String</th><th>File (line)</th><th></th>';
+		$html[] = '<th>' . g11n3t('String') . '</th><th>' . g11n3t('File (line)') . '</th><th></th>';
 		$html[] = '</tr>';
 
 		$tableFormat = new TableFormat;
