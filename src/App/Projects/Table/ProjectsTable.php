@@ -53,7 +53,7 @@ class ProjectsTable extends AbstractDatabaseTable
 	{
 		if (!$this->title)
 		{
-			throw new \UnexpectedValueException('A title is required');
+			throw new \UnexpectedValueException(g11n3t('A title is required'));
 		}
 
 		if (!$this->alias)
@@ -78,7 +78,7 @@ class ProjectsTable extends AbstractDatabaseTable
 	 */
 	public static function stringURLSafe($string)
 	{
-		// Remove any '-' from the string since they will be used as concatenaters
+		// Remove any '-' from the string since they will be used as concatenators
 		$str = str_replace('-', ' ', $string);
 
 		// $lang = Language::getInstance();

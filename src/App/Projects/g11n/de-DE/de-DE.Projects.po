@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-21 09:52-0500\n"
+"POT-Creation-Date: 2013-11-03 11:59-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projekte"
+
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
 msgstr "Neues Projekt"
@@ -23,12 +27,100 @@ msgid "Projects List"
 msgstr "Projektliste"
 
 #: /templates/projects/projects.index.twig:28
-#, php-format
-msgid "One little indian"
-msgid_plural "%d little indians"
-msgstr[0] "Ein kleiner Indianer"
-msgstr[1] "%d kleine Indianer"
-
-#: /templates/projects/projects.index.twig:37
 msgid "Tracker"
 msgstr "Tracker"
+
+#: /templates/projects/projects.index.twig:29
+#: /templates/projects/project.index.twig:20
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr "Aktionen"
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr "Id"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr "Hooks"
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr "Labels"
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr "Stats"
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr "Gruppen"
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr "Zeigen"
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Löschen"
+
+#: /templates/projects/project.add.twig:11
+#: /templates/projects/project.edit.twig:11
+msgid "Save"
+msgstr "Speichern"
+
+#: /templates/projects/project.add.twig:20
+#: /templates/projects/project.edit.twig:30
+msgid "New project"
+msgstr "Neues Projekt"
+
+#: /templates/projects/project.add.twig:24
+#: /templates/projects/project.edit.twig:35
+msgid "Details"
+msgstr "Details"
+
+#: /templates/projects/project.add.twig:28
+#: /templates/projects/project.edit.twig:37
+msgid "Title"
+msgstr "Titel"
+
+#: /templates/projects/project.add.twig:33
+#: /templates/projects/project.edit.twig:44
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.add.twig:38
+#: /templates/projects/project.edit.twig:51
+msgid "GitHub Owner"
+msgstr "GitHub Besitzer"
+
+#: /templates/projects/project.add.twig:43
+#: /templates/projects/project.edit.twig:58
+msgid "GitHub Repo"
+msgstr "GitHub Repo"
+
+#: /templates/projects/project.add.twig:48
+#: /templates/projects/project.edit.twig:65
+msgid "External Tracker Link"
+msgstr "Externer Trackerlink"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Projekt bearbeiten"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projekt"
+
+#: /src/App/Projects/Table/ProjectsTable.php:56
+msgid "A title is required"
+msgstr "Ein Titel ist erforderlich."

@@ -3,9 +3,9 @@
 
 {% extends "index.twig" %}
 
-{% block title %}Project{% endblock %}
+{% block title %}{{ "Project"|_ }}{% endblock %}
 
-{% block headerText %}Projects{% endblock %}
+{% block headerText %}{{ "Project"|_ }}{% endblock %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
         {% if project.gh_user and project.gh_project %}
             <li>
                 <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
-                    GitHub
+                    {{ "GitHub"|_ }}
                 </a>
             </li>
         {% endif %}

@@ -8,7 +8,7 @@
 {% block prependMenu %}
     <li>
         <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
-            Save
+            {{ "Save"|_ }}
         </a>
     </li>
 
@@ -17,35 +17,35 @@
 {% endblock %}
 
 {% block content %}
-    <h2>New project</h2>
+    <h2>{{ "New project"|_ }}</h2>
 
     <form method="post" action="{{ uri.base.path }}saveproject" class="form-inline" name="editForm">
         <fieldset>
-            <legend>Details</legend>
+            <legend>{{ "Details"|_ }}</legend>
             <ul class="unstyled">
 
                 <li>
-                    <label for="title">Title</label>
+                    <label for="title">{{ "Title"|_ }}</label>
                     <input type="text" name="project[title]" id="title" />
                 </li>
 
                 <li>
-                    <label for="alias">Alias</label>
+                    <label for="alias">{{ "Alias"|_ }}</label>
                     <input type="text" name="project[alias]" id="alias" />
                 </li>
 
                 <li>
-                    <label for="gh_user">GitHub Owner</label>
+                    <label for="gh_user">{{ "GitHub Owner"|_ }}</label>
                     <input type="text" name="project[gh_user]" id="gh_user" />
                 </li>
 
                 <li>
-                    <label for="gh_project">GitHub Repo</label>
+                    <label for="gh_project">{{ "GitHub Repo"|_ }}</label>
                     <input type="text" name="project[gh_project]" id="gh_project" />
                 </li>
 
                 <li>
-                    <label for="ext_tracker_link">External Tracker Link</label>
+                    <label for="ext_tracker_link">{{ "External Tracker Link"|_ }}</label>
                     <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link" />
                 </li>
 
