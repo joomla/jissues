@@ -42,7 +42,7 @@ class Clearcache extends AbstractTrackerController
 		{
 			g11n::cleanCache();
 
-			$application->enqueueMessage('The cache has been cleared.', 'success');
+			$application->enqueueMessage(g11n3t('The cache has been cleared.'), 'success');
 		}
 		catch (Exception $e)
 		{
