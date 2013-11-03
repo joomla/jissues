@@ -62,10 +62,10 @@
 	"devdox/:alias": "\\Support\\Controller\\DevdoxController",
 	"clearcache"   : "\\Support\\Controller\\Clearcache",
 
-	"text"           : "\\Text\\Controller\\ArticlesController",
-	"text/add"       : "\\Text\\Controller\\Article\\AddController",
-	"text/edit/:id"  : "\\Text\\Controller\\Article\\EditController",
-	"text/delete/:id": "\\Text\\Controller\\Article\\DeleteController",
-	"text/save"      : "\\Text\\Controller\\Article\\SaveController",
-	"page/:alias"    : "\\Text\\Controller\\PageController"
+	"text"           : "\\Text\\Controller\\Articles",
+	"text/add"       : "\\Text\\Controller\\Article\\Add",
+	"text/edit/:id"  : "\\Text\\Controller\\Article\\Edit",
+	"text/delete/:id": "\\Text\\Controller\\Article\\Delete",
+	"text/save"      : "\\Text\\Controller\\Article\\Save",
+	"page/:alias"    : "\\Text\\Controller\\Page"
 }
