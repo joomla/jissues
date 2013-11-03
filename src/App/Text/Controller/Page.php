@@ -11,31 +11,17 @@ namespace App\Text\Controller;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class for the Text component.
+ * Controller class for the Text component
  *
  * @since  1.0
  */
-class ArticlesController extends AbstractTrackerController
+class Page extends AbstractTrackerController
 {
 	/**
-	 * The list view for the component
+	 * The item view for the component
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'articles';
-
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
-
-		parent::execute();
-	}
+	protected $defaultView = 'page';
 }

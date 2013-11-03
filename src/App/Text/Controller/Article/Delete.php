@@ -17,7 +17,7 @@ use JTracker\Container;
  *
  * @since  1.0
  */
-class DeleteController extends DefaultController
+class Delete extends DefaultController
 {
 	/**
 	 * The default view for the component
@@ -43,6 +43,8 @@ class DeleteController extends DefaultController
 		$table = new ArticlesTable(Container::retrieve('db'));
 
 		$table->delete($app->input->getInt('id'));
+
+		$app->enqueueMessage(g11n3t('The article has been deleted.'), 'success');
 
 		$this->getInput()->set('view', 'articles');
 
