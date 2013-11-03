@@ -75,6 +75,13 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $status);
 		}
 
+		$priority = $this->state->get('filter.priority');
+
+		if ($priority)
+		{
+			$query->where($db->quoteName('a.priority') . ' = ' . (int) $priority);
+		}
+
 		// TODO: Implement filtering and join to other tables as added
 
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
@@ -138,9 +145,9 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('list.direction', $listOrder);
 
-		$this->state->set('filter.priority', $input->getUint('priority', 3));
+		$this->state->set('filter.priority', $input->getUint('filter-priority', 0));
 
-		$this->state->set('filter.status', $input->getUint('filter-status'));
+		$this->state->set('filter.status', $input->getUint('filter-status', 0));
 
 		// Optional filter text
 		$this->state->set('list.filter', $input->getString('filter-search'));

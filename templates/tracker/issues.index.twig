@@ -32,13 +32,15 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
+    {% import "filters.twig" as filters %}
+
+    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="filter-search btn-group pull-left input-append">
                 <label class="filter-search-lbl element-invisible"
                        for="filter-search">{{ translate('Filter the list by summary or description.') }}</label>
                 <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
-                       value="{{ state.get('list.filter') }}" onchange="document.adminForm.submit();"
+                       value="{{ state.get('list.filter') }}" onchange="document.issuesForm.submit();"
                        title="{{ translate('Filter the list by summary or description.') }}"
                        placeholder="{{ translate('Filter the list by summary or description.') }}"/>
                 <button class="btn tip hasTooltip" type="submit" title="{{ translate('Submit search') }}">
@@ -46,9 +48,15 @@
             </div>
             <div class="btn-group pull-left">
                 <button class="btn tip hasTooltip" type="button"
-                        onclick="jQuery('#filter-search').val('');document.adminForm.submit();"
+                        onclick="jQuery('#filter-search').val('');document.issuesForm.submit();"
                         title="{{ translate('Clear search') }}"><span class="icon-remove"></span></button>
             </div>
+            <div class="pull-right btn-group">
+                {{ filters.priority(state.get('filter.priority')) }}
+            </div>
+             <div class="pull-right btn-group">
+                {{ filters.status(state.get('filter.status')) }}
+             </div>
         </div>
 
         {% if pagination.pagesTotal > 1 %}
@@ -98,23 +106,23 @@
                                 <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
                                     {{ item.title|e }}
                                 </a>
-                                    {{ item.labels|labels|raw }}
-                                    {% if project.gh_user and project.gh_project %}
-                                        <br/>
-                                        {{ translate('GitHub ID') }}
-                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                                           target="_blank">
-                                            {{ item.issue_number }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.foreign_number %}
-                                        <br/>
-                                        {{ translate('Foreign ID') }}
-                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                                           target="_blank">
-                                            {{ item.foreign_number }}
-                                        </a>
-                                    {% endif %}
+                                {{ item.labels|labels|raw }}
+                                {% if project.gh_user and project.gh_project %}
+                                    <br/>
+                                    {{ translate('GitHub ID') }}
+                                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                                       target="_blank">
+                                        {{ item.issue_number }}
+                                    </a>
+                                {% endif %}
+                                {% if item.foreign_number %}
+                                    <br/>
+                                    {{ translate('Foreign ID') }}
+                                    <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                                       target="_blank">
+                                        {{ item.foreign_number }}
+                                    </a>
+                                {% endif %}
                             </div>
                         </td>
                         <td class="center">
@@ -194,6 +202,14 @@
                 el.unbind('click');
                 return false;
             }
+    );
+
+    var form = $('#issuesForm');
+
+    $('[id^=filter]').change(
+        function() {
+            form.submit();
+        }
     );
     </script>
 
