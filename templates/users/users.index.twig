@@ -9,11 +9,11 @@
 
     <table class="table table-bordered table-hover">
         <tr>
-            <th>Username</th>
+            <th>{{ "Username"|_ }}</th>
             {% if user.isAdmin %}
-                <th style="width: 10%">Actions</th>
+                <th style="width: 10%">{{ "Actions"|_ }}</th>
             {% endif %}
-            <th>ID</th>
+            <th>{{ "ID"|_ }}</th>
         </tr>
         {% for u in items %}
             <tr>
