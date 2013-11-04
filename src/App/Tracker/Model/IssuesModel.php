@@ -62,7 +62,7 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter)
 		{
 			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+			$filter = $db->quote('%' . $db->escape(strtolower($filter), true) . '%', false);
 
 			// Check the author, title, and publish_up fields
 			$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $filter . ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter . ')');

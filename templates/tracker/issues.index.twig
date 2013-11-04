@@ -40,7 +40,7 @@
                 <label class="filter-search-lbl element-invisible"
                        for="filter-search">{{ translate('Filter the list by summary or description.') }}</label>
                 <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
-                       value="{{ state.get('list.filter') }}" onchange="document.issuesForm.submit();"
+                       value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
                        title="{{ translate('Filter the list by summary or description.') }}"
                        placeholder="{{ translate('Filter the list by summary or description.') }}"/>
                 <button class="btn tip hasTooltip" type="submit" title="{{ translate('Submit search') }}">
@@ -52,11 +52,16 @@
                         title="{{ translate('Clear search') }}"><span class="icon-remove"></span></button>
             </div>
             <div class="pull-right btn-group">
-                {{ filters.priority(state.get('filter.priority')) }}
+                {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small') }}
             </div>
-             <div class="pull-right btn-group">
-                {{ filters.status(state.get('filter.status')) }}
-             </div>
+            <div class="pull-right btn-group">
+                {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium') }}
+            </div>
+            <div class="btn-group pull-right" data-toggle="buttons-checkbox" id="filter-oc-status-div">
+                <button type="button" class="btn {% if state.get('filter.status') == 10 %} active btn-danger {% endif %}" value="10">{{ translate('Closed') }}</button>
+                <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-success {% endif %}" value="1">{{ translate('Open') }}</button>
+                <input type="hidden" name="filter-oc-status" id="filter-oc-status" value="{{ state.get('filter.status') }}" />
+            </div>
         </div>
 
         {% if pagination.pagesTotal > 1 %}
@@ -191,23 +196,40 @@
     <script type="text/javascript">
 
     $('*[data-issue]').click(
-            function () {
-                var el = $(this);
-                $.get(el.data('issue'), function(r) {
-                    el.popover({
-                       content: tmpl("tplIssueInfo", r.data),
-                       html: true
-                   }).popover('show');
-                });
-                el.unbind('click');
-                return false;
-            }
+        function () {
+            var el = $(this);
+            $.get(el.data('issue'), function(r) {
+                el.popover({
+                   content: tmpl("tplIssueInfo", r.data),
+                   html: true
+               }).popover('show');
+            });
+            el.unbind('click');
+            return false;
+        }
     );
 
     var form = $('#issuesForm');
 
     $('[id^=filter]').change(
         function() {
+            form.submit();
+        }
+    );
+
+    $('#filter-status').change(
+        function() {
+            var val = $(this).val();
+            $('#filter-oc-status').val(val);
+            $('#filter-oc-status-div button').val(val);
+        }
+    );
+
+   $('#filter-oc-status-div button').click(
+        function () {
+            var val = $(this).val();
+            $('#filter-oc-status').val(val);
+            $('#filter-status').val(val);
             form.submit();
         }
     );
