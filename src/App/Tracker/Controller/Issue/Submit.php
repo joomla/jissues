@@ -87,7 +87,7 @@ class Submit extends AbstractTrackerController
 		}
 
 		// Store the issue
-		$table = new IssuesTable($this->container);
+		$table = new IssuesTable($database);
 
 		$table->opened_date     = $data->created_at;
 		$table->opened_by       = $data->opened_by;
@@ -101,7 +101,7 @@ class Submit extends AbstractTrackerController
 		$table->check()->store();
 
 		// Store the activity
-		$table = new ActivitiesTable($this->container);
+		$table = new ActivitiesTable($database);
 
 		$table->event        = 'open';
 		$table->created_date = $data->created_at;

@@ -44,7 +44,7 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 
 		$item = $id
 			? $this->model->getItem($id)
-			: new ArticlesTable($this->container);
+			: new ArticlesTable($this->container->get('db'));
 
 		$this->renderer->set('item', $item);
 

@@ -65,7 +65,7 @@ class Labels extends Get
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
 
-		$table = new LabelsTable($this->container);
+		$table = new LabelsTable($db);
 
 		$labels = $this->github->issues->labels->getList(
 			$this->project->gh_user, $this->project->gh_project

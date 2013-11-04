@@ -8,7 +8,7 @@
 
 namespace App\Text\Table;
 
-use Joomla\DI\Container;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\OutputFilter;
 
 use JTracker\Database\AbstractDatabaseTable;
@@ -30,13 +30,13 @@ class ArticlesTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   DatabaseDriver  $db  A database connector object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct(DatabaseDriver $db)
 	{
-		parent::__construct($container, '#__articles', 'article_id');
+		parent::__construct('#__articles', 'article_id', $db);
 	}
 
 	/**

@@ -39,7 +39,7 @@ class Delete extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->container);
+		$table = new ArticlesTable($this->container->get('db'));
 
 		$table->delete($app->input->getInt('id'));
 

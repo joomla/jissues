@@ -10,7 +10,7 @@ namespace App\Projects\Table;
 
 use App\Groups\Table\GroupsTable;
 
-use Joomla\DI\Container;
+use Joomla\Database\DatabaseDriver;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -31,13 +31,13 @@ class ProjectsTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   DatabaseDriver  $db  A database connector object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct(DatabaseDriver $db)
 	{
-		parent::__construct($container, '#__tracker_projects', 'project_id');
+		parent::__construct('#__tracker_projects', 'project_id', $db);
 	}
 
 	/**
@@ -131,13 +131,13 @@ class ProjectsTable extends AbstractDatabaseTable
 				$data['can_manage'] = 0;
 				$data['system']     = 1;
 
-				$group = new GroupsTable($this->container);
+				$group = new GroupsTable($this->db);
 				$group->save($data);
 
 				$data['title']      = 'User';
 				$data['can_create'] = 1;
 
-				$group = new GroupsTable($this->container);
+				$group = new GroupsTable($this->db);
 				$group->save($data);
 			}
 		}

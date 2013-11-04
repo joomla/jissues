@@ -38,7 +38,9 @@ class ActivitiesTable extends AbstractDatabaseTable
 	 */
 	public function __construct(Container $container)
 	{
-		parent::__construct($container, '#__activities', 'activities_id');
+		$this->container = $container;
+
+		parent::__construct('#__activities', 'activities_id', $container->get('db'));
 	}
 
 	/**

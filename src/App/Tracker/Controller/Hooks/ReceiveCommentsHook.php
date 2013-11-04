@@ -201,7 +201,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->container);
+			$table = new IssuesTable($this->db);
 			$table->save($data);
 		}
 		catch (\Exception $e)
@@ -273,7 +273,7 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		try
 		{
-			$table = new ActivitiesTable($this->container);
+			$table = new ActivitiesTable($this->db);
 			$table->load(array('activities_id' => $id));
 			$table->save($data);
 		}

@@ -29,7 +29,7 @@ class PageModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($alias)
 	{
-		$table = new ArticlesTable($this->container);
+		$table = new ArticlesTable($this->db);
 
 		return $table->load(array('alias' => $alias));
 	}

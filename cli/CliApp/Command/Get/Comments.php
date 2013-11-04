@@ -287,7 +287,7 @@ class Comments extends Get
 				$this->usePBar ? null : $this->out('+', false);
 
 				// Initialize our ActivitiesTable instance to insert the new record
-				$table = new ActivitiesTable($this->container);
+				$table = new ActivitiesTable($db);
 
 				$table->gh_comment_id = $comment->id;
 				$table->issue_number  = (int) $issue->issue_number;

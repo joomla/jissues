@@ -36,7 +36,7 @@ class GroupsModel extends AbstractTrackerListModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$table = new GroupsTable($this->container);
+		$table = new GroupsTable($db);
 
 		$query->select('a.*')
 			->from($db->quoteName($table->getTableName(), 'a'))
