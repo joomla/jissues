@@ -19,7 +19,6 @@ use Joomla\Github\Github;
 use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Container;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -151,10 +150,10 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		);
 
 		// Get a database object
-		$this->db = Container::retrieve('db');
+		$this->db = $this->container->get('db');
 
 		// Instantiate Github
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();

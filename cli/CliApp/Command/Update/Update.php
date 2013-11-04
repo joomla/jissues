@@ -16,9 +16,8 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
+use Joomla\DI\Container;
 use Joomla\Github\Github;
-
-use JTracker\Container;
 
 /**
  * Class for updating data on GitHub for selected projects
@@ -62,9 +61,9 @@ class Update extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Used to update GitHub data.';
 
@@ -114,7 +113,7 @@ class Update extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
+		$projects = with(new ProjectsModel($this->container->get('db')))->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 
@@ -188,7 +187,7 @@ class Update extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		return $this;
 	}

@@ -8,11 +8,9 @@
 
 namespace App\Tracker\View\Issue;
 
-use Joomla\Language\Text;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * The issues item view
@@ -40,7 +38,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$id = $application->input->getUint('id');
 
@@ -52,7 +50,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		else
 		{
 			// New item
-			$item = new IssuesTable(Container::retrieve('db'));
+			$item = new IssuesTable($this->container);
 
 			$path = __DIR__ . '/../../tpl/new-issue-template.md';
 

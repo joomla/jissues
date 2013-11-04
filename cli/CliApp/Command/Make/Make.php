@@ -9,6 +9,8 @@ namespace CliApp\Command\Make;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
+use Joomla\DI\Container;
+
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -37,9 +39,9 @@ class Make extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'The make engine.';
 

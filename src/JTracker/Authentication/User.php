@@ -8,12 +8,11 @@
 
 namespace JTracker\Authentication;
 
-use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
+use Joomla\DI\Container;
 
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
-use JTracker\Container;
 
 /**
  * Abstract class containing the application user object
@@ -77,14 +76,23 @@ abstract class User implements \Serializable
 	private $cleared = array();
 
 	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	protected $container = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   integer  $identifier  The primary key of the user to load..
+	 * @param   Container  $container   The DI container.
+	 * @param   integer    $identifier  The primary key of the user to load..
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($identifier = 0)
+	public function __construct(Container $container, $identifier = 0)
 	{
+		$this->container = $container;
+
 		// Load the user if it exists
 		if ($identifier)
 		{
@@ -103,7 +111,7 @@ abstract class User implements \Serializable
 	 */
 	public function loadByUserName($userName)
 	{
-		$db = Container::retrieve('db');
+		$db = $this->container->get('db');
 
 		$table = new TableUsers($db);
 
@@ -149,7 +157,7 @@ abstract class User implements \Serializable
 	 */
 	protected function load($identifier)
 	{
-		$db = Container::retrieve('db');
+		$db = $this->container->get('db');
 
 		// Create the user table object
 		// $table = $this->getTable();
@@ -197,7 +205,7 @@ abstract class User implements \Serializable
 	 */
 	protected function loadAccessGroups()
 	{
-		$db = Container::retrieve('db');
+		$db = $this->container->get('db');
 
 		$this->accessGroups = $db->setQuery(
 			$db->getQuery(true)
@@ -280,7 +288,7 @@ abstract class User implements \Serializable
 
 		/* @type \App\Projects\TrackerProject $project */
 		/* @type \JTracker\Application $app */
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 		$project = $app->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))

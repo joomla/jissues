@@ -10,8 +10,10 @@ namespace JTracker\Controller;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Controller\AbstractController;
+use Joomla\DI\Container;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
+
 use JTracker\Application;
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -39,15 +41,28 @@ abstract class AbstractTrackerController extends AbstractController
 	protected $component;
 
 	/**
+	 * @var  Container
+	 * @since  1.0
+	 */
+	protected $container;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
+	 * @param   Container           $container  The DI container.
+	 * @param   Input               $input      The input object.
+	 * @param   AbstractApplication $app        The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct(Container $container, Input $input = null, AbstractApplication $app = null)
 	{
+		$this->container = $container;
+
+		// @legacy
+		$input = is_null($input) ? $container->get('app')->input : $input;
+		$app = is_null($app) ? $container->get('app') : $app;
+
 		parent::__construct($input, $app);
 
 		// Get the option from the input object
@@ -188,7 +203,7 @@ abstract class AbstractTrackerController extends AbstractController
 		}
 
 		/* @type AbstractTrackerHtmlView $view */
-		$view = new $vClass(new $mClass, $paths);
+		$view = new $vClass($this->container, new $mClass($this->container), $paths);
 		$view->setLayout($vName . '.' . $lName);
 
 		try

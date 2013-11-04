@@ -9,7 +9,6 @@
 namespace App\Users\Controller\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
@@ -37,7 +36,7 @@ class Listing extends AbstractAjaxController
 
 		if ($groupId)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('u.id', 'u.username')))

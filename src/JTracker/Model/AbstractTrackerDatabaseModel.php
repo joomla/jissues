@@ -8,11 +8,11 @@
 
 namespace JTracker\Model;
 
+use Joomla\DI\Container;
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
 
 use JTracker\Database\AbstractDatabaseTable;
-use JTracker\Container;
 
 /**
  * Abstract base model for the tracker application
@@ -46,17 +46,26 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	protected $table;
 
 	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	protected $container;
+
+	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver  $database  The database adapter.
+	 * @param   Container       $container  The DI container.
+	 * @param   DatabaseDriver  $database   The database adapter.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $database = null)
+	public function __construct(Container $container, DatabaseDriver $database = null)
 	{
-		$database = (is_null($database)) ? Container::retrieve('db') : $database;
+		$database = (is_null($database)) ? $container->get('db') : $database;
 
 		parent::__construct($database);
+
+		$this->container = $container;
 
 		// Guess the option from the class name (Option)Model(View).
 		if (empty($this->option))

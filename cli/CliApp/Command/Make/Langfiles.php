@@ -6,10 +6,10 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
+
+use Joomla\DI\Container;
 
 /**
  * Class for generating language template files.
@@ -21,13 +21,15 @@ class Langfiles extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct(Container $container)
 	{
-		$this->application = $application;
+		parent::__construct($container);
+
+		$this->application = $this->container->get('app');
 		$this->description = 'Create and update language files.';
 	}
 

@@ -11,7 +11,6 @@ namespace App\Support\View\Devdox;
 use App\Support\Model\DefaultModel;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * The developer documentation view
@@ -39,7 +38,7 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$alias = $application->input->getCmd('alias');
 

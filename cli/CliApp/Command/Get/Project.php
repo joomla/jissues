@@ -6,6 +6,8 @@
 
 namespace CliApp\Command\Get;
 
+use Joomla\DI\Container;
+
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -18,9 +20,9 @@ class Project extends Get
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Get the whole project info from GitHub, including issues and issue comments.';
 	}
@@ -68,7 +70,7 @@ class Project extends Get
 	 */
 	protected function processLabels()
 	{
-		with(new Labels)
+		with(new Labels($this->container))
 			->execute();
 
 		return $this;
@@ -83,7 +85,7 @@ class Project extends Get
 	 */
 	protected function processIssues()
 	{
-		with(new Issues)
+		with(new Issues($this->container))
 			->execute();
 
 		return $this;
@@ -98,7 +100,7 @@ class Project extends Get
 	 */
 	protected function processComments()
 	{
-		with(new Comments)
+		with(new Comments($this->container))
 			->execute();
 
 		return $this;
@@ -113,7 +115,7 @@ class Project extends Get
 	 */
 	protected function processAvatars()
 	{
-		with(new Avatars)
+		with(new Avatars($this->container))
 			->execute();
 
 		return $this;

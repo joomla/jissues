@@ -8,12 +8,11 @@ namespace App\Debug;
 
 use g11n\g11n;
 
-use Joomla\Application\AbstractApplication;
+use Joomla\DI\Container;
 use Joomla\Profiler\Profiler;
-
 use Joomla\Utilities\ArrayHelper;
+
 use JTracker\Application;
-use JTracker\Container;
 
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
@@ -65,17 +64,25 @@ class TrackerDebugger implements LoggerAwareInterface
 	private $logger;
 
 	/**
+	 * @var  Container
+	 * @since  1.0
+	 */
+	private $container;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   AbstractApplication  $application  The application
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(AbstractApplication $application)
+	public function __construct(Container $container)
 	{
-		$this->application = $application;
+		$this->container = $container;
 
-		$this->profiler = $application->get('debug.system') ? new Profiler('Tracker') : null;
+		$this->application = $container->get('app');
+
+		$this->profiler = $container->get('app')->get('debug.system') ? new Profiler('Tracker') : null;
 
 		$this->setupLogging();
 
@@ -119,7 +126,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
 			$logger->pushProcessor(new WebProcessor);
 
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 			$db->setLogger($logger);
 			$db->setDebug(true);
 		}
@@ -173,7 +180,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function addDatabaseEntry($record)
 	{
-		// $db = Container::retrieve('db');
+		// $db = $this->container->get('db');
 
 		if (false == isset($record['context']))
 		{
@@ -488,7 +495,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
-		$view = new \JTracker\View\TrackerDefaultView;
+		$view = new \JTracker\View\TrackerDefaultView($this->container);
 
 		$message = '';
 
@@ -599,7 +606,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$tableFormat = new TableFormat;
 		$sqlFormat   = new SqlFormat;
-		$dbDebugger  = new DatabaseDebugger(Container::retrieve('db'));
+		$dbDebugger  = new DatabaseDebugger($this->container->get('db'));
 
 		$debug[] = sprintf(g11n4t('One database query', '%d database queries', count($dbLog)), count($dbLog));
 

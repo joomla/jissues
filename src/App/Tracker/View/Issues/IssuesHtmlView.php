@@ -8,10 +8,9 @@
 
 namespace App\Tracker\View\Issues;
 
-use Joomla\Language\Text;
 use App\Tracker\Model\IssuesModel;
+
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * The issues list view
@@ -39,7 +38,7 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 		$this->renderer->set('items', $this->model->getItems());
 		$this->renderer->set('pagination', $this->model->getPagination());
 		$this->renderer->set('state', $this->model->getState());

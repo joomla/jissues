@@ -8,7 +8,7 @@
 
 namespace App\Tracker\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\DI\Container;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -32,13 +32,15 @@ class ActivitiesTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   DatabaseDriver  $db  A database connector object
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $db)
+	public function __construct(Container $container)
 	{
-		parent::__construct('#__activities', 'activities_id', $db);
+		$this->container = $container;
+
+		parent::__construct('#__activities', 'activities_id', $container->get('db'));
 	}
 
 	/**

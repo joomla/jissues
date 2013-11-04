@@ -9,7 +9,7 @@
 
 namespace CliApp\Command;
 
-use JTracker\Container;
+use Joomla\DI\Container;
 
 use Monolog\Logger;
 
@@ -50,14 +50,20 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	protected $description = '';
 
 	/**
+	 * @var Container
+	 */
+	protected $container = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		$this->application = Container::retrieve('app');
-		$this->logger      = Container::retrieve('logger');
+		$this->container   = $container;
+		$this->application = $container->get('app');
+		$this->logger      = $container->get('logger');
 	}
 
 	/**

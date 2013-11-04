@@ -6,6 +6,8 @@
 
 namespace CliApp\Command\Update;
 
+use Joomla\DI\Container;
+
 /**
  * Class for updating pull requests GitHub for selected projects
  *
@@ -18,9 +20,9 @@ class Pulls extends Update
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Updates selected information for pull requests on GitHub for a specified project.';
 	}

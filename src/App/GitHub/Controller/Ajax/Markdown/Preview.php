@@ -9,7 +9,6 @@
 namespace App\GitHub\Controller\Ajax\Markdown;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Controller class to render a text entry in GitHub Flavored Markdown format.
@@ -44,7 +43,7 @@ class Preview extends AbstractAjaxController
 		$project = $this->getApplication()->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = Container::retrieve('gitHub');
+		$github = $this->container->get('gitHub');
 
 		$this->response->data = $github->markdown->render(
 			$text,

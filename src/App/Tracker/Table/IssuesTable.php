@@ -8,14 +8,13 @@
 
 namespace App\Tracker\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\DI\Container;
 use Joomla\Input\Input;
 use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Utilities\ArrayHelper;
 
 use JTracker\Database\AbstractDatabaseTable;
-use JTracker\Container;
 
 /**
  * Table interface class for the #__issues table
@@ -68,13 +67,13 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   DatabaseDriver  $db  A database connector object
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $db)
+	public function __construct(Container $container)
 	{
-		parent::__construct('#__issues', 'id', $db);
+		parent::__construct($container, '#__issues', 'id');
 	}
 
 	/**
@@ -180,7 +179,7 @@ class IssuesTable extends AbstractDatabaseTable
 	public function store($updateNulls = false)
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$isNew = ($this->id < 1);
 		$date  = new Date;
@@ -253,9 +252,6 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	private function processChanges()
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
 		$changes = array();
 
 		foreach ($this as $fName => $field)

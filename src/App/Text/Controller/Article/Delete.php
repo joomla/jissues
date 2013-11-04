@@ -10,7 +10,6 @@ namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
 use App\Tracker\Controller\DefaultController;
-use JTracker\Container;
 
 /**
  * Controller class to delete an article.
@@ -40,7 +39,7 @@ class Delete extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable(Container::retrieve('db'));
+		$table = new ArticlesTable($this->container->get('db'));
 
 		$table->delete($app->input->getInt('id'));
 

@@ -11,7 +11,6 @@ namespace App\Users\Model;
 use Joomla\Database\DatabaseQuery;
 
 use JTracker\Model\AbstractTrackerListModel;
-use JTracker\Container;
 
 /**
  * Users model class for the Users component.
@@ -29,7 +28,7 @@ class UsersModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 		$app->mark('Fetch users list');
 
 		return $this->db->getQuery(true)

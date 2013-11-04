@@ -16,10 +16,8 @@ use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
+use Joomla\DI\Container;
 use Joomla\Event\Dispatcher;
-use Joomla\Github\Github;
-use Joomla\Github\Http;
-use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -85,6 +83,12 @@ final class Application extends AbstractWebApplication
 	private $project;
 
 	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -95,7 +99,7 @@ final class Application extends AbstractWebApplication
 		parent::__construct();
 
 		// Build the DI Container
-		Container::getInstance()
+		$this->container = with(new Container)
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
@@ -116,7 +120,7 @@ final class Application extends AbstractWebApplication
 	 */
 	public function getDebugger()
 	{
-		return Container::retrieve('debugger');
+		return $this->container->get('debugger');
 	}
 
 	/**
@@ -131,7 +135,7 @@ final class Application extends AbstractWebApplication
 		try
 		{
 			// Instantiate the router
-			$router = new TrackerRouter($this->input, $this);
+			$router = new TrackerRouter($this->container);
 			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
@@ -273,9 +277,11 @@ final class Application extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		$app = Container::retrieve('app');
+		// WTF...
 
-		return md5($app->get('acl.secret') . $seed);
+		return 'UNSUPPORTED';
+
+		//return md5($this->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -315,7 +321,7 @@ final class Application extends AbstractWebApplication
 		if (is_null($this->user))
 		{
 			$this->user = ($this->getSession()->get('user'))
-				? : new GitHubUser;
+				? : new GitHubUser($this->container);
 		}
 
 		return $this->user;
@@ -402,7 +408,7 @@ final class Application extends AbstractWebApplication
 		if (is_null($user))
 		{
 			// Logout
-			$this->user = new GitHubUser;
+			$this->user = new GitHubUser($this->container);
 
 			$this->getSession()->set('user', $this->user);
 
@@ -605,7 +611,7 @@ final class Application extends AbstractWebApplication
 			}
 
 			// Change the project
-			$projectModel = new ProjectModel;
+			$projectModel = new ProjectModel($this->container);
 			$project = $projectModel->getByAlias($alias);
 
 			if (!$project)
@@ -625,7 +631,7 @@ final class Application extends AbstractWebApplication
 			else
 			{
 				// Nothing found - Set a default project !
-				$projectModel = new ProjectModel;
+				$projectModel = new ProjectModel($this->container);
 				$project = $projectModel->getItem(1);
 			}
 		}

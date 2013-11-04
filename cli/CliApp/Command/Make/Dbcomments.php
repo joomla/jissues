@@ -6,7 +6,7 @@
 
 namespace CliApp\Command\Make;
 
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -20,9 +20,9 @@ class Dbcomments extends Make
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Generate file headers for Table classes.';
 	}
@@ -39,7 +39,7 @@ class Dbcomments extends Make
 		$this->application->outputTitle('Make DB Comments');
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$tables = $db->getTableList();
 

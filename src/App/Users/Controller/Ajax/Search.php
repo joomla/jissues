@@ -9,7 +9,6 @@
 namespace App\Users\Controller\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
@@ -36,7 +35,7 @@ class Search extends AbstractAjaxController
 
 		if ($search)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$query = $db->getQuery(true)
 				->select('DISTINCT ' . $db->quoteName('u.username'))

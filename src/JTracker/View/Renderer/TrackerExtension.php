@@ -10,7 +10,7 @@ namespace JTracker\View\Renderer;
 
 use g11n\g11n;
 
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Twig extension class
@@ -19,6 +19,17 @@ use JTracker\Container;
  */
 class TrackerExtension extends \Twig_Extension
 {
+	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container = null;
+
+	public function __construct(Container $container)
+	{
+		$this->container = $container;
+	}
+
 	/**
 	 * Returns the name of the extension.
 	 *
@@ -41,7 +52,7 @@ class TrackerExtension extends \Twig_Extension
 	public function getGlobals()
 	{
 		/* @var \JTracker\Application $app */
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 
 		return array(
 			'uri'    => $app->get('uri'),
@@ -128,7 +139,7 @@ class TrackerExtension extends \Twig_Extension
 	public function fetchAvatar($userName = '', $width = 0)
 	{
 		/* @type \JTracker\Application $app */
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 
 		$base = $app->get('uri.base.path');
 
@@ -201,7 +212,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$statuses)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$items = $db->setQuery(
 				$db->getQuery(true)
@@ -261,7 +272,7 @@ class TrackerExtension extends \Twig_Extension
 		if (!$labels)
 		{
 			/* @type \JTracker\Application $application */
-			$application = Container::retrieve('app');
+			$application = $this->container->get('app');
 
 			$labels = $application->getProject()->getLabels();
 		}
@@ -305,7 +316,7 @@ class TrackerExtension extends \Twig_Extension
 	public function issueLink($number, $closed, $title = '')
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$html = array();
 
@@ -332,7 +343,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$relTypes)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$relTypes = $db->setQuery(
 				$db->getQuery(true)

@@ -11,8 +11,7 @@ use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ActivitiesTable;
 
 use Joomla\Date\Date;
-
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -26,9 +25,9 @@ class Issues extends Get
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Retrieve issues from GitHub.';
 
@@ -149,7 +148,7 @@ class Issues extends Get
 	{
 		// Initialize our database object
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 		$query = $db->getQuery(true);
 		$added = 0;
 
@@ -184,7 +183,7 @@ class Issues extends Get
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($db);
+			$table = new IssuesTable($this->container);
 
 			$table->issue_number = $issue->number;
 			$table->title        = $issue->title;
@@ -288,7 +287,7 @@ class Issues extends Get
 		if (!$labels)
 		{
 			/* @type \Joomla\Database\DatabaseDriver $db */
-			$db = Container::getInstance()->get('db');
+			$db = $this->container->get('db');
 
 			$table = new LabelsTable($db);
 

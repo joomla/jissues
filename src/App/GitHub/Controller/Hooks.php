@@ -8,9 +8,6 @@
 
 namespace App\GitHub\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**

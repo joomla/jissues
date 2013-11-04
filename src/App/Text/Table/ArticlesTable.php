@@ -12,7 +12,6 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\OutputFilter;
 
 use JTracker\Database\AbstractDatabaseTable;
-use JTracker\Container;
 
 /**
  * Table interface class for the #__articles table
@@ -121,7 +120,7 @@ class ArticlesTable extends AbstractDatabaseTable
 		}
 
 		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = Container::retrieve('gitHub');
+		$gitHub = $this->container->get('gitHub');
 
 		// Render markdown
 		$this->text = $gitHub->markdown

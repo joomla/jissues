@@ -12,9 +12,8 @@
 
 namespace JTracker\Pagination;
 
+use Joomla\DI\Container;
 use Joomla\Uri\Uri;
-
-use JTracker\Container;
 
 /**
  * Class TrackerPagination.
@@ -60,17 +59,25 @@ class TrackerPagination
 	protected $uri;
 
 	/**
+	 * @var \Joomla\DI\Container
+	 * @since  1.0
+	 */
+	protected $container;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   integer  $total    Total items count.
-	 * @param   integer  $current  The current item number.
-	 * @param   integer  $perPage  Items per page.
+	 * @param   Container  $container  The DI container.
+	 * @param   integer    $total      Total items count.
+	 * @param   integer    $current    The current item number.
+	 * @param   integer    $perPage    Items per page.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($total, $current, $perPage)
+	public function __construct(Container $container, $total, $current, $perPage)
 	{
-		$app = Container::retrieve('app');
+		$this->container = $container;
+		$app = $this->container->get('app');
 		$this->total   = $total;
 		$this->perPage = $perPage;
 		$this->page    = $current ? floor($current / $perPage) + 1 : 1;

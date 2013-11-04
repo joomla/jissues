@@ -11,8 +11,7 @@ use App\Tracker\Table\ActivitiesTable;
 use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
-
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class for retrieving comments from GitHub for selected projects
@@ -54,9 +53,9 @@ class Comments extends Get
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Retrieve comments from GitHub.';
 
@@ -155,7 +154,7 @@ class Comments extends Get
 	protected function getIssues()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$query = $db->getQuery(true);
 
@@ -241,7 +240,7 @@ class Comments extends Get
 	protected function processComments()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		// Initialize our database object
 		$query = $db->getQuery(true);

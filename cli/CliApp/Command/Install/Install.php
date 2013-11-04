@@ -10,7 +10,7 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class to install the tracker application.
@@ -29,11 +29,11 @@ class Install extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
-		$this->db = Container::getInstance()->get('db');
+		$this->db = $this->container->get('db');
 
 		$this->description = 'Install the application.';
 

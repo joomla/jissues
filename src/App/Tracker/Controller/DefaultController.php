@@ -9,6 +9,7 @@
 namespace App\Tracker\Controller;
 
 use Joomla\Application\AbstractApplication;
+use Joomla\DI\Container;
 use Joomla\Input\Input;
 use JTracker\Controller\AbstractTrackerController;
 
@@ -22,14 +23,15 @@ class DefaultController extends AbstractTrackerController
 	/**
 	 * Constructor
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
+	 * @param   Container           $container  The DI container.
+	 * @param   Input               $input      The input object.
+	 * @param   AbstractApplication $app        The application object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct(Container $container, Input $input = null, AbstractApplication $app = null)
 	{
-		parent::__construct($input, $app);
+		parent::__construct($container, $input, $app);
 
 		// Set the default view
 		$this->defaultView = 'issues';
@@ -44,9 +46,12 @@ class DefaultController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		if ($this->getApplication()->getProject()->project_id)
+		/* @type \JTracker\Application $application */
+		$application = $this->container->get('app');
+
+		if ($application->getProject()->project_id)
 		{
-			$this->getApplication()->getUser()->authorize('view');
+			$application->getUser()->authorize('view');
 		}
 
 		parent::execute();

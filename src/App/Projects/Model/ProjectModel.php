@@ -11,7 +11,6 @@ namespace App\Projects\Model;
 use App\Projects\TrackerProject;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Container;
 
 /**
  * Model to get data for the project list view
@@ -33,7 +32,7 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		if (is_null($projectId))
 		{
-			$app = Container::retrieve('app');
+			$app = $this->container->get('app');
 			$projectId = $app->input->get('project_id', 1);
 		}
 
@@ -44,7 +43,7 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('p.project_id') . ' = ' . (int) $projectId)
 		)->loadObject();
 
-		return new TrackerProject($data);
+		return new TrackerProject($this->container, $data);
 	}
 
 	/**
@@ -60,12 +59,12 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$alias)
 		{
-			$app = Container::retrieve('app');
+			$app = $this->container->get('app');
 			$alias = $app->input->get('project_alias');
 
 			if (!$alias)
 			{
-				return new TrackerProject;
+				return new TrackerProject($this->container);
 			}
 		}
 
@@ -76,6 +75,6 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('p.alias') . ' = ' . $this->db->quote($alias))
 		)->loadObject();
 
-		return new TrackerProject($data);
+		return new TrackerProject($this->container, $data);
 	}
 }

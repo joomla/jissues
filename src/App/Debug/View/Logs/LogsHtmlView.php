@@ -7,8 +7,8 @@
 namespace App\Debug\View\Logs;
 
 use App\Debug\TrackerDebugger;
+
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * System configuration view.
@@ -28,11 +28,11 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$type = $application->input->get('log_type');
 
-		$debugger = new TrackerDebugger($application);
+		$debugger = new TrackerDebugger($this->container);
 
 		switch ($type)
 		{

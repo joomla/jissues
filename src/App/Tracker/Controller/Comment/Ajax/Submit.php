@@ -10,10 +10,8 @@ namespace App\Tracker\Controller\Comment\Ajax;
 
 use App\Tracker\Table\ActivitiesTable;
 use Joomla\Date\Date;
-use Joomla\Registry\Registry;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Add comments controller class.
@@ -56,10 +54,10 @@ class Submit extends AbstractAjaxController
 		$project = $this->getApplication()->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = Container::retrieve('gitHub');
+		$github = $this->container->get('gitHub');
 
 		$data = new \stdClass;
-		$db   = Container::retrieve('db');
+		$db   = $this->container->get('db');
 
 		if ($project->gh_user && $project->gh_project)
 		{

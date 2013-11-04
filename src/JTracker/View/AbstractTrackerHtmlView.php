@@ -8,13 +8,12 @@
 
 namespace JTracker\View;
 
-use Joomla\Language\Text;
+use Joomla\DI\Container;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
 use Joomla\View\Renderer\RendererInterface;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use JTracker\Container;
 use JTracker\View\Renderer\TrackerExtension;
 
 /**
@@ -41,20 +40,28 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	protected $renderer = null;
 
 	/**
+	 * @var Container
+	 */
+	protected $container = null;
+
+	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   ModelInterface  $model           The model object.
-	 * @param   string|array    $templatesPaths  The templates paths.
+	 * @param   Container         $container      The DI container.
+	 * @param   ModelInterface    $model          The model object.
+	 * @param   string|array      $templatesPaths The templates paths.
 	 *
-	 * @throws  \RuntimeException
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
-	public function __construct(ModelInterface $model, $templatesPaths = '')
+	public function __construct(Container $container, ModelInterface $model, $templatesPaths = '')
 	{
 		parent::__construct($model);
 
+		$this->container = $container;
+
 		/* @type \JTracker\Application $app */
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 
 		$renderer = $app->get('renderer.type');
 
@@ -107,7 +114,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 		$this->renderer = new $className($config);
 
 		// Register tracker's extension.
-		$this->renderer->addExtension(new TrackerExtension);
+		$this->renderer->addExtension(new TrackerExtension($this->container));
 
 		// Register additional paths.
 		if (!empty($templatesPaths))
@@ -115,7 +122,7 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 			$this->renderer->setTemplatesPaths($templatesPaths, true);
 		}
 
-		$gitHubHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
+		$gitHubHelper = new GitHubLoginHelper($this->container, $app->get('github.client_id'), $app->get('github.client_secret'));
 
 		$this->renderer
 			->set('loginUrl', $gitHubHelper->getLoginUri())

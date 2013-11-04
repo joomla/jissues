@@ -6,13 +6,13 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use g11n\g11n;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 use g11n\Support\FileInfo;
 use g11n\Support\TransInfo;
+
+use Joomla\DI\Container;
 
 use JTracker\View\Renderer\TrackerExtension;
 
@@ -29,13 +29,15 @@ class Langtemplates extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct(Container $container)
 	{
-		$this->application = $application;
+		parent::__construct($container);
+
+		$this->application = $this->container->get('app');
 		$this->description = 'Create language file templates.';
 	}
 
@@ -361,7 +363,7 @@ class Langtemplates extends Make
 		);
 
 		// Configure Twig the way you want
-		$twig->addExtension(new TrackerExtension);
+		$twig->addExtension(new TrackerExtension($this->container));
 
 		// Iterate over all your templates
 		/* @type \DirectoryIterator $file */

@@ -12,7 +12,6 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Controller class to modify webhooks on the GitHub repository.
@@ -41,7 +40,7 @@ class Modify extends AbstractAjaxController
 	{
 		parent::__construct($input, $app);
 
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 	}
 
 	/**

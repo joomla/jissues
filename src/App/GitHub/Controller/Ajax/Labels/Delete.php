@@ -9,7 +9,6 @@
 namespace App\GitHub\Controller\Ajax\Labels;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Controller class to delete labels from the GitHub repository.
@@ -34,7 +33,7 @@ class Delete extends AbstractAjaxController
 		$project = $this->getApplication()->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = Container::retrieve('gitHub');
+		$github = $this->container->get('gitHub');
 
 		// Delete the label
 		$github->issues->labels->delete($project->gh_user, $project->gh_project, $name);

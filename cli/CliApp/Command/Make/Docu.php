@@ -8,7 +8,7 @@ namespace CliApp\Command\Make;
 
 use App\Text\Table\ArticlesTable;
 
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -22,9 +22,9 @@ class Docu extends Make
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Compile documentation using GitHub markdown.';
 		$this->usePBar     = $this->application->get('cli-application.progress-bar');
@@ -46,12 +46,12 @@ class Docu extends Make
 	{
 		$this->application->outputTitle('Make Documentation');
 
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		$this->application->displayGitHubRateLimit();
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$docuBase   = JPATH_ROOT . '/Documentation';
 		$pagePrefix = 'dox-';

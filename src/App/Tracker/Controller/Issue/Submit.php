@@ -14,7 +14,6 @@ use App\Tracker\Table\IssuesTable;
 use Joomla\Date\Date;
 
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Container;
 
 /**
  * Add issues controller class.
@@ -34,8 +33,8 @@ class Submit extends AbstractTrackerController
 	public function execute()
 	{
 		$application = $this->getApplication();
-		$database    = Container::retrieve('db');
-		$gitHub      = Container::retrieve('gitHub');
+		$database    = $this->container->get('db');
+		$gitHub      = $this->container->get('gitHub');
 		$project     = $application->getProject();
 
 		$application->getUser()->authorize('create');

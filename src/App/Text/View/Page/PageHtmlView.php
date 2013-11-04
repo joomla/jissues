@@ -12,7 +12,6 @@ use App\Text\Model\PageModel;
 
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * Page view class
@@ -40,7 +39,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$alias = $application->input->getCmd('alias');
 

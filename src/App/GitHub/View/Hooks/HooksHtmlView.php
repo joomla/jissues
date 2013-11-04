@@ -9,7 +9,6 @@
 namespace App\GitHub\View\Hooks;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * The hooks view
@@ -28,7 +27,7 @@ class HooksHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 		$this->renderer->set('project', $app->getProject());
 
 		return parent::render();

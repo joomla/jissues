@@ -11,7 +11,6 @@ namespace App\Projects\Model;
 use Joomla\Database\DatabaseQuery;
 
 use JTracker\Model\AbstractTrackerListModel;
-use JTracker\Container;
 
 /**
  * Model to get data for the projects list view
@@ -32,7 +31,7 @@ class ProjectsModel extends AbstractTrackerListModel
 		$db = $this->getDb();
 
 		/* @type \JTracker\Authentication\GitHub\GitHubUser $user */
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 		$user = $app->getUser();
 
 		$query = $db->getQuery(true);

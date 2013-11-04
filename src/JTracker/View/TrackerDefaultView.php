@@ -8,6 +8,7 @@
 
 namespace JTracker\View;
 
+use Joomla\DI\Container;
 use Joomla\Model\ModelInterface;
 
 use JTracker\Model\TrackerDefaultModel;
@@ -27,10 +28,10 @@ class TrackerDefaultView  extends AbstractTrackerHtmlView
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(ModelInterface $model = null, $templatesPaths = '')
+	public function __construct(Container $container, ModelInterface $model = null, $templatesPaths = '')
 	{
 		$model = $model ? : new TrackerDefaultModel;
 
-		parent::__construct($model, $templatesPaths);
+		parent::__construct($container, $model, $templatesPaths);
 	}
 }

@@ -10,6 +10,7 @@ namespace JTracker\Router;
 
 use Joomla\Application\AbstractApplication;
 use Joomla\Controller\ControllerInterface;
+use Joomla\DI\Container;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
 use JTracker\Router\Exception\RoutingException;
@@ -29,20 +30,22 @@ class TrackerRouter extends Router
 	 */
 	protected $app;
 
+	protected $container;
+
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input                $input  An optional input object from which to derive the route.  If none
-	 *                                       is given than the input from the application object will be used.
-	 * @param   AbstractApplication  $app    An optional application object to inject to controllers
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct(Container $container)
 	{
-		parent::__construct($app->input);
+		parent::__construct($container->get('app')->input);
 
-		$this->app = $app;
+		$this->container = $container;
+
+		$this->app = $container->get('app');
 	}
 
 	/**
@@ -107,7 +110,7 @@ class TrackerRouter extends Router
 		}
 
 		// Instantiate the controller.
-		$controller = new $class($this->input, $this->app);
+		$controller = new $class($this->container);
 
 		return $controller;
 	}

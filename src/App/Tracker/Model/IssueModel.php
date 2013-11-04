@@ -13,11 +13,8 @@ use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
 use Joomla\Filter\InputFilter;
-use Joomla\Registry\Registry;
-use Joomla\String\String;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Container;
 
 /**
  * Model to get data for the issue list view
@@ -47,7 +44,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($identifier = null)
 	{
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 
 		if (!$identifier)
 		{
@@ -101,7 +98,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		// Fetch activities
-		$table = new ActivitiesTable($this->db);
+		$table = new ActivitiesTable($this->container);
 		$query = $this->db->getQuery(true);
 
 		$query->select('a.*');
@@ -170,7 +167,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$identifier)
 		{
-			$app = Container::retrieve('app');
+			$app = $this->container->get('app');
 			$identifier = $app->input->getUint('project_id');
 
 			if (!$identifier)
@@ -229,7 +226,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException('Missing ID');
 		}
 
-		$table = new IssuesTable($this->db);
+		$table = new IssuesTable($this->container);
 
 		$table->load($data['id'])
 			->save($data);
@@ -252,7 +249,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		$db = $this->getDb();
 
-		$table = new IssuesTable($db);
+		$table = new IssuesTable($this->container);
 		$table->load($id);
 
 		// Insert a new record if no vote_id is associated

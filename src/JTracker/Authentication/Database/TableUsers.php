@@ -8,7 +8,7 @@
 
 namespace JTracker\Authentication\Database;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\DI\Container;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -33,13 +33,13 @@ class TableUsers extends AbstractDatabaseTable
 	/**
 	 * Constructor.
 	 *
-	 * @param   DatabaseDriver  $db  A database connector object
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $db)
+	public function __construct(Container $container)
 	{
-		parent::__construct('#__users', 'id', $db);
+		parent::__construct($container, '#__users', 'id');
 	}
 
 	/**

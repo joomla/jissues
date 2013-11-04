@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tracker - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-21 13:05-0500\n"
+"POT-Creation-Date: 2013-11-03 13:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: /templates/tracker/issue.index.twig:28
+msgid "Edit"
+msgstr ""
+
 #: /templates/tracker/issue.index.twig:115
 #: /templates/tracker/issue.edit.twig:50
-#: /templates/tracker/issues.index.twig:112
+#: /templates/tracker/issues.index.twig:115
 msgid "Foreign ID"
 msgstr ""
 
@@ -32,12 +36,12 @@ msgid "Cancel"
 msgstr ""
 
 #: /templates/tracker/issue.edit.twig:63
-#: /templates/tracker/issues.index.twig:65
+#: /templates/tracker/issues.index.twig:66
 msgid "Status"
 msgstr ""
 
 #: /templates/tracker/issue.edit.twig:74
-#: /templates/tracker/issues.index.twig:64
+#: /templates/tracker/issues.index.twig:65
 #: /templates/tracker/issue.add.twig:39
 msgid "Priority"
 msgstr ""
@@ -63,57 +67,58 @@ msgstr ""
 msgid "Easy test"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:39
-#: /templates/tracker/issues.index.twig:42
+#: /templates/tracker/issues.index.twig:25
+#: /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issue.add.twig:56
+msgid "New Item"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:40
 #: /templates/tracker/issues.index.twig:43
+#: /templates/tracker/issues.index.twig:44
 msgid "Filter the list by summary or description."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
 msgid "Submit search"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:50
+#: /templates/tracker/issues.index.twig:51
 msgid "Clear search"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:56
-#: /templates/tracker/issues.index.twig:157
+#: /templates/tracker/issues.index.twig:57
+#: /templates/tracker/issues.index.twig:160
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:62
+#: /templates/tracker/issues.index.twig:63
 msgid "ID"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:63
+#: /templates/tracker/issues.index.twig:64
 msgid "Summary"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:66
+#: /templates/tracker/issues.index.twig:67
 msgid "Date Opened"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:67
+#: /templates/tracker/issues.index.twig:68
 msgid "Date Closed"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:68
+#: /templates/tracker/issues.index.twig:69
 msgid "Last Modified"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:104
+#: /templates/tracker/issues.index.twig:107
 msgid "GitHub ID"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:148
+#: /templates/tracker/issues.index.twig:151
 msgid "No items found."
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:56
-msgid "New Item"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:12

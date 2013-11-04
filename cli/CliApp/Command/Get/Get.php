@@ -16,9 +16,8 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
+use Joomla\DI\Container;
 use Joomla\Github\Github;
-
-use JTracker\Container;
 
 /**
  * Class for retrieving data from GitHub for selected projects
@@ -62,9 +61,9 @@ class Get extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Retrieve <cmd><issues></cmd>, <cmd><comments></cmd> or <cmd><avatars></cmd>.';
 
@@ -123,7 +122,7 @@ class Get extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
+		$projects = with(new ProjectsModel($this->container))->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 
@@ -197,7 +196,7 @@ class Get extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		return $this;
 	}

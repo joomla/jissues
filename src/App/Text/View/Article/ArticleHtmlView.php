@@ -12,7 +12,6 @@ use App\Text\Model\ArticleModel;
 use App\Text\Table\ArticlesTable;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * Article view class
@@ -39,13 +38,13 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$id = $application->input->getInt('id');
 
 		$item = $id
 			? $this->model->getItem($id)
-			: new ArticlesTable(Container::retrieve('db'));
+			: new ArticlesTable($this->container->get('db'));
 
 		$this->renderer->set('item', $item);
 

@@ -6,8 +6,9 @@
 
 namespace CliApp\Command\Get;
 
+use Joomla\DI\Container;
+
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use JTracker\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -21,9 +22,9 @@ class Avatars extends Get
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Retrieve avatar images from GitHub.';
 		$this->usePBar     = $this->application->get('cli-application.progress-bar');
@@ -66,7 +67,7 @@ class Avatars extends Get
 	private function fetchAvatars()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$usernames = $db->setQuery(
 			$db->getQuery(true)
@@ -88,6 +89,8 @@ class Avatars extends Get
 
 		$base = JPATH_THEMES . '/images/avatars/';
 		$adds = 0;
+
+		$loginHelper = new GitHubLoginHelper($this->container, '', '');
 
 		foreach ($usernames as $i => $username)
 		{
@@ -111,7 +114,7 @@ class Avatars extends Get
 
 			try
 			{
-				GitHubLoginHelper::saveAvatar($username);
+				$loginHelper->saveAvatar($username);
 
 				++ $adds;
 			}

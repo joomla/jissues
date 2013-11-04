@@ -20,9 +20,9 @@ class Autocomplete extends Make
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Container $container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 
 		$this->description = 'Generate an auto complete file for PHPStorm.';
 	}

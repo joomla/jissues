@@ -9,7 +9,7 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class TrackerProject.
@@ -91,15 +91,24 @@ class TrackerProject
 	private $defaultGroups = array('Public', 'User');
 
 	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   object  $data  The project data.
+	 * @param   Container  $container  The DI container.
+	 * @param   object     $data       The project data.
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	public function __construct($data = null)
+	public function __construct(Container $container, $data = null)
 	{
+		$this->container = $container;
+
 		if (is_null($data))
 		{
 			return;
@@ -187,7 +196,7 @@ class TrackerProject
 	 */
 	protected function loadMap()
 	{
-		$db = Container::retrieve('db');
+		$db = $this->container->get('db');
 
 		$map = array();
 
@@ -270,7 +279,7 @@ class TrackerProject
 
 		if (!$labels)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$table = new LabelsTable($db);
 
