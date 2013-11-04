@@ -8,7 +8,7 @@
 
 namespace App\Tracker\Table;
 
-use Joomla\DI\Container;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Input\Input;
 use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
@@ -67,13 +67,13 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   DatabaseDriver  $database  A database connector object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct(DatabaseDriver $database)
 	{
-		parent::__construct($container, '#__issues', 'id');
+		parent::__construct('#__issues', 'id', $database);
 	}
 
 	/**

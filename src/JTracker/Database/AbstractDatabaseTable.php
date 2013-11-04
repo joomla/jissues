@@ -70,20 +70,18 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * be overridden by child classes to explicitly set the table and key fields
 	 * for a particular database table.
 	 *
-	 * @param   Container  $container  The DI container.
-	 * @param   string     $table      Name of the table to model.
-	 * @param   mixed      $keys       Name of the primary key field in the table or array of field names that
-	 *                                 compose the primary key.
+	 * @param   string          $table  Name of the table to model.
+	 * @param   mixed           $keys   Name of the primary key field in the table or array of field names that
+	 *                                  compose the primary key.
+	 * @param   DatabaseDriver  $db     DatabaseDriver object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container, $table, $keys)
+	public function __construct($table, $keys, DatabaseDriver $db)
 	{
-		$this->container = $container;
-
 		// Set internal variables.
 		$this->tableName   = $table;
-		$this->db          = $container->get('db');
+		$this->db          = $db;
 		$this->tableFields = new \stdClass;
 
 		// Set the key to be an array.
