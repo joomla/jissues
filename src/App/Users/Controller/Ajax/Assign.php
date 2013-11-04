@@ -17,7 +17,7 @@ use JTracker\Container;
  *
  * @since  1.0
  */
-class AssignController extends AbstractAjaxController
+class Assign extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.

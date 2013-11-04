@@ -11,11 +11,11 @@ namespace App\Support\Controller;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class for the developer documentation.
+ * Controller class to load the markdown preview page.
  *
  * @since  1.0
  */
-class DevdoxController extends AbstractTrackerController
+class Markdown extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -23,5 +23,5 @@ class DevdoxController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'devdox';
+	protected $defaultView = 'markdown';
 }

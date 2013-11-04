@@ -15,7 +15,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class LogoutController extends AbstractTrackerController
+class Logout extends AbstractTrackerController
 {
 	/**
 	 * Execute the controller.

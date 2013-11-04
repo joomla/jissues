@@ -17,7 +17,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class DefaultController extends AbstractTrackerController
+class DefaultControllerXX extends AbstractTrackerController
 {
 	/**
 	 * The default view for the app

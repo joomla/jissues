@@ -5,20 +5,20 @@
 	"hooks/pulls"   : "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
 	"hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
 
-	"login" : "\\Users\\Controller\\LoginController",
-	"logout": "\\Users\\Controller\\LogoutController",
-	"users" : "\\Users\\Controller\\UsersController",
-	"user"  : "\\Users\\Controller\\UserController",
+	"login" : "\\Users\\Controller\\Login",
+	"logout": "\\Users\\Controller\\Logout",
+	"users" : "\\Users\\Controller\\Users",
+	"user"  : "\\Users\\Controller\\User",
 
-	"user/search": "\\Users\\Controller\\Ajax\\SearchController",
-	"user/assign": "\\Users\\Controller\\Ajax\\AssignController",
-	"users/list" : "\\Users\\Controller\\Ajax\\ListController",
+	"user/search": "\\Users\\Controller\\Ajax\\Search",
+	"user/assign": "\\Users\\Controller\\Ajax\\Assign",
+	"users/list" : "\\Users\\Controller\\Ajax\\Listing",
 
-	"user/:id": "\\Users\\Controller\\UserController",
+	"user/:id": "\\Users\\Controller\\User",
 
-	"config"    : "\\System\\Controller\\ConfigController",
-	"saveconfig": "\\System\\Controller\\Config\\SaveController",
-	"phpinfo"   : "\\System\\Controller\\PhpInfoController",
+	"config"    : "\\System\\Controller\\Config",
+	"saveconfig": "\\System\\Controller\\Config\\Save",
+	"phpinfo"   : "\\System\\Controller\\PhpInfo",
 
 	"projects"                     : "\\Projects\\Controller\\ProjectsController",
 	"project/add"                  : "\\Projects\\Controller\\Project\\AddController",
@@ -54,12 +54,12 @@
 	"project/:project_alias/labels-delete": "\\GitHub\\Controller\\Ajax\\Labels\\Delete",
 	"preview"                             : "\\GitHub\\Controller\\Ajax\\Markdown\\Preview",
 
-	"logs/:log_type": "\\Debug\\Controller\\LogsController",
+	"logs/:log_type": "\\Debug\\Controller\\Logs",
 
-	"markdown"     : "\\Support\\Controller\\MarkdownController",
-	"icons"        : "\\Support\\Controller\\IconsController",
-	"devdox"       : "\\Support\\Controller\\DevdoxController",
-	"devdox/:alias": "\\Support\\Controller\\DevdoxController",
+	"markdown"     : "\\Support\\Controller\\Markdown",
+	"icons"        : "\\Support\\Controller\\Icons",
+	"devdox"       : "\\Support\\Controller\\Devdox",
+	"devdox/:alias": "\\Support\\Controller\\Devdox",
 	"clearcache"   : "\\Support\\Controller\\Clearcache",
 
 	"text"           : "\\Text\\Controller\\Articles",

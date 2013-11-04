@@ -15,7 +15,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class SaveController extends AbstractTrackerController
+class Save extends AbstractTrackerController
 {
 	/**
 	 * Execute the controller.

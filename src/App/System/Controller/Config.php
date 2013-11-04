@@ -1,12 +1,12 @@
 <?php
 /**
- * Part of the Joomla Tracker's Debug Application
+ * Part of the Joomla Tracker's Support Application
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Debug\Controller;
+namespace App\System\Controller;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -15,7 +15,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class LogsController extends AbstractTrackerController
+class Config extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -23,7 +23,7 @@ class LogsController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'logs';
+	protected $defaultView = 'config';
 
 	/**
 	 * Execute the controller.

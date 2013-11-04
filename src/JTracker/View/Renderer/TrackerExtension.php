@@ -96,6 +96,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFilter('contrastColor', array($this, 'getContrastColor')),
 			new \Twig_SimpleFilter('labels', array($this, 'renderLabels')),
+			new \Twig_SimpleFilter('yesno', array($this, 'yesNo')),
 			new \Twig_SimpleFilter('_', 'g11n3t'),
 		);
 	}
@@ -342,5 +343,10 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $relTypes;
+	}
+
+	public function yesNo($value)
+	{
+		return $value ? g11n3t('Yes') : g11n3t('No');
 	}
 }

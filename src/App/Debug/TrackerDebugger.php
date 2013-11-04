@@ -323,7 +323,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			span.dbgTable { color: yellow; }
 			span.dbgCommand { color: lime; }
 			span.dbgOperator { color: red; }
-			div:target { border: 2px dashed orange; padding: 5px; padding-top: 70px; }
+			div:target { border: 2px dashed orange; padding: 5px; padding-top: 100px; }
 			div:target { transition:all 0.5s ease; }
 		</style>
 		';

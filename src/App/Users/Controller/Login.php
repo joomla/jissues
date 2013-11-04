@@ -23,7 +23,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class LoginController extends AbstractTrackerController
+class Login extends AbstractTrackerController
 {
 	/**
 	 * Execute the controller.
@@ -42,7 +42,7 @@ class LoginController extends AbstractTrackerController
 		if ($user->id)
 		{
 			// The user is already logged in.
-			$app->redirect('');
+			$app->redirect(' ');
 		}
 
 		$error = $app->input->get('error');

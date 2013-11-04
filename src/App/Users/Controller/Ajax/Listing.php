@@ -8,7 +8,7 @@
 
 namespace App\Users\Controller\Ajax;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractAjaxController;
 use JTracker\Container;
 
 /**
@@ -17,7 +17,7 @@ use JTracker\Container;
  * @package  JTracker\Components\Users
  * @since    1.0
  */
-class ListController extends AbstractTrackerController
+class Listing extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.
