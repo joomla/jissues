@@ -29,7 +29,7 @@ class IssuesModel extends AbstractTrackerListModel
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $context = 'com_tracker.issues';
+	protected $context = 'tracker.issues';
 
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
@@ -57,7 +57,7 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.project_id') . ' = ' . (int) $filter);
 		}
 
-		$filter = $this->state->get('list.filter');
+		$filter = $this->state->get('filter.search');
 
 		if ($filter)
 		{
@@ -68,18 +68,18 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $filter . ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter . ')');
 		}
 
-		$status = $this->state->get('filter.status');
+		$filter = $this->state->get('filter.status');
 
-		if ($status)
+		if ($filter)
 		{
-			$query->where($db->quoteName('a.status') . ' = ' . (int) $status);
+			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
 		}
 
-		$priority = $this->state->get('filter.priority');
+		$filter = $this->state->get('filter.priority');
 
-		if ($priority)
+		if ($filter)
 		{
-			$query->where($db->quoteName('a.priority') . ' = ' . (int) $priority);
+			$query->where($db->quoteName('a.priority') . ' = ' . (int) $filter);
 		}
 
 		// TODO: Implement filtering and join to other tables as added
@@ -109,7 +109,7 @@ class IssuesModel extends AbstractTrackerListModel
 		// Add the list state to the store id.
 		$id .= ':' . $this->state->get('filter.priority');
 		$id .= ':' . $this->state->get('filter.status');
-		$id .= ':' . $this->state->get('list.filter');
+		$id .= ':' . $this->state->get('filter.search');
 
 		return parent::getStoreId($id);
 	}
@@ -145,12 +145,14 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('list.direction', $listOrder);
 
-		$this->state->set('filter.priority', $input->getUint('filter-priority', 0));
+		$priority = $application->getUserStateFromRequest('filter.priority', 'filter-priority', 0, 'uint');
+		$this->state->set('filter.priority', $priority);
 
-		$this->state->set('filter.status', $input->getUint('filter-status', 0));
+		$status = $application->getUserStateFromRequest('filter.status', 'filter-status', 0, 'uint');
+		$this->state->set('filter.status', $status);
 
-		// Optional filter text
-		$this->state->set('list.filter', $input->getString('filter-search'));
+		$search = $application->getUserStateFromRequest('filter.search', 'filter-search', '', 'string');
+		$this->state->set('filter.search', $search);
 
 		// List state information.
 		parent::loadState();
