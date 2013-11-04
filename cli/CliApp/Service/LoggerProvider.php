@@ -26,16 +26,20 @@ use Psr\Log\NullLogger;
 class LoggerProvider implements ServiceProviderInterface
 {
 	/**
-	 * @var string
+	 * The name of the log file.
+	 *
+	 * @var    string
 	 * @since  1.0
 	 */
-	private $fileName = '';
+	public static $fileName = '';
 
 	/**
-	 * @var boolean
+	 * No output
+	 *
+	 * @var    boolean
 	 * @since  1.0
 	 */
-	private $quiet = false;
+	public static $quiet = false;
 
 	/**
 	 * Constructor.
@@ -47,8 +51,8 @@ class LoggerProvider implements ServiceProviderInterface
 	 */
 	public function __construct($fileName = '', $quiet = false)
 	{
-		$this->fileName = $fileName;
-		$this->quiet    = $quiet;
+		static::$fileName = $fileName;
+		static::$quiet    = $quiet;
 	}
 
 	/**
@@ -63,24 +67,24 @@ class LoggerProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$container->share('Monolog\\Logger',
+		$container->share(
+			'Monolog\\Logger',
 			function () use ($container)
 			{
-
 				// Instantiate the object
 				$logger = new Logger('JTracker');
 
-				if ($this->fileName)
+				if (LoggerProvider::$fileName)
 				{
 					// Log to a file
 					$logger->pushHandler(
 						new StreamHandler(
-							$container->get('debugger')->getLogPath('root') . '/' . $this->fileName,
+							$container->get('debugger')->getLogPath('root') . '/' . LoggerProvider::$ileName,
 							Logger::INFO
 						)
 					);
 				}
-				elseif ('1' != $this->quiet)
+				elseif ('1' != LoggerProvider::$quiet)
 				{
 					// Log to screen
 					$logger->pushHandler(
@@ -93,7 +97,8 @@ class LoggerProvider implements ServiceProviderInterface
 				}
 
 				return $logger;
-			}, true
+			},
+			true
 		);
 
 		// Alias the object
