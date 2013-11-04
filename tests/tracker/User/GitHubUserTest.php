@@ -8,6 +8,8 @@
 
 namespace Joomla\Tracker\Tests\Authentication\GitHub;
 
+use Joomla\DI\Container;
+
 use JTracker\Authentication\GitHub\GitHubUser;
 
 /**
@@ -32,7 +34,7 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new GitHubUser;
+		$this->object = new GitHubUser(new Container);
 	}
 
 	/**
