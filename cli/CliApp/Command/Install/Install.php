@@ -20,12 +20,14 @@ use Joomla\DI\Container;
 class Install extends TrackerCommand
 {
 	/**
-	 *  @var \Joomla\Database\DatabaseDriver
+	 * @var \Joomla\Database\DatabaseDriver
 	 */
 	private $db = null;
 
 	/**
 	 * Constructor.
+	 *
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */

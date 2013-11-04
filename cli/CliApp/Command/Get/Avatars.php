@@ -20,6 +20,8 @@ class Avatars extends Get
 	/**
 	 * Constructor.
 	 *
+	 * @param   Container  $container  The DI container.
+	 *
 	 * @since   1.0
 	 */
 	public function __construct(Container $container)

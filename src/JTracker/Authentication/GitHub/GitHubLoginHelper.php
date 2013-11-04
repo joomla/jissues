@@ -43,8 +43,9 @@ class GitHubLoginHelper
 	/**
 	 * Constructor.
 	 *
-	 * @param   string  $clientId      The client id.
-	 * @param   string  $clientSecret  The client secret.
+	 * @param   Container  $container     The DI container.
+	 * @param   string     $clientId      The client id.
+	 * @param   string     $clientSecret  The client secret.
 	 *
 	 * @since   1.0
 	 */

@@ -25,6 +25,13 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	private $container = null;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @since   1.0
+	 */
 	public function __construct(Container $container)
 	{
 		$this->container = $container;
@@ -356,6 +363,15 @@ class TrackerExtension extends \Twig_Extension
 		return $relTypes;
 	}
 
+	/**
+	 * Generate a localized yes/no message.
+	 *
+	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
 	public function yesNo($value)
 	{
 		return $value ? g11n3t('Yes') : g11n3t('No');

@@ -281,7 +281,7 @@ final class Application extends AbstractWebApplication
 
 		return 'UNSUPPORTED';
 
-		//return md5($this->get('acl.secret') . $seed);
+		// @return md5($this->get('acl.secret') . $seed);
 	}
 
 	/**

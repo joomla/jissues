@@ -47,9 +47,9 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   Container         $container      The DI container.
-	 * @param   ModelInterface    $model          The model object.
-	 * @param   string|array      $templatesPaths The templates paths.
+	 * @param   Container       $container       The DI container.
+	 * @param   ModelInterface  $model           The model object.
+	 * @param   string|array    $templatesPaths  The templates paths.
 	 *
 	 * @throws \RuntimeException
 	 * @since   1.0

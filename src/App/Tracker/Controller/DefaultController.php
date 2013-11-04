@@ -23,9 +23,9 @@ class DefaultController extends AbstractTrackerController
 	/**
 	 * Constructor
 	 *
-	 * @param   Container           $container  The DI container.
-	 * @param   Input               $input      The input object.
-	 * @param   AbstractApplication $app        The application object.
+	 * @param   Container            $container  The DI container.
+	 * @param   Input                $input      The input object.
+	 * @param   AbstractApplication  $app        The application object.
 	 *
 	 * @since   1.0
 	 */
