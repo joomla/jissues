@@ -122,7 +122,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
+			$table = new IssuesTable($this->container);
 			$table->save($data);
 		}
 		catch (\Exception $e)
@@ -237,7 +237,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
+			$table = new IssuesTable($this->container);
 			$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
 			$table->save($data);
 		}

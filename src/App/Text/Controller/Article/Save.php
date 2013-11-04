@@ -39,7 +39,7 @@ class Save extends DefaultController
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->container->get('db'));
+		$table = new ArticlesTable($this->container);
 
 		$table->save($app->input->get('article', array(), 'array'));
 

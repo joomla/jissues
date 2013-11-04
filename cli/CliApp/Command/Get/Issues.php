@@ -241,7 +241,7 @@ class Issues extends Get
 			}
 
 			// Add an open record to the activity table
-			$activity               = new ActivitiesTable($db);
+			$activity               = new ActivitiesTable($this->container);
 			$activity->project_id   = $this->project->project_id;
 			$activity->issue_number = (int) $table->issue_number;
 			$activity->user         = $issue->user->login;
@@ -253,7 +253,7 @@ class Issues extends Get
 			// Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
 			{
-				$activity               = new ActivitiesTable($db);
+				$activity               = new ActivitiesTable($this->container);
 				$activity->project_id   = $this->project->project_id;
 				$activity->issue_number = (int) $table->issue_number;
 				$activity->event        = 'close';
@@ -291,7 +291,7 @@ class Issues extends Get
 			/* @type \Joomla\Database\DatabaseDriver $db */
 			$db = $this->container->get('db');
 
-			$table = new LabelsTable($db);
+			$table = new LabelsTable($this->container);
 
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)

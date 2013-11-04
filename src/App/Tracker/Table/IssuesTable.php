@@ -224,7 +224,7 @@ class IssuesTable extends AbstractDatabaseTable
 			$data['issue_number'] = (int) $this->issue_number;
 			$data['project_id']   = (int) $this->project_id;
 
-			$table = new ActivitiesTable($this->db);
+			$table = new ActivitiesTable($this->container);
 			$table->save($data);
 		}
 
@@ -300,7 +300,7 @@ class IssuesTable extends AbstractDatabaseTable
 			$data['project_id']   = (int) $this->project_id;
 			$data['text']         = json_encode($changes);
 
-			$table = new ActivitiesTable($this->db);
+			$table = new ActivitiesTable($this->container);
 			$table->save($data);
 		}
 

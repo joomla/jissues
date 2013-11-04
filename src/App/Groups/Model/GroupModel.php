@@ -30,7 +30,7 @@ class GroupModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem()
 	{
-		$table = new GroupsTable($this->getDb());
+		$table = new GroupsTable($this->container);
 
 		$app = $this->container->get('app');
 		$groupId = $app->input->getInt('group_id');

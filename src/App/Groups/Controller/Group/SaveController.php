@@ -33,7 +33,7 @@ class SaveController extends DefaultController
 
 		$group = $input->get('group', array(), 'array');
 
-		$table = new GroupsTable($this->container->get('db'));
+		$table = new GroupsTable($this->container);
 
 		$table->save($group);
 

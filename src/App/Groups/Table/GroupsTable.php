@@ -8,7 +8,7 @@
 
 namespace App\Groups\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\DI\Container;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 
@@ -33,13 +33,13 @@ class GroupsTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   DatabaseDriver  $database  A database connector object
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $database)
+	public function __construct(Container $container)
 	{
-		parent::__construct('#__accessgroups', 'group_id', $database);
+		parent::__construct($container, '#__accessgroups', 'group_id');
 	}
 
 	/**

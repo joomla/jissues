@@ -94,7 +94,7 @@ class Submit extends AbstractAjaxController
 			$data->text = $github->markdown->render($comment, 'markdown');
 		}
 
-		$table = new ActivitiesTable($db);
+		$table = new ActivitiesTable($this->container);
 
 		$table->event         = 'comment';
 		$table->created_date  = $data->created_at;

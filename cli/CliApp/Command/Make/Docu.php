@@ -79,7 +79,7 @@ class Docu extends Make
 			->out('Page prefix: ' . $pagePrefix)
 			->out();
 
-		$table = new ArticlesTable($db);
+		$table = new ArticlesTable($this->container);
 
 		foreach ($files as $i => $file)
 		{

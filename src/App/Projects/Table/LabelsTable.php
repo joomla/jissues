@@ -8,7 +8,7 @@
 
 namespace App\Projects\Table;
 
-use Joomla\Database\DatabaseDriver;
+use Joomla\DI\Container;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -27,12 +27,12 @@ class LabelsTable extends AbstractDatabaseTable
 	/**
 	 * Constructor
 	 *
-	 * @param   DatabaseDriver  $database  A database connector object
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $database)
+	public function __construct(Container $container)
 	{
-		parent::__construct('#__tracker_labels', 'label_id', $database);
+		parent::__construct($container, '#__tracker_labels', 'label_id');
 	}
 }

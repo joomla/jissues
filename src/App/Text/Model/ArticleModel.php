@@ -30,7 +30,7 @@ class ArticleModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($id)
 	{
-		$table = new ArticlesTable($this->db);
+		$table = new ArticlesTable($this->container);
 
 		return $table->load($id)->getIterator();
 	}

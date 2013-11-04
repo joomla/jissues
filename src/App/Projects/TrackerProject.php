@@ -281,7 +281,7 @@ class TrackerProject
 		{
 			$db = $this->container->get('db');
 
-			$table = new LabelsTable($db);
+			$table = new LabelsTable($this->container);
 
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)

@@ -323,7 +323,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 		try
 		{
-			$activity = new ActivitiesTable($this->db);
+			$activity = new ActivitiesTable($this->container);
 			$activity->save($data);
 		}
 		catch (\Exception $exception)
@@ -425,7 +425,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			// If null, add the label
 			if ($id === null)
 			{
-				$table = new LabelsTable($this->db);
+				$table = new LabelsTable($this->container);
 
 				$data = array();
 				$data['project_id'] = $this->project->project_id;

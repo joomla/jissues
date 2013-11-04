@@ -29,7 +29,7 @@ class DefaultModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($alias)
 	{
-		$table = new ArticlesTable($this->db);
+		$table = new ArticlesTable($this->container);
 
 		return $table->load(array('alias' => $alias));
 	}

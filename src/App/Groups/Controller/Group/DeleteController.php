@@ -39,7 +39,7 @@ class DeleteController extends DefaultController
 
 		$app->getUser()->authorize('manage');
 
-		$table = new GroupsTable($this->container->get('db'));
+		$table = new GroupsTable($this->container);
 
 		$table->load($app->input->getInt('group_id'))
 			->delete();
