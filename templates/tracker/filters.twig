@@ -30,3 +30,14 @@
 
   {{ fields.select('filter-priority', values, value, id, class) }}
 {% endmacro %}
+
+{% macro sort(value, id, class) %}
+  {% import "fields.twig" as fields %}
+
+  {% set values = {
+        0: translate('Newest'),
+        1: translate('Oldest')
+        } %}
+
+  {{ fields.select('filter-sort', values, value, id, class) }}
+{% endmacro %}

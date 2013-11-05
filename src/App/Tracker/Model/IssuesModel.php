@@ -134,7 +134,23 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('filter.project', $project->project_id);
 
-		$this->state->set('list.ordering', $input->get('filter_order', 'a.issue_number'));
+		$sort = $application->getUserStateFromRequest('filter.sort', 'filter-sort', 0, 'uint');
+
+		switch ($sort)
+		{
+			case 1:
+				$this->state->set('list.ordering', 'a.issue_number');
+				$this->state->set('list.direction', 'ASC');
+				break;
+
+			default:
+				$this->state->set('list.ordering', 'a.issue_number');
+				$this->state->set('list.direction', 'DESC');
+		}
+
+		$this->state->set('filter.sort', $sort);
+
+		/*$this->state->set('list.ordering', $input->get('filter.sort', 'a.issue_number'));
 
 		$listOrder = $input->get('filter_order_Dir', 'DESC');
 
@@ -143,7 +159,7 @@ class IssuesModel extends AbstractTrackerListModel
 			$listOrder = 'ASC';
 		}
 
-		$this->state->set('list.direction', $listOrder);
+		$this->state->set('list.direction', $listOrder);*/
 
 		$priority = $application->getUserStateFromRequest('filter.priority', 'filter-priority', 0, 'uint');
 		$this->state->set('filter.priority', $priority);

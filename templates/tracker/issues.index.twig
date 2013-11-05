@@ -57,9 +57,12 @@
             <div class="pull-right btn-group">
                 {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium') }}
             </div>
+            <div class="pull-right btn-group">
+                {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium') }}
+            </div>
             <div class="btn-group pull-right" data-toggle="buttons-checkbox" id="filter-oc-status-div">
-                <button type="button" class="btn {% if state.get('filter.status') == 10 %} active btn-danger {% endif %}" value="10">{{ translate('Closed') }}</button>
                 <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-success {% endif %}" value="1">{{ translate('Open') }}</button>
+                <button type="button" class="btn {% if state.get('filter.status') == 10 %} active btn-danger {% endif %}" value="10">{{ translate('Closed') }}</button>
                 <input type="hidden" name="filter-oc-status" id="filter-oc-status" value="{{ state.get('filter.status') }}" />
             </div>
         </div>
