@@ -80,7 +80,7 @@
                 <th width="5%">{{ translate('Priority') }}</th>
                 <th width="10%">{{ translate('Status') }}</th>
                 <th width="10%" class="hidden-phone">{{ translate('Date Opened') }}</th>
-                <th width="10%" class="hidden-phone">{{ translate('Date Closed') }}</th>
+                <th width="10%" class="date-closed hidden-phone">{{ translate('Date Closed') }}</th>
                 <th width="10%" class="hidden-phone">{{ translate('Last Modified') }}</th>
             </tr>
             </thead>
@@ -144,7 +144,7 @@
                         <td class="nowrap small hidden-phone">
                             {{ item.opened_date|date('Y-m-d') }}
                         </td>
-                        <td class="nowrap small hidden-phone">
+                        <td class="date-closed nowrap small hidden-phone">
                             {% if item.closed_status %}
                                 {{ item.closed_date|date('Y-m-d') }}
                             {% endif %}
@@ -236,6 +236,10 @@
             form.submit();
         }
     );
+
+    if ($('#filter-status').val() == 10) {
+        $('.date-closed').hide();
+    };
     </script>
 
 {% endblock %}

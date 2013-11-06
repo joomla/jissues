@@ -62,7 +62,7 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter)
 		{
 			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(strtolower($filter), true) . '%', false);
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
 
 			// Check the author, title, and publish_up fields
 			$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $filter . ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter . ')');
@@ -130,8 +130,6 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state = new Registry;
 
-		$input = $application->input;
-
 		$this->state->set('filter.project', $project->project_id);
 
 		$sort = $application->getUserStateFromRequest('filter.sort', 'filter-sort', 0, 'uint');
@@ -143,23 +141,22 @@ class IssuesModel extends AbstractTrackerListModel
 				$this->state->set('list.direction', 'ASC');
 				break;
 
+			case 2:
+				$this->state->set('list.ordering', 'a.modified_date');
+				$this->state->set('list.direction', 'DESC');
+				break;
+
+			case 3:
+				$this->state->set('list.ordering', 'a.modified_date');
+				$this->state->set('list.direction', 'ASC');
+				break;
+
 			default:
 				$this->state->set('list.ordering', 'a.issue_number');
 				$this->state->set('list.direction', 'DESC');
 		}
 
 		$this->state->set('filter.sort', $sort);
-
-		/*$this->state->set('list.ordering', $input->get('filter.sort', 'a.issue_number'));
-
-		$listOrder = $input->get('filter_order_Dir', 'DESC');
-
-		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
-		{
-			$listOrder = 'ASC';
-		}
-
-		$this->state->set('list.direction', $listOrder);*/
 
 		$priority = $application->getUserStateFromRequest('filter.priority', 'filter-priority', 0, 'uint');
 		$this->state->set('filter.priority', $priority);

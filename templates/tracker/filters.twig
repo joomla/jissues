@@ -36,7 +36,9 @@
 
   {% set values = {
         0: translate('Newest'),
-        1: translate('Oldest')
+        1: translate('Oldest'),
+        2: translate('Recently updated'),
+        3: translate('Least recently updated')
         } %}
 
   {{ fields.select('filter-sort', values, value, id, class) }}
