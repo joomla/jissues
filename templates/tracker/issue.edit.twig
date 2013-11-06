@@ -7,8 +7,8 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
-    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
 {% endblock %}
 
 {% block prependMenu %}
@@ -150,10 +150,10 @@
 
     {{ parent() }}
     <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jtracker-rules.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

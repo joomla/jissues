@@ -9,8 +9,8 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
-    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
 {% endblock %}
 
 {% block prependMenu %}
@@ -71,7 +71,7 @@
     {{ parent() }}
 
     <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
     <script type="text/javascript">
         $('#text').markItUp(myMarkdownSettings);
 
