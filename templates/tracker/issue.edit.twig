@@ -149,9 +149,10 @@
 {% block JavaScriptBottom %}
 
     {{ parent() }}
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}js/validation/jtracker-rules.js"></script>
 
     <script type="text/javascript">
