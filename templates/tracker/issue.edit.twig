@@ -119,8 +119,9 @@
     <div class="row-fluid">
         <div class="span11 well-small">
             <ul class="unstyled">
-                <li>
-                    <input type="text" name="item[title]"
+                <li style="padding-bottom: 10px">
+                    <label for="title">{{ translate('Title') }}</label>
+                    <input name="item[title]" id="title" type="text"
                     style="width: 80%; font-size: 1.2em;"
                     value="{{ item.title }}"
                     class="validateTitle" />
