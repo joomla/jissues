@@ -114,13 +114,16 @@ class Depfile extends Make
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
 				$output[] = sprintf('#### %s (%s)', $packageName, $version);
+				$output[] = '';
 
 				if (isset($packages['composer'][$packageName]))
 				{
 					$package = $packages['composer'][$packageName];
 
 					$output[] = $package->description;
-					$output[] = 'Source URL:  ' . $package->sourceURL;
+					$output[] = '';
+					$output[] = '* Installed: ' . $package->version;
+					$output[] = '* Source URL: ' . $package->sourceURL;
 				}
 
 				$output[] = '';
@@ -132,17 +135,18 @@ class Depfile extends Make
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
 		{
-			$output[] = sprintf('#### %s (%s)', $packageName, $version);
-
 			$package = $packages['bower'][$packageName];
+
+			$output[] = sprintf('#### %s (%s)', $packageName, $version);
+			$output[] = '';
 
 			if ($package->description)
 			{
 				$output[] = $package->description;
+				$output[] = '';
 			}
 
-			$output[] = 'Source URL:  ' . $package->sourceURL;
-
+			$output[] = '* Source URL: ' . $package->sourceURL;
 			$output[] = '';
 		}
 
