@@ -147,28 +147,28 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($this->title == '')
 		{
-			$errors[] = 'A title is required.';
+			$errors[] = g11n3t('A title is required.');
 		}
 		elseif (strlen($this->title) < 15)
 		{
-			$errors[] = 'The title min length is 15 chars.';
+			$errors[] = g11n3t('The title min length is 15 chars.');
 		}
 		elseif (strlen($this->title) > 50)
 		{
-			$errors[] = 'The title max length is 50 chars.';
+			$errors[] = g11n3t('The title max length is 50 chars.');
 		}
 		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\'"\+_@&$#%: ]+$/u', $this->title))
 		{
-			$errors[] = 'Some characters are not allowed in the title.';
+			$errors[] = g11n3t('Some characters are not allowed in the title.');
 		}
 
 		if (trim($this->build) == '')
 		{
-			$errors[] = 'A build is required.';
+			$errors[] = g11n3t('A build is required.');
 		}
 		elseif (strlen($this->build) > 40)
 		{
-			$errors[] = 'A build max length is 40 chars.';
+			$errors[] = g11n3t('A build max length is 40 chars.');
 		}
 
 		// Commented for now because many GitHub requests are received without a description
@@ -276,9 +276,6 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	private function processChanges()
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
 		$changes = array();
 
 		foreach ($this as $fName => $field)
