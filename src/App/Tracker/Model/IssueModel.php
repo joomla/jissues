@@ -90,8 +90,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
 
-				// Join over the relations_types table
-				->select('v.*')
+				// Join over the issues_voting table
+				->select('v.votes, v.experienced, v.score')
 				->join('LEFT', '#__issues_voting AS v ON i.vote_id = v.id')
 		)->loadObject();
 
@@ -201,6 +201,37 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Add the item.
+	 *
+	 * @param   array  $src  The source.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function add(array $src)
+	{
+		$filter = new InputFilter;
+
+		$src['description_raw'] = $filter->clean($src['description_raw'], 'string');
+
+		// Store the issue
+		$table = new IssuesTable($this->db);
+
+		$table->save($src);
+
+		// Store the activity
+		$table = new ActivitiesTable($this->db);
+
+		$src['event']   = 'open';
+		$src['user']    = $src['opened_by'];
+
+		$table->save($src);
+
+		return $this;
+	}
+
+	/**
 	 * Save the item.
 	 *
 	 * @param   array  $src  The source.
@@ -220,6 +251,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['status']          = $filter->clean($src['status'], 'int');
 		$data['priority']        = $filter->clean($src['priority'], 'int');
 		$data['title']           = $filter->clean($src['title'], 'string');
+		$data['build']           = $filter->clean($src['build'], 'string');
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');

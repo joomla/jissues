@@ -8,8 +8,7 @@
 
 namespace App\Tracker\Controller\Issue;
 
-use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssuesTable;
+use App\Tracker\Model\IssueModel;
 
 use Joomla\Date\Date;
 
@@ -34,28 +33,29 @@ class Submit extends AbstractTrackerController
 	public function execute()
 	{
 		$application = $this->getApplication();
+
+		$application->getUser()->authorize('create');
+
 		$database    = Container::retrieve('db');
 		$gitHub      = Container::retrieve('gitHub');
 		$project     = $application->getProject();
 
-		$application->getUser()->authorize('create');
+		// Prepare issue for the store
+		$data = array();
 
-		$title    = $this->getInput()->getString('title');
-		$body     = $this->getInput()->get('body', '', 'raw');
-		$priority = $this->getInput()->getInt('priority');
+		$data['title']   = $this->getInput()->getString('title');
+		$body            = $this->getInput()->get('body', '', 'raw');
 
 		if (!$body)
 		{
 			throw new \Exception('No body received.');
 		}
 
-		$data = new \stdClass;
-
 		if ($project->gh_user && $project->gh_project)
 		{
 			$gitHubResponse = $gitHub->issues->create(
 					$project->gh_user, $project->gh_project,
-					$title, $body
+					$data['title'], $body
 				);
 
 			if (!isset($gitHubResponse->id))
@@ -63,12 +63,12 @@ class Submit extends AbstractTrackerController
 				throw new \Exception('Invalid response from GitHub');
 			}
 
-			$data->created_at = $gitHubResponse->created_at;
-			$data->opened_by  = $gitHubResponse->user->login;
-			$data->number     = $gitHubResponse->number;
-			$data->text       = $gitHubResponse->body;
+			$data['created_at']  = $gitHubResponse->created_at;
+			$data['opened_by']   = $gitHubResponse->user->login;
+			$data['number']      = $gitHubResponse->number;
+			$data['description'] = $gitHubResponse->body;
 
-			$data->text = $gitHub->markdown->render(
+			$data['description'] = $gitHub->markdown->render(
 					$body,
 					'gfm',
 					$project->gh_user . '/' . $project->gh_project
@@ -78,39 +78,35 @@ class Submit extends AbstractTrackerController
 		{
 			$date = new Date;
 
-			$data->created_at = $date->format($database->getDateFormat());
-			$data->opened_by  = $application->getUser()->username;
-			$data->number     = '???';
+			$data['created_at'] = $date->format($database->getDateFormat());
+			$data['opened_by']  = $application->getUser()->username;
+			$data['number']     = '???';
 
-			$data->text_raw = $body;
-
-			$data->text = $gitHub->markdown->render($body, 'markdown');
+			$data['description'] = $gitHub->markdown->render($body, 'markdown');
 		}
 
+		$data['priority']        = $this->getInput()->getInt('priority');
+		$data['build']           = $this->getInput()->getString('build');
+		$data['opened_date']     = $data['created_at'];
+		$data['project_id']      = $project->project_id;
+		$data['issue_number']    = $data['number'];
+		$data['description_raw'] = $body;
+
 		// Store the issue
-		$table = new IssuesTable($database);
+		try
+		{
+			$model = new IssueModel;
+			$model->add($data);
+		}
+		catch (\Exception $e)
+		{
+			$application->enqueueMessage($e->getMessage(), 'error');
 
-		$table->opened_date     = $data->created_at;
-		$table->opened_by       = $data->opened_by;
-		$table->project_id      = $project->project_id;
-		$table->issue_number    = $data->number;
-		$table->priority        = $priority;
-		$table->title           = $title;
-		$table->description     = $data->text;
-		$table->description_raw = $body;
-
-		$table->check()->store();
-
-		// Store the activity
-		$table = new ActivitiesTable($database);
-
-		$table->event        = 'open';
-		$table->created_date = $data->created_at;
-		$table->project_id   = $project->project_id;
-		$table->issue_number = $data->number;
-		$table->user         = $data->opened_by;
-
-		$table->check()->store();
+			$application->redirect(
+				$application->get('uri.base.path')
+				. 'tracker/' . $project->alias . '/add'
+			);
+		}
 
 		$application->enqueueMessage('Your issue report has been submitted', 'success');
 
