@@ -85,7 +85,7 @@ class DatabaseDebugger
 				}
 				else
 				{
-					$explain = 'Failed EXPLAIN on query: ' . htmlspecialchars($query);
+					$explain = sprintf(g11n3t('Failed EXPLAIN on query: %s'), htmlspecialchars($query));
 				}
 			}
 		}
@@ -114,7 +114,7 @@ class DatabaseDebugger
 
 		if (false == in_array($db->name, array('mysqli', 'mysql')))
 		{
-			return sprintf('%d database is not supported yet.', $db->name);
+			return sprintf(g11n3t('%s database is not supported yet.'), $db->name);
 		}
 
 		$db->setDebug(false);

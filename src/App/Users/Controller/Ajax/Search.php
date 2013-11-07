@@ -17,7 +17,7 @@ use JTracker\Container;
  * @package  JTracker\Components\Users
  * @since    1.0
  */
-class SearchController extends AbstractAjaxController
+class Search extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.

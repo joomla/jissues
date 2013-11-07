@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Support - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-07-01 12:58-0500\n"
+"POT-Creation-Date: 2013-11-03 12:06-0500\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
@@ -16,6 +16,68 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: /templates/support/icons.index.twig:8
+msgid "Icons"
+msgstr "Symbole"
+
+#: /templates/support/markdown.index.twig:6
+msgid "GitHub Flavored Markdown Preview"
+msgstr "Markdown Vorschau mit GitHub Erweiterung"
+
 #: /templates/support/markdown.index.twig:15
 msgid "Markdown TEST Page"
 msgstr "Markdown Testseite"
+
+#: /templates/support/markdown.index.twig:17
+msgid "Info"
+msgstr "Info"
+
+#: /templates/support/markdown.index.twig:18
+msgid "Headers"
+msgstr "Header"
+
+#: /templates/support/markdown.index.twig:19
+msgid "Lists"
+msgstr "Listen"
+
+#: /templates/support/markdown.index.twig:20
+#: /templates/support/markdown.index.twig:31
+msgid "Links"
+msgstr "Links"
+
+#: /templates/support/markdown.index.twig:21
+msgid "Emphasized"
+msgstr "Hervorhebungen"
+
+#: /templates/support/markdown.index.twig:22
+#: /templates/support/markdown.index.twig:42
+msgid "Code"
+msgstr "Code"
+
+#: /templates/support/markdown.index.twig:23
+msgid "Blockquotes"
+msgstr "Blockzitate"
+
+#: /templates/support/markdown.index.twig:24
+msgid "HRs"
+msgstr "HRs"
+
+#: /templates/support/markdown.index.twig:25
+msgid "Tables"
+msgstr "Tabellen"
+
+#: /templates/support/markdown.index.twig:26
+msgid "Images"
+msgstr "Bilder"
+
+#: /templates/support/markdown.index.twig:27
+msgid "GitHub Spice"
+msgstr "GitHub Erweitert"
+
+#: /templates/support/markdown.index.twig:45
+msgid "Output"
+msgstr "Ausgabe"
+
+#: /src/App/Support/Controller/Clearcache.php:45
+msgid "The cache has been cleared."
+msgstr "Der Cache wurde geleert."

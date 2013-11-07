@@ -9,9 +9,9 @@
         <h2>Sorry, we don't know this user...</h2>
     {% else %}
         {% if user.id == item.id %}
-            <h1>My Profile</h1>
+            <h1>{{ "My Profile"|_ }}</h1>
         {% else %}
-            <h1>Profile</h1>
+            <h1>{{ "Profile"|_ }}</h1>
         {% endif %}
 
         <div class="row-fluid">

@@ -1,21 +1,21 @@
 <?php
 /**
- * Part of the Joomla Tracker's Text Application
+ * Part of the Joomla Tracker's Debug Application
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Text\Controller\Article;
+namespace App\Debug\Controller;
 
-use App\Tracker\Controller\DefaultController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to edit an article.
+ * Controller class to display the application configuration
  *
  * @since  1.0
  */
-class EditController extends DefaultController
+class Logs extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -23,12 +23,12 @@ class EditController extends DefaultController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'article';
+	protected $defaultView = 'logs';
 
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -36,11 +36,6 @@ class EditController extends DefaultController
 	{
 		$this->getApplication()->getUser()->authorize('admin');
 
-		$input = $this->getInput();
-
-		$input->set('layout', 'edit');
-		$input->set('view', 'article');
-
-		return parent::execute();
+		parent::execute();
 	}
 }

@@ -6,16 +6,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\System\Controller;
+namespace App\Support\Controller;
 
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to display the server phpinfo() output
+ * Controller class for the developer documentation.
  *
  * @since  1.0
  */
-class PhpInfoController extends AbstractTrackerController
+class Devdox extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -23,19 +23,5 @@ class PhpInfoController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'phpInfo';
-
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
-
-		parent::execute();
-	}
+	protected $defaultView = 'devdox';
 }

@@ -8,22 +8,29 @@
 
 namespace App\Users\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Default controller class for the Users component.
+ * Logout controller class for the users component
  *
  * @since  1.0
  */
-class DefaultControllerXX extends AbstractTrackerController
+class Logout extends AbstractTrackerController
 {
 	/**
-	 * The default view for the app
+	 * Execute the controller.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
-	protected $defaultView = 'users';
+	public function execute()
+	{
+		$app = $this->getApplication();
+
+		// Logout the user.
+		$app->setUser();
+
+		$app->redirect(' ');
+	}
 }

@@ -11,26 +11,17 @@ namespace App\Users\Controller;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Logout controller class for the users component
+ * User controller class for the users component
  *
  * @since  1.0
  */
-class LogoutController extends AbstractTrackerController
+class User extends AbstractTrackerController
 {
 	/**
-	 * Execute the controller.
+	 * The default view for the component
 	 *
-	 * @return  void
-	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function execute()
-	{
-		$app = $this->getApplication();
-
-		// Logout the user.
-		$app->setUser();
-
-		$app->redirect(' ');
-	}
+	protected $defaultView = 'user';
 }

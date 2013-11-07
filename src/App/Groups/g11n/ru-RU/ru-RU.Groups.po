@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Groups - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-23 22:28-0500\n"
+"POT-Creation-Date: 2013-11-03 10:06-0500\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language ru-RU\n"
@@ -15,3 +15,100 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:27
+#: /templates/groups/group.edit.twig:143
+msgid "Title"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:28
+#: /templates/groups/group.edit.twig:159
+msgid "View"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:29
+#: /templates/groups/group.edit.twig:169
+msgid "Create"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:30
+#: /templates/groups/group.edit.twig:179
+msgid "Edit"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:31
+#: /templates/groups/group.edit.twig:189
+msgid "Manage"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:32
+msgid "Actions"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:34
+msgid "Id"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:60
+msgid "System"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:63
+msgid "Delete"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:75
+msgid "No groups defined !"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:11
+msgid "Save"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:124
+msgid "Edit Access Group"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:126
+msgid "Add Access Group"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:135
+msgid "Details"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:153
+msgid "Permissions"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:207
+msgid "Users"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:219
+msgid "Add User"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:231
+msgid "Remove User"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:236
+msgid "List assigned Users"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:248
+msgid "Save the group to assign users."
+msgstr ""
+
+#: /src/App/Groups/Table/GroupsTable.php:97
+msgid "A title is required"
+msgstr ""

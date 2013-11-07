@@ -8,16 +8,14 @@
 
 namespace App\Text\Controller\Article;
 
-use App\Text\Table\ArticlesTable;
 use App\Tracker\Controller\DefaultController;
-use JTracker\Container;
 
 /**
- * Controller class to save an article.
+ * Controller class to edit an article.
  *
  * @since  1.0
  */
-class SaveController extends DefaultController
+class Edit extends DefaultController
 {
 	/**
 	 * The default view for the component
@@ -25,27 +23,24 @@ class SaveController extends DefaultController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'articles';
+	protected $defaultView = 'article';
 
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$this->getApplication()->getUser()->authorize('admin');
 
-		$app->getUser()->authorize('admin');
+		$input = $this->getInput();
 
-		$table = new ArticlesTable(Container::retrieve('db'));
+		$input->set('layout', 'edit');
+		$input->set('view', 'article');
 
-		$table->save($app->input->get('article', array(), 'array'));
-
-		$this->getInput()->set('view', 'articles');
-
-		parent::execute();
+		return parent::execute();
 	}
 }

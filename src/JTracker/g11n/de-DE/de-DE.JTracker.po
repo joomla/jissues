@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker - Core 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-20 01:49-0500\n"
+"POT-Creation-Date: 2013-11-02 16:54-0500\n"
 "PO-Revision-Date: 2013-06-23 22:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Language de-DE\n"
@@ -25,3 +25,11 @@ msgstr "Nächste"
 #: /src/JTracker/Pagination/TrackerPagination.php:215
 msgid "Last"
 msgstr "Letzte"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+msgid "Yes"
+msgstr "Ja"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+msgid "No"
+msgstr "Nein"

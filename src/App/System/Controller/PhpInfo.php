@@ -6,16 +6,16 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Support\Controller;
+namespace App\System\Controller;
 
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to load the markdown preview page.
+ * Controller class to display the server phpinfo() output
  *
  * @since  1.0
  */
-class MarkdownController extends AbstractTrackerController
+class PhpInfo extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -23,5 +23,19 @@ class MarkdownController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'markdown';
+	protected $defaultView = 'phpInfo';
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function execute()
+	{
+		$this->getApplication()->getUser()->authorize('admin');
+
+		parent::execute();
+	}
 }

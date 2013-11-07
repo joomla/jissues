@@ -15,7 +15,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class ArticlesController extends AbstractTrackerController
+class Articles extends AbstractTrackerController
 {
 	/**
 	 * The list view for the component

@@ -11,11 +11,11 @@ namespace App\Users\Controller;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * User controller class for the users component
+ * Users controller class for the users component
  *
  * @since  1.0
  */
-class UserController extends AbstractTrackerController
+class Users extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -23,5 +23,5 @@ class UserController extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'user';
+	protected $defaultView = 'users';
 }

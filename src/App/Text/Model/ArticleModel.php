@@ -9,7 +9,7 @@
 namespace App\Text\Model;
 
 use App\Text\Table\ArticlesTable;
-use JTracker\Authentication\Database\TableUsers;
+
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -24,7 +24,7 @@ class ArticleModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $id  The item id.
 	 *
-	 * @return  TableUsers
+	 * @return  ArticlesTable
 	 *
 	 * @since   1.0
 	 */

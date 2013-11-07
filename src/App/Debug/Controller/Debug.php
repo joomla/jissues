@@ -15,7 +15,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class DebugController extends AbstractTrackerController
+class Debug extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component

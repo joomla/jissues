@@ -17,7 +17,7 @@ use JTracker\Container;
  *
  * @since  1.0
  */
-class AssignController extends AbstractAjaxController
+class Assign extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.
@@ -72,7 +72,7 @@ class AssignController extends AbstractAjaxController
 
 			$this->assign($tableUsers->id, $groupId);
 
-			$this->response->data->message = 'The user has been assigned.';
+			$this->response->data->message = g11n3t('The user has been assigned.');
 		}
 		else
 		{
@@ -83,7 +83,7 @@ class AssignController extends AbstractAjaxController
 
 			$this->unAssign($tableUsers->id, $groupId);
 
-			$this->response->data->message = 'The user has been unassigned.';
+			$this->response->data->message = g11n3t('The user has been unassigned.');
 		}
 	}
 

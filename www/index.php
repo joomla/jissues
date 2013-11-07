@@ -21,8 +21,6 @@ if (false == include JPATH_ROOT . '/vendor/autoload.php')
 	exit(1);
 }
 
-// Instantiate the application.
-$application = new JTracker\Application;
-
 // Execute the application.
-$application->execute();
+with(new JTracker\Application)
+	->execute();

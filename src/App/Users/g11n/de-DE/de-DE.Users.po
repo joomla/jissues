@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-07-01 12:58-0500\n"
+"POT-Creation-Date: 2013-11-03 08:48-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -14,6 +14,34 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: /templates/users/user.index.twig:12
+msgid "My Profile"
+msgstr "Mein Profil"
+
+#: /templates/users/user.index.twig:14
+msgid "Profile"
+msgstr "Profil"
+
 #: /templates/users/users.index.twig:8
 msgid "Users List"
 msgstr "Benutzerliste"
+
+#: /templates/users/users.index.twig:12
+msgid "Username"
+msgstr "Benutzername"
+
+#: /templates/users/users.index.twig:14
+msgid "Actions"
+msgstr "Aktionen"
+
+#: /templates/users/users.index.twig:16
+msgid "ID"
+msgstr "ID"
+
+#: /src/App/Users/Controller/Ajax/AssignController.php:75
+msgid "The user has been assigned."
+msgstr "Der Benutzer wurde zugewiesen"
+
+#: /src/App/Users/Controller/Ajax/AssignController.php:86
+msgid "The user has been unassigned."
+msgstr "Der Benutzer wurde entfernt"
