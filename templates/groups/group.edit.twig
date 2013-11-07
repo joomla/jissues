@@ -24,6 +24,7 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
     <script src="{{ uri.base.path }}vendor/bootstrap-switch/static/js/bootstrap-switch.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-typeahead.js"></script>
     <script>
         jQuery('#searchUser').typeahead({
             source: function (query, process) {

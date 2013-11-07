@@ -199,11 +199,9 @@
 </div>
 
 {% block JavaScriptBottom %}
-    <!-- if CDN
-        <script src="http://code.jquery.com/jquery.js"></script>
-    -->
     <script src="{{ uri.base.path }}vendor/jquery/jquery{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}js/bootstrap{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-affix.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-dropdown.js"></script>
     <script src="{{ uri.base.path }}jtracker/jtracker/js/jtracker{{ jdebug ? "" : ".min" }}.js"></script>
 {% endblock %}
 
