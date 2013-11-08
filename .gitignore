@@ -16,5 +16,8 @@
 vendor/*
 composer.phar
 
+# Bower Files #
+www/vendor/*
+
 # Build/Test related files #
 cache.properties

@@ -66,15 +66,10 @@
 {% block JavaScriptBottom %}
     {{ parent() }}
 
-    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
-
-        /**
-         * Setup custom tags for the JS template engine.
-         * @type {RegExp}
-         */
-        tmpl.regexp = /([\s'\\])(?![^%]*%\])|(?:\[%(=|#)([\s\S]+?)%\])|(\[%)|(%\])/g;
 
         /**
          * List hooks.
@@ -91,7 +86,7 @@
             debug.empty();
 
             $.get(
-                    '/project/' + alias + '/labels-list',
+                    '{{ uri.base.path }}project/' + alias + '/labels-list',
                     {  },
                     function (response) {
                         out.empty();
@@ -127,7 +122,7 @@
             debug.empty();
 
             $.get(
-                    '/project/' + alias + '/labels-add',
+                    '{{ uri.base.path }}project/' + alias + '/labels-add',
                     { name: name, color: color },
                     function (response) {
                         out.empty();
@@ -159,7 +154,7 @@
             debug.empty();
 
             $.get(
-                    '/project/' + alias + '/labels-delete',
+                    '{{ uri.base.path }}project/' + alias + '/labels-delete',
                     { name: name },
                     function (response) {
                         out.empty();

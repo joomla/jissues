@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "fb682c53e906f529f9a78b92a73b278f601d5d5e"
+                "reference": "3487158a0e65b76c9dbd774864f6506ee82152f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fb682c53e906f529f9a78b92a73b278f601d5d5e",
-                "reference": "fb682c53e906f529f9a78b92a73b278f601d5d5e",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/3487158a0e65b76c9dbd774864f6506ee82152f9",
+                "reference": "3487158a0e65b76c9dbd774864f6506ee82152f9",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,6 @@
                 "joomla/application": "self.version",
                 "joomla/archive": "self.version",
                 "joomla/cache": "self.version",
-                "joomla/client": "self.version",
                 "joomla/compat": "self.version",
                 "joomla/controller": "self.version",
                 "joomla/crypt": "self.version",
@@ -170,7 +169,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-10-18 01:50:55"
+            "time": "2013-11-05 22:02:05"
         },
         {
             "name": "mustache/mustache",
@@ -304,16 +303,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.14.1",
+            "version": "v1.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "8873d7593ad7c120004f177c0fd01459b383c9cb"
+                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/8873d7593ad7c120004f177c0fd01459b383c9cb",
-                "reference": "8873d7593ad7c120004f177c0fd01459b383c9cb",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ca445842fcea4f844d68203ffa2d00f5e3cdea64",
+                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64",
                 "shasum": ""
             },
             "require": {
@@ -349,22 +348,22 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-15 19:17:38"
+            "time": "2013-10-30 08:20:53"
         }
     ],
     "packages-dev": [
         {
             "name": "filp/whoops",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "d086796e7cfb59f532d07738e5e4cf0ac3c6deb8"
+                "reference": "6de5a6fbb675c091ee4ee40fd01b2e3df4f200af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/d086796e7cfb59f532d07738e5e4cf0ac3c6deb8",
-                "reference": "d086796e7cfb59f532d07738e5e4cf0ac3c6deb8",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/6de5a6fbb675c091ee4ee40fd01b2e3df4f200af",
+                "reference": "6de5a6fbb675c091ee4ee40fd01b2e3df4f200af",
                 "shasum": ""
             },
             "require": {
@@ -402,7 +401,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2013-08-06 20:39:59"
+            "time": "2013-10-28 22:06:33"
         },
         {
             "name": "monolog/monolog",
@@ -472,12 +471,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "aa4f10f0f5bdeabff515513f3a31388f196a5b5f"
+                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/aa4f10f0f5bdeabff515513f3a31388f196a5b5f",
-                "reference": "aa4f10f0f5bdeabff515513f3a31388f196a5b5f",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
+                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
                 "shasum": ""
             },
             "require": {
@@ -510,7 +509,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-09-23 13:37:34"
+            "time": "2013-11-04 11:02:37"
         }
     ],
     "aliases": [

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-20 01:49-0500\n"
+"POT-Creation-Date: 2013-11-02 16:46-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -62,23 +62,27 @@ msgstr "Symbole"
 msgid "Text"
 msgstr "Text"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:148
+msgid "Clear Cache"
+msgstr ""
+
+#: /templates/trackerMenu.twig:170
 msgid "About Us"
 msgstr "Über uns"
 
-#: /templates/trackerMenu.twig:191
+#: /templates/trackerMenu.twig:197
 msgid "Admin"
 msgstr "Admin"
 
-#: /templates/trackerMenu.twig:196
+#: /templates/trackerMenu.twig:202
 msgid "Profile"
 msgstr "Profil"
 
-#: /templates/trackerMenu.twig:203
+#: /templates/trackerMenu.twig:209
 msgid "Logout"
 msgstr "Abmelden"
 
-#: /templates/trackerMenu.twig:211
+#: /templates/trackerMenu.twig:217
 msgid "Login with GitHub"
 msgstr "Mit GitHub einloggen"
 

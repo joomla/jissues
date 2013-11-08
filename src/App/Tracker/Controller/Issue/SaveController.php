@@ -12,7 +12,6 @@ use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
 use App\Tracker\Model\IssueModel;
-use App\Tracker\ValidationException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -47,6 +46,8 @@ class SaveController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
+		$application = $this->getApplication();
+
 		$src = $this->getInput()->get('item', array(), 'array');
 
 		try
@@ -54,24 +55,31 @@ class SaveController extends AbstractTrackerController
 			$model = new IssueModel;
 			$model->save($src);
 
-			$this->getApplication()->enqueueMessage('The changes have been saved.', 'success');
+			$application->enqueueMessage('The changes have been saved.', 'success');
 
-			$this->getApplication()->redirect(
-				'/tracker/' . $this->getApplication()->input->get('project_alias')
+			$application->redirect(
+				$application->get('uri.base.path')
+				. '/tracker/' . $application->input->get('project_alias') . '/' . $src['id']
 			);
 		}
-		catch (ValidationException $e)
+		catch (\Exception $e)
 		{
-			echo $e->getMessage();
+			$application->enqueueMessage($e->getMessage(), 'error');
 
-			var_dump($e->getErrors());
-
-			exit(255);
-
-			// @todo move on to somewhere =;)
-
-			// $this->getInput()->set('view', 'issue');
-			// $this->getInput()->set('layout', 'edit');
+			if (!empty($src['id']))
+			{
+				$application->redirect(
+					$application->get('uri.base.path')
+					. 'tracker/' . $application->input->get('project_alias') . '/' . $src['id'] . '/edit'
+				);
+			}
+			else
+			{
+				$application->redirect(
+					$application->get('uri.base.path')
+					. 'tracker/' . $application->input->get('project_alias')
+				);
+			}
 		}
 
 		parent::execute();
