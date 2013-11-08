@@ -60,6 +60,7 @@ class Depfile extends Make
 			$package->description = $entry->description;
 			$package->version = $entry->version;
 			$package->sourceURL = $entry->source->url;
+			$package->sourceRef = isset($entry->source->reference) ? $entry->source->reference : '';
 
 			$packages['composer'][$entry->name] = $package;
 		}
@@ -103,7 +104,13 @@ class Depfile extends Make
 
 		$subs = array('Production' => 'require', 'Development' => 'require-dev');
 
-		$output[] = '# Dependencies';
+		$product = $defined['composer'];
+
+		$output[] = sprintf('# Dependencies for %s %s', $product->name, $product->version);
+		$output[] = '';
+		$output[] = $product->description;
+		$output[] = '';
+		$output[] = '* Source URL: ' . $product->homepage;
 		$output[] = '';
 
 		foreach ($subs as $title => $sub)
@@ -123,10 +130,16 @@ class Depfile extends Make
 					$output[] = $package->description;
 					$output[] = '';
 					$output[] = '* Installed: ' . $package->version;
+
+					if ('dev-master' == $package->version)
+					{
+						$output[] = '* Ref.: ' . $package->sourceRef;
+					}
+
 					$output[] = '* Source URL: ' . $package->sourceURL;
+					$output[] = '';
 				}
 
-				$output[] = '';
 			}
 		}
 
