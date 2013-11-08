@@ -6277,8 +6277,8 @@ input.invalid {
 }
 @font-face {
   font-family: 'IcoMoon';
-  src: url('../fonts/icomoon.eot');
-  src: url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'), url('../fonts/icomoon.woff') format('woff'), url('../fonts/icomoon.ttf') format('truetype'), url('../fonts/icomoon.svg#IcoMoon') format('svg');
+  src: url('../../../fonts/icomoon.eot');
+  src: url('../../../fonts/icomoon.eot?#iefix') format('embedded-opentype'), url('../../../fonts/icomoon.woff') format('woff'), url('../../../fonts/icomoon.ttf') format('truetype'), url('../../../fonts/icomoon.svg#IcoMoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -6738,8 +6738,8 @@ input.invalid {
 }
 @font-face {
   font-family: 'IcoMoon';
-  src: url('../fonts/icomoon-extended.eot');
-  src: url('../fonts/icomoon-extended.eot?#iefix') format('embedded-opentype'), url('../fonts/icomoon-extended.svg#IcoMoon') format('svg'), url('../fonts/icomoon-extended.woff') format('woff'), url('../fonts/icomoon-extended.ttf') format('truetype');
+  src: url('../../../fonts/icomoon-extended.eot');
+  src: url('../../../fonts/icomoon-extended.eot?#iefix') format('embedded-opentype'), url('../../../fonts/icomoon-extended.svg#IcoMoon') format('svg'), url('../../../fonts/icomoon-extended.woff') format('woff'), url('../../../fonts/icomoon-extended.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

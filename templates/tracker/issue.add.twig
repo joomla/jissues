@@ -16,9 +16,9 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet" media="screen">
-    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
-    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
 
             <label for="viewMode" class="btn btn-small">{{ translate('View Mode') }}</label>
             <br />
-            <div class="switch switch-large" id="helpSwitch"
+            <div class="make-switch switch-large" id="helpSwitch"
                  data-on-label="{{ translate('Help') }}" data-off-label="{{ translate('Pro') }}"
                  data-on="success" data-off="info">
                 <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
@@ -80,11 +80,12 @@
 {% block JavaScriptBottom %}
 
     {{ parent() }}
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jtracker-rules.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/bootstrap-switch/static/js/bootstrap-switch.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
