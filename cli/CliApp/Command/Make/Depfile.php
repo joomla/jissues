@@ -5,10 +5,11 @@
  */
 
 namespace CliApp\Command\Make;
+
 use CliApp\Application\CliApplication;
 
 /**
- * Class for generating language template files.
+ * Class for generating a dependency file.
  *
  * @since  1.0
  */
@@ -41,26 +42,19 @@ class Depfile extends Make
 		$defined = array();
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
-		$defined['bower'] = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
+		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
 
-		$path = JPATH_ROOT . '/vendor/composer/installed.json';
+		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
 
-		if (false == file_exists($path))
-		{
-			throw new \DomainException('composer file not found in: ' . $path);
-		}
-
-		$data = json_decode(file_get_contents($path));
-
-		foreach ($data as $entry)
+		foreach ($installed as $entry)
 		{
 			$package = new \stdClass;
 
-			$package->name = $entry->name;
+			$package->name        = $entry->name;
 			$package->description = $entry->description;
-			$package->version = $entry->version;
-			$package->sourceURL = $entry->source->url;
-			$package->sourceRef = isset($entry->source->reference) ? $entry->source->reference : '';
+			$package->version     = $entry->version;
+			$package->sourceURL   = $entry->source->url;
+			$package->sourceRef   = isset($entry->source->reference) ? $entry->source->reference : '';
 
 			$packages['composer'][$entry->name] = $package;
 		}
@@ -75,14 +69,15 @@ class Depfile extends Make
 
 			$package = new \stdClass;
 
-			$package->name = $info->name;
+			$package->name        = $info->name;
 			$package->description = isset($info->description) ? $info->description : '';
-			$package->sourceURL = $info->homepage;
+			$package->sourceURL   = $info->homepage;
 
 			$packages['bower'][$package->name] = $package;
 		}
 
-		echo $this->getOutput($defined, $packages);
+		// @todo write to a file
+		$this->out($this->getOutput($defined, $packages));
 
 		$this->out()
 			->out('Finished =;)');
