@@ -1,0 +1,45 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
+
+{% macro status(value, id, class) %}
+  {% import "fields.twig" as fields %}
+
+  {% set values = {
+        0: translate('status'),
+        1: 'opened',
+        2: 'confirmed',
+        3: 'pending',
+        4: 'fixed',
+        5: 'rtc',
+        6: 'review',
+        7: 'info',
+        8: 'platform',
+        9: 'no_reply',
+        10: 'closed',
+        11: 'expected',
+        12: 'known'
+        } %}
+
+  {{ fields.select('filter-status', values, value, id, class) }}
+{% endmacro %}
+
+{% macro priority(value, id, class) %}
+  {% import "fields.twig" as fields %}
+
+  {% set values = {0: translate('priority'), 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } %}
+
+  {{ fields.select('filter-priority', values, value, id, class) }}
+{% endmacro %}
+
+{% macro sort(value, id, class) %}
+  {% import "fields.twig" as fields %}
+
+  {% set values = {
+        0: translate('Newest'),
+        1: translate('Oldest'),
+        2: translate('Recently updated'),
+        3: translate('Least recently updated')
+        } %}
+
+  {{ fields.select('filter-sort', values, value, id, class) }}
+{% endmacro %}
