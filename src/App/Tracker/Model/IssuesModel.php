@@ -126,13 +126,13 @@ class IssuesModel extends AbstractTrackerListModel
 		/* @type \JTracker\Application $application */
 		$application = Container::retrieve('app');
 
-		$project = $application->getProject();
+		$projectId = $application->getProject()->project_id;
 
 		$this->state = new Registry;
 
-		$this->state->set('filter.project', $project->project_id);
+		$this->state->set('filter.project', $projectId);
 
-		$sort = $application->getUserStateFromRequest('filter.sort', 'filter-sort', 0, 'uint');
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'filter-sort', 0, 'uint');
 
 		switch ($sort)
 		{
@@ -158,13 +158,13 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('filter.sort', $sort);
 
-		$priority = $application->getUserStateFromRequest('filter.priority', 'filter-priority', 0, 'uint');
+		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'filter-priority', 0, 'uint');
 		$this->state->set('filter.priority', $priority);
 
-		$status = $application->getUserStateFromRequest('filter.status', 'filter-status', 1, 'uint');
+		$status = $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 1, 'uint');
 		$this->state->set('filter.status', $status);
 
-		$search = $application->getUserStateFromRequest('filter.search', 'filter-search', '', 'string');
+		$search = $application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'filter-search', '', 'string');
 		$this->state->set('filter.search', $search);
 
 		// List state information.
