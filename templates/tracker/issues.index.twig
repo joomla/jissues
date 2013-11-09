@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block content %}
-    {% import "filters.twig" as filters %}
+    {% import "tracker.filters.twig" as filters %}
 
     <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
