@@ -161,7 +161,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$priority = $application->getUserStateFromRequest('filter.priority', 'filter-priority', 0, 'uint');
 		$this->state->set('filter.priority', $priority);
 
-		$status = $application->getUserStateFromRequest('filter.status', 'filter-status', 0, 'uint');
+		$status = $application->getUserStateFromRequest('filter.status', 'filter-status', 1, 'uint');
 		$this->state->set('filter.status', $status);
 
 		$search = $application->getUserStateFromRequest('filter.search', 'filter-search', '', 'string');
