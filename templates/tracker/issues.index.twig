@@ -8,8 +8,8 @@
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block headerCSS %}
-    <link href="{{ uri.base.path }}css/pagination/pagination.css" rel="stylesheet" media="screen">
-    <link href="{{ uri.base.path }}css/pagination/B_black.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
     <style type="text/css">
         td.issueInfo:hover {
             background-color: #eee;
@@ -94,6 +94,7 @@
                                 {% if user.check("edit") %}
                                 <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
                                     <span data-icon="&#xe003;"></span>
+                                    </a>
                                 {% endif %}
                                 <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
                                     {{ item.title|e }}
@@ -177,8 +178,8 @@
 
     {{ parent() }}
 
-    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}js/jtracker-js-templates.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
 

@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "fe570588d1817697b28b2e8695eac09ac5e1977b"
+                "reference": "3487158a0e65b76c9dbd774864f6506ee82152f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fe570588d1817697b28b2e8695eac09ac5e1977b",
-                "reference": "fe570588d1817697b28b2e8695eac09ac5e1977b",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/3487158a0e65b76c9dbd774864f6506ee82152f9",
+                "reference": "3487158a0e65b76c9dbd774864f6506ee82152f9",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-10-30 22:28:23"
+            "time": "2013-11-05 22:02:05"
         },
         {
             "name": "mustache/mustache",
@@ -354,16 +354,16 @@
     "packages-dev": [
         {
             "name": "filp/whoops",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "d086796e7cfb59f532d07738e5e4cf0ac3c6deb8"
+                "reference": "6de5a6fbb675c091ee4ee40fd01b2e3df4f200af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/d086796e7cfb59f532d07738e5e4cf0ac3c6deb8",
-                "reference": "d086796e7cfb59f532d07738e5e4cf0ac3c6deb8",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/6de5a6fbb675c091ee4ee40fd01b2e3df4f200af",
+                "reference": "6de5a6fbb675c091ee4ee40fd01b2e3df4f200af",
                 "shasum": ""
             },
             "require": {
@@ -401,7 +401,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2013-08-06 20:39:59"
+            "time": "2013-10-28 22:06:33"
         },
         {
             "name": "monolog/monolog",
@@ -471,12 +471,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "aa4f10f0f5bdeabff515513f3a31388f196a5b5f"
+                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/aa4f10f0f5bdeabff515513f3a31388f196a5b5f",
-                "reference": "aa4f10f0f5bdeabff515513f3a31388f196a5b5f",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
+                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
                 "shasum": ""
             },
             "require": {
@@ -509,7 +509,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-09-23 13:37:34"
+            "time": "2013-11-04 11:02:37"
         }
     ],
     "aliases": [
