@@ -44,24 +44,24 @@
             </select>
 
             <div class="helpText span2 alert alert-info">
-                {{ translate('COM_TRACKER_HELP_PRIORITY')|raw }}
+                {{ translate('Priority help')|raw }}
             </div>
 
             <label for="build">{{ translate('Build') }}</label>
             <input class="validateBuild" name="build" id="build" type="text" class="span2" />
 
-            <div class="helpText span2 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_BUILD') }}</div>
+            <div class="helpText span2 alert alert-info">{{ translate('Build help') }}</div>
         </div>
 
         <h2>{{ translate('New Item') }}</h2>
 
-        <div class="helpText span6 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_INTRO') }}</div>
+        <div class="helpText span6 alert alert-info">{{ translate('Issue intro help') }}</div>
 
         <fieldset>
             <label for="title">{{ translate('Title') }}</label>
             <input class="validateTitle" type="text" name="title" id="title" style="width: 80%; font-size: 1.2em;" />
 
-            <div class="helpText span6 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_TITLE') }}</div>
+            <div class="helpText span6 alert alert-info">{{ translate('Issue title help') }}</div>
 
             <label for="description">{{ translate('Description') }}</label>
 
@@ -72,7 +72,7 @@
 
             {% include "editor.twig" %}
 
-            <div class="helpText span6 alert alert-info">{{ translate('COM_TRACKER_HELP_ISSUE_DESCRIPTION') }}</div>
+            <div class="helpText span6 alert alert-info">{{ translate('Issue description help') }}</div>
         </fieldset>
     </form>
 {% endblock %}

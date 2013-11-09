@@ -2,19 +2,19 @@
 # Copyright (C) 2013 JTracker(C)
 # This file is distributed under the same license as the Groups - App package.
 # Nikolai Plath <EMAIL@ADDRESS>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Groups - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 10:06-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
-"Language: de-DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de-DE\n"
 
 #: /templates/groups/groups.index.twig:11
 msgid "Add Group"
@@ -25,27 +25,27 @@ msgid "Access Groups"
 msgstr "Benutzergruppen"
 
 #: /templates/groups/groups.index.twig:27
-#: /templates/groups/group.edit.twig:143
+#: /templates/groups/group.edit.twig:144
 msgid "Title"
 msgstr "Titel"
 
 #: /templates/groups/groups.index.twig:28
-#: /templates/groups/group.edit.twig:159
+#: /templates/groups/group.edit.twig:160
 msgid "View"
 msgstr "Ansehen"
 
 #: /templates/groups/groups.index.twig:29
-#: /templates/groups/group.edit.twig:169
+#: /templates/groups/group.edit.twig:170
 msgid "Create"
 msgstr "Erstellen"
 
 #: /templates/groups/groups.index.twig:30
-#: /templates/groups/group.edit.twig:179
+#: /templates/groups/group.edit.twig:180
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: /templates/groups/groups.index.twig:31
-#: /templates/groups/group.edit.twig:189
+#: /templates/groups/group.edit.twig:190
 msgid "Manage"
 msgstr "Verwalten"
 
@@ -73,39 +73,39 @@ msgstr "Keine Gruppen gefunden !"
 msgid "Save"
 msgstr "Speichern"
 
-#: /templates/groups/group.edit.twig:124
+#: /templates/groups/group.edit.twig:125
 msgid "Edit Access Group"
 msgstr "Benutzergrupper bearbeiten"
 
-#: /templates/groups/group.edit.twig:126
+#: /templates/groups/group.edit.twig:127
 msgid "Add Access Group"
 msgstr "Benutzergrupper anlegen"
 
-#: /templates/groups/group.edit.twig:135
+#: /templates/groups/group.edit.twig:136
 msgid "Details"
 msgstr "Details"
 
-#: /templates/groups/group.edit.twig:153
+#: /templates/groups/group.edit.twig:154
 msgid "Permissions"
 msgstr "Berechtigungen"
 
-#: /templates/groups/group.edit.twig:207
+#: /templates/groups/group.edit.twig:208
 msgid "Users"
 msgstr "Benutzer"
 
-#: /templates/groups/group.edit.twig:219
+#: /templates/groups/group.edit.twig:220
 msgid "Add User"
 msgstr "Benutzer hinzufügen"
 
-#: /templates/groups/group.edit.twig:231
+#: /templates/groups/group.edit.twig:232
 msgid "Remove User"
 msgstr "Benutzer entfernen"
 
-#: /templates/groups/group.edit.twig:236
+#: /templates/groups/group.edit.twig:237
 msgid "List assigned Users"
 msgstr "Zugewiesene Benutzer anzeigen"
 
-#: /templates/groups/group.edit.twig:248
+#: /templates/groups/group.edit.twig:249
 msgid "Save the group to assign users."
 msgstr "Speichern Sie die Gruppe um Benutzer hinzuzufügen."
 

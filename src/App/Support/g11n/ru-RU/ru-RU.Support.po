@@ -2,82 +2,82 @@
 # Copyright (C) 2013 JTracker(C)
 # This file is distributed under the same license as the Support - App package.
 # Nikolai Plath <EMAIL@ADDRESS>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Support - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 12:06-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language ru-RU\n"
-"Language: ru-RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ru-RU\n"
 
 #: /templates/support/icons.index.twig:8
 msgid "Icons"
-msgstr ""
+msgstr "Иконки"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
-msgstr ""
+msgstr "GitHub Flavored Markdown Preview"
 
 #: /templates/support/markdown.index.twig:15
 msgid "Markdown TEST Page"
-msgstr "Markdown странице теста"
+msgstr "Страница теста Markdown"
 
 #: /templates/support/markdown.index.twig:17
 msgid "Info"
-msgstr ""
+msgstr "Инфо"
 
 #: /templates/support/markdown.index.twig:18
 msgid "Headers"
-msgstr ""
+msgstr "Заголовки"
 
 #: /templates/support/markdown.index.twig:19
 msgid "Lists"
-msgstr ""
+msgstr "Списки"
 
 #: /templates/support/markdown.index.twig:20
 #: /templates/support/markdown.index.twig:31
 msgid "Links"
-msgstr ""
+msgstr "Ссылки"
 
 #: /templates/support/markdown.index.twig:21
 msgid "Emphasized"
-msgstr ""
+msgstr "Подчеркнутый"
 
 #: /templates/support/markdown.index.twig:22
 #: /templates/support/markdown.index.twig:42
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #: /templates/support/markdown.index.twig:23
 msgid "Blockquotes"
-msgstr ""
+msgstr "Цитата"
 
 #: /templates/support/markdown.index.twig:24
 msgid "HRs"
-msgstr ""
+msgstr "HR"
 
 #: /templates/support/markdown.index.twig:25
 msgid "Tables"
-msgstr ""
+msgstr "Таблицы"
 
 #: /templates/support/markdown.index.twig:26
 msgid "Images"
-msgstr ""
+msgstr "Изображения"
 
 #: /templates/support/markdown.index.twig:27
 msgid "GitHub Spice"
-msgstr ""
+msgstr "GitHub Spice"
 
 #: /templates/support/markdown.index.twig:45
 msgid "Output"
-msgstr ""
+msgstr "Выходные данные"
 
 #: /src/App/Support/Controller/Clearcache.php:45
 msgid "The cache has been cleared."
-msgstr ""
+msgstr "Кэш был очищен"

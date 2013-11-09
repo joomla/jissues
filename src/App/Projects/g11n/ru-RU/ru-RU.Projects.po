@@ -16,7 +16,7 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
-msgstr ""
+msgstr "Проекты"
 
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
@@ -28,99 +28,99 @@ msgstr "Список проектов"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
-msgstr "отслеживания проблем"
+msgstr "Трекер"
 
 #: /templates/projects/projects.index.twig:29
 #: /templates/projects/project.index.twig:20
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: /templates/projects/projects.index.twig:32
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: /templates/projects/projects.index.twig:36
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Hooks"
-msgstr ""
+msgstr "Хуки"
 
 #: /templates/projects/projects.index.twig:49
 msgid "Labels"
-msgstr ""
+msgstr "Лейблы"
 
 #: /templates/projects/projects.index.twig:51
 msgid "Stats"
-msgstr ""
+msgstr "Статистика"
 
 #: /templates/projects/projects.index.twig:61
 msgid "Groups"
-msgstr ""
+msgstr "Группы"
 
 #: /templates/projects/projects.index.twig:62
 msgid "Show"
-msgstr ""
+msgstr "Показать"
 
 #: /templates/projects/projects.index.twig:63
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: /templates/projects/project.add.twig:20
 #: /templates/projects/project.edit.twig:30
 msgid "New project"
-msgstr ""
+msgstr "Новый проект"
 
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
 msgid "Details"
-msgstr ""
+msgstr "Детали"
 
 #: /templates/projects/project.add.twig:28
 #: /templates/projects/project.edit.twig:37
 msgid "Title"
-msgstr ""
+msgstr "Название"
 
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
 msgid "Alias"
-msgstr ""
+msgstr "Алиас"
 
 #: /templates/projects/project.add.twig:38
 #: /templates/projects/project.edit.twig:51
 msgid "GitHub Owner"
-msgstr ""
+msgstr "Владелец GitHub"
 
 #: /templates/projects/project.add.twig:43
 #: /templates/projects/project.edit.twig:58
 msgid "GitHub Repo"
-msgstr ""
+msgstr "GitHub репо"
 
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
 msgid "External Tracker Link"
-msgstr ""
+msgstr "Внешняя ссылка трекера"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
-msgstr ""
+msgstr "Редактировать проект"
 
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
 msgid "Project"
-msgstr ""
+msgstr "Проект"
 
 #: /src/App/Projects/Table/ProjectsTable.php:56
 msgid "A title is required"
-msgstr ""
+msgstr "Название обязательно"

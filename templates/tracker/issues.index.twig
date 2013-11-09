@@ -22,7 +22,7 @@
     {% if user.check("create") %}
         <li>
             <a class="btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">
-                New Item
+                {{ "New Item"|_ }}
             </a>
         </li>
     {% endif %}
