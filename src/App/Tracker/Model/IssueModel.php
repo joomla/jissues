@@ -44,25 +44,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($identifier = null)
 	{
-		$app = $this->container->get('app');
-
 		if (!$identifier)
 		{
-			$identifier = $app->input->getUint('id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
+			return  new IssuesTable($this->db);
 		}
-
-		$project = $app->getProject();
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('i.*')
 				->from($this->db->quoteName('#__issues', 'i'))
-				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $project->project_id)
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
 				->where($this->db->quoteName('i.issue_number') . ' = ' . (int) $identifier)
 
 				// Join over the status table
@@ -98,12 +89,12 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		// Fetch activities
-		$table = new ActivitiesTable($this->container);
+		$table = new ActivitiesTable($this->db);
 		$query = $this->db->getQuery(true);
 
 		$query->select('a.*');
 		$query->from($this->db->quoteName($table->getTableName(), 'a'));
-		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $project->project_id);
+		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $this->getProject()->project_id);
 		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
 
@@ -163,7 +154,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function getProject($identifier = null)
+	public function xxgetProject($identifier = null)
 	{
 		if (!$identifier)
 		{

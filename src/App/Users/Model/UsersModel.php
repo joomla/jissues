@@ -28,8 +28,8 @@ class UsersModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		$app = $this->container->get('app');
-		$app->mark('Fetch users list');
+		//$app = $this->container->get('app');
+		//$app->mark('Fetch users list');
 
 		return $this->db->getQuery(true)
 			->select(array('id', 'username'))

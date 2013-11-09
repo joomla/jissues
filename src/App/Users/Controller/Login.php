@@ -34,7 +34,7 @@ class Login extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 
 		$user = $app->getUser();
 
@@ -105,7 +105,7 @@ class Login extends AbstractTrackerController
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = new GithubUser($this->container);
+		$user = new GithubUser($app->getProject(), $this->container->get('db'));
 
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);

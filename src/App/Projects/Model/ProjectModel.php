@@ -43,7 +43,7 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('p.project_id') . ' = ' . (int) $projectId)
 		)->loadObject();
 
-		return new TrackerProject($this->container, $data);
+		return new TrackerProject($this->db, $data);
 	}
 
 	/**
@@ -59,13 +59,7 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$alias)
 		{
-			$app = $this->container->get('app');
-			$alias = $app->input->get('project_alias');
-
-			if (!$alias)
-			{
-				return new TrackerProject($this->container);
-			}
+			return new TrackerProject($this->db);
 		}
 
 		$data = $this->db->setQuery(
@@ -75,6 +69,6 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('p.alias') . ' = ' . $this->db->quote($alias))
 		)->loadObject();
 
-		return new TrackerProject($this->container, $data);
+		return new TrackerProject($this->db, $data);
 	}
 }

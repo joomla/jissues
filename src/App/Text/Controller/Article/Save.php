@@ -35,7 +35,7 @@ class Save extends DefaultController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 
 		$app->getUser()->authorize('admin');
 
@@ -45,7 +45,7 @@ class Save extends DefaultController
 
 		$app->enqueueMessage(g11n3t('The article has been saved.'), 'success');
 
-		$this->getInput()->set('view', 'articles');
+		$this->container->get('app')->input->set('view', 'articles');
 
 		parent::execute();
 	}

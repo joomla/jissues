@@ -31,10 +31,10 @@ class EditController extends AbstractTrackerController
 	{
 		parent::__construct($input, $app);
 
-		$this->getApplication()->getUser()->authorize('edit');
+		$app->getUser()->authorize('edit');
 
 		// Set the default view
-		$this->getInput()->set('view', 'issue');
-		$this->getInput()->set('layout', 'edit');
+		$input->set('view', 'issue');
+		$input->set('layout', 'edit');
 	}
 }

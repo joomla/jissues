@@ -35,7 +35,7 @@ class DeleteController extends DefaultController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 
 		$app->getUser()->authorize('manage');
 
@@ -44,7 +44,7 @@ class DeleteController extends DefaultController
 		$table->load($app->input->getInt('group_id'))
 			->delete();
 
-		$this->getInput()->set('view', 'groups');
+		$this->container->get('app')->input->set('view', 'groups');
 
 		return parent::execute();
 	}

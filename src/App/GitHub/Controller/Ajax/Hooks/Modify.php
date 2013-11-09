@@ -52,12 +52,12 @@ class Modify extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$action = $this->getInput()->getCmd('action');
-		$hookId = $this->getInput()->getInt('hook_id');
+		$action = $this->container->get('app')->input->getCmd('action');
+		$hookId = $this->container->get('app')->input->getInt('hook_id');
 
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		// Get a valid hook object
 		$hook = $this->getHook($hookId);
@@ -90,7 +90,7 @@ class Modify extends AbstractAjaxController
 	 */
 	private function processAction($action, $hook)
 	{
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		switch ($action)
 		{
@@ -135,7 +135,7 @@ class Modify extends AbstractAjaxController
 	 */
 	private function getHook($hookId)
 	{
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		$hooks = $this->github->repositories->hooks->getList($project->gh_user, $project->gh_project);
 

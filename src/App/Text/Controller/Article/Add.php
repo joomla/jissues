@@ -8,7 +8,11 @@
 
 namespace App\Text\Controller\Article;
 
+use App\Text\Table\ArticlesTable;
+use App\Text\View\Article\ArticleHtmlView;
+use Joomla\Input\Input;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\View\AbstractTrackerHtmlView;
 
 /**
  * Controller class to add an article.
@@ -26,6 +30,11 @@ class Add extends AbstractTrackerController
 	protected $defaultView = 'article';
 
 	/**
+	 * @var  ArticleHtmlView
+	 */
+	protected $view;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -34,10 +43,29 @@ class Add extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$this->getInput()->set('layout', 'edit');
+		$this->container->get('app')->input->set('layout', 'edit');
 
 		parent::execute();
 	}
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setItem(new ArticlesTable($this->container->get('db')));
+	}
+
+
 }

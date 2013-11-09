@@ -30,7 +30,7 @@ class Listing extends AbstractAjaxController
 		// TODO: do we need access control here ?
 		// @$this->getApplication()->getUser()->authorize('admin');
 
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$groupId = $input->getInt('group_id');
 

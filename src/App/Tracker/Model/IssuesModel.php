@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Model;
 
+use App\Projects\TrackerProject;
 use Joomla\Database\DatabaseQuery;
 use Joomla\Registry\Registry;
 use Joomla\String\String;
@@ -31,6 +32,35 @@ class IssuesModel extends AbstractTrackerListModel
 	protected $context = 'com_tracker.issues';
 
 	/**
+	 * @var TrackerProject
+	 * @since  1.0
+	 */
+	protected $project = null;
+
+	/**
+	 * @return \App\Projects\TrackerProject
+	 */
+	public function getProject()
+	{
+		if (is_null($this->project))
+		{
+			throw new \RuntimeException('Project not set');
+		}
+
+		return $this->project;
+	}
+
+	/**
+	 * @param \App\Projects\TrackerProject $project
+	 */
+	public function setProject(TrackerProject $project)
+	{
+		$this->project = $project;
+
+		return $this;
+	}
+
+	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
 	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
@@ -49,8 +79,8 @@ class IssuesModel extends AbstractTrackerListModel
 		$query->select('s.status AS status_title, s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
-		$filter = $this->state->get('filter.project');
-
+//		$filter = $this->state->get('filter.project');
+		$filter = $this->getProject()->project_id;;
 		if ($filter)
 		{
 			$query->where($db->quoteName('a.project_id') . ' = ' . (int) $filter);
@@ -115,20 +145,13 @@ class IssuesModel extends AbstractTrackerListModel
 	 */
 	protected function loadState()
 	{
-		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
-
-		$project = $application->getProject();
-
 		$this->state = new Registry;
 
-		$input = $application->input;
+		//$this->state->set('filter.project', $this->input->get('project_id', 1));
 
-		$this->state->set('filter.project', $project->project_id);
+		$this->state->set('list.ordering', $this->input->get('filter_order', 'a.issue_number'));
 
-		$this->state->set('list.ordering', $input->get('filter_order', 'a.issue_number'));
-
-		$listOrder = $input->get('filter_order_Dir', 'DESC');
+		$listOrder = $this->input->get('filter_order_Dir', 'DESC');
 
 		if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
 		{
@@ -137,12 +160,12 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$this->state->set('list.direction', $listOrder);
 
-		$this->state->set('filter.priority', $input->getUint('priority', 3));
+		$this->state->set('filter.priority', $this->input->getUint('priority', 3));
 
-		$this->state->set('filter.status', $input->getUint('filter-status'));
+		$this->state->set('filter.status', $this->input->getUint('filter-status'));
 
 		// Optional filter text
-		$this->state->set('list.filter', $input->getString('filter-search'));
+		$this->state->set('list.filter', $this->input->getString('filter-search'));
 
 		// List state information.
 		parent::loadState();

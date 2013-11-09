@@ -27,7 +27,7 @@ class Search extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$search       = $input->get('query');
 		$inGroupId    = $input->getInt('in_group_id');

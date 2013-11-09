@@ -26,21 +26,26 @@ class EditController extends DefaultController
 	protected $defaultView = 'project';
 
 	/**
-	 * Execute the controller.
+	 * Initialize the controller.
 	 *
-	 * @return  void
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	public function execute()
+	public function initialize()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$input->set('layout', 'edit');
 		$input->set('view', 'project');
 
-		return parent::execute();
+		parent::initialize();
+
+		$this->view->setAlias($this->container->get('app')->input->get('project_alias'));
 	}
 }

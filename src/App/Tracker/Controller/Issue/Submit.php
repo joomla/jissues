@@ -32,16 +32,16 @@ class Submit extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->getApplication();
+		$application = $this->container->get('app');
 		$database    = $this->container->get('db');
 		$gitHub      = $this->container->get('gitHub');
 		$project     = $application->getProject();
 
 		$application->getUser()->authorize('create');
 
-		$title    = $this->getInput()->getString('title');
-		$body     = $this->getInput()->get('body', '', 'raw');
-		$priority = $this->getInput()->getInt('priority');
+		$title    = $application->input->getString('title');
+		$body     = $application->input->get('body', '', 'raw');
+		$priority = $application->input->getInt('priority');
 
 		if (!$body)
 		{

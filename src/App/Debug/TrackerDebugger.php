@@ -19,6 +19,7 @@ use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 use App\Debug\Handler\ProductionHandler;
 
+use JTracker\View\Renderer\TrackerExtension;
 use Kint;
 
 use Monolog\Handler\NullHandler;
@@ -252,8 +253,6 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function getOutput()
 	{
-		$navigation = $this->getNavigation();
-
 		$debug = array();
 
 		// Check if debug is only displayed for admin users
@@ -305,7 +304,12 @@ class TrackerDebugger implements LoggerAwareInterface
 			$debug[] = '</div>';
 		}
 
-		return implode("\n", $navigation) . implode("\n", $debug);
+		if (!$debug)
+		{
+			return '';
+		}
+
+		return implode("\n", $this->getNavigation()) . implode("\n", $debug);
 	}
 
 	/**
@@ -500,7 +504,10 @@ class TrackerDebugger implements LoggerAwareInterface
 			. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
-		$view = new \JTracker\View\TrackerDefaultView($this->container);
+		$view = new \JTracker\View\TrackerDefaultView;
+
+		$renderer = $view->getRenderer();
+		$renderer->addExtension(new TrackerExtension($this->container));
 
 		$message = '';
 

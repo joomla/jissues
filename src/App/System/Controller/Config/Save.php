@@ -27,9 +27,9 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$config = $this->getApplication()->input->get('config', array(), 'array');
+		$config = $this->container->get('app')->input->get('config', array(), 'array');
 
 		if (!$config)
 		{

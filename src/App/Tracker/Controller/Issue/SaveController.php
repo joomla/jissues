@@ -34,7 +34,7 @@ class SaveController extends AbstractTrackerController
 	{
 		parent::__construct($input, $app);
 
-		$this->getApplication()->getUser()->authorize('edit');
+		$this->container->get('app')->getUser()->authorize('edit');
 	}
 
 	/**
@@ -47,17 +47,17 @@ class SaveController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$src = $this->getInput()->get('item', array(), 'array');
+		$src = $this->container->get('app')->input->get('item', array(), 'array');
 
 		try
 		{
-			$model = new IssueModel;
+			$model = new IssueModel($this->container->get('db'));
 			$model->save($src);
 
-			$this->getApplication()->enqueueMessage('The changes have been saved.', 'success');
+			$this->container->get('app')->enqueueMessage('The changes have been saved.', 'success');
 
-			$this->getApplication()->redirect(
-				'/tracker/' . $this->getApplication()->input->get('project_alias')
+			$this->container->get('app')->redirect(
+				'/tracker/' . $this->container->get('app')->input->get('project_alias')
 			);
 		}
 		catch (ValidationException $e)

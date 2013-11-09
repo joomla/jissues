@@ -8,6 +8,7 @@
 
 namespace App\Text\Controller\Article;
 
+use App\Text\View\Article\ArticleHtmlView;
 use App\Tracker\Controller\DefaultController;
 
 /**
@@ -26,6 +27,30 @@ class Edit extends DefaultController
 	protected $defaultView = 'article';
 
 	/**
+	 * @var  ArticleHtmlView
+	 */
+	protected $view;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$id = $this->container->get('app')->input>getInt('id');
+
+		$this->view->setItem($this->model->getItem($id));
+	}
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -34,9 +59,9 @@ class Edit extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$input->set('layout', 'edit');
 		$input->set('view', 'article');

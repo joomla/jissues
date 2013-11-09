@@ -29,6 +29,11 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
+	 * @var ArticlesTable
+	 */
+	protected $item = null;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -38,16 +43,27 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		//$application = $this->container->get('app');
 
-		$id = $application->input->getInt('id');
 
-		$item = $id
-			? $this->model->getItem($id)
-			: new ArticlesTable($this->container->get('db'));
-
-		$this->renderer->set('item', $item);
+		$this->renderer->set('item', $this->getItem());
 
 		return parent::render();
+	}
+
+	/**
+	 * @return \App\Text\Table\ArticlesTable
+	 */
+	public function getItem()
+	{
+		return $this->item;
+	}
+
+	/**
+	 * @param \App\Text\Table\ArticlesTable $item
+	 */
+	public function setItem($item)
+	{
+		$this->item = $item;
 	}
 }

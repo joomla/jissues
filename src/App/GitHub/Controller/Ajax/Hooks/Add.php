@@ -26,12 +26,12 @@ class Add extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$url    = $this->getInput()->getHtml('url');
-		$events = $this->getInput()->getHtml('events');
+		$url    = $this->container->get('app')->input->getHtml('url');
+		$events = $this->container->get('app')->input->getHtml('events');
 
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $gitHub */
 		$gitHub = $this->container->get('gitHub');

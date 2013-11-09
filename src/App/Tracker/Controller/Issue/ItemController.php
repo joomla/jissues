@@ -8,8 +8,12 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\IssueModel;
+use App\Tracker\View\Issue\IssueHtmlView;
+
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -19,6 +23,16 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class ItemController extends AbstractTrackerController
 {
+	/**
+	 * @var  IssueHtmlView
+	 */
+	protected $view = null;
+
+	/**
+	 * @var  IssueModel
+	 */
+	protected $model = null;
+
 	/**
 	 * Constructor
 	 *
@@ -37,6 +51,28 @@ class ItemController extends AbstractTrackerController
 	}
 
 	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setId($this->container->get('app')->input->getUint('id'));
+		$this->view->setProject($this->container->get('app')->getProject());
+		$this->model->setProject($this->container->get('app')->getProject());
+
+		return $this;
+	}
+
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -45,7 +81,7 @@ class ItemController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('view');
+		$this->container->get('app')->getUser()->authorize('view');
 
 		parent::execute();
 	}

@@ -30,8 +30,7 @@ class GroupsModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		$app = $this->container->get('app');
-		$projectId = $app->getProject()->project_id;
+		$projectId = $this->getProject()->project_id;
 
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);

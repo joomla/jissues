@@ -58,14 +58,11 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getGlobals()
 	{
-		/* @var \JTracker\Application $app */
-		$app = $this->container->get('app');
-
 		return array(
-			'uri'    => $app->get('uri'),
+			'uri'    => $this->container->get('app')->get('uri'),
 			'jdebug' => JDEBUG,
 			'lang'   => g11n::getCurrent(),
-			'languages' => $app->get('languages')
+			'languages' => $this->container->get('app')->get('languages')
 		);
 	}
 
@@ -145,10 +142,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function fetchAvatar($userName = '', $width = 0)
 	{
-		/* @type \JTracker\Application $app */
-		$app = $this->container->get('app');
-
-		$base = $app->get('uri.base.path');
+		$base = $this->container->get('app')->get('uri.base.path');
 
 		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
@@ -278,10 +272,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$labels)
 		{
-			/* @type \JTracker\Application $application */
-			$application = $this->container->get('app');
-
-			$labels = $application->getProject()->getLabels();
+			$labels = $this->container->get('app')->getProject()->getLabels();
 		}
 
 		$html = array();
@@ -323,12 +314,13 @@ class TrackerExtension extends \Twig_Extension
 	public function issueLink($number, $closed, $title = '')
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		//$application = $this->container->get('app');
 
 		$html = array();
 
 		$title = ($title) ? : ' #' . $number;
-		$href = $application->get('uri')->base->path . 'tracker/' . $application->getProject()->alias . '/' . $number;
+		$href = $this->container->get('app')->get('uri')->base->path
+			. 'tracker/' . $this->container->get('app')->getProject()->alias . '/' . $number;
 
 		$html[] = '<a href="' . $href . '"' . ' title="' . $title . '"' . '>';
 		$html[] = $closed ? '<del># ' . $number . '</del>' : '# ' . $number;

@@ -44,16 +44,15 @@ class GitHubLoginHelper
 	 * Constructor.
 	 *
 	 * @param   Container  $container     The DI container.
-	 * @param   string     $clientId      The client id.
-	 * @param   string     $clientSecret  The client secret.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container, $clientId, $clientSecret)
+	public function __construct(Container $container)
 	{
 		$this->container    = $container;
-		$this->clientId     = $clientId;
-		$this->clientSecret = $clientSecret;
+
+		$this->clientId     = $this->container->get('app')->get('github.client_id');
+		$this->clientSecret = $this->container->get('app')->get('github.client_secret');
 	}
 
 	/**

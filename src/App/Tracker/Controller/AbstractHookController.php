@@ -128,7 +128,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		// Run the parent constructor
 		parent::__construct($input, $app);
 
-		$this->debug = $this->getApplication()->get('debug.hooks');
+		$this->debug = $this->container->get('app')->get('debug.hooks');
 
 		if (preg_match('/Receive([A-z]+)Hook/', get_class($this), $matches))
 		{
@@ -145,7 +145,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 		$this->logger->pushHandler(
 			new StreamHandler(
-				$this->getApplication()->get('debug.log-path') . '/github_' . strtolower($fileName) . '.log'
+				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($fileName) . '.log'
 			)
 		);
 

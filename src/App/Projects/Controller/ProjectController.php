@@ -8,6 +8,8 @@
 
 namespace App\Projects\Controller;
 
+use App\Projects\View\Project\ProjectHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -24,4 +26,26 @@ class ProjectController extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'project';
+
+	/**
+	 * @var  ProjectHtmlView
+	 */
+	protected $view;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setAlias($this->container->get('app')->input->get('project_alias'));
+	}
 }

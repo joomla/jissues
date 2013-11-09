@@ -8,8 +8,9 @@
 
 namespace JTracker\View;
 
-use Joomla\DI\Container;
 use Joomla\Model\ModelInterface;
+use Joomla\View\Renderer\RendererInterface;
+use Joomla\View\Renderer\Twig;
 
 use JTracker\Model\TrackerDefaultModel;
 
@@ -23,16 +24,28 @@ class TrackerDefaultView  extends AbstractTrackerHtmlView
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   Container       $container       The DI container.
 	 * @param   ModelInterface  $model           The model object.
 	 * @param   string|array    $templatesPaths  The templates paths.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container, ModelInterface $model = null, $templatesPaths = '')
+	public function __construct(ModelInterface $model = null, RendererInterface $renderer = null, $templatesPaths = '')
 	{
 		$model = $model ? : new TrackerDefaultModel;
 
-		parent::__construct($container, $model, $templatesPaths);
+		if (is_null($renderer))
+		{
+
+			$renderer = new Twig(
+				array(
+					'templates_base_dir' => JPATH_TEMPLATES,
+					'environment' => array('debug' => true)
+				)
+			);
+
+		}
+
+
+		parent::__construct($model, $renderer, $templatesPaths);
 	}
 }

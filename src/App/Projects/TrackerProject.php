@@ -9,14 +9,18 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
-use Joomla\DI\Container;
+
+use Joomla\Database\DatabaseDriver;
 
 /**
  * Class TrackerProject.
  *
+ * @property-read   integer  $project_id  The project id.
+ * @property-read   string   $alias       The project alias.
+ *
  * @since  1.0
  */
-class TrackerProject
+class TrackerProject implements \Serializable
 {
 	/**
 	 * Primary Key
@@ -91,23 +95,23 @@ class TrackerProject
 	private $defaultGroups = array('Public', 'User');
 
 	/**
-	 * @var    Container
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
-	private $container = null;
+	private $database = null;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 * @param   object     $data       The project data.
+	 * @param   DatabaseDriver  $database  The database connector.
+	 * @param   object          $data      The project data.
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	public function __construct(Container $container, $data = null)
+	public function __construct(DatabaseDriver $database, $data = null)
 	{
-		$this->container = $container;
+		$this->database = $database;
 
 		if (is_null($data))
 		{
@@ -196,7 +200,7 @@ class TrackerProject
 	 */
 	protected function loadMap()
 	{
-		$db = $this->container->get('db');
+		$db = $this->database;
 
 		$map = array();
 
@@ -279,7 +283,7 @@ class TrackerProject
 
 		if (!$labels)
 		{
-			$db = $this->container->get('db');
+			$db = $this->database;
 
 			$table = new LabelsTable($db);
 
@@ -379,5 +383,52 @@ class TrackerProject
 	public function getExt_Tracker_Link()
 	{
 		return $this->ext_tracker_link;
+	}
+
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * String representation of object
+	 *
+	 * @link http://php.net/manual/en/serializable.serialize.php
+	 * @return string the string representation of the object or null
+	 */
+	public function serialize()
+	{
+		$props = array();
+
+		foreach (get_object_vars($this) as $key => $value)
+		{
+			if (in_array($key, array('authModel', 'cleared', 'authId', 'database')))
+			{
+				continue;
+			}
+
+			$props[$key] = $value;
+		}
+
+		return serialize($props);
+		return serialize(
+			array($this->project_id)
+		);
+	}
+
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Constructs the object
+	 *
+	 * @param   string  $serialized  The string representation of the object.
+	 *
+	 * @link http://php.net/manual/en/serializable.unserialize.php
+	 *
+	 * @return void
+	 */
+	public function unserialize($serialized)
+	{
+		$data = unserialize($serialized);
+
+		foreach ($data as $key => $value)
+		{
+			$this->$key = $value;
+		}
 	}
 }

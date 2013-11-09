@@ -22,6 +22,11 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
 class GroupModel extends AbstractTrackerDatabaseModel
 {
 	/**
+	 * @var integer
+	 */
+	protected $group_id = 0;
+
+	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
 	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
@@ -32,9 +37,31 @@ class GroupModel extends AbstractTrackerDatabaseModel
 	{
 		$table = new GroupsTable($this->getDb());
 
-		$app = $this->container->get('app');
-		$groupId = $app->input->getInt('group_id');
+		//$app = $this->container->get('app');
+		$groupId = $this->getGroupId();
+		//$app->input->getInt('group_id');
 
 		return $groupId ? $table->load($groupId)->getIterator() : $table->getIterator();
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getGroupId()
+	{
+		if (0 == $this->group_id)
+		{
+			throw new \UnexpectedValueException('group_id not set');
+		}
+
+		return $this->group_id;
+	}
+
+	/**
+	 * @param int $group_id
+	 */
+	public function setGroupId($group_id)
+	{
+		$this->group_id = $group_id;
 	}
 }

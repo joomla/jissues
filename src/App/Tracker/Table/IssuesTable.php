@@ -14,6 +14,7 @@ use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Utilities\ArrayHelper;
 
+use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -62,7 +63,12 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @var    IssuesTable
 	 * @since  1.0
 	 */
-	protected $oldObject;
+	protected $oldObject = null;
+
+	/**
+	 * @var  GitHubUser
+	 */
+	protected $user = null;
 
 	/**
 	 * Constructor
@@ -179,7 +185,7 @@ class IssuesTable extends AbstractDatabaseTable
 	public function store($updateNulls = false)
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		//$application = $this->container->get('app');
 
 		$isNew = ($this->id < 1);
 		$date  = new Date;
@@ -195,7 +201,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 			if (!$this->modified_by)
 			{
-				$this->modified_by = $application->getUser()->username;
+				$this->modified_by = $this->getUser()->username;
 			}
 		}
 		else
@@ -372,5 +378,27 @@ class IssuesTable extends AbstractDatabaseTable
 		}
 
 		return $fields;
+	}
+
+	/**
+	 * @throws \RuntimeException
+	 * @return \JTracker\Authentication\GitHub\GitHubUser
+	 */
+	public function getUser()
+	{
+		if (is_null($this->user))
+		{
+			throw new \RuntimeException('User not set');
+		}
+
+		return $this->user;
+	}
+
+	/**
+	 * @param \JTracker\Authentication\GitHub\GitHubUser $user
+	 */
+	public function setUser(GitHubUser $user)
+	{
+		$this->user = $user;
 	}
 }

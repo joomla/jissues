@@ -36,11 +36,11 @@ class DeleteController extends DefaultController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 
 		$app->getUser()->authorize('admin');
 
-		$model = new ProjectModel($this->container);
+		$model = new ProjectModel($this->container->get('db'));
 
 		$project = $model->getByAlias();
 
@@ -49,10 +49,10 @@ class DeleteController extends DefaultController
 		$table->delete($project->project_id);
 
 		// Reload the project
-		$this->getApplication()->getProject(true);
+		$this->container->get('app')->getProject(true);
 
-		$this->getInput()->set('view', 'projects');
+		$this->container->get('app')->input->set('view', 'projects');
 
-		return parent::execute();
+		parent::execute();
 	}
 }

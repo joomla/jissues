@@ -8,8 +8,9 @@
 
 namespace JTracker\Model;
 
+use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
-use Joomla\DI\Container;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Pagination\TrackerPagination;
@@ -46,16 +47,20 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	protected $query = array();
 
+	protected $input = null;
+
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   Container  $container  The DI container.
+	 * @param   DatabaseDriver  $database  The database driver.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct(DatabaseDriver $database, Input $input)
 	{
-		parent::__construct($container);
+		parent::__construct($database);
+
+		$this->input = $input;
 
 		// Set the context if not already done
 		if (is_null($this->context))
@@ -125,7 +130,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		// Create the pagination object.
 		$limit = (int) $this->state->get('list.limit') - (int) $this->state->get('list.links');
-		$page  = new TrackerPagination($this->container, $this->getTotal(), $this->getStart(), $limit);
+		//$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit, new Uri($app->get('uri.request'));
+		$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
 
 		// Add the object to the internal cache.
 		$this->cache[$store] = $page;
@@ -236,12 +242,11 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{
-			$app = $this->container->get('app');
-
-			$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
+			//$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
 
 			// @todo huge change here - no more session state...
-			$page = $app->input->getInt('page');
+			$limit = $this->input->getInt('list_limit', 20);
+			$page  = $this->input->getInt('page');
 
 			$value = $page ? ($page - 1) * $limit : 0;
 			$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);

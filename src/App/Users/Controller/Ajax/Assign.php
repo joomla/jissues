@@ -28,12 +28,12 @@ class Assign extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		if (false == $this->getApplication()->getUser()->check('manage'))
+		if (false == $this->container->get('app')->getUser()->check('manage'))
 		{
 			throw new \Exception('You are not authorized');
 		}
 
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 		$db    = $this->container->get('db');
 
 		$user    = $input->getCmd('user');
@@ -45,7 +45,7 @@ class Assign extends AbstractAjaxController
 			throw new \Exception('Missing group id');
 		}
 
-		$tableUsers = new TableUsers($this->container);
+		$tableUsers = new TableUsers($this->container->get('db'));
 
 		$tableUsers->loadByUserName($user);
 

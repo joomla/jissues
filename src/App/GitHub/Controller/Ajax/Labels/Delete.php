@@ -26,11 +26,11 @@ class Delete extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$name = $this->getInput()->getCmd('name');
+		$name = $this->container->get('app')->input->getCmd('name');
 
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->container->get('gitHub');

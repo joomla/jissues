@@ -8,6 +8,9 @@
 
 namespace JTracker\Authentication;
 
+use App\Projects\TrackerProject;
+
+use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 use Joomla\DI\Container;
 
@@ -76,10 +79,16 @@ abstract class User implements \Serializable
 	private $cleared = array();
 
 	/**
-	 * @var    Container
+	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
-	protected $container = null;
+	protected $database = null;
+
+	/**
+	 * @var    TrackerProject
+	 * @since  1.0
+	 */
+	protected $project = null;
 
 	/**
 	 * Constructor.
@@ -89,9 +98,10 @@ abstract class User implements \Serializable
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container, $identifier = 0)
+	public function __construct(TrackerProject $project, DatabaseDriver $database, $identifier = 0)
 	{
-		$this->container = $container;
+		$this->database = $database;
+		$this->project  = $project;
 
 		// Load the user if it exists
 		if ($identifier)
@@ -111,7 +121,7 @@ abstract class User implements \Serializable
 	 */
 	public function loadByUserName($userName)
 	{
-		$db = $this->container->get('db');
+		$db = $this->database;
 
 		$table = new TableUsers($db);
 
@@ -157,11 +167,11 @@ abstract class User implements \Serializable
 	 */
 	protected function load($identifier)
 	{
-		$db = $this->container->get('db');
+		//$db = $this->database;
 
 		// Create the user table object
 		// $table = $this->getTable();
-		$table = new TableUsers($db);
+		$table = new TableUsers($this->database);
 
 		// Load the JUserModel object based on the user id or throw a warning.
 		if (!$table->load($identifier))
@@ -205,7 +215,7 @@ abstract class User implements \Serializable
 	 */
 	protected function loadAccessGroups()
 	{
-		$db = $this->container->get('db');
+		$db = $this->database;
 
 		$this->accessGroups = $db->setQuery(
 			$db->getQuery(true)
@@ -288,8 +298,8 @@ abstract class User implements \Serializable
 
 		/* @type \App\Projects\TrackerProject $project */
 		/* @type \JTracker\Application $app */
-		$app = $this->container->get('app');
-		$project = $app->getProject();
+		//$app = $this->container->get('app');
+		$project = $this->project;// $app->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))
 		{
@@ -342,7 +352,7 @@ abstract class User implements \Serializable
 
 		foreach (get_object_vars($this) as $key => $value)
 		{
-			if (in_array($key, array('authModel', 'cleared', 'authId')))
+			if (in_array($key, array('authModel', 'cleared', 'authId', 'project', 'database')))
 			{
 				continue;
 			}

@@ -10,7 +10,6 @@ namespace JTracker\Database;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
-use Joomla\DI\Container;
 
 /**
  * Abstract Database Table class
@@ -58,12 +57,6 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @since  1.0
 	 */
 	protected $db;
-
-	/**
-	 * @var  Container
-	 * @since  1.0
-	 */
-	protected $container;
 
 	/**
 	 * Object constructor to set table and key fields.  In most cases this will

@@ -26,6 +26,11 @@ class ProjectHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
+	 * @var string
+	 */
+	protected $alias = '';
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -34,8 +39,29 @@ class ProjectHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('project', $this->model->getByAlias());
+		$this->renderer->set('project', $this->model->getByAlias($this->getAlias()));
 
 		return parent::render();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAlias()
+	{
+		if ('' == $this->alias)
+		{
+			//throw new \UnexpectedValueException('Alias not set.');
+		}
+
+		return $this->alias;
+	}
+
+	/**
+	 * @param string $alias
+	 */
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
 	}
 }

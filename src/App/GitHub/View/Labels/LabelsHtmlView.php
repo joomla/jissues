@@ -27,8 +27,7 @@ class LabelsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$app = $this->container->get('app');
-		$this->renderer->set('project', $app->getProject());
+		$this->renderer->set('project', $this->getProject());
 
 		return parent::render();
 	}

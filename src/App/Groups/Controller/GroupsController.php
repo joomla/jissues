@@ -33,7 +33,7 @@ class GroupsController extends DefaultController
 		parent::__construct($input, $app);
 
 		// Set the default view
-		$this->getInput()->set('view', 'groups');
+		$app->input->set('view', 'groups');
 	}
 
 	/**
@@ -45,8 +45,8 @@ class GroupsController extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('manage');
+		$this->container->get('app')->getUser()->authorize('manage');
 
-		return parent::execute();
+		parent::execute();
 	}
 }

@@ -46,7 +46,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		catch (\RuntimeException $e)
 		{
 			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
-			$this->getApplication()->close();
+			$this->container->get('app')->close();
 		}
 
 		// If the item is already in the database, update it; else, insert it.
@@ -137,7 +137,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->container->get('app')->close();
 		}
 
 		// Pull the user's avatar if it does not exist
@@ -253,7 +253,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->container->get('app')->close();
 		}
 
 		// Add a reopen record to the activity table if the status is closed

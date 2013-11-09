@@ -8,6 +8,8 @@
 
 namespace App\GitHub\Controller;
 
+use App\GitHub\View\Hooks\HooksHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -26,6 +28,11 @@ class Hooks extends AbstractTrackerController
 	protected $defaultView = 'hooks';
 
 	/**
+	 * @var  HooksHtmlView
+	 */
+	protected $view;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -34,8 +41,19 @@ class Hooks extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
 		parent::execute();
 	}
+
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setProject($this->container->get('app')->getProject());
+
+		return $this;
+	}
+
+
 }

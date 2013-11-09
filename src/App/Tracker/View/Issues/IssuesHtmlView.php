@@ -8,6 +8,7 @@
 
 namespace App\Tracker\View\Issues;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Model\IssuesModel;
 
 use JTracker\View\AbstractTrackerHtmlView;
@@ -28,6 +29,11 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
+	 * @var  TrackerProject
+	 */
+	protected $project = null;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -38,12 +44,34 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
-		$app = $this->container->get('app');
 		$this->renderer->set('items', $this->model->getItems());
 		$this->renderer->set('pagination', $this->model->getPagination());
 		$this->renderer->set('state', $this->model->getState());
-		$this->renderer->set('project', $app->getProject());
+		$this->renderer->set('project', $this->getProject());
 
 		return parent::render();
+	}
+
+	/**
+	 * @return \App\Projects\TrackerProject
+	 */
+	public function getProject()
+	{
+		if (is_null($this->project))
+		{
+			throw new \RuntimeException('No project set.');
+		}
+
+		return $this->project;
+	}
+
+	/**
+	 * @param \App\Projects\TrackerProject $project
+	 */
+	public function setProject(TrackerProject $project)
+	{
+		$this->project = $project;
+
+		return $this;
 	}
 }

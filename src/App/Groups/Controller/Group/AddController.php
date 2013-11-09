@@ -34,10 +34,10 @@ class AddController extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('manage');
+		$this->container->get('app')->getUser()->authorize('manage');
 
-		$this->getInput()->set('layout', 'edit');
-		$this->getInput()->set('view', 'group');
+		$this->container->get('app')->input->set('layout', 'edit');
+		$this->container->get('app')->input->set('view', 'group');
 
 		return parent::execute();
 	}

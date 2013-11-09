@@ -8,9 +8,6 @@
 
 namespace App\Tracker\Controller\Issue;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -23,17 +20,22 @@ class ListController extends AbstractTrackerController
 	/**
 	 * Constructor
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct()
 	{
-		parent::__construct($input, $app);
+		parent::__construct();
 
 		// Set the default view
 		$this->defaultView = 'issues';
+	}
+
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->model->setProject($this->container->get('app')->getProject());
+		$this->view->setProject($this->container->get('app')->getProject());
 	}
 
 	/**
@@ -45,7 +47,7 @@ class ListController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('view');
+		$this->container->get('app')->getUser()->authorize('view');
 
 		parent::execute();
 	}

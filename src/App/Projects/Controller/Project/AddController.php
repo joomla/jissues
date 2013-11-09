@@ -34,10 +34,10 @@ class AddController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$this->getInput()->set('layout', 'edit');
+		$this->container->get('app')->input->set('layout', 'edit');
 
-		return parent::execute();
+		parent::execute();
 	}
 }

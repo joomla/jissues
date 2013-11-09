@@ -8,7 +8,8 @@
 
 namespace JTracker\Model;
 
-use Joomla\DI\Container;
+use App\Projects\TrackerProject;
+
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
 
@@ -46,26 +47,20 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	protected $table;
 
 	/**
-	 * @var    Container
-	 * @since  1.0
+	 * @var  TrackerProject
 	 */
-	protected $container;
+	protected $project;
 
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   Container       $container  The DI container.
 	 * @param   DatabaseDriver  $database   The database adapter.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container, DatabaseDriver $database = null)
+	public function __construct(DatabaseDriver $database)
 	{
-		$database = (is_null($database)) ? $container->get('db') : $database;
-
 		parent::__construct($database);
-
-		$this->container = $container;
 
 		// Guess the option from the class name (Option)Model(View).
 		if (empty($this->option))
@@ -148,5 +143,28 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 		$this->table = new $class($this->getDb());
 
 		return $this->table;
+	}
+
+	/**
+	 * @return \App\Projects\TrackerProject
+	 */
+	public function getProject()
+	{
+		if (is_null($this->project))
+		{
+			throw new \UnexpectedValueException('Project not set');
+		}
+
+		return $this->project;
+	}
+
+	/**
+	 * @param \App\Projects\TrackerProject $project
+	 */
+	public function setProject(TrackerProject $project)
+	{
+		$this->project = $project;
+
+		return $this;
 	}
 }

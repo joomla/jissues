@@ -8,6 +8,8 @@
 
 namespace App\Support\Controller;
 
+use App\Support\View\Devdox\DevdoxHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -24,4 +26,16 @@ class Devdox extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'devdox';
+
+	/**
+	 * @var DevdoxHtmlView
+	 */
+	protected $view = null;
+
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setAlias($this->container->get('app')->input->getCmd('alias'));
+	}
 }

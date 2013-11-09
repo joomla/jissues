@@ -27,9 +27,9 @@ class SaveController extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('manage');
+		$this->container->get('app')->getUser()->authorize('manage');
 
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$group = $input->get('group', array(), 'array');
 
@@ -37,7 +37,7 @@ class SaveController extends DefaultController
 
 		$table->save($group);
 
-		$this->getInput()->set('view', 'groups');
+		$input->set('view', 'groups');
 
 		return parent::execute();
 	}

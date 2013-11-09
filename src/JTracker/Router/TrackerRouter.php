@@ -8,11 +8,12 @@
 
 namespace JTracker\Router;
 
-use Joomla\Application\AbstractApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
+
 use JTracker\Router\Exception\RoutingException;
 
 /**
@@ -23,29 +24,26 @@ use JTracker\Router\Exception\RoutingException;
 class TrackerRouter extends Router
 {
 	/**
-	 * Application object to inject into controllers
+	 * Container object to inject into controllers
 	 *
-	 * @var    AbstractApplication
+	 * @var    Container
 	 * @since  1.0
 	 */
-	protected $app;
-
 	protected $container;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param   Container  $container  The DI container.
+	 * @param   Input      $input      The Input object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct(Container $container, Input $input = null)
 	{
-		parent::__construct($container->get('app')->input);
+		parent::__construct($input);
 
 		$this->container = $container;
-
-		$this->app = $container->get('app');
 	}
 
 	/**
@@ -92,25 +90,18 @@ class TrackerRouter extends Router
 		$class = $this->controllerPrefix . ucfirst($name);
 
 		// Check for the requested controller.
-		if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
+		if (!class_exists($class))
 		{
-			// See if there's an action class in the libraries if we aren't calling the default task
-			$task = $this->input->getCmd('task');
-
-			if ($task && $task != 'default')
-			{
-				$class = '\\JTracker\\Controller\\' . ucfirst($task) . 'Controller';
-			}
-
-			if (!class_exists($class) || !is_subclass_of($class, 'Joomla\\Controller\\ControllerInterface'))
-			{
-				// Nothing found. Panic.
-				throw new \RuntimeException(sprintf('Controller not found for %s task', $task));
-			}
+			throw new \RuntimeException(sprintf('Controller %s not found', $name));
 		}
 
 		// Instantiate the controller.
-		$controller = new $class($this->container);
+		$controller = new $class($this->input, $this->container->get('app'));
+
+		if ($controller instanceof ContainerAwareInterface)
+		{
+			$controller->setContainer($this->container);
+		}
 
 		return $controller;
 	}

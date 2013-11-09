@@ -8,6 +8,8 @@
 
 namespace App\Users\Controller;
 
+use App\Users\Model\UserModel;
+use App\Users\View\User\UserHtmlView;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -24,4 +26,30 @@ class User extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'user';
+
+	/**
+	 * @var  UserHtmlView
+	 */
+	protected $view;
+
+	/**
+	 * @var  UserModel
+	 */
+	protected $model;
+
+	public function initialize()
+	{
+		parent::initialize();
+
+		$id = $this->container->get('app')->input->getUint('id');
+
+		if (!$id)
+		{
+			throw new \UnexpectedValueException('No id given');
+		}
+
+		$this->view->id = $id;
+
+		$this->model->setProject($this->container->get('app')->getProject());
+	}
 }

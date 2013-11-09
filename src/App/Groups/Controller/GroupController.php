@@ -8,7 +8,9 @@
 
 namespace App\Groups\Controller;
 
+use App\Groups\Model\GroupModel;
 use App\Tracker\Controller\DefaultController;
+
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
@@ -20,6 +22,11 @@ use Joomla\Input\Input;
  */
 class GroupController extends DefaultController
 {
+	/**
+	 * @var  GroupModel
+	 */
+	protected $model;
+
 	/**
 	 * Constructor
 	 *
@@ -33,8 +40,15 @@ class GroupController extends DefaultController
 		parent::__construct($input, $app);
 
 		// Set the default view
-		$this->getInput()->set('view', 'group');
-		$this->getInput()->set('layout', 'edit');
+		$input->set('view', 'group');
+		$input->set('layout', 'edit');
+	}
+
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->model->setGroupId($this->container->get('app')->input->getInt('group_id'));
 	}
 
 	/**
@@ -46,7 +60,7 @@ class GroupController extends DefaultController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('manage');
+		$this->container->get('app')->getUser()->authorize('manage');
 
 		return parent::execute();
 	}

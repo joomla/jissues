@@ -30,10 +30,10 @@ class Submit extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('create');
+		$this->container->get('app')->getUser()->authorize('create');
 
-		$comment      = $this->getInput()->get('text', '', 'raw');
-		$issue_number = $this->getInput()->getInt('issue_number');
+		$comment      = $this->container->get('app')->input->get('text', '', 'raw');
+		$issue_number = $this->container->get('app')->input->getInt('issue_number');
 
 		if (!$issue_number)
 		{
@@ -51,7 +51,7 @@ class Submit extends AbstractAjaxController
 			'https://github.com/joomla/jissues', 'J!Tracker'
 		);
 
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->container->get('gitHub');
@@ -86,7 +86,7 @@ class Submit extends AbstractAjaxController
 			$date = new Date;
 
 			$data->created_at = $date->format($db->getDateFormat());
-			$data->opened_by  = $this->getApplication()->getUser()->username;
+			$data->opened_by  = $this->container->get('app')->getUser()->username;
 			$data->comment_id = '???';
 
 			$data->text_raw = $comment;

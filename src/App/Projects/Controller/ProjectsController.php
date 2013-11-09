@@ -24,4 +24,11 @@ class ProjectsController extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'projects';
+
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->model->setUser($this->container->get('app')->getUser());
+	}
 }

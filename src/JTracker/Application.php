@@ -15,7 +15,6 @@ use App\Projects\TrackerProject;
 use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\Controller\ControllerInterface;
 use Joomla\DI\Container;
 use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
@@ -135,7 +134,7 @@ final class Application extends AbstractWebApplication
 		try
 		{
 			// Instantiate the router
-			$router = new TrackerRouter($this->container);
+			$router = new TrackerRouter($this->container, $this->input);
 			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
@@ -151,17 +150,29 @@ final class Application extends AbstractWebApplication
 			/* @type AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
-			// Define the app path
-			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getComponent()));
+			$controller->initialize();
 
-			// Execute the component
-			$contents = $this->executeApp($controller, $controller->getComponent());
+			// Execute the App
+
+			// Define the app path
+			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
+
+			// Load the App language file
+			g11n::loadLanguage($controller->getApp(), 'App');
+
+			// Start an output buffer.
+			ob_start();
+
+			$controller->execute();
+
+			$contents = ob_get_clean();
 
 			$this->mark('Application terminated');
 
 			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
 
 			$this->setBody($contents);
+
 		}
 		catch (AuthenticationException $exception)
 		{
@@ -243,30 +254,6 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
-	 * Execute the App.
-	 *
-	 * @param   ControllerInterface  $controller  The controller instance to execute
-	 * @param   string               $app         The App being executed.
-	 *
-	 * @return  string The App output
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	protected function executeApp(ControllerInterface $controller, $app)
-	{
-		// Load the App language file
-		g11n::loadLanguage($app, 'App');
-
-		// Start an output buffer.
-		ob_start();
-
-		$controller->execute();
-
-		return ob_get_clean();
-	}
-
-	/**
 	 * Provides a secure hash based on a seed
 	 *
 	 * @param   string  $seed  Seed string.
@@ -295,7 +282,14 @@ final class Application extends AbstractWebApplication
 	{
 		if (is_null($this->newSession))
 		{
+//			$storage = new NullSessionHandler;
+//			$storage = new NativeSessionStorage(array(), new PdoSessionHandler());
+			//$storage = new NativeSessionStorage(array(), new NullSessionHandler);
+			//$storage = new PhpBridgeSessionStorage;//(array(), new NullSessionHandler);
+			//$this->newSession = new DummySession;
+			//$this->newSession = new Session($storage);
 			$this->newSession = new Session;
+
 			$this->newSession->start();
 		}
 
@@ -315,13 +309,13 @@ final class Application extends AbstractWebApplication
 	{
 		if ($id)
 		{
-			return new GitHubUser($id);
+			return new GitHubUser($this->getProject(), $this->container->get('db'), $id);
 		}
 
 		if (is_null($this->user))
 		{
 			$this->user = ($this->getSession()->get('user'))
-				? : new GitHubUser($this->container);
+				? : new GitHubUser($this->getProject(), $this->container->get('db'));
 		}
 
 		return $this->user;
@@ -346,13 +340,19 @@ final class Application extends AbstractWebApplication
 				$lang = g11n::getDefault();
 			}
 
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown default language - Fall back to British.
+				$lang = 'en-GB';
+			}
+
 			// Store the language tag to the session.
 			$this->getSession()->set('lang', $lang);
 		}
 		else
 		{
-			// Get the language tag from the session.
-			$lang = $this->getSession()->get('lang');
+			// Get the language tag from the session - Default to British.
+			$lang = $this->getSession()->get('lang', 'en-GB');
 		}
 
 		if ($lang)
@@ -361,10 +361,10 @@ final class Application extends AbstractWebApplication
 			g11n::setCurrent($lang);
 		}
 
-		// Set language debugging
+		// Set language debugging.
 		g11n::setDebug($this->get('debug.language'));
 
-		// Set the directory used to store language cache files
+		// Set the language cache directory.
 		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
 		{
 			g11n::setCacheDir('/tmp');
@@ -374,7 +374,7 @@ final class Application extends AbstractWebApplication
 			g11n::setCacheDir(JPATH_ROOT . '/cache');
 		}
 
-		// Load the core language file
+		// Load the core language file.
 		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
 		g11n::loadLanguage('JTracker', 'Core');
 
@@ -382,12 +382,12 @@ final class Application extends AbstractWebApplication
 		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
 		g11n::loadLanguage('JTracker', 'Template');
 
-		// Add the App domain path
+		// Add the App domain path.
 		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 
 		if (JDEBUG)
 		{
-			// Load the Debug App language file
+			// Load the Debug App language file.
 			g11n::loadLanguage('Debug', 'App');
 		}
 
@@ -408,7 +408,7 @@ final class Application extends AbstractWebApplication
 		if (is_null($user))
 		{
 			// Logout
-			$this->user = new GitHubUser($this->container);
+			$this->user = new GitHubUser($this->getProject(), $this->container->get('db'));
 
 			$this->getSession()->set('user', $this->user);
 
@@ -565,8 +565,9 @@ final class Application extends AbstractWebApplication
 	/**
 	 * Get the current project.
 	 *
-	 * @param   boolean  $reload  Reload the project.
+	 * @param    boolean  $reload  Reload the project.
 	 *
+	 * @throws \InvalidArgumentException
 	 * @return  TrackerProject
 	 *
 	 * @since   1.0
@@ -575,71 +576,68 @@ final class Application extends AbstractWebApplication
 	{
 		if (is_null($this->project) || $reload)
 		{
-			$this->loadProject($reload);
+			$alias = $this->input->get('project_alias');
+
+			if ($alias)
+			{
+				// Change the project
+				$project = with(new ProjectModel($this->container->get('db')))
+					->getByAlias($alias);
+
+				if (!$project)
+				{
+					// No project...
+					throw new \InvalidArgumentException('Invalid project');
+				}
+			}
+			else
+			{
+				$sessionAlias = $this->getSession()->get('project_alias');
+
+				// No Project set
+				if ($sessionAlias)
+				{
+					// Found a session Project.
+					$project = with(new ProjectModel($this->container->get('db')))
+						->getByAlias($sessionAlias);
+				}
+				else
+				{
+					// Nothing found - Get a default project !
+					$project = with(new ProjectModel($this->container->get('db')))
+						->getItem(1);
+				}
+			}
+
+			$this->getSession()->set('project_alias', $project->alias);
+			$this->input->set('project_id', $project->project_id);
+
+			$this->project = $project;
 		}
 
 		return $this->project;
 	}
+}
 
-	/**
-	 * Load the current project.
-	 *
-	 * @param   boolean  $reload  Reload the project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	private function loadProject($reload = false)
+
+
+class DummySession extends Registry
+{
+	public function getFlashBag()
 	{
-		$alias = $this->input->get('project_alias');
+		return new dummyBag;
+	}
+}
 
-		$sessionProject = $this->getSession()->get('project');
+class dummyBag
+{
+	public function peekAll()
+	{
+		return array();
+	}
 
-		if ($alias)
-		{
-			// A Project is set
-			if ($sessionProject
-				&& $alias == $sessionProject->alias
-				&& false == $reload)
-			{
-				// Use the Project stored in the session
-				$this->project = $sessionProject;
+	public function clear()
+	{
 
-				return $this;
-			}
-
-			// Change the project
-			$projectModel = new ProjectModel($this->container);
-			$project = $projectModel->getByAlias($alias);
-
-			if (!$project)
-			{
-				// No project...
-				throw new \InvalidArgumentException('Invalid project');
-			}
-		}
-		else
-		{
-			// No Project set
-			if ($sessionProject)
-			{
-				// No Project set - use the session Project.
-				$project = $sessionProject;
-			}
-			else
-			{
-				// Nothing found - Set a default project !
-				$projectModel = new ProjectModel($this->container);
-				$project = $projectModel->getItem(1);
-			}
-		}
-
-		$this->getSession()->set('project', $project);
-
-		$this->project = $project;
-
-		return $this;
 	}
 }
