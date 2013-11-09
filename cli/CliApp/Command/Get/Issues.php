@@ -185,7 +185,7 @@ class Issues extends Get
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($this->container);
+			$table = new IssuesTable($this->container->get('db'));
 
 			$table->issue_number = $issue->number;
 			$table->title        = $issue->title;

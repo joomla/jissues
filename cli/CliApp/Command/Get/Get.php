@@ -124,7 +124,9 @@ class Get extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel($this->container))->getItems();
+		$model = new ProjectsModel($this->container->get('db'), $this->container->get('app')->input);
+		$model->setUser($this->container->get('app')->getUser());
+		$projects = $model->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
 

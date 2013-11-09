@@ -8,6 +8,8 @@ namespace CliApp\Command\Make;
 
 use CliApp\Command\TrackerCommand;
 
+use Joomla\DI\Container;
+
 /**
  * Class for retrieving issues from GitHub for selected projects
  *

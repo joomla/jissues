@@ -6,6 +6,8 @@
 
 namespace CliApp\Application;
 
+use App\Projects\TrackerProject;
+
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 use CliApp\Service\GitHubProvider;
@@ -306,7 +308,10 @@ class CliApplication extends AbstractCliApplication
 	public function getUser()
 	{
 		// Urgh..
-		$user = new GitHubUser($this->container);
+		$user = new GitHubUser(
+			new TrackerProject($this->container->get('db')),
+			$this->container->get('db')
+		);
 		$user->isAdmin = true;
 
 		return $user;
