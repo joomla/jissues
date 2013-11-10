@@ -8561,6 +8561,5 @@ img.avatar {
     padding: 7px 7px 0 7px;
     border-radius: 3px;
 }
-.row-activity .well{margin-bottom: 10px}
-.row-activity img{margin-bottom: 10px}
+.row-activity .well, .row-activity img{margin-bottom: 10px}
 img.emoji, .row-activity .well img{margin-bottom: 0}
