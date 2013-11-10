@@ -8547,3 +8547,20 @@ div#nav-search form input[type="text"] {
 }
 .helpText{float: none; margin-left: 0}
 label.error{color: #b94a48;}
+img.avatar {
+    border: 1px solid #EEEEEE;
+    padding: 2px;
+    border-radius: 3px;
+}
+.activity-avatar {
+    padding-left: 0;
+}
+.row-activity {
+    border: 1px solid #EEEEEE;
+    margin-top: 15px;
+    padding: 7px 7px 0 7px;
+    border-radius: 3px;
+}
+.row-activity .well{margin-bottom: 10px}
+.row-activity img{margin-bottom: 10px}
+img.emoji, .row-activity .well img{margin-bottom: 0}

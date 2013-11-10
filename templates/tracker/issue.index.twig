@@ -220,10 +220,10 @@
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
     {% for activity in item.activities %}
-        <div class="row-fluid" id="activity-{{ activity.activities_id }}">
+        <div class="row-activity" id="activity-{{ activity.activities_id }}">
             <div class="row-fluid">
-                <div class="span1 well-small">
-                    {{ avatar(activity.user)|raw }}
+                <div class="span1 activity-avatar hidden-phone">
+                    {{ avatar(activity.user, 40)|raw }}
                 </div>
                 <div class="span11">
                     <div class="well well-small">
