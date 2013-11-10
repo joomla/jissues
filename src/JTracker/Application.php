@@ -401,8 +401,9 @@ final class Application extends AbstractWebApplication
 	/**
 	 * Login or logout a user.
 	 *
-	 * @param   User  $user  The user object.
+	 * @param   User $user The user object.
 	 *
+	 * @throws \UnexpectedValueException
 	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
@@ -418,7 +419,7 @@ final class Application extends AbstractWebApplication
 
 			// @todo cleanup more ?
 		}
-		else
+		elseif($user instanceof User)
 		{
 			// Login
 			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
@@ -426,6 +427,10 @@ final class Application extends AbstractWebApplication
 			$this->user = $user;
 
 			$this->getSession()->set('user', $user);
+		}
+		else
+		{
+			throw new \UnexpectedValueException('Wrong parameter when instantiating a new user object.');
 		}
 
 		return $this;
