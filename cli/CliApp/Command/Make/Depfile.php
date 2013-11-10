@@ -7,6 +7,7 @@
 namespace CliApp\Command\Make;
 
 use CliApp\Application\CliApplication;
+use Joomla\DI\Container;
 
 /**
  * Class for generating a dependency file.
@@ -18,13 +19,13 @@ class Depfile extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct(Container $container)
 	{
-		$this->application = $application;
+		$this->application = $container->get('app');
 		$this->description = 'Create and update a dependency file.';
 	}
 

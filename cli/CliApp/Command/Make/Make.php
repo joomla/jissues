@@ -46,13 +46,6 @@ class Make extends TrackerCommand
 		parent::__construct($container);
 
 		$this->description = 'The make engine.';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'noprogress', '',
-				'Don\'t use a progress bar.'
-			)
-		);
 	}
 
 	/**

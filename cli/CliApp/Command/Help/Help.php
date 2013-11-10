@@ -205,7 +205,7 @@ class Help extends TrackerCommand
 
 			$className = "CliApp\\Command\\$c\\$c";
 
-			$commands[strtolower($c)] = new $className($this->application);
+			$commands[strtolower($c)] = new $className($this->container);
 		}
 
 		return $commands;
@@ -241,7 +241,7 @@ class Help extends TrackerCommand
 			{
 				$className = "CliApp\\Command\\$cName\\$action";
 
-				$actions[strtolower($action)] = new $className($this->application);
+				$actions[strtolower($action)] = new $className($this->container);
 			}
 		}
 
