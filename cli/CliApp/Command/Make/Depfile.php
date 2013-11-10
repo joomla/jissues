@@ -6,7 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
 use Joomla\DI\Container;
 
 /**

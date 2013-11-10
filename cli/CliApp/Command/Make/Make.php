@@ -7,7 +7,6 @@
 namespace CliApp\Command\Make;
 
 use CliApp\Command\TrackerCommand;
-use CliApp\Command\TrackerCommandOption;
 
 use Joomla\DI\Container;
 
