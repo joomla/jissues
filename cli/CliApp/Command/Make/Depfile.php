@@ -6,6 +6,9 @@
 
 namespace CliApp\Command\Make;
 
+use Mustache_Engine;
+use Mustache_Loader_FilesystemLoader;
+
 /**
  * Class for generating a dependency file.
  *
@@ -13,6 +16,18 @@ namespace CliApp\Command\Make;
  */
 class Depfile extends Make
 {
+	/**
+	 * @var  object
+	 * @since   1.0
+	 */
+	public $product = null;
+
+	/**
+	 * @var array
+	 * @since   1.0
+	 */
+	public $dependencies = array();
+
 	/**
 	 * Constructor.
 	 *
@@ -36,12 +51,14 @@ class Depfile extends Make
 	public function execute()
 	{
 		$packages = array();
-		$defined = array();
+		$defined  = array();
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
 
 		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
+
+		$this->product = $defined['composer'];
 
 		foreach ($installed as $entry)
 		{
@@ -73,8 +90,21 @@ class Depfile extends Make
 			$packages['bower'][$package->name] = $package;
 		}
 
+		$this->dependencies = $this->getSorted($defined, $packages);
+
+		echo with(new Mustache_Engine)
+			->render(
+				with(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
+					->load('depfile'),
+				$this
+			);
+
 		// @todo write to a file
-		$this->out($this->getOutput($defined, $packages));
+		// $m = new Mustache_Engine;
+		// $loader = new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'));
+		// $tpl = $loader->load('deplist');
+
+		// $output = $m->render($tpl, $this);
 
 		$this->out()
 			->out('Finished =;)');
@@ -90,71 +120,68 @@ class Depfile extends Make
 	 *
 	 * @since   1.0
 	 */
-	private function getOutput(array $defined, array $packages)
+	private function getSorted(array $defined, array $packages)
 	{
-		$output = array();
+		$sorted = array();
 
-		$subs = array('Production' => 'require', 'Development' => 'require-dev');
-
-		$product = $defined['composer'];
-
-		$output[] = sprintf('# Dependencies for %s %s', $product->name, $product->version);
-		$output[] = '';
-		$output[] = $product->description;
-		$output[] = '';
-		$output[] = '* Source URL: ' . $product->homepage;
-		$output[] = '';
-
-		foreach ($subs as $title => $sub)
+		foreach (array('require' => 'php', 'require-dev' => 'php-dev') as $sub => $section)
 		{
-			$output[] = '## PHP - ' . $title;
-			$output[] = '';
+			$items = array();
 
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
-				$output[] = sprintf('#### %s (%s)', $packageName, $version);
-				$output[] = '';
+				if ('php' == $packageName)
+				{
+					continue;
+				}
+
+				$item              = new \stdClass;
+				$item->packageName = $packageName;
+				$item->version     = $version;
+				$item->installed   = '';
+				$item->description = '';
+				$item->sourceRef   = '';
+				$item->sourceURL   = '';
 
 				if (isset($packages['composer'][$packageName]))
 				{
 					$package = $packages['composer'][$packageName];
 
-					$output[] = $package->description;
-					$output[] = '';
-					$output[] = '* Installed: ' . $package->version;
+					$item->description = $package->description;
+					$item->installed   = $package->version;
+					$item->sourceURL   = $package->sourceURL;
 
 					if ('dev-master' == $package->version)
 					{
-						$output[] = '* Ref.: ' . $package->sourceRef;
+						$item->sourceRef = $package->sourceRef;
 					}
-
-					$output[] = '* Source URL: ' . $package->sourceURL;
-					$output[] = '';
 				}
 
+				$items[] = $item;
 			}
-		}
 
-		$output[] = '## JavaScript';
-		$output[] = '';
+			$sorted[$section] = $items;
+		}
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
 		{
 			$package = $packages['bower'][$packageName];
 
-			$output[] = sprintf('#### %s (%s)', $packageName, $version);
-			$output[] = '';
+			$item = new \stdClass;
+
+			$item->packageName = $packageName;
+			$item->version     = $version;
+			$item->description = '';
+			$item->sourceURL   = $package->sourceURL;
 
 			if ($package->description)
 			{
-				$output[] = $package->description;
-				$output[] = '';
+				$item->description = $package->description;
 			}
 
-			$output[] = '* Source URL: ' . $package->sourceURL;
-			$output[] = '';
+			$sorted['javascript'][] = $item;
 		}
 
-		return implode("\n", $output);
+		return $sorted;
 	}
 }

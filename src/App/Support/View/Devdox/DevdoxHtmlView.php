@@ -52,6 +52,12 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 
 			$item = $this->model->getItem($alias);
 			$this->renderer->set('page', $item->getIterator());
+
+			$this->renderer->set(
+				'editLink',
+				'https://github.com/joomla/jissues/edit/framework/Documentation/'
+				. substr($alias, 4) . '.md'
+			);
 		}
 		catch (\RuntimeException $e)
 		{

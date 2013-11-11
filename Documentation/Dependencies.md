@@ -6,14 +6,11 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ## PHP - Production
 
-#### php (>=5.3.10)
-
 #### joomla/framework (dev-master)
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
 
-* Installed: dev-master
-* Ref.: 3487158a0e65b76c9dbd774864f6506ee82152f9
+* Installed: dev-master fe570588d1817697b28b2e8695eac09ac5e1977b
 * Source URL: https://github.com/joomla/joomla-framework.git
 
 #### symfony/http-foundation (2.3.*@stable)
@@ -34,8 +31,7 @@ Twig, the flexible, fast, and secure template language for PHP
 
 The g11n language library
 
-* Installed: dev-master
-* Ref.: 5513821386f4c01daa09a28587a5f6f9ef546827
+* Installed: dev-master 5513821386f4c01daa09a28587a5f6f9ef546827
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -58,15 +54,14 @@ Sends your logs to files, sockets, inboxes, databases and various web services
 
 Kint - debugging helper for PHP developers
 
-* Installed: dev-master
-* Ref.: 24a15aa6e666aa9492f4bb43b48a3dbf531014ac
+* Installed: dev-master aa4f10f0f5bdeabff515513f3a31388f196a5b5f
 * Source URL: https://github.com/raveren/kint.git
 
 #### filp/whoops (1.0.*@stable)
 
 php error handling for cool kids
 
-* Installed: 1.0.9
+* Installed: 1.0.8
 * Source URL: https://github.com/filp/whoops.git
 
 ## JavaScript
@@ -97,7 +92,6 @@ Unofficial bootstrap switch
 
 #### blueimp-tmpl (2.4.0)
 
-< 1KB lightweight, fast & powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
+&lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
 
 * Source URL: https://github.com/blueimp/JavaScript-Templates
-
