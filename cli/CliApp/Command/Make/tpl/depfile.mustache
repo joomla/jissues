@@ -6,29 +6,29 @@
 
 ## PHP - Production
 
-{{# data.php.require }}
+{{# dependencies.php }}
 #### {{ packageName }} ({{ version }})
 
 * Installed: {{ installed }} {{ sourceRef }}
 * Source URL: {{ sourceURL }}
 
-{{/ data.php.require }}
+{{/ dependencies.php }}
 ## PHP - Development
 
-{{# data.php.require-dev }}
+{{# dependencies.php-dev }}
 #### {{ packageName }} ({{ version }})
 
 * Installed: {{ installed }} {{ sourceRef }}
 * Source URL: {{ sourceURL }}
 
-{{/ data.php.require-dev }}
+{{/ dependencies.php-dev }}
 ## JavaScript
 
-{{# data.javascript}}
+{{# dependencies.javascript}}
 #### {{ packageName }} ({{ version }})
 
 {{ description }}
 
 * Source URL: {{ sourceURL }}
 
-{{/ data.javascript}}
+{{/ dependencies.javascript}}

@@ -28,7 +28,7 @@ class Depfile extends Make
 	 * @var array
 	 * @since   1.0
 	 */
-	public $data = array();
+	public $dependencies = array();
 
 	/**
 	 * Constructor.
@@ -93,7 +93,7 @@ class Depfile extends Make
 			$packages['bower'][$package->name] = $package;
 		}
 
-		$this->data = $this->getSorted($defined, $packages);
+		$this->dependencies = $this->getSorted($defined, $packages);
 
 		echo with(new Mustache_Engine)
 			->render(
@@ -127,12 +127,17 @@ class Depfile extends Make
 	{
 		$sorted = array();
 
-		foreach (array('require', 'require-dev') as $sub)
+		foreach (array('require' => 'php', 'require-dev' => 'php-dev') as $sub => $section)
 		{
 			$items = array();
 
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
+				if ('php' == $packageName)
+				{
+					continue;
+				}
+
 				$item              = new \stdClass;
 				$item->packageName = $packageName;
 				$item->version     = $version;
@@ -158,7 +163,7 @@ class Depfile extends Make
 				$items[] = $item;
 			}
 
-			$sorted['php'][$sub] = $items;
+			$sorted[$section] = $items;
 		}
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
