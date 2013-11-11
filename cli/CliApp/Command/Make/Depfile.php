@@ -18,8 +18,16 @@ use Mustache_Loader_FilesystemLoader;
  */
 class Depfile extends Make
 {
+	/**
+	 * @var  object
+	 * @since   1.0
+	 */
 	public $product = null;
 
+	/**
+	 * @var array
+	 * @since   1.0
+	 */
 	public $data = array();
 
 	/**
@@ -46,10 +54,10 @@ class Depfile extends Make
 	public function execute()
 	{
 		$packages = array();
-		$defined = array();
+		$defined  = array();
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
-		$defined['bower'] = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
+		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
 
 		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
 
@@ -59,11 +67,11 @@ class Depfile extends Make
 		{
 			$package = new \stdClass;
 
-			$package->name = $entry->name;
+			$package->name        = $entry->name;
 			$package->description = $entry->description;
-			$package->version = $entry->version;
-			$package->sourceURL = $entry->source->url;
-			$package->sourceRef = isset($entry->source->reference) ? $entry->source->reference : '';
+			$package->version     = $entry->version;
+			$package->sourceURL   = $entry->source->url;
+			$package->sourceRef   = isset($entry->source->reference) ? $entry->source->reference : '';
 
 			$packages['composer'][$entry->name] = $package;
 		}
@@ -78,9 +86,9 @@ class Depfile extends Make
 
 			$package = new \stdClass;
 
-			$package->name = $info->name;
+			$package->name        = $info->name;
 			$package->description = isset($info->description) ? $info->description : '';
-			$package->sourceURL = $info->homepage;
+			$package->sourceURL   = $info->homepage;
 
 			$packages['bower'][$package->name] = $package;
 		}
@@ -125,21 +133,21 @@ class Depfile extends Make
 
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
-				$item = new \stdClass;
+				$item              = new \stdClass;
 				$item->packageName = $packageName;
-				$item->version = $version;
-				$item->installed = '';
+				$item->version     = $version;
+				$item->installed   = '';
 				$item->description = '';
-				$item->sourceRef = '';
-				$item->sourceURL = '';
+				$item->sourceRef   = '';
+				$item->sourceURL   = '';
 
 				if (isset($packages['composer'][$packageName]))
 				{
 					$package = $packages['composer'][$packageName];
 
 					$item->description = $package->description;
-					$item->installed = $package->version;
-					$item->sourceURL = $package->sourceURL;
+					$item->installed   = $package->version;
+					$item->sourceURL   = $package->sourceURL;
 
 					if ('dev-master' == $package->version)
 					{
@@ -160,9 +168,9 @@ class Depfile extends Make
 			$item = new \stdClass;
 
 			$item->packageName = $packageName;
-			$item->version = $version;
+			$item->version     = $version;
 			$item->description = '';
-			$item->sourceURL = $package->sourceURL;
+			$item->sourceURL   = $package->sourceURL;
 
 			if ($package->description)
 			{
