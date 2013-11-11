@@ -20,14 +20,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Page extends AbstractTrackerController
 {
 	/**
-	 * The item view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'page';
-
-	/**
 	 * @var PageHtmlView
 	 */
 	protected $view = null;

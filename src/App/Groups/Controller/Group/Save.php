@@ -1,42 +1,43 @@
 <?php
 /**
- * Part of the Joomla Tracker's Tracker Application
+ * Part of the Joomla Tracker's Groups Application
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Tracker\Controller;
+namespace App\Groups\Controller\Group;
 
-use App\Tracker\Model\IssuesModel;
-use App\Tracker\View\Issues\IssuesHtmlView;
+use App\Groups\Model\GroupModel;
+use App\Groups\Table\GroupsTable;
 
+use App\Groups\View\Group\GroupHtmlView;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Default controller class for the Tracker component.
+ * Controller class to save a group.
  *
  * @since  1.0
  */
-class DefaultController extends AbstractTrackerController
+class Save extends AbstractTrackerController
 {
 	/**
-	 * @var IssuesHtmlView
-	 */
-	protected $view;
-
-	/**
-	 * @var IssuesModel
-	 */
-	protected $model;
-
-	/**
-	 * The default view for the app
+	 * The default view for the app.
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'issues';
+	protected $defaultView = 'groups';
+
+	/**
+	 * @var  GroupModel
+	 */
+	protected $model;
+
+	/**
+	 * @var  GroupHtmlView
+	 */
+	protected $view;
 
 	/**
 	 * Initialize the controller.
@@ -44,14 +45,17 @@ class DefaultController extends AbstractTrackerController
 	 * @return  $this
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function initialize()
 	{
 		parent::initialize();
 
+		$this->container->get('app')->getUser()->authorize('manage');
+
 		$this->model->setProject($this->container->get('app')->getProject());
 		$this->view->setProject($this->container->get('app')->getProject());
+
+		return $this;
 	}
 
 	/**
@@ -63,14 +67,12 @@ class DefaultController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$group = $this->container->get('app')->input->get('group', array(), 'array');
 
-		if ($application->getProject()->project_id)
-		{
-			$application->getUser()->authorize('view', $application->getProject());
-		}
+		$table = new GroupsTable($this->container->get('db'));
 
-		parent::execute();
+		$table->save($group);
+
+		return parent::execute();
 	}
 }

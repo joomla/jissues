@@ -20,14 +20,6 @@ use JTracker\Controller\AbstractTrackerController;
 class User extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'user';
-
-	/**
 	 * @var  UserHtmlView
 	 */
 	protected $view;
@@ -37,6 +29,16 @@ class User extends AbstractTrackerController
 	 */
 	protected $model;
 
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
 	public function initialize()
 	{
 		parent::initialize();

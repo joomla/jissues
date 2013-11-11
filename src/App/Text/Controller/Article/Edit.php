@@ -8,15 +8,17 @@
 
 namespace App\Text\Controller\Article;
 
+use App\Text\Model\ArticleModel;
 use App\Text\View\Article\ArticleHtmlView;
-use App\Tracker\Controller\DefaultController;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to edit an article.
  *
  * @since  1.0
  */
-class Edit extends DefaultController
+class Edit extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -27,45 +29,36 @@ class Edit extends DefaultController
 	protected $defaultView = 'article';
 
 	/**
+	 * The default view for the component
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultLayout = 'edit';
+
+	/**
 	 * @var  ArticleHtmlView
 	 */
 	protected $view;
 
 	/**
+	 * @var  ArticleModel
+	 */
+	protected $model;
+
+	/**
 	 * Initialize the controller.
-	 *
-	 * This will set up default model and view classes.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function initialize()
 	{
 		parent::initialize();
 
-		$id = $this->container->get('app')->input>getInt('id');
-
-		$this->view->setItem($this->model->getItem($id));
-	}
-
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
 		$this->container->get('app')->getUser()->authorize('admin');
 
-		$input = $this->container->get('app')->input;
-
-		$input->set('layout', 'edit');
-		$input->set('view', 'article');
-
-		return parent::execute();
+		$this->view->setItem($this->model->getItem($this->container->get('app')->input->getInt('id')));
 	}
 }

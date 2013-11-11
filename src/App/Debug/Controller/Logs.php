@@ -8,6 +8,9 @@
 
 namespace App\Debug\Controller;
 
+use App\Debug\TrackerDebugger;
+use App\Debug\View\Logs\LogsHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -18,24 +21,26 @@ use JTracker\Controller\AbstractTrackerController;
 class Logs extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
+	 * @var  LogsHtmlView
 	 */
-	protected $defaultView = 'logs';
+	protected $view = null;
 
 	/**
-	 * Execute the controller.
+	 * Initialize the controller.
 	 *
-	 * @return  void
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	public function initialize()
 	{
+		parent::initialize();
+
 		$this->container->get('app')->getUser()->authorize('admin');
 
-		parent::execute();
+		$this->view->setLogType($this->container->get('app')->input->get('log_type'));
+		$this->view->setDebugger(new TrackerDebugger($this->container));
+
+		return $this;
 	}
 }

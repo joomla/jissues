@@ -30,6 +30,8 @@ class ProjectsModel extends AbstractTrackerListModel
 	 *
 	 * @throws \RuntimeException
 	 * @return \JTracker\Authentication\GitHub\GitHubUser
+	 *
+	 * @since   1.0
 	 */
 	public function getUser()
 	{
@@ -42,11 +44,19 @@ class ProjectsModel extends AbstractTrackerListModel
 	}
 
 	/**
-	 * @param GitHubUser $user
+	 * Set the user object.
+	 *
+	 * @param   GitHubUser  $user  The user object.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setUser(GitHubUser $user)
 	{
 		$this->user = $user;
+
+		return $this;
 	}
 
 	/**
@@ -59,10 +69,6 @@ class ProjectsModel extends AbstractTrackerListModel
 	protected function getListQuery()
 	{
 		$db = $this->getDb();
-
-		///* @type \JTracker\Authentication\GitHub\GitHubUser $user */
-		//$app = $this->container->get('app');
-		//$user = $app->getUser();
 
 		$query = $db->getQuery(true);
 

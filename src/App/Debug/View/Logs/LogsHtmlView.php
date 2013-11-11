@@ -18,6 +18,16 @@ use JTracker\View\AbstractTrackerHtmlView;
 class LogsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
+	 * @var string
+	 */
+	protected $logType = '';
+
+	/**
+	 * @var TrackerDebugger
+	 */
+	protected $debugger = null;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -27,17 +37,12 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
-
-		$type = $application->input->get('log_type');
-
-		$debugger = new TrackerDebugger($this->container);
+		$type = $this->getLogType();
 
 		switch ($type)
 		{
 			case 'php' :
-				$path = $debugger->getLogPath('php');
+				$path = $this->getDebugger()->getLogPath('php');
 				break;
 
 			case '403' :
@@ -48,7 +53,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case 'github_issues' :
 			case 'github_comments' :
 			case 'github_pulls' :
-				$path = $debugger->getLogPath('root') . '/' . $type . '.log';
+				$path = $this->getDebugger()->getLogPath('root') . '/' . $type . '.log';
 				break;
 
 			default :
@@ -108,5 +113,71 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 		$log = array_reverse($log);
 
 		return $log;
+	}
+
+	/**
+	 * Get the debugger.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return \App\Debug\TrackerDebugger
+	 *
+	 * @since   1.0
+	 */
+	public function getDebugger()
+	{
+		if (is_null($this->debugger))
+		{
+			throw new \UnexpectedValueException('Debugger not set');
+		}
+
+		return $this->debugger;
+	}
+
+	/**
+	 * Get the debugger.
+	 *
+	 * @param   TrackerDebugger  $debugger  The debugger object.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setDebugger(TrackerDebugger $debugger)
+	{
+		$this->debugger = $debugger;
+
+		return $this;
+	}
+
+	/**
+	 * Get the log type.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getLogType()
+	{
+		if ('' == $this->logType)
+		{
+			throw new \UnexpectedValueException('Log type not set');
+		}
+
+		return $this->logType;
+	}
+
+	/**
+	 * Set the log type.
+	 *
+	 * @param   string  $logType  The log type.
+	 *
+	 * @return $this
+	 */
+	public function setLogType($logType)
+	{
+		$this->logType = $logType;
+
+		return $this;
 	}
 }

@@ -71,8 +71,9 @@ class TrackerPagination
 		$this->total   = $total;
 		$this->perPage = $perPage;
 		$this->page    = $current ? floor($current / $perPage) + 1 : 1;
-		$this->uri     = '';//$uri;
-		//$this->uri     = new Uri($app->get('uri.request'));
+		$this->uri     = '';
+
+		// @$this->uri     = new Uri($app->get('uri.request'));
 	}
 
 	/**

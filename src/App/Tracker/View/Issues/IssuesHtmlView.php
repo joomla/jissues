@@ -53,7 +53,12 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @return \App\Projects\TrackerProject
+	 * Get the project.
+	 *
+	 * @throws  \RuntimeException
+	 * @return  TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getProject()
 	{
@@ -66,7 +71,13 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @param \App\Projects\TrackerProject $project
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function setProject(TrackerProject $project)
 	{

@@ -42,17 +42,17 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application $application */
-		//$application = $this->container->get('app');
-
-
 		$this->renderer->set('item', $this->getItem());
 
 		return parent::render();
 	}
 
 	/**
+	 * Get the item.
+	 *
 	 * @return \App\Text\Table\ArticlesTable
+	 *
+	 * @since   1.0
 	 */
 	public function getItem()
 	{
@@ -60,10 +60,18 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @param \App\Text\Table\ArticlesTable $item
+	 * Set the item.
+	 *
+	 * @param   ArticlesTable  $item  The item.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setItem($item)
 	{
 		$this->item = $item;
+
+		return $this;
 	}
 }

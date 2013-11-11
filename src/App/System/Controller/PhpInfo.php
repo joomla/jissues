@@ -15,16 +15,8 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class PhpInfo extends AbstractTrackerController
+class Phpinfo extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'phpInfo';
-
 	/**
 	 * Execute the controller.
 	 *

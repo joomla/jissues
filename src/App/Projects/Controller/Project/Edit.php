@@ -6,18 +6,18 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\Projects\Controller;
+namespace App\Projects\Controller\Project;
 
 use App\Projects\View\Project\ProjectHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class for the project view
+ * Controller class to edit a project.
  *
  * @since  1.0
  */
-class ProjectController extends AbstractTrackerController
+class Edit extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -26,6 +26,14 @@ class ProjectController extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'project';
+
+	/**
+	 * The default layout for the app.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultLayout = 'edit';
 
 	/**
 	 * @var  ProjectHtmlView
@@ -45,6 +53,8 @@ class ProjectController extends AbstractTrackerController
 	public function initialize()
 	{
 		parent::initialize();
+
+		$this->container->get('app')->getUser()->authorize('admin');
 
 		$this->view->setAlias($this->container->get('app')->input->get('project_alias'));
 	}

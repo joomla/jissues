@@ -38,7 +38,12 @@ class IssuesModel extends AbstractTrackerListModel
 	protected $project = null;
 
 	/**
+	 * Get the project.
+	 *
+	 * @throws \RuntimeException
 	 * @return \App\Projects\TrackerProject
+	 *
+	 * @since  1.0
 	 */
 	public function getProject()
 	{
@@ -51,7 +56,13 @@ class IssuesModel extends AbstractTrackerListModel
 	}
 
 	/**
-	 * @param \App\Projects\TrackerProject $project
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return $this
+	 *
+	 * @since  1.0
 	 */
 	public function setProject(TrackerProject $project)
 	{
@@ -79,8 +90,8 @@ class IssuesModel extends AbstractTrackerListModel
 		$query->select('s.status AS status_title, s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
-//		$filter = $this->state->get('filter.project');
-		$filter = $this->getProject()->project_id;;
+		$filter = $this->getProject()->project_id;
+
 		if ($filter)
 		{
 			$query->where($db->quoteName('a.project_id') . ' = ' . (int) $filter);
@@ -147,7 +158,7 @@ class IssuesModel extends AbstractTrackerListModel
 	{
 		$this->state = new Registry;
 
-		//$this->state->set('filter.project', $this->input->get('project_id', 1));
+		// @$this->state->set('filter.project', $this->input->get('project_id', 1));
 
 		$this->state->set('list.ordering', $this->input->get('filter_order', 'a.issue_number'));
 

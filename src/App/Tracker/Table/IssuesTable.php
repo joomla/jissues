@@ -207,9 +207,6 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		/* @type \JTracker\Application $application */
-		//$application = $this->container->get('app');
-
 		$isNew = ($this->id < 1);
 		$date  = new Date;
 		$date  = $date->format($this->db->getDateFormat());
@@ -404,8 +401,12 @@ class IssuesTable extends AbstractDatabaseTable
 	}
 
 	/**
+	 * Get the user.
+	 *
 	 * @throws \RuntimeException
 	 * @return \JTracker\Authentication\GitHub\GitHubUser
+	 *
+	 * @since   1.0
 	 */
 	public function getUser()
 	{
@@ -418,10 +419,18 @@ class IssuesTable extends AbstractDatabaseTable
 	}
 
 	/**
-	 * @param \JTracker\Authentication\GitHub\GitHubUser $user
+	 * Set the user.
+	 *
+	 * @param   GitHubUser  $user  The user.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setUser(GitHubUser $user)
 	{
 		$this->user = $user;
+
+		return $this;
 	}
 }

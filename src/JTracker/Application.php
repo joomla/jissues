@@ -176,7 +176,6 @@ final class Application extends AbstractWebApplication
 			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
 
 			$this->setBody($contents);
-
 		}
 		catch (AuthenticationException $exception)
 		{
@@ -286,12 +285,6 @@ final class Application extends AbstractWebApplication
 	{
 		if (is_null($this->newSession))
 		{
-//			$storage = new NullSessionHandler;
-//			$storage = new NativeSessionStorage(array(), new PdoSessionHandler());
-			//$storage = new NativeSessionStorage(array(), new NullSessionHandler);
-			//$storage = new PhpBridgeSessionStorage;//(array(), new NullSessionHandler);
-			//$this->newSession = new DummySession;
-			//$this->newSession = new Session($storage);
 			$this->newSession = new Session;
 
 			$this->newSession->start();
@@ -401,7 +394,7 @@ final class Application extends AbstractWebApplication
 	/**
 	 * Login or logout a user.
 	 *
-	 * @param   User $user The user object.
+	 * @param   User  $user  The user object.
 	 *
 	 * @throws \UnexpectedValueException
 	 * @return  $this  Method allows chaining
@@ -574,7 +567,7 @@ final class Application extends AbstractWebApplication
 	/**
 	 * Get the current project.
 	 *
-	 * @param    boolean  $reload  Reload the project.
+	 * @param   boolean  $reload  Reload the project.
 	 *
 	 * @throws \InvalidArgumentException
 	 * @return  TrackerProject
@@ -625,28 +618,5 @@ final class Application extends AbstractWebApplication
 		}
 
 		return $this->project;
-	}
-}
-
-
-
-class DummySession extends Registry
-{
-	public function getFlashBag()
-	{
-		return new dummyBag;
-	}
-}
-
-class dummyBag
-{
-	public function peekAll()
-	{
-		return array();
-	}
-
-	public function clear()
-	{
-
 	}
 }

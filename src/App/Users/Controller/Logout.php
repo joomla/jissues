@@ -8,7 +8,6 @@
 
 namespace App\Users\Controller;
 
-use JTracker\Application;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -18,11 +17,6 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Logout extends AbstractTrackerController
 {
-	/**
-	 * @var  Application
-	 */
-	private $application;
-
 	/**
 	 * Execute the controller.
 	 *
@@ -34,41 +28,9 @@ class Logout extends AbstractTrackerController
 	{
 		$application = $this->container->get('app');
 
-		$user = $application->getUser();
-
-		if ($user->id)
-		{
-			// The user is already logged in.
-			$application->redirect(' ');
-
-			return;
-		}
-
 		// Logout the user.
-		$application->setUser();
+		$application->setUser(null);
 
 		$application->redirect(' ');
-	}
-
-	/**
-	 * @throws \UnexpectedValueException
-	 * @return \JTracker\Application
-	 */
-	public function getApplication()
-	{
-		if (is_null($this->application))
-		{
-			throw new \UnexpectedValueException('Application not set');
-		}
-
-		return $this->application;
-	}
-
-	/**
-	 * @param \JTracker\Application $application
-	 */
-	public function setApplication(Application $application)
-	{
-		$this->application = $application;
 	}
 }

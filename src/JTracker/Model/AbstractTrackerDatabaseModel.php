@@ -54,7 +54,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver  $database   The database adapter.
+	 * @param   DatabaseDriver  $database  The database adapter.
 	 *
 	 * @since   1.0
 	 */
@@ -146,7 +146,12 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	}
 
 	/**
+	 * Get the project.
+	 *
+	 * @throws \UnexpectedValueException
 	 * @return \App\Projects\TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getProject()
 	{
@@ -159,7 +164,13 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	}
 
 	/**
-	 * @param \App\Projects\TrackerProject $project
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setProject(TrackerProject $project)
 	{

@@ -313,9 +313,6 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function issueLink($number, $closed, $title = '')
 	{
-		/* @type \JTracker\Application $application */
-		//$application = $this->container->get('app');
-
 		$html = array();
 
 		$title = ($title) ? : ' #' . $number;

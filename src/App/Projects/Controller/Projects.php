@@ -8,6 +8,8 @@
 
 namespace App\Projects\Controller;
 
+use App\Projects\Model\ProjectsModel;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -15,16 +17,23 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class ProjectsController extends AbstractTrackerController
+class Projects extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
+	 * @var  ProjectsModel
 	 */
-	protected $defaultView = 'projects';
+	protected $model;
 
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
 	public function initialize()
 	{
 		parent::initialize();

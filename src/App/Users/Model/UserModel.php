@@ -30,19 +30,16 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $itemId  The item id.
 	 *
+	 * @throws \Exception
 	 * @return  GitHubUser
 	 *
 	 * @since   1.0
 	 */
 	public function getItem($itemId = null)
 	{
-		/* @type \JTracker\Application $application */
-		//$application = $this->container->get('app');
-
 		if (!$itemId)
 		{
-			throw new \Exception ('No user set');
-			//return $application->getUser();
+			throw new \Exception('No user set');
 		}
 
 		try
@@ -58,8 +55,19 @@ class UserModel extends AbstractTrackerDatabaseModel
 		return $user;
 	}
 
+	/**
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
 	public function setProject(TrackerProject $project)
 	{
 		$this->project = $project;
+
+		return $this;
 	}
 }

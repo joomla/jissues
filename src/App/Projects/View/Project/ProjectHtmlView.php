@@ -45,23 +45,35 @@ class ProjectHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
+	 * Get the alias.
+	 *
 	 * @return string
+	 *
+	 * @since   1.0
 	 */
 	public function getAlias()
 	{
 		if ('' == $this->alias)
 		{
-			//throw new \UnexpectedValueException('Alias not set.');
+			// New record.
 		}
 
 		return $this->alias;
 	}
 
 	/**
-	 * @param string $alias
+	 * Set the alias.
+	 *
+	 * @param   string  $alias  The alias.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setAlias($alias)
 	{
 		$this->alias = $alias;
+
+		return $this;
 	}
 }

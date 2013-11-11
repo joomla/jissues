@@ -8,6 +8,7 @@
 
 namespace App\Projects\Model;
 
+use App\Projects\Table\ProjectsTable;
 use App\Projects\TrackerProject;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
@@ -70,5 +71,25 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 		)->loadObject();
 
 		return new TrackerProject($this->db, $data);
+	}
+
+	/**
+	 * Delete a project.
+	 *
+	 * @param   string  $alias  The project alias.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function delete($alias)
+	{
+		$project = $this->getByAlias($alias);
+
+		$table = new ProjectsTable($this->db);
+
+		$table->delete($project->project_id);
+
+		return $this;
 	}
 }

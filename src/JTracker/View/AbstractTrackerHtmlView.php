@@ -140,7 +140,12 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	}
 
 	/**
+	 * Get the project.
+	 *
+	 * @throws \UnexpectedValueException
 	 * @return \App\Projects\TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getProject()
 	{
@@ -153,7 +158,13 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	}
 
 	/**
-	 * @param \App\Projects\TrackerProject $project
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setProject(TrackerProject $project)
 	{

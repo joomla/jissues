@@ -50,15 +50,9 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	{
 		$item = $this->model->getItem($this->getId());
 
-		if ($item->id)
-		{
-			// Edit item
-		}
-		else
+		if (!$item->id)
 		{
 			// New item
-			//$item = new IssuesTable($this->container);
-
 			$path = __DIR__ . '/../../tpl/new-issue-template.md';
 
 			if (!file_exists($path))
@@ -69,8 +63,6 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 			$item->issue_number    = 0;
 			$item->priority        = 3;
 			$item->description_raw = file_get_contents($path);
-
-			//$item = $item->getIterator();
 		}
 
 		$this->renderer->set('item', $item);
@@ -81,20 +73,30 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @return integer
+	 * Get the id.
+	 *
+	 * @return  integer
+	 *
+	 * @since   1.0
 	 */
 	public function getId()
 	{
 		if (0 == $this->id)
 		{
-			//throw new \UnexpectedValueException('ID not set.');
+			// New record.
 		}
 
 		return $this->id;
 	}
 
 	/**
-	 * @param integer $id
+	 * Set the project.
+	 *
+	 * @param   integer  $id  The id
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function setId($id)
 	{
@@ -104,7 +106,12 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @return \App\Projects\TrackerProject
+	 * Get the project.
+	 *
+	 * @throws  \RuntimeException
+	 * @return  TrackerProject
+	 *
+	 * @since   1.0
 	 */
 	public function getProject()
 	{
@@ -117,7 +124,13 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @param \App\Projects\TrackerProject $project
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function setProject(TrackerProject $project)
 	{

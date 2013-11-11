@@ -8,8 +8,9 @@
 
 namespace App\Projects\Controller\Project;
 
-use App\Tracker\Controller\DefaultController;
+use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -17,7 +18,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class SaveController extends DefaultController
+class Save extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -27,6 +28,21 @@ class SaveController extends DefaultController
 	 */
 	protected $defaultView = 'projects';
 
+	/**
+	 * @var  ProjectsModel
+	 */
+	protected $model;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
 	public function initialize()
 	{
 		$app = $this->container->get('app');
@@ -36,8 +52,6 @@ class SaveController extends DefaultController
 		$table = new ProjectsTable($this->container->get('db'));
 
 		$table->save($app->input->get('project', array(), 'array'));
-
-		$this->container->get('app')->input->set('view', 'projects');
 
 		// Reload the project.
 		$app->getProject(true);

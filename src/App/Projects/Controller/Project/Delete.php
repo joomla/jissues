@@ -8,16 +8,17 @@
 
 namespace App\Projects\Controller\Project;
 
-use App\Tracker\Controller\DefaultController;
 use App\Projects\Model\ProjectModel;
-use App\Projects\Table\ProjectsTable;
+use App\Projects\Model\ProjectsModel;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to delete a project.
  *
  * @since  1.0
  */
-class DeleteController extends DefaultController
+class Delete extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -28,6 +29,30 @@ class DeleteController extends DefaultController
 	protected $defaultView = 'projects';
 
 	/**
+	 * @var  ProjectsModel
+	 */
+	protected $model;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->container->get('app')->getUser()->authorize('admin');
+
+		$this->model->setUser($this->container->get('app')->getUser());
+	}
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -36,22 +61,12 @@ class DeleteController extends DefaultController
 	 */
 	public function execute()
 	{
-		$app = $this->container->get('app');
-
-		$app->getUser()->authorize('admin');
-
 		$model = new ProjectModel($this->container->get('db'));
 
-		$project = $model->getByAlias();
-
-		$table = new ProjectsTable($this->container->get('db'));
-
-		$table->delete($project->project_id);
+		$model->delete($this->container->get('app')->input->get('project_alias'));
 
 		// Reload the project
 		$this->container->get('app')->getProject(true);
-
-		$this->container->get('app')->input->set('view', 'projects');
 
 		parent::execute();
 	}

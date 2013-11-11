@@ -52,7 +52,6 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 
 			$item = $this->model->getItem($alias);
 			$this->renderer->set('page', $item->getIterator());
-
 		}
 		catch (\RuntimeException $e)
 		{

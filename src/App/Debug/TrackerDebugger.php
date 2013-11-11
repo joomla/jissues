@@ -20,6 +20,7 @@ use App\Debug\Format\Html\TableFormat;
 use App\Debug\Handler\ProductionHandler;
 
 use JTracker\View\Renderer\TrackerExtension;
+
 use Kint;
 
 use Monolog\Handler\NullHandler;
@@ -282,12 +283,12 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			$debug[] = '<div id="dbgUser">';
 			$debug[] = '<h3>' . g11n3t('User') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
+			$debug[] = @Kint::dump($this->application->getUser());
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgProject">';
 			$debug[] = '<h3>' . g11n3t('Project') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
+			$debug[] = @Kint::dump($this->application->getProject());
 			$debug[] = '</div>';
 		}
 
@@ -395,8 +396,8 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.system'))
 		{
-			$user    = $this->application->getSession()->get('user');
-			$project = $this->application->getSession()->get('project');
+			$user    = $this->application->getUser();
+			$project = $this->application->getProject();
 
 			$title = $project ? $project->title : g11n3t('No Project');
 

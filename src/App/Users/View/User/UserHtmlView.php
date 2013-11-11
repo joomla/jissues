@@ -38,7 +38,6 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		//$app = $this->container->get('app');
 		$this->renderer->set('item', $this->model->getItem($this->id));
 
 		return parent::render();

@@ -8,6 +8,8 @@
 
 namespace App\GitHub\Controller;
 
+use App\GitHub\View\Labels\LabelsHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -18,33 +20,27 @@ use JTracker\Controller\AbstractTrackerController;
 class Labels extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
+	 * @var  LabelsHtmlView
 	 * @since  1.0
 	 */
-	protected $defaultView = 'labels';
+	protected $view;
 
 	/**
-	 * Execute the controller.
+	 * Initialize the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  $this
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	public function execute()
-	{
-		$this->container->get('app')->getUser()->authorize('admin');
-
-		parent::execute();
-	}
-
 	public function initialize()
 	{
 		parent::initialize();
 
+		$this->container->get('app')->getUser()->authorize('admin');
+
 		$this->view->setProject($this->container->get('app')->getProject());
+
+		return $this;
 	}
-
-
 }

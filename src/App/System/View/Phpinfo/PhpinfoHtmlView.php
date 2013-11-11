@@ -15,7 +15,7 @@ use JTracker\View\AbstractTrackerHtmlView;
  *
  * @since  1.0
  */
-class PhpInfoHtmlView extends AbstractTrackerHtmlView
+class PhpinfoHtmlView extends AbstractTrackerHtmlView
 {
 	/**
 	 * Method to render the view.

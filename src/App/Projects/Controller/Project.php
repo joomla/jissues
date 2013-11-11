@@ -1,32 +1,33 @@
 <?php
 /**
- * Part of the Joomla Tracker's GitHub Application
+ * Part of the Joomla Tracker's Projects Application
  *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace App\GitHub\Controller;
+namespace App\Projects\Controller;
 
-use App\GitHub\View\Hooks\HooksHtmlView;
+use App\Projects\View\Project\ProjectHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class for managing webhooks
+ * Controller class for the project view
  *
  * @since  1.0
  */
-class Hooks extends AbstractTrackerController
+class Project extends AbstractTrackerController
 {
 	/**
-	 * @var  HooksHtmlView
-	 * @since   1.0
+	 * @var  ProjectHtmlView
 	 */
 	protected $view;
 
 	/**
 	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
 	 *
 	 * @return  $this
 	 *
@@ -37,10 +38,6 @@ class Hooks extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('admin');
-
-		$this->view->setProject($this->container->get('app')->getProject());
-
-		return $this;
+		$this->view->setAlias($this->container->get('app')->input->get('project_alias'));
 	}
 }

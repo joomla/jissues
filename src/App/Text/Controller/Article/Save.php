@@ -9,14 +9,15 @@
 namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
-use App\Tracker\Controller\DefaultController;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to save an article.
  *
  * @since  1.0
  */
-class Save extends DefaultController
+class Save extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -41,11 +42,12 @@ class Save extends DefaultController
 
 		$table = new ArticlesTable($this->container->get('db'));
 
+		/* @type \Joomla\Github\Github $gitHub */
+		$table->setGitHub($this->container->get('gitHub'));
+
 		$table->save($app->input->get('article', array(), 'array'));
 
 		$app->enqueueMessage(g11n3t('The article has been saved.'), 'success');
-
-		$this->container->get('app')->input->set('view', 'articles');
 
 		parent::execute();
 	}

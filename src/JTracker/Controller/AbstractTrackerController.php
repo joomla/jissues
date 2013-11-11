@@ -32,7 +32,15 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView;
+	protected $defaultView = '';
+
+	/**
+	 * The default layout for the app
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultLayout = 'index';
 
 	/**
 	 * The app being executed.
@@ -141,9 +149,13 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		// Get some data from the request
 		$viewName   = $input->getWord('view', $this->defaultView);
 		$viewFormat = $input->getWord('format', 'html');
-		$layoutName = $input->getCmd('layout', 'index');
+		$layoutName = $input->getCmd('layout', $this->defaultLayout);
 
-		$input->set('view', $viewName);
+		if (!$viewName)
+		{
+			$parts = explode('\\', get_class($this));
+			$viewName = strtolower($parts[count($parts) - 1]);
+		}
 
 		$base = '\\App\\' . $this->app;
 
@@ -184,7 +196,8 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 			$paths[] = $path;
 		}
 
-		//$this->model = $this->container->buildObject($modelClass);
+		// @$this->model = $this->container->buildObject($modelClass);
+
 		$this->model = new $modelClass($this->container->get('db'), $this->container->get('app')->input);
 
 		// Create the view
@@ -204,7 +217,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 *
 	 * This is a generic method to execute and render a view and is not suitable for tasks.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -213,14 +226,16 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		try
 		{
 			// Render our view.
-			echo $this->view->render();
+			$contents = $this->view->render();
 		}
 		catch (\Exception $e)
 		{
-			echo $this->container->get('app')->getDebugger()->renderException($e);
+			$contents = $this->container->get('app')->getDebugger()->renderException($e);
 		}
 
-		return;
+		echo $contents;
+
+		return $contents;
 	}
 
 	/**

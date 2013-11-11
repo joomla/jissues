@@ -9,14 +9,15 @@
 namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
-use App\Tracker\Controller\DefaultController;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to delete an article.
  *
  * @since  1.0
  */
-class Delete extends DefaultController
+class Delete extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component

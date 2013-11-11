@@ -8,14 +8,14 @@
 
 namespace App\Projects\Controller\Project;
 
-use App\Tracker\Controller\DefaultController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to edit a project.
+ * Controller class to add a project.
  *
  * @since  1.0
  */
-class EditController extends DefaultController
+class Add extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -26,26 +26,24 @@ class EditController extends DefaultController
 	protected $defaultView = 'project';
 
 	/**
-	 * Initialize the controller.
+	 * The default layout for the app.
 	 *
-	 * This will set up default model and view classes.
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultLayout = 'edit';
+
+	/**
+	 * Execute the controller.
 	 *
-	 * @return  $this
+	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
-	public function initialize()
+	public function execute()
 	{
 		$this->container->get('app')->getUser()->authorize('admin');
 
-		$input = $this->container->get('app')->input;
-
-		$input->set('layout', 'edit');
-		$input->set('view', 'project');
-
-		parent::initialize();
-
-		$this->view->setAlias($this->container->get('app')->input->get('project_alias'));
+		parent::execute();
 	}
 }

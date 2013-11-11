@@ -37,31 +37,41 @@ class GroupModel extends AbstractTrackerDatabaseModel
 	{
 		$table = new GroupsTable($this->getDb());
 
-		//$app = $this->container->get('app');
 		$groupId = $this->getGroupId();
-		//$app->input->getInt('group_id');
 
 		return $groupId ? $table->load($groupId)->getIterator() : $table->getIterator();
 	}
 
 	/**
-	 * @return int
+	 * Get the group id.
+	 *
+	 * @return integer
+	 *
+	 * @since   1.0
 	 */
 	public function getGroupId()
 	{
 		if (0 == $this->group_id)
 		{
-			throw new \UnexpectedValueException('group_id not set');
+			// A new item.
 		}
 
 		return $this->group_id;
 	}
 
 	/**
-	 * @param int $group_id
+	 * Set the group id.
+	 *
+	 * @param   integer  $group_id  The group id.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
 	 */
 	public function setGroupId($group_id)
 	{
 		$this->group_id = $group_id;
+
+		return $this;
 	}
 }

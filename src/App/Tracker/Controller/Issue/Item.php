@@ -8,43 +8,35 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\IssueModel;
 use App\Tracker\View\Issue\IssueHtmlView;
 
-use Joomla\Input\Input;
-
-use JTracker\Application;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to add an item via the tracker component.
+ * Item controller class for the Tracker component.
  *
  * @since  1.0
  */
-class AddController extends AbstractTrackerController
+class Item extends AbstractTrackerController
 {
+	/**
+	 * The default view for the component
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultView = 'issue';
+
 	/**
 	 * @var  IssueHtmlView
 	 */
 	protected $view = null;
 
 	/**
-	 * Constructor
-	 *
-	 * @param   Input        $input  The input object.
-	 * @param   Application  $app    The application object.
-	 *
-	 * @since   1.0
+	 * @var  IssueModel
 	 */
-	public function __construct(Input $input = null, Application $app = null)
-	{
-		parent::__construct($input, $app);
-
-		$app->getUser()->authorize('create');
-
-		// Set the default view
-		$input->set('view', 'issue');
-		$input->set('layout', 'add');
-	}
+	protected $model = null;
 
 	/**
 	 * Initialize the controller.
@@ -60,6 +52,13 @@ class AddController extends AbstractTrackerController
 	{
 		parent::initialize();
 
+		$this->container->get('app')->getUser()->authorize('view');
+
+		$this->view->setId($this->container->get('app')->input->getUint('id'));
 		$this->view->setProject($this->container->get('app')->getProject());
+
+		$this->model->setProject($this->container->get('app')->getProject());
+
+		return $this;
 	}
 }

@@ -16,7 +16,10 @@ use Joomla\Database\DatabaseDriver;
  * Class TrackerProject.
  *
  * @property-read   integer  $project_id  The project id.
+ * @property-read   string   $title       The project title.
  * @property-read   string   $alias       The project alias.
+ * @property-read   string   $gh_user     The GitHub user.
+ * @property-read   string   $gh_project  The GitHub project.
  *
  * @since  1.0
  */
@@ -407,9 +410,6 @@ class TrackerProject implements \Serializable
 		}
 
 		return serialize($props);
-		return serialize(
-			array($this->project_id)
-		);
 	}
 
 	/**

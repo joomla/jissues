@@ -165,23 +165,23 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		}
 		else
 		{
-			$myIP = $this->getInput()->server->getString('REMOTE_ADDR');
+			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
 		}
 
 		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
 			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		// Get the payload data
-		$data = $this->getInput()->post->get('payload', null, 'raw');
+		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
 
 		if (!$data)
 		{
 			$this->logger->error('No data received.');
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
@@ -255,7 +255,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		// Make sure we have a valid project ID
@@ -268,7 +268,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 	}
 
@@ -337,7 +337,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		return $this;

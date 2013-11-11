@@ -53,6 +53,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * Instantiate the model.
 	 *
 	 * @param   DatabaseDriver  $database  The database driver.
+	 * @param   Input           $input     The input object.
 	 *
 	 * @since   1.0
 	 */
@@ -130,7 +131,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		// Create the pagination object.
 		$limit = (int) $this->state->get('list.limit') - (int) $this->state->get('list.links');
-		//$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit, new Uri($app->get('uri.request'));
+
+		// @$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit, new Uri($app->get('uri.request'));
 		$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
 
 		// Add the object to the internal cache.
@@ -242,7 +244,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{
-			//$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
+			// @$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
 
 			// @todo huge change here - no more session state...
 			$limit = $this->input->getInt('list_limit', 20);

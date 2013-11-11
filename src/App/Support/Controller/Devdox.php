@@ -20,18 +20,18 @@ use JTracker\Controller\AbstractTrackerController;
 class Devdox extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'devdox';
-
-	/**
 	 * @var DevdoxHtmlView
 	 */
 	protected $view = null;
 
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
 	public function initialize()
 	{
 		parent::initialize();

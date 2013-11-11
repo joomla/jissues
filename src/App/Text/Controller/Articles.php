@@ -18,14 +18,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Articles extends AbstractTrackerController
 {
 	/**
-	 * The list view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'articles';
-
-	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.

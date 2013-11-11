@@ -43,7 +43,7 @@ class GitHubLoginHelper
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container     The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
