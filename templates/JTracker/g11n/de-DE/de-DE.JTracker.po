@@ -3,16 +3,161 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-09 21:39+0200\n"
+"POT-Creation-Date: 2013-11-11 12:27-0500\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Zeigen"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Benutzergruppen"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Projekte"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Benutzer"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "System"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: /templates/trackerMenu.twig:104
+msgid "Database"
+msgstr "Datenbank"
+
+#: /templates/trackerMenu.twig:136
+msgid "Icons"
+msgstr "Symbole"
+
+#: /templates/trackerMenu.twig:142
+msgid "Text"
+msgstr "Text"
+
+#: /templates/trackerMenu.twig:148
+msgid "Clear Cache"
+msgstr ""
+
+#: /templates/trackerMenu.twig:170
+msgid "About Us"
+msgstr "Über uns"
+
+#: /templates/trackerMenu.twig:197
+msgid "Admin"
+msgstr "Admin"
+
+#: /templates/trackerMenu.twig:202
+msgid "Profile"
+msgstr "Profil"
+
+#: /templates/trackerMenu.twig:209
+msgid "Logout"
+msgstr "Abmelden"
+
+#: /templates/trackerMenu.twig:217
+msgid "Login with GitHub"
+msgstr "Mit GitHub einloggen"
+
+#: /templates/footerMenu.twig:4
+msgid "Home"
+msgstr ""
+
+#: /templates/footerMenu.twig:5 /templates/topMenu.twig:25
+msgid "About"
+msgstr ""
+
+#: /templates/footerMenu.twig:6 /templates/topMenu.twig:34
+msgid "Community"
+msgstr ""
+
+#: /templates/footerMenu.twig:7
+msgid "Forum"
+msgstr ""
+
+#: /templates/footerMenu.twig:8
+msgid "Extensions"
+msgstr ""
+
+#: /templates/footerMenu.twig:9
+msgid "Resources"
+msgstr ""
+
+#: /templates/footerMenu.twig:10
+msgid "Docs"
+msgstr ""
+
+#: /templates/footerMenu.twig:11
+msgid "Developer"
+msgstr ""
+
+#: /templates/footerMenu.twig:12
+msgid "Shop"
+msgstr ""
+
+#: /templates/footerMenu.twig:16
+msgid "Accessibility Statement"
+msgstr ""
+
+#: /templates/footerMenu.twig:17
+msgid "Privacy Policy"
+msgstr ""
+
+#: /templates/footerMenu.twig:18
+msgid "Joomla Hosting by"
+msgstr ""
+
+#: /templates/footerMenu.twig:19
+#, php-format
+msgid "Powered by %s"
+msgstr "Angetrieben durch %s"
+
+#: /templates/footerMenu.twig:22
+msgid "All rights reserved."
+msgstr ""
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr ""
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr ""
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Schreiben"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Vorschau"
 
 #: /templates/topMenu.twig:15
 msgid "Recent News"
@@ -42,10 +187,6 @@ msgstr ""
 msgid "Contribution"
 msgstr ""
 
-#: /templates/topMenu.twig:25 /templates/footerMenu.twig:5
-msgid "About"
-msgstr ""
-
 #: /templates/topMenu.twig:27
 msgid "About Joomla!"
 msgstr ""
@@ -60,10 +201,6 @@ msgstr ""
 
 #: /templates/topMenu.twig:30
 msgid "Leadership"
-msgstr ""
-
-#: /templates/topMenu.twig:34 /templates/footerMenu.twig:6
-msgid "Community"
 msgstr ""
 
 #: /templates/topMenu.twig:36
@@ -139,7 +276,7 @@ msgid "Joomla! User Experience"
 msgstr ""
 
 #: /templates/topMenu.twig:63
-msgid "}Joomla! Bug Squad"
+msgid "Joomla! Bug Squad"
 msgstr ""
 
 #: /templates/topMenu.twig:64
@@ -165,135 +302,3 @@ msgstr ""
 #: /templates/topMenu.twig:77
 msgid "Translations Forum"
 msgstr ""
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr ""
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr ""
-
-#: /templates/footerMenu.twig:4
-msgid "Home"
-msgstr ""
-
-#: /templates/footerMenu.twig:7
-msgid "Forum"
-msgstr ""
-
-#: /templates/footerMenu.twig:8
-msgid "Extensions"
-msgstr ""
-
-#: /templates/footerMenu.twig:9
-msgid "Resources"
-msgstr ""
-
-#: /templates/footerMenu.twig:10
-msgid "Docs"
-msgstr ""
-
-#: /templates/footerMenu.twig:11
-msgid "Developer"
-msgstr ""
-
-#: /templates/footerMenu.twig:12
-msgid "Shop"
-msgstr ""
-
-#: /templates/footerMenu.twig:16
-msgid "Accessibility Statement"
-msgstr ""
-
-#: /templates/footerMenu.twig:17
-msgid "Privacy Policy"
-msgstr ""
-
-#: /templates/footerMenu.twig:18
-msgid "Joomla Hosting by"
-msgstr ""
-
-#: /templates/footerMenu.twig:21
-msgid "All rights reserved."
-msgstr ""
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Tracker"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projekt"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Zeigen"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr "Benutzergruppen"
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr "Projekte"
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr "Benutzer"
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr "System"
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: /templates/trackerMenu.twig:104
-msgid "Database"
-msgstr "Datenbank"
-
-#: /templates/trackerMenu.twig:136
-msgid "Icons"
-msgstr "Symbole"
-
-#: /templates/trackerMenu.twig:142
-msgid "Text"
-msgstr "Text"
-
-#: /templates/trackerMenu.twig:148
-msgid "Clear Cache"
-msgstr ""
-
-#: /templates/trackerMenu.twig:170
-msgid "About Us"
-msgstr "Über uns"
-
-#: /templates/trackerMenu.twig:197
-msgid "Admin"
-msgstr "Admin"
-
-#: /templates/trackerMenu.twig:202
-msgid "Profile"
-msgstr "Profil"
-
-#: /templates/trackerMenu.twig:209
-msgid "Logout"
-msgstr "Abmelden"
-
-#: /templates/trackerMenu.twig:217
-msgid "Login with GitHub"
-msgstr "Mit GitHub einloggen"
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Schreiben"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Vorschau"
