@@ -53,6 +53,11 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	protected $input;
 
 	/**
+	 * @var  TrackerPagination
+	 */
+	protected $pagination;
+
+	/**
 	 * Instantiate the model.
 	 *
 	 * @param   DatabaseDriver  $database  The database driver.
@@ -114,6 +119,11 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	abstract protected function getListQuery();
 
+	public function setPagination(TrackerPagination $pagination)
+	{
+		$this->pagination = $pagination;
+	}
+
 	/**
 	 * Method to get the pagination object for the data set.
 	 *
@@ -132,16 +142,24 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			return $this->cache[$store];
 		}
 
+		if (is_null($this->pagination))
+		{
+			throw new \UnexpectedValueException('Pagination not set');
+		}
+
 		// Create the pagination object.
 		$limit = (int) $this->state->get('list.limit') - (int) $this->state->get('list.links');
 
 		// @$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit, new Uri($app->get('uri.request'));
-		$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
+		//$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
+
+		$this->pagination->setValues($this->getTotal(), $this->getStart(), $limit);
 
 		// Add the object to the internal cache.
-		$this->cache[$store] = $page;
+		//$this->cache[$store] = $page;
 
-		return $this->cache[$store];
+		//return $this->cache[$store];
+		return $this->pagination;
 	}
 
 	/**
@@ -247,15 +265,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{
-			// @todo huge change here - no more session state...
-			$limit = $this->input->getInt('list_limit', 20);
-			$page  = $this->input->getInt('page');
-
-			$value = $page ? ($page - 1) * $limit : 0;
-			$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
-
-			$this->state->set('list.start', $limitStart);
-			$this->state->set('list.limit', $limit);
 		}
 		else
 		{

@@ -8,52 +8,13 @@
 
 namespace App\Tracker\Controller\Issue;
 
-use App\Tracker\View\Issues\IssuesHtmlView;
-use App\Tracker\Model\IssuesModel;
-
-use JTracker\Controller\AbstractTrackerController;
+use App\Tracker\Controller\DefaultController;
 
 /**
  * List controller class for the Tracker component.
  *
  * @since  1.0
  */
-class Listing extends AbstractTrackerController
+class Listing extends DefaultController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'issues';
-
-	/**
-	 * @var  IssuesHtmlView
-	 */
-	protected $view = null;
-
-	/**
-	 * @var  IssuesModel
-	 */
-	protected $model = null;
-
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
-
-		$this->container->get('app')->getUser()->authorize('view');
-
-		$this->model->setProject($this->container->get('app')->getProject());
-		$this->view->setProject($this->container->get('app')->getProject());
-
-		return $this;
-	}
 }

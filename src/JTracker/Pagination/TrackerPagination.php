@@ -31,7 +31,7 @@ class TrackerPagination
 	 * @var    integer
 	 * @since  1.0
 	 */
-	protected $total;
+	protected $total = 0;
 
 	/**
 	 * Current page number.
@@ -39,7 +39,7 @@ class TrackerPagination
 	 * @var    integer
 	 * @since  1.0
 	 */
-	protected $page;
+	protected $page = 0;
 
 	/**
 	 * Items per page.
@@ -47,7 +47,7 @@ class TrackerPagination
 	 * @var    integer
 	 * @since  1.0
 	 */
-	protected $perPage;
+	protected $perPage = 0;
 
 	/**
 	 * The current URI.
@@ -66,14 +66,23 @@ class TrackerPagination
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($total, $current, $perPage)
+	public function __construct(Uri $uri)
+	{
+//		$this->total   = $total;
+//		$this->perPage = $perPage;
+//		$this->page    = $current ? floor($current / $perPage) + 1 : 1;
+		$this->uri     = $uri;
+
+		// @$this->uri     = new Uri($app->get('uri.request'));
+	}
+
+	public function setValues($total, $current, $perPage)
 	{
 		$this->total   = $total;
 		$this->perPage = $perPage;
 		$this->page    = $current ? floor($current / $perPage) + 1 : 1;
-		$this->uri     = '';
 
-		// @$this->uri     = new Uri($app->get('uri.request'));
+		return $this;
 	}
 
 	/**
@@ -97,7 +106,7 @@ class TrackerPagination
 	 */
 	public function getPagesTotal()
 	{
-		return ceil($this->total / $this->perPage);
+		return ceil($this->total / ($this->perPage ? : 1));
 	}
 
 	/**
@@ -230,7 +239,6 @@ class TrackerPagination
 	 */
 	private function uri($page)
 	{
-		return 'DISABLED';
 		$this->uri->setVar('page', $page);
 
 		return $this->uri;
