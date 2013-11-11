@@ -12,8 +12,6 @@ use g11n\Support\ExtensionHelper;
 use g11n\Support\FileInfo;
 use g11n\Support\TransInfo;
 
-use Joomla\DI\Container;
-
 use JTracker\View\Renderer\TrackerExtension;
 
 use Twig_Environment;
@@ -29,15 +27,12 @@ class Langtemplates extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
-		$this->application = $this->container->get('app');
 		$this->description = 'Create language file templates.';
 	}
 
@@ -50,7 +45,7 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');

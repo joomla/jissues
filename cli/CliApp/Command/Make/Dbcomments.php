@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use Joomla\DI\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -18,13 +16,11 @@ class Dbcomments extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
 		$this->description = 'Generate file headers for Table classes.';
 	}

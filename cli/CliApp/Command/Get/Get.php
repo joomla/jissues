@@ -16,7 +16,6 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
-use Joomla\DI\Container;
 use Joomla\Github\Github;
 
 /**
@@ -59,14 +58,10 @@ class Get extends TrackerCommand
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
-
 		$this->description = 'Retrieve <cmd><issues></cmd>, <cmd><comments></cmd> or <cmd><avatars></cmd>.';
 
 		$this
@@ -99,7 +94,7 @@ class Get extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Get');
+		$this->getApplication()->outputTitle('Get');
 
 		$this
 			->out('<error>                                    </error>')
@@ -128,7 +123,7 @@ class Get extends TrackerCommand
 		$model->setUser($this->container->get('app')->getUser());
 		$projects = $model->getItems();
 
-		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
+		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
 
 		if (!$id)
 		{
@@ -153,7 +148,7 @@ class Get extends TrackerCommand
 			$this->out()
 				->out('<question>Select a project:</question> ', false);
 
-			$resp = (int) trim($this->application->in());
+			$resp = (int) trim($this->getApplication()->in());
 
 			if (!$resp)
 			{
@@ -214,7 +209,7 @@ class Get extends TrackerCommand
 	 */
 	protected function displayGitHubRateLimit()
 	{
-		$this->application->displayGitHubRateLimit();
+		$this->getApplication()->displayGitHubRateLimit();
 
 		return $this;
 	}
@@ -230,6 +225,6 @@ class Get extends TrackerCommand
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		return $this->application->getProgressBar($targetNum);
+		return $this->getApplication()->getProgressBar($targetNum);
 	}
 }

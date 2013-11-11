@@ -8,8 +8,6 @@ namespace CliApp\Command\Get;
 
 use App\Projects\Table\LabelsTable;
 
-use Joomla\DI\Container;
-
 /**
  * Class for retrieving labels from GitHub for selected projects.
  *
@@ -20,13 +18,11 @@ class Labels extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
 		$this->description = 'Retrieve project labels from GitHub.';
 	}
@@ -40,7 +36,7 @@ class Labels extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Labels');
+		$this->getApplication()->outputTitle('Retrieve Labels');
 
 		$this->logOut('Start retrieve Labels')
 			->selectProject()

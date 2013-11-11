@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Get;
 
-use Joomla\DI\Container;
-
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
@@ -20,21 +18,13 @@ class Avatars extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
 		$this->description = 'Retrieve avatar images from GitHub.';
-		$this->usePBar     = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 	}
@@ -48,7 +38,14 @@ class Avatars extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Avatars');
+		$this->getApplication()->outputTitle('Retrieve Avatars');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->logOut('Start retrieve Avatars.')
 			->setupGitHub()

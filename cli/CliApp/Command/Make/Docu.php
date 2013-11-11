@@ -8,8 +8,6 @@ namespace CliApp\Command\Make;
 
 use App\Text\Table\ArticlesTable;
 
-use Joomla\DI\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -20,21 +18,13 @@ class Docu extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
 		$this->description = 'Compile documentation using GitHub markdown.';
-		$this->usePBar     = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**
@@ -46,11 +36,18 @@ class Docu extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Documentation');
+		$this->getApplication()->outputTitle('Make Documentation');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->github = $this->container->get('gitHub');
 
-		$this->application->displayGitHubRateLimit();
+		$this->getApplication()->displayGitHubRateLimit();
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
@@ -70,7 +67,7 @@ class Docu extends Make
 			$files[] = $f->getFilename();
 		}
 
-		$progressBar = $this->application->getProgressBar(count($files));
+		$progressBar = $this->getApplication()->getProgressBar(count($files));
 
 		$this->usePBar ? $this->out() : null;
 

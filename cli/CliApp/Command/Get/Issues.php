@@ -11,7 +11,6 @@ use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ActivitiesTable;
 
 use Joomla\Date\Date;
-use Joomla\DI\Container;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -23,22 +22,13 @@ class Issues extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
 		$this->description = 'Retrieve issues from GitHub.';
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**
@@ -50,7 +40,14 @@ class Issues extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Issues');
+		$this->getApplication()->outputTitle('Retrieve Issues');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->logOut('Start retrieve Issues')
 			->selectProject()

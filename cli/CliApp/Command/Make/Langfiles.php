@@ -9,8 +9,6 @@ namespace CliApp\Command\Make;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
-use Joomla\DI\Container;
-
 /**
  * Class for generating language template files.
  *
@@ -21,15 +19,12 @@ class Langfiles extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
+		parent::__construct();
 
-		$this->application = $this->container->get('app');
 		$this->description = 'Create and update language files.';
 	}
 
@@ -42,13 +37,13 @@ class Langfiles extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language files');
+		$this->getApplication()->outputTitle('Make Language files');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		$languages = $this->application->get('languages');
+		$languages = $this->getApplication()->get('languages');
 
 		foreach ($languages as $lang)
 		{

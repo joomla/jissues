@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Get;
 
-use Joomla\DI\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -18,14 +16,10 @@ class Project extends Get
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
-
 		$this->description = 'Get the whole project info from GitHub, including issues and issue comments.';
 	}
 
@@ -38,13 +32,13 @@ class Project extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Project');
+		$this->getApplication()->outputTitle('Retrieve Project');
 
 		$this->logOut('Bulk Start retrieve Project');
 
 		$this->selectProject();
 
-		$this->application->input->set('project', $this->project->project_id);
+		$this->getApplication()->input->set('project', $this->project->project_id);
 
 		$this->setupGitHub()
 			->displayGitHubRateLimit()
@@ -72,7 +66,8 @@ class Project extends Get
 	 */
 	protected function processLabels()
 	{
-		with(new Labels($this->container))
+		with(new Labels)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -87,7 +82,8 @@ class Project extends Get
 	 */
 	protected function processIssues()
 	{
-		with(new Issues($this->container))
+		with(new Issues)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -102,7 +98,8 @@ class Project extends Get
 	 */
 	protected function processComments()
 	{
-		with(new Comments($this->container))
+		with(new Comments)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -117,7 +114,8 @@ class Project extends Get
 	 */
 	protected function processAvatars()
 	{
-		with(new Avatars($this->container))
+		with(new Avatars)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;

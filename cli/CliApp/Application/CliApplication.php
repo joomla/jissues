@@ -8,6 +8,7 @@ namespace CliApp\Application;
 
 use App\Projects\TrackerProject;
 
+use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 use CliApp\Service\GitHubProvider;
@@ -20,6 +21,7 @@ use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
@@ -197,7 +199,15 @@ class CliApplication extends AbstractCliApplication
 
 		try
 		{
-			with(new $className($this->container))->execute();
+			/* @type TrackerCommand $command */
+			$command = new $className;
+
+			if ($command instanceof ContainerAwareInterface)
+			{
+				$command->setContainer($this->container);
+			}
+
+			$command->execute();
 		}
 		catch (AbortException $e)
 		{

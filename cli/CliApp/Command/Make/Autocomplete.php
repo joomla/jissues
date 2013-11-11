@@ -8,8 +8,6 @@ namespace CliApp\Command\Make;
 
 use CliApp\Command\TrackerCommand;
 
-use Joomla\DI\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -20,14 +18,10 @@ class Autocomplete extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   Container  $container  The DI container.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Container $container)
+	public function __construct()
 	{
-		parent::__construct($container);
-
 		$this->description = 'Generate an auto complete file for PHPStorm.';
 	}
 
@@ -40,11 +34,11 @@ class Autocomplete extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Auto complete');
+		$this->getApplication()->outputTitle('Make Auto complete');
 
 		$cliBase = JPATH_ROOT . '/cli/CliApp/Command';
 
-		$helper = new Helper($this->application);
+		$helper = new Helper($this->getApplication());
 
 		$xml = simplexml_load_string(
 			'<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -70,7 +64,7 @@ class Autocomplete extends Make
 				$className = $commandName . '\\' . $command;
 
 				/* @type TrackerCommand $class */
-				$class = new $className($this->application);
+				$class = new $className($this->getApplication());
 
 				$help = $class->getDescription();
 				$help = str_replace(array('<cmd>', '</cmd>', '<', '>'), '', $help);

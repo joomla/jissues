@@ -10,6 +10,7 @@
 namespace CliApp\Command;
 
 use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 
 use Monolog\Logger;
 
@@ -21,14 +22,8 @@ use Psr\Log\LoggerInterface;
  *
  * @since  1.0
  */
-abstract class TrackerCommand implements LoggerAwareInterface
+abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInterface
 {
-	/**
-	 * @var    \CliApp\Application\CliApplication
-	 * @since  1.0
-	 */
-	protected $application;
-
 	/**
 	 * @var    Logger
 	 * @since  1.0
@@ -53,20 +48,6 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	 * @var Container
 	 */
 	protected $container = null;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Container $container)
-	{
-		$this->container   = $container;
-		$this->application = $container->get('app');
-		$this->logger      = $container->get('logger');
-	}
 
 	/**
 	 * Execute the command.
@@ -118,7 +99,7 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	 */
 	protected function out($text = '', $nl = true)
 	{
-		$this->application->out($text, $nl);
+		$this->getApplication()->out($text, $nl);
 
 		return $this;
 	}
@@ -134,7 +115,7 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	 */
 	protected function debugOut($text)
 	{
-		$this->application->debugOut($text);
+		$this->getApplication()->debugOut($text);
 
 		return $this;
 	}
@@ -151,7 +132,7 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	protected function logOut($text)
 	{
 		// Send text to the logger and remove color chars.
-		$this->logger->info(preg_replace('/\<[a-z\/]+\>/', '', $text));
+		$this->getLogger()->info(preg_replace('/\<[a-z\/]+\>/', '', $text));
 
 		return $this;
 	}
@@ -178,5 +159,64 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->logger = $logger;
+	}
+
+	/**
+	 * Get the DI container.
+	 *
+	 * @return  Container
+	 *
+	 * @since   1.0
+	 *
+	 * @throws  \UnexpectedValueException May be thrown if the container has not been set.
+	 */
+	public function getContainer()
+	{
+		if (is_null($this->container))
+		{
+			throw new \UnexpectedValueException('Container not set');
+		}
+
+		return $this->container;
+	}
+
+	/**
+	 * Set the DI container.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setContainer(Container $container)
+	{
+		$this->container = $container;
+
+		return $this;
+	}
+
+	/**
+	 * Get the application object.
+	 *
+	 * @return \CliApp\Application\CliApplication
+	 *
+	 * @since   1.0
+	 */
+	protected function getApplication()
+	{
+		return $this->getContainer()->get('app');
+	}
+
+	/**
+	 * Get the logger object.
+	 *
+	 * @return \Psr\Log\LoggerInterface
+	 *
+	 * @since   1.0
+	 */
+	protected function getLogger()
+	{
+		return $this->getContainer()->get('logger');
 	}
 }
