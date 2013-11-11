@@ -3,6 +3,20 @@
 
 {% extends "index.twig" %}
 
+{% block prependMenu %}
+    {% if page %}
+    <li>
+        <a class="btn-warning" target="_blank" href="{{ editLink }}">
+            <i class="icon icon-github"></i>
+            {{ "Edit"|_ }}
+        </a>
+    </li>
+    {% endif %}
+
+    {{ parent() }}
+
+{% endblock %}
+
 {% block content %}
 
     {% if page %}
