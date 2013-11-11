@@ -45,9 +45,12 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * @var    DatabaseQuery
 	 * @since  1.0
 	 */
-	protected $query = array();
+	protected $query;
 
-	protected $input = null;
+	/**
+	 * @var \Joomla\Input\Input
+	 */
+	protected $input;
 
 	/**
 	 * Instantiate the model.
@@ -244,9 +247,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{
-			/* @type \JTracker\Application $app */
-			$app = Container::retrieve('app');
-
 			// @todo huge change here - no more session state...
 			$limit = $this->input->getInt('list_limit', 20);
 			$page  = $this->input->getInt('page');
