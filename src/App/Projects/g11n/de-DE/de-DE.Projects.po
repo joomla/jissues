@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 11:59-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
@@ -72,49 +72,49 @@ msgstr "Bearbeiten"
 msgid "Delete"
 msgstr "Löschen"
 
-#: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
+#: /templates/projects/project.add.twig:11
 msgid "Save"
 msgstr "Speichern"
-
-#: /templates/projects/project.add.twig:20
-#: /templates/projects/project.edit.twig:30
-msgid "New project"
-msgstr "Neues Projekt"
-
-#: /templates/projects/project.add.twig:24
-#: /templates/projects/project.edit.twig:35
-msgid "Details"
-msgstr "Details"
-
-#: /templates/projects/project.add.twig:28
-#: /templates/projects/project.edit.twig:37
-msgid "Title"
-msgstr "Titel"
-
-#: /templates/projects/project.add.twig:33
-#: /templates/projects/project.edit.twig:44
-msgid "Alias"
-msgstr "Alias"
-
-#: /templates/projects/project.add.twig:38
-#: /templates/projects/project.edit.twig:51
-msgid "GitHub Owner"
-msgstr "GitHub Besitzer"
-
-#: /templates/projects/project.add.twig:43
-#: /templates/projects/project.edit.twig:58
-msgid "GitHub Repo"
-msgstr "GitHub Repo"
-
-#: /templates/projects/project.add.twig:48
-#: /templates/projects/project.edit.twig:65
-msgid "External Tracker Link"
-msgstr "Externer Trackerlink"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
 msgstr "Projekt bearbeiten"
+
+#: /templates/projects/project.edit.twig:30
+#: /templates/projects/project.add.twig:20
+msgid "New project"
+msgstr "Neues Projekt"
+
+#: /templates/projects/project.edit.twig:35
+#: /templates/projects/project.add.twig:24
+msgid "Details"
+msgstr "Details"
+
+#: /templates/projects/project.edit.twig:37
+#: /templates/projects/project.add.twig:28
+msgid "Title"
+msgstr "Titel"
+
+#: /templates/projects/project.edit.twig:44
+#: /templates/projects/project.add.twig:33
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.edit.twig:51
+#: /templates/projects/project.add.twig:38
+msgid "GitHub Owner"
+msgstr "GitHub Besitzer"
+
+#: /templates/projects/project.edit.twig:58
+#: /templates/projects/project.add.twig:43
+msgid "GitHub Repo"
+msgstr "GitHub Repo"
+
+#: /templates/projects/project.edit.twig:65
+#: /templates/projects/project.add.twig:48
+msgid "External Tracker Link"
+msgstr "Externer Trackerlink"
 
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8

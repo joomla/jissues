@@ -288,6 +288,13 @@ final class Application extends AbstractWebApplication
 			$this->newSession = new Session;
 
 			$this->newSession->start();
+
+			$registry = $this->newSession->get('registry');
+
+			if (is_null($registry))
+			{
+				$this->newSession->set('registry', new Registry('session'));
+			}
 		}
 
 		return $this->newSession;

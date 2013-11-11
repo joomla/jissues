@@ -244,7 +244,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		// If the context is set, assume that stateful lists are used.
 		if ($this->context)
 		{
-			// @$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
+			/* @type \JTracker\Application $app */
+			$app = Container::retrieve('app');
 
 			// @todo huge change here - no more session state...
 			$limit = $this->input->getInt('list_limit', 20);

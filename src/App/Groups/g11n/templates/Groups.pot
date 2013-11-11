@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Groups - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 13:46-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,27 +25,27 @@ msgid "Access Groups"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:27
-#: /templates/groups/group.edit.twig:143
+#: /templates/groups/group.edit.twig:144
 msgid "Title"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:28
-#: /templates/groups/group.edit.twig:159
+#: /templates/groups/group.edit.twig:160
 msgid "View"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:29
-#: /templates/groups/group.edit.twig:169
+#: /templates/groups/group.edit.twig:170
 msgid "Create"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:30
-#: /templates/groups/group.edit.twig:179
+#: /templates/groups/group.edit.twig:180
 msgid "Edit"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:31
-#: /templates/groups/group.edit.twig:189
+#: /templates/groups/group.edit.twig:190
 msgid "Manage"
 msgstr ""
 
@@ -74,39 +73,39 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:124
+#: /templates/groups/group.edit.twig:125
 msgid "Edit Access Group"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:126
+#: /templates/groups/group.edit.twig:127
 msgid "Add Access Group"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:135
+#: /templates/groups/group.edit.twig:136
 msgid "Details"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:153
+#: /templates/groups/group.edit.twig:154
 msgid "Permissions"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:207
+#: /templates/groups/group.edit.twig:208
 msgid "Users"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:219
+#: /templates/groups/group.edit.twig:220
 msgid "Add User"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:231
+#: /templates/groups/group.edit.twig:232
 msgid "Remove User"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:236
+#: /templates/groups/group.edit.twig:237
 msgid "List assigned Users"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:248
+#: /templates/groups/group.edit.twig:249
 msgid "Save the group to assign users."
 msgstr ""
 

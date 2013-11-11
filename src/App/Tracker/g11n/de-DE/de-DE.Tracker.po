@@ -7,24 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tracker - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 08:48-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
-"Language: de-DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: /templates/tracker/issue.index.twig:28
-msgid "Edit"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:115
-#: /templates/tracker/issue.edit.twig:50
-#: /templates/tracker/issues.index.twig:115
-msgid "Foreign ID"
-msgstr "Externe ID"
+"Language: de-DE\n"
 
 #: /templates/tracker/issue.edit.twig:16
 msgid "Save"
@@ -34,14 +24,19 @@ msgstr "Speichern"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#: /templates/tracker/issue.edit.twig:50
+#: /templates/tracker/issue.index.twig:115
+#: /templates/tracker/issues.index.twig:129
+msgid "Foreign ID"
+msgstr "Externe ID"
+
 #: /templates/tracker/issue.edit.twig:63
-#: /templates/tracker/issues.index.twig:66
+#: /templates/tracker/issues.index.twig:81
 msgid "Status"
 msgstr "Status"
 
-#: /templates/tracker/issue.edit.twig:74
-#: /templates/tracker/issues.index.twig:65
-#: /templates/tracker/issue.add.twig:39
+#: /templates/tracker/issue.edit.twig:74 /templates/tracker/issue.add.twig:39
+#: /templates/tracker/issues.index.twig:80
 msgid "Priority"
 msgstr ""
 
@@ -65,58 +60,13 @@ msgstr "Erfolgreiche Tests"
 msgid "Easy test"
 msgstr "Leichter Test"
 
-#: /templates/tracker/issues.index.twig:25 /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:56
+#: /templates/tracker/issue.edit.twig:123 /templates/tracker/issue.add.twig:61
+msgid "Title"
+msgstr "Titel"
+
+#: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:56
 msgid "New Item"
 msgstr "Neuer Artikel"
-
-#: /templates/tracker/issues.index.twig:40
-#: /templates/tracker/issues.index.twig:43
-#: /templates/tracker/issues.index.twig:44
-msgid "Filter the list by summary or description."
-msgstr "Filtern Sie die Liste nach Zusammenfassung oder Beschreibung."
-
-#: /templates/tracker/issues.index.twig:45
-msgid "Submit search"
-msgstr "Suche starten"
-
-#: /templates/tracker/issues.index.twig:51
-msgid "Clear search"
-msgstr "Suche leeren"
-
-#: /templates/tracker/issues.index.twig:57
-#: /templates/tracker/issues.index.twig:160
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "Seite %1$s von %2$s"
-
-#: /templates/tracker/issues.index.twig:63
-msgid "ID"
-msgstr "ID"
-
-#: /templates/tracker/issues.index.twig:64
-msgid "Summary"
-msgstr "Zusammenfassung"
-
-#: /templates/tracker/issues.index.twig:67
-msgid "Date Opened"
-msgstr "Eröffnungsdatum"
-
-#: /templates/tracker/issues.index.twig:68
-msgid "Date Closed"
-msgstr "Schliessungsdatum"
-
-#: /templates/tracker/issues.index.twig:69
-msgid "Last Modified"
-msgstr "Zuletzt geändert"
-
-#: /templates/tracker/issues.index.twig:107
-msgid "GitHub ID"
-msgstr "GitHub ID"
-
-#: /templates/tracker/issues.index.twig:151
-msgid "No items found."
-msgstr "Keine Einträge gefunden"
 
 #: /templates/tracker/issue.add.twig:12
 msgid "Submit"
@@ -135,29 +85,129 @@ msgid "Pro"
 msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:47
-msgid "COM_TRACKER_HELP_PRIORITY"
-msgstr "(DE-ME-PLEASE) The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgid "Priority help"
+msgstr "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
 
 #: /templates/tracker/issue.add.twig:53
-msgid "COM_TRACKER_HELP_ISSUE_BUILD"
-msgstr "(DE-ME-PLEASE) The version(s) of the project on which this issue is found."
+msgid "Build help"
+msgstr "The version(s) of the project on which this issue is found."
 
 #: /templates/tracker/issue.add.twig:58
-msgid "COM_TRACKER_HELP_ISSUE_INTRO"
-msgstr "(DE-ME-PLEASE) To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-
-#: /templates/tracker/issue.add.twig:61
-msgid "Title"
-msgstr "Titel"
+msgid "Issue intro help"
+msgstr "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
 
 #: /templates/tracker/issue.add.twig:64
-msgid "COM_TRACKER_HELP_ISSUE_TITLE"
-msgstr "(DE-ME-PLEASE) Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
+msgid "Issue title help"
+msgstr "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
 
 #: /templates/tracker/issue.add.twig:66
 msgid "Description"
 msgstr "Beschreibung"
 
 #: /templates/tracker/issue.add.twig:75
-msgid "COM_TRACKER_HELP_ISSUE_DESCRIPTION"
-msgstr "(DE-ME-PLEASE) This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
+msgid "Issue description help"
+msgstr "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
+
+#: /templates/tracker/issues.index.twig:41
+#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
+msgid "Filter the list by summary or description."
+msgstr "Filtern Sie die Liste nach Zusammenfassung oder Beschreibung."
+
+#: /templates/tracker/issues.index.twig:46
+msgid "Submit search"
+msgstr "Suche starten"
+
+#: /templates/tracker/issues.index.twig:52
+msgid "Clear search"
+msgstr "Suche leeren"
+
+#: /templates/tracker/issues.index.twig:64
+msgid "Open"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:65
+msgid "Closed"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:72
+#: /templates/tracker/issues.index.twig:174
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Seite %1$s von %2$s"
+
+#: /templates/tracker/issues.index.twig:78
+msgid "ID"
+msgstr "ID"
+
+#: /templates/tracker/issues.index.twig:79
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: /templates/tracker/issues.index.twig:82
+msgid "Date Opened"
+msgstr "Eröffnungsdatum"
+
+#: /templates/tracker/issues.index.twig:83
+msgid "Date Closed"
+msgstr "Schliessungsdatum"
+
+#: /templates/tracker/issues.index.twig:84
+msgid "Last Modified"
+msgstr "Zuletzt geändert"
+
+#: /templates/tracker/issues.index.twig:121
+msgid "GitHub ID"
+msgstr "GitHub ID"
+
+#: /templates/tracker/issues.index.twig:165
+msgid "No items found."
+msgstr "Keine Einträge gefunden"
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "status"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:29
+msgid "priority"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Newest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Oldest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Recently updated"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Least recently updated"
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:150
+msgid "A title is required."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:154
+msgid "The title min length is 15 chars."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:158
+msgid "The title max length is 50 chars."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:162
+msgid "Some characters are not allowed in the title."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:167
+msgid "A build is required."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:171
+msgid "A build max length is 40 chars."
+msgstr ""

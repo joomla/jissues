@@ -2,19 +2,24 @@
 # Copyright (C) 2013 JTracker(C)
 # This file is distributed under the same license as the Debug - App package.
 # Nikolai Plath <EMAIL@ADDRESS>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Debug - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 09:23-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2013-06-24 17:59-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language de-DE\n"
-"Language: de-DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de-DE\n"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:61
+#, php-format
+msgid "No %s log file found."
+msgstr "Keine Logdatei für %s gefunden."
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:88
 #, php-format
@@ -25,11 +30,6 @@ msgstr "Kein EXPLAIN für Query: %s"
 #, php-format
 msgid "%s database is not supported yet."
 msgstr "Die Datenbank %s wird noch nicht unterstützt."
-
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:61
-#, php-format
-msgid "No %s log file found."
-msgstr "Keine Logdatei für %s gefunden."
 
 #: /src/App/Debug/TrackerDebugger.php:264
 msgid "Database"

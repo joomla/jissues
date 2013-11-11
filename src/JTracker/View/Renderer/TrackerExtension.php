@@ -146,9 +146,10 @@ class TrackerExtension extends \Twig_Extension
 
 		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
-		$width = $width ? ' width="' . $width . 'px"' : '';
+		$width = $width ? ' width="' . $width . '"' : '';
 
 		return '<img'
+		. ' class="avatar"'
 		. ' alt="avatar ' . $userName . '"'
 		. ' src="' . $base . 'images/avatars/' . $avatar . '"'
 		. $width

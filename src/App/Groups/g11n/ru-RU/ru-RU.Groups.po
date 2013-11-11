@@ -2,113 +2,113 @@
 # Copyright (C) 2013 JTracker(C)
 # This file is distributed under the same license as the Groups - App package.
 # Nikolai Plath <EMAIL@ADDRESS>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Groups - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 10:06-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language ru-RU\n"
-"Language: ru-RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ru-RU\n"
 
 #: /templates/groups/groups.index.twig:11
 msgid "Add Group"
-msgstr ""
+msgstr "Добавить группу"
 
 #: /templates/groups/groups.index.twig:22
 msgid "Access Groups"
-msgstr ""
+msgstr "Группы доступа"
 
 #: /templates/groups/groups.index.twig:27
-#: /templates/groups/group.edit.twig:143
+#: /templates/groups/group.edit.twig:144
 msgid "Title"
-msgstr ""
+msgstr "Название"
 
 #: /templates/groups/groups.index.twig:28
-#: /templates/groups/group.edit.twig:159
+#: /templates/groups/group.edit.twig:160
 msgid "View"
-msgstr ""
+msgstr "Представление"
 
 #: /templates/groups/groups.index.twig:29
-#: /templates/groups/group.edit.twig:169
+#: /templates/groups/group.edit.twig:170
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: /templates/groups/groups.index.twig:30
-#: /templates/groups/group.edit.twig:179
+#: /templates/groups/group.edit.twig:180
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: /templates/groups/groups.index.twig:31
-#: /templates/groups/group.edit.twig:189
+#: /templates/groups/group.edit.twig:190
 msgid "Manage"
-msgstr ""
+msgstr "Управлять"
 
 #: /templates/groups/groups.index.twig:32
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: /templates/groups/groups.index.twig:34
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: /templates/groups/groups.index.twig:60
 msgid "System"
-msgstr ""
+msgstr "Система"
 
 #: /templates/groups/groups.index.twig:63
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: /templates/groups/groups.index.twig:75
 msgid "No groups defined !"
-msgstr ""
+msgstr "Группы не определены !"
 
 #: /templates/groups/group.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
-#: /templates/groups/group.edit.twig:124
+#: /templates/groups/group.edit.twig:125
 msgid "Edit Access Group"
-msgstr ""
+msgstr "Редактировать группу доступов"
 
-#: /templates/groups/group.edit.twig:126
+#: /templates/groups/group.edit.twig:127
 msgid "Add Access Group"
-msgstr ""
+msgstr "Добавить группу доступов"
 
-#: /templates/groups/group.edit.twig:135
+#: /templates/groups/group.edit.twig:136
 msgid "Details"
-msgstr ""
+msgstr "Детали"
 
-#: /templates/groups/group.edit.twig:153
+#: /templates/groups/group.edit.twig:154
 msgid "Permissions"
-msgstr ""
+msgstr "Права"
 
-#: /templates/groups/group.edit.twig:207
+#: /templates/groups/group.edit.twig:208
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
-#: /templates/groups/group.edit.twig:219
+#: /templates/groups/group.edit.twig:220
 msgid "Add User"
-msgstr ""
+msgstr "Добавить пользователя"
 
-#: /templates/groups/group.edit.twig:231
+#: /templates/groups/group.edit.twig:232
 msgid "Remove User"
-msgstr ""
+msgstr "Удалить пользователя"
 
-#: /templates/groups/group.edit.twig:236
+#: /templates/groups/group.edit.twig:237
 msgid "List assigned Users"
-msgstr ""
+msgstr "Список назначенных пользователей"
 
-#: /templates/groups/group.edit.twig:248
+#: /templates/groups/group.edit.twig:249
 msgid "Save the group to assign users."
-msgstr ""
+msgstr "Сохранить группу и назначить пользователей"
 
 #: /src/App/Groups/Table/GroupsTable.php:97
 msgid "A title is required"
-msgstr ""
+msgstr "Название обязательно"

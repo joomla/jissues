@@ -8,15 +8,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debug - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 13:46-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:61
+#, php-format
+msgid "No %s log file found."
+msgstr ""
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:88
 #, php-format
@@ -26,11 +30,6 @@ msgstr ""
 #: /src/App/Debug/Database/DatabaseDebugger.php:117
 #, php-format
 msgid "%s database is not supported yet."
-msgstr ""
-
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:61
-#, php-format
-msgid "No %s log file found."
 msgstr ""
 
 #: /src/App/Debug/TrackerDebugger.php:264
