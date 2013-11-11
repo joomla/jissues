@@ -8,20 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tracker - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-10-21 13:05-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: /templates/tracker/issue.index.twig:115
-#: /templates/tracker/issue.edit.twig:50
-#: /templates/tracker/issues.index.twig:112
-msgid "Foreign ID"
-msgstr ""
 
 #: /templates/tracker/issue.edit.twig:16
 msgid "Save"
@@ -31,14 +24,20 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: /templates/tracker/issue.edit.twig:50
+#: /templates/tracker/issue.index.twig:115
+#: /templates/tracker/issues.index.twig:129
+msgid "Foreign ID"
+msgstr ""
+
 #: /templates/tracker/issue.edit.twig:63
-#: /templates/tracker/issues.index.twig:65
+#: /templates/tracker/issues.index.twig:81
 msgid "Status"
 msgstr ""
 
 #: /templates/tracker/issue.edit.twig:74
-#: /templates/tracker/issues.index.twig:64
 #: /templates/tracker/issue.add.twig:39
+#: /templates/tracker/issues.index.twig:80
 msgid "Priority"
 msgstr ""
 
@@ -63,52 +62,9 @@ msgstr ""
 msgid "Easy test"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:39
-#: /templates/tracker/issues.index.twig:42
-#: /templates/tracker/issues.index.twig:43
-msgid "Filter the list by summary or description."
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:44
-msgid "Submit search"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:50
-msgid "Clear search"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:56
-#: /templates/tracker/issues.index.twig:157
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:62
-msgid "ID"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:63
-msgid "Summary"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:66
-msgid "Date Opened"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:67
-msgid "Date Closed"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:68
-msgid "Last Modified"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:104
-msgid "GitHub ID"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:148
-msgid "No items found."
+#: /templates/tracker/issue.edit.twig:123
+#: /templates/tracker/issue.add.twig:61
+msgid "Title"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:6
@@ -128,28 +84,20 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:32
-msgid "Pro"
-msgstr ""
-
 #: /templates/tracker/issue.add.twig:47
-msgid "COM_TRACKER_HELP_PRIORITY"
+msgid "Priority help"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:53
-msgid "COM_TRACKER_HELP_ISSUE_BUILD"
+msgid "Build help"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:58
-msgid "COM_TRACKER_HELP_ISSUE_INTRO"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:61
-msgid "Title"
+msgid "Issue intro help"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:64
-msgid "COM_TRACKER_HELP_ISSUE_TITLE"
+msgid "Issue title help"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:66
@@ -157,5 +105,109 @@ msgid "Description"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:75
-msgid "COM_TRACKER_HELP_ISSUE_DESCRIPTION"
+msgid "Issue description help"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:41
+#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
+msgid "Filter the list by summary or description."
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:46
+msgid "Submit search"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:52
+msgid "Clear search"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:64
+msgid "Open"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:65
+msgid "Closed"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:72
+#: /templates/tracker/issues.index.twig:174
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:78
+msgid "ID"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:79
+msgid "Summary"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:82
+msgid "Date Opened"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:83
+msgid "Date Closed"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:84
+msgid "Last Modified"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:121
+msgid "GitHub ID"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:165
+msgid "No items found."
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "status"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:29
+msgid "priority"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Newest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Oldest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Recently updated"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Least recently updated"
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:150
+msgid "A title is required."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:154
+msgid "The title min length is 15 chars."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:158
+msgid "The title max length is 50 chars."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:162
+msgid "Some characters are not allowed in the title."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:167
+msgid "A build is required."
+msgstr ""
+
+#: /src/App/Tracker/Table/IssuesTable.php:171
+msgid "A build max length is 40 chars."
 msgstr ""

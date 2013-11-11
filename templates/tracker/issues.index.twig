@@ -8,8 +8,8 @@
 {% block headerText %}{{ project.title }}{% endblock %}
 
 {% block headerCSS %}
-    <link href="{{ uri.base.path }}css/pagination/pagination.css" rel="stylesheet" media="screen">
-    <link href="{{ uri.base.path }}css/pagination/B_black.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
     <style type="text/css">
         td.issueInfo:hover {
             background-color: #eee;
@@ -22,7 +22,7 @@
     {% if user.check("create") %}
         <li>
             <a class="btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">
-                New Item
+                {{ "New Item"|_ }}
             </a>
         </li>
     {% endif %}
@@ -32,13 +32,15 @@
 {% endblock %}
 
 {% block content %}
-    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="adminForm" id="adminForm" class="form-inline form-search">
+    {% import "tracker.filters.twig" as filters %}
+
+    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="filter-search btn-group pull-left input-append">
                 <label class="filter-search-lbl element-invisible"
                        for="filter-search">{{ translate('Filter the list by summary or description.') }}</label>
                 <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
-                       value="{{ state.get('list.filter') }}" onchange="document.adminForm.submit();"
+                       value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
                        title="{{ translate('Filter the list by summary or description.') }}"
                        placeholder="{{ translate('Filter the list by summary or description.') }}"/>
                 <button class="btn tip hasTooltip" type="submit" title="{{ translate('Submit search') }}">
@@ -46,8 +48,22 @@
             </div>
             <div class="btn-group pull-left">
                 <button class="btn tip hasTooltip" type="button"
-                        onclick="jQuery('#filter-search').val('');document.adminForm.submit();"
+                        onclick="jQuery('#filter-search').val('');document.issuesForm.submit();"
                         title="{{ translate('Clear search') }}"><span class="icon-remove"></span></button>
+            </div>
+            <div class="pull-right btn-group">
+                {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small') }}
+            </div>
+            <div class="pull-right btn-group">
+                {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium') }}
+            </div>
+            <div class="pull-right btn-group">
+                {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium') }}
+            </div>
+            <div class="btn-group pull-right" data-toggle="buttons-checkbox" id="filter-oc-status-div">
+                <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-success {% endif %}" value="1">{{ translate('Open') }}</button>
+                <button type="button" class="btn {% if state.get('filter.status') == 10 %} active btn-danger {% endif %}" value="10">{{ translate('Closed') }}</button>
+                <input type="hidden" name="filter-oc-status" id="filter-oc-status" value="{{ state.get('filter.status') }}" />
             </div>
         </div>
 
@@ -64,7 +80,7 @@
                 <th width="5%">{{ translate('Priority') }}</th>
                 <th width="10%">{{ translate('Status') }}</th>
                 <th width="10%" class="hidden-phone">{{ translate('Date Opened') }}</th>
-                <th width="10%" class="hidden-phone">{{ translate('Date Closed') }}</th>
+                <th width="10%" class="date-closed hidden-phone">{{ translate('Date Closed') }}</th>
                 <th width="10%" class="hidden-phone">{{ translate('Last Modified') }}</th>
             </tr>
             </thead>
@@ -94,27 +110,28 @@
                                 {% if user.check("edit") %}
                                 <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
                                     <span data-icon="&#xe003;"></span>
+                                    </a>
                                 {% endif %}
                                 <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
                                     {{ item.title|e }}
                                 </a>
-                                    {{ item.labels|labels|raw }}
-                                    {% if project.gh_user and project.gh_project %}
-                                        <br/>
-                                        {{ translate('GitHub ID') }}
-                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                                           target="_blank">
-                                            {{ item.issue_number }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.foreign_number %}
-                                        <br/>
-                                        {{ translate('Foreign ID') }}
-                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                                           target="_blank">
-                                            {{ item.foreign_number }}
-                                        </a>
-                                    {% endif %}
+                                {{ item.labels|labels|raw }}
+                                {% if project.gh_user and project.gh_project %}
+                                    <br/>
+                                    {{ translate('GitHub ID') }}
+                                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                                       target="_blank">
+                                        {{ item.issue_number }}
+                                    </a>
+                                {% endif %}
+                                {% if item.foreign_number %}
+                                    <br/>
+                                    {{ translate('Foreign ID') }}
+                                    <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                                       target="_blank">
+                                        {{ item.foreign_number }}
+                                    </a>
+                                {% endif %}
                             </div>
                         </td>
                         <td class="center">
@@ -128,7 +145,7 @@
                         <td class="nowrap small hidden-phone">
                             {{ item.opened_date|date('Y-m-d') }}
                         </td>
-                        <td class="nowrap small hidden-phone">
+                        <td class="date-closed nowrap small hidden-phone">
                             {% if item.closed_status %}
                                 {{ item.closed_date|date('Y-m-d') }}
                             {% endif %}
@@ -177,24 +194,55 @@
 
     {{ parent() }}
 
-    <script src="{{ uri.base.path }}js/js-templates/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}js/jtracker-js-templates.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
 
     $('*[data-issue]').click(
-            function () {
-                var el = $(this);
-                $.get(el.data('issue'), function(r) {
-                    el.popover({
-                       content: tmpl("tplIssueInfo", r.data),
-                       html: true
-                   }).popover('show');
-                });
-                el.unbind('click');
-                return false;
-            }
+        function () {
+            var el = $(this);
+            $.get(el.data('issue'), function(r) {
+                el.popover({
+                   content: tmpl("tplIssueInfo", r.data),
+                   html: true
+               }).popover('show');
+            });
+            el.unbind('click');
+            return false;
+        }
     );
+
+    var form = $('#issuesForm');
+
+    $('[id^=filter]').change(
+        function() {
+            form.submit();
+        }
+    );
+
+    $('#filter-status').change(
+        function() {
+            var val = $(this).val();
+            $('#filter-oc-status').val(val);
+            $('#filter-oc-status-div button').val(val);
+        }
+    );
+
+   $('#filter-oc-status-div button').click(
+        function () {
+            var val = $(this).val();
+            $('#filter-oc-status').val(val);
+            $('#filter-status').val(val);
+            form.submit();
+        }
+    );
+
+    if ($('#filter-status').val() == 1) {
+        $('.date-closed').hide();
+    };
     </script>
 
 {% endblock %}

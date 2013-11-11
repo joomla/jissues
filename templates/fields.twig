@@ -1,0 +1,32 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
+
+{% macro input(name, value, type, id, class) %}
+    <input type="{{ type|default('text') }}" name="{{ name }}" id="{{ id|default(name) }}" value="{{ value|e }}" class="{{ class }}" />
+{% endmacro %}
+
+{% macro textarea(name, value, class) %}
+    <textarea name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}">{{ value|e }}</textarea>
+{% endmacro %}
+
+{% macro label(id, content, class) %}
+    <label for="{{ id }}" class="{{ class }}">{{ content|e }}</label>
+{% endmacro %}
+
+{% macro checkbox(name, value, id, class) %}
+    <input type="checkbox" name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}" value="1"{% if value %} checked="checked"{% endif %} />
+{% endmacro %}
+
+{% macro select(name, values, value, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}">
+        {% for key, name in values %}
+        <option value="{{ key }}"{% if value == key %} selected="selected"{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}
+
+{% macro radio(name, values, value, id, class) %}
+    {% for key, label in values %}
+        <label{% if value == key %} class="selected"{% endif %} ><input type="radio" name="{{ name }}" id="{{ id|default(name) ~ key }}" value="{{ key }}"{% if value == key %} checked="checked"{% endif %} /> {{ label }}</label>
+    {% endfor %}
+{% endmacro %}

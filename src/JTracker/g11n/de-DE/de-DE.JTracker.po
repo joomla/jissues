@@ -2,19 +2,27 @@
 # Copyright (C) 2013 JTracker(C)
 # This file is distributed under the same license as the JTracker - Core package.
 # Nikolai Plath <der.el.kuku@gmail.com>, 2013.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker - Core 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-02 16:54-0500\n"
+"POT-Creation-Date: 2013-11-09 21:39+0200\n"
 "PO-Revision-Date: 2013-06-23 22:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Language de-DE\n"
-"Language: de-DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de-DE\n"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+msgid "Yes"
+msgstr "Ja"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+msgid "No"
+msgstr "Nein"
 
 #: /src/JTracker/Pagination/TrackerPagination.php:209
 #: /src/JTracker/Pagination/TrackerPagination.php:214
@@ -25,11 +33,3 @@ msgstr "Nächste"
 #: /src/JTracker/Pagination/TrackerPagination.php:215
 msgid "Last"
 msgstr "Letzte"
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
-msgid "Yes"
-msgstr "Ja"
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
-msgid "No"
-msgstr "Nein"

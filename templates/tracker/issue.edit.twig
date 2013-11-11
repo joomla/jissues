@@ -7,8 +7,8 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}css/markitup/skins/markitup/style.css" rel="stylesheet" />
-    <link href="{{ uri.base.path }}css/markitup/sets/markdown/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
 {% endblock %}
 
 {% block prependMenu %}
@@ -119,8 +119,9 @@
     <div class="row-fluid">
         <div class="span11 well-small">
             <ul class="unstyled">
-                <li>
-                    <input type="text" name="item[title]"
+                <li style="padding-bottom: 10px">
+                    <label for="title">{{ translate('Title') }}</label>
+                    <input name="item[title]" id="title" type="text"
                     style="width: 80%; font-size: 1.2em;"
                     value="{{ item.title }}"
                     class="validateTitle" />
@@ -149,10 +150,11 @@
 {% block JavaScriptBottom %}
 
     {{ parent() }}
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/jquery.markitup.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/markitup/sets/markdown/set.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}js/validation/jtracker-rules.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

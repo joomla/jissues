@@ -18,17 +18,18 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block JavaScriptBottom %}
     {{ parent() }}
-    <script src="{{ uri.base.path }}bootstrap-switch/static/js/bootstrapSwitch.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-switch/static/js/bootstrap-switch.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-typeahead.js"></script>
     <script>
         jQuery('#searchUser').typeahead({
             source: function (query, process) {
                 return $.get(
-                        '/user/search', { query: query, not_in_group_id: {{ group.group_id}}  },
+                        '{{ uri.base.path }}user/search', { query: query, not_in_group_id: {{ group.group_id}}  },
                         function (response) {
                             if (response.error) {
                                 $('#ajax-errors').html(response.error);
@@ -43,7 +44,7 @@
         jQuery('#searchUserGroup').typeahead({
             source: function (query, process) {
                 return $.get(
-                        '/user/search', { query: query, in_group_id: {{ group.group_id}} },
+                        '{{ uri.base.path }}user/search', { query: query, in_group_id: {{ group.group_id}} },
                         function (response) {
                             if (response.error) {
                                 $('#ajax-errors').html(response.error);
@@ -66,7 +67,7 @@
             }
 
             jQuery.get(
-                    '/user/assign', { user: user, group_id: group_id, project_id: project_id, assign: assign },
+                    '{{ uri.base.path }}user/assign', { user: user, group_id: group_id, project_id: project_id, assign: assign },
                     function (response) {
                         if (response.error) {
                             msg.html('<b style="color: red;">' + response.error + '</b>');
@@ -87,7 +88,7 @@
 
         function listUsers(group_id) {
             jQuery.get(
-                    '/users/list', { group_id: group_id },
+                    '{{ uri.base.path }}users/list', { group_id: group_id },
                     function (response) {
 
                         var html = '';
@@ -158,7 +159,7 @@
                                 <i class="icon-eye-2"></i>
                                 {{ "View"|_ }}
                             </label>
-                            <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                                 <input type="checkbox" {{ group.can_view ? "checked='checked'" : "" }}
                                        id="can_view" name="group[can_view]"/>
                             </div>
@@ -168,7 +169,7 @@
                                 <i class="icon-plus-2"></i>
                                 {{ "Create"|_ }}
                             </label>
-                            <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_create ? "checked='checked'" : "" }}
                                    id="can_create" name="group[can_create]"/>
                             </div>
@@ -178,7 +179,7 @@
                                 <i class="icon-pencil"></i>
                                 {{ "Edit"|_ }}
                             </label>
-                            <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_edit ? "checked='checked'" : "" }}
                                    id="can_edit" name="group[can_edit]"/>
                             </div>
@@ -188,7 +189,7 @@
                                 <i class="icon-user-3"></i>
                                 {{ "Manage"|_ }}
                             </label>
-                            <div class="switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_manage ? "checked='checked'" : "" }}
                                    id="can_manage" name="group[can_manage]"/>
                             </div>
