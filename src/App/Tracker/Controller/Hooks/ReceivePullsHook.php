@@ -126,6 +126,7 @@ class ReceivePullsHook extends AbstractHookController
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['project_id']      = $this->project->project_id;
 		$data['has_code']        = 1;
+		$data['build']           = $this->data->base->ref;
 
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)

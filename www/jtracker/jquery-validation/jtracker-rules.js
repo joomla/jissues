@@ -12,8 +12,7 @@ $.validator.addClassRules({
 	validateTitle: {
 		allowedchars: true,
 		required: true,
-		minlength: 15,
-		maxlength: 50
+		maxlength: 255
 	},
 	validateBuild: {
 		required: true,
