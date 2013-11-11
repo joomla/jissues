@@ -1,0 +1,34 @@
+# Dependencies for {{ product.name }} {{ product.version }}
+
+{{ product.description}}
+
+* Source URL: {{ product.homepage }}
+
+## PHP - Production
+
+{{# data.php.require }}
+#### {{ packageName }} ({{ version }})
+
+* Installed: {{ installed }} {{ sourceRef }}
+* Source URL: {{ sourceURL }}
+
+{{/ data.php.require }}
+## PHP - Development
+
+{{# data.php.require-dev }}
+#### {{ packageName }} ({{ version }})
+
+* Installed: {{ installed }} {{ sourceRef }}
+* Source URL: {{ sourceURL }}
+
+{{/ data.php.require-dev }}
+## JavaScript
+
+{{# data.javascript}}
+#### {{ packageName }} ({{ version }})
+
+{{ description }}
+
+* Source URL: {{ sourceURL }}
+
+{{/ data.javascript}}
