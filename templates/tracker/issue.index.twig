@@ -25,7 +25,7 @@
     {% if user.check("edit") %}
         <li>
             <a class="btn-warning" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-            Edit
+            {{ "Edit"|_ }}
             </a>
         </li>
     {% endif %}
@@ -45,7 +45,7 @@
     <ul class="breadcrumb">
         <li>
             <span class="badge badge-{{ item.closed ? "important" : "success" }}">
-                {{ translate(item.status_title) }}
+                {{ item.status_title|_ }}
             </span>
         </li>
 
@@ -59,14 +59,14 @@
 
         <li>
             <span class="badge {{ prioClass(item.priority) }}">
-                Priority {{ item.priority }}
+                {{ "Priority"|_ }} {{ item.priority }}
             </span>
         </li>
 
         {% if item.build %}
             <li>
                 <span class="badge">
-                    Build: {{ item.build }}
+                    {{ "Build"|_ }}: {{ item.build }}
                 </span>
             </li>
         {% endif %}
@@ -74,7 +74,7 @@
         {% if item.easy %}
             <li>
                 <span class="badge badge-success">
-                    Easy Test
+                    {{ "Easy Test"|_ }}
                 </span>
             </li>
         {% endif %}
@@ -82,7 +82,7 @@
         {% if item.tests %}
             <li>
                 <span class="badge">
-                    # of Successful Tests: {{ item.tests }}
+                    {{ "# of Successful Tests"|_ }}: {{ item.tests }}
                 </span>
             </li>
         {% endif %}
@@ -112,7 +112,7 @@
             <li>
                 <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
                    target="_blank">
-                    {{ translate('Foreign ID') }}
+                    {{ "Foreign ID"|_ }}
                     {{ item.foreign_number }}
                 </a>
             </li>
@@ -130,7 +130,7 @@
 
     {% if item.relations_f %}
         <div class="alert">
-            Referenced as
+            {{ "Referenced as"|_ }}
             {% for rel_name, relations in item.relations_f %}
                 <strong>{{ rel_name }}: </strong>
                 {% for relation in relations %}
@@ -144,7 +144,7 @@
 
     <div class="row-fluid">
         <div class="span2 well-small">
-            {{ avatar(item.opened_by, 80)|raw }}<br />
+            {{ avatar(item.opened_by)|raw }}<br />
             <span class="icon-github"></span> {{ item.opened_by }}<br />
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
@@ -157,15 +157,15 @@
             {% if item.vote_id %}
             <table>
                 <tr>
-                    <th># of Votes</th>
+                    <th>{{ "# of Votes"|_ }}</th>
                     <td id="votes">{{ item.votes }}</td>
                 </tr>
                 <tr>
-                    <th># of Users Experiencing Issue</th>
+                    <th>{{ "# of Users Experiencing Issue"|_ }}</th>
                     <td id="experienced">{{ item.experienced }}</td>
                 </tr>
                 <tr>
-                    <th>Average Importance Score</th>
+                    <th>{{ "Average Importance Score"|_ }}</th>
                     <td id="importance">{{ item.importanceScore }}</td>
                 </tr>
             </table>
@@ -173,19 +173,19 @@
             {% endif %}
             <form class="form-inline" name="voteForm">
                 <fieldset>
-                    <p>I've experienced this issue</p>
+                    <p>{{ "I've experienced this issue"|_ }}</p>
                     <label class="radio">
                         <input type="radio" name="experiencedRadios" id="experiencedRadiosYes" value="1">
-                        Yes
+                        {{ "Yes"|_ }}
                     </label>
                     <label class="radio">
                         <input type="radio" name="experiencedRadios" id="experiencedRadiosNo" value="0" checked>
-                        No
+                         {{ "No"|_ }}
                     </label>
                 </fieldset>
                 <hr />
                 <fieldset>
-                    <p>Importance of issue to me</p>
+                    <p>{{ "Importance of issue to me"|_ }}</p>
                     <label class="radio">
                         <input type="radio" name="importanceRadios" id="importanceRadios1" value="1">
                         1
@@ -209,7 +209,7 @@
                 </fieldset>
                 <hr />
                 <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
-                    Vote
+                    {{ "Vote"|_ }}
                 </a>
             </form>
         </div>
@@ -225,7 +225,7 @@
                 <div class="span1 activity-avatar hidden-phone">
                     {{ avatar(activity.user, 40)|raw }}
                 </div>
-                <div class="span11">
+                <div class="span11 activity-action">
                     <div class="well well-small">
                         <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
                              alt="{{ activity.event }} on {{ activity.created_date }}"
@@ -246,11 +246,11 @@
                                     <td class="span2">{{ change.name|title }}</td>
                                     {% if "status" == change.name %}
                                     <td class="span4 alert-{{ statuses(change.old).closed ? "error" : "success" }}">
-                                        {{ translate(statuses(change.old).status) }}
+                                        {{ statuses(change.old).status|_ }}
                                     </td>
                                     <td class="span1">&rArr;</td>
                                     <td class="span4 alert-{{ statuses(change.new).closed ? "error" : "success" }}">
-                                        {{ translate(statuses(change.new).status) }}
+                                        {{ statuses(change.new).status|_ }}
                                     </td>
                                     {% else %}
                                     <td class="span4">{{ change.old }}</td>
@@ -274,7 +274,7 @@
     <!-- Add form -->
 
     <h4>
-        Add a Comment
+        {{ "Add a Comment"|_ }}
     </h4>
 
     {% if user.id %}
@@ -285,7 +285,7 @@
                 </div>
                 <div class="span11">
                     {% set editorId="comment" %}
-                    {% set editorPlaceholder="Leave a comment" %}
+                    {% set editorPlaceholder="Leave a comment"|_ %}
                     {% include "editor.twig" %}
                 </div>
             </div>
@@ -293,7 +293,7 @@
                 <div id="commentStatus"></div>
                 <a href="javascript:" class="btn btn-success"
                    onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
-                    Post Comment
+                    {{ "Post Comment"|_ }}
                 </a>
             </div>
         {% else %}
@@ -301,7 +301,7 @@
         {% endif %}
 
     {% else %}
-        <a class="btn btn-success" href="{{ loginUrl }}">Login with GitHub to post a comment</a>
+        <a class="btn btn-success" href="{{ loginUrl }}">{{ "Login with GitHub to post a comment"|_ }}</a>
     {% endif %}
 
     <!-- ++++++++++++++++++++++++++ -->
