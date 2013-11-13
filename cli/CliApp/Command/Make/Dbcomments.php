@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -39,7 +37,7 @@ class Dbcomments extends Make
 		$this->application->outputTitle('Make DB Comments');
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$tables = $db->getTableList();
 

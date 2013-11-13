@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use g11n\g11n;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
@@ -29,13 +27,12 @@ class Langtemplates extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
+
 		$this->description = 'Create language file templates.';
 	}
 
@@ -48,7 +45,7 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
@@ -361,7 +358,7 @@ class Langtemplates extends Make
 		);
 
 		// Configure Twig the way you want
-		$twig->addExtension(new TrackerExtension);
+		$twig->addExtension(new TrackerExtension($this->container));
 
 		// Iterate over all your templates
 		/* @type \DirectoryIterator $file */

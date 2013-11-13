@@ -7,7 +7,6 @@
 namespace CliApp\Command\Make;
 
 use CliApp\Command\TrackerCommand;
-use CliApp\Command\TrackerCommandOption;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -39,16 +38,7 @@ class Make extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = 'The make engine.';
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'noprogress', '',
-				'Don\'t use a progress bar.'
-			)
-		);
 	}
 
 	/**
@@ -60,7 +50,7 @@ class Make extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make');
+		$this->getApplication()->outputTitle('Make');
 
 		$this->out('<error>                                    </error>');
 		$this->out('<error>  Please use one of the following:  </error>');

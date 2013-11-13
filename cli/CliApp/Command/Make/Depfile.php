@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
 
@@ -33,13 +31,12 @@ class Depfile extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
+
 		$this->description = 'Create and update a dependency file.';
 	}
 

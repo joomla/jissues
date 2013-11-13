@@ -12,8 +12,6 @@ use App\Tracker\Table\ActivitiesTable;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -31,13 +29,6 @@ class Issues extends Get
 		parent::__construct();
 
 		$this->description = 'Retrieve issues from GitHub.';
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**
@@ -49,7 +40,14 @@ class Issues extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Issues');
+		$this->getApplication()->outputTitle('Retrieve Issues');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->logOut('Start retrieve Issues')
 			->selectProject()
@@ -149,7 +147,7 @@ class Issues extends Get
 	{
 		// Initialize our database object
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 		$query = $db->getQuery(true);
 		$added = 0;
 
@@ -184,7 +182,7 @@ class Issues extends Get
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($db);
+			$table = new IssuesTable($this->container->get('db'));
 
 			$table->issue_number = $issue->number;
 			$table->title        = $issue->title;
@@ -288,7 +286,7 @@ class Issues extends Get
 		if (!$labels)
 		{
 			/* @type \Joomla\Database\DatabaseDriver $db */
-			$db = Container::getInstance()->get('db');
+			$db = $this->container->get('db');
 
 			$table = new LabelsTable($db);
 
