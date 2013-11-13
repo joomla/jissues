@@ -102,7 +102,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['opened_by']       = $this->hookData->issue->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['project_id']      = $this->project->project_id;
-		$data['build']           = $this->hookData->base->ref;
+		$data['build']           = $this->hookData->repository->default_branch;
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
