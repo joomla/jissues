@@ -1,4 +1,4 @@
-# Dependencies for joomla/tracker 1.0.0-alpha
+# Dependencies for joomla/tracker 1.0.0-beta
 
 Issue Tracking application built on the Joomla! Framework integrating with GitHub to replace the existing Joomlacode solution.
 
@@ -10,7 +10,7 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
 
-* Installed: dev-master fe570588d1817697b28b2e8695eac09ac5e1977b
+* Installed: dev-master 3487158a0e65b76c9dbd774864f6506ee82152f9
 * Source URL: https://github.com/joomla/joomla-framework.git
 
 #### symfony/http-foundation (2.3.*@stable)
@@ -54,14 +54,14 @@ Sends your logs to files, sockets, inboxes, databases and various web services
 
 Kint - debugging helper for PHP developers
 
-* Installed: dev-master aa4f10f0f5bdeabff515513f3a31388f196a5b5f
+* Installed: dev-master 24a15aa6e666aa9492f4bb43b48a3dbf531014ac
 * Source URL: https://github.com/raveren/kint.git
 
 #### filp/whoops (1.0.*@stable)
 
 php error handling for cool kids
 
-* Installed: 1.0.8
+* Installed: 1.0.9
 * Source URL: https://github.com/filp/whoops.git
 
 ## JavaScript
