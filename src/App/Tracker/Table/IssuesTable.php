@@ -154,13 +154,9 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			$errors[] = g11n3t('A title is required.');
 		}
-		elseif (strlen($this->title) < 15)
+		elseif (strlen($this->title) > 255)
 		{
-			$errors[] = g11n3t('The title min length is 15 chars.');
-		}
-		elseif (strlen($this->title) > 50)
-		{
-			$errors[] = g11n3t('The title max length is 50 chars.');
+			$errors[] = g11n3t('The title max length is 255 chars.');
 		}
 		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\'"\+_@&$#%: ]+$/u', $this->title))
 		{

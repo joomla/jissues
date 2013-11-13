@@ -4,7 +4,7 @@
     "keywords": ["joomla", "tracker"],
     "homepage": "https://github.com/joomla/jissues",
     "license": "GPL-2.0+",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0-beta",
     "require": {
         "php": ">=5.3.10",
         "joomla/framework": "dev-master",
@@ -16,7 +16,8 @@
     "require-dev": {
         "monolog/monolog": "1.6.0",
         "raveren/kint": "dev-master",
-        "filp/whoops": "1.0.*@stable"
+        "filp/whoops": "1.0.*@stable",
+        "mustache/mustache" : "2.1.*"
     },
     "autoload": {
         "psr-0": {
