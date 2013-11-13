@@ -20,8 +20,6 @@ class Project extends Get
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = 'Get the whole project info from GitHub, including issues and issue comments.';
 	}
 
@@ -34,13 +32,13 @@ class Project extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Project');
+		$this->getApplication()->outputTitle('Retrieve Project');
 
 		$this->logOut('Bulk Start retrieve Project');
 
 		$this->selectProject();
 
-		$this->application->input->set('project', $this->project->project_id);
+		$this->getApplication()->input->set('project', $this->project->project_id);
 
 		$this->setupGitHub()
 			->displayGitHubRateLimit()
@@ -69,6 +67,7 @@ class Project extends Get
 	protected function processLabels()
 	{
 		with(new Labels)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -84,6 +83,7 @@ class Project extends Get
 	protected function processIssues()
 	{
 		with(new Issues)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -99,6 +99,7 @@ class Project extends Get
 	protected function processComments()
 	{
 		with(new Comments)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -114,6 +115,7 @@ class Project extends Get
 	protected function processAvatars()
 	{
 		with(new Avatars)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;

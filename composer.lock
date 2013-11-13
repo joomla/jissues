@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8c0be13f3cf220cc4d82a898e056b985",
+    "hash": "497fe7ae3254ff3a40b4f13272bac761",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "5513821386f4c01daa09a28587a5f6f9ef546827"
+                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/5513821386f4c01daa09a28587a5f6f9ef546827",
-                "reference": "5513821386f4c01daa09a28587a5f6f9ef546827",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/352dbf7198a7842d22a1a7976d95047a7a879fc7",
+                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2013-10-21 16:10:33"
+            "time": "2013-11-13 15:06:38"
         },
         {
             "name": "joomla/framework",
@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "3487158a0e65b76c9dbd774864f6506ee82152f9"
+                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/3487158a0e65b76c9dbd774864f6506ee82152f9",
-                "reference": "3487158a0e65b76c9dbd774864f6506ee82152f9",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/725eb63ef40a9190aa0fbb9d4f652f684e14f435",
+                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435",
                 "shasum": ""
             },
             "require": {
@@ -169,49 +169,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-05 22:02:05"
-        },
-        {
-            "name": "mustache/mustache",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php",
-                "reference": "v2.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/bobthecow/mustache.php/archive/v2.1.0.zip",
-                "reference": "v2.1.0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mustache": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
-                }
-            ],
-            "description": "A Mustache implementation in PHP.",
-            "homepage": "https://github.com/bobthecow/mustache.php",
-            "keywords": [
-                "mustache",
-                "templating"
-            ],
-            "time": "2013-01-12 07:18:03"
+            "time": "2013-11-11 01:14:53"
         },
         {
             "name": "psr/log",
@@ -464,6 +422,48 @@
                 "psr-3"
             ],
             "time": "2013-07-28 22:38:30"
+        },
+        {
+            "name": "mustache/mustache",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mustache": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Hileman",
+                    "email": "justin@justinhileman.info",
+                    "homepage": "http://justinhileman.com"
+                }
+            ],
+            "description": "A Mustache implementation in PHP.",
+            "homepage": "https://github.com/bobthecow/mustache.php",
+            "keywords": [
+                "mustache",
+                "templating"
+            ],
+            "time": "2013-01-12 07:18:03"
         },
         {
             "name": "raveren/kint",

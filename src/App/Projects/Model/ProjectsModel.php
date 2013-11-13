@@ -10,8 +10,8 @@ namespace App\Projects\Model;
 
 use Joomla\Database\DatabaseQuery;
 
+use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerListModel;
-use JTracker\Container;
 
 /**
  * Model to get data for the projects list view
@@ -20,6 +20,45 @@ use JTracker\Container;
  */
 class ProjectsModel extends AbstractTrackerListModel
 {
+	/**
+	 * @var  GitHubUser
+	 */
+	protected $user = null;
+
+	/**
+	 * Get a user object.
+	 *
+	 * @throws \RuntimeException
+	 * @return \JTracker\Authentication\GitHub\GitHubUser
+	 *
+	 * @since   1.0
+	 */
+	public function getUser()
+	{
+		if (is_null($this->user))
+		{
+			throw new \RuntimeException('User not set.');
+		}
+
+		return $this->user;
+	}
+
+	/**
+	 * Set the user object.
+	 *
+	 * @param   GitHubUser  $user  The user object.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setUser(GitHubUser $user)
+	{
+		$this->user = $user;
+
+		return $this;
+	}
+
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
@@ -31,10 +70,6 @@ class ProjectsModel extends AbstractTrackerListModel
 	{
 		$db = $this->getDb();
 
-		/* @type \JTracker\Authentication\GitHub\GitHubUser $user */
-		$app = Container::retrieve('app');
-		$user = $app->getUser();
-
 		$query = $db->getQuery(true);
 
 		$query->select('DISTINCT ' . $db->quoteName('p.project_id'));
@@ -42,7 +77,7 @@ class ProjectsModel extends AbstractTrackerListModel
 
 		$query->from($db->quoteName('#__tracker_projects', 'p'));
 
-		if ($user->isAdmin)
+		if ($this->getUser()->isAdmin)
 		{
 			// No filters for admin users.
 			return $query;
@@ -59,7 +94,7 @@ class ProjectsModel extends AbstractTrackerListModel
 		$query->where($db->quoteName('g.can_view') . ' = 1');
 
 		// By user
-		if ($user->id)
+		if ($this->getUser()->id)
 		{
 			$query->leftJoin(
 				$db->quoteName('#__accessgroups', 'g1')
@@ -79,7 +114,7 @@ class ProjectsModel extends AbstractTrackerListModel
 				. $db->quoteName('g1.title') . ' = ' . $db->quote('User')
 				. ' AND ' . $db->quoteName('g1.can_view') . ' = 1';
 
-			$userGroups = $user->getAccessGroups();
+			$userGroups = $this->getUser()->getAccessGroups();
 
 			if ($userGroups)
 			{

@@ -18,8 +18,6 @@ use CliApp\Exception\AbortException;
 
 use Joomla\Github\Github;
 
-use JTracker\Container;
-
 /**
  * Class for updating data on GitHub for selected projects
  *
@@ -64,8 +62,6 @@ class Update extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = 'Used to update GitHub data.';
 
 		$this
@@ -92,7 +88,7 @@ class Update extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Get');
+		$this->getApplication()->outputTitle('Get');
 
 		$this
 			->out('<error>                                    </error>')
@@ -114,9 +110,11 @@ class Update extends TrackerCommand
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
+		$projects = with(
+			new ProjectsModel($this->container->get('db'), $this->container->get('app')->input)
+		)->getItems();
 
-		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
+		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
 
 		if (!$id)
 		{
@@ -141,7 +139,7 @@ class Update extends TrackerCommand
 			$this->out()
 				->out('<question>Select a project:</question> ', false);
 
-			$resp = (int) trim($this->application->in());
+			$resp = (int) trim($this->getApplication()->in());
 
 			if (!$resp)
 			{
@@ -188,7 +186,7 @@ class Update extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		return $this;
 	}
@@ -202,7 +200,7 @@ class Update extends TrackerCommand
 	 */
 	protected function displayGitHubRateLimit()
 	{
-		$this->application->displayGitHubRateLimit();
+		$this->getApplication()->displayGitHubRateLimit();
 
 		return $this;
 	}
@@ -218,6 +216,6 @@ class Update extends TrackerCommand
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		return $this->application->getProgressBar($targetNum);
+		return $this->getApplication()->getProgressBar($targetNum);
 	}
 }

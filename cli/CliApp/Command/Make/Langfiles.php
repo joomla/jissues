@@ -6,8 +6,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
@@ -21,13 +19,12 @@ class Langfiles extends Make
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
+		parent::__construct();
+
 		$this->description = 'Create and update language files.';
 	}
 
@@ -40,13 +37,13 @@ class Langfiles extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language files');
+		$this->getApplication()->outputTitle('Make Language files');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		$languages = $this->application->get('languages');
+		$languages = $this->getApplication()->get('languages');
 
 		foreach ($languages as $lang)
 		{

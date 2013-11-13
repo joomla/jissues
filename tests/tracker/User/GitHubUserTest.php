@@ -8,6 +8,10 @@
 
 namespace Joomla\Tracker\Tests\Authentication\GitHub;
 
+use App\Projects\TrackerProject;
+
+use Joomla\Database\Mysqli\MysqliDriver;
+
 use JTracker\Authentication\GitHub\GitHubUser;
 
 /**
@@ -32,7 +36,9 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new GitHubUser;
+		$dd = new MysqliDriver(array());
+		$project = new TrackerProject($dd);
+		$this->object = new GitHubUser($project, $dd);
 	}
 
 	/**

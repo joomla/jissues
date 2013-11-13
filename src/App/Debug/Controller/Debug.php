@@ -18,24 +18,16 @@ use JTracker\Controller\AbstractTrackerController;
 class Debug extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'debug';
-
-	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

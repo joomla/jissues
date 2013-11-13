@@ -10,8 +10,6 @@ use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 
-use JTracker\Container;
-
 /**
  * Class to install the tracker application.
  *
@@ -20,7 +18,7 @@ use JTracker\Container;
 class Install extends TrackerCommand
 {
 	/**
-	 *  @var \Joomla\Database\DatabaseDriver
+	 * @var \Joomla\Database\DatabaseDriver
 	 */
 	private $db = null;
 
@@ -31,10 +29,6 @@ class Install extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
-		$this->db = Container::getInstance()->get('db');
-
 		$this->description = 'Install the application.';
 
 		$this->addOption(
@@ -57,19 +51,21 @@ class Install extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Installer');
+		$this->getApplication()->outputTitle('Installer');
+
+		$this->db = $this->getContainer()->get('db');
 
 		try
 		{
 			// Check if the database "exists"
 			$tables = $this->db->getTableList();
 
-			if (!$this->application->input->get('reinstall'))
+			if (!$this->getApplication()->input->get('reinstall'))
 			{
 				$this->out('<fg=black;bg=yellow>WARNING: A database has been found !!</fg=black;bg=yellow>')
 					->out('Do you want to reinstall ? [y]es / [[n]]o :', false);
 
-				$in = trim($this->application->in());
+				$in = trim($this->getApplication()->in());
 
 				if ('yes' != $in && 'y' != $in)
 				{
@@ -90,10 +86,10 @@ class Install extends TrackerCommand
 					->out('No database found.')
 					->out('Creating the database...', false);
 
-				$this->db->setQuery('CREATE DATABASE ' . $this->db->quoteName($this->application->get('database.name')))
+				$this->db->setQuery('CREATE DATABASE ' . $this->db->quoteName($this->getApplication()->get('database.name')))
 					->execute();
 
-				$this->db->select($this->application->get('database.name'));
+				$this->db->select($this->getApplication()->get('database.name'));
 
 				$this->outOK();
 			}
@@ -154,7 +150,7 @@ class Install extends TrackerCommand
 	private function processSql()
 	{
 		// Install.
-		$dbType = $this->application->get('database.driver');
+		$dbType = $this->getApplication()->get('database.driver');
 
 		if ('mysqli' == $dbType)
 		{

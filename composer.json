@@ -16,7 +16,8 @@
     "require-dev": {
         "monolog/monolog": "1.6.0",
         "raveren/kint": "dev-master",
-        "filp/whoops": "1.0.*@stable"
+        "filp/whoops": "1.0.*@stable",
+        "mustache/mustache" : "2.1.*"
     },
     "autoload": {
         "psr-0": {

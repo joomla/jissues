@@ -22,8 +22,6 @@ class Autocomplete extends Make
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = 'Generate an auto complete file for PHPStorm.';
 	}
 
@@ -36,11 +34,11 @@ class Autocomplete extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Auto complete');
+		$this->getApplication()->outputTitle('Make Auto complete');
 
 		$cliBase = JPATH_ROOT . '/cli/CliApp/Command';
 
-		$helper = new Helper($this->application);
+		$helper = new Helper($this->getApplication());
 
 		$xml = simplexml_load_string(
 			'<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -66,7 +64,7 @@ class Autocomplete extends Make
 				$className = $commandName . '\\' . $command;
 
 				/* @type TrackerCommand $class */
-				$class = new $className($this->application);
+				$class = new $className($this->getApplication());
 
 				$help = $class->getDescription();
 				$help = str_replace(array('<cmd>', '</cmd>', '<', '>'), '', $help);

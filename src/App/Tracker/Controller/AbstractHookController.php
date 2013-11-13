@@ -19,7 +19,6 @@ use Joomla\Github\Github;
 use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Container;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -129,7 +128,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		// Run the parent constructor
 		parent::__construct($input, $app);
 
-		$this->debug = $this->getApplication()->get('debug.hooks');
+		$this->debug = $this->container->get('app')->get('debug.hooks');
 
 		if (preg_match('/Receive([A-z]+)Hook/', get_class($this), $matches))
 		{
@@ -146,15 +145,15 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 		$this->logger->pushHandler(
 			new StreamHandler(
-				$this->getApplication()->get('debug.log-path') . '/github_' . strtolower($fileName) . '.log'
+				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($fileName) . '.log'
 			)
 		);
 
 		// Get a database object
-		$this->db = Container::retrieve('db');
+		$this->db = $this->container->get('db');
 
 		// Instantiate Github
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
@@ -166,23 +165,23 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		}
 		else
 		{
-			$myIP = $this->getInput()->server->getString('REMOTE_ADDR');
+			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
 		}
 
 		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
 			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		// Get the payload data
-		$data = $this->getInput()->post->get('payload', null, 'raw');
+		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
 
 		if (!$data)
 		{
 			$this->logger->error('No data received.');
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
@@ -256,7 +255,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		// Make sure we have a valid project ID
@@ -269,7 +268,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 	}
 
@@ -338,7 +337,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				)
 			);
 
-			$this->getApplication()->close();
+			$this->$this->container->get('app')->close();
 		}
 
 		return $this;

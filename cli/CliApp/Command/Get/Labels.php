@@ -8,8 +8,6 @@ namespace CliApp\Command\Get;
 
 use App\Projects\Table\LabelsTable;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving labels from GitHub for selected projects.
  *
@@ -38,7 +36,7 @@ class Labels extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Labels');
+		$this->getApplication()->outputTitle('Retrieve Labels');
 
 		$this->logOut('Start retrieve Labels')
 			->selectProject()
@@ -61,7 +59,7 @@ class Labels extends Get
 		$this->out('Fetching labels...', false);
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$table = new LabelsTable($db);
 
