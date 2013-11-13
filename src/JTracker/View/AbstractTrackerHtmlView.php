@@ -8,14 +8,11 @@
 
 namespace JTracker\View;
 
-use Joomla\Language\Text;
+use App\Projects\TrackerProject;
+
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
 use Joomla\View\Renderer\RendererInterface;
-
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
-use JTracker\Container;
-use JTracker\View\Renderer\TrackerExtension;
 
 /**
  * Abstract HTML view class for the Tracker application
@@ -41,100 +38,24 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	protected $renderer = null;
 
 	/**
+	 * @var  TrackerProject
+	 */
+	protected $project;
+
+	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   ModelInterface  $model           The model object.
-	 * @param   string|array    $templatesPaths  The templates paths.
+	 * @param   ModelInterface     $model     The model object.
+	 * @param   RendererInterface  $renderer  The renderer object.
 	 *
-	 * @throws  \RuntimeException
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
-	public function __construct(ModelInterface $model, $templatesPaths = '')
+	public function __construct(ModelInterface $model, RendererInterface $renderer)
 	{
 		parent::__construct($model);
 
-		/* @type \JTracker\Application $app */
-		$app = Container::retrieve('app');
-
-		$renderer = $app->get('renderer.type');
-
-		$className = 'JTracker\\View\\Renderer\\' . ucfirst($renderer);
-
-		// Check if the specified renderer exists in the application
-		if (false == class_exists($className))
-		{
-			$className = 'Joomla\\View\\Renderer\\' . ucfirst($renderer);
-
-			// Check if the specified renderer exists in the Framework
-			if (false == class_exists($className))
-			{
-				throw new \RuntimeException(sprintf('Invalid renderer: %s', $renderer));
-			}
-		}
-
-		$config = array();
-
-		switch ($renderer)
-		{
-			case 'twig':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
-				$config['environment']['debug'] = JDEBUG ? true : false;
-
-				break;
-
-			case 'mustache':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
-
-				// . '/partials';
-				$config['partials_base_dir'] = JPATH_TEMPLATES;
-
-				$config['environment']['debug'] = JDEBUG ? true : false;
-
-				break;
-
-			case 'php':
-				$config['templates_base_dir'] = JPATH_TEMPLATES . '/php';
-				$config['debug'] = JDEBUG ? true : false;
-
-				break;
-
-			default:
-				throw new \RuntimeException('Unsupported renderer: ' . $renderer);
-				break;
-		}
-
-		// Load the renderer.
-		$this->renderer = new $className($config);
-
-		// Register tracker's extension.
-		$this->renderer->addExtension(new TrackerExtension);
-
-		// Register additional paths.
-		if (!empty($templatesPaths))
-		{
-			$this->renderer->setTemplatesPaths($templatesPaths, true);
-		}
-
-		$gitHubHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
-
-		$this->renderer
-			->set('loginUrl', $gitHubHelper->getLoginUri())
-			->set('user', $app->getUser());
-
-		// Retrieve and clear the message queue
-		$this->renderer->set('flashBag', $app->getMessageQueue());
-		$app->clearMessageQueue();
-
-		// Add build commit if available
-		if (file_exists(JPATH_ROOT . '/current_SHA'))
-		{
-			$data = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
-			$this->renderer->set('buildSHA', $data);
-		}
-		else
-		{
-			$this->renderer->set('buildSHA', '');
-		}
+		$this->renderer = $renderer;
 	}
 
 	/**
@@ -214,6 +135,40 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	public function setLayout($layout)
 	{
 		$this->layout = $layout;
+
+		return $this;
+	}
+
+	/**
+	 * Get the project.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return \App\Projects\TrackerProject
+	 *
+	 * @since   1.0
+	 */
+	public function getProject()
+	{
+		if (is_null($this->project))
+		{
+			throw new \UnexpectedValueException('Project not set');
+		}
+
+		return $this->project;
+	}
+
+	/**
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setProject(TrackerProject $project)
+	{
+		$this->project = $project;
 
 		return $this;
 	}

@@ -17,11 +17,4 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Users extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'users';
 }

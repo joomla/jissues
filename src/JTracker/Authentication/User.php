@@ -8,12 +8,13 @@
 
 namespace JTracker\Authentication;
 
+use App\Projects\TrackerProject;
+
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
-use JTracker\Container;
 
 /**
  * Abstract class containing the application user object
@@ -77,14 +78,31 @@ abstract class User implements \Serializable
 	private $cleared = array();
 
 	/**
+	 * @var    DatabaseDriver
+	 * @since  1.0
+	 */
+	protected $database = null;
+
+	/**
+	 * @var    TrackerProject
+	 * @since  1.0
+	 */
+	protected $project = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   integer  $identifier  The primary key of the user to load..
+	 * @param   TrackerProject  $project     The DI container.
+	 * @param   DatabaseDriver  $database    The DI container.
+	 * @param   integer         $identifier  The primary key of the user to load..
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($identifier = 0)
+	public function __construct(TrackerProject $project, DatabaseDriver $database, $identifier = 0)
 	{
+		$this->database = $database;
+		$this->project  = $project;
+
 		// Load the user if it exists
 		if ($identifier)
 		{
@@ -103,7 +121,7 @@ abstract class User implements \Serializable
 	 */
 	public function loadByUserName($userName)
 	{
-		$db = Container::retrieve('db');
+		$db = $this->database;
 
 		$table = new TableUsers($db);
 
@@ -149,11 +167,11 @@ abstract class User implements \Serializable
 	 */
 	protected function load($identifier)
 	{
-		$db = Container::retrieve('db');
+		// $db = $this->database;
 
 		// Create the user table object
 		// $table = $this->getTable();
-		$table = new TableUsers($db);
+		$table = new TableUsers($this->database);
 
 		// Load the JUserModel object based on the user id or throw a warning.
 		if (!$table->load($identifier))
@@ -197,7 +215,7 @@ abstract class User implements \Serializable
 	 */
 	protected function loadAccessGroups()
 	{
-		$db = Container::retrieve('db');
+		$db = $this->database;
 
 		$this->accessGroups = $db->setQuery(
 			$db->getQuery(true)
@@ -280,8 +298,7 @@ abstract class User implements \Serializable
 
 		/* @type \App\Projects\TrackerProject $project */
 		/* @type \JTracker\Application $app */
-		$app = Container::retrieve('app');
-		$project = $app->getProject();
+		$project = $this->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))
 		{
@@ -334,7 +351,7 @@ abstract class User implements \Serializable
 
 		foreach (get_object_vars($this) as $key => $value)
 		{
-			if (in_array($key, array('authModel', 'cleared', 'authId')))
+			if (in_array($key, array('authModel', 'cleared', 'authId', 'database')))
 			{
 				continue;
 			}
@@ -362,5 +379,23 @@ abstract class User implements \Serializable
 		{
 			$this->$key = $value;
 		}
+	}
+
+	/**
+	 * Get the project.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return \App\Projects\TrackerProject
+	 *
+	 * @since   1.0
+	 */
+	public function getProject()
+	{
+		if (is_null($this->project))
+		{
+			throw new \UnexpectedValueException('Project not set.');
+		}
+
+		return $this->project;
 	}
 }

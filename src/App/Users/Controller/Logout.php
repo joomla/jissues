@@ -26,11 +26,11 @@ class Logout extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$application = $this->container->get('app');
 
 		// Logout the user.
-		$app->setUser();
+		$application->setUser(null);
 
-		$app->redirect(' ');
+		$application->redirect(' ');
 	}
 }
