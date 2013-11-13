@@ -144,7 +144,7 @@
 
     <div class="row-fluid">
         <div class="span2 well-small">
-            {{ avatar(item.opened_by)|raw }}<br />
+            {{ avatar(item.opened_by, '', 'avatar')|raw }}<br />
             <span class="icon-github"></span> {{ item.opened_by }}<br />
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
@@ -223,7 +223,7 @@
         <div class="row-activity" id="activity-{{ activity.activities_id }}">
             <div class="row-fluid">
                 <div class="span1 activity-avatar hidden-phone">
-                    {{ avatar(activity.user, 40)|raw }}
+                    {{ avatar(activity.user, 40, 'avatar')|raw }}
                 </div>
                 <div class="span11 activity-action">
                     <div class="well well-small">
@@ -281,7 +281,7 @@
         {% if user.check("create") or user.check("manage") %}
             <div class="row-fluid">
                 <div class="span1 well-small">
-                    {{ avatar(user.username)|raw }}
+                    {{ avatar(user.username, '', 'avatar')|raw }}
                 </div>
                 <div class="span11">
                     {% set editorId="comment" %}

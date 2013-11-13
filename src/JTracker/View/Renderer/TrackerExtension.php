@@ -120,12 +120,13 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   string   $userName  The user name.
 	 * @param   integer  $width     The with in pixel.
+	 * @param   string   $class     The class.
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function fetchAvatar($userName = '', $width = 0)
+	public function fetchAvatar($userName = '', $width = 0, $class = '')
 	{
 		/* @type \JTracker\Application $app */
 		$app = Container::retrieve('app');
@@ -135,9 +136,10 @@ class TrackerExtension extends \Twig_Extension
 		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
 		$width = $width ? ' style="width: ' . $width . 'px"' : '';
+		$class = $class ? ' class="' . $class . '"' : '';
 
 		return '<img'
-		. ' class="avatar"'
+		. $class
 		. ' alt="avatar ' . $userName . '"'
 		. ' src="' . $base . 'images/avatars/' . $avatar . '"'
 		. $width
