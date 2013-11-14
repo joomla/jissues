@@ -3,9 +3,25 @@
 
 {% extends "index.twig" %}
 
+{% block headerCSS %}
+    <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+        td.issueInfo:hover {
+            background-color: #eee;
+            cursor: help;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 
     <h2>{{ "Users List"|_ }}</h2>
+
+    {% if pagination.pagesTotal > 1 %}
+        {{ pagination.bar|raw }}
+        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+    {% endif %}
 
     <table class="table table-bordered table-hover">
         <tr>
@@ -26,5 +42,11 @@
             </tr>
         {% endfor %}
     </table>
+
+    {% if pagination.pagesTotal > 1 %}
+        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+        {{ pagination.bar|raw }}
+    {% endif %}
+
 
 {% endblock %}

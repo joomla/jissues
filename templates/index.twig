@@ -96,13 +96,17 @@
         </div>
     </div>
 
-    {% block JavaScriptBottom %}
-        <script src="{{ uri.base.path }}vendor/jquery/jquery{{ jdebug ? "" : ".min" }}.js"></script>
-        <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-affix.js"></script>
-        <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-dropdown.js"></script>
-        <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tab.js"></script>
-        <script src="{{ uri.base.path }}jtracker/core/js/jtracker{{ jdebug ? "" : ".min" }}.js"></script>
-    {% endblock %}
+{% block JavaScriptBottom %}
+    <script src="{{ uri.base.path }}vendor/jquery/jquery{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-affix.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{ uri.base.path }}jtracker/core/js/jtracker{{ jdebug ? "" : ".min" }}.js"></script>
+
+   <script type="text/javascript">jQuery('.hasTooltip').tooltip();</script>
+
+{% endblock %}
 
 </body>
 </html>

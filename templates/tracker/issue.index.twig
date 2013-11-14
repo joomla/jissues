@@ -144,7 +144,7 @@
 
     <div class="row-fluid">
         <div class="span2 well-small">
-            {{ avatar(item.opened_by)|raw }}<br />
+            {{ avatar(item.opened_by, '', 'avatar')|raw }}<br />
             <span class="icon-github"></span> {{ item.opened_by }}<br />
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
@@ -220,10 +220,10 @@
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
     {% for activity in item.activities %}
-        <div class="row-activity" id="activity-{{ activity.activities_id }}">
+        <div id="event-{{ activity.activities_id }}" class="row-activity" id="activity-{{ activity.activities_id }}">
             <div class="row-fluid">
                 <div class="span1 activity-avatar hidden-phone">
-                    {{ avatar(activity.user, 40)|raw }}
+                    {{ avatar(activity.user, 40, 'avatar')|raw }}
                 </div>
                 <div class="span11 activity-action">
                     <div class="well well-small">
@@ -231,14 +231,14 @@
                              alt="{{ activity.event }} on {{ activity.created_date }}"
                              title="{{ activity.event }} on {{ activity.created_date }}"/>
                         <b>{{ activity.user }}</b>
-                        - <a name="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                        - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                         - {{ activity.created_date|date("j M y") }}
                     </div>
                 </div>
             </div>
             {% if activity.event == "change" or activity.text != '' %}
                 <div class="row-fluid">
-                    <div class="span12">
+                    <div class="offset1 span11">
                         {% if "change" == activity.event %}
                             <table class="table">
                             {% for change in activity.text|json_decode %}
@@ -281,7 +281,7 @@
         {% if user.check("create") or user.check("manage") %}
             <div class="row-fluid">
                 <div class="span1 well-small">
-                    {{ avatar(user.username)|raw }}
+                    {{ avatar(user.username, '', 'avatar')|raw }}
                 </div>
                 <div class="span11">
                     {% set editorId="comment" %}

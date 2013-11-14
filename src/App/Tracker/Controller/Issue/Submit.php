@@ -112,7 +112,7 @@ class Submit extends AbstractTrackerController
 
 		$application->redirect(
 			$application->get('uri.base.path')
-			. 'tracker/' . $project->alias . '/' . $data->number
+			. 'tracker/' . $project->alias . '/' . $data['number']
 		);
 
 		return;
