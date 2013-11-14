@@ -220,7 +220,7 @@
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
     {% for activity in item.activities %}
-        <div class="row-activity" id="activity-{{ activity.activities_id }}">
+        <div id="event-{{ activity.activities_id }}" class="row-activity" id="activity-{{ activity.activities_id }}">
             <div class="row-fluid">
                 <div class="span1 activity-avatar hidden-phone">
                     {{ avatar(activity.user, 40, 'avatar')|raw }}
@@ -231,7 +231,7 @@
                              alt="{{ activity.event }} on {{ activity.created_date }}"
                              title="{{ activity.event }} on {{ activity.created_date }}"/>
                         <b>{{ activity.user }}</b>
-                        - <a name="event-{{ activity.activities_id }}" href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                        - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                         - {{ activity.created_date|date("j M y") }}
                     </div>
                 </div>
