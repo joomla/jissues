@@ -4,7 +4,7 @@
  */
 
 $.validator.addMethod("allowedchars", function(value, element) {
-	var regex = /^[a-z0-9\-.,()\[\]'"+_@&$#%:\s]+$/i;
+	var regex = /^[a-z0-9\-.,()\[\]'"+_@&$#%!:\s]+$/i;
 	return this.optional(element) || regex.test(value);
 }, "This character is not allowed here.");
 

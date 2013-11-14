@@ -5,7 +5,7 @@
   {% import "fields.twig" as fields %}
 
   {% set values = {
-        0: translate('status'),
+        0: '- stage -'|_,
         1: 'opened',
         2: 'confirmed',
         3: 'pending',
@@ -20,26 +20,26 @@
         12: 'known'
         } %}
 
-  {{ fields.select('filter-status', values, value, id, class) }}
+  {{ fields.select('filter-stage', values, value, id, class) }}
 {% endmacro %}
 
 {% macro priority(value, id, class) %}
-  {% import "fields.twig" as fields %}
+    {% import "fields.twig" as fields %}
 
-  {% set values = {0: translate('priority'), 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } %}
+    {% set values = {0: '- priority -'|_, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } %}
 
-  {{ fields.select('filter-priority', values, value, id, class) }}
+    {{ fields.select('filter-priority', values, value, id, class) }}
 {% endmacro %}
 
 {% macro sort(value, id, class) %}
-  {% import "fields.twig" as fields %}
+    {% import "fields.twig" as fields %}
 
-  {% set values = {
-        0: translate('Newest'),
-        1: translate('Oldest'),
-        2: translate('Recently updated'),
-        3: translate('Least recently updated')
+    {% set values = {
+        0: 'Newest'|_,
+        1: 'Oldest'|_,
+        2: 'Recently updated'|_,
+        3: 'Least recently updated'|_
         } %}
 
-  {{ fields.select('filter-sort', values, value, id, class) }}
+    {{ fields.select('filter-sort', values, value, id, class) }}
 {% endmacro %}

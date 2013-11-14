@@ -208,13 +208,15 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$table->save($src);
 
-		// Store the activity
+		/*
+		@todo see issue #194
+		Store the activity
 		$table = new ActivitiesTable($this->db);
 
 		$src['event']   = 'open';
 		$src['user']    = $src['opened_by'];
 
-		$table->save($src);
+		$table->save($src);*/
 
 		return $this;
 	}

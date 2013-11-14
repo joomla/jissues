@@ -158,7 +158,7 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			$errors[] = g11n3t('The title max length is 255 chars.');
 		}
-		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\'"\+_@&$#%: ]+$/u', $this->title))
+		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\'"\+_@&$#%!: ]+$/u', $this->title))
 		{
 			$errors[] = g11n3t('Some characters are not allowed in the title.');
 		}

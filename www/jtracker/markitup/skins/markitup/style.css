@@ -29,6 +29,13 @@
 	clear:both;
 	line-height:18px;
 	overflow:auto;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	width: 100%;
+	width: 100%;
+	resize: vertical;
+	min-height: 150px;
 }
 .markItUpPreviewFrame	{
 	overflow:auto;
@@ -71,7 +78,7 @@
 	margin-right:0;
 }
 .markItUpHeader ul .markItUpSeparator {
-	margin:0 10px;
+	margin:0 7px 0 0;
 	width:1px;
 	height:16px;
 	overflow:hidden;
@@ -110,7 +117,7 @@
 	width:16px; height:16px;
 	text-indent:-10000px;
 	background-repeat:no-repeat;
-	padding:3px;
+	padding:3px 5px 3px 3px;
 	margin:0;
 }
 .markItUpHeader ul ul a {
