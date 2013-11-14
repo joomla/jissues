@@ -68,11 +68,18 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $filter . ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter . ')');
 		}
 
-		$filter = $this->state->get('filter.status');
+		$filter = $this->state->get('filter.stage');
 
 		if ($filter)
 		{
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.status');
+
+		if (is_numeric($filter))
+		{
+			$query->where($db->quoteName('s.closed') . ' = ' . (int) $filter);
 		}
 
 		$filter = $this->state->get('filter.priority');
@@ -109,6 +116,7 @@ class IssuesModel extends AbstractTrackerListModel
 		// Add the list state to the store id.
 		$id .= ':' . $this->state->get('filter.priority');
 		$id .= ':' . $this->state->get('filter.status');
+		$id .= ':' . $this->state->get('filter.stage');
 		$id .= ':' . $this->state->get('filter.search');
 
 		return parent::getStoreId($id);
@@ -161,8 +169,11 @@ class IssuesModel extends AbstractTrackerListModel
 		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'filter-priority', 0, 'uint');
 		$this->state->set('filter.priority', $priority);
 
-		$status = $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 1, 'uint');
+		$status = $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 0, 'uint');
 		$this->state->set('filter.status', $status);
+
+		$stage = $application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'filter-stage', 1, 'uint');
+		$this->state->set('filter.stage', $stage);
 
 		$search = $application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'filter-search', '', 'string');
 		$this->state->set('filter.search', $search);

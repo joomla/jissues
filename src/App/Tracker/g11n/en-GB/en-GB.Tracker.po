@@ -16,14 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/tracker/tracker.filters.twig:7
-msgid "status"
-msgstr "- status -"
-
-#: /templates/tracker/tracker.filters.twig:29
-msgid "priority"
-msgstr "- priority -"
-
 #: /templates/tracker/issue.add.twig:48
 msgid "Priority help"
 msgstr "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
