@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
   KEY `milestone_id` (`milestone_id`,`project_id`),
-  CONSTRAINT `jos_issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `jos_tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
 	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`),
 	CONSTRAINT `#__issues_fk_vote_id` FOREIGN KEY (`vote_id`) REFERENCES `#__issues_voting` (`id`)
@@ -296,5 +296,5 @@ CREATE TABLE `#__tracker_milestones` (
   PRIMARY KEY (`milestone_id`),
   KEY `name` (`title`),
   KEY `project_id` (`project_id`),
-  CONSTRAINT `jos_tracker_milestones_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `jos_tracker_projects` (`project_id`)
+  CONSTRAINT `#__tracker_milestones_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
