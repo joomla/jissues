@@ -298,6 +298,11 @@ class TrackerDebugger implements LoggerAwareInterface
 			$debug[] = '</div>';
 		}
 
+		if (!$debug)
+		{
+			return '';
+		}
+
 		return implode("\n", $navigation) . implode("\n", $debug);
 	}
 
