@@ -172,7 +172,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$status = $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 0, 'uint');
 		$this->state->set('filter.status', $status);
 
-		$stage = $application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'filter-stage', 1, 'uint');
+		$stage = $application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'filter-stage', 0, 'uint');
 		$this->state->set('filter.stage', $stage);
 
 		$search = $application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'filter-search', '', 'string');
