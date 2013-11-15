@@ -228,8 +228,8 @@
                 <div class="span11 activity-action">
                     <div class="well well-small">
                         <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
-                             alt="{{ activity.event }} on {{ activity.created_date }}"
-                             title="{{ activity.event }} on {{ activity.created_date }}"/>
+                             alt="{{ activity.event }} on {{ activity.created_date|date("j M y") }}"
+                             title="{{ activity.event }} on {{ activity.created_date|date("j M y") }}"/>
                         <b>{{ activity.user }}</b>
                         - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
                         - {{ activity.created_date|date("j M y") }}
@@ -309,21 +309,26 @@
     <!-- ++++++++++++++++++++++++++ -->
 
     <script type="text/x-tmpl" id="tplNewComment">
-        <div class="row-fluid">
-            <div class="span1 well-small">
-                {{ avatar(user.username)|raw }}
-            </div>
-            <div class="span11">
-                <div class="well well-small">
-                    <img src="{{ uri.base.path }}images/tracker/action_comment.png"
-                         alt="comment on [%= o.created_at %]"
-                         title="comment on [%= o.created_at %]"/>
-                        [%= o.created_at %]
-                    - <a name ="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
-                    - {{ user.username }}
+        <div id="event-[%= o.activities_id %]" class="row-activity" id="activity-[%= o.activities_id %]">
+            <div class="row-fluid">
+                <div class="span1 activity-avatar hidden-phone">
+                    {{ avatar(user.username, 40, 'avatar')|raw }}
+                </div>
+                <div class="span11 activity-action">
+                    <div class="well well-small">
+                        <img src="{{ uri.base.path }}images/tracker/action_comment.png"
+                             alt="comment on [%= o.created_at %]"
+                             title="comment on [%= o.created_at %]"/>
+                        <b>{{ user.username }}</b>
+                        - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="offset1 span11">
+                        [%# o.text %]
+                    </div>
                 </div>
             </div>
-            <div class="span12">[%# o.text %]</div>
         </div>
     </script>
 {% endblock %}
