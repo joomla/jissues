@@ -2,7 +2,20 @@
 
 aka [The option #3 from joomla/jissues#124](https://github.com/joomla/jissues/pull/124)
 
-#### 3) Go crazy...
+### Translation 101
+
+After you changed the code in your PHP or Twig files you should run
+
+tracker.php make langtemplates
+This will create/update the pot language templates.
+Those may be handed over to the translaters / Transifex.
+If you want to translate yourself you do a
+
+tracker.php make langfiles
+This will create/update the po language files according to the templates created in the previous step.
+After changing the po files you have to clean the cache to "see" the translations on the site. This can be done by simply deleting the /cache/g11n directory or, if you are logged in with an admin account, using the "clean cache" command from the "System" menu.
+
+#### How it works (The option #3)
 
 I might have stated before that I'm a very lazy person. So I like to spend my time creating scripts that do the "ugly work" for me. - Like the creation and maintainance of language files :P
 
@@ -148,5 +161,3 @@ It would be nice if a "non-Linux" user could test this :wink:
 #### Refs
 
 * https://github.com/elkuku/g11n - The experimental language handler oO
-
-Demo: If you want to see this in action there is a staging instance which is currently running with full debug enabled [here](https://tracker-joomla54.rhcloud.com/) (link will change)
