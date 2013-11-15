@@ -8,7 +8,6 @@
 
 namespace App\Tracker\Model;
 
-use App\Projects\Table\ProjectsTable;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
@@ -145,34 +144,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
-	 * Get a project.
-	 *
-	 * @param   integer  $identifier  The project identifier.
-	 *
-	 * @return  ProjectsTable
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function xxgetProject($identifier = null)
-	{
-		if (!$identifier)
-		{
-			$app = $this->container->get('app');
-			$identifier = $app->input->getUint('project_id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
-		}
-
-		$table = new ProjectsTable($this->db);
-
-		return $table->load($identifier);
-	}
-
-	/**
 	 * Get a status list.
 	 *
 	 * @return  array
@@ -251,7 +222,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException('Missing ID');
 		}
 
-		$table = new IssuesTable($this->container);
+		$table = new IssuesTable($this->db);
 
 		$table->load($data['id'])
 			->save($data);
@@ -274,7 +245,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		$db = $this->getDb();
 
-		$table = new IssuesTable($this->container);
+		$table = new IssuesTable($this->db);
 		$table->load($id);
 
 		// Insert a new record if no vote_id is associated
