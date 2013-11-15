@@ -147,19 +147,15 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			throw new \UnexpectedValueException('Pagination not set');
 		}
 
-		// Create the pagination object.
+		// Setup the values to paginate over.
 		$limit = (int) $this->state->get('list.limit') - (int) $this->state->get('list.links');
-
-		// @$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit, new Uri($app->get('uri.request'));
-		//$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
 
 		$this->pagination->setValues($this->getTotal(), $this->getStart(), $limit);
 
 		// Add the object to the internal cache.
-		//$this->cache[$store] = $page;
+		$this->cache[$store] = $this->pagination;
 
-		//return $this->cache[$store];
-		return $this->pagination;
+		return $this->cache[$store];
 	}
 
 	/**
@@ -260,16 +256,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		if (!($this->state instanceof Registry))
 		{
 			$this->state = new Registry;
-		}
-
-		// If the context is set, assume that stateful lists are used.
-		if ($this->context)
-		{
-		}
-		else
-		{
-			$this->state->set('list.start', 0);
-			$this->state->set('list.limit', 0);
 		}
 	}
 

@@ -150,7 +150,7 @@ final class Application extends AbstractWebApplication
 			/* @type AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
-			$this->mark('$controller->initialize()');
+			$this->mark('Controller->initialize()');
 
 			$controller->initialize();
 
@@ -162,14 +162,9 @@ final class Application extends AbstractWebApplication
 			// Load the App language file
 			g11n::loadLanguage($controller->getApp(), 'App');
 
-			$this->mark('$controller->execute()');
+			$this->mark('Controller->execute()');
 
-			// Start an output buffer.
-			ob_start();
-
-			$controller->execute();
-
-			$contents = ob_get_clean();
+			$contents = $controller->execute();
 
 			$this->mark('Application terminated OK');
 

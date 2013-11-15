@@ -49,8 +49,6 @@ class DefaultController extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('view');
-
 		$this->model->setProject($this->container->get('app')->getProject());
 		$this->view->setProject($this->container->get('app')->getProject());
 	}
@@ -72,6 +70,6 @@ class DefaultController extends AbstractTrackerListController
 			$application->getUser()->authorize('view', $application->getProject());
 		}
 
-		parent::execute();
+		return parent::execute();
 	}
 }

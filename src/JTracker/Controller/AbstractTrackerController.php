@@ -13,7 +13,6 @@ use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input\Input;
 use Joomla\Log\Log;
 
-use Joomla\View\AbstractHtmlView;
 use Joomla\View\Renderer\RendererInterface;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\AbstractTrackerHtmlView;
@@ -57,10 +56,13 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	protected $container;
 
 	/**
-	 * @var  AbstractHtmlView
+	 * @var  \Joomla\View\AbstractHtmlView
 	 */
 	protected $view;
 
+	/**
+	 * @var  \Joomla\Model\AbstractModel
+	 */
 	protected $model;
 
 	/**
@@ -232,8 +234,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		{
 			$contents = $this->container->get('app')->getDebugger()->renderException($e);
 		}
-
-		echo $contents;
 
 		return $contents;
 	}
