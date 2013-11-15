@@ -6,14 +6,16 @@ aka [The option #3 from joomla/jissues#124](https://github.com/joomla/jissues/pu
 
 After you changed the code in your PHP or Twig files you should run
 
-tracker.php make langtemplates
-This will create/update the pot language templates.
+`tracker.php make langtemplates`
+This will create/update the `pot` language templates.
 Those may be handed over to the translaters / Transifex.
 If you want to translate yourself you do a
 
-tracker.php make langfiles
-This will create/update the po language files according to the templates created in the previous step.
-After changing the po files you have to clean the cache to "see" the translations on the site. This can be done by simply deleting the /cache/g11n directory or, if you are logged in with an admin account, using the "clean cache" command from the "System" menu.
+`tracker.php make langfiles`
+This will create/update the `po` language files according to the templates created in the previous step.
+
+After changing the `po` files you have to clean the cache to "see" the translations on the site.
+This can be done by simply deleting the `/cache/g11n` directory or, if you are logged in with an admin account, using the "clean cache" command from the "System" menu.
 
 #### How it works (The option #3)
 
