@@ -6,12 +6,13 @@ aka [The option #3 from joomla/jissues#124](https://github.com/joomla/jissues/pu
 
 After you changed the code in your PHP or Twig files you should run
 
-`tracker.php make langtemplates`
-This will create/update the `pot` language templates.
-Those may be handed over to the translaters / Transifex.
+`tracker.php make langtemplates`<br />
+This will create/update the `pot` language templates.<br />
+Those may be handed over to the translaters / Transifex.<br />
+
 If you want to translate yourself you do a
 
-`tracker.php make langfiles`
+`tracker.php make langfiles`<br />
 This will create/update the `po` language files according to the templates created in the previous step.
 
 After changing the `po` files you have to clean the cache to "see" the translations on the site.
@@ -142,7 +143,7 @@ I have not tried any of the above currently beside my own linux box, but I belie
 #### Known issues
 
 * There is one big FAT issue currently: Internally all strings are contained in a single array. Meaning that you can not translate the same key in two different ways in the same page call.<br />I believe that our application is "small enough", so this wont really be an issue.<br />There is a solution deep down in my head, but it hasn't been translated to code yet ;) WIP
-* Pluralization is supported but not implemented yet. WIP
+* <del>Pluralization is supported but not implemented yet. WIP</del>
 * JavaScript translations and pluralizations are supported but not implemented yet. WIP
 * Performance... This will be the last time that I mention that I'm lazy but... to avoid ugly escaping/unescaping of quotes, I simply base64 encode and decode the string and md5 encode the key which is, I admit that, very very time consuming W-I-P...
 
