@@ -276,7 +276,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			$debug[] = '<div id="dbgUser">';
 			$debug[] = '<h3>' . g11n3t('User') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
+			$debug[] = @Kint::dump($this->application->getSession()->get('jissues_user'));
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgProject">';
@@ -389,7 +389,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.system'))
 		{
-			$user    = $this->application->getSession()->get('user');
+			$user    = $this->application->getSession()->get('jissues_user');
 			$project = $this->application->getSession()->get('project');
 
 			$title = $project ? $project->title : g11n3t('No Project');

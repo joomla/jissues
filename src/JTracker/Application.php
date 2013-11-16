@@ -321,7 +321,7 @@ final class Application extends AbstractWebApplication
 
 		if (is_null($this->user))
 		{
-			$this->user = ($this->getSession()->get('user'))
+			$this->user = ($this->getSession()->get('jissues_user'))
 				? : new GitHubUser;
 		}
 
