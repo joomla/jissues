@@ -474,7 +474,10 @@ class TrackerDebugger implements LoggerAwareInterface
 			$items[] = ArrayHelper::fromObject($e);
 		}
 
-		$pluralInfo = sprintf(g11n3t('Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'), g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'));
+		$pluralInfo = sprintf(
+			g11n3t('Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
+			g11n::get('pluralForms'), g11n::get('pluralFunctionRaw')
+		);
 
 		return $tableFormat->fromArray($items) . $pluralInfo;
 	}

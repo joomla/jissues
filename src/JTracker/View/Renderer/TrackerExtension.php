@@ -351,7 +351,7 @@ class TrackerExtension extends \Twig_Extension
 	/**
 	 * Create a translated tes/no string.
 	 *
-	 * @param $value
+	 * @param   mixed  $value  A value that evaluates to PHP true/false..
 	 *
 	 * @return string
 	 *

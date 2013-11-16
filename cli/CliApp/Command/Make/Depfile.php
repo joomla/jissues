@@ -109,11 +109,14 @@ class Depfile extends Make
 			);
 
 		// @todo write to a file
-		// $m = new Mustache_Engine;
-		// $loader = new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'));
-		// $tpl = $loader->load('deplist');
 
-		// $output = $m->render($tpl, $this);
+		/*
+		$m = new Mustache_Engine;
+		$loader = new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'));
+		$tpl = $loader->load('deplist');
+
+		$output = $m->render($tpl, $this);
+		*/
 
 		$this->out()
 			->out('Finished =;)');

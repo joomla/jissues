@@ -23,7 +23,8 @@ class Install extends TrackerCommand
 {
 	/**
 	 * Database driver object.
-	 *  @var \Joomla\Database\DatabaseDriver
+	 *
+	 * @var \Joomla\Database\DatabaseDriver
 	 */
 	private $db = null;
 

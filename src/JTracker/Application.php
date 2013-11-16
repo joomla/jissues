@@ -384,8 +384,8 @@ final class Application extends AbstractWebApplication
 		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 
 		if ($this->get('debug.system')
-		|| $this->get('debug.database')
-		|| $this->get('debug.language'))
+			|| $this->get('debug.database')
+			|| $this->get('debug.language'))
 		{
 			// Load the Debug App language file
 			g11n::loadLanguage('Debug', 'App');
