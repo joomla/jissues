@@ -284,22 +284,20 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function vote($id, $experienced, $importance)
 	{
-		$db = $this->getDb();
-
-		$table = new IssuesTable($db);
+		$table = new IssuesTable($this->db);
 		$table->load($id);
 
 		// Insert a new record if no vote_id is associated
 		if (is_null($table->vote_id))
 		{
 			$columnsArray = array(
-				$db->quoteName('votes'),
-				$db->quoteName('experienced'),
-				$db->quoteName('score')
+				$this->db->quoteName('votes'),
+				$this->db->quoteName('experienced'),
+				$this->db->quoteName('score')
 			);
 
-			$query = $db->getQuery()
-				->insert($db->quoteName('#__issues_voting'))
+			$query = $this->db->getQuery()
+				->insert($this->db->quoteName('#__issues_voting'))
 				->columns($columnsArray)
 				->values(
 					'1, '
@@ -309,33 +307,33 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 		else
 		{
-			$query = $db->getQuery()
-				->update($db->quoteName('#__issues_voting'))
-				->set($db->quoteName('votes') . ' = ' . $db->quoteName('votes') . ' + 1')
-				->set($db->quoteName('experienced') . ' = ' . $db->quoteName('experienced') . ' + ' . $experienced)
-				->set($db->quoteName('score') . ' = ' . $db->quoteName('score') . ' + ' . $importance)
-				->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
+			$query = $this->db->getQuery()
+				->update($this->db->quoteName('#__issues_voting'))
+				->set($this->db->quoteName('votes') . ' = ' . $this->db->quoteName('votes') . ' + 1')
+				->set($this->db->quoteName('experienced') . ' = ' . $this->db->quoteName('experienced') . ' + ' . $experienced)
+				->set($this->db->quoteName('score') . ' = ' . $this->db->quoteName('score') . ' + ' . $importance)
+				->where($this->db->quoteName('id') . ' = ' . (int) $table->vote_id);
 		}
 
-		$db->setQuery($query)->execute();
+		$this->db->setQuery($query)->execute();
 
 		// Add the vote_id if a new record
 		if (is_null($table->vote_id))
 		{
-			$query = $db->getQuery()
-				->update($db->quoteName('#__issues'))
-				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
-				->where($db->quoteName('id') . ' = ' . (int) $table->id);
+			$query = $this->db->getQuery()
+				->update($this->db->quoteName('#__issues'))
+				->set($this->db->quoteName('vote_id') . ' = ' . $this->db->insertid())
+				->where($this->db->quoteName('id') . ' = ' . (int) $table->id);
 
-			$db->setQuery($query)->execute();
+			$this->db->setQuery($query)->execute();
 		}
 
 		// Get the updated vote data to update the display
 		$query->clear()
 			->select('*')
-			->from($db->quoteName('#__issues_voting'))
-			->where($db->quoteName('id') . ' = ' . (int) $table->id);
+			->from($this->db->quoteName('#__issues_voting'))
+			->where($this->db->quoteName('id') . ' = ' . (int) $table->id);
 
-		return $db->setQuery($query)->loadObject();
+		return $this->db->setQuery($query)->loadObject();
 	}
 }
