@@ -10,14 +10,14 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
 
-* Installed: dev-master 3487158a0e65b76c9dbd774864f6506ee82152f9
+* Installed: dev-master 725eb63ef40a9190aa0fbb9d4f652f684e14f435
 * Source URL: https://github.com/joomla/joomla-framework.git
 
 #### symfony/http-foundation (2.3.*@stable)
 
 Symfony HttpFoundation Component
 
-* Installed: v2.3.6
+* Installed: v2.3.7
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -31,7 +31,7 @@ Twig, the flexible, fast, and secure template language for PHP
 
 The g11n language library
 
-* Installed: dev-master 5513821386f4c01daa09a28587a5f6f9ef546827
+* Installed: dev-master 352dbf7198a7842d22a1a7976d95047a7a879fc7
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -63,6 +63,13 @@ php error handling for cool kids
 
 * Installed: 1.0.9
 * Source URL: https://github.com/filp/whoops.git
+
+#### mustache/mustache (2.1.*)
+
+A Mustache implementation in PHP.
+
+* Installed: v2.1.0
+* Source URL: https://github.com/bobthecow/mustache.php
 
 ## JavaScript
 
