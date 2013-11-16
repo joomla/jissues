@@ -411,7 +411,7 @@ final class Application extends AbstractWebApplication
 			// Logout
 			$this->user = new GitHubUser;
 
-			$this->getSession()->set('user', $this->user);
+			$this->getSession()->set('jissues_user', $this->user);
 
 			// @todo cleanup more ?
 		}
@@ -422,7 +422,7 @@ final class Application extends AbstractWebApplication
 
 			$this->user = $user;
 
-			$this->getSession()->set('user', $user);
+			$this->getSession()->set('jissues_user', $user);
 		}
 
 		return $this;
