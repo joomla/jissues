@@ -1,0 +1,33 @@
+# Language de-DE translations for core.js - CoreJS package.
+# Copyright (C) 2013 JTracker(C)
+# This file is distributed under the same license as the core.js - CoreJS package.
+# Nikolai Plath <der.el.kuku@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: core.js - CoreJS 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-11-16 10:29-0500\n"
+"PO-Revision-Date: 2013-11-16 08:15-0500\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: Language de-DE\n"
+"Language: de-DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /www/jtracker/core/js/jtracker.js:11
+msgid "Loading preview..."
+msgstr "Die Vorschau wird geladen..."
+
+#: /www/jtracker/core/js/jtracker.js:22 /www/jtracker/core/js/jtracker.js:43
+msgid "Invalid response."
+msgstr "Ungültige Antwort"
+
+#: /www/jtracker/core/js/jtracker.js:35
+msgid "Submitting comment..."
+msgstr ""
+
+#: /www/jtracker/core/js/jtracker.js:67
+msgid "Adding vote..."
+msgstr ""
