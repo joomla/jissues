@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -19,12 +21,16 @@ use Mustache_Loader_FilesystemLoader;
 class Depfile extends Make
 {
 	/**
+	 * Product object.
+	 *
 	 * @var  object
 	 * @since   1.0
 	 */
 	public $product = null;
 
 	/**
+	 * Dependencies.
+	 *
 	 * @var array
 	 * @since   1.0
 	 */

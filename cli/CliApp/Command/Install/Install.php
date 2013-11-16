@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -20,6 +22,7 @@ use JTracker\Container;
 class Install extends TrackerCommand
 {
 	/**
+	 * Database driver object.
 	 *  @var \Joomla\Database\DatabaseDriver
 	 */
 	private $db = null;

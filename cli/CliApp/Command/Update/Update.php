@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @package     JTracker
  * @subpackage  CLI
  *
@@ -36,6 +38,8 @@ class Update extends TrackerCommand
 	protected $github;
 
 	/**
+	 * Projects table object.
+	 *
 	 * @var    ProjectsTable
 	 * @since  1.0
 	 */
