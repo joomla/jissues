@@ -118,6 +118,13 @@ class Avatars extends Get
 			catch (\DomainException $e)
 			{
 				$this->debugOut($e->getMessage());
+
+				$this->debugOut('Copy default image for user: ' . $username);
+
+				copy(
+					JPATH_THEMES . '/images/avatars/user-default.png',
+					JPATH_THEMES . '/images/avatars/' . $username . '.png'
+				);
 			}
 
 			$this->usePBar
