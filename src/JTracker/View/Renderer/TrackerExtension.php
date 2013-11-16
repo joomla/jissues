@@ -44,10 +44,11 @@ class TrackerExtension extends \Twig_Extension
 		$app = Container::retrieve('app');
 
 		return array(
-			'uri'    => $app->get('uri'),
-			'jdebug' => JDEBUG,
-			'lang'   => g11n::getCurrent(),
-			'languages' => $app->get('languages')
+			'uri'            => $app->get('uri'),
+			'jdebug'         => JDEBUG,
+			'lang'           => g11n::getCurrent(),
+			'g11nJavaScript' => g11n::getJavaScript(),
+			'languages'      => $app->get('languages')
 		);
 	}
 
