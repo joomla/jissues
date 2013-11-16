@@ -9,13 +9,13 @@
 namespace App\Groups\Controller;
 
 use App\Tracker\Controller\DefaultController;
+
 use Joomla\Application\AbstractApplication;
 use Joomla\Input\Input;
 
 /**
  * Controller class to manage a user group.
  *
- * @package  JTracker\Components\Tracker
  * @since    1.0
  */
 class GroupController extends DefaultController
