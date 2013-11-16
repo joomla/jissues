@@ -7,6 +7,7 @@
 namespace CliApp\Command\Get;
 
 use App\Projects\Table\LabelsTable;
+use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\ActivitiesTable;
 
@@ -152,6 +153,7 @@ class Issues extends Get
 		$db = Container::getInstance()->get('db');
 		$query = $db->getQuery(true);
 		$added = 0;
+		$milestones = $this->getMilestones();
 
 		$this->out('Adding issues to the database...', false);
 
@@ -205,6 +207,7 @@ class Issues extends Get
 			$table->modified_date = with(new Date($issue->updated_at))->format('Y-m-d H:i:s');
 
 			$table->project_id = $this->project->project_id;
+			$table->milestone_id = $issue->milestone ? $milestones[$issue->milestone->number] : null;
 
 			// If the issue has a diff URL, it is a pull request.
 			if ($issue->pull_request->diff_url)
@@ -226,7 +229,7 @@ class Issues extends Get
 
 			$table->labels = implode(',', $this->getLabelIds($issue->labels));
 
-			$table->store();
+			$table->store(true);
 
 			if (!$table->id)
 			{
@@ -320,5 +323,28 @@ class Issues extends Get
 		}
 
 		return $ids;
+	}
+
+	/**
+	 * Get the milestones for the active project.
+	 *
+	 * @return  array  An associative array of the milestone id's keyed by the Github milestone number.
+	 *
+	 * @since   1.0
+	 */
+	private function getMilestones()
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
+		$table = new MilestonesTable($db);
+
+		$milestoneList = $db->setQuery(
+			 $db->getQuery(true)
+				->from($db->quoteName($table->getTableName()))
+				->select(array('milestone_number', 'milestone_id'))
+				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
+		)->loadAssocList('milestone_number', 'milestone_id');
+
+		return $milestoneList;
 	}
 }
