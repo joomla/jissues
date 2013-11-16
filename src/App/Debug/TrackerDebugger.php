@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -41,24 +43,32 @@ use Whoops\Run;
 class TrackerDebugger implements LoggerAwareInterface
 {
 	/**
+	 * Application object.
+	 *
 	 * @var    Application
 	 * @since  1.0
 	 */
 	private $application;
 
 	/**
+	 * Log array.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	private $log = array();
 
 	/**
+	 * Profiler object.
+	 *
 	 * @var    Profiler
 	 * @since  1.0
 	 */
 	private $profiler;
 
 	/**
+	 * Logger object.
+	 *
 	 * @var    Logger
 	 * @since  1.0
 	 */
