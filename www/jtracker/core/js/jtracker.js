@@ -8,7 +8,7 @@ var JTracker = {};
 JTracker.preview = function(text, preview) {
 	var out = $(preview);
 
-	out.html('Loading preview...');
+	out.html(g11n3t('Loading preview...'));
 
 	$.post(
 		'/preview',
@@ -19,7 +19,7 @@ JTracker.preview = function(text, preview) {
 				out.html(r.error);
 			}
 			else if (!r.data.length) {
-				out.html('Invalid response.');
+				out.html(g11n3t('Invalid response.'));
 			}
 			else {
 				out.html(r.data);
@@ -32,7 +32,7 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 	var out = $(outContainer);
 	var status = $(debugContainer);
 
-	status.html('Submitting comment...');
+	status.html(g11n3t('Submitting comment...'));
 
 	$.post(
 		'/submit/comment',
@@ -40,7 +40,7 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 		function (r) {
 			if (!r.data) {
 				// Misc failure
-				status.html('Invalid response.');
+				status.html(g11n3t('Invalid response.'));
 			}
 			else if (r.error) {
 				// Failure
@@ -64,7 +64,7 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 	var importance = $('input[name=importanceRadios]').filter(':checked').val();
 	var experienced = $('input[name=experiencedRadios]').filter(':checked').val();
 
-	status.addClass('disabled').removeAttr('href').removeAttr('onclick').html('Adding vote...');
+	status.addClass('disabled').removeAttr('href').removeAttr('onclick').html(g11n3t('Adding vote...'));
 
 	$.post(
 		'/submit/vote',
