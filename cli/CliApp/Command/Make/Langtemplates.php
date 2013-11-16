@@ -51,6 +51,7 @@ class Langtemplates extends Make
 		$this->application->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/jtracker');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
 
@@ -70,6 +71,19 @@ class Langtemplates extends Make
 		$paths = array(ExtensionHelper::getDomainPath($domain));
 
 		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+
+		// Process core JS files
+
+		$extension = 'core.js';
+		$domain    = 'CoreJS';
+
+		$this->out('Processing: ' . $domain . ' ' . $extension);
+
+		$templatePath = Storage::getTemplatePath('JTracker.js', 'Core');
+
+		$paths = array(ExtensionHelper::getDomainPath($domain));
+
+		$this->processTemplates($extension, $domain, 'js', $paths, $templatePath);
 
 		// Process base template
 
@@ -144,7 +158,8 @@ class Langtemplates extends Make
 		$comments = ' --add-comments=TRANSLATORS:';
 
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
-		$forcePo  = ' --force-po --no-wrap';
+		$forcePo  = ' --force-po';
+		$noWrap   = ' --no-wrap';
 
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
@@ -200,11 +215,16 @@ class Langtemplates extends Make
 		{
 			$this->processConfigFiles($cleanFiles, $templatePath);
 		}
-		else //
+		else
 		{
 			$fileList = implode("\n", $cleanFiles);
 
-			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $forcePo . $comments . $headerData;
+			$command = $keywords . $buildOpts
+				. ' -o ' . $templatePath
+				. $forcePo
+				. $noWrap
+				. $comments
+				. $headerData;
 
 			$this->debugOut($command);
 

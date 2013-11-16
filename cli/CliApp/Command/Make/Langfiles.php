@@ -55,11 +55,10 @@ class Langfiles extends Make
 				continue;
 			}
 
-			$this->out('Processing: JTracker Core ' . $lang);
-			$this->processDomain('JTracker', 'Core', $lang);
-
-			$this->out('Processing: JTracker Template ' . $lang);
-			$this->processDomain('JTracker', 'Template', $lang);
+			$this
+				->processDomain('JTracker', 'Core', $lang)
+				->processDomain('JTracker.js', 'Core', $lang)
+				->processDomain('JTracker', 'Template', $lang);
 		}
 
 		// Process App templates
@@ -83,7 +82,6 @@ class Langfiles extends Make
 					continue;
 				}
 
-				$this->out('Processing: App ' . $extension . ' ' . $lang);
 				$this->processDomain($extension, 'App', $lang);
 			}
 		}
@@ -104,6 +102,8 @@ class Langfiles extends Make
 	 */
 	protected function processDomain($extension, $domain, $lang)
 	{
+		$this->out(sprintf('Processing: %1$s %2$s %3$s', $domain, $extension, $lang));
+
 		$languageFile = ExtensionHelper::findLanguageFile($lang, $extension, $domain);
 		$templateFile = Storage::getTemplatePath($extension, $domain);
 
