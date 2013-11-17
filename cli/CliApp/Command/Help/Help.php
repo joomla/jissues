@@ -230,7 +230,7 @@ class Help extends TrackerCommand
 		/* @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/../' . $cName) as $fileInfo)
 		{
-			if ($fileInfo->isDot())
+			if ($fileInfo->isDot() || $fileInfo->isDir())
 			{
 				continue;
 			}
