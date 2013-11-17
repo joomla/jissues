@@ -9,6 +9,7 @@
 namespace CliApp\Command\Make;
 
 use CliApp\Application\CliApplication;
+use CliApp\Command\TrackerCommandOption;
 
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
@@ -37,6 +38,14 @@ class Depfile extends Make
 	public $dependencies = array();
 
 	/**
+	 * Target file name.
+	 *
+	 * @var string
+	 * @since   1.0
+	 */
+	private $fileName = '';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   CliApplication  $application  The application object.
@@ -47,6 +56,15 @@ class Depfile extends Make
 	{
 		$this->application = $application;
 		$this->description = 'Create and update a dependency file.';
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'file', 'f',
+				'Write output to a file.'
+			)
+		);
+
+		$this->fileName = $application->input->getPath('file', $application->input->getPath('f'));
 	}
 
 	/**
@@ -101,22 +119,23 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-		echo with(new Mustache_Engine)
+		$contents = with(new Mustache_Engine)
 			->render(
 				with(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
 					->load('depfile'),
 				$this
 			);
 
-		// @todo write to a file
+		if ($this->fileName)
+		{
+			$this->out('Writing contents to: ' . $this->fileName);
 
-		/*
-		$m = new Mustache_Engine;
-		$loader = new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'));
-		$tpl = $loader->load('deplist');
-
-		$output = $m->render($tpl, $this);
-		*/
+			file_put_contents($this->fileName, $contents);
+		}
+		else
+		{
+			echo $contents;
+		}
 
 		$this->out()
 			->out('Finished =;)');
