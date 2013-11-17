@@ -54,6 +54,7 @@ class Project extends Get
 					)
 				)
 			->processLabels()
+			->processMilestones()
 			->processIssues()
 			->processComments()
 			->processAvatars()
@@ -71,6 +72,21 @@ class Project extends Get
 	protected function processLabels()
 	{
 		with(new Labels)
+			->execute();
+
+		return $this;
+	}
+
+	/**
+	 * Process the project labels.
+	 *
+	 * @return $this
+	 *
+	 * @since  1.0
+	 */
+	protected function processMilestones()
+	{
+		with(new Milestones)
 			->execute();
 
 		return $this;
