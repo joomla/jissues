@@ -8,13 +8,162 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker - Template 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-09 21:39+0200\n"
+"POT-Creation-Date: 2013-11-11 12:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr ""
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr ""
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr ""
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr ""
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr ""
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr ""
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr ""
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr ""
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr ""
+
+#: /templates/trackerMenu.twig:104
+msgid "Database"
+msgstr ""
+
+#: /templates/trackerMenu.twig:136
+msgid "Icons"
+msgstr ""
+
+#: /templates/trackerMenu.twig:142
+msgid "Text"
+msgstr ""
+
+#: /templates/trackerMenu.twig:148
+msgid "Clear Cache"
+msgstr ""
+
+#: /templates/trackerMenu.twig:170
+msgid "About Us"
+msgstr ""
+
+#: /templates/trackerMenu.twig:197
+msgid "Admin"
+msgstr ""
+
+#: /templates/trackerMenu.twig:202
+msgid "Profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:209
+msgid "Logout"
+msgstr ""
+
+#: /templates/trackerMenu.twig:217
+msgid "Login with GitHub"
+msgstr ""
+
+#: /templates/footerMenu.twig:4
+msgid "Home"
+msgstr ""
+
+#: /templates/footerMenu.twig:5
+#: /templates/topMenu.twig:25
+msgid "About"
+msgstr ""
+
+#: /templates/footerMenu.twig:6
+#: /templates/topMenu.twig:34
+msgid "Community"
+msgstr ""
+
+#: /templates/footerMenu.twig:7
+msgid "Forum"
+msgstr ""
+
+#: /templates/footerMenu.twig:8
+msgid "Extensions"
+msgstr ""
+
+#: /templates/footerMenu.twig:9
+msgid "Resources"
+msgstr ""
+
+#: /templates/footerMenu.twig:10
+msgid "Docs"
+msgstr ""
+
+#: /templates/footerMenu.twig:11
+msgid "Developer"
+msgstr ""
+
+#: /templates/footerMenu.twig:12
+msgid "Shop"
+msgstr ""
+
+#: /templates/footerMenu.twig:16
+msgid "Accessibility Statement"
+msgstr ""
+
+#: /templates/footerMenu.twig:17
+msgid "Privacy Policy"
+msgstr ""
+
+#: /templates/footerMenu.twig:18
+msgid "Joomla Hosting by"
+msgstr ""
+
+#: /templates/footerMenu.twig:19
+#: /templates/footerMenu.twig:19
+#, php-format
+msgid "Powered by %s"
+msgstr ""
+
+#: /templates/footerMenu.twig:22
+msgid "All rights reserved."
+msgstr ""
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr ""
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr ""
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr ""
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr ""
 
 #: /templates/topMenu.twig:15
 msgid "Recent News"
@@ -44,11 +193,6 @@ msgstr ""
 msgid "Contribution"
 msgstr ""
 
-#: /templates/topMenu.twig:25
-#: /templates/footerMenu.twig:5
-msgid "About"
-msgstr ""
-
 #: /templates/topMenu.twig:27
 msgid "About Joomla!"
 msgstr ""
@@ -63,11 +207,6 @@ msgstr ""
 
 #: /templates/topMenu.twig:30
 msgid "Leadership"
-msgstr ""
-
-#: /templates/topMenu.twig:34
-#: /templates/footerMenu.twig:6
-msgid "Community"
 msgstr ""
 
 #: /templates/topMenu.twig:36
@@ -144,7 +283,7 @@ msgid "Joomla! User Experience"
 msgstr ""
 
 #: /templates/topMenu.twig:63
-msgid "}Joomla! Bug Squad"
+msgid "Joomla! Bug Squad"
 msgstr ""
 
 #: /templates/topMenu.twig:64
@@ -169,136 +308,4 @@ msgstr ""
 
 #: /templates/topMenu.twig:77
 msgid "Translations Forum"
-msgstr ""
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr ""
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr ""
-
-#: /templates/footerMenu.twig:4
-msgid "Home"
-msgstr ""
-
-#: /templates/footerMenu.twig:7
-msgid "Forum"
-msgstr ""
-
-#: /templates/footerMenu.twig:8
-msgid "Extensions"
-msgstr ""
-
-#: /templates/footerMenu.twig:9
-msgid "Resources"
-msgstr ""
-
-#: /templates/footerMenu.twig:10
-msgid "Docs"
-msgstr ""
-
-#: /templates/footerMenu.twig:11
-msgid "Developer"
-msgstr ""
-
-#: /templates/footerMenu.twig:12
-msgid "Shop"
-msgstr ""
-
-#: /templates/footerMenu.twig:16
-msgid "Accessibility Statement"
-msgstr ""
-
-#: /templates/footerMenu.twig:17
-msgid "Privacy Policy"
-msgstr ""
-
-#: /templates/footerMenu.twig:18
-msgid "Joomla Hosting by"
-msgstr ""
-
-#: /templates/footerMenu.twig:21
-msgid "All rights reserved."
-msgstr ""
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr ""
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr ""
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr ""
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr ""
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr ""
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr ""
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr ""
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr ""
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr ""
-
-#: /templates/trackerMenu.twig:104
-msgid "Database"
-msgstr ""
-
-#: /templates/trackerMenu.twig:136
-msgid "Icons"
-msgstr ""
-
-#: /templates/trackerMenu.twig:142
-msgid "Text"
-msgstr ""
-
-#: /templates/trackerMenu.twig:148
-msgid "Clear Cache"
-msgstr ""
-
-#: /templates/trackerMenu.twig:170
-msgid "About Us"
-msgstr ""
-
-#: /templates/trackerMenu.twig:197
-msgid "Admin"
-msgstr ""
-
-#: /templates/trackerMenu.twig:202
-msgid "Profile"
-msgstr ""
-
-#: /templates/trackerMenu.twig:209
-msgid "Logout"
-msgstr ""
-
-#: /templates/trackerMenu.twig:217
-msgid "Login with GitHub"
-msgstr ""
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr ""
-
-#: /templates/editor.twig:6
-msgid "Preview"
 msgstr ""
