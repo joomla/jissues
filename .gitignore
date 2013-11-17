@@ -21,3 +21,4 @@ www/vendor/*
 
 # Build/Test related files #
 cache.properties
+build/api/*
