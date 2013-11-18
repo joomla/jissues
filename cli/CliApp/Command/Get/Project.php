@@ -57,6 +57,7 @@ class Project extends Get
 			->processMilestones()
 			->processIssues()
 			->processComments()
+			->processEvents()
 			->processAvatars()
 			->out()
 			->logOut('Bulk Finished');
@@ -117,6 +118,21 @@ class Project extends Get
 	protected function processComments()
 	{
 		with(new Comments)
+			->execute();
+
+		return $this;
+	}
+
+	/**
+	 * Process the project events.
+	 *
+	 * @return $this
+	 *
+	 * @since  1.0
+	 */
+	protected function processEvents()
+	{
+		with(new Events)
 			->execute();
 
 		return $this;
