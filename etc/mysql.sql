@@ -2,6 +2,7 @@
 -- Table setup order:
 -- #__tracker_projects
 -- #__tracker_labels
+-- #__tracker_milestones
 -- #__status
 -- #__issues_relations_types
 -- #__issues_voting
@@ -53,6 +54,26 @@ CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__tracker_labels_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+-- --
+-- Table structure for table `#__tracker_milestones`
+--
+
+CREATE TABLE `#__tracker_milestones` (
+  `milestone_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `milestone_number` int(11) NOT NULL COMMENT 'Milestone number from Github',
+  `project_id` int(11) NOT NULL COMMENT 'Project ID',
+  `title` varchar(50) NOT NULL COMMENT 'Milestone title',
+  `description` mediumtext NOT NULL COMMENT 'Milestone description',
+  `state` varchar(6) NOT NULL COMMENT 'Label state: open | closed',
+  `due_on` datetime DEFAULT NULL COMMENT 'Date the milestone is due on.',
+  PRIMARY KEY (`milestone_id`),
+  KEY `name` (`title`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__tracker_milestones_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -119,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_voting` (
 	`score` int(11) unsigned NOT NULL COMMENT 'Total score of issue importance',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -280,21 +302,3 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-10-01 00:00:00');
-
---
--- Table structure for table `#__tracker_milestones`
---
-
-CREATE TABLE `#__tracker_milestones` (
-  `milestone_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `milestone_number` int(11) NOT NULL COMMENT 'Milestone number from Github',
-  `project_id` int(11) NOT NULL COMMENT 'Project ID',
-  `title` varchar(50) NOT NULL COMMENT 'Milestone title',
-  `description` mediumtext NOT NULL COMMENT 'Milestone description',
-  `state` varchar(6) NOT NULL COMMENT 'Label state: open | closed',
-  `due_on` datetime DEFAULT NULL COMMENT 'Date the milestone is due on.',
-  PRIMARY KEY (`milestone_id`),
-  KEY `name` (`title`),
-  KEY `project_id` (`project_id`),
-  CONSTRAINT `#__tracker_milestones_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
