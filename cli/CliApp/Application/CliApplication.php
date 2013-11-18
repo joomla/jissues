@@ -320,7 +320,7 @@ class CliApplication extends AbstractCliApplication
 		$this->out()
 			->out('<info>GitHub rate limit:...</info> ', false);
 
-		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->rate;
+		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->resources->core;
 
 		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
 			->out();
