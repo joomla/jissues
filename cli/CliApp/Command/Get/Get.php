@@ -105,10 +105,13 @@ class Get extends TrackerCommand
 			->out('<error>                                    </error>')
 			->out('<error>  Please use one of the following:  </error>')
 			->out('<error>                                    </error>')
-			->out('<error>  get project                       </error>')
-			->out('<error>  get issues                        </error>')
-			->out('<error>  get comments                      </error>')
 			->out('<error>  get avatars                       </error>')
+			->out('<error>  get comments                      </error>')
+			->out('<error>  get events                        </error>')
+			->out('<error>  get issues                        </error>')
+			->out('<error>  get labels                        </error>')
+			->out('<error>  get milestones                    </error>')
+			->out('<error>  get project                       </error>')
 			->out('<error>                                    </error>');
 	}
 
