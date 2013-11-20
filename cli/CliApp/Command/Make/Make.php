@@ -11,6 +11,8 @@ namespace CliApp\Command\Make;
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
+use Joomla\Filesystem\Folder;
+
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -64,14 +66,23 @@ class Make extends TrackerCommand
 	{
 		$this->application->outputTitle('Make');
 
+		$errorTitle = 'Please use one of the following:';
+
 		$this->out('<error>                                    </error>');
-		$this->out('<error>  Please use one of the following:  </error>');
-		$this->out('<error>  make docu                         </error>');
-		$this->out('<error>  make autocomplete                 </error>');
-		$this->out('<error>  make dbcomments                   </error>');
-		$this->out('<error>  make depfile                      </error>');
-		$this->out('<error>  make langfiles                    </error>');
-		$this->out('<error>  make langtemplates                </error>');
+		$this->out('<error>  ' . $errorTitle . '  </error>');
+
+		foreach (Folder::files(__DIR__) as $file)
+		{
+			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
+
+			if ('make' == $cmd)
+			{
+				continue;
+			}
+
+			$this->out('<error>  make ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
+		}
+
 		$this->out('<error>                                    </error>');
 	}
 }
