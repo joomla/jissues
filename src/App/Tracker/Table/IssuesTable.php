@@ -24,6 +24,7 @@ use JTracker\Container;
  * @property   integer  $issue_number     THE issue number (ID)
  * @property   integer  $foreign_number   Foreign tracker id
  * @property   integer  $project_id       Project id
+ * @property   integer  $milestone_id     Milestone id if applicable
  * @property   string   $title            Issue title
  * @property   string   $description      Issue description
  * @property   string   $description_raw  The raw issue description (markdown)
