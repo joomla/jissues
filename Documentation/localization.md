@@ -1,4 +1,4 @@
-##Localization
+## Localization
 
 aka [The option #3 from joomla/jissues#124](https://github.com/joomla/jissues/pull/124)
 

@@ -1,10 +1,10 @@
-# Dependencies for joomla/tracker 1.0.0-beta
+## Dependencies for joomla/tracker 1.0.0-beta
 
 Issue Tracking application built on the Joomla! Framework integrating with GitHub to replace the existing Joomlacode solution.
 
 * Source URL: https://github.com/joomla/jissues
 
-## PHP - Production
+### PHP - Production
 
 #### joomla/framework (dev-master)
 
@@ -41,7 +41,7 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
-## PHP - Development
+### PHP - Development
 
 #### monolog/monolog (1.6.0)
 
@@ -71,7 +71,7 @@ A Mustache implementation in PHP.
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php
 
-## JavaScript
+### JavaScript
 
 #### jquery (1.9.1)
 
