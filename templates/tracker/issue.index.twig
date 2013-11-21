@@ -166,7 +166,7 @@
                 </tr>
                 <tr>
                     <th>{{ "Average Importance Score"|_ }}</th>
-                    <td id="importance">{{ item.importanceScore }}</td>
+                    <td id="importance">{{ item.importanceScore|number_format(2) }}</td>
                 </tr>
             </table>
             <hr />
@@ -208,7 +208,7 @@
                     </label>
                 </fieldset>
                 <hr />
-                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.issue_number }}', '#voteButton');">
+                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteButton');">
                     {{ "Vote"|_ }}
                 </a>
             </form>

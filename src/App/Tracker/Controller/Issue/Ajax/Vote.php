@@ -29,7 +29,7 @@ class Vote extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$issue       = $this->getInput()->getUint('issue_number');
+		$issue       = $this->getInput()->getUint('issueId');
 		$experienced = $this->getInput()->getInt('experienced');
 		$importance  = $this->getInput()->getInt('importance');
 

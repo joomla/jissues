@@ -59,7 +59,7 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 	);
 };
 
-JTracker.submitVote = function (issue_number, debugContainer) {
+JTracker.submitVote = function (issueId, debugContainer) {
 	var status = $(debugContainer);
 	var importance = $('input[name=importanceRadios]').filter(':checked').val();
 	var experienced = $('input[name=experiencedRadios]').filter(':checked').val();
@@ -68,7 +68,7 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 
 	$.post(
 		'/submit/vote',
-		{ issue_number: issue_number, experienced: experienced, importance: importance },
+		{ issueId: issueId, experienced: experienced, importance: importance },
 		function (r) {
 			if (r.error) {
 				// Failure
@@ -82,7 +82,7 @@ JTracker.submitVote = function (issue_number, debugContainer) {
 				if (r.data.votes > 1) {
 					$('td[id=votes]').html(r.data.votes);
 					$('td[id=experienced]').html(r.data.experienced);
-					$('td[id=importance]').html(r.data.importanceScore);
+					$('td[id=importance]').html((r.data.importanceScore).toFixed(2));
 				}
 			}
 		}
