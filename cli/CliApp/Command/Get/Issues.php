@@ -244,7 +244,9 @@ class Issues extends Get
 				);
 			}
 
-			// Add an open record to the activity table
+			/*
+			@todo see issue #194
+			Add an open record to the activity table
 			$activity               = new ActivitiesTable($db);
 			$activity->project_id   = $this->project->project_id;
 			$activity->issue_number = (int) $table->issue_number;
@@ -252,7 +254,7 @@ class Issues extends Get
 			$activity->event        = 'open';
 			$activity->created_date = $table->opened_date;
 
-			$activity->store();
+			$activity->store();*/
 
 			// Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
