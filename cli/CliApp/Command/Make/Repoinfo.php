@@ -22,6 +22,8 @@ class Repoinfo extends Make
 	/**
 	 * Constructor.
 	 *
+	 * @param   CliApplication  $application  The application object.
+	 *
 	 * @since   1.0
 	 */
 	public function __construct(CliApplication $application)
