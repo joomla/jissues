@@ -107,6 +107,17 @@
 		</exec>
 	</target>
 
+    <target name="phpdoc" description="Generate API documentation using phpDocumentor">
+        <exec executable="phpdoc">
+            <arg value="--directory" />
+            <arg path="${basedir}/src/,${basedir}/cli/" />
+            <arg value="--target" />
+            <arg path="${basedir}/build/api/" />
+            <arg value="--title" />
+            <arg value="Joomla! Tracker API" />
+        </exec>
+    </target>
+
 	<target name="build" depends="clean,composerupdate,composervalidate,installdep,parallelTasks" />
 
 	<target name="travis-build" depends="clean,composerupdate,composervalidate,installdep,travis-phpcs,phpmd" />

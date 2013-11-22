@@ -16,6 +16,8 @@ namespace JTracker\Controller;
 abstract class AbstractAjaxController extends AbstractTrackerController
 {
 	/**
+	 * AjaxResponse object.
+	 *
 	 * @var    AjaxResponse
 	 * @since  1.0
 	 */
@@ -86,18 +88,24 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 class AjaxResponse
 {
 	/**
+	 * Data object.
+	 *
 	 * @var    \stdClass
 	 * @since  1.0
 	 */
 	public $data;
 
 	/**
+	 * Error message.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	public $error = '';
 
 	/**
+	 * Message string.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -42,24 +44,32 @@ use Whoops\Run;
 class TrackerDebugger implements LoggerAwareInterface
 {
 	/**
+	 * Application object.
+	 *
 	 * @var    Application
 	 * @since  1.0
 	 */
 	private $application;
 
 	/**
+	 * Log array.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	private $log = array();
 
 	/**
+	 * Profiler object.
+	 *
 	 * @var    Profiler
 	 * @since  1.0
 	 */
 	private $profiler;
 
 	/**
+	 * Logger object.
+	 *
 	 * @var    Logger
 	 * @since  1.0
 	 */
@@ -402,6 +412,18 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			$title = $project ? $project->title : g11n3t('No Project');
 
+			// Add build commit if available
+			if (file_exists(JPATH_ROOT . '/current_SHA'))
+			{
+				$build = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
+			}
+			// Fall back to composer.json version
+			else
+			{
+				$composer = json_decode(trim(file_get_contents(JPATH_ROOT . '/composer.json')));
+				$build    = $composer->version;
+			}
+
 			$navigation[] = '<li class="hasTooltip"'
 				. ' title="' . g11n3t('User') . '">'
 				. '<a href="#dbgUser"><i class="icon icon-user"></i> <span class="badge">'
@@ -413,6 +435,16 @@ class TrackerDebugger implements LoggerAwareInterface
 				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
 				. $title
 				. '</span></a></li>';
+
+			// Display the build to admins
+			if ($this->application->getUser()->isAdmin)
+			{
+				$navigation[] = '<li class="hasTooltip"'
+					. ' title="' . g11n3t('Build') . '">'
+					. '<a href="#"><i class="icon icon-broadcast"></i> <span class="badge">'
+					. $build
+					. '</span></a></li>';
+			}
 		}
 
 		$navigation[] = '</ul>';

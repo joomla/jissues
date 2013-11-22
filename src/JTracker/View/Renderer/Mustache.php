@@ -136,7 +136,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 * Render and return compiled HTML.
 	 *
 	 * @param   string  $template  The template file name.
-	 * @param   mixed   $data      The data to pass to the template.
+	 * @param   array   $data      The data to pass to the template.
 	 *
 	 * @return  string  Compiled HTML
 	 *

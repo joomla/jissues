@@ -26,6 +26,7 @@
 {% endblock %}
 
 {% block content %}
+    <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
 
@@ -164,14 +165,27 @@
         });
 
         $('a[data-toggle="tab"]').on('shown', function (e) {
-            if('#preview' == $(e.target).attr('href')) {
+            if ('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#description', '#preview');
             }
         });
 
         // Validate and submit form
         var form = $('#issueForm');
-        form.validate();
+
+        form.validate({
+            invalidHandler: function(event, validator) {
+                var e = $('div.alert-danger');
+
+                if (validator.numberOfInvalids()) {
+                    e.html('Some fields are invalid. They have been highlighted.');
+                    e.show();
+                } else {
+                    e.hide();
+                }
+            }
+        });
+
         $('#submit').click(function() {
             if (form.valid()) {
                 $('#submit').html('Saving...');

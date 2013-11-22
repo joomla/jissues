@@ -33,7 +33,7 @@ class Vote extends AbstractAjaxController
 		/* @type Input $input */
 		$input = $this->container->get('app')->input;
 
-		$issue       = $input->getUint('issue_number');
+		$issue       = $input->getUint('issueId');
 		$experienced = $input->getInt('experienced');
 		$importance  = $input->getInt('importance');
 

@@ -2,6 +2,7 @@
 -- Table setup order:
 -- #__tracker_projects
 -- #__tracker_labels
+-- #__tracker_milestones
 -- #__status
 -- #__issues_relations_types
 -- #__issues_voting
@@ -53,6 +54,26 @@ CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__tracker_labels_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+-- --
+-- Table structure for table `#__tracker_milestones`
+--
+
+CREATE TABLE `#__tracker_milestones` (
+  `milestone_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `milestone_number` int(11) NOT NULL COMMENT 'Milestone number from Github',
+  `project_id` int(11) NOT NULL COMMENT 'Project ID',
+  `title` varchar(50) NOT NULL COMMENT 'Milestone title',
+  `description` mediumtext NOT NULL COMMENT 'Milestone description',
+  `state` varchar(6) NOT NULL COMMENT 'Label state: open | closed',
+  `due_on` datetime DEFAULT NULL COMMENT 'Date the milestone is due on.',
+  PRIMARY KEY (`milestone_id`),
+  KEY `name` (`title`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__tracker_milestones_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -120,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_voting` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 -- --------------------------------------------------------
 
 --
@@ -131,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `issue_number` int(11) unsigned DEFAULT NULL COMMENT 'THE issue number (ID)',
   `foreign_number` int(11) unsigned DEFAULT NULL COMMENT 'Foreign tracker id',
   `project_id` int(11) unsigned DEFAULT NULL COMMENT 'Project id',
+  `milestone_id` int(11) unsigned DEFAULT NULL COMMENT 'Milestone id if applicable',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
   `description` mediumtext NOT NULL COMMENT 'Issue description',
   `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
@@ -155,6 +178,8 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
+  KEY `milestone_id` (`milestone_id`,`project_id`),
+  CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
 	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`),
 	CONSTRAINT `#__issues_fk_vote_id` FOREIGN KEY (`vote_id`) REFERENCES `#__issues_voting` (`id`)
@@ -179,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
-  CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`),
+  CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

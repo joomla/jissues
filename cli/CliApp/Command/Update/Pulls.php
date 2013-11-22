@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -14,16 +16,12 @@ namespace CliApp\Command\Update;
 class Pulls extends Update
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Updates selected information for pull requests on GitHub for a specified project.';
-	}
+	protected $description = 'Updates selected information for pull requests on GitHub for a specified project.';
 
 	/**
 	 * Execute the command.
@@ -59,9 +57,9 @@ class Pulls extends Update
 	/**
 	 * Tag pull requests
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function tagPulls()
 	{

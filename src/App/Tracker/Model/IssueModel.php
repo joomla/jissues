@@ -243,7 +243,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function vote($id, $experienced, $importance)
 	{
-		$db = $this->getDb();
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
 
 		$table = new IssuesTable($this->db);
 		$table->load($id);
@@ -257,8 +258,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				$db->quoteName('score')
 			);
 
-			$query = $db->getQuery()
-				->insert($db->quoteName('#__issues_voting'))
+			$query->insert($db->quoteName('#__issues_voting'))
 				->columns($columnsArray)
 				->values(
 					'1, '
@@ -268,8 +268,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 		else
 		{
-			$query = $db->getQuery()
-				->update($db->quoteName('#__issues_voting'))
+			$query->update($db->quoteName('#__issues_voting'))
 				->set($db->quoteName('votes') . ' = ' . $db->quoteName('votes') . ' + 1')
 				->set($db->quoteName('experienced') . ' = ' . $db->quoteName('experienced') . ' + ' . $experienced)
 				->set($db->quoteName('score') . ' = ' . $db->quoteName('score') . ' + ' . $importance)
@@ -281,10 +280,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		// Add the vote_id if a new record
 		if (is_null($table->vote_id))
 		{
-			$query = $db->getQuery()
+			$query->clear()
 				->update($db->quoteName('#__issues'))
 				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
-				->where($db->quoteName('id') . ' = ' . (int) $table->id);
+				->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
 
 			$db->setQuery($query)->execute();
 		}
@@ -293,7 +292,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$query->clear()
 			->select('*')
 			->from($db->quoteName('#__issues_voting'))
-			->where($db->quoteName('id') . ' = ' . (int) $table->id);
+			->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
 
 		return $db->setQuery($query)->loadObject();
 	}

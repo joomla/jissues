@@ -13,7 +13,6 @@ use JTracker\Controller\AbstractAjaxController;
 /**
  * Default controller class for the Users component.
  *
- * @package  JTracker\Components\Users
  * @since    1.0
  */
 class Listing extends AbstractAjaxController

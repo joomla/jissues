@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -14,16 +16,12 @@ namespace CliApp\Command\Get;
 class Project extends Get
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Get the whole project info from GitHub, including issues and issue comments.';
-	}
+	protected $description = 'Get the whole project info from GitHub, including issues and issue comments.';
 
 	/**
 	 * Execute the command.
@@ -52,8 +50,10 @@ class Project extends Get
 					)
 				)
 			->processLabels()
+			->processMilestones()
 			->processIssues()
 			->processComments()
+			->processEvents()
 			->processAvatars()
 			->out()
 			->logOut('Bulk Finished');
@@ -62,9 +62,9 @@ class Project extends Get
 	/**
 	 * Process the project labels.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function processLabels()
 	{
@@ -75,11 +75,26 @@ class Project extends Get
 	}
 
 	/**
+	 * Process the project labels.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function processMilestones()
+	{
+		with(new Milestones)
+			->execute();
+
+		return $this;
+	}
+
+	/**
 	 * Process the project issues.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function processIssues()
 	{
@@ -92,9 +107,9 @@ class Project extends Get
 	/**
 	 * Process the project comments.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function processComments()
 	{
@@ -105,11 +120,26 @@ class Project extends Get
 	}
 
 	/**
+	 * Process the project events.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function processEvents()
+	{
+		with(new Events)
+			->execute();
+
+		return $this;
+	}
+
+	/**
 	 * Process the project avatars.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function processAvatars()
 	{

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -44,7 +46,7 @@ class CliApplication extends AbstractCliApplication
 	/**
 	 * Verbose mode - debug output.
 	 *
-	 * @var    bool
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	private $verbose = false;
@@ -214,7 +216,7 @@ class CliApplication extends AbstractCliApplication
 	 * @param   string   $text     The text to display.
 	 * @param   boolean  $newline  True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  CliApplication
+	 * @return  $this
 	 *
 	 * @codeCoverageIgnore
 	 * @since   1.0
@@ -229,8 +231,9 @@ class CliApplication extends AbstractCliApplication
 	 *
 	 * @param   string  $text  The text to display.
 	 *
+	 * @return  $this
+	 *
 	 * @since   1.0
-	 * @return  CliApplication
 	 */
 	public function debugOut($text)
 	{
@@ -244,7 +247,7 @@ class CliApplication extends AbstractCliApplication
 	 * @param   string   $subTitle  A subtitle.
 	 * @param   integer  $width     Total width in chars.
 	 *
-	 * @return  CliApplication
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -277,25 +280,13 @@ class CliApplication extends AbstractCliApplication
 	}
 
 	/**
-	 * This is a useless legacy function.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 * @todo    Remove
-	 */
-	public function getUserStateFromRequest()
-	{
-		return '';
-	}
-
-	/**
 	 * Get a user object.
 	 *
 	 * Some methods check for an authenticated user...
 	 *
-	 * @since  1.0
-	 * @return GitHubUser
+	 * @return  GitHubUser
+	 *
+	 * @since   1.0
 	 */
 	public function getUser()
 	{
@@ -318,7 +309,7 @@ class CliApplication extends AbstractCliApplication
 		$this->out()
 			->out('<info>GitHub rate limit:...</info> ', false);
 
-		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->rate;
+		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->resources->core;
 
 		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
 			->out();
