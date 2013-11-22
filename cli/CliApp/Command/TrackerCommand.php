@@ -8,7 +8,6 @@
 
 namespace CliApp\Command;
 
-use App\Projects\Model\ProjectsModel;
 use App\Projects\TrackerProject;
 
 use CliApp\Exception\AbortException;
@@ -81,6 +80,8 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	public function __construct()
 	{
+		// Left for reference - @todo RemoveMe
+
 		//$this->application = Container::retrieve('app');
 		//$this->logger      = Container::retrieve('logger');
 		//$this->usePBar     = $this->getApplication()->get('cli-application.progress-bar');
@@ -303,8 +304,20 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel($this->getContainer()->get('db')))->getItems();
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->getContainer()->get('db');
 
+		$projects = $db->setQuery(
+			$db->getQuery(true)
+				->from($db->quoteName('#__tracker_projects'))
+				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
+
+		)->loadObjectList();
+/*
+		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);
+		$user = new GitHubUser($this->getApplication()->getp);
+		$projects = with()->getItems();
+*/
 		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
 
 		if (!$id)

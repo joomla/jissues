@@ -17,8 +17,6 @@ use CliApp\Service\GitHubProvider;
 use CliApp\Service\ApplicationProvider;
 use CliApp\Service\LoggerProvider;
 
-use JTracker\Container as TrackerContainer;
-
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use Joomla\Application\AbstractCliApplication;
@@ -105,16 +103,6 @@ class CliApplication extends AbstractCliApplication
 
 		// Build the DI Container
 		$this->container = with(new Container)
-			->registerServiceProvider(new ApplicationProvider($this))
-			->registerServiceProvider(new ConfigurationProvider($this->config))
-			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new GitHubProvider)
-			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))));
-
-		// Register the services to our static container..
-		// @todo remove after merge: https://github.com/joomla/jissues/pull/216
-		TrackerContainer::getInstance()
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)

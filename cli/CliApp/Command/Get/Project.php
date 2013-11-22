@@ -85,6 +85,7 @@ class Project extends Get
 	protected function processMilestones()
 	{
 		with(new Milestones)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -132,6 +133,7 @@ class Project extends Get
 	protected function processEvents()
 	{
 		with(new Events)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;

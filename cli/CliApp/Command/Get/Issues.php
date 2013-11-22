@@ -335,7 +335,7 @@ class Issues extends Get
 	private function getMilestones()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 		$table = new MilestonesTable($db);
 
 		$milestoneList = $db->setQuery(
