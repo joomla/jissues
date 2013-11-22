@@ -25,23 +25,12 @@ use JTracker\Container;
 class Issues extends Get
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Retrieve issues from GitHub.';
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
-	}
+	protected $description = 'Retrieve issues from GitHub.';
 
 	/**
 	 * Execute the command.
@@ -286,7 +275,9 @@ class Issues extends Get
 	 *
 	 * @param   array  $labelObjects  Array of label objects
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	private function getLabelIds($labelObjects)
 	{
@@ -343,7 +334,7 @@ class Issues extends Get
 		$table = new MilestonesTable($db);
 
 		$milestoneList = $db->setQuery(
-			 $db->getQuery(true)
+			$db->getQuery(true)
 				->from($db->quoteName($table->getTableName()))
 				->select(array('milestone_number', 'milestone_id'))
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)

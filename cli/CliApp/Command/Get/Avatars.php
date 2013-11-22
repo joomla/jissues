@@ -12,12 +12,20 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Container;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for retrieving avatars from GitHub for selected projects
  *
  * @since  1.0
  */
 class Avatars extends Get
 {
+	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Retrieve avatar images from GitHub.';
+
 	/**
 	 * Constructor.
 	 *
@@ -26,14 +34,6 @@ class Avatars extends Get
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->description = 'Retrieve avatar images from GitHub.';
-		$this->usePBar     = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 	}
@@ -60,10 +60,10 @@ class Avatars extends Get
 	/**
 	 * Fetch avatars.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since  1.0
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	private function fetchAvatars()
 	{

@@ -21,20 +21,20 @@ use Joomla\Filesystem\Folder;
 class Make extends TrackerCommand
 {
 	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'The make engine';
+
+	/**
 	 * Joomla! Github object
 	 *
 	 * @var    \Joomla\Github\Github
 	 * @since  1.0
 	 */
 	protected $github;
-
-	/**
-	 * Use the progress bar.
-	 *
-	 * @var    boolean
-	 * @since  1.0
-	 */
-	protected $usePBar;
 
 	/**
 	 * Constructor.
@@ -44,8 +44,6 @@ class Make extends TrackerCommand
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->description = 'The make engine.';
 
 		$this->addOption(
 			new TrackerCommandOption(

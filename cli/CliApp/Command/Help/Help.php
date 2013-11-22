@@ -40,7 +40,9 @@ class Help extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -170,7 +172,7 @@ class Help extends TrackerCommand
 	 *
 	 * @param   TrackerCommandOption  $option  The command option.
 	 *
-	 * @return  TrackerCommand
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */

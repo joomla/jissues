@@ -13,29 +13,19 @@ use App\Text\Table\ArticlesTable;
 use JTracker\Container;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for parsing documentation files to inject into the site
  *
  * @since  1.0
  */
 class Docu extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Compile documentation using GitHub markdown.';
-		$this->usePBar     = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
-	}
+	protected $description = 'Compile documentation using GitHub Flavored Markdown';
 
 	/**
 	 * Execute the command.

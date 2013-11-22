@@ -22,9 +22,18 @@ use JTracker\Container;
 class Install extends TrackerCommand
 {
 	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Install the application.';
+
+	/**
 	 * Database driver object.
 	 *
-	 * @var \Joomla\Database\DatabaseDriver
+	 * @var    \Joomla\Database\DatabaseDriver
+	 * @since  1.0
 	 */
 	private $db = null;
 
@@ -38,8 +47,6 @@ class Install extends TrackerCommand
 		parent::__construct();
 
 		$this->db = Container::getInstance()->get('db');
-
-		$this->description = 'Install the application.';
 
 		$this->addOption(
 			new TrackerCommandOption(
@@ -55,7 +62,7 @@ class Install extends TrackerCommand
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \CliApp\Exception\AbortException
+	 * @throws  AbortException
 	 * @throws  \RuntimeException
 	 * @throws  \UnexpectedValueException
 	 */
@@ -119,7 +126,9 @@ class Install extends TrackerCommand
 	 *
 	 * @param   array  $tables  Tables to remove.
 	 *
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	private function cleanDatabase(array $tables)
 	{
@@ -150,10 +159,11 @@ class Install extends TrackerCommand
 	/**
 	 * Process the main SQL file.
 	 *
-	 * @since  1.0
-	 * @throws \RuntimeException
-	 * @throws \UnexpectedValueException
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	private function processSql()
 	{
@@ -165,7 +175,7 @@ class Install extends TrackerCommand
 			$dbType = 'mysql';
 		}
 
-		$fName = __DIR__ . '/../../../../etc/' . $dbType . '.sql';
+		$fName = JPATH_ROOT . '/etc/' . $dbType . '.sql';
 
 		if (false == file_exists($fName))
 		{
