@@ -8,10 +8,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
-use JTracker\Container;
-
 /**
  * Class for generating repository information.
  *
@@ -37,7 +33,7 @@ class Repoinfo extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Generate Repoinfo');
+		$this->getApplication()->outputTitle('Generate Repoinfo');
 		$this->logOut('Generating Repoinfo.');
 
 		$currentSHA = trim(shell_exec('git describe --long --dirty --abbrev=10 --tags'));

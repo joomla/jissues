@@ -32,7 +32,7 @@ class Dbcomments extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make DB Comments');
+		$this->getApplication()->outputTitle('Make DB Comments');
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');

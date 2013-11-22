@@ -8,6 +8,8 @@
 
 namespace CliApp\Command\Make;
 
+use CliApp\Command\TrackerCommandOption;
+
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
 
@@ -43,14 +45,6 @@ class Depfile extends Make
 	protected $description = 'Create and update a dependency file.';
 
 	/**
-	 * Target file name.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	private $fileName = '';
-
-	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -65,8 +59,6 @@ class Depfile extends Make
 				'Write output to a file.'
 			)
 		);
-
-		$this->fileName = $this->application->input->getPath('file', $this->application->input->getPath('f'));
 	}
 
 	/**
@@ -128,11 +120,13 @@ class Depfile extends Make
 				$this
 			);
 
-		if ($this->fileName)
-		{
-			$this->out('Writing contents to: ' . $this->fileName);
+		$fileName = $this->getApplication()->input->getPath('file', $this->getApplication()->input->getPath('f'));
 
-			file_put_contents($this->fileName, $contents);
+		if ($fileName)
+		{
+			$this->out('Writing contents to: ' . $fileName);
+
+			file_put_contents($fileName, $contents);
 		}
 		else
 		{

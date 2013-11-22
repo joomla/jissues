@@ -101,7 +101,20 @@ class Autocomplete extends Make
 
 		$doc->appendChild($domNode);
 
-		echo $doc->saveXML();
+		$contents = $doc->saveXML();
+
+		$fileName = $this->getApplication()->input->getPath('file', $this->getApplication()->input->getPath('f'));
+
+		if ($fileName)
+		{
+			$this->out('Writing contents to: ' . $fileName);
+
+			file_put_contents($fileName, $contents);
+		}
+		else
+		{
+			echo $contents;
+		}
 
 		$this->out()
 			->out('Finished =;)');

@@ -8,10 +8,13 @@
 
 namespace CliApp\Command;
 
+use App\Projects\Model\ProjectsModel;
+use App\Projects\TrackerProject;
+
+use CliApp\Exception\AbortException;
+
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
-
-use Monolog\Logger;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -24,17 +27,17 @@ use Psr\Log\LoggerInterface;
 abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInterface
 {
 	/**
-	 * Application object.
+	 * Container object.
 	 *
-	 * @var    \CliApp\Application\CliApplication
+	 * @var    \Joomla\DI\Container
 	 * @since  1.0
 	 */
-	protected $application;
+	protected $container;
 
 	/**
 	 * Logger object.
 	 *
-	 * @var    Logger
+	 * @var    \Monolog\Logger
 	 * @since  1.0
 	 */
 	protected $logger;
@@ -64,17 +67,25 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected $usePBar;
 
 	/**
+	 * The project object.
+	 *
+	 * @var    TrackerProject
+	 * @since  1.0
+	 */
+	protected $project;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
 	 */
 	public function __construct()
 	{
-		$this->application = Container::retrieve('app');
-		$this->logger      = Container::retrieve('logger');
-		$this->usePBar     = $this->application->get('cli-application.progress-bar');
+		//$this->application = Container::retrieve('app');
+		//$this->logger      = Container::retrieve('logger');
+		//$this->usePBar     = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->application->input->get('noprogress'))
+		if (0)//$this->getApplication()->input->get('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -262,7 +273,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	protected function displayGitHubRateLimit()
 	{
-		$this->application->displayGitHubRateLimit();
+		$this->getApplication()->displayGitHubRateLimit();
 
 		return $this;
 	}
@@ -278,7 +289,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	protected function getProgressBar($targetNum)
 	{
-		return $this->application->getProgressBar($targetNum);
+		return $this->getApplication()->getProgressBar($targetNum);
 	}
 
 	/**
@@ -292,9 +303,9 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	protected function selectProject()
 	{
-		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
+		$projects = with(new ProjectsModel($this->getContainer()->get('db')))->getItems();
 
-		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
+		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
 
 		if (!$id)
 		{
@@ -319,7 +330,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			$this->out()
 				->out('<question>Select a project:</question> ', false);
 
-			$resp = (int) trim($this->application->in());
+			$resp = (int) trim($this->getApplication()->in());
 
 			if (!$resp)
 			{

@@ -79,9 +79,9 @@ class Help extends TrackerCommand
 		{
 			$this->out('<cmd>' . $cName . '</cmd>');
 
-			if ($command->description)
+			if ($command->getDescription())
 			{
-				$this->out('    ' . $command->description);
+				$this->out('    ' . $command->getDescription());
 			}
 
 			$this->out();
@@ -129,7 +129,7 @@ class Help extends TrackerCommand
 
 		$this->out('Command: <b>' . $command . '</b>' . ($actions ? ' <cmd><action></cmd>' : ''))
 			->out()
-			->out('    ' . $c->description);
+			->out('    ' . $c->getDescription());
 
 		if ($c->options)
 		{
@@ -148,10 +148,11 @@ class Help extends TrackerCommand
 				->out('  Available <cmd>actions</cmd>:')
 			->out();
 
+			/* @type TrackerCommand $action */
 			foreach ($actions as $aName => $action)
 			{
 				$this->out('<cmd>' . $aName . '</cmd>')
-					->out('    ' . $action->description);
+					->out('    ' . $action->getDescription());
 
 				if ($action->options)
 				{
