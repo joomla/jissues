@@ -8,7 +8,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
 use CliApp\Command\TrackerCommandOption;
 
 use Mustache_Engine;

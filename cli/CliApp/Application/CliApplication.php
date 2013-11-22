@@ -332,4 +332,19 @@ class CliApplication extends AbstractCliApplication
 			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
 			: null;
 	}
+
+	/**
+	 * This is a useless legacy function.
+	 *
+	 * Actually it's accessed by the \JTracker\Model\AbstractTrackerListModel
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 * @todo    Remove
+	 */
+	public function getUserStateFromRequest()
+	{
+		return '';
+	}
 }

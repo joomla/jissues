@@ -8,10 +8,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
-use JTracker\Container;
-
 /**
  * Class for generating repository information.
  *
