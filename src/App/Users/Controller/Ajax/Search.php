@@ -14,7 +14,6 @@ use JTracker\Container;
 /**
  * Default controller class for the Users component.
  *
- * @package  JTracker\Components\Users
  * @since    1.0
  */
 class Search extends AbstractAjaxController

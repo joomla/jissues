@@ -22,6 +22,8 @@
 {% endblock %}
 
 {% block content %}
+    <div class="alert alert-danger" style="display: none"></div>
+
     <form method="post" action="/{{ uri.route }}-submit" name="editForm" id="issueForm">
 
         <div class="pull-right well well-small" style="margin-left: 15px">
@@ -98,23 +100,42 @@
 
         // Show and hide help texts
         switcher.on('switch-change', function (e, data) {
-            if (data.value) { $('.helpText').show(); }
-            else { $('.helpText').hide(); }
+            if (data.value) {
+                $('.helpText').show();
+            } else {
+                $('.helpText').hide();
+            }
         });
 
         // Set the initial state
-        if (switcher.children('input').attr('checked')) { $('.helpText').show(); }
-        else { $('.helpText').hide(); }
+        if (switcher.children('input').attr('checked')) {
+            $('.helpText').show();
+        } else {
+            $('.helpText').hide();
+        }
 
         $('a[data-toggle="tab"]').on('shown', function (e) {
-            if('#preview' == $(e.target).attr('href')) {
+            if ('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#description', '#preview');
             }
         });
 
         // Validate and submit form
         var form = $('#issueForm');
-        form.validate();
+
+        form.validate({
+            invalidHandler: function(event, validator) {
+                var e = $('div.alert-danger');
+
+                if (validator.numberOfInvalids()) {
+                    e.html('Some fields are invalid. They have been highlighted.');
+                    e.show();
+                } else {
+                    e.hide();
+                }
+            }
+        });
+
         $('#submit').click(function() {
             if (form.valid()) {
                 $('#submit').html('Submitting...');

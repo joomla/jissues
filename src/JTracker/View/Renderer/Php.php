@@ -20,18 +20,24 @@ use JTracker\Container;
 class Php implements RendererInterface
 {
 	/**
+	 * Global object.
+	 *
 	 * @var    Registry
 	 * @since  1.0
 	 */
 	protected $globals;
 
 	/**
+	 * Template paths.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	protected $templatePaths = array();
 
 	/**
+	 * Debug flag.
+	 *
 	 * @var    boolean
 	 * @since  1.0
 	 */
@@ -83,7 +89,7 @@ class Php implements RendererInterface
 	 * Render and return compiled HTML.
 	 *
 	 * @param   string  $template  The template file name
-	 * @param   mixed   $data      The data to pass to the template
+	 * @param   array   $data      The data to pass to the template
 	 *
 	 * @return  string  Compiled HTML
 	 *

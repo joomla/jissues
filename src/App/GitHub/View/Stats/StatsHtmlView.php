@@ -20,6 +20,8 @@ use JTracker\View\AbstractTrackerHtmlView;
 class StatsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
+	 * Config object.
+	 *
 	 * @var    \stdClass
 	 * @since  1.0
 	 */

@@ -24,6 +24,7 @@ use JTracker\Container;
  * @property   integer  $issue_number     THE issue number (ID)
  * @property   integer  $foreign_number   Foreign tracker id
  * @property   integer  $project_id       Project id
+ * @property   integer  $milestone_id     Milestone id if applicable
  * @property   string   $title            Issue title
  * @property   string   $description      Issue description
  * @property   string   $description_raw  The raw issue description (markdown)
@@ -152,10 +153,6 @@ class IssuesTable extends AbstractDatabaseTable
 		elseif (strlen($this->title) > 255)
 		{
 			$errors[] = g11n3t('The title max length is 255 chars.');
-		}
-		elseif (!preg_match('/^[\w\pN\pL\pM\-.,()\[\]\'"\+_@&$#%!: ]+$/u', $this->title))
-		{
-			$errors[] = g11n3t('Some characters are not allowed in the title.');
 		}
 
 		if (trim($this->build) == '')

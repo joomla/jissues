@@ -19,8 +19,4 @@
     </ul>
 
     <p>&copy; 2005 - {{ now|date("Y") }} <a href="http://www.opensourcematters.org">Open Source Matters, Inc.</a> {{ "All rights reserved."|_ }}</p>
-
-    {% if user.isAdmin %}
-        <p>Application built on <a href="https://github.com/joomla/jissues/tree/{{ buildSHA }}">joomla/jissues@{{ buildSHA }}</a></p>
-    {% endif %}
 </div>

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -9,23 +11,19 @@ namespace CliApp\Command\Make;
 use App\Text\Table\ArticlesTable;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for parsing documentation files to inject into the site
  *
  * @since  1.0
  */
 class Docu extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Compile documentation using GitHub markdown.';
-	}
+	protected $description = 'Compile documentation using GitHub Flavored Markdown';
 
 	/**
 	 * Execute the command.

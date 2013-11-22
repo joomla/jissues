@@ -348,6 +348,15 @@ class TrackerExtension extends \Twig_Extension
 		return $relTypes;
 	}
 
+	/**
+	 * Create a translated tes/no string.
+	 *
+	 * @param   mixed  $value  A value that evaluates to PHP true/false..
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
 	public function yesNo($value)
 	{
 		return $value ? g11n3t('Yes') : g11n3t('No');

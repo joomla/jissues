@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -9,21 +11,19 @@ namespace CliApp\Command\Make;
 use CliApp\Command\TrackerCommand;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for generating a PhpStorm autocomplete file for using the CLI tools
  *
  * @since  1.0
  */
 class Autocomplete extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		$this->description = 'Generate an auto complete file for PHPStorm.';
-	}
+	protected $description = 'Generate an auto complete file for PhpStorm';
 
 	/**
 	 * Execute the command.

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -18,7 +20,18 @@ use CliApp\Exception\AbortException;
 class Install extends TrackerCommand
 {
 	/**
-	 * @var \Joomla\Database\DatabaseDriver
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Install the application.';
+
+	/**
+	 * Database driver object.
+	 *
+	 * @var    \Joomla\Database\DatabaseDriver
+	 * @since  1.0
 	 */
 	private $db = null;
 
@@ -29,7 +42,7 @@ class Install extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = 'Install the application.';
+		parent::__construct();
 
 		$this->addOption(
 			new TrackerCommandOption(
@@ -45,7 +58,7 @@ class Install extends TrackerCommand
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \CliApp\Exception\AbortException
+	 * @throws  AbortException
 	 * @throws  \RuntimeException
 	 * @throws  \UnexpectedValueException
 	 */
@@ -111,7 +124,9 @@ class Install extends TrackerCommand
 	 *
 	 * @param   array  $tables  Tables to remove.
 	 *
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	private function cleanDatabase(array $tables)
 	{
@@ -142,10 +157,11 @@ class Install extends TrackerCommand
 	/**
 	 * Process the main SQL file.
 	 *
-	 * @since  1.0
-	 * @throws \RuntimeException
-	 * @throws \UnexpectedValueException
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	private function processSql()
 	{
@@ -157,7 +173,7 @@ class Install extends TrackerCommand
 			$dbType = 'mysql';
 		}
 
-		$fName = __DIR__ . '/../../../../etc/' . $dbType . '.sql';
+		$fName = JPATH_ROOT . '/etc/' . $dbType . '.sql';
 
 		if (false == file_exists($fName))
 		{

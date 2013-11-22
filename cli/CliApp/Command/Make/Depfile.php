@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -17,16 +19,36 @@ use Mustache_Loader_FilesystemLoader;
 class Depfile extends Make
 {
 	/**
-	 * @var  object
-	 * @since   1.0
+	 * Product object.
+	 *
+	 * @var    object
+	 * @since  1.0
 	 */
 	public $product = null;
 
 	/**
-	 * @var array
-	 * @since   1.0
+	 * Dependencies.
+	 *
+	 * @var    array
+	 * @since  1.0
 	 */
 	public $dependencies = array();
+
+	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Create and update a dependency file.';
+
+	/**
+	 * Target file name.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $fileName = '';
 
 	/**
 	 * Constructor.
@@ -37,7 +59,14 @@ class Depfile extends Make
 	{
 		parent::__construct();
 
-		$this->description = 'Create and update a dependency file.';
+		$this->addOption(
+			new TrackerCommandOption(
+				'file', 'f',
+				'Write output to a file.'
+			)
+		);
+
+		$this->fileName = $this->application->input->getPath('file', $this->application->input->getPath('f'));
 	}
 
 	/**
@@ -92,19 +121,23 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-		echo with(new Mustache_Engine)
+		$contents = with(new Mustache_Engine)
 			->render(
 				with(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
 					->load('depfile'),
 				$this
 			);
 
-		// @todo write to a file
-		// $m = new Mustache_Engine;
-		// $loader = new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'));
-		// $tpl = $loader->load('deplist');
+		if ($this->fileName)
+		{
+			$this->out('Writing contents to: ' . $this->fileName);
 
-		// $output = $m->render($tpl, $this);
+			file_put_contents($this->fileName, $contents);
+		}
+		else
+		{
+			echo $contents;
+		}
 
 		$this->out()
 			->out('Finished =;)');

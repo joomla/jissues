@@ -14,28 +14,30 @@ use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 
+use JTracker\Container;
+
 /**
- * Class for retrieving comments from GitHub for selected projects
+ * Class for retrieving events from GitHub for selected projects
  *
  * @since  1.0
  */
-class Comments extends Get
+class Events extends Get
 {
-	/**
-	 * Comment data from GitHub
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $comments = array();
-
 	/**
 	 * The command "description" used for help texts.
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'Retrieve comments from GitHub.';
+	protected $description = 'Retrieve issue events from GitHub.';
+
+	/**
+	 * Event data from GitHub
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $events = array();
 
 	/**
 	 * Array containing the issues from the database and their GitHub ID.
@@ -92,14 +94,7 @@ class Comments extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Comments');
-
-		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
-
-		if ($this->getApplication()->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
+		$this->application->outputTitle('Retrieve Comments');
 
 		$this->logOut('Start retrieve Comments')
 			->selectProject()
@@ -107,8 +102,8 @@ class Comments extends Get
 			->setupGitHub()
 			->displayGitHubRateLimit()
 			->getIssues()
-			->getComments()
-			->processComments()
+			->getEvents()
+			->processEvents()
 			->out()
 			->logOut('Finished');
 	}
@@ -122,14 +117,14 @@ class Comments extends Get
 	 */
 	protected function selectRange()
 	{
-		$issue = $this->getApplication()->input->getInt('issue');
+		$issue = $this->application->input->getInt('issue');
 
 		if ($issue)
 		{
 			$this->rangeFrom = $issue;
 			$this->rangeTo   = $issue;
 		}
-		elseif ($this->getApplication()->input->get('all'))
+		elseif ($this->application->input->get('all'))
 		{
 			// Do nothing
 		}
@@ -138,17 +133,17 @@ class Comments extends Get
 			// Limit issues to process
 			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
 
-			$resp = trim($this->getApplication()->in());
+			$resp = trim($this->application->in());
 
 			if ($resp == 'r' || $resp == 'range')
 			{
 				// Get the first GitHub issue (from)
 				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
-				$this->rangeFrom = (int) trim($this->getApplication()->in());
+				$this->rangeFrom = (int) trim($this->application->in());
 
 				// Get the ending GitHub issue (to)
 				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
-				$this->rangeTo = (int) trim($this->getApplication()->in());
+				$this->rangeTo = (int) trim($this->application->in());
 			}
 		}
 
@@ -165,7 +160,7 @@ class Comments extends Get
 	protected function getIssues()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db = Container::getInstance()->get('db');
 
 		$query = $db->getQuery(true);
 
@@ -194,9 +189,9 @@ class Comments extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function getComments()
+	protected function getEvents()
 	{
-		$this->out(sprintf('Retrieving <b>%d</b> issue comment(s) from GitHub...', count($this->issues)), false);
+		$this->out(sprintf('Retrieving events for <b>%d</b> issue(s) from GitHub...', count($this->issues)), false);
 
 		$progressBar = $this->getProgressBar(count($this->issues));
 
@@ -209,21 +204,21 @@ class Comments extends Get
 				: $this->out($count + 1 . '...', false);
 
 			$page = 0;
-			$this->comments[$issue->issue_number] = array();
+			$this->events[$issue->issue_number] = array();
 
 			do
 			{
 				$page++;
 
-				$comments = $this->github->issues->comments->getList(
+				$events = $this->github->issues->events->getList(
 					$this->project->gh_user, $this->project->gh_project, $issue->issue_number, $page, 100
 				);
 
-				$count = is_array($comments) ? count($comments) : 0;
+				$count = is_array($events) ? count($events) : 0;
 
 				if ($count)
 				{
-					$this->comments[$issue->issue_number] = array_merge($this->comments[$issue->issue_number], $comments);
+					$this->events[$issue->issue_number] = array_merge($this->events[$issue->issue_number], $events);
 
 						$this->usePBar
 						? null
@@ -247,16 +242,17 @@ class Comments extends Get
 	 * @return  $this
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
-	protected function processComments()
+	protected function processEvents()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db = Container::getInstance()->get('db');
 
 		// Initialize our database object
 		$query = $db->getQuery(true);
 
-		$this->out('Adding comments to the database...', false);
+		$this->out('Adding events to the database...', false);
 
 		$progressBar = $this->getProgressBar(count($this->issues));
 
@@ -273,55 +269,91 @@ class Comments extends Get
 
 			// First, we need to check if the issue is already in the database,
 			// we're injecting the GitHub comment ID for that
-			foreach ($this->comments[$issue->issue_number] as $comment)
+			foreach ($this->events[$issue->issue_number] as $event)
 			{
-				$query->clear()
-					->select('COUNT(*)')
-					->from($db->quoteName('#__activities'))
-					->where($db->quoteName('gh_comment_id') . ' = ' . (int) $comment->id)
-					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
-
-				$db->setQuery($query);
-
-				$result = (int) $db->loadResult();
-
-				if ($result >= 1)
+				switch ($event->event)
 				{
-					// If we have something already, then move on to the next item
-					$this->usePBar ? null : $this->out('-', false);
+					case 'referenced' :
+					case 'closed' :
+					case 'reopened' :
+					case 'assigned' :
+					case 'merged' :
+						$query->clear()
+							->select('COUNT(*)')
+							->from($db->quoteName('#__activities'))
+							->where($db->quoteName('gh_comment_id') . ' = ' . (int) $event->id)
+							->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 
-					continue;
+						$db->setQuery($query);
+
+						$result = (int) $db->loadResult();
+
+						if ($result >= 1)
+						{
+							// If we have something already, then move on to the next item
+							$this->usePBar ? null : $this->out('-', false);
+
+							continue;
+						}
+
+						$evTrans = array(
+							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
+							'assigned' => 'assign', 'merged' => 'merge'
+						);
+
+						$this->usePBar ? null : $this->out('+', false);
+
+						// Initialize our ActivitiesTable instance to insert the new record
+						$table = new ActivitiesTable($db);
+
+						$table->gh_comment_id = $event->id;
+						$table->issue_number  = $issue->issue_number;
+						$table->project_id    = $this->project->project_id;
+						$table->user          = $event->actor->login;
+						$table->event         = $evTrans[$event->event];
+
+						$table->created_date = with(new Date($event->created_at))->format('Y-m-d H:i:s');
+
+						if ('referenced' == $event->event)
+						{
+							$reference = $this->github->issues->events->get(
+								$this->project->gh_user, $this->project->gh_project, $event->id
+							);
+
+							// @todo obtain referenced information
+						}
+
+						if ('assigned' == $event->event)
+						{
+							$reference = $this->github->issues->events->get(
+								$this->project->gh_user, $this->project->gh_project, $event->id
+							);
+
+							$table->text_raw = 'Assigned to ' . $reference->issue->assignee->login;
+							$table->text = $table->text_raw;
+						}
+
+						$table->store();
+
+						++ $adds;
+						break;
+
+					case 'mentioned' :
+					case 'subscribed' :
+						continue;
+						break;
+
+					default:
+						throw new \UnexpectedValueException('Unknown event: ' . $event->event);
+						continue;
+						break;
 				}
-
-				$this->usePBar ? null : $this->out('+', false);
-
-				// Initialize our ActivitiesTable instance to insert the new record
-				$table = new ActivitiesTable($db);
-
-				$table->gh_comment_id = $comment->id;
-				$table->issue_number  = (int) $issue->issue_number;
-				$table->project_id    = $this->project->project_id;
-				$table->user          = $comment->user->login;
-				$table->event         = 'comment';
-				$table->text_raw      = $comment->body;
-
-				$table->text = $this->github->markdown->render(
-					$comment->body,
-					'gfm',
-					$this->project->gh_user . '/' . $this->project->gh_project
-				);
-
-				$table->created_date = with(new Date($comment->created_at))->format('Y-m-d H:i:s');
-
-				$table->store();
-
-				++ $adds;
 			}
 		}
 
 		$this->out()
 			->outOK()
-			->logOut(sprintf('Added %d new comments to the database', $adds));
+			->logOut(sprintf('Added %d new issue events to the database', $adds));
 
 		return $this;
 	}

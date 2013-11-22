@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -16,16 +18,12 @@ use App\Projects\Table\LabelsTable;
 class Labels extends Get
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Retrieve project labels from GitHub.';
-	}
+	protected $description = 'Retrieve project labels from GitHub.';
 
 	/**
 	 * Execute the command.
@@ -48,11 +46,11 @@ class Labels extends Get
 	}
 
 	/**
-	 * Get the projects labels.
+	 * Get the project labels.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function processLabels()
 	{

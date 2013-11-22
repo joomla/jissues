@@ -45,7 +45,7 @@ class LoggerProvider implements ServiceProviderInterface
 	 * @param   string   $fileName  The name of the log file.
 	 * @param   boolean  $quiet     No output
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($fileName = '', $quiet = false)
 	{
@@ -58,10 +58,10 @@ class LoggerProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @throws \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function register(Container $container)
 	{

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -7,23 +9,19 @@
 namespace CliApp\Command\Make;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for generating class doc blocks in JTracker\Database\AbstractDatabaseTable classes
  *
  * @since  1.0
  */
 class Dbcomments extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Generate file headers for Table classes.';
-	}
+	protected $description = 'Generate file headers for Table classes';
 
 	/**
 	 * Execute the command.
@@ -94,7 +92,9 @@ class Dbcomments extends Make
 	 *
 	 * @param   array  $lines  The doc comment.
 	 *
-	 * @return \stdClass
+	 * @return  \stdClass
+	 *
+	 * @since   1.0
 	 */
 	private function getMaxVals(array $lines)
 	{
@@ -123,7 +123,9 @@ class Dbcomments extends Make
 	 *
 	 * @param   string  $type  The SQL data type.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	private function getType($type)
 	{

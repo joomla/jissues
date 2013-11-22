@@ -28,10 +28,10 @@ class GitHubProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @throws  \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function register(Container $container)
 	{

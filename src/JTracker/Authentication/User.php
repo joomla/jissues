@@ -23,30 +23,39 @@ use JTracker\Container;
 abstract class User implements \Serializable
 {
 	/**
+	 * Id.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
 	public $id = 0;
 
 	/**
+	 * User name.
 	 * @var    string
 	 * @since  1.0
 	 */
 	public $username = '';
 
 	/**
+	 * Name.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	public $name = '';
 
 	/**
+	 * E-mail.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	public $email = '';
 
 	/**
+	 * Register date.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */

@@ -17,9 +17,6 @@ use g11n\g11n;
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
 use Joomla\Event\Dispatcher;
-use Joomla\Github\Github;
-use Joomla\Github\Http;
-use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -321,7 +318,7 @@ final class Application extends AbstractWebApplication
 
 		if (is_null($this->user))
 		{
-			$this->user = ($this->getSession()->get('user'))
+			$this->user = ($this->getSession()->get('jissues_user'))
 				? : new GitHubUser;
 		}
 
@@ -386,7 +383,9 @@ final class Application extends AbstractWebApplication
 		// Add the App domain path
 		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		if (JDEBUG)
+		if ($this->get('debug.system')
+			|| $this->get('debug.database')
+			|| $this->get('debug.language'))
 		{
 			// Load the Debug App language file
 			g11n::loadLanguage('Debug', 'App');
@@ -411,7 +410,7 @@ final class Application extends AbstractWebApplication
 			// Logout
 			$this->user = new GitHubUser;
 
-			$this->getSession()->set('user', $this->user);
+			$this->getSession()->set('jissues_user', $this->user);
 
 			// @todo cleanup more ?
 		}
@@ -422,7 +421,7 @@ final class Application extends AbstractWebApplication
 
 			$this->user = $user;
 
-			$this->getSession()->set('user', $user);
+			$this->getSession()->set('jissues_user', $user);
 		}
 
 		return $this;

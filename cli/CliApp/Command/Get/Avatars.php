@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -9,12 +11,20 @@ namespace CliApp\Command\Get;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for retrieving avatars from GitHub for selected projects
  *
  * @since  1.0
  */
 class Avatars extends Get
 {
+	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Retrieve avatar images from GitHub.';
+
 	/**
 	 * Constructor.
 	 *
@@ -23,8 +33,6 @@ class Avatars extends Get
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->description = 'Retrieve avatar images from GitHub.';
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 	}
@@ -58,10 +66,10 @@ class Avatars extends Get
 	/**
 	 * Fetch avatars.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @throws \UnexpectedValueException
-	 * @since  1.0
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	private function fetchAvatars()
 	{
@@ -120,6 +128,13 @@ class Avatars extends Get
 			catch (\DomainException $e)
 			{
 				$this->debugOut($e->getMessage());
+
+				$this->debugOut('Copy default image for user: ' . $username);
+
+				copy(
+					JPATH_THEMES . '/images/avatars/user-default.png',
+					JPATH_THEMES . '/images/avatars/' . $username . '.png'
+				);
 			}
 
 			$this->usePBar
