@@ -240,7 +240,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			/* @type \JTracker\Application $app */
 			$app = Container::retrieve('app');
 
-			$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
+			$limit = $app->get('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
 
 			// @todo huge change here - no more session state...
 			$page = $app->input->getInt('page');
