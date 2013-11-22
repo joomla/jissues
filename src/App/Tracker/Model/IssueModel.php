@@ -324,7 +324,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$query->clear()
 				->update($db->quoteName('#__issues'))
 				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
-				->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
+				->where($db->quoteName('id') . ' = ' . (int) $table->id);
 
 			$db->setQuery($query)->execute();
 		}
