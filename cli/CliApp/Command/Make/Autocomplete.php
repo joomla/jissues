@@ -11,23 +11,19 @@ namespace CliApp\Command\Make;
 use CliApp\Command\TrackerCommand;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Class for generating a PhpStorm autocomplete file for using the CLI tools
  *
  * @since  1.0
  */
 class Autocomplete extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Generate an auto complete file for PHPStorm.';
-	}
+	protected $description = 'Generate an auto complete file for PhpStorm';
 
 	/**
 	 * Execute the command.

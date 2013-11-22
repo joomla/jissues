@@ -22,16 +22,12 @@ use JTracker\Container;
 class Milestones extends Get
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->description = 'Retrieve project milestones from GitHub.';
-	}
+	protected $description = 'Retrieve project milestones from GitHub.';
 
 	/**
 	 * Execute the command.
@@ -54,11 +50,11 @@ class Milestones extends Get
 	}
 
 	/**
-	 * Get the projects milestones.
+	 * Get the project's milestones.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function processMilestones()
 	{

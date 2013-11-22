@@ -32,6 +32,14 @@ class Comments extends Get
 	protected $comments = array();
 
 	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Retrieve comments from GitHub.';
+
+	/**
 	 * Array containing the issues from the database and their GitHub ID.
 	 *
 	 * @var    array
@@ -64,8 +72,6 @@ class Comments extends Get
 	{
 		parent::__construct();
 
-		$this->description = 'Retrieve comments from GitHub.';
-
 		$this->addOption(
 			new TrackerCommandOption(
 				'issue', '',
@@ -77,13 +83,6 @@ class Comments extends Get
 				'Process all issues.'
 			)
 		);
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Comments extends Get
 	/**
 	 * Select the range of issues to process.
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -154,7 +153,7 @@ class Comments extends Get
 	/**
 	 * Method to get the GitHub issues from the database
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -186,7 +185,7 @@ class Comments extends Get
 	/**
 	 * Method to get the comments on items from GitHub
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -240,7 +239,7 @@ class Comments extends Get
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */

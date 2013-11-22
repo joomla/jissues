@@ -20,26 +20,20 @@ use JTracker\Container;
 class Repoinfo extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct(CliApplication $application)
-	{
-		$this->application = $application;
-		$this->description = 'Generate repository information.';
-		$this->logger      = Container::retrieve('logger');
-	}
+	protected $description = 'Generate repository information.';
 
 	/**
 	 * Execute the command.
 	 *
 	 * @return  void
 	 *
-	 * @throws \DomainException
 	 * @since   1.0
+	 * @throws  \DomainException
 	 */
 	public function execute()
 	{

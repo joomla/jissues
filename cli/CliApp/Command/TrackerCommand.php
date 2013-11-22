@@ -8,6 +8,10 @@
 
 namespace CliApp\Command;
 
+use App\Projects\Model\ProjectsModel;
+
+use CliApp\Exception\AbortException;
+
 use JTracker\Container;
 
 use Monolog\Logger;
@@ -55,6 +59,14 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	protected $description = '';
 
 	/**
+	 * Use the progress bar.
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
+	protected $usePBar;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -63,6 +75,12 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	{
 		$this->application = Container::retrieve('app');
 		$this->logger      = Container::retrieve('logger');
+		$this->usePBar     = $this->application->get('cli-application.progress-bar');
+
+		if ($this->application->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 	}
 
 	/**
@@ -91,7 +109,7 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	 *
 	 * @param   TrackerCommandOption  $option  The command option.
 	 *
-	 * @return  TrackerCommand
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -156,7 +174,7 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	/**
 	 * Write a string to the standard output if an operation has terminated successfully.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -170,10 +188,115 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	 *
 	 * @param   LoggerInterface  $logger  The logger interface
 	 *
-	 * @return null
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
 		$this->logger = $logger;
+	}
+
+	/**
+	 * Display the GitHub rate limit.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function displayGitHubRateLimit()
+	{
+		$this->application->displayGitHubRateLimit();
+
+		return $this;
+	}
+
+	/**
+	 * Get a progress bar object.
+	 *
+	 * @param   integer  $targetNum  The target number.
+	 *
+	 * @return  \Elkuku\Console\Helper\ConsoleProgressBar
+	 *
+	 * @since   1.0
+	 */
+	protected function getProgressBar($targetNum)
+	{
+		return $this->application->getProgressBar($targetNum);
+	}
+
+	/**
+	 * Select the project.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  AbortException
+	 */
+	protected function selectProject()
+	{
+		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
+
+		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
+
+		if (!$id)
+		{
+			$this->out()
+				->out('<b>Available projects:</b>')
+				->out();
+
+			$cnt = 1;
+
+			$checks = array();
+
+			foreach ($projects as $project)
+			{
+				if ($project->gh_user && $project->gh_project)
+				{
+					$this->out('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
+					$checks[$cnt] = $project;
+					$cnt++;
+				}
+			}
+
+			$this->out()
+				->out('<question>Select a project:</question> ', false);
+
+			$resp = (int) trim($this->application->in());
+
+			if (!$resp)
+			{
+				throw new AbortException('Aborted');
+			}
+
+			if (false == array_key_exists($resp, $checks))
+			{
+				throw new AbortException('Invalid project');
+			}
+
+			$this->project = $checks[$resp];
+		}
+		else
+		{
+			foreach ($projects as $project)
+			{
+				if ($project->project_id == $id)
+				{
+					$this->project = $project;
+
+					break;
+				}
+			}
+
+			if (is_null($this->project))
+			{
+				throw new AbortException('Invalid project');
+			}
+		}
+
+		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
+
+		return $this;
 	}
 }

@@ -21,24 +21,20 @@ use g11n\Support\ExtensionHelper;
 class Langfiles extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct(CliApplication $application)
-	{
-		$this->application = $application;
-		$this->description = 'Create and update language files.';
-	}
+	protected $description = 'Create and update language files.';
 
 	/**
 	 * Execute the command.
 	 *
-	 * @throws \Exception
-	 * @since   1.0
 	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function execute()
 	{
@@ -101,8 +97,10 @@ class Langfiles extends Make
 	 * @param   string  $domain     Extension domain.
 	 * @param   string  $lang       Language tag e.g. en-GB or de-DE.
 	 *
-	 * @throws \Exception
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	protected function processDomain($extension, $domain, $lang)
 	{

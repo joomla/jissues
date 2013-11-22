@@ -8,14 +8,13 @@
 
 namespace CliApp\Command\Get;
 
-use App\Projects\Model\ProjectsModel;
 use App\Projects\Table\ProjectsTable;
 
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
-use CliApp\Exception\AbortException;
 
 use Joomla\Github\Github;
+use Joomla\Filesystem\Folder;
 
 use JTracker\Container;
 
@@ -41,22 +40,6 @@ class Get extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $project = null;
-
-	/**
-	 * Use the progress bar.
-	 *
-	 * @var    boolean
-	 * @since  1.0
-	 */
-	protected $usePBar;
-
-	/**
-	 * Progress bar format.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $pBarFormat = '[%bar%] %fraction% %elapsed% ETA: %estimate%';
 
 	/**
 	 * Constructor.
@@ -101,94 +84,24 @@ class Get extends TrackerCommand
 	{
 		$this->application->outputTitle('Get');
 
-		$this
-			->out('<error>                                    </error>')
-			->out('<error>  Please use one of the following:  </error>')
-			->out('<error>                                    </error>')
-			->out('<error>  get avatars                       </error>')
-			->out('<error>  get comments                      </error>')
-			->out('<error>  get events                        </error>')
-			->out('<error>  get issues                        </error>')
-			->out('<error>  get labels                        </error>')
-			->out('<error>  get milestones                    </error>')
-			->out('<error>  get project                       </error>')
-			->out('<error>                                    </error>');
-	}
+		$errorTitle = 'Please use one of the following:';
 
-	/**
-	 * Select the project.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 * @throws  AbortException
-	 * @todo    this might go to a base class.
-	 */
-	protected function selectProject()
-	{
-		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
+		$this->out('<error>                                    </error>');
+		$this->out('<error>  ' . $errorTitle . '  </error>');
 
-		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
-
-		if (!$id)
+		foreach (Folder::files(__DIR__) as $file)
 		{
-			$this->out()
-				->out('<b>Available projects:</b>')
-				->out();
+			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
 
-			$cnt = 1;
-
-			$checks = array();
-
-			foreach ($projects as $project)
+			if ('get' == $cmd)
 			{
-				if ($project->gh_user && $project->gh_project)
-				{
-					$this->out('  <b>' . $cnt . '</b> (id: ' . $project->project_id . ') ' . $project->title);
-					$checks[$cnt] = $project;
-					$cnt++;
-				}
+				continue;
 			}
 
-			$this->out()
-				->out('<question>Select a project:</question> ', false);
-
-			$resp = (int) trim($this->application->in());
-
-			if (!$resp)
-			{
-				throw new AbortException('Aborted');
-			}
-
-			if (false == array_key_exists($resp, $checks))
-			{
-				throw new AbortException('Invalid project');
-			}
-
-			$this->project = $checks[$resp];
-		}
-		else
-		{
-			foreach ($projects as $project)
-			{
-				if ($project->project_id == $id)
-				{
-					$this->project = $project;
-
-					break;
-				}
-			}
-
-			if (is_null($this->project))
-			{
-				throw new AbortException('Invalid project');
-			}
+			$this->out('<error>  get ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
 		}
 
-		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
-
-		return $this;
+		$this->out('<error>                                    </error>');
 	}
 
 	/**
@@ -204,33 +117,5 @@ class Get extends TrackerCommand
 		$this->github = Container::retrieve('gitHub');
 
 		return $this;
-	}
-
-	/**
-	 * Display the GitHub rate limit.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function displayGitHubRateLimit()
-	{
-		$this->application->displayGitHubRateLimit();
-
-		return $this;
-	}
-
-	/**
-	 * Get a progress bar object.
-	 *
-	 * @param   integer  $targetNum  The target number.
-	 *
-	 * @return  \Elkuku\Console\Helper\ConsoleProgressBar
-	 *
-	 * @since   1.0
-	 */
-	protected function getProgressBar($targetNum)
-	{
-		return $this->application->getProgressBar($targetNum);
 	}
 }

@@ -24,38 +24,43 @@ class Depfile extends Make
 	/**
 	 * Product object.
 	 *
-	 * @var  object
-	 * @since   1.0
+	 * @var    object
+	 * @since  1.0
 	 */
 	public $product = null;
 
 	/**
 	 * Dependencies.
 	 *
-	 * @var array
-	 * @since   1.0
+	 * @var    array
+	 * @since  1.0
 	 */
 	public $dependencies = array();
 
 	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Create and update a dependency file.';
+
+	/**
 	 * Target file name.
 	 *
-	 * @var string
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
 	private $fileName = '';
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
-		$this->description = 'Create and update a dependency file.';
+		parent::__construct();
 
 		$this->addOption(
 			new TrackerCommandOption(
@@ -64,7 +69,7 @@ class Depfile extends Make
 			)
 		);
 
-		$this->fileName = $application->input->getPath('file', $application->input->getPath('f'));
+		$this->fileName = $this->application->input->getPath('file', $this->application->input->getPath('f'));
 	}
 
 	/**

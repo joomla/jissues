@@ -17,14 +17,22 @@ use Joomla\Date\Date;
 use JTracker\Container;
 
 /**
- * Class for retrieving comments from GitHub for selected projects
+ * Class for retrieving events from GitHub for selected projects
  *
  * @since  1.0
  */
 class Events extends Get
 {
 	/**
-	 * Comment data from GitHub
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Retrieve issue events from GitHub.';
+
+	/**
+	 * Event data from GitHub
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -64,8 +72,6 @@ class Events extends Get
 	{
 		parent::__construct();
 
-		$this->description = 'Retrieve issue events from GitHub.';
-
 		$this->addOption(
 			new TrackerCommandOption(
 				'issue', '',
@@ -77,13 +83,6 @@ class Events extends Get
 				'Process all issues.'
 			)
 		);
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Events extends Get
 	/**
 	 * Select the range of issues to process.
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -154,7 +153,7 @@ class Events extends Get
 	/**
 	 * Method to get the GitHub issues from the database
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -186,7 +185,7 @@ class Events extends Get
 	/**
 	 * Method to get the comments on items from GitHub
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -240,10 +239,10 @@ class Events extends Get
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
-	 * @throws \UnexpectedValueException
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	protected function processEvents()
 	{
