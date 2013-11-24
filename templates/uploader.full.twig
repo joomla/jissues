@@ -1,0 +1,104 @@
+{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
+
+<!-- The file upload form used as target for the file upload widget -->
+<form id="fileupload" action="/upload/put" method="post" enctype="multipart/form-data">
+    <!-- Redirect browsers with JavaScript disabled to the origin page -->
+    <noscript><input type="hidden" name="redirect" value="{{ uri.base.path }}"></noscript>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+        <div class="col-lg-7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+                <span>{{ "Add files..."|_ }}</span>
+                <input type="file" name="files[]" multiple>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+                <span>{{ "Start upload"|_ }}</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+                <span>{{ "Cancel upload"|_ }}</span>
+            </button>
+            <button type="button" class="btn btn-danger delete">
+                <span>{{ "Delete"|_ }}</span>
+            </button>
+        </div>
+    </div>
+    <!-- The table listing the files available for upload/download -->
+    <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+</form>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+[% for (var i=0, file; file=o.files[i]; i++) { %]
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">[%=file.name%]</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+        </td>
+        <td>
+            [% if (!i && !o.options.autoUpload) { %]
+                <button class="btn btn-primary start" disabled>
+                    <span>Start</span>
+                </button>
+            [% } %]
+            [% if (!i) { %]
+                <button class="btn btn-warning cancel">
+                    <span>Cancel</span>
+                </button>
+            [% } %]
+        </td>
+    </tr>
+[% } %]
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+[% for (var i=0, file; file=o.files[i]; i++) { %]
+    <tr class="template-download fade">
+        [% if (file.error) { %]
+            <td>
+                <div><span class="label label-danger">Error</span> [%=file.error%]</div>
+            </td>
+        [% } else { %]
+            <td>
+                <span class="preview">
+                    [% if (file.thumbnailUrl) { %]
+                        <a href="[%=file.url%]" title="[%=file.name%]" download="[%=file.name%]" data-gallery><img style="width: 80px" src="[%=file.thumbnailUrl%]"></a>
+                    [% } %]
+                </span>
+            </td>
+            <td>
+                <p class="name">
+                    [% if (file.url) { %]
+                        <a href="[%=file.url%]" title="[%=file.name%]" download="[%=file.name%]" [%=file.thumbnailUrl?'data-gallery':''%]>[%=file.name%]</a>
+                    [% } else { %]
+                        <span>[%=file.name%]</span>
+                    [% } %]
+                </p>
+            </td>
+            <td>
+                <span class="size">[%=o.formatFileSize(file.size)%]</span>
+            </td>
+            <td>
+                [% if (file.deleteUrl) { %]
+                    <button class="btn btn-danger delete" data-type="[%=file.deleteType%]" data-url="[%=file.deleteUrl%]">
+                        <span>Delete</span>
+                    </button>
+                    <input type="checkbox" name="delete" value="1" class="toggle">
+                [% } else { %]
+                    <button class="btn btn-warning cancel">
+                        <span>Cancel</span>
+                    </button>
+                [% } %]
+            </td>
+        [% } %]
+    </tr>
+[% } %]
+</script>

@@ -11,7 +11,8 @@
         "symfony/http-foundation": "2.3.*@stable",
         "twig/twig": "1.*@stable",
         "elkuku/g11n": "dev-master",
-        "elkuku/console-progressbar": "1.0"
+        "elkuku/console-progressbar": "1.0",
+        "codeguy/upload": "dev-master"
     },
     "require-dev": {
         "monolog/monolog": "1.6.0",

@@ -13,6 +13,8 @@
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css">
     <style type="text/css">
         a:target {
             /* Anchor links in events and fixed top bar */
@@ -296,6 +298,11 @@
                     {{ "Post Comment"|_ }}
                 </a>
             </div>
+             <div class="row-fluid">
+                <div class="offset2 span10">
+                    {% include "uploader.full.twig" %}
+                </div>
+             </div>
         {% else %}
             {# The user is not authorized #}
         {% endif %}
@@ -340,6 +347,16 @@
 
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-load-image/js/load-image.min.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
+    <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
+    <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
 
     <script type="text/javascript">
 
@@ -349,7 +366,7 @@
 
         $('a[data-toggle="tab"]').on('shown', function (e)
         {
-            if('#preview' == $(e.target).attr('href')) {
+            if ('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#comment', '#preview');
             }
         });
