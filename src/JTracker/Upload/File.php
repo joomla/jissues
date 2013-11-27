@@ -22,7 +22,7 @@ class File extends UploadFile
 	/**
 	 * Constructor
 	 *
-	 * @param   string|array          $key      The file's key in $_FILES superglobal
+	 * @param   string                $key      The file's key in $_FILES superglobal
 	 * @param   \Upload\Storage\Base  $storage  The method with which to store file
 	 */
 	public function __construct($key, Storage $storage)
@@ -33,9 +33,9 @@ class File extends UploadFile
 		}
 		else
 		{
-			$_FILES[$key]['name'] = $_FILES[$key]['name'][0];
-			$_FILES[$key]['error'] = $_FILES[$key]['error'][0];
-			$_FILES[$key]['tmp_name'] = $_FILES[$key]['tmp_name'][0];
+			$_FILES[$key]['name']       = $_FILES[$key]['name'][0];
+			$_FILES[$key]['error']      = $_FILES[$key]['error'][0];
+			$_FILES[$key]['tmp_name']   = $_FILES[$key]['tmp_name'][0];
 
 			parent::__construct($key, $storage);
 		}

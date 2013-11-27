@@ -34,11 +34,11 @@ class Delete extends AbstractAjaxController
 
 		if (!empty($file))
 		{
-			$path  = JPATH_THEMES . '/uploads/' . $file;
+			$path  = JPATH_THEMES . '/' . $this->getApplication()->get('system.upload_dir') . '/' . $file;
 
 			try
 			{
-				$result = unlink($path);
+				unlink($path);
 			}
 			catch (\Exception $e)
 			{

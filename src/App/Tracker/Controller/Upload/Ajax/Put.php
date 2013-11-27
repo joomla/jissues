@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Upload\Ajax;
 
 use g11n\g11n;
-use Joomla\Filesystem\File as JFile;
 use Upload\Storage\FileSystem;
 use Upload\Validation\Mimetype;
 use Upload\Validation\Size;
@@ -40,7 +39,7 @@ class Put extends AbstractAjaxController
 
 		if (!empty($files))
 		{
-			$storage    = new FileSystem(JPATH_THEMES . $this->getApplication()->get('system.upload_dir'));
+			$storage    = new FileSystem(JPATH_THEMES . '/' . $this->getApplication()->get('system.upload_dir'));
 			$file       = new File('files', $storage);
 
 			$file->addValidations(
@@ -50,27 +49,26 @@ class Put extends AbstractAjaxController
 				)
 			);
 
+			// Prepare response data
+			$host       = $this->getApplication()->get('uri')->base->host;
+			$destName   = md5(time() . $file->getName()) . '.' . $file->getExtension();
+
+			$data = array(
+				array(
+					'url' => $host . '/uploads/' . $destName,
+					'thumbnailUrl' => $host . '/uploads/' . $destName,
+					'name' => $file->getName(),
+					'type' => $file->getMimetype(),
+					'size' => $file->getSize(),
+					'alt'  => 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s'),
+					'deleteUrl' => '/upload/delete/?file=' . $destName,
+					'deleteType' => "POST",
+				)
+			);
+
 			// Try to upload file
 			try
 			{
-				// Prepare response data
-				$host       = $this->getApplication()->get('uri')->base->host;
-				$safeName   = JFile::makeSafe($file->getName());
-				$destName   = md5(time() . $file->getName()) . '.' . $file->getExtension();
-
-				$data = array(
-					array(
-						'url' => $host . '/uploads/' . $destName,
-						'thumbnailUrl' => $host . '/uploads/' . $destName,
-						'name' => $file->getName(),
-						'type' => $file->getMimetype(),
-						'size' => $file->getSize(),
-						'alt'  => $safeName,
-						'deleteUrl' => '/upload/delete/?file=' . $destName,
-						'deleteType' => "POST",
-					)
-				);
-
 				$file->upload($destName);
 			}
 			catch (\Exception $e)
