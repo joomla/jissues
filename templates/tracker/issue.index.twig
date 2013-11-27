@@ -36,6 +36,12 @@
 
 {% block content %}
 
+    {% if not item %}
+        <div class="alert alert-danger">
+            {{ 'That issue does not exist, or the ID you typed is incorrect.'|_ }}
+        </div>
+    {% else %}
+
     <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
 
     <!-- Status bar -->
@@ -304,6 +310,7 @@
         <a class="btn btn-success" href="{{ loginUrl }}">{{ "Login with GitHub to post a comment"|_ }}</a>
     {% endif %}
 
+    {% endif %}
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->

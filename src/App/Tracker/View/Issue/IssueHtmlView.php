@@ -8,9 +8,9 @@
 
 namespace App\Tracker\View\Issue;
 
-use Joomla\Language\Text;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
+
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;
 
@@ -47,7 +47,27 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		if ($id)
 		{
 			// Edit item
-			$item = $this->model->getItem($id);
+			try
+			{
+				$item = $this->model->getItem($id);
+			}
+			catch(\RuntimeException $e)
+			{
+				if (1 == $e->getCode())
+				{
+					// Exception code "1" means invalid issue.
+					if ($application->get('debug.system'))
+					{
+						throw $e;
+					}
+				}
+				else
+				{
+					throw $e;
+				}
+
+				$item = false;
+			}
 		}
 		else
 		{
@@ -68,9 +88,10 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 			$item = $item->getIterator();
 		}
 
-		$this->renderer->set('item', $item);
-		$this->renderer->set('project', $application->getProject());
-		$this->renderer->set('statuses', $this->model->getStatuses());
+		$this->renderer
+			->set('item', $item)
+			->set('project', $application->getProject())
+			->set('statuses', $this->model->getStatuses());
 
 		return parent::render();
 	}

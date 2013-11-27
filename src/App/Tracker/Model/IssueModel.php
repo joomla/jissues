@@ -97,7 +97,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		if (!$item)
 		{
-			throw new \RuntimeException('Invalid Issue');
+			throw new \RuntimeException('Invalid Issue', 1);
 		}
 
 		// Fetch activities
