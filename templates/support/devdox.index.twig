@@ -3,26 +3,19 @@
 
 {% extends "index.twig" %}
 
-{% block prependMenu %}
-    {% if page %}
-    <li>
-        <a class="btn-warning" target="_blank" href="{{ editLink }}">
-            <i class="icon icon-github"></i>
-            {{ "Edit"|_ }}
-        </a>
-    </li>
-    {% endif %}
-
-    {{ parent() }}
-
-{% endblock %}
-
 {% block content %}
 
     {% if page %}
         <ul class="breadcrumb">
             <li><a href="{{ uri.base.path }}devdox">DevDox</a></li>
             <li class="active">{{ page.title ? : page.alias }}</li>
+            {% if page %}
+                <li>
+                    <a class="btn btn-success" target="_blank" href="{{ editLink }}">
+                        {{ "Improve this document"|_ }}
+                    </a>
+                </li>
+            {% endif %}
         </ul>
 
         <h2>{{ page.title }}</h2>
