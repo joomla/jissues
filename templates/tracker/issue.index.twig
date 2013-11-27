@@ -21,19 +21,6 @@
     </style>
 {% endblock %}
 
-{% block prependMenu %}
-    {% if user.check("edit") %}
-        <li>
-            <a class="btn-warning" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-            {{ "Edit"|_ }}
-            </a>
-        </li>
-    {% endif %}
-
-    {{ parent() }}
-
-{% endblock %}
-
 {% block content %}
 
     {% if not item %}
@@ -49,6 +36,16 @@
     <span class="pull-right">{{ item.labels|labels|raw }}</span>
 
     <ul class="breadcrumb">
+
+        {% if user.check("edit") %}
+            <li>
+                <a class="btn btn-warning"
+                   href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                    {{ "Edit"|_ }}
+                </a>
+            </li>
+        {% endif %}
+
         <li>
             <span class="badge badge-{{ item.closed ? "important" : "success" }}">
                 {{ item.status_title|_ }}
