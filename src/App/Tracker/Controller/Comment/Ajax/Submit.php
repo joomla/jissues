@@ -47,12 +47,6 @@ class Submit extends AbstractAjaxController
 			throw new \Exception('You should write a comment first...');
 		}
 
-		// @todo removeMe :(
-		$comment .= sprintf(
-			'<br />*You may blame the <a href="%1$s">%2$s Application</a> for transmitting this comment.*',
-			'https://github.com/joomla/jissues', 'J!Tracker'
-		);
-
 		$project = $this->getApplication()->getProject();
 
 		/* @type \Joomla\Github\Github $github */
