@@ -67,6 +67,14 @@ class TrackerProject
 	protected $ext_tracker_link;
 
 	/**
+	 * Project short title
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $short_title;
+
+	/**
 	 * Access map
 	 *
 	 * @var    array
@@ -370,5 +378,17 @@ class TrackerProject
 	public function getExt_Tracker_Link()
 	{
 		return $this->ext_tracker_link;
+	}
+
+	/**
+	 * Get the project short title.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getShort_Title()
+	{
+		return $this->short_title;
 	}
 }

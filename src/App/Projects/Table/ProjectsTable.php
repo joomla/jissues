@@ -23,6 +23,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $gh_user           GitHub user
  * @property   string   $gh_project        GitHub project
  * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
+ * @property   string   $short_title       Project short title
  *
  * @since  1.0
  */
@@ -54,6 +55,11 @@ class ProjectsTable extends AbstractDatabaseTable
 		if (!$this->title)
 		{
 			throw new \UnexpectedValueException(g11n3t('A title is required'));
+		}
+
+		if (!$this->short_title)
+		{
+			throw new \UnexpectedValueException(g11n3t('A short title is required'));
 		}
 
 		if (!$this->alias)
