@@ -40,7 +40,7 @@
         {% if user.check("edit") %}
             <li>
                 <a class="btn btn-warning"
-                   href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                   href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">
                     {{ "Edit"|_ }}
                 </a>
             </li>
@@ -93,7 +93,7 @@
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
-                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
                    target="_blank">
                     GitHub # {{ item.issue_number }}
                 </a>
@@ -102,7 +102,7 @@
             {% if item.has_code %}
                 <li>
                     &nbsp;&bull;&nbsp;
-                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/pull/{{ item.issue_number }}.diff"
+                    <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
                        target="_blank">
                         diff
                     </a>
