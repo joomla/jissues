@@ -40,7 +40,7 @@
                 {
                     "name": "Josh Lockhart",
                     "email": "info@joshlockhart.com",
-                    "homepage": "http://www.joshlockhart.com/"
+                    "homepage": "https://github.com/codeguy/"
                 }
             ],
             "description": "Handle file uploads with extensible validation and storage strategies",
@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "1.0"
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
-                "reference": "1.0",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
                 "shasum": ""
             },
             "require": {
@@ -102,12 +102,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7"
+                "reference": "e829e6045c19bebf503530d3d7d4772ef5da57e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/352dbf7198a7842d22a1a7976d95047a7a879fc7",
-                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/e829e6045c19bebf503530d3d7d4772ef5da57e0",
+                "reference": "e829e6045c19bebf503530d3d7d4772ef5da57e0",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2013-11-13 15:06:38"
+            "time": "2013-11-16 16:59:23"
         },
         {
             "name": "joomla/framework",
@@ -138,12 +138,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435"
+                "reference": "d5666a2074e90552d9bee4d9451758e08f65f60c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/725eb63ef40a9190aa0fbb9d4f652f684e14f435",
-                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/d5666a2074e90552d9bee4d9451758e08f65f60c",
+                "reference": "d5666a2074e90552d9bee4d9451758e08f65f60c",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-11 01:14:53"
+            "time": "2013-11-18 21:57:48"
         },
         {
             "name": "psr/log",
@@ -480,13 +480,13 @@
             "version": "v2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php",
-                "reference": "v2.1.0"
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bobthecow/mustache.php/archive/v2.1.0.zip",
-                "reference": "v2.1.0",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
                 "shasum": ""
             },
             "require": {
