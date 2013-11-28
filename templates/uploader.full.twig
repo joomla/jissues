@@ -27,7 +27,14 @@
     <!-- The table listing the files available for upload/download -->
     <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
 </form>
-
+<div id="upload-info">
+    <h3 class="panel-title">{{ "Upload Notes"|_ }}</h3>
+    <ul>
+        <li>The maximum file size for uploads is <strong>1 MB</strong>.</li>
+        <li>Only image files (<strong>JPG, GIF, PNG</strong>) are allowed.</li>
+        <li>You can <strong>drag &amp; drop</strong> files from your desktop on this webpage.</li>
+    </ul>
+</div>
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
 [% for (var i=0, file; file=o.files[i]; i++) { %]
