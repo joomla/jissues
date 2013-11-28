@@ -185,6 +185,36 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Get random item
+	 *
+	 * @return  integer $id A random issue id
+	 *
+	 * @since   1.0
+	 * @throws \RuntimeException
+	 */
+	public function getRandomItem()
+	{
+		$id = $this->db->setQuery(
+				$this->db->getQuery(true)
+					 ->select('i.id')
+					 ->from($this->db->quoteName('#__issues', 'i'))
+					 ->join('LEFT', '#__activities AS a ON a.issue_number = i.issue_number')
+					 ->join('LEFT', '#__status AS s on s.id = i.status')
+					 ->where($this->db->quoteName('s.closed') . '=' . 0)
+					 ->group('i.id')
+					 ->having('COUNT(a.activities_id) < 5')
+					 ->order('RAND()'), 0, 1)
+				->loadResult();
+
+		if (!$id)
+		{
+			throw new \RunTimeException('No issues with less than 5 comments');
+		}
+				
+		return $id;
+	}
+
+	/**
 	 * Get a status list.
 	 *
 	 * @return  array
