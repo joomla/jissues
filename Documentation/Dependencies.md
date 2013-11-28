@@ -69,7 +69,7 @@ php error handling for cool kids
 A Mustache implementation in PHP.
 
 * Installed: v2.1.0
-* Source URL: https://github.com/bobthecow/mustache.php
+* Source URL: https://github.com/bobthecow/mustache.php.git
 
 ### JavaScript
 
@@ -102,3 +102,35 @@ Unofficial bootstrap switch
 &lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
 
 * Source URL: https://github.com/blueimp/JavaScript-Templates
+
+## Credits
+
+### Media
+
+#### Everaldo Crystal Clear
+
+Icon set
+
+* http://commons.wikimedia.org/wiki/Crystal_Clear
+
+### IDE
+
+#### JetBrains PHPStorm
+
+PhpStorm — PHP IDE that goes beyond the language.
+
+* http://www.jetbrains.com/phpstorm/
+
+#### Sublime Text
+
+Sublime Text is a sophisticated text editor for code, markup and prose.
+
+* http://www.sublimetext.com/
+
+### Environment
+
+#### GitHub
+
+GitHub acts as our authentication provider, software repository, markdown parser engine and general service provider for the issue tracker infrastructures.
+
+* https://github.com/
