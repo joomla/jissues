@@ -9,7 +9,6 @@
 namespace App\Tracker\View\Issues;
 
 use Joomla\Language\Text;
-use App\Tracker\Model\IssueModel;
 use App\Tracker\Model\IssuesModel;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\Container;
@@ -39,12 +38,9 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$issueModel = new IssueModel;
-		
 		// Set the vars to the template.
 		$app = Container::retrieve('app');
 		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('random_issue_number', $issueModel->getRandomItem());
 		$this->renderer->set('pagination', $this->model->getPagination());
 		$this->renderer->set('state', $this->model->getState());
 		$this->renderer->set('project', $app->getProject());
