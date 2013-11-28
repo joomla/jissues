@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Upload\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Delete image controller class.

@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Upload\Ajax;
 
 use g11n\g11n;
-use Upload\Storage\FileSystem;
 use Upload\Validation\Mimetype;
 use Upload\Validation\Size;
 
@@ -39,8 +38,7 @@ class Put extends AbstractAjaxController
 
 		if (!empty($files))
 		{
-			$storage    = new FileSystem(JPATH_THEMES . '/' . $this->getApplication()->get('system.upload_dir'));
-			$file       = new File('files', $storage);
+			$file = new File('files', $this->getApplication());
 
 			$file->addValidations(
 				array(

@@ -8,8 +8,9 @@
 
 namespace JTracker\Upload;
 
+use JTracker\Application;
 use Upload\File as UploadFile;
-use Upload\Storage\Base as Storage;
+use Upload\Storage\FileSystem;
 
 /**
  * File upload class for the Joomla Tracker application.
@@ -22,22 +23,20 @@ class File extends UploadFile
 	/**
 	 * Constructor
 	 *
-	 * @param   string                $key      The file's key in $_FILES superglobal
-	 * @param   \Upload\Storage\Base  $storage  The method with which to store file
+	 * @param   string       $key  The file's key in $_FILES superglobal
+	 * @param   Application  $app  The Application.
 	 */
-	public function __construct($key, Storage $storage)
+	public function __construct($key, Application $app)
 	{
-		if (!is_array($_FILES[$key]))
-		{
-			parent::__construct($key, $storage);
-		}
-		else
+		$storage = new FileSystem(JPATH_THEMES . '/' . $app->get('system.upload_dir'));
+
+		if (is_array($_FILES[$key]))
 		{
 			$_FILES[$key]['name']       = $_FILES[$key]['name'][0];
 			$_FILES[$key]['error']      = $_FILES[$key]['error'][0];
 			$_FILES[$key]['tmp_name']   = $_FILES[$key]['tmp_name'][0];
-
-			parent::__construct($key, $storage);
 		}
+
+		parent::__construct($key, $storage);
 	}
 }
