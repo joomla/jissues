@@ -117,7 +117,7 @@ class Help extends TrackerCommand
 		if (false == array_key_exists($command, $this->commands))
 		{
 			$this->out()
-				->out('Unknown command: ' . $command);
+				->out('Unknown: ' . $command);
 
 			return;
 		}
@@ -194,7 +194,7 @@ class Help extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	private function getCommands()
+	public function getCommands()
 	{
 		$commands = array();
 
@@ -225,7 +225,7 @@ class Help extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	protected function getActions($commandName)
+	public function getActions($commandName)
 	{
 		$actions = array();
 		$cName = ucfirst($commandName);
