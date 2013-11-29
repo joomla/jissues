@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7"
+                "reference": "e829e6045c19bebf503530d3d7d4772ef5da57e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/352dbf7198a7842d22a1a7976d95047a7a879fc7",
-                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/e829e6045c19bebf503530d3d7d4772ef5da57e0",
+                "reference": "e829e6045c19bebf503530d3d7d4772ef5da57e0",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2013-11-13 15:06:38"
+            "time": "2013-11-16 16:59:23"
         },
         {
             "name": "joomla/framework",
@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435"
+                "reference": "fbf3586a735b235a99aa23dd0518bfe9e08ee79c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/725eb63ef40a9190aa0fbb9d4f652f684e14f435",
-                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fbf3586a735b235a99aa23dd0518bfe9e08ee79c",
+                "reference": "fbf3586a735b235a99aa23dd0518bfe9e08ee79c",
                 "shasum": ""
             },
             "require": {
@@ -169,23 +169,28 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-11 01:14:53"
+            "time": "2013-11-28 18:21:07"
         },
         {
             "name": "psr/log",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/log",
-                "reference": "1.0.0"
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "134145e8d08ddcb9bb8f49a2feb9aa1f2393650c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/134145e8d08ddcb9bb8f49a2feb9aa1f2393650c",
+                "reference": "134145e8d08ddcb9bb8f49a2feb9aa1f2393650c",
                 "shasum": ""
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Psr\\Log\\": ""
@@ -207,7 +212,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2013-11-19 10:21:35"
         },
         {
             "name": "symfony/http-foundation",
