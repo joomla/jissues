@@ -27,11 +27,11 @@ Twig, the flexible, fast, and secure template language for PHP
 * Installed: v1.14.2
 * Source URL: https://github.com/fabpot/Twig.git
 
-#### elkuku/g11n (dev-master)
+#### elkuku/g11n (2.1)
 
 The g11n language library
 
-* Installed: dev-master e829e6045c19bebf503530d3d7d4772ef5da57e0
+* Installed: 2.1
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -69,7 +69,7 @@ php error handling for cool kids
 A Mustache implementation in PHP.
 
 * Installed: v2.1.0
-* Source URL: https://github.com/bobthecow/mustache.php
+* Source URL: https://github.com/bobthecow/mustache.php.git
 
 ### JavaScript
 

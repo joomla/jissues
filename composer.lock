@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "16a1d4061aada21e0e62a0353b20dc68",
+    "hash": "11ba72303b3067148bcb9015670199b9",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -51,7 +51,7 @@
         },
         {
             "name": "elkuku/g11n",
-            "version": "dev-master",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
@@ -525,7 +525,6 @@
         "joomla/framework": 20,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
-        "elkuku/g11n": 20,
         "filp/whoops": 0
     },
     "platform": {
