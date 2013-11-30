@@ -16,7 +16,7 @@ use Joomla\Input\Input;
 /**
  * Controller class to manage a user group.
  *
- * @since    1.0
+ * @since  1.0
  */
 class GroupController extends DefaultController
 {

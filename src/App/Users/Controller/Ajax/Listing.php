@@ -14,7 +14,7 @@ use JTracker\Container;
 /**
  * Default controller class for the Users component.
  *
- * @since    1.0
+ * @since  1.0
  */
 class Listing extends AbstractAjaxController
 {

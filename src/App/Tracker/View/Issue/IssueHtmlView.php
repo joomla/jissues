@@ -51,7 +51,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 			{
 				$item = $this->model->getItem($id);
 			}
-			catch(\RuntimeException $e)
+			catch (\RuntimeException $e)
 			{
 				if (1 == $e->getCode())
 				{
