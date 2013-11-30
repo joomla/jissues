@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
+{% block title %}{{ project.title ~ ' #' ~ item.issue_number }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -25,7 +25,7 @@
             <a class="btn btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
         </li>
         <li>
-            <a class="btn btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number }}">
                 {{ translate('Cancel') }}
             </a>
         </li>
@@ -33,7 +33,7 @@
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
-                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
                    target="_blank" class="external">
                     GitHub # {{ item.issue_number }}
                 </a>
