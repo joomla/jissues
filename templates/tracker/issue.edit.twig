@@ -11,20 +11,6 @@
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
 {% endblock %}
 
-{% block prependMenu %}
-    <li>
-       <a class="btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
-    </li>
-    <li>
-        <a class="btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
-            {{ translate('Cancel') }}
-        </a>
-    </li>
-
-    {{ parent() }}
-
-{% endblock %}
-
 {% block content %}
     <div class="alert alert-danger" style="display: none"></div>
 
@@ -35,6 +21,15 @@
     <!-- Status bar -->
 
     <ul class="breadcrumb">
+        <li>
+            <a class="btn btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
+        </li>
+        <li>
+            <a class="btn btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+                {{ translate('Cancel') }}
+            </a>
+        </li>
+
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
