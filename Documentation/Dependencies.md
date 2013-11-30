@@ -50,11 +50,11 @@ Sends your logs to files, sockets, inboxes, databases and various web services
 * Installed: 1.6.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
-#### raveren/kint (dev-master)
+#### raveren/kint (0.9)
 
 Kint - debugging helper for PHP developers
 
-* Installed: dev-master 24a15aa6e666aa9492f4bb43b48a3dbf531014ac
+* Installed: v0.9
 * Source URL: https://github.com/raveren/kint.git
 
 #### filp/whoops (1.0.*@stable)

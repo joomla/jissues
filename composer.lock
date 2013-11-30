@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "497fe7ae3254ff3a40b4f13272bac761",
+    "hash": "16a1d4061aada21e0e62a0353b20dc68",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -433,13 +433,13 @@
             "version": "v2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php",
-                "reference": "v2.1.0"
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bobthecow/mustache.php/archive/v2.1.0.zip",
-                "reference": "v2.1.0",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
                 "shasum": ""
             },
             "require": {
@@ -472,16 +472,16 @@
         },
         {
             "name": "raveren/kint",
-            "version": "dev-master",
+            "version": "v0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac"
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
-                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/ada810111ced4e3a926b4040da9b86442e43b613",
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613",
                 "shasum": ""
             },
             "require": {
@@ -514,7 +514,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-11-04 11:02:37"
+            "time": "2013-08-12 22:46:16"
         }
     ],
     "aliases": [
@@ -526,7 +526,6 @@
         "symfony/http-foundation": 0,
         "twig/twig": 0,
         "elkuku/g11n": 20,
-        "raveren/kint": 20,
         "filp/whoops": 0
     },
     "platform": {
