@@ -341,7 +341,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$voteId = $table->vote_id;
 		}
 
-		// Get the updated vote data to update the display
 		$query->clear()
 			->select('*')
 			->from($db->quoteName('#__issues_voting'))
