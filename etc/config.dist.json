@@ -8,12 +8,16 @@
 		"prefix"  : ""
 	},
 
-	"github": {
-		"username"     : "",
-		"password"     : "",
-		"client_id"    : "",
-		"client_secret": ""
-	},
+    "github": {
+        "accounts": [
+            {
+                "username"     : "",
+                "password"     : "",
+                "client_id"    : "",
+                "client_secret": ""
+            }
+        ]
+    },
 
 	"renderer": {
 		"type" : "twig",

@@ -8,7 +8,6 @@
 
 namespace App\Users\Controller;
 
-use Joomla\Date\Date;
 use Joomla\Registry\Registry;
 use Joomla\Github\Github;
 use Joomla\Github\Http;
@@ -83,7 +82,12 @@ class Login extends AbstractTrackerController
 		$accessToken = $token['access_token'];
 		*/
 
-		$loginHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
+		$gitHubAccounts = $app->get('github.accounts');
+
+		$client_id = isset($gitHubAccounts[0]->client_id) ? $gitHubAccounts[0]->client_id : '';
+		$client_secret = isset($gitHubAccounts[0]->client_secret) ? $gitHubAccounts[0]->client_secret : '';
+		$loginHelper = new GitHubLoginHelper($client_id, $client_secret);
+		//$loginHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
 
 		$accessToken = $loginHelper->requestToken($code);
 

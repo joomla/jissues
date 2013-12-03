@@ -8,7 +8,6 @@
 
 namespace JTracker\View;
 
-use Joomla\Language\Text;
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
 use Joomla\View\Renderer\RendererInterface;
@@ -115,10 +114,17 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 			$this->renderer->setTemplatesPaths($templatesPaths, true);
 		}
 
-		$gitHubHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
+		$gitHubAccounts = $app->get('github.accounts');
+
+		$client_id = isset($gitHubAccounts[0]->client_id) ? $gitHubAccounts[0]->client_id : '';
+		$client_secret = isset($gitHubAccounts[0]->client_secret) ? $gitHubAccounts[0]->client_secret : '';
+
+		$gitHubHelper = new GitHubLoginHelper($client_id, $client_secret);
+
+		$loginUrl = ($client_id && $client_secret) ? $gitHubHelper->getLoginUri() : '';
 
 		$this->renderer
-			->set('loginUrl', $gitHubHelper->getLoginUri())
+			->set('loginUrl', $loginUrl)
 			->set('user', $app->getUser());
 
 		// Retrieve and clear the message queue

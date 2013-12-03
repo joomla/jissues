@@ -9,7 +9,7 @@
 namespace CliApp\Service;
 
 use Joomla\Github\Http;
-use Joomla\Github\Github;
+use JTracker\Github\Github;
 use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 use Joomla\Http\Transport\Curl;
@@ -52,6 +52,20 @@ class GitHubProvider implements ServiceProviderInterface
 					// Set the options
 					$options->set('api.username', $user);
 					$options->set('api.password', $password);
+				}
+				else
+				{
+					$accounts = $app->get('github.accounts');
+
+					$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
+					$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
+
+					if ($user && $password)
+					{
+						// Set the options
+						$options->set('api.username', $user);
+						$options->set('api.password', $password);
+					}
 				}
 
 				// @todo temporary fix to avoid the "Socket" transport protocol
