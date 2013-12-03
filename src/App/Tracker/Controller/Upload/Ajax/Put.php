@@ -8,10 +8,6 @@
 
 namespace App\Tracker\Controller\Upload\Ajax;
 
-use g11n\g11n;
-use Upload\Validation\Mimetype;
-use Upload\Validation\Size;
-
 use JTracker\Controller\AbstractAjaxController;
 use JTracker\Upload\File;
 
@@ -28,24 +24,14 @@ class Put extends AbstractAjaxController
 	 * @return  mixed
 	 *
 	 * @since   1.0
-	 * @throws  \Exception
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('create');
-
 		$files = $this->getInput()->files->get('files');
 
 		if (!empty($files))
 		{
 			$file = new File('files', $this->getApplication());
-
-			$file->addValidations(
-				array(
-					new Mimetype($this->getApplication()->get('validation.image.mime_types')),
-					new Size($this->getApplication()->get('validation.image.file_size'))
-				)
-			);
 
 			// Prepare response data
 			$host       = $this->getApplication()->get('uri')->base->host;
@@ -71,6 +57,8 @@ class Put extends AbstractAjaxController
 			}
 			catch (\Exception $e)
 			{
+				$errors = array();
+
 				foreach ($file->getErrors() as $error)
 				{
 					$errors[] = g11n3t($error);

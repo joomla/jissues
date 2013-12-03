@@ -11,7 +11,7 @@ namespace App\Tracker\Controller\Upload\Ajax;
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Delete image controller class.
+ * Delete file controller class.
  *
  * @since  1.0
  */
@@ -23,12 +23,10 @@ class Delete extends AbstractAjaxController
 	 * @return  mixed
 	 *
 	 * @since   1.0
-	 * @throws  \Exception
+	 * @throws  \RuntimeException
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('create');
-
 		$file = $this->getInput()->getCmd('file');
 
 		if (!empty($file))

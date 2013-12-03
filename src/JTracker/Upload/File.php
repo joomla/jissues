@@ -9,8 +9,11 @@
 namespace JTracker\Upload;
 
 use JTracker\Application;
+
 use Upload\File as UploadFile;
 use Upload\Storage\FileSystem;
+use Upload\Validation\Mimetype;
+use Upload\Validation\Size;
 
 /**
  * File upload class for the Joomla Tracker application.
@@ -20,15 +23,21 @@ use Upload\Storage\FileSystem;
  */
 class File extends UploadFile
 {
+	private $app;
+
 	/**
 	 * Constructor
 	 *
 	 * @param   string       $key  The file's key in $_FILES superglobal
 	 * @param   Application  $app  The Application.
+	 *
+	 * @since   1.0
 	 */
 	public function __construct($key, Application $app)
 	{
-		$storage = new FileSystem(JPATH_THEMES . '/' . $app->get('system.upload_dir'));
+		$this->app = $app;
+
+		$storage = new FileSystem(JPATH_THEMES . '/' . $this->app->get('system.upload_dir'));
 
 		if (is_array($_FILES[$key]))
 		{
@@ -38,5 +47,24 @@ class File extends UploadFile
 		}
 
 		parent::__construct($key, $storage);
+
+		$this->setValidations();
+	}
+
+	/**
+	 * Method to set file validations.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	private function setValidations()
+	{
+		$this->addValidations(
+			array(
+				new Mimetype($this->app->get('validation.mime_types')),
+				new Size($this->app->get('validation.file_size'))
+			)
+		);
 	}
 }

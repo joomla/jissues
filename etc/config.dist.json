@@ -54,11 +54,9 @@
 	],
 
 	"validation": {
-		"image": {
-			"mime_types": [
-				"image/png", "image/jpeg", "image/gif"
-			],
-			"file_size" : "1M"
-		}
+		"mime_types": [
+			"image/png", "image/jpeg", "image/gif"
+		],
+		"file_size" : "1M"
 	}
 }
