@@ -39,7 +39,6 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-
 		$app = Container::retrieve('app');
 		$gitHub = Container::retrieve('gitHub');
 
