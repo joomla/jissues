@@ -23,6 +23,12 @@ use Upload\Validation\Size;
  */
 class File extends UploadFile
 {
+	/**
+	 * Application object.
+	 *
+	 * @var    Application
+	 * @since  1.0
+	 */
 	private $app;
 
 	/**
