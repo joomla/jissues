@@ -1,12 +1,6 @@
-/*
- * jQuery File Upload Plugin JS Example 8.9.0
- * https://github.com/blueimp/jQuery-File-Upload
- *
- * Copyright 2010, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+/**
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 /*jslint nomen: true, regexp: true */
@@ -29,6 +23,8 @@ $(function () {
 
                 target.val(newContent);
                 target.focus();
+            } else {
+                $('.upload-error').delay(3000).fadeOut();
             }
         }
     });
@@ -54,7 +50,6 @@ $(function () {
         disableImageResize: /Android(?!.*Chrome)|Opera/
             .test(window.navigator.userAgent),
         maxFileSize: 1000000,
-        maxNumberOfFiles: 5,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
     });
 });

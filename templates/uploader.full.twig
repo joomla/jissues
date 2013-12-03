@@ -70,7 +70,7 @@
 [% for (var i=0, file; file=o.files[i]; i++) { %]
     <tr class="template-download fade">
         [% if (file.error) { %]
-            <td>
+            <td class="upload-error">
                 <div><span class="label label-danger">Error</span> [%=file.error%]</div>
             </td>
         [% } else { %]
