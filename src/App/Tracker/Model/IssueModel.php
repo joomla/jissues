@@ -97,7 +97,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		if (!$item)
 		{
-			throw new \RuntimeException('Invalid Issue');
+			throw new \RuntimeException('Invalid Issue', 1);
 		}
 
 		// Fetch activities
@@ -318,22 +318,33 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$db->setQuery($query)->execute();
 
+		$insertId = $db->insertid();
+
 		// Add the vote_id if a new record
 		if (is_null($table->vote_id))
 		{
 			$query->clear()
 				->update($db->quoteName('#__issues'))
-				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
+				->set($db->quoteName('vote_id') . ' = ' . (int) $insertId)
 				->where($db->quoteName('id') . ' = ' . (int) $table->id);
 
 			$db->setQuery($query)->execute();
 		}
 
 		// Get the updated vote data to update the display
+		if (is_null($table->vote_id))
+		{
+			$voteId = $insertId;
+		}
+		else
+		{
+			$voteId = $table->vote_id;
+		}
+
 		$query->clear()
 			->select('*')
 			->from($db->quoteName('#__issues_voting'))
-			->where($db->quoteName('id') . ' = ' . (int) $table->vote_id);
+			->where($db->quoteName('id') . ' = ' . (int) $voteId);
 
 		return $db->setQuery($query)->loadObject();
 	}

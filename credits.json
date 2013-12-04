@@ -1,0 +1,38 @@
+[
+    {
+        "group": "Media",
+        "items": [
+            {
+                "title": "Everaldo Crystal Clear",
+                "description": "Icon set",
+                "homepage": "http://commons.wikimedia.org/wiki/Crystal_Clear"
+            }
+        ]
+    },
+    {
+        "group": "IDE",
+        "items": [
+            {
+                "title": "JetBrains PHPStorm",
+                "description": "PhpStorm — PHP IDE that goes beyond the language.",
+                "homepage": "http://www.jetbrains.com/phpstorm/"
+            },
+            {
+                "title": "Sublime Text",
+                "description": "Sublime Text is a sophisticated text editor for code, markup and prose.",
+                "homepage": "http://www.sublimetext.com/"
+            }
+
+        ]
+    },
+    {
+        "group": "Environment",
+        "items": [
+            {
+                "title": "GitHub",
+                "description": "GitHub acts as our authentication provider, software repository, markdown parser engine and general service provider for the issue tracker infrastructures.",
+                "homepage": "https://github.com/"
+            }
+        ]
+    }
+]

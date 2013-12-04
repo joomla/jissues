@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
+{% block title %}{{ project.title ~ ' #' ~ item.issue_number }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -11,20 +11,6 @@
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
-{% endblock %}
-
-{% block prependMenu %}
-    <li>
-       <a class="btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
-    </li>
-    <li>
-        <a class="btn-inverse" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
-            {{ translate('Cancel') }}
-        </a>
-    </li>
-
-    {{ parent() }}
-
 {% endblock %}
 
 {% block content %}
@@ -37,10 +23,19 @@
     <!-- Status bar -->
 
     <ul class="breadcrumb">
+        <li>
+            <a class="btn btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
+        </li>
+        <li>
+            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number }}">
+                {{ translate('Cancel') }}
+            </a>
+        </li>
+
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
-                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
                    target="_blank" class="external">
                     GitHub # {{ item.issue_number }}
                 </a>
@@ -81,8 +76,9 @@
                 {% endfor %}
             </select>
         </li>
+        <li><div class="span1"></div></li>
         <li>
-            <label for="rel_type">{{ translate('Type') }}</label>
+            <label for="rel_type">{{ translate('Item') }}</label>
             <select name="item[rel_type]" id="rel_type" class="span2">
                 <option></option>
                 {% for relType in getRelTypes() %}
@@ -92,7 +88,7 @@
             </select>
         </li>
         <li>
-            <label for="rel_number">{{ translate('Number') }}</label>
+            <label for="rel_number">#</label>
             <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
         </li>
     </ul>

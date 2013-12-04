@@ -41,6 +41,13 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="short_title">{{ "Short Title"|_ }}</label>
+                <div class="controls">
+                    <input type="text" name="project[short_title]" id="short_title" value="{{ project.short_title }}">
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="alias">{{ "Alias"|_ }}</label>
                 <div class="controls">
                     <input type="text" name="project[alias]" id="alias" value="{{ project.alias }}">

@@ -86,6 +86,7 @@ class Depfile extends Make
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
+		$defined['credits']  = json_decode(file_get_contents(JPATH_ROOT . '/credits.json'));
 
 		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
 
@@ -216,6 +217,8 @@ class Depfile extends Make
 
 			$sorted['javascript'][] = $item;
 		}
+
+		$sorted['credits'] = $defined['credits'];
 
 		return $sorted;
 	}

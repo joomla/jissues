@@ -10,7 +10,7 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
 
-* Installed: dev-master 725eb63ef40a9190aa0fbb9d4f652f684e14f435
+* Installed: dev-master fbf3586a735b235a99aa23dd0518bfe9e08ee79c
 * Source URL: https://github.com/joomla/joomla-framework.git
 
 #### symfony/http-foundation (2.3.*@stable)
@@ -27,11 +27,11 @@ Twig, the flexible, fast, and secure template language for PHP
 * Installed: v1.14.2
 * Source URL: https://github.com/fabpot/Twig.git
 
-#### elkuku/g11n (dev-master)
+#### elkuku/g11n (2.1)
 
 The g11n language library
 
-* Installed: dev-master 352dbf7198a7842d22a1a7976d95047a7a879fc7
+* Installed: 2.1
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -50,11 +50,11 @@ Sends your logs to files, sockets, inboxes, databases and various web services
 * Installed: 1.6.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
-#### raveren/kint (dev-master)
+#### raveren/kint (0.9)
 
 Kint - debugging helper for PHP developers
 
-* Installed: dev-master 24a15aa6e666aa9492f4bb43b48a3dbf531014ac
+* Installed: v0.9
 * Source URL: https://github.com/raveren/kint.git
 
 #### filp/whoops (1.0.*@stable)
@@ -69,7 +69,7 @@ php error handling for cool kids
 A Mustache implementation in PHP.
 
 * Installed: v2.1.0
-* Source URL: https://github.com/bobthecow/mustache.php
+* Source URL: https://github.com/bobthecow/mustache.php.git
 
 ### JavaScript
 
@@ -102,3 +102,35 @@ Unofficial bootstrap switch
 &lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
 
 * Source URL: https://github.com/blueimp/JavaScript-Templates
+
+## Credits
+
+### Media
+
+#### Everaldo Crystal Clear
+
+Icon set
+
+* http://commons.wikimedia.org/wiki/Crystal_Clear
+
+### IDE
+
+#### JetBrains PHPStorm
+
+PhpStorm — PHP IDE that goes beyond the language.
+
+* http://www.jetbrains.com/phpstorm/
+
+#### Sublime Text
+
+Sublime Text is a sophisticated text editor for code, markup and prose.
+
+* http://www.sublimetext.com/
+
+### Environment
+
+#### GitHub
+
+GitHub acts as our authentication provider, software repository, markdown parser engine and general service provider for the issue tracker infrastructures.
+
+* https://github.com/
