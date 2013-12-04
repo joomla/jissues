@@ -31,7 +31,7 @@ class Put extends AbstractAjaxController
 
 		if (!empty($files))
 		{
-			$file = new File('files', $this->getApplication());
+			$file = new File($this->getApplication());
 
 			// Prepare response data
 			$host       = $this->getApplication()->get('uri')->base->host;

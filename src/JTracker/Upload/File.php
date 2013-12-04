@@ -34,12 +34,12 @@ class File extends UploadFile
 	/**
 	 * Constructor
 	 *
-	 * @param   string       $key  The file's key in $_FILES superglobal
 	 * @param   Application  $app  The Application.
+	 * @param   string       $key  The file's key in $_FILES superglobal
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($key, Application $app)
+	public function __construct(Application $app, $key = 'files')
 	{
 		$this->app = $app;
 
