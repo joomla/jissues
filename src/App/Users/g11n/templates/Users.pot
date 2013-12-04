@@ -8,14 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Users - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-29 13:59-0600\n"
+"POT-Creation-Date: 2013-12-04 21:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/users/user.index.twig:12
+msgid "My Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:14
+msgid "Profile"
+msgstr ""
 
 #: /templates/users/users.index.twig:19
 msgid "Users List"
@@ -37,14 +44,6 @@ msgstr ""
 
 #: /templates/users/users.index.twig:32
 msgid "ID"
-msgstr ""
-
-#: /templates/users/user.index.twig:12
-msgid "My Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:14
-msgid "Profile"
 msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:75

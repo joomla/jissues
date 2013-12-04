@@ -3,20 +3,67 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "11ba72303b3067148bcb9015670199b9",
+    "hash": "7f450ea492cb7b7735bab0c6edb0eb04",
     "packages": [
+        {
+            "name": "codeguy/upload",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeguy/Upload.git",
+                "reference": "c5e8722608cfcb628f3690cab46dcf8639d52544"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeguy/Upload/zipball/c5e8722608cfcb628f3690cab46dcf8639d52544",
+                "reference": "c5e8722608cfcb628f3690cab46dcf8639d52544",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Upload": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "https://github.com/codeguy/"
+                }
+            ],
+            "description": "Handle file uploads with extensible validation and storage strategies",
+            "homepage": "http://github.com/codeguy/Upload",
+            "keywords": [
+                "file",
+                "upload",
+                "validation"
+            ],
+            "time": "2013-08-31 01:56:57"
+        },
         {
             "name": "elkuku/console-progressbar",
             "version": "1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "1.0"
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
-                "reference": "1.0",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
                 "shasum": ""
             },
             "require": {
@@ -91,12 +138,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "fbf3586a735b235a99aa23dd0518bfe9e08ee79c"
+                "reference": "695382235eac36361933ad77de8b239b90bf7d3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fbf3586a735b235a99aa23dd0518bfe9e08ee79c",
-                "reference": "fbf3586a735b235a99aa23dd0518bfe9e08ee79c",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/695382235eac36361933ad77de8b239b90bf7d3b",
+                "reference": "695382235eac36361933ad77de8b239b90bf7d3b",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +216,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-28 18:21:07"
+            "time": "2013-12-03 00:41:44"
         },
         {
             "name": "psr/log",

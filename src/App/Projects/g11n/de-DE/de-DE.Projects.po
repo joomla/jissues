@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-09 21:39+0200\n"
+"POT-Creation-Date: 2013-12-04 21:04+0200\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
@@ -98,21 +98,26 @@ msgstr "Titel"
 
 #: /templates/projects/project.edit.twig:44
 #: /templates/projects/project.add.twig:33
-msgid "Alias"
-msgstr "Alias"
+msgid "Short Title"
+msgstr ""
 
 #: /templates/projects/project.edit.twig:51
 #: /templates/projects/project.add.twig:38
-msgid "GitHub Owner"
-msgstr "GitHub Besitzer"
+msgid "Alias"
+msgstr "Alias"
 
 #: /templates/projects/project.edit.twig:58
 #: /templates/projects/project.add.twig:43
-msgid "GitHub Repo"
-msgstr "GitHub Repo"
+msgid "GitHub Owner"
+msgstr "GitHub Besitzer"
 
 #: /templates/projects/project.edit.twig:65
 #: /templates/projects/project.add.twig:48
+msgid "GitHub Repo"
+msgstr "GitHub Repo"
+
+#: /templates/projects/project.edit.twig:72
+#: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
 msgstr "Externer Trackerlink"
 
@@ -121,6 +126,10 @@ msgstr "Externer Trackerlink"
 msgid "Project"
 msgstr "Projekt"
 
-#: /src/App/Projects/Table/ProjectsTable.php:56
+#: /src/App/Projects/Table/ProjectsTable.php:57
 msgid "A title is required"
 msgstr "Ein Titel ist erforderlich."
+
+#: /src/App/Projects/Table/ProjectsTable.php:62
+msgid "A short title is required"
+msgstr ""

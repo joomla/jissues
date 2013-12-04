@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Text - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-29 13:59-0600\n"
+"POT-Creation-Date: 2013-12-04 21:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -73,18 +72,18 @@ msgstr ""
 msgid "No articles found"
 msgstr ""
 
-#: /src/App/Text/Controller/Article/Delete.php:47
-msgid "The article has been deleted."
-msgstr ""
-
-#: /src/App/Text/Controller/Article/Save.php:47
-msgid "The article has been saved."
-msgstr ""
-
 #: /src/App/Text/Table/ArticlesTable.php:83
 msgid "An alias or a title is required."
 msgstr ""
 
 #: /src/App/Text/Table/ArticlesTable.php:89
 msgid "Some text is required."
+msgstr ""
+
+#: /src/App/Text/Controller/Article/Delete.php:47
+msgid "The article has been deleted."
+msgstr ""
+
+#: /src/App/Text/Controller/Article/Save.php:47
+msgid "The article has been saved."
 msgstr ""

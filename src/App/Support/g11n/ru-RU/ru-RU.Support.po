@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Support - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-09 21:39+0200\n"
+"POT-Creation-Date: 2013-12-04 21:04+0200\n"
 "PO-Revision-Date: 2013-06-23 23:57-0500\n"
 "Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
 "Language-Team: Language ru-RU\n"
@@ -77,6 +77,10 @@ msgstr "GitHub Spice"
 #: /templates/support/markdown.index.twig:45
 msgid "Output"
 msgstr "Выходные данные"
+
+#: /templates/support/devdox.index.twig:15
+msgid "Improve this document"
+msgstr ""
 
 #: /src/App/Support/Controller/Clearcache.php:45
 msgid "The cache has been cleared."
