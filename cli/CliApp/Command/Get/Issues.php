@@ -198,7 +198,7 @@ class Issues extends Get
 			$table->modified_date = with(new Date($issue->updated_at))->format('Y-m-d H:i:s');
 
 			$table->project_id = $this->project->project_id;
-			$table->milestone_id = $issue->milestone ? $milestones[$issue->milestone->number] : null;
+			$table->milestone_id = ($issue->milestone && isset($milestones[$issue->milestone->number])) ? $milestones[$issue->milestone->number] : null;
 
 			// If the issue has a diff URL, it is a pull request.
 			if ($issue->pull_request->diff_url)
