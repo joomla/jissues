@@ -14,6 +14,14 @@ use JTracker\Container;
 /**
  * Class TrackerProject.
  *
+ * @property-read   integer  $project_id        PK
+ * @property-read   string   $title             Project title
+ * @property-read   string   $alias             Project URL alias
+ * @property-read   string   $gh_user           GitHub user
+ * @property-read   string   $gh_project        GitHub project
+ * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
+ * @property-read   string   $short_title       Project short title
+ *
  * @since  1.0
  */
 class TrackerProject

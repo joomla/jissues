@@ -67,6 +67,13 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	protected $usePBar;
 
 	/**
+	 * @var  \App\Projects\TrackerProject
+	 *
+	 * @since   1.0
+	 */
+	protected $project;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0

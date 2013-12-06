@@ -9,7 +9,8 @@
 namespace App\GitHub\View\Stats;
 
 use App\Projects\Model\ProjectModel;
-use Joomla\Github\Github;
+
+use JTracker\Container;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -30,24 +31,47 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Method to render the view.
 	 *
+	 * @throws \DomainException
+	 * @throws \Exception
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
 	 */
 	public function render()
 	{
-		$projectModel = new ProjectModel;
+		$app = Container::retrieve('app');
+		$gitHub = Container::retrieve('gitHub');
 
-		$project = $projectModel->getByAlias();
+		$project = with(new ProjectModel)->getByAlias($app->input->get('project_alias'));
 
-		$gitHub = new Github;
+		$data = false;
 
-		$data = $gitHub->repositories->statistics->getListContributors(
-			$project->gh_user, $project->gh_project
-		);
+		// @todo use the message queue - when it works... or BETTER: Use a controller !
+		$message = '';
+
+		try
+		{
+			$data = $gitHub->repositories->statistics->getListContributors(
+				$project->gh_user, $project->gh_project
+			);
+		}
+		catch (\DomainException $e)
+		{
+			if (202 != $e->getCode())
+			{
+				throw $e;
+			}
+
+			// @todo use the message queue - when it works... or BETTER: Use a controller !
+			// Container::retrieve('app')->enqueueMessage($e->getMessage(), 'warning');
+
+			$message = $e->getMessage();
+		}
 
 		$this->renderer
 			->set('data', $data)
+			// @todo use the message queue - when it works... or BETTER: Use a controller !
+			->set('message', $message)
 			->set('project', $project);
 
 		return parent::render();
