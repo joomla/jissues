@@ -36,6 +36,15 @@ After setting up your database, verify the installation is successful by doing t
 `cli/tracker.php get comments`
 
 For more information on the CLI script see the [CLI script documentation](Documentation/CLI-script.md) file.
+
+### Using Login with Github
+
+If you want the 'login with Github' button to work properly you'll need to register an app with Github. To do this manage your account at github.com and go to the applications page. Create a new application.
+
+You'll be asked for the application URL and the callback URL. This can be your test server or your localhost environment. As long as you enter the URL that your localhost app is running on. An example might be ```jissues.local```.
+
+Once you've registered the app at Github you'll receive a ```Client ID``` and a ```Client Secret```, enter these into your JTracker ```config.json``` file, along with your Github login credentials. You should now be able to login with Github successfully
+
 ### Virtual test environment
 
 As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
