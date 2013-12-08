@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "86b4bf62b6ec17a21978e69c7ab07955",
+    "hash": "adb4be17f36f0074a8559ac1f928da77",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -530,7 +530,6 @@
         "joomla/github": 0,
         "joomla/http": 0,
         "joomla/input": 0,
-        "joomla/log": 0,
         "joomla/model": 0,
         "joomla/profiler": 0,
         "joomla/registry": 0,

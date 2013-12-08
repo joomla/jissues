@@ -15,7 +15,6 @@
         "joomla/github": "1.0.*@stable",
         "joomla/http": "1.0.*@stable",
         "joomla/input": "1.0.*@stable",
-        "joomla/log": "1.0.*@stable",
         "joomla/model": "1.0.*@stable",
         "joomla/profiler": "1.0.*@stable",
         "joomla/registry": "1.0.*@stable",
