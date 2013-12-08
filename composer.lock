@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "11ba72303b3067148bcb9015670199b9",
+    "hash": "c8c16b0d877241e275ffa46a0a198845",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "1.0"
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
-                "reference": "1.0",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
                 "shasum": ""
             },
             "require": {
@@ -86,17 +86,54 @@
             "time": "2013-11-16 16:59:23"
         },
         {
-            "name": "joomla/framework",
-            "version": "dev-master",
+            "name": "joomla/event",
+            "version": "1.0",
+            "target-dir": "Joomla/Event",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "fbf3586a735b235a99aa23dd0518bfe9e08ee79c"
+                "url": "https://github.com/joomla/joomla-framework-event.git",
+                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/fbf3586a735b235a99aa23dd0518bfe9e08ee79c",
-                "reference": "fbf3586a735b235a99aa23dd0518bfe9e08ee79c",
+                "url": "https://api.github.com/repos/joomla/joomla-framework-event/zipball/daafeea58267986f2c6ce6658bc9d70fe69190d7",
+                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.10"
+            },
+            "type": "joomla-package",
+            "autoload": {
+                "psr-0": {
+                    "Joomla\\Event": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla Event Package",
+            "homepage": "https://github.com/joomla/joomla-framework-event",
+            "keywords": [
+                "event",
+                "framework",
+                "joomla"
+            ],
+            "time": "2013-11-10 12:14:49"
+        },
+        {
+            "name": "joomla/framework",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla/joomla-framework.git",
+                "reference": "3db74e6f9bbf151c0e73425887921cb239ad1e0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/3db74e6f9bbf151c0e73425887921cb239ad1e0e",
+                "reference": "3db74e6f9bbf151c0e73425887921cb239ad1e0e",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +206,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-28 18:21:07"
+            "time": "2013-12-01 00:38:39"
         },
         {
             "name": "psr/log",
@@ -177,12 +214,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "134145e8d08ddcb9bb8f49a2feb9aa1f2393650c"
+                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/134145e8d08ddcb9bb8f49a2feb9aa1f2393650c",
-                "reference": "134145e8d08ddcb9bb8f49a2feb9aa1f2393650c",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/5144da9525d24346bf009ff28f10cbaa1f0f166e",
+                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e",
                 "shasum": ""
             },
             "type": "library",
@@ -212,7 +249,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2013-11-19 10:21:35"
+            "time": "2013-12-05 15:25:07"
         },
         {
             "name": "symfony/http-foundation",
@@ -266,16 +303,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.14.2",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64"
+                "reference": "85e4ff98000157ff753d934b9f13659a953f5666"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ca445842fcea4f844d68203ffa2d00f5e3cdea64",
-                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/85e4ff98000157ff753d934b9f13659a953f5666",
+                "reference": "85e4ff98000157ff753d934b9f13659a953f5666",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +321,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -311,7 +348,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-30 08:20:53"
+            "time": "2013-12-06 07:47:10"
         }
     ],
     "packages-dev": [
@@ -522,7 +559,24 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "joomla/framework": 20,
+        "joomla/application": 0,
+        "joomla/controller": 0,
+        "joomla/database": 0,
+        "joomla/date": 0,
+        "joomla/event": 0,
+        "joomla/filter": 0,
+        "joomla/github": 0,
+        "joomla/http": 0,
+        "joomla/input": 0,
+        "joomla/log": 0,
+        "joomla/model": 0,
+        "joomla/profiler": 0,
+        "joomla/registry": 0,
+        "joomla/router": 0,
+        "joomla/string": 0,
+        "joomla/uri": 0,
+        "joomla/utilities": 0,
+        "joomla/view": 0,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
         "filp/whoops": 0
