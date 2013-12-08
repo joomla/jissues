@@ -13,6 +13,7 @@ The application also has external dependencies installable via Composer.  You ca
 2. Copy `/etc/config.dist.json` to `/etc/config.json`.
 3. Enter your database credentials in the `/etc/config.json` file.
 4. Install dependencies from Composer by running `composer install` (or the equivalent for your system).  If you need to install Composer, you can do so from http://getcomposer.org/download/.
+5. Install media files from Bower by running   `bower install`. If you need to install Bower you can do so by using NPM. Read more http://bower.io/.
 
 From this point, you can setup your database in one of two ways:
 
@@ -35,7 +36,6 @@ After setting up your database, verify the installation is successful by doing t
 `cli/tracker.php get comments`
 
 For more information on the CLI script see the [CLI script documentation](Documentation/CLI-script.md) file.
-
 ### Virtual test environment
 
 As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
