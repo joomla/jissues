@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c8c16b0d877241e275ffa46a0a198845",
+    "hash": "86b4bf62b6ec17a21978e69c7ab07955",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -84,43 +84,6 @@
             ],
             "description": "The g11n language library",
             "time": "2013-11-16 16:59:23"
-        },
-        {
-            "name": "joomla/event",
-            "version": "1.0",
-            "target-dir": "Joomla/Event",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joomla/joomla-framework-event.git",
-                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework-event/zipball/daafeea58267986f2c6ce6658bc9d70fe69190d7",
-                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.10"
-            },
-            "type": "joomla-package",
-            "autoload": {
-                "psr-0": {
-                    "Joomla\\Event": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "description": "Joomla Event Package",
-            "homepage": "https://github.com/joomla/joomla-framework-event",
-            "keywords": [
-                "event",
-                "framework",
-                "joomla"
-            ],
-            "time": "2013-11-10 12:14:49"
         },
         {
             "name": "joomla/framework",
@@ -563,7 +526,6 @@
         "joomla/controller": 0,
         "joomla/database": 0,
         "joomla/date": 0,
-        "joomla/event": 0,
         "joomla/filter": 0,
         "joomla/github": 0,
         "joomla/http": 0,
