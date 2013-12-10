@@ -31,11 +31,10 @@ If you are in an environment where you cannot execute PHP scripts from the comma
 After setting up your database, verify the installation is successful by doing the following:
 
 1. View the site in your browser to verify setup.
-2. Open a console and execute cli/tracker.php with the `get` option to pull issues and issue comments from GitHub.<br />
-`cli/tracker.php get issues`<br />
-`cli/tracker.php get comments`
+2. Open a console and execute cli/tracker.php with the `get` option to pull issues, issue comments and other information related to the project from GitHub.<br />
+`cli/tracker.php get project`
 
-For more information on the CLI script see the [CLI script documentation](Documentation/CLI-script.md) file.
+See also: [CLI script](Documentation/CLI-script.md).
 
 ### Using Login with Github
 
@@ -45,10 +44,13 @@ You'll be asked for the application URL and the callback URL. This can be your t
 
 Once you've registered the app at Github you'll receive a ```Client ID``` and a ```Client Secret```, enter these into your JTracker ```config.json``` file, along with your Github login credentials. You should now be able to login with Github successfully
 
+See also: [GitHub Authentication](Documentation/github-authentication.md)
+
 ### Virtual test environment
 
 As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
-See: [Virtual server documentation](Documentation/virtual-test-server.md)
+
+See also: [Virtual server documentation](Documentation/virtual-test-server.md)
 
 ## Support & Discussion
 
