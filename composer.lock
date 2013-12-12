@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
+                "reference": "1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
-                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
+                "reference": "1.0",
                 "shasum": ""
             },
             "require": {
