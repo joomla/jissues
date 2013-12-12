@@ -16,7 +16,6 @@ use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\Controller\ControllerInterface;
-use Joomla\Event\Dispatcher;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -100,7 +99,6 @@ final class Application extends AbstractWebApplication
 			->registerServiceProvider(new GitHubProvider);
 
 		$this->loadLanguage()
-			->loadDispatcher()
 			->mark('Application started');
 	}
 
@@ -540,26 +538,6 @@ final class Application extends AbstractWebApplication
 		}
 
 		return null;
-	}
-
-	/**
-	 * Allows the application to load a custom or default dispatcher.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create event
-	 * dispatchers, if required, based on more specific needs.
-	 *
-	 * @param   Dispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function loadDispatcher(Dispatcher $dispatcher = null)
-	{
-		$this->dispatcher = ($dispatcher === null) ? new Dispatcher : $dispatcher;
-
-		return $this;
 	}
 
 	/**
