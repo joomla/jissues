@@ -79,9 +79,9 @@ class Help extends TrackerCommand
 		{
 			$this->out('<cmd>' . $cName . '</cmd>');
 
-			if ($command->description)
+			if ($command->getDescription())
 			{
-				$this->out('    ' . $command->description);
+				$this->out('    ' . $command->getDescription());
 			}
 
 			$this->out();
@@ -117,7 +117,7 @@ class Help extends TrackerCommand
 		if (false == array_key_exists($command, $this->commands))
 		{
 			$this->out()
-				->out('Unknown command: ' . $command);
+				->out('Unknown: ' . $command);
 
 			return;
 		}
@@ -129,7 +129,7 @@ class Help extends TrackerCommand
 
 		$this->out('Command: <b>' . $command . '</b>' . ($actions ? ' <cmd><action></cmd>' : ''))
 			->out()
-			->out('    ' . $c->description);
+			->out('    ' . $c->getDescription());
 
 		if ($c->options)
 		{
@@ -148,10 +148,11 @@ class Help extends TrackerCommand
 				->out('  Available <cmd>actions</cmd>:')
 			->out();
 
+			/* @type TrackerCommand $action */
 			foreach ($actions as $aName => $action)
 			{
 				$this->out('<cmd>' . $aName . '</cmd>')
-					->out('    ' . $action->description);
+					->out('    ' . $action->getDescription());
 
 				if ($action->options)
 				{
@@ -193,7 +194,7 @@ class Help extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	private function getCommands()
+	public function getCommands()
 	{
 		$commands = array();
 
@@ -224,7 +225,7 @@ class Help extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	protected function getActions($commandName)
+	public function getActions($commandName)
 	{
 		$actions = array();
 		$cName = ucfirst($commandName);

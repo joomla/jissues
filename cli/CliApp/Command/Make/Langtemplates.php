@@ -8,8 +8,6 @@
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
-
 use g11n\g11n;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;

@@ -288,15 +288,17 @@ class TrackerExtension extends \Twig_Extension
 			{
 				$bgColor = $labels[$id]->color;
 				$color   = $this->getContrastColor($bgColor);
+				$name    = $labels[$id]->name;
 			}
 			else
 			{
 				$bgColor = '000000';
 				$color   = 'ffffff';
+				$name    = '?';
 			}
 
 			$html[] = '<span class="label"' . ' style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
-			$html[] = $labels[$id]->name;
+			$html[] = $name;
 			$html[] = '</span>';
 		}
 

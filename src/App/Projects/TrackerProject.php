@@ -15,11 +15,13 @@ use Joomla\Database\DatabaseDriver;
 /**
  * Class TrackerProject.
  *
- * @property-read   integer  $project_id  The project id.
- * @property-read   string   $title       The project title.
- * @property-read   string   $alias       The project alias.
- * @property-read   string   $gh_user     The GitHub user.
- * @property-read   string   $gh_project  The GitHub project.
+ * @property-read   integer  $project_id        PK
+ * @property-read   string   $title             Project title
+ * @property-read   string   $alias             Project URL alias
+ * @property-read   string   $gh_user           GitHub user
+ * @property-read   string   $gh_project        GitHub project
+ * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
+ * @property-read   string   $short_title       Project short title
  *
  * @since  1.0
  */
@@ -72,6 +74,14 @@ class TrackerProject implements \Serializable
 	 * @since  1.0
 	 */
 	protected $ext_tracker_link;
+
+	/**
+	 * Project short title
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $short_title;
 
 	/**
 	 * Access map
@@ -386,6 +396,18 @@ class TrackerProject implements \Serializable
 	public function getExt_Tracker_Link()
 	{
 		return $this->ext_tracker_link;
+	}
+
+	/**
+	 * Get the project short title.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getShort_Title()
+	{
+		return $this->short_title;
 	}
 
 	/**

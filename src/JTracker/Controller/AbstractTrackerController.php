@@ -11,7 +11,6 @@ namespace JTracker\Controller;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input\Input;
-use Joomla\Log\Log;
 
 use Joomla\View\Renderer\RendererInterface;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
@@ -110,16 +109,14 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				Log::add(
+				$this->getApplication()->getLogger()->info(
 					sprintf(
 						'Checking edit ID %s.%s: %d %s',
 						$context,
 						$id,
 						(int) $result,
 						str_replace("\n", ' ', print_r($values, 1))
-					),
-					Log::INFO,
-					'controller'
+					)
 				);
 			}
 
@@ -274,15 +271,13 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				Log::add(
+				$this->getApplication()->getLogger()->info(
 					sprintf(
 						'Holding edit ID %s.%s %s',
 						$context,
 						$id,
 						str_replace("\n", ' ', print_r($values, 1))
-					),
-					Log::INFO,
-					'controller'
+					)
 				);
 			}
 		}
@@ -313,15 +308,13 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				Log::add(
+				$this->getApplication()->getLogger()->info(
 					sprintf(
 						'Releasing edit ID %s.%s %s',
 						$context,
 						$id,
 						str_replace("\n", ' ', print_r($values, 1))
-					),
-					Log::INFO,
-					'controller'
+					)
 				);
 			}
 		}

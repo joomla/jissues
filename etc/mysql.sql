@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
+	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -33,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
 -- Dumping data `#__tracker_projects`
 --
 
-INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`, `ext_tracker_link`) VALUES
-(1, 'Joomla! CMS 3 issues', 'joomla-cms-3-issues', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d'),
-(2, 'J!Tracker Bugs', 'jtracker-bugs', 'joomla', 'jissues', ''),
-(3, 'Joomla! Security', 'joomla-security', '', '', '');
+INSERT INTO `#__tracker_projects` (`project_id`, `title`, `alias`, `gh_user`, `gh_project`, `ext_tracker_link`, `short_title`) VALUES
+(1, 'Joomla! CMS', 'joomla-cms', 'joomla', 'joomla-cms', 'http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=%d', 'CMS'),
+(2, 'J!Tracker', 'jtracker', 'joomla', 'jissues', '', 'J!Tracker'),
+(3, 'Joomla! Security', 'joomla-security', '', '', '', 'JSST');
 
 -- --------------------------------------------------------
 

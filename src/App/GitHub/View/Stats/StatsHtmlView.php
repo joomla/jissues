@@ -33,6 +33,8 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Method to render the view.
 	 *
+	 * @throws \DomainException
+	 * @throws \Exception
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0

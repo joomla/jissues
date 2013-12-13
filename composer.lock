@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "497fe7ae3254ff3a40b4f13272bac761",
+    "hash": "adb4be17f36f0074a8559ac1f928da77",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -51,16 +51,16 @@
         },
         {
             "name": "elkuku/g11n",
-            "version": "dev-master",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7"
+                "reference": "e829e6045c19bebf503530d3d7d4772ef5da57e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/352dbf7198a7842d22a1a7976d95047a7a879fc7",
-                "reference": "352dbf7198a7842d22a1a7976d95047a7a879fc7",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/e829e6045c19bebf503530d3d7d4772ef5da57e0",
+                "reference": "e829e6045c19bebf503530d3d7d4772ef5da57e0",
                 "shasum": ""
             },
             "require": {
@@ -83,20 +83,20 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2013-11-13 15:06:38"
+            "time": "2013-11-16 16:59:23"
         },
         {
             "name": "joomla/framework",
-            "version": "dev-master",
+            "version": "1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435"
+                "reference": "3db74e6f9bbf151c0e73425887921cb239ad1e0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/725eb63ef40a9190aa0fbb9d4f652f684e14f435",
-                "reference": "725eb63ef40a9190aa0fbb9d4f652f684e14f435",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/3db74e6f9bbf151c0e73425887921cb239ad1e0e",
+                "reference": "3db74e6f9bbf151c0e73425887921cb239ad1e0e",
                 "shasum": ""
             },
             "require": {
@@ -169,23 +169,28 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-11 01:14:53"
+            "time": "2013-12-01 00:38:39"
         },
         {
             "name": "psr/log",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/log",
-                "reference": "1.0.0"
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/5144da9525d24346bf009ff28f10cbaa1f0f166e",
+                "reference": "5144da9525d24346bf009ff28f10cbaa1f0f166e",
                 "shasum": ""
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Psr\\Log\\": ""
@@ -207,7 +212,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2013-12-05 15:25:07"
         },
         {
             "name": "symfony/http-foundation",
@@ -261,16 +266,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.14.2",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64"
+                "reference": "85e4ff98000157ff753d934b9f13659a953f5666"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ca445842fcea4f844d68203ffa2d00f5e3cdea64",
-                "reference": "ca445842fcea4f844d68203ffa2d00f5e3cdea64",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/85e4ff98000157ff753d934b9f13659a953f5666",
+                "reference": "85e4ff98000157ff753d934b9f13659a953f5666",
                 "shasum": ""
             },
             "require": {
@@ -279,7 +284,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -306,7 +311,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-30 08:20:53"
+            "time": "2013-12-06 07:47:10"
         }
     ],
     "packages-dev": [
@@ -428,13 +433,13 @@
             "version": "v2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php",
-                "reference": "v2.1.0"
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/bobthecow/mustache.php/archive/v2.1.0.zip",
-                "reference": "v2.1.0",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
+                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
                 "shasum": ""
             },
             "require": {
@@ -467,16 +472,16 @@
         },
         {
             "name": "raveren/kint",
-            "version": "dev-master",
+            "version": "v0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/raveren/kint.git",
-                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac"
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raveren/kint/zipball/24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
-                "reference": "24a15aa6e666aa9492f4bb43b48a3dbf531014ac",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/ada810111ced4e3a926b4040da9b86442e43b613",
+                "reference": "ada810111ced4e3a926b4040da9b86442e43b613",
                 "shasum": ""
             },
             "require": {
@@ -509,7 +514,7 @@
                 "kint",
                 "php"
             ],
-            "time": "2013-11-04 11:02:37"
+            "time": "2013-08-12 22:46:16"
         }
     ],
     "aliases": [
@@ -517,11 +522,24 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "joomla/framework": 20,
+        "joomla/application": 0,
+        "joomla/controller": 0,
+        "joomla/database": 0,
+        "joomla/date": 0,
+        "joomla/filter": 0,
+        "joomla/github": 0,
+        "joomla/http": 0,
+        "joomla/input": 0,
+        "joomla/model": 0,
+        "joomla/profiler": 0,
+        "joomla/registry": 0,
+        "joomla/router": 0,
+        "joomla/string": 0,
+        "joomla/uri": 0,
+        "joomla/utilities": 0,
+        "joomla/view": 0,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
-        "elkuku/g11n": 20,
-        "raveren/kint": 20,
         "filp/whoops": 0
     },
     "platform": {

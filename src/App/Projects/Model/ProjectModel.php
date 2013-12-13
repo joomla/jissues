@@ -52,6 +52,8 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The alias.
 	 *
+	 * @throws \UnexpectedValueException
+	 *
 	 * @return  TrackerProject
 	 *
 	 * @since   1.0
@@ -69,6 +71,11 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 				->select('p.*')
 				->where($this->db->quoteName('p.alias') . ' = ' . $this->db->quote($alias))
 		)->loadObject();
+
+		if (!$data)
+		{
+			throw new \UnexpectedValueException('This project does not exist.', 404);
+		}
 
 		return new TrackerProject($this->db, $data);
 	}

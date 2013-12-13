@@ -8,12 +8,8 @@
 
 namespace CliApp\Command\Update;
 
-use App\Projects\Model\ProjectsModel;
-use App\Projects\Table\ProjectsTable;
-
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
-use CliApp\Exception\AbortException;
 
 use Joomla\Github\Github;
 
