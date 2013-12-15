@@ -192,6 +192,7 @@ class Help extends TrackerCommand
 	 *
 	 * @return  array
 	 *
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
 	public function getCommands()
@@ -209,6 +210,11 @@ class Help extends TrackerCommand
 			$c = $fileInfo->getFilename();
 
 			$className = "CliApp\\Command\\$c\\$c";
+
+			if (false == class_exists($className))
+			{
+				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
+			}
 
 			$commands[strtolower($c)] = new $className($this->application);
 		}
