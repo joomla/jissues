@@ -11,7 +11,6 @@ namespace App\Users\View\User;
 use App\Users\Model\UserModel;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * User view class for the Users component
@@ -28,6 +27,8 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 */
 	protected $model;
 
+	public $id = 0;
+
 	/**
 	 * Method to render the view.
 	 *
@@ -37,8 +38,7 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$app = Container::retrieve('app');
-		$this->renderer->set('item', $this->model->getItem($app->input->getUint('id')));
+		$this->renderer->set('item', $this->model->getItem($this->id));
 
 		return parent::render();
 	}

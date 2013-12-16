@@ -15,7 +15,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class AddController extends AbstractTrackerController
+class Add extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -26,6 +26,14 @@ class AddController extends AbstractTrackerController
 	protected $defaultView = 'project';
 
 	/**
+	 * The default layout for the app.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultLayout = 'edit';
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -34,10 +42,8 @@ class AddController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$this->getInput()->set('layout', 'edit');
-
-		return parent::execute();
+		parent::execute();
 	}
 }

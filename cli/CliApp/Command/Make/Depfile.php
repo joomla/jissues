@@ -76,6 +76,7 @@ class Depfile extends Make
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
+		$defined['credits']  = json_decode(file_get_contents(JPATH_ROOT . '/credits.json'));
 
 		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
 
@@ -172,16 +173,27 @@ class Depfile extends Make
 
 				if (isset($packages['composer'][$packageName]))
 				{
-					$package = $packages['composer'][$packageName];
+					$item->description = $packages['composer'][$packageName]->description;
+					$item->installed   = $packages['composer'][$packageName]->version;
+					$item->sourceURL   = $packages['composer'][$packageName]->sourceURL;
 
-					$item->description = $package->description;
-					$item->installed   = $package->version;
-					$item->sourceURL   = $package->sourceURL;
-
-					if ('dev-master' == $package->version)
+					if ('dev-master' == $packages['composer'][$packageName]->version)
 					{
-						$item->sourceRef = $package->sourceRef;
+						$item->sourceRef = $packages['composer'][$packageName]->sourceRef;
 					}
+				}
+				elseif (0 === strpos($packageName, 'joomla/'))
+				{
+					// Composer automagically installs the whole Joomla! Framework.
+					// Add a special handling...
+
+					$item->description = $packages['composer']['joomla/framework']->description;
+					$item->installed   = $packages['composer']['joomla/framework']->version;
+					$item->sourceURL   = preg_replace(
+						'/framework.git/',
+						'framework-'. substr($packageName, strpos($packageName, '/') + 1) .'.git',
+						$packages['composer']['joomla/framework']->sourceURL
+					);
 				}
 
 				$items[] = $item;
@@ -192,22 +204,24 @@ class Depfile extends Make
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
 		{
-			$package = $packages['bower'][$packageName];
+			$installed = $packages['bower'][$packageName];
 
 			$item = new \stdClass;
 
 			$item->packageName = $packageName;
 			$item->version     = $version;
 			$item->description = '';
-			$item->sourceURL   = $package->sourceURL;
+			$item->sourceURL   = $installed->sourceURL;
 
-			if ($package->description)
+			if ($installed->description)
 			{
-				$item->description = $package->description;
+				$item->description = $installed->description;
 			}
 
 			$sorted['javascript'][] = $item;
 		}
+
+		$sorted['credits'] = $defined['credits'];
 
 		return $sorted;
 	}

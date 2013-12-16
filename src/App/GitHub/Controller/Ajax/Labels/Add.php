@@ -9,7 +9,6 @@
 namespace App\GitHub\Controller\Ajax\Labels;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Controller class to add new labels to the GitHub repository.
@@ -27,15 +26,15 @@ class Add extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$name  = $this->getInput()->getCmd('name');
-		$color = $this->getInput()->getCmd('color');
+		$name  = $this->container->get('app')->input->getCmd('name');
+		$color = $this->container->get('app')->input->getCmd('color');
 
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = Container::retrieve('gitHub');
+		$gitHub = $this->container->get('gitHub');
 
 		// Create the label.
 		$gitHub->issues->labels->create(

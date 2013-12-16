@@ -8,6 +8,7 @@
 
 namespace CliApp\Application;
 
+use CliApp\Command\Help\Help;
 use App\Projects\TrackerProject;
 
 use CliApp\Command\TrackerCommand;
@@ -188,8 +189,18 @@ class CliApplication extends AbstractCliApplication
 		if (false == class_exists($className))
 		{
 			$this->out()
-				->out('<error>Invalid command</error>: ' . (($command == $action) ? $command : $command . ' ' . $action))
+				->out('Invalid command: <error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>')
 				->out();
+
+			$alternatives = $this->getAlternatives($command, $action);
+
+			if (count($alternatives))
+			{
+				$this->out('<b>Did you mean one of this?</b>')
+					->out('    <question> ' . implode(' </question>    <question> ', $alternatives) . ' </question>');
+
+				return;
+			}
 
 			$className = 'CliApp\\Command\\Help\\Help';
 		}
@@ -226,6 +237,49 @@ class CliApplication extends AbstractCliApplication
 				)
 			)
 			->out(str_repeat('_', 40));
+	}
+
+	/**
+	 * Get alternatives for a not found command or action.
+	 *
+	 * @param   string  $command  The command.
+	 * @param   string  $action   The action.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	protected function getAlternatives($command, $action)
+	{
+		$commands = with(new Help)->getCommands();
+		$alternatives = array();
+
+		if (false == array_key_exists($command, $commands))
+		{
+			// Unknown command
+			foreach (array_keys($commands) as $cmd)
+			{
+				if (levenshtein($cmd, $command) <= strlen($cmd) / 3 || false !== strpos($cmd, $command))
+				{
+					$alternatives[] = $cmd;
+				}
+			}
+		}
+		else
+		{
+			// Known command - unknown action
+			$actions = with(new Help)->getActions($command);
+
+			foreach (array_keys($actions) as $act)
+			{
+				if (levenshtein($act, $action) <= strlen($act) / 3 || false !== strpos($act, $action))
+				{
+					$alternatives[] = $command . ' ' . $act;
+				}
+			}
+		}
+
+		return $alternatives;
 	}
 
 	/**
@@ -352,5 +406,20 @@ class CliApplication extends AbstractCliApplication
 		return ($this->usePBar)
 			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
 			: null;
+	}
+
+	/**
+	 * This is a useless legacy function.
+	 *
+	 * Actually it's accessed by the \JTracker\Model\AbstractTrackerListModel
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 * @todo    Remove
+	 */
+	public function getUserStateFromRequest()
+	{
+		return '';
 	}
 }

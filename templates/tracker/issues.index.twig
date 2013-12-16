@@ -5,7 +5,7 @@
 
 {% block title %}Issues List{% endblock %}
 
-{% block headerText %}{{ project.title }}{% endblock %}
+{% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block headerCSS %}
     <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">

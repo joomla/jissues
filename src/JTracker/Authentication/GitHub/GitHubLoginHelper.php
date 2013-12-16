@@ -9,12 +9,11 @@
 namespace JTracker\Authentication\GitHub;
 
 use Joomla\Date\Date;
+use Joomla\DI\Container;
 use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
-
-use JTracker\Container;
 
 /**
  * Helper class for logging into the application via GitHub.
@@ -39,18 +38,21 @@ class GitHubLoginHelper
 	 */
 	private $clientSecret;
 
+	private $container = null;
+
 	/**
 	 * Constructor.
 	 *
-	 * @param   string  $clientId      The client id.
-	 * @param   string  $clientSecret  The client secret.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($clientId, $clientSecret)
+	public function __construct(Container $container)
 	{
-		$this->clientId     = $clientId;
-		$this->clientSecret = $clientSecret;
+		$this->container    = $container;
+
+		$this->clientId     = $this->container->get('app')->get('github.client_id');
+		$this->clientSecret = $this->container->get('app')->get('github.client_secret');
 	}
 
 	/**
@@ -63,7 +65,7 @@ class GitHubLoginHelper
 	public function getLoginUri()
 	{
 		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
+		$application = $this->container->get('app');
 
 		$redirect = $application->get('uri.base.full') . 'login';
 
@@ -95,7 +97,7 @@ class GitHubLoginHelper
 	public function requestToken($code)
 	{
 		// GitHub API works best with cURL
-		$options = new Registry;
+		$options   = new Registry;
 		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
 		$http = new Http($options, $transport);
@@ -159,7 +161,7 @@ class GitHubLoginHelper
 	 * @throws  \RuntimeException
 	 * @throws  \DomainException
 	 */
-	public static function saveAvatar($username)
+	public function saveAvatar($username)
 	{
 		$path = JPATH_THEMES . '/images/avatars/' . $username . '.png';
 
@@ -174,7 +176,7 @@ class GitHubLoginHelper
 		}
 
 		/* @type \Joomla\Github\Github $github */
-		$github = Container::retrieve('gitHub');
+		$github = $this->container->get('gitHub');
 
 		$ch = curl_init($github->users->get($username)->avatar_url);
 
@@ -210,7 +212,7 @@ class GitHubLoginHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function getAvatarPath(GitHubUser $user)
+	public function getAvatarPath(GitHubUser $user)
 	{
 		static $avatars = array();
 
@@ -237,10 +239,10 @@ class GitHubLoginHelper
 	 *
 	 * @since   1.0
 	 */
-	public static function setLastVisitTime($id)
+	public function setLastVisitTime($id)
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::retrieve('db');
+		$db = $this->container->get('db');
 
 		$date = new Date;
 

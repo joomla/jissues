@@ -21,20 +21,13 @@
     </style>
 {% endblock %}
 
-{% block prependMenu %}
-    {% if user.check("edit") %}
-        <li>
-            <a class="btn-warning" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-            {{ "Edit"|_ }}
-            </a>
-        </li>
-    {% endif %}
-
-    {{ parent() }}
-
-{% endblock %}
-
 {% block content %}
+
+    {% if not item %}
+        <div class="alert alert-danger">
+            {{ 'That issue does not exist, or the ID you typed is incorrect.'|_ }}
+        </div>
+    {% else %}
 
     <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
 
@@ -43,6 +36,16 @@
     <span class="pull-right">{{ item.labels|labels|raw }}</span>
 
     <ul class="breadcrumb">
+
+        {% if user.check("edit") %}
+            <li>
+                <a class="btn btn-warning"
+                   href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">
+                    {{ "Edit"|_ }}
+                </a>
+            </li>
+        {% endif %}
+
         <li>
             <span class="badge badge-{{ item.closed ? "important" : "success" }}">
                 {{ item.status_title|_ }}
@@ -90,7 +93,7 @@
         {% if project.gh_user and project.gh_project %}
             <li>
                 <i class="icon-github"></i>
-                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
                    target="_blank">
                     GitHub # {{ item.issue_number }}
                 </a>
@@ -99,7 +102,7 @@
             {% if item.has_code %}
                 <li>
                     &nbsp;&bull;&nbsp;
-                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/pull/{{ item.issue_number }}.diff"
+                    <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
                        target="_blank">
                         diff
                     </a>
@@ -304,6 +307,7 @@
         <a class="btn btn-success" href="{{ loginUrl }}">{{ "Login with GitHub to post a comment"|_ }}</a>
     {% endif %}
 
+    {% endif %}
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->

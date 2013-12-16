@@ -8,6 +8,10 @@
 
 namespace App\GitHub\Controller;
 
+use App\GitHub\View\Stats\StatsHtmlView;
+
+use Joomla\Github\Github;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -18,10 +22,33 @@ use JTracker\Controller\AbstractTrackerController;
 class Stats extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
+	 * @var  StatsHtmlView
 	 */
-	protected $defaultView = 'stats';
+	protected $view;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$project = $this->container->get('app')->getProject();
+
+		$gitHub = new Github;
+
+		$data = $gitHub->repositories->statistics->getListContributors(
+			$project->gh_user, $project->gh_project
+		);
+
+		$this->view->setProject($project);
+		$this->view->setData($data);
+
+		return $this;
+	}
 }

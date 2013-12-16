@@ -342,6 +342,11 @@ class Events extends Get
 						continue;
 						break;
 
+					case 'head_ref_deleted' :
+						// ?
+						continue;
+						break;
+
 					default:
 						throw new \UnexpectedValueException('Unknown event: ' . $event->event);
 						continue;
