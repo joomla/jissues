@@ -8,9 +8,6 @@
 
 namespace JTracker\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
-
 /**
  * Abstract controller for AJAX requests
  *
@@ -19,6 +16,8 @@ use Joomla\Input\Input;
 abstract class AbstractAjaxController extends AbstractTrackerController
 {
 	/**
+	 * AjaxResponse object.
+	 *
 	 * @var    AjaxResponse
 	 * @since  1.0
 	 */
@@ -27,14 +26,11 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct()
 	{
-		parent::__construct($input, $app);
+		parent::__construct();
 
 		$this->response = new AjaxResponse;
 	}
@@ -92,18 +88,24 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 class AjaxResponse
 {
 	/**
+	 * Data object.
+	 *
 	 * @var    \stdClass
 	 * @since  1.0
 	 */
 	public $data;
 
 	/**
+	 * Error message.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	public $error = '';
 
 	/**
+	 * Message string.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */

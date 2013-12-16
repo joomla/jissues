@@ -30,10 +30,10 @@ class GitHubProvider implements ServiceProviderInterface
 	 *
 	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
-	 * @throws  \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function register(JoomlaContainer $container)
 	{

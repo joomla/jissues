@@ -5,7 +5,7 @@
 
 {% block title %}Issues List{% endblock %}
 
-{% block headerText %}{{ project.title }}{% endblock %}
+{% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block headerCSS %}
     <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
@@ -98,12 +98,18 @@
                     {% endif %}
 
                     <tr{{ rowClass }}>
-                        <td class="center hidden-phone">
+                        <td class="center">
+                            {{ item.issue_number }}
+                            <!--
+                            @todo This is to retrieve extended information on an issue - review
+                            {#
                             <div class="btn btn-small issueInfo"
                                  title="{{ project.title }} # {{ item.issue_number }}"
                                  data-issue="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/info">
                                 {{ item.issue_number }}
                             </div>
+                            #}
+                            -->
                         </td>
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
@@ -179,7 +185,11 @@
 <!-- +  JavaScript templates  + -->
 <!-- ++++++++++++++++++++++++++ -->
 
-    <!-- @todo add much more info =;) -->
+
+    <!--
+    @todo This is to retrieve extended information on an issue - review
+
+    @todo add much more info =;)
 
 <script type="text/x-tmpl" id="tplIssueInfo">
     <ul class="unstyled">
@@ -187,7 +197,7 @@
         <li>Comments: [%= o.comment_count %]</li>
     </ul>
 </script>
-
+    -->
 {% endblock %}
 
 {% block JavaScriptBottom %}
@@ -200,6 +210,9 @@
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
+
+    /*
+     @todo This is to retrieve extended information on an issue - review
 
     $('*[data-issue]').click(
         function () {
@@ -214,6 +227,7 @@
             return false;
         }
     );
+    */
 
     var form = $('#issuesForm');
 

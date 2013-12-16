@@ -9,9 +9,9 @@
 namespace App\Support\View\Devdox;
 
 use App\Support\Model\DefaultModel;
+
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * The developer documentation view
@@ -29,6 +29,14 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
+	 * The page alias.
+	 *
+	 * @var string
+	 * @since   1.0
+	 */
+	protected $alias = '';
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -38,30 +46,20 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
-		$alias = $application->input->getCmd('alias');
-
-		if ($alias)
+		try
 		{
-			try
-			{
-				$item = $this->model->getItem($alias);
-				$this->renderer->set('page', $item->getIterator());
+			$alias = $this->getAlias();
 
-				$this->renderer->set(
-					'editLink',
-					'https://github.com/joomla/jissues/edit/framework/Documentation/'
-					. substr($alias, 4) . '.md'
-				);
-			}
-			catch (\RuntimeException $e)
-			{
-				throw new RoutingException($alias);
-			}
+			$item = $this->model->getItem($alias);
+			$this->renderer->set('page', $item->getIterator());
+
+			$this->renderer->set(
+				'editLink',
+				'https://github.com/joomla/jissues/edit/framework/Documentation/'
+				. substr($alias, 4) . '.md'
+			);
 		}
-		else
+		catch (\RuntimeException $e)
 		{
 			$pagePrefix = 'dox-';
 			$pages      = array();
@@ -90,5 +88,39 @@ class DevdoxHtmlView extends AbstractTrackerHtmlView
 		}
 
 		return parent::render();
+	}
+
+	/**
+	 * Get the page alias.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 * @throws \RuntimeException
+	 */
+	public function getAlias()
+	{
+		if ('' == $this->alias)
+		{
+			throw new \RuntimeException('Alias not set.');
+		}
+
+		return $this->alias;
+	}
+
+	/**
+	 * Set the page alias.
+	 *
+	 * @param   string  $alias  The page alias.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+
+		return $this;
 	}
 }

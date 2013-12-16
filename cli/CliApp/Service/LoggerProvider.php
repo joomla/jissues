@@ -47,7 +47,7 @@ class LoggerProvider implements ServiceProviderInterface
 	 * @param   string   $fileName  The name of the log file.
 	 * @param   boolean  $quiet     No output
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function __construct($fileName = '', $quiet = false)
 	{
@@ -60,10 +60,10 @@ class LoggerProvider implements ServiceProviderInterface
 	 *
 	 * @param   \Joomla\DI\Container  $container  The DI container.
 	 *
-	 * @throws \RuntimeException
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function register(JoomlaContainer $container)
 	{
@@ -79,7 +79,7 @@ class LoggerProvider implements ServiceProviderInterface
 					// Log to a file
 					$logger->pushHandler(
 						new StreamHandler(
-							$container->get('debugger')->getLogPath('root') . '/' . LoggerProvider::$ileName,
+							$container->get('debugger')->getLogPath('root') . '/' . LoggerProvider::$fileName,
 							Logger::INFO
 						)
 					);

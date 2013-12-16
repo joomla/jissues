@@ -27,7 +27,7 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$lines = file(JPATH_THEMES . '/css/template.css');
+		$lines = file(JPATH_THEMES . '/jtracker/core/css/template.css');
 
 		$icons = array();
 

@@ -8,16 +8,12 @@
 
 namespace App\Tracker\Model;
 
-use App\Projects\Table\ProjectsTable;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
 use Joomla\Filter\InputFilter;
-use Joomla\Registry\Registry;
-use Joomla\String\String;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Container;
 
 /**
  * Model to get data for the issue list view
@@ -47,25 +43,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($identifier = null)
 	{
-		$app = Container::retrieve('app');
-
 		if (!$identifier)
 		{
-			$identifier = $app->input->getUint('id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
+			return  new IssuesTable($this->db);
 		}
-
-		$project = $app->getProject();
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('i.*')
 				->from($this->db->quoteName('#__issues', 'i'))
-				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $project->project_id)
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
 				->where($this->db->quoteName('i.issue_number') . ' = ' . (int) $identifier)
 
 				// Join over the status table
@@ -97,7 +84,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		if (!$item)
 		{
-			throw new \RuntimeException('Invalid Issue');
+			throw new \RuntimeException('Invalid Issue', 1);
 		}
 
 		// Fetch activities
@@ -106,7 +93,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$query->select('a.*');
 		$query->from($this->db->quoteName($table->getTableName(), 'a'));
-		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $project->project_id);
+		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $this->getProject()->project_id);
 		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
 
@@ -154,34 +141,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		return $item;
-	}
-
-	/**
-	 * Get a project.
-	 *
-	 * @param   integer  $identifier  The project identifier.
-	 *
-	 * @return  ProjectsTable
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject($identifier = null)
-	{
-		if (!$identifier)
-		{
-			$app = Container::retrieve('app');
-			$identifier = $app->input->getUint('project_id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
-		}
-
-		$table = new ProjectsTable($this->db);
-
-		return $table->load($identifier);
 	}
 
 	/**
@@ -284,9 +243,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function vote($id, $experienced, $importance)
 	{
-		$db = $this->getDb();
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
 
-		$table = new IssuesTable($db);
+		$table = new IssuesTable($this->db);
 		$table->load($id);
 
 		// Insert a new record if no vote_id is associated
@@ -298,8 +258,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				$db->quoteName('score')
 			);
 
-			$query = $db->getQuery()
-				->insert($db->quoteName('#__issues_voting'))
+			$query->insert($db->quoteName('#__issues_voting'))
 				->columns($columnsArray)
 				->values(
 					'1, '
@@ -309,8 +268,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 		else
 		{
-			$query = $db->getQuery()
-				->update($db->quoteName('#__issues_voting'))
+			$query->update($db->quoteName('#__issues_voting'))
 				->set($db->quoteName('votes') . ' = ' . $db->quoteName('votes') . ' + 1')
 				->set($db->quoteName('experienced') . ' = ' . $db->quoteName('experienced') . ' + ' . $experienced)
 				->set($db->quoteName('score') . ' = ' . $db->quoteName('score') . ' + ' . $importance)
@@ -319,22 +277,33 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$db->setQuery($query)->execute();
 
+		$insertId = $db->insertid();
+
 		// Add the vote_id if a new record
 		if (is_null($table->vote_id))
 		{
-			$query = $db->getQuery()
+			$query->clear()
 				->update($db->quoteName('#__issues'))
-				->set($db->quoteName('vote_id') . ' = ' . $db->insertid())
+				->set($db->quoteName('vote_id') . ' = ' . (int) $insertId)
 				->where($db->quoteName('id') . ' = ' . (int) $table->id);
 
 			$db->setQuery($query)->execute();
 		}
 
 		// Get the updated vote data to update the display
+		if (is_null($table->vote_id))
+		{
+			$voteId = $insertId;
+		}
+		else
+		{
+			$voteId = $table->vote_id;
+		}
+
 		$query->clear()
 			->select('*')
 			->from($db->quoteName('#__issues_voting'))
-			->where($db->quoteName('id') . ' = ' . (int) $table->id);
+			->where($db->quoteName('id') . ' = ' . (int) $voteId);
 
 		return $db->setQuery($query)->loadObject();
 	}

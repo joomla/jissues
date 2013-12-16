@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -30,7 +32,15 @@ class Comments extends Get
 	protected $comments = array();
 
 	/**
-	 * Array containing the issues from the database and their GitHub ID
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Retrieve comments from GitHub.';
+
+	/**
+	 * Array containing the issues from the database and their GitHub ID.
 	 *
 	 * @var    array
 	 * @since  1.0
@@ -38,12 +48,16 @@ class Comments extends Get
 	protected $issues;
 
 	/**
+	 * Lowest issue to fetch.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
 	protected $rangeFrom = 0;
 
 	/**
+	 * Highest issue to fetch.
+	 *
 	 * @var    integer
 	 * @since  1.0
 	 */
@@ -58,8 +72,6 @@ class Comments extends Get
 	{
 		parent::__construct();
 
-		$this->description = 'Retrieve comments from GitHub.';
-
 		$this->addOption(
 			new TrackerCommandOption(
 				'issue', '',
@@ -71,13 +83,6 @@ class Comments extends Get
 				'Process all issues.'
 			)
 		);
-
-		$this->usePBar = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**
@@ -106,7 +111,7 @@ class Comments extends Get
 	/**
 	 * Select the range of issues to process.
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -148,7 +153,7 @@ class Comments extends Get
 	/**
 	 * Method to get the GitHub issues from the database
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -180,7 +185,7 @@ class Comments extends Get
 	/**
 	 * Method to get the comments on items from GitHub
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -234,7 +239,7 @@ class Comments extends Get
 	/**
 	 * Method to process the list of issues and inject into the database as needed
 	 *
-	 * @return  Comments
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */

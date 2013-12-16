@@ -1,12 +1,14 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Make;
 
-use CliApp\Application\CliApplication;
+use CliApp\Command\TrackerCommandOption;
 
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
@@ -19,28 +21,54 @@ use Mustache_Loader_FilesystemLoader;
 class Depfile extends Make
 {
 	/**
-	 * @var  object
-	 * @since   1.0
+	 * Product object.
+	 *
+	 * @var    object
+	 * @since  1.0
 	 */
 	public $product = null;
 
 	/**
-	 * @var array
-	 * @since   1.0
+	 * Dependencies.
+	 *
+	 * @var    array
+	 * @since  1.0
 	 */
 	public $dependencies = array();
 
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @param   CliApplication  $application  The application object.
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Create and update a dependency file.';
+
+	/**
+	 * Target file name.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $fileName = '';
+
+	/**
+	 * Constructor.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(CliApplication $application)
+	public function __construct()
 	{
-		$this->application = $application;
-		$this->description = 'Create and update a dependency file.';
+		parent::__construct();
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'file', 'f',
+				'Write output to a file.'
+			)
+		);
+
+		$this->fileName = $this->application->input->getPath('file', $this->application->input->getPath('f'));
 	}
 
 	/**
@@ -58,6 +86,7 @@ class Depfile extends Make
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
+		$defined['credits']  = json_decode(file_get_contents(JPATH_ROOT . '/credits.json'));
 
 		$installed = json_decode(file_get_contents(JPATH_ROOT . '/vendor/composer/installed.json'));
 
@@ -95,19 +124,23 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-		echo with(new Mustache_Engine)
+		$contents = with(new Mustache_Engine)
 			->render(
 				with(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
 					->load('depfile'),
 				$this
 			);
 
-		// @todo write to a file
-		// $m = new Mustache_Engine;
-		// $loader = new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'));
-		// $tpl = $loader->load('deplist');
+		if ($this->fileName)
+		{
+			$this->out('Writing contents to: ' . $this->fileName);
 
-		// $output = $m->render($tpl, $this);
+			file_put_contents($this->fileName, $contents);
+		}
+		else
+		{
+			echo $contents;
+		}
 
 		$this->out()
 			->out('Finished =;)');
@@ -148,16 +181,27 @@ class Depfile extends Make
 
 				if (isset($packages['composer'][$packageName]))
 				{
-					$package = $packages['composer'][$packageName];
+					$item->description = $packages['composer'][$packageName]->description;
+					$item->installed   = $packages['composer'][$packageName]->version;
+					$item->sourceURL   = $packages['composer'][$packageName]->sourceURL;
 
-					$item->description = $package->description;
-					$item->installed   = $package->version;
-					$item->sourceURL   = $package->sourceURL;
-
-					if ('dev-master' == $package->version)
+					if ('dev-master' == $packages['composer'][$packageName]->version)
 					{
-						$item->sourceRef = $package->sourceRef;
+						$item->sourceRef = $packages['composer'][$packageName]->sourceRef;
 					}
+				}
+				elseif (0 === strpos($packageName, 'joomla/'))
+				{
+					// Composer automagically installs the whole Joomla! Framework.
+					// Add a special handling...
+
+					$item->description = $packages['composer']['joomla/framework']->description;
+					$item->installed   = $packages['composer']['joomla/framework']->version;
+					$item->sourceURL   = preg_replace(
+						'/framework.git/',
+						'framework-'. substr($packageName, strpos($packageName, '/') + 1) .'.git',
+						$packages['composer']['joomla/framework']->sourceURL
+					);
 				}
 
 				$items[] = $item;
@@ -168,22 +212,24 @@ class Depfile extends Make
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
 		{
-			$package = $packages['bower'][$packageName];
+			$installed = $packages['bower'][$packageName];
 
 			$item = new \stdClass;
 
 			$item->packageName = $packageName;
 			$item->version     = $version;
 			$item->description = '';
-			$item->sourceURL   = $package->sourceURL;
+			$item->sourceURL   = $installed->sourceURL;
 
-			if ($package->description)
+			if ($installed->description)
 			{
-				$item->description = $package->description;
+				$item->description = $installed->description;
 			}
 
 			$sorted['javascript'][] = $item;
 		}
+
+		$sorted['credits'] = $defined['credits'];
 
 		return $sorted;
 	}

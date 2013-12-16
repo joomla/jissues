@@ -11,8 +11,8 @@ namespace App\Text\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\OutputFilter;
 
+use Joomla\Github\Github;
 use JTracker\Database\AbstractDatabaseTable;
-use JTracker\Container;
 
 /**
  * Table interface class for the #__articles table
@@ -28,6 +28,10 @@ use JTracker\Container;
  */
 class ArticlesTable extends AbstractDatabaseTable
 {
+	/**
+	 * @var  Github
+	 */
+	protected $gitHub = null;
 	/**
 	 * Constructor
 	 *
@@ -120,13 +124,44 @@ class ArticlesTable extends AbstractDatabaseTable
 			$this->created_date = with(new \DateTime)->format('Y-m-d H:i:s');
 		}
 
-		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = Container::retrieve('gitHub');
-
 		// Render markdown
-		$this->text = $gitHub->markdown
+		$this->text = $this->getGitHub()->markdown
 			->render($this->text_md);
 
 		return parent::store($updateNulls);
+	}
+
+	/**
+	 * Get the GitHub object.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return \Joomla\Github\Github
+	 *
+	 * @since   1.0
+	 */
+	public function getGitHub()
+	{
+		if (is_null($this->gitHub))
+		{
+			throw new \UnexpectedValueException('GitHub object not set.');
+		}
+
+		return $this->gitHub;
+	}
+
+	/**
+	 * Set the GitHub object.
+	 *
+	 * @param   Github  $gitHub  The GitHub object.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setGitHub(Github $gitHub)
+	{
+		$this->gitHub = $gitHub;
+
+		return $this;
 	}
 }

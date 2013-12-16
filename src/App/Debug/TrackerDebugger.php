@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -8,17 +10,18 @@ namespace App\Debug;
 
 use g11n\g11n;
 
-use Joomla\Application\AbstractApplication;
+use Joomla\DI\Container;
 use Joomla\Profiler\Profiler;
-
 use Joomla\Utilities\ArrayHelper;
+
 use JTracker\Application;
-use JTracker\Container;
 
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 use App\Debug\Handler\ProductionHandler;
+
+use JTracker\View\Renderer\TrackerExtension;
 
 use Kint;
 
@@ -41,41 +44,57 @@ use Whoops\Run;
 class TrackerDebugger implements LoggerAwareInterface
 {
 	/**
+	 * Application object.
+	 *
 	 * @var    Application
 	 * @since  1.0
 	 */
 	private $application;
 
 	/**
+	 * Log array.
+	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	private $log = array();
 
 	/**
+	 * Profiler object.
+	 *
 	 * @var    Profiler
 	 * @since  1.0
 	 */
 	private $profiler;
 
 	/**
+	 * Logger object.
+	 *
 	 * @var    Logger
 	 * @since  1.0
 	 */
 	private $logger;
 
 	/**
+	 * @var  Container
+	 * @since  1.0
+	 */
+	private $container;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   AbstractApplication  $application  The application
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(AbstractApplication $application)
+	public function __construct(Container $container)
 	{
-		$this->application = $application;
+		$this->container = $container;
 
-		$this->profiler = $application->get('debug.system') ? new Profiler('Tracker') : null;
+		$this->application = $container->get('app');
+
+		$this->profiler = $container->get('app')->get('debug.system') ? new Profiler('Tracker') : null;
 
 		$this->setupLogging();
 
@@ -119,7 +138,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
 			$logger->pushProcessor(new WebProcessor);
 
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 			$db->setLogger($logger);
 			$db->setDebug(true);
 		}
@@ -173,7 +192,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function addDatabaseEntry($record)
 	{
-		// $db = Container::retrieve('db');
+		// $db = $this->container->get('db');
 
 		if (false == isset($record['context']))
 		{
@@ -245,8 +264,6 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function getOutput()
 	{
-		$navigation = $this->getNavigation();
-
 		$debug = array();
 
 		// Check if debug is only displayed for admin users
@@ -276,12 +293,12 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			$debug[] = '<div id="dbgUser">';
 			$debug[] = '<h3>' . g11n3t('User') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('user'));
+			$debug[] = @Kint::dump($this->application->getUser());
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgProject">';
 			$debug[] = '<h3>' . g11n3t('Project') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
+			$debug[] = @Kint::dump($this->application->getProject());
 			$debug[] = '</div>';
 		}
 
@@ -303,7 +320,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			return '';
 		}
 
-		return implode("\n", $navigation) . implode("\n", $debug);
+		return implode("\n", $this->getNavigation()) . implode("\n", $debug);
 	}
 
 	/**
@@ -330,6 +347,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			span.dbgOperator { color: red; }
 			div:target { border: 2px dashed orange; padding: 5px; padding-top: 100px; }
 			div:target { transition:all 0.5s ease; }
+			body { margin-bottom: 50px; }
 		</style>
 		';
 
@@ -389,10 +407,22 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.system'))
 		{
-			$user    = $this->application->getSession()->get('user');
-			$project = $this->application->getSession()->get('project');
+			$user    = $this->application->getUser();
+			$project = $this->application->getProject();
 
 			$title = $project ? $project->title : g11n3t('No Project');
+
+			// Add build commit if available
+			if (file_exists(JPATH_ROOT . '/current_SHA'))
+			{
+				$build = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
+			}
+			// Fall back to composer.json version
+			else
+			{
+				$composer = json_decode(trim(file_get_contents(JPATH_ROOT . '/composer.json')));
+				$build    = $composer->version;
+			}
 
 			$navigation[] = '<li class="hasTooltip"'
 				. ' title="' . g11n3t('User') . '">'
@@ -405,6 +435,16 @@ class TrackerDebugger implements LoggerAwareInterface
 				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
 				. $title
 				. '</span></a></li>';
+
+			// Display the build to admins
+			if ($this->application->getUser()->isAdmin)
+			{
+				$navigation[] = '<li class="hasTooltip"'
+					. ' title="' . g11n3t('Build') . '">'
+					. '<a href="#"><i class="icon icon-broadcast"></i> <span class="badge">'
+					. $build
+					. '</span></a></li>';
+			}
 		}
 
 		$navigation[] = '</ul>';
@@ -464,7 +504,12 @@ class TrackerDebugger implements LoggerAwareInterface
 			$items[] = ArrayHelper::fromObject($e);
 		}
 
-		$pluralInfo = sprintf(g11n3t('Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'), g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'));
+		$pluralInfo = sprintf(
+			g11n3t(
+				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
+			g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'
+			)
+		);
 
 		return $tableFormat->fromArray($items) . $pluralInfo;
 	}
@@ -494,6 +539,9 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		$view = new \JTracker\View\TrackerDefaultView;
+
+		$renderer = $view->getRenderer();
+		$renderer->addExtension(new TrackerExtension($this->container));
 
 		$message = '';
 
@@ -604,7 +652,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$tableFormat = new TableFormat;
 		$sqlFormat   = new SqlFormat;
-		$dbDebugger  = new DatabaseDebugger(Container::retrieve('db'));
+		$dbDebugger  = new DatabaseDebugger($this->container->get('db'));
 
 		$debug[] = sprintf(g11n4t('One database query', '%d database queries', count($dbLog)), count($dbLog));
 

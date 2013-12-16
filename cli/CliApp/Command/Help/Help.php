@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -38,7 +40,9 @@ class Help extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return void
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	public function execute()
 	{
@@ -75,9 +79,9 @@ class Help extends TrackerCommand
 		{
 			$this->out('<cmd>' . $cName . '</cmd>');
 
-			if ($command->description)
+			if ($command->getDescription())
 			{
-				$this->out('    ' . $command->description);
+				$this->out('    ' . $command->getDescription());
 			}
 
 			$this->out();
@@ -113,7 +117,7 @@ class Help extends TrackerCommand
 		if (false == array_key_exists($command, $this->commands))
 		{
 			$this->out()
-				->out('Unknown command: ' . $command);
+				->out('Unknown: ' . $command);
 
 			return;
 		}
@@ -125,7 +129,7 @@ class Help extends TrackerCommand
 
 		$this->out('Command: <b>' . $command . '</b>' . ($actions ? ' <cmd><action></cmd>' : ''))
 			->out()
-			->out('    ' . $c->description);
+			->out('    ' . $c->getDescription());
 
 		if ($c->options)
 		{
@@ -144,10 +148,11 @@ class Help extends TrackerCommand
 				->out('  Available <cmd>actions</cmd>:')
 			->out();
 
+			/* @type TrackerCommand $action */
 			foreach ($actions as $aName => $action)
 			{
 				$this->out('<cmd>' . $aName . '</cmd>')
-					->out('    ' . $action->description);
+					->out('    ' . $action->getDescription());
 
 				if ($action->options)
 				{
@@ -168,7 +173,7 @@ class Help extends TrackerCommand
 	 *
 	 * @param   TrackerCommandOption  $option  The command option.
 	 *
-	 * @return  TrackerCommand
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -187,9 +192,10 @@ class Help extends TrackerCommand
 	 *
 	 * @return  array
 	 *
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
-	private function getCommands()
+	public function getCommands()
 	{
 		$commands = array();
 
@@ -204,6 +210,11 @@ class Help extends TrackerCommand
 			$c = $fileInfo->getFilename();
 
 			$className = "CliApp\\Command\\$c\\$c";
+
+			if (false == class_exists($className))
+			{
+				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
+			}
 
 			$commands[strtolower($c)] = new $className($this->application);
 		}
@@ -220,7 +231,7 @@ class Help extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	protected function getActions($commandName)
+	public function getActions($commandName)
 	{
 		$actions = array();
 		$cName = ucfirst($commandName);
@@ -228,7 +239,7 @@ class Help extends TrackerCommand
 		/* @var \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/../' . $cName) as $fileInfo)
 		{
-			if ($fileInfo->isDot())
+			if ($fileInfo->isDot() || $fileInfo->isDir())
 			{
 				continue;
 			}

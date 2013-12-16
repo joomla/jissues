@@ -18,12 +18,16 @@ use JTracker\Authentication\User;
 class GitHubUser extends User
 {
 	/**
+	 * Avatar url.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	public $avatar_url;
 
 	/**
+	 * Avatar name.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */

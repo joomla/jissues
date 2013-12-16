@@ -1,12 +1,12 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Command\Make;
-
-use CliApp\Application\CliApplication;
 
 use g11n\g11n;
 use g11n\Language\Storage;
@@ -28,17 +28,12 @@ use Twig_Loader_Filesystem;
 class Langtemplates extends Make
 {
 	/**
-	 * Constructor.
+	 * The command "description" used for help texts.
 	 *
-	 * @param   CliApplication  $application  The application object.
-	 *
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
-	public function __construct(CliApplication $application)
-	{
-		$this->application = $application;
-		$this->description = 'Create language file templates.';
-	}
+	protected $description = 'Create language file templates.';
 
 	/**
 	 * Execute the command.
@@ -178,8 +173,10 @@ class Langtemplates extends Make
 	 * @param   array   $paths         Paths with source file.
 	 * @param   string  $templatePath  The path to store the templates.
 	 *
-	 * @throws \Exception
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	protected function processTemplates($extension, $domain, $type, array $paths, $templatePath)
 	{
@@ -248,7 +245,7 @@ class Langtemplates extends Make
 		{
 			$this->processConfigFiles($cleanFiles, $templatePath);
 		}
-		else //
+		else
 		{
 			$fileList = implode("\n", $cleanFiles);
 
@@ -288,7 +285,9 @@ class Langtemplates extends Make
 	 * @param   string  $search    The file extension to search for.
 	 * @param   array   $excludes  Files to exclude.
 	 *
-	 * @return array
+	 * @return  array
+	 *
+	 * @since   1.0
 	 */
 	private function getCleanFiles($path, $search, $excludes)
 	{
@@ -328,9 +327,10 @@ class Langtemplates extends Make
 	 * @param   array   $cleanFiles    Source files to process.
 	 * @param   string  $templatePath  The path to store the template.
 	 *
-	 * @since  1.0
-	 * @throws \Exception
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	private function processConfigFiles($cleanFiles, $templatePath)
 	{
@@ -392,8 +392,9 @@ class Langtemplates extends Make
 	 * @param   string  $twigDir   Path to twig templates.
 	 * @param   string  $cacheDir  Path to cache dir.
 	 *
-	 * @since  1.0
-	 * @return $this
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	protected function makePhpFromTwig($twigDir, $cacheDir)
 	{
@@ -432,11 +433,10 @@ class Langtemplates extends Make
 	 * @param   string  $twigPath      Path to the compiled twig files.
 	 * @param   string  $templateFile  Path to the template file.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
-	 * @throws \RuntimeException
-	 *
-	 * @since  1.0
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	private function replacePaths($sourcePath, $twigPath, $templateFile)
 	{
@@ -511,9 +511,9 @@ class Langtemplates extends Make
 	 *
 	 * @param   string  $dir  The directory to delete.
 	 *
-	 * @return bool
+	 * @return  bool
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	private function delTree($dir)
 	{

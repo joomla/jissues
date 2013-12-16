@@ -18,14 +18,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Articles extends AbstractTrackerController
 {
 	/**
-	 * The list view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'articles';
-
-	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -34,7 +26,7 @@ class Articles extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
 		parent::execute();
 	}

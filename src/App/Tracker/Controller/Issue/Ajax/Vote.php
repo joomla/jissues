@@ -10,6 +10,7 @@ namespace App\Tracker\Controller\Issue\Ajax;
 
 use App\Tracker\Model\IssueModel;
 
+use Joomla\Input\Input;
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -29,9 +30,12 @@ class Vote extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$issue       = $this->getInput()->getUint('issue_number');
-		$experienced = $this->getInput()->getInt('experienced');
-		$importance  = $this->getInput()->getInt('importance');
+		/* @type Input $input */
+		$input = $this->container->get('app')->input;
+
+		$issue       = $input->getUint('issueId');
+		$experienced = $input->getInt('experienced');
+		$importance  = $input->getInt('importance');
 
 		if (!$issue)
 		{
@@ -43,7 +47,7 @@ class Vote extends AbstractAjaxController
 			throw new \Exception('Issue importance not received');
 		}
 
-		$model = new IssueModel;
+		$model = new IssueModel($this->container->get('db'));
 
 		$data = $model->vote($issue, $experienced, $importance);
 

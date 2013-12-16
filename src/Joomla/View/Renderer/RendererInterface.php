@@ -1,5 +1,7 @@
 <?php
 /**
+ * Part of the Joomla! framework ¿ .
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -17,7 +19,7 @@ interface RendererInterface
 	 * Render and return compiled HTML.
 	 *
 	 * @param   string  $template  The template file name
-	 * @param   mixed   $data      The data to pass to the template
+	 * @param   array   $data      The data to pass to the template
 	 *
 	 * @return  string  compiled HTML
 	 *
