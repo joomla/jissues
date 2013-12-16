@@ -14,8 +14,8 @@ use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Utilities\ArrayHelper;
 
+use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Database\AbstractDatabaseTable;
-use JTracker\Container;
 
 /**
  * Table interface class for the #__issues table
@@ -24,6 +24,7 @@ use JTracker\Container;
  * @property   integer  $issue_number     THE issue number (ID)
  * @property   integer  $foreign_number   Foreign tracker id
  * @property   integer  $project_id       Project id
+ * @property   integer  $milestone_id     Milestone id if applicable
  * @property   string   $title            Issue title
  * @property   string   $description      Issue description
  * @property   string   $description_raw  The raw issue description (markdown)
@@ -63,18 +64,23 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @var    IssuesTable
 	 * @since  1.0
 	 */
-	protected $oldObject;
+	protected $oldObject = null;
+
+	/**
+	 * @var  GitHubUser
+	 */
+	protected $user = null;
 
 	/**
 	 * Constructor
 	 *
-	 * @param   DatabaseDriver  $db  A database connector object
+	 * @param   DatabaseDriver  $database  A database connector object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $db)
+	public function __construct(DatabaseDriver $database)
 	{
-		parent::__construct('#__issues', 'id', $db);
+		parent::__construct('#__issues', 'id', $database);
 	}
 
 	/**
@@ -194,9 +200,6 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
 		$isNew = ($this->id < 1);
 		$date  = new Date;
 		$date  = $date->format($this->db->getDateFormat());
@@ -211,7 +214,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 			if (!$this->modified_by)
 			{
-				$this->modified_by = $application->getUser()->username;
+				$this->modified_by = $this->getUser()->username;
 			}
 		}
 		else
@@ -388,5 +391,39 @@ class IssuesTable extends AbstractDatabaseTable
 		}
 
 		return $fields;
+	}
+
+	/**
+	 * Get the user.
+	 *
+	 * @throws \RuntimeException
+	 * @return \JTracker\Authentication\GitHub\GitHubUser
+	 *
+	 * @since   1.0
+	 */
+	public function getUser()
+	{
+		if (is_null($this->user))
+		{
+			throw new \RuntimeException('User not set');
+		}
+
+		return $this->user;
+	}
+
+	/**
+	 * Set the user.
+	 *
+	 * @param   GitHubUser  $user  The user.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setUser(GitHubUser $user)
+	{
+		$this->user = $user;
+
+		return $this;
 	}
 }

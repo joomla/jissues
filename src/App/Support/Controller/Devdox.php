@@ -8,6 +8,8 @@
 
 namespace App\Support\Controller;
 
+use App\Support\View\Devdox\DevdoxHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -18,10 +20,22 @@ use JTracker\Controller\AbstractTrackerController;
 class Devdox extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
+	 * @var DevdoxHtmlView
 	 */
-	protected $defaultView = 'devdox';
+	protected $view = null;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setAlias($this->container->get('app')->input->getCmd('alias'));
+	}
 }

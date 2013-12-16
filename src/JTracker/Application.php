@@ -15,8 +15,7 @@ use App\Projects\TrackerProject;
 use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\Controller\ControllerInterface;
-use Joomla\Event\Dispatcher;
+use Joomla\DI\Container;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -40,14 +39,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 final class Application extends AbstractWebApplication
 {
-	/**
-	 * The Dispatcher object.
-	 *
-	 * @var    Dispatcher
-	 * @since  1.0
-	 */
-	protected $dispatcher;
-
 	/**
 	 * The name of the application.
 	 *
@@ -82,6 +73,12 @@ final class Application extends AbstractWebApplication
 	private $project;
 
 	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -92,7 +89,7 @@ final class Application extends AbstractWebApplication
 		parent::__construct();
 
 		// Build the DI Container
-		Container::getInstance()
+		$this->container = with(new Container)
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
@@ -100,7 +97,6 @@ final class Application extends AbstractWebApplication
 			->registerServiceProvider(new GitHubProvider);
 
 		$this->loadLanguage()
-			->loadDispatcher()
 			->mark('Application started');
 	}
 
@@ -113,7 +109,7 @@ final class Application extends AbstractWebApplication
 	 */
 	public function getDebugger()
 	{
-		return Container::retrieve('debugger');
+		return $this->container->get('debugger');
 	}
 
 	/**
@@ -128,7 +124,7 @@ final class Application extends AbstractWebApplication
 		try
 		{
 			// Instantiate the router
-			$router = new TrackerRouter($this->input, $this);
+			$router = new TrackerRouter($this->container, $this->input);
 			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
@@ -144,13 +140,23 @@ final class Application extends AbstractWebApplication
 			/* @type AbstractTrackerController $controller */
 			$controller = $router->getController($this->get('uri.route'));
 
+			$this->mark('Controller->initialize()');
+
+			$controller->initialize();
+
+			// Execute the App
+
 			// Define the app path
-			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getComponent()));
+			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
 
-			// Execute the component
-			$contents = $this->executeApp($controller, $controller->getComponent());
+			// Load the App language file
+			g11n::loadLanguage($controller->getApp(), 'App');
 
-			$this->mark('Application terminated');
+			$this->mark('Controller->execute()');
+
+			$contents = $controller->execute();
+
+			$this->mark('Application terminated OK');
 
 			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
 
@@ -210,7 +216,7 @@ final class Application extends AbstractWebApplication
 	 */
 	public function mark($text)
 	{
-		if (JDEBUG)
+		if ($this->get('debug.system'))
 		{
 			$this->getDebugger()->mark($text);
 		}
@@ -236,30 +242,6 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
-	 * Execute the App.
-	 *
-	 * @param   ControllerInterface  $controller  The controller instance to execute
-	 * @param   string               $app         The App being executed.
-	 *
-	 * @return  string The App output
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	protected function executeApp(ControllerInterface $controller, $app)
-	{
-		// Load the App language file
-		g11n::loadLanguage($app, 'App');
-
-		// Start an output buffer.
-		ob_start();
-
-		$controller->execute();
-
-		return ob_get_clean();
-	}
-
-	/**
 	 * Provides a secure hash based on a seed
 	 *
 	 * @param   string  $seed  Seed string.
@@ -270,9 +252,11 @@ final class Application extends AbstractWebApplication
 	 */
 	public static function getHash($seed)
 	{
-		$app = Container::retrieve('app');
+		// WTF...
 
-		return md5($app->get('acl.secret') . $seed);
+		return 'UNSUPPORTED';
+
+		// @return md5($this->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -287,6 +271,7 @@ final class Application extends AbstractWebApplication
 		if (is_null($this->newSession))
 		{
 			$this->newSession = new Session;
+
 			$this->newSession->start();
 
 			$registry = $this->newSession->get('registry');
@@ -313,13 +298,13 @@ final class Application extends AbstractWebApplication
 	{
 		if ($id)
 		{
-			return new GitHubUser($id);
+			return new GitHubUser($this->getProject(), $this->container->get('db'), $id);
 		}
 
 		if (is_null($this->user))
 		{
 			$this->user = ($this->getSession()->get('jissues_user'))
-				? : new GitHubUser;
+				? : new GitHubUser($this->getProject(), $this->container->get('db'));
 		}
 
 		return $this->user;
@@ -344,13 +329,19 @@ final class Application extends AbstractWebApplication
 				$lang = g11n::getDefault();
 			}
 
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown default language - Fall back to British.
+				$lang = 'en-GB';
+			}
+
 			// Store the language tag to the session.
 			$this->getSession()->set('lang', $lang);
 		}
 		else
 		{
-			// Get the language tag from the session.
-			$lang = $this->getSession()->get('lang');
+			// Get the language tag from the session - Default to British.
+			$lang = $this->getSession()->get('lang', 'en-GB');
 		}
 
 		if ($lang)
@@ -359,10 +350,10 @@ final class Application extends AbstractWebApplication
 			g11n::setCurrent($lang);
 		}
 
-		// Set language debugging
+		// Set language debugging.
 		g11n::setDebug($this->get('debug.language'));
 
-		// Set the directory used to store language cache files
+		// Set the language cache directory.
 		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
 		{
 			g11n::setCacheDir('/tmp');
@@ -372,7 +363,7 @@ final class Application extends AbstractWebApplication
 			g11n::setCacheDir(JPATH_ROOT . '/cache');
 		}
 
-		// Load the core language file
+		// Load the core language file.
 		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
 		g11n::loadLanguage('JTracker', 'Core');
 
@@ -380,14 +371,14 @@ final class Application extends AbstractWebApplication
 		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
 		g11n::loadLanguage('JTracker', 'Template');
 
-		// Add the App domain path
+		// Add the App domain path.
 		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 
 		if ($this->get('debug.system')
-		|| $this->get('debug.database')
-		|| $this->get('debug.language'))
+			|| $this->get('debug.database')
+			|| $this->get('debug.language'))
 		{
-			// Load the Debug App language file
+			// Load the Debug App language file.
 			g11n::loadLanguage('Debug', 'App');
 		}
 
@@ -399,6 +390,7 @@ final class Application extends AbstractWebApplication
 	 *
 	 * @param   User  $user  The user object.
 	 *
+	 * @throws \UnexpectedValueException
 	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
@@ -408,13 +400,13 @@ final class Application extends AbstractWebApplication
 		if (is_null($user))
 		{
 			// Logout
-			$this->user = new GitHubUser;
+			$this->user = new GitHubUser($this->getProject(), $this->container->get('db'));
 
 			$this->getSession()->set('jissues_user', $this->user);
 
 			// @todo cleanup more ?
 		}
-		else
+		elseif($user instanceof User)
 		{
 			// Login
 			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
@@ -422,6 +414,10 @@ final class Application extends AbstractWebApplication
 			$this->user = $user;
 
 			$this->getSession()->set('jissues_user', $user);
+		}
+		else
+		{
+			throw new \UnexpectedValueException('Wrong parameter when instantiating a new user object.');
 		}
 
 		return $this;
@@ -543,30 +539,11 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
-	 * Allows the application to load a custom or default dispatcher.
-	 *
-	 * The logic and options for creating this object are adequately generic for default cases
-	 * but for many applications it will make sense to override this method and create event
-	 * dispatchers, if required, based on more specific needs.
-	 *
-	 * @param   Dispatcher  $dispatcher  An optional dispatcher object. If omitted, the factory dispatcher is created.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function loadDispatcher(Dispatcher $dispatcher = null)
-	{
-		$this->dispatcher = ($dispatcher === null) ? new Dispatcher : $dispatcher;
-
-		return $this;
-	}
-
-	/**
 	 * Get the current project.
 	 *
 	 * @param   boolean  $reload  Reload the project.
 	 *
+	 * @throws \InvalidArgumentException
 	 * @return  TrackerProject
 	 *
 	 * @since   1.0
@@ -575,71 +552,45 @@ final class Application extends AbstractWebApplication
 	{
 		if (is_null($this->project) || $reload)
 		{
-			$this->loadProject($reload);
-		}
+			$alias = $this->input->get('project_alias');
 
-		return $this->project;
-	}
-
-	/**
-	 * Load the current project.
-	 *
-	 * @param   boolean  $reload  Reload the project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 * @throws  \InvalidArgumentException
-	 */
-	private function loadProject($reload = false)
-	{
-		$alias = $this->input->get('project_alias');
-
-		$sessionProject = $this->getSession()->get('project');
-
-		if ($alias)
-		{
-			// A Project is set
-			if ($sessionProject
-				&& $alias == $sessionProject->alias
-				&& false == $reload)
+			if ($alias)
 			{
-				// Use the Project stored in the session
-				$this->project = $sessionProject;
+				// Change the project
+				$project = with(new ProjectModel($this->container->get('db')))
+					->getByAlias($alias);
 
-				return $this;
-			}
-
-			// Change the project
-			$projectModel = new ProjectModel;
-			$project = $projectModel->getByAlias($alias);
-
-			if (!$project)
-			{
-				// No project...
-				throw new \InvalidArgumentException('Invalid project');
-			}
-		}
-		else
-		{
-			// No Project set
-			if ($sessionProject)
-			{
-				// No Project set - use the session Project.
-				$project = $sessionProject;
+				if (!$project)
+				{
+					// No project...
+					throw new \InvalidArgumentException('Invalid project');
+				}
 			}
 			else
 			{
-				// Nothing found - Set a default project !
-				$projectModel = new ProjectModel;
-				$project = $projectModel->getItem(1);
+				$sessionAlias = $this->getSession()->get('project_alias');
+
+				// No Project set
+				if ($sessionAlias)
+				{
+					// Found a session Project.
+					$project = with(new ProjectModel($this->container->get('db')))
+						->getByAlias($sessionAlias);
+				}
+				else
+				{
+					// Nothing found - Get a default project !
+					$project = with(new ProjectModel($this->container->get('db')))
+						->getItem(1);
+				}
 			}
+
+			$this->getSession()->set('project_alias', $project->alias);
+			$this->input->set('project_id', $project->project_id);
+
+			$this->project = $project;
 		}
 
-		$this->getSession()->set('project', $project);
-
-		$this->project = $project;
-
-		return $this;
+		return $this->project;
 	}
 }

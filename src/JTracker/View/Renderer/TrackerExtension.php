@@ -10,7 +10,7 @@ namespace JTracker\View\Renderer;
 
 use g11n\g11n;
 
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Twig extension class
@@ -19,6 +19,24 @@ use JTracker\Container;
  */
 class TrackerExtension extends \Twig_Extension
 {
+	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container = null;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct(Container $container)
+	{
+		$this->container = $container;
+	}
+
 	/**
 	 * Returns the name of the extension.
 	 *
@@ -40,15 +58,12 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getGlobals()
 	{
-		/* @var \JTracker\Application $app */
-		$app = Container::retrieve('app');
-
 		return array(
-			'uri'            => $app->get('uri'),
+			'uri'            => $this->container->get('app')->get('uri'),
+			'languages'      => $this->container->get('app')->get('languages'),
 			'jdebug'         => JDEBUG,
 			'lang'           => g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
-			'languages'      => $app->get('languages')
 		);
 	}
 
@@ -129,10 +144,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function fetchAvatar($userName = '', $width = 0, $class = '')
 	{
-		/* @type \JTracker\Application $app */
-		$app = Container::retrieve('app');
-
-		$base = $app->get('uri.base.path');
+		$base = $this->container->get('app')->get('uri.base.path');
 
 		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
@@ -205,7 +217,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$statuses)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$items = $db->setQuery(
 				$db->getQuery(true)
@@ -264,10 +276,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$labels)
 		{
-			/* @type \JTracker\Application $application */
-			$application = Container::retrieve('app');
-
-			$labels = $application->getProject()->getLabels();
+			$labels = $this->container->get('app')->getProject()->getLabels();
 		}
 
 		$html = array();
@@ -280,15 +289,17 @@ class TrackerExtension extends \Twig_Extension
 			{
 				$bgColor = $labels[$id]->color;
 				$color   = $this->getContrastColor($bgColor);
+				$name    = $labels[$id]->name;
 			}
 			else
 			{
 				$bgColor = '000000';
 				$color   = 'ffffff';
+				$name    = '?';
 			}
 
 			$html[] = '<span class="label"' . ' style="background-color: #' . $bgColor . '; color: ' . $color . ';">';
-			$html[] = $labels[$id]->name;
+			$html[] = $name;
 			$html[] = '</span>';
 		}
 
@@ -308,13 +319,11 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function issueLink($number, $closed, $title = '')
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
 		$html = array();
 
 		$title = ($title) ? : ' #' . $number;
-		$href = $application->get('uri')->base->path . 'tracker/' . $application->getProject()->alias . '/' . $number;
+		$href = $this->container->get('app')->get('uri')->base->path
+			. 'tracker/' . $this->container->get('app')->getProject()->alias . '/' . $number;
 
 		$html[] = '<a href="' . $href . '"' . ' title="' . $title . '"' . '>';
 		$html[] = $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
@@ -336,7 +345,7 @@ class TrackerExtension extends \Twig_Extension
 
 		if (!$relTypes)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$relTypes = $db->setQuery(
 				$db->getQuery(true)
@@ -349,6 +358,15 @@ class TrackerExtension extends \Twig_Extension
 		return $relTypes;
 	}
 
+	/**
+	 * Generate a localized yes/no message.
+	 *
+	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
 	public function yesNo($value)
 	{
 		return $value ? g11n3t('Yes') : g11n3t('No');

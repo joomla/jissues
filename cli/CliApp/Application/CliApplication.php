@@ -1,11 +1,14 @@
 <?php
 /**
+ * Part of the Joomla! Tracker application.
+ *
  * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace CliApp\Application;
 
+use CliApp\Command\Help\Help;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 use CliApp\Service\GitHubProvider;
@@ -44,7 +47,7 @@ class CliApplication extends AbstractCliApplication
 	/**
 	 * Verbose mode - debug output.
 	 *
-	 * @var    bool
+	 * @var    boolean
 	 * @since  1.0
 	 */
 	private $verbose = false;
@@ -176,8 +179,18 @@ class CliApplication extends AbstractCliApplication
 		if (false == class_exists($className))
 		{
 			$this->out()
-				->out('<error>Invalid command</error>: ' . (($command == $action) ? $command : $command . ' ' . $action))
+				->out('Invalid command: <error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>')
 				->out();
+
+			$alternatives = $this->getAlternatives($command, $action);
+
+			if (count($alternatives))
+			{
+				$this->out('<b>Did you mean one of this?</b>')
+					->out('    <question> ' . implode(' </question>    <question> ', $alternatives) . ' </question>');
+
+				return;
+			}
 
 			$className = 'CliApp\\Command\\Help\\Help';
 		}
@@ -209,12 +222,55 @@ class CliApplication extends AbstractCliApplication
 	}
 
 	/**
+	 * Get alternatives for a not found command or action.
+	 *
+	 * @param   string  $command  The command.
+	 * @param   string  $action   The action.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	protected function getAlternatives($command, $action)
+	{
+		$commands = with(new Help)->getCommands();
+		$alternatives = array();
+
+		if (false == array_key_exists($command, $commands))
+		{
+			// Unknown command
+			foreach (array_keys($commands) as $cmd)
+			{
+				if (levenshtein($cmd, $command) <= strlen($cmd) / 3 || false !== strpos($cmd, $command))
+				{
+					$alternatives[] = $cmd;
+				}
+			}
+		}
+		else
+		{
+			// Known command - unknown action
+			$actions = with(new Help)->getActions($command);
+
+			foreach (array_keys($actions) as $act)
+			{
+				if (levenshtein($act, $action) <= strlen($act) / 3 || false !== strpos($act, $action))
+				{
+					$alternatives[] = $command . ' ' . $act;
+				}
+			}
+		}
+
+		return $alternatives;
+	}
+
+	/**
 	 * Write a string to standard output.
 	 *
 	 * @param   string   $text     The text to display.
 	 * @param   boolean  $newline  True (default) to append a new line at the end of the output string.
 	 *
-	 * @return  CliApplication
+	 * @return  $this
 	 *
 	 * @codeCoverageIgnore
 	 * @since   1.0
@@ -229,8 +285,9 @@ class CliApplication extends AbstractCliApplication
 	 *
 	 * @param   string  $text  The text to display.
 	 *
+	 * @return  $this
+	 *
 	 * @since   1.0
-	 * @return  CliApplication
 	 */
 	public function debugOut($text)
 	{
@@ -244,7 +301,7 @@ class CliApplication extends AbstractCliApplication
 	 * @param   string   $subTitle  A subtitle.
 	 * @param   integer  $width     Total width in chars.
 	 *
-	 * @return  CliApplication
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -277,25 +334,13 @@ class CliApplication extends AbstractCliApplication
 	}
 
 	/**
-	 * This is a useless legacy function.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 * @todo    Remove
-	 */
-	public function getUserStateFromRequest()
-	{
-		return '';
-	}
-
-	/**
 	 * Get a user object.
 	 *
 	 * Some methods check for an authenticated user...
 	 *
-	 * @since  1.0
-	 * @return GitHubUser
+	 * @return  GitHubUser
+	 *
+	 * @since   1.0
 	 */
 	public function getUser()
 	{
@@ -318,7 +363,7 @@ class CliApplication extends AbstractCliApplication
 		$this->out()
 			->out('<info>GitHub rate limit:...</info> ', false);
 
-		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->rate;
+		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->resources->core;
 
 		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
 			->out();
@@ -340,5 +385,20 @@ class CliApplication extends AbstractCliApplication
 		return ($this->usePBar)
 			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
 			: null;
+	}
+
+	/**
+	 * This is a useless legacy function.
+	 *
+	 * Actually it's accessed by the \JTracker\Model\AbstractTrackerListModel
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 * @todo    Remove
+	 */
+	public function getUserStateFromRequest()
+	{
+		return '';
 	}
 }

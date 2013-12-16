@@ -9,13 +9,6 @@
                 allow from all
         </Directory>
 
-        CustomLog /vagrant/logs/vagrant-apache-access.log combined
-        ErrorLog /vagrant/logs/vagrant-apache-error.log
-
-        # Possible values include: debug, info, notice, warn, error, crit, alert, emerg.
-
-        LogLevel debug
-
         SetEnv JTRACKER_ENVIRONMENT vagrant
 
         ServerAdmin webmaster@localhost

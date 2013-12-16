@@ -8,6 +8,8 @@
 
 namespace App\Text\Controller;
 
+use App\Text\View\Page\PageHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -18,10 +20,24 @@ use JTracker\Controller\AbstractTrackerController;
 class Page extends AbstractTrackerController
 {
 	/**
-	 * The item view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
+	 * @var PageHtmlView
 	 */
-	protected $defaultView = 'page';
+	protected $view = null;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->setAlias($this->container->get('app')->input->getCmd('alias'));
+	}
 }

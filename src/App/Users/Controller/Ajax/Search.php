@@ -9,13 +9,11 @@
 namespace App\Users\Controller\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
  *
- * @package  JTracker\Components\Users
- * @since    1.0
+ * @since  1.0
  */
 class Search extends AbstractAjaxController
 {
@@ -28,7 +26,7 @@ class Search extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$search       = $input->get('query');
 		$inGroupId    = $input->getInt('in_group_id');
@@ -36,7 +34,7 @@ class Search extends AbstractAjaxController
 
 		if ($search)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$query = $db->getQuery(true)
 				->select('DISTINCT ' . $db->quoteName('u.username'))
