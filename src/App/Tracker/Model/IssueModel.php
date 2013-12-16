@@ -201,6 +201,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 					 ->join('LEFT', '#__activities AS a ON a.issue_number = i.issue_number')
 					 ->join('LEFT', '#__status AS s on s.id = i.status')
 					 ->where($this->db->quoteName('s.closed') . '=' . 0)
+					 ->where($this->db->quoteName('a.event') . '=' . $this->db->quote('comment'))
 					 ->group('i.id')
 					 ->having('COUNT(a.activities_id) < 5')
 					 ->order('RAND()'), 0, 1)
