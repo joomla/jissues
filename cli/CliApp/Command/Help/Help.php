@@ -117,7 +117,7 @@ class Help extends TrackerCommand
 		if (false == array_key_exists($command, $this->commands))
 		{
 			$this->out()
-				->out('Unknown command: ' . $command);
+				->out('Unknown: ' . $command);
 
 			return;
 		}
@@ -192,9 +192,10 @@ class Help extends TrackerCommand
 	 *
 	 * @return  array
 	 *
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
-	private function getCommands()
+	public function getCommands()
 	{
 		$commands = array();
 
@@ -209,6 +210,11 @@ class Help extends TrackerCommand
 			$c = $fileInfo->getFilename();
 
 			$className = "CliApp\\Command\\$c\\$c";
+
+			if (false == class_exists($className))
+			{
+				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
+			}
 
 			$commands[strtolower($c)] = new $className($this->application);
 		}
@@ -225,7 +231,7 @@ class Help extends TrackerCommand
 	 *
 	 * @since   1.0
 	 */
-	protected function getActions($commandName)
+	public function getActions($commandName)
 	{
 		$actions = array();
 		$cName = ucfirst($commandName);

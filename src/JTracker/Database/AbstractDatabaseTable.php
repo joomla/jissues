@@ -64,7 +64,8 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * for a particular database table.
 	 *
 	 * @param   string          $table  Name of the table to model.
-	 * @param   mixed           $keys   Name of the primary key field in the table or array of field names that compose the primary key.
+	 * @param   mixed           $keys   Name of the primary key field in the table or array of field names that
+	 *                                  compose the primary key.
 	 * @param   DatabaseDriver  $db     DatabaseDriver object.
 	 *
 	 * @since   1.0

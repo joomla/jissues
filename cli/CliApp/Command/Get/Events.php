@@ -94,9 +94,9 @@ class Events extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Comments');
+		$this->application->outputTitle('Retrieve Events');
 
-		$this->logOut('Start retrieve Comments')
+		$this->logOut('Start retrieve Events')
 			->selectProject()
 			->selectRange()
 			->setupGitHub()

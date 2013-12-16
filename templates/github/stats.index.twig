@@ -9,23 +9,31 @@
 
     <h2>{{ project.title }} Stats</h2>
 
-    <table class="table table-bordered">
+    {% if false == data %}
 
-        {% for stats in data %}
-            <tr>
-                <td>{{ stats.author.type }}</td>
-                <td>{{ stats.author.login }}</td>
-                <td>{{ stats.total }}</td>
+        <div class="alert alert-warning">{{ message }}</div>
 
-                {% for week in stats.weeks %}
-                    <td>
-                        {#{{ week.w }}<br />#}
-                        {{ week.a }}<br/>
-                        {{ week.d }}<br/>
-                        {{ week.c }}<br/>
-                    </td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
+    {% else %}
+
+        <table class="table table-bordered">
+
+            {% for stats in data %}
+                <tr>
+                    <td>{{ stats.author.type }}</td>
+                    <td>{{ stats.author.login }}</td>
+                    <td>{{ stats.total }}</td>
+
+                    {% for week in stats.weeks %}
+                        <td>
+                            {#{{ week.w }}<br />#}
+                            {{ week.a }}<br/>
+                            {{ week.d }}<br/>
+                            {{ week.c }}<br/>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endif %}
 {% endblock %}
