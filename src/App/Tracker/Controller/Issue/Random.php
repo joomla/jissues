@@ -18,7 +18,7 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class RandomController extends AbstractTrackerController
+class Random extends AbstractTrackerController
 {
 	/**
 	 * Constructor
