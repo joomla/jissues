@@ -8,10 +8,8 @@
 
 namespace App\Tracker\Controller\Issue;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
-
 use App\Tracker\Model\IssueModel;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -19,23 +17,8 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class SaveController extends AbstractTrackerController
+class Save extends AbstractTrackerController
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		parent::__construct($input, $app);
-
-		$this->getApplication()->getUser()->authorize('edit');
-	}
-
 	/**
 	 * Execute the controller.
 	 *
@@ -46,20 +29,22 @@ class SaveController extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->getApplication();
+		/* @type \JTracker\Application $application */
+		$application = $this->container->get('app');
 
-		$src = $this->getInput()->get('item', array(), 'array');
+		$application->getUser()->authorize('edit');
+
+		$src = $application->input->get('item', array(), 'array');
 
 		try
 		{
-			$model = new IssueModel;
-			$model->save($src);
+			// Save the record.
+			with(new IssueModel($this->container->get('db')))
+				->save($src);
 
-			$application->enqueueMessage('The changes have been saved.', 'success');
-
-			$application->redirect(
-				$application->get('uri.base.path')
-				. '/tracker/' . $application->input->get('project_alias') . '/' . $src['id']
+			$application->enqueueMessage('The changes have been saved.', 'success')
+				->redirect(
+				'/tracker/' . $application->input->get('project_alias')
 			);
 		}
 		catch (\Exception $e)

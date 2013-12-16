@@ -17,11 +17,4 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Icons extends AbstractTrackerController
 {
-	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'icons';
 }

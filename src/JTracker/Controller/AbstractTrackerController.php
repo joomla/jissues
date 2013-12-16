@@ -8,19 +8,21 @@
 
 namespace JTracker\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Controller\AbstractController;
+use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input\Input;
 
-use JTracker\Application;
+use Joomla\View\Renderer\RendererInterface;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\View\Renderer\TrackerExtension;
 
 /**
  * Abstract Controller class for the Tracker Application
  *
  * @since  1.0
  */
-abstract class AbstractTrackerController extends AbstractController
+abstract class AbstractTrackerController implements ContainerAwareInterface
 {
 	/**
 	 * The default view for the app
@@ -28,7 +30,15 @@ abstract class AbstractTrackerController extends AbstractController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView;
+	protected $defaultView = '';
+
+	/**
+	 * The default layout for the app
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $defaultLayout = 'index';
 
 	/**
 	 * The app being executed.
@@ -36,49 +46,46 @@ abstract class AbstractTrackerController extends AbstractController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $component;
+	protected $app;
+
+	/**
+	 * @var  Container
+	 * @since  1.0
+	 */
+	protected $container;
+
+	/**
+	 * @var  \Joomla\View\AbstractHtmlView
+	 */
+	protected $view;
+
+	/**
+	 * @var  \Joomla\Model\AbstractModel
+	 */
+	protected $model;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct()
 	{
-		parent::__construct($input, $app);
-
-		// Get the option from the input object
-		if (empty($this->component))
+		// Detect the App name
+		if (empty($this->app))
 		{
 			// Get the fully qualified class name for the current object
 			$fqcn = (get_class($this));
 
-			// Strip the base component namespace off
+			// Strip the base app namespace off
 			$className = str_replace('App\\', '', $fqcn);
 
 			// Explode the remaining name into an array
 			$classArray = explode('\\', $className);
 
-			// Set the component as the first object in this array
-			$this->component = $classArray[0];
+			// Set the app as the first object in this array
+			$this->app = $classArray[0];
 		}
-	}
-
-	/**
-	 * Get the application object.
-	 *
-	 * NOTE: This method only exists to provide autocomplete for the child classes
-	 *
-	 * @return  Application
-	 *
-	 * @since   1.0
-	 */
-	public function getApplication()
-	{
-		return parent::getApplication();
 	}
 
 	/**
@@ -95,7 +102,7 @@ abstract class AbstractTrackerController extends AbstractController
 	{
 		if ($id)
 		{
-			$app    = $this->getApplication();
+			$app    = $this->container->get('app');
 			$values = (array) $app->getUserState($context . '.id');
 
 			$result = in_array((int) $id, $values);
@@ -123,95 +130,121 @@ abstract class AbstractTrackerController extends AbstractController
 	}
 
 	/**
-	 * Execute the controller.
+	 * Initialize the controller.
 	 *
-	 * This is a generic method to execute and render a view and is not suitable for tasks.
+	 * This will set up default model and view classes.
 	 *
-	 * @return  void
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function execute()
+	public function initialize()
 	{
 		// Get the input
-		$input = $this->getInput();
+		/* @type Input $input */
+		$input = $this->container->get('app')->input;
 
 		// Get some data from the request
-		$vName   = $input->getWord('view', $this->defaultView);
-		$vFormat = $input->getWord('format', 'html');
-		$lName   = $input->getCmd('layout', 'index');
+		$viewName   = $input->getWord('view', $this->defaultView);
+		$viewFormat = $input->getWord('format', 'html');
+		$layoutName = $input->getCmd('layout', $this->defaultLayout);
 
-		$input->set('view', $vName);
+		if (!$viewName)
+		{
+			$parts = explode('\\', get_class($this));
+			$viewName = strtolower($parts[count($parts) - 1]);
+		}
 
-		$base   = '\\App\\' . $this->component;
+		$base = '\\App\\' . $this->app;
 
-		$vClass = $base . '\\View\\' . ucfirst($vName) . '\\' . ucfirst($vName) . ucfirst($vFormat) . 'View';
-		$mClass = $base . '\\Model\\' . ucfirst($vName) . 'Model';
+		$viewClass  = $base . '\\View\\' . ucfirst($viewName) . '\\' . ucfirst($viewName) . ucfirst($viewFormat) . 'View';
+		$modelClass = $base . '\\Model\\' . ucfirst($viewName) . 'Model';
 
 		// If a model doesn't exist for our view, revert to the default model
-		if (!class_exists($mClass))
+		if (!class_exists($modelClass))
 		{
-			$mClass = $base . '\\Model\\DefaultModel';
+			$modelClass = $base . '\\Model\\DefaultModel';
 
 			// If there still isn't a class, panic.
-			if (!class_exists($mClass))
+			if (!class_exists($modelClass))
 			{
-				throw new \RuntimeException(sprintf('No model found for view %s or a default model for %s', $vName, $this->component));
+				throw new \RuntimeException(
+					sprintf(
+						'No model found for view %s or a default model for %s', $viewName, $this->app
+					)
+				);
 			}
 		}
 
 		// Make sure the view class exists, otherwise revert to the default
-		if (!class_exists($vClass))
+		if (!class_exists($viewClass))
 		{
-			$vClass = '\\JTracker\\View\\TrackerDefaultView';
-
-			// If there still isn't a class, panic.
-			if (!class_exists($vClass))
-			{
-				throw new \RuntimeException(sprintf('Class %s not found', $vClass));
-			}
+			$viewClass = '\\JTracker\\View\\TrackerDefaultView';
 		}
 
 		// Register the templates paths for the view
 		$paths = array();
 
-		$sub = ('php' == $this->getApplication()->get('renderer.type')) ? '/php' : '';
+		$sub = ('php' == $this->container->get('app')->get('renderer.type')) ? '/php' : '';
 
-		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->component);
+		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->app);
 
 		if (is_dir($path))
 		{
 			$paths[] = $path;
 		}
 
+		// @$this->model = $this->container->buildObject($modelClass);
+
+		$this->model = new $modelClass($this->container->get('db'), $this->container->get('app')->input);
+
+		// Create the view
 		/* @type AbstractTrackerHtmlView $view */
-		$view = new $vClass(new $mClass, $paths);
-		$view->setLayout($vName . '.' . $lName);
+		$this->view = new $viewClass(
+			$this->model,
+			$this->fetchRenderer($paths)
+		);
 
-		try
-		{
-			// Render our view.
-			echo $view->render();
-		}
-		catch (\Exception $e)
-		{
-			echo $this->getApplication()->getDebugger()->renderException($e);
-		}
+		$this->view->setLayout($viewName . '.' . $layoutName);
 
-		return;
+		return $this;
 	}
 
 	/**
-	 * Returns the current component
+	 * Execute the controller.
 	 *
-	 * @return  string  The component being executed.
+	 * This is a generic method to execute and render a view and is not suitable for tasks.
+	 *
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function getComponent()
+	public function execute()
 	{
-		return $this->component;
+		try
+		{
+			// Render our view.
+			$contents = $this->view->render();
+		}
+		catch (\Exception $e)
+		{
+			$contents = $this->container->get('app')->getDebugger()->renderException($e);
+		}
+
+		return $contents;
+	}
+
+	/**
+	 * Returns the current app
+	 *
+	 * @return  string  The app being executed.
+	 *
+	 * @since   1.0
+	 */
+	public function getApp()
+	{
+		return $this->app;
 	}
 
 	/**
@@ -226,7 +259,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 */
 	protected function holdEditId($context, $id)
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 		$values = (array) $app->getUserState($context . '.id');
 
 		// Add the id to the list if non-zero.
@@ -262,7 +295,7 @@ abstract class AbstractTrackerController extends AbstractController
 	 */
 	protected function releaseEditId($context, $id)
 	{
-		$app    = $this->getApplication();
+		$app    = $this->container->get('app');
 		$values = (array) $app->getUserState($context . '.id');
 
 		// Do a strict search of the edit list values.
@@ -285,5 +318,132 @@ abstract class AbstractTrackerController extends AbstractController
 				);
 			}
 		}
+	}
+
+	/**
+	 * Get a renderer object.
+	 *
+	 * @param   string|array  $templatesPaths  A path or an array of paths where to look for templates.
+	 *
+	 * @return RendererInterface
+	 *
+	 * @throws \RuntimeException
+	 * @since   1.0
+	 */
+	protected function fetchRenderer($templatesPaths)
+	{
+		/* @type \JTracker\Application $application */
+		$application = $this->container->get('app');
+
+		$rendererName = $application->get('renderer.type');
+
+		$className = 'JTracker\\View\\Renderer\\' . ucfirst($rendererName);
+
+		// Check if the specified renderer exists in the application
+		if (false == class_exists($className))
+		{
+			$className = 'Joomla\\View\\Renderer\\' . ucfirst($rendererName);
+
+			// Check if the specified renderer exists in the Framework
+			if (false == class_exists($className))
+			{
+				throw new \RuntimeException(sprintf('Invalid renderer: %s', $rendererName));
+			}
+		}
+
+		$config = array();
+
+		switch ($rendererName)
+		{
+			case 'twig':
+				$config['templates_base_dir'] = JPATH_TEMPLATES;
+				$config['environment']['debug'] = JDEBUG ? true : false;
+
+				break;
+
+			case 'mustache':
+				$config['templates_base_dir'] = JPATH_TEMPLATES;
+
+				// . '/partials';
+				$config['partials_base_dir'] = JPATH_TEMPLATES;
+
+				$config['environment']['debug'] = JDEBUG ? true : false;
+
+				break;
+
+			case 'php':
+				$config['templates_base_dir'] = JPATH_TEMPLATES . '/php';
+				$config['debug'] = JDEBUG ? true : false;
+
+				break;
+
+			default:
+				throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
+				break;
+		}
+
+		// Load the renderer.
+		/* @type RendererInterface $renderer */
+		$renderer = new $className($config);
+
+		// Register tracker's extension.
+		$renderer->addExtension(new TrackerExtension($this->container));
+
+		// Register additional paths.
+		if (!empty($templatesPaths))
+		{
+			$renderer->setTemplatesPaths($templatesPaths, true);
+		}
+
+		$gitHubHelper = new GitHubLoginHelper($this->container);
+
+		$renderer
+			->set('loginUrl', $gitHubHelper->getLoginUri())
+			->set('user', $application->getUser());
+
+		// Retrieve and clear the message queue
+		$renderer->set('flashBag', $application->getMessageQueue());
+		$application->clearMessageQueue();
+
+		// Add build commit if available
+		if (file_exists(JPATH_ROOT . '/current_SHA'))
+		{
+			$data = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
+			$renderer->set('buildSHA', $data);
+		}
+		else
+		{
+			$renderer->set('buildSHA', '');
+		}
+
+		return $renderer;
+	}
+
+	/**
+	 * Get the DI container.
+	 *
+	 * @return  Container
+	 *
+	 * @since   1.0
+	 *
+	 * @throws  \UnexpectedValueException May be thrown if the container has not been set.
+	 */
+	public function getContainer()
+	{
+		return $this->container;
+	}
+
+	/**
+	 * Set the DI container.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 */
+	public function setContainer(Container $container)
+	{
+		$this->container = $container;
 	}
 }

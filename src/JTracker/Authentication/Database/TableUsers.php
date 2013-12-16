@@ -33,13 +33,13 @@ class TableUsers extends AbstractDatabaseTable
 	/**
 	 * Constructor.
 	 *
-	 * @param   DatabaseDriver  $db  A database connector object
+	 * @param   DatabaseDriver  $database  A database connector object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $db)
+	public function __construct(DatabaseDriver $database)
 	{
-		parent::__construct('#__users', 'id', $db);
+		parent::__construct('#__users', 'id', $database);
 	}
 
 	/**

@@ -8,9 +8,6 @@
 
 namespace App\GitHub\View\Stats;
 
-use App\Projects\Model\ProjectModel;
-
-use JTracker\Container;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -29,6 +26,11 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	protected $config;
 
 	/**
+	 * @var  object
+	 */
+	protected $data = null;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @throws \DomainException
@@ -39,41 +41,44 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$app = Container::retrieve('app');
-		$gitHub = Container::retrieve('gitHub');
-
-		$project = with(new ProjectModel)->getByAlias($app->input->get('project_alias'));
-
-		$data = false;
-
-		// @todo use the message queue - when it works... or BETTER: Use a controller !
-		$message = '';
-
-		try
-		{
-			$data = $gitHub->repositories->statistics->getListContributors(
-				$project->gh_user, $project->gh_project
-			);
-		}
-		catch (\DomainException $e)
-		{
-			if (202 != $e->getCode())
-			{
-				throw $e;
-			}
-
-			// @todo use the message queue - when it works... or BETTER: Use a controller !
-			// Container::retrieve('app')->enqueueMessage($e->getMessage(), 'warning');
-
-			$message = $e->getMessage();
-		}
-
 		$this->renderer
-			->set('data', $data)
-			// @todo use the message queue - when it works... or BETTER: Use a controller !
-			->set('message', $message)
-			->set('project', $project);
+			->set('data', $this->getData())
+			->set('project', $this->getProject());
 
 		return parent::render();
+	}
+
+	/**
+	 * Get the data object.
+	 *
+	 * @throws \UnexpectedValueException
+	 * @return null
+	 *
+	 * @since   1.0
+	 */
+	public function getData()
+	{
+		if (is_null($this->data))
+		{
+			throw new \UnexpectedValueException('Data not set.');
+		}
+
+		return $this->data;
+	}
+
+	/**
+	 * Set the data.
+	 *
+	 * @param   object  $data  The data object.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setData($data)
+	{
+		$this->data = $data;
+
+		return $this;
 	}
 }
