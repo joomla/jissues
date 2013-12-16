@@ -469,6 +469,12 @@ class Langtemplates extends Make
 	 */
 	private function delTree($dir)
 	{
+		if (false == is_dir($dir))
+		{
+			// Directory does not exist.
+			return true;
+		}
+
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file)

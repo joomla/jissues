@@ -76,6 +76,9 @@ class Docu extends Make
 
 		$table = new ArticlesTable($db);
 
+		// @todo compile the md text here.
+		$table->setGitHub($this->github);
+
 		foreach ($files as $i => $file)
 		{
 			// @todo enough for URIs ?
