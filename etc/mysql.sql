@@ -202,6 +202,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `text` mediumtext NULL COMMENT 'The event text',
   `text_raw` mediumtext NULL COMMENT 'The raw event text',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
