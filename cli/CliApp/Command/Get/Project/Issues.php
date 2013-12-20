@@ -6,12 +6,13 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Get;
+namespace CliApp\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
-use App\Tracker\Table\ActivitiesTable;
+
+use CliApp\Command\Get\Project;
 
 use Joomla\Date\Date;
 
@@ -22,7 +23,7 @@ use JTracker\Container;
  *
  * @since  1.0
  */
-class Issues extends Get
+class Issues extends Project
 {
 	/**
 	 * The command "description" used for help texts.
@@ -31,6 +32,10 @@ class Issues extends Get
 	 * @since  1.0
 	 */
 	protected $description = 'Retrieve issues from GitHub.';
+
+	protected $changedIssueNumbers = array();
+
+	protected $issues = array();
 
 	/**
 	 * Execute the command.
@@ -46,8 +51,8 @@ class Issues extends Get
 		$this->logOut('Start retrieve Issues')
 			->selectProject()
 			->setupGitHub()
-			->displayGitHubRateLimit()
-			->processIssues($this->getData())
+			->fetchData()
+			->processData()
 			->out()
 			->logOut('Finished');
 	}
@@ -55,11 +60,11 @@ class Issues extends Get
 	/**
 	 * Method to pull the list of issues from GitHub
 	 *
-	 * @return  array  Issue data
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function getData()
+	protected function fetchData()
 	{
 		$issues = array();
 
@@ -100,6 +105,8 @@ class Issues extends Get
 					100
 				);
 
+				$this->checkGitHubRateLimit($this->github->issues->getRateLimitRemaining());
+
 				$count = is_array($issues_more) ? count($issues_more) : 0;
 
 				if ($count)
@@ -124,111 +131,151 @@ class Issues extends Get
 
 		$this->logOut(sprintf('Retrieved <b>%d</b> items from GitHub.', count($issues)));
 
-		return $issues;
+		$this->issues = $issues;
+
+		return $this;
 	}
 
 	/**
 	 * Method to process the list of issues and inject into the database as needed
-	 *
-	 * @param   array  $issues  Array containing the issues pulled from GitHub
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function processIssues($issues)
+	protected function processData()
 	{
+		$ghIssues = $this->issues;
+		$dbIssues = $this->getDbIssues();
+
+		if (!$ghIssues)
+		{
+			throw new \UnexpectedValueException('No issues received...');
+		}
+
 		// Initialize our database object
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = Container::getInstance()->get('db');
-		$query = $db->getQuery(true);
+
 		$added = 0;
+		$updated = 0;
+
 		$milestones = $this->getMilestones();
 
 		$this->out('Adding issues to the database...', false);
 
-		$progressBar = $this->getProgressBar(count($issues));
+		$progressBar = $this->getProgressBar(count($ghIssues));
 
 		$this->usePBar ? $this->out() : null;
 
 		// Start processing the pulls now
-		foreach ($issues as $count => $issue)
+		foreach ($ghIssues as $count => $ghIssue)
 		{
 			$this->usePBar
 				? $progressBar->update($count + 1)
-				: $this->out($issue->number . '...', false);
+				: $this->out($ghIssue->number . '...', false);
 
-			// First, query to see if the issue is already in the database
-			$query->clear();
-			$query->select('COUNT(*)');
-			$query->from($db->quoteName('#__issues'));
-			$query->where($db->quoteName('issue_number') . ' = ' . (int) $issue->number);
-			$query->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
-			$db->setQuery($query);
-
-			$result = $db->loadResult();
-
-			// If we have something already, then move on to the next item
-			if ($result >= 1)
+			if (!$this->checkInRange($ghIssue->number))
 			{
-				$this->usePBar ? null : $this->out('found.', false);
+				// Not in range
+				$this->usePBar ? null : $this->out('NiR ', false);
 				continue;
+			}
+
+			$id = 0;
+
+			foreach ($dbIssues as $dbIssue)
+			{
+				if ($ghIssue->number == $dbIssue->issue_number)
+				{
+					if ($this->force)
+					{
+						// Force update
+						$this->usePBar ? null : $this->out('F ', false);
+						$id = $dbIssue->id;
+
+						break;
+					}
+
+					$d1 = new Date($ghIssue->updated_at);
+					$d2 = new Date($dbIssue->modified_date);
+
+					if ($d1 == $d2)
+					{
+						// No update required
+						$this->usePBar ? null : $this->out('- ', false);
+						continue 2;
+					}
+
+					$id = $dbIssue->id;
+
+					break;
+				}
 			}
 
 			// Store the item in the database
 			$table = new IssuesTable($db);
 
-			$table->issue_number = $issue->number;
-			$table->title        = $issue->title;
+			if ($id)
+			{
+				$table->load($id);
+			}
+
+			$table->issue_number = $ghIssue->number;
+			$table->title        = $ghIssue->title;
 
 			$table->description = $this->github->markdown->render(
-				$issue->body,
+				$ghIssue->body,
 				'gfm',
 				$this->project->gh_user . '/' . $this->project->gh_project
 			);
 
-			$table->description_raw = $issue->body;
+			$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-			$table->status = ($issue->state == 'open') ? 1 : 10;
+			$table->description_raw = $ghIssue->body;
 
-			$table->opened_date = with(new Date($issue->created_at))->format('Y-m-d H:i:s');
-			$table->opened_by   = $issue->user->login;
+			$table->status = ($ghIssue->state == 'open') ? 1 : 10;
 
-			$table->modified_date = with(new Date($issue->updated_at))->format('Y-m-d H:i:s');
+			$table->opened_date = with(new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
+			$table->opened_by   = $ghIssue->user->login;
+
+			$table->modified_date = with(new Date($ghIssue->updated_at))->format('Y-m-d H:i:s');
 
 			$table->project_id = $this->project->project_id;
-			$table->milestone_id = ($issue->milestone && isset($milestones[$issue->milestone->number])) ? $milestones[$issue->milestone->number] : null;
+			$table->milestone_id = ($ghIssue->milestone && isset($milestones[$ghIssue->milestone->number]))
+				? $milestones[$ghIssue->milestone->number]
+				: null;
 
 			// If the issue has a diff URL, it is a pull request.
-			if ($issue->pull_request->diff_url)
+			if ($ghIssue->pull_request->diff_url)
 			{
 				$table->has_code = 1;
 			}
 
 			// Add the closed date if the status is closed
-			if ($issue->closed_at)
+			if ($ghIssue->closed_at)
 			{
-				$table->closed_date = with(new Date($issue->closed_at))->format('Y-m-d H:i:s');
+				$table->closed_date = with(new Date($ghIssue->closed_at))->format('Y-m-d H:i:s');
 			}
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
-			if (preg_match('/\[#([0-9]+)\]/', $issue->title, $matches))
+			if (preg_match('/\[#([0-9]+)\]/', $ghIssue->title, $matches))
 			{
 				$table->foreign_number = $matches[1];
 			}
 
-			$table->labels = implode(',', $this->getLabelIds($issue->labels));
+			$table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
 
 			$table->store(true);
 
 			if (!$table->id)
 			{
-				// Bad coder :(
+				// Bad coder :( - @todo when does this happen ??
 				throw new \RuntimeException(
 					sprintf(
 						'Invalid issue id for issue: %1$d in project id %2$s',
-						$issue->number, $this->project->project_id
+						$ghIssue->number, $this->project->project_id
 					)
 				);
 			}
@@ -243,9 +290,9 @@ class Issues extends Get
 			$activity->event        = 'open';
 			$activity->created_date = $table->opened_date;
 
-			$activity->store();*/
+			$activity->store();
 
-			// Add a close record to the activity table if the status is closed
+			/ Add a close record to the activity table if the status is closed
 			if ($issue->closed_at)
 			{
 				$activity               = new ActivitiesTable($db);
@@ -254,18 +301,26 @@ class Issues extends Get
 				$activity->event        = 'close';
 				$activity->created_date = $issue->closed_at;
 
-				// $activity->user     = $issue->user->login;
-
 				$activity->store();
 			}
+			*/
 
 			// Store was successful, update status
-			++ $added;
+			if ($id)
+			{
+				++ $updated;
+			}
+			else
+			{
+				++ $added;
+			}
+
+			$this->changedIssueNumbers[] = $ghIssue->number;
 		}
 
 		// Output the final result
 		$this->out()
-			->logOut(sprintf('<ok>Added %d items to the tracker.</ok>', $added));
+			->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
 
 		return $this;
 	}
@@ -341,5 +396,50 @@ class Issues extends Get
 		)->loadAssocList('milestone_number', 'milestone_id');
 
 		return $milestoneList;
+	}
+
+	/**
+	 * Get an array of changed issue numbers.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getChangedIssueNumbers()
+	{
+		return $this->changedIssueNumbers;
+	}
+
+	/**
+	 * Method to get the GitHub issues from the database
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function getDbIssues()
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = Container::getInstance()->get('db');
+
+		$query = $db->getQuery(true);
+
+		$query
+			->select($db->quoteName('id'))
+			->select($db->quoteName('issue_number'))
+			->select($db->quoteName('modified_date'))
+			->from($db->quoteName('#__issues'))
+			->where($db->quoteName('project_id') . '=' . (int) $this->project->project_id);
+
+		// Issues range selected?
+		if ($this->rangeTo != 0 && $this->rangeTo >= $this->rangeFrom)
+		{
+			$query->where($db->quoteName('issue_number') . ' >= ' . (int) $this->rangeFrom);
+			$query->where($db->quoteName('issue_number') . ' <= ' . (int) $this->rangeTo);
+		}
+
+		$db->setQuery($query);
+
+		return $db->loadObjectList();
 	}
 }

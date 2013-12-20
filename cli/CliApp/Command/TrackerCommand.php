@@ -243,6 +243,19 @@ abstract class TrackerCommand implements LoggerAwareInterface
 	 */
 	protected function selectProject()
 	{
+		static $project = false;
+
+		if ($project)
+		{
+			// Display this only once during the life cycle of the application.
+
+			$this->project = $project;
+
+			$this->application->input->set('project', $this->project->project_id);
+
+			return $this;
+		}
+
 		$projects = with(new ProjectsModel(Container::getInstance()->get('db')))->getItems();
 
 		$id = $this->application->input->getInt('project', $this->application->input->getInt('p'));
@@ -283,6 +296,7 @@ abstract class TrackerCommand implements LoggerAwareInterface
 			}
 
 			$this->project = $checks[$resp];
+			$project = $checks[$resp];
 		}
 		else
 		{
@@ -303,6 +317,8 @@ abstract class TrackerCommand implements LoggerAwareInterface
 		}
 
 		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
+
+		$this->application->input->set('project', $this->project->project_id);
 
 		return $this;
 	}

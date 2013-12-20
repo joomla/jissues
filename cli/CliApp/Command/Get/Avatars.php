@@ -33,7 +33,14 @@ class Avatars extends Get
 	 */
 	public function __construct()
 	{
-		parent::__construct();
+		$this->application = Container::retrieve('app');
+		$this->logger      = Container::retrieve('logger');
+		$this->usePBar     = $this->application->get('cli-application.progress-bar');
+
+		if ($this->application->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 	}
@@ -51,7 +58,6 @@ class Avatars extends Get
 
 		$this->logOut('Start retrieve Avatars.')
 			->setupGitHub()
-			->displayGitHubRateLimit()
 			->fetchAvatars()
 			->out()
 			->logOut('Finished.');

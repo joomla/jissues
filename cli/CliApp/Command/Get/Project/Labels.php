@@ -6,9 +6,11 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Get;
+namespace CliApp\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
+
+use CliApp\Command\Get\Project;
 
 use JTracker\Container;
 
@@ -17,7 +19,7 @@ use JTracker\Container;
  *
  * @since  1.0
  */
-class Labels extends Get
+class Labels extends Project
 {
 	/**
 	 * The command "description" used for help texts.
@@ -41,7 +43,6 @@ class Labels extends Get
 		$this->logOut('Start retrieve Labels')
 			->selectProject()
 			->setupGitHub()
-			->displayGitHubRateLimit()
 			->processLabels()
 			->out()
 			->logOut('Finished');
@@ -69,7 +70,7 @@ class Labels extends Get
 
 		$names = array();
 
-		$cntChanged = 0;
+		$cntUpdated = 0;
 		$cntNew = 0;
 
 		foreach ($labels as $label)
@@ -93,7 +94,7 @@ class Labels extends Get
 
 					$table->store();
 
-					++ $cntChanged;
+					++ $cntUpdated;
 				}
 			}
 			catch (\RuntimeException $e)
@@ -130,11 +131,13 @@ class Labels extends Get
 			)->execute();
 		}
 
+		$cntDeleted = count($ids);
+
 		return $this->out('ok')
 			->logOut(
 				sprintf(
-					'Labels: %1$d changed, %2$d new, %3$d deleted.',
-					$cntChanged, $cntNew, count($ids)
+					'Labels: %1$d new, %2$d updated, %3$d deleted.',
+					$cntNew, $cntUpdated, $cntDeleted
 				)
 			);
 	}

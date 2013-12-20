@@ -50,6 +50,14 @@ class Get extends TrackerCommand
 	protected $project = null;
 
 	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Retrieve <cmd><project></cmd>, <cmd><avatars></cmd> or <cmd><composertags></cmd>.';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -57,8 +65,6 @@ class Get extends TrackerCommand
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->description = 'Retrieve <cmd><issues></cmd>, <cmd><comments></cmd> or <cmd><avatars></cmd>.';
 
 		$this
 			->addOption(
@@ -134,7 +140,7 @@ class Get extends TrackerCommand
 	protected function checkGitHubRateLimit($remaining)
 	{
 		// @todo hard coded values..
-		$minSwitch = 100;
+		$minSwitch = 500;
 		$minRemain = 10;
 
 		$this->debugOut(sprintf('Limit check: %1$d -- %2$d / %3$d', $remaining, $minSwitch, $minRemain));
@@ -171,13 +177,13 @@ class Get extends TrackerCommand
 
 		if (!$accounts)
 		{
-			throw new \UnexpectedValueException('No GitHub accounts set in config.');
+			return $this;
+
+			// @todo throw new \UnexpectedValueException('No GitHub accounts set in config.');
 		}
 
 		// Increase or reset the bot id counter.
-		$this->botId = ($this->botId + 1 >= count($accounts))
-			? 0
-			: $this->botId + 1;
+		$this->botId = ($this->botId + 1 >= count($accounts)) ? 0 : $this->botId + 1;
 
 		$username = $accounts[$this->botId]->username;
 		$password = $accounts[$this->botId]->password;
