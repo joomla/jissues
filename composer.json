@@ -32,7 +32,8 @@
         "monolog/monolog": "1.6.0",
         "raveren/kint": "0.9",
         "filp/whoops": "1.0.*@stable",
-        "mustache/mustache" : "2.1.*"
+        "mustache/mustache" : "2.1.*",
+        "squizlabs/php_codesniffer": "1.*"
     },
     "autoload": {
         "psr-0": {
