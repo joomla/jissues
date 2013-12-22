@@ -32,13 +32,13 @@ class Pulls extends Update
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Update Pull Requests');
+		$this->getApplication()->outputTitle('Update Pull Requests');
 
 		$this->logOut('Start Updating Project');
 
 		$this->selectProject();
 
-		$this->application->input->set('project', $this->project->project_id);
+		$this->getApplication()->input->set('project', $this->project->project_id);
 
 		$this->setupGitHub()
 			->displayGitHubRateLimit()
