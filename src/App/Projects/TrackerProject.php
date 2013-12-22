@@ -124,7 +124,7 @@ class TrackerProject implements \Serializable
 	 */
 	public function __construct(DatabaseDriver $database, $data = null)
 	{
-		$this->database = $database;
+		$this->setDatabase($database);
 
 		if (is_null($data))
 		{
@@ -408,6 +408,20 @@ class TrackerProject implements \Serializable
 	public function getShort_Title()
 	{
 		return $this->short_title;
+	}
+
+	/**
+	 * Method to set the database connector.
+	 *
+	 * @param   DatabaseDriver  $database  The database connector.
+	 *
+	 * @return  void
+	 *
+	 * @since 1.0
+	 */
+	public function setDatabase(DatabaseDriver $database)
+	{
+		$this->database = $database;
 	}
 
 	/**
