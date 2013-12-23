@@ -80,16 +80,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	public function __construct()
 	{
-		// Left for reference - @todo RemoveMe
-
-		//$this->application = Container::retrieve('app');
-		//$this->logger      = Container::retrieve('logger');
-		//$this->usePBar     = $this->getApplication()->get('cli-application.progress-bar');
-
-		if (0)//$this->getApplication()->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
 	}
 
 	/**

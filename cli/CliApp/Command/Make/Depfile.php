@@ -191,7 +191,7 @@ class Depfile extends Make
 					$item->installed   = $packages['composer']['joomla/framework']->version;
 					$item->sourceURL   = preg_replace(
 						'/framework.git/',
-						'framework-'. substr($packageName, strpos($packageName, '/') + 1) .'.git',
+						'framework-' . substr($packageName, strpos($packageName, '/') + 1) . '.git',
 						$packages['composer']['joomla/framework']->sourceURL
 					);
 				}
