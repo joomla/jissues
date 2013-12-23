@@ -55,7 +55,7 @@ class Checkstyle extends Test
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Test Checkstyle');
+		$this->getApplication()->outputTitle('Test Checkstyle');
 
 		$options = array();
 
