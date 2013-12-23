@@ -14,7 +14,6 @@ use g11n\Support\ExtensionHelper;
 use g11n\Support\FileInfo;
 use g11n\Support\TransInfo;
 
-use JTracker\Container;
 use JTracker\View\Renderer\TrackerExtension;
 
 use Twig_Environment;
@@ -129,7 +128,7 @@ class Langtemplates extends Make
 	protected function processDatabase()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$strings = $db->setQuery(
 			$db->getQuery(true)
