@@ -114,6 +114,53 @@ class Langtemplates extends Make
 
 			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
+
+		$this->processDatabase();
+	}
+
+	/**
+	 * A special routine to handle translation strings contained in the database.
+	 *
+	 * @return  $this
+	 *
+	 * @since 1.0
+	 */
+	protected function processDatabase()
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->container->get('db');
+
+		$strings = $db->setQuery(
+			$db->getQuery(true)
+			->from('#__status')
+			->select('status')
+		)->loadColumn();
+
+		$path = JPATH_ROOT . '/src/App/Tracker/g11n/templates/Tracker.pot';
+
+		$contents = file_get_contents($path);
+
+		$starter = "\n# DATABASE TRANSLATIONS\n";
+
+		$pos = strpos($starter, $contents);
+
+		if ($pos)
+		{
+			$contents = substr($contents, 0, $pos);
+		}
+
+		$contents .= $starter;
+
+		foreach ($strings as $string)
+		{
+			$contents .= "\n#: DATABASE\n";
+			$contents .= "msgid \"$string\"\n";
+			$contents .= "msgstr \"\"\n";
+		}
+
+		file_put_contents($path, $contents);
+
+		return $this;
 	}
 
 	/**
