@@ -36,13 +36,13 @@ class Langfiles extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language files');
+		$this->getApplication()->outputTitle('Make Language files');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		$languages = $this->application->get('languages');
+		$languages = $this->getApplication()->get('languages');
 
 		foreach ($languages as $lang)
 		{

@@ -47,19 +47,19 @@ class Help extends TrackerCommand
 	public function execute()
 	{
 		/* @type ColorProcessor $processor */
-		$processor = $this->application->getOutput()->getProcessor();
+		$processor = $this->getApplication()->getOutput()->getProcessor();
 
 		$processor
 			->addStyle('cmd', new ColorStyle('magenta'))
 			->addStyle('opt', new ColorStyle('cyan'));
 
-		$executable = basename($this->application->input->executable);
+		$executable = basename($this->getApplication()->input->executable);
 
 		$this->commands = $this->getCommands();
 
-		if (isset($this->application->input->args[1]))
+		if (isset($this->getApplication()->input->args[1]))
 		{
-			$this->helpCommand($this->application->input->args[1]);
+			$this->helpCommand($this->getApplication()->input->args[1]);
 
 			return;
 		}
@@ -90,7 +90,7 @@ class Help extends TrackerCommand
 		$this->out('<b>For more information use</b> <info>' . $executable . ' help</info> <cmd><command></cmd>.')
 			->out();
 
-		$options = $this->application->getCommandOptions();
+		$options = $this->getApplication()->getCommandOptions();
 
 		if ($options)
 		{
@@ -216,7 +216,7 @@ class Help extends TrackerCommand
 				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
 			}
 
-			$commands[strtolower($c)] = new $className($this->application);
+			$commands[strtolower($c)] = new $className($this->container);
 		}
 
 		return $commands;
@@ -252,7 +252,7 @@ class Help extends TrackerCommand
 			{
 				$className = "CliApp\\Command\\$cName\\$action";
 
-				$actions[strtolower($action)] = new $className($this->application);
+				$actions[strtolower($action)] = new $className($this->container);
 			}
 		}
 

@@ -6,7 +6,7 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Make;
+namespace CliApp\Command\Test;
 
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
@@ -14,11 +14,11 @@ use CliApp\Command\TrackerCommandOption;
 use Joomla\Filesystem\Folder;
 
 /**
- * Class for retrieving issues from GitHub for selected projects
+ * Base class for running tests.
  *
  * @since  1.0
  */
-class Make extends TrackerCommand
+class Test extends TrackerCommand
 {
 	/**
 	 * The command "description" used for help texts.
@@ -26,15 +26,7 @@ class Make extends TrackerCommand
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'The make engine';
-
-	/**
-	 * Joomla! Github object
-	 *
-	 * @var    \Joomla\Github\Github
-	 * @since  1.0
-	 */
-	protected $github;
+	protected $description = 'The test engine';
 
 	/**
 	 * Constructor.
@@ -62,7 +54,7 @@ class Make extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make');
+		$this->application->outputTitle('Test');
 
 		$errorTitle = 'Please use one of the following:';
 
@@ -73,12 +65,12 @@ class Make extends TrackerCommand
 		{
 			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
 
-			if ('make' == $cmd)
+			if ('test' == $cmd)
 			{
 				continue;
 			}
 
-			$this->out('<error>  make ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
+			$this->out('<error>  test ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
 		}
 
 		$this->out('<error>                                    </error>');

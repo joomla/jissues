@@ -72,7 +72,11 @@ class Listing extends DefaultController
 		);
 
 		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 1, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 0, 'uint')
+		);
+
+		$state->set('filter.stage',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'filter-stage', 0, 'uint')
 		);
 
 		$state->set('filter.search',
