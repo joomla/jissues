@@ -9,8 +9,8 @@
 namespace App\Support\Controller;
 
 use g11n\g11n;
+
 use JTracker\Controller\AbstractTrackerController;
-use Whoops\Example\Exception;
 
 /**
  * Controller class for the icons view.
@@ -20,14 +20,6 @@ use Whoops\Example\Exception;
 class Clearcache extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'icons';
-
-	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -36,7 +28,7 @@ class Clearcache extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->getApplication();
+		$application = $this->container->get('app');
 
 		try
 		{
@@ -44,7 +36,7 @@ class Clearcache extends AbstractTrackerController
 
 			$application->enqueueMessage(g11n3t('The cache has been cleared.'), 'success');
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$application->enqueueMessage($e->getMessage(), 'error');
 		}

@@ -10,7 +10,6 @@ namespace JTracker\View\Renderer;
 
 use Joomla\Registry\Registry;
 use Joomla\View\Renderer\RendererInterface;
-use JTracker\Container;
 
 /**
  * PHP view renderer
@@ -56,7 +55,7 @@ class Php implements RendererInterface
 
 		$this->debug   = JDEBUG;
 		$this->globals = new Registry;
-		$app = Container::retrieve('app');
+		$app = $this->container->get('app');
 
 		$this->set('uri', $app->get('uri'));
 	}

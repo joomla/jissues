@@ -8,16 +8,12 @@
 
 namespace App\Tracker\Model;
 
-use App\Projects\Table\ProjectsTable;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
 use Joomla\Filter\InputFilter;
-use Joomla\Registry\Registry;
-use Joomla\String\String;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Container;
 
 /**
  * Model to get data for the issue list view
@@ -47,25 +43,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($identifier = null)
 	{
-		$app = Container::retrieve('app');
-
 		if (!$identifier)
 		{
-			$identifier = $app->input->getUint('id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
+			return  new IssuesTable($this->db);
 		}
-
-		$project = $app->getProject();
 
 		$item = $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('i.*')
 				->from($this->db->quoteName('#__issues', 'i'))
-				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $project->project_id)
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
 				->where($this->db->quoteName('i.issue_number') . ' = ' . (int) $identifier)
 
 				// Join over the status table
@@ -106,7 +93,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$query->select('a.*');
 		$query->from($this->db->quoteName($table->getTableName(), 'a'));
-		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $project->project_id);
+		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $this->getProject()->project_id);
 		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
 
@@ -154,34 +141,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		return $item;
-	}
-
-	/**
-	 * Get a project.
-	 *
-	 * @param   integer  $identifier  The project identifier.
-	 *
-	 * @return  ProjectsTable
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject($identifier = null)
-	{
-		if (!$identifier)
-		{
-			$app = Container::retrieve('app');
-			$identifier = $app->input->getUint('project_id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
-		}
-
-		$table = new ProjectsTable($this->db);
-
-		return $table->load($identifier);
 	}
 
 	/**
@@ -287,7 +246,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$table = new IssuesTable($db);
+		$table = new IssuesTable($this->db);
 		$table->load($id);
 
 		// Insert a new record if no vote_id is associated

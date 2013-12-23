@@ -10,8 +10,6 @@ namespace CliApp\Command\Make;
 
 use App\Text\Table\ArticlesTable;
 
-use JTracker\Container;
-
 /**
  * Class for parsing documentation files to inject into the site
  *
@@ -36,14 +34,21 @@ class Docu extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Documentation');
+		$this->getApplication()->outputTitle('Make Documentation');
 
-		$this->github = Container::retrieve('gitHub');
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		$this->application->displayGitHubRateLimit();
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
+
+		$this->github = $this->container->get('gitHub');
+
+		$this->getApplication()->displayGitHubRateLimit();
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$docuBase   = JPATH_ROOT . '/Documentation';
 		$pagePrefix = 'dox-';
@@ -60,7 +65,7 @@ class Docu extends Make
 			$files[] = $f->getFilename();
 		}
 
-		$progressBar = $this->application->getProgressBar(count($files));
+		$progressBar = $this->getApplication()->getProgressBar(count($files));
 
 		$this->usePBar ? $this->out() : null;
 
@@ -70,6 +75,9 @@ class Docu extends Make
 			->out();
 
 		$table = new ArticlesTable($db);
+
+		// @todo compile the md text here.
+		$table->setGitHub($this->github);
 
 		foreach ($files as $i => $file)
 		{

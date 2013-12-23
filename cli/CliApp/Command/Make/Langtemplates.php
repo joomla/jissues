@@ -43,7 +43,7 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
@@ -362,7 +362,7 @@ class Langtemplates extends Make
 		);
 
 		// Configure Twig the way you want
-		$twig->addExtension(new TrackerExtension);
+		$twig->addExtension(new TrackerExtension($this->container));
 
 		// Iterate over all your templates
 		/* @type \DirectoryIterator $file */
@@ -469,6 +469,12 @@ class Langtemplates extends Make
 	 */
 	private function delTree($dir)
 	{
+		if (false == is_dir($dir))
+		{
+			// Directory does not exist.
+			return true;
+		}
+
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file)

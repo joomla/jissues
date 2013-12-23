@@ -13,8 +13,6 @@ use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Github\Github;
 
-use JTracker\Container;
-
 /**
  * Class for updating data on GitHub for selected projects
  *
@@ -47,6 +45,8 @@ class Update extends TrackerCommand
 	{
 		parent::__construct();
 
+		$this->description = 'Used to update GitHub data.';
+
 		$this
 			->addOption(
 				new TrackerCommandOption(
@@ -71,7 +71,7 @@ class Update extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Get');
+		$this->getApplication()->outputTitle('Get');
 
 		$this
 			->out('<error>                                    </error>')
@@ -91,7 +91,7 @@ class Update extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		return $this;
 	}

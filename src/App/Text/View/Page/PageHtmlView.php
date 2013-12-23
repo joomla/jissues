@@ -12,7 +12,6 @@ use App\Text\Model\PageModel;
 
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * Page view class
@@ -30,6 +29,14 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
+	 * The page alias.
+	 *
+	 * @var string
+	 * @since   1.0
+	 */
+	protected $alias = '';
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -39,22 +46,51 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
-		$alias = $application->input->getCmd('alias');
-
 		try
 		{
-			$item = $this->model->getItem($alias);
+			$item = $this->model->getItem($this->getAlias());
 		}
 		catch (\RuntimeException $e)
 		{
-			throw new RoutingException($alias);
+			throw new RoutingException($this->getAlias());
 		}
 
 		$this->renderer->set('page', $item->getIterator());
 
 		return parent::render();
+	}
+
+	/**
+	 * Get the page alias.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 * @throws \RuntimeException
+	 */
+	public function getAlias()
+	{
+		if ('' == $this->alias)
+		{
+			throw new \RuntimeException('Alias not set.');
+		}
+
+		return $this->alias;
+	}
+
+	/**
+	 * Set the page alias.
+	 *
+	 * @param   string  $alias  The page alias.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+
+		return $this;
 	}
 }

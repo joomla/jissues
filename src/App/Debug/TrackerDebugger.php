@@ -10,17 +10,18 @@ namespace App\Debug;
 
 use g11n\g11n;
 
-use Joomla\Application\AbstractApplication;
+use Joomla\DI\Container;
 use Joomla\Profiler\Profiler;
-
 use Joomla\Utilities\ArrayHelper;
+
 use JTracker\Application;
-use JTracker\Container;
 
 use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 use App\Debug\Handler\ProductionHandler;
+
+use JTracker\View\Renderer\TrackerExtension;
 
 use Kint;
 
@@ -75,17 +76,25 @@ class TrackerDebugger implements LoggerAwareInterface
 	private $logger;
 
 	/**
+	 * @var  Container
+	 * @since  1.0
+	 */
+	private $container;
+
+	/**
 	 * Constructor.
 	 *
-	 * @param   AbstractApplication  $application  The application
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(AbstractApplication $application)
+	public function __construct(Container $container)
 	{
-		$this->application = $application;
+		$this->container = $container;
 
-		$this->profiler = $application->get('debug.system') ? new Profiler('Tracker') : null;
+		$this->application = $container->get('app');
+
+		$this->profiler = $container->get('app')->get('debug.system') ? new Profiler('Tracker') : null;
 
 		$this->setupLogging();
 
@@ -129,7 +138,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
 			$logger->pushProcessor(new WebProcessor);
 
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 			$db->setLogger($logger);
 			$db->setDebug(true);
 		}
@@ -183,7 +192,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function addDatabaseEntry($record)
 	{
-		// $db = Container::retrieve('db');
+		// $db = $this->container->get('db');
 
 		if (false == isset($record['context']))
 		{
@@ -255,8 +264,6 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function getOutput()
 	{
-		$navigation = $this->getNavigation();
-
 		$debug = array();
 
 		// Check if debug is only displayed for admin users
@@ -286,12 +293,12 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			$debug[] = '<div id="dbgUser">';
 			$debug[] = '<h3>' . g11n3t('User') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('jissues_user'));
+			$debug[] = @Kint::dump($this->application->getUser());
 			$debug[] = '</div>';
 
 			$debug[] = '<div id="dbgProject">';
 			$debug[] = '<h3>' . g11n3t('Project') . '</h3>';
-			$debug[] = @Kint::dump($this->application->getSession()->get('project'));
+			$debug[] = @Kint::dump($this->application->getProject());
 			$debug[] = '</div>';
 		}
 
@@ -313,7 +320,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			return '';
 		}
 
-		return implode("\n", $navigation) . implode("\n", $debug);
+		return implode("\n", $this->getNavigation()) . implode("\n", $debug);
 	}
 
 	/**
@@ -340,6 +347,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			span.dbgOperator { color: red; }
 			div:target { border: 2px dashed orange; padding: 5px; padding-top: 100px; }
 			div:target { transition:all 0.5s ease; }
+			body { margin-bottom: 50px; }
 		</style>
 		';
 
@@ -399,8 +407,8 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.system'))
 		{
-			$user    = $this->application->getSession()->get('jissues_user');
-			$project = $this->application->getSession()->get('project');
+			$user    = $this->application->getUser();
+			$project = $this->application->getProject();
 
 			$title = $project ? $project->title : g11n3t('No Project');
 
@@ -497,8 +505,10 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		$pluralInfo = sprintf(
-			g11n3t('Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
-			g11n::get('pluralForms'), g11n::get('pluralFunctionRaw')
+			g11n3t(
+				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
+			g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'
+			)
 		);
 
 		return $tableFormat->fromArray($items) . $pluralInfo;
@@ -529,6 +539,9 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		$view = new \JTracker\View\TrackerDefaultView;
+
+		$renderer = $view->getRenderer();
+		$renderer->addExtension(new TrackerExtension($this->container));
 
 		$message = '';
 
@@ -639,7 +652,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$tableFormat = new TableFormat;
 		$sqlFormat   = new SqlFormat;
-		$dbDebugger  = new DatabaseDebugger(Container::retrieve('db'));
+		$dbDebugger  = new DatabaseDebugger($this->container->get('db'));
 
 		$debug[] = sprintf(g11n4t('One database query', '%d database queries', count($dbLog)), count($dbLog));
 

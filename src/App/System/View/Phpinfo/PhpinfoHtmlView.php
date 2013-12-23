@@ -9,15 +9,13 @@
 namespace App\System\View\PhpInfo;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use Joomla\Utilities\ArrayHelper;
-use Twig_SimpleFilter;
 
 /**
  * System phpinfo() output view.
  *
  * @since  1.0
  */
-class PhpInfoHtmlView extends AbstractTrackerHtmlView
+class PhpinfoHtmlView extends AbstractTrackerHtmlView
 {
 	/**
 	 * Method to render the view.

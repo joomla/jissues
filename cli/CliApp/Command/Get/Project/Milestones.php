@@ -14,8 +14,6 @@ use CliApp\Command\Get\Project;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving milestones from GitHub for selected projects.
  *
@@ -40,7 +38,7 @@ class Milestones extends Project
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Milestones');
+		$this->getApplication()->outputTitle('Retrieve Milestones');
 
 		$this->logOut('Start retrieve Milestones')
 			->selectProject()
@@ -62,7 +60,7 @@ class Milestones extends Project
 		$this->out('Fetching milestones...', false);
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$table = new MilestonesTable($db);
 

@@ -16,8 +16,6 @@ use CliApp\Command\Get\Project;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -46,7 +44,14 @@ class Issues extends Project
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Issues');
+		$this->getApplication()->outputTitle('Retrieve Issues');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->logOut('Start retrieve Issues')
 			->selectProject()
@@ -156,7 +161,8 @@ class Issues extends Project
 
 		// Initialize our database object
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
+		$query = $db->getQuery(true);
 
 		$added = 0;
 		$updated = 0;
@@ -215,7 +221,7 @@ class Issues extends Project
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($db);
+			$table = new IssuesTable($this->container->get('db'));
 
 			if ($id)
 			{
@@ -341,7 +347,7 @@ class Issues extends Project
 		if (!$labels)
 		{
 			/* @type \Joomla\Database\DatabaseDriver $db */
-			$db = Container::getInstance()->get('db');
+			$db = $this->container->get('db');
 
 			$table = new LabelsTable($db);
 
@@ -385,7 +391,7 @@ class Issues extends Project
 	private function getMilestones()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 		$table = new MilestonesTable($db);
 
 		$milestoneList = $db->setQuery(

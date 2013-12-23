@@ -16,7 +16,6 @@ use CliApp\Command\TrackerCommandOption;
 use Joomla\Filesystem\Folder;
 
 use JTracker\Github\Github;
-use JTracker\Container;
 
 /**
  * Class for retrieving data from GitHub for selected projects
@@ -90,7 +89,7 @@ class Get extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Get');
+		$this->getApplication()->outputTitle('Get');
 
 		$errorTitle = 'Please use one of the following:';
 
@@ -122,7 +121,7 @@ class Get extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = Container::retrieve('gitHub');
+        $this->github = $this->container->get('gitHub');
 
 		return $this;
 	}

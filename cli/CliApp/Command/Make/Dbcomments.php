@@ -8,8 +8,6 @@
 
 namespace CliApp\Command\Make;
 
-use JTracker\Container;
-
 /**
  * Class for generating class doc blocks in JTracker\Database\AbstractDatabaseTable classes
  *
@@ -34,10 +32,10 @@ class Dbcomments extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make DB Comments');
+		$this->getApplication()->outputTitle('Make DB Comments');
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$tables = $db->getTableList();
 

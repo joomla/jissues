@@ -34,7 +34,7 @@ class Login extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 
 		$user = $app->getUser();
 
@@ -108,16 +108,16 @@ class Login extends AbstractTrackerController
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = new GithubUser;
+		$user = new GithubUser($app->getProject(), $this->container->get('db'));
 
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
 
 		// Save the avatar
-		GitHubLoginHelper::saveAvatar($user->username);
+		$loginHelper->saveAvatar($user->username);
 
 		// Set the last visit time
-		GitHubLoginHelper::setLastVisitTime($user->id);
+		$loginHelper->setLastVisitTime($user->id);
 
 		// User login
 		$app->setUser($user);

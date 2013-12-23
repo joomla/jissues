@@ -15,8 +15,6 @@ use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving events from GitHub for selected projects
  *
@@ -71,7 +69,7 @@ class Events extends Project
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Events');
+		$this->getApplication()->outputTitle('Retrieve Events');
 
 		$this->logOut('Start retrieve Events')
 			->selectProject()
@@ -182,7 +180,7 @@ class Events extends Project
 		}
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);
 
@@ -213,6 +211,7 @@ class Events extends Project
 					case 'reopened' :
 					case 'assigned' :
 					case 'merged' :
+					case 'head_ref_deleted' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -250,7 +249,7 @@ class Events extends Project
 
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
-							'assigned' => 'assign', 'merged' => 'merge'
+							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted'
 						);
 
 						$table->gh_comment_id = $event->id;

@@ -9,9 +9,7 @@
 namespace CliApp\Service;
 
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\DI\Container as JoomlaContainer;
-
-use JTracker\Container;
+use Joomla\DI\Container;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -58,14 +56,14 @@ class LoggerProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   \Joomla\DI\Container  $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function register(JoomlaContainer $container)
+	public function register(Container $container)
 	{
 		$container->share(
 			'Monolog\\Logger',
@@ -79,7 +77,7 @@ class LoggerProvider implements ServiceProviderInterface
 					// Log to a file
 					$logger->pushHandler(
 						new StreamHandler(
-							$container->get('debugger')->getLogPath('root') . '/' . LoggerProvider::$ileName,
+							$container->get('debugger')->getLogPath('root') . '/' . LoggerProvider::$fileName,
 							Logger::INFO
 						)
 					);
