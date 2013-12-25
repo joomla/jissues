@@ -303,8 +303,16 @@ final class Application extends AbstractWebApplication
 
 		if (is_null($this->user))
 		{
-			$this->user = ($this->getSession()->get('jissues_user'))
-				? : new GitHubUser($this->getProject(), $this->container->get('db'));
+			if ($this->user = $this->getSession()->get('jissues_user'))
+			{
+				// @todo Ref #275
+				$this->user->setDatabase($this->container->get('db'));
+				$this->user->getProject()->setDatabase($this->container->get('db'));
+			}
+			else
+			{
+				$this->user = new GitHubUser($this->getProject(), $this->container->get('db'));
+			}
 		}
 
 		return $this->user;

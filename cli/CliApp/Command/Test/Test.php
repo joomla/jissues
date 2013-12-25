@@ -54,7 +54,7 @@ class Test extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Test');
+		$this->getApplication()->outputTitle('Test');
 
 		$errorTitle = 'Please use one of the following:';
 

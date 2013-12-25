@@ -101,15 +101,15 @@ abstract class User implements \Serializable
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerProject  $project     The DI container.
-	 * @param   DatabaseDriver  $database    The DI container.
+	 * @param   TrackerProject  $project     The tracker project.
+	 * @param   DatabaseDriver  $database    The database connector.
 	 * @param   integer         $identifier  The primary key of the user to load..
 	 *
 	 * @since   1.0
 	 */
 	public function __construct(TrackerProject $project, DatabaseDriver $database, $identifier = 0)
 	{
-		$this->database = $database;
+		$this->setDatabase($database);
 		$this->project  = $project;
 
 		// Load the user if it exists
@@ -406,5 +406,19 @@ abstract class User implements \Serializable
 		}
 
 		return $this->project;
+	}
+
+	/**
+	 * Method to set the database connector.
+	 *
+	 * @param   DatabaseDriver  $database  The Database connector.
+	 *
+	 * @return  void
+	 *
+	 * @since 1.0
+	 */
+	public function setDatabase(DatabaseDriver $database)
+	{
+		$this->database = $database;
 	}
 }
