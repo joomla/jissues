@@ -188,7 +188,7 @@ class Langtemplates extends Make
 		$comments = ' --add-comments=TRANSLATORS:';
 
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
-		$forcePo  = ' --force-po --no-wrap';
+		$noWrap   = ' --no-wrap';
 
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
@@ -248,7 +248,7 @@ class Langtemplates extends Make
 		{
 			$fileList = implode("\n", $cleanFiles);
 
-			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $forcePo . $comments . $headerData;
+			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $noWrap . $comments . $headerData;
 
 			$this->debugOut($command);
 
