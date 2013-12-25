@@ -346,7 +346,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			}
 
 			$this->project = $checks[$resp];
-			$project = $checks[$resp];
 		}
 		else
 		{
@@ -368,7 +367,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
 
-		$this->application->input->set('project', $this->project->project_id);
+		$this->getApplication()->input->set('project', $this->project->project_id);
 
 		return $this;
 	}

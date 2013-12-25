@@ -14,8 +14,6 @@ use CliApp\Command\Get\Project;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving comments from GitHub for selected projects
  *
@@ -48,7 +46,7 @@ class Comments extends Project
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Comments');
+		$this->getApplication()->outputTitle('Retrieve Comments');
 
 		$this->logOut('Start retrieve Comments')
 			->selectProject()
@@ -159,7 +157,7 @@ class Comments extends Project
 		}
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		// Initialize our query object
 		$query = $db->getQuery(true);

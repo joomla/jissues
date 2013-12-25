@@ -46,13 +46,6 @@ class Issues extends Project
 	{
 		$this->getApplication()->outputTitle('Retrieve Issues');
 
-		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
-
-		if ($this->getApplication()->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
-
 		$this->logOut('Start retrieve Issues')
 			->selectProject()
 			->setupGitHub()
@@ -159,11 +152,6 @@ class Issues extends Project
 			throw new \UnexpectedValueException('No issues received...');
 		}
 
-		// Initialize our database object
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
-		$query = $db->getQuery(true);
-
 		$added = 0;
 		$updated = 0;
 
@@ -247,6 +235,7 @@ class Issues extends Project
 			$table->opened_by   = $ghIssue->user->login;
 
 			$table->modified_date = with(new Date($ghIssue->updated_at))->format('Y-m-d H:i:s');
+			$table->modified_by   = $ghIssue->user->login;
 
 			$table->project_id = $this->project->project_id;
 			$table->milestone_id = ($ghIssue->milestone && isset($milestones[$ghIssue->milestone->number]))
@@ -426,7 +415,7 @@ class Issues extends Project
 	protected function getDbIssues()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);
 

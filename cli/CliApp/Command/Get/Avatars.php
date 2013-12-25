@@ -32,16 +32,6 @@ class Avatars extends Get
 	 */
 	public function __construct()
 	{
-		$this->application = Container::retrieve('app');
-		$this->logger      = Container::retrieve('logger');
-		$this->usePBar     = $this->application->get('cli-application.progress-bar');
-
-		if ($this->application->input->get('noprogress'))
-		{
-			$this->usePBar = false;
-		}
-
-		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 	}
 
 	/**
@@ -53,14 +43,16 @@ class Avatars extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Avatars');
-
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
 		if ($this->getApplication()->input->get('noprogress'))
 		{
 			$this->usePBar = false;
 		}
+
+		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
+
+		$this->getApplication()->outputTitle('Retrieve Avatars');
 
 		$this->logOut('Start retrieve Avatars.')
 			->setupGitHub()
@@ -129,7 +121,7 @@ class Avatars extends Get
 			{
 				$loginHelper->saveAvatar($username);
 
-				++ $adds;
+				++$adds;
 			}
 			catch (\DomainException $e)
 			{

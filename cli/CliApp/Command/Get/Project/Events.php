@@ -295,7 +295,7 @@ class Events extends Project
 						continue;
 						break;
 
-					case 'head_ref_deleted' :
+					case 'xxhead_ref_deleted' :
 						// ?
 						continue;
 						break;

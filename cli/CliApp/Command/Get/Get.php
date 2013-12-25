@@ -121,7 +121,7 @@ class Get extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-        $this->github = $this->container->get('gitHub');
+		$this->github = $this->container->get('gitHub');
 
 		return $this;
 	}

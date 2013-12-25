@@ -90,9 +90,6 @@ class Project extends Get
 					'Force an update even if the issue has not changed.'
 				)
 			);
-
-		// @todo booleanIze
-		$this->force = $this->application->input->get('force', $this->application->input->get('f'));
 	}
 
 	/**
@@ -110,19 +107,18 @@ class Project extends Get
 
 		$this->selectProject();
 
-		$this->getApplication()->input->set('project', $this->project->project_id);
-
 		$this
+			->setParams()
 			->selectRange()
 			->setupGitHub()
 			->displayGitHubRateLimit()
 			->out(
 				sprintf(
-						'Updating project info for project: %s/%s',
-						$this->project->gh_user,
-						$this->project->gh_project
-					)
+					'Updating project info for project: %s/%s',
+					$this->project->gh_user,
+					$this->project->gh_project
 				)
+			)
 			->processLabels()
 			->processMilestones()
 			->processIssues()
@@ -131,6 +127,27 @@ class Project extends Get
 			->processAvatars()
 			->out()
 			->logOut('Bulk Finished');
+	}
+
+	/**
+	 * Set internal parameters from the input..
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function setParams()
+	{
+		$this->force = $this->getApplication()->input->get('force', $this->getApplication()->input->get('f'));
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
+
+		return $this;
 	}
 
 	/**
@@ -177,7 +194,11 @@ class Project extends Get
 		$issues = new Issues;
 
 		$issues->rangeFrom = $this->rangeFrom;
-		$issues->rangeTo   = $this->rangeTo;
+		$issues->rangeTo = $this->rangeTo;
+		$issues->force = $this->force;
+		$issues->usePBar = $this->usePBar;
+
+		$issues->setContainer($this->getContainer());
 
 		$issues->execute();
 
@@ -195,7 +216,12 @@ class Project extends Get
 	 */
 	protected function processComments()
 	{
-		with(new Comments)
+		$comments = new Comments;
+
+		$comments->usePBar = $this->usePBar;
+		$comments->force = $this->force;
+
+		$comments
 			->setContainer($this->getContainer())
 			->setChangedIssueNumbers($this->changedIssueNumbers)
 			->execute();
@@ -212,7 +238,11 @@ class Project extends Get
 	 */
 	protected function processEvents()
 	{
-		with(new Events)
+		$events = new Events;
+
+		$events->usePBar = $this->usePBar;
+
+		$events
 			->setContainer($this->getContainer())
 			->setChangedIssueNumbers($this->changedIssueNumbers)
 			->execute();
@@ -247,10 +277,10 @@ class Project extends Get
 	{
 		$issue = $this->getApplication()->input->getInt('issue');
 
-		$rangeFrom = $this->application->input->getInt('range_from');
-		$rangeTo   = $this->application->input->getInt('range_to');
+		$rangeFrom = $this->getApplication()->input->getInt('range_from');
+		$rangeTo = $this->getApplication()->input->getInt('range_to');
 
-		if ($this->application->input->get('all'))
+		if ($this->getApplication()->input->get('all'))
 		{
 			// Process all issues - do nothing
 		}
@@ -258,30 +288,30 @@ class Project extends Get
 		{
 			// Process only a single issue
 			$this->rangeFrom = $issue;
-			$this->rangeTo   = $issue;
+			$this->rangeTo = $issue;
 		}
 		elseif ($rangeFrom && $rangeTo)
 		{
 			// Process a range of issues
 			$this->rangeFrom = $rangeFrom;
-			$this->rangeTo   = $rangeTo;
+			$this->rangeTo = $rangeTo;
 		}
 		else
 		{
 			// Select what to process
 			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
 
-			$resp = trim($this->application->in());
+			$resp = trim($this->getApplication()->in());
 
 			if ($resp == 'r' || $resp == 'range')
 			{
 				// Get the first GitHub issue (from)
 				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
-				$this->rangeFrom = (int) trim($this->application->in());
+				$this->rangeFrom = (int) trim($this->getApplication()->in());
 
 				// Get the ending GitHub issue (to)
 				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
-				$this->rangeTo = (int) trim($this->application->in());
+				$this->rangeTo = (int) trim($this->getApplication()->in());
 			}
 		}
 
