@@ -156,7 +156,7 @@ class Langfiles extends Make
 			$options = array();
 
 			$options[] = 'update';
-			$options[] = 'backup=numbered';
+			$options[] = 'backup=off';
 			$options[] = 'no-fuzzy-matching';
 			$options[] = 'verbose';
 			$options[] = 'no-wrap';
