@@ -9,15 +9,15 @@
 namespace App\Text\Controller\Article;
 
 use App\Text\Table\ArticlesTable;
-use App\Tracker\Controller\DefaultController;
-use JTracker\Container;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to delete an article.
  *
  * @since  1.0
  */
-class Delete extends DefaultController
+class Delete extends AbstractTrackerController
 {
 	/**
 	 * The default view for the component
@@ -36,17 +36,17 @@ class Delete extends DefaultController
 	 */
 	public function execute()
 	{
-		$app = $this->getApplication();
+		$app = $this->container->get('app');
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable(Container::retrieve('db'));
+		$table = new ArticlesTable($this->container->get('db'));
 
 		$table->delete($app->input->getInt('id'));
 
 		$app->enqueueMessage(g11n3t('The article has been deleted.'), 'success');
 
-		$this->getInput()->set('view', 'articles');
+		$this->container->get('app')->input->set('view', 'articles');
 
 		parent::execute();
 	}

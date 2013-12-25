@@ -6,12 +6,117 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
-#### joomla/framework (dev-master)
+#### joomla/application (1.0.*@stable)
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
 
-* Installed: dev-master fbf3586a735b235a99aa23dd0518bfe9e08ee79c
-* Source URL: https://github.com/joomla/joomla-framework.git
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-application.git
+
+#### joomla/controller (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-controller.git
+
+#### joomla/database (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-database.git
+
+#### joomla/date (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-date.git
+
+#### joomla/filter (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-filter.git
+
+#### joomla/github (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-github.git
+
+#### joomla/http (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-http.git
+
+#### joomla/input (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-input.git
+
+#### joomla/model (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-model.git
+
+#### joomla/profiler (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-profiler.git
+
+#### joomla/registry (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-registry.git
+
+#### joomla/router (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-router.git
+
+#### joomla/string (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-string.git
+
+#### joomla/uri (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-uri.git
+
+#### joomla/utilities (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-utilities.git
+
+#### joomla/view (1.0.*@stable)
+
+The Joomla Framework is a platform for writing Web and command line applications in PHP.
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-view.git
 
 #### symfony/http-foundation (2.3.*@stable)
 
@@ -24,7 +129,7 @@ Symfony HttpFoundation Component
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.14.2
+* Installed: v1.15.0
 * Source URL: https://github.com/fabpot/Twig.git
 
 #### elkuku/g11n (2.1)

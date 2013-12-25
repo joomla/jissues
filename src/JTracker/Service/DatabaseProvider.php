@@ -9,9 +9,8 @@
 namespace JTracker\Service;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\DI\Container as JoomlaContainer;
+use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use JTracker\Container;
 
 /**
  * Database service provider
@@ -23,13 +22,13 @@ class DatabaseProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   JoomlaContainer  $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function register(JoomlaContainer $container)
+	public function register(Container $container)
 	{
 		$container->set('Joomla\\Database\\DatabaseDriver',
 			function () use ($container)

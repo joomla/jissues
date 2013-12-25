@@ -10,10 +10,10 @@ namespace JTracker\Model;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Pagination\TrackerPagination;
-use JTracker\Container;
 
 /**
  * Abstract model to get data for a list view
@@ -45,18 +45,31 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * @var    DatabaseQuery
 	 * @since  1.0
 	 */
-	protected $query = array();
+	protected $query;
+
+	/**
+	 * @var \Joomla\Input\Input
+	 */
+	protected $input;
+
+	/**
+	 * @var  TrackerPagination
+	 */
+	protected $pagination;
 
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver  $database  The database adapter.
+	 * @param   DatabaseDriver  $database  The database driver.
+	 * @param   Input           $input     The input object.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(DatabaseDriver $database = null)
+	public function __construct(DatabaseDriver $database, Input $input)
 	{
 		parent::__construct($database);
+
+		$this->input = $input;
 
 		// Set the context if not already done
 		if (is_null($this->context))
@@ -106,6 +119,11 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	abstract protected function getListQuery();
 
+	public function setPagination(TrackerPagination $pagination)
+	{
+		$this->pagination = $pagination;
+	}
+
 	/**
 	 * Method to get the pagination object for the data set.
 	 *
@@ -124,12 +142,18 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 			return $this->cache[$store];
 		}
 
-		// Create the pagination object.
+		if (is_null($this->pagination))
+		{
+			throw new \UnexpectedValueException('Pagination not set');
+		}
+
+		// Setup the values to paginate over.
 		$limit = (int) $this->state->get('list.limit') - (int) $this->state->get('list.links');
-		$page  = new TrackerPagination($this->getTotal(), $this->getStart(), $limit);
+
+		$this->pagination->setValues($this->getTotal(), $this->getStart(), $limit);
 
 		// Add the object to the internal cache.
-		$this->cache[$store] = $page;
+		$this->cache[$store] = $this->pagination;
 
 		return $this->cache[$store];
 	}
@@ -232,29 +256,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		if (!($this->state instanceof Registry))
 		{
 			$this->state = new Registry;
-		}
-
-		// If the context is set, assume that stateful lists are used.
-		if ($this->context)
-		{
-			/* @type \JTracker\Application $app */
-			$app = Container::retrieve('app');
-
-			$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('system.list_limit', 20), 'uint');
-
-			// @todo huge change here - no more session state...
-			$page = $app->input->getInt('page');
-
-			$value = $page ? ($page - 1) * $limit : 0;
-			$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
-
-			$this->state->set('list.start', $limitStart);
-			$this->state->set('list.limit', $limit);
-		}
-		else
-		{
-			$this->state->set('list.start', 0);
-			$this->state->set('list.limit', 0);
 		}
 	}
 

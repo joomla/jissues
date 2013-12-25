@@ -15,8 +15,6 @@ use App\Tracker\Table\ActivitiesTable;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -41,7 +39,14 @@ class Issues extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Issues');
+		$this->getApplication()->outputTitle('Retrieve Issues');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->logOut('Start retrieve Issues')
 			->selectProject()
@@ -141,7 +146,7 @@ class Issues extends Get
 	{
 		// Initialize our database object
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 		$query = $db->getQuery(true);
 		$added = 0;
 		$milestones = $this->getMilestones();
@@ -177,7 +182,7 @@ class Issues extends Get
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($db);
+			$table = new IssuesTable($this->container->get('db'));
 
 			$table->issue_number = $issue->number;
 			$table->title        = $issue->title;
@@ -198,7 +203,7 @@ class Issues extends Get
 			$table->modified_date = with(new Date($issue->updated_at))->format('Y-m-d H:i:s');
 
 			$table->project_id = $this->project->project_id;
-			$table->milestone_id = $issue->milestone ? $milestones[$issue->milestone->number] : null;
+			$table->milestone_id = ($issue->milestone && isset($milestones[$issue->milestone->number])) ? $milestones[$issue->milestone->number] : null;
 
 			// If the issue has a diff URL, it is a pull request.
 			if ($issue->pull_request->diff_url)
@@ -286,7 +291,7 @@ class Issues extends Get
 		if (!$labels)
 		{
 			/* @type \Joomla\Database\DatabaseDriver $db */
-			$db = Container::getInstance()->get('db');
+			$db = $this->container->get('db');
 
 			$table = new LabelsTable($db);
 
@@ -330,7 +335,7 @@ class Issues extends Get
 	private function getMilestones()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 		$table = new MilestonesTable($db);
 
 		$milestoneList = $db->setQuery(

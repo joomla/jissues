@@ -9,7 +9,6 @@
 namespace App\Users\Controller\Ajax;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Default controller class for the Users component.
@@ -30,13 +29,13 @@ class Listing extends AbstractAjaxController
 		// TODO: do we need access control here ?
 		// @$this->getApplication()->getUser()->authorize('admin');
 
-		$input = $this->getInput();
+		$input = $this->container->get('app')->input;
 
 		$groupId = $input->getInt('group_id');
 
 		if ($groupId)
 		{
-			$db = Container::retrieve('db');
+			$db = $this->container->get('db');
 
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('u.id', 'u.username')))

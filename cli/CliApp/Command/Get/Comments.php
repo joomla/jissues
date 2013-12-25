@@ -14,8 +14,6 @@ use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 
-use JTracker\Container;
-
 /**
  * Class for retrieving comments from GitHub for selected projects
  *
@@ -94,7 +92,14 @@ class Comments extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Comments');
+		$this->getApplication()->outputTitle('Retrieve Comments');
+
+		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
+
+		if ($this->getApplication()->input->get('noprogress'))
+		{
+			$this->usePBar = false;
+		}
 
 		$this->logOut('Start retrieve Comments')
 			->selectProject()
@@ -117,14 +122,14 @@ class Comments extends Get
 	 */
 	protected function selectRange()
 	{
-		$issue = $this->application->input->getInt('issue');
+		$issue = $this->getApplication()->input->getInt('issue');
 
 		if ($issue)
 		{
 			$this->rangeFrom = $issue;
 			$this->rangeTo   = $issue;
 		}
-		elseif ($this->application->input->get('all'))
+		elseif ($this->getApplication()->input->get('all'))
 		{
 			// Do nothing
 		}
@@ -133,17 +138,17 @@ class Comments extends Get
 			// Limit issues to process
 			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
 
-			$resp = trim($this->application->in());
+			$resp = trim($this->getApplication()->in());
 
 			if ($resp == 'r' || $resp == 'range')
 			{
 				// Get the first GitHub issue (from)
 				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
-				$this->rangeFrom = (int) trim($this->application->in());
+				$this->rangeFrom = (int) trim($this->getApplication()->in());
 
 				// Get the ending GitHub issue (to)
 				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
-				$this->rangeTo = (int) trim($this->application->in());
+				$this->rangeTo = (int) trim($this->getApplication()->in());
 			}
 		}
 
@@ -160,7 +165,7 @@ class Comments extends Get
 	protected function getIssues()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$query = $db->getQuery(true);
 
@@ -246,7 +251,7 @@ class Comments extends Get
 	protected function processComments()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		// Initialize our database object
 		$query = $db->getQuery(true);

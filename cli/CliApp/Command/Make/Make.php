@@ -62,7 +62,7 @@ class Make extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make');
+		$this->getApplication()->outputTitle('Make');
 
 		$errorTitle = 'Please use one of the following:';
 
