@@ -32,11 +32,15 @@ class Run extends Test
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Test Suite');
+		$this->getApplication()->outputTitle('Test Suite');
 
-		with(new Checkstyle)->execute();
+		with(new Checkstyle)
+			->setContainer($this->getContainer())
+			->execute();
 
-		with(new Phpunit)->execute();
+		with(new Phpunit)
+			->setContainer($this->getContainer())
+			->execute();
 
 		$this
 			->out()

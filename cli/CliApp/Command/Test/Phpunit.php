@@ -34,7 +34,7 @@ class Phpunit extends Test
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Test PHPUnit');
+		$this->getApplication()->outputTitle('Test PHPUnit');
 
 		$command = new PHPUnit_TextUI_Command;
 
