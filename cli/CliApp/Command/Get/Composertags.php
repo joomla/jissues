@@ -8,10 +8,7 @@
 
 namespace CliApp\Command\Get;
 
-use CliApp\Command\Make\Depfile;
 use CliApp\Command\TrackerCommandOption;
-
-use JTracker\Container;
 
 /**
  * Class for retrieving repository tags from GitHub based on the composer file.
@@ -35,9 +32,6 @@ class Composertags extends Get
 	 */
 	public function __construct()
 	{
-		$this->application = Container::retrieve('app');
-		$this->logger      = Container::retrieve('logger');
-
 		$this
 			->addOption(
 				new TrackerCommandOption(
@@ -52,19 +46,26 @@ class Composertags extends Get
 	 *
 	 * @return  void
 	 *
+	 * @throws \UnexpectedValueException
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve composer tags');
+		$this->getApplication()->outputTitle('Retrieve composer tags');
 
-		$packages = with(new Depfile)->getComposerInstalled();
-		$allTags  = $this->application->input->get('all');
+		$path = JPATH_ROOT . '/vendor/composer/installed.json';
+
+		$packages = json_decode(file_get_contents($path));
+
+		if (!$packages)
+		{
+			throw new \UnexpectedValueException('Can not read the packages file at ' . $path);
+		}
 
 		$this->logOut('Start getting composer tags.')
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			->fetchTags($packages, $allTags)
+			->fetchTags($packages, $this->getApplication()->input->get('all'))
 			->out()
 			->logOut('Finished.');
 	}
@@ -85,9 +86,9 @@ class Composertags extends Get
 		{
 			$this->out($package->name);
 
-			if (!preg_match('|https://github.com/([A-z0-9\-]+)/([A-z0-9\-\.]+).git|', $package->sourceURL, $matches))
+			if (!preg_match('|https://github.com/([A-z0-9\-]+)/([A-z0-9\-\.]+).git|', $package->source->url, $matches))
 			{
-				$this->out('CAN NOT PARSE: ' . $package->sourceURL);
+				$this->out('CAN NOT PARSE: ' . $package->source->url);
 
 				continue;
 			}

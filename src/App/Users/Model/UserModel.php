@@ -8,9 +8,10 @@
 
 namespace App\Users\Model;
 
+use App\Projects\TrackerProject;
+
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Container;
 
 /**
  * User model class for the Users component.
@@ -20,34 +21,53 @@ use JTracker\Container;
 class UserModel extends AbstractTrackerDatabaseModel
 {
 	/**
+	 * @var  TrackerProject
+	 */
+	protected $project;
+
+	/**
 	 * Get an item.
 	 *
 	 * @param   integer  $itemId  The item id.
 	 *
+	 * @throws \Exception
 	 * @return  GitHubUser
 	 *
 	 * @since   1.0
 	 */
 	public function getItem($itemId = null)
 	{
-		/* @type \JTracker\Application $application */
-		$application = Container::retrieve('app');
-
 		if (!$itemId)
 		{
-			return $application->getUser();
+			throw new \Exception('No user set');
 		}
 
 		try
 		{
-			$user = new GitHubUser($itemId);
+			$user = new GitHubUser($this->project, $this->db, $itemId);
 		}
 		catch (\RuntimeException $e)
 		{
 			// Load a blank user
-			$user = new GitHubUser;
+			$user = new GitHubUser($this->project, $this->db);
 		}
 
 		return $user;
+	}
+
+	/**
+	 * Set the project.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setProject(TrackerProject $project)
+	{
+		$this->project = $project;
+
+		return $this;
 	}
 }

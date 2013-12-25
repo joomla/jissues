@@ -13,6 +13,7 @@ The application also has external dependencies installable via Composer.  You ca
 2. Copy `/etc/config.dist.json` to `/etc/config.json`.
 3. Enter your database credentials in the `/etc/config.json` file.
 4. Install dependencies from Composer by running `composer install` (or the equivalent for your system).  If you need to install Composer, you can do so from http://getcomposer.org/download/.
+5. Install media files from Bower by running   `bower install`. If you need to install Bower you can do so by using NPM. Read more http://bower.io/.
 
 From this point, you can setup your database in one of two ways:
 
@@ -30,16 +31,26 @@ If you are in an environment where you cannot execute PHP scripts from the comma
 After setting up your database, verify the installation is successful by doing the following:
 
 1. View the site in your browser to verify setup.
-2. Open a console and execute cli/tracker.php with the `get` option to pull issues and issue comments from GitHub.<br />
-`cli/tracker.php get issues`<br />
-`cli/tracker.php get comments`
+2. Open a console and execute cli/tracker.php with the `get` option to pull issues, issue comments and other information related to the project from GitHub.<br />
+`cli/tracker.php get project`
 
-For more information on the CLI script see the [CLI script documentation](Documentation/CLI-script.md) file.
+See also: [CLI script](Documentation/CLI-script.md).
+
+### Using Login with Github
+
+If you want the 'login with Github' button to work properly you'll need to register an app with Github. To do this manage your account at github.com and go to the applications page. Create a new application.
+
+You'll be asked for the application URL and the callback URL. This can be your test server or your localhost environment. As long as you enter the URL that your localhost app is running on. An example might be ```http://jissues.local```.
+
+Once you've registered the app at Github you'll receive a ```Client ID``` and a ```Client Secret```, enter these into your JTracker ```config.json``` file, along with your Github login credentials. You should now be able to login with Github successfully
+
+See also: [GitHub Authentication](Documentation/github-authentication.md)
 
 ### Virtual test environment
 
 As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
-See: [Virtual server documentation](Documentation/virtual-test-server.md)
+
+See also: [Virtual server documentation](Documentation/virtual-test-server.md)
 
 ## Support & Discussion
 

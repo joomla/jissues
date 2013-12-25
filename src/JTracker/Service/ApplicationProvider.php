@@ -8,11 +8,10 @@
 
 namespace JTracker\Service;
 
-use Joomla\DI\Container as JoomlaContainer;
+use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 
 use JTracker\Application;
-use JTracker\Container;
 
 /**
  * Application service provider
@@ -44,14 +43,14 @@ class ApplicationProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   JoomlaContainer  $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function register(JoomlaContainer $container)
+	public function register(Container $container)
 	{
 		$app = $this->app;
 

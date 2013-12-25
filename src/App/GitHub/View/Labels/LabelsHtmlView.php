@@ -9,7 +9,6 @@
 namespace App\GitHub\View\Labels;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\Container;
 
 /**
  * The labels view
@@ -28,8 +27,7 @@ class LabelsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$app = Container::retrieve('app');
-		$this->renderer->set('project', $app->getProject());
+		$this->renderer->set('project', $this->getProject());
 
 		return parent::render();
 	}

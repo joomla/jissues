@@ -18,14 +18,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Config extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'config';
-
-	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -34,7 +26,7 @@ class Config extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
 		parent::execute();
 	}

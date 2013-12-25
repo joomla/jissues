@@ -43,7 +43,7 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
@@ -114,6 +114,53 @@ class Langtemplates extends Make
 
 			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
+
+		$this->processDatabase();
+	}
+
+	/**
+	 * A special routine to handle translation strings contained in the database.
+	 *
+	 * @return  $this
+	 *
+	 * @since 1.0
+	 */
+	protected function processDatabase()
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->container->get('db');
+
+		$strings = $db->setQuery(
+			$db->getQuery(true)
+			->from('#__status')
+			->select('status')
+		)->loadColumn();
+
+		$path = JPATH_ROOT . '/src/App/Tracker/g11n/templates/Tracker.pot';
+
+		$contents = file_get_contents($path);
+
+		$starter = "\n# DATABASE TRANSLATIONS\n";
+
+		$pos = strpos($starter, $contents);
+
+		if ($pos)
+		{
+			$contents = substr($contents, 0, $pos);
+		}
+
+		$contents .= $starter;
+
+		foreach ($strings as $string)
+		{
+			$contents .= "\n#: DATABASE\n";
+			$contents .= "msgid \"$string\"\n";
+			$contents .= "msgstr \"\"\n";
+		}
+
+		file_put_contents($path, $contents);
+
+		return $this;
 	}
 
 	/**
@@ -362,7 +409,7 @@ class Langtemplates extends Make
 		);
 
 		// Configure Twig the way you want
-		$twig->addExtension(new TrackerExtension);
+		$twig->addExtension(new TrackerExtension($this->container));
 
 		// Iterate over all your templates
 		/* @type \DirectoryIterator $file */
@@ -469,6 +516,12 @@ class Langtemplates extends Make
 	 */
 	private function delTree($dir)
 	{
+		if (false == is_dir($dir))
+		{
+			// Directory does not exist.
+			return true;
+		}
+
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file)

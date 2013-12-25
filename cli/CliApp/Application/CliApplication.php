@@ -9,6 +9,9 @@
 namespace CliApp\Application;
 
 use CliApp\Command\Help\Help;
+use App\Projects\TrackerProject;
+
+use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 use CliApp\Exception\AbortException;
 use CliApp\Service\GitHubProvider;
@@ -20,11 +23,12 @@ use Elkuku\Console\Helper\ConsoleProgressBar;
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
+use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
-use JTracker\Container;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
@@ -77,6 +81,12 @@ class CliApplication extends AbstractCliApplication
 	protected $commandOptions = array();
 
 	/**
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   Input\Cli  $input   An optional argument to provide dependency injection for the application's
@@ -93,7 +103,7 @@ class CliApplication extends AbstractCliApplication
 		parent::__construct($input, $config);
 
 		// Build the DI Container
-		Container::getInstance()
+		$this->container = with(new Container)
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
@@ -202,7 +212,15 @@ class CliApplication extends AbstractCliApplication
 
 		try
 		{
-			with(new $className($this))->execute();
+			/* @type TrackerCommand $command */
+			$command = new $className;
+
+			if ($command instanceof ContainerAwareInterface)
+			{
+				$command->setContainer($this->container);
+			}
+
+			$command->execute();
 		}
 		catch (AbortException $e)
 		{
@@ -345,7 +363,10 @@ class CliApplication extends AbstractCliApplication
 	public function getUser()
 	{
 		// Urgh..
-		$user = new GitHubUser;
+		$user = new GitHubUser(
+			new TrackerProject($this->container->get('db')),
+			$this->container->get('db')
+		);
 		$user->isAdmin = true;
 
 		return $user;
@@ -363,7 +384,7 @@ class CliApplication extends AbstractCliApplication
 		$this->out()
 			->out('<info>GitHub rate limit:...</info> ', false);
 
-		$rate = Container::retrieve('gitHub')->authorization->getRateLimit()->resources->core;
+		$rate = $this->container->get('gitHub')->authorization->getRateLimit()->resources->core;
 
 		$this->out(sprintf('%1$d (remaining: <b>%2$d</b>)', $rate->limit, $rate->remaining))
 			->out();

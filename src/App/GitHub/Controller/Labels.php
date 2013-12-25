@@ -8,8 +8,7 @@
 
 namespace App\GitHub\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
+use App\GitHub\View\Labels\LabelsHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -21,24 +20,27 @@ use JTracker\Controller\AbstractTrackerController;
 class Labels extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
+	 * @var  LabelsHtmlView
 	 * @since  1.0
 	 */
-	protected $defaultView = 'labels';
+	protected $view;
 
 	/**
-	 * Execute the controller.
+	 * Initialize the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  $this
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
-	public function execute()
+	public function initialize()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		parent::initialize();
 
-		parent::execute();
+		$this->container->get('app')->getUser()->authorize('admin');
+
+		$this->view->setProject($this->container->get('app')->getProject());
+
+		return $this;
 	}
 }

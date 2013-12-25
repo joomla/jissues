@@ -9,7 +9,6 @@
 namespace App\GitHub\Controller\Ajax\Hooks;
 
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Container;
 
 /**
  * Controller class to display authorized webhooks on the GitHub repository.
@@ -27,12 +26,12 @@ class GetList extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getApplication()->getUser()->authorize('admin');
+		$this->container->get('app')->getUser()->authorize('admin');
 
-		$project = $this->getApplication()->getProject();
+		$project = $this->container->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = Container::retrieve('gitHub');
+		$github = $this->container->get('gitHub');
 
 		$this->response->data = $github->repositories->hooks->getList($project->gh_user, $project->gh_project);
 	}

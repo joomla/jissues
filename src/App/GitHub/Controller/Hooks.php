@@ -8,8 +8,7 @@
 
 namespace App\GitHub\Controller;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
+use App\GitHub\View\Hooks\HooksHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -21,24 +20,27 @@ use JTracker\Controller\AbstractTrackerController;
 class Hooks extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'hooks';
-
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
+	 * @var  HooksHtmlView
 	 * @since   1.0
 	 */
-	public function execute()
-	{
-		$this->getApplication()->getUser()->authorize('admin');
+	protected $view;
 
-		parent::execute();
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+
+		$this->container->get('app')->getUser()->authorize('admin');
+
+		$this->view->setProject($this->container->get('app')->getProject());
+
+		return $this;
 	}
 }
