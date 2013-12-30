@@ -27,11 +27,14 @@ class Delete extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$file = $this->getInput()->getCmd('file');
+		/* @type \JTracker\Application $application */
+		$application = $this->container->get('app');
+
+		$file = $application->input->getCmd('file');
 
 		if (!empty($file))
 		{
-			$path  = JPATH_THEMES . '/' . $this->getApplication()->get('system.upload_dir') . '/' . $file;
+			$path  = JPATH_THEMES . '/' . $application->get('system.upload_dir') . '/' . $file;
 
 			try
 			{

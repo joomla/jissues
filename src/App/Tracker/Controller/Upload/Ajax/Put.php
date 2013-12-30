@@ -27,14 +27,17 @@ class Put extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$files = $this->getInput()->files->get('files');
+		/* @type \JTracker\Application $application */
+		$application = $this->container->get('app');
+
+		$files = $application->input->files->get('files');
 
 		if (!empty($files))
 		{
-			$file = new File($this->getApplication());
+			$file = new File($application);
 
 			// Prepare response data
-			$host       = $this->getApplication()->get('uri')->base->host;
+			$host       = $application->get('uri')->base->host;
 			$destName   = md5(time() . $file->getName()) . '.' . $file->getExtension();
 
 			$data = array(
