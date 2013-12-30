@@ -36,9 +36,11 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$dd = new MysqliDriver(array());
-		$project = new TrackerProject($dd);
-		$this->object = new GitHubUser($project, $dd);
+		$options = array();
+		$driver  = new MysqliDriver($options);
+		$project = new TrackerProject($driver);
+
+		$this->object = new GitHubUser($project, $driver);
 	}
 
 	/**
