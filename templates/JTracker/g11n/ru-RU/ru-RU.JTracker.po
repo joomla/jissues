@@ -3,16 +3,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-04 21:58+0200\n"
+"POT-Creation-Date: 2013-12-30 15:21+0000\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: /templates/footerMenu.twig:4
+msgid "Home"
+msgstr "Главная"
+
+#: /templates/footerMenu.twig:5 /templates/topMenu.twig:27
+msgid "About"
+msgstr "О проекте"
+
+#: /templates/footerMenu.twig:6 /templates/topMenu.twig:37
+msgid "Community"
+msgstr "Сообщество"
+
+#: /templates/footerMenu.twig:7
+msgid "Forum"
+msgstr "Форум"
+
+#: /templates/footerMenu.twig:8
+msgid "Extensions"
+msgstr "Расширения"
+
+#: /templates/footerMenu.twig:9
+msgid "Resources"
+msgstr "Ресурсы"
+
+#: /templates/footerMenu.twig:10
+msgid "Docs"
+msgstr "Документы"
+
+#: /templates/footerMenu.twig:11
+msgid "Developer"
+msgstr "Разарботчик"
+
+#: /templates/footerMenu.twig:12
+msgid "Shop"
+msgstr "Магазин"
+
+#: /templates/footerMenu.twig:16
+msgid "Accessibility Statement"
+msgstr "Заявление о доступности"
+
+#: /templates/footerMenu.twig:17
+msgid "Privacy Policy"
+msgstr "Политика конфидициальности"
+
+#: /templates/footerMenu.twig:18
+msgid "Joomla Hosting by"
+msgstr "Хостинг Joomla от"
+
+#: /templates/footerMenu.twig:21
+msgid "All rights reserved."
+msgstr "Все права защищены."
 
 #: /templates/topMenu.twig:17
 msgid "Recent News"
@@ -42,10 +94,6 @@ msgstr "Магазин Joomla Gear"
 msgid "Contribution"
 msgstr "Вклад"
 
-#: /templates/topMenu.twig:27 /templates/footerMenu.twig:5
-msgid "About"
-msgstr "О проекте"
-
 #: /templates/topMenu.twig:29
 msgid "About Joomla!"
 msgstr "О Joomla!"
@@ -65,10 +113,6 @@ msgstr "Проект"
 #: /templates/topMenu.twig:33
 msgid "Leadership"
 msgstr "Руководство"
-
-#: /templates/topMenu.twig:37 /templates/footerMenu.twig:6
-msgid "Community"
-msgstr "Сообщество"
 
 #: /templates/topMenu.twig:39
 msgid "Joomla! Community Portal"
@@ -190,98 +234,6 @@ msgstr "Скачать"
 msgid "Demo"
 msgstr "Демо"
 
-#: /templates/footerMenu.twig:4
-msgid "Home"
-msgstr "Главная"
-
-#: /templates/footerMenu.twig:7
-msgid "Forum"
-msgstr "Форум"
-
-#: /templates/footerMenu.twig:8
-msgid "Extensions"
-msgstr "Расширения"
-
-#: /templates/footerMenu.twig:9
-msgid "Resources"
-msgstr "Ресурсы"
-
-#: /templates/footerMenu.twig:10
-msgid "Docs"
-msgstr "Документы"
-
-#: /templates/footerMenu.twig:11
-msgid "Developer"
-msgstr "Разарботчик"
-
-#: /templates/footerMenu.twig:12
-msgid "Shop"
-msgstr "Магазин"
-
-#: /templates/footerMenu.twig:16
-msgid "Accessibility Statement"
-msgstr "Заявление о доступности"
-
-#: /templates/footerMenu.twig:17
-msgid "Privacy Policy"
-msgstr "Политика конфидициальности"
-
-#: /templates/footerMenu.twig:18
-msgid "Joomla Hosting by"
-msgstr "Хостинг Joomla от"
-
-#: /templates/footerMenu.twig:21
-msgid "All rights reserved."
-msgstr "Все права защищены."
-
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
-msgstr "Добавить файлы..."
-
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr "Начать загрузку"
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr "Отменить загрузку"
-
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr "Удалить"
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr "Замечания по загрузке"
-
-#: /templates/uploader.full.twig:33
-msgid "Max file size note"
-msgstr "Максимальный размер файла для загрузки - <strong>1 MB</strong>."
-
-#: /templates/uploader.full.twig:34
-msgid "File types note"
-msgstr "Разрешены только изображения (<strong>JPG, GIF, PNG</strong>)."
-
-#: /templates/uploader.full.twig:35
-msgid "Drag and drop note"
-msgstr "Вы можете <strong>перетаскивать</strong> файлы с вашего рабочего стола на эту страницу."
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr "В процессе..."
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr "Начать"
-
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr "Отменить"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Ошибка"
-
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
 msgstr "Трекер"
@@ -353,6 +305,54 @@ msgstr "Выход"
 #: /templates/trackerMenu.twig:217
 msgid "Login with GitHub"
 msgstr "Войти с GitHub"
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "Добавить файлы..."
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "Начать загрузку"
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "Отменить загрузку"
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "Удалить"
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr "Замечания по загрузке"
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "Максимальный размер файла для загрузки - <strong>1 MB</strong>."
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "Разрешены только изображения (<strong>JPG, GIF, PNG</strong>)."
+
+#: /templates/uploader.full.twig:35
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
+msgstr "Вы можете <strong>перетаскивать</strong> файлы с вашего рабочего стола на эту страницу."
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "В процессе..."
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "Начать"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "Отменить"
+
+#: /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Ошибка"
 
 #: /templates/editor.twig:5
 msgid "Write"
