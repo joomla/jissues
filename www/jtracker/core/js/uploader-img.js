@@ -13,7 +13,9 @@ $(function () {
     // Initialize the jQuery File Upload widget:
     uploadarea.fileupload({
         completed: function (e, data) {
-            if (!data.result.files[0].error) {
+            if (data.result.error) {
+                $('.upload-error').delay(3000).fadeOut();
+            } else if (!data.result.files[0].error) {
                 var target = $('.markItUpEditor');
                 var cursorStart = target.textrange('get').start;
                 var alt = '![' + data.result.files[0].alt + ']';
