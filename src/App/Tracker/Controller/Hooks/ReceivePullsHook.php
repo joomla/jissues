@@ -205,7 +205,7 @@ class ReceivePullsHook extends AbstractHookController
 			)
 		);
 
-		// For joomla/joomla-cms, add PR-<branch> label
+		// For joomla/joomla-cms, add PR-<branch> label and check if pull requests are against master.
 		if ($action == 'opened' && $this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
 		{
 			// Set some data
@@ -280,6 +280,44 @@ class ReceivePullsHook extends AbstractHookController
 						sprintf(
 							'Error adding the %s label to GitHub pull request %s/%s #%d - %s',
 							$issueLabel,
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number,
+							$e->getMessage()
+						)
+					);
+				}
+			}
+
+			// Check if PR is against master
+			if ($this->data->base->ref == 'master')
+			{
+				// Post a comment on the PR asking to open a pull against staging
+				try
+				{
+					$this->github->issues->comments->create(
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->data->number,
+						'Pull requests to the master branch of this repo are not accepted.  '
+						. 'Please close this pull request and submit a new one against the staging branch.'
+					);
+
+					// Log the activity
+					$this->logger->info(
+						sprintf(
+							'Added incorrect branch comment to %s/%s #%d',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->data->number
+						)
+					);
+				}
+				catch (\DomainException $e)
+				{
+					$this->logger->error(
+						sprintf(
+							'Error posting comment to GitHub pull request %s/%s #%d - %s',
 							$this->project->gh_user,
 							$this->project->gh_project,
 							$this->data->number,
