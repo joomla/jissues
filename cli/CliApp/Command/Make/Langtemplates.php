@@ -8,6 +8,8 @@
 
 namespace CliApp\Command\Make;
 
+use CliApp\Command\TrackerCommandOption;
+
 use g11n\g11n;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
@@ -35,6 +37,21 @@ class Langtemplates extends Make
 	protected $description = 'Create language file templates.';
 
 	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->addOption(
+			new TrackerCommandOption(
+				'extension', '',
+				'Process only this extension'
+			)
+		);
+	}
+
+	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -51,39 +68,44 @@ class Langtemplates extends Make
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
+		$reqExtension = $this->getApplication()->input->getCmd('extension');
+
 		// Cleanup
 		$this->delTree(JPATH_ROOT . '/cache/twig');
 
-		// Process core files
-		$extension = 'JTracker';
-		$domain    = 'Core';
+		if (!$reqExtension || $reqExtension == 'JTracker')
+		{
+			// Process core files
+			$extension = 'JTracker';
+			$domain    = 'Core';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$templatePath = Storage::getTemplatePath($extension, $domain);
+			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-		// Process base template
+			// Process base template
 
-		$extension = 'JTracker';
-		$domain    = 'Template';
+			$extension = 'JTracker';
+			$domain    = 'Template';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
+			$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
 
-		$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
+			$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
 
-		$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
+			$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-		$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+		}
 
 		// Process App templates
 
@@ -97,7 +119,12 @@ class Langtemplates extends Make
 
 			$extension = $fileInfo->getFileName();
 
-			$this->out('Processing: ' . $extension);
+			if ($reqExtension && $reqExtension != $extension)
+			{
+				continue;
+			}
+
+			$this->out('Processing App: ' . $extension);
 
 			$domain = 'App';
 
