@@ -5,12 +5,12 @@
 -- #__tracker_milestones
 -- #__status
 -- #__issues_relations_types
--- #__issues_voting
 -- #__issues
 -- #__activities
 -- #__users
 -- #__accessgroups
 -- #__user_accessgroup_map
+-- #__issues_voting
 -- #__articles
 --
 
@@ -131,21 +131,6 @@ INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `#__issues_voting`
---
-
-CREATE TABLE IF NOT EXISTS `#__issues_voting` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `votes` int(11) unsigned NOT NULL COMMENT 'Number of votes for item',
-	`experienced` int(11) unsigned NOT NULL COMMENT 'Number of users who have experienced the issue',
-	`score` int(11) unsigned NOT NULL COMMENT 'Total score of issue importance',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `#__issues`
 --
 
@@ -171,7 +156,6 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
-	`vote_id` int(11) unsigned DEFAULT NULL COMMENT 'FK to #__issues_voting',
 	`build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
 	`tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
 	`easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
@@ -182,8 +166,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   KEY `milestone_id` (`milestone_id`,`project_id`),
   CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
-	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`),
-	CONSTRAINT `#__issues_fk_vote_id` FOREIGN KEY (`vote_id`) REFERENCES `#__issues_voting` (`id`)
+	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -280,6 +263,24 @@ CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
   CONSTRAINT `#__user_accessgroup_map_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`),
   CONSTRAINT `#__user_accessgroup_map_fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `#__accessgroups` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_voting`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_voting` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`issue_number` int(11) unsigned NOT NULL COMMENT 'Foreign key to #__issues.id',
+	`user_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Foreign key to #__users.id',
+	`experienced` tinyint(2) unsigned NOT NULL COMMENT 'Flag indicating whether the user has experienced the issue',
+	`score` int(11) unsigned NOT NULL COMMENT 'User score for importance of issue',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `#__issues_voting_fk_issue_id` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `#__issues_voting_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 

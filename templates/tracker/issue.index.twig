@@ -154,13 +154,13 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="{{ item.vote_id or user.id ? "span7" : "span10" }} well-small issue-description">
+        <div class="{{ item.votes or user.id ? "span7" : "span10" }} well-small issue-description">
             {{ item.description|raw }}
         </div>
 
-        {% if item.vote_id or user.id %}
+        {% if item.votes or user.id %}
         <div class="span3 well">
-            {% if item.vote_id %}
+            {% if item.votes %}
             <table>
                 <tr>
                     <th>{{ "# of Votes"|_ }}</th>

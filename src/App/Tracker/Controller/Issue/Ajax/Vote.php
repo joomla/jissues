@@ -30,12 +30,19 @@ class Vote extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
+		// Verify the user has permissions to perform this action
+		if (!$this->container->get('app')->getUser()->authorize('view'))
+		{
+			throw new \Exception('Anonymous votes are not allowed.');
+		}
+
 		/* @type Input $input */
 		$input = $this->container->get('app')->input;
 
 		$issue       = $input->getUint('issueId');
 		$experienced = $input->getInt('experienced');
 		$importance  = $input->getInt('importance');
+		$userID      = $this->container->get('app')->getUser()->id;
 
 		if (!$issue)
 		{
@@ -49,7 +56,7 @@ class Vote extends AbstractAjaxController
 
 		$model = new IssueModel($this->container->get('db'));
 
-		$data = $model->vote($issue, $experienced, $importance);
+		$data = $model->vote($issue, $experienced, $importance, $userID);
 
 		// Add the new score
 		$data->importanceScore = $data->score / $data->votes;
