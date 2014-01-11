@@ -154,10 +154,11 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="span7 well-small issue-description">
+        <div class="{{ item.vote_id or user.id ? "span7" : "span10" }} well-small issue-description">
             {{ item.description|raw }}
         </div>
 
+        {% if item.vote_id or user.id %}
         <div class="span3 well">
             {% if item.vote_id %}
             <table>
@@ -176,6 +177,7 @@
             </table>
             <hr />
             {% endif %}
+            {% if user.id %}
             <form class="form-inline" name="voteForm">
                 <fieldset>
                     <p>{{ "I've experienced this issue"|_ }}</p>
@@ -217,7 +219,9 @@
                     {{ "Vote"|_ }}
                 </a>
             </form>
+            {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <!-- Activity stream -->
