@@ -31,8 +31,18 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class ReceivePullsHook extends AbstractHookController
 {
 	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'pulls';
+
+	/**
 	 * Data received from GitHub.
-	 * @var  object
+	 *
+	 * @var    object
+	 * @since  1.0
 	 */
 	protected $data;
 

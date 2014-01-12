@@ -15,11 +15,14 @@ use App\Tracker\Table\ActivitiesTable;
 use Joomla\Application\AbstractApplication;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
+use Joomla\Event\Dispatcher;
+use Joomla\Event\Event;
 use Joomla\Github\Github;
 use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
 
+use JTracker\Database\AbstractDatabaseTable;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -60,6 +63,14 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	);
 
 	/**
+	 * The dispatcher object
+	 *
+	 * @var    Dispatcher
+	 * @since  1.0
+	 */
+	protected $dispatcher;
+
+	/**
 	 * The database object
 	 *
 	 * @var    DatabaseDriver
@@ -84,12 +95,12 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	protected $github;
 
 	/**
-	 * The application message queue.
+	 * Flag if the event listener is set for a hook
 	 *
-	 * @var    array
+	 * @var    boolean
 	 * @since  1.0
 	 */
-	protected $messageQueue = array();
+	protected $listenerSet = false;
 
 	/**
 	 * The project information of the project whose data has been received
@@ -116,6 +127,14 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	protected $logger;
 
 	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'standard';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   Input                $input  The input object.
@@ -130,24 +149,17 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 		$this->debug = $this->container->get('app')->get('debug.hooks');
 
-		if (preg_match('/Receive([A-z]+)Hook/', get_class($this), $matches))
-		{
-			$fileName = $matches[1];
-		}
-		else
-		{
-			// Bad class name or regex :P
-			$fileName = 'standard';
-		}
-
 		// Initialize the logger
 		$this->logger = new Logger('JTracker');
 
 		$this->logger->pushHandler(
 			new StreamHandler(
-				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($fileName) . '.log'
+				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
 			)
 		);
+
+		// Get the event dispatcher
+		$this->dispatcher = $this->container->get('app')->getDispatcher();
 
 		// Get a database object
 		$this->db = $this->container->get('db');
@@ -191,6 +203,32 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 		// Get the project data
 		$this->getProjectData();
+
+		// Set up the event listener
+		$this->addEventListener();
+	}
+
+	/**
+	 * Registers the event listener for the current hook and project
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function addEventListener()
+	{
+		/*
+		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
+		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullListener
+		 */
+		$baseClass = ucfirst(str_replace('-', '', $this->project->gh_project)) . ucfirst($this->type) . 'Listener';
+		$fullClass = __NAMESPACE__ . '\\Hooks\\Listeners\\' . $baseClass;
+
+		if (class_exists($fullClass))
+		{
+			$this->dispatcher->addListener(new $fullClass);
+			$this->listenerSet = true;
+		}
 	}
 
 	/**
@@ -464,6 +502,34 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		else
 		{
 			return implode(',', $appLabelIds);
+		}
+	}
+
+	/**
+	 * Triggers an event if a listener is set
+	 *
+	 * @param   string                 $eventName  Name of the event to trigger
+	 * @param   AbstractDatabaseTable  $table      Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function triggerEvent($eventName, AbstractDatabaseTable $table)
+	{
+		if ($this->listenerSet)
+		{
+			$event = new Event($eventName);
+
+			// Add the event params
+			$event->addArgument('hookData', $this->hookData)
+				->addArgument('table', $table)
+				->addArgument('github', $this->github)
+				->addArgument('logger', $this->logger)
+				->addArgument('project', $this->project);
+
+			// Trigger the event
+			$this->dispatcher->triggerEvent($event);
 		}
 	}
 }

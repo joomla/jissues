@@ -24,6 +24,14 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class ReceiveCommentsHook extends AbstractHookController
 {
 	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'comments';
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void

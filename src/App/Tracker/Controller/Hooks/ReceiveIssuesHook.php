@@ -22,6 +22,14 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class ReceiveIssuesHook extends AbstractHookController
 {
 	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'issues';
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
