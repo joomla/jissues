@@ -228,6 +228,8 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->container->get('app')->close();
 		}
 
+		$this->triggerEvent('onCommentAfterCreate', $table);
+
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
@@ -294,6 +296,8 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			$this->container->get('app')->close();
 		}
+
+		$this->triggerEvent('onCommentAfterUpdate', $table);
 
 		// Store was successful, update status
 		$this->logger->info(
