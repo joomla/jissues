@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "cf0cf90571d5f23935aed19522bc0078",
+    "hash": "62b28416de0bf2ab81f343ee79689222",
     "packages": [
         {
             "name": "elkuku/console-progressbar",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "1.0"
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
-                "reference": "1.0",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
                 "shasum": ""
             },
             "require": {
@@ -84,6 +84,83 @@
             ],
             "description": "The g11n language library",
             "time": "2013-11-16 16:59:23"
+        },
+        {
+            "name": "joomla/di",
+            "version": "1.0",
+            "target-dir": "Joomla/DI",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla/joomla-framework-di.git",
+                "reference": "fb10ab8e9dd694ee588da1725136afeae55adbe1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla/joomla-framework-di/zipball/fb10ab8e9dd694ee588da1725136afeae55adbe1",
+                "reference": "fb10ab8e9dd694ee588da1725136afeae55adbe1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.10"
+            },
+            "type": "joomla-package",
+            "autoload": {
+                "psr-0": {
+                    "Joomla\\DI": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla DI Package",
+            "homepage": "https://github.com/joomla/joomla-framework-di",
+            "keywords": [
+                "container",
+                "dependency injection",
+                "di",
+                "framework",
+                "ioc",
+                "joomla"
+            ],
+            "time": "2013-11-18 04:29:00"
+        },
+        {
+            "name": "joomla/event",
+            "version": "1.0",
+            "target-dir": "Joomla/Event",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla/joomla-framework-event.git",
+                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla/joomla-framework-event/zipball/daafeea58267986f2c6ce6658bc9d70fe69190d7",
+                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.10"
+            },
+            "type": "joomla-package",
+            "autoload": {
+                "psr-0": {
+                    "Joomla\\Event": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla Event Package",
+            "homepage": "https://github.com/joomla/joomla-framework-event",
+            "keywords": [
+                "event",
+                "framework",
+                "joomla"
+            ],
+            "time": "2013-11-10 12:14:49"
         },
         {
             "name": "joomla/framework",
@@ -216,17 +293,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.3.8",
+            "version": "v2.3.9",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "8ee29656d6dd026ac5c195b9165ff730a6c88515"
+                "reference": "3c103d1e14cabd17de3fbff5af8db657da4a50e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/8ee29656d6dd026ac5c195b9165ff730a6c88515",
-                "reference": "8ee29656d6dd026ac5c195b9165ff730a6c88515",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/3c103d1e14cabd17de3fbff5af8db657da4a50e0",
+                "reference": "3c103d1e14cabd17de3fbff5af8db657da4a50e0",
                 "shasum": ""
             },
             "require": {
@@ -262,7 +339,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-11-28 10:26:47"
+            "time": "2014-01-02 21:42:04"
         },
         {
             "name": "twig/twig",
@@ -596,6 +673,8 @@
         "joomla/controller": 0,
         "joomla/database": 0,
         "joomla/date": 0,
+        "joomla/di": 0,
+        "joomla/event": 0,
         "joomla/filter": 0,
         "joomla/github": 0,
         "joomla/http": 0,
