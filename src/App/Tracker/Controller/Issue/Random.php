@@ -8,9 +8,8 @@
 
 namespace App\Tracker\Controller\Issue;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
 use App\Tracker\Model\IssueModel;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -21,23 +20,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Random extends AbstractTrackerController
 {
 	/**
-	 * Constructor
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		parent::__construct($input, $app);
-
-		// Set the default view
-		$input->set('view', 'issue');
-		$this->defaultView = 'issue';
-	}
-
-	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -46,13 +28,14 @@ class Random extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->getApplication();
+		$application = $this->container->get('app');
+
 		$application->getUser()->authorize('view');
 
 		try
 		{
-			$model = new IssueModel;
-			$randomId = $model->getRandomItem();
+			$randomId = with (new IssueModel($this->container->get('db')))
+				->getRandomItem();
 
 			$application->redirect(
 				$application->get('uri.base.path')
