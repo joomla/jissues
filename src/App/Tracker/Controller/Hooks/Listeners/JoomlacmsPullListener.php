@@ -125,7 +125,7 @@ class JoomlacmsPullListener
 					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$data->number,
+					$hookData->pull_request->number,
 					$e->getMessage()
 				)
 			);
@@ -145,7 +145,7 @@ class JoomlacmsPullListener
 							'GitHub item %s/%s #%d already has the %s label.',
 							$project->gh_user,
 							$project->gh_project,
-							$data->number,
+							$hookData->pull_request->number,
 							$issueLabel
 						)
 					);
@@ -171,7 +171,7 @@ class JoomlacmsPullListener
 						$issueLabel,
 						$project->gh_user,
 						$project->gh_project,
-						$data->number
+						$hookData->pull_request->number
 					)
 				);
 			}
