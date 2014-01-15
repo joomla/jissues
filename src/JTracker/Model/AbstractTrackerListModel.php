@@ -119,6 +119,15 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	abstract protected function getListQuery();
 
+	/**
+	 * Set the pagination object.
+	 *
+	 * @param   TrackerPagination  $pagination  The pagination object.
+	 *
+	 * @return  TrackerPagination  The pagination object for the data set.
+	 *
+	 * @since   1.0
+	 */
 	public function setPagination(TrackerPagination $pagination)
 	{
 		$this->pagination = $pagination;
@@ -126,6 +135,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 	/**
 	 * Method to get the pagination object for the data set.
+	 *
+	 * @throws \UnexpectedValueException
 	 *
 	 * @return  TrackerPagination  The pagination object for the data set.
 	 *

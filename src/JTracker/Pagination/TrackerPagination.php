@@ -60,22 +60,26 @@ class TrackerPagination
 	/**
 	 * Constructor.
 	 *
-	 * @param   integer  $total    Total items count.
-	 * @param   integer  $current  The current item number.
-	 * @param   integer  $perPage  Items per page.
+	 * @param   Uri  $uri  The URI object.
 	 *
 	 * @since   1.0
 	 */
 	public function __construct(Uri $uri)
 	{
-//		$this->total   = $total;
-//		$this->perPage = $perPage;
-//		$this->page    = $current ? floor($current / $perPage) + 1 : 1;
 		$this->uri     = $uri;
-
-		// @$this->uri     = new Uri($app->get('uri.request'));
 	}
 
+	/**
+	 * Set required values.
+	 *
+	 * @param   integer  $total    Total items.
+	 * @param   integer  $current  Current item.
+	 * @param   integer  $perPage  Items per page.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
 	public function setValues($total, $current, $perPage)
 	{
 		$this->total   = $total;

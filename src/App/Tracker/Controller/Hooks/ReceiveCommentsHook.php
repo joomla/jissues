@@ -24,6 +24,14 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class ReceiveCommentsHook extends AbstractHookController
 {
 	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'comments';
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -220,6 +228,8 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->container->get('app')->close();
 		}
 
+		$this->triggerEvent('onCommentAfterCreate', $table);
+
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
@@ -286,6 +296,8 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			$this->container->get('app')->close();
 		}
+
+		$this->triggerEvent('onCommentAfterUpdate', $table);
 
 		// Store was successful, update status
 		$this->logger->info(

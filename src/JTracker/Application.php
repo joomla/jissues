@@ -16,6 +16,9 @@ use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\DI\Container;
+use Joomla\Event\Dispatcher;
+use Joomla\Event\DispatcherInterface;
+use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -37,7 +40,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @since  1.0
  */
-final class Application extends AbstractWebApplication
+final class Application extends AbstractWebApplication implements DispatcherAwareInterface
 {
 	/**
 	 * The name of the application.
@@ -73,10 +76,20 @@ final class Application extends AbstractWebApplication
 	private $project;
 
 	/**
+	 * DI Container
+	 *
 	 * @var    Container
 	 * @since  1.0
 	 */
 	private $container = null;
+
+	/**
+	 * Event Dispatcher
+	 *
+	 * @var    Dispatcher
+	 * @since  1.0
+	 */
+	private $dispatcher;
 
 	/**
 	 * Class constructor.
@@ -98,6 +111,9 @@ final class Application extends AbstractWebApplication
 
 		$this->loadLanguage()
 			->mark('Application started');
+
+		// Register the global dispatcher
+		$this->setDispatcher(new Dispatcher);
 	}
 
 	/**
@@ -242,6 +258,18 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
+	 * Get the dispatcher object.
+	 *
+	 * @return  Dispatcher
+	 *
+	 * @since   1.0
+	 */
+	public function getDispatcher()
+	{
+		return $this->dispatcher;
+	}
+
+	/**
 	 * Provides a secure hash based on a seed
 	 *
 	 * @param   string  $seed  Seed string.
@@ -303,8 +331,16 @@ final class Application extends AbstractWebApplication
 
 		if (is_null($this->user))
 		{
-			$this->user = ($this->getSession()->get('jissues_user'))
-				? : new GitHubUser($this->getProject(), $this->container->get('db'));
+			if ($this->user = $this->getSession()->get('jissues_user'))
+			{
+				// @todo Ref #275
+				$this->user->setDatabase($this->container->get('db'));
+				$this->user->getProject()->setDatabase($this->container->get('db'));
+			}
+			else
+			{
+				$this->user = new GitHubUser($this->getProject(), $this->container->get('db'));
+			}
 		}
 
 		return $this->user;
@@ -381,6 +417,22 @@ final class Application extends AbstractWebApplication
 			// Load the Debug App language file.
 			g11n::loadLanguage('Debug', 'App');
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Set the dispatcher to use.
+	 *
+	 * @param   DispatcherInterface  $dispatcher  The dispatcher to use.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
+	 */
+	public function setDispatcher(DispatcherInterface $dispatcher)
+	{
+		$this->dispatcher = $dispatcher;
 
 		return $this;
 	}
