@@ -25,6 +25,7 @@ class Random extends AbstractTrackerController
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -34,7 +35,7 @@ class Random extends AbstractTrackerController
 
 		try
 		{
-			$randomId = with (new IssueModel($this->container->get('db')))
+			$randomId = with(new IssueModel($this->container->get('db')))
 				->getRandomItem();
 
 			$application->redirect(

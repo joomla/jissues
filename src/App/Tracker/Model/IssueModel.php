@@ -144,34 +144,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
-	 * Get a project.
-	 *
-	 * @param   integer  $identifier  The project identifier.
-	 *
-	 * @return  ProjectsTable
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject($identifier = null)
-	{
-		if (!$identifier)
-		{
-			$app = Container::retrieve('app');
-			$identifier = $app->input->getUint('project_id');
-
-			if (!$identifier)
-			{
-				throw new \RuntimeException('No id given');
-			}
-		}
-
-		$table = new ProjectsTable($this->db);
-
-		return $table->load($identifier);
-	}
-
-	/**
 	 * Get random item
 	 *
 	 * @return  integer $id A random issue id
