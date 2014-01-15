@@ -22,6 +22,14 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class ReceiveIssuesHook extends AbstractHookController
 {
 	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'issues';
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  void
@@ -141,6 +149,8 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->container->get('app')->close();
 		}
 
+		$this->triggerEvent('onIssueAfterCreate', $table);
+
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
@@ -256,6 +266,8 @@ class ReceiveIssuesHook extends AbstractHookController
 
 			$this->container->get('app')->close();
 		}
+
+		$this->triggerEvent('onIssueAfterUpdate', $table);
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
