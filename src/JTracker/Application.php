@@ -172,6 +172,11 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 
 			$contents = $controller->execute();
 
+			if (!$contents)
+			{
+				throw new \UnexpectedValueException(sprintf('The %s controllers execute() method did not return anything!', get_class($controller)));
+			}
+
 			$this->mark('Application terminated OK');
 
 			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
