@@ -28,6 +28,6 @@ class Articles extends AbstractTrackerController
 	{
 		$this->container->get('app')->getUser()->authorize('admin');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

@@ -30,7 +30,7 @@ class Save extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -49,6 +49,6 @@ class Save extends AbstractTrackerController
 
 		$app->enqueueMessage(g11n3t('The article has been saved.'), 'success');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

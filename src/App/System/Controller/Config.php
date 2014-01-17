@@ -20,7 +20,7 @@ class Config extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -28,6 +28,6 @@ class Config extends AbstractTrackerController
 	{
 		$this->container->get('app')->getUser()->authorize('admin');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

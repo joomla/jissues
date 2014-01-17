@@ -30,7 +30,7 @@ class Delete extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -48,6 +48,6 @@ class Delete extends AbstractTrackerController
 
 		$this->container->get('app')->input->set('view', 'articles');
 
-		parent::execute();
+		return parent::execute();
 	}
 }
