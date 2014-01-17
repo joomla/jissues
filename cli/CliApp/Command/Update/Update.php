@@ -14,7 +14,7 @@ use CliApp\Command\TrackerCommandOption;
 use Joomla\Github\Github;
 
 /**
- * Class for updating data on GitHub for selected projects
+ * Command package for updating selected resources
  *
  * @since  1.0
  */
@@ -26,7 +26,7 @@ class Update extends TrackerCommand
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'Used to update GitHub data';
+	protected $description = 'Used to update resources';
 
 	/**
 	 * Joomla! Github object
@@ -44,8 +44,6 @@ class Update extends TrackerCommand
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->description = 'Used to update GitHub data.';
 
 		$this
 			->addOption(
@@ -71,14 +69,26 @@ class Update extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Get');
+		$this->getApplication()->outputTitle('Update');
 
-		$this
-			->out('<error>                                    </error>')
-			->out('<error>  Please use one of the following:  </error>')
-			->out('<error>                                    </error>')
-			->out('<error>  update pulls                      </error>')
-			->out('<error>                                    </error>');
+		$errorTitle = 'Please use one of the following:';
+
+		$this->out('<error>                                    </error>');
+		$this->out('<error>  ' . $errorTitle . '  </error>');
+
+		foreach (Folder::files(__DIR__) as $file)
+		{
+			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
+
+			if ('update' == $cmd)
+			{
+				continue;
+			}
+
+			$this->out('<error>  update ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
+		}
+
+		$this->out('<error>                                    </error>');
 	}
 
 	/**
