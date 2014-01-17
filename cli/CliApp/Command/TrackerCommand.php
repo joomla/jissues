@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command;
@@ -28,7 +28,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Container object.
 	 *
-	 * @var    \Joomla\DI\Container
+	 * @var    Container
 	 * @since  1.0
 	 */
 	protected $container;
@@ -202,7 +202,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 * @return  Container
 	 *
 	 * @since   1.0
-	 *
 	 * @throws  \UnexpectedValueException May be thrown if the container has not been set.
 	 */
 	public function getContainer()
@@ -234,7 +233,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Get the application object.
 	 *
-	 * @return \CliApp\Application\CliApplication
+	 * @return  \CliApp\Application\CliApplication
 	 *
 	 * @since   1.0
 	 */
@@ -246,7 +245,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Get the logger object.
 	 *
-	 * @return \Psr\Log\LoggerInterface
+	 * @return  \Psr\Log\LoggerInterface
 	 *
 	 * @since   1.0
 	 */

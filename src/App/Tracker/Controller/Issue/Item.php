@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Controller\Issue;
@@ -29,12 +29,18 @@ class Item extends AbstractTrackerController
 	protected $defaultView = 'issue';
 
 	/**
-	 * @var  IssueHtmlView
+	 * View object
+	 *
+	 * @var    IssueHtmlView
+	 * @since  1.0
 	 */
 	protected $view = null;
 
 	/**
-	 * @var  IssueModel
+	 * Model object
+	 *
+	 * @var    IssueModel
+	 * @since  1.0
 	 */
 	protected $model = null;
 
@@ -43,7 +49,7 @@ class Item extends AbstractTrackerController
 	 *
 	 * This will set up default model and view classes.
 	 *
-	 * @return  $this
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

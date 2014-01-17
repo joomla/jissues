@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Projects Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Projects\Controller;
@@ -20,7 +20,10 @@ use JTracker\Controller\AbstractTrackerController;
 class Projects extends AbstractTrackerController
 {
 	/**
-	 * @var  ProjectsModel
+	 * Model object
+	 *
+	 * @var    ProjectsModel
+	 * @since  1.0
 	 */
 	protected $model;
 
@@ -29,7 +32,7 @@ class Projects extends AbstractTrackerController
 	 *
 	 * This will set up default model and view classes.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

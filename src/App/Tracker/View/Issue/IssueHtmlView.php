@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\View\Issue;
@@ -29,12 +29,18 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
-	 * @var int
+	 * Item ID
+	 *
+	 * @var    integer
+	 * @since  1.0
 	 */
 	private $id = 0;
 
 	/**
-	 * @var  TrackerProject
+	 * Project object
+	 *
+	 * @var    TrackerProject
+	 * @since  1.0
 	 */
 	protected $project = null;
 
@@ -94,7 +100,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   integer  $id  The id
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -108,10 +114,10 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get the project.
 	 *
-	 * @throws  \RuntimeException
 	 * @return  TrackerProject
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getProject()
 	{
@@ -128,7 +134,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   TrackerProject  $project  The project.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */

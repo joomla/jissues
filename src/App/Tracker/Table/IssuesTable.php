@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Table;
@@ -67,7 +67,10 @@ class IssuesTable extends AbstractDatabaseTable
 	protected $oldObject = null;
 
 	/**
-	 * @var  GitHubUser
+	 * User object
+	 *
+	 * @var    GitHubUser
+	 * @since  1.0
 	 */
 	protected $user = null;
 
@@ -396,10 +399,10 @@ class IssuesTable extends AbstractDatabaseTable
 	/**
 	 * Get the user.
 	 *
-	 * @throws \RuntimeException
-	 * @return \JTracker\Authentication\GitHub\GitHubUser
+	 * @return  GitHubUser
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getUser()
 	{
@@ -416,7 +419,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 *
 	 * @param   GitHubUser  $user  The user.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */

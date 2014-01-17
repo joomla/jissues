@@ -6,8 +6,8 @@
  * http://www.awcore.com/dev/1/3/Create-Awesome-PHPMYSQL-Pagination_en
  * and modified by "The Joomla! Tracker Project".
  *
- * @copyright  1234 abc
- * @license    1234 abc
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Pagination;
@@ -76,7 +76,7 @@ class TrackerPagination
 	 * @param   integer  $current  Current item.
 	 * @param   integer  $perPage  Items per page.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */

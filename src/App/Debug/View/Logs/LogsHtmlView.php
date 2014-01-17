@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Debug\View\Logs;
@@ -20,12 +20,16 @@ use JTracker\View\AbstractTrackerHtmlView;
 class LogsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * @var string
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $logType = '';
 
 	/**
-	 * @var TrackerDebugger
+	 * Debugger object
+	 *
+	 * @var    TrackerDebugger
+	 * @since  1.0
 	 */
 	protected $debugger = null;
 
@@ -120,10 +124,10 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get the debugger.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return \App\Debug\TrackerDebugger
+	 * @return  \App\Debug\TrackerDebugger
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getDebugger()
 	{
@@ -140,7 +144,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   TrackerDebugger  $debugger  The debugger object.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -154,10 +158,10 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get the log type.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return string
+	 * @return  string
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getLogType()
 	{
@@ -174,7 +178,9 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   string  $logType  The log type.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
 	 */
 	public function setLogType($logType)
 	{
