@@ -8579,6 +8579,6 @@ img.emoji, .row-activity .well img{margin-bottom: 0}
 .input-large-240 {
   width: 240px;
 }
-
 .row-activity:target { border: 2px dashed #999; padding: 5px; padding-top: 100px; }
 .row-activity:target { transition:all 0.5s ease; }
+.issue-description {overflow: auto}

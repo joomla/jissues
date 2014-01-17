@@ -2,11 +2,13 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Make;
+
+use CliApp\Command\TrackerCommandOption;
 
 use g11n\g11n;
 use g11n\Language\Storage;
@@ -35,6 +37,21 @@ class Langtemplates extends Make
 	protected $description = 'Create language file templates.';
 
 	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->addOption(
+			new TrackerCommandOption(
+				'extension', '',
+				'Process only this extension'
+			)
+		);
+	}
+
+	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -51,39 +68,44 @@ class Langtemplates extends Make
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
+		$reqExtension = $this->getApplication()->input->getCmd('extension');
+
 		// Cleanup
 		$this->delTree(JPATH_ROOT . '/cache/twig');
 
-		// Process core files
-		$extension = 'JTracker';
-		$domain    = 'Core';
+		if (!$reqExtension || $reqExtension == 'JTracker')
+		{
+			// Process core files
+			$extension = 'JTracker';
+			$domain    = 'Core';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$templatePath = Storage::getTemplatePath($extension, $domain);
+			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-		// Process base template
+			// Process base template
 
-		$extension = 'JTracker';
-		$domain    = 'Template';
+			$extension = 'JTracker';
+			$domain    = 'Template';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
+			$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
 
-		$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
+			$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
 
-		$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
+			$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-		$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+		}
 
 		// Process App templates
 
@@ -97,7 +119,12 @@ class Langtemplates extends Make
 
 			$extension = $fileInfo->getFileName();
 
-			$this->out('Processing: ' . $extension);
+			if ($reqExtension && $reqExtension != $extension)
+			{
+				continue;
+			}
+
+			$this->out('Processing App: ' . $extension);
 
 			$domain = 'App';
 
@@ -123,7 +150,7 @@ class Langtemplates extends Make
 	 *
 	 * @return  $this
 	 *
-	 * @since 1.0
+	 * @since   1.0
 	 */
 	protected function processDatabase()
 	{
@@ -188,7 +215,7 @@ class Langtemplates extends Make
 		$comments = ' --add-comments=TRANSLATORS:';
 
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
-		$forcePo  = ' --force-po --no-wrap';
+		$noWrap   = ' --no-wrap';
 
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
@@ -248,7 +275,7 @@ class Langtemplates extends Make
 		{
 			$fileList = implode("\n", $cleanFiles);
 
-			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $forcePo . $comments . $headerData;
+			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $noWrap . $comments . $headerData;
 
 			$this->debugOut($command);
 

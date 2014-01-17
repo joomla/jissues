@@ -2,7 +2,7 @@
 /**
  * Unit test runner bootstrap file for the Joomla Framework.
  *
- * @copyright  Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2002 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  * @link       http://www.phpunit.de/manual/current/en/installation.html
  */
