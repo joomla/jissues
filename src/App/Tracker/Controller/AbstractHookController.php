@@ -246,9 +246,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 */
 	public function initialize()
 	{
-		// Run the parent constructor
-		parent::__construct($input, $app);
-
 		$this->debug = $this->container->get('app')->get('debug.hooks');
 
 		// Initialize the logger
