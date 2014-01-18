@@ -6,16 +6,16 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace CliApp\Command\Get;
+namespace CliApp\Command\Update;
 
 use g11n\Support\ExtensionHelper;
 
 /**
- * Class for retrieving translations from Transifex
+ * Class for updating resources on Transifex
  *
  * @since  1.0
  */
-class Transifex extends Get
+class Transifex extends Update
 {
 	/**
 	 * The command "description" used for help texts.
@@ -23,15 +23,7 @@ class Transifex extends Get
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'Retrieve language files from Transifex.';
-
-	/**
-	 * Array containing application languages to retrieve translations for
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	private $languages = array();
+	protected $description = 'Update language files on Transifex.';
 
 	/**
 	 * Execute the command.
@@ -42,28 +34,23 @@ class Transifex extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Get Translations');
+		$this->getApplication()->outputTitle('Update Translations');
 
-		$this->languages = $this->getApplication()->get('languages');
-
-		// Remove English from the language array
-		unset($this->languages[0]);
-
-		$this->logOut('Start fetching translations.')
+		$this->logOut('Start pushing translations.')
 			->setupTransifex()
-			->fetchTranslations()
+			->pushTranslations()
 			->out()
 			->logOut('Finished.');
 	}
 
 	/**
-	 * Fetch translations.
+	 * Push translations.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	private function fetchTranslations()
+	private function pushTranslations()
 	{
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
@@ -88,8 +75,8 @@ class Transifex extends Get
 
 			$extension = $fileInfo->getFileName();
 
-			// Skip apps with empty language templates
-			if (in_array($extension, array('GitHub', 'System')))
+			// Skip apps with empty language templates, also the Debug app as the Transifex object won't send it
+			if (in_array($extension, array('Debug', 'GitHub', 'System')))
 			{
 				continue;
 			}
@@ -118,23 +105,12 @@ class Transifex extends Get
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
 		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
 
-		// Fetch the file for each language and place it in the file tree
-		foreach ($this->languages as $language)
-		{
-			// Call out to Transifex
-			$translation = $this->transifex->translations->getTranslation(
-				$this->getApplication()->get('transifex.project'),
-				strtolower($extension) . '-' . strtolower($domain),
-				str_replace('-', '_', $language)
-			);
-
-			// Write the file
-			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
-
-			if (!file_put_contents($path, $translation->content))
-			{
-				throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
-			}
-		}
+		// Call out to Transifex
+		$translation = $this->transifex->resources->updateResourceContent(
+			$this->getApplication()->get('transifex.project'),
+			strtolower($extension) . '-' . strtolower($domain),
+			$scopePath . '/' . $extensionPath . '/templates/' . $extension . '.pot',
+			'file'
+		);
 	}
 }

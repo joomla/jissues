@@ -125,7 +125,6 @@ class Get extends TrackerCommand
 		return $this;
 	}
 
-
 	/**
 	 * Setup the Transifex object.
 	 *
