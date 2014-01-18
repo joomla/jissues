@@ -62,20 +62,51 @@ class Transifex extends Get
 	 * @return  $this
 	 *
 	 * @since   1.0
-	 * @throws  \UnexpectedValueException
 	 */
 	private function fetchTranslations()
 	{
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
+		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
+		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
 		// Process core files
-		$extension = 'JTracker';
-		$domain    = 'Core';
+		$this->receiveFiles('JTracker', 'Core');
 
+		// Process template files
+		$this->receiveFiles('JTracker', 'Template');
+
+		// Process app files
+		/* @type \DirectoryIterator $fileInfo */
+		foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
+		{
+			if ($fileInfo->isDot())
+			{
+				continue;
+			}
+
+			$extension = $fileInfo->getFileName();
+
+			$this->receiveFiles($extension, 'App');
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Receives language files from Transifex
+	 *
+	 * @param   string  $extension  The extension to process
+	 * @param   string  $domain     The domain of the extension
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \Exception
+	 */
+	private function receiveFiles($extension, $domain)
+	{
 		$this->out('Processing: ' . $domain . ' ' . $extension);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
@@ -99,7 +130,5 @@ class Transifex extends Get
 				throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
 			}
 		}
-
-		return $this;
 	}
 }
