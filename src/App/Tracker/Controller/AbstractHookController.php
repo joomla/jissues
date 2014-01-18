@@ -274,6 +274,11 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
 			$myIP = $parts[0];
 		}
+		// Check if request is from CLI
+		elseif (strpos($_SERVER['SCRIPT_NAME'], 'cli/tracker.php') !== false)
+		{
+			$myIP = '127.0.0.1';
+		}
 		else
 		{
 			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
@@ -283,7 +288,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		{
 			// Log the unauthorized request
 			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->$this->container->get('app')->close();
+			$this->container->get('app')->close();
 		}
 
 		// Get the payload data
@@ -292,7 +297,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 		if (!$data)
 		{
 			$this->logger->error('No data received.');
-			$this->$this->container->get('app')->close();
+			$this->container->get('app')->close();
 		}
 
 		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));

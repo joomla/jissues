@@ -20,7 +20,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsPullListener
+class JoomlacmsPullsListener
 {
 	/**
 	 * Event for after pull requests are created in the application
@@ -35,6 +35,7 @@ class JoomlacmsPullListener
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
+		var_dump($arguments);die;
 
 		// Check pull requests for a PR-<branch> label
 		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
