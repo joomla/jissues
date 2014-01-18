@@ -3,8 +3,51 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "62b28416de0bf2ab81f343ee79689222",
+    "hash": "c6dbb3ece6b78764a4b068fca8847e6f",
     "packages": [
+        {
+            "name": "babdev/library",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BabDev/BabDev-Library.git",
+                "reference": "b468cd7c5978290f964f81b60ff4969af7824f14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/b468cd7c5978290f964f81b60ff4969af7824f14",
+                "reference": "b468cd7c5978290f964f81b60ff4969af7824f14",
+                "shasum": ""
+            },
+            "require": {
+                "joomla/registry": "1.*@stable",
+                "joomla/uri": "1.*@stable",
+                "php": ">=5.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "BabDev": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Babker",
+                    "homepage": "http://www.babdev.com"
+                }
+            ],
+            "description": "BabDev's PHP libraries",
+            "homepage": "https://github.com/BabDev/BabDev-Library",
+            "keywords": [
+                "library",
+                "php"
+            ],
+            "time": "2014-01-03 02:34:26"
+        },
         {
             "name": "elkuku/console-progressbar",
             "version": "1.0",
@@ -689,6 +732,7 @@
         "joomla/view": 0,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
+        "babdev/library": 20,
         "filp/whoops": 0
     },
     "platform": {
