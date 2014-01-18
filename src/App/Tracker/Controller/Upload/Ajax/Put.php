@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Controller\Upload\Ajax;
@@ -39,11 +39,13 @@ class Put extends AbstractAjaxController
 			// Prepare response data
 			$host       = $application->get('uri')->base->host;
 			$destName   = md5(time() . $file->getName()) . '.' . $file->getExtension();
+			$destDir    = $application->getProject()->project_id;
+			$fullPath   = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
 
 			$data = array(
 				array(
-					'url' => $host . '/uploads/' . $destName,
-					'thumbnailUrl' => $host . '/uploads/' . $destName,
+					'url' => $fullPath,
+					'thumbnailUrl' => $fullPath,
 					'name' => $file->getName(),
 					'type' => $file->getMimetype(),
 					'size' => $file->getSize(),

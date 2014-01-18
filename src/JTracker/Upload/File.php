@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Upload;
@@ -17,7 +17,6 @@ use Upload\Validation\Size;
 
 /**
  * File upload class for the Joomla Tracker application.
- * It is just a wrapper for the \Upload\File class to allow read the first file in the files array.
  *
  * @since  1.0
  */
@@ -29,21 +28,23 @@ class File extends UploadFile
 	 * @var    Application
 	 * @since  1.0
 	 */
-	private $app;
+	private $application;
 
 	/**
 	 * Constructor
 	 *
-	 * @param   Application  $app  The Application.
-	 * @param   string       $key  The file's key in $_FILES superglobal
+	 * @param   Application  $application  The Application
+	 * @param   string       $key          The file's key in $_FILES superglobal
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Application $app, $key = 'files')
+	public function __construct(Application $application, $key = 'files')
 	{
-		$this->app = $app;
+		$this->application = $application;
 
-		$storage = new FileSystem(JPATH_THEMES . '/' . $this->app->get('system.upload_dir'));
+		$storage = new FileSystem(
+			JPATH_THEMES . '/' . $this->application->get('system.upload_dir') . '/' . $this->application->getProject()->project_id
+		);
 
 		if (is_array($_FILES[$key]))
 		{
@@ -58,7 +59,7 @@ class File extends UploadFile
 	}
 
 	/**
-	 * Method to set file validations.
+	 * Method to set the file validations.
 	 *
 	 * @return  void
 	 *
@@ -68,8 +69,8 @@ class File extends UploadFile
 	{
 		$this->addValidations(
 			array(
-				new Mimetype($this->app->get('validation.mime_types')),
-				new Size($this->app->get('validation.file_size'))
+				new Mimetype($this->application->get('validation.mime_types')),
+				new Size($this->application->get('validation.file_size'))
 			)
 		);
 	}
