@@ -15,6 +15,11 @@
 		"client_secret": ""
 	},
 
+	"transifex": {
+		"username": "",
+		"password": "",
+	},
+
 	"renderer": {
 		"type" : "twig",
 		"debug": "1"
