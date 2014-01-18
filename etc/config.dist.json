@@ -18,6 +18,7 @@
 	"transifex": {
 		"username": "",
 		"password": "",
+		"project" : ""
 	},
 
 	"renderer": {
