@@ -24,7 +24,7 @@ Resources should follow a `"extension" "domain"` naming convention for both the 
 
 #### Pushing to Transifex
 
-**TODO**
+A CLI command, `update transifex`, pushes all of the language templates to Transifex which updates the source language for each resource.  Presently, the `GitHub` and `System` apps are not included since there are not any translatable strings.  The `Debug` template must be manually updated on Transifex because the Transifex object is not properly supporting sending it.  **TODO** Debug this.
 
 #### Pulling from Transifex
 
