@@ -38,7 +38,7 @@ class Server extends Update
 
 		$this->logOut('Beginning git update');
 
-		shell_exec('git pull');
+		system('git pull');
 
 		with(new Repoinfo)
 			->setContainer($this->getContainer())
