@@ -35,7 +35,6 @@ class JoomlacmsPullsListener
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
-		var_dump($arguments);die;
 
 		// Check pull requests for a PR-<branch> label
 		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
