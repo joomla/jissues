@@ -101,6 +101,7 @@ class CliApplication extends AbstractCliApplication
 	public function __construct(Input\Cli $input = null, Registry $config = null)
 	{
 		parent::__construct($input, $config);
+		var_dump($this->input->get('log'));die;
 
 		// Build the DI Container
 		$this->container = with(new Container)
