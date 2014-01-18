@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tracker - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-29 13:59-0600\n"
+"POT-Creation-Date: 2014-01-18 17:08-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 #: /templates/tracker/issue.add.twig:41
 #: /templates/tracker/issues.index.twig:80
 #: /templates/tracker/issue.index.twig:65
-#: /templates/tracker/issue.edit.twig:75
+#: /templates/tracker/issue.edit.twig:70
 msgid "Priority"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgstr ""
 
 #: /templates/tracker/issue.add.twig:52
 #: /templates/tracker/issue.index.twig:72
-#: /templates/tracker/issue.edit.twig:100
+#: /templates/tracker/issue.edit.twig:96
 msgid "Build"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgid "Issue intro help"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:63
-#: /templates/tracker/issue.edit.twig:124
+#: /templates/tracker/issue.edit.twig:120
 msgid "Title"
 msgstr ""
 
@@ -163,7 +163,7 @@ msgstr ""
 
 #: /templates/tracker/issues.index.twig:135
 #: /templates/tracker/issue.index.twig:118
-#: /templates/tracker/issue.edit.twig:51
+#: /templates/tracker/issue.edit.twig:46
 msgid "Foreign ID"
 msgstr ""
 
@@ -239,46 +239,92 @@ msgstr ""
 msgid "Login with GitHub to post a comment"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:16
+#: /templates/tracker/issue.edit.twig:25
 msgid "Save"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:20
+#: /templates/tracker/issue.edit.twig:29
 msgid "Cancel"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:64
+#: /templates/tracker/issue.edit.twig:59
 msgid "Status"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:83
-msgid "Type"
+#: /templates/tracker/issue.edit.twig:79
+msgid "Item"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:93
-msgid "Number"
-msgstr ""
-
-#: /templates/tracker/issue.edit.twig:104
+#: /templates/tracker/issue.edit.twig:100
 msgid "Successful tests"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:112
+#: /templates/tracker/issue.edit.twig:108
 msgid "Easy test"
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:151
+#: /src/App/Tracker/Table/IssuesTable.php:159
 msgid "A title is required."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:155
+#: /src/App/Tracker/Table/IssuesTable.php:163
 msgid "The title max length is 255 chars."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:160
+#: /src/App/Tracker/Table/IssuesTable.php:168
 msgid "A build is required."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:164
+#: /src/App/Tracker/Table/IssuesTable.php:172
 msgid "A build max length is 40 chars."
+msgstr ""
+
+# DATABASE TRANSLATIONS
+
+#: DATABASE
+msgid "open"
+msgstr ""
+
+#: DATABASE
+msgid "confirmed"
+msgstr ""
+
+#: DATABASE
+msgid "pending"
+msgstr ""
+
+#: DATABASE
+msgid "rtc"
+msgstr ""
+
+#: DATABASE
+msgid "fixed"
+msgstr ""
+
+#: DATABASE
+msgid "review"
+msgstr ""
+
+#: DATABASE
+msgid "info"
+msgstr ""
+
+#: DATABASE
+msgid "platform"
+msgstr ""
+
+#: DATABASE
+msgid "no_reply"
+msgstr ""
+
+#: DATABASE
+msgid "closed"
+msgstr ""
+
+#: DATABASE
+msgid "expected"
+msgstr ""
+
+#: DATABASE
+msgid "known"
 msgstr ""

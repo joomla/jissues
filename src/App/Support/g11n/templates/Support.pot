@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Support - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-29 13:59-0600\n"
+"POT-Creation-Date: 2014-01-18 17:07-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,6 +83,6 @@ msgstr ""
 msgid "Improve this document"
 msgstr ""
 
-#: /src/App/Support/Controller/Clearcache.php:45
+#: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."
 msgstr ""

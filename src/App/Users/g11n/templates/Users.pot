@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Users - App 123.456\n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 13:46-0500\n"
+"POT-Creation-Date: 2014-01-18 17:08-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,28 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/users/users.index.twig:19
+msgid "Users List"
+msgstr ""
+
+#: /templates/users/users.index.twig:23
+#: /templates/users/users.index.twig:47
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: /templates/users/users.index.twig:28
+msgid "Username"
+msgstr ""
+
+#: /templates/users/users.index.twig:30
+msgid "Actions"
+msgstr ""
+
+#: /templates/users/users.index.twig:32
+msgid "ID"
+msgstr ""
 
 #: /templates/users/user.index.twig:12
 msgid "My Profile"
@@ -25,26 +47,10 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: /templates/users/users.index.twig:8
-msgid "Users List"
-msgstr ""
-
-#: /templates/users/users.index.twig:12
-msgid "Username"
-msgstr ""
-
-#: /templates/users/users.index.twig:14
-msgid "Actions"
-msgstr ""
-
-#: /templates/users/users.index.twig:16
-msgid "ID"
-msgstr ""
-
-#: /src/App/Users/Controller/Ajax/AssignController.php:75
+#: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
 msgstr ""
 
-#: /src/App/Users/Controller/Ajax/AssignController.php:86
+#: /src/App/Users/Controller/Ajax/Assign.php:85
 msgid "The user has been unassigned."
 msgstr ""
