@@ -135,80 +135,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	protected $type = 'standard';
 
 	/**
-	 * Constructor.
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		// Run the parent constructor
-		parent::__construct($input, $app);
-
-		$this->debug = $this->container->get('app')->get('debug.hooks');
-
-		// Initialize the logger
-		$this->logger = new Logger('JTracker');
-
-		$this->logger->pushHandler(
-			new StreamHandler(
-				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
-			)
-		);
-
-		// Get the event dispatcher
-		$this->dispatcher = $this->container->get('app')->getDispatcher();
-
-		// Get a database object
-		$this->db = $this->container->get('db');
-
-		// Instantiate Github
-		$this->github = $this->container->get('gitHub');
-
-		// Check the request is coming from GitHub
-		$validIps = $this->github->meta->getMeta();
-
-		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-		{
-			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-			$myIP = $parts[0];
-		}
-		else
-		{
-			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
-		}
-
-		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
-		{
-			// Log the unauthorized request
-			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->$this->container->get('app')->close();
-		}
-
-		// Get the payload data
-		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
-
-		if (!$data)
-		{
-			$this->logger->error('No data received.');
-			$this->$this->container->get('app')->close();
-		}
-
-		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
-
-		// Decode it
-		$this->hookData = json_decode($data);
-
-		// Get the project data
-		$this->getProjectData();
-
-		// Set up the event listener
-		$this->addEventListener();
-	}
-
-	/**
 	 * Registers the event listener for the current hook and project
 	 *
 	 * @return  void
@@ -308,6 +234,82 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 			$this->$this->container->get('app')->close();
 		}
+	}
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this  Method allows chiaining
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		// Run the parent constructor
+		parent::__construct($input, $app);
+
+		$this->debug = $this->container->get('app')->get('debug.hooks');
+
+		// Initialize the logger
+		$this->logger = new Logger('JTracker');
+
+		$this->logger->pushHandler(
+			new StreamHandler(
+				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
+			)
+		);
+
+		// Get the event dispatcher
+		$this->dispatcher = $this->container->get('app')->getDispatcher();
+
+		// Get a database object
+		$this->db = $this->container->get('db');
+
+		// Instantiate Github
+		$this->github = $this->container->get('gitHub');
+
+		// Check the request is coming from GitHub
+		$validIps = $this->github->meta->getMeta();
+
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+		{
+			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+			$myIP = $parts[0];
+		}
+		else
+		{
+			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
+		}
+
+		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
+		{
+			// Log the unauthorized request
+			$this->logger->error('Unauthorized request from ' . $myIP);
+			$this->$this->container->get('app')->close();
+		}
+
+		// Get the payload data
+		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
+
+		if (!$data)
+		{
+			$this->logger->error('No data received.');
+			$this->$this->container->get('app')->close();
+		}
+
+		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
+
+		// Decode it
+		$this->hookData = json_decode($data);
+
+		// Get the project data
+		$this->getProjectData();
+
+		// Set up the event listener
+		$this->addEventListener();
+
+		return $this;
 	}
 
 	/**
