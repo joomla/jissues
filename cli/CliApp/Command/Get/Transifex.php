@@ -88,6 +88,11 @@ class Transifex extends Get
 
 			$extension = $fileInfo->getFileName();
 
+			if (in_array($extension, array('GitHub', 'System')))
+			{
+				continue;
+			}
+
 			$this->receiveFiles($extension, 'App');
 		}
 
