@@ -36,8 +36,9 @@ class Repoinfo extends Make
 		$this->getApplication()->outputTitle('Generate Repoinfo');
 		$this->logOut('Generating Repoinfo.');
 
+		ob_start();
 		system('git describe --long --dirty --abbrev=10 --tags', $currentSHA);
-		$currentSHA = trim($currentSHA);
+		$currentSHA = trim(ob_get_clean());
 
 		$path = JPATH_ROOT . '/current_SHA';
 
