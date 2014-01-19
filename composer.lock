@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/BabDev-Library.git",
-                "reference": "b468cd7c5978290f964f81b60ff4969af7824f14"
+                "reference": "4577faaca74c50ff436122bb02008d7f11379548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/b468cd7c5978290f964f81b60ff4969af7824f14",
-                "reference": "b468cd7c5978290f964f81b60ff4969af7824f14",
+                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/4577faaca74c50ff436122bb02008d7f11379548",
+                "reference": "4577faaca74c50ff436122bb02008d7f11379548",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 "library",
                 "php"
             ],
-            "time": "2014-01-03 02:34:26"
+            "time": "2014-01-19 04:51:43"
         },
         {
             "name": "elkuku/console-progressbar",
@@ -297,12 +297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc"
+                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/65f363ac44058796a8e1428cf41e6d92d8a75ddc",
-                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/a78d6504ff5d4367497785ab2ade91db3a9fbe11",
+                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11",
                 "shasum": ""
             },
             "type": "library",
@@ -332,7 +332,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2013-12-25 11:17:50"
+            "time": "2014-01-18 15:33:09"
         },
         {
             "name": "symfony/http-foundation",
