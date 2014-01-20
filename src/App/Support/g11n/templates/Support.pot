@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
-"Project-Id-Version: Support - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2014-01-18 17:07-0600\n"
+"Project-Id-Version: Support - App 1.0.0-beta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-20 10:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /templates/support/markdown.index.twig:6
@@ -75,12 +75,12 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: /templates/support/icons.index.twig:8
-msgid "Icons"
-msgstr ""
-
 #: /templates/support/devdox.index.twig:15
 msgid "Improve this document"
+msgstr ""
+
+#: /templates/support/icons.index.twig:8
+msgid "Icons"
 msgstr ""
 
 #: /src/App/Support/Controller/Clearcache.php:37

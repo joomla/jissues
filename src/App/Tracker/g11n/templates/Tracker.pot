@@ -3,43 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
-"Project-Id-Version: Tracker - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2014-01-18 17:08-0600\n"
+"Project-Id-Version: Tracker - App 1.0.0-beta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-20 10:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: /templates/tracker/tracker.filters.twig:7
-msgid "- stage -"
-msgstr ""
-
-#: /templates/tracker/tracker.filters.twig:29
-msgid "- priority -"
-msgstr ""
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Newest"
-msgstr ""
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Oldest"
-msgstr ""
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Recently updated"
-msgstr ""
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Least recently updated"
-msgstr ""
 
 #: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:58
@@ -64,9 +40,9 @@ msgid "Pro"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:41
-#: /templates/tracker/issues.index.twig:80
-#: /templates/tracker/issue.index.twig:65
 #: /templates/tracker/issue.edit.twig:70
+#: /templates/tracker/issue.index.twig:65
+#: /templates/tracker/issues.index.twig:80
 msgid "Priority"
 msgstr ""
 
@@ -75,8 +51,8 @@ msgid "Priority help"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:52
-#: /templates/tracker/issue.index.twig:72
 #: /templates/tracker/issue.edit.twig:96
+#: /templates/tracker/issue.index.twig:72
 msgid "Build"
 msgstr ""
 
@@ -105,70 +81,58 @@ msgstr ""
 msgid "Issue description help"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:41
-#: /templates/tracker/issues.index.twig:44
-#: /templates/tracker/issues.index.twig:45
-msgid "Filter the list by summary or description."
+#: /templates/tracker/issue.edit.twig:25
+msgid "Save"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:46
-msgid "Submit search"
+#: /templates/tracker/issue.edit.twig:29
+msgid "Cancel"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:52
-msgid "Clear search"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:64
-msgid "Open"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:65
-msgid "Closed"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:72
-#: /templates/tracker/issues.index.twig:180
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:78
-msgid "ID"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:79
-msgid "Summary"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:81
-msgid "Stage"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:82
-msgid "Date Opened"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:83
-msgid "Date Closed"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:84
-msgid "Last Modified"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:127
-msgid "GitHub ID"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:135
-#: /templates/tracker/issue.index.twig:118
 #: /templates/tracker/issue.edit.twig:46
+#: /templates/tracker/issue.index.twig:118
+#: /templates/tracker/issues.index.twig:135
 msgid "Foreign ID"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:171
-msgid "No items found."
+#: /templates/tracker/issue.edit.twig:59
+msgid "Status"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:79
+msgid "Item"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:100
+msgid "Successful tests"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:108
+msgid "Easy test"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- stage -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:29
+msgid "- priority -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Newest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Oldest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Recently updated"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Least recently updated"
 msgstr ""
 
 #: /templates/tracker/issue.index.twig:28
@@ -239,28 +203,64 @@ msgstr ""
 msgid "Login with GitHub to post a comment"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:25
-msgid "Save"
+#: /templates/tracker/issues.index.twig:41
+#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
+msgid "Filter the list by summary or description."
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:29
-msgid "Cancel"
+#: /templates/tracker/issues.index.twig:46
+msgid "Submit search"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:59
-msgid "Status"
+#: /templates/tracker/issues.index.twig:52
+msgid "Clear search"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:79
-msgid "Item"
+#: /templates/tracker/issues.index.twig:64
+msgid "Open"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:100
-msgid "Successful tests"
+#: /templates/tracker/issues.index.twig:65
+msgid "Closed"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:108
-msgid "Easy test"
+#: /templates/tracker/issues.index.twig:72
+#: /templates/tracker/issues.index.twig:180
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:78
+msgid "ID"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:79
+msgid "Summary"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:81
+msgid "Stage"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:82
+msgid "Date Opened"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:83
+msgid "Date Closed"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:84
+msgid "Last Modified"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:127
+msgid "GitHub ID"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:171
+msgid "No items found."
 msgstr ""
 
 #: /src/App/Tracker/Table/IssuesTable.php:159
