@@ -8,7 +8,11 @@
 
 namespace CliApp\Command\Update;
 
+use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
+
+use Joomla\Filesystem\Folder;
+use Joomla\Filter\OutputFilter;
 
 /**
  * Class for updating resources on Transifex
@@ -38,7 +42,7 @@ class Transifex extends Update
 
 		$this->logOut('Start pushing translations.')
 			->setupTransifex()
-			->pushTranslations()
+			->uploadTemplates()
 			->out()
 			->logOut('Finished.');
 	}
@@ -48,69 +52,76 @@ class Transifex extends Update
 	 *
 	 * @return  $this
 	 *
+	 * @throws \DomainException
 	 * @since   1.0
 	 */
-	private function pushTranslations()
+	private function uploadTemplates()
 	{
+		$transifexProject = $this->getApplication()->get('transifex.project');
+		$create = $this->getApplication()->input->get('create');
+
+		defined('JDEBUG') || define('JDEBUG', 0);
+
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		defined('JDEBUG') || define('JDEBUG', 0);
+		$scopes = array(
+			'Core' => array(
+				'JTracker'
+			),
+			'Template' => array(
+				'JTracker'
+			),
+			'App' => Folder::folders(JPATH_ROOT . '/src/App')
+		);
 
-		// Process core files
-		$this->receiveFiles('JTracker', 'Core');
-
-		// Process template files
-		$this->receiveFiles('JTracker', 'Template');
-
-		// Process app files
-		/* @type \DirectoryIterator $fileInfo */
-		foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
+		foreach ($scopes as $domain => $extensions)
 		{
-			if ($fileInfo->isDot())
+			foreach ($extensions as $extension)
 			{
-				continue;
+				$name  = $extension . ' ' . $domain;
+				$alias = OutputFilter::stringURLSafe($name);
+
+				$this->out('Processing: ' . $name . ' - ' . $alias);
+
+				$templatePath = Storage::getTemplatePath($extension, $domain);
+
+				if (false == file_exists($templatePath))
+				{
+					throw new \DomainException(sprintf('Language template for %s not found.', $name));
+				}
+
+				$this->out($templatePath);
+
+				try
+				{
+					if ($create)
+					{
+						$this->transifex->resources->createResource(
+							$transifexProject, $name, $alias, 'PO', array('file' => $templatePath)
+						);
+
+						$this->out('<ok>Resource created successfully</ok>');
+					}
+					else
+					{
+						$this->transifex->resources->updateResourceContent(
+							$transifexProject, $alias, $templatePath, 'file'
+						);
+
+						$this->out('<ok>Resource updated successfully</ok>');
+					}
+				}
+				catch (\Exception $e)
+				{
+					$this->out('<error>' . $e->getMessage() . '</error>');
+				}
+
+				$this->out();
 			}
-
-			$extension = $fileInfo->getFileName();
-
-			// Skip apps with empty language templates, also the Debug app as the Transifex object won't send it
-			if (in_array($extension, array('Debug', 'GitHub', 'System')))
-			{
-				continue;
-			}
-
-			$this->receiveFiles($extension, 'App');
 		}
 
 		return $this;
-	}
-
-	/**
-	 * Receives language files from Transifex
-	 *
-	 * @param   string  $extension  The extension to process
-	 * @param   string  $domain     The domain of the extension
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	private function receiveFiles($extension, $domain)
-	{
-		$this->out('Processing: ' . $domain . ' ' . $extension);
-
-		$scopePath     = ExtensionHelper::getDomainPath($domain);
-		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
-
-		// Call out to Transifex
-		$translation = $this->transifex->resources->updateResourceContent(
-			$this->getApplication()->get('transifex.project'),
-			strtolower($extension) . '-' . strtolower($domain),
-			$scopePath . '/' . $extensionPath . '/templates/' . $extension . '.pot',
-			'file'
-		);
 	}
 }
