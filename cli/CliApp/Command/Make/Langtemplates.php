@@ -228,6 +228,9 @@ class Langtemplates extends Make
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
 		$noWrap   = ' --no-wrap';
 
+		// Always write an output file even if no message is defined.
+		$forcePo = ' --force-po';
+
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
 
@@ -286,7 +289,7 @@ class Langtemplates extends Make
 		{
 			$fileList = implode("\n", $cleanFiles);
 
-			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $noWrap . $comments . $headerData;
+			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $noWrap . $comments . $headerData . $forcePo;
 
 			$this->debugOut($command);
 
