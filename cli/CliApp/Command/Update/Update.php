@@ -8,6 +8,8 @@
 
 namespace CliApp\Command\Update;
 
+use BabDev\Transifex\Transifex;
+
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
@@ -35,6 +37,14 @@ class Update extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $github;
+
+	/**
+	 * Transifex object
+	 *
+	 * @var    Transifex
+	 * @since  1.0
+	 */
+	protected $transifex;
 
 	/**
 	 * Constructor.
@@ -102,6 +112,21 @@ class Update extends TrackerCommand
 	protected function setupGitHub()
 	{
 		$this->github = $this->container->get('gitHub');
+
+		return $this;
+	}
+
+	/**
+	 * Setup the Transifex object.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function setupTransifex()
+	{
+		$this->transifex = $this->container->get('transifex');
 
 		return $this;
 	}

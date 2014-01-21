@@ -3,8 +3,51 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "62b28416de0bf2ab81f343ee79689222",
+    "hash": "c6dbb3ece6b78764a4b068fca8847e6f",
     "packages": [
+        {
+            "name": "babdev/library",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BabDev/BabDev-Library.git",
+                "reference": "4577faaca74c50ff436122bb02008d7f11379548"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/4577faaca74c50ff436122bb02008d7f11379548",
+                "reference": "4577faaca74c50ff436122bb02008d7f11379548",
+                "shasum": ""
+            },
+            "require": {
+                "joomla/registry": "1.*@stable",
+                "joomla/uri": "1.*@stable",
+                "php": ">=5.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "BabDev": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Babker",
+                    "homepage": "http://www.babdev.com"
+                }
+            ],
+            "description": "BabDev's PHP libraries",
+            "homepage": "https://github.com/BabDev/BabDev-Library",
+            "keywords": [
+                "library",
+                "php"
+            ],
+            "time": "2014-01-19 04:51:43"
+        },
         {
             "name": "elkuku/console-progressbar",
             "version": "1.0",
@@ -254,12 +297,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc"
+                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/65f363ac44058796a8e1428cf41e6d92d8a75ddc",
-                "reference": "65f363ac44058796a8e1428cf41e6d92d8a75ddc",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/a78d6504ff5d4367497785ab2ade91db3a9fbe11",
+                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11",
                 "shasum": ""
             },
             "type": "library",
@@ -289,7 +332,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2013-12-25 11:17:50"
+            "time": "2014-01-18 15:33:09"
         },
         {
             "name": "symfony/http-foundation",
@@ -689,6 +732,7 @@
         "joomla/view": 0,
         "symfony/http-foundation": 0,
         "twig/twig": 0,
+        "babdev/library": 20,
         "filp/whoops": 0
     },
     "platform": {

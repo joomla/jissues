@@ -37,6 +37,14 @@ class Langtemplates extends Make
 	protected $description = 'Create language file templates.';
 
 	/**
+	 * The software product.
+	 *
+	 * @var \stdClass
+	 * @since  1.0
+	 */
+	private $product = null;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -49,6 +57,8 @@ class Langtemplates extends Make
 				'Process only this extension'
 			)
 		);
+
+		$this->product = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 	}
 
 	/**
@@ -209,13 +219,17 @@ class Langtemplates extends Make
 		$headerData = '';
 		$headerData .= ' --copyright-holder="JTracker(C)"';
 		$headerData .= ' --package-name="' . $extension . ' - ' . $domain . '"';
-		$headerData .= ' --package-version="123.456"';
-		$headerData .= ' --msgid-bugs-address="info@example.com"';
+		$headerData .= ' --package-version="' . $this->product->version . '"';
+
+		// @$headerData .= ' --msgid-bugs-address="info@example.com"';
 
 		$comments = ' --add-comments=TRANSLATORS:';
 
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
 		$noWrap   = ' --no-wrap';
+
+		// Always write an output file even if no message is defined.
+		$forcePo = ' --force-po';
 
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
@@ -275,7 +289,7 @@ class Langtemplates extends Make
 		{
 			$fileList = implode("\n", $cleanFiles);
 
-			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $noWrap . $comments . $headerData;
+			$command = $keywords . $buildOpts . ' -o ' . $templatePath . $noWrap . $comments . $headerData . $forcePo;
 
 			$this->debugOut($command);
 
@@ -296,6 +310,13 @@ class Langtemplates extends Make
 		// Manually strip the JROOT path - ...
 		$contents = file_get_contents($templatePath);
 		$contents = str_replace(JPATH_ROOT, '', $contents);
+
+		// Manually strip unwanted information - ....
+		$contents = str_replace('#, fuzzy', '', $contents);
+		$contents = str_replace('"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"', '', $contents);
+
+		// Set the character set
+		$contents = str_replace('charset=CHARSET\n', 'charset=utf-8\n', $contents);
 
 		file_put_contents($templatePath, $contents);
 

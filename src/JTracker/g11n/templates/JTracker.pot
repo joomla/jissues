@@ -3,34 +3,34 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker - Core 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-29 13:59-0600\n"
+"Project-Id-Version: JTracker - Core 1.0.0-beta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-20 10:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /src/JTracker/Pagination/TrackerPagination.php:209
-#: /src/JTracker/Pagination/TrackerPagination.php:214
+#: /src/JTracker/Pagination/TrackerPagination.php:221
+#: /src/JTracker/Pagination/TrackerPagination.php:226
 msgid "Next"
 msgstr ""
 
-#: /src/JTracker/Pagination/TrackerPagination.php:210
-#: /src/JTracker/Pagination/TrackerPagination.php:215
+#: /src/JTracker/Pagination/TrackerPagination.php:222
+#: /src/JTracker/Pagination/TrackerPagination.php:227
 msgid "Last"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:362
+#: /src/JTracker/View/Renderer/TrackerExtension.php:371
 msgid "Yes"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:362
+#: /src/JTracker/View/Renderer/TrackerExtension.php:371
 msgid "No"
 msgstr ""

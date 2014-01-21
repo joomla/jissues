@@ -12,13 +12,13 @@ use App\Projects\TrackerProject;
 use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
 
-use Joomla\Application\AbstractApplication;
+use BabDev\Helper as BDHelper;
+
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
-use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -36,32 +36,6 @@ use Psr\Log\LoggerInterface;
  */
 abstract class AbstractHookController extends AbstractTrackerController implements LoggerAwareInterface
 {
-	/**
-	 * An array of how many addresses are in each CIDR mask
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $cidrRanges = array(
-		16 => 65536,
-		17 => 32768,
-		18 => 16382,
-		19 => 8192,
-		20 => 4096,
-		21 => 2048,
-		22 => 1024,
-		23 => 512,
-		24 => 256,
-		25 => 128,
-		26 => 64,
-		27 => 32,
-		28 => 16,
-		29 => 8,
-		30 => 4,
-		31 => 2,
-		32 => 1
-	);
-
 	/**
 	 * The dispatcher object
 	 *
@@ -155,38 +129,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			$this->dispatcher->addListener(new $fullClass);
 			$this->listenerSet = true;
 		}
-	}
-
-	/**
-	 * Determines if the requestor IP address is in the authorized IP range
-	 *
-	 * @param   string  $requestor  The requestor's IP address
-	 * @param   array   $validIps   The valid IP array
-	 *
-	 * @return  boolean  True if authorized
-	 *
-	 * @since   1.0
-	 */
-	protected function checkIp($requestor, $validIps)
-	{
-		foreach ($validIps as $githubIp)
-		{
-			// Split the CIDR address into a separate IP address and bits
-			list ($subnet, $bits) = explode('/', $githubIp);
-
-			// Convert the requestor IP and network address into number format
-			$ip    = ip2long($requestor);
-			$start = ip2long($subnet);
-			$end   = $start + ($this->cidrRanges[(int) $bits] - 1);
-
-			// Real easy from here, check to make sure the IP is in range
-			if ($ip >= $start && $ip <= $end)
-			{
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -284,7 +226,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
 		}
 
-		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
+		if (!BDHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
 			$this->logger->error('Unauthorized request from ' . $myIP);

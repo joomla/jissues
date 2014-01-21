@@ -35,6 +35,7 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\TransifexProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -122,7 +123,8 @@ class CliApplication extends AbstractCliApplication implements DispatcherAwareIn
 			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))));
+			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
+			->registerServiceProvider(new TransifexProvider);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
