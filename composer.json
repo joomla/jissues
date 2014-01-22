@@ -29,7 +29,8 @@
         "twig/twig": "1.*@stable",
         "elkuku/g11n": "2.1",
         "elkuku/console-progressbar": "1.0",
-        "babdev/library": "dev-master"
+        "babdev/library": "dev-master",
+        "codeguy/upload": "*"
     },
     "require-dev": {
         "monolog/monolog": "1.6.0",

@@ -6,16 +6,19 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Support - App 1.0.0-beta\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-20 10:25-0500\n"
+"Project-Id-Version: Support - App 123.456\n"
+"Report-Msgid-Bugs-To: info@example.com\n"
+"POT-Creation-Date: 2013-11-29 13:59-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/support/icons.index.twig:8
+msgid "Icons"
+msgstr ""
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"

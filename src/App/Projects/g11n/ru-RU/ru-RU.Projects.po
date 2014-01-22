@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-03 11:59-0500\n"
+"POT-Creation-Date: 2013-12-04 21:04+0200\n"
 "PO-Revision-Date: 2010-10-28 20:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: JTracker <der.el.kuku@gmail.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
@@ -72,55 +72,64 @@ msgstr "Редактировать"
 msgid "Delete"
 msgstr "Удалить"
 
-#: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
+#: /templates/projects/project.add.twig:11
 msgid "Save"
 msgstr "Сохранить"
-
-#: /templates/projects/project.add.twig:20
-#: /templates/projects/project.edit.twig:30
-msgid "New project"
-msgstr "Новый проект"
-
-#: /templates/projects/project.add.twig:24
-#: /templates/projects/project.edit.twig:35
-msgid "Details"
-msgstr "Детали"
-
-#: /templates/projects/project.add.twig:28
-#: /templates/projects/project.edit.twig:37
-msgid "Title"
-msgstr "Название"
-
-#: /templates/projects/project.add.twig:33
-#: /templates/projects/project.edit.twig:44
-msgid "Alias"
-msgstr "Алиас"
-
-#: /templates/projects/project.add.twig:38
-#: /templates/projects/project.edit.twig:51
-msgid "GitHub Owner"
-msgstr "Владелец GitHub"
-
-#: /templates/projects/project.add.twig:43
-#: /templates/projects/project.edit.twig:58
-msgid "GitHub Repo"
-msgstr "GitHub репо"
-
-#: /templates/projects/project.add.twig:48
-#: /templates/projects/project.edit.twig:65
-msgid "External Tracker Link"
-msgstr "Внешняя ссылка трекера"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
 msgstr "Редактировать проект"
+
+#: /templates/projects/project.edit.twig:30
+#: /templates/projects/project.add.twig:20
+msgid "New project"
+msgstr "Новый проект"
+
+#: /templates/projects/project.edit.twig:35
+#: /templates/projects/project.add.twig:24
+msgid "Details"
+msgstr "Детали"
+
+#: /templates/projects/project.edit.twig:37
+#: /templates/projects/project.add.twig:28
+msgid "Title"
+msgstr "Название"
+
+#: /templates/projects/project.edit.twig:44
+#: /templates/projects/project.add.twig:33
+msgid "Short Title"
+msgstr ""
+
+#: /templates/projects/project.edit.twig:51
+#: /templates/projects/project.add.twig:38
+msgid "Alias"
+msgstr "Алиас"
+
+#: /templates/projects/project.edit.twig:58
+#: /templates/projects/project.add.twig:43
+msgid "GitHub Owner"
+msgstr "Владелец GitHub"
+
+#: /templates/projects/project.edit.twig:65
+#: /templates/projects/project.add.twig:48
+msgid "GitHub Repo"
+msgstr "GitHub репо"
+
+#: /templates/projects/project.edit.twig:72
+#: /templates/projects/project.add.twig:53
+msgid "External Tracker Link"
+msgstr "Внешняя ссылка трекера"
 
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
 msgid "Project"
 msgstr "Проект"
 
-#: /src/App/Projects/Table/ProjectsTable.php:56
+#: /src/App/Projects/Table/ProjectsTable.php:57
 msgid "A title is required"
 msgstr "Название обязательно"
+
+#: /src/App/Projects/Table/ProjectsTable.php:62
+msgid "A short title is required"
+msgstr "Короткое название обязательно"
