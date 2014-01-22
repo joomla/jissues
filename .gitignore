@@ -24,3 +24,6 @@ cache.properties
 build/api/*
 build/logs/*
 current_SHA
+
+# Ignore uploads #
+uploads/*
