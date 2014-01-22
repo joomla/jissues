@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker Controller Package
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Controller;
@@ -49,18 +49,26 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	protected $app;
 
 	/**
-	 * @var  Container
+	 * DI container
+	 *
+	 * @var    Container
 	 * @since  1.0
 	 */
 	protected $container;
 
 	/**
-	 * @var  \Joomla\View\AbstractHtmlView
+	 * View object
+	 *
+	 * @var    \Joomla\View\AbstractHtmlView
+	 * @since  1.0
 	 */
 	protected $view;
 
 	/**
-	 * @var  \Joomla\Model\AbstractModel
+	 * Model object
+	 *
+	 * @var    \Joomla\Model\AbstractModel
+	 * @since  1.0
 	 */
 	protected $model;
 
@@ -134,7 +142,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 *
 	 * This will set up default model and view classes.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chiaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -325,10 +333,10 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 *
 	 * @param   string|array  $templatesPaths  A path or an array of paths where to look for templates.
 	 *
-	 * @return RendererInterface
+	 * @return  RendererInterface
 	 *
-	 * @throws \RuntimeException
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function fetchRenderer($templatesPaths)
 	{
@@ -425,7 +433,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 * @return  Container
 	 *
 	 * @since   1.0
-	 *
 	 * @throws  \UnexpectedValueException May be thrown if the container has not been set.
 	 */
 	public function getContainer()

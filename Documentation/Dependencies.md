@@ -34,6 +34,20 @@ The Joomla Framework is a platform for writing Web and command line applications
 * Installed: 1.0
 * Source URL: https://github.com/joomla/joomla-framework-date.git
 
+#### joomla/di (1.0.*@stable)
+
+Joomla DI Package
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-di.git
+
+#### joomla/event (1.0.*@stable)
+
+Joomla Event Package
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-event.git
+
 #### joomla/filter (1.0.*@stable)
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
@@ -122,7 +136,7 @@ The Joomla Framework is a platform for writing Web and command line applications
 
 Symfony HttpFoundation Component
 
-* Installed: v2.3.7
+* Installed: v2.3.9
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -146,6 +160,13 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
+#### babdev/library (dev-master)
+
+BabDev's PHP libraries
+
+* Installed: dev-master b468cd7c5978290f964f81b60ff4969af7824f14
+* Source URL: https://github.com/BabDev/BabDev-Library.git
+
 ### PHP - Development
 
 #### monolog/monolog (1.6.0)
@@ -166,7 +187,7 @@ Kint - debugging helper for PHP developers
 
 php error handling for cool kids
 
-* Installed: 1.0.9
+* Installed: 1.0.10
 * Source URL: https://github.com/filp/whoops.git
 
 #### mustache/mustache (2.1.*)
@@ -175,6 +196,13 @@ A Mustache implementation in PHP.
 
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php.git
+
+#### squizlabs/php_codesniffer (1.*)
+
+PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
+
+* Installed: 1.5.1
+* Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
 
 ### JavaScript
 
@@ -239,3 +267,11 @@ Sublime Text is a sophisticated text editor for code, markup and prose.
 GitHub acts as our authentication provider, software repository, markdown parser engine and general service provider for the issue tracker infrastructures.
 
 * https://github.com/
+
+### Translations
+
+#### Transifex
+
+The Issue Tracker utilizes Transifex to manage translations of the user interface.
+
+* https://www.transifex.com/

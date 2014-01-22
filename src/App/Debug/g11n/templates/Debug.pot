@@ -3,24 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
-"Project-Id-Version: Debug - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-04 21:05+0200\n"
+"Project-Id-Version: Debug - App 1.0.0-beta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-20 10:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:63
-#, php-format
-msgid "No %s log file found."
-msgstr ""
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:88
 #, php-format
@@ -32,80 +27,85 @@ msgstr ""
 msgid "%s database is not supported yet."
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:274
+#: /src/App/Debug/TrackerDebugger.php:281
 msgid "Database"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:283
-#: /src/App/Debug/TrackerDebugger.php:369
+#: /src/App/Debug/TrackerDebugger.php:290
+#: /src/App/Debug/TrackerDebugger.php:377
 msgid "Profile"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:288
-#: /src/App/Debug/TrackerDebugger.php:420
+#: /src/App/Debug/TrackerDebugger.php:295
+#: /src/App/Debug/TrackerDebugger.php:428
 msgid "User"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:293
-#: /src/App/Debug/TrackerDebugger.php:426
+#: /src/App/Debug/TrackerDebugger.php:300
+#: /src/App/Debug/TrackerDebugger.php:434
 msgid "Project"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:301
+#: /src/App/Debug/TrackerDebugger.php:308
 msgid "Language Strings"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:306
+#: /src/App/Debug/TrackerDebugger.php:313
 msgid "Language Files"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:348
+#: /src/App/Debug/TrackerDebugger.php:356
 msgid "Go up"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:358
-#: /src/App/Debug/TrackerDebugger.php:644
+#: /src/App/Debug/TrackerDebugger.php:366
+#: /src/App/Debug/TrackerDebugger.php:657
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /src/App/Debug/TrackerDebugger.php:386
+#: /src/App/Debug/TrackerDebugger.php:394
 #, php-format
 msgid "One untranslated string of %2$d"
 msgid_plural "%1$d untranslated strings of %2$d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /src/App/Debug/TrackerDebugger.php:394
+#: /src/App/Debug/TrackerDebugger.php:402
 #, php-format
 msgid "One language file loaded"
 msgid_plural "%d language files loaded"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /src/App/Debug/TrackerDebugger.php:405
+#: /src/App/Debug/TrackerDebugger.php:413
 msgid "No Project"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:422
+#: /src/App/Debug/TrackerDebugger.php:430
 msgid "Guest"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:435
+#: /src/App/Debug/TrackerDebugger.php:443
 msgid "Build"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:500
+#: /src/App/Debug/TrackerDebugger.php:509
 #, php-format
 msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:740
 msgid "String"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:740
 msgid "File (line)"
+msgstr ""
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
 msgstr ""

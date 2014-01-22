@@ -1,4 +1,4 @@
-{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 {% set firstPart = uri.route|split("?")|first|split("/")|first %}
@@ -97,6 +97,9 @@
                     </li>
                     <li class="{{ "logs/500" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/500">500</a>
+                    </li>
+                    <li class="{{ "logs/cron" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/cron">Cron Jobs</a>
                     </li>
                     <li class="{{ "logs/database" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/database">

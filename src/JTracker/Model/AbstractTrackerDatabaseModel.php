@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker Model Package
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Model;
@@ -47,7 +47,10 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	protected $table;
 
 	/**
-	 * @var  TrackerProject
+	 * Project object
+	 *
+	 * @var    TrackerProject
+	 * @since  1.0
 	 */
 	protected $project;
 
@@ -148,10 +151,10 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	/**
 	 * Get the project.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return \App\Projects\TrackerProject
+	 * @return  TrackerProject
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getProject()
 	{
@@ -168,7 +171,7 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 *
 	 * @param   TrackerProject  $project  The project.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */

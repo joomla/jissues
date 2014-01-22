@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
-"Project-Id-Version: Groups - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-04 21:05+0200\n"
+"Project-Id-Version: Groups - App 1.0.0-beta\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-20 10:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /templates/groups/groups.index.twig:11
@@ -93,20 +93,12 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:220
-msgid "Add User"
+#: /templates/groups/groups.index.twig:75
+msgid "No groups defined !"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:232
-msgid "Remove User"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:237
-msgid "List assigned Users"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:249
-msgid "Save the group to assign users."
+#: /src/App/Groups/Controller/Group/Delete.php:82
+msgid "The group has been deleted."
 msgstr ""
 
 #: /src/App/Groups/Table/GroupsTable.php:97

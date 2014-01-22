@@ -2,7 +2,7 @@
 /**
  * Part of the Joomla! Tracker Package.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -36,9 +36,11 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$dd = new MysqliDriver(array());
-		$project = new TrackerProject($dd);
-		$this->object = new GitHubUser($project, $dd);
+		$options = array();
+		$driver  = new MysqliDriver($options);
+		$project = new TrackerProject($driver);
+
+		$this->object = new GitHubUser($project, $driver);
 	}
 
 	/**

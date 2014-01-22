@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Text Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Text\Table;
@@ -29,9 +29,13 @@ use JTracker\Database\AbstractDatabaseTable;
 class ArticlesTable extends AbstractDatabaseTable
 {
 	/**
-	 * @var  Github
+	 * Github object
+	 *
+	 * @var    Github
+	 * @since  1.0
 	 */
 	protected $gitHub = null;
+
 	/**
 	 * Constructor
 	 *
@@ -134,10 +138,10 @@ class ArticlesTable extends AbstractDatabaseTable
 	/**
 	 * Get the GitHub object.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return \Joomla\Github\Github
+	 * @return  Github
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getGitHub()
 	{
@@ -154,7 +158,7 @@ class ArticlesTable extends AbstractDatabaseTable
 	 *
 	 * @param   Github  $gitHub  The GitHub object.
 	 *
-	 * @return $this
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 */
