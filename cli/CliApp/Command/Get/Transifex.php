@@ -131,6 +131,14 @@ class Transifex extends Get
 			// Write the file
 			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
 
+			if (false == is_dir(dirname($path)))
+			{
+				if (false == mkdir(dirname($path)))
+				{
+					throw new \Exception('Could not create the directory at: ' . str_replace(JPATH_ROOT, '', dirname($path)));
+				}
+			}
+
 			if (!file_put_contents($path, $translation->content))
 			{
 				throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
