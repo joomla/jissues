@@ -165,6 +165,13 @@ class Langfiles extends Export
 
 			$languageFile = g11nExtensionHelper::findLanguageFile($lang, $extension, $domain);
 
+			if (!$languageFile)
+			{
+				$this->out('<error> ' . $lang . ' NOT FOUND </error>... ', false);
+
+				continue;
+			}
+
 			$destPath = $outPath . '/' . $lang . '/' . basename($languageFile);
 
 			if (false == Folder::create(dirname($destPath)))
