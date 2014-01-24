@@ -15,7 +15,7 @@
     {% if user.check("create") %}
         <li>
             <a class="btn-success" href="javascript:;" onclick="document.configForm.submit();">
-                Save
+                {{ 'Save'|_ }}
             </a>
         </li>
     {% endif %}
@@ -40,7 +40,7 @@
 
         <div class="span8">
 
-            <h2>Edit Configuration</h2>
+            <h2>{{ 'Edit Configuration'|_ }}</h2>
 
             <form method="post" action="{{ uri.base.path }}saveconfig" class="form-horizontal" name="configForm">
                 {% for group, fields in config %}
