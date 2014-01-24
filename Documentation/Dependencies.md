@@ -303,3 +303,7 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### pt-PT
 * Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+
+#### nl-NL
+* Herman Peeren &lt;herman@yepr.nl&gt;, 2014
+
