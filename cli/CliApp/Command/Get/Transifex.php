@@ -113,7 +113,7 @@ class Transifex extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+		$this->out(sprintf('Processing: %s %s... ', $domain, $extension), false);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
 		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
@@ -121,6 +121,8 @@ class Transifex extends Get
 		// Fetch the file for each language and place it in the file tree
 		foreach ($this->languages as $language)
 		{
+			$this->out($language . '... ', false);
+
 			// Call out to Transifex
 			$translation = $this->transifex->translations->getTranslation(
 				$this->getApplication()->get('transifex.project'),
@@ -144,5 +146,7 @@ class Transifex extends Get
 				throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
 			}
 		}
+
+		$this->out('ok');
 	}
 }
