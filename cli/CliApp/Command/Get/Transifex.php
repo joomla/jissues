@@ -86,15 +86,7 @@ class Transifex extends Get
 				continue;
 			}
 
-			$extension = $fileInfo->getFileName();
-
-			// Skip apps with empty language templates
-			if (in_array($extension, array('GitHub', 'System')))
-			{
-				continue;
-			}
-
-			$this->receiveFiles($extension, 'App');
+			$this->receiveFiles($fileInfo->getFileName(), 'App');
 		}
 
 		return $this;
