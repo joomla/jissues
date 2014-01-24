@@ -75,6 +75,7 @@ class Langfiles extends Make
 				->processDomain('JTracker', 'Core', $lang)
 				->processDomain('JTracker.js', 'Core', $lang)
 				->processDomain('JTracker', 'Template', $lang);
+			}
 		}
 
 		// Process App templates

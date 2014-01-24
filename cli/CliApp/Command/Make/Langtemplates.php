@@ -243,8 +243,6 @@ class Langtemplates extends Make
 
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
 		$noWrap   = ' --no-wrap';
-		$forcePo  = ' --force-po';
-		$noWrap   = ' --no-wrap';
 
 		// Always write an output file even if no message is defined.
 		$forcePo = ' --force-po';
