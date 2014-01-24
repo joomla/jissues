@@ -217,7 +217,7 @@ class Langtemplates extends Make
 	protected function processTemplates($extension, $domain, $type, array $paths, $templatePath)
 	{
 		$headerData = '';
-		$headerData .= ' --copyright-holder="JTracker(C)"';
+		$headerData .= ' --copyright-holder="JTracker"';
 		$headerData .= ' --package-name="' . $extension . ' - ' . $domain . '"';
 		$headerData .= ' --package-version="' . $this->product->version . '"';
 
@@ -317,6 +317,18 @@ class Langtemplates extends Make
 
 		// Set the character set
 		$contents = str_replace('charset=CHARSET\n', 'charset=utf-8\n', $contents);
+
+		// Some header data - that will hopefully remain..
+		$contents = str_replace(
+			'# SOME DESCRIPTIVE TITLE.',
+			'# ' . $domain . ' ' . $extension . ' ' . $this->product->version,
+			$contents
+		);
+		$contents = str_replace(
+			'# Copyright (C) YEAR',
+			'# Copyright (C) 2012 - ' . date('Y'),
+			$contents
+		);
 
 		file_put_contents($templatePath, $contents);
 
