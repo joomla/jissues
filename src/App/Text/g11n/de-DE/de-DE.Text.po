@@ -1,6 +1,6 @@
-# App Text 1.0.0-beta
+# JTracker App Text 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
 # Nikolai Plath <EMAIL@ADDRESS>, 2013
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
 "PO-Revision-Date: 2014-01-22 07:45+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"

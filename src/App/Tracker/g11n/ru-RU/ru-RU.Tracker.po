@@ -1,14 +1,15 @@
-# App Tracker 1.0.0-beta
+# JTracker App Tracker 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Dmitrijs Rekuns <bzzjuka@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
-"PO-Revision-Date: 2014-01-19 08:51+0000\n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
+"PO-Revision-Date: 2014-01-24 12:31+0000\n"
 "Last-Translator: Dmitrijs Rekuns <bzzjuka@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,16 +18,193 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: /templates/tracker/issues.index.twig:25 /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:60
+#: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:60
+#: /templates/tracker/issues.index.twig:25
 msgid "New Item"
 msgstr "Новая запись"
+
+#: /templates/tracker/issue.add.twig:12
+msgid "Submit"
+msgstr "Отправить"
+
+#: /templates/tracker/issue.add.twig:33
+msgid "View Mode"
+msgstr "Режим"
+
+#: /templates/tracker/issue.add.twig:36
+msgid "Help"
+msgstr "Помощь"
+
+#: /templates/tracker/issue.add.twig:36
+msgid "Pro"
+msgstr "Про"
+
+#: /templates/tracker/issue.add.twig:43 /templates/tracker/issue.edit.twig:72
+#: /templates/tracker/issue.index.twig:67
+#: /templates/tracker/issues.index.twig:80
+msgid "Priority"
+msgstr "Проритет"
+
+#: /templates/tracker/issue.add.twig:51
+msgid "Priority help"
+msgstr "Приоритет, с которым должна быть разрешена эта проблема. На странице <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> Вы найдете больше информации о приоритетах."
+
+#: /templates/tracker/issue.add.twig:54 /templates/tracker/issue.edit.twig:98
+#: /templates/tracker/issue.index.twig:74
+msgid "Build"
+msgstr "Билд"
+
+#: /templates/tracker/issue.add.twig:57
+msgid "Build help"
+msgstr "Версия проекта в котором была найдена ошибка."
+
+#: /templates/tracker/issue.add.twig:62
+msgid "Issue intro help"
+msgstr "Для сообщения о баге, необходимо создать запись на трекере. Как только запись на трекере будет создана, разработчики проверят её и далее будут действовать в соответствии процессу. Язык заполнения - английский."
+
+#: /templates/tracker/issue.add.twig:65 /templates/tracker/issue.edit.twig:122
+msgid "Title"
+msgstr "Название"
+
+#: /templates/tracker/issue.add.twig:68
+msgid "Issue title help"
+msgstr "Опишите в нескольких словах проблему, которая у Вас возникла. Если это Ваше первое сообщение о баге, то неплохой идеей является использование существующих записей на трекере в качестве примера."
+
+#: /templates/tracker/issue.add.twig:70
+msgid "Description"
+msgstr "Описание"
+
+#: /templates/tracker/issue.add.twig:79
+msgid "Issue description help"
+msgstr "Это самая важная часть сообщения о баге. Опишите здесь шаг за шагом, как Вы обнаружили ошибку. Включите сюда всю информацию, чтобы тот, кто будет обрабатывать отчет, смог пройти по Вашим шагам и увидеть проблему. Помните: Ваш баг не будет исправлен, пока остальные не увидят проблему, поэтому старайтесь описать всё как можно подробней и понятней. Вам ничего не надо знать о программировании чтобы подать отчет. Но если Вы понимаете код и знаете как исправить проблему, то включитте это в отчет."
+
+#: /templates/tracker/issue.edit.twig:27
+msgid "Save"
+msgstr "Сохранить"
+
+#: /templates/tracker/issue.edit.twig:31
+msgid "Cancel"
+msgstr "Отменить"
+
+#: /templates/tracker/issue.edit.twig:48
+#: /templates/tracker/issue.index.twig:120
+#: /templates/tracker/issues.index.twig:135
+msgid "Foreign ID"
+msgstr "Внешний ID"
+
+#: /templates/tracker/issue.edit.twig:61
+msgid "Status"
+msgstr "Статус"
+
+#: /templates/tracker/issue.edit.twig:81
+msgid "Item"
+msgstr "Запись"
+
+#: /templates/tracker/issue.edit.twig:102
+msgid "Successful tests"
+msgstr "Успешных тестов"
+
+#: /templates/tracker/issue.edit.twig:110
+msgid "Easy test"
+msgstr "Простой тест"
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- stage -"
+msgstr "- этап - "
+
+#: /templates/tracker/tracker.filters.twig:29
+msgid "- priority -"
+msgstr "- приоритет -"
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Newest"
+msgstr "Новые"
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Oldest"
+msgstr "Старые"
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Recently updated"
+msgstr "Недавно обновленные"
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Least recently updated"
+msgstr "Давно обновленные"
+
+#: /templates/tracker/issue.index.twig:30
+msgid "That issue does not exist, or the ID you typed is incorrect."
+msgstr "Эта запись не существует или вы указали неверное ID"
+
+#: /templates/tracker/issue.index.twig:46
+msgid "Edit"
+msgstr "Редактировать"
+
+#: /templates/tracker/issue.index.twig:82
+msgid "Easy Test"
+msgstr "Простой тест"
+
+#: /templates/tracker/issue.index.twig:90
+msgid "# of Successful Tests"
+msgstr "# успешных тестов"
+
+#: /templates/tracker/issue.index.twig:138
+msgid "Referenced as"
+msgstr "Ссылается"
+
+#: /templates/tracker/issue.index.twig:165
+msgid "# of Votes"
+msgstr "# голосов"
+
+#: /templates/tracker/issue.index.twig:169
+msgid "# of Users Experiencing Issue"
+msgstr "# пользователей с такой же ошибкой"
+
+#: /templates/tracker/issue.index.twig:173
+msgid "Average Importance Score"
+msgstr "Средняя оценка важности"
+
+#: /templates/tracker/issue.index.twig:181
+msgid "I've experienced this issue"
+msgstr "У меня была такая же ошибка"
+
+#: /templates/tracker/issue.index.twig:184
+msgid "Yes"
+msgstr "Да"
+
+#: /templates/tracker/issue.index.twig:188
+msgid "No"
+msgstr "Нет"
+
+#: /templates/tracker/issue.index.twig:193
+msgid "Importance of issue to me"
+msgstr "Важность ошибки для меня"
+
+#: /templates/tracker/issue.index.twig:217
+msgid "Vote"
+msgstr "Голосовать"
+
+#: /templates/tracker/issue.index.twig:282
+msgid "Add a Comment"
+msgstr "Добавить комментарий"
+
+#: /templates/tracker/issue.index.twig:293
+msgid "Leave a comment"
+msgstr "Оставить комментарий"
+
+#: /templates/tracker/issue.index.twig:301
+msgid "Post Comment"
+msgstr "Отправить комментарий"
+
+#: /templates/tracker/issue.index.twig:314
+msgid "Login with GitHub to post a comment"
+msgstr "Войдите с GitHub, чтобы оставить комментарий"
 
 #: /templates/tracker/issues.index.twig:41
 #: /templates/tracker/issues.index.twig:44
 #: /templates/tracker/issues.index.twig:45
 msgid "Filter the list by summary or description."
-msgstr "Фильтр списка по резюме или описанию."
+msgstr "Фильтр по краткому и полному описанию."
 
 #: /templates/tracker/issues.index.twig:46
 msgid "Submit search"
@@ -56,17 +234,11 @@ msgstr "ID"
 
 #: /templates/tracker/issues.index.twig:79
 msgid "Summary"
-msgstr "Резюме"
-
-#: /templates/tracker/issues.index.twig:80
-#: /templates/tracker/issue.index.twig:67
-#: /templates/tracker/issue.edit.twig:72 /templates/tracker/issue.add.twig:43
-msgid "Priority"
-msgstr "Проритет"
+msgstr "Краткое описание"
 
 #: /templates/tracker/issues.index.twig:81
 msgid "Stage"
-msgstr ""
+msgstr "Этап"
 
 #: /templates/tracker/issues.index.twig:82
 msgid "Date Opened"
@@ -84,180 +256,9 @@ msgstr "Последнее изменение"
 msgid "GitHub ID"
 msgstr "GitHub ID"
 
-#: /templates/tracker/issues.index.twig:135
-#: /templates/tracker/issue.index.twig:120
-#: /templates/tracker/issue.edit.twig:48
-msgid "Foreign ID"
-msgstr "Внешний ID"
-
 #: /templates/tracker/issues.index.twig:171
 msgid "No items found."
 msgstr "Ничего найдено."
-
-#: /templates/tracker/issue.index.twig:30
-msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:46
-msgid "Edit"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:74
-#: /templates/tracker/issue.edit.twig:98 /templates/tracker/issue.add.twig:54
-msgid "Build"
-msgstr "Билд"
-
-#: /templates/tracker/issue.index.twig:82
-msgid "Easy Test"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:90
-msgid "# of Successful Tests"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:138
-msgid "Referenced as"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:165
-msgid "# of Votes"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:169
-msgid "# of Users Experiencing Issue"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:173
-msgid "Average Importance Score"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:181
-msgid "I've experienced this issue"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:184
-msgid "Yes"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:188
-msgid "No"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:193
-msgid "Importance of issue to me"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:217
-msgid "Vote"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:282
-msgid "Add a Comment"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:293
-msgid "Leave a comment"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:301
-msgid "Post Comment"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:314
-msgid "Login with GitHub to post a comment"
-msgstr ""
-
-#: /templates/tracker/tracker.filters.twig:7
-msgid "- stage -"
-msgstr "- этап - "
-
-#: /templates/tracker/tracker.filters.twig:29
-msgid "- priority -"
-msgstr "- приоритет -"
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Newest"
-msgstr "Новые"
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Oldest"
-msgstr "Старые"
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Recently updated"
-msgstr "Недавно обновленные"
-
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Least recently updated"
-msgstr "Давно обновленные"
-
-#: /templates/tracker/issue.edit.twig:27
-msgid "Save"
-msgstr "Сохранить"
-
-#: /templates/tracker/issue.edit.twig:31
-msgid "Cancel"
-msgstr "Отменить"
-
-#: /templates/tracker/issue.edit.twig:61
-msgid "Status"
-msgstr "Статус"
-
-#: /templates/tracker/issue.edit.twig:81
-msgid "Item"
-msgstr ""
-
-#: /templates/tracker/issue.edit.twig:102
-msgid "Successful tests"
-msgstr "Успешных тестов"
-
-#: /templates/tracker/issue.edit.twig:110
-msgid "Easy test"
-msgstr "Простой тест"
-
-#: /templates/tracker/issue.edit.twig:122 /templates/tracker/issue.add.twig:65
-msgid "Title"
-msgstr "Название"
-
-#: /templates/tracker/issue.add.twig:12
-msgid "Submit"
-msgstr "Отправить"
-
-#: /templates/tracker/issue.add.twig:33
-msgid "View Mode"
-msgstr "Режим"
-
-#: /templates/tracker/issue.add.twig:36
-msgid "Help"
-msgstr "Помощь"
-
-#: /templates/tracker/issue.add.twig:36
-msgid "Pro"
-msgstr "Про"
-
-#: /templates/tracker/issue.add.twig:51
-msgid "Priority help"
-msgstr "Приоритет, с которым должна быть разрешена эта проблема. На странице <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> Вы найдете больше информации о приоритетах."
-
-#: /templates/tracker/issue.add.twig:57
-msgid "Build help"
-msgstr "Версия проекта в котором была найдена ошибка."
-
-#: /templates/tracker/issue.add.twig:62
-msgid "Issue intro help"
-msgstr "Для сообщения о баге, необходимо создать запись на трекере. Как только запись на трекере будет создана, разработчики проверят её и далее будут действовать в соответствии процессу. Язык заполнения - английский."
-
-#: /templates/tracker/issue.add.twig:68
-msgid "Issue title help"
-msgstr "Опишите в нескольких словах проблему, которая у Вас возникла. Если это Ваше первое сообщение о баге, то неплохой идеей является использование существующих записей на трекере в качестве примера."
-
-#: /templates/tracker/issue.add.twig:70
-msgid "Description"
-msgstr "Описание"
-
-#: /templates/tracker/issue.add.twig:79
-msgid "Issue description help"
-msgstr "Это самая важная часть сообщения о баге. Опишите здесь шаг за шагом, как Вы обнаружили ошибку. Включите сюда всю информацию, чтобы тот, кто будет обрабатывать отчет, смог пройти по Вашим шагам и увидеть проблему. Помните: Ваш баг не будет исправлен, пока остальные не увидят проблему, поэтому старайтесь описать всё как можно подробней и понятней. Вам ничего не надо знать о программировании чтобы подать отчет. Но если Вы понимаете код и знаете как исправить проблему, то включитте это в отчет."
 
 #: /src/App/Tracker/Table/IssuesTable.php:159
 msgid "A title is required."
@@ -265,7 +266,7 @@ msgstr "Название обязательно"
 
 #: /src/App/Tracker/Table/IssuesTable.php:163
 msgid "The title max length is 255 chars."
-msgstr ""
+msgstr "Макс. длина названия 255 символов."
 
 #: /src/App/Tracker/Table/IssuesTable.php:168
 msgid "A build is required."
@@ -278,48 +279,48 @@ msgstr "Макс. длина билда 40 символов."
 # DATABASE TRANSLATIONS
 #: DATABASE
 msgid "open"
-msgstr ""
+msgstr "открытые"
 
 #: DATABASE
 msgid "confirmed"
-msgstr ""
+msgstr "подтвержденные"
 
 #: DATABASE
 msgid "pending"
-msgstr ""
+msgstr "в ожидании"
 
 #: DATABASE
 msgid "rtc"
-msgstr ""
+msgstr "rtc"
 
 #: DATABASE
 msgid "fixed"
-msgstr ""
+msgstr "исправленные"
 
 #: DATABASE
 msgid "review"
-msgstr ""
+msgstr "на рассмотрении"
 
 #: DATABASE
 msgid "info"
-msgstr ""
+msgstr "инфо"
 
 #: DATABASE
 msgid "platform"
-msgstr ""
+msgstr "платформа"
 
 #: DATABASE
 msgid "no_reply"
-msgstr ""
+msgstr "без ответа"
 
 #: DATABASE
 msgid "closed"
-msgstr ""
+msgstr "закрытые"
 
 #: DATABASE
 msgid "expected"
-msgstr ""
+msgstr "ожидаемые"
 
 #: DATABASE
 msgid "known"
-msgstr ""
+msgstr "известные"

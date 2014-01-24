@@ -1,6 +1,6 @@
-# App Support 1.0.0-beta
+# JTracker App Support 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
 # Nikolai Plath <der.el.kuku@gmail.com>, 2014
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
 "PO-Revision-Date: 2014-01-22 07:45+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"
@@ -18,10 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/support/devdox.index.twig:15
-msgid "Improve this document"
-msgstr "Verbessern Sie diesen Text"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -98,6 +94,10 @@ msgstr "GitHub Erweitert"
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "Ausgabe"
+
+#: /templates/support/devdox.index.twig:15
+msgid "Improve this document"
+msgstr "Verbessern Sie diesen Text"
 
 #: /templates/support/icons.index.twig:8
 msgid "Icons"

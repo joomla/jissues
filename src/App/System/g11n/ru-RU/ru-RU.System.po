@@ -1,17 +1,26 @@
-# Language ru-RU translations for System - App package.
-# Copyright (C) 2013 JTracker(C)
-# This file is distributed under the same license as the System - App package.
-# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+# JTracker App System 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
 # 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: System - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-09 21:39+0200\n"
-"PO-Revision-Date: 2013-06-23 23:57-0500\n"
-"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
-"Language-Team: Language ru-RU\n"
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
+"PO-Revision-Date: 2014-01-24 17:37+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru-RU\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: /templates/system/config.index.twig:18
+msgid "Save"
+msgstr ""
+
+#: /templates/system/config.index.twig:43
+msgid "Edit Configuration"
+msgstr ""

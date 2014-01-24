@@ -1,6 +1,6 @@
-# Core JTracker 1.0.0-beta
+# JTracker Core JTracker 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
 # Paulo Izidoro <pauloizidoro@gmail.com>, 2014
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"POT-Creation-Date: 2014-01-24 13:05-0500\n"
 "PO-Revision-Date: 2014-01-20 10:58+0000\n"
 "Last-Translator: Paulo Izidoro <pauloizidoro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/opentranslators/language/pt_PT/)\n"

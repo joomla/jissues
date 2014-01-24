@@ -1,6 +1,6 @@
-# Template JTracker 1.0.0-beta
+# JTracker Template JTracker 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
 # Paulo Izidoro <pauloizidoro@gmail.com>, 2014
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"POT-Creation-Date: 2014-01-24 13:05-0500\n"
 "PO-Revision-Date: 2014-01-24 01:44+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/opentranslators/language/pt_PT/)\n"
@@ -17,196 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Tracker"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projeto"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Exibir"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Editar"
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr "Grupos de acesso"
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr "Projetos"
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr "Membros"
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr "Sistema"
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr "Configuração"
-
-#: /templates/trackerMenu.twig:107
-msgid "Database"
-msgstr "Base de dados"
-
-#: /templates/trackerMenu.twig:139
-msgid "Icons"
-msgstr "Ícones"
-
-#: /templates/trackerMenu.twig:145
-msgid "Text"
-msgstr "Texto"
-
-#: /templates/trackerMenu.twig:151
-msgid "Clear Cache"
-msgstr "Limpar Cache"
-
-#: /templates/trackerMenu.twig:173
-msgid "About Us"
-msgstr "Sobre"
-
-#: /templates/trackerMenu.twig:200
-msgid "Admin"
-msgstr "Administrador"
-
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
-msgstr "Perfil"
-
-#: /templates/trackerMenu.twig:212
-msgid "Logout"
-msgstr "Sair"
-
-#: /templates/trackerMenu.twig:220
-msgid "Login with GitHub"
-msgstr ""
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Escrever"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Pré-visualizar"
-
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
-msgstr ""
-
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr ""
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr ""
-
-#: /templates/uploader.full.twig:33
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr ""
-
-#: /templates/uploader.full.twig:34
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr ""
-
-#: /templates/uploader.full.twig:35
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr ""
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr ""
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr ""
-
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr ""
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr ""
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr ""
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr ""
-
-#: /templates/footerMenu.twig:6
-msgid "Home"
-msgstr ""
-
-#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
-msgid "About"
-msgstr "Sobre"
-
-#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
-msgid "Community"
-msgstr "Comunidade"
-
-#: /templates/footerMenu.twig:9
-msgid "Forum"
-msgstr "Fórum"
-
-#: /templates/footerMenu.twig:10
-msgid "Extensions"
-msgstr "Extensões"
-
-#: /templates/footerMenu.twig:11
-msgid "Resources"
-msgstr "Recursos"
-
-#: /templates/footerMenu.twig:12
-msgid "Docs"
-msgstr ""
-
-#: /templates/footerMenu.twig:13
-msgid "Developer"
-msgstr ""
-
-#: /templates/footerMenu.twig:14
-msgid "Shop"
-msgstr ""
-
-#: /templates/footerMenu.twig:18
-msgid "Accessibility Statement"
-msgstr ""
-
-#: /templates/footerMenu.twig:19
-msgid "Privacy Policy"
-msgstr ""
-
-#: /templates/footerMenu.twig:20
-msgid "Joomla Hosting by"
-msgstr ""
-
-#: /templates/footerMenu.twig:23
-msgid "All rights reserved."
-msgstr ""
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -236,6 +46,10 @@ msgstr ""
 msgid "Contribution"
 msgstr ""
 
+#: /templates/topMenu.twig:28 /templates/footerMenu.twig:7
+msgid "About"
+msgstr "Sobre"
+
 #: /templates/topMenu.twig:30
 msgid "About Joomla!"
 msgstr ""
@@ -255,6 +69,10 @@ msgstr ""
 #: /templates/topMenu.twig:34
 msgid "Leadership"
 msgstr ""
+
+#: /templates/topMenu.twig:38 /templates/footerMenu.twig:8
+msgid "Community"
+msgstr "Comunidade"
 
 #: /templates/topMenu.twig:40
 msgid "Joomla! Community Portal"
@@ -366,4 +184,186 @@ msgstr ""
 
 #: /templates/topMenu.twig:87
 msgid "Translations Forum"
+msgstr ""
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr ""
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr ""
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr ""
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr ""
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr ""
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr ""
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr ""
+
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr ""
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr ""
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr ""
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr ""
+
+#: /templates/uploader.full.twig:74
+msgid "Error"
+msgstr ""
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projeto"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Exibir"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Editar"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Grupos de acesso"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Projetos"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Membros"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "Sistema"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "Configuração"
+
+#: /templates/trackerMenu.twig:107
+msgid "Database"
+msgstr "Base de dados"
+
+#: /templates/trackerMenu.twig:139
+msgid "Icons"
+msgstr "Ícones"
+
+#: /templates/trackerMenu.twig:145
+msgid "Text"
+msgstr "Texto"
+
+#: /templates/trackerMenu.twig:151
+msgid "Clear Cache"
+msgstr "Limpar Cache"
+
+#: /templates/trackerMenu.twig:173
+msgid "About Us"
+msgstr "Sobre"
+
+#: /templates/trackerMenu.twig:200
+msgid "Admin"
+msgstr "Administrador"
+
+#: /templates/trackerMenu.twig:205
+msgid "Profile"
+msgstr "Perfil"
+
+#: /templates/trackerMenu.twig:212
+msgid "Logout"
+msgstr "Sair"
+
+#: /templates/trackerMenu.twig:220
+msgid "Login with GitHub"
+msgstr ""
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr ""
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Fórum"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Extensões"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Recursos"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr ""
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr ""
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr ""
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr ""
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr ""
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr ""
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr ""
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Escrever"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Pré-visualizar"
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr ""
+
+#: /templates/index.twig:50
+msgid "Demo"
 msgstr ""

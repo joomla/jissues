@@ -1,14 +1,14 @@
-# App Support 1.0.0-beta
+# JTracker App Support 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Support - App 1.0.0-beta\n"
+"Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 17:34+0000\n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: /templates/support/devdox.index.twig:15
-msgid "Improve this document"
-msgstr ""
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -95,6 +91,10 @@ msgstr ""
 #: /templates/support/markdown.index.twig:389
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
+msgstr ""
+
+#: /templates/support/devdox.index.twig:15
+msgid "Improve this document"
 msgstr ""
 
 #: /templates/support/icons.index.twig:8

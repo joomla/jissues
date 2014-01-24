@@ -1,13 +1,13 @@
-# App Tracker 1.0.0-beta
+# JTracker App Tracker 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
 "PO-Revision-Date: 2014-01-19 00:55+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
@@ -17,81 +17,118 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/tracker/issues.index.twig:25 /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:60
+#: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:60
+#: /templates/tracker/issues.index.twig:25
 msgid "New Item"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:41
-#: /templates/tracker/issues.index.twig:44
-#: /templates/tracker/issues.index.twig:45
-msgid "Filter the list by summary or description."
+#: /templates/tracker/issue.add.twig:12
+msgid "Submit"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:46
-msgid "Submit search"
+#: /templates/tracker/issue.add.twig:33
+msgid "View Mode"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:52
-msgid "Clear search"
+#: /templates/tracker/issue.add.twig:36
+msgid "Help"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:64
-msgid "Open"
+#: /templates/tracker/issue.add.twig:36
+msgid "Pro"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:65
-msgid "Closed"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:72
-#: /templates/tracker/issues.index.twig:180
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:78
-msgid "ID"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:79
-msgid "Summary"
-msgstr ""
-
-#: /templates/tracker/issues.index.twig:80
+#: /templates/tracker/issue.add.twig:43 /templates/tracker/issue.edit.twig:72
 #: /templates/tracker/issue.index.twig:67
-#: /templates/tracker/issue.edit.twig:72 /templates/tracker/issue.add.twig:43
+#: /templates/tracker/issues.index.twig:80
 msgid "Priority"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:81
-msgid "Stage"
+#: /templates/tracker/issue.add.twig:51
+msgid "Priority help"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:82
-msgid "Date Opened"
+#: /templates/tracker/issue.add.twig:54 /templates/tracker/issue.edit.twig:98
+#: /templates/tracker/issue.index.twig:74
+msgid "Build"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:83
-msgid "Date Closed"
+#: /templates/tracker/issue.add.twig:57
+msgid "Build help"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:84
-msgid "Last Modified"
+#: /templates/tracker/issue.add.twig:62
+msgid "Issue intro help"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:127
-msgid "GitHub ID"
+#: /templates/tracker/issue.add.twig:65 /templates/tracker/issue.edit.twig:122
+msgid "Title"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:135
-#: /templates/tracker/issue.index.twig:120
+#: /templates/tracker/issue.add.twig:68
+msgid "Issue title help"
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:70
+msgid "Description"
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:79
+msgid "Issue description help"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:27
+msgid "Save"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:31
+msgid "Cancel"
+msgstr ""
+
 #: /templates/tracker/issue.edit.twig:48
+#: /templates/tracker/issue.index.twig:120
+#: /templates/tracker/issues.index.twig:135
 msgid "Foreign ID"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:171
-msgid "No items found."
+#: /templates/tracker/issue.edit.twig:61
+msgid "Status"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:81
+msgid "Item"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:102
+msgid "Successful tests"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:110
+msgid "Easy test"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- stage -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:29
+msgid "- priority -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Newest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Oldest"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Recently updated"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:37
+msgid "Least recently updated"
 msgstr ""
 
 #: /templates/tracker/issue.index.twig:30
@@ -100,11 +137,6 @@ msgstr ""
 
 #: /templates/tracker/issue.index.twig:46
 msgid "Edit"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:74
-#: /templates/tracker/issue.edit.twig:98 /templates/tracker/issue.add.twig:54
-msgid "Build"
 msgstr ""
 
 #: /templates/tracker/issue.index.twig:82
@@ -167,96 +199,64 @@ msgstr ""
 msgid "Login with GitHub to post a comment"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:7
-msgid "- stage -"
+#: /templates/tracker/issues.index.twig:41
+#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
+msgid "Filter the list by summary or description."
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:29
-msgid "- priority -"
+#: /templates/tracker/issues.index.twig:46
+msgid "Submit search"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Newest"
+#: /templates/tracker/issues.index.twig:52
+msgid "Clear search"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Oldest"
+#: /templates/tracker/issues.index.twig:64
+msgid "Open"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Recently updated"
+#: /templates/tracker/issues.index.twig:65
+msgid "Closed"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:37
-msgid "Least recently updated"
+#: /templates/tracker/issues.index.twig:72
+#: /templates/tracker/issues.index.twig:180
+#, php-format
+msgid "Page %1$s of %2$s"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:27
-msgid "Save"
+#: /templates/tracker/issues.index.twig:78
+msgid "ID"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:31
-msgid "Cancel"
+#: /templates/tracker/issues.index.twig:79
+msgid "Summary"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:61
-msgid "Status"
+#: /templates/tracker/issues.index.twig:81
+msgid "Stage"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:81
-msgid "Item"
+#: /templates/tracker/issues.index.twig:82
+msgid "Date Opened"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:102
-msgid "Successful tests"
+#: /templates/tracker/issues.index.twig:83
+msgid "Date Closed"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:110
-msgid "Easy test"
+#: /templates/tracker/issues.index.twig:84
+msgid "Last Modified"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:122 /templates/tracker/issue.add.twig:65
-msgid "Title"
+#: /templates/tracker/issues.index.twig:127
+msgid "GitHub ID"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:12
-msgid "Submit"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:33
-msgid "View Mode"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:36
-msgid "Help"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:36
-msgid "Pro"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:51
-msgid "Priority help"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:57
-msgid "Build help"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:62
-msgid "Issue intro help"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:68
-msgid "Issue title help"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:70
-msgid "Description"
-msgstr ""
-
-#: /templates/tracker/issue.add.twig:79
-msgid "Issue description help"
+#: /templates/tracker/issues.index.twig:171
+msgid "No items found."
 msgstr ""
 
 #: /src/App/Tracker/Table/IssuesTable.php:159

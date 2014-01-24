@@ -1,6 +1,6 @@
-# Template JTracker 1.0.0-beta
+# JTracker Template JTracker 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
 # Nikolai Plath <der.el.kuku@gmail.com>, 2010,2014
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 00:58+0000\n"
-"PO-Revision-Date: 2014-01-24 01:44+0000\n"
+"POT-Creation-Date: 2014-01-24 13:05-0500\n"
+"PO-Revision-Date: 2014-01-24 17:55+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -17,196 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Tracker"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projekt"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Zeigen"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr "Benutzergruppen"
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr "Projekte"
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr "Benutzer"
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr "System"
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: /templates/trackerMenu.twig:107
-msgid "Database"
-msgstr "Datenbank"
-
-#: /templates/trackerMenu.twig:139
-msgid "Icons"
-msgstr "Symbole"
-
-#: /templates/trackerMenu.twig:145
-msgid "Text"
-msgstr "Text"
-
-#: /templates/trackerMenu.twig:151
-msgid "Clear Cache"
-msgstr "Cache leeren"
-
-#: /templates/trackerMenu.twig:173
-msgid "About Us"
-msgstr "Über uns"
-
-#: /templates/trackerMenu.twig:200
-msgid "Admin"
-msgstr "Admin"
-
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
-msgstr "Profil"
-
-#: /templates/trackerMenu.twig:212
-msgid "Logout"
-msgstr "Abmelden"
-
-#: /templates/trackerMenu.twig:220
-msgid "Login with GitHub"
-msgstr "Mit GitHub einloggen"
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Schreiben"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Vorschau"
-
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
-msgstr ""
-
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr ""
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr ""
-
-#: /templates/uploader.full.twig:33
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr ""
-
-#: /templates/uploader.full.twig:34
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr ""
-
-#: /templates/uploader.full.twig:35
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr ""
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr ""
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr ""
-
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr ""
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr ""
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr "Download"
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr "Demo"
-
-#: /templates/footerMenu.twig:6
-msgid "Home"
-msgstr "Home"
-
-#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
-msgid "About"
-msgstr "Über uns"
-
-#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
-msgid "Community"
-msgstr "Community"
-
-#: /templates/footerMenu.twig:9
-msgid "Forum"
-msgstr "Forum"
-
-#: /templates/footerMenu.twig:10
-msgid "Extensions"
-msgstr "Erweiterungen"
-
-#: /templates/footerMenu.twig:11
-msgid "Resources"
-msgstr "Quellen"
-
-#: /templates/footerMenu.twig:12
-msgid "Docs"
-msgstr "Doks"
-
-#: /templates/footerMenu.twig:13
-msgid "Developer"
-msgstr "Entwickler"
-
-#: /templates/footerMenu.twig:14
-msgid "Shop"
-msgstr "Shop"
-
-#: /templates/footerMenu.twig:18
-msgid "Accessibility Statement"
-msgstr "Erklärung zur Barrierefreiheit"
-
-#: /templates/footerMenu.twig:19
-msgid "Privacy Policy"
-msgstr "Datenschutz"
-
-#: /templates/footerMenu.twig:20
-msgid "Joomla Hosting by"
-msgstr "Joomla! Hosting by"
-
-#: /templates/footerMenu.twig:23
-msgid "All rights reserved."
-msgstr "Alle Rechte vorbehalten"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -236,6 +46,10 @@ msgstr "Shop Joomla Gear"
 msgid "Contribution"
 msgstr "Mithelfen"
 
+#: /templates/topMenu.twig:28 /templates/footerMenu.twig:7
+msgid "About"
+msgstr "Über uns"
+
 #: /templates/topMenu.twig:30
 msgid "About Joomla!"
 msgstr "Über Joomla!"
@@ -255,6 +69,10 @@ msgstr "Das Projekt"
 #: /templates/topMenu.twig:34
 msgid "Leadership"
 msgstr "Vorsitz"
+
+#: /templates/topMenu.twig:38 /templates/footerMenu.twig:8
+msgid "Community"
+msgstr "Community"
 
 #: /templates/topMenu.twig:40
 msgid "Joomla! Community Portal"
@@ -367,3 +185,185 @@ msgstr "Translation Working Group"
 #: /templates/topMenu.twig:87
 msgid "Translations Forum"
 msgstr "Translations Forum"
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "Dateien hinzufügen"
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "Upload starten"
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "Upload abbrechen"
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "Löschen"
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr "Upload Notizen"
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "Maximale Upload-Größe ist mit <strong>1 MB</strong> angegeben"
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "Nur Bilddateien (<strong>JPG, GIF, PNG</strong>) sind erlaubt."
+
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "Sie können Dateien per <strong>drag & drop</strong> von Ihrem Desktop auf diese Website übertragen."
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "Verarbeitung läuft..."
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "Start"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Fehler"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Zeigen"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Benutzergruppen"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Projekte"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Benutzer"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "System"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: /templates/trackerMenu.twig:107
+msgid "Database"
+msgstr "Datenbank"
+
+#: /templates/trackerMenu.twig:139
+msgid "Icons"
+msgstr "Symbole"
+
+#: /templates/trackerMenu.twig:145
+msgid "Text"
+msgstr "Text"
+
+#: /templates/trackerMenu.twig:151
+msgid "Clear Cache"
+msgstr "Cache leeren"
+
+#: /templates/trackerMenu.twig:173
+msgid "About Us"
+msgstr "Über uns"
+
+#: /templates/trackerMenu.twig:200
+msgid "Admin"
+msgstr "Admin"
+
+#: /templates/trackerMenu.twig:205
+msgid "Profile"
+msgstr "Profil"
+
+#: /templates/trackerMenu.twig:212
+msgid "Logout"
+msgstr "Abmelden"
+
+#: /templates/trackerMenu.twig:220
+msgid "Login with GitHub"
+msgstr "Mit GitHub einloggen"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Home"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Erweiterungen"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Quellen"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Doks"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Entwickler"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Shop"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "Erklärung zur Barrierefreiheit"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Datenschutz"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Joomla! Hosting by"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Schreiben"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Vorschau"
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "Download"
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "Demo"
