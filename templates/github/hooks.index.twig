@@ -3,30 +3,32 @@
 
 {% extends "index.twig" %}
 
+{% block title %}{{ '%s - Hooks'|_|format(project.title) }}{% endblock %}
+
 {% block content %}
 
-    <h2>{{ project.title }} - Hooks</h2>
+    <h2>{{ '%s - Hooks'|_|format(project.title) }}</h2>
 
-    <div class="btn" onclick="listHooks('{{ project.alias }}');">List Hooks</div>
+    <div class="btn" onclick="listHooks('{{ project.alias }}');">{{ 'List Hooks'|_ }}</div>
 
     <div id="listHooks"></div>
     <div id="ajaxDebug" class="alert-error"></div>
 
-    <h3>New Hook</h3>
+    <h3>{{ 'New Hook'|_ }}</h3>
 
     <form name="newHook" class="form-inline">
         <div class="row-fluid well well-small">
             <div class="span5">
-                <label for="url">URL</label><br/>
+                <label for="url">{{ 'URL'|_ }}</label><br/>
                 <input type="text" id="url" name="url" placeholder="http://domain.tld / web / hook"/>
             </div>
             <div class="span5">
-                <label for="events">Events</label><br />
+                <label for="events">{{ 'Events'|_ }}</label><br />
                 <input type="text" id="events" name="events" placeholder="event,event,n..."/><br />
-                (comma separated, no spaces)
+                {{ 'NOTE: comma separated, no spaces'|_ }}
             </div>
             <div class="span2">
-                <div class="btn btn-large btn-success btn-block" onclick="addHook('{{ project.alias }}');">Add Hook</div>
+                <div class="btn btn-large btn-success btn-block" onclick="addHook('{{ project.alias }}');">{{ 'Add Hook'|_ }}</div>
                 <a href="#eventsModal" role="button" class="btn btn-info btn-small btn-block" data-toggle="modal">
                     Help: Events
                 </a>
@@ -80,11 +82,11 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Type</th>
-                <th>Status</th>
-                <th>URL</th>
-                <th>Events</th>
-                <th>Actions</th>
+                <th>{{ 'Type'|_ }}</th>
+                <th>{{ 'Status'|_ }}</th>
+                <th>{{ 'URL'|_ }}</th>
+                <th>{{ 'Events'|_ }}</th>
+                <th>{{ 'Actions'|_ }}</th>
             </tr>
             </thead>
 
@@ -94,9 +96,9 @@
                 <td>[%= o.data[i].name %]</td>
                 <td>
                     [% if (o.data[i].active) { %]
-                    <span class="label label-success">Active</span>
+                    <span class="label label-success">{{ 'Active'|_ }}</span>
                     [% } else { %]
-                    <span class="label label-inverse">Inactive</span>
+                    <span class="label label-inverse">{{ 'Inactive'|_ }}</span>
                     [% } %]
                 </td>
                 <td>[%= o.data[i].config.url %]</td>
@@ -105,17 +107,17 @@
                     [% if (o.data[i].active) { %]
                     <a href="javascript:"
                        onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'deactivate');">
-                        Deactivate
+                        {{ 'Deactivate'|_ }}
                     </a>
                     [% } else { %]
                     <a href="javascript:"
                        onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'activate');">
-                        Activate
+                        {{ 'Activate'|_ }}
                     </a>
                     [% } %]
                     <a href="javascript:"
                        onclick="modifyHook('{{ project.alias }}', [%= o.data[i].id %], 'delete');">
-                        Delete
+                        {{ 'Delete'|_ }}
                     </a>
                 </td>
             </tr>
@@ -127,6 +129,8 @@
 
 {% block JavaScriptBottom %}
     {{ parent() }}
+
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-modal.js"></script>
 
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
