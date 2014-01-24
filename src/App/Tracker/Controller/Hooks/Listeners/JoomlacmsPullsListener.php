@@ -8,8 +8,6 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
-use App\Projects\TrackerProject;
-
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
@@ -20,7 +18,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsPullListener
+class JoomlacmsPullsListener
 {
 	/**
 	 * Event for after pull requests are created in the application
@@ -46,16 +44,16 @@ class JoomlacmsPullListener
 	/**
 	 * Checks if a pull request targets the master branch
 	 *
-	 * @param   object          $hookData  Hook data payload
-	 * @param   Github          $github    Github object
-	 * @param   Logger          $logger    Logger object
-	 * @param   TrackerProject  $project   TrackerProject object
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function checkMasterBranch($hookData, Github $github, Logger $logger, TrackerProject $project)
+	protected function checkMasterBranch($hookData, Github $github, Logger $logger, $project)
 	{
 		if ($hookData->pull_request->base->ref == 'master')
 		{
@@ -98,16 +96,16 @@ class JoomlacmsPullListener
 	/**
 	 * Checks for a PR-<branch> label
 	 *
-	 * @param   object          $hookData  Hook data payload
-	 * @param   Github          $github    Github object
-	 * @param   Logger          $logger    Logger object
-	 * @param   TrackerProject  $project   TrackerProject object
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function checkPullLabel($hookData, Github $github, Logger $logger, TrackerProject $project)
+	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
 		$issueLabel = 'PR-' . $hookData->pull_request->base->ref;

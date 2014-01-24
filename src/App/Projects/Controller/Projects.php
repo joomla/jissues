@@ -42,5 +42,7 @@ class Projects extends AbstractTrackerController
 		parent::initialize();
 
 		$this->model->setUser($this->container->get('app')->getUser());
+
+		return $this;
 	}
 }

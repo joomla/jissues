@@ -3,11 +3,11 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} Stats{% endblock %}
+{% block title %}{{ '%s - Statistics'|_|format(project.title) }}{% endblock %}
 
 {% block content %}
 
-    <h2>{{ project.title }} Stats</h2>
+    <h2>{{ '%s - Statistics'|_|format(project.title) }}</h2>
 
     {% if false == data %}
 

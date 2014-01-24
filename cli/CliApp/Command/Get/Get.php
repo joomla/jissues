@@ -10,6 +10,8 @@ namespace CliApp\Command\Get;
 
 use App\Projects\Table\ProjectsTable;
 
+use BabDev\Transifex\Transifex;
+
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
@@ -18,7 +20,7 @@ use Joomla\Filesystem\Folder;
 use JTracker\Github\Github;
 
 /**
- * Class for retrieving data from GitHub for selected projects
+ * Class for retrieving data from external providers for selected projects
  *
  * @since  1.0
  */
@@ -55,6 +57,14 @@ class Get extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $description = 'Retrieve <cmd><project></cmd>, <cmd><avatars></cmd> or <cmd><composertags></cmd>.';
+
+	/**
+	 * Transifex object
+	 *
+	 * @var    Transifex
+	 * @since  1.0
+	 */
+	protected $transifex;
 
 	/**
 	 * Constructor.
@@ -191,6 +201,21 @@ class Get extends TrackerCommand
 		$this->github->setOption('api.password', $password);
 
 		$this->logOut(sprintf('Switched to bot account %s (%d)', $username, $this->botId));
+
+		return $this;
+	}
+
+	/**
+	 * Setup the Transifex object.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function setupTransifex()
+	{
+		$this->transifex = $this->container->get('transifex');
 
 		return $this;
 	}

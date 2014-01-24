@@ -58,7 +58,7 @@ class Delete extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -71,6 +71,6 @@ class Delete extends AbstractTrackerController
 		// Reload the project
 		$this->container->get('app')->getProject(true);
 
-		parent::execute();
+		return parent::execute();
 	}
 }

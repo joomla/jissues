@@ -48,6 +48,22 @@ class Save extends AbstractTrackerController
 	 */
 	public function initialize()
 	{
+		parent::initialize();
+
+		$this->model->setUser($this ->container->get('app')->getUser());
+
+		return $this;
+	}
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function execute()
+	{
 		$app = $this->container->get('app');
 
 		$app->getUser()->authorize('admin');
@@ -59,8 +75,6 @@ class Save extends AbstractTrackerController
 		// Reload the project.
 		$app->getProject(true);
 
-		parent::initialize();
-
-		$this->model->setUser($this ->container->get('app')->getUser());
+		return parent::execute();
 	}
 }

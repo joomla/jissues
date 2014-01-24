@@ -1,0 +1,113 @@
+# JTracker App Debug 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Herman Peeren <herman@yepr.nl>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 13:05-0500\n"
+"PO-Revision-Date: 2014-01-21 21:25+0000\n"
+"Last-Translator: Herman Peeren <herman@yepr.nl>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:88
+#, php-format
+msgid "Failed EXPLAIN on query: %s"
+msgstr "Geen EXPLAIN voor query: %s"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:117
+#, php-format
+msgid "%s database is not supported yet."
+msgstr "%s database wordt nog niet ondersteund."
+
+#: /src/App/Debug/TrackerDebugger.php:281
+msgid "Database"
+msgstr "Database"
+
+#: /src/App/Debug/TrackerDebugger.php:290
+#: /src/App/Debug/TrackerDebugger.php:377
+msgid "Profile"
+msgstr "Profiel"
+
+#: /src/App/Debug/TrackerDebugger.php:295
+#: /src/App/Debug/TrackerDebugger.php:428
+msgid "User"
+msgstr "Gebruiker"
+
+#: /src/App/Debug/TrackerDebugger.php:300
+#: /src/App/Debug/TrackerDebugger.php:434
+msgid "Project"
+msgstr "Project"
+
+#: /src/App/Debug/TrackerDebugger.php:308
+msgid "Language Strings"
+msgstr "Taalstrings"
+
+#: /src/App/Debug/TrackerDebugger.php:313
+msgid "Language Files"
+msgstr "Taalbestanden"
+
+#: /src/App/Debug/TrackerDebugger.php:356
+msgid "Go up"
+msgstr "Omhoog gaan"
+
+#: /src/App/Debug/TrackerDebugger.php:366
+#: /src/App/Debug/TrackerDebugger.php:657
+#, php-format
+msgid "One database query"
+msgid_plural "%d database queries"
+msgstr[0] "Eén databasequery"
+msgstr[1] "%d databasequeries"
+
+#: /src/App/Debug/TrackerDebugger.php:394
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] "Eén onvertaalde string van %2$d"
+msgstr[1] "%1$d onvertaalde strings van %2$d"
+
+#: /src/App/Debug/TrackerDebugger.php:402
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] "Eén taalbestand geladen"
+msgstr[1] "%d taalbestanden geladen"
+
+#: /src/App/Debug/TrackerDebugger.php:413
+msgid "No Project"
+msgstr "Geen project"
+
+#: /src/App/Debug/TrackerDebugger.php:430
+msgid "Guest"
+msgstr "Gast"
+
+#: /src/App/Debug/TrackerDebugger.php:443
+msgid "Build"
+msgstr "Versie"
+
+#: /src/App/Debug/TrackerDebugger.php:509
+#, php-format
+msgid ""
+"Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr "Meervoudsvormen: <code>%1$d</code><br />Meervoudsfunctie: <code>%2$s</code>"
+
+#: /src/App/Debug/TrackerDebugger.php:740
+msgid "String"
+msgstr "Tekenreeks"
+
+#: /src/App/Debug/TrackerDebugger.php:740
+msgid "File (line)"
+msgstr "Bestand (regel)"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
+msgstr "Logbestand %s niet gevonden."

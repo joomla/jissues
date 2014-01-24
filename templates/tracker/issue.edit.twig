@@ -9,6 +9,8 @@
     {{ parent() }}
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
+    <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
 {% endblock %}
 
 {% block content %}
@@ -131,7 +133,6 @@
                     {% set editorPlaceholder="Description text" %}
 
                     {% include "editor.twig" %}
-
                 </li>
             </ul>
         </div>
@@ -141,6 +142,12 @@
     </div>
 
     </form>
+
+    <div class="row-fluid">
+        <div class="offset1 span6">
+            {% include "uploader.full.twig" %}
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -154,6 +161,18 @@
         <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-load-image/js/load-image.min.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
+    <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
+    <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

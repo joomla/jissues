@@ -8,6 +8,9 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\IssueModel;
+use App\Tracker\View\Issue\IssueHtmlView;
+
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -34,17 +37,42 @@ class Edit extends AbstractTrackerController
 	protected $defaultLayout = 'edit';
 
 	/**
-	 * Execute the controller.
+	 * View object
 	 *
-	 * @return  string  The rendered view.
+	 * @var    IssueHtmlView
+	 * @since  1.0
+	 */
+	protected $view = null;
+
+	/**
+	 * Model object
+	 *
+	 * @var    IssueModel
+	 * @since  1.0
+	 */
+	protected $model = null;
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function execute()
+	public function initialize()
 	{
+		parent::initialize();
+
 		$this->container->get('app')->getUser()->authorize('edit');
 
-		return parent::execute();
+		$this->view->setId($this->container->get('app')->input->getUint('id'));
+		$this->view->setProject($this->container->get('app')->getProject());
+
+		$this->model->setProject($this->container->get('app')->getProject());
+
+		return $this;
 	}
 }

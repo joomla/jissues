@@ -25,6 +25,9 @@ use Joomla\Application\Cli\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
+use Joomla\Event\Dispatcher;
+use Joomla\Event\DispatcherAwareInterface;
+use Joomla\Event\DispatcherInterface;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
@@ -32,13 +35,14 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\TransifexProvider;
 
 /**
  * CLI application for installing the tracker application
  *
  * @since  1.0
  */
-class CliApplication extends AbstractCliApplication
+class CliApplication extends AbstractCliApplication implements DispatcherAwareInterface
 {
 	/**
 	 * Quiet mode - no output.
@@ -81,10 +85,20 @@ class CliApplication extends AbstractCliApplication
 	protected $commandOptions = array();
 
 	/**
+	 * DI Container
+	 *
 	 * @var    Container
 	 * @since  1.0
 	 */
 	private $container = null;
+
+	/**
+	 * Event Dispatcher
+	 *
+	 * @var    Dispatcher
+	 * @since  1.0
+	 */
+	private $dispatcher;
 
 	/**
 	 * Class constructor.
@@ -109,7 +123,8 @@ class CliApplication extends AbstractCliApplication
 			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))));
+			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
+			->registerServiceProvider(new TransifexProvider);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
@@ -124,6 +139,11 @@ class CliApplication extends AbstractCliApplication
 		$this->commandOptions[] = new TrackerCommandOption(
 			'nocolors', '',
 			'Suppress ANSI colors on unsupported terminals.'
+		);
+
+		$this->commandOptions[] = new TrackerCommandOption(
+			'--log=filename.log', '',
+			'Optionally log output to the specified log file.'
 		);
 
 		/* @type ColorProcessor $processor */
@@ -146,6 +166,9 @@ class CliApplication extends AbstractCliApplication
 		{
 			$this->usePBar = false;
 		}
+
+		// Register the global dispatcher
+		$this->setDispatcher(new Dispatcher);
 	}
 
 	/**
@@ -280,6 +303,34 @@ class CliApplication extends AbstractCliApplication
 		}
 
 		return $alternatives;
+	}
+
+	/**
+	 * Get the dispatcher object.
+	 *
+	 * @return  Dispatcher
+	 *
+	 * @since   1.0
+	 */
+	public function getDispatcher()
+	{
+		return $this->dispatcher;
+	}
+
+	/**
+	 * Set the dispatcher to use.
+	 *
+	 * @param   DispatcherInterface  $dispatcher  The dispatcher to use.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
+	 */
+	public function setDispatcher(DispatcherInterface $dispatcher)
+	{
+		$this->dispatcher = $dispatcher;
+
+		return $this;
 	}
 
 	/**

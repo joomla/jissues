@@ -12,13 +12,13 @@ use App\Projects\TrackerProject;
 use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
 
-use Joomla\Application\AbstractApplication;
+use BabDev\Helper as BDHelper;
+
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
-use Joomla\Input\Input;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -36,32 +36,6 @@ use Psr\Log\LoggerInterface;
  */
 abstract class AbstractHookController extends AbstractTrackerController implements LoggerAwareInterface
 {
-	/**
-	 * An array of how many addresses are in each CIDR mask
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $cidrRanges = array(
-		16 => 65536,
-		17 => 32768,
-		18 => 16382,
-		19 => 8192,
-		20 => 4096,
-		21 => 2048,
-		22 => 1024,
-		23 => 512,
-		24 => 256,
-		25 => 128,
-		26 => 64,
-		27 => 32,
-		28 => 16,
-		29 => 8,
-		30 => 4,
-		31 => 2,
-		32 => 1
-	);
-
 	/**
 	 * The dispatcher object
 	 *
@@ -105,7 +79,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	/**
 	 * The project information of the project whose data has been received
 	 *
-	 * @var    TrackerProject
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $project;
@@ -135,80 +109,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	protected $type = 'standard';
 
 	/**
-	 * Constructor.
-	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
-	{
-		// Run the parent constructor
-		parent::__construct($input, $app);
-
-		$this->debug = $this->container->get('app')->get('debug.hooks');
-
-		// Initialize the logger
-		$this->logger = new Logger('JTracker');
-
-		$this->logger->pushHandler(
-			new StreamHandler(
-				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
-			)
-		);
-
-		// Get the event dispatcher
-		$this->dispatcher = $this->container->get('app')->getDispatcher();
-
-		// Get a database object
-		$this->db = $this->container->get('db');
-
-		// Instantiate Github
-		$this->github = $this->container->get('gitHub');
-
-		// Check the request is coming from GitHub
-		$validIps = $this->github->meta->getMeta();
-
-		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-		{
-			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-			$myIP = $parts[0];
-		}
-		else
-		{
-			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
-		}
-
-		if (!$this->checkIp($myIP, $validIps->hooks) && '127.0.0.1' != $myIP)
-		{
-			// Log the unauthorized request
-			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->$this->container->get('app')->close();
-		}
-
-		// Get the payload data
-		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
-
-		if (!$data)
-		{
-			$this->logger->error('No data received.');
-			$this->$this->container->get('app')->close();
-		}
-
-		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
-
-		// Decode it
-		$this->hookData = json_decode($data);
-
-		// Get the project data
-		$this->getProjectData();
-
-		// Set up the event listener
-		$this->addEventListener();
-	}
-
-	/**
 	 * Registers the event listener for the current hook and project
 	 *
 	 * @return  void
@@ -229,38 +129,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 			$this->dispatcher->addListener(new $fullClass);
 			$this->listenerSet = true;
 		}
-	}
-
-	/**
-	 * Determines if the requestor IP address is in the authorized IP range
-	 *
-	 * @param   string  $requestor  The requestor's IP address
-	 * @param   array   $validIps   The valid IP array
-	 *
-	 * @return  boolean  True if authorized
-	 *
-	 * @since   1.0
-	 */
-	protected function checkIp($requestor, $validIps)
-	{
-		foreach ($validIps as $githubIp)
-		{
-			// Split the CIDR address into a separate IP address and bits
-			list ($subnet, $bits) = explode('/', $githubIp);
-
-			// Convert the requestor IP and network address into number format
-			$ip    = ip2long($requestor);
-			$start = ip2long($subnet);
-			$end   = $start + ($this->cidrRanges[(int) $bits] - 1);
-
-			// Real easy from here, check to make sure the IP is in range
-			if ($ip >= $start && $ip <= $end)
-			{
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -308,6 +176,84 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 			$this->$this->container->get('app')->close();
 		}
+	}
+
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this  Method allows chiaining
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function initialize()
+	{
+		$this->debug = $this->container->get('app')->get('debug.hooks');
+
+		// Initialize the logger
+		$this->logger = new Logger('JTracker');
+
+		$this->logger->pushHandler(
+			new StreamHandler(
+				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
+			)
+		);
+
+		// Get the event dispatcher
+		$this->dispatcher = $this->container->get('app')->getDispatcher();
+
+		// Get a database object
+		$this->db = $this->container->get('db');
+
+		// Instantiate Github
+		$this->github = $this->container->get('gitHub');
+
+		// Check the request is coming from GitHub
+		$validIps = $this->github->meta->getMeta();
+
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+		{
+			$parts = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+			$myIP = $parts[0];
+		}
+		// Check if request is from CLI
+		elseif (strpos($_SERVER['SCRIPT_NAME'], 'cli/tracker.php') !== false)
+		{
+			$myIP = '127.0.0.1';
+		}
+		else
+		{
+			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
+		}
+
+		if (!BDHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
+		{
+			// Log the unauthorized request
+			$this->logger->error('Unauthorized request from ' . $myIP);
+			$this->container->get('app')->close();
+		}
+
+		// Get the payload data
+		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
+
+		if (!$data)
+		{
+			$this->logger->error('No data received.');
+			$this->container->get('app')->close();
+		}
+
+		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
+
+		// Decode it
+		$this->hookData = json_decode($data);
+
+		// Get the project data
+		$this->getProjectData();
+
+		// Set up the event listener
+		$this->addEventListener();
+
+		return $this;
 	}
 
 	/**
