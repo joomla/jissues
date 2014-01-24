@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c6dbb3ece6b78764a4b068fca8847e6f",
+    "hash": "d86be8aaa771c935b19cdf5dd2bd6ab4",
     "packages": [
         {
             "name": "babdev/library",
@@ -49,17 +49,64 @@
             "time": "2014-01-19 04:51:43"
         },
         {
+            "name": "codeguy/upload",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeguy/Upload.git",
+                "reference": "9444cfb3ffa825b33d7c4503c3ac207dcd8a9035"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeguy/Upload/zipball/9444cfb3ffa825b33d7c4503c3ac207dcd8a9035",
+                "reference": "9444cfb3ffa825b33d7c4503c3ac207dcd8a9035",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Upload": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josh Lockhart",
+                    "email": "info@joshlockhart.com",
+                    "homepage": "https://github.com/codeguy/"
+                }
+            ],
+            "description": "Handle file uploads with extensible validation and storage strategies",
+            "homepage": "http://github.com/codeguy/Upload",
+            "keywords": [
+                "file",
+                "upload",
+                "validation"
+            ],
+            "time": "2014-01-16 13:18:22"
+        },
+        {
             "name": "elkuku/console-progressbar",
             "version": "1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
+                "reference": "1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
-                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
+                "reference": "1.0",
                 "shasum": ""
             },
             "require": {
