@@ -34,11 +34,15 @@ class JoomlacmsPullsListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
-		// Check pull requests for a PR-<branch> label
-		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		// Only perform these events if this is a new pull, action will be 'opened'
+		if ($arguments['action'] === 'opened')
+		{
+			// Check pull requests for a PR-<branch> label
+			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-		// Check if the pull request targets the master branch
-		$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+			// Check if the pull request targets the master branch
+			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		}
 	}
 
 	/**
