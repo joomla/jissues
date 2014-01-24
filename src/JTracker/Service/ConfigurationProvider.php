@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker Service Package
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Service;
@@ -61,7 +61,7 @@ class ConfigurationProvider implements ServiceProviderInterface
 
 		$config->loadObject($configObject);
 
-		define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
+		defined('JDEBUG') || define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
 
 		$this->config = $config;
 	}

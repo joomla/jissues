@@ -10,7 +10,9 @@
     "bootstrap": "2.3.2",
     "bootstrap-switch": "v1.8",
     "markitup": "1.1.14",
-    "blueimp-tmpl": "2.4.0",
+    "blueimp-tmpl": "2.5.3",
+    "blueimp-file-upload": "9.3.0",
+    "jquery-textrange": "1.1.0",
     "g11n-js": "*"
  }
 }

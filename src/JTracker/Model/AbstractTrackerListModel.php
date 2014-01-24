@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker Model Package
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Model;
@@ -48,12 +48,18 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	protected $query;
 
 	/**
-	 * @var \Joomla\Input\Input
+	 * Input object
+	 *
+	 * @var    Input
+	 * @since  1.0
 	 */
 	protected $input;
 
 	/**
-	 * @var  TrackerPagination
+	 * Pagination object
+	 *
+	 * @var    TrackerPagination
+	 * @since  1.0
 	 */
 	protected $pagination;
 
@@ -119,6 +125,15 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	abstract protected function getListQuery();
 
+	/**
+	 * Set the pagination object.
+	 *
+	 * @param   TrackerPagination  $pagination  The pagination object.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
 	public function setPagination(TrackerPagination $pagination)
 	{
 		$this->pagination = $pagination;
@@ -130,6 +145,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * @return  TrackerPagination  The pagination object for the data set.
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getPagination()
 	{

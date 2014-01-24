@@ -13,7 +13,7 @@ var_dump($this->items);
 var_dump($this->userxXXX);
 var_dump($this);
 
-{# Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt #}
 <?php extends "index.twig" ?>
 

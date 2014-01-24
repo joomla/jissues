@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Get;
@@ -11,8 +11,6 @@ namespace CliApp\Command\Get;
 use App\Projects\Table\MilestonesTable;
 
 use Joomla\Date\Date;
-
-use JTracker\Container;
 
 /**
  * Class for retrieving milestones from GitHub for selected projects.
@@ -38,7 +36,7 @@ class Milestones extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Milestones');
+		$this->getApplication()->outputTitle('Retrieve Milestones');
 
 		$this->logOut('Start retrieve Milestones')
 			->selectProject()
@@ -61,7 +59,7 @@ class Milestones extends Get
 		$this->out('Fetching milestones...', false);
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$table = new MilestonesTable($db);
 

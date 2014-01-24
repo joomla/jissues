@@ -2,11 +2,13 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Make;
+
+use CliApp\Command\TrackerCommandOption;
 
 use g11n\g11n;
 use g11n\Language\Storage;
@@ -35,6 +37,31 @@ class Langtemplates extends Make
 	protected $description = 'Create language file templates.';
 
 	/**
+	 * The software product.
+	 *
+	 * @var \stdClass
+	 * @since  1.0
+	 */
+	private $product = null;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->addOption(
+			new TrackerCommandOption(
+				'extension', '',
+				'Process only this extension'
+			)
+		);
+
+		$this->product = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
+	}
+
+	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -43,7 +70,7 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/jtracker');
@@ -52,52 +79,57 @@ class Langtemplates extends Make
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
+		$reqExtension = $this->getApplication()->input->getCmd('extension');
+
 		// Cleanup
 		$this->delTree(JPATH_ROOT . '/cache/twig');
 
-		// Process core files
-		$extension = 'JTracker';
-		$domain    = 'Core';
+		if (!$reqExtension || $reqExtension == 'JTracker')
+		{
+			// Process core files
+			$extension = 'JTracker';
+			$domain    = 'Core';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$templatePath = Storage::getTemplatePath($extension, $domain);
+			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-		// Process core JS files
+			// Process core JS files
 
-		$extension = 'core.js';
-		$domain    = 'CoreJS';
+			$extension = 'core.js';
+			$domain    = 'CoreJS';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$templatePath = Storage::getTemplatePath('JTracker.js', 'Core');
+			$templatePath = Storage::getTemplatePath('JTracker.js', 'Core');
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'js', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'js', $paths, $templatePath);
 
-		// Process base template
+			// Process base template
 
-		$extension = 'JTracker';
-		$domain    = 'Template';
+			$extension = 'JTracker';
+			$domain    = 'Template';
 
-		$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out('Processing: ' . $domain . ' ' . $extension);
 
-		$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
+			$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
 
-		$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
+			$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
 
-		$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
+			$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-		$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = array(ExtensionHelper::getDomainPath($domain));
 
-		$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-		$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+		}
 
 		// Process App templates
 
@@ -111,7 +143,12 @@ class Langtemplates extends Make
 
 			$extension = $fileInfo->getFileName();
 
-			$this->out('Processing: ' . $extension);
+			if ($reqExtension && $reqExtension != $extension)
+			{
+				continue;
+			}
+
+			$this->out('Processing App: ' . $extension);
 
 			$domain = 'App';
 
@@ -128,6 +165,53 @@ class Langtemplates extends Make
 
 			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
+
+		$this->processDatabase();
+	}
+
+	/**
+	 * A special routine to handle translation strings contained in the database.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function processDatabase()
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->container->get('db');
+
+		$strings = $db->setQuery(
+			$db->getQuery(true)
+			->from('#__status')
+			->select('status')
+		)->loadColumn();
+
+		$path = JPATH_ROOT . '/src/App/Tracker/g11n/templates/Tracker.pot';
+
+		$contents = file_get_contents($path);
+
+		$starter = "\n# DATABASE TRANSLATIONS\n";
+
+		$pos = strpos($starter, $contents);
+
+		if ($pos)
+		{
+			$contents = substr($contents, 0, $pos);
+		}
+
+		$contents .= $starter;
+
+		foreach ($strings as $string)
+		{
+			$contents .= "\n#: DATABASE\n";
+			$contents .= "msgid \"$string\"\n";
+			$contents .= "msgstr \"\"\n";
+		}
+
+		file_put_contents($path, $contents);
+
+		return $this;
 	}
 
 	/**
@@ -146,17 +230,24 @@ class Langtemplates extends Make
 	 */
 	protected function processTemplates($extension, $domain, $type, array $paths, $templatePath)
 	{
+		$packageName = 'JTracker';
+
 		$headerData = '';
-		$headerData .= ' --copyright-holder="JTracker(C)"';
-		$headerData .= ' --package-name="' . $extension . ' - ' . $domain . '"';
-		$headerData .= ' --package-version="123.456"';
-		$headerData .= ' --msgid-bugs-address="info@example.com"';
+		$headerData .= ' --copyright-holder="' . $packageName . '"';
+		$headerData .= ' --package-name="' . $packageName . '"';
+		$headerData .= ' --package-version="' . $this->product->version . '"';
+
+		// @$headerData .= ' --msgid-bugs-address="info@example.com"';
 
 		$comments = ' --add-comments=TRANSLATORS:';
 
 		$keywords = ' -k --keyword=g11n3t --keyword=g11n4t:1,2';
+		$noWrap   = ' --no-wrap';
 		$forcePo  = ' --force-po';
 		$noWrap   = ' --no-wrap';
+
+		// Always write an output file even if no message is defined.
+		$forcePo = ' --force-po';
 
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
@@ -242,6 +333,32 @@ class Langtemplates extends Make
 		// Manually strip the JROOT path - ...
 		$contents = file_get_contents($templatePath);
 		$contents = str_replace(JPATH_ROOT, '', $contents);
+
+		// Manually strip unwanted information - ....
+		$contents = str_replace('#, fuzzy', '', $contents);
+		$contents = str_replace('"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"', '', $contents);
+
+		// Set the character set
+		$contents = str_replace('charset=CHARSET\n', 'charset=utf-8\n', $contents);
+
+		// Some header data - that will hopefully remain..
+		$contents = str_replace(
+			'# SOME DESCRIPTIVE TITLE.',
+			'# ' . $packageName . ' ' . $domain . ' ' . $extension . ' ' . $this->product->version,
+			$contents
+		);
+
+		$contents = str_replace(
+			'# Copyright (C) YEAR',
+			'# Copyright (C) 2012 - ' . date('Y'),
+			$contents
+		);
+
+		$contents = str_replace(
+			'# This file is distributed under the same license as the PACKAGE package.',
+			'# This file is distributed under the same license as the ' . $packageName . ' package.',
+			$contents
+		);
 
 		file_put_contents($templatePath, $contents);
 
@@ -382,7 +499,7 @@ class Langtemplates extends Make
 		);
 
 		// Configure Twig the way you want
-		$twig->addExtension(new TrackerExtension);
+		$twig->addExtension(new TrackerExtension($this->container));
 
 		// Iterate over all your templates
 		/* @type \DirectoryIterator $file */
@@ -489,6 +606,12 @@ class Langtemplates extends Make
 	 */
 	private function delTree($dir)
 	{
+		if (false == is_dir($dir))
+		{
+			// Directory does not exist.
+			return true;
+		}
+
 		$files = array_diff(scandir($dir), array('.', '..'));
 
 		foreach ($files as $file)

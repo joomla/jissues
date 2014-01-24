@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Model;
@@ -45,7 +45,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$identifier)
 		{
-			return  new IssuesTable($this->db);
+			return new IssuesTable($this->db);
 		}
 
 		$item = $this->db->setQuery(
@@ -101,16 +101,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		// Fetch foreign relations
 		$item->relations_f = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->from($this->db->quoteName('#__issues', 'a'))
-					->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
-					->join('LEFT', '#__status AS s ON a.status = s.id')
-					->select('a.issue_number, a.title, a.rel_type')
-					->select('t.name AS rel_name')
-					->select('s.status AS status_title, s.closed AS closed')
-					->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
-					->order(array('a.issue_number', 'a.rel_type'))
-			)->loadObjectList();
+			$this->db->getQuery(true)
+				->from($this->db->quoteName('#__issues', 'a'))
+				->join('LEFT', '#__issues_relations_types AS t ON a.rel_type = t.id')
+				->join('LEFT', '#__status AS s ON a.status = s.id')
+				->select('a.issue_number, a.title, a.rel_type')
+				->select('t.name AS rel_name')
+				->select('s.status AS status_title, s.closed AS closed')
+				->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
+				->order(array('a.issue_number', 'a.rel_type'))
+		)->loadObjectList();
 
 		// Group relations by type
 		if ($item->relations_f)

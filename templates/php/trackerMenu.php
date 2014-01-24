@@ -1,6 +1,6 @@
 <?php
 /*
-{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 */
 ?>

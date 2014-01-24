@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Get;
@@ -32,13 +32,13 @@ class Project extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Project');
+		$this->getApplication()->outputTitle('Retrieve Project');
 
 		$this->logOut('Bulk Start retrieve Project');
 
 		$this->selectProject();
 
-		$this->application->input->set('project', $this->project->project_id);
+		$this->getApplication()->input->set('project', $this->project->project_id);
 
 		$this->setupGitHub()
 			->displayGitHubRateLimit()
@@ -69,6 +69,7 @@ class Project extends Get
 	protected function processLabels()
 	{
 		with(new Labels)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -84,6 +85,7 @@ class Project extends Get
 	protected function processMilestones()
 	{
 		with(new Milestones)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -99,6 +101,7 @@ class Project extends Get
 	protected function processIssues()
 	{
 		with(new Issues)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -114,6 +117,7 @@ class Project extends Get
 	protected function processComments()
 	{
 		with(new Comments)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -129,6 +133,7 @@ class Project extends Get
 	protected function processEvents()
 	{
 		with(new Events)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;
@@ -144,6 +149,7 @@ class Project extends Get
 	protected function processAvatars()
 	{
 		with(new Avatars)
+			->setContainer($this->getContainer())
 			->execute();
 
 		return $this;

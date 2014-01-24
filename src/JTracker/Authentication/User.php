@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker Authentication Package
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\Authentication;
@@ -33,6 +33,7 @@ abstract class User implements \Serializable
 
 	/**
 	 * User name.
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
@@ -87,12 +88,16 @@ abstract class User implements \Serializable
 	private $cleared = array();
 
 	/**
+	 * Database object
+	 *
 	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	protected $database = null;
 
 	/**
+	 * Project object
+	 *
 	 * @var    TrackerProject
 	 * @since  1.0
 	 */
@@ -101,15 +106,15 @@ abstract class User implements \Serializable
 	/**
 	 * Constructor.
 	 *
-	 * @param   TrackerProject  $project     The DI container.
-	 * @param   DatabaseDriver  $database    The DI container.
+	 * @param   TrackerProject  $project     The tracker project.
+	 * @param   DatabaseDriver  $database    The database connector.
 	 * @param   integer         $identifier  The primary key of the user to load..
 	 *
 	 * @since   1.0
 	 */
 	public function __construct(TrackerProject $project, DatabaseDriver $database, $identifier = 0)
 	{
-		$this->database = $database;
+		$this->setDatabase($database);
 		$this->project  = $project;
 
 		// Load the user if it exists
@@ -306,7 +311,6 @@ abstract class User implements \Serializable
 		}
 
 		/* @type \App\Projects\TrackerProject $project */
-		/* @type \JTracker\Application $app */
 		$project = $this->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))
@@ -393,10 +397,10 @@ abstract class User implements \Serializable
 	/**
 	 * Get the project.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return \App\Projects\TrackerProject
+	 * @return  \App\Projects\TrackerProject
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getProject()
 	{
@@ -406,5 +410,19 @@ abstract class User implements \Serializable
 		}
 
 		return $this->project;
+	}
+
+	/**
+	 * Method to set the database connector.
+	 *
+	 * @param   DatabaseDriver  $database  The Database connector.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function setDatabase(DatabaseDriver $database)
+	{
+		$this->database = $database;
 	}
 }

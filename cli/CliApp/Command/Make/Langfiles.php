@@ -2,12 +2,13 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Make;
 
+use CliApp\Command\TrackerCommandOption;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
@@ -27,6 +28,21 @@ class Langfiles extends Make
 	protected $description = 'Create and update language files.';
 
 	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->addOption(
+			new TrackerCommandOption(
+				'extension', '',
+				'Process only this extension'
+			)
+		);
+	}
+
+	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -36,20 +52,24 @@ class Langfiles extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Language files');
+		$this->getApplication()->outputTitle('Make Language files');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		$languages = $this->application->get('languages');
+		$languages = $this->getApplication()->get('languages');
 
-		foreach ($languages as $lang)
+		$reqExtension = $this->getApplication()->input->getCmd('extension');
+
+		if (!$reqExtension || $reqExtension == 'JTracker')
 		{
-			if ('en-GB' == $lang)
+			foreach ($languages as $lang)
 			{
-				continue;
-			}
+				if ('en-GB' == $lang)
+				{
+					continue;
+				}
 
 			$this
 				->processDomain('JTracker', 'Core', $lang)
@@ -69,7 +89,12 @@ class Langfiles extends Make
 
 			$extension = $fileInfo->getFileName();
 
-			$this->out('Processing: ' . $extension);
+			if ($reqExtension && $reqExtension != $extension)
+			{
+				continue;
+			}
+
+			$this->out('Processing App: ' . $extension);
 
 			foreach ($languages as $lang)
 			{
@@ -156,7 +181,7 @@ class Langfiles extends Make
 			$options = array();
 
 			$options[] = 'update';
-			$options[] = 'backup=numbered';
+			$options[] = 'backup=off';
 			$options[] = 'no-fuzzy-matching';
 			$options[] = 'verbose';
 			$options[] = 'no-wrap';

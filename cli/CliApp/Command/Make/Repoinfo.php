@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Make;
@@ -33,10 +33,12 @@ class Repoinfo extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Generate Repoinfo');
+		$this->getApplication()->outputTitle('Generate Repoinfo');
 		$this->logOut('Generating Repoinfo.');
 
-		$currentSHA = trim(shell_exec('git describe --long --dirty --abbrev=10 --tags'));
+		ob_start();
+		system('git describe --long --dirty --abbrev=10 --tags', $currentSHA);
+		$currentSHA = trim(ob_get_clean());
 
 		$path = JPATH_ROOT . '/current_SHA';
 

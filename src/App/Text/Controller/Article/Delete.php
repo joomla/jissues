@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Text Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Text\Controller\Article;
@@ -30,7 +30,7 @@ class Delete extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -48,6 +48,6 @@ class Delete extends AbstractTrackerController
 
 		$this->container->get('app')->input->set('view', 'articles');
 
-		parent::execute();
+		return parent::execute();
 	}
 }

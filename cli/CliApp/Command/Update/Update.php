@@ -2,21 +2,21 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Update;
+
+use BabDev\Transifex\Transifex;
 
 use CliApp\Command\TrackerCommand;
 use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Github\Github;
 
-use JTracker\Container;
-
 /**
- * Class for updating data on GitHub for selected projects
+ * Command package for updating selected resources
  *
  * @since  1.0
  */
@@ -28,7 +28,7 @@ class Update extends TrackerCommand
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'Used to update GitHub data';
+	protected $description = 'Used to update resources';
 
 	/**
 	 * Joomla! Github object
@@ -37,6 +37,14 @@ class Update extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $github;
+
+	/**
+	 * Transifex object
+	 *
+	 * @var    Transifex
+	 * @since  1.0
+	 */
+	protected $transifex;
 
 	/**
 	 * Constructor.
@@ -71,14 +79,26 @@ class Update extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Get');
+		$this->getApplication()->outputTitle('Update');
 
-		$this
-			->out('<error>                                    </error>')
-			->out('<error>  Please use one of the following:  </error>')
-			->out('<error>                                    </error>')
-			->out('<error>  update pulls                      </error>')
-			->out('<error>                                    </error>');
+		$errorTitle = 'Please use one of the following:';
+
+		$this->out('<error>                                    </error>');
+		$this->out('<error>  ' . $errorTitle . '  </error>');
+
+		foreach (Folder::files(__DIR__) as $file)
+		{
+			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
+
+			if ('update' == $cmd)
+			{
+				continue;
+			}
+
+			$this->out('<error>  update ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
+		}
+
+		$this->out('<error>                                    </error>');
 	}
 
 	/**
@@ -91,7 +111,22 @@ class Update extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = Container::retrieve('gitHub');
+		$this->github = $this->container->get('gitHub');
+
+		return $this;
+	}
+
+	/**
+	 * Setup the Transifex object.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function setupTransifex()
+	{
+		$this->transifex = $this->container->get('transifex');
 
 		return $this;
 	}

@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Projects Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Projects\Model;
@@ -52,11 +52,10 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The alias.
 	 *
-	 * @throws \UnexpectedValueException
-	 *
 	 * @return  TrackerProject
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getByAlias($alias = null)
 	{
@@ -85,7 +84,7 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   string  $alias  The project alias.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -93,6 +92,16 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		$project = $this->getByAlias($alias);
 
+		// Delete access groups associated with the project
+		$this->db->setQuery(
+			$this->db->getQuery(true)
+			->delete($this->db->quoteName('#__accessgroups'))
+			->where($this->db->quoteName('project_id') . '=' . (int) $project->project_id)
+		)->execute();
+
+		// @todo: cleanup more.
+
+		// Delete the project
 		$table = new ProjectsTable($this->db);
 
 		$table->delete($project->project_id);

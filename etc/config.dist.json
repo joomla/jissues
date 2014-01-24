@@ -15,15 +15,22 @@
 		"client_secret": ""
 	},
 
+	"transifex": {
+		"username": "",
+		"password": "",
+		"project" : ""
+	},
+
 	"renderer": {
 		"type" : "twig",
 		"debug": "1"
 	},
 
 	"system": {
-		"list_limit": "20",
-		"gzip"      : "0",
-		"offset"    : "UTC"
+		"list_limit" : "20",
+		"gzip"       : "0",
+		"offset"     : "UTC",
+		"upload_dir" : "uploads"
 	},
 
 	"acl": {
@@ -50,5 +57,12 @@
 
 	"languages": [
 		"en-GB", "de-DE", "ru-RU"
-	]
+	],
+
+	"validation": {
+		"mime_types": [
+			"image/png", "image/jpeg", "image/gif"
+		],
+		"file_size" : "1M"
+	}
 }

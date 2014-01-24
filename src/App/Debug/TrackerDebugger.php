@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Debug;
@@ -116,7 +116,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Set up loggers.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -186,7 +186,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 *
 	 * @param   array  $record  The log record.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */
@@ -326,9 +326,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Get the navigation bar.
 	 *
-	 * @return array
+	 * @return  array
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	private function getNavigation()
 	{
@@ -490,9 +490,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Render language debug information.
 	 *
-	 * @return string
+	 * @return  string
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function renderLanguageFiles()
 	{
@@ -623,7 +623,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 *
 	 * @param   LoggerInterface  $logger  The logger.
 	 *
-	 * @return null
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -635,9 +635,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Render database information.
 	 *
-	 * @return string
+	 * @return  string  HTML markup for database debug
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function renderDatabase()
 	{
@@ -725,7 +725,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Prints out translated and untranslated strings.
 	 *
-	 * @return string
+	 * @return  string  HTML markup for language debug
 	 *
 	 * @since   1.0
 	 */
@@ -771,9 +771,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	/**
 	 * Get info about processed language strings.
 	 *
-	 * @return \stdClass
+	 * @return  \stdClass
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	protected function getLanguageStringsInfo()
 	{
@@ -804,7 +804,9 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * @param   integer  $count    The number to display inside the badge.
 	 * @param   array    $options  An indexed array of values and CSS classes.
 	 *
-	 * @return string
+	 * @return  string
+	 *
+	 * @since   1.0
 	 */
 	private function getBadge($count, array $options = array())
 	{

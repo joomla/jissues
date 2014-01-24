@@ -2,15 +2,13 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Get;
 
 use App\Projects\Table\LabelsTable;
-
-use JTracker\Container;
 
 /**
  * Class for retrieving labels from GitHub for selected projects.
@@ -36,7 +34,7 @@ class Labels extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Labels');
+		$this->getApplication()->outputTitle('Retrieve Labels');
 
 		$this->logOut('Start retrieve Labels')
 			->selectProject()
@@ -59,7 +57,7 @@ class Labels extends Get
 		$this->out('Fetching labels...', false);
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->container->get('db');
 
 		$table = new LabelsTable($db);
 

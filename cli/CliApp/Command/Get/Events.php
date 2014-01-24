@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Get;
@@ -13,8 +13,6 @@ use App\Tracker\Table\ActivitiesTable;
 use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
-
-use JTracker\Container;
 
 /**
  * Class for retrieving events from GitHub for selected projects
@@ -94,7 +92,7 @@ class Events extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve Events');
+		$this->getApplication()->outputTitle('Retrieve Events');
 
 		$this->logOut('Start retrieve Events')
 			->selectProject()
@@ -117,14 +115,14 @@ class Events extends Get
 	 */
 	protected function selectRange()
 	{
-		$issue = $this->application->input->getInt('issue');
+		$issue = $this->getApplication()->input->getInt('issue');
 
 		if ($issue)
 		{
 			$this->rangeFrom = $issue;
 			$this->rangeTo   = $issue;
 		}
-		elseif ($this->application->input->get('all'))
+		elseif ($this->getApplication()->input->get('all'))
 		{
 			// Do nothing
 		}
@@ -133,17 +131,17 @@ class Events extends Get
 			// Limit issues to process
 			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
 
-			$resp = trim($this->application->in());
+			$resp = trim($this->getApplication()->in());
 
 			if ($resp == 'r' || $resp == 'range')
 			{
 				// Get the first GitHub issue (from)
 				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
-				$this->rangeFrom = (int) trim($this->application->in());
+				$this->rangeFrom = (int) trim($this->getApplication()->in());
 
 				// Get the ending GitHub issue (to)
 				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
-				$this->rangeTo = (int) trim($this->application->in());
+				$this->rangeTo = (int) trim($this->getApplication()->in());
 			}
 		}
 
@@ -160,7 +158,7 @@ class Events extends Get
 	protected function getIssues()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$query = $db->getQuery(true);
 
@@ -247,7 +245,7 @@ class Events extends Get
 	protected function processEvents()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = Container::getInstance()->get('db');
+		$db = $this->getContainer()->get('db');
 
 		// Initialize our database object
 		$query = $db->getQuery(true);
@@ -278,6 +276,7 @@ class Events extends Get
 					case 'reopened' :
 					case 'assigned' :
 					case 'merged' :
+					case 'head_ref_deleted' :
 						$query->clear()
 							->select('COUNT(*)')
 							->from($db->quoteName('#__activities'))
@@ -298,7 +297,7 @@ class Events extends Get
 
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
-							'assigned' => 'assign', 'merged' => 'merge'
+							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted'
 						);
 
 						$this->usePBar ? null : $this->out('+', false);

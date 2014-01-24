@@ -2,15 +2,13 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Get;
 
 use CliApp\Command\TrackerCommandOption;
-
-use JTracker\Container;
 
 /**
  * Class for retrieving repository tags from GitHub based on the composer file.
@@ -34,9 +32,6 @@ class Composertags extends Get
 	 */
 	public function __construct()
 	{
-		$this->application = Container::retrieve('app');
-		$this->logger      = Container::retrieve('logger');
-
 		$this
 			->addOption(
 				new TrackerCommandOption(
@@ -56,7 +51,7 @@ class Composertags extends Get
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Retrieve composer tags');
+		$this->getApplication()->outputTitle('Retrieve composer tags');
 
 		$path = JPATH_ROOT . '/vendor/composer/installed.json';
 
@@ -70,7 +65,7 @@ class Composertags extends Get
 		$this->logOut('Start getting composer tags.')
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			->fetchTags($packages, $this->application->input->get('all'))
+			->fetchTags($packages, $this->getApplication()->input->get('all'))
 			->out()
 			->logOut('Finished.');
 	}

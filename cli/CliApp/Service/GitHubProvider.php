@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker Service Package
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Service;
@@ -11,12 +11,10 @@ namespace CliApp\Service;
 use Joomla\Github\Http;
 use Joomla\Github\Github;
 use Joomla\Http\HttpFactory;
-use Joomla\Registry\Registry;
 use Joomla\Http\Transport\Curl;
+use Joomla\Registry\Registry;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\DI\Container as JoomlaContainer;
-
-use JTracker\Container;
+use Joomla\DI\Container;
 
 /**
  * Class GitHubProvider
@@ -28,14 +26,14 @@ class GitHubProvider implements ServiceProviderInterface
 	/**
 	 * Registers the service provider with a DI container.
 	 *
-	 * @param   \Joomla\DI\Container  $container  The DI container.
+	 * @param   Container  $container  The DI container.
 	 *
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function register(JoomlaContainer $container)
+	public function register(Container $container)
 	{
 		$container->share('Joomla\\Github\\Github',
 			function () use ($container)

@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Make;
@@ -35,7 +35,7 @@ class Autocomplete extends Make
 	 */
 	public function execute()
 	{
-		$this->application->outputTitle('Make Auto complete');
+		$this->getApplication()->outputTitle('Make Auto complete');
 
 		$cliBase = JPATH_ROOT . '/cli/CliApp/Command';
 
@@ -65,7 +65,7 @@ class Autocomplete extends Make
 				$className = $commandName . '\\' . $command;
 
 				/* @type TrackerCommand $class */
-				$class = new $className($this->application);
+				$class = new $className($this->getApplication());
 
 				$help = str_replace(array('<cmd>', '</cmd>', '<', '>'), '', $class->getDescription());
 
@@ -101,7 +101,20 @@ class Autocomplete extends Make
 
 		$doc->appendChild($domNode);
 
-		echo $doc->saveXML();
+		$contents = $doc->saveXML();
+
+		$fileName = $this->getApplication()->input->getPath('file', $this->getApplication()->input->getPath('f'));
+
+		if ($fileName)
+		{
+			$this->out('Writing contents to: ' . $fileName);
+
+			file_put_contents($fileName, $contents);
+		}
+		else
+		{
+			echo $contents;
+		}
 
 		$this->out()
 			->out('Finished =;)');
