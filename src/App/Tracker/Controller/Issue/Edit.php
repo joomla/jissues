@@ -53,15 +53,19 @@ class Edit extends AbstractTrackerController
 	protected $model = null;
 
 	/**
-	 * Execute the controller.
+	 * Initialize the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function execute()
+	public function initialize()
 	{
+		parent::initialize();
+
 		$this->container->get('app')->getUser()->authorize('edit');
 
 		$this->view->setId($this->container->get('app')->input->getUint('id'));
@@ -69,6 +73,6 @@ class Edit extends AbstractTrackerController
 
 		$this->model->setProject($this->container->get('app')->getProject());
 
-		return parent::execute();
+		return $this;
 	}
 }
