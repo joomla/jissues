@@ -1,238 +1,22 @@
-# Nikolai Plath <der.el.kuku@gmail.com>, 2010.
+# Template JTracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Nikolai Plath <der.el.kuku@gmail.com>, 2010,2014
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-30 15:21+0000\n"
-"PO-Revision-Date: 2010-10-28 20:29-0500\n"
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"PO-Revision-Date: 2014-01-24 01:44+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: JTracker <der.el.kuku@gmail.com>\n"
-"Language: \n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-
-#: /templates/footerMenu.twig:4
-msgid "Home"
-msgstr ""
-
-#: /templates/footerMenu.twig:5 /templates/topMenu.twig:27
-msgid "About"
-msgstr ""
-
-#: /templates/footerMenu.twig:6 /templates/topMenu.twig:37
-msgid "Community"
-msgstr ""
-
-#: /templates/footerMenu.twig:7
-msgid "Forum"
-msgstr ""
-
-#: /templates/footerMenu.twig:8
-msgid "Extensions"
-msgstr ""
-
-#: /templates/footerMenu.twig:9
-msgid "Resources"
-msgstr ""
-
-#: /templates/footerMenu.twig:10
-msgid "Docs"
-msgstr ""
-
-#: /templates/footerMenu.twig:11
-msgid "Developer"
-msgstr ""
-
-#: /templates/footerMenu.twig:12
-msgid "Shop"
-msgstr ""
-
-#: /templates/footerMenu.twig:16
-msgid "Accessibility Statement"
-msgstr ""
-
-#: /templates/footerMenu.twig:17
-msgid "Privacy Policy"
-msgstr ""
-
-#: /templates/footerMenu.twig:18
-msgid "Joomla Hosting by"
-msgstr ""
-
-#: /templates/footerMenu.twig:21
-msgid "All rights reserved."
-msgstr ""
-
-#: /templates/topMenu.twig:17
-msgid "Recent News"
-msgstr ""
-
-#: /templates/topMenu.twig:18
-msgid "Announcements"
-msgstr ""
-
-#: /templates/topMenu.twig:19
-msgid "Blogs"
-msgstr ""
-
-#: /templates/topMenu.twig:20
-msgid "Magazine"
-msgstr ""
-
-#: /templates/topMenu.twig:22
-msgid "Support Joomla!"
-msgstr ""
-
-#: /templates/topMenu.twig:23
-msgid "Shop Joomla Gear"
-msgstr ""
-
-#: /templates/topMenu.twig:24
-msgid "Contribution"
-msgstr ""
-
-#: /templates/topMenu.twig:29
-msgid "About Joomla!"
-msgstr ""
-
-#: /templates/topMenu.twig:30
-msgid "Core Features"
-msgstr ""
-
-#: /templates/topMenu.twig:31
-msgid "The Software"
-msgstr ""
-
-#: /templates/topMenu.twig:32
-msgid "The Project"
-msgstr ""
-
-#: /templates/topMenu.twig:33
-msgid "Leadership"
-msgstr ""
-
-#: /templates/topMenu.twig:39
-msgid "Joomla! Community Portal"
-msgstr ""
-
-#: /templates/topMenu.twig:40
-msgid "Joomla! Events"
-msgstr ""
-
-#: /templates/topMenu.twig:41
-msgid "Joomla! UX"
-msgstr ""
-
-#: /templates/topMenu.twig:42
-msgid "Joomla! User Groups"
-msgstr ""
-
-#: /templates/topMenu.twig:45
-msgid "Support"
-msgstr ""
-
-#: /templates/topMenu.twig:47
-msgid "Joomla! Forum"
-msgstr ""
-
-#: /templates/topMenu.twig:48
-msgid "Joomla! Documentation"
-msgstr ""
-
-#: /templates/topMenu.twig:49
-msgid "Joomla! Resources"
-msgstr ""
-
-#: /templates/topMenu.twig:52
-msgid "Read"
-msgstr ""
-
-#: /templates/topMenu.twig:54
-msgid "Joomla! Magazine"
-msgstr ""
-
-#: /templates/topMenu.twig:55
-msgid "Joomla! Connect"
-msgstr ""
-
-#: /templates/topMenu.twig:56
-msgid "Joomla! Mailing Lists"
-msgstr ""
-
-#: /templates/topMenu.twig:59
-msgid "Extend"
-msgstr ""
-
-#: /templates/topMenu.twig:61
-msgid "Extension Directory"
-msgstr ""
-
-#: /templates/topMenu.twig:62
-msgid "Showcase Directory"
-msgstr ""
-
-#: /templates/topMenu.twig:63
-msgid "Resource Directory"
-msgstr ""
-
-#: /templates/topMenu.twig:64 /templates/topMenu.twig:83
-msgid "Translations"
-msgstr ""
-
-#: /templates/topMenu.twig:65
-msgid "Idea Pool"
-msgstr ""
-
-#: /templates/topMenu.twig:68
-msgid "Developers"
-msgstr ""
-
-#: /templates/topMenu.twig:70
-msgid "Developer Site"
-msgstr ""
-
-#: /templates/topMenu.twig:71
-msgid "Documentation"
-msgstr ""
-
-#: /templates/topMenu.twig:72
-msgid "Joomla! Bug Squad"
-msgstr ""
-
-#: /templates/topMenu.twig:73
-msgid "Joomla! API"
-msgstr ""
-
-#: /templates/topMenu.twig:74
-msgid "JoomlaCode"
-msgstr ""
-
-#: /templates/topMenu.twig:75
-msgid "Joomla! Framework"
-msgstr ""
-
-#: /templates/topMenu.twig:84
-msgid "Multilingual Demo"
-msgstr ""
-
-#: /templates/topMenu.twig:85
-msgid "Translation Working Group"
-msgstr ""
-
-#: /templates/topMenu.twig:86
-msgid "Translations Forum"
-msgstr ""
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr ""
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr ""
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -270,41 +54,49 @@ msgstr "System"
 msgid "Configuration"
 msgstr "Konfiguration"
 
-#: /templates/trackerMenu.twig:104
+#: /templates/trackerMenu.twig:107
 msgid "Database"
 msgstr "Datenbank"
 
-#: /templates/trackerMenu.twig:136
+#: /templates/trackerMenu.twig:139
 msgid "Icons"
 msgstr "Symbole"
 
-#: /templates/trackerMenu.twig:142
+#: /templates/trackerMenu.twig:145
 msgid "Text"
 msgstr "Text"
 
-#: /templates/trackerMenu.twig:148
+#: /templates/trackerMenu.twig:151
 msgid "Clear Cache"
-msgstr ""
+msgstr "Cache leeren"
 
-#: /templates/trackerMenu.twig:170
+#: /templates/trackerMenu.twig:173
 msgid "About Us"
 msgstr "Über uns"
 
-#: /templates/trackerMenu.twig:197
+#: /templates/trackerMenu.twig:200
 msgid "Admin"
 msgstr "Admin"
 
-#: /templates/trackerMenu.twig:202
+#: /templates/trackerMenu.twig:205
 msgid "Profile"
 msgstr "Profil"
 
-#: /templates/trackerMenu.twig:209
+#: /templates/trackerMenu.twig:212
 msgid "Logout"
 msgstr "Abmelden"
 
-#: /templates/trackerMenu.twig:217
+#: /templates/trackerMenu.twig:220
 msgid "Login with GitHub"
 msgstr "Mit GitHub einloggen"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Schreiben"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Vorschau"
 
 #: /templates/uploader.full.twig:13
 msgid "Add files..."
@@ -335,7 +127,9 @@ msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
 msgstr ""
 
 #: /templates/uploader.full.twig:35
-msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
 msgstr ""
 
 #: /templates/uploader.full.twig:50
@@ -354,10 +148,222 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Schreiben"
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "Download"
 
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Vorschau"
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "Demo"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Home"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "Über uns"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "Community"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Erweiterungen"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Quellen"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Doks"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Entwickler"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Shop"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "Erklärung zur Barrierefreiheit"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Datenschutz"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Joomla! Hosting by"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten"
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "Neuigkeiten"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "Ankündigungen"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "Blogs"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "Magazine"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "Support Joomla!"
+
+#: /templates/topMenu.twig:24
+msgid "Shop Joomla Gear"
+msgstr "Shop Joomla Gear"
+
+#: /templates/topMenu.twig:25
+msgid "Contribution"
+msgstr "Mithelfen"
+
+#: /templates/topMenu.twig:30
+msgid "About Joomla!"
+msgstr "Über Joomla!"
+
+#: /templates/topMenu.twig:31
+msgid "Core Features"
+msgstr "Core Features"
+
+#: /templates/topMenu.twig:32
+msgid "The Software"
+msgstr "Die Software"
+
+#: /templates/topMenu.twig:33
+msgid "The Project"
+msgstr "Das Projekt"
+
+#: /templates/topMenu.twig:34
+msgid "Leadership"
+msgstr "Vorsitz"
+
+#: /templates/topMenu.twig:40
+msgid "Joomla! Community Portal"
+msgstr "Joomla! Community Portal"
+
+#: /templates/topMenu.twig:41
+msgid "Joomla! Events"
+msgstr "Joomla! Events"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! UX"
+msgstr "Joomla! UX"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! User Groups"
+msgstr "Joomla! User Groups"
+
+#: /templates/topMenu.twig:46
+msgid "Support"
+msgstr "Support"
+
+#: /templates/topMenu.twig:48
+msgid "Joomla! Forum"
+msgstr "Joomla! Forum"
+
+#: /templates/topMenu.twig:49
+msgid "Joomla! Documentation"
+msgstr "Joomla! Dokumentation"
+
+#: /templates/topMenu.twig:50
+msgid "Joomla! Resources"
+msgstr "Joomla! Quellen"
+
+#: /templates/topMenu.twig:53
+msgid "Read"
+msgstr "Lesen"
+
+#: /templates/topMenu.twig:55
+msgid "Joomla! Magazine"
+msgstr "Joomla! Magazin"
+
+#: /templates/topMenu.twig:56
+msgid "Joomla! Connect"
+msgstr "Joomla! Connect"
+
+#: /templates/topMenu.twig:57
+msgid "Joomla! Mailing Lists"
+msgstr "Joomla! Mailing Lists"
+
+#: /templates/topMenu.twig:60
+msgid "Extend"
+msgstr "Erweitern"
+
+#: /templates/topMenu.twig:62
+msgid "Extension Directory"
+msgstr "Extension Directory"
+
+#: /templates/topMenu.twig:63
+msgid "Showcase Directory"
+msgstr "Showcase Directory"
+
+#: /templates/topMenu.twig:64
+msgid "Resource Directory"
+msgstr "Resource Directory"
+
+#: /templates/topMenu.twig:65 /templates/topMenu.twig:84
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: /templates/topMenu.twig:66
+msgid "Idea Pool"
+msgstr "Idea Pool"
+
+#: /templates/topMenu.twig:69
+msgid "Developers"
+msgstr "Entwickler"
+
+#: /templates/topMenu.twig:71
+msgid "Developer Site"
+msgstr "Developer Site"
+
+#: /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: /templates/topMenu.twig:73
+msgid "Joomla! Bug Squad"
+msgstr "Joomla! Bug Squad"
+
+#: /templates/topMenu.twig:74
+msgid "Joomla! API"
+msgstr "Joomla! API"
+
+#: /templates/topMenu.twig:75
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:76
+msgid "Joomla! Framework"
+msgstr "Joomla! Framework"
+
+#: /templates/topMenu.twig:85
+msgid "Multilingual Demo"
+msgstr "Mehrsprachige Demo"
+
+#: /templates/topMenu.twig:86
+msgid "Translation Working Group"
+msgstr "Translation Working Group"
+
+#: /templates/topMenu.twig:87
+msgid "Translations Forum"
+msgstr "Translations Forum"

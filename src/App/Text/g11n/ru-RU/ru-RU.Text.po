@@ -1,20 +1,21 @@
-# Language ru-RU translations for Text - App package.
-# Copyright (C) 2013 JTracker(C)
-# This file is distributed under the same license as the Text - App package.
-# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+# App Text 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Text - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-04 21:04+0200\n"
-"PO-Revision-Date: 2013-06-23 23:57-0500\n"
-"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
-"Language-Team: Language ru-RU\n"
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"PO-Revision-Date: 2014-01-19 08:51+0000\n"
+"Last-Translator: Dmitrijs Rekuns <bzzjuka@gmail.com>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru-RU\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
 msgid "Edit Article"
@@ -69,18 +70,18 @@ msgstr "Удалить"
 msgid "No articles found"
 msgstr "Материалы не найдены"
 
-#: /src/App/Text/Table/ArticlesTable.php:83
-msgid "An alias or a title is required."
-msgstr "Алиас или название обязательны."
-
-#: /src/App/Text/Table/ArticlesTable.php:89
-msgid "Some text is required."
-msgstr "Текст обязателен."
-
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."
 msgstr "Материал был удален."
 
-#: /src/App/Text/Controller/Article/Save.php:47
+#: /src/App/Text/Controller/Article/Save.php:50
 msgid "The article has been saved."
 msgstr "Материал был сохранен."
+
+#: /src/App/Text/Table/ArticlesTable.php:91
+msgid "An alias or a title is required."
+msgstr "Алиас или название обязательны."
+
+#: /src/App/Text/Table/ArticlesTable.php:97
+msgid "Some text is required."
+msgstr "Текст обязателен."

@@ -1,26 +1,21 @@
-# Nikolai Plath <der.el.kuku@gmail.com>, 2010.
+# App Users 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-04 21:04+0200\n"
-"PO-Revision-Date: 2010-10-28 20:29-0500\n"
-"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: JTracker <der.el.kuku@gmail.com>\n"
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"PO-Revision-Date: 2014-01-19 08:51+0000\n"
+"Last-Translator: Dmitrijs Rekuns <bzzjuka@gmail.com>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-
-#: /templates/users/user.index.twig:12
-msgid "My Profile"
-msgstr "Мой профиль"
-
-#: /templates/users/user.index.twig:14
-msgid "Profile"
-msgstr "Профиль"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: /templates/users/users.index.twig:19
 msgid "Users List"
@@ -29,24 +24,32 @@ msgstr "Список пользователей"
 #: /templates/users/users.index.twig:23 /templates/users/users.index.twig:47
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr "Страница %1$s из %2$s"
+msgstr ""
 
 #: /templates/users/users.index.twig:28
 msgid "Username"
-msgstr "Имя пользователя"
+msgstr ""
 
 #: /templates/users/users.index.twig:30
 msgid "Actions"
-msgstr "Действия"
+msgstr ""
 
 #: /templates/users/users.index.twig:32
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
-#: /src/App/Users/Controller/Ajax/Assign.php:75
+#: /templates/users/user.index.twig:12
+msgid "My Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:14
+msgid "Profile"
+msgstr ""
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
-msgstr "Пользователь был назначен"
+msgstr ""
 
-#: /src/App/Users/Controller/Ajax/Assign.php:86
+#: /src/App/Users/Controller/Ajax/Assign.php:85
 msgid "The user has been unassigned."
-msgstr "Пользователь не назначен"
+msgstr ""

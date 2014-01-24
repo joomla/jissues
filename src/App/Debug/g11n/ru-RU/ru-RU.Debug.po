@@ -1,114 +1,115 @@
-# Language ru-RU translations for Debug - App package.
-# Copyright (C) 2013 JTracker(C)
-# This file is distributed under the same license as the Debug - App package.
-# Nikolai Plath <EMAIL@ADDRESS>, 2013.
+# App Debug 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Debug - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-12-04 21:04+0200\n"
-"PO-Revision-Date: 2013-06-23 23:57-0500\n"
-"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
-"Language-Team: Language ru-RU\n"
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 00:58+0000\n"
+"PO-Revision-Date: 2014-01-19 00:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru-RU\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:63
-#, php-format
-msgid "No %s log file found."
-msgstr "Лог файл %s не найден."
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:88
 #, php-format
 msgid "Failed EXPLAIN on query: %s"
-msgstr "Ошибка EXPLAIN при запросе: %s"
+msgstr ""
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:117
 #, php-format
 msgid "%s database is not supported yet."
-msgstr "База данных %s пока не поддерживается."
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:274
+#: /src/App/Debug/TrackerDebugger.php:281
 msgid "Database"
-msgstr "База данных"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:283
-#: /src/App/Debug/TrackerDebugger.php:369
+#: /src/App/Debug/TrackerDebugger.php:290
+#: /src/App/Debug/TrackerDebugger.php:377
 msgid "Profile"
-msgstr "Профиль"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:288
-#: /src/App/Debug/TrackerDebugger.php:420
+#: /src/App/Debug/TrackerDebugger.php:295
+#: /src/App/Debug/TrackerDebugger.php:428
 msgid "User"
-msgstr "Пользователь"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:293
-#: /src/App/Debug/TrackerDebugger.php:426
+#: /src/App/Debug/TrackerDebugger.php:300
+#: /src/App/Debug/TrackerDebugger.php:434
 msgid "Project"
-msgstr "Проект"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:301
+#: /src/App/Debug/TrackerDebugger.php:308
 msgid "Language Strings"
-msgstr "Языковые строки"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:306
+#: /src/App/Debug/TrackerDebugger.php:313
 msgid "Language Files"
-msgstr "Языковые файлы"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:348
+#: /src/App/Debug/TrackerDebugger.php:356
 msgid "Go up"
-msgstr "Наверх"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:358
-#: /src/App/Debug/TrackerDebugger.php:644
+#: /src/App/Debug/TrackerDebugger.php:366
+#: /src/App/Debug/TrackerDebugger.php:657
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
-msgstr[0] "%d FORM 0 запросов"
-msgstr[1] "%d FORM 1 запрос"
-msgstr[2] "%d FORM 2 запроса"
-
-#: /src/App/Debug/TrackerDebugger.php:386
-#, php-format
-msgid "One untranslated string of %2$d"
-msgid_plural "%1$d untranslated strings of %2$d"
-msgstr[0] "Одна непереведенная стока из %2$d"
-msgstr[1] "%1$d непереведенных сток из %2$d"
+msgstr[0] ""
+msgstr[1] ""
 msgstr[2] ""
 
 #: /src/App/Debug/TrackerDebugger.php:394
 #, php-format
-msgid "One language file loaded"
-msgid_plural "%d language files loaded"
-msgstr[0] "Загружен один языковой файл"
-msgstr[1] "Загружено %d языковых файлов"
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] ""
+msgstr[1] ""
 msgstr[2] ""
 
-#: /src/App/Debug/TrackerDebugger.php:405
+#: /src/App/Debug/TrackerDebugger.php:402
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: /src/App/Debug/TrackerDebugger.php:413
 msgid "No Project"
-msgstr "Нет проекта"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:422
+#: /src/App/Debug/TrackerDebugger.php:430
 msgid "Guest"
-msgstr "Гость"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:435
+#: /src/App/Debug/TrackerDebugger.php:443
 msgid "Build"
 msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:500
+#: /src/App/Debug/TrackerDebugger.php:509
 #, php-format
-msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
-msgstr "Форма множ. числа: <code>%1$d</code><br />Функция множ. числа: <code>%2$s</code>"
+msgid ""
+"Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:740
 msgid "String"
-msgstr "Строка"
+msgstr ""
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:740
 msgid "File (line)"
-msgstr "Файл (строка)"
+msgstr ""
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
+msgstr ""
