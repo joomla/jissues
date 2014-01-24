@@ -79,7 +79,7 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	/**
 	 * The project information of the project whose data has been received
 	 *
-	 * @var    TrackerProject
+	 * @var    object
 	 * @since  1.0
 	 */
 	protected $project;

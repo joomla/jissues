@@ -64,6 +64,9 @@ class Hook extends Test
 	 */
 	public function execute()
 	{
+		// Define JPATH_THEMES as it is used in the hooks
+		define('JPATH_THEMES', JPATH_ROOT . '/www');
+
 		$this->getApplication()->outputTitle('Test Hooks');
 
 		$this->logOut('Start testing hook');
