@@ -216,9 +216,11 @@ class Langtemplates extends Make
 	 */
 	protected function processTemplates($extension, $domain, $type, array $paths, $templatePath)
 	{
+		$packageName = 'JTracker';
+
 		$headerData = '';
-		$headerData .= ' --copyright-holder="JTracker"';
-		$headerData .= ' --package-name="' . $extension . ' - ' . $domain . '"';
+		$headerData .= ' --copyright-holder="' . $packageName . '"';
+		$headerData .= ' --package-name="' . $packageName . '"';
 		$headerData .= ' --package-version="' . $this->product->version . '"';
 
 		// @$headerData .= ' --msgid-bugs-address="info@example.com"';
@@ -321,12 +323,19 @@ class Langtemplates extends Make
 		// Some header data - that will hopefully remain..
 		$contents = str_replace(
 			'# SOME DESCRIPTIVE TITLE.',
-			'# ' . $domain . ' ' . $extension . ' ' . $this->product->version,
+			'# ' . $packageName . ' ' . $domain . ' ' . $extension . ' ' . $this->product->version,
 			$contents
 		);
+
 		$contents = str_replace(
 			'# Copyright (C) YEAR',
 			'# Copyright (C) 2012 - ' . date('Y'),
+			$contents
+		);
+
+		$contents = str_replace(
+			'# This file is distributed under the same license as the PACKAGE package.',
+			'# This file is distributed under the same license as the ' . $packageName . ' package.',
 			$contents
 		);
 
