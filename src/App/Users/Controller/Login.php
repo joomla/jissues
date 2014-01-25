@@ -82,12 +82,7 @@ class Login extends AbstractTrackerController
 		$accessToken = $token['access_token'];
 		*/
 
-		$gitHubAccounts = $app->get('github.accounts');
-
-		$client_id = isset($gitHubAccounts[0]->client_id) ? $gitHubAccounts[0]->client_id : '';
-		$client_secret = isset($gitHubAccounts[0]->client_secret) ? $gitHubAccounts[0]->client_secret : '';
-		$loginHelper = new GitHubLoginHelper($client_id, $client_secret);
-		//$loginHelper = new GitHubLoginHelper($app->get('github.client_id'), $app->get('github.client_secret'));
+		$loginHelper = new GitHubLoginHelper($this->container);
 
 		$accessToken = $loginHelper->requestToken($code);
 
