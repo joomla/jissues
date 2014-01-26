@@ -20,7 +20,7 @@ class Save extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -46,5 +46,7 @@ class Save extends AbstractTrackerController
 		// @todo write a small JSON prettyPrint function for PHP < 5.4
 
 		echo '</pre>';
+
+		return '@todo..';
 	}
 }
