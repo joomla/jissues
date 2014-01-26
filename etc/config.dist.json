@@ -9,12 +9,12 @@
 	},
 
     "github": {
+        "client_id"    : "",
+        "client_secret": "",
         "accounts": [
             {
-                "username"     : "",
-                "password"     : "",
-                "client_id"    : "",
-                "client_secret": ""
+                "username": "",
+                "password": ""
             }
         ]
     },
