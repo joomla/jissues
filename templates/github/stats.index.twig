@@ -1,13 +1,13 @@
-{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt #}
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} Stats{% endblock %}
+{% block title %}{{ '%s - Statistics'|_|format(project.title) }}{% endblock %}
 
 {% block content %}
 
-    <h2>{{ project.title }} Stats</h2>
+    <h2>{{ '%s - Statistics'|_|format(project.title) }}</h2>
 
     {% if false == data %}
 

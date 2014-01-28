@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker View Package
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace JTracker\View\Renderer;
@@ -186,7 +186,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 *
 	 * @param   string  $path  Templates location path.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @todo    Implement addPath() method.
@@ -216,7 +216,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 * @param   string|array  $paths            A path or an array of paths where to look for templates.
 	 * @param   bool          $overrideBaseDir  If true a path can be outside themes base directory.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @todo    Implement setTemplatesPaths() method.

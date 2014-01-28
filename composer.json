@@ -11,6 +11,8 @@
         "joomla/controller": "1.0.*@stable",
         "joomla/database": "1.0.*@stable",
         "joomla/date": "1.0.*@stable",
+        "joomla/di": "1.0.*@stable",
+        "joomla/event": "1.0.*@stable",
         "joomla/filter": "1.0.*@stable",
         "joomla/github": "1.0.*@stable",
         "joomla/http": "1.0.*@stable",
@@ -26,7 +28,9 @@
         "symfony/http-foundation": "2.3.*@stable",
         "twig/twig": "1.*@stable",
         "elkuku/g11n": "2.1",
-        "elkuku/console-progressbar": "1.0"
+        "elkuku/console-progressbar": "1.0",
+        "babdev/library": "dev-master",
+        "codeguy/upload": "*"
     },
     "require-dev": {
         "monolog/monolog": "1.6.0",

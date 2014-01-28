@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Text Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Text\View\Page;
@@ -23,16 +23,16 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
-	 * @var     PageModel
-	 * @since   1.0
+	 * @var    PageModel
+	 * @since  1.0
 	 */
 	protected $model;
 
 	/**
 	 * The page alias.
 	 *
-	 * @var string
-	 * @since   1.0
+	 * @var    string
+	 * @since  1.0
 	 */
 	protected $alias = '';
 
@@ -63,10 +63,10 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get the page alias.
 	 *
-	 * @return string
+	 * @return  string
 	 *
 	 * @since   1.0
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getAlias()
 	{
@@ -83,7 +83,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   string  $alias  The page alias.
 	 *
-	 * @return $this
+	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 */

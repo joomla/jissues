@@ -1,4 +1,4 @@
-{# Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved. #}
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt #}
 
 {% extends "index.twig" %}
@@ -15,7 +15,7 @@
     {% if user.check("create") %}
         <li>
             <a class="btn-success" href="javascript:;" onclick="document.configForm.submit();">
-                Save
+                {{ 'Save'|_ }}
             </a>
         </li>
     {% endif %}
@@ -40,7 +40,7 @@
 
         <div class="span8">
 
-            <h2>Edit Configuration</h2>
+            <h2>{{ 'Edit Configuration'|_ }}</h2>
 
             <form method="post" action="{{ uri.base.path }}saveconfig" class="form-horizontal" name="configForm">
                 {% for group, fields in config %}

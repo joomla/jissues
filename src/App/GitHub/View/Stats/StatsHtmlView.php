@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's GitHub Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\GitHub\View\Stats;
@@ -26,15 +26,16 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	protected $config;
 
 	/**
-	 * @var  object
+	 * Data object for the view
+	 *
+	 * @var    object
+	 * @since  1.0
 	 */
 	protected $data = null;
 
 	/**
 	 * Method to render the view.
 	 *
-	 * @throws \DomainException
-	 * @throws \Exception
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
@@ -51,10 +52,10 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get the data object.
 	 *
-	 * @throws \UnexpectedValueException
-	 * @return null
+	 * @return  object
 	 *
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function getData()
 	{
@@ -71,7 +72,7 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @param   object  $data  The data object.
 	 *
-	 * @return $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 */

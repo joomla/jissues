@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Projects Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Projects\Controller\Project;
@@ -29,7 +29,10 @@ class Save extends AbstractTrackerController
 	protected $defaultView = 'projects';
 
 	/**
-	 * @var  ProjectsModel
+	 * Model object
+	 *
+	 * @var    ProjectsModel
+	 * @since  1.0
 	 */
 	protected $model;
 
@@ -38,12 +41,28 @@ class Save extends AbstractTrackerController
 	 *
 	 * This will set up default model and view classes.
 	 *
-	 * @return  $this
+	 * @return  $this  Method allows chaining
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	public function initialize()
+	{
+		parent::initialize();
+
+		$this->model->setUser($this ->container->get('app')->getUser());
+
+		return $this;
+	}
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function execute()
 	{
 		$app = $this->container->get('app');
 
@@ -56,8 +75,6 @@ class Save extends AbstractTrackerController
 		// Reload the project.
 		$app->getProject(true);
 
-		parent::initialize();
-
-		$this->model->setUser($this ->container->get('app')->getUser());
+		return parent::execute();
 	}
 }

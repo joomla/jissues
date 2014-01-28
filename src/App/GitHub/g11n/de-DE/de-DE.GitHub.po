@@ -1,17 +1,115 @@
-# Language de-DE translations for GitHub - App package.
-# Copyright (C) 2013 JTracker(C)
-# This file is distributed under the same license as the GitHub - App package.
-# Nikolai Plath <EMAIL@ADDRESS>, 2013.
-#
+# JTracker App GitHub 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Nikolai Plath <der.el.kuku@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: GitHub - App 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-06-23 22:28-0500\n"
-"PO-Revision-Date: 2013-06-23 23:56-0500\n"
-"Last-Translator: Nikolai Plath <EMAIL@ADDRESS>\n"
-"Language-Team: Language de-DE\n"
-"Language: de-DE\n"
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
+"PO-Revision-Date: 2014-01-24 17:52+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Etiketten"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Etikettenliste"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Neue Etikette"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Name"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Farbe"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Etikette hinzufügen"
+
+#: /templates/github/labels.index.twig:43
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/labels.index.twig:58
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr "Löschen"
+
+#: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Statistiken"
+
+#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - Hooks"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "Hooks auflisten"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "Neuer Hook"
+
+#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "Ereignisse"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "Hinweis: Durch Komma getrennt, keine Leerzeichen"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "Hook hinzufügen"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Typ"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Status"
+
+#: /templates/github/hooks.index.twig:89
+msgid "Actions"
+msgstr "Aktionen"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Aktiv"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "Deaktivieren"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "Aktivieren"

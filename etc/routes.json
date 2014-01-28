@@ -42,6 +42,8 @@
 	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Issue\\Ajax\\Info",
 	"submit/vote"                         : "\\Tracker\\Controller\\Issue\\Ajax\\Vote",
 	"submit/comment"                      : "\\Tracker\\Controller\\Comment\\Ajax\\Submit",
+	"upload/put"                          : "\\Tracker\\Controller\\Upload\\Ajax\\Put",
+	"upload/delete"                       : "\\Tracker\\Controller\\Upload\\Ajax\\Delete",
 
 	"project/:project_alias/hooks"        : "\\GitHub\\Controller\\Hooks",
 	"project/:project_alias/labels"       : "\\GitHub\\Controller\\Labels",

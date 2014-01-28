@@ -34,5 +34,15 @@
                 "homepage": "https://github.com/"
             }
         ]
+    },
+    {
+        "group": "Translations",
+        "items": [
+            {
+                "title": "Transifex",
+                "description": "The Issue Tracker utilizes Transifex to manage translations of the user interface.",
+                "homepage": "https://www.transifex.com/"
+            }
+        ]
     }
 ]

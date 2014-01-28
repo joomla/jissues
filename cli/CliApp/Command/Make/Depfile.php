@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace CliApp\Command\Make;
@@ -64,10 +64,10 @@ class Depfile extends Make
 	/**
 	 * Execute the command.
 	 *
-	 * @throws \Exception
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \Exception
 	 */
 	public function execute()
 	{
@@ -223,6 +223,78 @@ class Depfile extends Make
 
 		$sorted['credits'] = $defined['credits'];
 
+		$sorted['lang-credits'] = $this->checkLanguageFiles();
+
 		return $sorted;
+	}
+
+	/**
+	 * Extract information about the translators from the language files.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	private function checkLanguageFiles()
+	{
+		$list      = array();
+
+		$langTags = $this->getApplication()->get('languages');
+
+		foreach ($langTags as $langTag)
+		{
+			$path = JPATH_ROOT . '/src/JTracker/g11n/' . $langTag . '/' . $langTag . '.JTracker.po';
+
+			if (false == file_exists($path))
+			{
+				continue;
+			}
+
+			$langInfo = new \stdClass;
+
+			$langInfo->tag = $langTag;
+			$langInfo->translators = array();
+
+			$translators = array();
+
+			$f = fopen($path, 'r');
+
+			$line = '#';
+
+			while ($line)
+			{
+				$line = fgets($f, 1000);
+
+				if (0 !== strpos($line, '#'))
+				{
+					$line = '';
+					continue;
+				}
+
+				if (false == strpos($line, '<'))
+				{
+					continue;
+				}
+
+				$line = trim($line, "# \n");
+
+				$translators[] = $line;
+			}
+
+			fclose($f);
+
+			foreach ($translators as $translator)
+			{
+				$t = new \stdClass;
+
+				$t->translator = $translator;
+
+				$langInfo->translators[] = $t;
+			}
+
+			$list[] = $langInfo;
+		}
+
+		return $list;
 	}
 }

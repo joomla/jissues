@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Projects Application
  *
- * @copyright  Copyright (C) 2013 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Projects;
@@ -425,11 +425,12 @@ class TrackerProject implements \Serializable
 	}
 
 	/**
-	 * (PHP 5 &gt;= 5.1.0)<br/>
 	 * String representation of object
 	 *
-	 * @link http://php.net/manual/en/serializable.serialize.php
-	 * @return string the string representation of the object or null
+	 * @return  string  The string representation of the object or null
+	 *
+	 * @link    http://php.net/manual/en/serializable.serialize.php
+	 * @since   1.0
 	 */
 	public function serialize()
 	{
@@ -449,14 +450,14 @@ class TrackerProject implements \Serializable
 	}
 
 	/**
-	 * (PHP 5 &gt;= 5.1.0)<br/>
 	 * Constructs the object
 	 *
 	 * @param   string  $serialized  The string representation of the object.
 	 *
-	 * @link http://php.net/manual/en/serializable.unserialize.php
+	 * @return  void
 	 *
-	 * @return void
+	 * @link    http://php.net/manual/en/serializable.unserialize.php
+	 * @since   1.0
 	 */
 	public function unserialize($serialized)
 	{

@@ -34,6 +34,20 @@ The Joomla Framework is a platform for writing Web and command line applications
 * Installed: 1.0
 * Source URL: https://github.com/joomla/joomla-framework-date.git
 
+#### joomla/di (1.0.*@stable)
+
+Joomla DI Package
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-di.git
+
+#### joomla/event (1.0.*@stable)
+
+Joomla Event Package
+
+* Installed: 1.0
+* Source URL: https://github.com/joomla/joomla-framework-event.git
+
 #### joomla/filter (1.0.*@stable)
 
 The Joomla Framework is a platform for writing Web and command line applications in PHP.
@@ -122,7 +136,7 @@ The Joomla Framework is a platform for writing Web and command line applications
 
 Symfony HttpFoundation Component
 
-* Installed: v2.3.7
+* Installed: v2.3.9
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -146,6 +160,20 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
+#### babdev/library (dev-master)
+
+BabDev's PHP libraries
+
+* Installed: dev-master 4577faaca74c50ff436122bb02008d7f11379548
+* Source URL: https://github.com/BabDev/BabDev-Library.git
+
+#### codeguy/upload (*)
+
+Handle file uploads with extensible validation and storage strategies
+
+* Installed: dev-master 9444cfb3ffa825b33d7c4503c3ac207dcd8a9035
+* Source URL: https://github.com/codeguy/Upload.git
+
 ### PHP - Development
 
 #### monolog/monolog (1.6.0)
@@ -166,7 +194,7 @@ Kint - debugging helper for PHP developers
 
 php error handling for cool kids
 
-* Installed: 1.0.9
+* Installed: 1.0.10
 * Source URL: https://github.com/filp/whoops.git
 
 #### mustache/mustache (2.1.*)
@@ -175,6 +203,13 @@ A Mustache implementation in PHP.
 
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php.git
+
+#### squizlabs/php_codesniffer (1.*)
+
+PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
+
+* Installed: 1.5.1
+* Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
 
 ### JavaScript
 
@@ -202,11 +237,21 @@ Unofficial bootstrap switch
 
 * Source URL: https://github.com/kaiwa/markitup
 
-#### blueimp-tmpl (2.4.0)
+#### blueimp-tmpl (2.5.3)
 
 &lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
 
 * Source URL: https://github.com/blueimp/JavaScript-Templates
+
+#### blueimp-file-upload (9.3.0)
+
+File Upload widget with multiple file selection, drag&amp;amp;drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.
+
+* Source URL: https://github.com/blueimp/jQuery-File-Upload
+
+#### jquery-textrange (1.1.0)
+
+* Source URL: https://github.com/dwieeb/jquery-textrange
 
 ## Credits
 
@@ -239,3 +284,26 @@ Sublime Text is a sophisticated text editor for code, markup and prose.
 GitHub acts as our authentication provider, software repository, markdown parser engine and general service provider for the issue tracker infrastructures.
 
 * https://github.com/
+
+### Translations
+
+#### Transifex
+
+The Issue Tracker utilizes Transifex to manage translations of the user interface.
+
+* https://www.transifex.com/
+
+### Translators
+
+#### de-DE
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013
+
+#### ru-RU
+* Dmitrijs Rekuns &lt;bzzjuka@gmail.com&gt;, 2014
+
+#### pt-PT
+* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+
+#### nl-NL
+* Herman Peeren &lt;herman@yepr.nl&gt;, 2014
+

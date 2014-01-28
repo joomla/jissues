@@ -2,8 +2,8 @@
 /**
  * Part of the Joomla Tracker's Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Controller\Hooks;
@@ -21,6 +21,14 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
  */
 class ReceiveIssuesHook extends AbstractHookController
 {
+	/**
+	 * The type of hook being executed
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $type = 'issues';
+
 	/**
 	 * Execute the controller.
 	 *
@@ -141,6 +149,8 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->container->get('app')->close();
 		}
 
+		$this->triggerEvent('onIssueAfterCreate', $table);
+
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
@@ -256,6 +266,8 @@ class ReceiveIssuesHook extends AbstractHookController
 
 			$this->container->get('app')->close();
 		}
+
+		$this->triggerEvent('onIssueAfterUpdate', $table);
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
