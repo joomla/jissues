@@ -30,6 +30,7 @@ class Server extends Update
 	 *
 	 * @return  void
 	 *
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
 	public function execute()
@@ -38,7 +39,24 @@ class Server extends Update
 
 		$this->logOut('Beginning git update');
 
-		system('git pull');
+		$output = system('cd ' . JPATH_ROOT . ' && git pull 2>&1', $status);
+
+		if ($status)
+		{
+			// Command exited with a status != 0
+			if ($output)
+			{
+				$this->logOut($output);
+
+				throw new \RuntimeException($output);
+			}
+
+			$this->logOut('An unknown error occurred');
+
+			throw new \RuntimeException('An unknown error occurred');
+		}
+
+		$this->logOut('Git update Finished');
 
 		with(new Repoinfo)
 			->setContainer($this->getContainer())
