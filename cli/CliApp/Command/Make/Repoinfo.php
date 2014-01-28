@@ -36,14 +36,29 @@ class Repoinfo extends Make
 		$this->getApplication()->outputTitle('Generate Repoinfo');
 		$this->logOut('Generating Repoinfo.');
 
-		ob_start();
-		system('git describe --long --dirty --abbrev=10 --tags', $currentSHA);
-		$currentSHA = trim(ob_get_clean());
+		$output = system('cd ' . JPATH_ROOT . ' && git describe --long --dirty --abbrev=10 --tags 2>&1', $status);
+
+		if ($status)
+		{
+			if ($output)
+			{
+				// Command exited with a status != 0
+				$this->logOut($output);
+
+				throw new \RuntimeException($output);
+			}
+
+			$this->logOut('An unknown error occured');
+
+			throw new \RuntimeException('An unknown error occured');
+		}
 
 		$path = JPATH_ROOT . '/current_SHA';
 
-		if (false == file_put_contents($path, $currentSHA))
+		if (false == file_put_contents($path, $output))
 		{
+			$this->logOut(sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
+
 			throw new \DomainException('Can not write to path: ' . $path);
 		}
 
