@@ -456,12 +456,13 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 *
 	 * @param   string                 $eventName  Name of the event to trigger
 	 * @param   AbstractDatabaseTable  $table      Table object
+	 * @param   array                  $optional   Associative array of optional arguments for the event
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function triggerEvent($eventName, AbstractDatabaseTable $table)
+	protected function triggerEvent($eventName, AbstractDatabaseTable $table, array $optional = array())
 	{
 		if ($this->listenerSet)
 		{
@@ -473,6 +474,15 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 				->addArgument('github', $this->github)
 				->addArgument('logger', $this->logger)
 				->addArgument('project', $this->project);
+
+			// Add optional params if present
+			if (count($optional) > 0)
+			{
+				foreach ($optional as $name => $value)
+				{
+					$event->addArgument($name, $value);
+				}
+			}
 
 			// Trigger the event
 			$this->dispatcher->triggerEvent($event);

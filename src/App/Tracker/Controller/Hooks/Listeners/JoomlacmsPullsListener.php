@@ -34,11 +34,15 @@ class JoomlacmsPullsListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
-		// Check pull requests for a PR-<branch> label
-		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		// Only perform these events if this is a new pull, action will be 'opened'
+		if ($arguments['action'] === 'opened')
+		{
+			// Check pull requests for a PR-<branch> label
+			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-		// Check if the pull request targets the master branch
-		$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+			// Check if the pull request targets the master branch
+			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		}
 	}
 
 	/**
@@ -60,12 +64,17 @@ class JoomlacmsPullsListener
 			// Post a comment on the PR asking to open a pull against staging
 			try
 			{
+				$appNote .= sprintf(
+					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
+					'https://github.com/joomla/jissues', 'J!Tracker'
+				);
+
 				$github->issues->comments->create(
 					$project->gh_user,
 					$project->gh_project,
 					$hookData->pull_request->number,
 					'Pull requests to the master branch of this repo are not accepted.  '
-					. 'Please close this pull request and submit a new one against the staging branch.'
+					. 'Please close this pull request and submit a new one against the staging branch.' . $appNote
 				);
 
 				// Log the activity

@@ -175,7 +175,7 @@ class ReceivePullsHook extends AbstractHookController
 			$this->container->get('app')->close();
 		}
 
-		$this->triggerEvent('onPullAfterCreate', $table);
+		$this->triggerEvent('onPullAfterCreate', $table, array('action' => $action));
 
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->data->user->login . '.png'))
