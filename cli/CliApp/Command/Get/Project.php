@@ -126,7 +126,7 @@ class Project extends Get
 			->processEvents()
 			->processAvatars()
 			->out()
-			->logOut('Bulk Finished');
+			->logOut('---- Bulk Finished');
 	}
 
 	/**
