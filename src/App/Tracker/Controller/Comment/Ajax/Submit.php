@@ -107,6 +107,20 @@ class Submit extends AbstractAjaxController
 
 		$table->store();
 
+		// Update issue
+		$db->setQuery(
+			$db->getQuery(true)
+				->update($db->quoteName('#__issues'))
+				->set(
+					array(
+						$db->quoteName('modified_date') . ' = ' . $db->quote($table->created_date),
+						$db->quoteName('modified_by') . ' = ' . $db->quote($table->user)
+					)
+				)
+				->where($db->quoteName('issue_number') . ' = ' . (int) $table->issue_number)
+				->where($db->quoteName('project_id') . ' = ' . (int) $table->project_id)
+		)->execute();
+
 		$data->activities_id = $table->activities_id;
 
 		$this->response->data    = $data;

@@ -315,6 +315,20 @@ class Comments extends Get
 
 				$table->store();
 
+				// Update issue
+				$query->clear()
+					->update($db->quoteName('#__issues'))
+					->set(
+						array(
+							$db->quoteName('modified_date') . ' = ' . $db->quote($table->created_date),
+							$db->quoteName('modified_by') . ' = ' . $db->quote($table->user)
+						)
+					)
+					->where($db->quoteName('issue_number') . ' = ' . (int) $issue->issue_number)
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+
+				$db->setQuery($query)->execute();
+
 				++ $adds;
 			}
 		}
