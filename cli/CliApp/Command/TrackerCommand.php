@@ -368,4 +368,36 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 		return $this;
 	}
+
+	/**
+	 * Execute a command on the server.
+	 *
+	 * @param   string  $command  The command to execute.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 * @throws \RuntimeException
+	 */
+	protected function execCommand($command)
+	{
+		$lastLine = system($command, $status);
+
+		if ($status)
+		{
+			// Command exited with a status != 0
+			if ($lastLine)
+			{
+				$this->logOut($lastLine);
+
+				throw new \RuntimeException($lastLine);
+			}
+
+			$this->logOut('An unknown error occurred');
+
+			throw new \RuntimeException('An unknown error occurred');
+		}
+
+		return $lastLine;
+	}
 }
