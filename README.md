@@ -10,7 +10,7 @@ The application also has external dependencies installable via Composer.  You ca
 ## Setup
 
 1. Clone the git repo to where ever your test environment is located or download a ZIP file.
-    **Note** If you plan to contribute to the project, you might have to use `git clone --recursive` to get the submodules checked out.
+    * **Note** If you plan to contribute to the project, you might have to use `git clone --recursive` to get the submodules checked out.
 2. Copy `/etc/config.dist.json` to `/etc/config.json`.
 3. Enter your database credentials in the `/etc/config.json` file.
 4. Install dependencies from Composer by running `composer install` (or the equivalent for your system).  If you need to install Composer, you can do so from http://getcomposer.org/download/.
