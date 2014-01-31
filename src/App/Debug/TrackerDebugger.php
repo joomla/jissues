@@ -413,9 +413,15 @@ class TrackerDebugger implements LoggerAwareInterface
 			$title = $project ? $project->title : g11n3t('No Project');
 
 			// Add build commit if available
+			$buildHref = '#';
+
 			if (file_exists(JPATH_ROOT . '/current_SHA'))
 			{
 				$build = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
+				preg_match('/-g([0-9a-z]+)/', $build, $matches);
+				$buildHref = $matches
+					? 'https://github.com/joomla/jissues/commit/' . $matches[1]
+					: '#';
 			}
 			// Fall back to composer.json version
 			else
@@ -441,7 +447,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			{
 				$navigation[] = '<li class="hasTooltip"'
 					. ' title="' . g11n3t('Build') . '">'
-					. '<a href="#"><i class="icon icon-broadcast"></i> <span class="badge">'
+					. '<a href="' . $buildHref . '"><i class="icon icon-broadcast"></i> <span class="badge">'
 					. $build
 					. '</span></a></li>';
 			}

@@ -38,24 +38,7 @@ class Server extends Update
 		$this->getApplication()->outputTitle('Update Server');
 
 		$this->logOut('Beginning git update');
-
-		$output = system('cd ' . JPATH_ROOT . ' && git pull 2>&1', $status);
-
-		if ($status)
-		{
-			// Command exited with a status != 0
-			if ($output)
-			{
-				$this->logOut($output);
-
-				throw new \RuntimeException($output);
-			}
-
-			$this->logOut('An unknown error occurred');
-
-			throw new \RuntimeException('An unknown error occurred');
-		}
-
+		$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
 		$this->logOut('Git update Finished');
 
 		with(new Repoinfo)

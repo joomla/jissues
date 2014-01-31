@@ -10,29 +10,21 @@ The application also has external dependencies installable via Composer.  You ca
 ## Setup
 
 1. Clone the git repo to where ever your test environment is located or download a ZIP file.
-2. Copy `/etc/config.dist.json` to `/etc/config.json`.
-3. Enter your database credentials in the `/etc/config.json` file.
-4. Install dependencies from Composer by running `composer install` (or the equivalent for your system).  If you need to install Composer, you can do so from http://getcomposer.org/download/.
-5. Install media files from Bower by running   `bower install`. If you need to install Bower you can do so by using NPM. Read more http://bower.io/.
+    * **Note** If you plan to contribute to the project, you might have to use `git clone --recursive` to get the submodules checked out.
+1. Copy `etc/config.dist.json` to `etc/config.json`.
+1. In the `etc/config.json` file, enter your database credentials and other information.
+1. Run `composer install` (or the equivalent for your system) to install dependencies from Composer.
+    * If you need to install Composer, you can do so from http://getcomposer.org/download/.
+1. Run `bower install` to install media files from Bower
+    * If you need to install Bower you can do so by using NPM. Read more http://bower.io/.
+1. From a command prompt, run the script located at `cli/tracker.php` with the install option to set up your database.
+    * `./cli/tracker.php install`
 
-From this point, you can setup your database in one of two ways:
+Verify the installation is successful by doing the following:
 
-*Preferred*
-
-1. From a command prompt, run the script located at `cli/tracker.php` with the install option to set up your database.<br />`tracker.php install`
-
-*Alternate*
-
-If you are in an environment where you cannot execute PHP scripts from the command line, you can set up your database with the following steps:
-
-1. Open `/etc/mysql.sql` and do a find/replace from `#__` to whatever your prefix is, and save.
-2. Import the SQL into your database.
-
-After setting up your database, verify the installation is successful by doing the following:
-
-1. View the site in your browser to verify setup.
-2. Open a console and execute cli/tracker.php with the `get` option to pull issues, issue comments and other information related to the project from GitHub.<br />
-`cli/tracker.php get project`
+1. View the site in your browser.
+1. Open a console and execute the `tracker.php` script with the `get project` option to pull issues, issue comments and other information related to the project from GitHub.
+    * `cli/tracker.php get project`
 
 See also: [CLI script](Documentation/CLI-script.md).
 

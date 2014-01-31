@@ -24,6 +24,14 @@ class Pulls extends Update
 	protected $description = 'Updates selected information for pull requests on GitHub for a specified project.';
 
 	/**
+	 * Array containing the pull requests being processed
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $pulls = array();
+
+	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -49,58 +57,74 @@ class Pulls extends Update
 						$this->project->gh_project
 					)
 				)
-			->tagPulls()
+			->fetchPulls()
+			->labelPulls()
+			->updatePullStatus()
 			->out()
 			->logOut('Finished');
 	}
 
 	/**
-	 * Tag pull requests
+	 * Retrieves pull requests
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function tagPulls()
+	protected function fetchPulls()
+	{
+		$this->out(sprintf('Retrieving <b>open</b> pull requests from GitHub...'), false);
+		$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
+
+		$pulls = array();
+		$page  = 0;
+
+		do
+		{
+			$page++;
+			$pulls_more = $this->github->pulls->getList(
+				// Owner
+				$this->project->gh_user,
+				// Repository
+				$this->project->gh_project,
+				// State
+				'open',
+				// Page
+				$page,
+				// Count
+				100
+			);
+
+			$count = is_array($pulls_more) ? count($pulls_more) : 0;
+
+			if ($count)
+			{
+				$pulls = array_merge($pulls, $pulls_more);
+
+				$this->out('(' . $count . ')', false);
+			}
+		}
+
+		while ($count);
+
+		$this->pulls = $pulls;
+
+		return $this;
+	}
+
+	/**
+	 * Label pull requests
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function labelPulls()
 	{
 		// Only process for joomla/joomla-cms
 		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
 		{
-			$this->out(sprintf('Retrieving <b>open</b> pull requests from GitHub...'), false);
-			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
-
-			$pulls = array();
-			$page  = 0;
-
-			do
-			{
-				$page++;
-				$pulls_more = $this->github->pulls->getList(
-					// Owner
-					$this->project->gh_user,
-					// Repository
-					$this->project->gh_project,
-					// State
-					'open',
-					// Page
-					$page,
-					// Count
-					100
-				);
-
-				$count = is_array($pulls_more) ? count($pulls_more) : 0;
-
-				if ($count)
-				{
-					$pulls = array_merge($pulls, $pulls_more);
-
-					$this->out('(' . $count . ')', false);
-				}
-			}
-
-			while ($count);
-
-			foreach ($pulls as $pull)
+			foreach ($this->pulls as $pull)
 			{
 				// Extract some data
 				$pullID     = $pull->number;
@@ -146,6 +170,53 @@ class Pulls extends Update
 
 					$this->github->issues->labels->add(
 						$this->project->gh_user, $this->project->gh_project, $pullID, array($issueLabel)
+					);
+				}
+			}
+		}
+		else
+		{
+			$this->out(
+				sprintf(
+					'The %s/%s project is not supported by this command at this time.',
+					$this->project->gh_user,
+					$this->project->gh_project
+				)
+			);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Updates the status of a pull request if needed
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function updatePullStatus()
+	{
+		// Only process for joomla/joomla-cms
+		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
+		{
+			$message = 'This pull request is targeted at the master branch.  Pull requests should no longer be merged to master.';
+
+			foreach ($this->pulls as $pull)
+			{
+				if ($pull->base->ref == 'master')
+				{
+					$this->github->repositories->statuses->create(
+						$this->project->gh_user, $this->project->gh_project, $pull->head->sha, 'error', null, $message
+					);
+
+					$this->out(
+						sprintf(
+							'GitHub item %s/%s #%d has had its merge status set to "error".',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$pull->number
+						)
 					);
 				}
 			}
