@@ -65,7 +65,7 @@ class Langfiles extends Test
 
 		$scopes = array(
 			'Core' => array(
-				'JTracker'
+				'JTracker', 'JTracker.js'
 			),
 			'Template' => array(
 				'JTracker'
@@ -94,8 +94,12 @@ class Langfiles extends Test
 						?  '/' . $extension . '.pot'
 						:  '/' . $language . '.' . $extension . '.po';
 
+					$this->debugOut(sprintf('Check: %s-%s %s in %s', $domain, $extension, $language, $path));
+
 					if (false == file_exists($path))
 					{
+						$this->debugOut('not found');
+
 						continue;
 					}
 
@@ -107,6 +111,10 @@ class Langfiles extends Test
 						// If the command produces any output, that means errors.
 						$errors = true;
 						$this->out($output);
+					}
+					else
+					{
+						$this->debugOut('ok');
 					}
 				}
 			}
