@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: core.js - CoreJS 123.456\n"
-"Report-Msgid-Bugs-To: info@example.com\n"
-"POT-Creation-Date: 2013-11-16 10:29-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 13:39-0500\n"
 "PO-Revision-Date: 2013-11-16 08:29-0500\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Language ru-RU\n"
 "Language: ru-RU\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /www/jtracker/core/js/jtracker.js:11
