@@ -33,29 +33,15 @@ class Repoinfo extends Make
 	 */
 	public function execute()
 	{
+		$path = JPATH_ROOT . '/current_SHA';
+
 		$this->getApplication()->outputTitle('Generate Repoinfo');
 		$this->logOut('Generating Repoinfo.');
 
-		$output = system('cd ' . JPATH_ROOT . ' && git describe --long --dirty --abbrev=10 --tags 2>&1', $status);
+		$info   = $this->execCommand('cd ' . JPATH_ROOT . ' && git describe --long --abbrev=10 --tags 2>&1');
+		$branch = $this->execCommand('cd ' . JPATH_ROOT . ' && git rev-parse --abbrev-ref HEAD 2>&1');
 
-		if ($status)
-		{
-			if ($output)
-			{
-				// Command exited with a status != 0
-				$this->logOut($output);
-
-				throw new \RuntimeException($output);
-			}
-
-			$this->logOut('An unknown error occured');
-
-			throw new \RuntimeException('An unknown error occured');
-		}
-
-		$path = JPATH_ROOT . '/current_SHA';
-
-		if (false == file_put_contents($path, $output))
+		if (false == file_put_contents($path, $info . ' ' . $branch))
 		{
 			$this->logOut(sprintf('Can not write to path: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)));
 
