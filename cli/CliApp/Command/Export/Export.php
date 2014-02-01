@@ -91,7 +91,9 @@ class Export extends TrackerCommand
 	 */
 	protected function setup()
 	{
-		$this->exportDir = $this->getApplication()->input->getPath('output', $this->getApplication()->input->getPath('o'));
+		// @todo report a bug in getPath()
+		// @$this->exportDir = $this->getApplication()->input->getPath('output', $this->getApplication()->input->getPath('o'));
+		$this->exportDir = $this->getApplication()->input->get('output', $this->getApplication()->input->get('o', '', 'raw'), 'raw');
 
 		if (!$this->exportDir)
 		{
