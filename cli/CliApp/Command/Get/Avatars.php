@@ -32,9 +32,6 @@ class Avatars extends Get
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
-		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 	}
 
 	/**
@@ -46,8 +43,6 @@ class Avatars extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Avatars');
-
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
 		if ($this->getApplication()->input->get('noprogress'))
@@ -55,9 +50,12 @@ class Avatars extends Get
 			$this->usePBar = false;
 		}
 
+		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
+
+		$this->getApplication()->outputTitle('Retrieve Avatars');
+
 		$this->logOut('Start retrieve Avatars.')
 			->setupGitHub()
-			->displayGitHubRateLimit()
 			->fetchAvatars()
 			->out()
 			->logOut('Finished.');
@@ -123,7 +121,7 @@ class Avatars extends Get
 			{
 				$loginHelper->saveAvatar($username);
 
-				++ $adds;
+				++$adds;
 			}
 			catch (\DomainException $e)
 			{

@@ -6,10 +6,11 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace CliApp\Command\Get;
+namespace CliApp\Command\Get\Project;
 
 use App\Tracker\Table\ActivitiesTable;
 
+use CliApp\Command\Get\Project;
 use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
@@ -19,7 +20,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Events extends Get
+class Events extends Project
 {
 	/**
 	 * The command "description" used for help texts.
@@ -35,31 +36,7 @@ class Events extends Get
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $events = array();
-
-	/**
-	 * Array containing the issues from the database and their GitHub ID.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $issues;
-
-	/**
-	 * Lowest issue to fetch.
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	protected $rangeFrom = 0;
-
-	/**
-	 * Highest issue to fetch.
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	protected $rangeTo = 0;
+	protected $items = array();
 
 	/**
 	 * Constructor.
@@ -96,86 +73,25 @@ class Events extends Get
 
 		$this->logOut('Start retrieve Events')
 			->selectProject()
-			->selectRange()
 			->setupGitHub()
-			->displayGitHubRateLimit()
-			->getIssues()
-			->getEvents()
-			->processEvents()
+			->fetchData()
+			->processData()
 			->out()
 			->logOut('Finished');
 	}
 
 	/**
-	 * Select the range of issues to process.
+	 * Set the changed issues.
 	 *
-	 * @return  $this
+	 * @param   array  $changedIssueNumbers  List of changed issue numbers.
 	 *
-	 * @since   1.0
-	 */
-	protected function selectRange()
-	{
-		$issue = $this->getApplication()->input->getInt('issue');
-
-		if ($issue)
-		{
-			$this->rangeFrom = $issue;
-			$this->rangeTo   = $issue;
-		}
-		elseif ($this->getApplication()->input->get('all'))
-		{
-			// Do nothing
-		}
-		else
-		{
-			// Limit issues to process
-			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
-
-			$resp = trim($this->getApplication()->in());
-
-			if ($resp == 'r' || $resp == 'range')
-			{
-				// Get the first GitHub issue (from)
-				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
-				$this->rangeFrom = (int) trim($this->getApplication()->in());
-
-				// Get the ending GitHub issue (to)
-				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
-				$this->rangeTo = (int) trim($this->getApplication()->in());
-			}
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Method to get the GitHub issues from the database
-	 *
-	 * @return  $this
+	 * @return $this
 	 *
 	 * @since   1.0
 	 */
-	protected function getIssues()
+	public function setChangedIssueNumbers(array $changedIssueNumbers)
 	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
-
-		$query = $db->getQuery(true);
-
-		$query->select($db->quoteName('issue_number'))
-			->from($db->quoteName('#__issues'))
-			->where($db->quoteName('project_id') . '=' . (int) $this->project->project_id);
-
-		// Issues range selected?
-		if ($this->rangeTo != 0 && $this->rangeTo >= $this->rangeFrom)
-		{
-			$query->where($db->quoteName('issue_number') . ' >= ' . (int) $this->rangeFrom);
-			$query->where($db->quoteName('issue_number') . ' <= ' . (int) $this->rangeTo);
-		}
-
-		$db->setQuery($query);
-
-		$this->issues = $db->loadObjectList();
+		$this->changedIssueNumbers = $changedIssueNumbers;
 
 		return $this;
 	}
@@ -187,40 +103,52 @@ class Events extends Get
 	 *
 	 * @since   1.0
 	 */
-	protected function getEvents()
+	protected function fetchData()
 	{
-		$this->out(sprintf('Retrieving events for <b>%d</b> issue(s) from GitHub...', count($this->issues)), false);
+		if (!$this->changedIssueNumbers)
+		{
+			return $this;
+		}
 
-		$progressBar = $this->getProgressBar(count($this->issues));
+		$this->out(sprintf('Fetch events for <b>%d</b> issue(s) from GitHub...', count($this->changedIssueNumbers)), false);
+
+		$progressBar = $this->getProgressBar(count($this->changedIssueNumbers));
 
 		$this->usePBar ? $this->out() : null;
 
-		foreach ($this->issues as $count => $issue)
+		foreach ($this->changedIssueNumbers as $count => $issueNumber)
 		{
 			$this->usePBar
 				? $progressBar->update($count + 1)
-				: $this->out($count + 1 . '...', false);
+				: $this->out(
+					sprintf(
+						'%d/%d - # %d: ', $count + 1, count($this->changedIssueNumbers), $issueNumber
+					),
+					false
+				);
 
 			$page = 0;
-			$this->events[$issue->issue_number] = array();
+			$this->items[$issueNumber] = array();
 
 			do
 			{
 				$page++;
 
 				$events = $this->github->issues->events->getList(
-					$this->project->gh_user, $this->project->gh_project, $issue->issue_number, $page, 100
+					$this->project->gh_user, $this->project->gh_project, $issueNumber, $page, 100
 				);
+
+				$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
 
 				$count = is_array($events) ? count($events) : 0;
 
 				if ($count)
 				{
-					$this->events[$issue->issue_number] = array_merge($this->events[$issue->issue_number], $events);
+					$this->items[$issueNumber] = array_merge($this->items[$issueNumber], $events);
 
 						$this->usePBar
-						? null
-						: $this->out($count . ' ', false);
+							? null
+							: $this->out($count . ' ', false);
 				}
 			}
 
@@ -242,32 +170,39 @@ class Events extends Get
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	protected function processEvents()
+	protected function processData()
 	{
+		if (!$this->items)
+		{
+			$this->logOut('Everything is up to date.');
+
+			return $this;
+		}
+
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
-		// Initialize our database object
 		$query = $db->getQuery(true);
 
 		$this->out('Adding events to the database...', false);
 
-		$progressBar = $this->getProgressBar(count($this->issues));
+		$progressBar = $this->getProgressBar(count($this->items));
 
 		$this->usePBar ? $this->out() : null;
 
 		$adds = 0;
+		$count = 0;
 
-		// Start processing the comments now
-		foreach ($this->issues as $count => $issue)
+		// Initialize our ActivitiesTable instance to insert the new record
+		$table = new ActivitiesTable($db);
+
+		foreach ($this->items as $issueId => $events)
 		{
 			$this->usePBar
-				? $progressBar->update($count + 1)
-				: $this->out(($count + 1) . ':', false);
+				? null
+				: $this->out(sprintf(' #%d (%d/%d)...', $issueId, $count + 1, count($this->items)), false);
 
-			// First, we need to check if the issue is already in the database,
-			// we're injecting the GitHub comment ID for that
-			foreach ($this->events[$issue->issue_number] as $event)
+			foreach ($events as $event)
 			{
 				switch ($event->event)
 				{
@@ -278,21 +213,38 @@ class Events extends Get
 					case 'merged' :
 					case 'head_ref_deleted' :
 						$query->clear()
-							->select('COUNT(*)')
+							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
 							->where($db->quoteName('gh_comment_id') . ' = ' . (int) $event->id)
 							->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
 
 						$db->setQuery($query);
 
-						$result = (int) $db->loadResult();
+						$id = (int) $db->loadResult();
 
-						if ($result >= 1)
+						$table->reset();
+						$table->{$table->getKeyName()} = null;
+
+						if ($id && !$this->force)
 						{
-							// If we have something already, then move on to the next item
-							$this->usePBar ? null : $this->out('-', false);
+							if ($this->force)
+							{
+								// Force update
+								$this->usePBar ? null : $this->out('F', false);
 
-							continue;
+								$table->{$table->getKeyName()} = $id;
+							}
+							else
+							{
+								// If we have something already, then move on to the next item
+								$this->usePBar ? null : $this->out('-', false);
+
+								continue;
+							}
+						}
+						else
+						{
+							$this->usePBar ? null : $this->out('+', false);
 						}
 
 						$evTrans = array(
@@ -300,13 +252,8 @@ class Events extends Get
 							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted'
 						);
 
-						$this->usePBar ? null : $this->out('+', false);
-
-						// Initialize our ActivitiesTable instance to insert the new record
-						$table = new ActivitiesTable($db);
-
 						$table->gh_comment_id = $event->id;
-						$table->issue_number  = $issue->issue_number;
+						$table->issue_number  = $issueId;
 						$table->project_id    = $this->project->project_id;
 						$table->user          = $event->actor->login;
 						$table->event         = $evTrans[$event->event];
@@ -315,11 +262,15 @@ class Events extends Get
 
 						if ('referenced' == $event->event)
 						{
+							// @todo obtain referenced information
+
+							/*
 							$reference = $this->github->issues->events->get(
 								$this->project->gh_user, $this->project->gh_project, $event->id
 							);
 
-							// @todo obtain referenced information
+							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
+							*/
 						}
 
 						if ('assigned' == $event->event)
@@ -330,6 +281,8 @@ class Events extends Get
 
 							$table->text_raw = 'Assigned to ' . $reference->issue->assignee->login;
 							$table->text = $table->text_raw;
+
+							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
 						}
 
 						$table->store();
@@ -342,7 +295,7 @@ class Events extends Get
 						continue;
 						break;
 
-					case 'head_ref_deleted' :
+					case 'xxhead_ref_deleted' :
 						// ?
 						continue;
 						break;
@@ -353,6 +306,12 @@ class Events extends Get
 						break;
 				}
 			}
+
+			++ $count;
+
+			$this->usePBar
+				? $progressBar->update($count)
+				: null;
 		}
 
 		$this->out()

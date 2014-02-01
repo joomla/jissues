@@ -216,8 +216,14 @@ or "devdox" == firstPart
     </li>
 {% else %}
     <li class="pull-right">
-        <a class="btn-success" href="{{ loginUrl }}">
-            {{ "Login with GitHub"|_ }}
-        </a>
+        {% if loginUrl %}
+            <a class="btn-success" href="{{ loginUrl }}">
+                {{ "Login with GitHub"|_ }}
+            </a>
+        {% else %}
+            <a class="btn-danger" href="#">
+                {{ 'No GitHub credentials set in config'|_ }}
+            </a>
+        {% endif %}
     </li>
 {% endif %}

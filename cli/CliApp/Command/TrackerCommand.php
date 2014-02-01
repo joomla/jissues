@@ -366,6 +366,8 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
 
+		$this->getApplication()->input->set('project', $this->project->project_id);
+
 		return $this;
 	}
 
