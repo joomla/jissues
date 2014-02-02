@@ -247,6 +247,7 @@ class Events extends Project
 							$this->usePBar ? null : $this->out('+', false);
 						}
 
+						// Translate GitHub event names to "our" name schema
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
 							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted'
@@ -292,11 +293,7 @@ class Events extends Project
 
 					case 'mentioned' :
 					case 'subscribed' :
-						continue;
-						break;
-
-					case 'xxhead_ref_deleted' :
-						// ?
+					case 'unsubscribed' :
 						continue;
 						break;
 
