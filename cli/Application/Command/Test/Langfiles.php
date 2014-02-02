@@ -1,0 +1,127 @@
+<?php
+/**
+ * Part of the Joomla! Tracker application.
+ *
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
+ */
+
+namespace Application\Command\Test;
+
+use Application\Command\TrackerCommandOption;
+
+use g11n\Language\Storage;
+use g11n\Support\ExtensionHelper;
+use Joomla\Filesystem\Folder;
+use PHP_CodeSniffer_CLI;
+
+/**
+ * Class for checking language files.
+ *
+ * @since  1.0
+ */
+class Langfiles extends Test
+{
+	/**
+	 * The command "description" used for help texts.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $description = 'Check language files';
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'noprogress', '',
+				'Don\'t use a progress bar.'
+			)
+		);
+	}
+
+	/**
+	 * Execute the command.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
+	public function execute()
+	{
+		$this->getApplication()->outputTitle('Check language files');
+
+		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
+		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+
+		$scopes = array(
+			'Core' => array(
+				'JTracker'
+			),
+			'Template' => array(
+				'JTracker'
+			),
+			'App' => Folder::folders(JPATH_ROOT . '/src/App')
+		);
+
+		$languages = $this->getApplication()->get('languages');
+
+		$languages[] = 'templates';
+
+		$errors = false;
+
+		foreach ($scopes as $domain => $extensions)
+		{
+			foreach ($extensions as $extension)
+			{
+				$scopePath     = ExtensionHelper::getDomainPath($domain);
+				$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
+
+				foreach ($languages as $language)
+				{
+					$path = $scopePath . '/' . $extensionPath . '/' . $language;
+
+					$path .= ('templates' == $language)
+						?  '/' . $extension . '.pot'
+						:  '/' . $language . '.' . $extension . '.po';
+
+					if (false == file_exists($path))
+					{
+						continue;
+					}
+
+					// Check the language file for errors
+					$output = shell_exec('msgfmt -c ' . $path . ' 2>&1');
+
+					if ($output)
+					{
+						// If the command produces any output, that means errors.
+						$errors = true;
+						$this->out($output);
+					}
+				}
+			}
+		}
+
+		$this->out(
+			$errors
+			? '<error>There have been errors</error>'
+			: '<ok>Language file syntax OK</ok>'
+		);
+
+		$this
+			->out()
+			->out('Finished.');
+
+		exit($errors ? 1 : 0);
+	}
+}
