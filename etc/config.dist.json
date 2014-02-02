@@ -60,7 +60,7 @@
 	},
 
 	"languages": [
-		"en-GB", "de-DE", "ru-RU"
+		"en-GB", "de-DE", "ru-RU", "nl-NL", "pt-PT", "fr-FR"
 	],
 
 	"validation": {
