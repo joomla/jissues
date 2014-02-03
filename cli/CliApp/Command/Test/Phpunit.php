@@ -46,6 +46,6 @@ class Phpunit extends Test
 
 		$this
 			->out()
-			->out('Finished =;)');
+			->out('Finished.');
 	}
 }
