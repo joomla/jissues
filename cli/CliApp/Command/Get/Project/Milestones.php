@@ -6,9 +6,11 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace CliApp\Command\Get;
+namespace CliApp\Command\Get\Project;
 
 use App\Projects\Table\MilestonesTable;
+
+use CliApp\Command\Get\Project;
 
 use Joomla\Date\Date;
 
@@ -17,7 +19,7 @@ use Joomla\Date\Date;
  *
  * @since  1.0
  */
-class Milestones extends Get
+class Milestones extends Project
 {
 	/**
 	 * The command "description" used for help texts.
@@ -41,7 +43,6 @@ class Milestones extends Get
 		$this->logOut('Start retrieve Milestones')
 			->selectProject()
 			->setupGitHub()
-			->displayGitHubRateLimit()
 			->processMilestones()
 			->out()
 			->logOut('Finished');
@@ -103,7 +104,7 @@ class Milestones extends Get
 			}
 			catch (\RuntimeException $e)
 			{
-				// New label
+				// New milestone
 				$table->milestone_number = $milestone->number;
 				$table->project_id = $this->project->project_id;
 				$table->title = $milestone->title;
@@ -138,11 +139,13 @@ class Milestones extends Get
 			)->execute();
 		}
 
+		$cntDeleted = count($ids);
+
 		return $this->out('ok')
 			->logOut(
 				sprintf(
-					'Milestones: %1$d updated, %2$d new, %3$d deleted.',
-					$cntUpdated, $cntNew, count($ids)
+					'Milestones: %1$d new, %2$d updated, %3$d deleted.',
+					$cntNew, $cntUpdated, $cntDeleted
 				)
 			);
 	}

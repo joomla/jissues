@@ -55,10 +55,21 @@ class GitHubLoginHelper
 	 */
 	public function __construct(Container $container)
 	{
-		$this->container    = $container;
+		$this->container = $container;
 
+		// Single account
 		$this->clientId     = $this->container->get('app')->get('github.client_id');
 		$this->clientSecret = $this->container->get('app')->get('github.client_secret');
+
+		// Multiple accounts
+		if (!$this->clientId)
+		{
+			$gitHubAccounts = $this->container->get('app')->get('github.accounts');
+
+			// Use credentials from the first account
+			$this->clientId     = isset($gitHubAccounts[0]->client_id) ? $gitHubAccounts[0]->client_id : '';
+			$this->clientSecret = isset($gitHubAccounts[0]->client_secret) ? $gitHubAccounts[0]->client_secret : '';
+		}
 	}
 
 	/**
@@ -70,6 +81,13 @@ class GitHubLoginHelper
 	 */
 	public function getLoginUri()
 	{
+		if (!$this->clientId)
+		{
+			// No clientId set - Throw some fatal error...
+
+			return '';
+		}
+
 		/* @type \JTracker\Application $application */
 		$application = $this->container->get('app');
 

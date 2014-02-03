@@ -8,12 +8,16 @@
 		"prefix"  : ""
 	},
 
-	"github": {
-		"username"     : "",
-		"password"     : "",
-		"client_id"    : "",
-		"client_secret": ""
-	},
+    "github": {
+        "client_id"    : "",
+        "client_secret": "",
+        "accounts": [
+            {
+                "username": "",
+                "password": ""
+            }
+        ]
+    },
 
 	"transifex": {
 		"username": "",
@@ -56,7 +60,7 @@
 	},
 
 	"languages": [
-		"en-GB", "de-DE", "ru-RU"
+		"en-GB", "de-DE", "ru-RU", "nl-NL", "pt-PT", "fr-FR"
 	],
 
 	"validation": {

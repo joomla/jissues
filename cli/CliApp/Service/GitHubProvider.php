@@ -9,12 +9,13 @@
 namespace CliApp\Service;
 
 use Joomla\Github\Http;
-use Joomla\Github\Github;
 use Joomla\Http\HttpFactory;
 use Joomla\Http\Transport\Curl;
 use Joomla\Registry\Registry;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\DI\Container;
+
+use JTracker\Github\Github;
 
 /**
  * Class GitHubProvider
@@ -35,26 +36,49 @@ class GitHubProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->share('Joomla\\Github\\Github',
+		$container->share('JTracker\\Github\\Github',
 			function () use ($container)
 			{
 				$options = new Registry;
 
 				$app = $container->get('app');
 
-				$user     = $app->get('github.username');
-				$password = $app->get('github.password');
+				// Check for support for multiple accounts
+				$accounts = $app->get('github.accounts');
 
-				if ($user && $password)
+				if ($accounts)
 				{
-					// Set the options
-					$options->set('api.username', $user);
-					$options->set('api.password', $password);
+					$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
+					$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
+
+					if ($user && $password)
+					{
+						// Set the options from the first account
+						$options->set('api.username', $user);
+						$options->set('api.password', $password);
+					}
+
+					// Store the other accounts
+					$options->set('api.accounts', $accounts);
+				}
+				else
+				{
+					// Support for a single account
+					$user     = $app->get('github.username');
+					$password = $app->get('github.password');
+
+					if ($user && $password)
+					{
+						// Set the options
+						$options->set('api.username', $user);
+						$options->set('api.password', $password);
+					}
 				}
 
-				// @todo temporary fix to avoid the "Socket" transport protocol
+				// The cURL extension is required to properly work.
 				$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
+				// Check if we *really* got a cURL transport...
 				if (!($transport instanceof Curl))
 				{
 					throw new \RuntimeException('Please enable cURL.');
@@ -64,13 +88,10 @@ class GitHubProvider implements ServiceProviderInterface
 
 				// Instantiate Github
 				return new GitHub($options, $http);
-
-				// @todo after fix this should be enough:
-				// return new GitHub($options);
 			}, true
 		);
 
 		// Alias the object
-		$container->alias('gitHub', 'Joomla\\Github\\Github');
+		$container->alias('gitHub', 'JTracker\\Github\\Github');
 	}
 }

@@ -30,6 +30,7 @@ class Server extends Update
 	 *
 	 * @return  void
 	 *
+	 * @throws \RuntimeException
 	 * @since   1.0
 	 */
 	public function execute()
@@ -37,8 +38,8 @@ class Server extends Update
 		$this->getApplication()->outputTitle('Update Server');
 
 		$this->logOut('Beginning git update');
-
-		system('git pull');
+		$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
+		$this->logOut('Git update Finished');
 
 		with(new Repoinfo)
 			->setContainer($this->getContainer())

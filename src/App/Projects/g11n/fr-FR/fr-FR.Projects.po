@@ -1,0 +1,139 @@
+# JTracker App Projects 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Marc Antoine THEVENET <mat@idimweb.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-24 13:06-0500\n"
+"PO-Revision-Date: 2014-01-30 01:44+0000\n"
+"Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/projects/project.add.twig:11
+#: /templates/projects/project.edit.twig:11
+msgid "Save"
+msgstr "Enregistrer"
+
+#: /templates/projects/project.add.twig:20
+#: /templates/projects/project.edit.twig:30
+msgid "New project"
+msgstr "Nouveau projet"
+
+#: /templates/projects/project.add.twig:24
+#: /templates/projects/project.edit.twig:35
+msgid "Details"
+msgstr "Détails"
+
+#: /templates/projects/project.add.twig:28
+#: /templates/projects/project.edit.twig:37
+msgid "Title"
+msgstr "Titre"
+
+#: /templates/projects/project.add.twig:33
+#: /templates/projects/project.edit.twig:44
+msgid "Short Title"
+msgstr "Titre court"
+
+#: /templates/projects/project.add.twig:38
+#: /templates/projects/project.edit.twig:51
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.add.twig:43
+#: /templates/projects/project.edit.twig:58
+msgid "GitHub Owner"
+msgstr "Propriétaire GitHub"
+
+#: /templates/projects/project.add.twig:48
+#: /templates/projects/project.edit.twig:65
+msgid "GitHub Repo"
+msgstr "Répertoire GitHub"
+
+#: /templates/projects/project.add.twig:53
+#: /templates/projects/project.edit.twig:72
+msgid "External Tracker Link"
+msgstr "Lien Externe du Tracker"
+
+#: /templates/projects/project.edit.twig:17
+#: /templates/projects/projects.index.twig:64
+msgid "Delete"
+msgstr "Supprimer"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Éditer un projet"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projet"
+
+#: /templates/projects/project.index.twig:20
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projets"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Nouveau Projet"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Liste des Projets"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr "Actions"
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr "ID"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr "Crochets"
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr "Etiquettes"
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr "Statistiques"
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr "Groupes"
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr "Montrer"
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Éditer"
+
+#: /src/App/Projects/Table/ProjectsTable.php:57
+msgid "A title is required"
+msgstr "Un titre est nécessaire"
+
+#: /src/App/Projects/Table/ProjectsTable.php:62
+msgid "A short title is required"
+msgstr "Un titre court est nécessaire"
