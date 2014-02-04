@@ -233,7 +233,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Get the application object.
 	 *
-	 * @return  \Application\Application\Application
+	 * @return  \Application\Application
 	 *
 	 * @since   1.0
 	 */
