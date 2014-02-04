@@ -59,10 +59,11 @@ class TrackerExtension extends \Twig_Extension
 	public function getGlobals()
 	{
 		return array(
-			'uri'    => $this->container->get('app')->get('uri'),
-			'jdebug' => JDEBUG,
-			'lang'   => g11n::getCurrent(),
-			'languages' => $this->container->get('app')->get('languages')
+			'uri'            => $this->container->get('app')->get('uri'),
+			'languages'      => $this->container->get('app')->get('languages'),
+			'jdebug'         => JDEBUG,
+			'lang'           => g11n::getCurrent(),
+			'g11nJavaScript' => g11n::getJavaScript(),
 		);
 	}
 

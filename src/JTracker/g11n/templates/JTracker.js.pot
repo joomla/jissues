@@ -1,4 +1,4 @@
-# JTracker Core JTracker 1.0.0-beta
+# JTracker CoreJS core.js 1.0.0-beta
 # Copyright (C) 2012 - 2014 JTracker
 # This file is distributed under the same license as the JTracker package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -17,20 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /src/JTracker/Pagination/TrackerPagination.php:221
-#: /src/JTracker/Pagination/TrackerPagination.php:226
-msgid "Next"
+#: /www/jtracker/core/js/jtracker.js:11
+msgid "Loading preview..."
 msgstr ""
 
-#: /src/JTracker/Pagination/TrackerPagination.php:222
-#: /src/JTracker/Pagination/TrackerPagination.php:227
-msgid "Last"
+#: /www/jtracker/core/js/jtracker.js:22
+#: /www/jtracker/core/js/jtracker.js:43
+msgid "Invalid response."
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:372
-msgid "Yes"
+#: /www/jtracker/core/js/jtracker.js:35
+msgid "Submitting comment..."
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:372
-msgid "No"
+#: /www/jtracker/core/js/jtracker.js:67
+msgid "Adding vote..."
 msgstr ""
