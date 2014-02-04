@@ -6,16 +6,14 @@
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace CliApp\Command\Test;
-
-use PHPUnit_TextUI_Command;
+namespace Application\Command\Test;
 
 /**
- * Class for running PHPUnit tests.
+ * Class for running a test suite.
  *
  * @since  1.0
  */
-class Phpunit extends Test
+class Run extends Test
 {
 	/**
 	 * The command "description" used for help texts.
@@ -23,7 +21,7 @@ class Phpunit extends Test
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'Run PHPUnit tests';
+	protected $description = 'Run all tests';
 
 	/**
 	 * Execute the command.
@@ -34,18 +32,18 @@ class Phpunit extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Test PHPUnit');
+		$this->getApplication()->outputTitle('Test Suite');
 
-		$command = new PHPUnit_TextUI_Command;
+		with(new Checkstyle)
+			->setContainer($this->getContainer())
+			->execute();
 
-		$options = array(
-			' --configuration ' . JPATH_ROOT . '/phpunit.travis.xml'
-		);
-
-		$command->run($options, false);
+		with(new Phpunit)
+			->setContainer($this->getContainer())
+			->execute();
 
 		$this
 			->out()
-			->out('Finished.');
+			->out('Finished =;)');
 	}
 }
