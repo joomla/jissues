@@ -9,8 +9,11 @@
 namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
+
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
+
+use PHP_CodeSniffer_File;
 
 /**
  * Class for generating language template files.
@@ -131,6 +134,16 @@ class Langfiles extends Make
 		$languageFile = ExtensionHelper::findLanguageFile($lang, $extension, $domain);
 		$templateFile = Storage::getTemplatePath($extension, $domain);
 
+		// Check if the language file has UNIX style line endings.
+		if ("\n" != PHP_CodeSniffer_File::detectLineEndings($templateFile))
+		{
+			$this->out($templateFile)
+				->out('<error> The file does not have UNIX style line endings ! </error>')
+				->out();
+
+			return $this;
+		}
+
 		if (false == $languageFile)
 		{
 			$this->out('Creating language file...');
@@ -169,7 +182,7 @@ class Langfiles extends Make
 
 			if (!file_exists($templateFile))
 			{
-				throw new \Exception('Can not copy create the language file');
+				throw new \Exception('Can not create the language file');
 			}
 
 			$this->out('The language file has been created')

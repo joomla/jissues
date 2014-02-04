@@ -12,8 +12,10 @@ use Application\Command\TrackerCommandOption;
 
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
+
 use Joomla\Filesystem\Folder;
-use PHP_CodeSniffer_CLI;
+
+use PHP_CodeSniffer_File;
 
 /**
  * Class for checking language files.
@@ -94,12 +96,26 @@ class Langfiles extends Test
 						?  '/' . $extension . '.pot'
 						:  '/' . $language . '.' . $extension . '.po';
 
+					$this->debugOut('Checking: ' . $path);
+
 					if (false == file_exists($path))
 					{
+						$this->debugOut('not found');
+
 						continue;
 					}
 
-					// Check the language file for errors
+					// Check if the language file has UNIX style line endings.
+					if ("\n" != PHP_CodeSniffer_File::detectLineEndings($path))
+					{
+						$this->out($path)
+							->out('<error> The file does not have UNIX style line endings ! </error>')
+							->out();
+
+						continue;
+					}
+
+					// Check the language file for errors.
 					$output = shell_exec('msgfmt -c ' . $path . ' 2>&1');
 
 					if ($output)
