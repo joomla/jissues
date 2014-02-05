@@ -13,6 +13,7 @@ use BabDev\Transifex\Transifex;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
+use Joomla\Filesystem\Folder;
 use Joomla\Github\Github;
 
 /**

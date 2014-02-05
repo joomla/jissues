@@ -2,10 +2,12 @@
 
 The issue tracker application requires a server running:
 
-* PHP 5.3.10 or later (Joomla Framework minimum version)
+* PHP 5.4.4 or later
 * MySQL 5.1 with InnoDB support
 
-The application also has external dependencies installable via Composer.  You can run `ant installdep` if you have ANT installed or `composer update --dev` from the command line.
+The application also has external dependencies installable via Composer and Bower.  You can run `ant installdep` if you have ANT installed or `composer install` and `bower install` from the command line.
+
+See also: [Dependencies](Documentation/Dependencies.md).
 
 ## Setup
 

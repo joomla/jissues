@@ -107,7 +107,7 @@ class Depfile extends Make
 
 			$package->name        = $info->name;
 			$package->description = isset($info->description) ? $info->description : '';
-			$package->sourceURL   = $info->homepage;
+			$package->sourceURL   = isset($info->homepage) ? $info->homepage : 'N/A';
 
 			$packages['bower'][$package->name] = $package;
 		}
@@ -160,6 +160,12 @@ class Depfile extends Make
 			{
 				if ('php' == $packageName)
 				{
+					$o = new \stdClass;
+					$o->version = $version;
+
+					$sorted['php-version'] = $o;
+					$sorted['php-version'] = $version;
+
 					continue;
 				}
 
@@ -240,6 +246,7 @@ class Depfile extends Make
 		$list      = array();
 
 		$langTags = $this->getApplication()->get('languages');
+		$noEmail = $this->getApplication()->input->get('noemail');
 
 		foreach ($langTags as $langTag)
 		{
@@ -267,16 +274,26 @@ class Depfile extends Make
 
 				if (0 !== strpos($line, '#'))
 				{
+					// Encountered the first line - We're done parsing.
 					$line = '';
+
 					continue;
 				}
 
 				if (false == strpos($line, '<'))
 				{
+					// Not our business
 					continue;
 				}
 
 				$line = trim($line, "# \n");
+
+				if ($noEmail)
+				{
+					// Strip off the e-mail address
+					// Format: '<name@domain.tld>, '
+					$line = preg_replace('/<[a-z0-9\.\-+]+@[a-z\.]+>,\s/i', '', $line);
+				}
 
 				$translators[] = $line;
 			}

@@ -212,6 +212,7 @@ class Events extends Project
 					case 'assigned' :
 					case 'merged' :
 					case 'head_ref_deleted' :
+					case 'head_ref_restored' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -250,7 +251,8 @@ class Events extends Project
 						// Translate GitHub event names to "our" name schema
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
-							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted'
+							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted',
+							'head_ref_restored' => 'head_ref_restored'
 						);
 
 						$table->gh_comment_id = $event->id;
