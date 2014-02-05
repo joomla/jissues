@@ -107,7 +107,7 @@ class Depfile extends Make
 
 			$package->name        = $info->name;
 			$package->description = isset($info->description) ? $info->description : '';
-			$package->sourceURL   = $info->homepage;
+			$package->sourceURL   = isset($info->homepage) ? $info->homepage : 'N/A';
 
 			$packages['bower'][$package->name] = $package;
 		}
