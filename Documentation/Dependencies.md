@@ -204,6 +204,13 @@ A Mustache implementation in PHP.
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php.git
 
+#### phpunit/phpunit (3.7.*)
+
+The PHP Unit Testing framework.
+
+* Installed: 3.7.x-dev
+* Source URL: https://github.com/sebastianbergmann/phpunit.git
+
 #### squizlabs/php_codesniffer (1.*)
 
 PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
@@ -221,9 +228,13 @@ jQuery component
 
 #### jquery-validation (1.11.2)
 
+
+
 * Source URL: https://github.com/niftylettuce/jquery-validation
 
 #### bootstrap (2.3.2)
+
+
 
 * Source URL: https://github.com/twbs/bootstrap
 
@@ -234,6 +245,8 @@ Unofficial bootstrap switch
 * Source URL: https://github.com/nostalgiaz/bootstrap-switch
 
 #### markitup (1.1.14)
+
+
 
 * Source URL: https://github.com/kaiwa/markitup
 
@@ -251,7 +264,16 @@ File Upload widget with multiple file selection, drag&amp;amp;drop support, prog
 
 #### jquery-textrange (1.1.0)
 
+
+
 * Source URL: https://github.com/dwieeb/jquery-textrange
+
+#### g11n-js (*)
+
+
+
+* Source URL:
+
 
 ## Credits
 
@@ -301,9 +323,11 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### ru-RU
 * Dmitrijs Rekuns &lt;bzzjuka@gmail.com&gt;, 2014
 
-#### pt-PT
-* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
-
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
 
+#### pt-PT
+* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+
+#### fr-FR
+* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
