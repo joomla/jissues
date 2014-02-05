@@ -268,11 +268,11 @@ File Upload widget with multiple file selection, drag&amp;amp;drop support, prog
 
 * Source URL: https://github.com/dwieeb/jquery-textrange
 
-#### g11n-js (*)
+#### g11n-js (1.0)
 
+g11n is a custom language handler - made primarily for Joomla!
 
-
-* Source URL:
+* Source URL: https://github.com/elkuku/g11n-js
 
 
 ## Credits
