@@ -4,6 +4,11 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 * Source URL: https://github.com/joomla/jissues
 
+### Core
+
+* PHP version: &gt;=5.4.4
+* Database: MySQL
+
 ### PHP - Production
 
 #### joomla/application (1.0.*@stable)
