@@ -8,8 +8,6 @@
 
 namespace CliApp\Command\Test;
 
-use CliApp\Command\TrackerCommandOption;
-
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
@@ -33,26 +31,9 @@ class Langfiles extends Test
 	protected $description = 'Check language files';
 
 	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'noprogress', '',
-				'Don\'t use a progress bar.'
-			)
-		);
-	}
-
-	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -134,14 +115,15 @@ class Langfiles extends Test
 
 		$this->out(
 			$errors
-			? '<error>There have been errors</error>'
+			? '<error> There have been errors. </error>'
 			: '<ok>Language file syntax OK</ok>'
 		);
 
-		$this
-			->out()
-			->out('Finished.');
+		if ($this->exit)
+		{
+			exit($errors ? 1 : 0);
+		}
 
-		exit($errors ? 1 : 0);
+		return ($errors ? 1 : 0);
 	}
 }

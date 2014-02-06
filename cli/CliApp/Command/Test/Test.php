@@ -9,7 +9,6 @@
 namespace CliApp\Command\Test;
 
 use CliApp\Command\TrackerCommand;
-use CliApp\Command\TrackerCommandOption;
 
 use Joomla\Filesystem\Folder;
 
@@ -29,21 +28,12 @@ class Test extends TrackerCommand
 	protected $description = 'The test engine';
 
 	/**
-	 * Constructor.
+	 * Should the command exit or return the status.
 	 *
-	 * @since   1.0
+	 * @var bool
+	 * @since  1.0
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'noprogress', '',
-				'Don\'t use a progress bar.'
-			)
-		);
-	}
+	protected $exit = true;
 
 	/**
 	 * Execute the command.
@@ -74,5 +64,19 @@ class Test extends TrackerCommand
 		}
 
 		$this->out('<error>                                    </error>');
+	}
+
+	/**
+	 * Set the exit behavior.
+	 *
+	 * @param   boolean  $value  Exit behavior. True to exit, false to return the status.
+	 *
+	 * @return  $this
+	 */
+	public function setExit($value)
+	{
+		$this->exit = (boolean) $value;
+
+		return $this;
 	}
 }

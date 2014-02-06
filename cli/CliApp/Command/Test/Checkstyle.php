@@ -8,8 +8,6 @@
 
 namespace CliApp\Command\Test;
 
-use CliApp\Command\TrackerCommandOption;
-
 use PHP_CodeSniffer_CLI;
 
 /**
@@ -28,26 +26,9 @@ class Checkstyle extends Test
 	protected $description = 'Run PHP CodeSniffer tests';
 
 	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'noprogress', '',
-				'Don\'t use a progress bar.'
-			)
-		);
-	}
-
-	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @return  string  Number of errors.
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -97,15 +78,19 @@ class Checkstyle extends Test
 
 		$numErrors = $phpcs->process($options);
 
-		if ($numErrors)
-		{
-			$this->out(sprintf('<error> Finished with %d errors </error>', $numErrors));
-
-			// @throw new \UnexpectedValueException('There have been errors.');
-		}
-
 		$this
 			->out()
-			->out('Finished =;)');
+			->out(
+			$numErrors
+				? sprintf('<error> Finished with %d errors </error>', $numErrors)
+				: '<ok>Success</ok>'
+		);
+
+		if ($this->exit)
+		{
+			exit($numErrors ? 1 : 0);
+		}
+
+		return $numErrors;
 	}
 }

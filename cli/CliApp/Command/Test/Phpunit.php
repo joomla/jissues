@@ -28,7 +28,7 @@ class Phpunit extends Test
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * @return  integer  PHPUnit_TextUI_TestRunner exit status.
 	 *
 	 * @since   1.0
 	 */
@@ -42,10 +42,21 @@ class Phpunit extends Test
 			' --configuration ' . JPATH_ROOT . '/phpunit.travis.xml'
 		);
 
-		$command->run($options, false);
+		$returnVal = $command->run($options, false);
 
 		$this
 			->out()
-			->out('Finished.');
+			->out(
+			$returnVal
+				? '<error> Finished with errors. </error>'
+				: '<ok>Success</ok>'
+		);
+
+		if ($this->exit)
+		{
+			exit($returnVal ? 1 : 0);
+		}
+
+		return $returnVal;
 	}
 }

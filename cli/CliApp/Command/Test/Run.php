@@ -34,16 +34,31 @@ class Run extends Test
 	{
 		$this->getApplication()->outputTitle('Test Suite');
 
-		(new Checkstyle)
+		$statusCS = (new Checkstyle)
 			->setContainer($this->getContainer())
+			->setExit(false)
 			->execute();
 
-		(new Phpunit)
+		$statusUT = (new Phpunit)
 			->setContainer($this->getContainer())
+			->setExit(false)
 			->execute();
+
+		$statusLang = (new Langfiles)
+			->setContainer($this->getContainer())
+			->setExit(false)
+			->execute();
+
+		$status = ($statusCS || $statusUT) ? 1 : 0;
 
 		$this
 			->out()
-			->out('Finished =;)');
+			->out(
+				$status
+					? '<error> Test Suite Finished with errors </error>.'
+					: '<ok>Test Suite Finished.</ok>'
+			);
+
+		exit($status);
 	}
 }
