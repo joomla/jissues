@@ -11,4 +11,4 @@ before_script:
   - composer install
 
 script:
-  - cli/tracker.php test run
+  - bin/jtracker test run
