@@ -27,12 +27,9 @@ class ConfigHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/config.json'));
+		$config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/config.json'), true);
 
-		// @todo Twig can not foreach() over stdclasses...
-		$cfx = ArrayHelper::fromObject($config);
-
-		$this->renderer->set('config', $cfx);
+		$this->renderer->set('config', $config);
 
 		return parent::render();
 	}
