@@ -77,12 +77,10 @@ class ConfigurationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$config = $this->config;
-
 		$container->set('config',
-			function () use ($config)
+			function ()
 			{
-				return $config;
+				return $this->config;
 			}, true, true
 		);
 	}
