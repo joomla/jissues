@@ -159,7 +159,7 @@ class Project extends Get
 	 */
 	protected function processLabels()
 	{
-		with(new Labels)
+		(new Labels)
 			->setContainer($this->getContainer())
 			->execute();
 
@@ -175,7 +175,7 @@ class Project extends Get
 	 */
 	protected function processMilestones()
 	{
-		with(new Milestones)
+		(new Milestones)
 			->setContainer($this->getContainer())
 			->execute();
 
@@ -259,7 +259,7 @@ class Project extends Get
 	 */
 	protected function processAvatars()
 	{
-		with(new Avatars)
+		(new Avatars)
 			->setContainer($this->getContainer())
 			->execute();
 

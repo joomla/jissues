@@ -39,7 +39,7 @@ class Save extends AbstractTrackerController
 		try
 		{
 			// Save the record.
-			with(new IssueModel($this->container->get('db')))
+			(new IssueModel($this->container->get('db')))
 				->save($src);
 
 			$application->enqueueMessage('The changes have been saved.', 'success')

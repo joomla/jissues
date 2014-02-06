@@ -144,7 +144,7 @@ class ReceiveCommentsHook extends AbstractHookController
 			// Pull the user's avatar if it does not exist
 			if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
 			{
-				with(new GitHubLoginHelper($this->container))
+				(new GitHubLoginHelper($this->container))
 					->saveAvatar($this->hookData->comment->user->login);
 			}
 		}
@@ -233,7 +233,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
-			with(new GitHubLoginHelper($this->container))
+			(new GitHubLoginHelper($this->container))
 				->saveAvatar($this->hookData->issue->user->login);
 		}
 

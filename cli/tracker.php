@@ -36,7 +36,7 @@ $loader->add('CliApp', __DIR__);
 
 try
 {
-	with(new CliApplication)->execute();
+	(new CliApplication)->execute();
 }
 catch (\Exception $e)
 {

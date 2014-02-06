@@ -96,7 +96,7 @@ class Milestones extends Project
 				$table->title = $milestone->title;
 				$table->description = $milestone->description;
 				$table->state = $milestone->state;
-				$table->due_on = $milestone->due_on ? with(new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
+				$table->due_on = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
 
 				$table->store(true);
 
@@ -110,7 +110,7 @@ class Milestones extends Project
 				$table->title = $milestone->title;
 				$table->description = $milestone->description;
 				$table->state = $milestone->state;
-				$table->due_on = $milestone->due_on ? with(new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
+				$table->due_on = $milestone->due_on ? (new Date($milestone->due_on))->format('Y-m-d H:i:s') : null;
 
 				$table->store(true);
 

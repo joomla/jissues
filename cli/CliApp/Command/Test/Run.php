@@ -34,11 +34,11 @@ class Run extends Test
 	{
 		$this->getApplication()->outputTitle('Test Suite');
 
-		with(new Checkstyle)
+		(new Checkstyle)
 			->setContainer($this->getContainer())
 			->execute();
 
-		with(new Phpunit)
+		(new Phpunit)
 			->setContainer($this->getContainer())
 			->execute();
 

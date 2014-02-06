@@ -256,8 +256,8 @@ class Comments extends Project
 
 					$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-					$table->created_date = with(new Date($comment->created_at))->format('Y-m-d H:i:s');
-					$table->updated_date = with(new Date($comment->updated_at))->format('Y-m-d H:i:s');
+					$table->created_date = (new Date($comment->created_at))->format('Y-m-d H:i:s');
+					$table->updated_date = (new Date($comment->updated_at))->format('Y-m-d H:i:s');
 
 					$table->store();
 

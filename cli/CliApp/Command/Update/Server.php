@@ -41,7 +41,7 @@ class Server extends Update
 		$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
 		$this->logOut('Git update Finished');
 
-		with(new Repoinfo)
+		(new Repoinfo)
 			->setContainer($this->getContainer())
 			->execute();
 
