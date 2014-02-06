@@ -71,7 +71,7 @@ class DatabaseDebugger
 
 		$tableFormat = new TableFormat;
 
-		if (in_array($db->name, array('mysqli', 'mysql', 'postgresql')))
+		if (in_array($db->name, ['mysqli', 'mysql', 'postgresql']))
 		{
 			$dbVersion56 = (strncmp($db->name, 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
 
@@ -112,7 +112,7 @@ class DatabaseDebugger
 		// Run a SHOW PROFILE query:
 		$profile = '';
 
-		if (false == in_array($db->name, array('mysqli', 'mysql')))
+		if (false == in_array($db->name, ['mysqli', 'mysql']))
 		{
 			return sprintf(g11n3t('%s database is not supported yet.'), $db->name);
 		}
@@ -138,7 +138,7 @@ class DatabaseDebugger
 			}
 		}
 
-		if (in_array($db->name, array('mysqli', 'mysql', 'postgresql')))
+		if (in_array($db->name, ['mysqli', 'mysql', 'postgresql']))
 		{
 			$log = $db->getLog();
 

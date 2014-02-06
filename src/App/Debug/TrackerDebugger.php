@@ -135,7 +135,7 @@ class TrackerDebugger implements LoggerAwareInterface
 				)
 			);
 
-			$logger->pushProcessor(array($this, 'addDatabaseEntry'));
+			$logger->pushProcessor([$this, 'addDatabaseEntry']);
 			$logger->pushProcessor(new WebProcessor);
 
 			$db = $this->container->get('db');
@@ -385,7 +385,7 @@ class TrackerDebugger implements LoggerAwareInterface
 		if ($this->application->get('debug.language'))
 		{
 			$info = $this->getLanguageStringsInfo();
-			$badge = $this->getBadge($info->untranslateds, array(1 => 'badge-warning'));
+			$badge = $this->getBadge($info->untranslateds, [1 => 'badge-warning']);
 			$count = count(g11n::getEvents());
 
 			$navigation[] = '<li class="hasTooltip"'
