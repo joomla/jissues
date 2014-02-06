@@ -23,6 +23,7 @@ class Save extends AbstractTrackerController
 	 * @return  string
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 * @throws  \UnexpectedValueException
 	 */
 	public function execute()
@@ -36,16 +37,10 @@ class Save extends AbstractTrackerController
 			throw new \UnexpectedValueException('No config to save...');
 		}
 
-		echo '<h1>SaveConfig</h1>';
-		echo '<h2>Please Copy&amp;Paste + Save =;)</h2>@todo saveMe...';
-
-		echo '<pre style="background-color: #ffc; color: darkred; padding: 1em; border: 3px solid lime;">';
-
-		echo json_encode($config, JSON_PRETTY_PRINT);
-
-		// @todo write a small JSON prettyPrint function for PHP < 5.4
-
-		echo '</pre>';
+		if (!file_put_contents(JPATH_ROOT . '/etc/config.json', json_encode($config, JSON_PRETTY_PRINT)))
+		{
+			throw new \RuntimeException('Could not write the configuration data to file /etc/config.json');
+		}
 
 		return '@todo..';
 	}

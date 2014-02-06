@@ -261,7 +261,7 @@ class Events extends Project
 						$table->user          = $event->actor->login;
 						$table->event         = $evTrans[$event->event];
 
-						$table->created_date = with(new Date($event->created_at))->format('Y-m-d H:i:s');
+						$table->created_date = (new Date($event->created_at))->format('Y-m-d H:i:s');
 
 						if ('referenced' == $event->event)
 						{

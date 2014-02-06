@@ -125,7 +125,7 @@ class ArticlesTable extends AbstractDatabaseTable
 		if (!$this->created_date)
 		{
 			// New item - set an (arbitrary) created date..
-			$this->created_date = with(new \DateTime)->format('Y-m-d H:i:s');
+			$this->created_date = (new \DateTime)->format('Y-m-d H:i:s');
 		}
 
 		// Render markdown

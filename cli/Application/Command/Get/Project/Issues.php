@@ -231,10 +231,10 @@ class Issues extends Project
 
 			$table->status = ($ghIssue->state == 'open') ? 1 : 10;
 
-			$table->opened_date = with(new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
+			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
 			$table->opened_by   = $ghIssue->user->login;
 
-			$table->modified_date = with(new Date($ghIssue->updated_at))->format('Y-m-d H:i:s');
+			$table->modified_date = (new Date($ghIssue->updated_at))->format('Y-m-d H:i:s');
 			$table->modified_by   = $ghIssue->user->login;
 
 			$table->project_id = $this->project->project_id;
@@ -251,7 +251,7 @@ class Issues extends Project
 			// Add the closed date if the status is closed
 			if ($ghIssue->closed_at)
 			{
-				$table->closed_date = with(new Date($ghIssue->closed_at))->format('Y-m-d H:i:s');
+				$table->closed_date = (new Date($ghIssue->closed_at))->format('Y-m-d H:i:s');
 			}
 
 			// If the title has a [# in it, assume it's a Joomlacode Tracker ID

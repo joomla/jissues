@@ -42,12 +42,10 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(JoomlaContainer $container)
 	{
-		$app = $this->app;
-
 		$container->set('app',
-			function () use ($app)
+			function ()
 			{
-				return $app;
+				return $this->app;
 			}, true, true
 		);
 	}

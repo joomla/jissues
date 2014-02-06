@@ -24,5 +24,5 @@ if (false == include JPATH_ROOT . '/vendor/autoload.php')
 }
 
 // Execute the application.
-with(new JTracker\Application)
+(new JTracker\Application)
 	->execute();

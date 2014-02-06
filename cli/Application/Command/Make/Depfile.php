@@ -114,9 +114,9 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-		$contents = with(new Mustache_Engine)
+		$contents = (new Mustache_Engine)
 			->render(
-				with(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
+				(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
 					->load('depfile'),
 				$this
 			);

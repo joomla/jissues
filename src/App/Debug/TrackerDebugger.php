@@ -108,7 +108,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			$handler = new ProductionHandler;
 		}
 
-		with(new Run)
+		(new Run)
 			->pushHandler($handler)
 			->register();
 	}

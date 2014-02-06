@@ -79,7 +79,7 @@ class Submit extends AbstractTrackerController
 		else
 		{
 			// Project is managed by JTracker only
-			$data['created_at'] = with(new Date)->format($this->container->get('db')->getDateFormat());
+			$data['created_at'] = (new Date)->format($this->container->get('db')->getDateFormat());
 			$data['opened_by']  = $application->getUser()->username;
 			$data['number']     = '???';
 

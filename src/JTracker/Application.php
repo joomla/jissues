@@ -102,7 +102,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 		parent::__construct();
 
 		// Build the DI Container
-		$this->container = with(new Container)
+		$this->container = (new Container)
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
@@ -272,24 +272,6 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 	public function getDispatcher()
 	{
 		return $this->dispatcher;
-	}
-
-	/**
-	 * Provides a secure hash based on a seed
-	 *
-	 * @param   string  $seed  Seed string.
-	 *
-	 * @return  string  A secure hash
-	 *
-	 * @since   1.0
-	 */
-	public static function getHash($seed)
-	{
-		// WTF...
-
-		return 'UNSUPPORTED';
-
-		// @return md5($this->get('acl.secret') . $seed);
 	}
 
 	/**
@@ -615,7 +597,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 			if ($alias)
 			{
 				// Change the project
-				$project = with(new ProjectModel($this->container->get('db')))
+				$project = (new ProjectModel($this->container->get('db')))
 					->getByAlias($alias);
 
 				if (!$project)
@@ -632,13 +614,13 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 				if ($sessionAlias)
 				{
 					// Found a session Project.
-					$project = with(new ProjectModel($this->container->get('db')))
+					$project = (new ProjectModel($this->container->get('db')))
 						->getByAlias($sessionAlias);
 				}
 				else
 				{
 					// Nothing found - Get a default project !
-					$project = with(new ProjectModel($this->container->get('db')))
+					$project = (new ProjectModel($this->container->get('db')))
 						->getItem(1);
 				}
 			}

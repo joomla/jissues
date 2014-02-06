@@ -117,7 +117,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		parent::__construct($input, $config);
 
 		// Build the DI Container
-		$this->container = with(new Container)
+		$this->container = (new Container)
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
@@ -185,7 +185,9 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		$this->quiet   = $this->input->get('quiet', $this->input->get('q'));
 		$this->verbose = $this->input->get('verbose', $this->input->get('v'));
 
-		$this->outputTitle('Joomla! Tracker CLI Application', '1.1');
+		$composerCfg = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
+
+		$this->outputTitle('Joomla! Tracker CLI Application', $composerCfg->version);
 
 		$args = $this->input->args;
 
@@ -274,7 +276,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	 */
 	protected function getAlternatives($command, $action)
 	{
-		$commands = with(new Help)->getCommands();
+		$commands = (new Help)->getCommands();
 		$alternatives = array();
 
 		if (false == array_key_exists($command, $commands))
@@ -291,7 +293,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		else
 		{
 			// Known command - unknown action
-			$actions = with(new Help)->getActions($command);
+			$actions = (new Help)->getActions($command);
 
 			foreach (array_keys($actions) as $act)
 			{

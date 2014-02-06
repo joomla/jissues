@@ -52,12 +52,10 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$app = $this->app;
-
 		$container->set('JTracker\\Application',
-			function () use ($app)
+			function ()
 			{
-				return $app;
+				return $this->app;
 			}, true, true
 		);
 

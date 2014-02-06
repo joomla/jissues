@@ -36,7 +36,7 @@ $loader->add('Application', __DIR__);
 
 try
 {
-	with(new Application)->execute();
+	(new Application)->execute();
 }
 catch (\Exception $e)
 {
