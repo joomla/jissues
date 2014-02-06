@@ -185,7 +185,9 @@ class CliApplication extends AbstractCliApplication implements DispatcherAwareIn
 		$this->quiet   = $this->input->get('quiet', $this->input->get('q'));
 		$this->verbose = $this->input->get('verbose', $this->input->get('v'));
 
-		$this->outputTitle('Joomla! Tracker CLI Application', '1.1');
+		$composerCfg = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
+
+		$this->outputTitle('Joomla! Tracker CLI Application', $composerCfg->version);
 
 		$args = $this->input->args;
 
