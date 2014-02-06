@@ -275,24 +275,6 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 	}
 
 	/**
-	 * Provides a secure hash based on a seed
-	 *
-	 * @param   string  $seed  Seed string.
-	 *
-	 * @return  string  A secure hash
-	 *
-	 * @since   1.0
-	 */
-	public static function getHash($seed)
-	{
-		// WTF...
-
-		return 'UNSUPPORTED';
-
-		// @return md5($this->get('acl.secret') . $seed);
-	}
-
-	/**
 	 * Get a session object.
 	 *
 	 * @return  Session
