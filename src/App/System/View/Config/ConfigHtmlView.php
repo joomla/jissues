@@ -9,7 +9,6 @@
 namespace App\System\View\Config;
 
 use JTracker\View\AbstractTrackerHtmlView;
-use Joomla\Utilities\ArrayHelper;
 
 /**
  * System configuration view.

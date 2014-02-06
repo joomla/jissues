@@ -10,7 +10,6 @@ namespace JTracker\Controller;
 
 use App\Tracker\Model\IssuesModel;
 
-use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 use JTracker\Application;

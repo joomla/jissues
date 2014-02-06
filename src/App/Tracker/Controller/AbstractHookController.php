@@ -8,7 +8,6 @@
 
 namespace App\Tracker\Controller;
 
-use App\Projects\TrackerProject;
 use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
 
