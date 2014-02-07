@@ -80,8 +80,8 @@ JTracker.submitVote = function (issueId, debugContainer) {
 
 				// Update votes display if this is not the first vote on an item
 				if (r.data.votes > 1) {
-					$('td[div=experienced]').html(r.data.experienced + '/' + r.data.votes);
-					$('td[div=importance]').html((r.data.importanceScore).toFixed(2));
+					$('div[id=experienced]').html(r.data.experienced + '/' + r.data.votes);
+					$('div[id=importance]').html((r.data.importanceScore).toFixed(2));
 				}
 			}
 		}
