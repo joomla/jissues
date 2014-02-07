@@ -7,7 +7,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-use CliApp\Application\CliApplication;
+use Application\Application;
 
 'cli' == PHP_SAPI
 	|| die("\nThis script must be run from the command line interface.\n\n");
@@ -32,11 +32,11 @@ $loader = include $path;
 
 // Add the namespace for our application to the autoloader.
 /* @type Composer\Autoload\ClassLoader $loader */
-$loader->add('CliApp', __DIR__);
+$loader->add('Application', __DIR__);
 
 try
 {
-	(new CliApplication)->execute();
+	(new Application)->execute();
 }
 catch (\Exception $e)
 {
