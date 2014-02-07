@@ -130,7 +130,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$query->clear()
 			->select('COUNT(id) AS votes, SUM(experienced) AS experienced, SUM(score) AS score')
 			->from($this->db->quoteName('#__issues_voting'))
-			->where($this->db->quoteName('issue_number') . ' = ' . (int) $item->issue_number);
+			->where($this->db->quoteName('issue_number') . ' = ' . (int) $item->id);
 		$voteData = $this->db->setQuery($query)->loadObject();
 
 		$item->votes       = $voteData->votes;
