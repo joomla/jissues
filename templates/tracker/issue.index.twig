@@ -161,24 +161,18 @@
         {% if item.votes or user.id %}
         <div class="span3 well">
             {% if item.votes %}
-            <table>
-                <tr>
-                    <th>{{ "# of Votes"|_ }}</th>
-                    <td id="votes">{{ item.votes }}</td>
-                </tr>
-                <tr>
-                    <th>{{ "# of Users Experiencing Issue"|_ }}</th>
-                    <td id="experienced">{{ item.experienced }}</td>
-                </tr>
-                <tr>
-                    <th>{{ "Average Importance Score"|_ }}</th>
-                    <td id="importance">{{ item.importanceScore|number_format(2) }}</td>
-                </tr>
-            </table>
-            <hr />
+            <div class="row-fluid">
+                    <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
+                    <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
+            </div>
+            <div class="row-fluid">
+                    <div class="span10"><b>{{ "Average Importance Score"|_ }}</b></div>
+                    <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
+            </div>
+            <hr class="issue-votes" />
             {% endif %}
             {% if user.id %}
-            <form class="form-inline" name="voteForm">
+            <form class="form-inline scores-report" name="voteForm">
                 <fieldset>
                     <p>{{ "I've experienced this issue"|_ }}</p>
                     <label class="radio">
@@ -190,7 +184,7 @@
                          {{ "No"|_ }}
                     </label>
                 </fieldset>
-                <hr />
+                <hr class="issue-votes" />
                 <fieldset>
                     <p>{{ "Importance of issue to me"|_ }}</p>
                     <label class="radio">
@@ -214,7 +208,7 @@
                         5
                     </label>
                 </fieldset>
-                <hr />
+                <hr class="issue-votes" />
                 <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteButton');">
                     {{ "Vote"|_ }}
                 </a>
