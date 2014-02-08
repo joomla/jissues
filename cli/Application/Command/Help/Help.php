@@ -11,7 +11,7 @@ namespace Application\Command\Help;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
-use Joomla\Application\Cli\ColorProcessor;
+use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 
 /**

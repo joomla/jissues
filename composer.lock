@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2968c1de694e1e971206c82858e50888",
+    "hash": "0ae2dc245611cf35ad85878ea9dafd93",
     "packages": [
         {
             "name": "babdev/library",
@@ -101,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/ConsoleProgressBar.git",
-                "reference": "1.0"
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/1.0",
-                "reference": "1.0",
+                "url": "https://api.github.com/repos/elkuku/ConsoleProgressBar/zipball/cd97a2556c0be25f37215a8937af834681b9b8fb",
+                "reference": "cd97a2556c0be25f37215a8937af834681b9b8fb",
                 "shasum": ""
             },
             "require": {
@@ -177,17 +177,17 @@
         },
         {
             "name": "joomla/di",
-            "version": "1.0",
+            "version": "1.1.0",
             "target-dir": "Joomla/DI",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joomla/joomla-framework-di.git",
-                "reference": "fb10ab8e9dd694ee588da1725136afeae55adbe1"
+                "url": "https://github.com/joomla-framework/joomla-framework-di.git",
+                "reference": "3957a356f4604045e81902654750bd1301baabfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework-di/zipball/fb10ab8e9dd694ee588da1725136afeae55adbe1",
-                "reference": "fb10ab8e9dd694ee588da1725136afeae55adbe1",
+                "url": "https://api.github.com/repos/joomla-framework/joomla-framework-di/zipball/3957a356f4604045e81902654750bd1301baabfb",
+                "reference": "3957a356f4604045e81902654750bd1301baabfb",
                 "shasum": ""
             },
             "require": {
@@ -213,21 +213,21 @@
                 "ioc",
                 "joomla"
             ],
-            "time": "2013-11-18 04:29:00"
+            "time": "2013-12-19 14:27:49"
         },
         {
             "name": "joomla/event",
-            "version": "1.0",
+            "version": "1.1.0",
             "target-dir": "Joomla/Event",
             "source": {
                 "type": "git",
-                "url": "https://github.com/joomla/joomla-framework-event.git",
-                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7"
+                "url": "https://github.com/joomla-framework/joomla-framework-event.git",
+                "reference": "554cae4924d43c24f364a6a3599f2b17d7aff96a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework-event/zipball/daafeea58267986f2c6ce6658bc9d70fe69190d7",
-                "reference": "daafeea58267986f2c6ce6658bc9d70fe69190d7",
+                "url": "https://api.github.com/repos/joomla-framework/joomla-framework-event/zipball/554cae4924d43c24f364a6a3599f2b17d7aff96a",
+                "reference": "554cae4924d43c24f364a6a3599f2b17d7aff96a",
                 "shasum": ""
             },
             "require": {
@@ -250,20 +250,20 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-11-10 12:14:49"
+            "time": "2013-12-24 00:06:36"
         },
         {
             "name": "joomla/framework",
-            "version": "1.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/joomla-framework.git",
-                "reference": "3db74e6f9bbf151c0e73425887921cb239ad1e0e"
+                "reference": "f8a2343d3147f595d43e735b89b11c277520f141"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/3db74e6f9bbf151c0e73425887921cb239ad1e0e",
-                "reference": "3db74e6f9bbf151c0e73425887921cb239ad1e0e",
+                "url": "https://api.github.com/repos/joomla/joomla-framework/zipball/f8a2343d3147f595d43e735b89b11c277520f141",
+                "reference": "f8a2343d3147f595d43e735b89b11c277520f141",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +336,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2013-12-01 00:38:39"
+            "time": "2014-02-08 18:43:22"
         },
         {
             "name": "psr/log",
@@ -887,12 +887,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b"
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2f33258fa5a0c330515b7deba2bc040fa5c3953b",
-                "reference": "2f33258fa5a0c330515b7deba2bc040fa5c3953b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d24e9877331039582497052cc3c4d9f465b88210",
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210",
                 "shasum": ""
             },
             "require": {
@@ -953,7 +953,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-31 08:54:33"
+            "time": "2014-02-03 07:46:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

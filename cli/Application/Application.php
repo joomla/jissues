@@ -21,7 +21,7 @@ use Application\Service\LoggerProvider;
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use Joomla\Application\AbstractCliApplication;
-use Joomla\Application\Cli\ColorProcessor;
+use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
@@ -145,6 +145,8 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 			'--log=filename.log', '',
 			'Optionally log output to the specified log file.'
 		);
+
+		$this->getOutput()->setProcessor(new ColorProcessor);
 
 		/* @type ColorProcessor $processor */
 		$processor = $this->getOutput()->getProcessor();
