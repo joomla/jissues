@@ -58,11 +58,19 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getGlobals()
 	{
+		/* @type \JTracker\Application $application */
+		$application = $this->container->get('app');
+
 		return array(
-			'uri'            => $this->container->get('app')->get('uri'),
-			'languages'      => $this->container->get('app')->get('languages'),
+			'uri'            => $application->get('uri'),
+			'offset'         => ($application->getUser()->params->get('timezone'))
+								? $application->getUser()->params->get('timezone')
+								: $application->get('system.offset'),
+			'languages'      => $application->get('languages'),
 			'jdebug'         => JDEBUG,
-			'lang'           => g11n::getCurrent(),
+			'lang'           => ($application->getUser()->params->get('language'))
+								? $application->getUser()->params->get('language')
+								: g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
 		);
 	}
@@ -86,6 +94,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
+			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
 		);
 
 		if (!JDEBUG)
@@ -370,5 +379,17 @@ class TrackerExtension extends \Twig_Extension
 	public function yesNo($value)
 	{
 		return $value ? g11n3t('Yes') : g11n3t('No');
+	}
+
+	/**
+	 * Get the timezones.
+	 *
+	 * @return  array  The timezones.
+	 *
+	 * @since   1.0
+	 */
+	public function getTimezones()
+	{
+		return \DateTimeZone::listIdentifiers(\DateTimeZone::ALL);
 	}
 }

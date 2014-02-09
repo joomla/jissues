@@ -12,6 +12,7 @@ use App\Projects\TrackerProject;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
+use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Database\TableUsers;
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -72,6 +73,14 @@ abstract class User implements \Serializable
 	public $isAdmin = false;
 
 	/**
+	 * User parameters.
+	 *
+	 * @var    Registry
+	 * @since  1.0
+	 */
+	public $params = null;
+
+	/**
 	 * A list of groups a user has access to.
 	 *
 	 * @var    array
@@ -117,6 +126,9 @@ abstract class User implements \Serializable
 		$this->setDatabase($database);
 		$this->project  = $project;
 
+		// Create the user parameters object.
+		$this->params = new Registry;
+
 		// Load the user if it exists
 		if ($identifier)
 		{
@@ -151,6 +163,7 @@ abstract class User implements \Serializable
 		}
 
 		$this->id = $table->id;
+		$this->params->loadString($table->params);
 
 		$this->loadAccessGroups();
 
@@ -181,39 +194,25 @@ abstract class User implements \Serializable
 	 */
 	protected function load($identifier)
 	{
-		// $db = $this->database;
-
 		// Create the user table object
-		// $table = $this->getTable();
 		$table = new TableUsers($this->database);
 
-		// Load the JUserModel object based on the user id or throw a warning.
+		// Load the User object based on the user id or throw a warning.
 		if (!$table->load($identifier))
 		{
 			throw new \RuntimeException('Unable to load the user with id: ' . $identifier);
 		}
 
-		/*
-		 * Set the user parameters using the default XML file.  We might want to
-		 * extend this in the future to allow for the ability to have custom
-		 * user parameters, but for right now we'll leave it how it is.
-		 *
-		 * EDIT (elkuku): right now it's disabled =;)
-		 */
-
-		// $this->_params->loadString($table->params);
-
 		// Assuming all is well at this point let's bind the data
-
-		// $doo = array_keys($table->getFields());
-
-		foreach ($table->getFields() as $key => $vlaue)
+		foreach ($table->getFields() as $key => $value)
 		{
-			if (isset($this->$key))
+			if (isset($this->$key) && $key != 'params')
 			{
 				$this->$key = $table->$key;
 			}
 		}
+
+		$this->params->loadString($table->params);
 
 		$this->loadAccessGroups();
 
