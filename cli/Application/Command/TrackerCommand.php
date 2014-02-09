@@ -16,7 +16,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 
 use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * TrackerCommand class
@@ -25,6 +25,8 @@ use Psr\Log\LoggerInterface;
  */
 abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInterface
 {
+	use LoggerAwareTrait;
+
 	/**
 	 * Container object.
 	 *
@@ -32,14 +34,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 * @since  1.0
 	 */
 	protected $container;
-
-	/**
-	 * Logger object.
-	 *
-	 * @var    \Monolog\Logger
-	 * @since  1.0
-	 */
-	protected $logger;
 
 	/**
 	 * Array of options.
@@ -180,20 +174,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected function outOK()
 	{
 		return $this->out('<ok>ok</ok>');
-	}
-
-	/**
-	 * Sets a logger instance on the object
-	 *
-	 * @param   LoggerInterface  $logger  The logger interface
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
 	}
 
 	/**

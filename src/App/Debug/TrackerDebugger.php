@@ -31,7 +31,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Processor\WebProcessor;
 
 use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareTrait;
 
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
@@ -43,6 +43,8 @@ use Whoops\Run;
  */
 class TrackerDebugger implements LoggerAwareInterface
 {
+	use LoggerAwareTrait;
+
 	/**
 	 * Application object.
 	 *
@@ -68,14 +70,8 @@ class TrackerDebugger implements LoggerAwareInterface
 	private $profiler;
 
 	/**
-	 * Logger object.
+	 * DI Container
 	 *
-	 * @var    Logger
-	 * @since  1.0
-	 */
-	private $logger;
-
-	/**
 	 * @var  Container
 	 * @since  1.0
 	 */
@@ -622,20 +618,6 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		return JPATH_ROOT;
-	}
-
-	/**
-	 * Sets a logger instance on the object
-	 *
-	 * @param   LoggerInterface  $logger  The logger.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
 	}
 
 	/**

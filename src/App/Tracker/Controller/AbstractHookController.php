@@ -26,7 +26,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * Abstract controller class for web hook requests
@@ -35,6 +35,8 @@ use Psr\Log\LoggerInterface;
  */
 abstract class AbstractHookController extends AbstractTrackerController implements LoggerAwareInterface
 {
+	use LoggerAwareTrait;
+
 	/**
 	 * The dispatcher object
 	 *
@@ -90,14 +92,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 	 * @since  1.0
 	 */
 	protected $debug;
-
-	/**
-	 * Logger object.
-	 *
-	 * @var    \Monolog\Logger
-	 * @since  1.0
-	 */
-	protected $logger;
 
 	/**
 	 * The type of hook being executed
@@ -251,22 +245,6 @@ abstract class AbstractHookController extends AbstractTrackerController implemen
 
 		// Set up the event listener
 		$this->addEventListener();
-
-		return $this;
-	}
-
-	/**
-	 * Set the logger.
-	 *
-	 * @param   LoggerInterface  $logger  The logger.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
 
 		return $this;
 	}
