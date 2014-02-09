@@ -188,19 +188,6 @@ class Depfile extends Make
 						$item->sourceRef = $packages['composer'][$packageName]->sourceRef;
 					}
 				}
-				elseif (0 === strpos($packageName, 'joomla/'))
-				{
-					// Composer automagically installs the whole Joomla! Framework.
-					// Add a special handling...
-
-					$item->description = $packages['composer']['joomla/framework']->description;
-					$item->installed   = $packages['composer']['joomla/framework']->version;
-					$item->sourceURL   = preg_replace(
-						'/framework.git/',
-						'framework-' . substr($packageName, strpos($packageName, '/') + 1) . '.git',
-						$packages['composer']['joomla/framework']->sourceURL
-					);
-				}
 
 				$items[] = $item;
 			}
