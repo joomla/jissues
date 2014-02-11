@@ -32,13 +32,13 @@ class ReceiveCommentsHook extends AbstractHookController
 	protected $type = 'comments';
 
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
 		$commentId = null;
 
@@ -67,6 +67,8 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			$this->insertComment();
 		}
+
+		$this->response->message = 'Hook data processed successfully.';
 	}
 
 	/**

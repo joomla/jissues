@@ -30,13 +30,13 @@ class ReceiveIssuesHook extends AbstractHookController
 	protected $type = 'issues';
 
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
 		$issueID = 0;
 
@@ -66,6 +66,8 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->insertData();
 		}
+
+		$this->response->message = 'Hook data processed successfully.';
 	}
 
 	/**

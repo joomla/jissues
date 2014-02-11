@@ -19,7 +19,7 @@ use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractAjaxController;
 
 use JTracker\Database\AbstractDatabaseTable;
 use Monolog\Handler\StreamHandler;
@@ -33,7 +33,7 @@ use Psr\Log\LoggerAwareTrait;
  *
  * @since  1.0
  */
-abstract class AbstractHookController extends AbstractTrackerController implements LoggerAwareInterface
+abstract class AbstractHookController extends AbstractAjaxController implements LoggerAwareInterface
 {
 	use LoggerAwareTrait;
 

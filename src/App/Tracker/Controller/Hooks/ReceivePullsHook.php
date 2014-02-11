@@ -47,13 +47,13 @@ class ReceivePullsHook extends AbstractHookController
 	protected $data;
 
 	/**
-	 * Execute the controller.
+	 * Prepare the response.
 	 *
-	 * @return  void
+	 * @return  mixed
 	 *
 	 * @since   1.0
 	 */
-	public function execute()
+	protected function prepareResponse()
 	{
 		// Pull or Issue ?
 		$this->data = $this->hookData->pull_request;
@@ -88,6 +88,8 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->insertData();
 		}
+
+		$this->response->message = 'Hook data processed successfully.';
 	}
 
 	/**
