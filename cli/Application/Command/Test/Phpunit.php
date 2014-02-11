@@ -38,13 +38,9 @@ class Phpunit extends Test
 
 		$command = new PHPUnit_TextUI_Command;
 
-		$options = array(
-			' --configuration ' . JPATH_ROOT . '/phpunit.travis.xml'
-		);
-
-		$optionsa = array(
-			'configuration' => JPATH_ROOT . '/phpunit.travis.xml'
-		);
+		$options = [
+			'--configuration=' . JPATH_ROOT . '/phpunit.travis.xml'
+		];
 
 		$returnVal = $command->run($options, false);
 
