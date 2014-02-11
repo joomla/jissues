@@ -67,6 +67,7 @@
             <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
         </div>
 
+        <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ translate('Feeling Lucky') }}?</a>
         {% if pagination.pagesTotal > 1 %}
             {{ pagination.bar|raw }}
             {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
