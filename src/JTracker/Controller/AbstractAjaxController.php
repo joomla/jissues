@@ -38,7 +38,7 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  void
+	 * @return  string  JSON response
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -63,11 +63,9 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 			$this->response->error .= $errors;
 		}
 
-		header('Content-type: application/json');
+		$this->getContainer()->get('app')->mimeType = 'application/json';
 
-		echo json_encode($this->response);
-
-		exit(0);
+		return json_encode($this->response);
 	}
 
 	/**
