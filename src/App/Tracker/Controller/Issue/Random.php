@@ -35,7 +35,7 @@ class Random extends AbstractTrackerController
 
 		try
 		{
-			$randomId = with(new IssueModel($this->container->get('db')))
+			$randomId = (new IssueModel($this->container->get('db')))
 				->getRandomItem();
 
 			$application->redirect(
