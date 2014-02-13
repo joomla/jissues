@@ -6,7 +6,9 @@
 {% block content %}
 
     {% if 0 == item.id %}
-        <h2>Sorry, we don't know this user...</h2>
+        <div class="alert alert-error">
+            <h4>{{ 'Invalid user!'|_ }}</h4>
+        </div>
     {% else %}
         {% if user.id == item.id %}
             <h1>{{ "My Profile"|_ }}</h1>

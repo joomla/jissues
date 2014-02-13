@@ -53,10 +53,16 @@ class User extends AbstractTrackerController
 
 		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given');
+			// If no ID is given, use the ID of the current user.
+			$id = $this->container->get('app')->getUser()->id;
+
+			if (!$id)
+			{
+				throw new \UnexpectedValueException('No logged in user.');
+			}
 		}
 
-		$this->view->id = $id;
+		$this->view->id = (int) $id;
 
 		$this->model->setProject($this->container->get('app')->getProject());
 	}

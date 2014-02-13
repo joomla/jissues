@@ -40,11 +40,6 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getItem($itemId = null)
 	{
-		if (!$itemId)
-		{
-			throw new \Exception('No user set');
-		}
-
 		try
 		{
 			$user = new GitHubUser($this->project, $this->db, $itemId);
