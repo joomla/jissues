@@ -255,6 +255,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
+		$data['easy']            = $filter->clean($src['easy'], 'int');
+		$data['tests']           = $filter->clean($src['tests'], 'int');
 
 		if (!$data['id'])
 		{
