@@ -11,6 +11,7 @@
     "github": {
         "client_id"    : "",
         "client_secret": "",
+        "auth_scope"   : "public_repo",
         "accounts": [
             {
                 "username": "",
