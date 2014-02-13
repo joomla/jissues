@@ -35,12 +35,13 @@ class Random extends AbstractTrackerController
 
 		try
 		{
-			$randomId = (new IssueModel($this->container->get('db')))
-				->getRandomItem();
+			$randomNumber = (new IssueModel($this->container->get('db')))
+				->setProject($this->container->get('app')->getProject())
+				->getRandomNumber();
 
 			$application->redirect(
 				$application->get('uri.base.path')
-				. '/tracker/' . $application->input->get('project_alias') . '/' . $randomId
+				. '/tracker/' . $application->input->get('project_alias') . '/' . $randomNumber
 			);
 		}
 		catch (\Exception $e)
