@@ -102,7 +102,7 @@ class GitHubLoginHelper
 		$redirect = (string) $uri;
 
 		// Use "raw URI" here to partial encode the url.
-		return 'https://github.com/login/oauth/authorize?scope=public_repo'
+		return 'https://github.com/login/oauth/authorize?scope=repo'
 			. '&client_id=' . $this->clientId
 			. '&redirect_uri=' . urlencode($redirect);
 	}
