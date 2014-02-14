@@ -16,12 +16,16 @@ define('JPATH_THEMES',        JPATH_ROOT . '/www');
 define('JPATH_TEMPLATES',     JPATH_ROOT . '/templates');
 
 // Load the Composer autoloader
-if (false == include JPATH_ROOT . '/vendor/autoload.php')
+$path = realpath(JPATH_ROOT . '/vendor/autoload.php');
+
+if (!$path)
 {
 	echo 'ERROR: Composer not properly set up! Run "composer install" or see README.md for more details' . PHP_EOL;
 
 	exit(1);
 }
+
+include $path;
 
 // Execute the application.
 (new JTracker\Application)
