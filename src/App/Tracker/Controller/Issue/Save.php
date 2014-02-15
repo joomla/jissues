@@ -44,7 +44,7 @@ class Save extends AbstractTrackerController
 
 			$application->enqueueMessage('The changes have been saved.', 'success')
 				->redirect(
-				'/tracker/' . $application->input->get('project_alias')
+				'/tracker/' . $application->input->get('project_alias') . '/' . $src['issue_number']
 			);
 		}
 		catch (\Exception $e)
