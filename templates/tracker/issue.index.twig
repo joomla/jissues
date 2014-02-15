@@ -25,7 +25,7 @@
 
 {% block content %}
 
-    {% if not item %}
+    {% if not item or item.issue_number == 0 %}
         <div class="alert alert-danger">
             {{ 'That issue does not exist, or the ID you typed is incorrect.'|_ }}
         </div>

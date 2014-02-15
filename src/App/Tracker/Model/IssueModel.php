@@ -45,7 +45,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$identifier)
 		{
-			return new IssuesTable($this->db);
+			throw new \RuntimeException('No id given');
 		}
 
 		$item = $this->db->setQuery(

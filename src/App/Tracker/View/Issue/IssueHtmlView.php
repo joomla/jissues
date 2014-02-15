@@ -54,9 +54,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$item = $this->model->getItem($this->getId());
-
-		if (!$item->id)
+		if (!$this->getId())
 		{
 			// New item
 			$path = __DIR__ . '/../../tpl/new-issue-template.md';
@@ -66,9 +64,15 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 				throw new \RuntimeException('New issue template not found.');
 			}
 
+			// Set some defaults
+			$item = new \stdClass;
 			$item->issue_number    = 0;
 			$item->priority        = 3;
 			$item->description_raw = file_get_contents($path);
+		}
+		else
+		{
+			$item = $this->model->getItem($this->getId());
 		}
 
 		$this->renderer->set('item', $item);
