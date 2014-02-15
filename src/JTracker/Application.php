@@ -359,13 +359,14 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 				$lang = 'en-GB';
 			}
 
-			// Store the language tag to the session.
+			// Store the language tag.
 			$this->getSession()->set('lang', $lang);
+			$this->getUser()->params->set('language', $lang);
 		}
 		else
 		{
-			// Get the language tag from the session - Default to British.
-			$lang = $this->getSession()->get('lang', 'en-GB');
+			// Get the language tag from the user params or session. Default to British.
+			$lang = $this->getUser()->params->get('language', $this->getSession()->get('lang', 'en-GB'));
 		}
 
 		if ($lang)

@@ -30,3 +30,11 @@
         <label{% if value == key %} class="selected"{% endif %} ><input type="radio" name="{{ name }}" id="{{ id|default(name) ~ key }}" value="{{ key }}"{% if value == key %} checked="checked"{% endif %} /> {{ label }}</label>
     {% endfor %}
 {% endmacro %}
+
+{% macro selectequal(name, values, value, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}">
+        {% for key, name in values %}
+        <option value="{{ name }}"{% if value == name %} selected="selected"{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}

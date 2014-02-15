@@ -1,0 +1,53 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ "Edit user"|_ }}{% endblock %}
+
+{% block content %}
+    {% if 0 == item.id %}
+        <h2>{{ "Sorry, we don't know this user..."|_ }}</h2>
+    {% else %}
+
+    {% import "fields.twig" as fields %}
+
+    <h1>{{ "Edit user"|_ }}</h1>
+
+    <ul class="breadcrumb">
+        <li>
+            <a class="btn btn-primary" href="javascript:;" onclick="document.editForm.submit();">
+                {{ "Save"|_ }}
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-inverse" href="{{ uri.base.path ~ 'user/' ~ item.id }}">
+                {{ "Cancel"|_ }}
+            </a>
+        </li>
+    </ul>
+
+    <form method="post" action="/{{ uri.route ~ '-save' }}" class="form-horizontal" name="editForm">
+        <fieldset>
+            <legend>{{ "Params"|_ }}</legend>
+
+            <div class="control-group">
+                {{ fields.label('language', "Language"|_, 'control-label') }}
+                <div class="controls">
+                    {{ fields.selectequal('item[params][language]', languages, item.params.language ? item.params.language : lang, 'language', 'input-small-100') }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="short_title">{{ "Timezone"|_ }}</label>
+                <div class="controls">
+                    {{ fields.selectequal('item[params][timezone]', getTimezones(), item.params.timezone ? item.params.timezone : offset, 'timezone') }}
+                </div>
+            </div>
+
+            <input type="hidden" name="item[id]" value="{{ item.id }}">
+
+        </fieldset>
+    </form>
+    {% endif %}
+{% endblock %}

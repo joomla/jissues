@@ -10,7 +10,10 @@ namespace App\Users\Model;
 
 use App\Projects\TrackerProject;
 
+use Joomla\Filter\InputFilter;
+
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Authentication\Database\TableUsers;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
@@ -51,6 +54,36 @@ class UserModel extends AbstractTrackerDatabaseModel
 		}
 
 		return $user;
+	}
+
+	/**
+	 * Save the item.
+	 *
+	 * @param   array  $src  The source.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
+	public function save(array $src)
+	{
+		$filter = new InputFilter;
+
+		$data = array();
+
+		$data['id'] = $filter->clean($src['id'], 'int');
+
+		if (!$data['id'])
+		{
+			throw new \UnexpectedValueException('Missing ID');
+		}
+
+		$data['params'] = json_encode($src['params']);
+
+		(new TableUsers($this->db))->save($data);
+
+		return $this;
 	}
 
 	/**
