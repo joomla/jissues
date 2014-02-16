@@ -44,7 +44,11 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('item', $this->model->getItem($this->id));
+		$item = $this->model->getItem($this->id);
+
+		$this->renderer
+			->set('item', $item)
+			->set('tz_offset', (new \DateTimeZone($item->params->get('timezone')))->getOffset(new \DateTime) / 3600);
 
 		return parent::render();
 	}

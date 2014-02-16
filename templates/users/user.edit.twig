@@ -7,7 +7,9 @@
 
 {% block content %}
     {% if 0 == item.id %}
-        <h2>{{ "Sorry, we don't know this user..."|_ }}</h2>
+        <div class="alert alert-error">
+            <h4>{{ 'Invalid user!'|_ }}</h4>
+        </div>
     {% else %}
 
     {% import "fields.twig" as fields %}
