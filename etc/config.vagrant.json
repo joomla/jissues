@@ -8,11 +8,22 @@
 		"prefix"  : "jtr_"
 	},
 
-	"github": {
-		"username"     : "",
-		"password"     : "",
-		"client_id"    : "",
-		"client_secret": ""
+    "github": {
+        "client_id"    : "",
+        "client_secret": "",
+        "auth_scope"   : "public_repo",
+        "accounts": [
+            {
+                "username": "",
+                "password": ""
+            }
+        ]
+    },
+
+	"transifex": {
+		"username": "",
+		"password": "",
+		"project" : ""
 	},
 
 	"renderer": {
@@ -21,9 +32,10 @@
 	},
 
 	"system": {
-		"list_limit": "20",
-		"gzip"      : "0",
-		"offset"    : "UTC"
+		"list_limit" : "20",
+		"gzip"       : "0",
+		"offset"     : "UTC",
+		"upload_dir" : "uploads"
 	},
 
 	"acl": {
@@ -48,6 +60,13 @@
 	},
 
 	"languages": [
-		"en-GB", "de-DE", "ru-RU"
-	]
+		"en-GB", "de-DE", "ru-RU", "nl-NL", "pt-PT", "fr-FR"
+	],
+
+	"validation": {
+		"mime_types": [
+			"image/png", "image/jpeg", "image/gif"
+		],
+		"file_size" : "1M"
+	}
 }
