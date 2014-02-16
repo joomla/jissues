@@ -24,61 +24,65 @@
 {% endblock %}
 
 {% block content %}
+    {% import "fields.twig" as fields %}
+
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-submit" name="editForm" id="issueForm">
+        <div class="row-fluid">
+            <div class="span3 pull-right well well-small issue-add-right-block">
 
-        <div class="pull-right well well-small" style="margin-left: 15px">
+                <label for="viewMode" class="btn btn-small">{{ translate('View Mode') }}</label>
+                <br />
+                <div class="make-switch switch-large" id="helpSwitch"
+                     data-on-label="{{ translate('Help') }}" data-off-label="{{ translate('Pro') }}"
+                     data-on="success" data-off="info">
+                    <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
+                </div>
 
-            <label for="viewMode" class="btn btn-small">{{ translate('View Mode') }}</label>
-            <br />
-            <div class="make-switch switch-large" id="helpSwitch"
-                 data-on-label="{{ translate('Help') }}" data-off-label="{{ translate('Pro') }}"
-                 data-on="success" data-off="info">
-                <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
+                <div class="divider">-</div>
+
+                {{ fields.label('priority', 'Priority'|_, '') }}
+                {% set priorities = [1, 2, 3, 4, 5] %}
+                {{ fields.selectequal('item[priority]', priorities, item.priority, 'priority', 'input-priority') }}
+
+                <div class="helpText alert alert-info">
+                    {{ translate('Priority help')|raw }}
+                </div>
+
+                {{ fields.label('build', 'Build'|_, '') }}
+                {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
+
+                <div class="helpText alert alert-info">{{ translate('Build help') }}</div>
             </div>
 
-            <div class="divider">-</div>
+            <div class="span9 issue-add-details">
 
-            <label for="priority">{{ translate('Priority') }}</label>
-            <select name="item[priority]" id="priority" class="span2" >
-                {% for i in range(1, 5) %}
-                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
+                <div class="helpText alert alert-info">{{ translate('Issue intro help') }}</div>
 
-            <div class="helpText span2 alert alert-info">
-                {{ translate('Priority help')|raw }}
+                <h2>{{ translate('New Item') }}</h2>
+
+                <fieldset>
+                    {{ fields.label('title', 'Title'|_, '') }}
+                    {{ fields.input('title', '', '', '', 'validateTitle input-issue-title') }}
+
+                    <div class="helpText alert alert-info">{{ translate('Issue title help') }}</div>
+
+                    {{ fields.label('description', 'Description'|_, '') }}
+
+                    {% set editorId="description" %}
+                    {% set editorName="body" %}
+                    {% set editorText=item.description_raw %}
+                    {% set editorPlaceholder="Description text" %}
+
+                    {% include "editor.twig" %}
+
+                    <div class="helpText alert alert-info">{{ translate('Issue description help') }}</div>
+
+                </fieldset>
+
             </div>
-
-            <label for="build">{{ translate('Build') }}</label>
-            <input class="validateBuild span2" name="build" id="build" type="text" />
-
-            <div class="helpText span2 alert alert-info">{{ translate('Build help') }}</div>
         </div>
-
-        <div class="helpText span6 alert alert-info">{{ translate('Issue intro help') }}</div>
-
-        <h2>{{ translate('New Item') }}</h2>
-
-        <fieldset>
-            <label for="title">{{ translate('Title') }}</label>
-            <input class="validateTitle" type="text" name="title" id="title" style="width: 80%; font-size: 1.2em;" />
-
-            <div class="helpText span6 alert alert-info">{{ translate('Issue title help') }}</div>
-
-            <label for="description">{{ translate('Description') }}</label>
-
-            {% set editorId="description" %}
-            {% set editorName="body" %}
-            {% set editorText=item.description_raw %}
-            {% set editorPlaceholder="Description text" %}
-
-            {% include "editor.twig" %}
-
-            <div class="helpText span6 alert alert-info">{{ translate('Issue description help') }}</div>
-
-        </fieldset>
     </form>
 
     <div class="row-fluid">

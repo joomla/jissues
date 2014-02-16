@@ -2,23 +2,23 @@
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 {% macro input(name, value, type, id, class) %}
-    <input type="{{ type|default('text') }}" name="{{ name }}" id="{{ id|default(name) }}" value="{{ value|e }}" class="{{ class }}" />
+    <input type="{{ type|default('text') }}" name="{{ name }}" id="{{ id|default(name) }}" value="{{ value|e }}"{% if class %} class="{{ class }}"{% endif %} />
 {% endmacro %}
 
 {% macro textarea(name, value, class) %}
-    <textarea name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}">{{ value|e }}</textarea>
+    <textarea name="{{ name }}" id="{{ id|default(name) }}"{% if class %} class="{{ class }}"{% endif %}>{{ value|e }}</textarea>
 {% endmacro %}
 
 {% macro label(id, content, class) %}
-    <label for="{{ id }}" class="{{ class }}">{{ content|e }}</label>
+    <label for="{{ id }}"{% if class %} class="{{ class }}"{% endif %}>{{ content|e }}</label>
 {% endmacro %}
 
 {% macro checkbox(name, value, id, class) %}
-    <input type="checkbox" name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}" value="1"{% if value %} checked="checked"{% endif %} />
+    <input type="checkbox" name="{{ name }}" id="{{ id|default(name) }}"{% if class %} class="{{ class }}"{% endif %} value="1"{% if value %} checked="checked"{% endif %} />
 {% endmacro %}
 
 {% macro select(name, values, value, id, class) %}
-    <select name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}">
+    <select name="{{ name }}" id="{{ id|default(name) }}"{% if class %} class="{{ class }}"{% endif %}>
         {% for key, name in values %}
         <option value="{{ key }}"{% if value == key %} selected="selected"{% endif %}>{{ name }}</option>
         {% endfor %}
@@ -32,7 +32,7 @@
 {% endmacro %}
 
 {% macro selectequal(name, values, value, id, class) %}
-    <select name="{{ name }}" id="{{ id|default(name) }}" class="{{ class }}">
+    <select name="{{ name }}" id="{{ id|default(name) }}"{% if class %} class="{{ class }}"{% endif %}>
         {% for key, name in values %}
         <option value="{{ name }}"{% if value == name %} selected="selected"{% endif %}>{{ name }}</option>
         {% endfor %}

@@ -8544,7 +8544,7 @@ div#nav-search form input[type="text"] {
     display: none;
   }
 }
-.helpText{float: none; margin-left: 0}
+.helpText{float: none; margin-left: 0; padding-right: 14px}
 label.error{color: #E9322D;}
 input.error, input:focus.error,
 textarea.error, textarea:focus.error {
@@ -8584,3 +8584,7 @@ img.emoji, .row-activity .well img{margin-bottom: 0}
 .issue-description {overflow: auto}
 hr.issue-votes{ margin: 10px 0 }
 form.scores-report{ margin-bottom: 0 }
+.input-issue-title { width: 90%; font-size: 1.2em !important}
+.issue-add-details { margin-left: 0 !important}
+.issue-add-right-block {margin-left: 15px}
+.input-priority{ width: 50px }
