@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:05-0500\n"
+"POT-Creation-Date: 2014-02-17 00:27+0000\n"
 "PO-Revision-Date: 2014-01-19 08:47+0000\n"
 "Last-Translator: Dmitrijs Rekuns <bzzjuka@gmail.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
@@ -28,10 +28,10 @@ msgstr "След."
 msgid "Last"
 msgstr "В конец"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:371
-msgid "Yes"
-msgstr "Да"
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:371
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
 msgid "No"
 msgstr "Нет"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+msgid "Yes"
+msgstr "Да"

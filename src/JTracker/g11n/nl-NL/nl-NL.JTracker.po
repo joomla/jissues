@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:05-0500\n"
+"POT-Creation-Date: 2014-02-17 00:27+0000\n"
 "PO-Revision-Date: 2014-01-21 19:15+0000\n"
 "Last-Translator: Herman Peeren <herman@yepr.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
@@ -28,10 +28,10 @@ msgstr "Volgende"
 msgid "Last"
 msgstr "Laatste"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:371
-msgid "Yes"
-msgstr "Ja"
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:371
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
 msgid "No"
 msgstr "Nee"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+msgid "Yes"
+msgstr "Ja"

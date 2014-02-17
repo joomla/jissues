@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:05-0500\n"
-"PO-Revision-Date: 2014-01-30 00:47+0000\n"
+"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"PO-Revision-Date: 2014-02-17 01:02+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Accueil"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "A propos"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "Communauté"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Extensions"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Ressources"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Documentation"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Développeur"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Boutique"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "Déclaration d'accessibilité"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Charte de confidentialité"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Joomla est hébergé par"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "Tous droits réservés."
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -46,10 +98,6 @@ msgstr "La Boutique Joomla"
 msgid "Contribution"
 msgstr "Contribution"
 
-#: /templates/topMenu.twig:28 /templates/footerMenu.twig:7
-msgid "About"
-msgstr "A propos"
-
 #: /templates/topMenu.twig:30
 msgid "About Joomla!"
 msgstr "A propos de Joomla!"
@@ -69,10 +117,6 @@ msgstr "Le Projet"
 #: /templates/topMenu.twig:34
 msgid "Leadership"
 msgstr "La Direction"
-
-#: /templates/topMenu.twig:38 /templates/footerMenu.twig:8
-msgid "Community"
-msgstr "Communauté"
 
 #: /templates/topMenu.twig:40
 msgid "Joomla! Community Portal"
@@ -186,55 +230,13 @@ msgstr "Groupe de Travail des Traductions"
 msgid "Translations Forum"
 msgstr "Forum de Traductions"
 
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
-msgstr "Ajouter des fichiers..."
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "Télécharger"
 
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr "Démarrer le chargement"
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr "Annuler le chargement"
-
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr "Supprimer"
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr "Notes de chargement"
-
-#: /templates/uploader.full.twig:33
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "La taille maximum des fichiers en chargement est de <strong>1 MB</strong>."
-
-#: /templates/uploader.full.twig:34
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr "Seuls les fichiers image (<strong>JPG, GIF, PNG</strong>) sont autorisés."
-
-#: /templates/uploader.full.twig:35
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr "Vous pouvez <strong>Glisser/Déposer</ strong> les fichiers de votre ordinateur à cette page Web."
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr "En traitement..."
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr "Démarrer"
-
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr "Annuler"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Erreur"
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "Démo"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -304,53 +306,63 @@ msgstr "Profil"
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: /templates/trackerMenu.twig:220
+#: /templates/trackerMenu.twig:221
 msgid "Login with GitHub"
 msgstr "Se connecter avec GitHub"
 
-#: /templates/footerMenu.twig:6
-msgid "Home"
-msgstr "Accueil"
+#: /templates/trackerMenu.twig:225
+msgid "No GitHub credentials set in config"
+msgstr "Aucune information d'identification GitHub configurée"
 
-#: /templates/footerMenu.twig:9
-msgid "Forum"
-msgstr "Forum"
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "Ajouter des fichiers..."
 
-#: /templates/footerMenu.twig:10
-msgid "Extensions"
-msgstr "Extensions"
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "Démarrer le chargement"
 
-#: /templates/footerMenu.twig:11
-msgid "Resources"
-msgstr "Ressources"
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "Annuler le chargement"
 
-#: /templates/footerMenu.twig:12
-msgid "Docs"
-msgstr "Documentation"
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "Supprimer"
 
-#: /templates/footerMenu.twig:13
-msgid "Developer"
-msgstr "Développeur"
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr "Notes de chargement"
 
-#: /templates/footerMenu.twig:14
-msgid "Shop"
-msgstr "Boutique"
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "La taille maximum des fichiers en chargement est de <strong>1 MB</strong>."
 
-#: /templates/footerMenu.twig:18
-msgid "Accessibility Statement"
-msgstr "Déclaration d'accessibilité"
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "Seuls les fichiers image (<strong>JPG, GIF, PNG</strong>) sont autorisés."
 
-#: /templates/footerMenu.twig:19
-msgid "Privacy Policy"
-msgstr "Charte de confidentialité"
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "Vous pouvez <strong>Glisser/Déposer</ strong> les fichiers de votre ordinateur à cette page Web."
 
-#: /templates/footerMenu.twig:20
-msgid "Joomla Hosting by"
-msgstr "Joomla est hébergé par"
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "En traitement..."
 
-#: /templates/footerMenu.twig:23
-msgid "All rights reserved."
-msgstr "Tous droits réservés."
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "Démarrer"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "Annuler"
+
+#: /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Erreur"
 
 #: /templates/editor.twig:5
 msgid "Write"
@@ -359,11 +371,3 @@ msgstr "Écrire"
 #: /templates/editor.twig:6
 msgid "Preview"
 msgstr "Aperçu"
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr "Télécharger"
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr "Démo"
