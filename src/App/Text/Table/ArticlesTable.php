@@ -97,7 +97,7 @@ class ArticlesTable extends AbstractDatabaseTable
 			$errors[] = g11n3t('Some text is required.');
 		}
 
-		$this->alias = OutputFilter::stringURLSafe($this->alias);
+		$this->alias = OutputFilter::stringURLUnicodeSlug($this->alias);
 
 		if ($errors)
 		{

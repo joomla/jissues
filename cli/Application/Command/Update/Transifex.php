@@ -81,7 +81,8 @@ class Transifex extends Update
 			foreach ($extensions as $extension)
 			{
 				$name  = $extension . ' ' . $domain;
-				$alias = OutputFilter::stringURLSafe($name);
+
+				$alias = OutputFilter::stringURLUnicodeSlug($name);
 
 				$this->out('Processing: ' . $name . ' - ' . $alias);
 
