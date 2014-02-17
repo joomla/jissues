@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:06-0500\n"
+"POT-Creation-Date: 2014-02-17 00:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,12 +54,6 @@ msgstr ""
 #: /templates/github/labels.index.twig:58
 #: /templates/github/hooks.index.twig:120
 msgid "Delete"
-msgstr ""
-
-#: /templates/github/stats.index.twig:6
-#: /templates/github/stats.index.twig:10
-#, php-format
-msgid "%s - Statistics"
 msgstr ""
 
 #: /templates/github/hooks.index.twig:6
@@ -115,4 +109,14 @@ msgstr ""
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
+msgstr ""
+
+#: /templates/github/stats.index.twig:6
+#: /templates/github/stats.index.twig:10
+#, php-format
+msgid "%s - Statistics"
+msgstr ""
+
+#: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
+msgid "Nothing to preview..."
 msgstr ""
