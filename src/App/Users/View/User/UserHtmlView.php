@@ -48,7 +48,7 @@ class UserHtmlView extends AbstractTrackerHtmlView
 
 		$this->renderer
 			->set('item', $item)
-			->set('tz_offset', (new \DateTimeZone($item->params->get('timezone')))->getOffset(new \DateTime) / 3600);
+			->set('tz_offset', (new \DateTimeZone($item->params->get('timezone', 'UTC')))->getOffset(new \DateTime) / 3600);
 
 		return parent::render();
 	}

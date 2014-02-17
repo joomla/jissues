@@ -40,12 +40,16 @@
                         <i class="icon-github"></i>
                         <a href="https://github.com/{{ item.username }}">{{ item.username }}</a>
                     </li>
-                    <li>
-                        {{ 'Language: %s'|_|format(item.params.language) }}
-                    </li>
-                    <li>
-                        {{ 'Timezone: %1$s (GMT %2$s)'|_|format(item.params.timezone, tz_offset) }}
-                    </li>
+                    {%  if item.params.language %}
+                        <li>
+                            {{ 'Language: %s'|_|format(item.params.language) }}
+                        </li>
+                    {% endif %}
+                    {% if tz_offset %}
+                        <li>
+                            {{ 'Timezone: %1$s (GMT %2$s)'|_|format(item.params.timezone, tz_offset) }}
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
