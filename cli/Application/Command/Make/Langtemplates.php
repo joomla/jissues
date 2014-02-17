@@ -247,6 +247,9 @@ class Langtemplates extends Make
 		// Always write an output file even if no message is defined.
 		$forcePo = ' --force-po';
 
+		// Sort output by file location.
+		$sortByFile = ' --sort-by-file';
+
 		$extensionDir = ExtensionHelper::getExtensionPath($extension);
 		$dirName      = dirname($templatePath);
 
@@ -309,6 +312,7 @@ class Langtemplates extends Make
 				. ' -o ' . $templatePath
 				. $forcePo
 				. $noWrap
+				. $sortByFile
 				. $comments
 				. $headerData;
 
