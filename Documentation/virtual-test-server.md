@@ -27,6 +27,9 @@ You have to run the setup from the command line of your virtual "guest" operatin
 * Follow the general setup instructions.<br />`./cli/tracker.php install`
 * The config file `config.vagrant.json` will be used for setup.
 
+**NOTE** The `config.vagrant.json` file is under version control so you might want to issue the following command to ignore changes made to this file:
+`git update-index --assume-unchanged etc/config.vagrant.json`
+
 ## That should be it.
 
 Go for the code :wink:
