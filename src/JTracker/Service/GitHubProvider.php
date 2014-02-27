@@ -45,14 +45,45 @@ class GitHubProvider implements ServiceProviderInterface
 
 				$token = $session->get('gh_oauth_access_token');
 
+				// If a token is active in the session, use that for authentication (typically for a logged in user)
 				if ($token)
 				{
 					$options->set('gh.token', $token);
 				}
+				// Otherwise fall back to an account from the system configuration
 				else
 				{
-					$options->set('api.username', $app->get('github.username'));
-					$options->set('api.password', $app->get('github.password'));
+					// Check for support for multiple accounts
+					$accounts = $app->get('github.accounts');
+
+					if ($accounts)
+					{
+						$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
+						$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
+
+						if ($user && $password)
+						{
+							// Set the options from the first account
+							$options->set('api.username', $user);
+							$options->set('api.password', $password);
+						}
+
+						// Store the other accounts
+						$options->set('api.accounts', $accounts);
+					}
+					else
+					{
+						// Support for a single account
+						$user     = $app->get('github.username');
+						$password = $app->get('github.password');
+
+						if ($user && $password)
+						{
+							// Set the options
+							$options->set('api.username', $user);
+							$options->set('api.password', $password);
+						}
+					}
 				}
 
 				// GitHub API works best with cURL
