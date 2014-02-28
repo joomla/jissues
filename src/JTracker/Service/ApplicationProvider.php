@@ -8,10 +8,9 @@
 
 namespace JTracker\Service;
 
+use Joomla\Application\AbstractApplication;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-
-use JTracker\Application;
 
 /**
  * Application service provider
@@ -21,21 +20,13 @@ use JTracker\Application;
 class ApplicationProvider implements ServiceProviderInterface
 {
 	/**
-	 * Application instance
-	 *
-	 * @var    Application
-	 * @since  1.0
-	 */
-	private $app;
-
-	/**
 	 * Constructor
 	 *
-	 * @param   Application  $app  Application instance
+	 * @param   AbstractApplication  $app  Application instance
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Application $app)
+	public function __construct(AbstractApplication $app)
 	{
 		$this->app = $app;
 	}
@@ -48,18 +39,14 @@ class ApplicationProvider implements ServiceProviderInterface
 	 * @return  Container  Returns itself to support chaining.
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function register(Container $container)
 	{
-		$container->set('JTracker\\Application',
+		$container->set('app',
 			function ()
 			{
 				return $this->app;
 			}, true, true
 		);
-
-		// Alias the application
-		$container->alias('app', 'JTracker\\Application');
 	}
 }

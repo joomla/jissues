@@ -14,7 +14,6 @@ use App\Projects\TrackerProject;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
-use Application\Service\ApplicationProvider;
 use Application\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
@@ -31,6 +30,7 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Service\ApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
