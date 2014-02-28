@@ -12,6 +12,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
+use Joomla\Http\Transport\Curl;
 use Joomla\Registry\Registry;
 
 use JTracker\Github\Github;
