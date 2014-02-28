@@ -57,7 +57,7 @@ Joomla Event Package
 
 Joomla Filter Package
 
-* Installed: 1.1.1
+* Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (1.1.*@stable)
@@ -92,63 +92,63 @@ Joomla Model Package
 
 Joomla Profiler Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/profiler.git
 
 #### joomla/registry (1.1.*@stable)
 
 Joomla Registry Package
 
-* Installed: 1.1.0
+* Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/registry.git
 
 #### joomla/router (1.1.*@stable)
 
 Joomla Router Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/router.git
 
 #### joomla/string (1.1.*@stable)
 
 Joomla String Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/string.git
 
 #### joomla/uri (1.1.*@stable)
 
 Joomla Uri Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/uri.git
 
 #### joomla/utilities (1.1.*@stable)
 
 Joomla Utilities Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/utilities.git
 
 #### joomla/view (1.1.*@stable)
 
 Joomla View Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/view.git
 
-#### symfony/http-foundation (2.3.*@stable)
+#### symfony/http-foundation (2.4.*@stable)
 
 Symfony HttpFoundation Component
 
-* Installed: v2.3.9
+* Installed: v2.4.2
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.15.0
+* Installed: v1.15.1
 * Source URL: https://github.com/fabpot/Twig.git
 
 #### elkuku/g11n (2.1)
@@ -169,23 +169,23 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master e522506213c6e71eb38cf48994bf141c8b4786cc
+* Installed: dev-master 7929d7a01d033083401f603ad55f1d85d080424c
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (*)
 
 Handle file uploads with extensible validation and storage strategies
 
-* Installed: dev-master 9444cfb3ffa825b33d7c4503c3ac207dcd8a9035
+* Installed: dev-master ff376306aacbd1005c7739dc171fae4edd96d8b7
 * Source URL: https://github.com/codeguy/Upload.git
 
 ### PHP - Development
 
-#### monolog/monolog (1.6.0)
+#### monolog/monolog (1.*@stable)
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.6.0
+* Installed: 1.7.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (0.9)
@@ -202,21 +202,21 @@ php error handling for cool kids
 * Installed: 1.0.10
 * Source URL: https://github.com/filp/whoops.git
 
-#### mustache/mustache (2.1.*)
+#### mustache/mustache (2.1.*@stable)
 
 A Mustache implementation in PHP.
 
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php.git
 
-#### phpunit/phpunit (3.7.*)
+#### phpunit/phpunit (3.7.*@stable)
 
 The PHP Unit Testing framework.
 
-* Installed: 3.7.x-dev
+* Installed: 3.7.32
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
-#### squizlabs/php_codesniffer (1.*)
+#### squizlabs/php_codesniffer (1.*@stable)
 
 PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
 
@@ -229,7 +229,7 @@ PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations o
 
 jQuery component
 
-* Source URL: https://github.com/components/jquery
+* Source URL: https://github.com/jquery/jquery
 
 #### jquery-validation (1.11.2)
 
