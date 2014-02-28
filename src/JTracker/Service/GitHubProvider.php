@@ -10,10 +10,11 @@ namespace JTracker\Service;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Github\Github as JoomlaGitHub;
-use Joomla\Github\Http as JoomlaGitHubHttp;
+use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
+
+use JTracker\Github\Github;
 
 /**
  * GitHub service provider
@@ -34,18 +35,26 @@ class GitHubProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		return $container->set('Joomla\\Github\\Github',
+		$container->share('JTracker\\Github\\Github',
 			function () use ($container)
 			{
 				$options = new Registry;
 
-				/* @var \JTracker\Application $app */
-				$app     = $container->get('app');
-				$session = $app->getSession();
+				$app = $container->get('app');
 
-				$token = $session->get('gh_oauth_access_token');
+				// Check if we're in the web application and a token exists
+				if ($app instanceof \JTracker\Application)
+				{
+					$session = $app->getSession();
 
-				// If a token is active in the session, use that for authentication (typically for a logged in user)
+					$token = $session->get('gh_oauth_access_token');
+				}
+				else
+				{
+					$token = false;
+				}
+
+				// If a token is active in the session (web app), use that for authentication (typically for a logged in user)
 				if ($token)
 				{
 					$options->set('gh.token', $token);
@@ -61,13 +70,6 @@ class GitHubProvider implements ServiceProviderInterface
 						$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
 						$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
 
-						if ($user && $password)
-						{
-							// Set the options from the first account
-							$options->set('api.username', $user);
-							$options->set('api.password', $password);
-						}
-
 						// Store the other accounts
 						$options->set('api.accounts', $accounts);
 					}
@@ -76,24 +78,34 @@ class GitHubProvider implements ServiceProviderInterface
 						// Support for a single account
 						$user     = $app->get('github.username');
 						$password = $app->get('github.password');
+					}
 
-						if ($user && $password)
-						{
-							// Set the options
-							$options->set('api.username', $user);
-							$options->set('api.password', $password);
-						}
+					// Add the username and password to the options object if both are set
+					if ($user && $password)
+					{
+						// Set the options from the first account
+						$options->set('api.username', $user);
+						$options->set('api.password', $password);
 					}
 				}
 
-				// GitHub API works best with cURL
+				// The cURL extension is required to properly work.
 				$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
-				$http = new JoomlaGitHubHttp($options, $transport);
+				// Check if we *really* got a cURL transport...
+				if (!($transport instanceof Curl))
+				{
+					throw new \RuntimeException('Please enable cURL.');
+				}
+
+				$http = new Http($options, $transport);
 
 				// Instantiate Github
-				return new JoomlaGitHub($options, $http);
-			}
-		)->alias('gitHub', 'Joomla\\Github\\Github');
+				return new GitHub($options, $http);
+			}, true
+		);
+
+		// Alias the object
+		$container->alias('gitHub', 'JTracker\\Github\\Github');
 	}
 }

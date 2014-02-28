@@ -14,7 +14,6 @@ use App\Projects\TrackerProject;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
-use Application\Service\GitHubProvider;
 use Application\Service\ApplicationProvider;
 use Application\Service\LoggerProvider;
 
@@ -35,6 +34,7 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\GitHubProvider;
 use JTracker\Service\TransifexProvider;
 
 /**
