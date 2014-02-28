@@ -25,4 +25,4 @@ build/logs/*
 current_SHA
 
 # Ignore uploads #
-uploads/*
+www/uploads/*
