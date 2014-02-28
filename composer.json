@@ -25,7 +25,7 @@
         "joomla/uri": "1.1.*@stable",
         "joomla/utilities": "1.1.*@stable",
         "joomla/view": "1.1.*@stable",
-        "symfony/http-foundation": "2.3.*@stable",
+        "symfony/http-foundation": "2.4.*@stable",
         "twig/twig": "1.*@stable",
         "elkuku/g11n": "2.1",
         "elkuku/console-progressbar": "1.0",
@@ -33,18 +33,18 @@
         "codeguy/upload": "*"
     },
     "require-dev": {
-        "monolog/monolog": "1.6.0",
+        "monolog/monolog": "1.*@stable",
         "raveren/kint": "0.9",
         "filp/whoops": "1.0.*@stable",
-        "mustache/mustache": "2.1.*",
-        "phpunit/phpunit"  : "3.7.*",
-        "squizlabs/php_codesniffer": "1.*"
+        "mustache/mustache": "2.1.*@stable",
+        "phpunit/phpunit"  : "3.7.*@stable",
+        "squizlabs/php_codesniffer": "1.*@stable"
     },
     "autoload": {
-        "psr-0": {
-            "Joomla": "src/",
-            "JTracker": "src/",
-            "App": "src/"
+        "psr-4": {
+            "Joomla\\": "src/Joomla/",
+            "JTracker\\": "src/JTracker/",
+            "App\\": "src/App/"
         }
     },
     "minimum-stability": "dev"
