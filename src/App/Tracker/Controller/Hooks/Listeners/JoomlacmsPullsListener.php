@@ -292,9 +292,9 @@ class JoomlacmsPullsListener
 			$logger->error(
 				sprintf(
 					'Error updating the title for issue %s/%s #%d on the tracker: %s',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->hookData->issue->number,
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->issue->number,
 					$e->getMessage()
 				)
 			);
