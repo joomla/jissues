@@ -51,6 +51,24 @@ class JoomlacmsPullsListener
 	}
 
 	/**
+	 * Event for after pull requests are updated in the application
+	 *
+	 * @param   Event  $event  Event object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function onPullAfterUpdate(Event $event)
+	{
+		// Pull the arguments array
+		$arguments = $event->getArguments();
+
+		// Place the JoomlaCode ID in the issue title if it isn't already there
+		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+	}
+
+	/**
 	 * Checks if a pull request targets the master branch
 	 *
 	 * @param   object  $hookData  Hook data payload
