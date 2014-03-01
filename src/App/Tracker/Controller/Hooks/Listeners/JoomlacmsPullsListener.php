@@ -232,10 +232,10 @@ class JoomlacmsPullsListener
 	 *
 	 * @since   1.0
 	 */
-	protected function updatePullTitle(Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function updatePullTitle($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// If the title already has the ID in it, then no need to do anything here
-		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
+		if (preg_match('/\[#([0-9]+)\]/', $hookData->issue->title, $matches))
 		{
 			return;
 		}
