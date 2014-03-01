@@ -254,8 +254,13 @@ class Issues extends Project
 				$table->closed_date = (new Date($ghIssue->closed_at))->format('Y-m-d H:i:s');
 			}
 
-			// If the title has a [# in it, assume it's a Joomlacode Tracker ID
+			// If the title has a [# in it, assume it's a JoomlaCode Tracker ID
 			if (preg_match('/\[#([0-9]+)\]/', $ghIssue->title, $matches))
+			{
+				$table->foreign_number = $matches[1];
+			}
+			// If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
+			elseif (preg_match('tracker_item_id=([0-9]+)', $ghIssue->body, $matches))
 			{
 				$table->foreign_number = $matches[1];
 			}

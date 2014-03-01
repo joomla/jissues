@@ -148,8 +148,13 @@ class ReceivePullsHook extends AbstractHookController
 			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
-		// If the title has a [# in it, assume it's a Joomlacode Tracker ID
+		// If the title has a [# in it, assume it's a JoomlaCode Tracker ID
 		if (preg_match('/\[#([0-9]+)\]/', $this->data->title, $matches))
+		{
+			$data['foreign_number'] = $matches[1];
+		}
+		// If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
+		elseif (preg_match('tracker_item_id=([0-9]+)', $this->data->body, $matches))
 		{
 			$data['foreign_number'] = $matches[1];
 		}
