@@ -44,6 +44,9 @@ class JoomlacmsPullsListener
 
 			// Check if the pull request targets the master branch
 			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
+			// Place the JoomlaCode ID in the issue title if it isn't already there
+			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -210,6 +213,88 @@ class JoomlacmsPullsListener
 					$project->gh_user,
 					$project->gh_project,
 					$hookData->pull_request->number,
+					$e->getMessage()
+				)
+			);
+		}
+	}
+
+	/**
+	 * Updates a pull request title to include the JoomlaCode ID if it exists
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function updatePullTitle(Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		// If the title already has the ID in it, then no need to do anything here
+		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
+		{
+			return;
+		}
+
+		// If we don't have a foreign ID, we can't do anything here
+		if (!isset($table->foreign_number))
+		{
+			return;
+		}
+
+		// Define the new title
+		$title = '[#' . $table->foreign_number . '] ' . $table->title;
+
+		try
+		{
+			$github->pulls->edit(
+				$project->gh_user, $project->gh_project, $hookData->pull_request->number, $title
+			);
+
+			// Post the new label on the object
+			$logger->info(
+				sprintf(
+					'Updated the title for GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error updating the title for GitHub pull request %s/%s #%d - %s',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number,
+					$e->getMessage()
+				)
+			);
+
+			// Don't change the title locally
+			return;
+		}
+
+		// Update the local title now
+		try
+		{
+			$data = ['title' => $title];
+			$table->save($data);
+		}
+		catch (\Exception $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error updating the title for issue %s/%s #%d on the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->hookData->issue->number,
 					$e->getMessage()
 				)
 			);
