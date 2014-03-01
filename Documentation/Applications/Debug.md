@@ -1,4 +1,4 @@
-## App Debug
+## Debug Application
 
 ### Purpose
 
@@ -18,6 +18,7 @@ Supported log events:
 * 403
 * 404
 * 500
+* cron jobs
 * database queries
 * GitHub issues
 * GitHub comments
