@@ -260,7 +260,7 @@ class Issues extends Project
 				$table->foreign_number = $matches[1];
 			}
 			// If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
-			elseif (preg_match('tracker_item_id=([0-9]+)', $ghIssue->body, $matches))
+			elseif (preg_match('/tracker_item_id=([0-9]+)/', $ghIssue->body, $matches))
 			{
 				$table->foreign_number = $matches[1];
 			}
