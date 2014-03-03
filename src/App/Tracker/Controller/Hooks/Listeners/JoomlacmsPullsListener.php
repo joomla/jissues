@@ -253,13 +253,13 @@ class JoomlacmsPullsListener
 	protected function updatePullTitle($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// If the title already has the ID in it, then no need to do anything here
-		if (preg_match('/\[#([0-9]+)\]/', $hookData->issue->title, $matches))
+		if (preg_match('/\[#([0-9]+)\]/', $hookData->pull_request->title, $matches))
 		{
 			return;
 		}
 
 		// If we don't have a foreign ID, we can't do anything here
-		if (!isset($table->foreign_number))
+		if (is_null($table->foreign_number))
 		{
 			return;
 		}
