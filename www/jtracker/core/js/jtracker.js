@@ -52,8 +52,9 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 
 				out.html(out.html() + tmpl(template, r.data));
 
-				// Clear textarea
+				// Clear textarea and files
 				$('#comment').val('');
+				$('tbody.files').empty();
 			}
 		}
 	);
