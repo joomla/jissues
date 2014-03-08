@@ -60,11 +60,13 @@
 
 	"logs/:log_type": "\\Debug\\Controller\\Logs",
 
-	"markdown"     : "\\Support\\Controller\\Markdown",
-	"icons"        : "\\Support\\Controller\\Icons",
-	"devdox"       : "\\Support\\Controller\\Devdox",
-	"devdox/:alias": "\\Support\\Controller\\Devdox",
-	"clearcache"   : "\\Support\\Controller\\Clearcache",
+	"markdown"             : "\\Support\\Controller\\Markdown",
+	"icons"                : "\\Support\\Controller\\Icons",
+	"documentation"        : "\\Support\\Controller\\Documentation",
+	"documentation/view"   : "\\Support\\Controller\\Documentation",
+	"documentation/show"   : "\\Support\\Controller\\Ajax\\Documentation\\Show",
+	"clearcache"           : "\\Support\\Controller\\Clearcache",
+    "filetree"             : "\\Support\\Controller\\Filetree",
 
 	"text"           : "\\Text\\Controller\\Articles",
 	"text/add"       : "\\Text\\Controller\\Article\\Add",
