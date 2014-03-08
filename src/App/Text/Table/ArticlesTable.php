@@ -10,8 +10,8 @@ namespace App\Text\Table;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Filter\OutputFilter;
-
 use Joomla\Github\Github;
+
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -122,7 +122,7 @@ class ArticlesTable extends AbstractDatabaseTable
 	 */
 	public function store($updateNulls = false)
 	{
-		if (!$this->created_date)
+		if (!$this->created_date || $this->created_date == $this->db->getNullDate())
 		{
 			// New item - set an (arbitrary) created date..
 			$this->created_date = (new \DateTime)->format('Y-m-d H:i:s');
