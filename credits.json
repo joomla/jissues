@@ -6,6 +6,10 @@
                 "title": "Everaldo Crystal Clear",
                 "description": "Icon set",
                 "homepage": "http://commons.wikimedia.org/wiki/Crystal_Clear"
+            },
+            {
+                "title" : "jQuery File Tree",
+                "homepage" : "http://www.abeautifulsite.net/blog/2008/03/jquery-file-tree/"
             }
         ]
     },

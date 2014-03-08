@@ -51,27 +51,12 @@ class Docu extends Make
 		$db = $this->container->get('db');
 
 		$docuBase   = JPATH_ROOT . '/Documentation';
-		$pagePrefix = 'dox-';
-		$files      = array();
 
-		/* @type \DirectoryIterator $f */
-		foreach (new \DirectoryIterator($docuBase) as $f)
-		{
-			if ($f->isDot())
-			{
-				continue;
-			}
-
-			$files[] = $f->getFilename();
-		}
-
-		$progressBar = $this->getApplication()->getProgressBar(count($files));
-
-		$this->usePBar ? $this->out() : null;
+		/* @type  \RecursiveDirectoryIterator $it */
+		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
 		$this
 			->out('Compiling documentation in: ' . $docuBase)
-			->out('Page prefix: ' . $pagePrefix)
 			->out();
 
 		$table = new ArticlesTable($db);
@@ -79,33 +64,47 @@ class Docu extends Make
 		// @todo compile the md text here.
 		$table->setGitHub($this->github);
 
-		foreach ($files as $i => $file)
+		while ($it->valid())
 		{
-			// @todo enough for URIs ?
-			$page = $pagePrefix . substr($file, 0, strrpos($file, '.'));
+			if ($it->isDir())
+			{
+				$it->next();
+
+				continue;
+			}
+
+			$file = new \stdClass;
+
+			$file->filename = $it->getFilename();
+
+			$path = $it->getSubPath();
+			$page = substr($it->getFilename(), 0, strrpos($it->getFilename(), '.'));
 
 			$this->debugOut('Compiling: ' . $page);
 
 			$table->reset();
+
 			$table->{$table->getKeyName()} = null;
 
 			try
 			{
-				$table->load(array('alias' => $page));
+				$table->load(array('alias' => $page, 'path' => $path));
 			}
 			catch (\RuntimeException $e)
 			{
 				// New item
 			}
 
+			$table->is_file = '1';
+			$table->path = $it->getSubPath();
 			$table->alias   = $page;
-			$table->text_md = file_get_contents($docuBase . '/' . $file);
+			$table->text_md = file_get_contents($it->key());
 
 			$table->store();
 
-			$this->usePBar
-				? $progressBar->update($i + 1)
-				: $this->out('.', false);
+			$this->out('.', false);
+
+			$it->next();
 		}
 
 		$this->out()

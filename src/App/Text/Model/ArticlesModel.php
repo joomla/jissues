@@ -30,6 +30,7 @@ class ArticlesModel extends AbstractTrackerListModel
 	{
 		return $this->db->getQuery(true)
 			->select($this->db->quoteName(array('article_id', 'title', 'alias', 'text')))
-			->from($this->db->quoteName('#__articles'));
+			->from($this->db->quoteName('#__articles'))
+			->where($this->db->quoteName('is_file') . ' = 0');
 	}
 }

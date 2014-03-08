@@ -290,11 +290,13 @@ CREATE TABLE IF NOT EXISTS `#__issues_voting` (
 
 CREATE TABLE IF NOT EXISTS `#__articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `path` varchar(500) NOT NULL COMMENT 'The article path',
   `title` varchar(250) NOT NULL COMMENT 'The article title',
   `alias` varchar(250) NOT NULL COMMENT 'The article alias.',
   `text` text NOT NULL COMMENT 'The article text.',
   `text_md` text NOT NULL COMMENT 'The raw article text.',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The created date.',
+  `is_file` int(1) unsigned NOT NULL COMMENT 'If the text is present as a file (for different handling)',
   PRIMARY KEY (`article_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
