@@ -8,7 +8,7 @@
 
 namespace App\Support\Controller;
 
-use App\Support\View\Devdox\DevdoxHtmlView;
+use App\Support\View\Documentation\DocumentationHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -17,12 +17,12 @@ use JTracker\Controller\AbstractTrackerController;
  *
  * @since  1.0
  */
-class Devdox extends AbstractTrackerController
+class Documentation extends AbstractTrackerController
 {
 	/**
 	 * View object
 	 *
-	 * @var    DevdoxHtmlView
+	 * @var    DocumentationHtmlView
 	 * @since  1.0
 	 */
 	protected $view = null;
@@ -39,6 +39,17 @@ class Devdox extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->view->setAlias($this->container->get('app')->input->getCmd('alias'));
+		/* @type $input \Joomla\Input\Input */
+		$input = $this->container->get('app')->input;
+
+		$path = $input->getPath('path');
+		$page = $input->getCmd('page');
+
+		if ($page)
+		{
+			$fullPath = 'page=' . $page . ($path ? '&path=' . $path : '');
+
+			$this->view->setFullPath($fullPath);
+		}
 	}
 }

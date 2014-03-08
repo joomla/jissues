@@ -22,15 +22,15 @@ class DefaultModel extends AbstractTrackerDatabaseModel
 	 * Get an item.
 	 *
 	 * @param   string  $alias  The item alias.
+	 * @param   string  $path   The path to the item.
 	 *
 	 * @return  ArticlesTable
 	 *
 	 * @since   1.0
 	 */
-	public function getItem($alias)
+	public function getItem($alias, $path = '')
 	{
-		$table = new ArticlesTable($this->db);
-
-		return $table->load(array('alias' => $alias));
+		return (new ArticlesTable($this->db))
+			->load(['alias' => $alias, 'path' => $path, 'is_file' => 1]);
 	}
 }

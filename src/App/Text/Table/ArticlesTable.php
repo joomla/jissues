@@ -18,11 +18,13 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the #__articles table
  *
  * @property   integer  $article_id    PK
+ * @property   string   $path          The article path.
  * @property   string   $title         The article title.
  * @property   string   $alias         The article alias.
  * @property   string   $text          The article text.
  * @property   string   $text_md       The raw article text.
  * @property   string   $created_date  The created date.
+ * @property   integer  $is_file       If the text is present as a file (for different handling)
  *
  * @since  1.0
  */

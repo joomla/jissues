@@ -1,0 +1,106 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block headerCSS %}
+    {{ parent() }}
+    <link href="{{ uri.base.path }}jtracker/file-tree/jqueryFileTree.css" rel="stylesheet" media="screen">
+    <!-- CSS for coloured code -->
+    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
+
+{% endblock %}
+
+{% block content %}
+
+	<div class="row-fluid">
+		<div class="span3">
+			<h2>Documentation</h2>
+			<div id="filetree"></div>
+
+			<!--
+			<ul class="unstyled">
+				{% for name, page in pages %}
+					<li>
+						<a href="{{ uri.base.path }}devdox/{{ page }}">
+							{{ name|title }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+			-->
+
+		</div>
+		<div class="span9" id="docuContainer"></div>
+	</div>
+
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplDocuPage">
+		<div class="breadcrumb">
+			<a class="btn btn-success" href="[%= o.editLink %]">{{ 'Improve'|_ }}</a>
+			<a class="btn btn-info pull-right" href="[%= o.permaLink %]">{{ 'Permalink'|_ }}</a>
+		</div>
+
+        [%# o.data %]
+    </script>
+    <script type="text/x-tmpl" id="tplDocuError">
+        <div class="alert alert-error">
+        </div>
+    </script>
+
+{% endblock %}
+
+{% block JavaScriptBottom %}
+{{ parent() }}
+
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script src="{{ uri.base.path }}jtracker/file-tree/jqueryFileTree.js"></script>
+
+	<script type="text/javascript">
+		function loadDocuPage(fullPath) {
+
+			//var url = '/documentation/show/?' + fullPath;
+
+			jQuery.ajax({
+				url : '/documentation/show/?' + fullPath,
+				success: function(response, status) {
+					if(response.error)
+					{
+						jQuery('#docuContainer').html(response.error);
+					}
+					else
+					{
+						jQuery('#docuContainer').html(tmpl("tplDocuPage", response));
+						window.history.pushState({},'', '/documentation/view/?' + fullPath);
+					}
+				},
+				error: (function() {
+					alert('error..');
+				})
+			});
+		}
+
+		$(document).ready(function() {
+			$('#filetree').fileTree({
+				root: '{{ docuBase }}',
+				script: '/filetree',
+				multiFolder: false
+			}, function(fullPath) {
+				loadDocuPage(fullPath);
+			});
+
+			//
+			// Load a page if the path is given
+			// @todo update file tree
+			{% if fullPath %}
+			loadDocuPage('{{ fullPath|raw }}');
+			{% endif %}
+		});
+
+	</script>
+{% endblock %}
