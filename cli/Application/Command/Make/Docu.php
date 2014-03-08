@@ -51,14 +51,9 @@ class Docu extends Make
 		$db = $this->container->get('db');
 
 		$docuBase   = JPATH_ROOT . '/Documentation';
-		$files      = array();
 
 		/* @type  \RecursiveDirectoryIterator $it */
 		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
-
-		$progressBar = $this->getApplication()->getProgressBar(count($files));
-
-		$this->usePBar ? $this->out() : null;
 
 		$this
 			->out('Compiling documentation in: ' . $docuBase)
@@ -68,8 +63,6 @@ class Docu extends Make
 
 		// @todo compile the md text here.
 		$table->setGitHub($this->github);
-
-		$cnt = 0;
 
 		while ($it->valid())
 		{
@@ -109,9 +102,7 @@ class Docu extends Make
 
 			$table->store();
 
-			$this->usePBar
-				? $progressBar->update(++$cnt)
-				: $this->out('.', false);
+			$this->out('.', false);
 
 			$it->next();
 		}
