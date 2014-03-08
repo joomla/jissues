@@ -1,4 +1,4 @@
-## App Text
+## Text Application
 
 ### Purpose
 

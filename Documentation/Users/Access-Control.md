@@ -1,6 +1,6 @@
-## Access control
+## Access Control (ACL)
 
-Acces control is limited and very specific:
+ACL is limited and very specific:
 
 * Only **Projects** are tracked.
 * There are only 4 "hard wired" **Actions**:<br />`view`, `create`, `edit` and `manage`.
