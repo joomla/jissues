@@ -5,7 +5,7 @@
   {% import "fields.twig" as fields %}
 
   {% set values = {
-        0: '- stage -'|_,
+        0: '- status -'|_,
         1: 'opened',
         2: 'confirmed',
         3: 'pending',
@@ -42,4 +42,16 @@
         } %}
 
     {{ fields.select('filter-sort', values, value, id, class) }}
+{% endmacro %}
+
+{% macro user(value, id, class) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {
+        0: "Everyone's issues"|_,
+        1: 'Created by you'|_,
+        2: 'You participated in'|_,
+        } %}
+
+    {{ fields.select('filter-user', values, value, id, class) }}
 {% endmacro %}

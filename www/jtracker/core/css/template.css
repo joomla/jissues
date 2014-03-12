@@ -8567,18 +8567,12 @@ img.avatar {
 }
 .row-activity .well, .row-activity img{margin-bottom: 10px}
 img.emoji, .row-activity .well img{margin-bottom: 0}
-.input-small-100 {
-  width: 100px;
-}
-.input-small-120 {
-  width: 120px;
-}
-.input-medium-180 {
-  width: 180px;
-}
-.input-large-240 {
-  width: 240px;
-}
+.input-small-100 {width: 100px;}
+.input-small-120 {width: 120px;}
+.input-medium-140 {width: 140px;}
+.input-medium-160 {width: 160px;}
+.input-medium-180 {width: 180px;}
+.input-large-240 {width: 240px;}
 .row-activity:target { border: 2px dashed #999; padding: 5px; padding-top: 100px; }
 .row-activity:target { transition:all 0.5s ease; }
 .issue-description {overflow: auto}

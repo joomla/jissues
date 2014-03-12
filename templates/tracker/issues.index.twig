@@ -39,16 +39,25 @@
                         {{ 'Closed'|_ }}
                     </button>
                 </div>
-                <div class="btn-group">
-                <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
-                    {{ 'Search tools'|_ }}
-                    <b class="caret"></b>
-                </button>
+                <div id="stools-button" class="btn-group">
+                    <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
+                        {{ 'Search tools'|_ }}
+                        <b class="caret"></b>
+                    </button>
                 </div>
                 <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}?</a>
             </div>
 
-            <div id="stools-container" class="collapse {% if state.get('filter.stage') or state.get('filter.priority') or state.get('filter.search') or state.get('filter.sort') %}in{% endif %} clearfix pull-left">
+            <div id="stools-container" class="collapse
+            {% if state.get('filter.stage')
+                or state.get('filter.priority')
+                or state.get('filter.search')
+                or state.get('filter.sort')
+                or state.get('filter.user')
+                or state.get('stools-active') %}
+                in
+            {% endif %}
+            clearfix pull-left">
                 <div class="filter-search btn-group input-append">
                     <label class="filter-search-lbl element-invisible"
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
@@ -70,12 +79,18 @@
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
                 </div>
+                {% if user.username %}
+                    <div class="btn-group">
+                        {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-160') }}
+                    </div>
+                {% endif %}
                 <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
                 </div>
              </div>
 
             <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
+            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}" />
         </div>
 
         <table class="table table-bordered table-striped table-condensed">
@@ -233,6 +248,9 @@
 
     $('[id^=filter]').change(
         function() {
+            // Search tools are active.
+            $('#stools-active').val(1);
+
             form.submit();
         }
     );
@@ -242,6 +260,18 @@
             var val = $(this).val();
             $('#filter-status').val(val);
             form.submit();
+        }
+    );
+
+    $('#stools-button button').click(
+        function () {
+            var val = $('#stools-active').val();
+
+            if (val == 0) {
+                $('#stools-active').val(1);
+            } else {
+                $('#stools-active').val(0);
+            }
         }
     );
     </script>
