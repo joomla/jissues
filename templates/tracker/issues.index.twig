@@ -74,7 +74,7 @@
                             title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
                 <div class="btn-group">
-                    {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100') }}
+                    {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100', state.get('filter.status')) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}

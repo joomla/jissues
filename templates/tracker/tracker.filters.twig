@@ -1,24 +1,29 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
-{% macro status(value, id, class) %}
+{% macro status(value, id, class, closed) %}
   {% import "fields.twig" as fields %}
 
-  {% set values = {
-        0: '- status -'|_,
-        1: 'opened',
-        2: 'confirmed',
-        3: 'pending',
-        4: 'fixed',
-        5: 'rtc',
-        6: 'review',
-        7: 'info',
-        8: 'platform',
-        9: 'no_reply',
-        10: 'closed',
-        11: 'expected',
-        12: 'known'
+  {% if closed %}
+        {% set values = {
+            0: '- status -'|_,
+            4: 'fixed',
+            8: 'platform',
+            9: 'no_reply',
+            11: 'expected',
+            12: 'known'
         } %}
+   {% else %}
+        {% set values = {
+            0: '- status -'|_,
+            2: 'confirmed',
+            3: 'pending',
+            5: 'rtc',
+            6: 'review',
+            7: 'info',
+        } %}
+   {% endif %}
+  %}
 
   {{ fields.select('filter-stage', values, value, id, class) }}
 {% endmacro %}
