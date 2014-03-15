@@ -29,14 +29,6 @@ class DefaultController extends AbstractTrackerListController
 	protected $view;
 
 	/**
-	 * Model object
-	 *
-	 * @var    IssuesModel
-	 * @since  1.0
-	 */
-	protected $model;
-
-	/**
 	 * The default view for the app
 	 *
 	 * @var    string
