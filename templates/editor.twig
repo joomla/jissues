@@ -2,15 +2,15 @@
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 <ul class="nav nav-tabs">
-    <li class="active"><a href="#write" data-toggle="tab">{{ "Write"|_ }}</a></li>
-    <li><a href="#preview" data-toggle="tab">{{ "Preview"|_ }}</a></li>
+    <li class="active"><a href="#{{ writeId }}" data-toggle="tab">{{ "Write"|_ }}</a></li>
+    <li><a href="#{{ previewId }}" data-toggle="tab">{{ "Preview"|_ }}</a></li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane active" id="write">
+    <div class="tab-pane active" id="{{ writeId }}">
         <textarea class="validateDescription"
                   name="{{ editorName }}" id="{{ editorId ? editorId : editorName }}"
                   placeholder="{{ editorPlaceholder }}">{{ editorText }}</textarea>
     </div>
-    <div class="tab-pane" style="min-height: 200px;" id="preview"></div>
+    <div class="tab-pane" style="min-height: 200px;" id="{{ previewId }}"></div>
 </div>
