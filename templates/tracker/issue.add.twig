@@ -145,6 +145,10 @@
             }
         });
 
+        $('#description').focus(function() {
+            $('input[name="editorId"]').val(this.id);
+        });
+
         // Validate and submit form
         var form = $('#issueForm');
 

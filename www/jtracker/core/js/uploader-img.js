@@ -31,6 +31,17 @@ $(function () {
         }
     });
 
+    uploadarea.bind('fileuploadsubmit', function (e, data) {
+        var val = $('input[name="editorId"]').val();
+        if (!val) {
+            $('#select-message').html(g11n3t('First please select an editor to attach the uploads to.'))
+            .show().delay(3000).fadeOut();
+            $('tbody.files').empty();
+
+            return false;
+        }
+    });
+
     uploadarea.bind('fileuploaddestroyed', function (e, data) {
         var match = '=';
         var fileName = data.url.substring(data.url.indexOf(match) + match.length, data.url.length);
