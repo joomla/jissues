@@ -44,6 +44,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 final class Application extends AbstractWebApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
+	use ContainerAwareTrait;
+
 	/**
 	 * The name of the application.
 	 *

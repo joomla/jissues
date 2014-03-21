@@ -154,7 +154,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				)
 			);
 
-			$this->$this->getContainer()->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// Make sure we have a valid project ID
@@ -167,7 +167,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				)
 			);
 
-			$this->$this->getContainer()->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 	}
 
@@ -298,7 +298,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				)
 			);
 
-			$this->$this->getContainer()->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		return $this;

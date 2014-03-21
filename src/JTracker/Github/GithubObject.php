@@ -9,7 +9,7 @@
 namespace JTracker\GitHub;
 
 use Joomla\Http\Response;
-use Joomla\Github\GithubObject as JGithubObject;
+use Joomla\Github\AbstractGithubObject as JGithubObject;
 use JTracker\Github\Exception\GithubException;
 
 /**
@@ -20,9 +20,8 @@ use JTracker\Github\Exception\GithubException;
 abstract class GithubObject extends JGithubObject
 {
 	/**
-	 * @var integer
-	 *
-	 * @since   1.0
+	 * @var    integer
+	 * @since  1.0
 	 */
 	protected $rateLimitRemaining = 0;
 
@@ -33,10 +32,10 @@ abstract class GithubObject extends JGithubObject
 	 * @param   integer   $expectedCode  The expected "good" code.
 	 * @param   boolean   $jsonDecode    Should the response be JSON decoded ?
 	 *
-	 * @throws \JTracker\Github\Exception\GithubException
 	 * @return  mixed
 	 *
 	 * @since   1.0
+	 * @throws  \JTracker\Github\Exception\GithubException
 	 */
 	protected function processResponse(Response $response, $expectedCode = 200, $jsonDecode = true)
 	{
