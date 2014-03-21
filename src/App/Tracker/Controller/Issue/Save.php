@@ -54,10 +54,10 @@ class Save extends AbstractTrackerController
 				$issue_number   = $src['issue_number'];
 
 				/* @type \Joomla\Github\Github $github */
-				$github = $this->container->get('gitHub');
+				$github = $this->getContainer()->get('gitHub');
 
 				$data = new \stdClass;
-				$db   = $this->container->get('db');
+				$db   = $this->getContainer()->get('db');
 
 				if ($project->gh_user && $project->gh_project)
 				{
