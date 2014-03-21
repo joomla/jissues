@@ -154,7 +154,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				)
 			);
 
-			$this->$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// Make sure we have a valid project ID
@@ -167,7 +167,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				)
 			);
 
-			$this->$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 	}
 
@@ -181,25 +181,25 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	public function initialize()
 	{
-		$this->debug = $this->container->get('app')->get('debug.hooks');
+		$this->debug = $this->getContainer()->get('app')->get('debug.hooks');
 
 		// Initialize the logger
 		$this->logger = new Logger('JTracker');
 
 		$this->logger->pushHandler(
 			new StreamHandler(
-				$this->container->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
+				$this->getContainer()->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
 			)
 		);
 
 		// Get the event dispatcher
-		$this->dispatcher = $this->container->get('app')->getDispatcher();
+		$this->dispatcher = $this->getContainer()->get('app')->getDispatcher();
 
 		// Get a database object
-		$this->db = $this->container->get('db');
+		$this->db = $this->getContainer()->get('db');
 
 		// Instantiate Github
-		$this->github = $this->container->get('gitHub');
+		$this->github = $this->getContainer()->get('gitHub');
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
@@ -216,23 +216,23 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		else
 		{
-			$myIP = $this->container->get('app')->input->server->getString('REMOTE_ADDR');
+			$myIP = $this->getContainer()->get('app')->input->server->getString('REMOTE_ADDR');
 		}
 
 		if (!BDHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
 			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// Get the payload data
-		$data = $this->container->get('app')->input->post->get('payload', null, 'raw');
+		$data = $this->getContainer()->get('app')->input->post->get('payload', null, 'raw');
 
 		if (!$data)
 		{
 			$this->logger->error('No data received.');
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
@@ -298,7 +298,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				)
 			);
 
-			$this->$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		return $this;

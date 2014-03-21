@@ -33,7 +33,7 @@ class Save extends AbstractTrackerController
 	public function execute()
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('edit');
 
@@ -42,7 +42,7 @@ class Save extends AbstractTrackerController
 		try
 		{
 			// Save the record.
-			(new IssueModel($this->container->get('db')))
+			(new IssueModel($this->getContainer()->get('db')))
 				->save($src);
 
 			$comment = $application->input->get('comment', '', 'raw');

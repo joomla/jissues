@@ -32,10 +32,10 @@ class Submit extends AbstractTrackerController
 	public function execute()
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->container->get('gitHub');
+		$gitHub = $this->getContainer()->get('gitHub');
 
 		$project = $application->getProject();
 
@@ -79,7 +79,7 @@ class Submit extends AbstractTrackerController
 		else
 		{
 			// Project is managed by JTracker only
-			$data['created_at'] = (new Date)->format($this->container->get('db')->getDateFormat());
+			$data['created_at'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 			$data['opened_by']  = $application->getUser()->username;
 			$data['number']     = '???';
 
@@ -96,7 +96,7 @@ class Submit extends AbstractTrackerController
 		// Store the issue
 		try
 		{
-			$model = new IssueModel($this->container->get('db'));
+			$model = new IssueModel($this->getContainer()->get('db'));
 			$model->add($data);
 		}
 		catch (\Exception $e)

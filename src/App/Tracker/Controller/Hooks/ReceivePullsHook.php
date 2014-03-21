@@ -76,7 +76,7 @@ class ReceivePullsHook extends AbstractHookController
 		catch (\RuntimeException $e)
 		{
 			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// If the item is already in the database, update it; else, insert it.
@@ -179,7 +179,7 @@ class ReceivePullsHook extends AbstractHookController
 				)
 			);
 
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->triggerEvent('onPullAfterCreate', $table, array('action' => $action));
@@ -187,7 +187,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->data->user->login . '.png'))
 		{
-			(new GitHubLoginHelper($this->container))
+			(new GitHubLoginHelper($this->getContainer()))
 				->saveAvatar($this->data->user->login);
 		}
 
@@ -298,7 +298,7 @@ class ReceivePullsHook extends AbstractHookController
 				)
 			);
 
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->triggerEvent('onPullAfterUpdate', $table);

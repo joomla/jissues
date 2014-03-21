@@ -40,7 +40,7 @@ class Modify extends AbstractAjaxController
 	{
 		parent::__construct($input, $app);
 
-		$this->github = $this->container->get('gitHub');
+		$this->github = $this->getContainer()->get('gitHub');
 	}
 
 	/**
@@ -52,12 +52,12 @@ class Modify extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$action = $this->container->get('app')->input->getCmd('action');
-		$hookId = $this->container->get('app')->input->getInt('hook_id');
+		$action = $this->getContainer()->get('app')->input->getCmd('action');
+		$hookId = $this->getContainer()->get('app')->input->getInt('hook_id');
 
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		// Get a valid hook object
 		$hook = $this->getHook($hookId);
@@ -90,7 +90,7 @@ class Modify extends AbstractAjaxController
 	 */
 	private function processAction($action, $hook)
 	{
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		switch ($action)
 		{
@@ -135,7 +135,7 @@ class Modify extends AbstractAjaxController
 	 */
 	private function getHook($hookId)
 	{
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		$hooks = $this->github->repositories->hooks->getList($project->gh_user, $project->gh_project);
 

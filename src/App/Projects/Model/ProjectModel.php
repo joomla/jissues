@@ -33,7 +33,7 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 	{
 		if (is_null($projectId))
 		{
-			$app = $this->container->get('app');
+			$app = $this->getContainer()->get('app');
 			$projectId = $app->input->get('project_id', 1);
 		}
 

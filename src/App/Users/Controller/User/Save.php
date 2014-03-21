@@ -30,7 +30,7 @@ class Save extends AbstractTrackerController
 	public function execute()
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$src = $application->input->get('item', array(), 'array');
 
@@ -56,7 +56,7 @@ class Save extends AbstractTrackerController
 		try
 		{
 			// Save the record.
-			(new UserModel($this->container->get('db')))->save($src);
+			(new UserModel($this->getContainer()->get('db')))->save($src);
 
 			$application->enqueueMessage(
 				g11n3t('The changes have been saved.'), 'success'

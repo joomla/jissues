@@ -39,9 +39,9 @@ class Hooks extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->view->setProject($this->container->get('app')->getProject());
+		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
 		return $this;
 	}

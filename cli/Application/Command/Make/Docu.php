@@ -43,12 +43,12 @@ class Docu extends Make
 			$this->usePBar = false;
 		}
 
-		$this->github = $this->container->get('gitHub');
+		$this->github = $this->getContainer()->get('gitHub');
 
 		$this->getApplication()->displayGitHubRateLimit();
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$docuBase   = JPATH_ROOT . '/Documentation';
 

@@ -54,7 +54,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		catch (\RuntimeException $e)
 		{
 			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// If the item is already in the database, update it; else, insert it.
@@ -153,7 +153,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				)
 			);
 
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->triggerEvent('onIssueAfterCreate', $table);
@@ -161,7 +161,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
-			(new GitHubLoginHelper($this->container))
+			(new GitHubLoginHelper($this->getContainer()))
 				->saveAvatar($this->hookData->issue->user->login);
 		}
 
@@ -271,7 +271,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				)
 			);
 
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->triggerEvent('onIssueAfterUpdate', $table);

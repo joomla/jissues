@@ -26,14 +26,14 @@ class Delete extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$name = $this->container->get('app')->input->getCmd('name');
+		$name = $this->getContainer()->get('app')->input->getCmd('name');
 
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = $this->container->get('gitHub');
+		$github = $this->getContainer()->get('gitHub');
 
 		// Delete the label
 		$github->issues->labels->delete($project->gh_user, $project->gh_project, $name);

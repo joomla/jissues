@@ -35,7 +35,7 @@ class Dbcomments extends Make
 		$this->getApplication()->outputTitle('Make DB Comments');
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$tables = $db->getTableList();
 
