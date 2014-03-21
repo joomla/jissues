@@ -28,22 +28,22 @@ class Preview extends AbstractAjaxController
 	protected function prepareResponse()
 	{
 		// Only registered users are able to use the preview using their credentials.
-		if (!$this->container->get('app')->getUser()->id)
+		if (!$this->getContainer()->get('app')->getUser()->id)
 		{
 			throw new \Exception('not auth..');
 		}
 
-		$text = $this->container->get('app')->input->get('text', '', 'raw');
+		$text = $this->getContainer()->get('app')->input->get('text', '', 'raw');
 
 		if (!$text)
 		{
 			throw new \Exception(g11n3t('Nothing to preview...'));
 		}
 
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = $this->container->get('gitHub');
+		$github = $this->getContainer()->get('gitHub');
 
 		$this->response->data = $github->markdown->render(
 			$text,

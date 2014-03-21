@@ -131,7 +131,7 @@ class Get extends TrackerCommand
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = $this->container->get('gitHub');
+		$this->github = $this->getContainer()->get('gitHub');
 
 		return $this;
 	}
@@ -215,7 +215,7 @@ class Get extends TrackerCommand
 	 */
 	protected function setupTransifex()
 	{
-		$this->transifex = $this->container->get('transifex');
+		$this->transifex = $this->getContainer()->get('transifex');
 
 		return $this;
 	}

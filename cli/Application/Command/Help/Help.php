@@ -216,7 +216,7 @@ class Help extends TrackerCommand
 				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
 			}
 
-			$commands[strtolower($c)] = new $className($this->container);
+			$commands[strtolower($c)] = new $className($this->getContainer());
 		}
 
 		return $commands;
@@ -252,7 +252,7 @@ class Help extends TrackerCommand
 			{
 				$className = "Application\\Command\\$cName\\$action";
 
-				$actions[strtolower($action)] = new $className($this->container);
+				$actions[strtolower($action)] = new $className($this->getContainer());
 			}
 		}
 

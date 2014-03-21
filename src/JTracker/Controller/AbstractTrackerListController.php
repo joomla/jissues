@@ -50,10 +50,10 @@ abstract class AbstractTrackerListController extends AbstractTrackerController
 		parent::initialize();
 
 		/* @type Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');
-		$page  = $this->container->get('app')->input->getInt('page');
+		$page  = $this->getContainer()->get('app')->input->getInt('page');
 
 		$value = $page ? ($page - 1) * $limit : 0;
 		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
@@ -65,7 +65,7 @@ abstract class AbstractTrackerListController extends AbstractTrackerController
 
 		$this->model->setState($state);
 
-		$this->model->setPagination(new TrackerPagination(new Uri($this->container->get('app')->get('uri.request'))));
+		$this->model->setPagination(new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request'))));
 
 		return $this;
 	}

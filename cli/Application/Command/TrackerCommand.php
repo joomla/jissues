@@ -12,8 +12,8 @@ use App\Projects\TrackerProject;
 
 use Application\Exception\AbortException;
 
-use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -26,14 +26,7 @@ use Psr\Log\LoggerAwareTrait;
 abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInterface
 {
 	use LoggerAwareTrait;
-
-	/**
-	 * Container object.
-	 *
-	 * @var    Container
-	 * @since  1.0
-	 */
-	protected $container;
+	use ContainerAwareTrait;
 
 	/**
 	 * Array of options.
@@ -174,40 +167,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected function outOK()
 	{
 		return $this->out('<ok>ok</ok>');
-	}
-
-	/**
-	 * Get the DI container.
-	 *
-	 * @return  Container
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException May be thrown if the container has not been set.
-	 */
-	public function getContainer()
-	{
-		if (is_null($this->container))
-		{
-			throw new \UnexpectedValueException('Container not set');
-		}
-
-		return $this->container;
-	}
-
-	/**
-	 * Set the DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function setContainer(Container $container)
-	{
-		$this->container = $container;
-
-		return $this;
 	}
 
 	/**

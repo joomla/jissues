@@ -28,7 +28,7 @@ class Delete extends AbstractAjaxController
 	protected function prepareResponse()
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$file = $application->input->getCmd('file');
 

@@ -28,7 +28,7 @@ class Clearcache extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		try
 		{

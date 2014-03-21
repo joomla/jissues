@@ -41,6 +41,6 @@ class Page extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->view->setAlias($this->container->get('app')->input->getCmd('alias'));
+		$this->view->setAlias($this->getContainer()->get('app')->input->getCmd('alias'));
 	}
 }

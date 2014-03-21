@@ -26,7 +26,7 @@ class Search extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$input = $this->container->get('app')->input;
+		$input = $this->getContainer()->get('app')->input;
 
 		$search       = $input->get('query');
 		$inGroupId    = $input->getInt('in_group_id');
@@ -34,7 +34,7 @@ class Search extends AbstractAjaxController
 
 		if ($search)
 		{
-			$db = $this->container->get('db');
+			$db = $this->getContainer()->get('db');
 
 			$query = $db->getQuery(true)
 				->select('DISTINCT ' . $db->quoteName('u.username'))

@@ -55,7 +55,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		catch (\RuntimeException $e)
 		{
 			$this->logger->error('Error checking the database for comment ID:' . $e->getMessage());
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// If the item is already in the database, update it; else, insert it
@@ -96,7 +96,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		catch (\RuntimeException $e)
 		{
 			$this->logger->error('Error checking the database for GitHub ID:' . $e->getMessage());
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
@@ -146,7 +146,7 @@ class ReceiveCommentsHook extends AbstractHookController
 			// Pull the user's avatar if it does not exist
 			if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
 			{
-				(new GitHubLoginHelper($this->container))
+				(new GitHubLoginHelper($this->getContainer()))
 					->saveAvatar($this->hookData->comment->user->login);
 			}
 		}
@@ -232,7 +232,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				)
 			);
 
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->triggerEvent('onCommentAfterCreate', $table);
@@ -240,7 +240,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
 		{
-			(new GitHubLoginHelper($this->container))
+			(new GitHubLoginHelper($this->getContainer()))
 				->saveAvatar($this->hookData->issue->user->login);
 		}
 
@@ -301,7 +301,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				'Error updating the database for comment ' . $id . ':' . $e->getMessage()
 			);
 
-			$this->container->get('app')->close();
+			$this->getContainer()->get('app')->close();
 		}
 
 		$this->triggerEvent('onCommentAfterUpdate', $table);

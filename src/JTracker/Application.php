@@ -16,6 +16,8 @@ use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherInterface;
 use Joomla\Event\DispatcherAwareInterface;
@@ -40,7 +42,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @since  1.0
  */
-final class Application extends AbstractWebApplication implements DispatcherAwareInterface
+final class Application extends AbstractWebApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
 	/**
 	 * The name of the application.
@@ -76,14 +78,6 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 	private $project;
 
 	/**
-	 * DI Container
-	 *
-	 * @var    Container
-	 * @since  1.0
-	 */
-	private $container = null;
-
-	/**
 	 * Event Dispatcher
 	 *
 	 * @var    Dispatcher
@@ -102,12 +96,14 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 		parent::__construct();
 
 		// Build the DI Container
-		$this->container = (new Container)
+		$container = (new Container)
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
+
+		$this->setContainer($container);
 
 		$this->loadLanguage()
 			->mark('Application started');
@@ -125,7 +121,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 	 */
 	public function getDebugger()
 	{
-		return $this->container->get('debugger');
+		return $this->getContainer()->get('debugger');
 	}
 
 	/**
@@ -140,7 +136,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 		try
 		{
 			// Instantiate the router
-			$router = new TrackerRouter($this->container, $this->input);
+			$router = new TrackerRouter($this->getContainer(), $this->input);
 			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
 			if (!$maps)
@@ -313,7 +309,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 	{
 		if ($id)
 		{
-			return new GitHubUser($this->getProject(), $this->container->get('db'), $id);
+			return new GitHubUser($this->getProject(), $this->getContainer()->get('db'), $id);
 		}
 
 		if (is_null($this->user))
@@ -321,12 +317,12 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 			if ($this->user = $this->getSession()->get('jissues_user'))
 			{
 				// @todo Ref #275
-				$this->user->setDatabase($this->container->get('db'));
-				$this->user->getProject()->setDatabase($this->container->get('db'));
+				$this->user->setDatabase($this->getContainer()->get('db'));
+				$this->user->getProject()->setDatabase($this->getContainer()->get('db'));
 			}
 			else
 			{
-				$this->user = new GitHubUser($this->getProject(), $this->container->get('db'));
+				$this->user = new GitHubUser($this->getProject(), $this->getContainer()->get('db'));
 			}
 		}
 
@@ -441,7 +437,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 		if (is_null($user))
 		{
 			// Logout
-			$this->user = new GitHubUser($this->getProject(), $this->container->get('db'));
+			$this->user = new GitHubUser($this->getProject(), $this->getContainer()->get('db'));
 
 			$this->getSession()->set('jissues_user', $this->user);
 
@@ -598,7 +594,7 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 			if ($alias)
 			{
 				// Change the project
-				$project = (new ProjectModel($this->container->get('db')))
+				$project = (new ProjectModel($this->getContainer()->get('db')))
 					->getByAlias($alias);
 
 				if (!$project)
@@ -615,13 +611,13 @@ final class Application extends AbstractWebApplication implements DispatcherAwar
 				if ($sessionAlias)
 				{
 					// Found a session Project.
-					$project = (new ProjectModel($this->container->get('db')))
+					$project = (new ProjectModel($this->getContainer()->get('db')))
 						->getByAlias($sessionAlias);
 				}
 				else
 				{
 					// Nothing found - Get a default project !
-					$project = (new ProjectModel($this->container->get('db')))
+					$project = (new ProjectModel($this->getContainer()->get('db')))
 						->getItem(1);
 				}
 			}

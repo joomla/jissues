@@ -8,8 +8,8 @@
 
 namespace JTracker\Controller;
 
-use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Input\Input;
 
 use Joomla\View\Renderer\RendererInterface;
@@ -24,6 +24,8 @@ use JTracker\View\Renderer\TrackerExtension;
  */
 abstract class AbstractTrackerController implements ContainerAwareInterface
 {
+	use ContainerAwareTrait;
+
 	/**
 	 * The default view for the app
 	 *
@@ -47,14 +49,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 * @since  1.0
 	 */
 	protected $app;
-
-	/**
-	 * DI container
-	 *
-	 * @var    Container
-	 * @since  1.0
-	 */
-	protected $container;
 
 	/**
 	 * View object
@@ -110,7 +104,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	{
 		if ($id)
 		{
-			$app    = $this->container->get('app');
+			$app    = $this->getContainer()->get('app');
 			$values = (array) $app->getUserState($context . '.id');
 
 			$result = in_array((int) $id, $values);
@@ -151,7 +145,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	{
 		// Get the input
 		/* @type Input $input */
-		$input = $this->container->get('app')->input;
+		$input = $this->getContainer()->get('app')->input;
 
 		// Get some data from the request
 		$viewName   = $input->getWord('view', $this->defaultView);
@@ -194,7 +188,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		// Register the templates paths for the view
 		$paths = array();
 
-		$sub = ('php' == $this->container->get('app')->get('renderer.type')) ? '/php' : '';
+		$sub = ('php' == $this->getContainer()->get('app')->get('renderer.type')) ? '/php' : '';
 
 		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->app);
 
@@ -203,9 +197,9 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 			$paths[] = $path;
 		}
 
-		// @$this->model = $this->container->buildObject($modelClass);
+		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
-		$this->model = new $modelClass($this->container->get('db'), $this->container->get('app')->input);
+		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
 
 		// Create the view
 		/* @type AbstractTrackerHtmlView $view */
@@ -237,7 +231,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		}
 		catch (\Exception $e)
 		{
-			$contents = $this->container->get('app')->getDebugger()->renderException($e);
+			$contents = $this->getContainer()->get('app')->getDebugger()->renderException($e);
 		}
 
 		return $contents;
@@ -267,7 +261,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 */
 	protected function holdEditId($context, $id)
 	{
-		$app = $this->container->get('app');
+		$app = $this->getContainer()->get('app');
 		$values = (array) $app->getUserState($context . '.id');
 
 		// Add the id to the list if non-zero.
@@ -303,7 +297,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 */
 	protected function releaseEditId($context, $id)
 	{
-		$app    = $this->container->get('app');
+		$app    = $this->getContainer()->get('app');
 		$values = (array) $app->getUserState($context . '.id');
 
 		// Do a strict search of the edit list values.
@@ -341,7 +335,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	protected function fetchRenderer($templatesPaths)
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$rendererName = $application->get('renderer.type');
 
@@ -395,7 +389,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		$renderer = new $className($config);
 
 		// Register tracker's extension.
-		$renderer->addExtension(new TrackerExtension($this->container));
+		$renderer->addExtension(new TrackerExtension($this->getContainer()));
 
 		// Register additional paths.
 		if (!empty($templatesPaths))
@@ -403,7 +397,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 			$renderer->setTemplatesPaths($templatesPaths, true);
 		}
 
-		$gitHubHelper = new GitHubLoginHelper($this->container);
+		$gitHubHelper = new GitHubLoginHelper($this->getContainer());
 
 		$renderer
 			->set('loginUrl', $gitHubHelper->getLoginUri())
@@ -425,32 +419,5 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		}
 
 		return $renderer;
-	}
-
-	/**
-	 * Get the DI container.
-	 *
-	 * @return  Container
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException May be thrown if the container has not been set.
-	 */
-	public function getContainer()
-	{
-		return $this->container;
-	}
-
-	/**
-	 * Set the DI container.
-	 *
-	 * @param   Container  $container  The DI container.
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 */
-	public function setContainer(Container $container)
-	{
-		$this->container = $container;
 	}
 }

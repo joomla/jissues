@@ -23,6 +23,7 @@ use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherInterface;
@@ -44,6 +45,8 @@ use JTracker\Service\TransifexProvider;
  */
 class Application extends AbstractCliApplication implements DispatcherAwareInterface
 {
+	use ContainerAwareTrait;
+
 	/**
 	 * Quiet mode - no output.
 	 *
@@ -83,14 +86,6 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	 * @since  1.0
 	 */
 	protected $commandOptions = array();
-
-	/**
-	 * DI Container
-	 *
-	 * @var    Container
-	 * @since  1.0
-	 */
-	private $container = null;
 
 	/**
 	 * Event Dispatcher

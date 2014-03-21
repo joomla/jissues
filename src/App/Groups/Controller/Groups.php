@@ -48,10 +48,10 @@ class Groups extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('manage');
+		$this->getContainer()->get('app')->getUser()->authorize('manage');
 
-			$this->model->setProject($this->container->get('app')->getProject());
-		$this->view->setProject($this->container->get('app')->getProject());
+			$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
 		return $this;
 	}

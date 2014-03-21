@@ -26,7 +26,7 @@ class Phpinfo extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
 		return parent::execute();
 	}

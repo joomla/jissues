@@ -57,10 +57,10 @@ class Delete extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('manage');
+		$this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->model->setProject($this->container->get('app')->getProject());
-		$this->view->setProject($this->container->get('app')->getProject());
+		$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
 		return $this;
 	}
@@ -74,12 +74,12 @@ class Delete extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$table = new GroupsTable($this->container->get('db'));
+		$table = new GroupsTable($this->getContainer()->get('db'));
 
-		$table->load($this->container->get('app')->input->getInt('group_id'))
+		$table->load($this->getContainer()->get('app')->input->getInt('group_id'))
 			->delete();
 
-		$this->container->get('app')->enqueueMessage(g11n3t('The group has been deleted.'), 'success');
+		$this->getContainer()->get('app')->enqueueMessage(g11n3t('The group has been deleted.'), 'success');
 
 		return parent::execute();
 	}
