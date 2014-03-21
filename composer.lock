@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "50d9d4dad0f7fcbba6712399fe5a3b13",
+    "hash": "1b321ebdfabc4abfd5c092b9ef7f6854",
     "packages": [
         {
             "name": "babdev/library",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeguy/Upload.git",
-                "reference": "ff376306aacbd1005c7739dc171fae4edd96d8b7"
+                "reference": "8db8dbfb419b2634be98afe1e6b993eca7f25b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeguy/Upload/zipball/ff376306aacbd1005c7739dc171fae4edd96d8b7",
-                "reference": "ff376306aacbd1005c7739dc171fae4edd96d8b7",
+                "url": "https://api.github.com/repos/codeguy/Upload/zipball/8db8dbfb419b2634be98afe1e6b993eca7f25b21",
+                "reference": "8db8dbfb419b2634be98afe1e6b993eca7f25b21",
                 "shasum": ""
             },
             "require": {
@@ -72,8 +72,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Upload": "src"
+                "psr-4": {
+                    "Upload\\": "src/Upload"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -94,7 +94,7 @@
                 "upload",
                 "validation"
             ],
-            "time": "2014-02-25 11:26:56"
+            "time": "2014-03-19 19:02:15"
         },
         {
             "name": "elkuku/console-progressbar",
@@ -226,17 +226,16 @@
         },
         {
             "name": "joomla/compat",
-            "version": "1.1.0",
-            "target-dir": "Joomla/Compat",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/compat.git",
-                "reference": "c59ff64cb3ee068c22aedfaab8fe4888f63376d3"
+                "reference": "92ba45e9cfdca4c912691bf04ef13e0c03660348"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/compat/zipball/c59ff64cb3ee068c22aedfaab8fe4888f63376d3",
-                "reference": "c59ff64cb3ee068c22aedfaab8fe4888f63376d3",
+                "url": "https://api.github.com/repos/joomla-framework/compat/zipball/92ba45e9cfdca4c912691bf04ef13e0c03660348",
+                "reference": "92ba45e9cfdca4c912691bf04ef13e0c03660348",
                 "shasum": ""
             },
             "require": {
@@ -245,7 +244,7 @@
             "type": "joomla-package",
             "autoload": {
                 "classmap": [
-                    "JsonSerializable.php"
+                    "src/JsonSerializable.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -253,13 +252,13 @@
                 "GPL-2.0+"
             ],
             "description": "Joomla Compat Package",
-            "homepage": "https://github.com/joomla/joomla-framework-compat",
+            "homepage": "https://github.com/joomla-framework/compat",
             "keywords": [
                 "compat",
                 "framework",
                 "joomla"
             ],
-            "time": "2013-05-15 03:30:25"
+            "time": "2014-02-09 19:29:20"
         },
         {
             "name": "joomla/controller",
@@ -387,16 +386,16 @@
         },
         {
             "name": "joomla/di",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/di.git",
-                "reference": "f8407a0a531c6046001cefb3de74d0133ea5e76e"
+                "reference": "4866c58e92ce4e851cd87d5d9d31b069b7284267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/di/zipball/f8407a0a531c6046001cefb3de74d0133ea5e76e",
-                "reference": "f8407a0a531c6046001cefb3de74d0133ea5e76e",
+                "url": "https://api.github.com/repos/joomla-framework/di/zipball/4866c58e92ce4e851cd87d5d9d31b069b7284267",
+                "reference": "4866c58e92ce4e851cd87d5d9d31b069b7284267",
                 "shasum": ""
             },
             "require": {
@@ -423,7 +422,7 @@
                 "ioc",
                 "joomla"
             ],
-            "time": "2014-02-09 01:29:12"
+            "time": "2014-03-21 13:20:34"
         },
         {
             "name": "joomla/event",
@@ -587,30 +586,33 @@
         },
         {
             "name": "joomla/http",
-            "version": "1.1.0",
-            "target-dir": "Joomla/Http",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/http.git",
-                "reference": "788695251da34cedd88b3192a06ac8595c51afeb"
+                "reference": "c356220d2ed3bf549dcda8d0d04cd8d5bc276fa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/http/zipball/788695251da34cedd88b3192a06ac8595c51afeb",
-                "reference": "788695251da34cedd88b3192a06ac8595c51afeb",
+                "url": "https://api.github.com/repos/joomla-framework/http/zipball/c356220d2ed3bf549dcda8d0d04cd8d5bc276fa7",
+                "reference": "c356220d2ed3bf549dcda8d0d04cd8d5bc276fa7",
                 "shasum": ""
             },
             "require": {
                 "joomla/uri": "~1.0",
                 "php": ">=5.3.10"
             },
+            "require-dev": {
+                "joomla/test": "~1.0"
+            },
             "suggest": {
                 "joomla/registry": "Registry can be used as an alternative to using an array for the package options."
             },
             "type": "joomla-package",
             "autoload": {
-                "psr-0": {
-                    "Joomla\\Http": ""
+                "psr-4": {
+                    "Joomla\\Http\\": "src/",
+                    "Joomla\\Http\\Tests\\": "Tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -618,13 +620,13 @@
                 "GPL-2.0+"
             ],
             "description": "Joomla HTTP Package",
-            "homepage": "https://github.com/joomla/joomla-framework-http",
+            "homepage": "https://github.com/joomla-framework/http",
             "keywords": [
                 "framework",
                 "http",
                 "joomla"
             ],
-            "time": "2013-11-05 19:26:10"
+            "time": "2014-02-10 21:30:23"
         },
         {
             "name": "joomla/input",
@@ -1592,12 +1594,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "292f4d5772dad5a12775be69f4a8dd663b20f103"
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/292f4d5772dad5a12775be69f4a8dd663b20f103",
-                "reference": "292f4d5772dad5a12775be69f4a8dd663b20f103",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1636,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-10-21 14:03:39"
+            "time": "2014-03-03 05:10:30"
         },
         {
             "name": "phpunit/phpunit",
@@ -1890,12 +1892,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab"
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e49a47d60348665261f6e279ba383241deb73cab",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6194137af5f12fbcfc0cb21e269f47542b8beb47",
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47",
                 "shasum": ""
             },
             "require": {
@@ -1930,7 +1932,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-24 16:21:51"
+            "time": "2014-03-03 12:53:01"
         }
     ],
     "aliases": [
