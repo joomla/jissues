@@ -126,10 +126,10 @@
                     class="validateTitle" />
                 </li>
                 <li>
-
                     {% set editorId="description" %}
                     {% set previewId="previewDesc" %}
                     {% set writeId="writeDesc" %}
+                    {% set editorClass="validateDescription" %}
                     {% set editorName="item[description_raw]" %}
                     {% set editorText=item.description_raw %}
                     {% set editorPlaceholder="Description text" %}
@@ -146,7 +146,8 @@
                 {% set editorId="comment" %}
                 {% set previewId="previewComment" %}
                 {% set writeId="writeComment" %}
-                {% set editorName="item[comment]" %}
+                {% set editorClass="" %}
+                {% set editorName="comment" %}
                 {% set editorText='' %}
                 {% set editorPlaceholder="Leave a comment"|_ %}
 

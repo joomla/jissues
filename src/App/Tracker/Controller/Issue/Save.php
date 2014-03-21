@@ -9,6 +9,9 @@
 namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Table\ActivitiesTable;
+
+use Joomla\Date\Date;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -41,6 +44,69 @@ class Save extends AbstractTrackerController
 			// Save the record.
 			(new IssueModel($this->container->get('db')))
 				->save($src);
+
+			$comment = $application->input->get('comment', '', 'raw');
+
+			// Save the comment.
+			if ($comment)
+			{
+				$project        = $application->getProject();
+				$issue_number   = $src['issue_number'];
+
+				/* @type \Joomla\Github\Github $github */
+				$github = $this->container->get('gitHub');
+
+				$data = new \stdClass;
+				$db   = $this->container->get('db');
+
+				if ($project->gh_user && $project->gh_project)
+				{
+					$gitHubResponse = $github->issues->comments->create(
+						$project->gh_user, $project->gh_project, $issue_number, $comment
+					);
+
+					if (!isset($gitHubResponse->id))
+					{
+						throw new \Exception('Invalid response from GitHub');
+					}
+
+					$data->created_at = $gitHubResponse->created_at;
+					$data->opened_by  = $gitHubResponse->user->login;
+					$data->comment_id = $gitHubResponse->id;
+					$data->text_raw   = $gitHubResponse->body;
+
+					$data->text = $github->markdown->render(
+						$comment,
+						'gfm',
+						$project->gh_user . '/' . $project->gh_project
+					);
+				}
+				else
+				{
+					$date = new Date;
+
+					$data->created_at = $date->format($db->getDateFormat());
+					$data->opened_by  = $application->getUser()->username;
+					$data->comment_id = '???';
+
+					$data->text_raw = $comment;
+
+					$data->text = $github->markdown->render($comment, 'markdown');
+				}
+
+				$table = new ActivitiesTable($db);
+
+				$table->event         = 'comment';
+				$table->created_date  = $data->created_at;
+				$table->project_id    = $project->project_id;
+				$table->issue_number  = $issue_number;
+				$table->gh_comment_id = $data->comment_id;
+				$table->user          = $data->opened_by;
+				$table->text          = $data->text;
+				$table->text_raw      = $data->text_raw;
+
+				$table->store();
+			}
 
 			$application->enqueueMessage('The changes have been saved.', 'success')
 				->redirect(
