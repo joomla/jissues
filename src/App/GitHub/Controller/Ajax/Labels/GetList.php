@@ -26,12 +26,12 @@ class GetList extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
-		$github = $this->container->get('gitHub');
+		$github = $this->getContainer()->get('gitHub');
 
 		$this->response->data = $github->issues->labels->getList($project->gh_user, $project->gh_project);
 	}

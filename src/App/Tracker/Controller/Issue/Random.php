@@ -29,14 +29,14 @@ class Random extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('view');
 
 		try
 		{
-			$randomNumber = (new IssueModel($this->container->get('db')))
-				->setProject($this->container->get('app')->getProject())
+			$randomNumber = (new IssueModel($this->getContainer()->get('db')))
+				->setProject($this->getContainer()->get('app')->getProject())
 				->getRandomNumber();
 
 			$application->redirect(

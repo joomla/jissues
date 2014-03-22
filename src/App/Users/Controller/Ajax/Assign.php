@@ -28,13 +28,13 @@ class Assign extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		if (false == $this->container->get('app')->getUser()->check('manage'))
+		if (false == $this->getContainer()->get('app')->getUser()->check('manage'))
 		{
 			throw new \Exception('You are not authorized');
 		}
 
-		$input = $this->container->get('app')->input;
-		$db    = $this->container->get('db');
+		$input = $this->getContainer()->get('app')->input;
+		$db    = $this->getContainer()->get('db');
 
 		$user    = $input->getCmd('user');
 		$groupId = $input->getInt('group_id');
@@ -45,7 +45,7 @@ class Assign extends AbstractAjaxController
 			throw new \Exception('Missing group id');
 		}
 
-		$tableUsers = new TableUsers($this->container->get('db'));
+		$tableUsers = new TableUsers($this->getContainer()->get('db'));
 
 		$tableUsers->loadByUserName($user);
 
@@ -98,7 +98,7 @@ class Assign extends AbstractAjaxController
 	 */
 	private function assign($userId, $groupId)
 	{
-		$db = $this->container->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$data = array(
 			$db->quoteName('user_id')  => (int) $userId,
@@ -127,7 +127,7 @@ class Assign extends AbstractAjaxController
 	 */
 	private function unAssign($userId, $groupId)
 	{
-		$db = $this->container->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$db->setQuery(
 			$db->getQuery(true)

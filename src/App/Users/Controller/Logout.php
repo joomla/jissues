@@ -26,7 +26,7 @@ class Logout extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		// Logout the user.
 		$application->setUser(null);

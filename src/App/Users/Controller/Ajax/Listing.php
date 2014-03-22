@@ -29,13 +29,13 @@ class Listing extends AbstractAjaxController
 		// TODO: do we need access control here ?
 		// @$this->getApplication()->getUser()->authorize('admin');
 
-		$input = $this->container->get('app')->input;
+		$input = $this->getContainer()->get('app')->input;
 
 		$groupId = $input->getInt('group_id');
 
 		if ($groupId)
 		{
-			$db = $this->container->get('db');
+			$db = $this->getContainer()->get('db');
 
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('u.id', 'u.username')))

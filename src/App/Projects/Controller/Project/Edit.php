@@ -57,9 +57,9 @@ class Edit extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->view->setAlias($this->container->get('app')->input->get('project_alias'));
+		$this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));
 
 		return $this;
 	}

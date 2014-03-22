@@ -40,7 +40,7 @@ class Documentation extends AbstractTrackerController
 		parent::initialize();
 
 		/* @type $input \Joomla\Input\Input */
-		$input = $this->container->get('app')->input;
+		$input = $this->getContainer()->get('app')->input;
 
 		$path = $input->getPath('path');
 		$page = $input->getCmd('page');

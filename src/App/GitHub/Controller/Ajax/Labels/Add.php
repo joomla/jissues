@@ -26,15 +26,15 @@ class Add extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$name  = $this->container->get('app')->input->getCmd('name');
-		$color = $this->container->get('app')->input->getCmd('color');
+		$name  = $this->getContainer()->get('app')->input->getCmd('name');
+		$color = $this->getContainer()->get('app')->input->getCmd('color');
 
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->container->get('gitHub');
+		$gitHub = $this->getContainer()->get('gitHub');
 
 		// Create the label.
 		$gitHub->issues->labels->create(

@@ -49,12 +49,12 @@ class User extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$id = $this->container->get('app')->input->getUint('id');
+		$id = $this->getContainer()->get('app')->input->getUint('id');
 
 		if (!$id)
 		{
 			// If no ID is given, use the ID of the current user.
-			$id = $this->container->get('app')->getUser()->id;
+			$id = $this->getContainer()->get('app')->getUser()->id;
 
 			if (!$id)
 			{
@@ -64,6 +64,6 @@ class User extends AbstractTrackerController
 
 		$this->view->id = (int) $id;
 
-		$this->model->setProject($this->container->get('app')->getProject());
+		$this->model->setProject($this->getContainer()->get('app')->getProject());
 	}
 }

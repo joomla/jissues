@@ -209,7 +209,7 @@ class Issues extends Project
 			}
 
 			// Store the item in the database
-			$table = new IssuesTable($this->container->get('db'));
+			$table = new IssuesTable($this->getContainer()->get('db'));
 
 			if ($id)
 			{
@@ -341,7 +341,7 @@ class Issues extends Project
 		if (!$labels)
 		{
 			/* @type \Joomla\Database\DatabaseDriver $db */
-			$db = $this->container->get('db');
+			$db = $this->getContainer()->get('db');
 
 			$table = new LabelsTable($db);
 

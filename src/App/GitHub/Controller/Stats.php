@@ -41,7 +41,7 @@ class Stats extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$project = $this->container->get('app')->getProject();
+		$project = $this->getContainer()->get('app')->getProject();
 
 		$gitHub = new Github;
 

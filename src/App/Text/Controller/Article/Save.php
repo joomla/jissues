@@ -36,14 +36,14 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->container->get('app');
+		$app = $this->getContainer()->get('app');
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->container->get('db'));
+		$table = new ArticlesTable($this->getContainer()->get('db'));
 
 		/* @type \Joomla\Github\Github $gitHub */
-		$table->setGitHub($this->container->get('gitHub'));
+		$table->setGitHub($this->getContainer()->get('gitHub'));
 
 		$table->save($app->input->get('article', array(), 'array'));
 

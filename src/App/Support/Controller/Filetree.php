@@ -27,7 +27,7 @@ class Filetree extends AbstractTrackerController
 	public function execute()
 	{
 		// A full file system path.
-		$path = $this->container->get('app')->input->get('dir', '', 'HTML');
+		$path = $this->getContainer()->get('app')->input->get('dir', '', 'HTML');
 
 		$docuBase = JPATH_ROOT . '/Documentation';
 

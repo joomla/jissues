@@ -50,9 +50,9 @@ class Delete extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->model->setUser($this->container->get('app')->getUser());
+		$this->model->setUser($this->getContainer()->get('app')->getUser());
 	}
 
 	/**
@@ -64,12 +64,12 @@ class Delete extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$model = new ProjectModel($this->container->get('db'));
+		$model = new ProjectModel($this->getContainer()->get('db'));
 
-		$model->delete($this->container->get('app')->input->get('project_alias'));
+		$model->delete($this->getContainer()->get('app')->input->get('project_alias'));
 
 		// Reload the project
-		$this->container->get('app')->getProject(true);
+		$this->getContainer()->get('app')->getProject(true);
 
 		return parent::execute();
 	}

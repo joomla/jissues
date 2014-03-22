@@ -57,8 +57,8 @@ class Add extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('create');
+		$this->getContainer()->get('app')->getUser()->authorize('create');
 
-		$this->view->setProject($this->container->get('app')->getProject());
+		$this->view->setProject($this->getContainer()->get('app')->getProject());
 	}
 }

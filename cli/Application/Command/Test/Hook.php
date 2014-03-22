@@ -133,7 +133,7 @@ class Hook extends Test
 
 		// Initialize the hook controller
 		$this->controller = new $classname;
-		$this->controller->setContainer($this->container);
+		$this->controller->setContainer($this->getContainer());
 
 		if ($this->project->project_id === '1' && $resp === 3)
 		{
@@ -242,7 +242,7 @@ class Hook extends Test
 	 */
 	protected function setupGitHub()
 	{
-		$this->github = $this->container->get('gitHub');
+		$this->github = $this->getContainer()->get('gitHub');
 
 		return $this;
 	}

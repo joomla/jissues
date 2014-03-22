@@ -179,7 +179,7 @@ class Langtemplates extends Make
 	protected function processDatabase()
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
+		$db = $this->getContainer()->get('db');
 
 		$strings = $db->setQuery(
 			$db->getQuery(true)
@@ -501,7 +501,7 @@ class Langtemplates extends Make
 		);
 
 		// Configure Twig the way you want
-		$twig->addExtension(new TrackerExtension($this->container));
+		$twig->addExtension(new TrackerExtension($this->getContainer()));
 
 		// Iterate over all your templates
 		/* @type \DirectoryIterator $file */

@@ -36,10 +36,10 @@ class Logs extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->view->setLogType($this->container->get('app')->input->get('log_type'));
-		$this->view->setDebugger(new TrackerDebugger($this->container));
+		$this->view->setLogType($this->getContainer()->get('app')->input->get('log_type'));
+		$this->view->setDebugger(new TrackerDebugger($this->getContainer()));
 
 		return $this;
 	}

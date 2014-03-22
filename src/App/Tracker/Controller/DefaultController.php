@@ -47,12 +47,12 @@ class DefaultController extends AbstractTrackerListController
 		parent::initialize();
 
 		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
+		$application = $this->getContainer()->get('app');
 
 		$application->getUser()->authorize('view');
 
-		$this->model->setProject($this->container->get('app')->getProject());
-		$this->view->setProject($this->container->get('app')->getProject());
+		$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
 		$state = $this->model->getState();
 

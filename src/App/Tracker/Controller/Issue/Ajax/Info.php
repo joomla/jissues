@@ -29,14 +29,14 @@ class Info extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$id = $this->container->get('app')->input->getUint('id');
+		$id = $this->getContainer()->get('app')->input->getUint('id');
 
 		if (!$id)
 		{
 			throw new \RuntimeException('No id received.');
 		}
 
-		$model = new IssueModel($this->container->get('db'));
+		$model = new IssueModel($this->getContainer()->get('db'));
 
 		$item = $model->getItem($id);
 

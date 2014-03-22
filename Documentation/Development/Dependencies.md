@@ -11,126 +11,126 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
-#### joomla/application (1.1.*@stable)
+#### joomla/application (~1.1@stable)
 
 Joomla Application Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/application.git
 
-#### joomla/controller (1.1.*@stable)
+#### joomla/controller (~1.1@stable)
 
 Joomla Controller Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/controller.git
 
-#### joomla/database (1.1.*@stable)
+#### joomla/database (~1.1@stable)
 
 Joomla Database Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/database.git
 
-#### joomla/date (1.1.*@stable)
+#### joomla/date (~1.1@stable)
 
 Joomla Date Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/date.git
 
-#### joomla/di (1.1.*@stable)
+#### joomla/di (~1.1@stable)
 
 Joomla DI Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/di.git
 
-#### joomla/event (1.1.*@stable)
+#### joomla/event (~1.1@stable)
 
 Joomla Event Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/event.git
 
-#### joomla/filter (1.1.*@stable)
+#### joomla/filter (~1.1@stable)
 
 Joomla Filter Package
 
 * Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/filter.git
 
-#### joomla/github (1.1.*@stable)
+#### joomla/github (~1.1@stable)
 
 Joomla Github Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/github-api.git
 
-#### joomla/http (1.1.*@stable)
+#### joomla/http (~1.1@stable)
 
 Joomla HTTP Package
 
-* Installed: 1.1.0
+* Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/http.git
 
-#### joomla/input (1.1.*@stable)
+#### joomla/input (~1.1@stable)
 
 Joomla Input Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/input.git
 
-#### joomla/model (1.1.*@stable)
+#### joomla/model (~1.1@stable)
 
 Joomla Model Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/model.git
 
-#### joomla/profiler (1.1.*@stable)
+#### joomla/profiler (~1.1@stable)
 
 Joomla Profiler Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/profiler.git
 
-#### joomla/registry (1.1.*@stable)
+#### joomla/registry (~1.1@stable)
 
 Joomla Registry Package
 
 * Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/registry.git
 
-#### joomla/router (1.1.*@stable)
+#### joomla/router (~1.1@stable)
 
 Joomla Router Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/router.git
 
-#### joomla/string (1.1.*@stable)
+#### joomla/string (~1.1@stable)
 
 Joomla String Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/string.git
 
-#### joomla/uri (1.1.*@stable)
+#### joomla/uri (~1.1@stable)
 
 Joomla Uri Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/uri.git
 
-#### joomla/utilities (1.1.*@stable)
+#### joomla/utilities (~1.1@stable)
 
 Joomla Utilities Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/utilities.git
 
-#### joomla/view (1.1.*@stable)
+#### joomla/view (~1.1@stable)
 
 Joomla View Package
 
@@ -176,7 +176,7 @@ BabDev's PHP libraries
 
 Handle file uploads with extensible validation and storage strategies
 
-* Installed: dev-master ff376306aacbd1005c7739dc171fae4edd96d8b7
+* Installed: dev-master 8db8dbfb419b2634be98afe1e6b993eca7f25b21
 * Source URL: https://github.com/codeguy/Upload.git
 
 ### PHP - Development
@@ -289,6 +289,12 @@ g11n is a custom language handler - made primarily for Joomla!
 Icon set
 
 * http://commons.wikimedia.org/wiki/Crystal_Clear
+
+#### jQuery File Tree
+
+
+
+* http://www.abeautifulsite.net/blog/2008/03/jquery-file-tree/
 
 ### IDE
 

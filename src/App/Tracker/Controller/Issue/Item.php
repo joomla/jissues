@@ -58,12 +58,12 @@ class Item extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->container->get('app')->getUser()->authorize('view');
+		$this->getContainer()->get('app')->getUser()->authorize('view');
 
-		$this->view->setId($this->container->get('app')->input->getUint('id'));
-		$this->view->setProject($this->container->get('app')->getProject());
+		$this->view->setId($this->getContainer()->get('app')->input->getUint('id'));
+		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
-		$this->model->setProject($this->container->get('app')->getProject());
+		$this->model->setProject($this->getContainer()->get('app')->getProject());
 
 		return $this;
 	}

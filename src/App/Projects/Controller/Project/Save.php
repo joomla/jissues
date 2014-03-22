@@ -50,7 +50,7 @@ class Save extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->model->setUser($this ->container->get('app')->getUser());
+		$this->model->setUser($this ->getContainer()->get('app')->getUser());
 
 		return $this;
 	}
@@ -64,11 +64,11 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->container->get('app');
+		$app = $this->getContainer()->get('app');
 
 		$app->getUser()->authorize('admin');
 
-		$table = new ProjectsTable($this->container->get('db'));
+		$table = new ProjectsTable($this->getContainer()->get('db'));
 
 		$table->save($app->input->get('project', array(), 'array'));
 
