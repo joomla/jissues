@@ -110,7 +110,7 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where(
 				'(' . $db->quoteName('a.title') . ' LIKE ' . $filter
 				. ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter
-				. ' OR ' . $db->quoteName('a.id') . ' LIKE ' . $filter . ')');
+				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
 		}
 
 		$filter = $this->state->get('filter.stage');
