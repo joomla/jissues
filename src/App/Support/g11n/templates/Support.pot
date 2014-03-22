@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/support/icons.index.twig:8
-msgid "Icons"
+#: /templates/support/documentation.index.twig:43
+msgid "Improve"
 msgstr ""
 
-#: /templates/support/devdox.index.twig:15
-msgid "Improve this document"
+#: /templates/support/documentation.index.twig:44
+msgid "Permalink"
 msgstr ""
 
 #: /templates/support/markdown.index.twig:6
@@ -99,6 +99,10 @@ msgstr ""
 #: /templates/support/markdown.index.twig:389
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
+msgstr ""
+
+#: /templates/support/icons.index.twig:8
+msgid "Icons"
 msgstr ""
 
 #: /src/App/Support/Controller/Clearcache.php:37
