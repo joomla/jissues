@@ -8,6 +8,7 @@
 
 // Set error reporting for development
 error_reporting(-1);
+ini_set('display_errors', 1);
 
 // Define required paths
 define('JPATH_ROOT',          dirname(__DIR__));
