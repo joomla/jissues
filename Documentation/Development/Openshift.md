@@ -9,17 +9,17 @@ The Open Hybrid Cloud Application Platform by Red Hat
 ### Setup
 
 * Go to Openshift, create a new application type `PHP 5.4`.
-* Under "Source code" put `https://github.com/joomla/jissues.git` and the branch `openshift` (@todo` master?)
+* Under "Source code" put `https://github.com/joomla/jissues.git` and the branch `openshift` (`@todo` master?)
 * => Create Application ....
 * Look around, then click on "Continue to the application overview page".
 * Click "Add MySQL 5.5" => "Add Cartridge"
 
 Here comes a little quirk.... When you call the page now, you get a "Could not connect to MySQL" error.
+Cause: Some Openshift env vars get lost (like MySQL stuff) `@todo` remove when solved.
 
+Solution:
 * Clone the openshift repo
 * Make a "dummy" commit and push it. - This should solve the issue.
-
-Cause: Some Openshift env vars get lost (like MySQL stuff) `@todo` remove when solved.
 
 Continue with installation
 * SSH into the application
