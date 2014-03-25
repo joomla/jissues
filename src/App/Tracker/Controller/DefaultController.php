@@ -8,7 +8,6 @@
 
 namespace App\Tracker\Controller;
 
-use App\Tracker\Model\IssuesModel;
 use App\Tracker\View\Issues\IssuesHtmlView;
 
 use JTracker\Controller\AbstractTrackerListController;
