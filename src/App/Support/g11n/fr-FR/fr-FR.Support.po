@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
-"PO-Revision-Date: 2014-01-30 18:09+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
+"PO-Revision-Date: 2014-03-22 18:03+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /templates/support/icons.index.twig:8
-msgid "Icons"
-msgstr "Icônes"
+#: /templates/support/documentation.index.twig:43
+msgid "Improve"
+msgstr "Améliorer"
 
-#: /templates/support/devdox.index.twig:15
-msgid "Improve this document"
-msgstr "Améliorer ce document"
+#: /templates/support/documentation.index.twig:44
+msgid "Permalink"
+msgstr "Permalien"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -101,6 +101,10 @@ msgstr "Répertoire GitHub"
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "Sortie"
+
+#: /templates/support/icons.index.twig:8
+msgid "Icons"
+msgstr "Icônes"
 
 #: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."

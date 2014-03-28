@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
-"PO-Revision-Date: 2014-01-30 02:48+0000\n"
+"POT-Creation-Date: 2014-03-22 10:29-0500\n"
+"PO-Revision-Date: 2014-03-22 19:15+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: /src/App/Debug/Database/DatabaseDebugger.php:88
 #, php-format
 msgid "Failed EXPLAIN on query: %s"
-msgstr "Impossible d'expliquer la requete : %s"
+msgstr "Impossible d'expliquer la requête : %s"
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:117
 #, php-format

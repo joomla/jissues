@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
 "PO-Revision-Date: 2014-02-17 00:55+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"
@@ -17,44 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Etiketten"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Etikettenliste"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Neue Etikette"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
-msgid "Name"
-msgstr "Name"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
-msgid "Color"
-msgstr "Farbe"
-
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr "Etikette hinzufügen"
-
-#: /templates/github/labels.index.twig:43
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL"
-
-#: /templates/github/labels.index.twig:58
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Löschen"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
@@ -68,6 +30,11 @@ msgstr "Hooks auflisten"
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
 msgstr "Neuer Hook"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:43
+msgid "URL"
+msgstr "URL"
 
 #: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
 msgid "Events"
@@ -108,6 +75,39 @@ msgstr "Deaktivieren"
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
 msgstr "Aktivieren"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:58
+msgid "Delete"
+msgstr "Löschen"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Etiketten"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Etikettenliste"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Neue Etikette"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Name"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Farbe"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Etikette hinzufügen"
 
 #: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
 #, php-format

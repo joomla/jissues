@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
-"PO-Revision-Date: 2014-02-17 01:04+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
+"PO-Revision-Date: 2014-03-22 18:34+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,44 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Étiquettes"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Liste des Étiquettes"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Nouvelle Étiquette"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
-msgid "Name"
-msgstr "Nom"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
-msgid "Color"
-msgstr "Couleur"
-
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr "Ajouter une Étiquette"
-
-#: /templates/github/labels.index.twig:43
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL"
-
-#: /templates/github/labels.index.twig:58
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Supprimer"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
@@ -68,6 +30,11 @@ msgstr "Liste des Crochets"
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
 msgstr "Nouveau Crochet"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:43
+msgid "URL"
+msgstr "URL"
 
 #: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
 msgid "Events"
@@ -108,6 +75,39 @@ msgstr "Désactiver"
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
 msgstr "Activer"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:58
+msgid "Delete"
+msgstr "Supprimer"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Étiquettes"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Liste des Étiquettes"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Nouvelle Étiquette"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Nom"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Couleur"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Ajouter une Étiquette"
 
 #: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
 #, php-format

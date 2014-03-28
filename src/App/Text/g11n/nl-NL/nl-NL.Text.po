@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
 "PO-Revision-Date: 2014-01-21 20:32+0000\n"
 "Last-Translator: Herman Peeren <herman@yepr.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
@@ -79,10 +79,10 @@ msgstr "Het artikel is verwijderd."
 msgid "The article has been saved."
 msgstr "Het artikel is opgeslagen."
 
-#: /src/App/Text/Table/ArticlesTable.php:91
+#: /src/App/Text/Table/ArticlesTable.php:93
 msgid "An alias or a title is required."
 msgstr "Een alias of titel moet ingevuld worden."
 
-#: /src/App/Text/Table/ArticlesTable.php:97
+#: /src/App/Text/Table/ArticlesTable.php:99
 msgid "Some text is required."
 msgstr "Er moet iets ingevuld worden."
