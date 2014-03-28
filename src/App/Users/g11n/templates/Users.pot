@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,29 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: /templates/users/user.index.twig:10
-#: /templates/users/user.edit.twig:11
-msgid "Invalid user!"
-msgstr ""
-
-#: /templates/users/user.index.twig:14
-msgid "My Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:16
-msgid "Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:44
-#, php-format
-msgid "Language: %s"
-msgstr ""
-
-#: /templates/users/user.index.twig:47
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
-msgstr ""
 
 #: /templates/users/users.index.twig:13
 msgid "Users List"
@@ -67,6 +44,11 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
+#: /templates/users/user.edit.twig:11
+#: /templates/users/user.index.twig:10
+msgid "Invalid user!"
+msgstr ""
+
 #: /templates/users/user.edit.twig:22
 msgid "Save"
 msgstr ""
@@ -85,6 +67,24 @@ msgstr ""
 
 #: /templates/users/user.edit.twig:44
 msgid "Timezone"
+msgstr ""
+
+#: /templates/users/user.index.twig:14
+msgid "My Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:16
+msgid "Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:45
+#, php-format
+msgid "Language: %s"
+msgstr ""
+
+#: /templates/users/user.index.twig:50
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
 msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74

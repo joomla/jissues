@@ -273,8 +273,9 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	 */
 	protected function getAlternatives($command, $action)
 	{
-		$commands = (new Help)->getCommands();
-		$alternatives = array();
+		$commands = (new Help)->setContainer($this->getContainer())->getCommands();
+
+		$alternatives = [];
 
 		if (false == array_key_exists($command, $commands))
 		{
@@ -290,7 +291,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		else
 		{
 			// Known command - unknown action
-			$actions = (new Help)->getActions($command);
+			$actions = (new Help)->setContainer($this->getContainer())->getActions($command);
 
 			foreach (array_keys($actions) as $act)
 			{

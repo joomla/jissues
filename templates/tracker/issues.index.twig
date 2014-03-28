@@ -63,8 +63,8 @@
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
                     <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
                            value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
-                           title="{{ 'Filter the list by summary or description.'|_ }}"
-                           placeholder="{{ 'Filter the list by summary or description.'|_ }}"/>
+                           title="{{ translate('Filter the list by ID, summary, or description.') }}"
+                           placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
                     <button class="btn tip hasTooltip" type="submit" title="{{ 'Submit search'|_ }}">
                         <span class="icon-search"></span></button>
                 </div>

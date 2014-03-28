@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-03-22 10:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,72 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr ""
+
+#: /templates/projects/project.index.twig:20
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr ""
+
 #: /templates/projects/project.edit.twig:11
 #: /templates/projects/project.add.twig:11
 msgid "Save"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:64
-msgid "Delete"
 msgstr ""
 
 #: /templates/projects/project.edit.twig:28
@@ -69,64 +127,6 @@ msgstr ""
 #: /templates/projects/project.edit.twig:72
 #: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:6
-msgid "Projects"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:12
-msgid "New Project"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:23
-msgid "Projects List"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:28
-msgid "Tracker"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:29
-#: /templates/projects/project.index.twig:20
-msgid "GitHub"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:32
-msgid "Actions"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:36
-msgid "Id"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:48
-msgid "Hooks"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:49
-msgid "Labels"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:51
-msgid "Stats"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:61
-msgid "Groups"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:62
-msgid "Show"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:63
-msgid "Edit"
-msgstr ""
-
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
 msgstr ""
 
 #: /src/App/Projects/Table/ProjectsTable.php:57
