@@ -102,6 +102,19 @@ class DefaultController extends AbstractTrackerListController
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'filter-search', '', 'string')
 		);
 
+		$state->set('filter.user',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'filter-user', 0, 'uint')
+		);
+
+		$state->set('stools-active',
+			$application->input->get('stools-active', 0, 'uint')
+		);
+
+		if ($application->getUser()->username)
+		{
+			$state->set('username', $application->getUser()->username);
+		}
+
 		$this->model->setState($state);
 
 		return $this;

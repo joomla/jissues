@@ -10,12 +10,6 @@
 {% block headerCSS %}
     <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
-    <style type="text/css">
-        td.issueInfo:hover {
-            background-color: #eee;
-            cursor: help;
-        }
-    </style>
 {% endblock %}
 
 {% block prependMenu %}
@@ -36,53 +30,76 @@
 
     <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
-            <div class="filter-search btn-group pull-left input-append">
-                <label class="filter-search-lbl element-invisible"
-                       for="filter-search">{{ translate('Filter the list by summary or description.') }}</label>
-                <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
-                       value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
-                       title="{{ translate('Filter the list by ID, summary, or description.') }}"
-                       placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-                <button class="btn tip hasTooltip" type="submit" title="{{ translate('Submit search') }}">
-                    <span class="icon-search"></span></button>
+            <div class="clearfix">
+                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-status-div">
+                    <button type="button" class="btn {% if state.get('filter.status') == 0 %} active btn-success {% endif %}" value="0">
+                        {{ 'Open'|_ }}
+                    </button>
+                    <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-danger {% endif %}" value="1">
+                        {{ 'Closed'|_ }}
+                    </button>
+                </div>
+                <div id="stools-button" class="btn-group">
+                    <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
+                        {{ 'Search tools'|_ }}
+                        <b class="caret"></b>
+                    </button>
+                </div>
+                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}?</a>
             </div>
-            <div class="btn-group pull-left">
-                <button class="btn tip hasTooltip" type="button"
-                        onclick="jQuery('#filter-search').val('');document.issuesForm.submit();"
-                        title="{{ translate('Clear search') }}"><span class="icon-remove"></span></button>
-            </div>
-            <div class="pull-right btn-group">
-                {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
-            </div>
-            <div class="pull-right btn-group">
-                {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100') }}
-            </div>
-            <div class="pull-right btn-group">
-                {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
-            </div>
-            <div class="btn-group pull-right" data-toggle="buttons-checkbox" id="filter-status-div">
-                <button type="button" class="btn {% if state.get('filter.status') == 0 %} active btn-success {% endif %}" value="0">{{ translate('Open') }}</button>
-                <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-danger {% endif %}" value="1">{{ translate('Closed') }}</button>
-            </div>
-            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
-        </div>
 
-        <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ translate('Feeling Lucky') }}?</a>
-        {% if pagination.pagesTotal > 1 %}
-            {{ pagination.bar|raw }}
-            {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
-        {% endif %}
+            <div id="stools-container" class="collapse
+            {% if state.get('filter.stage')
+                or state.get('filter.priority')
+                or state.get('filter.search')
+                or state.get('filter.sort')
+                or state.get('filter.user')
+                or state.get('stools-active') %}
+                in
+            {% endif %}
+            clearfix pull-left">
+                <div class="filter-search btn-group input-append">
+                    <label class="filter-search-lbl element-invisible"
+                           for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
+                    <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
+                           value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
+                           title="{{ translate('Filter the list by ID, summary, or description.') }}"
+                           placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
+                    <button class="btn tip hasTooltip" type="submit" title="{{ 'Submit search'|_ }}">
+                        <span class="icon-search"></span></button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn tip hasTooltip" type="button"
+                            onclick="jQuery('#filter-search').val(''); document.issuesForm.submit();"
+                            title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
+                </div>
+                <div class="btn-group">
+                    {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100', state.get('filter.status')) }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
+                </div>
+                {% if user.username %}
+                    <div class="btn-group">
+                        {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-160') }}
+                    </div>
+                {% endif %}
+                <div class="btn-group">
+                    {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
+                </div>
+             </div>
+
+            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
+            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}" />
+        </div>
 
         <table class="table table-bordered table-striped table-condensed">
             <thead>
             <tr>
-                <th width="2%" class="nowrap">{{ translate('ID') }}</th>
-                <th>{{ translate('Summary') }}</th>
-                <th width="5%">{{ translate('Priority') }}</th>
-                <th width="10%">{{ translate('Stage') }}</th>
-                <th width="10%" class="date-opened hidden-phone">{{ translate('Date Opened') }}</th>
-                <th width="10%" class="date-closed hidden-phone">{{ translate('Date Closed') }}</th>
-                <th width="10%" class="hidden-phone">{{ translate('Last Modified') }}</th>
+                <th width="2%" class="nowrap center">{{ 'ID'|_ }}</th>
+                <th>{{ 'Summary'|_ }}</th>
+                <th width="5%" class="center">{{ 'Priority'|_ }}</th>
+                <th width="10%" class="center">{{ 'Status'|_ }}</th>
             </tr>
             </thead>
             <tbody>
@@ -99,7 +116,7 @@
                     {% endif %}
 
                     <tr{{ rowClass }}>
-                        <td class="center">
+                        <td class="center valign-center">
                             {{ item.issue_number }}
                             <!--
                             @todo This is to retrieve extended information on an issue - review
@@ -119,57 +136,54 @@
                                     <span data-icon="&#xe003;"></span>
                                     </a>
                                 {% endif %}
-                                <a href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+                                <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
                                     {{ item.title|e }}
                                 </a>
                                 {{ item.labels|labels|raw }}
-                                {% if project.gh_user and project.gh_project %}
-                                    <br/>
-                                    {{ translate('GitHub ID') }}
-                                    <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                                       target="_blank">
-                                        {{ item.issue_number }}
-                                    </a>
-                                {% endif %}
-                                {% if item.foreign_number %}
-                                    <br/>
-                                    {{ translate('Foreign ID') }}
-                                    <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                                       target="_blank">
-                                        {{ item.foreign_number }}
-                                    </a>
-                                {% endif %}
+                                <span class="list-issue-details">
+                                    {% if project.gh_user and project.gh_project %}
+                                        <br/>
+                                        {{ 'GitHub ID'|_ }}
+                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                                           target="_blank">
+                                            {{ item.issue_number }}
+                                        </a>
+                                    {% endif %}
+                                    {% if item.foreign_number %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Foreign ID'|_ }}
+                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                                           target="_blank">
+                                            {{ item.foreign_number }}
+                                        </a>
+                                    {% endif %}
+                                    {% if item.opened_date %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Opened %s'|_|format(item.opened_date|date('Y-m-d')) }}
+                                    {% endif %}
+                                    {% if item.closed_status %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Closed %s'|_|format(item.closed_date|date('Y-m-d')) }}
+                                    {% endif %}
+                                    {% if item.modified_date != '0000-00-00 00:00:00' %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Modified %s'|_|format(item.modified_date|date('Y-m-d')) }}
+                                    {% endif %}
+                                </span>
                             </div>
                         </td>
-                        <td class="center">
+                        <td class="center valign-center">
                             <span class="badge {{ prioClass(item.priority) }}">{{ item.priority  }}</span>
                         </td>
-
-                        <td>
-                            {{ translate(item.status_title) }}
-                        </td>
-
-                        <td class="date-opened nowrap small hidden-phone">
-                            {{ item.opened_date|date('Y-m-d') }}
-                        </td>
-                        <td class="date-closed nowrap small hidden-phone">
-                            {% if item.closed_status %}
-                                {{ item.closed_date|date('Y-m-d') }}
-                            {% endif %}
-                        </td>
-                        <td class="nowrap small hidden-phone">
-                            {% if item.modified_date != '0000-00-00 00:00:00' %}
-                                {{ item.modified_date|date('Y-m-d') }}
-                                {% if item.modified_by %}
-                                {% endif %}
-                            {% endif %}
+                       <td class="center valign-center">
+                            {{ item.status_title|_ }}
                         </td>
                     </tr>
                 {% endfor %}
             {% else %}
                 <tr>
-                    <td class="center" colspan="8">
-                        {{ translate('No items found.') }}
+                    <td class="center" colspan="4">
+                        {{ 'No items found.'|_ }}
                     </td>
                 </tr>
             {% endif %}
@@ -178,7 +192,7 @@
     </form>
 
     {% if pagination.pagesTotal > 1 %}
-        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+        {{ sprintf("Page %1$s of %2$s"|_, pagination.pageNo, pagination.pagesTotal) }}
         {{ pagination.bar|raw }}
     {% endif %}
 
@@ -234,6 +248,9 @@
 
     $('[id^=filter]').change(
         function() {
+            // Search tools are active.
+            $('#stools-active').val(1);
+
             form.submit();
         }
     );
@@ -246,13 +263,17 @@
         }
     );
 
-    if ($('#filter-status').val() == 0) {
-        $('.date-closed').hide();
-        $('.date-opened').show();
-    } else if ($('#filter-status').val() == 1) {
-        $('.date-closed').show();
-        $('.date-opened').hide();
-    };
+    $('#stools-button button').click(
+        function () {
+            var val = $('#stools-active').val();
+
+            if (val == 0) {
+                $('#stools-active').val(1);
+            } else {
+                $('#stools-active').val(0);
+            }
+        }
+    );
     </script>
 
 {% endblock %}
