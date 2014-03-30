@@ -39,7 +39,7 @@
 
     <ul class="breadcrumb">
 
-        {% if user.check("edit") %}
+        {% if user.check("edit") or canEditOwn %}
             <li>
                 <a class="btn btn-warning"
                    href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">

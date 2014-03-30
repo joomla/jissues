@@ -241,6 +241,20 @@ abstract class User implements \Serializable
 	}
 
 	/**
+	 * Check if a user can edit her own item.
+	 *
+	 * @param   string  $username  The user name of the "owner" of the item to edit.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function canEditOwn($username)
+	{
+		return ($this->check('editown') && $this->username == $username);
+	}
+
+	/**
 	 * Check if a user is authorized to perform a given action.
 	 *
 	 * @param   string  $action  The action to check.
@@ -304,7 +318,7 @@ abstract class User implements \Serializable
 			throw new AuthenticationException($this, $action);
 		}
 
-		if (false == in_array($action, array('view', 'create', 'edit', 'manage')))
+		if (false == in_array($action, $this->getProject()->getDefaultActions()))
 		{
 			throw new \InvalidArgumentException('Undefined action: ' . $action);
 		}
@@ -416,12 +430,30 @@ abstract class User implements \Serializable
 	 *
 	 * @param   DatabaseDriver  $database  The Database connector.
 	 *
-	 * @return  void
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	public function setDatabase(DatabaseDriver $database)
 	{
 		$this->database = $database;
+
+		return $this;
+	}
+
+	/**
+	 * Set the project object.
+	 *
+	 * @param   TrackerProject  $project  The project.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setProject(TrackerProject $project)
+	{
+		$this->project = $project;
+
+		return $this;
 	}
 }

@@ -17,14 +17,15 @@ use JTracker\Database\AbstractDatabaseTable;
 /**
  * Class GroupsTable.
  *
- * @property   integer  $group_id    group_id
- * @property   integer  $project_id  project_id
- * @property   string   $title       title
- * @property   integer  $can_view    can_view
- * @property   integer  $can_create  can_create
- * @property   integer  $can_manage  can_manage
- * @property   integer  $can_edit    can_edit
- * @property   integer  $system      system
+ * @property   integer  $group_id     group_id
+ * @property   integer  $project_id   project_id
+ * @property   string   $title        title
+ * @property   integer  $can_view     can_view
+ * @property   integer  $can_create   can_create
+ * @property   integer  $can_manage   can_manage
+ * @property   integer  $can_edit     can_edit
+ * @property   integer  $can_editown  can_editown
+ * @property   integer  $system       system
  *
  * @since  1.0
  */
@@ -73,10 +74,11 @@ class GroupsTable extends AbstractDatabaseTable
 		$this->system     = (int) $src->get('system');
 
 		// The following values come in as checkboxes ¡: "ON" or not set.
-		$this->can_view   = $src->get('can_view')   ? 1 : 0;
-		$this->can_create = $src->get('can_create') ? 1 : 0;
-		$this->can_edit   = $src->get('can_edit')   ? 1 : 0;
-		$this->can_manage = $src->get('can_manage') ? 1 : 0;
+		$this->can_view    = $src->get('can_view')    ? 1 : 0;
+		$this->can_create  = $src->get('can_create')  ? 1 : 0;
+		$this->can_edit    = $src->get('can_edit')    ? 1 : 0;
+		$this->can_editown = $src->get('can_editown') ? 1 : 0;
+		$this->can_manage  = $src->get('can_manage')  ? 1 : 0;
 
 		return $this;
 	}
