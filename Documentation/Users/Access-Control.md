@@ -15,4 +15,9 @@ Following is an example setup for a security tracker with non public access and 
 
 Note that if you have `Edit` permissions, you have automatically `Editown` permissions.
 
+Currently the items that are editable with `edit own` permissions are hard coded. You can only edit the title and description of an item (not the status, priority etc.).
+If we (re)implement custom fields, those should receive a property `canEditOwn` o be controlled separately.
+
+----
+
 However, this is a very first step... lots of optimization and testing required here.
