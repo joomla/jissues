@@ -5,6 +5,8 @@
 
 {% block title %}{{ project.title ~ ' #' ~ item.issue_number }}{% endblock %}
 
+{% block headerText %} - {{ project.short_title }}{% endblock %}
+
 {% block headerCSS %}
     {{ parent() }}
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />

@@ -5,7 +5,7 @@
 
 {% block title %}{{ project.title }} - {{ translate('New Item') }}{% endblock %}
 
-{% block headerText %}{{ project.title }}{% endblock %}
+{% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block prependMenu %}
     <li id="issueResult">
