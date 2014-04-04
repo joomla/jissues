@@ -38,7 +38,8 @@
         "filp/whoops": "1.0.*@stable",
         "mustache/mustache": "2.1.*@stable",
         "phpunit/phpunit"  : "3.7.*@stable",
-        "squizlabs/php_codesniffer": "1.*@stable"
+        "squizlabs/php_codesniffer": "1.*@stable",
+        "sebastian/phpcpd": "*"
     },
     "autoload": {
         "psr-4": {
