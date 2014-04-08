@@ -49,6 +49,15 @@ class Run extends Test
 			->setExit(false)
 			->execute();
 
+		/*
+		 * @todo enable when https://github.com/sebastianbergmann/phpcpd/pull/93 is merged
+		$statusCPD = (new Copypaste)
+			->setContainer($this->getContainer())
+			->setExit(false)
+			->execute();
+
+		 */
+
 		$status = ($statusCS || $statusUT) ? 1 : 0;
 
 		$this
