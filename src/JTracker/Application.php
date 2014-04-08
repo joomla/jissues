@@ -628,6 +628,9 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$this->input->set('project_id', $project->project_id);
 
 			$this->project = $project;
+
+			// Set the changed project to the user object
+			$this->getUser()->setProject($project);
 		}
 
 		return $this->project;

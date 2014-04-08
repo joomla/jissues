@@ -34,6 +34,8 @@ class Submit extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
+		$application->getUser()->authorize('create');
+
 		/* @type \Joomla\Github\Github $gitHub */
 		$gitHub = $this->getContainer()->get('gitHub');
 
@@ -55,9 +57,9 @@ class Submit extends AbstractTrackerController
 		{
 			// Project is managed on GitHub
 			$gitHubResponse = $gitHub->issues->create(
-					$project->gh_user, $project->gh_project,
-					$data['title'], $body
-				);
+				$project->gh_user, $project->gh_project,
+				$data['title'], $body
+			);
 
 			if (!isset($gitHubResponse->id))
 			{
@@ -68,13 +70,10 @@ class Submit extends AbstractTrackerController
 			$data['opened_by']   = $gitHubResponse->user->login;
 			$data['number']      = $gitHubResponse->number;
 
-			// $data['description'] = $gitHubResponse->body;
-
 			$data['description'] = $gitHub->markdown->render(
-					$body,
-					'gfm',
-					$project->gh_user . '/' . $project->gh_project
-				);
+				$body, 'gfm',
+				$project->gh_user . '/' . $project->gh_project
+			);
 		}
 		else
 		{

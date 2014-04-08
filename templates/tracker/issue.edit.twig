@@ -58,6 +58,8 @@
         </li>
     </ul>
 
+    {% if user.check("edit") %}
+    {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
     <ul class="breadcrumb">
         <li>
             <label for="status">{{ translate('Status') }}</label>
@@ -116,6 +118,7 @@
             </select>
         </li>
     </ul>
+    {% endif %}
 
     <div class="row-fluid">
         <div class="span11 well-small">

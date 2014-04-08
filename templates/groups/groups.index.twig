@@ -25,13 +25,14 @@
         <thead>
         <tr>
             <th>{{ "Title"|_ }}</th>
-            <th style="width: 5%;">{{ "View"|_ }}</th>
-            <th style="width: 5%;">{{ "Create"|_ }}</th>
-            <th style="width: 5%;">{{ "Edit"|_ }}</th>
-            <th style="width: 5%;">{{ "Manage"|_ }}</th>
+            <th style="width: 10%;">{{ "View"|_ }}</th>
+            <th style="width: 10%;">{{ "Create"|_ }}</th>
+            <th style="width: 10%;">{{ "Edit"|_ }}</th>
+            <th style="width: 10%;">{{ "Edit own"|_ }}</th>
+            <th style="width: 10%;">{{ "Manage"|_ }}</th>
             <th style="width: 10%;">{{ "Actions"|_ }}</th>
             {% if jdebug %}
-                <th style="width: 5%;">{{ "Id"|_ }}</th>
+                <th style="width: 10%;">{{ "Id"|_ }}</th>
             {% endif %}
         </tr>
         </thead>
@@ -50,6 +51,9 @@
                 </td>
                 <td class="{{ group.can_edit ? "alert-success" : "alert-error" }}">
                     {{ group.can_edit|yesno }}
+                </td>
+                <td class="{{ group.can_editown ? "alert-success" : "alert-error" }}">
+                    {{ group.can_editown|yesno }}
                 </td>
                 <td class="{{ group.can_manage ? "alert-success" : "alert-error" }}">
                     {{ group.can_manage|yesno }}

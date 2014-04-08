@@ -37,7 +37,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
  * @property   string   $modified_date    Issue modified date
  * @property   string   $modified_by      Issue modified by username
- * @property   integer  $rel_id           Relation id user
+ * @property   integer  $rel_number       Relation number
  * @property   string   $rel_type         Relation type
  * @property   integer  $has_code         If the issue has code attached - aka a pull request.
  * @property   string   $labels           Comma separated list of label IDs

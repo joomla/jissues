@@ -230,6 +230,7 @@ CREATE TABLE IF NOT EXISTS `#__accessgroups` (
   `can_create` int(11) NOT NULL,
   `can_manage` int(11) NOT NULL,
   `can_edit` int(11) NOT NULL,
+  `can_editown` int(11) NOT NULL,
   `system` int(11) NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `project_id` (`project_id`),
@@ -240,15 +241,15 @@ CREATE TABLE IF NOT EXISTS `#__accessgroups` (
 -- Dumping data for table `#__accessgroups`
 --
 
-INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `can_create`, `can_manage`, `can_edit`, `system`) VALUES
-(1, 1, 'Public', 1, 0, 0, 0, 1),
-(2, 1, 'User', 1, 1, 0, 0, 1),
-(3, 2, 'Public', 1, 0, 0, 0, 1),
-(4, 2, 'User', 1, 1, 0, 0, 1),
-(5, 3, 'Public', 0, 0, 0, 0, 1),
-(6, 3, 'User', 0, 0, 0, 0, 1),
-(7, 3, 'JSST', 1, 1, 0, 1, 0),
-(8, 3, 'JBS Managers', 1, 1, 1, 1, 0);
+INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `can_create`, `can_manage`, `can_edit`, `can_editown`, `system`) VALUES
+(1, 1, 'Public', 1, 0, 0, 0, 0, 1),
+(2, 1, 'User', 1, 1, 0, 0, 1, 1),
+(3, 2, 'Public', 1, 0, 0, 0, 0, 1),
+(4, 2, 'User', 1, 1, 0, 0, 1, 1),
+(5, 3, 'Public', 0, 0, 0, 0, 0, 1),
+(6, 3, 'User', 0, 1, 0, 0, 1, 1),
+(7, 3, 'JSST', 1, 1, 0, 1, 0, 0),
+(8, 3, 'JSST Managers', 1, 1, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
