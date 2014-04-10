@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 10:30-0500\n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/system/config.index.twig:18
+#: /templates/system/config.index.twig:6
+msgid "Configuration"
+msgstr ""
+
+#: /templates/system/config.index.twig:20
 msgid "Save"
 msgstr ""
 
-#: /templates/system/config.index.twig:43
+#: /templates/system/config.index.twig:45
 msgid "Edit Configuration"
 msgstr ""

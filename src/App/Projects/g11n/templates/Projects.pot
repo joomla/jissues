@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 10:30-0500\n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,6 +80,10 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr ""
+
 #: /templates/projects/project.edit.twig:11
 #: /templates/projects/project.add.twig:11
 msgid "Save"
@@ -127,6 +131,10 @@ msgstr ""
 #: /templates/projects/project.edit.twig:72
 #: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
+msgstr ""
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
 msgstr ""
 
 #: /src/App/Projects/Table/ProjectsTable.php:57
