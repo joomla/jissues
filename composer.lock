@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "852230e37651a7632dce8b5facec1595",
+    "hash": "ecdea257a1556823edcf9500536c65ec",
     "packages": [
         {
             "name": "babdev/library",
@@ -11,18 +11,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/BabDev-Library.git",
-                "reference": "7929d7a01d033083401f603ad55f1d85d080424c"
+                "reference": "336dcf186010c4ca1834b265bf255b5e963f09e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/7929d7a01d033083401f603ad55f1d85d080424c",
-                "reference": "7929d7a01d033083401f603ad55f1d85d080424c",
+                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/336dcf186010c4ca1834b265bf255b5e963f09e7",
+                "reference": "336dcf186010c4ca1834b265bf255b5e963f09e7",
                 "shasum": ""
             },
             "require": {
-                "joomla/registry": "1.*@stable",
-                "joomla/uri": "1.*@stable",
+                "joomla/uri": "~1.0",
                 "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "joomla/test": "~1.0"
             },
             "type": "library",
             "autoload": {
@@ -47,7 +49,7 @@
                 "library",
                 "php"
             ],
-            "time": "2014-02-09 18:43:53"
+            "time": "2014-03-28 02:13:37"
         },
         {
             "name": "codeguy/upload",
@@ -178,21 +180,20 @@
         },
         {
             "name": "joomla/application",
-            "version": "1.1.3",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/application.git",
-                "reference": "dd444ca4859f44f0f2954f1faa8e90c518a798d9"
+                "reference": "6c96167e960106a6ba49f84c53d907d134350f79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/application/zipball/dd444ca4859f44f0f2954f1faa8e90c518a798d9",
-                "reference": "dd444ca4859f44f0f2954f1faa8e90c518a798d9",
+                "url": "https://api.github.com/repos/joomla-framework/application/zipball/6c96167e960106a6ba49f84c53d907d134350f79",
+                "reference": "6c96167e960106a6ba49f84c53d907d134350f79",
                 "shasum": ""
             },
             "require": {
                 "joomla/event": "~1.1",
-                "joomla/filesystem": "~1.1",
                 "joomla/input": "~1.1.1",
                 "joomla/registry": "~1.1",
                 "joomla/session": "~1.1",
@@ -202,7 +203,6 @@
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "joomla/controller": "~1.1",
                 "joomla/test": "~1.1"
             },
             "type": "joomla-package",
@@ -223,7 +223,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2014-03-24 13:11:27"
+            "time": "2014-04-09 02:22:29"
         },
         {
             "name": "joomla/compat",
@@ -464,20 +464,19 @@
         },
         {
             "name": "joomla/filesystem",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/filesystem.git",
-                "reference": "1bc9fbe9962e1de5db4d0f633e5721eb356bfbb5"
+                "reference": "31884adf5470baf14de74bfd36482fd18ae048ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/filesystem/zipball/1bc9fbe9962e1de5db4d0f633e5721eb356bfbb5",
-                "reference": "1bc9fbe9962e1de5db4d0f633e5721eb356bfbb5",
+                "url": "https://api.github.com/repos/joomla-framework/filesystem/zipball/31884adf5470baf14de74bfd36482fd18ae048ad",
+                "reference": "31884adf5470baf14de74bfd36482fd18ae048ad",
                 "shasum": ""
             },
             "require": {
-                "joomla/log": "~1.0",
                 "php": ">=5.3.10"
             },
             "type": "joomla-package",
@@ -498,7 +497,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2014-02-09 01:43:50"
+            "time": "2014-04-10 02:54:58"
         },
         {
             "name": "joomla/filter",
@@ -587,16 +586,16 @@
         },
         {
             "name": "joomla/http",
-            "version": "1.1.1",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/http.git",
-                "reference": "c356220d2ed3bf549dcda8d0d04cd8d5bc276fa7"
+                "reference": "b882005da57c5add0c8ced778803d716f5e26bcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/http/zipball/c356220d2ed3bf549dcda8d0d04cd8d5bc276fa7",
-                "reference": "c356220d2ed3bf549dcda8d0d04cd8d5bc276fa7",
+                "url": "https://api.github.com/repos/joomla-framework/http/zipball/b882005da57c5add0c8ced778803d716f5e26bcb",
+                "reference": "b882005da57c5add0c8ced778803d716f5e26bcb",
                 "shasum": ""
             },
             "require": {
@@ -627,7 +626,7 @@
                 "http",
                 "joomla"
             ],
-            "time": "2014-02-10 21:30:23"
+            "time": "2014-03-25 04:45:26"
         },
         {
             "name": "joomla/input",
@@ -669,49 +668,6 @@
                 "joomla"
             ],
             "time": "2014-02-09 02:03:05"
-        },
-        {
-            "name": "joomla/log",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joomla-framework/log.git",
-                "reference": "4063dae71919deeb9005a955d109c22c5e78f564"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/log/zipball/4063dae71919deeb9005a955d109c22c5e78f564",
-                "reference": "4063dae71919deeb9005a955d109c22c5e78f564",
-                "shasum": ""
-            },
-            "require": {
-                "joomla/date": "~1.0",
-                "joomla/filesystem": "~1.0",
-                "php": ">=5.3.10"
-            },
-            "require-dev": {
-                "joomla/database": "~1.0",
-                "joomla/test": "~1.0"
-            },
-            "type": "joomla-package",
-            "autoload": {
-                "psr-4": {
-                    "Joomla\\Log\\": "src/",
-                    "Joomla\\Log\\Tests\\": "Tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "description": "Joomla Log Package",
-            "homepage": "https://github.com/joomla-framework/log",
-            "keywords": [
-                "framework",
-                "joomla",
-                "log"
-            ],
-            "time": "2014-02-09 08:39:26"
         },
         {
             "name": "joomla/model",
@@ -885,22 +841,25 @@
         },
         {
             "name": "joomla/session",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "target-dir": "Joomla/Session",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/session.git",
-                "reference": "ba9a354be1522390bd32cef21bae8fc8c33d212d"
+                "reference": "0657610e7fe2dda15ae6ed23be64616e5c616b0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/session/zipball/ba9a354be1522390bd32cef21bae8fc8c33d212d",
-                "reference": "ba9a354be1522390bd32cef21bae8fc8c33d212d",
+                "url": "https://api.github.com/repos/joomla-framework/session/zipball/0657610e7fe2dda15ae6ed23be64616e5c616b0d",
+                "reference": "0657610e7fe2dda15ae6ed23be64616e5c616b0d",
                 "shasum": ""
             },
             "require": {
                 "joomla/filter": "~1.0",
                 "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "joomla/test": "~1.0"
             },
             "suggest": {
                 "joomla/database": "Install joomla/database if you want to use Database session storage."
@@ -916,13 +875,13 @@
                 "GPL-2.0+"
             ],
             "description": "Joomla Session Package",
-            "homepage": "https://github.com/joomla/joomla-framework-session",
+            "homepage": "https://github.com/joomla-framework/session",
             "keywords": [
                 "framework",
                 "joomla",
                 "session"
             ],
-            "time": "2014-01-16 04:24:36"
+            "time": "2014-04-09 02:23:29"
         },
         {
             "name": "joomla/string",
@@ -1126,21 +1085,24 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "cdee7c84ba8b2a8aafa1c055f5cb4f640d81c129"
+                "reference": "11ad7352c7bfa12145a0df8e1c4c303c585ce169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/cdee7c84ba8b2a8aafa1c055f5cb4f640d81c129",
-                "reference": "cdee7c84ba8b2a8aafa1c055f5cb4f640d81c129",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/11ad7352c7bfa12145a0df8e1c4c303c585ce169",
+                "reference": "11ad7352c7bfa12145a0df8e1c4c303c585ce169",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.4"
             },
             "type": "library",
             "extra": {
@@ -1174,7 +1136,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 15:39:28"
+            "time": "2014-03-26 11:35:33"
         },
         {
             "name": "twig/twig",
@@ -1398,22 +1360,22 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "1.2.13",
+            "version": "1.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94"
+                "reference": "6ef2bf3a1c47eca07ea95f0d8a902a6340390b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6ef2bf3a1c47eca07ea95f0d8a902a6340390b34",
+                "reference": "6ef2bf3a1c47eca07ea95f0d8a902a6340390b34",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpunit/php-file-iterator": ">=1.3.0@stable",
-                "phpunit/php-text-template": ">=1.1.1@stable",
+                "phpunit/php-text-template": ">=1.2.0@stable",
                 "phpunit/php-token-stream": ">=1.1.3@stable"
             },
             "require-dev": {
@@ -1455,7 +1417,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-10 08:14:32"
+            "time": "2014-03-28 10:53:45"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1504,16 +1466,16 @@
         },
         {
             "name": "phpunit/php-text-template",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23"
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/5180896f51c5b3648ac946b05f9ec02be78a0b23",
-                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
                 "shasum": ""
             },
             "require": {
@@ -1544,7 +1506,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2012-10-31 18:15:28"
+            "time": "2014-01-30 17:20:04"
         },
         {
             "name": "phpunit/php-timer",
@@ -1642,16 +1604,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.33",
+            "version": "3.7.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "619f9179d6d30be8fc7333b5eaba9132dbaa8142"
+                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/619f9179d6d30be8fc7333b5eaba9132dbaa8142",
-                "reference": "619f9179d6d30be8fc7333b5eaba9132dbaa8142",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
+                "reference": "248d6ce95e6ca7f0e3135252c0b984bbe1f52f19",
                 "shasum": ""
             },
             "require": {
@@ -1660,11 +1622,11 @@
                 "ext-reflection": "*",
                 "ext-spl": "*",
                 "php": ">=5.3.3",
-                "phpunit/php-code-coverage": "~1.2.1",
-                "phpunit/php-file-iterator": "~1.3.1",
-                "phpunit/php-text-template": "~1.1.1",
-                "phpunit/php-timer": "~1.0.4",
-                "phpunit/phpunit-mock-objects": "~1.2.0",
+                "phpunit/php-code-coverage": "~1.2",
+                "phpunit/php-file-iterator": "~1.3",
+                "phpunit/php-text-template": "~1.1",
+                "phpunit/php-timer": "~1.0",
+                "phpunit/phpunit-mock-objects": "~1.2",
                 "symfony/yaml": "~2.0"
             },
             "require-dev": {
@@ -1712,7 +1674,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-26 11:35:32"
+            "time": "2014-03-28 11:04:36"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1818,6 +1780,131 @@
             "time": "2013-08-12 22:46:16"
         },
         {
+            "name": "sebastian/finder-facade",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/finder-facade.git",
+                "reference": "1e396fda3449fce9df032749fa4fa2619e0347e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/finder-facade/zipball/1e396fda3449fce9df032749fa4fa2619e0347e0",
+                "reference": "1e396fda3449fce9df032749fa4fa2619e0347e0",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/finder": ">=2.2.0",
+                "theseer/fdomdocument": ">=1.3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
+            "homepage": "https://github.com/sebastianbergmann/finder-facade",
+            "time": "2013-05-28 06:10:03"
+        },
+        {
+            "name": "sebastian/phpcpd",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpcpd.git",
+                "reference": "a9462153f2dd90466a010179901d31fbff598365"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpcpd/zipball/a9462153f2dd90466a010179901d31fbff598365",
+                "reference": "a9462153f2dd90466a010179901d31fbff598365",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "phpunit/php-timer": ">=1.0.4",
+                "sebastian/finder-facade": ">=1.1.0",
+                "sebastian/version": ">=1.0.3",
+                "symfony/console": ">=2.2.0",
+                "theseer/fdomdocument": "~1.4"
+            },
+            "bin": [
+                "phpcpd"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Copy/Paste Detector (CPD) for PHP code.",
+            "homepage": "https://github.com/sebastianbergmann/phpcpd",
+            "time": "2014-03-31 09:25:30"
+        },
+        {
+            "name": "sebastian/version",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/version.git",
+                "reference": "b6e1f0cf6b9e1ec409a0d3e2f2a5fb0998e36b43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/b6e1f0cf6b9e1ec409a0d3e2f2a5fb0998e36b43",
+                "reference": "b6e1f0cf6b9e1ec409a0d3e2f2a5fb0998e36b43",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Library that helps with managing the version number of Git-hosted PHP projects",
+            "homepage": "https://github.com/sebastianbergmann/version",
+            "time": "2014-03-07 15:35:33"
+        },
+        {
             "name": "squizlabs/php_codesniffer",
             "version": "1.5.2",
             "source": {
@@ -1888,18 +1975,124 @@
             "time": "2014-02-04 23:49:58"
         },
         {
+            "name": "symfony/console",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "abfdf388c2f47c4d4ba721afab7e91f15ffa476f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/abfdf388c2f47c4d4ba721afab7e91f15ffa476f",
+                "reference": "abfdf388c2f47c4d4ba721afab7e91f15ffa476f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-04-02 16:54:39"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder.git",
+                "reference": "d45faef922df8438cce99b5ee226bf06c32d145e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/d45faef922df8438cce99b5ee226bf06c32d145e",
+                "reference": "d45faef922df8438cce99b5ee226bf06c32d145e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-03-03 12:53:01"
+        },
+        {
             "name": "symfony/yaml",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47"
+                "reference": "cee3067d680232674c6505d91db9d3d635a9a8f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6194137af5f12fbcfc0cb21e269f47542b8beb47",
-                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/cee3067d680232674c6505d91db9d3d635a9a8f4",
+                "reference": "cee3067d680232674c6505d91db9d3d635a9a8f4",
                 "shasum": ""
             },
             "require": {
@@ -1934,7 +2127,47 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-03 12:53:01"
+            "time": "2014-03-26 11:51:10"
+        },
+        {
+            "name": "theseer/fdomdocument",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/theseer/fDOMDocument.git",
+                "reference": "137aa3b13bef05b4e301899cbabdaf7d501847d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/theseer/fDOMDocument/zipball/137aa3b13bef05b4e301899cbabdaf7d501847d2",
+                "reference": "137aa3b13bef05b4e301899cbabdaf7d501847d2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "lib-libxml": "*",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Arne Blankerts",
+                    "email": "arne@blankerts.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "The classes contained within this repository extend the standard DOM to use exceptions at all occasions of errors instead of PHP warnings or notices. They also add various custom methods and shortcuts for convenience and to simplify the usage of DOM.",
+            "homepage": "https://github.com/theseer/fDOMDocument",
+            "time": "2014-02-19 00:20:43"
         }
     ],
     "aliases": [
