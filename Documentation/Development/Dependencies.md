@@ -11,11 +11,11 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
-#### joomla/application (~1.1@stable)
+#### joomla/application (&gt;=1.1.2@stable)
 
 Joomla Application Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/application.git
 
 #### joomla/controller (~1.1@stable)
@@ -71,7 +71,7 @@ Joomla Github Package
 
 Joomla HTTP Package
 
-* Installed: 1.1.1
+* Installed: 1.1.3
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1@stable)
@@ -141,7 +141,7 @@ Joomla View Package
 
 Symfony HttpFoundation Component
 
-* Installed: v2.4.2
+* Installed: v2.4.3
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -169,15 +169,22 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master 7929d7a01d033083401f603ad55f1d85d080424c
+* Installed: dev-master 336dcf186010c4ca1834b265bf255b5e963f09e7
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
-#### codeguy/upload (*)
+#### codeguy/upload (1.3.2)
 
 Handle file uploads with extensible validation and storage strategies
 
-* Installed: dev-master 8db8dbfb419b2634be98afe1e6b993eca7f25b21
+* Installed: 1.3.2
 * Source URL: https://github.com/codeguy/Upload.git
+
+#### league/flysystem (0.3.*)
+
+Filesystem abstraction, but easy.
+
+* Installed: 0.3.3
+* Source URL: https://github.com/thephpleague/flysystem.git
 
 ### PHP - Development
 
@@ -185,7 +192,7 @@ Handle file uploads with extensible validation and storage strategies
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.7.0
+* Installed: 1.8.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (0.9)
@@ -213,7 +220,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 3.7.32
+* Installed: 3.7.34
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
@@ -222,6 +229,13 @@ PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations o
 
 * Installed: 1.5.2
 * Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
+
+#### sebastian/phpcpd (*)
+
+Copy/Paste Detector (CPD) for PHP code.
+
+* Installed: dev-master a9462153f2dd90466a010179901d31fbff598365
+* Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
 ### JavaScript
 
