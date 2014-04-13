@@ -13,7 +13,9 @@ use App\Projects\TrackerProject;
 use Application\Exception\AbortException;
 
 use Joomla\Github\Github;
-use Joomla\Filesystem\Folder;
+
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 
 /**
  * Class for testing web hooks.
@@ -91,12 +93,15 @@ class Hook extends Test
 	 */
 	protected function selectHook()
 	{
-		$files = Folder::files(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks');
+		$paths = (new Filesystem(new Local(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
 		$hooks = array();
 
-		foreach ($files as $file)
+		foreach ($paths as $path)
 		{
-			$hooks[] = str_replace(array('Receive', 'Hook.php'), '', $file);
+			if ('file' == $path['type'])
+			{
+				$hooks[] = str_replace(array('Receive', 'Hook'), '', $path['filename']);
+			}
 		}
 
 		$this->out()
