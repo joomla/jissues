@@ -15,6 +15,9 @@ use Application\Exception\AbortException;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
@@ -167,6 +170,53 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected function outOK()
 	{
 		return $this->out('<ok>ok</ok>');
+	}
+
+	/**
+	 * Display an error "page" if no options have been found for a given command.
+	 *
+	 * @param   string  $command  The command name.
+	 * @param   string  $dir      The base directory for the commands.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function displayMissingOption($command, $dir)
+	{
+		$this->getApplication()->outputTitle('Command: ' . ucfirst($command));
+
+		$errorTitle1 = 'Missing option for command: ' . $command;
+		$errorTitle2 = 'Please use one of the following :';
+
+		$maxLen = (strlen($errorTitle1) > strlen($errorTitle2)) ? strlen($errorTitle1) : strlen($errorTitle2);
+
+		$filesystem = new Filesystem(new Local($dir));
+
+		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
+		$this->out('<error>  ' . $errorTitle1 . str_repeat(' ', $maxLen - strlen($errorTitle1)) . '  </error>');
+		$this->out('<error>  ' . $errorTitle2 . str_repeat(' ', $maxLen - strlen($errorTitle2)) . '  </error>');
+		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
+
+		$files = $filesystem->listContents();
+		sort($files);
+
+		foreach ($files as $file)
+		{
+			$cmd = strtolower($file['filename']);
+
+			if ('file' != $file['type'] || $command == $cmd)
+			{
+				// Exclude the base class
+				continue;
+			}
+
+			$this->out('<error>  ' . $command . ' ' . $cmd
+				. str_repeat(' ', $maxLen - strlen($cmd) - strlen($command) + 1)
+				. '</error>');
+		}
+
+		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
 	}
 
 	/**

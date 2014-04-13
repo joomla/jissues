@@ -15,8 +15,6 @@ use BabDev\Transifex\Transifex;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
-use Joomla\Filesystem\Folder;
-
 use JTracker\Github\Github;
 
 /**
@@ -93,32 +91,17 @@ class Get extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * NOTE: This command must not be executed without parameters !
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Get');
+		$className = join('', array_slice(explode('\\', get_class($this)), -1));
 
-		$errorTitle = 'Please use one of the following:';
-
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  ' . $errorTitle . '  </error>');
-
-		foreach (Folder::files(__DIR__) as $file)
-		{
-			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
-
-			if ('get' == $cmd)
-			{
-				continue;
-			}
-
-			$this->out('<error>  get ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
-		}
-
-		$this->out('<error>                                    </error>');
+		return $this->displayMissingOption(strtolower($className), __DIR__);
 	}
 
 	/**

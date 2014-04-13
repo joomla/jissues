@@ -11,8 +11,10 @@ namespace Application\Command\Update;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
-use Joomla\Filesystem\Folder;
 use Joomla\Filter\OutputFilter;
+
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 
 /**
  * Class for updating resources on Transifex
@@ -73,7 +75,7 @@ class Transifex extends Update
 			'Template' => array(
 				'JTracker'
 			),
-			'App' => Folder::folders(JPATH_ROOT . '/src/App')
+			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
 		);
 
 		foreach ($scopes as $domain => $extensions)
