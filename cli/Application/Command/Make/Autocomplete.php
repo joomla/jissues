@@ -40,6 +40,7 @@ class Autocomplete extends Make
 		$cliBase = JPATH_ROOT . '/cli/Application/Command';
 
 		$helper = new Help;
+		$helper->setContainer($this->getContainer());
 
 		$xml = simplexml_load_string(
 			'<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -66,6 +67,7 @@ class Autocomplete extends Make
 
 				/* @type TrackerCommand $class */
 				$class = new $className($this->getApplication());
+				$class->setContainer($this->getContainer());
 
 				$help = str_replace(array('<cmd>', '</cmd>', '<', '>'), '', $class->getDescription());
 
