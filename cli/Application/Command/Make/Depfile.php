@@ -10,6 +10,11 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
+use g11n\Support\ExtensionHelper as g11nExtensionHelper;
+
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
 
@@ -230,16 +235,29 @@ class Depfile extends Make
 	 */
 	private function checkLanguageFiles()
 	{
-		$list      = array();
+		$list = array();
+
+		g11nExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		g11nExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
+		g11nExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+
+		$scopes = array(
+			'Core' => array(
+				'JTracker'
+			),
+			'Template' => array(
+				'JTracker'
+			),
+			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
+		);
+
 
 		$langTags = $this->getApplication()->get('languages');
 		$noEmail = $this->getApplication()->input->get('noemail');
 
 		foreach ($langTags as $langTag)
 		{
-			$path = JPATH_ROOT . '/src/JTracker/g11n/' . $langTag . '/' . $langTag . '.JTracker.po';
-
-			if (false == file_exists($path))
+			if ('en-GB' == $langTag)
 			{
 				continue;
 			}
@@ -251,41 +269,67 @@ class Depfile extends Make
 
 			$translators = array();
 
-			$f = fopen($path, 'r');
-
-			$line = '#';
-
-			while ($line)
+			foreach ($scopes as $domain => $extensions)
 			{
-				$line = fgets($f, 1000);
-
-				if (0 !== strpos($line, '#'))
+				foreach ($extensions as $extension)
 				{
-					// Encountered the first line - We're done parsing.
-					$line = '';
+					$path = g11nExtensionHelper::findLanguageFile($langTag, $extension, $domain);
 
-					continue;
+					if (false == file_exists($path))
+					{
+						$this->out(sprintf('Language file not found %s, %s, %s' . $langTag, $extension, $domain));
+
+						continue;
+					}
+
+					$f = fopen($path, 'r');
+
+					$line = '#';
+					$started = false;
+
+					while ($line)
+					{
+						$line = fgets($f, 1000);
+
+						if (0 !== strpos($line, '#'))
+						{
+							// Encountered the first line - We're done parsing.
+							$line = '';
+
+							continue;
+						}
+
+						if (strpos($line, 'Translators:'))
+						{
+							// Start
+							$started = true;
+
+							continue;
+						}
+
+						if (!$started)
+						{
+							continue;
+						}
+
+						$line = trim($line, "# \n");
+
+						if ($noEmail)
+						{
+							// Strip off the e-mail address
+							// Format: '<name@domain.tld>, '
+							$line = preg_replace('/<[a-z0-9\.\-+]+@[a-z\.]+>,\s/i', '', $line);
+						}
+
+						if (false == in_array($line, $translators))
+						{
+							$translators[] = $line;
+						}
+					}
+
+					fclose($f);
 				}
-
-				if (false == strpos($line, '<'))
-				{
-					// Not our business
-					continue;
-				}
-
-				$line = trim($line, "# \n");
-
-				if ($noEmail)
-				{
-					// Strip off the e-mail address
-					// Format: '<name@domain.tld>, '
-					$line = preg_replace('/<[a-z0-9\.\-+]+@[a-z\.]+>,\s/i', '', $line);
-				}
-
-				$translators[] = $line;
 			}
-
-			fclose($f);
 
 			foreach ($translators as $translator)
 			{
