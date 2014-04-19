@@ -344,7 +344,7 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 ### Translators
 
 #### de-DE
-* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013,2014
 
 #### ru-RU
 * Dmitrijs Rekuns &lt;bzzjuka@gmail.com&gt;, 2014
@@ -357,3 +357,9 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### fr-FR
 * Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
+
+#### it-IT
+* Simone Baldelli &lt;baldelli.simone@gmail.com&gt;, 2014
+
+#### ca-ES
+* javiergomez, 2014
