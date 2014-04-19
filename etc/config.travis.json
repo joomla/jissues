@@ -35,7 +35,7 @@
 
 	"cli-application": {
 		"colors"      : "1",
-		"progress-bar": "1"
+		"progress-bar": "0"
 	},
 
 	"debug": {
@@ -47,7 +47,5 @@
 		"log-path": "logs"
 	},
 
-	"languages": [
-		"en-GB", "de-DE", "ru-RU"
-	]
+	"languages": []
 }
