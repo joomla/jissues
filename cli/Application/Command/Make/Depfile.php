@@ -251,7 +251,6 @@ class Depfile extends Make
 			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
 		);
 
-
 		$langTags = $this->getApplication()->get('languages');
 		$noEmail = $this->getApplication()->input->get('noemail');
 
