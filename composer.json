@@ -40,7 +40,8 @@
         "mustache/mustache": "2.1.*@stable",
         "phpunit/phpunit"  : "3.7.*@stable",
         "squizlabs/php_codesniffer": "1.*@stable",
-        "sebastian/phpcpd": "*"
+        "sebastian/phpcpd": "*",
+        "phploc/phploc": "*"
     },
     "autoload": {
         "psr-4": {
