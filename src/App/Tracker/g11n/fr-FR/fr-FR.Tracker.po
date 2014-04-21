@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 10:30-0500\n"
-"PO-Revision-Date: 2014-03-23 15:28+0000\n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
+"PO-Revision-Date: 2014-04-10 13:42+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,32 +18,45 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /templates/tracker/tracker.filters.twig:7
-msgid "- stage -"
-msgstr "- Statut -"
+#: /templates/tracker/tracker.filters.twig:8
+#: /templates/tracker/tracker.filters.twig:17
+msgid "- status -"
+msgstr "- Statuts -"
 
-#: /templates/tracker/tracker.filters.twig:29
+#: /templates/tracker/tracker.filters.twig:33
 msgid "- priority -"
 msgstr "- Priorité -"
 
-#: /templates/tracker/tracker.filters.twig:37
+#: /templates/tracker/tracker.filters.twig:41
 msgid "Least recently updated"
 msgstr "Moins récemment mis à jour"
 
-#: /templates/tracker/tracker.filters.twig:37
+#: /templates/tracker/tracker.filters.twig:41
 msgid "Newest"
 msgstr "Plus récents"
 
-#: /templates/tracker/tracker.filters.twig:37
+#: /templates/tracker/tracker.filters.twig:41
 msgid "Oldest"
 msgstr "Plus anciens"
 
-#: /templates/tracker/tracker.filters.twig:37
+#: /templates/tracker/tracker.filters.twig:41
 msgid "Recently updated"
 msgstr "Plus récemment mis à jour"
 
+#: /templates/tracker/tracker.filters.twig:54
+msgid "Created by you"
+msgstr "Créé par vous"
+
+#: /templates/tracker/tracker.filters.twig:54
+msgid "Everyone's issues"
+msgstr "Erreurs de tous"
+
+#: /templates/tracker/tracker.filters.twig:54
+msgid "You participated in"
+msgstr "Auquels vous avez participé"
+
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:63
-#: /templates/tracker/issues.index.twig:25
+#: /templates/tracker/issues.index.twig:19
 msgid "New Item"
 msgstr "Nouvel Élément"
 
@@ -64,9 +77,9 @@ msgid "Pro"
 msgstr "Pro."
 
 #: /templates/tracker/issue.add.twig:45
-#: /templates/tracker/issues.index.twig:81
+#: /templates/tracker/issues.index.twig:101
 #: /templates/tracker/issue.index.twig:67
-#: /templates/tracker/issue.edit.twig:72
+#: /templates/tracker/issue.edit.twig:76
 msgid "Priority"
 msgstr "Priorité"
 
@@ -75,7 +88,7 @@ msgid "Priority help"
 msgstr "Aide Priorité"
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
-#: /templates/tracker/issue.edit.twig:98
+#: /templates/tracker/issue.edit.twig:102
 msgid "Build"
 msgstr "Version"
 
@@ -87,7 +100,7 @@ msgstr "Aide Version"
 msgid "Issue intro help"
 msgstr "Aide Résumé du Problème"
 
-#: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:122
+#: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
 msgid "Title"
 msgstr "Titre"
 
@@ -103,78 +116,89 @@ msgstr "Description"
 msgid "Issue description help"
 msgstr "Aide Description du Problème"
 
-#: /templates/tracker/issues.index.twig:41
-msgid "Filter the list by summary or description."
-msgstr "Filtrer la liste par le résumé ou la description."
+#: /templates/tracker/issues.index.twig:6
+msgid "Issues List"
+msgstr "Liste des Erreurs"
 
-#: /templates/tracker/issues.index.twig:44
-#: /templates/tracker/issues.index.twig:45
-msgid "Filter the list by ID, summary, or description."
-msgstr "Filtrer la liste par ID, résumé, ou description."
-
-#: /templates/tracker/issues.index.twig:46
-msgid "Submit search"
-msgstr "Soumettre la recherche"
-
-#: /templates/tracker/issues.index.twig:52
-msgid "Clear search"
-msgstr "Effacer la recherche"
-
-#: /templates/tracker/issues.index.twig:64
+#: /templates/tracker/issues.index.twig:36
 msgid "Open"
 msgstr "Ouvert"
 
-#: /templates/tracker/issues.index.twig:65
+#: /templates/tracker/issues.index.twig:39
 msgid "Closed"
 msgstr "Fermé"
 
-#: /templates/tracker/issues.index.twig:70
+#: /templates/tracker/issues.index.twig:44
+msgid "Search tools"
+msgstr "Outils de recherche"
+
+#: /templates/tracker/issues.index.twig:48
 msgid "Feeling Lucky"
 msgstr "J'ai de la chance"
 
-#: /templates/tracker/issues.index.twig:73
-#: /templates/tracker/issues.index.twig:181
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "Page %1$s sur %2$s"
+#: /templates/tracker/issues.index.twig:63
+msgid "Filter the list by summary or description."
+msgstr "Filtrer la liste par le résumé ou la description."
 
-#: /templates/tracker/issues.index.twig:79
+#: /templates/tracker/issues.index.twig:66
+#: /templates/tracker/issues.index.twig:67
+msgid "Filter the list by ID, summary, or description."
+msgstr "Filtrer la liste par ID, résumé, ou description."
+
+#: /templates/tracker/issues.index.twig:68
+msgid "Submit search"
+msgstr "Soumettre la recherche"
+
+#: /templates/tracker/issues.index.twig:74
+msgid "Clear search"
+msgstr "Effacer la recherche"
+
+#: /templates/tracker/issues.index.twig:99
 msgid "ID"
 msgstr "ID"
 
-#: /templates/tracker/issues.index.twig:80
+#: /templates/tracker/issues.index.twig:100
 msgid "Summary"
 msgstr "Résumé"
 
-#: /templates/tracker/issues.index.twig:82
-msgid "Stage"
+#: /templates/tracker/issues.index.twig:102
+#: /templates/tracker/issue.edit.twig:65
+msgid "Status"
 msgstr "Statut"
 
-#: /templates/tracker/issues.index.twig:83
-msgid "Date Opened"
-msgstr "Date d'ouverture"
-
-#: /templates/tracker/issues.index.twig:84
-msgid "Date Closed"
-msgstr "Date de fermeture"
-
-#: /templates/tracker/issues.index.twig:85
-msgid "Last Modified"
-msgstr "Plus récemment mis à jour"
-
-#: /templates/tracker/issues.index.twig:128
+#: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
 msgstr "ID GitHub"
 
-#: /templates/tracker/issues.index.twig:136
+#: /templates/tracker/issues.index.twig:154
 #: /templates/tracker/issue.index.twig:120
-#: /templates/tracker/issue.edit.twig:48
+#: /templates/tracker/issue.edit.twig:50
 msgid "Foreign ID"
 msgstr "ID Extérieure"
 
-#: /templates/tracker/issues.index.twig:172
+#: /templates/tracker/issues.index.twig:162
+#, php-format
+msgid "Opened %s"
+msgstr "Ouvert le %s"
+
+#: /templates/tracker/issues.index.twig:166
+#, php-format
+msgid "Closed %s"
+msgstr "Fermé le %s"
+
+#: /templates/tracker/issues.index.twig:170
+#, php-format
+msgid "Modified %s"
+msgstr "Modifié le %s"
+
+#: /templates/tracker/issues.index.twig:186
 msgid "No items found."
 msgstr "Aucun élément trouvé."
+
+#: /templates/tracker/issues.index.twig:195
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Page %1$s sur %2$s"
 
 #: /templates/tracker/issue.index.twig:30
 msgid "That issue does not exist, or the ID you typed is incorrect."
@@ -240,27 +264,23 @@ msgstr "Poster un Commentaire"
 msgid "Login with GitHub to post a comment"
 msgstr "Se connecter avec GitHub pour poster un Commentaire"
 
-#: /templates/tracker/issue.edit.twig:27
+#: /templates/tracker/issue.edit.twig:29
 msgid "Save"
 msgstr "Enregistrer"
 
-#: /templates/tracker/issue.edit.twig:31
+#: /templates/tracker/issue.edit.twig:33
 msgid "Cancel"
 msgstr "Annuler"
 
-#: /templates/tracker/issue.edit.twig:61
-msgid "Status"
-msgstr "Statut"
-
-#: /templates/tracker/issue.edit.twig:81
+#: /templates/tracker/issue.edit.twig:85
 msgid "Item"
 msgstr "Élément"
 
-#: /templates/tracker/issue.edit.twig:102
+#: /templates/tracker/issue.edit.twig:106
 msgid "Successful tests"
 msgstr "Testé avec Succès"
 
-#: /templates/tracker/issue.edit.twig:110
+#: /templates/tracker/issue.edit.twig:114
 msgid "Easy test"
 msgstr "Test simple"
 

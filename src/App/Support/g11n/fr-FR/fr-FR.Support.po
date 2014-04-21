@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 10:30-0500\n"
-"PO-Revision-Date: 2014-03-22 18:03+0000\n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
+"PO-Revision-Date: 2014-04-10 13:52+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,17 +18,21 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /templates/support/documentation.index.twig:43
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Documentation"
+
+#: /templates/support/documentation.index.twig:45
 msgid "Improve"
 msgstr "Améliorer"
 
-#: /templates/support/documentation.index.twig:44
+#: /templates/support/documentation.index.twig:46
 msgid "Permalink"
 msgstr "Permalien"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
-msgstr "Prévisualisation du Markdown GitHub"
+msgstr "Prévisualisation des Markdowns GitHub"
 
 #: /templates/support/markdown.index.twig:15
 msgid "Markdown TEST Page"
@@ -75,7 +79,7 @@ msgstr "Citations"
 
 #: /templates/support/markdown.index.twig:24
 msgid "HRs"
-msgstr "HRs"
+msgstr "Règles horizontales"
 
 #: /templates/support/markdown.index.twig:25
 msgid "Tables"
@@ -87,7 +91,7 @@ msgstr "Images"
 
 #: /templates/support/markdown.index.twig:27
 msgid "GitHub Spice"
-msgstr "Répertoire GitHub"
+msgstr "Les + GitHub"
 
 #: /templates/support/markdown.index.twig:45
 #: /templates/support/markdown.index.twig:73
@@ -100,9 +104,10 @@ msgstr "Répertoire GitHub"
 #: /templates/support/markdown.index.twig:389
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
-msgstr "Sortie"
+msgstr "Rendu"
 
-#: /templates/support/icons.index.twig:8
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
 msgid "Icons"
 msgstr "Icônes"
 
