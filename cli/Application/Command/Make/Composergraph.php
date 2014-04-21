@@ -123,7 +123,7 @@ class Composergraph extends Make
 		if (is_dir($filePath))
 		{
 			// If a directory is given, use a default file name.
-			$filePath = rtrim($filePath, '/') . '/graph-composer.svg';
+			$filePath = rtrim($filePath, '/') . '/graph-composer.' . ($format ? : 'svg');
 		}
 
 		$filename = basename($filePath);
@@ -160,7 +160,7 @@ class Composergraph extends Make
 		if ($format)
 		{
 			$this->graph->setFormat($format);
-			$this->out(sprintf('Format has been set to <b>%s</b>', $format));
+			$this->debugOut(sprintf('Format has been set to <b>%s</b>', $format));
 		}
 
 		return $this;
