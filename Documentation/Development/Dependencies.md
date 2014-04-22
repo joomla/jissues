@@ -237,6 +237,13 @@ Copy/Paste Detector (CPD) for PHP code.
 * Installed: dev-master a9462153f2dd90466a010179901d31fbff598365
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
+#### clue/graph-composer (*)
+
+Dependency graph visualization for composer.json
+
+* Installed: dev-master 8d759e711a3bdf3f877b56b206bc627df658d2b4
+* Source URL: https://github.com/clue/graph-composer.git
+
 ### JavaScript
 
 #### jquery (1.9.1)
