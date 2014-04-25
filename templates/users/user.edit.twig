@@ -27,6 +27,11 @@
                 {{ "Cancel"|_ }}
             </a>
         </li>
+        <li class="pull-right">
+            <a class="btn" href="{{ uri.base.path ~ 'user/' ~ item.id }}/refresh">
+                {{ "Refresh profile from GitHub"|_ }}
+            </a>
+        </li>
     </ul>
 
     <form method="post" action="/{{ uri.route ~ '-save' }}" class="form-horizontal" name="editForm">

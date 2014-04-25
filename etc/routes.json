@@ -13,9 +13,10 @@
 	"user/assign": "\\Users\\Controller\\Ajax\\Assign",
 	"users/list" : "\\Users\\Controller\\Ajax\\Listing",
 
-	"user/:id":           "\\Users\\Controller\\User",
-	"user/:id/edit":      "\\Users\\Controller\\User\\Edit",
+	"user/:id"          : "\\Users\\Controller\\User",
+	"user/:id/edit"     : "\\Users\\Controller\\User\\Edit",
 	"user/:id/edit-save": "\\Users\\Controller\\User\\Save",
+	"user/:id/refresh"  : "\\Users\\Controller\\User\\Refresh",
 
 	"config"    : "\\System\\Controller\\Config",
 	"saveconfig": "\\System\\Controller\\Config\\Save",

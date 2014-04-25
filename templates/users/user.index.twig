@@ -13,6 +13,11 @@
         </div>
     {% else %}
         {% if user.id == item.id %}
+
+            <a class="btn btn-small pull-right" href="{{ uri.base.path ~ 'user/' ~ user.id }}/refresh">
+                {{ "Refresh profile from GitHub"|_ }}
+            </a>
+
             <h1>{{ "My Profile"|_ }}</h1>
         {% else %}
             <h1>{{ "Profile"|_ }}</h1>
