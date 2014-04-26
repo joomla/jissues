@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Roland Dalmulder <contact@rolandd.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-10 03:30+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
+"PO-Revision-Date: 2014-04-26 10:59+0000\n"
+"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,330 +21,330 @@ msgstr ""
 #: /templates/tracker/tracker.filters.twig:8
 #: /templates/tracker/tracker.filters.twig:17
 msgid "- status -"
-msgstr ""
+msgstr "- status -"
 
 #: /templates/tracker/tracker.filters.twig:33
 msgid "- priority -"
-msgstr ""
+msgstr "- prioriteit -"
 
 #: /templates/tracker/tracker.filters.twig:41
 msgid "Least recently updated"
-msgstr ""
+msgstr "Minst recent bijgewerkt"
 
 #: /templates/tracker/tracker.filters.twig:41
 msgid "Newest"
-msgstr ""
+msgstr "Nieuwste"
 
 #: /templates/tracker/tracker.filters.twig:41
 msgid "Oldest"
-msgstr ""
+msgstr "Oudste"
 
 #: /templates/tracker/tracker.filters.twig:41
 msgid "Recently updated"
-msgstr ""
+msgstr "Recent bijgewerkt"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Created by you"
-msgstr ""
+msgstr "Gemaakt door jou"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Everyone's issues"
-msgstr ""
+msgstr "Iedereen zijn problemen"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "You participated in"
-msgstr ""
+msgstr "Je hebt deelgenomen in"
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:63
 #: /templates/tracker/issues.index.twig:19
 msgid "New Item"
-msgstr ""
+msgstr "Nieuw item"
 
 #: /templates/tracker/issue.add.twig:12
 msgid "Submit"
-msgstr ""
+msgstr "Vestuur"
 
 #: /templates/tracker/issue.add.twig:35
 msgid "View Mode"
-msgstr ""
+msgstr "Toon Modus"
 
 #: /templates/tracker/issue.add.twig:38
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: /templates/tracker/issue.add.twig:38
 msgid "Pro"
-msgstr ""
+msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:45
 #: /templates/tracker/issues.index.twig:101
 #: /templates/tracker/issue.index.twig:67
 #: /templates/tracker/issue.edit.twig:76
 msgid "Priority"
-msgstr ""
+msgstr "Prioriteit"
 
 #: /templates/tracker/issue.add.twig:50
 msgid "Priority help"
-msgstr ""
+msgstr "Prioriteit help"
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
 #: /templates/tracker/issue.edit.twig:102
 msgid "Build"
-msgstr ""
+msgstr "Versie"
 
 #: /templates/tracker/issue.add.twig:56
 msgid "Build help"
-msgstr ""
+msgstr "Versie help"
 
 #: /templates/tracker/issue.add.twig:61
 msgid "Issue intro help"
-msgstr ""
+msgstr "Probleem intro help"
 
 #: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: /templates/tracker/issue.add.twig:69
 msgid "Issue title help"
-msgstr ""
+msgstr "Probleem titel help"
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #: /templates/tracker/issue.add.twig:80
 msgid "Issue description help"
-msgstr ""
+msgstr "Probleem omschrijving help"
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
-msgstr ""
+msgstr "Problemen Lijst"
 
 #: /templates/tracker/issues.index.twig:36
 msgid "Open"
-msgstr ""
+msgstr "Open"
 
 #: /templates/tracker/issues.index.twig:39
 msgid "Closed"
-msgstr ""
+msgstr "Gesloten"
 
 #: /templates/tracker/issues.index.twig:44
 msgid "Search tools"
-msgstr ""
+msgstr "Zoekmiddelen"
 
 #: /templates/tracker/issues.index.twig:48
 msgid "Feeling Lucky"
-msgstr ""
+msgstr "Ik doe een gok"
 
 #: /templates/tracker/issues.index.twig:63
 msgid "Filter the list by summary or description."
-msgstr ""
+msgstr "Filter lijst op samenvatting of omschrijving"
 
 #: /templates/tracker/issues.index.twig:66
 #: /templates/tracker/issues.index.twig:67
 msgid "Filter the list by ID, summary, or description."
-msgstr ""
+msgstr "Filter de lijst op ID, samenvatting, of omschrijving"
 
 #: /templates/tracker/issues.index.twig:68
 msgid "Submit search"
-msgstr ""
+msgstr "Zoeken"
 
 #: /templates/tracker/issues.index.twig:74
 msgid "Clear search"
-msgstr ""
+msgstr "Zoekopdracht legen"
 
 #: /templates/tracker/issues.index.twig:99
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/tracker/issues.index.twig:100
 msgid "Summary"
-msgstr ""
+msgstr "Samenvatting"
 
 #: /templates/tracker/issues.index.twig:102
 #: /templates/tracker/issue.edit.twig:65
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
-msgstr ""
+msgstr "GitHub ID"
 
 #: /templates/tracker/issues.index.twig:154
 #: /templates/tracker/issue.index.twig:120
 #: /templates/tracker/issue.edit.twig:50
 msgid "Foreign ID"
-msgstr ""
+msgstr "Extern ID"
 
 #: /templates/tracker/issues.index.twig:162
 #, php-format
 msgid "Opened %s"
-msgstr ""
+msgstr "Geopend %s"
 
 #: /templates/tracker/issues.index.twig:166
 #, php-format
 msgid "Closed %s"
-msgstr ""
+msgstr "Gesloten %s"
 
 #: /templates/tracker/issues.index.twig:170
 #, php-format
 msgid "Modified %s"
-msgstr ""
+msgstr "Gewijzigd %s"
 
 #: /templates/tracker/issues.index.twig:186
 msgid "No items found."
-msgstr ""
+msgstr "Geen items gevonden."
 
 #: /templates/tracker/issues.index.twig:195
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "Pagina %1$s van %2$s"
 
 #: /templates/tracker/issue.index.twig:30
 msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr ""
+msgstr "Het probleem bestaat niet, of het ID dat is ingevoerd is incorrect."
 
 #: /templates/tracker/issue.index.twig:46
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: /templates/tracker/issue.index.twig:82
 msgid "Easy Test"
-msgstr ""
+msgstr "Makkelijke Test"
 
 #: /templates/tracker/issue.index.twig:90
 msgid "# of Successful Tests"
-msgstr ""
+msgstr "# van Succesvolle Tests"
 
 #: /templates/tracker/issue.index.twig:138
 msgid "Referenced as"
-msgstr ""
+msgstr "Gerefereerd als"
 
 #: /templates/tracker/issue.index.twig:165
 msgid "# of Users Experiencing Issue"
-msgstr ""
+msgstr "# van gebruikers die het probleem ervaren"
 
 #: /templates/tracker/issue.index.twig:169
 msgid "Average Importance Score"
-msgstr ""
+msgstr "Gemiddelde Belangrijkheid Score"
 
 #: /templates/tracker/issue.index.twig:177
 msgid "I've experienced this issue"
-msgstr ""
+msgstr "Ik heb dit probleem ervaren"
 
 #: /templates/tracker/issue.index.twig:180
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: /templates/tracker/issue.index.twig:184
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 #: /templates/tracker/issue.index.twig:189
 msgid "Importance of issue to me"
-msgstr ""
+msgstr "Belangrijkheid van dit probleem voor mij"
 
 #: /templates/tracker/issue.index.twig:213
 msgid "Vote"
-msgstr ""
+msgstr "Stem"
 
 #: /templates/tracker/issue.index.twig:280
 msgid "Add a Comment"
-msgstr ""
+msgstr "Voeg een reactie toe"
 
 #: /templates/tracker/issue.index.twig:291
 msgid "Leave a comment"
-msgstr ""
+msgstr "Schrijf een reactie"
 
 #: /templates/tracker/issue.index.twig:299
 msgid "Post Comment"
-msgstr ""
+msgstr "Verzend reactie"
 
 #: /templates/tracker/issue.index.twig:312
 msgid "Login with GitHub to post a comment"
-msgstr ""
+msgstr "Log in met GitHub om een reactie te plaatsen"
 
 #: /templates/tracker/issue.edit.twig:29
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: /templates/tracker/issue.edit.twig:33
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 #: /templates/tracker/issue.edit.twig:85
 msgid "Item"
-msgstr ""
+msgstr "Item"
 
 #: /templates/tracker/issue.edit.twig:106
 msgid "Successful tests"
-msgstr ""
+msgstr "Succesvolle tests"
 
 #: /templates/tracker/issue.edit.twig:114
 msgid "Easy test"
-msgstr ""
+msgstr "Makkelijke test"
 
 #: /src/App/Tracker/Table/IssuesTable.php:159
 msgid "A title is required."
-msgstr ""
+msgstr "Een titel moet ingevuld worden."
 
 #: /src/App/Tracker/Table/IssuesTable.php:163
 msgid "The title max length is 255 chars."
-msgstr ""
+msgstr "De maximale titel lengte is 255 tekens."
 
 #: /src/App/Tracker/Table/IssuesTable.php:168
 msgid "A build is required."
-msgstr ""
+msgstr "Een versie is verplicht."
 
 #: /src/App/Tracker/Table/IssuesTable.php:172
 msgid "A build max length is 40 chars."
-msgstr ""
+msgstr "De maximale versie lengte is 40 tekens."
 
 # DATABASE TRANSLATIONS
 #: DATABASE
 msgid "open"
-msgstr ""
+msgstr "open"
 
 #: DATABASE
 msgid "confirmed"
-msgstr ""
+msgstr "bevestigd"
 
 #: DATABASE
 msgid "pending"
-msgstr ""
+msgstr "in behandeling"
 
 #: DATABASE
 msgid "rtc"
-msgstr ""
+msgstr "rtc"
 
 #: DATABASE
 msgid "fixed"
-msgstr ""
+msgstr "opgelost"
 
 #: DATABASE
 msgid "review"
-msgstr ""
+msgstr "herzien"
 
 #: DATABASE
 msgid "info"
-msgstr ""
+msgstr "info"
 
 #: DATABASE
 msgid "platform"
-msgstr ""
+msgstr "platform"
 
 #: DATABASE
 msgid "no_reply"
-msgstr ""
+msgstr "geen antwoord"
 
 #: DATABASE
 msgid "closed"
-msgstr ""
+msgstr "gesloten"
 
 #: DATABASE
 msgid "expected"
-msgstr ""
+msgstr "verwacht"
 
 #: DATABASE
 msgid "known"
-msgstr ""
+msgstr "bekend"
