@@ -26,6 +26,7 @@
         "joomla/utilities": "~1.1@stable",
         "joomla/view": "~1.1@stable",
         "symfony/http-foundation": "2.4.*@stable",
+        "doctrine/orm": "2.4.*@stable",
         "twig/twig": "1.*@stable",
         "elkuku/g11n": "2.1",
         "elkuku/console-progressbar": "1.0",
