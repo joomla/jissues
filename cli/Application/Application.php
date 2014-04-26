@@ -35,6 +35,8 @@ use JTracker\Service\ApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\DoctrineRunnerProvider;
+use JTracker\Service\EntityManagerProvider;
 use JTracker\Service\GitHubProvider;
 use JTracker\Service\TransifexProvider;
 
@@ -119,7 +121,9 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
-			->registerServiceProvider(new TransifexProvider);
+			->registerServiceProvider(new TransifexProvider)
+			->registerServiceProvider(new EntityManagerProvider)
+			->registerServiceProvider(new DoctrineRunnerProvider);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
