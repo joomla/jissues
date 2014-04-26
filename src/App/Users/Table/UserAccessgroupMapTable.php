@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "user_accessgroup_map" database table.
  *
  * @Entity
- * @Table(name="_user_accessgroup_map")
+ * @Table(name="#__user_accessgroup_map")
  *
  * @since  1.0
  */

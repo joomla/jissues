@@ -18,7 +18,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "accessgroups" database table.
  *
  * @Entity
- * @Table(name="_accessgroups")
+ * @Table(name="#__accessgroups")
  *
  * @since  1.0
  */

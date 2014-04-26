@@ -18,7 +18,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "articles" database table.
  *
  * @Entity
- * @Table(name="_articles")
+ * @Table(name="#__articles")
  *
  * @since  1.0
  */

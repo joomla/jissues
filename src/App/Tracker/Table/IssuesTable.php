@@ -21,7 +21,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "issues" database table.
  *
  * @Entity
- * @Table(name="_issues",
+ * @Table(name="#__issues",
  *      uniqueConstraints={
  * @UniqueConstraint(name="issues_fk_rel_type",columns={"rel_type"})
  *      },

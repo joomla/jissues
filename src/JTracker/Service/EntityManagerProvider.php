@@ -8,11 +8,15 @@
 
 namespace JTracker\Service;
 
+use Doctrine\Common\EventManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Events;
 use Doctrine\ORM\Tools\Setup;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+
+use JTracker\Service\Doctrine\TablePrefix;
 
 /**
  * EntityManager service provider
@@ -51,13 +55,15 @@ class EntityManagerProvider implements ServiceProviderInterface
 					'user'     => $application->get('database.user'),
 					'password' => $application->get('database.password'),
 					'dbname'   => $application->get('database.name'),
-
-					// @todo @DEPRECATED prefix...
-					'prefix'   => $application->get('database.prefix')
 				];
 
+				$eventManager = new EventManager;
+
+				// Table Prefix
+				$eventManager->addEventListener(Events::loadClassMetadata, new TablePrefix($application->get('database.prefix')));
+
 				// Obtaining the entity manager
-				return EntityManager::create($connectionParams, $config);
+				return EntityManager::create($connectionParams, $config, $eventManager);
 			}, true, true
 		);
 

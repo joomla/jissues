@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "activities" database table.
  *
  * @Entity
- * @Table(name="_activities")
+ * @Table(name="#__activities")
  *
  * @since  1.0
  */

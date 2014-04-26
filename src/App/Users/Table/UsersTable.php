@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "users" database table.
  *
  * @Entity
- * @Table(name="_users")
+ * @Table(name="#__users")
  *
  * @since  1.0
  */

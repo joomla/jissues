@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "issues_relations_types" database table.
  *
  * @Entity
- * @Table(name="_issues_relations_types")
+ * @Table(name="#__issues_relations_types")
  *
  * @since  1.0
  */

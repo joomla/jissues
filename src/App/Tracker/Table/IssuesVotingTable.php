@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "issues_voting" database table.
  *
  * @Entity
- * @Table(name="_issues_voting")
+ * @Table(name="#__issues_voting")
  *
  * @since  1.0
  */

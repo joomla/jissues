@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "status" database table.
  *
  * @Entity
- * @Table(name="_status")
+ * @Table(name="#__status")
  *
  * @since  1.0
  */

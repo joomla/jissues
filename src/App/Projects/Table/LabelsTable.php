@@ -16,7 +16,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "tracker_labels" database table.
  *
  * @Entity
- * @Table(name="_tracker_labels")
+ * @Table(name="#__tracker_labels")
  *
  * @since  1.0
  */
