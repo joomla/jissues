@@ -7,6 +7,7 @@
  */
 
 namespace Application\Command\Make;
+use Doctrine\ORM\Tools\Setup;
 
 /**
  * Class for generating class doc blocks in JTracker\Database\AbstractDatabaseTable classes
@@ -37,48 +38,86 @@ class Dbcomments extends Make
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
-		$tables = $db->getTableList();
+		$since = '1.0';
 
-		$comms = array();
+		$showProps = false;
 
-		foreach ($tables as $table)
+		// This is a TAB character
+		$tab = '	';
+
+		foreach ($db->getTableList() as $table)
 		{
-			$fields = $db->getTableColumns($table, false);
+			// Transform "jos_my_table_name" => "my_table_name"
+			$tableName = str_replace($db->getPrefix(), '', $table);
 
-			$lines = array();
+			// Transform "my_table_name" => "MyTableNameTable"
+			$className = str_replace('_', ' ', $tableName);
+			$className = str_replace(' ', '', ucwords($className));
+			$className .= 'Table';
 
-			foreach ($fields as $field)
+			$HACKedTableName = '_' . $tableName;
+
+			$this->out('/** ')
+				->out(' * Table interface class for the "' . $tableName . '" database table.')
+				->out(' *')
+				->out(' * @Entity')
+				->out(' * @Table(name="' . $HACKedTableName . '")');
+
+			$columns = $db->getTableColumns($table, false);
+
+			if ($showProps)
 			{
-				$com = new \stdClass;
+				$maxVals = $this->getMaxVals($columns);
 
-				$com->type    = $this->getType($field->Type);
-				$com->name    = '$' . $field->Field;
-				$com->comment = $field->Comment ? $field->Comment : $field->Field;
-
-				$lines[] = $com;
+				foreach ($columns as $line)
+				{
+					$this->out(' *')
+						->out(
+							' * @property'
+							. '   ' . $line->proptype
+							. str_repeat(' ', $maxVals->maxType - strlen($line->type))
+							. '  ' . $line->name
+							. str_repeat(' ', $maxVals->maxName - strlen($line->name))
+							. '  ' . $line->comment
+						);
+				}
 			}
 
-			$comms[$table] = $lines;
-		}
+			$this->out(' *')
+				->out(' * @since  ' . $since)
+				->out(' */')
+				->out(sprintf('class %s extends %s', $className, 'AbstractDatabaseTable'))
+				->out('{');
 
-		foreach ($comms as $table => $com)
-		{
-			$this->out(' * ' . $table);
-
-			$maxVals = $this->getMaxVals($com);
-
-			foreach ($com as $line)
+			foreach ($columns as $column)
 			{
-				$l = '';
-				$l .= ' * @property';
-				$l .= '   ' . $line->type;
-				$l .= str_repeat(' ', $maxVals->maxType - strlen($line->type));
-				$l .= '  ' . $line->name;
-				$l .= str_repeat(' ', $maxVals->maxName - strlen($line->name));
-				$l .= '  ' . $line->comment;
+				$this->out($tab . '/**')
+					->out($tab . ' * ' . ($column->Comment ? : $column->Field))
+					->out($tab . ' *');
 
-				$this->out($l);
+				if ('PRI' == $column->Key)
+				{
+					$this->out($tab . ' * @Id')
+						->out($tab . ' * @GeneratedValue');
+				}
+
+				$this->out(
+					$tab . ' * @Column('
+					. 'type="' . $this->getColumnType($column->Type) . '"'
+					. (preg_match('/\(([0-9]+)\)/', $column->Type, $matches) ? ', length=' . $matches[1] : '')
+					. ')'
+				);
+
+				$this->out($tab . ' *')
+					->out($tab . ' * @var  ' . $this->getPropertyType($column->Type))
+					->out($tab . ' *')
+					->out($tab . ' * @since  ' . $since)
+					->out($tab . ' */')
+					->out($tab . 'public $' . $column->Field . ';')
+					->out();
 			}
+
+			$this->out('}');
 
 			$this->out();
 		}
@@ -90,32 +129,32 @@ class Dbcomments extends Make
 	/**
 	 * Get the maximum values to align doc comments.
 	 *
-	 * @param   array  $lines  The doc comment.
+	 * @param   array  $columns  The table columns.
 	 *
 	 * @return  \stdClass
 	 *
 	 * @since   1.0
 	 */
-	private function getMaxVals(array $lines)
+	private function getMaxVals(array $columns)
 	{
-		$mType = 0;
-		$mName = 0;
+		$maxType = 0;
+		$maxName = 0;
 
-		foreach ($lines as $line)
+		foreach ($columns as $column)
 		{
-			$len   = strlen($line->type);
-			$mType = $len > $mType ? $len : $mType;
+			$len   = strlen($column->Type);
+			$maxType = $len > $maxType ? $len : $maxType;
 
-			$len   = strlen($line->name);
-			$mName = $len > $mName ? $len : $mName;
+			$len   = strlen($column->Field);
+			$maxName = $len > $maxName ? $len : $maxName;
 		}
 
-		$v = new \stdClass;
+		$values = new \stdClass;
 
-		$v->maxType = $mType;
-		$v->maxName = $mName;
+		$values->maxType = $maxType;
+		$values->maxName = $maxName;
 
-		return $v;
+		return $values;
 	}
 
 	/**
@@ -127,7 +166,7 @@ class Dbcomments extends Make
 	 *
 	 * @since   1.0
 	 */
-	private function getType($type)
+	private function getPropertyType($type)
 	{
 		if (0 === strpos($type, 'int')
 			|| 0 === strpos($type, 'tinyint'))
@@ -144,5 +183,39 @@ class Dbcomments extends Make
 		}
 
 		return $type;
+	}
+
+	/**
+	 * Get a Doctrine column type from a SQL data type.
+	 *
+	 * @param   string  $type  The SQL data type.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	private function getColumnType($type)
+	{
+		if (0 === strpos($type, 'int'))
+		{
+			return 'integer';
+		}
+
+		$typeName = substr($type, 0, strpos($type, '(')) ? : $type;
+
+		switch ($typeName)
+		{
+			case 'varchar' :
+				$typeName = 'string';
+				break;
+			case 'mediumtext' :
+				$typeName = 'text';
+				break;
+			case 'tinyint' :
+				$typeName = 'smallint';
+				break;
+		}
+
+		return $typeName;
 	}
 }
