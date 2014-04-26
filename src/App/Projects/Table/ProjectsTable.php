@@ -15,20 +15,94 @@ use Joomla\Database\DatabaseDriver;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__tracker_projects table
+ * Table interface class for the "tracker_projects" database table.
  *
- * @property   integer  $project_id        PK
- * @property   string   $title             Project title
- * @property   string   $alias             Project URL alias
- * @property   string   $gh_user           GitHub user
- * @property   string   $gh_project        GitHub project
- * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
- * @property   string   $short_title       Project short title
+ * @Entity
+ * @Table(name="_tracker_projects")
  *
  * @since  1.0
  */
 class ProjectsTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $project_id;
+
+	/**
+	 * Project title
+	 *
+	 * @Column(type="string", length=150)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $title;
+
+	/**
+	 * Project URL alias
+	 *
+	 * @Column(type="string", length=150)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $alias;
+
+	/**
+	 * GitHub user
+	 *
+	 * @Column(type="string", length=150)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $gh_user;
+
+	/**
+	 * GitHub project
+	 *
+	 * @Column(type="string", length=150)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $gh_project;
+
+	/**
+	 * A tracker link format (e.g. http://tracker.com/issue/%d)
+	 *
+	 * @Column(type="string", length=500)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $ext_tracker_link;
+
+	/**
+	 * Project short title
+	 *
+	 * @Column(type="string", length=50)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $short_title;
+
 	/**
 	 * Constructor
 	 *

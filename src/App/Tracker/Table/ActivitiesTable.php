@@ -13,22 +13,127 @@ use Joomla\Database\DatabaseDriver;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__activities table
+ * Table interface class for the "activities" database table.
  *
- * @property   integer  $activities_id  PK
- * @property   integer  $gh_comment_id  The GitHub comment id
- * @property   integer  $issue_number   THE issue number
- * @property   integer  $project_id     The Project id
- * @property   string   $user           The user name
- * @property   string   $event          The event type
- * @property   string   $text           The event text
- * @property   string   $text_raw       The raw  event text
- * @property   string   $created_date   created_date
+ * @Entity
+ * @Table(name="_activities")
  *
  * @since  1.0
  */
 class ActivitiesTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $activities_id;
+
+	/**
+	 * The GitHub comment id
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $gh_comment_id;
+
+	/**
+	 * THE issue number (ID)
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $issue_number;
+
+	/**
+	 * The Project id
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $project_id;
+
+	/**
+	 * The user name
+	 *
+	 * @Column(type="string", length=255)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $user;
+
+	/**
+	 * The event type
+	 *
+	 * @Column(type="string", length=32)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $event;
+
+	/**
+	 * The event text
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $text;
+
+	/**
+	 * The raw event text
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $text_raw;
+
+	/**
+	 * created_date
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $created_date;
+
+	/**
+	 * updated_date
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $updated_date;
+
 	/**
 	 * Constructor
 	 *

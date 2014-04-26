@@ -13,17 +13,61 @@ use Joomla\Database\DatabaseDriver;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__tracker_projects table
+ * Table interface class for the "tracker_labels" database table.
  *
- * @property   integer  $label_id    PK
- * @property   integer  $project_id  Project ID
- * @property   string   $name        Label name
- * @property   string   $color       Label color
+ * @Entity
+ * @Table(name="_tracker_labels")
  *
  * @since  1.0
  */
 class LabelsTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $label_id;
+
+	/**
+	 * Project ID
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $project_id;
+
+	/**
+	 * Label name
+	 *
+	 * @Column(type="string", length=50)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $name;
+
+	/**
+	 * Label color
+	 *
+	 * @Column(type="string", length=6)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $color;
+
 	/**
 	 * Constructor
 	 *

@@ -15,21 +15,105 @@ use Joomla\Github\Github;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__articles table
+ * Table interface class for the "articles" database table.
  *
- * @property   integer  $article_id    PK
- * @property   string   $path          The article path.
- * @property   string   $title         The article title.
- * @property   string   $alias         The article alias.
- * @property   string   $text          The article text.
- * @property   string   $text_md       The raw article text.
- * @property   string   $created_date  The created date.
- * @property   integer  $is_file       If the text is present as a file (for different handling)
+ * @Entity
+ * @Table(name="_articles")
  *
  * @since  1.0
  */
 class ArticlesTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $article_id;
+
+	/**
+	 * The article path
+	 *
+	 * @Column(type="string", length=500)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $path;
+
+	/**
+	 * The article title
+	 *
+	 * @Column(type="string", length=250)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $title;
+
+	/**
+	 * The article alias.
+	 *
+	 * @Column(type="string", length=250)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $alias;
+
+	/**
+	 * The article text.
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $text;
+
+	/**
+	 * The raw article text.
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $text_md;
+
+	/**
+	 * The created date.
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $created_date;
+
+	/**
+	 * If the text is present as a file (for different handling)
+	 *
+	 * @Column(type="integer", length=1)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $is_file;
+
 	/**
 	 * Github object
 	 *

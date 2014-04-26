@@ -18,38 +18,291 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__issues table
+ * Table interface class for the "issues" database table.
  *
- * @property   integer  $id               PK
- * @property   integer  $issue_number     THE issue number (ID)
- * @property   integer  $foreign_number   Foreign tracker id
- * @property   integer  $project_id       Project id
- * @property   integer  $milestone_id     Milestone id if applicable
- * @property   string   $title            Issue title
- * @property   string   $description      Issue description
- * @property   string   $description_raw  The raw issue description (markdown)
- * @property   integer  $priority         Issue priority
- * @property   integer  $status           Issue status
- * @property   string   $opened_date      Issue open date
- * @property   string   $opened_by        Opened by username
- * @property   string   $closed_date      Issue closed date
- * @property   string   $closed_by        Issue closed by username
- * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
- * @property   string   $modified_date    Issue modified date
- * @property   string   $modified_by      Issue modified by username
- * @property   integer  $rel_number       Relation number
- * @property   string   $rel_type         Relation type
- * @property   integer  $has_code         If the issue has code attached - aka a pull request.
- * @property   string   $labels           Comma separated list of label IDs
- * @property   integer  $vote_id          Vote id
- * @property   integer  $build            Build the issue is reported on
- * @property   integer  $tests            Number of successful tests
- * @property   integer  $easy             Flag if item is an easy test
+ * @Entity
+ * @Table(name="_issues",
+ *      uniqueConstraints={
+ * @UniqueConstraint(name="issues_fk_rel_type",columns={"rel_type"})
+ *      },
+ *      indexes={
+ * @Index(name="issue_number", columns={"issue_number"}),
+ * @Index(name="milestone_id", columns={"milestone_id", "project_id"}),
+ * @Index(name="project_id", columns={"project_id"}),
+ * @Index(name="status", columns={"status"})
+ *      }
+ * )
  *
  * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $id;
+
+	/**
+	 * THE issue number (ID)
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $issue_number;
+
+	/**
+	 * Foreign tracker id
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $foreign_number;
+
+	/**
+	 * Project id
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $project_id;
+
+	/**
+	 * Milestone id if applicable
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $milestone_id;
+
+	/**
+	 * Issue title
+	 *
+	 * @Column(type="string", length=255)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $title;
+
+	/**
+	 * Issue description
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $description;
+
+	/**
+	 * The raw issue description (markdown)
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $description_raw;
+
+	/**
+	 * Issue priority
+	 *
+	 * @Column(type="smallint", length=4)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $priority;
+
+	/**
+	 * Issue status
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $status;
+
+	/**
+	 * Issue open date
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $opened_date;
+
+	/**
+	 * Opened by username
+	 *
+	 * @Column(type="string", length=50)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $opened_by;
+
+	/**
+	 * Issue closed date
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $closed_date;
+
+	/**
+	 * Issue closed by username
+	 *
+	 * @Column(type="string", length=50)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $closed_by;
+
+	/**
+	 * The GitHub SHA where the issue has been closed
+	 *
+	 * @Column(type="string", length=40)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $closed_sha;
+
+	/**
+	 * Issue modified date
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $modified_date;
+
+	/**
+	 * Issue modified by username
+	 *
+	 * @Column(type="string", length=50)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $modified_by;
+
+	/**
+	 * Relation issue number
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $rel_number;
+
+	/**
+	 * Relation type
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $rel_type;
+
+	/**
+	 * If the issue has code attached - aka a pull request
+	 *
+	 * @Column(type="smallint", length=1)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $has_code;
+
+	/**
+	 * Comma separated list of label IDs
+	 *
+	 * @Column(type="string", length=250)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $labels;
+
+	/**
+	 * Build on which the issue is reported
+	 *
+	 * @Column(type="string", length=40)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $build;
+
+	/**
+	 * Number of successful tests on an item
+	 *
+	 * @Column(type="smallint", length=4)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $tests;
+
+	/**
+	 * Flag whether an item is an easy test
+	 *
+	 * @Column(type="smallint", length=1)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $easy;
+
 	/**
 	 * Internal array of field values.
 	 *

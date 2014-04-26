@@ -15,22 +15,116 @@ use Joomla\Registry\Registry;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Class GroupsTable.
+ * Table interface class for the "accessgroups" database table.
  *
- * @property   integer  $group_id     group_id
- * @property   integer  $project_id   project_id
- * @property   string   $title        title
- * @property   integer  $can_view     can_view
- * @property   integer  $can_create   can_create
- * @property   integer  $can_manage   can_manage
- * @property   integer  $can_edit     can_edit
- * @property   integer  $can_editown  can_editown
- * @property   integer  $system       system
+ * @Entity
+ * @Table(name="_accessgroups")
  *
  * @since  1.0
  */
 class GroupsTable extends AbstractDatabaseTable
 {
+	/**
+	 * group_id
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $group_id;
+
+	/**
+	 * project_id
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $project_id;
+
+	/**
+	 * title
+	 *
+	 * @Column(type="string", length=150)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $title;
+
+	/**
+	 * can_view
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $can_view;
+
+	/**
+	 * can_create
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $can_create;
+
+	/**
+	 * can_manage
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $can_manage;
+
+	/**
+	 * can_edit
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $can_edit;
+
+	/**
+	 * can_editown
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $can_editown;
+
+	/**
+	 * system
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $system;
+
 	/**
 	 * Constructor
 	 *

@@ -13,20 +13,94 @@ use Joomla\Database\DatabaseDriver;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__tracker_projects table
+ * Table interface class for the "tracker_milestones" database table.
  *
- * @property   integer  $milestone_id      PK
- * @property   integer  $milestone_number  Milestone number from Github
- * @property   integer  $project_id        Project ID
- * @property   string   $title             Milestone title.
- * @property   string   $description       Milestone description
- * @property   string   $state             Milestone state: open | closed
- * @property   string   $due_on            Date the milestone is due on
+ * @Entity
+ * @Table(name="_tracker_milestones")
  *
  * @since  1.0
  */
 class MilestonesTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $milestone_id;
+
+	/**
+	 * Milestone number from Github
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $milestone_number;
+
+	/**
+	 * Project ID
+	 *
+	 * @Column(type="integer", length=11)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	public $project_id;
+
+	/**
+	 * Milestone title
+	 *
+	 * @Column(type="string", length=50)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $title;
+
+	/**
+	 * Milestone description
+	 *
+	 * @Column(type="text")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $description;
+
+	/**
+	 * Label state: open | closed
+	 *
+	 * @Column(type="string", length=6)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $state;
+
+	/**
+	 * Date the milestone is due on.
+	 *
+	 * @Column(type="datetime")
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	public $due_on;
+
 	/**
 	 * Constructor
 	 *
