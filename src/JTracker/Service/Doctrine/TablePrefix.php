@@ -59,7 +59,7 @@ class TablePrefix
 			if ($mapping['type'] == ClassMetadataInfo::MANY_TO_MANY)
 			{
 				$mappedTableName = $classMetadata->associationMappings[$fieldName]['joinTable']['name'];
-				$classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mappedTableName;
+				$classMetadata->associationMappings[$fieldName]['joinTable']['name'] = str_replace('#__', $this->prefix, $mappedTableName);
 			}
 		}
 	}
