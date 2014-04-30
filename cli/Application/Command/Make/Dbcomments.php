@@ -55,7 +55,7 @@ class Dbcomments extends Make
 			$className = str_replace(' ', '', ucwords($className));
 			$className .= 'Table';
 
-			$HACKedTableName = '_' . $tableName;
+			$HACKedTableName = '#__' . $tableName;
 
 			$this->out('/** ')
 				->out(' * Table interface class for the "' . $tableName . '" database table.')
@@ -103,8 +103,10 @@ class Dbcomments extends Make
 
 				$this->out(
 					$tab . ' * @Column('
-					. 'type="' . $this->getColumnType($column->Type) . '"'
+					. 'name="' . $column->Field . '"'
+					. ', type="' . $this->getColumnType($column->Type) . '"'
 					. (preg_match('/\(([0-9]+)\)/', $column->Type, $matches) ? ', length=' . $matches[1] : '')
+					. ', nullable=' . ('YES' == $column->Null ? 'true' : 'false')
 					. ')'
 				);
 
@@ -113,11 +115,49 @@ class Dbcomments extends Make
 					->out($tab . ' *')
 					->out($tab . ' * @since  ' . $since)
 					->out($tab . ' */')
-					->out($tab . 'public $' . $column->Field . ';')
+					->out($tab . 'private $' . $this->toCamelCase($column->Field) . ';')
 					->out();
 			}
 
-			$this->out('}');
+			// Getters and Setters
+
+			foreach ($columns as $column)
+			{
+				$this->out($tab . '/**')
+					->out($tab . ' * Get:  ' . ($column->Comment ? : $column->Field))
+					->out($tab . ' *')
+					->out($tab . ' * @return   ' . $this->getPropertyType($column->Type))
+					->out($tab . ' *')
+					->out($tab . ' * @since  ' . $since)
+					->out($tab . ' */')
+					->out($tab . 'public function get' . ucfirst($this->toCamelCase($column->Field)) . '()')
+					->out($tab . '{')
+					->out($tab . $tab . 'return $this->' . $this->toCamelCase($column->Field) . ';')
+					->out($tab . '}')
+					->out()
+					->out($tab . '/**')
+					->out($tab . ' * Set:  ' . ($column->Comment ? : $column->Field))
+					->out($tab . ' *')
+					->out(
+						$tab . ' * @param   ' . $this->getPropertyType($column->Type)
+						. '  $' . $this->toCamelCase($column->Field)
+						. '  ' . ($column->Comment ? : $column->Field)
+					)
+					->out($tab . ' *')
+					->out($tab . ' * @return   $this')
+					->out($tab . ' *')
+					->out($tab . ' * @since  ' . $since)
+					->out($tab . ' */')
+					->out($tab . 'public function set' . ucfirst($this->toCamelCase($column->Field)) . '($' . $this->toCamelCase($column->Field) . ')')
+					->out($tab . '{')
+					->out($tab . $tab . '$this->' . $this->toCamelCase($column->Field) . ' = $' . $this->toCamelCase($column->Field) . ';')
+					->out()
+					->out($tab . $tab . 'return $this;')
+					->out($tab . '}')
+					->out();
+			}
+
+				$this->out('}');
 
 			$this->out();
 		}
@@ -217,5 +257,32 @@ class Dbcomments extends Make
 		}
 
 		return $typeName;
+	}
+
+	/**
+	 * Convert a string to CamelCase.
+	 *
+	 * @param   string  $string  The string.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	private function toCamelCase($string)
+	{
+		$parts = explode('_', $string);
+
+		if (1 == count($parts))
+		{
+			return $string;
+		}
+
+		$first = array_shift($parts);
+
+		$result = implode(' ', $parts);
+		$result = ucwords($result);
+		$result = str_replace(' ', '', $result);
+
+		return $first . $result;
 	}
 }
