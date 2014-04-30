@@ -76,10 +76,12 @@ class DoctrineRunnerProvider implements ServiceProviderInterface
 						new \Doctrine\ORM\Tools\Console\Command\GenerateRepositoriesCommand,
 						new \Doctrine\ORM\Tools\Console\Command\GenerateEntitiesCommand,
 						new \Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand,
-						new \Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand,
-						new \Doctrine\ORM\Tools\Console\Command\RunDqlCommand,
-						new \Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand,
 						*/
+						new \Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand,
+						/*
+						new \Doctrine\ORM\Tools\Console\Command\RunDqlCommand,
+						*/
+						new \Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand,
 						new \Doctrine\ORM\Tools\Console\Command\InfoCommand
 					]
 				);
