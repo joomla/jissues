@@ -33,6 +33,7 @@ use JTracker\Service\ApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
+use JTracker\Service\EntityManagerProvider;
 use JTracker\Service\GitHubProvider;
 
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -102,6 +103,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
+			->registerServiceProvider(new EntityManagerProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
 
@@ -316,7 +318,9 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		if (is_null($this->user))
 		{
-			if ($this->user = $this->getSession()->get('jissues_user'))
+			$this->user = $this->getSession()->get('jissues_user');
+
+			if ($this->user)
 			{
 				// @todo Ref #275
 				$this->user->setDatabase($this->getContainer()->get('db'));
