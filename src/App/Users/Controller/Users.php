@@ -18,6 +18,14 @@ use JTracker\Controller\AbstractTrackerListController;
 class Users extends AbstractTrackerListController
 {
 	/**
+	 * View object
+	 *
+	 * @var    \App\Users\View\Users\UsersHtmlView
+	 * @since  1.0
+	 */
+	protected $view;
+
+	/**
 	 * Initialize the controller.
 	 *
 	 * @return  $this  Method allows chaining
@@ -28,7 +36,11 @@ class Users extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		// @todo Setup filters here (if needed)
+		$this->view->setItems(
+			$this->getContainer()->get('EntityManager')
+				->getRepository('App\Users\Table\UsersTable')
+				->findAll()
+		);
 
 		return $this;
 	}

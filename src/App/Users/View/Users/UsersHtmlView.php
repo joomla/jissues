@@ -8,8 +8,6 @@
 
 namespace App\Users\View\Users;
 
-use App\Users\Model\UsersModel;
-
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -20,12 +18,13 @@ use JTracker\View\AbstractTrackerHtmlView;
 class UsersHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * The model object.
+	 * A list of items.
 	 *
-	 * @var    UsersModel
+	 * @var  array
+	 *
 	 * @since  1.0
 	 */
-	protected $model;
+	private $items = [];
 
 	/**
 	 * Method to render the view.
@@ -36,9 +35,39 @@ class UsersHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('pagination', $this->model->getPagination());
+		$this->renderer->set('items', $this->getItems());
+
+		// @TODO pagination
+		// $this->renderer->set('pagination', $this->model->getPagination());
 
 		return parent::render();
+	}
+
+	/**
+	 * Get the items.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+
+	/**
+	 * Set the items.
+	 *
+	 * @param   array  $items  The items
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setItems(array $items)
+	{
+		$this->items = $items;
+
+		return $this;
 	}
 }
