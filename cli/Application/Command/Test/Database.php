@@ -34,10 +34,12 @@ class Database extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Drop Database');
+		$doctrineRunner = $this->getContainer()->get('DoctrineRunner');
 
-		return $this->getContainer()
-			->get('DoctrineRunner')
-			->run(new ArrayInput(['command' => 'orm:info']));
+		$this->getApplication()->outputTitle('Database Info');
+		$doctrineRunner->run(new ArrayInput(['command' => 'orm:info']));
+
+		$this->getApplication()->outputTitle('Database Validate');
+		$doctrineRunner->run(new ArrayInput(['command' => 'orm:validate-schema']));
 	}
 }
