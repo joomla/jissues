@@ -6,9 +6,10 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Tracker\Table;
+namespace App\Users\Table;
 
 use Joomla\Database\DatabaseDriver;
+use Joomla\Registry\Registry;
 
 use JTracker\Database\AbstractDatabaseTable;
 
@@ -16,7 +17,14 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "users" database table.
  *
  * @Entity
- * @Table(name="#__users")
+ * @Table(name="#__users",
+ *    indexes={
+ * @Index(name="idx_name", columns={"name"}),
+ * @Index(name="idx_block", columns={"block"}),
+ * @Index(name="username", columns={"username"}),
+ * @Index(name="email", columns={"email"})
+ *    }
+ * )
  *
  * @since  1.0
  */
@@ -33,7 +41,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $id;
+	protected $id;
 
 	/**
 	 * The users name
@@ -44,7 +52,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $name;
+	protected $name = '';
 
 	/**
 	 * The users username
@@ -55,7 +63,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $username;
+	protected $username = '';
 
 	/**
 	 * The users e-mail
@@ -66,7 +74,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $email;
+	protected $email = '';
 
 	/**
 	 * If the user is blocked
@@ -77,7 +85,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $block;
+	protected $block = '0';
 
 	/**
 	 * If the users recieves e-mail
@@ -88,7 +96,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $sendEmail;
+	protected $sendEmail = '0';
 
 	/**
 	 * The register date
@@ -99,7 +107,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $registerDate;
+	protected $registerDate = '0000-00-00 00:00:00';
 
 	/**
 	 * The last visit date
@@ -110,7 +118,7 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $lastvisitDate;
+	protected $lastvisitDate = '0000-00-00 00:00:00';
 
 	/**
 	 * Parameters
@@ -121,7 +129,26 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @since  1.0
 	 */
-	public $params;
+	protected $params;
+
+	/**
+	 * Group.
+	 *
+	 * @var \Doctrine\Common\Collections\Collection
+	 *
+	 * @ORM\ManyToMany(targetEntity="Accessgroups", inversedBy="user")
+	 * @ORM\JoinTable(name="#__user_accessgroup_map",
+	 *   joinColumns={
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+	 *   },
+	 *   inverseJoinColumns={
+	 * @ORM\JoinColumn(name="group_id", referencedColumnName="group_id")
+	 *   }
+	 * )
+	 *
+	 * @since  1.0
+	 */
+	private $group;
 
 	/**
 	 * Constructor
@@ -133,5 +160,264 @@ class UsersTable extends AbstractDatabaseTable
 	public function __construct(DatabaseDriver $database)
 	{
 		parent::__construct('#__users', 'id', $database);
+	}
+
+	/**
+	 * Get:  PK
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * Set:  PK
+	 *
+	 * @param   integer  $id  PK
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The users name
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Set:  The users name
+	 *
+	 * @param   string  $name  The users name
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The users username
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getUsername()
+	{
+		return $this->username;
+	}
+
+	/**
+	 * Set:  The users username
+	 *
+	 * @param   string  $username  The users username
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setUsername($username)
+	{
+		$this->username = $username;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The users e-mail
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getEmail()
+	{
+		return $this->email;
+	}
+
+	/**
+	 * Set:  The users e-mail
+	 *
+	 * @param   string  $email  The users e-mail
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setEmail($email)
+	{
+		$this->email = $email;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  If the user is blocked
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getBlock()
+	{
+		return $this->block;
+	}
+
+	/**
+	 * Set:  If the user is blocked
+	 *
+	 * @param   integer  $block  If the user is blocked
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setBlock($block)
+	{
+		$this->block = $block;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  If the users recieves e-mail
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getSendEmail()
+	{
+		return $this->sendEmail;
+	}
+
+	/**
+	 * Set:  If the users recieves e-mail
+	 *
+	 * @param   integer  $sendEmail  If the users recieves e-mail
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setSendEmail($sendEmail)
+	{
+		$this->sendEmail = $sendEmail;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The register date
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getRegisterDate()
+	{
+		return $this->registerDate;
+	}
+
+	/**
+	 * Set:  The register date
+	 *
+	 * @param   string  $registerDate  The register date
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setRegisterDate($registerDate)
+	{
+		$this->registerDate = $registerDate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The last visit date
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getLastvisitDate()
+	{
+		return $this->lastvisitDate;
+	}
+
+	/**
+	 * Set:  The last visit date
+	 *
+	 * @param   string  $lastvisitDate  The last visit date
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setLastvisitDate($lastvisitDate)
+	{
+		$this->lastvisitDate = $lastvisitDate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Parameters
+	 *
+	 * @return   Registry
+	 *
+	 * @since  1.0
+	 */
+	public function getParams()
+	{
+		static $params;
+
+		if (!$params)
+		{
+			$params = new Registry($this->params);
+		}
+
+		return $params;
+	}
+
+	/**
+	 * Set:  Parameters
+	 *
+	 * @param   string  $params  Parameters
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setParams($params)
+	{
+		$this->params = $params;
+
+		return $this;
 	}
 }

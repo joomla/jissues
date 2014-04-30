@@ -29,101 +29,353 @@ class GroupsTable extends AbstractDatabaseTable
 	 *
 	 * @Id
 	 * @GeneratedValue
-	 * @Column(type="integer", length=11)
+	 * @Column(name="group_id", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $group_id;
+	private $groupId;
 
 	/**
 	 * project_id
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="project_id", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $project_id;
+	private $projectId;
 
 	/**
 	 * title
 	 *
-	 * @Column(type="string", length=150)
+	 * @Column(name="title", type="string", length=150, nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $title;
+	private $title;
 
 	/**
 	 * can_view
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="can_view", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $can_view;
+	private $canView;
 
 	/**
 	 * can_create
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="can_create", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $can_create;
+	private $canCreate;
 
 	/**
 	 * can_manage
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="can_manage", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $can_manage;
+	private $canManage;
 
 	/**
 	 * can_edit
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="can_edit", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $can_edit;
+	private $canEdit;
 
 	/**
 	 * can_editown
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="can_editown", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $can_editown;
+	private $canEditown;
 
 	/**
 	 * system
 	 *
-	 * @Column(type="integer", length=11)
+	 * @Column(name="system", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $system;
+	private $system;
+
+	/**
+	 * Get:  group_id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getGroupId()
+	{
+		return $this->groupId;
+	}
+
+	/**
+	 * Set:  group_id
+	 *
+	 * @param   integer  $groupId  group_id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  project_id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+
+	/**
+	 * Set:  project_id
+	 *
+	 * @param   integer  $projectId  project_id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  title
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * Set:  title
+	 *
+	 * @param   string  $title  title
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_view
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanView()
+	{
+		return $this->canView;
+	}
+
+	/**
+	 * Set:  can_view
+	 *
+	 * @param   integer  $canView  can_view
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanView($canView)
+	{
+		$this->canView = $canView;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_create
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanCreate()
+	{
+		return $this->canCreate;
+	}
+
+	/**
+	 * Set:  can_create
+	 *
+	 * @param   integer  $canCreate  can_create
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanCreate($canCreate)
+	{
+		$this->canCreate = $canCreate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_manage
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanManage()
+	{
+		return $this->canManage;
+	}
+
+	/**
+	 * Set:  can_manage
+	 *
+	 * @param   integer  $canManage  can_manage
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanManage($canManage)
+	{
+		$this->canManage = $canManage;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_edit
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanEdit()
+	{
+		return $this->canEdit;
+	}
+
+	/**
+	 * Set:  can_edit
+	 *
+	 * @param   integer  $canEdit  can_edit
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanEdit($canEdit)
+	{
+		$this->canEdit = $canEdit;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_editown
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanEditown()
+	{
+		return $this->canEditown;
+	}
+
+	/**
+	 * Set:  can_editown
+	 *
+	 * @param   integer  $canEditown  can_editown
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanEditown($canEditown)
+	{
+		$this->canEditown = $canEditown;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  system
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getSystem()
+	{
+		return $this->system;
+	}
+
+	/**
+	 * Set:  system
+	 *
+	 * @param   integer  $system  system
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setSystem($system)
+	{
+		$this->system = $system;
+
+		return $this;
+	}
 
 	/**
 	 * Constructor

@@ -18,7 +18,11 @@ use JTracker\Database\AbstractDatabaseTable;
  * Table interface class for the "articles" database table.
  *
  * @Entity
- * @Table(name="#__articles")
+ * @Table(
+ *    name="#__articles",
+ *    indexes={
+ * @Index(name="alias", columns={"alias"})}
+ * )
  *
  * @since  1.0
  */
@@ -29,90 +33,90 @@ class ArticlesTable extends AbstractDatabaseTable
 	 *
 	 * @Id
 	 * @GeneratedValue
-	 * @Column(type="integer", length=11)
+	 * @Column(name="article_id", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $article_id;
+	private $articleId;
 
 	/**
 	 * The article path
 	 *
-	 * @Column(type="string", length=500)
+	 * @Column(name="path", type="string", length=500, nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $path;
+	private $path;
 
 	/**
 	 * The article title
 	 *
-	 * @Column(type="string", length=250)
+	 * @Column(name="title", type="string", length=250, nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $title;
+	private $title;
 
 	/**
 	 * The article alias.
 	 *
-	 * @Column(type="string", length=250)
+	 * @Column(name="alias", type="string", length=250, nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $alias;
+	private $alias;
 
 	/**
 	 * The article text.
 	 *
-	 * @Column(type="text")
+	 * @Column(name="text", type="text", nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $text;
+	private $text;
 
 	/**
 	 * The raw article text.
 	 *
-	 * @Column(type="text")
+	 * @Column(name="text_md", type="text", nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $text_md;
+	private $textMd;
 
 	/**
 	 * The created date.
 	 *
-	 * @Column(type="datetime")
+	 * @Column(name="created_date", type="datetime", nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $created_date;
+	private $createdDate;
 
 	/**
 	 * If the text is present as a file (for different handling)
 	 *
-	 * @Column(type="integer", length=1)
+	 * @Column(name="is_file", type="integer", length=1, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $is_file;
+	private $isFile;
 
 	/**
 	 * Github object
@@ -121,6 +125,230 @@ class ArticlesTable extends AbstractDatabaseTable
 	 * @since  1.0
 	 */
 	protected $gitHub = null;
+
+	/**
+	 * Get:  PK
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getArticleId()
+	{
+		return $this->articleId;
+	}
+
+	/**
+	 * Set:  PK
+	 *
+	 * @param   integer  $articleId  PK
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setArticleId($articleId)
+	{
+		$this->articleId = $articleId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The article path
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getPath()
+	{
+		return $this->path;
+	}
+
+	/**
+	 * Set:  The article path
+	 *
+	 * @param   string  $path  The article path
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setPath($path)
+	{
+		$this->path = $path;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The article title
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * Set:  The article title
+	 *
+	 * @param   string  $title  The article title
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The article alias.
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getAlias()
+	{
+		return $this->alias;
+	}
+
+	/**
+	 * Set:  The article alias.
+	 *
+	 * @param   string  $alias  The article alias.
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The article text.
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getText()
+	{
+		return $this->text;
+	}
+
+	/**
+	 * Set:  The article text.
+	 *
+	 * @param   string  $text  The article text.
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setText($text)
+	{
+		$this->text = $text;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The raw article text.
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getTextMd()
+	{
+		return $this->textMd;
+	}
+
+	/**
+	 * Set:  The raw article text.
+	 *
+	 * @param   string  $textMd  The raw article text.
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setTextMd($textMd)
+	{
+		$this->textMd = $textMd;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The created date.
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getCreatedDate()
+	{
+		return $this->createdDate;
+	}
+
+	/**
+	 * Set:  The created date.
+	 *
+	 * @param   string  $createdDate  The created date.
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCreatedDate($createdDate)
+	{
+		$this->createdDate = $createdDate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  If the text is present as a file (for different handling)
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getIsFile()
+	{
+		return $this->isFile;
+	}
+
+	/**
+	 * Set:  If the text is present as a file (for different handling)
+	 *
+	 * @param   integer  $isFile  If the text is present as a file (for different handling)
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setIsFile($isFile)
+	{
+		$this->isFile = $isFile;
+
+		return $this;
+	}
 
 	/**
 	 * Constructor

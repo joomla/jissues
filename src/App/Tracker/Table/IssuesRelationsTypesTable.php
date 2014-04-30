@@ -27,24 +27,80 @@ class IssuesRelationsTypesTable extends AbstractDatabaseTable
 	 *
 	 * @Id
 	 * @GeneratedValue
-	 * @Column(type="integer", length=11)
+	 * @Column(name="id", type="integer", length=11, nullable=false)
 	 *
 	 * @var  integer
 	 *
 	 * @since  1.0
 	 */
-	public $id;
+	private $id;
 
 	/**
 	 * name
 	 *
-	 * @Column(type="string", length=150)
+	 * @Column(name="name", type="string", length=150, nullable=false)
 	 *
 	 * @var  string
 	 *
 	 * @since  1.0
 	 */
-	public $name;
+	private $name;
+
+	/**
+	 * Get:  id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * Set:  id
+	 *
+	 * @param   integer  $id  id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  name
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Set:  name
+	 *
+	 * @param   string  $name  name
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+
+		return $this;
+	}
 
 	/**
 	 * Constructor
