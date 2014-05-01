@@ -60,18 +60,19 @@
 
 	"logs/:log_type": "\\Debug\\Controller\\Logs",
 
-	"markdown"             : "\\Support\\Controller\\Markdown",
-	"icons"                : "\\Support\\Controller\\Icons",
-	"documentation"        : "\\Support\\Controller\\Documentation",
-	"documentation/view"   : "\\Support\\Controller\\Documentation",
-	"documentation/show"   : "\\Support\\Controller\\Ajax\\Documentation\\Show",
-	"clearcache"           : "\\Support\\Controller\\Clearcache",
-    "filetree"             : "\\Support\\Controller\\Filetree",
+	"markdown"  : "\\Support\\Controller\\Markdown",
+	"icons"     : "\\Support\\Controller\\Icons",
+	"clearcache": "\\Support\\Controller\\Clearcache",
 
 	"text"           : "\\Text\\Controller\\Articles",
 	"text/add"       : "\\Text\\Controller\\Article\\Add",
 	"text/edit/:id"  : "\\Text\\Controller\\Article\\Edit",
 	"text/delete/:id": "\\Text\\Controller\\Article\\Delete",
 	"text/save"      : "\\Text\\Controller\\Article\\Save",
-	"page/:alias"    : "\\Text\\Controller\\Page"
+	"page/:alias"    : "\\Text\\Controller\\Page",
+
+    "documentation"     : "\\Documentor\\Controller\\Documentation",
+    "documentation/view": "\\Documentor\\Controller\\Documentation",
+    "documentation/show": "\\Documentor\\Controller\\Ajax\\Documentation\\Show",
+    "filetree"          : "\\Documentor\\Controller\\Ajax\\Filetree"
 }
