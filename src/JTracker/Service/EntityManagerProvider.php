@@ -8,6 +8,8 @@
 
 namespace JTracker\Service;
 
+use App\Debug\Database\SQLLogger;
+
 use Doctrine\Common\EventManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Events;
@@ -47,6 +49,11 @@ class EntityManagerProvider implements ServiceProviderInterface
 				$paths = [JPATH_ROOT . '/src/App'];
 
 				$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+
+				if ($isDevMode)
+				{
+					$config->setSQLLogger(new SQLLogger($container->get('debugger')));
+				}
 
 				// Database configuration parameters
 				$connectionParams = [
