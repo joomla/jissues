@@ -8,8 +8,6 @@
 
 namespace App\Text\Controller\Article;
 
-use App\Text\Table\ArticlesTable;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -36,17 +34,26 @@ class Delete extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->getContainer()->get('app');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$app->getUser()->authorize('admin');
+		$application->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->getContainer()->get('db'));
+		$entityManager = $this->getContainer()->get('EntityManager');
 
-		$table->delete($app->input->getInt('id'));
+		$article = $entityManager->find('App\Text\Entity\Article', $application->input->getUint('id'));
 
-		$app->enqueueMessage(g11n3t('The article has been deleted.'), 'success');
+		if (!$article)
+		{
+			throw new \UnexpectedValueException('Invalid article');
+		}
 
-		$this->getContainer()->get('app')->input->set('view', 'articles');
+		$entityManager->remove($article);
+		$entityManager->flush();
+
+		$application->enqueueMessage(g11n3t('The article has been deleted.'), 'success');
+
+		$application->redirect('/text');
 
 		return parent::execute();
 	}

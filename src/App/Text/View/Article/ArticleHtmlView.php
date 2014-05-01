@@ -8,8 +8,7 @@
 
 namespace App\Text\View\Article;
 
-use App\Text\Model\ArticleModel;
-use App\Text\Table\ArticlesTable;
+use App\Text\Entity\Article;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -21,17 +20,9 @@ use JTracker\View\AbstractTrackerHtmlView;
 class ArticleHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * Redefine the model so the correct type hinting is available.
-	 *
-	 * @var     ArticleModel
-	 * @since   1.0
-	 */
-	protected $model;
-
-	/**
 	 * Table object with article data
 	 *
-	 * @var    ArticlesTable
+	 * @var    Article
 	 * @since  1.0
 	 */
 	protected $item = null;
@@ -53,7 +44,7 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get the item.
 	 *
-	 * @return  ArticlesTable
+	 * @return  Article
 	 *
 	 * @since   1.0
 	 */
@@ -65,13 +56,13 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Set the item.
 	 *
-	 * @param   ArticlesTable  $item  The item.
+	 * @param   Article  $item  The item.
 	 *
 	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
 	 */
-	public function setItem($item)
+	public function setItem(Article $item)
 	{
 		$this->item = $item;
 

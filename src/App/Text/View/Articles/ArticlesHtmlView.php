@@ -8,7 +8,6 @@
 
 namespace App\Text\View\Articles;
 
-use App\Text\Model\ArticlesModel;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -19,12 +18,12 @@ use JTracker\View\AbstractTrackerHtmlView;
 class ArticlesHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * Redefine the model so the correct type hinting is available.
+	 * The items for this view..
 	 *
-	 * @var    ArticlesModel
+	 * @var    array
 	 * @since  1.0
 	 */
-	protected $model;
+	protected $items = [];
 
 	/**
 	 * Method to render the view.
@@ -35,8 +34,24 @@ class ArticlesHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('items', $this->model->getItems());
+		$this->renderer->set('items', $this->getItems());
 
 		return parent::render();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+
+	/**
+	 * @param array $items
+	 */
+	public function setItems(array $items)
+	{
+		$this->items = $items;
 	}
 }

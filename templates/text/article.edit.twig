@@ -4,7 +4,7 @@
 {% extends "index.twig" %}
 
 {% block title %}
-    {{ item.article_id ? "Edit Article"|_ : "New Article"|_ }}
+    {{ item.articleId ? "Edit Article"|_ : "New Article"|_ }}
 {% endblock %}
 
 {% block headerCSS %}
@@ -31,7 +31,7 @@
 
 {% block content %}
     <h2>
-        {{ item.article_id ? "Edit Article"|_ : "New Article"|_ }}
+        {{ item.articleId ? "Edit Article"|_ : "New Article"|_ }}
     </h2>
 
     <form method="post" action="{{ uri.base.path }}text/save" class="form-horizontal" name="editForm">
@@ -40,26 +40,26 @@
             <div class="control-group">
                 <label class="control-label" for="title">{{ "Title"|_ }}</label>
                 <div class="controls">
-                    <input type="text" name="article[title]" id="title" value="{{ item.title }}" />
+                    <input type="text" name="title" id="title" value="{{ item.title }}" />
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="alias">{{ "Alias"|_ }}</label>
                 <div class="controls">
-                    <input type="text" name="article[alias]" id="alias" value="{{ item.alias }}" />
+                    <input type="text" name="alias" id="alias" value="{{ item.alias }}" />
                 </div>
             </div>
         </fieldset>
 
         {% set editorId="text" %}
-        {% set editorName="article[text_md]" %}
+        {% set editorName="text" %}
         {% set editorPlaceholder="Article text" %}
-        {% set editorText=item.text_md %}
+        {% set editorText=item.textMd %}
 
         {% include "editor.twig" %}
 
-        <input type="hidden" name="article[article_id]" value="{{ item.article_id }}"/>
+        <input type="hidden" name="id" value="{{ item.articleId }}"/>
 
         </div>
     </form>

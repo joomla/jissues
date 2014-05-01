@@ -18,6 +18,14 @@ use JTracker\Controller\AbstractTrackerController;
 class Articles extends AbstractTrackerController
 {
 	/**
+	 * View object
+	 *
+	 * @var    \App\Text\View\Articles\ArticlesHtmlView
+	 * @since  1.0
+	 */
+	protected $view;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -27,6 +35,12 @@ class Articles extends AbstractTrackerController
 	public function execute()
 	{
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
+
+		$this->view->setItems(
+			$this->getContainer()->get('EntityManager')
+				->getRepository('App\Text\Entity\Article')
+				->findAll()
+		);
 
 		return parent::execute();
 	}

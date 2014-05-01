@@ -8,7 +8,7 @@
 
 namespace App\Text\View\Page;
 
-use App\Text\Model\PageModel;
+use App\Text\Entity\Article;
 
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
@@ -21,20 +21,12 @@ use JTracker\View\AbstractTrackerHtmlView;
 class PageHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * Redefine the model so the correct type hinting is available.
+	 * The page.
 	 *
-	 * @var    PageModel
+	 * @var    \App\Text\Entity\Article
 	 * @since  1.0
 	 */
-	protected $model;
-
-	/**
-	 * The page alias.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $alias = '';
+	protected $item;
 
 	/**
 	 * Method to render the view.
@@ -46,50 +38,41 @@ class PageHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		try
-		{
-			$item = $this->model->getItem($this->getAlias());
-		}
-		catch (\RuntimeException $e)
-		{
-			throw new RoutingException($this->getAlias());
-		}
-
-		$this->renderer->set('page', $item->getIterator());
+		$this->renderer->set('page', $this->getItem());
 
 		return parent::render();
 	}
 
 	/**
-	 * Get the page alias.
+	 * Get the item.
 	 *
-	 * @return  string
+	 * @return  Article
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function getAlias()
+	public function getItem()
 	{
-		if ('' == $this->alias)
+		if (!$this->item)
 		{
-			throw new \RuntimeException('Alias not set.');
+			throw new \RuntimeException('Item not set.');
 		}
 
-		return $this->alias;
+		return $this->item;
 	}
 
 	/**
 	 * Set the page alias.
 	 *
-	 * @param   string  $alias  The page alias.
+	 * @param   Article  $item  The item.
 	 *
-	 * @return  $this  Method supports chaining
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function setAlias($alias)
+	public function setItem(Article $item)
 	{
-		$this->alias = $alias;
+		$this->item = $item;
 
 		return $this;
 	}

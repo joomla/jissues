@@ -8,7 +8,6 @@
 
 namespace App\Text\Controller\Article;
 
-use App\Text\Model\ArticleModel;
 use App\Text\View\Article\ArticleHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
@@ -45,14 +44,6 @@ class Edit extends AbstractTrackerController
 	protected $view;
 
 	/**
-	 * Model object
-	 *
-	 * @var    ArticleModel
-	 * @since  1.0
-	 */
-	protected $model;
-
-	/**
 	 * Initialize the controller.
 	 *
 	 * @return  $this
@@ -65,6 +56,12 @@ class Edit extends AbstractTrackerController
 
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->view->setItem($this->model->getItem($this->getContainer()->get('app')->input->getInt('id')));
+		$this->view->setItem(
+			$this->getContainer()->get('EntityManager')
+				->find(
+					'App\Text\Entity\Article',
+					$this->getContainer()->get('app')->input->getInt('id')
+				)
+		);
 	}
 }

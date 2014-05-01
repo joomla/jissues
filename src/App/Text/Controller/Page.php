@@ -41,6 +41,10 @@ class Page extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->view->setAlias($this->getContainer()->get('app')->input->getCmd('alias'));
+		$this->view->setItem(
+			$this->getContainer()->get('EntityManager')
+				->getRepository('App\Text\Entity\Article')
+				->findOneBy(['alias' => $this->getContainer()->get('app')->input->getCmd('alias')])
+		);
 	}
 }

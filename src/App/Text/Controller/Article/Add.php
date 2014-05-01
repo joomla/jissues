@@ -8,8 +8,7 @@
 
 namespace App\Text\Controller\Article;
 
-use App\Text\Table\ArticlesTable;
-use App\Text\View\Article\ArticleHtmlView;
+use App\Text\Entity\Article;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -39,7 +38,7 @@ class Add extends AbstractTrackerController
 	/**
 	 * View object
 	 *
-	 * @var    ArticleHtmlView
+	 * @var    \App\Text\View\Article\ArticleHtmlView
 	 * @since  1.0
 	 */
 	protected $view;
@@ -72,6 +71,6 @@ class Add extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->view->setItem(new ArticlesTable($this->getContainer()->get('db')));
+		$this->view->setItem(new Article);
 	}
 }
