@@ -19,19 +19,6 @@
 		<div class="span3">
 			<h2>Documentation</h2>
 			<div id="filetree"></div>
-
-			<!--
-			<ul class="unstyled">
-				{% for name, page in pages %}
-					<li>
-						<a href="{{ uri.base.path }}devdox/{{ page }}">
-							{{ name|title }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-			-->
-
 		</div>
 		<div class="span9" id="docuContainer"></div>
 	</div>
@@ -65,9 +52,6 @@
 
 	<script type="text/javascript">
 		function loadDocuPage(fullPath) {
-
-			//var url = '/documentation/show/?' + fullPath;
-
 			jQuery.ajax({
 				url : '/documentation/show/?' + fullPath,
 				success: function(response, status) {

@@ -6,9 +6,9 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Support\Controller;
+namespace App\Documentor\Controller;
 
-use App\Support\View\Documentation\DocumentationHtmlView;
+use App\Documentor\View\Documentation\DocumentationHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
 
