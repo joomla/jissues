@@ -40,7 +40,11 @@ class ArticlesHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
+	 * Get the items.
+	 *
 	 * @return array
+	 *
+	 * @since   1.0
 	 */
 	public function getItems()
 	{
@@ -48,10 +52,18 @@ class ArticlesHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * @param array $items
+	 * Set the items.
+	 *
+	 * @param   array  $items  The items
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function setItems(array $items)
 	{
 		$this->items = $items;
+
+		return $this;
 	}
 }
