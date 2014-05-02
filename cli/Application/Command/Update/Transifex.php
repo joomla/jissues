@@ -65,18 +65,16 @@ class Transifex extends Update
 		defined('JDEBUG') || define('JDEBUG', 0);
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		$scopes = array(
-			'Core' => array(
-				'JTracker'
-			),
-			'Template' => array(
-				'JTracker'
-			),
+		$scopes = [
+			'Core' => ['JTracker'],
+			'CoreJS' => ['JTracker.js'],
+			'Template' => ['JTracker'],
 			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
+		];
 
 		foreach ($scopes as $domain => $extensions)
 		{
@@ -102,7 +100,7 @@ class Transifex extends Update
 					if ($create)
 					{
 						$this->transifex->resources->createResource(
-							$transifexProject, $name, $alias, 'PO', array('file' => $templatePath)
+							$transifexProject, $name, $alias, 'PO', ['file' => $templatePath]
 						);
 
 						$this->out('<ok>Resource created successfully</ok>');
