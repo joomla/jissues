@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-26 10:59+0000\n"
+"PO-Revision-Date: 2014-05-02 17:12+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -45,15 +45,15 @@ msgstr "Recent bijgewerkt"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Created by you"
-msgstr "Gemaakt door jou"
+msgstr "Gemaakt door u"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Everyone's issues"
-msgstr "Iedereen zijn problemen"
+msgstr "Alle problemen"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "You participated in"
-msgstr "Je hebt deelgenomen in"
+msgstr "U heeft deelgenomen in"
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:63
 #: /templates/tracker/issues.index.twig:19
@@ -66,7 +66,7 @@ msgstr "Vestuur"
 
 #: /templates/tracker/issue.add.twig:35
 msgid "View Mode"
-msgstr "Toon Modus"
+msgstr "Toon modus"
 
 #: /templates/tracker/issue.add.twig:38
 msgid "Help"
@@ -85,7 +85,7 @@ msgstr "Prioriteit"
 
 #: /templates/tracker/issue.add.twig:50
 msgid "Priority help"
-msgstr "Prioriteit help"
+msgstr "De prioriteit waarmee dit probleem dient te worden opgelost. Voor meer informatie zie de <a href=\\\"http://docs.joomla.org/Bug_Tracking_Process\\\" target=\\\"blank\\\">Bug Tracking Process</a> pagina voor gedetailleerde informatie omtrent dit project haar prioriteiten."
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
 #: /templates/tracker/issue.edit.twig:102
@@ -94,11 +94,11 @@ msgstr "Versie"
 
 #: /templates/tracker/issue.add.twig:56
 msgid "Build help"
-msgstr "Versie help"
+msgstr "Het versie nummer van het project waarin dit probleem is gevonden."
 
 #: /templates/tracker/issue.add.twig:61
 msgid "Issue intro help"
-msgstr "Probleem intro help"
+msgstr "Om een probleem te melden in de Joomla! bug trackers, is het nodig om een melding aan te maken. Als de melding is aangemaakt, zullen ontwikkelaars het controleren op geldigheid en de benodigde actie ondernemen."
 
 #: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
 msgid "Title"
@@ -106,7 +106,7 @@ msgstr "Titel"
 
 #: /templates/tracker/issue.add.twig:69
 msgid "Issue title help"
-msgstr "Probleem titel help"
+msgstr "Omschrijf in een paar woorden het probleem dat u ondervindt. Het is een goed idee om naar bestaande meldingen te kijken als dit de eerste keer is wanneer u een probleem meldt. Op deze manier kunt u zien hoe anderen het gedaan hebben."
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Description"
@@ -114,11 +114,11 @@ msgstr "Omschrijving"
 
 #: /templates/tracker/issue.add.twig:80
 msgid "Issue description help"
-msgstr "Probleem omschrijving help"
+msgstr "Dit is het meest belangrijke onderdeel van het melden van een probleem. Omschrijf hier stap voor stap hoe u het probleem krijgt. Geef alle informatie die iemand anders nodig heeft om uw stappen te reproduceren om het probleem te zien.\nOnthoud: uw probleem zal niet worden verholpen tenzij anderen het probleem ook kunnen zien. Wees zo duidelijk en gedetailleerd mogelijk.\nEr is geen programmeer kennis nodig om een goede probleem omschrijving te maken. Indien je wel kan programmeren en denkt het probleem op te kunnen lossen, geef dit aan in de melding."
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
-msgstr "Problemen Lijst"
+msgstr "Problemen lijst"
 
 #: /templates/tracker/issues.index.twig:36
 msgid "Open"
@@ -210,11 +210,11 @@ msgstr "Bewerken"
 
 #: /templates/tracker/issue.index.twig:82
 msgid "Easy Test"
-msgstr "Makkelijke Test"
+msgstr "Makkelijke test"
 
 #: /templates/tracker/issue.index.twig:90
 msgid "# of Successful Tests"
-msgstr "# van Succesvolle Tests"
+msgstr "# van succesvolle tests"
 
 #: /templates/tracker/issue.index.twig:138
 msgid "Referenced as"
@@ -226,7 +226,7 @@ msgstr "# van gebruikers die het probleem ervaren"
 
 #: /templates/tracker/issue.index.twig:169
 msgid "Average Importance Score"
-msgstr "Gemiddelde Belangrijkheid Score"
+msgstr "Gemiddelde belangrijkheid score"
 
 #: /templates/tracker/issue.index.twig:177
 msgid "I've experienced this issue"
@@ -250,15 +250,15 @@ msgstr "Stem"
 
 #: /templates/tracker/issue.index.twig:280
 msgid "Add a Comment"
-msgstr "Voeg een reactie toe"
+msgstr "Reactie toevoegen"
 
 #: /templates/tracker/issue.index.twig:291
 msgid "Leave a comment"
-msgstr "Schrijf een reactie"
+msgstr "Reactie schrijven"
 
 #: /templates/tracker/issue.index.twig:299
 msgid "Post Comment"
-msgstr "Verzend reactie"
+msgstr "Reactie verzenden"
 
 #: /templates/tracker/issue.index.twig:312
 msgid "Login with GitHub to post a comment"
@@ -286,7 +286,7 @@ msgstr "Makkelijke test"
 
 #: /src/App/Tracker/Table/IssuesTable.php:159
 msgid "A title is required."
-msgstr "Een titel moet ingevuld worden."
+msgstr "Een titel is verplicht."
 
 #: /src/App/Tracker/Table/IssuesTable.php:163
 msgid "The title max length is 255 chars."
@@ -315,7 +315,7 @@ msgstr "in behandeling"
 
 #: DATABASE
 msgid "rtc"
-msgstr "rtc"
+msgstr "klaar om in te voeren"
 
 #: DATABASE
 msgid "fixed"

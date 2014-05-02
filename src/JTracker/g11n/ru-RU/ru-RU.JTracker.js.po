@@ -1,33 +1,34 @@
-# Language ru-RU translations for core.js - CoreJS package.
-# Copyright (C) 2013 JTracker(C)
-# This file is distributed under the same license as the core.js - CoreJS package.
-# Nikolai Plath <der.el.kuku@gmail.com>, 2013.
-#
+# JTracker CoreJS core.js 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: core.js - CoreJS 123.456\n"
+"Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:39-0500\n"
-"PO-Revision-Date: 2013-11-16 08:29-0500\n"
-"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: Language ru-RU\n"
-"Language: ru-RU\n"
+"POT-Creation-Date: 2014-04-09 22:27-0500\n"
+"PO-Revision-Date: 2014-05-02 19:37+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: /www/jtracker/core/js/jtracker.js:11
 msgid "Loading preview..."
-msgstr "XYZ...файлы"
+msgstr ""
 
 #: /www/jtracker/core/js/jtracker.js:22 /www/jtracker/core/js/jtracker.js:43
 msgid "Invalid response."
-msgstr "XYZ...файлы"
+msgstr ""
 
 #: /www/jtracker/core/js/jtracker.js:35
 msgid "Submitting comment..."
-msgstr "XYZ...файлы"
+msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:67
+#: /www/jtracker/core/js/jtracker.js:68
 msgid "Adding vote..."
-msgstr "XYZ...файлы"
+msgstr ""

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-26 10:45+0000\n"
+"PO-Revision-Date: 2014-04-27 07:38+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "ID"
 
 #: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
 msgid "Edit user"
-msgstr "Bewerk gebruiker"
+msgstr "Gebruiker bewerken"
 
 #: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
 msgid "Invalid user!"
