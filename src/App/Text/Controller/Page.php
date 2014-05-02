@@ -11,6 +11,7 @@ namespace App\Text\Controller;
 use App\Text\View\Page\PageHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Router\Exception\RoutingException;
 
 /**
  * Controller class for the Text component
@@ -32,19 +33,27 @@ class Page extends AbstractTrackerController
 	 *
 	 * This will set up default model and view classes.
 	 *
-	 * @return  $this  Method supports chaining
+	 * @throws \JTracker\Router\Exception\RoutingException
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function initialize()
 	{
 		parent::initialize();
 
-		$this->view->setItem(
-			$this->getContainer()->get('EntityManager')
-				->getRepository('App\Text\Entity\Article')
-				->findOneBy(['alias' => $this->getContainer()->get('app')->input->getCmd('alias')])
-		);
+		$item = $this->getContainer()->get('EntityManager')
+			->getRepository('App\Text\Entity\Article')
+			->findOneBy(['alias' => $this->getContainer()->get('app')->input->getCmd('alias')]);
+
+		if (!$item)
+		{
+			throw new RoutingException(g11n3t('This page does not exist.'));
+		}
+
+		$this->view->setItem($item);
+
+		return $this;
 	}
 }
