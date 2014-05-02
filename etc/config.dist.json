@@ -26,9 +26,9 @@
 		"project" : ""
 	},
 
-	"renderer": {
-		"type" : "twig",
-		"debug": "1"
+	"template": {
+		"name"    : "JTracker",
+		"renderer": "twig"
 	},
 
 	"system": {
@@ -55,6 +55,7 @@
 		"database": "0",
 		"language": "0",
 		"hooks"   : "0",
+		"template": "0",
 		"logging" : "0",
 		"log-path": "logs",
 		"admin"   : "1"

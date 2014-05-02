@@ -540,10 +540,20 @@ class TrackerDebugger implements LoggerAwareInterface
 			. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
-		$view = new \JTracker\View\TrackerDefaultView;
+		$config = [
+				'templates_base_dir' => JPATH_TEMPLATES
+					. '/' . $this->application->get('template.name')
+					. '/' . $this->application->get('template.renderer'),
+				'environment' => ['debug' => true]
+		];
 
-		$renderer = $view->getRenderer();
+		$viewClass = '\\Joomla\\View\\Renderer\\' . ucfirst($this->application->get('template.renderer'));
+
+		$renderer = new $viewClass($config);
+
 		$renderer->addExtension(new TrackerExtension($this->container));
+
+		$view = new \JTracker\View\TrackerDefaultView(null, $renderer);
 
 		$message = '';
 
