@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `username` varchar(150) NOT NULL DEFAULT '' COMMENT 'The users username',
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
   `block` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'If the user is blocked',
-  `sendEmail` tinyint(4) DEFAULT 0 COMMENT 'If the users recieves e-mail',
+  `sendEmail` tinyint(4) DEFAULT 0 COMMENT 'If the users receives e-mail',
   `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The register date',
   `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The last visit date',
   `params` text NOT NULL COMMENT 'Parameters',
@@ -291,13 +291,11 @@ CREATE TABLE IF NOT EXISTS `#__issues_voting` (
 
 CREATE TABLE IF NOT EXISTS `#__articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `path` varchar(500) NOT NULL COMMENT 'The article path',
   `title` varchar(250) NOT NULL COMMENT 'The article title',
   `alias` varchar(250) NOT NULL COMMENT 'The article alias.',
   `text` text NOT NULL COMMENT 'The article text.',
   `text_md` text NOT NULL COMMENT 'The raw article text.',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The created date.',
-  `is_file` int(1) unsigned NOT NULL COMMENT 'If the text is present as a file (for different handling)',
   PRIMARY KEY (`article_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -308,3 +306,16 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-10-01 00:00:00');
+
+--
+-- Dumping data for table `#__articles`
+--
+
+CREATE TABLE `#__documents` (
+  `id` INT AUTO_INCREMENT NOT NULL COMMENT 'PK',
+  `path` VARCHAR(500) NOT NULL COMMENT 'The documents path.',
+  `page` VARCHAR(250) NOT NULL COMMENT 'The documents page (title).',
+  `text` LONGTEXT NOT NULL COMMENT 'The documents text.',
+  PRIMARY KEY(id),
+  INDEX page (page)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
