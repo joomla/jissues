@@ -15,7 +15,7 @@ namespace App\Documentor\Entity;
  * @Table(
  *    name="#__documents",
  *    indexes={
- * @Index(name="alias", columns={"alias"})}
+ * @Index(name="page", columns={"page"})}
  * )
  *
  * @HasLifecycleCallbacks
