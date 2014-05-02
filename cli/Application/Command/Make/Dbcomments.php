@@ -7,7 +7,6 @@
  */
 
 namespace Application\Command\Make;
-use Doctrine\ORM\Tools\Setup;
 
 /**
  * Class for generating class doc blocks in JTracker\Database\AbstractDatabaseTable classes
