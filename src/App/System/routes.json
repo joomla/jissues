@@ -1,0 +1,6 @@
+{
+	"config"    : "\\System\\Controller\\Config",
+	"saveconfig": "\\System\\Controller\\Config\\Save",
+	"phpinfo"   : "\\System\\Controller\\PhpInfo",
+	"routes"    : "\\System\\Controller\\Routes"
+}

@@ -139,6 +139,12 @@
                     {{ "Icons"|_ }}
                 </a>
             </li>
+            <li class="{{ "routes" == firstPart ? "active" : "" }}">
+                <a href="{{ uri.base.path }}routes">
+                    <i class="icon-link"></i>
+                    {{ "Routes"|_ }}
+                </a>
+            </li>
             <li class="{{ "text" == firstPart ? "active" : "" }}">
                 <a href="{{ uri.base.path }}text">
                     <i class="icon-pencil-2"></i>
