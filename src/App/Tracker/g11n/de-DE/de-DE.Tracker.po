@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-13 20:10+0000\n"
+"PO-Revision-Date: 2014-05-02 19:43+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -180,17 +180,17 @@ msgstr "Externe ID"
 #: /templates/tracker/issues.index.twig:162
 #, php-format
 msgid "Opened %s"
-msgstr ""
+msgstr "Eröffnet %s"
 
 #: /templates/tracker/issues.index.twig:166
 #, php-format
 msgid "Closed %s"
-msgstr ""
+msgstr "Geschlossen %s"
 
 #: /templates/tracker/issues.index.twig:170
 #, php-format
 msgid "Modified %s"
-msgstr ""
+msgstr "Geändert %s"
 
 #: /templates/tracker/issues.index.twig:186
 msgid "No items found."
