@@ -169,7 +169,7 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master 336dcf186010c4ca1834b265bf255b5e963f09e7
+* Installed: dev-master 56956b587618d7e4f02a03b6c71edc7dbfa934bc
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (1.3.2)
@@ -183,7 +183,7 @@ Handle file uploads with extensible validation and storage strategies
 
 Filesystem abstraction, but easy.
 
-* Installed: 0.3.3
+* Installed: 0.3.5
 * Source URL: https://github.com/thephpleague/flysystem.git
 
 ### PHP - Development
@@ -192,7 +192,7 @@ Filesystem abstraction, but easy.
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.8.0
+* Installed: 1.9.1
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (0.9)
@@ -220,7 +220,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 3.7.34
+* Installed: 3.7.35
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
@@ -237,6 +237,13 @@ Copy/Paste Detector (CPD) for PHP code.
 * Installed: dev-master a9462153f2dd90466a010179901d31fbff598365
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
+#### phploc/phploc (*)
+
+A tool for quickly measuring the size of a PHP project.
+
+* Installed: dev-master eda0bfe29c804a317e8b013899ebc15b991d4e1a
+* Source URL: https://github.com/sebastianbergmann/phploc.git
+
 #### clue/graph-composer (*)
 
 Dependency graph visualization for composer.json
@@ -252,11 +259,11 @@ jQuery component
 
 * Source URL: https://github.com/jquery/jquery
 
-#### jquery-validation (1.11.2)
+#### jquery-validation (1.12.0)
 
+Form validation made easy
 
-
-* Source URL: https://github.com/niftylettuce/jquery-validation
+* Source URL: http://jqueryvalidation.org/
 
 #### bootstrap (2.3.2)
 
@@ -350,23 +357,34 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 ### Translators
 
+#### ca-ES
+* javiergomez, 2014
+
+#### da-DK
+* Ole Ottosen &lt;ot2sen@gmail.com&gt;, 2014
+
 #### de-DE
-* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013,2014
-
-#### ru-RU
-* Dmitrijs Rekuns &lt;bzzjuka@gmail.com&gt;, 2014
-
-#### nl-NL
-* Herman Peeren &lt;herman@yepr.nl&gt;, 2014
-
-#### pt-PT
-* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013, 2014
 
 #### fr-FR
 * Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
 
+#### hu-HU
+* József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
+
 #### it-IT
 * Simone Baldelli &lt;baldelli.simone@gmail.com&gt;, 2014
 
-#### ca-ES
-* javiergomez, 2014
+#### nl-NL
+* Herman Peeren &lt;herman@yepr.nl&gt;, 2014
+* Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014
+
+#### pt-BR
+* Airton Torres &lt;airton.torres@gmail.com&gt;, 2014
+* Marcos Correa &lt;mcorrea.jr28@gmail.com&gt;, 2014
+
+#### pt-PT
+* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+
+#### ru-RU
+* Dmitrijs Rekuns, 2014

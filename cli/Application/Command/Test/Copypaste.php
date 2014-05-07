@@ -8,8 +8,6 @@
 
 namespace Application\Command\Test;
 
-use SebastianBergmann\PHPCPD\CLI\Application as PHPCPDApplication;
-
 use Symfony\Component\Console\Input\ArrayInput;
 
 /**

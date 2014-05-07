@@ -1,0 +1,8 @@
+{
+	"text"           : "\\Text\\Controller\\Articles",
+	"text/add"       : "\\Text\\Controller\\Article\\Add",
+	"text/edit/:id"  : "\\Text\\Controller\\Article\\Edit",
+	"text/delete/:id": "\\Text\\Controller\\Article\\Delete",
+	"text/save"      : "\\Text\\Controller\\Article\\Save",
+	"page/:alias"    : "\\Text\\Controller\\Page"
+}

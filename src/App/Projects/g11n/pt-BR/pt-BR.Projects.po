@@ -1,0 +1,147 @@
+# JTracker App Projects 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Airton Torres <airton.torres@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
+"PO-Revision-Date: 2014-05-06 03:12+0000\n"
+"Last-Translator: Airton Torres <airton.torres@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projeto"
+
+#: /templates/projects/project.index.twig:20
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projetos"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Novo Projeto"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Lista de Projetos"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr "Ações"
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr "Id"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr "Hooks"
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr "Rótulos"
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr "Estatísticas"
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr "Grupos"
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr "Mostrar"
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Editar"
+
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Excluir"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Editar Projeto"
+
+#: /templates/projects/project.edit.twig:11
+#: /templates/projects/project.add.twig:11
+msgid "Save"
+msgstr "Salvar"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Editar Projeto"
+
+#: /templates/projects/project.edit.twig:30
+#: /templates/projects/project.add.twig:20
+msgid "New project"
+msgstr "Novo Projeto"
+
+#: /templates/projects/project.edit.twig:35
+#: /templates/projects/project.add.twig:24
+msgid "Details"
+msgstr "Detalhes"
+
+#: /templates/projects/project.edit.twig:37
+#: /templates/projects/project.add.twig:28
+msgid "Title"
+msgstr "Título"
+
+#: /templates/projects/project.edit.twig:44
+#: /templates/projects/project.add.twig:33
+msgid "Short Title"
+msgstr "Título Resumido"
+
+#: /templates/projects/project.edit.twig:51
+#: /templates/projects/project.add.twig:38
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.edit.twig:58
+#: /templates/projects/project.add.twig:43
+msgid "GitHub Owner"
+msgstr "Proprietário do GitHut"
+
+#: /templates/projects/project.edit.twig:65
+#: /templates/projects/project.add.twig:48
+msgid "GitHub Repo"
+msgstr "Repositório do GitHub"
+
+#: /templates/projects/project.edit.twig:72
+#: /templates/projects/project.add.twig:53
+msgid "External Tracker Link"
+msgstr "Link para Tracker Externo"
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "Adicionar Projeto"
+
+#: /src/App/Projects/Table/ProjectsTable.php:57
+msgid "A title is required"
+msgstr "É obrigatório um título"
+
+#: /src/App/Projects/Table/ProjectsTable.php:62
+msgid "A short title is required"
+msgstr "É obrigatório um título resumido"

@@ -1,0 +1,20 @@
+{
+	"tracker": "\\Tracker\\Controller\\DefaultController",
+
+	"hooks/issues"  : "\\Tracker\\Controller\\Hooks\\ReceiveIssuesHook",
+	"hooks/pulls"   : "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
+	"hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
+
+	"tracker/:project_alias"              : "\\Tracker\\Controller\\Issue\\Listing",
+	"tracker/:project_alias/add"          : "\\Tracker\\Controller\\Issue\\Add",
+	"tracker/:project_alias/add-submit"   : "\\Tracker\\Controller\\Issue\\Submit",
+	"tracker/:project_alias/random"       : "\\Tracker\\Controller\\Issue\\Random",
+	"tracker/:project_alias/:id"          : "\\Tracker\\Controller\\Issue\\Item",
+	"tracker/:project_alias/:id/edit"     : "\\Tracker\\Controller\\Issue\\Edit",
+	"tracker/:project_alias/:id/edit-save": "\\Tracker\\Controller\\Issue\\Save",
+	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Issue\\Ajax\\Info",
+	"submit/vote"                         : "\\Tracker\\Controller\\Issue\\Ajax\\Vote",
+	"submit/comment"                      : "\\Tracker\\Controller\\Comment\\Ajax\\Submit",
+	"upload/put"                          : "\\Tracker\\Controller\\Upload\\Ajax\\Put",
+	"upload/delete"                       : "\\Tracker\\Controller\\Upload\\Ajax\\Delete"
+}

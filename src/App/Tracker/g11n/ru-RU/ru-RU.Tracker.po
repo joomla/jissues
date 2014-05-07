@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Dmitrijs Rekuns <bzzjuka@gmail.com>, 2014
+# Dmitrijs Rekuns, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-10 03:30+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
-"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/opentranslators/language/ru_RU/)\n"
+"PO-Revision-Date: 2014-04-25 20:06+0000\n"
+"Last-Translator: Dmitrijs Rekuns\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: /templates/tracker/tracker.filters.twig:8
 #: /templates/tracker/tracker.filters.twig:17
 msgid "- status -"
-msgstr ""
+msgstr "- статус -"
 
 #: /templates/tracker/tracker.filters.twig:33
 msgid "- priority -"
@@ -45,15 +45,15 @@ msgstr "Недавно обновленные"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Created by you"
-msgstr ""
+msgstr "Созданные тобой"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Everyone's issues"
-msgstr ""
+msgstr "Всех"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "You participated in"
-msgstr ""
+msgstr "В которых участвуешь"
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:63
 #: /templates/tracker/issues.index.twig:19
@@ -118,7 +118,7 @@ msgstr "Это самая важная часть сообщения о баге
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
-msgstr ""
+msgstr "Список проблем"
 
 #: /templates/tracker/issues.index.twig:36
 msgid "Open"
@@ -130,7 +130,7 @@ msgstr "Закрытые"
 
 #: /templates/tracker/issues.index.twig:44
 msgid "Search tools"
-msgstr ""
+msgstr "Инструменты поиска"
 
 #: /templates/tracker/issues.index.twig:48
 msgid "Feeling Lucky"
@@ -143,7 +143,7 @@ msgstr "Фильтр по краткому и полному описанию."
 #: /templates/tracker/issues.index.twig:66
 #: /templates/tracker/issues.index.twig:67
 msgid "Filter the list by ID, summary, or description."
-msgstr ""
+msgstr "Фильтр списка по ID, краткому или полному описанию."
 
 #: /templates/tracker/issues.index.twig:68
 msgid "Submit search"
@@ -179,17 +179,17 @@ msgstr "Внешний ID"
 #: /templates/tracker/issues.index.twig:162
 #, php-format
 msgid "Opened %s"
-msgstr ""
+msgstr "Открыто %s"
 
 #: /templates/tracker/issues.index.twig:166
 #, php-format
 msgid "Closed %s"
-msgstr ""
+msgstr "Закрыто %s"
 
 #: /templates/tracker/issues.index.twig:170
 #, php-format
 msgid "Modified %s"
-msgstr ""
+msgstr "Изменено %s"
 
 #: /templates/tracker/issues.index.twig:186
 msgid "No items found."
@@ -303,11 +303,11 @@ msgstr "Макс. длина билда 40 символов."
 # DATABASE TRANSLATIONS
 #: DATABASE
 msgid "open"
-msgstr "открытые"
+msgstr "открыто"
 
 #: DATABASE
 msgid "confirmed"
-msgstr "подтвержденные"
+msgstr "подтверждено"
 
 #: DATABASE
 msgid "pending"
@@ -319,7 +319,7 @@ msgstr "rtc"
 
 #: DATABASE
 msgid "fixed"
-msgstr "исправленные"
+msgstr "исправлено"
 
 #: DATABASE
 msgid "review"
@@ -339,7 +339,7 @@ msgstr "без ответа"
 
 #: DATABASE
 msgid "closed"
-msgstr "закрытые"
+msgstr "закрыто"
 
 #: DATABASE
 msgid "expected"
@@ -347,4 +347,4 @@ msgstr "ожидаемые"
 
 #: DATABASE
 msgid "known"
-msgstr "известные"
+msgstr "известно"

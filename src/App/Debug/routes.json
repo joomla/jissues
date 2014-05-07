@@ -1,0 +1,3 @@
+{
+	"logs/:log_type": "\\Debug\\Controller\\Logs"
+}

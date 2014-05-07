@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Herman Peeren <herman@yepr.nl>, 2014
+# Roland Dalmulder <contact@rolandd.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-10 03:30+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
+"PO-Revision-Date: 2014-04-27 07:38+0000\n"
+"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
-msgstr ""
+msgstr "Gebruikers"
 
 #: /templates/users/users.index.twig:15
 msgid "Users List"
@@ -45,31 +46,31 @@ msgstr "ID"
 
 #: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
 msgid "Edit user"
-msgstr ""
+msgstr "Gebruiker bewerken"
 
 #: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
 msgid "Invalid user!"
-msgstr ""
+msgstr "Ongeldige gebruiker!"
 
 #: /templates/users/user.edit.twig:22
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: /templates/users/user.edit.twig:27
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 #: /templates/users/user.edit.twig:34
 msgid "Params"
-msgstr ""
+msgstr "Parameters"
 
 #: /templates/users/user.edit.twig:37
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 #: /templates/users/user.edit.twig:44
 msgid "Timezone"
-msgstr ""
+msgstr "Tijdzone"
 
 #: /templates/users/user.index.twig:16
 msgid "My Profile"
@@ -82,12 +83,12 @@ msgstr "Profiel"
 #: /templates/users/user.index.twig:47
 #, php-format
 msgid "Language: %s"
-msgstr ""
+msgstr "Taal: %s"
 
 #: /templates/users/user.index.twig:52
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
-msgstr ""
+msgstr "Tijdzone: %1$s (GMT %2$s)"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
@@ -100,8 +101,8 @@ msgstr "Niet meer toegewezen aan deze gebruiker."
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorized to edit this user."
-msgstr ""
+msgstr "U bent niet geautoriseerd om deze gebruiker te bewerken."
 
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."
-msgstr ""
+msgstr "De instellingen zijn opgeslagen."
