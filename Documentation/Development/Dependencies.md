@@ -363,9 +363,11 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### ru-RU
 * Dmitrijs Rekuns, 2014
 
+#### hu-HU
+* József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
+
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
-
 * Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014
 
 #### da-DK
@@ -373,6 +375,10 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### pt-PT
 * Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+
+#### pt-BR
+* Airton Torres &lt;airton.torres@gmail.com&gt;, 2014
+* Marcos Correa &lt;mcorrea.jr28@gmail.com&gt;, 2014
 
 #### fr-FR
 * Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
