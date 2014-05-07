@@ -357,34 +357,34 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 ### Translators
 
-#### de-DE
-* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013,2014
+#### ca-ES
+* javiergomez, 2014
 
-#### ru-RU
-* Dmitrijs Rekuns, 2014
+#### da-DK
+* Ole Ottosen &lt;ot2sen@gmail.com&gt;, 2014
+
+#### de-DE
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013, 2014
+
+#### fr-FR
+* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
 
 #### hu-HU
 * József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
+
+#### it-IT
+* Simone Baldelli &lt;baldelli.simone@gmail.com&gt;, 2014
 
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
 * Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014
 
-#### da-DK
-* Ole Ottosen &lt;ot2sen@gmail.com&gt;, 2014
-
-#### pt-PT
-* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
-
 #### pt-BR
 * Airton Torres &lt;airton.torres@gmail.com&gt;, 2014
 * Marcos Correa &lt;mcorrea.jr28@gmail.com&gt;, 2014
 
-#### fr-FR
-* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
+#### pt-PT
+* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
 
-#### it-IT
-* Simone Baldelli &lt;baldelli.simone@gmail.com&gt;, 2014
-
-#### ca-ES
-* javiergomez, 2014
+#### ru-RU
+* Dmitrijs Rekuns, 2014
