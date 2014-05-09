@@ -353,7 +353,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		$config = array();
 
-		$config['templates_base_dir'] = JPATH_TEMPLATES . '/' . $templateName . '/' . $rendererName;
+		$config['templates_base_dir'] = JPATH_TEMPLATES . '/' . $templateName;
 
 		switch ($rendererName)
 		{
