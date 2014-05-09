@@ -189,7 +189,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		$paths = array();
 
 		// Register the App template path
-		$path = JPATH_ROOT . '/src/App/' . $this->app . '/tpl/' . $this->getContainer()->get('app')->get('template.renderer');
+		$path = JPATH_ROOT . '/src/App/' . $this->app . '/tpl';
 
 		if (is_dir($path))
 		{
