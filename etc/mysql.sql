@@ -308,7 +308,7 @@ INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) 
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-10-01 00:00:00');
 
 --
--- Dumping data for table `#__articles`
+-- Table structure for table `#__documents`
 --
 
 CREATE TABLE `#__documents` (
