@@ -199,7 +199,15 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
-		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
+		if (in_array($this->app, ['Text']))
+		{
+			// These Apps are handled with a Doctrine model
+			$this->model = new $modelClass($this->getContainer()->get('EntityManager'));
+		}
+		else
+		{
+			$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
+		}
 
 		// Create the view
 		/* @type AbstractTrackerHtmlView $view */
