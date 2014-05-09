@@ -5,8 +5,6 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt #}
 
-{% extends "index.twig" %}
-
 {% block title %}{{ project.title }} #{{ item.issue_number }}{% endblock %}
 
 {% block headerText %}{{ project.title }}{% endblock %}
@@ -35,7 +33,5 @@
 	<li><b>{{ name }}</b>: {{ value }}</li>
 	{% endfor %}
 </ul>
-
-{{ dump(item) }}
 
 {% endblock %}
