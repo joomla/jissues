@@ -40,22 +40,13 @@ class Article
 	private $articleId;
 
 	/**
-	 * The article path
-	 *
-	 * @Column(name="path", type="string", length=500, nullable=false)
-	 *
-	 * @var  string
-	 *
-	 * @since  1.0
-	 */
-	private $path = '';
-
-	/**
 	 * The article title
 	 *
 	 * @Column(name="title", type="string", length=250, nullable=false)
 	 *
 	 * @var  string
+	 *
+	 * @Filter(type="string")
 	 *
 	 * @since  1.0
 	 */
@@ -68,6 +59,8 @@ class Article
 	 *
 	 * @var  string
 	 *
+	 * @Filter(type="string")
+	 *
 	 * @since  1.0
 	 */
 	private $alias = '';
@@ -79,6 +72,8 @@ class Article
 	 *
 	 * @var  string
 	 *
+	 * @Filter(type="html")
+	 *
 	 * @since  1.0
 	 */
 	private $text;
@@ -89,6 +84,8 @@ class Article
 	 * @Column(name="text_md", type="text", nullable=false)
 	 *
 	 * @var  string
+	 *
+	 * @Filter(type="html")
 	 *
 	 * @since  1.0
 	 */
@@ -129,34 +126,6 @@ class Article
 	public function setArticleId($articleId)
 	{
 		$this->articleId = (int) $articleId;
-
-		return $this;
-	}
-
-	/**
-	 * Get:  The article path
-	 *
-	 * @return   string
-	 *
-	 * @since  1.0
-	 */
-	public function getPath()
-	{
-		return $this->path;
-	}
-
-	/**
-	 * Set:  The article path
-	 *
-	 * @param   string  $path  The article path
-	 *
-	 * @return   $this
-	 *
-	 * @since  1.0
-	 */
-	public function setPath($path)
-	{
-		$this->path = $path;
 
 		return $this;
 	}
@@ -320,7 +289,6 @@ class Article
 		if (!$this->createdDate)
 		{
 			// New item - set an (arbitrary) created date..
-			// $this->createdDate = (new \DateTime)->format('Y-m-d H:i:s');
 			$this->createdDate = new \DateTime;
 		}
 
@@ -336,7 +304,7 @@ class Article
 			}
 		}
 
-		if (trim($this->textMd) == '')
+		if (trim($this->text) == '')
 		{
 			$errors[] = g11n3t('Some text is required.');
 		}

@@ -8,8 +8,6 @@
 
 namespace App\Text\Controller;
 
-use App\Text\View\Page\PageHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 
@@ -23,29 +21,34 @@ class Page extends AbstractTrackerController
 	/**
 	 * View object
 	 *
-	 * @var    PageHtmlView
+	 * @var    \App\Text\View\Page\PageHtmlView
 	 * @since  1.0
 	 */
 	protected $view = null;
 
 	/**
-	 * Initialize the controller.
+	 * Model object
 	 *
-	 * This will set up default model and view classes.
+	 * @var    \App\Text\Model\PageModel
+	 * @since  1.0
+	 */
+	protected $model = null;
+
+	/**
+	 * Execute the controller.
 	 *
-	 * @throws \JTracker\Router\Exception\RoutingException
+	 * @return  string  The rendered view.
 	 *
-	 * @return  $this
+	 * @throws RoutingException
 	 *
 	 * @since   1.0
 	 */
-	public function initialize()
+	public function execute()
 	{
-		parent::initialize();
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$item = $this->getContainer()->get('EntityManager')
-			->getRepository('App\Text\Entity\Article')
-			->findOneBy(['alias' => $this->getContainer()->get('app')->input->getCmd('alias')]);
+		$item = $this->model->findOneBy(['alias' => $application->input->getCmd('alias')]);
 
 		if (!$item)
 		{
@@ -54,6 +57,6 @@ class Page extends AbstractTrackerController
 
 		$this->view->setItem($item);
 
-		return $this;
+		return parent::execute();
 	}
 }

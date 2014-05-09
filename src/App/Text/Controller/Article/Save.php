@@ -8,8 +8,6 @@
 
 namespace App\Text\Controller\Article;
 
-use App\Text\Entity\Article;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -20,12 +18,20 @@ use JTracker\Controller\AbstractTrackerController;
 class Save extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component.
+	 * The default view for the app.
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'articles';
+	protected $defaultView = 'article';
+
+	/**
+	 * Model object
+	 *
+	 * @var    \App\Text\Model\ArticleModel
+	 * @since  1.0
+	 */
+	protected $model;
 
 	/**
 	 * Execute the controller.
@@ -41,31 +47,17 @@ class Save extends AbstractTrackerController
 
 		$application->getUser()->authorize('admin');
 
-		$input = $application->input;
+		$data = $application->input->get('article', [], 'array');
 
-		$entityManager = $this->getContainer()->get('EntityManager');
-
-		$id = $input->getUint('id');
-
-		if (!$id)
+		if (isset($data['textMd']) && $data['textMd'])
 		{
-			$article = new Article;
-		}
-		else
-		{
-			$article = $entityManager->find('App\Text\Entity\Article', $id);
+			// Compile the markdown text using GitHub's markdown parser.
+			$data['text'] = $this->getContainer()->get('gitHub')->markdown->render($data['textMd']);
 		}
 
 		try
 		{
-			$article
-				->setTitle($input->getString('title'))
-				->setAlias($input->getCmd('alias'))
-				->setTextMd($input->getString('text'))
-				->setText($this->getContainer()->get('gitHub')->markdown->render($input->getString('text')));
-
-			$entityManager->persist($article);
-			$entityManager->flush();
+			$this->model->save($data);
 
 			$application->enqueueMessage(g11n3t('The article has been saved.'), 'success')
 				->redirect('/text');
@@ -73,6 +65,8 @@ class Save extends AbstractTrackerController
 		catch (\InvalidArgumentException $exception)
 		{
 			// @todo "persist" entered values on error redirect
+
+			$id = $application->input->getUint('id');
 
 			$application->enqueueMessage($exception->getMessage(), 'error');
 

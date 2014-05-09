@@ -26,6 +26,14 @@ class Articles extends AbstractTrackerController
 	protected $view;
 
 	/**
+	 * Model object
+	 *
+	 * @var    \App\Text\Model\ArticlesModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -36,11 +44,7 @@ class Articles extends AbstractTrackerController
 	{
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->view->setItems(
-			$this->getContainer()->get('EntityManager')
-				->getRepository('App\Text\Entity\Article')
-				->findAll()
-		);
+		$this->view->setItems($this->model->getItems());
 
 		return parent::execute();
 	}

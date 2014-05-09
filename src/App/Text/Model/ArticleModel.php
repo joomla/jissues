@@ -8,14 +8,21 @@
 
 namespace App\Text\Model;
 
-use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractTrackerDoctrineModel;
 
 /**
- * Default model class for the Users component.
+ * Article model class for the Text component.
  *
  * @since  1.0
  */
-class DefaultModel extends AbstractTrackerDatabaseModel
+class ArticleModel extends AbstractTrackerDoctrineModel
 {
-	// This is a dummy :|
+	/**
+	 * The name of the entity.
+	 *
+	 * @var string
+	 *
+	 * @since  1.0
+	 */
+	protected $entityName = 'Article';
 }

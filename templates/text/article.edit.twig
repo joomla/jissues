@@ -40,26 +40,26 @@
             <div class="control-group">
                 <label class="control-label" for="title">{{ "Title"|_ }}</label>
                 <div class="controls">
-                    <input type="text" name="title" id="title" value="{{ item.title }}" />
+                    <input type="text" name="article[title]" id="title" value="{{ item.title }}" />
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="alias">{{ "Alias"|_ }}</label>
                 <div class="controls">
-                    <input type="text" name="alias" id="alias" value="{{ item.alias }}" />
+                    <input type="text" name="article[alias]" id="alias" value="{{ item.alias }}" />
                 </div>
             </div>
         </fieldset>
 
         {% set editorId="text" %}
-        {% set editorName="text" %}
+        {% set editorName="article[textMd]" %}
         {% set editorPlaceholder="Article text" %}
         {% set editorText=item.textMd %}
 
         {% include "editor.twig" %}
 
-        <input type="hidden" name="id" value="{{ item.articleId }}"/>
+        <input type="hidden" name="article[id]" value="{{ item.articleId }}"/>
 
         </div>
     </form>

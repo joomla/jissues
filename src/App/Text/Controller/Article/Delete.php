@@ -26,6 +26,14 @@ class Delete extends AbstractTrackerController
 	protected $defaultView = 'articles';
 
 	/**
+	 * Model object
+	 *
+	 * @var    \App\Text\Model\ArticleModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string
@@ -39,17 +47,7 @@ class Delete extends AbstractTrackerController
 
 		$application->getUser()->authorize('admin');
 
-		$entityManager = $this->getContainer()->get('EntityManager');
-
-		$article = $entityManager->find('App\Text\Entity\Article', $application->input->getUint('id'));
-
-		if (!$article)
-		{
-			throw new \UnexpectedValueException('Invalid article');
-		}
-
-		$entityManager->remove($article);
-		$entityManager->flush();
+		$this->model->delete($application->input->getUint('id'));
 
 		$application->enqueueMessage(g11n3t('The article has been deleted.'), 'success');
 

@@ -44,24 +44,29 @@ class Edit extends AbstractTrackerController
 	protected $view;
 
 	/**
-	 * Initialize the controller.
+	 * Model object
 	 *
-	 * @return  $this
+	 * @var    \App\Text\Model\ArticleModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function initialize()
+	public function execute()
 	{
-		parent::initialize();
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		$application->getUser()->authorize('admin');
 
-		$this->view->setItem(
-			$this->getContainer()->get('EntityManager')
-				->find(
-					'App\Text\Entity\Article',
-					$this->getContainer()->get('app')->input->getInt('id')
-				)
-		);
+		$this->view->setItem($this->model->getItem($application->input->getUint('id')));
+
+		return parent::execute();
 	}
 }
