@@ -174,7 +174,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function mark($name)
 	{
-		return $this->profiler->mark($name);
+		return $this->profiler ? $this->profiler->mark($name) : $this;
 	}
 
 	/**
@@ -648,7 +648,9 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		foreach ($dbLog as $i => $entry)
 		{
-			$explain = $dbDebugger->getExplain($entry->sql);
+			// @todo (re)enable explain queries for Doctrine managed databases (replace the placeholder)
+			// $dbDebugger->getExplain($entry->sql);
+			$explain = '';
 
 			$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
 
