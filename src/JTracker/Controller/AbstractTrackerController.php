@@ -8,11 +8,15 @@
 
 namespace JTracker\Controller;
 
+use App\Debug\Database\SQLLogger;
+use App\Debug\Database\SQLLoggerAwareInterface;
+
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Input\Input;
-
+use Joomla\Registry\Registry;
 use Joomla\View\Renderer\RendererInterface;
+
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\View\Renderer\TrackerExtension;
@@ -199,10 +203,19 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
-		if (in_array($this->app, ['Text']))
+		if (in_array($this->app, ['Documentor', 'Text']))
 		{
 			// These Apps are handled with a Doctrine model
-			$this->model = new $modelClass($this->getContainer()->get('EntityManager'));
+			$this->model = new $modelClass(
+				new Registry($this->getContainer()->get('app')->get('database')),
+				[JPATH_ROOT . '/src/App'],
+				$this->getContainer()->get('app')->get('debug.database')
+			);
+
+			if ($this->model instanceof SQLLoggerAwareInterface)
+			{
+				$this->model->setSQLLogger(new SQLLogger($this->getContainer()->get('debugger')));
+			}
 		}
 		else
 		{

@@ -103,7 +103,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			->registerServiceProvider(new ApplicationProvider($this))
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new EntityManagerProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new GitHubProvider);
 

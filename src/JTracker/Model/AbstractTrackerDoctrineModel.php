@@ -8,11 +8,19 @@
 
 namespace JTracker\Model;
 
+use App\Debug\Database\SQLLoggerAwareInterface;
+
 use Doctrine\Common\Annotations\SimpleAnnotationReader;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Events;
+use Doctrine\ORM\Tools\Setup;
 
 use Joomla\Filter\InputFilter;
 use Joomla\Model\AbstractModel;
+
+use JTracker\ORM\Custom\TablePrefix;
 use JTracker\ORM\Mapping\Filter;
 
 /**
@@ -22,7 +30,7 @@ use JTracker\ORM\Mapping\Filter;
  *
  * @since  1.0
  */
-abstract class AbstractTrackerDoctrineModel extends AbstractModel
+abstract class AbstractTrackerDoctrineModel extends AbstractModel implements SQLLoggerAwareInterface
 {
 	/**
 	 * The model (base) name
@@ -41,14 +49,6 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 	protected $app = null;
 
 	/**
-	 * The EntityManager.
-	 *
-	 * @var    EntityManager
-	 * @since  1.0
-	 */
-	protected $entityManager;
-
-	/**
 	 * The Entity name.
 	 *
 	 * @var    string
@@ -57,15 +57,51 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 	protected $entityName;
 
 	/**
+	 * The database connection configuration.
+	 *
+	 * @var \Joomla\Registry\Registry
+	 * @since  1.0
+	 */
+	private $connectionConfig;
+
+	/**
+	 * Array of paths containing entities.
+	 *
+	 * @var array
+	 * @since  1.0
+	 */
+	private $entityPaths;
+
+	/**
+	 * Debug flag.
+	 *
+	 * @var boolean
+	 * @since  1.0
+	 */
+	private $debug;
+
+	/**
+	 * A SQL query logger object.
+	 *
+	 * @var    SQLLogger
+	 * @since  1.0
+	 */
+	private $logger;
+
+	/**
 	 * Instantiate the model.
 	 *
-	 * @param   EntityManager  $entityManager  The EntityManager
+	 * @param   \Joomla\Registry\Registry  $connectionConfig  The database connection configuration.
+	 * @param   array                      $entityPaths       Array of paths containing entities.
+	 * @param   boolean                    $debug             Debug flag.
 	 *
-	 * @since   1.0
+	 * @since    1.0
 	 */
-	public function __construct(EntityManager $entityManager)
+	public function __construct($connectionConfig, array $entityPaths, $debug = false)
 	{
-		$this->entityManager = $entityManager;
+		$this->connectionConfig = $connectionConfig;
+		$this->entityPaths = $entityPaths;
+		$this->debug = $debug;
 
 		// Guess the option from the class name (Option)Model(View).
 		if (empty($this->app))
@@ -88,6 +124,54 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 		{
 			$this->getName();
 		}
+	}
+
+	/**
+	 * Get the Entity Manager object.
+	 *
+	 * @return EntityManager
+	 *
+	 * @throws \Doctrine\ORM\ORMException
+	 *
+	 * @since    1.0
+	 */
+	protected function getEntityManager()
+	{
+		static $entityManager;
+
+		if (!$entityManager)
+		{
+			$config = Setup::createAnnotationMetadataConfiguration($this->entityPaths, $this->debug);
+
+			if ($this->debug)
+			{
+				// Set up logging
+				$config->setSQLLogger($this->logger);
+			}
+
+			// Database configuration parameters
+			$connectionParams = [
+				'driver'   => $this->connectionConfig->get('driver'),
+				'host'     => $this->connectionConfig->get('host'),
+				'user'     => $this->connectionConfig->get('user'),
+				'password' => $this->connectionConfig->get('password'),
+				'dbname'   => $this->connectionConfig->get('name'),
+			];
+
+			// Obtaining the event manager
+			$eventManager = new EventManager;
+
+			// Table Prefix
+			$eventManager->addEventListener(
+				Events::loadClassMetadata,
+				new TablePrefix($this->connectionConfig->get('prefix'))
+			);
+
+			// Obtaining the entity manager
+			$entityManager = EntityManager::create($connectionParams, $config, $eventManager);
+		}
+
+		return $entityManager;
 	}
 
 	/**
@@ -141,7 +225,7 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 	 */
 	public function getItems()
 	{
-		return $this->entityManager
+		return $this->getEntityManager()
 			->getRepository($this->getEntityClass())
 			->findAll();
 	}
@@ -157,7 +241,7 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 	 */
 	public function getItem($id)
 	{
-		return $this->entityManager
+		return $this->getEntityManager()
 			->find($this->getEntityClass(), $id);
 	}
 
@@ -172,7 +256,7 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 	 */
 	public function findOneBy(array $conditions)
 	{
-		return $this->entityManager
+		return $this->getEntityManager()
 			->getRepository($this->getEntityClass())
 			->findOneBy($conditions);
 	}
@@ -188,15 +272,15 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 	 */
 	public function delete($id)
 	{
-		$item = $this->entityManager->find($this->getEntityClass(), (int) $id);
+		$item = $this->getEntityManager()->find($this->getEntityClass(), (int) $id);
 
 		if (!$item)
 		{
 			throw new \UnexpectedValueException('Invalid item');
 		}
 
-		$this->entityManager->remove($item);
-		$this->entityManager->flush();
+		$this->getEntityManager()->remove($item);
+		$this->getEntityManager()->flush();
 
 		return $this;
 	}
@@ -219,13 +303,13 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 		$entityClass = $this->getEntityClass();
 
 		$entity = ($id)
-			? $this->entityManager->find($entityClass, $id)
+			? $this->getEntityManager()->find($entityClass, $id)
 			: new $entityClass;
 
 		$this->bindAndValidate($entity, $data);
 
-		$this->entityManager->persist($entity);
-		$this->entityManager->flush();
+		$this->getEntityManager()->persist($entity);
+		$this->getEntityManager()->flush();
 
 		return $this;
 	}
@@ -281,6 +365,22 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel
 
 			$entity->$setMethod($value);
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Sets a logger instance on the object
+	 *
+	 * @param   SQLLogger  $logger  Interface for SQL loggers.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setSQLLogger(SQLLogger $logger)
+	{
+		$this->logger = $logger;
 
 		return $this;
 	}
