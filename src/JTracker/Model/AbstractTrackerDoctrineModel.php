@@ -8,11 +8,11 @@
 
 namespace JTracker\Model;
 
+use App\Debug\Database\SQLLogger;
 use App\Debug\Database\SQLLoggerAwareInterface;
 
 use Doctrine\Common\Annotations\SimpleAnnotationReader;
 use Doctrine\Common\EventManager;
-use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Tools\Setup;
