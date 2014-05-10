@@ -6,7 +6,7 @@
   "license": "GPL",
   "dependencies": {
     "jquery": "1.9.1",
-    "jquery-validation": "1.11.2",
+    "jquery-validation": "1.12.0",
     "bootstrap": "2.3.2",
     "bootstrap-switch": "v1.8",
     "markitup": "1.1.14",

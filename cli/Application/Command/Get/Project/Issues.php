@@ -243,7 +243,7 @@ class Issues extends Project
 				: null;
 
 			// If the issue has a diff URL, it is a pull request.
-			if ($ghIssue->pull_request->diff_url)
+			if (isset($ghIssue->pull_request->diff_url))
 			{
 				$table->has_code = 1;
 			}

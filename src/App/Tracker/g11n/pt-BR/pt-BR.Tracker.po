@@ -1,0 +1,350 @@
+# JTracker App Tracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Airton Torres <airton.torres@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
+"PO-Revision-Date: 2014-05-06 03:29+0000\n"
+"Last-Translator: Airton Torres <airton.torres@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/tracker/tracker.filters.twig:8
+#: /templates/tracker/tracker.filters.twig:17
+msgid "- status -"
+msgstr "- status -"
+
+#: /templates/tracker/tracker.filters.twig:33
+msgid "- priority -"
+msgstr "- prioridade -"
+
+#: /templates/tracker/tracker.filters.twig:41
+msgid "Least recently updated"
+msgstr "Atualizado menos recentemente"
+
+#: /templates/tracker/tracker.filters.twig:41
+msgid "Newest"
+msgstr "Mais Novo"
+
+#: /templates/tracker/tracker.filters.twig:41
+msgid "Oldest"
+msgstr "Mais Antigo"
+
+#: /templates/tracker/tracker.filters.twig:41
+msgid "Recently updated"
+msgstr "Ataulizado recentemente"
+
+#: /templates/tracker/tracker.filters.twig:54
+msgid "Created by you"
+msgstr "Criado por você"
+
+#: /templates/tracker/tracker.filters.twig:54
+msgid "Everyone's issues"
+msgstr "Probelams de todos"
+
+#: /templates/tracker/tracker.filters.twig:54
+msgid "You participated in"
+msgstr "Você participou em"
+
+#: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:63
+#: /templates/tracker/issues.index.twig:19
+msgid "New Item"
+msgstr "Novo Item"
+
+#: /templates/tracker/issue.add.twig:12
+msgid "Submit"
+msgstr "Enviar"
+
+#: /templates/tracker/issue.add.twig:35
+msgid "View Mode"
+msgstr "Modo de Visualização"
+
+#: /templates/tracker/issue.add.twig:38
+msgid "Help"
+msgstr "Ajuda"
+
+#: /templates/tracker/issue.add.twig:38
+msgid "Pro"
+msgstr "Pro"
+
+#: /templates/tracker/issue.add.twig:45
+#: /templates/tracker/issues.index.twig:101
+#: /templates/tracker/issue.index.twig:67
+#: /templates/tracker/issue.edit.twig:76
+msgid "Priority"
+msgstr "Prioridade"
+
+#: /templates/tracker/issue.add.twig:50
+msgid "Priority help"
+msgstr "Ajuda sobre prioridade"
+
+#: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
+#: /templates/tracker/issue.edit.twig:102
+msgid "Build"
+msgstr "Construir"
+
+#: /templates/tracker/issue.add.twig:56
+msgid "Build help"
+msgstr "Ajuda sobre construir"
+
+#: /templates/tracker/issue.add.twig:61
+msgid "Issue intro help"
+msgstr "Ajuda da introdução do problema"
+
+#: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
+msgid "Title"
+msgstr "Título"
+
+#: /templates/tracker/issue.add.twig:69
+msgid "Issue title help"
+msgstr "Ajuda do título do problema"
+
+#: /templates/tracker/issue.add.twig:71
+msgid "Description"
+msgstr "Descrição"
+
+#: /templates/tracker/issue.add.twig:80
+msgid "Issue description help"
+msgstr "Ajuda da descrição do problema"
+
+#: /templates/tracker/issues.index.twig:6
+msgid "Issues List"
+msgstr "Lista de Problemas"
+
+#: /templates/tracker/issues.index.twig:36
+msgid "Open"
+msgstr "Aberto"
+
+#: /templates/tracker/issues.index.twig:39
+msgid "Closed"
+msgstr "Fechado"
+
+#: /templates/tracker/issues.index.twig:44
+msgid "Search tools"
+msgstr "Ferramentas de busca"
+
+#: /templates/tracker/issues.index.twig:48
+msgid "Feeling Lucky"
+msgstr "Com Sorte"
+
+#: /templates/tracker/issues.index.twig:63
+msgid "Filter the list by summary or description."
+msgstr "Filtrar a lista por resumo ou descrição"
+
+#: /templates/tracker/issues.index.twig:66
+#: /templates/tracker/issues.index.twig:67
+msgid "Filter the list by ID, summary, or description."
+msgstr "Filtrar a lista por ID, resumo, ou descrição."
+
+#: /templates/tracker/issues.index.twig:68
+msgid "Submit search"
+msgstr "Submeter consulta"
+
+#: /templates/tracker/issues.index.twig:74
+msgid "Clear search"
+msgstr "Limpar consulta"
+
+#: /templates/tracker/issues.index.twig:99
+msgid "ID"
+msgstr "ID"
+
+#: /templates/tracker/issues.index.twig:100
+msgid "Summary"
+msgstr "Resumo"
+
+#: /templates/tracker/issues.index.twig:102
+#: /templates/tracker/issue.edit.twig:65
+msgid "Status"
+msgstr "Status"
+
+#: /templates/tracker/issues.index.twig:146
+msgid "GitHub ID"
+msgstr "ID do GitHub"
+
+#: /templates/tracker/issues.index.twig:154
+#: /templates/tracker/issue.index.twig:120
+#: /templates/tracker/issue.edit.twig:50
+msgid "Foreign ID"
+msgstr "ID Externa"
+
+#: /templates/tracker/issues.index.twig:162
+#, php-format
+msgid "Opened %s"
+msgstr "Aberto %s"
+
+#: /templates/tracker/issues.index.twig:166
+#, php-format
+msgid "Closed %s"
+msgstr "Fechado %s"
+
+#: /templates/tracker/issues.index.twig:170
+#, php-format
+msgid "Modified %s"
+msgstr "Modificado %s"
+
+#: /templates/tracker/issues.index.twig:186
+msgid "No items found."
+msgstr "Nenum item encontrado"
+
+#: /templates/tracker/issues.index.twig:195
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Página %1$s de %2$s"
+
+#: /templates/tracker/issue.index.twig:30
+msgid "That issue does not exist, or the ID you typed is incorrect."
+msgstr "Esse problema não existe, ou o ID informado está incorreto."
+
+#: /templates/tracker/issue.index.twig:46
+msgid "Edit"
+msgstr "Editar"
+
+#: /templates/tracker/issue.index.twig:82
+msgid "Easy Test"
+msgstr "Teste Simples"
+
+#: /templates/tracker/issue.index.twig:90
+msgid "# of Successful Tests"
+msgstr "# de Testes Bem Sucedidos"
+
+#: /templates/tracker/issue.index.twig:138
+msgid "Referenced as"
+msgstr "Referenciado como"
+
+#: /templates/tracker/issue.index.twig:165
+msgid "# of Users Experiencing Issue"
+msgstr "# de Usuários Experimentando o Problema"
+
+#: /templates/tracker/issue.index.twig:169
+msgid "Average Importance Score"
+msgstr "Pontuação Média de Importância"
+
+#: /templates/tracker/issue.index.twig:177
+msgid "I've experienced this issue"
+msgstr "Eu experimentei esse problema"
+
+#: /templates/tracker/issue.index.twig:180
+msgid "Yes"
+msgstr "Sim"
+
+#: /templates/tracker/issue.index.twig:184
+msgid "No"
+msgstr "Não"
+
+#: /templates/tracker/issue.index.twig:189
+msgid "Importance of issue to me"
+msgstr "Importância do problema para mim"
+
+#: /templates/tracker/issue.index.twig:213
+msgid "Vote"
+msgstr "Votar"
+
+#: /templates/tracker/issue.index.twig:280
+msgid "Add a Comment"
+msgstr "Adicionar um Comentário"
+
+#: /templates/tracker/issue.index.twig:291
+msgid "Leave a comment"
+msgstr "Deixe um comentário"
+
+#: /templates/tracker/issue.index.twig:299
+msgid "Post Comment"
+msgstr "Postar Comentário"
+
+#: /templates/tracker/issue.index.twig:312
+msgid "Login with GitHub to post a comment"
+msgstr "Fazer login com GitHub para postar um comentário"
+
+#: /templates/tracker/issue.edit.twig:29
+msgid "Save"
+msgstr "Salvar"
+
+#: /templates/tracker/issue.edit.twig:33
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /templates/tracker/issue.edit.twig:85
+msgid "Item"
+msgstr "Item"
+
+#: /templates/tracker/issue.edit.twig:106
+msgid "Successful tests"
+msgstr "Testes bem sucedidos"
+
+#: /templates/tracker/issue.edit.twig:114
+msgid "Easy test"
+msgstr "Teste simples"
+
+#: /src/App/Tracker/Table/IssuesTable.php:159
+msgid "A title is required."
+msgstr "É obrigatório um título."
+
+#: /src/App/Tracker/Table/IssuesTable.php:163
+msgid "The title max length is 255 chars."
+msgstr "O tamanho máximo do título é 255 caracteres"
+
+#: /src/App/Tracker/Table/IssuesTable.php:168
+msgid "A build is required."
+msgstr "É obrigatória uma construção."
+
+#: /src/App/Tracker/Table/IssuesTable.php:172
+msgid "A build max length is 40 chars."
+msgstr "O tamanho máximo de uma construção é 40 caracteres."
+
+# DATABASE TRANSLATIONS
+#: DATABASE
+msgid "open"
+msgstr "aberto"
+
+#: DATABASE
+msgid "confirmed"
+msgstr "confirmado"
+
+#: DATABASE
+msgid "pending"
+msgstr "pendente"
+
+#: DATABASE
+msgid "rtc"
+msgstr "rtc"
+
+#: DATABASE
+msgid "fixed"
+msgstr "corrigido"
+
+#: DATABASE
+msgid "review"
+msgstr "revisar"
+
+#: DATABASE
+msgid "info"
+msgstr "informação"
+
+#: DATABASE
+msgid "platform"
+msgstr "plataforma"
+
+#: DATABASE
+msgid "no_reply"
+msgstr "sem_resposta"
+
+#: DATABASE
+msgid "closed"
+msgstr "fechado"
+
+#: DATABASE
+msgid "expected"
+msgstr "esperado"
+
+#: DATABASE
+msgid "known"
+msgstr "conhecido"
