@@ -37,11 +37,7 @@ class Show extends AbstractAjaxController
 
 		if ($page)
 		{
-			$entityManager = $this->getContainer()->get('EntityManager');
-
-			$text = $entityManager->getRepository('App\Documentor\Entity\Document')
-				->findOneBy(['page' => $page, 'path' => $path])
-				->getText();
+			$text = $this->model->findOneBy(['page' => $page, 'path' => $path])->getText();
 		}
 
 		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';

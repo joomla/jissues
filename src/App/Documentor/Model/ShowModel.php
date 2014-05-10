@@ -15,6 +15,14 @@ use JTracker\Model\AbstractTrackerDoctrineModel;
  *
  * @since  1.0
  */
-class DefaultModel extends AbstractTrackerDoctrineModel
+class ShowModel extends AbstractTrackerDoctrineModel
 {
+	/**
+	 * The name of the entity.
+	 *
+	 * @var string
+	 *
+	 * @since  1.0
+	 */
+	protected $entityName = 'Document';
 }
