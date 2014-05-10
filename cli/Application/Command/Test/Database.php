@@ -34,7 +34,7 @@ class Database extends Test
 	 */
 	public function execute()
 	{
-		$doctrineRunner = $this->getContainer()->get('DoctrineRunner');
+		$doctrineRunner = $this->getApplication()->getDoctrineRunner();
 
 		$this->getApplication()->outputTitle('Database Info');
 		$doctrineRunner->run(new ArrayInput(['command' => 'orm:info']));

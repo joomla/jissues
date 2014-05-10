@@ -14,6 +14,7 @@ use App\Projects\TrackerProject;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
+use Application\Model\DoctrineRunnerModel;
 use Application\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
@@ -35,8 +36,6 @@ use JTracker\Service\ApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
-use JTracker\Service\DoctrineRunnerProvider;
-use JTracker\Service\EntityManagerProvider;
 use JTracker\Service\GitHubProvider;
 use JTracker\Service\TransifexProvider;
 
@@ -121,9 +120,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
-			->registerServiceProvider(new TransifexProvider)
-			->registerServiceProvider(new EntityManagerProvider)
-			->registerServiceProvider(new DoctrineRunnerProvider);
+			->registerServiceProvider(new TransifexProvider);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
@@ -476,5 +473,23 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	public function getUserStateFromRequest()
 	{
 		return '';
+	}
+
+	/**
+	 * Get a Doctrine CLI runner object.
+	 *
+	 * @return \Symfony\Component\Console\Application
+	 *
+	 * @since   1.0
+	 */
+	public function getDoctrineRunner()
+	{
+		return (
+			new DoctrineRunnerModel(
+				new Registry($this->getContainer()->get('app')->get('database')),
+				[JPATH_ROOT . '/src/App'],
+				$this->getContainer()->get('app')->get('debug.database')
+			)
+		)->getRunner();
 	}
 }

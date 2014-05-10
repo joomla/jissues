@@ -65,7 +65,7 @@ class Database extends Update
 		/* @type \Joomla\Input\Input $input */
 		$input = $this->getContainer()->get('app')->input;
 
-		return $this->getContainer()->get('DoctrineRunner')->run(
+		return $this->getApplication()->getDoctrineRunner()->run(
 			new ArrayInput(
 				[
 					'command'    => 'orm:schema-tool:update',

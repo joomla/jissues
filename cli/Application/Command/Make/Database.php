@@ -36,14 +36,11 @@ class Database extends Make
 	{
 		$this->getApplication()->outputTitle('Create Database');
 
-		/* @type \Joomla\Input\Input $input */
-		$input = $this->getContainer()->get('app')->input;
-
-		return $this->getContainer()->get('DoctrineRunner')->run(
+		return $this->getApplication()->getDoctrineRunner()->run(
 			new ArrayInput(
 				[
 					'command' => 'orm:schema-tool:create',
-					'--dump-sql' => $input->get('dump-sql') ? true : false,
+					'--dump-sql' => $this->getApplication()->input->get('dump-sql') ? true : false,
 				]
 			)
 		);
