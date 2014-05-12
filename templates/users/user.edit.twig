@@ -28,11 +28,39 @@
             </a>
         </li>
         <li class="pull-right">
-            <a class="btn" href="{{ uri.base.path ~ 'user/' ~ item.id }}/refresh">
+            <a class="btn" href="{{ uri.base.path ~ 'user/' ~ item.id ~ '/refresh'}}">
                 {{ "Refresh profile from GitHub"|_ }}
             </a>
         </li>
     </ul>
+
+    <div class="row-fluid">
+        <div class="span2">
+            {{ avatar(item.username, 100)|raw }}
+        </div>
+        <div class="span8">
+            <h4>
+                <i class="icon-github"></i>
+                {{ "GitHub Profile"|_ }}
+            </h4>
+            <ul class="unstyled">
+                <li><h2>{{ item.username }}</h2></li>
+                {% if item.name %}
+                    <li>{{ item.name }}</li>
+                {% endif %}
+                {% if item.email %}
+                    <li>{{ item.email }}</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="span2">
+            {% if jdebug %}
+            <ul class="unstyled">
+               <li><b>Id</b>: {{ item.id }}</li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
 
     <form method="post" action="/{{ uri.route ~ '-save' }}" class="form-horizontal" name="editForm">
         <fieldset>

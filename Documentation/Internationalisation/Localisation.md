@@ -8,7 +8,11 @@ After you changed the code in your PHP or Twig files you should run
 
 * `tracker.php make langtemplates`<br />
 This will create/update the `pot` language templates.<br />
-Those may be handed over to the translaters / Transifex.<br />
+Those may be handed over to the translaters / Transifex.
+
+Additionally you can use `extension` argument to create/update the `pot` language templates for the specific extension only
+
+* `tracker.php make langtemplates --extension=Tracker`<br />
 
 If you want to translate yourself you do a
 
