@@ -20,6 +20,14 @@ use JTracker\Controller\AbstractTrackerController;
 class Save extends AbstractTrackerController
 {
 	/**
+	 * Model object
+	 *
+	 * @var    UserModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string  The rendered view.
@@ -55,12 +63,8 @@ class Save extends AbstractTrackerController
 
 		try
 		{
-			//var_dump($this->model);
-
 			// Save the record.
 			$this->model->save($src);
-			//return;
-			//(new UserModel($this->getContainer()->get('db')))->save($src);
 
 			$application->enqueueMessage(
 				g11n3t('The changes have been saved.'), 'success'
