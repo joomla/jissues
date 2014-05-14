@@ -128,7 +128,6 @@
            var barGraph = d3.select("#bar-graph").
                    append("svg:svg").
                    attr("width", width).
-                   attr("padding", 30).
                    attr("height", height);
 
            barGraph.selectAll("rect").
@@ -139,7 +138,7 @@
                        return x(index);
                    }).
                    attr("y", function (d) {
-                       return height - y(d.commits);
+                       return height - y(d.commits) - 20;
                    }).
                    attr("height", function (d) {
                        return y(d.commits);
@@ -172,14 +171,17 @@
                    attr("x", function (d, index) {
                        return x(index) + barWidth;
                    }).
-                   attr("y", height).
+                   attr("y", height - 20).
                    attr("dx", -barWidth / 2).
+                   attr("dy", "1.2em").
                    attr("text-anchor", "middle").
                    attr("style", "font-size: 12; font-family: Helvetica, sans-serif").
                    text(function (d) {
                        return d.user;
                    }).
-                   attr("transform", "translate(0, 18)").
+                  // attr("transform", "translate(0, 28)").
+                   // attr("transform", "rotate(5)").
+                   attr("fill", "black").
                    attr("class", "yAxis");
        }
 
