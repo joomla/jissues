@@ -56,7 +56,7 @@ class TablePrefix
 
 		$classMetadata->setPrimaryTable(
 			[
-				str_replace(
+				'name' => str_replace(
 					'#__', $this->prefix, $classMetadata->getTableName()
 				)
 			]
