@@ -10,6 +10,7 @@ namespace App\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
 
+use JTracker\Model\AbstractTrackerDoctrineModel;
 use JTracker\Model\AbstractTrackerListModel;
 
 /**
@@ -17,19 +18,14 @@ use JTracker\Model\AbstractTrackerListModel;
  *
  * @since  1.0
  */
-class UsersModel extends AbstractTrackerListModel
+class UsersModel extends AbstractTrackerDoctrineModel
 {
 	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
+	 * The name of the entity.
 	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+	 * @var string
 	 *
-	 * @since   1.0
+	 * @since  1.0
 	 */
-	protected function getListQuery()
-	{
-		return $this->db->getQuery(true)
-			->select(array('id', 'username'))
-			->from('#__users');
-	}
+	protected $entityName = 'User';
 }

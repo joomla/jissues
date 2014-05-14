@@ -14,14 +14,14 @@ use Joomla\Filter\InputFilter;
 
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\Database\TableUsers;
-use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractTrackerDoctrineModel;
 
 /**
  * User model class for the Users component.
  *
  * @since  1.0
  */
-class UserModel extends AbstractTrackerDatabaseModel
+class UserModel extends AbstractTrackerDoctrineModel
 {
 	/**
 	 * Project object
@@ -30,6 +30,15 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 * @since  1.0
 	 */
 	protected $project;
+
+	/**
+	 * The name of the entity.
+	 *
+	 * @var string
+	 *
+	 * @since  1.0
+	 */
+	protected $entityName = 'User';
 
 	/**
 	 * Get an item.
@@ -41,7 +50,7 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 * @since   1.0
 	 * @throws  \Exception
 	 */
-	public function getItem($itemId = null)
+	public function xgetItem($itemId = null)
 	{
 		try
 		{

@@ -62,9 +62,6 @@ class User extends AbstractTrackerController
 			}
 		}
 
-		$this->view->setItem(
-			$this->getContainer()->get('EntityManager')
-				->find('App\Users\Table\UsersTable', $id)
-		);
+		$this->view->setItem($this->model->getItem($id));
 	}
 }

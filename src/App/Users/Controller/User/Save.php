@@ -55,8 +55,12 @@ class Save extends AbstractTrackerController
 
 		try
 		{
+			//var_dump($this->model);
+
 			// Save the record.
-			(new UserModel($this->getContainer()->get('db')))->save($src);
+			$this->model->save($src);
+			//return;
+			//(new UserModel($this->getContainer()->get('db')))->save($src);
 
 			$application->enqueueMessage(
 				g11n3t('The changes have been saved.'), 'success'

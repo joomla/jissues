@@ -8,13 +8,42 @@
 
 namespace App\Users\Model;
 
-use JTracker\Model\AbstractTrackerDatabaseModel;
+use Joomla\Filter\InputFilter;
+use JTracker\Model\AbstractTrackerDoctrineModel;
 
 /**
  * Default model class for the Users component.
  *
  * @since  1.0
  */
-class DefaultModel extends AbstractTrackerDatabaseModel
+class DefaultModel extends AbstractTrackerDoctrineModel
 {
+	/**
+	 * The name of the entity.
+	 *
+	 * @var string
+	 *
+	 * @since  1.0
+	 */
+	protected $entityName = 'User';
+
+	/**
+	 * Save the item.
+	 *
+	 * @param   array  $src  The source.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException
+	 */
+	public function save(array $src)
+	{
+		if (isset($src['params']))
+		{
+			$src['params'] = json_encode($src['params']);
+		}
+
+		return parent::save($src);
+	}
 }

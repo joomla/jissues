@@ -8,7 +8,7 @@
 
 namespace App\Users\View\User;
 
-use App\Users\Table\UsersTable;
+use App\Users\Entity\User;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -22,7 +22,7 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Item ID
 	 *
-	 * @var    UsersTable
+	 * @var    User
 	 * @since  1.0
 	 */
 	private $item = null;
@@ -46,7 +46,7 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Get an item.
 	 *
-	 * @return UsersTable
+	 * @return User
 	 *
 	 * @since   1.0
 	 */
@@ -63,13 +63,13 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Set the item.
 	 *
-	 * @param   UsersTable  $item  The item.
+	 * @param   User  $item  The item.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function setItem(UsersTable $item)
+	public function setItem(User $item)
 	{
 		$this->item = $item;
 

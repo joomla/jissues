@@ -6,7 +6,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Users\Table;
+namespace App\Users\Entity;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the "users" database table.
+ * User entity.
  *
  * @Entity
  * @Table(name="#__users",
@@ -28,7 +28,7 @@ use JTracker\Database\AbstractDatabaseTable;
  *
  * @since  1.0
  */
-class UsersTable extends AbstractDatabaseTable
+class User
 {
 	/**
 	 * PK
@@ -125,6 +125,8 @@ class UsersTable extends AbstractDatabaseTable
 	 *
 	 * @Column(type="text")
 	 *
+	 * @Filter(type="html")
+	 *
 	 * @var  string
 	 *
 	 * @since  1.0
@@ -149,18 +151,6 @@ class UsersTable extends AbstractDatabaseTable
 	 * @since  1.0
 	 */
 	private $group;
-
-	/**
-	 * Constructor
-	 *
-	 * @param   DatabaseDriver  $database  A database connector object.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(DatabaseDriver $database)
-	{
-		parent::__construct('#__users', 'id', $database);
-	}
 
 	/**
 	 * Get:  PK

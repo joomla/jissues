@@ -8,14 +8,14 @@
 
 namespace App\Users\Controller;
 
-use JTracker\Controller\AbstractTrackerListController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Users controller class for the users component
  *
  * @since  1.0
  */
-class Users extends AbstractTrackerListController
+class Users extends AbstractTrackerController
 {
 	/**
 	 * View object
@@ -26,22 +26,26 @@ class Users extends AbstractTrackerListController
 	protected $view;
 
 	/**
-	 * Initialize the controller.
+	 * Model object
 	 *
-	 * @return  $this  Method allows chaining
+	 * @var    \App\Users\Model\UserModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
+	 * Execute the controller.
+	 *
+	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
 	 */
-	public function initialize()
+	public function execute()
 	{
-		parent::initialize();
+		// $this->getContainer()->get('app')->getUser()->authorize('admin');
 
-		$this->view->setItems(
-			$this->getContainer()->get('EntityManager')
-				->getRepository('App\Users\Table\UsersTable')
-				->findAll()
-		);
+		$this->view->setItems($this->model->getItems());
 
-		return $this;
+		return parent::execute();
 	}
 }
