@@ -75,6 +75,27 @@
             <div id="commits-{{ stats.author.login }}" style="border: 1px solid silver; padding: 5px;"></div>
         {% endfor %}
 
+        <h3>RAW data...</h3>
+
+        <table class="table table-bordered">
+
+        {% for stats in data %}
+            <tr>
+                <td>{{ stats.author.type }}</td>
+                <td>{{ stats.author.login }}</td>
+                <td>{{ stats.total }}</td>
+
+                {% for week in stats.weeks %}
+                    <td>
+                        {#{{ week.w }}<br />#}
+                        {{ week.a }}<br/>
+                        {{ week.d }}<br/>
+                        {{ week.c }}<br/>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
 
     {% endif %}
 {% endblock %}
