@@ -203,7 +203,35 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
-		if (in_array($this->app, ['Documentor', 'Text']))
+		// Get App config - @todo move
+		$base = JPATH_ROOT . '/src/App/' . ucfirst($this->getApp());
+
+		$appConfig = null;
+
+		$path = realpath($base . '/configure.yaml');
+
+		if ($path)
+		{
+			$appConfig = new Registry((new \Symfony\Component\Yaml\Parser)->parse(file_get_contents($path)));
+		}
+		else
+		{
+			$path = realpath($base . '/configure.json');
+
+			if ($path)
+			{
+				$appConfig = new Registry(json_decode(file_get_contents($path)));
+			}
+		}
+
+		$dbHandling = null;
+
+		if ($appConfig)
+		{
+			$dbHandling = $appConfig->get('database.app_handling');
+		}
+
+		if ('doctrine' == $dbHandling)
 		{
 			// These Apps are handled with a Doctrine model
 			$this->model = new $modelClass(
