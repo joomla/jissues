@@ -8,44 +8,13 @@
 
 namespace App\Users\Controller;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractDoctrineListController;
 
 /**
  * Users controller class for the users component
  *
  * @since  1.0
  */
-class Users extends AbstractTrackerController
+class Users extends AbstractDoctrineListController
 {
-	/**
-	 * View object
-	 *
-	 * @var    \App\Users\View\Users\UsersHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
-
-	/**
-	 * Model object
-	 *
-	 * @var    \App\Users\Model\UserModel
-	 * @since  1.0
-	 */
-	protected $model;
-
-	/**
-	 * Execute the controller.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function execute()
-	{
-		// $this->getContainer()->get('app')->getUser()->authorize('admin');
-
-		$this->view->setItems($this->model->getItems());
-
-		return parent::execute();
-	}
 }

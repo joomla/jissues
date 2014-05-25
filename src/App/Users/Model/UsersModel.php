@@ -8,17 +8,14 @@
 
 namespace App\Users\Model;
 
-use Joomla\Database\DatabaseQuery;
-
-use JTracker\Model\AbstractTrackerDoctrineModel;
-use JTracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractDoctrineListModel;
 
 /**
  * Users model class for the Users component.
  *
  * @since  1.0
  */
-class UsersModel extends AbstractTrackerDoctrineModel
+class UsersModel extends AbstractDoctrineListModel
 {
 	/**
 	 * The name of the entity.
@@ -28,4 +25,16 @@ class UsersModel extends AbstractTrackerDoctrineModel
 	 * @since  1.0
 	 */
 	protected $entityName = 'User';
+
+	/**
+	 * Get the list query.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	protected function getListQuery()
+	{
+		return 'SELECT u FROM App\Users\Entity\User u';
+	}
 }
