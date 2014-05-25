@@ -30,7 +30,7 @@ use JTracker\ORM\Mapping\Filter;
  *
  * @since  1.0
  */
-abstract class AbstractTrackerDoctrineModel extends AbstractModel implements SQLLoggerAwareInterface
+abstract class AbstractDoctrineModel extends AbstractModel implements SQLLoggerAwareInterface
 {
 	/**
 	 * The model (base) name
@@ -217,51 +217,6 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel implements SQL
 	}
 
 	/**
-	 * Get a list of items.
-	 *
-	 * @return array
-	 *
-	 * @since   1.0
-	 */
-	public function getItems()
-	{
-		return $this->getEntityManager()
-			->getRepository($this->getEntityClass())
-			->findAll();
-	}
-
-	/**
-	 * Get a single item.
-	 *
-	 * @param   integer  $id  The ID.
-	 *
-	 * @return object
-	 *
-	 * @since   1.0
-	 */
-	public function getItem($id)
-	{
-		return $this->getEntityManager()
-			->find($this->getEntityClass(), $id);
-	}
-
-	/**
-	 * Find a single item by condition(s).
-	 *
-	 * @param   array  $conditions  Indexed array with conditions.
-	 *
-	 * @return null|object
-	 *
-	 * @since   1.0
-	 */
-	public function findOneBy(array $conditions)
-	{
-		return $this->getEntityManager()
-			->getRepository($this->getEntityClass())
-			->findOneBy($conditions);
-	}
-
-	/**
 	 * Delete an item.
 	 *
 	 * @param   integer  $id  The ID.
@@ -349,19 +304,30 @@ abstract class AbstractTrackerDoctrineModel extends AbstractModel implements SQL
 				continue;
 			}
 
-			// $test = $reader->getPropertyAnnotations($reflectionClass->getProperty($k));
-
 			/* @type \JTracker\ORM\Mapping\Filter $propFilter */
-			$propFilter = $reader->getPropertyAnnotation($reflectionClass->getProperty($k), 'JTracker\ORM\Mapping\Filter');
+			$propFilter = $reader->getPropertyAnnotation(
+				$reflectionClass->getProperty($k), 'JTracker\ORM\Mapping\Filter'
+			);
 
+			// Default filter type
 			$filter = 'cmd';
 
 			if ($propFilter)
 			{
+				// Filter override by annotation
 				$filter = $propFilter->type;
 			}
 
-			$value = $inputFilter->clean($v, $filter);
+			if ($v instanceof \DateTime)
+			{
+				// Special handling for DateTime objects
+				$value = $v;
+			}
+			else
+			{
+				// Apply filters
+				$value = $inputFilter->clean($v, $filter);
+			}
 
 			$entity->$setMethod($value);
 		}
