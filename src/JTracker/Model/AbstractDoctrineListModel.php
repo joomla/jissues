@@ -19,7 +19,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 abstract class AbstractDoctrineListModel extends AbstractDoctrineModel
 {
-
 	/**
 	 * Get the list query.
 	 *
