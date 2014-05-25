@@ -72,7 +72,7 @@ class Article
 	 *
 	 * @var  string
 	 *
-	 * @Filter(type="html")
+	 * @Filter(type="raw")
 	 *
 	 * @since  1.0
 	 */

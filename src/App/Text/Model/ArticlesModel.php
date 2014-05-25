@@ -8,14 +8,14 @@
 
 namespace App\Text\Model;
 
-use JTracker\Model\AbstractTrackerDoctrineModel;
+use JTracker\Model\AbstractDoctrineListModel;
 
 /**
  * Articles model class for the Text component.
  *
  * @since  1.0
  */
-class ArticlesModel extends AbstractTrackerDoctrineModel
+class ArticlesModel extends AbstractDoctrineListModel
 {
 	/**
 	 * The name of the entity.
@@ -25,4 +25,19 @@ class ArticlesModel extends AbstractTrackerDoctrineModel
 	 * @since  1.0
 	 */
 	protected $entityName = 'Article';
+
+	/**
+	 * Get the list query.
+	 *
+	 * This method must be implemented in child classes.
+	 *
+	 * @throws \RuntimeException
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	protected function getListQuery()
+	{
+		return 'SELECT a FROM App\Text\Entity\Article a';
+	}
 }

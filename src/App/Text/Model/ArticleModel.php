@@ -8,14 +8,14 @@
 
 namespace App\Text\Model;
 
-use JTracker\Model\AbstractTrackerDoctrineModel;
+use JTracker\Model\AbstractDoctrineItemModel;
 
 /**
  * Article model class for the Text component.
  *
  * @since  1.0
  */
-class ArticleModel extends AbstractTrackerDoctrineModel
+class ArticleModel extends AbstractDoctrineItemModel
 {
 	/**
 	 * The name of the entity.

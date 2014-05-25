@@ -8,31 +8,15 @@
 
 namespace App\Text\Controller;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractDoctrineListController;
 
 /**
  * Controller class for the Text component.
  *
  * @since  1.0
  */
-class Articles extends AbstractTrackerController
+class Articles extends AbstractDoctrineListController
 {
-	/**
-	 * View object
-	 *
-	 * @var    \App\Text\View\Articles\ArticlesHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
-
-	/**
-	 * Model object
-	 *
-	 * @var    \App\Text\Model\ArticlesModel
-	 * @since  1.0
-	 */
-	protected $model;
-
 	/**
 	 * Execute the controller.
 	 *
@@ -43,8 +27,6 @@ class Articles extends AbstractTrackerController
 	public function execute()
 	{
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
-
-		$this->view->setItems($this->model->getItems());
 
 		return parent::execute();
 	}

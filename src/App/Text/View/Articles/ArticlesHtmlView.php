@@ -8,62 +8,13 @@
 
 namespace App\Text\View\Articles;
 
-use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractDoctrineHtmlListView;
 
 /**
  * Articles view class
  *
  * @since  1.0
  */
-class ArticlesHtmlView extends AbstractTrackerHtmlView
+class ArticlesHtmlView extends AbstractDoctrineHtmlListView
 {
-	/**
-	 * The items for this view..
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $items = [];
-
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function render()
-	{
-		$this->renderer->set('items', $this->getItems());
-
-		return parent::render();
-	}
-
-	/**
-	 * Get the items.
-	 *
-	 * @return array
-	 *
-	 * @since   1.0
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-
-	/**
-	 * Set the items.
-	 *
-	 * @param   array  $items  The items
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function setItems(array $items)
-	{
-		$this->items = $items;
-
-		return $this;
-	}
 }
