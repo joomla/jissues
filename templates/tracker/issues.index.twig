@@ -28,14 +28,19 @@
 {% block content %}
     {% import "tracker.filters.twig" as filters %}
 
-    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
+    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm"
+          class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="clearfix">
                 <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-status-div">
-                    <button type="button" class="btn {% if state.get('filter.status') == 0 %} active btn-success {% endif %}" value="0">
+                    <button type="button"
+                            class="btn {% if state.get('filter.status') == 0 %} active btn-success {% endif %}"
+                            value="0">
                         {{ 'Open'|_ }}
                     </button>
-                    <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-danger {% endif %}" value="1">
+                    <button type="button"
+                            class="btn {% if state.get('filter.status') == 1 %} active btn-danger {% endif %}"
+                            value="1">
                         {{ 'Closed'|_ }}
                     </button>
                 </div>
@@ -45,16 +50,17 @@
                         <b class="caret"></b>
                     </button>
                 </div>
-                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
+                <a class="btn pull-right"
+                   href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
             </div>
 
             <div id="stools-container" class="collapse
             {% if state.get('filter.stage')
-                or state.get('filter.priority')
-                or state.get('filter.search')
-                or state.get('filter.sort')
-                or state.get('filter.user')
-                or state.get('stools-active') %}
+            or state.get('filter.priority')
+            or state.get('filter.search')
+            or state.get('filter.sort')
+            or state.get('filter.user')
+            or state.get('stools-active') %}
                 in
             {% endif %}
             clearfix pull-left">
@@ -62,7 +68,7 @@
                     <label class="filter-search-lbl element-invisible"
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
                     <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
-                           value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
+                           value="{{ state.get('filter.search') }}"
                            title="{{ translate('Filter the list by ID, summary, or description.') }}"
                            placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
                     <button class="btn tip hasTooltip" type="submit" title="{{ 'Submit search'|_ }}">
@@ -87,13 +93,15 @@
                 <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
                 </div>
-             </div>
+            </div>
 
-            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
-            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}" />
+            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}"/>
+            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}"/>
         </div>
 
-        <table class="table table-bordered table-striped table-condensed">
+        <button type="button" class="btn " id="ajax-test">AJAX</button>
+
+        <table class="table table-bordered table-striped table-condensed" id="issuesList">
             <thead>
             <tr>
                 <th width="2%" class="nowrap center">{{ 'ID'|_ }}</th>
@@ -132,11 +140,13 @@
                         <td class="hasContext">
                             <div class="hasTooltip" title="">
                                 {% if user.check("edit") %}
-                                <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-                                    <span data-icon="&#xe003;"></span>
+                                    <a class="pull-right btn btn-small"
+                                       href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                                        <span data-icon="&#xe003;"></span>
                                     </a>
                                 {% endif %}
-                                <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+                                <a class="list-issue-title"
+                                   href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
                                     {{ item.title|e }}
                                 </a>
                                 {{ item.labels|labels|raw }}
@@ -144,6 +154,9 @@
                                     {% if project.gh_user and project.gh_project %}
                                         <br/>
                                         {{ 'GitHub ID'|_ }}
+
+
+
                                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
                                            target="_blank">
                                             {{ item.issue_number }}
@@ -152,6 +165,9 @@
                                     {% if item.foreign_number %}
                                         &nbsp;&bull;&nbsp;
                                         {{ 'Foreign ID'|_ }}
+
+
+
                                         <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
                                            target="_blank">
                                             {{ item.foreign_number }}
@@ -173,9 +189,9 @@
                             </div>
                         </td>
                         <td class="center valign-center">
-                            <span class="badge {{ prioClass(item.priority) }}">{{ item.priority  }}</span>
+                            <span class="badge {{ prioClass(item.priority) }}">{{ item.priority }}</span>
                         </td>
-                       <td class="center valign-center">
+                        <td class="center valign-center">
                             {{ item.status_title|_ }}
                         </td>
                     </tr>
@@ -196,9 +212,9 @@
         {{ pagination.bar|raw }}
     {% endif %}
 
-<!-- ++++++++++++++++++++++++++ -->
-<!-- +  JavaScript templates  + -->
-<!-- ++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
 
 
     <!--
@@ -226,54 +242,115 @@
 
     <script type="text/javascript">
 
-    /*
-     @todo This is to retrieve extended information on an issue - review
+        /*
+         @todo This is to retrieve extended information on an issue - review
 
-    $('*[data-issue]').click(
-        function () {
-            var el = $(this);
-            $.get(el.data('issue'), function(r) {
-                el.popover({
-                   content: tmpl("tplIssueInfo", r.data),
-                   html: true
-               }).popover('show');
-            });
-            el.unbind('click');
-            return false;
-        }
-    );
-    */
+         $('*[data-issue]').click(
+         function () {
+         var el = $(this);
+         $.get(el.data('issue'), function(r) {
+         el.popover({
+         content: tmpl("tplIssueInfo", r.data),
+         html: true
+         }).popover('show');
+         });
+         el.unbind('click');
+         return false;
+         }
+         );
+         */
 
-    var form = $('#issuesForm');
+        var form = $('#issuesForm');
 
-    $('[id^=filter]').change(
-        function() {
-            // Search tools are active.
-            $('#stools-active').val(1);
+        //        $('[id^=filter]').change(
+        //                function () {
+        //                    // Search tools are active.
+        //                    $('#stools-active').val(1);
+        //
+        //                    form.submit();
+        //                }
+        //        );
 
-            form.submit();
-        }
-    );
+                $('#filter-status-div button').click(
+                        function () {
+                            var val = $(this).val();
+                            $('#filter-status').val(val);
+                            form.submit();
+                        }
+                );
 
-    $('#filter-status-div button').click(
-        function () {
-            var val = $(this).val();
-            $('#filter-status').val(val);
-            form.submit();
-        }
-    );
+        $('#ajax-test').click(
+                function () {
+                    $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
+                    var active = $('#stools-active').val();
+                    var search = $('#filter-search').val();
+                    var stage = $('#filter-stage').val();
+                    var priority = $('#filter-priority').val();
+                    var sort = $('#filter-sort').val();
+                    var status = $('#filter-status').val();
+                    var user = $('#filter-user').val();
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ uri.base.path }}tracker/{{ project.alias }}/ajax",
+                        data: {
+                            'filter-search': search,
+                            'filter-stage': stage,
+                            'filter-priority': priority,
+                            'filter-user': user,
+                            'filter-sort': sort,
+                            'filter-status': status,
+                            'stools-active': active
+                        },
+                        success: function (r) {
+                            var html = '';
+                            if (r.data.length) {
+                                var blockers = [1, 2];
+                                for (i = 0; i < r.data.length; i++) {
+                                    var issueData = r.data[i];
+                                    var rowClass = '';
+                                    if (issueData.priority in blockers) {
+                                        rowClass = 'class=error';
+                                    }
+                                    if (issueData.status === '4') {
+                                        rowClass = 'class=success';
+                                    }
+                                    html += '<tr' + rowClass + '>';
+                                    html += '<td class="center valign-center">' + issueData.id + '</td>';
+                                    html += '<td class="hasContext"><div class="hasTooltip" title="" data-original-title="">';
+                                    {% if user.check("edit") %}
+                                    html += '<a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}' + issueData.id;
+                                    html += '/edit"><span data-icon="&#xe003;"></span></a><span class="list-issue-details">';
+                                    {% endif %}
+                                    {% if project.gh_user and project.gh_project %}
+                                    html += '<br>GitHub ID';
+                                    html += '<a href="https://github.com/allenzhao/fork2-myexpress/issues/1" target="_blank">1</a>';
+                                    html += 'Opened 2014-05-16</span>';
+                                            {% endif %}
+                                    html += '<a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}"' + issueData.id + '>' + issueData.title + '</a>'
+                                    +'</div></td>';
+                                    html += '<td class="center valign-center"><span class="badge badge-info">' + issueData.priority + '</span></td>';
+                                    html += '<td class="center valign-center">' + issueData.status + '</td></tr>';
+                                }
+                            } else {
+                                html = '<tr><td class="center" colspan="4">  No items found.</td></tr>';
+                            }
+                            $('#issuesList tbody').html(html);
+                        }
+                    });
+                }
+        );
 
-    $('#stools-button button').click(
-        function () {
-            var val = $('#stools-active').val();
-
-            if (val == 0) {
-                $('#stools-active').val(1);
-            } else {
-                $('#stools-active').val(0);
-            }
-        }
-    );
+        //        $('#stools-button button').click(
+        //                function () {
+        //                    var val = $('#stools-active').val();
+        //
+        //                    if (val == 0) {
+        //                        $('#stools-active').val(1);
+        //                    } else {
+        //                        $('#stools-active').val(0);
+        //                    }
+        //                }
+        //        );
     </script>
 
 {% endblock %}
