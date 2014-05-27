@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-10 13:44+0000\n"
+"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"PO-Revision-Date: 2014-05-26 00:05+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -29,3 +29,7 @@ msgstr "Enregistrer"
 #: /templates/system/config.index.twig:45
 msgid "Edit Configuration"
 msgstr "Éditer la Configuration"
+
+#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr "Routes"
