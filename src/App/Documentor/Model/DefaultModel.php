@@ -8,13 +8,13 @@
 
 namespace App\Documentor\Model;
 
-use JTracker\Model\AbstractTrackerDoctrineModel;
+use JTracker\Model\AbstractDoctrineModel;
 
 /**
  * Default model class for the Users component.
  *
  * @since  1.0
  */
-class DefaultModel extends AbstractTrackerDoctrineModel
+class DefaultModel extends AbstractDoctrineModel
 {
 }

@@ -8,14 +8,14 @@
 
 namespace App\Documentor\Model;
 
-use JTracker\Model\AbstractTrackerDoctrineModel;
+use JTracker\Model\AbstractDoctrineItemModel;
 
 /**
  * Default model class for the Users component.
  *
  * @since  1.0
  */
-class ShowModel extends AbstractTrackerDoctrineModel
+class ShowModel extends AbstractDoctrineItemModel
 {
 	/**
 	 * The name of the entity.

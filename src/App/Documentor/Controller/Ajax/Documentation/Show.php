@@ -18,8 +18,17 @@ use JTracker\Controller\AbstractAjaxController;
 class Show extends AbstractAjaxController
 {
 	/**
+	 * Model object
+	 *
+	 * @var    \JTracker\Model\AbstractDoctrineItemModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
 	 * Prepare the response.
 	 *
+	 * @throws \RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
@@ -37,7 +46,14 @@ class Show extends AbstractAjaxController
 
 		if ($page)
 		{
-			$text = $this->model->findOneBy(['page' => $page, 'path' => $path])->getText();
+			$pageObject = $this->model->findOneBy(['page' => $page, 'path' => $path]);
+
+			if (!$pageObject)
+			{
+				throw new \RuntimeException('Invalid page');
+			}
+
+			$text = $pageObject->getText();
 		}
 
 		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';

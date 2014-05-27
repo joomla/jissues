@@ -64,6 +64,8 @@ class Document
 	 *
 	 * @Column(name="text", type="text", nullable=false)
 	 *
+	 * @Filter(type="raw")
+	 *
 	 * @var  string
 	 *
 	 * @since  1.0
