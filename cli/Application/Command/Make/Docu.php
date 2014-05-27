@@ -8,8 +8,6 @@
 
 namespace Application\Command\Make;
 
-use App\Documentor\Entity\Document;
-
 /**
  * Class for parsing documentation files to inject into the site
  *
@@ -50,13 +48,16 @@ class Docu extends Make
 		$docuBase = JPATH_ROOT . '/Documentation';
 
 		/* @type  \RecursiveDirectoryIterator $iterator */
-		$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
+		$iterator = new \RecursiveIteratorIterator(
+			new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS)
+		);
 
 		$this
 			->out('Compiling documentation in: ' . $docuBase)
 			->out();
 
-		$entityManager = $this->getContainer()->get('EntityManager');
+		/* @type \JTracker\Model\AbstractDoctrineItemModel $model */
+		$model = $this->getApplication()->getDoctrineModel('ShowModel', 'Documentor');
 
 		while ($iterator->valid())
 		{
@@ -72,24 +73,22 @@ class Docu extends Make
 
 			$this->debugOut(sprintf('Compiling: %s - %s', $path, $page));
 
-			$article = $entityManager->getRepository('App\Documentor\Entity\Document')
-				->findOneBy(['page' => $page, 'path' => $path]);
+			$article = $model->findOneBy(['page' => $page, 'path' => $path]);
 
-			if (!$article)
+			$data = [];
+
+			$data['id'] = null;
+
+			if ($article)
 			{
-				// New item
-				$article = new Document;
+				$data['id'] = $article->getId();
 			}
 
-			$article
-				->setPath($iterator->getSubPath())
-				->setPage($page)
-				->setText($this->github->markdown->render(file_get_contents($iterator->key())));
+			$data['path'] = $iterator->getSubPath();
+			$data['page'] = $page;
+			$data['text'] = $this->github->markdown->render(file_get_contents($iterator->key()));
 
-			$entityManager->persist($article);
-
-			// Flush right away to get some visual feed back
-			$entityManager->flush();
+			$model->save($data);
 
 			$this->out('.', false);
 
