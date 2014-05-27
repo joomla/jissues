@@ -32,6 +32,7 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Model\AbstractDoctrineModel;
 use JTracker\Service\ApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
@@ -484,12 +485,29 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	 */
 	public function getDoctrineRunner()
 	{
+		return $this->getDoctrineModel('Application\Model\DoctrineRunnerModel')->getRunner();
+	}
+
+	/**
+	 * Get a Doctrine model object.
+	 *
+	 * @param   string  $model  The model name.
+	 * @param   string  $app    The App name.
+	 *
+	 * @return  AbstractDoctrineModel
+	 *
+	 * @since   1.0
+	 */
+	public function getDoctrineModel($model, $app = '')
+	{
+		$className = ($app ? 'App\\' . $app . '\\Model\\' : '') . $model;
+
 		return (
-			new DoctrineRunnerModel(
-				new Registry($this->getContainer()->get('app')->get('database')),
+			new $className(
+				new Registry($this->get('database')),
 				[JPATH_ROOT . '/src/App'],
-				$this->getContainer()->get('app')->get('debug.database')
+				$this->get('debug.database')
 			)
-		)->getRunner();
+		);
 	}
 }

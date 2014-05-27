@@ -2,7 +2,7 @@
 /**
  * Part of the Joomla Tracker's Users Application
  *
- * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2014 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
@@ -10,19 +10,17 @@ namespace Application\Model;
 
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
-use JTracker\Model\AbstractTrackerDoctrineModel;
+use JTracker\Model\AbstractDoctrineModel;
 
 use Symfony\Component\Console\Application as SymphonyApplication;
 use Symfony\Component\Console\Helper\HelperSet;
 
 /**
- * Default model class for the Users component.
- *
  * This model is used to instantiate a CLI interface for Doctrine.
  *
  * @since  1.0
  */
-class DoctrineRunnerModel extends AbstractTrackerDoctrineModel
+class DoctrineRunnerModel extends AbstractDoctrineModel
 {
 	/**
 	 * Get an CLI runner object - a Symphony Application.
