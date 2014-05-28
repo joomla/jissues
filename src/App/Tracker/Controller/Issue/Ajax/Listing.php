@@ -100,7 +100,7 @@ class Listing extends AbstractAjaxController
 			$state->set('username', $application->getUser()->username);
 		}
 		//send response.
-		$listItems=$this->model->getItems();
+		$listItems=$this->model->getAjaxItems();
 
 		$this->response->data = $listItems;
 	}
