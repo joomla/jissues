@@ -384,38 +384,6 @@
                             'stools-active': active
                         },
                         success: function (r) {
-                            // var html = '';
-                            // if (r.data.length) {
-                            //     var blockers = [1, 2];
-                            //     for (i = 0; i < r.data.length; i++) {
-                            //         var issueData = r.data[i];
-                            //         var rowClass = '';
-                            //         if (issueData.priority in blockers) {
-                            //             rowClass = 'class=error';
-                            //         }
-                            //         if (issueData.status === '4') {
-                            //             rowClass = 'class=success';
-                            //         }
-                            //         html += '<tr' + rowClass + '>';
-                            //         html += '<td class="center valign-center">' + issueData.id + '</td>';
-                            //         html += '<td class="hasContext"><div class="hasTooltip" title="" data-original-title="">';
-                            //         {% if user.check("edit") %}
-                            //         html += '<a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}' + issueData.id;
-                            //         html += '/edit"><span data-icon="&#xe003;"></span></a><span class="list-issue-details">';
-                            //         {% endif %}
-                            //         {% if project.gh_user and project.gh_project %}
-                            //         html += '<br>GitHub ID';
-                            //         html += '<a href="https://github.com/allenzhao/fork2-myexpress/issues/1" target="_blank">1</a>';
-                            //         html += 'Opened 2014-05-16</span>';
-                            //         {% endif %}
-                            //         html += '<a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}"' + issueData.id + '>' + issueData.title + '</a>'
-                            //                 + '</div></td>';
-                            //         html += '<td class="center valign-center"><span class="badge badge-info">' + issueData.priority + '</span></td>';
-                            //         html += '<td class="center valign-center">' + issueData.status + '</td></tr>';
-                            //     }
-                            // } else {
-                            //     html = '<tr><td class="center" colspan="4">  No items found.</td></tr>';
-                            // }
                             $('#issuesList tbody').html(tmpl("ajaxListing",r));
                         }
                     });
