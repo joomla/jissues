@@ -157,6 +157,7 @@
 
 
 
+
                                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
                                            target="_blank">
                                             {{ item.issue_number }}
@@ -165,6 +166,7 @@
                                     {% if item.foreign_number %}
                                         &nbsp;&bull;&nbsp;
                                         {{ 'Foreign ID'|_ }}
+
 
 
 
@@ -204,6 +206,7 @@
                 </tr>
             {% endif %}
             </tbody>
+            
         </table>
     </form>
 
@@ -239,6 +242,85 @@
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-popover.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+	
+    <script type="text/x-tmpl" id="ajaxListing">
+	[% if(o.data.length){ %]
+	[% for (var i=0; i< o.data.length ;i++) { %]
+		[% var rowClass = ''; %]
+		[% var blockers=[1,2]; %]
+	    [% if (o.data[i].priority in blockers) { %]
+	        [% rowClass = 'class=error';} %]
+	    [% if (o.data[i].status === '4') { %]
+	        [% rowClass = 'class=success';} %]
+		<tr>
+	      <td class="center valign-center">
+	          [%= o.data[i].issue_number %]
+	      </td>
+	      <td class="hasContext">
+	          <div class="hasTooltip" title="">
+	          {% if user.check("edit") %}
+			  <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= o.data[i].issue_number %]/edit">
+			  <span data-icon="&#xe003;"></span>
+			  </a>
+			  {% endif %}
+			  <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= o.data[i].issue_number %]">
+			  [%= o.data[i].title %]
+			  </a>
+              <span class="list-issue-details">
+	          {% if project.gh_user and project.gh_project %}
+	              <br/>
+	              {{ 'GitHub ID'|_ }}
+	              <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=o.data[i].issue_number%]"
+	                 target="_blank">
+	                 [%= o.data[i].issue_number %]
+	              </a>
+	          {% endif %}
+			  
+			  [% if(o.data[i].foreign_number) { %]
+	                &nbsp;&bull;&nbsp;
+	                {{ 'Foreign ID'|_ }}
+	                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= o.data[i].foreign_number %]"
+	                   target="_blank">
+					   [%= o.data[i].foreign_number %]
+	                </a>
+				  [% } %]
+				  [% if(o.data[i].opened_date) { %]
+		                &nbsp;&bull;&nbsp;
+						{{ 'Opened '|_}}
+						[% opendate = new Date(o.data[i].opened_date); %]
+						[%= opendate.getFullYear()+'-'+opendate.getMonth()+'-'+opendate.getDate() %]
+					  [% } %]
+					  [% if(o.data[i].closed_status!="0") { %]
+			                &nbsp;&bull;&nbsp;
+							{{ 'Closed '|_}}
+							[% closed_date= new Date(o.data[i].closed_date); %]
+							[%= closed_date.getFullYear()+'-'+closed_date.getMonth()+'-'+closed_date.getDate() %]
+						  [% } %]
+					  [% if(o.data[i].modified_date != '0000-00-00 00:00:00') { %]
+			                &nbsp;&bull;&nbsp;
+							{{ 'Modified '|_}}
+							[% modified_date = new Date(o.data[i].modified_date); %]
+							[%= modified_date.getFullYear()+'-'+modified_date.getMonth()+'-'+modified_date.getDate() %]
+						  [% } %]
+						  </span>
+			  </div>
+			  </td>
+	         <td class="center valign-center">
+			   <span class="badge [%=prioClass(o.data[i].priority)%] ">[%=o.data[i].priority%]</span>
+				         </td>
+	         <td class="center valign-center">
+			 [%= o.data[i].status_title %]
+	         </td>  			
+	    </tr>
+		[% } %]
+		[% }else{ %]
+	  	  <tr>
+	            <td class="center" colspan="4">
+	                {{ 'No items found.'|_ }}
+	            </td>
+	        </tr>
+	  	  [% } %]
+    </script>
 
     <script type="text/javascript">
 
@@ -271,13 +353,13 @@
         //                }
         //        );
 
-                $('#filter-status-div button').click(
-                        function () {
-                            var val = $(this).val();
-                            $('#filter-status').val(val);
-                            form.submit();
-                        }
-                );
+        $('#filter-status-div button').click(
+                function () {
+                    var val = $(this).val();
+                    $('#filter-status').val(val);
+                    form.submit();
+                }
+        );
 
         $('#ajax-test').click(
                 function () {
@@ -302,43 +384,62 @@
                             'stools-active': active
                         },
                         success: function (r) {
-                            var html = '';
-                            if (r.data.length) {
-                                var blockers = [1, 2];
-                                for (i = 0; i < r.data.length; i++) {
-                                    var issueData = r.data[i];
-                                    var rowClass = '';
-                                    if (issueData.priority in blockers) {
-                                        rowClass = 'class=error';
-                                    }
-                                    if (issueData.status === '4') {
-                                        rowClass = 'class=success';
-                                    }
-                                    html += '<tr' + rowClass + '>';
-                                    html += '<td class="center valign-center">' + issueData.id + '</td>';
-                                    html += '<td class="hasContext"><div class="hasTooltip" title="" data-original-title="">';
-                                    {% if user.check("edit") %}
-                                    html += '<a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}' + issueData.id;
-                                    html += '/edit"><span data-icon="&#xe003;"></span></a><span class="list-issue-details">';
-                                    {% endif %}
-                                    {% if project.gh_user and project.gh_project %}
-                                    html += '<br>GitHub ID';
-                                    html += '<a href="https://github.com/allenzhao/fork2-myexpress/issues/1" target="_blank">1</a>';
-                                    html += 'Opened 2014-05-16</span>';
-                                            {% endif %}
-                                    html += '<a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}"' + issueData.id + '>' + issueData.title + '</a>'
-                                    +'</div></td>';
-                                    html += '<td class="center valign-center"><span class="badge badge-info">' + issueData.priority + '</span></td>';
-                                    html += '<td class="center valign-center">' + issueData.status + '</td></tr>';
-                                }
-                            } else {
-                                html = '<tr><td class="center" colspan="4">  No items found.</td></tr>';
-                            }
-                            $('#issuesList tbody').html(html);
+                            // var html = '';
+                            // if (r.data.length) {
+                            //     var blockers = [1, 2];
+                            //     for (i = 0; i < r.data.length; i++) {
+                            //         var issueData = r.data[i];
+                            //         var rowClass = '';
+                            //         if (issueData.priority in blockers) {
+                            //             rowClass = 'class=error';
+                            //         }
+                            //         if (issueData.status === '4') {
+                            //             rowClass = 'class=success';
+                            //         }
+                            //         html += '<tr' + rowClass + '>';
+                            //         html += '<td class="center valign-center">' + issueData.id + '</td>';
+                            //         html += '<td class="hasContext"><div class="hasTooltip" title="" data-original-title="">';
+                            //         {% if user.check("edit") %}
+                            //         html += '<a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}' + issueData.id;
+                            //         html += '/edit"><span data-icon="&#xe003;"></span></a><span class="list-issue-details">';
+                            //         {% endif %}
+                            //         {% if project.gh_user and project.gh_project %}
+                            //         html += '<br>GitHub ID';
+                            //         html += '<a href="https://github.com/allenzhao/fork2-myexpress/issues/1" target="_blank">1</a>';
+                            //         html += 'Opened 2014-05-16</span>';
+                            //         {% endif %}
+                            //         html += '<a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}"' + issueData.id + '>' + issueData.title + '</a>'
+                            //                 + '</div></td>';
+                            //         html += '<td class="center valign-center"><span class="badge badge-info">' + issueData.priority + '</span></td>';
+                            //         html += '<td class="center valign-center">' + issueData.status + '</td></tr>';
+                            //     }
+                            // } else {
+                            //     html = '<tr><td class="center" colspan="4">  No items found.</td></tr>';
+                            // }
+                            $('#issuesList tbody').html(tmpl("ajaxListing",r));
                         }
                     });
                 }
         );
+		
+		
+
+
+        function prioClass(priority){
+			priority=parseInt(priority);
+            switch(priority){
+                case 1 :
+                    return 'badge-important';
+                case 2 :
+                    return 'badge-warning';
+                case 3 :
+                    return 'badge-info';
+                case 4 :
+                    return 'badge-inverse';
+                default :
+                    return '';
+            }
+        }
 
         //        $('#stools-button button').click(
         //                function () {
