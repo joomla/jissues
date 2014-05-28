@@ -163,6 +163,90 @@ class IssuesModel extends AbstractTrackerListModel
 		return $query;
 	}
 
+
+	public function getAjaxListQuery(){
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
+
+//@TODO:Change the select clause.Only get needed info.
+		$query->select("a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.closed_date, a.modified_date");
+		$query->from($db->quoteName('#__issues', 'a'));
+
+		// Join over the status.
+		$query->select('s.status AS status_title, s.closed AS closed_status');
+		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+		$filter = $this->getProject()->project_id;
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.project_id') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.search');
+
+		if ($filter)
+		{
+			// Clean filter variable
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+
+			// Check the author, title, and publish_up fields
+			$query->where(
+				'(' . $db->quoteName('a.title') . ' LIKE ' . $filter
+				. ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter
+				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
+		}
+
+		$filter = $this->state->get('filter.stage');
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.status');
+
+		if (is_numeric($filter))
+		{
+			$query->where($db->quoteName('s.closed') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.priority');
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.priority') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.user');
+
+		if ($filter && is_numeric($filter))
+		{
+			$username = $this->state->get('username');
+
+			switch ($filter)
+			{
+				case 1:
+					$query->where($db->quoteName('a.opened_by') . ' = ' . $db->quote($username));
+					break;
+
+				case 2:
+					// Join over the activities.
+					$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
+					$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
+					$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
+					$query->group('a.issue_number');
+					break;
+			}
+		}
+
+		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
+		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
+		$query->order($ordering . ' ' . $direction);
+
+		return $query;
+	}
+
 	/**
 	 * Method to get a store id based on the model configuration state.
 	 *

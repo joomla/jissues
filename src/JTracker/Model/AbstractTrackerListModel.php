@@ -66,8 +66,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver  $database  The database driver.
-	 * @param   Input           $input     The input object.
+	 * @param   DatabaseDriver $database The database driver.
+	 * @param   Input          $input    The input object.
 	 *
 	 * @since   1.0
 	 */
@@ -116,6 +116,25 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		return $this->cache[$store];
 	}
 
+	public function getAjaxItems()
+	{
+		$store=$this->getStoreID();
+
+		if(isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+
+		$query=$this->_getAjaxListQuery();
+
+		$items=$this->_getList($query,$this->getStart(),$this->state->get('list.limit'));
+
+		// Add the items to the internal cache.
+		$this->cache[$store] = $items;
+
+		return $this->cache[$store];
+	}
+
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
@@ -125,10 +144,12 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	abstract protected function getListQuery();
 
+	abstract protected function getAjaxListQuery();
+
 	/**
 	 * Set the pagination object.
 	 *
-	 * @param   TrackerPagination  $pagination  The pagination object.
+	 * @param   TrackerPagination $pagination The pagination object.
 	 *
 	 * @return  void
 	 *
@@ -213,7 +234,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string  $id  An identifier string to generate the store id.
+	 * @param   string $id An identifier string to generate the store id.
 	 *
 	 * @return  string  A store id.
 	 *
@@ -278,9 +299,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Gets an array of objects from the results of database query.
 	 *
-	 * @param   string   $query       The query.
-	 * @param   integer  $limitStart  Offset.
-	 * @param   integer  $limit       The number of records.
+	 * @param   string  $query      The query.
+	 * @param   integer $limitStart Offset.
+	 * @param   integer $limit      The number of records.
 	 *
 	 * @return  array  An array of results.
 	 *
@@ -294,11 +315,10 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $result;
 	}
-
 	/**
 	 * Returns a record count for the query
 	 *
-	 * @param   string  $query  The query.
+	 * @param   string $query The query.
 	 *
 	 * @return  integer  Number of rows for query
 	 *
@@ -354,4 +374,24 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $this->query;
 	}
+
+	protected function _getAjaxListQuery()
+	{
+		// Capture the last store id used.
+		static $lastStoreId;
+
+		// Compute the current store id.
+		$currentStoreId = $this->getStoreId();
+
+		// If the last store id is different from the current, refresh the query.
+		if ($lastStoreId != $currentStoreId || empty($this->query))
+		{
+			$lastStoreId = $currentStoreId;
+			$this->query = $this->getAjaxListQuery();
+		}
+
+		return $this->query;
+	}
+
+
 }
