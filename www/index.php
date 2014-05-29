@@ -21,6 +21,7 @@ $path = realpath(JPATH_ROOT . '/vendor/autoload.php');
 
 if (!$path)
 {
+	header('HTTP/1.1 500 Internal Server Error', null, 500);
 	echo 'ERROR: Composer not properly set up! Run "composer install" or see README.md for more details' . PHP_EOL;
 
 	exit(1);
@@ -29,5 +30,13 @@ if (!$path)
 include $path;
 
 // Execute the application.
-(new JTracker\Application)
-	->execute();
+try
+{
+	(new JTracker\Application)
+		->execute();
+}
+catch (\Exception $e)
+{
+	header('HTTP/1.1 500 Internal Server Error', null, 500);
+	echo 'Error instantiating the application - ' . $e->getMessage();
+}

@@ -1,0 +1,113 @@
+# JTracker App Debug 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Ole Ottosen <ot2sen@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"PO-Revision-Date: 2014-04-26 07:43+0000\n"
+"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da_DK\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:88
+#, php-format
+msgid "Failed EXPLAIN on query: %s"
+msgstr "Mislykket EXPLAIN på forespørgsel: %s"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:117
+#, php-format
+msgid "%s database is not supported yet."
+msgstr "%s database er ikke understøttet endnu"
+
+#: /src/App/Debug/TrackerDebugger.php:277
+msgid "Database"
+msgstr "Database"
+
+#: /src/App/Debug/TrackerDebugger.php:286
+#: /src/App/Debug/TrackerDebugger.php:373
+msgid "Profile"
+msgstr "Profil"
+
+#: /src/App/Debug/TrackerDebugger.php:291
+#: /src/App/Debug/TrackerDebugger.php:430
+msgid "User"
+msgstr "Bruger"
+
+#: /src/App/Debug/TrackerDebugger.php:296
+#: /src/App/Debug/TrackerDebugger.php:436
+msgid "Project"
+msgstr "Projekt"
+
+#: /src/App/Debug/TrackerDebugger.php:304
+msgid "Language Strings"
+msgstr "Sprogstrenge"
+
+#: /src/App/Debug/TrackerDebugger.php:309
+msgid "Language Files"
+msgstr "Sprogfiler"
+
+#: /src/App/Debug/TrackerDebugger.php:352
+msgid "Go up"
+msgstr "Gå op"
+
+#: /src/App/Debug/TrackerDebugger.php:362
+#: /src/App/Debug/TrackerDebugger.php:645
+#, php-format
+msgid "One database query"
+msgid_plural "%d database queries"
+msgstr[0] "En database forespørgsel"
+msgstr[1] "%d database forespørgsler"
+
+#: /src/App/Debug/TrackerDebugger.php:390
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] "En ikke oversat streng for %2$d"
+msgstr[1] "%1$d ikke oversatte strenge for %2$d"
+
+#: /src/App/Debug/TrackerDebugger.php:398
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] "En sprogfil indlæst"
+msgstr[1] "%d sprogfiler indlæst"
+
+#: /src/App/Debug/TrackerDebugger.php:409
+msgid "No Project"
+msgstr "Intet projekt"
+
+#: /src/App/Debug/TrackerDebugger.php:432
+msgid "Guest"
+msgstr "Gæst"
+
+#: /src/App/Debug/TrackerDebugger.php:445
+msgid "Build"
+msgstr "Build"
+
+#: /src/App/Debug/TrackerDebugger.php:511
+#, php-format
+msgid ""
+"Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr "Flertalsformer: <code>%1$d</code><br />Flertalsfunktion:<code>%2$s</code>"
+
+#: /src/App/Debug/TrackerDebugger.php:728
+msgid "File (line)"
+msgstr "Fil (linje)"
+
+#: /src/App/Debug/TrackerDebugger.php:728
+msgid "String"
+msgstr "Streng"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
+msgstr "Ingen %s logfil fundet."

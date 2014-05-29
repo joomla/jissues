@@ -134,7 +134,27 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.priority') . ' = ' . (int) $filter);
 		}
 
-		// TODO: Implement filtering and join to other tables as added
+		$filter = $this->state->get('filter.user');
+
+		if ($filter && is_numeric($filter))
+		{
+			$username = $this->state->get('username');
+
+			switch ($filter)
+			{
+				case 1:
+					$query->where($db->quoteName('a.opened_by') . ' = ' . $db->quote($username));
+					break;
+
+				case 2:
+				// Join over the activities.
+				$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
+				$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
+				$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
+				$query->group('a.issue_number');
+				break;
+			}
+		}
 
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
 		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
@@ -163,6 +183,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$id .= ':' . $this->state->get('filter.status');
 		$id .= ':' . $this->state->get('filter.stage');
 		$id .= ':' . $this->state->get('filter.search');
+		$id .= ':' . $this->state->get('filter.user');
 
 		return parent::getStoreId($id);
 	}

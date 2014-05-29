@@ -8,15 +8,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
-"PO-Revision-Date: 2014-01-30 01:44+0000\n"
+"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"PO-Revision-Date: 2014-04-10 13:55+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Éditer le Projet"
 
 #: /templates/projects/project.edit.twig:11
 #: /templates/projects/project.add.twig:11
@@ -71,6 +75,10 @@ msgstr "Répertoire GitHub"
 #: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
 msgstr "Lien Externe du Tracker"
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "Ajouter un Projet"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
@@ -132,8 +140,8 @@ msgstr "Projet"
 
 #: /src/App/Projects/Table/ProjectsTable.php:57
 msgid "A title is required"
-msgstr "Un titre est nécessaire"
+msgstr "Un titre est requis"
 
 #: /src/App/Projects/Table/ProjectsTable.php:62
 msgid "A short title is required"
-msgstr "Un titre court est nécessaire"
+msgstr "Un titre court est requis"

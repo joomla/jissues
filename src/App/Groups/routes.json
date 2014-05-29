@@ -1,0 +1,8 @@
+{
+
+	"project/:project_alias/groups"                : "\\Groups\\Controller\\Groups",
+	"project/:project_alias/group/:group_id"       : "\\Groups\\Controller\\Group",
+	"project/:project_alias/group/:group_id/delete": "\\Groups\\Controller\\Group\\Delete",
+	"project/:project_alias/addgroup"              : "\\Groups\\Controller\\Group\\Add",
+	"project/:project_alias/savegroup"             : "\\Groups\\Controller\\Group\\Save"
+}

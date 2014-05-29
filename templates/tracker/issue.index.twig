@@ -5,7 +5,7 @@
 
 {% block title %}{{ project.title }} #{{ item.issue_number }} - {{ item.title }}{% endblock %}
 
-{% block headerText %}{{ project.title }}{% endblock %}
+{% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -39,7 +39,7 @@
 
     <ul class="breadcrumb">
 
-        {% if user.check("edit") %}
+        {% if user.check("edit") or canEditOwn %}
             <li>
                 <a class="btn btn-warning"
                    href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">

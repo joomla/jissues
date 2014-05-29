@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Herman Peeren <herman@yepr.nl>, 2014
+# Roland Dalmulder <contact@rolandd.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
-"PO-Revision-Date: 2014-02-17 00:47+0000\n"
-"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
+"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"PO-Revision-Date: 2014-04-26 15:47+0000\n"
+"Last-Translator: Herman Peeren <herman@yepr.nl>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,98 +23,98 @@ msgstr ""
 #: /templates/github/labels.index.twig:10
 #, php-format
 msgid "%s - Labels"
-msgstr ""
+msgstr "%s - labels"
 
 #: /templates/github/labels.index.twig:12
 msgid "List Labels"
-msgstr ""
+msgstr "Labels tonen"
 
 #: /templates/github/labels.index.twig:17
 msgid "New Label"
-msgstr ""
+msgstr "Nieuw label"
 
 #: /templates/github/labels.index.twig:22
 #: /templates/github/labels.index.twig:44
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:45
 msgid "Color"
-msgstr ""
+msgstr "Kleur"
 
 #: /templates/github/labels.index.twig:30
 msgid "Add Label"
-msgstr ""
+msgstr "Label toevoegen"
 
 #: /templates/github/labels.index.twig:43
 #: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: /templates/github/labels.index.twig:58
 #: /templates/github/hooks.index.twig:120
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
-msgstr ""
+msgstr "%s - hooks"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr ""
+msgstr "Toon Hooks"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr ""
+msgstr "Nieuwe Hook"
 
 #: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
 msgid "Events"
-msgstr ""
+msgstr "Gebeurtenissen"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr ""
+msgstr "NOTITIE: komma gescheiden, geen spaties"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr ""
+msgstr "Hook Toevoegen"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: /templates/github/hooks.index.twig:89
 msgid "Actions"
-msgstr ""
+msgstr "Acties"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #: /templates/github/hooks.index.twig:101
 msgid "Inactive"
-msgstr ""
+msgstr "Inactief"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr ""
+msgstr "Deactiveren"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr ""
+msgstr "Activeeren"
 
 #: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
 #, php-format
 msgid "%s - Statistics"
-msgstr ""
+msgstr "%s - Statistieken"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
-msgstr ""
+msgstr "Geen voorbeeld..."

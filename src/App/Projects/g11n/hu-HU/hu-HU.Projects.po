@@ -1,0 +1,147 @@
+# JTracker App Projects 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# József Tamás Herczeg <jtherczeg@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"PO-Revision-Date: 2014-05-04 19:18+0000\n"
+"Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Projekt szerkesztése"
+
+#: /templates/projects/project.edit.twig:11
+#: /templates/projects/project.add.twig:11
+msgid "Save"
+msgstr "Mentés"
+
+#: /templates/projects/project.edit.twig:17
+#: /templates/projects/projects.index.twig:64
+msgid "Delete"
+msgstr "Törlés"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Projekt szerkesztése"
+
+#: /templates/projects/project.edit.twig:30
+#: /templates/projects/project.add.twig:20
+msgid "New project"
+msgstr "Új projekt"
+
+#: /templates/projects/project.edit.twig:35
+#: /templates/projects/project.add.twig:24
+msgid "Details"
+msgstr "Részletek"
+
+#: /templates/projects/project.edit.twig:37
+#: /templates/projects/project.add.twig:28
+msgid "Title"
+msgstr "Cím"
+
+#: /templates/projects/project.edit.twig:44
+#: /templates/projects/project.add.twig:33
+msgid "Short Title"
+msgstr "Rövid cím"
+
+#: /templates/projects/project.edit.twig:51
+#: /templates/projects/project.add.twig:38
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.edit.twig:58
+#: /templates/projects/project.add.twig:43
+msgid "GitHub Owner"
+msgstr "GitHub tulajdonos"
+
+#: /templates/projects/project.edit.twig:65
+#: /templates/projects/project.add.twig:48
+msgid "GitHub Repo"
+msgstr "GitHub tároló"
+
+#: /templates/projects/project.edit.twig:72
+#: /templates/projects/project.add.twig:53
+msgid "External Tracker Link"
+msgstr "Külső problémakövető hivaktozása"
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "Projekt hozzáadása"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projektek"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Új projekt"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Projektlista"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Problémakövető"
+
+#: /templates/projects/projects.index.twig:29
+#: /templates/projects/project.index.twig:20
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr "Műveletek"
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr "AZ"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr "Beavatkozási rutinok"
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr "Címkék"
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr "Statisztika"
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr "Csoportok"
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr "Megjelenítés"
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projekt"
+
+#: /src/App/Projects/Table/ProjectsTable.php:57
+msgid "A title is required"
+msgstr "A cím megadása kötelező"
+
+#: /src/App/Projects/Table/ProjectsTable.php:62
+msgid "A short title is required"
+msgstr "A rövid cím megadása kötelező"

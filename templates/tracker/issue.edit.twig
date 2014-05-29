@@ -5,6 +5,8 @@
 
 {% block title %}{{ project.title ~ ' #' ~ item.issue_number }}{% endblock %}
 
+{% block headerText %} - {{ project.short_title }}{% endblock %}
+
 {% block headerCSS %}
     {{ parent() }}
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
@@ -56,6 +58,8 @@
         </li>
     </ul>
 
+    {% if user.check("edit") %}
+    {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
     <ul class="breadcrumb">
         <li>
             <label for="status">{{ translate('Status') }}</label>
@@ -114,6 +118,7 @@
             </select>
         </li>
     </ul>
+    {% endif %}
 
     <div class="row-fluid">
         <div class="span11 well-small">
@@ -157,7 +162,7 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/dist/jquery.validate{{ jdebug ? "" : ".min" }}.js"></script>
     {% if lang != 'en-GB' %}
         <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}

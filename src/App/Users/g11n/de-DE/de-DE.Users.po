@@ -8,56 +8,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
-"PO-Revision-Date: 2014-02-17 00:54+0000\n"
+"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"PO-Revision-Date: 2014-05-25 22:59+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/projects/p/opentranslators/language/de_DE/)\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/users/user.index.twig:10 /templates/users/user.edit.twig:11
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
 msgid "Invalid user!"
 msgstr "Ungültiger Benutzer"
 
-#: /templates/users/user.index.twig:14
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Profil bearbeiten"
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Profil mit GitHub aktualisieren"
+
+#: /templates/users/user.index.twig:26
 msgid "My Profile"
 msgstr "Mein Profil"
 
-#: /templates/users/user.index.twig:16
+#: /templates/users/user.index.twig:28
 msgid "Profile"
 msgstr "Profil"
 
-#: /templates/users/user.index.twig:44
+#: /templates/users/user.index.twig:57
 #, php-format
 msgid "Language: %s"
 msgstr "Sprache: %s"
 
-#: /templates/users/user.index.twig:47
+#: /templates/users/user.index.twig:62
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Zeitzone: %1$s (GMT %2$s)"
 
-#: /templates/users/users.index.twig:13
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Benutzer"
+
+#: /templates/users/users.index.twig:15
 msgid "Users List"
 msgstr "Benutzerliste"
 
-#: /templates/users/users.index.twig:17 /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Seite %1$s von %2$s"
 
-#: /templates/users/users.index.twig:22
+#: /templates/users/users.index.twig:24
 msgid "Username"
 msgstr "Benutzername"
 
-#: /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:26
 msgid "Actions"
 msgstr "Aktionen"
 
-#: /templates/users/users.index.twig:26
+#: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr "ID"
 
@@ -73,15 +85,19 @@ msgstr "Speichern"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: /templates/users/user.edit.twig:34
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub Profil"
+
+#: /templates/users/user.edit.twig:67
 msgid "Params"
 msgstr "Einstellungen"
 
-#: /templates/users/user.edit.twig:37
+#: /templates/users/user.edit.twig:70
 msgid "Language"
 msgstr "Sprache"
 
-#: /templates/users/user.edit.twig:44
+#: /templates/users/user.edit.twig:77
 msgid "Timezone"
 msgstr "Zeitzone"
 
@@ -97,6 +113,14 @@ msgstr "Der Benutzer wurde entfernt"
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorized to edit this user."
 msgstr "Sie sind nicht berechtigt diesen Benutzer zu bearbeiten."
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorized to refresh this user."
+msgstr "Sie sind nicht berechtigt diesen Benutzer zu aktualisieren."
+
+#: /src/App/Users/Controller/User/Refresh.php:70
+msgid "The profile has been refreshed."
+msgstr "Das Profil wurde aktualisiert"
 
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."

@@ -97,7 +97,7 @@ class TrackerProject implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $defaultActions = array('view', 'create', 'edit', 'manage');
+	private $defaultActions = array('view', 'create', 'edit', 'editown', 'manage');
 
 	/**
 	 * Array containing default user groups
@@ -467,5 +467,17 @@ class TrackerProject implements \Serializable
 		{
 			$this->$key = $value;
 		}
+	}
+
+	/**
+	 * Get the default actions.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getDefaultActions()
+	{
+		return $this->defaultActions;
 	}
 }

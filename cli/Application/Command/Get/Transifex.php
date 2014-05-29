@@ -66,6 +66,7 @@ class Transifex extends Get
 	private function fetchTranslations()
 	{
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
@@ -73,6 +74,9 @@ class Transifex extends Get
 
 		// Process core files
 		$this->receiveFiles('JTracker', 'Core');
+
+		// Process core JS files
+		$this->receiveFiles('JTracker.js', 'CoreJS');
 
 		// Process template files
 		$this->receiveFiles('JTracker', 'Template');
@@ -113,12 +117,17 @@ class Transifex extends Get
 		// Fetch the file for each language and place it in the file tree
 		foreach ($this->languages as $language)
 		{
+			if ('en-GB' == $language)
+			{
+				continue;
+			}
+
 			$this->out($language . '... ', false);
 
 			// Call out to Transifex
 			$translation = $this->transifex->translations->getTranslation(
 				$this->getApplication()->get('transifex.project'),
-				strtolower($extension) . '-' . strtolower($domain),
+				strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
 				str_replace('-', '_', $language)
 			);
 

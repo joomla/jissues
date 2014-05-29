@@ -11,11 +11,11 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
-#### joomla/application (~1.1@stable)
+#### joomla/application (&gt;=1.1.2@stable)
 
 Joomla Application Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/application.git
 
 #### joomla/controller (~1.1@stable)
@@ -60,18 +60,18 @@ Joomla Filter Package
 * Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/filter.git
 
-#### joomla/github (~1.1@stable)
+#### joomla/github (~1.2@stable)
 
 Joomla Github Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1@stable)
 
 Joomla HTTP Package
 
-* Installed: 1.1.1
+* Installed: 1.1.3
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1@stable)
@@ -141,7 +141,7 @@ Joomla View Package
 
 Symfony HttpFoundation Component
 
-* Installed: v2.4.2
+* Installed: v2.4.4
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -169,15 +169,22 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master 7929d7a01d033083401f603ad55f1d85d080424c
+* Installed: dev-master feb8a16f1f2d434c3c4655df28efc7a9c252ceb4
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
-#### codeguy/upload (*)
+#### codeguy/upload (1.3.2)
 
 Handle file uploads with extensible validation and storage strategies
 
-* Installed: dev-master 8db8dbfb419b2634be98afe1e6b993eca7f25b21
+* Installed: 1.3.2
 * Source URL: https://github.com/codeguy/Upload.git
+
+#### league/flysystem (0.4.*@stable)
+
+Filesystem abstraction, but easy.
+
+* Installed: 0.4.4
+* Source URL: https://github.com/thephpleague/flysystem.git
 
 ### PHP - Development
 
@@ -185,7 +192,7 @@ Handle file uploads with extensible validation and storage strategies
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.7.0
+* Installed: 1.9.1
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (0.9)
@@ -195,11 +202,11 @@ Kint - debugging helper for PHP developers
 * Installed: v0.9
 * Source URL: https://github.com/raveren/kint.git
 
-#### filp/whoops (1.0.*@stable)
+#### filp/whoops (1.*@stable)
 
 php error handling for cool kids
 
-* Installed: 1.0.10
+* Installed: 1.1
 * Source URL: https://github.com/filp/whoops.git
 
 #### mustache/mustache (2.1.*@stable)
@@ -209,19 +216,40 @@ A Mustache implementation in PHP.
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php.git
 
-#### phpunit/phpunit (3.7.*@stable)
+#### phpunit/phpunit (4.*@stable)
 
 The PHP Unit Testing framework.
 
-* Installed: 3.7.32
+* Installed: 4.1.0
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
 
 PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
 
-* Installed: 1.5.2
+* Installed: 1.5.3
 * Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
+
+#### sebastian/phpcpd (*)
+
+Copy/Paste Detector (CPD) for PHP code.
+
+* Installed: dev-master a7488a03f25aa83e7557a2f9d524c6d40ce3fa39
+* Source URL: https://github.com/sebastianbergmann/phpcpd.git
+
+#### phploc/phploc (*)
+
+A tool for quickly measuring the size of a PHP project.
+
+* Installed: dev-master a9cbcc12bc5e80c3e4d29aa48454cf7debd23087
+* Source URL: https://github.com/sebastianbergmann/phploc.git
+
+#### clue/graph-composer (*)
+
+Dependency graph visualization for composer.json
+
+* Installed: dev-master 8d759e711a3bdf3f877b56b206bc627df658d2b4
+* Source URL: https://github.com/clue/graph-composer.git
 
 ### JavaScript
 
@@ -231,11 +259,11 @@ jQuery component
 
 * Source URL: https://github.com/jquery/jquery
 
-#### jquery-validation (1.11.2)
+#### jquery-validation (1.12.0)
 
+Form validation made easy
 
-
-* Source URL: https://github.com/niftylettuce/jquery-validation
+* Source URL: http://jqueryvalidation.org/
 
 #### bootstrap (2.3.2)
 
@@ -322,24 +350,45 @@ GitHub acts as our authentication provider, software repository, markdown parser
 
 #### Transifex
 
-The Issue Tracker utilizes Transifex to manage translations of the user interface.
+The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://opentranslators.transifex.com/projects/p/jtracker/translate).
 
 * https://www.transifex.com/
 
 
 ### Translators
 
-#### de-DE
-* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013
+#### ca-ES
+* javiergomez, 2014
 
-#### ru-RU
-* Dmitrijs Rekuns &lt;bzzjuka@gmail.com&gt;, 2014
+#### da-DK
+* Ole Ottosen &lt;ot2sen@gmail.com&gt;, 2014
+
+#### de-DE
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013, 2014
+
+#### es-ES
+* Marcos Peebles &lt;marcos.peebles@gmail.com&gt;, 2014
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2014
+
+#### fr-FR
+* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
+
+#### hu-HU
+* József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
+
+#### it-IT
+* Simone Baldelli &lt;baldelli.simone@gmail.com&gt;, 2014
 
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
+* Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014
+
+#### pt-BR
+* Airton Torres &lt;airton.torres@gmail.com&gt;, 2014
+* Marcos Correa &lt;mcorrea.jr28@gmail.com&gt;, 2014
 
 #### pt-PT
 * Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
 
-#### fr-FR
-* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
+#### ru-RU
+* Dmitrijs Rekuns, 2014

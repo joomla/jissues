@@ -11,6 +11,7 @@ namespace App\Tracker\Controller\Issue;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\View\Issue\IssueHtmlView;
 
+use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -57,21 +58,43 @@ class Edit extends AbstractTrackerController
 	 *
 	 * This will set up default model and view classes.
 	 *
+	 * @throws \Exception
+	 * @throws AuthenticationException
+	 *
 	 * @return  $this  Method supports chaining
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function initialize()
 	{
 		parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('edit');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+		$project     = $application->getProject();
+		$user        = $application->getUser();
 
-		$this->view->setId($this->getContainer()->get('app')->input->getUint('id'));
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$this->model->setProject($project);
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$item = $this->model->getItem($application->input->getUint('id'));
+
+		try
+		{
+			// Check if the user has full "edit" permission
+			$user->authorize('edit');
+		}
+		catch (AuthenticationException $e)
+		{
+			// Check if the user has "edit own" permission
+			if (false == $user->canEditOwn($item->opened_by))
+			{
+				throw $e;
+			}
+		}
+
+		$this->view
+			->setItem($item)
+			->setProject($project);
 
 		return $this;
 	}
