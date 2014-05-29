@@ -1,4 +1,4 @@
-Feature: JTracker.Guest-Menu Feature
+Feature: JTracker.Guest-Multilang Feature
   In order to use the application
   As a guest
   I shall see the standard top menu
