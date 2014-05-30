@@ -30,4 +30,20 @@ class FeatureContext extends MinkContext
 	{
 		$this->visit('/local-login/' . $loginType);
 	}
+
+	/**
+	 * Dump the contents for debugging purpose.
+	 *
+	 * @Then /^I dump the contents$/
+	 *
+	 * @return void
+	 */
+	public function iDumpTheContents()
+	{
+		echo 'DUMP START' . PHP_EOL;
+
+		print_r($this->getSession()->getPage()->getContent());
+
+		echo  PHP_EOL . 'DUMP END';
+	}
 }
