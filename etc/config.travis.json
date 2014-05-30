@@ -9,10 +9,21 @@
 	},
 
 	"github": {
-		"username"     : "",
-		"password"     : "",
 		"client_id"    : "",
-		"client_secret": ""
+		"client_secret": "",
+		"auth_scope"   : "public_repo",
+		"accounts"     : [
+			{
+				"username": "",
+				"password": ""
+			}
+		]
+	},
+
+	"transifex": {
+		"username": "",
+		"password": "",
+		"project" : ""
 	},
 
 	"renderer": {
@@ -23,12 +34,13 @@
 	"system": {
 		"list_limit": "20",
 		"gzip"      : "0",
-		"offset"    : "UTC"
+		"offset"    : "UTC",
+		"upload_dir": "uploads"
 	},
 
 	"acl": {
 		"admin_users": [
-			"", ""
+			"dummy-admin", ""
 		],
 		"secret"     : "not-used-yet"
 	},
@@ -39,13 +51,23 @@
 	},
 
 	"debug": {
-		"system"  : "1",
-		"database": "1",
+		"system"  : "0",
+		"database": "0",
 		"language": "0",
 		"hooks"   : "0",
-		"logging" : "1",
-		"log-path": "logs"
+		"logging" : "0",
+		"log-path": "logs",
+		"admin"   : "1"
 	},
 
-	"languages": []
+	"languages": [
+		"en-GB", "de-DE", "ru-RU", "nl-NL", "pt-PT", "fr-FR"
+	],
+
+	"validation": {
+		"mime_types": [
+			"image/png", "image/jpeg", "image/gif"
+		],
+		"file_size" : "1M"
+	}
 }
