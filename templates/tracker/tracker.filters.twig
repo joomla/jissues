@@ -30,7 +30,7 @@
 {% macro priority(value, id, class) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- priority -'|_, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } %}
+    {% set values = {0: '- priority -'|_, 1: 'Critical'|_, 2: 'Urgent'|_, 3: 'Medium'|_, 4: 'Low'|_, 5: 'Very low'|_ } %}
 
     {{ fields.select('filter-priority', values, value, id, class) }}
 {% endmacro %}
