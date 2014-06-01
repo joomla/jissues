@@ -23,14 +23,6 @@ use Joomla\Date\Date;
 class Events extends Project
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Retrieve issue events from GitHub.';
-
-	/**
 	 * Event data from GitHub
 	 *
 	 * @var    array
@@ -47,15 +39,17 @@ class Events extends Project
 	{
 		parent::__construct();
 
+		$this->description = 'Retrieve issue events from GitHub.';
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'issue', '',
-				'<n> Process only a single issue.'
+				g11n3t('<n> Process only a single issue.')
 			)
 		)->addOption(
 			new TrackerCommandOption(
 				'all', '',
-				'Process all issues.'
+				g11n3t('Process all issues.')
 			)
 		);
 	}
@@ -69,15 +63,15 @@ class Events extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Events');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Events'));
 
-		$this->logOut('Start retrieve Events')
+		$this->logOut(g11n3t('Start retrieve Events'))
 			->selectProject()
 			->setupGitHub()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -110,7 +104,16 @@ class Events extends Project
 			return $this;
 		}
 
-		$this->out(sprintf('Fetch events for <b>%d</b> issue(s) from GitHub...', count($this->changedIssueNumbers)), false);
+		$this->out(
+			sprintf(
+				g11n4t(
+					'Fetch events for one issue from GitHub...',
+					'Fetch events for <b>%d</b> issues from GitHub...',
+					count($this->changedIssueNumbers)
+				),
+				count($this->changedIssueNumbers)
+			), false
+		);
 
 		$progressBar = $this->getProgressBar(count($this->changedIssueNumbers));
 
@@ -174,7 +177,7 @@ class Events extends Project
 	{
 		if (!$this->items)
 		{
-			$this->logOut('Everything is up to date.');
+			$this->logOut(g11n3t('Everything is up to date.'));
 
 			return $this;
 		}
@@ -184,7 +187,7 @@ class Events extends Project
 
 		$query = $db->getQuery(true);
 
-		$this->out('Adding events to the database...', false);
+		$this->out(g11n3t('Adding events to the database...'), false);
 
 		$progressBar = $this->getProgressBar(count($this->items));
 
@@ -315,7 +318,7 @@ class Events extends Project
 
 		$this->out()
 			->outOK()
-			->logOut(sprintf('Added %d new issue events to the database', $adds));
+			->logOut(sprintf(g11n3t('Added %d new issue events to the database'), $adds));
 
 		return $this;
 	}
