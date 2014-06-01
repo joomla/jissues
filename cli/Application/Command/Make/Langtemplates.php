@@ -76,6 +76,7 @@ class Langtemplates extends Make
 		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/jtracker');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
@@ -129,6 +130,19 @@ class Langtemplates extends Make
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
 			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+
+			// Process the CLI application
+
+			$extension = 'cli';
+			$domain    = 'CLI';
+
+			$this->out('Processing: ' . $domain . ' ' . $extension);
+
+			$templatePath = Storage::getTemplatePath($extension, $domain);
+
+			$paths = array(ExtensionHelper::getDomainPath($domain));
+
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 		}
 
 		// Process App templates
