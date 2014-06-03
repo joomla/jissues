@@ -26,5 +26,3 @@ current_SHA
 
 # Ignore uploads #
 www/uploads/*
-
-*.bak

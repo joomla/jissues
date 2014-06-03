@@ -1,0 +1,279 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ "Issues List"|_ }}{% endblock %}
+
+{% block headerText %} - {{ project.short_title }}{% endblock %}
+
+{% block headerCSS %}
+    <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block prependMenu %}
+    {% if user.check("create") %}
+        <li>
+            <a class="btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}/add">
+                {{ "New Item"|_ }}
+            </a>
+        </li>
+    {% endif %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+    {% import "tracker.filters.twig" as filters %}
+
+    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
+        <div class="filters btn-toolbar clearfix">
+            <div class="clearfix">
+                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-status-div">
+                    <button type="button" class="btn {% if state.get('filter.status') == 0 %} active btn-success {% endif %}" value="0">
+                        {{ 'Open'|_ }}
+                    </button>
+                    <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-danger {% endif %}" value="1">
+                        {{ 'Closed'|_ }}
+                    </button>
+                </div>
+                <div id="stools-button" class="btn-group">
+                    <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
+                        {{ 'Search tools'|_ }}
+                        <b class="caret"></b>
+                    </button>
+                </div>
+                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
+            </div>
+
+            <div id="stools-container" class="collapse
+            {% if state.get('filter.stage')
+                or state.get('filter.priority')
+                or state.get('filter.search')
+                or state.get('filter.sort')
+                or state.get('filter.user')
+                or state.get('stools-active') %}
+                in
+            {% endif %}
+            clearfix pull-left">
+                <div class="filter-search btn-group input-append">
+                    <label class="filter-search-lbl element-invisible"
+                           for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
+                    <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
+                           value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
+                           title="{{ translate('Filter the list by ID, summary, or description.') }}"
+                           placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
+                    <button class="btn tip hasTooltip" type="submit" title="{{ 'Submit search'|_ }}">
+                        <span class="icon-search"></span></button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn tip hasTooltip" type="button"
+                            onclick="jQuery('#filter-search').val(''); document.issuesForm.submit();"
+                            title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
+                </div>
+                <div class="btn-group">
+                    {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100', state.get('filter.status')) }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
+                </div>
+                {% if user.username %}
+                    <div class="btn-group">
+                        {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-160') }}
+                    </div>
+                {% endif %}
+                <div class="btn-group">
+                    {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
+                </div>
+             </div>
+
+            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
+            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}" />
+        </div>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th width="2%" class="nowrap center">{{ 'ID'|_ }}</th>
+                <th>{{ 'Summary'|_ }}</th>
+                <th width="5%" class="center">{{ 'Priority'|_ }}</th>
+                <th width="10%" class="center">{{ 'Status'|_ }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if items %}
+                {% set blockers = [1, 2] %}
+                {% for item in items %}
+
+                    {% set rowClass = '' %}
+                    {% if item.priority in blockers %}
+                        {% set rowClass = ' class=error' %}
+                    {% endif %}
+                    {% if item.status == 4 %}
+                        {% set rowClass = ' class=success' %}
+                    {% endif %}
+
+                    <tr{{ rowClass }}>
+                        <td class="center valign-center">
+                            {{ item.issue_number }}
+                            <!--
+                            @todo This is to retrieve extended information on an issue - review
+                            {#
+                            <div class="btn btn-small issueInfo"
+                                 title="{{ project.title }} # {{ item.issue_number }}"
+                                 data-issue="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/info">
+                                {{ item.issue_number }}
+                            </div>
+                            #}
+                            -->
+                        </td>
+                        <td class="hasContext">
+                            <div class="hasTooltip" title="">
+                                {% if user.check("edit") %}
+                                <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
+                                    <span data-icon="&#xe003;"></span>
+                                    </a>
+                                {% endif %}
+                                <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
+                                    {{ item.title|e }}
+                                </a>
+                                {{ item.labels|labels|raw }}
+                                <span class="list-issue-details">
+                                    {% if project.gh_user and project.gh_project %}
+                                        <br/>
+                                        {{ 'GitHub ID'|_ }}
+                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
+                                           target="_blank">
+                                            {{ item.issue_number }}
+                                        </a>
+                                    {% endif %}
+                                    {% if item.foreign_number %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Foreign ID'|_ }}
+                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
+                                           target="_blank">
+                                            {{ item.foreign_number }}
+                                        </a>
+                                    {% endif %}
+                                    {% if item.opened_date %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Opened %s'|_|format(item.opened_date|date('Y-m-d')) }}
+                                    {% endif %}
+                                    {% if item.closed_status %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Closed %s'|_|format(item.closed_date|date('Y-m-d')) }}
+                                    {% endif %}
+                                    {% if item.modified_date != '0000-00-00 00:00:00' %}
+                                        &nbsp;&bull;&nbsp;
+                                        {{ 'Modified %s'|_|format(item.modified_date|date('Y-m-d')) }}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="center valign-center">
+                            <span class="badge {{ prioClass(item.priority) }}">{{ item.priority  }}</span>
+                        </td>
+                       <td class="center valign-center">
+                            {{ item.status_title|_ }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td class="center" colspan="4">
+                        {{ 'No items found.'|_ }}
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </form>
+
+    {% if pagination.pagesTotal > 1 %}
+        {{ sprintf("Page %1$s of %2$s"|_, pagination.pageNo, pagination.pagesTotal) }}
+        {{ pagination.bar|raw }}
+    {% endif %}
+
+<!-- ++++++++++++++++++++++++++ -->
+<!-- +  JavaScript templates  + -->
+<!-- ++++++++++++++++++++++++++ -->
+
+
+    <!--
+    @todo This is to retrieve extended information on an issue - review
+
+    @todo add much more info =;)
+
+<script type="text/x-tmpl" id="tplIssueInfo">
+    <ul class="unstyled">
+        <li>Opened by: [%= o.opened_by %]</li>
+        <li>Comments: [%= o.comment_count %]</li>
+    </ul>
+</script>
+    -->
+{% endblock %}
+
+{% block JavaScriptBottom %}
+
+    {{ parent() }}
+
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript">
+
+    /*
+     @todo This is to retrieve extended information on an issue - review
+
+    $('*[data-issue]').click(
+        function () {
+            var el = $(this);
+            $.get(el.data('issue'), function(r) {
+                el.popover({
+                   content: tmpl("tplIssueInfo", r.data),
+                   html: true
+               }).popover('show');
+            });
+            el.unbind('click');
+            return false;
+        }
+    );
+    */
+
+    var form = $('#issuesForm');
+
+    $('[id^=filter]').change(
+        function() {
+            // Search tools are active.
+            $('#stools-active').val(1);
+
+            form.submit();
+        }
+    );
+
+    $('#filter-status-div button').click(
+        function () {
+            var val = $(this).val();
+            $('#filter-status').val(val);
+            form.submit();
+        }
+    );
+
+    $('#stools-button button').click(
+        function () {
+            var val = $('#stools-active').val();
+
+            if (val == 0) {
+                $('#stools-active').val(1);
+            } else {
+                $('#stools-active').val(0);
+            }
+        }
+    );
+    </script>
+
+{% endblock %}
