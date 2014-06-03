@@ -8,99 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
-"PO-Revision-Date: 2014-04-26 08:10+0000\n"
-"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
+"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"PO-Revision-Date: 2014-05-25 22:54+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Skriv"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Vis"
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Tracker"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projekt"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Vis"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Ret"
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr "Adgangsgrupper"
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr "Projekter"
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr "Brugere"
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr "System"
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#: /templates/trackerMenu.twig:107
-msgid "Database"
-msgstr "Database"
-
-#: /templates/trackerMenu.twig:139
-msgid "Icons"
-msgstr "Ikoner"
-
-#: /templates/trackerMenu.twig:145
-msgid "Text"
-msgstr "Tekst"
-
-#: /templates/trackerMenu.twig:151
-msgid "Clear Cache"
-msgstr "Ryd cache"
-
-#: /templates/trackerMenu.twig:173
-msgid "About Us"
-msgstr "Om os"
-
-#: /templates/trackerMenu.twig:200
-msgid "Admin"
-msgstr "Admin"
-
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
-msgstr "Profil"
-
-#: /templates/trackerMenu.twig:212
-msgid "Logout"
-msgstr "Log ud"
-
-#: /templates/trackerMenu.twig:221
-msgid "Login with GitHub"
-msgstr "Log ind med GitHub"
-
-#: /templates/trackerMenu.twig:225
-msgid "No GitHub credentials set in config"
-msgstr "Ingen GitHub legitimationsoplysninger angivet i konfig"
 
 #: /templates/footerMenu.twig:6
 msgid "Home"
@@ -153,64 +69,6 @@ msgstr "Joomla hosting af"
 #: /templates/footerMenu.twig:23
 msgid "All rights reserved."
 msgstr "Alle rettigheder forbeholdt."
-
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
-msgstr "Tilføj filer..."
-
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr "Start upload"
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr "Fortryd upload"
-
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr "Slet"
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr "Upload noter"
-
-#: /templates/uploader.full.twig:33
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "Maksimal filstørrelse for uploads er <strong>1 MB</strong>"
-
-#: /templates/uploader.full.twig:34
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr "Kun billedfiler (<strong>JPG, GIF, PNG</strong>) er tilladt."
-
-#: /templates/uploader.full.twig:35
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr "Du kan <strong>trække og slippe</strong> filer fra dit skrivebord til denne webside."
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr "Behandler..."
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr "Start"
-
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr "Fortryd"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Fejl"
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr "Download"
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr "Demo"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -371,3 +229,153 @@ msgstr "Translation Working Group"
 #: /templates/topMenu.twig:87
 msgid "Translations Forum"
 msgstr "Oversættelsesforum"
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "Download"
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "Demo"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Vis"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Ret"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Adgangsgrupper"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Projekter"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Brugere"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "System"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: /templates/trackerMenu.twig:107
+msgid "Database"
+msgstr "Database"
+
+#: /templates/trackerMenu.twig:139
+msgid "Icons"
+msgstr "Ikoner"
+
+#: /templates/trackerMenu.twig:145
+msgid "Routes"
+msgstr ""
+
+#: /templates/trackerMenu.twig:151
+msgid "Text"
+msgstr "Tekst"
+
+#: /templates/trackerMenu.twig:157
+msgid "Clear Cache"
+msgstr "Ryd cache"
+
+#: /templates/trackerMenu.twig:179
+msgid "About Us"
+msgstr "Om os"
+
+#: /templates/trackerMenu.twig:206
+msgid "Admin"
+msgstr "Admin"
+
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:224
+msgid "Logout"
+msgstr "Log ud"
+
+#: /templates/trackerMenu.twig:233
+msgid "Login with GitHub"
+msgstr "Log ind med GitHub"
+
+#: /templates/trackerMenu.twig:237
+msgid "No GitHub credentials set in config"
+msgstr "Ingen GitHub legitimationsoplysninger angivet i konfig"
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "Tilføj filer..."
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "Start upload"
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "Fortryd upload"
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "Slet"
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr "Upload noter"
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "Maksimal filstørrelse for uploads er <strong>1 MB</strong>"
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "Kun billedfiler (<strong>JPG, GIF, PNG</strong>) er tilladt."
+
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "Du kan <strong>trække og slippe</strong> filer fra dit skrivebord til denne webside."
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "Behandler..."
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "Start"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "Fortryd"
+
+#: /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Fejl"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Skriv"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Vis"

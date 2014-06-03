@@ -8,99 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
-"PO-Revision-Date: 2014-05-06 07:08+0000\n"
-"Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
+"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"PO-Revision-Date: 2014-05-25 22:54+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Írás"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Előnézet"
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Problémakövető"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projekt"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Megjelenítés"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr "Hozzáférési csoportok"
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr "Projektek"
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr "Felhasználók"
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr "Rendszer"
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr "Konfiguráció"
-
-#: /templates/trackerMenu.twig:107
-msgid "Database"
-msgstr "Adatbázis"
-
-#: /templates/trackerMenu.twig:139
-msgid "Icons"
-msgstr "Ikonok"
-
-#: /templates/trackerMenu.twig:145
-msgid "Text"
-msgstr "Szöveg"
-
-#: /templates/trackerMenu.twig:151
-msgid "Clear Cache"
-msgstr "Gyorsítótár törlése"
-
-#: /templates/trackerMenu.twig:173
-msgid "About Us"
-msgstr "Rólunk"
-
-#: /templates/trackerMenu.twig:200
-msgid "Admin"
-msgstr "Adminisztrátor"
-
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
-msgstr "Profil"
-
-#: /templates/trackerMenu.twig:212
-msgid "Logout"
-msgstr "Kijelentkezés"
-
-#: /templates/trackerMenu.twig:221
-msgid "Login with GitHub"
-msgstr "Belépés GitHub-fiókkal"
-
-#: /templates/trackerMenu.twig:225
-msgid "No GitHub credentials set in config"
-msgstr "Nincsenek GitHub hitelesítési adatok megadva a konfigurációban"
 
 #: /templates/footerMenu.twig:6
 msgid "Home"
@@ -153,64 +69,6 @@ msgstr "Joomla tárhely:"
 #: /templates/footerMenu.twig:23
 msgid "All rights reserved."
 msgstr "Minden jog fenntartva."
-
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
-msgstr "Fájlok hozzáadása..."
-
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr "Feltöltés"
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr "Feltöltés megszakítása"
-
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr "Törlés"
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr "Megjegyzések a feltöltéshez"
-
-#: /templates/uploader.full.twig:33
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "A feltölthető legnagyobb fájlméret <strong>1 MB</strong>."
-
-#: /templates/uploader.full.twig:34
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr "Csak képfájlok (<strong>JPG, GIF, PNG</strong>) engedélyezettek."
-
-#: /templates/uploader.full.twig:35
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr "Az asztalodról <strong>húzhatsz</strong> fájlokat erre a weboldalra."
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr "Feldolgozás..."
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr "Indítás"
-
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr "Mégse"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Hiba"
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr "Letöltés"
-
-#: /templates/index.twig:50
-msgid "Demo"
-msgstr "Demó"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -371,3 +229,153 @@ msgstr "Fordítási munkacsoport"
 #: /templates/topMenu.twig:87
 msgid "Translations Forum"
 msgstr "Fordítások fóruma"
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "Letöltés"
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "Demó"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Problémakövető"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Megjelenítés"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Hozzáférési csoportok"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Projektek"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Felhasználók"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "Rendszer"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "Konfiguráció"
+
+#: /templates/trackerMenu.twig:107
+msgid "Database"
+msgstr "Adatbázis"
+
+#: /templates/trackerMenu.twig:139
+msgid "Icons"
+msgstr "Ikonok"
+
+#: /templates/trackerMenu.twig:145
+msgid "Routes"
+msgstr ""
+
+#: /templates/trackerMenu.twig:151
+msgid "Text"
+msgstr "Szöveg"
+
+#: /templates/trackerMenu.twig:157
+msgid "Clear Cache"
+msgstr "Gyorsítótár törlése"
+
+#: /templates/trackerMenu.twig:179
+msgid "About Us"
+msgstr "Rólunk"
+
+#: /templates/trackerMenu.twig:206
+msgid "Admin"
+msgstr "Adminisztrátor"
+
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:224
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+#: /templates/trackerMenu.twig:233
+msgid "Login with GitHub"
+msgstr "Belépés GitHub-fiókkal"
+
+#: /templates/trackerMenu.twig:237
+msgid "No GitHub credentials set in config"
+msgstr "Nincsenek GitHub hitelesítési adatok megadva a konfigurációban"
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "Fájlok hozzáadása..."
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "Feltöltés"
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "Feltöltés megszakítása"
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "Törlés"
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr "Megjegyzések a feltöltéshez"
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "A feltölthető legnagyobb fájlméret <strong>1 MB</strong>."
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "Csak képfájlok (<strong>JPG, GIF, PNG</strong>) engedélyezettek."
+
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "Az asztalodról <strong>húzhatsz</strong> fájlokat erre a weboldalra."
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "Feldolgozás..."
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "Indítás"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "Mégse"
+
+#: /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Hiba"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Írás"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Előnézet"

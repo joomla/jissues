@@ -350,7 +350,7 @@ GitHub acts as our authentication provider, software repository, markdown parser
 
 #### Transifex
 
-The Issue Tracker utilizes Transifex to manage translations of the user interface.
+The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://opentranslators.transifex.com/projects/p/jtracker/translate).
 
 * https://www.transifex.com/
 
@@ -365,6 +365,10 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### de-DE
 * Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013, 2014
+
+#### es-ES
+* Marcos Peebles &lt;marcos.peebles@gmail.com&gt;, 2014
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2014
 
 #### fr-FR
 * Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014

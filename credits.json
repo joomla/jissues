@@ -44,7 +44,7 @@
         "items": [
             {
                 "title": "Transifex",
-                "description": "The Issue Tracker utilizes Transifex to manage translations of the user interface.",
+                "description": "The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://opentranslators.transifex.com/projects/p/jtracker/translate).",
                 "homepage": "https://www.transifex.com/"
             }
         ]
