@@ -168,8 +168,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-//@TODO:Change the select clause.Only get needed info.
-		$query->select("a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.closed_date, a.modified_date");
+		$query->select("a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.closed_date, a.modified_date, a.labels");
 		$query->from($db->quoteName('#__issues', 'a'));
 
 		// Join over the status.
