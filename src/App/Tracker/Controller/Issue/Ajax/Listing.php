@@ -19,12 +19,14 @@ use Joomla\Uri\Uri;
 /**
  * Listing controller to respond ajax request.
  *
- * @package App\Tracker\Controller\Issue\Ajax
+ * @package  App\Tracker\Controller\Issue\Ajax
  *
- * @since   1.0
+ * @since    1.0
  */
 class Listing extends AbstractAjaxController
 {
+	protected $model;
+
 	/**
 	 * Prepare the response.
 	 *
@@ -32,19 +34,20 @@ class Listing extends AbstractAjaxController
 	 *
 	 * @since   1.0
 	 */
-
-	protected $model;
-
 	protected function prepareResponse()
 	{
 		// Load the application
 		$application = $this->getContainer()->get('app');
+
 		// Load the model
 		$this->model = new IssuesModel($this->getContainer()->get('db'), $application->input);
+
 		// Get allowed user for view;
 		$application->getUser()->authorize('view');
+
 		// Set Current project;
 		$this->model->setProject($application->getProject(true));
+
 		// Get state object
 		$state = $this->model->getState();
 
@@ -57,11 +60,14 @@ class Listing extends AbstractAjaxController
 
 		$state->set('list.start', $limitStart);
 		$state->set('list.limit', $limit);
+
 		// Get project id;
 
 		$projectId = $application->getProject()->project_id;
+
 		// Set filter of project
 		$state->set('filter.project', $projectId);
+
 		// Set state
 		$this->model->setState($state);
 
@@ -119,6 +125,7 @@ class Listing extends AbstractAjaxController
 		{
 			$state->set('username', $application->getUser()->username);
 		}
+
 		// Pagination
 		$paginationObject = new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
 
@@ -135,6 +142,7 @@ class Listing extends AbstractAjaxController
 		{
 			$label->labelHtml = $renderer->renderLabels($label->labels);
 		}
+
 		// Prepare the response.
 		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal);
 

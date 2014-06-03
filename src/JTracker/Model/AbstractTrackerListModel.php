@@ -66,8 +66,8 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Instantiate the model.
 	 *
-	 * @param   DatabaseDriver $database The database driver.
-	 * @param   Input          $input    The input object.
+	 * @param   DatabaseDriver  $database  The database driver.
+	 * @param   Input           $input     The input object.
 	 *
 	 * @since   1.0
 	 */
@@ -116,7 +116,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		return $this->cache[$store];
 	}
 
-
 	/**
 	 * Method to get an array of data items for ajax requests
 	 *
@@ -164,7 +163,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Set the pagination object.
 	 *
-	 * @param   TrackerPagination $pagination The pagination object.
+	 * @param   TrackerPagination  $pagination  The pagination object.
 	 *
 	 * @return  void
 	 *
@@ -249,7 +248,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * different modules that might need different sets of data or different
 	 * ordering requirements.
 	 *
-	 * @param   string $id An identifier string to generate the store id.
+	 * @param   string  $id  An identifier string to generate the store id.
 	 *
 	 * @return  string  A store id.
 	 *
@@ -314,9 +313,9 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Gets an array of objects from the results of database query.
 	 *
-	 * @param   string  $query      The query.
-	 * @param   integer $limitStart Offset.
-	 * @param   integer $limit      The number of records.
+	 * @param   string   $query       The query.
+	 * @param   integer  $limitStart  Offset.
+	 * @param   integer  $limit       The number of records.
 	 *
 	 * @return  array  An array of results.
 	 *
@@ -334,7 +333,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Returns a record count for the query
 	 *
-	 * @param   string $query The query.
+	 * @param   string  $query  The query.
 	 *
 	 * @return  integer  Number of rows for query
 	 *
@@ -390,6 +389,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $this->query;
 	}
+
 	/**
 	 * Method to cache the last query constructed for ajax request.
 	 *
@@ -416,6 +416,4 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $this->query;
 	}
-
-
 }
