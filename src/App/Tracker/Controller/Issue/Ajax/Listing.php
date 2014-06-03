@@ -1,23 +1,28 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allenzhao
- * Date: 5/16/14
- * Time: 7:29 PM
+ * Part of the Joomla Tracker Model Package
+ *
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Controller\Issue\Ajax;
 
-
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\View\Renderer;
+use JTracker\Pagination\TrackerPagination;
 
 use App\Tracker\Model\IssuesModel;
 
-use JTracker\View\Renderer;
-
-use JTracker\Pagination\TrackerPagination;
 use Joomla\Uri\Uri;
 
+/**
+ * Listing controller to respond ajax request.
+ *
+ * @package App\Tracker\Controller\Issue\Ajax
+ *
+ * @since   1.0
+ */
 class Listing extends AbstractAjaxController
 {
 	/**
@@ -32,32 +37,32 @@ class Listing extends AbstractAjaxController
 
 	protected function prepareResponse()
 	{
-		//Load the application
+		// Load the application
 		$application = $this->getContainer()->get('app');
-		//Load the model
+		// Load the model
 		$this->model = new IssuesModel($this->getContainer()->get('db'), $application->input);
-		//get allowed user for view;
+		// Get allowed user for view;
 		$application->getUser()->authorize('view');
-		//set Current project;
+		// Set Current project;
 		$this->model->setProject($application->getProject(true));
-		//get state object
+		// Get state object
 		$state = $this->model->getState();
 
-		//pagination
+		// Pagination
 		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');
 		$page  = $this->getContainer()->get('app')->input->getInt('page');
 
-		$value = $page ? ($page - 1) * $limit : 0;
+		$value      = $page ? ($page - 1) * $limit : 0;
 		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 
 		$state->set('list.start', $limitStart);
 		$state->set('list.limit', $limit);
-		//get project id;
+		// Get project id;
 
 		$projectId = $application->getProject()->project_id;
-		//set filter of project
+		// Set filter of project
 		$state->set('filter.project', $projectId);
-		//set state
+		// Set state
 		$this->model->setState($state);
 
 		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'filter-sort', 0, 'uint');
@@ -114,25 +119,25 @@ class Listing extends AbstractAjaxController
 		{
 			$state->set('username', $application->getUser()->username);
 		}
-		//send response.
-
-		$paginationObject=new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
+		// Pagination
+		$paginationObject = new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
 
 		$this->model->setPagination($paginationObject);
 
-		$listItems=$this->model->getAjaxItems();
-
-		$renderer = new Renderer\TrackerExtension($this->getContainer());
-
-		foreach($listItems as $label){
-			$label->labelHtml=$renderer->renderLabels($label->labels);
-		}
+		$listItems = $this->model->getAjaxItems();
 
 		$pagesTotal = $this->model->getPagination()->getPagesTotal();
 
-		$items=array('items'=>$listItems,'pagesTotal'=>$pagesTotal);
+		// Render the label html for each item
+		$renderer = new Renderer\TrackerExtension($this->getContainer());
+
+		foreach ($listItems as $label)
+		{
+			$label->labelHtml = $renderer->renderLabels($label->labels);
+		}
+		// Prepare the response.
+		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal);
 
 		$this->response->data = $items;
 	}
-
-} 
+}

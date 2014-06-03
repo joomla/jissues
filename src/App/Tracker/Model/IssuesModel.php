@@ -163,8 +163,15 @@ class IssuesModel extends AbstractTrackerListModel
 		return $query;
 	}
 
-
-	public function getAjaxListQuery(){
+	/**
+	 * Method to get a DatabaseQuery object for retrieving the data set from a database for ajax request.
+	 *
+	 * @return DatabaseQuery
+	 *
+	 * @since 1.0
+	 */
+	protected function getAjaxListQuery()
+	{
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 

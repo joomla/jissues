@@ -116,18 +116,26 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		return $this->cache[$store];
 	}
 
+
+	/**
+	 * Method to get an array of data items for ajax requests
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 *
+	 * @since 1.0
+	 */
 	public function getAjaxItems()
 	{
-		$store=$this->getStoreID();
+		$store = $this->getStoreID();
 
-		if(isset($this->cache[$store]))
+		if (isset($this->cache[$store]))
 		{
 			return $this->cache[$store];
 		}
 
-		$query=$this->_getAjaxListQuery();
+		$query = $this->_getAjaxListQuery();
 
-		$items=$this->_getList($query,$this->getStart(),$this->state->get('list.limit'));
+		$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
 
 		// Add the items to the internal cache.
 		$this->cache[$store] = $items;
@@ -144,6 +152,13 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 */
 	abstract protected function getListQuery();
 
+	/**
+	 *  Method to get a DatabaseQuery object for retrieving the data set from a database for ajax request.
+	 *
+	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+	 *
+	 * @since   1.0
+	 */
 	abstract protected function getAjaxListQuery();
 
 	/**
@@ -315,6 +330,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $result;
 	}
+
 	/**
 	 * Returns a record count for the query
 	 *
@@ -374,7 +390,15 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $this->query;
 	}
-
+	/**
+	 * Method to cache the last query constructed for ajax request.
+	 *
+	 * This method ensures that the query is constructed only once for a given state of the model.
+	 *
+	 * @return  DatabaseQuery  A DatabaseQuery object
+	 *
+	 * @since   1.0
+	 */
 	protected function _getAjaxListQuery()
 	{
 		// Capture the last store id used.
