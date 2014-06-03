@@ -13,6 +13,11 @@ use JTracker\Controller\AbstractAjaxController;
 
 use App\Tracker\Model\IssuesModel;
 
+use JTracker\View\Renderer;
+
+use JTracker\Pagination\TrackerPagination;
+use Joomla\Uri\Uri;
+
 class Listing extends AbstractAjaxController
 {
 	/**
@@ -37,6 +42,16 @@ class Listing extends AbstractAjaxController
 		$this->model->setProject($application->getProject(true));
 		//get state object
 		$state = $this->model->getState();
+
+		//pagination
+		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');
+		$page  = $this->getContainer()->get('app')->input->getInt('page');
+
+		$value = $page ? ($page - 1) * $limit : 0;
+		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
+
+		$state->set('list.start', $limitStart);
+		$state->set('list.limit', $limit);
 		//get project id;
 
 		$projectId = $application->getProject()->project_id;
@@ -100,9 +115,24 @@ class Listing extends AbstractAjaxController
 			$state->set('username', $application->getUser()->username);
 		}
 		//send response.
+
+		$paginationObject=new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
+
+		$this->model->setPagination($paginationObject);
+
 		$listItems=$this->model->getAjaxItems();
 
-		$this->response->data = $listItems;
+		$renderer = new Renderer\TrackerExtension($this->getContainer());
+
+		foreach($listItems as $label){
+			$label->labelHtml=$renderer->renderLabels($label->labels);
+		}
+
+		$pagesTotal = $this->model->getPagination()->getPagesTotal();
+
+		$items=array('items'=>$listItems,'pagesTotal'=>$pagesTotal);
+
+		$this->response->data = $items;
 	}
 
 } 

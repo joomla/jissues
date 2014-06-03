@@ -210,10 +210,14 @@
         </table>
     </form>
 
-    {% if pagination.pagesTotal > 1 %}
-        {{ sprintf("Page %1$s of %2$s"|_, pagination.pageNo, pagination.pagesTotal) }}
-        {{ pagination.bar|raw }}
-    {% endif %}
+    <ul id="pagination-demo" class="trackerPagination"></ul>
+
+    <div id="trackerPagination">
+        {% if pagination.pagesTotal > 1 %}
+            {{ sprintf("Page %1$s of %2$s"|_, pagination.pageNo, pagination.pagesTotal) }}
+            {{ pagination.bar|raw }}
+        {% endif %}
+    </div>
 
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
@@ -242,74 +246,77 @@
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-popover.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/twbs-pagination/jquery.twbsPagination{{ jdebug ? "":".min" }}.js"></script>
 	
     <script type="text/x-tmpl" id="ajaxListing">
-	[% if(o.data.length){ %]
-	[% for (var i=0; i< o.data.length ;i++) { %]
+	[% if(o.data.items.length){ %]
+	[% for (var i=0; i< o.data.items.length ;i++) { %]
+		[% var item = o.data.items[i]; %]
 		[% var rowClass = ''; %]
 		[% var blockers=[1,2]; %]
-	    [% if (o.data[i].priority in blockers) { %]
+	    [% if (item.priority in blockers) { %]
 	        [% rowClass = 'class=error';} %]
-	    [% if (o.data[i].status === '4') { %]
+	    [% if (item.status === '4') { %]
 	        [% rowClass = 'class=success';} %]
-		<tr>
+		<tr [%= rowClass %]>
 	      <td class="center valign-center">
-	          [%= o.data[i].issue_number %]
+	          [%= item.issue_number %]
 	      </td>
 	      <td class="hasContext">
 	          <div class="hasTooltip" title="">
 	          {% if user.check("edit") %}
-			  <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= o.data[i].issue_number %]/edit">
+			  <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit">
 			  <span data-icon="&#xe003;"></span>
 			  </a>
 			  {% endif %}
-			  <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= o.data[i].issue_number %]">
-			  [%= o.data[i].title %]
+			  <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]">
+			  [%= item.title %]
 			  </a>
+			  [% print(item.labelHtml,true); %]
               <span class="list-issue-details">
 	          {% if project.gh_user and project.gh_project %}
 	              <br/>
 	              {{ 'GitHub ID'|_ }}
-	              <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=o.data[i].issue_number%]"
+	              <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
 	                 target="_blank">
-	                 [%= o.data[i].issue_number %]
+	                 [%= item.issue_number %]
 	              </a>
 	          {% endif %}
 			  
-			  [% if(o.data[i].foreign_number) { %]
+			  [% if(item.foreign_number) { %]
 	                &nbsp;&bull;&nbsp;
 	                {{ 'Foreign ID'|_ }}
-	                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= o.data[i].foreign_number %]"
+	                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= item.foreign_number %]"
 	                   target="_blank">
-					   [%= o.data[i].foreign_number %]
+					   [%= item.foreign_number %]
 	                </a>
 				  [% } %]
-				  [% if(o.data[i].opened_date) { %]
+				  [% if(item.opened_date) { %]
 		                &nbsp;&bull;&nbsp;
 						{{ 'Opened '|_}}
-						[% opendate = new Date(o.data[i].opened_date); %]
+						[% opendate = new Date(item.opened_date); %]
 						[%= opendate.getFullYear()+'-'+opendate.getMonth()+'-'+opendate.getDate() %]
 					  [% } %]
-					  [% if(o.data[i].closed_status!="0") { %]
+					  [% if(item.closed_status!="0") { %]
 			                &nbsp;&bull;&nbsp;
 							{{ 'Closed '|_}}
-							[% closed_date= new Date(o.data[i].closed_date); %]
+							[% closed_date= new Date(item.closed_date); %]
 							[%= closed_date.getFullYear()+'-'+closed_date.getMonth()+'-'+closed_date.getDate() %]
 						  [% } %]
-					  [% if(o.data[i].modified_date != '0000-00-00 00:00:00') { %]
+					  [% if(item.modified_date != '0000-00-00 00:00:00') { %]
 			                &nbsp;&bull;&nbsp;
 							{{ 'Modified '|_}}
-							[% modified_date = new Date(o.data[i].modified_date); %]
+							[% modified_date = new Date(item.modified_date); %]
 							[%= modified_date.getFullYear()+'-'+modified_date.getMonth()+'-'+modified_date.getDate() %]
 						  [% } %]
 						  </span>
 			  </div>
 			  </td>
 	         <td class="center valign-center">
-			   <span class="badge [%=prioClass(o.data[i].priority)%] ">[%=o.data[i].priority%]</span>
+			   <span class="badge [%=prioClass(item.priority)%] ">[%=item.priority%]</span>
 				         </td>
 	         <td class="center valign-center">
-			 [%= o.data[i].status_title %]
+			 [%= item.status_title %]
 	         </td>  			
 	    </tr>
 		[% } %]
@@ -384,14 +391,40 @@
                             'stools-active': active
                         },
                         success: function (r) {
-                            $('#issuesList tbody').html(tmpl("ajaxListing",r));
+                            if(r.data.pagesTotal>1){
+                                $("#trackerPagination").html('');
+                                $("#pagination-demo").twbsPagination({
+                                    totalPages: r.data.pagesTotal,
+                                    visiblePages:5,
+                                    onPageClick:function(event,page){
+                                        $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
+                                        $.ajax({
+                                            type:'POST',
+                                            url:'{{ uri.base.path }}tracker/{{ project.alias }}/ajax?page='+page,
+                                            data:{
+                                                'filter-search': search,
+                                                'filter-stage': stage,
+                                                'filter-priority': priority,
+                                                'filter-user': user,
+                                                'filter-sort': sort,
+                                                'filter-status': status,
+                                                'stools-active': active
+                                            },
+                                            success:function(data){
+                                                console.log(data);
+                                                $('#issuesList tbody').html(tmpl("ajaxListing",data));
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else{
+                                $('#issuesList tbody').html(tmpl("ajaxListing",r));
+                            }
                         }
                     });
                 }
         );
-		
-		
-
 
         function prioClass(priority){
 			priority=parseInt(priority);
