@@ -281,7 +281,6 @@
 	                 [%= item.issue_number %]
 	              </a>
 	          {% endif %}
-			  
 			  [% if(item.foreign_number) { %]
 	                &nbsp;&bull;&nbsp;
 	                {{ 'Foreign ID'|_ }}
@@ -312,12 +311,12 @@
 			  </div>
 			  </td>
 	         <td class="center valign-center">
-             [% var priorities = {1: 'Critical'|_, 2: 'Urgent'|_, 3: 'Medium'|_, 4: 'Low'|_, 5: 'Very low'|_ }; %]
+             [% var priorities = {1: '{{ 'Critical'|_ }}', 2: '{{ 'Urgent'|_ }}', 3: '{{ 'Medium'|_ }}', 4: '{{ 'Low'|_ }}', 5: '{{ 'Very low'|_ }}'  }; %]
 			   <span class="badge [%=prioClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
 				         </td>
 	         <td class="center valign-center">
 			 [%= item.status_title %]
-	         </td>  			
+	         </td>
 	    </tr>
 		[% } %]
 		[% }else{ %]
