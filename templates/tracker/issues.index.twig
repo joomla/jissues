@@ -155,6 +155,7 @@
 
 
 
+
                                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
                                            target="_blank">
                                             {{ item.issue_number }}
@@ -163,6 +164,7 @@
                                     {% if item.foreign_number %}
                                         &nbsp;&bull;&nbsp;
                                         {{ 'Foreign ID'|_ }}
+
 
 
 
@@ -327,6 +329,7 @@
 	        </tr>
 	  	  [% } %]
 
+
     </script>
 
     <script type="text/javascript">
@@ -357,10 +360,10 @@
                 function () {
                     var val = $(this).val();
                     $('#filter-status').val(val);
-                    if(val==0){
+                    if (val == 0) {
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
-                    }else{
+                    } else {
                         $(this).addClass("active btn-danger");
                         $(this).prev().removeClass("active btn-success");
                     }
@@ -423,28 +426,27 @@
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
                             onPageClick: function (event, page) {
-                                if(page!=1){
-                                    $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '{{ uri.base.path }}tracker/{{ project.alias }}/ajax?page=' + page,
-                                        data: {
-                                            'filter-search': search,
-                                            'filter-stage': stage,
-                                            'filter-priority': priority,
-                                            'filter-user': user,
-                                            'filter-sort': sort,
-                                            'filter-status': status,
-                                            'stools-active': active
-                                        },
-                                        success: function (data) {
-                                            $('#issuesList tbody').html(tmpl("ajaxListing", data));
-                                        }
-                                    });
-                                }
+                                console.log(event);
+                                $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '{{ uri.base.path }}tracker/{{ project.alias }}/ajax?page=' + page,
+                                    data: {
+                                        'filter-search': search,
+                                        'filter-stage': stage,
+                                        'filter-priority': priority,
+                                        'filter-user': user,
+                                        'filter-sort': sort,
+                                        'filter-status': status,
+                                        'stools-active': active
+                                    },
+                                    success: function (data) {
+                                        $('#issuesList tbody').html(tmpl("ajaxListing", data));
+                                    }
+                                });
                             }
                         });
-                    }else{
+                    } else {
                         $("#pagination").removeClass('pagination');
                         $("#pagination").html('');
                     }
