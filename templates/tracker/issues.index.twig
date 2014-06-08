@@ -426,7 +426,6 @@
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
                             onPageClick: function (event, page) {
-                                console.log(event);
                                 $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
                                 $.ajax({
                                     type: 'POST',
