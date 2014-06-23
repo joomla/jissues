@@ -380,5 +380,4 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 
 		return $this->query;
 	}
-
 }
