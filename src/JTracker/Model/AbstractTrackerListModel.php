@@ -152,15 +152,6 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	abstract protected function getListQuery();
 
 	/**
-	 *  Method to get a DatabaseQuery object for retrieving the data set from a database for ajax request.
-	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
-	 *
-	 * @since   1.0
-	 */
-	abstract protected function getAjaxListQuery();
-
-	/**
 	 * Set the pagination object.
 	 *
 	 * @param   TrackerPagination  $pagination  The pagination object.
@@ -390,30 +381,5 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 		return $this->query;
 	}
 
-	/**
-	 * Method to cache the last query constructed for ajax request.
-	 *
-	 * This method ensures that the query is constructed only once for a given state of the model.
-	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object
-	 *
-	 * @since   1.0
-	 */
-	protected function _getAjaxListQuery()
-	{
-		// Capture the last store id used.
-		static $lastStoreId;
 
-		// Compute the current store id.
-		$currentStoreId = $this->getStoreId();
-
-		// If the last store id is different from the current, refresh the query.
-		if ($lastStoreId != $currentStoreId || empty($this->query))
-		{
-			$lastStoreId = $currentStoreId;
-			$this->query = $this->getAjaxListQuery();
-		}
-
-		return $this->query;
-	}
 }

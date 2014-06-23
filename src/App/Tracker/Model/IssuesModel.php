@@ -277,4 +277,57 @@ class IssuesModel extends AbstractTrackerListModel
 
 		return parent::getStoreId($id);
 	}
+
+	/**
+	 * Method to get an array of data items for ajax requests
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 *
+	 * @since 1.0
+	 */
+	public function getAjaxItems()
+	{
+		$store = $this->getStoreID();
+
+		if (isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+
+		$query = $this->_getAjaxListQuery();
+
+		$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
+
+		// Add the items to the internal cache.
+		$this->cache[$store] = $items;
+
+		return $this->cache[$store];
+	}
+
+	/**
+	 * Method to cache the last query constructed for ajax request.
+	 *
+	 * This method ensures that the query is constructed only once for a given state of the model.
+	 *
+	 * @return  DatabaseQuery  A DatabaseQuery object
+	 *
+	 * @since   1.0
+	 */
+	protected function _getAjaxListQuery()
+	{
+		// Capture the last store id used.
+		static $lastStoreId;
+
+		// Compute the current store id.
+		$currentStoreId = $this->getStoreId();
+
+		// If the last store id is different from the current, refresh the query.
+		if ($lastStoreId != $currentStoreId || empty($this->query))
+		{
+			$lastStoreId = $currentStoreId;
+			$this->query = $this->getAjaxListQuery();
+		}
+
+		return $this->query;
+	}
 }
