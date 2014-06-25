@@ -409,15 +409,15 @@
             var status = $('#filter-status').val();
             var user = $('#filter-user').val();
             $.ajax({
-                type: 'POST',
-                url: "{{ uri.base.path }}tracker/{{ project.alias }}/ajax",
+                type: 'GET',
+                url: "{{ uri.base.path }}tracker/{{ project.alias }}/listing",
                 data: {
-                    'filter-search': search,
-                    'filter-stage': stage,
-                    'filter-priority': priority,
-                    'filter-user': user,
-                    'filter-sort': sort,
-                    'filter-status': status,
+                    'search': search,
+                    'stage': stage,
+                    'priority': priority,
+                    'user': user,
+                    'sort': sort,
+                    'status': status,
                     'stools-active': active
                 },
                 success: function (r) {
@@ -428,15 +428,15 @@
                             onPageClick: function (event, page) {
                                 $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
                                 $.ajax({
-                                    type: 'POST',
-                                    url: '{{ uri.base.path }}tracker/{{ project.alias }}/ajax?page=' + page,
+                                    type: 'GET',
+                                    url: '{{ uri.base.path }}tracker/{{ project.alias }}/listing?page=' + page,
                                     data: {
-                                        'filter-search': search,
-                                        'filter-stage': stage,
-                                        'filter-priority': priority,
-                                        'filter-user': user,
-                                        'filter-sort': sort,
-                                        'filter-status': status,
+                                        'search': search,
+                                        'stage': stage,
+                                        'priority': priority,
+                                        'user': user,
+                                        'sort': sort,
+                                        'status': status,
                                         'stools-active': active
                                     },
                                     success: function (data) {
