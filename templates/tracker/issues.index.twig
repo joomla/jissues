@@ -409,8 +409,8 @@
             var status = $('#filter-status').val();
             var user = $('#filter-user').val();
             $.ajax({
-                type: 'GET',
-                url: "{{ uri.base.path }}tracker/{{ project.alias }}/listing",
+                type: 'POST',
+                url: "{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax",
                 data: {
                     'search': search,
                     'stage': stage,
@@ -428,8 +428,8 @@
                             onPageClick: function (event, page) {
                                 $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
                                 $.ajax({
-                                    type: 'GET',
-                                    url: '{{ uri.base.path }}tracker/{{ project.alias }}/listing?page=' + page,
+                                    type: 'POST',
+                                    url: '{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax?page=' + page,
                                     data: {
                                         'search': search,
                                         'stage': stage,
