@@ -107,118 +107,13 @@
             </tr>
             </thead>
             <tbody>
-            {% if items %}
-                {% set blockers = [1, 2] %}
-                {% for item in items %}
-
-                    {% set rowClass = '' %}
-                    {% if item.priority in blockers %}
-                        {% set rowClass = ' class=error' %}
-                    {% endif %}
-                    {% if item.status == 4 %}
-                        {% set rowClass = ' class=success' %}
-                    {% endif %}
-
-                    <tr{{ rowClass }}>
-                        <td class="center valign-center">
-                            {{ item.issue_number }}
-                            <!--
-                            @todo This is to retrieve extended information on an issue - review
-                            {#
-                            <div class="btn btn-small issueInfo"
-                                 title="{{ project.title }} # {{ item.issue_number }}"
-                                 data-issue="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/info">
-                                {{ item.issue_number }}
-                            </div>
-                            #}
-                            -->
-                        </td>
-                        <td class="hasContext">
-                            <div class="hasTooltip" title="">
-                                {% if user.check("edit") %}
-                                    <a class="pull-right btn btn-small"
-                                       href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-                                        <span data-icon="&#xe003;"></span>
-                                    </a>
-                                {% endif %}
-                                <a class="list-issue-title"
-                                   href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
-                                    {{ item.title|e }}
-                                </a>
-                                {{ item.labels|labels|raw }}
-                                <span class="list-issue-details">
-                                    {% if project.gh_user and project.gh_project %}
-                                        <br/>
-                                        {{ 'GitHub ID'|_ }}
-
-
-
-
-
-
-                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                                           target="_blank">
-                                            {{ item.issue_number }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.foreign_number %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Foreign ID'|_ }}
-
-
-
-
-
-
-                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                                           target="_blank">
-                                            {{ item.foreign_number }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.opened_date %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Opened %s'|_|format(item.opened_date|date('Y-m-d')) }}
-                                    {% endif %}
-                                    {% if item.closed_status %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Closed %s'|_|format(item.closed_date|date('Y-m-d')) }}
-                                    {% endif %}
-                                    {% if item.modified_date != '0000-00-00 00:00:00' %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Modified %s'|_|format(item.modified_date|date('Y-m-d')) }}
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </td>
-                        <td class="center valign-center">
-                            {% set priorities = {1: 'Critical'|_, 2: 'Urgent'|_, 3: 'Medium'|_, 4: 'Low'|_, 5: 'Very low'|_ } %}
-                            <span class="badge {{ prioClass(item.priority) }}">{{ priorities[item.priority] }}</span>
-                        </td>
-                        <td class="center valign-center">
-                            {{ item.status_title|_ }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td class="center" colspan="4">
-                        {{ 'No items found.'|_ }}
-                    </td>
-                </tr>
-            {% endif %}
+                <td class="center" colspan="4"> Loading,please wait.</td></tr>
             </tbody>
 
         </table>
     </form>
 
     <ul id="pagination" class="trackerPagination"></ul>
-
-    <div id="trackerPagination">
-        {% if pagination.pagesTotal > 1 %}
-            {{ sprintf("Page %1$s of %2$s"|_, pagination.pageNo, pagination.pagesTotal) }}
-            {{ pagination.bar|raw }}
-        {% endif %}
-    </div>
 
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
@@ -333,7 +228,8 @@
     </script>
 
     <script type="text/javascript">
-
+        // Get issues list
+        getListItems();
         /*
          @todo This is to retrieve extended information on an issue - review
 
@@ -353,7 +249,7 @@
          */
 
         $('[id^=filter]').change(function () {
-                    GetListItems();
+                    getListItems();
                 }
         );
         $('#filter-status-div button').click(
@@ -367,17 +263,17 @@
                         $(this).addClass("active btn-danger");
                         $(this).prev().removeClass("active btn-success");
                     }
-                    GetListItems();
+                    getListItems();
                 }
         );
 
         $("#button-remove").click(function () {
             $('#filter-search').val('');
-            GetListItems();
+            getListItems();
         });
 
         $("#button-submit").click(function () {
-            GetListItems();
+            getListItems();
         });
 
         function prioClass(priority) {
@@ -396,11 +292,10 @@
             }
         }
 
-        function GetListItems() {
-            $("#trackerPagination").remove();
+        function getListItems() {
             $('#pagination').remove();
             $('#issuesForm').after('<ul id="pagination" class="trackerPagination"></ul>');
-            $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
+            $('#issuesList tbody').animate({opacity:0.3}, 100);
             var active = $('#stools-active').val();
             var search = $('#filter-search').val();
             var stage = $('#filter-stage').val();
@@ -408,6 +303,7 @@
             var sort = $('#filter-sort').val();
             var status = $('#filter-status').val();
             var user = $('#filter-user').val();
+
             $.ajax({
                 type: 'POST',
                 url: "{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax",
@@ -426,7 +322,7 @@
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
                             onPageClick: function (event, page) {
-                                $('#issuesList tbody').html('<tr><td class="center" colspan="4"> Loading,please wait.</td></tr>');
+                                $('#issuesList tbody').animate({opacity:0.3}, 100);
                                 $.ajax({
                                     type: 'POST',
                                     url: '{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax?page=' + page,
@@ -441,19 +337,19 @@
                                     },
                                     success: function (data) {
                                         $('#issuesList tbody').html(tmpl("ajaxListing", data));
+                                        $('#issuesList tbody').animate({opacity:1}, 100);
                                     }
                                 });
                             }
                         });
                     } else {
-                        $("#pagination").removeClass('pagination');
                         $("#pagination").html('');
                     }
                     $('#issuesList tbody').html(tmpl("ajaxListing", r));
+                    $('#issuesList tbody').animate({opacity:1}, 100);
                 }
             });
         }
-
 
         $('#stools-button button').click(
                 function () {
