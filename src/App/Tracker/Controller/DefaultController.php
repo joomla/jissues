@@ -54,56 +54,75 @@ class DefaultController extends AbstractTrackerListController
 		$this->model->setProject($this->getContainer()->get('app')->getProject());
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
+		$this->setModelState();
+
+		return $this;
+	}
+
+	/**
+	 * Setting model state that will be used for filtering.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	private function setModelState()
+	{
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
 		$state = $this->model->getState();
 
+		// Get project id;
 		$projectId = $application->getProject()->project_id;
 
+		// Set filter of project
 		$state->set('filter.project', $projectId);
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'filter-sort', 0, 'uint');
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue_number', 'word');
 
-		switch ($sort)
+		$direction = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
+
+		switch (strtolower($sort))
 		{
-			case 1:
-				$state->set('list.ordering', 'a.issue_number');
-				$state->set('list.direction', 'ASC');
-				break;
-
-			case 2:
+			case 'modified_date':
 				$state->set('list.ordering', 'a.modified_date');
-				$state->set('list.direction', 'DESC');
-				break;
-
-			case 3:
-				$state->set('list.ordering', 'a.modified_date');
-				$state->set('list.direction', 'ASC');
 				break;
 
 			default:
 				$state->set('list.ordering', 'a.issue_number');
+		}
+
+		switch (strtoupper($direction))
+		{
+			case 'ASC':
+				$state->set('list.direction', 'ASC');
+				break;
+
+			default:
 				$state->set('list.direction', 'DESC');
 		}
 
 		$state->set('filter.sort', $sort);
 
 		$state->set('filter.priority',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'filter-priority', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
 		);
 
 		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
 		);
 
 		$state->set('filter.stage',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'filter-stage', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'stage', 0, 'uint')
 		);
 
 		$state->set('filter.search',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'filter-search', '', 'string')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
 		);
 
 		$state->set('filter.user',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'filter-user', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'uint')
 		);
 
 		$state->set('stools-active',
@@ -116,7 +135,5 @@ class DefaultController extends AbstractTrackerListController
 		}
 
 		$this->model->setState($state);
-
-		return $this;
 	}
 }
