@@ -114,7 +114,7 @@ var_dump($this);
 						elseif ($item->priority == 4) : ?>
 							<?php $statusClass = '' ?>
 						<?php endif ?>
-						<span class="badge <?php echo $statusClass ?>"><?php echo $item->priority ?></span>
+						<span class="badge <?php echo $statusClass ?>"><?php echo Text::_('COM_TRACKER_PRIORITY_' . $item->priority) ?></span>
 					</td>
 
 					<td>
