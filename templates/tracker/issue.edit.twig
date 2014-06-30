@@ -75,9 +75,7 @@
         <li>
             <label for="priority">{{ translate('Priority') }}</label>
             <select name="item[priority]" id="priority" class="span2">
-                {% set priorities = {1: 'Critical'|_, 2: 'Urgent'|_, 3: 'Medium'|_, 4: 'Low'|_, 5: 'Very low'|_ } %}
-
-                {% for key, value in priorities %}
+                {% for key, value in priorities() %}
                     <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                 {% endfor %}
             </select>
