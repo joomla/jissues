@@ -25,20 +25,21 @@ use Joomla\Uri\Uri;
  */
 class Listing extends AbstractAjaxController
 {
-	protected $model;
-
 	/**
 	 * Setting model state that will be used for filtering.
 	 *
-	 * @param   \JTracker\Application      $application  The application object
-	 * @param   \Joomla\Registry\Registry  $state        The state object
+	 * @param    \App\Tracker\Model\IssuesModel $model
 	 *
 	 * @return \Joomla\Registry\Registry
+	 *
+	 * @since 1.0
 	 */
-	private function setModelState(\JTracker\Application $application, \Joomla\Registry\Registry $state)
+	private function setModelState(IssuesModel $model)
 	{
+		// Get the state object
+		$state = $model->getState();
 		// Pagination
-
+		$application = $this->getContainer()->get('app');
 		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
 		$page  = $application->input->getInt('page');
 
@@ -56,7 +57,6 @@ class Listing extends AbstractAjaxController
 		$state->set('filter.project', $projectId);
 
 		// Get sort and direction
-		$this->model->setState($state);
 
 		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue_number', 'word');
 
@@ -127,31 +127,27 @@ class Listing extends AbstractAjaxController
 	{
 		// Load the application
 		$application = $this->getContainer()->get('app');
-
 		// Load the model
-		$this->model = new IssuesModel($this->getContainer()->get('db'), $application->input);
+		$model = new IssuesModel($this->getContainer()->get('db'), $application->input);
 
 		// Get allowed user for view;
 		$application->getUser()->authorize('view');
 
 		// Set Current project;
-		$this->model->setProject($application->getProject(true));
-
-		// Get state object
-		$state = $this->model->getState();
+		$model->setProject($application->getProject(true));
 
 		// Set model state
-		$this->model->setState($this->setModelState($application, $state));
+		$model->setState($this->setModelState($model));
 
 		// Pagination
 		$paginationObject = new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
-		$this->model->setPagination($paginationObject);
+		$model->setPagination($paginationObject);
 
 		// Get list items
-		$listItems = $this->model->getAjaxItems();
+		$listItems = $model->getAjaxItems();
 
 		// Get total pages
-		$pagesTotal = $this->model->getPagination()->getPagesTotal();
+		$pagesTotal = $model->getPagination()->getPagesTotal();
 
 		// Render the label html for each item
 		$renderer = new Renderer\TrackerExtension($this->getContainer());
