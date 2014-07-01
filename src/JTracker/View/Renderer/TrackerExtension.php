@@ -91,6 +91,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
+			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
 			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
@@ -196,6 +197,24 @@ class TrackerExtension extends \Twig_Extension
 			default :
 				return '';
 		}
+	}
+
+	/**
+	 * Get a text list of issue priorities.
+	 *
+	 * @return  array  The list of priorities.
+	 *
+	 * @since   1.0
+	 */
+	public function getPriorities()
+	{
+		return [
+			1 => g11n3t('Critical'),
+			2 => g11n3t('Urgent'),
+			3 => g11n3t('Medium'),
+			4 => g11n3t('Low'),
+			5 => g11n3t('Very low')
+			];
 	}
 
 	/**

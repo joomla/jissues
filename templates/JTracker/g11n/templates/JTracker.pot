@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,34 +70,42 @@ msgid "Icons"
 msgstr ""
 
 #: /templates/trackerMenu.twig:145
-msgid "Text"
+msgid "Routes"
 msgstr ""
 
 #: /templates/trackerMenu.twig:151
+msgid "Text"
+msgstr ""
+
+#: /templates/trackerMenu.twig:157
 msgid "Clear Cache"
 msgstr ""
 
-#: /templates/trackerMenu.twig:173
+#: /templates/trackerMenu.twig:179
 msgid "About Us"
 msgstr ""
 
-#: /templates/trackerMenu.twig:200
+#: /templates/trackerMenu.twig:206
 msgid "Admin"
 msgstr ""
 
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
 msgstr ""
 
-#: /templates/trackerMenu.twig:212
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:224
 msgid "Logout"
 msgstr ""
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:233
 msgid "Login with GitHub"
 msgstr ""
 
-#: /templates/trackerMenu.twig:225
+#: /templates/trackerMenu.twig:237
 msgid "No GitHub credentials set in config"
 msgstr ""
 

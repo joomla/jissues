@@ -117,6 +117,11 @@ class Transifex extends Get
 		// Fetch the file for each language and place it in the file tree
 		foreach ($this->languages as $language)
 		{
+			if ('en-GB' == $language)
+			{
+				continue;
+			}
+
 			$this->out($language . '... ', false);
 
 			// Call out to Transifex
