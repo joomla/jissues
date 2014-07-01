@@ -28,9 +28,9 @@ class Listing extends AbstractAjaxController
 	/**
 	 * Setting model state that will be used for filtering.
 	 *
-	 * @param    \App\Tracker\Model\IssuesModel $model
+	 * @param   \App\Tracker\Model\IssuesModel  $model  The issues model
 	 *
-	 * @return \Joomla\Registry\Registry
+	 * @return  \Joomla\Registry\Registry
 	 *
 	 * @since 1.0
 	 */
@@ -38,6 +38,7 @@ class Listing extends AbstractAjaxController
 	{
 		// Get the state object
 		$state = $model->getState();
+
 		// Pagination
 		$application = $this->getContainer()->get('app');
 		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
@@ -127,6 +128,7 @@ class Listing extends AbstractAjaxController
 	{
 		// Load the application
 		$application = $this->getContainer()->get('app');
+
 		// Load the model
 		$model = new IssuesModel($this->getContainer()->get('db'), $application->input);
 
