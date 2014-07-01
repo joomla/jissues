@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: 2014-05-04 19:34+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
@@ -17,44 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Címkék"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Címkék listázása"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Új címke"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
-msgid "Name"
-msgstr "Név"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
-msgid "Color"
-msgstr "Szín"
-
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr "Címke hozzáadása"
-
-#: /templates/github/labels.index.twig:43
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL-cím"
-
-#: /templates/github/labels.index.twig:58
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Törlés"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
@@ -68,6 +30,11 @@ msgstr "Beavatkozási rutinok listája"
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
 msgstr "Új beavatkozási rutin"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:43
+msgid "URL"
+msgstr "URL-cím"
 
 #: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
 msgid "Events"
@@ -108,6 +75,39 @@ msgstr "Inaktiválás"
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
 msgstr "Aktiválás"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:58
+msgid "Delete"
+msgstr "Törlés"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Címkék"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Címkék listázása"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Új címke"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Név"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Szín"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Címke hozzáadása"
 
 #: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
 #, php-format

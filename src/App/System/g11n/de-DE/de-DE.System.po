@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: 2014-05-25 22:57+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr "Routen"
 
 #: /templates/system/config.index.twig:6
 msgid "Configuration"
@@ -29,7 +33,3 @@ msgstr "Speichern"
 #: /templates/system/config.index.twig:45
 msgid "Edit Configuration"
 msgstr "Konfiguration bearbeiten"
-
-#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
-msgid "Routes"
-msgstr "Routen"

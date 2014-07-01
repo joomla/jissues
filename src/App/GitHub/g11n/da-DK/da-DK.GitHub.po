@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: 2014-04-26 07:48+0000\n"
 "Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
@@ -17,44 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Mærker"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "List mærker"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Nyt mærke"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
-msgid "Name"
-msgstr "Navn"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
-msgid "Color"
-msgstr "Farve"
-
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr "Tilføj mærke"
-
-#: /templates/github/labels.index.twig:43
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL"
-
-#: /templates/github/labels.index.twig:58
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Slet"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
@@ -68,6 +30,11 @@ msgstr "List hooks"
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
 msgstr "Nyt hook"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:43
+msgid "URL"
+msgstr "URL"
 
 #: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
 msgid "Events"
@@ -108,6 +75,39 @@ msgstr "Deaktiver"
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
 msgstr "Aktiver"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:58
+msgid "Delete"
+msgstr "Slet"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Mærker"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "List mærker"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Nyt mærke"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Navn"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Farve"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Tilføj mærke"
 
 #: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
 #, php-format

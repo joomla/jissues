@@ -15,7 +15,7 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 Joomla Application Package
 
-* Installed: 1.2.0
+* Installed: 1.2.1
 * Source URL: https://github.com/joomla-framework/application.git
 
 #### joomla/controller (~1.1@stable)
@@ -78,7 +78,7 @@ Joomla HTTP Package
 
 Joomla Input Package
 
-* Installed: 1.1.1
+* Installed: 1.1.3
 * Source URL: https://github.com/joomla-framework/input.git
 
 #### joomla/model (~1.1@stable)
@@ -99,7 +99,7 @@ Joomla Profiler Package
 
 Joomla Registry Package
 
-* Installed: 1.1.2
+* Installed: 1.1.3
 * Source URL: https://github.com/joomla-framework/registry.git
 
 #### joomla/router (~1.1@stable)
@@ -141,7 +141,7 @@ Joomla View Package
 
 Symfony HttpFoundation Component
 
-* Installed: v2.4.4
+* Installed: v2.4.6
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -183,7 +183,7 @@ Handle file uploads with extensible validation and storage strategies
 
 Filesystem abstraction, but easy.
 
-* Installed: 0.4.4
+* Installed: 0.4.5
 * Source URL: https://github.com/thephpleague/flysystem.git
 
 ### PHP - Development
@@ -192,7 +192,7 @@ Filesystem abstraction, but easy.
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.9.1
+* Installed: 1.10.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (0.9)
@@ -206,7 +206,7 @@ Kint - debugging helper for PHP developers
 
 php error handling for cool kids
 
-* Installed: 1.1
+* Installed: 1.1.1
 * Source URL: https://github.com/filp/whoops.git
 
 #### mustache/mustache (2.1.*@stable)
@@ -220,7 +220,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.1.0
+* Installed: 4.1.3
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
@@ -241,7 +241,7 @@ Copy/Paste Detector (CPD) for PHP code.
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: dev-master a9cbcc12bc5e80c3e4d29aa48454cf7debd23087
+* Installed: dev-master 2bb1a7a2a72c9a1b39e4a4be12e0ac7dd53f136c
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
@@ -377,7 +377,7 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
 
 #### it-IT
-* Simone Baldelli &lt;baldelli.simone@gmail.com&gt;, 2014
+* Kravenor &lt;baldelli.simone@gmail.com&gt;, 2014
 
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
@@ -388,7 +388,7 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * Marcos Correa &lt;mcorrea.jr28@gmail.com&gt;, 2014
 
 #### pt-PT
-* Paulo Izidoro &lt;pauloizidoro@gmail.com&gt;, 2014
+* Paulo Pereira &lt;pauloizidoro@gmail.com&gt;, 2014
 
 #### ru-RU
-* Dmitrijs Rekuns, 2014
+* Dmitry Rekun, 2014

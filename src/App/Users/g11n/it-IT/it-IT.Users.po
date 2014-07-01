@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: 2014-05-25 22:54+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/jtracker/language/it_IT/)\n"
@@ -16,36 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
-msgid "Invalid user!"
-msgstr ""
-
-#: /templates/users/user.index.twig:19
-msgid "Edit profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
-msgid "Refresh profile from GitHub"
-msgstr ""
-
-#: /templates/users/user.index.twig:26
-msgid "My Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:28
-msgid "Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:57
-#, php-format
-msgid "Language: %s"
-msgstr ""
-
-#: /templates/users/user.index.twig:62
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
-msgstr ""
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -76,12 +46,20 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
+#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
+msgid "Invalid user!"
+msgstr ""
+
 #: /templates/users/user.edit.twig:22
 msgid "Save"
 msgstr ""
 
 #: /templates/users/user.edit.twig:27
 msgid "Cancel"
+msgstr ""
+
+#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
+msgid "Refresh profile from GitHub"
 msgstr ""
 
 #: /templates/users/user.edit.twig:44
@@ -98,6 +76,28 @@ msgstr ""
 
 #: /templates/users/user.edit.twig:77
 msgid "Timezone"
+msgstr ""
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr ""
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
 msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74

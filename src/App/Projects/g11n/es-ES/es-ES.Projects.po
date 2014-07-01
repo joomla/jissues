@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:01+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: 2014-05-26 12:40+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
@@ -18,6 +18,69 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Proyecto"
+
+#: /templates/projects/project.index.twig:20
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Proyectos"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Nuevo Proyecto"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Lista de Proyectos"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr "Aciones"
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr "Id"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr "Hooks"
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr "Etiquetas"
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr "Estadisticas"
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr "Grupos"
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr "Mostrar"
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Editar"
+
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Borrar"
+
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
 msgstr "Editar Proyecto"
@@ -26,11 +89,6 @@ msgstr "Editar Proyecto"
 #: /templates/projects/project.add.twig:11
 msgid "Save"
 msgstr "Guardar"
-
-#: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:64
-msgid "Delete"
-msgstr "Borrar"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
@@ -79,64 +137,6 @@ msgstr "Enlaces de Tracker externos"
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
 msgstr "Añadir Proyecto"
-
-#: /templates/projects/projects.index.twig:6
-msgid "Projects"
-msgstr "Proyectos"
-
-#: /templates/projects/projects.index.twig:12
-msgid "New Project"
-msgstr "Nuevo Proyecto"
-
-#: /templates/projects/projects.index.twig:23
-msgid "Projects List"
-msgstr "Lista de Proyectos"
-
-#: /templates/projects/projects.index.twig:28
-msgid "Tracker"
-msgstr "Tracker"
-
-#: /templates/projects/projects.index.twig:29
-#: /templates/projects/project.index.twig:20
-msgid "GitHub"
-msgstr "GitHub"
-
-#: /templates/projects/projects.index.twig:32
-msgid "Actions"
-msgstr "Aciones"
-
-#: /templates/projects/projects.index.twig:36
-msgid "Id"
-msgstr "Id"
-
-#: /templates/projects/projects.index.twig:48
-msgid "Hooks"
-msgstr "Hooks"
-
-#: /templates/projects/projects.index.twig:49
-msgid "Labels"
-msgstr "Etiquetas"
-
-#: /templates/projects/projects.index.twig:51
-msgid "Stats"
-msgstr "Estadisticas"
-
-#: /templates/projects/projects.index.twig:61
-msgid "Groups"
-msgstr "Grupos"
-
-#: /templates/projects/projects.index.twig:62
-msgid "Show"
-msgstr "Mostrar"
-
-#: /templates/projects/projects.index.twig:63
-msgid "Edit"
-msgstr "Editar"
-
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr "Proyecto"
 
 #: /src/App/Projects/Table/ProjectsTable.php:57
 msgid "A title is required"
