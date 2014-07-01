@@ -169,7 +169,7 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master feb8a16f1f2d434c3c4655df28efc7a9c252ceb4
+* Installed: dev-master daf9b45ea327fd5864ebb2226b5ac11c5847d00b
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (1.3.2)
@@ -241,7 +241,7 @@ Copy/Paste Detector (CPD) for PHP code.
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: dev-master 2bb1a7a2a72c9a1b39e4a4be12e0ac7dd53f136c
+* Installed: dev-master ca70e70ae96cb268b8200af2716af366cf3dc1d1
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
