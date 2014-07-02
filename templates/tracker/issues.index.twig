@@ -177,7 +177,11 @@
                             <span class="badge {{ prioClass(item.priority) }}">{{ priorities[item.priority] }}</span>
                         </td>
                        <td class="center valign-center">
-                            {{ item.status_title|_ }}
+                           {{ item.status_title|_ }}
+                           {% if item.merge_state %}
+                               <br />
+                               {{ item.merge_state|mergeBadge|raw }}
+                           {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
