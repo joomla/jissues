@@ -57,7 +57,7 @@ class Listing extends AbstractAjaxController
 		$state->set('filter.project', $projectId);
 
 		// Get sort and direction
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'filter-sort', 0, 'uint');
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 0, 'uint');
 
 		switch ($sort)
 		{
