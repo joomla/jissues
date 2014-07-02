@@ -51,38 +51,35 @@ class Listing extends AbstractAjaxController
 		$state->set('list.limit', $limit);
 
 		// Get project id;
-
 		$projectId = $application->getProject()->project_id;
 
 		// Set filter of project
 		$state->set('filter.project', $projectId);
 
 		// Get sort and direction
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'filter-sort', 0, 'uint');
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue_number', 'word');
-
-		$direction = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
-
-		switch (strtolower($sort))
+		switch ($sort)
 		{
-			case 'modified_date':
-				$state->set('list.ordering', 'a.modified_date');
+			case 1:
+				$state->set('list.ordering', 'a.issue_number');
+				$state->set('list.direction', 'ASC');
 				break;
 
-			default:
-				$state->set('list.ordering', 'a.issue_number');
-		}
+			case 2:
+				$state->set('list.ordering', 'a.modified_date');
+				$state->set('list.direction', 'DESC');
+				break;
 
-		switch (strtoupper($direction))
-		{
-			case 'ASC':
+			case 3:
+				$state->set('list.ordering', 'a.modified_date');
 				$state->set('list.direction', 'ASC');
 				break;
 
 			default:
+				$state->set('list.ordering', 'a.issue_number');
 				$state->set('list.direction', 'DESC');
 		}
-
 		$state->set('filter.sort', $sort);
 
 		$state->set('filter.priority',
