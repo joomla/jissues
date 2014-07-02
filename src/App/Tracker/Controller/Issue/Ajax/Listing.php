@@ -114,7 +114,7 @@ class Listing extends AbstractAjaxController
 			$state->set('username', $application->getUser()->username);
 		}
 
-		return $state;
+		$model->setState($state);
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Listing extends AbstractAjaxController
 		$model->setProject($application->getProject(true));
 
 		// Set model state
-		$model->setState($this->setModelState($model));
+		$this->setModelState($model);
 
 		// Pagination
 		$paginationObject = new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
