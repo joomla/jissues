@@ -80,6 +80,7 @@ class Listing extends AbstractAjaxController
 				$state->set('list.ordering', 'a.issue_number');
 				$state->set('list.direction', 'DESC');
 		}
+
 		$state->set('filter.sort', $sort);
 
 		$state->set('filter.priority',
