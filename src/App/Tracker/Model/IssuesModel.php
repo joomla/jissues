@@ -113,14 +113,14 @@ class IssuesModel extends AbstractTrackerListModel
 				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
 		}
 
-		$filter = $this->state->get('filter.stage');
+		$filter = $this->state->get('filter.status');
 
 		if ($filter)
 		{
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
 		}
 
-		$filter = $this->state->get('filter.status');
+		$filter = $this->state->get('filter.state');
 
 		if (is_numeric($filter))
 		{
@@ -203,14 +203,14 @@ class IssuesModel extends AbstractTrackerListModel
 				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
 		}
 
-		$filter = $this->state->get('filter.stage');
+		$filter = $this->state->get('filter.status');
 
 		if ($filter)
 		{
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
 		}
 
-		$filter = $this->state->get('filter.status');
+		$filter = $this->state->get('filter.state');
 
 		if (is_numeric($filter))
 		{
@@ -270,7 +270,7 @@ class IssuesModel extends AbstractTrackerListModel
 	{
 		// Add the list state to the store id.
 		$id .= ':' . $this->state->get('filter.priority');
-		$id .= ':' . $this->state->get('filter.status');
+		$id .= ':' . $this->state->get('filter.state');
 		$id .= ':' . $this->state->get('filter.stage');
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');

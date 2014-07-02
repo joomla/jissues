@@ -32,14 +32,14 @@
           class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="clearfix">
-                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-status-div">
+                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-state-div">
                     <button type="button"
-                            class="btn{% if state.get('filter.status') == 0 %} active btn-success {% endif %}"
+                            class="btn{% if state.get('filter.state') == 0 %} active btn-success {% endif %}"
                             value="0">
                         {{ 'Open'|_ }}
                     </button>
                     <button type="button"
-                            class="btn{% if state.get('filter.status') == 1 %} active btn-danger {% endif %}"
+                            class="btn{% if state.get('filter.state') == 1 %} active btn-danger {% endif %}"
                             value="1">
                         {{ 'Closed'|_ }}
                     </button>
@@ -55,7 +55,7 @@
             </div>
 
             <div id="stools-container" class="collapse
-            {% if state.get('filter.stage')
+            {% if state.get('filter.status')
             or state.get('filter.priority')
             or state.get('filter.search')
             or state.get('filter.sort')
@@ -79,7 +79,7 @@
                             title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
                 <div class="btn-group">
-                    {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100', state.get('filter.status')) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-small-100', state.get('filter.state')) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
@@ -94,7 +94,7 @@
                 </div>
             </div>
 
-            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}"/>
+            <input type="hidden" name="filter-state" id="filter-state" value="{{ state.get('filter.state') }}"/>
             <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}"/>
         </div>
         <table class="table table-bordered table-striped table-condensed" id="issuesList">
@@ -252,10 +252,10 @@
                     getListItems();
                 }
         );
-        $('#filter-status-div button').click(
+        $('#filter-state-div button').click(
                 function () {
                     var val = $(this).val();
-                    $('#filter-status').val(val);
+                    $('#filter-state').val(val);
                     if (val == 0) {
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
@@ -298,10 +298,10 @@
             $('#issuesList tbody').animate({opacity:0.3}, 100);
             var active = $('#stools-active').val();
             var search = $('#filter-search').val();
-            var stage = $('#filter-stage').val();
+            var status = $('#filter-status').val();
             var priority = $('#filter-priority').val();
             var sort = $('#filter-sort').val();
-            var status = $('#filter-status').val();
+            var state = $('#filter-state').val();
             var user = $('#filter-user').val();
 
             $.ajax({
@@ -309,11 +309,11 @@
                 url: "{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax",
                 data: {
                     'search': search,
-                    'stage': stage,
+                    'status': status,
                     'priority': priority,
                     'user': user,
                     'sort': sort,
-                    'status': status,
+                    'state': state,
                     'stools-active': active
                 },
                 success: function (r) {
@@ -328,11 +328,11 @@
                                     url: '{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax?page=' + page,
                                     data: {
                                         'search': search,
-                                        'stage': stage,
+                                        'status': status,
                                         'priority': priority,
                                         'user': user,
                                         'sort': sort,
-                                        'status': status,
+                                        'state': state,
                                         'stools-active': active
                                     },
                                     success: function (data) {

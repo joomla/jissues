@@ -89,12 +89,12 @@ class Listing extends AbstractAjaxController
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
 		);
 
-		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
+		$state->set('filter.state',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 0, 'uint')
 		);
 
-		$state->set('filter.stage',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'stage', 0, 'uint')
+		$state->set('filter.status',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
 		);
 
 		$state->set('filter.search',
