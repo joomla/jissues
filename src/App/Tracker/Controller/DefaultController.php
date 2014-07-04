@@ -79,14 +79,18 @@ class DefaultController extends AbstractTrackerListController
 		// Set filter of project
 		$state->set('filter.project', $projectId);
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue_number', 'word');
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
 
 		$direction = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
+		// Filter.sort
+		$filter_sort = 0;
+
 		switch (strtolower($sort))
 		{
-			case 'modified_date':
+			case 'updated':
 				$state->set('list.ordering', 'a.modified_date');
+				$filter_sort = $filter_sort +2;
 				break;
 
 			default:
@@ -97,14 +101,14 @@ class DefaultController extends AbstractTrackerListController
 		{
 			case 'ASC':
 				$state->set('list.direction', 'ASC');
+				$filter_sort = $filter_sort +1;
 				break;
 
 			default:
 				$state->set('list.direction', 'DESC');
 		}
 
-		$state->set('filter.sort', $sort);
-
+		$state->set('filter.sort',$filter_sort);
 		$state->set('filter.priority',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
 		);
