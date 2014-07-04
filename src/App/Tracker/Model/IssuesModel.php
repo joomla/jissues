@@ -147,12 +147,12 @@ class IssuesModel extends AbstractTrackerListModel
 					break;
 
 				case 2:
-				// Join over the activities.
-				$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
-				$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
-				$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
-				$query->group('a.issue_number');
-				break;
+					// Join over the activities.
+					$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
+					$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
+					$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
+					$query->group('a.issue_number');
+					break;
 			}
 		}
 
@@ -329,5 +329,33 @@ class IssuesModel extends AbstractTrackerListModel
 		}
 
 		return $this->query;
+	}
+
+	/**
+	 * Get the status by name
+	 *
+	 * @param   string  $name  The name of the status
+	 *
+	 * @return  int
+	 *
+	 * @since   1.0
+	 */
+	public function getStatusByName($name = '')
+	{
+		if ($name == '' || $name == null)
+		{
+			return 0;
+		}
+
+		$db   = $this->getDb();
+		$item = $db->setQuery(
+			$db->getQuery(true)
+				->from($db->quoteName('#__status'))
+				->select('id')
+				->where('status LIKE' . $name)
+				->where('closed = ') . $this->state->get('filter.state')
+		)->loadObject();
+
+		return $item->id;
 	}
 }
