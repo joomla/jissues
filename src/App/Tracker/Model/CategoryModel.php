@@ -12,18 +12,23 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
 
+/**
+ * Model of categories
+ * Class CategoryModel
+ * @package App\Tracker\Model
+ */
 class CategoryModel extends AbstractTrackerDatabaseModel
 {
 
 	/**
-	 * Context string for the model type.  This is used to handle uniqueness
-	 * when dealing with the getStoreId() method and caching data structures.
+	 * Add an item
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @param array $src The source
+	 *
+	 * @return $this This allows chaining
+	 *
+	 * @since 1.0
 	 */
-	protected $context = 'com_tracker.category';
-
 	protected function add(array $src)
 	{
 		$data = array();
@@ -34,7 +39,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$table = new CategoryTable($this->getDb());
 
-		$table->check()->save($src);
+		$table->check()->save($data);
 
 		return $this;
 	}
@@ -81,6 +86,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 * @param $name
 	 *
 	 * @return object
+	 *
+	 * @since 1.0
 	 */
 	protected function getByName($name)
 	{
