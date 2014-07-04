@@ -50,12 +50,12 @@ class CategoryTable extends AbstractDatabaseTable {
 
 		if (trim($this->name) == '')
 		{
-			$errors[] = 'A name is required for the category.';
+			$errors[] = g11n3t('a name is required for the category.');
 		}
 
 		if (strlen($this->name)>150)
 		{
-			$errors[] = 'The length of the name can not exceed 150 characters.';
+			$errors[] = g11n3t('The length of the name can not exceed 150 characters.');
 		}
 
 		if ($errors)
