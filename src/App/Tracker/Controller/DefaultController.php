@@ -79,11 +79,11 @@ class DefaultController extends AbstractTrackerListController
 		// Set filter of project
 		$state->set('filter.project', $projectId);
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.get.filter.sort', 'sort', 'issue', 'word');
 
-		$direction = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
+		$direction = $application->getUserStateFromRequest('project_' . $projectId . 'get.filter.direction', 'direction', 'desc', 'word');
 
-		// Filter.sort
+		// Filter.sort for get queries
 		$filter_sort = 0;
 
 		switch (strtolower($sort))
@@ -109,25 +109,79 @@ class DefaultController extends AbstractTrackerListController
 		}
 
 		$state->set('filter.sort', $filter_sort);
-		$state->set('filter.priority',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
-		);
 
-		$state->set('filter.state',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 0, 'uint')
-		);
+		// Filter.priority for get queries
+		$priority = $application->getUserStateFromRequest('project_' . $projectId . 'get.filter.priority', 'priority', 0, 'word');
 
-		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
-		);
+		$filter_priority = 0;
+
+		switch (strtolower($priority))
+		{
+			case 'critical':
+				$filter_priority = 1;
+				break;
+
+			case 'urgent':
+				$filter_priority = 2;
+				break;
+
+			case 'medium':
+				$filter_priority = 3;
+				break;
+
+			case 'low':
+				$filter_priority = 4;
+				break;
+
+			case 'very-low':
+				$filter_priority = 5;
+				break;
+		}
+
+		$state->set('filter.priority', $filter_priority);
+
+		// Filter.state for get queries
+		$issue_state = $application->getUserStateFromRequest('project_' . $projectId . 'get.filter.state', 'state', 'open', 'word');
+
+		$filter_state = 0;
+
+		switch (strtolower($issue_state))
+		{
+			case 'closed':
+				$filter_state = 1;
+				break;
+		}
+
+		$state->set('filter.state', $filter_state);
+
+		// Filter.status for get queries
+		$status = $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', '', 'word');
+
+		$state->set('filter.status', $this->model->getStatusByName($status));
+
+		// Filter.search for word
 
 		$state->set('filter.search',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
 		);
 
-		$state->set('filter.user',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'uint')
-		);
+		$user = $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'word');
+
+		$filter_user = 0;
+
+		switch ($user)
+		{
+			case 'created':
+				$filter_user = 1;
+				break;
+
+			case 'participated':
+				$filter_user = 2;
+				break;
+		}
+
+		// Filter.user for get queries
+		$state->set('filter.user', $filter_user);
 
 		$state->set('stools-active',
 			$application->input->get('stools-active', 0, 'uint')
