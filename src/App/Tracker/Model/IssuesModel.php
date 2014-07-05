@@ -271,7 +271,7 @@ class IssuesModel extends AbstractTrackerListModel
 		// Add the list state to the store id.
 		$id .= ':' . $this->state->get('filter.priority');
 		$id .= ':' . $this->state->get('filter.state');
-		$id .= ':' . $this->state->get('filter.stage');
+		$id .= ':' . $this->state->get('filter.status');
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
 
@@ -348,14 +348,14 @@ class IssuesModel extends AbstractTrackerListModel
 		}
 
 		$db   = $this->getDb();
-		$item = $db->setQuery(
+		$id = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__status'))
 				->select('id')
 				->where('status LIKE' . $name)
 				->where('closed = ') . $this->state->get('filter.state')
-		)->loadObject();
+		)->loadResult();
 
-		return $item->id;
+		return $id;
 	}
 }
