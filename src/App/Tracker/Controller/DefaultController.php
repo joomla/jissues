@@ -79,9 +79,9 @@ class DefaultController extends AbstractTrackerListController
 		// Set filter of project
 		$state->set('filter.project', $projectId);
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.get.filter.sort', 'sort', 'issue', 'word');
+		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
 
-		$direction = $application->getUserStateFromRequest('project_' . $projectId . 'get.filter.direction', 'direction', 'desc', 'word');
+		$direction = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
 		// Filter.sort for get queries
 		$filter_sort = 0;
@@ -111,7 +111,7 @@ class DefaultController extends AbstractTrackerListController
 		$state->set('filter.sort', $filter_sort);
 
 		// Filter.priority for get queries
-		$priority = $application->getUserStateFromRequest('project_' . $projectId . 'get.filter.priority', 'priority', 0, 'word');
+		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'word');
 
 		$filter_priority = 0;
 
@@ -141,7 +141,7 @@ class DefaultController extends AbstractTrackerListController
 		$state->set('filter.priority', $filter_priority);
 
 		// Filter.state for get queries
-		$issue_state = $application->getUserStateFromRequest('project_' . $projectId . 'get.filter.state', 'state', 'open', 'word');
+		$issue_state = $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 'open', 'word');
 
 		$filter_state = 0;
 
