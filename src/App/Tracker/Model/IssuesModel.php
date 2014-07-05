@@ -353,7 +353,7 @@ class IssuesModel extends AbstractTrackerListModel
 				->from($db->quoteName('#__status'))
 				->select('id')
 				->where('status LIKE' . $name)
-				->where('closed = '. $this->state->get('filter.state'))
+				->where('closed = ' . $this->state->get('filter.state'))
 		)->loadResult();
 
 		return $id;
