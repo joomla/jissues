@@ -81,6 +81,40 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Save an item
+	 *
+	 * @param   array  $src  The source
+	 *
+	 * @throws  \RuntimeException
+	 *
+	 * @return  $this This allows chaining
+	 *
+	 * @since 1.0
+	 */
+	public function save(array $src)
+	{
+		$filter = new InputFilter;
+
+		$data = array();
+
+		$data['id']          = $filter->clean($src['id'], 'int');
+		$data['projects_id'] = $filter->clean($src['project_id'], 'int');
+		$data['name']        = $filter->clean($src['name'], 'string');
+
+		if ($data['id'] == null)
+		{
+			throw new \RuntimeException('Missing ID');
+		}
+
+		$table = new CategoryTable($db);
+
+		$table->load($data['id'])
+			->save($data);
+
+		return $this;
+	}
+
+	/**
 	 * Get an item by name
 	 *
 	 * @param $name
