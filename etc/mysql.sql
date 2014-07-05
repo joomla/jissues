@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_tests` (
   `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
   PRIMARY KEY (`id`),
   KEY `item_id` (`item_id`)
-) ENGINE=MEMORY AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
