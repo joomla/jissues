@@ -21,7 +21,6 @@ use App\Tracker\Table\CategoryTable;
  */
 class CategoriesModel extends AbstractTrackerListModel
 {
-
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
 	 *
@@ -36,9 +35,8 @@ class CategoriesModel extends AbstractTrackerListModel
 
 		$projectId = $this->getProject()->project_id;
 
-		$table = new CategoryTable($db);
-		$query->select('a.*')
-			->from($db->quoteName($table->getTableName()),'a')
+		$query->select('*')
+			->from($db->quoteName('#__issues_categories'))
 			->where($db->quoteName('project_id') . '=' . (int) $projectId);
 
 		return $query;

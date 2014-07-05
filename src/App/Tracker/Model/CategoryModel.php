@@ -15,21 +15,23 @@ use App\Tracker\Table\CategoryTable;
 /**
  * Model of categories
  * Class CategoryModel
- * @package App\Tracker\Model
+ *
+ * @package  App\Tracker\Model
+ *
+ * @since    1.0
  */
 class CategoryModel extends AbstractTrackerDatabaseModel
 {
-
 	/**
 	 * Add an item
 	 *
-	 * @param array $src The source
+	 * @param   array  $src  The source
 	 *
-	 * @return $this This allows chaining
+	 * @return  $this  This allows chaining
 	 *
-	 * @since 1.0
+	 * @since  1.0
 	 */
-	protected function add(array $src)
+	public function add(array $src)
 	{
 		$data = array();
 
@@ -47,19 +49,19 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get an item.
 	 *
-	 * @param  integer $id The id of the category
+	 * @param   integer  $id  The id of the category
 	 *
-	 * @return mixed
+	 * @return  mixed
 	 *
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
 	 *
-	 * @since    1.0
+	 * @since   1.0
 	 */
 	public function getItem($id)
 	{
 		if ($id == null)
 		{
-			throw new \RuntimeException('Missing ID');
+			throw new \RuntimeException(g11n3t('Missing ID'));
 		}
 
 		$db    = $this->getDb();
@@ -67,14 +69,14 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$table = new CategoryTable($db);
 		$item  = $db->setQuery(
-			$query->select('a.*')
-				->from($db->quoteName($table->getTableName()), 'a')
+			$query->select('*')
+				->from($db->quoteName($table->getTableName()))
 				->where($db->quoteName('id') . '=' . (int) $id)
 		)->loadObject();
 
 		if (!$item)
 		{
-			throw new \RuntimeException('Invalid Category', 1);
+			throw new \RuntimeException(g11n3t('Invalid Category'));
 		}
 
 		return $item;
@@ -117,13 +119,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get an item by name
 	 *
-	 * @param $name
+	 * @param   string  $name  The name of the category
 	 *
-	 * @return object
+	 * @return  object
 	 *
 	 * @since 1.0
 	 */
-	protected function getByName($name)
+	protected function getByName($name= '')
 	{
 		$db        = $this->getDb();
 		$query     = $db->getQuery(true);
@@ -142,7 +144,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Delete a category.
 	 *
-	 * @param   integer $id The id of the category
+	 * @param   integer  $id  The id of the category
 	 *
 	 * @return  $this  Method allows chaining
 	 *
@@ -153,14 +155,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		// Remove the category-issue mapping
 		$db        = $this->getDb();
 		$query     = $db->getQuery(true);
-		$projectId = $this->getProject()->project_id;
 
 		$db->setQuery(
 			$query->delete('#__issue_category_map')
-				->where('category_id' . '=' . $id))
-			->execute();
+				->where('category_id' . '=' . $id)
+		)->execute();
 
-		// Delete the project
+		// Delete the category from the table
 		$table = new CategoryTable($db);
 
 		$table->delete($id);
