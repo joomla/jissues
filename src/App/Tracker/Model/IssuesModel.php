@@ -330,32 +330,4 @@ class IssuesModel extends AbstractTrackerListModel
 
 		return $this->query;
 	}
-
-	/**
-	 * Get the status by name
-	 *
-	 * @param   string  $name  The name of the status
-	 *
-	 * @return  int
-	 *
-	 * @since   1.0
-	 */
-	public function getStatusByName($name = '')
-	{
-		if ($name == '' || $name == null)
-		{
-			return 0;
-		}
-
-		$db   = $this->getDb();
-		$id = $db->setQuery(
-			$db->getQuery(true)
-				->from($db->quoteName('#__status'))
-				->select('id')
-				->where('status LIKE' . $name)
-				->where('closed = ' . $this->state->get('filter.state'))
-		)->loadResult();
-
-		return $id;
-	}
 }
