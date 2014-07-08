@@ -111,7 +111,7 @@ class DefaultController extends AbstractTrackerListController
 		$state->set('filter.sort', $filter_sort);
 
 		// Filter.priority for get queries
-		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'word');
+		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'cmd');
 
 		$filter_priority = 0;
 
@@ -153,11 +153,6 @@ class DefaultController extends AbstractTrackerListController
 		}
 
 		$state->set('filter.state', $filter_state);
-
-		// Filter.status for get queries
-		$status = $application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', '', 'word');
-
-		$state->set('filter.status', $this->model->getStatusByName($status));
 
 		// Filter.search for word
 
