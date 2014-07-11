@@ -131,7 +131,7 @@
             <strong>{{ 'Tests:'|_ }}</strong>
         </li>
         <li>
-            {{ '%d successfull and %d unsuccessfull tests.'|_|format(item.testsSuccess|length, item.testFailure|length) }}
+            {{ '%d successfull and %d unsuccessfull tests.'|_|format(item.testsSuccess|length, item.testsFailure|length) }}
         </li>
         <li style="color: green;">
             {{ item.testsSuccess|join(', ') }}
