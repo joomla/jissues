@@ -28,8 +28,7 @@
 {% block content %}
     {% import "tracker.filters.twig" as filters %}
 
-    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm"
-          class="form-inline form-search">
+    <div id="issuesForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="clearfix">
                 <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-state-div">
@@ -111,7 +110,7 @@
             </tbody>
 
         </table>
-    </form>
+    </div>
 
     <ul id="pagination" class="trackerPagination"></ul>
 
