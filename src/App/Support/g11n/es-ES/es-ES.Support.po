@@ -1,0 +1,116 @@
+# JTracker App Support 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Nikolai Plath <der.el.kuku@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"PO-Revision-Date: 2014-05-26 12:47+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Documentación"
+
+#: /templates/support/documentation.index.twig:45
+msgid "Improve"
+msgstr "Mejorar"
+
+#: /templates/support/documentation.index.twig:46
+msgid "Permalink"
+msgstr "Permalink"
+
+#: /templates/support/markdown.index.twig:6
+msgid "GitHub Flavored Markdown Preview"
+msgstr "Vista previa con Markdown sazonado de GitHub"
+
+#: /templates/support/markdown.index.twig:15
+msgid "Markdown TEST Page"
+msgstr "Página de PRUEBA de Markdown"
+
+#: /templates/support/markdown.index.twig:17
+msgid "Info"
+msgstr "Info"
+
+#: /templates/support/markdown.index.twig:18
+msgid "Headers"
+msgstr "Encabezamiento"
+
+#: /templates/support/markdown.index.twig:19
+msgid "Lists"
+msgstr "Listas"
+
+#: /templates/support/markdown.index.twig:20
+#: /templates/support/markdown.index.twig:31
+msgid "Links"
+msgstr "Enlaces"
+
+#: /templates/support/markdown.index.twig:21
+msgid "Emphasized"
+msgstr "negrilla"
+
+#: /templates/support/markdown.index.twig:22
+#: /templates/support/markdown.index.twig:42
+#: /templates/support/markdown.index.twig:70
+#: /templates/support/markdown.index.twig:113
+#: /templates/support/markdown.index.twig:134
+#: /templates/support/markdown.index.twig:157
+#: /templates/support/markdown.index.twig:238
+#: /templates/support/markdown.index.twig:265
+#: /templates/support/markdown.index.twig:289
+#: /templates/support/markdown.index.twig:386
+#: /templates/support/markdown.index.twig:410
+msgid "Code"
+msgstr "Código"
+
+#: /templates/support/markdown.index.twig:23
+msgid "Blockquotes"
+msgstr "Quotas"
+
+#: /templates/support/markdown.index.twig:24
+msgid "HRs"
+msgstr "HRs"
+
+#: /templates/support/markdown.index.twig:25
+msgid "Tables"
+msgstr "Tablas"
+
+#: /templates/support/markdown.index.twig:26
+msgid "Images"
+msgstr "Imágenes"
+
+#: /templates/support/markdown.index.twig:27
+msgid "GitHub Spice"
+msgstr "Sabor a GitHub"
+
+#: /templates/support/markdown.index.twig:45
+#: /templates/support/markdown.index.twig:73
+#: /templates/support/markdown.index.twig:116
+#: /templates/support/markdown.index.twig:137
+#: /templates/support/markdown.index.twig:160
+#: /templates/support/markdown.index.twig:241
+#: /templates/support/markdown.index.twig:268
+#: /templates/support/markdown.index.twig:292
+#: /templates/support/markdown.index.twig:389
+#: /templates/support/markdown.index.twig:413
+msgid "Output"
+msgstr "Resultado"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Iconos"
+
+#: /src/App/Support/Controller/Clearcache.php:37
+msgid "The cache has been cleared."
+msgstr "La caché ha sido purgada"

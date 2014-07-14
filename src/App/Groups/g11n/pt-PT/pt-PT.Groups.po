@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Paulo Izidoro <pauloizidoro@gmail.com>, 2014
+# Paulo Pereira <pauloizidoro@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
 "PO-Revision-Date: 2014-04-10 03:30+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-05-02 19:43+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"PO-Revision-Date: 2014-05-31 21:52+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,48 @@ msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:8
 #: /templates/tracker/tracker.filters.twig:17
-msgid "- status -"
+msgid "- Status -"
 msgstr "- Status -"
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Closed - No Reply"
+msgstr "Geschlossen - keine Antwort"
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Closed - Unconfirmed Report"
+msgstr "Geschlossen - nicht bestätigt"
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Expected Behaviour"
+msgstr "Erwartetes Verhalten"
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Fixed in Code Base"
+msgstr "Im code repariert"
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Known Issue"
+msgstr "Bekanntes Problem"
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Information Required"
+msgstr "Information erforderlich"
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Needs Review"
+msgstr "Benötigt Überprüfung"
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Pending"
+msgstr "Wartend"
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Ready To Commit"
+msgstr "Fertig zum Anwenden"
 
 #: /templates/tracker/tracker.filters.twig:33
 msgid "- priority -"
@@ -50,11 +90,11 @@ msgstr "Erstellt von mir"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "Everyone's issues"
-msgstr "Jeder"
+msgstr "Alle Einträge"
 
 #: /templates/tracker/tracker.filters.twig:54
 msgid "You participated in"
-msgstr "Teilnahme"
+msgstr "Teilnahme von mir"
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:63
 #: /templates/tracker/issues.index.twig:19
@@ -85,8 +125,12 @@ msgid "Priority"
 msgstr "Dringlichkeit"
 
 #: /templates/tracker/issue.add.twig:50
-msgid "Priority help"
-msgstr "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgid ""
+"The priority of which this issue should be resolved. Please see the <a "
+"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"Tracking Process</a> page for detailed information about the project's "
+"priorities."
+msgstr "Die Prioritätsstufe mit welcher der Fehler behoben werden soll. Siehe auch: <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> für detailierte Informationen über die Prioritätsstufen des Projekts.."
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
 #: /templates/tracker/issue.edit.twig:102
@@ -94,32 +138,46 @@ msgid "Build"
 msgstr "Version"
 
 #: /templates/tracker/issue.add.twig:56
-msgid "Build help"
-msgstr "The version(s) of the project on which this issue is found."
+msgid "The version(s) of the project on which this issue is found."
+msgstr "Die Version(en) des Projekts in welchen der Fehler auftritt."
 
 #: /templates/tracker/issue.add.twig:61
-msgid "Issue intro help"
-msgstr "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
+msgid ""
+"To report a bug in the Joomla! bug trackers, you need to create a tracker "
+"item. Once the tracker item is created, the developers will check the "
+"validity of it and act accordingly."
+msgstr "Um einen Fehler im Joomla! Bug Tracker zu berichten müssen Sie ein Ticket eröffnen. Sobald das Ticket eröffnet ist wird ein Entwickler es auf Gültigkeit überprüfen und entsprechend behandeln."
 
 #: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
 msgid "Title"
 msgstr "Titel"
 
 #: /templates/tracker/issue.add.twig:69
-msgid "Issue title help"
-msgstr "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
+msgid ""
+"Describe in a few words the issues you are having. It is generally a good "
+"idea to use existing tracker items as examples if this is your first time "
+"reporting a bug."
+msgstr "Beschreiben Sie in wenigen Worten das Problem das Sie haben. Es ist eine gute Idee bestehende Tickets als Beispiel zu nehmen wenn dies das erste mal ist, dass Sie ein Ticket eröffnen. "
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Description"
 msgstr "Beschreibung"
 
 #: /templates/tracker/issue.add.twig:80
-msgid "Issue description help"
-msgstr "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
+msgid ""
+"This is the most important part of reporting the bug. Describe here step by "
+"step how you got the error you are noticing. Include all of the information "
+"that someone will need to re-trace your steps and see the problem. Remember:"
+" your bug will not be fixed unless others can see the problem, so you want "
+"to be as clear and detailed as possible. You do not need to know anything "
+"about programming to write a great bug report. But if you do understand the "
+"code and think you know how to fix the bug, please include this in the "
+"report."
+msgstr "Dies ist der wichtigste Teil des Fehlerberichts. Beschreiben Sie hier Schritt für Schritt wie der Fehler zustande kommt. Beschreiben Sie genau jeden Schritt der nötig ist um den Fehler zu reproduzieren.. Beachten Sie, dass der Fehler nicht behoben werden kann wenn niemand anders ihn nachvollziehen kann. Ihre Beschreibung sollte daher so klar und detailliert wie möglich sein. Es sind keine Programmierkenntnisse erforderlich um einen guten Fehlerbericht zu schreiben. Falls sie jedoch den Code verstehen und wissen wie sie den Fehler beheben können dann fügen Sie dies bitte dem Bericht hinzu."
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
-msgstr "Issues Liste"
+msgstr "Liste der Einträge"
 
 #: /templates/tracker/issues.index.twig:36
 msgid "Open"
@@ -300,52 +358,3 @@ msgstr "Eine Version ist erforderlich."
 #: /src/App/Tracker/Table/IssuesTable.php:172
 msgid "A build max length is 40 chars."
 msgstr "Die Maximale Länge der Version ist 40 Zeichen."
-
-# DATABASE TRANSLATIONS
-#: DATABASE
-msgid "open"
-msgstr "Offen"
-
-#: DATABASE
-msgid "confirmed"
-msgstr "Bestätigt"
-
-#: DATABASE
-msgid "pending"
-msgstr "Ausstehend"
-
-#: DATABASE
-msgid "rtc"
-msgstr "RTC"
-
-#: DATABASE
-msgid "fixed"
-msgstr "Repariert"
-
-#: DATABASE
-msgid "review"
-msgstr "Überprüfung"
-
-#: DATABASE
-msgid "info"
-msgstr "Info"
-
-#: DATABASE
-msgid "platform"
-msgstr "Platform"
-
-#: DATABASE
-msgid "no_reply"
-msgstr "Keine Antwort"
-
-#: DATABASE
-msgid "closed"
-msgstr "Geschlossen"
-
-#: DATABASE
-msgid "expected"
-msgstr "Erwartet"
-
-#: DATABASE
-msgid "known"
-msgstr "Bekannt"

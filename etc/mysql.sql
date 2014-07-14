@@ -94,18 +94,18 @@ CREATE TABLE IF NOT EXISTS `#__status` (
 --
 
 INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
-(1, 'open', 0),
-(2, 'confirmed', 0),
-(3, 'pending', 0),
-(4, 'rtc', 0),
-(5, 'fixed', 1),
-(6, 'review', 0),
-(7, 'info', 0),
-(8, 'platform', 1),
-(9, 'no_reply', 1),
-(10, 'closed', 1),
-(11, 'expected', 1),
-(12, 'known', 1);
+(1, 'Open', 0),
+(2, 'Confirmed', 0),
+(3, 'Pending', 0),
+(4, 'Ready to Commit', 0),
+(5, 'Fixed in Code Base', 1),
+(6, 'Needs Review', 0),
+(7, 'Information Required', 0),
+(8, 'Closed - Unconfirmed Report', 1),
+(9, 'Closed - No Reply', 1),
+(10, 'Closed', 1),
+(11, 'Expected Behaviour', 1),
+(12, 'Known Issue', 1);
 
 -- --------------------------------------------------------
 
