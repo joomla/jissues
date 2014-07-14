@@ -162,9 +162,7 @@ class DefaultController extends AbstractTrackerListController
 
 		$user = $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'word');
 
-		$filter_user = 0;
-
-		switch ($user)
+		switch ((string) $user)
 		{
 			case 'created':
 				$filter_user = 1;
@@ -173,6 +171,9 @@ class DefaultController extends AbstractTrackerListController
 			case 'participated':
 				$filter_user = 2;
 				break;
+
+			default:
+				$filter_user = 0;
 		}
 
 		// Filter.user for get queries
