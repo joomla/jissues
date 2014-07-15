@@ -1,0 +1,64 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ "Categories List"|_ }}{% endblock %}
+
+{% block prependMenu %}
+    {% if user.isAdmin %}
+        <li>
+            <a class="btn-success" href="{{ uri.base.path }}category/add">
+                {{ "New Category"|_ }}
+            </a>
+        </li>
+    {% endif %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ "Categories List"|_ }}</h2>
+
+    <table class="table table-bordered table-hover">
+
+        <tr>
+            <th style="width: 10%">{{ "Alias"|_ }}</th>
+            <th style="width: 10%">{{ "Title"|_ }}</th>
+            <th style="width: 30%">{{ "Description"|_ }}</th>
+
+            {% if user.isAdmin %}
+                <th style="width: 10%;">{{ "Actions"|_ }}</th>
+            {% endif %}
+
+            {% if jdebug %}
+                <th style="width: 5%;">{{ "Id"|_ }}</th>
+            {% endif %}
+        </tr>
+
+        {% for item in items %}
+            <tr>
+                <td>
+                    {{ item.alias }}
+                </td>
+                <td>
+                    <a href="{{ uri.base.path }}tracker/{{ item.alias }}">{{ item.title }}</a>
+                </td>
+                <td>
+                    {{ item.description }}
+                </td>
+                <td>
+                        {% if user.isAdmin %}
+                            <a href="{{ uri.base.path }}category/delete/{{ item.id }}">{{ "Delete"|_ }}</a>
+                            <a href="{{ uri.base.path }}category/edit/{{ item.id }}">{{ "Edit"|_ }}</a>
+                        {% endif %}
+                </td>
+                {% if jdebug %}
+                  <td>{{ item.id }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

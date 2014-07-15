@@ -18,7 +18,9 @@ use Joomla\Input\Input;
  *
  * @property   integer  $id             PK
  * @property   integer  $project_id     The Project id
- * @property   string   $name           The category name
+ * @property   string   $title          The category name
+ * @property   string   $alias          Alias
+ * @property   string   $description    Description
  *
  * @since  1.0
  */
@@ -49,12 +51,12 @@ class CategoryTable extends AbstractDatabaseTable
 	{
 		$errors = array();
 
-		if (trim($this->name) == '')
+		if (trim($this->title) == '')
 		{
 			$errors[] = g11n3t('a name is required for the category.');
 		}
 
-		if (strlen($this->name) > 150)
+		if (strlen($this->title) > 150)
 		{
 			$errors[] = g11n3t('The length of the name can not exceed 150 characters.');
 		}

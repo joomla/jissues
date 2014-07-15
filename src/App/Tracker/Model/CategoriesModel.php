@@ -12,7 +12,6 @@ use Joomla\Database\DatabaseQuery;
 
 use JTracker\Model\AbstractTrackerListModel;
 
-use App\Tracker\Table\CategoryTable;
 
 /**
  * Model to get data for the categories list view
