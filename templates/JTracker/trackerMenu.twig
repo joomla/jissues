@@ -206,9 +206,15 @@ or "devdox" == firstPart
                 <li class="nav-header"><i class="icon-user-3"></i> {{ "Admin"|_ }}</li>
             {% endif %}
             <li>
+                <a href="{{ uri.base.path }}user/{{ user.id }}">
+                    <i class="icon-user"></i>
+                    {{ "View profile"|_ }}
+                </a>
+            </li>
+            <li>
                 <a href="{{ uri.base.path }}user/{{ user.id }}/edit">
                     <i class="icon-user"></i>
-                    {{ "Profile"|_ }}
+                    {{ "Edit profile"|_ }}
                 </a>
             </li>
             <li class="divider"><span></span></li>

@@ -113,14 +113,14 @@ class IssuesModel extends AbstractTrackerListModel
 				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
 		}
 
-		$filter = $this->state->get('filter.stage');
+		$filter = $this->state->get('filter.status');
 
 		if ($filter)
 		{
 			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
 		}
 
-		$filter = $this->state->get('filter.status');
+		$filter = $this->state->get('filter.state');
 
 		if (is_numeric($filter))
 		{
@@ -147,12 +147,102 @@ class IssuesModel extends AbstractTrackerListModel
 					break;
 
 				case 2:
-				// Join over the activities.
-				$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
-				$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
-				$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
-				$query->group('a.issue_number');
-				break;
+					// Join over the activities.
+					$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
+					$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
+					$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
+					$query->group('a.issue_number');
+					break;
+			}
+		}
+
+		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
+		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
+		$query->order($ordering . ' ' . $direction);
+
+		return $query;
+	}
+
+	/**
+	 * Method to get a DatabaseQuery object for retrieving the data set from a database for ajax request.
+	 *
+	 * @return DatabaseQuery
+	 *
+	 * @since 1.0
+	 */
+	protected function getAjaxListQuery()
+	{
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
+
+		$query->select("a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.closed_date, a.modified_date, a.labels");
+		$query->from($db->quoteName('#__issues', 'a'));
+
+		// Join over the status.
+		$query->select('s.status AS status_title, s.closed AS closed_status');
+		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+		$filter = $this->getProject()->project_id;
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.project_id') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.search');
+
+		if ($filter)
+		{
+			// Clean filter variable
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+
+			// Check the author, title, and publish_up fields
+			$query->where(
+				'(' . $db->quoteName('a.title') . ' LIKE ' . $filter
+				. ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter
+				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
+		}
+
+		$filter = $this->state->get('filter.status');
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.state');
+
+		if (is_numeric($filter))
+		{
+			$query->where($db->quoteName('s.closed') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.priority');
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.priority') . ' = ' . (int) $filter);
+		}
+
+		$filter = $this->state->get('filter.user');
+
+		if ($filter && is_numeric($filter))
+		{
+			$username = $this->state->get('username');
+
+			switch ($filter)
+			{
+				case 1:
+					$query->where($db->quoteName('a.opened_by') . ' = ' . $db->quote($username));
+					break;
+
+				case 2:
+					// Join over the activities.
+					$query->join('LEFT', '#__activities AS ac ON a.issue_number = ac.issue_number');
+					$query->where($db->quoteName('ac.user') . ' = ' . $db->quote($username));
+					$query->where($db->quoteName('ac.project_id') . ' = ' . (int) $this->getProject()->project_id);
+					$query->group('a.issue_number');
+					break;
 			}
 		}
 
@@ -180,11 +270,64 @@ class IssuesModel extends AbstractTrackerListModel
 	{
 		// Add the list state to the store id.
 		$id .= ':' . $this->state->get('filter.priority');
+		$id .= ':' . $this->state->get('filter.state');
 		$id .= ':' . $this->state->get('filter.status');
-		$id .= ':' . $this->state->get('filter.stage');
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
 
 		return parent::getStoreId($id);
+	}
+
+	/**
+	 * Method to get an array of data items for ajax requests
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 *
+	 * @since 1.0
+	 */
+	public function getAjaxItems()
+	{
+		$store = $this->getStoreID();
+
+		if (isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+
+		$query = $this->_getAjaxListQuery();
+
+		$items = $this->_getList($query, $this->getStart(), $this->state->get('list.limit'));
+
+		// Add the items to the internal cache.
+		$this->cache[$store] = $items;
+
+		return $this->cache[$store];
+	}
+
+	/**
+	 * Method to cache the last query constructed for ajax request.
+	 *
+	 * This method ensures that the query is constructed only once for a given state of the model.
+	 *
+	 * @return  DatabaseQuery  A DatabaseQuery object
+	 *
+	 * @since   1.0
+	 */
+	protected function _getAjaxListQuery()
+	{
+		// Capture the last store id used.
+		static $lastStoreId;
+
+		// Compute the current store id.
+		$currentStoreId = $this->getStoreId();
+
+		// If the last store id is different from the current, refresh the query.
+		if ($lastStoreId != $currentStoreId || empty($this->query))
+		{
+			$lastStoreId = $currentStoreId;
+			$this->query = $this->getAjaxListQuery();
+		}
+
+		return $this->query;
 	}
 }

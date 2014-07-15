@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Dmitrijs Rekuns, 2014
+# Dmitry Rekun, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-25 20:06+0000\n"
-"Last-Translator: Dmitrijs Rekuns\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"PO-Revision-Date: 2014-05-31 20:56+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,8 +20,48 @@ msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:8
 #: /templates/tracker/tracker.filters.twig:17
-msgid "- status -"
-msgstr "- статус -"
+msgid "- Status -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Closed - No Reply"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Closed - Unconfirmed Report"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Expected Behaviour"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Fixed in Code Base"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Known Issue"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Confirmed"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Information Required"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Needs Review"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Pending"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Ready To Commit"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:33
 msgid "- priority -"
@@ -84,8 +124,12 @@ msgid "Priority"
 msgstr "Проритет"
 
 #: /templates/tracker/issue.add.twig:50
-msgid "Priority help"
-msgstr "Приоритет, с которым должна быть разрешена эта проблема. На странице <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> Вы найдете больше информации о приоритетах."
+msgid ""
+"The priority of which this issue should be resolved. Please see the <a "
+"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"Tracking Process</a> page for detailed information about the project's "
+"priorities."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
 #: /templates/tracker/issue.edit.twig:102
@@ -93,28 +137,42 @@ msgid "Build"
 msgstr "Билд"
 
 #: /templates/tracker/issue.add.twig:56
-msgid "Build help"
-msgstr "Версия проекта в котором была найдена ошибка."
+msgid "The version(s) of the project on which this issue is found."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:61
-msgid "Issue intro help"
-msgstr "Для сообщения о баге, необходимо создать запись на трекере. Как только запись на трекере будет создана, разработчики проверят её и далее будут действовать в соответствии процессу. Язык заполнения - английский."
+msgid ""
+"To report a bug in the Joomla! bug trackers, you need to create a tracker "
+"item. Once the tracker item is created, the developers will check the "
+"validity of it and act accordingly."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
 msgid "Title"
 msgstr "Название"
 
 #: /templates/tracker/issue.add.twig:69
-msgid "Issue title help"
-msgstr "Опишите в нескольких словах проблему, которая у Вас возникла. Если это Ваше первое сообщение о баге, то неплохой идеей является использование существующих записей на трекере в качестве примера."
+msgid ""
+"Describe in a few words the issues you are having. It is generally a good "
+"idea to use existing tracker items as examples if this is your first time "
+"reporting a bug."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Description"
 msgstr "Описание"
 
 #: /templates/tracker/issue.add.twig:80
-msgid "Issue description help"
-msgstr "Это самая важная часть сообщения о баге. Опишите здесь шаг за шагом, как Вы обнаружили ошибку. Включите сюда всю информацию, чтобы тот, кто будет обрабатывать отчет, смог пройти по Вашим шагам и увидеть проблему. Помните: Ваш баг не будет исправлен, пока остальные не увидят проблему, поэтому старайтесь описать всё как можно подробней и понятней. Вам ничего не надо знать о программировании чтобы подать отчет. Но если Вы понимаете код и знаете как исправить проблему, то включитте это в отчет."
+msgid ""
+"This is the most important part of reporting the bug. Describe here step by "
+"step how you got the error you are noticing. Include all of the information "
+"that someone will need to re-trace your steps and see the problem. Remember:"
+" your bug will not be fixed unless others can see the problem, so you want "
+"to be as clear and detailed as possible. You do not need to know anything "
+"about programming to write a great bug report. But if you do understand the "
+"code and think you know how to fix the bug, please include this in the "
+"report."
+msgstr ""
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
@@ -299,52 +357,3 @@ msgstr "Билд обязателен"
 #: /src/App/Tracker/Table/IssuesTable.php:172
 msgid "A build max length is 40 chars."
 msgstr "Макс. длина билда 40 символов."
-
-# DATABASE TRANSLATIONS
-#: DATABASE
-msgid "open"
-msgstr "открыто"
-
-#: DATABASE
-msgid "confirmed"
-msgstr "подтверждено"
-
-#: DATABASE
-msgid "pending"
-msgstr "в ожидании"
-
-#: DATABASE
-msgid "rtc"
-msgstr "rtc"
-
-#: DATABASE
-msgid "fixed"
-msgstr "исправлено"
-
-#: DATABASE
-msgid "review"
-msgstr "на рассмотрении"
-
-#: DATABASE
-msgid "info"
-msgstr "инфо"
-
-#: DATABASE
-msgid "platform"
-msgstr "платформа"
-
-#: DATABASE
-msgid "no_reply"
-msgstr "без ответа"
-
-#: DATABASE
-msgid "closed"
-msgstr "закрыто"
-
-#: DATABASE
-msgid "expected"
-msgstr "ожидаемые"
-
-#: DATABASE
-msgid "known"
-msgstr "известно"

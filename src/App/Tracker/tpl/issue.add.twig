@@ -43,8 +43,8 @@
                 <div class="divider">-</div>
 
                 {{ fields.label('priority', 'Priority'|_, '') }}
-                {% set priorities = [1, 2, 3, 4, 5] %}
-                {{ fields.selectequal('item[priority]', priorities, item.priority, 'priority', 'input-priority') }}
+                {% set priorities = priorities() %}
+                {{ fields.select('item[priority]', priorities, item.priority, 'priority', 'input-small-100') }}
 
                 <div class="helpText alert alert-info">
                     {{ "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."|_|raw }}

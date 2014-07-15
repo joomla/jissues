@@ -168,13 +168,13 @@ class TrackerDebugger implements LoggerAwareInterface
 	 *
 	 * @param   string  $name  The profile point name.
 	 *
-	 * @return  \Joomla\Profiler\ProfilerInterface
+	 * @return  null|\Joomla\Profiler\ProfilerInterface
 	 *
 	 * @since   1.0
 	 */
 	public function mark($name)
 	{
-		return $this->profiler->mark($name);
+		return $this->profiler ? $this->profiler->mark($name) : null;
 	}
 
 	/**

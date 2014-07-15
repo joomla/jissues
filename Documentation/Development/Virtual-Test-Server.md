@@ -30,6 +30,10 @@ You have to run the setup from the command line of your virtual "guest" operatin
 **NOTE** The `config.vagrant.json` file is under version control so you might want to issue the following command to ignore changes made to this file:
 `git update-index --assume-unchanged etc/config.vagrant.json`
 
+**NOTE** In order to work together with GitHub when developing, please sign up for a [Developer application](https://github.com/settings/applications) in GitHub. And you will need to fill in the Authorization callback URL as http://localhost:2345. 
+
+**NOTE** Sometimes you may come up with the permission error with the files in logs dir and the files in `JROOT/www/images/avatars`(after you setup GitHub and try to log in with GitHub). Just simply `cd to/the/path` in terminal where you downloaded/checked out the code, then run `chmod 0777 -R logs` and `chmod 0777 -R /www/images/avatars` to give full permission for the application to read/write the logs and avatars folder.
+
 ## That should be it.
 
 Go for the code :wink:
