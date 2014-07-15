@@ -61,9 +61,11 @@
 
     {% else %}
 
+        <!--
         <div id="bar-graph" style="border: 1px solid silver; padding: 5px;"></div>
 
         <div id="pie-graph" style="border: 1px solid silver; padding: 5px;"></div>
+        -->
 
         {% for stats in data %}
             <h3>
@@ -113,7 +115,7 @@
          * Bar Graph
          * http://www.recursion.org/d3-for-mere-mortals/
          */
-       function barGraph(data) {
+       function drawBarGraph(data) {
            var barWidth = 40;
            var width = (barWidth + 10) * data.length;
            var height = 200;
@@ -189,7 +191,7 @@
         * Pie chart
         * https://gist.github.com/enjalot/1203641
         */
-       function drawPie(data)
+       function drawPieGraph(data)
        {
            var w = 300,                        //width
                h = 300,                            //height
@@ -341,8 +343,8 @@
            {% endfor %}
        ];
 
-       barGraph(data);
-       drawPie(data);
+       // drawBarGraph(data);
+       // drawPieGraph(data);
 
        {% for stats in data %}
            // @todo move data preparation to PHP file
@@ -350,7 +352,7 @@
                 {% for week in stats.weeks %}
                     {{ week.c }},
                 {% endfor %}
-                    ];
+            ];
             dataAdded = [
                 {% for week in stats.weeks %}
                 {{ week.a }},
@@ -360,12 +362,12 @@
                 {% for week in stats.weeks %}
                 {{ week.d }},
                 {% endfor %}
-                    ];
-                    // Commit stats
+            ];
 
-       drawCommitStats('{{ stats.author.login }}', dataAdded, dataRemoved, dataTotal);
+            // Commit stats
 
-       drawTotalStats('{{ stats.author.login }}', dataTotal);
+            drawCommitStats('{{ stats.author.login }}', dataAdded, dataRemoved, dataTotal);
+            drawTotalStats('{{ stats.author.login }}', dataTotal);
 
         {% endfor %}
 
