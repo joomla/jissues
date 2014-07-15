@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/BabDev-Library.git",
-                "reference": "feb8a16f1f2d434c3c4655df28efc7a9c252ceb4"
+                "reference": "daf9b45ea327fd5864ebb2226b5ac11c5847d00b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/feb8a16f1f2d434c3c4655df28efc7a9c252ceb4",
-                "reference": "feb8a16f1f2d434c3c4655df28efc7a9c252ceb4",
+                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/daf9b45ea327fd5864ebb2226b5ac11c5847d00b",
+                "reference": "daf9b45ea327fd5864ebb2226b5ac11c5847d00b",
                 "shasum": ""
             },
             "require": {
@@ -26,8 +26,7 @@
             },
             "require-dev": {
                 "joomla/test": "~1.0",
-                "phpunit/dbunit": ">=1.2",
-                "phpunit/phpunit": "4.0.*",
+                "phpunit/phpunit": "4.*",
                 "squizlabs/php_codesniffer": "1.*"
             },
             "type": "library",
@@ -53,7 +52,7 @@
                 "library",
                 "php"
             ],
-            "time": "2014-05-04 22:31:35"
+            "time": "2014-06-20 18:20:07"
         },
         {
             "name": "codeguy/upload",
@@ -1566,17 +1565,130 @@
             "time": "2013-01-12 07:18:03"
         },
         {
+            "name": "ocramius/instantiator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/Instantiator.git",
+                "reference": "cc754c2289ffd4483c319f6ed6ee88ce21676f64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/Instantiator/zipball/cc754c2289ffd4483c319f6ed6ee88ce21676f64",
+                "reference": "cc754c2289ffd4483c319f6ed6ee88ce21676f64",
+                "shasum": ""
+            },
+            "require": {
+                "ocramius/lazy-map": "1.0.*",
+                "php": "~5.3"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "ext-phar": "*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Instantiator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+            "homepage": "https://github.com/Ocramius/Instantiator",
+            "keywords": [
+                "constructor",
+                "instantiate"
+            ],
+            "time": "2014-06-15 11:44:46"
+        },
+        {
+            "name": "ocramius/lazy-map",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/LazyMap.git",
+                "reference": "5c77102e225d225ae2d74d5f2cc488527834b821"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/LazyMap/zipball/5c77102e225d225ae2d74d5f2cc488527834b821",
+                "reference": "5c77102e225d225ae2d74d5f2cc488527834b821",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.7",
+                "phpmd/phpmd": "1.5.*",
+                "phpunit/phpunit": ">=3.7",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "1.4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "LazyMap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.io/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A library that provides lazy instantiation logic for a map of objects",
+            "homepage": "https://github.com/Ocramius/LazyMap",
+            "keywords": [
+                "lazy",
+                "lazy instantiation",
+                "lazy loading",
+                "map",
+                "service location"
+            ],
+            "time": "2014-05-01 22:15:23"
+        },
+        {
             "name": "phploc/phploc",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phploc.git",
-                "reference": "2bb1a7a2a72c9a1b39e4a4be12e0ac7dd53f136c"
+                "reference": "ca70e70ae96cb268b8200af2716af366cf3dc1d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phploc/zipball/2bb1a7a2a72c9a1b39e4a4be12e0ac7dd53f136c",
-                "reference": "2bb1a7a2a72c9a1b39e4a4be12e0ac7dd53f136c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phploc/zipball/ca70e70ae96cb268b8200af2716af366cf3dc1d1",
+                "reference": "ca70e70ae96cb268b8200af2716af366cf3dc1d1",
                 "shasum": ""
             },
             "require": {
@@ -1616,7 +1728,7 @@
             ],
             "description": "A tool for quickly measuring the size of a PHP project.",
             "homepage": "https://github.com/sebastianbergmann/phploc",
-            "time": "2014-06-14 12:18:05"
+            "time": "2014-06-17 04:31:24"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1624,12 +1736,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "58401826c8cfc8fd689b60026e91c337df374bca"
+                "reference": "09a53c29da426623e9a8a416dda1c7ed3b2d3d72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/58401826c8cfc8fd689b60026e91c337df374bca",
-                "reference": "58401826c8cfc8fd689b60026e91c337df374bca",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/09a53c29da426623e9a8a416dda1c7ed3b2d3d72",
+                "reference": "09a53c29da426623e9a8a416dda1c7ed3b2d3d72",
                 "shasum": ""
             },
             "require": {
@@ -1681,7 +1793,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-05-26 14:55:24"
+            "time": "2014-06-30 09:08:59"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1822,12 +1934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531"
+                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/955c24b708f8bfd6a05f303217a8dac3a443d531",
-                "reference": "955c24b708f8bfd6a05f303217a8dac3a443d531",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/a0802561692c3b2bb0ed972f7ffafbfab068e580",
+                "reference": "a0802561692c3b2bb0ed972f7ffafbfab068e580",
                 "shasum": ""
             },
             "require": {
@@ -1864,7 +1976,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-05-12 05:34:42"
+            "time": "2014-06-26 07:15:38"
         },
         {
             "name": "phpunit/phpunit",
@@ -1946,15 +2058,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "32f97c9198be565b6051983c70dc8d8e758725f4"
+                "reference": "215e10f6355e648faa786c0ba9093d132b30e56b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/32f97c9198be565b6051983c70dc8d8e758725f4",
-                "reference": "32f97c9198be565b6051983c70dc8d8e758725f4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/215e10f6355e648faa786c0ba9093d132b30e56b",
+                "reference": "215e10f6355e648faa786c0ba9093d132b30e56b",
                 "shasum": ""
             },
             "require": {
+                "ocramius/instantiator": "~1.0",
                 "php": ">=5.3.3",
                 "phpunit/php-text-template": "~1.2"
             },
@@ -1995,7 +2108,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-06-12 07:22:27"
+            "time": "2014-06-28 11:28:27"
         },
         {
             "name": "raveren/kint",
@@ -2528,12 +2641,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64"
+                "reference": "9a491e7983209bf320d40917291c03e856eee947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/f41913cde27de7073e78d9a41c1299c0315dfe64",
-                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/9a491e7983209bf320d40917291c03e856eee947",
+                "reference": "9a491e7983209bf320d40917291c03e856eee947",
                 "shasum": ""
             },
             "require": {
@@ -2578,7 +2691,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-11 06:54:52"
+            "time": "2014-06-20 17:41:51"
         },
         {
             "name": "symfony/finder",
@@ -2587,12 +2700,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "bed12a8b775813b252daf137b64f79113fbc5da5"
+                "reference": "e26f1529c714f57d667599b4eb1b482326691f08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/bed12a8b775813b252daf137b64f79113fbc5da5",
-                "reference": "bed12a8b775813b252daf137b64f79113fbc5da5",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/e26f1529c714f57d667599b4eb1b482326691f08",
+                "reference": "e26f1529c714f57d667599b4eb1b482326691f08",
                 "shasum": ""
             },
             "require": {
@@ -2627,7 +2740,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-06-20 17:41:51"
         },
         {
             "name": "symfony/yaml",
@@ -2636,12 +2749,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "b01d366060f33e18fd98b0008c41a01b0d25c95c"
+                "reference": "a0e90f173c33a57bfbb5561793d25864182239ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b01d366060f33e18fd98b0008c41a01b0d25c95c",
-                "reference": "b01d366060f33e18fd98b0008c41a01b0d25c95c",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/a0e90f173c33a57bfbb5561793d25864182239ad",
+                "reference": "a0e90f173c33a57bfbb5561793d25864182239ad",
                 "shasum": ""
             },
             "require": {
@@ -2676,7 +2789,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-04 06:43:44"
+            "time": "2014-06-20 17:41:51"
         },
         {
             "name": "theseer/fdomdocument",
