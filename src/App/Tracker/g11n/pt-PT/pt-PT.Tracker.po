@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Paulo Izidoro <pauloizidoro@gmail.com>, 2014
+# Paulo Pereira <pauloizidoro@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:28-0500\n"
-"PO-Revision-Date: 2014-04-15 14:56+0000\n"
-"Last-Translator: Paulo Izidoro <pauloizidoro@gmail.com>\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"PO-Revision-Date: 2014-05-31 20:56+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,8 +20,48 @@ msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:8
 #: /templates/tracker/tracker.filters.twig:17
-msgid "- status -"
-msgstr "- estado -"
+msgid "- Status -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Closed - No Reply"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Closed - Unconfirmed Report"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Expected Behaviour"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Fixed in Code Base"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:8
+msgid "Known Issue"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Confirmed"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Information Required"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Needs Review"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Pending"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:17
+msgid "Ready To Commit"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:33
 msgid "- priority -"
@@ -84,7 +124,11 @@ msgid "Priority"
 msgstr "Prioridade"
 
 #: /templates/tracker/issue.add.twig:50
-msgid "Priority help"
+msgid ""
+"The priority of which this issue should be resolved. Please see the <a "
+"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"Tracking Process</a> page for detailed information about the project's "
+"priorities."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
@@ -93,11 +137,14 @@ msgid "Build"
 msgstr "Sub-versão"
 
 #: /templates/tracker/issue.add.twig:56
-msgid "Build help"
+msgid "The version(s) of the project on which this issue is found."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:61
-msgid "Issue intro help"
+msgid ""
+"To report a bug in the Joomla! bug trackers, you need to create a tracker "
+"item. Once the tracker item is created, the developers will check the "
+"validity of it and act accordingly."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
@@ -105,7 +152,10 @@ msgid "Title"
 msgstr "Título"
 
 #: /templates/tracker/issue.add.twig:69
-msgid "Issue title help"
+msgid ""
+"Describe in a few words the issues you are having. It is generally a good "
+"idea to use existing tracker items as examples if this is your first time "
+"reporting a bug."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:71
@@ -113,7 +163,15 @@ msgid "Description"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:80
-msgid "Issue description help"
+msgid ""
+"This is the most important part of reporting the bug. Describe here step by "
+"step how you got the error you are noticing. Include all of the information "
+"that someone will need to re-trace your steps and see the problem. Remember:"
+" your bug will not be fixed unless others can see the problem, so you want "
+"to be as clear and detailed as possible. You do not need to know anything "
+"about programming to write a great bug report. But if you do understand the "
+"code and think you know how to fix the bug, please include this in the "
+"report."
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:6
@@ -299,52 +357,3 @@ msgstr ""
 #: /src/App/Tracker/Table/IssuesTable.php:172
 msgid "A build max length is 40 chars."
 msgstr ""
-
-# DATABASE TRANSLATIONS
-#: DATABASE
-msgid "open"
-msgstr "aberto"
-
-#: DATABASE
-msgid "confirmed"
-msgstr "confirmado"
-
-#: DATABASE
-msgid "pending"
-msgstr "pendente"
-
-#: DATABASE
-msgid "rtc"
-msgstr ""
-
-#: DATABASE
-msgid "fixed"
-msgstr "corrigido"
-
-#: DATABASE
-msgid "review"
-msgstr "revisto"
-
-#: DATABASE
-msgid "info"
-msgstr "info"
-
-#: DATABASE
-msgid "platform"
-msgstr ""
-
-#: DATABASE
-msgid "no_reply"
-msgstr ""
-
-#: DATABASE
-msgid "closed"
-msgstr "fechado"
-
-#: DATABASE
-msgid "expected"
-msgstr ""
-
-#: DATABASE
-msgid "known"
-msgstr "conhecido"
