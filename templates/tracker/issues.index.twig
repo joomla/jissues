@@ -212,10 +212,12 @@
 				         </td>
 	         <td class="center valign-center">
 			 [%= item.status_title %]
-             {% if item.merge_state %}
+             [% if(item.merge_state) { %]
                  <br />
-                 {{ item.merge_state|mergeBadge|raw }}
- 	         {% endif %}
+			     <span class="badge badge-[%= getMergeStateClass(item.merge_state) %] ">
+			         [%= translateMergeState(item.merge_state) %]
+			     </span>
+ 	         [% } %]
  	         </td>
 	    </tr>
 		[% } %]
@@ -293,6 +295,37 @@
                 default :
                     return '';
             }
+        }
+
+        function getMergeStateClass(status) {
+            switch (status) {
+                case 'success' :
+                    return 'success';
+                case 'pending' :
+                    return 'warning';
+                case 'error' :
+                case 'failure' :
+                    return 'important';
+            }
+
+            return '';
+        }
+
+        function translateMergeState(state)
+        {
+            switch (state)
+            {
+                case 'success':
+                    return g11n3t('Success');
+                case 'pending':
+                    return g11n3t('Pending');
+                case 'error':
+                    return g11n3t('Error');
+                case 'failure':
+                    return g11n3t('Failure');
+            }
+
+            return '?';
         }
 
         function getListItems() {
