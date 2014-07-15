@@ -13,16 +13,16 @@ use JTracker\Controller\AbstractTrackerController;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Table\CategoryTable;
 
-class Save extends AbstractTrackerController{
+class Save extends AbstractTrackerController
+{
 
-/**
+	/**
 	 * The default view for the component
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
 	protected $defaultView = 'categories';
-
 	/**
 	 * Model object
 	 *
@@ -30,6 +30,7 @@ class Save extends AbstractTrackerController{
 	 * @since  1.0
 	 */
 	protected $model;
+
 	/**
 	 * Execute the controller.
 	 *
@@ -43,13 +44,18 @@ class Save extends AbstractTrackerController{
 		$app = $this->getContainer()->get('app');
 
 		$app->getUser()->authorize('admin');
+		$project = $app->getProject();
 
 		$table = new CategoryTable($this->getContainer()->get('db'));
 		$table->save($app->input->get('category', array(), 'array'));
 
 		// Reload the project.
-		$this->model->setProject($app->getProject(true));
+		$this->model->setProject($project);
 
-
-		return parent::execute();
-	}}
+		$app->enqueueMessage('The changes have been saved.', 'success')
+			->redirect(
+				'/category/' . $project->alias
+			);
+		parent::execute();
+	}
+}

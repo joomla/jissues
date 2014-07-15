@@ -51,8 +51,8 @@
                 </td>
                 <td>
                         {% if user.isAdmin %}
-                            <a href="{{ uri.base.path }}category/delete/{{ item.id }}">{{ "Delete"|_ }}</a>
-                            <a href="{{ uri.base.path }}category/edit/{{ item.id }}">{{ "Edit"|_ }}</a>
+                            <a href="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}">{{ "Delete"|_ }}</a>
+                            <a href="{{ uri.base.path }}category/{{ project.alias }}/edit/{{ item.id }}">{{ "Edit"|_ }}</a>
                         {% endif %}
                 </td>
                 {% if jdebug %}
