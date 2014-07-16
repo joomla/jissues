@@ -124,6 +124,25 @@
         {% endif %}
     </ul>
 
+        {% if item.merge_state %}
+            <ul class="breadcrumb">
+                <li>{{ item.merge_state|mergeBadge|raw }}</li>
+
+                {% if item.gh_merge_status.targetUrl %}
+                    <li>
+                        {% if item.gh_merge_status.description %}
+                            {{ item.gh_merge_status.description }}
+                        {% endif %}
+                    </li>
+                    <li>
+                        <a href="{{ item.gh_merge_status.targetUrl }}">
+                            {{ 'Details'|_ }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
     <!-- Relations -->
 
     {% if item.rel_number %}
