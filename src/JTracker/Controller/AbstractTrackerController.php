@@ -188,16 +188,13 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		// Register the templates paths for the view
 		$paths = array();
 
-		$sub = ('php' == $this->getContainer()->get('app')->get('renderer.type')) ? '/php' : '';
-
-		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->app);
+		// Register the App template path
+		$path = JPATH_ROOT . '/src/App/' . $this->app . '/tpl';
 
 		if (is_dir($path))
 		{
 			$paths[] = $path;
 		}
-
-		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
 		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
 
@@ -337,7 +334,8 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$rendererName = $application->get('renderer.type');
+		$rendererName = $application->get('template.renderer');
+		$templateName = $application->get('template.name');
 
 		$className = 'JTracker\\View\\Renderer\\' . ucfirst($rendererName);
 
@@ -355,27 +353,26 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		$config = array();
 
+		$config['templates_base_dir'] = JPATH_TEMPLATES . '/' . $templateName;
+
 		switch ($rendererName)
 		{
 			case 'twig':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
-				$config['environment']['debug'] = JDEBUG ? true : false;
+				$config['environment']['debug'] = $application->get('debug.template') ? true : false;
 
 				break;
 
 			case 'mustache':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
 
 				// . '/partials';
 				$config['partials_base_dir'] = JPATH_TEMPLATES;
 
-				$config['environment']['debug'] = JDEBUG ? true : false;
+				$config['environment']['debug'] = $application->get('debug.template') ? true : false;
 
 				break;
 
 			case 'php':
-				$config['templates_base_dir'] = JPATH_TEMPLATES . '/php';
-				$config['debug'] = JDEBUG ? true : false;
+				$config['debug'] = $application->get('debug.template') ? true : false;
 
 				break;
 

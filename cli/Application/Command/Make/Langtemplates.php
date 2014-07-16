@@ -120,7 +120,7 @@ class Langtemplates extends Make
 
 			$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
 
-			$this->makePhpFromTwig(JPATH_ROOT . '/templates', $twigDir);
+			$this->makePhpFromTwig(JPATH_ROOT . '/templates/' . $extension, $twigDir);
 
 			$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
@@ -128,7 +128,7 @@ class Langtemplates extends Make
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+			$this->replacePaths(JPATH_ROOT . '/templates/' . $extension, $twigDir, $templatePath);
 		}
 
 		// Process App templates
@@ -152,7 +152,7 @@ class Langtemplates extends Make
 
 			$domain = 'App';
 
-			$this->makePhpFromTwig(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension);
+			$this->makePhpFromTwig(JPATH_ROOT . '/src/App/' . $extension . '/tpl', JPATH_ROOT . '/cache/twig/' . $extension);
 
 			$templatePath = JPATH_ROOT . '/src/App/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
@@ -163,7 +163,7 @@ class Langtemplates extends Make
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
-			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
+			$this->replacePaths(JPATH_ROOT . '/src/App/' . $extension . '/tpl', JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
 	}
 
@@ -442,7 +442,9 @@ class Langtemplates extends Make
 	 */
 	protected function makePhpFromTwig($twigDir, $cacheDir)
 	{
-		$loader = new Twig_Loader_Filesystem(array(JPATH_ROOT . '/templates', $twigDir));
+		$templateName = 'JTracker';
+
+		$loader = new Twig_Loader_Filesystem(array(JPATH_ROOT . '/templates/' . $templateName, $twigDir));
 
 		// Force auto-reload to always have the latest version of the template
 		$twig = new Twig_Environment(
