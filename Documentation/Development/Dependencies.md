@@ -141,14 +141,14 @@ Joomla View Package
 
 Symfony HttpFoundation Component
 
-* Installed: v2.4.6
+* Installed: v2.4.8
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.15.1
+* Installed: v1.16.0
 * Source URL: https://github.com/fabpot/Twig.git
 
 #### elkuku/g11n (2.1)
@@ -206,7 +206,7 @@ Kint - debugging helper for PHP developers
 
 php error handling for cool kids
 
-* Installed: 1.1.1
+* Installed: 1.1.2
 * Source URL: https://github.com/filp/whoops.git
 
 #### mustache/mustache (2.1.*@stable)
@@ -306,6 +306,18 @@ File Upload widget with multiple file selection, drag&amp;amp;drop support, prog
 g11n is a custom language handler - made primarily for Joomla!
 
 * Source URL: https://github.com/elkuku/g11n-js
+
+#### twbs-pagination (1.1.1)
+
+
+
+* Source URL: https://github.com/esimakin/twbs-pagination
+
+#### d3 (3.4.6)
+
+
+
+* Source URL: https://github.com/mbostock/d3
 
 
 ## Credits
