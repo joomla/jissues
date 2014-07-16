@@ -8,7 +8,7 @@
 {% block prependMenu %}
     {% if user.isAdmin %}
         <li>
-            <a class="btn-success" href="{{ uri.base.path }}category/add">
+            <a class="btn-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">
                 {{ "New Category"|_ }}
             </a>
         </li>

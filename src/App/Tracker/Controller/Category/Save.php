@@ -47,15 +47,17 @@ class Save extends AbstractTrackerController
 		$project = $app->getProject();
 
 		$table = new CategoryTable($this->getContainer()->get('db'));
-		$table->save($app->input->get('category', array(), 'array'));
+		try{
+			$table->save($app->input->get('category', array(), 'array'));
+			// Reload the project.
+			$this->model->setProject($project);
 
-		// Reload the project.
-		$this->model->setProject($project);
-
-		$app->enqueueMessage('The changes have been saved.', 'success')
-			->redirect(
-				'/category/' . $project->alias
-			);
+			$app->enqueueMessage('The changes have been saved.', 'success');
+			$app->redirect($app->get('uri.base.path').'category/'.$project->alias);
+		}catch (\Exception $exception){
+			$app->enqueueMessage($exception,'error');
+			$app->redirect($app->get('uri.base.path').'category/'.$project->alias.'/'.$app->input->get('id').'/edit');
+		}
 		parent::execute();
 	}
 }
