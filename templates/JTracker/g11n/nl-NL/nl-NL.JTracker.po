@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
-"PO-Revision-Date: 2014-04-27 07:42+0000\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"PO-Revision-Date: 2014-05-26 05:16+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -72,34 +72,42 @@ msgid "Icons"
 msgstr "Iconen"
 
 #: /templates/trackerMenu.twig:145
+msgid "Routes"
+msgstr "Routes"
+
+#: /templates/trackerMenu.twig:151
 msgid "Text"
 msgstr "Tekst"
 
-#: /templates/trackerMenu.twig:151
+#: /templates/trackerMenu.twig:157
 msgid "Clear Cache"
 msgstr "Cache legen"
 
-#: /templates/trackerMenu.twig:173
+#: /templates/trackerMenu.twig:179
 msgid "About Us"
 msgstr "Over ons"
 
-#: /templates/trackerMenu.twig:200
+#: /templates/trackerMenu.twig:206
 msgid "Admin"
 msgstr "Beheer"
 
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
-msgstr "Profiel"
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
+msgstr "Bekijk profiel"
 
-#: /templates/trackerMenu.twig:212
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr "Wijzig profiel"
+
+#: /templates/trackerMenu.twig:224
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:233
 msgid "Login with GitHub"
 msgstr "Met GitHub inloggen"
 
-#: /templates/trackerMenu.twig:225
+#: /templates/trackerMenu.twig:237
 msgid "No GitHub credentials set in config"
 msgstr "Er zijn geen GitHub-logingegevens ingesteld in de configuratie"
 

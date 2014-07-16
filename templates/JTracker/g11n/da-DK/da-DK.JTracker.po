@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
-"PO-Revision-Date: 2014-04-26 08:10+0000\n"
-"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
+"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"PO-Revision-Date: 2014-05-25 22:54+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,34 +71,42 @@ msgid "Icons"
 msgstr "Ikoner"
 
 #: /templates/trackerMenu.twig:145
+msgid "Routes"
+msgstr ""
+
+#: /templates/trackerMenu.twig:151
 msgid "Text"
 msgstr "Tekst"
 
-#: /templates/trackerMenu.twig:151
+#: /templates/trackerMenu.twig:157
 msgid "Clear Cache"
 msgstr "Ryd cache"
 
-#: /templates/trackerMenu.twig:173
+#: /templates/trackerMenu.twig:179
 msgid "About Us"
 msgstr "Om os"
 
-#: /templates/trackerMenu.twig:200
+#: /templates/trackerMenu.twig:206
 msgid "Admin"
 msgstr "Admin"
 
-#: /templates/trackerMenu.twig:205
-msgid "Profile"
-msgstr "Profil"
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
+msgstr ""
 
-#: /templates/trackerMenu.twig:212
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:224
 msgid "Logout"
 msgstr "Log ud"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:233
 msgid "Login with GitHub"
 msgstr "Log ind med GitHub"
 
-#: /templates/trackerMenu.twig:225
+#: /templates/trackerMenu.twig:237
 msgid "No GitHub credentials set in config"
 msgstr "Ingen GitHub legitimationsoplysninger angivet i konfig"
 

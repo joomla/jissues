@@ -58,6 +58,8 @@ class Stats extends AbstractTrackerController
 			$project->gh_user, $project->gh_project
 		);
 
+		$data = array_reverse($data);
+
 		$this->view->setProject($project);
 		$this->view->setData($data);
 
