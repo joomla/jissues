@@ -45,6 +45,8 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   integer  $build            Build the issue is reported on
  * @property   integer  $tests            Number of successful tests
  * @property   integer  $easy             Flag if item is an easy test
+ * @property   string   $merge_state      The merge state
+ * @property   string   $gh_merge_status  The GitHub merge status (JSON encoded)
  *
  * @since  1.0
  */
