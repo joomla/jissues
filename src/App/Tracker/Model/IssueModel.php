@@ -147,6 +147,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$item->importanceScore = 0;
 		}
 
+		// Decode the merge status
+		$item->gh_merge_status = json_decode($item->gh_merge_status);
+
 		// Fetch test data
 		$item->testsSuccess = $this->db->setQuery(
 			$query
