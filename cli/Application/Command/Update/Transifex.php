@@ -68,11 +68,13 @@ class Transifex extends Update
 		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		$scopes = [
 			'Core' => ['JTracker'],
 			'CoreJS' => ['JTracker.js'],
 			'Template' => ['JTracker'],
+			'CLI' => ['cli'],
 			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
 		];
 
