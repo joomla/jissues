@@ -16,6 +16,7 @@
 	"tracker/:project_alias/:id/edit-save": "\\Tracker\\Controller\\Issue\\Save",
 	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Issue\\Ajax\\Info",
 	"submit/vote"                         : "\\Tracker\\Controller\\Issue\\Ajax\\Vote",
+	"submit/testresult"                   : "\\Tracker\\Controller\\Issue\\Ajax\\TestResult",
 	"submit/comment"                      : "\\Tracker\\Controller\\Comment\\Ajax\\Submit",
 	"upload/put"                          : "\\Tracker\\Controller\\Upload\\Ajax\\Put",
 	"upload/delete"                       : "\\Tracker\\Controller\\Upload\\Ajax\\Delete"

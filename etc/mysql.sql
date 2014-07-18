@@ -128,6 +128,19 @@ INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (2, 'related_to'),
 (3, 'not_before');
 
+--
+-- Table structure for table `#__issues_tests`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_tests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `item_id` int(11) NOT NULL COMMENT 'Item ID',
+  `username` varchar(50) NOT NULL COMMENT 'User name',
+  `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
+  PRIMARY KEY (`id`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -157,7 +170,6 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
-  `tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
   `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
   `merge_state` varchar(50) NOT NULL COMMENT 'The merge state',
   `gh_merge_status` text NOT NULL COMMENT 'The GitHub merge status (JSON encoded)',

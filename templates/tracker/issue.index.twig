@@ -143,7 +143,24 @@
             </ul>
         {% endif %}
 
-    <!-- Relations -->
+<!-- Test results -->
+
+    <ul class="breadcrumb">
+        <li>
+            <strong>{{ 'Tests:'|_ }}</strong>
+        </li>
+        <li>
+            {{ '%d successfull and %d unsuccessfull tests.'|_|format(item.testsSuccess|length, item.testsFailure|length) }}
+        </li>
+        <li style="color: green;">
+            {{ item.testsSuccess|join(', ') }}
+        </li>
+        <li style="color: red;">
+            {{ item.testsFailure|join(', ') }}
+        </li>
+    </ul>
+
+<!-- Relations -->
 
     {% if item.rel_number %}
         <div class="alert">
@@ -232,6 +249,38 @@
                     {{ "Vote"|_ }}
                 </a>
             </form>
+            {% endif %}
+
+            {% if user.check("edit") %}
+                <hr />
+                <form class="form-inline tests-report" name="testsForm">
+                    <fieldset>
+                        <p>{{ "I've tested this item"|_ }}</p>
+                        <ul class="unstyled">
+                            <li>
+                                <label class="radio">
+                                    <input type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
+                                    {{ "Not tested"|_ }}
+                                </label>
+                            </li>
+                            <li>
+                                <label class="radio" style="color: green;">
+                                    <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                    {{ "Tested successfully"|_ }}
+                                </label>
+                            </li>
+                            <li>
+                                <label class="radio" style="color: red;">
+                                    <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                    {{ "Tested unsuccessfully"|_ }}
+                                </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <a href="javascript:" class="btn btn-primary" id="testButton" onclick="JTracker.submitTest('{{ item.id }}', '#testButton');">
+                        {{ "Submit test result"|_ }}
+                    </a>
+                </form>
             {% endif %}
         </div>
         {% endif %}
