@@ -14,6 +14,7 @@ use App\Projects\TrackerProject;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
+use Application\Model\DoctrineRunnerModel;
 use Application\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
@@ -31,6 +32,7 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Model\AbstractDoctrineModel;
 use JTracker\Service\ApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
@@ -472,5 +474,40 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	public function getUserStateFromRequest()
 	{
 		return '';
+	}
+
+	/**
+	 * Get a Doctrine CLI runner object.
+	 *
+	 * @return \Symfony\Component\Console\Application
+	 *
+	 * @since   1.0
+	 */
+	public function getDoctrineRunner()
+	{
+		return $this->getDoctrineModel('Application\Model\DoctrineRunnerModel')->getRunner();
+	}
+
+	/**
+	 * Get a Doctrine model object.
+	 *
+	 * @param   string  $model  The model name.
+	 * @param   string  $app    The App name.
+	 *
+	 * @return  AbstractDoctrineModel
+	 *
+	 * @since   1.0
+	 */
+	public function getDoctrineModel($model, $app = '')
+	{
+		$className = ($app ? 'App\\' . $app . '\\Model\\' : '') . $model;
+
+		return (
+			new $className(
+				new Registry($this->get('database')),
+				[JPATH_ROOT . '/src/App'],
+				$this->get('debug.database')
+			)
+		);
 	}
 }

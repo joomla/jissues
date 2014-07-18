@@ -8,13 +8,11 @@
 
 namespace App\Users\Model;
 
-use JTracker\Model\AbstractTrackerDatabaseModel;
-
 /**
  * Default model class for the Users component.
  *
  * @since  1.0
  */
-class DefaultModel extends AbstractTrackerDatabaseModel
+class DefaultModel extends UserModel
 {
 }

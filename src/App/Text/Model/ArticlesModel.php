@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Tracker's Text Application
+ * Part of the Joomla Tracker's Users Application
  *
  * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
@@ -8,29 +8,36 @@
 
 namespace App\Text\Model;
 
-use Joomla\Database\DatabaseQuery;
-
-use JTracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractDoctrineListModel;
 
 /**
- * Articles model class.
+ * Articles model class for the Text component.
  *
  * @since  1.0
  */
-class ArticlesModel extends AbstractTrackerListModel
+class ArticlesModel extends AbstractDoctrineListModel
 {
 	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
+	 * The name of the entity.
 	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+	 * @var string
+	 *
+	 * @since  1.0
+	 */
+	protected $entityName = 'Article';
+
+	/**
+	 * Get the list query.
+	 *
+	 * This method must be implemented in child classes.
+	 *
+	 * @throws \RuntimeException
+	 * @return string
 	 *
 	 * @since   1.0
 	 */
 	protected function getListQuery()
 	{
-		return $this->db->getQuery(true)
-			->select($this->db->quoteName(array('article_id', 'title', 'alias', 'text')))
-			->from($this->db->quoteName('#__articles'))
-			->where($this->db->quoteName('is_file') . ' = 0');
+		return 'SELECT a FROM App\Text\Entity\Article a';
 	}
 }

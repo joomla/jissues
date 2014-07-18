@@ -8,28 +8,13 @@
 
 namespace App\Users\Controller;
 
-use JTracker\Controller\AbstractTrackerListController;
+use JTracker\Controller\AbstractDoctrineListController;
 
 /**
  * Users controller class for the users component
  *
  * @since  1.0
  */
-class Users extends AbstractTrackerListController
+class Users extends AbstractDoctrineListController
 {
-	/**
-	 * Initialize the controller.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function initialize()
-	{
-		parent::initialize();
-
-		// @todo Setup filters here (if needed)
-
-		return $this;
-	}
 }

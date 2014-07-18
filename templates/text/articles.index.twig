@@ -43,7 +43,7 @@
         {% for a in items %}
             <tr>
                 <td>
-                    <a href="{{ uri.base.path }}text/edit/{{ a.article_id }}">
+                    <a href="{{ uri.base.path }}text/edit/{{ a.articleId }}">
                         {{ a.title ? : '---' }} / {{ a.alias }}
                     </a>
                 </td>
@@ -51,7 +51,7 @@
                     <a href="{{ uri.base.path }}page/{{ a.alias }}">
                         {{ "View"|_ }}
                     </a>
-                    <a href="{{ uri.base.path }}text/delete/{{ a.article_id }}">
+                    <a href="{{ uri.base.path }}text/delete/{{ a.articleId }}">
                         {{ "Delete"|_ }}
                     </a>
                 </td>

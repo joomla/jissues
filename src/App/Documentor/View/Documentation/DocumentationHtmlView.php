@@ -6,9 +6,8 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Support\View\Documentation;
+namespace App\Documentor\View\Documentation;
 
-use App\Support\Model\DefaultModel;
 use JTracker\Router\Exception\RoutingException;
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -19,14 +18,6 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class DocumentationHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * The model object.
-	 *
-	 * @var    DefaultModel
-	 * @since  1.0
-	 */
-	protected $model;
-
 	/**
 	 * Full path string. e.g. path=path/to&page=page..
 	 *

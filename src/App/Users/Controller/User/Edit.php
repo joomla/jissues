@@ -72,7 +72,13 @@ class Edit extends AbstractTrackerController
 
 		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given');
+			// If no ID is given, use the ID of the current user.
+			$id = $application->getUser()->id;
+
+			if (!$id)
+			{
+				throw new \UnexpectedValueException('No logged in user.');
+			}
 		}
 
 		if (!$application->getUser()->check('admin'))
@@ -89,8 +95,14 @@ class Edit extends AbstractTrackerController
 			}
 		}
 
-		$this->view->id = $id;
+		$this->view->setItem($this->model->getItem($id));
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
+/*
+		$this->view->setItem(
+			$this->getContainer()->get('EntityManager')
+				->find('App\Users\Table\UsersTable', $id)
+		);
+*/
+		return $this;
 	}
 }

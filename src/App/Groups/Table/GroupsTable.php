@@ -15,22 +15,368 @@ use Joomla\Registry\Registry;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Class GroupsTable.
+ * Table interface class for the "accessgroups" database table.
  *
- * @property   integer  $group_id     group_id
- * @property   integer  $project_id   project_id
- * @property   string   $title        title
- * @property   integer  $can_view     can_view
- * @property   integer  $can_create   can_create
- * @property   integer  $can_manage   can_manage
- * @property   integer  $can_edit     can_edit
- * @property   integer  $can_editown  can_editown
- * @property   integer  $system       system
+ * @Entity
+ * @Table(name="#__accessgroups")
  *
  * @since  1.0
  */
 class GroupsTable extends AbstractDatabaseTable
 {
+	/**
+	 * group_id
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(name="group_id", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $groupId;
+
+	/**
+	 * project_id
+	 *
+	 * @Column(name="project_id", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $projectId;
+
+	/**
+	 * title
+	 *
+	 * @Column(name="title", type="string", length=150, nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $title;
+
+	/**
+	 * can_view
+	 *
+	 * @Column(name="can_view", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $canView;
+
+	/**
+	 * can_create
+	 *
+	 * @Column(name="can_create", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $canCreate;
+
+	/**
+	 * can_manage
+	 *
+	 * @Column(name="can_manage", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $canManage;
+
+	/**
+	 * can_edit
+	 *
+	 * @Column(name="can_edit", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $canEdit;
+
+	/**
+	 * can_editown
+	 *
+	 * @Column(name="can_editown", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $canEditown;
+
+	/**
+	 * system
+	 *
+	 * @Column(name="system", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $system;
+
+	/**
+	 * Get:  group_id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getGroupId()
+	{
+		return $this->groupId;
+	}
+
+	/**
+	 * Set:  group_id
+	 *
+	 * @param   integer  $groupId  group_id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setGroupId($groupId)
+	{
+		$this->groupId = $groupId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  project_id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+
+	/**
+	 * Set:  project_id
+	 *
+	 * @param   integer  $projectId  project_id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  title
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * Set:  title
+	 *
+	 * @param   string  $title  title
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_view
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanView()
+	{
+		return $this->canView;
+	}
+
+	/**
+	 * Set:  can_view
+	 *
+	 * @param   integer  $canView  can_view
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanView($canView)
+	{
+		$this->canView = $canView;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_create
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanCreate()
+	{
+		return $this->canCreate;
+	}
+
+	/**
+	 * Set:  can_create
+	 *
+	 * @param   integer  $canCreate  can_create
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanCreate($canCreate)
+	{
+		$this->canCreate = $canCreate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_manage
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanManage()
+	{
+		return $this->canManage;
+	}
+
+	/**
+	 * Set:  can_manage
+	 *
+	 * @param   integer  $canManage  can_manage
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanManage($canManage)
+	{
+		$this->canManage = $canManage;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_edit
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanEdit()
+	{
+		return $this->canEdit;
+	}
+
+	/**
+	 * Set:  can_edit
+	 *
+	 * @param   integer  $canEdit  can_edit
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanEdit($canEdit)
+	{
+		$this->canEdit = $canEdit;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  can_editown
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getCanEditown()
+	{
+		return $this->canEditown;
+	}
+
+	/**
+	 * Set:  can_editown
+	 *
+	 * @param   integer  $canEditown  can_editown
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setCanEditown($canEditown)
+	{
+		$this->canEditown = $canEditown;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  system
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getSystem()
+	{
+		return $this->system;
+	}
+
+	/**
+	 * Set:  system
+	 *
+	 * @param   integer  $system  system
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setSystem($system)
+	{
+		$this->system = $system;
+
+		return $this;
+	}
+
 	/**
 	 * Constructor
 	 *

@@ -8,8 +8,6 @@
 
 namespace App\Text\Controller\Article;
 
-use App\Text\Table\ArticlesTable;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -20,12 +18,20 @@ use JTracker\Controller\AbstractTrackerController;
 class Save extends AbstractTrackerController
 {
 	/**
-	 * The default view for the component
+	 * The default view for the app.
 	 *
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'articles';
+	protected $defaultView = 'article';
+
+	/**
+	 * Model object
+	 *
+	 * @var    \App\Text\Model\ArticleModel
+	 * @since  1.0
+	 */
+	protected $model;
 
 	/**
 	 * Execute the controller.
@@ -36,18 +42,43 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->getContainer()->get('app');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$app->getUser()->authorize('admin');
+		$application->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->getContainer()->get('db'));
+		$data = $application->input->get('article', [], 'array');
 
-		/* @type \Joomla\Github\Github $gitHub */
-		$table->setGitHub($this->getContainer()->get('gitHub'));
+		if (isset($data['textMd']) && $data['textMd'])
+		{
+			// Compile the markdown text using GitHub's markdown parser.
+			$data['text'] = $this->getContainer()->get('gitHub')->markdown->render($data['textMd']);
+		}
 
-		$table->save($app->input->get('article', array(), 'array'));
+		try
+		{
+			$this->model->save($data);
 
-		$app->enqueueMessage(g11n3t('The article has been saved.'), 'success');
+			$application->enqueueMessage(g11n3t('The article has been saved.'), 'success')
+				->redirect('/text');
+		}
+		catch (\InvalidArgumentException $exception)
+		{
+			// @todo "persist" entered values on error redirect
+
+			$id = $application->input->getUint('id');
+
+			$application->enqueueMessage($exception->getMessage(), 'error');
+
+			if ($id)
+			{
+				$application->redirect('/text/edit/' . $id);
+			}
+			else
+			{
+				$application->redirect('/text/add');
+			}
+		}
 
 		return parent::execute();
 	}

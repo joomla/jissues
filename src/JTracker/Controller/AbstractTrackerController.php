@@ -8,11 +8,15 @@
 
 namespace JTracker\Controller;
 
+use App\Debug\Database\SQLLogger;
+use App\Debug\Database\SQLLoggerAwareInterface;
+
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Input\Input;
-
+use Joomla\Registry\Registry;
 use Joomla\View\Renderer\RendererInterface;
+
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\View\Renderer\TrackerExtension;
@@ -199,7 +203,52 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
-		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
+		// Get App config - @todo move
+		$base = JPATH_ROOT . '/src/App/' . ucfirst($this->getApp());
+
+		$appConfig = null;
+
+		$path = realpath($base . '/configure.yaml');
+
+		if ($path)
+		{
+			$appConfig = new Registry((new \Symfony\Component\Yaml\Parser)->parse(file_get_contents($path)));
+		}
+		else
+		{
+			$path = realpath($base . '/configure.json');
+
+			if ($path)
+			{
+				$appConfig = new Registry(json_decode(file_get_contents($path)));
+			}
+		}
+
+		$dbHandling = null;
+
+		if ($appConfig)
+		{
+			$dbHandling = $appConfig->get('database.app_handling');
+		}
+
+		if ('doctrine' == $dbHandling)
+		{
+			// These Apps are handled with a Doctrine model
+			$this->model = new $modelClass(
+				new Registry($this->getContainer()->get('app')->get('database')),
+				[JPATH_ROOT . '/src/App'],
+				$this->getContainer()->get('app')->get('debug.database')
+			);
+
+			if ($this->model instanceof SQLLoggerAwareInterface)
+			{
+				$this->model->setSQLLogger(new SQLLogger($this->getContainer()->get('debugger')));
+			}
+		}
+		else
+		{
+			$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
+		}
 
 		// Create the view
 		/* @type AbstractTrackerHtmlView $view */

@@ -585,6 +585,9 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 */
 	public function __clone()
 	{
-		return $this->getIterator();
+		if ($this->db)
+		{
+			return $this->getIterator();
+		}
 	}
 }

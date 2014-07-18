@@ -1,0 +1,6 @@
+{
+	"documentation"     : "\\Documentor\\Controller\\Documentation",
+	"documentation/view": "\\Documentor\\Controller\\Documentation",
+	"documentation/show": "\\Documentor\\Controller\\Ajax\\Documentation\\Show",
+	"filetree"          : "\\Documentor\\Controller\\Ajax\\Filetree"
+}

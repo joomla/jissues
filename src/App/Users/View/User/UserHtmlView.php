@@ -8,7 +8,7 @@
 
 namespace App\Users\View\User;
 
-use App\Users\Model\UserModel;
+use App\Users\Entity\User;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -20,20 +20,12 @@ use JTracker\View\AbstractTrackerHtmlView;
 class UserHtmlView extends AbstractTrackerHtmlView
 {
 	/**
-	 * The model object.
-	 *
-	 * @var    UserModel
-	 * @since  1.0
-	 */
-	protected $model;
-
-	/**
 	 * Item ID
 	 *
-	 * @var    integer
+	 * @var    User
 	 * @since  1.0
 	 */
-	public $id = 0;
+	private $item = null;
 
 	/**
 	 * Method to render the view.
@@ -44,12 +36,43 @@ class UserHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$item = $this->model->getItem($this->id);
-
 		$this->renderer
-			->set('item', $item)
-			->set('tz_offset', (new \DateTimeZone($item->params->get('timezone', 'UTC')))->getOffset(new \DateTime) / 3600);
+			->set('item', $this->getItem())
+			->set('tz_offset', (new \DateTimeZone($this->getItem()->getParams()->get('timezone', 'UTC')))->getOffset(new \DateTime) / 3600);
 
 		return parent::render();
+	}
+
+	/**
+	 * Get an item.
+	 *
+	 * @return User
+	 *
+	 * @since   1.0
+	 */
+	public function getItem()
+	{
+		if (!$this->item)
+		{
+			throw new \RuntimeException('Item not set');
+		}
+
+		return $this->item;
+	}
+
+	/**
+	 * Set the item.
+	 *
+	 * @param   User  $item  The item.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setItem(User $item)
+	{
+		$this->item = $item;
+
+		return $this;
 	}
 }

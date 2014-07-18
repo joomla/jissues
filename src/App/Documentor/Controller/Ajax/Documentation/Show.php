@@ -6,9 +6,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Support\Controller\Ajax\Documentation;
-
-use App\Support\Model\DefaultModel;
+namespace App\Documentor\Controller\Ajax\Documentation;
 
 use JTracker\Controller\AbstractAjaxController;
 
@@ -20,8 +18,17 @@ use JTracker\Controller\AbstractAjaxController;
 class Show extends AbstractAjaxController
 {
 	/**
+	 * Model object
+	 *
+	 * @var    \JTracker\Model\AbstractDoctrineItemModel
+	 * @since  1.0
+	 */
+	protected $model;
+
+	/**
 	 * Prepare the response.
 	 *
+	 * @throws \RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
@@ -30,18 +37,27 @@ class Show extends AbstractAjaxController
 	{
 		ob_start();
 
-		$model = new DefaultModel($this->getContainer()->get('db'));
-
 		/* @type $input \Joomla\Input\Input */
 		$input = $this->getContainer()->get('app')->input;
 
-		$page = $input->get('page');
-		$path = $input->getPath('path');
+		$path = $input->getPath('path', '');
+		$page = $input->getCmd('page');
+		$text = '';
+
+		if ($page)
+		{
+			$pageObject = $this->model->findOneBy(['page' => $page, 'path' => $path]);
+
+			if (!$pageObject)
+			{
+				throw new \RuntimeException('Invalid page');
+			}
+
+			$text = $pageObject->getText();
+		}
 
 		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
 		$this->response->permaLink = '/documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
-
-		$data = $model->getItem($page, $path)->text;
 
 		$err = ob_get_clean();
 
@@ -52,7 +68,7 @@ class Show extends AbstractAjaxController
 		}
 		else
 		{
-			$this->response->data = $data;
+			$this->response->data = $text;
 		}
 
 		return;

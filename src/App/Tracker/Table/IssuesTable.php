@@ -18,40 +18,963 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
- * Table interface class for the #__issues table
+ * Table interface class for the "issues" database table.
  *
- * @property   integer  $id               PK
- * @property   integer  $issue_number     THE issue number (ID)
- * @property   integer  $foreign_number   Foreign tracker id
- * @property   integer  $project_id       Project id
- * @property   integer  $milestone_id     Milestone id if applicable
- * @property   string   $title            Issue title
- * @property   string   $description      Issue description
- * @property   string   $description_raw  The raw issue description (markdown)
- * @property   integer  $priority         Issue priority
- * @property   integer  $status           Issue status
- * @property   string   $opened_date      Issue open date
- * @property   string   $opened_by        Opened by username
- * @property   string   $closed_date      Issue closed date
- * @property   string   $closed_by        Issue closed by username
- * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
- * @property   string   $modified_date    Issue modified date
- * @property   string   $modified_by      Issue modified by username
- * @property   integer  $rel_number       Relation number
- * @property   string   $rel_type         Relation type
- * @property   integer  $has_code         If the issue has code attached - aka a pull request.
- * @property   string   $labels           Comma separated list of label IDs
- * @property   integer  $vote_id          Vote id
- * @property   integer  $build            Build the issue is reported on
- * @property   integer  $tests            Number of successful tests
- * @property   integer  $easy             Flag if item is an easy test
- * @property   string   $merge_state      The merge state
- * @property   string   $gh_merge_status  The GitHub merge status (JSON encoded)
+ * @Entity
+ *
+ * @Table(
+ *    name="#__issues",
+ *    indexes={
+ * @Index(name="status", columns={"status"}),
+ * @Index(name="issue_number", columns={"issue_number"}),
+ * @Index(name="project_id", columns={"project_id"}),
+ * @Index(name="milestone_id", columns={"milestone_id", "project_id"}),
+ * @Index(name="issues_fk_rel_type", columns={"rel_type"})
+ *    }
+ * )
  *
  * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable
 {
+	/**
+	 * PK
+	 *
+	 * @Id
+	 * @GeneratedValue
+	 * @Column(name="id", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $id;
+
+	/**
+	 * THE issue number (ID)
+	 *
+	 * @Column(name="issue_number", type="integer", length=11, nullable=true)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $issueNumber;
+
+	/**
+	 * Foreign tracker id
+	 *
+	 * @Column(name="foreign_number", type="integer", length=11, nullable=true)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $foreignNumber;
+
+	/**
+	 * Project id
+	 *
+	 * @Column(name="project_id", type="integer", length=11, nullable=true)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $projectId;
+
+	/**
+	 * Milestone id if applicable
+	 *
+	 * @Column(name="milestone_id", type="integer", length=11, nullable=true)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $milestoneId;
+
+	/**
+	 * Issue title
+	 *
+	 * @Column(name="title", type="string", length=255, nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $title;
+
+	/**
+	 * Issue description
+	 *
+	 * @Column(name="description", type="text", nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $description;
+
+	/**
+	 * The raw issue description (markdown)
+	 *
+	 * @Column(name="description_raw", type="text", nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $descriptionRaw;
+
+	/**
+	 * Issue priority
+	 *
+	 * @Column(name="priority", type="smallint", length=4, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $priority;
+
+	/**
+	 * Issue status
+	 *
+	 * @Column(name="status", type="integer", length=11, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $status;
+
+	/**
+	 * Issue open date
+	 *
+	 * @Column(name="opened_date", type="datetime", nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $openedDate;
+
+	/**
+	 * Opened by username
+	 *
+	 * @Column(name="opened_by", type="string", length=50, nullable=true)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $openedBy;
+
+	/**
+	 * Issue closed date
+	 *
+	 * @Column(name="closed_date", type="datetime", nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $closedDate;
+
+	/**
+	 * Issue closed by username
+	 *
+	 * @Column(name="closed_by", type="string", length=50, nullable=true)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $closedBy;
+
+	/**
+	 * The GitHub SHA where the issue has been closed
+	 *
+	 * @Column(name="closed_sha", type="string", length=40, nullable=true)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $closedSha;
+
+	/**
+	 * Issue modified date
+	 *
+	 * @Column(name="modified_date", type="datetime", nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $modifiedDate;
+
+	/**
+	 * Issue modified by username
+	 *
+	 * @Column(name="modified_by", type="string", length=50, nullable=true)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $modifiedBy;
+
+	/**
+	 * Relation issue number
+	 *
+	 * @Column(name="rel_number", type="integer", length=11, nullable=true)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $relNumber;
+
+	/**
+	 * Relation type
+	 *
+	 * @Column(name="rel_type", type="integer", length=11, nullable=true)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $relType;
+
+	/**
+	 * If the issue has code attached - aka a pull request
+	 *
+	 * @Column(name="has_code", type="smallint", length=1, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $hasCode;
+
+	/**
+	 * Comma separated list of label IDs
+	 *
+	 * @Column(name="labels", type="string", length=250, nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $labels;
+
+	/**
+	 * Build on which the issue is reported
+	 *
+	 * @Column(name="build", type="string", length=40, nullable=false)
+	 *
+	 * @var  string
+	 *
+	 * @since  1.0
+	 */
+	private $build;
+
+	/**
+	 * Number of successful tests on an item
+	 *
+	 * @Column(name="tests", type="smallint", length=4, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $tests;
+
+	/**
+	 * Flag whether an item is an easy test
+	 *
+	 * @Column(name="easy", type="smallint", length=1, nullable=false)
+	 *
+	 * @var  integer
+	 *
+	 * @since  1.0
+	 */
+	private $easy;
+
+	/**
+	 * Get:  PK
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * Set:  PK
+	 *
+	 * @param   integer  $id  PK
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  THE issue number (ID)
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getIssueNumber()
+	{
+		return $this->issueNumber;
+	}
+
+	/**
+	 * Set:  THE issue number (ID)
+	 *
+	 * @param   integer  $issueNumber  THE issue number (ID)
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setIssueNumber($issueNumber)
+	{
+		$this->issueNumber = $issueNumber;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Foreign tracker id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getForeignNumber()
+	{
+		return $this->foreignNumber;
+	}
+
+	/**
+	 * Set:  Foreign tracker id
+	 *
+	 * @param   integer  $foreignNumber  Foreign tracker id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setForeignNumber($foreignNumber)
+	{
+		$this->foreignNumber = $foreignNumber;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Project id
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getProjectId()
+	{
+		return $this->projectId;
+	}
+
+	/**
+	 * Set:  Project id
+	 *
+	 * @param   integer  $projectId  Project id
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setProjectId($projectId)
+	{
+		$this->projectId = $projectId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Milestone id if applicable
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getMilestoneId()
+	{
+		return $this->milestoneId;
+	}
+
+	/**
+	 * Set:  Milestone id if applicable
+	 *
+	 * @param   integer  $milestoneId  Milestone id if applicable
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setMilestoneId($milestoneId)
+	{
+		$this->milestoneId = $milestoneId;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue title
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
+	/**
+	 * Set:  Issue title
+	 *
+	 * @param   string  $title  Issue title
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue description
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
+
+	/**
+	 * Set:  Issue description
+	 *
+	 * @param   string  $description  Issue description
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The raw issue description (markdown)
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getDescriptionRaw()
+	{
+		return $this->descriptionRaw;
+	}
+
+	/**
+	 * Set:  The raw issue description (markdown)
+	 *
+	 * @param   string  $descriptionRaw  The raw issue description (markdown)
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setDescriptionRaw($descriptionRaw)
+	{
+		$this->descriptionRaw = $descriptionRaw;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue priority
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getPriority()
+	{
+		return $this->priority;
+	}
+
+	/**
+	 * Set:  Issue priority
+	 *
+	 * @param   integer  $priority  Issue priority
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setPriority($priority)
+	{
+		$this->priority = $priority;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue status
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getStatus()
+	{
+		return $this->status;
+	}
+
+	/**
+	 * Set:  Issue status
+	 *
+	 * @param   integer  $status  Issue status
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setStatus($status)
+	{
+		$this->status = $status;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue open date
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getOpenedDate()
+	{
+		return $this->openedDate;
+	}
+
+	/**
+	 * Set:  Issue open date
+	 *
+	 * @param   string  $openedDate  Issue open date
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setOpenedDate($openedDate)
+	{
+		$this->openedDate = $openedDate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Opened by username
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getOpenedBy()
+	{
+		return $this->openedBy;
+	}
+
+	/**
+	 * Set:  Opened by username
+	 *
+	 * @param   string  $openedBy  Opened by username
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setOpenedBy($openedBy)
+	{
+		$this->openedBy = $openedBy;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue closed date
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getClosedDate()
+	{
+		return $this->closedDate;
+	}
+
+	/**
+	 * Set:  Issue closed date
+	 *
+	 * @param   string  $closedDate  Issue closed date
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setClosedDate($closedDate)
+	{
+		$this->closedDate = $closedDate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue closed by username
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getClosedBy()
+	{
+		return $this->closedBy;
+	}
+
+	/**
+	 * Set:  Issue closed by username
+	 *
+	 * @param   string  $closedBy  Issue closed by username
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setClosedBy($closedBy)
+	{
+		$this->closedBy = $closedBy;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  The GitHub SHA where the issue has been closed
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getClosedSha()
+	{
+		return $this->closedSha;
+	}
+
+	/**
+	 * Set:  The GitHub SHA where the issue has been closed
+	 *
+	 * @param   string  $closedSha  The GitHub SHA where the issue has been closed
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setClosedSha($closedSha)
+	{
+		$this->closedSha = $closedSha;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue modified date
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getModifiedDate()
+	{
+		return $this->modifiedDate;
+	}
+
+	/**
+	 * Set:  Issue modified date
+	 *
+	 * @param   string  $modifiedDate  Issue modified date
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setModifiedDate($modifiedDate)
+	{
+		$this->modifiedDate = $modifiedDate;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Issue modified by username
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getModifiedBy()
+	{
+		return $this->modifiedBy;
+	}
+
+	/**
+	 * Set:  Issue modified by username
+	 *
+	 * @param   string  $modifiedBy  Issue modified by username
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setModifiedBy($modifiedBy)
+	{
+		$this->modifiedBy = $modifiedBy;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Relation issue number
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getRelNumber()
+	{
+		return $this->relNumber;
+	}
+
+	/**
+	 * Set:  Relation issue number
+	 *
+	 * @param   integer  $relNumber  Relation issue number
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setRelNumber($relNumber)
+	{
+		$this->relNumber = $relNumber;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Relation type
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getRelType()
+	{
+		return $this->relType;
+	}
+
+	/**
+	 * Set:  Relation type
+	 *
+	 * @param   integer  $relType  Relation type
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setRelType($relType)
+	{
+		$this->relType = $relType;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  If the issue has code attached - aka a pull request
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getHasCode()
+	{
+		return $this->hasCode;
+	}
+
+	/**
+	 * Set:  If the issue has code attached - aka a pull request
+	 *
+	 * @param   integer  $hasCode  If the issue has code attached - aka a pull request
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setHasCode($hasCode)
+	{
+		$this->hasCode = $hasCode;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Comma separated list of label IDs
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getLabels()
+	{
+		return $this->labels;
+	}
+
+	/**
+	 * Set:  Comma separated list of label IDs
+	 *
+	 * @param   string  $labels  Comma separated list of label IDs
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setLabels($labels)
+	{
+		$this->labels = $labels;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Build on which the issue is reported
+	 *
+	 * @return   string
+	 *
+	 * @since  1.0
+	 */
+	public function getBuild()
+	{
+		return $this->build;
+	}
+
+	/**
+	 * Set:  Build on which the issue is reported
+	 *
+	 * @param   string  $build  Build on which the issue is reported
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setBuild($build)
+	{
+		$this->build = $build;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Number of successful tests on an item
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getTests()
+	{
+		return $this->tests;
+	}
+
+	/**
+	 * Set:  Number of successful tests on an item
+	 *
+	 * @param   integer  $tests  Number of successful tests on an item
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setTests($tests)
+	{
+		$this->tests = $tests;
+
+		return $this;
+	}
+
+	/**
+	 * Get:  Flag whether an item is an easy test
+	 *
+	 * @return   integer
+	 *
+	 * @since  1.0
+	 */
+	public function getEasy()
+	{
+		return $this->easy;
+	}
+
+	/**
+	 * Set:  Flag whether an item is an easy test
+	 *
+	 * @param   integer  $easy  Flag whether an item is an easy test
+	 *
+	 * @return   $this
+	 *
+	 * @since  1.0
+	 */
+	public function setEasy($easy)
+	{
+		$this->easy = $easy;
+
+		return $this;
+	}
+
 	/**
 	 * Internal array of field values.
 	 *

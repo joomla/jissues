@@ -8,14 +8,14 @@
 
 namespace App\Text\Controller;
 
-use JTracker\Controller\AbstractTrackerController;
+use JTracker\Controller\AbstractDoctrineListController;
 
 /**
  * Controller class for the Text component.
  *
  * @since  1.0
  */
-class Articles extends AbstractTrackerController
+class Articles extends AbstractDoctrineListController
 {
 	/**
 	 * Execute the controller.

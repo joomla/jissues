@@ -8,8 +8,6 @@
 
 namespace Application\Command\Make;
 
-use App\Text\Table\ArticlesTable;
-
 /**
  * Class for parsing documentation files to inject into the site
  *
@@ -47,64 +45,54 @@ class Docu extends Make
 
 		$this->getApplication()->displayGitHubRateLimit();
 
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
+		$docuBase = JPATH_ROOT . '/Documentation';
 
-		$docuBase   = JPATH_ROOT . '/Documentation';
-
-		/* @type  \RecursiveDirectoryIterator $it */
-		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
+		/* @type  \RecursiveDirectoryIterator $iterator */
+		$iterator = new \RecursiveIteratorIterator(
+			new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS)
+		);
 
 		$this
 			->out('Compiling documentation in: ' . $docuBase)
 			->out();
 
-		$table = new ArticlesTable($db);
+		/* @type \JTracker\Model\AbstractDoctrineItemModel $model */
+		$model = $this->getApplication()->getDoctrineModel('ShowModel', 'Documentor');
 
-		// @todo compile the md text here.
-		$table->setGitHub($this->github);
-
-		while ($it->valid())
+		while ($iterator->valid())
 		{
-			if ($it->isDir())
+			if ($iterator->isDir())
 			{
-				$it->next();
+				$iterator->next();
 
 				continue;
 			}
 
-			$file = new \stdClass;
+			$path = $iterator->getSubPath();
+			$page = substr($iterator->getFilename(), 0, strrpos($iterator->getFilename(), '.'));
 
-			$file->filename = $it->getFilename();
+			$this->debugOut(sprintf('Compiling: %s - %s', $path, $page));
 
-			$path = $it->getSubPath();
-			$page = substr($it->getFilename(), 0, strrpos($it->getFilename(), '.'));
+			$article = $model->findOneBy(['page' => $page, 'path' => $path]);
 
-			$this->debugOut('Compiling: ' . $page);
+			$data = [];
 
-			$table->reset();
+			$data['id'] = null;
 
-			$table->{$table->getKeyName()} = null;
-
-			try
+			if ($article)
 			{
-				$table->load(array('alias' => $page, 'path' => $path));
-			}
-			catch (\RuntimeException $e)
-			{
-				// New item
+				$data['id'] = $article->getId();
 			}
 
-			$table->is_file = '1';
-			$table->path = $it->getSubPath();
-			$table->alias   = $page;
-			$table->text_md = file_get_contents($it->key());
+			$data['path'] = $iterator->getSubPath();
+			$data['page'] = $page;
+			$data['text'] = $this->github->markdown->render(file_get_contents($iterator->key()));
 
-			$table->store();
+			$model->save($data);
 
 			$this->out('.', false);
 
-			$it->next();
+			$iterator->next();
 		}
 
 		$this->out()

@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Joomla Tracker's Text Application
+ * Part of the Joomla Tracker's Users Application
  *
  * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
@@ -8,30 +8,21 @@
 
 namespace App\Text\Model;
 
-use App\Text\Table\ArticlesTable;
-
-use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractDoctrineItemModel;
 
 /**
- * Article model class.
+ * Article model class for the Text component.
  *
  * @since  1.0
  */
-class ArticleModel extends AbstractTrackerDatabaseModel
+class ArticleModel extends AbstractDoctrineItemModel
 {
 	/**
-	 * Get an item.
+	 * The name of the entity.
 	 *
-	 * @param   integer  $id  The item id.
+	 * @var string
 	 *
-	 * @return  ArticlesTable
-	 *
-	 * @since   1.0
+	 * @since  1.0
 	 */
-	public function getItem($id)
-	{
-		$table = new ArticlesTable($this->db);
-
-		return $table->load($id)->getIterator();
-	}
+	protected $entityName = 'Article';
 }

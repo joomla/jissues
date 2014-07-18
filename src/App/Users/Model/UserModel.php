@@ -8,53 +8,25 @@
 
 namespace App\Users\Model;
 
-use App\Projects\TrackerProject;
-
 use Joomla\Filter\InputFilter;
 
-use JTracker\Authentication\GitHub\GitHubUser;
-use JTracker\Authentication\Database\TableUsers;
-use JTracker\Model\AbstractTrackerDatabaseModel;
+use JTracker\Model\AbstractDoctrineItemModel;
 
 /**
  * User model class for the Users component.
  *
  * @since  1.0
  */
-class UserModel extends AbstractTrackerDatabaseModel
+class UserModel extends AbstractDoctrineItemModel
 {
 	/**
-	 * Project object
+	 * The name of the entity.
 	 *
-	 * @var    TrackerProject
+	 * @var string
+	 *
 	 * @since  1.0
 	 */
-	protected $project;
-
-	/**
-	 * Get an item.
-	 *
-	 * @param   integer  $itemId  The item id.
-	 *
-	 * @return  GitHubUser
-	 *
-	 * @since   1.0
-	 * @throws  \Exception
-	 */
-	public function getItem($itemId = null)
-	{
-		try
-		{
-			$user = new GitHubUser($this->project, $this->db, $itemId);
-		}
-		catch (\RuntimeException $e)
-		{
-			// Load a blank user
-			$user = new GitHubUser($this->project, $this->db);
-		}
-
-		return $user;
-	}
+	protected $entityName = 'User';
 
 	/**
 	 * Save the item.
@@ -70,35 +42,15 @@ class UserModel extends AbstractTrackerDatabaseModel
 	{
 		$filter = new InputFilter;
 
-		$data = array();
+		$src['id'] = $filter->clean($src['id'], 'int');
 
-		$data['id'] = $filter->clean($src['id'], 'int');
-
-		if (!$data['id'])
+		if (!$src['id'])
 		{
-			throw new \UnexpectedValueException('Missing ID');
+			// @throw new \UnexpectedValueException('Missing ID');
 		}
 
-		$data['params'] = json_encode($src['params']);
+		$src['params'] = json_encode($src['params']);
 
-		(new TableUsers($this->db))->save($data);
-
-		return $this;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
+		return parent::save($src);
 	}
 }

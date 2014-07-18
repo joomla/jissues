@@ -8,37 +8,13 @@
 
 namespace App\Users\View\Users;
 
-use App\Users\Model\UsersModel;
-
-use JTracker\View\AbstractTrackerHtmlView;
+use JTracker\View\AbstractDoctrineHtmlListView;
 
 /**
  * Users view class for the Users component
  *
  * @since  1.0
  */
-class UsersHtmlView extends AbstractTrackerHtmlView
+class UsersHtmlView extends AbstractDoctrineHtmlListView
 {
-	/**
-	 * The model object.
-	 *
-	 * @var    UsersModel
-	 * @since  1.0
-	 */
-	protected $model;
-
-	/**
-	 * Method to render the view.
-	 *
-	 * @return  string  The rendered view.
-	 *
-	 * @since   1.0
-	 */
-	public function render()
-	{
-		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('pagination', $this->model->getPagination());
-
-		return parent::render();
-	}
 }

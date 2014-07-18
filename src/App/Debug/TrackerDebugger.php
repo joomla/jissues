@@ -271,15 +271,6 @@ class TrackerDebugger implements LoggerAwareInterface
 			}
 		}
 
-		if ($this->application->get('debug.database'))
-		{
-			$debug[] = '<div id="dbgDatabase">';
-			$debug[] = '<h3>' . g11n3t('Database') . '</h3>';
-
-			$debug[] = $this->renderDatabase();
-			$debug[] = '</div>';
-		}
-
 		if ($this->application->get('debug.system'))
 		{
 			$debug[] = '<div id="dbgProfile">';
@@ -308,6 +299,15 @@ class TrackerDebugger implements LoggerAwareInterface
 			$debug[] = '<div id="dbgLanguageFiles">';
 			$debug[] = '<h3>' . g11n3t('Language Files') . '</h3>';
 			$debug[] = $this->renderLanguageFiles();
+			$debug[] = '</div>';
+		}
+
+		if ($this->application->get('debug.database'))
+		{
+			$debug[] = '<div id="dbgDatabase">';
+			$debug[] = '<h3>' . g11n3t('Database') . '</h3>';
+
+			$debug[] = $this->renderDatabase();
 			$debug[] = '</div>';
 		}
 
@@ -648,7 +648,9 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		foreach ($dbLog as $i => $entry)
 		{
-			$explain = $dbDebugger->getExplain($entry->sql);
+			// @todo (re)enable explain queries for Doctrine managed databases (replace the placeholder)
+			// $dbDebugger->getExplain($entry->sql);
+			$explain = '';
 
 			$debug[] = '<pre class="dbQuery">' . $sqlFormat->highlightQuery($entry->sql, $prefix) . '</pre>';
 

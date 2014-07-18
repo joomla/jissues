@@ -1,0 +1,2 @@
+database:
+  app_handling: doctrine

@@ -62,8 +62,6 @@ class User extends AbstractTrackerController
 			}
 		}
 
-		$this->view->id = (int) $id;
-
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$this->view->setItem($this->model->getItem($id));
 	}
 }
