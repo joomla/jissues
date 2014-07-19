@@ -189,20 +189,17 @@
 				  [% if(item.opened_date) { %]
 		                &nbsp;&bull;&nbsp;
 						{{ 'Opened '|_ }}
-						[% opendate = new Date(item.opened_date); %]
-						[%= opendate.getFullYear()+'-'+opendate.getMonth()+'-'+opendate.getDate() %]
+						[%= item.opened_date %]
 					  [% } %]
 					  [% if(item.closed_status!="0") { %]
 			                &nbsp;&bull;&nbsp;
 							{{ 'Closed '|_ }}
-							[% closed_date= new Date(item.closed_date); %]
-							[%= closed_date.getFullYear()+'-'+closed_date.getMonth()+'-'+closed_date.getDate() %]
+							[%= item.closed_date %]
 						  [% } %]
-					  [% if(item.modified_date != '0000-00-00 00:00:00') { %]
+					  [% if(item.modified_date != '-0001-11-30') { %]
 			                &nbsp;&bull;&nbsp;
 							{{ 'Modified '|_ }}
-							[% modified_date = new Date(item.modified_date); %]
-							[%= modified_date.getFullYear()+'-'+modified_date.getMonth()+'-'+modified_date.getDate() %]
+							[%= item.modified_date %]
 						  [% } %]
 						  </span>
 			  </td>
