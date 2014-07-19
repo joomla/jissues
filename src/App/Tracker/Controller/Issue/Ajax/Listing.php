@@ -154,12 +154,11 @@ class Listing extends AbstractAjaxController
 
 		foreach ($listItems as $item)
 		{
-			$item->labelHtml = $renderer->renderLabels($item->labels);
-			$item->opened_date = date('Y-m-d',strtotime($item->opened_date));
-			$item->modified_date = date('Y-m-d',strtotime($item->modified_date));
-			$item->closed_date = date('Y-m-d',strtotime($item->closed_date));
+			$item->labelHtml     = $renderer->renderLabels($item->labels);
+			$item->opened_date   = date('Y-m-d', strtotime($item->opened_date));
+			$item->modified_date = date('Y-m-d', strtotime($item->modified_date));
+			$item->closed_date   = date('Y-m-d', strtotime($item->closed_date));
 		}
-
 
 		// Prepare the response.
 		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal);
