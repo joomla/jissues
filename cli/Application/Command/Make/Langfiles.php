@@ -60,10 +60,33 @@ class Langfiles extends Make
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		$languages = $this->getApplication()->get('languages');
 
 		$reqExtension = $this->getApplication()->input->getCmd('extension');
+
+		// Process the CLI application
+
+		if (!$reqExtension || $reqExtension == 'cli')
+		{
+			$extension = 'cli';
+			$domain    = 'CLI';
+
+			$this->out('Processing: ' . $domain . ' ' . $extension);
+
+			foreach ($languages as $lang)
+			{
+				if ('en-GB' == $lang)
+				{
+					continue;
+				}
+
+				$this->processDomain($extension, 'CLI', $lang);
+			}
+		}
+
+		// Process JTracker core
 
 		if (!$reqExtension || $reqExtension == 'JTracker')
 		{

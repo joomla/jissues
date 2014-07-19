@@ -18,6 +18,8 @@ use Application\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
+use g11n\g11n;
+
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
@@ -121,24 +123,26 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
 			->registerServiceProvider(new TransifexProvider);
 
+		$this->loadLanguage();
+
 		$this->commandOptions[] = new TrackerCommandOption(
 			'quiet', 'q',
-			'Be quiet - suppress output.'
+			g11n3t('Be quiet - suppress output.')
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'verbose', 'v',
-			'Verbose output for debugging purpose.'
+			g11n3t('Verbose output for debugging purpose.')
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'nocolors', '',
-			'Suppress ANSI colors on unsupported terminals.'
+			g11n3t('Suppress ANSI colors on unsupported terminals.')
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'--log=filename.log', '',
-			'Optionally log output to the specified log file.'
+			g11n3t('Optionally log output to the specified log file.')
 		);
 
 		$this->getOutput()->setProcessor(new ColorProcessor);
@@ -184,7 +188,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 
 		$composerCfg = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 
-		$this->outputTitle('Joomla! Tracker CLI Application', $composerCfg->version);
+		$this->outputTitle(g11n3t('Joomla! Tracker CLI Application'), $composerCfg->version);
 
 		$args = $this->input->args;
 
@@ -211,14 +215,14 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		if (false == class_exists($className))
 		{
 			$this->out()
-				->out('Invalid command: <error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>')
+				->out(sprintf(g11n3t('Invalid command: %s'), '<error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>'))
 				->out();
 
 			$alternatives = $this->getAlternatives($command, $action);
 
 			if (count($alternatives))
 			{
-				$this->out('<b>Did you mean one of this?</b>')
+				$this->out('<b>' . g11n3t('Did you mean one of this?') . '</b>')
 					->out('    <question> ' . implode(' </question>    <question> ', $alternatives) . ' </question>');
 
 				return;
@@ -247,14 +251,14 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		catch (AbortException $e)
 		{
 			$this->out('')
-				->out('<comment>Process aborted.</comment>');
+				->out('<comment>' . g11n3t('Process aborted.') . '</comment>');
 		}
 
 		$this->out()
 			->out(str_repeat('_', 40))
 			->out(
 				sprintf(
-					'Execution time: <b>%d sec.</b>',
+					g11n3t('Execution time: <b>%d sec.</b>'),
 					time() - $this->get('execution.timestamp')
 				)
 			)
@@ -472,5 +476,68 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	public function getUserStateFromRequest()
 	{
 		return '';
+	}
+
+	/**
+	 * Load a foreign language.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function loadLanguage()
+	{
+		// Get the language tag from user input.
+		$lang = $this->input->get('lang');
+
+		if ($lang)
+		{
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown language from user input - fall back to default
+				$lang = g11n::getDefault();
+			}
+
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown default language - Fall back to British.
+				$lang = 'en-GB';
+			}
+		}
+		else
+		{
+			$lang = g11n::getCurrent();
+
+			if (false == in_array($lang, $this->get('languages')))
+			{
+				// Unknown current language - Fall back to British.
+				$lang = 'en-GB';
+			}
+		}
+
+		if ($lang)
+		{
+			// Set the current language if anything has been found.
+			g11n::setCurrent($lang);
+		}
+
+		// Set language debugging.
+		g11n::setDebug($this->get('debug.language'));
+
+		// Set the language cache directory.
+		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
+		{
+			g11n::setCacheDir('/tmp');
+		}
+		else
+		{
+			g11n::setCacheDir(JPATH_ROOT . '/cache');
+		}
+
+		// Load the CLI language file.
+		g11n::addDomainPath('CLI', JPATH_ROOT);
+		g11n::loadLanguage('cli', 'CLI');
+
+		return $this;
 	}
 }

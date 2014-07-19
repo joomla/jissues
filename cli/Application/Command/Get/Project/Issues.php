@@ -26,16 +26,34 @@ use JTracker\Github\DataType\Commit\Status;
 class Issues extends Project
 {
 	/**
-	 * The command "description" used for help texts.
+	 * List of changed issue numbers.
 	 *
-	 * @var    string
+	 * @var array
+	 *
 	 * @since  1.0
 	 */
-	protected $description = 'Retrieve issues from GitHub.';
-
 	protected $changedIssueNumbers = array();
 
+	/**
+	 * List of issues.
+	 *
+	 * @var array
+	 *
+	 * @since  1.0
+	 */
 	protected $issues = array();
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve issues from GitHub.');
+	}
 
 	/**
 	 * Execute the command.
