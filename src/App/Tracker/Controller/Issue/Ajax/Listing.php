@@ -152,10 +152,14 @@ class Listing extends AbstractAjaxController
 		// Render the label html for each item
 		$renderer = new Renderer\TrackerExtension($this->getContainer());
 
-		foreach ($listItems as $label)
+		foreach ($listItems as $item)
 		{
-			$label->labelHtml = $renderer->renderLabels($label->labels);
+			$item->labelHtml = $renderer->renderLabels($item->labels);
+			$item->opened_date = date('Y-m-d',strtotime($item->opened_date));
+			$item->modified_date = date('Y-m-d',strtotime($item->modified_date));
+			$item->closed_date = date('Y-m-d',strtotime($item->closed_date));
 		}
+
 
 		// Prepare the response.
 		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal);
