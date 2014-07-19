@@ -64,13 +64,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected $project;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	abstract public function __construct();
-
-	/**
 	 * Execute the command.
 	 *
 	 * @return  void
