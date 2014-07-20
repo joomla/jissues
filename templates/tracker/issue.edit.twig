@@ -103,14 +103,6 @@
             <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
         </li>
         <li>
-            <label for="tests">{{ translate('Successful tests') }}</label>
-            <select name="item[tests]" id="tests" class="span1">
-                {% for i in range(0, 5) %}
-                    <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
-        </li>
-        <li>
             <label for="easy">{{ translate('Easy test') }}</label>
             <select name="item[easy]" id="easy" class="span1">
                 <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>

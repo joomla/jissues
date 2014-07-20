@@ -41,8 +41,6 @@ class Make extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->addOption(
 			new TrackerCommandOption(
 				'noprogress', '',

@@ -28,14 +28,18 @@
 {% block content %}
     {% import "tracker.filters.twig" as filters %}
 
-    <form action="{{ uri.base.path }}tracker/{{ project.alias }}" method="post" name="issuesForm" id="issuesForm" class="form-inline form-search">
+    <div id="issuesForm" class="form-inline form-search">
         <div class="filters btn-toolbar clearfix">
             <div class="clearfix">
-                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-status-div">
-                    <button type="button" class="btn {% if state.get('filter.status') == 0 %} active btn-success {% endif %}" value="0">
+                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-state-div">
+                    <button type="button"
+                            class="btn{% if state.get('filter.state') == 0 %} active btn-success {% endif %}"
+                            value="0">
                         {{ 'Open'|_ }}
                     </button>
-                    <button type="button" class="btn {% if state.get('filter.status') == 1 %} active btn-danger {% endif %}" value="1">
+                    <button type="button"
+                            class="btn{% if state.get('filter.state') == 1 %} active btn-danger {% endif %}"
+                            value="1">
                         {{ 'Closed'|_ }}
                     </button>
                 </div>
@@ -45,16 +49,17 @@
                         <b class="caret"></b>
                     </button>
                 </div>
-                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
+                <a class="btn pull-right"
+                   href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
             </div>
 
             <div id="stools-container" class="collapse
-            {% if state.get('filter.stage')
-                or state.get('filter.priority')
-                or state.get('filter.search')
-                or state.get('filter.sort')
-                or state.get('filter.user')
-                or state.get('stools-active') %}
+            {% if state.get('filter.status')
+            or state.get('filter.priority')
+            or state.get('filter.search')
+            or state.get('filter.sort')
+            or state.get('filter.user')
+            or state.get('stools-active') %}
                 in
             {% endif %}
             clearfix pull-left">
@@ -62,19 +67,18 @@
                     <label class="filter-search-lbl element-invisible"
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
                     <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
-                           value="{{ state.get('filter.search') }}" onchange="document.issuesForm.submit();"
+                           value="{{ state.get('filter.search') }}"
                            title="{{ translate('Filter the list by ID, summary, or description.') }}"
                            placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-                    <button class="btn tip hasTooltip" type="submit" title="{{ 'Submit search'|_ }}">
+                    <button class="btn tip hasTooltip" id="button-submit" type="button" title="{{ 'Submit search'|_ }}">
                         <span class="icon-search"></span></button>
                 </div>
                 <div class="btn-group">
-                    <button class="btn tip hasTooltip" type="button"
-                            onclick="jQuery('#filter-search').val(''); document.issuesForm.submit();"
+                    <button class="btn tip hasTooltip" id="button-remove" type="button"
                             title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
                 <div class="btn-group">
-                    {{ filters.status(state.get('filter.stage'), 'filter-stage', 'input-small-100', state.get('filter.status')) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-small-100', state.get('filter.state')) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
@@ -87,13 +91,12 @@
                 <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
                 </div>
-             </div>
+            </div>
 
-            <input type="hidden" name="filter-status" id="filter-status" value="{{ state.get('filter.status') }}" />
-            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}" />
+            <input type="hidden" name="filter-state" id="filter-state" value="{{ state.get('filter.state') }}"/>
+            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}"/>
         </div>
-
-        <table class="table table-bordered table-striped table-condensed">
+        <table class="table table-bordered table-striped table-condensed" id="issuesList">
             <thead>
             <tr>
                 <th width="2%" class="nowrap center">{{ 'ID'|_ }}</th>
@@ -103,103 +106,19 @@
             </tr>
             </thead>
             <tbody>
-            {% if items %}
-                {% set blockers = [1, 2] %}
-                {% for item in items %}
-
-                    {% set rowClass = '' %}
-                    {% if item.priority in blockers %}
-                        {% set rowClass = ' class=error' %}
-                    {% endif %}
-                    {% if item.status == 4 %}
-                        {% set rowClass = ' class=success' %}
-                    {% endif %}
-
-                    <tr{{ rowClass }}>
-                        <td class="center valign-center">
-                            {{ item.issue_number }}
-                            <!--
-                            @todo This is to retrieve extended information on an issue - review
-                            {#
-                            <div class="btn btn-small issueInfo"
-                                 title="{{ project.title }} # {{ item.issue_number }}"
-                                 data-issue="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/info">
-                                {{ item.issue_number }}
-                            </div>
-                            #}
-                            -->
-                        </td>
-                        <td class="hasContext">
-                            <div class="hasTooltip" title="">
-                                {% if user.check("edit") %}
-                                <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}/edit">
-                                    <span data-icon="&#xe003;"></span>
-                                    </a>
-                                {% endif %}
-                                <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.issue_number }}">
-                                    {{ item.title|e }}
-                                </a>
-                                {{ item.labels|labels|raw }}
-                                <span class="list-issue-details">
-                                    {% if project.gh_user and project.gh_project %}
-                                        <br/>
-                                        {{ 'GitHub ID'|_ }}
-                                        <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/{{ item.issue_number }}"
-                                           target="_blank">
-                                            {{ item.issue_number }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.foreign_number %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Foreign ID'|_ }}
-                                        <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id={{ item.foreign_number }}"
-                                           target="_blank">
-                                            {{ item.foreign_number }}
-                                        </a>
-                                    {% endif %}
-                                    {% if item.opened_date %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Opened %s'|_|format(item.opened_date|date('Y-m-d')) }}
-                                    {% endif %}
-                                    {% if item.closed_status %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Closed %s'|_|format(item.closed_date|date('Y-m-d')) }}
-                                    {% endif %}
-                                    {% if item.modified_date != '0000-00-00 00:00:00' %}
-                                        &nbsp;&bull;&nbsp;
-                                        {{ 'Modified %s'|_|format(item.modified_date|date('Y-m-d')) }}
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </td>
-                        <td class="center valign-center">
-                            {% set priorities = priorities() %}
-                            <span class="badge {{ prioClass(item.priority) }}">{{ priorities[item.priority] }}</span>
-                        </td>
-                       <td class="center valign-center">
-                            {{ item.status_title|_ }}
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td class="center" colspan="4">
-                        {{ 'No items found.'|_ }}
-                    </td>
-                </tr>
-            {% endif %}
+            <tr>
+                <td class="center" colspan="4">{{ 'Loading, please wait...'|_ }}</td>
+            </tr>
             </tbody>
+
         </table>
-    </form>
+    </div>
 
-    {% if pagination.pagesTotal > 1 %}
-        {{ sprintf("Page %1$s of %2$s"|_, pagination.pageNo, pagination.pagesTotal) }}
-        {{ pagination.bar|raw }}
-    {% endif %}
+    <ul id="pagination" class="trackerPagination"></ul>
 
-<!-- ++++++++++++++++++++++++++ -->
-<!-- +  JavaScript templates  + -->
-<!-- ++++++++++++++++++++++++++ -->
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
 
 
     <!--
@@ -224,57 +143,258 @@
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-popover.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/twbs-pagination/jquery.twbsPagination{{ jdebug ? "":".min" }}.js"></script>
+
+    <script type="text/x-tmpl" id="ajaxListing">
+	[% if(o.data.items.length){ %]
+	[% for (var i=0; i< o.data.items.length ;i++) { %]
+		[% var item = o.data.items[i]; %]
+		[% var rowClass = ''; %]
+		[% var blockers=[1,2]; %]
+	    [% if (item.priority in blockers) { %]
+	        [% rowClass = 'class=error';} %]
+	    [% if (item.status === '4') { %]
+	        [% rowClass = 'class=success';} %]
+		<tr [%= rowClass %]>
+	      <td class="center valign-center">
+	          [%= item.issue_number %]
+	      </td>
+	      <td class="hasContext">
+	          {% if user.check("edit") %}
+			  <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit">
+			  <span data-icon="&#xe003;"></span>
+			  </a>
+			  {% endif %}
+			  <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]">
+			  [%= item.title %]
+			  </a>
+			  [% print(item.labelHtml,true); %]
+              <span class="list-issue-details">
+	          {% if project.gh_user and project.gh_project %}
+	              <br/>
+	              {{ 'GitHub ID'|_ }}
+	              <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
+	                 target="_blank">
+	                 [%= item.issue_number %]
+	              </a>
+	          {% endif %}
+			  [% if(item.foreign_number) { %]
+	                &nbsp;&bull;&nbsp;
+	                {{ 'Foreign ID'|_ }}
+	                <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= item.foreign_number %]"
+	                   target="_blank">
+					   [%= item.foreign_number %]
+	                </a>
+				  [% } %]
+				  [% if(item.opened_date) { %]
+		                &nbsp;&bull;&nbsp;
+						{{ 'Opened '|_ }}
+						[%= item.opened_date %]
+					  [% } %]
+					  [% if(item.closed_status!="0") { %]
+			                &nbsp;&bull;&nbsp;
+							{{ 'Closed '|_ }}
+							[%= item.closed_date %]
+						  [% } %]
+					  [% if(item.modified_date != '-0001-11-30') { %]
+			                &nbsp;&bull;&nbsp;
+							{{ 'Modified '|_ }}
+							[%= item.modified_date %]
+						  [% } %]
+						  </span>
+			  </td>
+	         <td class="center valign-center">
+             [% var priorities = {1: '{{ 'Critical'|_ }}', 2: '{{ 'Urgent'|_ }}', 3: '{{ 'Medium'|_ }}', 4: '{{ 'Low'|_ }}', 5: '{{ 'Very low'|_ }}'  }; %]
+			   <span class="badge [%=prioClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
+				         </td>
+	         <td class="center valign-center">
+			 [%= item.status_title %]
+             [% if(item.merge_state) { %]
+                 <br />
+			     <span class="badge badge-[%= getMergeStateClass(item.merge_state) %] " title="{{ 'GitHub merge status'|_ }}">
+			         [%= translateMergeState(item.merge_state) %]
+			     </span>
+ 	         [% } %]
+ 	         </td>
+	    </tr>
+		[% } %]
+		[% }else{ %]
+	  	  <tr>
+	            <td class="center" colspan="4">
+	                {{ 'No items found.'|_ }}
+	            </td>
+	        </tr>
+	  	  [% } %]
+
+
+    </script>
 
     <script type="text/javascript">
+        // Get issues list
+        getListItems();
+        /*
+         @todo This is to retrieve extended information on an issue - review
 
-    /*
-     @todo This is to retrieve extended information on an issue - review
+         $('*[data-issue]').click(
+         function () {
+         var el = $(this);
+         $.get(el.data('issue'), function(r) {
+         el.popover({
+         content: tmpl("tplIssueInfo", r.data),
+         html: true
+         }).popover('show');
+         });
+         el.unbind('click');
+         return false;
+         }
+         );
+         */
 
-    $('*[data-issue]').click(
-        function () {
-            var el = $(this);
-            $.get(el.data('issue'), function(r) {
-                el.popover({
-                   content: tmpl("tplIssueInfo", r.data),
-                   html: true
-               }).popover('show');
-            });
-            el.unbind('click');
-            return false;
-        }
-    );
-    */
+        $('[id^=filter]').change(function () {
+                    getListItems();
+                }
+        );
+        $('#filter-state-div button').click(
+                function () {
+                    var val = $(this).val();
+                    $('#filter-state').val(val);
+                    if (val == 0) {
+                        $(this).addClass("active btn-success");
+                        $(this).next().removeClass("active btn-danger");
+                    } else {
+                        $(this).addClass("active btn-danger");
+                        $(this).prev().removeClass("active btn-success");
+                    }
+                    getListItems();
+                }
+        );
 
-    var form = $('#issuesForm');
+        $("#button-remove").click(function () {
+            $('#filter-search').val('');
+            getListItems();
+        });
 
-    $('[id^=filter]').change(
-        function() {
-            // Search tools are active.
-            $('#stools-active').val(1);
+        $("#button-submit").click(function () {
+            getListItems();
+        });
 
-            form.submit();
-        }
-    );
-
-    $('#filter-status-div button').click(
-        function () {
-            var val = $(this).val();
-            $('#filter-status').val(val);
-            form.submit();
-        }
-    );
-
-    $('#stools-button button').click(
-        function () {
-            var val = $('#stools-active').val();
-
-            if (val == 0) {
-                $('#stools-active').val(1);
-            } else {
-                $('#stools-active').val(0);
+        function prioClass(priority) {
+            priority = parseInt(priority);
+            switch (priority) {
+                case 1 :
+                    return 'badge-important';
+                case 2 :
+                    return 'badge-warning';
+                case 3 :
+                    return 'badge-info';
+                case 4 :
+                    return 'badge-inverse';
+                default :
+                    return '';
             }
         }
-    );
+
+        function getMergeStateClass(status) {
+            switch (status) {
+                case 'success' :
+                    return 'success';
+                case 'pending' :
+                    return 'warning';
+                case 'error' :
+                case 'failure' :
+                    return 'important';
+            }
+
+            return '';
+        }
+
+        function translateMergeState(state)
+        {
+            switch (state)
+            {
+                case 'success':
+                    return g11n3t('Success');
+                case 'pending':
+                    return g11n3t('Pending');
+                case 'error':
+                    return g11n3t('Error');
+                case 'failure':
+                    return g11n3t('Failure');
+            }
+
+            return '?';
+        }
+
+        function getListItems() {
+            $('#pagination').remove();
+            $('#issuesForm').after('<ul id="pagination" class="trackerPagination"></ul>');
+            $('#issuesList tbody').animate({opacity:0.3}, 100);
+            var active = $('#stools-active').val();
+            var search = $('#filter-search').val();
+            var status = $('#filter-status').val();
+            var priority = $('#filter-priority').val();
+            var sort = $('#filter-sort').val();
+            var state = $('#filter-state').val();
+            var user = $('#filter-user').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax",
+                data: {
+                    'search': search,
+                    'status': status,
+                    'priority': priority,
+                    'user': user,
+                    'sort': sort,
+                    'state': state,
+                    'stools-active': active
+                },
+                success: function (r) {
+                    if (r.data.pagesTotal > 1) {
+                        $("#pagination").twbsPagination({
+                            totalPages: r.data.pagesTotal,
+                            visiblePages: 5,
+                            onPageClick: function (event, page) {
+                                $('#issuesList tbody').animate({opacity:0.3}, 100);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '{{ uri.base.path }}tracker/{{ project.alias }}/listing-ajax?page=' + page,
+                                    data: {
+                                        'search': search,
+                                        'status': status,
+                                        'priority': priority,
+                                        'user': user,
+                                        'sort': sort,
+                                        'state': state,
+                                        'stools-active': active
+                                    },
+                                    success: function (data) {
+                                        $('#issuesList tbody').html(tmpl("ajaxListing", data));
+                                        $('#issuesList tbody').animate({opacity:1}, 100);
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        $("#pagination").html('');
+                    }
+                    $('#issuesList tbody').html(tmpl("ajaxListing", r));
+                    $('#issuesList tbody').animate({opacity:1}, 100);
+                }
+            });
+        }
+
+        $('#stools-button button').click(
+                function () {
+                    var val = $('#stools-active').val();
+
+                    if (val == 0) {
+                        $('#stools-active').val(1);
+                    } else {
+                        $('#stools-active').val(0);
+                    }
+                }
+        );
     </script>
 
 {% endblock %}

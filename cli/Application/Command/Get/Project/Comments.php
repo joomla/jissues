@@ -30,12 +30,16 @@ class Comments extends Project
 	protected $items = array();
 
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Retrieve comments from GitHub.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve comments from GitHub.');
+	}
 
 	/**
 	 * Execute the command.
@@ -46,15 +50,15 @@ class Comments extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Comments');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Comments'));
 
-		$this->logOut('Start retrieve Comments')
+		$this->logOut(g11n3t('Start retrieve Comments'))
 			->selectProject()
 			->setupGitHub()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -87,7 +91,16 @@ class Comments extends Project
 			return $this;
 		}
 
-		$this->out(sprintf('Fetching comments for <b>%d</b> modified issues from GitHub...', count($this->changedIssueNumbers)), false);
+		$this->out(
+			sprintf(
+				g11n4t(
+					'Fetching comments for <b>one</b> modified issue from GitHub...',
+					'Fetching comments for <b>%d</b> modified issues from GitHub...',
+					count($this->changedIssueNumbers)
+					),
+				count($this->changedIssueNumbers)
+			), false
+		);
 
 		$progressBar = $this->getProgressBar(count($this->changedIssueNumbers));
 
@@ -151,7 +164,7 @@ class Comments extends Project
 	{
 		if (!$this->items)
 		{
-			$this->logOut('Everything is up to date.');
+			$this->logOut(g11n3t('Everything is up to date.'));
 
 			return $this;
 		}
@@ -162,7 +175,16 @@ class Comments extends Project
 		// Initialize our query object
 		$query = $db->getQuery(true);
 
-		$this->out(sprintf('Processing comments for %d modified issue(s)...', count($this->items)));
+		$this->out(
+			sprintf(
+				g11n4t(
+					'Processing comments for one modified issue...',
+					'Processing comments for %d modified issues...',
+					count($this->items)
+				),
+				count($this->items)
+			)
+		);
 
 		$adds = 0;
 		$updates = 0;
@@ -179,7 +201,7 @@ class Comments extends Project
 			{
 				$this
 					->out()
-					->out('No comments for issue #' . $issueNumber);
+					->out(sprintf(g11n3t('No comments for issue # %d'), $issueNumber));
 			}
 			else
 			{
@@ -187,7 +209,11 @@ class Comments extends Project
 					->out()
 					->out(
 						sprintf(
-							'Processing %1$d comments for issue # %2$d (%3$d/%4$d)',
+							g11n4t(
+								'Processing one comment for issue # %2$d (%3$d/%4$d)',
+								'Processing %1$d comments for issue # %2$d (%3$d/%4$d)',
+								count($comments)
+							),
 							count($comments), $issueNumber, $count, count($this->items)
 						)
 					);
@@ -281,7 +307,7 @@ class Comments extends Project
 
 		$this->out()
 			->outOK()
-			->logOut(sprintf('%1$d added %2$d updated.', $adds, $updates));
+			->logOut(sprintf(g11n3t('%1$d added %2$d updated.'), $adds, $updates));
 
 		return $this;
 	}
