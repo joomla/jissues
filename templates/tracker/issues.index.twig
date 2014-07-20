@@ -77,8 +77,18 @@
                     <button class="btn tip hasTooltip" id="button-remove" type="button"
                             title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
-                <div class="btn-group">
-                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-small-100', state.get('filter.state')) }}
+                {% if (state.get('filter.state') == 0) %}
+                {% set openState = '' %}
+                {% set closedState = ' style="display: none"' %}
+                {% else %}
+                {% set openState = ' style="display: none"' %}
+                {% set closedState = '' %}
+                {% endif %}
+                <div id="status-open" class="btn-group"{{ openState|raw }}>
+                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium-140', 0) }}
+                </div>
+                <div id="status-closed" class="btn-group"{{ closedState|raw }}>
+                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium-140', 1) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
@@ -261,9 +271,13 @@
                     if (val == 0) {
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
+                        $('#status-open').show();
+                        $('#status-closed').hide();
                     } else {
                         $(this).addClass("active btn-danger");
                         $(this).prev().removeClass("active btn-success");
+                        $('#status-open').hide();
+                        $('#status-closed').show();
                     }
                     getListItems();
                 }
