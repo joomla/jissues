@@ -382,6 +382,9 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * Marcos Peebles &lt;marcos.peebles@gmail.com&gt;, 2014
 * Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2014
 
+#### et-EE
+* Rivo Zängov &lt;eraser@eraser.ee&gt;, 2014
+
 #### fr-FR
 * Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
 
