@@ -52,22 +52,22 @@
                         {% for name, value in fields %}
                             {% if value[0] is not defined %}
                                 {# Simple key:value field #}
-								<div class="control-group">
+                                <div class="control-group">
                                     {% if fields[0] is defined %}
-									<label for="config{{ group ~ name }}" class="control-label">
+                                    <label for="config{{ group ~ name }}" class="control-label">
                                         {{ group|title }}
                                     </label>
                                     {% else %}
-									<label for="config{{ group ~ name }}" class="control-label">{{ name|title }}</label>
+                                    <label for="config{{ group ~ name }}" class="control-label">{{ name|title }}</label>
                                     {% endif %}
-									<div class="controls">
-										<input type="text" name="config[{{ group }}][{{ name }}]"
-										   id="config{{ group ~ name }}" value="{{ value }}"/>
+                                    <div class="controls">
+                                        <input type="text" name="config[{{ group }}][{{ name }}]"
+                                           id="config{{ group ~ name }}" value="{{ value }}"/>
                                         {% if fields[0] is defined %}
                                         <div class="btn btn-danger" onclick="$(this).parent().parent().remove();"><i class="icon-minus-sign"></i></div>
                                         {% endif %}
                                     </div>
-								</div>
+                                </div>
                             {% else %}
                                 {% set addContainer = "" %}
                                 {% set cnt1 = 0 %}
