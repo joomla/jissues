@@ -64,11 +64,8 @@
         <li>
             <label for="status">{{ translate('Status') }}</label>
             <select name="item[status]" id="status" class="span2">
-                {% for status in statuses %}
-                    <option {{ status.id == item.status ? "selected='selected'" : ""  }}
-                            value="{{ status.id }}">
-                        {{ status.status }}
-                    </option>
+                {% for key, value in getStatuses() %}
+                    <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                 {% endfor %}
             </select>
         </li>
