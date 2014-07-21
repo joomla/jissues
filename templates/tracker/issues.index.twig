@@ -368,6 +368,10 @@
                         $("#pagination").twbsPagination({
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
+                            first: g11n3t('First'),
+                            prev: g11n3t('Previous'),
+                            next: g11n3t('Next'),
+                            last: g11n3t('Last'),
                             onPageClick: function (event, page) {
                                 $('#issuesList tbody').animate({opacity: 0.3}, 100);
                                 $.ajax({
