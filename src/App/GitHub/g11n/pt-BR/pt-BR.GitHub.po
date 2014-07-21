@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
 "PO-Revision-Date: 2014-05-06 03:08+0000\n"
 "Last-Translator: Airton Torres <airton.torres@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
@@ -17,6 +17,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Rótulos"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Listar Rótulos"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Novo Rótulo"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Nome"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Cor"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Adicionar Rótulo"
+
+#: /templates/github/labels.index.twig:43
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/labels.index.twig:58
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr "Excluir"
+
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Estatísticas"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
@@ -30,11 +73,6 @@ msgstr "Listar Hooks"
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
 msgstr "Novo Hook"
-
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-#: /templates/github/labels.index.twig:43
-msgid "URL"
-msgstr "URL"
 
 #: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
 msgid "Events"
@@ -75,44 +113,6 @@ msgstr "Desativar"
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
 msgstr "Ativar"
-
-#: /templates/github/hooks.index.twig:120
-#: /templates/github/labels.index.twig:58
-msgid "Delete"
-msgstr "Excluir"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Rótulos"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Listar Rótulos"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Novo Rótulo"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
-msgid "Name"
-msgstr "Nome"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
-msgid "Color"
-msgstr "Cor"
-
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr "Adicionar Rótulo"
-
-#: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
-#, php-format
-msgid "%s - Statistics"
-msgstr "%s - Estatísticas"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."

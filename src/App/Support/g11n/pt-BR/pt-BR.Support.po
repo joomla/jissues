@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
 "PO-Revision-Date: 2014-05-06 03:02+0000\n"
 "Last-Translator: Airton Torres <airton.torres@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
@@ -29,6 +29,11 @@ msgstr "Melhorar"
 #: /templates/support/documentation.index.twig:46
 msgid "Permalink"
 msgstr "Permalink"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Ícones"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -105,11 +110,6 @@ msgstr "GitHub Spice"
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "Saída"
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr "Ícones"
 
 #: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."

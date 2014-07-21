@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
-"PO-Revision-Date: 2014-01-20 10:58+0000\n"
-"Last-Translator: Paulo Pereira <pauloizidoro@gmail.com>\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
+"PO-Revision-Date: 2014-07-19 17:55+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,10 +28,46 @@ msgstr "Seguinte"
 msgid "Last"
 msgstr "Anterior"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+#: /src/JTracker/View/Renderer/TrackerExtension.php:214
+msgid "Critical"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:215
+msgid "Urgent"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:216
+msgid "Medium"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:217
+msgid "Low"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:218
+msgid "Very low"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:402
 msgid "No"
 msgstr "Não"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+#: /src/JTracker/View/Renderer/TrackerExtension.php:402
 msgid "Yes"
 msgstr "Sim"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:462
+msgid "Success"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:465
+msgid "Pending"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:468
+msgid "Error"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:471
+msgid "Failure"
+msgstr ""

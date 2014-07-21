@@ -27,15 +27,21 @@ use JTracker\GitHub\GithubFactory;
 class Issues extends Project
 {
 	/**
-	 * The command "description" used for help texts.
+	 * List of changed issue numbers.
 	 *
-	 * @var    string
+	 * @var array
+	 *
 	 * @since  1.0
 	 */
-	protected $description = 'Retrieve issues from GitHub.';
-
 	protected $changedIssueNumbers = array();
 
+	/**
+	 * List of issues.
+	 *
+	 * @var array
+	 *
+	 * @since  1.0
+	 */
 	protected $issues = array();
 
 	/**
@@ -57,6 +63,7 @@ class Issues extends Project
 
 		// This class has actions that depend on a bot account, fetch a Github instance as a bot
 		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
+		$this->description = g11n3t('Retrieve issues from GitHub.');
 	}
 
 	/**

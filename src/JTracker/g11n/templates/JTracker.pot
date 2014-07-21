@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,10 +27,46 @@ msgstr ""
 msgid "Last"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+#: /src/JTracker/View/Renderer/TrackerExtension.php:214
+msgid "Critical"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:215
+msgid "Urgent"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:216
+msgid "Medium"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:217
+msgid "Low"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:218
+msgid "Very low"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:402
 msgid "No"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+#: /src/JTracker/View/Renderer/TrackerExtension.php:402
 msgid "Yes"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:462
+msgid "Success"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:465
+msgid "Pending"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:468
+msgid "Error"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:471
+msgid "Failure"
 msgstr ""
