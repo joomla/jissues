@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Dmitry Rekun, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-19 12:54-0500\n"
-"PO-Revision-Date: 2014-07-19 17:55+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-22 13:38+0000\n"
+"Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,53 +20,53 @@ msgstr ""
 
 #: /cli/Application/Application.php:130
 msgid "Be quiet - suppress output."
-msgstr ""
+msgstr "Веди себя тихо - подавляй вывод."
 
 #: /cli/Application/Application.php:135
 msgid "Verbose output for debugging purpose."
-msgstr ""
+msgstr "Подробный вывод для отладки."
 
 #: /cli/Application/Application.php:140
 msgid "Suppress ANSI colors on unsupported terminals."
-msgstr ""
+msgstr "Подавляй цвета ANSI на неподдерживаемых терминалах."
 
 #: /cli/Application/Application.php:145
 msgid "Optionally log output to the specified log file."
-msgstr ""
+msgstr "Опционально логируй выход в указанный файл лога."
 
 #: /cli/Application/Application.php:191
 msgid "Joomla! Tracker CLI Application"
-msgstr ""
+msgstr "Joomla! Tracker CLI Application"
 
 #: /cli/Application/Application.php:218
 #, php-format
 msgid "Invalid command: %s"
-msgstr ""
+msgstr "Неверная команда: %s"
 
 #: /cli/Application/Application.php:225
 msgid "Did you mean one of this?"
-msgstr ""
+msgstr "Вы имели ввиду что-то из этого?"
 
 #: /cli/Application/Application.php:254
 msgid "Process aborted."
-msgstr ""
+msgstr "Процесс прерван."
 
 #: /cli/Application/Application.php:261
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
-msgstr ""
+msgstr "Время выполнения: <b>%d сек.</b>"
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
-msgstr ""
+msgstr "Получить изображения аватаров с GitHub."
 
 #: /cli/Application/Command/Get/Avatars.php:50
 msgid "Retrieve Avatars"
-msgstr ""
+msgstr "Получение аватаров"
 
 #: /cli/Application/Command/Get/Avatars.php:52
 msgid "Start retrieving Avatars."
-msgstr ""
+msgstr "Начинаю получение аватаров."
 
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
@@ -73,176 +74,176 @@ msgstr ""
 #: /cli/Application/Command/Get/Project/Events.php:74
 #: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
-msgstr ""
+msgstr "Готово."
 
 #: /cli/Application/Command/Get/Avatars.php:81
 msgid "No users found in database."
-msgstr ""
+msgstr "В базе данных не найдены пользователи."
 
 #: /cli/Application/Command/Get/Avatars.php:87
 #, php-format
 msgid "Processing avatars for one user."
 msgid_plural "Processing avatars for %d users."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Обработка аватара для одного пользователя."
+msgstr[1] "Обработка аватаров для %d пользователей."
+msgstr[2] "Обработка аватаров для %d пользователей."
 
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
 msgid "User avatar already fetched for user %s"
-msgstr ""
+msgstr "Для пользователя %s уже получен аватар"
 
 #: /cli/Application/Command/Get/Avatars.php:122
 #, php-format
 msgid "Fetching avatar for user: %s"
-msgstr ""
+msgstr "Получаю аватар для пользователя: %s"
 
 #: /cli/Application/Command/Get/Avatars.php:134
 #, php-format
 msgid "Copy default image for user: %s"
-msgstr ""
+msgstr "Копирую дефолтное изображение для пользователя: %s"
 
 #: /cli/Application/Command/Get/Avatars.php:148
 #, php-format
 msgid "Added %d new user avatars"
-msgstr ""
+msgstr "Добавлено новых аватаров: %d "
 
 #: /cli/Application/Command/Get/Composertags.php:27
 msgid ""
 "Retrieve a list of project tags from GitHub and show their installed "
 "versions."
-msgstr ""
+msgstr "Получить список тегов проекта из GitHub и показать их установленные версии."
 
 #: /cli/Application/Command/Get/Composertags.php:33
 msgid "Show all tags or only the most recent."
-msgstr ""
+msgstr "Показать все теги или только самые новые."
 
 #: /cli/Application/Command/Get/Composertags.php:48
 msgid "Retrieve composer tags"
-msgstr ""
+msgstr "Получаю теги composer"
 
 #: /cli/Application/Command/Get/Composertags.php:56
 #, php-format
 msgid "Can not read the packages file at %s"
-msgstr ""
+msgstr "Не могу прочитать файлы пакетов %s"
 
 #: /cli/Application/Command/Get/Composertags.php:59
 msgid "Start getting composer tags."
-msgstr ""
+msgstr "Начинаю получать теги composer."
 
 #: /cli/Application/Command/Get/Composertags.php:101
 msgid "Installed"
-msgstr ""
+msgstr "Установлено"
 
 #: /cli/Application/Command/Get/Composertags.php:118
 #, php-format
 msgid "Installed: %s"
-msgstr ""
+msgstr "Установлено: %s"
 
 #: /cli/Application/Command/Get/Get.php:66
 msgid "Retrieve Information from various sources."
-msgstr ""
+msgstr "Получить информация их разных источников."
 
 #: /cli/Application/Command/Get/Get.php:72
 msgid "Process the project with the given ID."
-msgstr ""
+msgstr "Обработка проекта с заданным ID."
 
 #: /cli/Application/Command/Get/Get.php:78
 msgid "Don't use a progress bar."
-msgstr ""
+msgstr "Не использовать прогресс бар."
 
 #: /cli/Application/Command/Get/Project.php:68
 msgid ""
 "Get the whole project info from GitHub, including issues and issue comments."
-msgstr ""
+msgstr "Получить весь проект с GitHub, включая issues и комментарии."
 
 #: /cli/Application/Command/Get/Project.php:74
 #: /cli/Application/Command/Get/Project/Events.php:52
 msgid "Process all issues."
-msgstr ""
+msgstr "Обработать все issues."
 
 #: /cli/Application/Command/Get/Project.php:80
 #: /cli/Application/Command/Get/Project/Events.php:47
 msgid "<n> Process only a single issue."
-msgstr ""
+msgstr "<n> Обработать только одно issue."
 
 #: /cli/Application/Command/Get/Project.php:86
 msgid "<n> First issue to process."
-msgstr ""
+msgstr "<n> Первое issue для обработки."
 
 #: /cli/Application/Command/Get/Project.php:92
 msgid "<n> Last issue to process."
-msgstr ""
+msgstr "<n> Последнее issue для обработки.."
 
 #: /cli/Application/Command/Get/Project.php:98
 msgid "Force an update even if the issue has not changed."
-msgstr ""
+msgstr "Форсировать обновление, несмотря на то, что issue не было изменено."
 
 #: /cli/Application/Command/Get/Project.php:112
 msgid "Retrieve Project"
-msgstr ""
+msgstr "Получить проект"
 
 #: /cli/Application/Command/Get/Project.php:114
 msgid "Bulk Start retrieve Project"
-msgstr ""
+msgstr "Массовый старт получения проекта"
 
 #: /cli/Application/Command/Get/Project.php:125
 #, php-format
 msgid "Updating project info for project: %s/%s"
-msgstr ""
+msgstr "Обновляю информацию о проекте: %s/%s"
 
 #: /cli/Application/Command/Get/Project.php:137
 msgid "Bulk Finished"
-msgstr ""
+msgstr "Готово"
 
 #: /cli/Application/Command/Get/Project.php:310
 msgid "GitHub issues to process?"
-msgstr ""
+msgstr "GitHub issues для обработки?"
 
 #: /cli/Application/Command/Get/Project.php:312
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: /cli/Application/Command/Get/Project.php:313
 msgid "Range"
-msgstr ""
+msgstr "Диапазон"
 
 #: /cli/Application/Command/Get/Project.php:314
 msgid "Select: "
-msgstr ""
+msgstr "Выберите:"
 
 #: /cli/Application/Command/Get/Project.php:321
 msgid "Enter the first GitHub issue ID to process (from):"
-msgstr ""
+msgstr "Выберите GitHub issue ID для обработки (с):"
 
 #: /cli/Application/Command/Get/Project.php:325
 msgid "Enter the latest GitHub issue ID to process (to):"
-msgstr ""
+msgstr "Выберите GitHub issue ID для обработки (по):"
 
 #: /cli/Application/Command/Get/Project/Comments.php:41
 msgid "Retrieve comments from GitHub."
-msgstr ""
+msgstr "Получить комментарии с GitHub."
 
 #: /cli/Application/Command/Get/Project/Comments.php:53
 msgid "Retrieve Comments"
-msgstr ""
+msgstr "Получение комментариев"
 
 #: /cli/Application/Command/Get/Project/Comments.php:55
 msgid "Start retrieve Comments"
-msgstr ""
+msgstr "Начинаю получение комментариев"
 
 #: /cli/Application/Command/Get/Project/Comments.php:97
 #, php-format
 msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Обрабатываю комментарии для <b>одной</b> измененной issue с GitHub..."
+msgstr[1] "Обрабатываю комментарии для <b>%d</b> измененных issues с GitHub..."
+msgstr[2] "Обрабатываю комментарии для <b>%d</b> измененных issues с GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:180
 msgid "Everything is up to date."
-msgstr ""
+msgstr "Все обновлено."
 
 #: /cli/Application/Command/Get/Project/Comments.php:181
 #, php-format
@@ -414,10 +415,6 @@ msgstr ""
 #: /cli/Application/Command/Install/Install.php:189
 #, php-format
 msgid "Creating tables from file %s"
-msgstr ""
-
-#: /cli/Application/Command/Test/Makedummyusers.php:32
-msgid "..."
 msgstr ""
 
 #: /cli/Application/Command/TrackerCommand.php:178

@@ -151,11 +151,11 @@ Twig, the flexible, fast, and secure template language for PHP
 * Installed: v1.16.0
 * Source URL: https://github.com/fabpot/Twig.git
 
-#### elkuku/g11n (2.1)
+#### elkuku/g11n (2.*@stable)
 
 The g11n language library
 
-* Installed: 2.1
+* Installed: 2.2
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -220,7 +220,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.1.3
+* Installed: 4.1.4
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
