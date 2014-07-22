@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allenzhao
- * Date: 7/10/14
- * Time: 11:41 AM
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Tracker\Controller\Category;
@@ -12,7 +12,13 @@ namespace App\Tracker\Controller\Category;
 use JTracker\Controller\AbstractTrackerController;
 use App\Tracker\View\Category\CategoryHtmlView;
 
-class Add extends AbstractTrackerController{
+/**
+ *  Controller class to add an item into the categories
+ *
+ * @since  1.0
+ */
+class Add extends AbstractTrackerController
+{
 	/**
 	 * The default view for the component.
 	 *
@@ -56,4 +62,4 @@ class Add extends AbstractTrackerController{
 
 		return parent::execute();
 	}
-} 
+}

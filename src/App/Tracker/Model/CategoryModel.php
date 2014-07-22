@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Model;
 
+use App\Tracker\Table\IssueCategoryMappingTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
@@ -95,6 +96,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function save(array $src)
 	{
+		$db     = $this->getDb();
 		$filter = new InputFilter;
 
 		$data = array();
@@ -125,7 +127,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since 1.0
 	 */
-	protected function getByName($name= '')
+	protected function getByName($name = '')
 	{
 		$db        = $this->getDb();
 		$query     = $db->getQuery(true);
@@ -153,8 +155,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	public function delete($id)
 	{
 		// Remove the category-issue mapping
-		$db        = $this->getDb();
-		$query     = $db->getQuery(true);
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
 
 		$db->setQuery(
 			$query->delete('#__issue_category_map')
@@ -165,6 +167,44 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$table = new CategoryTable($db);
 
 		$table->delete($id);
+
+		return $this;
+	}
+
+	/**
+	 * Save the category/categories of an issues
+	 *
+	 * @param   array  $src  The source, should contain three parts, $src['issue_id'] is the id of the issue, $src['created_by']
+	 *                       should be the create-user's id, and $src['categories'] should be an array of category id(s).
+	 *
+	 * @throws  \RuntimeException
+	 *
+	 * @return  $this This allows chaining
+	 *
+	 * @since 1.0
+	 */
+	public function save_category(array $src)
+	{
+		$filter = new InputFilter;
+
+		$data       = array();
+		$issue_id   = $filter->clean($src['issue_id']);
+		$created_by = $filter->clean($src['created_by']);
+
+		foreach ($src['categories'] as $key => $category)
+		{
+			$data[$key]['issue_id']    = $issue_id;
+			$data[$key]['created_by']  = $created_by;
+			$data[$key]['category_id'] = $filter->clean($category);
+		}
+
+		$db    = $this->getDb();
+		$table = new IssueCategoryMappingTable($db);
+
+		foreach ($data as $item)
+		{
+			$table->save($item);
+		}
 
 		return $this;
 	}

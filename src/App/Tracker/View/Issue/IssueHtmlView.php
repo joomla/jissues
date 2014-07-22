@@ -67,6 +67,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('project', $this->getProject());
 		$this->renderer->set('statuses', $this->model->getStatuses());
 		$this->renderer->set('canEditOwn', $this->canEditOwn());
+		$this->renderer->set('categories', $this->model->setProject($this->getProject())->getCategories());
 
 		return parent::render();
 	}
@@ -106,7 +107,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * Set the item.
+	 * Get the item.
 	 *
 	 * @throws \RuntimeException
 	 * @return IssuesTable
@@ -124,7 +125,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * Get the item.
+	 * Set the item.
 	 *
 	 * @param   IssuesTable  $item  The item to set.
 	 *

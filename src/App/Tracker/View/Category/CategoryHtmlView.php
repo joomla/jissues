@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allenzhao
- * Date: 7/10/14
- * Time: 12:49 PM
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Tracker\View\Category;
@@ -14,9 +14,13 @@ use App\Tracker\Model\CategoryModel;
 use App\Projects\TrackerProject;
 use App\Tracker\Table\CategoryTable;
 
+/**
+ * The category view
+ *
+ * @since  1.0
+ */
 class CategoryHtmlView extends AbstractTrackerHtmlView
 {
-
 	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
@@ -34,17 +38,22 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	protected $project = null;
 
 	/**
-	 *
+	 * Item object
 	 *
 	 * @var CategoryTable
+	 *
 	 * @since 1.0
 	 */
 	protected $item = null;
 
 	/**
-	 * @param mixed $item
+	 * Set the item
 	 *
-	 * @return $this    Method allows chaining
+	 * @param   CategoryTable  $item  The item to set
+	 *
+	 * @return  $this    Method allows chaining
+	 *
+	 * @since  1.0
 	 */
 	public function setItem($item)
 	{
@@ -54,9 +63,13 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
+	 * Get the item
+	 *
 	 * @throws \RuntimeException
 	 *
-	 * @return mixed
+	 * @return CategoryTable
+	 *
+	 * @since  1.0
 	 */
 	public function getItem()
 	{
@@ -73,8 +86,9 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @return  string  The rendered view.
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
+	 *
+	 * @since  1.0
 	 */
 	public function render()
 	{
@@ -91,8 +105,9 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @return  TrackerProject
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
+	 *
+	 * @since   1.0
 	 */
 	public function getProject()
 	{
@@ -107,7 +122,7 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	/**
 	 * Set the project.
 	 *
-	 * @param   TrackerProject $project The project.
+	 * @param   TrackerProject  $project  The project.
 	 *
 	 * @return  $this  Method allows chaining
 	 *

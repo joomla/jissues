@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allenzhao
- * Date: 7/10/14
- * Time: 9:31 PM
+ * Part of the Joomla Tracker's Tracker Application
+ *
+ * @copyright  Copyright (C) 2012 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace App\Tracker\View\Categories;
@@ -13,9 +13,14 @@ use JTracker\View\AbstractTrackerHtmlView;
 use App\Tracker\Model\CategoriesModel;
 use App\Projects\TrackerProject;
 
-class CategoriesHtmlView extends AbstractTrackerHtmlView {
-
 /**
+ * The category list view
+ *
+ * @since  1.0
+ */
+class CategoriesHtmlView extends AbstractTrackerHtmlView
+{
+	/**
 	 * Redefine the model so the correct type hinting is available.
 	 *
 	 * @var     CategoriesModel
@@ -36,8 +41,8 @@ class CategoriesHtmlView extends AbstractTrackerHtmlView {
 	 *
 	 * @return  string  The rendered view.
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
+	 * @since   1.0
 	 */
 	public function render()
 	{
@@ -55,8 +60,8 @@ class CategoriesHtmlView extends AbstractTrackerHtmlView {
 	 *
 	 * @return  TrackerProject
 	 *
-	 * @since   1.0
 	 * @throws  \RuntimeException
+	 * @since   1.0
 	 */
 	public function getProject()
 	{
@@ -82,4 +87,5 @@ class CategoriesHtmlView extends AbstractTrackerHtmlView {
 		$this->project = $project;
 
 		return $this;
-	}}
+	}
+}

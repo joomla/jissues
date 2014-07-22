@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allenzhao
- * Date: 7/10/14
- * Time: 11:41 AM
+ * Part of the Joomla Tracker's Projects Application
+ *
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Controller\Category;
@@ -13,7 +13,13 @@ use JTracker\Controller\AbstractTrackerController;
 use App\Tracker\View\Category\CategoryHtmlView;
 use App\Tracker\Model\CategoryModel;
 
-class Edit extends AbstractTrackerController{
+/**
+ * Controller class to edit an item of the category
+ *
+ * @since  1.0
+ */
+class Edit extends AbstractTrackerController
+{
 	/**
 	 * The default view for the component.
 	 *
@@ -66,4 +72,4 @@ class Edit extends AbstractTrackerController{
 
 		return parent::execute();
 	}
-} 
+}

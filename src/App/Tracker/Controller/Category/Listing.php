@@ -1,11 +1,23 @@
 <?php
+/**
+ * Part of the Joomla Tracker's Projects Application
+ *
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
+ */
 namespace App\Tracker\Controller\Category;
 
 use App\Tracker\Model\CategoriesModel;
 use JTracker\Controller\AbstractTrackerListController;
-use App\Tracker\View\Category\CategoriesHtmlView;
+use App\Tracker\View\Categories\CategoriesHtmlView;
 
-class Listing extends AbstractTrackerListController{
+/**
+ * List controller class for category.
+ *
+ * @since  1.0
+ */
+class Listing extends AbstractTrackerListController
+{
 	/**
 	 * View object
 	 *
@@ -30,7 +42,15 @@ class Listing extends AbstractTrackerListController{
 	 */
 	protected $model;
 
-	public function initialize(){
+	/**
+	 * Initialize the controller.
+	 *
+	 * @return  $this  Method supports chaining
+	 *
+	 * @since   1.0
+	 */
+	public function initialize()
+	{
 		parent::initialize();
 
 		/* @type \JTracker\Application $application */
@@ -38,7 +58,6 @@ class Listing extends AbstractTrackerListController{
 		$application->getUser()->authorize('admin');
 
 		$this->model->setProject($this->getContainer()->get('app')->getProject(true));
-//		print_r($this->model->getItems());
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
 		return $this;

@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: allenzhao
- * Date: 7/10/14
- * Time: 10:25 PM
+ * Part of the Joomla Tracker's Projects Application
+ *
+ * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
 namespace App\Tracker\Controller\Category;
@@ -13,9 +13,13 @@ use JTracker\Controller\AbstractTrackerController;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Table\CategoryTable;
 
+/**
+ * Controller class to save an item to the categories.
+ *
+ * @since  1.0
+ */
 class Save extends AbstractTrackerController
 {
-
 	/**
 	 * The default view for the component
 	 *
@@ -23,6 +27,7 @@ class Save extends AbstractTrackerController
 	 * @since  1.0
 	 */
 	protected $defaultView = 'categories';
+
 	/**
 	 * Model object
 	 *
@@ -47,16 +52,21 @@ class Save extends AbstractTrackerController
 		$project = $app->getProject();
 
 		$table = new CategoryTable($this->getContainer()->get('db'));
-		try{
+
+		try
+		{
 			$table->save($app->input->get('category', array(), 'array'));
+
 			// Reload the project.
 			$this->model->setProject($project);
 
 			$app->enqueueMessage('The changes have been saved.', 'success');
-			$app->redirect($app->get('uri.base.path').'category/'.$project->alias);
-		}catch (\Exception $exception){
-			$app->enqueueMessage($exception,'error');
-			$app->redirect($app->get('uri.base.path').'category/'.$project->alias.'/'.$app->input->get('id').'/edit');
+			$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias);
+		}
+		catch (\Exception $exception)
+		{
+			$app->enqueueMessage($exception, 'error');
+			$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/' . $app->input->get('id') . '/edit');
 		}
 		parent::execute();
 	}

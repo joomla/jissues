@@ -153,11 +153,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		// Fetch test data
 		$item->testsSuccess = $this->db->setQuery(
 			$query
-			->clear()
-			->select('username')
-			->from($this->db->quoteName('#__issues_tests'))
-			->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
-			->where($this->db->quoteName('result') . ' = 1')
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+				->where($this->db->quoteName('result') . ' = 1')
 		)->loadColumn();
 
 		sort($item->testsSuccess);
@@ -208,17 +208,17 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	public function getRandomNumber()
 	{
 		$issueNumber = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select('i.issue_number')
-					->from($this->db->quoteName('#__issues', 'i'))
-					->join('LEFT', '#__activities AS a ON a.issue_number = i.issue_number')
-					->join('LEFT', '#__status AS s on s.id = i.status')
-					->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
-					->where($this->db->quoteName('s.closed') . '=' . 0)
-					->where($this->db->quoteName('a.event') . '=' . $this->db->quote('comment'))
-					->group('i.id')
-					->having('COUNT(a.activities_id) < 5')
-					->order('RAND()'), 0, 1
+			$this->db->getQuery(true)
+				->select('i.issue_number')
+				->from($this->db->quoteName('#__issues', 'i'))
+				->join('LEFT', '#__activities AS a ON a.issue_number = i.issue_number')
+				->join('LEFT', '#__status AS s on s.id = i.status')
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
+				->where($this->db->quoteName('s.closed') . '=' . 0)
+				->where($this->db->quoteName('a.event') . '=' . $this->db->quote('comment'))
+				->group('i.id')
+				->having('COUNT(a.activities_id) < 5')
+				->order('RAND()'), 0, 1
 		)->loadResult();
 
 		if (!$issueNumber)
@@ -264,6 +264,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$table = new IssuesTable($this->db);
 
 		$table->save($src);
+
+		// Store the saved issue id for category.
+		$state = $this->getState();
+		$state->set('issue_id', $table->id);
+		$this->setState($state);
 
 		/*
 		@todo see issue #194
@@ -417,14 +422,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		{
 			// New test result
 			$data = [
-				$this->db->quoteName('item_id') => $itemId,
+				$this->db->quoteName('item_id')  => $itemId,
 				$this->db->quoteName('username') => $this->db->quote($userName),
-				$this->db->quoteName('result') => $result,
+				$this->db->quoteName('result')   => $result,
 			];
 
 			$this->db->setQuery(
 				$this->db->getQuery(true)
-						->insert($this->db->quoteName('#__issues_tests'))
+					->insert($this->db->quoteName('#__issues_tests'))
 					->columns(array_keys($data))
 					->values(implode(', ', $data))
 			)->execute();
@@ -441,5 +446,25 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Get Categories list object for displaying
+	 *
+	 * @return  object
+	 *
+	 * @since    1.0
+	 */
+	public function getCategories()
+	{
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
+
+		$query
+			->select('*')
+			->from($db->quoteName('#__issues_categories'))
+			->where('project_id = ' . $this->getProject()->project_id);
+
+		return $db->setQuery($query)->loadObjectList();
 	}
 }

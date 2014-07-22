@@ -36,9 +36,11 @@ class Delete extends AbstractTrackerController
 	 */
 	protected $model;
 
-
 	/**
-	 * @var CategoriesHtmlView
+	 * View object
+	 *
+	 * @var    CategoriesHtmlView
+	 * @since  1.0
 	 */
 	protected $view;
 
@@ -59,6 +61,7 @@ class Delete extends AbstractTrackerController
 		$this->model->setProject($this->getContainer()->get('app')->getProject());
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
 
+		return $this;
 	}
 
 	/**
@@ -75,13 +78,17 @@ class Delete extends AbstractTrackerController
 
 		$model = new CategoryModel($this->getContainer()->get('db'));
 
-		try{
+		try
+		{
 			$model->delete($application->input->get('id'));
-			$application->enqueueMessage(g11n3t('The category has been deleted'),'success');
-		}catch (\Exception $exception){
-			$application->enqueueMessage($exception,'error');
+			$application->enqueueMessage(g11n3t('The category has been deleted'), 'success');
 		}
-		$application->redirect($application->get('uri.base.path').'category/'.$application->getProject()->alias);
+		catch (\Exception $exception)
+		{
+			$application->enqueueMessage($exception, 'error');
+		}
+		$application->redirect($application->get('uri.base.path') . 'category/' . $application->getProject()->alias);
+
 		return parent::execute();
 	}
 }
