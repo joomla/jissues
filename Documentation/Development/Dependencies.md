@@ -407,3 +407,6 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### ru-RU
 * Dmitry Rekun, 2014
+
+#### zh-CN
+* cnallenzhao &lt;cnallenzhao@gmail.com&gt;, 2014

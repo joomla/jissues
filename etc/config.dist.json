@@ -65,15 +65,16 @@
 		"da-DK",
 		"de-DE",
 		"en-GB",
-        "es-ES",
+		"es-ES",
 		"et-EE",
-        "fr-FR",
+		"fr-FR",
 		"hu-HU",
 		"it-IT",
 		"nl-NL",
 		"pt-BR",
 		"pt-PT",
-		"ru-RU"
+		"ru-RU",
+		"zh-CN"
 	],
 
 	"validation": {
