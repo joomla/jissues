@@ -13,7 +13,7 @@ use App\Tracker\Model\IssueModel;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Github\Exception\GithubException;
-use JTracker\GitHub\Github;
+use JTracker\GitHub\GithubFactory;
 
 /**
  * Controller class to save an item via the Tracker App.
@@ -84,8 +84,7 @@ class Save extends AbstractTrackerController
 			throw new AuthenticationException($user, 'edit');
 		}
 
-		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->getContainer()->get('gitHub');
+		$gitHub = GithubFactory::getInstance($application);
 
 		if ($project->gh_user && $project->gh_project)
 		{
@@ -157,19 +156,15 @@ class Save extends AbstractTrackerController
 	 */
 	private function updateGitHub($issueNumber, array $data, $state, $oldState)
 	{
-		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->getContainer()->get('gitHub');
-
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$user = $application->getUser();
 		$project = $application->getProject();
 
 		try
 		{
 			// Try to update the project on GitHub using thew current user credentials
-			$gitHubResponse = $gitHub->issues->edit(
+			$gitHubResponse = GithubFactory::getInstance($application)->issues->edit(
 				$project->gh_user, $project->gh_project,
 				$issueNumber, $state, $data['title'], $data['description_raw']
 			);
@@ -189,10 +184,7 @@ class Save extends AbstractTrackerController
 			}
 
 			// Try to perform the action on behalf of an authorized bot.
-			$gitHubBot = new Github;
-
-			$gitHubBot->setOption('api.username', $project->getGh_Editbot_User());
-			$gitHubBot->setOption('api.password', $project->getGh_Editbot_Pass());
+			$gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
 
 			// Update the project on GitHub
 			$gitHubResponse = $gitHubBot->issues->edit(
@@ -206,7 +198,7 @@ class Save extends AbstractTrackerController
 			{
 				$body = sprintf(
 					'Modified on behalf of @%s by %s',
-					$user->username,
+					$application->getUser()->username,
 					sprintf(
 						'The <a href="%s">%s</a>',
 						'https://github.com/joomla/jissues',
