@@ -23,15 +23,17 @@ abstract class GithubFactory
 	/**
 	 * Retrieves an instance of the Github object
 	 *
-	 * @param   \Joomla\Application\AbstractApplication  $app     Application object
-	 * @param   boolean                                  $useBot  Flag to for
+	 * @param   \Joomla\Application\AbstractApplication  $app          Application object
+	 * @param   boolean                                  $useBot       Flag to use a bot account.
+	 * @param   string                                   $botUser      The bot account user name.
+	 * @param   string                                   $botPassword  The bot account password.
 	 *
 	 * @return  Github
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public static function getInstance($app, $useBot = false)
+	public static function getInstance($app, $useBot = false, $botUser = '', $botPassword = '')
 	{
 		$options = new Registry;
 
@@ -55,22 +57,31 @@ abstract class GithubFactory
 		// Otherwise fall back to an account from the system configuration
 		else
 		{
-			// Check for support for multiple accounts
-			$accounts = $app->get('github.accounts');
-
-			if ($accounts)
+			// Check if credentials are supplied
+			if ($botUser && $botPassword)
 			{
-				$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
-				$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
-
-				// Store the other accounts
-				$options->set('api.accounts', $accounts);
+				$user     = $botUser;
+				$password = $botPassword;
 			}
 			else
 			{
-				// Support for a single account
-				$user     = $app->get('github.username');
-				$password = $app->get('github.password');
+				// Check for support for multiple accounts
+				$accounts = $app->get('github.accounts');
+
+				if ($accounts)
+				{
+					$user     = isset($accounts[0]->username) ? $accounts[0]->username : null;
+					$password = isset($accounts[0]->password) ? $accounts[0]->password : null;
+
+					// Store the other accounts
+					$options->set('api.accounts', $accounts);
+				}
+				else
+				{
+					// Support for a single account
+					$user     = $app->get('github.username');
+					$password = $app->get('github.password');
+				}
 			}
 
 			// Add the username and password to the options object if both are set
