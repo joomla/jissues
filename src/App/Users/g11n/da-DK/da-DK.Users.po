@@ -1,0 +1,127 @@
+# JTracker App Users 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Ole Ottosen <ot2sen@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
+"PO-Revision-Date: 2014-05-25 22:54+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da_DK\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Brugere"
+
+#: /templates/users/users.index.twig:15
+msgid "Users List"
+msgstr "Brugerliste"
+
+#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Side %1$s af %2$s"
+
+#: /templates/users/users.index.twig:24
+msgid "Username"
+msgstr "Brugernavn"
+
+#: /templates/users/users.index.twig:26
+msgid "Actions"
+msgstr "Handlinger"
+
+#: /templates/users/users.index.twig:28
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Ret bruger"
+
+#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
+msgid "Invalid user!"
+msgstr "Ugyldig bruger!"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Gem"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Fortryd"
+
+#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
+msgid "Refresh profile from GitHub"
+msgstr ""
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr ""
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Params"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Sprog"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Tidszone"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Min profil"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Profil"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Sprog: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Tidszone: %1$s (GMT %2$s)"
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
+msgid "The user has been assigned."
+msgstr "Brugeren er blevet tilknyttet."
+
+#: /src/App/Users/Controller/Ajax/Assign.php:85
+msgid "The user has been unassigned."
+msgstr "Brugeren er ikke længere tilknyttet."
+
+#: /src/App/Users/Controller/User/Edit.php:83
+#: /src/App/Users/Controller/User/Save.php:47
+msgid "You are not authorized to edit this user."
+msgstr "Du har ikke adgang til at rette denne bruger."
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorized to refresh this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:70
+msgid "The profile has been refreshed."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Save.php:62
+msgid "The changes have been saved."
+msgstr "Ændringerne er blevet gemt."

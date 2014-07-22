@@ -9,6 +9,7 @@
 namespace App\GitHub\Controller;
 
 use App\GitHub\View\Stats\StatsHtmlView;
+use App\Projects\Model\ProjectModel;
 
 use Joomla\Github\Github;
 
@@ -41,13 +42,23 @@ class Stats extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$project = $this->getContainer()->get('app')->getProject();
+		$alias = $this->getContainer()->get('app')->input->get('project_alias');
 
-		$gitHub = new Github;
+		if ($alias)
+		{
+			$project = (new ProjectModel($this->getContainer()->get('db')))
+				->getByAlias($alias);
+		}
+		else
+		{
+			$project = $this->getContainer()->get('app')->getProject();
+		}
 
-		$data = $gitHub->repositories->statistics->getListContributors(
+		$data = (new Github)->repositories->statistics->getListContributors(
 			$project->gh_user, $project->gh_project
 		);
+
+		$data = array_reverse($data);
 
 		$this->view->setProject($project);
 		$this->view->setData($data);

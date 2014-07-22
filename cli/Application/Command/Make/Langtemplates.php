@@ -76,6 +76,7 @@ class Langtemplates extends Make
 		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/jtracker');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
@@ -129,6 +130,19 @@ class Langtemplates extends Make
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
 			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+
+			// Process the CLI application
+
+			$extension = 'cli';
+			$domain    = 'CLI';
+
+			$this->out('Processing: ' . $domain . ' ' . $extension);
+
+			$templatePath = Storage::getTemplatePath($extension, $domain);
+
+			$paths = array(ExtensionHelper::getDomainPath($domain));
+
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 		}
 
 		// Process App templates
@@ -165,53 +179,6 @@ class Langtemplates extends Make
 
 			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
-
-		$this->processDatabase();
-	}
-
-	/**
-	 * A special routine to handle translation strings contained in the database.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function processDatabase()
-	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
-
-		$strings = $db->setQuery(
-			$db->getQuery(true)
-			->from('#__status')
-			->select('status')
-		)->loadColumn();
-
-		$path = JPATH_ROOT . '/src/App/Tracker/g11n/templates/Tracker.pot';
-
-		$contents = file_get_contents($path);
-
-		$starter = "\n# DATABASE TRANSLATIONS\n";
-
-		$pos = strpos($starter, $contents);
-
-		if ($pos)
-		{
-			$contents = substr($contents, 0, $pos);
-		}
-
-		$contents .= $starter;
-
-		foreach ($strings as $string)
-		{
-			$contents .= "\n#: DATABASE\n";
-			$contents .= "msgid \"$string\"\n";
-			$contents .= "msgstr \"\"\n";
-		}
-
-		file_put_contents($path, $contents);
-
-		return $this;
 	}
 
 	/**

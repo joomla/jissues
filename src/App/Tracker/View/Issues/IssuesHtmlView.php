@@ -47,8 +47,6 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
-		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('pagination', $this->model->getPagination());
 		$this->renderer->set('state', $this->model->getState());
 		$this->renderer->set('project', $this->getProject());
 

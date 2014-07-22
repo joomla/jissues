@@ -91,6 +91,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
+			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
 			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
@@ -123,6 +124,8 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFilter('labels', array($this, 'renderLabels')),
 			new \Twig_SimpleFilter('yesno', array($this, 'yesNo')),
 			new \Twig_SimpleFilter('_', 'g11n3t'),
+			new \Twig_SimpleFilter('mergeStatus', array($this, 'getMergeStatus')),
+			new \Twig_SimpleFilter('mergeBadge', array($this, 'renderMergeBadge')),
 		);
 	}
 
@@ -196,6 +199,24 @@ class TrackerExtension extends \Twig_Extension
 			default :
 				return '';
 		}
+	}
+
+	/**
+	 * Get a text list of issue priorities.
+	 *
+	 * @return  array  The list of priorities.
+	 *
+	 * @since   1.0
+	 */
+	public function getPriorities()
+	{
+		return [
+			1 => g11n3t('Critical'),
+			2 => g11n3t('Urgent'),
+			3 => g11n3t('Medium'),
+			4 => g11n3t('Low'),
+			5 => g11n3t('Very low')
+			];
 	}
 
 	/**
@@ -391,5 +412,66 @@ class TrackerExtension extends \Twig_Extension
 	public function getTimezones()
 	{
 		return \DateTimeZone::listIdentifiers(\DateTimeZone::ALL);
+	}
+
+	/**
+	 * Generate HTML output for a "merge status badge".
+	 *
+	 * @param   string  $status  The merge status.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function renderMergeBadge($status)
+	{
+		switch ($status)
+		{
+			case 'success':
+				$class = 'success';
+				break;
+			case 'pending':
+				$class = 'warning';
+				break;
+			case 'error':
+			case 'failure':
+				$class = 'important';
+				break;
+
+			default:
+				throw new \RuntimeException('Unknown status: ' . $status);
+		}
+
+		return '<span class="badge badge-' . $class . '">' . $this->getMergeStatus($status) . '</span>';
+	}
+
+	/**
+	 * Generate a translated merge status.
+	 *
+	 * @param   string  $status  The merge status.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getMergeStatus($status)
+	{
+		switch ($status)
+		{
+			case 'success':
+				return g11n3t('Success');
+				break;
+			case 'pending':
+				return g11n3t('Pending');
+				break;
+			case 'error':
+				return g11n3t('Error');
+				break;
+			case 'failure':
+				return g11n3t('Failure');
+				break;
+		}
+
+		throw new \RuntimeException('Unknown status: ' . $status);
 	}
 }

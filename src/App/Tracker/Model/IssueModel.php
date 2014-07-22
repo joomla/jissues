@@ -42,7 +42,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function getItem($identifier = null)
+	public function getItem($identifier)
 	{
 		if (!$identifier)
 		{
@@ -148,7 +148,54 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$item->importanceScore = 0;
 		}
 
+		// Decode the merge status
+		$item->gh_merge_status = json_decode($item->gh_merge_status);
+
+		// Fetch test data
+		$item->testsSuccess = $this->db->setQuery(
+			$query
+			->clear()
+			->select('username')
+			->from($this->db->quoteName('#__issues_tests'))
+			->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+			->where($this->db->quoteName('result') . ' = 1')
+		)->loadColumn();
+
+		sort($item->testsSuccess);
+
+		$item->testsFailure = $this->db->setQuery(
+			$query
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+				->where($this->db->quoteName('result') . ' = 2')
+		)->loadColumn();
+
+		sort($item->testsFailure);
+
 		return $item;
+	}
+
+	/**
+	 * Get a user test for an item.
+	 *
+	 * @param   integer  $itemId    The item number
+	 * @param   string   $username  The user name
+	 *
+	 * @return integer
+	 *
+	 * @since   1.0
+	 */
+	public function getUserTest($itemId, $username)
+	{
+		return (int) $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('result')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('username') . ' = ' . $this->db->quote($username))
+		)->loadResult();
 	}
 
 	/**
@@ -377,5 +424,57 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		return (new StatusTable($this->getDb()))
 			->load($statusId)
 			->status;
+	}
+
+	/**
+	 * Save a user test result.
+	 *
+	 * @param   integer  $itemId    The item ID
+	 * @param   string   $userName  The user name
+	 * @param   string   $result    The test result
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function saveTest($itemId, $userName, $result)
+	{
+		// Check for existing test
+		$id = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('id')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('username') . ' = ' . $this->db->quote($userName))
+				->where($this->db->quoteName('item_id') . ' = ' . $itemId)
+		)->loadResult();
+
+		if (!$id)
+		{
+			// New test result
+			$data = [
+				$this->db->quoteName('item_id') => $itemId,
+				$this->db->quoteName('username') => $this->db->quote($userName),
+				$this->db->quoteName('result') => $result,
+			];
+
+			$this->db->setQuery(
+				$this->db->getQuery(true)
+						->insert($this->db->quoteName('#__issues_tests'))
+					->columns(array_keys($data))
+					->values(implode(', ', $data))
+			)->execute();
+		}
+		else
+		{
+			// Change existing test result
+			$this->db->setQuery(
+				$this->db->getQuery(true)
+					->update($this->db->quoteName('#__issues_tests'))
+					->set($this->db->quoteName('result') . ' = ' . $result)
+					->where($this->db->quoteName('id') . ' = ' . (int) $id)
+			)->execute();
+		}
+
+		return $this;
 	}
 }

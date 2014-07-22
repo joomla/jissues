@@ -139,14 +139,31 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->getContainer(), $this->input);
-			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
-			if (!$maps)
+			// Search for App specific routes
+			/* @type \DirectoryIterator $fileInfo */
+			foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
 			{
-				throw new \RuntimeException('Invalid router file.', 500);
+				if ($fileInfo->isDot())
+				{
+					continue;
+				}
+
+				$path = realpath(JPATH_ROOT . '/src/App/' . $fileInfo->getFilename() . '/routes.json');
+
+				if ($path)
+				{
+					$maps = json_decode(file_get_contents($path));
+
+					if (!$maps)
+					{
+						throw new \RuntimeException('Invalid router file. ' . $path, 500);
+					}
+
+					$router->addMaps($maps, true);
+				}
 			}
 
-			$router->addMaps($maps, true);
 			$router->setControllerPrefix('\\App');
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 

@@ -1,0 +1,106 @@
+# JTracker App Users 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-09 22:28-0500\n"
+"PO-Revision-Date: 2014-04-10 03:30+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/jtracker/language/ca_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr ""
+
+#: /templates/users/users.index.twig:15
+msgid "Users List"
+msgstr ""
+
+#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: /templates/users/users.index.twig:24
+msgid "Username"
+msgstr ""
+
+#: /templates/users/users.index.twig:26
+msgid "Actions"
+msgstr ""
+
+#: /templates/users/users.index.twig:28
+msgid "ID"
+msgstr ""
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr ""
+
+#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
+msgid "Invalid user!"
+msgstr ""
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr ""
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr ""
+
+#: /templates/users/user.edit.twig:34
+msgid "Params"
+msgstr ""
+
+#: /templates/users/user.edit.twig:37
+msgid "Language"
+msgstr ""
+
+#: /templates/users/user.edit.twig:44
+msgid "Timezone"
+msgstr ""
+
+#: /templates/users/user.index.twig:16
+msgid "My Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:18
+msgid "Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:47
+#, php-format
+msgid "Language: %s"
+msgstr ""
+
+#: /templates/users/user.index.twig:52
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr ""
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
+msgid "The user has been assigned."
+msgstr ""
+
+#: /src/App/Users/Controller/Ajax/Assign.php:85
+msgid "The user has been unassigned."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Edit.php:83
+#: /src/App/Users/Controller/User/Save.php:47
+msgid "You are not authorized to edit this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Save.php:62
+msgid "The changes have been saved."
+msgstr ""

@@ -7,34 +7,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 10:30-0500\n"
-"PO-Revision-Date: 2014-02-17 00:47+0000\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
+"PO-Revision-Date: 2014-05-25 22:54+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/opentranslators/language/pt_PT/)\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/users/users.index.twig:13
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr ""
+
+#: /templates/users/users.index.twig:15
 msgid "Users List"
 msgstr ""
 
-#: /templates/users/users.index.twig:17 /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr ""
 
-#: /templates/users/users.index.twig:22
+#: /templates/users/users.index.twig:24
 msgid "Username"
 msgstr ""
 
-#: /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:26
 msgid "Actions"
 msgstr ""
 
-#: /templates/users/users.index.twig:26
+#: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr ""
 
@@ -42,7 +46,7 @@ msgstr ""
 msgid "Edit user"
 msgstr ""
 
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:10
+#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
 msgid "Invalid user!"
 msgstr ""
 
@@ -54,32 +58,44 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: /templates/users/user.edit.twig:34
-msgid "Params"
-msgstr ""
-
-#: /templates/users/user.edit.twig:37
-msgid "Language"
+#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
+msgid "Refresh profile from GitHub"
 msgstr ""
 
 #: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr ""
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr ""
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr ""
+
+#: /templates/users/user.edit.twig:77
 msgid "Timezone"
 msgstr ""
 
-#: /templates/users/user.index.twig:14
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:26
 msgid "My Profile"
 msgstr ""
 
-#: /templates/users/user.index.twig:16
+#: /templates/users/user.index.twig:28
 msgid "Profile"
 msgstr ""
 
-#: /templates/users/user.index.twig:45
+#: /templates/users/user.index.twig:57
 #, php-format
 msgid "Language: %s"
 msgstr ""
 
-#: /templates/users/user.index.twig:50
+#: /templates/users/user.index.twig:62
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr ""
@@ -95,6 +111,14 @@ msgstr ""
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorized to edit this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorized to refresh this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:70
+msgid "The profile has been refreshed."
 msgstr ""
 
 #: /src/App/Users/Controller/User/Save.php:62

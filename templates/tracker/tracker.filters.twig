@@ -6,31 +6,32 @@
 
   {% if closed %}
         {% set values = {
-            0: '- status -'|_,
-            4: 'fixed',
-            8: 'platform',
-            9: 'no_reply',
-            11: 'expected',
-            12: 'known'
+            0: '- Status -'|_,
+            4: 'Fixed in Code Base'|_,
+            8: 'Closed - Unconfirmed Report'|_,
+            9: 'Closed - No Reply'|_,
+            11: 'Expected Behaviour'|_,
+            12: 'Known Issue'|_
         } %}
    {% else %}
         {% set values = {
-            0: '- status -'|_,
-            2: 'confirmed',
-            3: 'pending',
-            5: 'rtc',
-            6: 'review',
-            7: 'info',
+            0: '- Status -'|_,
+            2: 'Confirmed'|_,
+            3: 'Pending'|_,
+            5: 'Ready To Commit'|_,
+            6: 'Needs Review'|_,
+            7: 'Information Required'|_
         } %}
    {% endif %}
 
-  {{ fields.select('filter-stage', values, value, id, class) }}
+  {{ fields.select('filter-status', values, value, id, class) }}
 {% endmacro %}
 
 {% macro priority(value, id, class) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- priority -'|_, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } %}
+    {% set values = {0: '- priority -'|_} %}
+    {% set values = values|merge(priorities()) %}
 
     {{ fields.select('filter-priority', values, value, id, class) }}
 {% endmacro %}

@@ -96,18 +96,18 @@ CREATE TABLE IF NOT EXISTS `#__status` (
 --
 
 INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
-(1, 'open', 0),
-(2, 'confirmed', 0),
-(3, 'pending', 0),
-(4, 'rtc', 0),
-(5, 'fixed', 1),
-(6, 'review', 0),
-(7, 'info', 0),
-(8, 'platform', 1),
-(9, 'no_reply', 1),
-(10, 'closed', 1),
-(11, 'expected', 1),
-(12, 'known', 1);
+(1, 'Open', 0),
+(2, 'Confirmed', 0),
+(3, 'Pending', 0),
+(4, 'Ready to Commit', 0),
+(5, 'Fixed in Code Base', 1),
+(6, 'Needs Review', 0),
+(7, 'Information Required', 0),
+(8, 'Closed - Unconfirmed Report', 1),
+(9, 'Closed - No Reply', 1),
+(10, 'Closed', 1),
+(11, 'Expected Behaviour', 1),
+(12, 'Known Issue', 1);
 
 -- --------------------------------------------------------
 
@@ -129,6 +129,19 @@ INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
 (3, 'not_before');
+
+--
+-- Table structure for table `#__issues_tests`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_tests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `item_id` int(11) NOT NULL COMMENT 'Item ID',
+  `username` varchar(50) NOT NULL COMMENT 'User name',
+  `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
+  PRIMARY KEY (`id`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -158,9 +171,10 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
-	`build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
-	`tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
-	`easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
+  `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
+  `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
+  `merge_state` varchar(50) NOT NULL COMMENT 'The merge state',
+  `gh_merge_status` text NOT NULL COMMENT 'The GitHub merge status (JSON encoded)',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),

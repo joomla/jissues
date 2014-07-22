@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 22:27-0500\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,51 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr ""
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr ""
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr ""
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr ""
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr ""
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr ""
+
+#: /templates/github/labels.index.twig:43
+#: /templates/github/hooks.index.twig:22
+#: /templates/github/hooks.index.twig:87
+msgid "URL"
+msgstr ""
+
+#: /templates/github/labels.index.twig:58
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr ""
+
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr ""
 
 #: /templates/github/hooks.index.twig:6
 #: /templates/github/hooks.index.twig:10
@@ -29,12 +74,6 @@ msgstr ""
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr ""
-
-#: /templates/github/hooks.index.twig:22
-#: /templates/github/hooks.index.twig:87
-#: /templates/github/labels.index.twig:43
-msgid "URL"
 msgstr ""
 
 #: /templates/github/hooks.index.twig:26
@@ -76,45 +115,6 @@ msgstr ""
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr ""
-
-#: /templates/github/hooks.index.twig:120
-#: /templates/github/labels.index.twig:58
-msgid "Delete"
-msgstr ""
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr ""
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr ""
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr ""
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
-msgid "Name"
-msgstr ""
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
-msgid "Color"
-msgstr ""
-
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr ""
-
-#: /templates/github/stats.index.twig:6
-#: /templates/github/stats.index.twig:10
-#, php-format
-msgid "%s - Statistics"
 msgstr ""
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40

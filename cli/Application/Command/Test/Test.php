@@ -18,20 +18,22 @@ use Application\Command\TrackerCommand;
 class Test extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'The test engine';
-
-	/**
 	 * Should the command exit or return the status.
 	 *
 	 * @var bool
 	 * @since  1.0
 	 */
 	protected $exit = true;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->description = 'The test engine';
+	}
 
 	/**
 	 * Execute the command.

@@ -1,0 +1,88 @@
+# JTracker App Text 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Airton Torres <airton.torres@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
+"PO-Revision-Date: 2014-05-06 02:57+0000\n"
+"Last-Translator: Airton Torres <airton.torres@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Editar Artigo"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+#: /templates/text/articles.index.twig:19
+msgid "New Article"
+msgstr "Novo Artigo"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Salvar"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Título"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Artigos"
+
+#: /templates/text/articles.index.twig:30
+msgid "Articles List"
+msgstr "Lista de Artigos"
+
+#: /templates/text/articles.index.twig:35
+msgid "Title/Alias"
+msgstr "Título/Alias"
+
+#: /templates/text/articles.index.twig:36
+msgid "Actions"
+msgstr "Ações"
+
+#: /templates/text/articles.index.twig:52
+msgid "View"
+msgstr "Ver"
+
+#: /templates/text/articles.index.twig:55
+msgid "Delete"
+msgstr "Excluir"
+
+#: /templates/text/articles.index.twig:61
+msgid "No articles found"
+msgstr "Nenhum artigo encontrado"
+
+#: /src/App/Text/Controller/Article/Delete.php:47
+msgid "The article has been deleted."
+msgstr "O artigo foi excluído."
+
+#: /src/App/Text/Controller/Article/Save.php:50
+msgid "The article has been saved."
+msgstr "O artigo foi salvo."
+
+#: /src/App/Text/Table/ArticlesTable.php:93
+msgid "An alias or a title is required."
+msgstr "É obrigatório um alias ou título."
+
+#: /src/App/Text/Table/ArticlesTable.php:99
+msgid "Some text is required."
+msgstr "É obrigatório informar algum texto"

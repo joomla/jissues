@@ -18,20 +18,24 @@ use g11n\Support\ExtensionHelper;
 class Transifex extends Get
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Retrieve language files from Transifex.';
-
-	/**
 	 * Array containing application languages to retrieve translations for
 	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	private $languages = array();
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve language files from Transifex.');
+	}
 
 	/**
 	 * Execute the command.
@@ -42,18 +46,18 @@ class Transifex extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Get Translations');
+		$this->getApplication()->outputTitle(g11n3t('Get Translations'));
 
 		$this->languages = $this->getApplication()->get('languages');
 
 		// Remove English from the language array
 		unset($this->languages[0]);
 
-		$this->logOut('Start fetching translations.')
+		$this->logOut(g11n3t('Start fetching translations.'))
 			->setupTransifex()
 			->fetchTranslations()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -66,13 +70,21 @@ class Transifex extends Get
 	private function fetchTranslations()
 	{
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
+		// Process CLI files
+		$this->receiveFiles('cli', 'CLI');
+
 		// Process core files
 		$this->receiveFiles('JTracker', 'Core');
+
+		// Process core JS files
+		$this->receiveFiles('JTracker.js', 'CoreJS');
 
 		// Process template files
 		$this->receiveFiles('JTracker', 'Template');
@@ -113,12 +125,17 @@ class Transifex extends Get
 		// Fetch the file for each language and place it in the file tree
 		foreach ($this->languages as $language)
 		{
+			if ('en-GB' == $language)
+			{
+				continue;
+			}
+
 			$this->out($language . '... ', false);
 
 			// Call out to Transifex
 			$translation = $this->transifex->translations->getTranslation(
 				$this->getApplication()->get('transifex.project'),
-				strtolower($extension) . '-' . strtolower($domain),
+				strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
 				str_replace('-', '_', $language)
 			);
 

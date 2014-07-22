@@ -8,34 +8,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 10:30-0500\n"
-"PO-Revision-Date: 2014-03-22 18:41+0000\n"
+"POT-Creation-Date: 2014-07-19 12:54-0500\n"
+"PO-Revision-Date: 2014-05-25 23:49+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/opentranslators/language/fr_FR/)\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /templates/users/users.index.twig:13
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: /templates/users/users.index.twig:15
 msgid "Users List"
 msgstr "Liste des utilisateurs"
 
-#: /templates/users/users.index.twig:17 /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Page %1$s sur %2$s"
 
-#: /templates/users/users.index.twig:22
+#: /templates/users/users.index.twig:24
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:26
 msgid "Actions"
 msgstr "Actions"
 
-#: /templates/users/users.index.twig:26
+#: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr "ID"
 
@@ -43,7 +47,7 @@ msgstr "ID"
 msgid "Edit user"
 msgstr "Éditer l'utilisateur"
 
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:10
+#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
 msgid "Invalid user!"
 msgstr "Utilisateur invalide!"
 
@@ -55,32 +59,44 @@ msgstr "Sauvegarder"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: /templates/users/user.edit.twig:34
+#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
+msgid "Refresh profile from GitHub"
+msgstr "Actualiser le profil à partir de GitHub"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "Profil GitHub"
+
+#: /templates/users/user.edit.twig:67
 msgid "Params"
 msgstr "Paramètres"
 
-#: /templates/users/user.edit.twig:37
+#: /templates/users/user.edit.twig:70
 msgid "Language"
 msgstr "Langue"
 
-#: /templates/users/user.edit.twig:44
+#: /templates/users/user.edit.twig:77
 msgid "Timezone"
 msgstr "Fuseau horaire"
 
-#: /templates/users/user.index.twig:14
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Éditer le profil"
+
+#: /templates/users/user.index.twig:26
 msgid "My Profile"
 msgstr "Mon Profil"
 
-#: /templates/users/user.index.twig:16
+#: /templates/users/user.index.twig:28
 msgid "Profile"
 msgstr "Profil"
 
-#: /templates/users/user.index.twig:45
+#: /templates/users/user.index.twig:57
 #, php-format
 msgid "Language: %s"
 msgstr "Langue : %s"
 
-#: /templates/users/user.index.twig:50
+#: /templates/users/user.index.twig:62
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Fuseau horaire : %1$s (GMT %2$s)"
@@ -97,6 +113,14 @@ msgstr "L'utilisateur n'est plus assigné."
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorized to edit this user."
 msgstr "Vous n'êtes pas autorisé à éditer cet utilisateur."
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorized to refresh this user."
+msgstr "Vous n'êtes pas autorisé à actualiser cet utilisateur."
+
+#: /src/App/Users/Controller/User/Refresh.php:70
+msgid "The profile has been refreshed."
+msgstr "Le profil a été actualisé."
 
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."

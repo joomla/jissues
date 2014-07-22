@@ -74,9 +74,9 @@
         </li>
         <li>
             <label for="priority">{{ translate('Priority') }}</label>
-            <select name="item[priority]" id="priority" class="span1">
-                {% for i in range(1, 5) %}
-                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+            <select name="item[priority]" id="priority" class="span2">
+                {% for key, value in priorities() %}
+                    <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                 {% endfor %}
             </select>
         </li>
@@ -103,18 +103,10 @@
             <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
         </li>
         <li>
-            <label for="tests">{{ translate('Successful tests') }}</label>
-            <select name="item[tests]" id="tests" class="span1">
-                {% for i in range(0, 5) %}
-                    <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
-        </li>
-        <li>
             <label for="easy">{{ translate('Easy test') }}</label>
             <select name="item[easy]" id="easy" class="span1">
-                <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">No</option>
-                <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">Yes</option>
+                <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
+                <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
     </ul>
@@ -162,7 +154,7 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/dist/jquery.validate{{ jdebug ? "" : ".min" }}.js"></script>
     {% if lang != 'en-GB' %}
         <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}
