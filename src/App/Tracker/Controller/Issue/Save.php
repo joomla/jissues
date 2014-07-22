@@ -13,7 +13,7 @@ use App\Tracker\Model\IssueModel;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Github\Exception\GithubException;
-use JTracker\GitHub\GithubFactory;
+use JTracker\Github\GithubFactory;
 
 /**
  * Controller class to save an item via the Tracker App.
@@ -94,7 +94,7 @@ class Save extends AbstractTrackerController
 			$oldState = $model->getOpenClosed($item->status);
 			$state    = $model->getOpenClosed($data['status']);
 
-			$this->updateGitHub($project, $item->issue_number, $data, $state, $oldState, $user->username);
+			$this->updateGitHub($item->issue_number, $data, $state, $oldState);
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render(

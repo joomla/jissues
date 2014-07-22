@@ -17,7 +17,7 @@ use Application\Command\Get\Project;
 use Joomla\Date\Date;
 
 use JTracker\Github\DataType\Commit\Status;
-use JTracker\GitHub\GithubFactory;
+use JTracker\Github\GithubFactory;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
