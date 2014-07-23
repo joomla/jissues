@@ -199,10 +199,10 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		}
 
 		$db    = $this->getDb();
-		$table = new IssueCategoryMappingTable($db);
 
 		foreach ($data as $item)
 		{
+			$table = new IssueCategoryMappingTable($db);
 			$table->save($item);
 		}
 

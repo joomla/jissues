@@ -109,6 +109,14 @@
                 <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
+        <li>
+            <label for="categories[]">{{ 'Category'|_ }}</label>
+            {% for category in categories%}
+                <input type="checkbox" name="categories[]" id="categories[{{ category.id }}]" value="{{ category.id }}"
+                       {% if category.id in item.categoryid %}checked="true"{% endif %}/>
+                {{ category.title }}
+            {% endfor %}
+        </li>
     </ul>
     {% endif %}
 

@@ -76,6 +76,16 @@
             </li>
         {% endif %}
 
+        {% if item.category %}
+            {% for category in item.category%}
+            <li>
+                <span class="badge">
+                    {{ translate(category.title) }}
+                </span>
+            </li>
+            {% endfor %}
+        {% endif %}
+
         {% if item.easy %}
             <li>
                 <span class="badge badge-success">

@@ -173,6 +173,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		sort($item->testsFailure);
 
+		// Fetch category
+
+		$item->category = $this->db->setQuery(
+			$query->clear()
+				->select('a.title, a.id')
+				->from($this->db->quoteName('#__issues_categories','a'))
+				->innerJoin($this->db->quoteName('#__issue_category_map','b') . ' ON b.category_id = a.id')
+				->where('b.issue_id =' . (int) $item->id)
+		)->loadObjectList();
+
 		return $item;
 	}
 
@@ -467,4 +477,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		return $db->setQuery($query)->loadObjectList();
 	}
+//
+//	public function getCategoryById($item_id)
+//	{
+//		$db = $this->getDb();
+//		$query = $db->getQuery(true);
+//
+//		$query->select('id')
+//			->from($db->quoteName('#__issue_category_map'))
+//			->where('issue_id = '. (int) $item_id);
+//
+//		return $db->setQuery($query)->loadObjectList();
+//	}
 }
