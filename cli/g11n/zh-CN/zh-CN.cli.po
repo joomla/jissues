@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# cnallenzhao <cnallenzhao@gmail.com>, 2014
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-21 22:23+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"PO-Revision-Date: 2014-07-23 04:08+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,7 +183,7 @@ msgstr "获取项目"
 
 #: /cli/Application/Command/Get/Project.php:114
 msgid "Bulk Start retrieve Project"
-msgstr ""
+msgstr "批量获取项目"
 
 #: /cli/Application/Command/Get/Project.php:125
 #, php-format
@@ -192,7 +192,7 @@ msgstr "正在为 %s/%s 项目更新信息"
 
 #: /cli/Application/Command/Get/Project.php:137
 msgid "Bulk Finished"
-msgstr ""
+msgstr "批量完成"
 
 #: /cli/Application/Command/Get/Project.php:310
 msgid "GitHub issues to process?"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# cnallenzhao <cnallenzhao@gmail.com>, 2014
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-20 10:26+0000\n"
-"Last-Translator: cnallenzhao <cnallenzhao@gmail.com>\n"
+"PO-Revision-Date: 2014-07-23 04:06+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,86 +62,86 @@ msgstr "标签"
 
 #: /templates/projects/projects.index.twig:51
 msgid "Stats"
-msgstr ""
+msgstr "统计数据"
 
 #: /templates/projects/projects.index.twig:61
 msgid "Groups"
-msgstr ""
+msgstr "群组"
 
 #: /templates/projects/projects.index.twig:62
 msgid "Show"
-msgstr ""
+msgstr "显示"
 
 #: /templates/projects/projects.index.twig:63
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
-msgstr ""
+msgstr "编辑项目"
 
 #: /templates/projects/project.edit.twig:11
 #: /templates/projects/project.add.twig:11
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
-msgstr ""
+msgstr "编辑项目"
 
 #: /templates/projects/project.edit.twig:30
 #: /templates/projects/project.add.twig:20
 msgid "New project"
-msgstr ""
+msgstr "新建项目"
 
 #: /templates/projects/project.edit.twig:35
 #: /templates/projects/project.add.twig:24
 msgid "Details"
-msgstr ""
+msgstr "详细信息"
 
 #: /templates/projects/project.edit.twig:37
 #: /templates/projects/project.add.twig:28
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: /templates/projects/project.edit.twig:44
 #: /templates/projects/project.add.twig:33
 msgid "Short Title"
-msgstr ""
+msgstr "短标题"
 
 #: /templates/projects/project.edit.twig:51
 #: /templates/projects/project.add.twig:38
 msgid "Alias"
-msgstr ""
+msgstr "别名"
 
 #: /templates/projects/project.edit.twig:58
 #: /templates/projects/project.add.twig:43
 msgid "GitHub Owner"
-msgstr ""
+msgstr "GitHub 所有者"
 
 #: /templates/projects/project.edit.twig:65
 #: /templates/projects/project.add.twig:48
 msgid "GitHub Repo"
-msgstr ""
+msgstr "GitHub 项目源"
 
 #: /templates/projects/project.edit.twig:72
 #: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
-msgstr ""
+msgstr "外部追踪器地址"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
-msgstr ""
+msgstr "增加项目"
 
 #: /src/App/Projects/Table/ProjectsTable.php:57
 msgid "A title is required"
-msgstr ""
+msgstr "必须键入标题"
 
 #: /src/App/Projects/Table/ProjectsTable.php:62
 msgid "A short title is required"
-msgstr ""
+msgstr "必须键入短标题"
