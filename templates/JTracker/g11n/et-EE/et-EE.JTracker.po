@@ -1,0 +1,413 @@
+# JTracker Template JTracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-21 22:23+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Kirjuta"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Eelvaade"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr ""
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Näita"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Muuda"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "Ligipääsu grupid"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "Projektid"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "Kasutajad"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "Süsteem"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "Seadistamine"
+
+#: /templates/trackerMenu.twig:83
+msgid "phpinfo()"
+msgstr ""
+
+#: /templates/trackerMenu.twig:89
+msgid "Logs"
+msgstr ""
+
+#: /templates/trackerMenu.twig:102
+msgid "Cron Jobs"
+msgstr ""
+
+#: /templates/trackerMenu.twig:107
+msgid "Database"
+msgstr "Andmebaas"
+
+#: /templates/trackerMenu.twig:113
+msgid "GitHub Issues"
+msgstr ""
+
+#: /templates/trackerMenu.twig:119
+msgid "GitHub Comments"
+msgstr ""
+
+#: /templates/trackerMenu.twig:125
+msgid "GitHub Pulls"
+msgstr ""
+
+#: /templates/trackerMenu.twig:129
+msgid "PHP"
+msgstr ""
+
+#: /templates/trackerMenu.twig:132 /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Viga"
+
+#: /templates/trackerMenu.twig:139
+msgid "Icons"
+msgstr "koonid"
+
+#: /templates/trackerMenu.twig:145
+msgid "Routes"
+msgstr ""
+
+#: /templates/trackerMenu.twig:151
+msgid "Text"
+msgstr "Tekst"
+
+#: /templates/trackerMenu.twig:157
+msgid "Clear Cache"
+msgstr "Tühjenda vahemälu"
+
+#: /templates/trackerMenu.twig:179
+msgid "About Us"
+msgstr "Meist"
+
+#: /templates/trackerMenu.twig:184
+msgid "Markdown"
+msgstr ""
+
+#: /templates/trackerMenu.twig:189 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Dokumentatsioon"
+
+#: /templates/trackerMenu.twig:206
+msgid "Admin"
+msgstr "Admin"
+
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
+msgstr "Vaata profiili"
+
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr "Muuda profiili"
+
+#: /templates/trackerMenu.twig:224
+msgid "Logout"
+msgstr "Logi välja"
+
+#: /templates/trackerMenu.twig:233
+msgid "Login with GitHub"
+msgstr ""
+
+#: /templates/trackerMenu.twig:237
+msgid "No GitHub credentials set in config"
+msgstr ""
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Avaleht"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "Info"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "Kogukond"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Foorum"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Lisaprogrammid"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Ressursid"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Dokumentatsioon"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Arendaja"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Pood"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr ""
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Privaatsuspoliitika"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr ""
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr ""
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "Lisa faile..."
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "Alusta üleslaadimist"
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "Tühista üleslaadimine"
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "Kustuta"
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr ""
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr ""
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr ""
+
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr ""
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "Töötlemine..."
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "Alusta"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "Loobu"
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "Laadi alla"
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "Demo"
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "Viimased uudised"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "Teadaanded"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "Blogid"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "Ajakiri"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "Toeta Joomlat"
+
+#: /templates/topMenu.twig:24
+msgid "Shop Joomla Gear"
+msgstr ""
+
+#: /templates/topMenu.twig:25
+msgid "Contribution"
+msgstr "Panustamine"
+
+#: /templates/topMenu.twig:30
+msgid "About Joomla!"
+msgstr "Joomla! info"
+
+#: /templates/topMenu.twig:31
+msgid "Core Features"
+msgstr "Tuuma funktsioonid"
+
+#: /templates/topMenu.twig:32
+msgid "The Software"
+msgstr "Tarkvara"
+
+#: /templates/topMenu.twig:33
+msgid "The Project"
+msgstr "Projekt"
+
+#: /templates/topMenu.twig:34
+msgid "Leadership"
+msgstr "Juhtkond"
+
+#: /templates/topMenu.twig:40
+msgid "Joomla! Community Portal"
+msgstr "Joomla! kogukonna portaal"
+
+#: /templates/topMenu.twig:41
+msgid "Joomla! Events"
+msgstr "Joomla1 üritused"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! UX"
+msgstr "Joomla! kasutajakogemus"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! User Groups"
+msgstr "Jooml! kasutajagrupid"
+
+#: /templates/topMenu.twig:46
+msgid "Support"
+msgstr "Kasutajatugi"
+
+#: /templates/topMenu.twig:48
+msgid "Joomla! Forum"
+msgstr "Joomla! foorum"
+
+#: /templates/topMenu.twig:49
+msgid "Joomla! Documentation"
+msgstr "Joomla! dokumentatsioon"
+
+#: /templates/topMenu.twig:50
+msgid "Joomla! Resources"
+msgstr "Joomla! ressursid"
+
+#: /templates/topMenu.twig:53
+msgid "Read"
+msgstr "Loe"
+
+#: /templates/topMenu.twig:55
+msgid "Joomla! Magazine"
+msgstr "Joomla! ajakiri"
+
+#: /templates/topMenu.twig:56
+msgid "Joomla! Connect"
+msgstr ""
+
+#: /templates/topMenu.twig:57
+msgid "Joomla! Mailing Lists"
+msgstr ""
+
+#: /templates/topMenu.twig:60
+msgid "Extend"
+msgstr "Laienda"
+
+#: /templates/topMenu.twig:62
+msgid "Extension Directory"
+msgstr "Lisade kataloog"
+
+#: /templates/topMenu.twig:63
+msgid "Showcase Directory"
+msgstr "Näidis"
+
+#: /templates/topMenu.twig:64
+msgid "Resource Directory"
+msgstr "Ressursside kataloog"
+
+#: /templates/topMenu.twig:65 /templates/topMenu.twig:84
+msgid "Translations"
+msgstr "Tõlked"
+
+#: /templates/topMenu.twig:66
+msgid "Idea Pool"
+msgstr ""
+
+#: /templates/topMenu.twig:69
+msgid "Developers"
+msgstr "Arendajad"
+
+#: /templates/topMenu.twig:71
+msgid "Developer Site"
+msgstr "Arendajate sait"
+
+#: /templates/topMenu.twig:73
+msgid "Joomla! Bug Squad"
+msgstr ""
+
+#: /templates/topMenu.twig:74
+msgid "Joomla! API"
+msgstr "Joomla! API"
+
+#: /templates/topMenu.twig:75
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:76
+msgid "Joomla! Framework"
+msgstr "Joomla! raamistik"
+
+#: /templates/topMenu.twig:85
+msgid "Multilingual Demo"
+msgstr "Mitmekeelne demo"
+
+#: /templates/topMenu.twig:86
+msgid "Translation Working Group"
+msgstr "Tõlkijate töögrupp"
+
+#: /templates/topMenu.twig:87
+msgid "Translations Forum"
+msgstr "Tõlkijate foorum"

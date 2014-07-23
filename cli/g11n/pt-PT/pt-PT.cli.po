@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-19 12:54-0500\n"
-"PO-Revision-Date: 2014-07-19 17:55+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-21 22:23+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -409,10 +409,6 @@ msgstr ""
 #: /cli/Application/Command/Install/Install.php:189
 #, php-format
 msgid "Creating tables from file %s"
-msgstr ""
-
-#: /cli/Application/Command/Test/Makedummyusers.php:32
-msgid "..."
 msgstr ""
 
 #: /cli/Application/Command/TrackerCommand.php:178

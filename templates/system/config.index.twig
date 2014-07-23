@@ -13,6 +13,7 @@
         }
     </style>
 {% endblock %}
+
 {% block prependMenu %}
     {% if user.check("create") %}
         <li>
@@ -33,7 +34,7 @@
         <div class="span4">
             <ul class="well nav nav-list affix">
                 {% for group, fields in config %}
-                    <li class="">
+                    <li>
                         <a href="#{{ group }}">{{ group|title }}</a>
                     </li>
                 {% endfor %}
@@ -50,39 +51,77 @@
                         <legend>{{ group|title }}</legend>
                         {% for name, value in fields %}
                             {% if value[0] is not defined %}
-								<div class="control-group">
-									<label for="config{{ group ~ name }}" class="control-label">{{ name|title }}</label>
-									<div class="controls">
-										<input type="text" name="config[{{ group }}][{{ name }}]"
-										   id="config{{ group ~ name }}" value="{{ value }}"/>
-									</div>
-								</div>
+                                {# Simple key:value field #}
+                                <div class="control-group">
+                                    {% if fields[0] is defined %}
+                                    <label for="config{{ group ~ name }}" class="control-label">
+                                        {{ group|title }}
+                                    </label>
+                                    {% else %}
+                                    <label for="config{{ group ~ name }}" class="control-label">{{ name|title }}</label>
+                                    {% endif %}
+                                    <div class="controls">
+                                        <input type="text" name="config[{{ group }}][{{ name }}]"
+                                           id="config{{ group ~ name }}" value="{{ value }}"/>
+                                        {% if fields[0] is defined %}
+                                        <div class="btn btn-danger" onclick="$(this).parent().parent().remove();"><i class="icon-minus-sign"></i></div>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             {% else %}
-                                {% for i, v in value %}
+                                {% set addContainer = "" %}
+                                {% set cnt1 = 0 %}
+                                {% for counter, v in value %}
                                     {% if v is iterable %}
+                                        {# 2nd level array #}
+                                        <div style="border: 1px solid silver">
+                                            <div class="btn btn-danger" onclick="$(this).parent().remove();"><i class="icon-minus-sign"></i></div>
                                         {% for ii, vv in v %}
                                             <div class="control-group">
-                                                <label for="config{{ group ~ name ~ i ~ ii }}" class="control-label">
-                                                    {{ name|title ~ " " ~ (i + 1) }} {{ ii|title }}
+                                                <label for="config{{ group ~ name ~ counter ~ ii }}" class="control-label">
+                                                    {{ name|title ~ " " ~ (counter + 1) }} {{ ii|title }}
                                                 </label>
                                                 <div class="controls">
-                                                    <input type="text" name="config[{{ group }}][{{ name }}][{{ i }}][{{ ii }}]"
-                                                           id="config{{ group ~ name ~ i  ~ ii }}" value="{{ vv }}"/>
+                                                    <input type="text" name="config[{{ group }}][{{ name }}][{{ counter }}][{{ ii }}]"
+                                                           id="config{{ group ~ name ~ counter  ~ ii }}" value="{{ vv }}"/>
                                                 </div>
                                             </div>
                                         {% endfor %}
+                                        </div>
+                                        {% set addContainer = 'multiField' %}
+                                        {% set cnt1 = counter %}
                                     {% else %}
+                                        {# Simple array #}
                                         <div class="control-group">
-                                            <label for="config{{ group ~ name ~ i }}" class="control-label">{{ name|title ~ " " ~ (i + 1) }}</label>
+                                            <label for="config{{ group ~ name ~ i }}" class="control-label">{{ name|title }}</label>
                                             <div class="controls">
                                                 <input type="text" name="config[{{ group }}][{{ name }}][]"
                                                        id="config{{ group ~ name ~ i }}" value="{{ v }}"/>
+                                                <div class="btn btn-danger" onclick="$(this).parent().parent().remove();"><i class="icon-minus-sign"></i></div>
                                             </div>
                                         </div>
+                                        {% set addContainer = 'singleField' %}
                                     {% endif %}
                                 {% endfor %}
+
+                                {% if 'singleField' == addContainer %}
+                                <p class="btn btn-success" onclick="$(this).before(tmpl('singleField', {'group':'{{ group }}', 'name':'{{ name }}'}));">
+                                    <i class="icon-plus-2"></i> {{ name|title }}
+                                </p>
+                                {% else %}
+                                <script type="text/javascript">var counter{{ group }}={{ cnt1 }};</script>
+                                <p class="btn btn-success" onclick="counter{{ group }} += 1; $(this).before(tmpl('multiField', {'group':'{{ group }}', 'name':'{{ name }}', 'counter': counter{{ group }}, 'values': {{ value[0]|json_encode }} }));">
+                                    <i class="icon-plus-2"></i> {{ name|title }}
+                                </p>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
+                        {% if fields[0] is defined %}
+                            {# Simple array #}
+                            <p class="btn btn-success" onclick="$(this).before(tmpl('simpleArray', {'group':'{{ group }}'}));">
+                                <i class="icon-plus-2"></i> {{ group|title }}
+                            </p>
+                        {% endif %}
                     </fieldset>
                 {% endfor %}
             </form>
@@ -90,4 +129,50 @@
         </div>
 
     </div>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+
+    {{ parent() }}
+
+<script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+<script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+<script type="text/x-tmpl" id="simpleArray">
+    <div class="control-group">
+        <label class="control-label">[%= o.group %]</label>
+        <div class="controls">
+            <input type="text" name="config[[%= o.group %]][]"/>
+            <div class="btn btn-danger" onclick="$(this).parent().parent().remove();"><i class="icon-minus-sign"></i></div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-tmpl" id="singleField">
+<div class="control-group">
+    <label class="control-label">[%= o.name %]</label>
+    <div class="controls">
+        <input type="text" name="config[[%= o.group %]][[%= o.name %]][]""/>
+        <div class="btn btn-danger" onclick="$(this).parent().parent().remove();"><i class="icon-minus-sign"></i></div>
+    </div>
+</div>
+</script>
+
+<script type="text/x-tmpl" id="multiField">
+<div style="border: 1px solid silver">
+    <div class="btn btn-danger" onclick="$(this).parent().remove();"><i class="icon-minus-sign"></i></div>
+    [% var i = 0; %]
+    [% for (var name in o.values) { %]
+      [% if (o.values.hasOwnProperty(name)) { %]
+        <div class="control-group">
+            <label class="control-label">[%= name %]</label>
+            <div class="controls">
+                <input type="text" name="config[[%= o.group %]][[%= o.name %]][[%= o.counter %]][[%= name %]]"/>
+            </div>
+        </div>
+      [% } %]
+    [% } %]
+</div>
+</script>
+
 {% endblock %}

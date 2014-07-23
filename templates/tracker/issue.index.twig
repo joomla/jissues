@@ -326,12 +326,12 @@
                                 <tr>
                                     <td class="span2">{{ change.name|title }}</td>
                                     {% if "status" == change.name %}
-                                    <td class="span4 alert-{{ statuses(change.old).closed ? "error" : "success" }}">
-                                        {{ statuses(change.old).status|_ }}
+                                    <td class="span4 alert-{{ status(change.old).closed ? "error" : "success" }}">
+                                        {{ status(change.old).status|_ }}
                                     </td>
                                     <td class="span1">&rArr;</td>
-                                    <td class="span4 alert-{{ statuses(change.new).closed ? "error" : "success" }}">
-                                        {{ statuses(change.new).status|_ }}
+                                    <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
+                                        {{ status(change.new).status|_ }}
                                     </td>
                                     {% else %}
                                     <td class="span4">{{ change.old }}</td>

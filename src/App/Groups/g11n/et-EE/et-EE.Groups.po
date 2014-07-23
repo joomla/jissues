@@ -1,0 +1,133 @@
+# JTracker App Groups 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-05-30 07:32+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/groups/group.edit.twig:6
+msgid "Edit Group"
+msgstr "Muuda gruppi"
+
+#: /templates/groups/group.edit.twig:11
+msgid "Save"
+msgstr "Salvesta"
+
+#: /templates/groups/group.edit.twig:125
+msgid "Edit Access Group"
+msgstr "Muuda ligipääsugruppi"
+
+#: /templates/groups/group.edit.twig:127
+msgid "Add Access Group"
+msgstr "Lisa ligipääsugrupp"
+
+#: /templates/groups/group.edit.twig:136
+msgid "Details"
+msgstr "Andmed"
+
+#: /templates/groups/group.edit.twig:144
+#: /templates/groups/groups.index.twig:27
+msgid "Title"
+msgstr "Pealkiri"
+
+#: /templates/groups/group.edit.twig:154
+msgid "Permissions"
+msgstr "Õigused"
+
+#: /templates/groups/group.edit.twig:164
+#: /templates/groups/groups.index.twig:28
+msgid "View"
+msgstr "Vaatamine"
+
+#: /templates/groups/group.edit.twig:174
+#: /templates/groups/groups.index.twig:29
+msgid "Create"
+msgstr "oomine"
+
+#: /templates/groups/group.edit.twig:184
+#: /templates/groups/groups.index.twig:30
+msgid "Edit"
+msgstr "uutmine"
+
+#: /templates/groups/group.edit.twig:194
+#: /templates/groups/groups.index.twig:31
+msgid "Edit own"
+msgstr "Enda oma muutmine"
+
+#: /templates/groups/group.edit.twig:204
+#: /templates/groups/groups.index.twig:32
+msgid "Manage"
+msgstr "aldamine"
+
+#: /templates/groups/group.edit.twig:217
+msgid "Users"
+msgstr "Kasutajad"
+
+#: /templates/groups/group.edit.twig:229
+msgid "Add User"
+msgstr "Lisa kasutaja"
+
+#: /templates/groups/group.edit.twig:241
+msgid "Remove User"
+msgstr "Eemalda kasutaja"
+
+#: /templates/groups/group.edit.twig:246
+msgid "List assigned Users"
+msgstr "Nimekiri seotud kasutajatest"
+
+#: /templates/groups/group.edit.twig:258
+msgid "Save the group to assign users."
+msgstr "Kasutajate märamiseks salvesta grupp."
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "Grupid"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "Lisa grupp"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "Grupile ligipääs"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "Tegevused"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr "Id"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "Süsteem"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "Kustuta"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr "Ühtegi gruppi pole määratud !"
+
+#: /src/App/Groups/Controller/Group/Delete.php:82
+msgid "The group has been deleted."
+msgstr "Grupp on kustutatud."
+
+#: /src/App/Groups/Table/GroupsTable.php:99
+msgid "A title is required"
+msgstr "Pealkiri on kohustuslik"

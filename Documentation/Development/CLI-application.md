@@ -19,6 +19,9 @@ Available commands:
 * `make` Make documentation, database table comments, autocomplete files, language files, or language templates
 * `update` Update GitHub data
 
+The output of the commands `install` and `get` is translatable. Just add `--lang` argument:
+`tracker.php get project --lang=ru-RU`
+
 For more information use `tracker.php help`.
 For more information on a specific command use `tracker.php help <command>`.
 

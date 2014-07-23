@@ -1,0 +1,127 @@
+# JTracker App Users 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:22-0400\n"
+"PO-Revision-Date: 2014-05-30 07:49+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Kasutajad"
+
+#: /templates/users/users.index.twig:15
+msgid "Users List"
+msgstr "Kasutajate nimekiri"
+
+#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: /templates/users/users.index.twig:24
+msgid "Username"
+msgstr "Kasutajanimi"
+
+#: /templates/users/users.index.twig:26
+msgid "Actions"
+msgstr "Tegevused"
+
+#: /templates/users/users.index.twig:28
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Muuda kasutajat"
+
+#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
+msgid "Invalid user!"
+msgstr "Vigane kasutaja!"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Salvesta"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Loobu"
+
+#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
+msgid "Refresh profile from GitHub"
+msgstr ""
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHubi profiil"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Parameetrid"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Keel"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Ajavöönd"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Muuda profiili"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Minu profiil"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Profiil"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Keel: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Ajavöönd: %1$s (GMT %2$s)"
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
+msgid "The user has been assigned."
+msgstr ""
+
+#: /src/App/Users/Controller/Ajax/Assign.php:85
+msgid "The user has been unassigned."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Edit.php:83
+#: /src/App/Users/Controller/User/Save.php:47
+msgid "You are not authorized to edit this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorized to refresh this user."
+msgstr "Sul pole õigusi selle kasutaja värskendamiseks."
+
+#: /src/App/Users/Controller/User/Refresh.php:70
+msgid "The profile has been refreshed."
+msgstr "Profiili on värskendatud."
+
+#: /src/App/Users/Controller/User/Save.php:62
+msgid "The changes have been saved."
+msgstr ""

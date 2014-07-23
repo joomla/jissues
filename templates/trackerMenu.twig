@@ -80,13 +80,13 @@
             <li class="{{ "phpinfo" == uri.route ? "active" : "" }}">
                 <a href="{{ uri.base.path }}phpinfo">
                     <i class="icon-code"></i>
-                    phpinfo()
+                    {{ "phpinfo()"|_ }}
                 </a>
             </li>
             <li class="dropdown-submenu">
                 <a tabindex="-1" href="#">
                     <i class="icon-copy"></i>
-                    Logs
+                    {{ "Logs"|_ }}
                 </a>
                 <ul class="dropdown-menu">
                     <li class="{{ "logs/403" == firstPart ? "active" : "" }}">
@@ -99,7 +99,7 @@
                         <a href="{{ uri.base.path }}logs/500">500</a>
                     </li>
                     <li class="{{ "logs/cron" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/cron">Cron Jobs</a>
+                        <a href="{{ uri.base.path }}logs/cron">{{ "Cron Jobs"|_ }}</a>
                     </li>
                     <li class="{{ "logs/database" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/database">
@@ -110,26 +110,26 @@
                     <li class="{{ "logs/github_issues" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_issues">
                             <i class="icon-github"></i>
-                            GitHub Issues
+                            {{ "GitHub Issues"|_ }}
                         </a>
                     </li>
                     <li class="{{ "logs/github_comments" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_comments">
                             <i class="icon-github"></i>
-                            GitHub Comments
+                            {{ "GitHub Comments"|_ }}
                         </a>
                     </li>
                     <li class="{{ "logs/github_pulls" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_pulls">
                             <i class="icon-github"></i>
-                            GitHub Pulls
+                            {{ "GitHub Pulls"|_ }}
                         </a>
                     </li>
                     <li class="{{ "logs/php" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/php">PHP</a>
+                        <a href="{{ uri.base.path }}logs/php">{{ "PHP"|_ }}</a>
                     </li>
                     <li class="{{ "logs/error" == uri.route ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/error">Error</a>
+                        <a href="{{ uri.base.path }}logs/error">{{ "Error"|_ }}</a>
                     </li>
                 </ul>
             </li>
@@ -181,12 +181,12 @@ or "devdox" == firstPart
         </li>
         <li class="{{ "markdown" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}markdown">
-                Markdown
+                {{ "Markdown"|_ }}
             </a>
         </li>
         <li class="{{ "documentation" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}documentation">
-                Documentation
+                {{ "Documentation"|_ }}
             </a>
         </li>
 
