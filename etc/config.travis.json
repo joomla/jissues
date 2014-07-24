@@ -23,7 +23,8 @@
 	"system": {
 		"list_limit": "20",
 		"gzip"      : "0",
-		"offset"    : "UTC"
+		"offset"    : "UTC",
+		"use_cdn"   : "0"
 	},
 
 	"acl": {
