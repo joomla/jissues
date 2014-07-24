@@ -76,7 +76,6 @@ class Save extends AbstractTrackerController
 			$data['rel_number']      = $item->rel_number;
 			$data['rel_type']        = $item->rel_type;
 			$data['easy']            = $item->easy;
-			$data['tests']           = $item->tests;
 		}
 		else
 		{
@@ -112,6 +111,7 @@ class Save extends AbstractTrackerController
 
 		try
 		{
+			$data['user'] = $user;
 			// Save the record.
 			$model->save($data);
 
