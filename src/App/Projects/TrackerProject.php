@@ -20,6 +20,8 @@ use Joomla\Database\DatabaseDriver;
  * @property-read   string   $alias             Project URL alias
  * @property-read   string   $gh_user           GitHub user
  * @property-read   string   $gh_project        GitHub project
+ * @property-read   string   $gh_editbot_user   GitHub editbot username.
+ * @property-read   string   $gh_editbot_pass   GitHub editbot password.
  * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property-read   string   $short_title       Project short title
  *
@@ -66,6 +68,22 @@ class TrackerProject implements \Serializable
 	 * @since  1.0
 	 */
 	protected $gh_project;
+
+	/**
+	 * GitHub edit bot user name.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $gh_editbot_user;
+
+	/**
+	 * GitHub edit bot password.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $gh_editbot_pass;
 
 	/**
 	 * External issue tracker link
@@ -479,5 +497,29 @@ class TrackerProject implements \Serializable
 	public function getDefaultActions()
 	{
 		return $this->defaultActions;
+	}
+
+	/**
+	 * Get the edit bot username.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getGh_Editbot_User()
+	{
+		return $this->gh_editbot_user;
+	}
+
+	/**
+	 * Get the edit bot password.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getGh_Editbot_Pass()
+	{
+		return $this->gh_editbot_pass;
 	}
 }

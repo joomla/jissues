@@ -69,6 +69,20 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="gh_editbot_user">{{ "GitHub Editbot user"|_ }}</label>
+                <div class="controls">
+                    <input type="text" name="project[gh_editbot_user]" id="gh_editbot_user" value="{{ project.gh_editbot_user }}">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="gh_editbot_pass">{{ "GitHub Editbot password"|_ }}</label>
+                <div class="controls">
+                    <input type="password" name="project[gh_editbot_pass]" id="gh_editbot_pass" value="{{ project.gh_editbot_pass }}">
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="ext_tracker_link">{{ "External Tracker Link"|_ }}</label>
                 <div class="controls">
                     <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link" value="{{ project.ext_tracker_link }}">

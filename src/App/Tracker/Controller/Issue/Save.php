@@ -12,9 +12,11 @@ use App\Tracker\Model\IssueModel;
 
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Github\Exception\GithubException;
+use JTracker\Github\GithubFactory;
 
 /**
- * Controller class to save an item via the tracker component.
+ * Controller class to save an item via the Tracker App.
  *
  * @since  1.0
  */
@@ -53,25 +55,18 @@ class Save extends AbstractTrackerController
 		$item = $model->getItem($issueNumber);
 
 		$data = array();
-		$data['id'] = (int) $src['id'];
-		$data['issue_number'] = (int) $src['issue_number'];
 
-		try
+		if ($user->check('edit'))
 		{
-			$user->authorize('edit');
-
-			// The user has full edit rights
+			// The user has full "edit" permission.
 			$data = $src;
 		}
-		catch (AuthenticationException $e)
+		elseif($user->canEditOwn($item->opened_by))
 		{
-			if (false == $user->canEditOwn($item->opened_by))
-			{
-				throw $e;
-			}
-
-			// The user only has "edit own" rights.
-			$data['title'] = $src['title'];
+			// The user has "edit own" permission.
+			$data['id']              = (int) $src['id'];
+			$data['issue_number']    = (int) $src['issue_number'];
+			$data['title']           = $src['title'];
 			$data['description_raw'] = $src['description_raw'];
 
 			// Take the remaining values from the stored item
@@ -83,26 +78,25 @@ class Save extends AbstractTrackerController
 			$data['easy']            = $item->easy;
 			$data['tests']           = $item->tests;
 		}
+		else
+		{
+			// The user has no "edit" permission.
+			throw new AuthenticationException($user, 'edit');
+		}
 
-		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->getContainer()->get('gitHub');
+		$gitHub = GithubFactory::getInstance($application);
 
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
-			$state = null;
 
-			// Update the project on GitHub
-			$gitHubResponse = $gitHub->issues->edit(
-				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw']
-			);
+			// Check if the state has changed (e.g. open/closed)
+			$oldState = $model->getOpenClosed($item->status);
+			$state    = $model->getOpenClosed($data['status']);
 
-			if (!isset($gitHubResponse->id))
-			{
-				throw new \Exception('Invalid response from GitHub');
-			}
+			$this->updateGitHub($item->issue_number, $data, $state, $oldState);
 
+			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render(
 				$data['description_raw'], 'gfm',
 				$project->gh_user . '/' . $project->gh_project
@@ -111,6 +105,8 @@ class Save extends AbstractTrackerController
 		else
 		{
 			// Project is managed by JTracker only
+
+			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render($src['description_raw'], 'markdown');
 		}
 
@@ -135,6 +131,93 @@ class Save extends AbstractTrackerController
 			);
 		}
 
-		parent::execute();
+		return parent::execute();
+	}
+
+	/**
+	 * Update the issue on GitHub.
+	 *
+	 * The method will first try to perform the action with the logged in user credentials and then, if it fails, perform
+	 * the action using a configured "edit bot". If the GitHub status changes (e.g. open <=> close), a comment will be
+	 * created automatically stating that the action has been performed by a bot.
+	 *
+	 * @param   integer  $issueNumber  The issue number.
+	 * @param   array    $data         The issue data.
+	 * @param   string   $state        The issue state (either 'open' or 'closed).
+	 * @param   string   $oldState     The previous issue state.
+	 *
+	 * @throws \Exception
+	 * @throws \JTracker\Github\Exception\GithubException
+	 *
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	private function updateGitHub($issueNumber, array $data, $state, $oldState)
+	{
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
+		$project = $application->getProject();
+
+		try
+		{
+			// Try to update the project on GitHub using thew current user credentials
+			$gitHubResponse = GithubFactory::getInstance($application)->issues->edit(
+				$project->gh_user, $project->gh_project,
+				$issueNumber, $state, $data['title'], $data['description_raw']
+			);
+		}
+		catch (GithubException $exception)
+		{
+			// GitHub will return a "404 - not found" in case there is a permission problem.
+			if (404 != $exception->getCode())
+			{
+				throw $exception;
+			}
+
+			// Look if we have a bot user configured.
+			if (!$project->getGh_Editbot_User() || !$project->getGh_Editbot_Pass())
+			{
+				throw $exception;
+			}
+
+			// Try to perform the action on behalf of an authorized bot.
+			$gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+
+			// Update the project on GitHub
+			$gitHubResponse = $gitHubBot->issues->edit(
+				$project->gh_user, $project->gh_project,
+				$issueNumber, $state, $data['title'], $data['description_raw']
+			);
+
+			// Add a comment stating that this action has been performed by a MACHINE !!
+			// (only if the "state" has changed - open <=> closed)
+			if ($state != $oldState)
+			{
+				$body = sprintf(
+					'Modified on behalf of @%s by %s',
+					$application->getUser()->username,
+					sprintf(
+						'The <a href="%s">%s</a>',
+						'https://github.com/joomla/jissues',
+						'JTracker Application'
+					)
+				);
+
+				$gitHubBot->issues->comments->create(
+					$project->gh_user, $project->gh_project,
+					$issueNumber, $body
+				);
+			}
+		}
+
+		if (!isset($gitHubResponse->id))
+		{
+			throw new \Exception('Invalid response from GitHub');
+		}
+
+		return $this;
 	}
 }

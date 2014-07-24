@@ -10,6 +10,7 @@ namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
+use App\Tracker\Table\StatusTable;
 
 use Joomla\Filter\InputFilter;
 
@@ -389,6 +390,40 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			->where($db->quoteName('issue_number') . ' = ' . (int) $id);
 
 		return $db->setQuery($query)->loadObject();
+	}
+
+	/**
+	 * Translate the status id to either 'open' or 'closed'.
+	 *
+	 * @param   integer  $statusId  The status id.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getOpenClosed($statusId)
+	{
+		$table = new StatusTable($this->getDb());
+
+		$table->load($statusId);
+
+		return $table->closed ? 'closed' : 'open';
+	}
+
+	/**
+	 * Translate the status id to a proper name.
+	 *
+	 * @param   integer  $statusId  The status id.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getStatusName($statusId)
+	{
+		return (new StatusTable($this->getDb()))
+			->load($statusId)
+			->status;
 	}
 
 	/**
