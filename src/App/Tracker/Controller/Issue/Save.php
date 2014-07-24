@@ -112,6 +112,7 @@ class Save extends AbstractTrackerController
 		try
 		{
 			$data['user'] = $user;
+
 			// Save the record.
 			$model->save($data);
 
