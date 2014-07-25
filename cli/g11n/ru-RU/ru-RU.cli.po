@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-22 13:48+0000\n"
+"PO-Revision-Date: 2014-07-22 14:07+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -324,140 +324,140 @@ msgstr "Метки: %1$d новых, %2$d обновлено, %3$d удален�
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
-msgstr "Получить этапы (milestones) с GitHub."
+msgstr "Получить этапы/milestones с GitHub."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:45
 msgid "Retrieve Milestones"
-msgstr ""
+msgstr "Получить этапы"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:47
 msgid "Start retrieving Milestones"
-msgstr ""
+msgstr "Начинаю получать этапы"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:64
 msgid "Fetching milestones..."
-msgstr ""
+msgstr "Обрабатываю этапы..."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:151
 #, php-format
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "Этапы: %1$d новых, %2$d обновлено, %3$d удалено."
 
 #: /cli/Application/Command/Get/Transifex.php:37
 msgid "Retrieve language files from Transifex."
-msgstr ""
+msgstr "Получить языковые файлы с Transifex."
 
 #: /cli/Application/Command/Get/Transifex.php:49
 msgid "Get Translations"
-msgstr ""
+msgstr "Получить переводы"
 
 #: /cli/Application/Command/Get/Transifex.php:56
 msgid "Start fetching translations."
-msgstr ""
+msgstr "Начинаю получение переводов."
 
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
-msgstr ""
+msgstr "Установить приложение."
 
 #: /cli/Application/Command/Install/Install.php:42
 msgid "Reinstall the application (without confirmation)"
-msgstr ""
+msgstr "Переустановить приложение (без подтверждения)"
 
 #: /cli/Application/Command/Install/Install.php:59
 msgid "Installer"
-msgstr ""
+msgstr "Установщик"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found !!"
-msgstr ""
+msgstr "ВНИМАНИЕ! Была найдена база данных !!"
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall ?"
-msgstr ""
+msgstr "Хотите переустановить ?"
 
 #: /cli/Application/Command/Install/Install.php:75
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: /cli/Application/Command/Install/Install.php:76
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: /cli/Application/Command/Install/Install.php:78
 msgid "Select:"
-msgstr ""
+msgstr "Выберите:"
 
 #: /cli/Application/Command/Install/Install.php:98
 msgid "No database found."
-msgstr ""
+msgstr "База данных не найдена."
 
 #: /cli/Application/Command/Install/Install.php:99
 msgid "Creating the database..."
-msgstr ""
+msgstr "Создаю базу данных..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has terminated successfully."
-msgstr ""
+msgstr "Установка успешно прервана."
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
-msgstr ""
+msgstr "Удаляю имеющиеся таблицы..."
 
 #: /cli/Application/Command/Install/Install.php:179
 #, php-format
 msgid "Install SQL file for %s not found."
-msgstr ""
+msgstr "Установочный SQL файл для %s не найден."
 
 #: /cli/Application/Command/Install/Install.php:186
 msgid "SQL file corrupted."
-msgstr ""
+msgstr "SQL файл поврежден."
 
 #: /cli/Application/Command/Install/Install.php:189
 #, php-format
 msgid "Creating tables from file %s"
-msgstr ""
+msgstr "Создаю таблицы из файла %s"
 
 #: /cli/Application/Command/TrackerCommand.php:178
 #, php-format
 msgid "Command: %s"
-msgstr ""
+msgstr "Команда: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:181
 msgid "Please use one of the following :"
-msgstr ""
+msgstr "Пожалуйста, используйте одно из следующих:"
 
 #: /cli/Application/Command/TrackerCommand.php:295
 msgid "Available projects:"
-msgstr ""
+msgstr "Доступные проекты:"
 
 #: /cli/Application/Command/TrackerCommand.php:313
 msgid "Select a project:"
-msgstr ""
+msgstr "Выберите проект:"
 
 #: /cli/Application/Command/TrackerCommand.php:319
 msgid "Aborted"
-msgstr ""
+msgstr "Прервано."
 
 #: /cli/Application/Command/TrackerCommand.php:324
 #: /cli/Application/Command/TrackerCommand.php:343
 msgid "Invalid project"
-msgstr ""
+msgstr "Неверный проект."
 
 #: /cli/Application/Command/TrackerCommand.php:347
 #, php-format
 msgid "Processing project: %s"
-msgstr ""
+msgstr "Обрабатываю проект: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:378
 #: /cli/Application/Command/TrackerCommand.php:380
 msgid "An unknown error occurred"
-msgstr ""
+msgstr "Возникла неизвестная ошибка"
 
 #: /cli/tracker.php:47
 #, php-format
 msgid "ERROR: %s"
-msgstr ""
+msgstr "Ошибка: %s"
 
 #: /cli/tracker.php:49
 msgid "Call stack:"
-msgstr ""
+msgstr "Call stack:"

@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
+  `gh_editbot_user` varchar(150) NOT NULL COMMENT 'GitHub editbot username',
+  `gh_editbot_pass` varchar(150) NOT NULL COMMENT 'GitHub editbot password',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
 	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),

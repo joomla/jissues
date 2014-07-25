@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:22-0400\n"
-"PO-Revision-Date: 2014-07-22 13:15+0000\n"
+"PO-Revision-Date: 2014-07-22 19:11+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgid ""
 "href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
 "Tracking Process</a> page for detailed information about the project's "
 "priorities."
-msgstr ""
+msgstr "Приоритет, с которым должна быть разрешена эта проблема. На странице <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> Вы найдете больше информации о приоритетах."
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
 #: /templates/tracker/issue.edit.twig:99
@@ -97,14 +97,14 @@ msgstr "Билд"
 
 #: /templates/tracker/issue.add.twig:56
 msgid "The version(s) of the project on which this issue is found."
-msgstr ""
+msgstr "Версия(-и) проекта в котором была найдена ошибка."
 
 #: /templates/tracker/issue.add.twig:61
 msgid ""
 "To report a bug in the Joomla! bug trackers, you need to create a tracker "
 "item. Once the tracker item is created, the developers will check the "
 "validity of it and act accordingly."
-msgstr ""
+msgstr "Для сообщения о баге, необходимо создать запись на трекере. Как только запись на трекере будет создана, разработчики проверят её и далее будут действовать в соответствии процессу. Язык заполнения - английский."
 
 #: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:116
 msgid "Title"
@@ -115,7 +115,7 @@ msgid ""
 "Describe in a few words the issues you are having. It is generally a good "
 "idea to use existing tracker items as examples if this is your first time "
 "reporting a bug."
-msgstr ""
+msgstr "Опишите в нескольких словах проблему, которая у Вас возникла. Если это Ваше первое сообщение о баге, то неплохой идеей является использование существующих записей на трекере в качестве примера."
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Description"
@@ -131,7 +131,7 @@ msgid ""
 "about programming to write a great bug report. But if you do understand the "
 "code and think you know how to fix the bug, please include this in the "
 "report."
-msgstr ""
+msgstr "Это самая важная часть сообщения о баге. Опишите здесь шаг за шагом, как Вы обнаружили ошибку. Включите сюда всю информацию, чтобы тот, кто будет обрабатывать отчет, смог пройти по Вашим шагам и увидеть проблему. Помните: Ваш баг не будет исправлен, пока остальные не увидят проблему, поэтому старайтесь описать всё как можно подробней и понятней. Вам ничего не надо знать о программировании чтобы подать отчет. Но если Вы понимаете код и знаете как исправить проблему, то включитте это в отчет."
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"

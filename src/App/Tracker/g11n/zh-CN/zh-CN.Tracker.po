@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# cnallenzhao <cnallenzhao@gmail.com>, 2014
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:22-0400\n"
-"PO-Revision-Date: 2014-07-21 22:23+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"PO-Revision-Date: 2014-07-23 03:46+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- status -"
-msgstr ""
+msgstr "- 状态 -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- priority -"
@@ -65,7 +65,7 @@ msgstr "提交"
 
 #: /templates/tracker/issue.add.twig:35
 msgid "View Mode"
-msgstr "浏览mo shi"
+msgstr "浏览模式"
 
 #: /templates/tracker/issue.add.twig:38
 msgid "Help"
@@ -73,7 +73,7 @@ msgstr "帮助"
 
 #: /templates/tracker/issue.add.twig:38
 msgid "Pro"
-msgstr "专家模式"
+msgstr "专家"
 
 #: /templates/tracker/issue.add.twig:45
 #: /templates/tracker/issues.index.twig:114
@@ -199,15 +199,15 @@ msgstr "外部ID"
 
 #: /templates/tracker/issues.index.twig:204
 msgid "Opened "
-msgstr "活动的"
+msgstr "开启于"
 
 #: /templates/tracker/issues.index.twig:208
 msgid "Closed "
-msgstr "关闭的"
+msgstr "关闭于:"
 
 #: /templates/tracker/issues.index.twig:212
 msgid "Modified "
-msgstr "修改过的"
+msgstr "修改于:"
 
 #: /templates/tracker/issues.index.twig:217
 msgid "Critical"

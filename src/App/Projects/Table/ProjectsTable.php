@@ -22,6 +22,8 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $alias             Project URL alias
  * @property   string   $gh_user           GitHub user
  * @property   string   $gh_project        GitHub project
+ * @property   string   $gh_editbot_user   GitHub editbot username.
+ * @property   string   $gh_editbot_pass   GitHub editbot password.
  * @property   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property   string   $short_title       Project short title
  *

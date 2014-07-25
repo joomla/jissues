@@ -72,6 +72,7 @@ class TrackerExtension extends \Twig_Extension
 								? $application->getUser()->params->get('language')
 								: g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
+			'useCDN'         => $application->get('system.use_cdn'),
 		);
 	}
 
