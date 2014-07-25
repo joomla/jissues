@@ -1,0 +1,147 @@
+# JTracker App Projects 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-23 04:06+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "项目"
+
+#: /templates/projects/project.index.twig:20
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "项目"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "新建xiang mu"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "项目列表"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "追踪系统"
+
+#: /templates/projects/projects.index.twig:32
+msgid "Actions"
+msgstr "操作"
+
+#: /templates/projects/projects.index.twig:36
+msgid "Id"
+msgstr "ID"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Hooks"
+msgstr "钩子"
+
+#: /templates/projects/projects.index.twig:49
+msgid "Labels"
+msgstr "标签"
+
+#: /templates/projects/projects.index.twig:51
+msgid "Stats"
+msgstr "统计数据"
+
+#: /templates/projects/projects.index.twig:61
+msgid "Groups"
+msgstr "群组"
+
+#: /templates/projects/projects.index.twig:62
+msgid "Show"
+msgstr "显示"
+
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "编辑"
+
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "删除"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "编辑项目"
+
+#: /templates/projects/project.edit.twig:11
+#: /templates/projects/project.add.twig:11
+msgid "Save"
+msgstr "保存"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "编辑项目"
+
+#: /templates/projects/project.edit.twig:30
+#: /templates/projects/project.add.twig:20
+msgid "New project"
+msgstr "新建项目"
+
+#: /templates/projects/project.edit.twig:35
+#: /templates/projects/project.add.twig:24
+msgid "Details"
+msgstr "详细信息"
+
+#: /templates/projects/project.edit.twig:37
+#: /templates/projects/project.add.twig:28
+msgid "Title"
+msgstr "标题"
+
+#: /templates/projects/project.edit.twig:44
+#: /templates/projects/project.add.twig:33
+msgid "Short Title"
+msgstr "短标题"
+
+#: /templates/projects/project.edit.twig:51
+#: /templates/projects/project.add.twig:38
+msgid "Alias"
+msgstr "别名"
+
+#: /templates/projects/project.edit.twig:58
+#: /templates/projects/project.add.twig:43
+msgid "GitHub Owner"
+msgstr "GitHub 所有者"
+
+#: /templates/projects/project.edit.twig:65
+#: /templates/projects/project.add.twig:48
+msgid "GitHub Repo"
+msgstr "GitHub 项目源"
+
+#: /templates/projects/project.edit.twig:72
+#: /templates/projects/project.add.twig:53
+msgid "External Tracker Link"
+msgstr "外部追踪器地址"
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "增加项目"
+
+#: /src/App/Projects/Table/ProjectsTable.php:57
+msgid "A title is required"
+msgstr "必须键入标题"
+
+#: /src/App/Projects/Table/ProjectsTable.php:62
+msgid "A short title is required"
+msgstr "必须键入短标题"

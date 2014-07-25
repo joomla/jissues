@@ -1,0 +1,44 @@
+# JTracker CoreJS core.js 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-23 03:52+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /www/jtracker/core/js/jtracker.js:11
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Loading preview..."
+msgstr "正在加载预览..."
+
+#: /www/jtracker/core/js/jtracker.js:22 /www/jtracker/core/js/jtracker.js:43
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Invalid response."
+msgstr "无效响应"
+
+#: /www/jtracker/core/js/jtracker.js:35
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting comment..."
+msgstr "正在提交评论..."
+
+#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Adding vote..."
+msgstr "正在增加投票..."
+
+#: /www/jtracker/core/js/jtracker.js:96
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting test result..."
+msgstr "正在提交测试结果..."

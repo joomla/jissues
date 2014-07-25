@@ -1,0 +1,413 @@
+# JTracker Template JTracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-23 04:25+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "写作"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "预览"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "追踪系统"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "项目"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "显示"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "编辑"
+
+#: /templates/trackerMenu.twig:42
+msgid "Access Groups"
+msgstr "权限群组"
+
+#: /templates/trackerMenu.twig:51
+msgid "Projects"
+msgstr "项目"
+
+#: /templates/trackerMenu.twig:56
+msgid "Users"
+msgstr "用户"
+
+#: /templates/trackerMenu.twig:70
+msgid "System"
+msgstr "系统"
+
+#: /templates/trackerMenu.twig:77
+msgid "Configuration"
+msgstr "配置"
+
+#: /templates/trackerMenu.twig:83
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:89
+msgid "Logs"
+msgstr "日志"
+
+#: /templates/trackerMenu.twig:102
+msgid "Cron Jobs"
+msgstr "Cron任务"
+
+#: /templates/trackerMenu.twig:107
+msgid "Database"
+msgstr "数据库"
+
+#: /templates/trackerMenu.twig:113
+msgid "GitHub Issues"
+msgstr "GitHub Issue"
+
+#: /templates/trackerMenu.twig:119
+msgid "GitHub Comments"
+msgstr "Github 评论"
+
+#: /templates/trackerMenu.twig:125
+msgid "GitHub Pulls"
+msgstr "GitHub Pulls"
+
+#: /templates/trackerMenu.twig:129
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:132 /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "错误"
+
+#: /templates/trackerMenu.twig:139
+msgid "Icons"
+msgstr "图标"
+
+#: /templates/trackerMenu.twig:145
+msgid "Routes"
+msgstr "路由"
+
+#: /templates/trackerMenu.twig:151
+msgid "Text"
+msgstr "文本"
+
+#: /templates/trackerMenu.twig:157
+msgid "Clear Cache"
+msgstr "清除缓存"
+
+#: /templates/trackerMenu.twig:179
+msgid "About Us"
+msgstr "关于我们"
+
+#: /templates/trackerMenu.twig:184
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:189 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "文档"
+
+#: /templates/trackerMenu.twig:206
+msgid "Admin"
+msgstr "管理员"
+
+#: /templates/trackerMenu.twig:211
+msgid "View profile"
+msgstr "查看资料"
+
+#: /templates/trackerMenu.twig:217
+msgid "Edit profile"
+msgstr "编辑资料"
+
+#: /templates/trackerMenu.twig:224
+msgid "Logout"
+msgstr "退出"
+
+#: /templates/trackerMenu.twig:233
+msgid "Login with GitHub"
+msgstr "用GitHub帐号登录"
+
+#: /templates/trackerMenu.twig:237
+msgid "No GitHub credentials set in config"
+msgstr "配置文件中未配置GItHub信息"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "主页"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "关于我们"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "社区"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "论坛"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "扩展"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "资源"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "文档"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "开发者"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "商店"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "可访问性说明"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "隐私政策"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Joomla 主机托管"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "所有权利保留。"
+
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
+msgstr "增加文件"
+
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr "开始上传"
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr "取消上传"
+
+#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr "删除"
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr "上传提示"
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "最大允许上传的文件大小：<strong>1 MB</strong>."
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "只允许上传图片文件(<strong>JPG, GIF, PNG</strong>) "
+
+#: /templates/uploader.full.twig:35
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "您可以将文件从您的桌面上 <strong>拖拽</strong> 上传到本页面"
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr "处理中..."
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr "开始"
+
+#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr "取消"
+
+#: /templates/index.twig:47
+msgid "Download"
+msgstr "下载"
+
+#: /templates/index.twig:50
+msgid "Demo"
+msgstr "演示"
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "最近新闻"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "公告"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "博客"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "杂志"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "支持Joomla!"
+
+#: /templates/topMenu.twig:24
+msgid "Shop Joomla Gear"
+msgstr "购买Joomla Gear"
+
+#: /templates/topMenu.twig:25
+msgid "Contribution"
+msgstr "贡献"
+
+#: /templates/topMenu.twig:30
+msgid "About Joomla!"
+msgstr "关于 Joomla!"
+
+#: /templates/topMenu.twig:31
+msgid "Core Features"
+msgstr "核心功能"
+
+#: /templates/topMenu.twig:32
+msgid "The Software"
+msgstr "Joomla软件"
+
+#: /templates/topMenu.twig:33
+msgid "The Project"
+msgstr "Joomla项目"
+
+#: /templates/topMenu.twig:34
+msgid "Leadership"
+msgstr "Joomla领导团队"
+
+#: /templates/topMenu.twig:40
+msgid "Joomla! Community Portal"
+msgstr "Joomla! 社区门户"
+
+#: /templates/topMenu.twig:41
+msgid "Joomla! Events"
+msgstr "Joomla! 活动"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! UX"
+msgstr "Joomla! UX"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! User Groups"
+msgstr "Joomla! 用户组"
+
+#: /templates/topMenu.twig:46
+msgid "Support"
+msgstr "支持"
+
+#: /templates/topMenu.twig:48
+msgid "Joomla! Forum"
+msgstr "Joomla! 论坛"
+
+#: /templates/topMenu.twig:49
+msgid "Joomla! Documentation"
+msgstr "Joomla! 文档"
+
+#: /templates/topMenu.twig:50
+msgid "Joomla! Resources"
+msgstr "Joomla! 资源"
+
+#: /templates/topMenu.twig:53
+msgid "Read"
+msgstr "阅读"
+
+#: /templates/topMenu.twig:55
+msgid "Joomla! Magazine"
+msgstr "Joomla! 杂志"
+
+#: /templates/topMenu.twig:56
+msgid "Joomla! Connect"
+msgstr "Joomla! Connect"
+
+#: /templates/topMenu.twig:57
+msgid "Joomla! Mailing Lists"
+msgstr "Joomla! 邮件列表"
+
+#: /templates/topMenu.twig:60
+msgid "Extend"
+msgstr "拓展"
+
+#: /templates/topMenu.twig:62
+msgid "Extension Directory"
+msgstr "拓展目录"
+
+#: /templates/topMenu.twig:63
+msgid "Showcase Directory"
+msgstr "Showcase目录"
+
+#: /templates/topMenu.twig:64
+msgid "Resource Directory"
+msgstr "资源目录"
+
+#: /templates/topMenu.twig:65 /templates/topMenu.twig:84
+msgid "Translations"
+msgstr "翻译"
+
+#: /templates/topMenu.twig:66
+msgid "Idea Pool"
+msgstr "点子池"
+
+#: /templates/topMenu.twig:69
+msgid "Developers"
+msgstr "开发者"
+
+#: /templates/topMenu.twig:71
+msgid "Developer Site"
+msgstr "开发者站点"
+
+#: /templates/topMenu.twig:73
+msgid "Joomla! Bug Squad"
+msgstr "Joomla! Bug 小组"
+
+#: /templates/topMenu.twig:74
+msgid "Joomla! API"
+msgstr "Joomla! API"
+
+#: /templates/topMenu.twig:75
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:76
+msgid "Joomla! Framework"
+msgstr "Joomla! 框架"
+
+#: /templates/topMenu.twig:85
+msgid "Multilingual Demo"
+msgstr "多语言演示"
+
+#: /templates/topMenu.twig:86
+msgid "Translation Working Group"
+msgstr "翻译工作组"
+
+#: /templates/topMenu.twig:87
+msgid "Translations Forum"
+msgstr "翻译论坛"

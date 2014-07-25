@@ -1,0 +1,457 @@
+# JTracker CLI cli 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-21 22:23+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/jtracker/language/it_IT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it_IT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /cli/Application/Application.php:130
+msgid "Be quiet - suppress output."
+msgstr ""
+
+#: /cli/Application/Application.php:135
+msgid "Verbose output for debugging purpose."
+msgstr ""
+
+#: /cli/Application/Application.php:140
+msgid "Suppress ANSI colors on unsupported terminals."
+msgstr ""
+
+#: /cli/Application/Application.php:145
+msgid "Optionally log output to the specified log file."
+msgstr ""
+
+#: /cli/Application/Application.php:191
+msgid "Joomla! Tracker CLI Application"
+msgstr ""
+
+#: /cli/Application/Application.php:218
+#, php-format
+msgid "Invalid command: %s"
+msgstr ""
+
+#: /cli/Application/Application.php:225
+msgid "Did you mean one of this?"
+msgstr ""
+
+#: /cli/Application/Application.php:254
+msgid "Process aborted."
+msgstr ""
+
+#: /cli/Application/Application.php:261
+#, php-format
+msgid "Execution time: <b>%d sec.</b>"
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:29
+msgid "Retrieve avatar images from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:50
+msgid "Retrieve Avatars"
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:52
+msgid "Start retrieving Avatars."
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Transifex.php:60
+msgid "Finished."
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:81
+msgid "No users found in database."
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:87
+#, php-format
+msgid "Processing avatars for one user."
+msgid_plural "Processing avatars for %d users."
+msgstr[0] ""
+msgstr[1] ""
+
+#: /cli/Application/Command/Get/Avatars.php:113
+#, php-format
+msgid "User avatar already fetched for user %s"
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:122
+#, php-format
+msgid "Fetching avatar for user: %s"
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:134
+#, php-format
+msgid "Copy default image for user: %s"
+msgstr ""
+
+#: /cli/Application/Command/Get/Avatars.php:148
+#, php-format
+msgid "Added %d new user avatars"
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:27
+msgid ""
+"Retrieve a list of project tags from GitHub and show their installed "
+"versions."
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:33
+msgid "Show all tags or only the most recent."
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:48
+msgid "Retrieve composer tags"
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:56
+#, php-format
+msgid "Can not read the packages file at %s"
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:59
+msgid "Start getting composer tags."
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:101
+msgid "Installed"
+msgstr ""
+
+#: /cli/Application/Command/Get/Composertags.php:118
+#, php-format
+msgid "Installed: %s"
+msgstr ""
+
+#: /cli/Application/Command/Get/Get.php:66
+msgid "Retrieve Information from various sources."
+msgstr ""
+
+#: /cli/Application/Command/Get/Get.php:72
+msgid "Process the project with the given ID."
+msgstr ""
+
+#: /cli/Application/Command/Get/Get.php:78
+msgid "Don't use a progress bar."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:68
+msgid ""
+"Get the whole project info from GitHub, including issues and issue comments."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:74
+#: /cli/Application/Command/Get/Project/Events.php:52
+msgid "Process all issues."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:80
+#: /cli/Application/Command/Get/Project/Events.php:47
+msgid "<n> Process only a single issue."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:86
+msgid "<n> First issue to process."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:92
+msgid "<n> Last issue to process."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:98
+msgid "Force an update even if the issue has not changed."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:112
+msgid "Retrieve Project"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:114
+msgid "Bulk Start retrieve Project"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:125
+#, php-format
+msgid "Updating project info for project: %s/%s"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:137
+msgid "Bulk Finished"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:310
+msgid "GitHub issues to process?"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:312
+msgid "All"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:313
+msgid "Range"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:314
+msgid "Select: "
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:321
+msgid "Enter the first GitHub issue ID to process (from):"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project.php:325
+msgid "Enter the latest GitHub issue ID to process (to):"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:41
+msgid "Retrieve comments from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:53
+msgid "Retrieve Comments"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:55
+msgid "Start retrieve Comments"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:97
+#, php-format
+msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
+msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
+msgstr[0] ""
+msgstr[1] ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:167
+#: /cli/Application/Command/Get/Project/Events.php:180
+msgid "Everything is up to date."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:181
+#, php-format
+msgid "Processing comments for one modified issue..."
+msgid_plural "Processing comments for %d modified issues..."
+msgstr[0] ""
+msgstr[1] ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:204
+#, php-format
+msgid "No comments for issue # %d"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:213
+#, php-format
+msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
+msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:310
+#, php-format
+msgid "%1$d added %2$d updated."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Events.php:66
+msgid "Retrieve Events"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Events.php:68
+msgid "Start retrieve Events"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Events.php:110
+#, php-format
+msgid "Fetch events for one issue from GitHub..."
+msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
+msgstr[0] ""
+msgstr[1] ""
+
+#: /cli/Application/Command/Get/Project/Events.php:190
+msgid "Adding events to the database..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Events.php:321
+#, php-format
+msgid "Added %d new issue events to the database"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:55
+msgid "Retrieve issues from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Labels.php:31
+msgid "Retrieve project labels from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Labels.php:62
+msgid "Fetching labels..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Labels.php:141
+#, php-format
+msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Milestones.php:33
+msgid "Retrieve project milestones from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Milestones.php:45
+msgid "Retrieve Milestones"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Milestones.php:47
+msgid "Start retrieving Milestones"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Milestones.php:64
+msgid "Fetching milestones..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Milestones.php:151
+#, php-format
+msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
+msgstr ""
+
+#: /cli/Application/Command/Get/Transifex.php:37
+msgid "Retrieve language files from Transifex."
+msgstr ""
+
+#: /cli/Application/Command/Get/Transifex.php:49
+msgid "Get Translations"
+msgstr ""
+
+#: /cli/Application/Command/Get/Transifex.php:56
+msgid "Start fetching translations."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:37
+msgid "Install the application."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:42
+msgid "Reinstall the application (without confirmation)"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:59
+msgid "Installer"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:71
+msgid "WARNING: A database has been found !!"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:73
+msgid "Do you want to reinstall ?"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:75
+msgid "Yes"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:76
+msgid "No"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:78
+msgid "Select:"
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:98
+msgid "No database found."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:99
+msgid "Creating the database..."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:118
+msgid "Installation has terminated successfully."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:132
+msgid "Removing existing tables..."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:179
+#, php-format
+msgid "Install SQL file for %s not found."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:186
+msgid "SQL file corrupted."
+msgstr ""
+
+#: /cli/Application/Command/Install/Install.php:189
+#, php-format
+msgid "Creating tables from file %s"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:178
+#, php-format
+msgid "Command: %s"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:181
+msgid "Please use one of the following :"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:295
+msgid "Available projects:"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:313
+msgid "Select a project:"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:319
+msgid "Aborted"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:324
+#: /cli/Application/Command/TrackerCommand.php:343
+msgid "Invalid project"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:347
+#, php-format
+msgid "Processing project: %s"
+msgstr ""
+
+#: /cli/Application/Command/TrackerCommand.php:378
+#: /cli/Application/Command/TrackerCommand.php:380
+msgid "An unknown error occurred"
+msgstr ""
+
+#: /cli/tracker.php:47
+#, php-format
+msgid "ERROR: %s"
+msgstr ""
+
+#: /cli/tracker.php:49
+msgid "Call stack:"
+msgstr ""

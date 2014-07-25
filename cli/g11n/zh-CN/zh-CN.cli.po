@@ -1,0 +1,453 @@
+# JTracker CLI cli 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-23 04:08+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /cli/Application/Application.php:130
+msgid "Be quiet - suppress output."
+msgstr "静默模式 - 禁用输出"
+
+#: /cli/Application/Application.php:135
+msgid "Verbose output for debugging purpose."
+msgstr "详细输出以用于调试目的"
+
+#: /cli/Application/Application.php:140
+msgid "Suppress ANSI colors on unsupported terminals."
+msgstr "在不支持的终端中禁用ANSI色彩"
+
+#: /cli/Application/Application.php:145
+msgid "Optionally log output to the specified log file."
+msgstr "可选，输出日志到指定的日志文件"
+
+#: /cli/Application/Application.php:191
+msgid "Joomla! Tracker CLI Application"
+msgstr "Joomla! 跟踪系统命令行应用程序"
+
+#: /cli/Application/Application.php:218
+#, php-format
+msgid "Invalid command: %s"
+msgstr "无效的命令:%s"
+
+#: /cli/Application/Application.php:225
+msgid "Did you mean one of this?"
+msgstr "你是否指的是下列的某一个？"
+
+#: /cli/Application/Application.php:254
+msgid "Process aborted."
+msgstr "进程中断。"
+
+#: /cli/Application/Application.php:261
+#, php-format
+msgid "Execution time: <b>%d sec.</b>"
+msgstr "执行时间：<b>%d 秒钟。</b>"
+
+#: /cli/Application/Command/Get/Avatars.php:29
+msgid "Retrieve avatar images from GitHub."
+msgstr "从GitHub获取头像图片"
+
+#: /cli/Application/Command/Get/Avatars.php:50
+msgid "Retrieve Avatars"
+msgstr "获取头像"
+
+#: /cli/Application/Command/Get/Avatars.php:52
+msgid "Start retrieving Avatars."
+msgstr "开始获取头像。"
+
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Transifex.php:60
+msgid "Finished."
+msgstr "完成。"
+
+#: /cli/Application/Command/Get/Avatars.php:81
+msgid "No users found in database."
+msgstr "没有在数据库中检索到用户"
+
+#: /cli/Application/Command/Get/Avatars.php:87
+#, php-format
+msgid "Processing avatars for one user."
+msgid_plural "Processing avatars for %d users."
+msgstr[0] "正在处理 %d 个用户的头像"
+
+#: /cli/Application/Command/Get/Avatars.php:113
+#, php-format
+msgid "User avatar already fetched for user %s"
+msgstr "已经获取到 %s 用户的头像"
+
+#: /cli/Application/Command/Get/Avatars.php:122
+#, php-format
+msgid "Fetching avatar for user: %s"
+msgstr "正在获取 %s 用户的头像"
+
+#: /cli/Application/Command/Get/Avatars.php:134
+#, php-format
+msgid "Copy default image for user: %s"
+msgstr "为 %s 用户复制默认头像"
+
+#: /cli/Application/Command/Get/Avatars.php:148
+#, php-format
+msgid "Added %d new user avatars"
+msgstr "增加了 %d 个新的用户头像"
+
+#: /cli/Application/Command/Get/Composertags.php:27
+msgid ""
+"Retrieve a list of project tags from GitHub and show their installed "
+"versions."
+msgstr "从GitHub获取项目的标签列表并显示已安装的版本。"
+
+#: /cli/Application/Command/Get/Composertags.php:33
+msgid "Show all tags or only the most recent."
+msgstr "展示所有的标签或只是最近的标签"
+
+#: /cli/Application/Command/Get/Composertags.php:48
+msgid "Retrieve composer tags"
+msgstr "获取composer标签"
+
+#: /cli/Application/Command/Get/Composertags.php:56
+#, php-format
+msgid "Can not read the packages file at %s"
+msgstr "无法读取打包文件：%s"
+
+#: /cli/Application/Command/Get/Composertags.php:59
+msgid "Start getting composer tags."
+msgstr "开始获取composer标签"
+
+#: /cli/Application/Command/Get/Composertags.php:101
+msgid "Installed"
+msgstr "已安装"
+
+#: /cli/Application/Command/Get/Composertags.php:118
+#, php-format
+msgid "Installed: %s"
+msgstr "已安装: %s"
+
+#: /cli/Application/Command/Get/Get.php:66
+msgid "Retrieve Information from various sources."
+msgstr "从多个源获取信息"
+
+#: /cli/Application/Command/Get/Get.php:72
+msgid "Process the project with the given ID."
+msgstr "处理给定ID的项目"
+
+#: /cli/Application/Command/Get/Get.php:78
+msgid "Don't use a progress bar."
+msgstr "禁用进度条"
+
+#: /cli/Application/Command/Get/Project.php:68
+msgid ""
+"Get the whole project info from GitHub, including issues and issue comments."
+msgstr "从GitHub获取项目的全部信息，包括Issue和Issues的评论"
+
+#: /cli/Application/Command/Get/Project.php:74
+#: /cli/Application/Command/Get/Project/Events.php:52
+msgid "Process all issues."
+msgstr "处理所有的Issue"
+
+#: /cli/Application/Command/Get/Project.php:80
+#: /cli/Application/Command/Get/Project/Events.php:47
+msgid "<n> Process only a single issue."
+msgstr "<n> 仅处理单一Issue"
+
+#: /cli/Application/Command/Get/Project.php:86
+msgid "<n> First issue to process."
+msgstr "<n> 第一个要处理的Issue"
+
+#: /cli/Application/Command/Get/Project.php:92
+msgid "<n> Last issue to process."
+msgstr "<n> 最后一个要处理的Issue"
+
+#: /cli/Application/Command/Get/Project.php:98
+msgid "Force an update even if the issue has not changed."
+msgstr "即使Issue没有更改也强制更新"
+
+#: /cli/Application/Command/Get/Project.php:112
+msgid "Retrieve Project"
+msgstr "获取项目"
+
+#: /cli/Application/Command/Get/Project.php:114
+msgid "Bulk Start retrieve Project"
+msgstr "批量获取项目"
+
+#: /cli/Application/Command/Get/Project.php:125
+#, php-format
+msgid "Updating project info for project: %s/%s"
+msgstr "正在为 %s/%s 项目更新信息"
+
+#: /cli/Application/Command/Get/Project.php:137
+msgid "Bulk Finished"
+msgstr "批量完成"
+
+#: /cli/Application/Command/Get/Project.php:310
+msgid "GitHub issues to process?"
+msgstr "待处理的GitHub Issues？"
+
+#: /cli/Application/Command/Get/Project.php:312
+msgid "All"
+msgstr "全部"
+
+#: /cli/Application/Command/Get/Project.php:313
+msgid "Range"
+msgstr "按范围"
+
+#: /cli/Application/Command/Get/Project.php:314
+msgid "Select: "
+msgstr "选择"
+
+#: /cli/Application/Command/Get/Project.php:321
+msgid "Enter the first GitHub issue ID to process (from):"
+msgstr "键入第一个待处理的GitHub issue ID(起始)"
+
+#: /cli/Application/Command/Get/Project.php:325
+msgid "Enter the latest GitHub issue ID to process (to):"
+msgstr "键入最后一个待处理的GitHub Issue ID(结束)"
+
+#: /cli/Application/Command/Get/Project/Comments.php:41
+msgid "Retrieve comments from GitHub."
+msgstr "从GitHub获取评论"
+
+#: /cli/Application/Command/Get/Project/Comments.php:53
+msgid "Retrieve Comments"
+msgstr "获取评论"
+
+#: /cli/Application/Command/Get/Project/Comments.php:55
+msgid "Start retrieve Comments"
+msgstr "开始获取评论"
+
+#: /cli/Application/Command/Get/Project/Comments.php:97
+#, php-format
+msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
+msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
+msgstr[0] "正在从GitHub获取 <b>%d</b> 个发生变更的Issue"
+
+#: /cli/Application/Command/Get/Project/Comments.php:167
+#: /cli/Application/Command/Get/Project/Events.php:180
+msgid "Everything is up to date."
+msgstr "所有内容都已更新到最新"
+
+#: /cli/Application/Command/Get/Project/Comments.php:181
+#, php-format
+msgid "Processing comments for one modified issue..."
+msgid_plural "Processing comments for %d modified issues..."
+msgstr[0] "正在处理 %d 个变更了的issue的评论"
+
+#: /cli/Application/Command/Get/Project/Comments.php:204
+#, php-format
+msgid "No comments for issue # %d"
+msgstr "第%d 号 Issue 暂无评论"
+
+#: /cli/Application/Command/Get/Project/Comments.php:213
+#, php-format
+msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
+msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
+msgstr[0] "正在处理 第  %2$d  号Issue的 %1$d 个评论 (第 %3$d 个 / 共 %4$d 个)"
+
+#: /cli/Application/Command/Get/Project/Comments.php:310
+#, php-format
+msgid "%1$d added %2$d updated."
+msgstr "新增%1$d 个，更新 %2$d 个。"
+
+#: /cli/Application/Command/Get/Project/Events.php:66
+msgid "Retrieve Events"
+msgstr "获取事件"
+
+#: /cli/Application/Command/Get/Project/Events.php:68
+msgid "Start retrieve Events"
+msgstr "开始获取事件"
+
+#: /cli/Application/Command/Get/Project/Events.php:110
+#, php-format
+msgid "Fetch events for one issue from GitHub..."
+msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
+msgstr[0] "从GitHub获取 <b>%d</b> 个Issue的事件"
+
+#: /cli/Application/Command/Get/Project/Events.php:190
+msgid "Adding events to the database..."
+msgstr "正在向数据库中增加事件"
+
+#: /cli/Application/Command/Get/Project/Events.php:321
+#, php-format
+msgid "Added %d new issue events to the database"
+msgstr "已将 %d 个事件增加到数据库中"
+
+#: /cli/Application/Command/Get/Project/Issues.php:55
+msgid "Retrieve issues from GitHub."
+msgstr "从GitHub获取Issue"
+
+#: /cli/Application/Command/Get/Project/Labels.php:31
+msgid "Retrieve project labels from GitHub."
+msgstr "从GitHub获取项目的标签"
+
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
+msgstr "开始获取标签"
+
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "完成。"
+
+#: /cli/Application/Command/Get/Project/Labels.php:62
+msgid "Fetching labels..."
+msgstr "正在获取标签..."
+
+#: /cli/Application/Command/Get/Project/Labels.php:141
+#, php-format
+msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
+msgstr "新增 %1$d 个标签, 更新 %2$d 个标签, 删除 %3$d 个标签."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:33
+msgid "Retrieve project milestones from GitHub."
+msgstr "从GitHub获取里程碑"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:45
+msgid "Retrieve Milestones"
+msgstr "获取里程碑"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:47
+msgid "Start retrieving Milestones"
+msgstr "开始获取里程碑"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:64
+msgid "Fetching milestones..."
+msgstr "正在获取里程碑..."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:151
+#, php-format
+msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
+msgstr "新增 %1$d 个里程碑, 更新 %2$d 个里程碑, 删除 %3$d 个里程碑."
+
+#: /cli/Application/Command/Get/Transifex.php:37
+msgid "Retrieve language files from Transifex."
+msgstr "从Transifex获取语言文件"
+
+#: /cli/Application/Command/Get/Transifex.php:49
+msgid "Get Translations"
+msgstr "获取翻译"
+
+#: /cli/Application/Command/Get/Transifex.php:56
+msgid "Start fetching translations."
+msgstr "开始获取翻译"
+
+#: /cli/Application/Command/Install/Install.php:37
+msgid "Install the application."
+msgstr "安装程序"
+
+#: /cli/Application/Command/Install/Install.php:42
+msgid "Reinstall the application (without confirmation)"
+msgstr "重新安装程序(无需确认)"
+
+#: /cli/Application/Command/Install/Install.php:59
+msgid "Installer"
+msgstr "安装器"
+
+#: /cli/Application/Command/Install/Install.php:71
+msgid "WARNING: A database has been found !!"
+msgstr "警告：已经发现一个数据库！"
+
+#: /cli/Application/Command/Install/Install.php:73
+msgid "Do you want to reinstall ?"
+msgstr "你是否想要重新安装？"
+
+#: /cli/Application/Command/Install/Install.php:75
+msgid "Yes"
+msgstr "是"
+
+#: /cli/Application/Command/Install/Install.php:76
+msgid "No"
+msgstr "否"
+
+#: /cli/Application/Command/Install/Install.php:78
+msgid "Select:"
+msgstr "选择"
+
+#: /cli/Application/Command/Install/Install.php:98
+msgid "No database found."
+msgstr "没有找到数据库"
+
+#: /cli/Application/Command/Install/Install.php:99
+msgid "Creating the database..."
+msgstr "正在创建数据库..."
+
+#: /cli/Application/Command/Install/Install.php:118
+msgid "Installation has terminated successfully."
+msgstr "安装已成功结束。"
+
+#: /cli/Application/Command/Install/Install.php:132
+msgid "Removing existing tables..."
+msgstr "正在移除已经存在的表..."
+
+#: /cli/Application/Command/Install/Install.php:179
+#, php-format
+msgid "Install SQL file for %s not found."
+msgstr "未能找到 %s 的SQL安装文件"
+
+#: /cli/Application/Command/Install/Install.php:186
+msgid "SQL file corrupted."
+msgstr "SQL文件损坏。"
+
+#: /cli/Application/Command/Install/Install.php:189
+#, php-format
+msgid "Creating tables from file %s"
+msgstr "正在从 %s 文件创建表"
+
+#: /cli/Application/Command/TrackerCommand.php:178
+#, php-format
+msgid "Command: %s"
+msgstr "命令: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:181
+msgid "Please use one of the following :"
+msgstr "请使用下列中的一个："
+
+#: /cli/Application/Command/TrackerCommand.php:295
+msgid "Available projects:"
+msgstr "可用的项目:"
+
+#: /cli/Application/Command/TrackerCommand.php:313
+msgid "Select a project:"
+msgstr "选择一个项目:"
+
+#: /cli/Application/Command/TrackerCommand.php:319
+msgid "Aborted"
+msgstr "中止"
+
+#: /cli/Application/Command/TrackerCommand.php:324
+#: /cli/Application/Command/TrackerCommand.php:343
+msgid "Invalid project"
+msgstr "无效的项目"
+
+#: /cli/Application/Command/TrackerCommand.php:347
+#, php-format
+msgid "Processing project: %s"
+msgstr "正在处理项目: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:378
+#: /cli/Application/Command/TrackerCommand.php:380
+msgid "An unknown error occurred"
+msgstr "发生了一个未知错误："
+
+#: /cli/tracker.php:47
+#, php-format
+msgid "ERROR: %s"
+msgstr "错误：%s"
+
+#: /cli/tracker.php:49
+msgid "Call stack:"
+msgstr "调用堆栈："

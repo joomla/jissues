@@ -64,11 +64,8 @@
         <li>
             <label for="status">{{ translate('Status') }}</label>
             <select name="item[status]" id="status" class="span2">
-                {% for status in statuses %}
-                    <option {{ status.id == item.status ? "selected='selected'" : ""  }}
-                            value="{{ status.id }}">
-                        {{ status.status }}
-                    </option>
+                {% for key, value in getStatuses() %}
+                    <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                 {% endfor %}
             </select>
         </li>
@@ -101,14 +98,6 @@
         <li>
             <label for="build">{{ translate('Build') }}</label>
             <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
-        </li>
-        <li>
-            <label for="tests">{{ translate('Successful tests') }}</label>
-            <select name="item[tests]" id="tests" class="span1">
-                {% for i in range(0, 5) %}
-                    <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
         </li>
         <li>
             <label for="easy">{{ translate('Easy test') }}</label>

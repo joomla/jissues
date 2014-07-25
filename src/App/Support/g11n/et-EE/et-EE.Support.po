@@ -1,0 +1,116 @@
+# JTracker App Support 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-05-30 07:41+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Dokumentatsioon"
+
+#: /templates/support/documentation.index.twig:45
+msgid "Improve"
+msgstr "Paranda"
+
+#: /templates/support/documentation.index.twig:46
+msgid "Permalink"
+msgstr "Püsilink"
+
+#: /templates/support/markdown.index.twig:6
+msgid "GitHub Flavored Markdown Preview"
+msgstr ""
+
+#: /templates/support/markdown.index.twig:15
+msgid "Markdown TEST Page"
+msgstr ""
+
+#: /templates/support/markdown.index.twig:17
+msgid "Info"
+msgstr "Info"
+
+#: /templates/support/markdown.index.twig:18
+msgid "Headers"
+msgstr "Päised"
+
+#: /templates/support/markdown.index.twig:19
+msgid "Lists"
+msgstr "Nimekirjad"
+
+#: /templates/support/markdown.index.twig:20
+#: /templates/support/markdown.index.twig:31
+msgid "Links"
+msgstr "Lingid"
+
+#: /templates/support/markdown.index.twig:21
+msgid "Emphasized"
+msgstr "Rõhutatud"
+
+#: /templates/support/markdown.index.twig:22
+#: /templates/support/markdown.index.twig:42
+#: /templates/support/markdown.index.twig:70
+#: /templates/support/markdown.index.twig:113
+#: /templates/support/markdown.index.twig:134
+#: /templates/support/markdown.index.twig:157
+#: /templates/support/markdown.index.twig:238
+#: /templates/support/markdown.index.twig:265
+#: /templates/support/markdown.index.twig:289
+#: /templates/support/markdown.index.twig:386
+#: /templates/support/markdown.index.twig:410
+msgid "Code"
+msgstr "Kood"
+
+#: /templates/support/markdown.index.twig:23
+msgid "Blockquotes"
+msgstr ""
+
+#: /templates/support/markdown.index.twig:24
+msgid "HRs"
+msgstr ""
+
+#: /templates/support/markdown.index.twig:25
+msgid "Tables"
+msgstr "Tabelid"
+
+#: /templates/support/markdown.index.twig:26
+msgid "Images"
+msgstr "Pildid"
+
+#: /templates/support/markdown.index.twig:27
+msgid "GitHub Spice"
+msgstr ""
+
+#: /templates/support/markdown.index.twig:45
+#: /templates/support/markdown.index.twig:73
+#: /templates/support/markdown.index.twig:116
+#: /templates/support/markdown.index.twig:137
+#: /templates/support/markdown.index.twig:160
+#: /templates/support/markdown.index.twig:241
+#: /templates/support/markdown.index.twig:268
+#: /templates/support/markdown.index.twig:292
+#: /templates/support/markdown.index.twig:389
+#: /templates/support/markdown.index.twig:413
+msgid "Output"
+msgstr "Väljund"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Ikoonid"
+
+#: /src/App/Support/Controller/Clearcache.php:37
+msgid "The cache has been cleared."
+msgstr "Vahemälu on tühjendatud."

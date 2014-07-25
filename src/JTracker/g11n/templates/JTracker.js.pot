@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /www/jtracker/core/js/jtracker.js:11
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Loading preview..."
 msgstr ""
 
 #: /www/jtracker/core/js/jtracker.js:22
 #: /www/jtracker/core/js/jtracker.js:43
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Invalid response."
 msgstr ""
 
 #: /www/jtracker/core/js/jtracker.js:35
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting comment..."
 msgstr ""
 
 #: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
+msgstr ""
+
+#: /www/jtracker/core/js/jtracker.js:96
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting test result..."
 msgstr ""

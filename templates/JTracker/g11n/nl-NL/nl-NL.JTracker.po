@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
-"PO-Revision-Date: 2014-05-26 05:16+0000\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-22 07:05+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -63,9 +63,41 @@ msgstr "Systeem"
 msgid "Configuration"
 msgstr "Configuratie"
 
+#: /templates/trackerMenu.twig:83
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:89
+msgid "Logs"
+msgstr "Logboeken"
+
+#: /templates/trackerMenu.twig:102
+msgid "Cron Jobs"
+msgstr "Ingeplande taken"
+
 #: /templates/trackerMenu.twig:107
 msgid "Database"
 msgstr "Database"
+
+#: /templates/trackerMenu.twig:113
+msgid "GitHub Issues"
+msgstr "GitHub problemen"
+
+#: /templates/trackerMenu.twig:119
+msgid "GitHub Comments"
+msgstr "GitHub reacties"
+
+#: /templates/trackerMenu.twig:125
+msgid "GitHub Pulls"
+msgstr "GitHub pulls"
+
+#: /templates/trackerMenu.twig:129
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:132 /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Fout"
 
 #: /templates/trackerMenu.twig:139
 msgid "Icons"
@@ -86,6 +118,14 @@ msgstr "Cache legen"
 #: /templates/trackerMenu.twig:179
 msgid "About Us"
 msgstr "Over ons"
+
+#: /templates/trackerMenu.twig:184
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:189 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Documentatie"
 
 #: /templates/trackerMenu.twig:206
 msgid "Admin"
@@ -208,10 +248,6 @@ msgstr "Start"
 #: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
 msgid "Cancel"
 msgstr "Annuleren"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Fout"
 
 #: /templates/index.twig:47
 msgid "Download"
@@ -348,10 +384,6 @@ msgstr "Ontwikkelaars"
 #: /templates/topMenu.twig:71
 msgid "Developer Site"
 msgstr "Ontwikkelaarsite"
-
-#: /templates/topMenu.twig:72
-msgid "Documentation"
-msgstr "Documentatie"
 
 #: /templates/topMenu.twig:73
 msgid "Joomla! Bug Squad"

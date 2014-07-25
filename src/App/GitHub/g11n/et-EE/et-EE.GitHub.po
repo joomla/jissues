@@ -1,0 +1,119 @@
+# JTracker App GitHub 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-05-30 07:33+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:43
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Tüüp"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Staatus"
+
+#: /templates/github/hooks.index.twig:89
+msgid "Actions"
+msgstr "Tegevused"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Aktiivne"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Mitteaktiivne"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:58
+msgid "Delete"
+msgstr "Kustuta"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Sildid"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Siltide nimekiri"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Uus silt"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:44
+msgid "Name"
+msgstr "Nimi"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:45
+msgid "Color"
+msgstr "Värv"
+
+#: /templates/github/labels.index.twig:30
+msgid "Add Label"
+msgstr "Lisa silt"
+
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr ""
+
+#: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
+msgid "Nothing to preview..."
+msgstr ""

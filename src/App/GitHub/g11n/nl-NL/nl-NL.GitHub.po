@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
 "PO-Revision-Date: 2014-04-26 15:47+0000\n"
 "Last-Translator: Herman Peeren <herman@yepr.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
@@ -110,7 +110,7 @@ msgstr "Kleur"
 msgid "Add Label"
 msgstr "Label toevoegen"
 
-#: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
 msgstr "%s - Statistieken"

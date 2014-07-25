@@ -1,30 +1,13 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
-{% macro status(value, id, class, closed) %}
+{% macro status(value, id, class, state) %}
   {% import "fields.twig" as fields %}
 
-  {% if closed %}
-        {% set values = {
-            0: '- Status -'|_,
-            4: 'Fixed in Code Base'|_,
-            8: 'Closed - Unconfirmed Report'|_,
-            9: 'Closed - No Reply'|_,
-            11: 'Expected Behaviour'|_,
-            12: 'Known Issue'|_
-        } %}
-   {% else %}
-        {% set values = {
-            0: '- Status -'|_,
-            2: 'Confirmed'|_,
-            3: 'Pending'|_,
-            5: 'Ready To Commit'|_,
-            6: 'Needs Review'|_,
-            7: 'Information Required'|_
-        } %}
-   {% endif %}
+  {% set values = {0: '- status -'|_} %}
+  {% set values = values|merge(getStatuses(state)) %}
 
-  {{ fields.select('filter-stage', values, value, id, class) }}
+  {{ fields.select('filter-status', values, value, id, class) }}
 {% endmacro %}
 
 {% macro priority(value, id, class) %}

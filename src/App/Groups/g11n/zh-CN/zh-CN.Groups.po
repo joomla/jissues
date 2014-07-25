@@ -1,0 +1,133 @@
+# JTracker App Groups 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-23 04:05+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /templates/groups/group.edit.twig:6
+msgid "Edit Group"
+msgstr "编辑群组"
+
+#: /templates/groups/group.edit.twig:11
+msgid "Save"
+msgstr "保存"
+
+#: /templates/groups/group.edit.twig:125
+msgid "Edit Access Group"
+msgstr "编辑权限群组"
+
+#: /templates/groups/group.edit.twig:127
+msgid "Add Access Group"
+msgstr "添加权限群组"
+
+#: /templates/groups/group.edit.twig:136
+msgid "Details"
+msgstr "详情"
+
+#: /templates/groups/group.edit.twig:144
+#: /templates/groups/groups.index.twig:27
+msgid "Title"
+msgstr "标题"
+
+#: /templates/groups/group.edit.twig:154
+msgid "Permissions"
+msgstr "权限"
+
+#: /templates/groups/group.edit.twig:164
+#: /templates/groups/groups.index.twig:28
+msgid "View"
+msgstr "查看"
+
+#: /templates/groups/group.edit.twig:174
+#: /templates/groups/groups.index.twig:29
+msgid "Create"
+msgstr "创建"
+
+#: /templates/groups/group.edit.twig:184
+#: /templates/groups/groups.index.twig:30
+msgid "Edit"
+msgstr "编辑"
+
+#: /templates/groups/group.edit.twig:194
+#: /templates/groups/groups.index.twig:31
+msgid "Edit own"
+msgstr "编辑自己的"
+
+#: /templates/groups/group.edit.twig:204
+#: /templates/groups/groups.index.twig:32
+msgid "Manage"
+msgstr "管理"
+
+#: /templates/groups/group.edit.twig:217
+msgid "Users"
+msgstr "用户"
+
+#: /templates/groups/group.edit.twig:229
+msgid "Add User"
+msgstr "添加用户"
+
+#: /templates/groups/group.edit.twig:241
+msgid "Remove User"
+msgstr "移除用户"
+
+#: /templates/groups/group.edit.twig:246
+msgid "List assigned Users"
+msgstr "显示已指定的用户"
+
+#: /templates/groups/group.edit.twig:258
+msgid "Save the group to assign users."
+msgstr "将群组保存至指定用户"
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "群组"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "添加群组"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "权限群组"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "动作"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr "ID"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "系统"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "删除"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr "未定义群组 ！"
+
+#: /src/App/Groups/Controller/Group/Delete.php:82
+msgid "The group has been deleted."
+msgstr "群组已被删除"
+
+#: /src/App/Groups/Table/GroupsTable.php:99
+msgid "A title is required"
+msgstr "必须键入标题"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
-"PO-Revision-Date: 2014-05-28 18:51+0000\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-22 06:26+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -62,9 +62,41 @@ msgstr "Rendszer"
 msgid "Configuration"
 msgstr "Konfiguráció"
 
+#: /templates/trackerMenu.twig:83
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:89
+msgid "Logs"
+msgstr "Naplók"
+
+#: /templates/trackerMenu.twig:102
+msgid "Cron Jobs"
+msgstr "Cron feladatok"
+
 #: /templates/trackerMenu.twig:107
 msgid "Database"
 msgstr "Adatbázis"
+
+#: /templates/trackerMenu.twig:113
+msgid "GitHub Issues"
+msgstr "GitHub-problémák"
+
+#: /templates/trackerMenu.twig:119
+msgid "GitHub Comments"
+msgstr "GitHub-megjegyzések"
+
+#: /templates/trackerMenu.twig:125
+msgid "GitHub Pulls"
+msgstr "GitHub-szavazások"
+
+#: /templates/trackerMenu.twig:129
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:132 /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Hiba"
 
 #: /templates/trackerMenu.twig:139
 msgid "Icons"
@@ -85,6 +117,14 @@ msgstr "Gyorsítótár törlése"
 #: /templates/trackerMenu.twig:179
 msgid "About Us"
 msgstr "Rólunk"
+
+#: /templates/trackerMenu.twig:184
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:189 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Dokumentáció"
 
 #: /templates/trackerMenu.twig:206
 msgid "Admin"
@@ -207,10 +247,6 @@ msgstr "Indítás"
 #: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
 msgid "Cancel"
 msgstr "Mégse"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Hiba"
 
 #: /templates/index.twig:47
 msgid "Download"
@@ -347,10 +383,6 @@ msgstr "Fejlesztők:"
 #: /templates/topMenu.twig:71
 msgid "Developer Site"
 msgstr "Fejlesztői webhely"
-
-#: /templates/topMenu.twig:72
-msgid "Documentation"
-msgstr "Dokumentáció"
 
 #: /templates/topMenu.twig:73
 msgid "Joomla! Bug Squad"

@@ -72,6 +72,7 @@ class TrackerExtension extends \Twig_Extension
 								? $application->getUser()->params->get('language')
 								: g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
+			'useCDN'         => $application->get('system.use_cdn'),
 		);
 	}
 
@@ -92,7 +93,8 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
-			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
+			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
+			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
 			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
@@ -268,6 +270,59 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $statuses[$id];
+	}
+
+	/**
+	 * Get a text list of statuses.
+	 *
+	 * @param   int  $state  The state of issue: 0 - open, 1 - closed.
+	 *
+	 * @return  array  The list of statuses.
+	 *
+	 * @since   1.0
+	 */
+	public function getStatuses($state = null)
+	{
+		switch ((string) $state)
+		{
+			case '0':
+				$statuses = [
+					2 => g11n3t('Confirmed'),
+					3 => g11n3t('Pending'),
+					4 => g11n3t('Ready To Commit'),
+					6 => g11n3t('Needs Review'),
+					7 => g11n3t('Information Required')
+				];
+				break;
+
+			case '1':
+				$statuses = [
+					5 => g11n3t('Fixed in Code Base'),
+					8 => g11n3t('Unconfirmed Report'),
+					9 => g11n3t('No Reply'),
+					11 => g11n3t('Expected Behaviour'),
+					12 => g11n3t('Known Issue')
+				];
+				break;
+
+			default:
+				$statuses = [
+					1 => g11n3t('Open'),
+					2 => g11n3t('Confirmed'),
+					3 => g11n3t('Pending'),
+					4 => g11n3t('Ready To Commit'),
+					6 => g11n3t('Needs Review'),
+					7 => g11n3t('Information Required'),
+					5 => g11n3t('Fixed in Code Base'),
+					8 => g11n3t('Unconfirmed Report'),
+					9 => g11n3t('No Reply'),
+					10 => g11n3t('Closed'),
+					11 => g11n3t('Expected Behaviour'),
+					12 => g11n3t('Known Issue')
+				];
+		}
+
+		return $statuses;
 	}
 
 	/**

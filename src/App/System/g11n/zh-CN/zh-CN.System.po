@@ -1,0 +1,35 @@
+# JTracker App System 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Zehan Zhao <cnallenzhao@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-20 10:17+0000\n"
+"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr "路由"
+
+#: /templates/system/config.index.twig:6
+msgid "Configuration"
+msgstr "配置"
+
+#: /templates/system/config.index.twig:20
+msgid "Save"
+msgstr "保存"
+
+#: /templates/system/config.index.twig:45
+msgid "Edit Configuration"
+msgstr "编辑配置项"

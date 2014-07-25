@@ -1,0 +1,128 @@
+# JTracker Core JTracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Rivo Zängov <eraser@eraser.ee>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-21 22:23+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et_EE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /src/JTracker/Pagination/TrackerPagination.php:221
+#: /src/JTracker/Pagination/TrackerPagination.php:226
+msgid "Next"
+msgstr "Järgmine"
+
+#: /src/JTracker/Pagination/TrackerPagination.php:222
+#: /src/JTracker/Pagination/TrackerPagination.php:227
+msgid "Last"
+msgstr "Viimane"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:215
+msgid "Critical"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:216
+msgid "Urgent"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:217
+msgid "Medium"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:218
+msgid "Low"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:219
+msgid "Very low"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:289
+#: /src/JTracker/View/Renderer/TrackerExtension.php:310
+msgid "Confirmed"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:290
+#: /src/JTracker/View/Renderer/TrackerExtension.php:311
+#: /src/JTracker/View/Renderer/TrackerExtension.php:519
+msgid "Pending"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:291
+#: /src/JTracker/View/Renderer/TrackerExtension.php:312
+msgid "Ready To Commit"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:292
+#: /src/JTracker/View/Renderer/TrackerExtension.php:313
+msgid "Needs Review"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:293
+#: /src/JTracker/View/Renderer/TrackerExtension.php:314
+msgid "Information Required"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:299
+#: /src/JTracker/View/Renderer/TrackerExtension.php:315
+msgid "Fixed in Code Base"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:300
+#: /src/JTracker/View/Renderer/TrackerExtension.php:316
+msgid "Unconfirmed Report"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:301
+#: /src/JTracker/View/Renderer/TrackerExtension.php:317
+msgid "No Reply"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:302
+#: /src/JTracker/View/Renderer/TrackerExtension.php:319
+msgid "Expected Behaviour"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:303
+#: /src/JTracker/View/Renderer/TrackerExtension.php:320
+msgid "Known Issue"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:309
+msgid "Open"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+msgid "Closed"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:456
+msgid "No"
+msgstr "Ei"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:456
+msgid "Yes"
+msgstr "Jah"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:516
+msgid "Success"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:522
+msgid "Error"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:525
+msgid "Failure"
+msgstr ""

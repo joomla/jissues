@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
-"PO-Revision-Date: 2014-06-01 12:45+0000\n"
+"POT-Creation-Date: 2014-07-21 18:22-0400\n"
+"PO-Revision-Date: 2014-07-22 06:30+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -18,80 +18,39 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/tracker/tracker.filters.twig:8
-#: /templates/tracker/tracker.filters.twig:17
-msgid "- Status -"
-msgstr "- Állapot -"
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- status -"
+msgstr "- állapot -"
 
-#: /templates/tracker/tracker.filters.twig:8
-msgid "Closed - No Reply"
-msgstr "Lezárva - Nincs válasz"
-
-#: /templates/tracker/tracker.filters.twig:8
-msgid "Closed - Unconfirmed Report"
-msgstr "Lezárva - Megerősítetlen bejelentés"
-
-#: /templates/tracker/tracker.filters.twig:8
-msgid "Expected Behaviour"
-msgstr "Elvárt működés"
-
-#: /templates/tracker/tracker.filters.twig:8
-msgid "Fixed in Code Base"
-msgstr "Kódbázisban javítva"
-
-#: /templates/tracker/tracker.filters.twig:8
-msgid "Known Issue"
-msgstr "Ismert probléma"
-
-#: /templates/tracker/tracker.filters.twig:17
-msgid "Confirmed"
-msgstr "Megerősítve"
-
-#: /templates/tracker/tracker.filters.twig:17
-msgid "Information Required"
-msgstr "Információ szükséges"
-
-#: /templates/tracker/tracker.filters.twig:17
-msgid "Needs Review"
-msgstr "Ellenőrizendő"
-
-#: /templates/tracker/tracker.filters.twig:17
-msgid "Pending"
-msgstr "Függőben"
-
-#: /templates/tracker/tracker.filters.twig:17
-msgid "Ready To Commit"
-msgstr "Véglegesítésre kész"
-
-#: /templates/tracker/tracker.filters.twig:33
+#: /templates/tracker/tracker.filters.twig:16
 msgid "- priority -"
 msgstr "- prioritás -"
 
-#: /templates/tracker/tracker.filters.twig:41
+#: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
 msgstr "Legrégebben frissített"
 
-#: /templates/tracker/tracker.filters.twig:41
+#: /templates/tracker/tracker.filters.twig:25
 msgid "Newest"
 msgstr "Legújabb"
 
-#: /templates/tracker/tracker.filters.twig:41
+#: /templates/tracker/tracker.filters.twig:25
 msgid "Oldest"
 msgstr "Legrégebbi"
 
-#: /templates/tracker/tracker.filters.twig:41
+#: /templates/tracker/tracker.filters.twig:25
 msgid "Recently updated"
 msgstr "Legutóbb frissített"
 
-#: /templates/tracker/tracker.filters.twig:54
+#: /templates/tracker/tracker.filters.twig:38
 msgid "Created by you"
 msgstr "Általam létrehozottak"
 
-#: /templates/tracker/tracker.filters.twig:54
+#: /templates/tracker/tracker.filters.twig:38
 msgid "Everyone's issues"
 msgstr "Mindenki problémái"
 
-#: /templates/tracker/tracker.filters.twig:54
+#: /templates/tracker/tracker.filters.twig:38
 msgid "You participated in"
 msgstr "Melyekben részt veszek"
 
@@ -117,9 +76,9 @@ msgid "Pro"
 msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:45
-#: /templates/tracker/issues.index.twig:101
+#: /templates/tracker/issues.index.twig:114
 #: /templates/tracker/issue.index.twig:67
-#: /templates/tracker/issue.edit.twig:76
+#: /templates/tracker/issue.edit.twig:73
 msgid "Priority"
 msgstr "Prioritás"
 
@@ -132,7 +91,7 @@ msgid ""
 msgstr "A prioritás, amikor meg kell oldani ezt a problémát. A részletes tájékoztatót a projekt prioritásairól lásd a <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Hibakövetési folyamat</a> lapon."
 
 #: /templates/tracker/issue.add.twig:53 /templates/tracker/issue.index.twig:74
-#: /templates/tracker/issue.edit.twig:102
+#: /templates/tracker/issue.edit.twig:99
 msgid "Build"
 msgstr "Build"
 
@@ -147,7 +106,7 @@ msgid ""
 "validity of it and act accordingly."
 msgstr "Egy hibának a Joomla! hibakövetőkben való bejelentéséhez létre kell hoznod egy hibakövető elemet. Amint létrehozásra kerül a hibakövető elem, a fejlesztők ellenőrzik annak érvényességét, és ennek megfelelően járnak el."
 
-#: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:127
+#: /templates/tracker/issue.add.twig:66 /templates/tracker/issue.edit.twig:116
 msgid "Title"
 msgstr "Cím"
 
@@ -178,85 +137,105 @@ msgstr "Ez a legfontosabb része a hiba bejelentésének. Itt ismertesd lépésr
 msgid "Issues List"
 msgstr "Problémák"
 
-#: /templates/tracker/issues.index.twig:36
+#: /templates/tracker/issues.index.twig:38
 msgid "Open"
 msgstr "Nyitott"
 
-#: /templates/tracker/issues.index.twig:39
+#: /templates/tracker/issues.index.twig:43
 msgid "Closed"
 msgstr "Lezárt"
 
-#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:48
 msgid "Search tools"
 msgstr "Keresési eszközök"
 
-#: /templates/tracker/issues.index.twig:48
+#: /templates/tracker/issues.index.twig:53
 msgid "Feeling Lucky"
 msgstr "Jó napom van"
 
-#: /templates/tracker/issues.index.twig:63
+#: /templates/tracker/issues.index.twig:68
 msgid "Filter the list by summary or description."
 msgstr "A listát összegzés vagy leírás alapján szűrheted."
 
-#: /templates/tracker/issues.index.twig:66
-#: /templates/tracker/issues.index.twig:67
+#: /templates/tracker/issues.index.twig:71
+#: /templates/tracker/issues.index.twig:72
 msgid "Filter the list by ID, summary, or description."
 msgstr "A listát AZ, összegzés vagy leírás alapján szűrheted."
 
-#: /templates/tracker/issues.index.twig:68
+#: /templates/tracker/issues.index.twig:73
 msgid "Submit search"
 msgstr "A keresés indítása"
 
-#: /templates/tracker/issues.index.twig:74
+#: /templates/tracker/issues.index.twig:78
 msgid "Clear search"
 msgstr "A keresés törlése"
 
-#: /templates/tracker/issues.index.twig:99
+#: /templates/tracker/issues.index.twig:112
 msgid "ID"
 msgstr "AZ"
 
-#: /templates/tracker/issues.index.twig:100
+#: /templates/tracker/issues.index.twig:113
 msgid "Summary"
 msgstr "Összegzés"
 
-#: /templates/tracker/issues.index.twig:102
+#: /templates/tracker/issues.index.twig:115
 #: /templates/tracker/issue.edit.twig:65
 msgid "Status"
 msgstr "Állapot"
 
-#: /templates/tracker/issues.index.twig:146
+#: /templates/tracker/issues.index.twig:120
+msgid "Loading, please wait..."
+msgstr "Betöltés, kis türelmet..."
+
+#: /templates/tracker/issues.index.twig:188
 msgid "GitHub ID"
 msgstr "GitHub AZ"
 
-#: /templates/tracker/issues.index.twig:154
+#: /templates/tracker/issues.index.twig:196
 #: /templates/tracker/issue.index.twig:120
 #: /templates/tracker/issue.edit.twig:50
 msgid "Foreign ID"
 msgstr "Külső AZ"
 
-#: /templates/tracker/issues.index.twig:162
-#, php-format
-msgid "Opened %s"
-msgstr "Érkezett: %s"
+#: /templates/tracker/issues.index.twig:204
+msgid "Opened "
+msgstr "Nyitva"
 
-#: /templates/tracker/issues.index.twig:166
-#, php-format
-msgid "Closed %s"
-msgstr "Lezárva: %s"
+#: /templates/tracker/issues.index.twig:208
+msgid "Closed "
+msgstr "Lezárva"
 
-#: /templates/tracker/issues.index.twig:170
-#, php-format
-msgid "Modified %s"
-msgstr "Módosítva: %s"
+#: /templates/tracker/issues.index.twig:212
+msgid "Modified "
+msgstr "Módosítva"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:217
+msgid "Critical"
+msgstr "Kritikus"
+
+#: /templates/tracker/issues.index.twig:217
+msgid "Urgent"
+msgstr "Sürgős"
+
+#: /templates/tracker/issues.index.twig:217
+msgid "Medium"
+msgstr "Átlagos"
+
+#: /templates/tracker/issues.index.twig:217
+msgid "Low"
+msgstr "Alacsony"
+
+#: /templates/tracker/issues.index.twig:217
+msgid "Very low"
+msgstr "Nagyon alacsony"
+
+#: /templates/tracker/issues.index.twig:224
+msgid "GitHub merge status"
+msgstr "GitHub egyesítési állapot"
+
+#: /templates/tracker/issues.index.twig:234
 msgid "No items found."
 msgstr "Nem találhatók elemek."
-
-#: /templates/tracker/issues.index.twig:195
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "%1$s. oldal / %2$s"
 
 #: /templates/tracker/issue.index.twig:30
 msgid "That issue does not exist, or the ID you typed is incorrect."
@@ -274,51 +253,84 @@ msgstr "Könnyű teszt"
 msgid "# of Successful Tests"
 msgstr "Sikeres tesztek #"
 
-#: /templates/tracker/issue.index.twig:138
+#: /templates/tracker/issue.index.twig:139
+msgid "Details"
+msgstr "Részletek"
+
+#: /templates/tracker/issue.index.twig:150
+msgid "Tests:"
+msgstr "Tesztek:"
+
+#: /templates/tracker/issue.index.twig:153
+#, php-format
+msgid "%d successfull and %d unsuccessfull tests."
+msgstr "%d sikeres és %d sikertelen teszt."
+
+#: /templates/tracker/issue.index.twig:174
 msgid "Referenced as"
 msgstr "Hivatkozva mint"
 
-#: /templates/tracker/issue.index.twig:165
+#: /templates/tracker/issue.index.twig:201
 msgid "# of Users Experiencing Issue"
 msgstr "A problémával találkozott felhasználók #"
 
-#: /templates/tracker/issue.index.twig:169
+#: /templates/tracker/issue.index.twig:205
 msgid "Average Importance Score"
 msgstr "Átlagos fontossági pontszám"
 
-#: /templates/tracker/issue.index.twig:177
+#: /templates/tracker/issue.index.twig:213
 msgid "I've experienced this issue"
 msgstr "Találkoztam ezzel a problémával"
 
-#: /templates/tracker/issue.index.twig:180
+#: /templates/tracker/issue.index.twig:216
 msgid "Yes"
 msgstr "Igen"
 
-#: /templates/tracker/issue.index.twig:184
+#: /templates/tracker/issue.index.twig:220
 msgid "No"
 msgstr "Nem"
 
-#: /templates/tracker/issue.index.twig:189
+#: /templates/tracker/issue.index.twig:225
 msgid "Importance of issue to me"
 msgstr "A probléma fontossága a számomra"
 
-#: /templates/tracker/issue.index.twig:213
+#: /templates/tracker/issue.index.twig:249
 msgid "Vote"
 msgstr "Értékelés"
 
-#: /templates/tracker/issue.index.twig:280
+#: /templates/tracker/issue.index.twig:258
+msgid "I've tested this item"
+msgstr "Én teszteltem ezt az elemet"
+
+#: /templates/tracker/issue.index.twig:263
+msgid "Not tested"
+msgstr "Nincs tesztelve"
+
+#: /templates/tracker/issue.index.twig:269
+msgid "Tested successfully"
+msgstr "Sikeresen tesztelve"
+
+#: /templates/tracker/issue.index.twig:275
+msgid "Tested unsuccessfully"
+msgstr "Sikertelenül tesztelve"
+
+#: /templates/tracker/issue.index.twig:281
+msgid "Submit test result"
+msgstr "Teszteredmény küldése"
+
+#: /templates/tracker/issue.index.twig:348
 msgid "Add a Comment"
 msgstr "Megjegyzés hozzáadása"
 
-#: /templates/tracker/issue.index.twig:291
+#: /templates/tracker/issue.index.twig:359
 msgid "Leave a comment"
 msgstr "Megjegyzés hagyása"
 
-#: /templates/tracker/issue.index.twig:299
+#: /templates/tracker/issue.index.twig:367
 msgid "Post Comment"
 msgstr "Megjegyzés beküldése"
 
-#: /templates/tracker/issue.index.twig:312
+#: /templates/tracker/issue.index.twig:380
 msgid "Login with GitHub to post a comment"
 msgstr "Belépés GitHub-fiókkal a megjegyzéshez"
 
@@ -330,30 +342,26 @@ msgstr "Mentés"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: /templates/tracker/issue.edit.twig:85
+#: /templates/tracker/issue.edit.twig:82
 msgid "Item"
 msgstr "Elem"
 
-#: /templates/tracker/issue.edit.twig:106
-msgid "Successful tests"
-msgstr "Sikeres tesztek"
-
-#: /templates/tracker/issue.edit.twig:114
+#: /templates/tracker/issue.edit.twig:103
 msgid "Easy test"
 msgstr "Könnyű teszt"
 
-#: /src/App/Tracker/Table/IssuesTable.php:159
+#: /src/App/Tracker/Table/IssuesTable.php:161
 msgid "A title is required."
 msgstr "A cím megadása kötelező."
 
-#: /src/App/Tracker/Table/IssuesTable.php:163
+#: /src/App/Tracker/Table/IssuesTable.php:165
 msgid "The title max length is 255 chars."
 msgstr "A cím maximális hossza 255 karakter."
 
-#: /src/App/Tracker/Table/IssuesTable.php:168
+#: /src/App/Tracker/Table/IssuesTable.php:170
 msgid "A build is required."
 msgstr "A build megadása kötelező."
 
-#: /src/App/Tracker/Table/IssuesTable.php:172
+#: /src/App/Tracker/Table/IssuesTable.php:174
 msgid "A build max length is 40 chars."
 msgstr "A build maximális hossza 40 karakter."

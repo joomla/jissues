@@ -1,0 +1,458 @@
+# JTracker CLI cli 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Roland Dalmulder <contact@rolandd.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-22 07:00+0000\n"
+"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /cli/Application/Application.php:130
+msgid "Be quiet - suppress output."
+msgstr "Wees stil - onderdrukken uitvoer."
+
+#: /cli/Application/Application.php:135
+msgid "Verbose output for debugging purpose."
+msgstr "Uitgebreide uitvoer voor onderzoek doeleinden."
+
+#: /cli/Application/Application.php:140
+msgid "Suppress ANSI colors on unsupported terminals."
+msgstr "Onderdruk ANSI kleuren op niet ondersteunde werkstations."
+
+#: /cli/Application/Application.php:145
+msgid "Optionally log output to the specified log file."
+msgstr "Optioneel: registreer uitvoer naar een opgegeven log bestand."
+
+#: /cli/Application/Application.php:191
+msgid "Joomla! Tracker CLI Application"
+msgstr "Joomla! Tracker CLI Applicatie"
+
+#: /cli/Application/Application.php:218
+#, php-format
+msgid "Invalid command: %s"
+msgstr "Ongeldig commando: %s"
+
+#: /cli/Application/Application.php:225
+msgid "Did you mean one of this?"
+msgstr "Bedoelde u een van deze?"
+
+#: /cli/Application/Application.php:254
+msgid "Process aborted."
+msgstr "Proces afgebroken."
+
+#: /cli/Application/Application.php:261
+#, php-format
+msgid "Execution time: <b>%d sec.</b>"
+msgstr "Uitvoer tijd: <b>%d sec.</b>"
+
+#: /cli/Application/Command/Get/Avatars.php:29
+msgid "Retrieve avatar images from GitHub."
+msgstr "Haal avatar afbeeldingen van GitHub."
+
+#: /cli/Application/Command/Get/Avatars.php:50
+msgid "Retrieve Avatars"
+msgstr "Ophalen Avatars"
+
+#: /cli/Application/Command/Get/Avatars.php:52
+msgid "Start retrieving Avatars."
+msgstr "Begin ophalen avatars."
+
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Transifex.php:60
+msgid "Finished."
+msgstr "Voltooid."
+
+#: /cli/Application/Command/Get/Avatars.php:81
+msgid "No users found in database."
+msgstr "Geen gebruikers gevonden in de database."
+
+#: /cli/Application/Command/Get/Avatars.php:87
+#, php-format
+msgid "Processing avatars for one user."
+msgid_plural "Processing avatars for %d users."
+msgstr[0] "Verwerken avatars voor één gebruiker."
+msgstr[1] "Verwerken avatars voor %d gebruikers."
+
+#: /cli/Application/Command/Get/Avatars.php:113
+#, php-format
+msgid "User avatar already fetched for user %s"
+msgstr "Gebruikers avatar voor gebruiker %s al opgehaald"
+
+#: /cli/Application/Command/Get/Avatars.php:122
+#, php-format
+msgid "Fetching avatar for user: %s"
+msgstr "Ophalen avatar voor gebruiker: %s"
+
+#: /cli/Application/Command/Get/Avatars.php:134
+#, php-format
+msgid "Copy default image for user: %s"
+msgstr "Kopieer standaard afbeelding voor gebruiker: %s"
+
+#: /cli/Application/Command/Get/Avatars.php:148
+#, php-format
+msgid "Added %d new user avatars"
+msgstr "Toegevoegd %d nieuwe gebruiker avatars"
+
+#: /cli/Application/Command/Get/Composertags.php:27
+msgid ""
+"Retrieve a list of project tags from GitHub and show their installed "
+"versions."
+msgstr "Ophalen van een lijst met project tags van GitHub en toon de geïnstalleerde versies."
+
+#: /cli/Application/Command/Get/Composertags.php:33
+msgid "Show all tags or only the most recent."
+msgstr "Toon alle tags of alleen de meest recente."
+
+#: /cli/Application/Command/Get/Composertags.php:48
+msgid "Retrieve composer tags"
+msgstr "Ophalen composer tags"
+
+#: /cli/Application/Command/Get/Composertags.php:56
+#, php-format
+msgid "Can not read the packages file at %s"
+msgstr "Kan pakket bestand op %s niet lezen"
+
+#: /cli/Application/Command/Get/Composertags.php:59
+msgid "Start getting composer tags."
+msgstr "Begin ophalen composer tags."
+
+#: /cli/Application/Command/Get/Composertags.php:101
+msgid "Installed"
+msgstr "Geïnstalleerd"
+
+#: /cli/Application/Command/Get/Composertags.php:118
+#, php-format
+msgid "Installed: %s"
+msgstr "Geinstalleerd: %s"
+
+#: /cli/Application/Command/Get/Get.php:66
+msgid "Retrieve Information from various sources."
+msgstr "Ophalen informatie van verschillende bronnen."
+
+#: /cli/Application/Command/Get/Get.php:72
+msgid "Process the project with the given ID."
+msgstr "Verwerk het project met het opgegeven ID."
+
+#: /cli/Application/Command/Get/Get.php:78
+msgid "Don't use a progress bar."
+msgstr "Toon geen voortgangsbalk."
+
+#: /cli/Application/Command/Get/Project.php:68
+msgid ""
+"Get the whole project info from GitHub, including issues and issue comments."
+msgstr "Haal alle project informatie van GitHub, inclusief problemen en reacties."
+
+#: /cli/Application/Command/Get/Project.php:74
+#: /cli/Application/Command/Get/Project/Events.php:52
+msgid "Process all issues."
+msgstr "Verwerk alle problemen."
+
+#: /cli/Application/Command/Get/Project.php:80
+#: /cli/Application/Command/Get/Project/Events.php:47
+msgid "<n> Process only a single issue."
+msgstr "<n> Verwerk alleen een enkel probleem."
+
+#: /cli/Application/Command/Get/Project.php:86
+msgid "<n> First issue to process."
+msgstr "<n> Eerste problem om te verwerken."
+
+#: /cli/Application/Command/Get/Project.php:92
+msgid "<n> Last issue to process."
+msgstr "<n> Laatste probleem om te verwerken."
+
+#: /cli/Application/Command/Get/Project.php:98
+msgid "Force an update even if the issue has not changed."
+msgstr "Forceer een update zelfs als het probleem niet gewijzigd is."
+
+#: /cli/Application/Command/Get/Project.php:112
+msgid "Retrieve Project"
+msgstr "Ophalen project"
+
+#: /cli/Application/Command/Get/Project.php:114
+msgid "Bulk Start retrieve Project"
+msgstr "Begin batch verwerking ophalen project"
+
+#: /cli/Application/Command/Get/Project.php:125
+#, php-format
+msgid "Updating project info for project: %s/%s"
+msgstr "Bijwerken project informatie voor project: %s/%s"
+
+#: /cli/Application/Command/Get/Project.php:137
+msgid "Bulk Finished"
+msgstr "Batch verwerking voltooid"
+
+#: /cli/Application/Command/Get/Project.php:310
+msgid "GitHub issues to process?"
+msgstr "GitHub problemen om te verwerken?"
+
+#: /cli/Application/Command/Get/Project.php:312
+msgid "All"
+msgstr "Alle"
+
+#: /cli/Application/Command/Get/Project.php:313
+msgid "Range"
+msgstr "Bereik"
+
+#: /cli/Application/Command/Get/Project.php:314
+msgid "Select: "
+msgstr "Selecteer:"
+
+#: /cli/Application/Command/Get/Project.php:321
+msgid "Enter the first GitHub issue ID to process (from):"
+msgstr "Voer het eerste GitHub probleem ID in om te verwerken (vanaf):"
+
+#: /cli/Application/Command/Get/Project.php:325
+msgid "Enter the latest GitHub issue ID to process (to):"
+msgstr "Voer het laatste GitHub issue ID in om te verwerken (tot):"
+
+#: /cli/Application/Command/Get/Project/Comments.php:41
+msgid "Retrieve comments from GitHub."
+msgstr "Ophalen reacties van GitHub."
+
+#: /cli/Application/Command/Get/Project/Comments.php:53
+msgid "Retrieve Comments"
+msgstr "Ophalen reacties"
+
+#: /cli/Application/Command/Get/Project/Comments.php:55
+msgid "Start retrieve Comments"
+msgstr "Begin ophalen opmerkingen"
+
+#: /cli/Application/Command/Get/Project/Comments.php:97
+#, php-format
+msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
+msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
+msgstr[0] "Ophalen reacties voor <b>één</b> gewijzigd probleem vanaf GitHub..."
+msgstr[1] "Ophalen reacties voor <b>%d</b> gewijzigde problemen vanaf GitHub..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:167
+#: /cli/Application/Command/Get/Project/Events.php:180
+msgid "Everything is up to date."
+msgstr "Alles is bijgewerkt."
+
+#: /cli/Application/Command/Get/Project/Comments.php:181
+#, php-format
+msgid "Processing comments for one modified issue..."
+msgid_plural "Processing comments for %d modified issues..."
+msgstr[0] "Verwerken reacties voor één gewijzigd probleem..."
+msgstr[1] "Verwerken reacties voor %d gewijzigde problemen..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:204
+#, php-format
+msgid "No comments for issue # %d"
+msgstr "Geen reacties voor probleem nummer %d"
+
+#: /cli/Application/Command/Get/Project/Comments.php:213
+#, php-format
+msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
+msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
+msgstr[0] "Verwerken één reactie voor probleem nummer %2$d (%3$d/%4$d)"
+msgstr[1] "Verwerken %1$d reacties voor probleem nummer %2$d (%3$d/%4$d)"
+
+#: /cli/Application/Command/Get/Project/Comments.php:310
+#, php-format
+msgid "%1$d added %2$d updated."
+msgstr "%1$d toegevoegd %2$d bijgewerkt."
+
+#: /cli/Application/Command/Get/Project/Events.php:66
+msgid "Retrieve Events"
+msgstr "Ophalen nieuws"
+
+#: /cli/Application/Command/Get/Project/Events.php:68
+msgid "Start retrieve Events"
+msgstr "Begin ophalen nieuws"
+
+#: /cli/Application/Command/Get/Project/Events.php:110
+#, php-format
+msgid "Fetch events for one issue from GitHub..."
+msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
+msgstr[0] "Ophalen nieuws voor één probleem vanaf GitHub..."
+msgstr[1] "Ophalen nieuws voor <b>%d</b> problemen vanaf GitHub..."
+
+#: /cli/Application/Command/Get/Project/Events.php:190
+msgid "Adding events to the database..."
+msgstr "Toevoegen nieuws in de database..."
+
+#: /cli/Application/Command/Get/Project/Events.php:321
+#, php-format
+msgid "Added %d new issue events to the database"
+msgstr "Toegevoegd %d nieuw probleem nieuws in de database"
+
+#: /cli/Application/Command/Get/Project/Issues.php:55
+msgid "Retrieve issues from GitHub."
+msgstr "Ophalen problemen vanaf GitHub."
+
+#: /cli/Application/Command/Get/Project/Labels.php:31
+msgid "Retrieve project labels from GitHub."
+msgstr "Ophalen project labels vanaf GitHub."
+
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
+msgstr "Begin ophalen labels"
+
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Voltooid"
+
+#: /cli/Application/Command/Get/Project/Labels.php:62
+msgid "Fetching labels..."
+msgstr "Ophalen labels..."
+
+#: /cli/Application/Command/Get/Project/Labels.php:141
+#, php-format
+msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Labels: %1$d nieuw, %2$d bijgewerkt, %3$d verwijderd."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:33
+msgid "Retrieve project milestones from GitHub."
+msgstr "Ophalen project mijlpalen vanaf GitHub."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:45
+msgid "Retrieve Milestones"
+msgstr "Ophalen mijlpalen"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:47
+msgid "Start retrieving Milestones"
+msgstr "Begin ophalen mijlpalen"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:64
+msgid "Fetching milestones..."
+msgstr "Ophalen mijlpalen..."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:151
+#, php-format
+msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Mijlpalen: %1$d nieuw, %2$d bijgewerkt, %3$d verwijderd."
+
+#: /cli/Application/Command/Get/Transifex.php:37
+msgid "Retrieve language files from Transifex."
+msgstr "Ophalen taal bestanden vanaf Transifex."
+
+#: /cli/Application/Command/Get/Transifex.php:49
+msgid "Get Translations"
+msgstr "Ophalen vertalingen"
+
+#: /cli/Application/Command/Get/Transifex.php:56
+msgid "Start fetching translations."
+msgstr "Begin ophalen vertalingen."
+
+#: /cli/Application/Command/Install/Install.php:37
+msgid "Install the application."
+msgstr "Installeer de applicatie."
+
+#: /cli/Application/Command/Install/Install.php:42
+msgid "Reinstall the application (without confirmation)"
+msgstr "Herinstalleren van applicatie (zonder bevestiging)"
+
+#: /cli/Application/Command/Install/Install.php:59
+msgid "Installer"
+msgstr "Installeren"
+
+#: /cli/Application/Command/Install/Install.php:71
+msgid "WARNING: A database has been found !!"
+msgstr "WAARSCHUWING: Er is een database gevonden !!"
+
+#: /cli/Application/Command/Install/Install.php:73
+msgid "Do you want to reinstall ?"
+msgstr "Weet u zeker dat u wilt herinstalleren?"
+
+#: /cli/Application/Command/Install/Install.php:75
+msgid "Yes"
+msgstr "Ja"
+
+#: /cli/Application/Command/Install/Install.php:76
+msgid "No"
+msgstr "Nee"
+
+#: /cli/Application/Command/Install/Install.php:78
+msgid "Select:"
+msgstr "Selecteer:"
+
+#: /cli/Application/Command/Install/Install.php:98
+msgid "No database found."
+msgstr "Geen database gevonden."
+
+#: /cli/Application/Command/Install/Install.php:99
+msgid "Creating the database..."
+msgstr "Aanmaken van de database..."
+
+#: /cli/Application/Command/Install/Install.php:118
+msgid "Installation has terminated successfully."
+msgstr "Installatie is succesvol afgerond."
+
+#: /cli/Application/Command/Install/Install.php:132
+msgid "Removing existing tables..."
+msgstr "Verwijderen bestaande tabellen..."
+
+#: /cli/Application/Command/Install/Install.php:179
+#, php-format
+msgid "Install SQL file for %s not found."
+msgstr "Installatie SQL bestand voor %s niet gevonden."
+
+#: /cli/Application/Command/Install/Install.php:186
+msgid "SQL file corrupted."
+msgstr "SQL bestand is beschadigd."
+
+#: /cli/Application/Command/Install/Install.php:189
+#, php-format
+msgid "Creating tables from file %s"
+msgstr "Aanmaken tabellen vanuit bestand %s"
+
+#: /cli/Application/Command/TrackerCommand.php:178
+#, php-format
+msgid "Command: %s"
+msgstr "Commando: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:181
+msgid "Please use one of the following :"
+msgstr "Gebruik een van de volgende:"
+
+#: /cli/Application/Command/TrackerCommand.php:295
+msgid "Available projects:"
+msgstr "Beschikbare projecten:"
+
+#: /cli/Application/Command/TrackerCommand.php:313
+msgid "Select a project:"
+msgstr "Selecteer een project:"
+
+#: /cli/Application/Command/TrackerCommand.php:319
+msgid "Aborted"
+msgstr "Afgebroken"
+
+#: /cli/Application/Command/TrackerCommand.php:324
+#: /cli/Application/Command/TrackerCommand.php:343
+msgid "Invalid project"
+msgstr "Ongeldig proejct"
+
+#: /cli/Application/Command/TrackerCommand.php:347
+#, php-format
+msgid "Processing project: %s"
+msgstr "Verwerken project: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:378
+#: /cli/Application/Command/TrackerCommand.php:380
+msgid "An unknown error occurred"
+msgstr "Er is een onbekende fout opgetreden"
+
+#: /cli/tracker.php:47
+#, php-format
+msgid "ERROR: %s"
+msgstr "FOUT: %s"
+
+#: /cli/tracker.php:49
+msgid "Call stack:"
+msgstr "Aanroepstack:"

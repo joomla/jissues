@@ -17,6 +17,7 @@ use Application\Command\Get\Project;
 use Joomla\Date\Date;
 
 use JTracker\Github\DataType\Commit\Status;
+use JTracker\Github\GithubFactory;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -26,16 +27,44 @@ use JTracker\Github\DataType\Commit\Status;
 class Issues extends Project
 {
 	/**
-	 * The command "description" used for help texts.
+	 * List of changed issue numbers.
 	 *
-	 * @var    string
+	 * @var array
+	 *
 	 * @since  1.0
 	 */
-	protected $description = 'Retrieve issues from GitHub.';
-
 	protected $changedIssueNumbers = array();
 
+	/**
+	 * List of issues.
+	 *
+	 * @var array
+	 *
+	 * @since  1.0
+	 */
 	protected $issues = array();
+
+	/**
+	 * Github object as a bot account
+	 *
+	 * @var    \JTracker\Github\Github
+	 * @since  1.0
+	 */
+	protected $githubBot;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		// This class has actions that depend on a bot account, fetch a Github instance as a bot
+		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
+		$this->description = g11n3t('Retrieve issues from GitHub.');
+	}
 
 	/**
 	 * Execute the command.
@@ -259,8 +288,7 @@ class Issues extends Project
 					$status->description = 'JTracker Bug Squad working on it...';
 					$status->context = 'jtracker';
 
-					// @todo this must be done by a bot account.
-					// @$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
+					$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
 				}
 				else
 				{
@@ -423,7 +451,7 @@ class Issues extends Project
 	/**
 	 * Get an array of changed issue numbers.
 	 *
-	 * @return array
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
@@ -470,7 +498,7 @@ class Issues extends Project
 	 *
 	 * @param   object  $ghIssue  The issue object.
 	 *
-	 * @return Status
+	 * @return  Status
 	 *
 	 * @since   1.0
 	 */
@@ -505,15 +533,13 @@ class Issues extends Project
 	/**
 	 * Create a GitHub merge status for the last commit in a PR.
 	 *
-	 * NOTE: Not used yet..
-	 *
 	 * @param   object  $ghIssue      The issue object.
 	 * @param   string  $state        The state (pending, success, error or failure).
 	 * @param   string  $targetUrl    Optional target URL.
 	 * @param   string  $description  Optional description for the status.
 	 * @param   string  $context      A string label to differentiate this status from the status of other systems.
 	 *
-	 * @return Status
+	 * @return  Status
 	 *
 	 * @since   1.0
 	 */
@@ -522,13 +548,13 @@ class Issues extends Project
 		// Get the pull request corresponding to an issue.
 		$this->debugOut('Get PR for the issue');
 
-		$pullRequest = $this->github->pulls->get(
+		$pullRequest = $this->githubBot->pulls->get(
 			$this->project->gh_user, $this->project->gh_project, $ghIssue->number
 		);
 
 		$this->debugOut('Create status for PR');
 
-		return $this->github->repositories->statuses->create(
+		return $this->githubBot->repositories->statuses->create(
 			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha,
 			$state, $targetUrl, $description, $context
 		);

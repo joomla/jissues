@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-31 15:50-0500\n"
-"PO-Revision-Date: 2014-05-26 00:00+0000\n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-22 00:26+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -62,9 +62,41 @@ msgstr "Système"
 msgid "Configuration"
 msgstr "Configuration"
 
+#: /templates/trackerMenu.twig:83
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:89
+msgid "Logs"
+msgstr "Logs"
+
+#: /templates/trackerMenu.twig:102
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
 #: /templates/trackerMenu.twig:107
 msgid "Database"
 msgstr "Base de données"
+
+#: /templates/trackerMenu.twig:113
+msgid "GitHub Issues"
+msgstr "Erreurs GitHub"
+
+#: /templates/trackerMenu.twig:119
+msgid "GitHub Comments"
+msgstr "Commentaires GitHub"
+
+#: /templates/trackerMenu.twig:125
+msgid "GitHub Pulls"
+msgstr "Pulls GitHub"
+
+#: /templates/trackerMenu.twig:129
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:132 /templates/uploader.full.twig:74
+msgid "Error"
+msgstr "Erreur"
 
 #: /templates/trackerMenu.twig:139
 msgid "Icons"
@@ -85,6 +117,14 @@ msgstr "Nettoyer le cache"
 #: /templates/trackerMenu.twig:179
 msgid "About Us"
 msgstr "A propos de nous"
+
+#: /templates/trackerMenu.twig:184
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:189 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Documentation"
 
 #: /templates/trackerMenu.twig:206
 msgid "Admin"
@@ -207,10 +247,6 @@ msgstr "Démarrer"
 #: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
 msgid "Cancel"
 msgstr "Annuler"
-
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Erreur"
 
 #: /templates/index.twig:47
 msgid "Download"
@@ -347,10 +383,6 @@ msgstr "Développeurs"
 #: /templates/topMenu.twig:71
 msgid "Developer Site"
 msgstr "Site des Développeurs"
-
-#: /templates/topMenu.twig:72
-msgid "Documentation"
-msgstr "Documentation"
 
 #: /templates/topMenu.twig:73
 msgid "Joomla! Bug Squad"

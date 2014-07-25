@@ -1,0 +1,458 @@
+# JTracker CLI cli 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# József Tamás Herczeg <jtherczeg@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"PO-Revision-Date: 2014-07-21 22:23+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /cli/Application/Application.php:130
+msgid "Be quiet - suppress output."
+msgstr "Hagyd békén - a kimenet mellőzése."
+
+#: /cli/Application/Application.php:135
+msgid "Verbose output for debugging purpose."
+msgstr "Részletes kimenet hibakeresés céljából."
+
+#: /cli/Application/Application.php:140
+msgid "Suppress ANSI colors on unsupported terminals."
+msgstr "Nem támogatott terminálokon az ANSI-színek mellőzése."
+
+#: /cli/Application/Application.php:145
+msgid "Optionally log output to the specified log file."
+msgstr "A kimenet esetleges naplózása a megadott naplófájlba."
+
+#: /cli/Application/Application.php:191
+msgid "Joomla! Tracker CLI Application"
+msgstr "Joomla! problémakövető CLI-alkalmazás"
+
+#: /cli/Application/Application.php:218
+#, php-format
+msgid "Invalid command: %s"
+msgstr "Érvénytelen parancs: %s"
+
+#: /cli/Application/Application.php:225
+msgid "Did you mean one of this?"
+msgstr "Ezek közül az egyikre gondoltál?"
+
+#: /cli/Application/Application.php:254
+msgid "Process aborted."
+msgstr "A feldolgozás megszakadt."
+
+#: /cli/Application/Application.php:261
+#, php-format
+msgid "Execution time: <b>%d sec.</b>"
+msgstr "Végrehajtási idő: <b>%d mp..</b>"
+
+#: /cli/Application/Command/Get/Avatars.php:29
+msgid "Retrieve avatar images from GitHub."
+msgstr "Avatarképek lekérése a GitHub-kódtárból"
+
+#: /cli/Application/Command/Get/Avatars.php:50
+msgid "Retrieve Avatars"
+msgstr "Avatarok lekérése"
+
+#: /cli/Application/Command/Get/Avatars.php:52
+msgid "Start retrieving Avatars."
+msgstr "Az avatarok lekérésének indítása."
+
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Transifex.php:60
+msgid "Finished."
+msgstr "Kész."
+
+#: /cli/Application/Command/Get/Avatars.php:81
+msgid "No users found in database."
+msgstr "Nem találhatók felhasználók az adatbázisban."
+
+#: /cli/Application/Command/Get/Avatars.php:87
+#, php-format
+msgid "Processing avatars for one user."
+msgid_plural "Processing avatars for %d users."
+msgstr[0] "Egy felhasználó avatarjának feldolgozása."
+msgstr[1] "%d felhasználó avatarjának feldolgozása."
+
+#: /cli/Application/Command/Get/Avatars.php:113
+#, php-format
+msgid "User avatar already fetched for user %s"
+msgstr "A/z %s nevű felhasználó avatarja már lehívásra került."
+
+#: /cli/Application/Command/Get/Avatars.php:122
+#, php-format
+msgid "Fetching avatar for user: %s"
+msgstr "A/z %s nevű felhasználó avatarjának lehívása"
+
+#: /cli/Application/Command/Get/Avatars.php:134
+#, php-format
+msgid "Copy default image for user: %s"
+msgstr "A/z %s nevű felhasználó alapértelmezett képének másolása"
+
+#: /cli/Application/Command/Get/Avatars.php:148
+#, php-format
+msgid "Added %d new user avatars"
+msgstr "%d új felhasználói avatar került hozzáadásra"
+
+#: /cli/Application/Command/Get/Composertags.php:27
+msgid ""
+"Retrieve a list of project tags from GitHub and show their installed "
+"versions."
+msgstr "A projektcímkék listájának lekérése a GitHubról, és telepített verzióik megjelenítése."
+
+#: /cli/Application/Command/Get/Composertags.php:33
+msgid "Show all tags or only the most recent."
+msgstr "Az összes vagy csak a legújabb címkék megjelenítése."
+
+#: /cli/Application/Command/Get/Composertags.php:48
+msgid "Retrieve composer tags"
+msgstr "A szerkesztő címkéinek lekérése"
+
+#: /cli/Application/Command/Get/Composertags.php:56
+#, php-format
+msgid "Can not read the packages file at %s"
+msgstr "Nem olvashatók a csomagfájlok itt: %s"
+
+#: /cli/Application/Command/Get/Composertags.php:59
+msgid "Start getting composer tags."
+msgstr "A szerkesztő címkék lekérdezésének indítása."
+
+#: /cli/Application/Command/Get/Composertags.php:101
+msgid "Installed"
+msgstr "Telepítve"
+
+#: /cli/Application/Command/Get/Composertags.php:118
+#, php-format
+msgid "Installed: %s"
+msgstr "Telepítve: %s"
+
+#: /cli/Application/Command/Get/Get.php:66
+msgid "Retrieve Information from various sources."
+msgstr "Információk lekérése különböző forrásokból."
+
+#: /cli/Application/Command/Get/Get.php:72
+msgid "Process the project with the given ID."
+msgstr "A megadott azonosítószámú projekt feldolgozása."
+
+#: /cli/Application/Command/Get/Get.php:78
+msgid "Don't use a progress bar."
+msgstr "Nincs folyamatjelző használata."
+
+#: /cli/Application/Command/Get/Project.php:68
+msgid ""
+"Get the whole project info from GitHub, including issues and issue comments."
+msgstr "A projekt összes információjának lekérése a GitHubról, a problémákkal és a problémák megjegyzéseivel együtt."
+
+#: /cli/Application/Command/Get/Project.php:74
+#: /cli/Application/Command/Get/Project/Events.php:52
+msgid "Process all issues."
+msgstr "Az összes probléma feldolgozása."
+
+#: /cli/Application/Command/Get/Project.php:80
+#: /cli/Application/Command/Get/Project/Events.php:47
+msgid "<n> Process only a single issue."
+msgstr "<n> Csak egy probléma feldolgozása."
+
+#: /cli/Application/Command/Get/Project.php:86
+msgid "<n> First issue to process."
+msgstr "<n> Az első feldolgozandó probléma."
+
+#: /cli/Application/Command/Get/Project.php:92
+msgid "<n> Last issue to process."
+msgstr "<n> Az utolsó feldolgozandó probléma."
+
+#: /cli/Application/Command/Get/Project.php:98
+msgid "Force an update even if the issue has not changed."
+msgstr "Frissítés kényszerítése, ha nem is változott a probléma."
+
+#: /cli/Application/Command/Get/Project.php:112
+msgid "Retrieve Project"
+msgstr "Projekt lekérése"
+
+#: /cli/Application/Command/Get/Project.php:114
+msgid "Bulk Start retrieve Project"
+msgstr "Projekt lekérés tömeges indítása"
+
+#: /cli/Application/Command/Get/Project.php:125
+#, php-format
+msgid "Updating project info for project: %s/%s"
+msgstr "A következő projekt adatainak frissítése: %s/%s"
+
+#: /cli/Application/Command/Get/Project.php:137
+msgid "Bulk Finished"
+msgstr "A tömeges művelet befejeződött."
+
+#: /cli/Application/Command/Get/Project.php:310
+msgid "GitHub issues to process?"
+msgstr "Fel kell dolgozni a GitHub-problémákat?"
+
+#: /cli/Application/Command/Get/Project.php:312
+msgid "All"
+msgstr "Mind"
+
+#: /cli/Application/Command/Get/Project.php:313
+msgid "Range"
+msgstr "Tartomány"
+
+#: /cli/Application/Command/Get/Project.php:314
+msgid "Select: "
+msgstr "Válassz"
+
+#: /cli/Application/Command/Get/Project.php:321
+msgid "Enter the first GitHub issue ID to process (from):"
+msgstr "Add meg az első feldolgozandó GitHub probléma-azonosítót (mettől):"
+
+#: /cli/Application/Command/Get/Project.php:325
+msgid "Enter the latest GitHub issue ID to process (to):"
+msgstr "Add meg a legutolsó feldolgozandó GitHub probléma-azonosítót (meddig):"
+
+#: /cli/Application/Command/Get/Project/Comments.php:41
+msgid "Retrieve comments from GitHub."
+msgstr "A megjegyzések lekérése a GitHubról."
+
+#: /cli/Application/Command/Get/Project/Comments.php:53
+msgid "Retrieve Comments"
+msgstr "Megjegyzések lekérése"
+
+#: /cli/Application/Command/Get/Project/Comments.php:55
+msgid "Start retrieve Comments"
+msgstr "A megjegyzések lekérésének indítása."
+
+#: /cli/Application/Command/Get/Project/Comments.php:97
+#, php-format
+msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
+msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
+msgstr[0] "<b>Egy</b> módosított probléma megjegyzéseinek lehívása a GitHubról"
+msgstr[1] "<b>%d</b> módosított probléma megjegyzéseinek lehívása a GitHubról..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:167
+#: /cli/Application/Command/Get/Project/Events.php:180
+msgid "Everything is up to date."
+msgstr "Minden naprakész."
+
+#: /cli/Application/Command/Get/Project/Comments.php:181
+#, php-format
+msgid "Processing comments for one modified issue..."
+msgid_plural "Processing comments for %d modified issues..."
+msgstr[0] "Az egy módosított probléma megjegyzéseinek feldolgozása..."
+msgstr[1] "A/z %d módosított probléma megjegyzéseinek feldolgozása..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:204
+#, php-format
+msgid "No comments for issue # %d"
+msgstr "A/z %d sz. problémának nincsenek megjegyzései."
+
+#: /cli/Application/Command/Get/Project/Comments.php:213
+#, php-format
+msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
+msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
+msgstr[0] "A/z %2$d sz. probléma (%3$d/%4$d) egy megjegyzésének feldolgozása"
+msgstr[1] "A/z %2$d sz. probléma (%3$d/%4$d) %1$d megjegyzésének feldolgozása"
+
+#: /cli/Application/Command/Get/Project/Comments.php:310
+#, php-format
+msgid "%1$d added %2$d updated."
+msgstr "%1$d hozzáadva, %2$d frissítve."
+
+#: /cli/Application/Command/Get/Project/Events.php:66
+msgid "Retrieve Events"
+msgstr "Események lekérése"
+
+#: /cli/Application/Command/Get/Project/Events.php:68
+msgid "Start retrieve Events"
+msgstr "Az események lekérésének indítása"
+
+#: /cli/Application/Command/Get/Project/Events.php:110
+#, php-format
+msgid "Fetch events for one issue from GitHub..."
+msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
+msgstr[0] "Egy probléma eseményeinek lehívása a GitHubról..."
+msgstr[1] "<b>%d</b> probléma eseményeinek lehívása a GitHubról..."
+
+#: /cli/Application/Command/Get/Project/Events.php:190
+msgid "Adding events to the database..."
+msgstr "Események hozzáadása az adatbázishoz..."
+
+#: /cli/Application/Command/Get/Project/Events.php:321
+#, php-format
+msgid "Added %d new issue events to the database"
+msgstr "A/z %d új probléma esemény hozzáadásra került az adatbázishoz"
+
+#: /cli/Application/Command/Get/Project/Issues.php:55
+msgid "Retrieve issues from GitHub."
+msgstr "Problémák lekérése a GitHubról..."
+
+#: /cli/Application/Command/Get/Project/Labels.php:31
+msgid "Retrieve project labels from GitHub."
+msgstr "Projektcímkék lekérése a GitHubról."
+
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
+msgstr "A címkék lekérésének indítása."
+
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Kész."
+
+#: /cli/Application/Command/Get/Project/Labels.php:62
+msgid "Fetching labels..."
+msgstr "A címkék lehívása..."
+
+#: /cli/Application/Command/Get/Project/Labels.php:141
+#, php-format
+msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Címkék: %1$d új, %2$d frissítve, %3$d törölve."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:33
+msgid "Retrieve project milestones from GitHub."
+msgstr "A projekt mérföldköveinek lehívása a GitHubról."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:45
+msgid "Retrieve Milestones"
+msgstr "Mérföldkövek lehívása"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:47
+msgid "Start retrieving Milestones"
+msgstr "A mérföldkövek lekérésének indítása"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:64
+msgid "Fetching milestones..."
+msgstr "A mérföldkövek lehívása..."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:151
+#, php-format
+msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Mérföldkövek: %1$d új, %2$d frissítve, %3$d törölve."
+
+#: /cli/Application/Command/Get/Transifex.php:37
+msgid "Retrieve language files from Transifex."
+msgstr "Nyelvi fájlok lekérése a Transifexről."
+
+#: /cli/Application/Command/Get/Transifex.php:49
+msgid "Get Translations"
+msgstr "Fordítások letöltése"
+
+#: /cli/Application/Command/Get/Transifex.php:56
+msgid "Start fetching translations."
+msgstr "A fordítások lehívásának indítása."
+
+#: /cli/Application/Command/Install/Install.php:37
+msgid "Install the application."
+msgstr "Az alkalmazás telepítése."
+
+#: /cli/Application/Command/Install/Install.php:42
+msgid "Reinstall the application (without confirmation)"
+msgstr "Az alkalmazás újratelepítése (megerősítés nélkül)"
+
+#: /cli/Application/Command/Install/Install.php:59
+msgid "Installer"
+msgstr "Telepítő"
+
+#: /cli/Application/Command/Install/Install.php:71
+msgid "WARNING: A database has been found !!"
+msgstr "FIGYELMEZTETÉS: Található adatbázis!!"
+
+#: /cli/Application/Command/Install/Install.php:73
+msgid "Do you want to reinstall ?"
+msgstr "Újra akarod telepíteni?"
+
+#: /cli/Application/Command/Install/Install.php:75
+msgid "Yes"
+msgstr "Igen"
+
+#: /cli/Application/Command/Install/Install.php:76
+msgid "No"
+msgstr "Nem"
+
+#: /cli/Application/Command/Install/Install.php:78
+msgid "Select:"
+msgstr "Válassz:"
+
+#: /cli/Application/Command/Install/Install.php:98
+msgid "No database found."
+msgstr "Nem található adatbázis."
+
+#: /cli/Application/Command/Install/Install.php:99
+msgid "Creating the database..."
+msgstr "Az adatbázis létrehozása..."
+
+#: /cli/Application/Command/Install/Install.php:118
+msgid "Installation has terminated successfully."
+msgstr "A telepítés sikeresen befejeződött."
+
+#: /cli/Application/Command/Install/Install.php:132
+msgid "Removing existing tables..."
+msgstr "A létező táblák eltávolítása..."
+
+#: /cli/Application/Command/Install/Install.php:179
+#, php-format
+msgid "Install SQL file for %s not found."
+msgstr "A/z %s SQL-telepítőfájlja nem található."
+
+#: /cli/Application/Command/Install/Install.php:186
+msgid "SQL file corrupted."
+msgstr "Az SQL-fájl sérült."
+
+#: /cli/Application/Command/Install/Install.php:189
+#, php-format
+msgid "Creating tables from file %s"
+msgstr "Táblák létrehozása a/z %s fájlból"
+
+#: /cli/Application/Command/TrackerCommand.php:178
+#, php-format
+msgid "Command: %s"
+msgstr "Parancs: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:181
+msgid "Please use one of the following :"
+msgstr "Használd a következők egyikét:"
+
+#: /cli/Application/Command/TrackerCommand.php:295
+msgid "Available projects:"
+msgstr "Elérhető projektek:"
+
+#: /cli/Application/Command/TrackerCommand.php:313
+msgid "Select a project:"
+msgstr "Válassz egy projektet:"
+
+#: /cli/Application/Command/TrackerCommand.php:319
+msgid "Aborted"
+msgstr "Megszakítva"
+
+#: /cli/Application/Command/TrackerCommand.php:324
+#: /cli/Application/Command/TrackerCommand.php:343
+msgid "Invalid project"
+msgstr "Érvénytelen projekt"
+
+#: /cli/Application/Command/TrackerCommand.php:347
+#, php-format
+msgid "Processing project: %s"
+msgstr "Feldolgozás alatt álló projekt: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:378
+#: /cli/Application/Command/TrackerCommand.php:380
+msgid "An unknown error occurred"
+msgstr "Ismeretlen hiba történt."
+
+#: /cli/tracker.php:47
+#, php-format
+msgid "ERROR: %s"
+msgstr "HIBA: %s"
+
+#: /cli/tracker.php:49
+msgid "Call stack:"
+msgstr "Hívásverem"

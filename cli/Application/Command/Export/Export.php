@@ -33,8 +33,6 @@ class Export extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = 'Export <cmd><langfiles></cmd>.';
 
 		$this->addOption(
