@@ -30,6 +30,12 @@ Verify the installation is successful by doing the following:
 
 See also: [CLI script](Documentation/CLI-script.md).
 
+### Virtual Test Environment
+
+As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
+
+See also: [Virtual server documentation](Documentation/virtual-test-server.md)
+
 ### Using Login with Github
 
 If you want the 'login with Github' button to work properly you'll need to register an app with Github. To do this manage your account at github.com and go to the applications page. Create a new application.
@@ -39,12 +45,6 @@ You'll be asked for the application URL and the callback URL. This can be your t
 Once you've registered the app at Github you'll receive a ```Client ID``` and a ```Client Secret```, enter these into your JTracker ```config.json``` file, along with your Github login credentials. You should now be able to login with Github successfully
 
 See also: [GitHub Authentication](Documentation/github-authentication.md)
-
-### Virtual test environment
-
-As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
-
-See also: [Virtual server documentation](Documentation/virtual-test-server.md)
 
 ## Support & Discussion
 
