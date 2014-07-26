@@ -320,6 +320,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 		$data['easy']            = $filter->clean($src['easy'], 'int');
+		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
 
 		if (!$data['id'])
 		{
@@ -327,8 +328,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		$table = new IssuesTable($this->db);
-
-		$table->setUser($src['user']);
 
 		$table->load($data['id'])
 			->save($data);
