@@ -183,13 +183,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since 1.0
 	 */
-	public function save_category(array $src)
+	public function saveCategory(array $src)
 	{
 		$filter = new InputFilter;
 
 		$data       = array();
-		$issue_id   = $filter->clean($src['issue_id']);
-		$created_by = $filter->clean($src['created_by']);
+		$issue_id   = $filter->clean($src['issue_id'], 'int');
+		$created_by = $filter->clean($src['created_by'], 'int');
 
 		foreach ($src['categories'] as $key => $category)
 		{
@@ -205,6 +205,45 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			$table = new IssueCategoryMappingTable($db);
 			$table->save($item);
 		}
+
+		return $this;
+	}
+
+	public function getCategories($issue_id)
+	{
+		$filter = new InputFilter;
+		$issue_id   = $filter->clean($issue_id, 'int');
+
+		$db = $this->getDb();
+		$query = $db->getQuery(true);
+		$query->select('category_id')->from('#__issue_category_map')->where('issue_id = '. $issue_id );
+		return $db->setQuery($query)->loadObjectList();
+	}
+
+	public function updateCategory(array $src)
+	{
+		$new_category = $src['categories'];
+		$old_src = $this->getCategories($src['issue_id']);
+		$old_category = array();
+		foreach($old_src as $category)
+		{
+			$old_category[] = $category->category_id;
+		}
+
+		$delete = array_diff($old_category, $new_category);
+		$insert = array_diff($new_category, $old_category);
+		$db = $this->getDb();
+		if($delete){
+			$query = $db->getQuery(true);
+			$query->delete('#__issue_category_map')->where('issue_id = '. (int) $src['issue_id'])
+				->where('category_id IN ('. implode(', ', $delete) . ')');
+			$db->setQuery($query)->execute();
+		}
+		if($insert){
+			$src['categories'] = $insert;
+			$this->saveCategory($src);
+		}
+
 
 		return $this;
 	}

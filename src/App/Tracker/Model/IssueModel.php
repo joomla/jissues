@@ -9,6 +9,7 @@
 namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\IssueCategoryMappingTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -512,16 +513,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		return $db->setQuery($query)->loadObjectList();
 	}
-//
-//	public function getCategoryById($item_id)
-//	{
-//		$db = $this->getDb();
-//		$query = $db->getQuery(true);
-//
-//		$query->select('id')
-//			->from($db->quoteName('#__issue_category_map'))
-//			->where('issue_id = '. (int) $item_id);
-//
-//		return $db->setQuery($query)->loadObjectList();
-//	}
+
+	public function getCategoryById($item_id)
+	{
+		$db = $this->getDb();
+		$query = $db->getQuery(true);
+
+		$query->select('id')
+			->from($db->quoteName('#__issue_category_map'))
+			->where('issue_id = '. (int) $item_id);
+
+		return $db->setQuery($query)->loadObjectList();
+	}
 }
