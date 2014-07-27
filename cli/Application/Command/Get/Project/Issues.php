@@ -61,8 +61,6 @@ class Issues extends Project
 	{
 		parent::__construct();
 
-		// This class has actions that depend on a bot account, fetch a Github instance as a bot
-		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
 		$this->description = g11n3t('Retrieve issues from GitHub.');
 	}
 
@@ -76,6 +74,9 @@ class Issues extends Project
 	public function execute()
 	{
 		$this->getApplication()->outputTitle('Retrieve Issues');
+
+		// This class has actions that depend on a bot account, fetch a GitHub instance as a bot
+		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
 
 		$this->logOut('Start retrieve Issues')
 			->selectProject()
