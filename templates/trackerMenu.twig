@@ -193,7 +193,9 @@ or "devdox" == firstPart
     </ul>
 </li>
 
-{% if user.id %}
+{# @todo If an Exception is thrown, this information is not available #}
+{% if not exception %}
+    {% if user.id %}
     <li class="dropdown pull-right">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ avatar(user.username, 20)|raw }}
@@ -226,7 +228,7 @@ or "devdox" == firstPart
             </li>
         </ul>
     </li>
-{% else %}
+    {% else %}
     <li class="pull-right">
         {% if loginUrl %}
             <a class="btn-success" href="{{ loginUrl }}">
@@ -238,4 +240,5 @@ or "devdox" == firstPart
             </a>
         {% endif %}
     </li>
+    {% endif %}
 {% endif %}
