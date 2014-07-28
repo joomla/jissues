@@ -7,7 +7,7 @@ The issue tracker application requires a server running:
 
 The application also has external dependencies installable via Composer and Bower.  You can run `ant installdep` if you have ANT installed or `composer install` and `bower install` from the command line.
 
-See also: [Dependencies](Documentation/Dependencies.md).
+See also: [Dependencies](Documentation/Development/Dependencies.md).
 
 ## Setup
 
@@ -28,13 +28,13 @@ Verify the installation is successful by doing the following:
 1. Open a console and execute the `tracker.php` script with the `get project` option to pull issues, issue comments and other information related to the project from GitHub.
     * `cli/tracker.php get project`
 
-See also: [CLI script](Documentation/CLI-script.md).
+See also: [CLI script](Documentation/Development/CLI-application.md).
 
 ### Virtual Test Environment
 
 As an alternative method, there is a setup for a virtual test environment using Vagrant and VirtualBox.
 
-See also: [Virtual server documentation](Documentation/virtual-test-server.md)
+See also: [Virtual server documentation](Documentation/Development/Virtual-Test-Server.md)
 
 ### Using Login with Github
 
@@ -44,7 +44,7 @@ You'll be asked for the application URL and the callback URL. This can be your t
 
 Once you've registered the app at Github you'll receive a ```Client ID``` and a ```Client Secret```, enter these into your JTracker ```config.json``` file, along with your Github login credentials. You should now be able to login with Github successfully
 
-See also: [GitHub Authentication](Documentation/github-authentication.md)
+See also: [GitHub Authentication](Documentation/Users/GitHub-Authentication.md)
 
 ## Support & Discussion
 
