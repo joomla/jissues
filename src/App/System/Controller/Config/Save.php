@@ -46,7 +46,7 @@ class Save extends AbstractTrackerController
 
 		if (!file_put_contents(JPATH_ROOT . '/etc/' . $fileName, json_encode($config, JSON_PRETTY_PRINT)))
 		{
-			throw new \RuntimeException('Could not write the configuration data to file /etc/config.json');
+			throw new \RuntimeException('Could not write the configuration data to file /etc/' . $fileName);
 		}
 
 		$application->enqueueMessage(g11n3t('The configuration file has been saved.'), 'success')
