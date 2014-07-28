@@ -18,6 +18,14 @@ use JTracker\Controller\AbstractTrackerController;
 class Routes extends AbstractTrackerController
 {
 	/**
+	 * View object
+	 *
+	 * @var    \App\System\View\Routes\RoutesHtmlView
+	 * @since  1.0
+	 */
+	protected $view;
+
+	/**
 	 * Execute the controller.
 	 *
 	 * @return  string
