@@ -40,7 +40,7 @@ class Labels extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Labels');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Labels'));
 
 		$this->logOut(g11n3t('Start retrieve Labels'))
 			->selectProject()
