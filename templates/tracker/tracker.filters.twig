@@ -43,3 +43,14 @@
 
     {{ fields.select('filter-user', values, value, id, class) }}
 {% endmacro %}
+
+{% macro category(value, id, class, categories) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {0: '- categories -'|_} %}
+    {% for category in categories %}
+        {% set values = values|merge({ (category.id) : (category.title) }) %}
+    {% endfor %}
+
+    {{ fields.select('filter-category', values, value, id, class) }}
+{% endmacro %}

@@ -59,6 +59,7 @@
             or state.get('filter.search')
             or state.get('filter.sort')
             or state.get('filter.user')
+            or state.get('filter.category')
             or state.get('stools-active') %}
                 in
             {% endif %}
@@ -100,6 +101,9 @@
                 {% endif %}
                 <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.category(state.get('filter.category'), 'filter-category', 'input-medium-180',categories) }}
                 </div>
             </div>
 
