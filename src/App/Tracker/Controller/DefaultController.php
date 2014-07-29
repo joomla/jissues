@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller;
 
+use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Issues\IssuesHtmlView;
 
 use JTracker\Controller\AbstractTrackerListController;
@@ -178,6 +179,20 @@ class DefaultController extends AbstractTrackerListController
 
 		// Filter.user for get queries
 		$state->set('filter.user', $filter_user);
+
+		// Filter.category for category
+
+		$categoryAlias = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', '', 'cmd');
+
+		$categoryId = 0;
+
+		if($categoryAlias){
+			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+			$category = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
+			$categoryId = $category->id;
+		}
+
+		$state->set('filter.category', (int) $categoryId);
 
 		$state->set('stools-active',
 			$application->input->get('stools-active', 0, 'uint')
