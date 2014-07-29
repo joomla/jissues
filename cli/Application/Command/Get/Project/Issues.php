@@ -289,7 +289,8 @@ class Issues extends Project
 					$status->description = 'JTracker Bug Squad working on it...';
 					$status->context = 'jtracker';
 
-					$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
+					// @todo Project based status messages
+					// @$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
 				}
 				else
 				{
