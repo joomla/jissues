@@ -67,7 +67,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('project', $this->getProject());
 		$this->renderer->set('statuses', $this->model->getStatuses());
 		$this->renderer->set('canEditOwn', $this->canEditOwn());
-		$this->renderer->set('categories', $this->model->setProject($this->getProject())->getCategories());
+		$this->renderer->set('categories', $this->getProject()->getCategories());
 
 		return parent::render();
 	}

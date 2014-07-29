@@ -522,4 +522,23 @@ class TrackerProject implements \Serializable
 	{
 		return $this->gh_editbot_pass;
 	}
+	/**
+	 * Get Categories list object for displaying
+	 *
+	 * @return  object
+	 *
+	 * @since    1.0
+	 */
+	public function getCategories()
+	{
+		$db    = $this->database;
+		$query = $db->getQuery(true);
+
+		$query
+			->select('*')
+			->from($db->quoteName('#__issues_categories'))
+			->where('project_id = ' . $this->project_id);
+
+		return $db->setQuery($query)->loadObjectList();
+	}
 }
