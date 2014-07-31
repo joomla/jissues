@@ -85,10 +85,10 @@
                     {% set closedState = '' %}
                 {% endif %}
                 <div id="status-open" class="btn-group"{{ openState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium-140', 0) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'input-medium-140', 0) }}
                 </div>
                 <div id="status-closed" class="btn-group"{{ closedState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium-140', 1) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'input-medium-140', 1) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
@@ -345,10 +345,18 @@
             $('#issuesList tbody').animate({opacity: 0.3}, 100);
             var active = $('#stools-active').val();
             var search = $('#filter-search').val();
-            var status = $('#filter-status').val();
+            var state = $('#filter-state').val();
+
+            if (state == 0) {
+                var status = $('#filter-status-open').val();
+            }
+
+            if (state == 1) {
+                var status = $('#filter-status-closed').val();
+            }
+
             var priority = $('#filter-priority').val();
             var sort = $('#filter-sort').val();
-            var state = $('#filter-state').val();
             var user = $('#filter-user').val();
 
             $.ajax({
