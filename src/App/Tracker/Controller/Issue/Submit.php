@@ -34,7 +34,9 @@ class Submit extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('create');
+		$user = $application->getUser();
+
+		$user->authorize('create');
 
 		/* @type \Joomla\Github\Github $gitHub */
 		$gitHub = $this->getContainer()->get('gitHub');
@@ -68,6 +70,7 @@ class Submit extends AbstractTrackerController
 
 			$data['created_at']  = $gitHubResponse->created_at;
 			$data['opened_by']   = $gitHubResponse->user->login;
+			$data['modified_by'] = $gitHubResponse->user->login;
 			$data['number']      = $gitHubResponse->number;
 
 			$data['description'] = $gitHub->markdown->render(
@@ -78,10 +81,10 @@ class Submit extends AbstractTrackerController
 		else
 		{
 			// Project is managed by JTracker only
-			$data['created_at'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
-			$data['opened_by']  = $application->getUser()->username;
-			$data['number']     = '???';
-
+			$data['created_at']  = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
+			$data['opened_by']   = $user->username;
+			$data['modified_by'] = $user->username;
+			$data['number']      = '???';
 			$data['description'] = $gitHub->markdown->render($body, 'markdown');
 		}
 
