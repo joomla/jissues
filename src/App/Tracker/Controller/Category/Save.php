@@ -26,7 +26,7 @@ class Save extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'categories';
+	protected $defaultView = 'category';
 
 	/**
 	 * Model object
@@ -51,11 +51,19 @@ class Save extends AbstractTrackerController
 		$app->getUser()->authorize('admin');
 		$project = $app->getProject();
 
-		$table = new CategoryTable($this->getContainer()->get('db'));
-
 		try
 		{
-			$table->save($app->input->get('category', array(), 'array'));
+			$this->model->setProject($project);
+			$data = $app->input->get('category', array(), 'array');
+
+			if (isset($data['id']))
+			{
+				$this->model->save($data);
+			}
+			else
+			{
+				$this->model->add($data);
+			}
 
 			// Reload the project.
 			$this->model->setProject($project);
@@ -66,7 +74,15 @@ class Save extends AbstractTrackerController
 		catch (\Exception $exception)
 		{
 			$app->enqueueMessage($exception, 'error');
-			$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/' . $app->input->get('id') . '/edit');
+			if ($app->input->get('id'))
+			{
+				$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/' . $app->input->get('id') . '/edit');
+			}
+			else
+			{
+				$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/add');
+			}
+
 		}
 		parent::execute();
 	}

@@ -37,13 +37,16 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	{
 		$data = array();
 
-		$filter             = new InputFilter;
-		$data['name']       = $filter->clean($src['name'], 'string');
-		$data['project_id'] = $this->getProject()->project_id;
+		$filter              = new InputFilter;
+		$data['title']       = $filter->clean($src['title'], 'string');
+		$data['alias']       = $filter->clean($src['alias'], 'cmd');
+		$data['description'] = $filter->clean($src['description'], 'cmd');
+		$data['color']       = $filter->clean($src['color'], 'string');
+		$data['project_id']  = $this->getProject()->project_id;
 
 		$table = new CategoryTable($this->getDb());
 
-		$table->check()->save($data);
+		$table->save($data);
 
 		return $this;
 	}
@@ -102,9 +105,11 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$data = array();
 
-		$data['id']          = $filter->clean($src['id'], 'int');
-		$data['projects_id'] = $filter->clean($src['project_id'], 'int');
-		$data['name']        = $filter->clean($src['name'], 'string');
+		$data['title']       = $filter->clean($src['title'], 'string');
+		$data['alias']       = $filter->clean($src['alias'], 'cmd');
+		$data['description'] = $filter->clean($src['description'], 'cmd');
+		$data['color']       = $filter->clean($src['color'], 'uint');
+		$data['project_id']  = $this->getProject()->project_id;
 
 		if ($data['id'] == null)
 		{

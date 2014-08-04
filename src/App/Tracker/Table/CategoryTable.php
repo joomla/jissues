@@ -20,6 +20,7 @@ use Joomla\Input\Input;
  * @property   integer  $project_id     The Project id
  * @property   string   $title          The category name
  * @property   string   $alias          Alias
+ * @property   string   $color          Color of the badge of the category
  * @property   string   $description    Description
  *
  * @since  1.0
@@ -53,12 +54,32 @@ class CategoryTable extends AbstractDatabaseTable
 
 		if (trim($this->title) == '')
 		{
-			$errors[] = g11n3t('a name is required for the category.');
+			$errors[] = g11n3t('A name is required for the category.');
 		}
 
 		if (strlen($this->title) > 150)
 		{
 			$errors[] = g11n3t('The length of the name can not exceed 150 characters.');
+		}
+
+		if (trim($this->alias) =='')
+		{
+			$errors[] = g11n3t('An alias is required for the category.');
+		}
+
+		if (strlen($this->alias) > 150)
+		{
+			$errors[] = g11n3t('The length of the alias can not exceed 150 characters.');
+		}
+
+		if (strlen($this->color) != 6)
+		{
+			$errors[] = g11n3t('Color should be the hex value.');
+		}
+
+		if (trim($this->description) == '')
+		{
+			$errors[] = g11n3t('Description is required for the category');
 		}
 
 		if ($errors)

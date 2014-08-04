@@ -40,6 +40,14 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="color">{{ "Color"|_ }}</label>
+
+                <div class="controls">
+                    <input type="text" style="background-color: #{{ item.color }};color: {{ getContrastColor(item.color) }}" name="category[color]" id="color" value="{{ item.color }}"/>
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="description">{{ "Description"|_ }}</label>
 
                 <div class="controls">
