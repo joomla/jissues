@@ -522,6 +522,7 @@ class TrackerProject implements \Serializable
 	{
 		return $this->gh_editbot_pass;
 	}
+
 	/**
 	 * Get Categories list object for displaying
 	 *

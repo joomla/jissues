@@ -12,6 +12,7 @@ use App\Tracker\Table\IssueCategoryMappingTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
+use Joomla\String\String;
 
 /**
  * Model of categories
@@ -127,7 +128,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since 1.0
 	 */
-	protected function getByName($name = '')
+	public function getByName($name = '')
 	{
 		$db        = $this->getDb();
 		$query     = $db->getQuery(true);
@@ -139,6 +140,36 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 				->where($db->quoteName('name') . '=' . $name)
 				->where($db->quoteName('project_id') . '=' . $projectId)
 		)->loadObject();
+
+		return $item;
+	}
+
+
+	/**
+	 * Get an item by alias
+	 *
+	 * @param   string  $alias  The alias of the category
+	 *
+	 * @return  object
+	 *
+	 * @since 1.0
+	 */
+	public function getByAlias($alias = '')
+	{
+		$db        = $this->getDb();
+		$query     = $db->getQuery(true);
+		$projectId = $this->getProject()->project_id;
+
+		$query->select('*')
+			->from('#__issues_categories')
+			->where($db->quoteName('project_id') . '=' . $projectId);
+
+		if($alias){
+			$alias = $db->quote('%' . $db->escape(String::strtolower($alias), true) . '%', false);
+			$query->where($db->quoteName('alias'). ' LIKE ' . $alias);
+		}
+
+		$item = $db->setQuery($query)->loadObject();
 
 		return $item;
 	}
@@ -244,7 +275,17 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			$this->saveCategory($src);
 		}
 
-
 		return $this;
+	}
+
+	public function getIssueIds($categoryId)
+	{
+		$filter = new InputFilter;
+		$issue_id   = $filter->clean($categoryId, 'int');
+
+		$db = $this->getDb();
+		$query = $db->getQuery(true);
+		$query->select('issue_id')->from('#__issue_category_map')->where('issue_id = '. $issue_id );
+		return $db->setQuery($query)->loadObjectList();
 	}
 }

@@ -38,3 +38,11 @@
         {% endfor %}
     </select>
 {% endmacro %}
+
+{% macro multiselect(name, values, value, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" {% if class %} class="{{ class }}"{% endif %} multiple="multiple">
+        {% for key, name in values %}
+            <option value="{{ key }}"{% if value == key %} selected="selected"{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}

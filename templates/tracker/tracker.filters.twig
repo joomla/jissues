@@ -52,5 +52,5 @@
         {% set values = values|merge({ (category.id) : (category.title) }) %}
     {% endfor %}
 
-    {{ fields.select('filter-category', values, value, id, class) }}
+    {{ fields.multiselect('filter-category', values, value, id, class) }}
 {% endmacro %}
