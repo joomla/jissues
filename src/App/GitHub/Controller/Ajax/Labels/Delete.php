@@ -9,6 +9,7 @@
 namespace App\GitHub\Controller\Ajax\Labels;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Github\GithubFactory;
 
 /**
  * Controller class to delete labels from the GitHub repository.
@@ -26,19 +27,29 @@ class Delete extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$name = $this->getContainer()->get('app')->input->getCmd('name');
+		$application->getUser()->authorize('manage');
 
-		$project = $this->getContainer()->get('app')->getProject();
+		$name = $application->input->getCmd('name');
 
-		/* @type \Joomla\Github\Github $github */
-		$github = $this->getContainer()->get('gitHub');
+		$project = $application->getProject();
+
+		// Look if we have a bot user configured.
+		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
+		{
+			$gitHub = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+		}
+		else
+		{
+			$gitHub = GithubFactory::getInstance($application);
+		}
 
 		// Delete the label
-		$github->issues->labels->delete($project->gh_user, $project->gh_project, $name);
+		$gitHub->issues->labels->delete($project->gh_user, $project->gh_project, $name);
 
 		// Get the current labels list.
-		$this->response->data = $github->issues->labels->getList($project->gh_user, $project->gh_project);
+		$this->response->data = $gitHub->issues->labels->getList($project->gh_user, $project->gh_project);
 	}
 }

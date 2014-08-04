@@ -8,7 +8,7 @@
         {{ "Tracker"|_ }}
     </a>
 </li>
-{% if project.project_id and user.check("manage") %}
+{% if project.project_id %}
     <li class="dropdown {{ "project" == firstPart ? "active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ "Project"|_ }}
@@ -26,14 +26,15 @@
             </li>
 
             {% if user.check("admin") %}
-                <li>
-                    <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
-                        <i class="icon-pencil"></i>
-                        {{ "Edit"|_ }}
-                    </a>
-                </li>
+            <li>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
+                    <i class="icon-pencil"></i>
+                    {{ "Edit"|_ }}
+                </a>
+            </li>
             {% endif %}
 
+            {% if user.check("manage") %}
             <li class="divider"><span></span></li>
 
             <li>
@@ -42,6 +43,13 @@
                     {{ "Access Groups"|_ }}
                 </a>
             </li>
+            <li>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">
+                    <i class="icon-tag"></i>
+                    {{ "Labels"|_ }}
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </li>
 {% endif %}
