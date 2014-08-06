@@ -253,11 +253,12 @@ class IssuesModel extends AbstractTrackerListModel
 			$categoryModel = new CategoryModel($db);
 			$issues = $categoryModel->getIssueIds($filter);
 			if($issues!=null){
-				$issueId = '';
+				$issueId = array();
 				foreach ($issues as $issue)
 				{
-					$issueId = $issueId.$issue->issue_id;
+					$issueId[] = $issue->issue_id;
 				}
+				$issueId = implode(', ', $issueId) ;
 			}
 			else{
 				$issueId = ' 0 ';
