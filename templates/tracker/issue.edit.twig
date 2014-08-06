@@ -13,9 +13,13 @@
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
+    <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
+
+    {% import "fields.twig" as fields %}
+
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
@@ -106,6 +110,10 @@
                 <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
+        <li>
+            {{ fields.label('labels', 'Labels'|_) }}
+            {{ fields.selectLabels('labels', project.labels, item.labels) }}
+        </li>
     </ul>
     {% endif %}
 
@@ -167,11 +175,13 @@
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
+            $('.selectpicker').selectpicker();
         });
 
         $('a[data-toggle="tab"]').on('shown', function (e) {
