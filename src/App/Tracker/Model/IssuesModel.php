@@ -266,7 +266,7 @@ class IssuesModel extends AbstractTrackerListModel
 			}
 			else
 			{
-				$issueId = ' 0 ';
+				$issueId = 0;
 			}
 
 			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
