@@ -13,9 +13,13 @@
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
+    <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
+
+    {% import "fields.twig" as fields %}
+
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
@@ -107,12 +111,8 @@
             </select>
         </li>
         <li>
-            <label for="categories[]">{{ 'Category'|_ }}</label>
-            {% for category in project.categories%}
-                <input type="checkbox" name="categories[]" id="categories[{{ category.id }}]" value="{{ category.id }}"
-                       {% if category.id in item.categoryids %}checked="true"{% endif %}/>
-                {{ category.title }}
-            {% endfor %}
+            {{ fields.label('cateogries[]', 'Categoryies'|_) }}
+            {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
         </li>
     </ul>
     {% endif %}
@@ -176,10 +176,12 @@
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
+            $('.selectpicker').selectpicker();
         });
 
         $('a[data-toggle="tab"]').on('shown', function (e) {

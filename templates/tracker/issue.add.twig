@@ -21,6 +21,7 @@
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
+    <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -53,10 +54,10 @@
                 {{ fields.label('build', 'Build'|_, '') }}
                 {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
 
-                <label for="categories[]">{{ 'Category'|_ }}</label>
-                {% for category in project.categories%}
-                    <input type="checkbox" name="categories[]" id="categories[{{ category.id }}]" value="{{ category.id }}"/>{{ category.title }}
-                {% endfor %}
+
+                {{ fields.label('cateogries[]', 'Categoryies'|_) }}
+                {{ fields.selectCategories('categories[]', project.categories) }}
+
                 <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
             </div>
 
@@ -119,10 +120,12 @@
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
+            $('.selectpicker').selectpicker();
         });
 
         var switcher = $('#helpSwitch');
