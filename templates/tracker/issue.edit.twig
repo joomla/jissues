@@ -102,8 +102,8 @@
         <li>
             <label for="easy">{{ translate('Easy test') }}</label>
             <select name="item[easy]" id="easy" class="span1">
-                <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
-                <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
+                <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
+                <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
         <li>

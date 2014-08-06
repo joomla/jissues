@@ -39,7 +39,7 @@ class Events extends Project
 	{
 		parent::__construct();
 
-		$this->description = 'Retrieve issue events from GitHub.';
+		$this->description = g11n3t('Retrieve issue events from GitHub.');
 
 		$this->addOption(
 			new TrackerCommandOption(

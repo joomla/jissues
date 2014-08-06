@@ -26,9 +26,14 @@ class ConfigHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/config.json'), true);
+		$type = trim(getenv('JTRACKER_ENVIRONMENT'));
+
+		$fileName = ($type) ? 'config.' . $type . '.json' : 'config.json';
+
+		$config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/' . $fileName), true);
 
 		$this->renderer->set('config', $config);
+		$this->renderer->set('configFile', $fileName);
 
 		return parent::render();
 	}

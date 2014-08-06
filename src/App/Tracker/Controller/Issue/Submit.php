@@ -35,7 +35,9 @@ class Submit extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('create');
+		$user = $application->getUser();
+
+		$user->authorize('create');
 
 		/* @type \Joomla\Github\Github $gitHub */
 		$gitHub = $this->getContainer()->get('gitHub');
@@ -67,9 +69,11 @@ class Submit extends AbstractTrackerController
 				throw new \Exception('Invalid response from GitHub');
 			}
 
-			$data['created_at']  = $gitHubResponse->created_at;
-			$data['opened_by']   = $gitHubResponse->user->login;
-			$data['number']      = $gitHubResponse->number;
+			$data['opened_date']   = $gitHubResponse->created_at;
+			$data['modified_date'] = $gitHubResponse->created_at;
+			$data['opened_by']     = $gitHubResponse->user->login;
+			$data['modified_by']   = $gitHubResponse->user->login;
+			$data['number']        = $gitHubResponse->number;
 
 			$data['description'] = $gitHub->markdown->render(
 				$body, 'gfm',
@@ -79,16 +83,16 @@ class Submit extends AbstractTrackerController
 		else
 		{
 			// Project is managed by JTracker only
-			$data['created_at'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
-			$data['opened_by']  = $application->getUser()->username;
-			$data['number']     = '???';
-
+			$data['opened_date']    = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
+			$data['modified_date']  = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
+			$data['opened_by']      = $user->username;
+			$data['modified_by']    = $user->username;
+			$data['number']         = '???';
 			$data['description'] = $gitHub->markdown->render($body, 'markdown');
 		}
 
 		$data['priority']        = $application->input->getInt('priority');
 		$data['build']           = $application->input->getString('build');
-		$data['opened_date']     = $data['created_at'];
 		$data['project_id']      = $project->project_id;
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;

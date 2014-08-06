@@ -39,7 +39,7 @@ class Labels extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('manage');
 
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
 

@@ -69,14 +69,6 @@ class IssuesTable extends AbstractDatabaseTable
 	protected $oldObject = null;
 
 	/**
-	 * User object
-	 *
-	 * @var    GitHubUser
-	 * @since  1.0
-	 */
-	protected $user = null;
-
-	/**
 	 * Constructor
 	 *
 	 * @param   DatabaseDriver  $database  A database connector object.
@@ -215,11 +207,6 @@ class IssuesTable extends AbstractDatabaseTable
 			if ($this->modified_date == '0000-00-00 00:00:00')
 			{
 				$this->modified_date = $date;
-			}
-
-			if (!$this->modified_by)
-			{
-				$this->modified_by = $this->getUser()->username;
 			}
 		}
 		else
@@ -396,39 +383,5 @@ class IssuesTable extends AbstractDatabaseTable
 		}
 
 		return $fields;
-	}
-
-	/**
-	 * Get the user.
-	 *
-	 * @return  GitHubUser
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getUser()
-	{
-		if (is_null($this->user))
-		{
-			throw new \RuntimeException('User not set');
-		}
-
-		return $this->user;
-	}
-
-	/**
-	 * Set the user.
-	 *
-	 * @param   GitHubUser  $user  The user.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setUser(GitHubUser $user)
-	{
-		$this->user = $user;
-
-		return $this;
 	}
 }

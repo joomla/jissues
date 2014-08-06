@@ -9,6 +9,7 @@
 namespace App\GitHub\Controller\Ajax\Labels;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Github\GithubFactory;
 
 /**
  * Controller class to add new labels to the GitHub repository.
@@ -26,15 +27,27 @@ class Add extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$name  = $this->getContainer()->get('app')->input->getCmd('name');
-		$color = $this->getContainer()->get('app')->input->getCmd('color');
+		$application->getUser()->authorize('manage');
 
-		$project = $this->getContainer()->get('app')->getProject();
+		$name  = $application->input->getCmd('name');
+		$color = $application->input->getCmd('color');
 
-		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->getContainer()->get('gitHub');
+		$project = $application->getProject();
+
+		// Look if we have a bot user configured.
+		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
+		{
+			$gitHub = GithubFactory::getInstance(
+				$application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass()
+			);
+		}
+		else
+		{
+			$gitHub = GithubFactory::getInstance($application);
+		}
 
 		// Create the label.
 		$gitHub->issues->labels->create(
