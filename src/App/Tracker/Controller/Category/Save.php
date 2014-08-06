@@ -73,7 +73,7 @@ class Save extends AbstractTrackerController
 		}
 		catch (\Exception $exception)
 		{
-			$app->enqueueMessage($exception, 'error');
+			$app->enqueueMessage($exception->getMessage(), 'error');
 
 			if ($app->input->get('id'))
 			{
@@ -84,6 +84,7 @@ class Save extends AbstractTrackerController
 				$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/add');
 			}
 		}
+
 		parent::execute();
 	}
 }

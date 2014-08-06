@@ -49,7 +49,7 @@
 
     {% set values = {0: '- categories -'|_} %}
     {% for category in categories %}
-        {% set values = values|merge({ (category.id) : (category.title) }) %}
+        {% set values = values + { (category.id) : (category.title) } %}
     {% endfor %}
 
     {{ fields.select('filter-category', values, value, id, class) }}

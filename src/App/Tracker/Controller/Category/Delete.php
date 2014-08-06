@@ -85,8 +85,9 @@ class Delete extends AbstractTrackerController
 		}
 		catch (\Exception $exception)
 		{
-			$application->enqueueMessage($exception, 'error');
+			$application->enqueueMessage($exception->getMessage(), 'error');
 		}
+
 		$application->redirect($application->get('uri.base.path') . 'category/' . $application->getProject()->alias);
 
 		return parent::execute();

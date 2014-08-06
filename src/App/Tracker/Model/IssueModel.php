@@ -493,24 +493,4 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		return $this;
 	}
-
-	/**
-	 * Get Categories list object for displaying
-	 *
-	 * @return  object
-	 *
-	 * @since    1.0
-	 */
-	public function getCategories()
-	{
-		$db    = $this->getDb();
-		$query = $db->getQuery(true);
-
-		$query
-			->select('*')
-			->from($db->quoteName('#__issues_categories'))
-			->where('project_id = ' . $this->getProject()->project_id);
-
-		return $db->setQuery($query)->loadObjectList();
-	}
 }

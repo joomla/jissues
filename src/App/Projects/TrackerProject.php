@@ -532,14 +532,20 @@ class TrackerProject implements \Serializable
 	 */
 	public function getCategories()
 	{
-		$db    = $this->database;
-		$query = $db->getQuery(true);
+		static $categories;
 
-		$query
-			->select('*')
-			->from($db->quoteName('#__issues_categories'))
-			->where('project_id = ' . $this->project_id);
+		if (!$categories)
+		{
+			$db    = $this->database;
+			$query = $db->getQuery(true);
 
-		return $db->setQuery($query)->loadObjectList();
+			$query
+				->select('*')
+				->from($db->quoteName('#__issues_categories'))
+				->where('project_id = ' . $this->project_id);
+			$categories = $db->setQuery($query)->loadObjectList();
+		}
+
+		return $categories;
 	}
 }
