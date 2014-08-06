@@ -268,12 +268,13 @@ class Issues extends Project
 			}
 			elseif(isset($ghIssue->pull_request->diff_url) && !$table->status)
 			{
-				// Set Pending if we have a pull request but no active status (apply so only for new PRs)
+				// Set Pending if we have a pull request but no active status
+				// (apply so only for new PRs)
 				$table->status = 3;
 			}
-			else
+			elseif(!$table->status)
 			{
-				// Set to open
+				// Set to open if we have no status atm.
 				$table->status = 1;
 			}
 
