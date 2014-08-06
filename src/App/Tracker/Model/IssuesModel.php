@@ -248,22 +248,28 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$filter = $this->state->get('filter.category');
 
-		if($filter && is_numeric($filter))
+		if ($filter && is_numeric($filter))
 		{
 			$categoryModel = new CategoryModel($db);
-			$issues = $categoryModel->getIssueIds($filter);
-			if($issues!=null){
+			$issues        = $categoryModel->getIssueIds($filter);
+
+			if ($issues != null)
+			{
 				$issueId = array();
+
 				foreach ($issues as $issue)
 				{
 					$issueId[] = $issue->issue_id;
 				}
-				$issueId = implode(', ', $issueId) ;
+
+				$issueId = implode(', ', $issueId);
 			}
-			else{
+			else
+			{
 				$issueId = ' 0 ';
 			}
-			$query->where($db->quoteName('a.id'). ' IN (' . $issueId . ')');
+
+			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
 		}
 
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
@@ -352,6 +358,13 @@ class IssuesModel extends AbstractTrackerListModel
 		return $this->query;
 	}
 
+	/**
+	 * Override method to get the total number of items for the data set.
+	 *
+	 * @return  integer  The total number of items available in the data set.
+	 *
+	 * @since   1.0
+	 */
 	public function getTotal()
 	{
 		// Get a storage key.

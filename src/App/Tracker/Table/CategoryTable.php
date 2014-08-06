@@ -62,7 +62,7 @@ class CategoryTable extends AbstractDatabaseTable
 			$errors[] = g11n3t('The length of the name can not exceed 150 characters.');
 		}
 
-		if (trim($this->alias) =='')
+		if (trim($this->alias) == '')
 		{
 			$errors[] = g11n3t('An alias is required for the category.');
 		}

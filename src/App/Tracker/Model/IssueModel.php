@@ -180,8 +180,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$item->category = $this->db->setQuery(
 			$query->clear()
 				->select('a.title, a.id')
-				->from($this->db->quoteName('#__issues_categories','a'))
-				->innerJoin($this->db->quoteName('#__issue_category_map','b') . ' ON b.category_id = a.id')
+				->from($this->db->quoteName('#__issues_categories', 'a'))
+				->innerJoin($this->db->quoteName('#__issue_category_map', 'b') . ' ON b.category_id = a.id')
 				->where('b.issue_id =' . (int) $item->id)
 		)->loadObjectList();
 
@@ -510,18 +510,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			->select('*')
 			->from($db->quoteName('#__issues_categories'))
 			->where('project_id = ' . $this->getProject()->project_id);
-
-		return $db->setQuery($query)->loadObjectList();
-	}
-
-	public function getCategoryById($item_id)
-	{
-		$db = $this->getDb();
-		$query = $db->getQuery(true);
-
-		$query->select('id')
-			->from($db->quoteName('#__issue_category_map'))
-			->where('issue_id = '. (int) $item_id);
 
 		return $db->setQuery($query)->loadObjectList();
 	}

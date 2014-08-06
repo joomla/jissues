@@ -149,7 +149,6 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		return $item;
 	}
 
-
 	/**
 	 * Get an item by alias
 	 *
@@ -169,9 +168,10 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			->from('#__issues_categories')
 			->where($db->quoteName('project_id') . '=' . $projectId);
 
-		if($alias){
+		if ($alias)
+		{
 			$alias = $db->quote('%' . $db->escape(String::strtolower($alias), true) . '%', false);
-			$query->where($db->quoteName('alias'). ' LIKE ' . $alias);
+			$query->where($db->quoteName('alias') . ' LIKE ' . $alias);
 		}
 
 		$item = $db->setQuery($query)->loadObject();
@@ -234,7 +234,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			$data[$key]['category_id'] = $filter->clean($category);
 		}
 
-		$db    = $this->getDb();
+		$db = $this->getDb();
 
 		foreach ($data as $item)
 		{
@@ -245,37 +245,62 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		return $this;
 	}
 
+	/**
+	 * Get issue's category ids by issue's id.
+	 *
+	 * @param   int  $issue_id  The id of the issue.
+	 *
+	 * @since   1.0
+	 *
+	 * @return  object The object list of the issues.
+	 */
 	public function getCategories($issue_id)
 	{
-		$filter = new InputFilter;
-		$issue_id   = $filter->clean($issue_id, 'int');
+		$filter   = new InputFilter;
+		$issue_id = $filter->clean($issue_id, 'int');
 
-		$db = $this->getDb();
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
-		$query->select('category_id')->from('#__issue_category_map')->where('issue_id = '. $issue_id );
+		$query->select('category_id')->from('#__issue_category_map')->where('issue_id = ' . $issue_id);
+
 		return $db->setQuery($query)->loadObjectList();
 	}
 
+	/**
+	 * Update the issue - category mapping with given source, method allows chaining.
+	 *
+	 * @param   array  $src  The source of the category, should include: $src['issue_id'], the issue's id; $src['categories'],
+	 *                       the category ids' array.
+	 *
+	 * @since   1.0
+	 *
+	 * @return  $this
+	 */
 	public function updateCategory(array $src)
 	{
 		$new_category = $src['categories'];
-		$old_src = $this->getCategories($src['issue_id']);
+		$old_src      = $this->getCategories($src['issue_id']);
 		$old_category = array();
-		foreach($old_src as $category)
+
+		foreach ($old_src as $category)
 		{
 			$old_category[] = $category->category_id;
 		}
 
 		$delete = array_diff($old_category, $new_category);
 		$insert = array_diff($new_category, $old_category);
-		$db = $this->getDb();
-		if($delete){
+		$db     = $this->getDb();
+
+		if ($delete)
+		{
 			$query = $db->getQuery(true);
-			$query->delete('#__issue_category_map')->where('issue_id = '. (int) $src['issue_id'])
-				->where('category_id IN ('. implode(', ', $delete) . ')');
+			$query->delete('#__issue_category_map')->where('issue_id = ' . (int) $src['issue_id'])
+				->where('category_id IN (' . implode(', ', $delete) . ')');
 			$db->setQuery($query)->execute();
 		}
-		if($insert){
+
+		if ($insert)
+		{
 			$src['categories'] = $insert;
 			$this->saveCategory($src);
 		}
@@ -283,14 +308,24 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		return $this;
 	}
 
+	/**
+	 * Get the Issue ids by category ID, returning the object list.
+	 *
+	 * @param   int  $categoryId  The id of the category.
+	 *
+	 * @since   1.0
+	 *
+	 * @return  object
+	 */
 	public function getIssueIds($categoryId)
 	{
-		$filter = new InputFilter;
-		$category_id   = $filter->clean($categoryId, 'int');
+		$filter      = new InputFilter;
+		$category_id = $filter->clean($categoryId, 'int');
 
-		$db = $this->getDb();
+		$db    = $this->getDb();
 		$query = $db->getQuery(true);
-		$query->select('issue_id')->from('#__issue_category_map')->where('category_id = '. $category_id );
+		$query->select('issue_id')->from('#__issue_category_map')->where('category_id = ' . $category_id);
+
 		return $db->setQuery($query)->loadObjectList();
 	}
 }
