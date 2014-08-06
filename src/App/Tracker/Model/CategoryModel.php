@@ -168,6 +168,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			->from('#__issues_categories')
 			->where($db->quoteName('project_id') . '=' . $projectId);
 
+		$filter = new InputFilter;
+		$alias = $filter->clean($alias, 'cmd');
+
 		if ($alias)
 		{
 			$alias = $db->quote('%' . $db->escape(String::strtolower($alias), true) . '%', false);

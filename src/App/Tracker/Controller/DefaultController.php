@@ -181,18 +181,17 @@ class DefaultController extends AbstractTrackerListController
 		$state->set('filter.user', $filter_user);
 
 		// Filter.category for category
+		$categoryAlias = $application->getUserStateFromRequest('project_' . $projectId . '.filter.categoryAlias', 'category', '', 'cmd');
 
-//		$categoryAlias = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', '', 'cmd');
-//
-//		$categoryId = 0;
-//
-//		if($categoryAlias){
-//			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
-//			$category = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
-//			$categoryId = $category->id;
-//		}
-//
-//		$state->set('filter.category', (int) $categoryId);
+		$categoryId = 0;
+
+		if($categoryAlias!= ''){
+			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+			$category = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
+			$categoryId = $category->id;
+		}
+
+		$state->set('filter.category', (int) $categoryId);
 
 		$state->set('stools-active',
 			$application->input->get('stools-active', 0, 'uint')
