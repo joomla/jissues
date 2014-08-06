@@ -38,3 +38,18 @@
         {% endfor %}
     </select>
 {% endmacro %}
+
+{% macro selectLabels(name, labels, selecteds, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="selectpicker{% if class %} {{ class }}{% endif %}"
+        title="{{ 'Select labels...'|_ }}"
+        data-selected-text-format="count" data-live-search="true" multiple="multiple">
+        {% for key, label in labels %}
+            <option value="{{ key }}"
+                    {% if key in selecteds %} selected="selected"{% endif %}
+                    data-content="<span class='label' style='background-color: #{{ label.color }}; color: {{ getContrastColor(label.color) }};'>{{ label.name }}</span>"
+                    >
+                {{ label.name }}
+            </option>
+        {% endfor %}
+    </select>
+{% endmacro %}
