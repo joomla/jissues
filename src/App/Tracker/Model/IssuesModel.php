@@ -351,4 +351,26 @@ class IssuesModel extends AbstractTrackerListModel
 
 		return $this->query;
 	}
+
+	public function getTotal()
+	{
+		// Get a storage key.
+		$store = $this->getStoreId('getTotal');
+
+		// Try to load the data from internal storage.
+		if (isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+
+		// Load the total.
+		$query = $this->_getAjaxListQuery();
+
+		$total = (int) $this->_getListCount($query);
+
+		// Add the total to the internal cache.
+		$this->cache[$store] = $total;
+
+		return $this->cache[$store];
+	}
 }
