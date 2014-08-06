@@ -103,7 +103,8 @@
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.category(state.get('filter.category'), 'filter-category', 'input-medium-180',categories) }}
+                    {{ filters.category(state.get('filter.category'), 'filter-category', 'selectpicker',categories) }}
+
                 </div>
             </div>
 
@@ -354,6 +355,7 @@
             var sort = $('#filter-sort').val();
             var state = $('#filter-state').val();
             var user = $('#filter-user').val();
+            var category = $('#filter-category').val();
 
             $.ajax({
                 type: 'POST',
@@ -365,6 +367,7 @@
                     'user': user,
                     'sort': sort,
                     'state': state,
+                    'category':category,
                     'stools-active': active
                 },
                 success: function (r) {
@@ -388,6 +391,7 @@
                                         'user': user,
                                         'sort': sort,
                                         'state': state,
+                                        'category': category,
                                         'stools-active': active
                                     },
                                     success: function (data) {

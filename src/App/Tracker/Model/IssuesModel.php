@@ -246,6 +246,25 @@ class IssuesModel extends AbstractTrackerListModel
 			}
 		}
 
+		$filter = $this->state->get('filter.category');
+
+		if($filter && is_numeric($filter))
+		{
+			$categoryModel = new CategoryModel($db);
+			$issues = $categoryModel->getIssueIds($filter);
+			if($issues!=null){
+				$issueId = '';
+				foreach ($issues as $issue)
+				{
+					$issueId = $issueId.$issue->issue_id;
+				}
+			}
+			else{
+				$issueId = ' 0 ';
+			}
+			$query->where($db->quoteName('a.id'). ' IN (' . $issueId . ')');
+		}
+
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
 		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
 		$query->order($ordering . ' ' . $direction);
@@ -274,6 +293,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$id .= ':' . $this->state->get('filter.status');
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
+		$id .= ':' . $this->state->get('filter.category');
 
 		return parent::getStoreId($id);
 	}

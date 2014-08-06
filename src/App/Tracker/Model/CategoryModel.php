@@ -286,11 +286,11 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	public function getIssueIds($categoryId)
 	{
 		$filter = new InputFilter;
-		$issue_id   = $filter->clean($categoryId, 'int');
+		$category_id   = $filter->clean($categoryId, 'int');
 
 		$db = $this->getDb();
 		$query = $db->getQuery(true);
-		$query->select('issue_id')->from('#__issue_category_map')->where('issue_id = '. $issue_id );
+		$query->select('issue_id')->from('#__issue_category_map')->where('category_id = '. $category_id );
 		return $db->setQuery($query)->loadObjectList();
 	}
 }
