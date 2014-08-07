@@ -21,7 +21,7 @@
 	"upload/put"                          : "\\Tracker\\Controller\\Upload\\Ajax\\Put",
 	"upload/delete"                       : "\\Tracker\\Controller\\Upload\\Ajax\\Delete",
     "category/:project_alias/add"         : "\\Tracker\\Controller\\Category\\Add",
-    "save_category"                       : "\\Tracker\\Controller\\Category\\Save",
+    "category/save"                       : "\\Tracker\\Controller\\Category\\Save",
     "category/:project_alias"             : "\\Tracker\\Controller\\Category\\Listing",
     "category/:project_alias/delete/:id/" : "\\Tracker\\Controller\\Category\\Delete",
     "category/:project_alias/edit/:id/"   : "\\Tracker\\Controller\\Category\\Edit"

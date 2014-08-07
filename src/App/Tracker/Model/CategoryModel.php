@@ -104,10 +104,10 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$filter = new InputFilter;
 
 		$data = array();
-
+		$data['id']          = $filter->clean($src['id'], 'uint');
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
-		$data['description'] = $filter->clean($src['description'], 'cmd');
+		$data['description'] = $filter->clean($src['description'], 'string');
 		$data['color']       = $filter->clean($src['color'], 'uint');
 		$data['project_id']  = $this->getProject()->project_id;
 
@@ -281,17 +281,17 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function updateCategory(array $src)
 	{
-		$new_category = $src['categories'];
-		$old_src      = $this->getCategories($src['issue_id']);
-		$old_category = array();
+		$newCategories = ($src['categories']) ? $src['categories'] : array();
+		$oldSrc      = $this->getCategories($src['issue_id']);
+		$oldCategories = array();
 
-		foreach ($old_src as $category)
+		foreach ($oldSrc as $category)
 		{
-			$old_category[] = $category->category_id;
+			$oldCategories[] = $category->category_id;
 		}
 
-		$delete = array_diff($old_category, $new_category);
-		$insert = array_diff($new_category, $old_category);
+		$delete = array_diff($oldCategories, $newCategories);
+		$insert = array_diff($newCategories, $oldCategories);
 		$db     = $this->getDb();
 
 		if ($delete)
