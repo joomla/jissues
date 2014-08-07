@@ -108,9 +108,9 @@
         </li>
         <li>
             <label for="categories[]">{{ 'Category'|_ }}</label>
-            {% for category in categories%}
+            {% for category in project.categories%}
                 <input type="checkbox" name="categories[]" id="categories[{{ category.id }}]" value="{{ category.id }}"
-                       {% if category.id in item.categoryid %}checked="true"{% endif %}/>
+                       {% if category.id in item.categoryids %}checked="true"{% endif %}/>
                 {{ category.title }}
             {% endfor %}
         </li>

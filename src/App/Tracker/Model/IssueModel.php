@@ -177,7 +177,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		// Fetch category
 
-		$item->category = $this->db->setQuery(
+		$item->categories = $this->db->setQuery(
 			$query->clear()
 				->select('a.title, a.id')
 				->from($this->db->quoteName('#__issues_categories', 'a'))

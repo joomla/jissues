@@ -78,11 +78,11 @@ class Edit extends AbstractTrackerController
 
 		$item = $this->model->getItem($application->input->getUint('id'));
 
-		$item->categoryid = array();
+		$item->categoryids = array();
 
-		foreach ($item->category as $category)
+		foreach ($item->categories as $category)
 		{
-			$item->categoryid[] = $category->id;
+			$item->categoryids[] = $category->id;
 		}
 
 		try

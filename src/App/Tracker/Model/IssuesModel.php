@@ -251,7 +251,7 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter && is_numeric($filter))
 		{
 			$categoryModel = new CategoryModel($db);
-			$issues        = $categoryModel->getIssueIds($filter);
+			$issues        = $categoryModel->getIssueIdsByCategory($filter);
 
 			if ($issues != null)
 			{

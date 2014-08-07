@@ -526,11 +526,11 @@ class TrackerProject implements \Serializable
 	/**
 	 * Get Categories list object for displaying
 	 *
-	 * @return  object
+	 * @return  array
 	 *
 	 * @since    1.0
 	 */
-	public function getCategories()
+	public function getCategoriesByCategory()
 	{
 		static $categories;
 

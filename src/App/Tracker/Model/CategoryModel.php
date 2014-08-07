@@ -40,7 +40,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$filter              = new InputFilter;
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
-		$data['description'] = $filter->clean($src['description'], 'cmd');
+		$data['description'] = $filter->clean($src['description'], 'string');
 		$data['color']       = $filter->clean($src['color'], 'string');
 		$data['project_id']  = $this->getProject()->project_id;
 
@@ -56,7 +56,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $id  The id of the category
 	 *
-	 * @return  mixed
+	 * @return  object
 	 *
 	 * @throws  \RuntimeException
 	 *
@@ -108,7 +108,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
 		$data['description'] = $filter->clean($src['description'], 'string');
-		$data['color']       = $filter->clean($src['color'], 'uint');
+		$data['color']       = $filter->clean($src['color'], 'string');
 		$data['project_id']  = $this->getProject()->project_id;
 
 		if ($data['id'] == null)
@@ -255,12 +255,11 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since   1.0
 	 *
-	 * @return  object The object list of the issues.
+	 * @return  array  The object list of the issues.
 	 */
 	public function getCategories($issue_id)
 	{
-		$filter   = new InputFilter;
-		$issue_id = $filter->clean($issue_id, 'int');
+		$issue_id = (int) $issue_id;
 
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
@@ -318,9 +317,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @since   1.0
 	 *
-	 * @return  object
+	 * @return  array  The object array of the issue ids.
 	 */
-	public function getIssueIds($categoryId)
+	public function getIssueIdsByCategory($categoryId)
 	{
 		$filter      = new InputFilter;
 		$category_id = $filter->clean($categoryId, 'int');
