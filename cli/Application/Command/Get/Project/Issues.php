@@ -261,7 +261,22 @@ class Issues extends Project
 
 			$table->description_raw = $ghIssue->body;
 
-			$table->status = ($ghIssue->state == 'open') ? 1 : 10;
+			if ($ghIssue->state == 'closed')
+			{
+				// Close issue if it is closed on github
+				$table->status = 10;
+			}
+			elseif(isset($ghIssue->pull_request->diff_url) && !$table->status)
+			{
+				// Set Pending if we have a pull request but no active status
+				// (apply so only for new PRs)
+				$table->status = 3;
+			}
+			elseif(!$table->status)
+			{
+				// Set to open if we have no status atm.
+				$table->status = 1;
+			}
 
 			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
 			$table->opened_by   = $ghIssue->user->login;
