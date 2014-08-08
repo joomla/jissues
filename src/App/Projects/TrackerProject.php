@@ -530,7 +530,7 @@ class TrackerProject implements \Serializable
 	 *
 	 * @since    1.0
 	 */
-	public function getCategoriesByCategory()
+	public function getCategories()
 	{
 		static $categories;
 
