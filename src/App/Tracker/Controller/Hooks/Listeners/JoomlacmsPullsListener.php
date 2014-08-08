@@ -241,7 +241,7 @@ class JoomlacmsPullsListener
 	}
 
 	/**
-	 * Updates a pull request title to include the JoomlaCode ID if it exists
+	 * Updates the local application status for an item
 	 *
 	 * @param   Logger       $logger   Logger object
 	 * @param   object       $project  Object containing project data
