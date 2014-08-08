@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-21 22:23+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"PO-Revision-Date: 2014-07-25 13:29+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +51,7 @@ msgstr "Sehr niedrig"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:289
 #: /src/JTracker/View/Renderer/TrackerExtension.php:310
 msgid "Confirmed"
-msgstr ""
+msgstr "Bestätigt"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:290
 #: /src/JTracker/View/Renderer/TrackerExtension.php:311
@@ -62,50 +62,50 @@ msgstr "Wartend"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:291
 #: /src/JTracker/View/Renderer/TrackerExtension.php:312
 msgid "Ready To Commit"
-msgstr ""
+msgstr "Fertig zum Anwenden"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:292
 #: /src/JTracker/View/Renderer/TrackerExtension.php:313
 msgid "Needs Review"
-msgstr ""
+msgstr "Benötigt Überprüfung"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:293
 #: /src/JTracker/View/Renderer/TrackerExtension.php:314
 msgid "Information Required"
-msgstr ""
+msgstr "Information erforderlich"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:299
 #: /src/JTracker/View/Renderer/TrackerExtension.php:315
 msgid "Fixed in Code Base"
-msgstr ""
+msgstr "Im code repariert"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:300
 #: /src/JTracker/View/Renderer/TrackerExtension.php:316
 msgid "Unconfirmed Report"
-msgstr ""
+msgstr "Unbestätigt"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:301
 #: /src/JTracker/View/Renderer/TrackerExtension.php:317
 msgid "No Reply"
-msgstr ""
+msgstr "Keine Antwort"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:302
 #: /src/JTracker/View/Renderer/TrackerExtension.php:319
 msgid "Expected Behaviour"
-msgstr ""
+msgstr "Erwartetes Verhalten"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:303
 #: /src/JTracker/View/Renderer/TrackerExtension.php:320
 msgid "Known Issue"
-msgstr ""
+msgstr "Bekanntes Problem"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:309
 msgid "Open"
-msgstr ""
+msgstr "Offen"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:318
 msgid "Closed"
-msgstr ""
+msgstr "Geschlossen"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:456
 msgid "No"
