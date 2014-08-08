@@ -265,7 +265,7 @@ class JoomlacmsPullsListener
 					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$table->issue_number,
 					$e->getMessage()
 				)
 			);
