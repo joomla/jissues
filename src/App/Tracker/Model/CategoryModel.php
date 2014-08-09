@@ -8,11 +8,13 @@
 
 namespace App\Tracker\Model;
 
+use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssueCategoryMappingTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
 use Joomla\String\String;
+use Joomla\Date\Date;
 
 /**
  * Model of categories
@@ -283,9 +285,11 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function updateCategory(array $src)
 	{
-		$newCategories = ($src['categories']) ? $src['categories'] : array();
-		$oldSrc      = $this->getCategories($src['issue_id']);
-		$oldCategories = array();
+		$newCategories    = ($src['categories']) ? $src['categories'] : array();
+		$oldSrc           = $this->getCategories($src['issue_id']);
+		$oldCategories    = array();
+		$data             = array();
+		$data['issue_id'] = (int) $src['issue_id'];
 
 		foreach ($oldSrc as $category)
 		{
@@ -299,15 +303,28 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		if ($delete)
 		{
 			$query = $db->getQuery(true);
-			$query->delete('#__issue_category_map')->where('issue_id = ' . (int) $src['issue_id'])
+			$query->delete('#__issue_category_map')->where('issue_id = ' . $data['issue_id'])
 				->where('category_id IN (' . implode(', ', $delete) . ')');
 			$db->setQuery($query)->execute();
 		}
 
 		if ($insert)
 		{
-			$src['categories'] = $insert;
-			$this->saveCategory($src);
+			$data['categories'] = $insert;
+			$data['created_by'] = (int) $src['created_by'];
+			$this->saveCategory($data);
+		}
+
+		if ($insert || $delete)
+		{
+			$changes                 = array();
+			$changes['modified_by']  = $src['modified_by'];
+			$changes['issue_number'] = $src['issue_number'];
+			$changes['project_id']   = $src['project_id'];
+			$changes['old']          = $oldCategories;
+			$changes['new']          = $newCategories;
+
+			$this->processChanges($changes);
 		}
 
 		return $this;
@@ -329,5 +346,40 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$query->select('issue_id')->from('#__issue_category_map')->where('category_id = ' . (int) $categoryId);
 
 		return $db->setQuery($query)->loadObjectList();
+	}
+
+	/**
+	 * Process the change in category for issues.
+	 *
+	 * @param   array  $src  The source, should include: $src['issue_number'], the issue's number; $src['project_id'],
+	 *                       the issue's project id; $src['old'] and $src['new'] for old and new categories; $src['modified_by'],
+	 *                       modified username.
+	 *
+	 * @since   1.0
+	 *
+	 * @return  $this
+	 */
+	private function processChanges(array $src)
+	{
+		$date = new Date;
+		$date = $date->format($this->getDb()->getDateFormat());
+
+		$change       = new \stdClass;
+		$change->name = 'Category';
+		$change->old  = implode(',', $src['old']);
+		$change->new  = implode(',', $src['new']);
+
+		$data                 = array();
+		$data['event']        = 'change';
+		$data['created_date'] = $date;
+		$data['user']         = $src['modified_by'];
+		$data['issue_number'] = (int) $src['issue_number'];
+		$data['project_id']   = (int) $src['project_id'];
+		$data['text']         = json_encode(array($change));
+
+		$table = new ActivitiesTable($this->getDb());
+		$table->save($data);
+
+		return $this;
 	}
 }
