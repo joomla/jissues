@@ -179,7 +179,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$item->categories = $this->db->setQuery(
 			$query->clear()
-				->select('a.title, a.id')
+				->select('a.title, a.id, a.color')
 				->from($this->db->quoteName('#__issues_categories', 'a'))
 				->innerJoin($this->db->quoteName('#__issue_category_map', 'b') . ' ON b.category_id = a.id')
 				->where('b.issue_id =' . (int) $item->id)
