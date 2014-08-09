@@ -226,11 +226,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function saveCategory(array $src)
 	{
-		$filter = new InputFilter;
-
 		$data       = array();
-		$issue_id   = $filter->clean($src['issue_id'], 'int');
-		$created_by = $filter->clean($src['created_by'], 'int');
+		$issue_id   = (int) $src['issue_id'];
+		$created_by = (int) $src['created_by'];
 
 		if ($src['categories'])
 		{
@@ -238,7 +236,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			{
 				$data[$key]['issue_id']    = $issue_id;
 				$data[$key]['created_by']  = $created_by;
-				$data[$key]['category_id'] = $filter->clean($category);
+				$data[$key]['category_id'] = (int) ($category);
 			}
 
 			$db = $this->getDb();
