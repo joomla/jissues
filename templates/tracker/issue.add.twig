@@ -54,7 +54,7 @@
                 {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
 
                 <label for="categories[]">{{ 'Category'|_ }}</label>
-                {% for category in categories%}
+                {% for category in project.categories%}
                     <input type="checkbox" name="categories[]" id="categories[{{ category.id }}]" value="{{ category.id }}"/>{{ category.title }}
                 {% endfor %}
                 <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>

@@ -230,19 +230,22 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$issue_id   = $filter->clean($src['issue_id'], 'int');
 		$created_by = $filter->clean($src['created_by'], 'int');
 
-		foreach ($src['categories'] as $key => $category)
+		if ($src['categories'])
 		{
-			$data[$key]['issue_id']    = $issue_id;
-			$data[$key]['created_by']  = $created_by;
-			$data[$key]['category_id'] = $filter->clean($category);
-		}
+			foreach ($src['categories'] as $key => $category)
+			{
+				$data[$key]['issue_id']    = $issue_id;
+				$data[$key]['created_by']  = $created_by;
+				$data[$key]['category_id'] = $filter->clean($category);
+			}
 
-		$db = $this->getDb();
+			$db = $this->getDb();
 
-		foreach ($data as $item)
-		{
-			$table = new IssueCategoryMappingTable($db);
-			$table->save($item);
+			foreach ($data as $item)
+			{
+				$table = new IssueCategoryMappingTable($db);
+				$table->save($item);
+			}
 		}
 
 		return $this;
