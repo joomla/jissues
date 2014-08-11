@@ -55,7 +55,7 @@
                 {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
 
 
-                {{ fields.label('cateogries[]', 'Categoryies'|_) }}
+                {{ fields.label('categories[]', 'Categoryies'|_) }}
                 {{ fields.selectCategories('categories[]', project.categories) }}
 
                 <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
