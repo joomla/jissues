@@ -53,10 +53,11 @@ class Inline extends ArrayRenderer
 	private $showHeader = true;
 
 	/**
-	 * Render a and return diff with changes between the two sequences
-	 * displayed inline (under each other)
+	 * Render a and return diff with changes between the two sequences displayed inline (under each other).
 	 *
 	 * @return string The generated inline diff.
+	 *
+	 * @since  1.0
 	 */
 	public function render()
 	{
@@ -202,18 +203,34 @@ class Inline extends ArrayRenderer
 	}
 
 	/**
-	 * @param boolean $showLineNumbers
+	 * Set showLineNumbers.
+	 *
+	 * @param   boolean  $showLineNumbers  Show the line numbers.
+	 *
+	 * @return  $this
+	 *
+	 * @since  1.0
 	 */
 	public function setShowLineNumbers($showLineNumbers)
 	{
 		$this->showLineNumbers = (bool) $showLineNumbers;
+
+		return $this;
 	}
 
 	/**
-	 * @param boolean $showHeader
+	 * Set showHeader.
+	 *
+	 * @param   boolean  $showHeader  Show the table header.
+	 *
+	 * @return  $this
+	 *
+	 * @since  1.0
 	 */
 	public function setShowHeader($showHeader)
 	{
 		$this->showHeader = (bool) $showHeader;
+
+		return $this;
 	}
 }
