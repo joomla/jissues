@@ -121,7 +121,7 @@ class Labels extends Project
 				->select('label_id')
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 				->where($db->quoteName('name') . ' NOT IN (\'' . implode("', '", $names) . '\')')
-		)->loadRowList();
+		)->loadColumn();
 
 		if ($ids)
 		{
