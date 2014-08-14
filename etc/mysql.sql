@@ -335,7 +335,6 @@ CREATE TABLE `#__issues_categories` (
   `project_id` int(11) NOT NULL COMMENT 'The id of the Project',
   `title` varchar(150) NOT NULL COMMENT 'The title of the category',
   `alias` varchar(150) NOT NULL COMMENT 'The alias of the category',
-  `description` mediumtext NOT NULL COMMENT 'Description of the category',
   `color` varchar(6) NOT NULL COMMENT 'The hex value of the category',
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
@@ -350,13 +349,10 @@ CREATE TABLE `#__issues_categories` (
 CREATE TABLE `#__issue_category_map` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `issue_id` int(11) unsigned NOT NULL COMMENT 'PK of the issue in issue table',
-  `created_by` int(11) NOT NULL COMMENT 'User id',
   `category_id` int(11) unsigned NOT NULL COMMENT 'Category id',
   PRIMARY KEY (`id`),
-  KEY `created_by` (`created_by`),
   KEY `issue_id` (`issue_id`),
   KEY `category_id` (`category_id`),
-  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`),
-  CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`),
-  CONSTRAINT `#__issue_category_map_ibfk_3` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
+  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`),
+  CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

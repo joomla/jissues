@@ -16,7 +16,6 @@ use Joomla\Database\DatabaseDriver;
  *
  * @property   integer   $id           PK
  * @property   integer   $issue_id     The issue's id, PK in issue
- * @property   integer   $created_by   Create user's id
  * @property   integer   $category_id  Category's ID
  *
  * @since  1.0
@@ -51,11 +50,6 @@ class IssueCategoryMappingTable extends AbstractDatabaseTable
 		if (trim($this->issue_id) == '')
 		{
 			$errors[] = g11n3t('Issue id is needed');
-		}
-
-		if (trim($this->created_by) == '')
-		{
-			$errors[] = g11n3t('User not set.');
 		}
 
 		if (trim($this->category_id) == '')

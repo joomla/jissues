@@ -116,7 +116,6 @@ class Save extends AbstractTrackerController
 			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
 
 			$category['issue_id']   = $data['id'];
-			$category['created_by'] = $application->getUser()->id;
 			$category['categories'] = $application->input->get('categories', null, 'array');
 
 			$category['modified_by'] = $user->username;

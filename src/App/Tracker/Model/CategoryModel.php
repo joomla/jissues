@@ -42,7 +42,6 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$filter              = new InputFilter;
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
-		$data['description'] = $filter->clean($src['description'], 'string');
 		$data['color']       = $filter->clean($src['color'], 'string');
 		$data['project_id']  = $this->getProject()->project_id;
 
@@ -109,7 +108,6 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$data['id']          = $filter->clean($src['id'], 'uint');
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
-		$data['description'] = $filter->clean($src['description'], 'string');
 		$data['color']       = $filter->clean($src['color'], 'string');
 		$data['project_id']  = $this->getProject()->project_id;
 
@@ -215,8 +213,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Save the category/categories of an issues
 	 *
-	 * @param   array  $src  The source, should contain three parts, $src['issue_id'] is the id of the issue, $src['created_by']
-	 *                       should be the create-user's id, and $src['categories'] should be an array of category id(s).
+	 * @param   array $src The source, should contain three parts, $src['issue_id'] is the id of the issue,
+	 *                     and $src['categories'] should be an array of category id(s).
 	 *
 	 * @throws  \RuntimeException
 	 *
@@ -228,14 +226,12 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	{
 		$data       = array();
 		$issue_id   = (int) $src['issue_id'];
-		$created_by = (int) $src['created_by'];
 
 		if ($src['categories'])
 		{
 			foreach ($src['categories'] as $key => $category)
 			{
 				$data[$key]['issue_id']    = $issue_id;
-				$data[$key]['created_by']  = $created_by;
 				$data[$key]['category_id'] = (int) ($category);
 			}
 
@@ -309,7 +305,6 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		if ($insert)
 		{
 			$data['categories'] = $insert;
-			$data['created_by'] = (int) $src['created_by'];
 			$this->saveCategory($data);
 		}
 

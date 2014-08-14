@@ -21,7 +21,6 @@ use Joomla\Input\Input;
  * @property   string   $title          The category name
  * @property   string   $alias          Alias
  * @property   string   $color          Color of the badge of the category
- * @property   string   $description    Description
  *
  * @since  1.0
  */
@@ -75,11 +74,6 @@ class CategoryTable extends AbstractDatabaseTable
 		if (strlen($this->color) != 6)
 		{
 			$errors[] = g11n3t('Color should be the hex value.');
-		}
-
-		if (trim($this->description) == '')
-		{
-			$errors[] = g11n3t('Description is required for the category');
 		}
 
 		if ($errors)

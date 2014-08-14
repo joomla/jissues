@@ -28,7 +28,6 @@
             <th style="width: 10%">{{ "Alias"|_ }}</th>
             <th style="width: 10%">{{ "Title"|_ }}</th>
             <th style="width: 10%">{{ "Color"|_ }}</th>
-            <th style="width: 30%">{{ "Description"|_ }}</th>
 
             {% if user.isAdmin %}
                 <th style="width: 10%;">{{ "Actions"|_ }}</th>
@@ -49,9 +48,6 @@
                 </td>
                 <td class="color-td" style="background-color: #{{ item.color }};color: {{ getContrastColor(item.color) }}">
                     #{{ item.color }}
-                </td>
-                <td>
-                    {{ item.description }}
                 </td>
                 <td>
                         {% if user.isAdmin %}
