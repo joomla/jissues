@@ -213,8 +213,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Save the category/categories of an issues
 	 *
-	 * @param   array $src The source, should contain three parts, $src['issue_id'] is the id of the issue,
-	 *                     and $src['categories'] should be an array of category id(s).
+	 * @param   array  $src  The source, should contain three parts, $src['issue_id'] is the id of the issue,
+	 *                       and $src['categories'] should be an array of category id(s).
 	 *
 	 * @throws  \RuntimeException
 	 *
@@ -359,17 +359,19 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$change       = new \stdClass;
 		$change->name = 'category';
-		$change->old = array();
-		$change->new = array();
+		$change->old  = array();
+		$change->new  = array();
 
-		foreach($src['old'] as $key=>$old){
-			$oldCategory = $this->getItem($old);
+		foreach ($src['old'] as $key => $old)
+		{
+			$oldCategory                = $this->getItem($old);
 			$change->old[$key]['title'] = $oldCategory->title;
 			$change->old[$key]['color'] = $oldCategory->color;
 		}
 
-		foreach($src['new'] as $key=>$new){
-			$newCategory = $this->getItem($new);
+		foreach ($src['new'] as $key => $new)
+		{
+			$newCategory                = $this->getItem($new);
 			$change->new[$key]['title'] = $newCategory->title;
 			$change->new[$key]['color'] = $newCategory->color;
 		}
