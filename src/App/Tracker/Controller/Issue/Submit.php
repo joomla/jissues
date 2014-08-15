@@ -103,10 +103,8 @@ class Submit extends AbstractTrackerController
 		// Store the issue
 		try
 		{
-			$model = new IssueModel($this->getContainer()->get('db'));
-
 			// Save the issues and Get the issue id from model state
-			$issue_id = $model->add($data)->getState()->get('issue_id');
+			$issue_id = $issueModel->add($data)->getState()->get('issue_id');
 
 			// Save the category for the issue
 			$category['issue_id']   = $issue_id;

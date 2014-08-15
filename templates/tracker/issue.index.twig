@@ -334,17 +334,39 @@
                         {% if "change" == activity.event %}
                             <table class="table">
                             {% for change in activity.text|json_decode %}
-                                <tr>
-                                    <td class="span2">{{ change.name|title }}</td>
-                                    {% if "status" == change.name %}
-                                    <td class="span4 alert-{{ status(change.old).closed ? "error" : "success" }}">
-                                        {{ status(change.old).status|_ }}
-                                    </td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
-                                        {{ status(change.new).status|_ }}
-                                    </td>
-                                    {% elseif "category" == change.name %}
+                                {% if change.name == 'description_raw' %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ 'Description'|_ }}
+                                        </td>
+                                        <td colspan="4">
+                                            {% set activitiesCnt = activitiesCnt + 1 %}
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ activitiesCnt }}">
+                                                {{ 'Differences'|_ }}
+                                            </button>
+
+                                            <div id="diff-{{ activitiesCnt }}" class="collapse">
+                                               {{ renderDiff(change.old, change.new)|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% elseif change.name == 'title' %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ 'Title'|_ }}
+                                        </td>
+                                        <td colspan="4">
+                                            {% set activitiesCnt = activitiesCnt + 1 %}
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ activitiesCnt }}">
+                                                {{ 'Differences'|_ }}
+                                            </button>
+
+                                            <div id="diff-{{ activitiesCnt }}" class="collapse">
+                                                {{ renderDiff(change.old, change.new, false, false)|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% elseif "category" == change.name %}
                                     <td class="span4">
                                         {% for oldCategory in change.old %}
                                             <span class="label" style="background-color: #{{ oldCategory.color }}; color: {{ getContrastColor(oldCategory.color) }};">
@@ -354,18 +376,32 @@
                                     </td>
                                     <td class="span1">&rArr;</td>
                                     <td class="span4">
-                                            {% for newCategory in change.new %}
-                                                <span class="label" style="background-color: #{{ newCategory.color }}; color: {{ getContrastColor(newCategory.color) }};">
+                                        {% for newCategory in change.new %}
+                                            <span class="label" style="background-color: #{{ newCategory.color }}; color: {{ getContrastColor(newCategory.color) }};">
                                             {{ newCategory.title }}
                                             </span>
-                                            {% endfor %}
+                                        {% endfor %}
                                     </td>
-                                    {% else %}
-                                    <td class="span4">{{ change.old }}</td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4">{{ change.new }}</td>
-                                    {% endif %}
-                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ change.name|title }}
+                                        </td>
+                                        {% if "status" == change.name %}
+                                            <td class="span4 alert-{{ status(change.old).closed ? "error" : "success" }}">
+                                                {{ status(change.old).status|_ }}
+                                            </td>
+                                            <td class="span1">&rArr;</td>
+                                            <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
+                                                {{ status(change.new).status|_ }}
+                                            </td>
+                                        {% else %}
+                                            <td class="span4">{{ change.old }}</td>
+                                            <td class="span1">&rArr;</td>
+                                            <td class="span4">{{ change.new }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                             </table>
                         {% else %}
