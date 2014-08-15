@@ -112,6 +112,6 @@ class Submit extends AbstractAjaxController
 		$data->activities_id = $table->activities_id;
 
 		$this->response->data    = $data;
-		$this->response->message = 'Your comment has been submitted';
+		$this->response->message = g11n3t('Your comment has been submitted');
 	}
 }
