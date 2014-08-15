@@ -242,6 +242,25 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Get the next issue number - for local (non GitHub) projects.
+	 *
+	 * @return  integer
+	 *
+	 * @since   1.0
+	 */
+	public function getNextNumber()
+	{
+		$number = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('MAX(issue_number)')
+				->from($this->db->quoteName('#__issues'))
+				->where($this->db->quoteName('project_id') . ' = ' . $this->getProject()->project_id)
+		)->loadResult();
+
+		return $number + 1;
+	}
+
+	/**
 	 * Get a status list.
 	 *
 	 * @return  array

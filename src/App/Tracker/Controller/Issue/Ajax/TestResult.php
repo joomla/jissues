@@ -50,6 +50,6 @@ class TestResult extends AbstractAjaxController
 
 		$model->saveTest($issueId, $user->username, $result);
 
-		$this->response->message = 'Test successfully added';
+		$this->response->message = g11n3t('Test successfully added');
 	}
 }
