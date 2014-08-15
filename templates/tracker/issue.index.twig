@@ -11,6 +11,7 @@
     {{ parent() }}
     <!-- CSS for coloured code -->
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/core/css/diff.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
@@ -290,6 +291,7 @@
 
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
+    {% set activitiesCnt = 0 %}
     {% for activity in item.activities %}
         <div id="event-{{ activity.activities_id }}" class="row-activity" id="activity-{{ activity.activities_id }}">
             <div class="row-fluid">
@@ -313,22 +315,58 @@
                         {% if "change" == activity.event %}
                             <table class="table">
                             {% for change in activity.text|json_decode %}
-                                <tr>
-                                    <td class="span2">{{ change.name|title }}</td>
-                                    {% if "status" == change.name %}
-                                    <td class="span4 alert-{{ status(change.old).closed ? "error" : "success" }}">
-                                        {{ status(change.old).status|_ }}
-                                    </td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
-                                        {{ status(change.new).status|_ }}
-                                    </td>
-                                    {% else %}
-                                    <td class="span4">{{ change.old }}</td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4">{{ change.new }}</td>
-                                    {% endif %}
-                                </tr>
+                                {% if change.name == 'description_raw' %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ 'Description'|_ }}
+                                        </td>
+                                        <td colspan="4">
+                                            {% set activitiesCnt = activitiesCnt + 1 %}
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ activitiesCnt }}">
+                                                {{ 'Differences'|_ }}
+                                            </button>
+
+                                            <div id="diff-{{ activitiesCnt }}" class="collapse">
+                                               {{ renderDiff(change.old, change.new)|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% elseif change.name == 'title' %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ 'Title'|_ }}
+                                        </td>
+                                        <td colspan="4">
+                                            {% set activitiesCnt = activitiesCnt + 1 %}
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ activitiesCnt }}">
+                                                {{ 'Differences'|_ }}
+                                            </button>
+
+                                            <div id="diff-{{ activitiesCnt }}" class="collapse">
+                                                {{ renderDiff(change.old, change.new, false, false)|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ change.name|title }}
+                                        </td>
+                                        {% if "status" == change.name %}
+                                            <td class="span4 alert-{{ status(change.old).closed ? "error" : "success" }}">
+                                                {{ status(change.old).status|_ }}
+                                            </td>
+                                            <td class="span1">&rArr;</td>
+                                            <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
+                                                {{ status(change.new).status|_ }}
+                                            </td>
+                                        {% else %}
+                                            <td class="span4">{{ change.old }}</td>
+                                            <td class="span1">&rArr;</td>
+                                            <td class="span4">{{ change.new }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                             </table>
                         {% else %}

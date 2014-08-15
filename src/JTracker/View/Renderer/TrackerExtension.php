@@ -8,6 +8,10 @@
 
 namespace JTracker\View\Renderer;
 
+use Adaptive\Diff\Diff;
+
+use App\Tracker\DiffRenderer\Html\Inline;
+
 use g11n\g11n;
 
 use Joomla\DI\Container;
@@ -98,6 +102,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
 			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
+			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
 		);
 
 		if (!JDEBUG)
@@ -528,5 +533,31 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		throw new \RuntimeException('Unknown status: ' . $status);
+	}
+
+	/**
+	 * Render the differences between two text strings.
+	 *
+	 * @param   string   $old              The "old" text.
+	 * @param   string   $new              The "new" text.
+	 * @param   boolean  $showLineNumbers  To show line numbers.
+	 * @param   boolean  $showHeader       To show the table header.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function renderDiff($old, $new, $showLineNumbers = true, $showHeader = true)
+	{
+		$options = [];
+
+		$diff = new Diff(explode("\n", $old), explode("\n", $new), $options);
+
+		$renderer = new Inline;
+
+		$renderer->setShowLineNumbers($showLineNumbers);
+		$renderer->setShowHeader($showHeader);
+
+		return $diff->Render($renderer);
 	}
 }

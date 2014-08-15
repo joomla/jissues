@@ -288,9 +288,9 @@ class IssuesTable extends AbstractDatabaseTable
 						// Expected change ;)
 						break;
 
-					case 'description_raw' :
-						// @todo do something ?
-						$changes[] = $change;
+					case 'description' :
+
+						// Do nothing
 
 						break;
 
