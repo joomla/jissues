@@ -57,7 +57,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $id  The id of the category
 	 *
-	 * @return  object
+	 * @return  CategoryTable
 	 *
 	 * @throws  \RuntimeException
 	 *
@@ -358,9 +358,21 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$date = $date->format($this->getDb()->getDateFormat());
 
 		$change       = new \stdClass;
-		$change->name = 'Category';
-		$change->old  = implode(',', $src['old']);
-		$change->new  = implode(',', $src['new']);
+		$change->name = 'category';
+		$change->old = array();
+		$change->new = array();
+
+		foreach($src['old'] as $key=>$old){
+			$oldCategory = $this->getItem($old);
+			$change->old[$key]['title'] = $oldCategory->title;
+			$change->old[$key]['color'] = $oldCategory->color;
+		}
+
+		foreach($src['new'] as $key=>$new){
+			$newCategory = $this->getItem($new);
+			$change->new[$key]['title'] = $newCategory->title;
+			$change->new[$key]['color'] = $newCategory->color;
+		}
 
 		$data                 = array();
 		$data['event']        = 'change';

@@ -342,6 +342,22 @@
                                     <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
                                         {{ status(change.new).status|_ }}
                                     </td>
+                                    {% elseif "category" == change.name %}
+                                    <td class="span4">
+                                        {% for oldCategory in change.old %}
+                                            <span class="label" style="background-color: #{{ oldCategory.color }}; color: {{ getContrastColor(oldCategory.color) }};">
+                                            {{ oldCategory.title }}
+                                            </span>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="span1">&rArr;</td>
+                                    <td class="span4">
+                                            {% for newCategory in change.new %}
+                                                <span class="label" style="background-color: #{{ newCategory.color }}; color: {{ getContrastColor(newCategory.color) }};">
+                                            {{ newCategory.title }}
+                                            </span>
+                                            {% endfor %}
+                                    </td>
                                     {% else %}
                                     <td class="span4">{{ change.old }}</td>
                                     <td class="span1">&rArr;</td>
