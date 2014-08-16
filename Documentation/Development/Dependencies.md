@@ -186,6 +186,13 @@ Filesystem abstraction, but easy.
 * Installed: 0.4.5
 * Source URL: https://github.com/thephpleague/flysystem.git
 
+#### adaptive/php-text-difference (1.*@stable)
+
+A comprehensive library for generating differences between two hashable objects (strings or arrays). Fork of a fork to add namespaces and psr-4 autoloading
+
+* Installed: v1.0.3
+* Source URL: https://github.com/adaptivemedia/php-text-difference.git
+
 ### PHP - Development
 
 #### monolog/monolog (1.*@stable)
