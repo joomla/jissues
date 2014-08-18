@@ -111,6 +111,10 @@
             </select>
         </li>
         <li>
+            {{ fields.label('categories[]', 'Categories'|_) }}
+            {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
+        </li>
+        <li>
             {{ fields.label('labels', 'Labels'|_) }}
             {{ fields.selectLabels('item[labels][]', project.labels, item.labels, 'labels') }}
         </li>
@@ -177,6 +181,7 @@
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
