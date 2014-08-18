@@ -163,6 +163,22 @@
         </li>
     </ul>
 
+<!-- Categories -->
+    {% if item.categories %}
+        <ul class="breadcrumb">
+            <li>
+                <strong>{{ 'Categories:'|_ }}</strong>
+            </li>
+
+                {% for category in item.categories %}
+                    <li>
+                    <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">
+                        {{ category.title }}
+                    </span>
+                    </li>
+                {% endfor %}
+        </ul>
+    {% endif %}
 <!-- Relations -->
 
     {% if item.rel_number %}
@@ -333,6 +349,54 @@
                                     {{ activities.easy(change.old, change.new) }}
                                 {% elseif 'rel_type' == change.name %}
                                     {{ activities.relationType(change.old, change.new) }}
+                                {% if change.name == 'description_raw' %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ 'Description'|_ }}
+                                        </td>
+                                        <td colspan="4">
+                                            {% set activitiesCnt = activitiesCnt + 1 %}
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ activitiesCnt }}">
+                                                {{ 'Differences'|_ }}
+                                            </button>
+
+                                            <div id="diff-{{ activitiesCnt }}" class="collapse">
+                                               {{ renderDiff(change.old, change.new)|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% elseif change.name == 'title' %}
+                                    <tr>
+                                        <td class="span2">
+                                            {{ 'Title'|_ }}
+                                        </td>
+                                        <td colspan="4">
+                                            {% set activitiesCnt = activitiesCnt + 1 %}
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ activitiesCnt }}">
+                                                {{ 'Differences'|_ }}
+                                            </button>
+
+                                            <div id="diff-{{ activitiesCnt }}" class="collapse">
+                                                {{ renderDiff(change.old, change.new, false, false)|raw }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% elseif "category" == change.name %}
+                                    <td class="span4">
+                                        {% for oldCategory in change.old %}
+                                            <span class="label" style="background-color: #{{ oldCategory.color }}; color: {{ getContrastColor(oldCategory.color) }};">
+                                            {{ oldCategory.title }}
+                                            </span>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="span1">&rArr;</td>
+                                    <td class="span4">
+                                        {% for newCategory in change.new %}
+                                            <span class="label" style="background-color: #{{ newCategory.color }}; color: {{ getContrastColor(newCategory.color) }};">
+                                            {{ newCategory.title }}
+                                            </span>
+                                        {% endfor %}
+                                    </td>
                                 {% else %}
                                     {{ activities.change(change.name, change.old, change.new) }}
                                 {% endif %}

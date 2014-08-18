@@ -246,6 +246,32 @@ class IssuesModel extends AbstractTrackerListModel
 			}
 		}
 
+		$filter = $this->state->get('filter.category');
+
+		if ($filter && is_numeric($filter))
+		{
+			$categoryModel = new CategoryModel($db);
+			$issues        = $categoryModel->getIssueIdsByCategory($filter);
+
+			if ($issues != null)
+			{
+				$issueId = array();
+
+				foreach ($issues as $issue)
+				{
+					$issueId[] = $issue->issue_id;
+				}
+
+				$issueId = implode(', ', $issueId);
+			}
+			else
+			{
+				$issueId = 0;
+			}
+
+			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
+		}
+
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
 		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
 		$query->order($ordering . ' ' . $direction);
@@ -274,6 +300,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$id .= ':' . $this->state->get('filter.status');
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
+		$id .= ':' . $this->state->get('filter.category');
 
 		return parent::getStoreId($id);
 	}
@@ -329,5 +356,34 @@ class IssuesModel extends AbstractTrackerListModel
 		}
 
 		return $this->query;
+	}
+
+	/**
+	 * Override method to get the total number of items for the data set.
+	 *
+	 * @return  integer  The total number of items available in the data set.
+	 *
+	 * @since   1.0
+	 */
+	public function getTotal()
+	{
+		// Get a storage key.
+		$store = $this->getStoreId('getTotal');
+
+		// Try to load the data from internal storage.
+		if (isset($this->cache[$store]))
+		{
+			return $this->cache[$store];
+		}
+
+		// Load the total.
+		$query = $this->_getAjaxListQuery();
+
+		$total = (int) $this->_getListCount($query);
+
+		// Add the total to the internal cache.
+		$this->cache[$store] = $total;
+
+		return $this->cache[$store];
 	}
 }

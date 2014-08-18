@@ -104,6 +104,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
 			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
 			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
+			new \Twig_SimpleFunction('getContrastColor', array($this, 'getContrastColor')),
 			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
 			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
 			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),

@@ -1,0 +1,55 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ "Add Category"|_ }}{% endblock %}
+
+{% block prependMenu %}
+    <li>
+        <a class="btn-success" href="javascript:;" onclick="document.editForm.submit();">
+            {{ "Save"|_ }}
+        </a>
+    </li>
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+    <h2>{{ "New Category"|_ }}</h2>
+
+    <form method="post" action="{{ uri.base.path }}category/save" class="form-inline" name="editForm">
+        <fieldset>
+            <legend>{{ "Details"|_ }}</legend>
+
+            <div class="control-group">
+                <label class="control-label" for="title">{{ "Title"|_ }}</label>
+
+                <div class="controls">
+                    <input type="text" name="category[title]" id="title"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="alias">{{ "Alias"|_ }}</label>
+
+                <div class="controls">
+                    <input type="text" name="category[alias]" id="alias"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="color">{{ "Color"|_ }}</label>
+
+                <div class="controls">
+                    <input type="text" name="category[color]" id="color"/>
+                </div>
+            </div>
+
+            <input type="hidden" name="category[project_id]" value="{{ project.project_id }}"/>
+
+        </fieldset>
+    </form>
+
+{% endblock %}

@@ -324,3 +324,35 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-10-01 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_categories`
+--
+CREATE TABLE `#__issues_categories` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `project_id` int(11) NOT NULL COMMENT 'The id of the Project',
+  `title` varchar(150) NOT NULL COMMENT 'The title of the category',
+  `alias` varchar(150) NOT NULL COMMENT 'The alias of the category',
+  `color` varchar(6) NOT NULL COMMENT 'The hex value of the category',
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__issues_categories_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_category_map`
+--
+CREATE TABLE `#__issue_category_map` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `issue_id` int(11) unsigned NOT NULL COMMENT 'PK of the issue in issue table',
+  `category_id` int(11) unsigned NOT NULL COMMENT 'Category id',
+  PRIMARY KEY (`id`),
+  KEY `issue_id` (`issue_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`),
+  CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

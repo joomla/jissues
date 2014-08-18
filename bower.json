@@ -15,6 +15,7 @@
     "jquery-textrange": "1.1.0",
     "g11n-js": "1.1",
     "twbs-pagination": "1.1.2",
+    "bootstrap-select": "1.5.4",
     "d3": "3.4.6"
  }
 }
