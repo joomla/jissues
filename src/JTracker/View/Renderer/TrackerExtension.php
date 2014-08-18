@@ -97,12 +97,16 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
+			new \Twig_SimpleFunction('getPriority', array($this, 'getPriority')),
 			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
+			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
 			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
 			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
+			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
+			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),
 		);
 
 		if (!JDEBUG)
@@ -224,6 +228,22 @@ class TrackerExtension extends \Twig_Extension
 			4 => g11n3t('Low'),
 			5 => g11n3t('Very low')
 			];
+	}
+
+	/**
+	 * Get the priority text.
+	 *
+	 * @param   integer  $id  The priority id.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getPriority($id)
+	{
+		$priorities = $this->getPriorities();
+
+		return isset($priorities[$id]) ? $priorities[$id] : 'N/A';
 	}
 
 	/**
@@ -449,6 +469,28 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
+	 * Get the relation type text.
+	 *
+	 * @param   integer  $id  The relation id.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getRelType($id)
+	{
+		foreach ($this->getRelTypes() as $relType)
+		{
+			if ($relType->value == $id)
+			{
+				return $relType->text;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Generate a localized yes/no message.
 	 *
 	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
@@ -559,5 +601,23 @@ class TrackerExtension extends \Twig_Extension
 		$renderer->setShowHeader($showHeader);
 
 		return $diff->Render($renderer);
+	}
+
+	/**
+	 * Get the difference of two comma separated value strings.
+	 *
+	 * @param   string  $a  The "a" string.
+	 * @param   string  $b  The "b" string.
+	 *
+	 * @return string  difference values comma separated
+	 *
+	 * @since   1.0
+	 */
+	public function arrayDiff($a, $b)
+	{
+		$as = explode(',', $a);
+		$bs = explode(',', $b);
+
+		return implode(',', array_diff($as, $bs));
 	}
 }
