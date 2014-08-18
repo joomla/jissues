@@ -326,6 +326,15 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['easy']            = $filter->clean($src['easy'], 'int');
 		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
 
+		$labels = [];
+
+		foreach ($src['labels'] as $labelId)
+		{
+			$labels[] = (int) $labelId;
+		}
+
+		$data['labels'] = implode(',', $labels);
+
 		if (!$data['id'])
 		{
 			throw new \RuntimeException('Missing ID');

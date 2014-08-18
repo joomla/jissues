@@ -112,7 +112,7 @@
         </li>
         <li>
             {{ fields.label('labels', 'Labels'|_) }}
-            {{ fields.selectLabels('labels', project.labels, item.labels) }}
+            {{ fields.selectLabels('item[labels][]', project.labels, item.labels, 'labels') }}
         </li>
     </ul>
     {% endif %}

@@ -69,6 +69,12 @@ class Save extends AbstractTrackerController
 			$data['title']           = $src['title'];
 			$data['description_raw'] = $src['description_raw'];
 
+			// @todo - user can edit labels?
+			$data['labels']          = $src['labels'];
+
+			// @todo - user can NOT edit labels
+			// @$data['labels']          = explode(',', $item->labels);
+
 			// Take the remaining values from the stored item
 			$data['status']          = $item->status;
 			$data['priority']        = $item->priority;
@@ -93,7 +99,26 @@ class Save extends AbstractTrackerController
 			$oldState = $model->getOpenClosed($item->status);
 			$state    = $model->getOpenClosed($data['status']);
 
-			$this->updateGitHub($item->issue_number, $data, $state, $oldState);
+			// @todo assignee
+			$assignee = '';
+
+			// @todo milestone
+			$milestone = '';
+
+			$labels = [];
+
+			if (isset($data['labels']) && $data['labels'])
+			{
+				foreach ($project->getLabels() as $id => $label)
+				{
+					if (in_array($id, $data['labels']))
+					{
+						$labels[] = $label->name;
+					}
+				}
+			}
+
+			$this->updateGitHub($item->issue_number, $data, $state, $oldState, $assignee, $milestone, $labels);
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render(
@@ -146,16 +171,18 @@ class Save extends AbstractTrackerController
 	 * @param   array    $data         The issue data.
 	 * @param   string   $state        The issue state (either 'open' or 'closed).
 	 * @param   string   $oldState     The previous issue state.
+	 * @param   string   $assignee     The login for the GitHub user that this issue should be assigned to.
+	 * @param   integer  $milestone    The milestone to associate this issue with.
+	 * @param   array    $labels       The labels to associate with this issue.
 	 *
 	 * @throws \Exception
 	 * @throws \JTracker\Github\Exception\GithubException
-	 *
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	private function updateGitHub($issueNumber, array $data, $state, $oldState)
+	private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, array $labels)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
@@ -167,7 +194,8 @@ class Save extends AbstractTrackerController
 			// Try to update the project on GitHub using thew current user credentials
 			$gitHubResponse = GithubFactory::getInstance($application)->issues->edit(
 				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw']
+				$issueNumber, $state, $data['title'], $data['description_raw'],
+				$assignee, $milestone, $labels
 			);
 		}
 		catch (GithubException $exception)
@@ -190,7 +218,8 @@ class Save extends AbstractTrackerController
 			// Update the project on GitHub
 			$gitHubResponse = $gitHubBot->issues->edit(
 				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw']
+				$issueNumber, $state, $data['title'], $data['description_raw'],
+				$assignee, $milestone, $labels
 			);
 
 			// Add a comment stating that this action has been performed by a MACHINE !!
