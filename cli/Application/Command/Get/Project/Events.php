@@ -303,7 +303,7 @@ class Events extends Project
 						break;
 
 					default:
-						throw new \UnexpectedValueException('Unknown event: ' . $event->event);
+						$this->logOut(sprintf('ERROR: Unknown Event: %s', $event->event));
 						continue;
 						break;
 				}
