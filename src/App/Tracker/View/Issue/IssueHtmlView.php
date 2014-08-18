@@ -106,7 +106,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * Set the item.
+	 * Get the item.
 	 *
 	 * @throws \RuntimeException
 	 * @return IssuesTable
@@ -124,7 +124,7 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	}
 
 	/**
-	 * Get the item.
+	 * Set the item.
 	 *
 	 * @param   IssuesTable  $item  The item to set.
 	 *

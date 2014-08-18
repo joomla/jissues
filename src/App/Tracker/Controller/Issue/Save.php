@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -112,6 +113,16 @@ class Save extends AbstractTrackerController
 		try
 		{
 			$data['modified_by'] = $user->username;
+			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+
+			$category['issue_id']   = $data['id'];
+			$category['categories'] = $application->input->get('categories', null, 'array');
+
+			$category['modified_by'] = $user->username;
+			$category['issue_number'] = $data['issue_number'];
+			$category['project_id'] = $project->project_id;
+
+			$categoryModel->updateCategory($category);
 
 			// Save the record.
 			$model->save($data);

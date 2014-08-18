@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 
 use Joomla\Date\Date;
@@ -102,7 +103,14 @@ class Submit extends AbstractTrackerController
 		// Store the issue
 		try
 		{
-			$issueModel->add($data);
+			// Save the issues and Get the issue id from model state
+			$issue_id = $issueModel->add($data)->getState()->get('issue_id');
+
+			// Save the category for the issue
+			$category['issue_id']   = $issue_id;
+			$category['categories'] = $application->input->get('categories', null, 'array');
+			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+			$categoryModel->saveCategory($category);
 		}
 		catch (\Exception $e)
 		{

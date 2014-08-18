@@ -38,3 +38,18 @@
         {% endfor %}
     </select>
 {% endmacro %}
+
+{% macro selectCategories(name, categories, selecteds, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="selectpicker{% if class %} {{ class }}{% endif %}"
+        title="{{ 'Select Categories...'|_ }}"
+        data-selected-text-format="count" data-live-search="true" data-width="auto" multiple="multiple">
+        {% for category in categories %}
+            <option value="{{ category.id }}"
+                    {% if category.id in selecteds %} selected="selected"{% endif %}
+                    data-content="<span class='label' style='background-color: #{{ category.color }}; color: {{ getContrastColor(category.color) }};'>{{ category.title }}</span>"
+                    >
+                {{ category.title }}
+            </option>
+        {% endfor %}
+    </select>
+{% endmacro %}
