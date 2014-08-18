@@ -11,6 +11,7 @@ namespace Application\Command\Get\Project;
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
+use App\Tracker\Table\StatusTable;
 
 use Application\Command\Get\Project;
 
@@ -261,7 +262,18 @@ class Issues extends Project
 
 			$table->description_raw = $ghIssue->body;
 
-			$table->status = ($ghIssue->state == 'open') ? 1 : 10;
+			$statusTable = new StatusTable($this->getContainer()->get('db'));
+
+			// Get the list of status IDs based on the GitHub issue state
+			$state = ($ghIssue->state == 'open') ? false : true;
+
+			$stateIds = $statusTable->getStateStatusIds($state);
+
+			// Check if the issue status is in the array; if it is, then the item didn't change open state and we don't need to change the status
+			if (!in_array($table->status, $stateIds))
+			{
+				$table->status = $state ? 1 : 10;
+			}
 
 			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
 			$table->opened_by   = $ghIssue->user->login;

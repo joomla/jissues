@@ -55,6 +55,9 @@ class Submit extends AbstractTrackerController
 			throw new \Exception('No body received.');
 		}
 
+		$issueModel = new IssueModel($this->getContainer()->get('db'));
+		$issueModel->setProject($project);
+
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
@@ -86,7 +89,7 @@ class Submit extends AbstractTrackerController
 			$data['modified_date']  = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 			$data['opened_by']      = $user->username;
 			$data['modified_by']    = $user->username;
-			$data['number']         = '???';
+			$data['number']         = $issueModel->getNextNumber();
 			$data['description'] = $gitHub->markdown->render($body, 'markdown');
 		}
 
@@ -99,8 +102,7 @@ class Submit extends AbstractTrackerController
 		// Store the issue
 		try
 		{
-			$model = new IssueModel($this->getContainer()->get('db'));
-			$model->add($data);
+			$issueModel->add($data);
 		}
 		catch (\Exception $e)
 		{
