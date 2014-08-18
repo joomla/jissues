@@ -272,7 +272,7 @@ class Issues extends Project
 			// Check if the issue status is in the array; if it is, then the item didn't change open state and we don't need to change the status
 			if (!in_array($table->status, $stateIds))
 			{
-				$table->status = $state ? 1 : 10;
+				$table->status = $state ? 10 : 1;
 			}
 
 			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
