@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-19 12:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,6 +264,10 @@ msgstr[1] ""
 msgid "%1$d added %2$d updated."
 msgstr ""
 
+#: /cli/Application/Command/Get/Project/Events.php:42
+msgid "Retrieve issue events from GitHub."
+msgstr ""
+
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
 msgstr ""
@@ -288,21 +292,53 @@ msgstr ""
 msgid "Added %d new issue events to the database"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:55
+#: /cli/Application/Command/Get/Project/Issues.php:65
 msgid "Retrieve issues from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:77
+msgid "Retrieve Issues"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:82
+msgid "Start retrieve Issues"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:88
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:104
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:163
+#, php-format
+msgid "Retrieved <b>%d</b> items from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:193
+msgid "Adding issues to the database..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:387
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Labels.php:45
-msgid "Start retrieve Labels"
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Labels.php:50
-#: /cli/Application/Command/Get/Project/Milestones.php:52
-msgid "Finished"
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
 msgstr ""
 
 #: /cli/Application/Command/Get/Project/Labels.php:62

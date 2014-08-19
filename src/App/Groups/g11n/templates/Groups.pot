@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-19 12:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,68 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:27
+#: /templates/groups/group.edit.twig:144
+msgid "Title"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:28
+#: /templates/groups/group.edit.twig:164
+msgid "View"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:29
+#: /templates/groups/group.edit.twig:174
+msgid "Create"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:30
+#: /templates/groups/group.edit.twig:184
+msgid "Edit"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:31
+#: /templates/groups/group.edit.twig:194
+msgid "Edit own"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:32
+#: /templates/groups/group.edit.twig:204
+msgid "Manage"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
@@ -37,38 +99,8 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:144
-#: /templates/groups/groups.index.twig:27
-msgid "Title"
-msgstr ""
-
 #: /templates/groups/group.edit.twig:154
 msgid "Permissions"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:164
-#: /templates/groups/groups.index.twig:28
-msgid "View"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:174
-#: /templates/groups/groups.index.twig:29
-msgid "Create"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:184
-#: /templates/groups/groups.index.twig:30
-msgid "Edit"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:194
-#: /templates/groups/groups.index.twig:31
-msgid "Edit own"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:204
-#: /templates/groups/groups.index.twig:32
-msgid "Manage"
 msgstr ""
 
 #: /templates/groups/group.edit.twig:217
@@ -89,38 +121,6 @@ msgstr ""
 
 #: /templates/groups/group.edit.twig:258
 msgid "Save the group to assign users."
-msgstr ""
-
-#: /templates/groups/groups.index.twig:6
-msgid "Groups"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:11
-msgid "Add Group"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:22
-msgid "Access Groups"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:33
-msgid "Actions"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:35
-msgid "Id"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:64
-msgid "System"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:67
-msgid "Delete"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
 msgstr ""
 
 #: /src/App/Groups/Controller/Group/Delete.php:82

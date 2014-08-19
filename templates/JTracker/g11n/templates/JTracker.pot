@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-19 12:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,55 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/editor.twig:5
-msgid "Write"
+#: /templates/uploader.full.twig:13
+msgid "Add files..."
 msgstr ""
 
-#: /templates/editor.twig:6
-msgid "Preview"
+#: /templates/uploader.full.twig:17
+msgid "Start upload"
+msgstr ""
+
+#: /templates/uploader.full.twig:20
+msgid "Cancel upload"
+msgstr ""
+
+#: /templates/uploader.full.twig:23
+#: /templates/uploader.full.twig:99
+msgid "Delete"
+msgstr ""
+
+#: /templates/uploader.full.twig:31
+msgid "Upload Notes"
+msgstr ""
+
+#: /templates/uploader.full.twig:33
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr ""
+
+#: /templates/uploader.full.twig:34
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr ""
+
+#: /templates/uploader.full.twig:35
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
+msgstr ""
+
+#: /templates/uploader.full.twig:50
+msgid "Processing..."
+msgstr ""
+
+#: /templates/uploader.full.twig:56
+msgid "Start"
+msgstr ""
+
+#: /templates/uploader.full.twig:61
+#: /templates/uploader.full.twig:104
+msgid "Cancel"
+msgstr ""
+
+#: /templates/uploader.full.twig:74
+#: /templates/trackerMenu.twig:146
+msgid "Error"
 msgstr ""
 
 #: /templates/trackerMenu.twig:8
@@ -41,114 +84,129 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: /templates/trackerMenu.twig:42
+#: /templates/trackerMenu.twig:43
 msgid "Access Groups"
 msgstr ""
 
-#: /templates/trackerMenu.twig:51
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr ""
+
+#: /templates/trackerMenu.twig:55
+msgid "Categories"
+msgstr ""
+
+#: /templates/trackerMenu.twig:65
 msgid "Projects"
 msgstr ""
 
-#: /templates/trackerMenu.twig:56
+#: /templates/trackerMenu.twig:70
 msgid "Users"
 msgstr ""
 
-#: /templates/trackerMenu.twig:70
+#: /templates/trackerMenu.twig:84
 msgid "System"
 msgstr ""
 
-#: /templates/trackerMenu.twig:77
+#: /templates/trackerMenu.twig:91
 msgid "Configuration"
 msgstr ""
 
-#: /templates/trackerMenu.twig:83
+#: /templates/trackerMenu.twig:97
 msgid "phpinfo()"
 msgstr ""
 
-#: /templates/trackerMenu.twig:89
+#: /templates/trackerMenu.twig:103
 msgid "Logs"
 msgstr ""
 
-#: /templates/trackerMenu.twig:102
+#: /templates/trackerMenu.twig:116
 msgid "Cron Jobs"
 msgstr ""
 
-#: /templates/trackerMenu.twig:107
+#: /templates/trackerMenu.twig:121
 msgid "Database"
 msgstr ""
 
-#: /templates/trackerMenu.twig:113
+#: /templates/trackerMenu.twig:127
 msgid "GitHub Issues"
 msgstr ""
 
-#: /templates/trackerMenu.twig:119
+#: /templates/trackerMenu.twig:133
 msgid "GitHub Comments"
 msgstr ""
 
-#: /templates/trackerMenu.twig:125
+#: /templates/trackerMenu.twig:139
 msgid "GitHub Pulls"
 msgstr ""
 
-#: /templates/trackerMenu.twig:129
+#: /templates/trackerMenu.twig:143
 msgid "PHP"
 msgstr ""
 
-#: /templates/trackerMenu.twig:132
-#: /templates/uploader.full.twig:74
-msgid "Error"
-msgstr ""
-
-#: /templates/trackerMenu.twig:139
+#: /templates/trackerMenu.twig:153
 msgid "Icons"
 msgstr ""
 
-#: /templates/trackerMenu.twig:145
+#: /templates/trackerMenu.twig:159
 msgid "Routes"
 msgstr ""
 
-#: /templates/trackerMenu.twig:151
+#: /templates/trackerMenu.twig:165
 msgid "Text"
 msgstr ""
 
-#: /templates/trackerMenu.twig:157
+#: /templates/trackerMenu.twig:171
 msgid "Clear Cache"
 msgstr ""
 
-#: /templates/trackerMenu.twig:179
+#: /templates/trackerMenu.twig:193
 msgid "About Us"
 msgstr ""
 
-#: /templates/trackerMenu.twig:184
+#: /templates/trackerMenu.twig:198
 msgid "Markdown"
 msgstr ""
 
-#: /templates/trackerMenu.twig:189
+#: /templates/trackerMenu.twig:203
 #: /templates/topMenu.twig:72
 msgid "Documentation"
 msgstr ""
 
-#: /templates/trackerMenu.twig:206
+#: /templates/trackerMenu.twig:222
 msgid "Admin"
 msgstr ""
 
-#: /templates/trackerMenu.twig:211
+#: /templates/trackerMenu.twig:227
 msgid "View profile"
 msgstr ""
 
-#: /templates/trackerMenu.twig:217
+#: /templates/trackerMenu.twig:233
 msgid "Edit profile"
 msgstr ""
 
-#: /templates/trackerMenu.twig:224
+#: /templates/trackerMenu.twig:240
 msgid "Logout"
 msgstr ""
 
-#: /templates/trackerMenu.twig:233
+#: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
 msgstr ""
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
+msgstr ""
+
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr ""
+
+#: /templates/index.twig:49
+msgid "Download"
+msgstr ""
+
+#: /templates/index.twig:52
+msgid "Demo"
 msgstr ""
 
 #: /templates/footerMenu.twig:6
@@ -205,58 +263,12 @@ msgstr ""
 msgid "All rights reserved."
 msgstr ""
 
-#: /templates/uploader.full.twig:13
-msgid "Add files..."
+#: /templates/editor.twig:5
+msgid "Write"
 msgstr ""
 
-#: /templates/uploader.full.twig:17
-msgid "Start upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:20
-msgid "Cancel upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:23
-#: /templates/uploader.full.twig:99
-msgid "Delete"
-msgstr ""
-
-#: /templates/uploader.full.twig:31
-msgid "Upload Notes"
-msgstr ""
-
-#: /templates/uploader.full.twig:33
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr ""
-
-#: /templates/uploader.full.twig:34
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr ""
-
-#: /templates/uploader.full.twig:35
-msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
-msgstr ""
-
-#: /templates/uploader.full.twig:50
-msgid "Processing..."
-msgstr ""
-
-#: /templates/uploader.full.twig:56
-msgid "Start"
-msgstr ""
-
-#: /templates/uploader.full.twig:61
-#: /templates/uploader.full.twig:104
-msgid "Cancel"
-msgstr ""
-
-#: /templates/index.twig:47
-msgid "Download"
-msgstr ""
-
-#: /templates/index.twig:50
-msgid "Demo"
+#: /templates/editor.twig:6
+msgid "Preview"
 msgstr ""
 
 #: /templates/topMenu.twig:18
