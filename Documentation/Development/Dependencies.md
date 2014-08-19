@@ -165,11 +165,11 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
-#### babdev/library (dev-master)
+#### babdev/library (1.*)
 
 BabDev's PHP libraries
 
-* Installed: dev-master daf9b45ea327fd5864ebb2226b5ac11c5847d00b
+* Installed: dev-master 4577272d0f414b09c6238a29e78738392e5439ea
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (1.3.2)
@@ -227,7 +227,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.2.0
+* Installed: 4.2.2
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
@@ -319,6 +319,12 @@ g11n is a custom language handler - made primarily for Joomla!
 jQuery simple pagination plugin for bootstrap-style webpages
 
 * Source URL: https://github.com/esimakin/twbs-pagination
+
+#### bootstrap-select (1.5.4)
+
+
+
+* Source URL: https://github.com/silviomoreto/bootstrap-select
 
 #### d3 (3.4.6)
 
