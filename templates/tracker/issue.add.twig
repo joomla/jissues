@@ -59,7 +59,7 @@
                 {{ fields.selectCategories('categories[]', project.categories) }}
 
                 {{ fields.label('labels', 'Labels'|_) }}
-                {{ fields.selectLabels('item[labels][]', project.labels, item.labels|split(',') , 'labels') }}
+                {{ fields.selectLabels('labels[]', project.labels, item.labels|split(','), 'labels') }}
 
                 <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
             </div>

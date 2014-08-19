@@ -46,25 +46,55 @@ class Submit extends AbstractTrackerController
 
 		$body = $application->input->get('body', '', 'raw');
 
-		// Prepare issue for the store
-		$data = array();
-
-		$data['title'] = $application->input->getString('title');
-
 		if (!$body)
 		{
 			throw new \Exception('No body received.');
 		}
 
+		// Prepare issue for the store
+
+		$data = array();
+
+		$data['title'] = $application->input->getString('title');
+
+		$labels = [];
+
+		foreach ($application->input->get('labels', [], 'array') as $labelId)
+		{
+			// Filter integer
+			$labels[] = (int) $labelId;
+		}
+
+		$data['labels'] = implode(',', $labels);
+
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 		$issueModel->setProject($project);
 
+		// Project is managed on GitHub
 		if ($project->gh_user && $project->gh_project)
 		{
-			// Project is managed on GitHub
+			// @todo assignee
+			$assignee = null;
+
+			// @todo milestone
+			$milestone = null;
+
+			$ghLabels = [];
+
+			if ($labels)
+			{
+				foreach ($project->getLabels() as $id => $label)
+				{
+					if (in_array($id, $labels))
+					{
+						$ghLabels[] = $label->name;
+					}
+				}
+			}
+
 			$gitHubResponse = $gitHub->issues->create(
 				$project->gh_user, $project->gh_project,
-				$data['title'], $body
+				$data['title'], $body, $assignee, $milestone, $ghLabels
 			);
 
 			if (!isset($gitHubResponse->id))
@@ -83,9 +113,9 @@ class Submit extends AbstractTrackerController
 				$project->gh_user . '/' . $project->gh_project
 			);
 		}
+		// Project is managed by JTracker only
 		else
 		{
-			// Project is managed by JTracker only
 			$data['opened_date']    = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 			$data['modified_date']  = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 			$data['opened_by']      = $user->username;
