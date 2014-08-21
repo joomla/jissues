@@ -196,34 +196,38 @@ class JoomlacmsPullsListener
 			$addLabels[] = $issueLabel;
 		}
 
-		try
+		// Only try to add labels if the array isn't empty
+		if (!empty($addLabels))
 		{
-			$github->issues->labels->add(
-				$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-			);
+			try
+			{
+				$github->issues->labels->add(
+					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
+				);
 
-			// Post the new label on the object
-			$logger->info(
-				sprintf(
-					'Added %s labels to %s/%s #%d',
-					count($addLabels),
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				)
-			);
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error adding labels to GitHub pull request %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
-			);
+				// Post the new label on the object
+				$logger->info(
+					sprintf(
+						'Added %s labels to %s/%s #%d',
+						count($addLabels),
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					)
+				);
+			}
+			catch (\DomainException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error adding labels to GitHub pull request %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
+				);
+			}
 		}
 	}
 
