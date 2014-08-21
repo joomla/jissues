@@ -47,7 +47,7 @@ class Submit extends AbstractAjaxController
 
 		// @todo removeMe :(
 		$comment .= sprintf(
-			'<br />*You may blame the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a> for transmitting this comment.*',
+			'<br /><br />*This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.*',
 			'https://github.com/joomla/jissues', 'J!Tracker',
 			$this->getContainer()->get('app')->get('uri')->base->full,
 			$this->getContainer()->get('app')->get('uri')->base->full
