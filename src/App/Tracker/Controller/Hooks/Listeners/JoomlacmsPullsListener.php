@@ -196,19 +196,6 @@ class JoomlacmsPullsListener
 			$addLabels[] = $issueLabel;
 		}
 
-		/*
-		 * If we have a foreign ID in the IssuesTable object, then there is a JoomlaCode tracker
-		 * NOTE: If someone ever changes these labels on GitHub, this has to be changed
-		 */
-		if (!is_null($table->foreign_number))
-		{
-			$addLabels[] = 'Has JoomlaCode Tracker Item';
-		}
-		else
-		{
-			$addLabels[] = 'Needs JoomlaCode Tracker Item';
-		}
-
 		try
 		{
 			$github->issues->labels->add(
