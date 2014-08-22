@@ -64,7 +64,7 @@
                 in
             {% endif %}
             clearfix pull-left">
-                <div class="filter-search btn-group input-append stools-filter">
+                <div class="filter-search btn-group input-append">
                     <label class="filter-search-lbl element-invisible"
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
                     <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
@@ -74,7 +74,7 @@
                     <button class="btn tip hasTooltip" id="button-submit" type="button" title="{{ 'Submit search'|_ }}">
                         <span class="icon-search"></span></button>
                 </div>
-                <div class="btn-group stools-filter">
+                <div class="btn-group">
                     <button class="btn tip hasTooltip" id="button-remove" type="button"
                             title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
@@ -85,30 +85,30 @@
                     {% set openState = ' style="display: none"' %}
                     {% set closedState = '' %}
                 {% endif %}
-                <div id="status-open" class="btn-group stools-filter"{{ openState|raw }}>
+                <div id="status-open" class="btn-group"{{ openState|raw }}>
                     {{ filters.status(state.get('filter.status'), 'filter-status-open', 'input-medium-160', 0) }}
                 </div>
-                <div id="status-closed" class="btn-group stools-filter"{{ closedState|raw }}>
+                <div id="status-closed" class="btn-group"{{ closedState|raw }}>
                     {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'input-medium-160', 1) }}
                 </div>
-                <div class="btn-group stools-filter">
+                <div class="btn-group">
                     {{ filters.category(state.get('filter.category'), 'filter-category', 'selectpicker', project.categories) }}
                 </div>
-                <div class="btn-group stools-filter">
+                <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-120') }}
                 </div>
-                <div class="btn-group stools-filter">
+                <div class="btn-group">
                     {{ filters.tests(state.get('filter.tests'), 'filter-tests', 'input-medium-140') }}
                 </div>
-                <div class="btn-group stools-filter">
+                <div class="btn-group">
                     {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'input-medium-140') }}
                 </div>
                 {% if user.username %}
-                    <div class="btn-group stools-filter">
+                    <div class="btn-group">
                         {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-180') }}
                     </div>
                 {% endif %}
-                <div class="btn-group stools-filter">
+                <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
                 </div>
             </div>
