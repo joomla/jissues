@@ -127,7 +127,7 @@ class Save extends AbstractTrackerController
 			// Save the record.
 			$model->save($data);
 
-			$application->enqueueMessage('The changes have been saved.', 'success')
+			$application->enqueueMessage(g11n3t('The changes have been saved.'), 'success')
 				->redirect(
 				'/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber
 			);
