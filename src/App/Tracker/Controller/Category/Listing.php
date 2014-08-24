@@ -55,7 +55,7 @@ class Listing extends AbstractTrackerListController
 
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('admin');
+		$application->getUser()->authorize('manage');
 
 		$this->model->setProject($this->getContainer()->get('app')->getProject(true));
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
