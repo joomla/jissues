@@ -665,6 +665,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	private function checkRememberMe()
 	{
+		if (!$this->get('system.remember_me'))
+		{
+			// Remember me is disabled in config
+			return $this;
+		}
+
 		if ($this->getUser()->id)
 		{
 			// The user is already logged in
@@ -694,6 +700,11 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function setRememberMe($state)
 	{
+		if (!$this->get('system.remember_me'))
+		{
+			return $this;
+		}
+
 		if ($state)
 		{
 			// Remember me - set the cookie
