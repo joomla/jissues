@@ -39,22 +39,19 @@ class Listing extends AbstractAjaxController
 		// Get the state object
 		$state = $model->getState();
 
-		// Pagination
+		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
-		$page  = $application->input->getInt('page');
 
+		// Get project id;
+		$projectId = $application->getProject()->project_id;
+
+		$page       = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
 		$value      = $page ? ($page - 1) * $limit : 0;
 		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 
 		$state->set('list.start', $limitStart);
 		$state->set('list.limit', $limit);
-
-		// Get project id;
-		$projectId = $application->getProject()->project_id;
-
-		// Set filter of project
-		$state->set('filter.project', $projectId);
 
 		// Get sort and direction
 		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 0, 'uint');
@@ -151,7 +148,8 @@ class Listing extends AbstractAjaxController
 		$listItems = $model->getAjaxItems();
 
 		// Get total pages
-		$pagesTotal = $model->getPagination()->getPagesTotal();
+		$pagesTotal  = $model->getPagination()->getPagesTotal();
+		$currentPage = $model->getPagination()->getPageNo();
 
 		// Render the label html for each item
 		$renderer = new Renderer\TrackerExtension($this->getContainer());
@@ -165,7 +163,7 @@ class Listing extends AbstractAjaxController
 		}
 
 		// Prepare the response.
-		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal);
-		$this->response->data = $items;
+		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal, 'currentPage' => $currentPage);
+		$this->response->data = (object) $items;
 	}
 }
