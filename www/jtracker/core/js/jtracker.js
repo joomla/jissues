@@ -106,7 +106,19 @@ JTracker.submitTest = function (issueId, button) {
 			else {
 				// Success
 				status.html(r.message);
+
+				var data = $.parseJSON(r.data);
+
+				JTracker.updateTests(data.testsSuccess, data.testsFailure)
 			}
 		}
 	);
+};
+
+JTracker.updateTests = function (testsSuccess, testsFailure) {
+	$('#usertests-success-num').text(testsSuccess.length);
+	$('#usertests-success').text(testsSuccess.join(', '));
+
+	$('#usertests-fail-num').text(testsFailure.length);
+	$('#usertests-fail').text(testsFailure.join(', '));
 };
