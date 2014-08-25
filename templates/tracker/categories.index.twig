@@ -6,7 +6,7 @@
 {% block title %}{{ "Categories List"|_ }}{% endblock %}
 
 {% block prependMenu %}
-    {% if user.isAdmin %}
+    {% if user.check("manage") %}
         <li>
             <a class="btn-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">
                 {{ "New Category"|_ }}
@@ -29,7 +29,7 @@
             <th style="width: 10%">{{ "Title"|_ }}</th>
             <th style="width: 10%">{{ "Color"|_ }}</th>
 
-            {% if user.isAdmin %}
+            {% if user.check("manage") %}
                 <th style="width: 10%;">{{ "Actions"|_ }}</th>
             {% endif %}
 
@@ -50,7 +50,7 @@
                     #{{ item.color }}
                 </td>
                 <td>
-                        {% if user.isAdmin %}
+                        {% if user.check("manage") %}
                             <a href="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}">{{ "Delete"|_ }}</a>
                             <a href="{{ uri.base.path }}category/{{ project.alias }}/edit/{{ item.id }}">{{ "Edit"|_ }}</a>
                         {% endif %}
