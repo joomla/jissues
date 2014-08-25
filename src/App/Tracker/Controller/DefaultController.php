@@ -89,7 +89,7 @@ class DefaultController extends AbstractTrackerListController
 				break;
 
 			default:
-				$state->set('list.ordering', 'a.issue_number');
+				$sort = 0;
 		}
 
 		switch (strtoupper($direction))
@@ -174,9 +174,15 @@ class DefaultController extends AbstractTrackerListController
 		// Update the category filter from the GET request
 		if ($categoryAlias != '')
 		{
+			$categoryId = 0;
+
 			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
 			$category = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
-			$categoryId = $category->id;
+
+			if ($category)
+			{
+				$categoryId = $category->id;
+			}
 		}
 		else
 		{
@@ -193,6 +199,11 @@ class DefaultController extends AbstractTrackerListController
 		{
 			$state->set('username', $application->getUser()->username);
 		}
+
+		// Update the page from the GET request
+		$state->set('page',
+			$application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint')
+		);
 
 		$this->model->setState($state);
 	}
