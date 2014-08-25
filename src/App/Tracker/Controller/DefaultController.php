@@ -52,8 +52,8 @@ class DefaultController extends AbstractTrackerListController
 
 		$application->getUser()->authorize('view');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$this->model->setProject($application->getProject());
+		$this->view->setProject($application->getProject());
 
 		$this->setModelState();
 
@@ -76,29 +76,11 @@ class DefaultController extends AbstractTrackerListController
 
 		$projectId = $application->getProject()->project_id;
 
-		// Set up pagination
-		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');
-		$page  = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
-
-		$projectIdFromState = $application->getUserState('projectId', 0);
-
-		if ($projectId != $projectIdFromState)
-		{
-			$application->setUserState('projectId', $projectId);
-			$page = 1;
-		}
-
-		$value = $page ? ($page - 1) * $limit : 0;
-		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
-
-		$state->set('list.start', $limitStart);
-		$state->set('list.limit', $limit);
-
 		// Set up filters
 		$sort       = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
 		$direction  = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
-		// Filter.sort for get queries
+		// Update the sort filters from the GET request
 		switch (strtolower($sort))
 		{
 			case 'updated':

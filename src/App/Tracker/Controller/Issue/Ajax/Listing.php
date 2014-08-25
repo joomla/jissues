@@ -36,17 +36,26 @@ class Listing extends AbstractAjaxController
 	 */
 	private function setModelState(IssuesModel $model)
 	{
-		// Get the state object
-		$state = $model->getState();
-
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
 
-		// Get project id;
+		$state = $model->getState();
+
 		$projectId = $application->getProject()->project_id;
 
-		$page       = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
+		// Set up pagination values
+		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
+		$page = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
+
+		$projectIdFromState = $application->getUserState('projectId', 0);
+
+		// Reset page on project change
+		if ($projectId != $projectIdFromState)
+		{
+			$application->setUserState('projectId', $projectId);
+			$page = 1;
+		}
+
 		$value      = $page ? ($page - 1) * $limit : 0;
 		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 
@@ -141,8 +150,11 @@ class Listing extends AbstractAjaxController
 		$this->setModelState($model);
 
 		// Pagination
-		$paginationObject = new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
-		$model->setPagination($paginationObject);
+		$model->setPagination(
+			new TrackerPagination(
+				new Uri($application->get('uri.request'))
+			)
+		);
 
 		// Get list items
 		$listItems = $model->getAjaxItems();
