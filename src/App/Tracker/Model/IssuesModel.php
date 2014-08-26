@@ -286,7 +286,7 @@ class IssuesModel extends AbstractTrackerListModel
 						)
 						->where($db->quoteName('it.result') . ' = 1')
 						->group('a.issue_number')
-						->having('COUNT(it.item_id) < 2');
+						->having('COUNT(it.item_id) = 1');
 					break;
 
 				case 2:
