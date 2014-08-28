@@ -52,8 +52,8 @@ class DefaultController extends AbstractTrackerListController
 
 		$application->getUser()->authorize('view');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$this->model->setProject($application->getProject());
+		$this->view->setProject($application->getProject());
 
 		$this->setModelState();
 
@@ -74,88 +74,80 @@ class DefaultController extends AbstractTrackerListController
 
 		$state = $this->model->getState();
 
-		// Get project id;
 		$projectId = $application->getProject()->project_id;
 
-		// Set filter of project
-		$state->set('filter.project', $projectId);
+		// Set up filters
+		$sort       = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
+		$direction  = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
-
-		$direction = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
-
-		// Filter.sort for get queries
-		$filter_sort = 0;
-
+		// Update the sort filters from the GET request
 		switch (strtolower($sort))
 		{
 			case 'updated':
 				$state->set('list.ordering', 'a.modified_date');
-				$filter_sort = $filter_sort + 2;
+				$sort = $sort + 2;
 				break;
 
 			default:
-				$state->set('list.ordering', 'a.issue_number');
+				$sort = 0;
 		}
 
 		switch (strtoupper($direction))
 		{
 			case 'ASC':
 				$state->set('list.direction', 'ASC');
-				$filter_sort++;
+				$sort++;
 				break;
 
 			default:
 				$state->set('list.direction', 'DESC');
 		}
 
-		$state->set('filter.sort', $filter_sort);
+		$state->set('filter.sort', $sort);
 
-		// Filter.priority for get queries
 		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'cmd');
 
-		$filter_priority = 0;
-
+		// Update the priority filter from the GET request
 		switch (strtolower($priority))
 		{
 			case 'critical':
-				$filter_priority = 1;
+				$priority = 1;
 				break;
 
 			case 'urgent':
-				$filter_priority = 2;
+				$priority = 2;
 				break;
 
 			case 'medium':
-				$filter_priority = 3;
+				$priority = 3;
 				break;
 
 			case 'low':
-				$filter_priority = 4;
+				$priority = 4;
 				break;
 
 			case 'very-low':
-				$filter_priority = 5;
+				$priority = 5;
 				break;
 		}
 
-		$state->set('filter.priority', $filter_priority);
+		$state->set('filter.priority', $priority);
 
-		// Filter.state for get queries
-		$issue_state = $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 'open', 'word');
+		$issuesState = $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 'open', 'word');
 
-		$filter_state = 0;
-
-		switch (strtolower($issue_state))
+		// Update the state filter from the GET request
+		switch (strtolower($issuesState))
 		{
 			case 'closed':
-				$filter_state = 1;
+				$issuesState = 1;
 				break;
 		}
 
-		$state->set('filter.state', $filter_state);
+		$state->set('filter.state', $issuesState);
 
-		// Filter.search for word
+		$state->set('filter.status',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
+		);
 
 		$state->set('filter.search',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
@@ -163,33 +155,38 @@ class DefaultController extends AbstractTrackerListController
 
 		$user = $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'word');
 
+		// Update the user filter from the GET request
 		switch ((string) $user)
 		{
 			case 'created':
-				$filter_user = 1;
+				$user = 1;
 				break;
 
 			case 'participated':
-				$filter_user = 2;
+				$user = 2;
 				break;
-
-			default:
-				$filter_user = 0;
 		}
 
-		// Filter.user for get queries
-		$state->set('filter.user', $filter_user);
+		$state->set('filter.user', $user);
 
-		// Filter.category for category
 		$categoryAlias = $application->getUserStateFromRequest('project_' . $projectId . '.filter.categoryAlias', 'category', '', 'cmd');
 
-		$categoryId = 0;
-
+		// Update the category filter from the GET request
 		if ($categoryAlias != '')
 		{
+			$categoryId = 0;
+
 			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
 			$category = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
-			$categoryId = $category->id;
+
+			if ($category)
+			{
+				$categoryId = $category->id;
+			}
+		}
+		else
+		{
+			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'uint');
 		}
 
 		$state->set('filter.category', (int) $categoryId);
@@ -202,6 +199,11 @@ class DefaultController extends AbstractTrackerListController
 		{
 			$state->set('username', $application->getUser()->username);
 		}
+
+		// Update the page from the GET request
+		$state->set('page',
+			$application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint')
+		);
 
 		$this->model->setState($state);
 	}
