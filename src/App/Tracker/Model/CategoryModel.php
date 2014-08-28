@@ -250,19 +250,19 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get issue's category ids by issue's id.
 	 *
-	 * @param   int  $issue_id  The id of the issue.
+	 * @param   int  $issueId  The id of the issue.
 	 *
 	 * @since   1.0
 	 *
 	 * @return  array  The object list of the issues.
 	 */
-	public function getCategories($issue_id)
+	public function getCategories($issueId)
 	{
-		$issue_id = (int) $issue_id;
+		$issueId = (int) $issueId;
 
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
-		$query->select('category_id')->from('#__issue_category_map')->where('issue_id = ' . $issue_id);
+		$query->select('category_id')->from('#__issue_category_map')->where('issue_id = ' . $issueId);
 
 		return $db->setQuery($query)->loadObjectList();
 	}
