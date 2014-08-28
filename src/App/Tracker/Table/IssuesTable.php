@@ -40,6 +40,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   integer  $rel_number       Relation number
  * @property   string   $rel_type         Relation type
  * @property   integer  $has_code         If the issue has code attached - aka a pull request.
+ * @property   string   $pr_head_ref      Pull request head ref.
  * @property   string   $labels           Comma separated list of label IDs
  * @property   integer  $vote_id          Vote id
  * @property   integer  $build            Build the issue is reported on
