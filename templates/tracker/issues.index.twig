@@ -60,6 +60,8 @@
             or state.get('filter.sort')
             or state.get('filter.user')
             or state.get('filter.category')
+            or state.get('filter.tests')
+            or state.get('filter.easytest')
             or state.get('stools-active') %}
                 in
             {% endif %}
@@ -393,7 +395,7 @@
                     'category': category,
                     'tests': tests,
                     'easytest': easytest,
-                    'stools-active': active
+                    'stools-active': active,
                     'page': page
                 },
                 success: function (r) {

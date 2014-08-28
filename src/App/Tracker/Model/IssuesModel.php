@@ -284,6 +284,7 @@ class IssuesModel extends AbstractTrackerListModel
 							$db->quoteName('#__issues_tests', 'it')
 							. 'ON a.id = it.item_id'
 						)
+						->where($db->quoteName('a.has_code') . ' = 1')
 						->where($db->quoteName('it.result') . ' = 1')
 						->group('a.issue_number')
 						->having('COUNT(it.item_id) = 1');
@@ -295,9 +296,21 @@ class IssuesModel extends AbstractTrackerListModel
 							$db->quoteName('#__issues_tests', 'it')
 							. 'ON a.id = it.item_id'
 						)
+						->where($db->quoteName('a.has_code') . ' = 1')
 						->where($db->quoteName('it.result') . ' = 1')
 						->group('a.issue_number')
 						->having('COUNT(it.item_id) > 1');
+					break;
+
+				case 3:
+					$query
+					->leftJoin(
+						$db->quoteName('#__issues_tests', 'it')
+						. 'ON a.id = it.item_id'
+					)
+						->where($db->quoteName('a.has_code') . ' = 1')
+						->group('a.issue_number')
+						->having('COUNT(it.item_id) = 0');
 					break;
 			}
 		}
