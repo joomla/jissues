@@ -45,7 +45,8 @@
         data-selected-text-format="count" data-live-search="true" data-width="auto" multiple="multiple">
         {% for category in categories %}
             <option value="{{ category.id }}"
-                    {% if category.id in selecteds %} selected="selected"{% endif %}>
+                    {% if category.id in selecteds %} selected="selected"{% endif %} data-content="<span class='category-color' style='background-color: #{{ category.color }};'>&nbsp;&nbsp;</span> {{ category.title }}"
+                    >
                 {{ category.title }}
             </option>
         {% endfor %}
