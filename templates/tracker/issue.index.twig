@@ -263,6 +263,8 @@
             </form>
             {% endif %}
 
+            {% if item.has_code %}
+
             <h4>{{ 'Tests:'|_ }}</h4>
 
             <ul class="unstyled">
@@ -276,7 +278,7 @@
                 </li>
             </ul>
 
-            {% if user.check("edit") %}
+                {% if user.id %}
                 <form class="form-inline tests-report" name="testsForm">
                     <fieldset>
                         <p>{{ "I've tested this item"|_ }}</p>
@@ -306,6 +308,8 @@
                         {{ "Submit test result"|_ }}
                     </a>
                 </form>
+                {% endif %}
+
             {% endif %}
         </div>
     </div>
