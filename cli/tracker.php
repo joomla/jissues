@@ -43,11 +43,23 @@ catch (\Exception $e)
 {
 	$trace = $e->getTraceAsString();
 
-	echo "\n\n"
-		. sprintf(g11n3t('ERROR: %s'), $e->getMessage())
-		. "\n\n"
-		. g11n3t('Call stack:') . "\n"
-		. str_replace(JPATH_ROOT, 'JPATH_ROOT', $e->getTraceAsString());
+	if (function_exists('g11n3t'))
+	{
+		echo "\n\n"
+			. sprintf(g11n3t('ERROR: %s'), $e->getMessage())
+			. "\n\n"
+			. g11n3t('Call stack:') . "\n"
+			. str_replace(JPATH_ROOT, 'JPATH_ROOT', $e->getTraceAsString());
+	}
+	else
+	{
+		// The language library has not been loaded yet :(
+		echo "\n\n"
+			. 'ERROR: %s' . $e->getMessage()
+			. "\n\n"
+			. 'Call stack:' . "\n"
+			. str_replace(JPATH_ROOT, 'JPATH_ROOT', $e->getTraceAsString());
+	}
 
 	exit($e->getCode() ? : 255);
 }

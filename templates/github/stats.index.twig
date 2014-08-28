@@ -89,7 +89,7 @@
 
                 {% for week in stats.weeks %}
                     <td>
-                        {#{{ week.w }}<br />#}
+                        <i class="icon-calendar hasTooltip" style="cursor: help;" title="{{ week.w|date('d M Y') }}"></i><br />
                         {{ week.a }}<br/>
                         {{ week.d }}<br/>
                         {{ week.c }}<br/>

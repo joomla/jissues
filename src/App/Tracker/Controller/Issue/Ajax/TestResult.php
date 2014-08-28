@@ -48,7 +48,7 @@ class TestResult extends AbstractAjaxController
 
 		$model = new IssueModel($this->getContainer()->get('db'));
 
-		$model->saveTest($issueId, $user->username, $result);
+		$this->response->data = json_encode($model->saveTest($issueId, $user->username, $result));
 
 		$this->response->message = g11n3t('Test successfully added');
 	}

@@ -420,7 +420,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		$query->clear()
-			->select('SUM(score) AS score, COUNT(id) AS votes')
+			->select('SUM(score) AS score, COUNT(id) AS votes, SUM(experienced) AS experienced')
 			->from($db->quoteName('#__issues_voting'))
 			->where($db->quoteName('issue_number') . ' = ' . (int) $id);
 
@@ -468,7 +468,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   string   $userName  The user name
 	 * @param   string   $result    The test result
 	 *
-	 * @return  $this
+	 * @return  object  StdClass with array of usernames for successful and failed tests
 	 *
 	 * @since   1.0
 	 */
@@ -510,6 +510,30 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			)->execute();
 		}
 
-		return $this;
+		// Fetch test data
+
+		$data = new \stdClass;
+
+		$data->testsSuccess = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 1')
+		)->loadColumn();
+
+		sort($data->testsSuccess);
+
+		$data->testsFailure = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 2')
+		)->loadColumn();
+
+		sort($data->testsFailure);
+
+		return $data;
 	}
 }

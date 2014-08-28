@@ -65,21 +65,14 @@
         {{ "Projects"|_ }}
     </a>
 </li>
-<li class="{{ "users" == firstPart or "user" == firstPart ? "active" : "" }}">
+<li class="{{ firstPart in ['users', 'user'] ? "active" : "" }}">
     <a href="{{ uri.base.path }}users">
         {{ "Users"|_ }}
     </a>
 </li>
 
 {% if user.isAdmin %}
-    <li class="dropdown
-    {{ "config" == firstPart
-    or "text" == firstPart
-    or "icons" == firstPart
-    or "logs" == firstPart
-    ? " active"
-    : "" }}
-    ">
+    <li class="dropdown{{ firstPart in ['config', 'text', 'icons', 'logs'] ? " active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ "System"|_ }}
             <span class="caret"></span>
@@ -175,12 +168,7 @@
     </li>
 {% endif %}
 
-<li class="dropdown {{
-"page/about" == firstPart
-or "markdown" == firstPart
-or "devdox" == firstPart
-? "active" : ""
-}}">
+<li class="dropdown {{firstPart in ['page/about', 'markdown', 'devdox'] ? 'active' : '' }}">
     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
         /etc
         <span class="caret"></span>

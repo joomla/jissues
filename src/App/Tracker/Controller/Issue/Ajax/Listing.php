@@ -36,25 +36,31 @@ class Listing extends AbstractAjaxController
 	 */
 	private function setModelState(IssuesModel $model)
 	{
-		// Get the state object
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
 		$state = $model->getState();
 
-		// Pagination
-		$application = $this->getContainer()->get('app');
+		$projectId = $application->getProject()->project_id;
+
+		// Set up pagination values
 		$limit = $application->getUserStateFromRequest('list.limit', 'limit', 20, 'int');
-		$page  = $application->input->getInt('page');
+		$page = $application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint');
+
+		$projectIdFromState = $application->getUserState('projectId', 0);
+
+		// Reset page on project change
+		if ($projectId != $projectIdFromState)
+		{
+			$application->setUserState('projectId', $projectId);
+			$page = 1;
+		}
 
 		$value      = $page ? ($page - 1) * $limit : 0;
 		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);
 
 		$state->set('list.start', $limitStart);
 		$state->set('list.limit', $limit);
-
-		// Get project id;
-		$projectId = $application->getProject()->project_id;
-
-		// Set filter of project
-		$state->set('filter.project', $projectId);
 
 		// Get sort and direction
 		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 0, 'uint');
@@ -152,14 +158,18 @@ class Listing extends AbstractAjaxController
 		$this->setModelState($model);
 
 		// Pagination
-		$paginationObject = new TrackerPagination(new Uri($this->getContainer()->get('app')->get('uri.request')));
-		$model->setPagination($paginationObject);
+		$model->setPagination(
+			new TrackerPagination(
+				new Uri($application->get('uri.request'))
+			)
+		);
 
 		// Get list items
 		$listItems = $model->getAjaxItems();
 
 		// Get total pages
-		$pagesTotal = $model->getPagination()->getPagesTotal();
+		$pagesTotal  = $model->getPagination()->getPagesTotal();
+		$currentPage = $model->getPagination()->getPageNo();
 
 		// Render the label html for each item
 		$renderer = new Renderer\TrackerExtension($this->getContainer());
@@ -173,7 +183,7 @@ class Listing extends AbstractAjaxController
 		}
 
 		// Prepare the response.
-		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal);
-		$this->response->data = $items;
+		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal, 'currentPage' => $currentPage);
+		$this->response->data = (object) $items;
 	}
 }

@@ -136,6 +136,8 @@
 
     <ul id="pagination" class="trackerPagination"></ul>
 
+    <input type="hidden" name="page" id="page" value="{{ state.get('page') }}"/>
+
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->
@@ -271,13 +273,16 @@
          */
 
         $('[id^=filter]').change(function () {
-                    getListItems();
-                }
+                $('#page').val(0);
+                getListItems();
+            }
         );
+
         $('#filter-state-div button').click(
                 function () {
                     var val = $(this).val();
                     $('#filter-state').val(val);
+
                     if (val == 0) {
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
@@ -289,6 +294,8 @@
                         $('#status-open').hide();
                         $('#status-closed').show();
                     }
+
+                    $('#page').val(0);
                     getListItems();
                 }
         );
@@ -371,7 +378,7 @@
             var category = $('#filter-category').val();
             var tests = $('#filter-tests').val();
             var easytest = $('#filter-easytest').val();
-
+            var page = $('#page').val();
 
             $.ajax({
                 type: 'POST',
@@ -387,12 +394,14 @@
                     'tests': tests,
                     'easytest': easytest,
                     'stools-active': active
+                    'page': page
                 },
                 success: function (r) {
                     if (r.data.pagesTotal > 1) {
                         $("#pagination").twbsPagination({
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
+                            startPage: r.data.currentPage,
                             first: g11n3t('First'),
                             prev: g11n3t('Previous'),
                             next: g11n3t('Next'),
