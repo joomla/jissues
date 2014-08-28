@@ -11,6 +11,7 @@ namespace Application\Command\Get\Project;
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
+use App\Tracker\Table\StatusTable;
 
 use Application\Command\Get\Project;
 
@@ -61,8 +62,6 @@ class Issues extends Project
 	{
 		parent::__construct();
 
-		// This class has actions that depend on a bot account, fetch a Github instance as a bot
-		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
 		$this->description = g11n3t('Retrieve issues from GitHub.');
 	}
 
@@ -75,15 +74,18 @@ class Issues extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Issues');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Issues'));
 
-		$this->logOut('Start retrieve Issues')
+		// This class has actions that depend on a bot account, fetch a GitHub instance as a bot
+		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
+
+		$this->logOut(g11n3t('Start retrieve Issues'))
 			->selectProject()
 			->setupGitHub()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished'));
 	}
 
 	/**
@@ -99,7 +101,7 @@ class Issues extends Project
 
 		foreach (array('open', 'closed') as $state)
 		{
-			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
+			$this->out(sprintf(g11n3t('Retrieving <b>%s</b> items from GitHub...'), $state), false);
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
 
 			$page = 0;
@@ -158,7 +160,7 @@ class Issues extends Project
 			}
 		);
 
-		$this->logOut(sprintf('Retrieved <b>%d</b> items from GitHub.', count($issues)));
+		$this->logOut(sprintf(g11n3t('Retrieved <b>%d</b> items from GitHub.'), count($issues)));
 
 		$this->issues = $issues;
 
@@ -188,7 +190,7 @@ class Issues extends Project
 
 		$milestones = $this->getMilestones();
 
-		$this->out('Adding issues to the database...', false);
+		$this->out(g11n3t('Adding issues to the database...'), false);
 
 		$progressBar = $this->getProgressBar(count($ghIssues));
 
@@ -260,7 +262,18 @@ class Issues extends Project
 
 			$table->description_raw = $ghIssue->body;
 
-			$table->status = ($ghIssue->state == 'open') ? 1 : 10;
+			$statusTable = new StatusTable($this->getContainer()->get('db'));
+
+			// Get the list of status IDs based on the GitHub issue state
+			$state = ($ghIssue->state == 'open') ? false : true;
+
+			$stateIds = $statusTable->getStateStatusIds($state);
+
+			// Check if the issue status is in the array; if it is, then the item didn't change open state and we don't need to change the status
+			if (!in_array($table->status, $stateIds))
+			{
+				$table->status = $state ? 10 : 1;
+			}
 
 			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
 			$table->opened_by   = $ghIssue->user->login;
@@ -288,7 +301,8 @@ class Issues extends Project
 					$status->description = 'JTracker Bug Squad working on it...';
 					$status->context = 'jtracker';
 
-					$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
+					// @todo Project based status messages
+					// @$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
 				}
 				else
 				{
@@ -370,7 +384,7 @@ class Issues extends Project
 
 		// Output the final result
 		$this->out()
-			->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
+			->logOut(sprintf(g11n3t('<ok>%1$d added, %2$d updated.</ok>'), $added, $updated));
 
 		return $this;
 	}

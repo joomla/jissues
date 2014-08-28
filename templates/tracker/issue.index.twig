@@ -3,6 +3,8 @@
 
 {% extends "index.twig" %}
 
+{% import "tpl/activities.twig" as activities %}
+
 {% block title %}{{ project.title }} #{{ item.issue_number }} - {{ item.title }}{% endblock %}
 
 {% block headerText %} - {{ project.short_title }}{% endblock %}
@@ -11,6 +13,7 @@
     {{ parent() }}
     <!-- CSS for coloured code -->
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/core/css/diff.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
@@ -19,6 +22,12 @@
         a:target {
             /* Anchor links in events and fixed top bar */
             padding-top: 120px;;
+        }
+        .tests-success {
+            color: green;
+        }
+        .tests-fail {
+            color: red;
         }
     </style>
 {% endblock %}
@@ -143,23 +152,22 @@
             </ul>
         {% endif %}
 
-<!-- Test results -->
+<!-- Categories -->
+    {% if item.categories %}
+        <ul class="breadcrumb">
+            <li>
+                <strong>{{ 'Categories:'|_ }}</strong>
+            </li>
 
-    <ul class="breadcrumb">
-        <li>
-            <strong>{{ 'Tests:'|_ }}</strong>
-        </li>
-        <li>
-            {{ '%d successfull and %d unsuccessfull tests.'|_|format(item.testsSuccess|length, item.testsFailure|length) }}
-        </li>
-        <li style="color: green;">
-            {{ item.testsSuccess|join(', ') }}
-        </li>
-        <li style="color: red;">
-            {{ item.testsFailure|join(', ') }}
-        </li>
-    </ul>
-
+                {% for category in item.categories %}
+                    <li>
+                    <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">
+                        {{ category.title }}
+                    </span>
+                    </li>
+                {% endfor %}
+        </ul>
+    {% endif %}
 <!-- Relations -->
 
     {% if item.rel_number %}
@@ -190,12 +198,16 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="{{ item.votes or user.id ? "span7" : "span10" }} well-small issue-description">
+        <div class="span7 well-small issue-description">
             {{ item.description|raw }}
         </div>
 
-        {% if item.votes or user.id %}
         <div class="span3 well">
+
+            {% if item.votes or user.id%}
+            <h4>{{ 'Votes'|_ }}</h4>
+            {% endif %}
+
             {% if item.votes %}
             <div class="row-fluid">
                 <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
@@ -251,8 +263,20 @@
             </form>
             {% endif %}
 
+            <h4>{{ 'Tests:'|_ }}</h4>
+
+            <ul class="unstyled">
+                <li>
+                    {{ 'Successfull: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}<br />
+                    <span id="usertests-success" class="tests-success"></span>
+                </li>
+                <li>
+                    {{ 'Unsuccessfull: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}<br />
+                    <span id="usertests-fail" class="tests-fail"></span>
+                </li>
+            </ul>
+
             {% if user.check("edit") %}
-                <hr />
                 <form class="form-inline tests-report" name="testsForm">
                     <fieldset>
                         <p>{{ "I've tested this item"|_ }}</p>
@@ -264,32 +288,33 @@
                                 </label>
                             </li>
                             <li>
-                                <label class="radio" style="color: green;">
+                                <label class="radio tests-success">
                                     <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
                                     {{ "Tested successfully"|_ }}
                                 </label>
                             </li>
                             <li>
-                                <label class="radio" style="color: red;">
+                                <label class="radio tests-fail">
                                     <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
                                     {{ "Tested unsuccessfully"|_ }}
                                 </label>
                             </li>
                         </ul>
                     </fieldset>
-                    <a href="javascript:" class="btn btn-primary" id="testButton" onclick="JTracker.submitTest('{{ item.id }}', '#testButton');">
+                    <div id="testResult"></div>
+                    <a href="javascript:" class="btn btn-primary" onclick="JTracker.submitTest('{{ item.id }}', '#testResult');">
                         {{ "Submit test result"|_ }}
                     </a>
                 </form>
             {% endif %}
         </div>
-        {% endif %}
     </div>
 
     <!-- Activity stream -->
 
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
+    {% set activitiesCnt = 0 %}
     {% for activity in item.activities %}
         <div id="event-{{ activity.activities_id }}" class="row-activity" id="activity-{{ activity.activities_id }}">
             <div class="row-fluid">
@@ -313,22 +338,27 @@
                         {% if "change" == activity.event %}
                             <table class="table">
                             {% for change in activity.text|json_decode %}
-                                <tr>
-                                    <td class="span2">{{ change.name|title }}</td>
-                                    {% if "status" == change.name %}
-                                    <td class="span4 alert-{{ status(change.old).closed ? "error" : "success" }}">
-                                        {{ status(change.old).status|_ }}
-                                    </td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4 alert-{{ status(change.new).closed ? "error" : "success" }}">
-                                        {{ status(change.new).status|_ }}
-                                    </td>
-                                    {% else %}
-                                    <td class="span4">{{ change.old }}</td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4">{{ change.new }}</td>
-                                    {% endif %}
-                                </tr>
+                                {% if 'status' == change.name %}
+                                    {{ activities.status(change.old, change.new) }}
+                                {% elseif 'description_raw' == change.name%}
+                                    {% set activitiesCnt = activitiesCnt + 1 %}
+                                    {{ activities.description(change.old, change.new, activitiesCnt) }}
+                                {% elseif 'title' == change.name %}
+                                    {% set activitiesCnt = activitiesCnt + 1 %}
+                                    {{ activities.title(change.old, change.new, activitiesCnt) }}
+                                {% elseif 'priority' == change.name %}
+                                    {{ activities.priority(change.old, change.new) }}
+                                {% elseif 'labels' == change.name %}
+                                    {{ activities.labels(change.old, change.new) }}
+                                {% elseif 'easy' == change.name %}
+                                    {{ activities.easy(change.old, change.new) }}
+                                {% elseif 'rel_type' == change.name %}
+                                    {{ activities.relationType(change.old, change.new) }}
+                                {% elseif "category" == change.name %}
+                                    {{ activities.category(change.old, change.new) }}
+                                {% else %}
+                                    {{ activities.change(change.name, change.old, change.new) }}
+                                {% endif %}
                             {% endfor %}
                             </table>
                         {% else %}
@@ -432,6 +462,7 @@
 
         $(document).ready(function() {
             $('#comment').markItUp(myMarkdownSettings);
+            JTracker.updateTests({{ item.testsSuccess ? ("['" ~ item.testsSuccess|join("', '") ~ "']")|raw : '[]' }}, {{ item.testsFailure ? ("['" ~ item.testsFailure|join("', '") ~ "']")|raw : '[]'}});
         });
 
         $('a[data-toggle="tab"]').on('shown', function (e)

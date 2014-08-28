@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-19 12:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,69 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr ""
-
-#: /templates/projects/project.index.twig:20
-#: /templates/projects/projects.index.twig:29
-msgid "GitHub"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:6
-msgid "Projects"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:12
-msgid "New Project"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:23
-msgid "Projects List"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:28
-msgid "Tracker"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:32
-msgid "Actions"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:36
-msgid "Id"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:48
-msgid "Hooks"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:49
-msgid "Labels"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:51
-msgid "Stats"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:61
-msgid "Groups"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:62
-msgid "Show"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:63
-msgid "Edit"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:64
-#: /templates/projects/project.edit.twig:17
-msgid "Delete"
-msgstr ""
-
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
 msgstr ""
@@ -87,6 +24,12 @@ msgstr ""
 #: /templates/projects/project.edit.twig:11
 #: /templates/projects/project.add.twig:11
 msgid "Save"
+msgstr ""
+
+#: /templates/projects/project.edit.twig:17
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:61
+msgid "Delete"
 msgstr ""
 
 #: /templates/projects/project.edit.twig:28
@@ -129,18 +72,105 @@ msgid "GitHub Repo"
 msgstr ""
 
 #: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr ""
+
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr ""
+
+#: /templates/projects/project.edit.twig:86
 #: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
+msgstr ""
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr ""
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:60
+msgid "Edit"
+msgstr ""
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr ""
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr ""
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr ""
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr ""
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:59
+msgid "Groups"
+msgstr ""
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr ""
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:30
+msgid "Actions"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:33
+msgid "Id"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:48
+msgid "Stats"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:57
+msgid "Show"
 msgstr ""
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
 msgstr ""
 
-#: /src/App/Projects/Table/ProjectsTable.php:57
+#: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
 msgstr ""
 
-#: /src/App/Projects/Table/ProjectsTable.php:62
+#: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
 msgstr ""

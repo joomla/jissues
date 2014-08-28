@@ -9,6 +9,7 @@
 namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\IssueCategoryMappingTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -154,11 +155,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		// Fetch test data
 		$item->testsSuccess = $this->db->setQuery(
 			$query
-			->clear()
-			->select('username')
-			->from($this->db->quoteName('#__issues_tests'))
-			->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
-			->where($this->db->quoteName('result') . ' = 1')
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+				->where($this->db->quoteName('result') . ' = 1')
 		)->loadColumn();
 
 		sort($item->testsSuccess);
@@ -173,6 +174,16 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		)->loadColumn();
 
 		sort($item->testsFailure);
+
+		// Fetch category
+
+		$item->categories = $this->db->setQuery(
+			$query->clear()
+				->select('a.title, a.id, a.color')
+				->from($this->db->quoteName('#__issues_categories', 'a'))
+				->innerJoin($this->db->quoteName('#__issue_category_map', 'b') . ' ON b.category_id = a.id')
+				->where('b.issue_id =' . (int) $item->id)
+		)->loadObjectList();
 
 		return $item;
 	}
@@ -209,17 +220,17 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	public function getRandomNumber()
 	{
 		$issueNumber = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select('i.issue_number')
-					->from($this->db->quoteName('#__issues', 'i'))
-					->join('LEFT', '#__activities AS a ON a.issue_number = i.issue_number')
-					->join('LEFT', '#__status AS s on s.id = i.status')
-					->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
-					->where($this->db->quoteName('s.closed') . '=' . 0)
-					->where($this->db->quoteName('a.event') . '=' . $this->db->quote('comment'))
-					->group('i.id')
-					->having('COUNT(a.activities_id) < 5')
-					->order('RAND()'), 0, 1
+			$this->db->getQuery(true)
+				->select('i.issue_number')
+				->from($this->db->quoteName('#__issues', 'i'))
+				->join('LEFT', '#__activities AS a ON a.issue_number = i.issue_number')
+				->join('LEFT', '#__status AS s on s.id = i.status')
+				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
+				->where($this->db->quoteName('s.closed') . '=' . 0)
+				->where($this->db->quoteName('a.event') . '=' . $this->db->quote('comment'))
+				->group('i.id')
+				->having('COUNT(a.activities_id) < 5')
+				->order('RAND()'), 0, 1
 		)->loadResult();
 
 		if (!$issueNumber)
@@ -228,6 +239,25 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		return $issueNumber;
+	}
+
+	/**
+	 * Get the next issue number - for local (non GitHub) projects.
+	 *
+	 * @return  integer
+	 *
+	 * @since   1.0
+	 */
+	public function getNextNumber()
+	{
+		$number = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('MAX(issue_number)')
+				->from($this->db->quoteName('#__issues'))
+				->where($this->db->quoteName('project_id') . ' = ' . $this->getProject()->project_id)
+		)->loadResult();
+
+		return $number + 1;
 	}
 
 	/**
@@ -265,6 +295,11 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$table = new IssuesTable($this->db);
 
 		$table->save($src);
+
+		// Store the saved issue id for category.
+		$state = $this->getState();
+		$state->set('issue_id', $table->id);
+		$this->setState($state);
 
 		/*
 		@todo see issue #194
@@ -305,6 +340,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 		$data['easy']            = $filter->clean($src['easy'], 'int');
+		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
 
 		if (!$data['id'])
 		{
@@ -312,8 +348,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		$table = new IssuesTable($this->db);
-
-		$table->setUser($src['user']);
 
 		$table->load($data['id'])
 			->save($data);
@@ -386,7 +420,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		$query->clear()
-			->select('SUM(score) AS score, COUNT(id) AS votes')
+			->select('SUM(score) AS score, COUNT(id) AS votes, SUM(experienced) AS experienced')
 			->from($db->quoteName('#__issues_voting'))
 			->where($db->quoteName('issue_number') . ' = ' . (int) $id);
 
@@ -434,7 +468,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   string   $userName  The user name
 	 * @param   string   $result    The test result
 	 *
-	 * @return  $this
+	 * @return  object  StdClass with array of usernames for successful and failed tests
 	 *
 	 * @since   1.0
 	 */
@@ -453,14 +487,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		{
 			// New test result
 			$data = [
-				$this->db->quoteName('item_id') => $itemId,
+				$this->db->quoteName('item_id')  => $itemId,
 				$this->db->quoteName('username') => $this->db->quote($userName),
-				$this->db->quoteName('result') => $result,
+				$this->db->quoteName('result')   => $result,
 			];
 
 			$this->db->setQuery(
 				$this->db->getQuery(true)
-						->insert($this->db->quoteName('#__issues_tests'))
+					->insert($this->db->quoteName('#__issues_tests'))
 					->columns(array_keys($data))
 					->values(implode(', ', $data))
 			)->execute();
@@ -476,6 +510,30 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			)->execute();
 		}
 
-		return $this;
+		// Fetch test data
+
+		$data = new \stdClass;
+
+		$data->testsSuccess = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 1')
+		)->loadColumn();
+
+		sort($data->testsSuccess);
+
+		$data->testsFailure = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 2')
+		)->loadColumn();
+
+		sort($data->testsFailure);
+
+		return $data;
 	}
 }

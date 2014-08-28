@@ -45,6 +45,8 @@
 
             <h2>{{ 'Edit Configuration'|_ }}</h2>
 
+            {{ 'Loaded configuration file: %s'|_|format(configFile) }}
+
             <form method="post" action="{{ uri.base.path }}saveconfig" class="form-horizontal" name="configForm">
                 {% for group, fields in config %}
                     <fieldset id="{{ group }}">

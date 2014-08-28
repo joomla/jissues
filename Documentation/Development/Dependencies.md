@@ -165,11 +165,11 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
-#### babdev/library (dev-master)
+#### babdev/library (1.*)
 
 BabDev's PHP libraries
 
-* Installed: dev-master daf9b45ea327fd5864ebb2226b5ac11c5847d00b
+* Installed: dev-master 4577272d0f414b09c6238a29e78738392e5439ea
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (1.3.2)
@@ -185,6 +185,13 @@ Filesystem abstraction, but easy.
 
 * Installed: 0.4.5
 * Source URL: https://github.com/thephpleague/flysystem.git
+
+#### adaptive/php-text-difference (1.*@stable)
+
+A comprehensive library for generating differences between two hashable objects (strings or arrays). Fork of a fork to add namespaces and psr-4 autoloading
+
+* Installed: v1.0.3
+* Source URL: https://github.com/adaptivemedia/php-text-difference.git
 
 ### PHP - Development
 
@@ -220,14 +227,14 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.1.4
+* Installed: 4.2.2
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
 
 PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
 
-* Installed: 1.5.3
+* Installed: 1.5.4
 * Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
 
 #### sebastian/phpcpd (*)
@@ -248,7 +255,7 @@ A tool for quickly measuring the size of a PHP project.
 
 Dependency graph visualization for composer.json
 
-* Installed: dev-master 8d759e711a3bdf3f877b56b206bc627df658d2b4
+* Installed: dev-master 151ef3a4ba91653bee2973e5dc4331d6e4e58cdb
 * Source URL: https://github.com/clue/graph-composer.git
 
 ### JavaScript
@@ -307,11 +314,17 @@ g11n is a custom language handler - made primarily for Joomla!
 
 * Source URL: https://github.com/elkuku/g11n-js
 
-#### twbs-pagination (1.1.1)
+#### twbs-pagination (1.1.2)
 
-
+jQuery simple pagination plugin for bootstrap-style webpages
 
 * Source URL: https://github.com/esimakin/twbs-pagination
+
+#### bootstrap-select (1.5.4)
+
+
+
+* Source URL: https://github.com/silviomoreto/bootstrap-select
 
 #### d3 (3.4.6)
 
@@ -409,4 +422,4 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * Dmitry Rekun, 2014
 
 #### zh-CN
-* cnallenzhao &lt;cnallenzhao@gmail.com&gt;, 2014
+* Zehan Zhao &lt;cnallenzhao@gmail.com&gt;, 2014

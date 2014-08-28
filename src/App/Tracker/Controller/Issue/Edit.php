@@ -78,6 +78,13 @@ class Edit extends AbstractTrackerController
 
 		$item = $this->model->getItem($application->input->getUint('id'));
 
+		$item->categoryids = array();
+
+		foreach ($item->categories as $category)
+		{
+			$item->categoryids[] = $category->id;
+		}
+
 		try
 		{
 			// Check if the user has full "edit" permission

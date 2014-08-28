@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
 
 use Joomla\Date\Date;
@@ -34,7 +35,9 @@ class Submit extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$application->getUser()->authorize('create');
+		$user = $application->getUser();
+
+		$user->authorize('create');
 
 		/* @type \Joomla\Github\Github $gitHub */
 		$gitHub = $this->getContainer()->get('gitHub');
@@ -53,6 +56,9 @@ class Submit extends AbstractTrackerController
 			throw new \Exception('No body received.');
 		}
 
+		$issueModel = new IssueModel($this->getContainer()->get('db'));
+		$issueModel->setProject($project);
+
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
@@ -66,9 +72,11 @@ class Submit extends AbstractTrackerController
 				throw new \Exception('Invalid response from GitHub');
 			}
 
-			$data['created_at']  = $gitHubResponse->created_at;
-			$data['opened_by']   = $gitHubResponse->user->login;
-			$data['number']      = $gitHubResponse->number;
+			$data['opened_date']   = $gitHubResponse->created_at;
+			$data['modified_date'] = $gitHubResponse->created_at;
+			$data['opened_by']     = $gitHubResponse->user->login;
+			$data['modified_by']   = $gitHubResponse->user->login;
+			$data['number']        = $gitHubResponse->number;
 
 			$data['description'] = $gitHub->markdown->render(
 				$body, 'gfm',
@@ -78,16 +86,16 @@ class Submit extends AbstractTrackerController
 		else
 		{
 			// Project is managed by JTracker only
-			$data['created_at'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
-			$data['opened_by']  = $application->getUser()->username;
-			$data['number']     = '???';
-
+			$data['opened_date']    = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
+			$data['modified_date']  = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
+			$data['opened_by']      = $user->username;
+			$data['modified_by']    = $user->username;
+			$data['number']         = $issueModel->getNextNumber();
 			$data['description'] = $gitHub->markdown->render($body, 'markdown');
 		}
 
 		$data['priority']        = $application->input->getInt('priority');
 		$data['build']           = $application->input->getString('build');
-		$data['opened_date']     = $data['created_at'];
 		$data['project_id']      = $project->project_id;
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;
@@ -95,8 +103,14 @@ class Submit extends AbstractTrackerController
 		// Store the issue
 		try
 		{
-			$model = new IssueModel($this->getContainer()->get('db'));
-			$model->add($data);
+			// Save the issues and Get the issue id from model state
+			$issue_id = $issueModel->add($data)->getState()->get('issue_id');
+
+			// Save the category for the issue
+			$category['issue_id']   = $issue_id;
+			$category['categories'] = $application->input->get('categories', null, 'array');
+			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+			$categoryModel->saveCategory($category);
 		}
 		catch (\Exception $e)
 		{
@@ -108,7 +122,7 @@ class Submit extends AbstractTrackerController
 			);
 		}
 
-		$application->enqueueMessage('Your issue report has been submitted', 'success');
+		$application->enqueueMessage(g11n3t('Your report has been submitted.'), 'success');
 
 		$application->redirect(
 			$application->get('uri.base.path')

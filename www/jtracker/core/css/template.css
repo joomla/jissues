@@ -823,7 +823,6 @@ code {
   color: #d14;
   background-color: #f7f7f9;
   border: 1px solid #e1e1e8;
-  white-space: nowrap;
 }
 pre {
   display: block;
@@ -8588,3 +8587,4 @@ td.hasContext{padding: 8px}
 td.valign-center{vertical-align: middle}
 .list-issue-title{font-size: 1.1em}
 .list-issue-details{font-size: 0.85em}
+#stools-container .btn-group{margin: 5px 5px 0 0;}

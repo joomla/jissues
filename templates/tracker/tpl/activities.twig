@@ -1,0 +1,166 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
+
+{% macro change(name, old, new) %}
+    <tr>
+        <td class="span2">
+            {{ name|title }}
+        </td>
+        <td class="span4 center">
+            {{ old }}
+        </td>
+        <td class="span1 center">
+            &rArr;
+        </td>
+        <td class="span4 center">
+            {{ new }}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro description(old, new, cnt) %}
+    <tr>
+        <td class="span2">
+            {{ 'Description'|_ }}
+        </td>
+        <td colspan="3">
+            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">
+                {{ 'Differences'|_ }}
+            </button>
+
+            <div id="diff-{{ cnt }}" class="collapse">
+                {{ renderDiff(old, new)|raw }}
+            </div>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro title(old, new, cnt) %}
+    <tr>
+        <td class="span2">
+            {{ 'Title'|_ }}
+        </td>
+        <td colspan="4">
+            <button type="button" class="btn" data-toggle="collapse" data-target="#diff-{{ cnt }}">
+                {{ 'Differences'|_ }}
+            </button>
+
+            <div id="diff-{{ cnt }}" class="collapse">
+                {{ renderDiff(old, new, false, false)|raw }}
+            </div>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro status(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Status'|_ }}
+        </td>
+        <td class="span4 alert-{{ status(old).closed ? "error" : "success" }} center">
+            {{ status(old).status|_ }}
+        </td>
+        <td class="span1 center">
+            &rArr;
+        </td>
+        <td class="span4 alert-{{ status(new).closed ? "error" : "success" }} center">
+            {{ status(new).status|_ }}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro easy(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Easy'|_ }}
+        </td>
+        <td class="span4 center">
+            {{ old ? 'Yes' : 'No' }}
+        </td>
+        <td class="span1 center">
+            &rArr;
+        </td>
+        <td class="span4 center">
+            {{ new ? 'Yes' : 'No' }}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro priority(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Priority'|_ }}
+        </td>
+        <td class="span4 center">
+            <span class="badge {{ prioClass(old) }}">
+                {{ getPriority(old) }}
+            </span>
+        </td>
+        <td class="span1 center">
+            &rArr;
+        </td>
+        <td class="span4 center">
+            <span class="badge {{ prioClass(new) }}">
+                {{ getPriority(new) }}
+            </span>
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro labels(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Labels'|_ }}
+        </td>
+        <td colspan="3">
+            {% set added = arrayDiff(new, old) %}
+            {% if added %}
+                {{ 'Added' }}: {{ renderLabels(added)|raw }}<br />
+            {% endif %}
+            {% set removed = arrayDiff(old, new) %}
+            {% if removed %}
+                {{ 'Removed'|_ }}: {{ renderLabels(removed)|raw }}<br />
+            {% endif %}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro relationType(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Relation Type'|_ }}
+        </td>
+        <td class="span4 center">
+            {{ getRelType(old) }}
+        </td>
+        <td class="span1 center">
+            &rArr;
+        </td>
+        <td class="span4 center">
+            {{ getRelType(new) }}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro category(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Category'|_ }}
+        </td>
+        <td class="span4">
+            {% for oldCategory in old %}
+                <span class="label" style="background-color: {{ '#' ~ oldCategory.color }}; color: {{ getContrastColor(oldCategory.color) }};">
+                    {{ oldCategory.title }}
+                </span>
+            {% endfor %}
+        </td>
+        <td class="span1">&rArr;</td>
+        <td class="span4">
+            {% for newCategory in new %}
+                <span class="label" style="background-color: {{ '#' ~ newCategory.color }}; color: {{ getContrastColor(newCategory.color) }};">
+                    {{ newCategory.title }}
+                </span>
+            {% endfor %}
+        </td>
+    </tr>
+{% endmacro %}

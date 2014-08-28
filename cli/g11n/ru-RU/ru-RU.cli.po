@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-22 14:07+0000\n"
+"PO-Revision-Date: 2014-07-27 18:39+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -273,7 +273,7 @@ msgstr "%1$d добавлено %2$d обновлено."
 
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
-msgstr "Получить события"
+msgstr "Получение событий"
 
 #: /cli/Application/Command/Get/Project/Events.php:68
 msgid "Start retrieve Events"
@@ -328,7 +328,7 @@ msgstr "Получить этапы/milestones с GitHub."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:45
 msgid "Retrieve Milestones"
-msgstr "Получить этапы"
+msgstr "Получение этапов"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:47
 msgid "Start retrieving Milestones"
@@ -345,7 +345,7 @@ msgstr "Этапы: %1$d новых, %2$d обновлено, %3$d удален�
 
 #: /cli/Application/Command/Get/Transifex.php:37
 msgid "Retrieve language files from Transifex."
-msgstr "Получить языковые файлы с Transifex."
+msgstr "Получение языковых файлов с Transifex."
 
 #: /cli/Application/Command/Get/Transifex.php:49
 msgid "Get Translations"

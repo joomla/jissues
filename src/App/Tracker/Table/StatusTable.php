@@ -33,4 +33,24 @@ class StatusTable extends AbstractDatabaseTable
 	{
 		parent::__construct('#__status', 'id', $database);
 	}
+
+	/**
+	 * Retrieves an array of IDs for whether a status is open or closed
+	 *
+	 * @param   boolean  $state  True to fetch closed status IDs, false to retrieve open status IDs
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function getStateStatusIds($state)
+	{
+		// Build a query to fetch the status IDs based on open/close state
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('id')
+				->from($this->getTableName())
+				->where('closed = ' . (int) $state)
+		)->loadColumn();
+	}
 }

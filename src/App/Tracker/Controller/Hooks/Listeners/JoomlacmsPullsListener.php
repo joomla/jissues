@@ -47,6 +47,9 @@ class JoomlacmsPullsListener
 
 			// Place the JoomlaCode ID in the issue title if it isn't already there
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -193,44 +196,67 @@ class JoomlacmsPullsListener
 			$addLabels[] = $issueLabel;
 		}
 
-		/*
-		 * If we have a foreign ID in the IssuesTable object, then there is a JoomlaCode tracker
-		 * NOTE: If someone ever changes these labels on GitHub, this has to be changed
-		 */
-		if (!is_null($table->foreign_number))
+		// Only try to add labels if the array isn't empty
+		if (!empty($addLabels))
 		{
-			$addLabels[] = 'Has JoomlaCode Tracker Item';
-		}
-		else
-		{
-			$addLabels[] = 'Needs JoomlaCode Tracker Item';
-		}
+			try
+			{
+				$github->issues->labels->add(
+					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
+				);
 
+				// Post the new label on the object
+				$logger->info(
+					sprintf(
+						'Added %s labels to %s/%s #%d',
+						count($addLabels),
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					)
+				);
+			}
+			catch (\DomainException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error adding labels to GitHub pull request %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
+				);
+			}
+		}
+	}
+
+	/**
+	 * Updates the local application status for an item
+	 *
+	 * @param   Logger       $logger   Logger object
+	 * @param   object       $project  Object containing project data
+	 * @param   IssuesTable  $table    Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setPending(Logger $logger, $project, IssuesTable $table)
+	{
+		// Reset the issue status to pending and try updating the database
 		try
 		{
-			$github->issues->labels->add(
-				$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-			);
-
-			// Post the new label on the object
-			$logger->info(
-				sprintf(
-					'Added %s labels to %s/%s #%d',
-					count($addLabels),
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				)
-			);
+			$table->save(['status' => 3]);
 		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error adding labels to GitHub pull request %s/%s #%d - %s',
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$table->issue_number,
 					$e->getMessage()
 				)
 			);

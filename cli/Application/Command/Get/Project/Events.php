@@ -39,7 +39,7 @@ class Events extends Project
 	{
 		parent::__construct();
 
-		$this->description = 'Retrieve issue events from GitHub.';
+		$this->description = g11n3t('Retrieve issue events from GitHub.');
 
 		$this->addOption(
 			new TrackerCommandOption(
@@ -303,7 +303,7 @@ class Events extends Project
 						break;
 
 					default:
-						throw new \UnexpectedValueException('Unknown event: ' . $event->event);
+						$this->logOut(sprintf('ERROR: Unknown Event: %s', $event->event));
 						continue;
 						break;
 				}

@@ -59,6 +59,7 @@
             or state.get('filter.search')
             or state.get('filter.sort')
             or state.get('filter.user')
+            or state.get('filter.category')
             or state.get('stools-active') %}
                 in
             {% endif %}
@@ -85,10 +86,10 @@
                     {% set closedState = '' %}
                 {% endif %}
                 <div id="status-open" class="btn-group"{{ openState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium-140', 0) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'input-medium-140', 0) }}
                 </div>
                 <div id="status-closed" class="btn-group"{{ closedState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status', 'input-medium-140', 1) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'input-medium-140', 1) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
@@ -100,6 +101,10 @@
                 {% endif %}
                 <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.category(state.get('filter.category'), 'filter-category', 'selectpicker',project.categories) }}
+
                 </div>
             </div>
 
@@ -125,6 +130,8 @@
     </div>
 
     <ul id="pagination" class="trackerPagination"></ul>
+
+    <input type="hidden" name="page" id="page" value="{{ state.get('page') }}"/>
 
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
@@ -261,13 +268,16 @@
          */
 
         $('[id^=filter]').change(function () {
-                    getListItems();
-                }
+                $('#page').val(0);
+                getListItems();
+            }
         );
+
         $('#filter-state-div button').click(
                 function () {
                     var val = $(this).val();
                     $('#filter-state').val(val);
+
                     if (val == 0) {
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
@@ -279,6 +289,8 @@
                         $('#status-open').hide();
                         $('#status-closed').show();
                     }
+
+                    $('#page').val(0);
                     getListItems();
                 }
         );
@@ -345,11 +357,21 @@
             $('#issuesList tbody').animate({opacity: 0.3}, 100);
             var active = $('#stools-active').val();
             var search = $('#filter-search').val();
-            var status = $('#filter-status').val();
+            var state = $('#filter-state').val();
+
+            if (state == 0) {
+                var status = $('#filter-status-open').val();
+            }
+
+            if (state == 1) {
+                var status = $('#filter-status-closed').val();
+            }
+
             var priority = $('#filter-priority').val();
             var sort = $('#filter-sort').val();
-            var state = $('#filter-state').val();
             var user = $('#filter-user').val();
+            var category = $('#filter-category').val();
+            var page = $('#page').val();
 
             $.ajax({
                 type: 'POST',
@@ -361,13 +383,16 @@
                     'user': user,
                     'sort': sort,
                     'state': state,
-                    'stools-active': active
+                    'category':category,
+                    'stools-active': active,
+                    'page': page
                 },
                 success: function (r) {
                     if (r.data.pagesTotal > 1) {
                         $("#pagination").twbsPagination({
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
+                            startPage: r.data.currentPage,
                             first: g11n3t('First'),
                             prev: g11n3t('Previous'),
                             next: g11n3t('Next'),
@@ -384,6 +409,7 @@
                                         'user': user,
                                         'sort': sort,
                                         'state': state,
+                                        'category': category,
                                         'stools-active': active
                                     },
                                     success: function (data) {

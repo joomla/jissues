@@ -34,6 +34,7 @@ class Login extends AbstractTrackerController
 	 */
 	public function execute()
 	{
+		/* @type \JTracker\Application $app */
 		$app = $this->getContainer()->get('app');
 
 		$user = $app->getUser();
@@ -120,6 +121,9 @@ class Login extends AbstractTrackerController
 		$redirect = $app->input->getBase64('usr_redirect');
 
 		$redirect = $redirect ? base64_decode($redirect) : '';
+
+		// Set a "remember me" cookie.
+		$app->setRememberMe(true);
 
 		$app->redirect($redirect);
 	}
