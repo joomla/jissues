@@ -252,15 +252,18 @@ class Issues extends Project
 			$table->issue_number = $ghIssue->number;
 			$table->title        = $ghIssue->title;
 
-			$table->description = $this->github->markdown->render(
-				$ghIssue->body,
-				'gfm',
-				$this->project->gh_user . '/' . $this->project->gh_project
-			);
+			if ($table->description_raw != $ghIssue->body)
+			{
+				$table->description = $this->github->markdown->render(
+					$ghIssue->body,
+					'gfm',
+					$this->project->gh_user . '/' . $this->project->gh_project
+				);
 
-			$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
+				$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-			$table->description_raw = $ghIssue->body;
+				$table->description_raw = $ghIssue->body;
+			}
 
 			$statusTable = new StatusTable($this->getContainer()->get('db'));
 
@@ -290,7 +293,17 @@ class Issues extends Project
 			if (isset($ghIssue->pull_request->diff_url))
 			{
 				$table->has_code = 1;
-				$status = $this->GetMergeStatus($ghIssue);
+
+				// Get the pull request corresponding to an issue.
+				$this->debugOut('Get PR for the issue');
+
+				$pullRequest = $this->github->pulls->get(
+					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
+				);
+
+				$table->pr_head_ref = $pullRequest->head->ref;
+
+				$status = $this->GetMergeStatus($pullRequest);
 
 				if (!$status->state)
 				{
@@ -510,21 +523,14 @@ class Issues extends Project
 	/**
 	 * Get the GitHub merge status for an issue.
 	 *
-	 * @param   object  $ghIssue  The issue object.
+	 * @param   object  $pullRequest  The pull request object.
 	 *
 	 * @return  Status
 	 *
 	 * @since   1.0
 	 */
-	private function getMergeStatus($ghIssue)
+	private function getMergeStatus($pullRequest)
 	{
-		// Get the pull request corresponding to an issue.
-		$this->debugOut('Get PR for the issue');
-
-		$pullRequest = $this->github->pulls->get(
-			$this->project->gh_user, $this->project->gh_project, $ghIssue->number
-		);
-
 		$this->debugOut('Get merge statuses for PR');
 
 		$statuses = $this->github->repositories->statuses->getList(
