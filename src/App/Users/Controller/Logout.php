@@ -8,6 +8,7 @@
 
 namespace App\Users\Controller;
 
+use JTracker\Application;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -26,11 +27,15 @@ class Logout extends AbstractTrackerController
 	 */
 	public function execute()
 	{
+		/* @type Application $application */
 		$application = $this->getContainer()->get('app');
 
-		// Logout the user.
-		$application->setUser(null);
-
-		$application->redirect(' ');
+		$application
+			// Logout the user.
+			->setUser(null)
+			// Delete the "remember me" cookie
+			->setRememberMe(false)
+			// Redirect to the "home" page
+			->redirect(' ');
 	}
 }
