@@ -9,7 +9,6 @@
 namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssueCategoryMappingTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -535,5 +534,15 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		sort($data->testsFailure);
 
 		return $data;
+	}
+
+	public function getIssueNumberById($id)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('issue_number')
+				->from($this->db->quoteName('#__issues'))
+				->where($this->db->quoteName('id') . ' = ' . (int) $id)
+		)->loadResult();
 	}
 }

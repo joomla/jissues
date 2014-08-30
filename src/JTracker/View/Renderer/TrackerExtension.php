@@ -108,6 +108,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
 			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
 			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),
+			new \Twig_SimpleFunction('userTestOptions', array($this, 'getUserTestOptions')),
 		);
 
 		if (!JDEBUG)
@@ -620,5 +621,18 @@ class TrackerExtension extends \Twig_Extension
 		$bs = explode(',', $b);
 
 		return implode(',', array_diff($as, $bs));
+	}
+
+	public function getUserTestOptions($id = null)
+	{
+		static $options = [];
+
+		$options = $options ? : [
+			0 => g11n3t('Not tested'),
+			1 => g11n3t('Tested successfully'),
+			2 => g11n3t('Tested unsuccessfully')
+		];
+
+		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
 	}
 }
