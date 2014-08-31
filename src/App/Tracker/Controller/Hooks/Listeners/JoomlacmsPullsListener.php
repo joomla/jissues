@@ -40,7 +40,7 @@ class JoomlacmsPullsListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Check that pull requests have certain labels
-			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 			// Check if the pull request targets the master branch
 			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
