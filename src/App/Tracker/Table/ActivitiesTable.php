@@ -22,8 +22,9 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $user           The user name
  * @property   string   $event          The event type
  * @property   string   $text           The event text
- * @property   string   $text_raw       The raw  event text
+ * @property   string   $text_raw       The raw event text
  * @property   string   $created_date   created_date
+ * @property   string   $updated_date   updated_date
  *
  * @since  1.0
  */

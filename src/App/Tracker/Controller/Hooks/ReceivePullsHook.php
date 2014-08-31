@@ -12,7 +12,6 @@ use Joomla\Date\Date;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
  * Controller class receive and inject pull requests from GitHub.
@@ -58,29 +57,8 @@ class ReceivePullsHook extends AbstractHookController
 		// Pull or Issue ?
 		$this->data = $this->hookData->pull_request;
 
-		// $this->data = $this->hookData->issue;
-
-		$issueID = 0;
-
-		try
-		{
-			// Check to see if the issue is already in the database
-			$issueID = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName('id'))
-					->from($this->db->quoteName('#__issues'))
-					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
-					->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->data->number)
-			)->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
-			$this->getContainer()->get('app')->close();
-		}
-
 		// If the item is already in the database, update it; else, insert it.
-		if ($issueID)
+		if ($this->checkIssueExists((int) $this->data->number))
 		{
 			$this->updateData();
 		}
@@ -104,21 +82,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		switch ($action)
-		{
-			case 'closed':
-				$status = 10;
-				break;
-
-			case 'opened' :
-				// Issues: reopened
-			case 'reopened' :
-				// Pulls: synchronized
-			case 'synchronized' :
-			default:
-				$status = 1;
-				break;
-		}
+		$status = $this->processStatus($action);
 
 		$parsedText = $this->parseText($this->data->body);
 
@@ -185,11 +149,7 @@ class ReceivePullsHook extends AbstractHookController
 		$this->triggerEvent('onPullAfterCreate', $table, array('action' => $action));
 
 		// Pull the user's avatar if it does not exist
-		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->data->user->login . '.png'))
-		{
-			(new GitHubLoginHelper($this->getContainer()))
-				->saveAvatar($this->data->user->login);
-		}
+		$this->pullUserAvatar($this->data->user->login);
 
 		// Add a reopen record to the activity table if the action is reopened
 		if ($action == 'reopened')

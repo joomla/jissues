@@ -12,7 +12,6 @@ use Joomla\Date\Date;
 
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Table\IssuesTable;
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
  * Controller class receive and inject issue reports from GitHub
@@ -38,27 +37,8 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
-		$issueID = 0;
-
-		// Check to see if the issue is already in the database
-		try
-		{
-			$issueID = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName('id'))
-					->from($this->db->quoteName('#__issues'))
-					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
-					->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number)
-			)->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
-			$this->getContainer()->get('app')->close();
-		}
-
 		// If the item is already in the database, update it; else, insert it.
-		if ($issueID)
+		if ($this->checkIssueExists((int) $this->hookData->issue->number))
 		{
 			$this->updateData();
 		}
@@ -159,11 +139,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$this->triggerEvent('onIssueAfterCreate', $table);
 
 		// Pull the user's avatar if it does not exist
-		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
-		{
-			(new GitHubLoginHelper($this->getContainer()))
-				->saveAvatar($this->hookData->issue->user->login);
-		}
+		$this->pullUserAvatar($this->hookData->issue->user->login);
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
@@ -214,20 +190,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		switch ($action)
-		{
-			case 'closed':
-				$status = 10;
-				break;
-
-			case 'opened':
-			case 'reopened':
-				$status = 1;
-				break;
-
-			default :
-				$status = null;
-		}
+		$status = $this->processStatus($action);
 
 		// Try to render the description with GitHub markdown
 		$parsedText = $this->parseText($this->hookData->issue->body);

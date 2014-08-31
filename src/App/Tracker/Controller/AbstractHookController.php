@@ -19,9 +19,10 @@ use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
-
 use JTracker\Database\AbstractDatabaseTable;
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -121,6 +122,34 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		{
 			$this->dispatcher->addListener(new $fullClass);
 			$this->listenerSet = true;
+		}
+	}
+
+	/**
+	 * Checks if an issue exists
+	 *
+	 * @param   integer  $issue  Issue ID to check
+	 *
+	 * @return  string|null  The issue ID if it exists or null
+	 *
+	 * @since   1.0
+	 */
+	protected function checkIssueExists($issue)
+	{
+		try
+		{
+			return $this->db->setQuery(
+				$this->db->getQuery(true)
+					->select($this->db->quoteName('id'))
+					->from($this->db->quoteName('#__issues'))
+					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
+					->where($this->db->quoteName('issue_number') . ' = ' . $issue)
+			)->loadResult();
+		}
+		catch (\RuntimeException $e)
+		{
+			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
+			$this->getContainer()->get('app')->close();
 		}
 	}
 
@@ -425,6 +454,48 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		else
 		{
 			return implode(',', $appLabelIds);
+		}
+	}
+
+	/**
+	 * Process the action of an item to determine its status
+	 *
+	 * @param   string  $action  The action being performed
+	 *
+	 * @return  integer|null  Status ID if the status changes, null if it stays the same
+	 *
+	 * @since   1.0
+	 */
+	protected function processStatus($action)
+	{
+		switch ($action)
+		{
+			case 'closed':
+				return 10;
+
+			case 'opened':
+			case 'reopened':
+				return 1;
+
+			default :
+				return null;
+		}
+	}
+
+	/**
+	 * Retrieves the user's avatar if it doesn't exist
+	 *
+	 * @param   string  $login  Username to process
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function pullUserAvatar($login)
+	{
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $login . '.png'))
+		{
+			(new GitHubLoginHelper($this->getContainer()))->saveAvatar($login);
 		}
 	}
 
