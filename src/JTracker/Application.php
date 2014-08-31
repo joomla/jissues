@@ -83,7 +83,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Event Dispatcher
 	 *
-	 * @var    Dispatcher
+	 * @var    DispatcherInterface
 	 * @since  1.0
 	 */
 	private $dispatcher;
@@ -283,7 +283,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Get the dispatcher object.
 	 *
-	 * @return  Dispatcher
+	 * @return  DispatcherInterface
 	 *
 	 * @since   1.0
 	 */

@@ -92,7 +92,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	/**
 	 * Event Dispatcher
 	 *
-	 * @var    Dispatcher
+	 * @var    DispatcherInterface
 	 * @since  1.0
 	 */
 	private $dispatcher;
@@ -312,7 +312,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	/**
 	 * Get the dispatcher object.
 	 *
-	 * @return  Dispatcher
+	 * @return  DispatcherInterface
 	 *
 	 * @since   1.0
 	 */

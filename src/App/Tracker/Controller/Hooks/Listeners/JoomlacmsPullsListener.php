@@ -137,13 +137,13 @@ class JoomlacmsPullsListener
 						)
 					);
 
-					$prLabelSet = true;
+					$rtcLabelSet = true;
 				}
 			}
 		}
 
 		// Add the RTC label if it isn't already set
-		if (!$prLabelSet)
+		if (!$rtcLabelSet)
 		{
 			$addLabels[] = $RTClabel;
 		}

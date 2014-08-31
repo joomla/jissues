@@ -101,13 +101,13 @@ class JoomlacmsIssuesListener
 						)
 					);
 
-					$prLabelSet = true;
+					$codeLabelSet = true;
 				}
 			}
 		}
 
 		// Add the label if it isn't already set
-		if (!$prLabelSet)
+		if (!$codeLabelSet)
 		{
 			$addLabels[] = $codeLabel;
 		}
