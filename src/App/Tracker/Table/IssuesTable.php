@@ -37,15 +37,13 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
  * @property   string   $modified_date    Issue modified date
  * @property   string   $modified_by      Issue modified by username
- * @property   integer  $rel_number       Relation number
- * @property   string   $rel_type         Relation type
- * @property   integer  $has_code         If the issue has code attached - aka a pull request.
- * @property   string   $pr_head_ref      Pull request head ref.
+ * @property   integer  $rel_number       Relation issue number
+ * @property   integer  $rel_type         Relation type
+ * @property   integer  $has_code         If the issue has code attached - aka a pull request
+ * @property   string   $pr_head_ref      Pull request head ref
  * @property   string   $labels           Comma separated list of label IDs
- * @property   integer  $vote_id          Vote id
- * @property   integer  $build            Build the issue is reported on
- * @property   integer  $tests            Number of successful tests
- * @property   integer  $easy             Flag if item is an easy test
+ * @property   string   $build            Build on which the issue is reported
+ * @property   integer  $easy             Flag whether an item is an easy test
  * @property   string   $merge_state      The merge state
  * @property   string   $gh_merge_status  The GitHub merge status (JSON encoded)
  *

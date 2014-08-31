@@ -17,7 +17,7 @@ use JTracker\Database\AbstractDatabaseTable;
  *
  * @property   integer  $activities_id  PK
  * @property   integer  $gh_comment_id  The GitHub comment id
- * @property   integer  $issue_number   THE issue number
+ * @property   integer  $issue_number   THE issue number (ID)
  * @property   integer  $project_id     The Project id
  * @property   string   $user           The user name
  * @property   string   $event          The event type

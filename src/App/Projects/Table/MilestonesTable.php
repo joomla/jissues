@@ -18,10 +18,10 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   integer  $milestone_id      PK
  * @property   integer  $milestone_number  Milestone number from Github
  * @property   integer  $project_id        Project ID
- * @property   string   $title             Milestone title.
+ * @property   string   $title             Milestone title
  * @property   string   $description       Milestone description
  * @property   string   $state             Milestone state: open | closed
- * @property   string   $due_on            Date the milestone is due on
+ * @property   string   $due_on            Date the milestone is due on.
  *
  * @since  1.0
  */

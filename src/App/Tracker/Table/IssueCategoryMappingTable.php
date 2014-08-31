@@ -14,9 +14,9 @@ use Joomla\Database\DatabaseDriver;
 /**
  * Table interface class for the #__issue_category_mapping table
  *
- * @property   integer   $id           PK
- * @property   integer   $issue_id     The issue's id, PK in issue
- * @property   integer   $category_id  Category's ID
+ * @property   integer  $id           PK
+ * @property   integer  $issue_id     PK of the issue in issue table
+ * @property   integer  $category_id  Category id
  *
  * @since  1.0
  */

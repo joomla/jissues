@@ -15,6 +15,7 @@ use JTracker\Database\AbstractDatabaseTable;
 /**
  * Table interface class for the #__status table
  *
+ * @property   integer  $id      id
  * @property   string   $status  status
  * @property   integer  $closed  closed
  *

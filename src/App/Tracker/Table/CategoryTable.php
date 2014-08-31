@@ -16,11 +16,11 @@ use Joomla\Input\Input;
 /**
  * Table interface class for the #__issue_category table
  *
- * @property   integer  $id             PK
- * @property   integer  $project_id     The Project id
- * @property   string   $title          The category name
- * @property   string   $alias          Alias
- * @property   string   $color          Color of the badge of the category
+ * @property   integer  $id          PK
+ * @property   integer  $project_id  The id of the Project
+ * @property   string   $title       The title of the category
+ * @property   string   $alias       The alias of the category
+ * @property   string   $color       The hex value of the category
  *
  * @since  1.0
  */
