@@ -112,7 +112,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	{
 		/*
 		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
-		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullListener
+		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
 		 */
 		$baseClass = ucfirst(str_replace('-', '', $this->project->gh_project)) . ucfirst($this->type) . 'Listener';
 		$fullClass = __NAMESPACE__ . '\\Hooks\\Listeners\\' . $baseClass;
