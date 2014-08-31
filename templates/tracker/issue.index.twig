@@ -316,7 +316,7 @@
                     <form class="form-inline">
 
                         {{ 'Set the test result for user %s to %s'|_|format(
-                            '<input name="altered-user" />',
+                            '<input name="altered-user" placeholder="' ~ 'username'|_ ~ '"/>',
                             '<select name="altered">'
                             ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
                             ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
@@ -393,7 +393,7 @@
                         {% endif %}
                     </div>
                 </div>
-            {% elseif activity.text != ''%}
+            {% elseif activity.text != '' %}
                 <div class="span1 activity-avatar">
                     {{ avatar(activity.user, 40, 'avatar')|raw }}
                 </div>
@@ -406,6 +406,13 @@
                     <div class="offset1 span11">
                         {{ activity.text|raw }}
                     </div>
+                </div>
+            {% else %}
+                <div class="offset1 span11 activity-action">
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - {{ activity.created_date|date("j M y") }}
                 </div>
             {% endif %}
             </div>
@@ -453,6 +460,7 @@
     {% endif %}
 
     {% endif %}
+
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->
