@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-20 10:37+0000\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"PO-Revision-Date: 2014-08-19 20:41+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,69 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr "Projekt"
-
-#: /templates/projects/project.index.twig:20
-#: /templates/projects/projects.index.twig:29
-msgid "GitHub"
-msgstr "GitHub"
-
-#: /templates/projects/projects.index.twig:6
-msgid "Projects"
-msgstr "Projektek"
-
-#: /templates/projects/projects.index.twig:12
-msgid "New Project"
-msgstr "Új projekt"
-
-#: /templates/projects/projects.index.twig:23
-msgid "Projects List"
-msgstr "Projektlista"
-
-#: /templates/projects/projects.index.twig:28
-msgid "Tracker"
-msgstr "Problémakövető"
-
-#: /templates/projects/projects.index.twig:32
-msgid "Actions"
-msgstr "Műveletek"
-
-#: /templates/projects/projects.index.twig:36
-msgid "Id"
-msgstr "AZ"
-
-#: /templates/projects/projects.index.twig:48
-msgid "Hooks"
-msgstr "Beavatkozási rutinok"
-
-#: /templates/projects/projects.index.twig:49
-msgid "Labels"
-msgstr "Címkék"
-
-#: /templates/projects/projects.index.twig:51
-msgid "Stats"
-msgstr "Statisztika"
-
-#: /templates/projects/projects.index.twig:61
-msgid "Groups"
-msgstr "Csoportok"
-
-#: /templates/projects/projects.index.twig:62
-msgid "Show"
-msgstr "Megjelenítés"
-
-#: /templates/projects/projects.index.twig:63
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: /templates/projects/projects.index.twig:64
-#: /templates/projects/project.edit.twig:17
-msgid "Delete"
-msgstr "Törlés"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
@@ -89,6 +26,12 @@ msgstr "Projekt szerkesztése"
 #: /templates/projects/project.add.twig:11
 msgid "Save"
 msgstr "Mentés"
+
+#: /templates/projects/project.edit.twig:17
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:61
+msgid "Delete"
+msgstr "Törlés"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
@@ -130,18 +73,105 @@ msgid "GitHub Repo"
 msgstr "GitHub tároló"
 
 #: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr "GitHub Editbot felhasználó"
+
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr "GitHub Editbot jelszó"
+
+#: /templates/projects/project.edit.twig:86
 #: /templates/projects/project.add.twig:53
 msgid "External Tracker Link"
 msgstr "Külső problémakövető hivatkozása"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:60
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr "%s projekt problémakövető"
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr "A/z %s projekt a GitHubon"
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Statisztika"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr "Beavatkozási rutinok"
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:59
+msgid "Groups"
+msgstr "Csoportok"
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr "Címkék"
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Kategóriák"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projektek"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Új projekt"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Projektlista"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Problémakövető"
+
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:30
+msgid "Actions"
+msgstr "Műveletek"
+
+#: /templates/projects/projects.index.twig:33
+msgid "Id"
+msgstr "AZ"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Stats"
+msgstr "Statisztika"
+
+#: /templates/projects/projects.index.twig:57
+msgid "Show"
+msgstr "Megjelenítés"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
 msgstr "Projekt hozzáadása"
 
-#: /src/App/Projects/Table/ProjectsTable.php:57
+#: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
 msgstr "A cím megadása kötelező"
 
-#: /src/App/Projects/Table/ProjectsTable.php:62
+#: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
 msgstr "A rövid cím megadása kötelező"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-27 18:39+0000\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"PO-Revision-Date: 2014-08-22 05:20+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -271,6 +271,10 @@ msgstr[2] "Обрабатываю %1$d комментариев для issue # %
 msgid "%1$d added %2$d updated."
 msgstr "%1$d добавлено %2$d обновлено."
 
+#: /cli/Application/Command/Get/Project/Events.php:42
+msgid "Retrieve issue events from GitHub."
+msgstr "Получить события с GitHub."
+
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
 msgstr "Получение событий"
@@ -296,22 +300,54 @@ msgstr "Добавляю события в базу данных..."
 msgid "Added %d new issue events to the database"
 msgstr "Добавлено %d событий в базу данных."
 
-#: /cli/Application/Command/Get/Project/Issues.php:55
+#: /cli/Application/Command/Get/Project/Issues.php:65
 msgid "Retrieve issues from GitHub."
 msgstr "Получить issues с GitHub."
+
+#: /cli/Application/Command/Get/Project/Issues.php:77
+msgid "Retrieve Issues"
+msgstr "Получение issues"
+
+#: /cli/Application/Command/Get/Project/Issues.php:82
+msgid "Start retrieve Issues"
+msgstr "Начинаю получать issues"
+
+#: /cli/Application/Command/Get/Project/Issues.php:88
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Готово"
+
+#: /cli/Application/Command/Get/Project/Issues.php:104
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr "Получение <b>%s</b> элементов с GitHub..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:163
+#, php-format
+msgid "Retrieved <b>%d</b> items from GitHub."
+msgstr "Получено <b>%d</b> элементов с GitHub."
+
+#: /cli/Application/Command/Get/Project/Issues.php:193
+msgid "Adding issues to the database..."
+msgstr "Добавление issues в базу данных..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:400
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
+msgstr "<ok>Добавлено - %1$d, обновлено - %2$d.</ok>"
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
 msgstr "Получить метки проекта с GitHub."
 
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
+msgstr "Получение лейблов"
+
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
 msgstr "Начинаю получать метки"
-
-#: /cli/Application/Command/Get/Project/Labels.php:50
-#: /cli/Application/Command/Get/Project/Milestones.php:52
-msgid "Finished"
-msgstr "Готово"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
@@ -453,11 +489,11 @@ msgstr "Обрабатываю проект: %s"
 msgid "An unknown error occurred"
 msgstr "Возникла неизвестная ошибка"
 
-#: /cli/tracker.php:47
+#: /cli/tracker.php:49
 #, php-format
 msgid "ERROR: %s"
 msgstr "Ошибка: %s"
 
-#: /cli/tracker.php:49
+#: /cli/tracker.php:51
 msgid "Call stack:"
 msgstr "Call stack:"

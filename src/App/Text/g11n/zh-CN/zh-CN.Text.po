@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
 "PO-Revision-Date: 2014-07-20 10:16+0000\n"
 "Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -18,34 +18,14 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr "编辑文章"
-
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-#: /templates/text/articles.index.twig:19
-msgid "New Article"
-msgstr "新建文章"
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr "保存"
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr "取消"
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr "标题"
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr "别名"
-
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
 msgstr "文章"
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
+msgstr "新建文章"
 
 #: /templates/text/articles.index.twig:30
 msgid "Articles List"
@@ -70,6 +50,26 @@ msgstr "删除"
 #: /templates/text/articles.index.twig:61
 msgid "No articles found"
 msgstr "没有发现文章"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "编辑文章"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "保存"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "取消"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "标题"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "别名"
 
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."

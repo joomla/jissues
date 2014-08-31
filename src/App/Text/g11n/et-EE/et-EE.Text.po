@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
 "PO-Revision-Date: 2014-05-30 07:43+0000\n"
 "Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
@@ -18,34 +18,14 @@ msgstr ""
 "Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr "Muuda artiklit"
-
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-#: /templates/text/articles.index.twig:19
-msgid "New Article"
-msgstr "Uus artikkel"
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr "Salvesta"
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr "Loobu"
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr "Pealkiri"
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr "Alias"
-
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
 msgstr "Artiklid"
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
+msgstr "Uus artikkel"
 
 #: /templates/text/articles.index.twig:30
 msgid "Articles List"
@@ -70,6 +50,26 @@ msgstr "Kustuta"
 #: /templates/text/articles.index.twig:61
 msgid "No articles found"
 msgstr "Ühtegi artiklit ei leitud"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Muuda artiklit"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Salvesta"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Loobu"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Pealkiri"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
 
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."

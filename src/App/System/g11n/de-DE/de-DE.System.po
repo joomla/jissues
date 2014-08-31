@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-05-25 22:57+0000\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"PO-Revision-Date: 2014-08-15 18:27+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,19 @@ msgstr "Routen"
 msgid "Configuration"
 msgstr "Konfiguration"
 
-#: /templates/system/config.index.twig:20
+#: /templates/system/config.index.twig:21
 msgid "Save"
 msgstr "Speichern"
 
-#: /templates/system/config.index.twig:45
+#: /templates/system/config.index.twig:46
 msgid "Edit Configuration"
 msgstr "Konfiguration bearbeiten"
+
+#: /templates/system/config.index.twig:48
+#, php-format
+msgid "Loaded configuration file: %s"
+msgstr "Geladene Konfigurationsdatei: %s"
+
+#: /src/App/System/Controller/Config/Save.php:52
+msgid "The configuration file has been saved."
+msgstr "Die Konfiguration wurde gesichert"

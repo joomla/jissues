@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-23 04:08+0000\n"
-"Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"PO-Revision-Date: 2014-08-19 16:19+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -263,6 +263,10 @@ msgstr[0] "正在处理 第  %2$d  号Issue的 %1$d 个评论 (第 %3$d 个 / �
 msgid "%1$d added %2$d updated."
 msgstr "新增%1$d 个，更新 %2$d 个。"
 
+#: /cli/Application/Command/Get/Project/Events.php:42
+msgid "Retrieve issue events from GitHub."
+msgstr ""
+
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
 msgstr "获取事件"
@@ -286,22 +290,54 @@ msgstr "正在向数据库中增加事件"
 msgid "Added %d new issue events to the database"
 msgstr "已将 %d 个事件增加到数据库中"
 
-#: /cli/Application/Command/Get/Project/Issues.php:55
+#: /cli/Application/Command/Get/Project/Issues.php:65
 msgid "Retrieve issues from GitHub."
 msgstr "从GitHub获取Issue"
+
+#: /cli/Application/Command/Get/Project/Issues.php:77
+msgid "Retrieve Issues"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:82
+msgid "Start retrieve Issues"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:88
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "完成。"
+
+#: /cli/Application/Command/Get/Project/Issues.php:104
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:163
+#, php-format
+msgid "Retrieved <b>%d</b> items from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:193
+msgid "Adding issues to the database..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:400
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
+msgstr ""
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
 msgstr "从GitHub获取项目的标签"
 
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
+msgstr ""
+
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
 msgstr "开始获取标签"
-
-#: /cli/Application/Command/Get/Project/Labels.php:50
-#: /cli/Application/Command/Get/Project/Milestones.php:52
-msgid "Finished"
-msgstr "完成。"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
@@ -443,11 +479,11 @@ msgstr "正在处理项目: %s"
 msgid "An unknown error occurred"
 msgstr "发生了一个未知错误："
 
-#: /cli/tracker.php:47
+#: /cli/tracker.php:49
 #, php-format
 msgid "ERROR: %s"
 msgstr "错误：%s"
 
-#: /cli/tracker.php:49
+#: /cli/tracker.php:51
 msgid "Call stack:"
 msgstr "调用堆栈："

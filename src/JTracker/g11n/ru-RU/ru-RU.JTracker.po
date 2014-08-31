@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
 "PO-Revision-Date: 2014-07-22 13:07+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
@@ -28,101 +28,101 @@ msgstr "След."
 msgid "Last"
 msgstr "В конец"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:215
+#: /src/JTracker/View/Renderer/TrackerExtension.php:226
 msgid "Critical"
 msgstr "Критичный"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:216
+#: /src/JTracker/View/Renderer/TrackerExtension.php:227
 msgid "Urgent"
 msgstr "Срочный"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:217
+#: /src/JTracker/View/Renderer/TrackerExtension.php:228
 msgid "Medium"
 msgstr "Средний"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:218
+#: /src/JTracker/View/Renderer/TrackerExtension.php:229
 msgid "Low"
 msgstr "Низкий"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:219
+#: /src/JTracker/View/Renderer/TrackerExtension.php:230
 msgid "Very low"
 msgstr "Очень низкий"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:289
-#: /src/JTracker/View/Renderer/TrackerExtension.php:310
+#: /src/JTracker/View/Renderer/TrackerExtension.php:316
+#: /src/JTracker/View/Renderer/TrackerExtension.php:337
 msgid "Confirmed"
 msgstr "Подтверждено"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:290
-#: /src/JTracker/View/Renderer/TrackerExtension.php:311
-#: /src/JTracker/View/Renderer/TrackerExtension.php:519
+#: /src/JTracker/View/Renderer/TrackerExtension.php:317
+#: /src/JTracker/View/Renderer/TrackerExtension.php:338
+#: /src/JTracker/View/Renderer/TrackerExtension.php:568
 msgid "Pending"
 msgstr "В процессе"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:291
-#: /src/JTracker/View/Renderer/TrackerExtension.php:312
+#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+#: /src/JTracker/View/Renderer/TrackerExtension.php:339
 msgid "Ready To Commit"
 msgstr "Готово к коммиту"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:292
-#: /src/JTracker/View/Renderer/TrackerExtension.php:313
+#: /src/JTracker/View/Renderer/TrackerExtension.php:319
+#: /src/JTracker/View/Renderer/TrackerExtension.php:340
 msgid "Needs Review"
 msgstr "Требуется ревью"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:293
-#: /src/JTracker/View/Renderer/TrackerExtension.php:314
+#: /src/JTracker/View/Renderer/TrackerExtension.php:320
+#: /src/JTracker/View/Renderer/TrackerExtension.php:341
 msgid "Information Required"
 msgstr "Необходима информация"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:299
-#: /src/JTracker/View/Renderer/TrackerExtension.php:315
+#: /src/JTracker/View/Renderer/TrackerExtension.php:326
+#: /src/JTracker/View/Renderer/TrackerExtension.php:342
 msgid "Fixed in Code Base"
 msgstr "Исправлено в коде"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:300
-#: /src/JTracker/View/Renderer/TrackerExtension.php:316
+#: /src/JTracker/View/Renderer/TrackerExtension.php:327
+#: /src/JTracker/View/Renderer/TrackerExtension.php:343
 msgid "Unconfirmed Report"
 msgstr "Не подтверждено"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:301
-#: /src/JTracker/View/Renderer/TrackerExtension.php:317
+#: /src/JTracker/View/Renderer/TrackerExtension.php:328
+#: /src/JTracker/View/Renderer/TrackerExtension.php:344
 msgid "No Reply"
 msgstr "Нет ответа"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:302
-#: /src/JTracker/View/Renderer/TrackerExtension.php:319
+#: /src/JTracker/View/Renderer/TrackerExtension.php:329
+#: /src/JTracker/View/Renderer/TrackerExtension.php:346
 msgid "Expected Behaviour"
 msgstr "Ожидаемое поведение"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:303
-#: /src/JTracker/View/Renderer/TrackerExtension.php:320
+#: /src/JTracker/View/Renderer/TrackerExtension.php:330
+#: /src/JTracker/View/Renderer/TrackerExtension.php:347
 msgid "Known Issue"
 msgstr "Известная проблема"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:309
+#: /src/JTracker/View/Renderer/TrackerExtension.php:336
 msgid "Open"
 msgstr "Открыто"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+#: /src/JTracker/View/Renderer/TrackerExtension.php:345
 msgid "Closed"
 msgstr "Закрыто"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:456
+#: /src/JTracker/View/Renderer/TrackerExtension.php:505
 msgid "No"
 msgstr "Нет"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:456
+#: /src/JTracker/View/Renderer/TrackerExtension.php:505
 msgid "Yes"
 msgstr "Да"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:516
+#: /src/JTracker/View/Renderer/TrackerExtension.php:565
 msgid "Success"
 msgstr "Успешно"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:522
+#: /src/JTracker/View/Renderer/TrackerExtension.php:571
 msgid "Error"
 msgstr "Ошибка"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:525
+#: /src/JTracker/View/Renderer/TrackerExtension.php:574
 msgid "Failure"
 msgstr "Неудача"
