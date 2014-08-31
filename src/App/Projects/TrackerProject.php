@@ -543,7 +543,8 @@ class TrackerProject implements \Serializable
 				->select('*')
 				->from($db->quoteName('#__issues_categories'))
 				->where('project_id = ' . $this->project_id)
-			    ->order('title');
+				->order('title');
+
 			$categories = $db->setQuery($query)->loadObjectList();
 		}
 
