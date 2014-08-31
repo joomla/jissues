@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-19 12:16-0400\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid "Cancel"
 msgstr ""
 
 #: /templates/uploader.full.twig:74
-#: /templates/trackerMenu.twig:146
+#: /templates/trackerMenu.twig:139
 msgid "Error"
 msgstr ""
 
@@ -104,96 +104,96 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: /templates/trackerMenu.twig:84
+#: /templates/trackerMenu.twig:77
 msgid "System"
 msgstr ""
 
-#: /templates/trackerMenu.twig:91
+#: /templates/trackerMenu.twig:84
 msgid "Configuration"
 msgstr ""
 
-#: /templates/trackerMenu.twig:97
+#: /templates/trackerMenu.twig:90
 msgid "phpinfo()"
 msgstr ""
 
-#: /templates/trackerMenu.twig:103
+#: /templates/trackerMenu.twig:96
 msgid "Logs"
 msgstr ""
 
-#: /templates/trackerMenu.twig:116
+#: /templates/trackerMenu.twig:109
 msgid "Cron Jobs"
 msgstr ""
 
-#: /templates/trackerMenu.twig:121
+#: /templates/trackerMenu.twig:114
 msgid "Database"
 msgstr ""
 
-#: /templates/trackerMenu.twig:127
+#: /templates/trackerMenu.twig:120
 msgid "GitHub Issues"
 msgstr ""
 
-#: /templates/trackerMenu.twig:133
+#: /templates/trackerMenu.twig:126
 msgid "GitHub Comments"
 msgstr ""
 
-#: /templates/trackerMenu.twig:139
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Pulls"
 msgstr ""
 
-#: /templates/trackerMenu.twig:143
+#: /templates/trackerMenu.twig:136
 msgid "PHP"
 msgstr ""
 
-#: /templates/trackerMenu.twig:153
+#: /templates/trackerMenu.twig:146
 msgid "Icons"
 msgstr ""
 
-#: /templates/trackerMenu.twig:159
+#: /templates/trackerMenu.twig:152
 msgid "Routes"
 msgstr ""
 
-#: /templates/trackerMenu.twig:165
+#: /templates/trackerMenu.twig:158
 msgid "Text"
 msgstr ""
 
-#: /templates/trackerMenu.twig:171
+#: /templates/trackerMenu.twig:164
 msgid "Clear Cache"
 msgstr ""
 
-#: /templates/trackerMenu.twig:193
+#: /templates/trackerMenu.twig:181
 msgid "About Us"
 msgstr ""
 
-#: /templates/trackerMenu.twig:198
+#: /templates/trackerMenu.twig:186
 msgid "Markdown"
 msgstr ""
 
-#: /templates/trackerMenu.twig:203
+#: /templates/trackerMenu.twig:191
 #: /templates/topMenu.twig:72
 msgid "Documentation"
 msgstr ""
 
-#: /templates/trackerMenu.twig:222
+#: /templates/trackerMenu.twig:210
 msgid "Admin"
 msgstr ""
 
-#: /templates/trackerMenu.twig:227
+#: /templates/trackerMenu.twig:215
 msgid "View profile"
 msgstr ""
 
-#: /templates/trackerMenu.twig:233
+#: /templates/trackerMenu.twig:221
 msgid "Edit profile"
 msgstr ""
 
-#: /templates/trackerMenu.twig:240
+#: /templates/trackerMenu.twig:228
 msgid "Logout"
 msgstr ""
 
-#: /templates/trackerMenu.twig:249
+#: /templates/trackerMenu.twig:237
 msgid "Login with GitHub"
 msgstr ""
 
-#: /templates/trackerMenu.twig:253
+#: /templates/trackerMenu.twig:241
 msgid "No GitHub credentials set in config"
 msgstr ""
 
