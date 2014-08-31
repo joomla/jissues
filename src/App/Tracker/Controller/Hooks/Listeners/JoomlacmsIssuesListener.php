@@ -40,7 +40,7 @@ class JoomlacmsIssuesListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Add a "no code" label
-			$this->addCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->addCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 		}
 	}
 
@@ -57,7 +57,7 @@ class JoomlacmsIssuesListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addCodelabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function addCodelabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
 		$codeLabel    = 'No Code Attached Yet';

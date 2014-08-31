@@ -247,13 +247,12 @@ class JoomlacmsPullsListener
 	 * @param   Github       $github    Github object
 	 * @param   Logger       $logger    Logger object
 	 * @param   object       $project   Object containing project data
-	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
 		$issueLabel = 'PR-' . $hookData->pull_request->base->ref;

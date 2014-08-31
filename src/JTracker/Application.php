@@ -161,7 +161,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 						throw new \RuntimeException('Invalid router file. ' . $path, 500);
 					}
 
-					$router->addMaps($maps, true);
+					$router->addMaps($maps);
 				}
 			}
 
