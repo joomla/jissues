@@ -20,11 +20,12 @@
         <div class="row-fluid well well-small">
             <div class="span5">
                 <label for="name">{{ 'Name'|_ }}</label><br/>
-                <input type="text" id="name" name="name" placeholder="Label name"/>
+                <input type="text" id="name" name="name" placeholder="{{ 'Label name'|_ }}"/>
             </div>
             <div class="span5">
-                <label for="color">{{ 'Color'|_ }}</label><br />
-                <input type="text" id="color" name="color" placeholder="Label color"/>
+                <label for="color_display">{{ 'Color'|_ }}</label>
+                <input class="color_select" id="color" value="#{{ item.color }}"/>
+                <input type="text" name="color" id="color_display" placeholder="{{ 'Label color'|_ }}"/>
             </div>
             <div class="span2 left">
                 <div class="btn btn-large btn-success" onclick="addLabel('{{ project.alias }}');">{{ 'Add Label'|_ }}</div>
@@ -70,6 +71,9 @@
 
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-simple-color/src/jquery.simple-color{{ jdebug ? "" : ".min" }}.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/core/js/color-select{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
 

@@ -54,3 +54,27 @@
 
     {{ fields.select('filter-category', values, value, id, class) }}
 {% endmacro %}
+
+{% macro tests(value, id, class) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {
+        0: '- tests -'|_,
+        1: 'Needs one test'|_,
+        2: 'Has two tests'|_,
+        3: 'Needs tests'|_,
+        } %}
+
+    {{ fields.select('filter-tests', values, value, id, class) }}
+{% endmacro %}
+
+{% macro easytest(value, id, class) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {
+        0: '- easy -'|_,
+        1: 'Yes'|_
+        } %}
+
+    {{ fields.select('filter-easytest', values, value, id, class) }}
+{% endmacro %}

@@ -272,6 +272,56 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
 		}
 
+		$filter = $this->state->get('filter.tests');
+
+		if ($filter && is_numeric($filter))
+		{
+			switch ($filter)
+			{
+				case 1:
+					$query
+						->leftJoin(
+							$db->quoteName('#__issues_tests', 'it')
+							. 'ON a.id = it.item_id'
+						)
+						->where($db->quoteName('a.has_code') . ' = 1')
+						->where($db->quoteName('it.result') . ' = 1')
+						->group('a.issue_number')
+						->having('COUNT(it.item_id) = 1');
+					break;
+
+				case 2:
+					$query
+						->leftJoin(
+							$db->quoteName('#__issues_tests', 'it')
+							. 'ON a.id = it.item_id'
+						)
+						->where($db->quoteName('a.has_code') . ' = 1')
+						->where($db->quoteName('it.result') . ' = 1')
+						->group('a.issue_number')
+						->having('COUNT(it.item_id) > 1');
+					break;
+
+				case 3:
+					$query
+					->leftJoin(
+						$db->quoteName('#__issues_tests', 'it')
+						. 'ON a.id = it.item_id'
+					)
+						->where($db->quoteName('a.has_code') . ' = 1')
+						->group('a.issue_number')
+						->having('COUNT(it.item_id) = 0');
+					break;
+			}
+		}
+
+		$filter = $this->state->get('filter.easytest');
+
+		if ($filter && is_numeric($filter))
+		{
+			$query->where($db->quoteName('a.easy') . ' = ' . (int) $filter);
+		}
+
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
 		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
 		$query->order($ordering . ' ' . $direction);
@@ -301,6 +351,8 @@ class IssuesModel extends AbstractTrackerListModel
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
 		$id .= ':' . $this->state->get('filter.category');
+		$id .= ':' . $this->state->get('filter.tests');
+		$id .= ':' . $this->state->get('filter.easytest');
 
 		return parent::getStoreId($id);
 	}
