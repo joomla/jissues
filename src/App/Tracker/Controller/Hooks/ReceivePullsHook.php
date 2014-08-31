@@ -247,10 +247,12 @@ class ReceivePullsHook extends AbstractHookController
 				break;
 
 			case 'opened':
-				// Issues: reopened
-			case 'reopened' :
+			case 'reopened':
 				$status = 1;
 				break;
+
+			default :
+				$status = null;
 		}
 
 		// Try to render the description with GitHub markdown
