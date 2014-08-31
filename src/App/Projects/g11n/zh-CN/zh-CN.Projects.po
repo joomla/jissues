@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-08-31 14:18-0500\n"
 "PO-Revision-Date: 2014-08-19 16:19+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -18,18 +18,62 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "增加项目"
+
+#: /templates/projects/project.add.twig:11
+#: /templates/projects/project.edit.twig:11
+msgid "Save"
+msgstr "保存"
+
+#: /templates/projects/project.add.twig:20
+#: /templates/projects/project.edit.twig:30
+msgid "New project"
+msgstr "新建项目"
+
+#: /templates/projects/project.add.twig:24
+#: /templates/projects/project.edit.twig:35
+msgid "Details"
+msgstr "详细信息"
+
+#: /templates/projects/project.add.twig:28
+#: /templates/projects/project.edit.twig:37
+msgid "Title"
+msgstr "标题"
+
+#: /templates/projects/project.add.twig:33
+#: /templates/projects/project.edit.twig:44
+msgid "Short Title"
+msgstr "短标题"
+
+#: /templates/projects/project.add.twig:38
+#: /templates/projects/project.edit.twig:51
+msgid "Alias"
+msgstr "别名"
+
+#: /templates/projects/project.add.twig:43
+#: /templates/projects/project.edit.twig:58
+msgid "GitHub Owner"
+msgstr "GitHub 所有者"
+
+#: /templates/projects/project.add.twig:48
+#: /templates/projects/project.edit.twig:65
+msgid "GitHub Repo"
+msgstr "GitHub 项目源"
+
+#: /templates/projects/project.add.twig:53
+#: /templates/projects/project.edit.twig:86
+msgid "External Tracker Link"
+msgstr "外部追踪器地址"
+
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
 msgstr "编辑项目"
 
-#: /templates/projects/project.edit.twig:11
-#: /templates/projects/project.add.twig:11
-msgid "Save"
-msgstr "保存"
-
 #: /templates/projects/project.edit.twig:17
-#: /templates/projects/project.index.twig:15
 #: /templates/projects/projects.index.twig:61
+#: /templates/projects/project.index.twig:15
 msgid "Delete"
 msgstr "删除"
 
@@ -37,95 +81,12 @@ msgstr "删除"
 msgid "Edit project"
 msgstr "编辑项目"
 
-#: /templates/projects/project.edit.twig:30
-#: /templates/projects/project.add.twig:20
-msgid "New project"
-msgstr "新建项目"
-
-#: /templates/projects/project.edit.twig:35
-#: /templates/projects/project.add.twig:24
-msgid "Details"
-msgstr "详细信息"
-
-#: /templates/projects/project.edit.twig:37
-#: /templates/projects/project.add.twig:28
-msgid "Title"
-msgstr "标题"
-
-#: /templates/projects/project.edit.twig:44
-#: /templates/projects/project.add.twig:33
-msgid "Short Title"
-msgstr "短标题"
-
-#: /templates/projects/project.edit.twig:51
-#: /templates/projects/project.add.twig:38
-msgid "Alias"
-msgstr "别名"
-
-#: /templates/projects/project.edit.twig:58
-#: /templates/projects/project.add.twig:43
-msgid "GitHub Owner"
-msgstr "GitHub 所有者"
-
-#: /templates/projects/project.edit.twig:65
-#: /templates/projects/project.add.twig:48
-msgid "GitHub Repo"
-msgstr "GitHub 项目源"
-
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
 msgstr ""
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:86
-#: /templates/projects/project.add.twig:53
-msgid "External Tracker Link"
-msgstr "外部追踪器地址"
-
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr "项目"
-
-#: /templates/projects/project.index.twig:14
-#: /templates/projects/projects.index.twig:60
-msgid "Edit"
-msgstr "编辑"
-
-#: /templates/projects/project.index.twig:26
-#, php-format
-msgid "Project %s Tracker"
-msgstr ""
-
-#: /templates/projects/project.index.twig:35
-#, php-format
-msgid "Project %s on GitHub"
-msgstr ""
-
-#: /templates/projects/project.index.twig:39
-msgid "Statistics"
-msgstr ""
-
-#: /templates/projects/project.index.twig:45
-#: /templates/projects/projects.index.twig:45
-msgid "Hooks"
-msgstr "钩子"
-
-#: /templates/projects/project.index.twig:51
-#: /templates/projects/projects.index.twig:59
-msgid "Groups"
-msgstr "群组"
-
-#: /templates/projects/project.index.twig:54
-#: /templates/projects/projects.index.twig:46
-msgid "Labels"
-msgstr "标签"
-
-#: /templates/projects/project.index.twig:57
-msgid "Categories"
 msgstr ""
 
 #: /templates/projects/projects.index.twig:6
@@ -156,6 +117,16 @@ msgstr "操作"
 msgid "Id"
 msgstr "ID"
 
+#: /templates/projects/projects.index.twig:45
+#: /templates/projects/project.index.twig:45
+msgid "Hooks"
+msgstr "钩子"
+
+#: /templates/projects/projects.index.twig:46
+#: /templates/projects/project.index.twig:54
+msgid "Labels"
+msgstr "标签"
+
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
 msgstr "统计数据"
@@ -164,9 +135,38 @@ msgstr "统计数据"
 msgid "Show"
 msgstr "显示"
 
-#: /templates/projects/project.add.twig:6
-msgid "Add Project"
-msgstr "增加项目"
+#: /templates/projects/projects.index.twig:59
+#: /templates/projects/project.index.twig:51
+msgid "Groups"
+msgstr "群组"
+
+#: /templates/projects/projects.index.twig:60
+#: /templates/projects/project.index.twig:14
+msgid "Edit"
+msgstr "编辑"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "项目"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr ""
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr ""
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr ""
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr ""
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

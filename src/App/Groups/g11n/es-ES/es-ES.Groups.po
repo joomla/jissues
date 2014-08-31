@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-08-31 14:18-0500\n"
 "PO-Revision-Date: 2014-08-31 17:23+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
@@ -17,68 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/groups/groups.index.twig:6
-msgid "Groups"
-msgstr "Grupos"
-
-#: /templates/groups/groups.index.twig:11
-msgid "Add Group"
-msgstr "Añadir Grupo"
-
-#: /templates/groups/groups.index.twig:22
-msgid "Access Groups"
-msgstr "Grupos de Acceso"
-
-#: /templates/groups/groups.index.twig:27
-#: /templates/groups/group.edit.twig:144
-msgid "Title"
-msgstr "Título"
-
-#: /templates/groups/groups.index.twig:28
-#: /templates/groups/group.edit.twig:164
-msgid "View"
-msgstr "Ver"
-
-#: /templates/groups/groups.index.twig:29
-#: /templates/groups/group.edit.twig:174
-msgid "Create"
-msgstr "Crear"
-
-#: /templates/groups/groups.index.twig:30
-#: /templates/groups/group.edit.twig:184
-msgid "Edit"
-msgstr "Editar"
-
-#: /templates/groups/groups.index.twig:31
-#: /templates/groups/group.edit.twig:194
-msgid "Edit own"
-msgstr "Editar el propio"
-
-#: /templates/groups/groups.index.twig:32
-#: /templates/groups/group.edit.twig:204
-msgid "Manage"
-msgstr "Gestionar"
-
-#: /templates/groups/groups.index.twig:33
-msgid "Actions"
-msgstr "Acciones"
-
-#: /templates/groups/groups.index.twig:35
-msgid "Id"
-msgstr "Id"
-
-#: /templates/groups/groups.index.twig:64
-msgid "System"
-msgstr "Sistema"
-
-#: /templates/groups/groups.index.twig:67
-msgid "Delete"
-msgstr "Borrar"
-
-#: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
-msgstr "No hay grupos definidos!"
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
@@ -100,9 +38,39 @@ msgstr "Añadir Grupo de Acceso"
 msgid "Details"
 msgstr "Detalles"
 
+#: /templates/groups/group.edit.twig:144
+#: /templates/groups/groups.index.twig:27
+msgid "Title"
+msgstr "Título"
+
 #: /templates/groups/group.edit.twig:154
 msgid "Permissions"
 msgstr "Permisos"
+
+#: /templates/groups/group.edit.twig:164
+#: /templates/groups/groups.index.twig:28
+msgid "View"
+msgstr "Ver"
+
+#: /templates/groups/group.edit.twig:174
+#: /templates/groups/groups.index.twig:29
+msgid "Create"
+msgstr "Crear"
+
+#: /templates/groups/group.edit.twig:184
+#: /templates/groups/groups.index.twig:30
+msgid "Edit"
+msgstr "Editar"
+
+#: /templates/groups/group.edit.twig:194
+#: /templates/groups/groups.index.twig:31
+msgid "Edit own"
+msgstr "Editar el propio"
+
+#: /templates/groups/group.edit.twig:204
+#: /templates/groups/groups.index.twig:32
+msgid "Manage"
+msgstr "Gestionar"
 
 #: /templates/groups/group.edit.twig:217
 msgid "Users"
@@ -135,6 +103,38 @@ msgstr "Lista de Usuarios asignados"
 #: /templates/groups/group.edit.twig:258
 msgid "Save the group to assign users."
 msgstr "Guarde el grupo como usuarios asignados."
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "Grupos"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "Añadir Grupo"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "Grupos de Acceso"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "Acciones"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr "Id"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "Sistema"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "Borrar"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr "No hay grupos definidos!"
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."
