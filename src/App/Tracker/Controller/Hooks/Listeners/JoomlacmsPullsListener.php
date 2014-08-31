@@ -243,10 +243,10 @@ class JoomlacmsPullsListener
 	/**
 	 * Checks for a PR-<branch> label
 	 *
-	 * @param   object       $hookData  Hook data payload
-	 * @param   Github       $github    Github object
-	 * @param   Logger       $logger    Logger object
-	 * @param   object       $project   Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *

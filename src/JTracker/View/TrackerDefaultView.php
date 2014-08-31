@@ -24,9 +24,8 @@ class TrackerDefaultView  extends AbstractTrackerHtmlView
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   ModelInterface     $model           The model object.
-	 * @param   RendererInterface  $renderer        The renderer interface.
-	 * @param   string|array       $templatesPaths  The templates paths.
+	 * @param   ModelInterface     $model     The model object.
+	 * @param   RendererInterface  $renderer  The renderer interface.
 	 *
 	 * @since   1.0
 	 */
