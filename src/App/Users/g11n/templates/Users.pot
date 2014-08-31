@@ -8,14 +8,74 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-08-31 14:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/users/user.index.twig:12
+#: /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr ""
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:22
+#: /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr ""
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr ""
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr ""
+
+#: /templates/users/user.edit.twig:6
+#: /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr ""
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr ""
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr ""
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr ""
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr ""
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr ""
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr ""
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -41,67 +101,6 @@ msgstr ""
 
 #: /templates/users/users.index.twig:28
 msgid "ID"
-msgstr ""
-
-#: /templates/users/user.edit.twig:6
-#: /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr ""
-
-#: /templates/users/user.edit.twig:11
-#: /templates/users/user.index.twig:12
-msgid "Invalid user!"
-msgstr ""
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr ""
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr ""
-
-#: /templates/users/user.edit.twig:32
-#: /templates/users/user.index.twig:22
-msgid "Refresh profile from GitHub"
-msgstr ""
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr ""
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr ""
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr ""
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr ""
-
-#: /templates/users/user.index.twig:19
-msgid "Edit profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:26
-msgid "My Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:28
-msgid "Profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:57
-#, php-format
-msgid "Language: %s"
-msgstr ""
-
-#: /templates/users/user.index.twig:62
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
 msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
