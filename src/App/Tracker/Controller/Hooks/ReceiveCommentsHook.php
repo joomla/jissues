@@ -72,7 +72,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	}
 
 	/**
-	 * Method to insert data for acomment from GitHub
+	 * Method to insert data for a comment from GitHub
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -151,9 +151,11 @@ class ReceiveCommentsHook extends AbstractHookController
 			}
 		}
 
+		$this->triggerEvent('onCommentAfterCreate', $table);
+
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Added GitHub comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
@@ -167,7 +169,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @return  integer  Issue ID
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -235,7 +237,7 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->triggerEvent('onCommentAfterCreate', $table);
+		$this->triggerEvent('onCommentAfterCreateIssue', $table);
 
 		// Pull the user's avatar if it does not exist
 		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
@@ -265,8 +267,6 @@ class ReceiveCommentsHook extends AbstractHookController
 				$this->hookData->issue->number
 			)
 		);
-
-		return $this;
 	}
 
 	/**
