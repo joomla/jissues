@@ -222,7 +222,6 @@ class ReceiveIssuesHook extends AbstractHookController
 
 			case 'opened':
 			case 'reopened':
-			default:
 				$status = 1;
 				break;
 		}
