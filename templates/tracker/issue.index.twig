@@ -325,8 +325,8 @@
                     <form class="form-inline">
 
                         {{ 'Set the test result for user %s to %s'|_|format(
-                            '<input name="altered-user" placeholder="' ~ 'username'|_ ~ '"/>',
-                            '<select name="altered">'
+                            '<input name="altered-user" class="span10" placeholder="' ~ 'username'|_ ~ '"/>',
+                            '<select name="altered" class="span12">'
                             ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
                             ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
                             ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
