@@ -624,6 +624,15 @@ class TrackerExtension extends \Twig_Extension
 		return implode(',', array_diff($as, $bs));
 	}
 
+	/**
+	 * Get a user test option string.
+	 *
+	 * @param   integer  $id  The option ID.
+	 *
+	 * @return  mixed array or string if an ID is given.
+	 *
+	 * @since   1.0
+	 */
 	public function getUserTestOptions($id = null)
 	{
 		static $options = [];

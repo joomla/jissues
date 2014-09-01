@@ -536,6 +536,15 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		return $data;
 	}
 
+	/**
+	 * Get an issue number by its ID.
+	 *
+	 * @param   integer  $id  The issue ID.
+	 *
+	 * @return  integer
+	 *
+	 * @since   1.0
+	 */
 	public function getIssueNumberById($id)
 	{
 		return $this->db->setQuery(
