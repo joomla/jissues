@@ -8,14 +8,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-19 12:16-0400\n"
+"POT-Creation-Date: 2014-08-31 14:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /templates/index.twig:49
+msgid "Download"
+msgstr ""
+
+#: /templates/index.twig:52
+msgid "Demo"
+msgstr ""
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr ""
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr ""
 
 #: /templates/uploader.full.twig:13
 msgid "Add files..."
@@ -64,149 +79,8 @@ msgid "Cancel"
 msgstr ""
 
 #: /templates/uploader.full.twig:74
-#: /templates/trackerMenu.twig:146
-msgid "Error"
-msgstr ""
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr ""
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr ""
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr ""
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr ""
-
-#: /templates/trackerMenu.twig:43
-msgid "Access Groups"
-msgstr ""
-
-#: /templates/trackerMenu.twig:49
-msgid "Labels"
-msgstr ""
-
-#: /templates/trackerMenu.twig:55
-msgid "Categories"
-msgstr ""
-
-#: /templates/trackerMenu.twig:65
-msgid "Projects"
-msgstr ""
-
-#: /templates/trackerMenu.twig:70
-msgid "Users"
-msgstr ""
-
-#: /templates/trackerMenu.twig:84
-msgid "System"
-msgstr ""
-
-#: /templates/trackerMenu.twig:91
-msgid "Configuration"
-msgstr ""
-
-#: /templates/trackerMenu.twig:97
-msgid "phpinfo()"
-msgstr ""
-
-#: /templates/trackerMenu.twig:103
-msgid "Logs"
-msgstr ""
-
-#: /templates/trackerMenu.twig:116
-msgid "Cron Jobs"
-msgstr ""
-
-#: /templates/trackerMenu.twig:121
-msgid "Database"
-msgstr ""
-
-#: /templates/trackerMenu.twig:127
-msgid "GitHub Issues"
-msgstr ""
-
-#: /templates/trackerMenu.twig:133
-msgid "GitHub Comments"
-msgstr ""
-
 #: /templates/trackerMenu.twig:139
-msgid "GitHub Pulls"
-msgstr ""
-
-#: /templates/trackerMenu.twig:143
-msgid "PHP"
-msgstr ""
-
-#: /templates/trackerMenu.twig:153
-msgid "Icons"
-msgstr ""
-
-#: /templates/trackerMenu.twig:159
-msgid "Routes"
-msgstr ""
-
-#: /templates/trackerMenu.twig:165
-msgid "Text"
-msgstr ""
-
-#: /templates/trackerMenu.twig:171
-msgid "Clear Cache"
-msgstr ""
-
-#: /templates/trackerMenu.twig:193
-msgid "About Us"
-msgstr ""
-
-#: /templates/trackerMenu.twig:198
-msgid "Markdown"
-msgstr ""
-
-#: /templates/trackerMenu.twig:203
-#: /templates/topMenu.twig:72
-msgid "Documentation"
-msgstr ""
-
-#: /templates/trackerMenu.twig:222
-msgid "Admin"
-msgstr ""
-
-#: /templates/trackerMenu.twig:227
-msgid "View profile"
-msgstr ""
-
-#: /templates/trackerMenu.twig:233
-msgid "Edit profile"
-msgstr ""
-
-#: /templates/trackerMenu.twig:240
-msgid "Logout"
-msgstr ""
-
-#: /templates/trackerMenu.twig:249
-msgid "Login with GitHub"
-msgstr ""
-
-#: /templates/trackerMenu.twig:253
-msgid "No GitHub credentials set in config"
-msgstr ""
-
-#: /templates/fields.twig:44
-msgid "Select Categories..."
-msgstr ""
-
-#: /templates/index.twig:49
-msgid "Download"
-msgstr ""
-
-#: /templates/index.twig:52
-msgid "Demo"
+msgid "Error"
 msgstr ""
 
 #: /templates/footerMenu.twig:6
@@ -263,12 +137,137 @@ msgstr ""
 msgid "All rights reserved."
 msgstr ""
 
-#: /templates/editor.twig:5
-msgid "Write"
+#: /templates/fields.twig:44
+msgid "Select Categories..."
 msgstr ""
 
-#: /templates/editor.twig:6
-msgid "Preview"
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr ""
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr ""
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr ""
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr ""
+
+#: /templates/trackerMenu.twig:43
+msgid "Access Groups"
+msgstr ""
+
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr ""
+
+#: /templates/trackerMenu.twig:55
+msgid "Categories"
+msgstr ""
+
+#: /templates/trackerMenu.twig:65
+msgid "Projects"
+msgstr ""
+
+#: /templates/trackerMenu.twig:70
+msgid "Users"
+msgstr ""
+
+#: /templates/trackerMenu.twig:77
+msgid "System"
+msgstr ""
+
+#: /templates/trackerMenu.twig:84
+msgid "Configuration"
+msgstr ""
+
+#: /templates/trackerMenu.twig:90
+msgid "phpinfo()"
+msgstr ""
+
+#: /templates/trackerMenu.twig:96
+msgid "Logs"
+msgstr ""
+
+#: /templates/trackerMenu.twig:109
+msgid "Cron Jobs"
+msgstr ""
+
+#: /templates/trackerMenu.twig:114
+msgid "Database"
+msgstr ""
+
+#: /templates/trackerMenu.twig:120
+msgid "GitHub Issues"
+msgstr ""
+
+#: /templates/trackerMenu.twig:126
+msgid "GitHub Comments"
+msgstr ""
+
+#: /templates/trackerMenu.twig:132
+msgid "GitHub Pulls"
+msgstr ""
+
+#: /templates/trackerMenu.twig:136
+msgid "PHP"
+msgstr ""
+
+#: /templates/trackerMenu.twig:146
+msgid "Icons"
+msgstr ""
+
+#: /templates/trackerMenu.twig:152
+msgid "Routes"
+msgstr ""
+
+#: /templates/trackerMenu.twig:158
+msgid "Text"
+msgstr ""
+
+#: /templates/trackerMenu.twig:164
+msgid "Clear Cache"
+msgstr ""
+
+#: /templates/trackerMenu.twig:181
+msgid "About Us"
+msgstr ""
+
+#: /templates/trackerMenu.twig:186
+msgid "Markdown"
+msgstr ""
+
+#: /templates/trackerMenu.twig:191
+#: /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr ""
+
+#: /templates/trackerMenu.twig:210
+msgid "Admin"
+msgstr ""
+
+#: /templates/trackerMenu.twig:215
+msgid "View profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:221
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:228
+msgid "Logout"
+msgstr ""
+
+#: /templates/trackerMenu.twig:237
+msgid "Login with GitHub"
+msgstr ""
+
+#: /templates/trackerMenu.twig:241
+msgid "No GitHub credentials set in config"
 msgstr ""
 
 #: /templates/topMenu.twig:18

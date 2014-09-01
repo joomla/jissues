@@ -103,14 +103,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		if ($filter)
 		{
-			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
-
-			// Check the author, title, and publish_up fields
-			$query->where(
-				'(' . $db->quoteName('a.title') . ' LIKE ' . $filter
-				. ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter
-				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
+			$query = $this->processSearchFilter($query, $filter);
 		}
 
 		$filter = $this->state->get('filter.status');
@@ -193,14 +186,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		if ($filter)
 		{
-			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
-
-			// Check the author, title, and publish_up fields
-			$query->where(
-				'(' . $db->quoteName('a.title') . ' LIKE ' . $filter
-				. ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter
-				. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')');
+			$query = $this->processSearchFilter($query, $filter);
 		}
 
 		$filter = $this->state->get('filter.status');
@@ -276,40 +262,31 @@ class IssuesModel extends AbstractTrackerListModel
 
 		if ($filter && is_numeric($filter))
 		{
+			// Common query elements
+			$query
+				->leftJoin(
+					$db->quoteName('#__issues_tests', 'it')
+					. 'ON a.id = it.item_id'
+				)
+				->where($db->quoteName('a.has_code') . ' = 1')
+				->group('a.issue_number');
+
 			switch ($filter)
 			{
 				case 1:
 					$query
-						->leftJoin(
-							$db->quoteName('#__issues_tests', 'it')
-							. 'ON a.id = it.item_id'
-						)
-						->where($db->quoteName('a.has_code') . ' = 1')
 						->where($db->quoteName('it.result') . ' = 1')
-						->group('a.issue_number')
 						->having('COUNT(it.item_id) = 1');
 					break;
 
 				case 2:
 					$query
-						->leftJoin(
-							$db->quoteName('#__issues_tests', 'it')
-							. 'ON a.id = it.item_id'
-						)
-						->where($db->quoteName('a.has_code') . ' = 1')
 						->where($db->quoteName('it.result') . ' = 1')
-						->group('a.issue_number')
 						->having('COUNT(it.item_id) > 1');
 					break;
 
 				case 3:
 					$query
-					->leftJoin(
-						$db->quoteName('#__issues_tests', 'it')
-						. 'ON a.id = it.item_id'
-					)
-						->where($db->quoteName('a.has_code') . ' = 1')
-						->group('a.issue_number')
 						->having('COUNT(it.item_id) = 0');
 					break;
 			}
@@ -437,5 +414,32 @@ class IssuesModel extends AbstractTrackerListModel
 		$this->cache[$store] = $total;
 
 		return $this->cache[$store];
+	}
+
+	/**
+	 * Common function to process the search filter for a query
+	 *
+	 * @param   DatabaseQuery  $query   DatabaseQuery object
+	 * @param   string         $filter  Filter string
+	 *
+	 * @return  DatabaseQuery
+	 *
+	 * @since   1.0
+	 */
+	private function processSearchFilter(DatabaseQuery $query, $filter)
+	{
+		$db = $this->getDb();
+
+		// Clean filter variable
+		$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+
+		// Check the author, title, and publish_up fields
+		$query->where(
+			'(' . $db->quoteName('a.title') . ' LIKE ' . $filter
+			. ' OR ' . $db->quoteName('a.description') . ' LIKE ' . $filter
+			. ' OR ' . $db->quoteName('a.issue_number') . ' LIKE ' . $filter . ')'
+		);
+
+		return $query;
 	}
 }

@@ -83,7 +83,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Event Dispatcher
 	 *
-	 * @var    Dispatcher
+	 * @var    DispatcherInterface
 	 * @since  1.0
 	 */
 	private $dispatcher;
@@ -161,7 +161,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 						throw new \RuntimeException('Invalid router file. ' . $path, 500);
 					}
 
-					$router->addMaps($maps, true);
+					$router->addMaps($maps);
 				}
 			}
 
@@ -283,7 +283,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Get the dispatcher object.
 	 *
-	 * @return  Dispatcher
+	 * @return  DispatcherInterface
 	 *
 	 * @since   1.0
 	 */

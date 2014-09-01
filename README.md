@@ -1,4 +1,4 @@
-## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=framework)](https://travis-ci.org/joomla/jissues) [![Analytics](https://ga-beacon.appspot.com/UA-544070-3/joomla-issue-tracker/readme)](https://github.com/igrigorik/ga-beacon)
+## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=framework)](https://travis-ci.org/joomla/jissues) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/joomla/jissues/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joomla/jissues/?branch=master)
 
 The issue tracker application requires a server running:
 

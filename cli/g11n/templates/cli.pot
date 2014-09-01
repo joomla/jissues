@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-19 12:16-0400\n"
+"POT-Creation-Date: 2014-08-31 14:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -324,7 +323,7 @@ msgstr ""
 msgid "Adding issues to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:387
+#: /cli/Application/Command/Get/Project/Issues.php:400
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""
@@ -481,11 +480,11 @@ msgstr ""
 msgid "An unknown error occurred"
 msgstr ""
 
-#: /cli/tracker.php:47
+#: /cli/tracker.php:49
 #, php-format
 msgid "ERROR: %s"
 msgstr ""
 
-#: /cli/tracker.php:49
+#: /cli/tracker.php:51
 msgid "Call stack:"
 msgstr ""

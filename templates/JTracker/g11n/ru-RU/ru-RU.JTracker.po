@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-22 13:00+0000\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"PO-Revision-Date: 2014-08-22 13:28+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,190 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Написать"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Превью"
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Трекер"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Проект"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Показать"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Редактировать"
-
-#: /templates/trackerMenu.twig:42
-msgid "Access Groups"
-msgstr "Группы доступа"
-
-#: /templates/trackerMenu.twig:51
-msgid "Projects"
-msgstr "Проекты"
-
-#: /templates/trackerMenu.twig:56
-msgid "Users"
-msgstr "Пользователи"
-
-#: /templates/trackerMenu.twig:70
-msgid "System"
-msgstr "Система"
-
-#: /templates/trackerMenu.twig:77
-msgid "Configuration"
-msgstr "Конфигурация"
-
-#: /templates/trackerMenu.twig:83
-msgid "phpinfo()"
-msgstr "phpinfo()"
-
-#: /templates/trackerMenu.twig:89
-msgid "Logs"
-msgstr "Логи"
-
-#: /templates/trackerMenu.twig:102
-msgid "Cron Jobs"
-msgstr "Задания cron"
-
-#: /templates/trackerMenu.twig:107
-msgid "Database"
-msgstr "База данных"
-
-#: /templates/trackerMenu.twig:113
-msgid "GitHub Issues"
-msgstr "GitHub Issues"
-
-#: /templates/trackerMenu.twig:119
-msgid "GitHub Comments"
-msgstr "GitHub комментарии"
-
-#: /templates/trackerMenu.twig:125
-msgid "GitHub Pulls"
-msgstr "GitHub Pulls"
-
-#: /templates/trackerMenu.twig:129
-msgid "PHP"
-msgstr "PHP"
-
-#: /templates/trackerMenu.twig:132 /templates/uploader.full.twig:74
-msgid "Error"
-msgstr "Ошибка"
-
-#: /templates/trackerMenu.twig:139
-msgid "Icons"
-msgstr "Иконки"
-
-#: /templates/trackerMenu.twig:145
-msgid "Routes"
-msgstr "Маршруты"
-
-#: /templates/trackerMenu.twig:151
-msgid "Text"
-msgstr "Текст"
-
-#: /templates/trackerMenu.twig:157
-msgid "Clear Cache"
-msgstr "Очистить кэш"
-
-#: /templates/trackerMenu.twig:179
-msgid "About Us"
-msgstr "О нас"
-
-#: /templates/trackerMenu.twig:184
-msgid "Markdown"
-msgstr "Markdown"
-
-#: /templates/trackerMenu.twig:189 /templates/topMenu.twig:72
-msgid "Documentation"
-msgstr "Документация"
-
-#: /templates/trackerMenu.twig:206
-msgid "Admin"
-msgstr "Админ"
-
-#: /templates/trackerMenu.twig:211
-msgid "View profile"
-msgstr "Посмотреть профиль"
-
-#: /templates/trackerMenu.twig:217
-msgid "Edit profile"
-msgstr "Изменить профиль"
-
-#: /templates/trackerMenu.twig:224
-msgid "Logout"
-msgstr "Выход"
-
-#: /templates/trackerMenu.twig:233
-msgid "Login with GitHub"
-msgstr "Войти с GitHub"
-
-#: /templates/trackerMenu.twig:237
-msgid "No GitHub credentials set in config"
-msgstr "В конфиге не установлены полномочия GitHub"
-
-#: /templates/footerMenu.twig:6
-msgid "Home"
-msgstr "Главная"
-
-#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
-msgid "About"
-msgstr "О проекте"
-
-#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
-msgid "Community"
-msgstr "Сообщество"
-
-#: /templates/footerMenu.twig:9
-msgid "Forum"
-msgstr "Форум"
-
-#: /templates/footerMenu.twig:10
-msgid "Extensions"
-msgstr "Расширения"
-
-#: /templates/footerMenu.twig:11
-msgid "Resources"
-msgstr "Ресурсы"
-
-#: /templates/footerMenu.twig:12
-msgid "Docs"
-msgstr "Документы"
-
-#: /templates/footerMenu.twig:13
-msgid "Developer"
-msgstr "Разарботчик"
-
-#: /templates/footerMenu.twig:14
-msgid "Shop"
-msgstr "Магазин"
-
-#: /templates/footerMenu.twig:18
-msgid "Accessibility Statement"
-msgstr "Заявление о доступности"
-
-#: /templates/footerMenu.twig:19
-msgid "Privacy Policy"
-msgstr "Политика конфидициальности"
-
-#: /templates/footerMenu.twig:20
-msgid "Joomla Hosting by"
-msgstr "Хостинг Joomla от"
-
-#: /templates/footerMenu.twig:23
-msgid "All rights reserved."
-msgstr "Все права защищены."
 
 #: /templates/uploader.full.twig:13
 msgid "Add files..."
@@ -248,13 +64,209 @@ msgstr "Начать"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: /templates/index.twig:47
+#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:139
+msgid "Error"
+msgstr "Ошибка"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Трекер"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Проект"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Показать"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Редактировать"
+
+#: /templates/trackerMenu.twig:43
+msgid "Access Groups"
+msgstr "Группы доступа"
+
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr "Лейблы"
+
+#: /templates/trackerMenu.twig:55
+msgid "Categories"
+msgstr "Категории"
+
+#: /templates/trackerMenu.twig:65
+msgid "Projects"
+msgstr "Проекты"
+
+#: /templates/trackerMenu.twig:70
+msgid "Users"
+msgstr "Пользователи"
+
+#: /templates/trackerMenu.twig:77
+msgid "System"
+msgstr "Система"
+
+#: /templates/trackerMenu.twig:84
+msgid "Configuration"
+msgstr "Конфигурация"
+
+#: /templates/trackerMenu.twig:90
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:96
+msgid "Logs"
+msgstr "Логи"
+
+#: /templates/trackerMenu.twig:109
+msgid "Cron Jobs"
+msgstr "Задания cron"
+
+#: /templates/trackerMenu.twig:114
+msgid "Database"
+msgstr "База данных"
+
+#: /templates/trackerMenu.twig:120
+msgid "GitHub Issues"
+msgstr "GitHub Issues"
+
+#: /templates/trackerMenu.twig:126
+msgid "GitHub Comments"
+msgstr "GitHub комментарии"
+
+#: /templates/trackerMenu.twig:132
+msgid "GitHub Pulls"
+msgstr "GitHub Pulls"
+
+#: /templates/trackerMenu.twig:136
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:146
+msgid "Icons"
+msgstr "Иконки"
+
+#: /templates/trackerMenu.twig:152
+msgid "Routes"
+msgstr "Маршруты"
+
+#: /templates/trackerMenu.twig:158
+msgid "Text"
+msgstr "Текст"
+
+#: /templates/trackerMenu.twig:164
+msgid "Clear Cache"
+msgstr "Очистить кэш"
+
+#: /templates/trackerMenu.twig:181
+msgid "About Us"
+msgstr "О нас"
+
+#: /templates/trackerMenu.twig:186
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:191 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Документация"
+
+#: /templates/trackerMenu.twig:210
+msgid "Admin"
+msgstr "Админ"
+
+#: /templates/trackerMenu.twig:215
+msgid "View profile"
+msgstr "Посмотреть профиль"
+
+#: /templates/trackerMenu.twig:221
+msgid "Edit profile"
+msgstr "Изменить профиль"
+
+#: /templates/trackerMenu.twig:228
+msgid "Logout"
+msgstr "Выход"
+
+#: /templates/trackerMenu.twig:237
+msgid "Login with GitHub"
+msgstr "Войти с GitHub"
+
+#: /templates/trackerMenu.twig:241
+msgid "No GitHub credentials set in config"
+msgstr "В конфиге не установлены полномочия GitHub"
+
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr "Выберите категории..."
+
+#: /templates/index.twig:49
 msgid "Download"
 msgstr "Скачать"
 
-#: /templates/index.twig:50
+#: /templates/index.twig:52
 msgid "Demo"
 msgstr "Демо"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Главная"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "О проекте"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "Сообщество"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Форум"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Расширения"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Ресурсы"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Документы"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Разработчик"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Магазин"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "Заявление о доступности"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Политика конфидициальности"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Хостинг Joomla от"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "Все права защищены."
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Написать"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Превью"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"

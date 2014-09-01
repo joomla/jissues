@@ -120,6 +120,15 @@
                 </li>
             {% endif %}
 
+            {% if item.pr_head_ref %}
+                <li>
+                    &nbsp;&bull;&nbsp;
+                    <a href="https://github.com/{{ item.opened_by ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}">
+                        {{ item.opened_by ~ ':' ~ item.pr_head_ref }}
+                    </a>
+                </li>
+            {% endif %}
+
         {% endif %}
 
         {% if item.foreign_number %}
@@ -269,11 +278,11 @@
 
             <ul class="unstyled">
                 <li>
-                    {{ 'Successfull: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}<br />
+                    {{ 'Successful: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}<br />
                     <span id="usertests-success" class="tests-success"></span>
                 </li>
                 <li>
-                    {{ 'Unsuccessfull: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}<br />
+                    {{ 'Unsuccessful: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}<br />
                     <span id="usertests-fail" class="tests-fail"></span>
                 </li>
             </ul>

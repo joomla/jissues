@@ -14,8 +14,6 @@ use App\Tracker\Table\IssuesTable;
 
 use Joomla\Date\Date;
 
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
-
 /**
  * Controller class receive and inject issue comments from GitHub
  *
@@ -72,7 +70,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	}
 
 	/**
-	 * Method to insert data for acomment from GitHub
+	 * Method to insert data for a comment from GitHub
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -80,27 +78,8 @@ class ReceiveCommentsHook extends AbstractHookController
 	 */
 	protected function insertComment()
 	{
-		$issueID = null;
-
-		try
-		{
-			// First, make sure the issue is already in the database
-			$issueID = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName('id'))
-					->from($this->db->quoteName('#__issues'))
-					->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number)
-					->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id)
-			)->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->logger->error('Error checking the database for GitHub ID:' . $e->getMessage());
-			$this->getContainer()->get('app')->close();
-		}
-
 		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
-		if (!$issueID)
+		if (!$this->checkIssueExists((int) $this->hookData->issue->number))
 		{
 			$this->insertIssue();
 
@@ -144,16 +123,14 @@ class ReceiveCommentsHook extends AbstractHookController
 			);
 
 			// Pull the user's avatar if it does not exist
-			if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
-			{
-				(new GitHubLoginHelper($this->getContainer()))
-					->saveAvatar($this->hookData->comment->user->login);
-			}
+			$this->pullUserAvatar($this->hookData->comment->user->login);
 		}
+
+		// $this->triggerEvent('onCommentAfterCreate', $table);
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Added GitHub comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
@@ -167,7 +144,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @return  integer  Issue ID
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -235,14 +212,10 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->triggerEvent('onCommentAfterCreate', $table);
+		$this->triggerEvent('onCommentAfterCreateIssue', $table);
 
 		// Pull the user's avatar if it does not exist
-		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
-		{
-			(new GitHubLoginHelper($this->getContainer()))
-				->saveAvatar($this->hookData->issue->user->login);
-		}
+		$this->pullUserAvatar($this->hookData->issue->user->login);
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -265,8 +238,6 @@ class ReceiveCommentsHook extends AbstractHookController
 				$this->hookData->issue->number
 			)
 		);
-
-		return $this;
 	}
 
 	/**

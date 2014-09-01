@@ -31,14 +31,11 @@ class Modify extends AbstractAjaxController
 	/**
 	 * Constructor.
 	 *
-	 * @param   Input                $input  The input object.
-	 * @param   AbstractApplication  $app    The application object.
-	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input $input = null, AbstractApplication $app = null)
+	public function __construct()
 	{
-		parent::__construct($input, $app);
+		parent::__construct();
 
 		$this->github = $this->getContainer()->get('gitHub');
 	}

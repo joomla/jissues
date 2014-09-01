@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-21 22:23+0000\n"
+"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"PO-Revision-Date: 2014-08-19 16:19+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
@@ -267,6 +267,10 @@ msgstr[1] "Udfører %1$d kommentarer for issue # %2$d (%3$d/%4$d)"
 msgid "%1$d added %2$d updated."
 msgstr "%1$d tilføjet %2$d opdateret."
 
+#: /cli/Application/Command/Get/Project/Events.php:42
+msgid "Retrieve issue events from GitHub."
+msgstr ""
+
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
 msgstr "Hent events"
@@ -291,22 +295,54 @@ msgstr "Tilføjer events til databasen..."
 msgid "Added %d new issue events to the database"
 msgstr "Tilføjede %d nye issue events til databasen"
 
-#: /cli/Application/Command/Get/Project/Issues.php:55
+#: /cli/Application/Command/Get/Project/Issues.php:65
 msgid "Retrieve issues from GitHub."
 msgstr "Hent issues fra GitHub."
+
+#: /cli/Application/Command/Get/Project/Issues.php:77
+msgid "Retrieve Issues"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:82
+msgid "Start retrieve Issues"
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:88
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Afsluttet"
+
+#: /cli/Application/Command/Get/Project/Issues.php:104
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:163
+#, php-format
+msgid "Retrieved <b>%d</b> items from GitHub."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:193
+msgid "Adding issues to the database..."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Issues.php:400
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
+msgstr ""
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
 msgstr "Hent projekt etiketter fra GitHub."
 
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
+msgstr ""
+
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
 msgstr "Start hentning af etiketter"
-
-#: /cli/Application/Command/Get/Project/Labels.php:50
-#: /cli/Application/Command/Get/Project/Milestones.php:52
-msgid "Finished"
-msgstr "Afsluttet"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
@@ -448,11 +484,11 @@ msgstr "Udfører projekt: %s"
 msgid "An unknown error occurred"
 msgstr "En ukendt fejl opstod"
 
-#: /cli/tracker.php:47
+#: /cli/tracker.php:49
 #, php-format
 msgid "ERROR: %s"
 msgstr "FEJL: %s"
 
-#: /cli/tracker.php:49
+#: /cli/tracker.php:51
 msgid "Call stack:"
 msgstr "Call stack:"

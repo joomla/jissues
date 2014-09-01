@@ -23,7 +23,6 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   integer  $sendEmail      If the users receives e-mail
  * @property   string   $registerDate   The register date
  * @property   string   $lastvisitDate  The last visit date
- * @property   string   $avatar         The users avatar image file name
  * @property   string   $params         Parameters
  *
  * @since  1.0

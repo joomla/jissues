@@ -229,7 +229,7 @@ class TrackerExtension extends \Twig_Extension
 			3 => g11n3t('Medium'),
 			4 => g11n3t('Low'),
 			5 => g11n3t('Very low')
-			];
+		];
 	}
 
 	/**
@@ -475,7 +475,7 @@ class TrackerExtension extends \Twig_Extension
 	 *
 	 * @param   integer  $id  The relation id.
 	 *
-	 * @return string
+	 * @return  string
 	 *
 	 * @since   1.0
 	 */
@@ -526,6 +526,7 @@ class TrackerExtension extends \Twig_Extension
 	 * @return  string
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function renderMergeBadge($status)
 	{
@@ -557,6 +558,7 @@ class TrackerExtension extends \Twig_Extension
 	 * @return  string
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getMergeStatus($status)
 	{
@@ -564,16 +566,15 @@ class TrackerExtension extends \Twig_Extension
 		{
 			case 'success':
 				return g11n3t('Success');
-				break;
+
 			case 'pending':
 				return g11n3t('Pending');
-				break;
+
 			case 'error':
 				return g11n3t('Error');
-				break;
+
 			case 'failure':
 				return g11n3t('Failure');
-				break;
 		}
 
 		throw new \RuntimeException('Unknown status: ' . $status);

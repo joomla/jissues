@@ -28,6 +28,22 @@ class DatabaseDebugger
 	private $database;
 
 	/**
+	 * Array containing profiles
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	private $sqlShowProfileEach = array();
+
+	/**
+	 * Array containing EXPLAIN query results
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	private $explains = array();
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   DatabaseDriver  $database  The database driver.

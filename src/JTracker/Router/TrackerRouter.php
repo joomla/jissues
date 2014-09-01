@@ -8,12 +8,12 @@
 
 namespace JTracker\Router;
 
-use Joomla\Controller\ControllerInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\Input\Input;
 use Joomla\Router\Router;
 
+use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
 
 /**
@@ -51,7 +51,7 @@ class TrackerRouter extends Router
 	 *
 	 * @param   string  $route  The route string for which to find and execute a controller.
 	 *
-	 * @return  ControllerInterface
+	 * @return  AbstractTrackerController
 	 *
 	 * @since   1.0
 	 * @throws  RoutingException
@@ -75,11 +75,11 @@ class TrackerRouter extends Router
 	}
 
 	/**
-	 * Get a ControllerInterface object for a given name.
+	 * Get a AbstractTrackerController object for a given name.
 	 *
 	 * @param   string  $name  The controller name (excluding prefix) for which to fetch and instance.
 	 *
-	 * @return  ControllerInterface
+	 * @return  AbstractTrackerController
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
