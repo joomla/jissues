@@ -40,7 +40,11 @@
         </div>
     {% else %}
 
-    <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
+        <a class="btn pull-right"
+           href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}
+        </a>
+
+        <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
 
     <!-- Status bar -->
 
