@@ -94,7 +94,25 @@ class Save extends AbstractTrackerController
 			$oldState = $model->getOpenClosed($item->status);
 			$state    = $model->getOpenClosed($data['status']);
 
-			$this->updateGitHub($item->issue_number, $data, $state, $oldState);
+			try
+			{
+				$this->updateGitHub($item->issue_number, $data, $state, $oldState);
+			}
+			catch (GithubException $exception)
+			{
+				// DEBUG - @todo remove in stable
+				$dump = [
+					'exception' => $exception->getCode() . ' ' . $exception->getMessage(),
+					'user' => $project->gh_user, 'project' => $project->gh_project,
+					'issueNo' => $item->issue_number,
+					'state' => $state, 'old_state' => $oldState,
+					'data' => $data
+				];
+
+				var_dump($dump);
+
+				die('Unrecoverable GitHub error - sry ;(');
+			}
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render(
