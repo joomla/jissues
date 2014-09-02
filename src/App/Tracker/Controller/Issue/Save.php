@@ -226,14 +226,14 @@ class Save extends AbstractTrackerController
 			// (only if the "state" has changed - open <=> closed)
 			if ($state != $oldState)
 			{
+				$uri = $application->get('uri')->base->full;
+
 				$body = sprintf(
-					'Modified on behalf of @%s by %s',
+					'Set to "%s" on behalf of @%s by %s at %s',
+					$state,
 					$application->getUser()->username,
-					sprintf(
-						'The <a href="%s">%s</a>',
-						'https://github.com/joomla/jissues',
-						'JTracker Application'
-					)
+					sprintf('The <a href="%s">%s</a>', 'https://github.com/joomla/jissues', 'JTracker Application'),
+					sprintf('<a href="%s">%s</a>', $uri, trim(str_replace(['http:', 'https:'], '', $uri), '/'))
 				);
 
 				$gitHubBot->issues->comments->create(
