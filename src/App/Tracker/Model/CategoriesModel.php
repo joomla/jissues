@@ -36,7 +36,8 @@ class CategoriesModel extends AbstractTrackerListModel
 
 		$query->select('*')
 			->from($db->quoteName('#__issues_categories'))
-			->where($db->quoteName('project_id') . '=' . (int) $projectId);
+			->where($db->quoteName('project_id') . '=' . (int) $projectId)
+			->order($db->quoteName('title'));
 
 		return $query;
 	}
