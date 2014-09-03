@@ -313,6 +313,7 @@ class TrackerExtension extends \Twig_Extension
 		{
 			case '0':
 				$statuses = [
+					1 => g11n3t('Open'),
 					2 => g11n3t('Confirmed'),
 					3 => g11n3t('Pending'),
 					4 => g11n3t('Ready To Commit'),
@@ -326,6 +327,7 @@ class TrackerExtension extends \Twig_Extension
 					5 => g11n3t('Fixed in Code Base'),
 					8 => g11n3t('Unconfirmed Report'),
 					9 => g11n3t('No Reply'),
+					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
 					12 => g11n3t('Known Issue')
 				];
