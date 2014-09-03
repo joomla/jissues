@@ -62,18 +62,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		switch ($action)
-		{
-			case 'closed':
-				$status = 10;
-				break;
-
-			case 'opened':
-			case 'reopened':
-			default:
-				$status = 1;
-				break;
-		}
+		$status = $this->processStatus($action);
 
 		$parsedText = $this->parseText($this->hookData->issue->body);
 
@@ -87,7 +76,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
-		$data['status']          = $status;
+		$data['status']          = (is_null($status)) ? 1 : $status;
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
@@ -204,7 +193,12 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
-		$data['status']          = $status;
+
+		if (!is_null($status))
+		{
+			$data['status']          = $status;
+		}
+
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 

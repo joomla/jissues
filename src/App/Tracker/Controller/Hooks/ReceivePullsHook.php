@@ -96,7 +96,7 @@ class ReceivePullsHook extends AbstractHookController
 		$data['title']           = $this->data->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->data->body;
-		$data['status']          = $status;
+		$data['status']          = (is_null($status)) ? 1 : $status;
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->data->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
@@ -200,20 +200,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		switch ($action)
-		{
-			case 'closed':
-				$status = 10;
-				break;
-
-			case 'opened':
-			case 'reopened':
-				$status = 1;
-				break;
-
-			default :
-				$status = null;
-		}
+		$status = $this->processStatus($action);
 
 		// Try to render the description with GitHub markdown
 		$parsedText = $this->parseText($this->data->body);
@@ -227,7 +214,12 @@ class ReceivePullsHook extends AbstractHookController
 		$data['title']           = $this->data->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->data->body;
-		$data['status']          = $status;
+
+		if (!is_null($status))
+		{
+			$data['status']          = $status;
+		}
+
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 
