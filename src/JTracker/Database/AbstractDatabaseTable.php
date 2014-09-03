@@ -212,13 +212,10 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		// Bind the source value, excluding the ignored fields.
 		foreach ($this->tableFields as $k => $v)
 		{
-			// Only process fields not in the ignore array.
-			if (!in_array($k, $ignore))
+			// Only process fields that are in the source array and  not in the ignore array.
+			if (array_key_exists($k, $src) && !in_array($k, $ignore))
 			{
-				if (isset($src[$k]))
-				{
-					$this->tableFields->$k = $src[$k];
-				}
+				$this->tableFields->$k = $src[$k];
 			}
 		}
 

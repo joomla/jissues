@@ -69,7 +69,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 				// Get the relation information
 				->select('a1.title AS rel_title, a1.status AS rel_status')
-				->join('LEFT', '#__issues AS a1 ON i.rel_number = a1.issue_number')
+				->join('LEFT', '#__issues AS a1 ON i.rel_number = a1.issue_number AND a1.project_id = ' . (int) $this->getProject()->project_id)
 
 				// Join over the status table
 				->select('s1.closed AS rel_closed')
@@ -350,7 +350,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$table = new IssuesTable($this->db);
 
 		$table->load($data['id'])
-			->save($data);
+			->bind($data)
+			->check()
+			->store(true);
 
 		return $this;
 	}
