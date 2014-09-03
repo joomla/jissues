@@ -169,7 +169,7 @@ class DefaultController extends AbstractTrackerListController
 
 		$state->set('filter.user', $user);
 
-		$categoryAlias = $application->getUserStateFromRequest('project_' . $projectId . '.filter.categoryAlias', 'category', '', 'cmd');
+		$categoryAlias = $application->input->get->get('category', '', 'cmd');
 
 		// Update the category filter from the GET request
 		if ($categoryAlias != '')
