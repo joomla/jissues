@@ -176,10 +176,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		sort($item->testsFailure);
 
 		// Fetch category
-
 		$item->categories = $this->db->setQuery(
 			$query->clear()
-				->select('a.title, a.id, a.color')
+				->select('a.title, a.id, a.color, a.alias')
 				->from($this->db->quoteName('#__issues_categories', 'a'))
 				->innerJoin($this->db->quoteName('#__issue_category_map', 'b') . ' ON b.category_id = a.id')
 				->where('b.issue_id =' . (int) $item->id)

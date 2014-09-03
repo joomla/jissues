@@ -174,15 +174,17 @@
 
                 {% for category in item.categories %}
                     <li>
-                    <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">
-                        {{ category.title }}
-                    </span>
+                    <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' ~ category.alias }}">
+                        <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">
+                            {{ category.title }}
+                        </span>
+                    </a>
                     </li>
                 {% endfor %}
         </ul>
     {% endif %}
-<!-- Relations -->
 
+<!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
             {{ item.rel_name }}
