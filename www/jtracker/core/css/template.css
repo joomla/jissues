@@ -767,9 +767,10 @@ blockquote {
 }
 blockquote p {
   margin-bottom: 0;
-  font-size: 16.25px;
+  font-size: 0.9em;
   font-weight: 300;
   line-height: 1.25;
+  color: #888;
 }
 blockquote small {
   display: block;
