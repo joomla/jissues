@@ -505,7 +505,7 @@
     </script>
 
     <script type="text/x-tmpl" id="tplNewAlterTestResult">
-        [% var resultValues = ['{{ 'Not tested'|_ }}', '{{ 'Tested successfully'|_ }}', '{{ 'Tested unsuccessfully'|_ }}']; %]
+        [% var resultValues = ['{{ userTestOptions(0) }}', '{{ userTestOptions(1) }}', '{{ userTestOptions(2) }}']; %]
         <div id="event-[%= o.activities_id %]" class="row-activity">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
