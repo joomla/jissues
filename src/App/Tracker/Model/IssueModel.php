@@ -286,10 +286,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function add(array $src)
 	{
-		$filter = new InputFilter;
-
-		$src['description_raw'] = $filter->clean($src['description_raw'], 'string');
-
 		// Store the issue
 		$table = new IssuesTable($this->db);
 
@@ -335,7 +331,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['title']           = $filter->clean($src['title'], 'string');
 		$data['build']           = $filter->clean($src['build'], 'string');
 		$data['description']     = $filter->clean($src['description'], 'raw');
-		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
+		$data['description_raw'] = $filter->clean($src['description_raw'], 'raw');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 		$data['easy']            = $filter->clean($src['easy'], 'int');
