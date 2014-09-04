@@ -93,7 +93,7 @@ JTracker.submitTest = function (issueId, button) {
 	var status = $(button);
 	var result = $('input[name=tested]').filter(':checked').val();
 
-	status.addClass('disabled').removeAttr('href').removeAttr('onclick').html(g11n3t('Submitting test result...'));
+	status.html(g11n3t('Submitting test result...'));
 
 	$.post(
 		'/submit/testresult',
@@ -110,6 +110,42 @@ JTracker.submitTest = function (issueId, button) {
 				var data = $.parseJSON(r.data);
 
 				JTracker.updateTests(data.testsSuccess, data.testsFailure)
+			}
+		}
+	);
+};
+
+JTracker.alterTest = function (issueId, statusContainer, resultContainer, templateName) {
+	var status = $(statusContainer);
+	var result = $(resultContainer);
+	var altered = $('select[name=altered]').val();
+	var user   = $('input[name=altered-user]').val();
+
+	if ('' == user) {
+		status.html(g11n3t('Please select a user'));
+
+		return;
+	}
+
+	status.html(g11n3t('Submitting test result...'));
+
+	$.post(
+		'/alter/testresult',
+		{ issueId: issueId, user: user, result: altered },
+		function (r) {
+			if (r.error) {
+				// Failure
+				status.addClass('btn-danger').removeClass('btn-success').html(r.error);
+			}
+			else {
+				// Success
+				status.html(r.message);
+
+				var data = $.parseJSON(r.data);
+
+				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
+
+				result.html(result.html() + tmpl(templateName, data.event));
 			}
 		}
 	);

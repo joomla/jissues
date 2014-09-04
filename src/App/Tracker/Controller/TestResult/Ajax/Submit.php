@@ -6,7 +6,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Tracker\Controller\Issue\Ajax;
+namespace App\Tracker\Controller\TestResult\Ajax;
 
 use App\Tracker\Model\IssueModel;
 
@@ -17,7 +17,7 @@ use JTracker\Controller\AbstractAjaxController;
  *
  * @since  1.0
  */
-class TestResult extends AbstractAjaxController
+class Submit extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.
@@ -33,13 +33,13 @@ class TestResult extends AbstractAjaxController
 		$application = $this->getContainer()->get('app');
 		$user        = $application->getUser();
 
-		if (!$user->check('edit'))
+		if (!$user->id)
 		{
 			throw new \Exception('You are not allowed to test this item.');
 		}
 
-		$issueId  = $application->input->getUint('issueId');
-		$result   = $application->input->getUint('result');
+		$issueId = $application->input->getUint('issueId');
+		$result  = $application->input->getUint('result');
 
 		if (!$issueId)
 		{
