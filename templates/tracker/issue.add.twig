@@ -16,12 +16,13 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block content %}
