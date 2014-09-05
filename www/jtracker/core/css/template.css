@@ -8566,6 +8566,7 @@ img.avatar {
     border-radius: 3px;
 }
 .row-activity .well, .row-activity img{margin-bottom: 10px}
+.row-activity .well{padding: 10px}
 img.emoji, .row-activity .well img{margin-bottom: 0}
 .input-small-100 {width: 100px;}
 .input-small-120 {width: 120px;}
