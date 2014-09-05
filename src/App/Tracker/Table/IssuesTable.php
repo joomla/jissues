@@ -203,10 +203,7 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			if ($this->modified_date == '0000-00-00 00:00:00')
-			{
-				$this->modified_date = $date;
-			}
+			$this->modified_date = $date;
 		}
 		else
 		{
