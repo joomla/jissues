@@ -42,7 +42,7 @@
                     <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
                 </div>
 
-                <div class="divider">-</div>
+                <hr />
 
                 {{ fields.label('priority', 'Priority'|_, '') }}
                 {% set priorities = priorities() %}
@@ -107,7 +107,7 @@
     <script type="text/javascript" src="{{ uri.base.path }}vendor/bootstrap-switch/static/js/bootstrap-switch.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/dist/jquery.validate{{ jdebug ? "" : ".min" }}.js"></script>
     {% if lang != 'en-GB' %}
-        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
+        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/src/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
