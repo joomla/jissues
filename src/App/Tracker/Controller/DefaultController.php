@@ -138,6 +138,10 @@ class DefaultController extends AbstractTrackerListController
 		// Update the state filter from the GET request
 		switch (strtolower($issuesState))
 		{
+			case 'open':
+				$issuesState = 0;
+				break;
+
 			case 'closed':
 				$issuesState = 1;
 				break;
