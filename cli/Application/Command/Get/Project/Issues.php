@@ -17,6 +17,7 @@ use Application\Command\Get\Project;
 
 use Joomla\Date\Date;
 
+use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\GithubFactory;
 
@@ -323,6 +324,9 @@ class Issues extends Project
 					$table->merge_state = $status->state;
 					$table->gh_merge_status = json_encode($status);
 				}
+
+				// Get commits
+				$table->commits = json_encode($this->getCommits($pullRequest));
 			}
 
 			// Add the closed date if the status is closed
@@ -548,6 +552,41 @@ class Issues extends Project
 		}
 
 		return $mergeStatus;
+	}
+
+	/**
+	 * Get the commits for a GitHub pull request.
+	 *
+	 * @param   object  $pullRequest  The pull request object.
+	 *
+	 * @return  Commit
+	 *
+	 * @since   1.0
+	 */
+	private function getCommits($pullRequest)
+	{
+		$this->debugOut('Get commits for PR');
+
+		$commits = [];
+		$commitData = $this->github->pulls->getCommits(
+			$this->project->gh_user, $this->project->gh_project, $pullRequest->number
+		);
+
+		foreach ($commitData as $commit)
+		{
+			$c = new Commit;
+
+			$c->sha = $commit->sha;
+			$c->message = $commit->commit->message;
+			$c->author_name = $commit->author->login;
+			$c->author_date = $commit->commit->author->date;
+			$c->committer_name = $commit->committer->login;
+			$c->committer_date = $commit->commit->committer->date;
+
+			$commits[] = $c;
+		}
+
+		return $commits;
 	}
 
 	/**
