@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 14:18-0500\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,12 @@ msgid "Adding vote..."
 msgstr ""
 
 #: /www/jtracker/core/js/jtracker.js:96
+#: /www/jtracker/core/js/jtracker.js:130
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
+msgstr ""
+
+#: /www/jtracker/core/js/jtracker.js:125
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Please select a user"
 msgstr ""
