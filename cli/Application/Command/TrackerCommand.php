@@ -166,15 +166,16 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Display an error "page" if no options have been found for a given command.
 	 *
-	 * @param   string  $command  The command name.
-	 * @param   string  $dir      The base directory for the commands.
+	 * @param   string  $dir  The base directory for the commands.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function displayMissingOption($command, $dir)
+	public function displayMissingOption($dir)
 	{
+		$command = strtolower(join('', array_slice(explode('\\', get_class($this)), -1)));
+
 		$this->getApplication()->outputTitle(sprintf(g11n3t('Command: %s'), ucfirst($command)));
 
 		$errorTitle1 = g11n3t(sprintf('Missing option for command: %s', $command));

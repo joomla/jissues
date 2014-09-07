@@ -91,9 +91,7 @@ class Get extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$className = join('', array_slice(explode('\\', get_class($this)), -1));
-
-		return $this->displayMissingOption(strtolower($className), __DIR__);
+		return $this->displayMissingOption(__DIR__);
 	}
 
 	/**
