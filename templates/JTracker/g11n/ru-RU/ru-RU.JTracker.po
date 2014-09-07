@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-08-22 13:28+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
@@ -17,6 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: /templates/index.twig:49
+msgid "Download"
+msgstr "Скачать"
+
+#: /templates/index.twig:52
+msgid "Demo"
+msgstr "Демо"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Написать"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Превью"
 
 #: /templates/uploader.full.twig:13
 msgid "Add files..."
@@ -67,6 +83,62 @@ msgstr "Отменить"
 #: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:139
 msgid "Error"
 msgstr "Ошибка"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Главная"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "О проекте"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "Сообщество"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Форум"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Расширения"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Ресурсы"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Документы"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Разработчик"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Магазин"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "Заявление о доступности"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Политика конфидициальности"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Хостинг Joomla от"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "Все права защищены."
+
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr "Выберите категории..."
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -195,78 +267,6 @@ msgstr "Войти с GitHub"
 #: /templates/trackerMenu.twig:241
 msgid "No GitHub credentials set in config"
 msgstr "В конфиге не установлены полномочия GitHub"
-
-#: /templates/fields.twig:44
-msgid "Select Categories..."
-msgstr "Выберите категории..."
-
-#: /templates/index.twig:49
-msgid "Download"
-msgstr "Скачать"
-
-#: /templates/index.twig:52
-msgid "Demo"
-msgstr "Демо"
-
-#: /templates/footerMenu.twig:6
-msgid "Home"
-msgstr "Главная"
-
-#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
-msgid "About"
-msgstr "О проекте"
-
-#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
-msgid "Community"
-msgstr "Сообщество"
-
-#: /templates/footerMenu.twig:9
-msgid "Forum"
-msgstr "Форум"
-
-#: /templates/footerMenu.twig:10
-msgid "Extensions"
-msgstr "Расширения"
-
-#: /templates/footerMenu.twig:11
-msgid "Resources"
-msgstr "Ресурсы"
-
-#: /templates/footerMenu.twig:12
-msgid "Docs"
-msgstr "Документы"
-
-#: /templates/footerMenu.twig:13
-msgid "Developer"
-msgstr "Разработчик"
-
-#: /templates/footerMenu.twig:14
-msgid "Shop"
-msgstr "Магазин"
-
-#: /templates/footerMenu.twig:18
-msgid "Accessibility Statement"
-msgstr "Заявление о доступности"
-
-#: /templates/footerMenu.twig:19
-msgid "Privacy Policy"
-msgstr "Политика конфидициальности"
-
-#: /templates/footerMenu.twig:20
-msgid "Joomla Hosting by"
-msgstr "Хостинг Joomla от"
-
-#: /templates/footerMenu.twig:23
-msgid "All rights reserved."
-msgstr "Все права защищены."
-
-#: /templates/editor.twig:5
-msgid "Write"
-msgstr "Написать"
-
-#: /templates/editor.twig:6
-msgid "Preview"
-msgstr "Превью"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 14:18-0500\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-03-22 19:15+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /src/App/Debug/Database/DatabaseDebugger.php:88
+#: /src/App/Debug/Database/DatabaseDebugger.php:104
 #, php-format
 msgid "Failed EXPLAIN on query: %s"
 msgstr "Impossible d'expliquer la requête : %s"
 
-#: /src/App/Debug/Database/DatabaseDebugger.php:117
+#: /src/App/Debug/Database/DatabaseDebugger.php:133
 #, php-format
 msgid "%s database is not supported yet."
 msgstr "La base de données %s n'est pas encore supportée."

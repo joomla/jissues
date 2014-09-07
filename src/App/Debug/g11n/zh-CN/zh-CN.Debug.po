@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 14:18-0500\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-07-23 04:02+0000\n"
 "Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: /src/App/Debug/Database/DatabaseDebugger.php:88
+#: /src/App/Debug/Database/DatabaseDebugger.php:104
 #, php-format
 msgid "Failed EXPLAIN on query: %s"
 msgstr "对于 %s 的查询 EXPLAIN命令失败"
 
-#: /src/App/Debug/Database/DatabaseDebugger.php:117
+#: /src/App/Debug/Database/DatabaseDebugger.php:133
 #, php-format
 msgid "%s database is not supported yet."
 msgstr "暂不支持 %s 类型的数据库"

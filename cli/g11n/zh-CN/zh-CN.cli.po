@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-08-19 16:19+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -285,7 +285,7 @@ msgstr[0] "从GitHub获取 <b>%d</b> 个Issue的事件"
 msgid "Adding events to the database..."
 msgstr "正在向数据库中增加事件"
 
-#: /cli/Application/Command/Get/Project/Events.php:321
+#: /cli/Application/Command/Get/Project/Events.php:319
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "已将 %d 个事件增加到数据库中"

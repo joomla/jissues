@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
-"PO-Revision-Date: 2014-08-31 17:23+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
+"PO-Revision-Date: 2014-09-07 14:11+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,186 +18,131 @@ msgstr ""
 "Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/tracker/categories.index.twig:6
-#: /templates/tracker/categories.index.twig:23
-msgid "Categories List"
-msgstr ""
+#: /templates/tracker/issue.edit.twig:34
+#: /templates/tracker/category.add.twig:11
+#: /templates/tracker/category.edit.twig:11
+msgid "Save"
+msgstr "Salvesta"
 
-#: /templates/tracker/categories.index.twig:12
-#: /templates/tracker/category.add.twig:20
-msgid "New Category"
-msgstr ""
+#: /templates/tracker/issue.edit.twig:38
+msgid "Cancel"
+msgstr "Loobu"
 
-#: /templates/tracker/categories.index.twig:28
-#: /templates/tracker/category.edit.twig:35
-#: /templates/tracker/category.add.twig:35
-msgid "Alias"
-msgstr ""
-
-#: /templates/tracker/categories.index.twig:29
-#: /templates/tracker/category.edit.twig:27
-#: /templates/tracker/issue.add.twig:72 /templates/tracker/issue.edit.twig:124
-#: /templates/tracker/category.add.twig:27
-msgid "Title"
-msgstr "Pealkiri"
-
-#: /templates/tracker/categories.index.twig:30
-#: /templates/tracker/category.edit.twig:43
-#: /templates/tracker/category.add.twig:43
-msgid "Color"
-msgstr ""
-
-#: /templates/tracker/categories.index.twig:33
-msgid "Actions"
-msgstr ""
-
-#: /templates/tracker/categories.index.twig:37
-msgid "Id"
-msgstr ""
-
-#: /templates/tracker/categories.index.twig:54
-msgid "Delete"
-msgstr ""
-
-#: /templates/tracker/categories.index.twig:55
-#: /templates/tracker/issue.index.twig:55
-msgid "Edit"
-msgstr "Muuda"
-
-#: /templates/tracker/issue.index.twig:39
-msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:76
-#: /templates/tracker/issues.index.twig:126
-#: /templates/tracker/issue.add.twig:46 /templates/tracker/issue.edit.twig:77
-msgid "Priority"
-msgstr "Tähtsus"
-
-#: /templates/tracker/issue.index.twig:83 /templates/tracker/issue.add.twig:54
-#: /templates/tracker/issue.edit.twig:103
-msgid "Build"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:91
-msgid "Easy Test"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:99
-msgid "# of Successful Tests"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:138
+#: /templates/tracker/issue.edit.twig:55
 #: /templates/tracker/issues.index.twig:210
-#: /templates/tracker/issue.edit.twig:54
+#: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:157
-#: /templates/tracker/category.edit.twig:24
-#: /templates/tracker/category.add.twig:24
-msgid "Details"
+#: /templates/tracker/issue.edit.twig:70
+#: /templates/tracker/issues.index.twig:127
+msgid "Status"
+msgstr "Staatus"
+
+#: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
+#: /templates/tracker/issues.index.twig:126
+#: /templates/tracker/issue.index.twig:80
+msgid "Priority"
+msgstr "Tähtsus"
+
+#: /templates/tracker/issue.edit.twig:87
+msgid "Item"
+msgstr "Kirje"
+
+#: /templates/tracker/issue.edit.twig:104 /templates/tracker/issue.add.twig:55
+#: /templates/tracker/issue.index.twig:87
+msgid "Build"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:168
-msgid "Categories:"
+#: /templates/tracker/issue.edit.twig:108
+msgid "Easy test"
+msgstr "Lihtne test"
+
+#: /templates/tracker/issue.edit.twig:115 /templates/tracker/issue.add.twig:60
+msgid "Categories"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:191
-msgid "Referenced as"
+#: /templates/tracker/issue.edit.twig:125 /templates/tracker/issue.add.twig:73
+#: /templates/tracker/categories.index.twig:29
+#: /templates/tracker/category.add.twig:27
+#: /templates/tracker/category.edit.twig:27
+msgid "Title"
+msgstr "Pealkiri"
+
+#: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:70
+#: /templates/tracker/issues.index.twig:19
+msgid "New Item"
+msgstr "Uus kirje"
+
+#: /templates/tracker/issue.add.twig:12
+msgid "Submit"
+msgstr "Saada"
+
+#: /templates/tracker/issue.add.twig:37
+msgid "View Mode"
+msgstr "Vaaterežiim"
+
+#: /templates/tracker/issue.add.twig:40
+msgid "Help"
+msgstr "Abiinfo"
+
+#: /templates/tracker/issue.add.twig:40
+msgid "Pro"
+msgstr "Pro"
+
+#: /templates/tracker/issue.add.twig:52
+msgid ""
+"The priority of which this issue should be resolved. Please see the <a "
+"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"Tracking Process</a> page for detailed information about the project's "
+"priorities."
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:217
-msgid "Votes"
+#: /templates/tracker/issue.add.twig:58
+msgid "The version(s) of the project on which this issue is found."
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:222
-msgid "# of Users Experiencing Issue"
+#: /templates/tracker/issue.add.twig:66
+msgid ""
+"Report security issues to the Joomla! Security Strike Team (JSST) at <a "
+"href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
+"href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact"
+" form</a>, please do not use the public tracker for security issues."
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:226
-msgid "Average Importance Score"
+#: /templates/tracker/issue.add.twig:68
+msgid ""
+"To report a bug in the Joomla! bug trackers, you need to create a tracker "
+"item. Once the tracker item is created, the developers will check the "
+"validity of it and act accordingly."
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:234
-msgid "I've experienced this issue"
+#: /templates/tracker/issue.add.twig:76
+msgid ""
+"Describe in a few words the issues you are having. It is generally a good "
+"idea to use existing tracker items as examples if this is your first time "
+"reporting a bug."
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:237
-#: /templates/tracker/tracker.filters.twig:74
-msgid "Yes"
-msgstr "Jah"
+#: /templates/tracker/issue.add.twig:78
+msgid "Description"
+msgstr "Kirjeldus"
 
-#: /templates/tracker/issue.index.twig:241
-msgid "No"
-msgstr "Ei"
-
-#: /templates/tracker/issue.index.twig:246
-msgid "Importance of issue to me"
-msgstr "Probleemi tähtsus minu jaoks"
-
-#: /templates/tracker/issue.index.twig:270
-msgid "Vote"
-msgstr "Hinda"
-
-#: /templates/tracker/issue.index.twig:277
-msgid "Tests:"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:281
-#, php-format
-msgid "Successful: %s"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:285
-#, php-format
-msgid "Unsuccessful: %s"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:293
-msgid "I've tested this item"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:298
-msgid "Not tested"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:304
-msgid "Tested successfully"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:310
-msgid "Tested unsuccessfully"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:317
-msgid "Submit test result"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:391
-msgid "Add a Comment"
-msgstr "Lisa kommentaar"
-
-#: /templates/tracker/issue.index.twig:402
-msgid "Leave a comment"
-msgstr "Jäta kommentaar"
-
-#: /templates/tracker/issue.index.twig:410
-msgid "Post Comment"
-msgstr "Lisa kommentaar"
-
-#: /templates/tracker/issue.index.twig:423
-msgid "Login with GitHub to post a comment"
+#: /templates/tracker/issue.add.twig:87
+msgid ""
+"This is the most important part of reporting the bug. Describe here step by "
+"step how you got the error you are noticing. Include all of the information "
+"that someone will need to re-trace your steps and see the problem. Remember:"
+" your bug will not be fixed unless others can see the problem, so you want "
+"to be as clear and detailed as possible. You do not need to know anything "
+"about programming to write a great bug report. But if you do understand the "
+"code and think you know how to fix the bug, please include this in the "
+"report."
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
 msgstr "Probleemide nimekiri"
-
-#: /templates/tracker/issues.index.twig:19 /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:69
-msgid "New Item"
-msgstr "Uus kirje"
 
 #: /templates/tracker/issues.index.twig:38
 msgid "Open"
@@ -212,6 +157,7 @@ msgid "Search tools"
 msgstr "Otsinguvahendid"
 
 #: /templates/tracker/issues.index.twig:53
+#: /templates/tracker/issue.index.twig:44
 msgid "Feeling Lucky"
 msgstr ""
 
@@ -239,11 +185,6 @@ msgstr "ID"
 #: /templates/tracker/issues.index.twig:125
 msgid "Summary"
 msgstr "Kokkuvõte"
-
-#: /templates/tracker/issues.index.twig:127
-#: /templates/tracker/issue.edit.twig:69
-msgid "Status"
-msgstr "Staatus"
 
 #: /templates/tracker/issues.index.twig:132
 msgid "Loading, please wait..."
@@ -293,98 +234,175 @@ msgstr ""
 msgid "No items found."
 msgstr "Ühtegi kirjet ei leitud."
 
+#: /templates/tracker/categories.index.twig:6
+#: /templates/tracker/categories.index.twig:23
+msgid "Categories List"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:12
+#: /templates/tracker/category.add.twig:20
+msgid "New Category"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:28
+#: /templates/tracker/category.add.twig:35
+#: /templates/tracker/category.edit.twig:35
+msgid "Alias"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:30
+#: /templates/tracker/category.add.twig:43
+#: /templates/tracker/category.edit.twig:43
+msgid "Color"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:33
+msgid "Actions"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:37
+msgid "Id"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:54
+msgid "Delete"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:55
+#: /templates/tracker/issue.index.twig:59
+msgid "Edit"
+msgstr "Muuda"
+
+#: /templates/tracker/category.add.twig:6
+msgid "Add Category"
+msgstr ""
+
+#: /templates/tracker/category.add.twig:24
+#: /templates/tracker/category.edit.twig:24
+#: /templates/tracker/issue.index.twig:161
+msgid "Details"
+msgstr ""
+
 #: /templates/tracker/category.edit.twig:6
 #: /templates/tracker/category.edit.twig:20
 msgid "Edit Category"
 msgstr ""
 
-#: /templates/tracker/category.edit.twig:11
-#: /templates/tracker/issue.edit.twig:33
-#: /templates/tracker/category.add.twig:11
-msgid "Save"
-msgstr "Salvesta"
-
-#: /templates/tracker/issue.add.twig:12
-msgid "Submit"
-msgstr "Saada"
-
-#: /templates/tracker/issue.add.twig:36
-msgid "View Mode"
-msgstr "Vaaterežiim"
-
-#: /templates/tracker/issue.add.twig:39
-msgid "Help"
-msgstr "Abiinfo"
-
-#: /templates/tracker/issue.add.twig:39
-msgid "Pro"
-msgstr "Pro"
-
-#: /templates/tracker/issue.add.twig:51
-msgid ""
-"The priority of which this issue should be resolved. Please see the <a "
-"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
-"Tracking Process</a> page for detailed information about the project's "
-"priorities."
+#: /templates/tracker/issue.index.twig:39
+msgid "That issue does not exist, or the ID you typed is incorrect."
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:57
-msgid "The version(s) of the project on which this issue is found."
+#: /templates/tracker/issue.index.twig:95
+msgid "Easy Test"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:59 /templates/tracker/issue.edit.twig:114
-msgid "Categories"
+#: /templates/tracker/issue.index.twig:103
+msgid "# of Successful Tests"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:65
-msgid ""
-"Report security issues to the Joomla! Security Strike Team (JSST) at <a "
-"href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact"
-" form</a>, please do not use the public tracker for security issues."
+#: /templates/tracker/issue.index.twig:172
+msgid "Categories:"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:67
-msgid ""
-"To report a bug in the Joomla! bug trackers, you need to create a tracker "
-"item. Once the tracker item is created, the developers will check the "
-"validity of it and act accordingly."
+#: /templates/tracker/issue.index.twig:197
+msgid "Referenced as"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:75
-msgid ""
-"Describe in a few words the issues you are having. It is generally a good "
-"idea to use existing tracker items as examples if this is your first time "
-"reporting a bug."
+#: /templates/tracker/issue.index.twig:223
+msgid "Votes"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:77
-msgid "Description"
-msgstr "Kirjeldus"
-
-#: /templates/tracker/issue.add.twig:86
-msgid ""
-"This is the most important part of reporting the bug. Describe here step by "
-"step how you got the error you are noticing. Include all of the information "
-"that someone will need to re-trace your steps and see the problem. Remember:"
-" your bug will not be fixed unless others can see the problem, so you want "
-"to be as clear and detailed as possible. You do not need to know anything "
-"about programming to write a great bug report. But if you do understand the "
-"code and think you know how to fix the bug, please include this in the "
-"report."
+#: /templates/tracker/issue.index.twig:228
+msgid "# of Users Experiencing Issue"
 msgstr ""
 
-#: /templates/tracker/issue.edit.twig:37
-msgid "Cancel"
-msgstr "Loobu"
+#: /templates/tracker/issue.index.twig:232
+msgid "Average Importance Score"
+msgstr ""
 
-#: /templates/tracker/issue.edit.twig:86
-msgid "Item"
-msgstr "Kirje"
+#: /templates/tracker/issue.index.twig:240
+msgid "I've experienced this issue"
+msgstr ""
 
-#: /templates/tracker/issue.edit.twig:107
-msgid "Easy test"
-msgstr "Lihtne test"
+#: /templates/tracker/issue.index.twig:243
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Yes"
+msgstr "Jah"
+
+#: /templates/tracker/issue.index.twig:247
+msgid "No"
+msgstr "Ei"
+
+#: /templates/tracker/issue.index.twig:252
+msgid "Importance of issue to me"
+msgstr "Probleemi tähtsus minu jaoks"
+
+#: /templates/tracker/issue.index.twig:276
+msgid "Vote"
+msgstr "Hinda"
+
+#: /templates/tracker/issue.index.twig:283
+msgid "Tests:"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:287
+#, php-format
+msgid "Successful: %s"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:291
+#, php-format
+msgid "Unsuccessful: %s"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:299
+msgid "I've tested this item"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:304
+msgid "Not tested"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:310
+msgid "Tested successfully"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:316
+msgid "Tested unsuccessfully"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:323
+msgid "Submit test result"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:333
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:333
+msgid "username"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:344
+msgid "Alter test result"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:442
+msgid "Add a Comment"
+msgstr "Lisa kommentaar"
+
+#: /templates/tracker/issue.index.twig:453
+msgid "Leave a comment"
+msgstr "Jäta kommentaar"
+
+#: /templates/tracker/issue.index.twig:461
+msgid "Post Comment"
+msgstr "Lisa kommentaar"
+
+#: /templates/tracker/issue.index.twig:474
+msgid "Login with GitHub to post a comment"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- status -"
@@ -446,10 +464,6 @@ msgstr ""
 msgid "- easy -"
 msgstr ""
 
-#: /templates/tracker/category.add.twig:6
-msgid "Add Category"
-msgstr ""
-
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
 msgstr ""
@@ -458,20 +472,21 @@ msgstr ""
 msgid "Your comment has been submitted"
 msgstr ""
 
-#: /src/App/Tracker/Controller/Issue/Ajax/TestResult.php:53
-msgid "Test successfully added"
-msgstr ""
-
 #: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
 msgid "Vote successfully added"
 msgstr ""
 
-#: /src/App/Tracker/Controller/Issue/Save.php:130
+#: /src/App/Tracker/Controller/Issue/Save.php:148
 msgid "The changes have been saved."
 msgstr ""
 
 #: /src/App/Tracker/Controller/Issue/Submit.php:125
 msgid "Your report has been submitted."
+msgstr ""
+
+#: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:53
+msgid "Test successfully added"
 msgstr ""
 
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
@@ -522,18 +537,18 @@ msgstr ""
 msgid "Category ID is needed."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:154
+#: /src/App/Tracker/Table/IssuesTable.php:152
 msgid "A title is required."
 msgstr "Pealkiri on nõutud."
 
-#: /src/App/Tracker/Table/IssuesTable.php:158
+#: /src/App/Tracker/Table/IssuesTable.php:156
 msgid "The title max length is 255 chars."
 msgstr "Pealkirja maksimaalne pikkus on 255 märki."
 
-#: /src/App/Tracker/Table/IssuesTable.php:163
+#: /src/App/Tracker/Table/IssuesTable.php:161
 msgid "A build is required."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:167
+#: /src/App/Tracker/Table/IssuesTable.php:165
 msgid "A build max length is 40 chars."
 msgstr ""

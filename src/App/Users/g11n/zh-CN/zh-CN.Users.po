@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-07-20 09:40+0000\n"
 "Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -17,6 +17,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "无效的用户"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "编辑资料"
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "从GitHub刷新资料"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "我的资料"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "个人资料"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "语言：%s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "时区: %1$s (格林尼治标准时间 %2$s)"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "编辑用户"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "保存"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "取消"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub资料"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "参数"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "语言"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "时区"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -42,64 +100,6 @@ msgstr "操作"
 #: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr "ID"
-
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr "编辑用户"
-
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
-msgid "Invalid user!"
-msgstr "无效的用户"
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr "保存"
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr "取消"
-
-#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
-msgid "Refresh profile from GitHub"
-msgstr "从GitHub刷新资料"
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr "GitHub资料"
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr "参数"
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr "语言"
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr "时区"
-
-#: /templates/users/user.index.twig:19
-msgid "Edit profile"
-msgstr "编辑资料"
-
-#: /templates/users/user.index.twig:26
-msgid "My Profile"
-msgstr "我的资料"
-
-#: /templates/users/user.index.twig:28
-msgid "Profile"
-msgstr "个人资料"
-
-#: /templates/users/user.index.twig:57
-#, php-format
-msgid "Language: %s"
-msgstr "语言：%s"
-
-#: /templates/users/user.index.twig:62
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
-msgstr "时区: %1$s (格林尼治标准时间 %2$s)"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."

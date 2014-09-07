@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-05-26 05:16+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
@@ -18,6 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "Ongeldige gebruiker!"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Wijzig profiel"
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Bijwerken profiel van GitHub"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Mijn profiel"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Profiel"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Taal: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Tijdzone: %1$s (GMT %2$s)"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Gebruiker bewerken"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Opslaan"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Annuleer"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub profiel"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Parameters"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Taal"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Tijdzone"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -43,64 +101,6 @@ msgstr "Acties"
 #: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr "ID"
-
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr "Gebruiker bewerken"
-
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
-msgid "Invalid user!"
-msgstr "Ongeldige gebruiker!"
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr "Opslaan"
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr "Annuleer"
-
-#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
-msgid "Refresh profile from GitHub"
-msgstr "Bijwerken profiel van GitHub"
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr "GitHub profiel"
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr "Parameters"
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr "Taal"
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr "Tijdzone"
-
-#: /templates/users/user.index.twig:19
-msgid "Edit profile"
-msgstr "Wijzig profiel"
-
-#: /templates/users/user.index.twig:26
-msgid "My Profile"
-msgstr "Mijn profiel"
-
-#: /templates/users/user.index.twig:28
-msgid "Profile"
-msgstr "Profiel"
-
-#: /templates/users/user.index.twig:57
-#, php-format
-msgid "Language: %s"
-msgstr "Taal: %s"
-
-#: /templates/users/user.index.twig:62
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
-msgstr "Tijdzone: %1$s (GMT %2$s)"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."

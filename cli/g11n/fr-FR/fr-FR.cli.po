@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-08-19 19:59+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
@@ -290,7 +290,7 @@ msgstr[1] "Chercher les événements pour <b>%d</b> anomalies à partir de GitHu
 msgid "Adding events to the database..."
 msgstr "Ajouter des événements à la base de données..."
 
-#: /cli/Application/Command/Get/Project/Events.php:321
+#: /cli/Application/Command/Get/Project/Events.php:319
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "%d nouveaux événements d'anomalies ajoutés à la base de données"

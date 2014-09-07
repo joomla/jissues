@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-08-19 20:40+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
@@ -290,7 +290,7 @@ msgstr[1] "<b>%d</b> probléma eseményeinek lehívása a GitHubról..."
 msgid "Adding events to the database..."
 msgstr "Események hozzáadása az adatbázishoz..."
 
-#: /cli/Application/Command/Get/Project/Events.php:321
+#: /cli/Application/Command/Get/Project/Events.php:319
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "A/z %d új probléma esemény hozzáadásra került az adatbázishoz"

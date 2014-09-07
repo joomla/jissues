@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-05-25 22:54+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
@@ -18,6 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "Usuário inválido!"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr ""
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Meu Perfil"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Perfil"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Idioma: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Fuso Horário: %1$s (GMT %2$s)"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Editar usuário"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Salvar"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr ""
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Parâmetros"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Idioma"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Fuso Horário"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -43,64 +101,6 @@ msgstr "Ações"
 #: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr "ID"
-
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr "Editar usuário"
-
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
-msgid "Invalid user!"
-msgstr "Usuário inválido!"
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr "Salvar"
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
-msgid "Refresh profile from GitHub"
-msgstr ""
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr ""
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr "Parâmetros"
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr "Idioma"
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr "Fuso Horário"
-
-#: /templates/users/user.index.twig:19
-msgid "Edit profile"
-msgstr ""
-
-#: /templates/users/user.index.twig:26
-msgid "My Profile"
-msgstr "Meu Perfil"
-
-#: /templates/users/user.index.twig:28
-msgid "Profile"
-msgstr "Perfil"
-
-#: /templates/users/user.index.twig:57
-#, php-format
-msgid "Language: %s"
-msgstr "Idioma: %s"
-
-#: /templates/users/user.index.twig:62
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
-msgstr "Fuso Horário: %1$s (GMT %2$s)"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-04-26 08:26+0000\n"
 "Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
@@ -17,23 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr "Ikoner"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "Dokumentation"
-
-#: /templates/support/documentation.index.twig:45
-msgid "Improve"
-msgstr "Forbedr"
-
-#: /templates/support/documentation.index.twig:46
-msgid "Permalink"
-msgstr "Permalink"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -110,6 +93,23 @@ msgstr "GitHub Spice"
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "Output"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: /templates/support/documentation.index.twig:45
+msgid "Improve"
+msgstr "Forbedr"
+
+#: /templates/support/documentation.index.twig:46
+msgid "Permalink"
+msgstr "Permalink"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Ikoner"
 
 #: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."

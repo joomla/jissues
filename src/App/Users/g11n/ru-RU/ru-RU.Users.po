@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 13:21-0400\n"
+"POT-Creation-Date: 2014-09-07 09:09-0500\n"
 "PO-Revision-Date: 2014-05-26 11:19+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
@@ -17,6 +17,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "Пользователя не существует!"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Изменить профиль"
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Обновить профиль из GitHub"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Мой профиль"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Профиль"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Язык: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Часовой пояс: %1$s (GMT %2$s)"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Редактировать пользователя"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Сохранить"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Отменить"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub профиль"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Параметры"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Язык"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Часовой пояс"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -42,64 +100,6 @@ msgstr "Действия"
 #: /templates/users/users.index.twig:28
 msgid "ID"
 msgstr "ID"
-
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr "Редактировать пользователя"
-
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
-msgid "Invalid user!"
-msgstr "Пользователя не существует!"
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr "Сохранить"
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr "Отменить"
-
-#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
-msgid "Refresh profile from GitHub"
-msgstr "Обновить профиль из GitHub"
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr "GitHub профиль"
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr "Параметры"
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr "Язык"
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr "Часовой пояс"
-
-#: /templates/users/user.index.twig:19
-msgid "Edit profile"
-msgstr "Изменить профиль"
-
-#: /templates/users/user.index.twig:26
-msgid "My Profile"
-msgstr "Мой профиль"
-
-#: /templates/users/user.index.twig:28
-msgid "Profile"
-msgstr "Профиль"
-
-#: /templates/users/user.index.twig:57
-#, php-format
-msgid "Language: %s"
-msgstr "Язык: %s"
-
-#: /templates/users/user.index.twig:62
-#, php-format
-msgid "Timezone: %1$s (GMT %2$s)"
-msgstr "Часовой пояс: %1$s (GMT %2$s)"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
