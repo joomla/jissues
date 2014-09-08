@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 09:09-0500\n"
+"POT-Creation-Date: 2014-09-08 14:28-0500\n"
 "PO-Revision-Date: 2014-08-19 16:19+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
@@ -294,39 +294,39 @@ msgstr ""
 msgid "Added %d new issue events to the database"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:65
+#: /cli/Application/Command/Get/Project/Issues.php:66
 msgid "Retrieve issues from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:77
+#: /cli/Application/Command/Get/Project/Issues.php:78
 msgid "Retrieve Issues"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:82
+#: /cli/Application/Command/Get/Project/Issues.php:83
 msgid "Start retrieve Issues"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:88
+#: /cli/Application/Command/Get/Project/Issues.php:89
 #: /cli/Application/Command/Get/Project/Labels.php:50
 #: /cli/Application/Command/Get/Project/Milestones.php:52
 msgid "Finished"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:104
+#: /cli/Application/Command/Get/Project/Issues.php:105
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:163
+#: /cli/Application/Command/Get/Project/Issues.php:164
 #, php-format
 msgid "Retrieved <b>%d</b> items from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:193
+#: /cli/Application/Command/Get/Project/Issues.php:194
 msgid "Adding issues to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:400
+#: /cli/Application/Command/Get/Project/Issues.php:404
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""
@@ -447,39 +447,39 @@ msgstr ""
 msgid "Creating tables from file %s"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:178
+#: /cli/Application/Command/TrackerCommand.php:179
 #, php-format
 msgid "Command: %s"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:181
+#: /cli/Application/Command/TrackerCommand.php:182
 msgid "Please use one of the following :"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:295
+#: /cli/Application/Command/TrackerCommand.php:296
 msgid "Available projects:"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:313
+#: /cli/Application/Command/TrackerCommand.php:314
 msgid "Select a project:"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:319
+#: /cli/Application/Command/TrackerCommand.php:320
 msgid "Aborted"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:324
-#: /cli/Application/Command/TrackerCommand.php:343
+#: /cli/Application/Command/TrackerCommand.php:325
+#: /cli/Application/Command/TrackerCommand.php:344
 msgid "Invalid project"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:347
+#: /cli/Application/Command/TrackerCommand.php:348
 #, php-format
 msgid "Processing project: %s"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:378
-#: /cli/Application/Command/TrackerCommand.php:380
+#: /cli/Application/Command/TrackerCommand.php:379
+#: /cli/Application/Command/TrackerCommand.php:381
 msgid "An unknown error occurred"
 msgstr ""
 

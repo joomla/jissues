@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 09:09-0500\n"
+"POT-Creation-Date: 2014-09-08 14:28-0500\n"
 "PO-Revision-Date: 2014-08-19 20:01+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /templates/index.twig:49
+#: /templates/index.twig:50
 msgid "Download"
 msgstr "Télécharger"
 
-#: /templates/index.twig:52
+#: /templates/index.twig:53
 msgid "Demo"
 msgstr "Démo"
 

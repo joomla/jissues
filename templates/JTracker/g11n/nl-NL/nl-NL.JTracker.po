@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 09:09-0500\n"
+"POT-Creation-Date: 2014-09-08 14:28-0500\n"
 "PO-Revision-Date: 2014-08-20 16:20+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:49
+#: /templates/index.twig:50
 msgid "Download"
 msgstr "Downloaden"
 
-#: /templates/index.twig:52
+#: /templates/index.twig:53
 msgid "Demo"
 msgstr "Demo"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 09:09-0500\n"
+"POT-Creation-Date: 2014-09-08 14:28-0500\n"
 "PO-Revision-Date: 2014-09-07 14:11+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
@@ -388,19 +388,19 @@ msgstr ""
 msgid "Alter test result"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:442
+#: /templates/tracker/issue.index.twig:459
 msgid "Add a Comment"
 msgstr "Lisa kommentaar"
 
-#: /templates/tracker/issue.index.twig:453
+#: /templates/tracker/issue.index.twig:470
 msgid "Leave a comment"
 msgstr "Jäta kommentaar"
 
-#: /templates/tracker/issue.index.twig:461
+#: /templates/tracker/issue.index.twig:478
 msgid "Post Comment"
 msgstr "Lisa kommentaar"
 
-#: /templates/tracker/issue.index.twig:474
+#: /templates/tracker/issue.index.twig:491
 msgid "Login with GitHub to post a comment"
 msgstr ""
 
@@ -509,23 +509,23 @@ msgstr ""
 msgid "Invalid Category"
 msgstr ""
 
-#: /src/App/Tracker/Table/CategoryTable.php:56
+#: /src/App/Tracker/Table/CategoryTable.php:54
 msgid "A name is required for the category."
 msgstr ""
 
-#: /src/App/Tracker/Table/CategoryTable.php:61
+#: /src/App/Tracker/Table/CategoryTable.php:59
 msgid "The length of the name can not exceed 150 characters."
 msgstr ""
 
-#: /src/App/Tracker/Table/CategoryTable.php:66
+#: /src/App/Tracker/Table/CategoryTable.php:64
 msgid "An alias is required for the category."
 msgstr ""
 
-#: /src/App/Tracker/Table/CategoryTable.php:71
+#: /src/App/Tracker/Table/CategoryTable.php:69
 msgid "The length of the alias can not exceed 150 characters."
 msgstr ""
 
-#: /src/App/Tracker/Table/CategoryTable.php:76
+#: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Color should be the hex value."
 msgstr ""
 

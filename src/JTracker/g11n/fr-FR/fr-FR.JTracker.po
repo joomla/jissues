@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 09:09-0500\n"
-"PO-Revision-Date: 2014-09-07 14:10+0000\n"
+"POT-Creation-Date: 2014-09-08 14:28-0500\n"
+"PO-Revision-Date: 2014-09-08 19:28+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -50,8 +50,8 @@ msgstr "Très faible"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:317
 #: /src/JTracker/View/Renderer/TrackerExtension.php:339
-msgid "Open"
-msgstr "Ouvert"
+msgid "New"
+msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:318
 #: /src/JTracker/View/Renderer/TrackerExtension.php:340
@@ -131,12 +131,12 @@ msgstr "Échec"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:643
 msgid "Not tested"
-msgstr ""
+msgstr "Non testé"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:644
 msgid "Tested successfully"
-msgstr ""
+msgstr "Testé avec succès"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:645
 msgid "Tested unsuccessfully"
-msgstr ""
+msgstr "Testé sans succès"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 09:09-0500\n"
+"POT-Creation-Date: 2014-09-08 14:28-0500\n"
 "PO-Revision-Date: 2014-08-22 13:28+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: /templates/index.twig:49
+#: /templates/index.twig:50
 msgid "Download"
 msgstr "Скачать"
 
-#: /templates/index.twig:52
+#: /templates/index.twig:53
 msgid "Demo"
 msgstr "Демо"
 
