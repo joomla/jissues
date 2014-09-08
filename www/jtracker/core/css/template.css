@@ -8589,3 +8589,5 @@ td.valign-center{vertical-align: middle}
 .list-issue-title{font-size: 1.1em}
 .list-issue-details{font-size: 0.85em}
 #stools-container .btn-group{margin: 5px 5px 0 0;}
+
+.activity-comment { border: 1px solid silver; margin: 10px 0 10px; border-radius: 3px; }
