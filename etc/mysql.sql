@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `#__status` (
 --
 
 INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
-(1, 'Open', 0),
+(1, 'New', 0),
 (2, 'Confirmed', 0),
 (3, 'Pending', 0),
 (4, 'Ready to Commit', 0),

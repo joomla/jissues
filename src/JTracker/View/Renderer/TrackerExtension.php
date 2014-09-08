@@ -314,7 +314,7 @@ class TrackerExtension extends \Twig_Extension
 		{
 			case '0':
 				$statuses = [
-					1 => g11n3t('Open'),
+					1 => g11n3t('New'),
 					2 => g11n3t('Confirmed'),
 					3 => g11n3t('Pending'),
 					4 => g11n3t('Ready To Commit'),
@@ -336,7 +336,7 @@ class TrackerExtension extends \Twig_Extension
 
 			default:
 				$statuses = [
-					1 => g11n3t('Open'),
+					1 => g11n3t('New'),
 					2 => g11n3t('Confirmed'),
 					3 => g11n3t('Pending'),
 					4 => g11n3t('Ready To Commit'),
