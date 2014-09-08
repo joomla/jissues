@@ -104,7 +104,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			foreach ($commits as $i1 => $commit)
 			{
 				$d1 = new \DateTime($commit->committer_date);
-				$d2 = new \DateTime($activity->created_date, new \DateTimeZone('Z'));
+				$d2 = new \DateTime($activity->created_date, new \DateTimeZone('UTC'));
 
 				if ($d1 < $d2)
 				{
