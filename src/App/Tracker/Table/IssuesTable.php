@@ -45,6 +45,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   integer  $easy             Flag whether an item is an easy test
  * @property   string   $merge_state      The merge state
  * @property   string   $gh_merge_status  The GitHub merge status (JSON encoded)
+ * @property   string   $commits          Commits of the PR
  *
  * @since  1.0
  */

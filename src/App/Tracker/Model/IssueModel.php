@@ -94,7 +94,40 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
 
-		$item->activities = $this->db->setQuery($query)->loadObjectList();
+		$activityData = $this->db->setQuery($query)->loadObjectList();
+
+		$commits = json_decode($item->commits) ? : [];
+		$activities = [];
+
+		foreach ($activityData as $i => $activity)
+		{
+			foreach ($commits as $i1 => $commit)
+			{
+				$d1 = new \DateTime($commit->committer_date);
+				$d2 = new \DateTime($activity->created_date, new \DateTimeZone('UTC'));
+
+				if ($d1 < $d2)
+				{
+					$m = explode("\n", $commit->message);
+
+					$a = new \stdClass;
+
+					$a->event = 'commit';
+					$a->user = $commit->author_name;
+					$a->text = $m[0];
+					$a->created_date = $commit->committer_date;
+					$a->activities_id = $commit->sha;
+
+					$activities[] = $a;
+
+					unset ($commits[$i1]);
+				}
+			}
+
+			$activities[] = $activity;
+		}
+
+		$item->activities = $activities;
 
 		// Fetch foreign relations
 		$item->relations_f = $this->db->setQuery(
