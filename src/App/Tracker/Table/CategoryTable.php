@@ -10,8 +10,6 @@ namespace App\Tracker\Table;
 
 use JTracker\Database\AbstractDatabaseTable;
 use Joomla\Database\DatabaseDriver;
-use Joomla\Utilities\ArrayHelper;
-use Joomla\Input\Input;
 
 /**
  * Table interface class for the #__issue_category table

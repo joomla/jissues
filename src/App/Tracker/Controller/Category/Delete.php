@@ -8,10 +8,10 @@
 
 namespace App\Tracker\Controller\Category;
 
-
-use JTracker\Controller\AbstractTrackerController;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Categories\CategoriesHtmlView;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to delete a project.

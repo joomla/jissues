@@ -8,10 +8,10 @@
 
 namespace App\Tracker\Controller\Category;
 
+use App\Tracker\Model\CategoryModel;
+use App\Tracker\View\Category\CategoryHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
-use App\Tracker\View\Category\CategoryHtmlView;
-use App\Tracker\Model\CategoryModel;
 
 /**
  * Controller class to edit an item of the category

@@ -8,9 +8,9 @@
 
 namespace App\Tracker\Controller\Category;
 
+use App\Tracker\View\Category\CategoryHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
-use App\Tracker\View\Category\CategoryHtmlView;
 
 /**
  *  Controller class to add an item into the categories

@@ -8,9 +8,6 @@
 
 namespace App\GitHub\Controller\Ajax\Hooks;
 
-use Joomla\Application\AbstractApplication;
-use Joomla\Input\Input;
-
 use JTracker\Controller\AbstractAjaxController;
 
 /**

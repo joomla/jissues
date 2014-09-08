@@ -8,10 +8,9 @@
 
 namespace App\Tracker\Controller\Category;
 
+use App\Tracker\Model\CategoryModel;
 
 use JTracker\Controller\AbstractTrackerController;
-use App\Tracker\Model\CategoryModel;
-use App\Tracker\Table\CategoryTable;
 
 /**
  * Controller class to save an item to the categories.

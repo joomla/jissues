@@ -14,7 +14,6 @@ use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Utilities\ArrayHelper;
 
-use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
