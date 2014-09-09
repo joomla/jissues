@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-08 14:28-0500\n"
-"PO-Revision-Date: 2014-09-07 14:11+0000\n"
+"POT-Creation-Date: 2014-09-09 11:28-0500\n"
+"PO-Revision-Date: 2014-09-09 16:29+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -36,11 +36,13 @@ msgstr "Extern ID"
 
 #: /templates/tracker/issue.edit.twig:70
 #: /templates/tracker/issues.index.twig:127
+#: /templates/tracker/tpl/activities.twig:58
 msgid "Status"
 msgstr "Status"
 
 #: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
 #: /templates/tracker/issues.index.twig:126
+#: /templates/tracker/tpl/activities.twig:92
 #: /templates/tracker/issue.index.twig:80
 msgid "Priority"
 msgstr "Prioriteit"
@@ -64,6 +66,7 @@ msgstr "Categorieën"
 
 #: /templates/tracker/issue.edit.twig:125 /templates/tracker/issue.add.twig:73
 #: /templates/tracker/categories.index.twig:29
+#: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/category.edit.twig:27
 msgid "Title"
@@ -125,6 +128,7 @@ msgid ""
 msgstr "Omschrijf in een paar woorden het probleem dat u ondervindt. Het is over het algemeen een goed idee om bestaande tracker items als voorbeeld te gebruiken als dit de eerste keer is als u een probleem meldt."
 
 #: /templates/tracker/issue.add.twig:78
+#: /templates/tracker/tpl/activities.twig:24
 msgid "Description"
 msgstr "Omschrijving"
 
@@ -272,6 +276,36 @@ msgstr "Verwijderen"
 #: /templates/tracker/issue.index.twig:59
 msgid "Edit"
 msgstr "Bewerken"
+
+#: /templates/tracker/tpl/activities.twig:28
+#: /templates/tracker/tpl/activities.twig:45
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
+msgid "Differences"
+msgstr "Verschillen"
+
+#: /templates/tracker/tpl/activities.twig:75
+msgid "Easy"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:113
+msgid "Labels"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:118
+msgid "Added"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:122
+msgid "Removed"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:131
+msgid "Relation Type"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:148
+msgid "Category"
+msgstr ""
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
@@ -496,10 +530,6 @@ msgstr "Oud"
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Nieuw"
-
-#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
-msgid "Differences"
-msgstr "Verschillen"
 
 #: /src/App/Tracker/Model/CategoryModel.php:70
 msgid "Missing ID"

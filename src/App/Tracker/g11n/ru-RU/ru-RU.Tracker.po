@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-08 14:28-0500\n"
-"PO-Revision-Date: 2014-09-07 14:11+0000\n"
+"POT-Creation-Date: 2014-09-09 11:28-0500\n"
+"PO-Revision-Date: 2014-09-09 16:29+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -36,11 +36,13 @@ msgstr "Внешний ID"
 
 #: /templates/tracker/issue.edit.twig:70
 #: /templates/tracker/issues.index.twig:127
+#: /templates/tracker/tpl/activities.twig:58
 msgid "Status"
 msgstr "Статус"
 
 #: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
 #: /templates/tracker/issues.index.twig:126
+#: /templates/tracker/tpl/activities.twig:92
 #: /templates/tracker/issue.index.twig:80
 msgid "Priority"
 msgstr "Приоритет"
@@ -64,6 +66,7 @@ msgstr "Категории"
 
 #: /templates/tracker/issue.edit.twig:125 /templates/tracker/issue.add.twig:73
 #: /templates/tracker/categories.index.twig:29
+#: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/category.edit.twig:27
 msgid "Title"
@@ -125,6 +128,7 @@ msgid ""
 msgstr "Опишите в нескольких словах проблему, которая у Вас возникла. Если это Ваше первое сообщение о баге, то неплохой идеей является использование существующих записей на трекере в качестве примера."
 
 #: /templates/tracker/issue.add.twig:78
+#: /templates/tracker/tpl/activities.twig:24
 msgid "Description"
 msgstr "Описание"
 
@@ -273,6 +277,36 @@ msgstr "Удалить"
 msgid "Edit"
 msgstr "Редактировать"
 
+#: /templates/tracker/tpl/activities.twig:28
+#: /templates/tracker/tpl/activities.twig:45
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
+msgid "Differences"
+msgstr "Разница"
+
+#: /templates/tracker/tpl/activities.twig:75
+msgid "Easy"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:113
+msgid "Labels"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:118
+msgid "Added"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:122
+msgid "Removed"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:131
+msgid "Relation Type"
+msgstr ""
+
+#: /templates/tracker/tpl/activities.twig:148
+msgid "Category"
+msgstr ""
+
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
 msgstr "Добавить категорию"
@@ -310,7 +344,7 @@ msgstr "Ссылается"
 
 #: /templates/tracker/issue.index.twig:223
 msgid "Votes"
-msgstr ""
+msgstr "Голосование"
 
 #: /templates/tracker/issue.index.twig:228
 msgid "# of Users Experiencing Issue"
@@ -348,12 +382,12 @@ msgstr "Тесты:"
 #: /templates/tracker/issue.index.twig:287
 #, php-format
 msgid "Successful: %s"
-msgstr ""
+msgstr "Удачных: %s"
 
 #: /templates/tracker/issue.index.twig:291
 #, php-format
 msgid "Unsuccessful: %s"
-msgstr ""
+msgstr "Неудачных: %s"
 
 #: /templates/tracker/issue.index.twig:299
 msgid "I've tested this item"
@@ -378,15 +412,15 @@ msgstr "Отправить результат"
 #: /templates/tracker/issue.index.twig:333
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "Установить результат теста для пользователя %s в %s"
 
 #: /templates/tracker/issue.index.twig:333
 msgid "username"
-msgstr ""
+msgstr "имя пользователя"
 
 #: /templates/tracker/issue.index.twig:344
 msgid "Alter test result"
-msgstr ""
+msgstr "Изменить результат"
 
 #: /templates/tracker/issue.index.twig:459
 msgid "Add a Comment"
@@ -446,23 +480,23 @@ msgstr "- категории -"
 
 #: /templates/tracker/tracker.filters.twig:61
 msgid "- tests -"
-msgstr ""
+msgstr "- тесты -"
 
 #: /templates/tracker/tracker.filters.twig:61
 msgid "Has two tests"
-msgstr ""
+msgstr "Есть два теста"
 
 #: /templates/tracker/tracker.filters.twig:61
 msgid "Needs one test"
-msgstr ""
+msgstr "Нужен один тест"
 
 #: /templates/tracker/tracker.filters.twig:61
 msgid "Needs tests"
-msgstr ""
+msgstr "Нужны тесты"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- easy -"
-msgstr ""
+msgstr "- легкий -"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
@@ -478,11 +512,11 @@ msgstr "Голос успешно добавлен"
 
 #: /src/App/Tracker/Controller/Issue/Save.php:148
 msgid "The changes have been saved."
-msgstr ""
+msgstr "Изменения сохранены."
 
 #: /src/App/Tracker/Controller/Issue/Submit.php:125
 msgid "Your report has been submitted."
-msgstr ""
+msgstr "Ваш репорт подан."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
 #: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:53
@@ -496,10 +530,6 @@ msgstr "Старое"
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Новое"
-
-#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
-msgid "Differences"
-msgstr "Разница"
 
 #: /src/App/Tracker/Model/CategoryModel.php:70
 msgid "Missing ID"
