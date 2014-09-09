@@ -115,7 +115,7 @@
         <td colspan="3">
             {% set added = arrayDiff(new, old) %}
             {% if added %}
-                {{ 'Added' }}: {{ renderLabels(added)|raw }}<br />
+                {{ 'Added'|_ }}: {{ renderLabels(added)|raw }}<br />
             {% endif %}
             {% set removed = arrayDiff(old, new) %}
             {% if removed %}
