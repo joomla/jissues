@@ -272,6 +272,10 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
+#: /templates/tracker/tpl/activities.twig:118
+msgid "Added"
+msgstr ""
+
 #: /templates/tracker/tpl/activities.twig:122
 msgid "Removed"
 msgstr ""
