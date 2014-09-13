@@ -6,9 +6,21 @@ php:
 
 env: JTRACKER_ENVIRONMENT=travis
 
+before_install:
+  - sh -e .travis/scripts/apt-get.sh
+  - sh -e .travis/scripts/apache2-vhost.sh
+  - sh -e .travis/scripts/apache2-configure.sh
+  - mysql -e 'create database jtracker;'
+
 before_script:
   - composer self-update
   - composer install
 
 script:
+  - bin/jtracker install --reinstall
   - bin/jtracker test run
+  - vendor/bin/behat --config behat-travis.yml
+
+# configure notifications (email, IRC, campfire etc)
+notifications:
+  irc: "irc.freenode.org#JTracker"

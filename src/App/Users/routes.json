@@ -10,5 +10,7 @@
 	"user/:id"          : "\\Users\\Controller\\User",
 	"user/:id/edit"     : "\\Users\\Controller\\User\\Edit",
 	"user/:id/edit-save": "\\Users\\Controller\\User\\Save",
-	"user/:id/refresh"  : "\\Users\\Controller\\User\\Refresh"
+	"user/:id/refresh"  : "\\Users\\Controller\\User\\Refresh",
+
+	"local-login/:login_type": "\\Users\\Controller\\LocalLogin"
 }
