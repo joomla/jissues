@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `gh_editbot_user` varchar(150) NOT NULL COMMENT 'GitHub editbot username',
   `gh_editbot_pass` varchar(150) NOT NULL COMMENT 'GitHub editbot password',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
+  `short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   KEY `milestone_id` (`milestone_id`,`project_id`),
   CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
-	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
+  CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -210,6 +210,35 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `#__activity_types`
+--
+
+CREATE TABLE `#__activity_types` (
+  `type_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `event` varchar(32) NOT NULL COMMENT 'The event type, referenced by the #__activities.event column',
+  `activity_group` varchar(255) DEFAULT NULL,
+  `activity_description` varchar(500) DEFAULT NULL,
+  `activity_points` tinyint(4) DEFAULT NULL COMMENT 'Weighting for each type of activity',
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `#__activity_types`
+--
+
+INSERT INTO `#__activity_types` (`type_id`, `event`, `activity_group`, `activity_description`, `activity_points`)
+VALUES
+  (1, 'open', 'Tracker', 'Create a new item on the tracker.', 3),
+  (2, 'close', 'Tracker', 'Close an issue on the tracker.', 1),
+  (3, 'comment', 'Tracker', 'Add a comment to an issue.', 1),
+  (4, 'reopen', 'Tracker', 'Reopens an issue.', 1),
+  (5, 'assign', 'Tracker', 'Assign an issue to a user', 1),
+  (6, 'merge', 'Tracker', 'Merge a Pull Request', 2),
+  (7, 'alter_testresult', 'Test', 'Test an issue.', 5),
+  (8, 'add_code', 'Code', 'Add a pull request to the tracker.', 5);
+
 
 -- --------------------------------------------------------
 
@@ -291,10 +320,10 @@ CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
 
 CREATE TABLE IF NOT EXISTS `#__issues_voting` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`issue_number` int(11) unsigned NOT NULL COMMENT 'Foreign key to #__issues.id',
-	`user_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Foreign key to #__users.id',
-	`experienced` tinyint(2) unsigned NOT NULL COMMENT 'Flag indicating whether the user has experienced the issue',
-	`score` int(11) unsigned NOT NULL COMMENT 'User score for importance of issue',
+  `issue_number` int(11) unsigned NOT NULL COMMENT 'Foreign key to #__issues.id',
+  `user_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Foreign key to #__users.id',
+  `experienced` tinyint(2) unsigned NOT NULL COMMENT 'Flag indicating whether the user has experienced the issue',
+  `score` int(11) unsigned NOT NULL COMMENT 'User score for importance of issue',
   PRIMARY KEY (`id`),
   CONSTRAINT `#__issues_voting_fk_issue_id` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issues_voting_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
