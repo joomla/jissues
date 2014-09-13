@@ -103,7 +103,6 @@ class Activity extends AbstractAjaxController
 			$codePoints[]    = (int) $items[$i]->code_points;
 		}
 
-		$data          = [];
 		$label1        = new \stdClass;
 		$label2        = new \stdClass;
 		$label3        = new \stdClass;
@@ -137,5 +136,25 @@ class Activity extends AbstractAjaxController
 
 		// Setup the response data
 		$this->response->data = [$data, $ticks, $labels, $title];
+	}
+
+	/**
+	 * Method to check that custom dates are valid
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	protected function datesValid($date1, $date2)
+	{
+		// check that they are dates and that $date1 <= $date2
+		if (($date1 == date('Y-m-d', strtotime($date1))) && ($date2 == date('Y-m-d', strtotime($date2))) && ($date1 <= $date2))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
