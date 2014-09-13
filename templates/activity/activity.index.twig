@@ -6,14 +6,111 @@
 {% block title %}{{ "%s - Activity Chart"|_|format(project.short_title) }}{% endblock %}
 
 {% block headerCSS %}
+    <link href="{{ uri.base.path }}jtracker/jqplot/css/jquery.jqplot.min.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/jqplot/css/jquery-ui-1.10.2.custom.min.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block content %}
-    <h1>Hello Charts!</h1>
+    <h2>{{ "Tracker Activity - %s"|_|format(project.title) }}</h2>
+
+    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/{{ project.alias }}/query"></div>
+
+    <br />
+    <h3>Chart Options</h3>
+    <div class="form-inline">
+    	<fieldset>
+    		<label>Period</label>
+    		<select id="period" name="period" class="input" size="1" >
+    			<option value="1" selected="selected">7 Days</option>
+    			<option value="2">30 Days</option>
+    			<option value="3">90 Days</option>
+    			<option value="4">1 Year</option>
+    			<option value="5">Custom Period</option>
+    		</select>
+
+    		<label>Type</label>
+    		<select id="type" name="type" class="input-small" size="1" >
+    			<option value="0" selected="selected">All</option>
+    			<option value="1">Tracker</option>
+    			<option value="2">Test</option>
+    			<option value="3">Code</option>
+    		</select>
+
+    		<button class="dataUpdate button" id="dataUpdate">Update Chart</button>
+    		<br />
+    		<br />
+    		<div id="hidedates" class="form-inline">
+    			<label>Start Date</label>
+    			<input id="start_date" class="datepicker input-small" type="text" />
+    			<label>End Date</label>
+    			<input id="end_date" class="datepicker input-small" type="text" />
+    		</div>
+
+    	</fieldset>
+    </div>
 {% endblock %}
 
 {% block JavaScriptBottom %}
 
     {{ parent() }}
 
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jquery.jqplot.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.barRenderer.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.categoryAxisRenderer.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.pointLabels.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/barchart.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.highlighter.min.js"></script>
+
+    <script>
+        (function($) {
+            $(document).ready(function() {
+                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', 'true', '10');
+
+                $('#dataUpdate').click(function() {
+                    $('#barchart').empty();
+                    // add the form variables to the URL
+                    var period = $('#period').val();
+                    var type = $('#type').val();
+                    var startdate = $('#start_date').val();
+                    var enddate = $('#end_date').val();
+                    href = '{{ uri.base.path }}activity/{{ project.alias }}/query?';
+                    href = href + 'period=' + period + '&amp;activity_type=' + type;
+                    if (period == 5) {
+                        href = href + '&amp;startdate=' + startdate + '&amp;enddate=' + enddate;
+                    }
+                    $('#barchart').attr('data-href', href);
+                    var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', 'true', '10');
+                });
+
+                $('#hidedates').hide();
+                $('#period').change(function() {
+                    if ($(this).val() == 5) {
+                        $('#hidedates').show();
+                    } else {
+                        $('#hidedates').hide();
+                    }
+                });
+            });
+        })(jQuery);
+
+        /*
+         * jQuery UI Datepicker: Parse and Format Dates
+         * http://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
+         */
+        (function($) {
+            $(document).ready(function() {
+                $('.datepicker').datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    onSelect  : function(dateText, inst) {
+                        var date = $.datepicker.parseDate(inst.settings.dateFormat || $.datepicker._defaults.dateFormat, dateText, inst.settings);
+                        var dateText1 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
+                        date.setDate(date.getDate() + 7);
+                        var dateText2 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
+                        $('#dateoutput').html('Chosen date is <b>' + dateText1 + '</b>; chosen date + 7 days yields <b>' + dateText2 + '</b>');
+                    }
+                });
+            });
+        })(jQuery);
+    </script>
 {% endblock %}

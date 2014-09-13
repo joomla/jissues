@@ -55,7 +55,6 @@ class DefaultController extends AbstractTrackerListController
 		$this->view->setProject($application->getProject());
 
 		$this->setModelState();
-		$this->model->getItems();
 
 		return $this;
 	}

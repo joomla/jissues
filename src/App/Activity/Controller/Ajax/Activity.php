@@ -28,8 +28,11 @@ class Activity extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
+		$application = $this->getContainer()->get('app');
+
 		// Setup the model to query our data
-		$this->model = new ActivityModel($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
+		$this->model = new ActivityModel($this->getContainer()->get('db'), $application->input);
+		$this->model->setProject($application->getProject());
 
 		$state = $this->model->getState();
 
@@ -76,11 +79,11 @@ class Activity extends AbstractAjaxController
 		{
 			$start = date('d M Y', strtotime($state->get('list.startdate')));
 			$end   = date('d M Y', strtotime($state->get('list.enddate')));
-			$title = sprintf(g11n3t('%1$d Points From %2$d Through %3$d'), $activityText, $start, $end);
+			$title = sprintf(g11n3t('%1$s Points From %2$s Through %3$s'), $activityText, $start, $end);
 		}
 		else
 		{
-			$title = sprintf(g11n3t('%1$d Points for Past %2$d'), $activityText, $periodText);
+			$title = sprintf(g11n3t('%1$s Points for Past %2$s'), $activityText, $periodText);
 		}
 
 		$ticks         = [];
