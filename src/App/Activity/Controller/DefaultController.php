@@ -8,25 +8,15 @@
 
 namespace App\Activity\Controller;
 
-use App\Tracker\View\Issues\IssuesHtmlView;
-
 use JTracker\Controller\AbstractTrackerListController;
 
 /**
- * Default controller class for the Tracker component.
+ * Default controller class for the Activity application.
  *
  * @since  1.0
  */
 class DefaultController extends AbstractTrackerListController
 {
-	/**
-	 * View object
-	 *
-	 * @var    IssuesHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
-
 	/**
 	 * The default view for the app
 	 *
@@ -54,50 +44,6 @@ class DefaultController extends AbstractTrackerListController
 		$this->model->setProject($application->getProject());
 		$this->view->setProject($application->getProject());
 
-		$this->setModelState();
-
 		return $this;
-	}
-
-	/**
-	 * Setting model state.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	private function setModelState()
-	{
-		/* @type \JTracker\Application $application */
-		$application = $this->getContainer()->get('app');
-
-		$state = $this->model->getState();
-
-		$state->set('list.limit', 25);
-		$state->set('list.start', 0);
-		$state->set('list.period', $application->input->getInt('period', 1));
-		$state->set('list.activity_type', $application->input->getInt('activity_type', 0));
-
-		$enteredPeriod = $application->input->getInt('period', 1);
-
-		if ($enteredPeriod == 5)
-		{
-			$startDate = $application->input->getCmd('startdate');
-			$endDate   = $application->input->getCmd('enddate');
-
-			if ($this->datesValid($startDate, $endDate))
-			{
-				$state->set('list.startdate', $startDate);
-				$state->set('list.enddate', $endDate);
-			}
-			else
-			{
-				$enteredPeriod = 1;
-			}
-		}
-
-		$state->set('list.period', $enteredPeriod);
-
-		$this->model->setState($state);
 	}
 }
