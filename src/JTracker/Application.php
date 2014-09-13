@@ -113,19 +113,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		// Register the global dispatcher
 		$this->setDispatcher(new Dispatcher);
-
-		// Try to set the MIME based on format
-		switch (strtolower($this->input->getWord('format', 'html')))
-		{
-			case 'json' :
-				$this->mimeType = 'application/json';
-
-				break;
-
-			// Don't need to do anything for the default case
-			default :
-				break;
-		}
 	}
 
 	/**
@@ -235,7 +222,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				$context['action'] = $exception->getAction();
 			}
 
-			$this->setErrorOutput($exception, $context);
+			$this->setBody($this->getDebugger()->renderException($exception, $context));
 		}
 		catch (RoutingException $exception)
 		{
@@ -245,7 +232,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$context = JDEBUG ? array('message' => $exception->getRawRoute()) : array();
 
-			$this->setErrorOutput($exception, $context);
+			$this->setBody($this->getDebugger()->renderException($exception, $context));
 		}
 		catch (\Exception $exception)
 		{
@@ -253,7 +240,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with an EXCEPTION');
 
-			$this->setErrorOutput($exception);
+			$this->setBody($this->getDebugger()->renderException($exception));
 		}
 	}
 
@@ -736,48 +723,5 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		$this->input->cookie->set('remember_me', $value, $expire);
 
 		return $this;
-	}
-
-	/**
-	 * Set the body for error conditions
-	 *
-	 * @param   \Exception  $exception  The Exception object
-	 * @param   array       $context    The message to display
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	private function setErrorOutput(\Exception $exception, array $context = array())
-	{
-		switch (strtolower($this->input->getWord('format', 'html')))
-		{
-			case 'json' :
-				$message = '';
-
-				foreach ($context as $key => $value)
-				{
-					$message .= $key . ': ' . $value . "\n";
-				}
-
-				$data = [
-					'code'    => $exception->getCode(),
-					'message' => $exception->getMessage(),
-					'error'   => true,
-				    'context' => str_replace(JPATH_ROOT, 'ROOT', $message)
-				];
-
-				$body = json_encode($data);
-
-				break;
-
-			case 'html' :
-			default :
-				$body = $this->getDebugger()->renderException($exception, $context);
-
-				break;
-		}
-
-		$this->setBody($body);
 	}
 }
