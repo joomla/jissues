@@ -29,7 +29,7 @@ Joomla Controller Package
 
 Joomla Database Package
 
-* Installed: 1.1.1
+* Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/database.git
 
 #### joomla/date (~1.1@stable)
@@ -71,14 +71,14 @@ Joomla Github Package
 
 Joomla HTTP Package
 
-* Installed: 1.1.3
+* Installed: 1.1.4
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1@stable)
 
 Joomla Input Package
 
-* Installed: 1.1.3
+* Installed: 1.1.4
 * Source URL: https://github.com/joomla-framework/input.git
 
 #### joomla/model (~1.1@stable)
@@ -99,21 +99,21 @@ Joomla Profiler Package
 
 Joomla Registry Package
 
-* Installed: 1.1.3
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/registry.git
 
 #### joomla/router (~1.1@stable)
 
 Joomla Router Package
 
-* Installed: 1.1.1
+* Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/router.git
 
 #### joomla/string (~1.1@stable)
 
 Joomla String Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/string.git
 
 #### joomla/uri (~1.1@stable)
@@ -127,7 +127,7 @@ Joomla Uri Package
 
 Joomla Utilities Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/utilities.git
 
 #### joomla/view (~1.1@stable)
@@ -141,7 +141,7 @@ Joomla View Package
 
 Symfony HttpFoundation Component
 
-* Installed: v2.4.8
+* Installed: v2.4.9
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*@stable)
@@ -151,11 +151,11 @@ Twig, the flexible, fast, and secure template language for PHP
 * Installed: v1.16.0
 * Source URL: https://github.com/fabpot/Twig.git
 
-#### elkuku/g11n (2.*@stable)
+#### elkuku/g11n (2.3)
 
 The g11n language library
 
-* Installed: 2.2
+* Installed: 2.3
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -169,7 +169,7 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master 4577272d0f414b09c6238a29e78738392e5439ea
+* Installed: dev-master e2e3407a4185e5c8f35b672dd7c8d79bad6b7b64
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (1.3.2)
@@ -227,7 +227,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.2.2
+* Installed: 4.2.6
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
@@ -331,6 +331,12 @@ jQuery simple pagination plugin for bootstrap-style webpages
 
 
 * Source URL: https://github.com/mbostock/d3
+
+#### jquery-simple-color (1.2.1)
+
+A dead-simple jQuery color picker.
+
+* Source URL: https://github.com/recurser/jquery-simple-color
 
 
 ## Credits
