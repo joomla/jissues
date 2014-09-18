@@ -89,15 +89,16 @@ JTracker.submitVote = function (issueId, debugContainer) {
 	);
 };
 
-JTracker.submitTest = function (issueId, button) {
-	var status = $(button);
-	var result = $('input[name=tested]').filter(':checked').val();
+JTracker.submitTest = function (issueId, statusContainer, resultContainer, templateName) {
+	var status = $(statusContainer);
+	var result = $(resultContainer);
+	var testResult = $('input[name=tested]').filter(':checked').val();
 
 	status.html(g11n3t('Submitting test result...'));
 
 	$.post(
 		'/submit/testresult',
-		{ issueId: issueId, result: result },
+		{ issueId: issueId, result: testResult },
 		function (r) {
 			if (r.error) {
 				// Failure
@@ -109,7 +110,9 @@ JTracker.submitTest = function (issueId, button) {
 
 				var data = $.parseJSON(r.data);
 
-				JTracker.updateTests(data.testsSuccess, data.testsFailure)
+				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure)
+
+				result.html(result.html() + tmpl(templateName, data.event));
 			}
 		}
 	);

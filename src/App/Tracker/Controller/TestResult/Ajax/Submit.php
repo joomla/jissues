@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\TestResult\Ajax;
 
+use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
 use JTracker\Controller\AbstractAjaxController;
@@ -32,6 +33,7 @@ class Submit extends AbstractAjaxController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 		$user        = $application->getUser();
+		$project     = $application->getProject();
 
 		if (!$user->id)
 		{
@@ -46,9 +48,29 @@ class Submit extends AbstractAjaxController
 			throw new \Exception('No issue ID received.');
 		}
 
-		$model = new IssueModel($this->getContainer()->get('db'));
+		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
-		$this->response->data = json_encode($model->saveTest($issueId, $user->username, $result));
+		$data = new \stdClass;
+
+		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result);
+
+		$event = (new ActivityModel($this->getContainer()->get('db')))
+			->addActivityEvent(
+				'test_item', 'now', $user->username,
+				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
+				json_encode($result)
+			);
+
+		$data->event = new \stdClass;
+
+		foreach ($event as $k => $v)
+		{
+			$data->event->$k = $v;
+		}
+
+		$data->event->text = json_decode($data->event->text);
+
+		$this->response->data = json_encode($data);
 
 		$this->response->message = g11n3t('Test successfully added');
 	}
