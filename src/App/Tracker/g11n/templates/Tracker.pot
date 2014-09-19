@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 11:28-0500\n"
+"POT-Creation-Date: 2014-09-19 12:34-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,7 +67,7 @@ msgstr ""
 
 #: /templates/tracker/issue.edit.twig:125
 #: /templates/tracker/issue.add.twig:73
-#: /templates/tracker/categories.index.twig:29
+#: /templates/tracker/categories.index.twig:34
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/category.edit.twig:27
@@ -220,7 +220,7 @@ msgid "No items found."
 msgstr ""
 
 #: /templates/tracker/categories.index.twig:6
-#: /templates/tracker/categories.index.twig:23
+#: /templates/tracker/categories.index.twig:28
 msgid "Categories List"
 msgstr ""
 
@@ -229,33 +229,38 @@ msgstr ""
 msgid "New Category"
 msgstr ""
 
-#: /templates/tracker/categories.index.twig:28
+#: /templates/tracker/categories.index.twig:33
 #: /templates/tracker/category.add.twig:35
 #: /templates/tracker/category.edit.twig:35
 msgid "Alias"
 msgstr ""
 
-#: /templates/tracker/categories.index.twig:30
+#: /templates/tracker/categories.index.twig:35
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 msgid "Color"
 msgstr ""
 
-#: /templates/tracker/categories.index.twig:33
+#: /templates/tracker/categories.index.twig:38
 msgid "Actions"
 msgstr ""
 
-#: /templates/tracker/categories.index.twig:37
+#: /templates/tracker/categories.index.twig:42
 msgid "Id"
 msgstr ""
 
-#: /templates/tracker/categories.index.twig:54
+#: /templates/tracker/categories.index.twig:59
 msgid "Delete"
 msgstr ""
 
-#: /templates/tracker/categories.index.twig:55
+#: /templates/tracker/categories.index.twig:60
 #: /templates/tracker/issue.index.twig:59
 msgid "Edit"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:71
+#, php-format
+msgid "Page %1$s of %2$s"
 msgstr ""
 
 #: /templates/tracker/tpl/activities.twig:28
