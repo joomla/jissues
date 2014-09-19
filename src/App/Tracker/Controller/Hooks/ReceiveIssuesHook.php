@@ -176,10 +176,36 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function updateData()
 	{
+		$table = new IssuesTable($this->db);
+
+		try
+		{
+			$table->load(
+				array(
+					'issue_number' => $this->hookData->issue->number,
+					'project_id' => $this->project->project_id
+				)
+			);
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				sprintf(
+					'Error loading GitHub issue %s/%s #%d in the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->hookData->issue->number,
+					$e->getMessage()
+				)
+			);
+
+			$this->getContainer()->get('app')->close();
+		}
+
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		$status = $this->processStatus($action);
+		$status = $this->processStatus($action, $table->status);
 
 		// Try to render the description with GitHub markdown
 		$parsedText = $this->parseText($this->hookData->issue->body);
@@ -196,7 +222,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		if (!is_null($status))
 		{
-			$data['status']          = $status;
+			$data['status'] = $status;
 		}
 
 		$data['modified_date']   = $modified->format($dateFormat);
@@ -214,8 +240,6 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
 			$table->save($data);
 		}
 		catch (\Exception $e)
