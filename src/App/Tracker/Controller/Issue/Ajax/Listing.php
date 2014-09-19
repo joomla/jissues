@@ -12,6 +12,7 @@ use JTracker\Controller\AbstractAjaxController;
 use JTracker\View\Renderer;
 use JTracker\Pagination\TrackerPagination;
 
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Model\IssuesModel;
 
 use Joomla\Uri\Uri;
@@ -174,12 +175,15 @@ class Listing extends AbstractAjaxController
 		// Render the label html for each item
 		$renderer = new Renderer\TrackerExtension($this->getContainer());
 
+		$issueModel = new IssueModel($this->getContainer()->get('db'));
+
 		foreach ($listItems as $item)
 		{
 			$item->labelHtml     = $renderer->renderLabels($item->labels);
 			$item->opened_date   = date('Y-m-d', strtotime($item->opened_date));
 			$item->modified_date = date('Y-m-d', strtotime($item->modified_date));
 			$item->closed_date   = date('Y-m-d', strtotime($item->closed_date));
+			$item->categories    = $issueModel->getCategories($item->id);
 		}
 
 		// Prepare the response.
