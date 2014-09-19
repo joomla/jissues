@@ -128,7 +128,8 @@ CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
 INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
-(3, 'not_before');
+(3, 'not_before'),
+(4, 'pr_for');
 
 --
 -- Table structure for table `#__issues_tests`
