@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 11:28-0500\n"
-"PO-Revision-Date: 2014-09-09 16:29+0000\n"
+"POT-Creation-Date: 2014-09-19 12:34-0500\n"
+"PO-Revision-Date: 2014-09-19 17:34+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgid "Categories"
 msgstr "Catégories"
 
 #: /templates/tracker/issue.edit.twig:125 /templates/tracker/issue.add.twig:73
-#: /templates/tracker/categories.index.twig:29
+#: /templates/tracker/categories.index.twig:34
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/category.edit.twig:27
@@ -239,7 +239,7 @@ msgid "No items found."
 msgstr "Aucun élément trouvé."
 
 #: /templates/tracker/categories.index.twig:6
-#: /templates/tracker/categories.index.twig:23
+#: /templates/tracker/categories.index.twig:28
 msgid "Categories List"
 msgstr "Liste des catégories"
 
@@ -248,34 +248,39 @@ msgstr "Liste des catégories"
 msgid "New Category"
 msgstr "Nouvelle catégorie"
 
-#: /templates/tracker/categories.index.twig:28
+#: /templates/tracker/categories.index.twig:33
 #: /templates/tracker/category.add.twig:35
 #: /templates/tracker/category.edit.twig:35
 msgid "Alias"
 msgstr "Alias"
 
-#: /templates/tracker/categories.index.twig:30
+#: /templates/tracker/categories.index.twig:35
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 msgid "Color"
 msgstr "Couleur"
 
-#: /templates/tracker/categories.index.twig:33
+#: /templates/tracker/categories.index.twig:38
 msgid "Actions"
 msgstr "Actions"
 
-#: /templates/tracker/categories.index.twig:37
+#: /templates/tracker/categories.index.twig:42
 msgid "Id"
 msgstr "Id"
 
-#: /templates/tracker/categories.index.twig:54
+#: /templates/tracker/categories.index.twig:59
 msgid "Delete"
 msgstr "Supprimer"
 
-#: /templates/tracker/categories.index.twig:55
+#: /templates/tracker/categories.index.twig:60
 #: /templates/tracker/issue.index.twig:59
 msgid "Edit"
 msgstr "Éditer"
+
+#: /templates/tracker/categories.index.twig:71
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
 
 #: /templates/tracker/tpl/activities.twig:28
 #: /templates/tracker/tpl/activities.twig:45
@@ -285,27 +290,27 @@ msgstr "Différences"
 
 #: /templates/tracker/tpl/activities.twig:75
 msgid "Easy"
-msgstr ""
+msgstr "Facile"
 
 #: /templates/tracker/tpl/activities.twig:113
 msgid "Labels"
-msgstr ""
+msgstr "Étiquettes"
 
 #: /templates/tracker/tpl/activities.twig:118
 msgid "Added"
-msgstr ""
+msgstr "Ajouté"
 
 #: /templates/tracker/tpl/activities.twig:122
 msgid "Removed"
-msgstr ""
+msgstr "Supprimé"
 
 #: /templates/tracker/tpl/activities.twig:131
 msgid "Relation Type"
-msgstr ""
+msgstr "Type de relation"
 
 #: /templates/tracker/tpl/activities.twig:148
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"

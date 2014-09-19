@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 11:28-0500\n"
-"PO-Revision-Date: 2014-09-09 16:29+0000\n"
+"POT-Creation-Date: 2014-09-19 12:34-0500\n"
+"PO-Revision-Date: 2014-09-19 17:34+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgid "Categories"
 msgstr "Категории"
 
 #: /templates/tracker/issue.edit.twig:125 /templates/tracker/issue.add.twig:73
-#: /templates/tracker/categories.index.twig:29
+#: /templates/tracker/categories.index.twig:34
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/category.edit.twig:27
@@ -239,7 +239,7 @@ msgid "No items found."
 msgstr "Ничего найдено."
 
 #: /templates/tracker/categories.index.twig:6
-#: /templates/tracker/categories.index.twig:23
+#: /templates/tracker/categories.index.twig:28
 msgid "Categories List"
 msgstr "Список категорий"
 
@@ -248,34 +248,39 @@ msgstr "Список категорий"
 msgid "New Category"
 msgstr "Новая категория"
 
-#: /templates/tracker/categories.index.twig:28
+#: /templates/tracker/categories.index.twig:33
 #: /templates/tracker/category.add.twig:35
 #: /templates/tracker/category.edit.twig:35
 msgid "Alias"
 msgstr "Алиас"
 
-#: /templates/tracker/categories.index.twig:30
+#: /templates/tracker/categories.index.twig:35
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 msgid "Color"
 msgstr "Цвет"
 
-#: /templates/tracker/categories.index.twig:33
+#: /templates/tracker/categories.index.twig:38
 msgid "Actions"
 msgstr "Действия"
 
-#: /templates/tracker/categories.index.twig:37
+#: /templates/tracker/categories.index.twig:42
 msgid "Id"
 msgstr "Id"
 
-#: /templates/tracker/categories.index.twig:54
+#: /templates/tracker/categories.index.twig:59
 msgid "Delete"
 msgstr "Удалить"
 
-#: /templates/tracker/categories.index.twig:55
+#: /templates/tracker/categories.index.twig:60
 #: /templates/tracker/issue.index.twig:59
 msgid "Edit"
 msgstr "Редактировать"
+
+#: /templates/tracker/categories.index.twig:71
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
 
 #: /templates/tracker/tpl/activities.twig:28
 #: /templates/tracker/tpl/activities.twig:45
@@ -285,27 +290,27 @@ msgstr "Разница"
 
 #: /templates/tracker/tpl/activities.twig:75
 msgid "Easy"
-msgstr ""
+msgstr "Легкий"
 
 #: /templates/tracker/tpl/activities.twig:113
 msgid "Labels"
-msgstr ""
+msgstr "Лейблы"
 
 #: /templates/tracker/tpl/activities.twig:118
 msgid "Added"
-msgstr ""
+msgstr "Добавлено"
 
 #: /templates/tracker/tpl/activities.twig:122
 msgid "Removed"
-msgstr ""
+msgstr "Удалено"
 
 #: /templates/tracker/tpl/activities.twig:131
 msgid "Relation Type"
-msgstr ""
+msgstr "Тип отношения"
 
 #: /templates/tracker/tpl/activities.twig:148
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
