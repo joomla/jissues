@@ -10,6 +10,7 @@ namespace App\Tracker\Controller;
 
 use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\StatusTable;
 
 use BabDev\Helper as BDHelper;
 
@@ -460,22 +461,49 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	/**
 	 * Process the action of an item to determine its status
 	 *
-	 * @param   string  $action  The action being performed
+	 * @param   string   $action           The action being performed
+	 * @param   integer  $currentStatusId  The current status ID of issue
 	 *
 	 * @return  integer|null  Status ID if the status changes, null if it stays the same
 	 *
 	 * @since   1.0
 	 */
-	protected function processStatus($action)
+	protected function processStatus($action, $currentStatusId = null)
 	{
 		switch ($action)
 		{
 			case 'closed':
-				return 10;
+				$status = 10;
+
+				// Get the list of status IDs based on the GitHub close state
+				$statusIds = (new StatusTable($this->db))
+					->getStateStatusIds(true);
+
+				// Check if the issue status is in the array.
+				// If it is, then the item didn't change close state and we don't need to change the status.
+				if ($currentStatusId && in_array($currentStatusId, $statusIds))
+				{
+					$status = null;
+				}
+
+				return $status;
 
 			case 'opened':
 			case 'reopened':
-				return 1;
+				$status = 1;
+
+				// Get the list of status IDs based on the GitHub open state
+				$statusIds = (new StatusTable($this->db))
+					->getStateStatusIds(false);
+
+				// Check if the issue status is in the array.
+				// If it is, then the item didn't change open state and we don't need to change the status.
+				if ($currentStatusId && in_array($currentStatusId, $statusIds))
+				{
+					$status = null;
+				}
+
+				return $status;
 
 			default :
 				return null;
