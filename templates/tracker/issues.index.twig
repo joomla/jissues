@@ -198,8 +198,6 @@
                     [% print(item.labelHtml,true); %]
                     [% if (item.categories.length) { %]
                         <br/>
-                        <span class="list-issue-categories">
-                        {{ 'Categories'|_ }}:
                         [% for (var n=0, category; category=item.categories[n]; n++) { %]
                             [% var color = category.color; %]
                             <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' }}[%= category.alias %]">
@@ -208,7 +206,6 @@
                                 </span>
                             </a>
                         [% } %]
-                    </span>
                     [% } %]
                     <br/>
                     <span class="list-issue-details">
