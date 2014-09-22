@@ -161,3 +161,23 @@ JTracker.updateTests = function (testsSuccess, testsFailure) {
 	$('#usertests-fail-num').text(testsFailure.length);
 	$('#usertests-fail').text(testsFailure.join(', '));
 };
+
+/**
+ * Get a contrasting color (black or white).
+ *
+ * http://24ways.org/2010/calculating-color-contrast/
+ *
+ * @param   string  hexColor  The hex color.
+ *
+ * @return  string
+ *
+ * @since   1.0
+ */
+JTracker.getContrastColor = function(hexColor) {
+	var r = parseInt(hexColor.substr(0, 2), 16);
+	var g = parseInt(hexColor.substr(2, 2), 16);
+	var b = parseInt(hexColor.substr(4, 2), 16);
+	var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+	return (yiq >= 128) ? 'black' : 'white';
+};

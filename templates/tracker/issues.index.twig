@@ -201,7 +201,7 @@
                         [% for (var n=0, category; category=item.categories[n]; n++) { %]
                             [% var color = category.color; %]
                             <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' }}[%= category.alias %]">
-                                <span class="label" style="background-color:#[%= category.color %]; color:{{ getContrastColor(category.color) }}">
+                                <span class="label" style="background-color:#[%= category.color %]; color:[%= JTracker.getContrastColor(category.color) %]">
                                     [%= category.title %]
                                 </span>
                             </a>
