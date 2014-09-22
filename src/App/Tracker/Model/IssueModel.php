@@ -584,4 +584,28 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('id') . ' = ' . (int) $id)
 		)->loadResult();
 	}
+
+	/**
+	 * Get an issue categories by its ID.
+	 *
+	 * @param   integer  $id  The issue ID.
+	 *
+	 * @return  array  The list of issue categories
+	 *
+	 * @since   1.0
+	 */
+	public function getCategories($id)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select(
+					$this->db->quoteName(
+						['ic.title', 'ic.alias', 'ic.color']
+					)
+				)
+				->from($this->db->quoteName('#__issue_category_map', 'icm'))
+				->leftJoin($this->db->quoteName('#__issues_categories', 'ic') . ' ON ic.id = icm.category_id')
+				->where($this->db->quoteName('icm.issue_id') . ' = ' . (int) $id)
+		)->loadObjectList();
+	}
 }
