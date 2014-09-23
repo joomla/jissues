@@ -302,7 +302,8 @@ class Issues extends Project
 					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
 				);
 
-				$table->pr_head_ref = $pullRequest->head->ref;
+				$table->pr_head_user = $pullRequest->head->user->login;
+				$table->pr_head_ref  = $pullRequest->head->ref;
 
 				$status = $this->GetMergeStatus($pullRequest);
 

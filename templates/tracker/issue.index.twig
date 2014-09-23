@@ -127,8 +127,8 @@
             {% if item.pr_head_ref %}
                 <li>
                     &nbsp;&bull;&nbsp;
-                    <a href="https://github.com/{{ item.opened_by ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}">
-                        {{ item.opened_by ~ ':' ~ item.pr_head_ref }}
+                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}">
+                        {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
                     </a>
                 </li>
             {% endif %}
