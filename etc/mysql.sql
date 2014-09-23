@@ -170,6 +170,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
+  `pr_head_user` varchar(150) NOT NULL COMMENT 'Pull request head user',
   `pr_head_ref` varchar(150) NOT NULL COMMENT 'Pull request head ref',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
