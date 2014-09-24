@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 12:34-0500\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: 2014-09-07 14:11+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
@@ -37,12 +37,12 @@ msgstr ""
 msgid "Adding vote..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:96 /www/jtracker/core/js/jtracker.js:130
+#: /www/jtracker/core/js/jtracker.js:97 /www/jtracker/core/js/jtracker.js:133
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:125
+#: /www/jtracker/core/js/jtracker.js:128
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
 msgstr ""

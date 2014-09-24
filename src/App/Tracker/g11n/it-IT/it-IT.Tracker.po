@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 12:34-0500\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: 2014-09-19 17:34+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/jtracker/language/it_IT/)\n"
@@ -28,7 +28,7 @@ msgid "Cancel"
 msgstr ""
 
 #: /templates/tracker/issue.edit.twig:55
-#: /templates/tracker/issues.index.twig:210
+#: /templates/tracker/issues.index.twig:220
 #: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr ""
@@ -193,47 +193,47 @@ msgstr ""
 msgid "Loading, please wait..."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:202
+#: /templates/tracker/issues.index.twig:212
 msgid "GitHub ID"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:218
+#: /templates/tracker/issues.index.twig:228
 msgid "Opened "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:222
+#: /templates/tracker/issues.index.twig:232
 msgid "Closed "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:226
+#: /templates/tracker/issues.index.twig:236
 msgid "Modified "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Critical"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Urgent"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Medium"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Low"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Very low"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:238
+#: /templates/tracker/issues.index.twig:248
 msgid "GitHub merge status"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:248
+#: /templates/tracker/issues.index.twig:258
 msgid "No items found."
 msgstr ""
 
@@ -409,36 +409,36 @@ msgstr ""
 msgid "Tested unsuccessfully"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:323
+#: /templates/tracker/issue.index.twig:324
 msgid "Submit test result"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:344
+#: /templates/tracker/issue.index.twig:345
 msgid "Alter test result"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:459
+#: /templates/tracker/issue.index.twig:469
 msgid "Add a Comment"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:470
+#: /templates/tracker/issue.index.twig:480
 msgid "Leave a comment"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:478
+#: /templates/tracker/issue.index.twig:488
 msgid "Post Comment"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:491
+#: /templates/tracker/issue.index.twig:501
 msgid "Login with GitHub to post a comment"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgid "Your report has been submitted."
 msgstr ""
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
-#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:53
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:75
 msgid "Test successfully added"
 msgstr ""
 
@@ -571,18 +571,18 @@ msgstr ""
 msgid "Category ID is needed."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:152
+#: /src/App/Tracker/Table/IssuesTable.php:153
 msgid "A title is required."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:156
+#: /src/App/Tracker/Table/IssuesTable.php:157
 msgid "The title max length is 255 chars."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:161
+#: /src/App/Tracker/Table/IssuesTable.php:162
 msgid "A build is required."
 msgstr ""
 
-#: /src/App/Tracker/Table/IssuesTable.php:165
+#: /src/App/Tracker/Table/IssuesTable.php:166
 msgid "A build max length is 40 chars."
 msgstr ""

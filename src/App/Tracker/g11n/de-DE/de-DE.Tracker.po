@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 12:34-0500\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: 2014-09-19 17:34+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
@@ -30,7 +30,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: /templates/tracker/issue.edit.twig:55
-#: /templates/tracker/issues.index.twig:210
+#: /templates/tracker/issues.index.twig:220
 #: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr "Externe ID"
@@ -195,47 +195,47 @@ msgstr "Zusammenfassung"
 msgid "Loading, please wait..."
 msgstr "Wird geladen, bitte warten..."
 
-#: /templates/tracker/issues.index.twig:202
+#: /templates/tracker/issues.index.twig:212
 msgid "GitHub ID"
 msgstr "GitHub ID"
 
-#: /templates/tracker/issues.index.twig:218
+#: /templates/tracker/issues.index.twig:228
 msgid "Opened "
 msgstr "Geöffnet"
 
-#: /templates/tracker/issues.index.twig:222
+#: /templates/tracker/issues.index.twig:232
 msgid "Closed "
 msgstr "Geschlossen"
 
-#: /templates/tracker/issues.index.twig:226
+#: /templates/tracker/issues.index.twig:236
 msgid "Modified "
 msgstr "Geändert"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Critical"
 msgstr "Kritisch"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Urgent"
 msgstr "Dringend"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Medium"
 msgstr "Medium"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Low"
 msgstr "Niedrig"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Very low"
 msgstr "Sehr niedrig"
 
-#: /templates/tracker/issues.index.twig:238
+#: /templates/tracker/issues.index.twig:248
 msgid "GitHub merge status"
 msgstr "GitHub merge Status"
 
-#: /templates/tracker/issues.index.twig:248
+#: /templates/tracker/issues.index.twig:258
 msgid "No items found."
 msgstr "Keine Einträge gefunden"
 
@@ -411,36 +411,36 @@ msgstr "Erfolgreich getestet"
 msgid "Tested unsuccessfully"
 msgstr "Nicht erfolgreich getestet"
 
-#: /templates/tracker/issue.index.twig:323
+#: /templates/tracker/issue.index.twig:324
 msgid "Submit test result"
 msgstr "Testergebnis abschicken"
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr "Setze das Testrgebnis für Benutzer %s auf %s"
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 msgid "username"
 msgstr "Benutzername"
 
-#: /templates/tracker/issue.index.twig:344
+#: /templates/tracker/issue.index.twig:345
 msgid "Alter test result"
 msgstr "Testergebnis modifizieren"
 
-#: /templates/tracker/issue.index.twig:459
+#: /templates/tracker/issue.index.twig:469
 msgid "Add a Comment"
 msgstr "Einen Kommentar hinzufügen"
 
-#: /templates/tracker/issue.index.twig:470
+#: /templates/tracker/issue.index.twig:480
 msgid "Leave a comment"
 msgstr "Hinterlassen Sie einen Kommentar"
 
-#: /templates/tracker/issue.index.twig:478
+#: /templates/tracker/issue.index.twig:488
 msgid "Post Comment"
 msgstr "Kommentar absenden"
 
-#: /templates/tracker/issue.index.twig:491
+#: /templates/tracker/issue.index.twig:501
 msgid "Login with GitHub to post a comment"
 msgstr "Mit GitHub einloggen um einen Kommentar zu posten"
 
@@ -525,7 +525,7 @@ msgid "Your report has been submitted."
 msgstr "Ihre Meldung wurde übermittelt."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
-#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:53
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:75
 msgid "Test successfully added"
 msgstr "Test erfolgreich hinzugefügt"
 
@@ -573,18 +573,18 @@ msgstr "Eine ID ist erforderlich"
 msgid "Category ID is needed."
 msgstr "Eine Kategorie ID ist erforderlich"
 
-#: /src/App/Tracker/Table/IssuesTable.php:152
+#: /src/App/Tracker/Table/IssuesTable.php:153
 msgid "A title is required."
 msgstr "Ein titel ist erforderlich."
 
-#: /src/App/Tracker/Table/IssuesTable.php:156
+#: /src/App/Tracker/Table/IssuesTable.php:157
 msgid "The title max length is 255 chars."
 msgstr "Die maximale Länge des Titels ist 255 Zeichen."
 
-#: /src/App/Tracker/Table/IssuesTable.php:161
+#: /src/App/Tracker/Table/IssuesTable.php:162
 msgid "A build is required."
 msgstr "Eine Version ist erforderlich."
 
-#: /src/App/Tracker/Table/IssuesTable.php:165
+#: /src/App/Tracker/Table/IssuesTable.php:166
 msgid "A build max length is 40 chars."
 msgstr "Die Maximale Länge der Version ist 40 Zeichen."

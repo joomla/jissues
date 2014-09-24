@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 12:34-0500\n"
-"PO-Revision-Date: 2014-09-19 17:34+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
+"PO-Revision-Date: 2014-09-19 18:19+0000\n"
+"Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgid "Cancel"
 msgstr "Mégse"
 
 #: /templates/tracker/issue.edit.twig:55
-#: /templates/tracker/issues.index.twig:210
+#: /templates/tracker/issues.index.twig:220
 #: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr "Külső AZ"
@@ -194,47 +194,47 @@ msgstr "Összegzés"
 msgid "Loading, please wait..."
 msgstr "Betöltés, kis türelmet..."
 
-#: /templates/tracker/issues.index.twig:202
+#: /templates/tracker/issues.index.twig:212
 msgid "GitHub ID"
 msgstr "GitHub AZ"
 
-#: /templates/tracker/issues.index.twig:218
+#: /templates/tracker/issues.index.twig:228
 msgid "Opened "
 msgstr "Nyitva"
 
-#: /templates/tracker/issues.index.twig:222
+#: /templates/tracker/issues.index.twig:232
 msgid "Closed "
 msgstr "Lezárva"
 
-#: /templates/tracker/issues.index.twig:226
+#: /templates/tracker/issues.index.twig:236
 msgid "Modified "
 msgstr "Módosítva"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Critical"
 msgstr "Kritikus"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Urgent"
 msgstr "Sürgős"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Medium"
 msgstr "Átlagos"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Low"
 msgstr "Alacsony"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Very low"
 msgstr "Nagyon alacsony"
 
-#: /templates/tracker/issues.index.twig:238
+#: /templates/tracker/issues.index.twig:248
 msgid "GitHub merge status"
 msgstr "GitHub egyesítési állapot"
 
-#: /templates/tracker/issues.index.twig:248
+#: /templates/tracker/issues.index.twig:258
 msgid "No items found."
 msgstr "Nem találhatók elemek."
 
@@ -280,7 +280,7 @@ msgstr "Szerkesztés"
 #: /templates/tracker/categories.index.twig:71
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "%1$s. / %2$s lap"
 
 #: /templates/tracker/tpl/activities.twig:28
 #: /templates/tracker/tpl/activities.twig:45
@@ -410,36 +410,36 @@ msgstr "Sikeresen tesztelve"
 msgid "Tested unsuccessfully"
 msgstr "Sikertelenül tesztelve"
 
-#: /templates/tracker/issue.index.twig:323
+#: /templates/tracker/issue.index.twig:324
 msgid "Submit test result"
 msgstr "Teszteredmény küldése"
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr "A teszteredmény beállítása a/z %s nevű felhasználó számára erre: %s"
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 msgid "username"
 msgstr "felhasználónév"
 
-#: /templates/tracker/issue.index.twig:344
+#: /templates/tracker/issue.index.twig:345
 msgid "Alter test result"
 msgstr "Teszteredmény módosítása"
 
-#: /templates/tracker/issue.index.twig:459
+#: /templates/tracker/issue.index.twig:469
 msgid "Add a Comment"
 msgstr "Megjegyzés hozzáadása"
 
-#: /templates/tracker/issue.index.twig:470
+#: /templates/tracker/issue.index.twig:480
 msgid "Leave a comment"
 msgstr "Megjegyzés hagyása"
 
-#: /templates/tracker/issue.index.twig:478
+#: /templates/tracker/issue.index.twig:488
 msgid "Post Comment"
 msgstr "Megjegyzés beküldése"
 
-#: /templates/tracker/issue.index.twig:491
+#: /templates/tracker/issue.index.twig:501
 msgid "Login with GitHub to post a comment"
 msgstr "Belépés GitHub-fiókkal a megjegyzéshez"
 
@@ -524,7 +524,7 @@ msgid "Your report has been submitted."
 msgstr "A jelentés beküldése megtörtént."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
-#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:53
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:75
 msgid "Test successfully added"
 msgstr "A teszt hozzáadása sikerült"
 
@@ -572,18 +572,18 @@ msgstr "Probléma-azonosítóra van szükség."
 msgid "Category ID is needed."
 msgstr "Kategória-azonosítóra van szükség."
 
-#: /src/App/Tracker/Table/IssuesTable.php:152
+#: /src/App/Tracker/Table/IssuesTable.php:153
 msgid "A title is required."
 msgstr "A cím megadása kötelező."
 
-#: /src/App/Tracker/Table/IssuesTable.php:156
+#: /src/App/Tracker/Table/IssuesTable.php:157
 msgid "The title max length is 255 chars."
 msgstr "A cím maximális hossza 255 karakter."
 
-#: /src/App/Tracker/Table/IssuesTable.php:161
+#: /src/App/Tracker/Table/IssuesTable.php:162
 msgid "A build is required."
 msgstr "A build megadása kötelező."
 
-#: /src/App/Tracker/Table/IssuesTable.php:165
+#: /src/App/Tracker/Table/IssuesTable.php:166
 msgid "A build max length is 40 chars."
 msgstr "A build maximális hossza 40 karakter."

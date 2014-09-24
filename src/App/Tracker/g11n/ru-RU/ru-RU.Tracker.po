@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-19 12:34-0500\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: 2014-09-19 17:34+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
@@ -29,7 +29,7 @@ msgid "Cancel"
 msgstr "Отменить"
 
 #: /templates/tracker/issue.edit.twig:55
-#: /templates/tracker/issues.index.twig:210
+#: /templates/tracker/issues.index.twig:220
 #: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr "Внешний ID"
@@ -194,47 +194,47 @@ msgstr "Краткое описание"
 msgid "Loading, please wait..."
 msgstr "Загружается, подождите..."
 
-#: /templates/tracker/issues.index.twig:202
+#: /templates/tracker/issues.index.twig:212
 msgid "GitHub ID"
 msgstr "GitHub ID"
 
-#: /templates/tracker/issues.index.twig:218
+#: /templates/tracker/issues.index.twig:228
 msgid "Opened "
 msgstr "Открыто"
 
-#: /templates/tracker/issues.index.twig:222
+#: /templates/tracker/issues.index.twig:232
 msgid "Closed "
 msgstr "Закрыто"
 
-#: /templates/tracker/issues.index.twig:226
+#: /templates/tracker/issues.index.twig:236
 msgid "Modified "
 msgstr "Изменено"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Critical"
 msgstr "Критичный"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Urgent"
 msgstr "Срочный"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Medium"
 msgstr "Средний"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Low"
 msgstr "Низкий"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:241
 msgid "Very low"
 msgstr "Очень низкий"
 
-#: /templates/tracker/issues.index.twig:238
+#: /templates/tracker/issues.index.twig:248
 msgid "GitHub merge status"
 msgstr "Статус GitHub слияния"
 
-#: /templates/tracker/issues.index.twig:248
+#: /templates/tracker/issues.index.twig:258
 msgid "No items found."
 msgstr "Ничего найдено."
 
@@ -410,36 +410,36 @@ msgstr "Протестировано успешно"
 msgid "Tested unsuccessfully"
 msgstr "Протестировано неудачно"
 
-#: /templates/tracker/issue.index.twig:323
+#: /templates/tracker/issue.index.twig:324
 msgid "Submit test result"
 msgstr "Отправить результат"
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr "Установить результат теста для пользователя %s в %s"
 
-#: /templates/tracker/issue.index.twig:333
+#: /templates/tracker/issue.index.twig:334
 msgid "username"
 msgstr "имя пользователя"
 
-#: /templates/tracker/issue.index.twig:344
+#: /templates/tracker/issue.index.twig:345
 msgid "Alter test result"
 msgstr "Изменить результат"
 
-#: /templates/tracker/issue.index.twig:459
+#: /templates/tracker/issue.index.twig:469
 msgid "Add a Comment"
 msgstr "Добавить комментарий"
 
-#: /templates/tracker/issue.index.twig:470
+#: /templates/tracker/issue.index.twig:480
 msgid "Leave a comment"
 msgstr "Оставить комментарий"
 
-#: /templates/tracker/issue.index.twig:478
+#: /templates/tracker/issue.index.twig:488
 msgid "Post Comment"
 msgstr "Отправить комментарий"
 
-#: /templates/tracker/issue.index.twig:491
+#: /templates/tracker/issue.index.twig:501
 msgid "Login with GitHub to post a comment"
 msgstr "Войдите с GitHub, чтобы оставить комментарий"
 
@@ -524,7 +524,7 @@ msgid "Your report has been submitted."
 msgstr "Ваш репорт подан."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
-#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:53
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:75
 msgid "Test successfully added"
 msgstr "Тест успешно добавлен"
 
@@ -572,18 +572,18 @@ msgstr "Необходимо id ошибки."
 msgid "Category ID is needed."
 msgstr "Необходимо ID категории."
 
-#: /src/App/Tracker/Table/IssuesTable.php:152
+#: /src/App/Tracker/Table/IssuesTable.php:153
 msgid "A title is required."
 msgstr "Название обязательно"
 
-#: /src/App/Tracker/Table/IssuesTable.php:156
+#: /src/App/Tracker/Table/IssuesTable.php:157
 msgid "The title max length is 255 chars."
 msgstr "Макс. длина названия 255 символов."
 
-#: /src/App/Tracker/Table/IssuesTable.php:161
+#: /src/App/Tracker/Table/IssuesTable.php:162
 msgid "A build is required."
 msgstr "Билд обязателен"
 
-#: /src/App/Tracker/Table/IssuesTable.php:165
+#: /src/App/Tracker/Table/IssuesTable.php:166
 msgid "A build max length is 40 chars."
 msgstr "Макс. длина билда 40 символов."
