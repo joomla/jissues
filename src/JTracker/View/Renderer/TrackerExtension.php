@@ -330,7 +330,8 @@ class TrackerExtension extends \Twig_Extension
 					9 => g11n3t('No Reply'),
 					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
-					12 => g11n3t('Known Issue')
+					12 => g11n3t('Known Issue'),
+					13 => g11n3t('Duplicate Report')
 				];
 				break;
 
@@ -347,7 +348,8 @@ class TrackerExtension extends \Twig_Extension
 					9 => g11n3t('No Reply'),
 					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
-					12 => g11n3t('Known Issue')
+					12 => g11n3t('Known Issue'),
+					13 => g11n3t('Duplicate Report')
 				];
 		}
 
