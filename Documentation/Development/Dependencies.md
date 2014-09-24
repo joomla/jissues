@@ -113,7 +113,7 @@ Joomla Router Package
 
 Joomla String Package
 
-* Installed: 1.2.0
+* Installed: 1.2.1
 * Source URL: https://github.com/joomla-framework/string.git
 
 #### joomla/uri (~1.1@stable)
@@ -169,7 +169,7 @@ This class provides you with an easy-to-use interface to progress bars.
 
 BabDev's PHP libraries
 
-* Installed: dev-master e2e3407a4185e5c8f35b672dd7c8d79bad6b7b64
+* Installed: dev-master e490a110b2b41c5c545442126625a66a7b903375
 * Source URL: https://github.com/BabDev/BabDev-Library.git
 
 #### codeguy/upload (1.3.2)

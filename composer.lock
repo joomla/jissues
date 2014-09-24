@@ -50,15 +50,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/BabDev-Library.git",
-                "reference": "e2e3407a4185e5c8f35b672dd7c8d79bad6b7b64"
+                "reference": "e490a110b2b41c5c545442126625a66a7b903375"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/e2e3407a4185e5c8f35b672dd7c8d79bad6b7b64",
-                "reference": "e2e3407a4185e5c8f35b672dd7c8d79bad6b7b64",
+                "url": "https://api.github.com/repos/BabDev/BabDev-Library/zipball/e490a110b2b41c5c545442126625a66a7b903375",
+                "reference": "e490a110b2b41c5c545442126625a66a7b903375",
                 "shasum": ""
             },
             "require": {
+                "joomla/http": "~1.1",
                 "joomla/uri": "~1.0",
                 "php": ">=5.3.10"
             },
@@ -94,7 +95,7 @@
                 "library",
                 "php"
             ],
-            "time": "2014-08-23 17:20:05"
+            "time": "2014-09-24 02:38:41"
         },
         {
             "name": "codeguy/upload",
@@ -947,25 +948,32 @@
         },
         {
             "name": "joomla/string",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/string.git",
-                "reference": "f1152e6cce135ff90f4b0097792e8be23989b143"
+                "reference": "edc67e83f8e603ac7b55bf32b87d5b53fe1acd8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/string/zipball/f1152e6cce135ff90f4b0097792e8be23989b143",
-                "reference": "f1152e6cce135ff90f4b0097792e8be23989b143",
+                "url": "https://api.github.com/repos/joomla-framework/string/zipball/edc67e83f8e603ac7b55bf32b87d5b53fe1acd8a",
+                "reference": "edc67e83f8e603ac7b55bf32b87d5b53fe1acd8a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.10"
             },
             "require-dev": {
-                "joomla/test": "~1.0"
+                "joomla/test": "~1.0",
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
             },
             "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Joomla\\String\\": "src/",
@@ -983,7 +991,7 @@
                 "joomla",
                 "string"
             ],
-            "time": "2014-08-23 19:33:54"
+            "time": "2014-09-18 12:21:47"
         },
         {
             "name": "joomla/uri",
@@ -2645,12 +2653,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "a5d09c3e39e50efdc24aebdf9f4d6712259cc129"
+                "reference": "8ae15cf783c0990517a94d9495b11db00d628532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/a5d09c3e39e50efdc24aebdf9f4d6712259cc129",
-                "reference": "a5d09c3e39e50efdc24aebdf9f4d6712259cc129",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/8ae15cf783c0990517a94d9495b11db00d628532",
+                "reference": "8ae15cf783c0990517a94d9495b11db00d628532",
                 "shasum": ""
             },
             "require": {
@@ -2693,7 +2701,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-31 04:11:39"
+            "time": "2014-09-23 09:01:06"
         },
         {
             "name": "symfony/finder",
@@ -2702,12 +2710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "b7b98cf609a94ebc4cd299b736282901223a4b12"
+                "reference": "a83f67473da5cd3abc453607dd032454189f24c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/b7b98cf609a94ebc4cd299b736282901223a4b12",
-                "reference": "b7b98cf609a94ebc4cd299b736282901223a4b12",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/a83f67473da5cd3abc453607dd032454189f24c9",
+                "reference": "a83f67473da5cd3abc453607dd032454189f24c9",
                 "shasum": ""
             },
             "require": {
@@ -2740,7 +2748,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-03 09:12:11"
+            "time": "2014-09-23 05:25:18"
         },
         {
             "name": "symfony/yaml",
@@ -2749,12 +2757,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "b5922e0afc21531b84ddef806e66ba4f84f770b0"
+                "reference": "6644c5c6b395e63a55186dea1817eed0ceb1c075"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b5922e0afc21531b84ddef806e66ba4f84f770b0",
-                "reference": "b5922e0afc21531b84ddef806e66ba4f84f770b0",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6644c5c6b395e63a55186dea1817eed0ceb1c075",
+                "reference": "6644c5c6b395e63a55186dea1817eed0ceb1c075",
                 "shasum": ""
             },
             "require": {
@@ -2787,7 +2795,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-31 03:28:38"
+            "time": "2014-09-22 11:59:59"
         },
         {
             "name": "theseer/fdomdocument",
