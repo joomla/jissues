@@ -88,3 +88,96 @@ JTracker.submitVote = function (issueId, debugContainer) {
 		}
 	);
 };
+
+JTracker.submitTest = function (issueId, statusContainer, resultContainer, templateName) {
+	var status = $(statusContainer);
+	var result = $(resultContainer);
+	var testResult = $('input[name=tested]').filter(':checked').val();
+
+	status.html(g11n3t('Submitting test result...'));
+
+	$.post(
+		'/submit/testresult',
+		{ issueId: issueId, result: testResult },
+		function (r) {
+			if (r.error) {
+				// Failure
+				status.addClass('btn-danger').removeClass('btn-success').html(r.error);
+			}
+			else {
+				// Success
+				status.html(r.message);
+
+				var data = $.parseJSON(r.data);
+
+				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure)
+
+				result.html(result.html() + tmpl(templateName, data.event));
+			}
+		}
+	);
+};
+
+JTracker.alterTest = function (issueId, statusContainer, resultContainer, templateName) {
+	var status = $(statusContainer);
+	var result = $(resultContainer);
+	var altered = $('select[name=altered]').val();
+	var user   = $('input[name=altered-user]').val();
+
+	if ('' == user) {
+		status.html(g11n3t('Please select a user'));
+
+		return;
+	}
+
+	status.html(g11n3t('Submitting test result...'));
+
+	$.post(
+		'/alter/testresult',
+		{ issueId: issueId, user: user, result: altered },
+		function (r) {
+			if (r.error) {
+				// Failure
+				status.addClass('btn-danger').removeClass('btn-success').html(r.error);
+			}
+			else {
+				// Success
+				status.html(r.message);
+
+				var data = $.parseJSON(r.data);
+
+				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
+
+				result.html(result.html() + tmpl(templateName, data.event));
+			}
+		}
+	);
+};
+
+JTracker.updateTests = function (testsSuccess, testsFailure) {
+	$('#usertests-success-num').text(testsSuccess.length);
+	$('#usertests-success').text(testsSuccess.join(', '));
+
+	$('#usertests-fail-num').text(testsFailure.length);
+	$('#usertests-fail').text(testsFailure.join(', '));
+};
+
+/**
+ * Get a contrasting color (black or white).
+ *
+ * http://24ways.org/2010/calculating-color-contrast/
+ *
+ * @param   string  hexColor  The hex color.
+ *
+ * @return  string
+ *
+ * @since   1.0
+ */
+JTracker.getContrastColor = function(hexColor) {
+	var r = parseInt(hexColor.substr(0, 2), 16);
+	var g = parseInt(hexColor.substr(2, 2), 16);
+	var b = parseInt(hexColor.substr(4, 2), 16);
+	var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+	return (yiq >= 128) ? 'black' : 'white';
+};

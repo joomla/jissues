@@ -1,33 +1,49 @@
-# Language de-DE translations for core.js - CoreJS package.
-# Copyright (C) 2013 JTracker(C)
-# This file is distributed under the same license as the core.js - CoreJS package.
-# Nikolai Plath <der.el.kuku@gmail.com>, 2013.
-#
+# JTracker CoreJS core.js 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Nikolai Plath <der.el.kuku@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: core.js - CoreJS 123.456\n"
+"Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:39-0500\n"
-"PO-Revision-Date: 2013-11-16 08:15-0500\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
+"PO-Revision-Date: 2014-09-09 17:00+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: Language de-DE\n"
-"Language: de-DE\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: /www/jtracker/core/js/jtracker.js:11
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Loading preview..."
 msgstr "Die Vorschau wird geladen..."
 
 #: /www/jtracker/core/js/jtracker.js:22 /www/jtracker/core/js/jtracker.js:43
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Invalid response."
 msgstr "Ungültige Antwort"
 
 #: /www/jtracker/core/js/jtracker.js:35
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting comment..."
-msgstr ""
+msgstr "Der Kommentar wird gespeichert..."
 
-#: /www/jtracker/core/js/jtracker.js:67
+#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
-msgstr ""
+msgstr "Die Auswahl wird gespeichert..."
+
+#: /www/jtracker/core/js/jtracker.js:97 /www/jtracker/core/js/jtracker.js:133
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting test result..."
+msgstr "Testergebnis wird übertragen..."
+
+#: /www/jtracker/core/js/jtracker.js:128
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Please select a user"
+msgstr "Bitte wählen Sie einen Benutzer"

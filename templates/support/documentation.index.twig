@@ -3,6 +3,8 @@
 
 {% extends "index.twig" %}
 
+{% block title %}{{ "Documentation"|_ }}{% endblock %}
+
 {% block headerCSS %}
     {{ parent() }}
     <link href="{{ uri.base.path }}jtracker/file-tree/jqueryFileTree.css" rel="stylesheet" media="screen">

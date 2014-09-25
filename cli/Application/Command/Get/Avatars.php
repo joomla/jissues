@@ -18,20 +18,15 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 class Avatars extends Get
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Retrieve avatar images from GitHub.';
-
-	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve avatar images from GitHub.');
 	}
 
 	/**
@@ -52,13 +47,13 @@ class Avatars extends Get
 
 		defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
 
-		$this->getApplication()->outputTitle('Retrieve Avatars');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Avatars'));
 
-		$this->logOut('Start retrieve Avatars.')
+		$this->logOut(g11n3t('Start retrieving Avatars.'))
 			->setupGitHub()
 			->fetchAvatars()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -83,10 +78,19 @@ class Avatars extends Get
 
 		if (!count($usernames))
 		{
-			throw new \UnexpectedValueException('No users found in database.');
+			throw new \UnexpectedValueException(g11n3t('No users found in database.'));
 		}
 
-		$this->logOut(sprintf('Processing avatars for %d users.', count($usernames)));
+		$this->logOut(
+			sprintf(
+				g11n4t(
+					'Processing avatars for one user.',
+					'Processing avatars for %d users.',
+					count($usernames)
+				),
+				count($usernames)
+			)
+		);
 
 		$progressBar = $this->getProgressBar(count($usernames));
 
@@ -106,7 +110,7 @@ class Avatars extends Get
 
 			if (file_exists($base . '/' . $username . '.png'))
 			{
-				$this->debugOut('User avatar already fetched: ' . $username);
+				$this->debugOut(sprintf(g11n3t('User avatar already fetched for user %s'), $username));
 
 				$this->usePBar
 					? $progressBar->update($i + 1)
@@ -115,7 +119,7 @@ class Avatars extends Get
 				continue;
 			}
 
-			$this->debugOut('Fetching avatar for user: ' . $username);
+			$this->debugOut(sprintf(g11n3t('Fetching avatar for user: %s'), $username));
 
 			try
 			{
@@ -127,7 +131,7 @@ class Avatars extends Get
 			{
 				$this->debugOut($e->getMessage());
 
-				$this->debugOut('Copy default image for user: ' . $username);
+				$this->debugOut(sprintf(g11n3t('Copy default image for user: %s'), $username));
 
 				copy(
 					JPATH_THEMES . '/images/avatars/user-default.png',
@@ -141,6 +145,6 @@ class Avatars extends Get
 		}
 
 		return $this->out()
-			->logOut(sprintf('Added %d new user avatars', $adds));
+			->logOut(sprintf(g11n3t('Added %d new user avatars'), $adds));
 	}
 }

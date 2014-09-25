@@ -10,6 +10,7 @@ namespace App\Tracker\View\Issue;
 
 use App\Projects\TrackerProject;
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Table\IssuesTable;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -29,20 +30,28 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
-	 * Item ID
-	 *
-	 * @var    integer
-	 * @since  1.0
-	 */
-	private $id = 0;
-
-	/**
 	 * Project object
 	 *
 	 * @var    TrackerProject
 	 * @since  1.0
 	 */
 	protected $project = null;
+
+	/**
+	 * Item object
+	 *
+	 * @var    IssuesTable
+	 * @since  1.0
+	 */
+	protected $item = null;
+
+	/**
+	 * If the user has "edit own" rights.
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
+	protected $editOwn = false;
 
 	/**
 	 * Method to render the view.
@@ -54,65 +63,12 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		if (!$this->getId())
-		{
-			// New item
-			$path = __DIR__ . '/../../tpl/new-issue-template.md';
-
-			if (!file_exists($path))
-			{
-				throw new \RuntimeException('New issue template not found.');
-			}
-
-			// Set some defaults
-			$item = new \stdClass;
-			$item->issue_number    = 0;
-			$item->priority        = 3;
-			$item->description_raw = file_get_contents($path);
-		}
-		else
-		{
-			$item = $this->model->getItem($this->getId());
-		}
-
-		$this->renderer->set('item', $item);
+		$this->renderer->set('item', $this->getItem());
 		$this->renderer->set('project', $this->getProject());
 		$this->renderer->set('statuses', $this->model->getStatuses());
+		$this->renderer->set('canEditOwn', $this->canEditOwn());
 
 		return parent::render();
-	}
-
-	/**
-	 * Get the id.
-	 *
-	 * @return  integer
-	 *
-	 * @since   1.0
-	 */
-	public function getId()
-	{
-		if (0 == $this->id)
-		{
-			// New record.
-		}
-
-		return $this->id;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   integer  $id  The id
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
-
-		return $this;
 	}
 
 	/**
@@ -145,6 +101,68 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	public function setProject(TrackerProject $project)
 	{
 		$this->project = $project;
+
+		return $this;
+	}
+
+	/**
+	 * Get the item.
+	 *
+	 * @throws \RuntimeException
+	 * @return IssuesTable
+	 *
+	 * @since   1.0
+	 */
+	public function getItem()
+	{
+		if (is_null($this->item))
+		{
+			throw new \RuntimeException('Item not set.');
+		}
+
+		return $this->item;
+	}
+
+	/**
+	 * Set the item.
+	 *
+	 * @param   IssuesTable  $item  The item to set.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setItem($item)
+	{
+		$this->item = $item;
+
+		return $this;
+	}
+
+	/**
+	 * Check if the user is allowed to edit her own issues.
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	public function canEditOwn()
+	{
+		return $this->editOwn;
+	}
+
+	/**
+	 * Set if the user is allowed to edit her own issues.
+	 *
+	 * @param   boolean  $editOwn  If the user is allowed.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setEditOwn($editOwn)
+	{
+		$this->editOwn = (bool) $editOwn;
 
 		return $this;
 	}

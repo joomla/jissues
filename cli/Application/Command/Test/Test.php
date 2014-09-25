@@ -10,8 +10,6 @@ namespace Application\Command\Test;
 
 use Application\Command\TrackerCommand;
 
-use Joomla\Filesystem\Folder;
-
 /**
  * Base class for running tests.
  *
@@ -19,14 +17,6 @@ use Joomla\Filesystem\Folder;
  */
 class Test extends TrackerCommand
 {
-	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'The test engine';
-
 	/**
 	 * Should the command exit or return the status.
 	 *
@@ -36,34 +26,27 @@ class Test extends TrackerCommand
 	protected $exit = true;
 
 	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->description = 'The test engine';
+	}
+
+	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * NOTE: This command must not be executed without parameters !
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Test');
-
-		$errorTitle = 'Please use one of the following:';
-
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  ' . $errorTitle . '  </error>');
-
-		foreach (Folder::files(__DIR__) as $file)
-		{
-			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
-
-			if ('test' == $cmd)
-			{
-				continue;
-			}
-
-			$this->out('<error>  test ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
-		}
-
-		$this->out('<error>                                    </error>');
+		return $this->displayMissingOption(__DIR__);
 	}
 
 	/**

@@ -11,8 +11,8 @@ namespace Application\Command\Export;
 use g11n\Language\Storage as g11nStorage;
 use g11n\Support\ExtensionHelper as g11nExtensionHelper;
 
-use Joomla\Filesystem\File;
-use Joomla\Filesystem\Folder;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 
 /**
  * Class for retrieving avatars from GitHub for selected projects.
@@ -96,7 +96,7 @@ class Langfiles extends Export
 			'Template' => array(
 				'JTracker'
 			),
-			'App' => Folder::folders(JPATH_ROOT . '/src/App')
+			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
 		);
 
 		$templates = $this->getApplication()->input->getCmd('templates');
@@ -129,7 +129,7 @@ class Langfiles extends Export
 		$domainBase = trim(str_replace(JPATH_ROOT, '', g11nExtensionHelper::getDomainPath($domain)), '/');
 		$g11nPath = g11nExtensionHelper::$langDirName;
 
-		$outPath = $this->exportDir . '/' . $domainBase . '/' . $extension . '/' . $g11nPath;
+		$filesystem = new Filesystem(new Local($this->exportDir . '/' . $domainBase . '/' . $extension . '/' . $g11nPath));
 
 		$this->out(sprintf('Processing %s %s:... ', $domain, $extension), false);
 
@@ -138,18 +138,14 @@ class Langfiles extends Export
 		{
 			$this->out('templates... ', false);
 
-			$templateFile = g11nStorage::getTemplatePath($extension, $domain);
+			$path = g11nStorage::getTemplatePath($extension, $domain);
 
-			$destPath = $outPath . '/' . basename($templateFile);
+			$contents = (new Filesystem(new Local(dirname($path))))
+				->read(basename($path));
 
-			if (false == Folder::create(dirname($destPath)))
+			if (false == $filesystem->put('templates/' . basename($path), $contents))
 			{
-				throw new \DomainException('Can not create the directory at: ' . dirname($destPath));
-			}
-
-			if (false == File::copy($templateFile, $destPath))
-			{
-				throw new \DomainException('Can not write the file at path: ' . $destPath);
+				throw new \DomainException('Can not write the file at: ' . $path);
 			}
 		}
 
@@ -163,25 +159,21 @@ class Langfiles extends Export
 
 			$this->out($lang . '... ', false);
 
-			$languageFile = g11nExtensionHelper::findLanguageFile($lang, $extension, $domain);
+			$path = g11nExtensionHelper::findLanguageFile($lang, $extension, $domain);
 
-			if (!$languageFile)
+			if (!$path)
 			{
 				$this->out('<error> ' . $lang . ' NOT FOUND </error>... ', false);
 
 				continue;
 			}
 
-			$destPath = $outPath . '/' . $lang . '/' . basename($languageFile);
+			$contents = (new Filesystem(new Local(dirname($path))))
+				->read(basename($path));
 
-			if (false == Folder::create(dirname($destPath)))
+			if (false == $filesystem->put($lang . '/' . basename($path), $contents))
 			{
-				throw new \DomainException('Can not create the directory at: ' . dirname($destPath));
-			}
-
-			if (false == File::copy($languageFile, $destPath))
-			{
-				throw new \DomainException('Can not write the file at path: ' . $destPath);
+				throw new \DomainException('Can not write the file: ' . basename($path));
 			}
 		}
 

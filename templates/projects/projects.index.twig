@@ -27,10 +27,7 @@
         <tr>
             <th>{{ "Tracker"|_ }}</th>
             <th><i class="icon-github"></i>&nbsp;{{ "GitHub"|_ }}</th>
-
-            {% if user.isAdmin %}
-                <th style="width: 10%;">{{ "Actions"|_ }}</th>
-            {% endif %}
+            <th>{{ "Actions"|_ }}</th>
 
             {% if jdebug %}
                 <th style="width: 5%;">{{ "Id"|_ }}</th>
@@ -56,14 +53,14 @@
                     {% endif %}
                 </td>
 
-                {% if user.isAdmin %}
                     <td style="white-space: nowrap;">
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}">{{ "Show"|_ }}</a>
+                    {% if user.isAdmin %}
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">{{ "Edit"|_ }}</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">{{ "Delete"|_ }}</a>
+                    {% endif %}
                     </td>
-                {% endif %}
 
                 {% if jdebug %}
                   <td>{{ project.project_id }}</td>

@@ -8,45 +8,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/text/article.edit.twig:7
-#: /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr ""
-
-#: /templates/text/article.edit.twig:7
-#: /templates/text/article.edit.twig:34
-#: /templates/text/articles.index.twig:19
-msgid "New Article"
-msgstr ""
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr ""
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr ""
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr ""
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr ""
-
 #: /templates/text/articles.index.twig:6
 #: /templates/text/articles.index.twig:8
 msgid "Articles"
+msgstr ""
+
+#: /templates/text/articles.index.twig:19
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
 msgstr ""
 
 #: /templates/text/articles.index.twig:30
@@ -73,6 +51,27 @@ msgstr ""
 msgid "No articles found"
 msgstr ""
 
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr ""
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr ""
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr ""
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr ""
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr ""
+
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."
 msgstr ""
@@ -81,10 +80,10 @@ msgstr ""
 msgid "The article has been saved."
 msgstr ""
 
-#: /src/App/Text/Table/ArticlesTable.php:91
+#: /src/App/Text/Table/ArticlesTable.php:93
 msgid "An alias or a title is required."
 msgstr ""
 
-#: /src/App/Text/Table/ArticlesTable.php:97
+#: /src/App/Text/Table/ArticlesTable.php:99
 msgid "Some text is required."
 msgstr ""

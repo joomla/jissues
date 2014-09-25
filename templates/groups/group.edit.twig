@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}Projects{% endblock %}
+{% block title %}{{ "Edit Group"|_ }}{% endblock %}
 
 {% block prependMenu %}
     <li>
@@ -153,49 +153,58 @@
 
                     <legend>{{ "Permissions"|_ }}</legend>
 
-                    <div class="row">
-                        <div class="span3">
-                            <label for="can_view" class="btn span12">
-                                <i class="icon-eye-2"></i>
-                                {{ "View"|_ }}
-                            </label>
-                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                    <ul class="unstyled">
+                        <li>
+                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                                 <input type="checkbox" {{ group.can_view ? "checked='checked'" : "" }}
                                        id="can_view" name="group[can_view]"/>
                             </div>
-                        </div>
-                        <div class="span3">
-                            <label for="can_create" class="btn span12">
-                                <i class="icon-plus-2"></i>
-                                {{ "Create"|_ }}
+                            <label for="can_view">
+                                <i class="icon-eye-2"></i>
+                                {{ "View"|_ }}
                             </label>
-                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                        </li>
+                        <li>
+                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_create ? "checked='checked'" : "" }}
                                    id="can_create" name="group[can_create]"/>
                             </div>
-                        </div>
-                        <div class="span3">
-                            <label for="can_edit" class="btn span12">
-                                <i class="icon-pencil"></i>
-                                {{ "Edit"|_ }}
+                            <label for="can_create">
+                                <i class="icon-plus-2"></i>
+                                {{ "Create"|_ }}
                             </label>
-                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                        </li>
+                        <li>
+                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_edit ? "checked='checked'" : "" }}
                                    id="can_edit" name="group[can_edit]"/>
                             </div>
-                        </div>
-                        <div class="span3">
-                            <label for="can_manage" class="btn span12">
-                                <i class="icon-user-3"></i>
-                                {{ "Manage"|_ }}
+                            <label for="can_edit">
+                                <i class="icon-pencil"></i>
+                                {{ "Edit"|_ }}
                             </label>
-                            <div class="make-switch span12" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                        </li>
+                        <li>
+                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
+                                <input type="checkbox" {{ group.can_editown ? "checked='checked'" : "" }}
+                                       id="can_editown" name="group[can_editown]"/>
+                            </div>
+                            <label for="can_editown">
+                                <i class="icon-pencil"></i>
+                                {{ "Edit own"|_ }}
+                            </label>
+                        </li>
+                        <li>
+                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
                             <input type="checkbox" {{ group.can_manage ? "checked='checked'" : "" }}
                                    id="can_manage" name="group[can_manage]"/>
                             </div>
-                        </div>
-                    </div>
-
+                            <label for="can_manage">
+                                <i class="icon-user-3"></i>
+                                {{ "Manage"|_ }}
+                            </label>
+                        </li>
+                    </ul>
                 </fieldset>
             </div>
         </div>
@@ -209,9 +218,9 @@
 
                 <div class="row-fluid" style="min-height: 200px;">
                     <div class="span4">
-                        <label for="searchUser">Add user</label>&nbsp;<span id="searchUser-msg"></span><br/>
+                        <label for="searchUser">{{ 'Add user'|_ }}</label>&nbsp;<span id="searchUser-msg"></span><br/>
                         <input type="text" class="span6" id="searchUser" data-provide="typeahead"
-                               data-items="6" autocomplete="off" value="" placeholder="username"/>
+                               data-items="6" autocomplete="off" value="" placeholder="{{ 'username'|_ }}"/>
 
                         <a class="btn" href="javascript:"
                            onclick="assignUser(
@@ -221,10 +230,10 @@
                         </a>
                     </div>
                     <div class="span4">
-                        <label for="searchUserGroup">Remove user</label>&nbsp;<span
+                        <label for="searchUserGroup">{{ 'Remove user'|_ }}</label>&nbsp;<span
                                 id="searchUserGroup-msg"></span><br/>
                         <input type="text" class="span6" id="searchUserGroup" data-provide="typeahead"
-                               data-items="6" autocomplete="off" value="" placeholder="username"/>
+                               data-items="6" autocomplete="off" value="" placeholder="{{ 'username'|_ }}"/>
                         <a class="btn" href="javascript:"
                            onclick="assignUser(
                                    $('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup'

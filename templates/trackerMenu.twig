@@ -8,7 +8,7 @@
         {{ "Tracker"|_ }}
     </a>
 </li>
-{% if project.project_id and user.check("manage") %}
+{% if project.project_id %}
     <li class="dropdown {{ "project" == firstPart ? "active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ "Project"|_ }}
@@ -26,14 +26,15 @@
             </li>
 
             {% if user.check("admin") %}
-                <li>
-                    <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
-                        <i class="icon-pencil"></i>
-                        {{ "Edit"|_ }}
-                    </a>
-                </li>
+            <li>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
+                    <i class="icon-pencil"></i>
+                    {{ "Edit"|_ }}
+                </a>
+            </li>
             {% endif %}
 
+            {% if user.check("manage") %}
             <li class="divider"><span></span></li>
 
             <li>
@@ -42,6 +43,19 @@
                     {{ "Access Groups"|_ }}
                 </a>
             </li>
+            <li>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">
+                    <i class="icon-tag"></i>
+                    {{ "Labels"|_ }}
+                </a>
+            </li>
+            <li>
+                <a href="{{ uri.base.path }}category/{{ project.alias }}">
+                        <i class="icon-tag"></i>
+                        {{ "Categories"|_ }}
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </li>
 {% endif %}
@@ -51,21 +65,14 @@
         {{ "Projects"|_ }}
     </a>
 </li>
-<li class="{{ "users" == firstPart or "user" == firstPart ? "active" : "" }}">
+<li class="{{ firstPart in ['users', 'user'] ? "active" : "" }}">
     <a href="{{ uri.base.path }}users">
         {{ "Users"|_ }}
     </a>
 </li>
 
 {% if user.isAdmin %}
-    <li class="dropdown
-    {{ "config" == firstPart
-    or "text" == firstPart
-    or "icons" == firstPart
-    or "logs" == firstPart
-    ? " active"
-    : "" }}
-    ">
+    <li class="dropdown{{ firstPart in ['config', 'text', 'icons', 'logs'] ? " active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ "System"|_ }}
             <span class="caret"></span>
@@ -80,13 +87,13 @@
             <li class="{{ "phpinfo" == uri.route ? "active" : "" }}">
                 <a href="{{ uri.base.path }}phpinfo">
                     <i class="icon-code"></i>
-                    phpinfo()
+                    {{ "phpinfo()"|_ }}
                 </a>
             </li>
             <li class="dropdown-submenu">
                 <a tabindex="-1" href="#">
                     <i class="icon-copy"></i>
-                    Logs
+                    {{ "Logs"|_ }}
                 </a>
                 <ul class="dropdown-menu">
                     <li class="{{ "logs/403" == firstPart ? "active" : "" }}">
@@ -99,7 +106,7 @@
                         <a href="{{ uri.base.path }}logs/500">500</a>
                     </li>
                     <li class="{{ "logs/cron" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/cron">Cron Jobs</a>
+                        <a href="{{ uri.base.path }}logs/cron">{{ "Cron Jobs"|_ }}</a>
                     </li>
                     <li class="{{ "logs/database" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/database">
@@ -110,26 +117,26 @@
                     <li class="{{ "logs/github_issues" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_issues">
                             <i class="icon-github"></i>
-                            GitHub Issues
+                            {{ "GitHub Issues"|_ }}
                         </a>
                     </li>
                     <li class="{{ "logs/github_comments" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_comments">
                             <i class="icon-github"></i>
-                            GitHub Comments
+                            {{ "GitHub Comments"|_ }}
                         </a>
                     </li>
                     <li class="{{ "logs/github_pulls" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/github_pulls">
                             <i class="icon-github"></i>
-                            GitHub Pulls
+                            {{ "GitHub Pulls"|_ }}
                         </a>
                     </li>
                     <li class="{{ "logs/php" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/php">PHP</a>
+                        <a href="{{ uri.base.path }}logs/php">{{ "PHP"|_ }}</a>
                     </li>
                     <li class="{{ "logs/error" == uri.route ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/error">Error</a>
+                        <a href="{{ uri.base.path }}logs/error">{{ "Error"|_ }}</a>
                     </li>
                 </ul>
             </li>
@@ -137,6 +144,12 @@
                 <a href="{{ uri.base.path }}icons">
                     <i class="icon-happy"></i>
                     {{ "Icons"|_ }}
+                </a>
+            </li>
+            <li class="{{ "routes" == firstPart ? "active" : "" }}">
+                <a href="{{ uri.base.path }}routes">
+                    <i class="icon-link"></i>
+                    {{ "Routes"|_ }}
                 </a>
             </li>
             <li class="{{ "text" == firstPart ? "active" : "" }}">
@@ -155,12 +168,7 @@
     </li>
 {% endif %}
 
-<li class="dropdown {{
-"page/about" == firstPart
-or "markdown" == firstPart
-or "devdox" == firstPart
-? "active" : ""
-}}">
+<li class="dropdown {{firstPart in ['page/about', 'markdown', 'devdox'] ? 'active' : '' }}">
     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
         /etc
         <span class="caret"></span>
@@ -175,19 +183,21 @@ or "devdox" == firstPart
         </li>
         <li class="{{ "markdown" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}markdown">
-                Markdown
+                {{ "Markdown"|_ }}
             </a>
         </li>
         <li class="{{ "documentation" == firstPart ? "active" : "" }}">
             <a href="{{ uri.base.path }}documentation">
-                Documentation
+                {{ "Documentation"|_ }}
             </a>
         </li>
 
     </ul>
 </li>
 
-{% if user.id %}
+{# @todo If an Exception is thrown, this information is not available #}
+{% if not exception %}
+    {% if user.id %}
     <li class="dropdown pull-right">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ avatar(user.username, 20)|raw }}
@@ -200,9 +210,15 @@ or "devdox" == firstPart
                 <li class="nav-header"><i class="icon-user-3"></i> {{ "Admin"|_ }}</li>
             {% endif %}
             <li>
+                <a href="{{ uri.base.path }}user/{{ user.id }}">
+                    <i class="icon-user"></i>
+                    {{ "View profile"|_ }}
+                </a>
+            </li>
+            <li>
                 <a href="{{ uri.base.path }}user/{{ user.id }}/edit">
                     <i class="icon-user"></i>
-                    {{ "Profile"|_ }}
+                    {{ "Edit profile"|_ }}
                 </a>
             </li>
             <li class="divider"><span></span></li>
@@ -214,7 +230,7 @@ or "devdox" == firstPart
             </li>
         </ul>
     </li>
-{% else %}
+    {% else %}
     <li class="pull-right">
         {% if loginUrl %}
             <a class="btn-success" href="{{ loginUrl }}">
@@ -226,4 +242,5 @@ or "devdox" == firstPart
             </a>
         {% endif %}
     </li>
+    {% endif %}
 {% endif %}

@@ -11,8 +11,6 @@ namespace Application\Command\Make;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
-use Joomla\Filesystem\Folder;
-
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -43,8 +41,6 @@ class Make extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->addOption(
 			new TrackerCommandOption(
 				'noprogress', '',
@@ -56,31 +52,14 @@ class Make extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * NOTE: This command must not be executed without parameters !
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make');
-
-		$errorTitle = 'Please use one of the following:';
-
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  ' . $errorTitle . '  </error>');
-
-		foreach (Folder::files(__DIR__) as $file)
-		{
-			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
-
-			if ('make' == $cmd)
-			{
-				continue;
-			}
-
-			$this->out('<error>  make ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
-		}
-
-		$this->out('<error>                                    </error>');
+		return $this->displayMissingOption(__DIR__);
 	}
 }

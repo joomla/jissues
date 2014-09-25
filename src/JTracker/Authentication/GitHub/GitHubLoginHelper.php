@@ -47,6 +47,14 @@ class GitHubLoginHelper
 	private $container;
 
 	/**
+	 * Path to user avatars
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $avatarPath = '';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   Container  $container  The DI container.
@@ -70,6 +78,8 @@ class GitHubLoginHelper
 			$this->clientId     = isset($gitHubAccounts[0]->client_id) ? $gitHubAccounts[0]->client_id : '';
 			$this->clientSecret = isset($gitHubAccounts[0]->client_secret) ? $gitHubAccounts[0]->client_secret : '';
 		}
+
+		$this->avatarPath = JPATH_THEMES . '/images/avatars';
 	}
 
 	/**
@@ -187,7 +197,7 @@ class GitHubLoginHelper
 	 */
 	public function saveAvatar($username)
 	{
-		$path = JPATH_THEMES . '/images/avatars/' . $username . '.png';
+		$path = $this->avatarPath . '/' . $username . '.png';
 
 		if (file_exists($path))
 		{
@@ -228,6 +238,32 @@ class GitHubLoginHelper
 	}
 
 	/**
+	 * Refresh an avatar.
+	 *
+	 * @param   string  $username  The username to retrieve the avatar for.
+	 *
+	 * @return  integer  The function returns the number of bytes that were written to the file, or false on failure.
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 * @throws  \DomainException
+	 */
+	public function refreshAvatar($username)
+	{
+		$path = $this->avatarPath . '/' . $username . '.png';
+
+		if (file_exists($path))
+		{
+			if (false == unlink($path))
+			{
+				throw new \DomainException('Can not remove: ' . $path);
+			}
+		}
+
+		return $this->saveAvatar($username);
+	}
+
+	/**
 	 * Get an avatar path.
 	 *
 	 * @param   GitHubUser  $user  The user.
@@ -245,11 +281,9 @@ class GitHubLoginHelper
 			return $avatars[$user->username];
 		}
 
-		$base = JPATH_THEMES . '/images/avatars/';
+		$path = $this->avatarPath . '/' . $user->username . '.png';
 
-		$avatar = $base . '/' . $user->username . '.png';
-
-		$avatars[$user->username] = file_exists($avatar) ? $avatar : $base . '/user-default.png';
+		$avatars[$user->username] = file_exists($path) ? $path : $this->avatarPath . '/user-default.png';
 
 		return $avatars[$user->username];
 	}

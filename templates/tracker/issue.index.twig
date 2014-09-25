@@ -3,14 +3,17 @@
 
 {% extends "index.twig" %}
 
+{% import "tpl/activities.twig" as activities %}
+
 {% block title %}{{ project.title }} #{{ item.issue_number }} - {{ item.title }}{% endblock %}
 
-{% block headerText %}{{ project.title }}{% endblock %}
+{% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
     <!-- CSS for coloured code -->
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/core/css/diff.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
@@ -19,6 +22,12 @@
         a:target {
             /* Anchor links in events and fixed top bar */
             padding-top: 120px;;
+        }
+        .tests-success, .tests-1 {
+            color: green;
+        }
+        .tests-fail, .tests-2 {
+            color: red;
         }
     </style>
 {% endblock %}
@@ -31,7 +40,11 @@
         </div>
     {% else %}
 
-    <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
+        <a class="btn pull-right"
+           href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}
+        </a>
+
+        <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
 
     <!-- Status bar -->
 
@@ -39,7 +52,7 @@
 
     <ul class="breadcrumb">
 
-        {% if user.check("edit") %}
+        {% if user.check("edit") or canEditOwn %}
             <li>
                 <a class="btn btn-warning"
                    href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number ~ '/edit' }}">
@@ -111,6 +124,15 @@
                 </li>
             {% endif %}
 
+            {% if item.pr_head_ref %}
+                <li>
+                    &nbsp;&bull;&nbsp;
+                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}">
+                        {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
+                    </a>
+                </li>
+            {% endif %}
+
         {% endif %}
 
         {% if item.foreign_number %}
@@ -124,8 +146,45 @@
         {% endif %}
     </ul>
 
-    <!-- Relations -->
+        {% if item.merge_state %}
+            <ul class="breadcrumb">
+                <li>{{ item.merge_state|mergeBadge|raw }}</li>
 
+                {% if item.gh_merge_status.targetUrl %}
+                    <li>
+                        {% if item.gh_merge_status.description %}
+                            {{ item.gh_merge_status.description }}
+                        {% endif %}
+                    </li>
+                    <li>
+                        <a href="{{ item.gh_merge_status.targetUrl }}">
+                            {{ 'Details'|_ }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+<!-- Categories -->
+    {% if item.categories %}
+        <ul class="breadcrumb">
+            <li>
+                <strong>{{ 'Categories:'|_ }}</strong>
+            </li>
+
+                {% for category in item.categories %}
+                    <li>
+                    <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' ~ category.alias }}">
+                        <span class="label" style="background-color:#{{ category.color }};color:{{ getContrastColor(category.color) }}">
+                            {{ category.title }}
+                        </span>
+                    </a>
+                    </li>
+                {% endfor %}
+        </ul>
+    {% endif %}
+
+<!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
             {{ item.rel_name }}
@@ -154,12 +213,16 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="{{ item.votes or user.id ? "span7" : "span10" }} well-small issue-description">
+        <div class="span7 well-small issue-description">
             {{ item.description|raw }}
         </div>
 
-        {% if item.votes or user.id %}
         <div class="span3 well">
+
+            {% if item.votes or user.id%}
+            <h4>{{ 'Votes'|_ }}</h4>
+            {% endif %}
+
             {% if item.votes %}
             <div class="row-fluid">
                 <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
@@ -214,53 +277,156 @@
                 </a>
             </form>
             {% endif %}
+
+            {% if item.has_code %}
+
+            <h4>{{ 'Tests:'|_ }}</h4>
+
+            <ul class="unstyled">
+                <li>
+                    {{ 'Successful: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}<br />
+                    <span id="usertests-success" class="tests-success"></span>
+                </li>
+                <li>
+                    {{ 'Unsuccessful: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}<br />
+                    <span id="usertests-fail" class="tests-fail"></span>
+                </li>
+            </ul>
+
+                {% if user.id %}
+                <form class="form-inline tests-report" name="testsForm">
+                    <fieldset>
+                        <p>{{ "I've tested this item"|_ }}</p>
+                        <ul class="unstyled">
+                            <li>
+                                <label class="radio">
+                                    <input type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
+                                    {{ "Not tested"|_ }}
+                                </label>
+                            </li>
+                            <li>
+                                <label class="radio tests-success">
+                                    <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                    {{ "Tested successfully"|_ }}
+                                </label>
+                            </li>
+                            <li>
+                                <label class="radio tests-fail">
+                                    <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                    {{ "Tested unsuccessfully"|_ }}
+                                </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div id="testResult"></div>
+                    <a href="javascript:" class="btn btn-primary"
+                       onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', 'tplNewTestResult');">
+                        {{ "Submit test result"|_ }}
+                    </a>
+                </form>
+                {% endif %}
+
+                {% if user.check('edit') %}
+                    <hr />
+                    <h6>{{ 'Alter test results' }}</h6>
+                    <form class="form-inline">
+
+                        {{ 'Set the test result for user %s to %s'|_|format(
+                            '<input name="altered-user" class="span10" placeholder="' ~ 'username'|_ ~ '"/>',
+                            '<select name="altered" class="span12">'
+                            ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
+                            ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
+                            ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
+                            ~ '</select>'
+                        )|raw }}
+                        <div id="alterResult"></div>
+                        <a href="javascript:" class="btn btn-primary"
+                           onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', 'tplNewAlterTestResult');">
+                            {{ "Alter test result"|_ }}
+                        </a>
+
+                    </form>
+                {% endif %}
+
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 
     <!-- Activity stream -->
 
     <div class="well-small" style="font-size: 32px;" data-icon="&#xe010;" aria-hidden="true"></div>
 
+    {% set activitiesCnt = 0 %}
     {% for activity in item.activities %}
-        <div id="event-{{ activity.activities_id }}" class="row-activity" id="activity-{{ activity.activities_id }}">
+        <div id="event-{{ activity.activities_id }}">
             <div class="row-fluid">
-                <div class="span1 activity-avatar hidden-phone">
-                    {{ avatar(activity.user, 40, 'avatar')|raw }}
+            {% if 'test_item' == activity.event %}
+                {% set change = activity.text|json_decode %}
+                <div class="offset1 span9 activity-action">
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span class="tests-{{ change }}">{{ userTestOptions(change) }}</span>
                 </div>
-                <div class="span11 activity-action">
-                    <div class="well well-small">
-                        <img src="{{ uri.base.path }}images/tracker/action_{{ activity.event }}.png"
-                             alt="{{ activity.event }} on {{ activity.created_date|date("j M y") }}"
-                             title="{{ activity.event }} on {{ activity.created_date|date("j M y") }}"/>
-                        <b>{{ activity.user }}</b>
-                        - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                        - {{ activity.created_date|date("j M y") }}
-                    </div>
+            {% elseif 'alter_testresult' == activity.event %}
+                {% set change = activity.text|json_decode %}
+                <div class="offset1 span9 activity-action">
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <b>{{ change.user }}</b>: <span class="tests-{{ change.value }}">{{ userTestOptions(change.value) }}</span>
                 </div>
-            </div>
-            {% if activity.event == "change" or activity.text != '' %}
+            {% elseif 'commit' == activity.event %}
+                <div class="offset1 span11">
+                    <span class="pull-right">
+                        <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.activities_id }}">
+                            {{ activity.activities_id|slice(0, 7) }}
+                        </a>
+                        <span title="{{ activity.created_date|date("j M Y H:i:s") }}">{{ activity.created_date|date("j M y") }} <i class="icon-calendar" style="cursor: help"></i></span>
+                    </span>
+                    <i class="octicon octicon-git-commit" title="{{ 'Git commit' }}"></i>
+                    <span title="{{ activity.user }}">
+                        {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    </span>
+                    <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.activities_id }}">
+                        {{ activity.text }}
+                    </a>
+                </div>
+            {% elseif 'change' == activity.event %}
+                <div class="offset1 span9 activity-action">
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                </div>
                 <div class="row-fluid">
-                    <div class="offset1 span11">
+                    <div class="offset1 span9">
                         {% if "change" == activity.event %}
                             <table class="table">
                             {% for change in activity.text|json_decode %}
-                                <tr>
-                                    <td class="span2">{{ change.name|title }}</td>
-                                    {% if "status" == change.name %}
-                                    <td class="span4 alert-{{ statuses(change.old).closed ? "error" : "success" }}">
-                                        {{ statuses(change.old).status|_ }}
-                                    </td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4 alert-{{ statuses(change.new).closed ? "error" : "success" }}">
-                                        {{ statuses(change.new).status|_ }}
-                                    </td>
-                                    {% else %}
-                                    <td class="span4">{{ change.old }}</td>
-                                    <td class="span1">&rArr;</td>
-                                    <td class="span4">{{ change.new }}</td>
-                                    {% endif %}
-                                </tr>
+                                {% if 'status' == change.name %}
+                                    {{ activities.status(change.old, change.new) }}
+                                {% elseif 'description_raw' == change.name%}
+                                    {% set activitiesCnt = activitiesCnt + 1 %}
+                                    {{ activities.description(change.old, change.new, activitiesCnt) }}
+                                {% elseif 'title' == change.name %}
+                                    {% set activitiesCnt = activitiesCnt + 1 %}
+                                    {{ activities.title(change.old, change.new, activitiesCnt) }}
+                                {% elseif 'priority' == change.name %}
+                                    {{ activities.priority(change.old, change.new) }}
+                                {% elseif 'labels' == change.name %}
+                                    {{ activities.labels(change.old, change.new) }}
+                                {% elseif 'easy' == change.name %}
+                                    {{ activities.easy(change.old, change.new) }}
+                                {% elseif 'rel_type' == change.name %}
+                                    {{ activities.relationType(change.old, change.new) }}
+                                {% elseif "category" == change.name %}
+                                    {{ activities.category(change.old, change.new) }}
+                                {% else %}
+                                    {{ activities.change(change.name, change.old, change.new) }}
+                                {% endif %}
                             {% endfor %}
                             </table>
                         {% else %}
@@ -268,7 +434,30 @@
                         {% endif %}
                     </div>
                 </div>
+            {% elseif activity.text != '' %}
+                {# Comment #}
+                <div class="span1 activity-avatar">
+                    {{ avatar(activity.user, 40, 'avatar')|raw }}
+                </div>
+                <div class="span11 activity-comment">
+                    <div class="well well-small">
+                        <b>{{ activity.user }}</b>
+                        - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                        - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    </div>
+                    <div style="margin: 10px;">
+                        {{ activity.text|raw }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="offset1 span9">
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                </div>
             {% endif %}
+            </div>
         </div>
     {% endfor %}
 
@@ -313,29 +502,56 @@
     {% endif %}
 
     {% endif %}
+
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->
 
     <script type="text/x-tmpl" id="tplNewComment">
-        <div id="event-[%= o.activities_id %]" class="row-activity" id="activity-[%= o.activities_id %]">
+        <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
-                <div class="span1 activity-avatar hidden-phone">
+                <div class="span1 activity-avatar">
                     {{ avatar(user.username, 40, 'avatar')|raw }}
                 </div>
-                <div class="span11 activity-action">
+                <div class="span11 activity-comment">
                     <div class="well well-small">
-                        <img src="{{ uri.base.path }}images/tracker/action_comment.png"
-                             alt="comment on [%= o.created_at %]"
-                             title="comment on [%= o.created_at %]"/>
                         <b>{{ user.username }}</b>
-                        - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
+                        - <a href="/{{ uri.route }}#event-[%= o.activities_id %]">comment</a>
+                        - <span title="[%= o.created_at %]"><i class="icon-calendar"></i>[%= o.created_at %]</span>
                     </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="offset1 span11">
+                    <div style="margin: 10px;">
                         [%# o.text %]
                     </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-tmpl" id="tplNewTestResult">
+        [% var resultValues = ['{{ userTestOptions(0) }}', '{{ userTestOptions(1) }}', '{{ userTestOptions(2) }}']; %]
+        <div id="event-[%= o.activities_id %]">
+            <div class="row-fluid">
+                <div class="offset1 span11 activity-action">
+                    {{ avatar(user.username, 20, 'avatar')|raw }}
+                    <b>{{ user.username }}</b>
+                    - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
+                    - [%= o.created_date %]
+                    - [%= resultValues[o.text] %]
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-tmpl" id="tplNewAlterTestResult">
+        [% var resultValues = ['{{ userTestOptions(0) }}', '{{ userTestOptions(1) }}', '{{ userTestOptions(2) }}']; %]
+        <div id="event-[%= o.activities_id %]">
+            <div class="row-fluid">
+                <div class="offset1 span11 activity-action">
+                    {{ avatar(user.username, 20, 'avatar')|raw }}
+                    <b>{{ user.username }}</b>
+                    - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
+                    - [%= o.created_date %]
+                    - [%= o.text.user + ': ' + resultValues[o.text.value] %]
                 </div>
             </div>
         </div>
@@ -364,6 +580,10 @@
 
         $(document).ready(function() {
             $('#comment').markItUp(myMarkdownSettings);
+            JTracker.updateTests(
+                    {{ item.testsSuccess ? ("['" ~ item.testsSuccess|join("', '") ~ "']")|raw : '[]' }},
+                    {{ item.testsFailure ? ("['" ~ item.testsFailure|join("', '") ~ "']")|raw : '[]'}}
+            );
         });
 
         $('a[data-toggle="tab"]').on('shown', function (e)

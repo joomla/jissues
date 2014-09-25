@@ -23,7 +23,8 @@
 	"system": {
 		"list_limit": "20",
 		"gzip"      : "0",
-		"offset"    : "UTC"
+		"offset"    : "UTC",
+		"use_cdn"   : "0"
 	},
 
 	"acl": {
@@ -35,7 +36,7 @@
 
 	"cli-application": {
 		"colors"      : "1",
-		"progress-bar": "1"
+		"progress-bar": "0"
 	},
 
 	"debug": {
@@ -47,7 +48,5 @@
 		"log-path": "logs"
 	},
 
-	"languages": [
-		"en-GB", "de-DE", "ru-RU"
-	]
+	"languages": []
 }

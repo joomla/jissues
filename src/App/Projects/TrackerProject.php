@@ -20,6 +20,8 @@ use Joomla\Database\DatabaseDriver;
  * @property-read   string   $alias             Project URL alias
  * @property-read   string   $gh_user           GitHub user
  * @property-read   string   $gh_project        GitHub project
+ * @property-read   string   $gh_editbot_user   GitHub editbot username.
+ * @property-read   string   $gh_editbot_pass   GitHub editbot password.
  * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property-read   string   $short_title       Project short title
  *
@@ -68,6 +70,22 @@ class TrackerProject implements \Serializable
 	protected $gh_project;
 
 	/**
+	 * GitHub edit bot user name.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $gh_editbot_user;
+
+	/**
+	 * GitHub edit bot password.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $gh_editbot_pass;
+
+	/**
 	 * External issue tracker link
 	 *
 	 * @var    string
@@ -97,7 +115,7 @@ class TrackerProject implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $defaultActions = array('view', 'create', 'edit', 'manage');
+	private $defaultActions = array('view', 'create', 'edit', 'editown', 'manage');
 
 	/**
 	 * Array containing default user groups
@@ -467,5 +485,69 @@ class TrackerProject implements \Serializable
 		{
 			$this->$key = $value;
 		}
+	}
+
+	/**
+	 * Get the default actions.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getDefaultActions()
+	{
+		return $this->defaultActions;
+	}
+
+	/**
+	 * Get the edit bot username.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getGh_Editbot_User()
+	{
+		return $this->gh_editbot_user;
+	}
+
+	/**
+	 * Get the edit bot password.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getGh_Editbot_Pass()
+	{
+		return $this->gh_editbot_pass;
+	}
+
+	/**
+	 * Get Categories list object for displaying
+	 *
+	 * @return  array
+	 *
+	 * @since    1.0
+	 */
+	public function getCategories()
+	{
+		static $categories;
+
+		if (!$categories)
+		{
+			$db    = $this->database;
+			$query = $db->getQuery(true);
+
+			$query
+				->select('*')
+				->from($db->quoteName('#__issues_categories'))
+				->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+				->order($db->quoteName('title'));
+
+			$categories = $db->setQuery($query)->loadObjectList();
+		}
+
+		return $categories;
 	}
 }

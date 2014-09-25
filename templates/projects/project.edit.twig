@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}Project{% endblock %}
+{% block title %}{{ "Edit Project"|_ }}{% endblock %}
 
 {% block prependMenu %}
     <li>
@@ -65,6 +65,20 @@
                 <label class="control-label" for="gh_project">{{ "GitHub Repo"|_ }}</label>
                 <div class="controls">
                     <input type="text" name="project[gh_project]" id="gh_project" value="{{ project.gh_project }}">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="gh_editbot_user">{{ "GitHub Editbot user"|_ }}</label>
+                <div class="controls">
+                    <input type="text" name="project[gh_editbot_user]" id="gh_editbot_user" value="{{ project.gh_editbot_user }}">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="gh_editbot_pass">{{ "GitHub Editbot password"|_ }}</label>
+                <div class="controls">
+                    <input type="password" name="project[gh_editbot_pass]" id="gh_editbot_pass" value="{{ project.gh_editbot_pass }}">
                 </div>
             </div>
 

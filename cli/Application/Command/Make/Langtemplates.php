@@ -76,6 +76,7 @@ class Langtemplates extends Make
 		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/jtracker');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
@@ -129,6 +130,19 @@ class Langtemplates extends Make
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
 			$this->replacePaths(JPATH_ROOT . '/templates', $twigDir, $templatePath);
+
+			// Process the CLI application
+
+			$extension = 'cli';
+			$domain    = 'CLI';
+
+			$this->out('Processing: ' . $domain . ' ' . $extension);
+
+			$templatePath = Storage::getTemplatePath($extension, $domain);
+
+			$paths = array(ExtensionHelper::getDomainPath($domain));
+
+			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 		}
 
 		// Process App templates
@@ -152,7 +166,7 @@ class Langtemplates extends Make
 
 			$domain = 'App';
 
-			$this->makePhpFromTwig(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension);
+			$this->makePhpFromTwig(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, true);
 
 			$templatePath = JPATH_ROOT . '/src/App/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
@@ -165,53 +179,6 @@ class Langtemplates extends Make
 
 			$this->replacePaths(JPATH_ROOT . '/templates/' . strtolower($extension), JPATH_ROOT . '/cache/twig/' . $extension, $templatePath);
 		}
-
-		$this->processDatabase();
-	}
-
-	/**
-	 * A special routine to handle translation strings contained in the database.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	protected function processDatabase()
-	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->getContainer()->get('db');
-
-		$strings = $db->setQuery(
-			$db->getQuery(true)
-			->from('#__status')
-			->select('status')
-		)->loadColumn();
-
-		$path = JPATH_ROOT . '/src/App/Tracker/g11n/templates/Tracker.pot';
-
-		$contents = file_get_contents($path);
-
-		$starter = "\n# DATABASE TRANSLATIONS\n";
-
-		$pos = strpos($starter, $contents);
-
-		if ($pos)
-		{
-			$contents = substr($contents, 0, $pos);
-		}
-
-		$contents .= $starter;
-
-		foreach ($strings as $string)
-		{
-			$contents .= "\n#: DATABASE\n";
-			$contents .= "msgid \"$string\"\n";
-			$contents .= "msgstr \"\"\n";
-		}
-
-		file_put_contents($path, $contents);
-
-		return $this;
 	}
 
 	/**
@@ -480,14 +447,15 @@ class Langtemplates extends Make
 	/**
 	 * Compile twig templates to PHP.
 	 *
-	 * @param   string  $twigDir   Path to twig templates.
-	 * @param   string  $cacheDir  Path to cache dir.
+	 * @param   string   $twigDir    Path to twig templates.
+	 * @param   string   $cacheDir   Path to cache dir.
+	 * @param   boolean  $recursive  Scan the directory recursively.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	protected function makePhpFromTwig($twigDir, $cacheDir)
+	protected function makePhpFromTwig($twigDir, $cacheDir, $recursive = false)
 	{
 		$loader = new Twig_Loader_Filesystem(array(JPATH_ROOT . '/templates', $twigDir));
 
@@ -503,14 +471,29 @@ class Langtemplates extends Make
 		// Configure Twig the way you want
 		$twig->addExtension(new TrackerExtension($this->getContainer()));
 
-		// Iterate over all your templates
-		/* @type \DirectoryIterator $file */
-		foreach (new \DirectoryIterator($twigDir) as $file)
+		// Iterate over all the templates
+		if ($recursive)
 		{
-			// Force compilation
-			if ($file->isFile())
+			/* @type \DirectoryIterator $file */
+			foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($twigDir)) as $file)
 			{
-				$twig->loadTemplate(str_replace($twigDir . '/', '', $file));
+				// Force compilation
+				if ($file->isFile())
+				{
+					$twig->loadTemplate(str_replace($twigDir . '/', '', $file));
+				}
+			}
+		}
+		else
+		{
+			/* @type \DirectoryIterator $file */
+			foreach (new \DirectoryIterator($twigDir) as $file)
+			{
+				// Force compilation
+				if ($file->isFile())
+				{
+					$twig->loadTemplate(str_replace($twigDir . '/', '', $file));
+				}
 			}
 		}
 
@@ -543,7 +526,7 @@ class Langtemplates extends Make
 				$f->twigPhpPath = str_replace(JPATH_ROOT, '', $fileInfo->getPathname());
 				$f->lines = file($fileInfo->getPathname());
 
-				if (false == isset($f->lines[2]) || false == preg_match('/([A-z0-9\.\-]+)/', $f->lines[2], $matches))
+				if (false == isset($f->lines[2]) || false == preg_match('| ([A-z0-9\.\-\/]+)|', $f->lines[2], $matches))
 				{
 					throw new \RuntimeException('Can not parse the twig template at: ' . $fileInfo->getPathname());
 				}

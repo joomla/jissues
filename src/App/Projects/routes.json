@@ -1,0 +1,8 @@
+{
+	"projects"                     : "\\Projects\\Controller\\Projects",
+	"project/add"                  : "\\Projects\\Controller\\Project\\Add",
+	"project/:project_alias"       : "\\Projects\\Controller\\Project",
+	"project/:project_alias/edit"  : "\\Projects\\Controller\\Project\\Edit",
+	"project/:project_alias/delete": "\\Projects\\Controller\\Project\\Delete",
+	"saveproject"                  : "\\Projects\\Controller\\Project\\Save"
+}

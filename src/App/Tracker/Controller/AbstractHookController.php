@@ -10,6 +10,7 @@ namespace App\Tracker\Controller;
 
 use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Table\StatusTable;
 
 use BabDev\Helper as BDHelper;
 
@@ -19,9 +20,10 @@ use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
-
 use JTracker\Database\AbstractDatabaseTable;
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -112,7 +114,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	{
 		/*
 		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
-		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullListener
+		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
 		 */
 		$baseClass = ucfirst(str_replace('-', '', $this->project->gh_project)) . ucfirst($this->type) . 'Listener';
 		$fullClass = __NAMESPACE__ . '\\Hooks\\Listeners\\' . $baseClass;
@@ -121,6 +123,34 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		{
 			$this->dispatcher->addListener(new $fullClass);
 			$this->listenerSet = true;
+		}
+	}
+
+	/**
+	 * Checks if an issue exists
+	 *
+	 * @param   integer  $issue  Issue ID to check
+	 *
+	 * @return  string|null  The issue ID if it exists or null
+	 *
+	 * @since   1.0
+	 */
+	protected function checkIssueExists($issue)
+	{
+		try
+		{
+			return $this->db->setQuery(
+				$this->db->getQuery(true)
+					->select($this->db->quoteName('id'))
+					->from($this->db->quoteName('#__issues'))
+					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
+					->where($this->db->quoteName('issue_number') . ' = ' . $issue)
+			)->loadResult();
+		}
+		catch (\RuntimeException $e)
+		{
+			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
+			$this->getContainer()->get('app')->close();
 		}
 	}
 
@@ -425,6 +455,75 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		else
 		{
 			return implode(',', $appLabelIds);
+		}
+	}
+
+	/**
+	 * Process the action of an item to determine its status
+	 *
+	 * @param   string   $action           The action being performed
+	 * @param   integer  $currentStatusId  The current status ID of issue
+	 *
+	 * @return  integer|null  Status ID if the status changes, null if it stays the same
+	 *
+	 * @since   1.0
+	 */
+	protected function processStatus($action, $currentStatusId = null)
+	{
+		switch ($action)
+		{
+			case 'closed':
+				$status = 10;
+
+				// Get the list of status IDs based on the GitHub close state
+				$statusIds = (new StatusTable($this->db))
+					->getStateStatusIds(true);
+
+				// Check if the issue status is in the array.
+				// If it is, then the item didn't change close state and we don't need to change the status.
+				if ($currentStatusId && in_array($currentStatusId, $statusIds))
+				{
+					$status = null;
+				}
+
+				return $status;
+
+			case 'opened':
+			case 'reopened':
+				$status = 1;
+
+				// Get the list of status IDs based on the GitHub open state
+				$statusIds = (new StatusTable($this->db))
+					->getStateStatusIds(false);
+
+				// Check if the issue status is in the array.
+				// If it is, then the item didn't change open state and we don't need to change the status.
+				if ($currentStatusId && in_array($currentStatusId, $statusIds))
+				{
+					$status = null;
+				}
+
+				return $status;
+
+			default :
+				return null;
+		}
+	}
+
+	/**
+	 * Retrieves the user's avatar if it doesn't exist
+	 *
+	 * @param   string  $login  Username to process
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function pullUserAvatar($login)
+	{
+		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $login . '.png'))
+		{
+			(new GitHubLoginHelper($this->getContainer()))->saveAvatar($login);
 		}
 	}
 

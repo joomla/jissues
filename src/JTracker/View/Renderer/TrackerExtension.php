@@ -8,6 +8,10 @@
 
 namespace JTracker\View\Renderer;
 
+use Adaptive\Diff\Diff;
+
+use App\Tracker\DiffRenderer\Html\Inline;
+
 use g11n\g11n;
 
 use Joomla\DI\Container;
@@ -72,6 +76,7 @@ class TrackerExtension extends \Twig_Extension
 								? $application->getUser()->params->get('language')
 								: g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
+			'useCDN'         => $application->get('system.use_cdn'),
 		);
 	}
 
@@ -91,10 +96,19 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
-			new \Twig_SimpleFunction('statuses', array($this, 'getStatus')),
+			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
+			new \Twig_SimpleFunction('getPriority', array($this, 'getPriority')),
+			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
+			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
+			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
 			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
+			new \Twig_SimpleFunction('getContrastColor', array($this, 'getContrastColor')),
+			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
+			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
+			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),
+			new \Twig_SimpleFunction('userTestOptions', array($this, 'getUserTestOptions')),
 		);
 
 		if (!JDEBUG)
@@ -123,6 +137,8 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFilter('labels', array($this, 'renderLabels')),
 			new \Twig_SimpleFilter('yesno', array($this, 'yesNo')),
 			new \Twig_SimpleFilter('_', 'g11n3t'),
+			new \Twig_SimpleFilter('mergeStatus', array($this, 'getMergeStatus')),
+			new \Twig_SimpleFilter('mergeBadge', array($this, 'renderMergeBadge')),
 		);
 	}
 
@@ -199,6 +215,40 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
+	 * Get a text list of issue priorities.
+	 *
+	 * @return  array  The list of priorities.
+	 *
+	 * @since   1.0
+	 */
+	public function getPriorities()
+	{
+		return [
+			1 => g11n3t('Critical'),
+			2 => g11n3t('Urgent'),
+			3 => g11n3t('Medium'),
+			4 => g11n3t('Low'),
+			5 => g11n3t('Very low')
+		];
+	}
+
+	/**
+	 * Get the priority text.
+	 *
+	 * @param   integer  $id  The priority id.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getPriority($id)
+	{
+		$priorities = $this->getPriorities();
+
+		return isset($priorities[$id]) ? $priorities[$id] : 'N/A';
+	}
+
+	/**
 	 * Dummy function to prevent throwing exception on dump function in the non-debug mode.
 	 *
 	 * @return  void
@@ -247,6 +297,63 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $statuses[$id];
+	}
+
+	/**
+	 * Get a text list of statuses.
+	 *
+	 * @param   int  $state  The state of issue: 0 - open, 1 - closed.
+	 *
+	 * @return  array  The list of statuses.
+	 *
+	 * @since   1.0
+	 */
+	public function getStatuses($state = null)
+	{
+		switch ((string) $state)
+		{
+			case '0':
+				$statuses = [
+					1 => g11n3t('New'),
+					2 => g11n3t('Confirmed'),
+					3 => g11n3t('Pending'),
+					4 => g11n3t('Ready To Commit'),
+					6 => g11n3t('Needs Review'),
+					7 => g11n3t('Information Required')
+				];
+				break;
+
+			case '1':
+				$statuses = [
+					5 => g11n3t('Fixed in Code Base'),
+					8 => g11n3t('Unconfirmed Report'),
+					9 => g11n3t('No Reply'),
+					10 => g11n3t('Closed'),
+					11 => g11n3t('Expected Behaviour'),
+					12 => g11n3t('Known Issue'),
+					13 => g11n3t('Duplicate Report')
+				];
+				break;
+
+			default:
+				$statuses = [
+					1 => g11n3t('New'),
+					2 => g11n3t('Confirmed'),
+					3 => g11n3t('Pending'),
+					4 => g11n3t('Ready To Commit'),
+					6 => g11n3t('Needs Review'),
+					7 => g11n3t('Information Required'),
+					5 => g11n3t('Fixed in Code Base'),
+					8 => g11n3t('Unconfirmed Report'),
+					9 => g11n3t('No Reply'),
+					10 => g11n3t('Closed'),
+					11 => g11n3t('Expected Behaviour'),
+					12 => g11n3t('Known Issue'),
+					13 => g11n3t('Duplicate Report')
+				];
+		}
+
+		return $statuses;
 	}
 
 	/**
@@ -368,6 +475,28 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
+	 * Get the relation type text.
+	 *
+	 * @param   integer  $id  The relation id.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getRelType($id)
+	{
+		foreach ($this->getRelTypes() as $relType)
+		{
+			if ($relType->value == $id)
+			{
+				return $relType->text;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Generate a localized yes/no message.
 	 *
 	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
@@ -391,5 +520,133 @@ class TrackerExtension extends \Twig_Extension
 	public function getTimezones()
 	{
 		return \DateTimeZone::listIdentifiers(\DateTimeZone::ALL);
+	}
+
+	/**
+	 * Generate HTML output for a "merge status badge".
+	 *
+	 * @param   string  $status  The merge status.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function renderMergeBadge($status)
+	{
+		switch ($status)
+		{
+			case 'success':
+				$class = 'success';
+				break;
+			case 'pending':
+				$class = 'warning';
+				break;
+			case 'error':
+			case 'failure':
+				$class = 'important';
+				break;
+
+			default:
+				throw new \RuntimeException('Unknown status: ' . $status);
+		}
+
+		return '<span class="badge badge-' . $class . '">' . $this->getMergeStatus($status) . '</span>';
+	}
+
+	/**
+	 * Generate a translated merge status.
+	 *
+	 * @param   string  $status  The merge status.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function getMergeStatus($status)
+	{
+		switch ($status)
+		{
+			case 'success':
+				return g11n3t('Success');
+
+			case 'pending':
+				return g11n3t('Pending');
+
+			case 'error':
+				return g11n3t('Error');
+
+			case 'failure':
+				return g11n3t('Failure');
+		}
+
+		throw new \RuntimeException('Unknown status: ' . $status);
+	}
+
+	/**
+	 * Render the differences between two text strings.
+	 *
+	 * @param   string   $old              The "old" text.
+	 * @param   string   $new              The "new" text.
+	 * @param   boolean  $showLineNumbers  To show line numbers.
+	 * @param   boolean  $showHeader       To show the table header.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function renderDiff($old, $new, $showLineNumbers = true, $showHeader = true)
+	{
+		$options = [];
+
+		$diff = new Diff(explode("\n", $old), explode("\n", $new), $options);
+
+		$renderer = new Inline;
+
+		$renderer->setShowLineNumbers($showLineNumbers);
+		$renderer->setShowHeader($showHeader);
+
+		return $diff->Render($renderer);
+	}
+
+	/**
+	 * Get the difference of two comma separated value strings.
+	 *
+	 * @param   string  $a  The "a" string.
+	 * @param   string  $b  The "b" string.
+	 *
+	 * @return string  difference values comma separated
+	 *
+	 * @since   1.0
+	 */
+	public function arrayDiff($a, $b)
+	{
+		$as = explode(',', $a);
+		$bs = explode(',', $b);
+
+		return implode(',', array_diff($as, $bs));
+	}
+
+	/**
+	 * Get a user test option string.
+	 *
+	 * @param   integer  $id  The option ID.
+	 *
+	 * @return  mixed array or string if an ID is given.
+	 *
+	 * @since   1.0
+	 */
+	public function getUserTestOptions($id = null)
+	{
+		static $options = [];
+
+		$options = $options ? : [
+			0 => g11n3t('Not tested'),
+			1 => g11n3t('Tested successfully'),
+			2 => g11n3t('Tested unsuccessfully')
+		];
+
+		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
 	}
 }

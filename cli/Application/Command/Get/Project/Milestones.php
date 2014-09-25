@@ -22,12 +22,16 @@ use Joomla\Date\Date;
 class Milestones extends Project
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Retrieve project milestones from GitHub.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve project milestones from GitHub.');
+	}
 
 	/**
 	 * Execute the command.
@@ -38,14 +42,14 @@ class Milestones extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Milestones');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Milestones'));
 
-		$this->logOut('Start retrieve Milestones')
+		$this->logOut(g11n3t('Start retrieving Milestones'))
 			->selectProject()
 			->setupGitHub()
 			->processMilestones()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished'));
 	}
 
 	/**
@@ -57,7 +61,7 @@ class Milestones extends Project
 	 */
 	protected function processMilestones()
 	{
-		$this->out('Fetching milestones...', false);
+		$this->out(g11n3t('Fetching milestones...'), false);
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -144,7 +148,7 @@ class Milestones extends Project
 		return $this->out('ok')
 			->logOut(
 				sprintf(
-					'Milestones: %1$d new, %2$d updated, %3$d deleted.',
+					g11n3t('Milestones: %1$d new, %2$d updated, %3$d deleted.'),
 					$cntNew, $cntUpdated, $cntDeleted
 				)
 			);

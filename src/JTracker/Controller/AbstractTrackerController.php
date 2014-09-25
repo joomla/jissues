@@ -111,7 +111,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				$this->getApplication()->getLogger()->info(
+				$app->getLogger()->info(
 					sprintf(
 						'Checking edit ID %s.%s: %d %s',
 						$context,
@@ -273,7 +273,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				$this->getApplication()->getLogger()->info(
+				$app->getLogger()->info(
 					sprintf(
 						'Holding edit ID %s.%s %s',
 						$context,
@@ -310,7 +310,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 			if (defined('JDEBUG') && JDEBUG)
 			{
-				$this->getApplication()->getLogger()->info(
+				$app->getLogger()->info(
 					sprintf(
 						'Releasing edit ID %s.%s %s',
 						$context,

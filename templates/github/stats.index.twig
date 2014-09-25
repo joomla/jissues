@@ -3,6 +3,52 @@
 
 {% extends "index.twig" %}
 
+{% block headerCSS %}
+    {{ parent() }}
+    <style>
+        /* tell the SVG path to be a thin blue line without any area fill */
+        path.line {
+            stroke: steelblue;
+            stroke-width: 1;
+            fill: none;
+        }
+
+        path.added {
+            stroke: green;
+        }
+
+        path.removed {
+            stroke: red;
+        }
+
+        .axis {
+            shape-rendering: crispEdges;
+        }
+
+        .x.axis line {
+            stroke: lightgrey;
+        }
+
+        .x.axis .minor {
+            stroke-opacity: .5;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .y.axis line, .y.axis path {
+            fill: none;
+            stroke: #000;
+        }
+
+        /* Pie */
+        .slice text {
+            font-size: 10pt;
+        }
+    </style>
+{% endblock %}
+
 {% block title %}{{ '%s - Statistics'|_|format(project.title) }}{% endblock %}
 
 {% block content %}
@@ -15,25 +61,315 @@
 
     {% else %}
 
+        <!--
+        <div id="bar-graph" style="border: 1px solid silver; padding: 5px;"></div>
+
+        <div id="pie-graph" style="border: 1px solid silver; padding: 5px;"></div>
+        -->
+
+        {% for stats in data %}
+            <h3>
+                {{ avatar(stats.author.login, 40, 'avatar')|raw }}
+                {{ stats.author.login }}
+            </h3>
+            Total commits: {{ stats.total }}
+            <div id="stats-{{ stats.author.login }}" style="border: 1px solid silver; padding: 5px;"></div>
+            <div id="commits-{{ stats.author.login }}" style="border: 1px solid silver; padding: 5px;"></div>
+        {% endfor %}
+
+        <h3>RAW data...</h3>
+
         <table class="table table-bordered">
 
-            {% for stats in data %}
-                <tr>
-                    <td>{{ stats.author.type }}</td>
-                    <td>{{ stats.author.login }}</td>
-                    <td>{{ stats.total }}</td>
+        {% for stats in data %}
+            <tr>
+                <td>{{ stats.author.type }}</td>
+                <td>{{ stats.author.login }}</td>
+                <td>{{ stats.total }}</td>
 
-                    {% for week in stats.weeks %}
-                        <td>
-                            {#{{ week.w }}<br />#}
-                            {{ week.a }}<br/>
-                            {{ week.d }}<br/>
-                            {{ week.c }}<br/>
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
+                {% for week in stats.weeks %}
+                    <td>
+                        <i class="icon-calendar hasTooltip" style="cursor: help;" title="{{ week.w|date('d M Y') }}"></i><br />
+                        {{ week.a }}<br/>
+                        {{ week.d }}<br/>
+                        {{ week.c }}<br/>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
         </table>
 
     {% endif %}
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+<script src="{{ uri.base.path }}vendor/d3/d3.js"></script>
+
+    <script>
+
+       // https://github.com/github/developer.github.com/blob/master/content/guides/rendering-data-as-graphs.md
+
+       /**
+         * Bar Graph
+         * http://www.recursion.org/d3-for-mere-mortals/
+         */
+       function drawBarGraph(data) {
+           var barWidth = 40;
+           var width = (barWidth + 10) * data.length;
+           var height = 200;
+
+           var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
+           var y = d3.scale.linear().domain([0, d3.max(data, function (d) {
+               return d.commits;
+           })]).
+                   rangeRound([0, height]);
+
+           // add the canvas to the DOM
+           var barGraph = d3.select("#bar-graph").
+                   append("svg:svg").
+                   attr("width", width).
+                   attr("height", height);
+
+           barGraph.selectAll("rect").
+                   data(data).
+                   enter().
+                   append("svg:rect").
+                   attr("x", function (d, index) {
+                       return x(index);
+                   }).
+                   attr("y", function (d) {
+                       return height - y(d.commits) - 20;
+                   }).
+                   attr("height", function (d) {
+                       return y(d.commits);
+                   }).
+                   attr("width", barWidth).
+                   attr("fill", "#2d578b");
+
+           barGraph.selectAll("text").
+                   data(data).
+                   enter().
+                   append("svg:text").
+                   attr("x", function (d, index) {
+                       return x(index) + barWidth;
+                   }).
+                   attr("y", function (d) {
+                       return height - y(d.commits);
+                   }).
+                   attr("dx", -barWidth / 2).
+                   attr("dy", "1.2em").
+                   attr("text-anchor", "middle").
+                   text(function (d) {
+                       return d.commits;
+                   }).
+                   attr("fill", "white");
+
+           barGraph.selectAll("text.yAxis").
+                   data(data).
+                   enter().
+                   append("svg:text").
+                   attr("x", function (d, index) {
+                       return x(index) + barWidth;
+                   }).
+                   attr("y", height - 20).
+                   attr("dx", -barWidth / 2).
+                   attr("dy", "1.2em").
+                   attr("text-anchor", "middle").
+                   attr("style", "font-size: 12; font-family: Helvetica, sans-serif").
+                   text(function (d) {
+                       return d.user;
+                   }).
+                  // attr("transform", "translate(0, 28)").
+                   // attr("transform", "rotate(5)").
+                   attr("fill", "black").
+                   attr("class", "yAxis");
+       }
+
+       /**
+        * Pie chart
+        * https://gist.github.com/enjalot/1203641
+        */
+       function drawPieGraph(data)
+       {
+           var w = 300,                        //width
+               h = 300,                            //height
+               r = 150,                            //radius
+               color = d3.scale.category20c();     //builtin range of colors
+
+           var vis = d3.select("#pie-graph")
+                   .append("svg:svg")              //create the SVG element inside the <body>
+                   .data([data])                   //associate our data with the document
+                   .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+                   .attr("height", h)
+                   .append("svg:g")                //make a group to hold our pie chart
+                   .attr("transform", "translate(" + r + "," + r + ")");    //move the center of the pie chart from 0, 0 to radius, radius
+
+           var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+                   .outerRadius(r);
+
+           var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+                   .value(function(d) { return d.commits; });    //we must tell it out to access the value of each element in our data array
+
+           var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+                   .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
+                   .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+                   .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+                   .attr("class", "slice");    //allow us to style things in the slices (like text)
+
+           arcs.append("svg:path")
+                   .attr("d", arc)                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+                   .attr("fill", function(d, i) { return color(i); } ); //set the color for each slice to be chosen from the color function defined above
+
+           arcs.append("svg:text")                                     //add a label to each slice
+                   .attr("transform", function(d) {                    //set the label's origin to the center of the arc
+                       //we have to make sure to set these before calling arc.centroid
+                       d.innerRadius = 0;
+                       d.outerRadius = r;
+                       return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+                   })
+                   .attr("text-anchor", "middle")                          //center the text on it's origin
+                   .text(function(d, i) { return data[i].user + " (" + data[i].commits + ")"; });      //get the label from our original data array
+       }
+
+
+       /**
+        * Draw commit stats graph
+        * https://gist.github.com/benjchristensen/2579599
+        * implementation heavily influenced by http://bl.ocks.org/1166403
+        */
+       function drawCommitStats(user, dataAdded, dataRemoved, dataTotal) {
+           var m = [10, 10, 30, 100]; // margins
+           var w = 800;                        //width
+           var h = 200 - m[0] - m[2];
+
+               // create a line function that can convert data[] into x and y points
+           var line = d3.svg.line()
+                   .x(function(d,i) {
+                       // verbose logging to show what's actually being done
+                       //console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+                       // return the X coordinate where we want to plot this datapoint
+                       return x(i);
+                   })
+                   .y(function(d) {
+                       // verbose logging to show what's actually being done
+                       //console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+                       // return the Y coordinate where we want to plot this datapoint
+                       return y(d);
+                   });
+
+           var m1 = d3.max(dataAdded);
+           var m2 = d3.max(dataRemoved);
+           var max = m1 > m2 ? m1 : m2;
+
+           var x = d3.scale.linear().domain([0, dataTotal.length]).range([0, w]);
+           var y = d3.scale.linear().domain([0, max]).range([h, 0]);
+
+           var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+           var yAxisLeft = d3.svg.axis().scale(y).ticks(5).orient("left");
+
+           var graph = d3.select("#stats-" + user).append("svg:svg")
+                   .attr("width", w + m[1] + m[3])
+                   .attr("height", h + m[0] + m[2])
+                   .append("svg:g")
+                   .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+           graph.append("svg:g")
+                   .attr("class", "x axis")
+                   .attr("transform", "translate(0," + h + ")")
+                   .call(xAxis);
+
+           graph.append("svg:g")
+                   .attr("class", "y axis")
+                   .attr("transform", "translate(-25,0)")
+                   .call(yAxisLeft);
+
+           graph.append("svg:path").attr("d", line(dataRemoved)).attr("class", "line removed");
+           graph.append("svg:path").attr("d", line(dataAdded)).attr("class", "line added");
+       }
+
+    /**
+     * Draw total stats graph
+     * https://gist.github.com/benjchristensen/2579599
+     * implementation heavily influenced by http://bl.ocks.org/1166403
+     */
+       function drawTotalStats(user, dataTotal) {
+            var m = [10, 10, 30, 100]; // margins
+            var h = 100 - m[0] - m[2];
+            var w = 800;                        //width
+            var x = d3.scale.linear().domain([0, dataTotal.length]).range([0, w]);
+            var y = d3.scale.linear().domain([0, d3.max(dataTotal)]).range([h, 0]);
+
+            var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+            var yAxisLeft = d3.svg.axis().scale(y).ticks(2).orient("left");
+
+            var line = d3.svg.line()
+                .x(function (d, i) {
+                    // verbose logging to show what's actually being done
+                    //console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+                    // return the X coordinate where we want to plot this datapoint
+                    return x(i);
+                })
+                .y(function (d) {
+                    // verbose logging to show what's actually being done
+                    //console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+                    // return the Y coordinate where we want to plot this datapoint
+                    return y(d);
+                });
+
+            var graph = d3.select("#commits-" + user).append("svg:svg")
+                    .attr("width", w + m[1] + m[3])
+                    .attr("height", h + m[0] + m[2])
+                    .append("svg:g")
+                    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+            graph.append("svg:g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + h + ")")
+                    .call(xAxis);
+
+            graph.append("svg:g")
+                    .attr("class", "y axis")
+                    .attr("transform", "translate(-25,0)")
+                    .call(yAxisLeft);
+
+            graph.append("svg:path").attr("d", line(dataTotal)).attr("class", "line");
+        }
+
+       var data = [
+           {% for stats in data %}
+           {user:"{{ stats.author.login }}", commits: {{ stats.total }}},
+           {% endfor %}
+       ];
+
+       // drawBarGraph(data);
+       // drawPieGraph(data);
+
+       {% for stats in data %}
+           // @todo move data preparation to PHP file
+            dataTotal = [
+                {% for week in stats.weeks %}
+                    {{ week.c }},
+                {% endfor %}
+            ];
+            dataAdded = [
+                {% for week in stats.weeks %}
+                {{ week.a }},
+                {% endfor %}
+            ];
+            dataRemoved = [
+                {% for week in stats.weeks %}
+                {{ week.d }},
+                {% endfor %}
+            ];
+
+            // Commit stats
+
+            drawCommitStats('{{ stats.author.login }}', dataAdded, dataRemoved, dataTotal);
+            drawTotalStats('{{ stats.author.login }}', dataTotal);
+
+        {% endfor %}
+
+    </script>
 {% endblock %}

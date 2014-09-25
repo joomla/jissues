@@ -26,7 +26,7 @@ class GetList extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('manage');
 
 		$project = $this->getContainer()->get('app')->getProject();
 

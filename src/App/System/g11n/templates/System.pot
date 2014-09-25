@@ -8,19 +8,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/system/config.index.twig:18
+#: /templates/system/routes.index.twig:6
+#: /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr ""
+
+#: /templates/system/config.index.twig:6
+msgid "Configuration"
+msgstr ""
+
+#: /templates/system/config.index.twig:21
 msgid "Save"
 msgstr ""
 
-#: /templates/system/config.index.twig:43
+#: /templates/system/config.index.twig:46
 msgid "Edit Configuration"
+msgstr ""
+
+#: /templates/system/config.index.twig:48
+#, php-format
+msgid "Loaded configuration file: %s"
+msgstr ""
+
+#: /src/App/System/Controller/Config/Save.php:52
+msgid "The configuration file has been saved."
 msgstr ""

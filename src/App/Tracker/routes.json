@@ -1,0 +1,29 @@
+{
+	"tracker": "\\Tracker\\Controller\\DefaultController",
+
+	"hooks/issues"  : "\\Tracker\\Controller\\Hooks\\ReceiveIssuesHook",
+	"hooks/pulls"   : "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
+	"hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
+
+	"tracker/:project_alias"              : "\\Tracker\\Controller\\Issue\\Listing",
+	"tracker/:project_alias/add"          : "\\Tracker\\Controller\\Issue\\Add",
+	"tracker/:project_alias/add-submit"   : "\\Tracker\\Controller\\Issue\\Submit",
+	"tracker/:project_alias/random"       : "\\Tracker\\Controller\\Issue\\Random",
+	"tracker/:project_alias/listing"      : "\\Tracker\\Controller\\Issue\\Listing",
+	"tracker/:project_alias/listing-ajax" : "\\Tracker\\Controller\\Issue\\Ajax\\Listing",
+	"tracker/:project_alias/:id"          : "\\Tracker\\Controller\\Issue\\Item",
+	"tracker/:project_alias/:id/edit"     : "\\Tracker\\Controller\\Issue\\Edit",
+	"tracker/:project_alias/:id/edit-save": "\\Tracker\\Controller\\Issue\\Save",
+	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Issue\\Ajax\\Info",
+	"submit/vote"                         : "\\Tracker\\Controller\\Issue\\Ajax\\Vote",
+	"submit/testresult"                   : "\\Tracker\\Controller\\TestResult\\Ajax\\Submit",
+	"alter/testresult"                    : "\\Tracker\\Controller\\TestResult\\Ajax\\Alter",
+	"submit/comment"                      : "\\Tracker\\Controller\\Comment\\Ajax\\Submit",
+	"upload/put"                          : "\\Tracker\\Controller\\Upload\\Ajax\\Put",
+	"upload/delete"                       : "\\Tracker\\Controller\\Upload\\Ajax\\Delete",
+    "category/:project_alias/add"         : "\\Tracker\\Controller\\Category\\Add",
+    "category/save"                       : "\\Tracker\\Controller\\Category\\Save",
+    "category/:project_alias"             : "\\Tracker\\Controller\\Category\\Listing",
+    "category/:project_alias/delete/:id/" : "\\Tracker\\Controller\\Category\\Delete",
+    "category/:project_alias/edit/:id/"   : "\\Tracker\\Controller\\Category\\Edit"
+}

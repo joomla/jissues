@@ -3,6 +3,8 @@
 
 {% extends "index.twig" %}
 
+{% block title %}PHP Info{% endblock %}
+
 {% block content %}
     {{ phpinfo|raw }}
 {% endblock %}

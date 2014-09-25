@@ -5,15 +5,22 @@
 
 {% block title %}{{ project.title ~ ' #' ~ item.issue_number }}{% endblock %}
 
+{% block headerText %} - {{ project.short_title }}{% endblock %}
+
 {% block headerCSS %}
     {{ parent() }}
+    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
+    <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
+
+    {% import "fields.twig" as fields %}
+
     <div class="alert alert-danger" style="display: none"></div>
 
     <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
@@ -56,23 +63,22 @@
         </li>
     </ul>
 
+    {% if user.check("edit") %}
+    {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
     <ul class="breadcrumb">
         <li>
             <label for="status">{{ translate('Status') }}</label>
             <select name="item[status]" id="status" class="span2">
-                {% for status in statuses %}
-                    <option {{ status.id == item.status ? "selected='selected'" : ""  }}
-                            value="{{ status.id }}">
-                        {{ status.status }}
-                    </option>
+                {% for key, value in getStatuses() %}
+                    <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                 {% endfor %}
             </select>
         </li>
         <li>
             <label for="priority">{{ translate('Priority') }}</label>
-            <select name="item[priority]" id="priority" class="span1">
-                {% for i in range(1, 5) %}
-                    <option {{ i == item.priority ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
+            <select name="item[priority]" id="priority" class="span2">
+                {% for key, value in priorities() %}
+                    <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
                 {% endfor %}
             </select>
         </li>
@@ -99,21 +105,18 @@
             <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
         </li>
         <li>
-            <label for="tests">{{ translate('Successful tests') }}</label>
-            <select name="item[tests]" id="tests" class="span1">
-                {% for i in range(0, 5) %}
-                    <option {{ i == item.tests ? "selected='selected'" : ""  }} value="{{ i }}">{{ i }}</option>
-                {% endfor %}
+            <label for="easy">{{ translate('Easy test') }}</label>
+            <select name="item[easy]" id="easy" class="span1">
+                <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
+                <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
         <li>
-            <label for="easy">{{ translate('Easy test') }}</label>
-            <select name="item[easy]" id="easy" class="span1">
-                <option {{ 0 == item.tests ? "selected='selected'" : ""  }} value="0">No</option>
-                <option {{ 1 == item.tests ? "selected='selected'" : ""  }} value="1">Yes</option>
-            </select>
+            {{ fields.label('categories[]', 'Categories'|_) }}
+            {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
         </li>
     </ul>
+    {% endif %}
 
     <div class="row-fluid">
         <div class="span11 well-small">
@@ -175,9 +178,9 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/dist/jquery.validate{{ jdebug ? "" : ".min" }}.js"></script>
     {% if lang != 'en-GB' %}
-        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
+        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/src/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
@@ -192,11 +195,13 @@
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
             $('#comment').markItUp(myMarkdownSettings);
+            $('.selectpicker').selectpicker();
         });
 
         $('#description').focus(function() {

@@ -24,6 +24,7 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
@@ -82,7 +83,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Event Dispatcher
 	 *
-	 * @var    Dispatcher
+	 * @var    DispatcherInterface
 	 * @since  1.0
 	 */
 	private $dispatcher;
@@ -139,14 +140,31 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		{
 			// Instantiate the router
 			$router = new TrackerRouter($this->getContainer(), $this->input);
-			$maps = json_decode(file_get_contents(JPATH_ROOT . '/etc/routes.json'));
 
-			if (!$maps)
+			// Search for App specific routes
+			/* @type \DirectoryIterator $fileInfo */
+			foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
 			{
-				throw new \RuntimeException('Invalid router file.', 500);
+				if ($fileInfo->isDot())
+				{
+					continue;
+				}
+
+				$path = realpath(JPATH_ROOT . '/src/App/' . $fileInfo->getFilename() . '/routes.json');
+
+				if ($path)
+				{
+					$maps = json_decode(file_get_contents($path));
+
+					if (!$maps)
+					{
+						throw new \RuntimeException('Invalid router file. ' . $path, 500);
+					}
+
+					$router->addMaps($maps);
+				}
 			}
 
-			$router->addMaps($maps, true);
 			$router->setControllerPrefix('\\App');
 			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
@@ -176,6 +194,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			}
 
 			$this->mark('Application terminated OK');
+
+			$this->checkRememberMe();
 
 			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
 
@@ -263,7 +283,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Get the dispatcher object.
 	 *
-	 * @return  Dispatcher
+	 * @return  DispatcherInterface
 	 *
 	 * @since   1.0
 	 */
@@ -628,8 +648,80 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$this->input->set('project_id', $project->project_id);
 
 			$this->project = $project;
+
+			// Set the changed project to the user object
+			$this->getUser()->setProject($project);
 		}
 
 		return $this->project;
+	}
+
+	/**
+	 * Check the "remember me" cookie and try to login with GitHub.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	private function checkRememberMe()
+	{
+		if (!$this->get('system.remember_me'))
+		{
+			// Remember me is disabled in config
+			return $this;
+		}
+
+		if ($this->getUser()->id)
+		{
+			// The user is already logged in
+			return $this;
+		}
+
+		if (!$this->input->cookie->get('remember_me'))
+		{
+			// No "remember me" cookie found
+			return $this;
+		}
+
+		// Redirect and login with GitHub
+		$this->redirect((new GitHubLoginHelper($this->getContainer()))->getLoginUri());
+
+		return $this;
+	}
+
+	/**
+	 * Set a "remember me" cookie.
+	 *
+	 * @param   boolean  $state  Remember me or forget me.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setRememberMe($state)
+	{
+		if (!$this->get('system.remember_me'))
+		{
+			return $this;
+		}
+
+		if ($state)
+		{
+			// Remember me - set the cookie
+			$value = '1';
+
+			// One year - approx.
+			$expire = time() + 3600 * 24 * 365;
+		}
+		else
+		{
+			// Forget me - delete the cookie
+			$value = '';
+			$expire = time() - 3600;
+		}
+
+		$this->input->cookie->set('remember_me', $value, $expire);
+
+		return $this;
 	}
 }

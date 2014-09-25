@@ -15,8 +15,6 @@ use BabDev\Transifex\Transifex;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
-use Joomla\Filesystem\Folder;
-
 use JTracker\Github\Github;
 
 /**
@@ -51,14 +49,6 @@ class Get extends TrackerCommand
 	protected $project = null;
 
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Retrieve <cmd><project></cmd>, <cmd><avatars></cmd> or <cmd><composertags></cmd>.';
-
-	/**
 	 * Transifex object
 	 *
 	 * @var    Transifex
@@ -73,19 +63,19 @@ class Get extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
+		$this->description = g11n3t('Retrieve Information from various sources.');
 
 		$this
 			->addOption(
 				new TrackerCommandOption(
 					'project', 'p',
-					'Process the project with the given ID.'
+					g11n3t('Process the project with the given ID.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'noprogress', '',
-					'Don\'t use a progress bar.'
+					g11n3t('Don\'t use a progress bar.')
 				)
 			);
 	}
@@ -93,32 +83,15 @@ class Get extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * NOTE: This command must not be executed without parameters !
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Get');
-
-		$errorTitle = 'Please use one of the following:';
-
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  ' . $errorTitle . '  </error>');
-
-		foreach (Folder::files(__DIR__) as $file)
-		{
-			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
-
-			if ('get' == $cmd)
-			{
-				continue;
-			}
-
-			$this->out('<error>  get ' . $cmd . str_repeat(' ', strlen($errorTitle) - strlen($cmd) - 3) . '</error>');
-		}
-
-		$this->out('<error>                                    </error>');
+		return $this->displayMissingOption(__DIR__);
 	}
 
 	/**

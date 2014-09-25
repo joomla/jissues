@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
+  `gh_editbot_user` varchar(150) NOT NULL COMMENT 'GitHub editbot username',
+  `gh_editbot_pass` varchar(150) NOT NULL COMMENT 'GitHub editbot password',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
 	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),
@@ -94,18 +96,19 @@ CREATE TABLE IF NOT EXISTS `#__status` (
 --
 
 INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
-(1, 'open', 0),
-(2, 'confirmed', 0),
-(3, 'pending', 0),
-(4, 'rtc', 0),
-(5, 'fixed', 1),
-(6, 'review', 0),
-(7, 'info', 0),
-(8, 'platform', 1),
-(9, 'no_reply', 1),
-(10, 'closed', 1),
-(11, 'expected', 1),
-(12, 'known', 1);
+(1, 'New', 0),
+(2, 'Confirmed', 0),
+(3, 'Pending', 0),
+(4, 'Ready to Commit', 0),
+(5, 'Fixed in Code Base', 1),
+(6, 'Needs Review', 0),
+(7, 'Information Required', 0),
+(8, 'Closed - Unconfirmed Report', 1),
+(9, 'Closed - No Reply', 1),
+(10, 'Closed', 1),
+(11, 'Expected Behaviour', 1),
+(12, 'Known Issue', 1),
+(13, 'Duplicate Report', 1);
 
 -- --------------------------------------------------------
 
@@ -127,6 +130,19 @@ INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
 (3, 'not_before');
+
+--
+-- Table structure for table `#__issues_tests`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_tests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `item_id` int(11) NOT NULL COMMENT 'Item ID',
+  `username` varchar(50) NOT NULL COMMENT 'User name',
+  `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
+  PRIMARY KEY (`id`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -155,10 +171,14 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
+  `pr_head_user` varchar(150) NOT NULL COMMENT 'Pull request head user',
+  `pr_head_ref` varchar(150) NOT NULL COMMENT 'Pull request head ref',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
-	`build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
-	`tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
-	`easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
+  `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
+  `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
+  `merge_state` varchar(50) NOT NULL COMMENT 'The merge state',
+  `gh_merge_status` text NOT NULL COMMENT 'The GitHub merge status (JSON encoded)',
+  `commits` text NOT NULL COMMENT 'Commits of the PR',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
@@ -230,6 +250,7 @@ CREATE TABLE IF NOT EXISTS `#__accessgroups` (
   `can_create` int(11) NOT NULL,
   `can_manage` int(11) NOT NULL,
   `can_edit` int(11) NOT NULL,
+  `can_editown` int(11) NOT NULL,
   `system` int(11) NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `project_id` (`project_id`),
@@ -240,15 +261,15 @@ CREATE TABLE IF NOT EXISTS `#__accessgroups` (
 -- Dumping data for table `#__accessgroups`
 --
 
-INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `can_create`, `can_manage`, `can_edit`, `system`) VALUES
-(1, 1, 'Public', 1, 0, 0, 0, 1),
-(2, 1, 'User', 1, 1, 0, 0, 1),
-(3, 2, 'Public', 1, 0, 0, 0, 1),
-(4, 2, 'User', 1, 1, 0, 0, 1),
-(5, 3, 'Public', 0, 0, 0, 0, 1),
-(6, 3, 'User', 0, 0, 0, 0, 1),
-(7, 3, 'JSST', 1, 1, 0, 1, 0),
-(8, 3, 'JBS Managers', 1, 1, 1, 1, 0);
+INSERT INTO `#__accessgroups` (`group_id`, `project_id`, `title`, `can_view`, `can_create`, `can_manage`, `can_edit`, `can_editown`, `system`) VALUES
+(1, 1, 'Public', 1, 0, 0, 0, 0, 1),
+(2, 1, 'User', 1, 1, 0, 0, 1, 1),
+(3, 2, 'Public', 1, 0, 0, 0, 0, 1),
+(4, 2, 'User', 1, 1, 0, 0, 1, 1),
+(5, 3, 'Public', 0, 0, 0, 0, 0, 1),
+(6, 3, 'User', 0, 1, 0, 0, 1, 1),
+(7, 3, 'JSST', 1, 1, 0, 1, 0, 0),
+(8, 3, 'JSST Managers', 1, 1, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -307,3 +328,35 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-10-01 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_categories`
+--
+CREATE TABLE `#__issues_categories` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `project_id` int(11) NOT NULL COMMENT 'The id of the Project',
+  `title` varchar(150) NOT NULL COMMENT 'The title of the category',
+  `alias` varchar(150) NOT NULL COMMENT 'The alias of the category',
+  `color` varchar(6) NOT NULL COMMENT 'The hex value of the category',
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__issues_categories_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_category_map`
+--
+CREATE TABLE `#__issue_category_map` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `issue_id` int(11) unsigned NOT NULL COMMENT 'PK of the issue in issue table',
+  `category_id` int(11) unsigned NOT NULL COMMENT 'Category id',
+  PRIMARY KEY (`id`),
+  KEY `issue_id` (`issue_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`),
+  CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

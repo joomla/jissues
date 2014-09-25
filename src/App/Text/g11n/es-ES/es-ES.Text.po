@@ -1,0 +1,88 @@
+# JTracker App Text 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Nikolai Plath <der.el.kuku@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
+"PO-Revision-Date: 2014-05-25 23:33+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Artículos"
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
+msgstr "Nuevo artículo"
+
+#: /templates/text/articles.index.twig:30
+msgid "Articles List"
+msgstr "Lista de Artículos"
+
+#: /templates/text/articles.index.twig:35
+msgid "Title/Alias"
+msgstr "Título / Alias"
+
+#: /templates/text/articles.index.twig:36
+msgid "Actions"
+msgstr "Acciones"
+
+#: /templates/text/articles.index.twig:52
+msgid "View"
+msgstr "Vista"
+
+#: /templates/text/articles.index.twig:55
+msgid "Delete"
+msgstr "Borrar"
+
+#: /templates/text/articles.index.twig:61
+msgid "No articles found"
+msgstr "No hay artículos"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Editar artículo"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Guardar"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Título"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
+#: /src/App/Text/Controller/Article/Delete.php:47
+msgid "The article has been deleted."
+msgstr "El artículo ha sido borrado."
+
+#: /src/App/Text/Controller/Article/Save.php:50
+msgid "The article has been saved."
+msgstr "El artículo ha sido guardado."
+
+#: /src/App/Text/Table/ArticlesTable.php:93
+msgid "An alias or a title is required."
+msgstr "Se requiere un título o alias."
+
+#: /src/App/Text/Table/ArticlesTable.php:99
+msgid "Some text is required."
+msgstr "Se requiere algo de texto."

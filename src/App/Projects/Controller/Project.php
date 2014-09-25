@@ -39,6 +39,9 @@ class Project extends AbstractTrackerController
 	 */
 	public function initialize()
 	{
+		// Reload the project.
+		$this->getContainer()->get('app')->getProject(true);
+
 		parent::initialize();
 
 		$this->view->setAlias($this->getContainer()->get('app')->input->get('project_alias'));

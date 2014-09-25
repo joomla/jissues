@@ -13,6 +13,9 @@ use App\Tracker\Controller\DefaultController;
 /**
  * List controller class for the Tracker component.
  *
+ * NOTE: This controller will only be called if the project changes,
+ * otherwise the default controller is called.
+ *
  * @since  1.0
  */
 class Listing extends DefaultController
@@ -26,6 +29,9 @@ class Listing extends DefaultController
 	 */
 	public function initialize()
 	{
+		// Reload the project.
+		$this->getContainer()->get('app')->getProject(true);
+
 		parent::initialize();
 
 		return $this;

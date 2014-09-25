@@ -53,7 +53,7 @@ abstract class AbstractTrackerListController extends AbstractTrackerController
 		$application = $this->getContainer()->get('app');
 
 		$limit = $application->getUserStateFromRequest('list.limit', 'list_limit', 20, 'int');
-		$page  = $this->getContainer()->get('app')->input->getInt('page');
+		$page  = $application->input->getInt('page');
 
 		$value = $page ? ($page - 1) * $limit : 0;
 		$limitStart = ($limit != 0 ? (floor($value / $limit) * $limit) : 0);

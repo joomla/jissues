@@ -8,44 +8,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-17 00:27+0000\n"
+"POT-Creation-Date: 2014-09-24 12:17-0500\n"
 "PO-Revision-Date: 2014-01-21 20:32+0000\n"
 "Last-Translator: Herman Peeren <herman@yepr.nl>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/opentranslators/language/nl_NL/)\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr "Artikel bewerken"
-
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-#: /templates/text/articles.index.twig:19
-msgid "New Article"
-msgstr "Nieuw artikel"
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr "Opslaan"
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr "Titel"
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr "Alias"
-
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
 msgstr "Artikelen"
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
+msgstr "Nieuw artikel"
 
 #: /templates/text/articles.index.twig:30
 msgid "Articles List"
@@ -71,6 +51,26 @@ msgstr "Verwijderen"
 msgid "No articles found"
 msgstr "Geen artkel gevonden"
 
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Artikel bewerken"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Opslaan"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Titel"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."
 msgstr "Het artikel is verwijderd."
@@ -79,10 +79,10 @@ msgstr "Het artikel is verwijderd."
 msgid "The article has been saved."
 msgstr "Het artikel is opgeslagen."
 
-#: /src/App/Text/Table/ArticlesTable.php:91
+#: /src/App/Text/Table/ArticlesTable.php:93
 msgid "An alias or a title is required."
 msgstr "Een alias of titel moet ingevuld worden."
 
-#: /src/App/Text/Table/ArticlesTable.php:97
+#: /src/App/Text/Table/ArticlesTable.php:99
 msgid "Some text is required."
 msgstr "Er moet iets ingevuld worden."

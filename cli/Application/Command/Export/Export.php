@@ -9,10 +9,7 @@
 namespace Application\Command\Export;
 
 use Application\Command\TrackerCommand;
-
 use Application\Command\TrackerCommandOption;
-
-use Joomla\Filesystem\Folder;
 
 /**
  * Base class for backup jobs.
@@ -36,8 +33,6 @@ class Export extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = 'Export <cmd><langfiles></cmd>.';
 
 		$this->addOption(
@@ -49,36 +44,15 @@ class Export extends TrackerCommand
 	/**
 	 * Execute the command.
 	 *
-	 * @return  void
+	 * NOTE: This command must not be executed without parameters !
+	 *
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Export');
-
-		$errorTitle = 'Please use one of the following:';
-		$command = 'export';
-
-		$this->out('<error>                                    </error>');
-		$this->out('<error>  ' . $errorTitle . '  </error>');
-
-		foreach (Folder::files(__DIR__) as $file)
-		{
-			$cmd = strtolower(substr($file, 0, strlen($file) - 4));
-
-			if ($command == $cmd)
-			{
-				// Exclude the base class
-				continue;
-			}
-
-			$this->out('<error>  ' . $command . ' ' . $cmd
-				. str_repeat(' ', strlen($errorTitle) - strlen($cmd) - strlen($command) + 1)
-				. '</error>');
-		}
-
-		$this->out('<error>                                    </error>');
+		return $this->displayMissingOption(__DIR__);
 	}
 
 	/**
@@ -91,7 +65,7 @@ class Export extends TrackerCommand
 	 */
 	protected function setup()
 	{
-		// @todo report a bug in getPath()
+		// @todo report a bug in getPath() - A leading slash (aka an absolute UNIX path) gets filtered :(
 		// @$this->exportDir = $this->getApplication()->input->getPath('output', $this->getApplication()->input->getPath('o'));
 		$this->exportDir = $this->getApplication()->input->get('output', $this->getApplication()->input->get('o', '', 'raw'), 'raw');
 

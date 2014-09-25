@@ -28,20 +28,57 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$config = $this->getContainer()->get('app')->input->get('config', array(), 'array');
+		$application->getUser()->authorize('admin');
+
+		$config = $this->cleanArray($application->input->get('config', array(), 'array'));
 
 		if (!$config)
 		{
 			throw new \UnexpectedValueException('No config to save...');
 		}
 
-		if (!file_put_contents(JPATH_ROOT . '/etc/config.json', json_encode($config, JSON_PRETTY_PRINT)))
+		$type = trim(getenv('JTRACKER_ENVIRONMENT'));
+
+		$fileName = ($type) ? 'config.' . $type . '.json' : 'config.json';
+
+		if (!file_put_contents(JPATH_ROOT . '/etc/' . $fileName, json_encode($config, JSON_PRETTY_PRINT)))
 		{
-			throw new \RuntimeException('Could not write the configuration data to file /etc/config.json');
+			throw new \RuntimeException('Could not write the configuration data to file /etc/' . $fileName);
 		}
 
-		return '@todo..';
+		$application->enqueueMessage(g11n3t('The configuration file has been saved.'), 'success')
+			->redirect('/');
+	}
+
+	/**
+	 * Remove empty fields from an array.
+	 *
+	 * @param   array  $array  The array to clean.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	private function cleanArray(array $array)
+	{
+		foreach ($array as $k => $v)
+		{
+			if (is_array($v))
+			{
+				$array[$k] = $this->cleanArray($v);
+
+				continue;
+			}
+
+			if ('' === $v)
+			{
+				unset($array[$k]);
+			}
+		}
+
+		return $array;
 	}
 }

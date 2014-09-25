@@ -58,12 +58,22 @@ class Item extends AbstractTrackerController
 	{
 		parent::initialize();
 
-		$this->getContainer()->get('app')->getUser()->authorize('view');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+		$project = $application->getProject();
+		$user = $application->getUser();
 
-		$this->view->setId($this->getContainer()->get('app')->input->getUint('id'));
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$user->authorize('view');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
+		$this->model->setProject($project);
+
+		$item = $this->model->getItem($application->input->getUint('id'));
+
+		$item->userTest = $this->model->getUserTest($item->id, $user->username);
+
+		$this->view->setItem($item);
+		$this->view->setEditOwn($user->canEditOwn($item->opened_by));
+		$this->view->setProject($project);
 
 		return $this;
 	}

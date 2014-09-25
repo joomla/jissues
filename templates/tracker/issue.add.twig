@@ -5,7 +5,7 @@
 
 {% block title %}{{ project.title }} - {{ translate('New Item') }}{% endblock %}
 
-{% block headerText %}{{ project.title }}{% endblock %}
+{% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block prependMenu %}
     <li id="issueResult">
@@ -16,11 +16,13 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
+    <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block content %}
@@ -40,25 +42,30 @@
                     <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
                 </div>
 
-                <div class="divider">-</div>
+                <hr />
 
                 {{ fields.label('priority', 'Priority'|_, '') }}
-                {% set priorities = [1, 2, 3, 4, 5] %}
-                {{ fields.selectequal('item[priority]', priorities, item.priority, 'priority', 'input-priority') }}
+                {% set priorities = priorities() %}
+                {{ fields.select('item[priority]', priorities, item.priority, 'priority', 'input-small-100') }}
 
                 <div class="helpText alert alert-info">
-                    {{ translate('Priority help')|raw }}
+                    {{ "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."|_|raw }}
                 </div>
 
                 {{ fields.label('build', 'Build'|_, '') }}
                 {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
 
-                <div class="helpText alert alert-info">{{ translate('Build help') }}</div>
+                <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
+
+                {{ fields.label('categories[]', 'Categories'|_) }}
+                {{ fields.selectCategories('categories[]', project.categories) }}
             </div>
 
             <div class="span9 issue-add-details">
 
-                <div class="helpText alert alert-info">{{ translate('Issue intro help') }}</div>
+                <div class="alert alert-warning">{{ "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."|_|raw }}</div>
+
+                <div class="helpText alert alert-info">{{ "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."|_ }}</div>
 
                 <h2>{{ translate('New Item') }}</h2>
 
@@ -66,7 +73,7 @@
                     {{ fields.label('title', 'Title'|_, '') }}
                     {{ fields.input('title', '', '', '', 'validateTitle input-issue-title') }}
 
-                    <div class="helpText alert alert-info">{{ translate('Issue title help') }}</div>
+                    <div class="helpText alert alert-info">{{ "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."|_ }}</div>
 
                     {{ fields.label('description', 'Description'|_, '') }}
 
@@ -78,7 +85,7 @@
 
                     {% include "editor.twig" %}
 
-                    <div class="helpText alert alert-info">{{ translate('Issue description help') }}</div>
+                    <div class="helpText alert alert-info">{{ "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."|_ }}</div>
 
                 </fieldset>
 
@@ -99,9 +106,9 @@
     <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}vendor/bootstrap-switch/static/js/bootstrap-switch.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/jquery.validate.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/dist/jquery.validate{{ jdebug ? "" : ".min" }}.js"></script>
     {% if lang != 'en-GB' %}
-        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
+        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/src/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
@@ -116,10 +123,12 @@
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
+            $('.selectpicker').selectpicker();
         });
 
         var switcher = $('#helpSwitch');
