@@ -164,7 +164,7 @@ class Save extends AbstractTrackerController
 				if ($project->gh_user && $project->gh_project)
 				{
 					$gitHubResponse = $github->issues->comments->create(
-						$project->gh_user, $project->gh_project, $issue_number, $comment
+						$project->gh_user, $project->gh_project, $issueNumber, $comment
 					);
 
 					if (!isset($gitHubResponse->id))
@@ -201,7 +201,7 @@ class Save extends AbstractTrackerController
 				$table->event         = 'comment';
 				$table->created_date  = $data->created_at;
 				$table->project_id    = $project->project_id;
-				$table->issue_number  = $issue_number;
+				$table->issue_number  = $issueNumber;
 				$table->gh_comment_id = $data->comment_id;
 				$table->user          = $data->opened_by;
 				$table->text          = $data->text;
@@ -209,7 +209,6 @@ class Save extends AbstractTrackerController
 
 				$table->store();
 			}
-			$model->save($data);
 
 			$application->enqueueMessage('The changes have been saved.', 'success')
 				->redirect(
