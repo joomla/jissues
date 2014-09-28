@@ -9,6 +9,7 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
+use App\Projects\Table\MilestonesTable;
 
 use Joomla\Database\DatabaseDriver;
 
@@ -337,6 +338,35 @@ class TrackerProject implements \Serializable
 		}
 
 		return $labels;
+	}
+
+	/**
+	 * Get a list of labels defined for the project.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function getMilestones()
+	{
+		static $milestones = [];
+
+		if (!$milestones)
+		{
+			$db = $this->database;
+
+			$table = new MilestonesTable($db);
+
+			$milestones = $db ->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('milestone_id', 'title', 'description', 'state', 'due_on'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+					->order($db->quoteName('milestone_number'))
+			)->loadObjectList();
+		}
+
+		return $milestones;
 	}
 
 	/*

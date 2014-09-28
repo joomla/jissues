@@ -1,6 +1,7 @@
 {
 	"project/:project_alias/hooks"        : "\\GitHub\\Controller\\Hooks",
 	"project/:project_alias/labels"       : "\\GitHub\\Controller\\Labels",
+	"project/:project_alias/milestones"   : "\\GitHub\\Controller\\Milestones",
 	"project/:project_alias/stats"        : "\\GitHub\\Controller\\Stats",
 	"project/:project_alias/hooks-list"   : "\\GitHub\\Controller\\Ajax\\Hooks\\GetList",
 	"project/:project_alias/hooks-add"    : "\\GitHub\\Controller\\Ajax\\Hooks\\Add",
@@ -8,5 +9,6 @@
 	"project/:project_alias/labels-list"  : "\\GitHub\\Controller\\Ajax\\Labels\\GetList",
 	"project/:project_alias/labels-add"   : "\\GitHub\\Controller\\Ajax\\Labels\\Add",
 	"project/:project_alias/labels-delete": "\\GitHub\\Controller\\Ajax\\Labels\\Delete",
+	"project/:project_alias/milestones-list": "\\GitHub\\Controller\\Ajax\\Milestones\\GetList",
 	"preview"                             : "\\GitHub\\Controller\\Ajax\\Markdown\\Preview"
 }

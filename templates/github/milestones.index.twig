@@ -1,0 +1,181 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ '%s - Milestones'|_|format(project.title) }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ '%s - Milestones'|_|format(project.title) }}</h2>
+
+    <div class="btn" onclick="listMilestones('{{ project.alias }}');">{{ 'List Milestones'|_ }}</div>
+
+    <div id="listMilestones"></div>
+    <div id="ajaxDebug" class="alert-error"></div>
+
+    <h3>{{ 'New Milestone'|_ }}</h3>
+
+    <form name="newMilestone" class="form-inline">
+        <div class="row-fluid well well-small">
+            <div class="span5">
+                <label for="title">{{ 'Title'|_ }}</label><br/>
+                <input type="text" id="title" name="title" placeholder="{{ 'Milestone title'|_ }}"/>
+            </div>
+            <div class="span5">
+                <label for="color_display">{{ 'Color'|_ }}</label>
+                <input class="color_select" id="color" value="#{{ item.color }}"/>
+                <input type="text" name="color" id="color_display" placeholder="{{ 'Label color'|_ }}"/>
+            </div>
+            <div class="span2 left">
+                <div class="btn btn-large btn-success" onclick="addLabel('{{ project.alias }}');">{{ 'Add Milestone'|_ }}</div>
+            </div>
+        </div>
+    </form>
+
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplMilestones">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>{{ 'Number'|_ }}</th>
+                <th>{{ 'Title'|_ }}</th>
+                <th>{{ 'Description'|_ }}</th>
+                <th>{{ 'State'|_ }}</th>
+                <th>{{ 'Due on'|_ }}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            [% for (var i=0; i < o.data.length; i++) { %]
+            <tr>
+                <td>[%= o.data[i].number %]</td>
+                <td>[%= o.data[i].title %]</td>
+                <td>[%= o.data[i].description %]</td>
+                <td>[%= o.data[i].state %]</td>
+                <td>
+                    <a href="javascript:"
+                       onclick="deleteLabel('{{ project.alias }}', '[%= o.data[i].title %]');">
+                        {{ 'Delete'|_ }}
+                    </a>
+                </td>
+            </tr>
+            [% } %]
+            </tbody>
+        </table>
+    </script>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * List milestones.
+         *
+         * @param alias
+         *
+         * @since  1.0
+         */
+        function listMilestones(alias) {
+            var out = $('#listMilestones');
+            var debug = $('#ajaxDebug');
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '{{ uri.base.path }}project/' + alias + '/milestones-list',
+                    {  },
+                    function (response) {
+                        out.empty();
+                            console.log(response);
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No milestones found.');
+                        }
+                        else {
+                            out.html(tmpl("tplMilestones", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Add a milestone.
+         *
+         * @param alias
+         *
+         * @since  1.0
+         */
+        function addLabel(alias) {
+
+            var out = $('#listLabels');
+            var debug = $('#ajaxDebug');
+
+            var name = $('input[name="name"]').val();
+            var color = $('input[name="color"]').val();
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '{{ uri.base.path }}project/' + alias + '/labels-add',
+                    { name: name, color: color },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No labels found.');
+                        }
+                        else {
+                            out.html(tmpl("tplLabels", response));
+                        }
+                    }
+            );
+        }
+
+        /**
+         * Modify a hook.
+         *
+         * @param alias
+         *
+         * @since  1.0
+         */
+        function deleteLabel(alias) {
+            var out = $('#listLabels');
+            var debug = $('#ajaxDebug');
+
+            out.html('Requesting...');
+            debug.empty();
+
+            $.get(
+                    '{{ uri.base.path }}project/' + alias + '/labels-delete',
+                    { name: name },
+                    function (response) {
+                        out.empty();
+                        if (response.error) {
+                            debug.html(response.error);
+                        }
+                        else if (!response.data.length) {
+                            out.html('No labels found.');
+                        }
+                        else {
+                            out.html(tmpl("tplLabels", response));
+                        }
+                    }
+            );
+        }
+    </script>
+{% endblock %}

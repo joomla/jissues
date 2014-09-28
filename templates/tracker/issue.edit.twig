@@ -115,6 +115,10 @@
             {{ fields.label('categories[]', 'Categories'|_) }}
             {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
         </li>
+        <li>
+            {{ fields.label('milestone', 'Milestone'|_) }}
+            {{ fields.selectMilestone('milestone', project.milestones, item.milestone_id) }}
+        </li>
     </ul>
     {% endif %}
 

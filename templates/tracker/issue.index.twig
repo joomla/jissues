@@ -204,6 +204,15 @@
         </div>
     {% endif %}
 
+    <!-- Milestones -->
+    {% if item.milestone_title %}
+    <ul class="breadcrumb">
+        <li>
+            <strong>{{ item.milestone_title }}</strong>
+        </li>
+    </ul>
+    {% endif %}
+
     <!-- Main content -->
 
     <div class="row-fluid">
