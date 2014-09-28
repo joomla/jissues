@@ -57,7 +57,6 @@ class Submit extends AbstractAjaxController
 			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issue_number
 		);
 
-
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
 
