@@ -57,8 +57,15 @@
 
                 <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
 
+                {% if project.categories %}
                 {{ fields.label('categories[]', 'Categories'|_) }}
                 {{ fields.selectCategories('categories[]', project.categories) }}
+                {% endif %}
+
+                {% if project.milestones %}
+                {{ fields.label('milestone', 'Milestone'|_) }}
+                {{ fields.selectMilestone('milestone', project.milestones, item.milestone_id) }}
+                {% endif %}
             </div>
 
             <div class="span9 issue-add-details">
