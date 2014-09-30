@@ -5,40 +5,70 @@
 
 {% block title %}{{ '%s - Milestones'|_|format(project.title) }}{% endblock %}
 
+{% block prependMenu %}
+    <li>
+        <a class="btn-success" href="javascript:" onclick="showNewMilestone();">
+            {{ 'New Milestone'|_ }}
+        </a>
+    </li>
+
+    {{ parent() }}
+
+{% endblock %}
+
 {% block content %}
 
     <h2>{{ '%s - Milestones'|_|format(project.title) }}</h2>
 
-    <div class="btn" onclick="listMilestones('{{ project.alias }}');">{{ 'List Milestones'|_ }}</div>
+    <div id="milestoneModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="milestoneModalLabel"></h3>
+        </div>
+        <div class="modal-body">
+            <form name="newMilestone" class="form-horizontal">
+                <div>
+                    <label for="number">{{ 'Number'|_ }}</label>
+                    <input type="text" id="number" name="number" placeholder="#" disabled="disabled" class="span1"/>
+                </div>
+                <div class="form-group">
+                    <label for="title" class="control-label">{{ 'Title'|_ }}</label>
+                    <input type="text" id="title" name="title" placeholder="{{ 'Milestone title'|_ }}"/>
+                </div>
+                <div class="form-group">
+                    <label for="due_on" class="control-label">{{ 'Due on'|_ }}</label>
+                    <input type="text" name="due_on" id="due_on" placeholder="{{ 'Date'|_ }}"/>
+                </div>
+                <div class="form-group">
+                    <label for="state" class="control-label">{{ 'State'|_ }}</label>
+                    <select name="state" id="state">
+                        <option value="open">{{ 'Open'|_ }}</option>
+                        <option value="closed">{{ 'Closed'|_ }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+
+                    <label for="description">{{ 'Description'|_ }}</label>
+                    <textarea name="description" id="description" class="span6"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <button class="btn btn-primary" onclick="$('#milestoneModal').modal('hide'); saveMilestone('{{ project.alias }}', '#listMilestones', 'tplMilestones');">
+                {{ 'Save'|_ }}
+            </button>
+        </div>
+    </div>
 
     <div id="listMilestones"></div>
-    <div id="ajaxDebug" class="alert-error"></div>
-
-    <h3>{{ 'New Milestone'|_ }}</h3>
-
-    <form name="newMilestone" class="form-inline">
-        <div class="row-fluid well well-small">
-            <div class="span5">
-                <label for="title">{{ 'Title'|_ }}</label><br/>
-                <input type="text" id="title" name="title" placeholder="{{ 'Milestone title'|_ }}"/>
-            </div>
-            <div class="span5">
-                <label for="color_display">{{ 'Color'|_ }}</label>
-                <input class="color_select" id="color" value="#{{ item.color }}"/>
-                <input type="text" name="color" id="color_display" placeholder="{{ 'Label color'|_ }}"/>
-            </div>
-            <div class="span2 left">
-                <div class="btn btn-large btn-success" onclick="addLabel('{{ project.alias }}');">{{ 'Add Milestone'|_ }}</div>
-            </div>
-        </div>
-    </form>
 
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->
 
     <script type="text/x-tmpl" id="tplMilestones">
-        <table class="table table-hover table-condensed">
+        <table class="table table-hover table-condensed table-bordered table-striped">
             <thead>
             <tr>
                 <th>{{ 'Number'|_ }}</th>
@@ -46,6 +76,7 @@
                 <th>{{ 'Description'|_ }}</th>
                 <th>{{ 'State'|_ }}</th>
                 <th>{{ 'Due on'|_ }}</th>
+                <th>{{ 'Actions'|_ }}</th>
             </tr>
             </thead>
 
@@ -56,9 +87,14 @@
                 <td>[%= o.data[i].title %]</td>
                 <td>[%= o.data[i].description %]</td>
                 <td>[%= o.data[i].state %]</td>
+                <td>[%= o.data[i].due_on %]</td>
                 <td>
                     <a href="javascript:"
-                       onclick="deleteLabel('{{ project.alias }}', '[%= o.data[i].title %]');">
+                       onclick="showEditMilestone(this, '[%= o.data[i].number %]', '#listMilestones', 'tplMilestones');">
+                        {{ 'Edit'|_ }}
+                    </a>
+                    <a href="javascript:"
+                       onclick="deleteMilestone('{{ project.alias }}', '[%= o.data[i].number %]', '#listMilestones', 'tplMilestones');">
                         {{ 'Delete'|_ }}
                     </a>
                 </td>
@@ -67,115 +103,148 @@
             </tbody>
         </table>
     </script>
+<script type="text/x-tmpl" id="tplMilestone">
+</script>
 {% endblock %}
 
 {% block JavaScriptBottom %}
     {{ parent() }}
 
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-transition.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
 
+        jQuery(document).ready(function($) {
+            listMilestones('{{ project.alias }}', '#listMilestones', 'tplMilestones');
+        });
+
         /**
          * List milestones.
          *
-         * @param alias
+         * @param projectAlias
+         * @param outContainer
+         * @param template
          *
          * @since  1.0
          */
-        function listMilestones(alias) {
-            var out = $('#listMilestones');
-            var debug = $('#ajaxDebug');
+        function listMilestones(projectAlias, outContainer, template) {
+            var out = $(outContainer);
 
-            out.html('Requesting...');
-            debug.empty();
+            out.html('Requesting the milestones list...');
 
             $.get(
-                    '{{ uri.base.path }}project/' + alias + '/milestones-list',
+                    '{{ uri.base.path }}project/' + projectAlias + '/milestones-list',
                     {  },
                     function (response) {
-                        out.empty();
-                            console.log(response);
                         if (response.error) {
-                            debug.html(response.error);
+                            out.html('<div class="alert alert-error">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
-                            out.html('No milestones found.');
+                            out.html('<div class="alert alert-warning">' + 'No milestones found.' + '</div>');
                         }
                         else {
-                            out.html(tmpl("tplMilestones", response));
+                            out.html(tmpl(template, response));
                         }
                     }
             );
         }
 
         /**
-         * Add a milestone.
+         * Save a milestone.
          *
-         * @param alias
+         * @param projectAlias
+         * @param outContainer
+         * @param template
          *
          * @since  1.0
          */
-        function addLabel(alias) {
+        function saveMilestone(projectAlias, outContainer, template) {
 
-            var out = $('#listLabels');
-            var debug = $('#ajaxDebug');
+            var out = $(outContainer);
 
-            var name = $('input[name="name"]').val();
-            var color = $('input[name="color"]').val();
+            var number      = $('input[name="number"]').val();
+            var title       = $('input[name="title"]').val();
+            var due_on      = $('input[name="due_on"]').val();
+            var state       = $('select[name="state"]').val();
+            var description = $('textarea[name="description"]').val();
 
-            out.html('Requesting...');
-            debug.empty();
+            out.html('Saving the milestone...');
 
             $.get(
-                    '{{ uri.base.path }}project/' + alias + '/labels-add',
-                    { name: name, color: color },
+                    '{{ uri.base.path }}project/' + projectAlias + '/milestones-save',
+                    { number: number, title: title, due_on: due_on, state: state, description: description },
                     function (response) {
                         out.empty();
                         if (response.error) {
-                            debug.html(response.error);
+                            out.html('<div class="alert alert-error">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
-                            out.html('No labels found.');
+                            out.html('<div class="alert alert-warning">' + 'No milestones found.' + '</div>');
                         }
                         else {
-                            out.html(tmpl("tplLabels", response));
+                            out.html(tmpl(template, response));
                         }
                     }
             );
         }
 
         /**
-         * Modify a hook.
+         * delete a milestone.
          *
-         * @param alias
+         * @param projectAlias
+         * @param milestone_id
+         * @param outContainer
+         * @param template
          *
          * @since  1.0
          */
-        function deleteLabel(alias) {
-            var out = $('#listLabels');
-            var debug = $('#ajaxDebug');
+        function deleteMilestone(projectAlias, milestone_id, outContainer, template) {
+            var out = $(outContainer);
 
-            out.html('Requesting...');
-            debug.empty();
+            out.html('Deleting the milestone...');
 
             $.get(
-                    '{{ uri.base.path }}project/' + alias + '/labels-delete',
-                    { name: name },
+                    '{{ uri.base.path }}project/' + projectAlias + '/milestones-delete',
+                    { milestone_id: milestone_id },
                     function (response) {
                         out.empty();
                         if (response.error) {
-                            debug.html(response.error);
+                            out.html('<div class="alert alert-error">' + response.error + '</div>');
                         }
                         else if (!response.data.length) {
-                            out.html('No labels found.');
+                            out.html('<div class="alert alert-warning">' + 'No milestones found.' + '</div>');
                         }
                         else {
-                            out.html(tmpl("tplLabels", response));
+                            out.html(tmpl(template, response));
                         }
                     }
             );
+        }
+
+        function showNewMilestone() {
+            $('#milestoneModalLabel').html('New Milestone');
+
+            $('input[name="number"]').val('');
+            $('input[name="title"]').val('');
+            $('input[name="due_on"]').val('');
+            $('select[name="state"]').val('open');
+            $('textarea[name="description"]').val('');
+
+            $('#milestoneModal').modal('show');
+        }
+        function showEditMilestone(e) {
+            $('#milestoneModalLabel').html('Edit Milestone');
+
+            $('input[name="number"]').val($(e).closest('td').prev().prev().prev().prev().prev().text());
+            $('input[name="title"]').val($(e).closest('td').prev().prev().prev().prev().text());
+            $('input[name="due_on"]').val($(e).closest('td').prev().text());
+            $('select[name="state"]').val($(e).closest('td').prev().prev().text());
+            $('textarea[name="description"]').val($(e).closest('td').prev().prev().prev().text());
+
+            $('#milestoneModal').modal('show');
         }
     </script>
 {% endblock %}
