@@ -233,7 +233,11 @@ class Save extends AbstractTrackerController
 					$state,
 					$application->getUser()->username,
 					sprintf('The <a href="%s">%s</a>', 'https://github.com/joomla/jissues', 'JTracker Application'),
-					sprintf('<a href="%s">%s</a>', $uri, trim(str_replace(['http:', 'https:'], '', $uri), '/'))
+					sprintf(
+						'<a href="%s">%s</a>',
+						$uri . 'tracker/' . $project->alias . '/' . $issueNumber,
+						str_replace(['http://', 'https://'], '', $uri) . $project->alias . '/' . $issueNumber
+					)
 				);
 
 				$gitHubBot->issues->comments->create(
