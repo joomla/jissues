@@ -45,10 +45,10 @@ class Delete extends Base
 			$gitHub = GithubFactory::getInstance($application);
 		}
 
-		// Delete the label
+		// Delete the milestone
 		$gitHub->issues->milestones->delete($project->gh_user, $project->gh_project, $milestoneId);
 
-		// Get the current labels list.
+		// Get the current milestones list.
 		$this->response->data = $this->getList($project);
 	}
 }
