@@ -125,7 +125,7 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->triggerEvent('onIssueAfterCreate', $table);
+		$this->triggerEvent('onIssueAfterCreate', $table, array('action' => $action));
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->issue->user->login);
