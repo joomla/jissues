@@ -77,6 +77,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the relations_types table
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+
+				// Join over the milestones table
+				->select('m.title AS milestone_title')
+				->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = i.milestone_id')
 		)->loadObject();
 
 		if (!$item)

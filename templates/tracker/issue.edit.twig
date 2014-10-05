@@ -111,10 +111,18 @@
                 <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
+        {% if project.categories %}
         <li>
             {{ fields.label('categories[]', 'Categories'|_) }}
             {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
         </li>
+        {% endif %}
+        {% if project.milestones %}
+        <li>
+            {{ fields.label('milestone', 'Milestone'|_) }}
+            {{ fields.selectMilestone('milestone', project.milestones, item.milestone_id) }}
+        </li>
+        {% endif %}
     </ul>
     {% endif %}
 
