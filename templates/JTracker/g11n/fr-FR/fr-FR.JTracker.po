@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 12:17-0500\n"
-"PO-Revision-Date: 2014-08-19 20:01+0000\n"
-"Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
+"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +80,7 @@ msgstr "Démarrer"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:139
+#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:145
 msgid "Error"
 msgstr "Erreur"
 
@@ -140,6 +140,14 @@ msgstr "Tous droits réservés."
 msgid "Select Categories..."
 msgstr "Sélectionner les catégories"
 
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr ""
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr ""
+
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
 msgstr "Tracker"
@@ -165,106 +173,110 @@ msgid "Labels"
 msgstr "Étiquettes"
 
 #: /templates/trackerMenu.twig:55
+msgid "Milestones"
+msgstr ""
+
+#: /templates/trackerMenu.twig:61
 msgid "Categories"
 msgstr "Catégories"
 
-#: /templates/trackerMenu.twig:65
+#: /templates/trackerMenu.twig:71
 msgid "Projects"
 msgstr "Projets"
 
-#: /templates/trackerMenu.twig:70
+#: /templates/trackerMenu.twig:76
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: /templates/trackerMenu.twig:77
+#: /templates/trackerMenu.twig:83
 msgid "System"
 msgstr "Système"
 
-#: /templates/trackerMenu.twig:84
+#: /templates/trackerMenu.twig:90
 msgid "Configuration"
 msgstr "Configuration"
 
-#: /templates/trackerMenu.twig:90
+#: /templates/trackerMenu.twig:96
 msgid "phpinfo()"
 msgstr "phpinfo()"
 
-#: /templates/trackerMenu.twig:96
+#: /templates/trackerMenu.twig:102
 msgid "Logs"
 msgstr "Logs"
 
-#: /templates/trackerMenu.twig:109
+#: /templates/trackerMenu.twig:115
 msgid "Cron Jobs"
 msgstr "Cron Jobs"
 
-#: /templates/trackerMenu.twig:114
+#: /templates/trackerMenu.twig:120
 msgid "Database"
 msgstr "Base de données"
 
-#: /templates/trackerMenu.twig:120
+#: /templates/trackerMenu.twig:126
 msgid "GitHub Issues"
 msgstr "Erreurs GitHub"
 
-#: /templates/trackerMenu.twig:126
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Comments"
 msgstr "Commentaires GitHub"
 
-#: /templates/trackerMenu.twig:132
+#: /templates/trackerMenu.twig:138
 msgid "GitHub Pulls"
 msgstr "Pulls GitHub"
 
-#: /templates/trackerMenu.twig:136
+#: /templates/trackerMenu.twig:142
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:146
+#: /templates/trackerMenu.twig:152
 msgid "Icons"
 msgstr "Icônes "
 
-#: /templates/trackerMenu.twig:152
+#: /templates/trackerMenu.twig:158
 msgid "Routes"
 msgstr "Routes"
 
-#: /templates/trackerMenu.twig:158
+#: /templates/trackerMenu.twig:164
 msgid "Text"
 msgstr "Texte"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:170
 msgid "Clear Cache"
 msgstr "Nettoyer le cache"
 
-#: /templates/trackerMenu.twig:181
+#: /templates/trackerMenu.twig:187
 msgid "About Us"
 msgstr "A propos de nous"
 
-#: /templates/trackerMenu.twig:186
+#: /templates/trackerMenu.twig:192
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:191 /templates/topMenu.twig:72
+#: /templates/trackerMenu.twig:197 /templates/topMenu.twig:72
 msgid "Documentation"
 msgstr "Documentation"
 
-#: /templates/trackerMenu.twig:210
+#: /templates/trackerMenu.twig:216
 msgid "Admin"
 msgstr "Administrateur"
 
-#: /templates/trackerMenu.twig:215
+#: /templates/trackerMenu.twig:221
 msgid "View profile"
 msgstr "Visualiser le profil"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:227
 msgid "Edit profile"
 msgstr "Éditer le profil"
 
-#: /templates/trackerMenu.twig:228
+#: /templates/trackerMenu.twig:234
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:243
 msgid "Login with GitHub"
 msgstr "Se connecter avec GitHub"
 
-#: /templates/trackerMenu.twig:241
+#: /templates/trackerMenu.twig:247
 msgid "No GitHub credentials set in config"
 msgstr "Aucune information d'identification GitHub configurée"
 

@@ -8,15 +8,85 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 12:17-0500\n"
-"PO-Revision-Date: 2014-08-31 17:23+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:79
+#: /templates/github/hooks.index.twig:89
+msgid "Actions"
+msgstr "动作"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr ""
+
+#: /templates/github/milestones.index.twig:98
+#: /templates/github/labels.index.twig:59
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr "删除"
 
 #: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
 #, php-format
@@ -64,11 +134,6 @@ msgstr "新建标签"
 msgid "URL"
 msgstr "URL"
 
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "删除"
-
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
@@ -101,10 +166,6 @@ msgstr "类型"
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
 msgstr "状态"
-
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "动作"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"

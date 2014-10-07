@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 12:17-0500\n"
-"PO-Revision-Date: 2014-09-24 17:17+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"PO-Revision-Date: 2014-09-24 18:12+0000\n"
+"Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,7 +112,7 @@ msgstr "Anomalie connue"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:334
 #: /src/JTracker/View/Renderer/TrackerExtension.php:352
 msgid "Duplicate Report"
-msgstr ""
+msgstr "Rapport doublon"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:510
 msgid "No"

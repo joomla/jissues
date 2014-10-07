@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 12:17-0500\n"
-"PO-Revision-Date: 2014-08-19 16:19+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +80,7 @@ msgstr "开始"
 msgid "Cancel"
 msgstr "取消"
 
-#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:139
+#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:145
 msgid "Error"
 msgstr "错误"
 
@@ -140,6 +140,14 @@ msgstr "所有权利保留。"
 msgid "Select Categories..."
 msgstr ""
 
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr ""
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr ""
+
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
 msgstr "追踪系统"
@@ -165,106 +173,110 @@ msgid "Labels"
 msgstr ""
 
 #: /templates/trackerMenu.twig:55
+msgid "Milestones"
+msgstr ""
+
+#: /templates/trackerMenu.twig:61
 msgid "Categories"
 msgstr ""
 
-#: /templates/trackerMenu.twig:65
+#: /templates/trackerMenu.twig:71
 msgid "Projects"
 msgstr "项目"
 
-#: /templates/trackerMenu.twig:70
+#: /templates/trackerMenu.twig:76
 msgid "Users"
 msgstr "用户"
 
-#: /templates/trackerMenu.twig:77
+#: /templates/trackerMenu.twig:83
 msgid "System"
 msgstr "系统"
 
-#: /templates/trackerMenu.twig:84
+#: /templates/trackerMenu.twig:90
 msgid "Configuration"
 msgstr "配置"
 
-#: /templates/trackerMenu.twig:90
+#: /templates/trackerMenu.twig:96
 msgid "phpinfo()"
 msgstr "phpinfo()"
 
-#: /templates/trackerMenu.twig:96
+#: /templates/trackerMenu.twig:102
 msgid "Logs"
 msgstr "日志"
 
-#: /templates/trackerMenu.twig:109
+#: /templates/trackerMenu.twig:115
 msgid "Cron Jobs"
 msgstr "Cron任务"
 
-#: /templates/trackerMenu.twig:114
+#: /templates/trackerMenu.twig:120
 msgid "Database"
 msgstr "数据库"
 
-#: /templates/trackerMenu.twig:120
+#: /templates/trackerMenu.twig:126
 msgid "GitHub Issues"
 msgstr "GitHub Issue"
 
-#: /templates/trackerMenu.twig:126
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Comments"
 msgstr "Github 评论"
 
-#: /templates/trackerMenu.twig:132
+#: /templates/trackerMenu.twig:138
 msgid "GitHub Pulls"
 msgstr "GitHub Pulls"
 
-#: /templates/trackerMenu.twig:136
+#: /templates/trackerMenu.twig:142
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:146
+#: /templates/trackerMenu.twig:152
 msgid "Icons"
 msgstr "图标"
 
-#: /templates/trackerMenu.twig:152
+#: /templates/trackerMenu.twig:158
 msgid "Routes"
 msgstr "路由"
 
-#: /templates/trackerMenu.twig:158
+#: /templates/trackerMenu.twig:164
 msgid "Text"
 msgstr "文本"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:170
 msgid "Clear Cache"
 msgstr "清除缓存"
 
-#: /templates/trackerMenu.twig:181
+#: /templates/trackerMenu.twig:187
 msgid "About Us"
 msgstr "关于我们"
 
-#: /templates/trackerMenu.twig:186
+#: /templates/trackerMenu.twig:192
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:191 /templates/topMenu.twig:72
+#: /templates/trackerMenu.twig:197 /templates/topMenu.twig:72
 msgid "Documentation"
 msgstr "文档"
 
-#: /templates/trackerMenu.twig:210
+#: /templates/trackerMenu.twig:216
 msgid "Admin"
 msgstr "管理员"
 
-#: /templates/trackerMenu.twig:215
+#: /templates/trackerMenu.twig:221
 msgid "View profile"
 msgstr "查看资料"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:227
 msgid "Edit profile"
 msgstr "编辑资料"
 
-#: /templates/trackerMenu.twig:228
+#: /templates/trackerMenu.twig:234
 msgid "Logout"
 msgstr "退出"
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:243
 msgid "Login with GitHub"
 msgstr "用GitHub帐号登录"
 
-#: /templates/trackerMenu.twig:241
+#: /templates/trackerMenu.twig:247
 msgid "No GitHub credentials set in config"
 msgstr "配置文件中未配置GItHub信息"
 
