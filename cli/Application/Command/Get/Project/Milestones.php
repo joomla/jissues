@@ -139,7 +139,7 @@ class Milestones extends Project
 			$db->setQuery(
 				$db->getQuery(true)
 					->delete($db->quoteName($table->getTableName()))
-					->where($db->quoteName('milestone_id') . ' IN (' . implode(', ', $ids) . ')')
+					->where($db->quoteName('milestone_id') . ' IN (' . implode(', ', $ids[0]) . ')')
 			)->execute();
 		}
 
