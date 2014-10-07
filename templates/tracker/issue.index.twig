@@ -337,7 +337,7 @@
 
                 {% if user.check('edit') %}
                     <hr />
-                    <h6>{{ 'Alter test results' }}</h6>
+                    <h6>{{ 'Alter test result'|_ }}</h6>
                     <form class="form-inline">
 
                         {{ 'Set the test result for user %s to %s'|_|format(
