@@ -64,7 +64,7 @@ class JoomlacmsIssuesListener
 		// Get the labels for the issue
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->issue->number)->labels;
 		}
 		catch (\DomainException $e)
 		{
@@ -73,7 +73,7 @@ class JoomlacmsIssuesListener
 					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$hookData->issue->number,
 					$e->getMessage()
 				)
 			);
@@ -93,7 +93,7 @@ class JoomlacmsIssuesListener
 							'GitHub item %s/%s #%d already has the %s label.',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->pull_request->number,
+							$hookData->issue->number,
 							$codeLabel
 						)
 					);
@@ -115,7 +115,7 @@ class JoomlacmsIssuesListener
 			try
 			{
 				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
+					$project->gh_user, $project->gh_project, $hookData->issue->number, $addLabels
 				);
 
 				// Post the new label on the object
@@ -125,7 +125,7 @@ class JoomlacmsIssuesListener
 						count($addLabels),
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number
+						$hookData->issue->number
 					)
 				);
 			}
@@ -136,7 +136,7 @@ class JoomlacmsIssuesListener
 						'Error adding labels to GitHub issue %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
+						$hookData->issue->number,
 						$e->getMessage()
 					)
 				);
