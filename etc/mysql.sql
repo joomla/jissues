@@ -178,6 +178,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
   `merge_state` varchar(50) NOT NULL COMMENT 'The merge state',
   `gh_merge_status` text NOT NULL COMMENT 'The GitHub merge status (JSON encoded)',
+  `gh_status_comment_id` int(11) unsigned DEFAULT NULL COMMENT 'GitHub status comment id',
   `commits` text NOT NULL COMMENT 'Commits of the PR',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
