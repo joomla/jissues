@@ -1,0 +1,14 @@
+<!-- JTRACKER STATUS COMMENT -->
+### ![Joomla! Logo](http://www.joomla.org/templates/joomla12/images/menu/logo.png) JTracker Status Comment
+
+----
+
+<a href="{{ href }}">{{ link }}</a>
+
+Easy: {{#item.easy}}Yes{{/item.easy}}{{^item.easy}}No{{/item.easy}}
+Successfull Tests: {{ testsSuccessCnt }} {{#item.testsSuccess}}@{{ . }} {{/item.testsSuccess}}
+Unsuccessfull Tests: {{ testsFailureCnt }} {{#item.testsFailure}}@{{ . }} {{/item.testsFailure}}
+
+----
+
+*Last updated on {{ lastUpdated }} GMT*
