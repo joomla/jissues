@@ -95,6 +95,7 @@ class Submit extends AbstractTrackerController
 		}
 
 		$data['priority']        = $application->input->getInt('priority');
+		$data['milestone_id']    = $application->input->getInt('milestone_id');
 		$data['build']           = $application->input->getString('build');
 		$data['project_id']      = $project->project_id;
 		$data['issue_number']    = $data['number'];

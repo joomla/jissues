@@ -119,8 +119,8 @@
         {% endif %}
         {% if project.milestones %}
         <li>
-            {{ fields.label('milestone', 'Milestone'|_) }}
-            {{ fields.selectMilestone('milestone', project.milestones, item.milestone_id) }}
+            {{ fields.label('item[milestone_id]', 'Milestone'|_) }}
+            {{ fields.selectMilestone('item[milestone_id]', project.milestones, item.milestone_id) }}
         </li>
         {% endif %}
     </ul>
