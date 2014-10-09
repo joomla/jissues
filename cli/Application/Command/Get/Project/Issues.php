@@ -579,9 +579,9 @@ class Issues extends Project
 
 			$c->sha = $commit->sha;
 			$c->message = $commit->commit->message;
-			$c->author_name = $commit->author->login;
+			$c->author_name = isset($commit->author->login) ? $commit->author->login : '';
 			$c->author_date = $commit->commit->author->date;
-			$c->committer_name = $commit->committer->login;
+			$c->committer_name = isset($commit->committer->login) ? $commit->committer->login : '';
 			$c->committer_date = $commit->commit->committer->date;
 
 			$commits[] = $c;
