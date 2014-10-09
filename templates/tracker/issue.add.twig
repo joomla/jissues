@@ -64,7 +64,7 @@
 
                 {% if user.check("edit") and project.milestones %}
                 {{ fields.label('milestone_id', 'Milestone'|_) }}
-                {{ fields.selectMilestone('milestone_id', project.milestones, item.milestone_id) }}
+                {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
                 {% endif %}
             </div>
 
