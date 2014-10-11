@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /templates/tracker/issue.edit.twig:34
+#: /templates/tracker/issue.edit.twig:166
 #: /templates/tracker/category.add.twig:11
 #: /templates/tracker/category.edit.twig:11
 msgid "Save"
@@ -79,6 +80,16 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.index.twig:478
+msgid "Add a Comment"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:163
+#: /templates/tracker/issue.index.twig:489
+msgid "Leave a comment"
+msgstr ""
+
 #: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:77
 #: /templates/tracker/issues.index.twig:19
@@ -126,7 +137,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:95
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
 msgstr ""
 
@@ -410,14 +421,6 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:478
-msgid "Add a Comment"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:489
-msgid "Leave a comment"
-msgstr ""
-
 #: /templates/tracker/issue.index.twig:497
 msgid "Post Comment"
 msgstr ""
@@ -498,11 +501,7 @@ msgstr ""
 msgid "Vote successfully added"
 msgstr ""
 
-#: /src/App/Tracker/Controller/Issue/Save.php:148
-msgid "The changes have been saved."
-msgstr ""
-
-#: /src/App/Tracker/Controller/Issue/Submit.php:125
+#: /src/App/Tracker/Controller/Issue/Submit.php:126
 msgid "Your report has been submitted."
 msgstr ""
 

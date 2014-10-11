@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,4 +46,8 @@ msgstr ""
 #: /www/jtracker/core/js/jtracker.js:128
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
+msgstr ""
+
+#: /www/jtracker/core/js/uploader-img.js:37
+msgid "First please select an editor to attach the uploads to."
 msgstr ""
