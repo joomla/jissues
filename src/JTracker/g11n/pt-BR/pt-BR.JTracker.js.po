@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-09-07 14:11+0000\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-11 19:56+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -46,4 +46,8 @@ msgstr ""
 #: /www/jtracker/core/js/jtracker.js:128
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
+msgstr ""
+
+#: /www/jtracker/core/js/uploader-img.js:37
+msgid "First please select an editor to attach the uploads to."
 msgstr ""

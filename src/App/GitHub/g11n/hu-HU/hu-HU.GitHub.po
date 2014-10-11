@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-08 15:50+0000\n"
+"Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,56 +22,56 @@ msgstr ""
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr ""
+msgstr "%s - Mérföldkövek"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr ""
+msgstr "Új mérföldkő"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
 msgid "Number"
-msgstr ""
+msgstr "Szám"
 
 #: /templates/github/milestones.index.twig:35
 #: /templates/github/milestones.index.twig:75
 msgid "Title"
-msgstr ""
+msgstr "Cím"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "A mérföldkő címe"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "Esedékes"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: /templates/github/milestones.index.twig:43
 #: /templates/github/milestones.index.twig:77
 msgid "State"
-msgstr ""
+msgstr "Állapot"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr ""
+msgstr "Nyitva"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
-msgstr ""
+msgstr "Lezárva"
 
 #: /templates/github/milestones.index.twig:51
 #: /templates/github/milestones.index.twig:76
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: /templates/github/milestones.index.twig:59
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: /templates/github/milestones.index.twig:79
 #: /templates/github/hooks.index.twig:89
@@ -80,7 +80,7 @@ msgstr "Műveletek"
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
-msgstr ""
+msgstr "Szerkesztés"
 
 #: /templates/github/milestones.index.twig:98
 #: /templates/github/labels.index.twig:59

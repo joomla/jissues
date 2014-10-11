@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-11 19:56+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: /templates/tracker/issue.edit.twig:34
+#: /templates/tracker/issue.edit.twig:166
 #: /templates/tracker/category.add.twig:11
 #: /templates/tracker/category.edit.twig:11
 msgid "Save"
@@ -67,7 +68,7 @@ msgstr "Kategorien"
 
 #: /templates/tracker/issue.edit.twig:122 /templates/tracker/issue.add.twig:66
 msgid "Milestone"
-msgstr ""
+msgstr "Meilenstein"
 
 #: /templates/tracker/issue.edit.twig:133 /templates/tracker/issue.add.twig:80
 #: /templates/tracker/categories.index.twig:34
@@ -76,6 +77,16 @@ msgstr ""
 #: /templates/tracker/category.edit.twig:27
 msgid "Title"
 msgstr "Titel"
+
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.index.twig:478
+msgid "Add a Comment"
+msgstr "Einen Kommentar hinzufügen"
+
+#: /templates/tracker/issue.edit.twig:163
+#: /templates/tracker/issue.index.twig:489
+msgid "Leave a comment"
+msgstr "Hinterlassen Sie einen Kommentar"
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
 #: /templates/tracker/issues.index.twig:19
@@ -137,7 +148,7 @@ msgstr "Beschreiben Sie in wenigen Worten das Problem das Sie haben. Es ist eine
 msgid "Description"
 msgstr "Beschreibung"
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:95
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -167,7 +178,7 @@ msgstr "Suchwerkzeuge"
 
 #: /templates/tracker/issues.index.twig:53
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: /templates/tracker/issues.index.twig:56
 #: /templates/tracker/issue.index.twig:44
@@ -429,14 +440,6 @@ msgstr "Setze das Testrgebnis für Benutzer %s auf %s"
 msgid "username"
 msgstr "Benutzername"
 
-#: /templates/tracker/issue.index.twig:478
-msgid "Add a Comment"
-msgstr "Einen Kommentar hinzufügen"
-
-#: /templates/tracker/issue.index.twig:489
-msgid "Leave a comment"
-msgstr "Hinterlassen Sie einen Kommentar"
-
 #: /templates/tracker/issue.index.twig:497
 msgid "Post Comment"
 msgstr "Kommentar absenden"
@@ -517,11 +520,7 @@ msgstr "Ihr Kommentar wurde übermittelt"
 msgid "Vote successfully added"
 msgstr "Abstimmung erfolgreich hinzugefügt"
 
-#: /src/App/Tracker/Controller/Issue/Save.php:148
-msgid "The changes have been saved."
-msgstr "Die Änderungen wurden gespeichert."
-
-#: /src/App/Tracker/Controller/Issue/Submit.php:125
+#: /src/App/Tracker/Controller/Issue/Submit.php:126
 msgid "Your report has been submitted."
 msgstr "Ihre Meldung wurde übermittelt."
 

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-08 15:50+0000\n"
+"Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,53 +34,53 @@ msgstr "Írás"
 msgid "Preview"
 msgstr "Előnézet"
 
-#: /templates/uploader.full.twig:13
+#: /templates/uploader.full.twig:14
 msgid "Add files..."
 msgstr "Fájlok hozzáadása..."
 
-#: /templates/uploader.full.twig:17
+#: /templates/uploader.full.twig:18
 msgid "Start upload"
 msgstr "Feltöltés"
 
-#: /templates/uploader.full.twig:20
+#: /templates/uploader.full.twig:21
 msgid "Cancel upload"
 msgstr "Feltöltés megszakítása"
 
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Törlés"
 
-#: /templates/uploader.full.twig:31
+#: /templates/uploader.full.twig:33
 msgid "Upload Notes"
 msgstr "Megjegyzések a feltöltéshez"
 
-#: /templates/uploader.full.twig:33
+#: /templates/uploader.full.twig:35
 msgid "The maximum file size for uploads is <strong>1 MB</strong>."
 msgstr "A feltölthető legnagyobb fájlméret <strong>1 MB</strong>."
 
-#: /templates/uploader.full.twig:34
+#: /templates/uploader.full.twig:36
 msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
 msgstr "Csak képfájlok (<strong>JPG, GIF, PNG</strong>) engedélyezettek."
 
-#: /templates/uploader.full.twig:35
+#: /templates/uploader.full.twig:37
 msgid ""
 "You can <strong>drag & drop</strong> files from your desktop on this "
 "webpage."
 msgstr "Az asztalodról <strong>húzhatsz</strong> fájlokat erre a weboldalra."
 
-#: /templates/uploader.full.twig:50
+#: /templates/uploader.full.twig:52
 msgid "Processing..."
 msgstr "Feldolgozás..."
 
-#: /templates/uploader.full.twig:56
+#: /templates/uploader.full.twig:58
 msgid "Start"
 msgstr "Indítás"
 
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Mégse"
 
-#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:145
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:145
 msgid "Error"
 msgstr "Hiba"
 
@@ -142,11 +142,11 @@ msgstr "Válassz kategóriákat..."
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr ""
+msgstr "Mérföldkő kiválasztása..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
-msgstr ""
+msgstr "Nincs mérföldkő"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -174,7 +174,7 @@ msgstr "Címkék"
 
 #: /templates/trackerMenu.twig:55
 msgid "Milestones"
-msgstr ""
+msgstr "Mérföldkövek"
 
 #: /templates/trackerMenu.twig:61
 msgid "Categories"

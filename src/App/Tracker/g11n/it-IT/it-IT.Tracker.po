@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-11 19:56+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/jtracker/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: /templates/tracker/issue.edit.twig:34
+#: /templates/tracker/issue.edit.twig:166
 #: /templates/tracker/category.add.twig:11
 #: /templates/tracker/category.edit.twig:11
 msgid "Save"
@@ -73,6 +74,16 @@ msgstr ""
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/category.edit.twig:27
 msgid "Title"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.index.twig:478
+msgid "Add a Comment"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:163
+#: /templates/tracker/issue.index.twig:489
+msgid "Leave a comment"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
@@ -135,7 +146,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:95
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -427,14 +438,6 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:478
-msgid "Add a Comment"
-msgstr ""
-
-#: /templates/tracker/issue.index.twig:489
-msgid "Leave a comment"
-msgstr ""
-
 #: /templates/tracker/issue.index.twig:497
 msgid "Post Comment"
 msgstr ""
@@ -515,11 +518,7 @@ msgstr ""
 msgid "Vote successfully added"
 msgstr ""
 
-#: /src/App/Tracker/Controller/Issue/Save.php:148
-msgid "The changes have been saved."
-msgstr ""
-
-#: /src/App/Tracker/Controller/Issue/Submit.php:125
+#: /src/App/Tracker/Controller/Issue/Submit.php:126
 msgid "Your report has been submitted."
 msgstr ""
 

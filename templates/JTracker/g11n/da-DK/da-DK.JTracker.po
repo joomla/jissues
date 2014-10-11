@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
 "PO-Revision-Date: 2014-10-07 16:47+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
@@ -34,53 +34,53 @@ msgstr "Skriv"
 msgid "Preview"
 msgstr "Vis"
 
-#: /templates/uploader.full.twig:13
+#: /templates/uploader.full.twig:14
 msgid "Add files..."
 msgstr "Tilføj filer..."
 
-#: /templates/uploader.full.twig:17
+#: /templates/uploader.full.twig:18
 msgid "Start upload"
 msgstr "Start upload"
 
-#: /templates/uploader.full.twig:20
+#: /templates/uploader.full.twig:21
 msgid "Cancel upload"
 msgstr "Fortryd upload"
 
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Slet"
 
-#: /templates/uploader.full.twig:31
+#: /templates/uploader.full.twig:33
 msgid "Upload Notes"
 msgstr "Upload noter"
 
-#: /templates/uploader.full.twig:33
+#: /templates/uploader.full.twig:35
 msgid "The maximum file size for uploads is <strong>1 MB</strong>."
 msgstr "Maksimal filstørrelse for uploads er <strong>1 MB</strong>"
 
-#: /templates/uploader.full.twig:34
+#: /templates/uploader.full.twig:36
 msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
 msgstr "Kun billedfiler (<strong>JPG, GIF, PNG</strong>) er tilladt."
 
-#: /templates/uploader.full.twig:35
+#: /templates/uploader.full.twig:37
 msgid ""
 "You can <strong>drag & drop</strong> files from your desktop on this "
 "webpage."
 msgstr "Du kan <strong>trække og slippe</strong> filer fra dit skrivebord til denne webside."
 
-#: /templates/uploader.full.twig:50
+#: /templates/uploader.full.twig:52
 msgid "Processing..."
 msgstr "Behandler..."
 
-#: /templates/uploader.full.twig:56
+#: /templates/uploader.full.twig:58
 msgid "Start"
 msgstr "Start"
 
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Fortryd"
 
-#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:145
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:145
 msgid "Error"
 msgstr "Fejl"
 

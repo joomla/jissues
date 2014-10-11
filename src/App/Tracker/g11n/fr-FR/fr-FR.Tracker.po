@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-11 19:56+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: /templates/tracker/issue.edit.twig:34
+#: /templates/tracker/issue.edit.twig:166
 #: /templates/tracker/category.add.twig:11
 #: /templates/tracker/category.edit.twig:11
 msgid "Save"
@@ -66,7 +67,7 @@ msgstr "Catégories"
 
 #: /templates/tracker/issue.edit.twig:122 /templates/tracker/issue.add.twig:66
 msgid "Milestone"
-msgstr ""
+msgstr "Objectif"
 
 #: /templates/tracker/issue.edit.twig:133 /templates/tracker/issue.add.twig:80
 #: /templates/tracker/categories.index.twig:34
@@ -75,6 +76,16 @@ msgstr ""
 #: /templates/tracker/category.edit.twig:27
 msgid "Title"
 msgstr "Titre"
+
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.index.twig:478
+msgid "Add a Comment"
+msgstr "Ajouter un commentaire"
+
+#: /templates/tracker/issue.edit.twig:163
+#: /templates/tracker/issue.index.twig:489
+msgid "Leave a comment"
+msgstr "Rédiger un commentaire"
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
 #: /templates/tracker/issues.index.twig:19
@@ -122,21 +133,21 @@ msgid ""
 "To report a bug in the Joomla! bug trackers, you need to create a tracker "
 "item. Once the tracker item is created, the developers will check the "
 "validity of it and act accordingly."
-msgstr "Pour signaler un bogue dans le traqueur de bug Joomla!, vous devez créer un élément à suivre. Une fois l'élément à suivre créé, les développeurs vérifieront sa validité et agiront en conséquence."
+msgstr "Pour signaler une anomalie dans le traqueur Joomla, vous devez créer une fiche de suivi. Une fois la fiche créée, les développeurs vérifieront sa validité et agiront en conséquence."
 
 #: /templates/tracker/issue.add.twig:83
 msgid ""
 "Describe in a few words the issues you are having. It is generally a good "
 "idea to use existing tracker items as examples if this is your first time "
 "reporting a bug."
-msgstr "Décrivez en quelques mots les problèmes que vous rencontrez. Si ceci est votre premier rapport de bug, il est généralement utile de consulter un élément du tracker existant comme exemple."
+msgstr "Décrivez en quelques mots les problèmes rencontrés. Si ceci est votre premier rapport d'anomalie, il est généralement utile de consulter un élément du tracker déjà existant comme exemple."
 
 #: /templates/tracker/issue.add.twig:85
 #: /templates/tracker/tpl/activities.twig:24
 msgid "Description"
 msgstr "Description"
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:95
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -150,7 +161,7 @@ msgstr "Il s'agit de la partie la plus importante de votre rapport d'anomalie. D
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
-msgstr "Liste des Erreurs"
+msgstr "Liste des anomalies"
 
 #: /templates/tracker/issues.index.twig:38
 msgid "Open"
@@ -166,7 +177,7 @@ msgstr "Outils de recherche"
 
 #: /templates/tracker/issues.index.twig:53
 msgid "Clear"
-msgstr ""
+msgstr "Effacer"
 
 #: /templates/tracker/issues.index.twig:56
 #: /templates/tracker/issue.index.twig:44
@@ -337,7 +348,7 @@ msgstr "Test simple"
 
 #: /templates/tracker/issue.index.twig:103
 msgid "# of Successful Tests"
-msgstr "Nbre. de tests avec succès"
+msgstr "Nbre. de tests réussis"
 
 #: /templates/tracker/issue.index.twig:172
 msgid "Categories:"
@@ -353,7 +364,7 @@ msgstr "Votes"
 
 #: /templates/tracker/issue.index.twig:237
 msgid "# of Users Experiencing Issue"
-msgstr "Nbre. d'Utilisateurs pouvant confirmer le problème"
+msgstr "Nbre. d'utilisateurs pouvant confirmer l'anomalie"
 
 #: /templates/tracker/issue.index.twig:241
 msgid "Average Importance Score"
@@ -412,7 +423,7 @@ msgstr "Testé sans succès"
 
 #: /templates/tracker/issue.index.twig:333
 msgid "Submit test result"
-msgstr "Soumettre un résultat de test"
+msgstr "Soumettre un résultat"
 
 #: /templates/tracker/issue.index.twig:340
 #: /templates/tracker/issue.index.twig:354
@@ -428,21 +439,13 @@ msgstr "Définir le résultat du test pour l'utilisateur %s comme %s"
 msgid "username"
 msgstr "Nom d'utilisateur"
 
-#: /templates/tracker/issue.index.twig:478
-msgid "Add a Comment"
-msgstr "Ajouter un Commentaire"
-
-#: /templates/tracker/issue.index.twig:489
-msgid "Leave a comment"
-msgstr "Rédiger un commentaire"
-
 #: /templates/tracker/issue.index.twig:497
 msgid "Post Comment"
-msgstr "Poster un Commentaire"
+msgstr "Poster un commentaire"
 
 #: /templates/tracker/issue.index.twig:510
 msgid "Login with GitHub to post a comment"
-msgstr "Se connecter avec GitHub pour poster un Commentaire"
+msgstr "Se connecter avec GitHub pour poster un commentaire"
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- status -"
@@ -454,7 +457,7 @@ msgstr "- Priorité -"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
-msgstr "Moins récemment mis à jour"
+msgstr "Moins récemment modifiés"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Newest"
@@ -466,7 +469,7 @@ msgstr "Plus anciens"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Recently updated"
-msgstr "Plus récemment mis à jour"
+msgstr "Plus récemment modifiés"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Created by you"
@@ -474,7 +477,7 @@ msgstr "Créé par vous"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Everyone's issues"
-msgstr "Toutes les erreurs"
+msgstr "Toutes les anomalies"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "You participated in"
@@ -516,11 +519,7 @@ msgstr "Votre commentaire a été soumis"
 msgid "Vote successfully added"
 msgstr "Vote ajouté avec succès"
 
-#: /src/App/Tracker/Controller/Issue/Save.php:148
-msgid "The changes have been saved."
-msgstr "Les modifications ont été enregistrées."
-
-#: /src/App/Tracker/Controller/Issue/Submit.php:125
+#: /src/App/Tracker/Controller/Issue/Submit.php:126
 msgid "Your report has been submitted."
 msgstr "Votre rapport a été soumis."
 

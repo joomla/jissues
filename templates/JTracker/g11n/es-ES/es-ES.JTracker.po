@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 11:47-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-07 16:54+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,53 +35,53 @@ msgstr "Escribir"
 msgid "Preview"
 msgstr "Vista previa"
 
-#: /templates/uploader.full.twig:13
+#: /templates/uploader.full.twig:14
 msgid "Add files..."
 msgstr "Adicionar ficheros..."
 
-#: /templates/uploader.full.twig:17
+#: /templates/uploader.full.twig:18
 msgid "Start upload"
 msgstr "Iniciar subida"
 
-#: /templates/uploader.full.twig:20
+#: /templates/uploader.full.twig:21
 msgid "Cancel upload"
 msgstr "Cancelar subida"
 
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Borrar"
 
-#: /templates/uploader.full.twig:31
+#: /templates/uploader.full.twig:33
 msgid "Upload Notes"
 msgstr "Subir notas"
 
-#: /templates/uploader.full.twig:33
+#: /templates/uploader.full.twig:35
 msgid "The maximum file size for uploads is <strong>1 MB</strong>."
 msgstr "El tamaño máximo para la subida de archivos <strong>1 MB</strong>"
 
-#: /templates/uploader.full.twig:34
+#: /templates/uploader.full.twig:36
 msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
 msgstr "Se permiten solo archivos de imágenes(<strong>JPG, GIF, PNG</strong>)."
 
-#: /templates/uploader.full.twig:35
+#: /templates/uploader.full.twig:37
 msgid ""
 "You can <strong>drag & drop</strong> files from your desktop on this "
 "webpage."
 msgstr "Puede <strong>arrastrar y soltar</strong> archivos desde su escritorio aqui"
 
-#: /templates/uploader.full.twig:50
+#: /templates/uploader.full.twig:52
 msgid "Processing..."
 msgstr "Procesando..."
 
-#: /templates/uploader.full.twig:56
+#: /templates/uploader.full.twig:58
 msgid "Start"
 msgstr "Inicio"
 
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:145
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:145
 msgid "Error"
 msgstr "Error"
 
@@ -143,11 +143,11 @@ msgstr "Seleccione categorías..."
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr ""
+msgstr "Selecionar hito..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
-msgstr ""
+msgstr "No hito"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -175,7 +175,7 @@ msgstr "Etiquetas"
 
 #: /templates/trackerMenu.twig:55
 msgid "Milestones"
-msgstr ""
+msgstr "Hitos"
 
 #: /templates/trackerMenu.twig:61
 msgid "Categories"
