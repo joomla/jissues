@@ -10,6 +10,9 @@ namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Table\ActivitiesTable;
+
+use Joomla\Date\Date;
 
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
@@ -148,7 +151,69 @@ class Save extends AbstractTrackerController
 			// Save the record.
 			$model->save($data);
 
-			$application->enqueueMessage(g11n3t('The changes have been saved.'), 'success')
+			$comment = $application->input->get('comment', '', 'raw');
+
+			// Save the comment.
+			if ($comment)
+			{
+				$project = $application->getProject();
+
+				/* @type \Joomla\Github\Github $github */
+				$github = $this->getContainer()->get('gitHub');
+
+				$data = new \stdClass;
+				$db   = $this->getContainer()->get('db');
+
+				if ($project->gh_user && $project->gh_project)
+				{
+					$gitHubResponse = $github->issues->comments->create(
+						$project->gh_user, $project->gh_project, $issueNumber, $comment
+					);
+
+					if (!isset($gitHubResponse->id))
+					{
+						throw new \Exception('Invalid response from GitHub');
+					}
+
+					$data->created_at = $gitHubResponse->created_at;
+					$data->opened_by  = $gitHubResponse->user->login;
+					$data->comment_id = $gitHubResponse->id;
+					$data->text_raw   = $gitHubResponse->body;
+
+					$data->text = $github->markdown->render(
+						$comment,
+						'gfm',
+						$project->gh_user . '/' . $project->gh_project
+					);
+				}
+				else
+				{
+					$date = new Date;
+
+					$data->created_at = $date->format($db->getDateFormat());
+					$data->opened_by  = $application->getUser()->username;
+					$data->comment_id = '???';
+
+					$data->text_raw = $comment;
+
+					$data->text = $github->markdown->render($comment, 'markdown');
+				}
+
+				$table = new ActivitiesTable($db);
+
+				$table->event         = 'comment';
+				$table->created_date  = $data->created_at;
+				$table->project_id    = $project->project_id;
+				$table->issue_number  = $issueNumber;
+				$table->gh_comment_id = $data->comment_id;
+				$table->user          = $data->opened_by;
+				$table->text          = $data->text;
+				$table->text_raw      = $data->text_raw;
+
+				$table->store();
+			}
+
+			$application->enqueueMessage('The changes have been saved.', 'success')
 				->redirect(
 				'/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber
 			);

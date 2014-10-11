@@ -137,8 +137,10 @@
                     class="validateTitle" />
                 </li>
                 <li>
-
                     {% set editorId="description" %}
+                    {% set previewId="previewDesc" %}
+                    {% set writeId="writeDesc" %}
+                    {% set editorClass="validateDescription" %}
                     {% set editorName="item[description_raw]" %}
                     {% set editorText=item.description_raw %}
                     {% set editorPlaceholder="Description text" %}
@@ -146,6 +148,23 @@
                     {% include "editor.twig" %}
                 </li>
             </ul>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span11 well-small">
+                <h4>{{ "Add a Comment"|_ }}</h4>
+
+                {% set editorId="comment" %}
+                {% set previewId="previewComment" %}
+                {% set writeId="writeComment" %}
+                {% set editorClass="" %}
+                {% set editorName="comment" %}
+                {% set editorText='' %}
+                {% set editorPlaceholder="Leave a comment"|_ %}
+
+                {% include "editor.twig" %}
+                <a class="pull-right btn btn-success" href="javascript:" id="submit-bottom">{{ translate('Save') }}</a>
+            </div>
         </div>
 
         <input type="hidden" name="item[id]" value="{{ item.id }}">
@@ -156,7 +175,7 @@
     </form>
 
     <div class="row-fluid">
-        <div class="offset1 span6">
+        <div class="offset1 span10">
             {% include "uploader.full.twig" %}
         </div>
     </div>
@@ -190,12 +209,25 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
+            $('#comment').markItUp(myMarkdownSettings);
             $('.selectpicker').selectpicker();
         });
 
+        $('#description').focus(function() {
+            $('input[name="editorId"]').val(this.id);
+        });
+
+        $('#comment').focus(function() {
+            $('input[name="editorId"]').val(this.id);
+        });
+
         $('a[data-toggle="tab"]').on('shown', function (e) {
-            if ('#preview' == $(e.target).attr('href')) {
-                JTracker.preview('#description', '#preview');
+            if ('#previewDesc' == $(e.target).attr('href')) {
+                JTracker.preview('#description', '#previewDesc');
+            }
+
+            if ('#previewComment' == $(e.target).attr('href')) {
+                JTracker.preview('#comment', '#previewComment');
             }
         });
 
@@ -207,7 +239,7 @@
                 var e = $('div.alert-danger');
 
                 if (validator.numberOfInvalids()) {
-                    e.html('Some fields are invalid. They have been highlighted.');
+                    e.html(g11n3t('Some fields are invalid. They have been highlighted.'));
                     e.show();
                 } else {
                     e.hide();
@@ -217,7 +249,14 @@
 
         $('#submit').click(function() {
             if (form.valid()) {
-                $('#submit').html('Saving...');
+                $('#submit').html(g11n3t('Saving...'));
+            }
+            form.submit();
+        });
+
+        $('#submit-bottom').click(function() {
+            if (form.valid()) {
+                $('#submit-bottom').html(g11n3t('Saving...'));
             }
             form.submit();
         });

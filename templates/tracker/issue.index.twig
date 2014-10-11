@@ -601,6 +601,10 @@
                 JTracker.preview('#comment', '#preview');
             }
         });
+
+        $('#comment').focus(function() {
+            $('input[name="editorId"]').val(this.id);
+        });
     </script>
 
 {% endblock %}
