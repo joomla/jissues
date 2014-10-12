@@ -5,9 +5,7 @@
 
 <a href="{{ href }}">{{ link }}</a>
 
-Easy: {{#item.easy}}Yes{{/item.easy}}{{^item.easy}}No{{/item.easy}}
-Successfull Tests: {{ testsSuccessCnt }} {{#item.testsSuccess}}@{{ . }} {{/item.testsSuccess}}
-Unsuccessfull Tests: {{ testsFailureCnt }} {{#item.testsFailure}}@{{ . }} {{/item.testsFailure}}
+Level: {{#item.easy}}:baby_bottle:{{/item.easy}}{{^item.easy}}:beers:{{/item.easy}} Tests: {{ testsSuccessCnt }} {{#item.testsSuccess}}@{{ -:white_check_mark: . }} {{/item.testsSuccess}} {{ testsFailureCnt }} {{#item.testsFailure}}@{{ -:x: . }} {{/item.testsFailure}}
 
 ----
 
