@@ -239,7 +239,7 @@
                 var e = $('div.alert-danger');
 
                 if (validator.numberOfInvalids()) {
-                    e.html(g11n3t('Some fields are invalid. They have been highlighted.'));
+                    e.html('{{ 'Some fields are invalid. They have been highlighted.'|_ }}');
                     e.show();
                 } else {
                     e.hide();
@@ -249,14 +249,14 @@
 
         $('#submit').click(function() {
             if (form.valid()) {
-                $('#submit').html(g11n3t('Saving...'));
+                $('#submit').html('{{ 'Saving...'|_ }}');
             }
             form.submit();
         });
 
         $('#submit-bottom').click(function() {
             if (form.valid()) {
-                $('#submit-bottom').html(g11n3t('Saving...'));
+                $('#submit-bottom').html('{{ 'Saving...'|_ }}');
             }
             form.submit();
         });

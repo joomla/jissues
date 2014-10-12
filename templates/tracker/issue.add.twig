@@ -175,7 +175,7 @@
                 var e = $('div.alert-danger');
 
                 if (validator.numberOfInvalids()) {
-                    e.html('Some fields are invalid. They have been highlighted.');
+                    e.html('{{ 'Some fields are invalid. They have been highlighted.'|_ }}');
                     e.show();
                 } else {
                     e.hide();
@@ -185,7 +185,7 @@
 
         $('#submit').click(function() {
             if (form.valid()) {
-                $('#submit').html('Submitting...');
+                $('#submit').html('{{ 'Submitting...'|_ }}');
             }
             form.submit();
         });
