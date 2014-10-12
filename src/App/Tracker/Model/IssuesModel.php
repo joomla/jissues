@@ -372,7 +372,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		if ($filter && is_numeric($filter))
 		{
-			$query->where($db->quoteName('a.labels') . ' LIKE ' . $db->quote('%' . $filter . '%'));
+			$query->where('FIND_IN_SET(' . $filter . ', ' . $db->quoteName('a.labels') . ')');
 		}
 
 		$filter = $this->state->get('filter.tests');
