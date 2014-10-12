@@ -149,6 +149,80 @@ class IssuesModel extends AbstractTrackerListModel
 			}
 		}
 
+		$filter = $this->state->get('filter.category');
+
+		if ($filter && is_numeric($filter))
+		{
+			$categoryModel = new CategoryModel($db);
+			$issues        = $categoryModel->getIssueIdsByCategory($filter);
+
+			if ($issues != null)
+			{
+				$issueId = array();
+
+				foreach ($issues as $issue)
+				{
+					$issueId[] = $issue->issue_id;
+				}
+
+				$issueId = implode(', ', $issueId);
+			}
+			else
+			{
+				$issueId = 0;
+			}
+
+			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
+		}
+
+		$filter = $this->state->get('filter.label');
+
+		if ($filter && is_numeric($filter))
+		{
+			$query->where($db->quoteName('a.labels') . ' LIKE ' . $db->quote('%' . $filter . '%'));
+		}
+
+		$filter = $this->state->get('filter.tests');
+
+		if ($filter && is_numeric($filter))
+		{
+			// Common query elements
+			$query
+				->leftJoin(
+					$db->quoteName('#__issues_tests', 'it')
+					. 'ON a.id = it.item_id'
+				)
+				->where($db->quoteName('a.has_code') . ' = 1')
+				->group('a.issue_number');
+
+			switch ($filter)
+			{
+				case 1:
+					$query
+						->where($db->quoteName('it.result') . ' = 1')
+						->having('COUNT(it.item_id) = 1');
+					break;
+
+				case 2:
+					$query
+						->where($db->quoteName('it.result') . ' = 1')
+						->having('COUNT(it.item_id) > 1');
+					break;
+
+				case 3:
+					$query
+						->having('COUNT(it.item_id) = 0');
+					break;
+			}
+		}
+
+		$filter = $this->state->get('filter.easytest');
+
+		if ($filter && is_numeric($filter))
+		{
+			$query->where($db->quoteName('a.easy') . ' = ' . (int) $filter);
+		}
+
 		$ordering  = $db->escape($this->state->get('list.ordering', 'a.issue_number'));
 		$direction = $db->escape($this->state->get('list.direction', 'DESC'));
 		$query->order($ordering . ' ' . $direction);
