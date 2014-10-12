@@ -63,7 +63,7 @@
         {% set values = values + { (id) : (label.name) } %}
     {% endfor %}
 
-    {{ fields.select('label-category', values, value, id, class) }}
+    {{ fields.select('filter-label', values, value, id, class) }}
 {% endmacro %}
 
 {% macro tests(value, id, class) %}
