@@ -261,6 +261,13 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
 		}
 
+		$filter = $this->state->get('filter.label');
+
+		if ($filter && is_numeric($filter))
+		{
+			$query->where($db->quoteName('a.labels') . ' LIKE ' . $db->quote('%' . $filter . '%'));
+		}
+
 		$filter = $this->state->get('filter.tests');
 
 		if ($filter && is_numeric($filter))
@@ -331,6 +338,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
 		$id .= ':' . $this->state->get('filter.category');
+		$id .= ':' . $this->state->get('filter.label');
 		$id .= ':' . $this->state->get('filter.tests');
 		$id .= ':' . $this->state->get('filter.easytest');
 
