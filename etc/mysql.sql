@@ -238,7 +238,7 @@ VALUES
   (4, 'reopen', 'Tracker', 'Reopens an issue.', 1),
   (5, 'assign', 'Tracker', 'Assign an issue to a user', 1),
   (6, 'merge', 'Tracker', 'Merge a Pull Request', 2),
-  (7, 'alter_testresult', 'Test', 'Test an issue.', 5),
+  (7, 'test_item', 'Test', 'Test an issue.', 5),
   (8, 'add_code', 'Code', 'Add a pull request to the tracker.', 5);
 
 
