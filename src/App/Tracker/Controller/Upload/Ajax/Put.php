@@ -52,6 +52,7 @@ class Put extends AbstractAjaxController
 					'alt'  => 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s'),
 					'deleteUrl' => '/upload/delete/?file=' . $destName,
 					'deleteType' => "POST",
+					'editorId' => $application->input->get('editorId'),
 				)
 			);
 

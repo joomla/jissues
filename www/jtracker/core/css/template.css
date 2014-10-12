@@ -767,10 +767,9 @@ blockquote {
 }
 blockquote p {
   margin-bottom: 0;
-  font-size: 0.9em;
+  font-size: 16.25px;
   font-weight: 300;
   line-height: 1.25;
-  color: #888;
 }
 blockquote small {
   display: block;
@@ -824,6 +823,7 @@ code {
   color: #d14;
   background-color: #f7f7f9;
   border: 1px solid #e1e1e8;
+  white-space: nowrap;
 }
 pre {
   display: block;
@@ -8544,6 +8544,18 @@ div#nav-search form input[type="text"] {
     display: none;
   }
 }
+@media (max-width: 768px) and (min-width: 481px) {
+  .subnav.affix {
+    position: static
+  }
+}
+
+/** JTracker custom CSS **/
+
+blockquote p {
+	font-size: 0.9em;
+	color: #888;
+}
 .helpText{float: none; margin-left: 0; padding-right: 14px}
 label.error{color: #E9322D;}
 input.error, input:focus.error,
@@ -8589,5 +8601,4 @@ td.valign-center{vertical-align: middle}
 .list-issue-title{font-size: 1.1em}
 .list-issue-details{font-size: 0.85em}
 #stools-container .btn-group{margin: 5px 5px 0 0;}
-
 .activity-comment { border: 1px solid silver; margin: 10px 0 10px; border-radius: 3px; }

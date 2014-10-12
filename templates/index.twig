@@ -114,7 +114,11 @@
 
     <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
 
-    <script type="text/javascript">jQuery('.hasTooltip').tooltip();</script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('.hasTooltip').tooltip();
+        });
+    </script>
 
 {% endblock %}
 

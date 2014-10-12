@@ -77,6 +77,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the relations_types table
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+
+				// Join over the milestones table
+				->select('m.title AS milestone_title')
+				->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = i.milestone_id')
 		)->loadObject();
 
 		if (!$item)
@@ -368,6 +372,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 		$data['easy']            = $filter->clean($src['easy'], 'int');
 		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
+		$data['milestone_id']    = $filter->clean($src['milestone_id'], 'int');
 
 		if (!$data['id'])
 		{
@@ -583,5 +588,29 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->from($this->db->quoteName('#__issues'))
 				->where($this->db->quoteName('id') . ' = ' . (int) $id)
 		)->loadResult();
+	}
+
+	/**
+	 * Get an issue categories by its ID.
+	 *
+	 * @param   integer  $id  The issue ID.
+	 *
+	 * @return  array  The list of issue categories
+	 *
+	 * @since   1.0
+	 */
+	public function getCategories($id)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select(
+					$this->db->quoteName(
+						['ic.title', 'ic.alias', 'ic.color']
+					)
+				)
+				->from($this->db->quoteName('#__issue_category_map', 'icm'))
+				->leftJoin($this->db->quoteName('#__issues_categories', 'ic') . ' ON ic.id = icm.category_id')
+				->where($this->db->quoteName('icm.issue_id') . ' = ' . (int) $id)
+		)->loadObjectList();
 	}
 }

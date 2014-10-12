@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 11:28-0500\n"
-"PO-Revision-Date: 2014-08-19 16:19+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-07 16:54+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,53 +35,53 @@ msgstr "Escribir"
 msgid "Preview"
 msgstr "Vista previa"
 
-#: /templates/uploader.full.twig:13
+#: /templates/uploader.full.twig:14
 msgid "Add files..."
 msgstr "Adicionar ficheros..."
 
-#: /templates/uploader.full.twig:17
+#: /templates/uploader.full.twig:18
 msgid "Start upload"
 msgstr "Iniciar subida"
 
-#: /templates/uploader.full.twig:20
+#: /templates/uploader.full.twig:21
 msgid "Cancel upload"
 msgstr "Cancelar subida"
 
-#: /templates/uploader.full.twig:23 /templates/uploader.full.twig:99
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Borrar"
 
-#: /templates/uploader.full.twig:31
+#: /templates/uploader.full.twig:33
 msgid "Upload Notes"
 msgstr "Subir notas"
 
-#: /templates/uploader.full.twig:33
+#: /templates/uploader.full.twig:35
 msgid "The maximum file size for uploads is <strong>1 MB</strong>."
 msgstr "El tamaño máximo para la subida de archivos <strong>1 MB</strong>"
 
-#: /templates/uploader.full.twig:34
+#: /templates/uploader.full.twig:36
 msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
 msgstr "Se permiten solo archivos de imágenes(<strong>JPG, GIF, PNG</strong>)."
 
-#: /templates/uploader.full.twig:35
+#: /templates/uploader.full.twig:37
 msgid ""
 "You can <strong>drag & drop</strong> files from your desktop on this "
 "webpage."
 msgstr "Puede <strong>arrastrar y soltar</strong> archivos desde su escritorio aqui"
 
-#: /templates/uploader.full.twig:50
+#: /templates/uploader.full.twig:52
 msgid "Processing..."
 msgstr "Procesando..."
 
-#: /templates/uploader.full.twig:56
+#: /templates/uploader.full.twig:58
 msgid "Start"
 msgstr "Inicio"
 
-#: /templates/uploader.full.twig:61 /templates/uploader.full.twig:104
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: /templates/uploader.full.twig:74 /templates/trackerMenu.twig:139
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:145
 msgid "Error"
 msgstr "Error"
 
@@ -139,7 +139,15 @@ msgstr "Todos los derechos reservados"
 
 #: /templates/fields.twig:44
 msgid "Select Categories..."
-msgstr ""
+msgstr "Seleccione categorías..."
+
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr "Selecionar hito..."
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr "No hito"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -163,109 +171,113 @@ msgstr "Grupos de Acceso"
 
 #: /templates/trackerMenu.twig:49
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: /templates/trackerMenu.twig:55
-msgid "Categories"
-msgstr ""
+msgid "Milestones"
+msgstr "Hitos"
 
-#: /templates/trackerMenu.twig:65
+#: /templates/trackerMenu.twig:61
+msgid "Categories"
+msgstr "Categorías"
+
+#: /templates/trackerMenu.twig:71
 msgid "Projects"
 msgstr "Proyectos"
 
-#: /templates/trackerMenu.twig:70
+#: /templates/trackerMenu.twig:76
 msgid "Users"
 msgstr "Usuarios"
 
-#: /templates/trackerMenu.twig:77
+#: /templates/trackerMenu.twig:83
 msgid "System"
 msgstr "Sistema"
 
-#: /templates/trackerMenu.twig:84
+#: /templates/trackerMenu.twig:90
 msgid "Configuration"
 msgstr "Configuración"
 
-#: /templates/trackerMenu.twig:90
+#: /templates/trackerMenu.twig:96
 msgid "phpinfo()"
 msgstr "phpinfo()"
 
-#: /templates/trackerMenu.twig:96
+#: /templates/trackerMenu.twig:102
 msgid "Logs"
 msgstr "Logs"
 
-#: /templates/trackerMenu.twig:109
+#: /templates/trackerMenu.twig:115
 msgid "Cron Jobs"
 msgstr "Cron Jobs"
 
-#: /templates/trackerMenu.twig:114
+#: /templates/trackerMenu.twig:120
 msgid "Database"
 msgstr "Base de datos"
 
-#: /templates/trackerMenu.twig:120
+#: /templates/trackerMenu.twig:126
 msgid "GitHub Issues"
 msgstr "GitHub Problemas"
 
-#: /templates/trackerMenu.twig:126
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Comments"
 msgstr "GitHub Comentarios"
 
-#: /templates/trackerMenu.twig:132
+#: /templates/trackerMenu.twig:138
 msgid "GitHub Pulls"
 msgstr "GitHub Pulls"
 
-#: /templates/trackerMenu.twig:136
+#: /templates/trackerMenu.twig:142
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:146
+#: /templates/trackerMenu.twig:152
 msgid "Icons"
 msgstr "Iconos"
 
-#: /templates/trackerMenu.twig:152
+#: /templates/trackerMenu.twig:158
 msgid "Routes"
 msgstr "Rutas"
 
-#: /templates/trackerMenu.twig:158
+#: /templates/trackerMenu.twig:164
 msgid "Text"
 msgstr "Texto"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:170
 msgid "Clear Cache"
 msgstr "Borrar Caché"
 
-#: /templates/trackerMenu.twig:181
+#: /templates/trackerMenu.twig:187
 msgid "About Us"
 msgstr "Acerca de"
 
-#: /templates/trackerMenu.twig:186
+#: /templates/trackerMenu.twig:192
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:191 /templates/topMenu.twig:72
+#: /templates/trackerMenu.twig:197 /templates/topMenu.twig:72
 msgid "Documentation"
 msgstr "Documentación"
 
-#: /templates/trackerMenu.twig:210
+#: /templates/trackerMenu.twig:216
 msgid "Admin"
 msgstr "Admin"
 
-#: /templates/trackerMenu.twig:215
+#: /templates/trackerMenu.twig:221
 msgid "View profile"
 msgstr "Ver mi Perfil"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:227
 msgid "Edit profile"
 msgstr "Editar mi perfil"
 
-#: /templates/trackerMenu.twig:228
+#: /templates/trackerMenu.twig:234
 msgid "Logout"
 msgstr "Salir"
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:243
 msgid "Login with GitHub"
 msgstr "Conectarse con Github"
 
-#: /templates/trackerMenu.twig:241
+#: /templates/trackerMenu.twig:247
 msgid "No GitHub credentials set in config"
 msgstr "No credentiales de GitHub especificado en la configuración"
 

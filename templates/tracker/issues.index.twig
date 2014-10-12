@@ -49,6 +49,9 @@
                         <b class="caret"></b>
                     </button>
                 </div>
+                <div class="btn-group">
+                    <button class="btn" id="button-remove" type="button">{{ 'Clear'|_ }}</button>
+                </div>
                 <a class="btn pull-right"
                    href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
             </div>
@@ -69,16 +72,12 @@
                 <div class="filter-search btn-group input-append">
                     <label class="filter-search-lbl element-invisible"
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
-                    <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
+                    <input type="text" class="toclear search-query input-xlarge" name="filter-search" id="filter-search"
                            value="{{ state.get('filter.search') }}"
                            title="{{ translate('Filter the list by ID, summary, or description.') }}"
                            placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-                    <button class="btn tip hasTooltip" id="button-submit" type="button" title="{{ 'Submit search'|_ }}">
+                    <button class="btn" id="button-submit" type="button">
                         <span class="icon-search"></span></button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn tip hasTooltip" id="button-remove" type="button"
-                            title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
                 {% if (state.get('filter.state') == 0) %}
                     {% set openState = '' %}
@@ -88,22 +87,22 @@
                     {% set closedState = '' %}
                 {% endif %}
                 <div id="status-open" class="btn-group"{{ openState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'input-medium-160', 0) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'toclear input-medium-160', 0) }}
                 </div>
                 <div id="status-closed" class="btn-group"{{ closedState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'input-medium-160', 1) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'toclear input-medium-160', 1) }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.category(state.get('filter.category'), 'filter-category', 'selectpicker', project.categories) }}
+                    {{ filters.category(state.get('filter.category'), 'filter-category', 'toclear selectpicker', project.categories) }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-120') }}
+                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120') }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.tests(state.get('filter.tests'), 'filter-tests', 'input-medium-140') }}
+                    {{ filters.tests(state.get('filter.tests'), 'filter-tests', 'toclear input-medium-140') }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'input-medium-140') }}
+                    {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'toclear input-medium-140') }}
                 </div>
                 {% if user.username %}
                     <div class="btn-group">
@@ -196,9 +195,19 @@
                         [%= item.title %]
                     </a>
                     [% print(item.labelHtml,true); %]
+                    [% if (item.categories.length) { %]
+                        <br/>
+                        [% for (var n=0, category; category=item.categories[n]; n++) { %]
+                            <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' }}[%= category.alias %]">
+                                <span class="label" style="background-color:#[%= category.color %]; color:[%= JTracker.getContrastColor(category.color) %];">
+                                    [%= category.title %]
+                                </span>
+                            </a>
+                        [% } %]
+                    [% } %]
+                    <br/>
                     <span class="list-issue-details">
                         {% if project.gh_user and project.gh_project %}
-                          <br/>
                           {{ 'GitHub ID'|_ }}
                           <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
                              target="_blank">
@@ -303,7 +312,9 @@
         );
 
         $("#button-remove").click(function () {
-            $('#filter-search').val('');
+            $('[class^=toclear]').val('');
+            $('#filter-user').val(0);
+            $('#filter-sort').val(0);
             getListItems();
         });
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 11:28-0500\n"
-"PO-Revision-Date: 2014-09-01 15:54+0000\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-08 15:50+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr "%s - Mérföldkövek"
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr "Új mérföldkő"
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr "Szám"
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "Cím"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr "A mérföldkő címe"
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr "Esedékes"
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "Dátum"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr "Állapot"
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr "Nyitva"
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr "Lezárva"
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "Leírás"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "Mentés"
+
+#: /templates/github/milestones.index.twig:79
+#: /templates/github/hooks.index.twig:89
+msgid "Actions"
+msgstr "Műveletek"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: /templates/github/milestones.index.twig:98
+#: /templates/github/labels.index.twig:59
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr "Törlés"
 
 #: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
 #, php-format
@@ -64,11 +134,6 @@ msgstr "Címke hozzáadása"
 msgid "URL"
 msgstr "URL-cím"
 
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Törlés"
-
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
@@ -101,10 +166,6 @@ msgstr "Típus"
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
 msgstr "Állapot"
-
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Műveletek"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"

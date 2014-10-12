@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-09 11:28-0500\n"
-"PO-Revision-Date: 2014-08-31 18:16+0000\n"
+"POT-Creation-Date: 2014-10-11 14:56-0500\n"
+"PO-Revision-Date: 2014-10-07 18:14+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr "%s - Objectifs"
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr "Nouvel objectif"
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr "Nombre"
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "Titre"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr "Titre de l'objectif"
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr "En raison de"
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "Date"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr "Statut"
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr "Ouvert"
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr "Fermé"
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "Description"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "Sauver"
+
+#: /templates/github/milestones.index.twig:79
+#: /templates/github/hooks.index.twig:89
+msgid "Actions"
+msgstr "Actions"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "Éditer"
+
+#: /templates/github/milestones.index.twig:98
+#: /templates/github/labels.index.twig:59
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr "Supprimer"
 
 #: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
 #, php-format
@@ -64,11 +134,6 @@ msgstr "Ajouter une étiquette"
 msgid "URL"
 msgstr "URL"
 
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Supprimer"
-
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
@@ -101,10 +166,6 @@ msgstr "Type"
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
 msgstr "Statut"
-
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Actions"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"
