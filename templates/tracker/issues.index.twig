@@ -96,6 +96,9 @@
                     {{ filters.category(state.get('filter.category'), 'filter-category', 'toclear selectpicker', project.categories) }}
                 </div>
                 <div class="btn-group">
+                    {{ filters.label(state.get('filter.label'), 'filter-label', 'toclear selectpicker', project.labels) }}
+                </div>
+                <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120') }}
                 </div>
                 <div class="btn-group">
@@ -389,6 +392,7 @@
             var sort = $('#filter-sort').val();
             var user = $('#filter-user').val();
             var category = $('#filter-category').val();
+            var label = $('#filter-label').val();
             var tests = $('#filter-tests').val();
             var easytest = $('#filter-easytest').val();
             var page = $('#page').val();
@@ -404,6 +408,7 @@
                     'sort': sort,
                     'state': state,
                     'category': category,
+                    'label': label,
                     'tests': tests,
                     'easytest': easytest,
                     'stools-active': active,
@@ -432,6 +437,7 @@
                                         'sort': sort,
                                         'state': state,
                                         'category': category,
+                                        'label': label,
                                         'tests': tests,
                                         'easytest': easytest,
                                         'stools-active': active

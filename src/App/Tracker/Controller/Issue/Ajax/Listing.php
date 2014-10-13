@@ -114,6 +114,10 @@ class Listing extends AbstractAjaxController
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'uint')
 		);
 
+		$state->set('filter.label',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint')
+		);
+
 		$state->set('filter.tests',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
 		);
