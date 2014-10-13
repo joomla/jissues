@@ -21,13 +21,14 @@
 CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `project_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `title` varchar(150) NOT NULL COMMENT 'Project title',
+	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
   `gh_editbot_user` varchar(150) NOT NULL COMMENT 'GitHub editbot username',
   `gh_editbot_pass` varchar(150) NOT NULL COMMENT 'GitHub editbot password',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
+  `use_gh_status_comment` tinyint(4) NOT NULL COMMENT 'Enable GitHub status comment',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
