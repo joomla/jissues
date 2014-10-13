@@ -350,13 +350,16 @@ class Issues extends Project
 
 			$table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
 
-			// Store the table - wil  be needed in the next step.
-			$table->store(true);
+			if ($this->project->getUse_Gh_Status_Comment())
+			{
+				// Store the table - required in the next step.
+				$table->store(true);
 
-			// Create/update GitHub status comment.
-			$table->gh_status_comment_id = $this->updateGitHubStatusComment($ghIssue, $table->gh_status_comment_id);
+				// Create/update GitHub status comment.
+				$table->gh_status_comment_id = $this->updateGitHubStatusComment($ghIssue, $table->gh_status_comment_id);
+			}
 
-			// Store the table again.
+			// Store the table.
 			$table->store(true);
 
 			if (!$table->id)
@@ -650,7 +653,9 @@ class Issues extends Project
 		}
 		else
 		{
-			$gitHub = $this->githubBot;
+			$this->debugOut(sprintf('GitHub bot account not set for project "%s"', $this->project->title));
+
+			return 0;
 		}
 
 		// @todo hard coded URI :(
