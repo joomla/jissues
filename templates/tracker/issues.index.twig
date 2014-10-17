@@ -52,8 +52,12 @@
                 <div class="btn-group">
                     <button class="btn" id="button-remove" type="button">{{ 'Clear'|_ }}</button>
                 </div>
-                <a class="btn pull-right"
-                   href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
+                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">
+                    {{ 'Feeling Lucky'|_ }}
+                </a>
+                <a class="btn pull-right" id="permalink" href="javascript:">
+                    {{ 'Permalink'|_ }}
+                </a>
             </div>
 
             <div id="stools-container" class="collapse
@@ -454,8 +458,36 @@
                     }
                     $('#issuesList tbody').html(tmpl("ajaxListing", r));
                     $('#issuesList tbody').animate({opacity: 1}, 100);
+                    $('#permalink').attr('href', getPermaLink(
+                            search, status, priority, user, sort, state, category, label, tests, easytest
+                    ));
                 }
             });
+        }
+
+        function getPermaLink(search, status, priority, user, sort, state, category, label, tests, easytest) {
+            var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
+            var filters = [];
+            var stools = [];
+
+            if (state != 0) { filters[filters.length] = 'state=' + state; }
+
+            if (search) { stools[stools.length] = 'search=' + search }
+            if (status != 0) { stools[stools.length] = 'status=' + status }
+            if (priority != 0) { stools[stools.length] = 'priority=' + priority }
+            if (user != 0) { stools[stools.length] = 'user=' + user }
+            if (sort != 0) { stools[stools.length] = 'sort=' + sort }
+            if (category != 0) { stools[stools.length] = 'category=' + category }
+            if (label != 0) { stools[stools.length] = 'label=' + label }
+            if (tests != 0) { stools[stools.length] = 'tests=' + tests }
+            if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }
+
+            permaLink += filters.length ? filters.join('&') + '&' : '';
+
+            permaLink += stools.length ? stools.join('&') + '&' : '';
+            permaLink += stools.length ? 'stools-active=1' : 'stools-active=0';
+
+            return permaLink;
         }
 
         $('#stools-button button').click(
