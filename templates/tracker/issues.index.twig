@@ -248,7 +248,7 @@
                     <span class="badge [%=prioClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
                  </td>
                 <td class="center valign-center">
-                    [%= item.status_title %]
+                    [%= translateStatus(item.status) %]
                     [% if(item.merge_state) { %]
                         <br />
                         <span class="badge badge-[%= getMergeStateClass(item.merge_state) %] " title="{{ 'GitHub merge status'|_ }}">
@@ -374,6 +374,26 @@
             }
 
             return '?';
+        }
+
+        function translateStatus(id)
+        {
+            statuses = []
+            statuses['1'] = g11n3t('New');
+            statuses['2'] = g11n3t('Confirmed');
+            statuses['3'] = g11n3t('Pending');
+            statuses['4'] = g11n3t('Ready To Commit');
+            statuses['5'] = g11n3t('Fixed in Code Base');
+            statuses['6'] = g11n3t('Needs Review');
+            statuses['7'] = g11n3t('Information Required');
+            statuses['8'] = g11n3t('Unconfirmed Report');
+            statuses['9'] = g11n3t('No Reply');
+            statuses['10'] = g11n3t('Closed');
+            statuses['11'] = g11n3t('Expected Behaviour');
+            statuses['12'] = g11n3t('Known Issue');
+            statuses['13'] = g11n3t('Duplicate Report');
+
+            return statuses[id];
         }
 
         function getListItems() {
