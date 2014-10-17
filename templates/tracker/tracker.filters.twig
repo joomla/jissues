@@ -55,6 +55,17 @@
     {{ fields.select('filter-category', values, value, id, class) }}
 {% endmacro %}
 
+{% macro label(value, id, class, labels) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {0: '- labels -'|_} %}
+    {% for id,label in labels %}
+        {% set values = values + { (id) : (label.name) } %}
+    {% endfor %}
+
+    {{ fields.select('filter-label', values, value, id, class) }}
+{% endmacro %}
+
 {% macro tests(value, id, class) %}
     {% import "fields.twig" as fields %}
 
