@@ -100,6 +100,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('getPriority', array($this, 'getPriority')),
 			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
+			new \Twig_SimpleFunction('translateStatus', array($this, 'translateStatus')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
 			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
@@ -354,6 +355,22 @@ class TrackerExtension extends \Twig_Extension
 		}
 
 		return $statuses;
+	}
+
+	/**
+	 * Retrieves the translated status name for a given ID
+	 *
+	 * @param   integer  $id  Status ID
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function translateStatus($id)
+	{
+		$statuses = $this->getStatuses();
+
+		return $statuses[$id];
 	}
 
 	/**
