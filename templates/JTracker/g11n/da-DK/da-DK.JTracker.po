@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Jesper Post Tønder <jpt@redweb.dk>, 2014
 # Ole Ottosen <ot2sen@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 04:14-0500\n"
-"PO-Revision-Date: 2014-10-17 08:06+0000\n"
-"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
+"POT-Creation-Date: 2014-10-17 05:06-0500\n"
+"PO-Revision-Date: 2014-10-17 09:56+0000\n"
+"Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,7 @@ msgstr "Skriv"
 
 #: /templates/editor.twig:6
 msgid "Preview"
-msgstr "Vis"
+msgstr "Forhåndsvis"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
@@ -142,7 +143,7 @@ msgstr "Vælg kategorier..."
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr "Vælg milepæle..."
+msgstr "Vælg milepæl..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
@@ -170,7 +171,7 @@ msgstr "Adgangsgrupper"
 
 #: /templates/trackerMenu.twig:49
 msgid "Labels"
-msgstr "Mærker"
+msgstr "Etiketter"
 
 #: /templates/trackerMenu.twig:55
 msgid "Milestones"
@@ -334,7 +335,7 @@ msgstr "Joomla! Community portal"
 
 #: /templates/topMenu.twig:41
 msgid "Joomla! Events"
-msgstr "Joomla events"
+msgstr "Joomla! events"
 
 #: /templates/topMenu.twig:42
 msgid "Joomla! UX"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Jesper Post Tønder <jpt@redweb.dk>, 2014
 # Ole Ottosen <ot2sen@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 04:14-0500\n"
-"PO-Revision-Date: 2014-10-17 09:15+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-17 05:06-0500\n"
+"PO-Revision-Date: 2014-10-17 09:21+0000\n"
+"Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,12 +91,12 @@ msgstr "Giv en kommentar"
 #: /templates/tracker/issue.edit.twig:242
 #: /templates/tracker/issue.add.twig:178
 msgid "Some fields are invalid. They have been highlighted."
-msgstr ""
+msgstr "Nogle felter er ugyldige. De er blevet markerede."
 
 #: /templates/tracker/issue.edit.twig:252
 #: /templates/tracker/issue.edit.twig:259
 msgid "Saving..."
-msgstr ""
+msgstr "Gemmer..."
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
 #: /templates/tracker/issues.index.twig:19
@@ -171,7 +172,7 @@ msgstr "Dette er den vigtigste del af at rapportere fejlen. Beskriv her trin for
 
 #: /templates/tracker/issue.add.twig:188
 msgid "Submitting..."
-msgstr ""
+msgstr "Sender..."
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
@@ -200,7 +201,7 @@ msgstr "Prøv lykken"
 
 #: /templates/tracker/issues.index.twig:59
 msgid "Permalink"
-msgstr ""
+msgstr "Permalink"
 
 #: /templates/tracker/issues.index.twig:78
 msgid "Filter the list by summary or description."
@@ -507,7 +508,7 @@ msgstr "- kategorier -"
 
 #: /templates/tracker/tracker.filters.twig:61
 msgid "- labels -"
-msgstr ""
+msgstr "- etiketter -"
 
 #: /templates/tracker/tracker.filters.twig:72
 msgid "- tests -"
