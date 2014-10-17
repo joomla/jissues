@@ -75,9 +75,9 @@
                     var startdate = $('#start_date').val();
                     var enddate = $('#end_date').val();
                     href = '{{ uri.base.path }}activity/{{ project.alias }}/query?';
-                    href = href + 'period=' + period + '&amp;activity_type=' + type;
+                    href = href + 'period=' + period + '&activity_type=' + type;
                     if (period == 5) {
-                        href = href + '&amp;startdate=' + startdate + '&amp;enddate=' + enddate;
+                        href = href + '&startdate=' + startdate + '&enddate=' + enddate;
                     }
                     $('#barchart').attr('data-href', href);
                     var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', 'true', '10');
