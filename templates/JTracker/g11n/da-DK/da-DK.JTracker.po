@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-11 14:56-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-17 04:14-0500\n"
+"PO-Revision-Date: 2014-10-17 08:06+0000\n"
+"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -138,15 +138,15 @@ msgstr "Alle rettigheder forbeholdt."
 
 #: /templates/fields.twig:44
 msgid "Select Categories..."
-msgstr ""
+msgstr "Vælg kategorier..."
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr ""
+msgstr "Vælg milepæle..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
-msgstr ""
+msgstr "Ingen milepæl"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -170,15 +170,15 @@ msgstr "Adgangsgrupper"
 
 #: /templates/trackerMenu.twig:49
 msgid "Labels"
-msgstr ""
+msgstr "Mærker"
 
 #: /templates/trackerMenu.twig:55
 msgid "Milestones"
-msgstr ""
+msgstr "Milepæle"
 
 #: /templates/trackerMenu.twig:61
 msgid "Categories"
-msgstr ""
+msgstr "Kategorier"
 
 #: /templates/trackerMenu.twig:71
 msgid "Projects"

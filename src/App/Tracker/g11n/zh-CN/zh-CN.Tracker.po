@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-11 14:56-0500\n"
-"PO-Revision-Date: 2014-10-11 19:56+0000\n"
+"POT-Creation-Date: 2014-10-17 04:14-0500\n"
+"PO-Revision-Date: 2014-10-17 09:15+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -30,19 +30,19 @@ msgid "Cancel"
 msgstr "取消"
 
 #: /templates/tracker/issue.edit.twig:55
-#: /templates/tracker/issues.index.twig:219
+#: /templates/tracker/issues.index.twig:226
 #: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr "外部ID"
 
 #: /templates/tracker/issue.edit.twig:70
-#: /templates/tracker/issues.index.twig:126
+#: /templates/tracker/issues.index.twig:133
 #: /templates/tracker/tpl/activities.twig:58
 msgid "Status"
 msgstr "状态"
 
 #: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
-#: /templates/tracker/issues.index.twig:125
+#: /templates/tracker/issues.index.twig:132
 #: /templates/tracker/tpl/activities.twig:92
 #: /templates/tracker/issue.index.twig:80
 msgid "Priority"
@@ -83,9 +83,19 @@ msgid "Add a Comment"
 msgstr "添加评论"
 
 #: /templates/tracker/issue.edit.twig:163
-#: /templates/tracker/issue.index.twig:489
+#: /templates/tracker/issue.index.twig:490
 msgid "Leave a comment"
 msgstr "键入一条评论"
+
+#: /templates/tracker/issue.edit.twig:242
+#: /templates/tracker/issue.add.twig:178
+msgid "Some fields are invalid. They have been highlighted."
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:252
+#: /templates/tracker/issue.edit.twig:259
+msgid "Saving..."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
 #: /templates/tracker/issues.index.twig:19
@@ -147,7 +157,7 @@ msgstr "用少量的文字描述您所遇到的问题。如果您是第一次报
 msgid "Description"
 msgstr "描述"
 
-#: /templates/tracker/issue.add.twig:95
+#: /templates/tracker/issue.add.twig:96
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -158,6 +168,10 @@ msgid ""
 "code and think you know how to fix the bug, please include this in the "
 "report."
 msgstr "这是报告问题的最重要的部分。请在这里一步步地描述您是如何注意到您所遇到的问题的。请将他人在重复您的步骤和重现问题的过程中所需的全部信息。注意：除非他人能重现您的问题，否则您的问题不能被解决，所以您需要描述地尽可能的明确和详细。您无需了解编程，也能写出一个极佳的问题报告。但是如果您能够理解代码并认为您知道如何修复这个问题，请将此内容包含在报告内。"
+
+#: /templates/tracker/issue.add.twig:188
+msgid "Submitting..."
+msgstr ""
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
@@ -184,68 +198,72 @@ msgstr ""
 msgid "Feeling Lucky"
 msgstr "手气不错"
 
-#: /templates/tracker/issues.index.twig:74
+#: /templates/tracker/issues.index.twig:59
+msgid "Permalink"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:78
 msgid "Filter the list by summary or description."
 msgstr "按照摘要或描述来过滤列表"
 
-#: /templates/tracker/issues.index.twig:77
-#: /templates/tracker/issues.index.twig:78
+#: /templates/tracker/issues.index.twig:81
+#: /templates/tracker/issues.index.twig:82
 msgid "Filter the list by ID, summary, or description."
 msgstr "按照ID,摘要或描述来过滤列表"
 
-#: /templates/tracker/issues.index.twig:123
+#: /templates/tracker/issues.index.twig:130
 msgid "ID"
 msgstr "ID"
 
-#: /templates/tracker/issues.index.twig:124
+#: /templates/tracker/issues.index.twig:131
 msgid "Summary"
 msgstr "摘要"
 
-#: /templates/tracker/issues.index.twig:131
+#: /templates/tracker/issues.index.twig:138
 msgid "Loading, please wait..."
 msgstr "加载中，请稍候..."
 
-#: /templates/tracker/issues.index.twig:211
+#: /templates/tracker/issues.index.twig:218
 msgid "GitHub ID"
 msgstr "GitHub ID"
 
-#: /templates/tracker/issues.index.twig:227
+#: /templates/tracker/issues.index.twig:234
 msgid "Opened "
 msgstr "开启于"
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:238
 msgid "Closed "
 msgstr "关闭于:"
 
-#: /templates/tracker/issues.index.twig:235
+#: /templates/tracker/issues.index.twig:242
 msgid "Modified "
 msgstr "修改于:"
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Critical"
 msgstr "严重"
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Urgent"
 msgstr "紧急"
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Medium"
 msgstr "中"
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Low"
 msgstr "低"
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Very low"
 msgstr "非常低"
 
-#: /templates/tracker/issues.index.twig:247
+#: /templates/tracker/issues.index.twig:254
 msgid "GitHub merge status"
 msgstr "GitHub 合并状态"
 
-#: /templates/tracker/issues.index.twig:257
+#: /templates/tracker/issues.index.twig:264
 msgid "No items found."
 msgstr "未发现条目"
 
@@ -375,7 +393,7 @@ msgid "I've experienced this issue"
 msgstr "我经历过类似的问题"
 
 #: /templates/tracker/issue.index.twig:252
-#: /templates/tracker/tracker.filters.twig:74
+#: /templates/tracker/tracker.filters.twig:85
 msgid "Yes"
 msgstr "是"
 
@@ -439,11 +457,11 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:497
+#: /templates/tracker/issue.index.twig:498
 msgid "Post Comment"
 msgstr "发布评论"
 
-#: /templates/tracker/issue.index.twig:510
+#: /templates/tracker/issue.index.twig:511
 msgid "Login with GitHub to post a comment"
 msgstr "请用GitHub帐号登录以发表评论"
 
@@ -488,22 +506,26 @@ msgid "- categories -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:61
+msgid "- labels -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:72
 msgid "- tests -"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:72
 msgid "Has two tests"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:72
 msgid "Needs one test"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:72
 msgid "Needs tests"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:74
+#: /templates/tracker/tracker.filters.twig:85
 msgid "- easy -"
 msgstr ""
 

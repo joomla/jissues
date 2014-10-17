@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-11 14:56-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-10-17 04:14-0500\n"
+"PO-Revision-Date: 2014-10-17 08:32+0000\n"
+"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,56 +22,56 @@ msgstr ""
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr ""
+msgstr "%s - Milepæle"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr ""
+msgstr "Nye milepæle"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
 msgid "Number"
-msgstr ""
+msgstr "Nummer"
 
 #: /templates/github/milestones.index.twig:35
 #: /templates/github/milestones.index.twig:75
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "Milepæl titel"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "Forfalder den"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: /templates/github/milestones.index.twig:43
 #: /templates/github/milestones.index.twig:77
 msgid "State"
-msgstr ""
+msgstr "Status"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr ""
+msgstr "Åben"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
-msgstr ""
+msgstr "Lukket"
 
 #: /templates/github/milestones.index.twig:51
 #: /templates/github/milestones.index.twig:76
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: /templates/github/milestones.index.twig:59
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 #: /templates/github/milestones.index.twig:79
 #: /templates/github/hooks.index.twig:89
@@ -80,7 +80,7 @@ msgstr "Handlinger"
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
-msgstr ""
+msgstr "Ret"
 
 #: /templates/github/milestones.index.twig:98
 #: /templates/github/labels.index.twig:59
@@ -114,7 +114,7 @@ msgstr "Navn"
 
 #: /templates/github/labels.index.twig:23
 msgid "Label name"
-msgstr ""
+msgstr "Mærke navn"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
@@ -123,7 +123,7 @@ msgstr "Farve"
 
 #: /templates/github/labels.index.twig:28
 msgid "Label color"
-msgstr ""
+msgstr "Mærke farve"
 
 #: /templates/github/labels.index.twig:31
 msgid "Add Label"
