@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-11 14:56-0500\n"
-"PO-Revision-Date: 2014-08-19 16:19+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"POT-Creation-Date: 2014-10-17 04:14-0500\n"
+"PO-Revision-Date: 2014-10-17 08:18+0000\n"
+"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,11 +83,11 @@ msgstr "Ret projekt"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
-msgstr ""
+msgstr "GitHub Editbot bruger"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr ""
+msgstr "GitHub Editbot adgangskode"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
@@ -153,20 +153,20 @@ msgstr "Projekt"
 #: /templates/projects/project.index.twig:26
 #, php-format
 msgid "Project %s Tracker"
-msgstr ""
+msgstr "Projekt %s Tracker"
 
 #: /templates/projects/project.index.twig:35
 #, php-format
 msgid "Project %s on GitHub"
-msgstr ""
+msgstr "Projekter %s på GitHub"
 
 #: /templates/projects/project.index.twig:39
 msgid "Statistics"
-msgstr ""
+msgstr "Statistik"
 
 #: /templates/projects/project.index.twig:57
 msgid "Categories"
-msgstr ""
+msgstr "Kategorier"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

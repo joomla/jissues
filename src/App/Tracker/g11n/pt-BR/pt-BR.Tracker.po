@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-11 14:56-0500\n"
-"PO-Revision-Date: 2014-10-11 19:56+0000\n"
+"POT-Creation-Date: 2014-10-17 04:14-0500\n"
+"PO-Revision-Date: 2014-10-17 09:15+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -30,19 +30,19 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: /templates/tracker/issue.edit.twig:55
-#: /templates/tracker/issues.index.twig:219
+#: /templates/tracker/issues.index.twig:226
 #: /templates/tracker/issue.index.twig:142
 msgid "Foreign ID"
 msgstr "ID Externa"
 
 #: /templates/tracker/issue.edit.twig:70
-#: /templates/tracker/issues.index.twig:126
+#: /templates/tracker/issues.index.twig:133
 #: /templates/tracker/tpl/activities.twig:58
 msgid "Status"
 msgstr "Status"
 
 #: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
-#: /templates/tracker/issues.index.twig:125
+#: /templates/tracker/issues.index.twig:132
 #: /templates/tracker/tpl/activities.twig:92
 #: /templates/tracker/issue.index.twig:80
 msgid "Priority"
@@ -83,9 +83,19 @@ msgid "Add a Comment"
 msgstr "Adicionar um Comentário"
 
 #: /templates/tracker/issue.edit.twig:163
-#: /templates/tracker/issue.index.twig:489
+#: /templates/tracker/issue.index.twig:490
 msgid "Leave a comment"
 msgstr "Deixe um comentário"
+
+#: /templates/tracker/issue.edit.twig:242
+#: /templates/tracker/issue.add.twig:178
+msgid "Some fields are invalid. They have been highlighted."
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:252
+#: /templates/tracker/issue.edit.twig:259
+msgid "Saving..."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
 #: /templates/tracker/issues.index.twig:19
@@ -147,7 +157,7 @@ msgstr ""
 msgid "Description"
 msgstr "Descrição"
 
-#: /templates/tracker/issue.add.twig:95
+#: /templates/tracker/issue.add.twig:96
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -157,6 +167,10 @@ msgid ""
 "about programming to write a great bug report. But if you do understand the "
 "code and think you know how to fix the bug, please include this in the "
 "report."
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:188
+msgid "Submitting..."
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:6
@@ -184,68 +198,72 @@ msgstr ""
 msgid "Feeling Lucky"
 msgstr "Com Sorte"
 
-#: /templates/tracker/issues.index.twig:74
+#: /templates/tracker/issues.index.twig:59
+msgid "Permalink"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:78
 msgid "Filter the list by summary or description."
 msgstr "Filtrar a lista por resumo ou descrição"
 
-#: /templates/tracker/issues.index.twig:77
-#: /templates/tracker/issues.index.twig:78
+#: /templates/tracker/issues.index.twig:81
+#: /templates/tracker/issues.index.twig:82
 msgid "Filter the list by ID, summary, or description."
 msgstr "Filtrar a lista por ID, resumo, ou descrição."
 
-#: /templates/tracker/issues.index.twig:123
+#: /templates/tracker/issues.index.twig:130
 msgid "ID"
 msgstr "ID"
 
-#: /templates/tracker/issues.index.twig:124
+#: /templates/tracker/issues.index.twig:131
 msgid "Summary"
 msgstr "Resumo"
 
-#: /templates/tracker/issues.index.twig:131
+#: /templates/tracker/issues.index.twig:138
 msgid "Loading, please wait..."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:211
+#: /templates/tracker/issues.index.twig:218
 msgid "GitHub ID"
 msgstr "ID do GitHub"
 
-#: /templates/tracker/issues.index.twig:227
+#: /templates/tracker/issues.index.twig:234
 msgid "Opened "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:231
+#: /templates/tracker/issues.index.twig:238
 msgid "Closed "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:235
+#: /templates/tracker/issues.index.twig:242
 msgid "Modified "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Critical"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Urgent"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Medium"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Low"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:240
+#: /templates/tracker/issues.index.twig:247
 msgid "Very low"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:247
+#: /templates/tracker/issues.index.twig:254
 msgid "GitHub merge status"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:257
+#: /templates/tracker/issues.index.twig:264
 msgid "No items found."
 msgstr "Nenum item encontrado"
 
@@ -375,7 +393,7 @@ msgid "I've experienced this issue"
 msgstr "Eu experimentei esse problema"
 
 #: /templates/tracker/issue.index.twig:252
-#: /templates/tracker/tracker.filters.twig:74
+#: /templates/tracker/tracker.filters.twig:85
 msgid "Yes"
 msgstr "Sim"
 
@@ -439,11 +457,11 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:497
+#: /templates/tracker/issue.index.twig:498
 msgid "Post Comment"
 msgstr "Postar Comentário"
 
-#: /templates/tracker/issue.index.twig:510
+#: /templates/tracker/issue.index.twig:511
 msgid "Login with GitHub to post a comment"
 msgstr "Fazer login com GitHub para postar um comentário"
 
@@ -488,22 +506,26 @@ msgid "- categories -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:61
+msgid "- labels -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:72
 msgid "- tests -"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:72
 msgid "Has two tests"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:72
 msgid "Needs one test"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:72
 msgid "Needs tests"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:74
+#: /templates/tracker/tracker.filters.twig:85
 msgid "- easy -"
 msgstr ""
 
