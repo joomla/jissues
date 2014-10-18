@@ -364,13 +364,13 @@
             switch (state)
             {
                 case 'success':
-                    return g11n3t('Success');
+                    return '{{ 'Success'|_ }}';
                 case 'pending':
-                    return g11n3t('Pending');
+                    return '{{ 'Pending'|_ }}';
                 case 'error':
-                    return g11n3t('Error');
+                    return '{{ 'Error'|_ }}';
                 case 'failure':
-                    return g11n3t('Failure');
+                    return '{{ 'Failure'|_ }}';
             }
 
             return '?';
@@ -378,20 +378,20 @@
 
         function translateStatus(id)
         {
-            statuses = []
-            statuses['1'] = g11n3t('New');
-            statuses['2'] = g11n3t('Confirmed');
-            statuses['3'] = g11n3t('Pending');
-            statuses['4'] = g11n3t('Ready To Commit');
-            statuses['5'] = g11n3t('Fixed in Code Base');
-            statuses['6'] = g11n3t('Needs Review');
-            statuses['7'] = g11n3t('Information Required');
-            statuses['8'] = g11n3t('Unconfirmed Report');
-            statuses['9'] = g11n3t('No Reply');
-            statuses['10'] = g11n3t('Closed');
-            statuses['11'] = g11n3t('Expected Behaviour');
-            statuses['12'] = g11n3t('Known Issue');
-            statuses['13'] = g11n3t('Duplicate Report');
+            statuses = [];
+            statuses['1'] = '{{ 'New'|_ }}';
+            statuses['2'] = '{{ 'Confirmed'|_ }}';
+            statuses['3'] = '{{ 'Pending'|_ }}';
+            statuses['4'] = '{{ 'Ready To Commit'|_ }}';
+            statuses['5'] = '{{ 'Fixed in Code Base'|_ }}';
+            statuses['6'] = '{{ 'Needs Review'|_ }}';
+            statuses['7'] = '{{ 'Information Required'|_ }}';
+            statuses['8'] = '{{ 'Unconfirmed Report'|_ }}';
+            statuses['9'] = '{{ 'No Reply'|_ }}';
+            statuses['10'] = '{{ 'Closed'|_ }}';
+            statuses['11'] = '{{ 'Expected Behaviour'|_ }}';
+            statuses['12'] = '{{ 'Known Issue'|_ }}';
+            statuses['13'] = '{{ 'Duplicate Report'|_ }}';
 
             return statuses[id];
         }
@@ -444,10 +444,10 @@
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
                             startPage: r.data.currentPage,
-                            first: g11n3t('First'),
-                            prev: g11n3t('Previous'),
-                            next: g11n3t('Next'),
-                            last: g11n3t('Last'),
+                            first: '{{ 'First'|_ }}',
+                            prev: '{{ 'Previous'|_ }}',
+                            next: '{{ 'Next'|_ }}',
+                            last: '{{ 'Last'|_ }}',
                             onPageClick: function (event, page) {
                                 $('#issuesList tbody').animate({opacity: 0.3}, 100);
                                 $.ajax({
