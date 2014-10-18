@@ -77,7 +77,7 @@
 
         <li>
             <span class="badge {{ prioClass(item.priority) }}">
-                {{ "Priority"|_ }} {{ item.priority }}
+                {{ getPriority(item.priority) }}
             </span>
         </li>
 
@@ -486,6 +486,7 @@
                 </div>
                 <div class="span11">
                     {% set editorId="comment" %}
+                    {% set writeId="write" %}
                     {% set previewId="preview" %}
                     {% set editorPlaceholder="Leave a comment"|_ %}
                     {% include "editor.twig" %}

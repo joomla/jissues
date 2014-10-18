@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Jesper Post Tønder <jpt@redweb.dk>, 2014
 # Ole Ottosen <ot2sen@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 05:06-0500\n"
-"PO-Revision-Date: 2014-10-17 08:11+0000\n"
-"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
+"POT-Creation-Date: 2014-10-18 01:07-0500\n"
+"PO-Revision-Date: 2014-10-17 11:51+0000\n"
+"Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +37,7 @@ msgstr "Valgfrit log output til den specificerede logfil."
 
 #: /cli/Application/Application.php:191
 msgid "Joomla! Tracker CLI Application"
-msgstr "Joomla! TRacker CLI applikation"
+msgstr "Joomla! Tracker CLI Applikation"
 
 #: /cli/Application/Application.php:218
 #, php-format
@@ -62,11 +63,11 @@ msgstr "Hent avatarbilleder fra GitHub."
 
 #: /cli/Application/Command/Get/Avatars.php:50
 msgid "Retrieve Avatars"
-msgstr "Hent avatars"
+msgstr "Hent Avatars"
 
 #: /cli/Application/Command/Get/Avatars.php:52
 msgid "Start retrieving Avatars."
-msgstr "Start hentning af avatars."
+msgstr "Start hentning af Avatars."
 
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
@@ -111,11 +112,11 @@ msgstr "Tilføjet %d nye bruger avatars"
 msgid ""
 "Retrieve a list of project tags from GitHub and show their installed "
 "versions."
-msgstr "Hent en liste over projektmærker fra GitHub og vis deres installerede versioner."
+msgstr "Hent en liste over projektetiketter fra GitHub og vis deres installerede versioner."
 
 #: /cli/Application/Command/Get/Composertags.php:33
 msgid "Show all tags or only the most recent."
-msgstr "Vis alle mærker eller kun den nyeste."
+msgstr "Vis alle etiketter eller kun den nyeste."
 
 #: /cli/Application/Command/Get/Composertags.php:48
 msgid "Retrieve composer tags"
@@ -141,7 +142,7 @@ msgstr "Installeret: %s"
 
 #: /cli/Application/Command/Get/Get.php:66
 msgid "Retrieve Information from various sources."
-msgstr "Hent information fra forskellige kilder."
+msgstr "Hent Information fra forskellige kilder."
 
 #: /cli/Application/Command/Get/Get.php:72
 msgid "Process the project with the given ID."
@@ -338,7 +339,7 @@ msgstr "Hent projekt etiketter fra GitHub."
 
 #: /cli/Application/Command/Get/Project/Labels.php:43
 msgid "Retrieve Labels"
-msgstr "Hent mærker"
+msgstr "Hent Etiketter"
 
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"

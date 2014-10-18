@@ -1,0 +1,88 @@
+# JTracker App Text 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Oana Andrada Florescu <oana@redweb.dk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-18 01:07-0500\n"
+"PO-Revision-Date: 2014-10-17 17:22+0000\n"
+"Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Articole"
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
+msgstr "Articol Nou"
+
+#: /templates/text/articles.index.twig:30
+msgid "Articles List"
+msgstr "Listă Articole"
+
+#: /templates/text/articles.index.twig:35
+msgid "Title/Alias"
+msgstr "Titlu/Alias"
+
+#: /templates/text/articles.index.twig:36
+msgid "Actions"
+msgstr "Acţiuni"
+
+#: /templates/text/articles.index.twig:52
+msgid "View"
+msgstr "Arată"
+
+#: /templates/text/articles.index.twig:55
+msgid "Delete"
+msgstr "Şterge"
+
+#: /templates/text/articles.index.twig:61
+msgid "No articles found"
+msgstr "Nu s-au găsit articole."
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Editează Articolul"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Salvează"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Anulează"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Titlu"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
+#: /src/App/Text/Controller/Article/Delete.php:47
+msgid "The article has been deleted."
+msgstr "Articolul a fost şters."
+
+#: /src/App/Text/Controller/Article/Save.php:50
+msgid "The article has been saved."
+msgstr "Articolul a fost salvat."
+
+#: /src/App/Text/Table/ArticlesTable.php:93
+msgid "An alias or a title is required."
+msgstr "Un alias sau un titlu este necesar."
+
+#: /src/App/Text/Table/ArticlesTable.php:99
+msgid "Some text is required."
+msgstr "Este necesar un text."

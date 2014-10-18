@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 05:06-0500\n"
+"POT-Creation-Date: 2014-10-18 01:07-0500\n"
 "PO-Revision-Date: 2014-10-17 09:34+0000\n"
 "Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
@@ -29,120 +29,120 @@ msgstr "Næste"
 msgid "Last"
 msgstr "Sidste"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:227
+#: /src/JTracker/View/Renderer/TrackerExtension.php:228
 msgid "Critical"
 msgstr "Kritisk"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:228
+#: /src/JTracker/View/Renderer/TrackerExtension.php:229
 msgid "Urgent"
 msgstr "Haster"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:229
+#: /src/JTracker/View/Renderer/TrackerExtension.php:230
 msgid "Medium"
 msgstr "Medium"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:230
+#: /src/JTracker/View/Renderer/TrackerExtension.php:231
 msgid "Low"
 msgstr "Lav"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:231
+#: /src/JTracker/View/Renderer/TrackerExtension.php:232
 msgid "Very low"
 msgstr "Meget lav"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:317
-#: /src/JTracker/View/Renderer/TrackerExtension.php:340
+#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+#: /src/JTracker/View/Renderer/TrackerExtension.php:341
 msgid "New"
 msgstr "Ny"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:318
-#: /src/JTracker/View/Renderer/TrackerExtension.php:341
+#: /src/JTracker/View/Renderer/TrackerExtension.php:319
+#: /src/JTracker/View/Renderer/TrackerExtension.php:342
 msgid "Confirmed"
 msgstr "Bekræftet"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:319
-#: /src/JTracker/View/Renderer/TrackerExtension.php:342
-#: /src/JTracker/View/Renderer/TrackerExtension.php:575
+#: /src/JTracker/View/Renderer/TrackerExtension.php:320
+#: /src/JTracker/View/Renderer/TrackerExtension.php:343
+#: /src/JTracker/View/Renderer/TrackerExtension.php:592
 msgid "Pending"
 msgstr "Afventer"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:320
-#: /src/JTracker/View/Renderer/TrackerExtension.php:343
+#: /src/JTracker/View/Renderer/TrackerExtension.php:321
+#: /src/JTracker/View/Renderer/TrackerExtension.php:344
 msgid "Ready To Commit"
 msgstr "Klar til at sende"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:321
-#: /src/JTracker/View/Renderer/TrackerExtension.php:344
+#: /src/JTracker/View/Renderer/TrackerExtension.php:322
+#: /src/JTracker/View/Renderer/TrackerExtension.php:345
 msgid "Needs Review"
 msgstr "Mangler bedømmelse"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:322
-#: /src/JTracker/View/Renderer/TrackerExtension.php:345
+#: /src/JTracker/View/Renderer/TrackerExtension.php:323
+#: /src/JTracker/View/Renderer/TrackerExtension.php:346
 msgid "Information Required"
 msgstr "Information påkrævet"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:328
-#: /src/JTracker/View/Renderer/TrackerExtension.php:346
+#: /src/JTracker/View/Renderer/TrackerExtension.php:329
+#: /src/JTracker/View/Renderer/TrackerExtension.php:347
 msgid "Fixed in Code Base"
 msgstr "Rettet i kodebasen"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:329
-#: /src/JTracker/View/Renderer/TrackerExtension.php:347
+#: /src/JTracker/View/Renderer/TrackerExtension.php:330
+#: /src/JTracker/View/Renderer/TrackerExtension.php:348
 msgid "Unconfirmed Report"
 msgstr "Ikke bekræftet rapport"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:330
-#: /src/JTracker/View/Renderer/TrackerExtension.php:348
+#: /src/JTracker/View/Renderer/TrackerExtension.php:331
+#: /src/JTracker/View/Renderer/TrackerExtension.php:349
 msgid "No Reply"
 msgstr "Intet svar"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:331
-#: /src/JTracker/View/Renderer/TrackerExtension.php:349
+#: /src/JTracker/View/Renderer/TrackerExtension.php:332
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
 msgid "Closed"
 msgstr "Lukket"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:332
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+#: /src/JTracker/View/Renderer/TrackerExtension.php:333
+#: /src/JTracker/View/Renderer/TrackerExtension.php:351
 msgid "Expected Behaviour"
 msgstr "Forventet opførsel"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:333
-#: /src/JTracker/View/Renderer/TrackerExtension.php:351
+#: /src/JTracker/View/Renderer/TrackerExtension.php:334
+#: /src/JTracker/View/Renderer/TrackerExtension.php:352
 msgid "Known Issue"
 msgstr "Kendt problem"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:334
-#: /src/JTracker/View/Renderer/TrackerExtension.php:352
+#: /src/JTracker/View/Renderer/TrackerExtension.php:335
+#: /src/JTracker/View/Renderer/TrackerExtension.php:353
 msgid "Duplicate Report"
 msgstr "Duplikat rapport"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:510
+#: /src/JTracker/View/Renderer/TrackerExtension.php:527
 msgid "No"
 msgstr "Nej"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:510
+#: /src/JTracker/View/Renderer/TrackerExtension.php:527
 msgid "Yes"
 msgstr "Ja"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:572
+#: /src/JTracker/View/Renderer/TrackerExtension.php:589
 msgid "Success"
 msgstr "Succes"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:578
+#: /src/JTracker/View/Renderer/TrackerExtension.php:595
 msgid "Error"
 msgstr "Fejl"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:581
+#: /src/JTracker/View/Renderer/TrackerExtension.php:598
 msgid "Failure"
 msgstr "Fiasko"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:645
+#: /src/JTracker/View/Renderer/TrackerExtension.php:662
 msgid "Not tested"
 msgstr "Ikke testet"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:646
+#: /src/JTracker/View/Renderer/TrackerExtension.php:663
 msgid "Tested successfully"
 msgstr "Testet med positivt resultat"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:647
+#: /src/JTracker/View/Renderer/TrackerExtension.php:664
 msgid "Tested unsuccessfully"
 msgstr "Testet med negativt resultat"

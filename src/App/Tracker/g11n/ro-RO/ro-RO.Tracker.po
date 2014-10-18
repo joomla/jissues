@@ -1,0 +1,685 @@
+# JTracker App Tracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Oana Andrada Florescu <oana@redweb.dk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-18 01:07-0500\n"
+"PO-Revision-Date: 2014-10-18 06:02+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: /templates/tracker/issue.edit.twig:34
+#: /templates/tracker/issue.edit.twig:166
+#: /templates/tracker/category.add.twig:11
+#: /templates/tracker/category.edit.twig:11
+msgid "Save"
+msgstr "Salvează"
+
+#: /templates/tracker/issue.edit.twig:38
+msgid "Cancel"
+msgstr "Anulează"
+
+#: /templates/tracker/issue.edit.twig:55
+#: /templates/tracker/issues.index.twig:226
+#: /templates/tracker/issue.index.twig:142
+msgid "Foreign ID"
+msgstr "ID Străin"
+
+#: /templates/tracker/issue.edit.twig:70
+#: /templates/tracker/issues.index.twig:133
+#: /templates/tracker/tpl/activities.twig:58
+msgid "Status"
+msgstr "Status"
+
+#: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
+#: /templates/tracker/issues.index.twig:132
+#: /templates/tracker/tpl/activities.twig:92
+msgid "Priority"
+msgstr "Prioritate"
+
+#: /templates/tracker/issue.edit.twig:87
+msgid "Item"
+msgstr "Obiect"
+
+#: /templates/tracker/issue.edit.twig:104 /templates/tracker/issue.add.twig:55
+#: /templates/tracker/issue.index.twig:87
+msgid "Build"
+msgstr "Structură"
+
+#: /templates/tracker/issue.edit.twig:108
+msgid "Easy test"
+msgstr "Test uşor"
+
+#: /templates/tracker/issue.edit.twig:116 /templates/tracker/issue.add.twig:61
+msgid "Categories"
+msgstr "Categorii"
+
+#: /templates/tracker/issue.edit.twig:122 /templates/tracker/issue.add.twig:66
+msgid "Milestone"
+msgstr "Milestone"
+
+#: /templates/tracker/issue.edit.twig:133 /templates/tracker/issue.add.twig:80
+#: /templates/tracker/categories.index.twig:34
+#: /templates/tracker/tpl/activities.twig:41
+#: /templates/tracker/category.add.twig:27
+#: /templates/tracker/category.edit.twig:27
+msgid "Title"
+msgstr "Titlu"
+
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.index.twig:478
+msgid "Add a Comment"
+msgstr "Adaugă un comentariu"
+
+#: /templates/tracker/issue.edit.twig:163
+#: /templates/tracker/issue.index.twig:491
+msgid "Leave a comment"
+msgstr "Lasă un comentariu"
+
+#: /templates/tracker/issue.edit.twig:242
+#: /templates/tracker/issue.add.twig:178
+msgid "Some fields are invalid. They have been highlighted."
+msgstr "Unele câmpuri nu sunt valide. Acestea au fost marcate."
+
+#: /templates/tracker/issue.edit.twig:252
+#: /templates/tracker/issue.edit.twig:259
+msgid "Saving..."
+msgstr "În curs de salvare..."
+
+#: /templates/tracker/issue.add.twig:6 /templates/tracker/issue.add.twig:77
+#: /templates/tracker/issues.index.twig:19
+msgid "New Item"
+msgstr "Obiect Nou"
+
+#: /templates/tracker/issue.add.twig:12
+msgid "Submit"
+msgstr "Adaugă"
+
+#: /templates/tracker/issue.add.twig:37
+msgid "View Mode"
+msgstr "Mod de vizualizare"
+
+#: /templates/tracker/issue.add.twig:40
+msgid "Help"
+msgstr "Ajutor"
+
+#: /templates/tracker/issue.add.twig:40
+msgid "Pro"
+msgstr "Pro"
+
+#: /templates/tracker/issue.add.twig:52
+msgid ""
+"The priority of which this issue should be resolved. Please see the <a "
+"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"Tracking Process</a> page for detailed information about the project's "
+"priorities."
+msgstr "Prioritatea prin care această problemă ar trebui să fie rezolvată. Vezi pagina <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Procesul de Urmărire al unui Bug</a> pentru a accesa informaţii detalitate despre priorităţile proiectului."
+
+#: /templates/tracker/issue.add.twig:58
+msgid "The version(s) of the project on which this issue is found."
+msgstr "Versiunea(ile) proiectului în care se găseşte această problemă."
+
+#: /templates/tracker/issue.add.twig:73
+msgid ""
+"Report security issues to the Joomla! Security Strike Team (JSST) at <a "
+"href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
+"href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact"
+" form</a>, please do not use the public tracker for security issues."
+msgstr "Problemele de securitate se raportează echipei Joomla! Security Strike Team(JSST) la <a href=\"mailto:security@joomla.org\">security@joomla.org</a> ori prin<a href=\"http://developer.joomla.org/contact-security-team.html\">formularul de contact JSST</a>, vă rugăm să nu folosiţi urmăritorul public pentru a raporta probleme de securitate."
+
+#: /templates/tracker/issue.add.twig:75
+msgid ""
+"To report a bug in the Joomla! bug trackers, you need to create a tracker "
+"item. Once the tracker item is created, the developers will check the "
+"validity of it and act accordingly."
+msgstr "Pentru a raporta un bug in urmăritorul de bugs Joomla!, se cere crearea unui urmăritor de obiecte. Odata ce acesta a fost creat, developerii vor verifica validitatea lui şi vor lua măsuri."
+
+#: /templates/tracker/issue.add.twig:83
+msgid ""
+"Describe in a few words the issues you are having. It is generally a good "
+"idea to use existing tracker items as examples if this is your first time "
+"reporting a bug."
+msgstr "Descrie în câteva cuvinte problemele întâlnite. În cazul în care este primul tău raport, folosirea obiectelor urmărite este o idee bună. "
+
+#: /templates/tracker/issue.add.twig:85
+#: /templates/tracker/tpl/activities.twig:24
+msgid "Description"
+msgstr "Descriere"
+
+#: /templates/tracker/issue.add.twig:96
+msgid ""
+"This is the most important part of reporting the bug. Describe here step by "
+"step how you got the error you are noticing. Include all of the information "
+"that someone will need to re-trace your steps and see the problem. Remember:"
+" your bug will not be fixed unless others can see the problem, so you want "
+"to be as clear and detailed as possible. You do not need to know anything "
+"about programming to write a great bug report. But if you do understand the "
+"code and think you know how to fix the bug, please include this in the "
+"report."
+msgstr "Aceasta este partea cea mai importantă în raportarea unui bug. Descrie aici, pas cu pas, cum a fost întâlnită eroarea. Încearcă să incluzi informaţii cât mai detaliate, astfel încât persoana de contact să poată să îţi urmărească paşii efectuaţi şi să observe problemă. Nu sunt necesare cunoştinţe de programare pentru a scrie un raport de bugs excelent. Daca totuşi ai aceste cunoştinţe şi ai o idee despre cum acest bug s-ar putea rezolva, te rugam sa incluzi aceste detalii în raport."
+
+#: /templates/tracker/issue.add.twig:188
+msgid "Submitting..."
+msgstr "În proces de transmitere..."
+
+#: /templates/tracker/issues.index.twig:6
+msgid "Issues List"
+msgstr "Listă de probleme"
+
+#: /templates/tracker/issues.index.twig:38
+msgid "Open"
+msgstr "Deschis"
+
+#: /templates/tracker/issues.index.twig:43
+#: /templates/tracker/issues.index.twig:391
+msgid "Closed"
+msgstr "Închis"
+
+#: /templates/tracker/issues.index.twig:48
+msgid "Search tools"
+msgstr "Unelte de căutare"
+
+#: /templates/tracker/issues.index.twig:53
+msgid "Clear"
+msgstr "Curăţă"
+
+#: /templates/tracker/issues.index.twig:56
+#: /templates/tracker/issue.index.twig:44
+msgid "Feeling Lucky"
+msgstr "Mă simt norocos"
+
+#: /templates/tracker/issues.index.twig:59
+msgid "Permalink"
+msgstr "Permalink"
+
+#: /templates/tracker/issues.index.twig:78
+msgid "Filter the list by summary or description."
+msgstr "Filtrează lista în funcţie de rezumat sau descriere."
+
+#: /templates/tracker/issues.index.twig:81
+#: /templates/tracker/issues.index.twig:82
+msgid "Filter the list by ID, summary, or description."
+msgstr "Filtrează lista în funcţie de ID, rezumat, sau descriere."
+
+#: /templates/tracker/issues.index.twig:130
+msgid "ID"
+msgstr "ID"
+
+#: /templates/tracker/issues.index.twig:131
+msgid "Summary"
+msgstr "Rezumat"
+
+#: /templates/tracker/issues.index.twig:138
+msgid "Loading, please wait..."
+msgstr "Se încarcă, vă rugăm să aşteptaţi..."
+
+#: /templates/tracker/issues.index.twig:218
+msgid "GitHub ID"
+msgstr "ID GitHub"
+
+#: /templates/tracker/issues.index.twig:234
+msgid "Opened "
+msgstr "Deschis"
+
+#: /templates/tracker/issues.index.twig:238
+msgid "Closed "
+msgstr "Închis"
+
+#: /templates/tracker/issues.index.twig:242
+msgid "Modified "
+msgstr "Modificat"
+
+#: /templates/tracker/issues.index.twig:247
+msgid "Critical"
+msgstr "Critică"
+
+#: /templates/tracker/issues.index.twig:247
+msgid "Urgent"
+msgstr "Urgent"
+
+#: /templates/tracker/issues.index.twig:247
+msgid "Medium"
+msgstr "Mediu"
+
+#: /templates/tracker/issues.index.twig:247
+msgid "Low"
+msgstr "Scăzut"
+
+#: /templates/tracker/issues.index.twig:247
+msgid "Very low"
+msgstr "Foarte scazut"
+
+#: /templates/tracker/issues.index.twig:254
+msgid "GitHub merge status"
+msgstr "status de îmbinare GitHub"
+
+#: /templates/tracker/issues.index.twig:264
+msgid "No items found."
+msgstr "Nu au fost găsite obiecte."
+
+#: /templates/tracker/issues.index.twig:367
+msgid "Success"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:369
+#: /templates/tracker/issues.index.twig:384
+msgid "Pending"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:371
+msgid "Error"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:373
+msgid "Failure"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:382
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
+msgid "New"
+msgstr "Nou"
+
+#: /templates/tracker/issues.index.twig:383
+msgid "Confirmed"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:385
+msgid "Ready To Commit"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:386
+msgid "Fixed in Code Base"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:387
+msgid "Needs Review"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:388
+msgid "Information Required"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:389
+msgid "Unconfirmed Report"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:390
+msgid "No Reply"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:392
+msgid "Expected Behaviour"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:393
+msgid "Known Issue"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:394
+msgid "Duplicate Report"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:447
+msgid "First"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:448
+msgid "Previous"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:449
+msgid "Next"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:450
+msgid "Last"
+msgstr ""
+
+#: /templates/tracker/categories.index.twig:6
+#: /templates/tracker/categories.index.twig:28
+msgid "Categories List"
+msgstr "Listă categorii"
+
+#: /templates/tracker/categories.index.twig:12
+#: /templates/tracker/category.add.twig:20
+msgid "New Category"
+msgstr "Categorie Nouă"
+
+#: /templates/tracker/categories.index.twig:33
+#: /templates/tracker/category.add.twig:35
+#: /templates/tracker/category.edit.twig:35
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/tracker/categories.index.twig:35
+#: /templates/tracker/category.add.twig:43
+#: /templates/tracker/category.edit.twig:43
+msgid "Color"
+msgstr "Culoare"
+
+#: /templates/tracker/categories.index.twig:38
+msgid "Actions"
+msgstr "Acţiuni"
+
+#: /templates/tracker/categories.index.twig:42
+msgid "Id"
+msgstr "Id"
+
+#: /templates/tracker/categories.index.twig:59
+msgid "Delete"
+msgstr "Şterge"
+
+#: /templates/tracker/categories.index.twig:60
+#: /templates/tracker/issue.index.twig:59
+msgid "Edit"
+msgstr "Editează"
+
+#: /templates/tracker/categories.index.twig:71
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Pagina %1$s din %2$s"
+
+#: /templates/tracker/tpl/activities.twig:28
+#: /templates/tracker/tpl/activities.twig:45
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
+msgid "Differences"
+msgstr "Diferenţe"
+
+#: /templates/tracker/tpl/activities.twig:75
+msgid "Easy"
+msgstr "Uşor"
+
+#: /templates/tracker/tpl/activities.twig:113
+msgid "Labels"
+msgstr "Etichete"
+
+#: /templates/tracker/tpl/activities.twig:118
+msgid "Added"
+msgstr "Adăugat"
+
+#: /templates/tracker/tpl/activities.twig:122
+msgid "Removed"
+msgstr "Şters"
+
+#: /templates/tracker/tpl/activities.twig:131
+msgid "Relation Type"
+msgstr "Tip de Relaţie"
+
+#: /templates/tracker/tpl/activities.twig:148
+msgid "Category"
+msgstr "Categorie"
+
+#: /templates/tracker/category.add.twig:6
+msgid "Add Category"
+msgstr "Adaugă categorie"
+
+#: /templates/tracker/category.add.twig:24
+#: /templates/tracker/category.edit.twig:24
+#: /templates/tracker/issue.index.twig:161
+msgid "Details"
+msgstr "Detalii"
+
+#: /templates/tracker/category.edit.twig:6
+#: /templates/tracker/category.edit.twig:20
+msgid "Edit Category"
+msgstr "Editează categoria"
+
+#: /templates/tracker/issue.index.twig:39
+msgid "That issue does not exist, or the ID you typed is incorrect."
+msgstr "Acest subiect nu există, sau ID-ul înregistrat nu este corect."
+
+#: /templates/tracker/issue.index.twig:95
+msgid "Easy Test"
+msgstr "Test uşor"
+
+#: /templates/tracker/issue.index.twig:103
+msgid "# of Successful Tests"
+msgstr "# din Testele Reuşite"
+
+#: /templates/tracker/issue.index.twig:172
+msgid "Categories:"
+msgstr "Categorii:"
+
+#: /templates/tracker/issue.index.twig:197
+msgid "Referenced as"
+msgstr "Referit ca"
+
+#: /templates/tracker/issue.index.twig:232
+msgid "Votes"
+msgstr "Voturi"
+
+#: /templates/tracker/issue.index.twig:237
+msgid "# of Users Experiencing Issue"
+msgstr "# din Utilizatori sunt afectaţi de această Problemă"
+
+#: /templates/tracker/issue.index.twig:241
+msgid "Average Importance Score"
+msgstr "Scorul Mediu de Importanţă"
+
+#: /templates/tracker/issue.index.twig:249
+msgid "I've experienced this issue"
+msgstr "Am întâlnit această problemă."
+
+#: /templates/tracker/issue.index.twig:252
+#: /templates/tracker/tracker.filters.twig:85
+msgid "Yes"
+msgstr "Da"
+
+#: /templates/tracker/issue.index.twig:256
+msgid "No"
+msgstr "Nu"
+
+#: /templates/tracker/issue.index.twig:261
+msgid "Importance of issue to me"
+msgstr "Nivelul de importanţă pe care această problemă îl reprezintă pentru mine"
+
+#: /templates/tracker/issue.index.twig:285
+msgid "Vote"
+msgstr "Votează"
+
+#: /templates/tracker/issue.index.twig:292
+msgid "Tests:"
+msgstr "Teste:"
+
+#: /templates/tracker/issue.index.twig:296
+#, php-format
+msgid "Successful: %s"
+msgstr "Reuşite: %s"
+
+#: /templates/tracker/issue.index.twig:300
+#, php-format
+msgid "Unsuccessful: %s"
+msgstr "Nereuşite: %s"
+
+#: /templates/tracker/issue.index.twig:308
+msgid "I've tested this item"
+msgstr "Am testat acest obiect"
+
+#: /templates/tracker/issue.index.twig:313
+msgid "Not tested"
+msgstr "Netestat"
+
+#: /templates/tracker/issue.index.twig:319
+msgid "Tested successfully"
+msgstr "Testat cu succes"
+
+#: /templates/tracker/issue.index.twig:325
+msgid "Tested unsuccessfully"
+msgstr "Testul nu a avut succes"
+
+#: /templates/tracker/issue.index.twig:333
+msgid "Submit test result"
+msgstr "Trimite rezultatul testului"
+
+#: /templates/tracker/issue.index.twig:340
+#: /templates/tracker/issue.index.twig:354
+msgid "Alter test result"
+msgstr "Alterează rezultatul testului"
+
+#: /templates/tracker/issue.index.twig:343
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr "Setează rezultatul testului pentru utilizatorul %s ca %s"
+
+#: /templates/tracker/issue.index.twig:343
+msgid "username"
+msgstr "Nume utilizator"
+
+#: /templates/tracker/issue.index.twig:499
+msgid "Post Comment"
+msgstr "Adaugă Comentariu"
+
+#: /templates/tracker/issue.index.twig:512
+msgid "Login with GitHub to post a comment"
+msgstr "Loghează-te cu GitHub pentru a adauga un comentariu"
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- status -"
+msgstr "- status -"
+
+#: /templates/tracker/tracker.filters.twig:16
+msgid "- priority -"
+msgstr "- prioritate -"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Least recently updated"
+msgstr "Cele mai puţin recent actualizate"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Newest"
+msgstr "Cel mai nou"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Oldest"
+msgstr "Cele mai vechi"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Recently updated"
+msgstr "Nou actualizat"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "Created by you"
+msgstr "Create de tine"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "Everyone's issues"
+msgstr "Subiectele tuturor"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "You participated in"
+msgstr "Ai participat la"
+
+#: /templates/tracker/tracker.filters.twig:50
+msgid "- categories -"
+msgstr "- categorii -"
+
+#: /templates/tracker/tracker.filters.twig:61
+msgid "- labels -"
+msgstr "- etichete -"
+
+#: /templates/tracker/tracker.filters.twig:72
+msgid "- tests -"
+msgstr "- teste -"
+
+#: /templates/tracker/tracker.filters.twig:72
+msgid "Has two tests"
+msgstr "Două teste efectuate"
+
+#: /templates/tracker/tracker.filters.twig:72
+msgid "Needs one test"
+msgstr "Cere un test"
+
+#: /templates/tracker/tracker.filters.twig:72
+msgid "Needs tests"
+msgstr "Se cer teste"
+
+#: /templates/tracker/tracker.filters.twig:85
+msgid "- easy -"
+msgstr "- uşor -"
+
+#: /src/App/Tracker/Controller/Category/Delete.php:84
+msgid "The category has been deleted"
+msgstr "Categoria a fost şteasă"
+
+#: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:117
+msgid "Your comment has been submitted"
+msgstr "Comentariul tău a fost trimis"
+
+#: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
+msgid "Vote successfully added"
+msgstr "Votul a fost adăugat cu succes"
+
+#: /src/App/Tracker/Controller/Issue/Submit.php:126
+msgid "Your report has been submitted."
+msgstr "Raportul tău a fost trimis."
+
+#: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:75
+msgid "Test successfully added"
+msgstr "Testul a fost adaugat cu succes"
+
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
+msgid "Old"
+msgstr "Vechi"
+
+#: /src/App/Tracker/Model/CategoryModel.php:70
+msgid "Missing ID"
+msgstr "ID-ul lipseşte"
+
+#: /src/App/Tracker/Model/CategoryModel.php:85
+msgid "Invalid Category"
+msgstr "Categoria nu este validă"
+
+#: /src/App/Tracker/Table/CategoryTable.php:54
+msgid "A name is required for the category."
+msgstr "Se cere un nume pentru această categorie."
+
+#: /src/App/Tracker/Table/CategoryTable.php:59
+msgid "The length of the name can not exceed 150 characters."
+msgstr "Lungimea unui nume nu poate depăşi 150 de caractere."
+
+#: /src/App/Tracker/Table/CategoryTable.php:64
+msgid "An alias is required for the category."
+msgstr "Se cere un alias pentru această categorie."
+
+#: /src/App/Tracker/Table/CategoryTable.php:69
+msgid "The length of the alias can not exceed 150 characters."
+msgstr "Lungimea unui alias nu poate depăşi 150 de caractere."
+
+#: /src/App/Tracker/Table/CategoryTable.php:74
+msgid "Color should be the hex value."
+msgstr "Culorile trebuie scrise in sistem hexazecimal."
+
+#: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
+msgid "Issue id is needed"
+msgstr "ID-ul subiectului este necesar"
+
+#: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
+msgid "Category ID is needed."
+msgstr "ID-ul categoriei este necesar."
+
+#: /src/App/Tracker/Table/IssuesTable.php:153
+msgid "A title is required."
+msgstr "Titlul este necesar."
+
+#: /src/App/Tracker/Table/IssuesTable.php:157
+msgid "The title max length is 255 chars."
+msgstr "Lungimea unui titlu este de maxim 255 de caractere."
+
+#: /src/App/Tracker/Table/IssuesTable.php:162
+msgid "A build is required."
+msgstr "Este necesară o structură."
+
+#: /src/App/Tracker/Table/IssuesTable.php:166
+msgid "A build max length is 40 chars."
+msgstr "Lungimea maximă a unei structuri este de 40 de caractere."

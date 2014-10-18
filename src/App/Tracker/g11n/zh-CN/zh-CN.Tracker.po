@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 05:06-0500\n"
-"PO-Revision-Date: 2014-10-17 09:15+0000\n"
+"POT-Creation-Date: 2014-10-18 01:07-0500\n"
+"PO-Revision-Date: 2014-10-18 06:02+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,6 @@ msgstr "状态"
 #: /templates/tracker/issue.edit.twig:78 /templates/tracker/issue.add.twig:47
 #: /templates/tracker/issues.index.twig:132
 #: /templates/tracker/tpl/activities.twig:92
-#: /templates/tracker/issue.index.twig:80
 msgid "Priority"
 msgstr "优先级"
 
@@ -83,7 +82,7 @@ msgid "Add a Comment"
 msgstr "添加评论"
 
 #: /templates/tracker/issue.edit.twig:163
-#: /templates/tracker/issue.index.twig:490
+#: /templates/tracker/issue.index.twig:491
 msgid "Leave a comment"
 msgstr "键入一条评论"
 
@@ -182,6 +181,7 @@ msgid "Open"
 msgstr "活动"
 
 #: /templates/tracker/issues.index.twig:43
+#: /templates/tracker/issues.index.twig:391
 msgid "Closed"
 msgstr "关闭"
 
@@ -266,6 +266,84 @@ msgstr "GitHub 合并状态"
 #: /templates/tracker/issues.index.twig:264
 msgid "No items found."
 msgstr "未发现条目"
+
+#: /templates/tracker/issues.index.twig:367
+msgid "Success"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:369
+#: /templates/tracker/issues.index.twig:384
+msgid "Pending"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:371
+msgid "Error"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:373
+msgid "Failure"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:382
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
+msgid "New"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:383
+msgid "Confirmed"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:385
+msgid "Ready To Commit"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:386
+msgid "Fixed in Code Base"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:387
+msgid "Needs Review"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:388
+msgid "Information Required"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:389
+msgid "Unconfirmed Report"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:390
+msgid "No Reply"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:392
+msgid "Expected Behaviour"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:393
+msgid "Known Issue"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:394
+msgid "Duplicate Report"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:447
+msgid "First"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:448
+msgid "Previous"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:449
+msgid "Next"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:450
+msgid "Last"
+msgstr ""
 
 #: /templates/tracker/categories.index.twig:6
 #: /templates/tracker/categories.index.twig:28
@@ -457,11 +535,11 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:498
+#: /templates/tracker/issue.index.twig:499
 msgid "Post Comment"
 msgstr "发布评论"
 
-#: /templates/tracker/issue.index.twig:511
+#: /templates/tracker/issue.index.twig:512
 msgid "Login with GitHub to post a comment"
 msgstr "请用GitHub帐号登录以发表评论"
 
@@ -552,10 +630,6 @@ msgstr ""
 
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
 msgid "Old"
-msgstr ""
-
-#: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
-msgid "New"
 msgstr ""
 
 #: /src/App/Tracker/Model/CategoryModel.php:70
