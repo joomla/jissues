@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 05:06-0500\n"
+"POT-Creation-Date: 2014-10-18 01:01-0500\n"
 "PO-Revision-Date: 2014-10-09 01:32+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
@@ -28,120 +28,120 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:227
+#: /src/JTracker/View/Renderer/TrackerExtension.php:228
 msgid "Critical"
 msgstr "Critique"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:228
+#: /src/JTracker/View/Renderer/TrackerExtension.php:229
 msgid "Urgent"
 msgstr "Urgente"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:229
+#: /src/JTracker/View/Renderer/TrackerExtension.php:230
 msgid "Medium"
 msgstr "Moyenne"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:230
+#: /src/JTracker/View/Renderer/TrackerExtension.php:231
 msgid "Low"
 msgstr "Faible"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:231
+#: /src/JTracker/View/Renderer/TrackerExtension.php:232
 msgid "Very low"
 msgstr "Très faible"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:317
-#: /src/JTracker/View/Renderer/TrackerExtension.php:340
+#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+#: /src/JTracker/View/Renderer/TrackerExtension.php:341
 msgid "New"
 msgstr "Nouveau"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:318
-#: /src/JTracker/View/Renderer/TrackerExtension.php:341
+#: /src/JTracker/View/Renderer/TrackerExtension.php:319
+#: /src/JTracker/View/Renderer/TrackerExtension.php:342
 msgid "Confirmed"
 msgstr "Confirmé"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:319
-#: /src/JTracker/View/Renderer/TrackerExtension.php:342
-#: /src/JTracker/View/Renderer/TrackerExtension.php:575
+#: /src/JTracker/View/Renderer/TrackerExtension.php:320
+#: /src/JTracker/View/Renderer/TrackerExtension.php:343
+#: /src/JTracker/View/Renderer/TrackerExtension.php:592
 msgid "Pending"
 msgstr "En attente"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:320
-#: /src/JTracker/View/Renderer/TrackerExtension.php:343
+#: /src/JTracker/View/Renderer/TrackerExtension.php:321
+#: /src/JTracker/View/Renderer/TrackerExtension.php:344
 msgid "Ready To Commit"
 msgstr "Prêt à être appliqué"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:321
-#: /src/JTracker/View/Renderer/TrackerExtension.php:344
+#: /src/JTracker/View/Renderer/TrackerExtension.php:322
+#: /src/JTracker/View/Renderer/TrackerExtension.php:345
 msgid "Needs Review"
 msgstr "Besoin d'un avis"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:322
-#: /src/JTracker/View/Renderer/TrackerExtension.php:345
+#: /src/JTracker/View/Renderer/TrackerExtension.php:323
+#: /src/JTracker/View/Renderer/TrackerExtension.php:346
 msgid "Information Required"
 msgstr "Renseignements requis"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:328
-#: /src/JTracker/View/Renderer/TrackerExtension.php:346
+#: /src/JTracker/View/Renderer/TrackerExtension.php:329
+#: /src/JTracker/View/Renderer/TrackerExtension.php:347
 msgid "Fixed in Code Base"
 msgstr "Corrigé dans le code de base"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:329
-#: /src/JTracker/View/Renderer/TrackerExtension.php:347
+#: /src/JTracker/View/Renderer/TrackerExtension.php:330
+#: /src/JTracker/View/Renderer/TrackerExtension.php:348
 msgid "Unconfirmed Report"
 msgstr "Rapport non confirmé"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:330
-#: /src/JTracker/View/Renderer/TrackerExtension.php:348
+#: /src/JTracker/View/Renderer/TrackerExtension.php:331
+#: /src/JTracker/View/Renderer/TrackerExtension.php:349
 msgid "No Reply"
 msgstr "Aucune réponse"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:331
-#: /src/JTracker/View/Renderer/TrackerExtension.php:349
+#: /src/JTracker/View/Renderer/TrackerExtension.php:332
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
 msgid "Closed"
 msgstr "Fermé"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:332
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+#: /src/JTracker/View/Renderer/TrackerExtension.php:333
+#: /src/JTracker/View/Renderer/TrackerExtension.php:351
 msgid "Expected Behaviour"
 msgstr "Comportement attendu"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:333
-#: /src/JTracker/View/Renderer/TrackerExtension.php:351
+#: /src/JTracker/View/Renderer/TrackerExtension.php:334
+#: /src/JTracker/View/Renderer/TrackerExtension.php:352
 msgid "Known Issue"
 msgstr "Anomalie connue"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:334
-#: /src/JTracker/View/Renderer/TrackerExtension.php:352
+#: /src/JTracker/View/Renderer/TrackerExtension.php:335
+#: /src/JTracker/View/Renderer/TrackerExtension.php:353
 msgid "Duplicate Report"
 msgstr "Rapport doublon"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:510
+#: /src/JTracker/View/Renderer/TrackerExtension.php:527
 msgid "No"
 msgstr "Non"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:510
+#: /src/JTracker/View/Renderer/TrackerExtension.php:527
 msgid "Yes"
 msgstr "Oui"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:572
+#: /src/JTracker/View/Renderer/TrackerExtension.php:589
 msgid "Success"
 msgstr "Succès"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:578
+#: /src/JTracker/View/Renderer/TrackerExtension.php:595
 msgid "Error"
 msgstr "Erreur"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:581
+#: /src/JTracker/View/Renderer/TrackerExtension.php:598
 msgid "Failure"
 msgstr "Échec"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:645
+#: /src/JTracker/View/Renderer/TrackerExtension.php:662
 msgid "Not tested"
 msgstr "Non testé"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:646
+#: /src/JTracker/View/Renderer/TrackerExtension.php:663
 msgid "Tested successfully"
 msgstr "Testé avec succès"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:647
+#: /src/JTracker/View/Renderer/TrackerExtension.php:664
 msgid "Tested unsuccessfully"
 msgstr "Testé sans succès"

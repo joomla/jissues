@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 05:06-0500\n"
+"POT-Creation-Date: 2014-10-18 01:01-0500\n"
 "PO-Revision-Date: 2014-09-27 16:34+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
@@ -29,120 +29,120 @@ msgstr "Volgende"
 msgid "Last"
 msgstr "Laatste"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:227
+#: /src/JTracker/View/Renderer/TrackerExtension.php:228
 msgid "Critical"
 msgstr "Kritiek"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:228
+#: /src/JTracker/View/Renderer/TrackerExtension.php:229
 msgid "Urgent"
 msgstr "Urgent"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:229
+#: /src/JTracker/View/Renderer/TrackerExtension.php:230
 msgid "Medium"
 msgstr "Gemiddeld"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:230
+#: /src/JTracker/View/Renderer/TrackerExtension.php:231
 msgid "Low"
 msgstr "Laag"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:231
+#: /src/JTracker/View/Renderer/TrackerExtension.php:232
 msgid "Very low"
 msgstr "Zeer laag"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:317
-#: /src/JTracker/View/Renderer/TrackerExtension.php:340
+#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+#: /src/JTracker/View/Renderer/TrackerExtension.php:341
 msgid "New"
 msgstr "Nieuw"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:318
-#: /src/JTracker/View/Renderer/TrackerExtension.php:341
+#: /src/JTracker/View/Renderer/TrackerExtension.php:319
+#: /src/JTracker/View/Renderer/TrackerExtension.php:342
 msgid "Confirmed"
 msgstr "Bevestigd"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:319
-#: /src/JTracker/View/Renderer/TrackerExtension.php:342
-#: /src/JTracker/View/Renderer/TrackerExtension.php:575
+#: /src/JTracker/View/Renderer/TrackerExtension.php:320
+#: /src/JTracker/View/Renderer/TrackerExtension.php:343
+#: /src/JTracker/View/Renderer/TrackerExtension.php:592
 msgid "Pending"
 msgstr "In behandeling"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:320
-#: /src/JTracker/View/Renderer/TrackerExtension.php:343
+#: /src/JTracker/View/Renderer/TrackerExtension.php:321
+#: /src/JTracker/View/Renderer/TrackerExtension.php:344
 msgid "Ready To Commit"
 msgstr "Klaar voor invoer"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:321
-#: /src/JTracker/View/Renderer/TrackerExtension.php:344
+#: /src/JTracker/View/Renderer/TrackerExtension.php:322
+#: /src/JTracker/View/Renderer/TrackerExtension.php:345
 msgid "Needs Review"
 msgstr "Beoordeling nodig"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:322
-#: /src/JTracker/View/Renderer/TrackerExtension.php:345
+#: /src/JTracker/View/Renderer/TrackerExtension.php:323
+#: /src/JTracker/View/Renderer/TrackerExtension.php:346
 msgid "Information Required"
 msgstr "Informatie nodig"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:328
-#: /src/JTracker/View/Renderer/TrackerExtension.php:346
+#: /src/JTracker/View/Renderer/TrackerExtension.php:329
+#: /src/JTracker/View/Renderer/TrackerExtension.php:347
 msgid "Fixed in Code Base"
 msgstr "Opgelost"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:329
-#: /src/JTracker/View/Renderer/TrackerExtension.php:347
+#: /src/JTracker/View/Renderer/TrackerExtension.php:330
+#: /src/JTracker/View/Renderer/TrackerExtension.php:348
 msgid "Unconfirmed Report"
 msgstr "Onbevestigd"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:330
-#: /src/JTracker/View/Renderer/TrackerExtension.php:348
+#: /src/JTracker/View/Renderer/TrackerExtension.php:331
+#: /src/JTracker/View/Renderer/TrackerExtension.php:349
 msgid "No Reply"
 msgstr "Geen antwoord"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:331
-#: /src/JTracker/View/Renderer/TrackerExtension.php:349
+#: /src/JTracker/View/Renderer/TrackerExtension.php:332
+#: /src/JTracker/View/Renderer/TrackerExtension.php:350
 msgid "Closed"
 msgstr "Gesloten"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:332
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+#: /src/JTracker/View/Renderer/TrackerExtension.php:333
+#: /src/JTracker/View/Renderer/TrackerExtension.php:351
 msgid "Expected Behaviour"
 msgstr "Verwachte werking"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:333
-#: /src/JTracker/View/Renderer/TrackerExtension.php:351
+#: /src/JTracker/View/Renderer/TrackerExtension.php:334
+#: /src/JTracker/View/Renderer/TrackerExtension.php:352
 msgid "Known Issue"
 msgstr "Bekend probleem"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:334
-#: /src/JTracker/View/Renderer/TrackerExtension.php:352
+#: /src/JTracker/View/Renderer/TrackerExtension.php:335
+#: /src/JTracker/View/Renderer/TrackerExtension.php:353
 msgid "Duplicate Report"
 msgstr "Dubbele melding"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:510
+#: /src/JTracker/View/Renderer/TrackerExtension.php:527
 msgid "No"
 msgstr "Nee"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:510
+#: /src/JTracker/View/Renderer/TrackerExtension.php:527
 msgid "Yes"
 msgstr "Ja"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:572
+#: /src/JTracker/View/Renderer/TrackerExtension.php:589
 msgid "Success"
 msgstr "Gelukt"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:578
+#: /src/JTracker/View/Renderer/TrackerExtension.php:595
 msgid "Error"
 msgstr "Fout"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:581
+#: /src/JTracker/View/Renderer/TrackerExtension.php:598
 msgid "Failure"
 msgstr "Mislukt"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:645
+#: /src/JTracker/View/Renderer/TrackerExtension.php:662
 msgid "Not tested"
 msgstr "Niet getest"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:646
+#: /src/JTracker/View/Renderer/TrackerExtension.php:663
 msgid "Tested successfully"
 msgstr "Succesvol getest"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:647
+#: /src/JTracker/View/Renderer/TrackerExtension.php:664
 msgid "Tested unsuccessfully"
 msgstr "Niet succesvol getest"
