@@ -1,0 +1,437 @@
+# JTracker Template JTracker 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Oana Andrada Florescu <oana@redweb.dk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-18 01:07-0500\n"
+"PO-Revision-Date: 2014-10-17 15:01+0000\n"
+"Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: /templates/index.twig:50
+msgid "Download"
+msgstr "Descărcă"
+
+#: /templates/index.twig:53
+msgid "Demo"
+msgstr "Demo"
+
+#: /templates/editor.twig:5
+msgid "Write"
+msgstr "Scrie"
+
+#: /templates/editor.twig:6
+msgid "Preview"
+msgstr "Previzualizare"
+
+#: /templates/uploader.full.twig:14
+msgid "Add files..."
+msgstr "Adaugă fișiere..."
+
+#: /templates/uploader.full.twig:18
+msgid "Start upload"
+msgstr "Începe încărcare"
+
+#: /templates/uploader.full.twig:21
+msgid "Cancel upload"
+msgstr "Anulează încărcarea"
+
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+msgid "Delete"
+msgstr "Şterge"
+
+#: /templates/uploader.full.twig:33
+msgid "Upload Notes"
+msgstr "Încarcă Notițele"
+
+#: /templates/uploader.full.twig:35
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "Dimensiunea maximă pentru fișierele încărcate este <strong>1 MB</strong>. "
+
+#: /templates/uploader.full.twig:36
+msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
+msgstr "Doar fișierele care conțin imagini (<strong>JPG, GIF, PNG</strong>) sunt admise."
+
+#: /templates/uploader.full.twig:37
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "Poți să dai <strong>drag & drop</strong> fișierelor de pe desktop în conținutul acestei pagini."
+
+#: /templates/uploader.full.twig:52
+msgid "Processing..."
+msgstr "În curs de procesare..."
+
+#: /templates/uploader.full.twig:58
+msgid "Start"
+msgstr "Început"
+
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+msgid "Cancel"
+msgstr "Anulează"
+
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:145
+msgid "Error"
+msgstr "Eroare"
+
+#: /templates/footerMenu.twig:6
+msgid "Home"
+msgstr "Acasă"
+
+#: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
+msgid "About"
+msgstr "Despre"
+
+#: /templates/footerMenu.twig:8 /templates/topMenu.twig:38
+msgid "Community"
+msgstr "Comunitate"
+
+#: /templates/footerMenu.twig:9
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:10
+msgid "Extensions"
+msgstr "Extensii"
+
+#: /templates/footerMenu.twig:11
+msgid "Resources"
+msgstr "Resurse"
+
+#: /templates/footerMenu.twig:12
+msgid "Docs"
+msgstr "Docs"
+
+#: /templates/footerMenu.twig:13
+msgid "Developer"
+msgstr "Developer"
+
+#: /templates/footerMenu.twig:14
+msgid "Shop"
+msgstr "Magazin"
+
+#: /templates/footerMenu.twig:18
+msgid "Accessibility Statement"
+msgstr "Declarație de Accesibilitate"
+
+#: /templates/footerMenu.twig:19
+msgid "Privacy Policy"
+msgstr "Politică de Confidențialitate"
+
+#: /templates/footerMenu.twig:20
+msgid "Joomla Hosting by"
+msgstr "Joomla Hosting oferit de"
+
+#: /templates/footerMenu.twig:23
+msgid "All rights reserved."
+msgstr "Toate drepturile rezervate."
+
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr "Selectați cel puțin o categorie..."
+
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr "Selectați Milestone..."
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr "Nu există Milestone"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Urmăritor"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Proiect"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Arată"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Modifică"
+
+#: /templates/trackerMenu.twig:43
+msgid "Access Groups"
+msgstr "Accesează Grupuri"
+
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr "Etichete"
+
+#: /templates/trackerMenu.twig:55
+msgid "Milestones"
+msgstr "Milestones"
+
+#: /templates/trackerMenu.twig:61
+msgid "Categories"
+msgstr "Categorii"
+
+#: /templates/trackerMenu.twig:71
+msgid "Projects"
+msgstr "Proiecte"
+
+#: /templates/trackerMenu.twig:76
+msgid "Users"
+msgstr "Utilizatori"
+
+#: /templates/trackerMenu.twig:83
+msgid "System"
+msgstr "Sistem"
+
+#: /templates/trackerMenu.twig:90
+msgid "Configuration"
+msgstr "Configurație"
+
+#: /templates/trackerMenu.twig:96
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:102
+msgid "Logs"
+msgstr "Jurnal"
+
+#: /templates/trackerMenu.twig:115
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
+#: /templates/trackerMenu.twig:120
+msgid "Database"
+msgstr "Bază de date"
+
+#: /templates/trackerMenu.twig:126
+msgid "GitHub Issues"
+msgstr "Subiecte GitHub"
+
+#: /templates/trackerMenu.twig:132
+msgid "GitHub Comments"
+msgstr "Comentarii GitHub"
+
+#: /templates/trackerMenu.twig:138
+msgid "GitHub Pulls"
+msgstr "Extrageri GitHub"
+
+#: /templates/trackerMenu.twig:142
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:152
+msgid "Icons"
+msgstr "Iconițe"
+
+#: /templates/trackerMenu.twig:158
+msgid "Routes"
+msgstr "Rute"
+
+#: /templates/trackerMenu.twig:164
+msgid "Text"
+msgstr "Text"
+
+#: /templates/trackerMenu.twig:170
+msgid "Clear Cache"
+msgstr "Curăță Cache"
+
+#: /templates/trackerMenu.twig:187
+msgid "About Us"
+msgstr "Despre Noi"
+
+#: /templates/trackerMenu.twig:192
+msgid "Markdown"
+msgstr "Note"
+
+#: /templates/trackerMenu.twig:197 /templates/topMenu.twig:72
+msgid "Documentation"
+msgstr "Documentaţie"
+
+#: /templates/trackerMenu.twig:216
+msgid "Admin"
+msgstr "Administrator"
+
+#: /templates/trackerMenu.twig:221
+msgid "View profile"
+msgstr "Vizualizare profil"
+
+#: /templates/trackerMenu.twig:227
+msgid "Edit profile"
+msgstr "Editează Profilul"
+
+#: /templates/trackerMenu.twig:234
+msgid "Logout"
+msgstr "Ieșire"
+
+#: /templates/trackerMenu.twig:243
+msgid "Login with GitHub"
+msgstr "Autentificare via GitHub"
+
+#: /templates/trackerMenu.twig:247
+msgid "No GitHub credentials set in config"
+msgstr "Acreditările GitHub nu au fost în configurare."
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "Știri Recente"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "Anunțuri"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "Blog-uri"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "Revistă"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "Susține Joomla!"
+
+#: /templates/topMenu.twig:24
+msgid "Shop Joomla Gear"
+msgstr "Cumpără Joomla Gear"
+
+#: /templates/topMenu.twig:25
+msgid "Contribution"
+msgstr "Contribuție"
+
+#: /templates/topMenu.twig:30
+msgid "About Joomla!"
+msgstr "Despre Joomla!"
+
+#: /templates/topMenu.twig:31
+msgid "Core Features"
+msgstr "Caracteristici Nucleu"
+
+#: /templates/topMenu.twig:32
+msgid "The Software"
+msgstr "Software-ul"
+
+#: /templates/topMenu.twig:33
+msgid "The Project"
+msgstr "Proiectul"
+
+#: /templates/topMenu.twig:34
+msgid "Leadership"
+msgstr "Conducere"
+
+#: /templates/topMenu.twig:40
+msgid "Joomla! Community Portal"
+msgstr "Joomla! Portal Comunitate"
+
+#: /templates/topMenu.twig:41
+msgid "Joomla! Events"
+msgstr "Joomla! Evenimente"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! UX"
+msgstr "Joomla! UX"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! User Groups"
+msgstr "Joomla! Grupuri de Utilizatori"
+
+#: /templates/topMenu.twig:46
+msgid "Support"
+msgstr "Suport"
+
+#: /templates/topMenu.twig:48
+msgid "Joomla! Forum"
+msgstr "Joomla! Forum"
+
+#: /templates/topMenu.twig:49
+msgid "Joomla! Documentation"
+msgstr "Joomla! Documentație"
+
+#: /templates/topMenu.twig:50
+msgid "Joomla! Resources"
+msgstr "Joomla! Resurse"
+
+#: /templates/topMenu.twig:53
+msgid "Read"
+msgstr "Citeşte"
+
+#: /templates/topMenu.twig:55
+msgid "Joomla! Magazine"
+msgstr "Joomla! Revistă"
+
+#: /templates/topMenu.twig:56
+msgid "Joomla! Connect"
+msgstr "Joomla! Conectare"
+
+#: /templates/topMenu.twig:57
+msgid "Joomla! Mailing Lists"
+msgstr "Joomla! Listă E-mail-uri"
+
+#: /templates/topMenu.twig:60
+msgid "Extend"
+msgstr "Extinde"
+
+#: /templates/topMenu.twig:62
+msgid "Extension Directory"
+msgstr "Director Extensii"
+
+#: /templates/topMenu.twig:63
+msgid "Showcase Directory"
+msgstr "Prezintă Director"
+
+#: /templates/topMenu.twig:64
+msgid "Resource Directory"
+msgstr "Directorul de Resurse"
+
+#: /templates/topMenu.twig:65 /templates/topMenu.twig:84
+msgid "Translations"
+msgstr "Traduceri"
+
+#: /templates/topMenu.twig:66
+msgid "Idea Pool"
+msgstr "Container Idei"
+
+#: /templates/topMenu.twig:69
+msgid "Developers"
+msgstr "Developeri"
+
+#: /templates/topMenu.twig:71
+msgid "Developer Site"
+msgstr "Pagină pentru Developeri"
+
+#: /templates/topMenu.twig:73
+msgid "Joomla! Bug Squad"
+msgstr "Joomla! Bug Squad"
+
+#: /templates/topMenu.twig:74
+msgid "Joomla! API"
+msgstr "Joomla! API"
+
+#: /templates/topMenu.twig:75
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:76
+msgid "Joomla! Framework"
+msgstr "Joomla! Framework"
+
+#: /templates/topMenu.twig:85
+msgid "Multilingual Demo"
+msgstr "Demo in mai multe limbi"
+
+#: /templates/topMenu.twig:86
+msgid "Translation Working Group"
+msgstr "Grupul de Traducători"
+
+#: /templates/topMenu.twig:87
+msgid "Translations Forum"
+msgstr "Forum-ul Translatorilor"
