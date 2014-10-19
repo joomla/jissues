@@ -372,7 +372,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 		$data['easy']            = $filter->clean($src['easy'], 'int');
 		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
-		$data['milestone_id']    = $filter->clean($src['milestone_id'], 'int');
+		$data['milestone_id']    = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
 
 		if (!$data['id'])
 		{
