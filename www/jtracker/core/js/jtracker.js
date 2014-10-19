@@ -181,3 +181,66 @@ JTracker.getContrastColor = function(hexColor) {
 
 	return (yiq >= 128) ? 'black' : 'white';
 };
+
+JTracker.setupAtJS = function(id, projectAlias) {
+	var emojis = $.map(
+		[
+			"smile", "iphone", "girl", "smiley", "heart", "kiss", "copyright", "coffee",
+			"a", "ab", "airplane", "alien", "ambulance", "angel", "anger", "angry",
+			"arrow_forward", "arrow_left", "arrow_lower_left", "arrow_lower_right",
+			"arrow_right", "arrow_up", "arrow_upper_left", "arrow_upper_right",
+			"art", "astonished", "atm", "b", "baby", "baby_chick", "baby_symbol",
+			"balloon", "bamboo", "bank", "barber", "baseball", "basketball", "bath",
+			"bear", "beer", "beers", "beginner", "bell", "bento", "bike", "bikini",
+			"bird", "birthday", "blue_car", "blue_heart", "blush",
+			"boar", "boat", "bomb", "book", "boot", "bouquet", "bow", "bowtie",
+			"boy", "bread", "briefcase", "broken_heart", "bug", "bulb",
+			"person_with_blond_hair", "phone", "pig", "pill", "pisces",
+			"point_down", "point_left", "point_right", "point_up", "point_up_2",
+			"police_car", "poop", "post_office", "postbox", "pray", "princess",
+			"punch", "purple_heart", "question", "rabbit", "racehorse", "radio",
+			"up", "us", "v", "vhs", "vibration_mode", "virgo", "vs", "walking",
+			"warning", "watermelon", "wave", "wc", "wedding", "whale", "wheelchair",
+			"wind_chime", "wink", "wolf", "woman",
+			"womans_hat", "womens", "x", "yellow_heart", "zap", "zzz", "+1",
+			"-1", 'tongue'
+		],
+		function(value, i) {return {key: value, name:value}});
+
+	var emoji_config = {
+		at: ":",
+		data: emojis,
+		tpl:"<li data-value=':${key}:'><img src='https://assets-cdn.github.com/images/icons/emoji/${key}.png' height='20' width='20' /> ${name}</li>"
+	};
+
+	var user_config = {
+		at: "@",
+		search_key: 'username',
+		callbacks: {
+			remote_filter: function(query, callback) {
+				$.getJSON('/fetch/users', {q: query}, function(response) {
+					callback(response.data.users)
+				})
+			}
+		},
+		tpl:"<li data-value='@${username}'><img src='/images/avatars/${username}' height='20' width='20'> ${username} <small>${name}</small></li>"
+	};
+
+	var issue_config = {
+		at: '#',
+		search_key: 'issue_number',
+		callbacks: {
+			remote_filter: function(query, callback) {
+				$.getJSON('/fetch/issues', {q: query}, function(data) {
+					callback(data.data.issues)
+				})
+			}
+		},
+		tpl:"<li data-value='#${issue_number}'>${issue_number} <small>${title}</small></li>"
+	};
+
+	$('#' + id)
+		.atwho(emoji_config)
+		.atwho(user_config)
+		.atwho(issue_config);
+};
