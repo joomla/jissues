@@ -36,17 +36,15 @@ class Users extends AbstractAjaxController
 
 		if ($username)
 		{
-			$this->response->data = [
-				'users' => $db
-					->setQuery(
-						$db->getQuery(true)
-							->select($db->quoteName(['username', 'name']))
-							->from($db->quoteName('#__users'))
-							->where($db->quoteName('username') . " LIKE '%" . $username . "%'"),
-						0, 10
-					)
-					->loadAssocList()
-			];
+			$this->response->data = $db
+				->setQuery(
+					$db->getQuery(true)
+						->select($db->quoteName(['username', 'name']))
+						->from($db->quoteName('#__users'))
+						->where($db->quoteName('username') . " LIKE '%" . $username . "%'"),
+					0, 10
+				)
+				->loadAssocList();
 		}
 	}
 }

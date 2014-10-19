@@ -219,7 +219,7 @@ JTracker.setupAtJS = function(id, projectAlias) {
 		callbacks: {
 			remote_filter: function(query, callback) {
 				$.getJSON('/fetch/users', {q: query}, function(response) {
-					callback(response.data.users)
+					callback(response.data)
 				})
 			}
 		},
@@ -231,8 +231,8 @@ JTracker.setupAtJS = function(id, projectAlias) {
 		search_key: 'issue_number',
 		callbacks: {
 			remote_filter: function(query, callback) {
-				$.getJSON('/fetch/issues', {q: query}, function(data) {
-					callback(data.data.issues)
+				$.getJSON('/fetch/issues', {q: query}, function(response) {
+					callback(response.data)
 				})
 			}
 		},

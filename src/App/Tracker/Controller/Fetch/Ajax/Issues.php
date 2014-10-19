@@ -36,18 +36,16 @@ class Issues extends AbstractAjaxController
 
 		if ($issueNumber)
 		{
-			$this->response->data = [
-				'issues' => $db
-					->setQuery(
-						$db->getQuery(true)
-							->select($db->quoteName(['i.issue_number', 'i.title']))
-							->from($db->quoteName('#__issues', 'i'))
-							->where($db->quoteName('i.project_id') . ' = ' . (int) $application->getProject()->project_id)
-							->where($db->quoteName('i.issue_number') . " LIKE '%" . (int) $issueNumber . "%'"),
-						0, 10
-					)
-					->loadAssocList()
-			];
+			$this->response->data = $db
+				->setQuery(
+					$db->getQuery(true)
+						->select($db->quoteName(['i.issue_number', 'i.title']))
+						->from($db->quoteName('#__issues', 'i'))
+						->where($db->quoteName('i.project_id') . ' = ' . (int) $application->getProject()->project_id)
+						->where($db->quoteName('i.issue_number') . " LIKE '%" . (int) $issueNumber . "%'"),
+					0, 10
+				)
+				->loadAssocList();
 		}
 	}
 }
