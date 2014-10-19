@@ -107,27 +107,31 @@
 
         {% if project.gh_user and project.gh_project %}
             <li>
-                <i class="icon-github"></i>
+                &nbsp;
                 <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/issues/' ~ item.issue_number }}"
-                   target="_blank">
-                    GitHub # {{ item.issue_number }}
+                   target="_blank" title="{{ 'View this issue on GitHub'|_ }}">
+                    <span class="octicon octicon-mark-github"></span>
+                    # {{ item.issue_number }}
                 </a>
             </li>
 
             {% if item.has_code %}
                 <li>
-                    &nbsp;&bull;&nbsp;
+                    &nbsp;
                     <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
-                       target="_blank">
-                        diff
+                       target="_blank" title="{{ 'View a plain diff for this pull request'|_ }}">
+                        <span class="octicon octicon-diff"></span>
+                        {{ 'Diff'|_ }}
                     </a>
                 </li>
             {% endif %}
 
             {% if item.pr_head_ref %}
                 <li>
-                    &nbsp;&bull;&nbsp;
-                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}">
+                    &nbsp;
+                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
+                       title="{{ 'Download this fork as a ZIP file'|_ }}">
+                        <span class="octicon octicon-repo-forked"></span>
                         {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
                     </a>
                 </li>
