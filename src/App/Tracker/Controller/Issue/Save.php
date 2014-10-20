@@ -156,7 +156,7 @@ class Save extends AbstractTrackerController
 			// Save the comment.
 			if ($comment)
 			{
-				$project      = $application->getProject(); 
+				$project = $application->getProject();
 
 				/* @type \Joomla\Github\Github $github */
 				$github = $this->getContainer()->get('gitHub');
