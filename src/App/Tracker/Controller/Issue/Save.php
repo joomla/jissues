@@ -138,11 +138,10 @@ class Save extends AbstractTrackerController
 			// If the user have edit permission, let him / her modify the categories.
 			if ($user->check('edit'))
 			{
-				$categoryModel           = new CategoryModel($this->getContainer()->get('db'));
-				$category['issue_id']    = $data['id'];
-				$category['modified_by'] = $user->username;
-				$category['categories']  = $application->input->get('categories', null, 'array');
-
+				$categoryModel            = new CategoryModel($this->getContainer()->get('db'));
+				$category['issue_id']     = $data['id'];
+				$category['modified_by']  = $user->username;
+				$category['categories']   = $application->input->get('categories', null, 'array');
 				$category['issue_number'] = $data['issue_number'];
 				$category['project_id']   = $project->project_id;
 
