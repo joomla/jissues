@@ -52,5 +52,10 @@
             "App\\": "src/App/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "JTracker\\Tests\\": "tests/tracker/"
+        }
+    },
     "minimum-stability": "dev"
 }
