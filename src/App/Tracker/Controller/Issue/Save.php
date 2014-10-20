@@ -158,6 +158,13 @@ class Save extends AbstractTrackerController
 			{
 				$project = $application->getProject();
 
+				$comment .= sprintf( 
+					'<br /><br />*This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.*', 
+					'https://github.com/joomla/jissues', 'J!Tracker', 
+					$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber, 
+					str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber 
+				);
+
 				/* @type \Joomla\Github\Github $github */
 				$github = $this->getContainer()->get('gitHub');
 
@@ -179,13 +186,6 @@ class Save extends AbstractTrackerController
 					$data->opened_by  = $gitHubResponse->user->login;
 					$data->comment_id = $gitHubResponse->id;
 					$data->text_raw   = $gitHubResponse->body;
-
-					$comment .= sprintf( 
-						'<br /><br />*This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.*', 
-						'https://github.com/joomla/jissues', 'J!Tracker', 
-						$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber, 
-						str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber 
-					);
 
 					$data->text = $github->markdown->render(
 						$comment,
