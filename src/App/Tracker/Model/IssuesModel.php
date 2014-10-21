@@ -347,7 +347,10 @@ class IssuesModel extends AbstractTrackerListModel
 
 		if ($filter)
 		{
-			$query->where($db->quoteName('a.opened_by') . ' = ' . $db->quote($filter));
+			// Clean filter variable
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+
+			$query->where($db->quoteName('a.opened_by') . ' LIKE ' . $filter);
 		}
 
 		$filter = $this->state->get('filter.category');
