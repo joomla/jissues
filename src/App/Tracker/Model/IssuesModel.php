@@ -155,6 +155,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$id .= ':' . $this->state->get('filter.status');
 		$id .= ':' . $this->state->get('filter.search');
 		$id .= ':' . $this->state->get('filter.user');
+		$id .= ':' . $this->state->get('filter.created_by');
 		$id .= ':' . $this->state->get('filter.category');
 		$id .= ':' . $this->state->get('filter.label');
 		$id .= ':' . $this->state->get('filter.tests');
@@ -340,6 +341,16 @@ class IssuesModel extends AbstractTrackerListModel
 					$query->group('a.issue_number');
 					break;
 			}
+		}
+
+		$filter = $this->state->get('filter.created_by');
+
+		if ($filter)
+		{
+			// Clean filter variable
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+
+			$query->where($db->quoteName('a.opened_by') . ' LIKE ' . $filter);
 		}
 
 		$filter = $this->state->get('filter.category');
