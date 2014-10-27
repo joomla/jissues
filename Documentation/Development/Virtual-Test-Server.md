@@ -10,6 +10,12 @@ So you basically have to issue only one line on the CLI to get a working instanc
 * [Vagrant](http://www.vagrantup.com/)
 * The ability to use your operating systems command line interface (Need a [Tutorial](http://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything) ?).
 
+**Note** If you are a happy [debian](http://debian.org) (sid) user, you can get everything you need using:
+
+```
+# apt-get install virtualbox vagrant
+```
+
 ### Start Up
 
 * Clone or download this repository.
