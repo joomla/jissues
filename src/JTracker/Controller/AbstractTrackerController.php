@@ -190,7 +190,8 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		$sub = ('php' == $this->getContainer()->get('app')->get('renderer.type')) ? '/php' : '';
 
-		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->app);
+		$template = $this->getContainer()->get('app')->get('renderer.template');
+		$path = ($template ? JPATH_ROOT . '/' . $template : JPATH_TEMPLATES) . $sub . '/' . strtolower($this->app);
 
 		if (is_dir($path))
 		{
