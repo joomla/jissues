@@ -111,7 +111,7 @@ class Listing extends AbstractAjaxController
 		);
 
 		$state->set('filter.created_by',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'word')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
 		);
 
 		$state->set('filter.category',

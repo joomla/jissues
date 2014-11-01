@@ -174,7 +174,7 @@ class DefaultController extends AbstractTrackerListController
 		$state->set('filter.user', $user);
 
 		$state->set('filter.created_by',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'word')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
 		);
 
 		$categoryAlias = $application->input->get->get('category', '', 'cmd');
