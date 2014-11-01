@@ -9,6 +9,7 @@
 namespace App\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
+use Joomla\String\String;
 
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -28,8 +29,22 @@ class UsersModel extends AbstractTrackerListModel
 	 */
 	protected function getListQuery()
 	{
-		return $this->db->getQuery(true)
-			->select(array('id', 'username'))
-			->from('#__users');
+		$db    = $this->getDb();
+		$query = $db->getQuery(true);
+
+		$query->select(array('id', 'username'));
+		$query->from('#__users');
+
+		$filter = $this->state->get('filter.search-user');
+
+		if ($filter)
+		{
+			// Clean filter variable
+			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+
+			$query->where($db->quoteName('username') . ' LIKE ' . $filter);
+		}
+
+		return $query;
 	}
 }
