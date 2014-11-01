@@ -377,6 +377,7 @@
             {% if 'test_item' == activity.event %}
                 {% set change = activity.text|json_decode %}
                 <div class="offset1 span9 activity-action">
+                    <i class="octicon octicon-person"></i>
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
@@ -386,6 +387,7 @@
             {% elseif 'alter_testresult' == activity.event %}
                 {% set change = activity.text|json_decode %}
                 <div class="offset1 span9 activity-action">
+                    <i class="octicon octicon-eye"></i>
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
@@ -410,6 +412,7 @@
                 </div>
             {% elseif 'change' == activity.event %}
                 <div class="offset1 span9 activity-action">
+                    <i class="octicon octicon-gear"></i>
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
@@ -465,6 +468,7 @@
                 </div>
             {% else %}
                 <div class="offset1 span9">
+                    <i class="octicon octicon-pulse"></i>
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
