@@ -221,7 +221,7 @@
     <!-- Main content -->
 
     <div class="row-fluid">
-        <div class="span2 well-small">
+        <div class="span2 well-small user-wrapper">
             {{ avatar(item.opened_by, '', 'avatar')|raw }}<br />
             <span class="icon-github"></span> {{ item.opened_by }}<br />
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
@@ -497,7 +497,7 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right">
+            <div class="pull-right comment-wrapper">
                 <div id="commentStatus"></div>
                 <a href="javascript:" class="btn btn-success"
                    onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">

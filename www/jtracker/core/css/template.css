@@ -1747,7 +1747,7 @@ table {
 }
 .table-condensed th,
 .table-condensed td {
-  padding: 4px 5px;
+  padding: 4px;
 }
 .table-bordered {
   border: 1px solid #dddddd;
@@ -3755,6 +3755,7 @@ input[type="submit"].btn.btn-mini {
 
   *zoom: 1;
   text-shadow: 0 1px 0 #ffffff;
+  padding: 2px 0;
 }
 .breadcrumb > li > .divider {
   padding: 0 5px;
@@ -4309,6 +4310,7 @@ a.thumbnail:focus {
   white-space: nowrap;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #999999;
+  margin: 2px 0;
 }
 .label {
   -webkit-border-radius: 3px;
@@ -4902,6 +4904,45 @@ a.badge:focus {
   }
   .controls-row [class*="span"] + [class*="span"] {
     margin-left: 0;
+  }
+  .well-small > .avatar {
+    max-width: 100px;
+    margin-right: 10px;
+  }
+  #fileupload {
+    margin: 5px 0;
+    width: 100%;
+  }
+  .fileupload-buttonbar .btn, #commentStatus + .btn, .btn-toolbar .btn-group, .btn-toolbar .btn {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .btn-toolbar .btn-group {
+    margin: 0;
+    margin-bottom: 5px;
+  }
+  .btn-toolbar .pull-left .btn, .btn-toolbar a.pull-right.btn, div#stools-container > .btn-group {
+    width: 50%;
+    margin: 0;
+    padding-bottom: 4px;
+  }
+  .well-small.user-wrapper > .avatar {
+    float: left;
+  }
+  .comment-wrapper, div#stools-container select {
+    width: 100%;
+  }
+  div#stools-container input {
+    width: 75%;
+    min-height: 28px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  div#stools-container button {
+    width: 25%;
   }
 }
 @media (max-width: 480px) {
@@ -8567,6 +8608,7 @@ img.avatar {
     border: 1px solid #EEEEEE;
     padding: 2px;
     border-radius: 3px;
+    margin-bottom: 5px;
 }
 .activity-avatar {
     padding-left: 0;
@@ -8601,4 +8643,5 @@ td.valign-center{vertical-align: middle}
 .list-issue-title{font-size: 1.1em}
 .list-issue-details{font-size: 0.85em}
 #stools-container .btn-group{margin: 5px 5px 0 0;}
+#stools-container {padding-top: 5px;}
 .activity-comment { border: 1px solid silver; margin: 10px 0 10px; border-radius: 3px; }
