@@ -435,9 +435,6 @@
                             {% for change in activity.text|json_decode %}
                                 {% if 'status' == change.name %}
                                     {{ activities.status(change.old, change.new) }}
-                                {% elseif 'description_raw' == change.name%}
-                                    {% set activitiesCnt = activitiesCnt + 1 %}
-                                    {{ activities.description(change.old, change.new, activitiesCnt) }}
                                 {% elseif 'title' == change.name %}
                                     {% set activitiesCnt = activitiesCnt + 1 %}
                                     {{ activities.title(change.old, change.new, activitiesCnt) }}
