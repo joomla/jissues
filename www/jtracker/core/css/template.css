@@ -8645,3 +8645,11 @@ td.valign-center{vertical-align: middle}
 #stools-container .btn-group{margin: 5px 5px 0 0;}
 #stools-container {padding-top: 5px;}
 .activity-comment { border: 1px solid silver; margin: 10px 0 10px; border-radius: 3px; }
+/* Adjust target within the page because of fixed navbar and affix */
+:target:before {
+    display: block;
+    content: " ";
+    margin-top: -100px;
+    height: 100px;
+    visibility: hidden;
+}

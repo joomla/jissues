@@ -106,6 +106,16 @@
             </li>
         {% endif %}
 
+        {% if user.id %}
+            <li>
+                &nbsp;
+                <a href="#write">
+                    <span class="octicon octicon-comment"></span>
+                    {{ "To comment"|_ }}
+                </a>
+            </li>
+        {% endif %}
+
         {% if project.gh_user and project.gh_project %}
             <li>
                 &nbsp;
