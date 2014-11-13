@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-18 01:07-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"PO-Revision-Date: 2014-10-22 07:56+0000\n"
+"Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,56 +22,56 @@ msgstr ""
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr ""
+msgstr "%s - Вехи"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr ""
+msgstr "Новая веха"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
 msgid "Number"
-msgstr ""
+msgstr "Номер"
 
 #: /templates/github/milestones.index.twig:35
 #: /templates/github/milestones.index.twig:75
 msgid "Title"
-msgstr ""
+msgstr "Название"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "Название вехи"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "К дате"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: /templates/github/milestones.index.twig:43
 #: /templates/github/milestones.index.twig:77
 msgid "State"
-msgstr ""
+msgstr "Состояние"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr ""
+msgstr "Открытые"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
-msgstr ""
+msgstr "Закрытые"
 
 #: /templates/github/milestones.index.twig:51
 #: /templates/github/milestones.index.twig:76
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: /templates/github/milestones.index.twig:59
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: /templates/github/milestones.index.twig:79
 #: /templates/github/hooks.index.twig:89
@@ -80,7 +80,7 @@ msgstr "Действия"
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: /templates/github/milestones.index.twig:98
 #: /templates/github/labels.index.twig:59

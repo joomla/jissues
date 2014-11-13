@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-18 01:07-0500\n"
-"PO-Revision-Date: 2014-08-22 05:20+0000\n"
+"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"PO-Revision-Date: 2014-10-22 07:57+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -360,24 +360,24 @@ msgstr "Метки: %1$d новых, %2$d обновлено, %3$d удален�
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
-msgstr "Получить этапы/milestones с GitHub."
+msgstr "Получить вехи с GitHub."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:45
 msgid "Retrieve Milestones"
-msgstr "Получение этапов"
+msgstr "Получение вех"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:47
 msgid "Start retrieving Milestones"
-msgstr "Начинаю получать этапы"
+msgstr "Начинаю получать вехи"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:64
 msgid "Fetching milestones..."
-msgstr "Обрабатываю этапы..."
+msgstr "Обрабатываю вехи..."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:151
 #, php-format
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
-msgstr "Этапы: %1$d новых, %2$d обновлено, %3$d удалено."
+msgstr "Вехи: %1$d новых, %2$d обновлено, %3$d удалено."
 
 #: /cli/Application/Command/Get/Transifex.php:37
 msgid "Retrieve language files from Transifex."
