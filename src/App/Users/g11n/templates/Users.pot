@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-18 01:07-0500\n"
+"POT-Creation-Date: 2014-11-13 10:48-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,21 +86,35 @@ msgid "Users List"
 msgstr ""
 
 #: /templates/users/users.index.twig:19
-#: /templates/users/users.index.twig:43
+#: /templates/users/users.index.twig:69
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr ""
 
-#: /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:26
+#: /templates/users/users.index.twig:29
+#: /templates/users/users.index.twig:30
+msgid "Filter the list by user."
+msgstr ""
+
+#: /templates/users/users.index.twig:35
+msgid "Clear"
+msgstr ""
+
+#: /templates/users/users.index.twig:42
 msgid "Username"
 msgstr ""
 
-#: /templates/users/users.index.twig:26
+#: /templates/users/users.index.twig:44
 msgid "Actions"
 msgstr ""
 
-#: /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:46
 msgid "ID"
+msgstr ""
+
+#: /templates/users/users.index.twig:62
+msgid "No items found."
 msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
