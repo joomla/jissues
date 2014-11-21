@@ -8653,3 +8653,7 @@ td.valign-center{vertical-align: middle}
     height: 100px;
     visibility: hidden;
 }
+ul.test-results{float: left}
+@media (max-width: 767px) {
+    ul.test-results{float: none; text-align: center}
+}
