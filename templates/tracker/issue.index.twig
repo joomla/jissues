@@ -438,6 +438,8 @@
                                 {% elseif 'title' == change.name %}
                                     {% set activitiesCnt = activitiesCnt + 1 %}
                                     {{ activities.title(change.old, change.new, activitiesCnt) }}
+                                {% elseif 'description_raw' == change.name%}
+                                    {{ 'The description was changed. These changes are not tracked.'|_ }}
                                 {% elseif 'priority' == change.name %}
                                     {{ activities.priority(change.old, change.new) }}
                                 {% elseif 'labels' == change.name %}
