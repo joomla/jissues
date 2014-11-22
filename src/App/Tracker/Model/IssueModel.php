@@ -229,13 +229,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   integer  $itemId    The item number
 	 * @param   string   $username  The user name
 	 *
-	 * @return integer
+	 * @return  null|integer  Null - the test was not submitted,
+	 *                        integer - the value of test: 0 - not tested; 1 - tested successfully; 2 - tested unsuccessfully
 	 *
 	 * @since   1.0
 	 */
 	public function getUserTest($itemId, $username)
 	{
-		return (int) $this->db->setQuery(
+		return $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('result')
 				->from($this->db->quoteName('#__issues_tests'))
