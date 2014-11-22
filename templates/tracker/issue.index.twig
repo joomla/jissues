@@ -324,19 +324,19 @@
                         <ul class="unstyled">
                             <li>
                                 <label class="radio">
-                                    <input type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
                                     {{ "Not tested"|_ }}
                                 </label>
                             </li>
                             <li>
                                 <label class="radio tests-success">
-                                    <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
                                     {{ "Tested successfully"|_ }}
                                 </label>
                             </li>
                             <li>
                                 <label class="radio tests-fail">
-                                    <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
                                     {{ "Tested unsuccessfully"|_ }}
                                 </label>
                             </li>
@@ -512,28 +512,36 @@
                 <ul class="test-results offset1 unstyled inline">
                     <li>
                         <label class="radio">
-                            {% if (item.userTest and item.userTest == 0) %}
+                            {% if (item.userTest is defined and item.userTest == 0) %}
                                 {% set checked = ' checked="checked"' %}
                             {% else %}
                                 {% set checked = '' %}
                             {% endif %}
-                            <input type="radio" name="tested" value="0"{{ checked }}>
+                            <input id="comment-test-result-0" class="comment-test-result" type="radio" name="comment-tested" value="0"{{ checked }}>
                             {{ "Not tested"|_ }}
                         </label>
                     </li>
                     <li>
                         <label class="radio tests-success">
-                            <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                            <input id="comment-test-result-1" class="comment-test-result" type="radio" name="comment-tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
                             {{ "Tested successfully"|_ }}
                         </label>
                     </li>
                     <li>
                         <label class="radio tests-fail">
-                            <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                            <input id="comment-test-result-2" class="comment-test-result" type="radio" name="comment-tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
                             {{ "Tested unsuccessfully"|_ }}
                         </label>
                     </li>
                 </ul>
+
+                {% set testResult = '' %}
+                {% if (item.userTest) %}
+                    {% set testResult = item.userTest %}
+                {% endif %}
+                <input id="current-test-result" type="hidden" value="{{ testResult }}">
+                <input id="issue-id" type="hidden" value="{{ item.id }}">
+
                 <div class="pull-right comment-wrapper">
                     <div id="commentStatus"></div>
                     <a href="javascript:" class="btn btn-success"
