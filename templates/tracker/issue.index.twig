@@ -247,17 +247,23 @@
             <h4>{{ 'Votes'|_ }}</h4>
             {% endif %}
 
+            {% set displayVotes = 'style="display: none"' %}
             {% if item.votes %}
-            <div class="row-fluid">
-                <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
-                <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
-            </div>
-            <div class="row-fluid">
-                <div class="span10"><b>{{ "Average Importance Score"|_ }}</b></div>
-                <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
-            </div>
-            <hr class="issue-votes" />
+                {% set displayVotes = '' %}
             {% endif %}
+
+            <div id="issue-votes"{{ displayVotes|raw }}>
+                <div class="row-fluid">
+                    <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
+                    <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10"><b>{{ "Average Importance Score"|_ }}</b></div>
+                    <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
+                </div>
+                <hr class="issue-votes" />
+            </div>
+
             {% if user.id %}
             <form class="form-inline scores-report" name="voteForm">
                 <fieldset>
