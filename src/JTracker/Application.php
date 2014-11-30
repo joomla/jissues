@@ -36,6 +36,10 @@ use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
 use JTracker\Service\GitHubProvider;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\WebProcessor;
+
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -113,6 +117,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		// Register the global dispatcher
 		$this->setDispatcher(new Dispatcher);
+
+		// Set up a general application logger
+		$logger = new Logger('JTracker');
+
+		$logger->pushHandler(
+			new StreamHandler(
+				$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
+				Logger::ERROR
+			)
+		);
+
+		$logger->pushProcessor(new WebProcessor);
+
+		$this->setLogger($logger);
 	}
 
 	/**
