@@ -526,7 +526,7 @@
                 <ul class="test-results offset1 unstyled inline">
                     <li>
                         <label class="radio">
-                            {% if (item.userTest is defined and item.userTest == 0) %}
+                            {% if (item.userTest is not null and item.userTest == 0) %}
                                 {% set checked = ' checked="checked"' %}
                             {% else %}
                                 {% set checked = '' %}
