@@ -83,7 +83,7 @@ JTracker.submitVote = function (issueId, debugContainer) {
 				if (r.data.votes > 0) {
 					$('div[id=experienced]').html(r.data.experienced + '/' + r.data.votes);
 					$('div[id=importance]').html((r.data.importanceScore).toFixed(2));
-                    $('div#issue-votes').show();
+					$('div#issue-votes').show();
 				}
 			}
 		}
@@ -123,7 +123,7 @@ JTracker.alterTest = function (issueId, statusContainer, resultContainer, templa
 	var status = $(statusContainer);
 	var result = $(resultContainer);
 	var altered = $('select[name=altered]').val();
-	var user   = $('input[name=altered-user]').val();
+	var user = $('input[name=altered-user]').val();
 
 	if ('' == user) {
 		status.html(g11n3t('Please select a user'));
