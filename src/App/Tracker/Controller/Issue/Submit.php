@@ -62,10 +62,31 @@ class Submit extends AbstractTrackerController
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
-			$gitHubResponse = $gitHub->issues->create(
-				$project->gh_user, $project->gh_project,
-				$data['title'], $body
-			);
+			try
+			{
+				$gitHubResponse = $gitHub->issues->create(
+					$project->gh_user, $project->gh_project,
+					$data['title'], $body
+				);
+			}
+			catch (\Exception $e)
+			{
+				$this->getContainer()->get('app')->getLogger()->error(
+					sprintf(
+						'Error code %1$s received from GitHub when creating an issue with the following data:'
+						. ' GitHub User: %2$s; GitHub Repo: %3$s; Title: %4$s; Body Text: %5$s'
+						. '  The error message returned was: %6$s',
+						$e->getCode(),
+						$project->gh_user,
+						$project->gh_project,
+						$data['title'],
+						$body,
+						$e->getMessage()
+					)
+				);
+
+				throw $e;
+			}
 
 			if (!isset($gitHubResponse->id))
 			{

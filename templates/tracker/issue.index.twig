@@ -247,17 +247,23 @@
             <h4>{{ 'Votes'|_ }}</h4>
             {% endif %}
 
+            {% set displayVotes = ' style="display: none"' %}
             {% if item.votes %}
-            <div class="row-fluid">
-                <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
-                <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
-            </div>
-            <div class="row-fluid">
-                <div class="span10"><b>{{ "Average Importance Score"|_ }}</b></div>
-                <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
-            </div>
-            <hr class="issue-votes" />
+                {% set displayVotes = '' %}
             {% endif %}
+
+            <div id="issue-votes"{{ displayVotes|raw }}>
+                <div class="row-fluid">
+                    <div class="span10"><b>{{ "# of Users Experiencing Issue"|_ }}</b></div>
+                    <div id="experienced" class="span2">{{ item.experienced }}/{{ item.votes }}</div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10"><b>{{ "Average Importance Score"|_ }}</b></div>
+                    <div id="importance" class="span2">{{ item.importanceScore|number_format(2) }}</div>
+                </div>
+                <hr class="issue-votes" />
+            </div>
+
             {% if user.id %}
             <form class="form-inline scores-report" name="voteForm">
                 <fieldset>
@@ -296,7 +302,8 @@
                     </label>
                 </fieldset>
                 <hr class="issue-votes" />
-                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteButton');">
+                <div id="voteResult"></div>
+                <a href="javascript:" class="btn btn-primary" id="voteButton" onclick="JTracker.submitVote('{{ item.id }}', '#voteResult');">
                     {{ "Vote"|_ }}
                 </a>
             </form>
@@ -438,6 +445,13 @@
                                 {% elseif 'title' == change.name %}
                                     {% set activitiesCnt = activitiesCnt + 1 %}
                                     {{ activities.title(change.old, change.new, activitiesCnt) }}
+                                {% elseif 'description_raw' == change.name%}
+                                    {% if user.check('edit') %}
+                                        {% set activitiesCnt = activitiesCnt + 1 %}
+                                        {{ activities.description(change.old, change.new, activitiesCnt) }}
+                                    {% else %}
+                                        {{ 'The description was changed'|_ }}
+                                    {% endif %}
                                 {% elseif 'priority' == change.name %}
                                     {{ activities.priority(change.old, change.new) }}
                                 {% elseif 'labels' == change.name %}
