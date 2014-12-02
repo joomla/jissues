@@ -133,7 +133,7 @@ JTracker.submitTestWithComment = function (resultContainer, templateName) {
 	var testResult = $('input[name=comment-tested]').filter(':checked').val();
 	var currentTestResult = $('#current-test-result').val();
 
-	if (currentTestResult != testResult) {
+	if (testResult && currentTestResult != testResult) {
 		$.post(
 			'/submit/testresult',
 			{ issueId: issueId, result: testResult},
