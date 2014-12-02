@@ -611,11 +611,12 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
+                    <i class="octicon octicon-person"></i>
                     {{ avatar(user.username, 20, 'avatar')|raw }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
                     - [%= o.created_date %]
-                    - [%= resultValues[o.text] %]
+                    - <span class="tests-[%= o.text %]">[%= resultValues[o.text] %]</span>
                 </div>
             </div>
         </div>
@@ -626,6 +627,7 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
+                    <i class="octicon octicon-eye"></i>
                     {{ avatar(user.username, 20, 'avatar')|raw }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
