@@ -492,14 +492,16 @@
                     }
                     $('#issuesList tbody').html(tmpl("ajaxListing", r));
                     $('#issuesList tbody').animate({opacity: 1}, 100);
+
+                    var categoryText = $('#filter-category option:selected').text();
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, label, tests, easytest
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, label, tests, easytest) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
@@ -511,7 +513,7 @@
             if (priority != 0) { stools[stools.length] = 'priority=' + priority }
             if (user != 0) { stools[stools.length] = 'user=' + user }
             if (sort != 0) { stools[stools.length] = 'sort=' + sort }
-            if (category != 0) { stools[stools.length] = 'category=' + category }
+            if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
             if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }
