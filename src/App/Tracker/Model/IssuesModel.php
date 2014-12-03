@@ -238,7 +238,30 @@ class IssuesModel extends AbstractTrackerListModel
 		// Load the total.
 		$query = $this->_getAjaxListQuery();
 
-		$total = (int) $this->_getListCount($query);
+		/**
+		 * This filter needs a GROUP BY clause,
+		 * so we should create a subquery to get the correct number of rows
+		 */
+		$filter = $this->state->get('filter.tests');
+
+		if ($filter && is_numeric($filter))
+		{
+			$subQuery = clone $query;
+			$subQuery->clear('order');
+
+			$db = $this->getDb();
+
+			$newQuery = $db->getQuery(true)
+				->select('COUNT(*)')
+				->from($subQuery, 'tbl');
+
+			$this->db->setQuery($newQuery);
+			$total = (int) $this->db->loadResult();
+		}
+		else
+		{
+			$total = (int) $this->_getListCount($query);
+		}
 
 		// Add the total to the internal cache.
 		$this->cache[$store] = $total;
