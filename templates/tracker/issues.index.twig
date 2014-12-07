@@ -66,6 +66,7 @@
             or state.get('filter.search')
             or state.get('filter.sort')
             or state.get('filter.user')
+            or state.get('filter.created_by')
             or state.get('filter.category')
             or state.get('filter.tests')
             or state.get('filter.easytest')
@@ -80,7 +81,7 @@
                            value="{{ state.get('filter.search') }}"
                            title="{{ translate('Filter the list by ID, summary, or description.') }}"
                            placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-                    <button class="btn" id="button-submit" type="button">
+                    <button class="btn button-submit" type="button">
                         <span class="icon-search"></span></button>
                 </div>
                 {% if (state.get('filter.state') == 0) %}
@@ -102,6 +103,16 @@
                 <div class="btn-group">
                     {{ filters.label(state.get('filter.label'), 'filter-label', 'toclear selectpicker', project.labels) }}
                 </div>
+                <div class="filter-search btn-group input-append">
+                    <label class="filter-search-lbl element-invisible"
+                           for="filter-created_by">{{ 'Filter the list by creator.'|_ }}</label>
+                    <input type="text" class="toclear search-query input-medium" name="filter-created_by" id="filter-created_by"
+                           value="{{ state.get('filter.created_by') }}"
+                           title="{{ translate('Filter the list by creator.') }}"
+                           placeholder="{{ translate('Filter the list by creator.') }}"/>
+                    <button class="btn button-submit" type="button">
+                        <span class="icon-search"></span></button>
+                </div>
                 <div class="btn-group">
                     {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120') }}
                 </div>
@@ -109,7 +120,7 @@
                     {{ filters.tests(state.get('filter.tests'), 'filter-tests', 'toclear input-medium-140') }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'toclear input-medium-140') }}
+                    {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'toclear input-small') }}
                 </div>
                 {% if user.username %}
                     <div class="btn-group">
@@ -325,7 +336,7 @@
             getListItems();
         });
 
-        $("#button-submit").click(function () {
+        $(".button-submit").click(function () {
             getListItems();
         });
 
@@ -415,6 +426,7 @@
             var priority = $('#filter-priority').val();
             var sort = $('#filter-sort').val();
             var user = $('#filter-user').val();
+            var created_by = $('#filter-created_by').val();
             var category = $('#filter-category').val();
             var label = $('#filter-label').val();
             var tests = $('#filter-tests').val();
@@ -429,6 +441,7 @@
                     'status': status,
                     'priority': priority,
                     'user': user,
+                    'created_by': created_by,
                     'sort': sort,
                     'state': state,
                     'category': category,
@@ -458,6 +471,7 @@
                                         'status': status,
                                         'priority': priority,
                                         'user': user,
+                                        'created_by': created_by,
                                         'sort': sort,
                                         'state': state,
                                         'category': category,
@@ -478,14 +492,16 @@
                     }
                     $('#issuesList tbody').html(tmpl("ajaxListing", r));
                     $('#issuesList tbody').animate({opacity: 1}, 100);
+
+                    var categoryText = $('#filter-category option:selected').text();
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, label, tests, easytest
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, label, tests, easytest) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
@@ -497,7 +513,7 @@
             if (priority != 0) { stools[stools.length] = 'priority=' + priority }
             if (user != 0) { stools[stools.length] = 'user=' + user }
             if (sort != 0) { stools[stools.length] = 'sort=' + sort }
-            if (category != 0) { stools[stools.length] = 'category=' + category }
+            if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
             if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }

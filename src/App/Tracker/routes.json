@@ -25,5 +25,7 @@
     "category/save"                       : "\\Tracker\\Controller\\Category\\Save",
     "category/:project_alias"             : "\\Tracker\\Controller\\Category\\Listing",
     "category/:project_alias/delete/:id/" : "\\Tracker\\Controller\\Category\\Delete",
-    "category/:project_alias/edit/:id/"   : "\\Tracker\\Controller\\Category\\Edit"
+    "category/:project_alias/edit/:id/"   : "\\Tracker\\Controller\\Category\\Edit",
+    "fetch/issues"                        : "\\Tracker\\Controller\\Fetch\\Ajax\\Issues",
+    "fetch/users"                         : "\\Tracker\\Controller\\Fetch\\Ajax\\Users"
 }

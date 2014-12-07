@@ -148,7 +148,7 @@ Symfony HttpFoundation Component
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.16.1
+* Installed: v1.16.2
 * Source URL: https://github.com/fabpot/Twig.git
 
 #### elkuku/g11n (2.3)
@@ -165,12 +165,12 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
-#### babdev/library (1.*)
+#### babdev/transifex (1.*)
 
-BabDev's PHP libraries
+The Transifex API Package is a wrapper of the Transifex API available for PHP developers
 
-* Installed: dev-master 6064443181766eff64ce7d207daf973ee4a4db4a
-* Source URL: https://github.com/BabDev/BabDev-Library.git
+* Installed: dev-master a35d54bb3070561fccb9353670f678a607b47fe3
+* Source URL: https://github.com/BabDev/Transifex-API.git
 
 #### codeguy/upload (1.3.2)
 
@@ -178,6 +178,13 @@ Handle file uploads with extensible validation and storage strategies
 
 * Installed: 1.3.2
 * Source URL: https://github.com/codeguy/Upload.git
+
+#### filp/whoops (1.*@stable)
+
+php error handling for cool kids
+
+* Installed: 1.1.2
+* Source URL: https://github.com/filp/whoops.git
 
 #### league/flysystem (0.4.*@stable)
 
@@ -193,6 +200,13 @@ Sends your logs to files, sockets, inboxes, databases and various web services
 * Installed: 1.11.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
+#### raveren/kint (0.9)
+
+Kint - debugging helper for PHP developers
+
+* Installed: v0.9
+* Source URL: https://github.com/raveren/kint.git
+
 #### adaptive/php-text-difference (1.*@stable)
 
 A comprehensive library for generating differences between two hashable objects (strings or arrays). Fork of a fork to add namespaces and psr-4 autoloading
@@ -201,20 +215,6 @@ A comprehensive library for generating differences between two hashable objects 
 * Source URL: https://github.com/adaptivemedia/php-text-difference.git
 
 ### PHP - Development
-
-#### raveren/kint (0.9)
-
-Kint - debugging helper for PHP developers
-
-* Installed: v0.9
-* Source URL: https://github.com/raveren/kint.git
-
-#### filp/whoops (1.*@stable)
-
-php error handling for cool kids
-
-* Installed: 1.1.2
-* Source URL: https://github.com/filp/whoops.git
 
 #### mustache/mustache (2.1.*@stable)
 
@@ -227,7 +227,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.3.1
+* Installed: 4.3.3
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*@stable)
@@ -241,14 +241,14 @@ PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations o
 
 Copy/Paste Detector (CPD) for PHP code.
 
-* Installed: dev-master a7488a03f25aa83e7557a2f9d524c6d40ce3fa39
+* Installed: dev-master 0874c9455e73af847ef91adbaeee0f61a700ba3d
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
 #### phploc/phploc (*)
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: dev-master ca70e70ae96cb268b8200af2716af366cf3dc1d1
+* Installed: dev-master 6acc19f538f9e2f078af3cdc160e15b376b6bb4b
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
@@ -338,6 +338,18 @@ A dead-simple jQuery color picker.
 
 * Source URL: https://github.com/recurser/jquery-simple-color
 
+#### Caret.js (0.2.0)
+
+
+
+* Source URL: https://github.com/ichord/Caret.js
+
+#### jquery.atwho (0.5.1)
+
+
+
+* Source URL: 
+
 
 ## Credits
 
@@ -392,10 +404,11 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * javiergomez, 2014
 
 #### da-DK
+* Jesper Post Tønder &lt;jpt@redweb.dk&gt;, 2014
 * Ole Ottosen &lt;ot2sen@gmail.com&gt;, 2014
 
 #### de-DE
-* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013, 2014
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013-2014
 
 #### es-ES
 * Marcos Peebles &lt;marcos.peebles@gmail.com&gt;, 2014
@@ -423,6 +436,9 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### pt-PT
 * Paulo Pereira &lt;pauloizidoro@gmail.com&gt;, 2014
+
+#### ro-RO
+* Oana Andrada Florescu &lt;oana@redweb.dk&gt;, 2014
 
 #### ru-RU
 * Dmitry Rekun, 2014

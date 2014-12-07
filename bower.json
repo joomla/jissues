@@ -17,6 +17,8 @@
     "twbs-pagination": "1.1.2",
     "bootstrap-select": "1.5.4",
     "d3": "3.4.6",
-    "jquery-simple-color": "1.2.1"
+    "jquery-simple-color": "1.2.1",
+    "Caret.js": "0.2.0",
+    "jquery.atwho": "0.5.1"
  }
 }

@@ -19,6 +19,24 @@
         {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
     {% endif %}
 
+    <form id="filtersForm" class="form-inline form-search" action="{{ uri.route }}">
+        <div class="filters btn-toolbar clearfix">
+            <div class="filter-search btn-group input-append">
+                <label class="filter-search-lbl element-invisible"
+                       for="filter-search-user">{{ 'Filter the list by user.'|_ }}</label>
+                <input type="text" class="toclear search-query input-medium" name="search-user" id="filter-search-user"
+                       value="{{ state.get('filter.search-user') }}"
+                       title="{{ 'Filter the list by user.'|_ }}"
+                       placeholder="{{ 'Filter the list by user.'|_ }}" />
+                <button class="btn button-submit" type="button">
+                    <span class="icon-search"></span></button>
+            </div>
+            <div class="btn-group">
+                <button class="btn" id="button-remove" type="button">{{ 'Clear'|_ }}</button>
+            </div>
+        </div>
+    </form>
+
     <table class="table table-bordered table-hover">
         <tr>
             <th>{{ "Username"|_ }}</th>
@@ -27,16 +45,24 @@
             {% endif %}
             <th>{{ "ID"|_ }}</th>
         </tr>
-        {% for u in items %}
-            <tr>
-                <td><a href="{{ uri.base.path }}user/{{ u.id }}">{{ u.username }}</a></td>
+        {% if items %}
+            {% for u in items %}
+                <tr>
+                    <td><a href="{{ uri.base.path }}user/{{ u.id }}">{{ u.username }}</a></td>
 
-                {% if user.isAdmin %}
-                    <td>Block...</td>
-                {% endif %}
-                <td>{{ u.id }}</td>
+                    {% if user.isAdmin %}
+                        <td>Block...</td>
+                    {% endif %}
+                    <td>{{ u.id }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td class="center" colspan="3">
+                    {{ 'No items found.'|_ }}
+                </td>
             </tr>
-        {% endfor %}
+        {% endif %}
     </table>
 
     {% if pagination.pagesTotal > 1 %}
@@ -44,4 +70,19 @@
         {{ pagination.bar|raw }}
     {% endif %}
 
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $('.button-submit').click(function () {
+            $('#filtersForm').submit();
+        });
+
+        $('#button-remove').click(function () {
+            $('[class^=toclear]').val('');
+            $('#filtersForm').submit();
+        });
+    </script>
 {% endblock %}

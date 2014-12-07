@@ -23,6 +23,7 @@
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}vendor/jquery.atwho/dist/css/jquery.atwho.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block content %}
@@ -55,12 +56,18 @@
                 {{ fields.label('build', 'Build'|_, '') }}
                 {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
 
-                <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
+                <div class="helpText alert alert-info">
+                    {{ "The version(s) of the project on which this issue is found."|_ }}
+                </div>
 
                 {% if project.categories %}
                 {{ fields.label('categories[]', 'Categories'|_) }}
                 {{ fields.selectCategories('categories[]', project.categories) }}
                 {% endif %}
+
+                <div class="helpText alert alert-info">
+                    {{ "Please select one or more Categories here that match to your issue."|_ }}
+                </div>
 
                 {% if user.check("edit") and project.milestones %}
                 {{ fields.label('milestone_id', 'Milestone'|_) }}
@@ -70,9 +77,13 @@
 
             <div class="span9 issue-add-details">
 
-                <div class="alert alert-warning">{{ "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."|_|raw }}</div>
+                <div class="alert alert-warning">
+                    {{ "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."|_|raw }}
+                </div>
 
-                <div class="helpText alert alert-info">{{ "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."|_ }}</div>
+                <div class="helpText alert alert-info">
+                    {{ "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."|_ }}
+                </div>
 
                 <h2>{{ ('New Item')|_ }}</h2>
 
@@ -80,11 +91,14 @@
                     {{ fields.label('title', 'Title'|_, '') }}
                     {{ fields.input('title', '', '', '', 'validateTitle input-issue-title') }}
 
-                    <div class="helpText alert alert-info">{{ "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."|_ }}</div>
+                    <div class="helpText alert alert-info">
+                        {{ "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."|_ }}
+                    </div>
 
                     {{ fields.label('description', 'Description'|_, '') }}
 
                     {% set editorId="description" %}
+                    {% set writeId="write" %}
                     {% set previewId="preview" %}
                     {% set editorClass="validateDescription" %}
                     {% set editorName="body" %}
@@ -93,7 +107,9 @@
 
                     {% include "editor.twig" %}
 
-                    <div class="helpText alert alert-info">{{ "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."|_ }}</div>
+                    <div class="helpText alert alert-info">
+                        {{ "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."|_ }}
+                    </div>
 
                 </fieldset>
 
@@ -132,6 +148,8 @@
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
+    <script src="{{ uri.base.path }}vendor/Caret.js/dist/jquery.caret{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/jquery.atwho/dist/js/jquery.atwho{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -189,5 +207,8 @@
             }
             form.submit();
         });
+
+        JTracker.setupAtJS('description', '{{ project.alias }}');
+
     </script>
 {% endblock %}

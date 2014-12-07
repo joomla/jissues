@@ -47,13 +47,13 @@ class Issues extends Package
 	 * @since   1.0
 	 * @throws  \DomainException
 	 */
-	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = null)
+	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = array())
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
 
 		// Ensure that we have a non-associative array.
-		if (isset($labels))
+		if (!empty($labels))
 		{
 			$labels = array_values($labels);
 		}
