@@ -194,7 +194,7 @@ class DefaultController extends AbstractTrackerListController
 		}
 		else
 		{
-			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'uint');
+			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int');
 		}
 
 		$state->set('filter.category', (int) $categoryId);
