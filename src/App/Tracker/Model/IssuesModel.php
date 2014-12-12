@@ -126,7 +126,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 		// Join over the users
 		$query->select('u.id AS user_id');
-		$query->leftJoin('#__users AS u ON u.username = a.opened_by');
+		$query->leftJoin('#__users AS u ON a.opened_by = u.username');
 
 		// Process the state's filters
 		$query = $this->processStateFilter($query);
