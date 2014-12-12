@@ -411,7 +411,7 @@ class IssuesModel extends AbstractTrackerListModel
 			// Handle the no category filter
 			if ($filter == -1)
 			{
-				$query->where($db->quoteName('a.id') . 'NOT IN (' . $issueId . ')');
+				$query->where($db->quoteName('a.id') . ' NOT IN (' . $issueId . ')');
 			}
 			else
 			{
