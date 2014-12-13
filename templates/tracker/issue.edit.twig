@@ -87,7 +87,7 @@
         <li>
             <label for="rel_type">{{ translate('Item') }}</label>
             <select name="item[rel_type]" id="rel_type" class="span2">
-                <option></option>
+                <option value="0"></option>
                 {% for relType in getRelTypes() %}
                     {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
                     <option {{ selected }} value="{{ relType.value }}">{{ relType.text }}</option>
