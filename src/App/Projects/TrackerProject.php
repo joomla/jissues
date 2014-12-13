@@ -95,6 +95,14 @@ class TrackerProject implements \Serializable
 	protected $ext_tracker_link;
 
 	/**
+	 * Use GitHub edit bot
+	 *
+	 * @var    integer
+	 * @since  1.0
+	 */
+	protected $use_gh_status_comment;
+
+	/**
 	 * Project short title
 	 *
 	 * @var    string
@@ -579,5 +587,17 @@ class TrackerProject implements \Serializable
 		}
 
 		return $categories;
+	}
+
+	/**
+	 * Get the use gh status comment.
+	 *
+	 * @return int
+	 *
+	 * @since    1.0
+	 */
+	public function getUse_Gh_Status_Comment()
+	{
+		return $this->use_gh_status_comment;
 	}
 }

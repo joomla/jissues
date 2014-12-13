@@ -10,6 +10,7 @@ namespace Application\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -349,6 +350,16 @@ class Issues extends Project
 
 			$table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
 
+			if ($this->project->getUse_Gh_Status_Comment())
+			{
+				// Store the table - required in the next step.
+				$table->store(true);
+
+				// Create/update GitHub status comment.
+				$table->gh_status_comment_id = $this->updateGitHubStatusComment($ghIssue, $table->gh_status_comment_id);
+			}
+
+			// Store the table.
 			$table->store(true);
 
 			if (!$table->id)
@@ -618,5 +629,44 @@ class Issues extends Project
 			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha,
 			$state, $targetUrl, $description, $context
 		);
+	}
+
+	/**
+	 * Update the GitHub status comment.
+	 *
+	 * @param   object   $ghIssue            The issue object.
+	 * @param   integer  $ghStatusCommentId  The status comment id.
+	 *
+	 * @return  integer  The status comment id.
+	 *
+	 * @since   1.0
+	 */
+	private function updateGitHubStatusComment($ghIssue, $ghStatusCommentId)
+	{
+		$model = new IssueModel($this->getContainer()->get('db'));
+
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$gitHub = GithubFactory::getInstance(
+				$this->getApplication(), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+			);
+		}
+		else
+		{
+			$this->debugOut(sprintf('GitHub bot account not set for project "%s"', $this->project->title));
+
+			return 0;
+		}
+
+		// @todo hard coded URI :(
+		$uri = 'http://issues.joomla.org';
+
+		$issueURI = $uri . '/tracker/' . $this->project->alias . '/' . $ghIssue->number;
+
+		$ghStatusCommentId = $model->setProject($this->project)
+			->setGitHub($gitHub)
+			->updateGitHubStatusComment($ghIssue->number, $ghStatusCommentId, $issueURI);
+
+		return $ghStatusCommentId;
 	}
 }

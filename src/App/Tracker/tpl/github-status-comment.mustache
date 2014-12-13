@@ -1,0 +1,12 @@
+<!-- JTRACKER STATUS COMMENT -->
+### ![Joomla! Logo](http://www.joomla.org/templates/joomla12/images/menu/logo.png) JTracker Status Comment
+
+----
+
+<a href="{{ href }}">{{ link }}</a>
+
+Level: {{#item.easy}}:baby_bottle:{{/item.easy}}{{^item.easy}}:beers:{{/item.easy}} Tests: :white_check_mark: {{ testsSuccessCnt }} {{#item.testsSuccess}}@{{ . }} {{/item.testsSuccess}} :x: {{ testsFailureCnt }} {{#item.testsFailure}}@{{ . }} {{/item.testsFailure}}
+
+----
+
+*Last updated on {{ lastUpdated }} GMT*

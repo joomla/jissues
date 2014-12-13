@@ -8,6 +8,7 @@
 
 namespace Application\Command;
 
+use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
 use Application\Exception\AbortException;
@@ -283,12 +284,9 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
 
 		)->loadObjectList();
-/*
-		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);
-		$user = new GitHubUser($this->getApplication()->getp);
-		$projects = with()->getItems();
-*/
+
 		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
+		$projectId = 0;
 
 		if (!$id)
 		{
@@ -296,9 +294,8 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				->out('<b>' . g11n3t('Available projects:') . '</b>')
 				->out();
 
-			$cnt = 1;
-
-			$checks = array();
+			$checks    = [];
+			$cnt       = 1;
 
 			foreach ($projects as $project)
 			{
@@ -325,7 +322,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new AbortException(g11n3t('Invalid project'));
 			}
 
-			$this->project = $checks[$resp];
+			$projectId = $checks[$resp]->project_id;
 		}
 		else
 		{
@@ -333,17 +330,19 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			{
 				if ($project->project_id == $id)
 				{
-					$this->project = $project;
+					$projectId = $project->project_id;
 
 					break;
 				}
 			}
 
-			if (is_null($this->project))
+			if (!$projectId)
 			{
 				throw new AbortException(g11n3t('Invalid project'));
 			}
 		}
+
+		$this->project = (new ProjectModel($db))->getItem($projectId);
 
 		$this->logOut(sprintf(g11n3t('Processing project: %s'), '<info>' . $this->project->title . '</info>'));
 

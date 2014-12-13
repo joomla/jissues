@@ -83,6 +83,16 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="use_gh_status_comment">{{ "Use GitHub status comment"|_ }}</label>
+                <div class="controls">
+                    <select name="project[use_gh_status_comment]" id="use_gh_status_comment">
+                        <option value="0">{{ 'No'|_ }}</option>
+                        <option value="1"{% if project.use_gh_status_comment %} selected="selected"{% endif %}>{{ 'Yes'|_ }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
                 <label class="control-label" for="ext_tracker_link">{{ "External Tracker Link"|_ }}</label>
                 <div class="controls">
                     <input type="text" name="project[ext_tracker_link]" id="ext_tracker_link" value="{{ project.ext_tracker_link }}">

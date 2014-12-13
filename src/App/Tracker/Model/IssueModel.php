@@ -12,9 +12,14 @@ use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
+use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 
+use JTracker\GitHub\Github;
 use JTracker\Model\AbstractTrackerDatabaseModel;
+
+use Mustache_Engine;
+use Mustache_Loader_FilesystemLoader;
 
 /**
  * Model to get data for the issue list view
@@ -31,6 +36,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @since  1.0
 	 */
 	protected $context = 'com_tracker.issue';
+
+	/**
+	 * GitHub object.
+	 *
+	 * @var  Github
+	 * @since  1.0
+	 */
+	protected $gitHub = null;
 
 	/**
 	 * Get an item.
@@ -612,5 +625,85 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->leftJoin($this->db->quoteName('#__issues_categories', 'ic') . ' ON ic.id = icm.category_id')
 				->where($this->db->quoteName('icm.issue_id') . ' = ' . (int) $id)
 		)->loadObjectList();
+	}
+
+	/**
+	 * Update the GitHub status comment.
+	 *
+	 * @param   integer  $issueNumber        The issue number.
+	 * @param   integer  $ghStatusCommentId  The GitHub status comment id.
+	 * @param   string   $issueURI           The URI pointing to the issue on JTracker.
+	 *
+	 * @return  integer  The GitHub status comment id.
+	 *
+	 * @since   1.0
+	 */
+	public function updateGitHubStatusComment($issueNumber, $ghStatusCommentId, $issueURI)
+	{
+		$item = $this->getItem($issueNumber);
+
+		$data = [
+			'item' => $item,
+			'lastUpdated' => (new Date)->format('d M Y H:i:s'),
+			'href' => $issueURI,
+			'link' => str_replace(['http://', 'https://'], '', $issueURI),
+			'testsSuccessCnt' => count($item->testsSuccess),
+			'testsFailureCnt' => count($item->testsFailure)
+		];
+
+		$body = (new Mustache_Engine)->render(
+				(new Mustache_Loader_FilesystemLoader(__DIR__ . '/../tpl'))
+				->load('github-status-comment'), $data
+		);
+
+		if ($ghStatusCommentId)
+		{
+			// Update existing comment
+			$comment = $this->getGitHub()->issues->comments->edit(
+				$this->getProject()->gh_user, $this->getProject()->gh_project, $ghStatusCommentId, $body
+			);
+		}
+		else
+		{
+			// Create a new comment
+			$comment = $this->getGitHub()->issues->comments->create(
+				$this->getProject()->gh_user, $this->getProject()->gh_project, $issueNumber, $body
+			);
+		}
+
+		return $comment->id;
+	}
+
+	/**
+	 * Get the GitHub object.
+	 *
+	 * @return Github
+	 *
+	 * @since   1.0
+	 */
+	public function getGitHub()
+	{
+		if (is_null($this->gitHub))
+		{
+			throw new \UnexpectedValueException('GitHub object not set.');
+		}
+
+		return $this->gitHub;
+	}
+
+	/**
+	 * Set the GitHub object.
+	 *
+	 * @param   Github  $gitHub  The GitHub object.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setGitHub($gitHub)
+	{
+		$this->gitHub = $gitHub;
+
+		return $this;
 	}
 }
