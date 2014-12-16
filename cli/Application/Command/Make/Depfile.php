@@ -114,7 +114,7 @@ class Depfile extends Make
 			$package->description = isset($info->description) ? $info->description : '';
 			$package->sourceURL   = isset($info->homepage) ? $info->homepage : 'N/A';
 
-			$packages['bower'][$package->name] = $package;
+			$packages['bower'][$packageName] = $package;
 		}
 
 		$this->dependencies = $this->getSorted($defined, $packages);

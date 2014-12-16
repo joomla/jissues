@@ -116,13 +116,17 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$query->select(
 			'a.id, a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.status,
-			a.closed_date, a.modified_date, a.labels, a.merge_state'
+			a.closed_date, a.modified_date, a.labels, a.merge_state, a.opened_by'
 		);
 		$query->from($db->quoteName('#__issues', 'a'));
 
 		// Join over the status.
 		$query->select('s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+		// Join over the users
+		$query->select('u.id AS user_id');
+		$query->leftJoin('#__users AS u ON a.opened_by = u.username');
 
 		// Process the state's filters
 		$query = $this->processStateFilter($query);
@@ -238,7 +242,30 @@ class IssuesModel extends AbstractTrackerListModel
 		// Load the total.
 		$query = $this->_getAjaxListQuery();
 
-		$total = (int) $this->_getListCount($query);
+		/**
+		 * This filter needs a GROUP BY clause,
+		 * so we should create a subquery to get the correct number of rows
+		 */
+		$filter = $this->state->get('filter.tests');
+
+		if ($filter && is_numeric($filter))
+		{
+			$subQuery = clone $query;
+			$subQuery->clear('order');
+
+			$db = $this->getDb();
+
+			$newQuery = $db->getQuery(true)
+				->select('COUNT(*)')
+				->from($subQuery, 'tbl');
+
+			$this->db->setQuery($newQuery);
+			$total = (int) $this->db->loadResult();
+		}
+		else
+		{
+			$total = (int) $this->_getListCount($query);
+		}
 
 		// Add the total to the internal cache.
 		$this->cache[$store] = $total;

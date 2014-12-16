@@ -225,15 +225,24 @@
                     [% } %]
                     <br/>
                     <span class="list-issue-details">
+                        [% if (item.opened_by) { %]
+                            {{ 'Created by'|_ }}
+                            [% if (item.user_id) { %]
+                                <a href="{{ uri.base.path ~ 'user/' }}[%= item.user_id %]">[%= item.opened_by %]</a>
+                            [% } else { %]
+                                [%= item.opened_by %]
+                            [% } %]
+                            &nbsp;&bull;&nbsp;
+                        [% } %]
                         {% if project.gh_user and project.gh_project %}
                           {{ 'GitHub ID'|_ }}
                           <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
                              target="_blank">
                              [%= item.issue_number %]
                           </a>
+                          &nbsp;&bull;&nbsp;
                         {% endif %}
                         [% if (item.foreign_number) { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Foreign ID'|_ }}
                             <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= item.foreign_number %]"
                                target="_blank">
@@ -241,15 +250,14 @@
                             </a>
                         [% } %]
                         [% if (item.opened_date) { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Opened '|_ }} [%= item.opened_date %]
+                            &nbsp;&bull;&nbsp;
                         [% } %]
                         [% if (item.closed_status != '0') { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Closed '|_ }} [%= item.closed_date %]
+                            &nbsp;&bull;&nbsp;
                         [% } %]
                         [% if (item.modified_date != '-0001-11-30') { %]
-                           &nbsp;&bull;&nbsp;
                             {{ 'Modified '|_ }} [%= item.modified_date %]
                         [% } %]
                     </span>
@@ -492,14 +500,16 @@
                     }
                     $('#issuesList tbody').html(tmpl("ajaxListing", r));
                     $('#issuesList tbody').animate({opacity: 1}, 100);
+
+                    var categoryText = $('#filter-category option:selected').text();
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, label, tests, easytest
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, label, tests, easytest) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
@@ -511,7 +521,7 @@
             if (priority != 0) { stools[stools.length] = 'priority=' + priority }
             if (user != 0) { stools[stools.length] = 'user=' + user }
             if (sort != 0) { stools[stools.length] = 'sort=' + sort }
-            if (category != 0) { stools[stools.length] = 'category=' + category }
+            if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
             if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }

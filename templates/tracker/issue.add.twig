@@ -9,7 +9,7 @@
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
+        <a class="btn-success submit-button" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -112,6 +112,7 @@
                     </div>
 
                 </fieldset>
+                <a class="submit-button pull-right btn btn-success" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
 
             </div>
         </div>
@@ -201,9 +202,9 @@
             }
         });
 
-        $('#submit').click(function() {
+        $('.submit-button').click(function() {
             if (form.valid()) {
-                $('#submit').html('{{ 'Submitting...'|_ }}');
+                $('.submit-button').html('{{ 'Submitting...'|_ }}');
             }
             form.submit();
         });

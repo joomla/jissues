@@ -11,140 +11,140 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
-#### joomla/application (&gt;=1.1.2@stable)
+#### joomla/application (~1.2)
 
 Joomla Application Package
 
 * Installed: 1.3.0
 * Source URL: https://github.com/joomla-framework/application.git
 
-#### joomla/controller (~1.1@stable)
+#### joomla/controller (~1.1)
 
 Joomla Controller Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/controller.git
 
-#### joomla/database (~1.1@stable)
+#### joomla/database (~1.1)
 
 Joomla Database Package
 
 * Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/database.git
 
-#### joomla/date (~1.1@stable)
+#### joomla/date (~1.1)
 
 Joomla Date Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/date.git
 
-#### joomla/di (~1.1@stable)
+#### joomla/di (~1.1)
 
 Joomla DI Package
 
 * Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/di.git
 
-#### joomla/event (~1.1@stable)
+#### joomla/event (~1.1)
 
 Joomla Event Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/event.git
 
-#### joomla/filter (~1.1@stable)
+#### joomla/filter (~1.1)
 
 Joomla Filter Package
 
-* Installed: 1.1.2
+* Installed: 1.1.4
 * Source URL: https://github.com/joomla-framework/filter.git
 
-#### joomla/github (~1.2@stable)
+#### joomla/github (~1.2)
 
 Joomla Github Package
 
 * Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/github-api.git
 
-#### joomla/http (~1.1@stable)
+#### joomla/http (~1.1)
 
 Joomla HTTP Package
 
 * Installed: 1.1.4
 * Source URL: https://github.com/joomla-framework/http.git
 
-#### joomla/input (~1.1@stable)
+#### joomla/input (~1.1)
 
 Joomla Input Package
 
 * Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/input.git
 
-#### joomla/model (~1.1@stable)
+#### joomla/model (~1.1)
 
 Joomla Model Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/model.git
 
-#### joomla/profiler (~1.1@stable)
+#### joomla/profiler (~1.1)
 
 Joomla Profiler Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/profiler.git
 
-#### joomla/registry (~1.1@stable)
+#### joomla/registry (~1.1)
 
 Joomla Registry Package
 
 * Installed: 1.3.0
 * Source URL: https://github.com/joomla-framework/registry.git
 
-#### joomla/router (~1.1@stable)
+#### joomla/router (~1.1)
 
 Joomla Router Package
 
 * Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/router.git
 
-#### joomla/string (~1.1@stable)
+#### joomla/string (~1.1)
 
 Joomla String Package
 
 * Installed: 1.2.1
 * Source URL: https://github.com/joomla-framework/string.git
 
-#### joomla/uri (~1.1@stable)
+#### joomla/uri (~1.1)
 
 Joomla Uri Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/uri.git
 
-#### joomla/utilities (~1.1@stable)
+#### joomla/utilities (~1.1)
 
 Joomla Utilities Package
 
 * Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/utilities.git
 
-#### joomla/view (~1.1@stable)
+#### joomla/view (~1.1)
 
 Joomla View Package
 
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/view.git
 
-#### symfony/http-foundation (~2.5@stable)
+#### symfony/http-foundation (~2.5)
 
 Symfony HttpFoundation Component
 
-* Installed: v2.5.5
+* Installed: v2.6.1
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
-#### twig/twig (1.*@stable)
+#### twig/twig (1.*)
 
 Twig, the flexible, fast, and secure template language for PHP
 
@@ -165,11 +165,11 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
-#### babdev/transifex (1.*)
+#### babdev/transifex (~1.0)
 
 The Transifex API Package is a wrapper of the Transifex API available for PHP developers
 
-* Installed: dev-master a35d54bb3070561fccb9353670f678a607b47fe3
+* Installed: 1.0.0
 * Source URL: https://github.com/BabDev/Transifex-API.git
 
 #### codeguy/upload (1.3.2)
@@ -179,21 +179,21 @@ Handle file uploads with extensible validation and storage strategies
 * Installed: 1.3.2
 * Source URL: https://github.com/codeguy/Upload.git
 
-#### filp/whoops (1.*@stable)
+#### filp/whoops (1.*)
 
 php error handling for cool kids
 
-* Installed: 1.1.2
+* Installed: 1.1.3
 * Source URL: https://github.com/filp/whoops.git
 
-#### league/flysystem (0.4.*@stable)
+#### league/flysystem (0.4.*)
 
 Filesystem abstraction, but easy.
 
 * Installed: 0.4.5
 * Source URL: https://github.com/thephpleague/flysystem.git
 
-#### monolog/monolog (1.*@stable)
+#### monolog/monolog (1.*)
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
@@ -207,7 +207,7 @@ Kint - debugging helper for PHP developers
 * Installed: v0.9
 * Source URL: https://github.com/raveren/kint.git
 
-#### adaptive/php-text-difference (1.*@stable)
+#### adaptive/php-text-difference (1.*)
 
 A comprehensive library for generating differences between two hashable objects (strings or arrays). Fork of a fork to add namespaces and psr-4 autoloading
 
@@ -216,46 +216,46 @@ A comprehensive library for generating differences between two hashable objects 
 
 ### PHP - Development
 
-#### mustache/mustache (2.1.*@stable)
+#### mustache/mustache (2.1.*)
 
 A Mustache implementation in PHP.
 
 * Installed: v2.1.0
 * Source URL: https://github.com/bobthecow/mustache.php.git
 
-#### phpunit/phpunit (4.*@stable)
+#### phpunit/phpunit (4.*)
 
 The PHP Unit Testing framework.
 
-* Installed: 4.3.3
+* Installed: 4.4.0
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
-#### squizlabs/php_codesniffer (1.*@stable)
+#### squizlabs/php_codesniffer (1.*)
 
 PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.
 
-* Installed: 1.5.5
+* Installed: 1.5.6
 * Source URL: https://github.com/squizlabs/PHP_CodeSniffer.git
 
 #### sebastian/phpcpd (*)
 
 Copy/Paste Detector (CPD) for PHP code.
 
-* Installed: dev-master 0874c9455e73af847ef91adbaeee0f61a700ba3d
+* Installed: 2.0.1
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
 #### phploc/phploc (*)
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: dev-master 6acc19f538f9e2f078af3cdc160e15b376b6bb4b
+* Installed: 2.0.6
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
 
 Dependency graph visualization for composer.json
 
-* Installed: dev-master 151ef3a4ba91653bee2973e5dc4331d6e4e58cdb
+* Installed: v0.1.1
 * Source URL: https://github.com/clue/graph-composer.git
 
 ### JavaScript
@@ -348,7 +348,7 @@ A dead-simple jQuery color picker.
 
 
 
-* Source URL: 
+* Source URL: https://github.com/ichord/At.js
 
 
 ## Credits
