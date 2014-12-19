@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
-"PO-Revision-Date: 2014-11-13 16:48+0000\n"
+"POT-Creation-Date: 2014-12-19 12:31-0600\n"
+"PO-Revision-Date: 2014-12-19 18:32+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "Cancel"
 msgstr "Отменить"
 
 #: /templates/tracker/issue.edit.twig:56
-#: /templates/tracker/issues.index.twig:237
+#: /templates/tracker/issues.index.twig:246
 #: /templates/tracker/issue.index.twig:157
 msgid "Foreign ID"
 msgstr "Внешний ID"
@@ -78,17 +78,17 @@ msgid "Title"
 msgstr "Название"
 
 #: /templates/tracker/issue.edit.twig:156
-#: /templates/tracker/issue.index.twig:494
+#: /templates/tracker/issue.index.twig:508
 msgid "Add a Comment"
 msgstr "Добавить комментарий"
 
 #: /templates/tracker/issue.edit.twig:164
-#: /templates/tracker/issue.index.twig:507
+#: /templates/tracker/issue.index.twig:521
 msgid "Leave a comment"
 msgstr "Оставить комментарий"
 
 #: /templates/tracker/issue.edit.twig:245
-#: /templates/tracker/issue.add.twig:196
+#: /templates/tracker/issue.add.twig:197
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Некоторые поля невалидны. Они были выделены."
 
@@ -102,7 +102,7 @@ msgstr "Сохранение..."
 msgid "New Item"
 msgstr "Новая запись"
 
-#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:115
 msgid "Submit"
 msgstr "Отправить"
 
@@ -173,7 +173,7 @@ msgid ""
 "report."
 msgstr "Это самая важная часть сообщения о баге. Опишите здесь шаг за шагом, как Вы обнаружили ошибку. Включите сюда всю информацию, чтобы тот, кто будет обрабатывать отчет, смог пройти по Вашим шагам и увидеть проблему. Помните: Ваш баг не будет исправлен, пока остальные не увидят проблему, поэтому старайтесь описать всё как можно подробней и понятней. Вам ничего не надо знать о программировании чтобы подать отчет. Но если Вы понимаете код и знаете как исправить проблему, то включитте это в отчет."
 
-#: /templates/tracker/issue.add.twig:206
+#: /templates/tracker/issue.add.twig:207
 msgid "Submitting..."
 msgstr "Отправка..."
 
@@ -186,7 +186,7 @@ msgid "Open"
 msgstr "Открытые"
 
 #: /templates/tracker/issues.index.twig:43
-#: /templates/tracker/issues.index.twig:402
+#: /templates/tracker/issues.index.twig:410
 msgid "Closed"
 msgstr "Закрытые"
 
@@ -235,124 +235,128 @@ msgid "Loading, please wait..."
 msgstr "Загружается, подождите..."
 
 #: /templates/tracker/issues.index.twig:229
+msgid "Created by"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:238
 msgid "GitHub ID"
 msgstr "GitHub ID"
 
-#: /templates/tracker/issues.index.twig:245
+#: /templates/tracker/issues.index.twig:253
 msgid "Opened "
 msgstr "Открыто"
 
-#: /templates/tracker/issues.index.twig:249
+#: /templates/tracker/issues.index.twig:257
 msgid "Closed "
 msgstr "Закрыто"
 
-#: /templates/tracker/issues.index.twig:253
+#: /templates/tracker/issues.index.twig:261
 msgid "Modified "
 msgstr "Изменено"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Critical"
 msgstr "Критичный"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Urgent"
 msgstr "Срочный"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Medium"
 msgstr "Средний"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Low"
 msgstr "Низкий"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Very low"
 msgstr "Очень низкий"
 
-#: /templates/tracker/issues.index.twig:265
+#: /templates/tracker/issues.index.twig:273
 msgid "GitHub merge status"
 msgstr "Статус GitHub слияния"
 
-#: /templates/tracker/issues.index.twig:275
+#: /templates/tracker/issues.index.twig:283
 msgid "No items found."
 msgstr "Ничего найдено."
 
-#: /templates/tracker/issues.index.twig:378
+#: /templates/tracker/issues.index.twig:386
 msgid "Success"
 msgstr "Успешно"
 
-#: /templates/tracker/issues.index.twig:380
-#: /templates/tracker/issues.index.twig:395
+#: /templates/tracker/issues.index.twig:388
+#: /templates/tracker/issues.index.twig:403
 msgid "Pending"
 msgstr "В процессе"
 
-#: /templates/tracker/issues.index.twig:382
+#: /templates/tracker/issues.index.twig:390
 msgid "Error"
 msgstr "Ошибка"
 
-#: /templates/tracker/issues.index.twig:384
+#: /templates/tracker/issues.index.twig:392
 msgid "Failure"
 msgstr "Неудача"
 
-#: /templates/tracker/issues.index.twig:393
+#: /templates/tracker/issues.index.twig:401
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Новое"
 
-#: /templates/tracker/issues.index.twig:394
+#: /templates/tracker/issues.index.twig:402
 msgid "Confirmed"
 msgstr "Подтверждено"
 
-#: /templates/tracker/issues.index.twig:396
+#: /templates/tracker/issues.index.twig:404
 msgid "Ready To Commit"
 msgstr "Готово к коммиту"
 
-#: /templates/tracker/issues.index.twig:397
+#: /templates/tracker/issues.index.twig:405
 msgid "Fixed in Code Base"
 msgstr "Исправлено в коде"
 
-#: /templates/tracker/issues.index.twig:398
+#: /templates/tracker/issues.index.twig:406
 msgid "Needs Review"
 msgstr "Требуется ревью"
 
-#: /templates/tracker/issues.index.twig:399
+#: /templates/tracker/issues.index.twig:407
 msgid "Information Required"
 msgstr "Необходима информация"
 
-#: /templates/tracker/issues.index.twig:400
+#: /templates/tracker/issues.index.twig:408
 msgid "Unconfirmed Report"
 msgstr "Не подтверждено"
 
-#: /templates/tracker/issues.index.twig:401
+#: /templates/tracker/issues.index.twig:409
 msgid "No Reply"
 msgstr "Нет ответа"
 
-#: /templates/tracker/issues.index.twig:403
+#: /templates/tracker/issues.index.twig:411
 msgid "Expected Behaviour"
 msgstr "Ожидаемое поведение"
 
-#: /templates/tracker/issues.index.twig:404
+#: /templates/tracker/issues.index.twig:412
 msgid "Known Issue"
 msgstr "Известная проблема"
 
-#: /templates/tracker/issues.index.twig:405
+#: /templates/tracker/issues.index.twig:413
 msgid "Duplicate Report"
 msgstr "Дубликат отчета"
 
-#: /templates/tracker/issues.index.twig:460
+#: /templates/tracker/issues.index.twig:468
 msgid "First"
 msgstr "Первая"
 
-#: /templates/tracker/issues.index.twig:461
+#: /templates/tracker/issues.index.twig:469
 msgid "Previous"
 msgstr "Пред."
 
-#: /templates/tracker/issues.index.twig:462
+#: /templates/tracker/issues.index.twig:470
 msgid "Next"
 msgstr "След."
 
-#: /templates/tracker/issues.index.twig:463
+#: /templates/tracker/issues.index.twig:471
 msgid "Last"
 msgstr "Посл."
 
@@ -489,88 +493,92 @@ msgstr "Ссылается"
 msgid "Votes"
 msgstr "Голосование"
 
-#: /templates/tracker/issue.index.twig:252
+#: /templates/tracker/issue.index.twig:257
 msgid "# of Users Experiencing Issue"
 msgstr "# пользователей с такой же ошибкой"
 
-#: /templates/tracker/issue.index.twig:256
+#: /templates/tracker/issue.index.twig:261
 msgid "Average Importance Score"
 msgstr "Средняя оценка важности"
 
-#: /templates/tracker/issue.index.twig:264
+#: /templates/tracker/issue.index.twig:270
 msgid "I've experienced this issue"
 msgstr "У меня была такая же ошибка"
 
-#: /templates/tracker/issue.index.twig:267
+#: /templates/tracker/issue.index.twig:273
 #: /templates/tracker/tracker.filters.twig:85
 msgid "Yes"
 msgstr "Да"
 
-#: /templates/tracker/issue.index.twig:271
+#: /templates/tracker/issue.index.twig:277
 msgid "No"
 msgstr "Нет"
 
-#: /templates/tracker/issue.index.twig:276
+#: /templates/tracker/issue.index.twig:282
 msgid "Importance of issue to me"
 msgstr "Важность ошибки для меня"
 
-#: /templates/tracker/issue.index.twig:300
+#: /templates/tracker/issue.index.twig:307
 msgid "Vote"
 msgstr "Голосовать"
 
-#: /templates/tracker/issue.index.twig:307
+#: /templates/tracker/issue.index.twig:314
 msgid "Tests:"
 msgstr "Тесты:"
 
-#: /templates/tracker/issue.index.twig:311
+#: /templates/tracker/issue.index.twig:318
 #, php-format
 msgid "Successful: %s"
 msgstr "Удачных: %s"
 
-#: /templates/tracker/issue.index.twig:315
+#: /templates/tracker/issue.index.twig:322
 #, php-format
 msgid "Unsuccessful: %s"
 msgstr "Неудачных: %s"
 
-#: /templates/tracker/issue.index.twig:323
+#: /templates/tracker/issue.index.twig:330
 msgid "I've tested this item"
 msgstr "Я тестировал эту проблему"
 
-#: /templates/tracker/issue.index.twig:328
+#: /templates/tracker/issue.index.twig:335
 msgid "Not tested"
 msgstr "Не тестировал"
 
-#: /templates/tracker/issue.index.twig:334
+#: /templates/tracker/issue.index.twig:341
 msgid "Tested successfully"
 msgstr "Протестировано успешно"
 
-#: /templates/tracker/issue.index.twig:340
+#: /templates/tracker/issue.index.twig:347
 msgid "Tested unsuccessfully"
 msgstr "Протестировано неудачно"
 
-#: /templates/tracker/issue.index.twig:348
+#: /templates/tracker/issue.index.twig:355
 msgid "Submit test result"
 msgstr "Отправить результат"
 
-#: /templates/tracker/issue.index.twig:355
-#: /templates/tracker/issue.index.twig:369
+#: /templates/tracker/issue.index.twig:362
+#: /templates/tracker/issue.index.twig:376
 msgid "Alter test result"
 msgstr "Изменить результат"
 
-#: /templates/tracker/issue.index.twig:358
+#: /templates/tracker/issue.index.twig:365
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr "Установить результат теста для пользователя %s в %s"
 
-#: /templates/tracker/issue.index.twig:358
+#: /templates/tracker/issue.index.twig:365
 msgid "username"
 msgstr "имя пользователя"
 
-#: /templates/tracker/issue.index.twig:515
+#: /templates/tracker/issue.index.twig:453
+msgid "The description was changed"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:529
 msgid "Post Comment"
 msgstr "Отправить комментарий"
 
-#: /templates/tracker/issue.index.twig:528
+#: /templates/tracker/issue.index.twig:542
 msgid "Login with GitHub to post a comment"
 msgstr "Войдите с GitHub, чтобы оставить комментарий"
 
@@ -650,7 +658,7 @@ msgstr "Ваш комментарий отправлен"
 msgid "Vote successfully added"
 msgstr "Голос успешно добавлен"
 
-#: /src/App/Tracker/Controller/Issue/Submit.php:126
+#: /src/App/Tracker/Controller/Issue/Submit.php:147
 msgid "Your report has been submitted."
 msgstr "Ваш репорт подан."
 
