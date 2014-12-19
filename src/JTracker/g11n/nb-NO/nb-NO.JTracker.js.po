@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
 "PO-Revision-Date: 2014-10-18 11:27+0000\n"
 "Last-Translator: Kenneth Strømsvold <kenneth@stromsvold.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/jtracker/language/nb_NO/)\n"
@@ -33,17 +33,17 @@ msgstr "Ugyldig respons."
 msgid "Submitting comment..."
 msgstr "Sender inn kommentar..."
 
-#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.js:71
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
 msgstr "Legger til din vurdering..."
 
-#: /www/jtracker/core/js/jtracker.js:98 /www/jtracker/core/js/jtracker.js:134
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr "Sender inn testresultat..."
 
-#: /www/jtracker/core/js/jtracker.js:129
+#: /www/jtracker/core/js/jtracker.js:170
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
 msgstr "Vennligst velg en bruker"

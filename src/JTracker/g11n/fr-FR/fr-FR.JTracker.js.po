@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
 "PO-Revision-Date: 2014-10-11 21:26+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
@@ -33,17 +33,17 @@ msgstr "Réponse incorrecte."
 msgid "Submitting comment..."
 msgstr "Envoi de commentaire..."
 
-#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.js:71
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
 msgstr "Ajout de vote..."
 
-#: /www/jtracker/core/js/jtracker.js:98 /www/jtracker/core/js/jtracker.js:134
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr "Soumettre un résultat de test..."
 
-#: /www/jtracker/core/js/jtracker.js:129
+#: /www/jtracker/core/js/jtracker.js:170
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
 msgstr "Veuillez sélectionner un utilisateur"

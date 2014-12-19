@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
 "PO-Revision-Date: 2014-12-19 18:32+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
@@ -541,14 +541,17 @@ msgid "I've tested this item"
 msgstr "Jeg har testet dette element"
 
 #: /templates/tracker/issue.index.twig:335
+#: /templates/tracker/issue.index.twig:536
 msgid "Not tested"
 msgstr "Ikke testet"
 
 #: /templates/tracker/issue.index.twig:341
+#: /templates/tracker/issue.index.twig:542
 msgid "Tested successfully"
 msgstr "Testet med succes"
 
 #: /templates/tracker/issue.index.twig:347
+#: /templates/tracker/issue.index.twig:548
 msgid "Tested unsuccessfully"
 msgstr "Testet uden succes"
 
@@ -574,11 +577,11 @@ msgstr "brugernavn"
 msgid "The description was changed"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:529
+#: /templates/tracker/issue.index.twig:565
 msgid "Post Comment"
 msgstr "Send kommentar"
 
-#: /templates/tracker/issue.index.twig:542
+#: /templates/tracker/issue.index.twig:580
 msgid "Login with GitHub to post a comment"
 msgstr "Log ind med GitHub for at sende en kommentar"
 

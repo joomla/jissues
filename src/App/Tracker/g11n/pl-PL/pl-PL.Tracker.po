@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Sebastian Łuckoś <sebastian@atrox.pl>, 2014
+# Stefan Wajda <zwiastun@zwiastun.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
-"PO-Revision-Date: 2014-12-19 18:32+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 20:40+0000\n"
+"Last-Translator: Stefan Wajda <zwiastun@zwiastun.net>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,7 +171,7 @@ msgid ""
 "about programming to write a great bug report. But if you do understand the "
 "code and think you know how to fix the bug, please include this in the "
 "report."
-msgstr "To jest najważniejsza część zgłaszania błędu. Opisz krok po kroku jak otrzymać błąd który zgłaszasz. Wpisz wszystkie informacje, które będą potrzebne w celu odtworzenia.\nPamiętaj: zgłaszany problem nie będzie naprawiony jeżeli inni go nie widzą, bądź tak dokładny jak to możliwe. Aby zgłosić błąd nie musisz i zrobić to idealnie nie musisz być programistą. Jeżeli jednak wiesz jak naprawić zgłaszany błąd, dodaj tę informacje do raportu."
+msgstr "To jest najważniejsza część zgłaszania błędu. Opisz krok po kroku, jak otrzymać błąd, który zgłaszasz. Wpisz wszystkie informacje, które będą potrzebne w celu odtworzenia.\nPamiętaj: zgłaszany problem nie będzie naprawiony, jeżeli inni go nie widzą, bądź tak dokładny, jak to możliwe. Aby zgłosić błąd, nie musisz zrobić tego idealnie, nie musisz być programistą. Jeżeli jednak wiesz, jak naprawić zgłaszany błąd, dodaj tę informacje do raportu."
 
 #: /templates/tracker/issue.add.twig:207
 msgid "Submitting..."
@@ -178,16 +179,16 @@ msgstr "Wysyłanie..."
 
 #: /templates/tracker/issues.index.twig:6
 msgid "Issues List"
-msgstr "List problemów"
+msgstr "Lista problemów"
 
 #: /templates/tracker/issues.index.twig:38
 msgid "Open"
-msgstr "Otwarty"
+msgstr "Otwarte"
 
 #: /templates/tracker/issues.index.twig:43
 #: /templates/tracker/issues.index.twig:410
 msgid "Closed"
-msgstr "Zamknięty"
+msgstr "Zamknięte"
 
 #: /templates/tracker/issues.index.twig:48
 msgid "Search tools"
@@ -275,7 +276,7 @@ msgstr "Bardzo niski"
 
 #: /templates/tracker/issues.index.twig:273
 msgid "GitHub merge status"
-msgstr ""
+msgstr "GitHub - status scalania"
 
 #: /templates/tracker/issues.index.twig:283
 msgid "No items found."
@@ -540,14 +541,17 @@ msgid "I've tested this item"
 msgstr "Przetestowałem(am)"
 
 #: /templates/tracker/issue.index.twig:335
+#: /templates/tracker/issue.index.twig:536
 msgid "Not tested"
 msgstr "Nie przetestowano"
 
 #: /templates/tracker/issue.index.twig:341
+#: /templates/tracker/issue.index.twig:542
 msgid "Tested successfully"
 msgstr "Wynik testu - pomyślny"
 
 #: /templates/tracker/issue.index.twig:347
+#: /templates/tracker/issue.index.twig:548
 msgid "Tested unsuccessfully"
 msgstr "Wynik testu - niepomyślny"
 
@@ -571,13 +575,13 @@ msgstr "Użytkownik"
 
 #: /templates/tracker/issue.index.twig:453
 msgid "The description was changed"
-msgstr ""
+msgstr "Opis został zmieniony"
 
-#: /templates/tracker/issue.index.twig:529
+#: /templates/tracker/issue.index.twig:565
 msgid "Post Comment"
 msgstr "Dodaj komentarz"
 
-#: /templates/tracker/issue.index.twig:542
+#: /templates/tracker/issue.index.twig:580
 msgid "Login with GitHub to post a comment"
 msgstr "Zaloguj się poprzez GitHub"
 

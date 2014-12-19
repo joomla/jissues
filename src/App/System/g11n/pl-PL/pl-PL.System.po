@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Sebastian Łuckoś <sebastian@atrox.pl>, 2014
+# Stefan Wajda <zwiastun@zwiastun.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
-"PO-Revision-Date: 2014-11-16 17:28+0000\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 21:44+0000\n"
 "Last-Translator: Sebastian Łuckoś <sebastian@atrox.pl>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +33,7 @@ msgstr "Zapisz"
 
 #: /templates/system/config.index.twig:46
 msgid "Edit Configuration"
-msgstr "Edytuj konfiguracje"
+msgstr "Edytuj konfigurację"
 
 #: /templates/system/config.index.twig:48
 #, php-format
@@ -41,4 +42,4 @@ msgstr "Załadowano plik konfiguracyjny: %s"
 
 #: /src/App/System/Controller/Config/Save.php:52
 msgid "The configuration file has been saved."
-msgstr "Plik konfiguracyjny został zapisany."
+msgstr "Zapisano plik konfiguracyjny."

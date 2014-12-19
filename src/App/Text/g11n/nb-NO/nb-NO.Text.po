@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Kenneth Strømsvold <kenneth@stromsvold.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
-"PO-Revision-Date: 2014-01-19 00:55+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 21:30+0000\n"
+"Last-Translator: Kenneth Strømsvold <kenneth@stromsvold.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,69 +20,69 @@ msgstr ""
 
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
-msgstr ""
+msgstr "Artikler"
 
 #: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
 #: /templates/text/article.edit.twig:34
 msgid "New Article"
-msgstr ""
+msgstr "Ny artikkel"
 
 #: /templates/text/articles.index.twig:30
 msgid "Articles List"
-msgstr ""
+msgstr "Artikkelliste"
 
 #: /templates/text/articles.index.twig:35
 msgid "Title/Alias"
-msgstr ""
+msgstr "Tittel/Alias"
 
 #: /templates/text/articles.index.twig:36
 msgid "Actions"
-msgstr ""
+msgstr "Handlinger"
 
 #: /templates/text/articles.index.twig:52
 msgid "View"
-msgstr ""
+msgstr "Vis"
 
 #: /templates/text/articles.index.twig:55
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: /templates/text/articles.index.twig:61
 msgid "No articles found"
-msgstr ""
+msgstr "Ingen artikler funnet"
 
 #: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
 msgid "Edit Article"
-msgstr ""
+msgstr "Rediger artikkel"
 
 #: /templates/text/article.edit.twig:19
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #: /templates/text/article.edit.twig:24
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: /templates/text/article.edit.twig:41
 msgid "Title"
-msgstr ""
+msgstr "Tittel"
 
 #: /templates/text/article.edit.twig:48
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."
-msgstr ""
+msgstr "Artikkel slettet."
 
 #: /src/App/Text/Controller/Article/Save.php:50
 msgid "The article has been saved."
-msgstr ""
+msgstr "Artikkel lagret."
 
 #: /src/App/Text/Table/ArticlesTable.php:93
 msgid "An alias or a title is required."
-msgstr ""
+msgstr "Et alias eller en tittel er påkrevd."
 
 #: /src/App/Text/Table/ArticlesTable.php:99
 msgid "Some text is required."
-msgstr ""
+msgstr "Tekst er påkrevd."

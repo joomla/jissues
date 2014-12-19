@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Sebastian Łuckoś <sebastian@atrox.pl>, 2014
+# Stefan Wajda <zwiastun@zwiastun.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 12:31-0600\n"
-"PO-Revision-Date: 2014-11-16 18:16+0000\n"
-"Last-Translator: Sebastian Łuckoś <sebastian@atrox.pl>\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 20:27+0000\n"
+"Last-Translator: Stefan Wajda <zwiastun@zwiastun.net>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,11 +64,11 @@ msgstr "Kod"
 
 #: /templates/support/markdown.index.twig:23
 msgid "Blockquotes"
-msgstr "Cudzysłowia"
+msgstr "Cudzysłowy"
 
 #: /templates/support/markdown.index.twig:24
 msgid "HRs"
-msgstr ""
+msgstr "HR-y"
 
 #: /templates/support/markdown.index.twig:25
 msgid "Tables"
@@ -100,11 +101,11 @@ msgstr "Dokumentacja"
 
 #: /templates/support/documentation.index.twig:45
 msgid "Improve"
-msgstr ""
+msgstr "Ulepszenie"
 
 #: /templates/support/documentation.index.twig:46
 msgid "Permalink"
-msgstr ""
+msgstr "Odnośnik bezpośredni"
 
 #: /templates/support/icons.index.twig:6
 #: /templates/support/icons.index.twig:10
