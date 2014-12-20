@@ -64,15 +64,17 @@
         </div>
     </header>
 
-    <div class="subnav" data-spy="affix" data-offset-top="25">
-        <div class="container">
-            {% block subnav %}
-                <ul class="nav menu nav-pills">
-                    {% block prependMenu %}{% endblock %}
-                    {% include "trackerMenu.twig" %}
-                    {% include "lang-switcher.twig" %}
-                </ul>
-            {% endblock %}
+    <div class="subnav-wrapper">
+        <div class="subnav">
+            <div class="container">
+                {% block subnav %}
+                    <ul class="nav menu nav-pills">
+                        {% block prependMenu %}{% endblock %}
+                        {% include "trackerMenu.twig" %}
+                        {% include "lang-switcher.twig" %}
+                    </ul>
+                {% endblock %}
+            </div>
         </div>
     </div>
 
@@ -122,6 +124,10 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $('.hasTooltip').tooltip();
+            $('.subnav-wrapper').height($('.subnav').height());
+            $('.subnav').affix({
+                offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
+            });
         });
     </script>
 
