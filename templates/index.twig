@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blue" />
-    {% if jdebug %}
-    <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
-    {% else %}
+    {% if useCDN %}
     <link href="http://cdn.joomla.org/template/css/v3_template.min.css" rel="stylesheet" media="screen">
+    {% else %}
+    <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
     {% endif %}
+    <link rel="stylesheet" href="{{ uri.base.path }}jtracker/core/css/jtracker.css">
     <link rel="stylesheet" href="{{ uri.base.path }}fonts/octicons/octicons.css">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ uri.base.path }}images/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ uri.base.path }}images/apple-touch-icon-114-precomposed.png">
