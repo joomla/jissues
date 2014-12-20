@@ -385,7 +385,16 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter && is_numeric($filter))
 		{
 			$categoryModel = new CategoryModel($db);
-			$issues        = $categoryModel->getIssueIdsByCategory($filter);
+
+			// If the category filter equals -1, that means we want issues without category.
+			if ($filter == -1)
+			{
+				$issues = $categoryModel->getIssueIdsWithCategory();
+			}
+			else
+			{
+				$issues = $categoryModel->getIssueIdsByCategory($filter);
+			}
 
 			if ($issues != null)
 			{
@@ -403,7 +412,15 @@ class IssuesModel extends AbstractTrackerListModel
 				$issueId = 0;
 			}
 
-			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
+			// Handle the no category filter
+			if ($filter == -1)
+			{
+				$query->where($db->quoteName('a.id') . ' NOT IN (' . $issueId . ')');
+			}
+			else
+			{
+				$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
+			}
 		}
 
 		$filter = $this->state->get('filter.label');

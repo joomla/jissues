@@ -342,6 +342,22 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Get the distinct Issue ids with categories, returning the object list.
+	 *
+	 * @since    1.0
+	 *
+	 * @return   array  The object array of the issue ids.
+	 */
+	public function getIssueIdsWithCategory()
+	{
+		$db = $this->getDb();
+		$query = $db->getQuery(true);
+		$query->select('DISTINCT issue_id')->from('#__issue_category_map');
+
+		return $db->setQuery($query)->loadObjectList();
+	}
+
+	/**
 	 * Process the change in category for issues.
 	 *
 	 * @param   array  $src  The source, should include: $src['issue_number'], the issue's number; $src['project_id'],
