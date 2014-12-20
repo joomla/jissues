@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
-"PO-Revision-Date: 2014-08-20 16:19+0000\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-11-14 20:27+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -164,7 +164,7 @@ msgstr "Verwerk alle problemen."
 #: /cli/Application/Command/Get/Project.php:80
 #: /cli/Application/Command/Get/Project/Events.php:47
 msgid "<n> Process only a single issue."
-msgstr "<n> Verwerk alleen een enkel probleem."
+msgstr "<n> Verwerk alleen een enkele melding."
 
 #: /cli/Application/Command/Get/Project.php:86
 msgid "<n> First issue to process."
@@ -172,11 +172,11 @@ msgstr "<n> Eerste problem om te verwerken."
 
 #: /cli/Application/Command/Get/Project.php:92
 msgid "<n> Last issue to process."
-msgstr "<n> Laatste probleem om te verwerken."
+msgstr "<n> Laatste melding om te verwerken."
 
 #: /cli/Application/Command/Get/Project.php:98
 msgid "Force an update even if the issue has not changed."
-msgstr "Forceer een update zelfs als het probleem niet gewijzigd is."
+msgstr "Forceer een update zelfs als de melding niet gewijzigd is."
 
 #: /cli/Application/Command/Get/Project.php:112
 msgid "Retrieve Project"
@@ -213,7 +213,7 @@ msgstr "Selecteer:"
 
 #: /cli/Application/Command/Get/Project.php:321
 msgid "Enter the first GitHub issue ID to process (from):"
-msgstr "Voer het eerste GitHub probleem ID in om te verwerken (vanaf):"
+msgstr "Voer het eerste GitHub meldings ID in om te verwerken (vanaf):"
 
 #: /cli/Application/Command/Get/Project.php:325
 msgid "Enter the latest GitHub issue ID to process (to):"
@@ -236,7 +236,7 @@ msgstr "Begin ophalen opmerkingen"
 msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
 msgstr[0] "Ophalen reacties voor <b>één</b> gewijzigd probleem vanaf GitHub..."
-msgstr[1] "Ophalen reacties voor <b>%d</b> gewijzigde problemen vanaf GitHub..."
+msgstr[1] "Ophalen reacties voor <b>%d</b> gewijzigde meldingen vanaf GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:180
@@ -248,19 +248,19 @@ msgstr "Alles is bijgewerkt."
 msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
 msgstr[0] "Verwerken reacties voor één gewijzigd probleem..."
-msgstr[1] "Verwerken reacties voor %d gewijzigde problemen..."
+msgstr[1] "Verwerken reacties voor %d gewijzigde meldingen..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:204
 #, php-format
 msgid "No comments for issue # %d"
-msgstr "Geen reacties voor probleem nummer %d"
+msgstr "Geen reacties voor melding nummer %d"
 
 #: /cli/Application/Command/Get/Project/Comments.php:213
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
 msgstr[0] "Verwerken één reactie voor probleem nummer %2$d (%3$d/%4$d)"
-msgstr[1] "Verwerken %1$d reacties voor probleem nummer %2$d (%3$d/%4$d)"
+msgstr[1] "Verwerken %1$d reacties voor melding nummer %2$d (%3$d/%4$d)"
 
 #: /cli/Application/Command/Get/Project/Comments.php:310
 #, php-format
@@ -269,7 +269,7 @@ msgstr "%1$d toegevoegd %2$d bijgewerkt."
 
 #: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
-msgstr "Ophalen probleem evenementen vanaf GitHub."
+msgstr "Ophalen melding wijzigingen vanaf GitHub."
 
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
@@ -284,7 +284,7 @@ msgstr "Begin ophalen nieuws"
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] "Ophalen nieuws voor één probleem vanaf GitHub..."
-msgstr[1] "Ophalen nieuws voor <b>%d</b> problemen vanaf GitHub..."
+msgstr[1] "Ophalen wijzigingen voor <b>%d</b> meldingen vanaf GitHub..."
 
 #: /cli/Application/Command/Get/Project/Events.php:190
 msgid "Adding events to the database..."
@@ -293,7 +293,7 @@ msgstr "Toevoegen nieuws in de database..."
 #: /cli/Application/Command/Get/Project/Events.php:319
 #, php-format
 msgid "Added %d new issue events to the database"
-msgstr "Toegevoegd %d nieuw probleem nieuws in de database"
+msgstr "Toegevoegd %d nieuwe melding wijzigingen in de database"
 
 #: /cli/Application/Command/Get/Project/Issues.php:66
 msgid "Retrieve issues from GitHub."

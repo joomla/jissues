@@ -1,0 +1,145 @@
+# JTracker App Groups 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Kenneth Strømsvold <kenneth@stromsvold.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 21:35+0000\n"
+"Last-Translator: Kenneth Strømsvold <kenneth@stromsvold.com>\n"
+"Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/jtracker/language/nb_NO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb_NO\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/groups/group.edit.twig:6
+msgid "Edit Group"
+msgstr "Endre gruppe"
+
+#: /templates/groups/group.edit.twig:11
+msgid "Save"
+msgstr "Lagre"
+
+#: /templates/groups/group.edit.twig:125
+msgid "Edit Access Group"
+msgstr "Rediger tilgangsgruppe"
+
+#: /templates/groups/group.edit.twig:127
+msgid "Add Access Group"
+msgstr "Legg til tilgangsgruppe"
+
+#: /templates/groups/group.edit.twig:136
+msgid "Details"
+msgstr "Detaljer"
+
+#: /templates/groups/group.edit.twig:144
+#: /templates/groups/groups.index.twig:27
+msgid "Title"
+msgstr "Tittel"
+
+#: /templates/groups/group.edit.twig:154
+msgid "Permissions"
+msgstr "Tilganger"
+
+#: /templates/groups/group.edit.twig:164
+#: /templates/groups/groups.index.twig:28
+msgid "View"
+msgstr "Vis"
+
+#: /templates/groups/group.edit.twig:174
+#: /templates/groups/groups.index.twig:29
+msgid "Create"
+msgstr "Opprett"
+
+#: /templates/groups/group.edit.twig:184
+#: /templates/groups/groups.index.twig:30
+msgid "Edit"
+msgstr "Rediger"
+
+#: /templates/groups/group.edit.twig:194
+#: /templates/groups/groups.index.twig:31
+msgid "Edit own"
+msgstr "Rediger egen"
+
+#: /templates/groups/group.edit.twig:204
+#: /templates/groups/groups.index.twig:32
+msgid "Manage"
+msgstr "Behandle"
+
+#: /templates/groups/group.edit.twig:217
+msgid "Users"
+msgstr "Brukere"
+
+#: /templates/groups/group.edit.twig:221
+msgid "Add user"
+msgstr "Legg til bruker"
+
+#: /templates/groups/group.edit.twig:223 /templates/groups/group.edit.twig:236
+msgid "username"
+msgstr "brukernavn"
+
+#: /templates/groups/group.edit.twig:229
+msgid "Add User"
+msgstr "Legg til bruker"
+
+#: /templates/groups/group.edit.twig:233
+msgid "Remove user"
+msgstr "Fjern bruker"
+
+#: /templates/groups/group.edit.twig:241
+msgid "Remove User"
+msgstr "Fjern bruker"
+
+#: /templates/groups/group.edit.twig:246
+msgid "List assigned Users"
+msgstr "Liste over tildelte brukere"
+
+#: /templates/groups/group.edit.twig:258
+msgid "Save the group to assign users."
+msgstr "Lagre gruppen over tildelte brukere."
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "Grupper"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "Legg til gruppe"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "Tilgangsgrupper"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "Handlinger"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr "Id"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "System"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "Slett"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr "Ingen grupper definert !"
+
+#: /src/App/Groups/Controller/Group/Delete.php:82
+msgid "The group has been deleted."
+msgstr "Gruppen har blitt slettet."
+
+#: /src/App/Groups/Table/GroupsTable.php:99
+msgid "A title is required"
+msgstr "En tittel er påkrevd"

@@ -1,0 +1,141 @@
+# JTracker App Users 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Sebastian Łuckoś <sebastian@atrox.pl>, 2014
+# Stefan Wajda <zwiastun@zwiastun.net>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 20:43+0000\n"
+"Last-Translator: Stefan Wajda <zwiastun@zwiastun.net>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "Niepoprawna nazwa użytkownika!"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Edytuj profil"
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Odśwież dane profilu z GitHub"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Mój profil"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Profil"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Język: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Strefa czasowa: %1$s (GMT %2$s)"
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Edytuj użytkownika"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Zapisz"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "Profil na GitHub"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Parametry"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Język"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Strefa czasowa"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: /templates/users/users.index.twig:15
+msgid "Users List"
+msgstr "Lista użytkowników"
+
+#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:25
+msgid "Filter the list by user."
+msgstr "Filtruj listę względem użytkowników."
+
+#: /templates/users/users.index.twig:30
+msgid "Clear"
+msgstr "Wyczyść"
+
+#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Strona %1$s z %2$s"
+
+#: /templates/users/users.index.twig:42
+msgid "Username"
+msgstr "Użytkownik"
+
+#: /templates/users/users.index.twig:44
+msgid "Actions"
+msgstr "Akcje"
+
+#: /templates/users/users.index.twig:46
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/users.index.twig:62
+msgid "No items found."
+msgstr "Nie znaleziono pozycji."
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
+msgid "The user has been assigned."
+msgstr "Użytkownik został przydzielony."
+
+#: /src/App/Users/Controller/Ajax/Assign.php:85
+msgid "The user has been unassigned."
+msgstr "Przydział użytkownika został usunięty."
+
+#: /src/App/Users/Controller/User/Edit.php:83
+#: /src/App/Users/Controller/User/Save.php:47
+msgid "You are not authorized to edit this user."
+msgstr "Nie masz uprawnień aby edytować tego użytkownika."
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorized to refresh this user."
+msgstr "Nie masz uprawnień, aby odświeżyć profil tego użytkownika."
+
+#: /src/App/Users/Controller/User/Refresh.php:70
+msgid "The profile has been refreshed."
+msgstr "Profil został odświeżony."
+
+#: /src/App/Users/Controller/User/Save.php:62
+msgid "The changes have been saved."
+msgstr "Zmiany zostały zapisane."

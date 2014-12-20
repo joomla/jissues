@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
-"PO-Revision-Date: 2014-09-27 16:34+0000\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-11-14 21:32+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "In behandeling"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:321
 #: /src/JTracker/View/Renderer/TrackerExtension.php:344
 msgid "Ready To Commit"
-msgstr "Klaar voor invoer"
+msgstr "Klaar om toe te voegen"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:322
 #: /src/JTracker/View/Renderer/TrackerExtension.php:345
@@ -108,7 +108,7 @@ msgstr "Verwachte werking"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:334
 #: /src/JTracker/View/Renderer/TrackerExtension.php:352
 msgid "Known Issue"
-msgstr "Bekend probleem"
+msgstr "Bekende melding"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:335
 #: /src/JTracker/View/Renderer/TrackerExtension.php:353

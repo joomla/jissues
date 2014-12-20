@@ -1,0 +1,145 @@
+# JTracker App Groups 1.0.0-beta
+# Copyright (C) 2012 - 2014 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Sebastian Łuckoś <sebastian@atrox.pl>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-11-16 18:07+0000\n"
+"Last-Translator: Sebastian Łuckoś <sebastian@atrox.pl>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: /templates/groups/group.edit.twig:6
+msgid "Edit Group"
+msgstr "Edytuj grupę"
+
+#: /templates/groups/group.edit.twig:11
+msgid "Save"
+msgstr "Zapisz"
+
+#: /templates/groups/group.edit.twig:125
+msgid "Edit Access Group"
+msgstr "Edytuj grupę dostępu"
+
+#: /templates/groups/group.edit.twig:127
+msgid "Add Access Group"
+msgstr "Dodaj grupę dostępu"
+
+#: /templates/groups/group.edit.twig:136
+msgid "Details"
+msgstr "Szczególy"
+
+#: /templates/groups/group.edit.twig:144
+#: /templates/groups/groups.index.twig:27
+msgid "Title"
+msgstr "Tytuł"
+
+#: /templates/groups/group.edit.twig:154
+msgid "Permissions"
+msgstr "Uprawnienia"
+
+#: /templates/groups/group.edit.twig:164
+#: /templates/groups/groups.index.twig:28
+msgid "View"
+msgstr "Zobacz"
+
+#: /templates/groups/group.edit.twig:174
+#: /templates/groups/groups.index.twig:29
+msgid "Create"
+msgstr "Utwórz"
+
+#: /templates/groups/group.edit.twig:184
+#: /templates/groups/groups.index.twig:30
+msgid "Edit"
+msgstr "Edytuj"
+
+#: /templates/groups/group.edit.twig:194
+#: /templates/groups/groups.index.twig:31
+msgid "Edit own"
+msgstr "Edytuj własny"
+
+#: /templates/groups/group.edit.twig:204
+#: /templates/groups/groups.index.twig:32
+msgid "Manage"
+msgstr "Zarządzaj"
+
+#: /templates/groups/group.edit.twig:217
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: /templates/groups/group.edit.twig:221
+msgid "Add user"
+msgstr "Dodaj użytkownika"
+
+#: /templates/groups/group.edit.twig:223 /templates/groups/group.edit.twig:236
+msgid "username"
+msgstr "Użytkownik"
+
+#: /templates/groups/group.edit.twig:229
+msgid "Add User"
+msgstr "Dodaj użytkownika"
+
+#: /templates/groups/group.edit.twig:233
+msgid "Remove user"
+msgstr "Usuń użytkownika"
+
+#: /templates/groups/group.edit.twig:241
+msgid "Remove User"
+msgstr "Usuń użytkownika"
+
+#: /templates/groups/group.edit.twig:246
+msgid "List assigned Users"
+msgstr "Lista przypisanych użytkowników"
+
+#: /templates/groups/group.edit.twig:258
+msgid "Save the group to assign users."
+msgstr "Zapisz grupę do przypisanych użytkowników."
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "Grupy"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "Dodaj grupę"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "Grupy dostępu"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "Akcje"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr "ID"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "System"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "Usuń"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr "Brak zdefiniowanych grup!"
+
+#: /src/App/Groups/Controller/Group/Delete.php:82
+msgid "The group has been deleted."
+msgstr "Grupa została usunięta"
+
+#: /src/App/Groups/Table/GroupsTable.php:99
+msgid "A title is required"
+msgstr "Tytuł jest wymagany"

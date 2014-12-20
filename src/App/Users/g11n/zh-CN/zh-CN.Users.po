@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
 "PO-Revision-Date: 2014-11-13 16:48+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -84,19 +84,19 @@ msgstr "用户"
 msgid "Users List"
 msgstr "用户列表"
 
-#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:69
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "第 %1$s 页，共 %2$s 页"
-
-#: /templates/users/users.index.twig:26 /templates/users/users.index.twig:29
-#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:25
 msgid "Filter the list by user."
 msgstr ""
 
-#: /templates/users/users.index.twig:35
+#: /templates/users/users.index.twig:30
 msgid "Clear"
 msgstr ""
+
+#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "第 %1$s 页，共 %2$s 页"
 
 #: /templates/users/users.index.twig:42
 msgid "Username"

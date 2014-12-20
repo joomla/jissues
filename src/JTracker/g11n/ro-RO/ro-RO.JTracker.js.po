@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
 "PO-Revision-Date: 2014-10-17 19:01+0000\n"
 "Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
@@ -33,17 +33,17 @@ msgstr "Răspunsul nu este valid."
 msgid "Submitting comment..."
 msgstr "Comentariu în curs de transmitere..."
 
-#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.js:71
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
 msgstr "Vot în curs de adăugare..."
 
-#: /www/jtracker/core/js/jtracker.js:97 /www/jtracker/core/js/jtracker.js:133
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr "Rezultatele testului sunt în curs de transmitere..."
 
-#: /www/jtracker/core/js/jtracker.js:128
+#: /www/jtracker/core/js/jtracker.js:170
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
 msgstr "Vă rugăm să selectați utilizatorul"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
-"PO-Revision-Date: 2014-11-13 16:48+0000\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"PO-Revision-Date: 2014-12-19 18:32+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: /templates/tracker/issue.edit.twig:56
-#: /templates/tracker/issues.index.twig:237
+#: /templates/tracker/issues.index.twig:246
 #: /templates/tracker/issue.index.twig:157
 msgid "Foreign ID"
 msgstr "Externe ID"
@@ -78,17 +78,17 @@ msgid "Title"
 msgstr "Titel"
 
 #: /templates/tracker/issue.edit.twig:156
-#: /templates/tracker/issue.index.twig:494
+#: /templates/tracker/issue.index.twig:508
 msgid "Add a Comment"
 msgstr "Einen Kommentar hinzufügen"
 
 #: /templates/tracker/issue.edit.twig:164
-#: /templates/tracker/issue.index.twig:507
+#: /templates/tracker/issue.index.twig:521
 msgid "Leave a comment"
 msgstr "Hinterlassen Sie einen Kommentar"
 
 #: /templates/tracker/issue.edit.twig:245
-#: /templates/tracker/issue.add.twig:196
+#: /templates/tracker/issue.add.twig:197
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Einige Felder sind ungültig. Sie wurden hervorgehoben."
 
@@ -102,7 +102,7 @@ msgstr "Wird gespeichert..."
 msgid "New Item"
 msgstr "Neuer Artikel"
 
-#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:115
 msgid "Submit"
 msgstr "Absenden"
 
@@ -132,7 +132,7 @@ msgstr "Die Version(en) des Projekts in welchen der Fehler auftritt."
 
 #: /templates/tracker/issue.add.twig:69
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "Bitte wählen Sie eine oder mehrere Kategorien die zu Ihrem Eintrag passen."
 
 #: /templates/tracker/issue.add.twig:81
 msgid ""
@@ -173,7 +173,7 @@ msgid ""
 "report."
 msgstr "Dies ist der wichtigste Teil des Fehlerberichts. Beschreiben Sie hier Schritt für Schritt wie der Fehler zustande kommt. Beschreiben Sie genau jeden Schritt der nötig ist um den Fehler zu reproduzieren.. Beachten Sie, dass der Fehler nicht behoben werden kann wenn niemand anders ihn nachvollziehen kann. Ihre Beschreibung sollte daher so klar und detailliert wie möglich sein. Es sind keine Programmierkenntnisse erforderlich um einen guten Fehlerbericht zu schreiben. Falls sie jedoch den Code verstehen und wissen wie sie den Fehler beheben können dann fügen Sie dies bitte dem Bericht hinzu."
 
-#: /templates/tracker/issue.add.twig:206
+#: /templates/tracker/issue.add.twig:207
 msgid "Submitting..."
 msgstr "Wird gesendet..."
 
@@ -186,7 +186,7 @@ msgid "Open"
 msgstr "Offen"
 
 #: /templates/tracker/issues.index.twig:43
-#: /templates/tracker/issues.index.twig:402
+#: /templates/tracker/issues.index.twig:410
 msgid "Closed"
 msgstr "Geschlossen"
 
@@ -220,7 +220,7 @@ msgstr "Filtern Sie die Liste nach ID, Zusammenfassung oder Beschreibung."
 #: /templates/tracker/issues.index.twig:111
 #: /templates/tracker/issues.index.twig:112
 msgid "Filter the list by creator."
-msgstr ""
+msgstr "Filtern der Liste nach Ersteller."
 
 #: /templates/tracker/issues.index.twig:141
 msgid "ID"
@@ -235,124 +235,128 @@ msgid "Loading, please wait..."
 msgstr "Wird geladen, bitte warten..."
 
 #: /templates/tracker/issues.index.twig:229
+msgid "Created by"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:238
 msgid "GitHub ID"
 msgstr "GitHub ID"
 
-#: /templates/tracker/issues.index.twig:245
+#: /templates/tracker/issues.index.twig:253
 msgid "Opened "
 msgstr "Geöffnet"
 
-#: /templates/tracker/issues.index.twig:249
+#: /templates/tracker/issues.index.twig:257
 msgid "Closed "
 msgstr "Geschlossen"
 
-#: /templates/tracker/issues.index.twig:253
+#: /templates/tracker/issues.index.twig:261
 msgid "Modified "
 msgstr "Geändert"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Critical"
 msgstr "Kritisch"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Urgent"
 msgstr "Dringend"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Medium"
 msgstr "Medium"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Low"
 msgstr "Niedrig"
 
-#: /templates/tracker/issues.index.twig:258
+#: /templates/tracker/issues.index.twig:266
 msgid "Very low"
 msgstr "Sehr niedrig"
 
-#: /templates/tracker/issues.index.twig:265
+#: /templates/tracker/issues.index.twig:273
 msgid "GitHub merge status"
 msgstr "GitHub merge Status"
 
-#: /templates/tracker/issues.index.twig:275
+#: /templates/tracker/issues.index.twig:283
 msgid "No items found."
 msgstr "Keine Einträge gefunden"
 
-#: /templates/tracker/issues.index.twig:378
+#: /templates/tracker/issues.index.twig:386
 msgid "Success"
 msgstr "Erfolgreich"
 
-#: /templates/tracker/issues.index.twig:380
-#: /templates/tracker/issues.index.twig:395
+#: /templates/tracker/issues.index.twig:388
+#: /templates/tracker/issues.index.twig:403
 msgid "Pending"
 msgstr "Wartend"
 
-#: /templates/tracker/issues.index.twig:382
+#: /templates/tracker/issues.index.twig:390
 msgid "Error"
 msgstr "Fehler"
 
-#: /templates/tracker/issues.index.twig:384
+#: /templates/tracker/issues.index.twig:392
 msgid "Failure"
 msgstr "Fehlgeschlagen"
 
-#: /templates/tracker/issues.index.twig:393
+#: /templates/tracker/issues.index.twig:401
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Neu"
 
-#: /templates/tracker/issues.index.twig:394
+#: /templates/tracker/issues.index.twig:402
 msgid "Confirmed"
 msgstr "Bestätigt"
 
-#: /templates/tracker/issues.index.twig:396
+#: /templates/tracker/issues.index.twig:404
 msgid "Ready To Commit"
 msgstr "Fertig zum Anwenden"
 
-#: /templates/tracker/issues.index.twig:397
+#: /templates/tracker/issues.index.twig:405
 msgid "Fixed in Code Base"
 msgstr "Im code repariert"
 
-#: /templates/tracker/issues.index.twig:398
+#: /templates/tracker/issues.index.twig:406
 msgid "Needs Review"
 msgstr "Benötigt Überprüfung"
 
-#: /templates/tracker/issues.index.twig:399
+#: /templates/tracker/issues.index.twig:407
 msgid "Information Required"
 msgstr "Information erforderlich"
 
-#: /templates/tracker/issues.index.twig:400
+#: /templates/tracker/issues.index.twig:408
 msgid "Unconfirmed Report"
 msgstr "Unbestätigte Meldung"
 
-#: /templates/tracker/issues.index.twig:401
+#: /templates/tracker/issues.index.twig:409
 msgid "No Reply"
 msgstr "Keine Antwort"
 
-#: /templates/tracker/issues.index.twig:403
+#: /templates/tracker/issues.index.twig:411
 msgid "Expected Behaviour"
 msgstr "Erwartetes Verhalten"
 
-#: /templates/tracker/issues.index.twig:404
+#: /templates/tracker/issues.index.twig:412
 msgid "Known Issue"
 msgstr "Bekanntes Problem"
 
-#: /templates/tracker/issues.index.twig:405
+#: /templates/tracker/issues.index.twig:413
 msgid "Duplicate Report"
 msgstr "Doppelter Bericht"
 
-#: /templates/tracker/issues.index.twig:460
+#: /templates/tracker/issues.index.twig:468
 msgid "First"
 msgstr "Erste"
 
-#: /templates/tracker/issues.index.twig:461
+#: /templates/tracker/issues.index.twig:469
 msgid "Previous"
 msgstr "Vorherige"
 
-#: /templates/tracker/issues.index.twig:462
+#: /templates/tracker/issues.index.twig:470
 msgid "Next"
 msgstr "Nächste"
 
-#: /templates/tracker/issues.index.twig:463
+#: /templates/tracker/issues.index.twig:471
 msgid "Last"
 msgstr "Letzte"
 
@@ -459,23 +463,23 @@ msgstr "# erfolgreicher Tests"
 
 #: /templates/tracker/issue.index.twig:114
 msgid "To comment"
-msgstr ""
+msgstr "Zum Kommentieren"
 
 #: /templates/tracker/issue.index.twig:123
 msgid "View this issue on GitHub"
-msgstr ""
+msgstr "Diesen Eintrag auf GitHub ansehen"
 
 #: /templates/tracker/issue.index.twig:133
 msgid "View a plain diff for this pull request"
-msgstr ""
+msgstr "Einen einfachen Diff für diesen Pull Request ansehen"
 
 #: /templates/tracker/issue.index.twig:135
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: /templates/tracker/issue.index.twig:144
 msgid "Download this fork as a ZIP file"
-msgstr ""
+msgstr "Diese Fork als ZIP Datei herunterladen"
 
 #: /templates/tracker/issue.index.twig:187
 msgid "Categories:"
@@ -489,88 +493,95 @@ msgstr "Referenziert als"
 msgid "Votes"
 msgstr "Stimmen"
 
-#: /templates/tracker/issue.index.twig:252
+#: /templates/tracker/issue.index.twig:257
 msgid "# of Users Experiencing Issue"
 msgstr "# Benutzer Fehler bestätigt"
 
-#: /templates/tracker/issue.index.twig:256
+#: /templates/tracker/issue.index.twig:261
 msgid "Average Importance Score"
 msgstr "Durchschnittliche Wichtigkeit"
 
-#: /templates/tracker/issue.index.twig:264
+#: /templates/tracker/issue.index.twig:270
 msgid "I've experienced this issue"
 msgstr "Ich habe auch dieses Problem"
 
-#: /templates/tracker/issue.index.twig:267
+#: /templates/tracker/issue.index.twig:273
 #: /templates/tracker/tracker.filters.twig:85
 msgid "Yes"
 msgstr "Ja"
 
-#: /templates/tracker/issue.index.twig:271
+#: /templates/tracker/issue.index.twig:277
 msgid "No"
 msgstr "Nein"
 
-#: /templates/tracker/issue.index.twig:276
+#: /templates/tracker/issue.index.twig:282
 msgid "Importance of issue to me"
 msgstr "Wichtigkeit dieses Fehlers für mich"
 
-#: /templates/tracker/issue.index.twig:300
+#: /templates/tracker/issue.index.twig:307
 msgid "Vote"
 msgstr "Abstimmen"
 
-#: /templates/tracker/issue.index.twig:307
+#: /templates/tracker/issue.index.twig:314
 msgid "Tests:"
 msgstr "Tests:"
 
-#: /templates/tracker/issue.index.twig:311
+#: /templates/tracker/issue.index.twig:318
 #, php-format
 msgid "Successful: %s"
 msgstr "Erfolgreich: %s"
 
-#: /templates/tracker/issue.index.twig:315
+#: /templates/tracker/issue.index.twig:322
 #, php-format
 msgid "Unsuccessful: %s"
 msgstr "Nicht erfolgreich: %s"
 
-#: /templates/tracker/issue.index.twig:323
+#: /templates/tracker/issue.index.twig:330
 msgid "I've tested this item"
 msgstr "Ich habe diese Meldung getestet"
 
-#: /templates/tracker/issue.index.twig:328
+#: /templates/tracker/issue.index.twig:335
+#: /templates/tracker/issue.index.twig:536
 msgid "Not tested"
 msgstr "Nicht getestet"
 
-#: /templates/tracker/issue.index.twig:334
+#: /templates/tracker/issue.index.twig:341
+#: /templates/tracker/issue.index.twig:542
 msgid "Tested successfully"
 msgstr "Erfolgreich getestet"
 
-#: /templates/tracker/issue.index.twig:340
+#: /templates/tracker/issue.index.twig:347
+#: /templates/tracker/issue.index.twig:548
 msgid "Tested unsuccessfully"
 msgstr "Nicht erfolgreich getestet"
 
-#: /templates/tracker/issue.index.twig:348
+#: /templates/tracker/issue.index.twig:355
 msgid "Submit test result"
 msgstr "Testergebnis abschicken"
 
-#: /templates/tracker/issue.index.twig:355
-#: /templates/tracker/issue.index.twig:369
+#: /templates/tracker/issue.index.twig:362
+#: /templates/tracker/issue.index.twig:376
 msgid "Alter test result"
 msgstr "Testergebnis modifizieren"
 
-#: /templates/tracker/issue.index.twig:358
+#: /templates/tracker/issue.index.twig:365
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr "Setze das Testrgebnis für Benutzer %s auf %s"
 
-#: /templates/tracker/issue.index.twig:358
+#: /templates/tracker/issue.index.twig:365
 msgid "username"
 msgstr "Benutzername"
 
-#: /templates/tracker/issue.index.twig:515
+#: /templates/tracker/issue.index.twig:453
+msgid "The description was changed"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:565
 msgid "Post Comment"
 msgstr "Kommentar absenden"
 
-#: /templates/tracker/issue.index.twig:528
+#: /templates/tracker/issue.index.twig:580
 msgid "Login with GitHub to post a comment"
 msgstr "Mit GitHub einloggen um einen Kommentar zu posten"
 
@@ -650,7 +661,7 @@ msgstr "Ihr Kommentar wurde übermittelt"
 msgid "Vote successfully added"
 msgstr "Abstimmung erfolgreich hinzugefügt"
 
-#: /src/App/Tracker/Controller/Issue/Submit.php:126
+#: /src/App/Tracker/Controller/Issue/Submit.php:147
 msgid "Your report has been submitted."
 msgstr "Ihre Meldung wurde übermittelt."
 

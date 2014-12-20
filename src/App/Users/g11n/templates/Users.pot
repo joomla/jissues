@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2014-12-19 15:49-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,20 +85,20 @@ msgstr ""
 msgid "Users List"
 msgstr ""
 
-#: /templates/users/users.index.twig:19
-#: /templates/users/users.index.twig:69
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr ""
-
-#: /templates/users/users.index.twig:26
-#: /templates/users/users.index.twig:29
-#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:21
+#: /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:25
 msgid "Filter the list by user."
 msgstr ""
 
-#: /templates/users/users.index.twig:35
+#: /templates/users/users.index.twig:30
 msgid "Clear"
+msgstr ""
+
+#: /templates/users/users.index.twig:37
+#: /templates/users/users.index.twig:69
+#, php-format
+msgid "Page %1$s of %2$s"
 msgstr ""
 
 #: /templates/users/users.index.twig:42

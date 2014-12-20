@@ -55,6 +55,9 @@ JTracker.submitComment = function (issue_number, debugContainer, outContainer, t
 				// Clear textarea and files
 				$('#comment').val('');
 				$('tbody.files').empty();
+
+				// Submit test result
+				JTracker.submitTestWithComment(out, 'tplNewTestResult');
 			}
 		}
 	);
@@ -114,9 +117,47 @@ JTracker.submitTest = function (issueId, statusContainer, resultContainer, templ
 				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure)
 
 				result.html(result.html() + tmpl(templateName, data.event));
+
+				// Update comment checkboxes
+				$('#current-test-result').val(testResult);
+				$( '.comment-test-result').prop('checked', false);
+				$( "#comment-test-result-" + testResult).prop('checked', true);
 			}
 		}
 	);
+};
+
+JTracker.submitTestWithComment = function (resultContainer, templateName) {
+	var issueId = $('#issue-id').val();
+	var result = resultContainer;
+	var testResult = $('input[name=comment-tested]').filter(':checked').val();
+	var currentTestResult = $('#current-test-result').val();
+
+	if (testResult && currentTestResult != testResult) {
+		$.post(
+			'/submit/testresult',
+			{ issueId: issueId, result: testResult},
+			function (r) {
+				if (r.error) {
+					// Failure
+					result.html(r.error);
+				}
+				else {
+					// Update comment checkboxes and current test result
+					$( '.test-result').prop('checked', false);
+					$( "#test-result-" + testResult).prop('checked', true);
+					$( '.comment-test-result').prop('checked', false);
+					$( "#comment-test-result-" + testResult).prop('checked', true);
+					$('#current-test-result').val(testResult);
+
+					var data = $.parseJSON(r.data);
+
+					JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
+					result.html(result.html() + tmpl(templateName, data.event));
+				}
+			}
+		);
+	}
 };
 
 JTracker.alterTest = function (issueId, statusContainer, resultContainer, templateName) {
