@@ -7,14 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blue" />
+    {% if useCDN %}
+    <link href="http://cdn.joomla.org/template/css/v3_template.min.css?v1.2.1" rel="stylesheet" media="screen">
+    {% else %}
     <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
+    {% endif %}
+    <link rel="stylesheet" href="{{ uri.base.path }}jtracker/core/css/jtracker.css">
     <link rel="stylesheet" href="{{ uri.base.path }}fonts/octicons/octicons.css">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ uri.base.path }}images/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ uri.base.path }}images/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ uri.base.path }}images/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="{{ uri.base.path }}images/apple-touch-icon-57-precomposed.png">
     {% if useCDN %}
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     {% endif %}
     <style type="text/css">
         h1, h2, h3, h4, h5, h6, .site-title {
@@ -50,7 +55,7 @@
                                 <a href="http://www.joomla.org/download.html" class="btn btn-large btn-warning">{{ "Download"|_ }} <span class="hidden-tablet">Joomla</span></a>
                             </div>
                             <div class="btn-group">
-                                <a href="http://demo.joomla.org/" class="btn btn-large btn-primary">{{ "Demo"|_ }} <span class="hidden-tablet">Joomla</span></a>
+                                <a href="https://demo.joomla.org/" class="btn btn-large btn-primary">{{ "Demo"|_ }} <span class="hidden-tablet">Joomla</span></a>
                             </div>
                         </div>
                     </div>
@@ -59,15 +64,17 @@
         </div>
     </header>
 
-    <div class="subnav" data-spy="affix" data-offset-top="25">
-        <div class="container">
-            {% block subnav %}
-                <ul class="nav menu nav-pills">
-                    {% block prependMenu %}{% endblock %}
-                    {% include "trackerMenu.twig" %}
-                    {% include "lang-switcher.twig" %}
-                </ul>
-            {% endblock %}
+    <div class="subnav-wrapper">
+        <div class="subnav">
+            <div class="container">
+                {% block subnav %}
+                    <ul class="nav menu nav-pills">
+                        {% block prependMenu %}{% endblock %}
+                        {% include "trackerMenu.twig" %}
+                        {% include "lang-switcher.twig" %}
+                    </ul>
+                {% endblock %}
+            </div>
         </div>
     </div>
 
@@ -117,6 +124,10 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $('.hasTooltip').tooltip();
+            $('.subnav-wrapper').height($('.subnav').height());
+            $('.subnav').affix({
+                offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
+            });
         });
     </script>
 
