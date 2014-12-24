@@ -53,11 +53,11 @@ Joomla Event Package
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/event.git
 
-#### joomla/filter (~1.1)
+#### joomla/filter (1.1.2)
 
 Joomla Filter Package
 
-* Installed: 1.1.4
+* Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (~1.2)
@@ -426,9 +426,16 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### it-IT
 * Kravenor &lt;baldelli.simone@gmail.com&gt;, 2014
 
+#### nb-NO
+* Kenneth Strømsvold &lt;kenneth@stromsvold.com&gt;, 2014
+
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
 * Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014
+
+#### pl-PL
+* Sebastian Łuckoś &lt;sebastian@atrox.pl&gt;, 2014
+* Stefan Wajda &lt;zwiastun@zwiastun.net&gt;, 2014
 
 #### pt-BR
 * Airton Torres &lt;airton.torres@gmail.com&gt;, 2014
