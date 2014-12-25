@@ -90,7 +90,7 @@
                 <option></option>
                 {% for relType in getRelTypes() %}
                     {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
-                    <option {{ selected }} value="{{ relType.value }}">{{ relType.text }}</option>
+                    <option {{ selected }} value="{{ relType.value }}">{{ relation(relType.text) }}</option>
                 {% endfor %}
             </select>
         </li>

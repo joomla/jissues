@@ -202,7 +202,7 @@
 <!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
-            {{ item.rel_name }}
+            {{ relation(item.rel_name) }}
             {{ issueLink(item.rel_number, item.rel_closed, item.rel_title)|raw }}
         </div>
     {% endif %}
@@ -211,7 +211,7 @@
         <div class="alert">
             {{ "Referenced as"|_ }}
             {% for rel_name, relations in item.relations_f %}
-                <strong>{{ rel_name }}: </strong>
+                <strong>{{ relation(rel_name) }}: </strong>
                 {% for relation in relations %}
                     {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
               {% endfor %}
