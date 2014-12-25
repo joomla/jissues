@@ -9,6 +9,7 @@
 namespace Application\Command\Update;
 
 use Application\Command\Make\Repoinfo;
+use Application\Command\TrackerCommandOption;
 
 /**
  * Class for synchronizing a server with the primary git repository
@@ -23,7 +24,22 @@ class Server extends Update
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $description = 'Update the server with the latest git commits';
+	protected $description = 'Updates the local installation to either a specified version or latest HEAD for the active branch';
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->addOption(
+			new TrackerCommandOption(
+				'version', 'v',
+				'An optional version number to update to.'
+			)
+		);
+	}
 
 	/**
 	 * Execute the command.
@@ -38,7 +54,22 @@ class Server extends Update
 		$this->getApplication()->outputTitle('Update Server');
 
 		$this->logOut('Beginning git update');
-		$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
+
+		if ($this->getApplication()->input->getBool('version', false))
+		{
+			$version = $this->getApplication()->input->getString('version');
+
+			// Fetch from remote sources and checkout the specified version tag
+			$this->execCommand('cd ' . JPATH_ROOT . ' && git fetch && git checkout ' . $version . ' 2>&1');
+
+			// TODO - Implement automated support for SQL updates
+		}
+		else
+		{
+			// Perform a git pull on the active branch
+			$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
+		}
+
 		$this->logOut('Git update Finished');
 
 		(new Repoinfo)
