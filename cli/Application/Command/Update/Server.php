@@ -64,6 +64,9 @@ class Server extends Update
 			// Fetch from remote sources and checkout the specified version tag
 			$this->execCommand('cd ' . JPATH_ROOT . ' && git fetch && git checkout ' . $version . ' 2>&1');
 
+			// Update the Composer installation
+			$this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
+
 			/*
 			 * If a SQL diff exists for the version requested, then process it.  It is assumed that the person
 			 * updating will not be skipping versions with this implementation, but if need be, that can be supported.
