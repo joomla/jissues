@@ -12,6 +12,7 @@ use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
+use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
@@ -374,6 +375,23 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['easy']            = $filter->clean($src['easy'], 'int');
 		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
 		$data['milestone_id']    = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
+
+		$state        = $src['new_state'];
+		$changedState = $src['old_state'] != $src['new_state'];
+
+		// If the item has moved from open to closed, add the close data
+		if ($state == 'closed' && $changedState)
+		{
+			$data['closed_date'] = (new Date)->format($this->getDb()->getDateFormat());
+			$data['closed_by']   = $data['modified_by'];
+		}
+
+		// If the item has moved from closed to open, remove the close data
+		if ($state == 'open' && $changedState)
+		{
+			$data['closed_date'] = null;
+			$data['closed_by']   = null;
+		}
 
 		if (!$data['id'])
 		{

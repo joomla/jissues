@@ -89,13 +89,13 @@ class Save extends AbstractTrackerController
 
 		$gitHub = GithubFactory::getInstance($application);
 
+		// Check if the state has changed (e.g. open/closed)
+		$oldState = $model->getOpenClosed($item->status);
+		$state    = $model->getOpenClosed($data['status']);
+
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
-
-			// Check if the state has changed (e.g. open/closed)
-			$oldState = $model->getOpenClosed($item->status);
-			$state    = $model->getOpenClosed($data['status']);
 
 			try
 			{
@@ -147,6 +147,11 @@ class Save extends AbstractTrackerController
 
 				$categoryModel->updateCategory($category);
 			}
+
+			// Pass the old and new states into the save method
+			$data['old_state'] = $oldState;
+			$data['new_state'] = $state;
+
 			// Save the record.
 			$model->save($data);
 
