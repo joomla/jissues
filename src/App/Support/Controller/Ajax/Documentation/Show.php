@@ -38,7 +38,7 @@ class Show extends AbstractAjaxController
 		$page = $input->get('page');
 		$path = $input->getPath('path');
 
-        $base = $this->getContainer()->get('app')->get('uri')->base->path;
+		$base = $this->getContainer()->get('app')->get('uri')->base->path;
 
 		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
 		$this->response->permaLink = $base . 'documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
