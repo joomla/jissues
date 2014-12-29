@@ -241,9 +241,10 @@
             {{ item.description|raw }}
         </div>
 
+        {% if item.votes or user.id or item.has_code %}
         <div class="span3 well">
 
-            {% if item.votes or user.id%}
+            {% if item.votes or user.id %}
             <h4>{{ 'Votes'|_ }}</h4>
             {% endif %}
 
@@ -381,6 +382,7 @@
 
             {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <!-- Activity stream -->
