@@ -50,6 +50,7 @@
     </script>
     <script type="text/x-tmpl" id="tplDocuError">
         <div class="alert alert-error">
+        [%# o.error %]
         </div>
     </script>
 
@@ -65,20 +66,17 @@
 
 	<script type="text/javascript">
 		function loadDocuPage(fullPath) {
-
-			//var url = '/documentation/show/?' + fullPath;
-
 			jQuery.ajax({
-				url : '/documentation/show/?' + fullPath,
-				success: function(response, status) {
+				url : '{{ uri.base.path }}documentation/show/?' + fullPath,
+				success: function(response) {
 					if(response.error)
 					{
-						jQuery('#docuContainer').html(response.error);
+						jQuery('#docuContainer').html(tmpl("tplDocuError", response));
 					}
 					else
 					{
 						jQuery('#docuContainer').html(tmpl("tplDocuPage", response));
-						window.history.pushState({},'', '/documentation/view/?' + fullPath);
+						window.history.pushState({},'', '{{ uri.base.path }}documentation/view/?' + fullPath);
 					}
 				},
 				error: (function() {
@@ -90,7 +88,7 @@
 		$(document).ready(function() {
 			$('#filetree').fileTree({
 				root: '{{ docuBase }}',
-				script: '/filetree',
+				script: '{{ uri.base.path }}filetree',
 				multiFolder: false
 			}, function(fullPath) {
 				loadDocuPage(fullPath);
