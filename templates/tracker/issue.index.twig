@@ -237,7 +237,13 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="span7 well-small issue-description">
+        {% if item.votes or user.id or item.has_code %}
+            {% set mainClass = 'span7' %}
+        {% else %}
+            {% set mainClass = 'span10' %}
+        {% endif %}
+
+        <div class="{{ mainClass }} well-small issue-description">
             {{ item.description|raw }}
         </div>
 
