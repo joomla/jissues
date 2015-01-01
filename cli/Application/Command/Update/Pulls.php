@@ -60,8 +60,61 @@ class Pulls extends Update
 			->fetchPulls()
 			->labelPulls()
 			->updatePullStatus()
+			->closePulls()
 			->out()
 			->logOut('Finished');
+	}
+
+	/**
+	 * Closes pull requests meeting specific criteria
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function closePulls()
+	{
+		// Only process for joomla/joomla-cms
+		if ($this->project->gh_user == 'joomla' && $this->project->gh_project == 'joomla-cms')
+		{
+			$message = 'Joomla! 2.5 is no longer supported.  Pull requests for this branch are no longer accepted.';
+
+			foreach ($this->pulls as $pull)
+			{
+				if ($pull->base->ref == '2.5.x')
+				{
+					// We have to do this in two requests; first add our closing comment then close the item
+					$this->github->issues->comments->create(
+						$this->project->gh_user, $this->project->gh_project, $pull->number, $message
+					);
+
+					$this->github->pulls->edit(
+						$this->project->gh_user, $this->project->gh_project, $pull->number, null, null, 'closed'
+					);
+
+					$this->out(
+						sprintf(
+							'GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5.',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$pull->number
+						)
+					);
+				}
+			}
+		}
+		else
+		{
+			$this->out(
+				sprintf(
+					'The %s/%s project is not supported by this command at this time.',
+					$this->project->gh_user,
+					$this->project->gh_project
+				)
+			);
+		}
+
+		return $this;
 	}
 
 	/**
