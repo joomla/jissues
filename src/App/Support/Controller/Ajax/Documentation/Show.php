@@ -38,8 +38,10 @@ class Show extends AbstractAjaxController
 		$page = $input->get('page');
 		$path = $input->getPath('path');
 
+		$base = $this->getContainer()->get('app')->get('uri')->base->path;
+
 		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
-		$this->response->permaLink = '/documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
+		$this->response->permaLink = $base . 'documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
 
 		$data = $model->getItem($page, $path)->text;
 
@@ -47,8 +49,7 @@ class Show extends AbstractAjaxController
 
 		if ($err)
 		{
-			// @todo better error handling...
-			$this->response->data = $err;
+			$this->response->error = $err;
 		}
 		else
 		{
