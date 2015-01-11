@@ -502,6 +502,7 @@
                     $('#issuesList tbody').animate({opacity: 1}, 100);
 
                     var categoryText = $('#filter-category option:selected').text();
+
                     $('#permalink').attr('href', getPermaLink(
                             search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by
                     ));
@@ -513,6 +514,15 @@
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
+
+            // Replace non alpha numeric chars with dash
+            categoryText = categoryText.replace(/[\W_]+/g,'-');
+
+            // Remove the last dash if exists
+            if (categoryText.charAt(categoryText.length - 1) == '-')
+            {
+                categoryText = categoryText.slice(0, - 1);
+            }
 
             if (state != 0) { filters[filters.length] = 'state=' + state; }
 
