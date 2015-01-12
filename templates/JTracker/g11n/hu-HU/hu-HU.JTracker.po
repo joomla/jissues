@@ -1,5 +1,5 @@
 # JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 15:49-0600\n"
+"POT-Creation-Date: 2015-01-12 09:43-0600\n"
 "PO-Revision-Date: 2014-12-19 21:49+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:50
+#: /templates/index.twig:55
 msgid "Download"
 msgstr "Letöltés"
 
-#: /templates/index.twig:53
+#: /templates/index.twig:58
 msgid "Demo"
 msgstr "Demó"
 

@@ -1,5 +1,5 @@
 # JTracker App Tracker 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 15:49-0600\n"
-"PO-Revision-Date: 2014-12-19 18:32+0000\n"
+"POT-Creation-Date: 2015-01-12 09:43-0600\n"
+"PO-Revision-Date: 2015-01-12 15:44+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -77,12 +77,12 @@ msgid "Title"
 msgstr "标题"
 
 #: /templates/tracker/issue.edit.twig:156
-#: /templates/tracker/issue.index.twig:508
+#: /templates/tracker/issue.index.twig:516
 msgid "Add a Comment"
 msgstr "添加评论"
 
 #: /templates/tracker/issue.edit.twig:164
-#: /templates/tracker/issue.index.twig:521
+#: /templates/tracker/issue.index.twig:529
 msgid "Leave a comment"
 msgstr "键入一条评论"
 
@@ -488,99 +488,99 @@ msgstr ""
 msgid "Referenced as"
 msgstr "被引用为"
 
-#: /templates/tracker/issue.index.twig:247
+#: /templates/tracker/issue.index.twig:254
 msgid "Votes"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:257
+#: /templates/tracker/issue.index.twig:264
 msgid "# of Users Experiencing Issue"
 msgstr "经历过此问题的用户数"
 
-#: /templates/tracker/issue.index.twig:261
+#: /templates/tracker/issue.index.twig:268
 msgid "Average Importance Score"
 msgstr "重要性平均得分"
 
-#: /templates/tracker/issue.index.twig:270
+#: /templates/tracker/issue.index.twig:277
 msgid "I've experienced this issue"
 msgstr "我经历过类似的问题"
 
-#: /templates/tracker/issue.index.twig:273
-#: /templates/tracker/tracker.filters.twig:85
+#: /templates/tracker/issue.index.twig:280
+#: /templates/tracker/tracker.filters.twig:87
 msgid "Yes"
 msgstr "是"
 
-#: /templates/tracker/issue.index.twig:277
+#: /templates/tracker/issue.index.twig:284
 msgid "No"
 msgstr "否"
 
-#: /templates/tracker/issue.index.twig:282
+#: /templates/tracker/issue.index.twig:289
 msgid "Importance of issue to me"
 msgstr "对我而言，问题的重要性"
 
-#: /templates/tracker/issue.index.twig:307
+#: /templates/tracker/issue.index.twig:314
 msgid "Vote"
 msgstr "投票"
 
-#: /templates/tracker/issue.index.twig:314
+#: /templates/tracker/issue.index.twig:321
 msgid "Tests:"
 msgstr "测试:"
 
-#: /templates/tracker/issue.index.twig:318
+#: /templates/tracker/issue.index.twig:325
 #, php-format
 msgid "Successful: %s"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:322
+#: /templates/tracker/issue.index.twig:329
 #, php-format
 msgid "Unsuccessful: %s"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:330
+#: /templates/tracker/issue.index.twig:337
 msgid "I've tested this item"
 msgstr "我已测试过此项目"
 
-#: /templates/tracker/issue.index.twig:335
-#: /templates/tracker/issue.index.twig:536
+#: /templates/tracker/issue.index.twig:342
+#: /templates/tracker/issue.index.twig:544
 msgid "Not tested"
 msgstr "未测试"
 
-#: /templates/tracker/issue.index.twig:341
-#: /templates/tracker/issue.index.twig:542
+#: /templates/tracker/issue.index.twig:348
+#: /templates/tracker/issue.index.twig:550
 msgid "Tested successfully"
 msgstr "测试成功"
 
-#: /templates/tracker/issue.index.twig:347
-#: /templates/tracker/issue.index.twig:548
+#: /templates/tracker/issue.index.twig:354
+#: /templates/tracker/issue.index.twig:556
 msgid "Tested unsuccessfully"
 msgstr "测试不成功"
 
-#: /templates/tracker/issue.index.twig:355
+#: /templates/tracker/issue.index.twig:362
 msgid "Submit test result"
 msgstr "提交结果"
 
-#: /templates/tracker/issue.index.twig:362
-#: /templates/tracker/issue.index.twig:376
+#: /templates/tracker/issue.index.twig:369
+#: /templates/tracker/issue.index.twig:383
 msgid "Alter test result"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:365
+#: /templates/tracker/issue.index.twig:372
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:365
+#: /templates/tracker/issue.index.twig:372
 msgid "username"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:453
+#: /templates/tracker/issue.index.twig:461
 msgid "The description was changed"
 msgstr ""
 
-#: /templates/tracker/issue.index.twig:565
+#: /templates/tracker/issue.index.twig:573
 msgid "Post Comment"
 msgstr "发布评论"
 
-#: /templates/tracker/issue.index.twig:580
+#: /templates/tracker/issue.index.twig:588
 msgid "Login with GitHub to post a comment"
 msgstr "请用GitHub帐号登录以发表评论"
 
@@ -624,27 +624,31 @@ msgstr "您参与的"
 msgid "- categories -"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:50
+msgid "No categories"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:63
 msgid "- labels -"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "- tests -"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "Needs one test"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "Needs tests"
 msgstr ""
 
-#: /templates/tracker/tracker.filters.twig:85
+#: /templates/tracker/tracker.filters.twig:87
 msgid "- easy -"
 msgstr ""
 

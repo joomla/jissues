@@ -1,5 +1,5 @@
 # JTracker App Tracker 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 15:49-0600\n"
-"PO-Revision-Date: 2014-12-19 18:32+0000\n"
+"POT-Creation-Date: 2015-01-12 09:43-0600\n"
+"PO-Revision-Date: 2015-01-12 15:44+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -77,12 +77,12 @@ msgid "Title"
 msgstr "Titel"
 
 #: /templates/tracker/issue.edit.twig:156
-#: /templates/tracker/issue.index.twig:508
+#: /templates/tracker/issue.index.twig:516
 msgid "Add a Comment"
 msgstr "Reactie toevoegen"
 
 #: /templates/tracker/issue.edit.twig:164
-#: /templates/tracker/issue.index.twig:521
+#: /templates/tracker/issue.index.twig:529
 msgid "Leave a comment"
 msgstr "Reactie schrijven"
 
@@ -235,7 +235,7 @@ msgstr "Laden, even geduld a.u.b."
 
 #: /templates/tracker/issues.index.twig:229
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #: /templates/tracker/issues.index.twig:238
 msgid "GitHub ID"
@@ -488,99 +488,99 @@ msgstr "Categorieën:"
 msgid "Referenced as"
 msgstr "Gerefereerd als"
 
-#: /templates/tracker/issue.index.twig:247
+#: /templates/tracker/issue.index.twig:254
 msgid "Votes"
 msgstr "Stemmen"
 
-#: /templates/tracker/issue.index.twig:257
+#: /templates/tracker/issue.index.twig:264
 msgid "# of Users Experiencing Issue"
 msgstr "aantal gebruikers die de melding ondervinden"
 
-#: /templates/tracker/issue.index.twig:261
+#: /templates/tracker/issue.index.twig:268
 msgid "Average Importance Score"
 msgstr "Gemiddelde belangrijkheid score"
 
-#: /templates/tracker/issue.index.twig:270
+#: /templates/tracker/issue.index.twig:277
 msgid "I've experienced this issue"
 msgstr "Heeft u deze melding ondervonden?"
 
-#: /templates/tracker/issue.index.twig:273
-#: /templates/tracker/tracker.filters.twig:85
+#: /templates/tracker/issue.index.twig:280
+#: /templates/tracker/tracker.filters.twig:87
 msgid "Yes"
 msgstr "Ja"
 
-#: /templates/tracker/issue.index.twig:277
+#: /templates/tracker/issue.index.twig:284
 msgid "No"
 msgstr "Nee"
 
-#: /templates/tracker/issue.index.twig:282
+#: /templates/tracker/issue.index.twig:289
 msgid "Importance of issue to me"
 msgstr "Belangrijkheid van deze melding voor u"
 
-#: /templates/tracker/issue.index.twig:307
+#: /templates/tracker/issue.index.twig:314
 msgid "Vote"
 msgstr "Stem"
 
-#: /templates/tracker/issue.index.twig:314
+#: /templates/tracker/issue.index.twig:321
 msgid "Tests:"
 msgstr "Tests:"
 
-#: /templates/tracker/issue.index.twig:318
+#: /templates/tracker/issue.index.twig:325
 #, php-format
 msgid "Successful: %s"
 msgstr "Succesvol: %s"
 
-#: /templates/tracker/issue.index.twig:322
+#: /templates/tracker/issue.index.twig:329
 #, php-format
 msgid "Unsuccessful: %s"
 msgstr "Niet succesvol: %s"
 
-#: /templates/tracker/issue.index.twig:330
+#: /templates/tracker/issue.index.twig:337
 msgid "I've tested this item"
 msgstr "Ik heb deze melding getest"
 
-#: /templates/tracker/issue.index.twig:335
-#: /templates/tracker/issue.index.twig:536
+#: /templates/tracker/issue.index.twig:342
+#: /templates/tracker/issue.index.twig:544
 msgid "Not tested"
 msgstr "Niet getest"
 
-#: /templates/tracker/issue.index.twig:341
-#: /templates/tracker/issue.index.twig:542
+#: /templates/tracker/issue.index.twig:348
+#: /templates/tracker/issue.index.twig:550
 msgid "Tested successfully"
 msgstr "Succesvol getest"
 
-#: /templates/tracker/issue.index.twig:347
-#: /templates/tracker/issue.index.twig:548
+#: /templates/tracker/issue.index.twig:354
+#: /templates/tracker/issue.index.twig:556
 msgid "Tested unsuccessfully"
 msgstr "Niet succesvol getest"
 
-#: /templates/tracker/issue.index.twig:355
+#: /templates/tracker/issue.index.twig:362
 msgid "Submit test result"
 msgstr "Verstuur test resultaat"
 
-#: /templates/tracker/issue.index.twig:362
-#: /templates/tracker/issue.index.twig:376
+#: /templates/tracker/issue.index.twig:369
+#: /templates/tracker/issue.index.twig:383
 msgid "Alter test result"
 msgstr "Wijzig test resultaat"
 
-#: /templates/tracker/issue.index.twig:365
+#: /templates/tracker/issue.index.twig:372
 #, php-format
 msgid "Set the test result for user %s to %s"
 msgstr "Zet het resultaat van gebruiker %s naar %s"
 
-#: /templates/tracker/issue.index.twig:365
+#: /templates/tracker/issue.index.twig:372
 msgid "username"
 msgstr "gebruikersnaam"
 
-#: /templates/tracker/issue.index.twig:453
+#: /templates/tracker/issue.index.twig:461
 msgid "The description was changed"
-msgstr ""
+msgstr "De omschrijving is veranderd"
 
-#: /templates/tracker/issue.index.twig:565
+#: /templates/tracker/issue.index.twig:573
 msgid "Post Comment"
 msgstr "Reactie verzenden"
 
-#: /templates/tracker/issue.index.twig:580
+#: /templates/tracker/issue.index.twig:588
 msgid "Login with GitHub to post a comment"
 msgstr "Log in met GitHub om een reactie te plaatsen"
 
@@ -624,27 +624,31 @@ msgstr "U heeft deelgenomen in"
 msgid "- categories -"
 msgstr "- categorieën -"
 
-#: /templates/tracker/tracker.filters.twig:61
+#: /templates/tracker/tracker.filters.twig:50
+msgid "No categories"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:63
 msgid "- labels -"
 msgstr "- labels -"
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "- tests -"
 msgstr "- testen -"
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
 msgstr "Heeft twee testen"
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "Needs one test"
 msgstr "Vereist één test"
 
-#: /templates/tracker/tracker.filters.twig:72
+#: /templates/tracker/tracker.filters.twig:74
 msgid "Needs tests"
 msgstr "Testen nodig"
 
-#: /templates/tracker/tracker.filters.twig:85
+#: /templates/tracker/tracker.filters.twig:87
 msgid "- easy -"
 msgstr "- makkelijk -"
 

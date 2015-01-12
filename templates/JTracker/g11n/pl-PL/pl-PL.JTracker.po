@@ -1,5 +1,5 @@
 # JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 15:49-0600\n"
-"PO-Revision-Date: 2014-12-19 21:49+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2015-01-12 09:43-0600\n"
+"PO-Revision-Date: 2014-12-20 23:32+0000\n"
+"Last-Translator: Stefan Wajda <zwiastun@zwiastun.net>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: /templates/index.twig:50
+#: /templates/index.twig:55
 msgid "Download"
-msgstr "Ściągnij"
+msgstr "Pobierz"
 
-#: /templates/index.twig:53
+#: /templates/index.twig:58
 msgid "Demo"
 msgstr "Demo"
 
@@ -87,7 +87,7 @@ msgstr "Błąd"
 
 #: /templates/footerMenu.twig:6
 msgid "Home"
-msgstr "Strona domowa"
+msgstr "Start"
 
 #: /templates/footerMenu.twig:7 /templates/topMenu.twig:28
 msgid "About"
@@ -207,7 +207,7 @@ msgstr "Logi"
 
 #: /templates/trackerMenu.twig:115
 msgid "Cron Jobs"
-msgstr "Cron Jobs"
+msgstr "Zadania planowane"
 
 #: /templates/trackerMenu.twig:120
 msgid "Database"
@@ -251,7 +251,7 @@ msgstr "O nas"
 
 #: /templates/trackerMenu.twig:192
 msgid "Markdown"
-msgstr ""
+msgstr "Znakowanie"
 
 #: /templates/trackerMenu.twig:197 /templates/topMenu.twig:74
 msgid "Documentation"
@@ -343,11 +343,11 @@ msgstr "Joomla! UX"
 
 #: /templates/topMenu.twig:43
 msgid "Joomla! User Groups"
-msgstr "Grupy Użytkowników Joomla!"
+msgstr "Joomla! Grupy Użytkowników"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Volunteers Portal"
-msgstr ""
+msgstr "Joomla! Portal Wolontariuszy"
 
 #: /templates/topMenu.twig:47
 msgid "Support"
@@ -363,7 +363,7 @@ msgstr "Joomla! Dokumentacja"
 
 #: /templates/topMenu.twig:51
 msgid "Joomla! Issue Tracker"
-msgstr ""
+msgstr "Joomla! Tropiciel błędów"
 
 #: /templates/topMenu.twig:52
 msgid "Joomla! Resources"
@@ -379,11 +379,11 @@ msgstr "Joomla! Magazyn"
 
 #: /templates/topMenu.twig:58
 msgid "Joomla! Connect"
-msgstr "Joomla! Kolektyw"
+msgstr "Joomla! Doniesienia"
 
 #: /templates/topMenu.twig:59
 msgid "Joomla! Mailing Lists"
-msgstr "Joomla! Lista adresowa"
+msgstr "Joomla! Lista wysyłkowa"
 
 #: /templates/topMenu.twig:62
 msgid "Extend"
@@ -395,7 +395,7 @@ msgstr "Katalog rozszerzeń"
 
 #: /templates/topMenu.twig:65
 msgid "Showcase Directory"
-msgstr "Katalog rozszerzeń polecanych"
+msgstr "Katalog stron"
 
 #: /templates/topMenu.twig:66
 msgid "Resource Directory"
@@ -443,4 +443,4 @@ msgstr "Grupa tłumacząca"
 
 #: /templates/topMenu.twig:89
 msgid "Translations Forum"
-msgstr "Forum tłumaczeń"
+msgstr "Forum tłumaczy"
