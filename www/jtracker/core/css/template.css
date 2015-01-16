@@ -8761,3 +8761,8 @@ div#nav-search form input[type="text"] {
 .subnav-wrapper {
   margin-bottom: 22px;
 }
+@media (min-width: 768px) {
+  a#permalink{
+    margin-right: 5px;
+  }
+}
