@@ -41,14 +41,6 @@ class Get extends TrackerCommand
 	protected $botId = 0;
 
 	/**
-	 * Project object.
-	 *
-	 * @var    ProjectsTable
-	 * @since  1.0
-	 */
-	protected $project = null;
-
-	/**
 	 * Transifex object
 	 *
 	 * @var    Transifex
