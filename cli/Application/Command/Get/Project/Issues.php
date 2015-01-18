@@ -305,23 +305,27 @@ class Issues extends Project
 				$table->pr_head_user = $pullRequest->head->user->login;
 				$table->pr_head_ref  = $pullRequest->head->ref;
 
-				$status = $this->GetMergeStatus($pullRequest);
-
-				if (!$status->state)
+				if ($this->project->getGh_Editbot_User() && $this->project->getGh_Editbot_Pass())
 				{
-					// No status found. Let's create one!
+					$gitHub = GithubFactory::getInstance(
+						$this->getApplication(), true,
+						$this->project->getGh_Editbot_User() && $this->project->getGh_Editbot_Pass()
+					);
 
-					$status->state = 'pending';
-					$status->targetUrl = 'http://issues.joomla.org/gagaga';
-					$status->description = 'JTracker Bug Squad working on it...';
-					$status->context = 'jtracker';
-
-					// @todo Project based status messages
-					// @$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
+					$this->project->runActions(
+						'GitHub', 'UpdateStatus',
+						['pullRequest' => $pullRequest, 'GitHub' => $gitHub]
+					);
 				}
-				else
+
+				if (0)
 				{
+					// DISABLED !!!
+
+					$status = $this->GetMergeStatus($pullRequest);
+
 					// Save the merge status to database
+					// !!! There is only support for a SINGLE status !!!
 					$table->merge_state = $status->state;
 					$table->gh_merge_status = json_encode($status);
 				}
@@ -588,35 +592,5 @@ class Issues extends Project
 		}
 
 		return $commits;
-	}
-
-	/**
-	 * Create a GitHub merge status for the last commit in a PR.
-	 *
-	 * @param   object  $ghIssue      The issue object.
-	 * @param   string  $state        The state (pending, success, error or failure).
-	 * @param   string  $targetUrl    Optional target URL.
-	 * @param   string  $description  Optional description for the status.
-	 * @param   string  $context      A string label to differentiate this status from the status of other systems.
-	 *
-	 * @return  Status
-	 *
-	 * @since   1.0
-	 */
-	private function createStatus($ghIssue, $state, $targetUrl, $description, $context)
-	{
-		// Get the pull request corresponding to an issue.
-		$this->debugOut('Get PR for the issue');
-
-		$pullRequest = $this->githubBot->pulls->get(
-			$this->project->gh_user, $this->project->gh_project, $ghIssue->number
-		);
-
-		$this->debugOut('Create status for PR');
-
-		return $this->githubBot->repositories->statuses->create(
-			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha,
-			$state, $targetUrl, $description, $context
-		);
 	}
 }
