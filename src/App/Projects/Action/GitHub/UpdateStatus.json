@@ -1,0 +1,29 @@
+{
+  "humanTestResults": {
+    "active": "bool",
+    "pending": {
+      "comp_success": "str[<>=]",
+      "cnt_success": "int",
+      "comp_failure": "str[<>=]",
+      "cnt_failure": "int"
+    },
+    "success": {
+      "comp_success": "str[<>=]",
+      "cnt_success": "int",
+      "comp_failure": "str[<>=]",
+      "cnt_failure": "int"
+    },
+    "error": {
+      "comp_success": "str[<>=]",
+      "cnt_success": "int",
+      "comp_failure": "str[<>=]",
+      "cnt_failure": "int"
+    },
+    "failure": {
+      "comp_success": "str[<>=]",
+      "cnt_success": "int",
+      "comp_failure": "str[<>=]",
+      "cnt_failure": "int"
+    }
+  }
+}
