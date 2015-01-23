@@ -42,25 +42,25 @@ class UpdateStatus extends AbstractGitHub
 		$this->pullRequest = $params['pullRequest'];
 		$this->setGitHub($params['GitHub']);
 
-		foreach ($actionParams as $type => $actionParam)
+		foreach ($actionParams as $method => $actionParam)
 		{
 			if ('1' != $actionParam->active)
 			{
 				continue;
 			}
 
-			if (false == method_exists($this, $type))
+			if (false == method_exists($this, $method))
 			{
 				throw new \UnexpectedValueException(
 					sprintf(
-						'Method"%1$s"does not exist in class"%2$s"', $type, __CLASS__
+						'Method"%1$s"does not exist in class"%2$s"', $method, __CLASS__
 					)
 				);
 			}
 
 			unset($actionParam->active);
 
-			$status = $this->$type($actionParam);
+			$status = $this->$method($actionParam);
 
 			if ($status->state)
 			{
@@ -125,8 +125,10 @@ class UpdateStatus extends AbstractGitHub
 				$status->description = sprintf('Human Test Results: %1$d Successful %2$d Failed.', $cntSuccess, $cntFailure);
 				$status->context = 'JTracker/HumanTestResults';
 
-				// @todo - where to get the URL from a CLI script?
-				$status->targetUrl = '' . $this->pullRequest->number;
+				// @todo - where to get the URL from a CLI script? - create a config setting??
+				$targetBaseUrl = 'http://issues.joomla.org';
+
+				$status->targetUrl = $targetBaseUrl . '/tracker/' . $this->project->alias . '/' . $this->pullRequest->number;
 
 				return $status;
 			}
@@ -146,7 +148,7 @@ class UpdateStatus extends AbstractGitHub
 	 *
 	 * @return  object
 	 */
-	private function createStatus($issueNumber, Status $status, $sha = '')// $state, $targetUrl, $description, $context)
+	private function createStatus($issueNumber, Status $status, $sha = '')
 	{
 		if (!$sha)
 		{
