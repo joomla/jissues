@@ -58,9 +58,11 @@ class UpdateStatus extends AbstractGitHub
 				);
 			}
 
-			unset($actionParam->active);
+			$p = clone($actionParam);
 
-			$status = $this->$method($actionParam);
+			unset($p->active);
+
+			$status = $this->$method($p);
 
 			if ($status->state)
 			{
