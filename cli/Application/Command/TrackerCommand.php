@@ -280,7 +280,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
-				->select(array('project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'))
+				->select(array('project_id', 'title', 'alias', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'))
 
 		)->loadObjectList();
 

@@ -309,7 +309,7 @@ class Issues extends Project
 				{
 					$gitHub = GithubFactory::getInstance(
 						$this->getApplication(), true,
-						$this->project->getGh_Editbot_User() && $this->project->getGh_Editbot_Pass()
+						$this->project->getGh_Editbot_User(), $this->project->getGh_Editbot_Pass()
 					);
 
 					$this->project->runActions(
