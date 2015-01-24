@@ -244,6 +244,7 @@ class Issues extends Project
 
 			// Store the item in the database
 			$table = new IssuesTable($this->getContainer()->get('db'));
+			$pullRequest = null;
 
 			if ($id)
 			{
@@ -304,19 +305,6 @@ class Issues extends Project
 
 				$table->pr_head_user = $pullRequest->head->user->login;
 				$table->pr_head_ref  = $pullRequest->head->ref;
-
-				if ($this->project->getGh_Editbot_User() && $this->project->getGh_Editbot_Pass())
-				{
-					$gitHub = GithubFactory::getInstance(
-						$this->getApplication(), true,
-						$this->project->getGh_Editbot_User(), $this->project->getGh_Editbot_Pass()
-					);
-
-					$this->project->runActions(
-						'GitHub', 'UpdateStatus',
-						['pullRequest' => $pullRequest, 'GitHub' => $gitHub]
-					);
-				}
 
 				if (0)
 				{
@@ -390,6 +378,19 @@ class Issues extends Project
 				$activity->store();
 			}
 			*/
+
+			if ($pullRequest && $this->project->getGh_Editbot_User() && $this->project->getGh_Editbot_Pass())
+			{
+				$gitHub = GithubFactory::getInstance(
+					$this->getApplication(), true,
+					$this->project->getGh_Editbot_User(), $this->project->getGh_Editbot_Pass()
+				);
+
+				$this->project->runActions(
+					'GitHub', 'UpdateStatus',
+					['pullRequest' => $pullRequest, 'GitHub' => $gitHub]
+				);
+			}
 
 			// Store was successful, update status
 			if ($id)
