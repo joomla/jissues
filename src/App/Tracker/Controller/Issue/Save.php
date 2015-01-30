@@ -343,7 +343,8 @@ class Save extends AbstractTrackerController
 	/**
 	 * Add the status as label on GitHub.
 	 *
-	 * The method gets the list of current labels and remove all labels that starts with `~` as it is the status prefix, after this the method add the new status label
+	 * The method gets the list of current labels and remove all labels that starts with `~`
+	 * as it is the status prefix, after this the method add the new status label
 	 *
 	 * @param   integer  $issueNumber  The issue number.
 	 * @param   string   $newlabel     The new label that should be added as label.
@@ -408,8 +409,8 @@ class Save extends AbstractTrackerController
 							$project->gh_user, $project->gh_project, $issueNumber, $label
 						);
 
-						// Post the new label on the object
-						/*$logger->info(
+						/*// Post the new label on the object
+						$logger->info(
 							sprintf(
 								'Removed %s label from %s/%s #%d',
 								$label,
@@ -450,8 +451,8 @@ class Save extends AbstractTrackerController
 					$project->gh_user, $project->gh_project, $issueNumber, $addLabels
 				);
 
-				// Post the new label on the object
-				/*$logger->info(
+				/*// Post the new label on the object
+				$logger->info(
 					sprintf(
 						'Added %s labels to %s/%s #%d',
 						count($addLabels),
@@ -473,6 +474,6 @@ class Save extends AbstractTrackerController
 					)
 				);*/
 			}
-		}	
+		}
 	}
 }
