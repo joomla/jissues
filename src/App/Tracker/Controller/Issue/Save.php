@@ -397,9 +397,9 @@ class Save extends AbstractTrackerController
 
 					$LabelIsSet = true;
 				}
-				
+
 				$prefix = substr($label->name, 0, 1);
-				
+
 				if ($prefix == '~')
 				{
 					try
