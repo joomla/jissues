@@ -105,6 +105,7 @@
             <label for="build">{{ translate('Build') }}</label>
             <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
         </li>
+        {% if item.has_code %}
         <li>
             <label for="easy">{{ translate('Easy test') }}</label>
             <select name="item[easy]" id="easy" class="span1">
@@ -112,6 +113,7 @@
                 <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
             </select>
         </li>
+        {% endif %}
         {% if project.categories %}
         <li>
             {{ fields.label('categories[]', 'Categories'|_) }}
