@@ -124,7 +124,7 @@ class Save extends AbstractTrackerController
 			);
 
 			// Get the label that match the status
-			$label = $model->getStatusName($item->status);
+			$label = '~' . $model->getStatusName($item->status);
 
 			// Adding the label that match to the Status
 			$this->addLabelToGitHub($issueNumber, $label)
