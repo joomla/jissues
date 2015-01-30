@@ -122,6 +122,12 @@ class Save extends AbstractTrackerController
 				$data['description_raw'], 'gfm',
 				$project->gh_user . '/' . $project->gh_project
 			);
+
+			// Get the label that match the status
+			$label = $model->getStatusName($item->status);
+
+			// Adding the label that match to the Status
+			$this->addLabelToGitHub($issueNumber, $label)
 		}
 		else
 		{
@@ -332,5 +338,141 @@ class Save extends AbstractTrackerController
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Add the status as label on GitHub.
+	 *
+	 * The method gets the list of current labels and remove all labels that starts with `~` as it is the status prefix, after this the method add the new status label
+	 *
+	 * @param   integer  $issueNumber  The issue number.
+	 * @param   string   $newlabel     The new label that should be added as label.
+	 *
+	 * @throws \Exception
+	 * @throws \JTracker\Github\Exception\GithubException
+	 *
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	private function addLabelToGitHub($issueNumber, $newlabel)
+	{
+		// Get the labels for the pull's issue
+		try
+		{
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
+		}
+		catch (\DomainException $e)
+		{
+			/*$logger->error(
+				sprintf(
+					'Error retrieving labels for GitHub item %s/%s #%d - %s',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber,
+					$e->getMessage()
+				)
+			);*/
+
+			return;
+		}
+
+		// Check if we have any label
+		if (count($labels) > 0)
+		{
+			foreach ($labels as $label)
+			{
+				if ($label->name == $new_label)
+				{
+					/*$logger->info(
+						sprintf(
+							'GitHub item %s/%s #%d already has the %s label.',
+							$project->gh_user,
+							$project->gh_project,
+							$issueNumber,
+							$new_label
+						)
+					);*/
+
+					$LabelIsSet = true;
+				}
+				
+				$prefix = substr($label->name, 0, 1);
+				
+				if ($prefix == '~')
+				{
+					try
+					{
+						$github->issues->labels->removeFromIssue(
+							$project->gh_user, $project->gh_project, $issueNumber, $label
+						);
+
+						// Post the new label on the object
+						/*$logger->info(
+							sprintf(
+								'Removed %s label from %s/%s #%d',
+								$label,
+								$project->gh_user,
+								$project->gh_project,
+								$issueNumber
+							)
+						);*/
+					}
+					catch (\DomainException $e)
+					{
+						/*$logger->error(
+							sprintf(
+								'Error remove label from GitHub pull request / issue %s/%s #%d - %s',
+								$project->gh_user,
+								$project->gh_project,
+								$issueNumber,
+								$e->getMessage()
+							)
+						);*/
+					}
+				}
+			}
+		}
+
+		// Add the label if it isn't already set
+		if (!$LabelIsSet)
+		{
+			$addLabels[] = $new_label;
+		}
+
+		// Only try to add labels if the array isn't empty
+		if (!empty($addLabels))
+		{
+			try
+			{
+				$github->issues->labels->add(
+					$project->gh_user, $project->gh_project, $issueNumber, $addLabels
+				);
+
+				// Post the new label on the object
+				/*$logger->info(
+					sprintf(
+						'Added %s labels to %s/%s #%d',
+						count($addLabels),
+						$project->gh_user,
+						$project->gh_project,
+						$issueNumber
+					)
+				);*/
+			}
+			catch (\DomainException $e)
+			{
+				/*$logger->error(
+					sprintf(
+						'Error adding labels to GitHub pull request %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$issueNumber,
+						$e->getMessage()
+					)
+				);*/
+			}
+		}	
 	}
 }
