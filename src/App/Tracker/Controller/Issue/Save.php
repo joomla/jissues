@@ -359,6 +359,9 @@ class Save extends AbstractTrackerController
 	 */
 	private function addLabelToGitHub($issueNumber, $newlabel)
 	{
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
 		// Get the labels for the pull's issue
 		try
 		{
@@ -366,15 +369,16 @@ class Save extends AbstractTrackerController
 		}
 		catch (\DomainException $e)
 		{
-			/*$logger->error(
+			$application->enqueueMessage(
 				sprintf(
 					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
 					$issueNumber,
 					$e->getMessage()
-				)
-			);*/
+				),
+				'error'
+			);
 
 			return;
 		}
@@ -386,15 +390,16 @@ class Save extends AbstractTrackerController
 			{
 				if ($label->name == $new_label)
 				{
-					/*$logger->info(
+					$application->enqueueMessage(
 						sprintf(
 							'GitHub item %s/%s #%d already has the %s label.',
 							$project->gh_user,
 							$project->gh_project,
 							$issueNumber,
 							$new_label
-						)
-					);*/
+						),
+						'error'
+					);
 
 					$LabelIsSet = true;
 				}
@@ -409,28 +414,30 @@ class Save extends AbstractTrackerController
 							$project->gh_user, $project->gh_project, $issueNumber, $label
 						);
 
-						/*// Post the new label on the object
-						$logger->info(
+						// Post the new label on the object
+						$application->enqueueMessage(
 							sprintf(
 								'Removed %s label from %s/%s #%d',
 								$label,
 								$project->gh_user,
 								$project->gh_project,
 								$issueNumber
-							)
-						);*/
+							),
+							'success'
+						);
 					}
 					catch (\DomainException $e)
 					{
-						/*$logger->error(
+						$application->enqueueMessage(
 							sprintf(
 								'Error remove label from GitHub pull request / issue %s/%s #%d - %s',
 								$project->gh_user,
 								$project->gh_project,
 								$issueNumber,
 								$e->getMessage()
-							)
-						);*/
+							),
+							'error'
+						);
 					}
 				}
 			}
@@ -451,28 +458,30 @@ class Save extends AbstractTrackerController
 					$project->gh_user, $project->gh_project, $issueNumber, $addLabels
 				);
 
-				/*// Post the new label on the object
-				$logger->info(
+				// Post the new label on the object
+				$application->enqueueMessage(
 					sprintf(
 						'Added %s labels to %s/%s #%d',
 						count($addLabels),
 						$project->gh_user,
 						$project->gh_project,
 						$issueNumber
-					)
-				);*/
+					),
+					'success'
+				);
 			}
 			catch (\DomainException $e)
 			{
-				/*$logger->error(
+				$application->enqueueMessage(
 					sprintf(
 						'Error adding labels to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
 						$issueNumber,
 						$e->getMessage()
-					)
-				);*/
+					),
+					'error'
+				);
 			}
 		}
 	}
