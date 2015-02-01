@@ -390,17 +390,6 @@ class Save extends AbstractTrackerController
 			{
 				if ($label->name == $new_label)
 				{
-					$application->enqueueMessage(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$issueNumber,
-							$new_label
-						),
-						'error'
-					);
-
 					$LabelIsSet = true;
 				}
 
@@ -411,19 +400,10 @@ class Save extends AbstractTrackerController
 					try
 					{
 						$github->issues->labels->removeFromIssue(
-							$project->gh_user, $project->gh_project, $issueNumber, $label
-						);
-
-						// Post the new label on the object
-						$application->enqueueMessage(
-							sprintf(
-								'Removed %s label from %s/%s #%d',
-								$label,
-								$project->gh_user,
-								$project->gh_project,
-								$issueNumber
-							),
-							'success'
+							$project->gh_user,
+							$project->gh_project,
+							$issueNumber,
+							$label
 						);
 					}
 					catch (\DomainException $e)
@@ -455,7 +435,10 @@ class Save extends AbstractTrackerController
 			try
 			{
 				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $issueNumber, $addLabels
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber,
+					$addLabels
 				);
 
 				// Post the new label on the object
