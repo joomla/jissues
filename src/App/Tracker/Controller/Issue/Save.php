@@ -362,6 +362,9 @@ class Save extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
+		$gitHub  = GithubFactory::getInstance($application);
+		$project = $application->getProject();
+
 		// Get the labels for the pull's issue
 		try
 		{
