@@ -395,32 +395,34 @@ class Save extends AbstractTrackerController
 				{
 					$LabelIsSet = true;
 				}
-
-				$prefix = substr($label->name, 0, 1);
-
-				if ($prefix == '~')
+				else
 				{
-					try
+					$prefix = substr($label->name, 0, 1);
+	
+					if ($prefix == '~')
 					{
-						$github->issues->labels->removeFromIssue(
-							$project->gh_user,
-							$project->gh_project,
-							$issueNumber,
-							$label
-						);
-					}
-					catch (\DomainException $e)
-					{
-						$application->enqueueMessage(
-							sprintf(
-								'Error remove label from GitHub pull request / issue %s/%s #%d - %s',
+						try
+						{
+							$github->issues->labels->removeFromIssue(
 								$project->gh_user,
 								$project->gh_project,
 								$issueNumber,
-								$e->getMessage()
-							),
-							'error'
-						);
+								$label
+							);
+						}
+						catch (\DomainException $e)
+						{
+							$application->enqueueMessage(
+								sprintf(
+									'Error remove label from GitHub pull request / issue %s/%s #%d - %s',
+									$project->gh_user,
+									$project->gh_project,
+									$issueNumber,
+									$e->getMessage()
+								),
+								'error'
+							);
+						}
 					}
 				}
 			}
