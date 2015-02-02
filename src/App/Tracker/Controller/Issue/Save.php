@@ -362,7 +362,7 @@ class Save extends AbstractTrackerController
 		$project    = $application->getProject();
 		$labelIsSet = false;
 
-		// Using the but if it is configured
+		// Use the bot if it is configured
 		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
 		{
 			unset($gitHub);
