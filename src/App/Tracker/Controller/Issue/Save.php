@@ -349,10 +349,6 @@ class Save extends AbstractTrackerController
 	 * @param   integer  $issueNumber  The issue number.
 	 * @param   string   $newLabel     The new label that should be added as label.
 	 *
-	 * @throws \Exception
-	 * @throws \JTracker\Github\Exception\GithubException
-	 *
-	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
