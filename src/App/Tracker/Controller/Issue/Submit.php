@@ -112,7 +112,7 @@ class Submit extends AbstractTrackerController
 			$data['opened_by']      = $user->username;
 			$data['modified_by']    = $user->username;
 			$data['number']         = $issueModel->getNextNumber();
-			$data['description'] = $gitHub->markdown->render($body, 'markdown');
+			$data['description']    = $gitHub->markdown->render($body, 'markdown');
 		}
 
 		$data['priority']        = $application->input->getInt('priority');
