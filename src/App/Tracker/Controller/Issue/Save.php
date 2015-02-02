@@ -347,7 +347,7 @@ class Save extends AbstractTrackerController
 	 * as it is the status prefix, after this the method add the new status label
 	 *
 	 * @param   integer  $issueNumber  The issue number.
-	 * @param   string   $newlabel     The new label that should be added as label.
+	 * @param   string   $newLabel     The new label that should be added as label.
 	 *
 	 * @throws \Exception
 	 * @throws \JTracker\Github\Exception\GithubException
@@ -357,14 +357,14 @@ class Save extends AbstractTrackerController
 	 *
 	 * @since   1.0
 	 */
-	private function addLabelToGitHub($issueNumber, $newlabel)
+	private function addLabelToGitHub($issueNumber, $newLabel)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$gitHub     = GithubFactory::getInstance($application);
 		$project    = $application->getProject();
-		$LabelIsSet = false;
+		$labelIsSet = false;
 
 		// Get the labels for the pull's issue
 		try
@@ -392,9 +392,9 @@ class Save extends AbstractTrackerController
 		{
 			foreach ($labels as $label)
 			{
-				if ($label->name == $newlabel)
+				if ($label->name == $newLabel)
 				{
-					$LabelIsSet = true;
+					$labelIsSet = true;
 				}
 				else
 				{
@@ -430,9 +430,9 @@ class Save extends AbstractTrackerController
 		}
 
 		// Add the label if it isn't already set
-		if (!$LabelIsSet)
+		if (!$labelIsSet)
 		{
-			$addLabels[] = $newlabel;
+			$addLabels[] = $newLabel;
 		}
 
 		// Only try to add labels if the array isn't empty
