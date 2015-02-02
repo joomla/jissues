@@ -362,6 +362,19 @@ class Save extends AbstractTrackerController
 		$project    = $application->getProject();
 		$labelIsSet = false;
 
+		// Use the bot if it is configured
+		if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
+		{
+			unset($gitHub);
+
+			$gitHub = GithubFactory::getInstance(
+				$application,
+				true,
+				$project->getGh_Editbot_User(),
+				$project->getGh_Editbot_Pass()
+			);
+		}
+
 		// Get the labels for the pull's issue
 		try
 		{
