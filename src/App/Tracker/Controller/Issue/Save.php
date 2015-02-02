@@ -362,13 +362,14 @@ class Save extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$gitHub  = GithubFactory::getInstance($application);
-		$project = $application->getProject();
+		$gitHub     = GithubFactory::getInstance($application);
+		$project    = $application->getProject();
+		$LabelIsSet = false;
 
 		// Get the labels for the pull's issue
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
+			$labels = $gitHub->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
 		}
 		catch (\DomainException $e)
 		{
@@ -403,7 +404,7 @@ class Save extends AbstractTrackerController
 					{
 						try
 						{
-							$github->issues->labels->removeFromIssue(
+							$gitHub->issues->labels->removeFromIssue(
 								$project->gh_user,
 								$project->gh_project,
 								$issueNumber,
@@ -439,7 +440,7 @@ class Save extends AbstractTrackerController
 		{
 			try
 			{
-				$github->issues->labels->add(
+				$gitHub->issues->labels->add(
 					$project->gh_user,
 					$project->gh_project,
 					$issueNumber,
