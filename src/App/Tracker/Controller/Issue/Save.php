@@ -404,7 +404,7 @@ class Save extends AbstractTrackerController
 								$project->gh_user,
 								$project->gh_project,
 								$issueNumber,
-								$label
+								$label->name
 							);
 						}
 						catch (\DomainException $e)
