@@ -391,7 +391,7 @@ class Save extends AbstractTrackerController
 		{
 			foreach ($labels as $label)
 			{
-				if ($label->name == $new_label)
+				if ($label->name == $newlabel)
 				{
 					$LabelIsSet = true;
 				}
@@ -431,7 +431,7 @@ class Save extends AbstractTrackerController
 		// Add the label if it isn't already set
 		if (!$LabelIsSet)
 		{
-			$addLabels[] = $new_label;
+			$addLabels[] = $newlabel;
 		}
 
 		// Only try to add labels if the array isn't empty
