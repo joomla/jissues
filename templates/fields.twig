@@ -57,7 +57,7 @@
 {% macro selectMilestone(name, items, selected, id, class) %}
     <select name="{{ name }}" id="{{ id|default(name) }}" class="selectpicker{% if class %} {{ class }}{% endif %}"
         title="{{ 'Select Milestone...'|_ }}">
-        <option {% if null == selected %} selected="selected"{% endif %}>{{ 'No Milestone'|_ }}</option>
+        <option value="0" {% if null == selected %} selected="selected"{% endif %}>{{ 'No Milestone'|_ }}</option>
         {% for item in items %}
             <option value="{{ item.milestone_id }}" {% if item.milestone_id == selected %} selected="selected"{% endif %}>
                 {{ item.title }}

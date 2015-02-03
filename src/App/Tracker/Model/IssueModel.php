@@ -403,6 +403,18 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException('Missing ID');
 		}
 
+		// If the data rel_type is 0 then we haven't had one given. So make it null in that case.
+		if ($data['rel_type'] === 0)
+		{
+			$data['rel_type'] = null;
+		}
+
+		// If we don't have a milestone given it gets set to 0. So make it null in that case.
+		if ($data['milestone_id'] === 0)
+		{
+			$data['milestone_id'] = null;
+		}
+
 		$table = new IssuesTable($this->db);
 
 		$table->load($data['id'])
