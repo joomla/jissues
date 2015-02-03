@@ -63,11 +63,10 @@
                 {% if project.categories %}
                 {{ fields.label('categories[]', 'Categories'|_) }}
                 {{ fields.selectCategories('categories[]', project.categories) }}
-                {% endif %}
-
                 <div class="helpText alert alert-info">
                     {{ "Please select one or more Categories here that match to your issue."|_ }}
                 </div>
+                {% endif %}
 
                 {% if user.check("edit") and project.milestones %}
                 {{ fields.label('milestone_id', 'Milestone'|_) }}
