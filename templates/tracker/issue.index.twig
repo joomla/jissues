@@ -138,14 +138,22 @@
             {% endif %}
 
             {% if item.pr_head_ref %}
-                <li>
-                    &nbsp;
-                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
-                       title="{{ 'Download this fork as a ZIP file'|_ }}">
+                {% if 'unknown_repository' == item.pr_head_user %}
+                    <li>
+                        &nbsp;
                         <span class="octicon octicon-repo-forked"></span>
-                        {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
-                    </a>
-                </li>
+                        unknown repository
+                    </li>
+                {% else %}
+                    <li>
+                        &nbsp;
+                        <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
+                           title="{{ 'Download this fork as a ZIP file'|_ }}">
+                            <span class="octicon octicon-repo-forked"></span>
+                            {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
+                        </a>
+                    </li>
+                {% endif %}
             {% endif %}
 
         {% endif %}
