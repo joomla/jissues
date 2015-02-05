@@ -86,9 +86,9 @@
 		function loadDocuPage(fullPath) {
 			jQuery.ajax({
 				url : '{{ uri.base.path }}documentation/show/?' + fullPath,
-                beforeSend: function() {
-                    $('#spinner').show();
-                },
+				beforeSend: function() {
+					$('#spinner').show();
+				},
 				success: function(response) {
 					if(response.error)
 					{
@@ -103,9 +103,9 @@
 				error: (function() {
 					alert('error..');
 				}),
-                complete: function(){
-                    $('#spinner').hide();
-                }
+				complete: function(){
+					$('#spinner').hide();
+				}
 			});
 		}
 
@@ -124,6 +124,7 @@
 			{% if fullPath %}
 			loadDocuPage('{{ fullPath|raw }}');
 			{% endif %}
-        });
-    </script>
+		});
+
+	</script>
 {% endblock %}
