@@ -12,6 +12,7 @@ use App\Projects\Table\LabelsTable;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\StatusTable;
 
+use JTracker\Github\GithubFactory;
 use JTracker\Helper\IpHelper;
 
 use Joomla\Database\DatabaseDriver;
@@ -198,6 +199,14 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			);
 
 			$this->getContainer()->get('app')->close();
+		}
+
+		// If we have a bot defined for the project, overload the GitHub object with it
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+			);
 		}
 	}
 
