@@ -216,8 +216,11 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			// Existing item
 
-			// This has been commented because we should get the modified_date *always* from GitHub
-			// for projects managed there, otherwise the date should be provided.
+			/*
+			 * This has been commented because we should get the modified_date *always* from GitHub
+			 * for projects managed there, otherwise the date should be provided.
+			 */
+
 			// $this->modified_date = $date;
 		}
 		else
