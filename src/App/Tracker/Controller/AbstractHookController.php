@@ -200,14 +200,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 			$this->getContainer()->get('app')->close();
 		}
-
-		// If we have a bot defined for the project, overload the GitHub object with it
-		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
-		{
-			$this->github = GithubFactory::getInstance(
-				$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
-			);
-		}
 	}
 
 	/**
@@ -237,8 +229,34 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		// Get a database object
 		$this->db = $this->getContainer()->get('db');
 
-		// Instantiate Github
-		$this->github = $this->getContainer()->get('gitHub');
+		// Get the payload data
+		$data = $this->getContainer()->get('app')->input->post->get('payload', null, 'raw');
+
+		if (!$data)
+		{
+			$this->logger->error('No data received.');
+			$this->getContainer()->get('app')->close();
+		}
+
+		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
+
+		// Decode it
+		$this->hookData = json_decode($data);
+
+		// Get the project data
+		$this->getProjectData();
+
+		// If we have a bot defined for the project, prefer it over the DI object
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+			);
+		}
+		else
+		{
+			$this->github = $this->getContainer()->get('gitHub');
+		}
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
@@ -264,23 +282,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$this->logger->error('Unauthorized request from ' . $myIP);
 			$this->getContainer()->get('app')->close();
 		}
-
-		// Get the payload data
-		$data = $this->getContainer()->get('app')->input->post->get('payload', null, 'raw');
-
-		if (!$data)
-		{
-			$this->logger->error('No data received.');
-			$this->getContainer()->get('app')->close();
-		}
-
-		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
-
-		// Decode it
-		$this->hookData = json_decode($data);
-
-		// Get the project data
-		$this->getProjectData();
 
 		// Set up the event listener
 		$this->addEventListener();
