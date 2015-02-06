@@ -99,7 +99,10 @@ class Save extends AbstractTrackerController
 
 			try
 			{
-				$this->updateGitHub($item->issue_number, $data, $state, $oldState);
+				$gitHubResponse = $this->updateGitHub($item->issue_number, $data, $state, $oldState);
+
+				// Set the modified_date from GitHub (important!)
+				$data['modified_date'] = $gitHubResponse->updated_at;
 			}
 			catch (GithubException $exception)
 			{
@@ -129,6 +132,8 @@ class Save extends AbstractTrackerController
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render($src['description_raw'], 'markdown');
+
+			$data['modified_date'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 		}
 
 		try
@@ -259,7 +264,7 @@ class Save extends AbstractTrackerController
 	 * @throws \JTracker\Github\Exception\GithubException
 	 *
 	 *
-	 * @return  $this
+	 * @return  object
 	 *
 	 * @since   1.0
 	 */
@@ -331,6 +336,6 @@ class Save extends AbstractTrackerController
 			throw new \Exception('Invalid response from GitHub');
 		}
 
-		return $this;
+		return $gitHubResponse;
 	}
 }
