@@ -215,7 +215,13 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified_date = $date;
+
+			/*
+			 * This has been commented because we should get the modified_date *always* from GitHub
+			 * for projects managed there, otherwise the date should be provided.
+			 */
+
+			// $this->modified_date = $date;
 		}
 		else
 		{
