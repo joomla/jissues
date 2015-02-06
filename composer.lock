@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0c7f7f257d85e6343ed660da68cc8831",
+    "hash": "2a19109f323873bd22f9c3f224fd76e2",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -619,29 +619,37 @@
         },
         {
             "name": "joomla/filter",
-            "version": "1.1.2",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/filter.git",
-                "reference": "bd097a34c1f94d54589462c960fd41921e61c1c9"
+                "reference": "30b93dd411d864a1ea3959328df74f3c9ab9e41f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/filter/zipball/bd097a34c1f94d54589462c960fd41921e61c1c9",
-                "reference": "bd097a34c1f94d54589462c960fd41921e61c1c9",
+                "url": "https://api.github.com/repos/joomla-framework/filter/zipball/30b93dd411d864a1ea3959328df74f3c9ab9e41f",
+                "reference": "30b93dd411d864a1ea3959328df74f3c9ab9e41f",
                 "shasum": ""
             },
             "require": {
-                "joomla/string": "~1.0",
                 "php": ">=5.3.10"
             },
             "require-dev": {
-                "joomla/language": "~1.0"
+                "joomla/language": "~1.0",
+                "joomla/string": "~1.0",
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
             },
             "suggest": {
-                "joomla/language": "Required only if you want to use `OutputFilter::stringURLSafe`."
+                "joomla/language": "Required only if you want to use `OutputFilter::stringURLSafe`.",
+                "joomla/string": "Required only if you want to use `OutputFilter::stringURLSafe` and `OutputFilter::stringURLUnicodeSlug`."
             },
             "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Joomla\\Filter\\": "src/",
@@ -659,7 +667,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2014-02-09 07:45:50"
+            "time": "2014-12-10 02:21:00"
         },
         {
             "name": "joomla/github",
