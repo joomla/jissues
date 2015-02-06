@@ -173,6 +173,17 @@ class IssuesTable extends AbstractDatabaseTable
 			$errors[] = 'A description is required.';
 		}*/
 
+		// Normalize fields
+		if ($this->milestone_id === 0)
+		{
+			$this->milestone_id = null;
+		}
+
+		if ($this->rel_type === 0)
+		{
+			$this->rel_type = null;
+		}
+
 		if ($errors)
 		{
 			throw new \InvalidArgumentException(implode("\n", $errors));
