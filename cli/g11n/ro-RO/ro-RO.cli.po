@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 09:43-0600\n"
-"PO-Revision-Date: 2015-01-12 15:43+0000\n"
+"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"PO-Revision-Date: 2015-02-07 18:04+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -253,12 +253,12 @@ msgstr[0] "Procesează comentarii pentru un subiect modificat..."
 msgstr[1] "Procesează comentarii pentru %d subiecte modificate..."
 msgstr[2] "Procesează comentarii pentru %d subiecte modificate..."
 
-#: /cli/Application/Command/Get/Project/Comments.php:204
+#: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
 msgid "No comments for issue # %d"
 msgstr "Nu există comentarii pentru subiectul # %d"
 
-#: /cli/Application/Command/Get/Project/Comments.php:213
+#: /cli/Application/Command/Get/Project/Comments.php:219
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
@@ -266,10 +266,18 @@ msgstr[0] "Un comentariu pentru subiectul # %2$d (%3$d/%4$d) este în curs de pr
 msgstr[1] " %1$d comentarii pentru subiectul # %2$d (%3$d/%4$d) sunt în curs de procesare"
 msgstr[2] " %1$d comentarii pentru subiectul # %2$d (%3$d/%4$d) sunt în curs de procesare"
 
-#: /cli/Application/Command/Get/Project/Comments.php:310
+#: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
-msgid "%1$d added %2$d updated."
-msgstr "%1$d adăugat %2$d actualizate."
+msgid "%1$d added, %2$d updated, %3$d deleted."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:352
+msgid "Getting issue comments."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:381
+msgid "Deleting issues comments."
+msgstr ""
 
 #: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
@@ -332,7 +340,7 @@ msgstr " <b>%d</b> obiecte din GitHub au fost recuperate."
 msgid "Adding issues to the database..."
 msgstr "În curs de adăugare a subiectelor în baza de date..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:405
+#: /cli/Application/Command/Get/Project/Issues.php:409
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d adăugate, %2$d actualizate.</ok>"

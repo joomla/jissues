@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 09:43-0600\n"
+"POT-Creation-Date: 2015-02-07 12:04-0600\n"
 "PO-Revision-Date: 2014-05-26 12:47+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
@@ -98,11 +98,11 @@ msgstr "Resultado"
 msgid "Documentation"
 msgstr "Documentación"
 
-#: /templates/support/documentation.index.twig:45
+#: /templates/support/documentation.index.twig:63
 msgid "Improve"
 msgstr "Mejorar"
 
-#: /templates/support/documentation.index.twig:46
+#: /templates/support/documentation.index.twig:64
 msgid "Permalink"
 msgstr "Permalink"
 

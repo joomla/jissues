@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Nikolai Plath <der.el.kuku@gmail.com>, 2013-2014
+# Nikolai Plath <der.el.kuku@gmail.com>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 09:43-0600\n"
-"PO-Revision-Date: 2015-01-12 15:43+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"PO-Revision-Date: 2015-01-12 16:27+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,19 +50,19 @@ msgstr "Sehr niedrig"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:277
 msgid "Duplicate of"
-msgstr ""
+msgstr "Duplikat von"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:278
 msgid "Related to"
-msgstr ""
+msgstr "In Zusammenhang mit"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:279
 msgid "Not before"
-msgstr ""
+msgstr "Nicht vor"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:280
 msgid "Pull Request for"
-msgstr ""
+msgstr "Pull Request für"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:340
 #: /src/JTracker/View/Renderer/TrackerExtension.php:363

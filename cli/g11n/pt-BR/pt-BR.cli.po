@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-12 09:43-0600\n"
-"PO-Revision-Date: 2015-01-12 15:43+0000\n"
+"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"PO-Revision-Date: 2015-02-07 18:04+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -249,21 +249,29 @@ msgid_plural "Processing comments for %d modified issues..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: /cli/Application/Command/Get/Project/Comments.php:204
+#: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
 msgid "No comments for issue # %d"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Comments.php:213
+#: /cli/Application/Command/Get/Project/Comments.php:219
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /cli/Application/Command/Get/Project/Comments.php:310
+#: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
-msgid "%1$d added %2$d updated."
+msgid "%1$d added, %2$d updated, %3$d deleted."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:352
+msgid "Getting issue comments."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:381
+msgid "Deleting issues comments."
 msgstr ""
 
 #: /cli/Application/Command/Get/Project/Events.php:42
@@ -326,7 +334,7 @@ msgstr ""
 msgid "Adding issues to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:405
+#: /cli/Application/Command/Get/Project/Issues.php:409
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""
