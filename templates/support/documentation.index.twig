@@ -11,9 +11,27 @@
     <!-- CSS for coloured code -->
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
 
+    <style>
+        .spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -33px;
+            margin-top: -33px;
+            text-align:center;
+            z-index:1234;
+            overflow: auto;
+            width: 66px;
+            height: 68px;
+        }
+    </style>
+
 {% endblock %}
 
 {% block content %}
+    <div id="spinner" class="spinner" style="display:none;">
+        <img id="img-spinner" src="/images/tracker/ajax-loader.gif" alt="Loading"/>
+    </div>
 
 	<div class="row-fluid">
 		<div class="span3">
@@ -68,6 +86,9 @@
 		function loadDocuPage(fullPath) {
 			jQuery.ajax({
 				url : '{{ uri.base.path }}documentation/show/?' + fullPath,
+				beforeSend: function() {
+					$('#spinner').show();
+				},
 				success: function(response) {
 					if(response.error)
 					{
@@ -81,7 +102,10 @@
 				},
 				error: (function() {
 					alert('error..');
-				})
+				}),
+				complete: function(){
+					$('#spinner').hide();
+				}
 			});
 		}
 
