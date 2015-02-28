@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blue" />
     {% if useCDN %}
-    <link href="//cdn.joomla.org/template/css/v3_template.min.css?v1.2.1" rel="stylesheet" media="screen">
+    <link href="//cdn.joomla.org/template/css/v3_template.min.css?v1.2.2" rel="stylesheet" media="screen">
     {% else %}
     <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
     {% endif %}
@@ -122,14 +122,42 @@
     <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('.hasTooltip').tooltip();
-            $('.subnav-wrapper').height($('.subnav').height());
-            $('.subnav').affix({
-                offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
-            });
-        });
-    </script>
+   		jQuery(document).ready(function($) {
+   			var navTop;
+   			var isFixed = false;
+
+   			$('.hasTooltip').tooltip();
+   			processScrollInit();
+   			processScroll();
+
+   			function processScrollInit() {
+   				if ($('.subnav-wrapper').length) {
+   					navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
+
+   					// Only apply the scrollspy when the toolbar is not collapsed
+   					if (document.body.clientWidth > 480) {
+   						$('.subnav-wrapper').height($('.subnav').height());
+   						$('.subnav').affix({
+   							offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
+   						});
+   					}
+   				}
+   			}
+
+   			function processScroll() {
+   				if ($('.subnav-wrapper').length) {
+   					var scrollTop = $(window).scrollTop();
+   					if (scrollTop >= navTop && !isFixed) {
+   						isFixed = true;
+   						$('.subnav-wrapper').addClass('subhead-fixed');
+   					} else if (scrollTop <= navTop && isFixed) {
+   						isFixed = false;
+   						$('.subnav-wrapper').removeClass('subhead-fixed');
+   					}
+   				}
+   			}
+   		});
+   	</script>
 
 {% endblock %}
 
