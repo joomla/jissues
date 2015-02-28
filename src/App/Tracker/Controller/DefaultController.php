@@ -180,12 +180,12 @@ class DefaultController extends AbstractTrackerListController
 		$categoryAlias = $application->input->get->get('category', '', 'cmd');
 
 		// Update the category filter from the GET request
-		if ($categoryAlias != '')
+		if ($categoryAlias != '' && (!is_numeric($categoryAlias)))
 		{
 			$categoryId = 0;
 
 			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
-			$category = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
+			$category      = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
 
 			if ($category)
 			{
@@ -194,7 +194,7 @@ class DefaultController extends AbstractTrackerListController
 		}
 		else
 		{
-			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'uint');
+			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int');
 		}
 
 		$state->set('filter.category', (int) $categoryId);

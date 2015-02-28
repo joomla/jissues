@@ -302,7 +302,11 @@ class Issues extends Project
 					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
 				);
 
-				$table->pr_head_user = $pullRequest->head->user->login;
+				// If the $pullRequest->head->user object is not set, the repo/branch had been deleted by the user.
+				$table->pr_head_user = (isset($pullRequest->head->user))
+					? $pullRequest->head->user->login
+					: 'unknown_repository';
+
 				$table->pr_head_ref  = $pullRequest->head->ref;
 
 				$status = $this->GetMergeStatus($pullRequest);

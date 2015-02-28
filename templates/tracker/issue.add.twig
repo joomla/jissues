@@ -9,7 +9,7 @@
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
+        <a class="btn-success submit-button" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
     </li>
     {{ parent() }}
 {% endblock %}
@@ -63,11 +63,10 @@
                 {% if project.categories %}
                 {{ fields.label('categories[]', 'Categories'|_) }}
                 {{ fields.selectCategories('categories[]', project.categories) }}
-                {% endif %}
-
                 <div class="helpText alert alert-info">
                     {{ "Please select one or more Categories here that match to your issue."|_ }}
                 </div>
+                {% endif %}
 
                 {% if user.check("edit") and project.milestones %}
                 {{ fields.label('milestone_id', 'Milestone'|_) }}
@@ -112,6 +111,7 @@
                     </div>
 
                 </fieldset>
+                <a class="submit-button pull-right btn btn-success" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
 
             </div>
         </div>
@@ -201,9 +201,9 @@
             }
         });
 
-        $('#submit').click(function() {
+        $('.submit-button').click(function() {
             if (form.valid()) {
-                $('#submit').html('{{ 'Submitting...'|_ }}');
+                $('.submit-button').html('{{ 'Submitting...'|_ }}');
             }
             form.submit();
         });

@@ -1,5 +1,5 @@
 # JTracker CoreJS core.js 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2015-02-07 12:04-0600\n"
 "PO-Revision-Date: 2014-10-11 19:56+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
@@ -33,17 +33,17 @@ msgstr "Resposta inválida."
 msgid "Submitting comment..."
 msgstr "Enviando comentário..."
 
-#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.js:71
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
 msgstr "Adicionando voto..."
 
-#: /www/jtracker/core/js/jtracker.js:97 /www/jtracker/core/js/jtracker.js:133
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:128
+#: /www/jtracker/core/js/jtracker.js:170
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
 msgstr ""

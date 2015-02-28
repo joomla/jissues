@@ -106,6 +106,11 @@ class Get extends TrackerCommand
 	{
 		$this->github = $this->getContainer()->get('gitHub');
 
+		// Check the rate limit immediately and switch if need be
+		$rate = $this->github->authorization->getRateLimit()->resources->core;
+
+		$this->checkGitHubRateLimit($rate->remaining);
+
 		return $this;
 	}
 

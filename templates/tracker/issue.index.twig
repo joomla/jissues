@@ -138,14 +138,22 @@
             {% endif %}
 
             {% if item.pr_head_ref %}
-                <li>
-                    &nbsp;
-                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
-                       title="{{ 'Download this fork as a ZIP file'|_ }}">
+                {% if 'unknown_repository' == item.pr_head_user %}
+                    <li>
+                        &nbsp;
                         <span class="octicon octicon-repo-forked"></span>
-                        {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
-                    </a>
-                </li>
+                        unknown repository
+                    </li>
+                {% else %}
+                    <li>
+                        &nbsp;
+                        <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
+                           title="{{ 'Download this fork as a ZIP file'|_ }}">
+                            <span class="octicon octicon-repo-forked"></span>
+                            {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
+                        </a>
+                    </li>
+                {% endif %}
             {% endif %}
 
         {% endif %}
@@ -202,7 +210,7 @@
 <!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
-            {{ item.rel_name }}
+            {{ relation(item.rel_name) }}
             {{ issueLink(item.rel_number, item.rel_closed, item.rel_title)|raw }}
         </div>
     {% endif %}
@@ -211,7 +219,7 @@
         <div class="alert">
             {{ "Referenced as"|_ }}
             {% for rel_name, relations in item.relations_f %}
-                <strong>{{ rel_name }}: </strong>
+                <strong>{{ relation(rel_name) }}: </strong>
                 {% for relation in relations %}
                     {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
               {% endfor %}
@@ -237,13 +245,20 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
         </div>
 
-        <div class="span7 well-small issue-description">
+        {% if item.votes or user.id or item.has_code %}
+            {% set mainClass = 'span7' %}
+        {% else %}
+            {% set mainClass = 'span10' %}
+        {% endif %}
+
+        <div class="{{ mainClass }} well-small issue-description">
             {{ item.description|raw }}
         </div>
 
+        {% if item.votes or user.id or item.has_code %}
         <div class="span3 well">
 
-            {% if item.votes or user.id%}
+            {% if item.votes or user.id %}
             <h4>{{ 'Votes'|_ }}</h4>
             {% endif %}
 
@@ -331,19 +346,19 @@
                         <ul class="unstyled">
                             <li>
                                 <label class="radio">
-                                    <input type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
                                     {{ "Not tested"|_ }}
                                 </label>
                             </li>
                             <li>
                                 <label class="radio tests-success">
-                                    <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
                                     {{ "Tested successfully"|_ }}
                                 </label>
                             </li>
                             <li>
                                 <label class="radio tests-fail">
-                                    <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
                                     {{ "Tested unsuccessfully"|_ }}
                                 </label>
                             </li>
@@ -381,6 +396,7 @@
 
             {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <!-- Activity stream -->
@@ -522,13 +538,51 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right comment-wrapper">
-                <div id="commentStatus"></div>
-                <a href="javascript:" class="btn btn-success"
-                   onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
-                    {{ "Post Comment"|_ }}
-                </a>
+            <div class="row-fluid">
+                {% if item.has_code %}
+                    <ul class="test-results offset1 unstyled inline">
+                        <li>
+                            <label class="radio">
+                                {% if (item.userTest is not null and item.userTest == 0) %}
+                                    {% set checked = ' checked="checked"' %}
+                                {% else %}
+                                    {% set checked = '' %}
+                                {% endif %}
+                                <input id="comment-test-result-0" class="comment-test-result" type="radio" name="comment-tested" value="0"{{ checked }}>
+                                {{ "Not tested"|_ }}
+                            </label>
+                        </li>
+                        <li>
+                            <label class="radio tests-success">
+                                <input id="comment-test-result-1" class="comment-test-result" type="radio" name="comment-tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                {{ "Tested successfully"|_ }}
+                            </label>
+                        </li>
+                        <li>
+                            <label class="radio tests-fail">
+                                <input id="comment-test-result-2" class="comment-test-result" type="radio" name="comment-tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                {{ "Tested unsuccessfully"|_ }}
+                            </label>
+                        </li>
+                    </ul>
+
+                    {% set testResult = '' %}
+                    {% if (item.userTest) %}
+                        {% set testResult = item.userTest %}
+                    {% endif %}
+                    <input id="current-test-result" type="hidden" value="{{ testResult }}">
+                    <input id="issue-id" type="hidden" value="{{ item.id }}">
+                {% endif %}
+
+                <div class="pull-right comment-wrapper">
+                    <div id="commentStatus"></div>
+                    <a href="javascript:" class="btn btn-success"
+                       onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
+                        {{ "Post Comment"|_ }}
+                    </a>
+                </div>
             </div>
+
             <div class="row-fluid">
                 <div class="offset2 span10">
                     {% include "uploader.full.twig" %}
@@ -573,11 +627,12 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
+                    <i class="octicon octicon-person"></i>
                     {{ avatar(user.username, 20, 'avatar')|raw }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
                     - [%= o.created_date %]
-                    - [%= resultValues[o.text] %]
+                    - <span class="tests-[%= o.text %]">[%= resultValues[o.text] %]</span>
                 </div>
             </div>
         </div>
@@ -588,6 +643,7 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
+                    <i class="octicon octicon-eye"></i>
                     {{ avatar(user.username, 20, 'avatar')|raw }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>

@@ -89,17 +89,20 @@ class Save extends AbstractTrackerController
 
 		$gitHub = GithubFactory::getInstance($application);
 
+		// Check if the state has changed (e.g. open/closed)
+		$oldState = $model->getOpenClosed($item->status);
+		$state    = $model->getOpenClosed($data['status']);
+
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
 
-			// Check if the state has changed (e.g. open/closed)
-			$oldState = $model->getOpenClosed($item->status);
-			$state    = $model->getOpenClosed($data['status']);
-
 			try
 			{
-				$this->updateGitHub($item->issue_number, $data, $state, $oldState);
+				$gitHubResponse = $this->updateGitHub($item->issue_number, $data, $state, $oldState);
+
+				// Set the modified_date from GitHub (important!)
+				$data['modified_date'] = $gitHubResponse->updated_at;
 			}
 			catch (GithubException $exception)
 			{
@@ -129,6 +132,8 @@ class Save extends AbstractTrackerController
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render($src['description_raw'], 'markdown');
+
+			$data['modified_date'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 		}
 
 		try
@@ -147,6 +152,11 @@ class Save extends AbstractTrackerController
 
 				$categoryModel->updateCategory($category);
 			}
+
+			// Pass the old and new states into the save method
+			$data['old_state'] = $oldState;
+			$data['new_state'] = $state;
+
 			// Save the record.
 			$model->save($data);
 
@@ -158,7 +168,7 @@ class Save extends AbstractTrackerController
 				$project = $application->getProject();
 
 				$comment .= sprintf(
-					'<br /><br />*This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.*',
+					'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
 					'https://github.com/joomla/jissues', 'J!Tracker',
 					$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
 					str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
@@ -254,7 +264,7 @@ class Save extends AbstractTrackerController
 	 * @throws \JTracker\Github\Exception\GithubException
 	 *
 	 *
-	 * @return  $this
+	 * @return  object
 	 *
 	 * @since   1.0
 	 */
@@ -326,6 +336,6 @@ class Save extends AbstractTrackerController
 			throw new \Exception('Invalid response from GitHub');
 		}
 
-		return $this;
+		return $gitHubResponse;
 	}
 }

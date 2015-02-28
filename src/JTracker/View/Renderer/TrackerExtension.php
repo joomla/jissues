@@ -101,6 +101,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
 			new \Twig_SimpleFunction('translateStatus', array($this, 'translateStatus')),
+			new \Twig_SimpleFunction('relation', array($this, 'getRelation')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
 			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
@@ -259,6 +260,27 @@ class TrackerExtension extends \Twig_Extension
 	public function dump()
 	{
 		return;
+	}
+
+	/**
+	 * Retrieves a human friendly relationship for a given type
+	 *
+	 * @param   string  $relation  Relation type
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getRelation($relation)
+	{
+		$relations = [
+			'duplicate_of' => g11n3t('Duplicate of'),
+			'related_to' => g11n3t('Related to'),
+			'not_before' => g11n3t('Not before'),
+			'pr_for' => g11n3t('Pull Request for')
+		];
+
+		return $relations[$relation];
 	}
 
 	/**

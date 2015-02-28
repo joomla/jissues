@@ -1,5 +1,5 @@
 # JTracker App System 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2015-02-07 12:04-0600\n"
 "PO-Revision-Date: 2014-09-09 23:54+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
