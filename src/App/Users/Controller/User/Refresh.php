@@ -11,7 +11,6 @@ namespace App\Users\Controller\User;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Controller\AbstractTrackerController;
-use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**
  * Controller class to refresh user information with data stored on GitHub.
