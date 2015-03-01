@@ -11,6 +11,7 @@ namespace App\Users\Controller\User;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Controller\AbstractTrackerController;
+use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**
  * Controller class to refresh user information with data stored on GitHub.
@@ -52,6 +53,7 @@ class Refresh extends AbstractTrackerController
 			}
 		}
 
+		/* @type \Joomla\Github\Github $github */
 		$gitHub = $this->getContainer()->get('gitHub');
 
 		$loginHelper = new GitHubLoginHelper($this->getContainer());
@@ -65,6 +67,17 @@ class Refresh extends AbstractTrackerController
 
 		// Refresh the avatar
 		$loginHelper->refreshAvatar($user->username);
+
+		try
+		{
+			$loginHelper->setEmail($user->id, $gitHubUser->email);
+		}
+		catch (\RuntimeException $e)
+		{
+			$application->enqueueMessage(
+				g11n3t('An error has occurred during email refresh.'), 'error'
+			);
+		}
 
 		$application->enqueueMessage(
 			g11n3t('The profile has been refreshed.'), 'success'
