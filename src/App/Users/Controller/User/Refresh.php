@@ -52,6 +52,7 @@ class Refresh extends AbstractTrackerController
 			}
 		}
 
+		/* @type \Joomla\Github\Github $github */
 		$gitHub = $this->getContainer()->get('gitHub');
 
 		$loginHelper = new GitHubLoginHelper($this->getContainer());
@@ -65,6 +66,17 @@ class Refresh extends AbstractTrackerController
 
 		// Refresh the avatar
 		$loginHelper->refreshAvatar($user->username);
+
+		try
+		{
+			$loginHelper->setEmail($user->id, $gitHubUser->email);
+		}
+		catch (\RuntimeException $e)
+		{
+			$application->enqueueMessage(
+				g11n3t('An error has occurred during email refresh.'), 'error'
+			);
+		}
 
 		$application->enqueueMessage(
 			g11n3t('The profile has been refreshed.'), 'success'
