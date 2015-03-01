@@ -3,22 +3,20 @@
 
 {% set baseURI = uri.base.path ~ uri.route|split("?")|first %}
 
-<li class="dropdown pull-right">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-        <img src="{{ uri.base.path }}images/flags/{{ lang }}.gif" alt="{{ lang }}" title="{{ lang }}"/>
+<li class="pull-right lang-select dropdown-toggle">
+    <div id="lang-switcher" class="ui floating dropdown labeled search icon button">
+        <img class="lang-icon" src="{{ uri.base.path }}images/flags/{{ lang }}.gif" alt="{{ lang }}" title="{{ lang }}"/>
+        <span class="text">{{ "Select Language"|_ }}</span>
         <span class="caret"></span>
-    </a>
-
-    <ul class="dropdown-menu">
-        {% for l in languages %}
-            {% if l != lang %}
-                <li>
-                    <a href="{{ baseURI }}?lang={{ l }}" title="{{ l }}">
+        <div class="menu">
+            {% for l in languages %}
+                {% if l != lang %}
+                    <a class="item" href="{{ baseURI }}?lang={{ l }}" title="{{ l }}">
                         <img src="{{ uri.base.path }}images/flags/{{ l }}.gif" />
                         {{ l }}
                     </a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </li>

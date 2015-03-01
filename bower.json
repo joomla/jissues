@@ -19,6 +19,8 @@
     "d3": "3.4.6",
     "jquery-simple-color": "1.2.1",
     "Caret.js": "0.2.0",
-    "jquery.atwho": "0.5.1"
+    "jquery.atwho": "0.5.1",
+    "semantic-ui-dropdown": "~1.10.3",
+    "semantic-ui-transition": "~1.10.4"
  }
 }

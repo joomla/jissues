@@ -186,6 +186,61 @@ ul.test-results {
     float: left
 }
 
+/* language select */
+li.lang-select {
+    padding: 8px 0;
+    margin: 2px 5px 2px 0;
+}
+
+li.lang-select a {
+    color: inherit;
+    text-decoration: none;
+}
+
+li.lang-select .caret {
+    margin-top: 6px;
+}
+
+.ui.labeled.icon.button, .ui.labeled.icon.buttons .button {
+    position: relative;
+    padding-left: 2em!important;
+    padding-right: 1em!important;
+}
+
+.ui.labeled.icon.button>.lang-icon {
+    position: absolute;
+    text-align: center;
+    line-height: 1;
+    left: 0;
+}
+
+.ui.search.dropdown>input.search{
+    line-height: inherit;
+    width: 100px;
+}
+
+.ui.search.dropdown>.text {
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.ui.dropdown .menu {
+    padding: 5px 0;
+}
+
+.ui.dropdown .menu>.item {
+    padding: 5px 20px!important;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.ui.dropdown .menu>.item:hover {
+    background-color: #0081c2;
+    color: #FFFFFF;
+}
+
+/* end language select */
+
 @media (max-width: 767px) {
     ul.test-results {
         float: none;
