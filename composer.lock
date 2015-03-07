@@ -929,16 +929,16 @@
         },
         {
             "name": "joomla/registry",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/registry.git",
-                "reference": "d46a5e8a4d68eb45e9e34909187f26f74d35791b"
+                "reference": "5c2e607ff61f8df07c3c0630ed62a8c3d892469e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/registry/zipball/d46a5e8a4d68eb45e9e34909187f26f74d35791b",
-                "reference": "d46a5e8a4d68eb45e9e34909187f26f74d35791b",
+                "url": "https://api.github.com/repos/joomla-framework/registry/zipball/5c2e607ff61f8df07c3c0630ed62a8c3d892469e",
+                "reference": "5c2e607ff61f8df07c3c0630ed62a8c3d892469e",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +979,7 @@
                 "joomla",
                 "registry"
             ],
-            "time": "2015-03-02 15:57:50"
+            "time": "2015-03-07 18:48:26"
         },
         {
             "name": "joomla/router",
