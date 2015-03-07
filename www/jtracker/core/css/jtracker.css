@@ -188,7 +188,6 @@ ul.test-results {
 
 /* language select */
 li.lang-select {
-    padding: 8px 0;
     margin: 2px 5px 2px 0;
 }
 
@@ -199,6 +198,25 @@ li.lang-select a {
 
 li.lang-select .caret {
     margin-top: 6px;
+}
+
+li.lang-select #lang-switcher {
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+li.lang-select input,
+li.lang-select input:focus {
+    color: #fff;
+}
+
+li.lang-select .ui.search.dropdown>.text {
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
+    color: #ccc !important;
 }
 
 .ui.labeled.icon.button, .ui.labeled.icon.buttons .button {
@@ -217,11 +235,6 @@ li.lang-select .caret {
 .ui.search.dropdown>input.search{
     line-height: inherit;
     width: 100px;
-}
-
-.ui.search.dropdown>.text {
-    color: #FFFFFF;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
 }
 
 .ui.dropdown .menu {
