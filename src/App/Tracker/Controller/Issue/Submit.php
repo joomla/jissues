@@ -122,6 +122,12 @@ class Submit extends AbstractTrackerController
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;
 
+		// Store the "No code attached yet" label for CMS issues
+		if ($project->project_id == 1)
+		{
+			$data['labels'] = 35;
+		}
+
 		// Store the issue
 		try
 		{
