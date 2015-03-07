@@ -12,6 +12,8 @@
     {% else %}
     <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
     {% endif %}
+    <link rel="stylesheet" href="{{ uri.base.path }}vendor/semantic-ui-transition/transition{{ jdebug ? "" : ".min" }}.css">
+    <link rel="stylesheet" href="{{ uri.base.path }}vendor/semantic-ui-dropdown/dropdown{{ jdebug ? "" : ".min" }}.css">
     <link rel="stylesheet" href="{{ uri.base.path }}jtracker/core/css/jtracker.css">
     <link rel="stylesheet" href="{{ uri.base.path }}fonts/octicons/octicons.css">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ uri.base.path }}images/apple-touch-icon-144-precomposed.png">
@@ -113,8 +115,9 @@
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tab.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="{{ uri.base.path }}vendor/semantic-ui-transition/transition{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/semantic-ui-dropdown/dropdown{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/jtracker{{ jdebug ? "" : ".min" }}.js"></script>
-
     <script src="{{ uri.base.path }}vendor/g11n-js/js/g11n{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/g11n-js/js/methods{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/g11n-js/js/phpjs{{ jdebug ? "" : ".min" }}.js"></script>
@@ -122,42 +125,46 @@
     <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
 
     <script type="text/javascript">
-   		jQuery(document).ready(function($) {
-   			var navTop;
-   			var isFixed = false;
+        jQuery(document).ready(function($) {
+            var navTop;
+            var isFixed = false;
 
-   			$('.hasTooltip').tooltip();
-   			processScrollInit();
-   			processScroll();
+            $('.hasTooltip').tooltip();
+            processScrollInit();
+            processScroll();
 
-   			function processScrollInit() {
-   				if ($('.subnav-wrapper').length) {
-   					navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
+            function processScrollInit() {
+                if ($('.subnav-wrapper').length) {
+                    navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
 
-   					// Only apply the scrollspy when the toolbar is not collapsed
-   					if (document.body.clientWidth > 480) {
-   						$('.subnav-wrapper').height($('.subnav').height());
-   						$('.subnav').affix({
-   							offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
-   						});
-   					}
-   				}
-   			}
+                    // Only apply the scrollspy when the toolbar is not collapsed
+                    if (document.body.clientWidth > 480) {
+                        $('.subnav-wrapper').height($('.subnav').height());
+                        $('.subnav').affix({
+                            offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
+                        });
+                    }
+                }
+            }
 
-   			function processScroll() {
-   				if ($('.subnav-wrapper').length) {
-   					var scrollTop = $(window).scrollTop();
-   					if (scrollTop >= navTop && !isFixed) {
-   						isFixed = true;
-   						$('.subnav-wrapper').addClass('subhead-fixed');
-   					} else if (scrollTop <= navTop && isFixed) {
-   						isFixed = false;
-   						$('.subnav-wrapper').removeClass('subhead-fixed');
-   					}
-   				}
-   			}
-   		});
-   	</script>
+            function processScroll() {
+                if ($('.subnav-wrapper').length) {
+                    var scrollTop = $(window).scrollTop();
+                    if (scrollTop >= navTop && !isFixed) {
+                        isFixed = true;
+                        $('.subnav-wrapper').addClass('subhead-fixed');
+                    } else if (scrollTop <= navTop && isFixed) {
+                        isFixed = false;
+                        $('.subnav-wrapper').removeClass('subhead-fixed');
+                    }
+                }
+            }
+
+            $('#lang-switcher').dropdown({
+                action: 'select'
+            });
+        });
+    </script>
 
 {% endblock %}
 
