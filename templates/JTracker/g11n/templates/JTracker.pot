@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/index.twig:55
+#: /templates/index.twig:57
 msgid "Download"
 msgstr ""
 
-#: /templates/index.twig:58
+#: /templates/index.twig:60
 msgid "Demo"
 msgstr ""
 
@@ -147,6 +147,10 @@ msgstr ""
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
+msgstr ""
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
 msgstr ""
 
 #: /templates/trackerMenu.twig:8
