@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
 "PO-Revision-Date: 2015-01-12 15:44+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
@@ -664,7 +664,7 @@ msgstr "A megjegyzés beküldése megtörtént"
 msgid "Vote successfully added"
 msgstr "A "
 
-#: /src/App/Tracker/Controller/Issue/Submit.php:147
+#: /src/App/Tracker/Controller/Issue/Submit.php:153
 msgid "Your report has been submitted."
 msgstr "A jelentés beküldése megtörtént."
 
@@ -713,18 +713,18 @@ msgstr "Probléma-azonosítóra van szükség."
 msgid "Category ID is needed."
 msgstr "Kategória-azonosítóra van szükség."
 
-#: /src/App/Tracker/Table/IssuesTable.php:153
+#: /src/App/Tracker/Table/IssuesTable.php:134
 msgid "A title is required."
 msgstr "A cím megadása kötelező."
 
-#: /src/App/Tracker/Table/IssuesTable.php:157
+#: /src/App/Tracker/Table/IssuesTable.php:138
 msgid "The title max length is 255 chars."
 msgstr "A cím maximális hossza 255 karakter."
 
-#: /src/App/Tracker/Table/IssuesTable.php:162
+#: /src/App/Tracker/Table/IssuesTable.php:143
 msgid "A build is required."
 msgstr "A build megadása kötelező."
 
-#: /src/App/Tracker/Table/IssuesTable.php:166
+#: /src/App/Tracker/Table/IssuesTable.php:147
 msgid "A build max length is 40 chars."
 msgstr "A build maximális hossza 40 karakter."

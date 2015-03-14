@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Dmitry Rekun, 2014
+# Dmitry Rekun, 2014-2015
 # Иван, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2015-01-12 15:44+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-02-27 07:32+0000\n"
+"Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,7 +132,7 @@ msgstr "Версия(-и) проекта в котором была найден
 
 #: /templates/tracker/issue.add.twig:67
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "Пожалуйста выберите одну или несколько категорий, которые подходят для вашей проблемы."
 
 #: /templates/tracker/issue.add.twig:80
 msgid ""
@@ -220,7 +220,7 @@ msgstr "Фильтр списка по ID, краткому или полном�
 #: /templates/tracker/issues.index.twig:111
 #: /templates/tracker/issues.index.twig:112
 msgid "Filter the list by creator."
-msgstr ""
+msgstr "Отфильтровать по создателю."
 
 #: /templates/tracker/issues.index.twig:141
 msgid "ID"
@@ -236,7 +236,7 @@ msgstr "Загружается, подождите..."
 
 #: /templates/tracker/issues.index.twig:229
 msgid "Created by"
-msgstr ""
+msgstr "Создатель"
 
 #: /templates/tracker/issues.index.twig:238
 msgid "GitHub ID"
@@ -463,23 +463,23 @@ msgstr "# успешных тестов"
 
 #: /templates/tracker/issue.index.twig:114
 msgid "To comment"
-msgstr ""
+msgstr "Комментировать"
 
 #: /templates/tracker/issue.index.twig:123
 msgid "View this issue on GitHub"
-msgstr ""
+msgstr "Посмотреть проблему на GitHub"
 
 #: /templates/tracker/issue.index.twig:133
 msgid "View a plain diff for this pull request"
-msgstr ""
+msgstr "Посмотреть чистый diff для этого пулл реквеста"
 
 #: /templates/tracker/issue.index.twig:135
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: /templates/tracker/issue.index.twig:151
 msgid "Download this fork as a ZIP file"
-msgstr ""
+msgstr "Скачать этот форк как ZIP файл"
 
 #: /templates/tracker/issue.index.twig:195
 msgid "Categories:"
@@ -575,7 +575,7 @@ msgstr "имя пользователя"
 
 #: /templates/tracker/issue.index.twig:469
 msgid "The description was changed"
-msgstr ""
+msgstr "Описание было изменено"
 
 #: /templates/tracker/issue.index.twig:581
 msgid "Post Comment"
@@ -627,7 +627,7 @@ msgstr "- категории -"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No categories"
-msgstr ""
+msgstr "Нет категорий"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- labels -"
@@ -665,7 +665,7 @@ msgstr "Ваш комментарий отправлен"
 msgid "Vote successfully added"
 msgstr "Голос успешно добавлен"
 
-#: /src/App/Tracker/Controller/Issue/Submit.php:147
+#: /src/App/Tracker/Controller/Issue/Submit.php:153
 msgid "Your report has been submitted."
 msgstr "Ваш репорт подан."
 
@@ -714,18 +714,18 @@ msgstr "Необходимо id ошибки."
 msgid "Category ID is needed."
 msgstr "Необходимо ID категории."
 
-#: /src/App/Tracker/Table/IssuesTable.php:153
+#: /src/App/Tracker/Table/IssuesTable.php:134
 msgid "A title is required."
 msgstr "Название обязательно"
 
-#: /src/App/Tracker/Table/IssuesTable.php:157
+#: /src/App/Tracker/Table/IssuesTable.php:138
 msgid "The title max length is 255 chars."
 msgstr "Макс. длина названия 255 символов."
 
-#: /src/App/Tracker/Table/IssuesTable.php:162
+#: /src/App/Tracker/Table/IssuesTable.php:143
 msgid "A build is required."
 msgstr "Билд обязателен"
 
-#: /src/App/Tracker/Table/IssuesTable.php:166
+#: /src/App/Tracker/Table/IssuesTable.php:147
 msgid "A build max length is 40 chars."
 msgstr "Макс. длина билда 40 символов."

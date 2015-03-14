@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
 "PO-Revision-Date: 2015-01-12 15:44+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/jtracker/language/pl_PL/)\n"
@@ -665,7 +665,7 @@ msgstr "Twój komentarz został wysłany"
 msgid "Vote successfully added"
 msgstr "Głos został dodany"
 
-#: /src/App/Tracker/Controller/Issue/Submit.php:147
+#: /src/App/Tracker/Controller/Issue/Submit.php:153
 msgid "Your report has been submitted."
 msgstr "Twój raport został wysłany."
 
@@ -714,18 +714,18 @@ msgstr "Numer ID problemu jest wymagany"
 msgid "Category ID is needed."
 msgstr "Numer ID kategorii jest wymagane."
 
-#: /src/App/Tracker/Table/IssuesTable.php:153
+#: /src/App/Tracker/Table/IssuesTable.php:134
 msgid "A title is required."
 msgstr "Tytuł jest wymagany."
 
-#: /src/App/Tracker/Table/IssuesTable.php:157
+#: /src/App/Tracker/Table/IssuesTable.php:138
 msgid "The title max length is 255 chars."
 msgstr "Długość tytułu nie może przekroczyć 255 znaków."
 
-#: /src/App/Tracker/Table/IssuesTable.php:162
+#: /src/App/Tracker/Table/IssuesTable.php:143
 msgid "A build is required."
 msgstr "Budowa jest wymagana."
 
-#: /src/App/Tracker/Table/IssuesTable.php:166
+#: /src/App/Tracker/Table/IssuesTable.php:147
 msgid "A build max length is 40 chars."
 msgstr "Długość budowy nie może przekroczyć 40 znaków."

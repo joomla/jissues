@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2014-11-13 16:48+0000\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +131,11 @@ msgstr "No está autorizado para modificar este usuario"
 msgid "You are not authorized to refresh this user."
 msgstr "No está autorizado para actualizar este usuario"
 
-#: /src/App/Users/Controller/User/Refresh.php:70
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
 msgstr "El perfil ha sido actualizado"
 

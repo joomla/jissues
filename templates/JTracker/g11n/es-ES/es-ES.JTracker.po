@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2014-12-19 21:49+0000\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:55
+#: /templates/index.twig:57
 msgid "Download"
 msgstr "Descargar"
 
-#: /templates/index.twig:58
+#: /templates/index.twig:60
 msgid "Demo"
 msgstr "Demo"
 
@@ -148,6 +148,10 @@ msgstr "Selecionar hito..."
 #: /templates/fields.twig:60
 msgid "No Milestone"
 msgstr "No hito"
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
+msgstr ""
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"

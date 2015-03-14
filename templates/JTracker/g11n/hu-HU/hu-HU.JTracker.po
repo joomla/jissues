@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2014-12-19 21:49+0000\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:55
+#: /templates/index.twig:57
 msgid "Download"
 msgstr "Letöltés"
 
-#: /templates/index.twig:58
+#: /templates/index.twig:60
 msgid "Demo"
 msgstr "Demó"
 
@@ -147,6 +147,10 @@ msgstr "Mérföldkő kiválasztása..."
 #: /templates/fields.twig:60
 msgid "No Milestone"
 msgstr "Nincs mérföldkő"
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
+msgstr ""
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"

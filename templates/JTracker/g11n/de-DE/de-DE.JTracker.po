@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2014-12-20 16:15+0000\n"
-"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:55
+#: /templates/index.twig:57
 msgid "Download"
 msgstr "Download"
 
-#: /templates/index.twig:58
+#: /templates/index.twig:60
 msgid "Demo"
 msgstr "Demo"
 
@@ -147,6 +147,10 @@ msgstr "Meilenstein wählen..."
 #: /templates/fields.twig:60
 msgid "No Milestone"
 msgstr "Kein Meilenstein"
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
+msgstr ""
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"

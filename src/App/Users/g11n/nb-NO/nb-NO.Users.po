@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2014-12-19 21:28+0000\n"
-"Last-Translator: Kenneth Strømsvold <kenneth@stromsvold.com>\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,7 +131,11 @@ msgstr "Du har ikke tilgang til å redigere denne brukeren."
 msgid "You are not authorized to refresh this user."
 msgstr "Du har ikke tilgang til å friske opp denne brukeren."
 
-#: /src/App/Users/Controller/User/Refresh.php:70
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
 msgstr "Profilen har blitt oppfrisket."
 

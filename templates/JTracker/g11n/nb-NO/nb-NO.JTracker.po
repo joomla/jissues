@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
-"PO-Revision-Date: 2014-12-19 21:49+0000\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:55
+#: /templates/index.twig:57
 msgid "Download"
 msgstr "Last ned"
 
-#: /templates/index.twig:58
+#: /templates/index.twig:60
 msgid "Demo"
 msgstr "Demo"
 
@@ -147,6 +147,10 @@ msgstr "Velg milepæl..."
 #: /templates/fields.twig:60
 msgid "No Milestone"
 msgstr "Ingen milepæl"
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
+msgstr ""
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-03-14 13:16-0500\n"
 "PO-Revision-Date: 2015-01-12 15:44+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
@@ -665,7 +665,7 @@ msgstr "Din kommentar er blevet indsendt"
 msgid "Vote successfully added"
 msgstr "Vurdering tilføjet"
 
-#: /src/App/Tracker/Controller/Issue/Submit.php:147
+#: /src/App/Tracker/Controller/Issue/Submit.php:153
 msgid "Your report has been submitted."
 msgstr "Din rapport er blevet indsendt."
 
@@ -714,18 +714,18 @@ msgstr "Issue id skal angives"
 msgid "Category ID is needed."
 msgstr "Kategori ID skal angives."
 
-#: /src/App/Tracker/Table/IssuesTable.php:153
+#: /src/App/Tracker/Table/IssuesTable.php:134
 msgid "A title is required."
 msgstr "En titel er påkrævet"
 
-#: /src/App/Tracker/Table/IssuesTable.php:157
+#: /src/App/Tracker/Table/IssuesTable.php:138
 msgid "The title max length is 255 chars."
 msgstr "Længden af titel må maks være 255 tegn."
 
-#: /src/App/Tracker/Table/IssuesTable.php:162
+#: /src/App/Tracker/Table/IssuesTable.php:143
 msgid "A build is required."
 msgstr "En build er påkrævet."
 
-#: /src/App/Tracker/Table/IssuesTable.php:166
+#: /src/App/Tracker/Table/IssuesTable.php:147
 msgid "A build max length is 40 chars."
 msgstr "Længde af build må maks være 40 tegn."
