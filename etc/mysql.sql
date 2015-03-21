@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `#__status` (
 --
 
 INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
-(1, 'Open', 0),
+(1, 'New', 0),
 (2, 'Confirmed', 0),
 (3, 'Pending', 0),
 (4, 'Ready to Commit', 0),
@@ -107,7 +107,8 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 (9, 'Closed - No Reply', 1),
 (10, 'Closed', 1),
 (11, 'Expected Behaviour', 1),
-(12, 'Known Issue', 1);
+(12, 'Known Issue', 1),
+(13, 'Duplicate Report', 1);
 
 -- --------------------------------------------------------
 
@@ -128,7 +129,8 @@ CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
 INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
-(3, 'not_before');
+(3, 'not_before'),
+(4, 'pr_for');
 
 --
 -- Table structure for table `#__issues_tests`
@@ -170,11 +172,14 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
+  `pr_head_user` varchar(150) NOT NULL COMMENT 'Pull request head user',
+  `pr_head_ref` varchar(150) NOT NULL COMMENT 'Pull request head ref',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
   `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
   `merge_state` varchar(50) NOT NULL COMMENT 'The merge state',
   `gh_merge_status` text NOT NULL COMMENT 'The GitHub merge status (JSON encoded)',
+  `commits` text NOT NULL COMMENT 'Commits of the PR',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),

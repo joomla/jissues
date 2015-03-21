@@ -17,6 +17,7 @@ use Application\Command\Get\Project;
 
 use Joomla\Date\Date;
 
+use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\GithubFactory;
 
@@ -252,15 +253,18 @@ class Issues extends Project
 			$table->issue_number = $ghIssue->number;
 			$table->title        = $ghIssue->title;
 
-			$table->description = $this->github->markdown->render(
-				$ghIssue->body,
-				'gfm',
-				$this->project->gh_user . '/' . $this->project->gh_project
-			);
+			if ($table->description_raw != $ghIssue->body)
+			{
+				$table->description = $this->github->markdown->render(
+					$ghIssue->body,
+					'gfm',
+					$this->project->gh_user . '/' . $this->project->gh_project
+				);
 
-			$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
+				$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-			$table->description_raw = $ghIssue->body;
+				$table->description_raw = $ghIssue->body;
+			}
 
 			$statusTable = new StatusTable($this->getContainer()->get('db'));
 
@@ -272,7 +276,7 @@ class Issues extends Project
 			// Check if the issue status is in the array; if it is, then the item didn't change open state and we don't need to change the status
 			if (!in_array($table->status, $stateIds))
 			{
-				$table->status = $state ? 1 : 10;
+				$table->status = $state ? 10 : 1;
 			}
 
 			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
@@ -290,7 +294,22 @@ class Issues extends Project
 			if (isset($ghIssue->pull_request->diff_url))
 			{
 				$table->has_code = 1;
-				$status = $this->GetMergeStatus($ghIssue);
+
+				// Get the pull request corresponding to an issue.
+				$this->debugOut('Get PR for the issue');
+
+				$pullRequest = $this->github->pulls->get(
+					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
+				);
+
+				// If the $pullRequest->head->user object is not set, the repo/branch had been deleted by the user.
+				$table->pr_head_user = (isset($pullRequest->head->user))
+					? $pullRequest->head->user->login
+					: 'unknown_repository';
+
+				$table->pr_head_ref  = $pullRequest->head->ref;
+
+				$status = $this->GetMergeStatus($pullRequest);
 
 				if (!$status->state)
 				{
@@ -310,6 +329,9 @@ class Issues extends Project
 					$table->merge_state = $status->state;
 					$table->gh_merge_status = json_encode($status);
 				}
+
+				// Get commits
+				$table->commits = json_encode($this->getCommits($pullRequest));
 			}
 
 			// Add the closed date if the status is closed
@@ -510,21 +532,14 @@ class Issues extends Project
 	/**
 	 * Get the GitHub merge status for an issue.
 	 *
-	 * @param   object  $ghIssue  The issue object.
+	 * @param   object  $pullRequest  The pull request object.
 	 *
 	 * @return  Status
 	 *
 	 * @since   1.0
 	 */
-	private function getMergeStatus($ghIssue)
+	private function getMergeStatus($pullRequest)
 	{
-		// Get the pull request corresponding to an issue.
-		$this->debugOut('Get PR for the issue');
-
-		$pullRequest = $this->github->pulls->get(
-			$this->project->gh_user, $this->project->gh_project, $ghIssue->number
-		);
-
 		$this->debugOut('Get merge statuses for PR');
 
 		$statuses = $this->github->repositories->statuses->getList(
@@ -542,6 +557,41 @@ class Issues extends Project
 		}
 
 		return $mergeStatus;
+	}
+
+	/**
+	 * Get the commits for a GitHub pull request.
+	 *
+	 * @param   object  $pullRequest  The pull request object.
+	 *
+	 * @return  Commit
+	 *
+	 * @since   1.0
+	 */
+	private function getCommits($pullRequest)
+	{
+		$this->debugOut('Get commits for PR');
+
+		$commits = [];
+		$commitData = $this->github->pulls->getCommits(
+			$this->project->gh_user, $this->project->gh_project, $pullRequest->number
+		);
+
+		foreach ($commitData as $commit)
+		{
+			$c = new Commit;
+
+			$c->sha = $commit->sha;
+			$c->message = $commit->commit->message;
+			$c->author_name = isset($commit->author->login) ? $commit->author->login : '';
+			$c->author_date = $commit->commit->author->date;
+			$c->committer_name = isset($commit->committer->login) ? $commit->committer->login : '';
+			$c->committer_date = $commit->commit->committer->date;
+
+			$commits[] = $c;
+		}
+
+		return $commits;
 	}
 
 	/**

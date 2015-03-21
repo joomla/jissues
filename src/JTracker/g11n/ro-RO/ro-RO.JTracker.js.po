@@ -1,0 +1,53 @@
+# JTracker CoreJS core.js 1.0.0-beta
+# Copyright (C) 2012 - 2015 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Oana Andrada Florescu <oana@redweb.dk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
+"PO-Revision-Date: 2014-10-17 19:01+0000\n"
+"Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: /www/jtracker/core/js/jtracker.js:11
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Loading preview..."
+msgstr "Previzualizarea se încarcă..."
+
+#: /www/jtracker/core/js/jtracker.js:22 /www/jtracker/core/js/jtracker.js:43
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Invalid response."
+msgstr "Răspunsul nu este valid."
+
+#: /www/jtracker/core/js/jtracker.js:35
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting comment..."
+msgstr "Comentariu în curs de transmitere..."
+
+#: /www/jtracker/core/js/jtracker.js:71
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Adding vote..."
+msgstr "Vot în curs de adăugare..."
+
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting test result..."
+msgstr "Rezultatele testului sunt în curs de transmitere..."
+
+#: /www/jtracker/core/js/jtracker.js:170
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Please select a user"
+msgstr "Vă rugăm să selectați utilizatorul"
+
+#: /www/jtracker/core/js/uploader-img.js:37
+msgid "First please select an editor to attach the uploads to."
+msgstr "Vă rugăm sa selectaţi întâi un editor în care să ataşaţi fişierele încărcate."

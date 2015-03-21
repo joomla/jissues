@@ -9,10 +9,10 @@
 namespace App\Tracker\Model;
 
 use App\Tracker\Table\ActivitiesTable;
-use App\Tracker\Table\IssueCategoryMappingTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
+use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
@@ -69,7 +69,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 				// Get the relation information
 				->select('a1.title AS rel_title, a1.status AS rel_status')
-				->join('LEFT', '#__issues AS a1 ON i.rel_number = a1.issue_number')
+				->join('LEFT', '#__issues AS a1 ON i.rel_number = a1.issue_number AND a1.project_id = ' . (int) $this->getProject()->project_id)
 
 				// Join over the status table
 				->select('s1.closed AS rel_closed')
@@ -78,6 +78,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the relations_types table
 				->select('t.name AS rel_name')
 				->join('LEFT', '#__issues_relations_types AS t ON i.rel_type = t.id')
+
+				// Join over the milestones table
+				->select('m.title AS milestone_title')
+				->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = i.milestone_id')
 		)->loadObject();
 
 		if (!$item)
@@ -95,7 +99,40 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
 
-		$item->activities = $this->db->setQuery($query)->loadObjectList();
+		$activityData = $this->db->setQuery($query)->loadObjectList();
+
+		$commits = json_decode($item->commits) ? : [];
+		$activities = [];
+
+		foreach ($activityData as $i => $activity)
+		{
+			foreach ($commits as $i1 => $commit)
+			{
+				$d1 = new \DateTime($commit->committer_date);
+				$d2 = new \DateTime($activity->created_date, new \DateTimeZone('UTC'));
+
+				if ($d1 < $d2)
+				{
+					$m = explode("\n", $commit->message);
+
+					$a = new \stdClass;
+
+					$a->event = 'commit';
+					$a->user = $commit->author_name;
+					$a->text = $m[0];
+					$a->created_date = $commit->committer_date;
+					$a->activities_id = $commit->sha;
+
+					$activities[] = $a;
+
+					unset ($commits[$i1]);
+				}
+			}
+
+			$activities[] = $activity;
+		}
+
+		$item->activities = $activities;
 
 		// Fetch foreign relations
 		$item->relations_f = $this->db->setQuery(
@@ -176,10 +213,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		sort($item->testsFailure);
 
 		// Fetch category
-
 		$item->categories = $this->db->setQuery(
 			$query->clear()
-				->select('a.title, a.id, a.color')
+				->select('a.title, a.id, a.color, a.alias')
 				->from($this->db->quoteName('#__issues_categories', 'a'))
 				->innerJoin($this->db->quoteName('#__issue_category_map', 'b') . ' ON b.category_id = a.id')
 				->where('b.issue_id =' . (int) $item->id)
@@ -194,13 +230,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   integer  $itemId    The item number
 	 * @param   string   $username  The user name
 	 *
-	 * @return integer
+	 * @return  null|integer  Null - the test was not submitted,
+	 *                        integer - the value of test: 0 - not tested; 1 - tested successfully; 2 - tested unsuccessfully
 	 *
 	 * @since   1.0
 	 */
 	public function getUserTest($itemId, $username)
 	{
-		return (int) $this->db->setQuery(
+		return $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('result')
 				->from($this->db->quoteName('#__issues_tests'))
@@ -287,10 +324,6 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function add(array $src)
 	{
-		$filter = new InputFilter;
-
-		$src['description_raw'] = $filter->clean($src['description_raw'], 'string');
-
 		// Store the issue
 		$table = new IssuesTable($this->db);
 
@@ -336,11 +369,39 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['title']           = $filter->clean($src['title'], 'string');
 		$data['build']           = $filter->clean($src['build'], 'string');
 		$data['description']     = $filter->clean($src['description'], 'raw');
-		$data['description_raw'] = $filter->clean($src['description_raw'], 'string');
+		$data['description_raw'] = $filter->clean($src['description_raw'], 'raw');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
-		$data['easy']            = $filter->clean($src['easy'], 'int');
+
+		if (isset($src['easy']))
+		{
+			$data['easy'] = $filter->clean($src['easy'], 'int');
+		}
+
+		if (isset($src['modified_date']))
+		{
+			$data['modified_date'] = $filter->clean($src['modified_date'], 'string');
+		}
+
 		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
+		$data['milestone_id']    = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
+
+		$state        = $src['new_state'];
+		$changedState = $src['old_state'] != $src['new_state'];
+
+		// If the item has moved from open to closed, add the close data
+		if ($state == 'closed' && $changedState)
+		{
+			$data['closed_date'] = (new Date)->format($this->getDb()->getDateFormat());
+			$data['closed_by']   = $data['modified_by'];
+		}
+
+		// If the item has moved from closed to open, remove the close data
+		if ($state == 'open' && $changedState)
+		{
+			$data['closed_date'] = null;
+			$data['closed_by']   = null;
+		}
 
 		$labels = [];
 
@@ -359,7 +420,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$table = new IssuesTable($this->db);
 
 		$table->load($data['id'])
-			->save($data);
+			->bind($data)
+			->check()
+			->store(true);
 
 		return $this;
 	}
@@ -429,7 +492,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		$query->clear()
-			->select('SUM(score) AS score, COUNT(id) AS votes')
+			->select('SUM(score) AS score, COUNT(id) AS votes, SUM(experienced) AS experienced')
 			->from($db->quoteName('#__issues_voting'))
 			->where($db->quoteName('issue_number') . ' = ' . (int) $id);
 
@@ -477,7 +540,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   string   $userName  The user name
 	 * @param   string   $result    The test result
 	 *
-	 * @return  $this
+	 * @return  object  StdClass with array of usernames for successful and failed tests
 	 *
 	 * @since   1.0
 	 */
@@ -519,6 +582,73 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			)->execute();
 		}
 
-		return $this;
+		// Fetch test data
+
+		$data = new \stdClass;
+
+		$data->testsSuccess = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 1')
+		)->loadColumn();
+
+		sort($data->testsSuccess);
+
+		$data->testsFailure = $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 2')
+		)->loadColumn();
+
+		sort($data->testsFailure);
+
+		return $data;
+	}
+
+	/**
+	 * Get an issue number by its ID.
+	 *
+	 * @param   integer  $id  The issue ID.
+	 *
+	 * @return  integer
+	 *
+	 * @since   1.0
+	 */
+	public function getIssueNumberById($id)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('issue_number')
+				->from($this->db->quoteName('#__issues'))
+				->where($this->db->quoteName('id') . ' = ' . (int) $id)
+		)->loadResult();
+	}
+
+	/**
+	 * Get an issue categories by its ID.
+	 *
+	 * @param   integer  $id  The issue ID.
+	 *
+	 * @return  array  The list of issue categories
+	 *
+	 * @since   1.0
+	 */
+	public function getCategories($id)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select(
+					$this->db->quoteName(
+						['ic.title', 'ic.alias', 'ic.color']
+					)
+				)
+				->from($this->db->quoteName('#__issue_category_map', 'icm'))
+				->leftJoin($this->db->quoteName('#__issues_categories', 'ic') . ' ON ic.id = icm.category_id')
+				->where($this->db->quoteName('icm.issue_id') . ' = ' . (int) $id)
+		)->loadObjectList();
 	}
 }

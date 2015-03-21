@@ -16,7 +16,7 @@ namespace App\Debug\Format\Html;
 class TableFormat
 {
 	/**
-	 * Displays errors in language files.
+	 * Convert an array to a HTML table.
 	 *
 	 * @param   array  $array  The array to generate the table from.
 	 *
@@ -58,9 +58,9 @@ class TableFormat
 	}
 
 	/**
-	 * Convert a stack trace ta a HTML table.
+	 * Convert a stack trace to a HTML table.
 	 *
-	 * @param   array  $trace  The stack trace
+	 * @param   array  $trace  The stack trace.
 	 *
 	 * @return  string
 	 *

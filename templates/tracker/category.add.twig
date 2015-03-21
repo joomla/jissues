@@ -40,10 +40,11 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="color">{{ "Color"|_ }}</label>
+                <label class="control-label" for="color_display">{{ "Color"|_ }}</label>
 
                 <div class="controls">
-                    <input type="text" name="category[color]" id="color"/>
+                    <input class="color_select" id="color"/>
+                    <input type="text" name="category[color]" id="color_display"/>
                 </div>
             </div>
 
@@ -52,4 +53,10 @@
         </fieldset>
     </form>
 
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-simple-color/jquery.simple-color{{ jdebug ? "" : ".min" }}.js"></script>
+    <script type="text/javascript" src="{{ uri.base.path }}jtracker/core/js/color-select{{ jdebug ? "" : ".min" }}.js"></script>
 {% endblock %}

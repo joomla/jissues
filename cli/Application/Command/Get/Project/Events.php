@@ -300,12 +300,10 @@ class Events extends Project
 					case 'subscribed' :
 					case 'unsubscribed' :
 						continue;
-						break;
 
 					default:
 						$this->logOut(sprintf('ERROR: Unknown Event: %s', $event->event));
 						continue;
-						break;
 				}
 			}
 

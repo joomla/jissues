@@ -9,6 +9,7 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
+use App\Projects\Table\MilestonesTable;
 
 use Joomla\Database\DatabaseDriver;
 
@@ -339,6 +340,35 @@ class TrackerProject implements \Serializable
 		return $labels;
 	}
 
+	/**
+	 * Get a list of labels defined for the project.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function getMilestones()
+	{
+		static $milestones = [];
+
+		if (!$milestones)
+		{
+			$db = $this->database;
+
+			$table = new MilestonesTable($db);
+
+			$milestones = $db ->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('milestone_id', 'title', 'description', 'state', 'due_on'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+					->order($db->quoteName('milestone_number'))
+			)->loadObjectList();
+		}
+
+		return $milestones;
+	}
+
 	/*
 	 * NOTE: The following functions have been added to make the properties "visible"
 	 * for the Twig template engine.
@@ -542,7 +572,9 @@ class TrackerProject implements \Serializable
 			$query
 				->select('*')
 				->from($db->quoteName('#__issues_categories'))
-				->where('project_id = ' . $this->project_id);
+				->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+				->order($db->quoteName('title'));
+
 			$categories = $db->setQuery($query)->loadObjectList();
 		}
 

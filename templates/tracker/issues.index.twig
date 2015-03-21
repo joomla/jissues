@@ -49,8 +49,15 @@
                         <b class="caret"></b>
                     </button>
                 </div>
-                <a class="btn pull-right"
-                   href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}</a>
+                <div class="btn-group">
+                    <button class="btn" id="button-remove" type="button">{{ 'Clear'|_ }}</button>
+                </div>
+                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">
+                    {{ 'Feeling Lucky'|_ }}
+                </a>
+                <a class="btn pull-right" id="permalink" href="javascript:">
+                    {{ 'Permalink'|_ }}
+                </a>
             </div>
 
             <div id="stools-container" class="collapse
@@ -59,7 +66,10 @@
             or state.get('filter.search')
             or state.get('filter.sort')
             or state.get('filter.user')
+            or state.get('filter.created_by')
             or state.get('filter.category')
+            or state.get('filter.tests')
+            or state.get('filter.easytest')
             or state.get('stools-active') %}
                 in
             {% endif %}
@@ -67,16 +77,12 @@
                 <div class="filter-search btn-group input-append">
                     <label class="filter-search-lbl element-invisible"
                            for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
-                    <input type="text" class="search-query input-xlarge" name="filter-search" id="filter-search"
+                    <input type="text" class="toclear search-query input-xlarge" name="filter-search" id="filter-search"
                            value="{{ state.get('filter.search') }}"
                            title="{{ translate('Filter the list by ID, summary, or description.') }}"
                            placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-                    <button class="btn tip hasTooltip" id="button-submit" type="button" title="{{ 'Submit search'|_ }}">
+                    <button class="btn button-submit" type="button">
                         <span class="icon-search"></span></button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn tip hasTooltip" id="button-remove" type="button"
-                            title="{{ 'Clear search'|_ }}"><span class="icon-remove"></span></button>
                 </div>
                 {% if (state.get('filter.state') == 0) %}
                     {% set openState = '' %}
@@ -86,25 +92,43 @@
                     {% set closedState = '' %}
                 {% endif %}
                 <div id="status-open" class="btn-group"{{ openState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'input-medium-140', 0) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'toclear input-medium-160', 0) }}
                 </div>
                 <div id="status-closed" class="btn-group"{{ closedState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'input-medium-140', 1) }}
+                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'toclear input-medium-160', 1) }}
                 </div>
                 <div class="btn-group">
-                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'input-small-100') }}
+                    {{ filters.category(state.get('filter.category'), 'filter-category', 'toclear selectpicker', project.categories) }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.label(state.get('filter.label'), 'filter-label', 'toclear selectpicker', project.labels) }}
+                </div>
+                <div class="filter-search btn-group input-append">
+                    <label class="filter-search-lbl element-invisible"
+                           for="filter-created_by">{{ 'Filter the list by creator.'|_ }}</label>
+                    <input type="text" class="toclear search-query input-medium" name="filter-created_by" id="filter-created_by"
+                           value="{{ state.get('filter.created_by') }}"
+                           title="{{ translate('Filter the list by creator.') }}"
+                           placeholder="{{ translate('Filter the list by creator.') }}"/>
+                    <button class="btn button-submit" type="button">
+                        <span class="icon-search"></span></button>
+                </div>
+                <div class="btn-group">
+                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120') }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.tests(state.get('filter.tests'), 'filter-tests', 'toclear input-medium-140') }}
+                </div>
+                <div class="btn-group">
+                    {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'toclear input-small') }}
                 </div>
                 {% if user.username %}
                     <div class="btn-group">
-                        {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-160') }}
+                        {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-180') }}
                     </div>
                 {% endif %}
                 <div class="btn-group">
                     {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
-                </div>
-                <div class="btn-group">
-                    {{ filters.category(state.get('filter.category'), 'filter-category', 'selectpicker',project.categories) }}
-
                 </div>
             </div>
 
@@ -130,6 +154,8 @@
     </div>
 
     <ul id="pagination" class="trackerPagination"></ul>
+
+    <input type="hidden" name="page" id="page" value="{{ state.get('page') }}"/>
 
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
@@ -187,17 +213,36 @@
                         [%= item.title %]
                     </a>
                     [% print(item.labelHtml,true); %]
+                    [% if (item.categories.length) { %]
+                        <br/>
+                        [% for (var n=0, category; category=item.categories[n]; n++) { %]
+                            <a href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/?category=' }}[%= category.alias %]">
+                                <span class="label" style="background-color:#[%= category.color %]; color:[%= JTracker.getContrastColor(category.color) %];">
+                                    [%= category.title %]
+                                </span>
+                            </a>
+                        [% } %]
+                    [% } %]
+                    <br/>
                     <span class="list-issue-details">
+                        [% if (item.opened_by) { %]
+                            {{ 'Created by'|_ }}
+                            [% if (item.user_id) { %]
+                                <a href="{{ uri.base.path ~ 'user/' }}[%= item.user_id %]">[%= item.opened_by %]</a>
+                            [% } else { %]
+                                [%= item.opened_by %]
+                            [% } %]
+                            &nbsp;&bull;&nbsp;
+                        [% } %]
                         {% if project.gh_user and project.gh_project %}
-                          <br/>
                           {{ 'GitHub ID'|_ }}
                           <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
                              target="_blank">
                              [%= item.issue_number %]
                           </a>
+                          &nbsp;&bull;&nbsp;
                         {% endif %}
                         [% if (item.foreign_number) { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Foreign ID'|_ }}
                             <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= item.foreign_number %]"
                                target="_blank">
@@ -205,15 +250,14 @@
                             </a>
                         [% } %]
                         [% if (item.opened_date) { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Opened '|_ }} [%= item.opened_date %]
+                            &nbsp;&bull;&nbsp;
                         [% } %]
                         [% if (item.closed_status != '0') { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Closed '|_ }} [%= item.closed_date %]
+                            &nbsp;&bull;&nbsp;
                         [% } %]
                         [% if (item.modified_date != '-0001-11-30') { %]
-                           &nbsp;&bull;&nbsp;
                             {{ 'Modified '|_ }} [%= item.modified_date %]
                         [% } %]
                     </span>
@@ -223,7 +267,7 @@
                     <span class="badge [%=prioClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
                  </td>
                 <td class="center valign-center">
-                    [%= item.status_title %]
+                    [%= translateStatus(item.status) %]
                     [% if(item.merge_state) { %]
                         <br />
                         <span class="badge badge-[%= getMergeStateClass(item.merge_state) %] " title="{{ 'GitHub merge status'|_ }}">
@@ -266,13 +310,16 @@
          */
 
         $('[id^=filter]').change(function () {
-                    getListItems();
-                }
+                $('#page').val(0);
+                getListItems();
+            }
         );
+
         $('#filter-state-div button').click(
                 function () {
                     var val = $(this).val();
                     $('#filter-state').val(val);
+
                     if (val == 0) {
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
@@ -284,16 +331,20 @@
                         $('#status-open').hide();
                         $('#status-closed').show();
                     }
+
+                    $('#page').val(0);
                     getListItems();
                 }
         );
 
         $("#button-remove").click(function () {
-            $('#filter-search').val('');
+            $('[class^=toclear]').val('');
+            $('#filter-user').val(0);
+            $('#filter-sort').val(0);
             getListItems();
         });
 
-        $("#button-submit").click(function () {
+        $(".button-submit").click(function () {
             getListItems();
         });
 
@@ -332,16 +383,36 @@
             switch (state)
             {
                 case 'success':
-                    return g11n3t('Success');
+                    return '{{ 'Success'|_ }}';
                 case 'pending':
-                    return g11n3t('Pending');
+                    return '{{ 'Pending'|_ }}';
                 case 'error':
-                    return g11n3t('Error');
+                    return '{{ 'Error'|_ }}';
                 case 'failure':
-                    return g11n3t('Failure');
+                    return '{{ 'Failure'|_ }}';
             }
 
             return '?';
+        }
+
+        function translateStatus(id)
+        {
+            statuses = [];
+            statuses['1'] = '{{ 'New'|_ }}';
+            statuses['2'] = '{{ 'Confirmed'|_ }}';
+            statuses['3'] = '{{ 'Pending'|_ }}';
+            statuses['4'] = '{{ 'Ready To Commit'|_ }}';
+            statuses['5'] = '{{ 'Fixed in Code Base'|_ }}';
+            statuses['6'] = '{{ 'Needs Review'|_ }}';
+            statuses['7'] = '{{ 'Information Required'|_ }}';
+            statuses['8'] = '{{ 'Unconfirmed Report'|_ }}';
+            statuses['9'] = '{{ 'No Reply'|_ }}';
+            statuses['10'] = '{{ 'Closed'|_ }}';
+            statuses['11'] = '{{ 'Expected Behaviour'|_ }}';
+            statuses['12'] = '{{ 'Known Issue'|_ }}';
+            statuses['13'] = '{{ 'Duplicate Report'|_ }}';
+
+            return statuses[id];
         }
 
         function getListItems() {
@@ -363,7 +434,12 @@
             var priority = $('#filter-priority').val();
             var sort = $('#filter-sort').val();
             var user = $('#filter-user').val();
+            var created_by = $('#filter-created_by').val();
             var category = $('#filter-category').val();
+            var label = $('#filter-label').val();
+            var tests = $('#filter-tests').val();
+            var easytest = $('#filter-easytest').val();
+            var page = $('#page').val();
 
             $.ajax({
                 type: 'POST',
@@ -373,20 +449,26 @@
                     'status': status,
                     'priority': priority,
                     'user': user,
+                    'created_by': created_by,
                     'sort': sort,
                     'state': state,
-                    'category':category,
-                    'stools-active': active
+                    'category': category,
+                    'label': label,
+                    'tests': tests,
+                    'easytest': easytest,
+                    'stools-active': active,
+                    'page': page
                 },
                 success: function (r) {
                     if (r.data.pagesTotal > 1) {
                         $("#pagination").twbsPagination({
                             totalPages: r.data.pagesTotal,
                             visiblePages: 5,
-                            first: g11n3t('First'),
-                            prev: g11n3t('Previous'),
-                            next: g11n3t('Next'),
-                            last: g11n3t('Last'),
+                            startPage: r.data.currentPage,
+                            first: '{{ 'First'|_ }}',
+                            prev: '{{ 'Previous'|_ }}',
+                            next: '{{ 'Next'|_ }}',
+                            last: '{{ 'Last'|_ }}',
                             onPageClick: function (event, page) {
                                 $('#issuesList tbody').animate({opacity: 0.3}, 100);
                                 $.ajax({
@@ -397,9 +479,13 @@
                                         'status': status,
                                         'priority': priority,
                                         'user': user,
+                                        'created_by': created_by,
                                         'sort': sort,
                                         'state': state,
                                         'category': category,
+                                        'label': label,
+                                        'tests': tests,
+                                        'easytest': easytest,
                                         'stools-active': active
                                     },
                                     success: function (data) {
@@ -414,8 +500,69 @@
                     }
                     $('#issuesList tbody').html(tmpl("ajaxListing", r));
                     $('#issuesList tbody').animate({opacity: 1}, 100);
+
+                    var categoryText = $('#filter-category option:selected').text();
+
+                    $('#permalink').attr('href', getPermaLink(
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by
+                    ));
                 }
             });
+        }
+
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by) {
+            var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
+            var filters = [];
+            var stools = [];
+
+            // Replace non alpha numeric chars with dash
+            categoryText = categoryText.replace(/[\W_]+/g,'-');
+
+            // Remove the last dash if exists
+            if (categoryText.charAt(categoryText.length - 1) == '-')
+            {
+                categoryText = categoryText.slice(0, - 1);
+            }
+
+            // Process sorting
+            sort = parseInt(sort);
+            var sorting = '';
+
+            switch (sort) {
+                case 1 :
+                    sorting = 'sort=issue&direction=asc';
+                    break;
+                case 2 :
+                    sorting = 'sort=updated&direction=desc';
+                    break;
+                case 3 :
+                    sorting = 'sort=updated&direction=asc';
+                    break;
+                default :
+                    sorting = 'sort=issue&direction=desc';
+            }
+
+            stools[stools.length] = '' + sorting;
+
+            // Add other filters
+            if (state != 0) { filters[filters.length] = 'state=' + state; }
+
+            if (search) { stools[stools.length] = 'search=' + search }
+            if (status != 0) { stools[stools.length] = 'status=' + status }
+            if (priority != 0) { stools[stools.length] = 'priority=' + priority }
+            if (user != 0) { stools[stools.length] = 'user=' + user }
+            if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
+            if (label != 0) { stools[stools.length] = 'label=' + label }
+            if (tests != 0) { stools[stools.length] = 'tests=' + tests }
+            if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }
+            if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
+
+            permaLink += filters.length ? filters.join('&') + '&' : '';
+
+            permaLink += stools.length ? stools.join('&') + '&' : '';
+            permaLink += stools.length ? 'stools-active=1' : 'stools-active=0';
+
+            return permaLink;
         }
 
         $('#stools-button button').click(

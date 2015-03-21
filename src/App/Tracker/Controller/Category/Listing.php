@@ -5,11 +5,13 @@
  * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
+
 namespace App\Tracker\Controller\Category;
 
 use App\Tracker\Model\CategoriesModel;
-use JTracker\Controller\AbstractTrackerListController;
 use App\Tracker\View\Categories\CategoriesHtmlView;
+
+use JTracker\Controller\AbstractTrackerListController;
 
 /**
  * List controller class for category.
@@ -55,7 +57,7 @@ class Listing extends AbstractTrackerListController
 
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('admin');
+		$application->getUser()->authorize('manage');
 
 		$this->model->setProject($this->getContainer()->get('app')->getProject(true));
 		$this->view->setProject($this->getContainer()->get('app')->getProject());

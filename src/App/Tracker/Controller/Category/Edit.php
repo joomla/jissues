@@ -8,10 +8,10 @@
 
 namespace App\Tracker\Controller\Category;
 
+use App\Tracker\Model\CategoryModel;
+use App\Tracker\View\Category\CategoryHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
-use App\Tracker\View\Category\CategoryHtmlView;
-use App\Tracker\Model\CategoryModel;
 
 /**
  * Controller class to edit an item of the category
@@ -63,7 +63,7 @@ class Edit extends AbstractTrackerController
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('admin');
+		$application->getUser()->authorize('manage');
 
 		$item = $this->model->getItem($application->input->getUint('id'));
 		$this->view->setProject($application->getProject());

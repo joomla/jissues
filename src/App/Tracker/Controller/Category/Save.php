@@ -8,10 +8,9 @@
 
 namespace App\Tracker\Controller\Category;
 
+use App\Tracker\Model\CategoryModel;
 
 use JTracker\Controller\AbstractTrackerController;
-use App\Tracker\Model\CategoryModel;
-use App\Tracker\Table\CategoryTable;
 
 /**
  * Controller class to save an item to the categories.
@@ -48,7 +47,7 @@ class Save extends AbstractTrackerController
 		/* @type \JTracker\Application $app */
 		$app = $this->getContainer()->get('app');
 
-		$app->getUser()->authorize('admin');
+		$app->getUser()->authorize('manage');
 		$project = $app->getProject();
 
 		try

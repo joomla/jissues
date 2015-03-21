@@ -198,7 +198,7 @@
 				<li><a href="http://www.joomla.org/accessibility-statement.html">Accessibility Statement</a></li>
 				<li><a href="http://www.joomla.org/privacy-policy.html">Privacy Policy</a></li>
 				<li>
-					<a href="http://www.rochenhost.com/joomla-hosting" target="_blank">Joomla Hosting by Rochen Ltd.</a>
+					<a href="https://www.rochen.com/joomla-hosting" target="_blank">Joomla Hosting by Rochen Ltd.</a>
 				</li>
 			</ul>
 

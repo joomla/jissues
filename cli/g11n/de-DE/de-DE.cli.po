@@ -1,16 +1,16 @@
 # JTracker CLI cli 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Nikolai Plath <der.el.kuku@gmail.com>, 2014
+# Nikolai Plath <der.el.kuku@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-21 22:23+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
+"PO-Revision-Date: 2015-02-07 18:10+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -250,22 +250,34 @@ msgid_plural "Processing comments for %d modified issues..."
 msgstr[0] "Verarbeite Kommentare für einen geänderten Fehlerbericht..."
 msgstr[1] "Verarbeite Kommentare für %d geänderte Fehlerberichte..."
 
-#: /cli/Application/Command/Get/Project/Comments.php:204
+#: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
 msgid "No comments for issue # %d"
 msgstr "Keine Kommentare für Eintrag # %d"
 
-#: /cli/Application/Command/Get/Project/Comments.php:213
+#: /cli/Application/Command/Get/Project/Comments.php:219
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
 msgstr[0] "Verarbeite einen Kommentar für Eintrag # %2$d (%3$d / %4$d)"
 msgstr[1] "Verarbeite %1$d Kommentare für Eintrag # %2$d (%3$d / %4$d)"
 
-#: /cli/Application/Command/Get/Project/Comments.php:310
+#: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
-msgid "%1$d added %2$d updated."
-msgstr "%1$d hinzugefügt %2$d aktualisiert."
+msgid "%1$d added, %2$d updated, %3$d deleted."
+msgstr "%1$d hinzugefügt, %2$d aktualisiert, %3$d gelöscht."
+
+#: /cli/Application/Command/Get/Project/Comments.php:352
+msgid "Getting issue comments."
+msgstr "Beziehe Kommentare der Fehlerberichte"
+
+#: /cli/Application/Command/Get/Project/Comments.php:381
+msgid "Deleting issues comments."
+msgstr "Lösche Kommentare der Fehlerberichte"
+
+#: /cli/Application/Command/Get/Project/Events.php:42
+msgid "Retrieve issue events from GitHub."
+msgstr "Bezieht Events der Fehlerberichte von GitHub."
 
 #: /cli/Application/Command/Get/Project/Events.php:66
 msgid "Retrieve Events"
@@ -286,27 +298,59 @@ msgstr[1] "Hole Events für <b>%d</b> Einträge von GitHub ..."
 msgid "Adding events to the database..."
 msgstr "Events werden in der Datenbank gespeichert..."
 
-#: /cli/Application/Command/Get/Project/Events.php:321
+#: /cli/Application/Command/Get/Project/Events.php:319
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "Es wurden %d neue Events in der Datenbank gespeichert."
 
-#: /cli/Application/Command/Get/Project/Issues.php:55
+#: /cli/Application/Command/Get/Project/Issues.php:66
 msgid "Retrieve issues from GitHub."
 msgstr "Bezieht Fehlerberichte von GitHub."
+
+#: /cli/Application/Command/Get/Project/Issues.php:78
+msgid "Retrieve Issues"
+msgstr "Bezieht Fehlerberichte"
+
+#: /cli/Application/Command/Get/Project/Issues.php:83
+msgid "Start retrieve Issues"
+msgstr "Starte Abrufen der Fehlerberichte"
+
+#: /cli/Application/Command/Get/Project/Issues.php:89
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Beendet"
+
+#: /cli/Application/Command/Get/Project/Issues.php:105
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr "Hole <b>%s</b> Einträge von GitHub ..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:164
+#, php-format
+msgid "Retrieved <b>%d</b> items from GitHub."
+msgstr "Es wurden <b>%d</b> Einträge von GitHub abgerufen."
+
+#: /cli/Application/Command/Get/Project/Issues.php:194
+msgid "Adding issues to the database..."
+msgstr "Einträge werden in der Datenbank gespeichert..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:409
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
+msgstr "<ok>%1$d hizugefügt, %2$d aktualisiert.</ok>"
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
 msgstr "Bezieht Projektlabels von GitHub"
 
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
+msgstr "Labels abrufen"
+
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
 msgstr "Starte Abrufen der Projektlabels"
-
-#: /cli/Application/Command/Get/Project/Labels.php:50
-#: /cli/Application/Command/Get/Project/Milestones.php:52
-msgid "Finished"
-msgstr "Beendet"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
@@ -412,47 +456,61 @@ msgstr "SQL Datei fehlerhaft."
 msgid "Creating tables from file %s"
 msgstr "Erstelle Tabellen aus der Datei %s"
 
-#: /cli/Application/Command/TrackerCommand.php:178
+#: /cli/Application/Command/TrackerCommand.php:179
 #, php-format
 msgid "Command: %s"
 msgstr "Kommando: %s"
 
-#: /cli/Application/Command/TrackerCommand.php:181
+#: /cli/Application/Command/TrackerCommand.php:182
 msgid "Please use one of the following :"
 msgstr "Bitte nutzen Sie eine der folgenden Möglichkeiten:"
 
-#: /cli/Application/Command/TrackerCommand.php:295
+#: /cli/Application/Command/TrackerCommand.php:296
 msgid "Available projects:"
 msgstr "Verfügbare Projekte:"
 
-#: /cli/Application/Command/TrackerCommand.php:313
+#: /cli/Application/Command/TrackerCommand.php:314
 msgid "Select a project:"
 msgstr "Wählen Sie ein Projekt:"
 
-#: /cli/Application/Command/TrackerCommand.php:319
+#: /cli/Application/Command/TrackerCommand.php:320
 msgid "Aborted"
 msgstr "Abgebrochen"
 
-#: /cli/Application/Command/TrackerCommand.php:324
-#: /cli/Application/Command/TrackerCommand.php:343
+#: /cli/Application/Command/TrackerCommand.php:325
+#: /cli/Application/Command/TrackerCommand.php:344
 msgid "Invalid project"
 msgstr "Ungültiges Projekt"
 
-#: /cli/Application/Command/TrackerCommand.php:347
+#: /cli/Application/Command/TrackerCommand.php:348
 #, php-format
 msgid "Processing project: %s"
 msgstr "Bearbeite Projekt: %s"
 
-#: /cli/Application/Command/TrackerCommand.php:378
-#: /cli/Application/Command/TrackerCommand.php:380
+#: /cli/Application/Command/TrackerCommand.php:379
+#: /cli/Application/Command/TrackerCommand.php:381
 msgid "An unknown error occurred"
 msgstr "Ein unbekannter Fehler ist aufgetreten"
 
-#: /cli/tracker.php:47
+#: /cli/Application/Command/Update/Server.php:84
+#, php-format
+msgid ""
+"Could not read data from the %s SQL file, please update the database "
+"manually."
+msgstr "Die Daten aus der SQL Datei %s konnten nicht gelesen werden. Bitte aktualisieren sie die Datenbank manuell."
+
+#: /cli/Application/Command/Update/Server.php:106
+#, php-format
+msgid ""
+"SQL query failed, please verify the database structure and finish the update"
+" manually.  The database error message is: %s"
+msgstr "Der SQL Query schlug fehl, bitte überprüfen sie die Struktur der Datenbank und beenden sie die Aktualisierung manuell. Die Fehlermeldung der Datenbank ist: %s"
+
+#: /cli/tracker.php:49
 #, php-format
 msgid "ERROR: %s"
 msgstr "FEHLER: %s"
 
-#: /cli/tracker.php:49
+#: /cli/tracker.php:51
 msgid "Call stack:"
 msgstr "Aufrufstapel:"

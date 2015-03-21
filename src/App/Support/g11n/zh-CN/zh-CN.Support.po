@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
 "PO-Revision-Date: 2014-07-20 10:25+0000\n"
 "Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "文档"
-
-#: /templates/support/documentation.index.twig:45
-msgid "Improve"
-msgstr "提升"
-
-#: /templates/support/documentation.index.twig:46
-msgid "Permalink"
-msgstr "永久链接"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -105,6 +93,18 @@ msgstr "GitHub 引用"
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "输出"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "文档"
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr "提升"
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr "永久链接"
 
 #: /templates/support/icons.index.twig:6
 #: /templates/support/icons.index.twig:10

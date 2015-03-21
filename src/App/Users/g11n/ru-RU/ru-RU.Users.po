@@ -1,16 +1,16 @@
 # JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Dmitry Rekun, 2014
+# Dmitry Rekun, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:22-0400\n"
-"PO-Revision-Date: 2014-05-26 11:19+0000\n"
-"Last-Translator: Dmitry Rekun\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,70 +18,17 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: /templates/users/users.index.twig:6
-msgid "Users"
-msgstr "Пользователи"
-
-#: /templates/users/users.index.twig:15
-msgid "Users List"
-msgstr "Список пользователей"
-
-#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:43
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "Страница %1$s из %2$s"
-
-#: /templates/users/users.index.twig:24
-msgid "Username"
-msgstr "Имя пользователя"
-
-#: /templates/users/users.index.twig:26
-msgid "Actions"
-msgstr "Действия"
-
-#: /templates/users/users.index.twig:28
-msgid "ID"
-msgstr "ID"
-
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr "Редактировать пользователя"
-
-#: /templates/users/user.edit.twig:11 /templates/users/user.index.twig:12
+#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
 msgid "Invalid user!"
 msgstr "Пользователя не существует!"
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr "Сохранить"
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr "Отменить"
-
-#: /templates/users/user.edit.twig:32 /templates/users/user.index.twig:22
-msgid "Refresh profile from GitHub"
-msgstr "Обновить профиль из GitHub"
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr "GitHub профиль"
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr "Параметры"
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr "Язык"
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr "Часовой пояс"
 
 #: /templates/users/user.index.twig:19
 msgid "Edit profile"
 msgstr "Изменить профиль"
+
+#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Обновить профиль из GitHub"
 
 #: /templates/users/user.index.twig:26
 msgid "My Profile"
@@ -101,6 +48,72 @@ msgstr "Язык: %s"
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Часовой пояс: %1$s (GMT %2$s)"
 
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Редактировать пользователя"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Сохранить"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Отменить"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub профиль"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Параметры"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Язык"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Часовой пояс"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Пользователи"
+
+#: /templates/users/users.index.twig:15
+msgid "Users List"
+msgstr "Список пользователей"
+
+#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:25
+msgid "Filter the list by user."
+msgstr "Фильтровать по пользователю."
+
+#: /templates/users/users.index.twig:30
+msgid "Clear"
+msgstr "Очистить"
+
+#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Страница %1$s из %2$s"
+
+#: /templates/users/users.index.twig:42
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: /templates/users/users.index.twig:44
+msgid "Actions"
+msgstr "Действия"
+
+#: /templates/users/users.index.twig:46
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/users.index.twig:62
+msgid "No items found."
+msgstr "Ничего не найдено."
+
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
 msgstr "Пользователь был назначен."
@@ -118,7 +131,11 @@ msgstr "Вы не авторизованы для редактирования �
 msgid "You are not authorized to refresh this user."
 msgstr "У вас нет прав для обновления этого пользователя."
 
-#: /src/App/Users/Controller/User/Refresh.php:70
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
 msgstr "Этот профиль был успешно обновлен."
 

@@ -218,9 +218,9 @@
 
                 <div class="row-fluid" style="min-height: 200px;">
                     <div class="span4">
-                        <label for="searchUser">Add user</label>&nbsp;<span id="searchUser-msg"></span><br/>
+                        <label for="searchUser">{{ 'Add user'|_ }}</label>&nbsp;<span id="searchUser-msg"></span><br/>
                         <input type="text" class="span6" id="searchUser" data-provide="typeahead"
-                               data-items="6" autocomplete="off" value="" placeholder="username"/>
+                               data-items="6" autocomplete="off" value="" placeholder="{{ 'username'|_ }}"/>
 
                         <a class="btn" href="javascript:"
                            onclick="assignUser(
@@ -230,10 +230,10 @@
                         </a>
                     </div>
                     <div class="span4">
-                        <label for="searchUserGroup">Remove user</label>&nbsp;<span
+                        <label for="searchUserGroup">{{ 'Remove user'|_ }}</label>&nbsp;<span
                                 id="searchUserGroup-msg"></span><br/>
                         <input type="text" class="span6" id="searchUserGroup" data-provide="typeahead"
-                               data-items="6" autocomplete="off" value="" placeholder="username"/>
+                               data-items="6" autocomplete="off" value="" placeholder="{{ 'username'|_ }}"/>
                         <a class="btn" href="javascript:"
                            onclick="assignUser(
                                    $('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup'

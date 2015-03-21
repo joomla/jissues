@@ -6,8 +6,9 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Tracker\Controller\Issue\Ajax;
+namespace App\Tracker\Controller\TestResult\Ajax;
 
+use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
 use JTracker\Controller\AbstractAjaxController;
@@ -17,7 +18,7 @@ use JTracker\Controller\AbstractAjaxController;
  *
  * @since  1.0
  */
-class TestResult extends AbstractAjaxController
+class Submit extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.
@@ -32,23 +33,44 @@ class TestResult extends AbstractAjaxController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 		$user        = $application->getUser();
+		$project     = $application->getProject();
 
-		if (!$user->check('edit'))
+		if (!$user->id)
 		{
 			throw new \Exception('You are not allowed to test this item.');
 		}
 
-		$issueId  = $application->input->getUint('issueId');
-		$result   = $application->input->getUint('result');
+		$issueId = $application->input->getUint('issueId');
+		$result  = $application->input->getUint('result');
 
 		if (!$issueId)
 		{
 			throw new \Exception('No issue ID received.');
 		}
 
-		$model = new IssueModel($this->getContainer()->get('db'));
+		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
-		$model->saveTest($issueId, $user->username, $result);
+		$data = new \stdClass;
+
+		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result);
+
+		$event = (new ActivityModel($this->getContainer()->get('db')))
+			->addActivityEvent(
+				'test_item', 'now', $user->username,
+				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
+				json_encode($result)
+			);
+
+		$data->event = new \stdClass;
+
+		foreach ($event as $k => $v)
+		{
+			$data->event->$k = $v;
+		}
+
+		$data->event->text = json_decode($data->event->text);
+
+		$this->response->data = json_encode($data);
 
 		$this->response->message = g11n3t('Test successfully added');
 	}

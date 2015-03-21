@@ -8,9 +8,9 @@
 
 namespace App\Tracker\Controller\Category;
 
+use App\Tracker\View\Category\CategoryHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
-use App\Tracker\View\Category\CategoryHtmlView;
 
 /**
  *  Controller class to add an item into the categories
@@ -54,7 +54,7 @@ class Add extends AbstractTrackerController
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
-		$application->getUser()->authorize('admin');
+		$application->getUser()->authorize('manage');
 		$this->view->setProject($application->getProject());
 
 		$item = new \stdClass;

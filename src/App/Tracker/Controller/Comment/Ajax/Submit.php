@@ -30,10 +30,14 @@ class Submit extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('create');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$comment      = $this->getContainer()->get('app')->input->get('text', '', 'raw');
-		$issue_number = $this->getContainer()->get('app')->input->getInt('issue_number');
+		$application->getUser()->authorize('create');
+
+		$comment      = $application->input->get('text', '', 'raw');
+		$issue_number = $application->input->getInt('issue_number');
+		$project      = $application->getProject();
 
 		if (!$issue_number)
 		{
@@ -47,13 +51,11 @@ class Submit extends AbstractAjaxController
 
 		// @todo removeMe :(
 		$comment .= sprintf(
-			'<br />*You may blame the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a> for transmitting this comment.*',
+			'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
 			'https://github.com/joomla/jissues', 'J!Tracker',
-			$this->getContainer()->get('app')->get('uri')->base->full,
-			$this->getContainer()->get('app')->get('uri')->base->full
+			$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issue_number,
+			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issue_number
 		);
-
-		$project = $this->getContainer()->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
@@ -88,7 +90,7 @@ class Submit extends AbstractAjaxController
 			$date = new Date;
 
 			$data->created_at = $date->format($db->getDateFormat());
-			$data->opened_by  = $this->getContainer()->get('app')->getUser()->username;
+			$data->opened_by  = $application->getUser()->username;
 			$data->comment_id = '???';
 
 			$data->text_raw = $comment;

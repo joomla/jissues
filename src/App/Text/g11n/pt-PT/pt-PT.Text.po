@@ -1,5 +1,5 @@
 # JTracker App Text 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
 "PO-Revision-Date: 2014-01-19 00:55+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
@@ -17,33 +17,13 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr ""
-
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-#: /templates/text/articles.index.twig:19
-msgid "New Article"
-msgstr ""
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr ""
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr ""
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr ""
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr ""
-
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
+msgstr ""
+
+#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:34
+msgid "New Article"
 msgstr ""
 
 #: /templates/text/articles.index.twig:30
@@ -68,6 +48,26 @@ msgstr ""
 
 #: /templates/text/articles.index.twig:61
 msgid "No articles found"
+msgstr ""
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr ""
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr ""
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr ""
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr ""
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
 msgstr ""
 
 #: /src/App/Text/Controller/Article/Delete.php:47

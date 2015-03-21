@@ -36,7 +36,8 @@
 		"gzip"      : "0",
 		"offset"    : "UTC",
 		"upload_dir": "uploads",
-		"use_cdn"   : "1"
+		"use_cdn"   : "1",
+		"remember_me": "1"
 	},
 
 	"acl": {
@@ -71,9 +72,12 @@
 		"fr-FR",
 		"hu-HU",
 		"it-IT",
+		"nb-NO",
 		"nl-NL",
+		"pl-PL",
 		"pt-BR",
 		"pt-PT",
+		"ro-RO",
 		"ru-RU",
 		"zh-CN"
 	],

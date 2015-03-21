@@ -16,7 +16,8 @@
 	"tracker/:project_alias/:id/edit-save": "\\Tracker\\Controller\\Issue\\Save",
 	"tracker/:project_alias/:id/info"     : "\\Tracker\\Controller\\Issue\\Ajax\\Info",
 	"submit/vote"                         : "\\Tracker\\Controller\\Issue\\Ajax\\Vote",
-	"submit/testresult"                   : "\\Tracker\\Controller\\Issue\\Ajax\\TestResult",
+	"submit/testresult"                   : "\\Tracker\\Controller\\TestResult\\Ajax\\Submit",
+	"alter/testresult"                    : "\\Tracker\\Controller\\TestResult\\Ajax\\Alter",
 	"submit/comment"                      : "\\Tracker\\Controller\\Comment\\Ajax\\Submit",
 	"upload/put"                          : "\\Tracker\\Controller\\Upload\\Ajax\\Put",
 	"upload/delete"                       : "\\Tracker\\Controller\\Upload\\Ajax\\Delete",
@@ -24,5 +25,7 @@
     "category/save"                       : "\\Tracker\\Controller\\Category\\Save",
     "category/:project_alias"             : "\\Tracker\\Controller\\Category\\Listing",
     "category/:project_alias/delete/:id/" : "\\Tracker\\Controller\\Category\\Delete",
-    "category/:project_alias/edit/:id/"   : "\\Tracker\\Controller\\Category\\Edit"
+    "category/:project_alias/edit/:id/"   : "\\Tracker\\Controller\\Category\\Edit",
+    "fetch/issues"                        : "\\Tracker\\Controller\\Fetch\\Ajax\\Issues",
+    "fetch/users"                         : "\\Tracker\\Controller\\Fetch\\Ajax\\Users"
 }

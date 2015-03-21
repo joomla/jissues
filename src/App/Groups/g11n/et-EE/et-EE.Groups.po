@@ -1,5 +1,5 @@
 # JTracker App Groups 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-05-30 07:32+0000\n"
-"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
+"PO-Revision-Date: 2014-08-31 17:23+0000\n"
+"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,9 +76,21 @@ msgstr "aldamine"
 msgid "Users"
 msgstr "Kasutajad"
 
+#: /templates/groups/group.edit.twig:221
+msgid "Add user"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:223 /templates/groups/group.edit.twig:236
+msgid "username"
+msgstr ""
+
 #: /templates/groups/group.edit.twig:229
 msgid "Add User"
 msgstr "Lisa kasutaja"
+
+#: /templates/groups/group.edit.twig:233
+msgid "Remove user"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:241
 msgid "Remove User"

@@ -194,6 +194,12 @@ class Comments extends Project
 		// Initialize our ActivitiesTable instance to insert the new record
 		$table = new ActivitiesTable($db);
 
+		// Comments ids for computing the difference
+		$commentsIds = array();
+
+		// Comments ids to delete
+		$toDelete = array();
+
 		// Start processing the comments now
 		foreach ($this->items as $issueNumber => $comments)
 		{
@@ -224,6 +230,9 @@ class Comments extends Project
 
 				foreach ($comments as $i => $comment)
 				{
+					// Store the comment id for computing the difference
+					$commentsIds[] = $comment->id;
+
 					$check = $db->setQuery(
 						$query
 							->clear()
@@ -303,12 +312,79 @@ class Comments extends Project
 
 				++ $count;
 			}
+
+			// Compute the difference between GitHub comments and issue comments
+			$issueComments = $this->getIssueCommentsIds($issueNumber);
+			$commentsToDelete = array_diff($issueComments, $commentsIds);
+
+			$toDelete = array_merge($toDelete, $commentsToDelete);
+		}
+
+		// Delete comments which does not exist on GitHub
+		if (!empty($toDelete))
+		{
+			$this->deleteIssuesComments($toDelete);
 		}
 
 		$this->out()
 			->outOK()
-			->logOut(sprintf(g11n3t('%1$d added %2$d updated.'), $adds, $updates));
+			->logOut(sprintf(g11n3t('%1$d added, %2$d updated, %3$d deleted.'), $adds, $updates, count($toDelete)));
 
 		return $this;
+	}
+
+	/**
+	 * Method to get comments ids of the issue
+	 *
+	 * @param   integer  $issueNumber  The issue number to get comments for
+	 *
+	 * @return  array|null  An array of comments ids or null if no data found
+	 *
+	 * @since   1.0
+	 */
+	private function getIssueCommentsIds($issueNumber)
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->getContainer()->get('db');
+
+		$query = $db->getQuery(true);
+
+		$this->logOut(g11n3t('Getting issue comments.'));
+
+		return $db->setQuery(
+			$query
+				->select($db->quoteName('gh_comment_id'))
+				->from($db->quoteName('#__activities'))
+				->where($db->quoteName('issue_number') . ' = ' . (int) $issueNumber)
+				->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
+				->where(($db->quoteName('event')) . ' = ' . $db->quote('comment'))
+		)
+			->loadColumn();
+	}
+
+	/**
+	 * Method to delete comments
+	 *
+	 * @param   array  $ids  An array of comments ids to delete
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	private function deleteIssuesComments(array $ids)
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->getContainer()->get('db');
+
+		$query = $db->getQuery(true);
+
+		$this->logOut(g11n3t('Deleting issues comments.'));
+
+		$db->setQuery(
+			$query
+				->delete($db->quoteName('#__activities'))
+				->where($db->quoteName('gh_comment_id') . ' IN (' . implode(',', $ids) . ')')
+		)
+			->execute();
 	}
 }

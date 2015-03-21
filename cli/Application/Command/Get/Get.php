@@ -91,9 +91,7 @@ class Get extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$className = join('', array_slice(explode('\\', get_class($this)), -1));
-
-		return $this->displayMissingOption(strtolower($className), __DIR__);
+		return $this->displayMissingOption(__DIR__);
 	}
 
 	/**
@@ -107,6 +105,11 @@ class Get extends TrackerCommand
 	protected function setupGitHub()
 	{
 		$this->github = $this->getContainer()->get('gitHub');
+
+		// Check the rate limit immediately and switch if need be
+		$rate = $this->github->authorization->getRateLimit()->resources->core;
+
+		$this->checkGitHubRateLimit($rate->remaining);
 
 		return $this;
 	}

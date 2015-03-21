@@ -3,25 +3,27 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} - {{ translate('New Item') }}{% endblock %}
+{% block title %}{{ project.title }} - {{ ('New Item')|_ }}{% endblock %}
 
 {% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block prependMenu %}
     <li id="issueResult">
-        <a class="btn-success" href="javascript:" id="submit">{{ translate('Submit') }}</a>
+        <a class="btn-success submit-button" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
     </li>
     {{ parent() }}
 {% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
     <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}vendor/jquery.atwho/dist/css/jquery.atwho.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block content %}
@@ -33,19 +35,19 @@
         <div class="row-fluid">
             <div class="span3 pull-right well well-small issue-add-right-block">
 
-                <label for="viewMode" class="btn btn-small">{{ translate('View Mode') }}</label>
+                <label for="viewMode" class="btn btn-small">{{ ('View Mode')|_ }}</label>
                 <br />
                 <div class="make-switch switch-large" id="helpSwitch"
-                     data-on-label="{{ translate('Help') }}" data-off-label="{{ translate('Pro') }}"
+                     data-on-label="{{ ('Help')|_ }}" data-off-label="{{ ('Pro')|_ }}"
                      data-on="success" data-off="info">
                     <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
                 </div>
 
-                <div class="divider">-</div>
+                <hr />
 
                 {{ fields.label('priority', 'Priority'|_, '') }}
                 {% set priorities = priorities() %}
-                {{ fields.select('item[priority]', priorities, item.priority, 'priority', 'input-small-100') }}
+                {{ fields.select('priority', priorities, item.priority, 'priority', 'input-small-100') }}
 
                 <div class="helpText alert alert-info">
                     {{ "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."|_|raw }}
@@ -54,10 +56,23 @@
                 {{ fields.label('build', 'Build'|_, '') }}
                 {{ fields.input('build', '', '', '', 'validateBuild input-small') }}
 
+                <div class="helpText alert alert-info">
+                    {{ "The version(s) of the project on which this issue is found."|_ }}
+                </div>
 
+                {% if project.categories %}
                 {{ fields.label('categories[]', 'Categories'|_) }}
                 {{ fields.selectCategories('categories[]', project.categories) }}
+                <div class="helpText alert alert-info">
+                    {{ "Please select one or more Categories here that match to your issue."|_ }}
+                </div>
+                {% endif %}
 
+                {% if user.check("edit") and project.milestones %}
+                {{ fields.label('milestone_id', 'Milestone'|_) }}
+                {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
+                {% endif %}
+                
                 {{ fields.label('labels', 'Labels'|_) }}
                 {{ fields.selectLabels('labels[]', project.labels, item.labels|split(','), 'labels') }}
 
@@ -66,28 +81,42 @@
 
             <div class="span9 issue-add-details">
 
-                <div class="helpText alert alert-info">{{ "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."|_ }}</div>
+                <div class="alert alert-warning">
+                    {{ "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."|_|raw }}
+                </div>
 
-                <h2>{{ translate('New Item') }}</h2>
+                <div class="helpText alert alert-info">
+                    {{ "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."|_ }}
+                </div>
+
+                <h2>{{ ('New Item')|_ }}</h2>
 
                 <fieldset>
                     {{ fields.label('title', 'Title'|_, '') }}
                     {{ fields.input('title', '', '', '', 'validateTitle input-issue-title') }}
 
-                    <div class="helpText alert alert-info">{{ "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."|_ }}</div>
+                    <div class="helpText alert alert-info">
+                        {{ "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."|_ }}
+                    </div>
 
                     {{ fields.label('description', 'Description'|_, '') }}
 
                     {% set editorId="description" %}
+                    {% set writeId="write" %}
+                    {% set previewId="preview" %}
+                    {% set editorClass="validateDescription" %}
                     {% set editorName="body" %}
                     {% set editorText=item.description_raw %}
                     {% set editorPlaceholder="Description text" %}
 
                     {% include "editor.twig" %}
 
-                    <div class="helpText alert alert-info">{{ "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."|_ }}</div>
+                    <div class="helpText alert alert-info">
+                        {{ "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."|_ }}
+                    </div>
 
                 </fieldset>
+                <a class="submit-button pull-right btn btn-success" href="javascript:" id="submit">{{ ('Submit')|_ }}</a>
 
             </div>
         </div>
@@ -108,7 +137,7 @@
     <script type="text/javascript" src="{{ uri.base.path }}vendor/bootstrap-switch/static/js/bootstrap-switch.js"></script>
     <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/dist/jquery.validate{{ jdebug ? "" : ".min" }}.js"></script>
     {% if lang != 'en-GB' %}
-        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/localization/messages_{{ lang|split('-')[0] }}.js"></script>
+        <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-validation/src/localization/messages_{{ lang|split('-')[0] }}.js"></script>
     {% endif %}
     <script type="text/javascript" src="{{ uri.base.path }}jtracker/jquery-validation/jtracker-rules.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
@@ -124,6 +153,8 @@
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
+    <script src="{{ uri.base.path }}vendor/Caret.js/dist/jquery.caret{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/jquery.atwho/dist/js/jquery.atwho{{ jdebug ? "" : ".min" }}.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -155,6 +186,10 @@
             }
         });
 
+        $('#description').focus(function() {
+            $('input[name="editorId"]').val(this.id);
+        });
+
         // Validate and submit form
         var form = $('#issueForm');
 
@@ -163,7 +198,7 @@
                 var e = $('div.alert-danger');
 
                 if (validator.numberOfInvalids()) {
-                    e.html('Some fields are invalid. They have been highlighted.');
+                    e.html('{{ 'Some fields are invalid. They have been highlighted.'|_ }}');
                     e.show();
                 } else {
                     e.hide();
@@ -171,11 +206,14 @@
             }
         });
 
-        $('#submit').click(function() {
+        $('.submit-button').click(function() {
             if (form.valid()) {
-                $('#submit').html('Submitting...');
+                $('.submit-button').html('{{ 'Submitting...'|_ }}');
             }
             form.submit();
         });
+
+        JTracker.setupAtJS('description', '{{ project.alias }}');
+
     </script>
 {% endblock %}

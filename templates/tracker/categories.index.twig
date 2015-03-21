@@ -6,7 +6,7 @@
 {% block title %}{{ "Categories List"|_ }}{% endblock %}
 
 {% block prependMenu %}
-    {% if user.isAdmin %}
+    {% if user.check("manage") %}
         <li>
             <a class="btn-success" href="{{ uri.base.path }}category/{{ project.alias }}/add">
                 {{ "New Category"|_ }}
@@ -16,6 +16,11 @@
 
     {{ parent() }}
 
+{% endblock %}
+
+{% block headerCSS %}
+    <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block content %}
@@ -29,7 +34,7 @@
             <th style="width: 10%">{{ "Title"|_ }}</th>
             <th style="width: 10%">{{ "Color"|_ }}</th>
 
-            {% if user.isAdmin %}
+            {% if user.check("manage") %}
                 <th style="width: 10%;">{{ "Actions"|_ }}</th>
             {% endif %}
 
@@ -50,7 +55,7 @@
                     #{{ item.color }}
                 </td>
                 <td>
-                        {% if user.isAdmin %}
+                        {% if user.check("manage") %}
                             <a href="{{ uri.base.path }}category/{{ project.alias }}/delete/{{ item.id }}">{{ "Delete"|_ }}</a>
                             <a href="{{ uri.base.path }}category/{{ project.alias }}/edit/{{ item.id }}">{{ "Edit"|_ }}</a>
                         {% endif %}
@@ -61,4 +66,10 @@
             </tr>
         {% endfor %}
     </table>
+
+    {% if pagination.pagesTotal > 1 %}
+        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+        {{ pagination.bar|raw }}
+    {% endif %}
+
 {% endblock %}

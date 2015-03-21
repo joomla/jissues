@@ -1,5 +1,5 @@
 # JTracker CoreJS core.js 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-07-25 13:38+0000\n"
-"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
+"PO-Revision-Date: 2014-10-11 19:56+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,12 +33,21 @@ msgstr "Respuesta no válida "
 msgid "Submitting comment..."
 msgstr "Enviando comentario..."
 
-#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.js:71
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
 msgstr "Enviando voto..."
 
-#: /www/jtracker/core/js/jtracker.js:96
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr "Enviando los resultados del test..."
+
+#: /www/jtracker/core/js/jtracker.js:170
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Please select a user"
+msgstr "Por favor, seleccione el usuario"
+
+#: /www/jtracker/core/js/uploader-img.js:37
+msgid "First please select an editor to attach the uploads to."
+msgstr ""

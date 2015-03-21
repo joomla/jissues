@@ -52,14 +52,11 @@ class Submit extends AbstractTrackerController
 		}
 
 		// Prepare issue for the store
-
 		$data = array();
-
+		
 		$data['title'] = $application->input->getString('title');
 
-		$labels = [];
-
-		foreach ($application->input->get('labels', [], 'array') as $labelId)
+		if (!$body)
 		{
 			// Filter integer
 			$labels[] = (int) $labelId;
@@ -91,15 +88,31 @@ class Submit extends AbstractTrackerController
 					}
 				}
 			}
-
-			$gitHubResponse = $gitHub->issues->create(
-				$project->gh_user, $project->gh_project,
-				$data['title'], $body, $assignee, $milestone, $ghLabels
-			);
-
-			if (!isset($gitHubResponse->id))
+			
+			try
 			{
-				throw new \Exception('Invalid response from GitHub');
+				$gitHubResponse = $gitHub->issues->create(
+					$project->gh_user, $project->gh_project,
+					$data['title'], $body, $assignee, $milestone, $ghLabels
+				);
+			}
+			catch (\Exception $e)
+			{
+				$this->getContainer()->get('app')->getLogger()->error(
+					sprintf(
+						'Error code %1$s received from GitHub when creating an issue with the following data:'
+						. ' GitHub User: %2$s; GitHub Repo: %3$s; Title: %4$s; Body Text: %5$s'
+						. '  The error message returned was: %6$s',
+						$e->getCode(),
+						$project->gh_user,
+						$project->gh_project,
+						$data['title'],
+						$body,
+						$e->getMessage()
+					)
+				);
+
+				throw $e;
 			}
 
 			$data['opened_date']   = $gitHubResponse->created_at;
@@ -116,6 +129,7 @@ class Submit extends AbstractTrackerController
 		// Project is managed by JTracker only
 		else
 		{
+			// Project is managed by JTracker only
 			$data['opened_date']    = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 			$data['modified_date']  = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 			$data['opened_by']      = $user->username;
@@ -125,10 +139,17 @@ class Submit extends AbstractTrackerController
 		}
 
 		$data['priority']        = $application->input->getInt('priority');
+		$data['milestone_id']    = $application->input->getInt('milestone_id');
 		$data['build']           = $application->input->getString('build');
 		$data['project_id']      = $project->project_id;
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;
+
+		// Store the "No code attached yet" label for CMS issues
+		if ($project->project_id == 1)
+		{
+			$data['labels'] = 35;
+		}
 
 		// Store the issue
 		try
@@ -152,7 +173,7 @@ class Submit extends AbstractTrackerController
 			);
 		}
 
-		$application->enqueueMessage('Your issue report has been submitted', 'success');
+		$application->enqueueMessage(g11n3t('Your report has been submitted.'), 'success');
 
 		$application->redirect(
 			$application->get('uri.base.path')

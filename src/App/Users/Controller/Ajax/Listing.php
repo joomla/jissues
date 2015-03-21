@@ -26,33 +26,33 @@ class Listing extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		// TODO: do we need access control here ?
-		// @$this->getApplication()->getUser()->authorize('admin');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$input = $this->getContainer()->get('app')->input;
+		$application->getUser()->authorize('manage');
 
-		$groupId = $input->getInt('group_id');
+		$groupId = $application->input->getInt('group_id');
+
+		$users = [];
 
 		if ($groupId)
 		{
 			$db = $this->getContainer()->get('db');
 
 			$query = $db->getQuery(true)
-				->select($db->quoteName(array('u.id', 'u.username')))
-				->from($db->quoteName('#__users', 'u'));
+				->select($db->quoteName(['u.id', 'u.username']))
+				->from($db->quoteName('#__users', 'u'))
+				->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId)
+				->leftJoin(
+					$db->quoteName('#__user_accessgroup_map', 'm')
+					. ' ON ' . $db->quoteName('m.user_id')
+					. ' = ' . $db->quoteName('u.id')
+				);
 
-			$query->leftJoin(
-				$db->quoteName('#__user_accessgroup_map', 'm')
-				. ' ON ' . $db->quoteName('m.user_id')
-				. ' = ' . $db->quoteName('u.id')
-			);
-
-			$query->where($db->quoteName('m.group_id') . ' = ' . (int) $groupId);
-
-			$users = $db->setQuery($query, 0, 10)
+			$users = $db->setQuery($query)
 				->loadAssocList();
-
-			$this->response->data->options = $users ? : array();
 		}
+
+		$this->response->data->options = $users ? : [];
 	}
 }

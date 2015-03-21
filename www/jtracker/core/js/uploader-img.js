@@ -16,7 +16,7 @@ $(function () {
             if (data.result.error) {
                 $('.upload-error').delay(3000).fadeOut();
             } else if (!data.result.files[0].error) {
-                var target = $('.markItUpEditor');
+                var target = $('#' + data.result.files[0].editorId);
                 var cursorStart = target.textrange('get').start;
                 var alt = '![' + data.result.files[0].alt + ']';
                 var url = '(' + data.result.files[0].url + ')';
@@ -31,11 +31,21 @@ $(function () {
         }
     });
 
+    uploadarea.bind('fileuploadsubmit', function (e, data) {
+        var val = $('input[name="editorId"]').val();
+        if (!val) {
+            $('#select-message').html(g11n3t('First please select an editor to attach the uploads to.'))
+            .show().delay(3000).fadeOut();
+            $('tbody.files').empty();
+
+            return false;
+        }
+    });
+
     uploadarea.bind('fileuploaddestroyed', function (e, data) {
         var match = '=';
         var fileName = data.url.substring(data.url.indexOf(match) + match.length, data.url.length);
-
-        var target = $('.markItUpEditor');
+        var target = $('#' + data.context.find('button').prop('id'));
         var content = target.val();
         var regex = new RegExp(RegExp.escape('![') + '[^' + RegExp.escape(']') + ']*' + RegExp.escape(']') + RegExp.escape('(') + '[^' + RegExp.escape('[]') + ']*?' + RegExp.escape(fileName) + RegExp.escape(')'), 'i');
         var newContent = content.replace(regex, '');

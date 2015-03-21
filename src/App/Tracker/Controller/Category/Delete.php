@@ -8,10 +8,10 @@
 
 namespace App\Tracker\Controller\Category;
 
-
-use JTracker\Controller\AbstractTrackerController;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Categories\CategoriesHtmlView;
+
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Controller class to delete a project.
@@ -57,7 +57,7 @@ class Delete extends AbstractTrackerController
 	public function initialize()
 	{
 		parent::initialize();
-		$this->getContainer()->get('app')->getUser()->authorize('admin');
+		$this->getContainer()->get('app')->getUser()->authorize('manage');
 		$this->model->setProject($this->getContainer()->get('app')->getProject());
 		$this->view->setProject($this->getContainer()->get('app')->getProject());
 

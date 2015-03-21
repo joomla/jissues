@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
 "PO-Revision-Date: 2014-05-30 07:41+0000\n"
 "Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "Dokumentatsioon"
-
-#: /templates/support/documentation.index.twig:45
-msgid "Improve"
-msgstr "Paranda"
-
-#: /templates/support/documentation.index.twig:46
-msgid "Permalink"
-msgstr "Püsilink"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -105,6 +93,18 @@ msgstr ""
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "Väljund"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Dokumentatsioon"
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr "Paranda"
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr "Püsilink"
 
 #: /templates/support/icons.index.twig:6
 #: /templates/support/icons.index.twig:10

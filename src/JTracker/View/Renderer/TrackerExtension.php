@@ -97,13 +97,20 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
 			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
 			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
+			new \Twig_SimpleFunction('getPriority', array($this, 'getPriority')),
 			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
 			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
+			new \Twig_SimpleFunction('translateStatus', array($this, 'translateStatus')),
+			new \Twig_SimpleFunction('relation', array($this, 'getRelation')),
 			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
 			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
+			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
 			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
 			new \Twig_SimpleFunction('getContrastColor', array($this, 'getContrastColor')),
-			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff'))
+			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
+			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
+			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),
+			new \Twig_SimpleFunction('userTestOptions', array($this, 'getUserTestOptions')),
 		);
 
 		if (!JDEBUG)
@@ -224,7 +231,23 @@ class TrackerExtension extends \Twig_Extension
 			3 => g11n3t('Medium'),
 			4 => g11n3t('Low'),
 			5 => g11n3t('Very low')
-			];
+		];
+	}
+
+	/**
+	 * Get the priority text.
+	 *
+	 * @param   integer  $id  The priority id.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getPriority($id)
+	{
+		$priorities = $this->getPriorities();
+
+		return isset($priorities[$id]) ? $priorities[$id] : 'N/A';
 	}
 
 	/**
@@ -237,6 +260,27 @@ class TrackerExtension extends \Twig_Extension
 	public function dump()
 	{
 		return;
+	}
+
+	/**
+	 * Retrieves a human friendly relationship for a given type
+	 *
+	 * @param   string  $relation  Relation type
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getRelation($relation)
+	{
+		$relations = [
+			'duplicate_of' => g11n3t('Duplicate of'),
+			'related_to' => g11n3t('Related to'),
+			'not_before' => g11n3t('Not before'),
+			'pr_for' => g11n3t('Pull Request for')
+		];
+
+		return $relations[$relation];
 	}
 
 	/**
@@ -293,6 +337,7 @@ class TrackerExtension extends \Twig_Extension
 		{
 			case '0':
 				$statuses = [
+					1 => g11n3t('New'),
 					2 => g11n3t('Confirmed'),
 					3 => g11n3t('Pending'),
 					4 => g11n3t('Ready To Commit'),
@@ -306,14 +351,16 @@ class TrackerExtension extends \Twig_Extension
 					5 => g11n3t('Fixed in Code Base'),
 					8 => g11n3t('Unconfirmed Report'),
 					9 => g11n3t('No Reply'),
+					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
-					12 => g11n3t('Known Issue')
+					12 => g11n3t('Known Issue'),
+					13 => g11n3t('Duplicate Report')
 				];
 				break;
 
 			default:
 				$statuses = [
-					1 => g11n3t('Open'),
+					1 => g11n3t('New'),
 					2 => g11n3t('Confirmed'),
 					3 => g11n3t('Pending'),
 					4 => g11n3t('Ready To Commit'),
@@ -324,11 +371,28 @@ class TrackerExtension extends \Twig_Extension
 					9 => g11n3t('No Reply'),
 					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
-					12 => g11n3t('Known Issue')
+					12 => g11n3t('Known Issue'),
+					13 => g11n3t('Duplicate Report')
 				];
 		}
 
 		return $statuses;
+	}
+
+	/**
+	 * Retrieves the translated status name for a given ID
+	 *
+	 * @param   integer  $id  Status ID
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function translateStatus($id)
+	{
+		$statuses = $this->getStatuses();
+
+		return $statuses[$id];
 	}
 
 	/**
@@ -450,6 +514,28 @@ class TrackerExtension extends \Twig_Extension
 	}
 
 	/**
+	 * Get the relation type text.
+	 *
+	 * @param   integer  $id  The relation id.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getRelType($id)
+	{
+		foreach ($this->getRelTypes() as $relType)
+		{
+			if ($relType->value == $id)
+			{
+				return $relType->text;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Generate a localized yes/no message.
 	 *
 	 * @param   integer  $value  A value that evaluates to TRUE or FALSE.
@@ -483,6 +569,7 @@ class TrackerExtension extends \Twig_Extension
 	 * @return  string
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function renderMergeBadge($status)
 	{
@@ -514,6 +601,7 @@ class TrackerExtension extends \Twig_Extension
 	 * @return  string
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getMergeStatus($status)
 	{
@@ -521,16 +609,15 @@ class TrackerExtension extends \Twig_Extension
 		{
 			case 'success':
 				return g11n3t('Success');
-				break;
+
 			case 'pending':
 				return g11n3t('Pending');
-				break;
+
 			case 'error':
 				return g11n3t('Error');
-				break;
+
 			case 'failure':
 				return g11n3t('Failure');
-				break;
 		}
 
 		throw new \RuntimeException('Unknown status: ' . $status);
@@ -560,5 +647,45 @@ class TrackerExtension extends \Twig_Extension
 		$renderer->setShowHeader($showHeader);
 
 		return $diff->Render($renderer);
+	}
+
+	/**
+	 * Get the difference of two comma separated value strings.
+	 *
+	 * @param   string  $a  The "a" string.
+	 * @param   string  $b  The "b" string.
+	 *
+	 * @return string  difference values comma separated
+	 *
+	 * @since   1.0
+	 */
+	public function arrayDiff($a, $b)
+	{
+		$as = explode(',', $a);
+		$bs = explode(',', $b);
+
+		return implode(',', array_diff($as, $bs));
+	}
+
+	/**
+	 * Get a user test option string.
+	 *
+	 * @param   integer  $id  The option ID.
+	 *
+	 * @return  mixed array or string if an ID is given.
+	 *
+	 * @since   1.0
+	 */
+	public function getUserTestOptions($id = null)
+	{
+		static $options = [];
+
+		$options = $options ? : [
+			0 => g11n3t('Not tested'),
+			1 => g11n3t('Tested successfully'),
+			2 => g11n3t('Tested unsuccessfully')
+		];
+
+		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
 	}
 }

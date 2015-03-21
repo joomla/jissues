@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,27 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-21 18:21-0400\n"
-"PO-Revision-Date: 2014-04-26 08:26+0000\n"
-"Last-Translator: Ole Ottosen <ot2sen@gmail.com>\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
+"PO-Revision-Date: 2014-10-17 10:53+0000\n"
+"Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/jtracker/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "Dokumentation"
-
-#: /templates/support/documentation.index.twig:45
-msgid "Improve"
-msgstr "Forbedr"
-
-#: /templates/support/documentation.index.twig:46
-msgid "Permalink"
-msgstr "Permalink"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -105,6 +93,18 @@ msgstr "GitHub Spice"
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
 msgstr "Output"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr "Forbedr"
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr "Permalink"
 
 #: /templates/support/icons.index.twig:6
 #: /templates/support/icons.index.twig:10

@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ "Category Edit"|_ }}</h2>
+    <h2>{{ "Edit Category"|_ }}</h2>
 
     <form method="post" action="{{ uri.base.path }}category/save" class="form-inline" name="editForm">
         <fieldset>
@@ -40,10 +40,11 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="color">{{ "Color"|_ }}</label>
+                <label class="control-label" for="color_display">{{ "Color"|_ }}</label>
 
                 <div class="controls">
-                    <input type="text" style="background-color: #{{ item.color }};color: {{ getContrastColor(item.color) }}" name="category[color]" id="color" value="{{ item.color }}"/>
+                    <input class="color_select" id="color" value="#{{ item.color }}"/>
+                    <input type="text" name="category[color]" id="color_display" value="{{ item.color }}"/>
                 </div>
             </div>
 
@@ -53,4 +54,10 @@
         </fieldset>
     </form>
 
+{% endblock %}
+
+{% block JavaScriptBottom %}
+{{ parent() }}
+<script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-simple-color/jquery.simple-color{{ jdebug ? "" : ".min" }}.js"></script>
+<script type="text/javascript" src="{{ uri.base.path }}jtracker/core/js/color-select{{ jdebug ? "" : ".min" }}.js"></script>
 {% endblock %}

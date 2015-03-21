@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,31 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-15 18:00+0000\n"
+"POT-Creation-Date: 2015-03-14 13:21-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr ""
-
-#: /templates/support/documentation.index.twig:45
-msgid "Improve"
-msgstr ""
-
-#: /templates/support/documentation.index.twig:46
-msgid "Permalink"
-msgstr ""
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr ""
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -108,6 +90,23 @@ msgstr ""
 #: /templates/support/markdown.index.twig:389
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
+msgstr ""
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr ""
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr ""
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr ""
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
 msgstr ""
 
 #: /src/App/Support/Controller/Clearcache.php:37
