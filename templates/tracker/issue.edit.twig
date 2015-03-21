@@ -119,10 +119,14 @@
             {{ fields.label('categories[]', 'Categories'|_) }}
             {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
         </li>
-        <li>
-            {{ fields.label('labels', 'Labels'|_) }}
-            {{ fields.selectLabels('item[labels][]', project.labels, item.labels|split(',') , 'labels') }}
-        </li>
+        {% endif %}
+        {% if user.check('edit') %}
+            {% if project.labels %}
+                <li>
+                    {{ fields.label('labels', 'Labels'|_) }}
+                    {{ fields.selectLabels('item[labels][]', project.labels, item.labels|split(',') , 'labels') }}
+                </li>
+            {% endif %}
         {% endif %}
         {% if project.milestones %}
         <li>
