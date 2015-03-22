@@ -111,6 +111,7 @@ class TrackerExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
 			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),
 			new \Twig_SimpleFunction('userTestOptions', array($this, 'getUserTestOptions')),
+			new \Twig_SimpleFunction('getMilestoneTitle', array($this, 'getMilestoneTitle')),
 		);
 
 		if (!JDEBUG)
@@ -687,5 +688,40 @@ class TrackerExtension extends \Twig_Extension
 		];
 
 		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;
+	}
+
+	/**
+	 * Get the title of the milestone by id
+	 *
+	 * @param   integer  $id  The id of the milestone
+	 *
+	 * @return  string  The title of the milestone
+	 *
+	 * @since   1.0
+	 */
+	public function getMilestoneTitle($id)
+	{
+		static $milestones = array();
+
+		if (!$milestones)
+		{
+			$db = $this->container->get('db');
+
+			$milestones = $db->setQuery(
+				$db->getQuery(true)
+					->select($db->quoteName(array('milestone_id', 'title')))
+					->from($db->quoteName('#__tracker_milestones'))
+			)->loadObjectList();
+		}
+
+		foreach ($milestones as $milestone)
+		{
+			if ($milestone->milestone_id == $id)
+			{
+				return $milestone->title;
+			}
+		}
+
+		return '';
 	}
 }
