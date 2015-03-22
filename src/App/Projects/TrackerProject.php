@@ -360,7 +360,7 @@ class TrackerProject implements \Serializable
 			$milestones = $db ->setQuery(
 				$db->getQuery(true)
 					->from($db->quoteName($table->getTableName()))
-					->select(array('milestone_id', 'title', 'description', 'state', 'due_on'))
+					->select(array('milestone_id', 'milestone_number', 'title', 'description', 'state', 'due_on'))
 					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
 					->order($db->quoteName('milestone_number'))
 			)->loadObjectList();
