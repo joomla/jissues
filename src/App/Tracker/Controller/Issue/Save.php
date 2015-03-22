@@ -73,19 +73,19 @@ class Save extends AbstractTrackerController
 			$data['title']           = $src['title'];
 			$data['description_raw'] = $src['description_raw'];
 
-			// @todo - user can edit labels?
-			$data['labels']          = $src['labels'];
-
-			// @todo - user can NOT edit labels
-			// @$data['labels']          = explode(',', $item->labels);
-
 			// Take the remaining values from the stored item
+			if (!empty($item->labels))
+			{
+				$data['labels'] = explode(',', $item->labels);
+			}
+
 			$data['status']          = $item->status;
 			$data['priority']        = $item->priority;
 			$data['build']           = $item->build;
 			$data['rel_number']      = $item->rel_number;
 			$data['rel_type']        = $item->rel_type;
 			$data['easy']            = $item->easy;
+			$data['milestone_id']          = $item->milestone_id;
 		}
 		else
 		{
@@ -102,13 +102,10 @@ class Save extends AbstractTrackerController
 		if ($project->gh_user && $project->gh_project)
 		{
 			// Project is managed on GitHub
-
 			try
 			{
 				$gitHubResponse = $this->updateGitHub($item->issue_number, $data, $state, $oldState);
 
-			// @todo assignee
-			$assignee = '';
 				// Set the modified_date from GitHub (important!)
 				$data['modified_date'] = $gitHubResponse->updated_at;
 			}
@@ -127,24 +124,6 @@ class Save extends AbstractTrackerController
 
 				die('Unrecoverable GitHub error - sry ;(');
 			}
-
-			// @todo milestone
-			$milestone = '';
-
-			$labels = [];
-
-			if (isset($data['labels']) && $data['labels'])
-			{
-				foreach ($project->getLabels() as $id => $label)
-				{
-					if (in_array($id, $data['labels']))
-					{
-						$labels[] = $label->name;
-					}
-				}
-			}
-
-			$this->updateGitHub($item->issue_number, $data, $state, $oldState, $assignee, $milestone, $labels);
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render(
@@ -165,7 +144,6 @@ class Save extends AbstractTrackerController
 		try
 		{
 			$data['modified_by'] = $user->username;
-			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
 
 			// If the user have edit permission, let him / her modify the categories.
 			if ($user->check('edit'))
@@ -286,9 +264,6 @@ class Save extends AbstractTrackerController
 	 * @param   array    $data         The issue data.
 	 * @param   string   $state        The issue state (either 'open' or 'closed).
 	 * @param   string   $oldState     The previous issue state.
-	 * @param   string   $assignee     The login for the GitHub user that this issue should be assigned to.
-	 * @param   integer  $milestone    The milestone to associate this issue with.
-	 * @param   array    $labels       The labels to associate with this issue.
 	 *
 	 * @throws \Exception
 	 * @throws \JTracker\Github\Exception\GithubException
@@ -297,7 +272,7 @@ class Save extends AbstractTrackerController
 	 *
 	 * @since   1.0
 	 */
-	private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, array $labels)
+	private function updateGitHub($issueNumber, array $data, $state, $oldState)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
@@ -309,8 +284,7 @@ class Save extends AbstractTrackerController
 			// Try to update the project on GitHub using thew current user credentials
 			$gitHubResponse = GithubFactory::getInstance($application)->issues->edit(
 				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw'],
-				$assignee, $milestone, $labels
+				$issueNumber, $state, $data['title'], $data['description_raw']
 			);
 		}
 		catch (GithubException $exception)
@@ -333,8 +307,7 @@ class Save extends AbstractTrackerController
 			// Update the project on GitHub
 			$gitHubResponse = $gitHubBot->issues->edit(
 				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw'],
-				$assignee, $milestone, $labels
+				$issueNumber, $state, $data['title'], $data['description_raw']
 			);
 
 			// Add a comment stating that this action has been performed by a MACHINE !!

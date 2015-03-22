@@ -53,16 +53,8 @@ class Submit extends AbstractTrackerController
 
 		// Prepare issue for the store
 		$data = array();
-		
+
 		$data['title'] = $application->input->getString('title');
-
-		if (!$body)
-		{
-			// Filter integer
-			$labels[] = (int) $labelId;
-		}
-
-		$data['labels'] = implode(',', $labels);
 
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 		$issueModel->setProject($project);
@@ -70,30 +62,11 @@ class Submit extends AbstractTrackerController
 		// Project is managed on GitHub
 		if ($project->gh_user && $project->gh_project)
 		{
-			// @todo assignee
-			$assignee = null;
-
-			// @todo milestone
-			$milestone = null;
-
-			$ghLabels = [];
-
-			if ($labels)
-			{
-				foreach ($project->getLabels() as $id => $label)
-				{
-					if (in_array($id, $labels))
-					{
-						$ghLabels[] = $label->name;
-					}
-				}
-			}
-			
 			try
 			{
 				$gitHubResponse = $gitHub->issues->create(
 					$project->gh_user, $project->gh_project,
-					$data['title'], $body, $assignee, $milestone, $ghLabels
+					$data['title'], $body
 				);
 			}
 			catch (\Exception $e)
@@ -145,11 +118,25 @@ class Submit extends AbstractTrackerController
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;
 
-		// Store the "No code attached yet" label for CMS issues
-		if ($project->project_id == 1)
+		// Process labels
+		$labels = [];
+
+		foreach ($application->input->get('labels', [], 'array') as $labelId)
 		{
-			$data['labels'] = 35;
+			// Filter integer
+			$labels[] = (int) $labelId;
 		}
+
+		/**
+		 * Store the "No code attached yet" label for CMS issue
+		 * @todo Remove after #596 is implemented
+		 */
+		if ($project->project_id == 1 && !in_array(35, $labels))
+		{
+			$labels[] = 35;
+		}
+
+		$data['labels'] = implode(',', $labels);
 
 		// Store the issue
 		try

@@ -77,8 +77,6 @@
                     {{ fields.label('milestone_id', 'Milestone'|_) }}
                     {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
                 {% endif %}
-
-                <div class="helpText alert alert-info">{{ "The version(s) of the project on which this issue is found."|_ }}</div>
             </div>
 
             <div class="span9 issue-add-details">

@@ -383,8 +383,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$data['modified_date'] = $filter->clean($src['modified_date'], 'string');
 		}
 
-		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
-		$data['milestone_id']    = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
+		$data['modified_by']  = $filter->clean($src['modified_by'], 'string');
+		$data['milestone_id'] = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
 
 		$state        = $src['new_state'];
 		$changedState = $src['old_state'] != $src['new_state'];
@@ -403,14 +403,19 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$data['closed_by']   = null;
 		}
 
-		$labels = [];
+		$data['labels'] = null;
 
-		foreach ($src['labels'] as $labelId)
+		if (!empty($src['labels']))
 		{
-			$labels[] = (int) $labelId;
-		}
+			$labels = [];
 
-		$data['labels'] = implode(',', $labels);
+			foreach ($src['labels'] as $labelId)
+			{
+				$labels[] = (int) $labelId;
+			}
+
+			$data['labels'] = implode(',', $labels);
+		}
 
 		if (!$data['id'])
 		{
