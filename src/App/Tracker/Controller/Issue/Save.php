@@ -343,6 +343,62 @@ class Save extends AbstractTrackerController
 				$issueNumber, $state, $data['title'], $data['description_raw'],
 				$assignee, $milestone, $labels
 			);
+
+			$needUpdate = false;
+
+			// The milestone and labels are silently dropped,
+			// so try to update the milestone and/or labels if they are not set.
+			if ((!empty($milestone) && empty($gitHubResponse->milestone)
+				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+			{
+				$needUpdate = true;
+			}
+			else
+			{
+				if (!empty($gitHubResponse->milestone))
+				{
+					$milestone = '';
+					$needUpdate = true;
+				}
+			}
+
+			if (!empty($labels))
+			{
+				if (empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+
+				if (!empty($gitHubResponse->labels))
+				{
+					foreach ($gitHubResponse->labels as $ghLabel)
+					{
+						// If labels differ then need to update
+						if (!in_array($ghLabel->name, $labels))
+						{
+							$needUpdate = true;
+
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				if (!empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+			}
+
+			if ($needUpdate && isset($gitHubBot))
+			{
+				$gitHubBot->issues->edit(
+					$project->gh_user, $project->gh_project,
+					$gitHubResponse->number, 'open', $data['title'], $data['description_raw'],
+					$assignee, $milestone, $labels
+				);
+			}
 		}
 		catch (GithubException $exception)
 		{
@@ -363,9 +419,55 @@ class Save extends AbstractTrackerController
 				$assignee, $milestone, $labels
 			);
 
+			$needUpdate = false;
+
+			// The milestone and labels are silently dropped,
+			// so try to update the milestone and/or labels if they are not set.
+			if ((!empty($milestone) && empty($gitHubResponse->milestone)
+				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+			{
+				$needUpdate = true;
+			}
+			else
+			{
+				if (!empty($gitHubResponse->milestone))
+				{
+					$milestone = '';
+					$needUpdate = true;
+				}
+			}
+
+			if (!empty($labels))
+			{
+				if (empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+
+				if (!empty($gitHubResponse->labels))
+				{
+					foreach ($gitHubResponse->labels as $ghLabel)
+					{
+						// If labels differ then need to update
+						if (!in_array($ghLabel->name, $labels))
+						{
+							$needUpdate = true;
+
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				if (!empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+			}
+
 			// Try to update the milestone and/or labels
-			if ((!empty($milestone) && empty($gitHubResponse->milestone))
-				|| (!empty($labels) && empty($gitHubResponse->labels)))
+			if ($needUpdate)
 			{
 				$gitHubBot->issues->edit(
 					$project->gh_user, $project->gh_project,
