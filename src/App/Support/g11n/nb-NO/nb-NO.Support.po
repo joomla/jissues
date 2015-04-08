@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Kenneth Strømsvold <kenneth@stromsvold.com>, 2014
+# Kenneth Strømsvold <kenneth@stromsvold.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-14 13:21-0500\n"
-"PO-Revision-Date: 2014-12-19 21:42+0000\n"
+"POT-Creation-Date: 2015-04-08 17:59-0500\n"
+"PO-Revision-Date: 2015-04-07 09:50+0000\n"
 "Last-Translator: Kenneth Strømsvold <kenneth@stromsvold.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
-msgstr ""
+msgstr "GitHub Flavored Markdown forhåndsvisning"
 
 #: /templates/support/markdown.index.twig:15
 msgid "Markdown TEST Page"
@@ -63,11 +63,11 @@ msgstr "Kode"
 
 #: /templates/support/markdown.index.twig:23
 msgid "Blockquotes"
-msgstr ""
+msgstr "Sitater"
 
 #: /templates/support/markdown.index.twig:24
 msgid "HRs"
-msgstr ""
+msgstr "HRs"
 
 #: /templates/support/markdown.index.twig:25
 msgid "Tables"
@@ -79,7 +79,7 @@ msgstr "Bilder"
 
 #: /templates/support/markdown.index.twig:27
 msgid "GitHub Spice"
-msgstr ""
+msgstr "GitHub Spice"
 
 #: /templates/support/markdown.index.twig:45
 #: /templates/support/markdown.index.twig:73
@@ -92,7 +92,7 @@ msgstr ""
 #: /templates/support/markdown.index.twig:389
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
-msgstr ""
+msgstr "Visning"
 
 #: /templates/support/documentation.index.twig:6
 msgid "Documentation"
