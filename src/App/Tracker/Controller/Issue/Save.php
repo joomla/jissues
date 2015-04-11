@@ -64,6 +64,17 @@ class Save extends AbstractTrackerController
 		{
 			// The user has full "edit" permission.
 			$data = $src;
+
+			// Allow admins to update labels and milestones
+			if (!$user->check('admin'))
+			{
+				if (!empty($item->labels))
+				{
+					$data['labels'] = explode(',', $item->labels);
+				}
+
+				$data['milestone_id'] = $item->milestone_id;
+			}
 		}
 		elseif($user->canEditOwn($item->opened_by))
 		{
@@ -345,6 +356,7 @@ class Save extends AbstractTrackerController
 			);
 
 			$needUpdate = false;
+			$isAllowed  = $application->getUser()->check('admin');
 
 			// The milestone and labels are silently dropped,
 			// so try to update the milestone and/or labels if they are not set.
@@ -355,7 +367,8 @@ class Save extends AbstractTrackerController
 			}
 			else
 			{
-				if (!empty($gitHubResponse->milestone))
+				// Allow only specific group to reset milestone
+				if (!empty($gitHubResponse->milestone) && $isAllowed)
 				{
 					$milestone = '';
 					$needUpdate = true;
@@ -385,7 +398,8 @@ class Save extends AbstractTrackerController
 			}
 			else
 			{
-				if (!empty($gitHubResponse->labels))
+				// Allow only specific group to reset labels
+				if (!empty($gitHubResponse->labels) && $isAllowed)
 				{
 					$needUpdate = true;
 				}

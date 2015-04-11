@@ -68,14 +68,18 @@
                     </div>
                 {% endif %}
 
-                {% if user.check("edit") and project.labels %}
-                    {{ fields.label('labels', 'Labels'|_) }}
-                    {{ fields.selectLabels('labels[]', project.labels, item.labels|split(','), 'labels') }}
-                {% endif %}
+                {% if user.check('admin') %}
 
-                {% if user.check("edit") and project.milestones %}
-                    {{ fields.label('milestone_id', 'Milestone'|_) }}
-                    {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
+                    {% if project.labels %}
+                        {{ fields.label('labels', 'Labels'|_) }}
+                        {{ fields.selectLabels('labels[]', project.labels, item.labels|split(','), 'labels') }}
+                    {% endif %}
+
+                    {% if project.milestones %}
+                        {{ fields.label('milestone_id', 'Milestone'|_) }}
+                        {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
+                    {% endif %}
+
                 {% endif %}
             </div>
 
