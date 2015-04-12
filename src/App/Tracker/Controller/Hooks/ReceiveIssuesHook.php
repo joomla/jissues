@@ -8,10 +8,10 @@
 
 namespace App\Tracker\Controller\Hooks;
 
-use Joomla\Date\Date;
-
 use App\Tracker\Controller\AbstractHookController;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
+use Joomla\Date\Date;
 
 /**
  * Controller class receive and inject issue reports from GitHub
@@ -80,6 +80,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
 
@@ -107,8 +108,9 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->save($data);
+			$model = (new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
+				->add($data);
 		}
 		catch (\Exception $e)
 		{
@@ -124,6 +126,10 @@ class ReceiveIssuesHook extends AbstractHookController
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		// Get a table object for the new record to process in the event listeners
+		$table = (new IssuesTable($this->db))
+			->load($this->db->insertid());
 
 		$this->triggerEvent('onIssueAfterCreate', $table, array('action' => $action));
 
@@ -216,6 +222,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
+		$data['id']              = $table->id;
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
@@ -238,9 +245,25 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Process labels for the item
 		$data['labels'] = $this->processLabels($this->hookData->issue->number);
 
+		// Grab some data based on the existing record
+		$data['priority']   = $table->priority;
+		$data['build']      = $table->build;
+		$data['rel_number'] = $table->rel_number;
+		$data['rel_type']   = $table->rel_type;
+
+		$model = (new IssueModel($this->db))
+			->setProject(new TrackerProject($this->db, $this->project));
+
+		// Check if the state has changed (e.g. open/closed)
+		$oldState = $model->getOpenClosed($table->status);
+		$state    = is_null($status) ? $oldState : $model->getOpenClosed($data['status']);
+
+		$data['old_state'] = $oldState;
+		$data['new_state'] = $state;
+
 		try
 		{
-			$table->save($data);
+			$model->save($data);
 		}
 		catch (\Exception $e)
 		{
@@ -256,6 +279,9 @@ class ReceiveIssuesHook extends AbstractHookController
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		// Refresh the table object for the listeners
+		$table->load($data['id']);
 
 		$this->triggerEvent('onIssueAfterUpdate', $table);
 

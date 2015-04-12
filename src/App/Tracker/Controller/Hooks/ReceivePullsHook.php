@@ -302,6 +302,9 @@ class ReceivePullsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
+		// Refresh the table object for the listeners
+		$table->load($data['id']);
+
 		$this->triggerEvent('onPullAfterUpdate', $table);
 
 		// Add a reopen record to the activity table if the status is reopened
