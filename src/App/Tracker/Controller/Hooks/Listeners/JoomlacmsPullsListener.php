@@ -449,8 +449,7 @@ class JoomlacmsPullsListener
 					{
 						if (strpos($file->filename, 'administrator/language') === 0
 							|| strpos($file->filename, 'installation/language') === 0
-							|| strpos($file->filename, 'language') === 0
-						)
+							|| strpos($file->filename, 'language') === 0)
 						{
 							$addLanguageLabel = true;
 						}
