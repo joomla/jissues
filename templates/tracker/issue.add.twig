@@ -61,16 +61,25 @@
                 </div>
 
                 {% if project.categories %}
-                {{ fields.label('categories[]', 'Categories'|_) }}
-                {{ fields.selectCategories('categories[]', project.categories) }}
-                <div class="helpText alert alert-info">
-                    {{ "Please select one or more Categories here that match to your issue."|_ }}
-                </div>
+                    {{ fields.label('categories[]', 'Categories'|_) }}
+                    {{ fields.selectCategories('categories[]', project.categories) }}
+                    <div class="helpText alert alert-info">
+                        {{ "Please select one or more Categories here that match to your issue."|_ }}
+                    </div>
                 {% endif %}
 
-                {% if user.check("edit") and project.milestones %}
-                {{ fields.label('milestone_id', 'Milestone'|_) }}
-                {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
+                {% if user.check('admin') %}
+
+                    {% if project.labels %}
+                        {{ fields.label('labels', 'Labels'|_) }}
+                        {{ fields.selectLabels('labels[]', project.labels, item.labels|split(','), 'labels') }}
+                    {% endif %}
+
+                    {% if project.milestones %}
+                        {{ fields.label('milestone_id', 'Milestone'|_) }}
+                        {{ fields.selectMilestone('milestone_id', project.milestones, 0, 'milestone_id', 'span12') }}
+                    {% endif %}
+
                 {% endif %}
             </div>
 

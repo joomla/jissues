@@ -476,8 +476,10 @@
                                     {{ activities.easy(change.old, change.new) }}
                                 {% elseif 'rel_type' == change.name %}
                                     {{ activities.relationType(change.old, change.new) }}
-                                {% elseif "category" == change.name %}
+                                {% elseif 'category' == change.name %}
                                     {{ activities.category(change.old, change.new) }}
+                                {% elseif 'milestone_id' == change.name %}
+                                    {{ activities.milestone(change.old, change.new) }}
                                 {% else %}
                                     {{ activities.change(change.name, change.old, change.new) }}
                                 {% endif %}
