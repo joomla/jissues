@@ -125,6 +125,23 @@
     </tr>
 {% endmacro %}
 
+{% macro milestone(old, new) %}
+    <tr>
+        <td class="span2">
+            {{ 'Milestone'|_ }}
+        </td>
+        <td class="span4 center">
+            {{ getMilestoneTitle(old) }}
+        </td>
+        <td class="span1 center">
+            &rArr;
+        </td>
+        <td class="span4 center">
+            {{ getMilestoneTitle(new) }}
+        </td>
+    </tr>
+{% endmacro %}
+
 {% macro relationType(old, new) %}
     <tr>
         <td class="span2">
