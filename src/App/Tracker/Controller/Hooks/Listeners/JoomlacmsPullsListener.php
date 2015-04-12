@@ -70,6 +70,9 @@ class JoomlacmsPullsListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		// Check that pull requests have certain labels
+		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
 		// Place the JoomlaCode ID in the issue title if it isn't already there
 		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
@@ -343,9 +346,11 @@ class JoomlacmsPullsListener
 	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$issueLabel = 'PR-' . $hookData->pull_request->base->ref;
-		$addLabels  = array();
-		$prLabelSet = false;
+		$issueLabel       = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel    = 'Language Change';
+		$addLabels        = array();
+		$prLabelSet       = false;
+		$languageLabelSet = false;
 
 		// Get the labels for the pull's issue
 		try
@@ -367,7 +372,7 @@ class JoomlacmsPullsListener
 			return;
 		}
 
-		// Check if the PR- label present if there are already labels attached to the item
+		// Check for labels if there are already labels attached to the item
 		if (count($labels) > 0)
 		{
 			foreach ($labels as $label)
@@ -386,6 +391,21 @@ class JoomlacmsPullsListener
 
 					$prLabelSet = true;
 				}
+
+				if (!$languageLabelSet && $label->name == $languageLabel)
+				{
+					$logger->info(
+						sprintf(
+							'GitHub item %s/%s #%d already has the %s label.',
+							$project->gh_user,
+							$project->gh_project,
+							$hookData->pull_request->number,
+							$languageLabel
+						)
+					);
+
+					$languageLabelSet = true;
+				}
 			}
 		}
 
@@ -393,6 +413,55 @@ class JoomlacmsPullsListener
 		if (!$prLabelSet)
 		{
 			$addLabels[] = $issueLabel;
+		}
+
+		// If the language label is not set, check if we need to add it
+		if (!$languageLabelSet)
+		{
+			// Get the files modified by the pull request
+			try
+			{
+				$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
+			}
+			catch (\DomainException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error retrieving modified files for GitHub item %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
+				);
+
+				$files = array();
+			}
+
+			if (!empty($files))
+			{
+				$addLanguageLabel = false;
+
+				foreach ($files as $file)
+				{
+					// Check for file paths administrator/language, installation/language, and language at position 0
+					if (!$addLanguageLabel)
+					{
+						if (strpos($file->filename, 'administrator/language') === 0
+							|| strpos($file->filename, 'installation/language') === 0
+							|| strpos($file->filename, 'language') === 0)
+						{
+							$addLanguageLabel = true;
+						}
+					}
+				}
+
+				// Add the language label if need be
+				if ($addLanguageLabel)
+				{
+					$addLabels[] = $languageLabel;
+				}
+			}
 		}
 
 		// Only try to add labels if the array isn't empty
