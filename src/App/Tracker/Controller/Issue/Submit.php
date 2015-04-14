@@ -72,9 +72,9 @@ class Submit extends AbstractTrackerController
 		 * Store the "No code attached yet" label for CMS issue
 		 * @todo Remove after #596 is implemented
 		 */
-		if ($project->project_id == 1 && !in_array(35, $labels))
+		if ($project->project_id == 1 && !in_array(39, $labels))
 		{
-			$labels[] = 35;
+			$labels[] = 39;
 		}
 
 		$data['labels'] = implode(',', $labels);
