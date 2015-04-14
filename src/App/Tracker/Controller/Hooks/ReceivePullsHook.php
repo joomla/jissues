@@ -178,10 +178,11 @@ class ReceivePullsHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Added GitHub pull request %s/%s #%d to the tracker.',
+				'Added GitHub pull request %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number
+				$this->data->number,
+				$table->id
 			)
 		);
 
@@ -267,10 +268,11 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error updating GitHub pull request %s/%s #%d to the tracker: %s',
+					'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker: %s',
 					$this->project->gh_user,
 					$this->project->gh_project,
 					$this->data->number,
+					$table->id,
 					$e->getMessage()
 				)
 			);
@@ -319,10 +321,11 @@ class ReceivePullsHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Updated GitHub pull request %s/%s #%d to the tracker.',
+				'Updated GitHub pull request %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number
+				$this->data->number,
+				$table->id
 			)
 		);
 

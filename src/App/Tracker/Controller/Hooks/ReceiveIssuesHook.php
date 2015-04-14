@@ -157,10 +157,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Added GitHub issue %s/%s #%d to the tracker.',
+				'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->issue->number
+				$this->hookData->issue->number,
+				$table->id
 			)
 		);
 
@@ -246,10 +247,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error updating GitHub issue %s/%s #%d in the tracker: %s',
+					'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker: %s',
 					$this->project->gh_user,
 					$this->project->gh_project,
 					$this->hookData->issue->number,
+					$table->id,
 					$e->getMessage()
 				)
 			);
@@ -286,10 +288,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Updated GitHub issue %s/%s #%d to the tracker.',
+				'Updated GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->issue->number
+				$this->hookData->issue->number,
+				$table->id
 			)
 		);
 

@@ -232,10 +232,11 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Added GitHub issue %s/%s #%d to the tracker.',
+				'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->issue->number
+				$this->hookData->issue->number,
+				$table->id
 			)
 		);
 	}
