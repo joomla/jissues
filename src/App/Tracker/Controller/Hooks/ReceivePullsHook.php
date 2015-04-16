@@ -130,7 +130,7 @@ class ReceivePullsHook extends AbstractHookController
 
 		try
 		{
-			$model = (new IssueModel($this->db))
+			(new IssueModel($this->db))
 				->setProject(new TrackerProject($this->db, $this->project))
 				->add($data);
 		}
