@@ -9,14 +9,13 @@
 namespace App\Tracker\Controller;
 
 use App\Projects\Table\LabelsTable;
-use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\IpHelper;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Date\Date;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
@@ -307,25 +306,9 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
 	{
-		$data = array();
-
-		$date = new Date($dateTime);
-		$data['created_date'] = $date->format($this->db->getDateFormat());
-
-		$data['event'] = $event;
-		$data['user']  = $userName;
-
-		$data['project_id']    = (int) $projectId;
-		$data['issue_number']  = (int) $itemNumber;
-		$data['gh_comment_id'] = (int) $commentId;
-
-		$data['text']     = $text;
-		$data['text_raw'] = $textRaw;
-
 		try
 		{
-			$activity = new ActivitiesTable($this->db);
-			$activity->save($data);
+			(new ActivityModel($this->db))->addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId, $text, $textRaw);
 		}
 		catch (\Exception $exception)
 		{

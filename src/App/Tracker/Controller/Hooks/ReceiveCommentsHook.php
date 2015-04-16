@@ -8,7 +8,9 @@
 
 namespace App\Tracker\Controller\Hooks;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
@@ -167,6 +169,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
 
@@ -194,8 +197,9 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->save($data);
+			(new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
+				->add($data);
 		}
 		catch (\Exception $e)
 		{
@@ -211,6 +215,10 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		// Get a table object for the new record to process in the event listeners
+		$table = (new IssuesTable($this->db))
+			->load($this->db->insertid());
 
 		$this->triggerEvent('onCommentAfterCreateIssue', $table);
 

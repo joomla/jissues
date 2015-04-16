@@ -8,10 +8,11 @@
 
 namespace App\Tracker\Controller\Hooks;
 
-use Joomla\Date\Date;
-
+use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
+use Joomla\Date\Date;
 
 /**
  * Controller class receive and inject pull requests from GitHub.
@@ -100,6 +101,7 @@ class ReceivePullsHook extends AbstractHookController
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->data->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['has_code']        = 1;
 		$data['build']           = $this->data->base->ref;
@@ -128,8 +130,9 @@ class ReceivePullsHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->save($data);
+			(new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
+				->add($data);
 		}
 		catch (\Exception $e)
 		{
@@ -145,6 +148,10 @@ class ReceivePullsHook extends AbstractHookController
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		// Get a table object for the new record to process in the event listeners
+		$table = (new IssuesTable($this->db))
+			->load($this->db->insertid());
 
 		$this->triggerEvent('onPullAfterCreate', $table, array('action' => $action));
 
@@ -238,13 +245,14 @@ class ReceivePullsHook extends AbstractHookController
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
+		$data['id']              = $table->id;
 		$data['title']           = $this->data->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->data->body;
 
 		if (!is_null($status))
 		{
-			$data['status']          = $status;
+			$data['status'] = $status;
 		}
 
 		$data['modified_date']   = $modified->format($dateFormat);
@@ -260,9 +268,25 @@ class ReceivePullsHook extends AbstractHookController
 		// Process labels for the item
 		$data['labels'] = $this->processLabels($this->data->number);
 
+		// Grab some data based on the existing record
+		$data['priority']   = $table->priority;
+		$data['build']      = $table->build;
+		$data['rel_number'] = $table->rel_number;
+		$data['rel_type']   = $table->rel_type;
+
+		$model = (new IssueModel($this->db))
+			->setProject(new TrackerProject($this->db, $this->project));
+
+		// Check if the state has changed (e.g. open/closed)
+		$oldState = $model->getOpenClosed($table->status);
+		$state    = is_null($status) ? $oldState : $model->getOpenClosed($data['status']);
+
+		$data['old_state'] = $oldState;
+		$data['new_state'] = $state;
+
 		try
 		{
-			$table->save($data);
+			$model->save($data);
 		}
 		catch (\Exception $e)
 		{
@@ -279,6 +303,9 @@ class ReceivePullsHook extends AbstractHookController
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		// Refresh the table object for the listeners
+		$table->load($data['id']);
 
 		$this->triggerEvent('onPullAfterUpdate', $table);
 
