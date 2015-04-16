@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\Hooks;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
@@ -108,7 +109,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$model = (new IssueModel($this->db))
+			(new IssueModel($this->db))
 				->setProject(new TrackerProject($this->db, $this->project))
 				->add($data);
 		}
