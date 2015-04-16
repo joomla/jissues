@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\Hooks;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
