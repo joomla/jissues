@@ -8,6 +8,7 @@
 
 namespace Application\Command\Get\Project;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Table\ActivitiesTable;
 
 use Application\Command\Get\Project;
@@ -234,6 +235,8 @@ class Events extends Project
 					case 'head_ref_restored' :
 					case 'milestoned' :
 					case 'demilestoned' :
+					case 'labeled' :
+					case 'unlabeled' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -273,7 +276,8 @@ class Events extends Project
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
 							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted',
-							'head_ref_restored' => 'head_ref_restored', 'milestoned' => 'change', 'demilestoned' => 'change'
+							'head_ref_restored' => 'head_ref_restored', 'milestoned' => 'change', 'demilestoned' => 'change',
+							'labeled' => 'change', 'unlabeled' => 'change'
 						);
 
 						$table->gh_comment_id = $event->id;
@@ -309,42 +313,12 @@ class Events extends Project
 							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
 						}
 
-						$changes = [];
+						$changes = $this->prepareChanges($event, $issueNumber);
 
-						if ('milestoned' == $event->event)
+						if (!empty($changes))
 						{
-							// Get the existing issue milestone data
-							$query->clear()
-								->select('milestone_id')
-								->from($db->quoteName('#__tracker_milestones'))
-								->where($db->quoteName('title') . ' = ' . $db->quote($event->milestone->title))
-								->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
-
-							$db->setQuery($query);
-
-							$milestoneId = $db->loadResult();
-
-							$change = new \stdClass;
-
-							$change->name = 'milestone_id';
-							$change->old  = $this->oldIssuesData[$issueNumber]->milestone_id;
-							$change->new  = $milestoneId;
-
-							$changes[] = $change;
+							$table->text = json_encode($changes);
 						}
-
-						if ('demilestoned' == $event->event)
-						{
-							$change = new \stdClass;
-
-							$change->name = 'milestone_id';
-							$change->old  = $this->oldIssuesData[$issueNumber]->milestone_id;
-							$change->new  = null;
-
-							$changes[] = $change;
-						}
-
-						$table->text = json_encode($changes);
 
 						$table->store();
 
@@ -374,5 +348,100 @@ class Events extends Project
 			->logOut(sprintf(g11n3t('Added %d new issue events to the database'), $adds));
 
 		return $this;
+	}
+
+	/**
+	 * Method to prepare the changes for saving.
+	 *
+	 * @param   object   $event        The issue event
+	 * @param   integer  $issueNumber  The issue number
+	 *
+	 * @return  array  The array of changes for activities list
+	 *
+	 * @since   1.0
+	 */
+	private function prepareChanges($event, $issueNumber)
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->getContainer()->get('db');
+
+		$query   = $db->getQuery(true);
+		$changes = [];
+
+		switch ($event->event)
+		{
+			case 'milestoned':
+				// Get the existing milestone id
+				$query->select($db->quoteName('milestone_id'))
+					->from($db->quoteName('#__tracker_milestones'))
+					->where($db->quoteName('title') . ' = ' . $db->quote($event->milestone->title))
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+
+				$db->setQuery($query);
+
+				$milestoneId = $db->loadResult();
+
+				$change = new \stdClass;
+
+				$change->name = 'milestone_id';
+				$change->old  = null;
+				$change->new  = $milestoneId;
+				break;
+
+			case 'demilestoned':
+				$change = new \stdClass;
+
+				$change->name = 'milestone_id';
+				$change->old  = $this->oldIssuesData[$issueNumber]->milestone_id;
+				$change->new  = null;
+				break;
+
+			case 'labeled':
+				// Get the existing label id
+				$query->select($db->quoteName('label_id'))
+					->from($db->quoteName('#__tracker_labels'))
+					->where($db->quoteName('name') . ' = ' . $db->quote($event->label->name))
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+
+				$db->setQuery($query);
+
+				$labelId = $db->loadResult();
+
+				$change = new \stdClass;
+
+				$change->name = 'labels';
+				$change->old  = null;
+				$change->new  = $labelId;
+				break;
+
+			case 'unlabeled' :
+				$oldLabelId = $this->oldIssuesData[$issueNumber]->labels;
+
+				$labels = (new TrackerProject($db, $this->project))
+					->getLabels();
+
+				// Get the id of removed label
+				foreach ($labels as $labelId => $label)
+				{
+					if ($event->label->name == $label->name)
+					{
+						$oldLabelId = $labelId;
+					}
+				}
+
+				$change = new \stdClass;
+
+				$change->name = 'labels';
+				$change->old  = $oldLabelId;
+				$change->new  = null;
+				break;
+
+			default :
+				$change = null;
+		}
+
+		$changes[] = $change;
+
+		return $changes;
 	}
 }
