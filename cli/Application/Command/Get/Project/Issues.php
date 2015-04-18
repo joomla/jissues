@@ -243,7 +243,7 @@ class Issues extends Project
 			}
 
 			// Store the item in the database
-			$table    = new IssuesTable($this->getContainer()->get('db'));
+			$table = new IssuesTable($this->getContainer()->get('db'));
 
 			if ($id)
 			{
