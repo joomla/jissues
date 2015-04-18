@@ -238,6 +238,7 @@ class Events extends Project
 					case 'demilestoned' :
 					case 'labeled' :
 					case 'unlabeled' :
+					case 'renamed' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -278,7 +279,8 @@ class Events extends Project
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
 							'assigned' => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
 							'head_ref_deleted' => 'head_ref_deleted', 'head_ref_restored' => 'head_ref_restored',
-							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change'
+							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change',
+							'renamed' => 'change',
 						);
 
 						$table->gh_comment_id = $event->id;
@@ -435,6 +437,14 @@ class Events extends Project
 				$change->name = 'labels';
 				$change->old  = $oldLabelId;
 				$change->new  = null;
+				break;
+
+			case 'renamed':
+				$change = new \stdClass;
+
+				$change->name = 'title';
+				$change->old  = $event->rename->from;
+				$change->new  = $event->rename->to;
 				break;
 
 			default :
