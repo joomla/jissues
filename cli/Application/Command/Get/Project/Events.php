@@ -230,6 +230,7 @@ class Events extends Project
 					case 'closed' :
 					case 'reopened' :
 					case 'assigned' :
+					case 'unassigned' :
 					case 'merged' :
 					case 'head_ref_deleted' :
 					case 'head_ref_restored' :
@@ -275,9 +276,9 @@ class Events extends Project
 						// Translate GitHub event names to "our" name schema
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
-							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted',
-							'head_ref_restored' => 'head_ref_restored', 'milestoned' => 'change', 'demilestoned' => 'change',
-							'labeled' => 'change', 'unlabeled' => 'change'
+							'assigned' => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
+							'head_ref_deleted' => 'head_ref_deleted', 'head_ref_restored' => 'head_ref_restored',
+							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change'
 						);
 
 						$table->gh_comment_id = $event->id;
@@ -303,14 +304,14 @@ class Events extends Project
 
 						if ('assigned' == $event->event)
 						{
-							$reference = $this->github->issues->events->get(
-								$this->project->gh_user, $this->project->gh_project, $event->id
-							);
+							$table->text_raw = 'Assigned to ' . $event->assignee->login;
+							$table->text     = $table->text_raw;
+						}
 
-							$table->text_raw = 'Assigned to ' . $reference->issue->assignee->login;
-							$table->text = $table->text_raw;
-
-							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
+						if ('unassigned' == $event->event)
+						{
+							$table->text_raw = $event->assignee->login . ' was unassigned';
+							$table->text     = $table->text_raw;
 						}
 
 						$changes = $this->prepareChanges($event, $issueNumber);
@@ -440,7 +441,10 @@ class Events extends Project
 				$change = null;
 		}
 
-		$changes[] = $change;
+		if (null !== $change)
+		{
+			$changes[] = $change;
+		}
 
 		return $changes;
 	}

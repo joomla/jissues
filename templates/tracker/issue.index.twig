@@ -443,6 +443,14 @@
                         {{ activity.text }}
                     </a>
                 </div>
+            {% elseif 'assigned' == activity.event or 'unassigned' == activity.event %}
+                <div class="offset1 span9 activity-action">
+                    <i class="octicon octicon-person"></i>
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                </div>
             {% elseif 'change' == activity.event %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-gear"></i>
