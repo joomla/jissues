@@ -295,15 +295,8 @@ class Events extends Project
 
 						if ('referenced' == $event->event)
 						{
-							// @todo obtain referenced information
-
-							/*
-							$reference = $this->github->issues->events->get(
-								$this->project->gh_user, $this->project->gh_project, $event->id
-							);
-
-							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
-							*/
+							$table->text_raw = $event->commit_id;
+							$table->text     = $table->text_raw;
 						}
 
 						if ('assigned' == $event->event)
