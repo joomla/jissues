@@ -38,15 +38,6 @@ class Issues extends Project
 	protected $changedIssueNumbers = array();
 
 	/**
-	 * List of changed issues before they were changed.
-	 *
-	 * @var array
-	 *
-	 * @since  1.0
-	 */
-	protected $oldIssuesData = array();
-
-	/**
 	 * List of issues.
 	 *
 	 * @var array
@@ -253,15 +244,10 @@ class Issues extends Project
 
 			// Store the item in the database
 			$table    = new IssuesTable($this->getContainer()->get('db'));
-			$oldTable = new IssuesTable($this->getContainer()->get('db'));
 
 			if ($id)
 			{
 				$table->load($id);
-				$oldTable->load($id);
-
-				// Store the old issue data for later processing in events
-				$this->oldIssuesData[$ghIssue->number] = $oldTable;
 			}
 
 			$table->issue_number = $ghIssue->number;
@@ -508,18 +494,6 @@ class Issues extends Project
 	public function getChangedIssueNumbers()
 	{
 		return $this->changedIssueNumbers;
-	}
-
-	/**
-	 * Get an array of changed issues data before they were changed.
-	 *
-	 * @return  array
-	 *
-	 * @since   1.0
-	 */
-	public function getOldIssuesData()
-	{
-		return $this->oldIssuesData;
 	}
 
 	/**

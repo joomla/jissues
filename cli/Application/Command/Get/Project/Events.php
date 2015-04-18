@@ -92,22 +92,6 @@ class Events extends Project
 	}
 
 	/**
-	 * Set the list of changed issues before they were changed.
-	 *
-	 * @param   array  $oldIssuesData  List of changed issues before they were changed.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function setOldIssuesData(array $oldIssuesData)
-	{
-		$this->oldIssuesData = $oldIssuesData;
-
-		return $this;
-	}
-
-	/**
 	 * Method to get the comments on items from GitHub
 	 *
 	 * @return  $this
@@ -323,7 +307,7 @@ class Events extends Project
 							$table->text     = $table->text_raw;
 						}
 
-						$changes = $this->prepareChanges($event, $issueNumber);
+						$changes = $this->prepareChanges($event);
 
 						if (!empty($changes))
 						{
@@ -363,14 +347,13 @@ class Events extends Project
 	/**
 	 * Method to prepare the changes for saving.
 	 *
-	 * @param   object   $event        The issue event
-	 * @param   integer  $issueNumber  The issue number
+	 * @param   object  $event  The issue event
 	 *
 	 * @return  array  The array of changes for activities list
 	 *
 	 * @since   1.0
 	 */
-	private function prepareChanges($event, $issueNumber)
+	private function prepareChanges($event)
 	{
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -399,10 +382,20 @@ class Events extends Project
 				break;
 
 			case 'demilestoned':
+				// Get the existing milestone id
+				$query->select($db->quoteName('milestone_id'))
+					->from($db->quoteName('#__tracker_milestones'))
+					->where($db->quoteName('title') . ' = ' . $db->quote($event->milestone->title))
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+
+				$db->setQuery($query);
+
+				$milestoneId = $db->loadResult();
+
 				$change = new \stdClass;
 
 				$change->name = 'milestone_id';
-				$change->old  = $this->oldIssuesData[$issueNumber]->milestone_id;
+				$change->old  = $milestoneId;
 				$change->new  = null;
 				break;
 
@@ -425,7 +418,7 @@ class Events extends Project
 				break;
 
 			case 'unlabeled' :
-				$oldLabelId = $this->oldIssuesData[$issueNumber]->labels;
+				$oldLabelId = null;
 
 				$labels = (new TrackerProject($db, $this->project))
 					->getLabels();

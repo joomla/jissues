@@ -48,15 +48,6 @@ class Project extends Get
 	protected $changedIssueNumbers = array();
 
 	/**
-	 * List of changed issues before they were changed.
-	 *
-	 * @var array
-	 *
-	 * @since  1.0
-	 */
-	protected $oldIssuesData = array();
-
-	/**
 	 * Force update.
 	 *
 	 * @var boolean
@@ -220,7 +211,6 @@ class Project extends Get
 		$issues->execute();
 
 		$this->changedIssueNumbers = $issues->getChangedIssueNumbers();
-		$this->oldIssuesData       = $issues->getOldIssuesData();
 
 		return $this;
 	}
@@ -263,7 +253,6 @@ class Project extends Get
 		$events
 			->setContainer($this->getContainer())
 			->setChangedIssueNumbers($this->changedIssueNumbers)
-			->setOldIssuesData($this->oldIssuesData)
 			->execute();
 
 		return $this;
