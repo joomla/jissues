@@ -239,6 +239,8 @@ class Events extends Project
 					case 'labeled' :
 					case 'unlabeled' :
 					case 'renamed' :
+					case 'locked' :
+					case 'unlocked' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -280,7 +282,7 @@ class Events extends Project
 							'assigned' => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
 							'head_ref_deleted' => 'head_ref_deleted', 'head_ref_restored' => 'head_ref_restored',
 							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change',
-							'renamed' => 'change',
+							'renamed' => 'change', 'locked' => 'locked', 'unlocked' => 'unlocked',
 						);
 
 						$table->gh_comment_id = $event->id;
@@ -313,6 +315,18 @@ class Events extends Project
 						if ('unassigned' == $event->event)
 						{
 							$table->text_raw = $event->assignee->login . ' was unassigned';
+							$table->text     = $table->text_raw;
+						}
+
+						if ('locked' == $event->event)
+						{
+							$table->text_raw = $event->actor->login . ' locked the issue';
+							$table->text     = $table->text_raw;
+						}
+
+						if ('unlocked' == $event->event)
+						{
+							$table->text_raw = $event->actor->login . ' unlocked the issue';
 							$table->text     = $table->text_raw;
 						}
 
