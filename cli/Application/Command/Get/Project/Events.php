@@ -91,6 +91,22 @@ class Events extends Project
 	}
 
 	/**
+	 * Set the list of changed issues before they were changed.
+	 *
+	 * @param   array  $oldIssuesData  List of changed issues before they were changed.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setOldIssuesData(array $oldIssuesData)
+	{
+		$this->oldIssuesData = $oldIssuesData;
+
+		return $this;
+	}
+
+	/**
 	 * Method to get the comments on items from GitHub
 	 *
 	 * @return  $this
@@ -199,11 +215,11 @@ class Events extends Project
 		// Initialize our ActivitiesTable instance to insert the new record
 		$table = new ActivitiesTable($db);
 
-		foreach ($this->items as $issueId => $events)
+		foreach ($this->items as $issueNumber => $events)
 		{
 			$this->usePBar
 				? null
-				: $this->out(sprintf(' #%d (%d/%d)...', $issueId, $count + 1, count($this->items)), false);
+				: $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, count($this->items)), false);
 
 			foreach ($events as $event)
 			{
@@ -216,6 +232,8 @@ class Events extends Project
 					case 'merged' :
 					case 'head_ref_deleted' :
 					case 'head_ref_restored' :
+					case 'milestoned' :
+					case 'demilestoned' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -255,11 +273,11 @@ class Events extends Project
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
 							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted',
-							'head_ref_restored' => 'head_ref_restored'
+							'head_ref_restored' => 'head_ref_restored', 'milestoned' => 'change', 'demilestoned' => 'change'
 						);
 
 						$table->gh_comment_id = $event->id;
-						$table->issue_number  = $issueId;
+						$table->issue_number  = $issueNumber;
 						$table->project_id    = $this->project->project_id;
 						$table->user          = $event->actor->login;
 						$table->event         = $evTrans[$event->event];
@@ -290,6 +308,43 @@ class Events extends Project
 
 							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
 						}
+
+						$changes = [];
+
+						if ('milestoned' == $event->event)
+						{
+							// Get the existing issue milestone data
+							$query->clear()
+								->select('milestone_id')
+								->from($db->quoteName('#__tracker_milestones'))
+								->where($db->quoteName('title') . ' = ' . $db->quote($event->milestone->title))
+								->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+
+							$db->setQuery($query);
+
+							$milestoneId = $db->loadResult();
+
+							$change = new \stdClass;
+
+							$change->name = 'milestone_id';
+							$change->old  = $this->oldIssuesData[$issueNumber]->milestone_id;
+							$change->new  = $milestoneId;
+
+							$changes[] = $change;
+						}
+
+						if ('demilestoned' == $event->event)
+						{
+							$change = new \stdClass;
+
+							$change->name = 'milestone_id';
+							$change->old  = $this->oldIssuesData[$issueNumber]->milestone_id;
+							$change->new  = null;
+
+							$changes[] = $change;
+						}
+
+						$table->text = json_encode($changes);
 
 						$table->store();
 
