@@ -274,8 +274,7 @@ class Events extends Project
 						$table->project_id    = $this->project->project_id;
 						$table->user          = $event->actor->login;
 						$table->event         = $evTrans[$event->event];
-
-						$table->created_date = (new Date($event->created_at))->format('Y-m-d H:i:s');
+						$table->created_date  = (new Date($event->created_at))->format('Y-m-d H:i:s');
 
 						if ('referenced' == $event->event)
 						{
@@ -364,15 +363,19 @@ class Events extends Project
 		switch ($event->event)
 		{
 			case 'milestoned':
-				// Get the existing milestone id
-				$query->select($db->quoteName('milestone_id'))
-					->from($db->quoteName('#__tracker_milestones'))
-					->where($db->quoteName('title') . ' = ' . $db->quote($event->milestone->title))
-					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+				$milestoneId = null;
 
-				$db->setQuery($query);
+				$milestones = (new TrackerProject($db, $this->project))
+					->getMilestones();
 
-				$milestoneId = $db->loadResult();
+				// Get the id of added milestone
+				foreach ($milestones as $milestone)
+				{
+					if ($event->milestone->title == $milestone->title)
+					{
+						$milestoneId = $milestone->milestone_id;
+					}
+				}
 
 				$change = new \stdClass;
 
@@ -382,15 +385,19 @@ class Events extends Project
 				break;
 
 			case 'demilestoned':
-				// Get the existing milestone id
-				$query->select($db->quoteName('milestone_id'))
-					->from($db->quoteName('#__tracker_milestones'))
-					->where($db->quoteName('title') . ' = ' . $db->quote($event->milestone->title))
-					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+				$milestoneId = null;
 
-				$db->setQuery($query);
+				$milestones = (new TrackerProject($db, $this->project))
+					->getMilestones();
 
-				$milestoneId = $db->loadResult();
+				// Get the id of removed milestone
+				foreach ($milestones as $milestone)
+				{
+					if ($event->milestone->title == $milestone->title)
+					{
+						$milestoneId = $milestone->milestone_id;
+					}
+				}
 
 				$change = new \stdClass;
 
