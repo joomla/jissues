@@ -361,3 +361,16 @@ CREATE TABLE `#__issue_category_map` (
   CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`),
   CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+-- --
+-- Table structure for table `#__tracker_actions`
+--
+CREATE TABLE IF NOT EXISTS `#__tracker_actions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `project_id` int(11) NOT NULL COMMENT 'The id of the Project',
+  `type` varchar(150) NOT NULL COMMENT 'The action type',
+  `name` varchar(150) NOT NULL COMMENT 'The action name',
+  `params` longtext NOT NULL COMMENT 'The action parameters'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

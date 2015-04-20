@@ -8,17 +8,14 @@
 
 namespace App\Tracker\Controller\TestResult\Ajax;
 
-use App\Tracker\Model\ActivityModel;
-use App\Tracker\Model\IssueModel;
-
-use JTracker\Controller\AbstractAjaxController;
+use App\Tracker\Controller\TestResult\AbstractTest;
 
 /**
  * Alter test result controller class.
  *
  * @since  1.0
  */
-class Alter extends AbstractAjaxController
+class Alter extends AbstractTest
 {
 	/**
 	 * Prepare the response.
@@ -33,49 +30,28 @@ class Alter extends AbstractAjaxController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 		$user        = $application->getUser();
-		$project     = $application->getProject();
 
 		if (!$user->check('edit'))
 		{
 			throw new \Exception('You are not allowed to alter this item.');
 		}
 
-		$issueId  = $application->input->getUint('issueId');
+		$itemId  = $application->input->getUint('issueId');
 
-		if (!$issueId)
+		if (!$itemId)
 		{
 			throw new \Exception('No issue ID received.');
 		}
 
-		$data   = new \stdClass;
-		$result = new \stdClass;
+		$this->response->data = $this->addTest(
+			'alter_testresult',
+			$itemId,
+			$application->input->getUsername('user'),
+			$application->input->getUint('result')
+		);
 
-		$result->user  = $application->input->getUsername('user');
-		$result->value = $application->input->getUint('result');
+		$this->updateStatus($itemId);
 
-		$issueModel = new IssueModel($this->getContainer()->get('db'));
-
-		$data->testResults = $issueModel
-			->saveTest($issueId, $result->user, $result->value);
-
-		$event = (new ActivityModel($this->getContainer()->get('db')))
-			->addActivityEvent(
-				'alter_testresult', 'now', $user->username,
-				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
-				json_encode($result)
-			);
-
-		$data->event = new \stdClass;
-
-		foreach ($event as $k => $v)
-		{
-			$data->event->$k = $v;
-		}
-
-		$data->event->text = json_decode($data->event->text);
-
-		$this->response->data = json_encode($data);
-
-		$this->response->message = g11n3t('Test successfully added');
+		$this->response->message = g11n3t('Test successfully altered');
 	}
 }

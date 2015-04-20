@@ -8,17 +8,14 @@
 
 namespace App\Tracker\Controller\TestResult\Ajax;
 
-use App\Tracker\Model\ActivityModel;
-use App\Tracker\Model\IssueModel;
-
-use JTracker\Controller\AbstractAjaxController;
+use App\Tracker\Controller\TestResult\AbstractTest;
 
 /**
- * Add test result controller class.
+ * Submit test result controller class.
  *
  * @since  1.0
  */
-class Submit extends AbstractAjaxController
+class Submit extends AbstractTest
 {
 	/**
 	 * Prepare the response.
@@ -33,44 +30,27 @@ class Submit extends AbstractAjaxController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 		$user        = $application->getUser();
-		$project     = $application->getProject();
 
 		if (!$user->id)
 		{
 			throw new \Exception('You are not allowed to test this item.');
 		}
 
-		$issueId = $application->input->getUint('issueId');
-		$result  = $application->input->getUint('result');
+		$itemId = $application->input->getUint('issueId');
 
-		if (!$issueId)
+		if (!$itemId)
 		{
 			throw new \Exception('No issue ID received.');
 		}
 
-		$issueModel = new IssueModel($this->getContainer()->get('db'));
+		$this->response->data = $this->addTest(
+			'test_item',
+			$itemId,
+			$user->username,
+			$application->input->getUint('result')
+		);
 
-		$data = new \stdClass;
-
-		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result);
-
-		$event = (new ActivityModel($this->getContainer()->get('db')))
-			->addActivityEvent(
-				'test_item', 'now', $user->username,
-				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
-				json_encode($result)
-			);
-
-		$data->event = new \stdClass;
-
-		foreach ($event as $k => $v)
-		{
-			$data->event->$k = $v;
-		}
-
-		$data->event->text = json_decode($data->event->text);
-
-		$this->response->data = json_encode($data);
+		$this->updateStatus($itemId);
 
 		$this->response->message = g11n3t('Test successfully added');
 	}

@@ -8,6 +8,8 @@
 
 namespace App\Projects;
 
+use App\Projects\Action\AbstractAction;
+use App\Projects\Table\ActionsTable;
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 
@@ -579,5 +581,88 @@ class TrackerProject implements \Serializable
 		}
 
 		return $categories;
+	}
+
+	/**
+	 * Get actions for the project.
+	 *
+	 * @param   string  $type  The action type.
+	 *
+	 * @since    1.0
+	 *
+	 * @return array
+	 */
+	public function getActions($type = '')
+	{
+		static $actions = array();
+
+		if (!$actions)
+		{
+			$db = $this->database;
+
+			$table = new ActionsTable($db);
+
+			$actionsList = $db ->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('id', 'type', 'name', 'params'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+			)->loadObjectList();
+
+			foreach ($actionsList as $actionObject)
+			{
+				$a = new \stdClass;
+
+				$a->name  = $actionObject->name;
+				$a->params = json_decode($actionObject->params);
+
+				if (!isset($actions[$actionObject->type]))
+				{
+					$actions[$actionObject->type] = [];
+				}
+
+				$actions[$actionObject->type][] = $a;
+			}
+		}
+
+		if ($type)
+		{
+			return (isset($actions[$type])) ? $actions[$type] : [];
+		}
+
+		return $actions;
+	}
+
+	/**
+	 * Run actions for the project.
+	 *
+	 * @param   string  $type    Action type.
+	 * @param   string  $name    Action name.
+	 * @param   array   $params  Parameters.
+	 *
+	 * @since    1.0
+	 *
+	 * @return $this
+	 */
+	public function runActions($type, $name, array $params)
+	{
+		$actions = $this->getActions($type);
+
+		foreach ($actions as $action)
+		{
+			if ($action->name == $name)
+			{
+				// Run
+				/** @type AbstractAction $className */
+				$className = '\\App\\Projects\\Action\\' . $type . '\\' . $name;
+
+				/** @type AbstractAction $class */
+				$class = new $className($this, $this->database);
+
+				$class->run($params, $action->params);
+			}
+		}
+
+		return $this;
 	}
 }

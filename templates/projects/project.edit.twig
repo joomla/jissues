@@ -92,6 +92,9 @@
             <input type="hidden" name="project[project_id]" value="{{ project.project_id }}">
 
         </fieldset>
+        <fieldset>
+            <legend>{{ 'Actions'|_ }}</legend>
+        </fieldset>
     </form>
-
+{{ dump(project) }}
 {% endblock %}
