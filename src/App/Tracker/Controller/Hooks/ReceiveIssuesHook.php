@@ -228,12 +228,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
-
-		if (!is_null($status))
-		{
-			$data['status'] = $status;
-		}
-
+		$data['status']          = is_null($status) ? $table->status : $status;
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 

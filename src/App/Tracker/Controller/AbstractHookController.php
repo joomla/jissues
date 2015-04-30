@@ -365,7 +365,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 *
 	 * @param   integer  $issueId  Issue ID to process
 	 *
-	 * @return  string
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
@@ -440,15 +440,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$appLabelIds[] = $id;
 		}
 
-		// Return the array as a string
-		if (count($appLabelIds) === 0)
-		{
-			return '';
-		}
-		else
-		{
-			return implode(',', $appLabelIds);
-		}
+		return $appLabelIds;
 	}
 
 	/**

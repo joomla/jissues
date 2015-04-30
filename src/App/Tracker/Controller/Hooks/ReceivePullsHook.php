@@ -249,12 +249,7 @@ class ReceivePullsHook extends AbstractHookController
 		$data['title']           = $this->data->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->data->body;
-
-		if (!is_null($status))
-		{
-			$data['status'] = $status;
-		}
-
+		$data['status']          = is_null($status) ? $table->status : $status;
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 
