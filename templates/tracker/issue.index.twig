@@ -72,7 +72,7 @@
             <li>{{ item.closed_date|date("j M y") }}</li>
             <!-- @todo SHA link -->
             {% if item.closed_sha %}
-                <li>SHA: {{ item.closed_sha }}</li>
+                <li>SHA: <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ item.closed_sha }}">{{ item.closed_sha }}</a></li>
             {% endif %}
         {% endif %}
 
