@@ -129,7 +129,7 @@
             {% if item.has_code %}
                 <li>
                     &nbsp;
-                    <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
+                    <a href="https://patch-diff.githubusercontent.com/raw/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
                        target="_blank" title="{{ 'View a plain diff for this pull request'|_ }}">
                         <span class="octicon octicon-diff"></span>
                         {{ 'Diff'|_ }}
