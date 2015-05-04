@@ -8,6 +8,7 @@
 
 namespace Application\Command\Get\Project;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Table\ActivitiesTable;
 
 use Application\Command\Get\Project;
@@ -199,11 +200,11 @@ class Events extends Project
 		// Initialize our ActivitiesTable instance to insert the new record
 		$table = new ActivitiesTable($db);
 
-		foreach ($this->items as $issueId => $events)
+		foreach ($this->items as $issueNumber => $events)
 		{
 			$this->usePBar
 				? null
-				: $this->out(sprintf(' #%d (%d/%d)...', $issueId, $count + 1, count($this->items)), false);
+				: $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, count($this->items)), false);
 
 			foreach ($events as $event)
 			{
@@ -213,9 +214,17 @@ class Events extends Project
 					case 'closed' :
 					case 'reopened' :
 					case 'assigned' :
+					case 'unassigned' :
 					case 'merged' :
 					case 'head_ref_deleted' :
 					case 'head_ref_restored' :
+					case 'milestoned' :
+					case 'demilestoned' :
+					case 'labeled' :
+					case 'unlabeled' :
+					case 'renamed' :
+					case 'locked' :
+					case 'unlocked' :
 						$query->clear()
 							->select($table->getKeyName())
 							->from($db->quoteName('#__activities'))
@@ -254,41 +263,54 @@ class Events extends Project
 						// Translate GitHub event names to "our" name schema
 						$evTrans = array(
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
-							'assigned' => 'assign', 'merged' => 'merge', 'head_ref_deleted' => 'head_ref_deleted',
-							'head_ref_restored' => 'head_ref_restored'
+							'assigned' => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
+							'head_ref_deleted' => 'head_ref_deleted', 'head_ref_restored' => 'head_ref_restored',
+							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change',
+							'renamed' => 'change', 'locked' => 'locked', 'unlocked' => 'unlocked',
 						);
 
 						$table->gh_comment_id = $event->id;
-						$table->issue_number  = $issueId;
+						$table->issue_number  = $issueNumber;
 						$table->project_id    = $this->project->project_id;
 						$table->user          = $event->actor->login;
 						$table->event         = $evTrans[$event->event];
-
-						$table->created_date = (new Date($event->created_at))->format('Y-m-d H:i:s');
+						$table->created_date  = (new Date($event->created_at))->format('Y-m-d H:i:s');
 
 						if ('referenced' == $event->event)
 						{
-							// @todo obtain referenced information
-
-							/*
-							$reference = $this->github->issues->events->get(
-								$this->project->gh_user, $this->project->gh_project, $event->id
-							);
-
-							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
-							*/
+							$table->text_raw = $event->commit_id;
+							$table->text     = $table->text_raw;
 						}
 
 						if ('assigned' == $event->event)
 						{
-							$reference = $this->github->issues->events->get(
-								$this->project->gh_user, $this->project->gh_project, $event->id
-							);
+							$table->text_raw = 'Assigned to ' . $event->assignee->login;
+							$table->text     = $table->text_raw;
+						}
 
-							$table->text_raw = 'Assigned to ' . $reference->issue->assignee->login;
-							$table->text = $table->text_raw;
+						if ('unassigned' == $event->event)
+						{
+							$table->text_raw = $event->assignee->login . ' was unassigned';
+							$table->text     = $table->text_raw;
+						}
 
-							$this->checkGitHubRateLimit($this->github->issues->events->getRateLimitRemaining());
+						if ('locked' == $event->event)
+						{
+							$table->text_raw = $event->actor->login . ' locked the issue';
+							$table->text     = $table->text_raw;
+						}
+
+						if ('unlocked' == $event->event)
+						{
+							$table->text_raw = $event->actor->login . ' unlocked the issue';
+							$table->text     = $table->text_raw;
+						}
+
+						$changes = $this->prepareChanges($event);
+
+						if (!empty($changes))
+						{
+							$table->text = json_encode($changes);
 						}
 
 						$table->store();
@@ -319,5 +341,128 @@ class Events extends Project
 			->logOut(sprintf(g11n3t('Added %d new issue events to the database'), $adds));
 
 		return $this;
+	}
+
+	/**
+	 * Method to prepare the changes for saving.
+	 *
+	 * @param   object  $event  The issue event
+	 *
+	 * @return  array  The array of changes for activities list
+	 *
+	 * @since   1.0
+	 */
+	private function prepareChanges($event)
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->getContainer()->get('db');
+
+		$query   = $db->getQuery(true);
+		$changes = [];
+
+		switch ($event->event)
+		{
+			case 'milestoned':
+				$milestoneId = null;
+
+				$milestones = (new TrackerProject($db, $this->project))
+					->getMilestones();
+
+				// Get the id of added milestone
+				foreach ($milestones as $milestone)
+				{
+					if ($event->milestone->title == $milestone->title)
+					{
+						$milestoneId = $milestone->milestone_id;
+					}
+				}
+
+				$change = new \stdClass;
+
+				$change->name = 'milestone_id';
+				$change->old  = null;
+				$change->new  = $milestoneId;
+				break;
+
+			case 'demilestoned':
+				$milestoneId = null;
+
+				$milestones = (new TrackerProject($db, $this->project))
+					->getMilestones();
+
+				// Get the id of removed milestone
+				foreach ($milestones as $milestone)
+				{
+					if ($event->milestone->title == $milestone->title)
+					{
+						$milestoneId = $milestone->milestone_id;
+					}
+				}
+
+				$change = new \stdClass;
+
+				$change->name = 'milestone_id';
+				$change->old  = $milestoneId;
+				$change->new  = null;
+				break;
+
+			case 'labeled':
+				// Get the existing label id
+				$query->select($db->quoteName('label_id'))
+					->from($db->quoteName('#__tracker_labels'))
+					->where($db->quoteName('name') . ' = ' . $db->quote($event->label->name))
+					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
+
+				$db->setQuery($query);
+
+				$labelId = $db->loadResult();
+
+				$change = new \stdClass;
+
+				$change->name = 'labels';
+				$change->old  = null;
+				$change->new  = $labelId;
+				break;
+
+			case 'unlabeled' :
+				$oldLabelId = null;
+
+				$labels = (new TrackerProject($db, $this->project))
+					->getLabels();
+
+				// Get the id of removed label
+				foreach ($labels as $labelId => $label)
+				{
+					if ($event->label->name == $label->name)
+					{
+						$oldLabelId = $labelId;
+					}
+				}
+
+				$change = new \stdClass;
+
+				$change->name = 'labels';
+				$change->old  = $oldLabelId;
+				$change->new  = null;
+				break;
+
+			case 'renamed':
+				$change = new \stdClass;
+
+				$change->name = 'title';
+				$change->old  = $event->rename->from;
+				$change->new  = $event->rename->to;
+				break;
+
+			default :
+				$change = null;
+		}
+
+		if (null !== $change)
+		{
+			$changes[] = $change;
+		}
+
+		return $changes;
 	}
 }

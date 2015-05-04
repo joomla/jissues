@@ -130,14 +130,14 @@
         <td class="span2">
             {{ 'Milestone'|_ }}
         </td>
-        <td class="span4 center">
-            {{ getMilestoneTitle(old) }}
-        </td>
-        <td class="span1 center">
-            &rArr;
-        </td>
-        <td class="span4 center">
-            {{ getMilestoneTitle(new) }}
+        <td colspan="3">
+            {% if new %}
+                {{ 'Added'|_ }}: {{ getMilestoneTitle(new) }}<br />
+            {% endif %}
+
+            {% if old %}
+                {{ 'Removed'|_ }}: {{ getMilestoneTitle(old) }}<br />
+            {% endif %}
         </td>
     </tr>
 {% endmacro %}
