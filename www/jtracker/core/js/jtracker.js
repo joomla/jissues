@@ -265,7 +265,7 @@ JTracker.setupAtJS = function(id, projectAlias) {
 				})
 			}
 		},
-		tpl:"<li data-value='@${username}'><img src='/images/avatars/${username}' height='20' width='20'> ${username} <small>${name}</small></li>"
+		tpl:"<li data-value='@${username}'><img src='/images/avatars/${username}.png' height='20' width='20'> ${username} <small>${name}</small></li>"
 	};
 
 	var issue_config = {
