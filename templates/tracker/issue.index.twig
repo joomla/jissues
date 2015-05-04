@@ -69,7 +69,7 @@
         </li>
 
         {% if item.closed %}
-            <li>{{ item.closed_date|date("j M y") }}</li>
+            <li>{{ item.closed_date|date("j M Y", offset) }}</li>
             <!-- @todo SHA link -->
             {% if item.closed_sha %}
                 <li>SHA: <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ item.closed_sha }}">{{ item.closed_sha }}</a></li>
@@ -242,7 +242,7 @@
         <div class="span2 well-small user-wrapper">
             {{ avatar(item.opened_by, '', 'avatar')|raw }}<br />
             <span class="icon-github"></span> {{ item.opened_by }}<br />
-            <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
+            <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y", offset) }}
         </div>
 
         {% if item.votes or user.id or item.has_code %}
@@ -414,7 +414,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     - <span class="tests-{{ change }}">{{ userTestOptions(change) }}</span>
                 </div>
             {% elseif 'alter_testresult' == activity.event %}
@@ -424,7 +424,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     - <b>{{ change.user }}</b>: <span class="tests-{{ change.value }}">{{ userTestOptions(change.value) }}</span>
                 </div>
             {% elseif 'commit' == activity.event %}
@@ -433,7 +433,7 @@
                         <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.activities_id }}">
                             {{ activity.activities_id|slice(0, 7) }}
                         </a>
-                        <span title="{{ activity.created_date|date("j M Y H:i:s") }}">{{ activity.created_date|date("j M y") }} <i class="icon-calendar" style="cursor: help"></i></span>
+                        <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}">{{ activity.created_date|date("j M Y", offset) }} <i class="icon-calendar" style="cursor: help"></i></span>
                     </span>
                     <i class="octicon octicon-git-commit" title="{{ 'Git commit' }}"></i>
                     <span title="{{ activity.user }}">
@@ -449,7 +449,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                 </div>
                 <div class="row-fluid">
                     <div class="offset1 span9">
@@ -499,7 +499,7 @@
                     <div class="well well-small">
                         <b>{{ activity.user }}</b>
                         - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                        - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                        - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     </div>
                     <div style="margin: 10px;">
                         {{ activity.text|raw }}
@@ -511,7 +511,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                 </div>
             {% endif %}
             </div>

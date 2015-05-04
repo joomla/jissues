@@ -106,6 +106,9 @@ class Submit extends AbstractAjaxController
 
 		$data->activities_id = $db->insertid();
 
+		$date = new Date($data->created_at);
+		$data->created_at = $date->format('j M Y');
+
 		$this->response->data    = $data;
 		$this->response->message = g11n3t('Your comment has been submitted');
 	}
