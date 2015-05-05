@@ -230,7 +230,7 @@
                             [% if (item.user_id) { %]
                                 <a href="{{ uri.base.path ~ 'user/' }}[%= item.user_id %]">[%= item.opened_by %]</a>
                             [% } else { %]
-                                [%= item.opened_by %]
+                                <a href="https://github.com/[%= item.opened_by %]">[%= item.opened_by %]</a>
                             [% } %]
                             &nbsp;&bull;&nbsp;
                         [% } %]
