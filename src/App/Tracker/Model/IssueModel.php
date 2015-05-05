@@ -82,6 +82,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the milestones table
 				->select('m.title AS milestone_title')
 				->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = i.milestone_id')
+
+				// Join over the users
+				->select('u.id AS user_id')
+				->leftJoin('#__users AS u ON i.opened_by = u.username')
 		)->loadObject();
 
 		if (!$item)
