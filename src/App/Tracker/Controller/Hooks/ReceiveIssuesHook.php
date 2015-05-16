@@ -243,10 +243,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['labels'] = $this->processLabels($this->hookData->issue->number);
 
 		// Grab some data based on the existing record
-		$data['priority']   = $table->priority;
-		$data['build']      = $table->build;
-		$data['rel_number'] = $table->rel_number;
-		$data['rel_type']   = $table->rel_type;
+		$data['priority']     = $table->priority;
+		$data['build']        = $table->build;
+		$data['rel_number']   = $table->rel_number;
+		$data['rel_type']     = $table->rel_type;
+		$data['milestone_id'] = $table->milestone_id;
 
 		$model = (new IssueModel($this->db))
 			->setProject(new TrackerProject($this->db, $this->project));
