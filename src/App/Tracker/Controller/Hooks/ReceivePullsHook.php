@@ -270,6 +270,11 @@ class ReceivePullsHook extends AbstractHookController
 		$data['rel_type']     = $table->rel_type;
 		$data['milestone_id'] = $table->milestone_id;
 
+		if (empty($table->build))
+		{
+			$data['build'] = $this->hookData->repository->default_branch;
+		}
+
 		$model = (new IssueModel($this->db))
 			->setProject(new TrackerProject($this->db, $this->project));
 
