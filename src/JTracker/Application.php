@@ -254,6 +254,16 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (\Exception $exception)
 		{
+			// Log the error
+			$this->getLogger()->critical(
+				sprintf(
+					'Exception of type %1$s thrown with message %2$s',
+					get_class($exception),
+					$exception->getMessage()
+				),
+				['trace' => $exception->getTraceAsString()]
+			);
+
 			header('HTTP/1.1 500 Internal Server Error', true, 500);
 
 			$this->mark('Application terminated with an EXCEPTION');
