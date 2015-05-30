@@ -359,7 +359,8 @@ class Issues extends Project
 
 			$table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
 
-			$table->store(true);
+			$table->check()
+				->store(true);
 
 			if (!$table->id)
 			{
