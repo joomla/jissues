@@ -128,10 +128,11 @@ class ReceivePullsHook extends AbstractHookController
 		// Process labels for the item
 		$data['labels'] = $this->processLabels($this->data->number);
 
+		$model = new IssueModel($this->db);
+
 		try
 		{
-			(new IssueModel($this->db))
-				->setProject(new TrackerProject($this->db, $this->project))
+			$model->setProject(new TrackerProject($this->db, $this->project))
 				->add($data);
 		}
 		catch (\Exception $e)
@@ -151,7 +152,7 @@ class ReceivePullsHook extends AbstractHookController
 
 		// Get a table object for the new record to process in the event listeners
 		$table = (new IssuesTable($this->db))
-			->load($this->db->insertid());
+			->load($model->getState()->get('issue_id'));
 
 		$this->triggerEvent('onPullAfterCreate', $table, array('action' => $action));
 
