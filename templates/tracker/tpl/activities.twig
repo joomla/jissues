@@ -2,7 +2,7 @@
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
 {% macro change(name, old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ name|title }}
         </td>
@@ -19,7 +19,7 @@
 {% endmacro %}
 
 {% macro description(old, new, cnt) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Description'|_ }}
         </td>
@@ -36,7 +36,7 @@
 {% endmacro %}
 
 {% macro title(old, new, cnt) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Title'|_ }}
         </td>
@@ -53,7 +53,7 @@
 {% endmacro %}
 
 {% macro status(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Status'|_ }}
         </td>
@@ -70,7 +70,7 @@
 {% endmacro %}
 
 {% macro easy(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Easy'|_ }}
         </td>
@@ -87,7 +87,7 @@
 {% endmacro %}
 
 {% macro priority(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Priority'|_ }}
         </td>
@@ -108,7 +108,7 @@
 {% endmacro %}
 
 {% macro labels(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Labels'|_ }}
         </td>
@@ -126,7 +126,7 @@
 {% endmacro %}
 
 {% macro milestone(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Milestone'|_ }}
         </td>
@@ -143,7 +143,7 @@
 {% endmacro %}
 
 {% macro relationType(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Relation Type'|_ }}
         </td>
@@ -160,7 +160,7 @@
 {% endmacro %}
 
 {% macro category(old, new) %}
-    <tr>
+    <tr class="table-condensed">
         <td class="span2">
             {{ 'Category'|_ }}
         </td>
