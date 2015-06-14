@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 17:59-0500\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
 "PO-Revision-Date: 2015-02-07 21:15+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/jtracker/language/nl_NL/)\n"
@@ -71,7 +71,7 @@ msgstr "Begin ophalen avatars."
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
 #: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Project/Events.php:75
 #: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr "Voltooid."
@@ -157,12 +157,12 @@ msgid ""
 msgstr "Haal alle project informatie van GitHub, inclusief problemen en reacties."
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:52
+#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr "Verwerk alle problemen."
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:47
+#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr "<n> Verwerk alleen een enkele melding."
 
@@ -239,7 +239,7 @@ msgstr[0] "Ophalen reacties voor <b>één</b> gewijzigd probleem vanaf GitHub...
 msgstr[1] "Ophalen reacties voor <b>%d</b> gewijzigde meldingen vanaf GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:180
+#: /cli/Application/Command/Get/Project/Events.php:181
 msgid "Everything is up to date."
 msgstr "Alles is bijgewerkt."
 
@@ -275,30 +275,30 @@ msgstr "Ophalen issue reacties."
 msgid "Deleting issues comments."
 msgstr "Verwijderen issue reacties."
 
-#: /cli/Application/Command/Get/Project/Events.php:42
+#: /cli/Application/Command/Get/Project/Events.php:43
 msgid "Retrieve issue events from GitHub."
 msgstr "Ophalen melding wijzigingen vanaf GitHub."
 
-#: /cli/Application/Command/Get/Project/Events.php:66
+#: /cli/Application/Command/Get/Project/Events.php:67
 msgid "Retrieve Events"
 msgstr "Ophalen nieuws"
 
-#: /cli/Application/Command/Get/Project/Events.php:68
+#: /cli/Application/Command/Get/Project/Events.php:69
 msgid "Start retrieve Events"
 msgstr "Begin ophalen nieuws"
 
-#: /cli/Application/Command/Get/Project/Events.php:110
+#: /cli/Application/Command/Get/Project/Events.php:111
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] "Ophalen nieuws voor één probleem vanaf GitHub..."
 msgstr[1] "Ophalen wijzigingen voor <b>%d</b> meldingen vanaf GitHub..."
 
-#: /cli/Application/Command/Get/Project/Events.php:190
+#: /cli/Application/Command/Get/Project/Events.php:191
 msgid "Adding events to the database..."
 msgstr "Toevoegen nieuws in de database..."
 
-#: /cli/Application/Command/Get/Project/Events.php:319
+#: /cli/Application/Command/Get/Project/Events.php:341
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "Toegevoegd %d nieuwe melding wijzigingen in de database"
@@ -335,7 +335,7 @@ msgstr "<b>%d</b> onderdelen opgehaald vanaf GitHub."
 msgid "Adding issues to the database..."
 msgstr "Toevoegen problemen in de database..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:409
+#: /cli/Application/Command/Get/Project/Issues.php:416
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d toegevoegd, %2$d bijgewerkt.</ok>"

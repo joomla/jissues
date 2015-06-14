@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 17:59-0500\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
 "PO-Revision-Date: 2015-02-07 18:09+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
@@ -71,7 +71,7 @@ msgstr "Lancer la récupération des Avatars."
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
 #: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Project/Events.php:75
 #: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr "Terminé."
@@ -157,12 +157,12 @@ msgid ""
 msgstr "Récupérer depuis GitHub toutes les informations sur le projet, y compris les anomalies et les commentaires sur les anomalies."
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:52
+#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr "Traiter toutes les anomalies."
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:47
+#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr "<n> Traiter une seule anomalie."
 
@@ -239,7 +239,7 @@ msgstr[0] "Récupérer le commentaire pour <b>une</b> anomalie modifiée, à par
 msgstr[1] "Récupérer les commentaires de <b>%d</b> anomalies modifiées, à partir de GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:180
+#: /cli/Application/Command/Get/Project/Events.php:181
 msgid "Everything is up to date."
 msgstr "Tout est à jour."
 
@@ -275,30 +275,30 @@ msgstr "Obtention des commentaires d'anomalies."
 msgid "Deleting issues comments."
 msgstr "Suppression des commentaires d'anomalies."
 
-#: /cli/Application/Command/Get/Project/Events.php:42
+#: /cli/Application/Command/Get/Project/Events.php:43
 msgid "Retrieve issue events from GitHub."
 msgstr "Récupérer les événements depuis GitHub."
 
-#: /cli/Application/Command/Get/Project/Events.php:66
+#: /cli/Application/Command/Get/Project/Events.php:67
 msgid "Retrieve Events"
 msgstr "Récupérer les événements"
 
-#: /cli/Application/Command/Get/Project/Events.php:68
+#: /cli/Application/Command/Get/Project/Events.php:69
 msgid "Start retrieve Events"
 msgstr "Lancer la récupération des événements"
 
-#: /cli/Application/Command/Get/Project/Events.php:110
+#: /cli/Application/Command/Get/Project/Events.php:111
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] "Chercher les événements pour une anomalie à partir de GitHub..."
 msgstr[1] "Chercher les événements pour <b>%d</b> anomalies à partir de GitHub..."
 
-#: /cli/Application/Command/Get/Project/Events.php:190
+#: /cli/Application/Command/Get/Project/Events.php:191
 msgid "Adding events to the database..."
 msgstr "Ajouter des événements à la base de données..."
 
-#: /cli/Application/Command/Get/Project/Events.php:319
+#: /cli/Application/Command/Get/Project/Events.php:341
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "%d nouveaux événements d'anomalies ajoutés à la base de données"
@@ -335,7 +335,7 @@ msgstr "<b>%d</b> éléments récupérés sur GitHub..."
 msgid "Adding issues to the database..."
 msgstr "Ajouter des anomalies à la base de données..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:409
+#: /cli/Application/Command/Get/Project/Issues.php:416
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d ajouté(s), %2$d mis à jour.</ok>"

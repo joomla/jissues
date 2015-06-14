@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 17:59-0500\n"
-"PO-Revision-Date: 2015-03-14 18:16+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2015-06-14 18:29+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:57
+#: /templates/index.twig:63
 msgid "Download"
 msgstr "Letöltés"
 
-#: /templates/index.twig:60
+#: /templates/index.twig:66
 msgid "Demo"
 msgstr "Demó"
 
@@ -80,7 +80,7 @@ msgstr "Indítás"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:145
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:148
 msgid "Error"
 msgstr "Hiba"
 
@@ -148,6 +148,10 @@ msgstr "Mérföldkő kiválasztása..."
 msgid "No Milestone"
 msgstr "Nincs mérföldkő"
 
+#: /templates/fields.twig:73
+msgid "Select labels..."
+msgstr ""
+
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
 msgstr ""
@@ -209,78 +213,82 @@ msgid "Logs"
 msgstr "Naplók"
 
 #: /templates/trackerMenu.twig:115
+msgid "Application"
+msgstr ""
+
+#: /templates/trackerMenu.twig:118
 msgid "Cron Jobs"
 msgstr "Cron feladatok"
 
-#: /templates/trackerMenu.twig:120
+#: /templates/trackerMenu.twig:123
 msgid "Database"
 msgstr "Adatbázis"
 
-#: /templates/trackerMenu.twig:126
+#: /templates/trackerMenu.twig:129
 msgid "GitHub Issues"
 msgstr "GitHub-problémák"
 
-#: /templates/trackerMenu.twig:132
+#: /templates/trackerMenu.twig:135
 msgid "GitHub Comments"
 msgstr "GitHub-megjegyzések"
 
-#: /templates/trackerMenu.twig:138
+#: /templates/trackerMenu.twig:141
 msgid "GitHub Pulls"
 msgstr "GitHub-szavazások"
 
-#: /templates/trackerMenu.twig:142
+#: /templates/trackerMenu.twig:145
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:152
+#: /templates/trackerMenu.twig:155
 msgid "Icons"
 msgstr "Ikonok"
 
-#: /templates/trackerMenu.twig:158
+#: /templates/trackerMenu.twig:161
 msgid "Routes"
 msgstr "Útvonalak"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:167
 msgid "Text"
 msgstr "Szöveg"
 
-#: /templates/trackerMenu.twig:170
+#: /templates/trackerMenu.twig:173
 msgid "Clear Cache"
 msgstr "Gyorsítótár törlése"
 
-#: /templates/trackerMenu.twig:187
+#: /templates/trackerMenu.twig:190
 msgid "About Us"
 msgstr "Rólunk"
 
-#: /templates/trackerMenu.twig:192
+#: /templates/trackerMenu.twig:195
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:197 /templates/topMenu.twig:74
+#: /templates/trackerMenu.twig:200 /templates/topMenu.twig:73
 msgid "Documentation"
 msgstr "Dokumentáció"
 
-#: /templates/trackerMenu.twig:216
+#: /templates/trackerMenu.twig:219
 msgid "Admin"
 msgstr "Adminisztrátor"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:224
 msgid "View profile"
 msgstr "Profil megtekintése"
 
-#: /templates/trackerMenu.twig:227
+#: /templates/trackerMenu.twig:230
 msgid "Edit profile"
 msgstr "Profil szerkesztése"
 
-#: /templates/trackerMenu.twig:234
+#: /templates/trackerMenu.twig:237
 msgid "Logout"
 msgstr "Kijelentkezés"
 
-#: /templates/trackerMenu.twig:243
+#: /templates/trackerMenu.twig:246
 msgid "Login with GitHub"
 msgstr "Belépés GitHub-fiókkal"
 
-#: /templates/trackerMenu.twig:247
+#: /templates/trackerMenu.twig:250
 msgid "No GitHub credentials set in config"
 msgstr "Nincsenek GitHub hitelesítési adatok megadva a konfigurációban"
 
@@ -341,109 +349,105 @@ msgid "Joomla! Events"
 msgstr "Joomla! események"
 
 #: /templates/topMenu.twig:42
-msgid "Joomla! UX"
-msgstr "Joomla! UX"
-
-#: /templates/topMenu.twig:43
 msgid "Joomla! User Groups"
 msgstr "Joomla! felhasználócsoportok"
 
-#: /templates/topMenu.twig:44
+#: /templates/topMenu.twig:43
 msgid "Joomla! Volunteers Portal"
 msgstr ""
 
-#: /templates/topMenu.twig:47
+#: /templates/topMenu.twig:46
 msgid "Support"
 msgstr "Támogatás"
 
-#: /templates/topMenu.twig:49
+#: /templates/topMenu.twig:48
 msgid "Joomla! Forum"
 msgstr "Joomla! fórum"
 
-#: /templates/topMenu.twig:50
+#: /templates/topMenu.twig:49
 msgid "Joomla! Documentation"
 msgstr "Joomla! dokumentáció"
 
-#: /templates/topMenu.twig:51
+#: /templates/topMenu.twig:50
 msgid "Joomla! Issue Tracker"
 msgstr ""
 
-#: /templates/topMenu.twig:52
+#: /templates/topMenu.twig:51
 msgid "Joomla! Resources"
 msgstr "Joomla! erőforrások"
 
-#: /templates/topMenu.twig:55
+#: /templates/topMenu.twig:54
 msgid "Read"
 msgstr "Olvasás"
 
-#: /templates/topMenu.twig:57
+#: /templates/topMenu.twig:56
 msgid "Joomla! Magazine"
 msgstr "Joomla! Magazin"
 
-#: /templates/topMenu.twig:58
+#: /templates/topMenu.twig:57
 msgid "Joomla! Connect"
 msgstr "Joomla! kapcsolat"
 
-#: /templates/topMenu.twig:59
+#: /templates/topMenu.twig:58
 msgid "Joomla! Mailing Lists"
 msgstr "Joomla! levelezőlisták"
 
-#: /templates/topMenu.twig:62
+#: /templates/topMenu.twig:61
 msgid "Extend"
 msgstr "Bővítés"
 
-#: /templates/topMenu.twig:64
+#: /templates/topMenu.twig:63
 msgid "Extension Directory"
 msgstr "Bővítménytár"
 
-#: /templates/topMenu.twig:65
+#: /templates/topMenu.twig:64
 msgid "Showcase Directory"
 msgstr "Showcase Directory"
 
-#: /templates/topMenu.twig:66
+#: /templates/topMenu.twig:65
 msgid "Resource Directory"
 msgstr "Resource Directory"
 
-#: /templates/topMenu.twig:67 /templates/topMenu.twig:86
+#: /templates/topMenu.twig:66 /templates/topMenu.twig:85
 msgid "Translations"
 msgstr "Fordítások"
 
-#: /templates/topMenu.twig:68
+#: /templates/topMenu.twig:67
 msgid "Idea Pool"
 msgstr "Ötlettár"
 
-#: /templates/topMenu.twig:71
+#: /templates/topMenu.twig:70
 msgid "Developers"
 msgstr "Fejlesztők:"
 
-#: /templates/topMenu.twig:73
+#: /templates/topMenu.twig:72
 msgid "Developer Site"
 msgstr "Fejlesztői webhely"
 
-#: /templates/topMenu.twig:75
+#: /templates/topMenu.twig:74
 msgid "Joomla! Bug Squad"
 msgstr "Joomla! hibakereső brigád"
 
-#: /templates/topMenu.twig:76
+#: /templates/topMenu.twig:75
 msgid "Joomla! API"
 msgstr "Joomla! API"
 
-#: /templates/topMenu.twig:77
+#: /templates/topMenu.twig:76
 msgid "JoomlaCode"
 msgstr "JoomlaCode"
 
-#: /templates/topMenu.twig:78
+#: /templates/topMenu.twig:77
 msgid "Joomla! Framework"
 msgstr "Joomla! keretrendszer"
 
-#: /templates/topMenu.twig:87
+#: /templates/topMenu.twig:86
 msgid "Multilingual Demo"
 msgstr "Többnyelvű demó"
 
-#: /templates/topMenu.twig:88
+#: /templates/topMenu.twig:87
 msgid "Translation Working Group"
 msgstr "Fordítási munkacsoport"
 
-#: /templates/topMenu.twig:89
+#: /templates/topMenu.twig:88
 msgid "Translations Forum"
 msgstr "Fordítások fóruma"
