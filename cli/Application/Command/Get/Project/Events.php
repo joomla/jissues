@@ -220,8 +220,6 @@ class Events extends Project
 					case 'head_ref_restored' :
 					case 'milestoned' :
 					case 'demilestoned' :
-					case 'labeled' :
-					case 'unlabeled' :
 					case 'renamed' :
 					case 'locked' :
 					case 'unlocked' :
@@ -321,6 +319,8 @@ class Events extends Project
 					case 'mentioned' :
 					case 'subscribed' :
 					case 'unsubscribed' :
+					case 'labeled' :
+					case 'unlabeled' :
 						continue;
 
 					default:
@@ -406,46 +406,6 @@ class Events extends Project
 				$change->new  = null;
 				break;
 
-			case 'labeled':
-				// Get the existing label id
-				$query->select($db->quoteName('label_id'))
-					->from($db->quoteName('#__tracker_labels'))
-					->where($db->quoteName('name') . ' = ' . $db->quote($event->label->name))
-					->where($db->quoteName('project_id') . ' = ' . (int) $this->project->project_id);
-
-				$db->setQuery($query);
-
-				$labelId = $db->loadResult();
-
-				$change = new \stdClass;
-
-				$change->name = 'labels';
-				$change->old  = null;
-				$change->new  = $labelId;
-				break;
-
-			case 'unlabeled' :
-				$oldLabelId = null;
-
-				$labels = (new TrackerProject($db, $this->project))
-					->getLabels();
-
-				// Get the id of removed label
-				foreach ($labels as $labelId => $label)
-				{
-					if ($event->label->name == $label->name)
-					{
-						$oldLabelId = $labelId;
-					}
-				}
-
-				$change = new \stdClass;
-
-				$change->name = 'labels';
-				$change->old  = $oldLabelId;
-				$change->new  = null;
-				break;
-
 			case 'renamed':
 				$change = new \stdClass;
 
@@ -454,7 +414,7 @@ class Events extends Project
 				$change->new  = $event->rename->to;
 				break;
 
-			default :
+			default:
 				$change = null;
 		}
 

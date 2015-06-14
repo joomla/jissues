@@ -62,6 +62,7 @@ class DatabaseProvider implements ServiceProviderInterface
 				$logger->pushProcessor(new WebProcessor);
 
 				$db->setLogger($logger);
+
 				return $db;
 			}, true, true
 		);
