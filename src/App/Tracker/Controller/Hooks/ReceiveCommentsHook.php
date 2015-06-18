@@ -266,8 +266,8 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
 		$data['activities_id'] = $id;
-		$data['text'] = $parsedText;
-		$data['text_raw'] = $this->hookData->comment->body;
+		$data['text']          = $parsedText;
+		$data['text_raw']      = $this->hookData->comment->body;
 
 		try
 		{
