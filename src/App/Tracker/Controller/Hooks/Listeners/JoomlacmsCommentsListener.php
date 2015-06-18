@@ -69,7 +69,7 @@ class JoomlacmsCommentsListener
 		// Get the labels for the pull's issue
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->issue->number)->labels;
 		}
 		catch (\DomainException $e)
 		{
@@ -78,7 +78,7 @@ class JoomlacmsCommentsListener
 					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$hookData->issue->number,
 					$e->getMessage()
 				)
 			);
@@ -98,7 +98,7 @@ class JoomlacmsCommentsListener
 							'GitHub item %s/%s #%d already has the %s label.',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->pull_request->number,
+							$hookData->issue->number,
 							$RTClabel
 						)
 					);
@@ -120,7 +120,7 @@ class JoomlacmsCommentsListener
 			try
 			{
 				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
+					$project->gh_user, $project->gh_project, $hookData->issue->number, $addLabels
 				);
 
 				// Post the new label on the object
@@ -130,7 +130,7 @@ class JoomlacmsCommentsListener
 						count($addLabels),
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number
+						$hookData->issue->number
 					)
 				);
 			}
@@ -141,7 +141,7 @@ class JoomlacmsCommentsListener
 						'Error adding labels to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
+						$hookData->issue->number,
 						$e->getMessage()
 					)
 				);
