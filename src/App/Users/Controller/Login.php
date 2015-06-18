@@ -51,7 +51,7 @@ class Login extends AbstractTrackerController
 		if ($error)
 		{
 			// GitHub reported an error.
-			throw new AuthenticationException($error);
+			throw new AuthenticationException($error, 'login');
 		}
 
 		$code = $app->input->get('code');
@@ -59,7 +59,7 @@ class Login extends AbstractTrackerController
 		if (!$code)
 		{
 			// No auth code supplied.
-			throw new AuthenticationException('Missing login code');
+			throw new AuthenticationException($user, 'login');
 		}
 
 		// Do login
