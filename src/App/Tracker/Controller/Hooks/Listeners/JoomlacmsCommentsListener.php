@@ -22,7 +22,6 @@ use Monolog\Logger;
  */
 class JoomlacmsCommentsListener
 {
-
 	/**
 	 * Event for after Comments requests are updated in the application
 	 *
