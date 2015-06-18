@@ -284,7 +284,18 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$issuetable = new IssuesTable($this->db);
+		try
+		{
+			$issuetable = new IssuesTable($this->db);
+			$issuetable->load(array('issue_number' => $id));
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				'Error loading the database for comment ' . $id . ':' . $e->getMessage()
+			);
+		}
+
 		$this->triggerEvent('onCommentAfterUpdate', $issuetable);
 
 		// Store was successful, update status
