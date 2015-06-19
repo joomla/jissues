@@ -23,6 +23,24 @@ use Monolog\Logger;
 class JoomlacmsCommentsListener
 {
 	/**
+	 * Event for after Comments gets added to the Tracker
+	 *
+	 * @param   Event  $event  Event object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function onCommentAfterAddingComment(Event $event)
+	{
+		// Pull the arguments array
+		$arguments = $event->getArguments();
+
+		// Add a RTC label if the item is in that status
+		$this->addRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+	}
+
+	/**
 	 * Event for after Comments requests are updated in the application
 	 *
 	 * @param   Event  $event  Event object
