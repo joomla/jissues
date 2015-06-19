@@ -132,9 +132,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			// Get a table object for the new record to process in the event listeners
 			$issuetable = new IssuesTable($this->db);
-			$issuetable->load(array('issue_number' => $this->hookData->issue->number));
+			$issueTable->load(
+			    array(
+			        'issue_number' => $this->hookData->issue->number,
+			        'project_id'   => $this->project->project_id,
+			    )
+			);
 
-			$this->triggerEvent('onCommentAfterCreate', $issuetable);
+			$this->triggerEvent('onCommentAfterCreate', $issueTable);
 		}
 		catch (\Exception $e)
 		{
@@ -301,9 +306,15 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		try
 		{
-			$issuetable = new IssuesTable($this->db);
-			$issuetable->load(array('issue_number' => $this->hookData->issue->number));
-			$this->triggerEvent('onCommentAfterUpdate', $issuetable);
+			$issueTable = new IssuesTable($this->db);
+			$issueTable->load(
+			    array(
+			        'issue_number' => $this->hookData->issue->number,
+			        'project_id'   => $this->project->project_id,
+			    )
+			);
+
+			$this->triggerEvent('onCommentAfterUpdate', $issueTable);
 		}
 		catch (\Exception $e)
 		{
