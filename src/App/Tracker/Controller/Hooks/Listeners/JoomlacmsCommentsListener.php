@@ -31,7 +31,7 @@ class JoomlacmsCommentsListener
 	 *
 	 * @since   1.0
 	 */
-	public function onCommentAfterAddingComment(Event $event)
+	public function onCommentAfterCreate(Event $event)
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
