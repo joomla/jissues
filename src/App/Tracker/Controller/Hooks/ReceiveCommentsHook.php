@@ -128,7 +128,7 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->pullUserAvatar($this->hookData->comment->user->login);
 		}
 
-		// $this->triggerEvent('onCommentAfterCreate', $table);
+		$this->triggerEvent('onCommentAfterCreate', $table);
 
 		// Store was successful, update status
 		$this->logger->info(
@@ -216,11 +216,22 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		// Get a table object for the new record to process in the event listeners
-		$table = (new IssuesTable($this->db))
-			->load($this->db->insertid());
+		try
+		{
+			// Get a table object for the new record to process in the event listeners
+			$table = (new IssuesTable($this->db))
+				->load($this->db->insertid());
 
-		$this->triggerEvent('onCommentAfterCreateIssue', $table);
+			$this->triggerEvent('onCommentAfterAddingComment', $table);
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				'Error loading the database for comment '
+				. $this->hookData->issue->number
+				. ':' . $e->getMessage()
+			);
+		}
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->issue->user->login);
@@ -287,16 +298,17 @@ class ReceiveCommentsHook extends AbstractHookController
 		try
 		{
 			$issuetable = new IssuesTable($this->db);
-			$issuetable->load(array('issue_number' => $id));
+			$issuetable->load(array('issue_number' => $this->hookData->issue->number));
+			$this->triggerEvent('onCommentAfterUpdate', $issuetable);
 		}
 		catch (\Exception $e)
 		{
 			$this->logger->error(
-				'Error loading the database for comment ' . $id . ':' . $e->getMessage()
+				'Error loading the database for comment '
+				. $this->hookData->issue->number
+				. ':' . $e->getMessage()
 			);
 		}
-
-		$this->triggerEvent('onCommentAfterUpdate', $issuetable);
 
 		// Store was successful, update status
 		$this->logger->info(
