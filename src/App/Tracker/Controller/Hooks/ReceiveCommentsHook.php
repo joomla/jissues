@@ -128,7 +128,22 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->pullUserAvatar($this->hookData->comment->user->login);
 		}
 
-		$this->triggerEvent('onCommentAfterCreate', $table);
+		try
+		{
+			// Get a table object for the new record to process in the event listeners
+			$issuetable = new IssuesTable($this->db);
+			$issuetable->load(array('issue_number' => $this->hookData->issue->number));
+
+			$this->triggerEvent('onCommentAfterCreate', $issuetable);
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				'Error loading the database for comment '
+				. $this->hookData->issue->number
+				. ':' . $e->getMessage()
+			);
+		}
 
 		// Store was successful, update status
 		$this->logger->info(
@@ -216,22 +231,11 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		try
-		{
-			// Get a table object for the new record to process in the event listeners
-			$table = (new IssuesTable($this->db))
-				->load($this->db->insertid());
+		// Get a table object for the new record to process in the event listeners
+		$table = (new IssuesTable($this->db))
+			->load($this->db->insertid());
 
-			$this->triggerEvent('onCommentAfterAddingComment', $table);
-		}
-		catch (\Exception $e)
-		{
-			$this->logger->error(
-				'Error loading the database for comment '
-				. $this->hookData->issue->number
-				. ':' . $e->getMessage()
-			);
-		}
+		$this->triggerEvent('onCommentAfterCreateIssue', $table);
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->issue->user->login);
