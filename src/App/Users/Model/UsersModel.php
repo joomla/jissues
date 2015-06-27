@@ -9,7 +9,7 @@
 namespace App\Users\Model;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\String\String;
+use Joomla\String\StringHelper;
 
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -40,7 +40,7 @@ class UsersModel extends AbstractTrackerListModel
 		if ($filter)
 		{
 			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+			$filter = $db->quote('%' . $db->escape(StringHelper::strtolower($filter), true) . '%', false);
 
 			$query->where($db->quoteName('username') . ' LIKE ' . $filter);
 		}

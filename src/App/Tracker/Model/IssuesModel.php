@@ -11,7 +11,7 @@ namespace App\Tracker\Model;
 use App\Projects\TrackerProject;
 
 use Joomla\Database\DatabaseQuery;
-use Joomla\String\String;
+use Joomla\String\StringHelper;
 
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -288,7 +288,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$db = $this->getDb();
 
 		// Clean filter variable
-		$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+		$filter = $db->quote('%' . $db->escape(StringHelper::strtolower($filter), true) . '%', false);
 
 		// Check the author, title, and publish_up fields
 		$query->where(
@@ -375,7 +375,7 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter)
 		{
 			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+			$filter = $db->quote('%' . $db->escape(StringHelper::strtolower($filter), true) . '%', false);
 
 			$query->where($db->quoteName('a.opened_by') . ' LIKE ' . $filter);
 		}
