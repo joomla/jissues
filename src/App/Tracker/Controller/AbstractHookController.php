@@ -139,13 +139,25 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	{
 		try
 		{
-			return $this->db->setQuery(
+			$result = $this->db->setQuery(
 				$this->db->getQuery(true)
 					->select($this->db->quoteName('id'))
 					->from($this->db->quoteName('#__issues'))
 					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
 					->where($this->db->quoteName('issue_number') . ' = ' . $issue)
 			)->loadResult();
+
+			$this->logger->info(
+				sprintf(
+					'Checking for item %1$s/%2$s #%d presence with result: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$issue,
+					$result
+				)
+			);
+
+			return $result;
 		}
 		catch (\RuntimeException $e)
 		{
