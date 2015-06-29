@@ -249,10 +249,30 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['rel_type']     = $table->rel_type;
 		$data['milestone_id'] = $table->milestone_id;
 
+		$this->logger->info(
+			sprintf(
+				'Data for item %s/%s #%d before checking if build is empty: %s',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number,
+				json_encode($data)
+			)
+		);
+
 		if (empty($table->build))
 		{
 			$data['build'] = $this->hookData->repository->default_branch;
 		}
+
+		$this->logger->info(
+			sprintf(
+				'Data for item %s/%s #%d after checking if build is empty: %s',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number,
+				json_encode($data)
+			)
+		);
 
 		$model = (new IssueModel($this->db))
 			->setProject(new TrackerProject($this->db, $this->project));
