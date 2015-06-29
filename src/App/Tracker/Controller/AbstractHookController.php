@@ -149,7 +149,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 			$this->logger->info(
 				sprintf(
-					'Checking for item %1$s/%2$s #%d presence from hook action "%s" with result: %s',
+					'Checking for item %s/%s #%d presence from hook action "%s" with result: %s',
 					$this->project->gh_user,
 					$this->project->gh_project,
 					$issue,
