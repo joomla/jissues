@@ -38,7 +38,7 @@ class JoomlacmsIssuesListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Add a "no code" label
-			$this->addCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 		}
 	}
 
@@ -54,11 +54,10 @@ class JoomlacmsIssuesListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addCodelabel($hookData, Github $github, Logger $logger, $project)
+	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
 		$codeLabel    = 'No Code Attached Yet';
-		$addLabels    = array();
 		$codeLabelSet = false;
 
 		// Get the labels for the issue
@@ -106,41 +105,9 @@ class JoomlacmsIssuesListener
 		// Add the label if it isn't already set
 		if (!$codeLabelSet)
 		{
+			$addLabels   = array();
 			$addLabels[] = $codeLabel;
-		}
-
-		// Only try to add labels if the array isn't empty
-		if (!empty($addLabels))
-		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->issue->number, $addLabels
-				);
-
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->issue->number
-					)
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub issue %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->issue->number,
-						$e->getMessage()
-					)
-				);
-			}
+			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
 		}
 	}
 }

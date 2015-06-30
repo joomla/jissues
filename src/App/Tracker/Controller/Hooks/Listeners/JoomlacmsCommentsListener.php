@@ -55,11 +55,11 @@ class JoomlacmsCommentsListener
 		$arguments = $event->getArguments();
 
 		// Add a RTC label if the item is in that status
-		$this->addRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
-	 * Adds a RTC label
+	 * Checks for the RTC label
 	 *
 	 * @param   object       $hookData  Hook data payload
 	 * @param   Github       $github    Github object
@@ -71,23 +71,16 @@ class JoomlacmsCommentsListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
-		// Validation, if the status isn't RTC then go no further
-		if ($table->status != 4)
-		{
-			return;
-		}
-
 		// Set some data
 		$RTClabel    = 'RTC';
-		$addLabels   = array();
 		$rtcLabelSet = false;
 
 		// Get the labels for the pull's issue
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->issue->number)->labels;
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
 		}
 		catch (\DomainException $e)
 		{
@@ -96,7 +89,7 @@ class JoomlacmsCommentsListener
 					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->issue->number,
+					$hookData->pull_request->number,
 					$e->getMessage()
 				)
 			);
@@ -104,7 +97,7 @@ class JoomlacmsCommentsListener
 			return;
 		}
 
-		// Check if the PR- label present if there are already labels attached to the item
+		// Check if the RTC label present if there are already labels attached to the item
 		if (count($labels) > 0)
 		{
 			foreach ($labels as $label)
@@ -116,7 +109,7 @@ class JoomlacmsCommentsListener
 							'GitHub item %s/%s #%d already has the %s label.',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->issue->number,
+							$hookData->pull_request->number,
 							$RTClabel
 						)
 					);
@@ -126,44 +119,22 @@ class JoomlacmsCommentsListener
 			}
 		}
 
-		// Add the RTC label if it isn't already set
-		if (!$rtcLabelSet)
+		// Validation, if the status isn't RTC or the Label is set then go no further
+		if ($rtcLabelSet == true && $table->status != 4)
 		{
-			$addLabels[] = $RTClabel;
+			// Remove the RTC label as it isn't longer set to RTC
+			$removeLabels = array();
+			$removeLabels = 'RTC';
+			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
+
+			return;
 		}
 
-		// Only try to add labels if the array isn't empty
-		if (!empty($addLabels))
-		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->issue->number, $addLabels
-				);
+		// Add the RTC label as it isn't already set
+		$addLabels   = array();
+		$addLabels[] = 'RTC';
+		$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
 
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->issue->number
-					)
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->issue->number,
-						$e->getMessage()
-					)
-				);
-			}
-		}
+		return;
 	}
 }

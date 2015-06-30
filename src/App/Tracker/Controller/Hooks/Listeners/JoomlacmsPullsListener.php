@@ -9,7 +9,7 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
-
+use App\Tracker\Controller\Hooks\Listeners\AbstractListener;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
@@ -20,7 +20,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsPullsListener
+class JoomlacmsPullsListener extends AbstractListener
 {
 	/**
 	 * Event for after pull requests are created in the application
@@ -77,11 +77,11 @@ class JoomlacmsPullsListener
 		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
 		// Add a RTC label if the item is in that status
-		$this->addRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
-	 * Adds a RTC label
+	 * Checks for the RTC label
 	 *
 	 * @param   object       $hookData  Hook data payload
 	 * @param   Github       $github    Github object
@@ -93,17 +93,10 @@ class JoomlacmsPullsListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
-		// Validation, if the status isn't RTC then go no further
-		if ($table->status != 4)
-		{
-			return;
-		}
-
 		// Set some data
 		$RTClabel    = 'RTC';
-		$addLabels   = array();
 		$rtcLabelSet = false;
 
 		// Get the labels for the pull's issue
@@ -126,7 +119,7 @@ class JoomlacmsPullsListener
 			return;
 		}
 
-		// Check if the PR- label present if there are already labels attached to the item
+		// Check if the RTC label present if there are already labels attached to the item
 		if (count($labels) > 0)
 		{
 			foreach ($labels as $label)
@@ -148,45 +141,23 @@ class JoomlacmsPullsListener
 			}
 		}
 
-		// Add the RTC label if it isn't already set
-		if (!$rtcLabelSet)
+		// Validation, if the status isn't RTC or the Label is set then go no further
+		if ($rtcLabelSet == true && $table->status != 4)
 		{
-			$addLabels[] = $RTClabel;
+			// Remove the RTC label as it isn't longer set to RTC
+			$removeLabels = array();
+			$removeLabels = 'RTC';
+			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
+
+			return;
 		}
 
-		// Only try to add labels if the array isn't empty
-		if (!empty($addLabels))
-		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-				);
+		// Add the RTC label as it isn't already set
+		$addLabels   = array();
+		$addLabels[] = 'RTC';
+		$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
 
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
-				);
-			}
-		}
+		return;
 	}
 
 	/**
@@ -234,6 +205,7 @@ class JoomlacmsPullsListener
 						'closed_date' => (new Date)->format('Y-m-d H:i:s'),
 						'closed_by'   => 'jissues-bot'
 					];
+
 					$table->save($data);
 				}
 				catch (\Exception $e)
@@ -464,39 +436,9 @@ class JoomlacmsPullsListener
 			}
 		}
 
-		// Only try to add labels if the array isn't empty
-		if (!empty($addLabels))
-		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-				);
+		$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
 
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
-				);
-			}
-		}
+		return;
 	}
 
 	/**
