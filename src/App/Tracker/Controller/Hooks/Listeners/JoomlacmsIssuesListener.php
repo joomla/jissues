@@ -18,7 +18,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsIssuesListener
+class JoomlacmsIssuesListener extends AbstractListener
 {
 	/**
 	 * Event for after issues are created in the application

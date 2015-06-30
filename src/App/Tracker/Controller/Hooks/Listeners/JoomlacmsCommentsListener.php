@@ -20,7 +20,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsCommentsListener
+class JoomlacmsCommentsListener extends AbstractListener
 {
 	/**
 	 * Event for after Comments gets added to the Tracker
