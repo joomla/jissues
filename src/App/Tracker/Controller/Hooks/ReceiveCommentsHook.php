@@ -131,7 +131,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		try
 		{
 			// Get a table object for the new record to process in the event listeners
-			$issuetable = new IssuesTable($this->db);
+			$issueTable = new IssuesTable($this->db);
 			$issueTable->load(
 				array(
 					'issue_number' => $this->hookData->issue->number,
