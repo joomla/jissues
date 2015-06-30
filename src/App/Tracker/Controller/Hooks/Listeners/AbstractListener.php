@@ -83,7 +83,7 @@ abstract class AbstractListener
 	/**
 	 * Get the correct issue ID if it is a Pull or Issue
 	 *
-	 * @param   object  $hookData   Hook data payload
+	 * @param   object  $hookData  Hook data payload
 	 *
 	 * @return  string  The Issue/Pull ID
 	 *
