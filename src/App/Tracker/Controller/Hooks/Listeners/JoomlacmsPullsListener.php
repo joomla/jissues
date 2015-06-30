@@ -145,8 +145,8 @@ class JoomlacmsPullsListener extends AbstractListener
 		if ($rtcLabelSet == true && $table->status != 4)
 		{
 			// Remove the RTC label as it isn't longer set to RTC
-			$removeLabels = array();
-			$removeLabels = 'RTC';
+			$removeLabels   = array();
+			$removeLabels[] = 'RTC';
 			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
 
 			return;

@@ -80,7 +80,7 @@ class JoomlacmsCommentsListener
 		// Get the labels for the pull's issue
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->issue->number)->labels;
 		}
 		catch (\DomainException $e)
 		{
@@ -89,7 +89,7 @@ class JoomlacmsCommentsListener
 					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$hookData->issue->number,
 					$e->getMessage()
 				)
 			);
@@ -109,7 +109,7 @@ class JoomlacmsCommentsListener
 							'GitHub item %s/%s #%d already has the %s label.',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->pull_request->number,
+							$hookData->issue->number,
 							$RTClabel
 						)
 					);
@@ -123,8 +123,8 @@ class JoomlacmsCommentsListener
 		if ($rtcLabelSet == true && $table->status != 4)
 		{
 			// Remove the RTC label as it isn't longer set to RTC
-			$removeLabels = array();
-			$removeLabels = 'RTC';
+			$removeLabels   = array();
+			$removeLabels[] = 'RTC';
 			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
 
 			return;
