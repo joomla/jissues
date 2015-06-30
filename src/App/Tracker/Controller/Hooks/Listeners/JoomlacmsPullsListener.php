@@ -148,16 +148,15 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels   = array();
 			$removeLabels[] = 'RTC';
 			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
-
-			return;
 		}
 
-		// Add the RTC label as it isn't already set
-		$addLabels   = array();
-		$addLabels[] = 'RTC';
-		$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
-
-		return;
+		if ($rtcLabelSet == false && $table->status == 4)
+		{
+			// Add the RTC label as it isn't already set
+			$addLabels   = array();
+			$addLabels[] = 'RTC';
+			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
+		}
 	}
 
 	/**
