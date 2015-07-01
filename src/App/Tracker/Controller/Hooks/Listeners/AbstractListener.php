@@ -43,9 +43,7 @@ abstract class AbstractListener
 		// Get the labels for the pull's issue
 		try
 		{
-			$labels = $github->issues->get(
-				$project->gh_user, $project->gh_project, $issueNumber)->labels
-			);
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels);
 		}
 		catch (\DomainException $e)
 		{
@@ -74,7 +72,7 @@ abstract class AbstractListener
 			}
 		}
 
-		// else return false
+		// Else return false
 		return false;
 	}
 

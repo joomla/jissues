@@ -262,10 +262,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks for a PR-<branch> label
 	 *
-	 * @param   object  $hookData  Hook data payload
-	 * @param   Github  $github    Github object
-	 * @param   Logger  $logger    Logger object
-	 * @param   object  $project   Object containing project data
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
@@ -288,22 +289,16 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $prLabel;
 		}
 
-		if ($languageChange)
+		if ($languageChange && !$languageLabelSet)
 		{
-			if (!$languageLabelSet)
-			{
-				$addLabels[] = $languageLabel;
-			}
-		else
-		{
-			if ($languageLabelSet)
-			{
-				$removeLabels[] = $languageLabel;
-				$this->removeLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels)
-			}
+			$addLabels[] = $languageLabel;
+			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
 		}
-
-		$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
+		elseif ($languageLabelSet)
+		{
+			$removeLabels[] = $languageLabel;
+			$this->removeLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels)
+		}
 
 		return;
 	}
@@ -332,9 +327,6 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 			}
 		}
-
-		return false;
-	}
 
 		return false;
 	}

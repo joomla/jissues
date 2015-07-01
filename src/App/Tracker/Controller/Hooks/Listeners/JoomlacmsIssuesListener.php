@@ -46,10 +46,11 @@ class JoomlacmsIssuesListener extends AbstractListener
 	/**
 	 * Adds a "No Code Attached Yet" label
 	 *
-	 * @param   object  $hookData  Hook data payload
-	 * @param   Github  $github    Github object
-	 * @param   Logger  $logger    Logger object
-	 * @param   object  $project   Object containing project data
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
@@ -64,7 +65,7 @@ class JoomlacmsIssuesListener extends AbstractListener
 
 		if ($labelIsSet == false)
 		{
-			// Add the RTC label as it isn't already set
+			// Add the label as it isn't already set
 			$labels[] = $label;
 			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
 		}

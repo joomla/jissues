@@ -63,10 +63,11 @@ class JoomlacmsCommentsListener extends AbstractListener
 	/**
 	 * Adds a "No Code Attached Yet" label
 	 *
-	 * @param   object  $hookData  Hook data payload
-	 * @param   Github  $github    Github object
-	 * @param   Logger  $logger    Logger object
-	 * @param   object  $project   Object containing project data
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
@@ -85,6 +86,7 @@ class JoomlacmsCommentsListener extends AbstractListener
 			$labels[] = $label;
 			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
 		}
+	}
 
 	/**
 	 * Checks for the RTC label
