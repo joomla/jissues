@@ -54,9 +54,37 @@ class JoomlacmsCommentsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
 		// Add a RTC label if the item is in that status
 		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
+
+	/**
+	 * Adds a "No Code Attached Yet" label
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		// Set some data
+		$label      = 'No Code Attached Yet';
+		$labels     = array();
+		$labelIsSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $label);
+
+		if ($labelIsSet == false)
+		{
+			// Add the RTC label as it isn't already set
+			$labels[] = $label;
+			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
+		}
 
 	/**
 	 * Checks for the RTC label
@@ -74,66 +102,23 @@ class JoomlacmsCommentsListener extends AbstractListener
 	protected function checkRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// Set some data
-		$RTClabel    = 'RTC';
-		$rtcLabelSet = false;
-
-		// Get the labels for the pull's issue
-		try
-		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->issue->number)->labels;
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->issue->number,
-					$e->getMessage()
-				)
-			);
-
-			return;
-		}
-
-		// Check if the RTC label present if there are already labels attached to the item
-		if (count($labels) > 0)
-		{
-			foreach ($labels as $label)
-			{
-				if (!$rtcLabelSet && $label->name == $RTClabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->issue->number,
-							$RTClabel
-						)
-					);
-
-					$rtcLabelSet = true;
-				}
-			}
-		}
+		$label      = 'RTC';
+		$labels     = array();
+		$labelIsSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
-		if ($rtcLabelSet == true && $table->status != 4)
+		if ($labelIsSet == true && $table->status != 4)
 		{
 			// Remove the RTC label as it isn't longer set to RTC
-			$removeLabels   = array();
-			$removeLabels[] = 'RTC';
-			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
+			$labels[] = $label;
+			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
 		}
 
-		if ($rtcLabelSet == false && $table->status == 4)
+		if ($labelIsSet == false && $table->status == 4)
 		{
 			// Add the RTC label as it isn't already set
-			$addLabels   = array();
-			$addLabels[] = 'RTC';
-			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
+			$labels[] = $label;
+			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
 		}
 	}
 }

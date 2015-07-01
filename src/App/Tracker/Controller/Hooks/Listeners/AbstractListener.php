@@ -24,6 +24,63 @@ abstract class AbstractListener
 	/**
 	 * Remove Labels
 	 *
+	 * @param   object       $hookData    Hook data payload
+	 * @param   Github       $github      Github object
+	 * @param   Logger       $logger      Logger object
+	 * @param   object       $project     Object containing project data
+	 * @param   IssuesTable  $table       Table object
+	 * @param   string       $checkLabel  The label to check
+	 *
+	 * @return  bool         True if the label already exists
+	 *
+	 * @since   1.0
+	 */
+	protected function checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $checkLabel)
+	{
+		// The Github ID if we have a pull or issue so that method can handle both
+		$issueNumber = $this->getIssueID($hookData);
+
+		// Get the labels for the pull's issue
+		try
+		{
+			$labels = $github->issues->get(
+				$project->gh_user, $project->gh_project, $issueNumber)->labels
+			);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving labels for GitHub item %s/%s #%d - %s',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber,
+					$e->getMessage()
+				)
+			);
+
+			return false;
+		}
+
+		// Check if the label present that return true
+		if (count($labels) > 0)
+		{
+			foreach ($labels as $label)
+			{
+				if ($label->name == $checkLabel)
+				{
+					return true;
+				}
+			}
+		}
+
+		// else return false
+		return false;
+	}
+
+	/**
+	 * Remove Labels
+	 *
 	 * @param   object       $hookData      Hook data payload
 	 * @param   Github       $github        Github object
 	 * @param   Logger       $logger        Logger object
@@ -38,7 +95,7 @@ abstract class AbstractListener
 	protected function removeLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
-		$numberToUpdate = $this->getIssueID($hookData);
+		$issueNumber = $this->getIssueID($hookData);
 
 		// Only try to remove labels if the array isn't empty
 		if (!empty($removeLabels))
@@ -49,7 +106,7 @@ abstract class AbstractListener
 				try
 				{
 					$github->issues->labels->removeFromIssue(
-						$project->gh_user, $project->gh_project, $numberToUpdate, $removeLabel
+						$project->gh_user, $project->gh_project, $issueNumber, $removeLabel
 					);
 
 					// Post the new label on the object
@@ -59,7 +116,7 @@ abstract class AbstractListener
 							$removeLabel,
 							$project->gh_user,
 							$project->gh_project,
-							$numberToUpdate
+							$issueNumber
 						)
 					);
 				}
@@ -71,7 +128,7 @@ abstract class AbstractListener
 							$removeLabel,
 							$project->gh_user,
 							$project->gh_project,
-							$numberToUpdate,
+							$issueNumber,
 							$e->getMessage()
 						)
 					);
@@ -98,7 +155,7 @@ abstract class AbstractListener
 
 		if (isset($hookData->issue->number)
 		{
-			$numberToUpdate = $hookData->issue->number;
+			return $hookData->issue->number;
 		}
 	}
 
@@ -119,7 +176,7 @@ abstract class AbstractListener
 	protected function addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
-		$numberToUpdate = $this->getIssueID($hookData);
+		$issueNumber = $this->getIssueID($hookData);
 
 		// Only try to add labels if the array isn't empty
 		if (!empty($addLabels))
@@ -127,7 +184,7 @@ abstract class AbstractListener
 			try
 			{
 				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $numberToUpdate, $addLabels
+					$project->gh_user, $project->gh_project, $issueNumber, $addLabels
 				);
 
 				// Post the new label on the object
@@ -137,7 +194,7 @@ abstract class AbstractListener
 						count($addLabels),
 						$project->gh_user,
 						$project->gh_project,
-						$numberToUpdate
+						$issueNumber
 					)
 				);
 			}
@@ -148,7 +205,7 @@ abstract class AbstractListener
 						'Error adding labels to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$numberToUpdate,
+						$issueNumber,
 						$e->getMessage()
 					)
 				);

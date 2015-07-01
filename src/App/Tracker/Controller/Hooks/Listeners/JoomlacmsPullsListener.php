@@ -40,7 +40,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Check that pull requests have certain labels
-			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
 			// Check if the pull request targets the master branch
 			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
@@ -71,7 +71,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$arguments = $event->getArguments();
 
 		// Check that pull requests have certain labels
-		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
 		// Place the JoomlaCode ID in the issue title if it isn't already there
 		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
@@ -96,66 +96,23 @@ class JoomlacmsPullsListener extends AbstractListener
 	protected function checkRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// Set some data
-		$RTClabel    = 'RTC';
-		$rtcLabelSet = false;
-
-		// Get the labels for the pull's issue
-		try
-		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
-			);
-
-			return;
-		}
-
-		// Check if the RTC label present if there are already labels attached to the item
-		if (count($labels) > 0)
-		{
-			foreach ($labels as $label)
-			{
-				if (!$rtcLabelSet && $label->name == $RTClabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$RTClabel
-						)
-					);
-
-					$rtcLabelSet = true;
-				}
-			}
-		}
+		$label      = 'RTC';
+		$labels     = array();
+		$labelIsSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
-		if ($rtcLabelSet == true && $table->status != 4)
+		if ($labelIsSet == true && $table->status != 4)
 		{
 			// Remove the RTC label as it isn't longer set to RTC
-			$removeLabels   = array();
-			$removeLabels[] = 'RTC';
-			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels);
+			$labels[] = $label;
+			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
 		}
 
-		if ($rtcLabelSet == false && $table->status == 4)
+		if ($labelIsSet == false && $table->status == 4)
 		{
 			// Add the RTC label as it isn't already set
-			$addLabels   = array();
-			$addLabels[] = 'RTC';
-			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
+			$labels[] = $label;
+			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
 		}
 	}
 
@@ -314,130 +271,72 @@ class JoomlacmsPullsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project)
+	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// Set some data
-		$issueLabel       = 'PR-' . $hookData->pull_request->base->ref;
+		$prLabel          = 'PR-' . $hookData->pull_request->base->ref;
 		$languageLabel    = 'Language Change';
 		$addLabels        = array();
-		$prLabelSet       = false;
-		$languageLabelSet = false;
-
-		// Get the labels for the pull's issue
-		try
-		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
-			);
-
-			return;
-		}
-
-		// Check for labels if there are already labels attached to the item
-		if (count($labels) > 0)
-		{
-			foreach ($labels as $label)
-			{
-				if (!$prLabelSet && $label->name == $issueLabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$issueLabel
-						)
-					);
-
-					$prLabelSet = true;
-				}
-
-				if (!$languageLabelSet && $label->name == $languageLabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$languageLabel
-						)
-					);
-
-					$languageLabelSet = true;
-				}
-			}
-		}
+		$removeLabels     = array();
+		$prLabelSet       = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $prLabel);
+		$languageChange   = $this->checkLanguageChange($files);
+		$languageLabelSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $languageLabel);
 
 		// Add the issueLabel if it isn't already set
 		if (!$prLabelSet)
 		{
-			$addLabels[] = $issueLabel;
+			$addLabels[] = $prLabel;
 		}
 
-		// If the language label is not set, check if we need to add it
-		if (!$languageLabelSet)
+		if ($languageChange)
 		{
-			// Get the files modified by the pull request
-			try
+			if (!$languageLabelSet)
 			{
-				$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
+				$addLabels[] = $languageLabel;
 			}
-			catch (\DomainException $e)
+		else
+		{
+			if ($languageLabelSet)
 			{
-				$logger->error(
-					sprintf(
-						'Error retrieving modified files for GitHub item %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
-				);
-
-				$files = array();
-			}
-
-			if (!empty($files))
-			{
-				$addLanguageLabel = false;
-
-				foreach ($files as $file)
-				{
-					// Check for file paths administrator/language, installation/language, and language at position 0
-					if (!$addLanguageLabel)
-					{
-						if (strpos($file->filename, 'administrator/language') === 0
-							|| strpos($file->filename, 'installation/language') === 0
-							|| strpos($file->filename, 'language') === 0)
-						{
-							$addLanguageLabel = true;
-						}
-					}
-				}
-
-				// Add the language label if need be
-				if ($addLanguageLabel)
-				{
-					$addLabels[] = $languageLabel;
-				}
+				$removeLabels[] = $languageLabel;
+				$this->removeLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels)
 			}
 		}
 
 		$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
 
 		return;
+	}
+
+	/**
+	 * Check if we change a language file
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a language file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkLanguageChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for file paths administrator/language, installation/language, and language at position 0
+				if (strpos($file->filename, 'administrator/language') === 0
+					|| strpos($file->filename, 'installation/language') === 0
+					|| strpos($file->filename, 'language') === 0)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+		return false;
 	}
 
 	/**
