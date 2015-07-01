@@ -37,7 +37,7 @@ class JoomlacmsCommentsListener extends AbstractListener
 		$arguments = $event->getArguments();
 
 		// Add a RTC label if the item is in that status
-		$this->addRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
