@@ -54,38 +54,8 @@ class JoomlacmsCommentsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
-		$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
-
 		// Add a RTC label if the item is in that status
 		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
-	}
-
-	/**
-	 * Adds a "No Code Attached Yet" label
-	 *
-	 * @param   object       $hookData  Hook data payload
-	 * @param   Github       $github    Github object
-	 * @param   Logger       $logger    Logger object
-	 * @param   object       $project   Object containing project data
-	 * @param   IssuesTable  $table     Table object
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
-	{
-		// Set some data
-		$label      = 'No Code Attached Yet';
-		$labels     = array();
-		$labelIsSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $label);
-
-		if ($labelIsSet == false)
-		{
-			// Add the RTC label as it isn't already set
-			$labels[] = $label;
-			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
-		}
 	}
 
 	/**

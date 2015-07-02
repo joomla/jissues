@@ -39,7 +39,7 @@ class JoomlacmsIssuesListener extends AbstractListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Add a "no code" label
-			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 		}
 	}
 
@@ -56,18 +56,18 @@ class JoomlacmsIssuesListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
 		$label      = 'No Code Attached Yet';
 		$labels     = array();
-		$labelIsSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $label);
+		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
 		if ($labelIsSet == false)
 		{
 			// Add the label as it isn't already set
 			$labels[] = $label;
-			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
+			$this->addLabels($hookData, $github, $logger, $project, $labels);
 		}
 	}
 }

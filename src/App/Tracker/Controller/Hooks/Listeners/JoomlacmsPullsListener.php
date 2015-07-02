@@ -98,21 +98,21 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Set some data
 		$label      = 'RTC';
 		$labels     = array();
-		$labelIsSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $label);
+		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
 		if ($labelIsSet == true && $table->status != 4)
 		{
 			// Remove the RTC label as it isn't longer set to RTC
 			$labels[] = $label;
-			$this->removeLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
+			$this->removeLabel($hookData, $github, $logger, $project, $labels);
 		}
 
 		if ($labelIsSet == false && $table->status == 4)
 		{
 			// Add the RTC label as it isn't already set
 			$labels[] = $label;
-			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $labels);
+			$this->addLabels($hookData, $github, $logger, $project, $labels);
 		}
 	}
 
@@ -275,13 +275,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// Set some data
-		$prLabel          = 'PR-' . $hookData->pull_request->base->ref;
-		$languageLabel    = 'Language Change';
-		$addLabels        = array();
-		$removeLabels     = array();
-		$prLabelSet       = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $prLabel);
-		$languageChange   = $this->checkLanguageChange($files);
-		$languageLabelSet = $this->checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $languageLabel);
+		$prLabel        = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel  = 'Language Change';
+		$addLabels      = array();
+		$removeLabels   = array();
+		$prLabelSet     = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
 		// Add the issueLabel if it isn't already set
 		if (!$prLabelSet)
@@ -289,15 +287,39 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $prLabel;
 		}
 
+		// Get the files modified by the pull request
+		try
+		{
+			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number,
+					$e->getMessage()
+				)
+			);
+
+			$files = array();
+		}
+
+		$languageChange   = $this->checkLanguageChange($files);
+		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
+
+		
 		if ($languageChange && !$languageLabelSet)
 		{
 			$addLabels[] = $languageLabel;
-			$this->addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels);
+			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
 		}
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
-			$this->removeLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels)
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels)
 		}
 
 		return;

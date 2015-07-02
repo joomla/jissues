@@ -35,7 +35,7 @@ abstract class AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function checkLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $checkLabel)
+	protected function checkLabel($hookData, Github $github, Logger $logger, $project, $checkLabel)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
 		$issueNumber = $this->getIssueID($hookData);
@@ -90,7 +90,7 @@ abstract class AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function removeLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $removeLabels)
+	protected function removeLabels($hookData, Github $github, Logger $logger, $project, $removeLabels)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
 		$issueNumber = $this->getIssueID($hookData);
@@ -146,12 +146,12 @@ abstract class AbstractListener
 	 */
 	protected function getIssueId($hookData)
 	{
-		if (isset($hookData->pull_request->number)
+		if (isset($hookData->pull_request->number))
 		{
 			return $hookData->pull_request->number;
 		}
 
-		if (isset($hookData->issue->number)
+		if (isset($hookData->issue->number))
 		{
 			return $hookData->issue->number;
 		}
@@ -171,7 +171,7 @@ abstract class AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table, $addLabels)
+	protected function addLabels($hookData, Github $github, Logger $logger, $project, $addLabels)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
 		$issueNumber = $this->getIssueID($hookData);
