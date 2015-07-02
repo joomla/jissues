@@ -30,7 +30,7 @@ abstract class AbstractListener
 	 * @param   object  $project     Object containing project data
 	 * @param   string  $checkLabel  The label to check
 	 *
-	 * @return  bool         True if the label already exists
+	 * @return  bool    True if the label already exists
 	 *
 	 * @since   1.0
 	 */
