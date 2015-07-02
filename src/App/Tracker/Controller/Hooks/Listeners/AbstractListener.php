@@ -22,14 +22,13 @@ use Monolog\Logger;
 abstract class AbstractListener
 {
 	/**
-	 * Remove Labels
+	 * Check if label already exists
 	 *
-	 * @param   object       $hookData    Hook data payload
-	 * @param   Github       $github      Github object
-	 * @param   Logger       $logger      Logger object
-	 * @param   object       $project     Object containing project data
-	 * @param   IssuesTable  $table       Table object
-	 * @param   string       $checkLabel  The label to check
+	 * @param   object  $hookData    Hook data payload
+	 * @param   Github  $github      Github object
+	 * @param   Logger  $logger      Logger object
+	 * @param   object  $project     Object containing project data
+	 * @param   string  $checkLabel  The label to check
 	 *
 	 * @return  bool         True if the label already exists
 	 *
@@ -43,7 +42,7 @@ abstract class AbstractListener
 		// Get the labels for the pull's issue
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels);
+			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
 		}
 		catch (\DomainException $e)
 		{
@@ -79,12 +78,11 @@ abstract class AbstractListener
 	/**
 	 * Remove Labels
 	 *
-	 * @param   object       $hookData      Hook data payload
-	 * @param   Github       $github        Github object
-	 * @param   Logger       $logger        Logger object
-	 * @param   object       $project       Object containing project data
-	 * @param   IssuesTable  $table         Table object
-	 * @param   array        $removeLabels  The labels to remove
+	 * @param   object  $hookData      Hook data payload
+	 * @param   Github  $github        Github object
+	 * @param   Logger  $logger        Logger object
+	 * @param   object  $project       Object containing project data
+	 * @param   array   $removeLabels  The labels to remove
 	 *
 	 * @return  void
 	 *
@@ -160,12 +158,11 @@ abstract class AbstractListener
 	/**
 	 * Add Labels
 	 *
-	 * @param   object       $hookData   Hook data payload
-	 * @param   Github       $github     Github object
-	 * @param   Logger       $logger     Logger object
-	 * @param   object       $project    Object containing project data
-	 * @param   IssuesTable  $table      Table object
-	 * @param   array        $addLabels  The labels to add
+	 * @param   object  $hookData   Hook data payload
+	 * @param   Github  $github     Github object
+	 * @param   Logger  $logger     Logger object
+	 * @param   object  $project    Object containing project data
+	 * @param   array   $addLabels  The labels to add
 	 *
 	 * @return  void
 	 *

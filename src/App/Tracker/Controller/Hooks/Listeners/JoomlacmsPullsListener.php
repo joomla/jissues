@@ -40,7 +40,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Check that pull requests have certain labels
-			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 			// Check if the pull request targets the master branch
 			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
@@ -71,7 +71,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$arguments = $event->getArguments();
 
 		// Check that pull requests have certain labels
-		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 		// Place the JoomlaCode ID in the issue title if it isn't already there
 		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
@@ -266,13 +266,12 @@ class JoomlacmsPullsListener extends AbstractListener
 	 * @param   Github       $github    Github object
 	 * @param   Logger       $logger    Logger object
 	 * @param   object       $project   Object containing project data
-	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
 		$prLabel        = 'PR-' . $hookData->pull_request->base->ref;
@@ -366,6 +365,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function setPending(Logger $logger, $project, IssuesTable $table)
 	{
+		if ($table->status == 3)
+		{
+			return;
+		}
+
 		// Reset the issue status to pending and try updating the database
 		try
 		{
