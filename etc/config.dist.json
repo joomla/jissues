@@ -28,7 +28,8 @@
 
 	"renderer": {
 		"type" : "twig",
-		"debug": "1"
+		"debug": "1",
+        "cache": false
 	},
 
 	"system": {
