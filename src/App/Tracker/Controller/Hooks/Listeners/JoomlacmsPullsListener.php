@@ -262,10 +262,10 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks for a PR-<branch> label
 	 *
-	 * @param   object       $hookData  Hook data payload
-	 * @param   Github       $github    Github object
-	 * @param   Logger       $logger    Logger object
-	 * @param   object       $project   Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
@@ -309,7 +309,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
-		
 		if ($languageChange && !$languageLabelSet)
 		{
 			$addLabels[] = $languageLabel;
