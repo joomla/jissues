@@ -8,7 +8,6 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
-use App\Tracker\Controller\Hooks\Listeners\AbstractListener;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 

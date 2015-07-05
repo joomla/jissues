@@ -8,8 +8,6 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
-use App\Tracker\Table\IssuesTable;
-use Joomla\Event\Event;
 use Joomla\Github\Github;
 
 use Monolog\Logger;
@@ -37,7 +35,7 @@ abstract class AbstractListener
 	protected function checkLabel($hookData, Github $github, Logger $logger, $project, $checkLabel)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
-		$issueNumber = $this->getIssueID($hookData);
+		$issueNumber = $this->getIssueNumber($hookData);
 
 		// Get the labels for the pull's issue
 		try
@@ -56,7 +54,7 @@ abstract class AbstractListener
 				)
 			);
 
-			return false;
+			throw new RuntimeException;
 		}
 
 		// Check if the label present that return true
@@ -91,7 +89,7 @@ abstract class AbstractListener
 	protected function removeLabels($hookData, Github $github, Logger $logger, $project, $removeLabels)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
-		$issueNumber = $this->getIssueID($hookData);
+		$issueNumber = $this->getIssueNumber($hookData);
 
 		// Only try to remove labels if the array isn't empty
 		if (!empty($removeLabels))
@@ -138,11 +136,11 @@ abstract class AbstractListener
 	 *
 	 * @param   object  $hookData  Hook data payload
 	 *
-	 * @return  string  The Issue/Pull ID
+	 * @return  mixed  The Issue number or null if no issue number found in hook data
 	 *
 	 * @since   1.0
 	 */
-	protected function getIssueId($hookData)
+	protected function getIssueNumber($hookData)
 	{
 		if (isset($hookData->pull_request->number))
 		{
@@ -171,7 +169,7 @@ abstract class AbstractListener
 	protected function addLabels($hookData, Github $github, Logger $logger, $project, $addLabels)
 	{
 		// The Github ID if we have a pull or issue so that method can handle both
-		$issueNumber = $this->getIssueID($hookData);
+		$issueNumber = $this->getIssueNumber($hookData);
 
 		// Only try to add labels if the array isn't empty
 		if (!empty($addLabels))

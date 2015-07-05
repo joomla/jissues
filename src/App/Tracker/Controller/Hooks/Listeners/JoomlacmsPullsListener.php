@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
-use App\Tracker\Controller\Hooks\Listeners\AbstractListener;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
@@ -105,7 +104,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			// Remove the RTC label as it isn't longer set to RTC
 			$labels[] = $label;
-			$this->removeLabel($hookData, $github, $logger, $project, $labels);
+			$this->removeLabels($hookData, $github, $logger, $project, $labels);
 		}
 
 		if ($labelIsSet == false && $table->status == 4)
@@ -317,7 +316,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
-			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels)
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
 		}
 
 		return;
