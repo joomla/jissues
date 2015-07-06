@@ -162,7 +162,7 @@ abstract class AbstractListener
 	 *
 	 * @param   object  $hookData  Hook data payload
 	 *
-	 * @return  mixed The Issue number or null if no issue number found in hook data
+	 * @return  mixed   The Issue number or null if no issue number found in hook data
 	 *
 	 * @since   1.0
 	 */
@@ -211,7 +211,7 @@ abstract class AbstractListener
 
 			throw new RuntimeException;
 		}
-		
+
 		// Only try to add labels if the array isn't empty
 		if (!empty($addLabels))
 		{
