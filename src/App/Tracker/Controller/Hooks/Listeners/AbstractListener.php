@@ -37,6 +37,19 @@ abstract class AbstractListener
 		// The Github ID if we have a pull or issue so that method can handle both
 		$issueNumber = $this->getIssueNumber($hookData);
 
+		if ($issueNumber === null)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
+
+			throw new RuntimeException;
+		}
+
 		// Get the labels for the pull's issue
 		try
 		{
@@ -91,6 +104,19 @@ abstract class AbstractListener
 		// The Github ID if we have a pull or issue so that method can handle both
 		$issueNumber = $this->getIssueNumber($hookData);
 
+		if ($issueNumber === null)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
+
+			throw new RuntimeException;
+		}
+
 		// Only try to remove labels if the array isn't empty
 		if (!empty($removeLabels))
 		{
@@ -136,7 +162,7 @@ abstract class AbstractListener
 	 *
 	 * @param   object  $hookData  Hook data payload
 	 *
-	 * @return  mixed  The Issue number or null if no issue number found in hook data
+	 * @return  mixed The Issue number or null if no issue number found in hook data
 	 *
 	 * @since   1.0
 	 */
@@ -151,6 +177,8 @@ abstract class AbstractListener
 		{
 			return $hookData->issue->number;
 		}
+
+		return null;
 	}
 
 	/**
@@ -171,6 +199,19 @@ abstract class AbstractListener
 		// The Github ID if we have a pull or issue so that method can handle both
 		$issueNumber = $this->getIssueNumber($hookData);
 
+		if ($issueNumber === null)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
+
+			throw new RuntimeException;
+		}
+		
 		// Only try to add labels if the array isn't empty
 		if (!empty($addLabels))
 		{
