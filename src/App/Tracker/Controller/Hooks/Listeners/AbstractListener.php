@@ -31,6 +31,7 @@ abstract class AbstractListener
 	 * @return  bool    True if the label already exists
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function checkLabel($hookData, Github $github, Logger $logger, $project, $checkLabel)
 	{
@@ -47,7 +48,7 @@ abstract class AbstractListener
 				)
 			);
 
-			throw new RuntimeException;
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
 		}
 
 		// Get the labels for the pull's issue
@@ -67,7 +68,7 @@ abstract class AbstractListener
 				)
 			);
 
-			throw new RuntimeException;
+			throw new \RuntimeException($e->getMessage(), 0, $e);
 		}
 
 		// Check if the label present that return true
@@ -98,6 +99,7 @@ abstract class AbstractListener
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	protected function removeLabels($hookData, Github $github, Logger $logger, $project, $removeLabels)
 	{
@@ -114,7 +116,7 @@ abstract class AbstractListener
 				)
 			);
 
-			throw new RuntimeException;
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
 		}
 
 		// Only try to remove labels if the array isn't empty
@@ -152,6 +154,8 @@ abstract class AbstractListener
 							$e->getMessage()
 						)
 					);
+
+					throw new \RuntimeException($e->getMessage(), 0, $e);
 				}
 			}
 		}
@@ -191,6 +195,7 @@ abstract class AbstractListener
 	 * @param   array   $addLabels  The labels to add
 	 *
 	 * @return  void
+	 * @throws  \RuntimeException
 	 *
 	 * @since   1.0
 	 */
@@ -209,7 +214,7 @@ abstract class AbstractListener
 				)
 			);
 
-			throw new RuntimeException;
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
 		}
 
 		// Only try to add labels if the array isn't empty
@@ -243,6 +248,8 @@ abstract class AbstractListener
 						$e->getMessage()
 					)
 				);
+
+				throw new \RuntimeException($e->getMessage(), 0, $e);
 			}
 		}
 	}

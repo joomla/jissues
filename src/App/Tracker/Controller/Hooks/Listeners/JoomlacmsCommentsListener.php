@@ -82,7 +82,7 @@ class JoomlacmsCommentsListener extends AbstractListener
 		{
 			// Remove the RTC label as it isn't longer set to RTC
 			$labels[] = $label;
-			$this->removeLabel($hookData, $github, $logger, $project, $labels);
+			$this->removeLabels($hookData, $github, $logger, $project, $labels);
 		}
 
 		if ($labelIsSet == false && $table->status == 4)
