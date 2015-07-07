@@ -237,8 +237,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
-
 		// Decode it
 		$this->hookData = json_decode($data);
 
