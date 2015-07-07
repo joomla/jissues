@@ -195,6 +195,8 @@ abstract class AbstractListener
 	 * @param   array   $addLabels  The labels to add
 	 *
 	 * @return  void
+	 *
+	 * @since   1.0
 	 * @throws  \RuntimeException
 	 *
 	 * @since   1.0
