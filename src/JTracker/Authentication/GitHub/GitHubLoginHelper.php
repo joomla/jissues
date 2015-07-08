@@ -134,6 +134,11 @@ class GitHubLoginHelper
 		$options   = new Registry;
 		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
+		if (false == $transport)
+		{
+			throw new \DomainException('No transports available (please install php-curl)');
+		}
+
 		$http = new Http($options, $transport);
 
 		$data = array(

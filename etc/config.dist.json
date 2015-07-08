@@ -59,7 +59,7 @@
 		"language": "0",
 		"hooks"   : "0",
 		"logging" : "0",
-		"log-path": "logs",
+		"log-path": "",
 		"admin"   : "1"
 	},
 
