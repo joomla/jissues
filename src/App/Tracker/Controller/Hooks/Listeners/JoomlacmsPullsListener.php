@@ -311,11 +311,22 @@ class JoomlacmsPullsListener extends AbstractListener
 		if ($languageChange && !$languageLabelSet)
 		{
 			$addLabels[] = $languageLabel;
-			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
 		}
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		// Add the labels if we need
+		if (!empty($addLabels))
+		{
+			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+		}
+
+		// Remove the labels if we need
+		if (!empty($removeLabels))
+		{
 			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
 		}
 
