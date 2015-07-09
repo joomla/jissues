@@ -92,7 +92,7 @@ class Depfile extends Make
 			$package = new \stdClass;
 
 			$package->name        = $entry->name;
-			$package->description = $entry->description;
+			$package->description = isset($entry->description) ? $entry->description : '';
 			$package->version     = $entry->version;
 			$package->sourceURL   = $entry->source->url;
 			$package->sourceRef   = isset($entry->source->reference) ? $entry->source->reference : '';
