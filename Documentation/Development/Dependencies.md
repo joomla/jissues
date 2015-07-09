@@ -11,25 +11,25 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
-#### joomla/application (~1.2)
+#### joomla/application (~1.4)
 
 Joomla Application Package
 
-* Installed: 1.3.0
+* Installed: 1.4.0 
 * Source URL: https://github.com/joomla-framework/application.git
 
 #### joomla/controller (~1.1)
 
 Joomla Controller Package
 
-* Installed: 1.1.1
+* Installed: 1.1.2 
 * Source URL: https://github.com/joomla-framework/controller.git
 
 #### joomla/database (~1.1)
 
 Joomla Database Package
 
-* Installed: 1.1.2
+* Installed: 1.2.1 
 * Source URL: https://github.com/joomla-framework/database.git
 
 #### joomla/date (~1.1)
@@ -43,7 +43,7 @@ Joomla Date Package
 
 Joomla DI Package
 
-* Installed: 1.2.0
+* Installed: 1.3.1 
 * Source URL: https://github.com/joomla-framework/di.git
 
 #### joomla/event (~1.1)
@@ -53,25 +53,25 @@ Joomla Event Package
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/event.git
 
-#### joomla/filter (1.1.2)
+#### joomla/filter (~1.1)
 
 Joomla Filter Package
 
-* Installed: 1.1.2
+* Installed: 1.1.5 
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (~1.2)
 
 Joomla Github Package
 
-* Installed: 1.2.0
+* Installed: 1.3.0 
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1)
 
 Joomla HTTP Package
 
-* Installed: 1.1.4
+* Installed: 1.1.7 
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1)
@@ -85,7 +85,7 @@ Joomla Input Package
 
 Joomla Model Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0 
 * Source URL: https://github.com/joomla-framework/model.git
 
 #### joomla/profiler (~1.1)
@@ -95,11 +95,11 @@ Joomla Profiler Package
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/profiler.git
 
-#### joomla/registry (~1.1)
+#### joomla/registry (~1.4 &gt;=1.4.5)
 
 Joomla Registry Package
 
-* Installed: 1.3.0
+* Installed: 1.4.5 
 * Source URL: https://github.com/joomla-framework/registry.git
 
 #### joomla/router (~1.1)
@@ -109,11 +109,11 @@ Joomla Router Package
 * Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/router.git
 
-#### joomla/string (~1.1)
+#### joomla/string (~1.3)
 
 Joomla String Package
 
-* Installed: 1.2.1
+* Installed: 1.3.0 
 * Source URL: https://github.com/joomla-framework/string.git
 
 #### joomla/uri (~1.1)
@@ -123,33 +123,33 @@ Joomla Uri Package
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/uri.git
 
-#### joomla/utilities (~1.1)
+#### joomla/utilities (~1.3 &gt;=1.3.3)
 
 Joomla Utilities Package
 
-* Installed: 1.2.0
+* Installed: 1.3.3 
 * Source URL: https://github.com/joomla-framework/utilities.git
 
 #### joomla/view (~1.1)
 
 Joomla View Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0 
 * Source URL: https://github.com/joomla-framework/view.git
 
-#### symfony/http-foundation (~2.5)
+#### symfony/http-foundation (2.7.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v2.6.1
+* Installed: v2.7.1 
 * Source URL: https://github.com/symfony/HttpFoundation.git
 
 #### twig/twig (1.*)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.16.2
-* Source URL: https://github.com/fabpot/Twig.git
+* Installed: v1.18.2 
+* Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (2.3)
 
@@ -183,7 +183,7 @@ Handle file uploads with extensible validation and storage strategies
 
 php error handling for cool kids
 
-* Installed: 1.1.3
+* Installed: 1.1.6 
 * Source URL: https://github.com/filp/whoops.git
 
 #### league/flysystem (0.4.*)
@@ -197,7 +197,7 @@ Filesystem abstraction, but easy.
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.11.0
+* Installed: 1.14.0 
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (0.9)
@@ -227,7 +227,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.4.0
+* Installed: 4.7.5 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*)
@@ -241,14 +241,14 @@ PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations o
 
 Copy/Paste Detector (CPD) for PHP code.
 
-* Installed: 2.0.1
+* Installed: 2.0.2 
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
 #### phploc/phploc (*)
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: 2.0.6
+* Installed: 2.1.3 
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
@@ -288,7 +288,7 @@ Unofficial bootstrap switch
 
 
 
-* Source URL: https://github.com/kaiwa/markitup
+* Source URL: https://github.com/markitup/1.x
 
 #### blueimp-tmpl (2.5.3)
 
@@ -320,11 +320,11 @@ jQuery simple pagination plugin for bootstrap-style webpages
 
 * Source URL: https://github.com/esimakin/twbs-pagination
 
-#### bootstrap-select (1.5.4)
+#### bootstrap-select (1.6.4)
 
 
 
-* Source URL: https://github.com/silviomoreto/bootstrap-select
+* Source URL: http://silviomoreto.github.io/bootstrap-select
 
 #### d3 (3.4.6)
 
@@ -349,6 +349,18 @@ A dead-simple jQuery color picker.
 
 
 * Source URL: https://github.com/ichord/At.js
+
+#### semantic-ui-dropdown (~1.10.3)
+
+Dropdown - Semantic UI
+
+* Source URL: http://www.semantic-ui.com
+
+#### semantic-ui-transition (~1.10.4)
+
+Transition - Semantic UI
+
+* Source URL: http://www.semantic-ui.com
 
 
 ## Credits
@@ -406,9 +418,10 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### da-DK
 * Jesper Post Tønder &lt;jpt@redweb.dk&gt;, 2014
 * Ole Ottosen &lt;ot2sen@gmail.com&gt;, 2014
+* Peter Lose &lt;mail@peterlose.dk&gt;, 2015
 
 #### de-DE
-* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013-2014
+* Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013-2015
 
 #### es-ES
 * Marcos Peebles &lt;marcos.peebles@gmail.com&gt;, 2014
@@ -418,7 +431,7 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * Rivo Zängov &lt;eraser@eraser.ee&gt;, 2014
 
 #### fr-FR
-* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014
+* Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014-2015
 
 #### hu-HU
 * József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
@@ -426,12 +439,15 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### it-IT
 * Kravenor &lt;baldelli.simone@gmail.com&gt;, 2014
 
+#### lv-LV
+* Dmitry Rekun, 2015
+
 #### nb-NO
-* Kenneth Strømsvold &lt;kenneth@stromsvold.com&gt;, 2014
+* Kenneth Strømsvold &lt;kenneth@stromsvold.com&gt;, 2014-2015
 
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
-* Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014
+* Roland Dalmulder &lt;contact@rolandd.com&gt;, 2014-2015
 
 #### pl-PL
 * Sebastian Łuckoś &lt;sebastian@atrox.pl&gt;, 2014
@@ -448,7 +464,7 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 * Oana Andrada Florescu &lt;oana@redweb.dk&gt;, 2014
 
 #### ru-RU
-* Dmitry Rekun, 2014
+* Dmitry Rekun, 2014-2015
 * Иван, 2014
 
 #### zh-CN
