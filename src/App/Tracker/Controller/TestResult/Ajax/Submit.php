@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller\TestResult\Ajax;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
@@ -98,15 +99,15 @@ class Submit extends AbstractAjaxController
 	/**
 	 * Add a comment on GitHub.
 	 *
-	 * @param $project
-	 * @param $issueNumber
-	 * @param $comment
+	 * @param   \App\Projects\TrackerProject  $project      The project.
+	 * @param   integer                       $issueNumber  The issue number.
+	 * @param   string                        $comment      The comment to add.
 	 *
 	 * @return \stdClass
 	 *
 	 * @throws \Exception
 	 */
-	private function addComment($project, $issueNumber, $comment)
+	private function addComment(TrackerProject $project, $issueNumber, $comment)
 	{
 		$data = new \stdClass;
 
