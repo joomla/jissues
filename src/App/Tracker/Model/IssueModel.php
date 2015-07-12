@@ -108,6 +108,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$commits = json_decode($item->commits) ? : [];
 		$activities = [];
 
+		// Store the last commit to fetch the test results later
+		$lastCommit = end($commits);
+
 		foreach ($activityData as $i => $activity)
 		{
 			foreach ($commits as $i1 => $commit)
@@ -201,6 +204,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
 				->where($this->db->quoteName('result') . ' = 1')
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
 		)->loadColumn();
 
 		sort($item->testsSuccess);
@@ -212,6 +216,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
 				->where($this->db->quoteName('result') . ' = 2')
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
 		)->loadColumn();
 
 		sort($item->testsFailure);
@@ -233,20 +238,27 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   integer  $itemId    The item number
 	 * @param   string   $username  The user name
+	 * @param   string   $sha       The commit SHA.
 	 *
 	 * @return  null|integer  Null - the test was not submitted,
 	 *                        integer - the value of test: 0 - not tested; 1 - tested successfully; 2 - tested unsuccessfully
 	 *
 	 * @since   1.0
 	 */
-	public function getUserTest($itemId, $username)
+	public function getUserTest($itemId, $username, $sha)
 	{
+		if (!$sha)
+		{
+			return null;
+		}
+
 		return $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('result')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
 				->where($this->db->quoteName('username') . ' = ' . $this->db->quote($username))
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 		)->loadResult();
 	}
 
@@ -548,12 +560,13 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   integer  $itemId    The item ID
 	 * @param   string   $userName  The user name
 	 * @param   string   $result    The test result
+	 * @param   string   $sha       The SHA at which the item has been tested.
 	 *
 	 * @return  object  StdClass with array of usernames for successful and failed tests
 	 *
 	 * @since   1.0
 	 */
-	public function saveTest($itemId, $userName, $result)
+	public function saveTest($itemId, $userName, $result, $sha)
 	{
 		// Check for existing test
 		$id = $this->db->setQuery(
@@ -562,6 +575,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('username') . ' = ' . $this->db->quote($userName))
 				->where($this->db->quoteName('item_id') . ' = ' . $itemId)
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 		)->loadResult();
 
 		if (!$id)
@@ -571,6 +585,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				$this->db->quoteName('item_id')  => $itemId,
 				$this->db->quoteName('username') => $this->db->quote($userName),
 				$this->db->quoteName('result')   => $result,
+				$this->db->quoteName('sha')      => $this->db->quote($sha),
 			];
 
 			$this->db->setQuery(
@@ -600,6 +615,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('username')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 				->where($this->db->quoteName('result') . ' = 1')
 		)->loadColumn();
 
@@ -610,6 +626,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('username')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 				->where($this->db->quoteName('result') . ' = 2')
 		)->loadColumn();
 

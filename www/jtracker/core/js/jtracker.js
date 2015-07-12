@@ -93,16 +93,18 @@ JTracker.submitVote = function (issueId, debugContainer) {
 	);
 };
 
-JTracker.submitTest = function (issueId, statusContainer, resultContainer, templateName) {
+JTracker.submitTest = function (issueId, statusContainer, resultContainer, commentContainer, shaContainer, templateName) {
 	var status = $(statusContainer);
 	var result = $(resultContainer);
 	var testResult = $('input[name=tested]').filter(':checked').val();
+	var comment = $(commentContainer).val();
+	var sha = $(shaContainer).val();
 
 	status.html(g11n3t('Submitting test result...'));
 
 	$.post(
 		'/submit/testresult',
-		{ issueId: issueId, result: testResult },
+		{ issueId: issueId, result: testResult, comment: comment, sha: sha },
 		function (r) {
 			if (r.error) {
 				// Failure
