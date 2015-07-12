@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_tests` (
   `item_id` int(11) NOT NULL COMMENT 'Item ID',
   `username` varchar(50) NOT NULL COMMENT 'User name',
   `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
+  `sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been tested against',
   PRIMARY KEY (`id`),
   KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
