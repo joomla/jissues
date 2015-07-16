@@ -60,12 +60,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the status table
 				->select($this->db->quoteName('s.status', 'status_title'))
 				->select($this->db->quoteName('s.closed', 'closed'))
-				->leftJoin(
-					$this->db->quoteName('#__status', 's')
-					. ' ON '
-					. $this->db->quoteName('i.status')
-					. ' = ' . $this->db->quoteName('s.id')
-				)
+				->join('LEFT', '#__status AS s ON i.status = s.id')
 
 				// Get the relation information
 				->select('a1.title AS rel_title, a1.status AS rel_status')
@@ -85,7 +80,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 				// Join over the users
 				->select('u.id AS user_id')
-				->leftJoin('#__users AS u ON i.opened_by = u.username')
+				->join('LEFT', '#__users AS u ON i.opened_by = u.username')
 		)->loadObject();
 
 		if (!$item)
@@ -129,7 +124,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 					$activities[] = $a;
 
-					unset ($commits[$i1]);
+					unset($commits[$i1]);
 				}
 			}
 
@@ -474,12 +469,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$query->clear()
 				->insert($db->quoteName('#__issues_voting'))
 				->columns($columnsArray)
-				->values(
-					$id . ', '
-					. $userID . ', '
-					. $experienced . ', '
-					. $importance
-				);
+				->values(implode(', ', [$id, $userID, $experienced, $importance]));
 		}
 		else
 		{

@@ -22,7 +22,7 @@ class Save extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void  Redirects the application
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -48,8 +48,8 @@ class Save extends AbstractTrackerController
 				);
 
 				$application->redirect(
-						$application->get('uri.base.path') . 'user/' . $src['id']
-					);
+					$application->get('uri.base.path') . 'user/' . $src['id']
+				);
 			}
 		}
 
@@ -70,7 +70,5 @@ class Save extends AbstractTrackerController
 		$application->redirect(
 			$application->get('uri.base.path') . 'user/' . $src['id'] . '/edit'
 		);
-
-		parent::execute();
 	}
 }

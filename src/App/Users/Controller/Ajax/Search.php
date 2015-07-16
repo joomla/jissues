@@ -44,9 +44,7 @@ class Search extends AbstractAjaxController
 			if ($inGroupId || $notInGroupId)
 			{
 				$query->leftJoin(
-					$db->quoteName('#__user_accessgroup_map', 'm')
-					. ' ON ' . $db->quoteName('m.user_id')
-					. ' = ' . $db->quoteName('u.id')
+					$db->quoteName('#__user_accessgroup_map', 'm') . ' ON ' . $db->quoteName('m.user_id') . ' = ' . $db->quoteName('u.id')
 				);
 
 				if ($inGroupId)
@@ -55,13 +53,13 @@ class Search extends AbstractAjaxController
 				}
 				elseif ($notInGroupId)
 				{
+					$subQuery = $db->getQuery(true)
+						->from($db->quoteName('#__user_accessgroup_map'))
+						->select($db->quoteName('user_id'))
+						->where($db->quoteName('group_id') . ' = ' . (int) $notInGroupId);
+
 					$query->where(
-						$db->quoteName('u.id') . ' NOT IN ('
-						. $db->getQuery(true)
-							->from($db->quoteName('#__user_accessgroup_map'))
-							->select($db->quoteName('user_id'))
-							->where($db->quoteName('group_id') . ' = ' . (int) $notInGroupId)
-						. ')'
+						$db->quoteName('u.id') . ' NOT IN (' . $subQuery . ')'
 					);
 				}
 			}

@@ -45,9 +45,7 @@ abstract class GithubObject extends JGithubObject
 			throw new GithubException($response);
 		}
 
-		$this->rateLimitRemaining = (isset($response->headers['X-RateLimit-Remaining']))
-			? $response->headers['X-RateLimit-Remaining']
-			: 0;
+		$this->rateLimitRemaining = (isset($response->headers['X-RateLimit-Remaining'])) ? $response->headers['X-RateLimit-Remaining'] : 0;
 
 		return $jsonDecode ? json_decode($response->body) : $response->body;
 	}
@@ -55,7 +53,7 @@ abstract class GithubObject extends JGithubObject
 	/**
 	 * Get the number of remaining requests.
 	 *
-	 * @return integer
+	 * @return  integer
 	 *
 	 * @since   1.0
 	 */

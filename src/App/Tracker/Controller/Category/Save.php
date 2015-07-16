@@ -38,7 +38,7 @@ class Save extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string
+	 * @return  void  Redirects the application
 	 *
 	 * @since   1.0
 	 */
@@ -83,7 +83,5 @@ class Save extends AbstractTrackerController
 				$app->redirect($app->get('uri.base.path') . 'category/' . $project->alias . '/add');
 			}
 		}
-
-		parent::execute();
 	}
 }

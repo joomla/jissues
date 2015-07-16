@@ -22,7 +22,7 @@ class Random extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void  Redirects the application
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
@@ -40,8 +40,7 @@ class Random extends AbstractTrackerController
 				->getRandomNumber();
 
 			$application->redirect(
-				$application->get('uri.base.path')
-				. '/tracker/' . $application->input->get('project_alias') . '/' . $randomNumber
+				$application->get('uri.base.path') . '/tracker/' . $application->input->get('project_alias') . '/' . $randomNumber
 			);
 		}
 		catch (\Exception $e)
@@ -49,11 +48,8 @@ class Random extends AbstractTrackerController
 			$application->enqueueMessage($e->getMessage(), 'error');
 
 			$application->redirect(
-				$application->get('uri.base.path')
-				. 'tracker/' . $application->input->get('project_alias')
+				$application->get('uri.base.path') . 'tracker/' . $application->input->get('project_alias')
 			);
 		}
-
-		parent::execute();
 	}
 }

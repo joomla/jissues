@@ -69,9 +69,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			break;
 		}
 
-		$log = (realpath($path))
-			? $this->processLog($type, $path)
-			: [sprintf(g11n3t('No %s log file found.'), $type)];
+		$log = (realpath($path)) ? $this->processLog($type, $path) : [sprintf(g11n3t('No %s log file found.'), $type)];
 
 		$this->renderer->set('log', $log);
 		$this->renderer->set('log_type', $type);

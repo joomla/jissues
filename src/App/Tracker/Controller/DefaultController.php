@@ -149,11 +149,13 @@ class DefaultController extends AbstractTrackerListController
 
 		$state->set('filter.state', $issuesState);
 
-		$state->set('filter.status',
+		$state->set(
+			'filter.status',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
 		);
 
-		$state->set('filter.search',
+		$state->set(
+			'filter.search',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
 		);
 
@@ -173,7 +175,8 @@ class DefaultController extends AbstractTrackerListController
 
 		$state->set('filter.user', $user);
 
-		$state->set('filter.created_by',
+		$state->set(
+			'filter.created_by',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
 		);
 
@@ -201,7 +204,8 @@ class DefaultController extends AbstractTrackerListController
 
 		$state->set('filter.label', $application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint'));
 
-		$state->set('stools-active',
+		$state->set(
+			'stools-active',
 			$application->input->get('stools-active', 0, 'uint')
 		);
 
@@ -211,15 +215,18 @@ class DefaultController extends AbstractTrackerListController
 		}
 
 		// Update the page from the GET request
-		$state->set('page',
+		$state->set(
+			'page',
 			$application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint')
 		);
 
-		$state->set('filter.tests',
+		$state->set(
+			'filter.tests',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
 		);
 
-		$state->set('filter.easytest',
+		$state->set(
+			'filter.easytest',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 0, 'uint')
 		);
 

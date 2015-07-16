@@ -288,7 +288,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Load the model state.
 	 *
-	 * @return  Registry  The state object.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */

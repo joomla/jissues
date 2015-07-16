@@ -90,47 +90,58 @@ class Listing extends AbstractAjaxController
 
 		$state->set('filter.sort', $sort);
 
-		$state->set('filter.priority',
+		$state->set(
+			'filter.priority',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'uint')
 		);
 
-		$state->set('filter.state',
+		$state->set(
+			'filter.state',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 0, 'uint')
 		);
 
-		$state->set('filter.status',
+		$state->set(
+			'filter.status',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
 		);
 
-		$state->set('filter.search',
+		$state->set(
+			'filter.search',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
 		);
 
-		$state->set('filter.user',
+		$state->set(
+			'filter.user',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'uint')
 		);
 
-		$state->set('filter.created_by',
+		$state->set(
+			'filter.created_by',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
 		);
 
-		$state->set('filter.category',
+		$state->set(
+			'filter.category',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int')
 		);
 
-		$state->set('filter.label',
+		$state->set(
+			'filter.label',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint')
 		);
 
-		$state->set('filter.tests',
+		$state->set(
+			'filter.tests',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
 		);
 
-		$state->set('filter.easytest',
+		$state->set(
+			'filter.easytest',
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 0, 'uint')
 		);
 
-		$state->set('stools-active',
+		$state->set(
+			'stools-active',
 			$application->input->get('stools-active', 0, 'uint')
 		);
 

@@ -20,7 +20,7 @@ class Save extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string
+	 * @return  void  Redirects the application
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

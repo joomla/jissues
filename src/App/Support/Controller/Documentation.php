@@ -51,5 +51,7 @@ class Documentation extends AbstractTrackerController
 
 			$this->view->setFullPath($fullPath);
 		}
+
+		return $this;
 	}
 }

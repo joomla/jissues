@@ -26,15 +26,16 @@ class TransifexProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns the container to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	public function register(Container $container)
 	{
-		return $container->set('BabDev\\Transifex\\Transifex',
-			function () use ($container)
+		return $container->share(
+			'BabDev\\Transifex\\Transifex',
+			function (Container $container)
 			{
 				$options = new Registry;
 
@@ -46,7 +47,8 @@ class TransifexProvider implements ServiceProviderInterface
 
 				// Instantiate Transifex
 				return new Transifex($options);
-			}
+			},
+			true
 		)->alias('transifex', 'BabDev\\Transifex\\Transifex');
 	}
 }

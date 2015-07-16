@@ -25,19 +25,21 @@ class GitHubProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns the container to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	public function register(Container $container)
 	{
-		$container->share('JTracker\\Github\\Github',
-			function () use ($container)
+		$container->share(
+			'JTracker\\Github\\Github',
+			function (Container $container)
 			{
 				// Call the Github factory's getInstance method and inject the application; it handles the rest of the configuration
 				return GithubFactory::getInstance($container->get('app'));
-			}, true
+			},
+			true
 		);
 
 		// Alias the object
