@@ -46,15 +46,11 @@ class Phpunit extends Test
 
 		$this
 			->out()
-			->out(
-			$returnVal
-				? '<error> Finished with errors. </error>'
-				: '<ok>Success</ok>'
-		);
+			->out($returnVal ? '<error> Finished with errors. </error>' : '<ok>Success</ok>');
 
 		if ($this->exit)
 		{
-			exit($returnVal ? 1 : 0);
+			$this->getApplication()->close($returnVal ? 1 : 0);
 		}
 
 		return $returnVal;

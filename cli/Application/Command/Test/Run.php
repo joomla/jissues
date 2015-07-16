@@ -34,6 +34,7 @@ class Run extends Test
 	{
 		$this->getApplication()->outputTitle('Test Suite');
 
+		// TODO - To be consistent with the abstract command's definition, execute() should have no return and the error count stored elsewhere
 		$statusCS = (new Checkstyle)
 			->setContainer($this->getContainer())
 			->setExit(false)
@@ -60,14 +61,9 @@ class Run extends Test
 
 		$status = ($statusCS || $statusUT) ? 1 : 0;
 
-		$this
-			->out()
-			->out(
-				$status
-					? '<error> Test Suite Finished with errors </error>.'
-					: '<ok>Test Suite Finished.</ok>'
-			);
+		$this->out()
+			->out($status ? '<error> Test Suite Finished with errors </error>.' : '<ok>Test Suite Finished.</ok>');
 
-		exit($status);
+		$this->getApplication()->close($status);
 	}
 }

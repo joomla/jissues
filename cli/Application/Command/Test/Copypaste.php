@@ -50,15 +50,11 @@ class Copypaste extends Test
 			)
 		);
 
-		$this->out(
-			$cloneCount
-				? sprintf('<error> %d clones found. </error>', $cloneCount)
-				: '<ok>No CP errors</ok>'
-		);
+		$this->out($cloneCount ? sprintf('<error> %d clones found. </error>', $cloneCount) : '<ok>No CP errors</ok>');
 
 		if ($this->exit)
 		{
-			exit($cloneCount ? 1 : 0);
+			$this->getApplication()->close($cloneCount ? 1 : 0);
 		}
 
 		return $cloneCount;

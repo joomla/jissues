@@ -60,10 +60,10 @@ class Langfiles extends Export
 	/**
 	 * Execute the command.
 	 *
-	 * @throws \RuntimeException
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{

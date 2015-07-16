@@ -227,10 +227,7 @@ class Langfiles extends Make
 			$paths[] = $languageFile;
 			$paths[] = $templateFile;
 
-			$cmd = 'msgmerge --'
-				. implode(' --', $options)
-				. ' "' . implode('" "', $paths) . '"'
-				. ' 2>&1';
+			$cmd = 'msgmerge --' . implode(' --', $options) . ' "' . implode('" "', $paths) . '"' . ' 2>&1';
 
 			$this->debugOut($cmd);
 

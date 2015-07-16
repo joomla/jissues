@@ -63,7 +63,7 @@ class Composergraph extends Make
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -86,8 +86,6 @@ class Composergraph extends Make
 		{
 			$this->show($format);
 		}
-
-		return $this;
 	}
 
 	/**

@@ -111,7 +111,7 @@ class Issues extends Project
 			{
 				$page++;
 				$issues_more = $this->github->issues->getListByRepository(
-				// Owner
+					// Owner
 					$this->project->gh_user,
 					// Repository
 					$this->project->gh_project,
@@ -200,9 +200,7 @@ class Issues extends Project
 		// Start processing the pulls now
 		foreach ($ghIssues as $count => $ghIssue)
 		{
-			$this->usePBar
-				? $progressBar->update($count + 1)
-				: $this->out($ghIssue->number . '...', false);
+			$this->usePBar ? $progressBar->update($count + 1) : $this->out($ghIssue->number . '...', false);
 
 			if (!$this->checkInRange($ghIssue->number))
 			{
@@ -286,9 +284,12 @@ class Issues extends Project
 			$table->modified_by   = $ghIssue->user->login;
 
 			$table->project_id = $this->project->project_id;
-			$table->milestone_id = ($ghIssue->milestone && isset($milestones[$ghIssue->milestone->number]))
-				? $milestones[$ghIssue->milestone->number]
-				: null;
+			$table->milestone_id = null;
+
+			if ($ghIssue->milestone && isset($milestones[$ghIssue->milestone->number]))
+			{
+				$table->milestone_id = $milestones[$ghIssue->milestone->number];
+			}
 
 			// We do not have a data about the default branch
 			// @todo We need to retrieve repository somehow
@@ -309,9 +310,7 @@ class Issues extends Project
 				$table->build = $pullRequest->base->ref;
 
 				// If the $pullRequest->head->user object is not set, the repo/branch had been deleted by the user.
-				$table->pr_head_user = (isset($pullRequest->head->user))
-					? $pullRequest->head->user->login
-					: 'unknown_repository';
+				$table->pr_head_user = (isset($pullRequest->head->user)) ? $pullRequest->head->user->login : 'unknown_repository';
 
 				$table->pr_head_ref  = $pullRequest->head->ref;
 
@@ -440,9 +439,9 @@ class Issues extends Project
 
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
-				->from($db->quoteName($table->getTableName()))
-				->select(array('label_id', 'name'))
-				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('label_id', 'name'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 			)->loadObjectList();
 
 			foreach ($labelList as $labelObject)

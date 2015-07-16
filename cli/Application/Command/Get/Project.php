@@ -346,7 +346,6 @@ class Project extends Get
 			return true;
 		}
 
-		return ($number >= $this->rangeFrom && $number <= $this->rangeTo)
-			? true : false;
+		return $number >= $this->rangeFrom && $number <= $this->rangeTo;
 	}
 }

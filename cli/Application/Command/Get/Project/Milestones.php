@@ -36,7 +36,7 @@ class Milestones extends Project
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */

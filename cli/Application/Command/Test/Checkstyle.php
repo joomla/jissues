@@ -80,15 +80,11 @@ class Checkstyle extends Test
 
 		$this
 			->out()
-			->out(
-			$numErrors
-				? sprintf('<error> Finished with %d errors </error>', $numErrors)
-				: '<ok>Success</ok>'
-		);
+			->out($numErrors ? sprintf('<error> Finished with %d errors </error>', $numErrors) : '<ok>Success</ok>');
 
 		if ($this->exit)
 		{
-			exit($numErrors ? 1 : 0);
+			$this->getApplication()->close($numErrors ? 1 : 0);
 		}
 
 		return $numErrors;

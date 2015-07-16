@@ -40,8 +40,8 @@ class Composertags extends Get
 	 *
 	 * @return  void
 	 *
-	 * @throws \UnexpectedValueException
 	 * @since   1.0
+	 * @throws  \UnexpectedValueException
 	 */
 	public function execute()
 	{
