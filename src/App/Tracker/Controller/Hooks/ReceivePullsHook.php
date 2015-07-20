@@ -61,14 +61,17 @@ class ReceivePullsHook extends AbstractHookController
 		// If the item is already in the database, update it; else, insert it.
 		if ($this->checkIssueExists((int) $this->data->number))
 		{
-			$this->updateData();
+			$result = $this->updateData();
 		}
 		else
 		{
-			$this->insertData();
+			$result = $this->insertData();
 		}
 
-		$this->response->message = 'Hook data processed successfully.';
+		if ($result)
+		{
+			$this->response->message = 'Hook data processed successfully.';
+		}
 	}
 
 	/**
@@ -137,17 +140,19 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error adding GitHub pull request %s/%s #%d to the tracker: %s',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->data->number,
-					$e->getMessage()
-				)
+			$this->setStatusCode($e->getCode());
+			$logMessage = sprintf(
+				'Error adding GitHub pull request %s/%s #%d to the tracker: %s',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->data->number,
+				$e->getMessage()
 			);
+			$this->response->error = $logMessage;
 
-			$this->getContainer()->get('app')->close();
+			$this->logger->error($logMessage);
+
+			return false;
 		}
 
 		// Get a table object for the new record to process in the event listeners
@@ -219,17 +224,18 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error loading GitHub issue %s/%s #%d in the tracker: %s',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->data->number,
-					$e->getMessage()
-				)
+			$this->setStatusCode($e->getCode());
+			$logMessage = sprintf(
+				'Error loading GitHub issue %s/%s #%d in the tracker: %s',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->data->number,
+				$e->getMessage()
 			);
+			$this->response->error = $logMessage;
+			$this->logger->error($logMessage);
 
-			$this->getContainer()->get('app')->close();
+			return false;
 		}
 
 		// Figure out the state based on the action
@@ -292,18 +298,19 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker: %s',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->data->number,
-					$table->id,
-					$e->getMessage()
-				)
+			$this->setStatusCode($e->getCode());
+			$logMessage = sprintf(
+				'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker: %s',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->data->number,
+				$table->id,
+				$e->getMessage()
 			);
+			$this->response->error = $logMessage;
+			$this->logger->error($logMessage);
 
-			$this->getContainer()->get('app')->close();
+			return false;
 		}
 
 		// Refresh the table object for the listeners
