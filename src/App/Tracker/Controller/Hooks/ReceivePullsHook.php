@@ -68,12 +68,10 @@ class ReceivePullsHook extends AbstractHookController
 			$result = $this->insertData();
 		}
 
-		if (!$result)
+		if ($result)
 		{
-			$this->getContainer()->get('app')->close();
+			$this->response->message = 'Hook data processed successfully.';
 		}
-
-		$this->response->message = 'Hook data processed successfully.';
 	}
 
 	/**
@@ -142,7 +140,7 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setHeader($e->getCode());
+			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error adding GitHub pull request %s/%s #%d to the tracker: %s',
 				$this->project->gh_user,
@@ -226,7 +224,7 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setHeader($e->getCode());
+			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error loading GitHub issue %s/%s #%d in the tracker: %s',
 				$this->project->gh_user,
@@ -300,7 +298,7 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setHeader($e->getCode());
+			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker: %s',
 				$this->project->gh_user,

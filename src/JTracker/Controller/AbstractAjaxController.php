@@ -87,7 +87,7 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function setHeader($code = 200)
+	protected function setStatusCode($code = 200)
 	{
 		$this->getContainer()->get('app')->setHeader('Status', (int) $code);
 	}
