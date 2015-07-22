@@ -8,12 +8,11 @@
 
 namespace App\Tracker\Controller\TestResult\Ajax;
 
-use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
-use Joomla\Date\Date;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Helper\GitHubHelper;
 
 /**
  * Add test result controller class.
@@ -84,7 +83,8 @@ class Submit extends AbstractAjaxController
 				. '<br />'
 				. $comment;
 
-			$data->comment = $this->addComment($project, $issueNumber, $comment);
+			$data->comment = (new GitHubHelper($this->getContainer()->get('gitHub')))
+				->addComment($project, $issueNumber, $comment, $user->username, $this->getContainer()->get('db'));
 		}
 		else
 		{
@@ -94,76 +94,5 @@ class Submit extends AbstractAjaxController
 		$this->response->data = json_encode($data);
 
 		$this->response->message = g11n3t('Test successfully added');
-	}
-
-	/**
-	 * Add a comment on GitHub.
-	 *
-	 * @param   \App\Projects\TrackerProject  $project      The project.
-	 * @param   integer                       $issueNumber  The issue number.
-	 * @param   string                        $comment      The comment to add.
-	 *
-	 * @return \stdClass
-	 *
-	 * @throws \Exception
-	 */
-	private function addComment(TrackerProject $project, $issueNumber, $comment)
-	{
-		$data = new \stdClass;
-
-		/* @type \Joomla\Github\Github $gitHub */
-		$gitHub = $this->getContainer()->get('gitHub');
-
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db   = $this->getContainer()->get('db');
-
-		if ($project->gh_user && $project->gh_project)
-		{
-			$gitHubResponse = $gitHub->issues->comments->create(
-				$project->gh_user, $project->gh_project, $issueNumber, $comment
-			);
-
-			if (!isset($gitHubResponse->id))
-			{
-				throw new \Exception('Invalid response from GitHub');
-			}
-
-			$data->created_at = $gitHubResponse->created_at;
-			$data->opened_by = $gitHubResponse->user->login;
-			$data->comment_id = $gitHubResponse->id;
-			$data->text_raw = $gitHubResponse->body;
-
-			$data->text = $gitHub->markdown->render(
-				$comment,
-				'gfm',
-				$project->gh_user . '/' . $project->gh_project
-			);
-		}
-		else
-		{
-			/* @type \JTracker\Application $application */
-			$application = $this->getContainer()->get('app');
-
-			$date = new Date;
-
-			$data->created_at = $date->format($db->getDateFormat());
-			$data->opened_by  = $application->getUser()->username;
-			$data->comment_id = '???';
-			$data->text_raw = $comment;
-			$data->text = $gitHub->markdown->render($comment, 'markdown');
-		}
-
-		(new ActivityModel($db))
-			->addActivityEvent(
-				'comment', $data->created_at, $data->opened_by, $project->project_id,
-				$issueNumber, $data->comment_id, $data->text, $data->text_raw
-			);
-
-		$data->activities_id = $db->insertid();
-
-		$date = new Date($data->created_at);
-		$data->created_at = $date->format('j M Y');
-
-		return $data;
 	}
 }
