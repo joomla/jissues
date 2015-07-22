@@ -14,21 +14,21 @@ use Joomla\Http\Transport\Curl;
 use Joomla\Registry\Registry;
 
 /**
- * Factory class for retrieving a Github object
+ * Factory class for retrieving a GitHub object
  *
  * @since  1.0
  */
 abstract class GithubFactory
 {
 	/**
-	 * Retrieves an instance of the Github object
+	 * Retrieves an instance of the GitHub object
 	 *
 	 * @param   \Joomla\Application\AbstractApplication  $app          Application object
 	 * @param   boolean                                  $useBot       Flag to use a bot account.
 	 * @param   string                                   $botUser      The bot account user name.
 	 * @param   string                                   $botPassword  The bot account password.
 	 *
-	 * @return  Github
+	 * @return  GitHub
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
