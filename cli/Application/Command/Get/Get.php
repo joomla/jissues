@@ -8,7 +8,7 @@
 
 namespace Application\Command\Get;
 
-use App\Projects\Table\ProjectsTable;
+use App\Projects\TrackerProject;
 
 use BabDev\Transifex\Transifex;
 
@@ -43,7 +43,7 @@ class Get extends TrackerCommand
 	/**
 	 * Project object.
 	 *
-	 * @var    ProjectsTable
+	 * @var    TrackerProject
 	 * @since  1.0
 	 */
 	protected $project = null;
