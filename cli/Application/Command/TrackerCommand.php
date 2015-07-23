@@ -280,7 +280,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
-				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
+				->select(array('project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'))
 
 		)->loadObjectList();
 /*
@@ -325,7 +325,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new AbortException(g11n3t('Invalid project'));
 			}
 
-			$this->project = $checks[$resp];
+			$this->project = new TrackerProject($db, $checks[$resp]);
 		}
 		else
 		{
@@ -333,7 +333,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			{
 				if ($project->project_id == $id)
 				{
-					$this->project = $project;
+					$this->project = new TrackerProject($db, $project);
 
 					break;
 				}
