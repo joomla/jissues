@@ -40,6 +40,7 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   integer  $has_code         If the issue has code attached - aka a pull request
  * @property   string   $pr_head_user     Pull request head user
  * @property   string   $pr_head_ref      Pull request head ref
+ * @property   string   $pr_head_sha      Pull request head sha
  * @property   string   $labels           Comma separated list of label IDs
  * @property   string   $build            Build on which the issue is reported
  * @property   integer  $easy             Flag whether an item is an easy test

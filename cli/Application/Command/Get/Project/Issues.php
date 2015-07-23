@@ -10,6 +10,7 @@ namespace Application\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -20,6 +21,7 @@ use Joomla\Date\Date;
 use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\GithubFactory;
+use JTracker\Helper\GitHubHelper;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -197,6 +199,17 @@ class Issues extends Project
 
 		$this->usePBar ? $this->out() : null;
 
+		$gitHubBot = null;
+
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$gitHubBot = new GitHubHelper(
+				GithubFactory::getInstance(
+					$this->getApplication(), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+				)
+			);
+		}
+
 		// Start processing the pulls now
 		foreach ($ghIssues as $count => $ghIssue)
 		{
@@ -313,7 +326,28 @@ class Issues extends Project
 					? $pullRequest->head->user->login
 					: 'unknown_repository';
 
-				$table->pr_head_ref  = $pullRequest->head->ref;
+				$table->pr_head_ref = $pullRequest->head->ref;
+
+				if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $pullRequest->head->sha)
+				{
+					// The PR has been updated.
+					$testers = (new IssueModel($this->getContainer()->get('db')))
+						->getUserTests($table->id, $table->pr_head_sha);
+
+					$testers = array_merge($testers['success'], $testers['failure']);
+
+					if ($testers)
+					{
+						// Send a notification.
+						$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
+
+						$comment = $gitHubBot->addComment(
+							$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
+						);
+					}
+				}
+
+				$table->pr_head_sha = $pullRequest->head->sha;
 
 				$status = $this->GetMergeStatus($pullRequest);
 

@@ -234,6 +234,48 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Get user tests for a PR.
+	 *
+	 * @param   integer  $itemId  The issue ID.
+	 * @param   string   $sha     The commit SHA.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getUserTests($itemId, $sha)
+	{
+		$tests = [];
+
+		$query = $this->db->getQuery(true);
+
+		$tests['success'] = $this->db->setQuery(
+			$query
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 1')
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
+		)->loadColumn();
+
+		$tests['failure'] = $this->db->setQuery(
+			$query
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 2')
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
+		)->loadColumn();
+
+		sort($tests['success']);
+		sort($tests['failure']);
+
+		return $tests;
+	}
+
+	/**
 	 * Get a user test for an item.
 	 *
 	 * @param   integer  $itemId    The item number
