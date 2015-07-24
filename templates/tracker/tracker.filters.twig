@@ -1,36 +1,20 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 
-{% macro status(value, id, class, closed) %}
+{% macro status(value, id, class, state) %}
   {% import "fields.twig" as fields %}
 
-  {% if closed %}
-        {% set values = {
-            0: '- status -'|_,
-            4: 'fixed'|_,
-            8: 'platform'|_,
-            9: 'no_reply'|_,
-            11: 'expected'|_,
-            12: 'known'|_
-        } %}
-   {% else %}
-        {% set values = {
-            0: '- status -'|_,
-            2: 'confirmed'|_,
-            3: 'pending'|_,
-            5: 'rtc'|_,
-            6: 'review'|_,
-            7: 'info'|_
-        } %}
-   {% endif %}
+  {% set values = {0: '- status -'|_} %}
+  {% set values = values + getStatuses(state) %}
 
-  {{ fields.select('filter-stage', values, value, id, class) }}
+  {{ fields.select('filter-status', values, value, id, class) }}
 {% endmacro %}
 
 {% macro priority(value, id, class) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- priority -'|_, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 } %}
+    {% set values = {0: '- priority -'|_} %}
+    {% set values = values + priorities() %}
 
     {{ fields.select('filter-priority', values, value, id, class) }}
 {% endmacro %}
@@ -58,4 +42,52 @@
         } %}
 
     {{ fields.select('filter-user', values, value, id, class) }}
+{% endmacro %}
+
+{% macro category(value, id, class, categories) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {0: '- categories -'|_,
+    (-1): 'No categories'|_
+    } %}
+    {% for category in categories %}
+        {% set values = values + { (category.id) : (category.title) } %}
+    {% endfor %}
+
+    {{ fields.select('filter-category', values, value, id, class) }}
+{% endmacro %}
+
+{% macro label(value, id, class, labels) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {0: '- labels -'|_} %}
+    {% for id,label in labels %}
+        {% set values = values + { (id) : (label.name) } %}
+    {% endfor %}
+
+    {{ fields.select('filter-label', values, value, id, class) }}
+{% endmacro %}
+
+{% macro tests(value, id, class) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {
+        0: '- tests -'|_,
+        1: 'Needs one test'|_,
+        2: 'Has two tests'|_,
+        3: 'Needs tests'|_,
+        } %}
+
+    {{ fields.select('filter-tests', values, value, id, class) }}
+{% endmacro %}
+
+{% macro easytest(value, id, class) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {
+        0: '- easy -'|_,
+        1: 'Yes'|_
+        } %}
+
+    {{ fields.select('filter-easytest', values, value, id, class) }}
 {% endmacro %}

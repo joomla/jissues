@@ -77,8 +77,8 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 			// Explode the remaining name into an array
 			$classArray = explode('\\', $className);
 
-			// Set the component as the first object in this array
-			$this->component = $classArray[0];
+			// Set the option as the first object in this array
+			$this->option = $classArray[0];
 		}
 
 		// Set the view name

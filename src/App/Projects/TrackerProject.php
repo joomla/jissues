@@ -9,6 +9,7 @@
 namespace App\Projects;
 
 use App\Projects\Table\LabelsTable;
+use App\Projects\Table\MilestonesTable;
 
 use Joomla\Database\DatabaseDriver;
 
@@ -20,6 +21,8 @@ use Joomla\Database\DatabaseDriver;
  * @property-read   string   $alias             Project URL alias
  * @property-read   string   $gh_user           GitHub user
  * @property-read   string   $gh_project        GitHub project
+ * @property-read   string   $gh_editbot_user   GitHub editbot username.
+ * @property-read   string   $gh_editbot_pass   GitHub editbot password.
  * @property-read   string   $ext_tracker_link  A tracker link format (e.g. http://tracker.com/issue/%d)
  * @property-read   string   $short_title       Project short title
  *
@@ -66,6 +69,22 @@ class TrackerProject implements \Serializable
 	 * @since  1.0
 	 */
 	protected $gh_project;
+
+	/**
+	 * GitHub edit bot user name.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $gh_editbot_user;
+
+	/**
+	 * GitHub edit bot password.
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	protected $gh_editbot_pass;
 
 	/**
 	 * External issue tracker link
@@ -321,6 +340,35 @@ class TrackerProject implements \Serializable
 		return $labels;
 	}
 
+	/**
+	 * Get a list of labels defined for the project.
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function getMilestones()
+	{
+		static $milestones = [];
+
+		if (!$milestones)
+		{
+			$db = $this->database;
+
+			$table = new MilestonesTable($db);
+
+			$milestones = $db ->setQuery(
+				$db->getQuery(true)
+					->from($db->quoteName($table->getTableName()))
+					->select(array('milestone_id', 'milestone_number', 'title', 'description', 'state', 'due_on'))
+					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+					->order($db->quoteName('milestone_number'))
+			)->loadObjectList();
+		}
+
+		return $milestones;
+	}
+
 	/*
 	 * NOTE: The following functions have been added to make the properties "visible"
 	 * for the Twig template engine.
@@ -479,5 +527,57 @@ class TrackerProject implements \Serializable
 	public function getDefaultActions()
 	{
 		return $this->defaultActions;
+	}
+
+	/**
+	 * Get the edit bot username.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getGh_Editbot_User()
+	{
+		return $this->gh_editbot_user;
+	}
+
+	/**
+	 * Get the edit bot password.
+	 *
+	 * @return string
+	 *
+	 * @since   1.0
+	 */
+	public function getGh_Editbot_Pass()
+	{
+		return $this->gh_editbot_pass;
+	}
+
+	/**
+	 * Get Categories list object for displaying
+	 *
+	 * @return  array
+	 *
+	 * @since    1.0
+	 */
+	public function getCategories()
+	{
+		static $categories;
+
+		if (!$categories)
+		{
+			$db    = $this->database;
+			$query = $db->getQuery(true);
+
+			$query
+				->select('*')
+				->from($db->quoteName('#__issues_categories'))
+				->where($db->quoteName('project_id') . ' = ' . $this->project_id)
+				->order($db->quoteName('title'));
+
+			$categories = $db->setQuery($query)->loadObjectList();
+		}
+
+		return $categories;
 	}
 }

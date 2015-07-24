@@ -8,11 +8,11 @@
 
 namespace App\Tracker\Controller\Hooks;
 
-use Joomla\Date\Date;
-
+use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use Joomla\Date\Date;
 
 /**
  * Controller class receive and inject issue reports from GitHub
@@ -38,27 +38,8 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
-		$issueID = 0;
-
-		// Check to see if the issue is already in the database
-		try
-		{
-			$issueID = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName('id'))
-					->from($this->db->quoteName('#__issues'))
-					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
-					->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number)
-			)->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
-			$this->getContainer()->get('app')->close();
-		}
-
 		// If the item is already in the database, update it; else, insert it.
-		if ($issueID)
+		if ($this->checkIssueExists((int) $this->hookData->issue->number))
 		{
 			$this->updateData();
 		}
@@ -82,18 +63,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		switch ($action)
-		{
-			case 'closed':
-				$status = 10;
-				break;
-
-			case 'opened':
-			case 'reopened':
-			default:
-				$status = 1;
-				break;
-		}
+		$status = $this->processStatus($action);
 
 		$parsedText = $this->parseText($this->hookData->issue->body);
 
@@ -107,10 +77,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
-		$data['status']          = $status;
+		$data['status']          = (is_null($status)) ? 1 : $status;
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
 
@@ -138,8 +109,9 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->save($data);
+			(new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
+				->add($data);
 		}
 		catch (\Exception $e)
 		{
@@ -156,14 +128,14 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->triggerEvent('onIssueAfterCreate', $table);
+		// Get a table object for the new record to process in the event listeners
+		$table = (new IssuesTable($this->db))
+			->load($this->db->insertid());
+
+		$this->triggerEvent('onIssueAfterCreate', $table, array('action' => $action));
 
 		// Pull the user's avatar if it does not exist
-		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
-		{
-			(new GitHubLoginHelper($this->getContainer()))
-				->saveAvatar($this->hookData->issue->user->login);
-		}
+		$this->pullUserAvatar($this->hookData->issue->user->login);
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
@@ -192,10 +164,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Added GitHub issue %s/%s #%d to the tracker.',
+				'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->issue->number
+				$this->hookData->issue->number,
+				$table->id
 			)
 		);
 
@@ -211,21 +184,36 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function updateData()
 	{
+		$table = new IssuesTable($this->db);
+
+		try
+		{
+			$table->load(
+				array(
+					'issue_number' => $this->hookData->issue->number,
+					'project_id' => $this->project->project_id
+				)
+			);
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				sprintf(
+					'Error loading GitHub issue %s/%s #%d in the tracker: %s',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->hookData->issue->number,
+					$e->getMessage()
+				)
+			);
+
+			$this->getContainer()->get('app')->close();
+		}
+
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		switch ($action)
-		{
-			case 'closed':
-				$status = 10;
-				break;
-
-			case 'opened':
-			case 'reopened':
-			default:
-				$status = 1;
-				break;
-		}
+		$status = $this->processStatus($action, $table->status);
 
 		// Try to render the description with GitHub markdown
 		$parsedText = $this->parseText($this->hookData->issue->body);
@@ -236,10 +224,11 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
+		$data['id']              = $table->id;
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
-		$data['status']          = $status;
+		$data['status']          = is_null($status) ? $table->status : $status;
 		$data['modified_date']   = $modified->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 
@@ -253,26 +242,50 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Process labels for the item
 		$data['labels'] = $this->processLabels($this->hookData->issue->number);
 
+		// Grab some data based on the existing record
+		$data['priority']     = $table->priority;
+		$data['build']        = $table->build;
+		$data['rel_number']   = $table->rel_number;
+		$data['rel_type']     = $table->rel_type;
+		$data['milestone_id'] = $table->milestone_id;
+
+		if (empty($data['build']))
+		{
+			$data['build'] = $this->hookData->repository->default_branch;
+		}
+
+		$model = (new IssueModel($this->db))
+			->setProject(new TrackerProject($this->db, $this->project));
+
+		// Check if the state has changed (e.g. open/closed)
+		$oldState = $model->getOpenClosed($table->status);
+		$state    = is_null($status) ? $oldState : $model->getOpenClosed($data['status']);
+
+		$data['old_state'] = $oldState;
+		$data['new_state'] = $state;
+
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->load(array('issue_number' => $this->hookData->issue->number, 'project_id' => $this->project->project_id));
-			$table->save($data);
+			$model->save($data);
 		}
 		catch (\Exception $e)
 		{
 			$this->logger->error(
 				sprintf(
-					'Error updating GitHub issue %s/%s #%d in the tracker: %s',
+					'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker: %s',
 					$this->project->gh_user,
 					$this->project->gh_project,
 					$this->hookData->issue->number,
+					$table->id,
 					$e->getMessage()
 				)
 			);
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		// Refresh the table object for the listeners
+		$table->load($data['id']);
 
 		$this->triggerEvent('onIssueAfterUpdate', $table);
 
@@ -303,10 +316,11 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Updated GitHub issue %s/%s #%d to the tracker.',
+				'Updated GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->issue->number
+				$this->hookData->issue->number,
+				$table->id
 			)
 		);
 

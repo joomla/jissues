@@ -24,8 +24,10 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `alias` varchar(150) NOT NULL COMMENT 'Project URL alias',
   `gh_user` varchar(150) NOT NULL COMMENT 'GitHub user',
   `gh_project` varchar(150) NOT NULL COMMENT 'GitHub project',
+  `gh_editbot_user` varchar(150) NOT NULL COMMENT 'GitHub editbot username',
+  `gh_editbot_pass` varchar(150) NOT NULL COMMENT 'GitHub editbot password',
   `ext_tracker_link` varchar(500) NOT NULL COMMENT 'A tracker link format (e.g. http://tracker.com/issue/%d)',
-	`short_title` varchar(50) NOT NULL COMMENT 'Project short title',
+  `short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -58,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
 
 -- --------------------------------------------------------
 
--- --
+--
 -- Table structure for table `#__tracker_milestones`
 --
 
@@ -94,18 +96,19 @@ CREATE TABLE IF NOT EXISTS `#__status` (
 --
 
 INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
-(1, 'open', 0),
-(2, 'confirmed', 0),
-(3, 'pending', 0),
-(4, 'rtc', 0),
-(5, 'fixed', 1),
-(6, 'review', 0),
-(7, 'info', 0),
-(8, 'platform', 1),
-(9, 'no_reply', 1),
-(10, 'closed', 1),
-(11, 'expected', 1),
-(12, 'known', 1);
+(1, 'New', 0),
+(2, 'Confirmed', 0),
+(3, 'Pending', 0),
+(4, 'Ready to Commit', 0),
+(5, 'Fixed in Code Base', 1),
+(6, 'Needs Review', 0),
+(7, 'Information Required', 0),
+(8, 'Closed - Unconfirmed Report', 1),
+(9, 'Closed - No Reply', 1),
+(10, 'Closed', 1),
+(11, 'Expected Behaviour', 1),
+(12, 'Known Issue', 1),
+(13, 'Duplicate Report', 1);
 
 -- --------------------------------------------------------
 
@@ -126,7 +129,21 @@ CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
 INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
-(3, 'not_before');
+(3, 'not_before'),
+(4, 'pr_for');
+
+--
+-- Table structure for table `#__issues_tests`
+--
+
+CREATE TABLE IF NOT EXISTS `#__issues_tests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `item_id` int(11) NOT NULL COMMENT 'Item ID',
+  `username` varchar(50) NOT NULL COMMENT 'User name',
+  `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
+  PRIMARY KEY (`id`),
+  KEY `item_id` (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -141,8 +158,8 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `project_id` int(11) unsigned DEFAULT NULL COMMENT 'Project id',
   `milestone_id` int(11) unsigned DEFAULT NULL COMMENT 'Milestone id if applicable',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
-  `description` mediumtext NOT NULL COMMENT 'Issue description',
-  `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
+  `description` mediumtext CHARACTER SET utf8mb4 NOT NULL COMMENT 'Issue description',
+  `description_raw` mediumtext CHARACTER SET utf8mb4 NOT NULL COMMENT 'The raw issue description (markdown)',
   `priority` tinyint(4) NOT NULL DEFAULT 3 COMMENT 'Issue priority',
   `status` int(11) unsigned NOT NULL DEFAULT 1 COMMENT 'Issue status',
   `opened_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue open date',
@@ -155,18 +172,23 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `rel_number` int(11) unsigned DEFAULT NULL COMMENT 'Relation issue number',
   `rel_type` int(11) unsigned DEFAULT NULL COMMENT 'Relation type',
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
+  `pr_head_user` varchar(150) NOT NULL COMMENT 'Pull request head user',
+  `pr_head_ref` varchar(150) NOT NULL COMMENT 'Pull request head ref',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
-	`build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
-	`tests` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Number of successful tests on an item',
-	`easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
+  `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
+  `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',
+  `merge_state` varchar(50) NOT NULL COMMENT 'The merge state',
+  `gh_merge_status` text NOT NULL COMMENT 'The GitHub merge status (JSON encoded)',
+  `commits` text NOT NULL COMMENT 'Commits of the PR',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
   KEY `milestone_id` (`milestone_id`,`project_id`),
+  UNIQUE `issue_project_index`(`issue_number`, `project_id`),
   CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
-	CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
+  CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -182,8 +204,8 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `project_id` int(11) NOT NULL COMMENT 'The Project id',
   `user` varchar(255) NOT NULL DEFAULT '' COMMENT 'The user name',
   `event` varchar(32) NOT NULL COMMENT 'The event type',
-  `text` mediumtext NULL COMMENT 'The event text',
-  `text_raw` mediumtext NULL COMMENT 'The raw event text',
+  `text` mediumtext CHARACTER SET utf8mb4 NULL COMMENT 'The event text',
+  `text_raw` mediumtext CHARACTER SET utf8mb4 NULL COMMENT 'The raw event text',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
@@ -273,10 +295,10 @@ CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
 
 CREATE TABLE IF NOT EXISTS `#__issues_voting` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`issue_number` int(11) unsigned NOT NULL COMMENT 'Foreign key to #__issues.id',
-	`user_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Foreign key to #__users.id',
-	`experienced` tinyint(2) unsigned NOT NULL COMMENT 'Flag indicating whether the user has experienced the issue',
-	`score` int(11) unsigned NOT NULL COMMENT 'User score for importance of issue',
+  `issue_number` int(11) unsigned NOT NULL COMMENT 'Foreign key to #__issues.id',
+  `user_id` int(11) NOT NULL DEFAULT 0 COMMENT 'Foreign key to #__users.id',
+  `experienced` tinyint(2) unsigned NOT NULL COMMENT 'Flag indicating whether the user has experienced the issue',
+  `score` int(11) unsigned NOT NULL COMMENT 'User score for importance of issue',
   PRIMARY KEY (`id`),
   CONSTRAINT `#__issues_voting_fk_issue_id` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issues_voting_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
@@ -308,3 +330,35 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
 
 INSERT INTO `#__articles` (`title`, `alias`, `text`, `text_md`, `created_date`) VALUES
 ('The J!Tracker Project', 'about', '<p>Some info about the project here... @todo add more</p>', 'Some info about the project here...  @todo add more', '2013-10-01 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_categories`
+--
+CREATE TABLE `#__issues_categories` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `project_id` int(11) NOT NULL COMMENT 'The id of the Project',
+  `title` varchar(150) NOT NULL COMMENT 'The title of the category',
+  `alias` varchar(150) NOT NULL COMMENT 'The alias of the category',
+  `color` varchar(6) NOT NULL COMMENT 'The hex value of the category',
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `#__issues_categories_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__issues_category_map`
+--
+CREATE TABLE `#__issue_category_map` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `issue_id` int(11) unsigned NOT NULL COMMENT 'PK of the issue in issue table',
+  `category_id` int(11) unsigned NOT NULL COMMENT 'Category id',
+  PRIMARY KEY (`id`),
+  KEY `issue_id` (`issue_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

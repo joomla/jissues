@@ -38,3 +38,47 @@
         {% endfor %}
     </select>
 {% endmacro %}
+
+{% macro selectCategories(name, categories, selecteds, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="selectpicker{% if class %} {{ class }}{% endif %}"
+        title="{{ 'Select Categories...'|_ }}"
+        data-selected-text-format="count" data-live-search="true" data-width="auto" multiple="multiple">
+        {% for category in categories %}
+            <option value="{{ category.id }}"
+                    {% if category.id in selecteds %} selected="selected"{% endif %}
+                    data-content="<span class='label' style='background-color: #{{ category.color }};'>&nbsp;&nbsp;</span> {{ category.title }}"
+                    >
+                {{ category.title }}
+            </option>
+        {% endfor %}
+    </select>
+{% endmacro %}
+
+{% macro selectMilestone(name, items, selected, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="selectpicker{% if class %} {{ class }}{% endif %}"
+        title="{{ 'Select Milestone...'|_ }}">
+        <option value="0" {% if null == selected %} selected="selected"{% endif %}>{{ 'No Milestone'|_ }}</option>
+        {% for item in items %}
+            {% if item.state != 'closed' %}
+                <option value="{{ item.milestone_id }}" {% if item.milestone_id == selected %} selected="selected"{% endif %}>
+                    {{ item.title }}
+                </option>
+            {% endif %}
+        {% endfor %}
+    </select>
+{% endmacro %}
+
+{% macro selectLabels(name, labels, selecteds, id, class) %}
+    <select name="{{ name }}" id="{{ id|default(name) }}" class="selectpicker{% if class %} {{ class }}{% endif %}"
+        title="{{ 'Select labels...'|_ }}"
+        data-selected-text-format="count" data-live-search="true" data-width="auto" multiple="multiple">
+        {% for key, label in labels %}
+            <option value="{{ key }}"
+                {% if key in selecteds %} selected="selected"{% endif %}
+                    data-content="<span class='label' style='background-color: #{{ label.color }}; color: {{ getContrastColor(label.color) }};'>{{ label.name }}</span>"
+            >
+                {{ label.name }}
+            </option>
+        {% endfor %}
+    </select>
+{% endmacro %}

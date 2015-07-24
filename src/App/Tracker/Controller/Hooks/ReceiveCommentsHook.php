@@ -8,13 +8,13 @@
 
 namespace App\Tracker\Controller\Hooks;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Controller\AbstractHookController;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 
 use Joomla\Date\Date;
-
-use JTracker\Authentication\GitHub\GitHubLoginHelper;
 
 /**
  * Controller class receive and inject issue comments from GitHub
@@ -72,7 +72,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	}
 
 	/**
-	 * Method to insert data for acomment from GitHub
+	 * Method to insert data for a comment from GitHub
 	 *
 	 * @return  boolean  True on success
 	 *
@@ -80,27 +80,8 @@ class ReceiveCommentsHook extends AbstractHookController
 	 */
 	protected function insertComment()
 	{
-		$issueID = null;
-
-		try
-		{
-			// First, make sure the issue is already in the database
-			$issueID = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName('id'))
-					->from($this->db->quoteName('#__issues'))
-					->where($this->db->quoteName('issue_number') . ' = ' . (int) $this->hookData->issue->number)
-					->where($this->db->quoteName('project_id') . ' = ' . $this->project->project_id)
-			)->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->logger->error('Error checking the database for GitHub ID:' . $e->getMessage());
-			$this->getContainer()->get('app')->close();
-		}
-
 		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
-		if (!$issueID)
+		if (!$this->checkIssueExists((int) $this->hookData->issue->number))
 		{
 			$this->insertIssue();
 
@@ -144,16 +125,34 @@ class ReceiveCommentsHook extends AbstractHookController
 			);
 
 			// Pull the user's avatar if it does not exist
-			if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->comment->user->login . '.png'))
-			{
-				(new GitHubLoginHelper($this->getContainer()))
-					->saveAvatar($this->hookData->comment->user->login);
-			}
+			$this->pullUserAvatar($this->hookData->comment->user->login);
+		}
+
+		try
+		{
+			// Get a table object for the new record to process in the event listeners
+			$issueTable = new IssuesTable($this->db);
+			$issueTable->load(
+				array(
+					'issue_number' => $this->hookData->issue->number,
+					'project_id'   => $this->project->project_id,
+				)
+			);
+
+			$this->triggerEvent('onCommentAfterCreate', $issueTable);
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				'Error loading the database for comment '
+				. $this->hookData->issue->number
+				. ':' . $e->getMessage()
+			);
 		}
 
 		// Store was successful, update status
 		$this->logger->info(
-				sprintf(
+			sprintf(
 				'Added GitHub comment %s/%s #%d to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
@@ -167,7 +166,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @return  integer  Issue ID
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -190,6 +189,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		$data['opened_date']     = $opened->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
 		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
 
@@ -217,8 +217,9 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		try
 		{
-			$table = new IssuesTable($this->db);
-			$table->save($data);
+			(new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
+				->add($data);
 		}
 		catch (\Exception $e)
 		{
@@ -235,14 +236,14 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->triggerEvent('onCommentAfterCreate', $table);
+		// Get a table object for the new record to process in the event listeners
+		$table = (new IssuesTable($this->db))
+			->load($this->db->insertid());
+
+		$this->triggerEvent('onCommentAfterCreateIssue', $table);
 
 		// Pull the user's avatar if it does not exist
-		if (!file_exists(JPATH_THEMES . '/images/avatars/' . $this->hookData->issue->user->login . '.png'))
-		{
-			(new GitHubLoginHelper($this->getContainer()))
-				->saveAvatar($this->hookData->issue->user->login);
-		}
+		$this->pullUserAvatar($this->hookData->issue->user->login);
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -259,14 +260,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Store was successful, update status
 		$this->logger->info(
 			sprintf(
-				'Added GitHub issue %s/%s #%d to the tracker.',
+				'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->issue->number
+				$this->hookData->issue->number,
+				$table->id
 			)
 		);
-
-		return $this;
 	}
 
 	/**
@@ -286,8 +286,8 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
 		$data = array();
 		$data['activities_id'] = $id;
-		$data['text'] = $parsedText;
-		$data['text_raw'] = $this->hookData->comment->body;
+		$data['text']          = $parsedText;
+		$data['text_raw']      = $this->hookData->comment->body;
 
 		try
 		{
@@ -304,7 +304,26 @@ class ReceiveCommentsHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		$this->triggerEvent('onCommentAfterUpdate', $table);
+		try
+		{
+			$issueTable = new IssuesTable($this->db);
+			$issueTable->load(
+				array(
+					'issue_number' => $this->hookData->issue->number,
+					'project_id'   => $this->project->project_id,
+				)
+			);
+
+			$this->triggerEvent('onCommentAfterUpdate', $issueTable);
+		}
+		catch (\Exception $e)
+		{
+			$this->logger->error(
+				'Error loading the database for comment '
+				. $this->hookData->issue->number
+				. ':' . $e->getMessage()
+			);
+		}
 
 		// Store was successful, update status
 		$this->logger->info(

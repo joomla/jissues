@@ -1,15 +1,15 @@
 # JTracker App Groups 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Paulo Izidoro <pauloizidoro@gmail.com>, 2014
+# Paulo Pereira <pauloizidoro@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:01+0000\n"
-"PO-Revision-Date: 2014-04-10 03:30+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2014-08-31 17:23+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -76,9 +76,21 @@ msgstr "Gerir"
 msgid "Users"
 msgstr "Membros"
 
+#: /templates/groups/group.edit.twig:221
+msgid "Add user"
+msgstr ""
+
+#: /templates/groups/group.edit.twig:223 /templates/groups/group.edit.twig:236
+msgid "username"
+msgstr ""
+
 #: /templates/groups/group.edit.twig:229
 msgid "Add User"
 msgstr "Adicionar utilizador"
+
+#: /templates/groups/group.edit.twig:233
+msgid "Remove user"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:241
 msgid "Remove User"

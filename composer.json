@@ -7,39 +7,41 @@
     "version": "1.0.0-beta",
     "require": {
         "php": ">=5.4.4",
-        "joomla/application": ">=1.1.2@stable",
-        "joomla/controller": "~1.1@stable",
-        "joomla/database": "~1.1@stable",
-        "joomla/date": "~1.1@stable",
-        "joomla/di": "~1.1@stable",
-        "joomla/event": "~1.1@stable",
-        "joomla/filter": "~1.1@stable",
-        "joomla/github": "~1.2@stable",
-        "joomla/http": "~1.1@stable",
-        "joomla/input": "~1.1@stable",
-        "joomla/model": "~1.1@stable",
-        "joomla/profiler": "~1.1@stable",
-        "joomla/registry": "~1.1@stable",
-        "joomla/router": "~1.1@stable",
-        "joomla/string": "~1.1@stable",
-        "joomla/uri": "~1.1@stable",
-        "joomla/utilities": "~1.1@stable",
-        "joomla/view": "~1.1@stable",
-        "symfony/http-foundation": "2.4.*@stable",
-        "twig/twig": "1.*@stable",
-        "elkuku/g11n": "2.1",
+        "ext-curl": "*",
+        "joomla/application": "~1.4",
+        "joomla/controller": "~1.1",
+        "joomla/database": "~1.1",
+        "joomla/date": "~1.1",
+        "joomla/di": "~1.1",
+        "joomla/event": "~1.1",
+        "joomla/filter": "~1.1",
+        "joomla/github": "~1.2",
+        "joomla/http": "~1.1",
+        "joomla/input": "~1.1",
+        "joomla/model": "~1.1",
+        "joomla/profiler": "~1.1",
+        "joomla/registry": "~1.4 >=1.4.5",
+        "joomla/router": "~1.1",
+        "joomla/string": "~1.3",
+        "joomla/uri": "~1.1",
+        "joomla/utilities": "~1.3 >=1.3.3",
+        "joomla/view": "~1.1",
+        "symfony/http-foundation": "2.7.*",
+        "twig/twig": "1.*",
+        "elkuku/g11n": "2.3",
         "elkuku/console-progressbar": "1.0",
-        "babdev/library": "dev-master",
+        "babdev/transifex": "~1.0",
         "codeguy/upload": "1.3.2",
-        "league/flysystem": "0.4.*@stable"
+        "filp/whoops": "1.*",
+        "league/flysystem": "0.4.*",
+        "monolog/monolog": "1.*",
+        "raveren/kint": "0.9",
+        "adaptive/php-text-difference": "1.*"
     },
     "require-dev": {
-        "monolog/monolog": "1.*@stable",
-        "raveren/kint": "0.9",
-        "filp/whoops": "1.*@stable",
-        "mustache/mustache": "2.1.*@stable",
-        "phpunit/phpunit"  : "4.*@stable",
-        "squizlabs/php_codesniffer": "1.*@stable",
+        "mustache/mustache": "2.1.*",
+        "phpunit/phpunit"  : "4.*",
+        "squizlabs/php_codesniffer": "1.*",
         "sebastian/phpcpd": "*",
         "phploc/phploc": "*",
         "clue/graph-composer": "*"
@@ -51,5 +53,9 @@
             "App\\": "src/App/"
         }
     },
-    "minimum-stability": "dev"
+    "autoload-dev": {
+        "psr-4": {
+            "JTracker\\Tests\\": "tests/tracker/"
+        }
+    }
 }

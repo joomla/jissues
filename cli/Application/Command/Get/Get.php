@@ -49,14 +49,6 @@ class Get extends TrackerCommand
 	protected $project = null;
 
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Retrieve <cmd><project></cmd>, <cmd><avatars></cmd> or <cmd><composertags></cmd>.';
-
-	/**
 	 * Transifex object
 	 *
 	 * @var    Transifex
@@ -71,19 +63,19 @@ class Get extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
+		$this->description = g11n3t('Retrieve Information from various sources.');
 
 		$this
 			->addOption(
 				new TrackerCommandOption(
 					'project', 'p',
-					'Process the project with the given ID.'
+					g11n3t('Process the project with the given ID.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'noprogress', '',
-					'Don\'t use a progress bar.'
+					g11n3t('Don\'t use a progress bar.')
 				)
 			);
 	}
@@ -99,9 +91,7 @@ class Get extends TrackerCommand
 	 */
 	public function execute()
 	{
-		$className = join('', array_slice(explode('\\', get_class($this)), -1));
-
-		return $this->displayMissingOption(strtolower($className), __DIR__);
+		return $this->displayMissingOption(__DIR__);
 	}
 
 	/**
@@ -115,6 +105,11 @@ class Get extends TrackerCommand
 	protected function setupGitHub()
 	{
 		$this->github = $this->getContainer()->get('gitHub');
+
+		// Check the rate limit immediately and switch if need be
+		$rate = $this->github->authorization->getRateLimit()->resources->core;
+
+		$this->checkGitHubRateLimit($rate->remaining);
 
 		return $this;
 	}

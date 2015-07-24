@@ -10,11 +10,9 @@ namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Input\Input;
-use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Utilities\ArrayHelper;
 
-use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Database\AbstractDatabaseTable;
 
 /**
@@ -37,27 +35,22 @@ use JTracker\Database\AbstractDatabaseTable;
  * @property   string   $closed_sha       The GitHub SHA where the issue has been closed
  * @property   string   $modified_date    Issue modified date
  * @property   string   $modified_by      Issue modified by username
- * @property   integer  $rel_number       Relation number
- * @property   string   $rel_type         Relation type
- * @property   integer  $has_code         If the issue has code attached - aka a pull request.
+ * @property   integer  $rel_number       Relation issue number
+ * @property   integer  $rel_type         Relation type
+ * @property   integer  $has_code         If the issue has code attached - aka a pull request
+ * @property   string   $pr_head_user     Pull request head user
+ * @property   string   $pr_head_ref      Pull request head ref
  * @property   string   $labels           Comma separated list of label IDs
- * @property   integer  $vote_id          Vote id
- * @property   integer  $build            Build the issue is reported on
- * @property   integer  $tests            Number of successful tests
- * @property   integer  $easy             Flag if item is an easy test
+ * @property   string   $build            Build on which the issue is reported
+ * @property   integer  $easy             Flag whether an item is an easy test
+ * @property   string   $merge_state      The merge state
+ * @property   string   $gh_merge_status  The GitHub merge status (JSON encoded)
+ * @property   string   $commits          Commits of the PR
  *
  * @since  1.0
  */
 class IssuesTable extends AbstractDatabaseTable
 {
-	/**
-	 * Internal array of field values.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $fieldValues = array();
-
 	/**
 	 * Container for an IssuesTable object to compare differences
 	 *
@@ -65,14 +58,6 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @since  1.0
 	 */
 	protected $oldObject = null;
-
-	/**
-	 * User object
-	 *
-	 * @var    GitHubUser
-	 * @since  1.0
-	 */
-	protected $user = null;
 
 	/**
 	 * Constructor
@@ -116,22 +101,12 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if (is_array($src))
 		{
-			if (isset($src['fields']))
-			{
-				// "Save" the field values and store them later.
-				$this->fieldValues = $this->_cleanFields($src['fields']);
-
-				unset($src['fields']);
-			}
-
 			return parent::bind($src, $ignore);
 		}
 		elseif ($src instanceof Input)
 		{
 			$data     = new \stdClass;
 			$data->id = $src->get('id');
-
-			$this->fieldValues = $this->_cleanFields($src->get('fields', array(), 'array'));
 
 			return parent::bind($data, $ignore);
 		}
@@ -179,6 +154,17 @@ class IssuesTable extends AbstractDatabaseTable
 			$errors[] = 'A description is required.';
 		}*/
 
+		// Normalize fields
+		if ($this->milestone_id === 0)
+		{
+			$this->milestone_id = null;
+		}
+
+		if ($this->rel_type === 0)
+		{
+			$this->rel_type = null;
+		}
+
 		if ($errors)
 		{
 			throw new \InvalidArgumentException(implode("\n", $errors));
@@ -210,15 +196,13 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			if (!$this->modified_date)
-			{
-				$this->modified_date = $date;
-			}
 
-			if (!$this->modified_by)
-			{
-				$this->modified_by = $this->getUser()->username;
-			}
+			/*
+			 * This has been commented because we should get the modified_date *always* from GitHub
+			 * for projects managed there, otherwise the date should be provided.
+			 */
+
+			// $this->modified_date = $date;
 		}
 		else
 		{
@@ -254,12 +238,6 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			// Add a record to the activities table including the changes made to an item.
 			$this->processChanges();
-		}
-
-		if ($this->fieldValues)
-		{
-			// If we have extra fields, process them.
-			$this->processFields();
 		}
 
 		return $this;
@@ -299,9 +277,9 @@ class IssuesTable extends AbstractDatabaseTable
 						// Expected change ;)
 						break;
 
-					case 'description_raw' :
-						// @todo do something ?
-						$changes[] = $change;
+					case 'description' :
+
+						// Do nothing
 
 						break;
 
@@ -325,107 +303,6 @@ class IssuesTable extends AbstractDatabaseTable
 			$table = new ActivitiesTable($this->db);
 			$table->save($data);
 		}
-
-		return $this;
-	}
-
-	/**
-	 * Process extra fields.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	private function processFields()
-	{
-		return $this;
-	}
-
-	/**
-	 * Clean the field values.
-	 *
-	 * @param   array  $fields  The field array.
-	 *
-	 * @return  array  Container with cleaned fields
-	 *
-	 * @since   1.0
-	 */
-	private function _cleanFields(array $fields)
-	{
-		$filter = new InputFilter;
-
-		// Selects are integers.
-		foreach (array_keys($fields['selects']) as $key)
-		{
-			if (!$fields['selects'][$key])
-			{
-				unset($fields['selects'][$key]);
-			}
-			else
-			{
-				$fields['selects'][$key] = (int) $fields['selects'][$key];
-			}
-		}
-
-		// Textfields are strings.
-		foreach (array_keys($fields['textfields']) as $key)
-		{
-			if (!$fields['textfields'][$key])
-			{
-				unset($fields['textfields'][$key]);
-			}
-			else
-			{
-				$fields['textfields'][$key] = $filter->clean($fields['textfields'][$key]);
-			}
-		}
-
-		// Checkboxes are selected if they are present.
-		foreach (array_keys($fields['checkboxes']) as $key)
-		{
-			if (!$fields['checkboxes'][$key])
-			{
-				unset($fields['checkboxes'][$key]);
-			}
-			else
-			{
-				$fields['checkboxes'][$key] = 1;
-			}
-		}
-
-		return $fields;
-	}
-
-	/**
-	 * Get the user.
-	 *
-	 * @return  GitHubUser
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getUser()
-	{
-		if (is_null($this->user))
-		{
-			throw new \RuntimeException('User not set');
-		}
-
-		return $this->user;
-	}
-
-	/**
-	 * Set the user.
-	 *
-	 * @param   GitHubUser  $user  The user.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setUser(GitHubUser $user)
-	{
-		$this->user = $user;
 
 		return $this;
 	}

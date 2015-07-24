@@ -20,6 +20,14 @@ use Joomla\DI\ServiceProviderInterface;
 class ApplicationProvider implements ServiceProviderInterface
 {
 	/**
+	 * Application object
+	 *
+	 * @var    AbstractApplication
+	 * @since  1.0
+	 */
+	private $app;
+
+	/**
 	 * Constructor
 	 *
 	 * @param   AbstractApplication  $app  Application instance

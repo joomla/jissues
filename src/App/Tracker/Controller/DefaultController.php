@@ -8,6 +8,7 @@
 
 namespace App\Tracker\Controller;
 
+use App\Tracker\Model\CategoryModel;
 use App\Tracker\View\Issues\IssuesHtmlView;
 
 use JTracker\Controller\AbstractTrackerListController;
@@ -51,60 +52,154 @@ class DefaultController extends AbstractTrackerListController
 
 		$application->getUser()->authorize('view');
 
-		$this->model->setProject($this->getContainer()->get('app')->getProject());
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$this->model->setProject($application->getProject());
+		$this->view->setProject($application->getProject());
+
+		$this->setModelState();
+
+		return $this;
+	}
+
+	/**
+	 * Setting model state that will be used for filtering.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	private function setModelState()
+	{
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
 		$state = $this->model->getState();
 
 		$projectId = $application->getProject()->project_id;
 
-		$state->set('filter.project', $projectId);
+		// Set up filters
+		$sort       = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
+		$direction  = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
-		$sort = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'filter-sort', 0, 'uint');
-
-		switch ($sort)
+		// Update the sort filters from the GET request
+		switch (strtolower($sort))
 		{
-			case 1:
-				$state->set('list.ordering', 'a.issue_number');
-				$state->set('list.direction', 'ASC');
-				break;
-
-			case 2:
+			case 'updated':
 				$state->set('list.ordering', 'a.modified_date');
-				$state->set('list.direction', 'DESC');
-				break;
-
-			case 3:
-				$state->set('list.ordering', 'a.modified_date');
-				$state->set('list.direction', 'ASC');
+				$sort = $sort + 2;
 				break;
 
 			default:
-				$state->set('list.ordering', 'a.issue_number');
+				$sort = 0;
+		}
+
+		switch (strtoupper($direction))
+		{
+			case 'ASC':
+				$state->set('list.direction', 'ASC');
+				$sort++;
+				break;
+
+			default:
 				$state->set('list.direction', 'DESC');
 		}
 
 		$state->set('filter.sort', $sort);
 
-		$state->set('filter.priority',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'filter-priority', 0, 'uint')
-		);
+		$priority = $application->getUserStateFromRequest('project_' . $projectId . '.filter.priority', 'priority', 0, 'cmd');
+
+		// Update the priority filter from the GET request
+		switch (strtolower($priority))
+		{
+			case 'critical':
+				$priority = 1;
+				break;
+
+			case 'urgent':
+				$priority = 2;
+				break;
+
+			case 'medium':
+				$priority = 3;
+				break;
+
+			case 'low':
+				$priority = 4;
+				break;
+
+			case 'very-low':
+				$priority = 5;
+				break;
+		}
+
+		$state->set('filter.priority', $priority);
+
+		$issuesState = $application->getUserStateFromRequest('project_' . $projectId . '.filter.state', 'state', 'open', 'word');
+
+		// Update the state filter from the GET request
+		switch (strtolower($issuesState))
+		{
+			case 'open':
+				$issuesState = 0;
+				break;
+
+			case 'closed':
+				$issuesState = 1;
+				break;
+		}
+
+		$state->set('filter.state', $issuesState);
 
 		$state->set('filter.status',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'filter-status', 0, 'uint')
-		);
-
-		$state->set('filter.stage',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.stage', 'filter-stage', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.status', 'status', 0, 'uint')
 		);
 
 		$state->set('filter.search',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'filter-search', '', 'string')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.search', 'search', '', 'string')
 		);
 
-		$state->set('filter.user',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'filter-user', 0, 'uint')
+		$user = $application->getUserStateFromRequest('project_' . $projectId . '.filter.user', 'user', 0, 'word');
+
+		// Update the user filter from the GET request
+		switch ((string) $user)
+		{
+			case 'created':
+				$user = 1;
+				break;
+
+			case 'participated':
+				$user = 2;
+				break;
+		}
+
+		$state->set('filter.user', $user);
+
+		$state->set('filter.created_by',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.created_by', 'created_by', '', 'string')
 		);
+
+		$categoryAlias = $application->input->get->get('category', '', 'cmd');
+
+		// Update the category filter from the GET request
+		if ($categoryAlias != '' && (!is_numeric($categoryAlias)))
+		{
+			$categoryId = 0;
+
+			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+			$category      = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
+
+			if ($category)
+			{
+				$categoryId = $category->id;
+			}
+		}
+		else
+		{
+			$categoryId = $application->getUserStateFromRequest('project_' . $projectId . '.filter.category', 'category', 0, 'int');
+		}
+
+		$state->set('filter.category', (int) $categoryId);
+
+		$state->set('filter.label', $application->getUserStateFromRequest('project_' . $projectId . '.filter.label', 'label', 0, 'uint'));
 
 		$state->set('stools-active',
 			$application->input->get('stools-active', 0, 'uint')
@@ -115,8 +210,19 @@ class DefaultController extends AbstractTrackerListController
 			$state->set('username', $application->getUser()->username);
 		}
 
-		$this->model->setState($state);
+		// Update the page from the GET request
+		$state->set('page',
+			$application->getUserStateFromRequest('project_' . $projectId . '.page', 'page', 1, 'uint')
+		);
 
-		return $this;
+		$state->set('filter.tests',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.tests', 'tests', 0, 'uint')
+		);
+
+		$state->set('filter.easytest',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 0, 'uint')
+		);
+
+		$this->model->setState($state);
 	}
 }

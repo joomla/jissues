@@ -23,14 +23,6 @@ use Application\Command\TrackerCommandOption;
 class Project extends Get
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Get the whole project info from GitHub, including issues and issue comments.';
-
-	/**
 	 * Lowest issue to fetch.
 	 *
 	 * @var    integer
@@ -46,8 +38,22 @@ class Project extends Get
 	 */
 	protected $rangeTo = 0;
 
+	/**
+	 * List of changed issue numbers.
+	 *
+	 * @var array
+	 *
+	 * @since  1.0
+	 */
 	protected $changedIssueNumbers = array();
 
+	/**
+	 * Force update.
+	 *
+	 * @var boolean
+	 *
+	 * @since  1.0
+	 */
 	protected $force = false;
 
 	/**
@@ -59,35 +65,37 @@ class Project extends Get
 	{
 		parent::__construct();
 
+		$this->description = g11n3t('Get the whole project info from GitHub, including issues and issue comments.');
+
 		$this
 			->addOption(
 				new TrackerCommandOption(
 					'all', '',
-					'Process all issues.'
+					g11n3t('Process all issues.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'issue', '',
-					'<n> Process only a single issue.'
+					g11n3t('<n> Process only a single issue.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'range_from', '',
-					'<n> First issue to process.'
+					g11n3t('<n> First issue to process.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'range_to', '',
-					'<n> Last issue to process.'
+					g11n3t('<n> Last issue to process.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'force', 'f',
-					'Force an update even if the issue has not changed.'
+					g11n3t('Force an update even if the issue has not changed.')
 				)
 			);
 	}
@@ -101,9 +109,9 @@ class Project extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Project');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Project'));
 
-		$this->logOut('---- Bulk Start retrieve Project');
+		$this->logOut('---- ' . g11n3t('Bulk Start retrieve Project'));
 
 		$this->selectProject();
 
@@ -114,7 +122,7 @@ class Project extends Get
 			->displayGitHubRateLimit()
 			->out(
 				sprintf(
-					'Updating project info for project: %s/%s',
+					g11n3t('Updating project info for project: %s/%s'),
 					$this->project->gh_user,
 					$this->project->gh_project
 				)
@@ -126,7 +134,7 @@ class Project extends Get
 			->processEvents()
 			->processAvatars()
 			->out()
-			->logOut('---- Bulk Finished');
+			->logOut('---- ' . g11n3t('Bulk Finished'));
 	}
 
 	/**
@@ -299,18 +307,22 @@ class Project extends Get
 		else
 		{
 			// Select what to process
-			$this->out('<question>GitHub issues to process?</question> <b>[a]ll</b> / [r]ange :', false);
+			$this->out('<question>' . g11n3t('GitHub issues to process?') . '</question>')
+				->out()
+				->out('1) ' . g11n3t('All'))
+				->out('2) ' . g11n3t('Range'))
+				->out(g11n3t('Select: '), false);
 
 			$resp = trim($this->getApplication()->in());
 
-			if ($resp == 'r' || $resp == 'range')
+			if (2 == (int) $resp)
 			{
 				// Get the first GitHub issue (from)
-				$this->out('<question>Enter the first GitHub issue ID to process (from):</question> ', false);
+				$this->out('<question>' . g11n3t('Enter the first GitHub issue ID to process (from):') . '</question> ', false);
 				$this->rangeFrom = (int) trim($this->getApplication()->in());
 
 				// Get the ending GitHub issue (to)
-				$this->out('<question>Enter the latest GitHub issue ID to process (to):</question> ', false);
+				$this->out('<question>' . g11n3t('Enter the latest GitHub issue ID to process (to):') . '</question> ', false);
 				$this->rangeTo = (int) trim($this->getApplication()->in());
 			}
 		}

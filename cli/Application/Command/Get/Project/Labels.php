@@ -20,12 +20,16 @@ use Application\Command\Get\Project;
 class Labels extends Project
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Retrieve project labels from GitHub.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve project labels from GitHub.');
+	}
 
 	/**
 	 * Execute the command.
@@ -36,14 +40,14 @@ class Labels extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Labels');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Labels'));
 
-		$this->logOut('Start retrieve Labels')
+		$this->logOut(g11n3t('Start retrieve Labels'))
 			->selectProject()
 			->setupGitHub()
 			->processLabels()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished'));
 	}
 
 	/**
@@ -55,7 +59,7 @@ class Labels extends Project
 	 */
 	protected function processLabels()
 	{
-		$this->out('Fetching labels...', false);
+		$this->out(g11n3t('Fetching labels...'), false);
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
@@ -117,7 +121,7 @@ class Labels extends Project
 				->select('label_id')
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 				->where($db->quoteName('name') . ' NOT IN (\'' . implode("', '", $names) . '\')')
-		)->loadRowList();
+		)->loadColumn();
 
 		if ($ids)
 		{
@@ -134,7 +138,7 @@ class Labels extends Project
 		return $this->out('ok')
 			->logOut(
 				sprintf(
-					'Labels: %1$d new, %2$d updated, %3$d deleted.',
+					g11n3t('Labels: %1$d new, %2$d updated, %3$d deleted.'),
 					$cntNew, $cntUpdated, $cntDeleted
 				)
 			);

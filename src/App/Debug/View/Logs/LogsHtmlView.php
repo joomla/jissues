@@ -54,6 +54,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case '403' :
 			case '404' :
 			case '500' :
+			case 'app' :
 			case 'cron' :
 			case 'database' :
 			case 'error' :
@@ -101,6 +102,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			case '403':
 			case '404':
 			case '500':
+			case 'app' :
 			case 'cron' :
 			case 'database':
 			case 'error':

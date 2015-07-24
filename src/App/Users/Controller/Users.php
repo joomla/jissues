@@ -28,7 +28,14 @@ class Users extends AbstractTrackerListController
 	{
 		parent::initialize();
 
-		// @todo Setup filters here (if needed)
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
+		$state = $this->model->getState();
+
+		$state->set('filter.search-user',
+			$application->getUserStateFromRequest('filter.search-user', 'search-user', '', 'string')
+		);
 
 		return $this;
 	}

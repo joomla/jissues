@@ -24,13 +24,12 @@ class TrackerDefaultView  extends AbstractTrackerHtmlView
 	/**
 	 * Method to instantiate the view.
 	 *
-	 * @param   ModelInterface     $model           The model object.
-	 * @param   RendererInterface  $renderer        The renderer interface.
-	 * @param   string|array       $templatesPaths  The templates paths.
+	 * @param   ModelInterface     $model     The model object.
+	 * @param   RendererInterface  $renderer  The renderer interface.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(ModelInterface $model = null, RendererInterface $renderer = null, $templatesPaths = '')
+	public function __construct(ModelInterface $model = null, RendererInterface $renderer = null)
 	{
 		$model = $model ? : new TrackerDefaultModel;
 
@@ -44,6 +43,6 @@ class TrackerDefaultView  extends AbstractTrackerHtmlView
 			);
 		}
 
-		parent::__construct($model, $renderer, $templatesPaths);
+		parent::__construct($model, $renderer);
 	}
 }

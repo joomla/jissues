@@ -22,6 +22,18 @@ This will create/update the `po` language files according to the templates creat
 After changing the `po` files you have to clean the cache to "see" the translations on the site.
 This can be done by simply deleting the `/cache/g11n` directory or, if you are logged in with an admin account, using the "clean cache" command from the "System" menu.
 
+### The workflow for JIssues repository
+
+```
+tracker.php make langtemplates
+git commit -am "Update language templates"
+tracker.php update transifex
+tracker.php get transifex
+git commit -am "Fetch updated language files"
+tracker.php clear cache
+git push
+```
+
 #### How it works (The option #3)
 
 I might have stated before that I'm a very lazy person. So I like to spend my time creating scripts that do the "ugly work" for me. - Like the creation and maintainance of language files :P

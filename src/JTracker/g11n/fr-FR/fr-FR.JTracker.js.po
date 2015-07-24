@@ -1,5 +1,5 @@
 # JTracker CoreJS core.js 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:00+0000\n"
-"PO-Revision-Date: 2014-05-02 22:39+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2014-10-11 21:26+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +19,35 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: /www/jtracker/core/js/jtracker.js:11
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Loading preview..."
 msgstr "Chargement de l'aperçu..."
 
 #: /www/jtracker/core/js/jtracker.js:22 /www/jtracker/core/js/jtracker.js:43
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Invalid response."
 msgstr "Réponse incorrecte."
 
 #: /www/jtracker/core/js/jtracker.js:35
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting comment..."
 msgstr "Envoi de commentaire..."
 
-#: /www/jtracker/core/js/jtracker.js:68
+#: /www/jtracker/core/js/jtracker.js:71
+#: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Adding vote..."
 msgstr "Ajout de vote..."
+
+#: /www/jtracker/core/js/jtracker.js:101 /www/jtracker/core/js/jtracker.js:175
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Submitting test result..."
+msgstr "Soumettre un résultat de test..."
+
+#: /www/jtracker/core/js/jtracker.js:170
+#: /www/jtracker/core/js/jtracker.min.js:1
+msgid "Please select a user"
+msgstr "Veuillez sélectionner un utilisateur"
+
+#: /www/jtracker/core/js/uploader-img.js:37
+msgid "First please select an editor to attach the uploads to."
+msgstr "Veuillez sélectionner un éditeur afin de joindre les éléments en chargement."

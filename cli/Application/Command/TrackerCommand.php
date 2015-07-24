@@ -64,15 +64,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	protected $project;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since   1.0
-	 */
-	public function __construct()
-	{
-	}
-
-	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -175,19 +166,20 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Display an error "page" if no options have been found for a given command.
 	 *
-	 * @param   string  $command  The command name.
-	 * @param   string  $dir      The base directory for the commands.
+	 * @param   string  $dir  The base directory for the commands.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
-	public function displayMissingOption($command, $dir)
+	public function displayMissingOption($dir)
 	{
-		$this->getApplication()->outputTitle('Command: ' . ucfirst($command));
+		$command = strtolower(join('', array_slice(explode('\\', get_class($this)), -1)));
 
-		$errorTitle1 = 'Missing option for command: ' . $command;
-		$errorTitle2 = 'Please use one of the following :';
+		$this->getApplication()->outputTitle(sprintf(g11n3t('Command: %s'), ucfirst($command)));
+
+		$errorTitle1 = g11n3t(sprintf('Missing option for command: %s', $command));
+		$errorTitle2 = g11n3t('Please use one of the following :');
 
 		$maxLen = (strlen($errorTitle1) > strlen($errorTitle2)) ? strlen($errorTitle1) : strlen($errorTitle2);
 
@@ -301,7 +293,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		if (!$id)
 		{
 			$this->out()
-				->out('<b>Available projects:</b>')
+				->out('<b>' . g11n3t('Available projects:') . '</b>')
 				->out();
 
 			$cnt = 1;
@@ -319,18 +311,18 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			}
 
 			$this->out()
-				->out('<question>Select a project:</question> ', false);
+				->out('<question>' . g11n3t('Select a project:') . '</question> ', false);
 
 			$resp = (int) trim($this->getApplication()->in());
 
 			if (!$resp)
 			{
-				throw new AbortException('Aborted');
+				throw new AbortException(g11n3t('Aborted'));
 			}
 
 			if (false == array_key_exists($resp, $checks))
 			{
-				throw new AbortException('Invalid project');
+				throw new AbortException(g11n3t('Invalid project'));
 			}
 
 			$this->project = $checks[$resp];
@@ -349,11 +341,11 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 			if (is_null($this->project))
 			{
-				throw new AbortException('Invalid project');
+				throw new AbortException(g11n3t('Invalid project'));
 			}
 		}
 
-		$this->logOut('Processing project: <info>' . $this->project->title . '</info>');
+		$this->logOut(sprintf(g11n3t('Processing project: %s'), '<info>' . $this->project->title . '</info>'));
 
 		$this->getApplication()->input->set('project', $this->project->project_id);
 
@@ -384,9 +376,9 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new \RuntimeException($lastLine);
 			}
 
-			$this->logOut('An unknown error occurred');
+			$this->logOut(g11n3t('An unknown error occurred'));
 
-			throw new \RuntimeException('An unknown error occurred');
+			throw new \RuntimeException(g11n3t('An unknown error occurred'));
 		}
 
 		return $lastLine;

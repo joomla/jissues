@@ -1,5 +1,5 @@
 # JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:01+0000\n"
-"PO-Revision-Date: 2014-04-10 03:30+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2014-08-19 16:19+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -17,17 +17,62 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr ""
+
+#: /templates/projects/project.add.twig:11
+#: /templates/projects/project.edit.twig:11
+msgid "Save"
+msgstr ""
+
+#: /templates/projects/project.add.twig:20
+#: /templates/projects/project.edit.twig:30
+msgid "New project"
+msgstr ""
+
+#: /templates/projects/project.add.twig:24
+#: /templates/projects/project.edit.twig:35
+msgid "Details"
+msgstr ""
+
+#: /templates/projects/project.add.twig:28
+#: /templates/projects/project.edit.twig:37
+msgid "Title"
+msgstr ""
+
+#: /templates/projects/project.add.twig:33
+#: /templates/projects/project.edit.twig:44
+msgid "Short Title"
+msgstr ""
+
+#: /templates/projects/project.add.twig:38
+#: /templates/projects/project.edit.twig:51
+msgid "Alias"
+msgstr ""
+
+#: /templates/projects/project.add.twig:43
+#: /templates/projects/project.edit.twig:58
+msgid "GitHub Owner"
+msgstr ""
+
+#: /templates/projects/project.add.twig:48
+#: /templates/projects/project.edit.twig:65
+msgid "GitHub Repo"
+msgstr ""
+
+#: /templates/projects/project.add.twig:53
+#: /templates/projects/project.edit.twig:86
+msgid "External Tracker Link"
+msgstr ""
+
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
 msgstr ""
 
-#: /templates/projects/project.edit.twig:11
-#: /templates/projects/project.add.twig:11
-msgid "Save"
-msgstr ""
-
 #: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:64
+#: /templates/projects/projects.index.twig:61
+#: /templates/projects/project.index.twig:15
 msgid "Delete"
 msgstr ""
 
@@ -35,48 +80,12 @@ msgstr ""
 msgid "Edit project"
 msgstr ""
 
-#: /templates/projects/project.edit.twig:30
-#: /templates/projects/project.add.twig:20
-msgid "New project"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:35
-#: /templates/projects/project.add.twig:24
-msgid "Details"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:37
-#: /templates/projects/project.add.twig:28
-msgid "Title"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:44
-#: /templates/projects/project.add.twig:33
-msgid "Short Title"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:51
-#: /templates/projects/project.add.twig:38
-msgid "Alias"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:58
-#: /templates/projects/project.add.twig:43
-msgid "GitHub Owner"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:65
-#: /templates/projects/project.add.twig:48
-msgid "GitHub Repo"
-msgstr ""
-
 #: /templates/projects/project.edit.twig:72
-#: /templates/projects/project.add.twig:53
-msgid "External Tracker Link"
+msgid "GitHub Editbot user"
 msgstr ""
 
-#: /templates/projects/project.add.twig:6
-msgid "Add Project"
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
 msgstr ""
 
 #: /templates/projects/projects.index.twig:6
@@ -96,39 +105,42 @@ msgid "Tracker"
 msgstr ""
 
 #: /templates/projects/projects.index.twig:29
-#: /templates/projects/project.index.twig:20
 msgid "GitHub"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:32
+#: /templates/projects/projects.index.twig:30
 msgid "Actions"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:36
+#: /templates/projects/projects.index.twig:33
 msgid "Id"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:48
+#: /templates/projects/projects.index.twig:45
+#: /templates/projects/project.index.twig:45
 msgid "Hooks"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:49
+#: /templates/projects/projects.index.twig:46
+#: /templates/projects/project.index.twig:54
 msgid "Labels"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:51
+#: /templates/projects/projects.index.twig:48
 msgid "Stats"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:61
-msgid "Groups"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:62
+#: /templates/projects/projects.index.twig:57
 msgid "Show"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:63
+#: /templates/projects/projects.index.twig:59
+#: /templates/projects/project.index.twig:51
+msgid "Groups"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:60
+#: /templates/projects/project.index.twig:14
 msgid "Edit"
 msgstr ""
 
@@ -137,10 +149,28 @@ msgstr ""
 msgid "Project"
 msgstr ""
 
-#: /src/App/Projects/Table/ProjectsTable.php:57
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr ""
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr ""
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr ""
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr ""
+
+#: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
 msgstr ""
 
-#: /src/App/Projects/Table/ProjectsTable.php:62
+#: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
 msgstr ""

@@ -8,9 +8,8 @@
 
 namespace App\Tracker\Controller\Comment\Ajax;
 
-use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Model\ActivityModel;
 use Joomla\Date\Date;
-
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -30,10 +29,14 @@ class Submit extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$this->getContainer()->get('app')->getUser()->authorize('create');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$comment      = $this->getContainer()->get('app')->input->get('text', '', 'raw');
-		$issue_number = $this->getContainer()->get('app')->input->getInt('issue_number');
+		$application->getUser()->authorize('create');
+
+		$comment      = $application->input->get('text', '', 'raw');
+		$issue_number = $application->input->getInt('issue_number');
+		$project      = $application->getProject();
 
 		if (!$issue_number)
 		{
@@ -47,16 +50,18 @@ class Submit extends AbstractAjaxController
 
 		// @todo removeMe :(
 		$comment .= sprintf(
-			'<br />*You may blame the <a href="%1$s">%2$s Application</a> for transmitting this comment.*',
-			'https://github.com/joomla/jissues', 'J!Tracker'
+			'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
+			'https://github.com/joomla/jissues', 'J!Tracker',
+			$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issue_number,
+			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issue_number
 		);
-
-		$project = $this->getContainer()->get('app')->getProject();
 
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
 
 		$data = new \stdClass;
+
+		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db   = $this->getContainer()->get('db');
 
 		if ($project->gh_user && $project->gh_project)
@@ -86,7 +91,7 @@ class Submit extends AbstractAjaxController
 			$date = new Date;
 
 			$data->created_at = $date->format($db->getDateFormat());
-			$data->opened_by  = $this->getContainer()->get('app')->getUser()->username;
+			$data->opened_by  = $application->getUser()->username;
 			$data->comment_id = '???';
 
 			$data->text_raw = $comment;
@@ -94,22 +99,17 @@ class Submit extends AbstractAjaxController
 			$data->text = $github->markdown->render($comment, 'markdown');
 		}
 
-		$table = new ActivitiesTable($db);
+		(new ActivityModel($db))
+			->addActivityEvent(
+				'comment', $data->created_at, $data->opened_by, $project->project_id, $issue_number, $data->comment_id, $data->text, $data->text_raw
+			);
 
-		$table->event         = 'comment';
-		$table->created_date  = $data->created_at;
-		$table->project_id    = $project->project_id;
-		$table->issue_number  = $issue_number;
-		$table->gh_comment_id = $data->comment_id;
-		$table->user          = $data->opened_by;
-		$table->text          = $data->text;
-		$table->text_raw      = $data->text_raw;
+		$data->activities_id = $db->insertid();
 
-		$table->store();
-
-		$data->activities_id = $table->activities_id;
+		$date = new Date($data->created_at);
+		$data->created_at = $date->format('j M Y');
 
 		$this->response->data    = $data;
-		$this->response->message = 'Your comment has been submitted';
+		$this->response->message = g11n3t('Your comment has been submitted');
 	}
 }

@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:00+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
 "PO-Revision-Date: 2014-04-10 03:30+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/jtracker/language/it_IT/)\n"
@@ -16,23 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr ""
-
-#: /templates/support/documentation.index.twig:45
-msgid "Improve"
-msgstr ""
-
-#: /templates/support/documentation.index.twig:46
-msgid "Permalink"
-msgstr ""
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr ""
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -108,6 +91,23 @@ msgstr ""
 #: /templates/support/markdown.index.twig:389
 #: /templates/support/markdown.index.twig:413
 msgid "Output"
+msgstr ""
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr ""
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr ""
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr ""
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
 msgstr ""
 
 #: /src/App/Support/Controller/Clearcache.php:37

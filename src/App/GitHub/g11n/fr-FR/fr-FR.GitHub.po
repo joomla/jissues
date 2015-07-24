@@ -1,5 +1,5 @@
 # JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:01+0000\n"
-"PO-Revision-Date: 2014-05-25 23:53+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2014-10-07 18:14+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr "%s - Objectifs"
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr "Nouvel objectif"
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr "Nombre"
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "Titre"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr "Titre de l'objectif"
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr "En raison de"
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "Date"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr "Statut"
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr "Ouvert"
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr "Fermé"
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "Description"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "Sauver"
+
+#: /templates/github/milestones.index.twig:79
+#: /templates/github/hooks.index.twig:89
+msgid "Actions"
+msgstr "Actions"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "Éditer"
+
+#: /templates/github/milestones.index.twig:98
+#: /templates/github/labels.index.twig:59
+#: /templates/github/hooks.index.twig:120
+msgid "Delete"
+msgstr "Supprimer"
+
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Statistiques"
 
 #: /templates/github/labels.index.twig:6
 #: /templates/github/labels.index.twig:10
@@ -26,35 +101,38 @@ msgstr "%s - Étiquettes"
 
 #: /templates/github/labels.index.twig:12
 msgid "List Labels"
-msgstr "Liste des Étiquettes"
+msgstr "Liste des étiquettes"
 
 #: /templates/github/labels.index.twig:17
 msgid "New Label"
-msgstr "Nouvelle Étiquette"
+msgstr "Nouvelle étiquette"
 
 #: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:44
+#: /templates/github/labels.index.twig:45
 msgid "Name"
 msgstr "Nom"
 
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "Nom d'étiquette"
+
 #: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:45
+#: /templates/github/labels.index.twig:46
 msgid "Color"
 msgstr "Couleur"
 
-#: /templates/github/labels.index.twig:30
-msgid "Add Label"
-msgstr "Ajouter une Étiquette"
+#: /templates/github/labels.index.twig:28
+msgid "Label color"
+msgstr "Couleur d'étiquette"
 
-#: /templates/github/labels.index.twig:43
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "Ajouter une étiquette"
+
+#: /templates/github/labels.index.twig:44
 #: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
 msgid "URL"
 msgstr "URL"
-
-#: /templates/github/labels.index.twig:58
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Supprimer"
 
 #: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
 #, php-format
@@ -89,10 +167,6 @@ msgstr "Type"
 msgid "Status"
 msgstr "Statut"
 
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Actions"
-
 #: /templates/github/hooks.index.twig:99
 msgid "Active"
 msgstr "Actif"
@@ -108,11 +182,6 @@ msgstr "Désactiver"
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
 msgstr "Activer"
-
-#: /templates/github/stats.index.twig:6 /templates/github/stats.index.twig:10
-#, php-format
-msgid "%s - Statistics"
-msgstr "%s - Statistiques"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."

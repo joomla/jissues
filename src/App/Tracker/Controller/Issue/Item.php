@@ -69,6 +69,8 @@ class Item extends AbstractTrackerController
 
 		$item = $this->model->getItem($application->input->getUint('id'));
 
+		$item->userTest = $this->model->getUserTest($item->id, $user->username);
+
 		$this->view->setItem($item);
 		$this->view->setEditOwn($user->canEditOwn($item->opened_by));
 		$this->view->setProject($project);

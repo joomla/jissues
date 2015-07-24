@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
-
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
@@ -20,7 +19,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsPullsListener
+class JoomlacmsPullsListener extends AbstractListener
 {
 	/**
 	 * Event for after pull requests are created in the application
@@ -40,13 +39,19 @@ class JoomlacmsPullsListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Check that pull requests have certain labels
-			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 			// Check if the pull request targets the master branch
 			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
+			// Check if the pull request targets the 2.5.x branch
+			$this->check25Branch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
 			// Place the JoomlaCode ID in the issue title if it isn't already there
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -64,8 +69,136 @@ class JoomlacmsPullsListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		// Check that pull requests have certain labels
+		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
 		// Place the JoomlaCode ID in the issue title if it isn't already there
 		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+		// Add a RTC label if the item is in that status
+		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+	}
+
+	/**
+	 * Checks for the RTC label
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		// Set some data
+		$label      = 'RTC';
+		$labels     = array();
+		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
+
+		// Validation, if the status isn't RTC or the Label is set then go no further
+		if ($labelIsSet == true && $table->status != 4)
+		{
+			// Remove the RTC label as it isn't longer set to RTC
+			$labels[] = $label;
+			$this->removeLabels($hookData, $github, $logger, $project, $labels);
+		}
+
+		if ($labelIsSet == false && $table->status == 4)
+		{
+			// Add the RTC label as it isn't already set
+			$labels[] = $label;
+			$this->addLabels($hookData, $github, $logger, $project, $labels);
+		}
+	}
+
+	/**
+	 * Checks if a pull request targets the 2.5.x branch
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function check25Branch($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		if ($hookData->pull_request->base->ref == '2.5.x')
+		{
+			// Post a comment on the PR informing the user of end of support and close the item
+			try
+			{
+				$appNote = sprintf(
+					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
+					'https://github.com/joomla/jissues', 'J!Tracker'
+				);
+
+				$github->issues->comments->create(
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number,
+					'Joomla! 2.5 is no longer supported.  Pull requests for this branch are no longer accepted.' . $appNote
+				);
+
+				$github->pulls->edit(
+					$project->gh_user, $project->gh_project, $hookData->pull_request->number, null, null, 'closed'
+				);
+
+				// Update the local item now
+				try
+				{
+					// TODO - We'll need to inject the DB object at some point
+					$data = [
+						'status'      => 10,
+						'closed_date' => (new Date)->format('Y-m-d H:i:s'),
+						'closed_by'   => 'jissues-bot'
+					];
+
+					$table->save($data);
+				}
+				catch (\Exception $e)
+				{
+					$logger->error(
+						sprintf(
+							'Error updating the state for issue %s/%s #%d on the tracker: %s',
+							$project->gh_user,
+							$project->gh_project,
+							$hookData->pull_request->number,
+							$e->getMessage()
+						)
+					);
+				}
+
+				// Log the activity
+				$logger->info(
+					sprintf(
+						'Added unsupported branch comment to %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					)
+				);
+			}
+			catch (\DomainException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
+				);
+			}
+		}
 	}
 
 	/**
@@ -128,33 +261,40 @@ class JoomlacmsPullsListener
 	/**
 	 * Checks for a PR-<branch> label
 	 *
-	 * @param   object       $hookData  Hook data payload
-	 * @param   Github       $github    Github object
-	 * @param   Logger       $logger    Logger object
-	 * @param   object       $project   Object containing project data
-	 * @param   IssuesTable  $table     Table object
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$issueLabel = 'PR-' . $hookData->pull_request->base->ref;
-		$addLabels  = array();
-		$prLabelSet = false;
+		$prLabel        = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel  = 'Language Change';
+		$addLabels      = array();
+		$removeLabels   = array();
+		$prLabelSet     = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
-		// Get the labels for the pull's issue
+		// Add the issueLabel if it isn't already set
+		if (!$prLabelSet)
+		{
+			$addLabels[] = $prLabel;
+		}
+
+		// Get the files modified by the pull request
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
+			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
 		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
+					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
 					$hookData->pull_request->number,
@@ -162,75 +302,96 @@ class JoomlacmsPullsListener
 				)
 			);
 
-			return;
+			$files = array();
 		}
 
-		// Check if the PR- label present if there are already labels attached to the item
-		if (count($labels) > 0)
-		{
-			foreach ($labels as $label)
-			{
-				if (!$prLabelSet && $label->name == $issueLabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$issueLabel
-						)
-					);
+		$languageChange   = $this->checkLanguageChange($files);
+		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
-					$prLabelSet = true;
+		if ($languageChange && !$languageLabelSet)
+		{
+			$addLabels[] = $languageLabel;
+		}
+		elseif ($languageLabelSet)
+		{
+			$removeLabels[] = $languageLabel;
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		// Add the labels if we need
+		if (!empty($addLabels))
+		{
+			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+		}
+
+		// Remove the labels if we need
+		if (!empty($removeLabels))
+		{
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		return;
+	}
+
+	/**
+	 * Check if we change a language file
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a language file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkLanguageChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for file paths administrator/language, installation/language, and language at position 0
+				if (strpos($file->filename, 'administrator/language') === 0
+					|| strpos($file->filename, 'installation/language') === 0
+					|| strpos($file->filename, 'language') === 0)
+				{
+					return true;
 				}
 			}
 		}
 
-		// Add the issueLabel if it isn't already set
-		if (!$prLabelSet)
+		return false;
+	}
+
+	/**
+	 * Updates the local application status for an item
+	 *
+	 * @param   Logger       $logger   Logger object
+	 * @param   object       $project  Object containing project data
+	 * @param   IssuesTable  $table    Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setPending(Logger $logger, $project, IssuesTable $table)
+	{
+		if ($table->status == 3)
 		{
-			$addLabels[] = $issueLabel;
+			return;
 		}
 
-		/*
-		 * If we have a foreign ID in the IssuesTable object, then there is a JoomlaCode tracker
-		 * NOTE: If someone ever changes these labels on GitHub, this has to be changed
-		 */
-		if (!is_null($table->foreign_number))
-		{
-			$addLabels[] = 'Has JoomlaCode Tracker Item';
-		}
-		else
-		{
-			$addLabels[] = 'Needs JoomlaCode Tracker Item';
-		}
-
+		// Reset the issue status to pending and try updating the database
 		try
 		{
-			$github->issues->labels->add(
-				$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-			);
-
-			// Post the new label on the object
-			$logger->info(
-				sprintf(
-					'Added %s labels to %s/%s #%d',
-					count($addLabels),
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				)
-			);
+			$table->save(['status' => 3]);
 		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error adding labels to GitHub pull request %s/%s #%d - %s',
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$table->issue_number,
 					$e->getMessage()
 				)
 			);

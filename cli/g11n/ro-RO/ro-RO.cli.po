@@ -1,0 +1,521 @@
+# JTracker CLI cli 1.0.0-beta
+# Copyright (C) 2012 - 2015 JTracker
+# This file is distributed under the same license as the JTracker package.
+# 
+# Translators:
+# Oana Andrada Florescu <oana@redweb.dk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: JTracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2015-02-07 18:04+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: /cli/Application/Application.php:130
+msgid "Be quiet - suppress output."
+msgstr "Păstrează liniştea - reprimă ieşirea."
+
+#: /cli/Application/Application.php:135
+msgid "Verbose output for debugging purpose."
+msgstr "Ieşire prolix pentru debug."
+
+#: /cli/Application/Application.php:140
+msgid "Suppress ANSI colors on unsupported terminals."
+msgstr "Reprimă culori ANSI pe terminale nesuportate."
+
+#: /cli/Application/Application.php:145
+msgid "Optionally log output to the specified log file."
+msgstr "Opţional, loghează ieşirea în fişierul jurnal specificat."
+
+#: /cli/Application/Application.php:191
+msgid "Joomla! Tracker CLI Application"
+msgstr "Aplicaţia Joomla! Tracker CLI "
+
+#: /cli/Application/Application.php:218
+#, php-format
+msgid "Invalid command: %s"
+msgstr "Comanda nu este validă: %s"
+
+#: /cli/Application/Application.php:225
+msgid "Did you mean one of this?"
+msgstr "V-aţi referit la una din aceste opţiuni?"
+
+#: /cli/Application/Application.php:254
+msgid "Process aborted."
+msgstr "Proces abandonat."
+
+#: /cli/Application/Application.php:261
+#, php-format
+msgid "Execution time: <b>%d sec.</b>"
+msgstr "Timp de execuţie: <b>%d sec.</b>"
+
+#: /cli/Application/Command/Get/Avatars.php:29
+msgid "Retrieve avatar images from GitHub."
+msgstr "Preluează imaginile pentru avatar din GitHub"
+
+#: /cli/Application/Command/Get/Avatars.php:50
+msgid "Retrieve Avatars"
+msgstr "Preluează Avatare"
+
+#: /cli/Application/Command/Get/Avatars.php:52
+msgid "Start retrieving Avatars."
+msgstr "Începe preluare Avatare."
+
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:75
+#: /cli/Application/Command/Get/Transifex.php:60
+msgid "Finished."
+msgstr "Finalizat."
+
+#: /cli/Application/Command/Get/Avatars.php:81
+msgid "No users found in database."
+msgstr "Nu există utilizatori în baza de date."
+
+#: /cli/Application/Command/Get/Avatars.php:87
+#, php-format
+msgid "Processing avatars for one user."
+msgid_plural "Processing avatars for %d users."
+msgstr[0] "În curs de procesare avatarului pentru un singur utilizator."
+msgstr[1] "În curs de procesare a avatarelor pentru %d din utilizatori."
+msgstr[2] "În curs de procesare a avatarelor pentru %d din utilizatori."
+
+#: /cli/Application/Command/Get/Avatars.php:113
+#, php-format
+msgid "User avatar already fetched for user %s"
+msgstr "Avatarul de utilizator a fost deja preluat pentru utilizatorul %s"
+
+#: /cli/Application/Command/Get/Avatars.php:122
+#, php-format
+msgid "Fetching avatar for user: %s"
+msgstr "Avatar în curs de preluare pentru utilizatorul: %s"
+
+#: /cli/Application/Command/Get/Avatars.php:134
+#, php-format
+msgid "Copy default image for user: %s"
+msgstr "Copiază imaginea standard pentru utilizatorul: %s"
+
+#: /cli/Application/Command/Get/Avatars.php:148
+#, php-format
+msgid "Added %d new user avatars"
+msgstr "Au fost adaugate %d avatare pentru utilizatori "
+
+#: /cli/Application/Command/Get/Composertags.php:27
+msgid ""
+"Retrieve a list of project tags from GitHub and show their installed "
+"versions."
+msgstr "Recuperează o listă de etichete pentru proiecte din GitHub si arată versiunile instalate."
+
+#: /cli/Application/Command/Get/Composertags.php:33
+msgid "Show all tags or only the most recent."
+msgstr "Afişează toate etichetele sau doar cea mai recentă."
+
+#: /cli/Application/Command/Get/Composertags.php:48
+msgid "Retrieve composer tags"
+msgstr "Recuperează etichete de compozitor"
+
+#: /cli/Application/Command/Get/Composertags.php:56
+#, php-format
+msgid "Can not read the packages file at %s"
+msgstr "Fişierele din pachet nu pot fi citite la %s"
+
+#: /cli/Application/Command/Get/Composertags.php:59
+msgid "Start getting composer tags."
+msgstr "Începe obţinerea etichetelor de compozitor."
+
+#: /cli/Application/Command/Get/Composertags.php:101
+msgid "Installed"
+msgstr "Instalat"
+
+#: /cli/Application/Command/Get/Composertags.php:118
+#, php-format
+msgid "Installed: %s"
+msgstr "Instalat: %s"
+
+#: /cli/Application/Command/Get/Get.php:66
+msgid "Retrieve Information from various sources."
+msgstr "Recuperează Informaţii din diferite surse."
+
+#: /cli/Application/Command/Get/Get.php:72
+msgid "Process the project with the given ID."
+msgstr "Procesează proiectul cu ID-ul în cauză."
+
+#: /cli/Application/Command/Get/Get.php:78
+msgid "Don't use a progress bar."
+msgstr "Nu foloseşte bară de progres."
+
+#: /cli/Application/Command/Get/Project.php:68
+msgid ""
+"Get the whole project info from GitHub, including issues and issue comments."
+msgstr "Obţine proiectul din GitHub în întregime, inclusiv subiecte şi comentariile respective."
+
+#: /cli/Application/Command/Get/Project.php:74
+#: /cli/Application/Command/Get/Project/Events.php:53
+msgid "Process all issues."
+msgstr "Procesează toate subiectele."
+
+#: /cli/Application/Command/Get/Project.php:80
+#: /cli/Application/Command/Get/Project/Events.php:48
+msgid "<n> Process only a single issue."
+msgstr "<n> Procesează doar un singur subiect."
+
+#: /cli/Application/Command/Get/Project.php:86
+msgid "<n> First issue to process."
+msgstr "<n> Primul subiect în curs de procesare."
+
+#: /cli/Application/Command/Get/Project.php:92
+msgid "<n> Last issue to process."
+msgstr "<n> Ultimul subiect de procesat."
+
+#: /cli/Application/Command/Get/Project.php:98
+msgid "Force an update even if the issue has not changed."
+msgstr "Forţează o actualizare chiar dacă subiectul nu a suferit schimbări."
+
+#: /cli/Application/Command/Get/Project.php:112
+msgid "Retrieve Project"
+msgstr "Recuperează Proiectul"
+
+#: /cli/Application/Command/Get/Project.php:114
+msgid "Bulk Start retrieve Project"
+msgstr "Start Colectiv pentru a recupera Proiectul"
+
+#: /cli/Application/Command/Get/Project.php:125
+#, php-format
+msgid "Updating project info for project: %s/%s"
+msgstr "Actualizarea informaţiei din proiect pentru proiectul: %s/%s"
+
+#: /cli/Application/Command/Get/Project.php:137
+msgid "Bulk Finished"
+msgstr "Colecţie Finalizată"
+
+#: /cli/Application/Command/Get/Project.php:310
+msgid "GitHub issues to process?"
+msgstr "Subiecte GitHub de procesat?"
+
+#: /cli/Application/Command/Get/Project.php:312
+msgid "All"
+msgstr "Toate"
+
+#: /cli/Application/Command/Get/Project.php:313
+msgid "Range"
+msgstr "Gamă"
+
+#: /cli/Application/Command/Get/Project.php:314
+msgid "Select: "
+msgstr "Selectează:"
+
+#: /cli/Application/Command/Get/Project.php:321
+msgid "Enter the first GitHub issue ID to process (from):"
+msgstr "Introduceţi ID-ul primului subiect GitHub pentru procesare (din):"
+
+#: /cli/Application/Command/Get/Project.php:325
+msgid "Enter the latest GitHub issue ID to process (to):"
+msgstr "Introduceţi ID-ul ultimului subiect GitHub pentru procesare (către):"
+
+#: /cli/Application/Command/Get/Project/Comments.php:41
+msgid "Retrieve comments from GitHub."
+msgstr "Recuperează comentarii din GitHub."
+
+#: /cli/Application/Command/Get/Project/Comments.php:53
+msgid "Retrieve Comments"
+msgstr "Recuperează Comentarii"
+
+#: /cli/Application/Command/Get/Project/Comments.php:55
+msgid "Start retrieve Comments"
+msgstr "Începe recuperarea Comentariilor"
+
+#: /cli/Application/Command/Get/Project/Comments.php:97
+#, php-format
+msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
+msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
+msgstr[0] "Preluează comentarii pentru <b>one</b> subiectele modificate din GitHub..."
+msgstr[1] "Preluează comentarii pentru <b>%d</b> subiectele modificate din GitHub..."
+msgstr[2] "Preluează comentarii pentru <b>%d</b> subiectele modificate din GitHub..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:167
+#: /cli/Application/Command/Get/Project/Events.php:181
+msgid "Everything is up to date."
+msgstr "Conţinutul a fost actualizat."
+
+#: /cli/Application/Command/Get/Project/Comments.php:181
+#, php-format
+msgid "Processing comments for one modified issue..."
+msgid_plural "Processing comments for %d modified issues..."
+msgstr[0] "Procesează comentarii pentru un subiect modificat..."
+msgstr[1] "Procesează comentarii pentru %d subiecte modificate..."
+msgstr[2] "Procesează comentarii pentru %d subiecte modificate..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:210
+#, php-format
+msgid "No comments for issue # %d"
+msgstr "Nu există comentarii pentru subiectul # %d"
+
+#: /cli/Application/Command/Get/Project/Comments.php:219
+#, php-format
+msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
+msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
+msgstr[0] "Un comentariu pentru subiectul # %2$d (%3$d/%4$d) este în curs de procesare"
+msgstr[1] " %1$d comentarii pentru subiectul # %2$d (%3$d/%4$d) sunt în curs de procesare"
+msgstr[2] " %1$d comentarii pentru subiectul # %2$d (%3$d/%4$d) sunt în curs de procesare"
+
+#: /cli/Application/Command/Get/Project/Comments.php:331
+#, php-format
+msgid "%1$d added, %2$d updated, %3$d deleted."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:352
+msgid "Getting issue comments."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Comments.php:381
+msgid "Deleting issues comments."
+msgstr ""
+
+#: /cli/Application/Command/Get/Project/Events.php:43
+msgid "Retrieve issue events from GitHub."
+msgstr "Recuperează evenimente legate de subiect din GitHub."
+
+#: /cli/Application/Command/Get/Project/Events.php:67
+msgid "Retrieve Events"
+msgstr "Recuperează Evenimente"
+
+#: /cli/Application/Command/Get/Project/Events.php:69
+msgid "Start retrieve Events"
+msgstr "Începe recuperarea Evenimentelor"
+
+#: /cli/Application/Command/Get/Project/Events.php:111
+#, php-format
+msgid "Fetch events for one issue from GitHub..."
+msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
+msgstr[0] "Preluează evenimente pentru un subiect din GitHub..."
+msgstr[1] "Preluează evenimente pentru <b>%d</b> subiecte din GitHub..."
+msgstr[2] "Preluează evenimente pentru <b>%d</b> subiecte din GitHub..."
+
+#: /cli/Application/Command/Get/Project/Events.php:191
+msgid "Adding events to the database..."
+msgstr "În curs de adăugare a subiectelor în baza de date..."
+
+#: /cli/Application/Command/Get/Project/Events.php:341
+#, php-format
+msgid "Added %d new issue events to the database"
+msgstr "%d evenimente de subiect noi au fost adăugate în baza de date"
+
+#: /cli/Application/Command/Get/Project/Issues.php:66
+msgid "Retrieve issues from GitHub."
+msgstr "Recuperează subiecte din GitHub"
+
+#: /cli/Application/Command/Get/Project/Issues.php:78
+msgid "Retrieve Issues"
+msgstr "Recuperează Subiecte"
+
+#: /cli/Application/Command/Get/Project/Issues.php:83
+msgid "Start retrieve Issues"
+msgstr "Începe recuperarea Subiectelor"
+
+#: /cli/Application/Command/Get/Project/Issues.php:89
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Finalizat"
+
+#: /cli/Application/Command/Get/Project/Issues.php:105
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr "În curs de recuperare a <b>%s</b> obiectelor din GitHub..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:164
+#, php-format
+msgid "Retrieved <b>%d</b> items from GitHub."
+msgstr " <b>%d</b> obiecte din GitHub au fost recuperate."
+
+#: /cli/Application/Command/Get/Project/Issues.php:194
+msgid "Adding issues to the database..."
+msgstr "În curs de adăugare a subiectelor în baza de date..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:416
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
+msgstr "<ok>%1$d adăugate, %2$d actualizate.</ok>"
+
+#: /cli/Application/Command/Get/Project/Labels.php:31
+msgid "Retrieve project labels from GitHub."
+msgstr "Recuperează etichetele proiectului din GitHub."
+
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
+msgstr "Recuperează Etichetele"
+
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
+msgstr "Începe recuperarea Etichetelor"
+
+#: /cli/Application/Command/Get/Project/Labels.php:62
+msgid "Fetching labels..."
+msgstr "Preluarea etichetelor în curs de procesare..."
+
+#: /cli/Application/Command/Get/Project/Labels.php:141
+#, php-format
+msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Etichete: %1$d noi, %2$d actualizate, %3$d şterse."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:33
+msgid "Retrieve project milestones from GitHub."
+msgstr "Recuperează milestone-urile proiectului din GitHub."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:45
+msgid "Retrieve Milestones"
+msgstr "Recuperează Milestone-urile"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:47
+msgid "Start retrieving Milestones"
+msgstr "Începe preluarea Milestone-urilor"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:64
+msgid "Fetching milestones..."
+msgstr "Preluarea milestone-urilor în curs de procesare..."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:151
+#, php-format
+msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Milestone-uri: %1$d noi, %2$d actualizate, %3$d şterse."
+
+#: /cli/Application/Command/Get/Transifex.php:37
+msgid "Retrieve language files from Transifex."
+msgstr "Preluare fişiere limbă din Transifex."
+
+#: /cli/Application/Command/Get/Transifex.php:49
+msgid "Get Translations"
+msgstr "Obţine Traduceri"
+
+#: /cli/Application/Command/Get/Transifex.php:56
+msgid "Start fetching translations."
+msgstr "Începe preluarea traducerilor."
+
+#: /cli/Application/Command/Install/Install.php:37
+msgid "Install the application."
+msgstr "Instalează aplicaţia."
+
+#: /cli/Application/Command/Install/Install.php:42
+msgid "Reinstall the application (without confirmation)"
+msgstr "Reinstalează aplicaţia (fără confirmare)"
+
+#: /cli/Application/Command/Install/Install.php:59
+msgid "Installer"
+msgstr "Pachet instalare"
+
+#: /cli/Application/Command/Install/Install.php:71
+msgid "WARNING: A database has been found !!"
+msgstr "ATENŢIE: A fost detectată o bază de date !!"
+
+#: /cli/Application/Command/Install/Install.php:73
+msgid "Do you want to reinstall ?"
+msgstr "Doriţi să reinstalaţi?"
+
+#: /cli/Application/Command/Install/Install.php:75
+msgid "Yes"
+msgstr "Da"
+
+#: /cli/Application/Command/Install/Install.php:76
+msgid "No"
+msgstr "Nu"
+
+#: /cli/Application/Command/Install/Install.php:78
+msgid "Select:"
+msgstr "Selectaţi"
+
+#: /cli/Application/Command/Install/Install.php:98
+msgid "No database found."
+msgstr "Nu a fost gasită nici-o bază de date."
+
+#: /cli/Application/Command/Install/Install.php:99
+msgid "Creating the database..."
+msgstr "Baza de date se află în curs de creare..."
+
+#: /cli/Application/Command/Install/Install.php:118
+msgid "Installation has terminated successfully."
+msgstr "Instalarea a fost încheiată cu succes."
+
+#: /cli/Application/Command/Install/Install.php:132
+msgid "Removing existing tables..."
+msgstr "Tabelele existente se află în curs de eliminare..."
+
+#: /cli/Application/Command/Install/Install.php:179
+#, php-format
+msgid "Install SQL file for %s not found."
+msgstr "Instalarea fişierului SQL pentru %s nu a fost găsită."
+
+#: /cli/Application/Command/Install/Install.php:186
+msgid "SQL file corrupted."
+msgstr "Fişierul SQL este corupt."
+
+#: /cli/Application/Command/Install/Install.php:189
+#, php-format
+msgid "Creating tables from file %s"
+msgstr "Tabelele din fişierul %s sunt în curs de creare"
+
+#: /cli/Application/Command/TrackerCommand.php:179
+#, php-format
+msgid "Command: %s"
+msgstr "Comandă: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:182
+msgid "Please use one of the following :"
+msgstr "Vă rugăm să folosiţi una din următoarele:"
+
+#: /cli/Application/Command/TrackerCommand.php:296
+msgid "Available projects:"
+msgstr "Proicte disponibile:"
+
+#: /cli/Application/Command/TrackerCommand.php:314
+msgid "Select a project:"
+msgstr "Selectează un proiect:"
+
+#: /cli/Application/Command/TrackerCommand.php:320
+msgid "Aborted"
+msgstr "Eşuat"
+
+#: /cli/Application/Command/TrackerCommand.php:325
+#: /cli/Application/Command/TrackerCommand.php:344
+msgid "Invalid project"
+msgstr "Proiectul nu este valid"
+
+#: /cli/Application/Command/TrackerCommand.php:348
+#, php-format
+msgid "Processing project: %s"
+msgstr "Procesează proiectul: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:379
+#: /cli/Application/Command/TrackerCommand.php:381
+msgid "An unknown error occurred"
+msgstr "A fost detectată o eroare necunoscută"
+
+#: /cli/Application/Command/Update/Server.php:84
+#, php-format
+msgid ""
+"Could not read data from the %s SQL file, please update the database "
+"manually."
+msgstr ""
+
+#: /cli/Application/Command/Update/Server.php:106
+#, php-format
+msgid ""
+"SQL query failed, please verify the database structure and finish the update"
+" manually.  The database error message is: %s"
+msgstr ""
+
+#: /cli/tracker.php:49
+#, php-format
+msgid "ERROR: %s"
+msgstr "EROARE: %s"
+
+#: /cli/tracker.php:51
+msgid "Call stack:"
+msgstr "Apelează stivă:"

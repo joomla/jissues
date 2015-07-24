@@ -24,6 +24,7 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
@@ -34,6 +35,10 @@ use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
 use JTracker\Service\GitHubProvider;
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\WebProcessor;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -82,7 +87,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Event Dispatcher
 	 *
-	 * @var    Dispatcher
+	 * @var    DispatcherInterface
 	 * @since  1.0
 	 */
 	private $dispatcher;
@@ -112,6 +117,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		// Register the global dispatcher
 		$this->setDispatcher(new Dispatcher);
+
+		// Set up a general application logger
+		$logger = new Logger('JTracker');
+
+		$logger->pushHandler(
+			new StreamHandler(
+				$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
+				Logger::ERROR
+			)
+		);
+
+		$logger->pushProcessor(new WebProcessor);
+
+		$this->setLogger($logger);
 	}
 
 	/**
@@ -160,7 +179,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 						throw new \RuntimeException('Invalid router file. ' . $path, 500);
 					}
 
-					$router->addMaps($maps, true);
+					$router->addMaps($maps);
 				}
 			}
 
@@ -193,6 +212,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			}
 
 			$this->mark('Application terminated OK');
+
+			$this->checkRememberMe();
 
 			$contents = str_replace('%%%DEBUG%%%', $this->getDebugger()->getOutput(), $contents);
 
@@ -233,6 +254,16 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (\Exception $exception)
 		{
+			// Log the error
+			$this->getLogger()->critical(
+				sprintf(
+					'Exception of type %1$s thrown with message %2$s',
+					get_class($exception),
+					$exception->getMessage()
+				),
+				['trace' => $exception->getTraceAsString()]
+			);
+
 			header('HTTP/1.1 500 Internal Server Error', true, 500);
 
 			$this->mark('Application terminated with an EXCEPTION');
@@ -280,7 +311,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Get the dispatcher object.
 	 *
-	 * @return  Dispatcher
+	 * @return  DispatcherInterface
 	 *
 	 * @since   1.0
 	 */
@@ -651,5 +682,74 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 
 		return $this->project;
+	}
+
+	/**
+	 * Check the "remember me" cookie and try to login with GitHub.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	private function checkRememberMe()
+	{
+		if (!$this->get('system.remember_me'))
+		{
+			// Remember me is disabled in config
+			return $this;
+		}
+
+		if ($this->getUser()->id)
+		{
+			// The user is already logged in
+			return $this;
+		}
+
+		if (!$this->input->cookie->get('remember_me'))
+		{
+			// No "remember me" cookie found
+			return $this;
+		}
+
+		// Redirect and login with GitHub
+		$this->redirect((new GitHubLoginHelper($this->getContainer()))->getLoginUri());
+
+		return $this;
+	}
+
+	/**
+	 * Set a "remember me" cookie.
+	 *
+	 * @param   boolean  $state  Remember me or forget me.
+	 *
+	 * @return $this
+	 *
+	 * @since   1.0
+	 */
+	public function setRememberMe($state)
+	{
+		if (!$this->get('system.remember_me'))
+		{
+			return $this;
+		}
+
+		if ($state)
+		{
+			// Remember me - set the cookie
+			$value = '1';
+
+			// One year - approx.
+			$expire = time() + 3600 * 24 * 365;
+		}
+		else
+		{
+			// Forget me - delete the cookie
+			$value = '';
+			$expire = time() - 3600;
+		}
+
+		$this->input->cookie->set('remember_me', $value, $expire);
+
+		return $this;
 	}
 }

@@ -1,5 +1,5 @@
 # JTracker App System 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 19:00+0000\n"
-"PO-Revision-Date: 2014-05-26 00:05+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2014-08-15 18:52+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,18 +18,27 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr "Routes"
+
 #: /templates/system/config.index.twig:6
 msgid "Configuration"
 msgstr "Configuration"
 
-#: /templates/system/config.index.twig:20
+#: /templates/system/config.index.twig:21
 msgid "Save"
 msgstr "Enregistrer"
 
-#: /templates/system/config.index.twig:45
+#: /templates/system/config.index.twig:46
 msgid "Edit Configuration"
 msgstr "Éditer la Configuration"
 
-#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
-msgid "Routes"
-msgstr "Routes"
+#: /templates/system/config.index.twig:48
+#, php-format
+msgid "Loaded configuration file: %s"
+msgstr "Fichier de configuration chargé : %s"
+
+#: /src/App/System/Controller/Config/Save.php:52
+msgid "The configuration file has been saved."
+msgstr "Le fichier de configuration a été sauvegardé."

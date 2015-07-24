@@ -9,18 +9,53 @@
 
 {% block content %}
 
+    {% if user.check('admin') %}
+        <div class="btn-group pull-right">
+            <a class="btn btn-info" href="{{ uri.base.path }}project/{{ project.alias }}/edit">{{ "Edit"|_ }}</a>
+            <a class="btn btn-danger" href="{{ uri.base.path }}project/{{ project.alias }}/delete">{{ "Delete"|_ }}</a>
+        </div>
+    {% endif %}
+
+
     <h2>{{ project.title }}</h2>
 
-    Some stuff about the Project here...
+    <p>Some stuff about the Project here...</p>
 
-    <ul class="unstyled">
-        {% if project.gh_user and project.gh_project %}
-            <li>
-                <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
-                    {{ "GitHub"|_ }}
-                </a>
-            </li>
-        {% endif %}
+<p>
+<a class="btn btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}">
+        {{ "Project %s Tracker"|_|format(project.title) }}
+    </a>
+    </p>
+
+    <ul>
+    {% if project.gh_user and project.gh_project %}
+        <li>
+            <i class="icon-github"></i>
+            <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
+                {{ "Project %s on GitHub"|_|format(project.gh_user ~ "/" ~ project.gh_project) }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">{{ "Statistics"|_ }}</a>
+        </li>
+    {% endif %}
+
+    {% if user.check('admin') %}
+        <li>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">{{ "Hooks"|_ }}</a>
+        </li>
+    {% endif %}
+
+    {% if user.check('manage') %}
+        <li>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
+        </li>
+        <li>
+            <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">{{ "Labels"|_ }}</a>
+        </li>
+        <li>
+            <a href="{{ uri.base.path }}category/{{ project.alias }}">{{ "Categories"|_ }}</a>
+        </li>
+    {% endif %}
     </ul>
-
 {% endblock %}

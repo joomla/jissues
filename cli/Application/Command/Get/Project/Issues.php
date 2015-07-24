@@ -11,10 +11,15 @@ namespace Application\Command\Get\Project;
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
 use App\Tracker\Table\IssuesTable;
+use App\Tracker\Table\StatusTable;
 
 use Application\Command\Get\Project;
 
 use Joomla\Date\Date;
+
+use JTracker\Github\DataType\Commit;
+use JTracker\Github\DataType\Commit\Status;
+use JTracker\Github\GithubFactory;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -24,16 +29,42 @@ use Joomla\Date\Date;
 class Issues extends Project
 {
 	/**
-	 * The command "description" used for help texts.
+	 * List of changed issue numbers.
 	 *
-	 * @var    string
+	 * @var array
+	 *
 	 * @since  1.0
 	 */
-	protected $description = 'Retrieve issues from GitHub.';
-
 	protected $changedIssueNumbers = array();
 
+	/**
+	 * List of issues.
+	 *
+	 * @var array
+	 *
+	 * @since  1.0
+	 */
 	protected $issues = array();
+
+	/**
+	 * Github object as a bot account
+	 *
+	 * @var    \JTracker\Github\Github
+	 * @since  1.0
+	 */
+	protected $githubBot;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Retrieve issues from GitHub.');
+	}
 
 	/**
 	 * Execute the command.
@@ -44,15 +75,18 @@ class Issues extends Project
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Retrieve Issues');
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Issues'));
 
-		$this->logOut('Start retrieve Issues')
+		// This class has actions that depend on a bot account, fetch a GitHub instance as a bot
+		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
+
+		$this->logOut(g11n3t('Start retrieve Issues'))
 			->selectProject()
 			->setupGitHub()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished'));
 	}
 
 	/**
@@ -68,7 +102,7 @@ class Issues extends Project
 
 		foreach (array('open', 'closed') as $state)
 		{
-			$this->out(sprintf('Retrieving <b>%s</b> items from GitHub...', $state), false);
+			$this->out(sprintf(g11n3t('Retrieving <b>%s</b> items from GitHub...'), $state), false);
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
 
 			$page = 0;
@@ -127,7 +161,7 @@ class Issues extends Project
 			}
 		);
 
-		$this->logOut(sprintf('Retrieved <b>%d</b> items from GitHub.', count($issues)));
+		$this->logOut(sprintf(g11n3t('Retrieved <b>%d</b> items from GitHub.'), count($issues)));
 
 		$this->issues = $issues;
 
@@ -157,7 +191,7 @@ class Issues extends Project
 
 		$milestones = $this->getMilestones();
 
-		$this->out('Adding issues to the database...', false);
+		$this->out(g11n3t('Adding issues to the database...'), false);
 
 		$progressBar = $this->getProgressBar(count($ghIssues));
 
@@ -219,17 +253,31 @@ class Issues extends Project
 			$table->issue_number = $ghIssue->number;
 			$table->title        = $ghIssue->title;
 
-			$table->description = $this->github->markdown->render(
-				$ghIssue->body,
-				'gfm',
-				$this->project->gh_user . '/' . $this->project->gh_project
-			);
+			if ($table->description_raw != $ghIssue->body)
+			{
+				$table->description = $this->github->markdown->render(
+					$ghIssue->body,
+					'gfm',
+					$this->project->gh_user . '/' . $this->project->gh_project
+				);
 
-			$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
+				$this->checkGitHubRateLimit($this->github->markdown->getRateLimitRemaining());
 
-			$table->description_raw = $ghIssue->body;
+				$table->description_raw = $ghIssue->body;
+			}
 
-			$table->status = ($ghIssue->state == 'open') ? 1 : 10;
+			$statusTable = new StatusTable($this->getContainer()->get('db'));
+
+			// Get the list of status IDs based on the GitHub issue state
+			$state = ($ghIssue->state == 'open') ? false : true;
+
+			$stateIds = $statusTable->getStateStatusIds($state);
+
+			// Check if the issue status is in the array; if it is, then the item didn't change open state and we don't need to change the status
+			if (!in_array($table->status, $stateIds))
+			{
+				$table->status = $state ? 10 : 1;
+			}
 
 			$table->opened_date = (new Date($ghIssue->created_at))->format('Y-m-d H:i:s');
 			$table->opened_by   = $ghIssue->user->login;
@@ -242,10 +290,54 @@ class Issues extends Project
 				? $milestones[$ghIssue->milestone->number]
 				: null;
 
+			// We do not have a data about the default branch
+			// @todo We need to retrieve repository somehow
+			$table->build = 'master';
+
 			// If the issue has a diff URL, it is a pull request.
 			if (isset($ghIssue->pull_request->diff_url))
 			{
 				$table->has_code = 1;
+
+				// Get the pull request corresponding to an issue.
+				$this->debugOut('Get PR for the issue');
+
+				$pullRequest = $this->github->pulls->get(
+					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
+				);
+
+				$table->build = $pullRequest->base->ref;
+
+				// If the $pullRequest->head->user object is not set, the repo/branch had been deleted by the user.
+				$table->pr_head_user = (isset($pullRequest->head->user))
+					? $pullRequest->head->user->login
+					: 'unknown_repository';
+
+				$table->pr_head_ref  = $pullRequest->head->ref;
+
+				$status = $this->GetMergeStatus($pullRequest);
+
+				if (!$status->state)
+				{
+					// No status found. Let's create one!
+
+					$status->state = 'pending';
+					$status->targetUrl = 'http://issues.joomla.org/gagaga';
+					$status->description = 'JTracker Bug Squad working on it...';
+					$status->context = 'jtracker';
+
+					// @todo Project based status messages
+					// @$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
+				}
+				else
+				{
+					// Save the merge status to database
+					$table->merge_state = $status->state;
+					$table->gh_merge_status = json_encode($status);
+				}
+
+				// Get commits
+				$table->commits = json_encode($this->getCommits($pullRequest));
 			}
 
 			// Add the closed date if the status is closed
@@ -267,7 +359,8 @@ class Issues extends Project
 
 			$table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
 
-			$table->store(true);
+			$table->check()
+				->store(true);
 
 			if (!$table->id)
 			{
@@ -320,7 +413,7 @@ class Issues extends Project
 
 		// Output the final result
 		$this->out()
-			->logOut(sprintf('<ok>%1$d added, %2$d updated.</ok>', $added, $updated));
+			->logOut(sprintf(g11n3t('<ok>%1$d added, %2$d updated.</ok>'), $added, $updated));
 
 		return $this;
 	}
@@ -401,7 +494,7 @@ class Issues extends Project
 	/**
 	 * Get an array of changed issue numbers.
 	 *
-	 * @return array
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
@@ -441,5 +534,100 @@ class Issues extends Project
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
+	}
+
+	/**
+	 * Get the GitHub merge status for an issue.
+	 *
+	 * @param   object  $pullRequest  The pull request object.
+	 *
+	 * @return  Status
+	 *
+	 * @since   1.0
+	 */
+	private function getMergeStatus($pullRequest)
+	{
+		$this->debugOut('Get merge statuses for PR');
+
+		$statuses = $this->github->repositories->statuses->getList(
+			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha
+		);
+
+		$mergeStatus = new Status;
+
+		if (isset($statuses[0]))
+		{
+			$mergeStatus->state = $statuses[0]->state;
+			$mergeStatus->targetUrl = $statuses[0]->target_url;
+			$mergeStatus->description = $statuses[0]->description;
+			$mergeStatus->context = $statuses[0]->context;
+		}
+
+		return $mergeStatus;
+	}
+
+	/**
+	 * Get the commits for a GitHub pull request.
+	 *
+	 * @param   object  $pullRequest  The pull request object.
+	 *
+	 * @return  Commit
+	 *
+	 * @since   1.0
+	 */
+	private function getCommits($pullRequest)
+	{
+		$this->debugOut('Get commits for PR');
+
+		$commits = [];
+		$commitData = $this->github->pulls->getCommits(
+			$this->project->gh_user, $this->project->gh_project, $pullRequest->number
+		);
+
+		foreach ($commitData as $commit)
+		{
+			$c = new Commit;
+
+			$c->sha = $commit->sha;
+			$c->message = $commit->commit->message;
+			$c->author_name = isset($commit->author->login) ? $commit->author->login : '';
+			$c->author_date = $commit->commit->author->date;
+			$c->committer_name = isset($commit->committer->login) ? $commit->committer->login : '';
+			$c->committer_date = $commit->commit->committer->date;
+
+			$commits[] = $c;
+		}
+
+		return $commits;
+	}
+
+	/**
+	 * Create a GitHub merge status for the last commit in a PR.
+	 *
+	 * @param   object  $ghIssue      The issue object.
+	 * @param   string  $state        The state (pending, success, error or failure).
+	 * @param   string  $targetUrl    Optional target URL.
+	 * @param   string  $description  Optional description for the status.
+	 * @param   string  $context      A string label to differentiate this status from the status of other systems.
+	 *
+	 * @return  Status
+	 *
+	 * @since   1.0
+	 */
+	private function createStatus($ghIssue, $state, $targetUrl, $description, $context)
+	{
+		// Get the pull request corresponding to an issue.
+		$this->debugOut('Get PR for the issue');
+
+		$pullRequest = $this->githubBot->pulls->get(
+			$this->project->gh_user, $this->project->gh_project, $ghIssue->number
+		);
+
+		$this->debugOut('Create status for PR');
+
+		return $this->githubBot->repositories->statuses->create(
+			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha,
+			$state, $targetUrl, $description, $context
+		);
 	}
 }
