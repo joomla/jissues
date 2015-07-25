@@ -2,27 +2,20 @@
 
 ### WhatIs https://www.openshift.com/
 
-The Open Hybrid Cloud Application Platform by Red Hat
+Short: The Open Hybrid Cloud Application Platform by Red Hat
 
-`@todo`
+`@todo` more info
 
 ### Setup
 
-* Go to Openshift, create a new application type `PHP 5.4`.
+* Go to https://openshift.redhat.com/app/console/application_types?search=php, create a new application type `PHP, MySQL, and phpMyAdmin`.
 * Under "Source code" put `https://github.com/joomla/jissues.git` and the branch `openshift` (`@todo` master?)
-* => Create Application ....
+* => Create the Application ....
 * Look around, then click on "Continue to the application overview page".
-* Click "Add MySQL 5.5" => "Add Cartridge"
 
-Here comes a little quirk.... When you call the page now, you get a "Could not connect to MySQL" error.
-Cause: Some Openshift env vars get lost (like MySQL stuff) `@todo` remove when solved.
+### Installation
 
-Solution:
-* Clone the openshift repo
-* Make a "dummy" commit and push it. - This should solve the issue.
-
-Continue with installation
-* SSH into the application
+* Open your terminal and SSH into the application.
 * `cd  app-root/repo/`
 * `export JTRACKER_ENVIRONMENT=openshift && ./bin/jtracker install` (`@todo` env var has to be passed "by hand"..)
 
