@@ -36,7 +36,7 @@ e.g.:
 ### Installation
 
 * Open your terminal and SSH into the application.
-* `cd  app-root/repo/`
-* `export JTRACKER_ENVIRONMENT=openshift && ./bin/jtracker install` (`@todo` env var has to be passed "by hand"..)
+* `cd  app-root/repo/bin`
+* `./jtracker install`
 
 Done.
