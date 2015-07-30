@@ -14,8 +14,8 @@
         "auth_scope"   : "public_repo",
         "accounts": [
             {
-                "username": "",
-                "password": ""
+                "username": "$JTRACKER_GITHUB_USERNAME",
+                "password": "$JTRACKER_GITHUB_PASSWORD"
             }
         ]
     },
