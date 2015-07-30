@@ -13,6 +13,26 @@ Short: The Open Hybrid Cloud Application Platform by Red Hat
 * => Create the Application ....
 * Look around, then click on "Continue to the application overview page".
 
+### Environment Variables
+
+Several parameters have to be passed as environment variables to make the application aware of the Openshift environment. This is also a security feature.
+
+Use the rhc client tools to set the environment variables:
+
+`rhc env set <var_name>=<var_value> -a <application>`
+
+```
+JTRACKER_ENVIRONMENT="openshift"
+JTRACKER_GITHUB_CLIENT_ID=<github_client_id>
+JTRACKER_GITHUB_CLIENT_SECRET=<github_client_secret>
+JTRACKER_GITHUB_USERNAME=<your_github_username>
+JTRACKER_GITHUB_PASSWORD=<your_github_password>
+```
+
+e.g.:
+
+`rhc env set JTRACKER_ENVIRONMENT=openshift -a trackertest`
+
 ### Installation
 
 * Open your terminal and SSH into the application.
