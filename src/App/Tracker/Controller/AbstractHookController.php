@@ -9,6 +9,7 @@
 namespace App\Tracker\Controller;
 
 use App\Projects\Table\LabelsTable;
+use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 
@@ -82,7 +83,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	/**
 	 * The project information of the project whose data has been received
 	 *
-	 * @var    object
+	 * @var    TrackerProject
 	 * @since  1.0
 	 */
 	protected $project;
@@ -172,7 +173,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 		try
 		{
-			$this->project = $this->db->loadObject();
+			$this->project = new TrackerProject($this->db, $this->db->loadObject());
 		}
 		catch (\RuntimeException $e)
 		{
