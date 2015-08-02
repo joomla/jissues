@@ -13,6 +13,8 @@ use App\Tracker\Controller\AbstractHookController;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use Joomla\Date\Date;
+use JTracker\Github\GithubFactory;
+use JTracker\Helper\GitHubHelper;
 
 /**
  * Controller class receive and inject pull requests from GitHub.
@@ -285,6 +287,38 @@ class ReceivePullsHook extends AbstractHookController
 
 		$data['old_state'] = $oldState;
 		$data['new_state'] = $state;
+
+		$gitHubBot = null;
+
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$gitHubBot = new GitHubHelper(
+				GithubFactory::getInstance(
+					$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+				)
+			);
+		}
+
+		if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $this->data->head->sha)
+		{
+			// The PR has been updated.
+			$testers = (new IssueModel($this->getContainer()->get('db')))
+				->getUserTests($table->id, $table->pr_head_sha);
+
+			$testers = array_merge($testers['success'], $testers['failure']);
+
+			if ($testers)
+			{
+				// Send a notification.
+				$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
+
+				$gitHubBot->addComment(
+					$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
+				);
+			}
+		}
+
+		$data['pr_head_sha'] = $this->data->head->sha;
 
 		try
 		{
