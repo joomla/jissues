@@ -280,7 +280,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$removeLabels         = array();
 		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
-		// Add the issueLabel if it isn't already set
+		// Add the PR label if it isn't already set
 		if (!$prLabelSet)
 		{
 			$addLabels[] = $prLabel;
@@ -309,10 +309,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
+		// Add the label if we change the language files and it isn't already set
 		if ($languageChange && !$languageLabelSet)
 		{
 			$addLabels[] = $languageLabel;
 		}
+		// Remove the label if we don't change the language files
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
@@ -321,19 +323,15 @@ class JoomlacmsPullsListener extends AbstractListener
 		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
 		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
-		// Add the issueLabel if it isn't already set
-		if (!$unitSystemTestsLabelSet)
-		{
-			$addLabels[] = $unitSystemTestsLabel;
-		}
-
+		// Add the label if we change the Unit/System Tests and it isn't already set
 		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
 		{
 			$addLabels[] = $unitSystemTestsLabel;
 		}
-		elseif ($sunitSystemTestsLabelSet)
+		// Remove the label if we don't change the Unit/System Tests
+		elseif ($unitSystemTestsLabelSet)
 		{
-			$removeLabels[] = $systemUnitTestsLabel;
+			$removeLabels[] = $unitSystemTestsLabel;
 		}
 
 		// Add the labels if we need
@@ -380,11 +378,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	}
 
 	/**
-	 * Check if we change the Unit / System Test tests
+	 * Check if we change the Unit/System Test tests
 	 *
 	 * @param   array  $files  The files array
 	 *
-	 * @return  bool   True if we change a Unit / System Test file
+	 * @return  bool   True if we change a Unit/System Test file
 	 *
 	 * @since   1.0
 	 */
@@ -394,7 +392,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			foreach ($files as $file)
 			{
-				// Check for files / paths regarding the Unit/System Tests
+				// Check for files & paths regarding the Unit/System Tests
 				if (strpos($file->filename, 'tests') === 0
 					|| $file->filename == '.travis.yml'
 					|| $file->filename == 'phpunit.xml.dist'
