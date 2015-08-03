@@ -275,7 +275,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Set some data
 		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
 		$languageLabel        = 'Language Change';
-		$systemUnitTestsLabel = 'Unit/System Tests';
+		$unitSystemTestsLabel = 'Unit/System Tests';
 		$addLabels            = array();
 		$removeLabels         = array();
 		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
@@ -318,20 +318,20 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $languageLabel;
 		}
 
-		$systemUnitTestsChange   = $this->checkSystemUnitTestsChange($files);
-		$systemUnitTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $systemUnitTestsLabel);
+		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
+		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
 		// Add the issueLabel if it isn't already set
-		if (!$systemUnitTestsLabelSet)
+		if (!$unitSystemTestsLabelSet)
 		{
-			$addLabels[] = $systemUnitTestsLabel;
+			$addLabels[] = $unitSystemTestsLabel;
 		}
 
-		if ($systemUnitTestsChange && !$systemUnitTestsLabelSet)
+		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
 		{
-			$addLabels[] = $systemUnitTestsLabel;
+			$addLabels[] = $unitSystemTestsLabel;
 		}
-		elseif ($systemUnitTestsLabelSet)
+		elseif ($sunitSystemTestsLabelSet)
 		{
 			$removeLabels[] = $systemUnitTestsLabel;
 		}
@@ -380,15 +380,15 @@ class JoomlacmsPullsListener extends AbstractListener
 	}
 
 	/**
-	 * Check if we change the system or Unit tests
+	 * Check if we change the Unit / System Test tests
 	 *
 	 * @param   array  $files  The files array
 	 *
-	 * @return  bool   True if we change a language file
+	 * @return  bool   True if we change a Unit / System Test file
 	 *
 	 * @since   1.0
 	 */
-	protected function checkSystemUnitTestsChange($files)
+	protected function checkUnitSystemTestsChange($files)
 	{
 		if (!empty($files))
 		{
