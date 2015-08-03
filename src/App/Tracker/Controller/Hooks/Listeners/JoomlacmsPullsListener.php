@@ -273,11 +273,12 @@ class JoomlacmsPullsListener extends AbstractListener
 	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$prLabel        = 'PR-' . $hookData->pull_request->base->ref;
-		$languageLabel  = 'Language Change';
-		$addLabels      = array();
-		$removeLabels   = array();
-		$prLabelSet     = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
+		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel        = 'Language Change';
+		$systemUnitTestsLabel = 'Unit/System Tests';
+		$addLabels            = array();
+		$removeLabels         = array();
+		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
 		// Add the issueLabel if it isn't already set
 		if (!$prLabelSet)
@@ -315,7 +316,24 @@ class JoomlacmsPullsListener extends AbstractListener
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
-			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		$systemUnitTestsChange   = $this->checkSystemUnitTestsChange($files);
+		$systemUnitTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $systemUnitTestsLabel);
+
+		// Add the issueLabel if it isn't already set
+		if (!$systemUnitTestsLabelSet)
+		{
+			$addLabels[] = $systemUnitTestsLabel;
+		}
+
+		if ($systemUnitTestsChange && !$systemUnitTestsLabelSet)
+		{
+			$addLabels[] = $systemUnitTestsLabel;
+		}
+		elseif ($systemUnitTestsLabelSet)
+		{
+			$removeLabels[] = $systemUnitTestsLabel;
 		}
 
 		// Add the labels if we need
@@ -352,6 +370,35 @@ class JoomlacmsPullsListener extends AbstractListener
 				if (strpos($file->filename, 'administrator/language') === 0
 					|| strpos($file->filename, 'installation/language') === 0
 					|| strpos($file->filename, 'language') === 0)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if we change the system or Unit tests
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a language file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkSystemUnitTestsChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for files / paths regarding the Unit/System Tests
+				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'phpunit.xml.dist'
+					|| $file->filename == 'travisci-phpunit.xml')
 				{
 					return true;
 				}
