@@ -539,5 +539,4 @@ class JoomlacmsPullsListener extends AbstractListener
 			}
 		}
 	}
-
 }
