@@ -502,6 +502,17 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Post a comment on the PR asking to add a description
 			try
 			{
+				$addLabels                       = array();
+				$testInstructionsMissingLabel    = 'Test instructions missing'
+				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
+
+				// Add the Test instructions missing label if it isn't already set
+				if (!$testInstructionsMissingLabelSet)
+				{
+					$addLabels[] = $testInstructionsMissingLabel;
+					$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+				}
+
 				$appNote = sprintf(
 					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
 					'https://github.com/joomla/jissues', 'J!Tracker'
