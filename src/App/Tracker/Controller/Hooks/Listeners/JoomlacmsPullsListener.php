@@ -273,13 +273,14 @@ class JoomlacmsPullsListener extends AbstractListener
 	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$prLabel        = 'PR-' . $hookData->pull_request->base->ref;
-		$languageLabel  = 'Language Change';
-		$addLabels      = array();
-		$removeLabels   = array();
-		$prLabelSet     = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
+		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel        = 'Language Change';
+		$unitSystemTestsLabel = 'Unit/System Tests';
+		$addLabels            = array();
+		$removeLabels         = array();
+		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
-		// Add the issueLabel if it isn't already set
+		// Add the PR label if it isn't already set
 		if (!$prLabelSet)
 		{
 			$addLabels[] = $prLabel;
@@ -308,14 +309,29 @@ class JoomlacmsPullsListener extends AbstractListener
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
+		// Add the label if we change the language files and it isn't already set
 		if ($languageChange && !$languageLabelSet)
 		{
 			$addLabels[] = $languageLabel;
 		}
+		// Remove the label if we don't change the language files
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
-			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
+		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
+
+		// Add the label if we change the Unit/System Tests and it isn't already set
+		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
+		{
+			$addLabels[] = $unitSystemTestsLabel;
+		}
+		// Remove the label if we don't change the Unit/System Tests
+		elseif ($unitSystemTestsLabelSet)
+		{
+			$removeLabels[] = $unitSystemTestsLabel;
 		}
 
 		// Add the labels if we need
@@ -352,6 +368,35 @@ class JoomlacmsPullsListener extends AbstractListener
 				if (strpos($file->filename, 'administrator/language') === 0
 					|| strpos($file->filename, 'installation/language') === 0
 					|| strpos($file->filename, 'language') === 0)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if we change the Unit/System Test tests
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a Unit/System Test file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkUnitSystemTestsChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for files & paths regarding the Unit/System Tests
+				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'phpunit.xml.dist'
+					|| $file->filename == 'travisci-phpunit.xml')
 				{
 					return true;
 				}
