@@ -155,15 +155,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		catch (\Exception $e)
 		{
 			$logMessage = sprintf(
-				'Error loading the database for comment %d:%s',
+				'Error loading the database for issue %d:%s',
 				$this->hookData->issue->number,
 				$e->getMessage()
 			);
 			$this->logger->error($logMessage);
 			$this->setStatusCode($e->getCode());
 			$this->response->error = $logMessage;
-
-			return false;
 		}
 
 		// Store was successful, update status
@@ -343,15 +341,13 @@ class ReceiveCommentsHook extends AbstractHookController
 		catch (\Exception $e)
 		{
 			$logMessage = sprintf(
-				'Error loading the database for comment %d:%s',
+				'Error loading the database for issue %d:%s',
 				$this->hookData->issue->number,
 				$e->getMessage()
 			);
 			$this->logger->error($logMessage);
 			$this->response->error = $logMessage;
 			$this->setStatusCode($e->getCode());
-
-			return false;
 		}
 
 		// Store was successful, update status
