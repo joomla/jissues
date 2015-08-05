@@ -548,7 +548,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			try
 			{
 				$addLabels                       = array();
-				$testInstructionsMissingLabel    = 'Test instructions missing'
+				$testInstructionsMissingLabel    = 'Test instructions missing';
 				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
 
 				// Add the Test instructions missing label if it isn't already set
