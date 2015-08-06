@@ -112,8 +112,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		$this->setContainer($container);
 
-		$this->loadLanguage()
-			->mark('Application started');
+		$this->mark('Application started');
 
 		// Register the global dispatcher
 		$this->setDispatcher(new Dispatcher);
@@ -191,8 +190,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			$controller = $router->getController($this->get('uri.route'));
 
 			$this->mark('Controller->initialize()');
-
 			$controller->initialize();
+
+			// Load the language for the application
+			// @todo language must be loaded after routing is processed cause the Project object is coupled with the User object...
+			$this->mark('loadLanguage()');
+			$this->loadLanguage();
 
 			// Execute the App
 
