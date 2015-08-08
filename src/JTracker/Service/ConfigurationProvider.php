@@ -52,7 +52,7 @@ class ConfigurationProvider implements ServiceProviderInterface
 		}
 
 		// Load the configuration file into an object.
-		$configObject = json_decode(file_get_contents($file));
+		$configObject = json_decode($this->replaceEnvVars(file_get_contents($file)));
 
 		if ($configObject === null)
 		{
@@ -83,5 +83,27 @@ class ConfigurationProvider implements ServiceProviderInterface
 				return $this->config;
 			}, true, true
 		);
+	}
+
+	/**
+	 * Replace any env vars referenced in a string with their values.
+	 *
+	 * @param   string  $string  The string to replace.
+	 *
+	 * @return  string
+	 *
+	 * @since  1.0
+	 */
+	private function replaceEnvVars($string)
+	{
+		foreach (array_keys($_ENV) as $var)
+		{
+			if (strstr($string, '$' . $var))
+			{
+				$string = str_replace('$' . $var, $_ENV[$var], $string);
+			}
+		}
+
+		return $string;
 	}
 }
