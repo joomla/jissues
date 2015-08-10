@@ -77,12 +77,17 @@ class Issues extends Project
 	{
 		$this->getApplication()->outputTitle(g11n3t('Retrieve Issues'));
 
+		// Get the event dispatcher
+		$this->dispatcher = $this->getContainer()->get('app')->getDispatcher();
+
 		// This class has actions that depend on a bot account, fetch a GitHub instance as a bot
 		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
 
 		$this->logOut(g11n3t('Start retrieve Issues'))
 			->selectProject()
 			->setupGitHub()
+			->addEventListener('issues')
+			->addEventListener('pulls')
 			->fetchData()
 			->processData()
 			->out()
@@ -306,6 +311,9 @@ class Issues extends Project
 					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
 				);
 
+				// Store the full PR data for later use.
+				$ghIssue->pull_request = $pullRequest;
+
 				$table->build = $pullRequest->base->ref;
 
 				// If the $pullRequest->head->user object is not set, the repo/branch had been deleted by the user.
@@ -409,6 +417,21 @@ class Issues extends Project
 			}
 
 			$this->changedIssueNumbers[] = $ghIssue->number;
+
+			// Process event listeners
+			$this->debugOut('Process event listeners');
+
+			$eventAction = $id ? 'update' : 'create';
+			$eventAction2 = $id ? 'no-used???' : 'opened';
+			$eventType = $table->has_code ? 'pull' : 'issue';
+			$eventName = 'on' . ucfirst($eventType) . 'After' . ucfirst($eventAction);
+
+			// @todo resolve hook data differences!
+			$issue = new \stdClass;
+			$issue->number = $ghIssue->number;
+			$ghIssue->issue = $issue;
+
+			$this->triggerEvent($eventName, $table, $ghIssue, ['action' => $eventAction2]);
 		}
 
 		// Output the final result
