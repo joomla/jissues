@@ -472,7 +472,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 *
 	 * @since   1.0
 	 */
-	public function triggerEvent($eventName, array $arguments)
+	protected function triggerEvent($eventName, array $arguments)
 	{
 		$arguments['hookData'] = $this->hookData;
 

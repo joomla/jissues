@@ -459,7 +459,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 *
 	 * @since   1.0
 	 */
-	public function addEventListener($type)
+	protected function addEventListener($type)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
@@ -490,7 +490,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 *
 	 * @since   1.0
 	 */
-	public function triggerEvent($eventName, array $arguments)
+	protected function triggerEvent($eventName, array $arguments)
 	{
 		if (!$this->listenerSet)
 		{
