@@ -10,7 +10,6 @@ namespace App\Tracker\Table;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Input\Input;
-use Joomla\Filter\InputFilter;
 use Joomla\Date\Date;
 use Joomla\Utilities\ArrayHelper;
 
@@ -52,14 +51,6 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 class IssuesTable extends AbstractDatabaseTable
 {
-	/**
-	 * Internal array of field values.
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $fieldValues = array();
-
 	/**
 	 * Container for an IssuesTable object to compare differences
 	 *
@@ -110,22 +101,12 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if (is_array($src))
 		{
-			if (isset($src['fields']))
-			{
-				// "Save" the field values and store them later.
-				$this->fieldValues = $this->_cleanFields($src['fields']);
-
-				unset($src['fields']);
-			}
-
 			return parent::bind($src, $ignore);
 		}
 		elseif ($src instanceof Input)
 		{
 			$data     = new \stdClass;
 			$data->id = $src->get('id');
-
-			$this->fieldValues = $this->_cleanFields($src->get('fields', array(), 'array'));
 
 			return parent::bind($data, $ignore);
 		}
@@ -173,6 +154,17 @@ class IssuesTable extends AbstractDatabaseTable
 			$errors[] = 'A description is required.';
 		}*/
 
+		// Normalize fields
+		if ($this->milestone_id === 0)
+		{
+			$this->milestone_id = null;
+		}
+
+		if ($this->rel_type === 0)
+		{
+			$this->rel_type = null;
+		}
+
 		if ($errors)
 		{
 			throw new \InvalidArgumentException(implode("\n", $errors));
@@ -204,7 +196,13 @@ class IssuesTable extends AbstractDatabaseTable
 		if (!$isNew)
 		{
 			// Existing item
-			$this->modified_date = $date;
+
+			/*
+			 * This has been commented because we should get the modified_date *always* from GitHub
+			 * for projects managed there, otherwise the date should be provided.
+			 */
+
+			// $this->modified_date = $date;
 		}
 		else
 		{
@@ -240,12 +238,6 @@ class IssuesTable extends AbstractDatabaseTable
 		{
 			// Add a record to the activities table including the changes made to an item.
 			$this->processChanges();
-		}
-
-		if ($this->fieldValues)
-		{
-			// If we have extra fields, process them.
-			$this->processFields();
 		}
 
 		return $this;
@@ -313,72 +305,5 @@ class IssuesTable extends AbstractDatabaseTable
 		}
 
 		return $this;
-	}
-
-	/**
-	 * Process extra fields.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	private function processFields()
-	{
-		return $this;
-	}
-
-	/**
-	 * Clean the field values.
-	 *
-	 * @param   array  $fields  The field array.
-	 *
-	 * @return  array  Container with cleaned fields
-	 *
-	 * @since   1.0
-	 */
-	private function _cleanFields(array $fields)
-	{
-		$filter = new InputFilter;
-
-		// Selects are integers.
-		foreach (array_keys($fields['selects']) as $key)
-		{
-			if (!$fields['selects'][$key])
-			{
-				unset($fields['selects'][$key]);
-			}
-			else
-			{
-				$fields['selects'][$key] = (int) $fields['selects'][$key];
-			}
-		}
-
-		// Textfields are strings.
-		foreach (array_keys($fields['textfields']) as $key)
-		{
-			if (!$fields['textfields'][$key])
-			{
-				unset($fields['textfields'][$key]);
-			}
-			else
-			{
-				$fields['textfields'][$key] = $filter->clean($fields['textfields'][$key]);
-			}
-		}
-
-		// Checkboxes are selected if they are present.
-		foreach (array_keys($fields['checkboxes']) as $key)
-		{
-			if (!$fields['checkboxes'][$key])
-			{
-				unset($fields['checkboxes'][$key]);
-			}
-			else
-			{
-				$fields['checkboxes'][$key] = 1;
-			}
-		}
-
-		return $fields;
 	}
 }

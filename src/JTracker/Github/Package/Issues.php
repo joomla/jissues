@@ -96,7 +96,7 @@ class Issues extends Package
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues/' . (int) $issueId;
 
-		// Craete the data object.
+		// Create the data object.
 		$data = new \stdClass;
 
 		// If a title is set add it to the data object.

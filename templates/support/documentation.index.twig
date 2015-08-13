@@ -11,9 +11,27 @@
     <!-- CSS for coloured code -->
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
 
+    <style>
+        .spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -33px;
+            margin-top: -33px;
+            text-align:center;
+            z-index:1234;
+            overflow: auto;
+            width: 66px;
+            height: 68px;
+        }
+    </style>
+
 {% endblock %}
 
 {% block content %}
+    <div id="spinner" class="spinner" style="display:none;">
+        <img id="img-spinner" src="/images/tracker/ajax-loader.gif" alt="Loading"/>
+    </div>
 
 	<div class="row-fluid">
 		<div class="span3">
@@ -50,6 +68,7 @@
     </script>
     <script type="text/x-tmpl" id="tplDocuError">
         <div class="alert alert-error">
+        [%# o.error %]
         </div>
     </script>
 
@@ -65,32 +84,35 @@
 
 	<script type="text/javascript">
 		function loadDocuPage(fullPath) {
-
-			//var url = '/documentation/show/?' + fullPath;
-
 			jQuery.ajax({
-				url : '/documentation/show/?' + fullPath,
-				success: function(response, status) {
+				url : '{{ uri.base.path }}documentation/show/?' + fullPath,
+				beforeSend: function() {
+					$('#spinner').show();
+				},
+				success: function(response) {
 					if(response.error)
 					{
-						jQuery('#docuContainer').html(response.error);
+						jQuery('#docuContainer').html(tmpl("tplDocuError", response));
 					}
 					else
 					{
 						jQuery('#docuContainer').html(tmpl("tplDocuPage", response));
-						window.history.pushState({},'', '/documentation/view/?' + fullPath);
+						window.history.pushState({},'', '{{ uri.base.path }}documentation/view/?' + fullPath);
 					}
 				},
 				error: (function() {
 					alert('error..');
-				})
+				}),
+				complete: function(){
+					$('#spinner').hide();
+				}
 			});
 		}
 
 		$(document).ready(function() {
 			$('#filetree').fileTree({
 				root: '{{ docuBase }}',
-				script: '/filetree',
+				script: '{{ uri.base.path }}filetree',
 				multiFolder: false
 			}, function(fullPath) {
 				loadDocuPage(fullPath);

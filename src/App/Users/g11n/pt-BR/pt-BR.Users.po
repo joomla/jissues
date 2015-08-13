@@ -1,5 +1,5 @@
 # JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
-"PO-Revision-Date: 2014-11-13 16:48+0000\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2015-03-14 18:16+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/jtracker/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -85,19 +85,19 @@ msgstr "Usuários"
 msgid "Users List"
 msgstr "Lista de Usuários"
 
-#: /templates/users/users.index.twig:19 /templates/users/users.index.twig:69
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "Página %1$s de %2$s"
-
-#: /templates/users/users.index.twig:26 /templates/users/users.index.twig:29
-#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:25
 msgid "Filter the list by user."
 msgstr ""
 
-#: /templates/users/users.index.twig:35
+#: /templates/users/users.index.twig:30
 msgid "Clear"
 msgstr ""
+
+#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Página %1$s de %2$s"
 
 #: /templates/users/users.index.twig:42
 msgid "Username"
@@ -132,7 +132,11 @@ msgstr "Você não está autorizado a editar este usuário."
 msgid "You are not authorized to refresh this user."
 msgstr ""
 
-#: /src/App/Users/Controller/User/Refresh.php:70
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
 msgstr ""
 

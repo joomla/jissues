@@ -9,13 +9,13 @@
 namespace App\Tracker\Controller;
 
 use App\Projects\Table\LabelsTable;
-use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 
+use JTracker\Github\GithubFactory;
 use JTracker\Helper\IpHelper;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Date\Date;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
@@ -160,6 +160,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @todo    Should this be a TrackerProject object?
 	 */
 	protected function getProjectData()
 	{
@@ -228,8 +229,32 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		// Get a database object
 		$this->db = $this->getContainer()->get('db');
 
-		// Instantiate Github
-		$this->github = $this->getContainer()->get('gitHub');
+		// Get the payload data
+		$data = $this->getContainer()->get('app')->input->post->get('payload', null, 'raw');
+
+		if (!$data)
+		{
+			$this->logger->error('No data received.');
+			$this->getContainer()->get('app')->close();
+		}
+
+		// Decode it
+		$this->hookData = json_decode($data);
+
+		// Get the project data
+		$this->getProjectData();
+
+		// If we have a bot defined for the project, prefer it over the DI object
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+			);
+		}
+		else
+		{
+			$this->github = $this->getContainer()->get('gitHub');
+		}
 
 		// Check the request is coming from GitHub
 		$validIps = $this->github->meta->getMeta();
@@ -256,23 +281,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$this->getContainer()->get('app')->close();
 		}
 
-		// Get the payload data
-		$data = $this->getContainer()->get('app')->input->post->get('payload', null, 'raw');
-
-		if (!$data)
-		{
-			$this->logger->error('No data received.');
-			$this->getContainer()->get('app')->close();
-		}
-
-		$this->logger->info('Data received - ' . ($this->debug ? print_r($data, 1) : ''));
-
-		// Decode it
-		$this->hookData = json_decode($data);
-
-		// Get the project data
-		$this->getProjectData();
-
 		// Set up the event listener
 		$this->addEventListener();
 
@@ -297,25 +305,9 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
 	{
-		$data = array();
-
-		$date = new Date($dateTime);
-		$data['created_date'] = $date->format($this->db->getDateFormat());
-
-		$data['event'] = $event;
-		$data['user']  = $userName;
-
-		$data['project_id']    = (int) $projectId;
-		$data['issue_number']  = (int) $itemNumber;
-		$data['gh_comment_id'] = (int) $commentId;
-
-		$data['text']     = $text;
-		$data['text_raw'] = $textRaw;
-
 		try
 		{
-			$activity = new ActivitiesTable($this->db);
-			$activity->save($data);
+			(new ActivityModel($this->db))->addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId, $text, $textRaw);
 		}
 		catch (\Exception $exception)
 		{
@@ -372,7 +364,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 *
 	 * @param   integer  $issueId  Issue ID to process
 	 *
-	 * @return  string
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
@@ -447,15 +439,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$appLabelIds[] = $id;
 		}
 
-		// Return the array as a string
-		if (count($appLabelIds) === 0)
-		{
-			return '';
-		}
-		else
-		{
-			return implode(',', $appLabelIds);
-		}
+		return $appLabelIds;
 	}
 
 	/**

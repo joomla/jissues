@@ -111,6 +111,9 @@
                     <li class="{{ "logs/500" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/500">500</a>
                     </li>
+                    <li class="{{ "logs/app" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}logs/app">{{ "Application"|_ }}</a>
+                    </li>
                     <li class="{{ "logs/cron" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/cron">{{ "Cron Jobs"|_ }}</a>
                     </li>

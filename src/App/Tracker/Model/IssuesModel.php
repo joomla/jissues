@@ -8,10 +8,8 @@
 
 namespace App\Tracker\Model;
 
-use App\Projects\TrackerProject;
-
 use Joomla\Database\DatabaseQuery;
-use Joomla\String\String;
+use Joomla\String\StringHelper;
 
 use JTracker\Model\AbstractTrackerListModel;
 
@@ -30,48 +28,6 @@ class IssuesModel extends AbstractTrackerListModel
 	 * @since  1.0
 	 */
 	protected $context = 'tracker.issues';
-
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  \App\Projects\TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \RuntimeException('Project not set');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
-	}
 
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
@@ -116,13 +72,17 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$query->select(
 			'a.id, a.priority, a.issue_number, a.title, a.foreign_number, a.opened_date, a.status,
-			a.closed_date, a.modified_date, a.labels, a.merge_state'
+			a.closed_date, a.modified_date, a.labels, a.merge_state, a.opened_by'
 		);
 		$query->from($db->quoteName('#__issues', 'a'));
 
 		// Join over the status.
 		$query->select('s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
+
+		// Join over the users
+		$query->select('u.id AS user_id');
+		$query->leftJoin('#__users AS u ON a.opened_by = u.username');
 
 		// Process the state's filters
 		$query = $this->processStateFilter($query);
@@ -284,7 +244,7 @@ class IssuesModel extends AbstractTrackerListModel
 		$db = $this->getDb();
 
 		// Clean filter variable
-		$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+		$filter = $db->quote('%' . $db->escape(StringHelper::strtolower($filter), true) . '%', false);
 
 		// Check the author, title, and publish_up fields
 		$query->where(
@@ -371,7 +331,7 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter)
 		{
 			// Clean filter variable
-			$filter = $db->quote('%' . $db->escape(String::strtolower($filter), true) . '%', false);
+			$filter = $db->quote('%' . $db->escape(StringHelper::strtolower($filter), true) . '%', false);
 
 			$query->where($db->quoteName('a.opened_by') . ' LIKE ' . $filter);
 		}
@@ -381,7 +341,16 @@ class IssuesModel extends AbstractTrackerListModel
 		if ($filter && is_numeric($filter))
 		{
 			$categoryModel = new CategoryModel($db);
-			$issues        = $categoryModel->getIssueIdsByCategory($filter);
+
+			// If the category filter equals -1, that means we want issues without category.
+			if ($filter == -1)
+			{
+				$issues = $categoryModel->getIssueIdsWithCategory();
+			}
+			else
+			{
+				$issues = $categoryModel->getIssueIdsByCategory($filter);
+			}
 
 			if ($issues != null)
 			{
@@ -399,7 +368,15 @@ class IssuesModel extends AbstractTrackerListModel
 				$issueId = 0;
 			}
 
-			$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
+			// Handle the no category filter
+			if ($filter == -1)
+			{
+				$query->where($db->quoteName('a.id') . ' NOT IN (' . $issueId . ')');
+			}
+			else
+			{
+				$query->where($db->quoteName('a.id') . ' IN (' . $issueId . ')');
+			}
 		}
 
 		$filter = $this->state->get('filter.label');

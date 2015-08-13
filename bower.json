@@ -15,10 +15,12 @@
     "jquery-textrange": "1.1.0",
     "g11n-js": "1.1",
     "twbs-pagination": "1.1.2",
-    "bootstrap-select": "1.5.4",
+    "bootstrap-select": "1.6.4",
     "d3": "3.4.6",
     "jquery-simple-color": "1.2.1",
     "Caret.js": "0.2.0",
-    "jquery.atwho": "0.5.1"
+    "jquery.atwho": "0.5.1",
+    "semantic-ui-dropdown": "~1.10.3",
+    "semantic-ui-transition": "~1.10.4"
  }
 }

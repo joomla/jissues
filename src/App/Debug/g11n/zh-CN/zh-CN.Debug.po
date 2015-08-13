@@ -1,5 +1,5 @@
 # JTracker App Debug 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
 "PO-Revision-Date: 2014-07-23 04:02+0000\n"
 "Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
@@ -104,7 +104,7 @@ msgstr "文件(行)"
 msgid "String"
 msgstr "字符串"
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:74
 #, php-format
 msgid "No %s log file found."
 msgstr "未找到%s 日志文件"

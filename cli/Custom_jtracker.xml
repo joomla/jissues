@@ -51,4 +51,8 @@
         <name>update pulls</name>
         <help>Update pull requests on GitHub.</help>
     </command>
+    <command>
+        <name>update server</name>
+        <help>Updates the local installation to either a specified version or latest HEAD for the active branch.</help>
+    </command>
 </framework>

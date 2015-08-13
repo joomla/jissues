@@ -225,15 +225,24 @@
                     [% } %]
                     <br/>
                     <span class="list-issue-details">
+                        [% if (item.opened_by) { %]
+                            {{ 'Created by'|_ }}
+                            [% if (item.user_id) { %]
+                                <a href="{{ uri.base.path ~ 'user/' }}[%= item.user_id %]">[%= item.opened_by %]</a>
+                            [% } else { %]
+                                <a href="https://github.com/[%= item.opened_by %]">[%= item.opened_by %]</a>
+                            [% } %]
+                            &nbsp;&bull;&nbsp;
+                        [% } %]
                         {% if project.gh_user and project.gh_project %}
                           {{ 'GitHub ID'|_ }}
                           <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
                              target="_blank">
                              [%= item.issue_number %]
                           </a>
+                          &nbsp;&bull;&nbsp;
                         {% endif %}
                         [% if (item.foreign_number) { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Foreign ID'|_ }}
                             <a href="http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=[%= item.foreign_number %]"
                                target="_blank">
@@ -241,15 +250,14 @@
                             </a>
                         [% } %]
                         [% if (item.opened_date) { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Opened '|_ }} [%= item.opened_date %]
+                            &nbsp;&bull;&nbsp;
                         [% } %]
                         [% if (item.closed_status != '0') { %]
-                            &nbsp;&bull;&nbsp;
                             {{ 'Closed '|_ }} [%= item.closed_date %]
+                            &nbsp;&bull;&nbsp;
                         [% } %]
                         [% if (item.modified_date != '-0001-11-30') { %]
-                           &nbsp;&bull;&nbsp;
                             {{ 'Modified '|_ }} [%= item.modified_date %]
                         [% } %]
                     </span>
@@ -494,29 +502,60 @@
                     $('#issuesList tbody').animate({opacity: 1}, 100);
 
                     var categoryText = $('#filter-category option:selected').text();
+
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
 
+            // Replace non alpha numeric chars with dash
+            categoryText = categoryText.replace(/[\W_]+/g,'-');
+
+            // Remove the last dash if exists
+            if (categoryText.charAt(categoryText.length - 1) == '-')
+            {
+                categoryText = categoryText.slice(0, - 1);
+            }
+
+            // Process sorting
+            sort = parseInt(sort);
+            var sorting = '';
+
+            switch (sort) {
+                case 1 :
+                    sorting = 'sort=issue&direction=asc';
+                    break;
+                case 2 :
+                    sorting = 'sort=updated&direction=desc';
+                    break;
+                case 3 :
+                    sorting = 'sort=updated&direction=asc';
+                    break;
+                default :
+                    sorting = 'sort=issue&direction=desc';
+            }
+
+            stools[stools.length] = '' + sorting;
+
+            // Add other filters
             if (state != 0) { filters[filters.length] = 'state=' + state; }
 
             if (search) { stools[stools.length] = 'search=' + search }
             if (status != 0) { stools[stools.length] = 'status=' + status }
             if (priority != 0) { stools[stools.length] = 'priority=' + priority }
             if (user != 0) { stools[stools.length] = 'user=' + user }
-            if (sort != 0) { stools[stools.length] = 'sort=' + sort }
             if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
             if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }
+            if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
 
             permaLink += filters.length ? filters.join('&') + '&' : '';
 

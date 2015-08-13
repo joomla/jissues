@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
 "PO-Revision-Date: 2014-10-17 17:17+0000\n"
 "Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
@@ -98,11 +98,11 @@ msgstr "Ieșire"
 msgid "Documentation"
 msgstr "Documentaţie"
 
-#: /templates/support/documentation.index.twig:45
+#: /templates/support/documentation.index.twig:63
 msgid "Improve"
 msgstr "Îmbunătăţeşte"
 
-#: /templates/support/documentation.index.twig:46
+#: /templates/support/documentation.index.twig:64
 msgid "Permalink"
 msgstr "Permalink"
 

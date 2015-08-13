@@ -8,7 +8,7 @@
 
 namespace JTracker\Model;
 
-use App\Projects\TrackerProject;
+use App\Projects\ProjectAwareTrait;
 
 use Joomla\Model\AbstractDatabaseModel;
 use Joomla\Database\DatabaseDriver;
@@ -22,6 +22,8 @@ use JTracker\Database\AbstractDatabaseTable;
  */
 abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 {
+	use ProjectAwareTrait;
+
 	/**
 	 * The model (base) name
 	 *
@@ -45,14 +47,6 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 	 * @since  1.0
 	 */
 	protected $table;
-
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project;
 
 	/**
 	 * Instantiate the model.
@@ -146,39 +140,5 @@ abstract class AbstractTrackerDatabaseModel extends AbstractDatabaseModel
 		$this->table = new $class($this->getDb());
 
 		return $this->table;
-	}
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \UnexpectedValueException('Project not set');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
 	}
 }

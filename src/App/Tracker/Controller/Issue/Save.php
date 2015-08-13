@@ -29,12 +29,12 @@ class Save extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @throws \Exception
-	 * @throws \JTracker\Authentication\Exception\AuthenticationException
-	 *
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
+	 * @throws  \JTracker\Authentication\Exception\AuthenticationException
+	 * @throws  \RuntimeException
+	 * @throws  \UnexpectedValueException
 	 */
 	public function execute()
 	{
@@ -64,6 +64,17 @@ class Save extends AbstractTrackerController
 		{
 			// The user has full "edit" permission.
 			$data = $src;
+
+			// Allow admins to update labels and milestones
+			if (!$user->check('admin'))
+			{
+				if (!empty($item->labels))
+				{
+					$data['labels'] = explode(',', $item->labels);
+				}
+
+				$data['milestone_id'] = $item->milestone_id;
+			}
 		}
 		elseif($user->canEditOwn($item->opened_by))
 		{
@@ -74,12 +85,18 @@ class Save extends AbstractTrackerController
 			$data['description_raw'] = $src['description_raw'];
 
 			// Take the remaining values from the stored item
-			$data['status']          = $item->status;
-			$data['priority']        = $item->priority;
-			$data['build']           = $item->build;
-			$data['rel_number']      = $item->rel_number;
-			$data['rel_type']        = $item->rel_type;
-			$data['easy']            = $item->easy;
+			if (!empty($item->labels))
+			{
+				$data['labels'] = explode(',', $item->labels);
+			}
+
+			$data['status']       = $item->status;
+			$data['priority']     = $item->priority;
+			$data['build']        = $item->build;
+			$data['rel_number']   = $item->rel_number;
+			$data['rel_type']     = $item->rel_type;
+			$data['easy']         = $item->easy;
+			$data['milestone_id'] = $item->milestone_id;
 		}
 		else
 		{
@@ -89,32 +106,71 @@ class Save extends AbstractTrackerController
 
 		$gitHub = GithubFactory::getInstance($application);
 
+		// Check if the state has changed (e.g. open/closed)
+		$oldState = $model->getOpenClosed($item->status);
+		$state    = $model->getOpenClosed($data['status']);
+
+		// Project is managed on GitHub
 		if ($project->gh_user && $project->gh_project)
 		{
-			// Project is managed on GitHub
+			// @todo assignee
+			$assignee = null;
 
-			// Check if the state has changed (e.g. open/closed)
-			$oldState = $model->getOpenClosed($item->status);
-			$state    = $model->getOpenClosed($data['status']);
+			// Prepare labels
+			$ghLabels = [];
+
+			if (!empty($data['labels']))
+			{
+				foreach ($project->getLabels() as $id => $label)
+				{
+					if (in_array($id, $data['labels']))
+					{
+						$ghLabels[] = $label->name;
+					}
+				}
+			}
+
+			// Prepare milestone
+			$ghMilestone = null;
+
+			if (!empty($data['milestone_id']))
+			{
+				foreach ($project->getMilestones() as $milestone)
+				{
+					if ($milestone->milestone_id == $data['milestone_id'])
+					{
+						$ghMilestone = $milestone->milestone_number;
+					}
+				}
+			}
 
 			try
 			{
-				$this->updateGitHub($item->issue_number, $data, $state, $oldState);
+				$gitHubResponse = $this->updateGitHub(
+					$item->issue_number, $data, $state, $oldState, $assignee, $ghMilestone, $ghLabels
+				);
+
+				// Set the modified_date from GitHub (important!)
+				$data['modified_date'] = $gitHubResponse->updated_at;
 			}
 			catch (GithubException $exception)
 			{
-				// DEBUG - @todo remove in stable
-				$dump = [
-					'exception' => $exception->getCode() . ' ' . $exception->getMessage(),
-					'user' => $project->gh_user, 'project' => $project->gh_project,
-					'issueNo' => $item->issue_number,
-					'state' => $state, 'old_state' => $oldState,
-					'data' => $data
-				];
+				$this->getContainer()->get('app')->getLogger()->error(
+					sprintf(
+						'Error code %1$s received from GitHub when editing an issue with the following data:'
+						. ' GitHub User: %2$s; GitHub Repo: %3$s; Issue Number: %4$s; State: %5$s, Old state: %6$s'
+						. '  The error message returned was: %7$s',
+						$exception->getCode(),
+						$project->gh_user,
+						$project->gh_project,
+						$item->issue_number,
+						$state,
+						$oldState,
+						$exception->getMessage()
+					)
+				);
 
-				var_dump($dump);
-
-				die('Unrecoverable GitHub error - sry ;(');
+				throw new \RuntimeException('Invalid response from GitHub');
 			}
 
 			// Render the description text using GitHub's markdown renderer.
@@ -129,6 +185,8 @@ class Save extends AbstractTrackerController
 
 			// Render the description text using GitHub's markdown renderer.
 			$data['description'] = $gitHub->markdown->render($src['description_raw'], 'markdown');
+
+			$data['modified_date'] = (new Date)->format($this->getContainer()->get('db')->getDateFormat());
 		}
 
 		try
@@ -147,6 +205,11 @@ class Save extends AbstractTrackerController
 
 				$categoryModel->updateCategory($category);
 			}
+
+			// Pass the old and new states into the save method
+			$data['old_state'] = $oldState;
+			$data['new_state'] = $state;
+
 			// Save the record.
 			$model->save($data);
 
@@ -158,7 +221,7 @@ class Save extends AbstractTrackerController
 				$project = $application->getProject();
 
 				$comment .= sprintf(
-					'<br /><br />*This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.*',
+					'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
 					'https://github.com/joomla/jissues', 'J!Tracker',
 					$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
 					str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
@@ -178,7 +241,7 @@ class Save extends AbstractTrackerController
 
 					if (!isset($gitHubResponse->id))
 					{
-						throw new \Exception('Invalid response from GitHub');
+						throw new \RuntimeException('Invalid response from GitHub');
 					}
 
 					$data->created_at = $gitHubResponse->created_at;
@@ -224,7 +287,7 @@ class Save extends AbstractTrackerController
 				'/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber
 			);
 		}
-		catch (\Exception $exception)
+		catch (\RuntimeException $exception)
 		{
 			$application->enqueueMessage($exception->getMessage(), 'error');
 
@@ -249,16 +312,18 @@ class Save extends AbstractTrackerController
 	 * @param   array    $data         The issue data.
 	 * @param   string   $state        The issue state (either 'open' or 'closed).
 	 * @param   string   $oldState     The previous issue state.
+	 * @param   string   $assignee     The login for the GitHub user that this issue should be assigned to.
+	 * @param   integer  $milestone    The milestone to associate this issue with.
+	 * @param   array    $labels       The labels to associate with this issue.
 	 *
-	 * @throws \Exception
-	 * @throws \JTracker\Github\Exception\GithubException
+	 * @throws  \JTracker\Github\Exception\GithubException
+	 * @throws  \RuntimeException
 	 *
-	 *
-	 * @return  $this
+	 * @return  object  The issue data
 	 *
 	 * @since   1.0
 	 */
-	private function updateGitHub($issueNumber, array $data, $state, $oldState)
+	private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, $labels)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
@@ -267,11 +332,87 @@ class Save extends AbstractTrackerController
 
 		try
 		{
-			// Try to update the project on GitHub using thew current user credentials
-			$gitHubResponse = GithubFactory::getInstance($application)->issues->edit(
+			// Try to perform the action on behalf of current user
+			$gitHub = GithubFactory::getInstance($application);
+
+			// Look if we have a bot user configured
+			if ($project->getGh_Editbot_User() && $project->getGh_Editbot_Pass())
+			{
+				// Try to perform the action on behalf of an authorized bot
+				$gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
+			}
+		}
+		catch (\RuntimeException $exception)
+		{
+			throw new \RuntimeException('Error retrieving an instance of the Github object');
+		}
+
+		try
+		{
+			$gitHubResponse = $gitHub->issues->edit(
 				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw']
+				$issueNumber, $state, $data['title'], $data['description_raw'],
+				$assignee, $milestone, $labels
 			);
+
+			$needUpdate = false;
+			$isAllowed  = $application->getUser()->check('admin');
+
+			// The milestone and labels are silently dropped,
+			// so try to update the milestone and/or labels if they are not set.
+			if ((!empty($milestone) && empty($gitHubResponse->milestone)
+				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+			{
+				$needUpdate = true;
+			}
+			else
+			{
+				// Allow only specific group to reset milestone
+				if (!empty($gitHubResponse->milestone) && $isAllowed)
+				{
+					$milestone = '';
+					$needUpdate = true;
+				}
+			}
+
+			if (!empty($labels))
+			{
+				if (empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+
+				if (!empty($gitHubResponse->labels))
+				{
+					foreach ($gitHubResponse->labels as $ghLabel)
+					{
+						// If labels differ then need to update
+						if (!in_array($ghLabel->name, $labels))
+						{
+							$needUpdate = true;
+
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				// Allow only specific group to reset labels
+				if (!empty($gitHubResponse->labels) && $isAllowed)
+				{
+					$needUpdate = true;
+				}
+			}
+
+			if ($needUpdate && isset($gitHubBot))
+			{
+				$gitHubBot->issues->edit(
+					$project->gh_user, $project->gh_project,
+					$gitHubResponse->number, 'open', $data['title'], $data['description_raw'],
+					$assignee, $milestone, $labels
+				);
+			}
 		}
 		catch (GithubException $exception)
 		{
@@ -281,20 +422,73 @@ class Save extends AbstractTrackerController
 				throw $exception;
 			}
 
-			// Look if we have a bot user configured.
-			if (!$project->getGh_Editbot_User() || !$project->getGh_Editbot_Pass())
+			if (!isset($gitHubBot))
 			{
 				throw $exception;
 			}
 
-			// Try to perform the action on behalf of an authorized bot.
-			$gitHubBot = GithubFactory::getInstance($application, true, $project->getGh_Editbot_User(), $project->getGh_Editbot_Pass());
-
-			// Update the project on GitHub
 			$gitHubResponse = $gitHubBot->issues->edit(
 				$project->gh_user, $project->gh_project,
-				$issueNumber, $state, $data['title'], $data['description_raw']
+				$issueNumber, $state, $data['title'], $data['description_raw'],
+				$assignee, $milestone, $labels
 			);
+
+			$needUpdate = false;
+
+			// The milestone and labels are silently dropped,
+			// so try to update the milestone and/or labels if they are not set.
+			if ((!empty($milestone) && empty($gitHubResponse->milestone)
+				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+			{
+				$needUpdate = true;
+			}
+			else
+			{
+				if (!empty($gitHubResponse->milestone))
+				{
+					$milestone = '';
+					$needUpdate = true;
+				}
+			}
+
+			if (!empty($labels))
+			{
+				if (empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+
+				if (!empty($gitHubResponse->labels))
+				{
+					foreach ($gitHubResponse->labels as $ghLabel)
+					{
+						// If labels differ then need to update
+						if (!in_array($ghLabel->name, $labels))
+						{
+							$needUpdate = true;
+
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				if (!empty($gitHubResponse->labels))
+				{
+					$needUpdate = true;
+				}
+			}
+
+			// Try to update the milestone and/or labels
+			if ($needUpdate)
+			{
+				$gitHubBot->issues->edit(
+					$project->gh_user, $project->gh_project,
+					$gitHubResponse->number, 'open', $data['title'], $data['description_raw'],
+					$assignee, $milestone, $labels
+				);
+			}
 
 			// Add a comment stating that this action has been performed by a MACHINE !!
 			// (only if the "state" has changed - open <=> closed)
@@ -314,7 +508,7 @@ class Save extends AbstractTrackerController
 					)
 				);
 
-				$gitHubBot->issues->comments->create(
+				$gitHub->issues->comments->create(
 					$project->gh_user, $project->gh_project,
 					$issueNumber, $body
 				);
@@ -323,9 +517,9 @@ class Save extends AbstractTrackerController
 
 		if (!isset($gitHubResponse->id))
 		{
-			throw new \Exception('Invalid response from GitHub');
+			throw new \RuntimeException('Invalid response from GitHub');
 		}
 
-		return $this;
+		return $gitHubResponse;
 	}
 }

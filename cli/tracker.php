@@ -55,7 +55,7 @@ catch (\Exception $e)
 	{
 		// The language library has not been loaded yet :(
 		echo "\n\n"
-			. 'ERROR: %s' . $e->getMessage()
+			. 'ERROR: ' . $e->getMessage()
 			. "\n\n"
 			. 'Call stack:' . "\n"
 			. str_replace(JPATH_ROOT, 'JPATH_ROOT', $e->getTraceAsString());

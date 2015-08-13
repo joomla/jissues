@@ -14,11 +14,6 @@
 
     <h2>{{ "Users List"|_ }}</h2>
 
-    {% if pagination.pagesTotal > 1 %}
-        {{ pagination.bar|raw }}
-        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
-    {% endif %}
-
     <form id="filtersForm" class="form-inline form-search" action="{{ uri.route }}">
         <div class="filters btn-toolbar clearfix">
             <div class="filter-search btn-group input-append">
@@ -36,6 +31,11 @@
             </div>
         </div>
     </form>
+
+    {% if pagination.pagesTotal > 1 %}
+        {{ pagination.bar|raw }}
+        {{ sprintf(translate("Page %1$s of %2$s"), pagination.pageNo, pagination.pagesTotal) }}
+    {% endif %}
 
     <table class="table table-bordered table-hover">
         <tr>

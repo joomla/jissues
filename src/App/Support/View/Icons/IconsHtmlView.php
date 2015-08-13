@@ -46,6 +46,21 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 
 		$this->renderer->set('icons', array_unique($icons));
 
+		// Read octicons
+		$lines = file(JPATH_THEMES . '/fonts/octicons/octicons.css');
+
+		$icons = array();
+
+		foreach ($lines as $line)
+		{
+			if (preg_match('/.(octicon-[a-z0-9\-]+)/', $line, $matches))
+			{
+				$icons[] = $matches[1];
+			}
+		}
+
+		$this->renderer->set('octicons', array_unique($icons));
+
 		return parent::render();
 	}
 }

@@ -12,6 +12,7 @@ use App\Tracker\Table\ActivitiesTable;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
+use Joomla\Date\Date;
 use Joomla\Filter\InputFilter;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
@@ -81,6 +82,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the milestones table
 				->select('m.title AS milestone_title')
 				->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = i.milestone_id')
+
+				// Join over the users
+				->select('u.id AS user_id')
+				->leftJoin('#__users AS u ON i.opened_by = u.username')
 		)->loadObject();
 
 		if (!$item)
@@ -229,13 +234,14 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   integer  $itemId    The item number
 	 * @param   string   $username  The user name
 	 *
-	 * @return integer
+	 * @return  null|integer  Null - the test was not submitted,
+	 *                        integer - the value of test: 0 - not tested; 1 - tested successfully; 2 - tested unsuccessfully
 	 *
 	 * @since   1.0
 	 */
 	public function getUserTest($itemId, $username)
 	{
-		return (int) $this->db->setQuery(
+		return $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('result')
 				->from($this->db->quoteName('#__issues_tests'))
@@ -370,9 +376,50 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'raw');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
-		$data['easy']            = $filter->clean($src['easy'], 'int');
-		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
-		$data['milestone_id']    = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
+
+		if (isset($src['easy']))
+		{
+			$data['easy'] = $filter->clean($src['easy'], 'int');
+		}
+
+		if (isset($src['modified_date']))
+		{
+			$data['modified_date'] = $filter->clean($src['modified_date'], 'string');
+		}
+
+		$data['modified_by']  = $filter->clean($src['modified_by'], 'string');
+		$data['milestone_id'] = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
+
+		$state        = $src['new_state'];
+		$changedState = $src['old_state'] != $src['new_state'];
+
+		// If the item has moved from open to closed, add the close data
+		if ($state == 'closed' && $changedState)
+		{
+			$data['closed_date'] = (new Date)->format($this->getDb()->getDateFormat());
+			$data['closed_by']   = $data['modified_by'];
+		}
+
+		// If the item has moved from closed to open, remove the close data
+		if ($state == 'open' && $changedState)
+		{
+			$data['closed_date'] = null;
+			$data['closed_by']   = null;
+		}
+
+		$data['labels'] = null;
+
+		if (!empty($src['labels']))
+		{
+			$labels = [];
+
+			foreach ($src['labels'] as $labelId)
+			{
+				$labels[] = (int) $labelId;
+			}
+
+			$data['labels'] = implode(',', $labels);
+		}
 
 		if (!$data['id'])
 		{

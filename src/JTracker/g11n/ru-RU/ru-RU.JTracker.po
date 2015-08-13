@@ -1,23 +1,23 @@
 # JTracker Core JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Dmitry Rekun, 2014
+# Dmitry Rekun, 2014-2015
 # Иван, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
-"PO-Revision-Date: 2014-10-01 01:54+0000\n"
-"Last-Translator: Иван\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
+"PO-Revision-Date: 2015-02-27 07:28+0000\n"
+"Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: /src/JTracker/Pagination/TrackerPagination.php:221
 #: /src/JTracker/Pagination/TrackerPagination.php:226
@@ -29,120 +29,136 @@ msgstr "След."
 msgid "Last"
 msgstr "В конец"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:228
+#: /src/JTracker/View/Renderer/TrackerExtension.php:230
 msgid "Critical"
 msgstr "Критичный"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:229
+#: /src/JTracker/View/Renderer/TrackerExtension.php:231
 msgid "Urgent"
 msgstr "Срочный"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:230
+#: /src/JTracker/View/Renderer/TrackerExtension.php:232
 msgid "Medium"
 msgstr "Средний"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:231
+#: /src/JTracker/View/Renderer/TrackerExtension.php:233
 msgid "Low"
 msgstr "Низкий"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:232
+#: /src/JTracker/View/Renderer/TrackerExtension.php:234
 msgid "Very low"
 msgstr "Очень низкий"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:318
+#: /src/JTracker/View/Renderer/TrackerExtension.php:278
+msgid "Duplicate of"
+msgstr "Дубль"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:279
+msgid "Related to"
+msgstr "Относится к"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:280
+msgid "Not before"
+msgstr "Не до"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:281
+msgid "Pull Request for"
+msgstr "Pull Request для"
+
 #: /src/JTracker/View/Renderer/TrackerExtension.php:341
+#: /src/JTracker/View/Renderer/TrackerExtension.php:364
 msgid "New"
 msgstr "Новое"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:319
 #: /src/JTracker/View/Renderer/TrackerExtension.php:342
+#: /src/JTracker/View/Renderer/TrackerExtension.php:365
 msgid "Confirmed"
 msgstr "Подтверждено"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:320
 #: /src/JTracker/View/Renderer/TrackerExtension.php:343
-#: /src/JTracker/View/Renderer/TrackerExtension.php:592
+#: /src/JTracker/View/Renderer/TrackerExtension.php:366
+#: /src/JTracker/View/Renderer/TrackerExtension.php:615
 msgid "Pending"
 msgstr "В процессе"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:321
 #: /src/JTracker/View/Renderer/TrackerExtension.php:344
+#: /src/JTracker/View/Renderer/TrackerExtension.php:367
 msgid "Ready To Commit"
 msgstr "Готово к коммиту"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:322
 #: /src/JTracker/View/Renderer/TrackerExtension.php:345
+#: /src/JTracker/View/Renderer/TrackerExtension.php:368
 msgid "Needs Review"
 msgstr "Требуется ревью"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:323
 #: /src/JTracker/View/Renderer/TrackerExtension.php:346
+#: /src/JTracker/View/Renderer/TrackerExtension.php:369
 msgid "Information Required"
 msgstr "Необходима информация"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:329
-#: /src/JTracker/View/Renderer/TrackerExtension.php:347
+#: /src/JTracker/View/Renderer/TrackerExtension.php:352
+#: /src/JTracker/View/Renderer/TrackerExtension.php:370
 msgid "Fixed in Code Base"
 msgstr "Исправлено в коде"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:330
-#: /src/JTracker/View/Renderer/TrackerExtension.php:348
+#: /src/JTracker/View/Renderer/TrackerExtension.php:353
+#: /src/JTracker/View/Renderer/TrackerExtension.php:371
 msgid "Unconfirmed Report"
 msgstr "Не подтверждено"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:331
-#: /src/JTracker/View/Renderer/TrackerExtension.php:349
+#: /src/JTracker/View/Renderer/TrackerExtension.php:354
+#: /src/JTracker/View/Renderer/TrackerExtension.php:372
 msgid "No Reply"
 msgstr "Нет ответа"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:332
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
+#: /src/JTracker/View/Renderer/TrackerExtension.php:355
+#: /src/JTracker/View/Renderer/TrackerExtension.php:373
 msgid "Closed"
 msgstr "Закрыто"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:333
-#: /src/JTracker/View/Renderer/TrackerExtension.php:351
+#: /src/JTracker/View/Renderer/TrackerExtension.php:356
+#: /src/JTracker/View/Renderer/TrackerExtension.php:374
 msgid "Expected Behaviour"
 msgstr "Ожидаемое поведение"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:334
-#: /src/JTracker/View/Renderer/TrackerExtension.php:352
+#: /src/JTracker/View/Renderer/TrackerExtension.php:357
+#: /src/JTracker/View/Renderer/TrackerExtension.php:375
 msgid "Known Issue"
 msgstr "Известная проблема"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:335
-#: /src/JTracker/View/Renderer/TrackerExtension.php:353
+#: /src/JTracker/View/Renderer/TrackerExtension.php:358
+#: /src/JTracker/View/Renderer/TrackerExtension.php:376
 msgid "Duplicate Report"
 msgstr "Дубликат отчета"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:527
+#: /src/JTracker/View/Renderer/TrackerExtension.php:550
 msgid "No"
 msgstr "Нет"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:527
+#: /src/JTracker/View/Renderer/TrackerExtension.php:550
 msgid "Yes"
 msgstr "Да"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:589
+#: /src/JTracker/View/Renderer/TrackerExtension.php:612
 msgid "Success"
 msgstr "Успешно"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:595
+#: /src/JTracker/View/Renderer/TrackerExtension.php:618
 msgid "Error"
 msgstr "Ошибка"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:598
+#: /src/JTracker/View/Renderer/TrackerExtension.php:621
 msgid "Failure"
 msgstr "Неудача"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:662
+#: /src/JTracker/View/Renderer/TrackerExtension.php:685
 msgid "Not tested"
 msgstr "Не тестировано"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:663
+#: /src/JTracker/View/Renderer/TrackerExtension.php:686
 msgid "Tested successfully"
 msgstr "Протестировано успешно"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:664
+#: /src/JTracker/View/Renderer/TrackerExtension.php:687
 msgid "Tested unsuccessfully"
 msgstr "Протестировано неудачно "

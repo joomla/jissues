@@ -53,6 +53,16 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 		}
 		catch (\Exception $e)
 		{
+			// Log the error
+			$this->getContainer()->get('app')->getLogger()->critical(
+				sprintf(
+					'Exception of type %1$s thrown with message %2$s',
+					get_class($e),
+					$e->getMessage()
+				),
+				['trace' => $e->getTraceAsString()]
+			);
+
 			$this->response->error = $e->getMessage();
 		}
 
@@ -66,6 +76,20 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 		$this->getContainer()->get('app')->mimeType = 'application/json';
 
 		return json_encode($this->response);
+	}
+
+	/**
+	 * Allows setting the status header into the application
+	 *
+	 * @param   int  $code  The status code to set into the application
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setStatusCode($code = 200)
+	{
+		$this->getContainer()->get('app')->setHeader('Status', (int) $code);
 	}
 
 	/**

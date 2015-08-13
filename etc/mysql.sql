@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
 
 -- --------------------------------------------------------
 
--- --
+--
 -- Table structure for table `#__tracker_milestones`
 --
 
@@ -129,7 +129,8 @@ CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
 INSERT INTO `#__issues_relations_types` (`id`, `name`) VALUES
 (1, 'duplicate_of'),
 (2, 'related_to'),
-(3, 'not_before');
+(3, 'not_before'),
+(4, 'pr_for');
 
 --
 -- Table structure for table `#__issues_tests`
@@ -157,8 +158,8 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `project_id` int(11) unsigned DEFAULT NULL COMMENT 'Project id',
   `milestone_id` int(11) unsigned DEFAULT NULL COMMENT 'Milestone id if applicable',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
-  `description` mediumtext NOT NULL COMMENT 'Issue description',
-  `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
+  `description` mediumtext CHARACTER SET utf8mb4 NOT NULL COMMENT 'Issue description',
+  `description_raw` mediumtext CHARACTER SET utf8mb4 NOT NULL COMMENT 'The raw issue description (markdown)',
   `priority` tinyint(4) NOT NULL DEFAULT 3 COMMENT 'Issue priority',
   `status` int(11) unsigned NOT NULL DEFAULT 1 COMMENT 'Issue status',
   `opened_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue open date',
@@ -184,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   KEY `issue_number` (`issue_number`),
   KEY `project_id` (`project_id`),
   KEY `milestone_id` (`milestone_id`,`project_id`),
+  UNIQUE `issue_project_index`(`issue_number`, `project_id`),
   CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
   CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
@@ -202,8 +204,8 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `project_id` int(11) NOT NULL COMMENT 'The Project id',
   `user` varchar(255) NOT NULL DEFAULT '' COMMENT 'The user name',
   `event` varchar(32) NOT NULL COMMENT 'The event type',
-  `text` mediumtext NULL COMMENT 'The event text',
-  `text_raw` mediumtext NULL COMMENT 'The raw event text',
+  `text` mediumtext CHARACTER SET utf8mb4 NULL COMMENT 'The event text',
+  `text_raw` mediumtext CHARACTER SET utf8mb4 NULL COMMENT 'The raw event text',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
@@ -386,6 +388,6 @@ CREATE TABLE `#__issue_category_map` (
   PRIMARY KEY (`id`),
   KEY `issue_id` (`issue_id`),
   KEY `category_id` (`category_id`),
-  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`),
+  CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

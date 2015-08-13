@@ -69,10 +69,10 @@
         </li>
 
         {% if item.closed %}
-            <li>{{ item.closed_date|date("j M y") }}</li>
+            <li>{{ item.closed_date|date("j M Y", offset) }}</li>
             <!-- @todo SHA link -->
             {% if item.closed_sha %}
-                <li>SHA: {{ item.closed_sha }}</li>
+                <li>SHA: <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ item.closed_sha }}">{{ item.closed_sha }}</a></li>
             {% endif %}
         {% endif %}
 
@@ -129,7 +129,7 @@
             {% if item.has_code %}
                 <li>
                     &nbsp;
-                    <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
+                    <a href="https://patch-diff.githubusercontent.com/raw/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/pull/' ~ item.issue_number }}.diff"
                        target="_blank" title="{{ 'View a plain diff for this pull request'|_ }}">
                         <span class="octicon octicon-diff"></span>
                         {{ 'Diff'|_ }}
@@ -138,14 +138,22 @@
             {% endif %}
 
             {% if item.pr_head_ref %}
-                <li>
-                    &nbsp;
-                    <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
-                       title="{{ 'Download this fork as a ZIP file'|_ }}">
+                {% if 'unknown_repository' == item.pr_head_user %}
+                    <li>
+                        &nbsp;
                         <span class="octicon octicon-repo-forked"></span>
-                        {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
-                    </a>
-                </li>
+                        unknown repository
+                    </li>
+                {% else %}
+                    <li>
+                        &nbsp;
+                        <a href="https://github.com/{{ item.pr_head_user ~ '/'  ~ project.gh_project ~ '/archive/' ~ item.pr_head_ref ~ '.zip' }}"
+                           title="{{ 'Download this fork as a ZIP file'|_ }}">
+                            <span class="octicon octicon-repo-forked"></span>
+                            {{ item.pr_head_user ~ ':' ~ item.pr_head_ref }}
+                        </a>
+                    </li>
+                {% endif %}
             {% endif %}
 
         {% endif %}
@@ -202,7 +210,7 @@
 <!-- Relations -->
     {% if item.rel_number %}
         <div class="alert">
-            {{ item.rel_name }}
+            {{ relation(item.rel_name) }}
             {{ issueLink(item.rel_number, item.rel_closed, item.rel_title)|raw }}
         </div>
     {% endif %}
@@ -211,7 +219,7 @@
         <div class="alert">
             {{ "Referenced as"|_ }}
             {% for rel_name, relations in item.relations_f %}
-                <strong>{{ rel_name }}: </strong>
+                <strong>{{ relation(rel_name) }}: </strong>
                 {% for relation in relations %}
                     {{ issueLink(relation.issue_number, relation.closed, relation.title)|raw }}
               {% endfor %}
@@ -233,17 +241,30 @@
     <div class="row-fluid">
         <div class="span2 well-small user-wrapper">
             {{ avatar(item.opened_by, '', 'avatar')|raw }}<br />
-            <span class="icon-github"></span> {{ item.opened_by }}<br />
-            <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y") }}
+            {% if item.user_id %}
+                <span class="icon-user"></span>
+                <a href="{{ uri.base.path ~ 'user/' ~ item.user_id}}">{{ item.opened_by }}</a>
+            {% else %}
+                <span class="icon-github"></span>
+                <a href="https://github.com/{{ item.opened_by }}" target="_blank">{{ item.opened_by }}</a>
+            {% endif %}<br />
+            <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y", offset) }}
         </div>
 
-        <div class="span7 well-small issue-description">
+        {% if item.votes or user.id or item.has_code %}
+            {% set mainClass = 'span7' %}
+        {% else %}
+            {% set mainClass = 'span10' %}
+        {% endif %}
+
+        <div class="{{ mainClass }} well-small issue-description">
             {{ item.description|raw }}
         </div>
 
+        {% if item.votes or user.id or item.has_code %}
         <div class="span3 well">
 
-            {% if item.votes or user.id%}
+            {% if item.votes or user.id %}
             <h4>{{ 'Votes'|_ }}</h4>
             {% endif %}
 
@@ -331,19 +352,19 @@
                         <ul class="unstyled">
                             <li>
                                 <label class="radio">
-                                    <input type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
                                     {{ "Not tested"|_ }}
                                 </label>
                             </li>
                             <li>
                                 <label class="radio tests-success">
-                                    <input type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
                                     {{ "Tested successfully"|_ }}
                                 </label>
                             </li>
                             <li>
                                 <label class="radio tests-fail">
-                                    <input type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                    <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
                                     {{ "Tested unsuccessfully"|_ }}
                                 </label>
                             </li>
@@ -381,6 +402,7 @@
 
             {% endif %}
         </div>
+        {% endif %}
     </div>
 
     <!-- Activity stream -->
@@ -398,7 +420,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     - <span class="tests-{{ change }}">{{ userTestOptions(change) }}</span>
                 </div>
             {% elseif 'alter_testresult' == activity.event %}
@@ -408,7 +430,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     - <b>{{ change.user }}</b>: <span class="tests-{{ change.value }}">{{ userTestOptions(change.value) }}</span>
                 </div>
             {% elseif 'commit' == activity.event %}
@@ -417,7 +439,7 @@
                         <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.activities_id }}">
                             {{ activity.activities_id|slice(0, 7) }}
                         </a>
-                        <span title="{{ activity.created_date|date("j M Y H:i:s") }}">{{ activity.created_date|date("j M y") }} <i class="icon-calendar" style="cursor: help"></i></span>
+                        <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}">{{ activity.created_date|date("j M Y", offset) }} <i class="icon-calendar" style="cursor: help"></i></span>
                     </span>
                     <i class="octicon octicon-git-commit" title="{{ 'Git commit' }}"></i>
                     <span title="{{ activity.user }}">
@@ -427,13 +449,44 @@
                         {{ activity.text }}
                     </a>
                 </div>
+            {% elseif 'assigned' == activity.event or 'unassigned' == activity.event %}
+                <div class="offset1 span9 activity-action">
+                    <i class="octicon octicon-person"></i>
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                </div>
+            {% elseif 'reference' == activity.event %}
+                <div class="offset1 span9 activity-action">
+                    <i class="octicon octicon-git-commit"></i>
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    | <a href="https://github.com/{{ project.gh_user ~ '/' ~ project.gh_project ~ '/commit/' ~ activity.text }}">
+                        {{ activity.text|slice(0, 7) }}
+                    </a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                </div>
+            {% elseif 'locked' == activity.event or 'unlocked' == activity.event %}
+                <div class="offset1 span9 activity-action">
+                    {% if 'locked' == activity.event %}
+                        <i class="octicon octicon-lock"></i>
+                    {% elseif 'unlocked' == activity.event %}
+                        <i class="octicon octicon-key"></i>
+                    {% endif %}
+                    {{ avatar(activity.user, 20, 'avatar')|raw }}
+                    <b>{{ activity.user }}</b>
+                    - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                </div>
             {% elseif 'change' == activity.event %}
                 <div class="offset1 span9 activity-action">
                     <i class="octicon octicon-gear"></i>
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                 </div>
                 <div class="row-fluid">
                     <div class="offset1 span9">
@@ -460,8 +513,10 @@
                                     {{ activities.easy(change.old, change.new) }}
                                 {% elseif 'rel_type' == change.name %}
                                     {{ activities.relationType(change.old, change.new) }}
-                                {% elseif "category" == change.name %}
+                                {% elseif 'category' == change.name %}
                                     {{ activities.category(change.old, change.new) }}
+                                {% elseif 'milestone_id' == change.name %}
+                                    {{ activities.milestone(change.old, change.new) }}
                                 {% else %}
                                     {{ activities.change(change.name, change.old, change.new) }}
                                 {% endif %}
@@ -481,7 +536,7 @@
                     <div class="well well-small">
                         <b>{{ activity.user }}</b>
                         - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                        - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                        - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                     </div>
                     <div style="margin: 10px;">
                         {{ activity.text|raw }}
@@ -493,7 +548,7 @@
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
                     <b>{{ activity.user }}</b>
                     - <a href="/{{ uri.route }}#event-{{ activity.activities_id }}">{{ activity.event }}</a>
-                    - <span title="{{ activity.created_date|date("j M Y H:i:s") }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M y") }}</span>
+                    - <span title="{{ activity.created_date|date("j M Y H:i:s", offset) }}"><i class="icon-calendar"></i>{{ activity.created_date|date("j M Y", offset) }}</span>
                 </div>
             {% endif %}
             </div>
@@ -522,13 +577,51 @@
                     {% include "editor.twig" %}
                 </div>
             </div>
-            <div class="pull-right comment-wrapper">
-                <div id="commentStatus"></div>
-                <a href="javascript:" class="btn btn-success"
-                   onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
-                    {{ "Post Comment"|_ }}
-                </a>
+            <div class="row-fluid">
+                {% if item.has_code %}
+                    <ul class="test-results offset1 unstyled inline">
+                        <li>
+                            <label class="radio">
+                                {% if (item.userTest is not null and item.userTest == 0) %}
+                                    {% set checked = ' checked="checked"' %}
+                                {% else %}
+                                    {% set checked = '' %}
+                                {% endif %}
+                                <input id="comment-test-result-0" class="comment-test-result" type="radio" name="comment-tested" value="0"{{ checked }}>
+                                {{ "Not tested"|_ }}
+                            </label>
+                        </li>
+                        <li>
+                            <label class="radio tests-success">
+                                <input id="comment-test-result-1" class="comment-test-result" type="radio" name="comment-tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                                {{ "Tested successfully"|_ }}
+                            </label>
+                        </li>
+                        <li>
+                            <label class="radio tests-fail">
+                                <input id="comment-test-result-2" class="comment-test-result" type="radio" name="comment-tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                                {{ "Tested unsuccessfully"|_ }}
+                            </label>
+                        </li>
+                    </ul>
+
+                    {% set testResult = '' %}
+                    {% if (item.userTest) %}
+                        {% set testResult = item.userTest %}
+                    {% endif %}
+                    <input id="current-test-result" type="hidden" value="{{ testResult }}">
+                    <input id="issue-id" type="hidden" value="{{ item.id }}">
+                {% endif %}
+
+                <div class="pull-right comment-wrapper">
+                    <div id="commentStatus"></div>
+                    <a href="javascript:" class="btn btn-success"
+                       onclick="JTracker.submitComment('{{ item.issue_number }}', '#commentStatus', '#newComment', 'tplNewComment');">
+                        {{ "Post Comment"|_ }}
+                    </a>
+                </div>
             </div>
+
             <div class="row-fluid">
                 <div class="offset2 span10">
                     {% include "uploader.full.twig" %}
@@ -573,11 +666,12 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
+                    <i class="octicon octicon-person"></i>
                     {{ avatar(user.username, 20, 'avatar')|raw }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
                     - [%= o.created_date %]
-                    - [%= resultValues[o.text] %]
+                    - <span class="tests-[%= o.text %]">[%= resultValues[o.text] %]</span>
                 </div>
             </div>
         </div>
@@ -588,6 +682,7 @@
         <div id="event-[%= o.activities_id %]">
             <div class="row-fluid">
                 <div class="offset1 span11 activity-action">
+                    <i class="octicon octicon-eye"></i>
                     {{ avatar(user.username, 20, 'avatar')|raw }}
                     <b>{{ user.username }}</b>
                     - <a name="event-[%= o.activities_id %]" href="/{{ uri.route }}#event-[%= o.activities_id %]">[%= o.event %]</a>
@@ -607,7 +702,7 @@
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="{{ uri.base.path }}vendor/blueimp-load-image/js/load-image.min.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-load-image/js/load-image.all.min.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-process.js"></script>

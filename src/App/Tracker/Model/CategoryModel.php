@@ -13,7 +13,7 @@ use App\Tracker\Table\IssueCategoryMappingTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
-use Joomla\String\String;
+use Joomla\String\StringHelper;
 use Joomla\Date\Date;
 
 /**
@@ -173,7 +173,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		if ($alias)
 		{
-			$alias = $db->quote('%' . $db->escape(String::strtolower($alias), true) . '%', false);
+			$alias = $db->quote('%' . $db->escape(StringHelper::strtolower($alias), true) . '%', false);
 			$query->where($db->quoteName('alias') . ' LIKE ' . $alias);
 		}
 
@@ -337,6 +337,22 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 		$query->select('issue_id')->from('#__issue_category_map')->where('category_id = ' . (int) $categoryId);
+
+		return $db->setQuery($query)->loadObjectList();
+	}
+
+	/**
+	 * Get the distinct Issue ids with categories, returning the object list.
+	 *
+	 * @since    1.0
+	 *
+	 * @return   array  The object array of the issue ids.
+	 */
+	public function getIssueIdsWithCategory()
+	{
+		$db = $this->getDb();
+		$query = $db->getQuery(true);
+		$query->select('DISTINCT issue_id')->from('#__issue_category_map');
 
 		return $db->setQuery($query)->loadObjectList();
 	}

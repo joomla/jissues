@@ -1,5 +1,5 @@
 # JTracker App Debug 1.0.0-beta
-# Copyright (C) 2012 - 2014 JTracker
+# Copyright (C) 2012 - 2015 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 10:48-0600\n"
+"POT-Creation-Date: 2015-06-14 13:29-0500\n"
 "PO-Revision-Date: 2014-01-24 12:39+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/jtracker/language/ru_RU/)\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:104
 #, php-format
@@ -67,6 +67,7 @@ msgid_plural "%d database queries"
 msgstr[0] "Один запрос базы данных"
 msgstr[1] "%d запроса базы данных"
 msgstr[2] "%d запросов базы данных"
+msgstr[3] "%d запросов базы данных"
 
 #: /src/App/Debug/TrackerDebugger.php:389
 #, php-format
@@ -75,6 +76,7 @@ msgid_plural "%1$d untranslated strings of %2$d"
 msgstr[0] "Одна непереведенная строка из %2$d"
 msgstr[1] "%1$d непереведенных строки из %2$d"
 msgstr[2] "%1$d непереведенных строк из %2$d"
+msgstr[3] "%1$d непереведенных строк из %2$d"
 
 #: /src/App/Debug/TrackerDebugger.php:397
 #, php-format
@@ -83,6 +85,7 @@ msgid_plural "%d language files loaded"
 msgstr[0] "Загружен один языковой файл"
 msgstr[1] "Загружено %d языковых файла"
 msgstr[2] "Загружено %d языковых файлов"
+msgstr[3] "Загружено %d языковых файлов"
 
 #: /src/App/Debug/TrackerDebugger.php:408
 msgid "No Project"
@@ -110,7 +113,7 @@ msgstr "Файл (строка)"
 msgid "String"
 msgstr "Строка"
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:74
 #, php-format
 msgid "No %s log file found."
 msgstr "Лог файл %s не найден."

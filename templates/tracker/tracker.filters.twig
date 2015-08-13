@@ -47,7 +47,9 @@
 {% macro category(value, id, class, categories) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- categories -'|_} %}
+    {% set values = {0: '- categories -'|_,
+    (-1): 'No categories'|_
+    } %}
     {% for category in categories %}
         {% set values = values + { (category.id) : (category.title) } %}
     {% endfor %}
