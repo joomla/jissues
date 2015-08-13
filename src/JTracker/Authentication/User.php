@@ -9,6 +9,7 @@
 namespace JTracker\Authentication;
 
 use App\Projects\ProjectAwareTrait;
+use App\Projects\TrackerProject;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
