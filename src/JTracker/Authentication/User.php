@@ -8,7 +8,7 @@
 
 namespace JTracker\Authentication;
 
-use App\Projects\TrackerProject;
+use App\Projects\ProjectAwareTrait;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
@@ -24,6 +24,8 @@ use JTracker\Authentication\Exception\AuthenticationException;
  */
 abstract class User implements \Serializable
 {
+	use ProjectAwareTrait;
+
 	/**
 	 * Id.
 	 *
@@ -105,14 +107,6 @@ abstract class User implements \Serializable
 	protected $database = null;
 
 	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param   TrackerProject  $project     The tracker project.
@@ -124,7 +118,7 @@ abstract class User implements \Serializable
 	public function __construct(TrackerProject $project, DatabaseDriver $database, $identifier = 0)
 	{
 		$this->setDatabase($database);
-		$this->project  = $project;
+		$this->setProject($project);
 
 		// Create the user parameters object.
 		$this->params = new Registry;
@@ -323,7 +317,6 @@ abstract class User implements \Serializable
 			throw new \InvalidArgumentException('Undefined action: ' . $action);
 		}
 
-		/* @type \App\Projects\TrackerProject $project */
 		$project = $this->getProject();
 
 		if ($project->getAccessGroups($action, 'Public'))
@@ -408,24 +401,6 @@ abstract class User implements \Serializable
 	}
 
 	/**
-	 * Get the project.
-	 *
-	 * @return  \App\Projects\TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \UnexpectedValueException('Project not set.');
-		}
-
-		return $this->project;
-	}
-
-	/**
 	 * Method to set the database connector.
 	 *
 	 * @param   DatabaseDriver  $database  The Database connector.
@@ -437,22 +412,6 @@ abstract class User implements \Serializable
 	public function setDatabase(DatabaseDriver $database)
 	{
 		$this->database = $database;
-
-		return $this;
-	}
-
-	/**
-	 * Set the project object.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
 
 		return $this;
 	}
