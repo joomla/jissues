@@ -23,6 +23,10 @@
                     <i class="icon-eye"></i>
                     {{ "Show"|_ }}
                 </a>
+                <a href="{{ uri.base.path }}activity/{{ project.alias }}">
+                    <i class="icon-stats-growth"></i>
+                    {{ "Activity"|_ }}
+                </a>
             </li>
 
             {% if user.check("admin") %}
