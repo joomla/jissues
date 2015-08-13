@@ -8,8 +8,6 @@
 
 namespace App\Users\Model;
 
-use App\Projects\TrackerProject;
-
 use Joomla\Filter\InputFilter;
 
 use JTracker\Authentication\GitHub\GitHubUser;
@@ -24,14 +22,6 @@ use JTracker\Model\AbstractTrackerDatabaseModel;
 class UserModel extends AbstractTrackerDatabaseModel
 {
 	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project;
-
-	/**
 	 * Get an item.
 	 *
 	 * @param   integer  $itemId  The item id.
@@ -45,12 +35,12 @@ class UserModel extends AbstractTrackerDatabaseModel
 	{
 		try
 		{
-			$user = new GitHubUser($this->project, $this->db, $itemId);
+			$user = new GitHubUser($this->getProject(), $this->db, $itemId);
 		}
 		catch (\RuntimeException $e)
 		{
 			// Load a blank user
-			$user = new GitHubUser($this->project, $this->db);
+			$user = new GitHubUser($this->getProject(), $this->db);
 		}
 
 		return $user;
@@ -82,22 +72,6 @@ class UserModel extends AbstractTrackerDatabaseModel
 		$data['params'] = json_encode($src['params']);
 
 		(new TableUsers($this->db))->save($data);
-
-		return $this;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
 
 		return $this;
 	}

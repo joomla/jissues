@@ -8,7 +8,6 @@
 
 namespace App\Tracker\View\Issue;
 
-use App\Projects\TrackerProject;
 use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 
@@ -28,14 +27,6 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 	 * @since   1.0
 	 */
 	protected $model;
-
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
 
 	/**
 	 * Item object
@@ -69,40 +60,6 @@ class IssueHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('canEditOwn', $this->canEditOwn());
 
 		return parent::render();
-	}
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \RuntimeException('No project set.');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
 	}
 
 	/**

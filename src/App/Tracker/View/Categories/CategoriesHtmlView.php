@@ -8,10 +8,8 @@
 
 namespace App\Tracker\View\Categories;
 
-
 use JTracker\View\AbstractTrackerHtmlView;
 use App\Tracker\Model\CategoriesModel;
-use App\Projects\TrackerProject;
 
 /**
  * The category list view
@@ -27,14 +25,6 @@ class CategoriesHtmlView extends AbstractTrackerHtmlView
 	 * @since   1.0
 	 */
 	protected $model;
-
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
 
 	/**
 	 * Method to render the view.
@@ -53,39 +43,5 @@ class CategoriesHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('project', $this->getProject());
 
 		return parent::render();
-	}
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  TrackerProject
-	 *
-	 * @throws  \RuntimeException
-	 * @since   1.0
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \RuntimeException('No project set.');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
 	}
 }
