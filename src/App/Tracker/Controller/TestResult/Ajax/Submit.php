@@ -48,6 +48,8 @@ class Submit extends AbstractAjaxController
 			throw new \Exception('No issue ID received.');
 		}
 
+		$this->addEventListener('tests');
+
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
 		$data = new \stdClass;
@@ -60,6 +62,8 @@ class Submit extends AbstractAjaxController
 				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
 				json_encode($result)
 			);
+
+		$this->triggerEvent('onTestAfterSubmit', ['data' => $data->testResults]);
 
 		$data->event = new \stdClass;
 
