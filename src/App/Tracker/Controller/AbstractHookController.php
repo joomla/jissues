@@ -16,13 +16,9 @@ use JTracker\Github\GithubFactory;
 use JTracker\Helper\IpHelper;
 
 use Joomla\Database\DatabaseDriver;
-use Joomla\Event\Dispatcher;
-use Joomla\Event\Event;
-use Joomla\Github\Github;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
-use JTracker\Database\AbstractDatabaseTable;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -40,14 +36,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	use LoggerAwareTrait;
 
 	/**
-	 * The dispatcher object
-	 *
-	 * @var    Dispatcher
-	 * @since  1.0
-	 */
-	protected $dispatcher;
-
-	/**
 	 * The database object
 	 *
 	 * @var    DatabaseDriver
@@ -62,22 +50,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 * @since  1.0
 	 */
 	protected $hookData;
-
-	/**
-	 * Github instance
-	 *
-	 * @var    Github
-	 * @since  1.0
-	 */
-	protected $github;
-
-	/**
-	 * Flag if the event listener is set for a hook
-	 *
-	 * @var    boolean
-	 * @since  1.0
-	 */
-	protected $listenerSet = false;
 
 	/**
 	 * The project information of the project whose data has been received
@@ -102,29 +74,6 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 * @since  1.0
 	 */
 	protected $type = 'standard';
-
-	/**
-	 * Registers the event listener for the current hook and project
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function addEventListener()
-	{
-		/*
-		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
-		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
-		 */
-		$baseClass = ucfirst(str_replace('-', '', $this->project->gh_project)) . ucfirst($this->type) . 'Listener';
-		$fullClass = __NAMESPACE__ . '\\Hooks\\Listeners\\' . $baseClass;
-
-		if (class_exists($fullClass))
-		{
-			$this->dispatcher->addListener(new $fullClass);
-			$this->listenerSet = true;
-		}
-	}
 
 	/**
 	 * Checks if an issue exists
@@ -253,7 +202,9 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		else
 		{
-			$this->github = $this->getContainer()->get('gitHub');
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app')
+			);
 		}
 
 		// Check the request is coming from GitHub
@@ -282,7 +233,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 
 		// Set up the event listener
-		$this->addEventListener();
+		$this->addEventListener($this->type);
 
 		return $this;
 	}
@@ -514,38 +465,17 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	/**
 	 * Triggers an event if a listener is set
 	 *
-	 * @param   string                 $eventName  Name of the event to trigger
-	 * @param   AbstractDatabaseTable  $table      Table object
-	 * @param   array                  $optional   Associative array of optional arguments for the event
+	 * @param   string  $eventName  Name of the event to trigger
+	 * @param   array   $arguments  Associative array of arguments for the event.
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 */
-	protected function triggerEvent($eventName, AbstractDatabaseTable $table, array $optional = array())
+	public function triggerEvent($eventName, array $arguments)
 	{
-		if ($this->listenerSet)
-		{
-			$event = new Event($eventName);
+		$arguments['hookData'] = $this->hookData;
 
-			// Add the event params
-			$event->addArgument('hookData', $this->hookData)
-				->addArgument('table', $table)
-				->addArgument('github', $this->github)
-				->addArgument('logger', $this->logger)
-				->addArgument('project', $this->project);
-
-			// Add optional params if present
-			if (count($optional) > 0)
-			{
-				foreach ($optional as $name => $value)
-				{
-					$event->addArgument($name, $value);
-				}
-			}
-
-			// Trigger the event
-			$this->dispatcher->triggerEvent($event);
-		}
+		parent::triggerEvent($eventName, $arguments);
 	}
 }
