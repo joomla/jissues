@@ -117,7 +117,11 @@ class ActivityModel extends AbstractTrackerListModel
 
 		if ($periodValue == 'Custom')
 		{
-			$query->where('DATE(a.created_date) BETWEEN ' . $db->quote($this->state->get('list.startdate')) . ' AND ' . $db->quote($this->state->get('list.enddate')));
+			$query->where('DATE(a.created_date) BETWEEN '
+				. $db->quote($this->state->get('list.startdate'))
+				. ' AND '
+				. $db->quote($this->state->get('list.enddate'))
+			);
 		}
 		else
 		{

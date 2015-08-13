@@ -141,13 +141,16 @@ class Activity extends AbstractAjaxController
 	/**
 	 * Method to check that custom dates are valid
 	 *
+	 * @param   string  $date1  The first date.
+	 * @param   string  $date2  The second date.
+	 *
 	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
 	protected function datesValid($date1, $date2)
 	{
-		// check that they are dates and that $date1 <= $date2
+		// Check that they are dates and that $date1 <= $date2
 		if (($date1 == date('Y-m-d', strtotime($date1))) && ($date2 == date('Y-m-d', strtotime($date2))) && ($date1 <= $date2))
 		{
 			return true;
