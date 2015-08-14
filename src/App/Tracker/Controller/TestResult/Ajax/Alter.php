@@ -47,8 +47,6 @@ class Alter extends AbstractAjaxController
 			throw new \Exception('No issue ID received.');
 		}
 
-		$this->addEventListener('tests');
-
 		$data   = new \stdClass;
 		$result = new \stdClass;
 
@@ -66,8 +64,6 @@ class Alter extends AbstractAjaxController
 				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
 				json_encode($result)
 			);
-
-		$this->triggerEvent('onTestAfterSubmit', ['data' => $data->testResults]);
 
 		$data->event = new \stdClass;
 
