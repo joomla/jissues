@@ -8,7 +8,11 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
+use App\Projects\TrackerProject;
+
 use Joomla\Github\Github;
+
+use JTracker\Github\DataType\Commit\Status;
 
 use Monolog\Logger;
 
@@ -254,5 +258,35 @@ abstract class AbstractListener
 				throw new \RuntimeException($e->getMessage(), 0, $e);
 			}
 		}
+	}
+
+	/**
+	 * Create a status on GitHub.
+	 *
+	 * @param   Github          $gitHub       The GitHub object.
+	 * @param   TrackerProject  $project      The Project object.
+	 * @param   integer         $issueNumber  The issue number.
+	 * @param   Status          $status       The Status object.
+	 * @param   string          $sha          The commit SHA.
+	 *
+	 * @since  1.0
+	 * @return object
+	 */
+	protected function createStatus(Github $gitHub, TrackerProject $project, $issueNumber, Status $status, $sha = '')
+	{
+		if (!$sha)
+		{
+			// Get the SHA of the last commit.
+			$pullRequest = $gitHub->pulls->get(
+				$project->gh_user, $project->gh_project, $issueNumber
+			);
+
+			$sha = $pullRequest->head->sha;
+		}
+
+		return $gitHub->repositories->statuses->create(
+			$project->gh_user, $project->gh_project, $sha,
+			$status->state, $status->targetUrl, $status->description, $status->context
+		);
 	}
 }
