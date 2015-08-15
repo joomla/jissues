@@ -15,14 +15,14 @@ use Joomla\Github\Github;
 use Monolog\Logger;
 
 /**
- * Event listener for the joomla-cms Comments request hook
+ * Event listener for the joomla-cms Item events.
  *
  * @since  1.0
  */
-class JoomlacmsCommentsListener extends AbstractListener
+class JoomlacmsItemsListener extends AbstractListener
 {
 	/**
-	 * Event for after Comments gets added to the Tracker
+	 * Event for after item gets updated on the Tracker.
 	 *
 	 * @param   Event  $event  Event object
 	 *
@@ -30,17 +30,17 @@ class JoomlacmsCommentsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	public function onCommentAfterCreate(Event $event)
+	public function onItemAfterSave(Event $event)
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
 		// Add a RTC label if the item is in that status
-		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		$this->checkRTClabel($arguments['data'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
-	 * Event for after Comments requests are updated in the application
+	 * Event for after new item requests are submitted in the application.
 	 *
 	 * @param   Event  $event  Event object
 	 *
@@ -48,13 +48,13 @@ class JoomlacmsCommentsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	public function onCommentAfterUpdate(Event $event)
+	public function onItemAfterSubmit(Event $event)
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
-		// Add a RTC label if the item is in that status
-		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		// New items can't have the RTC status.
+		// Disabled $this->checkRTClabel($arguments['data'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
