@@ -197,29 +197,32 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$item->gh_merge_status = json_decode($item->gh_merge_status);
 
 		// Fetch test data
-		$item->testsSuccess = $this->db->setQuery(
-			$query
-				->clear()
-				->select('username')
-				->from($this->db->quoteName('#__issues_tests'))
-				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
-				->where($this->db->quoteName('result') . ' = 1')
-				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
-		)->loadColumn();
+		if ($lastCommit)
+		{
+			$item->testsSuccess = $this->db->setQuery(
+				$query
+					->clear()
+					->select('username')
+					->from($this->db->quoteName('#__issues_tests'))
+					->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+					->where($this->db->quoteName('result') . ' = 1')
+					->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
+			)->loadColumn();
 
-		sort($item->testsSuccess);
+			sort($item->testsSuccess);
 
-		$item->testsFailure = $this->db->setQuery(
-			$query
-				->clear()
-				->select('username')
-				->from($this->db->quoteName('#__issues_tests'))
-				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
-				->where($this->db->quoteName('result') . ' = 2')
-				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
-		)->loadColumn();
+			$item->testsFailure = $this->db->setQuery(
+				$query
+					->clear()
+					->select('username')
+					->from($this->db->quoteName('#__issues_tests'))
+					->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+					->where($this->db->quoteName('result') . ' = 2')
+					->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
+			)->loadColumn();
 
-		sort($item->testsFailure);
+			sort($item->testsFailure);
+		}
 
 		// Fetch category
 		$item->categories = $this->db->setQuery(
