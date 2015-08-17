@@ -79,7 +79,7 @@ class Submit extends AbstractAjaxController
 		if ($comment)
 		{
 			$comment = 'I have tested this item '
-				. ($result == 1 ? ':green_heart: successfully' : ':red_circle: unsuccessfully')
+				. ($result == 1 ? ':white_check_mark: successfully' : ':red_circle: unsuccessfully')
 				. '<br />'
 				. $comment;
 
