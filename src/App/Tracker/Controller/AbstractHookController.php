@@ -161,6 +161,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 * @return  void
 	 *
 	 * @since   1.0
+	 * @todo    Should this be a TrackerProject object?
 	 */
 	protected function getProjectData()
 	{

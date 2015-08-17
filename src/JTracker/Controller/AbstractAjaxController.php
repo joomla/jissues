@@ -79,6 +79,20 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	}
 
 	/**
+	 * Allows setting the status header into the application
+	 *
+	 * @param   int  $code  The status code to set into the application
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function setStatusCode($code = 200)
+	{
+		$this->getContainer()->get('app')->setHeader('Status', (int) $code);
+	}
+
+	/**
 	 * Prepare the response.
 	 *
 	 * @return  void

@@ -8,7 +8,7 @@
 
 namespace JTracker\View;
 
-use App\Projects\TrackerProject;
+use App\Projects\ProjectAwareTrait;
 
 use Joomla\Model\ModelInterface;
 use Joomla\View\AbstractView;
@@ -21,6 +21,8 @@ use Joomla\View\Renderer\RendererInterface;
  */
 abstract class AbstractTrackerHtmlView extends AbstractView
 {
+	use ProjectAwareTrait;
+
 	/**
 	 * The view layout.
 	 *
@@ -36,14 +38,6 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	 * @since  1.0
 	 */
 	protected $renderer = null;
-
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project;
 
 	/**
 	 * Method to instantiate the view.
@@ -138,40 +132,6 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	public function setLayout($layout)
 	{
 		$this->layout = $layout;
-
-		return $this;
-	}
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  \App\Projects\TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \UnexpectedValueException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \UnexpectedValueException('Project not set');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
 
 		return $this;
 	}

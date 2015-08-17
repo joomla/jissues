@@ -9,7 +9,6 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
-
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
@@ -20,7 +19,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsPullsListener
+class JoomlacmsPullsListener extends AbstractListener
 {
 	/**
 	 * Event for after pull requests are created in the application
@@ -40,7 +39,7 @@ class JoomlacmsPullsListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Check that pull requests have certain labels
-			$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 			// Check if the pull request targets the master branch
 			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
@@ -50,6 +49,9 @@ class JoomlacmsPullsListener
 
 			// Place the JoomlaCode ID in the issue title if it isn't already there
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+			// Send a message if there is no comment in the pull request
+			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
@@ -71,17 +73,17 @@ class JoomlacmsPullsListener
 		$arguments = $event->getArguments();
 
 		// Check that pull requests have certain labels
-		$this->checkPullLabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 		// Place the JoomlaCode ID in the issue title if it isn't already there
 		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
 		// Add a RTC label if the item is in that status
-		$this->addRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
-	 * Adds a RTC label
+	 * Checks for the RTC label
 	 *
 	 * @param   object       $hookData  Hook data payload
 	 * @param   Github       $github    Github object
@@ -93,99 +95,26 @@ class JoomlacmsPullsListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkRTClabel($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
-		// Validation, if the status isn't RTC then go no further
-		if ($table->status != 4)
-		{
-			return;
-		}
-
 		// Set some data
-		$RTClabel    = 'RTC';
-		$addLabels   = array();
-		$rtcLabelSet = false;
+		$label      = 'RTC';
+		$labels     = array();
+		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
-		// Get the labels for the pull's issue
-		try
+		// Validation, if the status isn't RTC or the Label is set then go no further
+		if ($labelIsSet == true && $table->status != 4)
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
-			);
-
-			return;
+			// Remove the RTC label as it isn't longer set to RTC
+			$labels[] = $label;
+			$this->removeLabels($hookData, $github, $logger, $project, $labels);
 		}
 
-		// Check if the PR- label present if there are already labels attached to the item
-		if (count($labels) > 0)
+		if ($labelIsSet == false && $table->status == 4)
 		{
-			foreach ($labels as $label)
-			{
-				if (!$rtcLabelSet && $label->name == $RTClabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$RTClabel
-						)
-					);
-
-					$rtcLabelSet = true;
-				}
-			}
-		}
-
-		// Add the RTC label if it isn't already set
-		if (!$rtcLabelSet)
-		{
-			$addLabels[] = $RTClabel;
-		}
-
-		// Only try to add labels if the array isn't empty
-		if (!empty($addLabels))
-		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-				);
-
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
-				);
-			}
+			// Add the RTC label as it isn't already set
+			$labels[] = $label;
+			$this->addLabels($hookData, $github, $logger, $project, $labels);
 		}
 	}
 
@@ -234,6 +163,7 @@ class JoomlacmsPullsListener
 						'closed_date' => (new Date)->format('Y-m-d H:i:s'),
 						'closed_by'   => 'jissues-bot'
 					];
+
 					$table->save($data);
 				}
 				catch (\Exception $e)
@@ -343,25 +273,32 @@ class JoomlacmsPullsListener
 	 *
 	 * @since   1.0
 	 */
-	protected function checkPullLabel($hookData, Github $github, Logger $logger, $project)
+	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$issueLabel       = 'PR-' . $hookData->pull_request->base->ref;
-		$languageLabel    = 'Language Change';
-		$addLabels        = array();
-		$prLabelSet       = false;
-		$languageLabelSet = false;
+		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel        = 'Language Change';
+		$unitSystemTestsLabel = 'Unit/System Tests';
+		$addLabels            = array();
+		$removeLabels         = array();
+		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
-		// Get the labels for the pull's issue
+		// Add the PR label if it isn't already set
+		if (!$prLabelSet)
+		{
+			$addLabels[] = $prLabel;
+		}
+
+		// Get the files modified by the pull request
 		try
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->pull_request->number)->labels;
+			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
 		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
+					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
 					$hookData->pull_request->number,
@@ -369,134 +306,107 @@ class JoomlacmsPullsListener
 				)
 			);
 
-			return;
+			$files = array();
 		}
 
-		// Check for labels if there are already labels attached to the item
-		if (count($labels) > 0)
+		$languageChange   = $this->checkLanguageChange($files);
+		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
+
+		// Add the label if we change the language files and it isn't already set
+		if ($languageChange && !$languageLabelSet)
 		{
-			foreach ($labels as $label)
-			{
-				if (!$prLabelSet && $label->name == $issueLabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$issueLabel
-						)
-					);
-
-					$prLabelSet = true;
-				}
-
-				if (!$languageLabelSet && $label->name == $languageLabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number,
-							$languageLabel
-						)
-					);
-
-					$languageLabelSet = true;
-				}
-			}
+			$addLabels[] = $languageLabel;
 		}
-
-		// Add the issueLabel if it isn't already set
-		if (!$prLabelSet)
+		// Remove the label if we don't change the language files
+		elseif ($languageLabelSet)
 		{
-			$addLabels[] = $issueLabel;
+			$removeLabels[] = $languageLabel;
 		}
 
-		// If the language label is not set, check if we need to add it
-		if (!$languageLabelSet)
+		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
+		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
+
+		// Add the label if we change the Unit/System Tests and it isn't already set
+		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
 		{
-			// Get the files modified by the pull request
-			try
-			{
-				$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error retrieving modified files for GitHub item %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
-				);
-
-				$files = array();
-			}
-
-			if (!empty($files))
-			{
-				$addLanguageLabel = false;
-
-				foreach ($files as $file)
-				{
-					// Check for file paths administrator/language, installation/language, and language at position 0
-					if (!$addLanguageLabel)
-					{
-						if (strpos($file->filename, 'administrator/language') === 0
-							|| strpos($file->filename, 'installation/language') === 0
-							|| strpos($file->filename, 'language') === 0)
-						{
-							$addLanguageLabel = true;
-						}
-					}
-				}
-
-				// Add the language label if need be
-				if ($addLanguageLabel)
-				{
-					$addLabels[] = $languageLabel;
-				}
-			}
+			$addLabels[] = $unitSystemTestsLabel;
+		}
+		// Remove the label if we don't change the Unit/System Tests
+		elseif ($unitSystemTestsLabelSet)
+		{
+			$removeLabels[] = $unitSystemTestsLabel;
 		}
 
-		// Only try to add labels if the array isn't empty
+		// Add the labels if we need
 		if (!empty($addLabels))
 		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, $addLabels
-				);
+			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+		}
 
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (\DomainException $e)
+		// Remove the labels if we need
+		if (!empty($removeLabels))
+		{
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		return;
+	}
+
+	/**
+	 * Check if we change a language file
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a language file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkLanguageChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
 			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
-				);
+				// Check for file paths administrator/language, installation/language, and language at position 0
+				if (strpos($file->filename, 'administrator/language') === 0
+					|| strpos($file->filename, 'installation/language') === 0
+					|| strpos($file->filename, 'language') === 0)
+				{
+					return true;
+				}
 			}
 		}
+
+		return false;
+	}
+
+	/**
+	 * Check if we change the Unit/System Test tests
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a Unit/System Test file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkUnitSystemTestsChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for files & paths regarding the Unit/System Tests
+				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'phpunit.xml.dist'
+					|| $file->filename == 'travisci-phpunit.xml')
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -512,6 +422,11 @@ class JoomlacmsPullsListener
 	 */
 	protected function setPending(Logger $logger, $project, IssuesTable $table)
 	{
+		if ($table->status == 3)
+		{
+			return;
+		}
+
 		// Reset the issue status to pending and try updating the database
 		try
 		{
@@ -610,6 +525,74 @@ class JoomlacmsPullsListener
 					$e->getMessage()
 				)
 			);
+		}
+	}
+
+	/**
+	 * Checks if a pull request have a comment
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkPullBody($hookData, Github $github, Logger $logger, $project)
+	{
+		if ($hookData->pull_request->body == '')
+		{
+			// Post a comment on the PR asking to add a description
+			try
+			{
+				$addLabels                       = array();
+				$testInstructionsMissingLabel    = 'Test instructions missing';
+				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
+
+				// Add the Test instructions missing label if it isn't already set
+				if (!$testInstructionsMissingLabelSet)
+				{
+					$addLabels[] = $testInstructionsMissingLabel;
+					$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+				}
+
+				$appNote = sprintf(
+					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
+					'https://github.com/joomla/jissues', 'J!Tracker'
+				);
+
+				$github->issues->comments->create(
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number,
+					'Please add more information to your issue. Without test instructions and/or any description we will close this issue soon. Thanks.'
+					. $appNote
+				);
+
+				// Log the activity
+				$logger->info(
+					sprintf(
+						'Added a no description comment to %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					)
+				);
+			}
+			catch (\DomainException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
+				);
+			}
 		}
 	}
 }
