@@ -162,9 +162,10 @@ JTracker.submitTestWithComment = function (resultContainer, templateName) {
 	}
 };
 
-JTracker.alterTest = function (issueId, statusContainer, resultContainer, templateName) {
+JTracker.alterTest = function (issueId, statusContainer, resultContainer, shaContainer, templateName) {
 	var status = $(statusContainer);
 	var result = $(resultContainer);
+	var sha = $(shaContainer).val();
 	var altered = $('select[name=altered]').val();
 	var user = $('input[name=altered-user]').val();
 
@@ -178,7 +179,7 @@ JTracker.alterTest = function (issueId, statusContainer, resultContainer, templa
 
 	$.post(
 		'/alter/testresult',
-		{ issueId: issueId, user: user, result: altered },
+		{ issueId: issueId, user: user, result: altered, sha: sha },
 		function (r) {
 			if (r.error) {
 				// Failure

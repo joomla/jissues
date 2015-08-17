@@ -331,9 +331,11 @@
                     ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
                     ~ '</select>'
                     )|raw }}
+                    <label for="shaTestAlter">SHA</label>
+                    <input type="text" id="shaTestAlter" value="{{ item.commits|json_decode|last.sha }}" />
                     <div id="alterResult"></div>
                     <a href="javascript:" class="btn btn-primary"
-                       onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', 'tplNewAlterTestResult');">
+                       onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">
                         {{ "Alter test result"|_ }}
                     </a>
 

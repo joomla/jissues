@@ -52,11 +52,12 @@ class Alter extends AbstractAjaxController
 
 		$result->user  = $application->input->getUsername('user');
 		$result->value = $application->input->getUint('result');
+		$sha           = $application->input->getCmd('sha');
 
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
 		$data->testResults = $issueModel
-			->saveTest($issueId, $result->user, $result->value);
+			->saveTest($issueId, $result->user, $result->value, $sha);
 
 		$event = (new ActivityModel($this->getContainer()->get('db')))
 			->addActivityEvent(
