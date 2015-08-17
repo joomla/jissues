@@ -9,6 +9,7 @@
 namespace App\Tracker\Controller;
 
 use App\Projects\Table\LabelsTable;
+use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 
@@ -54,7 +55,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	/**
 	 * The project information of the project whose data has been received
 	 *
-	 * @var    object
+	 * @var    TrackerProject
 	 * @since  1.0
 	 */
 	protected $project;
@@ -109,26 +110,27 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @todo    Should this be a TrackerProject object?
 	 */
 	protected function getProjectData()
 	{
 		// Get the ID for the project on our tracker
 		$query = $this->db->getQuery(true);
-		$query->select('*');
+		$query->select('alias');
 		$query->from($this->db->quoteName('#__tracker_projects'));
 		$query->where($this->db->quoteName('gh_project') . ' = ' . $this->db->quote($this->hookData->repository->name));
 		$this->db->setQuery($query);
 
+		$alias = '';
+
 		try
 		{
-			$this->project = $this->db->loadObject();
+			$alias = $this->db->loadResult();
 		}
 		catch (\RuntimeException $e)
 		{
 			$this->logger->info(
 				sprintf(
-					'Error retrieving the project ID for GitHub repo %s in the database: %s',
+					'Error retrieving the project alias for GitHub repo %s in the database: %s',
 					$this->hookData->repository->name,
 					$e->getMessage()
 				)
@@ -137,8 +139,8 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$this->getContainer()->get('app')->close();
 		}
 
-		// Make sure we have a valid project ID
-		if (!$this->project->project_id)
+		// Make sure we have a valid project.
+		if (!$alias)
 		{
 			$this->logger->info(
 				sprintf(
@@ -149,6 +151,13 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 			$this->getContainer()->get('app')->close();
 		}
+
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
+		$application->input->set('project_alias', $alias);
+
+		$this->project = $application->getProject(true);
 	}
 
 	/**
