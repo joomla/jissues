@@ -14,6 +14,8 @@ use App\Tracker\Model\ActivityModel;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 
+use JTracker\Github\DataType\Commit;
+use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\DataType\JTracker\Issues\Comment;
 use JTracker\GitHub\Github;
 
@@ -103,5 +105,72 @@ class GitHubHelper
 		$data->created_at = $date->format('j M Y');
 
 		return $data;
+	}
+
+	/**
+	 * Get the commits for a GitHub pull request.
+	 *
+	 * @param   TrackerProject  $project      The project object.
+	 * @param   integer         $issueNumber  The issue number.
+	 *
+	 * @return  Commit[]
+	 *
+	 * @since   1.0
+	 */
+	public function getCommits(TrackerProject $project, $issueNumber)
+	{
+		$commits = [];
+
+		$commitData = $this->gitHub->pulls->getCommits(
+			$project->gh_user, $project->gh_project, $issueNumber
+		);
+
+		foreach ($commitData as $commit)
+		{
+			$c = new Commit;
+
+			$c->sha = $commit->sha;
+			$c->message = $commit->commit->message;
+			$c->author_name = isset($commit->author->login) ? $commit->author->login : '';
+			$c->author_date = $commit->commit->author->date;
+			$c->committer_name = isset($commit->committer->login) ? $commit->committer->login : '';
+			$c->committer_date = $commit->commit->committer->date;
+
+			$commits[] = $c;
+		}
+
+		return $commits;
+	}
+
+	/**
+	 * Create a GitHub merge status for the last commit in a PR.
+	 *
+	 * @param   TrackerProject  $project      The project object.
+	 * @param   integer         $issueNumber  The issue number.
+	 * @param   string          $state        The state (pending, success, error or failure).
+	 * @param   string          $targetUrl    Optional target URL.
+	 * @param   string          $description  Optional description for the status.
+	 * @param   string          $context      A string label to differentiate this status from the status of other systems.
+	 * @param   string          $sha          The SHA for the commit.
+	 *
+	 * @return  Status
+	 *
+	 * @since   1.0
+	 */
+	public function createStatus(TrackerProject $project, $issueNumber, $state, $targetUrl, $description, $context, $sha = '')
+	{
+		if (!$sha)
+		{
+			$pullRequest = $this->gitHub->pulls->get(
+				$project->gh_user, $project->gh_project, $issueNumber
+			);
+
+			$sha = $pullRequest->head->sha;
+		}
+
+		return $this->gitHub->repositories->statuses->create(
+			$project->gh_user, $project->gh_project, $sha,
+			$state, $targetUrl, $description, $context
+		);
 	}
 }

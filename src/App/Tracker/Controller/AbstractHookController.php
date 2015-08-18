@@ -13,13 +13,13 @@ use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 
+use JTracker\GitHub\Github;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\IpHelper;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\Event;
-use Joomla\Github\Github;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;

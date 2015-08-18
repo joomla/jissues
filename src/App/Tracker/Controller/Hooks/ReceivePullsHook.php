@@ -111,6 +111,11 @@ class ReceivePullsHook extends AbstractHookController
 		$data['has_code']        = 1;
 		$data['build']           = $this->data->base->ref;
 
+		$commits = (new GitHubHelper($this->github))
+			->getCommits($this->project, $this->data->number);
+
+		$data['commits'] = json_encode($commits);
+
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)
 		{
@@ -325,6 +330,11 @@ class ReceivePullsHook extends AbstractHookController
 		}
 
 		$data['pr_head_sha'] = $this->data->head->sha;
+
+		$commits = (new GitHubHelper($this->github))
+			->getCommits($this->project, $this->data->number);
+
+		$data['commits'] = json_encode($commits);
 
 		try
 		{
