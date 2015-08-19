@@ -274,74 +274,9 @@
         </p>
 
         {% if user.id %}
-            <form class="testForm form-inline" name="testsForm" id="testContainer">
-                <h6>{{ 'Submit test result'|_ }}</h6>
-                <fieldset>
-                    <p>{{ 'I have tested this item'|_ }}</p>
-                    <p>
-                        SHA: {{ item.commits|json_decode|last.sha[:10] }}
-                        &nbsp;<i class="help-icon icon-help hasTooltip" title="{{ 'Some useful information about the git SHA here...' }}"></i>
-                        <input type="hidden" id="shaTest" value="{{ item.commits|json_decode|last.sha }}" />
-                    </p>
-                    <ul class="unstyled">
-                        <li>
-                            <label class="radio">
-                                <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
-                                {{ "Not tested"|_ }}
-                            </label>
-                        </li>
-                        <li>
-                            <label class="radio tests-success">
-                                <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
-                                {{ "Tested successfully"|_ }}
-                            </label>
-                        </li>
-                        <li>
-                            <label class="radio tests-fail">
-                                <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
-                                {{ "Tested unsuccessfully"|_ }}
-                            </label>
-                        </li>
-                    </ul>
-                </fieldset>
-
-                <div id="testResult"></div>
-
-                {% set editorId="commentTest" %}
-                {% set writeId="writeTest" %}
-                {% set previewId="previewTest" %}
-                {% set editorPlaceholder="Leave a comment (optional)"|_ %}
-                {% include "editor.twig" %}
-
-                <a href="javascript:" class="btn btn-primary"
-                   onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', '#commentTest', '#shaTest', 'tplNewTestResult');">
-                    {{ "Submit test result"|_ }}
-                </a>
-            </form>
+            {% include "testcontainer.twig" %}
         {% endif %}
-        {% if user.check('edit') %}
-            <div class="testForm" id="testAlterContainer" style="display: none;">
-                <h6>{{ 'Alter test result'|_ }}</h6>
-                <form class="form-inline">
-                    {{ 'Set the test result for user %s to %s'|_|format(
-                    '<input name="altered-user" placeholder="' ~ 'username'|_ ~ '"/>',
-                    '<select name="altered"">'
-                    ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
-                    ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
-                    ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
-                    ~ '</select>'
-                    )|raw }}
-                    <label for="shaTestAlter">SHA</label>
-                    <input type="text" id="shaTestAlter" value="{{ item.commits|json_decode|last.sha }}" />
-                    <div id="alterResult"></div>
-                    <a href="javascript:" class="btn btn-primary"
-                       onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">
-                        {{ "Alter test result"|_ }}
-                    </a>
 
-                </form>
-            </div>
-        {% endif %}
     {% endif %}
 
     <!-- Main content -->
