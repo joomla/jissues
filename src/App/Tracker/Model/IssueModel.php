@@ -279,6 +279,25 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Get all user tests for a PR.
+	 *
+	 * @param   integer  $itemId  The issue ID.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getAllTests($itemId)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+		)->loadColumn();
+	}
+
+	/**
 	 * Get a user test for an item.
 	 *
 	 * @param   integer  $itemId    The item number

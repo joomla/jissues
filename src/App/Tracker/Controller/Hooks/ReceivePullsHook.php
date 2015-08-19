@@ -110,6 +110,7 @@ class ReceivePullsHook extends AbstractHookController
 		$data['project_id']      = $this->project->project_id;
 		$data['has_code']        = 1;
 		$data['build']           = $this->data->base->ref;
+		$data['pr_head_sha']     = $this->data->head->sha;
 
 		$commits = (new GitHubHelper($this->github))
 			->getCommits($this->project, $this->data->number);
@@ -314,9 +315,7 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			// The PR has been updated.
 			$testers = (new IssueModel($this->getContainer()->get('db')))
-				->getUserTests($table->id, $table->pr_head_sha);
-
-			$testers = array_merge($testers['success'], $testers['failure']);
+				->getAllTests($table->id);
 
 			if ($testers)
 			{

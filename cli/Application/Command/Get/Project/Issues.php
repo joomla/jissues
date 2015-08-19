@@ -332,9 +332,7 @@ class Issues extends Project
 				{
 					// The PR has been updated.
 					$testers = (new IssueModel($this->getContainer()->get('db')))
-						->getUserTests($table->id, $table->pr_head_sha);
-
-					$testers = array_merge($testers['success'], $testers['failure']);
+						->getAllTests($table->id);
 
 					if ($testers)
 					{
