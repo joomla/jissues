@@ -88,9 +88,7 @@ class ProjectsModel extends AbstractTrackerListModel
 
 		// Public
 		$query->leftJoin(
-			$db->quoteName('#__accessgroups', 'g')
-			. ' ON ' . $db->quoteName('g.project_id')
-			. ' = ' . $db->quoteName('p.project_id')
+			$db->quoteName('#__accessgroups', 'g') . ' ON ' . $db->quoteName('g.project_id') . ' = ' . $db->quoteName('p.project_id')
 		);
 
 		$query->where($db->quoteName('g.title') . ' = ' . $db->quote('Public'));
@@ -100,17 +98,12 @@ class ProjectsModel extends AbstractTrackerListModel
 		if ($this->getUser()->id)
 		{
 			$query->leftJoin(
-				$db->quoteName('#__accessgroups', 'g1')
-				. ' ON ' . $db->quoteName('g1.project_id')
-				. ' = ' . $db->quoteName('p.project_id')
+				$db->quoteName('#__accessgroups', 'g1') . ' ON ' . $db->quoteName('g1.project_id') . ' = ' . $db->quoteName('p.project_id')
 			);
 
 			$query->clear('where');
 
-			$where = '';
-
-			$where .=
-				'('
+			$where = '('
 				. $db->quoteName('g.title') . ' = ' . $db->quote('Public')
 				. ' AND ' . $db->quoteName('g.can_view') . ' = 1'
 				. ') OR ('

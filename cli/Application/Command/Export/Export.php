@@ -21,7 +21,7 @@ class Export extends TrackerCommand
 	/**
 	 * The directory to receive the export.
 	 *
-	 * @var string
+	 * @var    string
 	 * @since  1.0
 	 */
 	protected $exportDir = '';
@@ -36,8 +36,11 @@ class Export extends TrackerCommand
 		$this->description = 'Export <cmd><langfiles></cmd>.';
 
 		$this->addOption(
-			new TrackerCommandOption('outputdir', 'o',
-				'The directory that should receive the export.')
+			new TrackerCommandOption(
+				'outputdir',
+				'o',
+				'The directory that should receive the export.'
+			)
 		);
 	}
 
@@ -46,13 +49,13 @@ class Export extends TrackerCommand
 	 *
 	 * NOTE: This command must not be executed without parameters !
 	 *
-	 * @return  $this
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		return $this->displayMissingOption(__DIR__);
+		$this->displayMissingOption(__DIR__);
 	}
 
 	/**

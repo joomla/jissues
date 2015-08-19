@@ -392,10 +392,7 @@ class IssuesModel extends AbstractTrackerListModel
 		{
 			// Common query elements
 			$query
-				->leftJoin(
-					$db->quoteName('#__issues_tests', 'it')
-					. 'ON a.id = it.item_id'
-				)
+				->leftJoin($db->quoteName('#__issues_tests', 'it') . 'ON a.id = it.item_id')
 				->where($db->quoteName('a.has_code') . ' = 1')
 				->group('a.issue_number');
 

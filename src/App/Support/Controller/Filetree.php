@@ -54,9 +54,9 @@ class Filetree extends AbstractTrackerController
 					// Dumb spoof check
 					$file = str_replace('..', '', $file);
 
-					$response[] = '<li class="directory collapsed">'
-						. '<a href="javascript:;" rel="' . $path . '/' . $file . '">' . htmlentities($file) . '</a>'
-						. '</li>';
+					$response[] = '<li class="directory collapsed">';
+					$response[] = '<a href="javascript:;" rel="' . $path . '/' . $file . '">' . htmlentities($file) . '</a>';
+					$response[] = '</li>';
 				}
 			}
 
@@ -74,11 +74,9 @@ class Filetree extends AbstractTrackerController
 
 					$fullPath = 'page=' . htmlentities($page) . ($subPath ? '&path=' . htmlentities($subPath) : '');
 
-					$response[] = '<li class="file ext_' . $ext . '">'
-						. '<a href="javascript:;" rel="' . $fullPath . '">'
-						. $this->getTitle($file)
-						. '</a>'
-						. '</li>';
+					$response[] = '<li class="file ext_' . $ext . '">';
+					$response[] = '<a href="javascript:;" rel="' . $fullPath . '">' . $this->getTitle($file) . '</a>';
+					$response[] = '</li>';
 				}
 			}
 

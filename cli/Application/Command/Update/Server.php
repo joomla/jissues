@@ -104,7 +104,8 @@ class Server extends Update
 							sprintf(
 								g11n3t(
 									'SQL query failed, please verify the database structure and finish the update '
-									. 'manually.  The database error message is: %s'),
+									. 'manually.  The database error message is: %s'
+								),
 								$e->getMessage()
 							)
 						);

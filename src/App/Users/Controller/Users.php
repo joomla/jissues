@@ -33,7 +33,8 @@ class Users extends AbstractTrackerListController
 
 		$state = $this->model->getState();
 
-		$state->set('filter.search-user',
+		$state->set(
+			'filter.search-user',
 			$application->getUserStateFromRequest('filter.search-user', 'search-user', '', 'string')
 		);
 

@@ -199,7 +199,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$entry = new \stdClass;
 
-		$entry->sql   = isset($context['sql'])   ? $context['sql']   : 'n/a';
+		$entry->sql   = isset($context['sql']) ? $context['sql'] : 'n/a';
 		$entry->times = isset($context['times']) ? $context['times'] : 'n/a';
 		$entry->trace = isset($context['trace']) ? $context['trace'] : 'n/a';
 
@@ -385,10 +385,10 @@ class TrackerDebugger implements LoggerAwareInterface
 
 			$navigation[] = '<li class="hasTooltip"'
 				. ' title="' . sprintf(
-					g11n4t(
-							'One untranslated string of %2$d', '%1$d untranslated strings of %2$d', $info->untranslateds
-						), $info->untranslateds, $info->total
-					) . '">'
+					g11n4t('One untranslated string of %2$d', '%1$d untranslated strings of %2$d', $info->untranslateds),
+					$info->untranslateds,
+					$info->total
+				) . '">'
 				. '<a href="#dbgLanguageStrings"><i class="icon icon-question-sign"></i>  '
 				. $badge . '/' . $this->getBadge($info->total)
 				. '</a></li>';
@@ -414,9 +414,7 @@ class TrackerDebugger implements LoggerAwareInterface
 			{
 				$build = trim(file_get_contents(JPATH_ROOT . '/current_SHA'));
 				preg_match('/-g([0-9a-z]+)/', $build, $matches);
-				$buildHref = $matches
-					? 'https://github.com/joomla/jissues/commit/' . $matches[1]
-					: '#';
+				$buildHref = $matches ? 'https://github.com/joomla/jissues/commit/' . $matches[1] : '#';
 			}
 			// Fall back to composer.json version
 			else
@@ -506,10 +504,9 @@ class TrackerDebugger implements LoggerAwareInterface
 		}
 
 		$pluralInfo = sprintf(
-			g11n3t(
-				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
-			g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'
-			)
+			g11n3t('Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
+			g11n::get('pluralForms'),
+			g11n::get('pluralFunctionRaw')
 		);
 
 		return $tableFormat->fromArray($items) . $pluralInfo;
@@ -535,8 +532,8 @@ class TrackerDebugger implements LoggerAwareInterface
 			$this->logger->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
 
 			return str_replace(JPATH_ROOT, 'JROOT', $exception->getMessage())
-			. '<pre>' . $exception->getTraceAsString() . '</pre>'
-			. 'Previous: ' . get_class($exception->getPrevious());
+				. '<pre>' . $exception->getTraceAsString() . '</pre>'
+				. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
 		$view = new \JTracker\View\TrackerDefaultView;
@@ -733,9 +730,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		foreach ($items as $string => $item)
 		{
-			$color =('-' == $item->status)
-				? '#ffb2b2;'
-				: '#e5ff99;';
+			$color = ('-' == $item->status) ? '#ffb2b2;' : '#e5ff99;';
 
 			$html[] = '<tr>';
 			$html[] = '<td style="border-left: 7px solid ' . $color . '">' . htmlentities($string) . '</td>';
@@ -743,9 +738,9 @@ class TrackerDebugger implements LoggerAwareInterface
 			$html[] = '<td><span class="btn btn-mini" onclick="$(\'#langStringTrace' . $i . '\').slideToggle();">Trace</span></td>';
 			$html[] = '</tr>';
 
-			$html[] = '<tr><td colspan="4" id="langStringTrace' . $i . '" style="display: none;">'
-				. $tableFormat->fromTrace($item->trace)
-				. '</td></tr>';
+			$html[] = '<tr>';
+			$html[] = '<td colspan="4" id="langStringTrace' . $i . '" style="display: none;">' . $tableFormat->fromTrace($item->trace) . '</td>';
+			$html[] = '</tr>';
 
 			$i ++;
 		}

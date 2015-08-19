@@ -25,18 +25,19 @@ class DebuggerProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns itself to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
 	 */
 	public function register(Container $container)
 	{
-		$container->set('App\\Debug\\TrackerDebugger',
-			function () use ($container)
+		$container->share(
+			'App\\Debug\\TrackerDebugger',
+			function (Container $container)
 			{
 				return new TrackerDebugger($container);
-			}, true, true
+			},
+			true
 		);
 
 		// Alias the object

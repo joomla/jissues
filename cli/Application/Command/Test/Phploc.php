@@ -28,7 +28,7 @@ class Phploc extends Test
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -58,7 +58,5 @@ class Phploc extends Test
 		);
 
 		$this->out('Finished');
-
-		return $this;
 	}
 }

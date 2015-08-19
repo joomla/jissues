@@ -43,7 +43,8 @@ class Make extends TrackerCommand
 	{
 		$this->addOption(
 			new TrackerCommandOption(
-				'noprogress', '',
+				'noprogress',
+				'',
 				'Don\'t use a progress bar.'
 			)
 		);
@@ -54,12 +55,12 @@ class Make extends TrackerCommand
 	 *
 	 * NOTE: This command must not be executed without parameters !
 	 *
-	 * @return  $this
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function execute()
 	{
-		return $this->displayMissingOption(__DIR__);
+		$this->displayMissingOption(__DIR__);
 	}
 }

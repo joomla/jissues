@@ -28,7 +28,7 @@ class Login extends AbstractTrackerController
 	/**
 	 * Execute the controller.
 	 *
-	 * @return  string  The rendered view.
+	 * @return  void  Redirects the application
 	 *
 	 * @since   1.0
 	 * @throws  AuthenticationException

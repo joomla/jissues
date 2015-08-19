@@ -53,6 +53,8 @@ class Delete extends AbstractTrackerController
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
 		$this->model->setUser($this->getContainer()->get('app')->getUser());
+
+		return $this;
 	}
 
 	/**

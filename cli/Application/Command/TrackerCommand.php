@@ -168,7 +168,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 *
 	 * @param   string  $dir  The base directory for the commands.
 	 *
-	 * @return  $this
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -203,9 +203,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				continue;
 			}
 
-			$this->out('<error>  ' . $command . ' ' . $cmd
-				. str_repeat(' ', $maxLen - strlen($cmd) - strlen($command) + 1)
-				. '</error>');
+			$this->out('<error>  ' . $command . ' ' . $cmd . str_repeat(' ', $maxLen - strlen($cmd) - strlen($command) + 1) . '</error>');
 		}
 
 		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
@@ -281,7 +279,6 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
 				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
-
 		)->loadObjectList();
 /*
 		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);

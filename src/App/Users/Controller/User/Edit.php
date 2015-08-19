@@ -92,5 +92,7 @@ class Edit extends AbstractTrackerController
 		$this->view->id = $id;
 
 		$this->model->setProject($this->getContainer()->get('app')->getProject());
+
+		return $this;
 	}
 }

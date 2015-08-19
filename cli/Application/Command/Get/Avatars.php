@@ -112,9 +112,7 @@ class Avatars extends Get
 			{
 				$this->debugOut(sprintf(g11n3t('User avatar already fetched for user %s'), $username));
 
-				$this->usePBar
-					? $progressBar->update($i + 1)
-					: $this->out('-', false);
+				$this->usePBar ? $progressBar->update($i + 1) : $this->out('-', false);
 
 				continue;
 			}
@@ -139,9 +137,7 @@ class Avatars extends Get
 				);
 			}
 
-			$this->usePBar
-				? $progressBar->update($i + 1)
-				: $this->out('+', false);
+			$this->usePBar ? $progressBar->update($i + 1) : $this->out('+', false);
 		}
 
 		return $this->out()

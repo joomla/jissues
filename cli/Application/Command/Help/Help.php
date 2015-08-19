@@ -65,7 +65,8 @@ class Help extends TrackerCommand
 		}
 
 		$this->out(
-			sprintf('<b>Usage:</b> <info>%s</info> <cmd><command></cmd> <opt>[options]</opt>',
+			sprintf(
+				'<b>Usage:</b> <info>%s</info> <cmd><command></cmd> <opt>[options]</opt>',
 				$executable
 			)
 		);
@@ -146,7 +147,7 @@ class Help extends TrackerCommand
 		{
 			$this->out()
 				->out('  Available <cmd>actions</cmd>:')
-			->out();
+				->out();
 
 			/* @type TrackerCommand $action */
 			foreach ($actions as $aName => $action)
@@ -180,10 +181,7 @@ class Help extends TrackerCommand
 	private function displayOption(TrackerCommandOption $option)
 	{
 		return $this->out()
-			->out(
-				($option->shortArg ? '<opt>-' . $option->shortArg . '</opt> | ' : '')
-				. '<opt>--' . $option->longArg . '</opt>'
-			)
+			->out(($option->shortArg ? '<opt>-' . $option->shortArg . '</opt> | ' : '') . '<opt>--' . $option->longArg . '</opt>')
 			->out('    ' . $option->description);
 	}
 

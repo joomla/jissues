@@ -45,8 +45,7 @@ class Refresh extends AbstractTrackerController
 			{
 				$application->enqueueMessage(
 					g11n3t('You are not authorized to refresh this user.'), 'error'
-				)
-					->redirect(
+				)->redirect(
 					$application->get('uri.base.path') . 'user/' . $id
 				);
 			}
@@ -80,8 +79,7 @@ class Refresh extends AbstractTrackerController
 
 		$application->enqueueMessage(
 			g11n3t('The profile has been refreshed.'), 'success'
-		)
-			->redirect(
+		)->redirect(
 			$application->get('uri.base.path') . 'user/' . $id
 		);
 

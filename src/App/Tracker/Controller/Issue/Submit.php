@@ -165,16 +165,14 @@ class Submit extends AbstractTrackerController
 			$application->enqueueMessage($e->getMessage(), 'error');
 
 			$application->redirect(
-				$application->get('uri.base.path')
-				. 'tracker/' . $project->alias . '/add'
+				$application->get('uri.base.path') . 'tracker/' . $project->alias . '/add'
 			);
 		}
 
 		$application->enqueueMessage(g11n3t('Your report has been submitted.'), 'success');
 
 		$application->redirect(
-			$application->get('uri.base.path')
-			. 'tracker/' . $project->alias . '/' . $data['number']
+			$application->get('uri.base.path') . 'tracker/' . $project->alias . '/' . $data['number']
 		);
 
 		return;
@@ -254,13 +252,18 @@ class Submit extends AbstractTrackerController
 		 */
 		if (isset($gitHubBot))
 		{
-			if ((!empty($milestone) && empty($gitHubResponse->milestone))
-				|| (!empty($labels) && empty($gitHubResponse->labels)))
+			if ((!empty($milestone) && empty($gitHubResponse->milestone)) || (!empty($labels) && empty($gitHubResponse->labels)))
 			{
 				$gitHubBot->issues->edit(
-					$project->gh_user, $project->gh_project,
-					$gitHubResponse->number, 'open', $title, $body,
-					$assignee, $milestone, $labels
+					$project->gh_user,
+					$project->gh_project,
+					$gitHubResponse->number,
+					'open',
+					$title,
+					$body,
+					$assignee,
+					$milestone,
+					$labels
 				);
 			}
 		}

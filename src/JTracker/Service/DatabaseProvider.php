@@ -27,14 +27,15 @@ class DatabaseProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns itself to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function register(Container $container)
 	{
-		$container->set('Joomla\\Database\\DatabaseDriver',
-			function () use ($container)
+		$container->share(
+			'Joomla\\Database\\DatabaseDriver',
+			function (Container $container)
 			{
 				$app = $container->get('app');
 
@@ -64,7 +65,8 @@ class DatabaseProvider implements ServiceProviderInterface
 				$db->setLogger($logger);
 
 				return $db;
-			}, true, true
+			},
+			true
 		);
 
 		// Alias the database

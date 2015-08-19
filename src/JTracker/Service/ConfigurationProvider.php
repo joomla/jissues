@@ -71,17 +71,19 @@ class ConfigurationProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns itself to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
 	public function register(Container $container)
 	{
-		$container->set('config',
+		$container->share(
+			'config',
 			function ()
 			{
 				return $this->config;
-			}, true, true
+			},
+			true
 		);
 	}
 

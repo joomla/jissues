@@ -122,14 +122,10 @@ class Events extends Project
 
 		foreach ($this->changedIssueNumbers as $count => $issueNumber)
 		{
-			$this->usePBar
-				? $progressBar->update($count + 1)
-				: $this->out(
-					sprintf(
-						'%d/%d - # %d: ', $count + 1, count($this->changedIssueNumbers), $issueNumber
-					),
-					false
-				);
+			$this->usePBar ? $progressBar->update($count + 1) : $this->out(
+				sprintf('%d/%d - # %d: ', $count + 1, count($this->changedIssueNumbers), $issueNumber),
+				false
+			);
 
 			$page = 0;
 			$this->items[$issueNumber] = array();
@@ -150,9 +146,7 @@ class Events extends Project
 				{
 					$this->items[$issueNumber] = array_merge($this->items[$issueNumber], $events);
 
-						$this->usePBar
-							? null
-							: $this->out($count . ' ', false);
+						$this->usePBar ? null : $this->out($count . ' ', false);
 				}
 			}
 
@@ -202,9 +196,7 @@ class Events extends Project
 
 		foreach ($this->items as $issueNumber => $events)
 		{
-			$this->usePBar
-				? null
-				: $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, count($this->items)), false);
+			$this->usePBar ? null : $this->out(sprintf(' #%d (%d/%d)...', $issueNumber, $count + 1, count($this->items)), false);
 
 			foreach ($events as $event)
 			{
@@ -331,9 +323,7 @@ class Events extends Project
 
 			++ $count;
 
-			$this->usePBar
-				? $progressBar->update($count)
-				: null;
+			$this->usePBar ? $progressBar->update($count) : null;
 		}
 
 		$this->out()

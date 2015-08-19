@@ -73,5 +73,7 @@ class Add extends AbstractTrackerController
 		parent::initialize();
 
 		$this->view->setItem(new ArticlesTable($this->getContainer()->get('db')));
+
+		return $this;
 	}
 }

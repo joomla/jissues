@@ -283,9 +283,7 @@ class Save extends AbstractTrackerController
 			}
 
 			$application->enqueueMessage('The changes have been saved.', 'success')
-				->redirect(
-				'/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber
-			);
+				->redirect('/tracker/' . $application->input->get('project_alias') . '/' . $issueNumber);
 		}
 		catch (\RuntimeException $exception)
 		{
@@ -293,8 +291,7 @@ class Save extends AbstractTrackerController
 
 			// @todo preserve data when returning to edit view on failure.
 			$application->redirect(
-				$application->get('uri.base.path')
-				. 'tracker/' . $application->input->get('project_alias') . '/' . $issueNumber . '/edit'
+				$application->get('uri.base.path') . 'tracker/' . $application->input->get('project_alias') . '/' . $issueNumber . '/edit'
 			);
 		}
 
@@ -360,8 +357,7 @@ class Save extends AbstractTrackerController
 
 			// The milestone and labels are silently dropped,
 			// so try to update the milestone and/or labels if they are not set.
-			if ((!empty($milestone) && empty($gitHubResponse->milestone)
-				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+			if (!empty($milestone) && empty($gitHubResponse->milestone) || (!empty($milestone) && $milestone != $gitHubResponse->milestone))
 			{
 				$needUpdate = true;
 			}
@@ -437,8 +433,7 @@ class Save extends AbstractTrackerController
 
 			// The milestone and labels are silently dropped,
 			// so try to update the milestone and/or labels if they are not set.
-			if ((!empty($milestone) && empty($gitHubResponse->milestone)
-				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+			if (!empty($milestone) && empty($gitHubResponse->milestone) || (!empty($milestone) && $milestone != $gitHubResponse->milestone))
 			{
 				$needUpdate = true;
 			}

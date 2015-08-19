@@ -74,9 +74,7 @@ class Langfiles extends Test
 				{
 					$path = $scopePath . '/' . $extensionPath . '/' . $language;
 
-					$path .= ('templates' == $language)
-						?  '/' . $extension . '.pot'
-						:  '/' . $language . '.' . $extension . '.po';
+					$path .= ('templates' == $language) ? '/' . $extension . '.pot' : '/' . $language . '.' . $extension . '.po';
 
 					$this->debugOut(sprintf('Check: %s-%s %s in %s', $domain, $extension, $language, $path));
 
@@ -114,15 +112,11 @@ class Langfiles extends Test
 			}
 		}
 
-		$this->out(
-			$errors
-			? '<error> There have been errors. </error>'
-			: '<ok>Language file syntax OK</ok>'
-		);
+		$this->out($errors ? '<error> There have been errors. </error>' : '<ok>Language file syntax OK</ok>');
 
 		if ($this->exit)
 		{
-			exit($errors ? 1 : 0);
+			$this->getApplication()->close($errors ? 1 : 0);
 		}
 
 		return ($errors ? 1 : 0);

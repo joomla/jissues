@@ -448,9 +448,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		// Add the App domain path.
 		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
 
-		if ($this->get('debug.system')
-			|| $this->get('debug.database')
-			|| $this->get('debug.language'))
+		if ($this->get('debug.system') || $this->get('debug.database') || $this->get('debug.language'))
 		{
 			// Load the Debug App language file.
 			g11n::loadLanguage('Debug', 'App');

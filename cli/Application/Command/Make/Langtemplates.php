@@ -585,7 +585,7 @@ class Langtemplates extends Make
 	 *
 	 * @param   string  $dir  The directory to delete.
 	 *
-	 * @return  bool
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
@@ -601,9 +601,7 @@ class Langtemplates extends Make
 
 		foreach ($files as $file)
 		{
-			(is_dir($dir . '/' . $file))
-				? $this->delTree($dir . '/' . $file)
-				: unlink($dir . '/' . $file);
+			(is_dir($dir . '/' . $file)) ? $this->delTree($dir . '/' . $file) : unlink($dir . '/' . $file);
 		}
 
 		return rmdir($dir);

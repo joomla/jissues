@@ -168,7 +168,6 @@ class Hook extends Test
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
 				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
-
 		)->loadObjectList();
 /*
 		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);

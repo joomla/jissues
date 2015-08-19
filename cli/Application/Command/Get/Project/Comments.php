@@ -97,7 +97,7 @@ class Comments extends Project
 					'Fetching comments for <b>one</b> modified issue from GitHub...',
 					'Fetching comments for <b>%d</b> modified issues from GitHub...',
 					count($this->changedIssueNumbers)
-					),
+				),
 				count($this->changedIssueNumbers)
 			), false
 		);
@@ -108,12 +108,12 @@ class Comments extends Project
 
 		foreach ($this->changedIssueNumbers as $count => $issueNumber)
 		{
-			$this->usePBar
-				? $progressBar->update($count + 1)
-				: $this->out(
+			$this->usePBar ? $progressBar->update($count + 1) : $this->out(
 				sprintf(
 					'#%d (%d/%d):',
-					$issueNumber, $count, count($this->changedIssueNumbers)
+					$issueNumber,
+					$count,
+					count($this->changedIssueNumbers)
 				),
 				false
 			);
@@ -139,9 +139,7 @@ class Comments extends Project
 					$this->items[$issueNumber] = array_merge($this->items[$issueNumber], $comments);
 				}
 
-				$this->usePBar
-					? null
-					: $this->out($count . ' ', false);
+				$this->usePBar ? null : $this->out($count . ' ', false);
 			}
 
 			while ($count);
@@ -255,9 +253,7 @@ class Comments extends Project
 							if ($d1 == $d2)
 							{
 								// No update required
-								$this->usePBar
-									? $progressBar->update($i + 1)
-									: $this->out('-', false);
+								$this->usePBar ? $progressBar->update($i + 1) : $this->out('-', false);
 
 								continue;
 							}
@@ -305,9 +301,7 @@ class Comments extends Project
 						++ $adds;
 					}
 
-					$this->usePBar
-						? $progressBar->update($i + 1)
-						: null;
+					$this->usePBar ? $progressBar->update($i + 1) : null;
 				}
 
 				++ $count;

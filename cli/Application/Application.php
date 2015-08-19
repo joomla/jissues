@@ -458,9 +458,7 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	 */
 	public function getProgressBar($targetNum)
 	{
-		return ($this->usePBar)
-			? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum)
-			: null;
+		return ($this->usePBar) ? new ConsoleProgressBar($this->pBarFormat, '=>', ' ', 60, $targetNum) : null;
 	}
 
 	/**
