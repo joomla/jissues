@@ -279,6 +279,7 @@ class IssuesTable extends AbstractDatabaseTable
 						break;
 
 					case 'description' :
+					case 'commits' :
 
 						// Do nothing
 
