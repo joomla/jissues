@@ -280,6 +280,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 					case 'description' :
 					case 'commits' :
+					case 'pr_head_sha' :
 
 						// Do nothing
 

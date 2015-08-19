@@ -454,6 +454,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
 
 		$data['commits'] = isset($src['commits']) ? $src['commits'] : '';
+		$data['pr_head_sha'] = isset($src['pr_head_sha']) ? $src['pr_head_sha'] : '';
 
 		if (isset($src['easy']))
 		{
