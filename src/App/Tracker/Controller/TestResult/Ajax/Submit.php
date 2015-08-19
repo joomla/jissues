@@ -43,7 +43,7 @@ class Submit extends AbstractAjaxController
 
 		$issueId = $application->input->getUint('issueId');
 		$result  = $application->input->getUint('result');
-		$comment = $application->input->get('comment', '', 'raw');
+		$userComment = $application->input->get('comment', '', 'raw');
 		$sha     = $application->input->getCmd('sha');
 
 		if (!$issueId)
@@ -75,29 +75,37 @@ class Submit extends AbstractAjaxController
 
 		$data->event->text = json_decode($data->event->text);
 
-		// Check if a comment was submitted
-		if ($comment)
+		switch ($result)
 		{
-			$comment = 'I have tested this item '
-				. ($result == 1 ? ':white_check_mark: successfully' : ':red_circle: unsuccessfully')
-				. '<br />'
-				. $comment;
-
-			// @todo removeMe :(
-			$comment .= sprintf(
-				'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
-				'https://github.com/joomla/jissues', 'J!Tracker',
-				$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
-				str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
-			);
-
-			$data->comment = (new GitHubHelper($this->getContainer()->get('gitHub')))
-				->addComment($project, $issueNumber, $comment, $user->username, $this->getContainer()->get('db'));
+			case 0:
+				$resultText = 'I have not tested this item.';
+				break;
+			case 1:
+				$resultText = 'I have tested this item :white_check_mark: successfully';
+				break;
+			case 2:
+				$resultText = 'I have tested this item :red_circle: unsuccessfully';
+				break;
+			default:
+				throw new \UnexpectedValueException('Unexpected test result value.');
+				break;
 		}
-		else
-		{
-			$data->comment = null;
-		}
+
+		// Create a comment to submitted on GitHub.
+		$comment = $resultText . ' on ' . $sha
+			. '<br />'
+			. $userComment;
+
+		$comment .= sprintf(
+			'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
+			'https://github.com/joomla/jissues',
+			'J!Tracker',
+			$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
+			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
+		);
+
+		$data->comment = (new GitHubHelper($this->getContainer()->get('gitHub')))
+			->addComment($project, $issueNumber, $comment, $user->username, $this->getContainer()->get('db'));
 
 		$this->response->data = json_encode($data);
 
