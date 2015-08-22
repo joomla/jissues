@@ -322,6 +322,8 @@ class ReceivePullsHook extends AbstractHookController
 				// Send a notification.
 				$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
 
+				$comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
+
 				$gitHubBot->addComment(
 					$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
 				);
