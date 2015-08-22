@@ -339,7 +339,10 @@ class Issues extends Project
 						// Send a notification.
 						$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
 
-						$comment = $gitHubBot->addComment(
+						// @todo send application comment - find a way to set a WEB URL in CLI scripts.
+						// @todo $comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
+
+						$gitHubBot->addComment(
 							$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
 						);
 					}
