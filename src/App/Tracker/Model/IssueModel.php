@@ -291,9 +291,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		return $this->db->setQuery(
 			$this->db->getQuery(true)
-				->select('username')
+				->select('DISTINCT username')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->order('username')
 		)->loadColumn();
 	}
 
