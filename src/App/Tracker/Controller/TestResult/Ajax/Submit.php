@@ -84,10 +84,10 @@ class Submit extends AbstractAjaxController
 				$comment = 'I have not tested this item.';
 				break;
 			case 1:
-				$comment = 'I have tested this item :white_check_mark: successfully' . ' on ' . $sha;
+				$comment = 'I have tested this item :white_check_mark: successfully on ' . $sha;
 				break;
 			case 2:
-				$comment = 'I have tested this item :red_circle: unsuccessfully' . ' on ' . $sha;
+				$comment = 'I have tested this item :red_circle: unsuccessfully on ' . $sha;
 				break;
 			default:
 				throw new \UnexpectedValueException('Unexpected test result value.');
