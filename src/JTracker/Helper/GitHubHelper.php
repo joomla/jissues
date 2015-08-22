@@ -14,6 +14,7 @@ use App\Tracker\Model\ActivityModel;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Date\Date;
 
+use JTracker\Application;
 use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\DataType\JTracker\Issues\Comment;
@@ -171,6 +172,26 @@ class GitHubHelper
 		return $this->gitHub->repositories->statuses->create(
 			$project->gh_user, $project->gh_project, $sha,
 			$state, $targetUrl, $description, $context
+		);
+	}
+
+	/**
+	 * Get a string for usage in comment footers.
+	 *
+	 * @param   Application     $application  The application object.
+	 * @param   TrackerProject  $project      The project object.
+	 * @param   integer         $issueNumber  The issue number.
+	 *
+	 * @since   1.0
+	 * @return string
+	 */
+	public function getApplicationComment(Application $application, TrackerProject $project, $issueNumber)
+	{
+		return sprintf(
+			'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
+			'https://github.com/joomla/jissues', 'J!Tracker',
+			$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
+			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
 		);
 	}
 }
