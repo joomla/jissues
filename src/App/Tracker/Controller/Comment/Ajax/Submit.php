@@ -33,9 +33,9 @@ class Submit extends AbstractAjaxController
 
 		$application->getUser()->authorize('create');
 
-		$comment      = $application->input->get('text', '', 'raw');
+		$comment     = $application->input->get('text', '', 'raw');
 		$issueNumber = $application->input->getInt('issue_number');
-		$project      = $application->getProject();
+		$project     = $application->getProject();
 
 		if (!$issueNumber)
 		{
@@ -51,7 +51,9 @@ class Submit extends AbstractAjaxController
 
 		$comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
 
-		$this->response->data = $gitHubHelper->addComment($project, $issueNumber, $comment, $application->getUser()->username, $this->getContainer()->get('db'));
+		$this->response->data = $gitHubHelper->addComment(
+			$project, $issueNumber, $comment, $application->getUser()->username, $this->getContainer()->get('db')
+		);
 
 		$this->response->message = g11n3t('Your comment has been submitted');
 	}
