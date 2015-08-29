@@ -292,7 +292,8 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$filter = $this->state->get('filter.state');
 
-		if (is_numeric($filter))
+		// State == 2 means "all".
+		if (is_numeric($filter) && 2 != $filter)
 		{
 			$query->where($db->quoteName('s.closed') . ' = ' . (int) $filter);
 		}
