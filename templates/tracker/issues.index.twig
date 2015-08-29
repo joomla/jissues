@@ -42,6 +42,11 @@
                             value="1">
                         {{ 'Closed'|_ }}
                     </button>
+                    <button type="button"
+                            class="btn{% if state.get('filter.state') == 2 %} active btn-inverse {% endif %}"
+                            value="2">
+                        {{ 'All'|_ }}
+                    </button>
                 </div>
                 <div id="stools-button" class="btn-group">
                     <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
@@ -87,15 +92,24 @@
                 {% if (state.get('filter.state') == 0) %}
                     {% set openState = '' %}
                     {% set closedState = ' style="display: none"' %}
+                    {% set allState = ' style="display: none"' %}
+                {% elseif (state.get('filter.state') == 2) %}
+                    {% set openState = ' style="display: none"' %}
+                    {% set closedState = ' style="display: none"' %}
+                    {% set allState = '' %}
                 {% else %}
                     {% set openState = ' style="display: none"' %}
                     {% set closedState = '' %}
+                    {% set allState = '' %}
                 {% endif %}
                 <div id="status-open" class="btn-group"{{ openState|raw }}>
                     {{ filters.status(state.get('filter.status'), 'filter-status-open', 'toclear input-medium-160', 0) }}
                 </div>
                 <div id="status-closed" class="btn-group"{{ closedState|raw }}>
                     {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'toclear input-medium-160', 1) }}
+                </div>
+                <div id="status-all" class="btn-group"{{ allState|raw }}>
+                    {{ filters.status(state.get('filter.status'), 'filter-status-all', 'toclear input-medium-160', 2) }}
                 </div>
                 <div class="btn-group">
                     {{ filters.category(state.get('filter.category'), 'filter-category', 'toclear selectpicker', project.categories) }}
@@ -321,15 +335,29 @@
                     $('#filter-state').val(val);
 
                     if (val == 0) {
+                        // Open
                         $(this).addClass("active btn-success");
                         $(this).next().removeClass("active btn-danger");
+                        $(this).next().next().removeClass("active btn-inverse");
                         $('#status-open').show();
                         $('#status-closed').hide();
+                        $('#status-all').hide();
+                    } else if (val == 2) {
+                        // All
+                        $(this).addClass("active btn-inverse");
+                        $(this).prev().removeClass("active btn-danger");
+                        $(this).prev().prev().removeClass("active btn-success");
+                        $('#status-open').hide();
+                        $('#status-closed').hide();
+                        $('#status-all').show();
                     } else {
+                        // Closed
                         $(this).addClass("active btn-danger");
                         $(this).prev().removeClass("active btn-success");
+                        $(this).next().removeClass("active btn-inverse");
                         $('#status-open').hide();
                         $('#status-closed').show();
+                        $('#status-all').hide();
                     }
 
                     $('#page').val(0);
@@ -429,6 +457,10 @@
 
             if (state == 1) {
                 var status = $('#filter-status-closed').val();
+            }
+
+            if (state == 2) {
+                var status = $('#filter-status-all').val();
             }
 
             var priority = $('#filter-priority').val();
