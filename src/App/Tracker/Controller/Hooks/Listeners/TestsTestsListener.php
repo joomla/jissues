@@ -19,7 +19,7 @@ use JTracker\Github\DataType\Commit\Status;
  *
  * @since  1.0
  */
-class TestsTestsListener extends AbstractTestsListener
+class TestsTestsListener extends AbstractListener
 {
 	/**
 	 * Event for after issues are created in the application
