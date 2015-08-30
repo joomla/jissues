@@ -50,6 +50,9 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Place the JoomlaCode ID in the issue title if it isn't already there
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
+			// Send a message if there is no comment in the pull request
+			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
 		}
@@ -273,13 +276,14 @@ class JoomlacmsPullsListener extends AbstractListener
 	protected function checkPullLabels($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$prLabel        = 'PR-' . $hookData->pull_request->base->ref;
-		$languageLabel  = 'Language Change';
-		$addLabels      = array();
-		$removeLabels   = array();
-		$prLabelSet     = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
+		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
+		$languageLabel        = 'Language Change';
+		$unitSystemTestsLabel = 'Unit/System Tests';
+		$addLabels            = array();
+		$removeLabels         = array();
+		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
-		// Add the issueLabel if it isn't already set
+		// Add the PR label if it isn't already set
 		if (!$prLabelSet)
 		{
 			$addLabels[] = $prLabel;
@@ -308,14 +312,29 @@ class JoomlacmsPullsListener extends AbstractListener
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
+		// Add the label if we change the language files and it isn't already set
 		if ($languageChange && !$languageLabelSet)
 		{
 			$addLabels[] = $languageLabel;
 		}
+		// Remove the label if we don't change the language files
 		elseif ($languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
-			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
+		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
+
+		// Add the label if we change the Unit/System Tests and it isn't already set
+		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
+		{
+			$addLabels[] = $unitSystemTestsLabel;
+		}
+		// Remove the label if we don't change the Unit/System Tests
+		elseif ($unitSystemTestsLabelSet)
+		{
+			$removeLabels[] = $unitSystemTestsLabel;
 		}
 
 		// Add the labels if we need
@@ -352,6 +371,35 @@ class JoomlacmsPullsListener extends AbstractListener
 				if (strpos($file->filename, 'administrator/language') === 0
 					|| strpos($file->filename, 'installation/language') === 0
 					|| strpos($file->filename, 'language') === 0)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if we change the Unit/System Test tests
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a Unit/System Test file
+	 *
+	 * @since   1.0
+	 */
+	protected function checkUnitSystemTestsChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for files & paths regarding the Unit/System Tests
+				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'phpunit.xml.dist'
+					|| $file->filename == 'travisci-phpunit.xml')
 				{
 					return true;
 				}
@@ -477,6 +525,74 @@ class JoomlacmsPullsListener extends AbstractListener
 					$e->getMessage()
 				)
 			);
+		}
+	}
+
+	/**
+	 * Checks if a pull request have a comment
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkPullBody($hookData, Github $github, Logger $logger, $project)
+	{
+		if ($hookData->pull_request->body == '')
+		{
+			// Post a comment on the PR asking to add a description
+			try
+			{
+				$addLabels                       = array();
+				$testInstructionsMissingLabel    = 'Test instructions missing';
+				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
+
+				// Add the Test instructions missing label if it isn't already set
+				if (!$testInstructionsMissingLabelSet)
+				{
+					$addLabels[] = $testInstructionsMissingLabel;
+					$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+				}
+
+				$appNote = sprintf(
+					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
+					'https://github.com/joomla/jissues', 'J!Tracker'
+				);
+
+				$github->issues->comments->create(
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number,
+					'Please add more information to your issue. Without test instructions and/or any description we will close this issue soon. Thanks.'
+					. $appNote
+				);
+
+				// Log the activity
+				$logger->info(
+					sprintf(
+						'Added a no description comment to %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					)
+				);
+			}
+			catch (\DomainException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
+				);
+			}
 		}
 	}
 }

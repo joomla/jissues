@@ -8,7 +8,6 @@
 
 namespace App\Tracker\View\Issues;
 
-use App\Projects\TrackerProject;
 use App\Tracker\Model\IssuesModel;
 
 use JTracker\View\AbstractTrackerHtmlView;
@@ -29,14 +28,6 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 	protected $model;
 
 	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
-
-	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -51,39 +42,5 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('project', $this->getProject());
 
 		return parent::render();
-	}
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \RuntimeException('No project set.');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
 	}
 }

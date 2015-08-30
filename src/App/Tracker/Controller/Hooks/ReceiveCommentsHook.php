@@ -139,7 +139,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				)
 			);
 
-			$this->triggerEvent('onCommentAfterCreate', $issueTable);
+			$this->triggerEvent('onCommentAfterCreate', ['table' => $issueTable]);
 		}
 		catch (\Exception $e)
 		{
@@ -240,7 +240,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		$table = (new IssuesTable($this->db))
 			->load($this->db->insertid());
 
-		$this->triggerEvent('onCommentAfterCreateIssue', $table);
+		$this->triggerEvent('onCommentAfterCreateIssue', ['table' => $table]);
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->issue->user->login);
@@ -314,7 +314,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				)
 			);
 
-			$this->triggerEvent('onCommentAfterUpdate', $issueTable);
+			$this->triggerEvent('onCommentAfterUpdate', ['table' => $issueTable]);
 		}
 		catch (\Exception $e)
 		{

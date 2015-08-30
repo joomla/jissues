@@ -85,7 +85,7 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 	 *
 	 * @return  void
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   1.0
 	 */
 	protected function setStatusCode($code = 200)
 	{
