@@ -167,7 +167,7 @@ class ReceivePullsHook extends AbstractHookController
 		$table = (new IssuesTable($this->db))
 			->load($model->getState()->get('issue_id'));
 
-		$this->triggerEvent('onPullAfterCreate', $table, array('action' => $action));
+		$this->triggerEvent('onPullAfterCreate', ['table' => $table, 'action' => $action]);
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->data->user->login);
@@ -361,7 +361,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Refresh the table object for the listeners
 		$table->load($data['id']);
 
-		$this->triggerEvent('onPullAfterUpdate', $table);
+		$this->triggerEvent('onPullAfterUpdate', ['table' => $table]);
 
 		// Add a reopen record to the activity table if the status is reopened
 		if ($action == 'reopened')
