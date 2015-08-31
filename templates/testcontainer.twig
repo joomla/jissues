@@ -5,10 +5,11 @@
     <form class="testForm form-inline" name="testsForm" id="testContainer">
         <h6>{{ 'Submit test result'|_ }}</h6>
         <fieldset>
-            <p>{{ 'I have tested this item'|_ }}</p>
-            <p>
-                SHA: {{ item.commits|json_decode|last.sha[:10] }}
-                &nbsp;<i class="help-icon icon-help hasTooltip" title="{{ 'Some useful information about the git SHA here...' }}"></i>
+            <p>{{ 'I have tested this item'|_ }} - SHA: {{ item.commits|json_decode|last.sha[:7] }}
+                <a class="help-icon" href="https://schacon.github.io/gitbook/1_the_git_object_model.html">
+                    <i class="help-icon icon-help"></i>
+                    The git SHA
+                </a>
                 <input type="hidden" id="shaTest" value="{{ item.commits|json_decode|last.sha }}" />
             </p>
             <ul class="unstyled">
