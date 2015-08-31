@@ -253,19 +253,19 @@
 
     {% if item.has_code %}
 
-        <div class="btn-group pull-right">
-            {% if user.id %}
-                <span class="btn btn-primary" onclick="$('#testContainer').slideToggle();">
-                    {{ 'Test this'|_ }}
-                </span>
-            {% endif %}
-            {% if user.check('edit') %}
-                <span class="btn btn-warning" onclick="$('#testAlterContainer').slideToggle();">
-                    {{ 'Alter test'|_ }}
-                </span>
-            {% endif %}
-        </div>
         <p class="highlightRow">
+            <span class="btn-group">
+                {% if user.id %}
+                    <span class="btn btn-primary" onclick="$('#testContainer').slideToggle();">
+                        {{ 'Test this'|_ }}
+                    </span>
+                {% endif %}
+                {% if user.check('edit') %}
+                    <span class="btn btn-warning" onclick="$('#testAlterContainer').slideToggle();">
+                        {{ 'Alter test'|_ }}
+                    </span>
+                {% endif %}
+            </span>
             <strong>{{ 'User tests:'|_ }}</strong>
             {{ 'Successful: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}
             <span id="usertests-success" class="tests-success"></span>
