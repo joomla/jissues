@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-14 13:29-0500\n"
-"PO-Revision-Date: 2015-01-12 15:43+0000\n"
+"POT-Creation-Date: 2015-08-31 18:41-0500\n"
+"PO-Revision-Date: 2015-08-31 23:41+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/jtracker/language/pt_PT/)\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,19 +30,19 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: /templates/tracker/issue.edit.twig:56
-#: /templates/tracker/issues.index.twig:246
+#: /templates/tracker/issues.index.twig:260
 #: /templates/tracker/issue.index.twig:165
 msgid "Foreign ID"
 msgstr ""
 
 #: /templates/tracker/issue.edit.twig:71
-#: /templates/tracker/issues.index.twig:144
+#: /templates/tracker/issues.index.twig:158
 #: /templates/tracker/tpl/activities.twig:58
 msgid "Status"
 msgstr "Estado"
 
 #: /templates/tracker/issue.edit.twig:79 /templates/tracker/issue.add.twig:48
-#: /templates/tracker/issues.index.twig:143
+#: /templates/tracker/issues.index.twig:157
 #: /templates/tracker/tpl/activities.twig:92
 msgid "Priority"
 msgstr "Prioridade"
@@ -191,177 +191,181 @@ msgid "Open"
 msgstr "Aberto"
 
 #: /templates/tracker/issues.index.twig:43
-#: /templates/tracker/issues.index.twig:410
+#: /templates/tracker/issues.index.twig:438
 msgid "Closed"
 msgstr "Fechado"
 
 #: /templates/tracker/issues.index.twig:48
-msgid "Search tools"
+msgid "All"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:53
+msgid "Search tools"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:58
 msgid "Clear"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:56
+#: /templates/tracker/issues.index.twig:61
 #: /templates/tracker/issue.index.twig:45
 msgid "Feeling Lucky"
 msgstr "Sinto-me com sorte"
 
-#: /templates/tracker/issues.index.twig:59
+#: /templates/tracker/issues.index.twig:64
 msgid "Permalink"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:79
+#: /templates/tracker/issues.index.twig:84
 msgid "Filter the list by summary or description."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:82
-#: /templates/tracker/issues.index.twig:83
+#: /templates/tracker/issues.index.twig:87
+#: /templates/tracker/issues.index.twig:88
 msgid "Filter the list by ID, summary, or description."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:108
-#: /templates/tracker/issues.index.twig:111
-#: /templates/tracker/issues.index.twig:112
+#: /templates/tracker/issues.index.twig:122
+#: /templates/tracker/issues.index.twig:125
+#: /templates/tracker/issues.index.twig:126
 msgid "Filter the list by creator."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:141
+#: /templates/tracker/issues.index.twig:155
 msgid "ID"
 msgstr "ID"
 
-#: /templates/tracker/issues.index.twig:142
+#: /templates/tracker/issues.index.twig:156
 msgid "Summary"
 msgstr "Sumário"
 
-#: /templates/tracker/issues.index.twig:149
+#: /templates/tracker/issues.index.twig:163
 msgid "Loading, please wait..."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:229
+#: /templates/tracker/issues.index.twig:243
 msgid "Created by"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:238
+#: /templates/tracker/issues.index.twig:252
 msgid "GitHub ID"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:253
+#: /templates/tracker/issues.index.twig:267
 msgid "Opened "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:257
+#: /templates/tracker/issues.index.twig:271
 msgid "Closed "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:261
+#: /templates/tracker/issues.index.twig:275
 msgid "Modified "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:266
+#: /templates/tracker/issues.index.twig:280
 msgid "Critical"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:266
+#: /templates/tracker/issues.index.twig:280
 msgid "Urgent"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:266
+#: /templates/tracker/issues.index.twig:280
 msgid "Medium"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:266
+#: /templates/tracker/issues.index.twig:280
 msgid "Low"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:266
+#: /templates/tracker/issues.index.twig:280
 msgid "Very low"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:273
+#: /templates/tracker/issues.index.twig:287
 msgid "GitHub merge status"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:283
+#: /templates/tracker/issues.index.twig:297
 msgid "No items found."
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:386
+#: /templates/tracker/issues.index.twig:414
 msgid "Success"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:388
-#: /templates/tracker/issues.index.twig:403
+#: /templates/tracker/issues.index.twig:416
+#: /templates/tracker/issues.index.twig:431
 msgid "Pending"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:390
+#: /templates/tracker/issues.index.twig:418
 msgid "Error"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:392
+#: /templates/tracker/issues.index.twig:420
 msgid "Failure"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:401
+#: /templates/tracker/issues.index.twig:429
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:402
+#: /templates/tracker/issues.index.twig:430
 msgid "Confirmed"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:404
+#: /templates/tracker/issues.index.twig:432
 msgid "Ready To Commit"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:405
+#: /templates/tracker/issues.index.twig:433
 msgid "Fixed in Code Base"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:406
+#: /templates/tracker/issues.index.twig:434
 msgid "Needs Review"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:407
+#: /templates/tracker/issues.index.twig:435
 msgid "Information Required"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:408
+#: /templates/tracker/issues.index.twig:436
 msgid "Unconfirmed Report"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:409
+#: /templates/tracker/issues.index.twig:437
 msgid "No Reply"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:411
+#: /templates/tracker/issues.index.twig:439
 msgid "Expected Behaviour"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:412
+#: /templates/tracker/issues.index.twig:440
 msgid "Known Issue"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:413
+#: /templates/tracker/issues.index.twig:441
 msgid "Duplicate Report"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:468
+#: /templates/tracker/issues.index.twig:500
 msgid "First"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:469
+#: /templates/tracker/issues.index.twig:501
 msgid "Previous"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:470
+#: /templates/tracker/issues.index.twig:502
 msgid "Next"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:471
+#: /templates/tracker/issues.index.twig:503
 msgid "Last"
 msgstr ""
 

@@ -7,14 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blue" />
-    <meta property="og:image" content="http://www.joomla.org/images/joomla-org-og.jpg"/>
-   	<meta name="twitter:card" content="summary"/>
-   	<meta name="twitter:site" content="@joomla"/>
-   	<meta name="twitter:title" content="Joomla.org"/>
-   	<meta name="twitter:description" content="The Platform Millions of Websites Are Built On"/>
-   	<meta name="twitter:image" content="http://www.joomla.org/images/joomla-org-og.jpg"/>
+    <meta property="og:image" content="https://cdn.joomla.org/images/joomla-org-og.jpg" />
+    <meta property="og:site_name" content="Joomla! Issue Tracker" />
+   	<meta name="twitter:card" content="summary" />
+   	<meta name="twitter:site" content="@joomla" />
+   	<meta name="twitter:title" content="Joomla! Issue Tracker"/>
+   	<meta name="twitter:description" content="Issue tracking plaform for the Joomla! project" />
+   	<meta name="twitter:image" content="https://cdn.joomla.org/images/joomla-org-og.jpg" />
     {% if useCDN %}
-    <link href="//cdn.joomla.org/template/css/v3_template.min.css?v1.2.2" rel="stylesheet" media="screen">
+    <link href="https://cdn.joomla.org/template/css/v3_template.min.css?v1.3.0" rel="stylesheet" media="screen">
     {% else %}
     <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
     {% endif %}
@@ -55,15 +56,15 @@
             <div class="row-fluid">
                 {% block header %}
                     <div class="span7">
-                        <h1 class="page-title">Joomla! Issue Tracker{% block headerText %}{% endblock %}</h1>
+                        <h1 class="page-title"><a href="{{ uri.base.path }}">Joomla! Issue Tracker{% block headerText %}{% endblock %}</a></h1>
                     </div>
                     <div class="span5">
                         <div class="btn-toolbar pull-right">
                             <div class="btn-group">
-                                <a href="http://www.joomla.org/download.html" class="btn btn-large btn-warning">{{ "Download"|_ }} <span class="hidden-tablet">Joomla</span></a>
+                                <a href="https://www.joomla.org/download.html" class="btn btn-large btn-warning">{{ "Download"|_ }}</span></a>
                             </div>
                             <div class="btn-group">
-                                <a href="https://demo.joomla.org/" class="btn btn-large btn-primary">{{ "Demo"|_ }} <span class="hidden-tablet">Joomla</span></a>
+                                <a href="https://demo.joomla.org" class="btn btn-large btn-primary">{{ "Demo"|_ }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -143,6 +144,9 @@
                 if ($('.subnav-wrapper').length) {
                     navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
 
+                    // Fix the container top
+                    $('.body .container-main').css('top', $('.subnav-wrapper').height() + $('nav.navbar').height());
+
                     // Only apply the scrollspy when the toolbar is not collapsed
                     if (document.body.clientWidth > 480) {
                         $('.subnav-wrapper').height($('.subnav').height());
@@ -159,6 +163,9 @@
                     if (scrollTop >= navTop && !isFixed) {
                         isFixed = true;
                         $('.subnav-wrapper').addClass('subhead-fixed');
+
+						// Fix the container top
+						$('.body .container-main').css('top', $('.subnav-wrapper').height() + $('nav.navbar').height());
                     } else if (scrollTop <= navTop && isFixed) {
                         isFixed = false;
                         $('.subnav-wrapper').removeClass('subhead-fixed');

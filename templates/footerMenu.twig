@@ -1,23 +1,37 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt#}
 <hr />
+<div class="social">
+	<ul class="soc">
+		<li><a href="https://twitter.com/joomla" target="_blank" class="soc-twitter2" title="Follow Us on Twitter"></a></li>
+		<li><a href="https://www.facebook.com/joomla" target="_blank" class="soc-facebook" title="Joomla! on Facebook"></a></li>
+		<li><a href="https://plus.google.com/+joomla/posts" target="_blank" class="soc-google" title="Joomla! on Google+"></a></li>
+		<li><a href="https://www.youtube.com/user/joomla" target="_blank" class="soc-youtube3" title="Joomla's YouTube Channel"></a></li>
+		<li><a href="https://www.linkedin.com/company/joomla" target="_blank" class="soc-linkedin" title="Joomla! on Linkedin"></a></li>
+		<li><a href="https://www.pinterest.com/joomla" target="_blank" class="soc-pinterest" title="Joomla's Pintrest Board"></a></li>
+		<li><a href="https://github.com/joomla" target="_blank" class="soc-github3 soc-icon-last" title="Joomla's GitHub"></a></li>
+	</ul>
+</div>
+
 <div class="footer-menu">
     <ul class="nav-inline">
-        <li><a href="http://www.joomla.org"><span>{{ "Home"|_ }}</span></a></li>
-        <li><a href="http://www.joomla.org/about-joomla.html"><span>{{ "About"|_ }}</span></a></li>
+        <li><a href="https://www.joomla.org"><span>{{ "Home"|_ }}</span></a></li>
+        <li><a href="https://www.joomla.org/about-joomla.html"><span>{{ "About"|_ }}</span></a></li>
         <li><a href="http://community.joomla.org"><span>{{ "Community"|_ }}</span></a></li>
         <li><a href="http://forum.joomla.org"><span>{{ "Forum"|_ }}</span></a></li>
         <li><a href="http://extensions.joomla.org"><span>{{ "Extensions"|_ }}</span></a></li>
         <li><a href="http://resources.joomla.org"><span>{{ "Resources"|_ }}</span></a></li>
-        <li><a href="http://docs.joomla.org"><span>{{ "Docs"|_ }}</span></a></li>
+        <li><a href="https://docs.joomla.org"><span>{{ "Docs"|_ }}</span></a></li>
         <li><a href="http://developer.joomla.org"><span>{{ "Developer"|_ }}</span></a></li>
         <li><a href="http://shop.joomla.org"><span>{{ "Shop"|_ }}</span></a></li>
     </ul>
 
     <ul class="nav-inline">
-        <li><a href="http://www.joomla.org/accessibility-statement.html">{{ "Accessibility Statement"|_ }}</a></li>
-        <li><a href="http://www.joomla.org/privacy-policy.html">{{ "Privacy Policy"|_ }}</a></li>
-        <li><a href="https://www.rochen.com/joomla-hosting" target="_blank">{{ "Joomla Hosting by"|_ }} Rochen Ltd.</a></li>
+        <li><a href="https://www.joomla.org/accessibility-statement.html">{{ "Accessibility Statement"|_ }}</a></li>
+        <li><a href="https://www.joomla.org/privacy-policy.html">{{ "Privacy Policy"|_ }}</a></li>
+        <li><a href="{{ uri.base.path }}tracker/jtracker/add">{{ "Report an Issue"|_ }}</a></li>
+        <li><a href="{{ loginUrl }}">{{ "Log in"|_ }}</a></li>
+        <li><a href="https://www.rochen.com/joomla-hosting" target="_blank">{{ "Joomla Hosting by"|_ }} Rochen</a></li>
     </ul>
 
     <p>&copy; 2005 - {{ now|date("Y") }} <a href="http://www.opensourcematters.org">Open Source Matters, Inc.</a> {{ "All rights reserved."|_ }}</p>
