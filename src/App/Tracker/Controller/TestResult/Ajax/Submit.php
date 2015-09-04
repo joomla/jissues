@@ -60,8 +60,6 @@ class Submit extends AbstractAjaxController
 
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
-		$issueNumber = $issueModel->getIssueNumberById($issueId);
-
 		$data = new \stdClass;
 
 		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
