@@ -91,3 +91,15 @@
 
     {{ fields.select('filter-easytest', values, value, id, class) }}
 {% endmacro %}
+
+{% macro type(value, id, class, state) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {
+        0: '- type -'|_,
+        1: 'Pull Request'|_,
+        2: 'Issue'|_,
+    } %}
+
+    {{ fields.select('filter-type', values, value, id, class) }}
+{% endmacro %}
