@@ -567,7 +567,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					$project->gh_user,
 					$project->gh_project,
 					$hookData->pull_request->number,
-					'Please add more information to your issue. Without test instructions and/or any description we will close this issue soon. Thanks.'
+					'Please add more information to your issue. Without test instructions and/or any description we will close this issue within 4 weeks. Thanks.'
 					. $appNote
 				);
 
