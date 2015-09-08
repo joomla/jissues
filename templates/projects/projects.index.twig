@@ -55,6 +55,7 @@
 
                     <td style="white-space: nowrap;">
                         <a href="{{ uri.base.path }}project/{{ project.alias }}">{{ "Show"|_ }}</a>
+                        <a href="{{ uri.base.path }}activity/{{ project.alias }}">{{ "Activity"|_ }}</a>
                     {% if user.isAdmin %}
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">{{ "Edit"|_ }}</a>
