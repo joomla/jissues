@@ -91,7 +91,7 @@ class ActivityModel extends AbstractTrackerListModel
 		$type     = $typeList[$this->state->get('list.activity_type')];
 
 		// Only select rows where we have activity types, build the subquery for this now
-		$subquery = $db->getQuery(true)
+		$eventTypeSubquery = $db->getQuery(true)
 			->select('event')
 			->from('#__activity_types');
 
@@ -100,24 +100,38 @@ class ActivityModel extends AbstractTrackerListModel
 			->select('DISTINCT gh_editbot_user')
 			->from('#__tracker_projects');
 
+		$codePointSubquery = $db->getQuery(true)
+			->select(['id', 'issue_number', 'project_id', 'opened_by'])
+			->from('#__issues')
+			->where('has_code = 1')
+			->where('project_id = ' . (int) $this->getProject()->project_id);
+
 		// Select required data.
 		$select = [
 			'a.user AS name',
-			'SUM(t.activity_points) AS total_points',
+			'SUM(t.activity_points) + (COUNT(c.id) * 5) AS total_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Tracker') . ' THEN t.activity_points ELSE 0 END) AS tracker_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Test') . ' THEN t.activity_points ELSE 0 END) AS test_points',
-			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Code') . ' THEN t.activity_points ELSE 0 END) AS code_points'
+			'(COUNT(c.id) * 5) AS code_points'
 		];
+
 		$query->select($select)
 			->from('#__activities AS a')
 			->join('LEFT', '#__activity_types AS t ON a.event = t.event')
-			->where('a.event IN (' . (string) $subquery . ')')
+			->where('a.event IN (' . (string) $eventTypeSubquery . ')')
 			->where('a.user NOT IN (' . (string) $filterBots . ')')
 			->where('a.project_id = ' . (int) $this->getProject()->project_id);
 
+		// Apply this date filter for both the code point subquery and the main activity query
 		if ($periodValue == 'Custom')
 		{
 			$query->where('DATE(a.created_date) BETWEEN '
+				. $db->quote($this->state->get('list.startdate'))
+				. ' AND '
+				. $db->quote($this->state->get('list.enddate'))
+			);
+
+			$codePointSubquery->where('DATE(opened_date) BETWEEN '
 				. $db->quote($this->state->get('list.startdate'))
 				. ' AND '
 				. $db->quote($this->state->get('list.enddate'))
@@ -126,16 +140,23 @@ class ActivityModel extends AbstractTrackerListModel
 		else
 		{
 			$query->where('DATE(a.created_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
+			$codePointSubquery->where('DATE(opened_date) > DATE(DATE_ADD(NOW(), INTERVAL ' . $periodValue . '))');
 		}
+
+		// Append the code point subquery now
+		$query->join(
+			'LEFT',
+			'(' . (string) $codePointSubquery . ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by)'
+		);
 
 		if ($this->state->get('list.activity_type') > 0)
 		{
 			$query->where('t.activity_group = ' . $db->quote($type));
-			$query->order('SUM(CASE WHEN t.activity_group = ' . $db->quote($type) . ' THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) DESC');
+			$query->order('SUM(CASE WHEN t.activity_group = ' . $db->quote($type) . ' THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) + (COUNT(c.id) * 5) DESC');
 		}
 		else
 		{
-			$query->order('SUM(t.activity_points) DESC');
+			$query->order('SUM(t.activity_points) + (COUNT(c.id) * 5) DESC');
 		}
 
 		$query->group('a.user');
