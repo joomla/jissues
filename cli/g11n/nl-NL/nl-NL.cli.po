@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 18:41-0500\n"
-"PO-Revision-Date: 2015-02-07 21:15+0000\n"
-"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
+"POT-Creation-Date: 2015-09-08 09:18-0500\n"
+"PO-Revision-Date: 2015-09-08 14:19+0000\n"
+"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -435,8 +435,8 @@ msgid "Creating the database..."
 msgstr "Aanmaken van de database..."
 
 #: /cli/Application/Command/Install/Install.php:118
-msgid "Installation has terminated successfully."
-msgstr "Installatie is succesvol afgerond."
+msgid "Installation has been completed successfully."
+msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
