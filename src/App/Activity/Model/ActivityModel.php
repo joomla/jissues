@@ -108,7 +108,7 @@ class ActivityModel extends AbstractTrackerListModel
 
 		// Select required data.
 		$select = [
-			'a.user AS name',
+			'IF(u.name IS NULL or u.name = ' . $db->quote('') . ', u.username, u.name) as name',
 			'SUM(t.activity_points) + (COUNT(c.id) * 5) AS total_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Tracker') . ' THEN t.activity_points ELSE 0 END) AS tracker_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Test') . ' THEN t.activity_points ELSE 0 END) AS test_points',
@@ -118,6 +118,7 @@ class ActivityModel extends AbstractTrackerListModel
 		$query->select($select)
 			->from('#__activities AS a')
 			->join('LEFT', '#__activity_types AS t ON a.event = t.event')
+			->join('LEFT', '#__users AS u ON a.user = u.username')
 			->where('a.event IN (' . (string) $eventTypeSubquery . ')')
 			->where('a.user NOT IN (' . (string) $filterBots . ')')
 			->where('a.project_id = ' . (int) $this->getProject()->project_id);
