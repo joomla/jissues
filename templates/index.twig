@@ -7,11 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blue" />
+    <meta property="og:description" content="{% block metaDescription %}Issue tracking platform for the Joomla! project{% endblock %}" />
+    <meta property="og:image" content="https://cdn.joomla.org/images/joomla-org-og.jpg" />
+    <meta property="og:site_name" content="Joomla! Issue Tracker" />
+    <meta property="og:title" content="{{ block('title') }}" />
+    <meta property="og:url" content="{{ uri.request }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="{{ block('metaDescription') }}" />
+    <meta name="twitter:image" content="https://cdn.joomla.org/images/joomla-org-og.jpg" />
+    <meta name="twitter:site" content="@joomla" />
+    <meta name="twitter:title" content="{{ block('title') }}"/>
+    {% block metadata %}{% endblock %}
     {% if useCDN %}
-    <link href="//cdn.joomla.org/template/css/v3_template.min.css?v1.2.2" rel="stylesheet" media="screen">
+    <link href="https://cdn.joomla.org/template/css/v3_template.min.css?v1.3.0" rel="stylesheet" media="screen">
     {% else %}
     <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
     {% endif %}
+    <link rel="stylesheet" href="{{ uri.base.path }}vendor/semantic-ui-transition/transition{{ jdebug ? "" : ".min" }}.css">
+    <link rel="stylesheet" href="{{ uri.base.path }}vendor/semantic-ui-dropdown/dropdown{{ jdebug ? "" : ".min" }}.css">
     <link rel="stylesheet" href="{{ uri.base.path }}jtracker/core/css/jtracker.css">
     <link rel="stylesheet" href="{{ uri.base.path }}fonts/octicons/octicons.css">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ uri.base.path }}images/apple-touch-icon-144-precomposed.png">
@@ -47,15 +60,15 @@
             <div class="row-fluid">
                 {% block header %}
                     <div class="span7">
-                        <h1 class="page-title">Joomla! Issue Tracker{% block headerText %}{% endblock %}</h1>
+                        <h1 class="page-title"><a href="{{ uri.base.path }}">Joomla! Issue Tracker{% block headerText %}{% endblock %}</a></h1>
                     </div>
                     <div class="span5">
                         <div class="btn-toolbar pull-right">
                             <div class="btn-group">
-                                <a href="http://www.joomla.org/download.html" class="btn btn-large btn-warning">{{ "Download"|_ }} <span class="hidden-tablet">Joomla</span></a>
+                                <a href="https://www.joomla.org/download.html" class="btn btn-large btn-warning">{{ "Download"|_ }}</span></a>
                             </div>
                             <div class="btn-group">
-                                <a href="https://demo.joomla.org/" class="btn btn-large btn-primary">{{ "Demo"|_ }} <span class="hidden-tablet">Joomla</span></a>
+                                <a href="https://demo.joomla.org" class="btn btn-large btn-primary">{{ "Demo"|_ }}</span></a>
                             </div>
                         </div>
                     </div>
@@ -113,8 +126,9 @@
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tab.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
     <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="{{ uri.base.path }}vendor/semantic-ui-transition/transition{{ jdebug ? "" : ".min" }}.js"></script>
+    <script src="{{ uri.base.path }}vendor/semantic-ui-dropdown/dropdown{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/jtracker{{ jdebug ? "" : ".min" }}.js"></script>
-
     <script src="{{ uri.base.path }}vendor/g11n-js/js/g11n{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/g11n-js/js/methods{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/g11n-js/js/phpjs{{ jdebug ? "" : ".min" }}.js"></script>
@@ -122,43 +136,70 @@
     <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
 
     <script type="text/javascript">
-   		jQuery(document).ready(function($) {
-   			var navTop;
-   			var isFixed = false;
+        jQuery(document).ready(function($) {
+            var navTop;
+            var isFixed = false;
 
-   			$('.hasTooltip').tooltip();
-   			processScrollInit();
-   			processScroll();
+            $('.hasTooltip').tooltip();
+            processScrollInit();
+            processScroll();
 
-   			function processScrollInit() {
-   				if ($('.subnav-wrapper').length) {
-   					navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
+            function processScrollInit() {
+                if ($('.subnav-wrapper').length) {
+                    navTop = $('.subnav-wrapper').length && $('.subnav-wrapper').offset().top - 30;
 
-   					// Only apply the scrollspy when the toolbar is not collapsed
-   					if (document.body.clientWidth > 480) {
-   						$('.subnav-wrapper').height($('.subnav').height());
-   						$('.subnav').affix({
-   							offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
-   						});
-   					}
-   				}
-   			}
+                    // Fix the container top
+                    $('.body .container-main').css('top', $('.subnav-wrapper').height() + $('nav.navbar').height());
 
-   			function processScroll() {
-   				if ($('.subnav-wrapper').length) {
-   					var scrollTop = $(window).scrollTop();
-   					if (scrollTop >= navTop && !isFixed) {
-   						isFixed = true;
-   						$('.subnav-wrapper').addClass('subhead-fixed');
-   					} else if (scrollTop <= navTop && isFixed) {
-   						isFixed = false;
-   						$('.subnav-wrapper').removeClass('subhead-fixed');
-   					}
-   				}
-   			}
-   		});
-   	</script>
+                    // Only apply the scrollspy when the toolbar is not collapsed
+                    if (document.body.clientWidth > 480) {
+                        $('.subnav-wrapper').height($('.subnav').height());
+                        $('.subnav').affix({
+                            offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
+                        });
+                    }
+                }
+            }
 
+            function processScroll() {
+                if ($('.subnav-wrapper').length) {
+                    var scrollTop = $(window).scrollTop();
+                    if (scrollTop >= navTop && !isFixed) {
+                        isFixed = true;
+                        $('.subnav-wrapper').addClass('subhead-fixed');
+
+						// Fix the container top
+						$('.body .container-main').css('top', $('.subnav-wrapper').height() + $('nav.navbar').height());
+                    } else if (scrollTop <= navTop && isFixed) {
+                        isFixed = false;
+                        $('.subnav-wrapper').removeClass('subhead-fixed');
+                    }
+                }
+            }
+
+            $('#lang-switcher').dropdown({
+                action: 'select'
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-544070-33', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 {% endblock %}
 
 </body>

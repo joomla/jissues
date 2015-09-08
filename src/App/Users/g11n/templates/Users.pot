@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-08-31 18:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,11 @@ msgstr ""
 msgid "You are not authorized to refresh this user."
 msgstr ""
 
-#: /src/App/Users/Controller/User/Refresh.php:70
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
 msgstr ""
 

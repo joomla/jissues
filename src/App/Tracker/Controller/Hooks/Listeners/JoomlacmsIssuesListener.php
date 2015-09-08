@@ -18,7 +18,7 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-class JoomlacmsIssuesListener
+class JoomlacmsIssuesListener extends AbstractListener
 {
 	/**
 	 * Event for after issues are created in the application
@@ -38,7 +38,7 @@ class JoomlacmsIssuesListener
 		if ($arguments['action'] === 'opened')
 		{
 			// Add a "no code" label
-			$this->addCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 		}
 	}
 
@@ -54,93 +54,18 @@ class JoomlacmsIssuesListener
 	 *
 	 * @since   1.0
 	 */
-	protected function addCodelabel($hookData, Github $github, Logger $logger, $project)
+	protected function checkNoCodelabel($hookData, Github $github, Logger $logger, $project)
 	{
 		// Set some data
-		$codeLabel    = 'No Code Attached Yet';
-		$addLabels    = array();
-		$codeLabelSet = false;
+		$label      = 'No Code Attached Yet';
+		$labels     = array();
+		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
-		// Get the labels for the issue
-		try
+		if ($labelIsSet == false)
 		{
-			$labels = $github->issues->get($project->gh_user, $project->gh_project, $hookData->issue->number)->labels;
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->issue->number,
-					$e->getMessage()
-				)
-			);
-
-			return;
-		}
-
-		// Check if the label is present only if there are already labels attached to the item
-		if (count($labels) > 0)
-		{
-			foreach ($labels as $label)
-			{
-				if (!$codeLabelSet && $label->name == $codeLabel)
-				{
-					$logger->info(
-						sprintf(
-							'GitHub item %s/%s #%d already has the %s label.',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->issue->number,
-							$codeLabel
-						)
-					);
-
-					$codeLabelSet = true;
-				}
-			}
-		}
-
-		// Add the label if it isn't already set
-		if (!$codeLabelSet)
-		{
-			$addLabels[] = $codeLabel;
-		}
-
-		// Only try to add labels if the array isn't empty
-		if (!empty($addLabels))
-		{
-			try
-			{
-				$github->issues->labels->add(
-					$project->gh_user, $project->gh_project, $hookData->issue->number, $addLabels
-				);
-
-				// Post the new label on the object
-				$logger->info(
-					sprintf(
-						'Added %s labels to %s/%s #%d',
-						count($addLabels),
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->issue->number
-					)
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub issue %s/%s #%d - %s',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->issue->number,
-						$e->getMessage()
-					)
-				);
-			}
+			// Add the label as it isn't already set
+			$labels[] = $label;
+			$this->addLabels($hookData, $github, $logger, $project, $labels);
 		}
 	}
 }

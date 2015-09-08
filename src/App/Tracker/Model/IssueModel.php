@@ -82,6 +82,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				// Join over the milestones table
 				->select('m.title AS milestone_title')
 				->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = i.milestone_id')
+
+				// Join over the users
+				->select('u.id AS user_id')
+				->leftJoin('#__users AS u ON i.opened_by = u.username')
 		)->loadObject();
 
 		if (!$item)
@@ -383,8 +387,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$data['modified_date'] = $filter->clean($src['modified_date'], 'string');
 		}
 
-		$data['modified_by']     = $filter->clean($src['modified_by'], 'string');
-		$data['milestone_id']    = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
+		$data['modified_by']  = $filter->clean($src['modified_by'], 'string');
+		$data['milestone_id'] = isset($src['milestone_id']) ? $filter->clean($src['milestone_id'], 'int') : null;
 
 		$state        = $src['new_state'];
 		$changedState = $src['old_state'] != $src['new_state'];
@@ -401,6 +405,20 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		{
 			$data['closed_date'] = null;
 			$data['closed_by']   = null;
+		}
+
+		$data['labels'] = null;
+
+		if (!empty($src['labels']))
+		{
+			$labels = [];
+
+			foreach ($src['labels'] as $labelId)
+			{
+				$labels[] = (int) $labelId;
+			}
+
+			$data['labels'] = implode(',', $labels);
 		}
 
 		if (!$data['id'])

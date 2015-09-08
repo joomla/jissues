@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-08-31 18:41-0500\n"
 "PO-Revision-Date: 2015-02-07 18:04+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/jtracker/language/ro_RO/)\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -71,7 +71,7 @@ msgstr "Începe preluare Avatare."
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
 #: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Project/Events.php:75
 #: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr "Finalizat."
@@ -158,12 +158,12 @@ msgid ""
 msgstr "Obţine proiectul din GitHub în întregime, inclusiv subiecte şi comentariile respective."
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:52
+#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr "Procesează toate subiectele."
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:47
+#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr "<n> Procesează doar un singur subiect."
 
@@ -241,7 +241,7 @@ msgstr[1] "Preluează comentarii pentru <b>%d</b> subiectele modificate din GitH
 msgstr[2] "Preluează comentarii pentru <b>%d</b> subiectele modificate din GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:180
+#: /cli/Application/Command/Get/Project/Events.php:181
 msgid "Everything is up to date."
 msgstr "Conţinutul a fost actualizat."
 
@@ -279,19 +279,19 @@ msgstr ""
 msgid "Deleting issues comments."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:42
+#: /cli/Application/Command/Get/Project/Events.php:43
 msgid "Retrieve issue events from GitHub."
 msgstr "Recuperează evenimente legate de subiect din GitHub."
 
-#: /cli/Application/Command/Get/Project/Events.php:66
+#: /cli/Application/Command/Get/Project/Events.php:67
 msgid "Retrieve Events"
 msgstr "Recuperează Evenimente"
 
-#: /cli/Application/Command/Get/Project/Events.php:68
+#: /cli/Application/Command/Get/Project/Events.php:69
 msgid "Start retrieve Events"
 msgstr "Începe recuperarea Evenimentelor"
 
-#: /cli/Application/Command/Get/Project/Events.php:110
+#: /cli/Application/Command/Get/Project/Events.php:111
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
@@ -299,11 +299,11 @@ msgstr[0] "Preluează evenimente pentru un subiect din GitHub..."
 msgstr[1] "Preluează evenimente pentru <b>%d</b> subiecte din GitHub..."
 msgstr[2] "Preluează evenimente pentru <b>%d</b> subiecte din GitHub..."
 
-#: /cli/Application/Command/Get/Project/Events.php:190
+#: /cli/Application/Command/Get/Project/Events.php:191
 msgid "Adding events to the database..."
 msgstr "În curs de adăugare a subiectelor în baza de date..."
 
-#: /cli/Application/Command/Get/Project/Events.php:319
+#: /cli/Application/Command/Get/Project/Events.php:341
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "%d evenimente de subiect noi au fost adăugate în baza de date"
@@ -340,7 +340,7 @@ msgstr " <b>%d</b> obiecte din GitHub au fost recuperate."
 msgid "Adding issues to the database..."
 msgstr "În curs de adăugare a subiectelor în baza de date..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:409
+#: /cli/Application/Command/Get/Project/Issues.php:416
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d adăugate, %2$d actualizate.</ok>"

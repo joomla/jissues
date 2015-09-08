@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-08-31 18:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "String"
 msgstr ""
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:74
 #, php-format
 msgid "No %s log file found."
 msgstr ""

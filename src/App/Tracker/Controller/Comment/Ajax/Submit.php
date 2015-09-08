@@ -8,9 +8,8 @@
 
 namespace App\Tracker\Controller\Comment\Ajax;
 
-use App\Tracker\Table\ActivitiesTable;
+use App\Tracker\Model\ActivityModel;
 use Joomla\Date\Date;
-
 use JTracker\Controller\AbstractAjaxController;
 
 /**
@@ -61,6 +60,8 @@ class Submit extends AbstractAjaxController
 		$github = $this->getContainer()->get('gitHub');
 
 		$data = new \stdClass;
+
+		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db   = $this->getContainer()->get('db');
 
 		if ($project->gh_user && $project->gh_project)
@@ -98,20 +99,15 @@ class Submit extends AbstractAjaxController
 			$data->text = $github->markdown->render($comment, 'markdown');
 		}
 
-		$table = new ActivitiesTable($db);
+		(new ActivityModel($db))
+			->addActivityEvent(
+				'comment', $data->created_at, $data->opened_by, $project->project_id, $issue_number, $data->comment_id, $data->text, $data->text_raw
+			);
 
-		$table->event         = 'comment';
-		$table->created_date  = $data->created_at;
-		$table->project_id    = $project->project_id;
-		$table->issue_number  = $issue_number;
-		$table->gh_comment_id = $data->comment_id;
-		$table->user          = $data->opened_by;
-		$table->text          = $data->text;
-		$table->text_raw      = $data->text_raw;
+		$data->activities_id = $db->insertid();
 
-		$table->store();
-
-		$data->activities_id = $table->activities_id;
+		$date = new Date($data->created_at);
+		$data->created_at = $date->format('j M Y');
 
 		$this->response->data    = $data;
 		$this->response->message = g11n3t('Your comment has been submitted');

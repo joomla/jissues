@@ -28,7 +28,8 @@
 
 	"renderer": {
 		"type" : "twig",
-		"debug": "1"
+		"debug": "1",
+        "cache": false
 	},
 
 	"system": {
@@ -58,7 +59,7 @@
 		"language": "0",
 		"hooks"   : "0",
 		"logging" : "0",
-		"log-path": "logs",
+		"log-path": "",
 		"admin"   : "1"
 	},
 
@@ -72,6 +73,7 @@
 		"fr-FR",
 		"hu-HU",
 		"it-IT",
+		"lv-LV",
 		"nb-NO",
 		"nl-NL",
 		"pl-PL",

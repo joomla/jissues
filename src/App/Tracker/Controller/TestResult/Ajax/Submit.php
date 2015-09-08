@@ -8,10 +8,12 @@
 
 namespace App\Tracker\Controller\TestResult\Ajax;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Github\GithubFactory;
 
 /**
  * Add test result controller class.
@@ -48,18 +50,27 @@ class Submit extends AbstractAjaxController
 			throw new \Exception('No issue ID received.');
 		}
 
+		$this->dispatcher = $application->getDispatcher();
+		$this->addEventListener('tests');
+
+		$this->setProjectGitHubBot($project);
+
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
 		$data = new \stdClass;
 
 		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result);
 
+		$issueNumber = $issueModel->getIssueNumberById($issueId);
+
 		$event = (new ActivityModel($this->getContainer()->get('db')))
 			->addActivityEvent(
 				'test_item', 'now', $user->username,
-				$project->project_id, $issueModel->getIssueNumberById($issueId), null,
+				$project->project_id, $issueNumber, null,
 				json_encode($result)
 			);
+
+		$this->triggerEvent('onTestAfterSubmit', ['issueNumber' => $issueNumber, 'data' => $data->testResults]);
 
 		$data->event = new \stdClass;
 
@@ -73,5 +84,33 @@ class Submit extends AbstractAjaxController
 		$this->response->data = json_encode($data);
 
 		$this->response->message = g11n3t('Test successfully added');
+	}
+
+	/**
+	 * Set the GitHub object with the credentials from the project or,
+	 * if not found, with those from the configuration file.
+	 *
+	 * @param   TrackerProject  $project  The Project object.
+	 *
+	 * @since   1.0
+	 * @return $this
+	 */
+	protected function setProjectGitHubBot(TrackerProject $project)
+	{
+		// If there is a bot defined for the project, prefer it over the config credentials.
+		if ($project->gh_editbot_user && $project->gh_editbot_pass)
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app'), true, $project->gh_editbot_user, $project->gh_editbot_pass
+			);
+		}
+		else
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app')
+			);
+		}
+
+		return $this;
 	}
 }

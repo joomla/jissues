@@ -290,6 +290,10 @@ class Issues extends Project
 				? $milestones[$ghIssue->milestone->number]
 				: null;
 
+			// We do not have a data about the default branch
+			// @todo We need to retrieve repository somehow
+			$table->build = 'master';
+
 			// If the issue has a diff URL, it is a pull request.
 			if (isset($ghIssue->pull_request->diff_url))
 			{
@@ -301,6 +305,8 @@ class Issues extends Project
 				$pullRequest = $this->github->pulls->get(
 					$this->project->gh_user, $this->project->gh_project, $ghIssue->number
 				);
+
+				$table->build = $pullRequest->base->ref;
 
 				// If the $pullRequest->head->user object is not set, the repo/branch had been deleted by the user.
 				$table->pr_head_user = (isset($pullRequest->head->user))
@@ -353,7 +359,8 @@ class Issues extends Project
 
 			$table->labels = implode(',', $this->getLabelIds($ghIssue->labels));
 
-			$table->store(true);
+			$table->check()
+				->store(true);
 
 			if (!$table->id)
 			{

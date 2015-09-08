@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-08-31 18:41-0500\n"
 "PO-Revision-Date: 2015-02-07 18:04+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Estonian (Estonia) (http://www.transifex.com/projects/p/jtracker/language/et_EE/)\n"
+"Language-Team: Estonian (Estonia) (http://www.transifex.com/opentranslators/jtracker/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
 #: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Project/Events.php:75
 #: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr ""
@@ -156,12 +156,12 @@ msgid ""
 msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:52
+#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:47
+#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:180
+#: /cli/Application/Command/Get/Project/Events.php:181
 msgid "Everything is up to date."
 msgstr ""
 
@@ -274,30 +274,30 @@ msgstr ""
 msgid "Deleting issues comments."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:42
+#: /cli/Application/Command/Get/Project/Events.php:43
 msgid "Retrieve issue events from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:66
+#: /cli/Application/Command/Get/Project/Events.php:67
 msgid "Retrieve Events"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:68
+#: /cli/Application/Command/Get/Project/Events.php:69
 msgid "Start retrieve Events"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:110
+#: /cli/Application/Command/Get/Project/Events.php:111
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: /cli/Application/Command/Get/Project/Events.php:190
+#: /cli/Application/Command/Get/Project/Events.php:191
 msgid "Adding events to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:319
+#: /cli/Application/Command/Get/Project/Events.php:341
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr ""
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Adding issues to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:409
+#: /cli/Application/Command/Get/Project/Issues.php:416
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""

@@ -13,7 +13,7 @@ use App\Tracker\Table\IssueCategoryMappingTable;
 use JTracker\Model\AbstractTrackerDatabaseModel;
 use Joomla\Filter\InputFilter;
 use App\Tracker\Table\CategoryTable;
-use Joomla\String\String;
+use Joomla\String\StringHelper;
 use Joomla\Date\Date;
 
 /**
@@ -173,7 +173,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		if ($alias)
 		{
-			$alias = $db->quote('%' . $db->escape(String::strtolower($alias), true) . '%', false);
+			$alias = $db->quote('%' . $db->escape(StringHelper::strtolower($alias), true) . '%', false);
 			$query->where($db->quoteName('alias') . ' LIKE ' . $alias);
 		}
 

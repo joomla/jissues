@@ -14,7 +14,7 @@
     <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
-    <link href="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+    <link href="{{ uri.base.path }}vendor/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/jquery.atwho/dist/css/jquery.atwho.css" rel="stylesheet" media="screen">
 {% endblock %}
 
@@ -64,69 +64,81 @@
         </li>
     </ul>
 
-    {% if user.check("edit") %}
-    {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
-    <ul class="breadcrumb">
-        <li>
-            <label for="status">{{ translate('Status') }}</label>
-            <select name="item[status]" id="status" class="span2">
-                {% for key, value in getStatuses() %}
-                    <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
-                {% endfor %}
-            </select>
-        </li>
-        <li>
-            <label for="priority">{{ translate('Priority') }}</label>
-            <select name="item[priority]" id="priority" class="span2">
-                {% for key, value in priorities() %}
-                    <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
-                {% endfor %}
-            </select>
-        </li>
-        <li><div class="span1"></div></li>
-        <li>
-            <label for="rel_type">{{ translate('Item') }}</label>
-            <select name="item[rel_type]" id="rel_type" class="span2">
-                <option value="0"></option>
-                {% for relType in getRelTypes() %}
-                    {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
-                    <option {{ selected }} value="{{ relType.value }}">{{ relation(relType.text) }}</option>
-                {% endfor %}
-            </select>
-        </li>
-        <li>
-            <label for="rel_number">#</label>
-            <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
-        </li>
-    </ul>
+    {% if user.check('edit') %}
+        {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
+        <ul class="breadcrumb">
+            <li>
+                <label for="status">{{ translate('Status') }}</label>
+                <select name="item[status]" id="status" class="span2">
+                    {% for key, value in getStatuses() %}
+                        <option {{ key == item.status ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+            <li>
+                <label for="priority">{{ translate('Priority') }}</label>
+                <select name="item[priority]" id="priority" class="span2">
+                    {% for key, value in priorities() %}
+                        <option {{ key == item.priority ? "selected='selected'" : ""  }} value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+            <li><div class="span1"></div></li>
+            <li>
+                <label for="rel_type">{{ translate('Item') }}</label>
+                <select name="item[rel_type]" id="rel_type" class="span2">
+                    <option value="0"></option>
+                    {% for relType in getRelTypes() %}
+                        {% set selected = item.rel_type == relType.value ? 'selected="selected"' : '' %}
+                        <option {{ selected }} value="{{ relType.value }}">{{ relation(relType.text) }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+            <li>
+                <label for="rel_number">#</label>
+                <input name="item[rel_number]" id="rel_number" type="text" class="span1" value="{{ item.rel_number }}" />
+            </li>
+        </ul>
 
-    <ul class="breadcrumb">
-        <li>
-            <label for="build">{{ translate('Build') }}</label>
-            <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
-        </li>
-        {% if item.has_code %}
-        <li>
-            <label for="easy">{{ translate('Easy test') }}</label>
-            <select name="item[easy]" id="easy" class="span1">
-                <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
-                <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
-            </select>
-        </li>
-        {% endif %}
-        {% if project.categories %}
-        <li>
-            {{ fields.label('categories[]', 'Categories'|_) }}
-            {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
-        </li>
-        {% endif %}
-        {% if project.milestones %}
-        <li>
-            {{ fields.label('item[milestone_id]', 'Milestone'|_) }}
-            {{ fields.selectMilestone('item[milestone_id]', project.milestones, item.milestone_id) }}
-        </li>
-        {% endif %}
-    </ul>
+        <ul class="breadcrumb">
+            <li>
+                <label for="build">{{ translate('Build') }}</label>
+                <input name="item[build]" id="build" type="text" class="span1 validateBuild" value="{{ item.build }}" />
+            </li>
+            {% if item.has_code %}
+                <li>
+                    <label for="easy">{{ translate('Easy test') }}</label>
+                    <select name="item[easy]" id="easy" class="span1">
+                        <option {{ 0 == item.easy ? "selected='selected'" : ""  }} value="0">{{ '0'|yesno }}</option>
+                        <option {{ 1 == item.easy ? "selected='selected'" : ""  }} value="1">{{ '1'|yesno }}</option>
+                    </select>
+                </li>
+            {% endif %}
+            {% if project.categories %}
+                <li>
+                    {{ fields.label('categories[]', 'Categories'|_) }}
+                    {{ fields.selectCategories('categories[]', project.categories, item.categoryids) }}
+                </li>
+            {% endif %}
+
+            {% if user.check('admin') %}
+
+                {% if project.labels %}
+                    <li>
+                        {{ fields.label('labels', 'Labels'|_) }}
+                        {{ fields.selectLabels('item[labels][]', project.labels, item.labels|split(',') , 'labels') }}
+                    </li>
+                {% endif %}
+
+                {% if project.milestones %}
+                    <li>
+                        {{ fields.label('item[milestone_id]', 'Milestone'|_) }}
+                        {{ fields.selectMilestone('item[milestone_id]', project.milestones, item.milestone_id) }}
+                    </li>
+                {% endif %}
+
+            {% endif %}
+        </ul>
     {% endif %}
 
     <div class="row-fluid">
@@ -198,7 +210,7 @@
     <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="{{ uri.base.path }}vendor/blueimp-load-image/js/load-image.min.js"></script>
+    <script src="{{ uri.base.path }}vendor/blueimp-load-image/js/load-image.all.min.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload.js"></script>
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
@@ -207,7 +219,7 @@
     <script src="{{ uri.base.path }}vendor/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery-textrange/jquery-textrange.js"></script>
     <script src="{{ uri.base.path }}jtracker/core/js/uploader-img.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap-select/bootstrap-select.js"></script>
+    <script src="{{ uri.base.path }}vendor/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <script src="{{ uri.base.path }}vendor/Caret.js/dist/jquery.caret{{ jdebug ? "" : ".min" }}.js"></script>
     <script src="{{ uri.base.path }}vendor/jquery.atwho/dist/js/jquery.atwho{{ jdebug ? "" : ".min" }}.js"></script>
 

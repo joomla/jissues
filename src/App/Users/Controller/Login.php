@@ -13,6 +13,7 @@ use Joomla\Github\Github;
 use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
 
+use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Controller\AbstractTrackerController;
@@ -30,7 +31,7 @@ class Login extends AbstractTrackerController
 	 * @return  string  The rendered view.
 	 *
 	 * @since   1.0
-	 * @throws  \Exception
+	 * @throws  AuthenticationException
 	 */
 	public function execute()
 	{
@@ -50,7 +51,7 @@ class Login extends AbstractTrackerController
 		if ($error)
 		{
 			// GitHub reported an error.
-			throw new \Exception($error);
+			throw new AuthenticationException($error, 'login');
 		}
 
 		$code = $app->input->get('code');
@@ -58,7 +59,7 @@ class Login extends AbstractTrackerController
 		if (!$code)
 		{
 			// No auth code supplied.
-			throw new \Exception('Missing login code');
+			throw new AuthenticationException($user, 'login');
 		}
 
 		// Do login

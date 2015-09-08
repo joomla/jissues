@@ -115,7 +115,7 @@ class Install extends TrackerCommand
 		$this
 			->processSql()
 			->out()
-			->out('<ok>' . g11n3t('Installation has terminated successfully.') . '</ok>');
+			->out('<ok>' . g11n3t('Installation has been completed successfully.') . '</ok>');
 	}
 
 	/**

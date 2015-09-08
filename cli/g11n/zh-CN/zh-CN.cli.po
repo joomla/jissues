@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-07 12:04-0600\n"
+"POT-Creation-Date: 2015-08-31 18:41-0500\n"
 "PO-Revision-Date: 2015-02-07 18:04+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/jtracker/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/opentranslators/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -71,7 +71,7 @@ msgstr "开始获取头像。"
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
 #: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:74
+#: /cli/Application/Command/Get/Project/Events.php:75
 #: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr "完成。"
@@ -156,12 +156,12 @@ msgid ""
 msgstr "从GitHub获取项目的全部信息，包括Issue和Issues的评论"
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:52
+#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr "处理所有的Issue"
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:47
+#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr "<n> 仅处理单一Issue"
 
@@ -237,7 +237,7 @@ msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
 msgstr[0] "正在从GitHub获取 <b>%d</b> 个发生变更的Issue"
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:180
+#: /cli/Application/Command/Get/Project/Events.php:181
 msgid "Everything is up to date."
 msgstr "所有内容都已更新到最新"
 
@@ -271,29 +271,29 @@ msgstr ""
 msgid "Deleting issues comments."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:42
+#: /cli/Application/Command/Get/Project/Events.php:43
 msgid "Retrieve issue events from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:66
+#: /cli/Application/Command/Get/Project/Events.php:67
 msgid "Retrieve Events"
 msgstr "获取事件"
 
-#: /cli/Application/Command/Get/Project/Events.php:68
+#: /cli/Application/Command/Get/Project/Events.php:69
 msgid "Start retrieve Events"
 msgstr "开始获取事件"
 
-#: /cli/Application/Command/Get/Project/Events.php:110
+#: /cli/Application/Command/Get/Project/Events.php:111
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] "从GitHub获取 <b>%d</b> 个Issue的事件"
 
-#: /cli/Application/Command/Get/Project/Events.php:190
+#: /cli/Application/Command/Get/Project/Events.php:191
 msgid "Adding events to the database..."
 msgstr "正在向数据库中增加事件"
 
-#: /cli/Application/Command/Get/Project/Events.php:319
+#: /cli/Application/Command/Get/Project/Events.php:341
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr "已将 %d 个事件增加到数据库中"
@@ -330,7 +330,7 @@ msgstr ""
 msgid "Adding issues to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:409
+#: /cli/Application/Command/Get/Project/Issues.php:416
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""

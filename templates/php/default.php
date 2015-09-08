@@ -40,12 +40,12 @@
 							<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="http://www.joomla.org/"><span aria-hidden="true" class="icon-joomla"></span>
+								<a href="https://www.joomla.org/"><span aria-hidden="true" class="icon-joomla"></span>
 									Joomla! Home</a>
 							</li>
 							<li class="divider"><span></span></li>
 							<li class="nav-header"><span>Recent News</span></li>
-							<li><a href="http://www.joomla.org/announcements.html">Announcements</a></li>
+							<li><a href="https://www.joomla.org/announcements.html">Announcements</a></li>
 							<li><a href="http://community.joomla.org/blogs/community.html">Blogs</a></li>
 							<li><a href="http://magazine.joomla.org/">Magazine</a></li>
 							<li class="divider"><span></span></li>
@@ -57,11 +57,11 @@
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">About
 							<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="http://www.joomla.org/about-joomla.html">About Joomla!</a>
-							<li><a href="http://www.joomla.org/about-joomla.html">The Software</a></li>
-							<li><a href="http://www.joomla.org/about-joomla/the-project.html">The Project</a></li>
+							<li><a href="https://www.joomla.org/about-joomla.html">About Joomla!</a>
+							<li><a href="https://www.joomla.org/about-joomla.html">The Software</a></li>
+							<li><a href="https://www.joomla.org/about-joomla/the-project.html">The Project</a></li>
 							<li>
-								<a href="http://www.joomla.org/about-joomla/the-project/leadership-team.html">Leadership</a>
+								<a href="https://www.joomla.org/about-joomla/the-project/leadership-team.html">Leadership</a>
 							</li>
 							<li><a href="http://opensourcematters.org/index.php">Open Source Matters</a></li>
 						</ul>
@@ -81,7 +81,7 @@
 							<li><a href="http://forum.joomla.org/">Joomla! Forum</a></li>
 							<li><a href="http://docs.joomla.org/">Joomla! Documentation</a></li>
 							<li><a href="http://resources.joomla.org/">Joomla! Resources</a></li>
-							<li><a href="http://www.joomla.org/mailing-lists.html">Joomla! Mailing Lists</a></li>
+							<li><a href="https://www.joomla.org/mailing-lists.html">Joomla! Mailing Lists</a></li>
 						</ul>
 					</li>
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Extend
@@ -143,7 +143,7 @@
 			<div class="span5">
 				<div class="btn-toolbar pull-right">
 					<div class="btn-group">
-						<a href="http://www.joomla.org/download.html" class="btn btn-large btn-warning">Download
+						<a href="https://www.joomla.org/download.html" class="btn btn-large btn-warning">Download
 							<span class="hidden-tablet">Joomla</span></a>
 					</div>
 					<div class="btn-group">
@@ -177,9 +177,9 @@
 		<div class=" footer-menu">
 			<ul class="nav-inline">
 				<li class="item97">
-					<a href="http://www.joomla.org"><span>Home</span></a>
+					<a href="https://www.joomla.org"><span>Home</span></a>
 				</li>
-				<li class="item110"><a href="http://www.joomla.org/about-joomla.html"><span>About</span></a>
+				<li class="item110"><a href="https://www.joomla.org/about-joomla.html"><span>About</span></a>
 				</li>
 				<li class="item98"><a href="http://community.joomla.org"><span>Community</span></a></li>
 				<li class="item99"><a href="http://forum.joomla.org"><span>Forum</span></a>
@@ -195,10 +195,10 @@
 			</ul>
 
 			<ul class="nav-inline">
-				<li><a href="http://www.joomla.org/accessibility-statement.html">Accessibility Statement</a></li>
-				<li><a href="http://www.joomla.org/privacy-policy.html">Privacy Policy</a></li>
+				<li><a href="https://www.joomla.org/accessibility-statement.html">Accessibility Statement</a></li>
+				<li><a href="https://www.joomla.org/privacy-policy.html">Privacy Policy</a></li>
 				<li>
-					<a href="http://www.rochenhost.com/joomla-hosting" target="_blank">Joomla Hosting by Rochen Ltd.</a>
+					<a href="https://www.rochen.com/joomla-hosting" target="_blank">Joomla Hosting by Rochen Ltd.</a>
 				</li>
 			</ul>
 

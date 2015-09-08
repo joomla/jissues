@@ -10,10 +10,14 @@ namespace JTracker\Controller;
 
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
+use Joomla\Event\Dispatcher;
+use Joomla\Event\Event;
 use Joomla\Input\Input;
-
 use Joomla\View\Renderer\RendererInterface;
+
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\GitHub\Github;
+use JTracker\Github\GithubFactory;
 use JTracker\View\AbstractTrackerHtmlView;
 use JTracker\View\Renderer\TrackerExtension;
 
@@ -65,6 +69,30 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 * @since  1.0
 	 */
 	protected $model;
+
+	/**
+	 * The dispatcher object
+	 *
+	 * @var    Dispatcher
+	 * @since  1.0
+	 */
+	protected $dispatcher;
+
+	/**
+	 * Flag if the event listener is set for a hook
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
+	protected $listenerSet = false;
+
+	/**
+	 * The GitHub object.
+	 *
+	 * @var GitHub
+	 * @since  1.0
+	 */
+	protected $github = null;
 
 	/**
 	 * Constructor.
@@ -360,6 +388,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 			case 'twig':
 				$config['templates_base_dir'] = JPATH_TEMPLATES;
 				$config['environment']['debug'] = JDEBUG ? true : false;
+				$config['environment']['cache'] = $application->get('renderer.cache', false) ? JPATH_ROOT . '/' . $application->get('renderer.cache') : false;
 
 				break;
 
@@ -419,5 +448,72 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		}
 
 		return $renderer;
+	}
+
+	/**
+	 * Registers the event listener for the current project.
+	 *
+	 * @param   string  $type  The event listener type.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function addEventListener($type)
+	{
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
+		/*
+		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
+		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
+		 */
+		$baseClass = ucfirst(str_replace('-', '', $application->getProject()->gh_project)) . ucfirst($type) . 'Listener';
+		$fullClass = 'App\\Tracker\\Controller\\Hooks\\Listeners\\' . $baseClass;
+
+		if (class_exists($fullClass))
+		{
+			$this->dispatcher->addListener(new $fullClass);
+			$this->listenerSet = true;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Triggers an event if a listener is set.
+	 *
+	 * @param   string  $eventName  Name of the event to trigger.
+	 * @param   array   $arguments  Associative array of arguments for the event.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function triggerEvent($eventName, array $arguments)
+	{
+		if (!$this->listenerSet)
+		{
+			return;
+		}
+
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
+		$event = new Event($eventName);
+
+		// Add default event arguments.
+		$event->addArgument('github', ($this->github ? : GithubFactory::getInstance($application)))
+			->addArgument('logger', $application->getLogger())
+			->addArgument('project', $application->getProject());
+
+		// Add event arguments passed as parameters.
+		foreach ($arguments as $name => $value)
+		{
+			$event->addArgument($name, $value);
+		}
+
+		// Trigger the event.
+		$this->dispatcher->triggerEvent($event);
 	}
 }

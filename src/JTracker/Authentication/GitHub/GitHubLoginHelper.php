@@ -134,6 +134,11 @@ class GitHubLoginHelper
 		$options   = new Registry;
 		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
 
+		if (false == $transport)
+		{
+			throw new \DomainException('No transports available (please install php-curl)');
+		}
+
 		$http = new Http($options, $transport);
 
 		$data = array(
@@ -286,6 +291,29 @@ class GitHubLoginHelper
 		$avatars[$user->username] = file_exists($path) ? $path : $this->avatarPath . '/user-default.png';
 
 		return $avatars[$user->username];
+	}
+
+	/**
+	 * Set the email for a user
+	 *
+	 * @param   integer  $id     The user ID to update
+	 * @param   string   $email  The email address to set
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function setEmail($id, $email = '')
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->container->get('db');
+
+		$db->setQuery(
+			$db->getQuery(true)
+				->update($db->quoteName('#__users'))
+				->set($db->quoteName('email') . '=' . $db->quote($email))
+				->where($db->quoteName('id') . '=' . (int) $id)
+		)->execute();
 	}
 
 	/**

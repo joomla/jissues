@@ -169,7 +169,7 @@ td.valign-center {
 
 .activity-comment {
     border: 1px solid silver;
-    margin: 10px 0 10px;
+    margin: 0 0 20px;
     border-radius: 3px;
 }
 
@@ -185,6 +185,74 @@ td.valign-center {
 ul.test-results {
     float: left
 }
+
+/* language select */
+li.lang-select {
+    margin: 2px 5px 2px 0;
+}
+
+li.lang-select a {
+    color: inherit;
+    text-decoration: none;
+}
+
+li.lang-select .caret {
+    margin-top: 6px;
+}
+
+li.lang-select #lang-switcher {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+li.lang-select input,
+li.lang-select input:focus {
+    color: #fff;
+}
+
+li.lang-select .ui.search.dropdown>.text {
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
+    color: #ccc !important;
+}
+
+.ui.labeled.icon.button, .ui.labeled.icon.buttons .button {
+    position: relative;
+    padding-left: 2em!important;
+    padding-right: 1em!important;
+}
+
+.ui.labeled.icon.button>.lang-icon {
+    position: absolute;
+    text-align: center;
+    line-height: 1;
+    left: 0;
+}
+
+.ui.search.dropdown>input.search{
+    line-height: inherit;
+    width: 100px;
+}
+
+.ui.dropdown .menu {
+    padding: 5px 0;
+}
+
+.ui.dropdown .menu>.item {
+    padding: 5px 20px!important;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.ui.dropdown .menu>.item:hover {
+    background-color: #0081c2;
+    color: #FFFFFF;
+}
+
+/* end language select */
 
 @media (max-width: 767px) {
     ul.test-results {

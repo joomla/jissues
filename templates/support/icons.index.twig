@@ -18,4 +18,15 @@
     {% endfor %}
     </div>
 
+    <h2>{{ "OctIcons"|_ }}</h2>
+
+    <div class="row">
+    {% for icon in octicons %}
+        <div class="span3 well well-small">
+            <i style="font-size: 16px;" class="octicon {{ icon }}"></i>
+            &nbsp;{{ icon }}
+        </div>
+    {% endfor %}
+    </div>
+
 {% endblock %}

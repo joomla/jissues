@@ -32,7 +32,7 @@ class Add extends AbstractAjaxController
 
 		$application->getUser()->authorize('manage');
 
-		$name  = $application->input->getCmd('name');
+		$name  = $application->input->getString('name');
 		$color = $application->input->getCmd('color');
 
 		$project = $application->getProject();
