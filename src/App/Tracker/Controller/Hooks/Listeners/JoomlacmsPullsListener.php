@@ -55,6 +55,9 @@ class JoomlacmsPullsListener extends AbstractListener
 
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+
+			// Check the Categories based on the files that gets changed
+			$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -80,6 +83,9 @@ class JoomlacmsPullsListener extends AbstractListener
 
 		// Add a RTC label if the item is in that status
 		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+		// Check the Categories based on the files that gets changed
+		$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
@@ -290,24 +296,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Get the files modified by the pull request
-		try
-		{
-			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
-			);
-
-			$files = array();
-		}
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
@@ -594,5 +583,211 @@ class JoomlacmsPullsListener extends AbstractListener
 				);
 			}
 		}
+	}
+
+	/**
+	 * Checks the changed files and add based on that data a category (if possible)
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkCategories($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
+
+		$categories = $this->checkFilesAndAssignCategory($files);
+
+		if ($categories === array())
+		{
+			// Early return nothing to do
+			return true;
+		}
+
+		// Add the categorys we need
+		return $this->setCategories($hookData, $logger, $project, $table, $categories);
+	}
+
+	/**
+	 * Check the changed files and return the correct category if possible.
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  array  Category alias of the category we want to add
+	 *
+	 * @since   1.0
+	 */
+	protected function checkFilesAndAssignCategory($files)
+	{
+		$addCategories = array();
+
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for the installation folder
+				if (strpos($file->filename, 'installation/') === 0 && !in_array($addCategories, 'installation'))
+				{
+					$addCategories[] = 'installation';
+				}
+
+				// Check for the admin template
+				if (strpos($file->filename, 'administrator/templates/') === 0 && !in_array($addCategories, 'templates-admin'))
+				{
+					$addCategories[] = 'templates-admin';
+				}
+
+				// Check for the frontend template
+				if (strpos($file->filename, 'templates/') === 0 && !in_array($addCategories, 'templates-admin'))
+				{
+					$addCategories[] = 'templates-site';
+				}
+
+				// Check for the modules folder
+				if (strpos($file->filename, 'modules/') === 0 && !in_array($addCategories, 'modules'))
+				{
+					$addCategories[] = 'modules';
+				}
+
+				// Check for the plugins folder
+				if (strpos($file->filename, 'plugins/') === 0 && !in_array($addCategories, 'plugins'))
+				{
+					$addCategories[] = 'plugins';
+				}
+
+				// Check if the language gets changed
+				if (strpos($file->filename, 'administrator/language') === 0
+					|| strpos($file->filename, 'installation/language') === 0
+					|| strpos($file->filename, 'language') === 0
+					&& !in_array($addCategories, 'language-strings'))
+				{
+					$addCategories[] = 'language-strings';
+				}
+
+				// Check for files & paths regarding the Unit/System Tests
+				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'phpunit.xml.dist'
+					|| $file->filename == 'travisci-phpunit.xml'
+					&& !in_array($addCategories, 'unit-tests'))
+				{
+					$addCategories[] = 'unit-tests';
+				}
+				
+				// Check for the libraries folder
+				if (strpos($file->filename, 'libraries/') === 0 && !in_array($addCategories, 'libraries'))
+				{
+					$addCategories[] = 'libraries';
+				}
+
+				// Check for the layouts folder
+				if (strpos($file->filename, 'layouts/') === 0 && !in_array($addCategories, 'layout'))
+				{
+					$addCategories[] = 'layout';
+				}
+
+				// Check for the cli folder
+				if (strpos($file->filename, 'cli/') === 0 && !in_array($addCategories, 'cli'))
+				{
+					$addCategories[] = 'cli';
+				}
+
+				// Check for external libraries folders and destinations
+				if (strpos($file->filename, 'libraries/fof/') === 0 
+					|| strpos($file->filename, 'libraries/idna_convert/') === 0
+					|| strpos($file->filename, 'libraries/phpass/') === 0
+					|| strpos($file->filename, 'libraries/phputf8/') === 0
+					|| strpos($file->filename, 'libraries/simplepie/') === 0
+					|| strpos($file->filename, 'libraries/vendor/') === 0
+					|| strpos($file->filename, 'libraries/vendor/') === 0
+					|| strpos($file->filename, 'media/editors/codemirror') === 0
+					|| strpos($file->filename, 'media/editors/tinymce') === 0
+					|| $file->filename = 'composer.json'
+					|| $file->filename = 'composer.lock'
+					&& !in_array($addCategories, 'external-library'))
+				{
+					$addCategories[] = 'external-library';
+				}
+
+				// Check for repository changes (no production code) execluding tests
+				if (strpos($file->filename, 'build/') === 0 
+					|| $file->filename = '.gitignore'
+					|| $file->filename = 'CONTRIBUTING.md'
+					|| $file->filename = 'README.md'
+					|| $file->filename = 'README.txt'
+					|| $file->filename = 'build.xml'
+					&& !in_array($addCategories, 'repository'))
+				{
+					$addCategories[] = 'repository';
+				}
+
+				// Check for tags changes
+				if (strpos($file->filename, 'administrator/components/com_tags') === 0 
+					|| strpos($file->filename, 'components/com_tags') === 0 
+					&& !in_array($addCategories, 'tags'))
+				{
+					$addCategories[] = 'tags';
+				}
+
+				// Check for sql changes
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0 
+					|| strpos($file->filename, 'installation/sql') === 0 
+					&& !in_array($addCategories, 'sql'))
+				{
+					$addCategories[] = 'sql';
+				}
+
+				// Check for postgresql changes
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0 
+					|| strpos($file->filename, 'installation/sql/postgresql') === 0 
+					&& !in_array($addCategories, 'postgresql'))
+				{
+					$addCategories[] = 'postgresql';
+				}
+
+				// Check for ms-sql changes
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0 
+					|| strpos($file->filename, 'installation/sql/sqlazure') === 0 
+					&& !in_array($addCategories, 'ms-sql'))
+				{
+					$addCategories[] = 'ms-sql';
+				}
+
+				// Check for media manager changes
+				if (strpos($file->filename, 'administrator/components/com_media') === 0 
+					|| strpos($file->filename, 'components/com_media') === 0 
+					&& !in_array($addCategories, 'media-manager'))
+				{
+					$addCategories[] = 'media-manager';
+				}
+
+				// Check for admin components changes changes
+				if (strpos($file->filename, 'administrator/components/') === 0 
+					&& (!in_array($addCategories, 'administration') 
+					&& !in_array($addCategories, 'components')))
+				{
+					$addCategories[] = 'administration';
+					$addCategories[] = 'components';
+				}
+
+				// Check for frontend components changes
+				if (strpos($file->filename, 'components/') === 0 
+					&& (!in_array($addCategories, 'front-end') 
+					&& !in_array($addCategories, 'components')))
+				{
+					$addCategories[] = 'front-end';
+					$addCategories[] = 'components';
+				}
+			}
+		}
+
+		// Return the categorys
+		return $addCategories;
 	}
 }
