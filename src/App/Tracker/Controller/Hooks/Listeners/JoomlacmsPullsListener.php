@@ -632,31 +632,36 @@ class JoomlacmsPullsListener extends AbstractListener
 			foreach ($files as $file)
 			{
 				// Check for the installation folder
-				if (strpos($file->filename, 'installation/') === 0 && !in_array($addCategories, 'installation'))
+				if (strpos($file->filename, 'installation/') === 0
+					&& !in_array($addCategories, 'installation'))
 				{
 					$addCategories[] = 'installation';
 				}
 
 				// Check for the admin template
-				if (strpos($file->filename, 'administrator/templates/') === 0 && !in_array($addCategories, 'templates-admin'))
+				if (strpos($file->filename, 'administrator/templates/') === 0
+					&& !in_array($addCategories, 'templates-admin'))
 				{
 					$addCategories[] = 'templates-admin';
 				}
 
 				// Check for the frontend template
-				if (strpos($file->filename, 'templates/') === 0 && !in_array($addCategories, 'templates-admin'))
+				if (strpos($file->filename, 'templates/') === 0
+					&& !in_array($addCategories, 'templates-admin'))
 				{
 					$addCategories[] = 'templates-site';
 				}
 
 				// Check for the modules folder
-				if (strpos($file->filename, 'modules/') === 0 && !in_array($addCategories, 'modules'))
+				if (strpos($file->filename, 'modules/') === 0
+					&& !in_array($addCategories, 'modules'))
 				{
 					$addCategories[] = 'modules';
 				}
 
 				// Check for the plugins folder
-				if (strpos($file->filename, 'plugins/') === 0 && !in_array($addCategories, 'plugins'))
+				if (strpos($file->filename, 'plugins/') === 0
+					&& !in_array($addCategories, 'plugins'))
 				{
 					$addCategories[] = 'plugins';
 				}
@@ -681,25 +686,28 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 				
 				// Check for the libraries folder
-				if (strpos($file->filename, 'libraries/') === 0 && !in_array($addCategories, 'libraries'))
+				if (strpos($file->filename, 'libraries/') === 0
+					&& !in_array($addCategories, 'libraries'))
 				{
 					$addCategories[] = 'libraries';
 				}
 
 				// Check for the layouts folder
-				if (strpos($file->filename, 'layouts/') === 0 && !in_array($addCategories, 'layout'))
+				if (strpos($file->filename, 'layouts/') === 0
+					&& !in_array($addCategories, 'layout'))
 				{
 					$addCategories[] = 'layout';
 				}
 
 				// Check for the cli folder
-				if (strpos($file->filename, 'cli/') === 0 && !in_array($addCategories, 'cli'))
+				if (strpos($file->filename, 'cli/') === 0
+					&& !in_array($addCategories, 'cli'))
 				{
 					$addCategories[] = 'cli';
 				}
 
 				// Check for external libraries folders and destinations
-				if (strpos($file->filename, 'libraries/fof/') === 0 
+				if (strpos($file->filename, 'libraries/fof/') === 0
 					|| strpos($file->filename, 'libraries/idna_convert/') === 0
 					|| strpos($file->filename, 'libraries/phpass/') === 0
 					|| strpos($file->filename, 'libraries/phputf8/') === 0
@@ -716,7 +724,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for repository changes (no production code) execluding tests
-				if (strpos($file->filename, 'build/') === 0 
+				if (strpos($file->filename, 'build/') === 0
 					|| $file->filename = '.gitignore'
 					|| $file->filename = 'CONTRIBUTING.md'
 					|| $file->filename = 'README.md'
@@ -728,47 +736,47 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for tags changes
-				if (strpos($file->filename, 'administrator/components/com_tags') === 0 
-					|| strpos($file->filename, 'components/com_tags') === 0 
+				if (strpos($file->filename, 'administrator/components/com_tags') === 0
+					|| strpos($file->filename, 'components/com_tags') === 0
 					&& !in_array($addCategories, 'tags'))
 				{
 					$addCategories[] = 'tags';
 				}
 
 				// Check for sql changes
-				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0 
-					|| strpos($file->filename, 'installation/sql') === 0 
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0
+					|| strpos($file->filename, 'installation/sql') === 0
 					&& !in_array($addCategories, 'sql'))
 				{
 					$addCategories[] = 'sql';
 				}
 
 				// Check for postgresql changes
-				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0 
-					|| strpos($file->filename, 'installation/sql/postgresql') === 0 
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0
+					|| strpos($file->filename, 'installation/sql/postgresql') === 0
 					&& !in_array($addCategories, 'postgresql'))
 				{
 					$addCategories[] = 'postgresql';
 				}
 
 				// Check for ms-sql changes
-				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0 
-					|| strpos($file->filename, 'installation/sql/sqlazure') === 0 
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0
+					|| strpos($file->filename, 'installation/sql/sqlazure') === 0
 					&& !in_array($addCategories, 'ms-sql'))
 				{
 					$addCategories[] = 'ms-sql';
 				}
 
 				// Check for media manager changes
-				if (strpos($file->filename, 'administrator/components/com_media') === 0 
-					|| strpos($file->filename, 'components/com_media') === 0 
+				if (strpos($file->filename, 'administrator/components/com_media') === 0
+					|| strpos($file->filename, 'components/com_media') === 0
 					&& !in_array($addCategories, 'media-manager'))
 				{
 					$addCategories[] = 'media-manager';
 				}
 
 				// Check for admin components changes changes
-				if (strpos($file->filename, 'administrator/components/') === 0 
+				if (strpos($file->filename, 'administrator/components/') === 0
 					&& (!in_array($addCategories, 'administration') 
 					&& !in_array($addCategories, 'components')))
 				{
@@ -777,7 +785,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for frontend components changes
-				if (strpos($file->filename, 'components/') === 0 
+				if (strpos($file->filename, 'components/') === 0
 					&& (!in_array($addCategories, 'front-end') 
 					&& !in_array($addCategories, 'components')))
 				{
