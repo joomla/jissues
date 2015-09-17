@@ -202,7 +202,6 @@ abstract class AbstractListener
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
-	 *
 	 */
 	protected function addLabels($hookData, Github $github, Logger $logger, $project, $addLabels)
 	{
@@ -270,7 +269,6 @@ abstract class AbstractListener
 	 *
 	 * @since  1.0
 	 * @return object
-	 *
 	 */
 	protected function createStatus(Github $gitHub, TrackerProject $project, $issueNumber, Status $status, $sha = '')
 	{
@@ -291,19 +289,18 @@ abstract class AbstractListener
 	}
 
 	/**
-	 * Add Categories
+	 * Set Categories
 	 *
 	 * @param   object       $hookData       Hook data payload
 	 * @param   Logger       $logger         Logger object
 	 * @param   object       $project        Object containing project data
 	 * @param   IssuesTable  $table          Table object
-	 * @param   array        $addCategories  The labels to add
+	 * @param   array        $addCategories  The Categories to add
 	 *
 	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
-	 *
 	 */
 	protected function setCategories($hookData, Logger $logger, $project, IssuesTable $table, $addCategories)
 	{
@@ -344,8 +341,6 @@ abstract class AbstractListener
 	 * @return  void
 	 *
 	 * @since   1.0
-	 * @throws  \RuntimeException
-	 *
 	 */
 	protected function getChangedFilesByPullRequest($hookData, Github $github, Logger $logger, $project)
 	{
@@ -374,8 +369,7 @@ abstract class AbstractListener
 	}
 
 	/**
-	 * Retun the currently configured bot account. Fallback is 'joomla-cms-bot'
-	 *
+	 * Return the currently configured bot account. Fallback is 'joomla-cms-bot'
 	 *
 	 * @return  string  The currently configured bot account
 	 *
