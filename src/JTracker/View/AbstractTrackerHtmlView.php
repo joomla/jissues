@@ -56,18 +56,6 @@ abstract class AbstractTrackerHtmlView extends AbstractView
 	}
 
 	/**
-	 * Magic toString method that is a proxy for the render method.
-	 *
-	 * @return  string
-	 *
-	 * @since   1.0
-	 */
-	public function __toString()
-	{
-		return $this->render();
-	}
-
-	/**
 	 * Method to escape output.
 	 *
 	 * @param   string  $output  The output to escape.
