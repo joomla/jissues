@@ -684,7 +684,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				{
 					$addCategories[] = 'unit-tests';
 				}
-				
+
 				// Check for the libraries folder
 				if (strpos($file->filename, 'libraries/') === 0
 					&& !in_array($addCategories, 'libraries'))
@@ -777,7 +777,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for admin components changes changes
 				if (strpos($file->filename, 'administrator/components/') === 0
-					&& (!in_array($addCategories, 'administration') 
+					&& (!in_array($addCategories, 'administration')
 					&& !in_array($addCategories, 'components')))
 				{
 					$addCategories[] = 'administration';
@@ -786,7 +786,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for frontend components changes
 				if (strpos($file->filename, 'components/') === 0
-					&& (!in_array($addCategories, 'front-end') 
+					&& (!in_array($addCategories, 'front-end')
 					&& !in_array($addCategories, 'components')))
 				{
 					$addCategories[] = 'front-end';
