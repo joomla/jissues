@@ -321,7 +321,7 @@ abstract class AbstractListener
 		}
 
 		$categoryModel            = new CategoryModel($this->getContainer()->get('db'));
-		$category['issue_id']     = $issueNumber;
+		$category['issue_id']     = $table->id;
 		$category['modified_by']  = $this->getGithubBotName($project);
 		$category['categories']   = $addCategories;
 		$category['issue_number'] = $issueNumber;
