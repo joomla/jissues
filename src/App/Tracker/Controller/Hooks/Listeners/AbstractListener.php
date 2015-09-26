@@ -8,12 +8,11 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
+use App\Tracker\Model\CategoryModel;
+use App\Tracker\Table\IssuesTable;
 use App\Projects\TrackerProject;
-
 use Joomla\Github\Github;
-
 use JTracker\Github\DataType\Commit\Status;
-
 use Monolog\Logger;
 
 /**
@@ -338,7 +337,7 @@ abstract class AbstractListener
 	 * @param   Logger  $logger     Logger object
 	 * @param   object  $project    Object containing project data
 	 *
-	 * @return  void
+	 * @return  array
 	 *
 	 * @since   1.0
 	 */
@@ -371,12 +370,14 @@ abstract class AbstractListener
 	/**
 	 * Return the currently configured bot account. Fallback is 'joomla-cms-bot'
 	 *
+	 * @param   object  $project    Object containing project data
+	 *
 	 * @return  string  The currently configured bot account
 	 *
 	 * @since   1.0
 	 *
 	 */
-	protected getGithubBotName($project)
+	protected function getGithubBotName($project)
 	{
 		// Look if we have a bot user configured
 		if ($project->getGh_Editbot_User())
