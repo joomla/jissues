@@ -332,10 +332,10 @@ abstract class AbstractListener
 	/**
 	 * Get the files modified by the pull request
 	 *
-	 * @param   object  $hookData   Hook data payload
-	 * @param   Github  $github     Github object
-	 * @param   Logger  $logger     Logger object
-	 * @param   object  $project    Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  array
 	 *
@@ -370,7 +370,7 @@ abstract class AbstractListener
 	/**
 	 * Return the currently configured bot account. Fallback is 'joomla-cms-bot'
 	 *
-	 * @param   object  $project    Object containing project data
+	 * @param   object  $project  Object containing project data
 	 *
 	 * @return  string  The currently configured bot account
 	 *
