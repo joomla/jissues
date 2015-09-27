@@ -18,6 +18,7 @@ use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Github\Exception\GithubException;
 use JTracker\Github\GithubFactory;
+use JTracker\Helper\GitHubHelper;
 
 /**
  * Controller class to save an item via the Tracker App.
@@ -210,6 +211,10 @@ class Save extends AbstractTrackerController
 			$data['old_state'] = $oldState;
 			$data['new_state'] = $state;
 
+			// Values that are not supposed to change.
+			$data['commits'] = $item->commits;
+			$data['pr_head_sha'] = $item->pr_head_sha;
+
 			// Save the record.
 			$model->save($data);
 
@@ -218,17 +223,14 @@ class Save extends AbstractTrackerController
 			// Save the comment.
 			if ($comment)
 			{
+				/* @type \JTracker\Github\Github $github */
+				$github = $this->getContainer()->get('gitHub');
+
 				$project = $application->getProject();
 
-				$comment .= sprintf(
-					'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
-					'https://github.com/joomla/jissues', 'J!Tracker',
-					$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
-					str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
-				);
+				$gitHubHelper = new GitHubHelper($github);
 
-				/* @type \Joomla\Github\Github $github */
-				$github = $this->getContainer()->get('gitHub');
+				$comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
 
 				$data = new \stdClass;
 				$db   = $this->getContainer()->get('db');

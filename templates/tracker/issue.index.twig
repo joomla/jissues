@@ -30,6 +30,19 @@
         .tests-fail, .tests-2 {
             color: red;
         }
+        .testForm {
+            background-color: #f5f5f5;
+            padding: 8px 15px;
+            display: none;
+        }
+        .highlightRow {
+            background-color: #f5f5f5;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+        .help-icon {
+            cursor: help;
+        }
     </style>
 {% endblock %}
 
@@ -236,6 +249,36 @@
     </ul>
     {% endif %}
 
+    <!-- Tests -->
+
+    {% if item.has_code %}
+
+        <p class="highlightRow">
+            <span class="btn-group">
+                {% if user.id %}
+                    <span class="btn btn-primary" onclick="$('#testContainer').slideToggle();">
+                        {{ 'Test this'|_ }}
+                    </span>
+                {% endif %}
+                {% if user.check('edit') %}
+                    <span class="btn btn-warning" onclick="$('#testAlterContainer').slideToggle();">
+                        {{ 'Alter test'|_ }}
+                    </span>
+                {% endif %}
+            </span>
+            <strong>{{ 'User tests:'|_ }}</strong>
+            {{ 'Successful: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}
+            <span id="usertests-success" class="tests-success"></span>
+            {{ 'Unsuccessful: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}
+            <span id="usertests-fail" class="tests-fail"></span>
+        </p>
+
+        {% if user.id %}
+            {% include "testcontainer.twig" %}
+        {% endif %}
+
+    {% endif %}
+
     <!-- Main content -->
 
     <div class="row-fluid">
@@ -328,78 +371,6 @@
                     {{ "Vote"|_ }}
                 </a>
             </form>
-            {% endif %}
-
-            {% if item.has_code %}
-
-            <h4>{{ 'Tests:'|_ }}</h4>
-
-            <ul class="unstyled">
-                <li>
-                    {{ 'Successful: %s'|_|format('<span id="usertests-success-num" class="tests-success"></span>')|raw }}<br />
-                    <span id="usertests-success" class="tests-success"></span>
-                </li>
-                <li>
-                    {{ 'Unsuccessful: %s'|_|format('<span id="usertests-fail-num" class="tests-fail"></span>')|raw }}<br />
-                    <span id="usertests-fail" class="tests-fail"></span>
-                </li>
-            </ul>
-
-                {% if user.id %}
-                <form class="form-inline tests-report" name="testsForm">
-                    <fieldset>
-                        <p>{{ "I've tested this item"|_ }}</p>
-                        <ul class="unstyled">
-                            <li>
-                                <label class="radio">
-                                    <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
-                                    {{ "Not tested"|_ }}
-                                </label>
-                            </li>
-                            <li>
-                                <label class="radio tests-success">
-                                    <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
-                                    {{ "Tested successfully"|_ }}
-                                </label>
-                            </li>
-                            <li>
-                                <label class="radio tests-fail">
-                                    <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
-                                    {{ "Tested unsuccessfully"|_ }}
-                                </label>
-                            </li>
-                        </ul>
-                    </fieldset>
-                    <div id="testResult"></div>
-                    <a href="javascript:" class="btn btn-primary"
-                       onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', 'tplNewTestResult');">
-                        {{ "Submit test result"|_ }}
-                    </a>
-                </form>
-                {% endif %}
-
-                {% if user.check('edit') %}
-                    <hr />
-                    <h6>{{ 'Alter test result'|_ }}</h6>
-                    <form class="form-inline">
-
-                        {{ 'Set the test result for user %s to %s'|_|format(
-                            '<input name="altered-user" class="span10" placeholder="' ~ 'username'|_ ~ '"/>',
-                            '<select name="altered" class="span12">'
-                            ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
-                            ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
-                            ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
-                            ~ '</select>'
-                        )|raw }}
-                        <div id="alterResult"></div>
-                        <a href="javascript:" class="btn btn-primary"
-                           onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', 'tplNewAlterTestResult');">
-                            {{ "Alter test result"|_ }}
-                        </a>
-
-                    </form>
-                {% endif %}
-
             {% endif %}
         </div>
         {% endif %}
@@ -578,41 +549,6 @@
                 </div>
             </div>
             <div class="row-fluid">
-                {% if item.has_code %}
-                    <ul class="test-results offset1 unstyled inline">
-                        <li>
-                            <label class="radio">
-                                {% if (item.userTest is not null and item.userTest == 0) %}
-                                    {% set checked = ' checked="checked"' %}
-                                {% else %}
-                                    {% set checked = '' %}
-                                {% endif %}
-                                <input id="comment-test-result-0" class="comment-test-result" type="radio" name="comment-tested" value="0"{{ checked }}>
-                                {{ "Not tested"|_ }}
-                            </label>
-                        </li>
-                        <li>
-                            <label class="radio tests-success">
-                                <input id="comment-test-result-1" class="comment-test-result" type="radio" name="comment-tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
-                                {{ "Tested successfully"|_ }}
-                            </label>
-                        </li>
-                        <li>
-                            <label class="radio tests-fail">
-                                <input id="comment-test-result-2" class="comment-test-result" type="radio" name="comment-tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
-                                {{ "Tested unsuccessfully"|_ }}
-                            </label>
-                        </li>
-                    </ul>
-
-                    {% set testResult = '' %}
-                    {% if (item.userTest) %}
-                        {% set testResult = item.userTest %}
-                    {% endif %}
-                    <input id="current-test-result" type="hidden" value="{{ testResult }}">
-                    <input id="issue-id" type="hidden" value="{{ item.id }}">
-                {% endif %}
-
                 <div class="pull-right comment-wrapper">
                     <div id="commentStatus"></div>
                     <a href="javascript:" class="btn btn-success"
@@ -718,6 +654,8 @@
 
         $(document).ready(function() {
             $('#comment').markItUp(myMarkdownSettings);
+            $('#commentTest').markItUp(myMarkdownSettings);
+
             JTracker.updateTests(
                     {{ item.testsSuccess ? ("['" ~ item.testsSuccess|join("', '") ~ "']")|raw : '[]' }},
                     {{ item.testsFailure ? ("['" ~ item.testsFailure|join("', '") ~ "']")|raw : '[]'}}
@@ -729,6 +667,9 @@
             if ('#preview' == $(e.target).attr('href')) {
                 JTracker.preview('#comment', '#preview');
             }
+            if ('#previewTest' == $(e.target).attr('href')) {
+                JTracker.preview('#commentTest', '#previewTest');
+            }
         });
 
         $('#comment').focus(function() {
@@ -736,6 +677,7 @@
         });
 
         JTracker.setupAtJS('comment', '{{ project.alias }}');
+        JTracker.setupAtJS('commentTest', '{{ project.alias }}');
 
     </script>
 

@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_tests` (
   `item_id` int(11) NOT NULL COMMENT 'Item ID',
   `username` varchar(50) NOT NULL COMMENT 'User name',
   `result` smallint(6) NOT NULL COMMENT 'Test result (1=success, 2=failure)',
+  `sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been tested against',
   PRIMARY KEY (`id`),
   KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -174,6 +175,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `has_code` tinyint(1)NOT NULL DEFAULT 0 COMMENT 'If the issue has code attached - aka a pull request',
   `pr_head_user` varchar(150) NOT NULL COMMENT 'Pull request head user',
   `pr_head_ref` varchar(150) NOT NULL COMMENT 'Pull request head ref',
+  `pr_head_sha` varchar(40) NOT NULL COMMENT 'Pull request head SHA',
   `labels` varchar(250) NOT NULL COMMENT 'Comma separated list of label IDs',
   `build` varchar(40) NOT NULL DEFAULT '' COMMENT 'Build on which the issue is reported',
   `easy` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Flag whether an item is an easy test',

@@ -108,6 +108,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$commits = json_decode($item->commits) ? : [];
 		$activities = [];
 
+		// Store the last commit to fetch the test results later
+		$lastCommit = end($commits);
+
 		foreach ($activityData as $i => $activity)
 		{
 			foreach ($commits as $i1 => $commit)
@@ -194,27 +197,32 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$item->gh_merge_status = json_decode($item->gh_merge_status);
 
 		// Fetch test data
-		$item->testsSuccess = $this->db->setQuery(
-			$query
-				->clear()
-				->select('username')
-				->from($this->db->quoteName('#__issues_tests'))
-				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
-				->where($this->db->quoteName('result') . ' = 1')
-		)->loadColumn();
+		if ($lastCommit)
+		{
+			$item->testsSuccess = $this->db->setQuery(
+				$query
+					->clear()
+					->select('username')
+					->from($this->db->quoteName('#__issues_tests'))
+					->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+					->where($this->db->quoteName('result') . ' = 1')
+					->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
+			)->loadColumn();
 
-		sort($item->testsSuccess);
+			sort($item->testsSuccess);
 
-		$item->testsFailure = $this->db->setQuery(
-			$query
-				->clear()
-				->select('username')
-				->from($this->db->quoteName('#__issues_tests'))
-				->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
-				->where($this->db->quoteName('result') . ' = 2')
-		)->loadColumn();
+			$item->testsFailure = $this->db->setQuery(
+				$query
+					->clear()
+					->select('username')
+					->from($this->db->quoteName('#__issues_tests'))
+					->where($this->db->quoteName('item_id') . ' = ' . (int) $item->id)
+					->where($this->db->quoteName('result') . ' = 2')
+					->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($lastCommit->sha))
+			)->loadColumn();
 
-		sort($item->testsFailure);
+			sort($item->testsFailure);
+		}
 
 		// Fetch category
 		$item->categories = $this->db->setQuery(
@@ -229,24 +237,93 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Get user tests for a PR.
+	 *
+	 * @param   integer  $itemId  The issue ID.
+	 * @param   string   $sha     The commit SHA.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getUserTests($itemId, $sha)
+	{
+		$tests = [];
+
+		$query = $this->db->getQuery(true);
+
+		$tests['success'] = $this->db->setQuery(
+			$query
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 1')
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
+		)->loadColumn();
+
+		$tests['failure'] = $this->db->setQuery(
+			$query
+				->clear()
+				->select('username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('result') . ' = 2')
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
+		)->loadColumn();
+
+		sort($tests['success']);
+		sort($tests['failure']);
+
+		return $tests;
+	}
+
+	/**
+	 * Get all user tests for a PR.
+	 *
+	 * @param   integer  $itemId  The issue ID.
+	 *
+	 * @return array
+	 *
+	 * @since   1.0
+	 */
+	public function getAllTests($itemId)
+	{
+		return $this->db->setQuery(
+			$this->db->getQuery(true)
+				->select('DISTINCT username')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->order('username')
+		)->loadColumn();
+	}
+
+	/**
 	 * Get a user test for an item.
 	 *
 	 * @param   integer  $itemId    The item number
 	 * @param   string   $username  The user name
+	 * @param   string   $sha       The commit SHA.
 	 *
 	 * @return  null|integer  Null - the test was not submitted,
 	 *                        integer - the value of test: 0 - not tested; 1 - tested successfully; 2 - tested unsuccessfully
 	 *
 	 * @since   1.0
 	 */
-	public function getUserTest($itemId, $username)
+	public function getUserTest($itemId, $username, $sha)
 	{
+		if (!$sha)
+		{
+			return null;
+		}
+
 		return $this->db->setQuery(
 			$this->db->getQuery(true)
 				->select('result')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
 				->where($this->db->quoteName('username') . ' = ' . $this->db->quote($username))
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 		)->loadResult();
 	}
 
@@ -376,6 +453,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'raw');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
+
+		$data['commits'] = isset($src['commits']) ? $src['commits'] : '';
+		$data['pr_head_sha'] = isset($src['pr_head_sha']) ? $src['pr_head_sha'] : '';
 
 		if (isset($src['easy']))
 		{
@@ -548,12 +628,13 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @param   integer  $itemId    The item ID
 	 * @param   string   $userName  The user name
 	 * @param   string   $result    The test result
+	 * @param   string   $sha       The SHA at which the item has been tested.
 	 *
 	 * @return  object  StdClass with array of usernames for successful and failed tests
 	 *
 	 * @since   1.0
 	 */
-	public function saveTest($itemId, $userName, $result)
+	public function saveTest($itemId, $userName, $result, $sha)
 	{
 		// Check for existing test
 		$id = $this->db->setQuery(
@@ -562,6 +643,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('username') . ' = ' . $this->db->quote($userName))
 				->where($this->db->quoteName('item_id') . ' = ' . $itemId)
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 		)->loadResult();
 
 		if (!$id)
@@ -571,6 +653,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				$this->db->quoteName('item_id')  => $itemId,
 				$this->db->quoteName('username') => $this->db->quote($userName),
 				$this->db->quoteName('result')   => $result,
+				$this->db->quoteName('sha')      => $this->db->quote($sha),
 			];
 
 			$this->db->setQuery(
@@ -600,6 +683,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('username')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 				->where($this->db->quoteName('result') . ' = 1')
 		)->loadColumn();
 
@@ -610,6 +694,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('username')
 				->from($this->db->quoteName('#__issues_tests'))
 				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('sha') . ' = ' . $this->db->quote($sha))
 				->where($this->db->quoteName('result') . ' = 2')
 		)->loadColumn();
 

@@ -16,15 +16,25 @@
     <link href="{{ uri.base.path }}vendor/blueimp-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" >
     <link href="{{ uri.base.path }}vendor/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" />
     <link href="{{ uri.base.path }}vendor/jquery.atwho/dist/css/jquery.atwho.css" rel="stylesheet" media="screen">
+
+    <style type="text/css">
+        .testForm {
+            background-color: #f5f5f5;
+            padding: 8px 15px;
+            display: none;
+        }
+        .tests-success {
+            color: green;
+        }
+        .tests-fail {
+            color: red;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
 
     {% import "fields.twig" as fields %}
-
-    <div class="alert alert-danger" style="display: none"></div>
-
-    <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
 
     <h2>{{ project.title }} #{{ item.issue_number }}</h2>
 
@@ -32,11 +42,23 @@
 
     <ul class="breadcrumb">
         <li>
-            <a class="btn btn-success" href="javascript:" id="submit">{{ translate('Save') }}</a>
+            <a class="btn btn-success" href="javascript:" id="submit">
+                {{ 'Save'|_ }}
+            </a>
         </li>
+        {% if item.has_code %}
+        <li>
+             <a class="btn btn-danger" href="javascript:" onclick="$('#testContainer').slideToggle();">
+                {{ 'Test this'|_ }}
+            </a>
+        </li>
+        <a class="btn btn-warning" href="javascript:" onclick="$('#testAlterContainer').slideToggle();">
+                {{ 'Alter test'|_ }}
+        </a>
+        {% endif %}
         <li>
             <a class="btn btn-inverse" href="{{ uri.base.path ~ 'tracker/' ~ project.alias ~ '/' ~ item.issue_number }}">
-                {{ translate('Cancel') }}
+                {{ 'Cancel'|_ }}
             </a>
         </li>
 
@@ -63,6 +85,14 @@
             {{ sprintf("%1$s opened this ticket on %2$s", item.opened_by, item.opened_date|date("j M Y")) }}
         </li>
     </ul>
+
+    {% if item.has_code %}
+        {% include "testcontainer.twig" %}
+    {% endif %}
+
+    <div class="alert alert-danger" style="display: none"></div>
+
+    <form method="post" action="/{{ uri.route }}-save" class="form-inline" name="editForm" id="issueForm">
 
     {% if user.check('edit') %}
         {# Show only if the user has *full*^edit rights - e.g. not "edit own" #}
@@ -227,6 +257,7 @@
         $(document).ready(function() {
             $('#description').markItUp(myMarkdownSettings);
             $('#comment').markItUp(myMarkdownSettings);
+            $('#commentTest').markItUp(myMarkdownSettings);
             $('.selectpicker').selectpicker();
         });
 
@@ -245,6 +276,9 @@
 
             if ('#previewComment' == $(e.target).attr('href')) {
                 JTracker.preview('#comment', '#previewComment');
+            }
+            if ('#previewTest' == $(e.target).attr('href')) {
+                JTracker.preview('#commentTest', '#previewTest');
             }
         });
 
@@ -280,6 +314,7 @@
 
         JTracker.setupAtJS('description', '{{ project.alias }}');
         JTracker.setupAtJS('comment', '{{ project.alias }}');
+        JTracker.setupAtJS('commentTest', '{{ project.alias }}');
 
     </script>
 {% endblock %}
