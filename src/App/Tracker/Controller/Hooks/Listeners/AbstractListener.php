@@ -11,8 +11,13 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Table\IssuesTable;
 use App\Projects\TrackerProject;
+
+use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Github\Github;
+
 use JTracker\Github\DataType\Commit\Status;
+
 use Monolog\Logger;
 
 /**
@@ -20,8 +25,10 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-abstract class AbstractListener
+abstract class AbstractListener implements ContainerAwareInterface
 {
+	use ContainerAwareTrait;
+
 	/**
 	 * Check if label already exists
 	 *

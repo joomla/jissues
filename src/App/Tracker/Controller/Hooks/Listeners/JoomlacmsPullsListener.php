@@ -9,6 +9,7 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
+
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 
