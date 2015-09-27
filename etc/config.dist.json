@@ -86,7 +86,14 @@
 
 	"validation": {
 		"mime_types": [
-			"image/png", "image/jpeg", "image/gif"
+			"image/png",
+			"image/jpeg",
+			"image/gif",
+			"application/pdf",
+			"text/plain",
+			"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+			"application/vnd.openxmlformats-officedocument.presentationml.presentation",
+			"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 		],
 		"file_size" : "1M"
 	}
