@@ -67,7 +67,7 @@ class Save extends AbstractTrackerController
 			$data = $src;
 
 			// Allow admins to update labels and milestones
-			if (!$user->check('admin'))
+			if (!$user->check('manage'))
 			{
 				if (!empty($item->labels))
 				{
@@ -358,7 +358,7 @@ class Save extends AbstractTrackerController
 			);
 
 			$needUpdate = false;
-			$isAllowed  = $application->getUser()->check('admin');
+			$isAllowed  = $application->getUser()->check('manage');
 
 			// The milestone and labels are silently dropped,
 			// so try to update the milestone and/or labels if they are not set.
