@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:18-0500\n"
-"PO-Revision-Date: 2015-09-08 14:19+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"PO-Revision-Date: 2015-09-09 01:02+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/opentranslators/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -303,39 +303,39 @@ msgstr "Events werden in der Datenbank gespeichert..."
 msgid "Added %d new issue events to the database"
 msgstr "Es wurden %d neue Events in der Datenbank gespeichert."
 
-#: /cli/Application/Command/Get/Project/Issues.php:66
+#: /cli/Application/Command/Get/Project/Issues.php:68
 msgid "Retrieve issues from GitHub."
 msgstr "Bezieht Fehlerberichte von GitHub."
 
-#: /cli/Application/Command/Get/Project/Issues.php:78
+#: /cli/Application/Command/Get/Project/Issues.php:80
 msgid "Retrieve Issues"
 msgstr "Bezieht Fehlerberichte"
 
-#: /cli/Application/Command/Get/Project/Issues.php:83
+#: /cli/Application/Command/Get/Project/Issues.php:85
 msgid "Start retrieve Issues"
 msgstr "Starte Abrufen der Fehlerberichte"
 
-#: /cli/Application/Command/Get/Project/Issues.php:89
+#: /cli/Application/Command/Get/Project/Issues.php:91
 #: /cli/Application/Command/Get/Project/Labels.php:50
 #: /cli/Application/Command/Get/Project/Milestones.php:52
 msgid "Finished"
 msgstr "Beendet"
 
-#: /cli/Application/Command/Get/Project/Issues.php:105
+#: /cli/Application/Command/Get/Project/Issues.php:107
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
 msgstr "Hole <b>%s</b> Einträge von GitHub ..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:164
+#: /cli/Application/Command/Get/Project/Issues.php:166
 #, php-format
 msgid "Retrieved <b>%d</b> items from GitHub."
 msgstr "Es wurden <b>%d</b> Einträge von GitHub abgerufen."
 
-#: /cli/Application/Command/Get/Project/Issues.php:194
+#: /cli/Application/Command/Get/Project/Issues.php:196
 msgid "Adding issues to the database..."
 msgstr "Einträge werden in der Datenbank gespeichert..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:416
+#: /cli/Application/Command/Get/Project/Issues.php:454
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d hizugefügt, %2$d aktualisiert.</ok>"
@@ -436,7 +436,7 @@ msgstr "Die Datenbank wird erstellt..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has been completed successfully."
-msgstr ""
+msgstr "Die Installation wurde erfolgreich abgeschlossen"
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:18-0500\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
 "PO-Revision-Date: 2015-09-08 14:19+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/opentranslators/jtracker/language/pl_PL/)\n"
@@ -307,39 +307,39 @@ msgstr ""
 msgid "Added %d new issue events to the database"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:66
+#: /cli/Application/Command/Get/Project/Issues.php:68
 msgid "Retrieve issues from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:78
+#: /cli/Application/Command/Get/Project/Issues.php:80
 msgid "Retrieve Issues"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:83
+#: /cli/Application/Command/Get/Project/Issues.php:85
 msgid "Start retrieve Issues"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:89
+#: /cli/Application/Command/Get/Project/Issues.php:91
 #: /cli/Application/Command/Get/Project/Labels.php:50
 #: /cli/Application/Command/Get/Project/Milestones.php:52
 msgid "Finished"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:105
+#: /cli/Application/Command/Get/Project/Issues.php:107
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:164
+#: /cli/Application/Command/Get/Project/Issues.php:166
 #, php-format
 msgid "Retrieved <b>%d</b> items from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:194
+#: /cli/Application/Command/Get/Project/Issues.php:196
 msgid "Adding issues to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Issues.php:416
+#: /cli/Application/Command/Get/Project/Issues.php:454
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr ""
