@@ -327,6 +327,11 @@ class ReceivePullsHook extends AbstractHookController
 				$gitHubBot->addComment(
 					$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
 				);
+
+				// Reset the tests to zero
+				$testers = (new IssueModel($this->getContainer()->get('db')))
+					->resetAllTests($table->id);
+
 			}
 		}
 
