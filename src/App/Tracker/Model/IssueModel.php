@@ -301,7 +301,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Reset all user tests for a PR.
 	 *
-	 * @param   integer  $itemId  The issue ID.
+	 * @param   integer  $itemId    The issue ID.
+	 * @param   string   $username  The username that test should be removed.
 	 *
 	 * @return  void
 	 *
