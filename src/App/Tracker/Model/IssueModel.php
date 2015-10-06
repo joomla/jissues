@@ -299,6 +299,26 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	}
 
 	/**
+	 * Reset all user tests for a PR.
+	 *
+	 * @param   integer  $itemId  The issue ID.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function resetTests($itemId, $username)
+	{
+		$this->db->setQuery(
+			$this->db->getQuery(true)
+				->delete('*')
+				->from($this->db->quoteName('#__issues_tests'))
+				->where($this->db->quoteName('item_id') . ' = ' . (int) $itemId)
+				->where($this->db->quoteName('username') . ' = ' . (int) $username)
+		)->execute();
+	}
+
+	/**
 	 * Get a user test for an item.
 	 *
 	 * @param   integer  $itemId    The item number

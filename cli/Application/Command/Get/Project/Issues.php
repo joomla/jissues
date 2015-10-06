@@ -345,6 +345,29 @@ class Issues extends Project
 						$gitHubBot->addComment(
 							$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
 						);
+
+						// Reset the tests
+						foreach($testers as $tester)
+						{
+							$result = new \stdClass;
+							$result->user  = $tester;
+							$result->value = '0';
+
+							// Add the Activity Entry
+							$this->addActivityEvent(
+								'alter_testresult',
+								'now',
+								$this->project->gh_editbot_user,
+								$this->project->project_id,
+								$this->data->number,
+								null,
+								json_encode($result)
+							);
+
+							// Reset the tests to zero
+							$restTests = (new IssueModel($this->getContainer()->get('db')))
+								->resetTests($table->id, $tester);
+						}
 					}
 				}
 
