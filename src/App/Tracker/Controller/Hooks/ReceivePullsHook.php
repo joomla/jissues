@@ -329,7 +329,7 @@ class ReceivePullsHook extends AbstractHookController
 				);
 
 				// Reset the tests
-				foreach($testers as $tester)
+				foreach ($testers as $tester)
 				{
 					$result = new \stdClass;
 					$result->user  = $tester;
