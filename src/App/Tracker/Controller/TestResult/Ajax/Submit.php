@@ -103,7 +103,7 @@ class Submit extends AbstractAjaxController
 				break;
 		}
 
-		$comment .= ($userComment) ? '<br />' . $userComment : '';
+		$comment .= ($userComment) ? '<br /><br />' . $userComment : '';
 		$comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
 
 		$data->comment = $gitHubHelper->addComment($project, $issueNumber, $comment, $user->username, $this->getContainer()->get('db'));
