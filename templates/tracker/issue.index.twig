@@ -294,7 +294,7 @@
             <span class="icon-calendar"></span> {{ item.opened_date|date("j M Y", offset) }}
         </div>
 
-        {% if item.votes or user.id or item.has_code %}
+        {% if item.votes or user.id %}
             {% set mainClass = 'span7' %}
         {% else %}
             {% set mainClass = 'span10' %}
@@ -304,7 +304,7 @@
             {{ item.description|raw }}
         </div>
 
-        {% if item.votes or user.id or item.has_code %}
+        {% if item.votes or user.id %}
         <div class="span3 well">
 
             {% if item.votes or user.id %}
