@@ -813,7 +813,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for frontend components changes
 				if (strpos($file->filename, 'components/') === 0
-					&& !in_array('29', $addCategories)))
+					&& !in_array('29', $addCategories))
 				{
 					// Components
 					$addCategories[] = '29';
@@ -821,7 +821,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for admin module changes changes
 				if (strpos($file->filename, 'administrator/modules/') === 0
-					&& !in_array('13', $addCategories)))
+					&& !in_array('13', $addCategories))
 				{
 					// Modules
 					$addCategories[] = '13';
@@ -829,7 +829,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for frontend module changes
 				if (strpos($file->filename, 'modules/') === 0
-					&& !in_array('13', $addCategories)))
+					&& !in_array('13', $addCategories))
 				{
 					// Modules
 					$addCategories[] = '13';
