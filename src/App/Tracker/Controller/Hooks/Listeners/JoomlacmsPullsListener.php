@@ -634,7 +634,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			{
 				// Check for the installation folder
 				if (strpos($file->filename, 'installation/') === 0
-					&& !in_array($addCategories, '25'))
+					&& !in_array('25', $addCategories))
 				{
 					// Installation
 					$addCategories[] = '25';
@@ -642,7 +642,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for the admin template
 				if (strpos($file->filename, 'administrator/templates/') === 0
-					&& !in_array($addCategories, '31'))
+					&& !in_array('31', $addCategories))
 				{
 					// Admin templates
 					$addCategories[] = '31';
@@ -650,7 +650,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for the frontend template
 				if (strpos($file->filename, 'templates/') === 0
-					&& !in_array($addCategories, '30'))
+					&& !in_array('30', $addCategories))
 				{
 					// Site Template
 					$addCategories[] = '30';
@@ -658,7 +658,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for the plugins folder
 				if (strpos($file->filename, 'plugins/') === 0
-					&& !in_array($addCategories, '28'))
+					&& !in_array('28', $addCategories))
 				{
 					// Plugins
 					$addCategories[] = '28';
@@ -668,7 +668,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				if (strpos($file->filename, 'administrator/language') === 0
 					|| strpos($file->filename, 'installation/language') === 0
 					|| strpos($file->filename, 'language') === 0
-					&& !in_array($addCategories, '27'))
+					&& !in_array('27', $addCategories))
 				{
 					// Language & Strings
 					$addCategories[] = '27';
@@ -679,7 +679,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					|| $file->filename == '.travis.yml'
 					|| $file->filename == 'phpunit.xml.dist'
 					|| $file->filename == 'travisci-phpunit.xml'
-					&& !in_array($addCategories, '14'))
+					&& !in_array('14', $addCategories))
 				{
 					// Unit Tests
 					$addCategories[] = '14';
@@ -687,7 +687,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for the libraries folder
 				if (strpos($file->filename, 'libraries/') === 0
-					&& !in_array($addCategories, '12'))
+					&& !in_array('12', $addCategories))
 				{
 					// Libaries
 					$addCategories[] = '12';
@@ -695,7 +695,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for the layouts folder
 				if (strpos($file->filename, 'layouts/') === 0
-					&& !in_array($addCategories, '15'))
+					&& !in_array('15', $addCategories))
 				{
 					// Layout
 					$addCategories[] = '15';
@@ -703,7 +703,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for the cli folder
 				if (strpos($file->filename, 'cli/') === 0
-					&& !in_array($addCategories, '18'))
+					&& !in_array('18', $addCategories))
 				{
 					// CLI
 					$addCategories[] = '18';
@@ -720,7 +720,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					|| strpos($file->filename, 'media/editors/tinymce') === 0
 					|| $file->filename = 'composer.json'
 					|| $file->filename = 'composer.lock'
-					&& !in_array($addCategories, '4'))
+					&& !in_array('4', $addCategories))
 				{
 					// External Library
 					$addCategories[] = '4';
@@ -733,7 +733,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					|| $file->filename = 'README.md'
 					|| $file->filename = 'README.txt'
 					|| $file->filename = 'build.xml'
-					&& !in_array($addCategories, '36'))
+					&& !in_array('36', $addCategories))
 				{
 					// Repository
 					$addCategories[] = '36';
@@ -742,7 +742,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				// Check for tags changes
 				if (strpos($file->filename, 'administrator/components/com_tags') === 0
 					|| strpos($file->filename, 'components/com_tags') === 0
-					&& !in_array($addCategories, '16'))
+					&& !in_array('16', $addCategories))
 				{
 					// Tags
 					$addCategories[] = '16';
@@ -751,7 +751,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				// Check for sql changes
 				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0
 					|| strpos($file->filename, 'installation/sql') === 0
-					&& !in_array($addCategories, '10'))
+					&& !in_array('10', $addCategories))
 				{
 					// SQL
 					$addCategories[] = '10';
@@ -760,7 +760,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				// Check for postgresql changes
 				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0
 					|| strpos($file->filename, 'installation/sql/postgresql') === 0
-					&& !in_array($addCategories, '2'))
+					&& !in_array('2', $addCategories))
 				{
 					// Postgresql
 					$addCategories[] = '2';
@@ -769,7 +769,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				// Check for ms-sql changes
 				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0
 					|| strpos($file->filename, 'installation/sql/sqlazure') === 0
-					&& !in_array($addCategories, '3'))
+					&& !in_array('3', $addCategories))
 				{
 					// MS SQL
 					$addCategories[] = '3';
@@ -778,56 +778,59 @@ class JoomlacmsPullsListener extends AbstractListener
 				// Check for media manager changes
 				if (strpos($file->filename, 'administrator/components/com_media') === 0
 					|| strpos($file->filename, 'components/com_media') === 0
-					&& !in_array($addCategories, '35'))
+					&& !in_array('35', $addCategories))
 				{
 					// Media Manager
 					$addCategories[] = '35';
 				}
 
-				// Check for admin components changes changes
-				if (strpos($file->filename, 'administrator/components/') === 0
-					&& (!in_array($addCategories, '23')
-					&& !in_array($addCategories, '29')))
+				// Check for admin changes
+				if (strpos($file->filename, 'administrator/') === 0
+					&& !in_array('23', $addCategories))
 				{
 					// Administration
 					$addCategories[] = '23';
+				}
 
+				// Check for frontend changes
+				if (strpos($file->filename, 'components/') === 0
+					|| strpos($file->filename, 'modules/') === 0
+					|| strpos($file->filename, 'plugins/') === 0
+					|| strpos($file->filename, 'templates/') === 0
+					&& !in_array('24', $addCategories))
+				{
+					// Front End
+					$addCategories[] = '24';
+				}
+
+				// Check for admin components changes changes
+				if (strpos($file->filename, 'administrator/components/') === 0
+					&& !in_array('29', $addCategories))
+				{
 					// Components
 					$addCategories[] = '29';
 				}
 
 				// Check for frontend components changes
 				if (strpos($file->filename, 'components/') === 0
-					&& (!in_array($addCategories, '24')
-					&& !in_array($addCategories, '29')))
+					&& !in_array('29', $addCategories)))
 				{
-					// Front End
-					$addCategories[] = '24';
-
 					// Components
 					$addCategories[] = '29';
 				}
 
 				// Check for admin module changes changes
 				if (strpos($file->filename, 'administrator/modules/') === 0
-					&& (!in_array($addCategories, '23')
-					&& !in_array($addCategories, '13')))
+					&& !in_array('13', $addCategories)))
 				{
-					// Administration
-					$addCategories[] = '23';
-
 					// Modules
 					$addCategories[] = '13';
 				}
 
 				// Check for frontend module changes
 				if (strpos($file->filename, 'modules/') === 0
-					&& (!in_array($addCategories, '24')
-					&& !in_array($addCategories, '29')))
+					&& !in_array('13', $addCategories)))
 				{
-					// Front End
-					$addCategories[] = '24';
-
 					// Modules
 					$addCategories[] = '13';
 				}
