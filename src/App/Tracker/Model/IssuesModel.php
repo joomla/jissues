@@ -428,6 +428,15 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.easy') . ' = ' . (int) $filter);
 		}
 
+		$filter = (int) $this->state->get('filter.type');
+
+		if ($filter)
+		{
+			// 1 - PR
+			// 2 - Issue
+			$query->where($db->quoteName('a.has_code') . ' = ' . (2 == $filter ? 0 : 1));
+		}
+
 		return $query;
 	}
 }

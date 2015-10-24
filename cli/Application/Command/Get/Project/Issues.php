@@ -10,6 +10,7 @@ namespace Application\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
+use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -20,6 +21,7 @@ use Joomla\Date\Date;
 use JTracker\Github\DataType\Commit;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\GithubFactory;
+use JTracker\Helper\GitHubHelper;
 
 /**
  * Class for retrieving issues from GitHub for selected projects
@@ -197,6 +199,17 @@ class Issues extends Project
 
 		$this->usePBar ? $this->out() : null;
 
+		$gitHubBot = null;
+
+		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
+		{
+			$gitHubBot = new GitHubHelper(
+				GithubFactory::getInstance(
+					$this->getApplication(), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
+				)
+			);
+		}
+
 		// Start processing the pulls now
 		foreach ($ghIssues as $count => $ghIssue)
 		{
@@ -313,7 +326,29 @@ class Issues extends Project
 					? $pullRequest->head->user->login
 					: 'unknown_repository';
 
-				$table->pr_head_ref  = $pullRequest->head->ref;
+				$table->pr_head_ref = $pullRequest->head->ref;
+
+				if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $pullRequest->head->sha)
+				{
+					// The PR has been updated.
+					$testers = (new IssueModel($this->getContainer()->get('db')))
+						->getAllTests($table->id);
+
+					if ($testers)
+					{
+						// Send a notification.
+						$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
+
+						// @todo send application comment - find a way to set a WEB URL in CLI scripts.
+						// @todo $comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
+
+						$gitHubBot->addComment(
+							$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
+						);
+					}
+				}
+
+				$table->pr_head_sha = $pullRequest->head->sha;
 
 				$status = $this->GetMergeStatus($pullRequest);
 
@@ -337,7 +372,10 @@ class Issues extends Project
 				}
 
 				// Get commits
-				$table->commits = json_encode($this->getCommits($pullRequest));
+				$commits = (new GitHubHelper(GithubFactory::getInstance($this->getApplication())))
+					->getCommits($this->project, $table->issue_number);
+
+				$table->commits = json_encode($commits);
 			}
 
 			// Add the closed date if the status is closed
@@ -564,70 +602,5 @@ class Issues extends Project
 		}
 
 		return $mergeStatus;
-	}
-
-	/**
-	 * Get the commits for a GitHub pull request.
-	 *
-	 * @param   object  $pullRequest  The pull request object.
-	 *
-	 * @return  Commit
-	 *
-	 * @since   1.0
-	 */
-	private function getCommits($pullRequest)
-	{
-		$this->debugOut('Get commits for PR');
-
-		$commits = [];
-		$commitData = $this->github->pulls->getCommits(
-			$this->project->gh_user, $this->project->gh_project, $pullRequest->number
-		);
-
-		foreach ($commitData as $commit)
-		{
-			$c = new Commit;
-
-			$c->sha = $commit->sha;
-			$c->message = $commit->commit->message;
-			$c->author_name = isset($commit->author->login) ? $commit->author->login : '';
-			$c->author_date = $commit->commit->author->date;
-			$c->committer_name = isset($commit->committer->login) ? $commit->committer->login : '';
-			$c->committer_date = $commit->commit->committer->date;
-
-			$commits[] = $c;
-		}
-
-		return $commits;
-	}
-
-	/**
-	 * Create a GitHub merge status for the last commit in a PR.
-	 *
-	 * @param   object  $ghIssue      The issue object.
-	 * @param   string  $state        The state (pending, success, error or failure).
-	 * @param   string  $targetUrl    Optional target URL.
-	 * @param   string  $description  Optional description for the status.
-	 * @param   string  $context      A string label to differentiate this status from the status of other systems.
-	 *
-	 * @return  Status
-	 *
-	 * @since   1.0
-	 */
-	private function createStatus($ghIssue, $state, $targetUrl, $description, $context)
-	{
-		// Get the pull request corresponding to an issue.
-		$this->debugOut('Get PR for the issue');
-
-		$pullRequest = $this->githubBot->pulls->get(
-			$this->project->gh_user, $this->project->gh_project, $ghIssue->number
-		);
-
-		$this->debugOut('Create status for PR');
-
-		return $this->githubBot->repositories->statuses->create(
-			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha,
-			$state, $targetUrl, $description, $context
-		);
 	}
 }

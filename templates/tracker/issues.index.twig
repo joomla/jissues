@@ -75,6 +75,7 @@
             or state.get('filter.category')
             or state.get('filter.tests')
             or state.get('filter.easytest')
+            or state.get('filter.type')
             or state.get('stools-active') %}
                 in
             {% endif %}
@@ -88,6 +89,9 @@
                            placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
                     <button class="btn button-submit" type="button">
                         <span class="icon-search"></span></button>
+                </div>
+                <div class="btn-group">
+                    {{ filters.type(state.get('filter.type'), 'filter-type', 'toclear input-medium-140') }}
                 </div>
                 {% if (state.get('filter.state') == 0) %}
                     {% set openState = '' %}
@@ -219,8 +223,8 @@
                 </td>
                 <td class="hasContext">
                     {% if user.check("edit") %}
-                        <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit">
-                            <span data-icon="&#xe003;"></span>
+                        <a class="pull-right btn btn-small" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]/edit" title="{{ 'Edit'|_ }}">
+                            <span class="icon-pencil-2"> </span>
                         </a>
                     {% endif %}
                     <a class="list-issue-title" href="{{ uri.base.path }}tracker/{{ project.alias }}/[%= item.issue_number %]">
@@ -471,6 +475,7 @@
             var label = $('#filter-label').val();
             var tests = $('#filter-tests').val();
             var easytest = $('#filter-easytest').val();
+            var type = $('#filter-type').val();
             var page = $('#page').val();
 
             $.ajax({
@@ -488,6 +493,7 @@
                     'label': label,
                     'tests': tests,
                     'easytest': easytest,
+                    'type': type,
                     'stools-active': active,
                     'page': page
                 },
@@ -518,6 +524,7 @@
                                         'label': label,
                                         'tests': tests,
                                         'easytest': easytest,
+                                        'type': type,
                                         'stools-active': active
                                     },
                                     success: function (data) {
@@ -536,13 +543,13 @@
                     var categoryText = $('#filter-category option:selected').text();
 
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, created_by) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
@@ -587,6 +594,7 @@
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
             if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }
+            if (type != 0) { stools[stools.length] = 'type=' + type }
             if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
 
             permaLink += filters.length ? filters.join('&') + '&' : '';

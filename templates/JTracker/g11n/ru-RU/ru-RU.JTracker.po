@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 18:41-0500\n"
-"PO-Revision-Date: 2015-08-31 23:41+0000\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"PO-Revision-Date: 2015-10-05 13:31+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/opentranslators/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: /templates/index.twig:64
+#: /templates/index.twig:68
 msgid "Download"
 msgstr "Скачать"
 
-#: /templates/index.twig:67
+#: /templates/index.twig:71
 msgid "Demo"
 msgstr "Демо"
 
 #: /templates/editor.twig:5
 msgid "Markdown Help"
-msgstr ""
+msgstr "Markdown помощь"
 
 #: /templates/editor.twig:6
 msgid "Write"
@@ -37,6 +37,43 @@ msgstr "Написать"
 #: /templates/editor.twig:7
 msgid "Preview"
 msgstr "Превью"
+
+#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr ""
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr ""
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr ""
+
+#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+msgid "username"
+msgstr ""
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
@@ -134,11 +171,11 @@ msgstr "Политика конфидициальности"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr ""
+msgstr "Сообщить об проблеме"
 
 #: /templates/footerMenu.twig:33
 msgid "Log in"
-msgstr ""
+msgstr "Войти"
 
 #: /templates/footerMenu.twig:34
 msgid "Joomla Hosting by"
@@ -306,7 +343,7 @@ msgstr "В конфиге не установлены полномочия GitHu
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
-msgstr ""
+msgstr "Joomla! Home"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -330,7 +367,7 @@ msgstr "Поддержи Joomla!"
 
 #: /templates/topMenu.twig:24
 msgid "Contribute"
-msgstr ""
+msgstr "Контрибуция"
 
 #: /templates/topMenu.twig:25
 msgid "Shop Joomla Gear"
@@ -338,7 +375,7 @@ msgstr "Магазин Joomla Gear"
 
 #: /templates/topMenu.twig:26
 msgid "Sponsorship"
-msgstr ""
+msgstr "Спонсорство"
 
 #: /templates/topMenu.twig:31
 msgid "About Joomla!"

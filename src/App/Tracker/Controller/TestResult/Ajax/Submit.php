@@ -13,6 +13,7 @@ use App\Tracker\Model\ActivityModel;
 use App\Tracker\Model\IssueModel;
 
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Helper\GitHubHelper;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -44,6 +45,8 @@ class Submit extends AbstractAjaxController
 
 		$issueId = $application->input->getUint('issueId');
 		$result  = $application->input->getUint('result');
+		$userComment = $application->input->get('comment', '', 'raw');
+		$sha     = $application->input->getCmd('sha');
 
 		if (!$issueId)
 		{
@@ -59,7 +62,7 @@ class Submit extends AbstractAjaxController
 
 		$data = new \stdClass;
 
-		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result);
+		$data->testResults = $issueModel->saveTest($issueId, $user->username, $result, $sha);
 
 		$issueNumber = $issueModel->getIssueNumberById($issueId);
 
@@ -80,6 +83,30 @@ class Submit extends AbstractAjaxController
 		}
 
 		$data->event->text = json_decode($data->event->text);
+
+		$gitHubHelper = new GitHubHelper($this->getContainer()->get('gitHub'));
+
+		// Create a comment to submitted on GitHub.
+		switch ($result)
+		{
+			case 0:
+				$comment = 'I have not tested this item.';
+				break;
+			case 1:
+				$comment = 'I have tested this item :white_check_mark: successfully on ' . $sha;
+				break;
+			case 2:
+				$comment = 'I have tested this item :red_circle: unsuccessfully on ' . $sha;
+				break;
+			default:
+				throw new \UnexpectedValueException('Unexpected test result value.');
+				break;
+		}
+
+		$comment .= ($userComment) ? '<br /><br />' . $userComment : '';
+		$comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
+
+		$data->comment = $gitHubHelper->addComment($project, $issueNumber, $comment, $user->username, $this->getContainer()->get('db'));
 
 		$this->response->data = json_encode($data);
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 18:41-0500\n"
-"PO-Revision-Date: 2015-02-07 21:15+0000\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"PO-Revision-Date: 2015-09-12 10:44+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -303,39 +303,39 @@ msgstr "Toevoegen nieuws in de database..."
 msgid "Added %d new issue events to the database"
 msgstr "Toegevoegd %d nieuwe melding wijzigingen in de database"
 
-#: /cli/Application/Command/Get/Project/Issues.php:66
+#: /cli/Application/Command/Get/Project/Issues.php:68
 msgid "Retrieve issues from GitHub."
 msgstr "Ophalen problemen vanaf GitHub."
 
-#: /cli/Application/Command/Get/Project/Issues.php:78
+#: /cli/Application/Command/Get/Project/Issues.php:80
 msgid "Retrieve Issues"
 msgstr "Ophalen problemen"
 
-#: /cli/Application/Command/Get/Project/Issues.php:83
+#: /cli/Application/Command/Get/Project/Issues.php:85
 msgid "Start retrieve Issues"
 msgstr "Begin ophalen problemen"
 
-#: /cli/Application/Command/Get/Project/Issues.php:89
+#: /cli/Application/Command/Get/Project/Issues.php:91
 #: /cli/Application/Command/Get/Project/Labels.php:50
 #: /cli/Application/Command/Get/Project/Milestones.php:52
 msgid "Finished"
 msgstr "Voltooid"
 
-#: /cli/Application/Command/Get/Project/Issues.php:105
+#: /cli/Application/Command/Get/Project/Issues.php:107
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
 msgstr "Ophalen <b>%s</b> onderdelen vanaf GitHub..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:164
+#: /cli/Application/Command/Get/Project/Issues.php:166
 #, php-format
 msgid "Retrieved <b>%d</b> items from GitHub."
 msgstr "<b>%d</b> onderdelen opgehaald vanaf GitHub."
 
-#: /cli/Application/Command/Get/Project/Issues.php:194
+#: /cli/Application/Command/Get/Project/Issues.php:196
 msgid "Adding issues to the database..."
 msgstr "Toevoegen problemen in de database..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:416
+#: /cli/Application/Command/Get/Project/Issues.php:454
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d toegevoegd, %2$d bijgewerkt.</ok>"
@@ -435,7 +435,7 @@ msgid "Creating the database..."
 msgstr "Aanmaken van de database..."
 
 #: /cli/Application/Command/Install/Install.php:118
-msgid "Installation has terminated successfully."
+msgid "Installation has been completed successfully."
 msgstr "Installatie is succesvol afgerond."
 
 #: /cli/Application/Command/Install/Install.php:132

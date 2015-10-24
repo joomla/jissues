@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 18:41-0500\n"
-"PO-Revision-Date: 2015-08-31 23:41+0000\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"PO-Revision-Date: 2015-10-05 13:31+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/opentranslators/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/index.twig:64
+#: /templates/index.twig:68
 msgid "Download"
 msgstr "Descargar"
 
-#: /templates/index.twig:67
+#: /templates/index.twig:71
 msgid "Demo"
 msgstr "Demo"
 
@@ -38,6 +38,43 @@ msgstr "Escribir"
 #: /templates/editor.twig:7
 msgid "Preview"
 msgstr "Vista previa"
+
+#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr ""
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr ""
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr ""
+
+#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+msgid "username"
+msgstr ""
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."

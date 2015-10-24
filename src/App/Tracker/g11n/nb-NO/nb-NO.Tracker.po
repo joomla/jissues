@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 18:41-0500\n"
-"PO-Revision-Date: 2015-08-31 23:41+0000\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"PO-Revision-Date: 2015-10-05 13:31+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/opentranslators/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
@@ -18,63 +18,73 @@ msgstr ""
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/tracker/issue.edit.twig:35
-#: /templates/tracker/issue.edit.twig:181
+#: /templates/tracker/issue.edit.twig:46
+#: /templates/tracker/issue.edit.twig:211
 #: /templates/tracker/category.add.twig:11
 #: /templates/tracker/category.edit.twig:11
 msgid "Save"
 msgstr "Lagre"
 
-#: /templates/tracker/issue.edit.twig:39
+#: /templates/tracker/issue.edit.twig:52
+#: /templates/tracker/issue.index.twig:260
+msgid "Test this"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:56
+#: /templates/tracker/issue.index.twig:265
+msgid "Alter test"
+msgstr ""
+
+#: /templates/tracker/issue.edit.twig:61
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: /templates/tracker/issue.edit.twig:56
-#: /templates/tracker/issues.index.twig:260
-#: /templates/tracker/issue.index.twig:165
+#: /templates/tracker/issue.edit.twig:78
+#: /templates/tracker/issues.index.twig:264
+#: /templates/tracker/issue.index.twig:178
 msgid "Foreign ID"
 msgstr "Fremmed ID"
 
-#: /templates/tracker/issue.edit.twig:71
-#: /templates/tracker/issues.index.twig:158
+#: /templates/tracker/issue.edit.twig:101
+#: /templates/tracker/issues.index.twig:162
 #: /templates/tracker/tpl/activities.twig:58
 msgid "Status"
 msgstr "Status"
 
-#: /templates/tracker/issue.edit.twig:79 /templates/tracker/issue.add.twig:48
-#: /templates/tracker/issues.index.twig:157
+#: /templates/tracker/issue.edit.twig:109 /templates/tracker/issue.add.twig:48
+#: /templates/tracker/issues.index.twig:161
 #: /templates/tracker/tpl/activities.twig:92
 msgid "Priority"
 msgstr "Prioritet"
 
-#: /templates/tracker/issue.edit.twig:88
+#: /templates/tracker/issue.edit.twig:118
 msgid "Item"
 msgstr "Element"
 
-#: /templates/tracker/issue.edit.twig:105 /templates/tracker/issue.add.twig:56
-#: /templates/tracker/issue.index.twig:88
+#: /templates/tracker/issue.edit.twig:135 /templates/tracker/issue.add.twig:56
+#: /templates/tracker/issue.index.twig:101
 msgid "Build"
 msgstr "Versjon"
 
-#: /templates/tracker/issue.edit.twig:110
+#: /templates/tracker/issue.edit.twig:140
 msgid "Easy test"
 msgstr "Enkel test"
 
-#: /templates/tracker/issue.edit.twig:119 /templates/tracker/issue.add.twig:64
+#: /templates/tracker/issue.edit.twig:149 /templates/tracker/issue.add.twig:64
 msgid "Categories"
 msgstr "Kategorier"
 
-#: /templates/tracker/issue.edit.twig:128 /templates/tracker/issue.add.twig:74
+#: /templates/tracker/issue.edit.twig:158 /templates/tracker/issue.add.twig:74
 #: /templates/tracker/tpl/activities.twig:113
 msgid "Labels"
 msgstr "Merke"
 
-#: /templates/tracker/issue.edit.twig:135 /templates/tracker/issue.add.twig:79
+#: /templates/tracker/issue.edit.twig:165 /templates/tracker/issue.add.twig:79
 #: /templates/tracker/tpl/activities.twig:131
 msgid "Milestone"
 msgstr "Milepæl"
 
-#: /templates/tracker/issue.edit.twig:148 /templates/tracker/issue.add.twig:99
+#: /templates/tracker/issue.edit.twig:178 /templates/tracker/issue.add.twig:99
 #: /templates/tracker/categories.index.twig:34
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.add.twig:27
@@ -82,23 +92,23 @@ msgstr "Milepæl"
 msgid "Title"
 msgstr "Tittel"
 
-#: /templates/tracker/issue.edit.twig:170
-#: /templates/tracker/issue.index.twig:563
+#: /templates/tracker/issue.edit.twig:200
+#: /templates/tracker/issue.index.twig:534
 msgid "Add a Comment"
 msgstr "Legg til en kommentar"
 
-#: /templates/tracker/issue.edit.twig:178
-#: /templates/tracker/issue.index.twig:576
+#: /templates/tracker/issue.edit.twig:208
+#: /templates/tracker/issue.index.twig:547
 msgid "Leave a comment"
 msgstr "Legg igjen en kommentar"
 
-#: /templates/tracker/issue.edit.twig:259
+#: /templates/tracker/issue.edit.twig:293
 #: /templates/tracker/issue.add.twig:205
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Noen felt er ugyldige. Disse har blitt markert."
 
-#: /templates/tracker/issue.edit.twig:269
-#: /templates/tracker/issue.edit.twig:276
+#: /templates/tracker/issue.edit.twig:303
+#: /templates/tracker/issue.edit.twig:310
 msgid "Saving..."
 msgstr "Lagrer..."
 
@@ -191,7 +201,7 @@ msgid "Open"
 msgstr "Åpne"
 
 #: /templates/tracker/issues.index.twig:43
-#: /templates/tracker/issues.index.twig:438
+#: /templates/tracker/issues.index.twig:442
 msgid "Closed"
 msgstr "Lukket"
 
@@ -208,7 +218,7 @@ msgid "Clear"
 msgstr "Tøm"
 
 #: /templates/tracker/issues.index.twig:61
-#: /templates/tracker/issue.index.twig:45
+#: /templates/tracker/issue.index.twig:58
 msgid "Feeling Lucky"
 msgstr "Prøv lykken"
 
@@ -216,156 +226,162 @@ msgstr "Prøv lykken"
 msgid "Permalink"
 msgstr "Permalenke"
 
-#: /templates/tracker/issues.index.twig:84
+#: /templates/tracker/issues.index.twig:85
 msgid "Filter the list by summary or description."
 msgstr "Filtrer listen etter sammendrag eller beskrivelse."
 
-#: /templates/tracker/issues.index.twig:87
 #: /templates/tracker/issues.index.twig:88
+#: /templates/tracker/issues.index.twig:89
 msgid "Filter the list by ID, summary, or description."
 msgstr "Filtrer listen etter ID, sammendrag eller beskrivelse."
 
-#: /templates/tracker/issues.index.twig:122
-#: /templates/tracker/issues.index.twig:125
 #: /templates/tracker/issues.index.twig:126
+#: /templates/tracker/issues.index.twig:129
+#: /templates/tracker/issues.index.twig:130
 msgid "Filter the list by creator."
 msgstr "Filtrer listen etter skapere."
 
-#: /templates/tracker/issues.index.twig:155
+#: /templates/tracker/issues.index.twig:159
 msgid "ID"
 msgstr "Id"
 
-#: /templates/tracker/issues.index.twig:156
+#: /templates/tracker/issues.index.twig:160
 msgid "Summary"
 msgstr "Oppsummering"
 
-#: /templates/tracker/issues.index.twig:163
+#: /templates/tracker/issues.index.twig:167
 msgid "Loading, please wait..."
 msgstr "Laster, vennligst vent..."
 
-#: /templates/tracker/issues.index.twig:243
+#: /templates/tracker/issues.index.twig:226
+#: /templates/tracker/categories.index.twig:60
+#: /templates/tracker/issue.index.twig:73
+msgid "Edit"
+msgstr "Rediger"
+
+#: /templates/tracker/issues.index.twig:247
 msgid "Created by"
 msgstr "Opprettet av"
 
-#: /templates/tracker/issues.index.twig:252
+#: /templates/tracker/issues.index.twig:256
 msgid "GitHub ID"
 msgstr "GitHub id"
 
-#: /templates/tracker/issues.index.twig:267
+#: /templates/tracker/issues.index.twig:271
 msgid "Opened "
 msgstr "Åpnet"
 
-#: /templates/tracker/issues.index.twig:271
+#: /templates/tracker/issues.index.twig:275
 msgid "Closed "
 msgstr "Lukket"
 
-#: /templates/tracker/issues.index.twig:275
+#: /templates/tracker/issues.index.twig:279
 msgid "Modified "
 msgstr "Endret"
 
-#: /templates/tracker/issues.index.twig:280
+#: /templates/tracker/issues.index.twig:284
 msgid "Critical"
 msgstr "Kritisk"
 
-#: /templates/tracker/issues.index.twig:280
+#: /templates/tracker/issues.index.twig:284
 msgid "Urgent"
 msgstr "Haster"
 
-#: /templates/tracker/issues.index.twig:280
+#: /templates/tracker/issues.index.twig:284
 msgid "Medium"
 msgstr "Medium"
 
-#: /templates/tracker/issues.index.twig:280
+#: /templates/tracker/issues.index.twig:284
 msgid "Low"
 msgstr "Lav"
 
-#: /templates/tracker/issues.index.twig:280
+#: /templates/tracker/issues.index.twig:284
 msgid "Very low"
 msgstr "Veldig lav"
 
-#: /templates/tracker/issues.index.twig:287
+#: /templates/tracker/issues.index.twig:291
 msgid "GitHub merge status"
 msgstr "Github flettestatus"
 
-#: /templates/tracker/issues.index.twig:297
+#: /templates/tracker/issues.index.twig:301
 msgid "No items found."
 msgstr "Ingen elementer funnet."
 
-#: /templates/tracker/issues.index.twig:414
+#: /templates/tracker/issues.index.twig:418
 msgid "Success"
 msgstr "Vellykket"
 
-#: /templates/tracker/issues.index.twig:416
-#: /templates/tracker/issues.index.twig:431
+#: /templates/tracker/issues.index.twig:420
+#: /templates/tracker/issues.index.twig:435
 msgid "Pending"
 msgstr "Ventende"
 
-#: /templates/tracker/issues.index.twig:418
+#: /templates/tracker/issues.index.twig:422
 msgid "Error"
 msgstr "Feil"
 
-#: /templates/tracker/issues.index.twig:420
+#: /templates/tracker/issues.index.twig:424
 msgid "Failure"
 msgstr "Svikt"
 
-#: /templates/tracker/issues.index.twig:429
+#: /templates/tracker/issues.index.twig:433
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Ny"
 
-#: /templates/tracker/issues.index.twig:430
+#: /templates/tracker/issues.index.twig:434
 msgid "Confirmed"
 msgstr "Bekreftet"
 
-#: /templates/tracker/issues.index.twig:432
+#: /templates/tracker/issues.index.twig:436
 msgid "Ready To Commit"
 msgstr "Klar til innsendelse"
 
-#: /templates/tracker/issues.index.twig:433
+#: /templates/tracker/issues.index.twig:437
 msgid "Fixed in Code Base"
 msgstr "Rettet i kodebase"
 
-#: /templates/tracker/issues.index.twig:434
+#: /templates/tracker/issues.index.twig:438
 msgid "Needs Review"
 msgstr "Trenger gjennomgang"
 
-#: /templates/tracker/issues.index.twig:435
+#: /templates/tracker/issues.index.twig:439
 msgid "Information Required"
 msgstr "Mangler informasjon"
 
-#: /templates/tracker/issues.index.twig:436
+#: /templates/tracker/issues.index.twig:440
 msgid "Unconfirmed Report"
 msgstr "Ubekreftet rapport"
 
-#: /templates/tracker/issues.index.twig:437
+#: /templates/tracker/issues.index.twig:441
 msgid "No Reply"
 msgstr "Ingen svar"
 
-#: /templates/tracker/issues.index.twig:439
+#: /templates/tracker/issues.index.twig:443
 msgid "Expected Behaviour"
 msgstr "Forventet oppførsel"
 
-#: /templates/tracker/issues.index.twig:440
+#: /templates/tracker/issues.index.twig:444
 msgid "Known Issue"
 msgstr "Kjent problem"
 
-#: /templates/tracker/issues.index.twig:441
+#: /templates/tracker/issues.index.twig:445
 msgid "Duplicate Report"
 msgstr "Duplikat rapportering"
 
-#: /templates/tracker/issues.index.twig:500
+#: /templates/tracker/issues.index.twig:506
 msgid "First"
 msgstr "Først"
 
-#: /templates/tracker/issues.index.twig:501
+#: /templates/tracker/issues.index.twig:507
 msgid "Previous"
 msgstr "Forrige"
 
-#: /templates/tracker/issues.index.twig:502
+#: /templates/tracker/issues.index.twig:508
 msgid "Next"
 msgstr "Neste"
 
-#: /templates/tracker/issues.index.twig:503
+#: /templates/tracker/issues.index.twig:509
 msgid "Last"
 msgstr "Siste"
 
@@ -402,11 +418,6 @@ msgstr "Id"
 #: /templates/tracker/categories.index.twig:59
 msgid "Delete"
 msgstr "Slett"
-
-#: /templates/tracker/categories.index.twig:60
-#: /templates/tracker/issue.index.twig:60
-msgid "Edit"
-msgstr "Rediger"
 
 #: /templates/tracker/categories.index.twig:71
 #, php-format
@@ -447,7 +458,7 @@ msgstr "Legg til kategori"
 
 #: /templates/tracker/category.add.twig:24
 #: /templates/tracker/category.edit.twig:24
-#: /templates/tracker/issue.index.twig:184
+#: /templates/tracker/issue.index.twig:197
 msgid "Details"
 msgstr "Detaljer"
 
@@ -456,139 +467,102 @@ msgstr "Detaljer"
 msgid "Edit Category"
 msgstr "Endre kategori"
 
-#: /templates/tracker/issue.index.twig:40
+#: /templates/tracker/issue.index.twig:53
 msgid "That issue does not exist, or the ID you typed is incorrect."
 msgstr "Problemet finnes ikke, eller ID du skrev inn er feil."
 
-#: /templates/tracker/issue.index.twig:96
+#: /templates/tracker/issue.index.twig:109
 msgid "Easy Test"
 msgstr "Enkel test"
 
-#: /templates/tracker/issue.index.twig:104
+#: /templates/tracker/issue.index.twig:117
 msgid "# of Successful Tests"
 msgstr "# vellykkede tester"
 
-#: /templates/tracker/issue.index.twig:114
+#: /templates/tracker/issue.index.twig:127
 msgid "To comment"
 msgstr "Kommenter"
 
-#: /templates/tracker/issue.index.twig:123
+#: /templates/tracker/issue.index.twig:136
 msgid "View this issue on GitHub"
 msgstr "Vis dette problemet på GitHub"
 
-#: /templates/tracker/issue.index.twig:133
+#: /templates/tracker/issue.index.twig:146
 msgid "View a plain diff for this pull request"
 msgstr "Vis ren diff for dette henteønsket"
 
-#: /templates/tracker/issue.index.twig:135
+#: /templates/tracker/issue.index.twig:148
 msgid "Diff"
 msgstr "Diff"
 
-#: /templates/tracker/issue.index.twig:151
+#: /templates/tracker/issue.index.twig:164
 msgid "Download this fork as a ZIP file"
 msgstr "Last ned forgrening som ZIP fil"
 
-#: /templates/tracker/issue.index.twig:195
+#: /templates/tracker/issue.index.twig:208
 msgid "Categories:"
 msgstr "Kategorier:"
 
-#: /templates/tracker/issue.index.twig:220
+#: /templates/tracker/issue.index.twig:233
 msgid "Referenced as"
 msgstr "Referanse som"
 
-#: /templates/tracker/issue.index.twig:268
-msgid "Votes"
-msgstr "Stemmer"
+#: /templates/tracker/issue.index.twig:269
+msgid "User tests:"
+msgstr ""
 
-#: /templates/tracker/issue.index.twig:278
-msgid "# of Users Experiencing Issue"
-msgstr "# av brukere som opplever problemet"
-
-#: /templates/tracker/issue.index.twig:282
-msgid "Average Importance Score"
-msgstr "Gjennomsnittlig viktighetssum"
-
-#: /templates/tracker/issue.index.twig:291
-msgid "I've experienced this issue"
-msgstr "Jeg har opplevd dette problemet"
-
-#: /templates/tracker/issue.index.twig:294
-#: /templates/tracker/tracker.filters.twig:87
-msgid "Yes"
-msgstr "Ja"
-
-#: /templates/tracker/issue.index.twig:298
-msgid "No"
-msgstr "Nei"
-
-#: /templates/tracker/issue.index.twig:303
-msgid "Importance of issue to me"
-msgstr "Viktigheten av problemet for meg"
-
-#: /templates/tracker/issue.index.twig:328
-msgid "Vote"
-msgstr "Stem"
-
-#: /templates/tracker/issue.index.twig:335
-msgid "Tests:"
-msgstr "Tester:"
-
-#: /templates/tracker/issue.index.twig:339
+#: /templates/tracker/issue.index.twig:270
 #, php-format
 msgid "Successful: %s"
 msgstr "Vellykket: %s"
 
-#: /templates/tracker/issue.index.twig:343
+#: /templates/tracker/issue.index.twig:272
 #, php-format
 msgid "Unsuccessful: %s"
 msgstr "Ikke vellykket: %s"
 
-#: /templates/tracker/issue.index.twig:351
-msgid "I've tested this item"
-msgstr "Jeg har testet dette elementet"
+#: /templates/tracker/issue.index.twig:311
+msgid "Votes"
+msgstr "Stemmer"
 
-#: /templates/tracker/issue.index.twig:356
-#: /templates/tracker/issue.index.twig:591
-msgid "Not tested"
-msgstr "Ikke testet"
+#: /templates/tracker/issue.index.twig:321
+msgid "# of Users Experiencing Issue"
+msgstr "# av brukere som opplever problemet"
 
-#: /templates/tracker/issue.index.twig:362
-#: /templates/tracker/issue.index.twig:597
-msgid "Tested successfully"
-msgstr "Testet vellykket"
+#: /templates/tracker/issue.index.twig:325
+msgid "Average Importance Score"
+msgstr "Gjennomsnittlig viktighetssum"
 
-#: /templates/tracker/issue.index.twig:368
-#: /templates/tracker/issue.index.twig:603
-msgid "Tested unsuccessfully"
-msgstr "Testen ikke vellykket"
+#: /templates/tracker/issue.index.twig:334
+msgid "I've experienced this issue"
+msgstr "Jeg har opplevd dette problemet"
 
-#: /templates/tracker/issue.index.twig:376
-msgid "Submit test result"
-msgstr "Send inn testresultat"
+#: /templates/tracker/issue.index.twig:337
+#: /templates/tracker/tracker.filters.twig:87
+msgid "Yes"
+msgstr "Ja"
 
-#: /templates/tracker/issue.index.twig:383
-#: /templates/tracker/issue.index.twig:397
-msgid "Alter test result"
-msgstr "Forandre testresultat"
+#: /templates/tracker/issue.index.twig:341
+msgid "No"
+msgstr "Nei"
 
-#: /templates/tracker/issue.index.twig:386
-#, php-format
-msgid "Set the test result for user %s to %s"
-msgstr "Sett testresultatet for bruk %s til %s"
+#: /templates/tracker/issue.index.twig:346
+msgid "Importance of issue to me"
+msgstr "Viktigheten av problemet for meg"
 
-#: /templates/tracker/issue.index.twig:386
-msgid "username"
-msgstr "brukernavn"
+#: /templates/tracker/issue.index.twig:371
+msgid "Vote"
+msgstr "Stem"
 
-#: /templates/tracker/issue.index.twig:506
+#: /templates/tracker/issue.index.twig:477
 msgid "The description was changed"
 msgstr "Beskrivelsen har blitt endret"
 
-#: /templates/tracker/issue.index.twig:620
+#: /templates/tracker/issue.index.twig:556
 msgid "Post Comment"
 msgstr "Legg igjen en kommentar"
 
-#: /templates/tracker/issue.index.twig:635
+#: /templates/tracker/issue.index.twig:571
 msgid "Login with GitHub to post a comment"
 msgstr "Logg inn med GitHub for å legge til en kommentar"
 
@@ -660,11 +634,23 @@ msgstr "Trenger tester"
 msgid "- easy -"
 msgstr "- enkel -"
 
+#: /templates/tracker/tracker.filters.twig:98
+msgid "- type -"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:98
+msgid "Issue"
+msgstr ""
+
+#: /templates/tracker/tracker.filters.twig:98
+msgid "Pull Request"
+msgstr ""
+
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
 msgstr "Kategorien har blitt slettet"
 
-#: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:113
+#: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:58
 msgid "Your comment has been submitted"
 msgstr "Kommentaren har blitt slettet"
 
@@ -676,8 +662,8 @@ msgstr "Stemme vellykket lagt til"
 msgid "Your report has been submitted."
 msgstr "Din rapport er innsendt"
 
-#: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:79
-#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:75
+#: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
 msgid "Test successfully added"
 msgstr "Test lagt til"
 
@@ -721,18 +707,18 @@ msgstr "En problem ID er påkrevd"
 msgid "Category ID is needed."
 msgstr "Kategori ID er påkrevd."
 
-#: /src/App/Tracker/Table/IssuesTable.php:134
+#: /src/App/Tracker/Table/IssuesTable.php:135
 msgid "A title is required."
 msgstr "En tittel er påkrevd"
 
-#: /src/App/Tracker/Table/IssuesTable.php:138
+#: /src/App/Tracker/Table/IssuesTable.php:139
 msgid "The title max length is 255 chars."
 msgstr "Lengden på tittelen kan være maks 255 tegn."
 
-#: /src/App/Tracker/Table/IssuesTable.php:143
+#: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
 msgstr "En versjon er påkrevd."
 
-#: /src/App/Tracker/Table/IssuesTable.php:147
+#: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
 msgstr "En versjon kan være maks 40 tegn."

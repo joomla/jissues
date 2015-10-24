@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 18:41-0500\n"
+"POT-Creation-Date: 2015-10-05 08:31-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/index.twig:64
+#: /templates/index.twig:68
 msgid "Download"
 msgstr ""
 
-#: /templates/index.twig:67
+#: /templates/index.twig:71
 msgid "Demo"
 msgstr ""
 
@@ -34,6 +34,45 @@ msgstr ""
 
 #: /templates/editor.twig:7
 msgid "Preview"
+msgstr ""
+
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr ""
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr ""
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr ""
+
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+msgid "username"
 msgstr ""
 
 #: /templates/uploader.full.twig:14

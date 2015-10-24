@@ -1,0 +1,73 @@
+{# Copyright (C) 2015 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt#}
+
+{% if user.id %}
+    <form class="testForm form-inline" name="testsForm" id="testContainer">
+        <h6>{{ 'Submit test result'|_ }}</h6>
+        <fieldset>
+            <p>{{ 'I have tested this item'|_ }} - SHA: {{ item.commits|json_decode|last.sha[:7] }}
+                <a class="help-icon" href="https://schacon.github.io/gitbook/1_the_git_object_model.html">
+                    <i class="help-icon icon-help"></i>
+                    The git SHA
+                </a>
+                <input type="hidden" id="shaTest" value="{{ item.commits|json_decode|last.sha }}" />
+            </p>
+            <ul class="unstyled">
+                <li>
+                    <label class="radio">
+                        <input id="test-result-0" class="test-result" type="radio" name="tested" value="0"{{ item.userTest == 0 ? ' checked="checked"' : '' }}>
+                        {{ "Not tested"|_ }}
+                    </label>
+                </li>
+                <li>
+                    <label class="radio tests-success">
+                        <input id="test-result-1" class="test-result" type="radio" name="tested" value="1"{{ item.userTest == 1 ? ' checked="checked"' : '' }}>
+                        {{ "Tested successfully"|_ }}
+                    </label>
+                </li>
+                <li>
+                    <label class="radio tests-fail">
+                        <input id="test-result-2" class="test-result" type="radio" name="tested" value="2"{{ item.userTest == 2 ? ' checked="checked"' : '' }}>
+                        {{ "Tested unsuccessfully"|_ }}
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+
+        {% set editorId="commentTest" %}
+        {% set writeId="writeTest" %}
+        {% set previewId="previewTest" %}
+        {% set editorPlaceholder="Leave a comment (optional)"|_ %}
+        {% include "editor.twig" %}
+
+        <div id="testResult"></div>
+
+        <a href="javascript:" class="btn btn-primary"
+                onclick="JTracker.submitTest('{{ item.id }}', '#testResult', '#newComment', '#commentTest', '#shaTest', 'tplNewTestResult');">
+            {{ "Submit test result"|_ }}
+        </a>
+    </form>
+{% endif %}
+{% if user.check('edit') %}
+    <div class="testForm" id="testAlterContainer">
+        <h6>{{ 'Alter test result'|_ }}</h6>
+        <form class="form-inline">
+            {{ 'Set the test result for user %s to %s'|_|format(
+            '<input name="altered-user" placeholder="' ~ 'username'|_ ~ '"/>',
+            '<select name="altered"">'
+            ~ '<option value="0">' ~ userTestOptions(0) ~ '</option>'
+            ~ '<option value="1">' ~ userTestOptions(1) ~ '</option>'
+            ~ '<option value="2">' ~ userTestOptions(2) ~ '</option>'
+            ~ '</select>'
+            )|raw }}
+            <label for="shaTestAlter">SHA</label>
+            <input type="text" id="shaTestAlter" value="{{ item.commits|json_decode|last.sha }}" />
+            <div id="alterResult"></div>
+            <a href="javascript:" class="btn btn-primary"
+                    onclick="JTracker.alterTest('{{ item.id }}', '#alterResult', '#newComment', '#shaTestAlter', 'tplNewAlterTestResult');">
+                {{ "Alter test result"|_ }}
+            </a>
+
+        </form>
+    </div>
+{% endif %}

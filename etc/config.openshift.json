@@ -1,0 +1,93 @@
+{
+	"database": {
+		"driver"  : "mysqli",
+		"host"    : "$OPENSHIFT_MYSQL_DB_HOST",
+		"user"    : "$OPENSHIFT_MYSQL_DB_USERNAME",
+		"password": "$OPENSHIFT_MYSQL_DB_PASSWORD",
+		"name"    : "$OPENSHIFT_APP_NAME",
+		"prefix"  : "jooz_"
+	},
+
+    "github": {
+        "client_id"    : "$JTRACKER_GITHUB_CLIENT_ID",
+        "client_secret": "$JTRACKER_GITHUB_CLIENT_SECRET",
+        "auth_scope"   : "public_repo",
+        "accounts": [
+            {
+                "username": "$JTRACKER_GITHUB_USERNAME",
+                "password": "$JTRACKER_GITHUB_PASSWORD"
+            }
+        ]
+    },
+
+	"transifex": {
+		"username": "",
+		"password": "",
+		"project" : ""
+	},
+
+	"renderer": {
+		"type" : "twig",
+		"debug": "1",
+        "cache": false
+	},
+
+	"system": {
+		"list_limit": "20",
+		"gzip"      : "0",
+		"offset"    : "UTC",
+		"upload_dir": "uploads",
+		"use_cdn"   : "1",
+		"remember_me": "1"
+	},
+
+	"acl": {
+		"admin_users": [
+			"", ""
+		],
+		"secret"     : "not-used-yet"
+	},
+
+	"cli-application": {
+		"colors"      : "1",
+		"progress-bar": "1"
+	},
+
+	"debug": {
+		"system"  : "1",
+		"database": "0",
+		"language": "0",
+		"hooks"   : "0",
+		"logging" : "0",
+		"log-path": "$OPENSHIFT_LOG_DIR",
+		"admin"   : "1"
+	},
+
+	"languages": [
+		"ca-ES",
+		"da-DK",
+		"de-DE",
+		"en-GB",
+		"es-ES",
+		"et-EE",
+		"fr-FR",
+		"hu-HU",
+		"it-IT",
+		"lv-LV",
+		"nb-NO",
+		"nl-NL",
+		"pl-PL",
+		"pt-BR",
+		"pt-PT",
+		"ro-RO",
+		"ru-RU",
+		"zh-CN"
+	],
+
+	"validation": {
+		"mime_types": [
+			"image/png", "image/jpeg", "image/gif"
+		],
+		"file_size" : "1M"
+	}
+}
