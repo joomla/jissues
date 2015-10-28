@@ -72,6 +72,13 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		// Only perform these events if this is a reopened pull, action will be 'reopened'
+		if ($arguments['action'] === 'reopened')
+		{
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+		}
+
 		// Check that pull requests have certain labels
 		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
