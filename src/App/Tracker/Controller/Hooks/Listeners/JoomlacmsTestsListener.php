@@ -56,7 +56,7 @@ class JoomlacmsTestsListener extends AbstractListener
 		$status = new Status;
 
 		$successes = count($testsSuccess);
-		$failures = count($testsFailure);
+		$failures  = count($testsFailure);
 
 		if ($successes >= 2 && $failures == 0)
 		{
@@ -80,7 +80,7 @@ class JoomlacmsTestsListener extends AbstractListener
 
 		$status->context = 'JTracker/HumanTestResults';
 
-		$targetBaseUrl = 'http://issues.joomla.org';
+		$targetBaseUrl = 'https://issues.joomla.org';
 
 		$status->targetUrl = $targetBaseUrl . '/tracker/' . $project->alias . '/' . $issueNumber;
 
