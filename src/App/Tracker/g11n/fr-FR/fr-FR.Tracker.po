@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2015-10-28 08:27-0500\n"
+"PO-Revision-Date: 2015-10-28 13:28+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/opentranslators/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -28,12 +28,12 @@ msgstr "Enregistrer"
 #: /templates/tracker/issue.edit.twig:52
 #: /templates/tracker/issue.index.twig:260
 msgid "Test this"
-msgstr ""
+msgstr "Tester le correctif"
 
 #: /templates/tracker/issue.edit.twig:56
 #: /templates/tracker/issue.index.twig:265
 msgid "Alter test"
-msgstr ""
+msgstr "Modifier le test"
 
 #: /templates/tracker/issue.edit.twig:61
 msgid "Cancel"
@@ -136,10 +136,10 @@ msgstr "Pro."
 #: /templates/tracker/issue.add.twig:53
 msgid ""
 "The priority of which this issue should be resolved. Please see the <a "
-"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
 "Tracking Process</a> page for detailed information about the project's "
 "priorities."
-msgstr "La priorité portée à la résolution de cette anomalie. Veuillez consulter la page <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Processus de Traitement des Bugs</a> qui détaille les informations concernant les priorités."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:60
 msgid "The version(s) of the project on which this issue is found."
@@ -153,9 +153,9 @@ msgstr "Veuillez sélectionner une ou plusieurs catégories qui correspondent à
 msgid ""
 "Report security issues to the Joomla! Security Strike Team (JSST) at <a "
 "href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact"
-" form</a>, please do not use the public tracker for security issues."
-msgstr "Signaler les problèmes de sécurité à la Joomla! Security Strike Team (JSST) via <a href=\"mailto:security@joomla.org\">security@joomla.org</a> ou à l'aide du <a href=\"http://developer.joomla.org/contact-security-team.html\">formulaire de contact JSST</a>, merci de ne pas utiliser le Tracker pour les questions se rapportant à la sécurité."
+"href=\"https://developer.joomla.org/contact-security-team.html\">JSST "
+"contact form</a>, please do not use the public tracker for security issues."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:93
 msgid ""
@@ -481,7 +481,7 @@ msgstr "Nbre. de tests réussis"
 
 #: /templates/tracker/issue.index.twig:127
 msgid "To comment"
-msgstr "A commenter"
+msgstr "À commenter"
 
 #: /templates/tracker/issue.index.twig:136
 msgid "View this issue on GitHub"
@@ -489,7 +489,7 @@ msgstr "Voir cette anomalie sur GitHub"
 
 #: /templates/tracker/issue.index.twig:146
 msgid "View a plain diff for this pull request"
-msgstr "Voir un diff complet pour cette demande de pull"
+msgstr "Voir un diff complet pour ce Pull Request"
 
 #: /templates/tracker/issue.index.twig:148
 msgid "Diff"
@@ -509,7 +509,7 @@ msgstr "Référencé sous"
 
 #: /templates/tracker/issue.index.twig:269
 msgid "User tests:"
-msgstr ""
+msgstr "Tests utilisateurs :"
 
 #: /templates/tracker/issue.index.twig:270
 #, php-format
@@ -568,11 +568,11 @@ msgstr "Se connecter avec GitHub pour poster un commentaire"
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- status -"
-msgstr "- Statut -"
+msgstr "- statut -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- priority -"
-msgstr "- Priorité -"
+msgstr "- priorité -"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -604,7 +604,7 @@ msgstr "Auquels vous avez participé"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "- categories -"
-msgstr "- Catégories -"
+msgstr "- catégories -"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No categories"
@@ -612,11 +612,11 @@ msgstr "Aucune catégorie"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- labels -"
-msgstr "- Étiquettes -"
+msgstr "- étiquettes -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- tests -"
-msgstr "- Tests -"
+msgstr "- tests -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
@@ -632,19 +632,19 @@ msgstr "Nécessite plusieurs tests"
 
 #: /templates/tracker/tracker.filters.twig:87
 msgid "- easy -"
-msgstr "- Facile -"
+msgstr "- niveau -"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "- type -"
-msgstr ""
+msgstr "- type -"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "Issue"
-msgstr ""
+msgstr "Anomalie"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "Pull Request"
-msgstr ""
+msgstr "Pull Request"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"

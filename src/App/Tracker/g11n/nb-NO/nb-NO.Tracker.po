@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2015-10-28 08:27-0500\n"
+"PO-Revision-Date: 2015-10-28 13:28+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/opentranslators/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
@@ -28,12 +28,12 @@ msgstr "Lagre"
 #: /templates/tracker/issue.edit.twig:52
 #: /templates/tracker/issue.index.twig:260
 msgid "Test this"
-msgstr ""
+msgstr "Test denne"
 
 #: /templates/tracker/issue.edit.twig:56
 #: /templates/tracker/issue.index.twig:265
 msgid "Alter test"
-msgstr ""
+msgstr "Forandre test"
 
 #: /templates/tracker/issue.edit.twig:61
 msgid "Cancel"
@@ -136,10 +136,10 @@ msgstr "Pro"
 #: /templates/tracker/issue.add.twig:53
 msgid ""
 "The priority of which this issue should be resolved. Please see the <a "
-"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
 "Tracking Process</a> page for detailed information about the project's "
 "priorities."
-msgstr "Prioriteten til hvor viktig det er at problemet skal løses. Vennligst se <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> siden for en mer detaljert beskrivelse om prosjektets prioriteringer."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:60
 msgid "The version(s) of the project on which this issue is found."
@@ -153,9 +153,9 @@ msgstr "Vennligst velg en eller flere kategorier her som passer ditt problem."
 msgid ""
 "Report security issues to the Joomla! Security Strike Team (JSST) at <a "
 "href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact"
-" form</a>, please do not use the public tracker for security issues."
-msgstr "Rapporter sikkerhetshull til Joomla! Security Strike Team (JSST) på <a href=\"mailto:security@joomla.org\">security@joomla.org</a> eller ved å fylle ut <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST kontaktskjema</a>. Vennligst ikke bruk den offentlige problemfølgeren for å rapportere sikkerhetshull."
+"href=\"https://developer.joomla.org/contact-security-team.html\">JSST "
+"contact form</a>, please do not use the public tracker for security issues."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:93
 msgid ""
@@ -207,7 +207,7 @@ msgstr "Lukket"
 
 #: /templates/tracker/issues.index.twig:48
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: /templates/tracker/issues.index.twig:53
 msgid "Search tools"
@@ -509,7 +509,7 @@ msgstr "Referanse som"
 
 #: /templates/tracker/issue.index.twig:269
 msgid "User tests:"
-msgstr ""
+msgstr "Brukertester:"
 
 #: /templates/tracker/issue.index.twig:270
 #, php-format
@@ -636,15 +636,15 @@ msgstr "- enkel -"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "- type -"
-msgstr ""
+msgstr "- type -"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "Issue"
-msgstr ""
+msgstr "Problem"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "Pull Request"
-msgstr ""
+msgstr "Henteønske"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"

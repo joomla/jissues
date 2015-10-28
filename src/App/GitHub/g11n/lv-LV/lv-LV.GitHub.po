@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"POT-Creation-Date: 2015-10-28 08:27-0500\n"
+"PO-Revision-Date: 2015-10-20 14:38+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Latvian (Latvia) (http://www.transifex.com/opentranslators/jtracker/language/lv_LV/)\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr ""
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
-msgstr ""
+msgstr "Labot"
 
 #: /templates/github/milestones.index.twig:98
 #: /templates/github/labels.index.twig:59
@@ -164,7 +164,7 @@ msgstr ""
 
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
-msgstr ""
+msgstr "Statuss"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"

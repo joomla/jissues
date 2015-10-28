@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2015-10-28 08:27-0500\n"
+"PO-Revision-Date: 2015-10-22 20:00+0000\n"
+"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,40 +41,40 @@ msgstr "Voorbeeld"
 
 #: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
 msgid "Submit test result"
-msgstr ""
+msgstr "Verstuur test resultaat"
 
 #: /templates/testcontainer.twig:8
 msgid "I have tested this item"
-msgstr ""
+msgstr "Ik heb dit issue getest"
 
 #: /templates/testcontainer.twig:19
 msgid "Not tested"
-msgstr ""
+msgstr "Niet getest"
 
 #: /templates/testcontainer.twig:25
 msgid "Tested successfully"
-msgstr ""
+msgstr "Succesvol getest"
 
 #: /templates/testcontainer.twig:31
 msgid "Tested unsuccessfully"
-msgstr ""
+msgstr "Niet succesvol getest"
 
 #: /templates/testcontainer.twig:40
 msgid "Leave a comment (optional)"
-msgstr ""
+msgstr "Schrijf een reactie (optioneel)"
 
 #: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
 msgid "Alter test result"
-msgstr ""
+msgstr "Wijzig test resultaat"
 
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "Zet het resultaat van gebruiker %s naar %s"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."

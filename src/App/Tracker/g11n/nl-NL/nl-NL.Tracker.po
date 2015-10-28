@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2015-10-28 08:27-0500\n"
+"PO-Revision-Date: 2015-10-28 13:28+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -28,12 +28,12 @@ msgstr "Opslaan"
 #: /templates/tracker/issue.edit.twig:52
 #: /templates/tracker/issue.index.twig:260
 msgid "Test this"
-msgstr ""
+msgstr "Getest"
 
 #: /templates/tracker/issue.edit.twig:56
 #: /templates/tracker/issue.index.twig:265
 msgid "Alter test"
-msgstr ""
+msgstr "Wijzig test"
 
 #: /templates/tracker/issue.edit.twig:61
 msgid "Cancel"
@@ -136,10 +136,10 @@ msgstr "Pro"
 #: /templates/tracker/issue.add.twig:53
 msgid ""
 "The priority of which this issue should be resolved. Please see the <a "
-"href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
+"href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
 "Tracking Process</a> page for detailed information about the project's "
 "priorities."
-msgstr "De prioriteit waarmee deze melding dient te worden opgelost. Zie  de <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> pagina voor gedetailleerde informatie over de prioriteiten van het project."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:60
 msgid "The version(s) of the project on which this issue is found."
@@ -153,9 +153,9 @@ msgstr "Selecteer één of meer categorieën waar de melding aan voldoet"
 msgid ""
 "Report security issues to the Joomla! Security Strike Team (JSST) at <a "
 "href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact"
-" form</a>, please do not use the public tracker for security issues."
-msgstr "Meld beveilingslekken aan het Joomla! Security Strike Team (JSST) op <a href=\"mailto:security@joomla.org\">security@joomla.org</a> of met het <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact formulier</a>, gebruik alstublieft niet de publieke lijst voor beveiligingslekken."
+"href=\"https://developer.joomla.org/contact-security-team.html\">JSST "
+"contact form</a>, please do not use the public tracker for security issues."
+msgstr ""
 
 #: /templates/tracker/issue.add.twig:93
 msgid ""
@@ -509,7 +509,7 @@ msgstr "Gerefereerd als"
 
 #: /templates/tracker/issue.index.twig:269
 msgid "User tests:"
-msgstr ""
+msgstr "Gebruikerstesten:"
 
 #: /templates/tracker/issue.index.twig:270
 #, php-format
@@ -636,15 +636,15 @@ msgstr "- makkelijk -"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "- type -"
-msgstr ""
+msgstr "- type -"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "Issue"
-msgstr ""
+msgstr "Issue zonder code"
 
 #: /templates/tracker/tracker.filters.twig:98
 msgid "Pull Request"
-msgstr ""
+msgstr "Issue met code"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
