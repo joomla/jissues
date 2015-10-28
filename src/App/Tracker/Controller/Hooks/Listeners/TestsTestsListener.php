@@ -56,7 +56,7 @@ class TestsTestsListener extends AbstractListener
 		$status = new Status;
 
 		$successes = count($testsSuccess);
-		$failures = count($testsFailure);
+		$failures  = count($testsFailure);
 
 		if ($successes >= 2 && $failures == 0)
 		{
@@ -81,7 +81,7 @@ class TestsTestsListener extends AbstractListener
 		$status->context = 'JTracker/HumanTestResults';
 
 		// @todo - where to get the URL from a CLI script? - create a config setting??
-		$targetBaseUrl = 'http://issues.joomla.org';
+		$targetBaseUrl = 'https://issues.joomla.org';
 
 		$status->targetUrl = $targetBaseUrl . '/tracker/' . $project->alias . '/' . $issueNumber;
 
