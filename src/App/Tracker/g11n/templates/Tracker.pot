@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"POT-Creation-Date: 2015-10-28 08:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,7 +140,7 @@ msgid "Pro"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:53
-msgid "The priority of which this issue should be resolved. Please see the <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:60
@@ -152,7 +152,7 @@ msgid "Please select one or more Categories here that match to your issue."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:89
-msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:93
