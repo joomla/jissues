@@ -357,7 +357,7 @@ class Issues extends Project
 					// No status found. Let's create one!
 
 					$status->state = 'pending';
-					$status->targetUrl = 'http://issues.joomla.org/gagaga';
+					$status->targetUrl = 'https://issues.joomla.org/gagaga';
 					$status->description = 'JTracker Bug Squad working on it...';
 					$status->context = 'jtracker';
 
