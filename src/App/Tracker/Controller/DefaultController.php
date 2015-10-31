@@ -172,6 +172,10 @@ class DefaultController extends AbstractTrackerListController
 			case 'closed':
 				$issuesState = 1;
 				break;
+
+			case 'all':
+				$issuesState = 2;
+				break;
 		}
 
 		$state->set('filter.state', $issuesState);

@@ -583,8 +583,22 @@
 
             stools[stools.length] = '' + sorting;
 
-            // Add other filters
-            if (state != 0) { filters[filters.length] = 'state=' + state; }
+            // Process state
+            state = parseInt(state);
+            var stateStr = '';
+
+            switch (state) {
+                case 1 :
+                    stateStr = 'state=closed';
+                    break;
+                case 2 :
+                    stateStr = 'state=all';
+                    break;
+                default :
+                    stateStr = 'state=open';
+            }
+
+            filters[filters.length] = stateStr;
 
             if (search) { stools[stools.length] = 'search=' + search }
             if (status != 0) { stools[stools.length] = 'status=' + status }
