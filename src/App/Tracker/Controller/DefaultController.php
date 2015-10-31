@@ -247,7 +247,7 @@ class DefaultController extends AbstractTrackerListController
 		);
 
 		$state->set('filter.easytest',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 2, 'uint')
 		);
 
 		$state->set('filter.type',
