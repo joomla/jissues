@@ -124,6 +124,9 @@ JTracker.submitTest = function (issueId, statusContainer, resultContainer, comme
 				$('#current-test-result').val(testResult);
 				$( '.comment-test-result').prop('checked', false);
 				$( "#comment-test-result-" + testResult).prop('checked', true);
+
+				// Hide the container
+				$('#testContainer').slideUp();
 			}
 		}
 	);
@@ -156,6 +159,9 @@ JTracker.submitTestWithComment = function (resultContainer, templateName) {
 
 					JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
 					result.html(result.html() + tmpl(templateName, data.event));
+
+					// Hide the container
+					$('#testContainer').slideUp();
 				}
 			}
 		);
@@ -194,6 +200,9 @@ JTracker.alterTest = function (issueId, statusContainer, resultContainer, shaCon
 				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
 
 				result.html(result.html() + tmpl(templateName, data.event));
+
+				// Hide the container
+				$('#testAlterContainer').slideUp();
 			}
 		}
 	);
