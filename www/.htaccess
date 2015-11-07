@@ -23,6 +23,16 @@ RewriteRule .* http://%{HTTP_HOST}/%1 [R=301,L]
 
 
 ###########################################
+# ======== Redirect HTTP to HTTPS =========
+
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^issues.joomla.org
+RewriteRule ^(.*)$ https://issues.joomla.org/$1 [R=301,L,QSA]
+
+###########################################
+
+
+###########################################
 # ======== SEF URL Routing ========
 
 RewriteCond %{REQUEST_FILENAME} !-f
