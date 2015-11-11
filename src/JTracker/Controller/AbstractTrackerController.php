@@ -473,7 +473,9 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		if (class_exists($fullClass))
 		{
-			$this->dispatcher->addListener(new $fullClass);
+			$listener = new $fullClass;
+			$listener->setContainer($this->getContainer());
+			$this->dispatcher->addListener($listener);
 			$this->listenerSet = true;
 		}
 
