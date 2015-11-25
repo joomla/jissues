@@ -202,7 +202,7 @@ JTracker.alterTest = function (issueId, statusContainer, resultContainer, shaCon
 				result.html(result.html() + tmpl(templateName, data.event));
 
 				// Hide the container
-				$('#testAlterContainer').delay(1000).slideUp();
+				//$('#testAlterContainer').delay(1000).slideUp();
 			}
 		}
 	);
