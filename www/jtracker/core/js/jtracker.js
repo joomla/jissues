@@ -112,11 +112,11 @@ JTracker.submitTest = function (issueId, statusContainer, resultContainer, comme
 			}
 			else {
 				// Success
-				status.html(r.message);
+				status.addClass('text-success').html(r.message);
 
 				var data = $.parseJSON(r.data);
 
-				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure)
+				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
 
 				result.html(result.html() + tmpl(templateName, data.event));
 
@@ -124,6 +124,9 @@ JTracker.submitTest = function (issueId, statusContainer, resultContainer, comme
 				$('#current-test-result').val(testResult);
 				$( '.comment-test-result').prop('checked', false);
 				$( "#comment-test-result-" + testResult).prop('checked', true);
+
+				// Hide the container
+				$('#testContainer').delay(1000).slideUp();
 			}
 		}
 	);
@@ -156,6 +159,9 @@ JTracker.submitTestWithComment = function (resultContainer, templateName) {
 
 					JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
 					result.html(result.html() + tmpl(templateName, data.event));
+
+					// Hide the container
+					$('#testContainer').delay(1000).slideUp();
 				}
 			}
 		);
@@ -187,13 +193,16 @@ JTracker.alterTest = function (issueId, statusContainer, resultContainer, shaCon
 			}
 			else {
 				// Success
-				status.html(r.message);
+				status.addClass('text-success').html(r.message);
 
 				var data = $.parseJSON(r.data);
 
 				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
 
 				result.html(result.html() + tmpl(templateName, data.event));
+
+				// Hide the container
+				//$('#testAlterContainer').delay(1000).slideUp();
 			}
 		}
 	);
