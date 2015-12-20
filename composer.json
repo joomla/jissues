@@ -57,5 +57,10 @@
         "psr-4": {
             "JTracker\\Tests\\": "tests/tracker/"
         }
+    },
+    "config": {
+        "platform": {
+            "php": "5.4.45"
+        }
     }
 }
