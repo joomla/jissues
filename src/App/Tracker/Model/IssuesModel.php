@@ -423,9 +423,9 @@ class IssuesModel extends AbstractTrackerListModel
 
 		$filter = $this->state->get('filter.easytest');
 
-		if ($filter && is_numeric($filter))
+		if (is_numeric($filter) && $filter < 2)
 		{
-			$query->where($db->quoteName('a.easy') . ' = ' . (int) $filter);
+			$query->where($db->quoteName('a.easy') . (0 == $filter ? ' != ' : ' = ') . '1');
 		}
 
 		$filter = (int) $this->state->get('filter.type');
