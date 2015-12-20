@@ -48,11 +48,11 @@
         </li>
         {% if item.has_code %}
         <li>
-             <a class="btn btn-danger" href="javascript:" onclick="$('#testContainer').slideToggle();">
+             <a class="btn btn-danger" href="javascript:" onclick="$('#testAlterContainer').slideUp();$('#testContainer').slideToggle();">
                 {{ 'Test this'|_ }}
             </a>
         </li>
-        <a class="btn btn-warning" href="javascript:" onclick="$('#testAlterContainer').slideToggle();">
+        <a class="btn btn-warning" href="javascript:" onclick="$('#testContainer').slideUp();$('#testAlterContainer').slideToggle();">
                 {{ 'Alter test'|_ }}
         </a>
         {% endif %}
