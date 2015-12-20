@@ -116,7 +116,7 @@ JTracker.submitTest = function (issueId, statusContainer, resultContainer, comme
 
 				var data = $.parseJSON(r.data);
 
-				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure)
+				JTracker.updateTests(data.testResults.testsSuccess, data.testResults.testsFailure);
 
 				result.html(result.html() + tmpl(templateName, data.event));
 
