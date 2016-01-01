@@ -224,7 +224,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (AuthenticationException $exception)
 		{
-			var_dump($this->getUser());die;
 			header('HTTP/1.1 403 Forbidden', true, 403);
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
