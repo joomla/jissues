@@ -346,7 +346,7 @@ class Save extends AbstractTrackerController
 		}
 		catch (\RuntimeException $exception)
 		{
-			throw new \RuntimeException('Error retrieving an instance of the Github object');
+			throw new \RuntimeException('Error retrieving an instance of the Github object', $exception->getCode(), $exception);
 		}
 
 		try

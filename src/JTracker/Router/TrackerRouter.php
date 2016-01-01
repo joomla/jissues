@@ -65,12 +65,12 @@ class TrackerRouter extends Router
 		catch (\InvalidArgumentException $e)
 		{
 			// 404
-			throw new RoutingException($e->getMessage());
+			throw new RoutingException($e->getMessage(), $e);
 		}
 		catch (\RuntimeException $e)
 		{
 			// 404
-			throw new RoutingException($e->getMessage());
+			throw new RoutingException($e->getMessage(), $e);
 		}
 	}
 
