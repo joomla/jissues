@@ -30,6 +30,9 @@ class Logout extends AbstractTrackerController
 		/* @type Application $application */
 		$application = $this->getContainer()->get('app');
 
+		// Invalidate the session
+		$application->getSession()->invalidate();
+
 		$application
 			// Logout the user.
 			->setUser(null)
