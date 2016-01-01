@@ -63,6 +63,7 @@ class Login extends AbstractTrackerController
 		}
 
 		// Do login
+		$app->getSession()->migrate();
 
 		/*
 		 * @todo J\oAuth scrambles our redirects - investigate..
