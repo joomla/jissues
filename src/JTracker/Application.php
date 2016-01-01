@@ -224,7 +224,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (AuthenticationException $exception)
 		{
-			header('HTTP/1.1 403 Forbidden', true, 403);
+			$this->setHeader('Status', 403, true);
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
@@ -247,7 +247,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (RoutingException $exception)
 		{
-			header('HTTP/1.1 404 Not Found', true, 404);
+			$this->setHeader('Status', 404, true);
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
@@ -267,7 +267,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				['trace' => $exception->getTraceAsString()]
 			);
 
-			header('HTTP/1.1 500 Internal Server Error', true, 500);
+			$this->setHeader('Status', 500, true);
 
 			$this->mark('Application terminated with an EXCEPTION');
 
