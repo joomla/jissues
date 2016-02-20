@@ -46,7 +46,7 @@ class Put extends AbstractAjaxController
 
 			$alt = $isImage
 				? 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s')
-				: trim($file->getName() . '.' . $file->getExtension());
+				: trim($file->getName()) . '.' . $file->getExtension();
 
 			$data = array(
 				array(
