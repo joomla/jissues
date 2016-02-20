@@ -48,7 +48,7 @@ $(function () {
         var fileName = data.url.substring(data.url.indexOf(match) + match.length, data.url.length);
         var target = $('#' + data.context.find('button').prop('id'));
         var content = target.val();
-        var regex = new RegExp(RegExp.escape('![') + '[^' + RegExp.escape(']') + ']*' + RegExp.escape(']') + RegExp.escape('(') + '[^' + RegExp.escape('[]') + ']*?' + RegExp.escape(fileName) + RegExp.escape(')'), 'i');
+        var regex = new RegExp('!?' + RegExp.escape('[') + '[^' + RegExp.escape(']') + ']*' + RegExp.escape(']') + RegExp.escape('(') + '[^' + RegExp.escape('[]') + ']*?' + RegExp.escape(fileName) + RegExp.escape(')'), 'i');
         var newContent = content.replace(regex, '');
         target.val(newContent);
     });
