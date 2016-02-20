@@ -42,7 +42,7 @@ class Put extends AbstractAjaxController
 			$destDir    = $application->getProject()->project_id;
 			$fullPath   = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
 
-			$isImage = strpos($file->getMimetype(), 'image');
+			$isImage = (false !== strpos($file->getMimetype(), 'image'));
 
 			$alt = $isImage
 				? 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s')
