@@ -18,7 +18,8 @@ $(function () {
             } else if (!data.result.files[0].error) {
                 var target = $('#' + data.result.files[0].editorId);
                 var cursorStart = target.textrange('get').start;
-                var alt = '![' + data.result.files[0].alt + ']';
+                var prefix = data.result.files[0].isImage ? '!' : '';
+                var alt = prefix + '[' + data.result.files[0].alt + ']';
                 var url = '(' + data.result.files[0].url + ')';
                 var content = target.val();
                 var newContent = content.substr(0, cursorStart) + alt + url + content.substr(cursorStart);

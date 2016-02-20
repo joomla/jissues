@@ -42,19 +42,32 @@ class Put extends AbstractAjaxController
 			$destDir    = $application->getProject()->project_id;
 			$fullPath   = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
 
+			$isImage = (false === strpos($file->getMimetype(), 'image')) ? false : true;
+
+			$alt = $isImage
+				? 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s')
+				: trim($file->getName() . '.' . $file->getExtension());
+
 			$data = array(
 				array(
-					'url' => $fullPath,
+					'url'          => $fullPath,
 					'thumbnailUrl' => $fullPath,
-					'name' => $file->getName(),
-					'type' => $file->getMimetype(),
-					'size' => $file->getSize(),
-					'alt'  => 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s'),
-					'deleteUrl' => '/upload/delete/?file=' . $destName,
-					'deleteType' => "POST",
-					'editorId' => $application->input->get('editorId'),
+					'name'         => $file->getName(),
+					'type'         => $file->getMimetype(),
+					'size'         => $file->getSize(),
+					'alt'          => $alt,
+					'isImage'      => $isImage,
+					'deleteUrl'    => '/upload/delete/?file=' . $destName,
+					'deleteType'   => "POST",
+					'editorId'     => $application->input->get('editorId'),
 				)
 			);
+
+			// Do not pass the thumbnail if not an image
+			if (!$isImage)
+			{
+				unset($data[0]['thumbnailUrl']);
+			}
 
 			// Try to upload file
 			try
