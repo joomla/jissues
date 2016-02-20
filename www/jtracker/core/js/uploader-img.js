@@ -62,7 +62,7 @@ $(function () {
         disableImageResize: /Android(?!.*Chrome)|Opera/
             .test(window.navigator.userAgent),
         maxFileSize: 1000000,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|txt|pdf|docx|xlsx|pptx)$/i
     });
 });
 
