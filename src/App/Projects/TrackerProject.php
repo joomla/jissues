@@ -580,4 +580,68 @@ class TrackerProject implements \Serializable
 
 		return $categories;
 	}
+
+	/**
+	 * Get a location in the file system where the project source files are stored.
+	 *
+	 * @return string
+	 *
+	 * @since    1.0
+	 */
+	public function getSourcePath()
+	{
+		return JPATH_ROOT . '/projects/' . $this->getGh_User() . '/' . $this->getGh_Project() . '/src';
+	}
+
+	/**
+	 * Get a path for a template file.
+	 *
+	 * @param   string  $type  The template type.
+	 *
+	 * @return  string
+	 *
+	 * @since    1.0
+	 */
+	public function getTemplate($type)
+	{
+		switch ($type)
+		{
+			case 'issue':
+				$fileName = 'ISSUE_TEMPLATE';
+				break;
+			case 'pr':
+				$fileName = 'PULL_REQUEST_TEMPLATE';
+				break;
+			case 'contribute':
+				$fileName = 'CONTRIBUTING';
+				break;
+			default:
+			throw new \UnexpectedValueException('Invalid template type');
+		}
+
+		$basePath = $this->getSourcePath();
+
+		foreach (['/.github/', '/'] as $subDir)
+		{
+			// First check: file name with no extension
+			$path = $basePath . $subDir . $fileName;
+
+			if (realpath($path))
+			{
+				return $path;
+			}
+
+			// Second check: file name with '.md' extension
+			$path = $basePath . $subDir . $fileName . '.md';
+
+			if (realpath($path))
+			{
+				return $path;
+			}
+
+			// Third?
+		}
+
+		throw new \DomainException('Template file not found.');
+	}
 }

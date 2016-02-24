@@ -59,21 +59,33 @@ class Add extends AbstractTrackerController
 
 		$this->getContainer()->get('app')->getUser()->authorize('create');
 
-		// New item
-		$path = JPATH_ROOT . '/src/App/Tracker/tpl/new-issue-template.md';
+		/* @type $project \App\Projects\TrackerProject */
+		$project = $this->getContainer()->get('app')->getProject();
 
-		if (!file_exists($path))
+		try
 		{
-			throw new \RuntimeException('New issue template not found.');
+			// Check if the project has a proper issue template.
+			$path = $project->getTemplate('issue');
+		}
+		catch (\DomainException $exception)
+		{
+			// Use standard template.
+			$path = JPATH_ROOT . '/src/App/Tracker/tpl/new-issue-template.md';
+
+			if (!file_exists($path))
+			{
+				throw new \RuntimeException('New issue template not found.');
+			}
 		}
 
 		// Set some defaults
 		$item = new \stdClass;
+
 		$item->issue_number    = 0;
 		$item->priority        = 3;
 		$item->description_raw = file_get_contents($path);
 
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$this->view->setProject($project);
 		$this->view->setItem($item);
 	}
 }
