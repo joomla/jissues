@@ -112,10 +112,17 @@ class ReceivePullsHook extends AbstractHookController
 		$data['build']           = $this->data->base->ref;
 		$data['pr_head_sha']     = $this->data->head->sha;
 
-		$commits = (new GitHubHelper($this->github))
-			->getCommits($this->project, $this->data->number);
+		$gitHubHelper = new GitHubHelper(GithubFactory::getInstance($this->getContainer()->get('app')));
+
+		$commits = $gitHubHelper->getCommits($this->project, $this->data->number);
 
 		$data['commits'] = json_encode($commits);
+
+		$combinedStatus = $gitHubHelper->getCombinedStatus($this->project, $this->data->head->sha);
+
+		// Save the merge status to database
+		$data['merge_state'] = $combinedStatus->state;
+		$data['gh_merge_status'] = json_encode($combinedStatus->statuses);
 
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)
@@ -332,10 +339,16 @@ class ReceivePullsHook extends AbstractHookController
 
 		$data['pr_head_sha'] = $this->data->head->sha;
 
-		$commits = (new GitHubHelper($this->github))
-			->getCommits($this->project, $this->data->number);
+		$gitHubHelper = new GitHubHelper(GithubFactory::getInstance($this->getContainer()->get('app')));
+
+		$commits = $gitHubHelper->getCommits($this->project, $this->data->number);
 
 		$data['commits'] = json_encode($commits);
+
+		$combinedStatus = $gitHubHelper->getCombinedStatus($this->project, $this->data->head->sha);
+
+		$data['merge_state'] = $combinedStatus->state;
+		$data['gh_merge_status'] = json_encode($combinedStatus->statuses);
 
 		try
 		{
