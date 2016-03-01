@@ -310,6 +310,8 @@ class Issues extends Project
 			// If the issue has a diff URL, it is a pull request.
 			if (isset($ghIssue->pull_request->diff_url))
 			{
+				$gitHubHelper = new GitHubHelper(GithubFactory::getInstance($this->getApplication()));
+
 				$table->has_code = 1;
 
 				// Get the pull request corresponding to an issue.
@@ -350,30 +352,14 @@ class Issues extends Project
 
 				$table->pr_head_sha = $pullRequest->head->sha;
 
-				$status = $this->GetMergeStatus($pullRequest);
+				$combinedStatus = $gitHubHelper->getCombinedStatus($this->project, $pullRequest->head->sha);
 
-				if (!$status->state)
-				{
-					// No status found. Let's create one!
-
-					$status->state = 'pending';
-					$status->targetUrl = 'https://issues.joomla.org/gagaga';
-					$status->description = 'JTracker Bug Squad working on it...';
-					$status->context = 'jtracker';
-
-					// @todo Project based status messages
-					// @$this->createStatus($ghIssue, 'pending', 'http://issues.joomla.org/gagaga', 'JTracker Bug Squad working on it...', 'CI/JTracker');
-				}
-				else
-				{
-					// Save the merge status to database
-					$table->merge_state = $status->state;
-					$table->gh_merge_status = json_encode($status);
-				}
+				// Save the merge status to database
+				$table->merge_state = $combinedStatus->state;
+				$table->gh_merge_status = json_encode($combinedStatus->statuses);
 
 				// Get commits
-				$commits = (new GitHubHelper(GithubFactory::getInstance($this->getApplication())))
-					->getCommits($this->project, $table->issue_number);
+				$commits = $gitHubHelper->getCommits($this->project, $table->issue_number);
 
 				$table->commits = json_encode($commits);
 			}
@@ -572,35 +558,5 @@ class Issues extends Project
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
-	}
-
-	/**
-	 * Get the GitHub merge status for an issue.
-	 *
-	 * @param   object  $pullRequest  The pull request object.
-	 *
-	 * @return  Status
-	 *
-	 * @since   1.0
-	 */
-	private function getMergeStatus($pullRequest)
-	{
-		$this->debugOut('Get merge statuses for PR');
-
-		$statuses = $this->github->repositories->statuses->getList(
-			$this->project->gh_user, $this->project->gh_project, $pullRequest->head->sha
-		);
-
-		$mergeStatus = new Status;
-
-		if (isset($statuses[0]))
-		{
-			$mergeStatus->state = $statuses[0]->state;
-			$mergeStatus->targetUrl = $statuses[0]->target_url;
-			$mergeStatus->description = $statuses[0]->description;
-			$mergeStatus->context = $statuses[0]->context;
-		}
-
-		return $mergeStatus;
 	}
 }
