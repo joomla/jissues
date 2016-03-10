@@ -1,5 +1,5 @@
 # JTracker CoreJS core.js 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
 "PO-Revision-Date: 2014-10-17 19:01+0000\n"
 "Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
@@ -38,16 +38,16 @@ msgstr "Comentariu în curs de transmitere..."
 msgid "Adding vote..."
 msgstr "Vot în curs de adăugare..."
 
-#: /www/jtracker/core/js/jtracker.js:103 /www/jtracker/core/js/jtracker.js:178
+#: /www/jtracker/core/js/jtracker.js:103 /www/jtracker/core/js/jtracker.js:184
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Submitting test result..."
 msgstr "Rezultatele testului sunt în curs de transmitere..."
 
-#: /www/jtracker/core/js/jtracker.js:173
+#: /www/jtracker/core/js/jtracker.js:179
 #: /www/jtracker/core/js/jtracker.min.js:1
 msgid "Please select a user"
 msgstr "Vă rugăm să selectați utilizatorul"
 
-#: /www/jtracker/core/js/uploader-img.js:37
+#: /www/jtracker/core/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
 msgstr "Vă rugăm sa selectaţi întâi un editor în care să ataşaţi fişierele încărcate."

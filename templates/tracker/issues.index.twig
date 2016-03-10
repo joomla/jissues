@@ -74,7 +74,7 @@
             or state.get('filter.created_by')
             or state.get('filter.category')
             or state.get('filter.tests')
-            or state.get('filter.easytest')
+            or state.get('filter.easytest') != 2
             or state.get('filter.type')
             or state.get('stools-active') %}
                 in
@@ -583,8 +583,22 @@
 
             stools[stools.length] = '' + sorting;
 
-            // Add other filters
-            if (state != 0) { filters[filters.length] = 'state=' + state; }
+            // Process state
+            state = parseInt(state);
+            var stateStr = '';
+
+            switch (state) {
+                case 1 :
+                    stateStr = 'state=closed';
+                    break;
+                case 2 :
+                    stateStr = 'state=all';
+                    break;
+                default :
+                    stateStr = 'state=open';
+            }
+
+            filters[filters.length] = stateStr;
 
             if (search) { stools[stools.length] = 'search=' + search }
             if (status != 0) { stools[stools.length] = 'status=' + status }
@@ -593,7 +607,7 @@
             if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
-            if (easytest != 0) { stools[stools.length] = 'easytest=' + easytest }
+            if (easytest != 2) { stools[stools.length] = 'easytest=' + easytest }
             if (type != 0) { stools[stools.length] = 'type=' + type }
             if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
 

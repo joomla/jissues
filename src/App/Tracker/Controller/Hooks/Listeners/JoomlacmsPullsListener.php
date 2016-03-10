@@ -72,6 +72,13 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		// Only perform these events if this is a reopened pull, action will be 'reopened'
+		if ($arguments['action'] === 'reopened')
+		{
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+		}
+
 		// Check that pull requests have certain labels
 		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
@@ -99,7 +106,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Set some data
 		$label      = 'RTC';
-		$labels     = array();
+		$labels     = [];
 		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
@@ -279,8 +286,9 @@ class JoomlacmsPullsListener extends AbstractListener
 		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
-		$addLabels            = array();
-		$removeLabels         = array();
+		$composerLabel        = 'Composer Dependency Changed';
+		$addLabels            = [];
+		$removeLabels         = [];
 		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
 		// Add the PR label if it isn't already set
@@ -307,6 +315,20 @@ class JoomlacmsPullsListener extends AbstractListener
 			);
 
 			$files = array();
+		}
+
+		$composerChange   = $this->checkComposerChange($files);
+		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
+
+		// Add the label if we change a Composer dependency and it isn't already set
+		if ($composerChange && !$composerLabelSet)
+		{
+			$addLabels[] = $composerLabel;
+		}
+		// Remove the label if we don't change a Composer dependency
+		elseif ($composerLabelSet)
+		{
+			$removeLabels[] = $composerLabel;
 		}
 
 		$languageChange   = $this->checkLanguageChange($files);
@@ -350,6 +372,32 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		return;
+	}
+
+	/**
+	 * Check if we change a Composer dependency
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a Composer dependency
+	 *
+	 * @since   1.0
+	 */
+	protected function checkComposerChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for file paths libraries/vendor at position 0 or filename is composer.json or composer.lock
+				if (strpos($file->filename, 'libraries/vendor') === 0 || in_array($file->filename, ['composer.json', 'composer.lock']))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -547,7 +595,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Post a comment on the PR asking to add a description
 			try
 			{
-				$addLabels                       = array();
+				$addLabels                       = [];
 				$testInstructionsMissingLabel    = 'Test instructions missing';
 				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
 

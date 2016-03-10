@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-09-01 08:30+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:50+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Documentatie"
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr "Verbeteren"
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr "Permalink"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Iconen"
+
+#: /templates/support/icons.index.twig:21
+msgid "OctIcons"
+msgstr "OctIcons"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -94,27 +115,6 @@ msgstr "GitHub-specifiek"
 #: /templates/support/markdown.index.twig:366
 msgid "Output"
 msgstr "Uitvoer"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "Documentatie"
-
-#: /templates/support/documentation.index.twig:63
-msgid "Improve"
-msgstr "Verbeteren"
-
-#: /templates/support/documentation.index.twig:64
-msgid "Permalink"
-msgstr "Permalink"
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr "Iconen"
-
-#: /templates/support/icons.index.twig:21
-msgid "OctIcons"
-msgstr "OctIcons"
 
 #: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."

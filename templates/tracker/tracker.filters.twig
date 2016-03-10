@@ -27,7 +27,7 @@
         1: 'Oldest'|_,
         2: 'Recently updated'|_,
         3: 'Least recently updated'|_
-        } %}
+    } %}
 
     {{ fields.select('filter-sort', values, value, id, class) }}
 {% endmacro %}
@@ -39,7 +39,7 @@
         0: "Everyone's issues"|_,
         1: 'Created by you'|_,
         2: 'You participated in'|_,
-        } %}
+    } %}
 
     {{ fields.select('filter-user', values, value, id, class) }}
 {% endmacro %}
@@ -76,7 +76,7 @@
         1: 'Needs one test'|_,
         2: 'Has two tests'|_,
         3: 'Needs tests'|_,
-        } %}
+    } %}
 
     {{ fields.select('filter-tests', values, value, id, class) }}
 {% endmacro %}
@@ -85,9 +85,10 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: '- easy -'|_,
-        1: 'Yes'|_
-        } %}
+        2: '- easy -'|_,
+        1: 'Yes'|_,
+        0: 'No'|_
+    } %}
 
     {{ fields.select('filter-easytest', values, value, id, class) }}
 {% endmacro %}

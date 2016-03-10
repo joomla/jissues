@@ -80,27 +80,54 @@ class DefaultController extends AbstractTrackerListController
 		$sort       = $application->getUserStateFromRequest('project_' . $projectId . '.filter.sort', 'sort', 'issue', 'word');
 		$direction  = $application->getUserStateFromRequest('project_' . $projectId . '.filter.direction', 'direction', 'desc', 'word');
 
-		// Update the sort filters from the GET request
-		switch (strtolower($sort))
+		if (is_numeric($sort))
 		{
-			case 'updated':
-				$state->set('list.ordering', 'a.modified_date');
-				$sort = $sort + 2;
-				break;
+			switch ($sort)
+			{
+				case 1:
+					$state->set('list.ordering', 'a.issue_number');
+					$state->set('list.direction', 'ASC');
+					break;
 
-			default:
-				$sort = 0;
+				case 2:
+					$state->set('list.ordering', 'a.modified_date');
+					$state->set('list.direction', 'DESC');
+					break;
+
+				case 3:
+					$state->set('list.ordering', 'a.modified_date');
+					$state->set('list.direction', 'ASC');
+					break;
+
+				default:
+					$state->set('list.ordering', 'a.issue_number');
+					$state->set('list.direction', 'DESC');
+			}
 		}
-
-		switch (strtoupper($direction))
+		// Update the sort filters from the GET request
+		else
 		{
-			case 'ASC':
-				$state->set('list.direction', 'ASC');
-				$sort++;
-				break;
+			switch (strtolower($sort))
+			{
+				case 'updated':
+					$state->set('list.ordering', 'a.modified_date');
+					$sort = $sort + 2;
+					break;
 
-			default:
-				$state->set('list.direction', 'DESC');
+				default:
+					$sort = 0;
+			}
+
+			switch (strtoupper($direction))
+			{
+				case 'ASC':
+					$state->set('list.direction', 'ASC');
+					$sort++;
+					break;
+
+				default:
+					$state->set('list.direction', 'DESC');
+			}
 		}
 
 		$state->set('filter.sort', $sort);
@@ -144,6 +171,10 @@ class DefaultController extends AbstractTrackerListController
 
 			case 'closed':
 				$issuesState = 1;
+				break;
+
+			case 'all':
+				$issuesState = 2;
 				break;
 		}
 
@@ -220,7 +251,7 @@ class DefaultController extends AbstractTrackerListController
 		);
 
 		$state->set('filter.easytest',
-			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 0, 'uint')
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.easytest', 'easytest', 2, 'uint')
 		);
 
 		$state->set('filter.type',

@@ -1,5 +1,5 @@
 # JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-03-10 02:49+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/opentranslators/jtracker/language/nb_NO/)\n"
 "MIME-Version: 1.0\n"
@@ -17,113 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/index.twig:68
-msgid "Download"
-msgstr "Last ned"
-
-#: /templates/index.twig:71
-msgid "Demo"
-msgstr "Demo"
-
-#: /templates/editor.twig:5
-msgid "Markdown Help"
-msgstr ""
-
-#: /templates/editor.twig:6
-msgid "Write"
-msgstr "Skriv"
-
-#: /templates/editor.twig:7
-msgid "Preview"
-msgstr "Forhåndsvis"
-
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
-msgid "Submit test result"
-msgstr ""
-
-#: /templates/testcontainer.twig:8
-msgid "I have tested this item"
-msgstr ""
-
-#: /templates/testcontainer.twig:19
-msgid "Not tested"
-msgstr ""
-
-#: /templates/testcontainer.twig:25
-msgid "Tested successfully"
-msgstr ""
-
-#: /templates/testcontainer.twig:31
-msgid "Tested unsuccessfully"
-msgstr ""
-
-#: /templates/testcontainer.twig:40
-msgid "Leave a comment (optional)"
-msgstr ""
-
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
-msgid "Alter test result"
-msgstr ""
-
-#: /templates/testcontainer.twig:55
-#, php-format
-msgid "Set the test result for user %s to %s"
-msgstr ""
-
-#: /templates/testcontainer.twig:55
-msgid "username"
-msgstr ""
-
-#: /templates/uploader.full.twig:14
-msgid "Add files..."
-msgstr "Legg til filer..."
-
-#: /templates/uploader.full.twig:18
-msgid "Start upload"
-msgstr "Start opplasting"
-
-#: /templates/uploader.full.twig:21
-msgid "Cancel upload"
-msgstr "Avbryt opplasting"
-
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
-msgid "Delete"
-msgstr "Slett"
-
-#: /templates/uploader.full.twig:33
-msgid "Upload Notes"
-msgstr "Opplastingsnotater"
-
-#: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "Den største filstørrelsen for opplastinger er satt til <strong>1 MB</strong>."
-
-#: /templates/uploader.full.twig:36
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr "Kun bildefiler (<strong>JPG, GIF, PNG</strong>) er tillatt."
-
-#: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr "Du kan <strong>dra og slippe</strong> filer fra ditt skrivebord på denne nettsiden."
-
-#: /templates/uploader.full.twig:52
-msgid "Processing..."
-msgstr "Behandler..."
-
-#: /templates/uploader.full.twig:58
-msgid "Start"
-msgstr "Start"
-
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:148
-msgid "Error"
-msgstr "Feil"
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
@@ -171,11 +64,11 @@ msgstr "Personvern-policy"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr ""
+msgstr "Rapporter en feil"
 
 #: /templates/footerMenu.twig:33
 msgid "Log in"
-msgstr ""
+msgstr "Logg inn"
 
 #: /templates/footerMenu.twig:34
 msgid "Joomla Hosting by"
@@ -184,6 +77,14 @@ msgstr "Joomla hostet av"
 #: /templates/footerMenu.twig:37
 msgid "All rights reserved."
 msgstr "Alt innhold er opphavsrettslig beskyttet."
+
+#: /templates/index.twig:72
+msgid "Download"
+msgstr "Last ned"
+
+#: /templates/index.twig:75
+msgid "Demo"
+msgstr "Demo"
 
 #: /templates/fields.twig:44
 msgid "Select Categories..."
@@ -201,9 +102,282 @@ msgstr "Ingen milepæl"
 msgid "Select labels..."
 msgstr "Velger etiketter..."
 
+#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr "Send inn testresultater"
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr "Jeg har testet dette elementet"
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr "Ikke testet"
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr "Test vellykket"
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr "Test feilet"
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr "Legg igjen en kommentar (valgfritt)"
+
+#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr "Forandre testresultat"
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr "Sett testresultatet for bruk %s til %s"
+
+#: /templates/testcontainer.twig:55
+msgid "username"
+msgstr "brukernavn"
+
+#: /templates/uploader.full.twig:14
+msgid "Add files..."
+msgstr "Legg til filer..."
+
+#: /templates/uploader.full.twig:18
+msgid "Start upload"
+msgstr "Start opplasting"
+
+#: /templates/uploader.full.twig:21
+msgid "Cancel upload"
+msgstr "Avbryt opplasting"
+
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+msgid "Delete"
+msgstr "Slett"
+
+#: /templates/uploader.full.twig:33
+msgid "Upload Notes"
+msgstr "Opplastingsnotater"
+
+#: /templates/uploader.full.twig:35
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr "Den største filstørrelsen for opplastinger er satt til <strong>1 MB</strong>."
+
+#: /templates/uploader.full.twig:36
+msgid ""
+"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
+" XLSX, PPTX</strong>."
+msgstr ""
+
+#: /templates/uploader.full.twig:37
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr "Du kan <strong>dra og slippe</strong> filer fra ditt skrivebord på denne nettsiden."
+
+#: /templates/uploader.full.twig:52
+msgid "Processing..."
+msgstr "Behandler..."
+
+#: /templates/uploader.full.twig:58
+msgid "Start"
+msgstr "Start"
+
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:148
+msgid "Error"
+msgstr "Feil"
+
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
 msgstr "Velg språk"
+
+#: /templates/topMenu.twig:16
+msgid "Joomla! Home"
+msgstr "Joomla! hjem"
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "Siste nytt"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "Kunngjøringer"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "Blogger"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "Magasin"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "Støtt Joomla!"
+
+#: /templates/topMenu.twig:24
+msgid "Contribute"
+msgstr "Bidra"
+
+#: /templates/topMenu.twig:25
+msgid "Shop Joomla Gear"
+msgstr "Kjøp Joomla utstyr"
+
+#: /templates/topMenu.twig:26
+msgid "Sponsorship"
+msgstr "Sponsor"
+
+#: /templates/topMenu.twig:31
+msgid "About Joomla!"
+msgstr "Om Joomla!"
+
+#: /templates/topMenu.twig:32
+msgid "Core Features"
+msgstr "Kjernefunksjoner"
+
+#: /templates/topMenu.twig:33
+msgid "The Software"
+msgstr "Programvaren"
+
+#: /templates/topMenu.twig:34
+msgid "The Project"
+msgstr "Prosjektet"
+
+#: /templates/topMenu.twig:35
+msgid "Leadership"
+msgstr "Lederskap"
+
+#: /templates/topMenu.twig:41
+msgid "Joomla! Community Portal"
+msgstr "Joomla! fellesskapsportal"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! Events"
+msgstr "Joomla! arrangementer"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! User Groups"
+msgstr "Joomla! brukergrupper"
+
+#: /templates/topMenu.twig:44
+msgid "Joomla! Volunteers Portal"
+msgstr "Joomla! Frivillighetsportal"
+
+#: /templates/topMenu.twig:47
+msgid "Support"
+msgstr "Support"
+
+#: /templates/topMenu.twig:49
+msgid "Joomla! Forum"
+msgstr "Joomla! forum"
+
+#: /templates/topMenu.twig:50
+msgid "Joomla! Documentation"
+msgstr "Joomla! dokumentasjon"
+
+#: /templates/topMenu.twig:51
+msgid "Joomla! Issue Tracker"
+msgstr "Joomla! Problemsporer"
+
+#: /templates/topMenu.twig:52
+msgid "Joomla! Resources"
+msgstr "Joomla! ressurser"
+
+#: /templates/topMenu.twig:55
+msgid "Read"
+msgstr "Les"
+
+#: /templates/topMenu.twig:57
+msgid "Joomla! Magazine"
+msgstr "Joomla! magasin"
+
+#: /templates/topMenu.twig:58
+msgid "Joomla! Connect"
+msgstr "Joomla! connect"
+
+#: /templates/topMenu.twig:59
+msgid "Joomla! Mailing Lists"
+msgstr "Joomla! e-postlister"
+
+#: /templates/topMenu.twig:62
+msgid "Extend"
+msgstr "Utvid"
+
+#: /templates/topMenu.twig:64
+msgid "Extension Directory"
+msgstr "Utvidelsesregister"
+
+#: /templates/topMenu.twig:65
+msgid "Showcase Directory"
+msgstr "Visningsregister"
+
+#: /templates/topMenu.twig:66
+msgid "Resource Directory"
+msgstr "Ressursregister"
+
+#: /templates/topMenu.twig:67 /templates/topMenu.twig:86
+msgid "Translations"
+msgstr "Oversettelser"
+
+#: /templates/topMenu.twig:68
+msgid "Idea Pool"
+msgstr "Idémyldring"
+
+#: /templates/topMenu.twig:71
+msgid "Developers"
+msgstr "Utviklere"
+
+#: /templates/topMenu.twig:73
+msgid "Developer Site"
+msgstr "Utviklerside"
+
+#: /templates/topMenu.twig:74 /templates/trackerMenu.twig:200
+msgid "Documentation"
+msgstr "Dokumentasjon"
+
+#: /templates/topMenu.twig:75
+msgid "Joomla! Bug Squad"
+msgstr "Joomla! Bug Squad"
+
+#: /templates/topMenu.twig:76
+msgid "Joomla! API"
+msgstr "Joomla! API"
+
+#: /templates/topMenu.twig:77
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:78
+msgid "Joomla! Framework"
+msgstr "Joomla! rammeverk"
+
+#: /templates/topMenu.twig:87
+msgid "Multilingual Demo"
+msgstr "Flerspråkelig demo"
+
+#: /templates/topMenu.twig:88
+msgid "Translation Working Group"
+msgstr "Oversettelse arbeidsgruppe"
+
+#: /templates/topMenu.twig:89
+msgid "Translations Forum"
+msgstr "Oversettelsesforum"
+
+#: /templates/editor.twig:5
+msgid "Markdown Help"
+msgstr "Markdown hjelp"
+
+#: /templates/editor.twig:6
+msgid "Write"
+msgstr "Skriv"
+
+#: /templates/editor.twig:7
+msgid "Preview"
+msgstr "Forhåndsvis"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
@@ -313,10 +487,6 @@ msgstr "Om oss"
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:200 /templates/topMenu.twig:74
-msgid "Documentation"
-msgstr "Dokumentasjon"
-
 #: /templates/trackerMenu.twig:219
 msgid "Admin"
 msgstr "Admin"
@@ -340,171 +510,3 @@ msgstr "Logg inn med GitHub"
 #: /templates/trackerMenu.twig:250
 msgid "No GitHub credentials set in config"
 msgstr "Ingen GitHub legitimasjonsopplysninger satt i konfigurasjonen"
-
-#: /templates/topMenu.twig:16
-msgid "Joomla! Home"
-msgstr ""
-
-#: /templates/topMenu.twig:18
-msgid "Recent News"
-msgstr "Siste nytt"
-
-#: /templates/topMenu.twig:19
-msgid "Announcements"
-msgstr "Kunngjøringer"
-
-#: /templates/topMenu.twig:20
-msgid "Blogs"
-msgstr "Blogger"
-
-#: /templates/topMenu.twig:21
-msgid "Magazine"
-msgstr "Magasin"
-
-#: /templates/topMenu.twig:23
-msgid "Support Joomla!"
-msgstr "Støtt Joomla!"
-
-#: /templates/topMenu.twig:24
-msgid "Contribute"
-msgstr ""
-
-#: /templates/topMenu.twig:25
-msgid "Shop Joomla Gear"
-msgstr "Kjøp Joomla utstyr"
-
-#: /templates/topMenu.twig:26
-msgid "Sponsorship"
-msgstr ""
-
-#: /templates/topMenu.twig:31
-msgid "About Joomla!"
-msgstr "Om Joomla!"
-
-#: /templates/topMenu.twig:32
-msgid "Core Features"
-msgstr "Kjernefunksjoner"
-
-#: /templates/topMenu.twig:33
-msgid "The Software"
-msgstr "Programvaren"
-
-#: /templates/topMenu.twig:34
-msgid "The Project"
-msgstr "Prosjektet"
-
-#: /templates/topMenu.twig:35
-msgid "Leadership"
-msgstr "Lederskap"
-
-#: /templates/topMenu.twig:41
-msgid "Joomla! Community Portal"
-msgstr "Joomla! fellesskapsportal"
-
-#: /templates/topMenu.twig:42
-msgid "Joomla! Events"
-msgstr "Joomla! arrangementer"
-
-#: /templates/topMenu.twig:43
-msgid "Joomla! User Groups"
-msgstr "Joomla! brukergrupper"
-
-#: /templates/topMenu.twig:44
-msgid "Joomla! Volunteers Portal"
-msgstr "Joomla! Frivillighetsportal"
-
-#: /templates/topMenu.twig:47
-msgid "Support"
-msgstr "Support"
-
-#: /templates/topMenu.twig:49
-msgid "Joomla! Forum"
-msgstr "Joomla! forum"
-
-#: /templates/topMenu.twig:50
-msgid "Joomla! Documentation"
-msgstr "Joomla! dokumentasjon"
-
-#: /templates/topMenu.twig:51
-msgid "Joomla! Issue Tracker"
-msgstr "Joomla! Problemsporer"
-
-#: /templates/topMenu.twig:52
-msgid "Joomla! Resources"
-msgstr "Joomla! ressurser"
-
-#: /templates/topMenu.twig:55
-msgid "Read"
-msgstr "Les"
-
-#: /templates/topMenu.twig:57
-msgid "Joomla! Magazine"
-msgstr "Joomla! magasin"
-
-#: /templates/topMenu.twig:58
-msgid "Joomla! Connect"
-msgstr "Joomla! connect"
-
-#: /templates/topMenu.twig:59
-msgid "Joomla! Mailing Lists"
-msgstr "Joomla! e-postlister"
-
-#: /templates/topMenu.twig:62
-msgid "Extend"
-msgstr "Utvid"
-
-#: /templates/topMenu.twig:64
-msgid "Extension Directory"
-msgstr "Utvidelsesregister"
-
-#: /templates/topMenu.twig:65
-msgid "Showcase Directory"
-msgstr "Visningsregister"
-
-#: /templates/topMenu.twig:66
-msgid "Resource Directory"
-msgstr "Ressursregister"
-
-#: /templates/topMenu.twig:67 /templates/topMenu.twig:86
-msgid "Translations"
-msgstr "Oversettelser"
-
-#: /templates/topMenu.twig:68
-msgid "Idea Pool"
-msgstr "Idémyldring"
-
-#: /templates/topMenu.twig:71
-msgid "Developers"
-msgstr "Utviklere"
-
-#: /templates/topMenu.twig:73
-msgid "Developer Site"
-msgstr "Utviklerside"
-
-#: /templates/topMenu.twig:75
-msgid "Joomla! Bug Squad"
-msgstr "Joomla! Bug Squad"
-
-#: /templates/topMenu.twig:76
-msgid "Joomla! API"
-msgstr "Joomla! API"
-
-#: /templates/topMenu.twig:77
-msgid "JoomlaCode"
-msgstr "JoomlaCode"
-
-#: /templates/topMenu.twig:78
-msgid "Joomla! Framework"
-msgstr "Joomla! rammeverk"
-
-#: /templates/topMenu.twig:87
-msgid "Multilingual Demo"
-msgstr "Flerspråkelig demo"
-
-#: /templates/topMenu.twig:88
-msgid "Translation Working Group"
-msgstr "Oversettelse arbeidsgruppe"
-
-#: /templates/topMenu.twig:89
-msgid "Translations Forum"
-msgstr "Oversettelsesforum"

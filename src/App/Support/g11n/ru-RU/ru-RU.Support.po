@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-09-24 06:50+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:54+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/opentranslators/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Документация"
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr "Улучшить"
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr "Постоянная ссылка"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Иконки"
+
+#: /templates/support/icons.index.twig:21
+msgid "OctIcons"
+msgstr "OctIcons"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -93,27 +114,6 @@ msgstr "GitHub Spice"
 #: /templates/support/markdown.index.twig:366
 msgid "Output"
 msgstr "Выходные данные"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "Документация"
-
-#: /templates/support/documentation.index.twig:63
-msgid "Improve"
-msgstr "Улучшить"
-
-#: /templates/support/documentation.index.twig:64
-msgid "Permalink"
-msgstr "Постоянная ссылка"
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr "Иконки"
-
-#: /templates/support/icons.index.twig:21
-msgid "OctIcons"
-msgstr "OctIcons"
 
 #: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."

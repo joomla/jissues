@@ -92,7 +92,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 		}
 		catch (\Twig_Error_Loader $e)
 		{
-			throw new \RuntimeException($e->getRawMessage());
+			throw new \RuntimeException($e->getRawMessage(), $e->getCode(), $e);
 		}
 
 		parent::__construct($this->twigLoader, $this->config['environment']);
@@ -199,7 +199,7 @@ class Twig extends \Twig_Environment implements RendererInterface
 		}
 		catch (\Twig_Error_Loader $e)
 		{
-			throw new \RuntimeException($e->getRawMessage());
+			throw new \RuntimeException($e->getRawMessage(), $e->getCode(), $e);
 		}
 	}
 

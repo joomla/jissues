@@ -1,5 +1,5 @@
 # JTracker Core JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-01-12 15:43+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-27 16:59+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr ""
 #: /src/JTracker/View/Renderer/TrackerExtension.php:341
 #: /src/JTracker/View/Renderer/TrackerExtension.php:364
 msgid "New"
-msgstr ""
+msgstr "Nova"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:342
 #: /src/JTracker/View/Renderer/TrackerExtension.php:365
@@ -78,7 +78,7 @@ msgstr ""
 #: /src/JTracker/View/Renderer/TrackerExtension.php:366
 #: /src/JTracker/View/Renderer/TrackerExtension.php:615
 msgid "Pending"
-msgstr ""
+msgstr "Pendentes"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:344
 #: /src/JTracker/View/Renderer/TrackerExtension.php:367

@@ -132,11 +132,25 @@ abstract class User implements \Serializable
 	}
 
 	/**
+	 * Load a user with the given keys
+	 *
+	 * @param   array  $lookup  Keys to lookup user by
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function loadBy(array $lookup)
+	{
+		return $this->load($lookup);
+	}
+
+	/**
 	 * Load data by a given user name.
 	 *
 	 * @param   string  $userName  The user name
 	 *
-	 * @return  TableUsers
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */
@@ -367,19 +381,13 @@ abstract class User implements \Serializable
 	 */
 	public function serialize()
 	{
-		$props = array();
-
-		foreach (get_object_vars($this) as $key => $value)
-		{
-			if (in_array($key, array('authModel', 'cleared', 'authId', 'database')))
-			{
-				continue;
-			}
-
-			$props[$key] = $value;
-		}
-
-		return serialize($props);
+		return serialize(
+			[
+				$this->id,
+				$this->username,
+				$this->project
+			]
+		);
 	}
 
 	/**
@@ -393,12 +401,10 @@ abstract class User implements \Serializable
 	 */
 	public function unserialize($serialized)
 	{
-		$data = unserialize($serialized);
+		list ($this->id, $this->username, $this->project) = unserialize($serialized);
 
-		foreach ($data as $key => $value)
-		{
-			$this->$key = $value;
-		}
+		// Initialize the user parameters object.
+		$this->params = new Registry;
 	}
 
 	/**

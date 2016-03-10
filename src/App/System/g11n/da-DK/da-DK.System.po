@@ -1,5 +1,5 @@
 # JTracker App System 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
 "PO-Revision-Date: 2014-10-17 11:35+0000\n"
 "Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/opentranslators/jtracker/language/da_DK/)\n"
@@ -18,10 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
-msgid "Routes"
-msgstr "Ruter"
 
 #: /templates/system/config.index.twig:6
 msgid "Configuration"
@@ -39,6 +35,10 @@ msgstr "Rediger konfiguration"
 #, php-format
 msgid "Loaded configuration file: %s"
 msgstr "Indlæst konfigurationsfil: %s"
+
+#: /templates/system/routes.index.twig:6 /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr "Ruter"
 
 #: /src/App/System/Controller/Config/Save.php:52
 msgid "The configuration file has been saved."

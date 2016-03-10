@@ -224,7 +224,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (AuthenticationException $exception)
 		{
-			header('HTTP/1.1 403 Forbidden', true, 403);
+			$this->setHeader('Status', 403, true);
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
@@ -247,7 +247,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		catch (RoutingException $exception)
 		{
-			header('HTTP/1.1 404 Not Found', true, 404);
+			$this->setHeader('Status', 404, true);
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
@@ -267,7 +267,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				['trace' => $exception->getTraceAsString()]
 			);
 
-			header('HTTP/1.1 500 Internal Server Error', true, 500);
+			$this->setHeader('Status', 500, true);
 
 			$this->mark('Application terminated with an EXCEPTION');
 
@@ -367,15 +367,18 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		if (is_null($this->user))
 		{
-			if ($this->user = $this->getSession()->get('jissues_user'))
+			$sessionUser = $this->getSession()->get('jissues_user');
+
+			if ($sessionUser instanceof User && $sessionUser->id != 0)
 			{
-				// @todo Ref #275
-				$this->user->setDatabase($this->getContainer()->get('db'));
-				$this->user->getProject()->setDatabase($this->getContainer()->get('db'));
+				$sessionUser->setDatabase($this->getContainer()->get('db'));
+				$sessionUser->getProject()->setDatabase($this->getContainer()->get('db'));
+
+				$this->setUser($sessionUser->loadBy(['id' => $sessionUser->id, 'username' => $sessionUser->username]));
 			}
 			else
 			{
-				$this->user = new GitHubUser($this->getProject(), $this->getContainer()->get('db'));
+				$this->setUser(null);
 			}
 		}
 
@@ -496,7 +499,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			// @todo cleanup more ?
 		}
-		elseif($user instanceof User)
+		elseif ($user instanceof User)
 		{
 			// Login
 			$user->isAdmin = in_array($user->username, $this->get('acl.admin_users'));
@@ -725,7 +728,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 *
 	 * @param   boolean  $state  Remember me or forget me.
 	 *
-	 * @return $this
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 */

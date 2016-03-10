@@ -52,7 +52,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 		}
 		catch (\RuntimeException $e)
 		{
-			throw new RoutingException($this->getAlias());
+			throw new RoutingException($this->getAlias(), $e);
 		}
 
 		$this->renderer->set('page', $item->getIterator());

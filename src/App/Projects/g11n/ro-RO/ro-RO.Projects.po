@@ -1,5 +1,5 @@
 # JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-10-17 17:10+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-25 22:01+0000\n"
 "Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Proiect"
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:60
+msgid "Edit"
+msgstr "Editeaza"
+
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:61
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Şterge"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr "Urmăritorul Proiectului %s"
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr "Proiectul %s pe GitHub"
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Statistici"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr "Cârlige"
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:59
+msgid "Groups"
+msgstr "Grupuri"
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr "Etichete"
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Categorii"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
@@ -67,28 +116,6 @@ msgstr "Repo GitHub "
 msgid "External Tracker Link"
 msgstr "Link Urmăritor Extern"
 
-#: /templates/projects/project.edit.twig:6
-msgid "Edit Project"
-msgstr "Editează Proiect"
-
-#: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:61
-#: /templates/projects/project.index.twig:15
-msgid "Delete"
-msgstr "Şterge"
-
-#: /templates/projects/project.edit.twig:28
-msgid "Edit project"
-msgstr "Editează proiectul"
-
-#: /templates/projects/project.edit.twig:72
-msgid "GitHub Editbot user"
-msgstr "utilizator GitHub Editbot "
-
-#: /templates/projects/project.edit.twig:79
-msgid "GitHub Editbot password"
-msgstr "parolă GitHub Editbot"
-
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
 msgstr "Proiecte"
@@ -117,16 +144,6 @@ msgstr "Acţiuni"
 msgid "Id"
 msgstr "Id"
 
-#: /templates/projects/projects.index.twig:45
-#: /templates/projects/project.index.twig:45
-msgid "Hooks"
-msgstr "Cârlige"
-
-#: /templates/projects/projects.index.twig:46
-#: /templates/projects/project.index.twig:54
-msgid "Labels"
-msgstr "Etichete"
-
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
 msgstr "Statistici"
@@ -135,38 +152,21 @@ msgstr "Statistici"
 msgid "Show"
 msgstr "Arată"
 
-#: /templates/projects/projects.index.twig:59
-#: /templates/projects/project.index.twig:51
-msgid "Groups"
-msgstr "Grupuri"
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Editează Proiect"
 
-#: /templates/projects/projects.index.twig:60
-#: /templates/projects/project.index.twig:14
-msgid "Edit"
-msgstr "Editeaza"
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Editează proiectul"
 
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr "Proiect"
+#: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr "utilizator GitHub Editbot "
 
-#: /templates/projects/project.index.twig:26
-#, php-format
-msgid "Project %s Tracker"
-msgstr "Urmăritorul Proiectului %s"
-
-#: /templates/projects/project.index.twig:35
-#, php-format
-msgid "Project %s on GitHub"
-msgstr "Proiectul %s pe GitHub"
-
-#: /templates/projects/project.index.twig:39
-msgid "Statistics"
-msgstr "Statistici"
-
-#: /templates/projects/project.index.twig:57
-msgid "Categories"
-msgstr "Categorii"
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr "parolă GitHub Editbot"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

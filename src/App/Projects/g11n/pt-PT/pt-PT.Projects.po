@@ -1,5 +1,5 @@
 # JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-08-19 16:19+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-27 16:59+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr ""
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:60
+msgid "Edit"
+msgstr ""
+
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:61
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Eliminar"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr ""
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr ""
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Estatísticas"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr ""
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:59
+msgid "Groups"
+msgstr ""
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr ""
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Categorias"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
@@ -39,7 +88,7 @@ msgstr ""
 #: /templates/projects/project.add.twig:28
 #: /templates/projects/project.edit.twig:37
 msgid "Title"
-msgstr ""
+msgstr "Nome"
 
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
@@ -66,28 +115,6 @@ msgstr ""
 msgid "External Tracker Link"
 msgstr ""
 
-#: /templates/projects/project.edit.twig:6
-msgid "Edit Project"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:61
-#: /templates/projects/project.index.twig:15
-msgid "Delete"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:28
-msgid "Edit project"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:72
-msgid "GitHub Editbot user"
-msgstr ""
-
-#: /templates/projects/project.edit.twig:79
-msgid "GitHub Editbot password"
-msgstr ""
-
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
 msgstr ""
@@ -98,7 +125,7 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:23
 msgid "Projects List"
-msgstr ""
+msgstr "Lista de Projetos"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
@@ -114,17 +141,7 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:33
 msgid "Id"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:45
-#: /templates/projects/project.index.twig:45
-msgid "Hooks"
-msgstr ""
-
-#: /templates/projects/projects.index.twig:46
-#: /templates/projects/project.index.twig:54
-msgid "Labels"
-msgstr ""
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
@@ -134,37 +151,20 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:59
-#: /templates/projects/project.index.twig:51
-msgid "Groups"
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
 msgstr ""
 
-#: /templates/projects/projects.index.twig:60
-#: /templates/projects/project.index.twig:14
-msgid "Edit"
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
 msgstr ""
 
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
+#: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
 msgstr ""
 
-#: /templates/projects/project.index.twig:26
-#, php-format
-msgid "Project %s Tracker"
-msgstr ""
-
-#: /templates/projects/project.index.twig:35
-#, php-format
-msgid "Project %s on GitHub"
-msgstr ""
-
-#: /templates/projects/project.index.twig:39
-msgid "Statistics"
-msgstr ""
-
-#: /templates/projects/project.index.twig:57
-msgid "Categories"
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
 msgstr ""
 
 #: /src/App/Projects/Table/ProjectsTable.php:59

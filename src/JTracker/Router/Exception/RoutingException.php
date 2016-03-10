@@ -26,15 +26,16 @@ class RoutingException extends \Exception
 	/**
 	 * Constructor.
 	 *
-	 * @param   string  $rawRoute  The raw route.
+	 * @param   string      $rawRoute  The raw route.
+	 * @param   \Exception  $previous  The previous exception used for the exception chaining.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct($rawRoute)
+	public function __construct($rawRoute, \Exception $previous = null)
 	{
 		$this->rawRoute = $rawRoute;
 
-		parent::__construct('Bad Route', 404);
+		parent::__construct('Bad Route', 404, $previous);
 	}
 
 	/**

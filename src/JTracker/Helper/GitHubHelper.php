@@ -16,6 +16,7 @@ use Joomla\Date\Date;
 
 use JTracker\Application;
 use JTracker\Github\DataType\Commit;
+use JTracker\Github\DataType\Commit\CombinedStatus;
 use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\DataType\JTracker\Issues\Comment;
 use JTracker\GitHub\Github;
@@ -141,6 +142,41 @@ class GitHubHelper
 		}
 
 		return $commits;
+	}
+
+	/**
+	 * Get the combined GitHub merge status for an issue.
+	 *
+	 * @param   TrackerProject  $project  The project object.
+	 * @param   string          $ref      Ref to fetch the status for. It can be a SHA, a branch name, or a tag name.
+	 *
+	 * @return  CombinedStatus
+	 *
+	 * @since    1.0
+	 */
+	public function getCombinedStatus(TrackerProject $project, $ref)
+	{
+		$combinedStatus = new CombinedStatus;
+
+		$combined = $this->gitHub->repositories->statuses->getCombined(
+			$project->gh_user, $project->gh_project, $ref
+		);
+
+		$combinedStatus->state = $combined->state;
+
+		foreach ($combined->statuses as $status)
+		{
+			$s = new Status;
+
+			$s->state = $status->state;
+			$s->targetUrl = $status->target_url;
+			$s->description = $status->description;
+			$s->context = $status->context;
+
+			$combinedStatus->statuses[] = $s;
+		}
+
+		return $combinedStatus;
 	}
 
 	/**

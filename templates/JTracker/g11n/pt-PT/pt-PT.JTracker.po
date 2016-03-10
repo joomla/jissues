@@ -1,5 +1,5 @@
 # JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-03-10 02:49+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -17,113 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: /templates/index.twig:68
-msgid "Download"
-msgstr "Descarregar"
-
-#: /templates/index.twig:71
-msgid "Demo"
-msgstr "Demo"
-
-#: /templates/editor.twig:5
-msgid "Markdown Help"
-msgstr ""
-
-#: /templates/editor.twig:6
-msgid "Write"
-msgstr "Escrever"
-
-#: /templates/editor.twig:7
-msgid "Preview"
-msgstr "Pré-visualizar"
-
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
-msgid "Submit test result"
-msgstr ""
-
-#: /templates/testcontainer.twig:8
-msgid "I have tested this item"
-msgstr ""
-
-#: /templates/testcontainer.twig:19
-msgid "Not tested"
-msgstr ""
-
-#: /templates/testcontainer.twig:25
-msgid "Tested successfully"
-msgstr ""
-
-#: /templates/testcontainer.twig:31
-msgid "Tested unsuccessfully"
-msgstr ""
-
-#: /templates/testcontainer.twig:40
-msgid "Leave a comment (optional)"
-msgstr ""
-
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
-msgid "Alter test result"
-msgstr ""
-
-#: /templates/testcontainer.twig:55
-#, php-format
-msgid "Set the test result for user %s to %s"
-msgstr ""
-
-#: /templates/testcontainer.twig:55
-msgid "username"
-msgstr ""
-
-#: /templates/uploader.full.twig:14
-msgid "Add files..."
-msgstr ""
-
-#: /templates/uploader.full.twig:18
-msgid "Start upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:21
-msgid "Cancel upload"
-msgstr ""
-
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
-msgid "Delete"
-msgstr ""
-
-#: /templates/uploader.full.twig:33
-msgid "Upload Notes"
-msgstr ""
-
-#: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr ""
-
-#: /templates/uploader.full.twig:36
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr ""
-
-#: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
-msgstr ""
-
-#: /templates/uploader.full.twig:52
-msgid "Processing..."
-msgstr ""
-
-#: /templates/uploader.full.twig:58
-msgid "Start"
-msgstr ""
-
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
-msgid "Cancel"
-msgstr ""
-
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:148
-msgid "Error"
-msgstr ""
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
@@ -185,6 +78,14 @@ msgstr ""
 msgid "All rights reserved."
 msgstr ""
 
+#: /templates/index.twig:72
+msgid "Download"
+msgstr "Descarregar"
+
+#: /templates/index.twig:75
+msgid "Demo"
+msgstr "Demo"
+
 #: /templates/fields.twig:44
 msgid "Select Categories..."
 msgstr ""
@@ -201,144 +102,97 @@ msgstr ""
 msgid "Select labels..."
 msgstr ""
 
+#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr ""
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr ""
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr ""
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr ""
+
+#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr ""
+
+#: /templates/testcontainer.twig:55
+msgid "username"
+msgstr ""
+
+#: /templates/uploader.full.twig:14
+msgid "Add files..."
+msgstr ""
+
+#: /templates/uploader.full.twig:18
+msgid "Start upload"
+msgstr ""
+
+#: /templates/uploader.full.twig:21
+msgid "Cancel upload"
+msgstr ""
+
+#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+msgid "Delete"
+msgstr "Eliminar"
+
+#: /templates/uploader.full.twig:33
+msgid "Upload Notes"
+msgstr ""
+
+#: /templates/uploader.full.twig:35
+msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+msgstr ""
+
+#: /templates/uploader.full.twig:36
+msgid ""
+"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
+" XLSX, PPTX</strong>."
+msgstr ""
+
+#: /templates/uploader.full.twig:37
+msgid ""
+"You can <strong>drag & drop</strong> files from your desktop on this "
+"webpage."
+msgstr ""
+
+#: /templates/uploader.full.twig:52
+msgid "Processing..."
+msgstr ""
+
+#: /templates/uploader.full.twig:58
+msgid "Start"
+msgstr "Início"
+
+#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+msgid "Cancel"
+msgstr "Cancelar pedido"
+
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:148
+msgid "Error"
+msgstr ""
+
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
-msgstr ""
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Tracker"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projeto"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Exibir"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Editar"
-
-#: /templates/trackerMenu.twig:43
-msgid "Access Groups"
-msgstr "Grupos de acesso"
-
-#: /templates/trackerMenu.twig:49
-msgid "Labels"
-msgstr ""
-
-#: /templates/trackerMenu.twig:55
-msgid "Milestones"
-msgstr ""
-
-#: /templates/trackerMenu.twig:61
-msgid "Categories"
-msgstr ""
-
-#: /templates/trackerMenu.twig:71
-msgid "Projects"
-msgstr "Projetos"
-
-#: /templates/trackerMenu.twig:76
-msgid "Users"
-msgstr "Membros"
-
-#: /templates/trackerMenu.twig:83
-msgid "System"
-msgstr "Sistema"
-
-#: /templates/trackerMenu.twig:90
-msgid "Configuration"
-msgstr "Configuração"
-
-#: /templates/trackerMenu.twig:96
-msgid "phpinfo()"
-msgstr ""
-
-#: /templates/trackerMenu.twig:102
-msgid "Logs"
-msgstr ""
-
-#: /templates/trackerMenu.twig:115
-msgid "Application"
-msgstr ""
-
-#: /templates/trackerMenu.twig:118
-msgid "Cron Jobs"
-msgstr ""
-
-#: /templates/trackerMenu.twig:123
-msgid "Database"
-msgstr "Base de dados"
-
-#: /templates/trackerMenu.twig:129
-msgid "GitHub Issues"
-msgstr ""
-
-#: /templates/trackerMenu.twig:135
-msgid "GitHub Comments"
-msgstr ""
-
-#: /templates/trackerMenu.twig:141
-msgid "GitHub Pulls"
-msgstr ""
-
-#: /templates/trackerMenu.twig:145
-msgid "PHP"
-msgstr ""
-
-#: /templates/trackerMenu.twig:155
-msgid "Icons"
-msgstr "Ícones"
-
-#: /templates/trackerMenu.twig:161
-msgid "Routes"
-msgstr ""
-
-#: /templates/trackerMenu.twig:167
-msgid "Text"
-msgstr "Texto"
-
-#: /templates/trackerMenu.twig:173
-msgid "Clear Cache"
-msgstr "Limpar Cache"
-
-#: /templates/trackerMenu.twig:190
-msgid "About Us"
-msgstr "Sobre"
-
-#: /templates/trackerMenu.twig:195
-msgid "Markdown"
-msgstr ""
-
-#: /templates/trackerMenu.twig:200 /templates/topMenu.twig:74
-msgid "Documentation"
-msgstr ""
-
-#: /templates/trackerMenu.twig:219
-msgid "Admin"
-msgstr "Administrador"
-
-#: /templates/trackerMenu.twig:224
-msgid "View profile"
-msgstr ""
-
-#: /templates/trackerMenu.twig:230
-msgid "Edit profile"
-msgstr ""
-
-#: /templates/trackerMenu.twig:237
-msgid "Logout"
-msgstr "Sair"
-
-#: /templates/trackerMenu.twig:246
-msgid "Login with GitHub"
-msgstr ""
-
-#: /templates/trackerMenu.twig:250
-msgid "No GitHub credentials set in config"
 msgstr ""
 
 #: /templates/topMenu.twig:16
@@ -481,6 +335,10 @@ msgstr ""
 msgid "Developer Site"
 msgstr ""
 
+#: /templates/topMenu.twig:74 /templates/trackerMenu.twig:200
+msgid "Documentation"
+msgstr ""
+
 #: /templates/topMenu.twig:75
 msgid "Joomla! Bug Squad"
 msgstr ""
@@ -507,4 +365,148 @@ msgstr ""
 
 #: /templates/topMenu.twig:89
 msgid "Translations Forum"
+msgstr ""
+
+#: /templates/editor.twig:5
+msgid "Markdown Help"
+msgstr ""
+
+#: /templates/editor.twig:6
+msgid "Write"
+msgstr "Escrever"
+
+#: /templates/editor.twig:7
+msgid "Preview"
+msgstr "Pré-visualizar"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Tracker"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projeto"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Exibir"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Editar"
+
+#: /templates/trackerMenu.twig:43
+msgid "Access Groups"
+msgstr "Grupos de acesso"
+
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr ""
+
+#: /templates/trackerMenu.twig:55
+msgid "Milestones"
+msgstr ""
+
+#: /templates/trackerMenu.twig:61
+msgid "Categories"
+msgstr "Categorias"
+
+#: /templates/trackerMenu.twig:71
+msgid "Projects"
+msgstr "Projetos"
+
+#: /templates/trackerMenu.twig:76
+msgid "Users"
+msgstr "Membros"
+
+#: /templates/trackerMenu.twig:83
+msgid "System"
+msgstr "Sistema"
+
+#: /templates/trackerMenu.twig:90
+msgid "Configuration"
+msgstr "Configuração"
+
+#: /templates/trackerMenu.twig:96
+msgid "phpinfo()"
+msgstr ""
+
+#: /templates/trackerMenu.twig:102
+msgid "Logs"
+msgstr ""
+
+#: /templates/trackerMenu.twig:115
+msgid "Application"
+msgstr ""
+
+#: /templates/trackerMenu.twig:118
+msgid "Cron Jobs"
+msgstr ""
+
+#: /templates/trackerMenu.twig:123
+msgid "Database"
+msgstr "Base de dados"
+
+#: /templates/trackerMenu.twig:129
+msgid "GitHub Issues"
+msgstr ""
+
+#: /templates/trackerMenu.twig:135
+msgid "GitHub Comments"
+msgstr ""
+
+#: /templates/trackerMenu.twig:141
+msgid "GitHub Pulls"
+msgstr ""
+
+#: /templates/trackerMenu.twig:145
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:155
+msgid "Icons"
+msgstr "Ícones"
+
+#: /templates/trackerMenu.twig:161
+msgid "Routes"
+msgstr ""
+
+#: /templates/trackerMenu.twig:167
+msgid "Text"
+msgstr "Texto"
+
+#: /templates/trackerMenu.twig:173
+msgid "Clear Cache"
+msgstr "Limpar Cache"
+
+#: /templates/trackerMenu.twig:190
+msgid "About Us"
+msgstr "Sobre"
+
+#: /templates/trackerMenu.twig:195
+msgid "Markdown"
+msgstr ""
+
+#: /templates/trackerMenu.twig:219
+msgid "Admin"
+msgstr "Administrador"
+
+#: /templates/trackerMenu.twig:224
+msgid "View profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:230
+msgid "Edit profile"
+msgstr ""
+
+#: /templates/trackerMenu.twig:237
+msgid "Logout"
+msgstr "Sair"
+
+#: /templates/trackerMenu.twig:246
+msgid "Login with GitHub"
+msgstr ""
+
+#: /templates/trackerMenu.twig:250
+msgid "No GitHub credentials set in config"
 msgstr ""

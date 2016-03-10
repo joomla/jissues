@@ -1,5 +1,5 @@
 # JTracker App Groups 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-08-31 17:31+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 17:49+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/opentranslators/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "Gruppen"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "Neue Gruppe"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "Benutzergruppen"
+
+#: /templates/groups/groups.index.twig:27
+#: /templates/groups/group.edit.twig:144
+msgid "Title"
+msgstr "Titel"
+
+#: /templates/groups/groups.index.twig:28
+#: /templates/groups/group.edit.twig:164
+msgid "View"
+msgstr "Ansehen"
+
+#: /templates/groups/groups.index.twig:29
+#: /templates/groups/group.edit.twig:174
+msgid "Create"
+msgstr "Erstellen"
+
+#: /templates/groups/groups.index.twig:30
+#: /templates/groups/group.edit.twig:184
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: /templates/groups/groups.index.twig:31
+#: /templates/groups/group.edit.twig:194
+msgid "Edit own"
+msgstr "Eigene bearbeiten"
+
+#: /templates/groups/groups.index.twig:32
+#: /templates/groups/group.edit.twig:204
+msgid "Manage"
+msgstr "Verwalten"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "Aktionen"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr "Id"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "System"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "Löschen"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr "Keine Gruppen gefunden !"
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
@@ -39,39 +101,9 @@ msgstr "Benutzergrupper anlegen"
 msgid "Details"
 msgstr "Details"
 
-#: /templates/groups/group.edit.twig:144
-#: /templates/groups/groups.index.twig:27
-msgid "Title"
-msgstr "Titel"
-
 #: /templates/groups/group.edit.twig:154
 msgid "Permissions"
 msgstr "Berechtigungen"
-
-#: /templates/groups/group.edit.twig:164
-#: /templates/groups/groups.index.twig:28
-msgid "View"
-msgstr "Ansehen"
-
-#: /templates/groups/group.edit.twig:174
-#: /templates/groups/groups.index.twig:29
-msgid "Create"
-msgstr "Erstellen"
-
-#: /templates/groups/group.edit.twig:184
-#: /templates/groups/groups.index.twig:30
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: /templates/groups/group.edit.twig:194
-#: /templates/groups/groups.index.twig:31
-msgid "Edit own"
-msgstr "Eigene bearbeiten"
-
-#: /templates/groups/group.edit.twig:204
-#: /templates/groups/groups.index.twig:32
-msgid "Manage"
-msgstr "Verwalten"
 
 #: /templates/groups/group.edit.twig:217
 msgid "Users"
@@ -104,38 +136,6 @@ msgstr "Zugewiesene Benutzer anzeigen"
 #: /templates/groups/group.edit.twig:258
 msgid "Save the group to assign users."
 msgstr "Speichern Sie die Gruppe um Benutzer hinzuzufügen."
-
-#: /templates/groups/groups.index.twig:6
-msgid "Groups"
-msgstr "Gruppen"
-
-#: /templates/groups/groups.index.twig:11
-msgid "Add Group"
-msgstr "Neue Gruppe"
-
-#: /templates/groups/groups.index.twig:22
-msgid "Access Groups"
-msgstr "Benutzergruppen"
-
-#: /templates/groups/groups.index.twig:33
-msgid "Actions"
-msgstr "Aktionen"
-
-#: /templates/groups/groups.index.twig:35
-msgid "Id"
-msgstr "Id"
-
-#: /templates/groups/groups.index.twig:64
-msgid "System"
-msgstr "System"
-
-#: /templates/groups/groups.index.twig:67
-msgid "Delete"
-msgstr "Löschen"
-
-#: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
-msgstr "Keine Gruppen gefunden !"
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."

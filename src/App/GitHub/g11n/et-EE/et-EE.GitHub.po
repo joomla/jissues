@@ -1,5 +1,5 @@
 # JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-10-07 16:47+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:50+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Estonian (Estonia) (http://www.transifex.com/opentranslators/jtracker/language/et_EE/)\n"
 "MIME-Version: 1.0\n"
@@ -18,80 +18,75 @@ msgstr ""
 "Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/github/milestones.index.twig:6
-#: /templates/github/milestones.index.twig:21
-#, php-format
-msgid "%s - Milestones"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:11
-msgid "New Milestone"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:31
-#: /templates/github/milestones.index.twig:74
-msgid "Number"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:35
-#: /templates/github/milestones.index.twig:75
-msgid "Title"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:36
-msgid "Milestone title"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:39
-#: /templates/github/milestones.index.twig:78
-msgid "Due on"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:40
-msgid "Date"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:43
-#: /templates/github/milestones.index.twig:77
-msgid "State"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:45
-msgid "Open"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:46
-msgid "Closed"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:51
-#: /templates/github/milestones.index.twig:76
-msgid "Description"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:59
-msgid "Save"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:79
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Tegevused"
-
-#: /templates/github/milestones.index.twig:94
-msgid "Edit"
-msgstr ""
-
-#: /templates/github/milestones.index.twig:98
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Kustuta"
-
 #: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
 msgstr ""
+
+#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Tüüp"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Staatus"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "Tegevused"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Aktiivne"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Mitteaktiivne"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr ""
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "Kustuta"
 
 #: /templates/github/labels.index.twig:6
 #: /templates/github/labels.index.twig:10
@@ -129,59 +124,64 @@ msgstr ""
 msgid "Add Label"
 msgstr "Lisa silt"
 
-#: /templates/github/labels.index.twig:44
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL"
-
-#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
 #, php-format
-msgid "%s - Hooks"
+msgid "%s - Milestones"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:12
-msgid "List Hooks"
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:17
-msgid "New Hook"
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
-msgid "Events"
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "Pildi pealkiri"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:28
-msgid "NOTE: comma separated, no spaces"
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:31
-msgid "Add Hook"
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "Kuupäev"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:85
-msgid "Type"
-msgstr "Tüüp"
-
-#: /templates/github/hooks.index.twig:86
-msgid "Status"
-msgstr "Staatus"
-
-#: /templates/github/hooks.index.twig:99
-msgid "Active"
-msgstr "Aktiivne"
-
-#: /templates/github/hooks.index.twig:101
-msgid "Inactive"
-msgstr "Mitteaktiivne"
-
-#: /templates/github/hooks.index.twig:110
-msgid "Deactivate"
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:115
-msgid "Activate"
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
 msgstr ""
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "Iseloomustus"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "Salvesta"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "Muuda"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."

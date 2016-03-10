@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-08-31 23:42+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:50+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/opentranslators/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "Documentación"
+
+#: /templates/support/documentation.index.twig:63
+msgid "Improve"
+msgstr "Mejorar"
+
+#: /templates/support/documentation.index.twig:64
+msgid "Permalink"
+msgstr "Permalink"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "Iconos"
+
+#: /templates/support/icons.index.twig:21
+msgid "OctIcons"
+msgstr ""
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
@@ -93,27 +114,6 @@ msgstr "Sabor a GitHub"
 #: /templates/support/markdown.index.twig:366
 msgid "Output"
 msgstr "Resultado"
-
-#: /templates/support/documentation.index.twig:6
-msgid "Documentation"
-msgstr "Documentación"
-
-#: /templates/support/documentation.index.twig:63
-msgid "Improve"
-msgstr "Mejorar"
-
-#: /templates/support/documentation.index.twig:64
-msgid "Permalink"
-msgstr "Permalink"
-
-#: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
-msgid "Icons"
-msgstr "Iconos"
-
-#: /templates/support/icons.index.twig:21
-msgid "OctIcons"
-msgstr ""
 
 #: /src/App/Support/Controller/Clearcache.php:37
 msgid "The cache has been cleared."

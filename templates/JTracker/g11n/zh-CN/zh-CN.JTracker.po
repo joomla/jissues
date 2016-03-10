@@ -1,5 +1,5 @@
 # JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-03-10 02:49+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/opentranslators/jtracker/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -18,25 +18,89 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: /templates/index.twig:68
+#: /templates/footerMenu.twig:18
+msgid "Home"
+msgstr "主页"
+
+#: /templates/footerMenu.twig:19 /templates/topMenu.twig:29
+msgid "About"
+msgstr "关于我们"
+
+#: /templates/footerMenu.twig:20 /templates/topMenu.twig:39
+msgid "Community"
+msgstr "社区"
+
+#: /templates/footerMenu.twig:21
+msgid "Forum"
+msgstr "论坛"
+
+#: /templates/footerMenu.twig:22
+msgid "Extensions"
+msgstr "扩展"
+
+#: /templates/footerMenu.twig:23
+msgid "Resources"
+msgstr "资源"
+
+#: /templates/footerMenu.twig:24
+msgid "Docs"
+msgstr "文档"
+
+#: /templates/footerMenu.twig:25
+msgid "Developer"
+msgstr "开发者"
+
+#: /templates/footerMenu.twig:26
+msgid "Shop"
+msgstr "商店"
+
+#: /templates/footerMenu.twig:30
+msgid "Accessibility Statement"
+msgstr "可访问性说明"
+
+#: /templates/footerMenu.twig:31
+msgid "Privacy Policy"
+msgstr "隐私政策"
+
+#: /templates/footerMenu.twig:32
+msgid "Report an Issue"
+msgstr ""
+
+#: /templates/footerMenu.twig:33
+msgid "Log in"
+msgstr ""
+
+#: /templates/footerMenu.twig:34
+msgid "Joomla Hosting by"
+msgstr "Joomla 主机托管"
+
+#: /templates/footerMenu.twig:37
+msgid "All rights reserved."
+msgstr "所有权利保留。"
+
+#: /templates/index.twig:72
 msgid "Download"
 msgstr "下载"
 
-#: /templates/index.twig:71
+#: /templates/index.twig:75
 msgid "Demo"
 msgstr "演示"
 
-#: /templates/editor.twig:5
-msgid "Markdown Help"
+#: /templates/fields.twig:44
+msgid "Select Categories..."
 msgstr ""
 
-#: /templates/editor.twig:6
-msgid "Write"
-msgstr "写作"
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr ""
 
-#: /templates/editor.twig:7
-msgid "Preview"
-msgstr "预览"
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr ""
+
+#: /templates/fields.twig:73
+msgid "Select labels..."
+msgstr ""
 
 #: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
 msgid "Submit test result"
@@ -100,8 +164,10 @@ msgid "The maximum file size for uploads is <strong>1 MB</strong>."
 msgstr "最大允许上传的文件大小：<strong>1 MB</strong>."
 
 #: /templates/uploader.full.twig:36
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr "只允许上传图片文件(<strong>JPG, GIF, PNG</strong>) "
+msgid ""
+"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
+" XLSX, PPTX</strong>."
+msgstr ""
 
 #: /templates/uploader.full.twig:37
 msgid ""
@@ -125,221 +191,9 @@ msgstr "取消"
 msgid "Error"
 msgstr "错误"
 
-#: /templates/footerMenu.twig:18
-msgid "Home"
-msgstr "主页"
-
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:29
-msgid "About"
-msgstr "关于我们"
-
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:39
-msgid "Community"
-msgstr "社区"
-
-#: /templates/footerMenu.twig:21
-msgid "Forum"
-msgstr "论坛"
-
-#: /templates/footerMenu.twig:22
-msgid "Extensions"
-msgstr "扩展"
-
-#: /templates/footerMenu.twig:23
-msgid "Resources"
-msgstr "资源"
-
-#: /templates/footerMenu.twig:24
-msgid "Docs"
-msgstr "文档"
-
-#: /templates/footerMenu.twig:25
-msgid "Developer"
-msgstr "开发者"
-
-#: /templates/footerMenu.twig:26
-msgid "Shop"
-msgstr "商店"
-
-#: /templates/footerMenu.twig:30
-msgid "Accessibility Statement"
-msgstr "可访问性说明"
-
-#: /templates/footerMenu.twig:31
-msgid "Privacy Policy"
-msgstr "隐私政策"
-
-#: /templates/footerMenu.twig:32
-msgid "Report an Issue"
-msgstr ""
-
-#: /templates/footerMenu.twig:33
-msgid "Log in"
-msgstr ""
-
-#: /templates/footerMenu.twig:34
-msgid "Joomla Hosting by"
-msgstr "Joomla 主机托管"
-
-#: /templates/footerMenu.twig:37
-msgid "All rights reserved."
-msgstr "所有权利保留。"
-
-#: /templates/fields.twig:44
-msgid "Select Categories..."
-msgstr ""
-
-#: /templates/fields.twig:59
-msgid "Select Milestone..."
-msgstr ""
-
-#: /templates/fields.twig:60
-msgid "No Milestone"
-msgstr ""
-
-#: /templates/fields.twig:73
-msgid "Select labels..."
-msgstr ""
-
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
 msgstr ""
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "追踪系统"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "项目"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "显示"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "编辑"
-
-#: /templates/trackerMenu.twig:43
-msgid "Access Groups"
-msgstr "权限群组"
-
-#: /templates/trackerMenu.twig:49
-msgid "Labels"
-msgstr ""
-
-#: /templates/trackerMenu.twig:55
-msgid "Milestones"
-msgstr ""
-
-#: /templates/trackerMenu.twig:61
-msgid "Categories"
-msgstr ""
-
-#: /templates/trackerMenu.twig:71
-msgid "Projects"
-msgstr "项目"
-
-#: /templates/trackerMenu.twig:76
-msgid "Users"
-msgstr "用户"
-
-#: /templates/trackerMenu.twig:83
-msgid "System"
-msgstr "系统"
-
-#: /templates/trackerMenu.twig:90
-msgid "Configuration"
-msgstr "配置"
-
-#: /templates/trackerMenu.twig:96
-msgid "phpinfo()"
-msgstr "phpinfo()"
-
-#: /templates/trackerMenu.twig:102
-msgid "Logs"
-msgstr "日志"
-
-#: /templates/trackerMenu.twig:115
-msgid "Application"
-msgstr ""
-
-#: /templates/trackerMenu.twig:118
-msgid "Cron Jobs"
-msgstr "Cron任务"
-
-#: /templates/trackerMenu.twig:123
-msgid "Database"
-msgstr "数据库"
-
-#: /templates/trackerMenu.twig:129
-msgid "GitHub Issues"
-msgstr "GitHub Issue"
-
-#: /templates/trackerMenu.twig:135
-msgid "GitHub Comments"
-msgstr "Github 评论"
-
-#: /templates/trackerMenu.twig:141
-msgid "GitHub Pulls"
-msgstr "GitHub Pulls"
-
-#: /templates/trackerMenu.twig:145
-msgid "PHP"
-msgstr "PHP"
-
-#: /templates/trackerMenu.twig:155
-msgid "Icons"
-msgstr "图标"
-
-#: /templates/trackerMenu.twig:161
-msgid "Routes"
-msgstr "路由"
-
-#: /templates/trackerMenu.twig:167
-msgid "Text"
-msgstr "文本"
-
-#: /templates/trackerMenu.twig:173
-msgid "Clear Cache"
-msgstr "清除缓存"
-
-#: /templates/trackerMenu.twig:190
-msgid "About Us"
-msgstr "关于我们"
-
-#: /templates/trackerMenu.twig:195
-msgid "Markdown"
-msgstr "Markdown"
-
-#: /templates/trackerMenu.twig:200 /templates/topMenu.twig:74
-msgid "Documentation"
-msgstr "文档"
-
-#: /templates/trackerMenu.twig:219
-msgid "Admin"
-msgstr "管理员"
-
-#: /templates/trackerMenu.twig:224
-msgid "View profile"
-msgstr "查看资料"
-
-#: /templates/trackerMenu.twig:230
-msgid "Edit profile"
-msgstr "编辑资料"
-
-#: /templates/trackerMenu.twig:237
-msgid "Logout"
-msgstr "退出"
-
-#: /templates/trackerMenu.twig:246
-msgid "Login with GitHub"
-msgstr "用GitHub帐号登录"
-
-#: /templates/trackerMenu.twig:250
-msgid "No GitHub credentials set in config"
-msgstr "配置文件中未配置GItHub信息"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
@@ -481,6 +335,10 @@ msgstr "开发者"
 msgid "Developer Site"
 msgstr "开发者站点"
 
+#: /templates/topMenu.twig:74 /templates/trackerMenu.twig:200
+msgid "Documentation"
+msgstr "文档"
+
 #: /templates/topMenu.twig:75
 msgid "Joomla! Bug Squad"
 msgstr "Joomla! Bug 小组"
@@ -508,3 +366,147 @@ msgstr "翻译工作组"
 #: /templates/topMenu.twig:89
 msgid "Translations Forum"
 msgstr "翻译论坛"
+
+#: /templates/editor.twig:5
+msgid "Markdown Help"
+msgstr ""
+
+#: /templates/editor.twig:6
+msgid "Write"
+msgstr "写作"
+
+#: /templates/editor.twig:7
+msgid "Preview"
+msgstr "预览"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "追踪系统"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "项目"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "显示"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "编辑"
+
+#: /templates/trackerMenu.twig:43
+msgid "Access Groups"
+msgstr "权限群组"
+
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr ""
+
+#: /templates/trackerMenu.twig:55
+msgid "Milestones"
+msgstr ""
+
+#: /templates/trackerMenu.twig:61
+msgid "Categories"
+msgstr "分类"
+
+#: /templates/trackerMenu.twig:71
+msgid "Projects"
+msgstr "项目"
+
+#: /templates/trackerMenu.twig:76
+msgid "Users"
+msgstr "用户"
+
+#: /templates/trackerMenu.twig:83
+msgid "System"
+msgstr "系统"
+
+#: /templates/trackerMenu.twig:90
+msgid "Configuration"
+msgstr "配置"
+
+#: /templates/trackerMenu.twig:96
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:102
+msgid "Logs"
+msgstr "日志"
+
+#: /templates/trackerMenu.twig:115
+msgid "Application"
+msgstr ""
+
+#: /templates/trackerMenu.twig:118
+msgid "Cron Jobs"
+msgstr "Cron任务"
+
+#: /templates/trackerMenu.twig:123
+msgid "Database"
+msgstr "数据库"
+
+#: /templates/trackerMenu.twig:129
+msgid "GitHub Issues"
+msgstr "GitHub Issue"
+
+#: /templates/trackerMenu.twig:135
+msgid "GitHub Comments"
+msgstr "Github 评论"
+
+#: /templates/trackerMenu.twig:141
+msgid "GitHub Pulls"
+msgstr "GitHub Pulls"
+
+#: /templates/trackerMenu.twig:145
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:155
+msgid "Icons"
+msgstr "图标"
+
+#: /templates/trackerMenu.twig:161
+msgid "Routes"
+msgstr "路由"
+
+#: /templates/trackerMenu.twig:167
+msgid "Text"
+msgstr "文本"
+
+#: /templates/trackerMenu.twig:173
+msgid "Clear Cache"
+msgstr "清除缓存"
+
+#: /templates/trackerMenu.twig:190
+msgid "About Us"
+msgstr "关于我们"
+
+#: /templates/trackerMenu.twig:195
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:219
+msgid "Admin"
+msgstr "管理员"
+
+#: /templates/trackerMenu.twig:224
+msgid "View profile"
+msgstr "查看资料"
+
+#: /templates/trackerMenu.twig:230
+msgid "Edit profile"
+msgstr "编辑资料"
+
+#: /templates/trackerMenu.twig:237
+msgid "Logout"
+msgstr "退出"
+
+#: /templates/trackerMenu.twig:246
+msgid "Login with GitHub"
+msgstr "用GitHub帐号登录"
+
+#: /templates/trackerMenu.twig:250
+msgid "No GitHub credentials set in config"
+msgstr "配置文件中未配置GItHub信息"

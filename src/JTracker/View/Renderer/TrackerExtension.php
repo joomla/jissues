@@ -21,7 +21,7 @@ use Joomla\DI\Container;
  *
  * @since  1.0
  */
-class TrackerExtension extends \Twig_Extension
+class TrackerExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
 	/**
 	 * @var    Container
@@ -65,7 +65,7 @@ class TrackerExtension extends \Twig_Extension
 		/* @type \JTracker\Application $application */
 		$application = $this->container->get('app');
 
-		return array(
+		return [
 			'uri'            => $application->get('uri'),
 			'offset'         => ($application->getUser()->params->get('timezone'))
 								? $application->getUser()->params->get('timezone')
@@ -77,7 +77,7 @@ class TrackerExtension extends \Twig_Extension
 								: g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
 			'useCDN'         => $application->get('system.use_cdn'),
-		);
+		];
 	}
 
 	/**
@@ -89,34 +89,34 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getFunctions()
 	{
-		$functions = array(
+		$functions = [
 			new \Twig_SimpleFunction('translate', 'g11n3t'),
 			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
-			new \Twig_SimpleFunction('stripJRoot', array($this, 'stripJRoot')),
-			new \Twig_SimpleFunction('avatar', array($this, 'fetchAvatar')),
-			new \Twig_SimpleFunction('prioClass', array($this, 'getPrioClass')),
-			new \Twig_SimpleFunction('priorities', array($this, 'getPriorities')),
-			new \Twig_SimpleFunction('getPriority', array($this, 'getPriority')),
-			new \Twig_SimpleFunction('status', array($this, 'getStatus')),
-			new \Twig_SimpleFunction('getStatuses', array($this, 'getStatuses')),
-			new \Twig_SimpleFunction('translateStatus', array($this, 'translateStatus')),
-			new \Twig_SimpleFunction('relation', array($this, 'getRelation')),
-			new \Twig_SimpleFunction('issueLink', array($this, 'issueLink')),
-			new \Twig_SimpleFunction('getRelTypes', array($this, 'getRelTypes')),
-			new \Twig_SimpleFunction('getRelType', array($this, 'getRelType')),
-			new \Twig_SimpleFunction('getTimezones', array($this, 'getTimezones')),
-			new \Twig_SimpleFunction('getContrastColor', array($this, 'getContrastColor')),
-			new \Twig_SimpleFunction('renderDiff', array($this, 'renderDiff')),
-			new \Twig_SimpleFunction('renderLabels', array($this, 'renderLabels')),
-			new \Twig_SimpleFunction('arrayDiff', array($this, 'arrayDiff')),
-			new \Twig_SimpleFunction('userTestOptions', array($this, 'getUserTestOptions')),
-			new \Twig_SimpleFunction('getMilestoneTitle', array($this, 'getMilestoneTitle')),
-		);
+			new \Twig_SimpleFunction('stripJRoot', [$this, 'stripJRoot']),
+			new \Twig_SimpleFunction('avatar', [$this, 'fetchAvatar']),
+			new \Twig_SimpleFunction('prioClass', [$this, 'getPrioClass']),
+			new \Twig_SimpleFunction('priorities', [$this, 'getPriorities']),
+			new \Twig_SimpleFunction('getPriority', [$this, 'getPriority']),
+			new \Twig_SimpleFunction('status', [$this, 'getStatus']),
+			new \Twig_SimpleFunction('getStatuses', [$this, 'getStatuses']),
+			new \Twig_SimpleFunction('translateStatus', [$this, 'translateStatus']),
+			new \Twig_SimpleFunction('relation', [$this, 'getRelation']),
+			new \Twig_SimpleFunction('issueLink', [$this, 'issueLink']),
+			new \Twig_SimpleFunction('getRelTypes', [$this, 'getRelTypes']),
+			new \Twig_SimpleFunction('getRelType', [$this, 'getRelType']),
+			new \Twig_SimpleFunction('getTimezones', [$this, 'getTimezones']),
+			new \Twig_SimpleFunction('getContrastColor', [$this, 'getContrastColor']),
+			new \Twig_SimpleFunction('renderDiff', [$this, 'renderDiff']),
+			new \Twig_SimpleFunction('renderLabels', [$this, 'renderLabels']),
+			new \Twig_SimpleFunction('arrayDiff', [$this, 'arrayDiff']),
+			new \Twig_SimpleFunction('userTestOptions', [$this, 'getUserTestOptions']),
+			new \Twig_SimpleFunction('getMilestoneTitle', [$this, 'getMilestoneTitle']),
+		];
 
 		if (!JDEBUG)
 		{
-			array_push($functions, new \Twig_SimpleFunction('dump', array($this, 'dump')));
+			array_push($functions, new \Twig_SimpleFunction('dump', [$this, 'dump']));
 		}
 
 		return $functions;
@@ -131,18 +131,18 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getFilters()
 	{
-		return array(
+		return [
 			new \Twig_SimpleFilter('basename', 'basename'),
 			new \Twig_SimpleFilter('get_class', 'get_class'),
 			new \Twig_SimpleFilter('json_decode', 'json_decode'),
-			new \Twig_SimpleFilter('stripJRoot', array($this, 'stripJRoot')),
-			new \Twig_SimpleFilter('contrastColor', array($this, 'getContrastColor')),
-			new \Twig_SimpleFilter('labels', array($this, 'renderLabels')),
-			new \Twig_SimpleFilter('yesno', array($this, 'yesNo')),
+			new \Twig_SimpleFilter('stripJRoot', [$this, 'stripJRoot']),
+			new \Twig_SimpleFilter('contrastColor', [$this, 'getContrastColor']),
+			new \Twig_SimpleFilter('labels', [$this, 'renderLabels']),
+			new \Twig_SimpleFilter('yesno', [$this, 'yesNo']),
 			new \Twig_SimpleFilter('_', 'g11n3t'),
-			new \Twig_SimpleFilter('mergeStatus', array($this, 'getMergeStatus')),
-			new \Twig_SimpleFilter('mergeBadge', array($this, 'renderMergeBadge')),
-		);
+			new \Twig_SimpleFilter('mergeStatus', [$this, 'getMergeStatus']),
+			new \Twig_SimpleFilter('mergeBadge', [$this, 'renderMergeBadge']),
+		];
 	}
 
 	/**
@@ -296,7 +296,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getStatus($id)
 	{
-		static $statuses = array();
+		static $statuses = [];
 
 		if (!$statuses)
 		{
@@ -497,7 +497,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getRelTypes()
 	{
-		static $relTypes = array();
+		static $relTypes = [];
 
 		if (!$relTypes)
 		{
@@ -701,7 +701,7 @@ class TrackerExtension extends \Twig_Extension
 	 */
 	public function getMilestoneTitle($id)
 	{
-		static $milestones = array();
+		static $milestones = [];
 
 		if (!$milestones)
 		{

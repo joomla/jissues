@@ -1,5 +1,5 @@
 # JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-10-08 15:50+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:52+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/opentranslators/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,112 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Statisztika"
+
+#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - Beavatkozási rutinok"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "Beavatkozási rutinok listája"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "Új beavatkozási rutin"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "URL-cím"
+
+#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "Események"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "MEGJEGYZÉS: vesszővel tagolva, nem szóközökkel"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "Beavatkozási rutin hozzáadása"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Típus"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Állapot"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "Műveletek"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Aktív"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Inaktív"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "Inaktiválás"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "Aktiválás"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "Törlés"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Címkék"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Címkék listázása"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Új címke"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:45
+msgid "Name"
+msgstr "Név"
+
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "Címke neve"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:46
+msgid "Color"
+msgstr "Szín"
+
+#: /templates/github/labels.index.twig:28
+msgid "Label color"
+msgstr "Címke színe"
+
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "Címke hozzáadása"
 
 #: /templates/github/milestones.index.twig:6
 #: /templates/github/milestones.index.twig:21
@@ -73,115 +179,9 @@ msgstr "Leírás"
 msgid "Save"
 msgstr "Mentés"
 
-#: /templates/github/milestones.index.twig:79
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Műveletek"
-
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
 msgstr "Szerkesztés"
-
-#: /templates/github/milestones.index.twig:98
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Törlés"
-
-#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
-#, php-format
-msgid "%s - Statistics"
-msgstr "%s - Statisztika"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Címkék"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Címkék listázása"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Új címke"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:45
-msgid "Name"
-msgstr "Név"
-
-#: /templates/github/labels.index.twig:23
-msgid "Label name"
-msgstr "Címke neve"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:46
-msgid "Color"
-msgstr "Szín"
-
-#: /templates/github/labels.index.twig:28
-msgid "Label color"
-msgstr "Címke színe"
-
-#: /templates/github/labels.index.twig:31
-msgid "Add Label"
-msgstr "Címke hozzáadása"
-
-#: /templates/github/labels.index.twig:44
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL-cím"
-
-#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
-#, php-format
-msgid "%s - Hooks"
-msgstr "%s - Beavatkozási rutinok"
-
-#: /templates/github/hooks.index.twig:12
-msgid "List Hooks"
-msgstr "Beavatkozási rutinok listája"
-
-#: /templates/github/hooks.index.twig:17
-msgid "New Hook"
-msgstr "Új beavatkozási rutin"
-
-#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
-msgid "Events"
-msgstr "Események"
-
-#: /templates/github/hooks.index.twig:28
-msgid "NOTE: comma separated, no spaces"
-msgstr "MEGJEGYZÉS: vesszővel tagolva, nem szóközökkel"
-
-#: /templates/github/hooks.index.twig:31
-msgid "Add Hook"
-msgstr "Beavatkozási rutin hozzáadása"
-
-#: /templates/github/hooks.index.twig:85
-msgid "Type"
-msgstr "Típus"
-
-#: /templates/github/hooks.index.twig:86
-msgid "Status"
-msgstr "Állapot"
-
-#: /templates/github/hooks.index.twig:99
-msgid "Active"
-msgstr "Aktív"
-
-#: /templates/github/hooks.index.twig:101
-msgid "Inactive"
-msgstr "Inaktív"
-
-#: /templates/github/hooks.index.twig:110
-msgid "Deactivate"
-msgstr "Inaktiválás"
-
-#: /templates/github/hooks.index.twig:115
-msgid "Activate"
-msgstr "Aktiválás"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."

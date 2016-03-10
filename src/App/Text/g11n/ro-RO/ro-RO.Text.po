@@ -1,5 +1,5 @@
 # JTracker App Text 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-05 08:31-0500\n"
-"PO-Revision-Date: 2014-10-17 17:22+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-25 22:02+0000\n"
 "Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,34 @@ msgstr ""
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Editează Articolul"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+#: /templates/text/articles.index.twig:19
+msgid "New Article"
+msgstr "Articol Nou"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Salvează"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Anulează"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Titlu"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
 msgstr "Articole"
-
-#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
-#: /templates/text/article.edit.twig:34
-msgid "New Article"
-msgstr "Articol Nou"
 
 #: /templates/text/articles.index.twig:30
 msgid "Articles List"
@@ -50,26 +70,6 @@ msgstr "Şterge"
 #: /templates/text/articles.index.twig:61
 msgid "No articles found"
 msgstr "Nu s-au găsit articole."
-
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr "Editează Articolul"
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr "Salvează"
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr "Anulează"
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr "Titlu"
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr "Alias"
 
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."
