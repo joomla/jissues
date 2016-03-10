@@ -17,7 +17,7 @@ use JTracker\Model\AbstractTrackerListModel;
  *
  * @since  1.0
  */
-class UserActivityModel extends AbstractTrackerListModel
+class UseractivityModel extends AbstractTrackerListModel
 {
 	/**
 	 * Context string for the model type.  This is used to handle uniqueness

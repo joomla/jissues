@@ -16,7 +16,7 @@ use JTracker\Pagination\TrackerPagination;
  *
  * @since  1.0
  */
-class ProjectActivityModel extends AbstractTrackerDatabaseModel
+class ProjectactivityModel extends AbstractTrackerDatabaseModel
 {
 	/**
 	 * Get the count of open, closed, and fixed issues for a period of time
