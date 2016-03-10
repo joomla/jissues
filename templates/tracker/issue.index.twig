@@ -182,24 +182,36 @@
         {% endif %}
     </ul>
 
-        {% if item.merge_state %}
-            <ul class="breadcrumb">
-                <li>{{ item.merge_state|mergeBadge|raw }}</li>
-
-                {% if item.gh_merge_status.targetUrl %}
+<!-- Merge Status -->
+    {% if item.merge_state %}
+        <h4>{{ item.merge_state|mergeBadge|raw }}</h4>
+        <ul class="unstyled">
+            {% if item.gh_merge_status is iterable %}
+                {% for status in item.gh_merge_status %}
                     <li>
-                        {% if item.gh_merge_status.description %}
-                            {{ item.gh_merge_status.description }}
-                        {% endif %}
-                    </li>
-                    <li>
-                        <a href="{{ item.gh_merge_status.targetUrl }}">
+                        {{ status.state|mergeBadge|raw }}
+                        <strong>{{ status.context }}</strong>
+                        {{ status.description }}
+                        <a href="{{ status.targetUrl }}" title="{{ status.context }}">
                             {{ 'Details'|_ }}
                         </a>
                     </li>
-                {% endif %}
-            </ul>
-        {% endif %}
+                {% endfor %}
+            {% else %}
+                <li>
+                    {{ item.merge_state|mergeBadge|raw }}
+                    {% if item.gh_merge_status.description %}
+                        {{ item.gh_merge_status.description }}
+                    {% endif %}
+                    {% if item.gh_merge_status.targetUrl %}
+                        <a href="{{ item.gh_merge_status.targetUrl }}">
+                            {{ 'Details'|_ }}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 
 <!-- Categories -->
     {% if item.categories %}
