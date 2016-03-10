@@ -65,7 +65,7 @@
     <script>
         (function ($) {
             $(document).ready(function () {
-                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', 'true', '10');
+                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', true, '10');
 
                 $('#dataUpdate').click(function () {
                     // add the form variables to the URL
@@ -82,7 +82,7 @@
 
                     chartContainer.empty();
                     chartContainer.attr('data-href', href);
-                    var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', 'true', '10');
+                    var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', true, '10');
                 });
 
                 $('#hidedates').hide();
