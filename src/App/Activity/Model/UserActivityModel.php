@@ -19,7 +19,7 @@ use JTracker\Model\AbstractTrackerListModel;
  *
  * @since  1.0
  */
-class ActivityModel extends AbstractTrackerListModel
+class UserActivityModel extends AbstractTrackerListModel
 {
 	use ProjectAwareTrait;
 

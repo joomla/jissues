@@ -1,4 +1,4 @@
 {
-	"activity/user/:project_alias" : "\\Activity\\Controller\\DefaultController",
+	"activity/user/:project_alias" : "\\Activity\\Controller\\UserActivityController",
 	"activity/user/:project_alias/query" : "\\Activity\\Controller\\Ajax\\UserActivity"
 }

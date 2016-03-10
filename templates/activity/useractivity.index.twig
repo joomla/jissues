@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ "Tracker Activity - %s"|_|format(project.title) }}</h2>
+    <h2>{{ "User Tracker Activity - %s"|_|format(project.title) }}</h2>
 
     <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/user/{{ project.alias }}/query"></div>
 

@@ -6,7 +6,7 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Activity\View\Activity;
+namespace App\Activity\View;
 
 use App\Projects\ProjectAwareTrait;
 
@@ -17,7 +17,7 @@ use JTracker\View\AbstractTrackerHtmlView;
  *
  * @since  1.0
  */
-class ActivityHtmlView extends AbstractTrackerHtmlView
+class DefaultHtmlView extends AbstractTrackerHtmlView
 {
 	use ProjectAwareTrait;
 

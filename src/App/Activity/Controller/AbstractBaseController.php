@@ -8,29 +8,21 @@
 
 namespace App\Activity\Controller;
 
-use App\Activity\View\Activity\ActivityHtmlView;
+use App\Activity\View\DefaultHtmlView;
 
 use JTracker\Controller\AbstractTrackerListController;
 
 /**
- * Default controller class for the Activity application.
+ * Base controller class for the Activity application.
  *
  * @since  1.0
  */
-class DefaultController extends AbstractTrackerListController
+abstract class AbstractBaseController extends AbstractTrackerListController
 {
-	/**
-	 * The default view for the app
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $defaultView = 'activity';
-
 	/**
 	 * View object
 	 *
-	 * @var    ActivityHtmlView
+	 * @var    DefaultHtmlView
 	 * @since  1.0
 	 */
 	protected $view;

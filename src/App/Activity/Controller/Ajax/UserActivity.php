@@ -8,7 +8,7 @@
 
 namespace App\Activity\Controller\Ajax;
 
-use App\Activity\Model\ActivityModel;
+use App\Activity\Model\UserActivityModel;
 
 use JTracker\Controller\AbstractAjaxController;
 
@@ -31,7 +31,7 @@ class UserActivity extends AbstractAjaxController
 		$application = $this->getContainer()->get('app');
 
 		// Setup the model to query our data
-		$this->model = new ActivityModel($this->getContainer()->get('db'), $application->input);
+		$this->model = new UserActivityModel($this->getContainer()->get('db'), $application->input);
 		$this->model->setProject($application->getProject());
 
 		$state = $this->model->getState();
@@ -151,13 +151,6 @@ class UserActivity extends AbstractAjaxController
 	protected function datesValid($date1, $date2)
 	{
 		// Check that they are dates and that $date1 <= $date2
-		if (($date1 == date('Y-m-d', strtotime($date1))) && ($date2 == date('Y-m-d', strtotime($date2))) && ($date1 <= $date2))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return ($date1 == date('Y-m-d', strtotime($date1))) && ($date2 == date('Y-m-d', strtotime($date2))) && ($date1 <= $date2);
 	}
 }
