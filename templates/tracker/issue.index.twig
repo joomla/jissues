@@ -585,6 +585,15 @@
         <a class="btn btn-success" href="{{ loginUrl }}">{{ "Login with GitHub to post a comment"|_ }}</a>
     {% endif %}
 
+    <ul class="pager">
+        <li class="previous{% if not item.previousIssue %} disabled{% endif %}">
+            <a href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><i class="icon-arrow-left"></i> Older</a>
+        </li>
+        <li class="next{% if not item.nextIssue %} disabled{% endif %}">
+            <a href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <i class="icon-arrow-right"></i></a>
+        </li>
+    </ul>
+
     {% endif %}
 
     <!-- ++++++++++++++++++++++++++ -->
