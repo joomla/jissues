@@ -64,7 +64,7 @@ class UseractivityModel extends AbstractTrackerListModel
 
 		// Select required data.
 		$select = [
-			'IF(u.name IS NULL or u.name = ' . $db->quote('') . ', u.username, u.name) as name',
+			'CASE WHEN u.id IS NULL THEN a.user WHEN u.name IS NULL OR u.name = ' . $db->quote('') . ' THEN u.username ELSE u.name END as name',
 			'SUM(t.activity_points) + (COUNT(c.id) * 5) AS total_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Tracker') . ' THEN t.activity_points ELSE 0 END) AS tracker_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Test') . ' THEN t.activity_points ELSE 0 END) AS test_points',
@@ -123,7 +123,7 @@ class UseractivityModel extends AbstractTrackerListModel
 		}
 
 		$query->group('a.user');
-
+echo $db->replacePrefix((string) $query);die;
 		return $query;
 	}
 }
