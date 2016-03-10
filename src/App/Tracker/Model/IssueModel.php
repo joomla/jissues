@@ -233,6 +233,19 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where('b.issue_id =' . (int) $item->id)
 		)->loadObjectList();
 
+		// Get the previous/next issues for pagination
+		$nextIssueNumber = $item->issue_number + 1;
+		$nextId = $this->db->setQuery(
+			$query->clear()
+				->select('id')
+				->from($this->db->quoteName('#__issues'))
+				->where($this->db->quoteName('project_id') . ' = ' . (int) $this->getProject()->project_id)
+				->where($this->db->quoteName('issue_number') . ' = ' . (int) $nextIssueNumber)
+		)->loadResult();
+
+		$item->previousIssue = $item->issue_number > 1 ? $item->issue_number - 1 : false;
+		$item->nextIssue     = $nextId ? $nextIssueNumber : false;
+
 		return $item;
 	}
 
