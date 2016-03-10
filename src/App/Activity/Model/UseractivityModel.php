@@ -123,7 +123,7 @@ class UseractivityModel extends AbstractTrackerListModel
 		}
 
 		$query->group('a.user');
-echo $db->replacePrefix((string) $query);die;
+
 		return $query;
 	}
 }
