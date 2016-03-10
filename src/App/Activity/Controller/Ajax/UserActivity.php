@@ -13,11 +13,11 @@ use App\Activity\Model\ActivityModel;
 use JTracker\Controller\AbstractAjaxController;
 
 /**
- * Controller class to handle AJAX requests for the activity data
+ * Controller class to handle AJAX requests for the user activity data
  *
  * @since  1.0
  */
-class Activity extends AbstractAjaxController
+class UserActivity extends AbstractAjaxController
 {
 	/**
 	 * Prepare the response.
