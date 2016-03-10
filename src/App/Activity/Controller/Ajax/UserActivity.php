@@ -36,12 +36,11 @@ class UserActivity extends AbstractAjaxController
 
 		$state = $this->model->getState();
 
+		$enteredPeriod = $application->input->getUint('period', 1);
+
 		$state->set('list.limit', 25);
 		$state->set('list.start', 0);
-		$state->set('list.period', $application->input->getInt('period', 1));
-		$state->set('list.activity_type', $application->input->getInt('activity_type', 0));
-
-		$enteredPeriod = $application->input->getInt('period', 1);
+		$state->set('list.activity_type', $application->input->getUint('activity_type', 0));
 
 		if ($enteredPeriod == 5)
 		{

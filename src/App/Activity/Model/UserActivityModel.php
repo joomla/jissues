@@ -8,21 +8,17 @@
 
 namespace App\Activity\Model;
 
-use App\Projects\ProjectAwareTrait;
-
 use Joomla\Database\DatabaseQuery;
 
 use JTracker\Model\AbstractTrackerListModel;
 
 /**
- * Model to get activity data
+ * Model to get user activity data
  *
  * @since  1.0
  */
 class UserActivityModel extends AbstractTrackerListModel
 {
-	use ProjectAwareTrait;
-
 	/**
 	 * Context string for the model type.  This is used to handle uniqueness
 	 * when dealing with the getStoreId() method and caching data structures.
@@ -30,7 +26,7 @@ class UserActivityModel extends AbstractTrackerListModel
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $context = 'activity.activity';
+	protected $context = 'activity.user.activity';
 
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
