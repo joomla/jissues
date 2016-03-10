@@ -64,6 +64,7 @@ class ProjectActivityModel extends AbstractTrackerDatabaseModel
 		$query->select('DATE(NOW()) AS end_date')
 			->from($db->quoteName('#__issues') . ' AS i')
 			->join('LEFT', '#__status AS s ON i.status = s.id')
+			->where('i.project_id = ' . (int) $this->getProject()->project_id)
 			->where('date(i.closed_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))')
 			->where('s.closed = 1');
 
@@ -86,6 +87,7 @@ class ProjectActivityModel extends AbstractTrackerDatabaseModel
 
 		$query->select('DATE(NOW()) AS end_date')
 			->from($db->quoteName('#__issues') . ' AS i')
+			->where('i.project_id = ' . (int) $this->getProject()->project_id)
 			->where('date(i.opened_date) > Date(DATE_ADD(now(), INTERVAL -' . ($periodValue * 4) . ' DAY))');
 
 		$db->setQuery($query, $this->state->get('list.start'), $this->state->get('list.limit'));
