@@ -1,5 +1,5 @@
 # JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-03-14 18:16+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:45+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Latvian (Latvia) (http://www.transifex.com/opentranslators/jtracker/language/lv_LV/)\n"
 "MIME-Version: 1.0\n"
@@ -47,37 +47,9 @@ msgstr ""
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr ""
 
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr ""
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr ""
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr ""
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr ""
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr ""
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr ""
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr ""
-
 #: /templates/users/users.index.twig:6
 msgid "Users"
-msgstr ""
+msgstr "Lietotāji"
 
 #: /templates/users/users.index.twig:15
 msgid "Users List"
@@ -111,6 +83,34 @@ msgstr ""
 
 #: /templates/users/users.index.twig:62
 msgid "No items found."
+msgstr ""
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr ""
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr ""
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr ""
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr ""
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr ""
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr ""
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
 msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74

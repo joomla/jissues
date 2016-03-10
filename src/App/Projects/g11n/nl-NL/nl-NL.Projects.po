@@ -1,5 +1,5 @@
 # JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2014-08-20 16:20+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:44+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Project"
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:60
+msgid "Edit"
+msgstr "Bewerken"
+
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:61
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr "Project %s tracker"
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr "Project %s op GitHub"
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Statistieken"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr "Hooks"
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:59
+msgid "Groups"
+msgstr "Groepen"
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr "Labels"
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Categorieën"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
@@ -68,28 +117,6 @@ msgstr "GitHub Repo"
 msgid "External Tracker Link"
 msgstr "Link naar externe tracker"
 
-#: /templates/projects/project.edit.twig:6
-msgid "Edit Project"
-msgstr "Project wijzigen"
-
-#: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:61
-#: /templates/projects/project.index.twig:15
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: /templates/projects/project.edit.twig:28
-msgid "Edit project"
-msgstr "Project bewerken"
-
-#: /templates/projects/project.edit.twig:72
-msgid "GitHub Editbot user"
-msgstr "GitHub Editbot gebruikersnaam"
-
-#: /templates/projects/project.edit.twig:79
-msgid "GitHub Editbot password"
-msgstr "GitHub Editbot wachtwoord"
-
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
 msgstr "Projecten"
@@ -118,16 +145,6 @@ msgstr "Acties"
 msgid "Id"
 msgstr "Id"
 
-#: /templates/projects/projects.index.twig:45
-#: /templates/projects/project.index.twig:45
-msgid "Hooks"
-msgstr "Hooks"
-
-#: /templates/projects/projects.index.twig:46
-#: /templates/projects/project.index.twig:54
-msgid "Labels"
-msgstr "Labels"
-
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
 msgstr "Stats"
@@ -136,38 +153,21 @@ msgstr "Stats"
 msgid "Show"
 msgstr "Tonen"
 
-#: /templates/projects/projects.index.twig:59
-#: /templates/projects/project.index.twig:51
-msgid "Groups"
-msgstr "Groepen"
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Project wijzigen"
 
-#: /templates/projects/projects.index.twig:60
-#: /templates/projects/project.index.twig:14
-msgid "Edit"
-msgstr "Bewerken"
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Project bewerken"
 
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr "Project"
+#: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr "GitHub Editbot gebruikersnaam"
 
-#: /templates/projects/project.index.twig:26
-#, php-format
-msgid "Project %s Tracker"
-msgstr "Project %s tracker"
-
-#: /templates/projects/project.index.twig:35
-#, php-format
-msgid "Project %s on GitHub"
-msgstr "Project %s op GitHub"
-
-#: /templates/projects/project.index.twig:39
-msgid "Statistics"
-msgstr "Statistieken"
-
-#: /templates/projects/project.index.twig:57
-msgid "Categories"
-msgstr "Categorieën"
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr "GitHub Editbot wachtwoord"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

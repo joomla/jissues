@@ -1,5 +1,5 @@
 # JTracker Core JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-10-04 16:42+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:52+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/opentranslators/jtracker/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:232
 msgid "Medium"
-msgstr ""
+msgstr "Medio"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:233
 msgid "Low"
@@ -67,7 +67,7 @@ msgstr ""
 #: /src/JTracker/View/Renderer/TrackerExtension.php:341
 #: /src/JTracker/View/Renderer/TrackerExtension.php:364
 msgid "New"
-msgstr ""
+msgstr "Nuovo"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:342
 #: /src/JTracker/View/Renderer/TrackerExtension.php:365
@@ -144,7 +144,7 @@ msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:618
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:621
 msgid "Failure"

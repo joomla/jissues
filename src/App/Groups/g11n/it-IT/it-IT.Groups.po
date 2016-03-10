@@ -1,5 +1,5 @@
 # JTracker App Groups 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2014-08-31 17:23+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:45+0000\n"
 "Last-Translator: Michael Babker <mbabker@flbab.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/opentranslators/jtracker/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,75 @@ msgstr ""
 "Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "Gruppi"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:27
+#: /templates/groups/group.edit.twig:144
+msgid "Title"
+msgstr "Titolo"
+
+#: /templates/groups/groups.index.twig:28
+#: /templates/groups/group.edit.twig:164
+msgid "View"
+msgstr "Visualizza"
+
+#: /templates/groups/groups.index.twig:29
+#: /templates/groups/group.edit.twig:174
+msgid "Create"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:30
+#: /templates/groups/group.edit.twig:184
+msgid "Edit"
+msgstr "Modifica"
+
+#: /templates/groups/groups.index.twig:31
+#: /templates/groups/group.edit.twig:194
+msgid "Edit own"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:32
+#: /templates/groups/group.edit.twig:204
+msgid "Manage"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "Azioni"
+
+#: /templates/groups/groups.index.twig:35
+msgid "Id"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr ""
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "Cancella"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined !"
+msgstr ""
+
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
 msgstr ""
 
 #: /templates/groups/group.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: /templates/groups/group.edit.twig:125
 msgid "Edit Access Group"
@@ -35,45 +97,15 @@ msgstr ""
 
 #: /templates/groups/group.edit.twig:136
 msgid "Details"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:144
-#: /templates/groups/groups.index.twig:27
-msgid "Title"
-msgstr ""
+msgstr "Dettagli"
 
 #: /templates/groups/group.edit.twig:154
 msgid "Permissions"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:164
-#: /templates/groups/groups.index.twig:28
-msgid "View"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:174
-#: /templates/groups/groups.index.twig:29
-msgid "Create"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:184
-#: /templates/groups/groups.index.twig:30
-msgid "Edit"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:194
-#: /templates/groups/groups.index.twig:31
-msgid "Edit own"
-msgstr ""
-
-#: /templates/groups/group.edit.twig:204
-#: /templates/groups/groups.index.twig:32
-msgid "Manage"
-msgstr ""
+msgstr "Permessi"
 
 #: /templates/groups/group.edit.twig:217
 msgid "Users"
-msgstr ""
+msgstr "Utenti"
 
 #: /templates/groups/group.edit.twig:221
 msgid "Add user"
@@ -101,38 +133,6 @@ msgstr ""
 
 #: /templates/groups/group.edit.twig:258
 msgid "Save the group to assign users."
-msgstr ""
-
-#: /templates/groups/groups.index.twig:6
-msgid "Groups"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:11
-msgid "Add Group"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:22
-msgid "Access Groups"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:33
-msgid "Actions"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:35
-msgid "Id"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:64
-msgid "System"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:67
-msgid "Delete"
-msgstr ""
-
-#: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
 msgstr ""
 
 #: /src/App/Groups/Controller/Group/Delete.php:82

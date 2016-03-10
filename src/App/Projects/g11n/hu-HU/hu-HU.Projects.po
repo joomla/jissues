@@ -1,5 +1,5 @@
 # JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2014-08-19 20:41+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:43+0000\n"
 "Last-Translator: József Tamás Herczeg <jtherczeg@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/opentranslators/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:60
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:61
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Törlés"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr "%s projekt problémakövető"
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr "A/z %s projekt a GitHubon"
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Statisztika"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr "Beavatkozási rutinok"
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:59
+msgid "Groups"
+msgstr "Csoportok"
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr "Címkék"
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Kategóriák"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
@@ -67,28 +116,6 @@ msgstr "GitHub tároló"
 msgid "External Tracker Link"
 msgstr "Külső problémakövető hivatkozása"
 
-#: /templates/projects/project.edit.twig:6
-msgid "Edit Project"
-msgstr "Projekt szerkesztése"
-
-#: /templates/projects/project.edit.twig:17
-#: /templates/projects/projects.index.twig:61
-#: /templates/projects/project.index.twig:15
-msgid "Delete"
-msgstr "Törlés"
-
-#: /templates/projects/project.edit.twig:28
-msgid "Edit project"
-msgstr "Projekt szerkesztése"
-
-#: /templates/projects/project.edit.twig:72
-msgid "GitHub Editbot user"
-msgstr "GitHub Editbot felhasználó"
-
-#: /templates/projects/project.edit.twig:79
-msgid "GitHub Editbot password"
-msgstr "GitHub Editbot jelszó"
-
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
 msgstr "Projektek"
@@ -117,16 +144,6 @@ msgstr "Műveletek"
 msgid "Id"
 msgstr "AZ"
 
-#: /templates/projects/projects.index.twig:45
-#: /templates/projects/project.index.twig:45
-msgid "Hooks"
-msgstr "Beavatkozási rutinok"
-
-#: /templates/projects/projects.index.twig:46
-#: /templates/projects/project.index.twig:54
-msgid "Labels"
-msgstr "Címkék"
-
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
 msgstr "Statisztika"
@@ -135,38 +152,21 @@ msgstr "Statisztika"
 msgid "Show"
 msgstr "Megjelenítés"
 
-#: /templates/projects/projects.index.twig:59
-#: /templates/projects/project.index.twig:51
-msgid "Groups"
-msgstr "Csoportok"
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Projekt szerkesztése"
 
-#: /templates/projects/projects.index.twig:60
-#: /templates/projects/project.index.twig:14
-msgid "Edit"
-msgstr "Szerkesztés"
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Projekt szerkesztése"
 
-#: /templates/projects/project.index.twig:6
-#: /templates/projects/project.index.twig:8
-msgid "Project"
-msgstr "Projekt"
+#: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr "GitHub Editbot felhasználó"
 
-#: /templates/projects/project.index.twig:26
-#, php-format
-msgid "Project %s Tracker"
-msgstr "%s projekt problémakövető"
-
-#: /templates/projects/project.index.twig:35
-#, php-format
-msgid "Project %s on GitHub"
-msgstr "A/z %s projekt a GitHubon"
-
-#: /templates/projects/project.index.twig:39
-msgid "Statistics"
-msgstr "Statisztika"
-
-#: /templates/projects/project.index.twig:57
-msgid "Categories"
-msgstr "Kategóriák"
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr "GitHub Editbot jelszó"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

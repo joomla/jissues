@@ -1,5 +1,5 @@
 # JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-10-05 13:31+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-03-10 02:49+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/opentranslators/jtracker/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,25 +19,89 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: /templates/index.twig:68
+#: /templates/footerMenu.twig:18
+msgid "Home"
+msgstr "Start"
+
+#: /templates/footerMenu.twig:19 /templates/topMenu.twig:29
+msgid "About"
+msgstr "Informacje"
+
+#: /templates/footerMenu.twig:20 /templates/topMenu.twig:39
+msgid "Community"
+msgstr "Społeczność"
+
+#: /templates/footerMenu.twig:21
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:22
+msgid "Extensions"
+msgstr "Rozszerzenia"
+
+#: /templates/footerMenu.twig:23
+msgid "Resources"
+msgstr "Zasoby"
+
+#: /templates/footerMenu.twig:24
+msgid "Docs"
+msgstr "Dokumentacja"
+
+#: /templates/footerMenu.twig:25
+msgid "Developer"
+msgstr "Deweloper"
+
+#: /templates/footerMenu.twig:26
+msgid "Shop"
+msgstr "Sklep"
+
+#: /templates/footerMenu.twig:30
+msgid "Accessibility Statement"
+msgstr "Warunki użytkowania"
+
+#: /templates/footerMenu.twig:31
+msgid "Privacy Policy"
+msgstr "Polityka prywatności"
+
+#: /templates/footerMenu.twig:32
+msgid "Report an Issue"
+msgstr ""
+
+#: /templates/footerMenu.twig:33
+msgid "Log in"
+msgstr ""
+
+#: /templates/footerMenu.twig:34
+msgid "Joomla Hosting by"
+msgstr "Joomla! Hosting - "
+
+#: /templates/footerMenu.twig:37
+msgid "All rights reserved."
+msgstr "Wszystkie prawa zastrzeżone."
+
+#: /templates/index.twig:72
 msgid "Download"
 msgstr "Pobierz"
 
-#: /templates/index.twig:71
+#: /templates/index.twig:75
 msgid "Demo"
 msgstr "Demo"
 
-#: /templates/editor.twig:5
-msgid "Markdown Help"
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr "Wybierz kategorie..."
+
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr "Wybierz kamienie milowe..."
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr "Brak kamieni milowych"
+
+#: /templates/fields.twig:73
+msgid "Select labels..."
 msgstr ""
-
-#: /templates/editor.twig:6
-msgid "Write"
-msgstr "Napisz"
-
-#: /templates/editor.twig:7
-msgid "Preview"
-msgstr "Podgląd"
 
 #: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
 msgid "Submit test result"
@@ -101,8 +165,10 @@ msgid "The maximum file size for uploads is <strong>1 MB</strong>."
 msgstr "Maksymalny rozmiar wysyłanego pliku to <strong>1 MB</strong>."
 
 #: /templates/uploader.full.twig:36
-msgid "Only image files (<strong>JPG, GIF, PNG</strong>) are allowed."
-msgstr "Dopuszczalne są wyłącznie pliki obrazów (<strong>JPG, GIF, PNG</strong>)"
+msgid ""
+"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
+" XLSX, PPTX</strong>."
+msgstr ""
 
 #: /templates/uploader.full.twig:37
 msgid ""
@@ -126,221 +192,9 @@ msgstr "Anuluj"
 msgid "Error"
 msgstr "Błąd"
 
-#: /templates/footerMenu.twig:18
-msgid "Home"
-msgstr "Start"
-
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:29
-msgid "About"
-msgstr "Informacje"
-
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:39
-msgid "Community"
-msgstr "Społeczność"
-
-#: /templates/footerMenu.twig:21
-msgid "Forum"
-msgstr "Forum"
-
-#: /templates/footerMenu.twig:22
-msgid "Extensions"
-msgstr "Rozszerzenia"
-
-#: /templates/footerMenu.twig:23
-msgid "Resources"
-msgstr "Zasoby"
-
-#: /templates/footerMenu.twig:24
-msgid "Docs"
-msgstr "Dokumentacja"
-
-#: /templates/footerMenu.twig:25
-msgid "Developer"
-msgstr "Deweloper"
-
-#: /templates/footerMenu.twig:26
-msgid "Shop"
-msgstr "Sklep"
-
-#: /templates/footerMenu.twig:30
-msgid "Accessibility Statement"
-msgstr "Warunki użytkowania"
-
-#: /templates/footerMenu.twig:31
-msgid "Privacy Policy"
-msgstr "Polityka prywatności"
-
-#: /templates/footerMenu.twig:32
-msgid "Report an Issue"
-msgstr ""
-
-#: /templates/footerMenu.twig:33
-msgid "Log in"
-msgstr ""
-
-#: /templates/footerMenu.twig:34
-msgid "Joomla Hosting by"
-msgstr "Joomla! Hosting - "
-
-#: /templates/footerMenu.twig:37
-msgid "All rights reserved."
-msgstr "Wszystkie prawa zastrzeżone."
-
-#: /templates/fields.twig:44
-msgid "Select Categories..."
-msgstr "Wybierz kategorie..."
-
-#: /templates/fields.twig:59
-msgid "Select Milestone..."
-msgstr "Wybierz kamienie milowe..."
-
-#: /templates/fields.twig:60
-msgid "No Milestone"
-msgstr "Brak kamieni milowych"
-
-#: /templates/fields.twig:73
-msgid "Select labels..."
-msgstr ""
-
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
 msgstr ""
-
-#: /templates/trackerMenu.twig:8
-msgid "Tracker"
-msgstr "Tropiciel"
-
-#: /templates/trackerMenu.twig:14
-msgid "Project"
-msgstr "Projekt"
-
-#: /templates/trackerMenu.twig:24
-msgid "Show"
-msgstr "Pokaż"
-
-#: /templates/trackerMenu.twig:32
-msgid "Edit"
-msgstr "Edytuj"
-
-#: /templates/trackerMenu.twig:43
-msgid "Access Groups"
-msgstr "Grupy dostępu"
-
-#: /templates/trackerMenu.twig:49
-msgid "Labels"
-msgstr "Etykiety"
-
-#: /templates/trackerMenu.twig:55
-msgid "Milestones"
-msgstr "Kamienie milowe"
-
-#: /templates/trackerMenu.twig:61
-msgid "Categories"
-msgstr "Kategorie"
-
-#: /templates/trackerMenu.twig:71
-msgid "Projects"
-msgstr "Projekty"
-
-#: /templates/trackerMenu.twig:76
-msgid "Users"
-msgstr "Użytkownicy"
-
-#: /templates/trackerMenu.twig:83
-msgid "System"
-msgstr "System"
-
-#: /templates/trackerMenu.twig:90
-msgid "Configuration"
-msgstr "Konfiguracja"
-
-#: /templates/trackerMenu.twig:96
-msgid "phpinfo()"
-msgstr "phpinfo()"
-
-#: /templates/trackerMenu.twig:102
-msgid "Logs"
-msgstr "Logi"
-
-#: /templates/trackerMenu.twig:115
-msgid "Application"
-msgstr ""
-
-#: /templates/trackerMenu.twig:118
-msgid "Cron Jobs"
-msgstr "Zadania planowane"
-
-#: /templates/trackerMenu.twig:123
-msgid "Database"
-msgstr "Baza danych"
-
-#: /templates/trackerMenu.twig:129
-msgid "GitHub Issues"
-msgstr "Błędy na GitHub"
-
-#: /templates/trackerMenu.twig:135
-msgid "GitHub Comments"
-msgstr "Komentarze na GitHub"
-
-#: /templates/trackerMenu.twig:141
-msgid "GitHub Pulls"
-msgstr "Wpływy na GitHub"
-
-#: /templates/trackerMenu.twig:145
-msgid "PHP"
-msgstr "PHP"
-
-#: /templates/trackerMenu.twig:155
-msgid "Icons"
-msgstr "Ikony"
-
-#: /templates/trackerMenu.twig:161
-msgid "Routes"
-msgstr "Ścieżki"
-
-#: /templates/trackerMenu.twig:167
-msgid "Text"
-msgstr "Tekst"
-
-#: /templates/trackerMenu.twig:173
-msgid "Clear Cache"
-msgstr "Wyczyść pamięć podręczną"
-
-#: /templates/trackerMenu.twig:190
-msgid "About Us"
-msgstr "O nas"
-
-#: /templates/trackerMenu.twig:195
-msgid "Markdown"
-msgstr "Znakowanie"
-
-#: /templates/trackerMenu.twig:200 /templates/topMenu.twig:74
-msgid "Documentation"
-msgstr "Dokumentacja"
-
-#: /templates/trackerMenu.twig:219
-msgid "Admin"
-msgstr "Admin"
-
-#: /templates/trackerMenu.twig:224
-msgid "View profile"
-msgstr "Zobacz profil"
-
-#: /templates/trackerMenu.twig:230
-msgid "Edit profile"
-msgstr "Edytuj profil"
-
-#: /templates/trackerMenu.twig:237
-msgid "Logout"
-msgstr "Wyloguj"
-
-#: /templates/trackerMenu.twig:246
-msgid "Login with GitHub"
-msgstr "Zaloguj się z GitHub"
-
-#: /templates/trackerMenu.twig:250
-msgid "No GitHub credentials set in config"
-msgstr "Brak danych GitHub w pliku konfiguracyjnym"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
@@ -482,6 +336,10 @@ msgstr "Deweloperzy"
 msgid "Developer Site"
 msgstr "Strona dla deweloperów"
 
+#: /templates/topMenu.twig:74 /templates/trackerMenu.twig:200
+msgid "Documentation"
+msgstr "Dokumentacja"
+
 #: /templates/topMenu.twig:75
 msgid "Joomla! Bug Squad"
 msgstr "Joomla! Bug Squad"
@@ -509,3 +367,147 @@ msgstr "Grupa tłumacząca"
 #: /templates/topMenu.twig:89
 msgid "Translations Forum"
 msgstr "Forum tłumaczy"
+
+#: /templates/editor.twig:5
+msgid "Markdown Help"
+msgstr ""
+
+#: /templates/editor.twig:6
+msgid "Write"
+msgstr "Napisz"
+
+#: /templates/editor.twig:7
+msgid "Preview"
+msgstr "Podgląd"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Tropiciel"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Pokaż"
+
+#: /templates/trackerMenu.twig:32
+msgid "Edit"
+msgstr "Edytuj"
+
+#: /templates/trackerMenu.twig:43
+msgid "Access Groups"
+msgstr "Grupy dostępu"
+
+#: /templates/trackerMenu.twig:49
+msgid "Labels"
+msgstr "Etykiety"
+
+#: /templates/trackerMenu.twig:55
+msgid "Milestones"
+msgstr "Kamienie milowe"
+
+#: /templates/trackerMenu.twig:61
+msgid "Categories"
+msgstr "Kategorie"
+
+#: /templates/trackerMenu.twig:71
+msgid "Projects"
+msgstr "Projekty"
+
+#: /templates/trackerMenu.twig:76
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: /templates/trackerMenu.twig:83
+msgid "System"
+msgstr "System"
+
+#: /templates/trackerMenu.twig:90
+msgid "Configuration"
+msgstr "Konfiguracja"
+
+#: /templates/trackerMenu.twig:96
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:102
+msgid "Logs"
+msgstr "Logi"
+
+#: /templates/trackerMenu.twig:115
+msgid "Application"
+msgstr ""
+
+#: /templates/trackerMenu.twig:118
+msgid "Cron Jobs"
+msgstr "Zadania planowane"
+
+#: /templates/trackerMenu.twig:123
+msgid "Database"
+msgstr "Baza danych"
+
+#: /templates/trackerMenu.twig:129
+msgid "GitHub Issues"
+msgstr "Błędy na GitHub"
+
+#: /templates/trackerMenu.twig:135
+msgid "GitHub Comments"
+msgstr "Komentarze na GitHub"
+
+#: /templates/trackerMenu.twig:141
+msgid "GitHub Pulls"
+msgstr "Wpływy na GitHub"
+
+#: /templates/trackerMenu.twig:145
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:155
+msgid "Icons"
+msgstr "Ikony"
+
+#: /templates/trackerMenu.twig:161
+msgid "Routes"
+msgstr "Ścieżki"
+
+#: /templates/trackerMenu.twig:167
+msgid "Text"
+msgstr "Tekst"
+
+#: /templates/trackerMenu.twig:173
+msgid "Clear Cache"
+msgstr "Wyczyść pamięć podręczną"
+
+#: /templates/trackerMenu.twig:190
+msgid "About Us"
+msgstr "O nas"
+
+#: /templates/trackerMenu.twig:195
+msgid "Markdown"
+msgstr "Znakowanie"
+
+#: /templates/trackerMenu.twig:219
+msgid "Admin"
+msgstr "Admin"
+
+#: /templates/trackerMenu.twig:224
+msgid "View profile"
+msgstr "Zobacz profil"
+
+#: /templates/trackerMenu.twig:230
+msgid "Edit profile"
+msgstr "Edytuj profil"
+
+#: /templates/trackerMenu.twig:237
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: /templates/trackerMenu.twig:246
+msgid "Login with GitHub"
+msgstr "Zaloguj się z GitHub"
+
+#: /templates/trackerMenu.twig:250
+msgid "No GitHub credentials set in config"
+msgstr "Brak danych GitHub w pliku konfiguracyjnym"

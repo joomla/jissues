@@ -1,5 +1,5 @@
 # JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-10-23 08:17+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:43+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/opentranslators/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -48,34 +48,6 @@ msgstr "Nyelv: %s"
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Időzóna: %1$s (GMT %2$s)"
 
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
-msgid "Edit user"
-msgstr "Felhasználó szerkesztése"
-
-#: /templates/users/user.edit.twig:22
-msgid "Save"
-msgstr "Mentés"
-
-#: /templates/users/user.edit.twig:27
-msgid "Cancel"
-msgstr "Mégse"
-
-#: /templates/users/user.edit.twig:44
-msgid "GitHub Profile"
-msgstr "GitHub-profil"
-
-#: /templates/users/user.edit.twig:67
-msgid "Params"
-msgstr "Paraméterek"
-
-#: /templates/users/user.edit.twig:70
-msgid "Language"
-msgstr "Nyelv"
-
-#: /templates/users/user.edit.twig:77
-msgid "Timezone"
-msgstr "Időzóna"
-
 #: /templates/users/users.index.twig:6
 msgid "Users"
 msgstr "Felhasználók"
@@ -113,6 +85,34 @@ msgstr "AZ"
 #: /templates/users/users.index.twig:62
 msgid "No items found."
 msgstr "Nem találhatók elemek."
+
+#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Felhasználó szerkesztése"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Mentés"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Mégse"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub-profil"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Paraméterek"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Nyelv"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Időzóna"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."

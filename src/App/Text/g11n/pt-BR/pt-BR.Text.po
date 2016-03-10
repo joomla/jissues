@@ -1,5 +1,5 @@
 # JTracker App Text 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-10-07 12:24+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-11 04:45+0000\n"
 "Last-Translator: Airton Torres <airton.torres@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/opentranslators/jtracker/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,34 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+msgid "Edit Article"
+msgstr "Editar Artigo"
+
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+#: /templates/text/articles.index.twig:19
+msgid "New Article"
+msgstr "Novo Artigo"
+
+#: /templates/text/article.edit.twig:19
+msgid "Save"
+msgstr "Salvar"
+
+#: /templates/text/article.edit.twig:24
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /templates/text/article.edit.twig:41
+msgid "Title"
+msgstr "Título"
+
+#: /templates/text/article.edit.twig:48
+msgid "Alias"
+msgstr "Alias"
+
 #: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
 msgid "Articles"
 msgstr "Artigos"
-
-#: /templates/text/articles.index.twig:19 /templates/text/article.edit.twig:7
-#: /templates/text/article.edit.twig:34
-msgid "New Article"
-msgstr "Novo Artigo"
 
 #: /templates/text/articles.index.twig:30
 msgid "Articles List"
@@ -50,26 +70,6 @@ msgstr "Excluir"
 #: /templates/text/articles.index.twig:61
 msgid "No articles found"
 msgstr "Nenhum artigo encontrado"
-
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-msgid "Edit Article"
-msgstr "Editar Artigo"
-
-#: /templates/text/article.edit.twig:19
-msgid "Save"
-msgstr "Salvar"
-
-#: /templates/text/article.edit.twig:24
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: /templates/text/article.edit.twig:41
-msgid "Title"
-msgstr "Título"
-
-#: /templates/text/article.edit.twig:48
-msgid "Alias"
-msgstr "Alias"
 
 #: /src/App/Text/Controller/Article/Delete.php:47
 msgid "The article has been deleted."

@@ -1,5 +1,5 @@
 # JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2014-10-22 07:56+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-24 19:40+0000\n"
 "Last-Translator: Dmitry Rekun\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/opentranslators/jtracker/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,112 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Статистика"
+
+#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - Хуки"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "Список хуков"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "Новый хук"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "События"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "Примечание: отделены запятой, без пробелов"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "Добавить хук"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Тип"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Статус"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "Действия"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Актвный"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Неактивный"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "Деактивировать"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "Активировать"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "Удалить"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Ярлыки"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Список ярлыков"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Новый ярклык"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:45
+msgid "Name"
+msgstr "Имя"
+
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "Название лейбла"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:46
+msgid "Color"
+msgstr "Цвет"
+
+#: /templates/github/labels.index.twig:28
+msgid "Label color"
+msgstr "Цвет лейбла"
+
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "Добавить ярлык"
 
 #: /templates/github/milestones.index.twig:6
 #: /templates/github/milestones.index.twig:21
@@ -73,115 +179,9 @@ msgstr "Описание"
 msgid "Save"
 msgstr "Сохранить"
 
-#: /templates/github/milestones.index.twig:79
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Действия"
-
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
 msgstr "Редактировать"
-
-#: /templates/github/milestones.index.twig:98
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Удалить"
-
-#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
-#, php-format
-msgid "%s - Statistics"
-msgstr "%s - Статистика"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Ярлыки"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Список ярлыков"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Новый ярклык"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:45
-msgid "Name"
-msgstr "Имя"
-
-#: /templates/github/labels.index.twig:23
-msgid "Label name"
-msgstr "Название лейбла"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:46
-msgid "Color"
-msgstr "Цвет"
-
-#: /templates/github/labels.index.twig:28
-msgid "Label color"
-msgstr "Цвет лейбла"
-
-#: /templates/github/labels.index.twig:31
-msgid "Add Label"
-msgstr "Добавить ярлык"
-
-#: /templates/github/labels.index.twig:44
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL"
-
-#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
-#, php-format
-msgid "%s - Hooks"
-msgstr "%s - Хуки"
-
-#: /templates/github/hooks.index.twig:12
-msgid "List Hooks"
-msgstr "Список хуков"
-
-#: /templates/github/hooks.index.twig:17
-msgid "New Hook"
-msgstr "Новый хук"
-
-#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
-msgid "Events"
-msgstr "События"
-
-#: /templates/github/hooks.index.twig:28
-msgid "NOTE: comma separated, no spaces"
-msgstr "Примечание: отделены запятой, без пробелов"
-
-#: /templates/github/hooks.index.twig:31
-msgid "Add Hook"
-msgstr "Добавить хук"
-
-#: /templates/github/hooks.index.twig:85
-msgid "Type"
-msgstr "Тип"
-
-#: /templates/github/hooks.index.twig:86
-msgid "Status"
-msgstr "Статус"
-
-#: /templates/github/hooks.index.twig:99
-msgid "Active"
-msgstr "Актвный"
-
-#: /templates/github/hooks.index.twig:101
-msgid "Inactive"
-msgstr "Неактивный"
-
-#: /templates/github/hooks.index.twig:110
-msgid "Deactivate"
-msgstr "Деактивировать"
-
-#: /templates/github/hooks.index.twig:115
-msgid "Activate"
-msgstr "Активировать"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."

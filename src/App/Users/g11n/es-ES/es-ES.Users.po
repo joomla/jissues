@@ -1,5 +1,5 @@
 # JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-03-14 18:16+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-25 15:48+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/opentranslators/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,44 @@ msgstr "Idioma %s"
 msgid "Timezone: %1$s (GMT %2$s)"
 msgstr "Zona horaria:%1$s (GMT %2$s)"
 
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Usuarios"
+
+#: /templates/users/users.index.twig:15
+msgid "Users List"
+msgstr "Lista de usuarios"
+
+#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
+#: /templates/users/users.index.twig:25
+msgid "Filter the list by user."
+msgstr ""
+
+#: /templates/users/users.index.twig:30
+msgid "Clear"
+msgstr "Limpiar"
+
+#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Página %1$s de %2$s"
+
+#: /templates/users/users.index.twig:42
+msgid "Username"
+msgstr "Nombre de Usuario"
+
+#: /templates/users/users.index.twig:44
+msgid "Actions"
+msgstr "Acciones"
+
+#: /templates/users/users.index.twig:46
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/users.index.twig:62
+msgid "No items found."
+msgstr "No se han encontrado artículos."
+
 #: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
 msgid "Edit user"
 msgstr "Editar usuario"
@@ -75,44 +113,6 @@ msgstr "Idioma"
 #: /templates/users/user.edit.twig:77
 msgid "Timezone"
 msgstr "Zona horaria"
-
-#: /templates/users/users.index.twig:6
-msgid "Users"
-msgstr "Usuarios"
-
-#: /templates/users/users.index.twig:15
-msgid "Users List"
-msgstr "Lista de usuarios"
-
-#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
-#: /templates/users/users.index.twig:25
-msgid "Filter the list by user."
-msgstr ""
-
-#: /templates/users/users.index.twig:30
-msgid "Clear"
-msgstr ""
-
-#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
-#, php-format
-msgid "Page %1$s of %2$s"
-msgstr "Página %1$s de %2$s"
-
-#: /templates/users/users.index.twig:42
-msgid "Username"
-msgstr "Nombre de Usuario"
-
-#: /templates/users/users.index.twig:44
-msgid "Actions"
-msgstr "Acciones"
-
-#: /templates/users/users.index.twig:46
-msgid "ID"
-msgstr "ID"
-
-#: /templates/users/users.index.twig:62
-msgid "No items found."
-msgstr ""
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."

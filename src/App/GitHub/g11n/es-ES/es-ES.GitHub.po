@@ -1,5 +1,5 @@
 # JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2015 JTracker
+# Copyright (C) 2012 - 2016 JTracker
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 08:27-0500\n"
-"PO-Revision-Date: 2015-10-10 10:16+0000\n"
+"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"PO-Revision-Date: 2016-02-29 22:34+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/opentranslators/jtracker/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,112 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Estadísticas"
+
+#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - Ganchos"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "Listear Ganchos"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "Nuevo Gancho"
+
+#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "Eventos"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "NOTA: separado por comas, no espacios"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "Agregar Gancho"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Tipo"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Estado"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "Acciones"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Activo"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "Desactivar"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "Activar"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "Borrar"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Etiquetas"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Listear Etiquetas"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Nueva Etiqueta"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:45
+msgid "Name"
+msgstr "Nombre"
+
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "Nombre de la etiqueta"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:46
+msgid "Color"
+msgstr "Color"
+
+#: /templates/github/labels.index.twig:28
+msgid "Label color"
+msgstr "Color de la etiqueta"
+
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "Agregar Etiqueta"
 
 #: /templates/github/milestones.index.twig:6
 #: /templates/github/milestones.index.twig:21
@@ -74,115 +180,9 @@ msgstr "Descripción"
 msgid "Save"
 msgstr "Guardar"
 
-#: /templates/github/milestones.index.twig:79
-#: /templates/github/hooks.index.twig:89
-msgid "Actions"
-msgstr "Acciones"
-
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
 msgstr "Editar"
-
-#: /templates/github/milestones.index.twig:98
-#: /templates/github/labels.index.twig:59
-#: /templates/github/hooks.index.twig:120
-msgid "Delete"
-msgstr "Borrar"
-
-#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
-#, php-format
-msgid "%s - Statistics"
-msgstr "%s - Estadísticas"
-
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
-#, php-format
-msgid "%s - Labels"
-msgstr "%s - Etiquetas"
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr "Listear Etiquetas"
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr "Nueva Etiqueta"
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:45
-msgid "Name"
-msgstr "Nombre"
-
-#: /templates/github/labels.index.twig:23
-msgid "Label name"
-msgstr "Nombre de la etiqueta"
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:46
-msgid "Color"
-msgstr "Color"
-
-#: /templates/github/labels.index.twig:28
-msgid "Label color"
-msgstr "Color de la etiqueta"
-
-#: /templates/github/labels.index.twig:31
-msgid "Add Label"
-msgstr "Agregar Etiqueta"
-
-#: /templates/github/labels.index.twig:44
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
-msgid "URL"
-msgstr "URL"
-
-#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
-#, php-format
-msgid "%s - Hooks"
-msgstr "%s - Ganchos"
-
-#: /templates/github/hooks.index.twig:12
-msgid "List Hooks"
-msgstr "Listear Ganchos"
-
-#: /templates/github/hooks.index.twig:17
-msgid "New Hook"
-msgstr "Nuevo Gancho"
-
-#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
-msgid "Events"
-msgstr "Eventos"
-
-#: /templates/github/hooks.index.twig:28
-msgid "NOTE: comma separated, no spaces"
-msgstr "NOTA: separado por comas, no espacios"
-
-#: /templates/github/hooks.index.twig:31
-msgid "Add Hook"
-msgstr "Agregar Gancho"
-
-#: /templates/github/hooks.index.twig:85
-msgid "Type"
-msgstr "Tipo"
-
-#: /templates/github/hooks.index.twig:86
-msgid "Status"
-msgstr "Estado"
-
-#: /templates/github/hooks.index.twig:99
-msgid "Active"
-msgstr "Activo"
-
-#: /templates/github/hooks.index.twig:101
-msgid "Inactive"
-msgstr "Inactivo"
-
-#: /templates/github/hooks.index.twig:110
-msgid "Deactivate"
-msgstr "Desactivar"
-
-#: /templates/github/hooks.index.twig:115
-msgid "Activate"
-msgstr "Activar"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
