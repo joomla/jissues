@@ -8,7 +8,7 @@
 
 namespace App\Activity\View\Activity;
 
-use App\Projects\TrackerProject;
+use App\Projects\ProjectAwareTrait;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
@@ -19,13 +19,7 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class ActivityHtmlView extends AbstractTrackerHtmlView
 {
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
+	use ProjectAwareTrait;
 
 	/**
 	 * Method to render the view.
@@ -41,39 +35,5 @@ class ActivityHtmlView extends AbstractTrackerHtmlView
 		$this->renderer->set('project', $this->getProject());
 
 		return parent::render();
-	}
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \RuntimeException('No project set.');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
 	}
 }

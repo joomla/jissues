@@ -8,7 +8,7 @@
 
 namespace App\Activity\Model;
 
-use App\Projects\TrackerProject;
+use App\Projects\ProjectAwareTrait;
 
 use Joomla\Database\DatabaseQuery;
 
@@ -21,6 +21,8 @@ use JTracker\Model\AbstractTrackerListModel;
  */
 class ActivityModel extends AbstractTrackerListModel
 {
+	use ProjectAwareTrait;
+
 	/**
 	 * Context string for the model type.  This is used to handle uniqueness
 	 * when dealing with the getStoreId() method and caching data structures.
@@ -29,48 +31,6 @@ class ActivityModel extends AbstractTrackerListModel
 	 * @since  1.0
 	 */
 	protected $context = 'activity.activity';
-
-	/**
-	 * Project object
-	 *
-	 * @var    TrackerProject
-	 * @since  1.0
-	 */
-	protected $project = null;
-
-	/**
-	 * Get the project.
-	 *
-	 * @return  \App\Projects\TrackerProject
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	public function getProject()
-	{
-		if (is_null($this->project))
-		{
-			throw new \RuntimeException('Project not set');
-		}
-
-		return $this->project;
-	}
-
-	/**
-	 * Set the project.
-	 *
-	 * @param   TrackerProject  $project  The project.
-	 *
-	 * @return  $this  Method supports chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setProject(TrackerProject $project)
-	{
-		$this->project = $project;
-
-		return $this;
-	}
 
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
