@@ -107,7 +107,7 @@ class ActivityModel extends AbstractTrackerListModel
 		// Append the code point subquery now
 		$query->join(
 			'LEFT',
-			'(' . (string) $codePointSubquery . ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by)'
+			'(' . (string) $codePointSubquery . ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by AND a.event = ' . $db->quote('open') . ')'
 		);
 
 		if ($this->state->get('list.activity_type') > 0)
