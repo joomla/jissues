@@ -115,6 +115,7 @@ class UseractivityModel extends AbstractTrackerListModel
 		elseif ($this->state->get('list.activity_type') == 3)
 		{
 			// Since we have to return all data, sort on the code point result first
+			$query->having('COUNT(c.id) > 0');
 			$query->order('(COUNT(c.id) * 5) DESC, SUM(t.activity_points) + (COUNT(c.id) * 5) DESC');
 		}
 		else
