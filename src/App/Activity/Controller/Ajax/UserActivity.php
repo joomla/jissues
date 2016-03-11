@@ -80,10 +80,10 @@ class UserActivity extends AbstractAjaxController
 		$periodType   = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = [1 => '7 Days', 2 => '30 Days', 3 => '90 Days', 4 => '12 Months', 5 => 'Custom'];
+		$periodTitle = [1 => g11n3t('7 Days'), 2 => g11n3t('30 Days'), 3 => g11n3t('90 Days'), 4 => g11n3t('12 Months'), 5 => g11n3t('Custom')];
 		$periodText  = $periodTitle[$periodType];
 
-		$activityTypes = ['All', 'Tracker', 'Test', 'Code'];
+		$activityTypes = [g11n3t('All'), g11n3t('Tracker'), g11n3t('Test'), g11n3t('Code')];
 		$activityText  = $activityTypes[$activityType];
 
 		if ($periodType == 5)

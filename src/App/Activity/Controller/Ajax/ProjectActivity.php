@@ -66,8 +66,8 @@ class ProjectActivity extends AbstractAjaxController
 		$periodType   = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = [1 => 'Weeks', 2 => 'Months', 3 => 'Quarters'];
-		$axisLabels  = ['None', 'Week', '30 Days', '90 Days'];
+		$periodTitle = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
+		$axisLabels  = [g11n3t('None'), g11n3t('Week'), g11n3t('30 Days'), g11n3t('90 Days')];
 
 		$periodText    = $periodTitle[$periodType];
 		$axisLabelText = $axisLabels[$periodType];
@@ -77,20 +77,24 @@ class ProjectActivity extends AbstractAjaxController
 		$ticks  = [];
 		$counts = [];
 
-		$counts['Opened'][] = (int) $items[0]->opened4;
-		$counts['Opened'][] = (int) $items[0]->opened3;
-		$counts['Opened'][] = (int) $items[0]->opened2;
-		$counts['Opened'][] = (int) $items[0]->opened1;
+		$opened = g11n3t('Opened');
+		$fixed  = g11n3t('Fixed');
+		$other  = g11n3t('Other Closed');
 
-		$counts['Fixed'][] = (int) $items[1]->fixed4;
-		$counts['Fixed'][] = (int) $items[1]->fixed3;
-		$counts['Fixed'][] = (int) $items[1]->fixed2;
-		$counts['Fixed'][] = (int) $items[1]->fixed1;
+		$counts[$opened][] = (int) $items[0]->opened4;
+		$counts[$opened][] = (int) $items[0]->opened3;
+		$counts[$opened][] = (int) $items[0]->opened2;
+		$counts[$opened][] = (int) $items[0]->opened1;
 
-		$counts['Other Closed'][] = (int) $items[1]->closed4;
-		$counts['Other Closed'][] = (int) $items[1]->closed3;
-		$counts['Other Closed'][] = (int) $items[1]->closed2;
-		$counts['Other Closed'][] = (int) $items[1]->closed1;
+		$counts[$fixed][] = (int) $items[1]->fixed4;
+		$counts[$fixed][] = (int) $items[1]->fixed3;
+		$counts[$fixed][] = (int) $items[1]->fixed2;
+		$counts[$fixed][] = (int) $items[1]->fixed1;
+
+		$counts[$other][] = (int) $items[1]->closed4;
+		$counts[$other][] = (int) $items[1]->closed3;
+		$counts[$other][] = (int) $items[1]->closed2;
+		$counts[$other][] = (int) $items[1]->closed1;
 
 		$endDate     = $items[0]->end_date;
 		$periodDays  = [7, 7, 30, 90];
