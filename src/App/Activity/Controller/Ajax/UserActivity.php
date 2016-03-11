@@ -35,15 +35,13 @@ class UserActivity extends AbstractAjaxController
 		$application = $this->getContainer()->get('app');
 
 		// Setup the model to query our data
-		$this->model = new UseractivityModel($this->getContainer()->get('db'), $application->input);
+		$this->model = new UseractivityModel($this->getContainer()->get('db'));
 		$this->model->setProject($application->getProject());
 
 		$state = $this->model->getState();
 
 		$enteredPeriod = $application->input->getUint('period', 1);
 
-		$state->set('list.limit', 25);
-		$state->set('list.start', 0);
 		$state->set('list.activity_type', $application->input->getUint('activity_type', 0));
 
 		if ($enteredPeriod == 5)
@@ -76,7 +74,7 @@ class UserActivity extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		$items = $this->model->getItems();
+		$items = $this->model->getUserActivity();
 		$state = $this->model->getState();
 
 		$periodType   = $state->get('list.period');

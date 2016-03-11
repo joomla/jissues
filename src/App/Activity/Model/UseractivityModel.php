@@ -8,34 +8,23 @@
 
 namespace App\Activity\Model;
 
-use Joomla\Database\DatabaseQuery;
-
-use JTracker\Model\AbstractTrackerListModel;
+use JTracker\Model\AbstractTrackerDatabaseModel;
 
 /**
  * Model to get user activity data
  *
  * @since  1.0
  */
-class UseractivityModel extends AbstractTrackerListModel
+class UseractivityModel extends AbstractTrackerDatabaseModel
 {
 	/**
-	 * Context string for the model type.  This is used to handle uniqueness
-	 * when dealing with the getStoreId() method and caching data structures.
+	 * Get the user activity points
 	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $context = 'activity.user.activity';
-
-	/**
-	 * Method to get a DatabaseQuery object for retrieving the data set from a database.
-	 *
-	 * @return  DatabaseQuery  A DatabaseQuery object to retrieve the data set.
+	 * @return  object[]
 	 *
 	 * @since   1.0
 	 */
-	protected function getListQuery()
+	public function getUserActivity()
 	{
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
@@ -125,6 +114,8 @@ class UseractivityModel extends AbstractTrackerListModel
 
 		$query->group('a.user');
 
-		return $query;
+		$db->setQuery($query, 0, 25);
+
+		return $db->loadObjectList();
 	}
 }

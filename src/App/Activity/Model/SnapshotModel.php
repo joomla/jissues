@@ -8,8 +8,9 @@
 
 namespace App\Activity\Model;
 
+use Joomla\Database\DatabaseIterator;
+
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Pagination\TrackerPagination;
 
 /**
  * Model to get the project snapshot
@@ -21,7 +22,7 @@ class SnapshotModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get the open issues
 	 *
-	 * @return  array[]
+	 * @return  DatabaseIterator
 	 *
 	 * @since   1.0
 	 */
@@ -40,19 +41,5 @@ class SnapshotModel extends AbstractTrackerDatabaseModel
 		$db->setQuery($query);
 
 		return $db->getIterator();
-	}
-
-	/**
-	 * Set the pagination object.
-	 *
-	 * @param   TrackerPagination  $pagination  The pagination object.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setPagination(TrackerPagination $pagination)
-	{
-		// This is just here for Controller compatibility and a bit of my laziness
 	}
 }

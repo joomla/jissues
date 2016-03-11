@@ -10,14 +10,14 @@ namespace App\Activity\Controller;
 
 use App\Activity\View\DefaultHtmlView;
 
-use JTracker\Controller\AbstractTrackerListController;
+use JTracker\Controller\AbstractTrackerController;
 
 /**
  * Base controller class for the Activity application.
  *
  * @since  1.0
  */
-abstract class AbstractBaseController extends AbstractTrackerListController
+abstract class AbstractBaseController extends AbstractTrackerController
 {
 	/**
 	 * View object
