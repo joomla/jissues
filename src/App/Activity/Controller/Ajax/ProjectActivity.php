@@ -8,7 +8,7 @@
 
 namespace App\Activity\Controller\Ajax;
 
-use App\Activity\Model\ProjectActivityModel;
+use App\Activity\Model\ProjectactivityModel;
 
 use JTracker\Application;
 use JTracker\Controller\AbstractAjaxController;
@@ -16,24 +16,28 @@ use JTracker\Controller\AbstractAjaxController;
 /**
  * Controller class to handle AJAX requests for the user activity data
  *
+ * @property-read   ProjectactivityModel  $model  Model object
+ *
  * @since  1.0
  */
 class ProjectActivity extends AbstractAjaxController
 {
 	/**
-	 * Prepare the response.
+	 * Initialize the controller.
 	 *
-	 * @return  void
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this  Method allows chiaining
 	 *
 	 * @since   1.0
 	 */
-	protected function prepareResponse()
+	public function initialize()
 	{
 		/** @var Application $application */
 		$application = $this->getContainer()->get('app');
 
 		// Setup the model to query our data
-		$this->model = new ProjectActivityModel($this->getContainer()->get('db'));
+		$this->model = new ProjectactivityModel($this->getContainer()->get('db'));
 		$this->model->setProject($application->getProject());
 
 		$state = $this->model->getState();
@@ -44,6 +48,18 @@ class ProjectActivity extends AbstractAjaxController
 
 		$this->model->setState($state);
 
+		return $this;
+	}
+
+	/**
+	 * Prepare the response.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function prepareResponse()
+	{
 		$items = $this->model->getIssueCounts();
 		$state = $this->model->getState();
 

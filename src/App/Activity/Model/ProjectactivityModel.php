@@ -9,7 +9,6 @@
 namespace App\Activity\Model;
 
 use JTracker\Model\AbstractTrackerDatabaseModel;
-use JTracker\Pagination\TrackerPagination;
 
 /**
  * Model to get project activity data
@@ -94,19 +93,5 @@ class ProjectactivityModel extends AbstractTrackerDatabaseModel
 		$openedIssues = $db->loadObject();
 
 		return [$openedIssues, $closedIssues];
-	}
-
-	/**
-	 * Set the pagination object.
-	 *
-	 * @param   TrackerPagination  $pagination  The pagination object.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setPagination(TrackerPagination $pagination)
-	{
-		// This is just here for Controller compatibility and a bit of my laziness
 	}
 }

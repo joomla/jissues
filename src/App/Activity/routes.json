@@ -1,6 +1,8 @@
 {
 	"activity/project/:project_alias" : "\\Activity\\Controller\\ProjectActivityController",
 	"activity/project/:project_alias/query" : "\\Activity\\Controller\\Ajax\\ProjectActivity",
+	"activity/snapshot/:project_alias" : "\\Activity\\Controller\\ActivitySnapshotController",
+	"activity/snapshot/:project_alias/query" : "\\Activity\\Controller\\Ajax\\ActivitySnapshot",
 	"activity/user/:project_alias" : "\\Activity\\Controller\\UserActivityController",
 	"activity/user/:project_alias/query" : "\\Activity\\Controller\\Ajax\\UserActivity"
 }

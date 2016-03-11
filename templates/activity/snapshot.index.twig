@@ -1,0 +1,38 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ "%s - Open Issues By Status"|_|format(project.short_title) }}{% endblock %}
+
+{% block headerCSS %}
+    <link href="{{ uri.base.path }}jtracker/jqplot/css/jquery.jqplot.min.css" rel="stylesheet" media="screen">
+    <link href="{{ uri.base.path }}jtracker/jqplot/css/jquery-ui-1.10.2.custom.min.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block content %}
+    <h2>{{ "Open Issues By Status - %s"|_|format(project.title) }}</h2>
+
+    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}/query"></div>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+
+    {{ parent() }}
+
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jquery.jqplot.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.barRenderer.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.categoryAxisRenderer.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.pointLabels.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/barchart.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.highlighter.min.js"></script>
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', true, '35');
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

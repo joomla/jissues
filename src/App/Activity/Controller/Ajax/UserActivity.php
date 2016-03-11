@@ -8,30 +8,34 @@
 
 namespace App\Activity\Controller\Ajax;
 
-use App\Activity\Model\UserActivityModel;
+use App\Activity\Model\UseractivityModel;
 
 use JTracker\Controller\AbstractAjaxController;
 
 /**
  * Controller class to handle AJAX requests for the user activity data
  *
+ * @property-read   UseractivityModel  $model  Model object
+ *
  * @since  1.0
  */
 class UserActivity extends AbstractAjaxController
 {
 	/**
-	 * Prepare the response.
+	 * Initialize the controller.
 	 *
-	 * @return  void
+	 * This will set up default model and view classes.
+	 *
+	 * @return  $this  Method allows chiaining
 	 *
 	 * @since   1.0
 	 */
-	protected function prepareResponse()
+	public function initialize()
 	{
 		$application = $this->getContainer()->get('app');
 
 		// Setup the model to query our data
-		$this->model = new UserActivityModel($this->getContainer()->get('db'), $application->input);
+		$this->model = new UseractivityModel($this->getContainer()->get('db'), $application->input);
 		$this->model->setProject($application->getProject());
 
 		$state = $this->model->getState();
@@ -61,7 +65,17 @@ class UserActivity extends AbstractAjaxController
 		$state->set('list.period', $enteredPeriod);
 
 		$this->model->setState($state);
+	}
 
+	/**
+	 * Prepare the response.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function prepareResponse()
+	{
 		$items = $this->model->getItems();
 		$state = $this->model->getState();
 
