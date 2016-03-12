@@ -48,6 +48,10 @@ class IssuesModel extends AbstractTrackerListModel
 		$query->select('s.closed AS closed_status');
 		$query->join('LEFT', '#__status AS s ON a.status = s.id');
 
+		// Join over the milestones table
+		$query->select('m.title AS milestone_title');
+		$query->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = a.milestone_id');
+
 		// Process the state's filters
 		$query = $this->processStateFilter($query);
 
@@ -61,9 +65,9 @@ class IssuesModel extends AbstractTrackerListModel
 	/**
 	 * Method to get a DatabaseQuery object for retrieving the data set from a database for ajax request.
 	 *
-	 * @return DatabaseQuery
+	 * @return  DatabaseQuery
 	 *
-	 * @since 1.0
+	 * @since   1.0
 	 */
 	protected function getAjaxListQuery()
 	{
@@ -83,6 +87,10 @@ class IssuesModel extends AbstractTrackerListModel
 		// Join over the users
 		$query->select('u.id AS user_id');
 		$query->leftJoin('#__users AS u ON a.opened_by = u.username');
+
+		// Join over the milestones table
+		$query->select('m.title AS milestone_title');
+		$query->join('LEFT', '#__tracker_milestones AS m ON m.milestone_id = a.milestone_id');
 
 		// Process the state's filters
 		$query = $this->processStateFilter($query);

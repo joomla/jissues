@@ -250,15 +250,18 @@
                             [% } else { %]
                                 <a href="https://github.com/[%= item.opened_by %]">[%= item.opened_by %]</a>
                             [% } %]
-                            &nbsp;&bull;&nbsp;
+                            {% if project.gh_user and project.gh_project %}
+                                &nbsp;&bull;&nbsp;
+                            {% endif %}
                         [% } %]
                         {% if project.gh_user and project.gh_project %}
-                          {{ 'GitHub ID'|_ }}
-                          <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]"
-                             target="_blank">
-                             [%= item.issue_number %]
-                          </a>
-                          &nbsp;&bull;&nbsp;
+                            {{ 'GitHub ID'|_ }}
+                            <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}/issues/[%=item.issue_number%]" target="_blank">
+                                [%= item.issue_number %]
+                            </a>
+                            [% if (item.foreign_number || item.opened_date || item.closed_status != '0' || item.modified_date != '-0001-11-30' || item.milestone_title) { %]
+                                &nbsp;&bull;&nbsp;
+                            [% } %]
                         {% endif %}
                         [% if (item.foreign_number) { %]
                             {{ 'Foreign ID'|_ }}
@@ -266,17 +269,30 @@
                                target="_blank">
                                [%= item.foreign_number %]
                             </a>
+                            [% if (item.opened_date || item.closed_status != '0' || item.modified_date != '-0001-11-30' || item.milestone_title) { %]
+                                &nbsp;&bull;&nbsp;
+                            [% } %]
                         [% } %]
                         [% if (item.opened_date) { %]
                             {{ 'Opened '|_ }} [%= item.opened_date %]
-                            &nbsp;&bull;&nbsp;
+                            [% if (item.closed_status != '0' || item.modified_date != '-0001-11-30' || item.milestone_title) { %]
+                                &nbsp;&bull;&nbsp;
+                            [% } %]
                         [% } %]
                         [% if (item.closed_status != '0') { %]
                             {{ 'Closed '|_ }} [%= item.closed_date %]
-                            &nbsp;&bull;&nbsp;
+                            [% if (item.modified_date != '-0001-11-30' || item.milestone_title) { %]
+                                &nbsp;&bull;&nbsp;
+                            [% } %]
                         [% } %]
                         [% if (item.modified_date != '-0001-11-30') { %]
                             {{ 'Modified '|_ }} [%= item.modified_date %]
+                            [% if (item.milestone_title) { %]
+                                &nbsp;&bull;&nbsp;
+                            [% } %]
+                        [% } %]
+                        [% if (item.milestone_title) { %]
+                            {{ 'Milestone: '|_ }} [%= item.milestone_title %]
                         [% } %]
                     </span>
                 </td>
