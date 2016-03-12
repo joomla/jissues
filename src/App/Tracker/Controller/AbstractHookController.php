@@ -419,6 +419,12 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			case 'closed':
 				$status = 10;
 
+				// If the action is closed and this is a pull request, check if the request was merged and set the status to "Fixed in Code Base"
+				if ($this->type == 'pulls' && $this->hookData->pull_request->merged)
+				{
+					$status = 5;
+				}
+
 				// Get the list of status IDs based on the GitHub close state
 				$statusIds = (new StatusTable($this->db))
 					->getStateStatusIds(true);
