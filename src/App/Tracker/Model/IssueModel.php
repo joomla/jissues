@@ -242,8 +242,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('project_id') . ' = ' . (int) $this->getProject()->project_id)
 				->where($this->db->quoteName('issue_number') . ' > ' . (int) $item->issue_number)
 				->where('s.closed = ' . (int) $item->closed)
-				->order('a.issue_number ASC')
-			, 0, 1
+				->order('a.issue_number ASC'),
+			0,
+			1
 		)->loadResult();
 
 		$prevIssueNumber = $this->db->setQuery(
@@ -254,8 +255,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('project_id') . ' = ' . (int) $this->getProject()->project_id)
 				->where($this->db->quoteName('issue_number') . ' < ' . (int) $item->issue_number)
 				->where('s.closed = ' . (int) $item->closed)
-				->order('a.issue_number DESC')
-			, 0, 1
+				->order('a.issue_number DESC'),
+			0,
+			1
 		)->loadResult();
 
 		$item->previousIssue = $prevIssueNumber ?: false;
