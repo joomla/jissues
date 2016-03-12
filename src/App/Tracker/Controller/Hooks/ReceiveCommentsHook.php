@@ -54,21 +54,28 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			$this->logger->error('Error checking the database for comment ID:' . $e->getMessage());
-			$this->getContainer()->get('app')->close();
+			$logMessage = sprintf('Error checking the database for comment ID: %s', $e->getMessage());
+			$this->logger->error($logMessage);
+			$this->response->error = $logMessage;
+			$this->setStatusCode($e->getCode());
+
+			return;
 		}
 
 		// If the item is already in the database, update it; else, insert it
 		if ($commentId)
 		{
-			$this->updateComment($commentId);
+			$result = $this->updateComment($commentId);
 		}
 		else
 		{
-			$this->insertComment();
+			$result = $this->insertComment();
 		}
 
-		$this->response->message = 'Hook data processed successfully.';
+		if ($result)
+		{
+			$this->response->message = 'Hook data processed successfully.';
+		}
 	}
 
 	/**
@@ -83,7 +90,11 @@ class ReceiveCommentsHook extends AbstractHookController
 		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
 		if (!$this->checkIssueExists((int) $this->hookData->issue->number))
 		{
-			$this->insertIssue();
+			// If we can't insert the issue then bail
+			if (!$this->insertIssue())
+			{
+				return false;
+			}
 
 			$comments = $this->github->issues->comments->getList(
 				$this->project->gh_user, $this->project->gh_project, $this->hookData->issue->number
@@ -143,11 +154,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				'Error loading the database for comment '
-				. $this->hookData->issue->number
-				. ':' . $e->getMessage()
+			$logMessage = sprintf(
+				'Error loading the database for issue %d:%s',
+				$this->hookData->issue->number,
+				$e->getMessage()
 			);
+			$this->logger->error($logMessage);
+			$this->setStatusCode($e->getCode());
+			$this->response->error = $logMessage;
 		}
 
 		// Store was successful, update status
@@ -166,7 +180,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @return  void
+	 * @return  boolean  True on success
 	 *
 	 * @since   1.0
 	 */
@@ -223,17 +237,18 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error adding GitHub issue %s/%s #%d to the tracker: %s',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->hookData->issue->number,
-					$e->getMessage()
-				)
+			$logMessage = sprintf(
+				'Error adding GitHub issue %s/%s #%d to the tracker: %s',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number,
+				$e->getMessage()
 			);
+			$this->logger->error($logMessage);
+			$this->response->error = $logMessage;
+			$this->setStatusCode($e->getCode());
 
-			$this->getContainer()->get('app')->close();
+			return false;
 		}
 
 		// Get a table object for the new record to process in the event listeners
@@ -267,6 +282,8 @@ class ReceiveCommentsHook extends AbstractHookController
 				$table->id
 			)
 		);
+
+		return true;
 	}
 
 	/**
@@ -297,11 +314,16 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				'Error updating the database for comment ' . $id . ':' . $e->getMessage()
+			$logMessage = sprintf(
+				'Error updating the database for comment %d:%s',
+				$id,
+				$e->getMessage()
 			);
+			$this->logger->error($logMessage);
+			$this->response->error = $logMessage;
+			$this->setStatusCode($e->getCode());
 
-			$this->getContainer()->get('app')->close();
+			return false;
 		}
 
 		try
@@ -318,11 +340,14 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				'Error loading the database for comment '
-				. $this->hookData->issue->number
-				. ':' . $e->getMessage()
+			$logMessage = sprintf(
+				'Error loading the database for issue %d:%s',
+				$this->hookData->issue->number,
+				$e->getMessage()
 			);
+			$this->logger->error($logMessage);
+			$this->response->error = $logMessage;
+			$this->setStatusCode($e->getCode());
 		}
 
 		// Store was successful, update status
