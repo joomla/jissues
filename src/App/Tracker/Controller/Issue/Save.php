@@ -159,19 +159,18 @@ class Save extends AbstractTrackerController
 				$this->getContainer()->get('app')->getLogger()->error(
 					sprintf(
 						'Error code %1$s received from GitHub when editing an issue with the following data:'
-						. ' GitHub User: %2$s; GitHub Repo: %3$s; Issue Number: %4$s; State: %5$s, Old state: %6$s'
-						. '  The error message returned was: %7$s',
+						. ' GitHub User: %2$s; GitHub Repo: %3$s; Issue Number: %4$s; State: %5$s, Old state: %6$s',
 						$exception->getCode(),
 						$project->gh_user,
 						$project->gh_project,
 						$item->issue_number,
 						$state,
-						$oldState,
-						$exception->getMessage()
-					)
+						$oldState
+					),
+					['exception' => $exception]
 				);
 
-				throw new \RuntimeException('Invalid response from GitHub');
+				throw new \RuntimeException('Invalid response from GitHub', $exception->getCode(), $exception);
 			}
 
 			// Render the description text using GitHub's markdown renderer.

@@ -54,7 +54,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			$this->logger->error('Error checking the database for comment ID:' . $e->getMessage());
+			$this->logger->error('Error checking the database for comment ID', ['exception' => $e]);
 			$this->getContainer()->get('app')->close();
 		}
 
@@ -143,11 +143,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				'Error loading the database for comment '
-				. $this->hookData->issue->number
-				. ':' . $e->getMessage()
-			);
+			$this->logger->error('Error loading the database for comment ' . $this->hookData->issue->number, ['exception' => $e]);
 		}
 
 		// Store was successful, update status
@@ -225,12 +221,12 @@ class ReceiveCommentsHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error adding GitHub issue %s/%s #%d to the tracker: %s',
+					'Error adding GitHub issue %s/%s #%d to the tracker',
 					$this->project->gh_user,
 					$this->project->gh_project,
-					$this->hookData->issue->number,
-					$e->getMessage()
-				)
+					$this->hookData->issue->number
+				),
+				['exception' => $e]
 			);
 
 			$this->getContainer()->get('app')->close();
@@ -297,9 +293,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				'Error updating the database for comment ' . $id . ':' . $e->getMessage()
-			);
+			$this->logger->error('Error updating the database for comment ' . $id, ['exception' => $e]);
 
 			$this->getContainer()->get('app')->close();
 		}
@@ -318,11 +312,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				'Error loading the database for comment '
-				. $this->hookData->issue->number
-				. ':' . $e->getMessage()
-			);
+			$this->logger->error('Error loading the database for comment ' . $this->hookData->issue->number, ['exception' => $e]);
 		}
 
 		// Store was successful, update status
