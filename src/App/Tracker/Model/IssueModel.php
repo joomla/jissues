@@ -234,17 +234,32 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		)->loadObjectList();
 
 		// Get the previous/next issues for pagination
-		$nextIssueNumber = $item->issue_number + 1;
-		$nextId = $this->db->setQuery(
+		$nextIssueNumber = $this->db->setQuery(
 			$query->clear()
-				->select('id')
-				->from($this->db->quoteName('#__issues'))
+				->select('a.issue_number')
+				->from($this->db->quoteName('#__issues', 'a'))
+				->join('LEFT', '#__status AS s ON a.status = s.id')
 				->where($this->db->quoteName('project_id') . ' = ' . (int) $this->getProject()->project_id)
-				->where($this->db->quoteName('issue_number') . ' = ' . (int) $nextIssueNumber)
+				->where($this->db->quoteName('issue_number') . ' > ' . (int) $item->issue_number)
+				->where('s.closed = ' . (int) $item->closed)
+				->order('a.issue_number ASC')
+			, 0, 1
 		)->loadResult();
 
-		$item->previousIssue = $item->issue_number > 1 ? $item->issue_number - 1 : false;
-		$item->nextIssue     = $nextId ? $nextIssueNumber : false;
+		$prevIssueNumber = $this->db->setQuery(
+			$query->clear()
+				->select('a.issue_number')
+				->from($this->db->quoteName('#__issues', 'a'))
+				->join('LEFT', '#__status AS s ON a.status = s.id')
+				->where($this->db->quoteName('project_id') . ' = ' . (int) $this->getProject()->project_id)
+				->where($this->db->quoteName('issue_number') . ' < ' . (int) $item->issue_number)
+				->where('s.closed = ' . (int) $item->closed)
+				->order('a.issue_number DESC')
+			, 0, 1
+		)->loadResult();
+
+		$item->previousIssue = $prevIssueNumber ?: false;
+		$item->nextIssue     = $nextIssueNumber ?: false;
 
 		return $item;
 	}
