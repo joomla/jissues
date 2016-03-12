@@ -117,12 +117,12 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error adding GitHub issue %s/%s #%d to the tracker: %s',
+					'Error adding GitHub issue %s/%s #%d to the tracker',
 					$this->project->gh_user,
 					$this->project->gh_project,
-					$this->hookData->issue->number,
-					$e->getMessage()
-				)
+					$this->hookData->issue->number
+				),
+				['exception' => $e]
 			);
 
 			$this->getContainer()->get('app')->close();
@@ -199,12 +199,12 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error loading GitHub issue %s/%s #%d in the tracker: %s',
+					'Error loading GitHub issue %s/%s #%d in the tracker',
 					$this->project->gh_user,
 					$this->project->gh_project,
-					$this->hookData->issue->number,
-					$e->getMessage()
-				)
+					$this->hookData->issue->number
+				),
+				['exception' => $e]
 			);
 
 			$this->getContainer()->get('app')->close();
@@ -272,13 +272,13 @@ class ReceiveIssuesHook extends AbstractHookController
 		{
 			$this->logger->error(
 				sprintf(
-					'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker: %s',
+					'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
 					$this->project->gh_user,
 					$this->project->gh_project,
 					$this->hookData->issue->number,
-					$table->id,
-					$e->getMessage()
-				)
+					$table->id
+				),
+				['exception' => $e]
 			);
 
 			$this->getContainer()->get('app')->close();

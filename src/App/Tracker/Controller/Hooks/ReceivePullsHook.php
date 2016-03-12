@@ -157,15 +157,14 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
-				'Error adding GitHub pull request %s/%s #%d to the tracker: %s',
+				'Error adding GitHub pull request %s/%s #%d to the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number,
-				$e->getMessage()
+				$this->data->number
 			);
-			$this->response->error = $logMessage;
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
 
-			$this->logger->error($logMessage);
+			$this->logger->error($logMessage, ['exception' => $e]);
 
 			return false;
 		}
@@ -253,14 +252,13 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
-				'Error loading GitHub issue %s/%s #%d in the tracker: %s',
+				'Error loading GitHub issue %s/%s #%d in the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number,
-				$e->getMessage()
+				$this->data->number
 			);
-			$this->response->error = $logMessage;
-			$this->logger->error($logMessage);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
 
 			return false;
 		}
@@ -370,15 +368,14 @@ class ReceivePullsHook extends AbstractHookController
 		{
 			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
-				'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker: %s',
+				'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->data->number,
-				$table->id,
-				$e->getMessage()
+				$table->id
 			);
-			$this->response->error = $logMessage;
-			$this->logger->error($logMessage);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
 
 			return false;
 		}

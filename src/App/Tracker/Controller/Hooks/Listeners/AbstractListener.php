@@ -44,15 +44,11 @@ abstract class AbstractListener
 
 		if ($issueNumber === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
 		}
 
 		// Get the labels for the pull's issue
@@ -64,15 +60,15 @@ abstract class AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
+					'Error retrieving labels for GitHub item %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$issueNumber,
-					$e->getMessage()
-				)
+					$issueNumber
+				),
+				['exception' => $e]
 			);
 
-			throw new \RuntimeException($e->getMessage(), 0, $e);
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
 
 		// Check if the label present that return true
@@ -112,15 +108,11 @@ abstract class AbstractListener
 
 		if ($issueNumber === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
 		}
 
 		// Only try to remove labels if the array isn't empty
@@ -150,16 +142,16 @@ abstract class AbstractListener
 				{
 					$logger->error(
 						sprintf(
-							'Error removing the %s label from GitHub pull request %s/%s #%d - %s',
+							'Error removing the %s label from GitHub pull request %s/%s #%d',
 							$removeLabel,
 							$project->gh_user,
 							$project->gh_project,
-							$issueNumber,
-							$e->getMessage()
-						)
+							$issueNumber
+						),
+						['exception' => $e]
 					);
 
-					throw new \RuntimeException($e->getMessage(), 0, $e);
+					throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 				}
 			}
 		}
@@ -247,15 +239,15 @@ abstract class AbstractListener
 			{
 				$logger->error(
 					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
+						'Error adding labels to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$issueNumber,
-						$e->getMessage()
-					)
+						$issueNumber
+					),
+					['exception' => $e]
 				);
 
-				throw new \RuntimeException($e->getMessage(), 0, $e);
+				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 			}
 		}
 	}

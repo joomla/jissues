@@ -525,9 +525,15 @@ class TrackerDebugger implements LoggerAwareInterface
 	 *
 	 * @since   1.0
 	 */
-	public function renderException(\Exception $exception, array $context = array())
+	public function renderException(\Exception $exception, array $context = [])
 	{
 		static $loaded = false;
+
+		// Attach the Exception to the context array (per PSR-3) if not already
+		if (!isset($context['exception']))
+		{
+			$context['exception'] = $exception;
+		}
 
 		if ($loaded)
 		{

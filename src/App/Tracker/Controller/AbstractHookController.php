@@ -99,7 +99,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		catch (\RuntimeException $e)
 		{
-			$this->logger->error('Error checking the database for the GitHub ID:' . $e->getMessage());
+			$this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);
 			$this->getContainer()->get('app')->close();
 		}
 	}
@@ -130,10 +130,10 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		{
 			$this->logger->info(
 				sprintf(
-					'Error retrieving the project alias for GitHub repo %s in the database: %s',
-					$this->hookData->repository->name,
-					$e->getMessage()
-				)
+					'Error retrieving the project alias for GitHub repo %s in the database',
+					$this->hookData->repository->name
+				),
+				['exception' => $e]
 			);
 
 			$this->getContainer()->get('app')->close();
@@ -273,11 +273,12 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		{
 			$this->logger->info(
 				sprintf(
-					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d): %s',
+					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d)',
 					$event,
-					$projectId, $itemNumber,
-					$exception->getMessage()
-				)
+					$projectId,
+					$itemNumber
+				),
+				['exception' => $exception]
 			);
 
 			$this->getContainer()->get('app')->close();
@@ -309,10 +310,10 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		{
 			$this->logger->info(
 				sprintf(
-					'Error parsing comment %d with GH Markdown: %s',
-					$this->hookData->comment->id,
-					$exception->getMessage()
-				)
+					'Error parsing comment %d with GH Markdown',
+					$this->hookData->comment->id
+				),
+				['exception' => $exception]
 			);
 
 			return '';
@@ -338,12 +339,12 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		{
 			$this->logger->error(
 				sprintf(
-					'Error parsing the labels for GitHub issue %s/%s #%d - %s',
+					'Error parsing the labels for GitHub issue %s/%s #%d',
 					$this->project->gh_user,
 					$this->project->gh_project,
-					$issueId,
-					$exception->getMessage()
-				)
+					$issueId
+				),
+				['exception' => $exception]
 			);
 
 			return '';
@@ -385,12 +386,12 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				{
 					$this->logger->error(
 						sprintf(
-							'Error adding label %s for project %s/%s to the database: %s',
+							'Error adding label %s for project %s/%s to the database',
 							$label->name,
 							$this->project->gh_user,
-							$this->project->gh_project,
-							$exception->getMessage()
-						)
+							$this->project->gh_project
+						),
+						['exception' => $exception]
 					);
 				}
 			}
