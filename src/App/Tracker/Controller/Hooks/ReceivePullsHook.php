@@ -204,12 +204,12 @@ class ReceivePullsHook extends AbstractHookController
 		}
 
 		// Add a merge record to the activity table if the request was merged
-		if ($action == 'closed' && $this->data->base->merged)
+		if ($action == 'closed' && $this->data->merged)
 		{
 			$this->addActivityEvent(
 				'merge',
 				$data['closed_date'],
-				$this->data->base->merged_by->login,
+				$this->data->merged_by->login,
 				$this->project->project_id,
 				$this->data->number
 			);
@@ -425,12 +425,12 @@ class ReceivePullsHook extends AbstractHookController
 		}
 
 		// Add a merge record to the activity table if the request was merged
-		if ($action == 'closed' && $this->data->base->merged)
+		if ($action == 'closed' && $this->data->merged)
 		{
 			$this->addActivityEvent(
 				'merge',
 				$this->data->closed_at,
-				$this->data->base->merged_by->login,
+				$this->data->merged_by->login,
 				$this->project->project_id,
 				$this->data->number
 			);
