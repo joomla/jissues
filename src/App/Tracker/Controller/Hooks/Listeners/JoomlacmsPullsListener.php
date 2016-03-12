@@ -177,12 +177,12 @@ class JoomlacmsPullsListener extends AbstractListener
 				{
 					$logger->error(
 						sprintf(
-							'Error updating the state for issue %s/%s #%d on the tracker: %s',
+							'Error updating the state for issue %s/%s #%d on the tracker',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->pull_request->number,
-							$e->getMessage()
-						)
+							$hookData->pull_request->number
+						),
+						['exception' => $e]
 					);
 				}
 
@@ -200,12 +200,12 @@ class JoomlacmsPullsListener extends AbstractListener
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						'Error posting comment to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 		}
@@ -257,12 +257,12 @@ class JoomlacmsPullsListener extends AbstractListener
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						'Error posting comment to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 		}
@@ -306,15 +306,15 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
+					'Error retrieving modified files for GitHub item %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
 			);
 
-			$files = array();
+			$files = [];
 		}
 
 		$composerChange   = $this->checkComposerChange($files);
@@ -484,12 +484,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d - %s',
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$table->issue_number,
-					$e->getMessage()
-				)
+					$table->issue_number
+				),
+				['exception' => $e]
 			);
 		}
 	}
@@ -544,12 +544,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error updating the title for GitHub pull request %s/%s #%d - %s',
+					'Error updating the title for GitHub pull request %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
 			);
 
 			// Don't change the title locally
@@ -566,12 +566,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error updating the title for issue %s/%s #%d on the tracker: %s',
+					'Error updating the title for issue %s/%s #%d on the tracker',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->issue->number,
-					$e->getMessage()
-				)
+					$hookData->issue->number
+				),
+				['exception' => $e]
 			);
 		}
 	}
@@ -633,12 +633,12 @@ class JoomlacmsPullsListener extends AbstractListener
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						'Error posting comment to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 		}

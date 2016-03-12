@@ -260,11 +260,10 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			// Log the error
 			$this->getLogger()->critical(
 				sprintf(
-					'Exception of type %1$s thrown with message %2$s',
-					get_class($exception),
-					$exception->getMessage()
+					'Exception of type %1$s thrown',
+					get_class($exception)
 				),
-				['trace' => $exception->getTraceAsString()]
+				['exception' => $exception]
 			);
 
 			$this->setHeader('Status', 500, true);

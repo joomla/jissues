@@ -56,11 +56,10 @@ abstract class AbstractAjaxController extends AbstractTrackerController
 			// Log the error
 			$this->getContainer()->get('app')->getLogger()->critical(
 				sprintf(
-					'Exception of type %1$s thrown with message %2$s',
-					get_class($e),
-					$e->getMessage()
+					'Exception of type %1$s thrown',
+					get_class($e)
 				),
-				['trace' => $e->getTraceAsString()]
+				['exception' => $e]
 			);
 
 			$this->response->error = $e->getMessage();

@@ -234,18 +234,17 @@ class Submit extends AbstractTrackerController
 			$this->getContainer()->get('app')->getLogger()->error(
 				sprintf(
 					'Error code %1$s received from GitHub when creating an issue with the following data:'
-					. ' GitHub User: %2$s; GitHub Repo: %3$s; Title: %4$s; Body Text: %5$s'
-					. '  The error message returned was: %6$s',
+					. ' GitHub User: %2$s; GitHub Repo: %3$s; Title: %4$s; Body Text: %5$s',
 					$exception->getCode(),
 					$project->gh_user,
 					$project->gh_project,
 					$title,
-					$body,
-					$exception->getMessage()
-				)
+					$body
+				),
+				['exception' => $exception]
 			);
 
-			throw new \RuntimeException('Invalid response from GitHub');
+			throw new \RuntimeException('Invalid response from GitHub', $exception->getCode(), $exception);
 		}
 
 		/**
