@@ -15,8 +15,12 @@
 vendor/*
 composer.phar
 
-# Bower Files #
-www/vendor/*
+# Node / Grunt Contribs #
+/node_modules
+
+# Bower Components #
+/bower_components/
+/www/media/*/vendor/
 
 # Build/Test related files #
 cache.properties
