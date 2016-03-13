@@ -10,7 +10,8 @@ namespace JTracker\Controller;
 
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Event\Dispatcher;
+use Joomla\Event\DispatcherAwareInterface;
+use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Event\Event;
 use Joomla\Input\Input;
 use Joomla\View\Renderer\RendererInterface;
@@ -26,9 +27,9 @@ use JTracker\View\Renderer\TrackerExtension;
  *
  * @since  1.0
  */
-abstract class AbstractTrackerController implements ContainerAwareInterface
+abstract class AbstractTrackerController implements ContainerAwareInterface, DispatcherAwareInterface
 {
-	use ContainerAwareTrait;
+	use ContainerAwareTrait, DispatcherAwareTrait;
 
 	/**
 	 * The default view for the app
@@ -69,14 +70,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 	 * @since  1.0
 	 */
 	protected $model;
-
-	/**
-	 * The dispatcher object
-	 *
-	 * @var    Dispatcher
-	 * @since  1.0
-	 */
-	protected $dispatcher;
 
 	/**
 	 * Flag if the event listener is set for a hook
@@ -479,7 +472,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 
 		if (class_exists($fullClass))
 		{
-			$this->dispatcher->addListener(new $fullClass);
+			$this->getDispatcher()->addListener(new $fullClass);
 			$this->listenerSet = true;
 		}
 
@@ -520,6 +513,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface
 		}
 
 		// Trigger the event.
-		$this->dispatcher->triggerEvent($event);
+		$this->getDispatcher()->triggerEvent($event);
 	}
 }

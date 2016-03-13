@@ -49,7 +49,7 @@ class Alter extends AbstractAjaxController
 			throw new \Exception('No issue ID received.');
 		}
 
-		$this->dispatcher = $application->getDispatcher();
+		$this->setDispatcher($application->getDispatcher());
 		$this->addEventListener('tests');
 		$this->setProjectGitHubBot($project);
 

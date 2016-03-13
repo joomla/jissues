@@ -25,7 +25,7 @@ class GitHubProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns the container to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException

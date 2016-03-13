@@ -19,8 +19,8 @@ use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\Dispatcher;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Event\DispatcherAwareInterface;
+use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -49,7 +49,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 final class Application extends AbstractWebApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
-	use ContainerAwareTrait;
+	use ContainerAwareTrait, DispatcherAwareTrait;
 
 	/**
 	 * The name of the application.
@@ -85,14 +85,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	private $project;
 
 	/**
-	 * Event Dispatcher
-	 *
-	 * @var    DispatcherInterface
-	 * @since  1.0
-	 */
-	private $dispatcher;
-
-	/**
 	 * Class constructor.
 	 *
 	 * @since   1.0
@@ -118,18 +110,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		$this->setDispatcher(new Dispatcher);
 
 		// Set up a general application logger
-		$logger = new Logger('JTracker');
-
-		$logger->pushHandler(
-			new StreamHandler(
-				$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
-				Logger::ERROR
+		$this->setLogger(
+			new Logger(
+				'JTracker',
+				[
+					new StreamHandler(
+						$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
+						Logger::ERROR
+					)
+				],
+				[
+					new WebProcessor
+				]
 			)
 		);
-
-		$logger->pushProcessor(new WebProcessor);
-
-		$this->setLogger($logger);
 	}
 
 	/**
@@ -311,18 +305,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	}
 
 	/**
-	 * Get the dispatcher object.
-	 *
-	 * @return  DispatcherInterface
-	 *
-	 * @since   1.0
-	 */
-	public function getDispatcher()
-	{
-		return $this->dispatcher;
-	}
-
-	/**
 	 * Get a session object.
 	 *
 	 * @return  Session
@@ -457,22 +439,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			// Load the Debug App language file.
 			g11n::loadLanguage('Debug', 'App');
 		}
-
-		return $this;
-	}
-
-	/**
-	 * Set the dispatcher to use.
-	 *
-	 * @param   DispatcherInterface  $dispatcher  The dispatcher to use.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setDispatcher(DispatcherInterface $dispatcher)
-	{
-		$this->dispatcher = $dispatcher;
 
 		return $this;
 	}

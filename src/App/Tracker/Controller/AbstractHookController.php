@@ -173,16 +173,19 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		$this->debug = $this->getContainer()->get('app')->get('debug.hooks');
 
 		// Initialize the logger
-		$this->logger = new Logger('JTracker');
-
-		$this->logger->pushHandler(
-			new StreamHandler(
-				$this->getContainer()->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
+		$this->setLogger(
+			new Logger(
+				'JTracker',
+				[
+					new StreamHandler(
+						$this->getContainer()->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
+					)
+				]
 			)
 		);
 
 		// Get the event dispatcher
-		$this->dispatcher = $this->getContainer()->get('app')->getDispatcher();
+		$this->setDispatcher($this->getContainer()->get('app')->getDispatcher());
 
 		// Get a database object
 		$this->db = $this->getContainer()->get('db');
