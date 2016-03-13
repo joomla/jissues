@@ -108,10 +108,7 @@
 {% macro milestone(value, id, class, milestones) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {
-    0: '- milestones -'|_,
-    (-1): 'No milestones'|_
-    } %}
+    {% set values = {0: '- milestones -'|_} %}
     {% for milestone in milestones %}
         {% set values = values + { (milestone.milestone_id) : (milestone.title) } %}
     {% endfor %}
