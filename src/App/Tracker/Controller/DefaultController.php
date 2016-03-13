@@ -258,6 +258,10 @@ class DefaultController extends AbstractTrackerListController
 			$application->getUserStateFromRequest('project_' . $projectId . '.filter.type', 'type', 0, 'uint')
 		);
 
+		$state->set('filter.milestone',
+			$application->getUserStateFromRequest('project_' . $projectId . '.filter.milestone', 'milestone', 0, 'int')
+		);
+
 		$this->model->setState($state);
 	}
 }
