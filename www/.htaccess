@@ -23,6 +23,17 @@ RewriteRule .* http://%{HTTP_HOST}/%1 [R=301,L]
 
 
 ###########################################
+# =========== Redirect old URIs ===========
+
+RewriteRule ^/?tracker/joomla-cms-3-issues$ tracker/joomla-cms [R=301,L]
+RewriteRule ^/?tracker/joomla-cms-3-issues/(.*)$ tracker/joomla-cms/$1 [R=301,L]
+RewriteRule ^/?tracker/jtracker-bugs$ tracker/jtracker [R=301,L]
+RewriteRule ^/?tracker/jtracker-bugs/(.*)$ tracker/jtracker/$1 [R=301,L]
+
+###########################################
+
+
+###########################################
 # ======== Redirect HTTP to HTTPS =========
 
 RewriteCond %{HTTPS} off
@@ -33,7 +44,7 @@ RewriteRule ^(.*)$ https://issues.joomla.org/$1 [R=301,L,QSA]
 
 
 ###########################################
-# ======== SEF URL Routing ========
+# ============ SEF URL Routing ============
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
