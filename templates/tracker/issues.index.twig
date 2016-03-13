@@ -140,6 +140,9 @@
                 <div class="btn-group">
                     {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'toclear input-small') }}
                 </div>
+                <div class="btn-group">
+                    {{ filters.milestone(state.get('filter.milestone'), 'filter-milestone', 'toclear selectpicker input-medium-140', project.milestones) }}
+                </div>
                 {% if user.username %}
                     <div class="btn-group">
                         {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-180') }}
