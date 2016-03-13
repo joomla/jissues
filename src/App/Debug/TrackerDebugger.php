@@ -11,6 +11,8 @@ namespace App\Debug;
 use g11n\g11n;
 
 use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Profiler\Profiler;
 use Joomla\Utilities\ArrayHelper;
 
@@ -28,6 +30,7 @@ use Kint;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Processor\WebProcessor;
 
 use Psr\Log\LoggerAwareInterface;
@@ -41,9 +44,9 @@ use Whoops\Run;
  *
  * @since  1.0
  */
-class TrackerDebugger implements LoggerAwareInterface
+class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 {
-	use LoggerAwareTrait;
+	use LoggerAwareTrait, ContainerAwareTrait;
 
 	/**
 	 * Application object.
@@ -59,7 +62,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $log = array();
+	private $log = [];
 
 	/**
 	 * Profiler object.
@@ -70,14 +73,6 @@ class TrackerDebugger implements LoggerAwareInterface
 	private $profiler;
 
 	/**
-	 * DI Container
-	 *
-	 * @var  Container
-	 * @since  1.0
-	 */
-	private $container;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param   Container  $container  The DI container.
@@ -86,7 +81,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function __construct(Container $container)
 	{
-		$this->container = $container;
+		$this->setContainer($container);
 
 		$this->application = $container->get('app');
 
@@ -122,43 +117,47 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		if ($this->application->get('debug.database'))
 		{
-			$logger = new Logger('JTracker');
-
-			$logger->pushHandler(
-				new StreamHandler(
-					$this->getLogPath('root') . '/database.log',
-					Logger::DEBUG
+			$db = $this->getContainer()->get('db');
+			$db->setDebug(true);
+			$db->setLogger(
+				new Logger(
+					'JTracker',
+					[
+						new StreamHandler(
+							$this->getLogPath('root') . '/database.log',
+							Logger::DEBUG
+						)
+					],
+					[
+						new PsrLogMessageProcessor,
+						new WebProcessor,
+						[$this, 'addDatabaseEntry']
+					]
 				)
 			);
-
-			$logger->pushProcessor([$this, 'addDatabaseEntry']);
-			$logger->pushProcessor(new WebProcessor);
-
-			$db = $this->container->get('db');
-			$db->setLogger($logger);
-			$db->setDebug(true);
 		}
 
 		if (!$this->application->get('debug.logging'))
 		{
-			$this->logger = new Logger('JTracker');
-			$this->logger->pushHandler(new NullHandler);
+			$this->setLogger(new Logger('JTracker', [new NullHandler]));
 
 			return $this;
 		}
 
-		$logger = new Logger('JTracker');
-
-		$logger->pushHandler(
-			new StreamHandler(
-				$this->getLogPath('root') . '/error.log',
-				Logger::ERROR
+		$this->setLogger(
+			new Logger(
+				'JTracker',
+				[
+					new StreamHandler(
+						$this->getLogPath('root') . '/error.log',
+						Logger::ERROR
+					)
+				],
+				[
+					new WebProcessor
+				]
 			)
 		);
-
-		$logger->pushProcessor(new WebProcessor);
-
-		$this->setLogger($logger);
 
 		return $this;
 	}
@@ -188,7 +187,7 @@ class TrackerDebugger implements LoggerAwareInterface
 	 */
 	public function addDatabaseEntry($record)
 	{
-		// $db = $this->container->get('db');
+		// $db = $this->getContainer()->get('db');
 
 		if (false == isset($record['context']))
 		{
@@ -548,7 +547,7 @@ class TrackerDebugger implements LoggerAwareInterface
 		$view = new \JTracker\View\TrackerDefaultView;
 
 		$renderer = $view->getRenderer();
-		$renderer->addExtension(new TrackerExtension($this->container));
+		$renderer->addExtension(new TrackerExtension($this->getContainer()));
 
 		$message = '';
 
@@ -645,7 +644,7 @@ class TrackerDebugger implements LoggerAwareInterface
 
 		$tableFormat = new TableFormat;
 		$sqlFormat   = new SqlFormat;
-		$dbDebugger  = new DatabaseDebugger($this->container->get('db'));
+		$dbDebugger  = new DatabaseDebugger($this->getContainer()->get('db'));
 
 		$debug[] = sprintf(g11n4t('One database query', '%d database queries', count($dbLog)), count($dbLog));
 

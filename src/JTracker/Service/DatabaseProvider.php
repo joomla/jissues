@@ -13,6 +13,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Processor\WebProcessor;
 
 /**
@@ -27,7 +28,7 @@ class DatabaseProvider implements ServiceProviderInterface
 	 *
 	 * @param   Container  $container  The DI container.
 	 *
-	 * @return  Container  Returns itself to support chaining.
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -49,19 +50,21 @@ class DatabaseProvider implements ServiceProviderInterface
 
 				$db = DatabaseDriver::getInstance($options);
 				$db->setDebug($app->get('debug.database', false));
-
-				$logger = new Logger('JTracker-Database');
-
-				$logger->pushHandler(
-					new StreamHandler(
-						$app->get('debug.log-path', JPATH_ROOT) . '/database.log',
-						Logger::ERROR
+				$db->setLogger(
+					new Logger(
+						'JTracker-Database',
+						[
+							new StreamHandler(
+								$app->get('debug.log-path', JPATH_ROOT) . '/database.log',
+								Logger::ERROR
+							)
+						],
+						[
+							new PsrLogMessageProcessor,
+							new WebProcessor
+						]
 					)
 				);
-
-				$logger->pushProcessor(new WebProcessor);
-
-				$db->setLogger($logger);
 
 				return $db;
 			}, true, true
