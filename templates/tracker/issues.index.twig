@@ -626,7 +626,7 @@
             if (search) { stools[stools.length] = 'search=' + search }
             if (status != 0) { stools[stools.length] = 'status=' + status }
             if (priority != 0) { stools[stools.length] = 'priority=' + priority }
-            if (user != 0) { stools[stools.length] = 'user=' + user }
+            if (user != 0 && user != undefined) { stools[stools.length] = 'user=' + user }
             if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
