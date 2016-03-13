@@ -6,8 +6,6 @@ module.exports = function(grunt) {
             dev: {
                 dest: 'www/media/js/vendor',
                 css_dest: 'www/media/css/vendor',
-                fonts_dest: 'www/media/fonts',
-                images_dest: 'www/media/images',
                 options: {
                     expand: true,
                     packageSpecific: {
@@ -69,6 +67,11 @@ module.exports = function(grunt) {
                             files: [
                                 'markitup/jquery.markitup.js'
                             ]
+                        },
+                        'octicons': {
+                            files: [
+                                'octicons/octicons.css'
+                            ]
                         }
                     }
                 }
@@ -87,7 +90,8 @@ module.exports = function(grunt) {
                     'bootstrap-switch': ['static/stylesheets/bootstrap-switch.css', 'static/js/bootstrap-switch.js'],
                     'jquery-validation': ['dist/jquery.validate.js', 'src/localization/*.js'],
                     'markitup': ['markitup/jquery.markitup.js'],
-                    'twbs-pagination': ['jquery.twbsPagination.js']
+                    'twbs-pagination': ['jquery.twbsPagination.js'],
+                    'octicons': ['octicons/octicons.css']
                 }
             }
         },
@@ -109,7 +113,31 @@ module.exports = function(grunt) {
                     'www/media/js/vendor.min.js': 'www/media/js/vendor.js'
                 }
             }
-        }
+        },
+        replace: {
+            dist: {
+                src: 'www/media/css/vendor.css',
+                overwrite: true,
+                replacements: [
+                    {from: 'octicons.', to: '../fonts/octicons.'},
+                    {from: 'img/\(.*\).gif', to: '../img/$1.gif'},
+                ]
+            }
+        },
+        copy: {
+            octicons: {
+                expand: true,
+                cwd: 'bower_components/octicons/octicons',
+                src: ['octicons.eot', 'octicons.svg', 'octicons.ttf', 'octicons.woff'],
+                dest: 'www/media/fonts/'
+            },
+            upload: {
+                expand: true,
+                cwd: 'bower_components/blueimp-file-upload/img',
+                src: '*',
+                dest: 'www/media/img/'
+            },
+        },
     });
 
     // Plugin loading
@@ -117,11 +145,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-text-replace');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Task definition
     grunt.registerTask('buildbower', [
+        'bower',
         'bower_concat',
         'uglify:bower',
-        'cssmin'
+        'replace',
+        'cssmin',
+        'copy:octicons',
+        'copy:upload'
     ]);
 };

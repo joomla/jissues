@@ -21,6 +21,7 @@
     "Caret.js": "0.2.0",
     "jquery.atwho": "0.5.1",
     "semantic-ui-dropdown": "1.10.3",
-    "semantic-ui-transition": "1.10.4"
+    "semantic-ui-transition": "1.10.4",
+    "octicons": "3.5.0"
   }
 }

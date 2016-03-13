@@ -21,6 +21,7 @@ composer.phar
 # Bower Components #
 /bower_components/
 /www/media/*/vendor/
+/www/media/css/temp.css
 
 # Build/Test related files #
 cache.properties
