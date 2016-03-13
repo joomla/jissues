@@ -25,10 +25,10 @@ RewriteRule .* http://%{HTTP_HOST}/%1 [R=301,L]
 ###########################################
 # =========== Redirect old URIs ===========
 
-RewriteRule ^/?tracker/joomla-cms-3-issues$ tracker/joomla-cms [R=301,L]
-RewriteRule ^/?tracker/joomla-cms-3-issues/(.*)$ tracker/joomla-cms/$1 [R=301,L]
-RewriteRule ^/?tracker/jtracker-bugs$ tracker/jtracker [R=301,L]
-RewriteRule ^/?tracker/jtracker-bugs/(.*)$ tracker/jtracker/$1 [R=301,L]
+RewriteRule ^/?tracker/joomla-cms-3-issues$ /tracker/joomla-cms [R=301,L]
+RewriteRule ^/?tracker/joomla-cms-3-issues/(.*)$ /tracker/joomla-cms/$1 [R=301,L]
+RewriteRule ^/?tracker/jtracker-bugs$ /tracker/jtracker [R=301,L]
+RewriteRule ^/?tracker/jtracker-bugs/(.*)$ /tracker/jtracker/$1 [R=301,L]
 
 ###########################################
 
