@@ -14,7 +14,10 @@ use App\Tracker\DiffRenderer\Html\Inline;
 
 use g11n\g11n;
 
+use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
+
+use JTracker\Application;
 
 /**
  * Twig extension class
@@ -24,10 +27,20 @@ use Joomla\DI\Container;
 class TrackerExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
 	/**
-	 * @var    Container
+	 * Application object
+	 *
+	 * @var    Application
 	 * @since  1.0
 	 */
-	private $container = null;
+	private $app;
+
+	/**
+	 * Database connector
+	 *
+	 * @var    DatabaseDriver
+	 * @since  1.0
+	 */
+	private $db;
 
 	/**
 	 * Constructor.
@@ -38,7 +51,8 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function __construct(Container $container)
 	{
-		$this->container = $container;
+		$this->app = $container->get('app');
+		$this->db  = $container->get('db');
 	}
 
 	/**
@@ -62,21 +76,14 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function getGlobals()
 	{
-		/* @type \JTracker\Application $application */
-		$application = $this->container->get('app');
-
 		return [
-			'uri'            => $application->get('uri'),
-			'offset'         => ($application->getUser()->params->get('timezone'))
-								? $application->getUser()->params->get('timezone')
-								: $application->get('system.offset'),
-			'languages'      => $application->get('languages'),
+			'uri'            => $this->app->get('uri'),
+			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
+			'languages'      => $this->app->get('languages'),
 			'jdebug'         => JDEBUG,
-			'lang'           => ($application->getUser()->params->get('language'))
-								? $application->getUser()->params->get('language')
-								: g11n::getCurrent(),
+			'lang'           => $this->app->getUser()->params->get('language') ?: g11n::getCurrent(),
 			'g11nJavaScript' => g11n::getJavaScript(),
-			'useCDN'         => $application->get('system.use_cdn'),
+			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
 	}
 
@@ -94,6 +101,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', [$this, 'stripJRoot']),
+			new \Twig_SimpleFunction('asset', [$this, 'getAssetUrl']),
 			new \Twig_SimpleFunction('avatar', [$this, 'fetchAvatar']),
 			new \Twig_SimpleFunction('prioClass', [$this, 'getPrioClass']),
 			new \Twig_SimpleFunction('priorities', [$this, 'getPriorities']),
@@ -169,10 +177,11 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 * @return  string
 	 *
 	 * @since   1.0
+	 * @todo    Refactor avatar paths to use the media directory
 	 */
 	public function fetchAvatar($userName = '', $width = 0, $class = '')
 	{
-		$base = $this->container->get('app')->get('uri.base.path');
+		$base = $this->app->get('uri.base.path');
 
 		$avatar = $userName ? $userName . '.png' : 'user-default.png';
 
@@ -300,11 +309,9 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if (!$statuses)
 		{
-			$db = $this->container->get('db');
-
-			$items = $db->setQuery(
-				$db->getQuery(true)
-					->from($db->quoteName('#__status'))
+			$items = $this->db->setQuery(
+				$this->db->getQuery(true)
+					->from($this->db->quoteName('#__status'))
 					->select('*')
 			)->loadObjectList();
 
@@ -432,12 +439,12 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if (!$labels)
 		{
-			$labels = $this->container->get('app')->getProject()->getLabels();
+			$labels = $this->app->getProject()->getLabels();
 		}
 
-		$html = array();
+		$html = [];
 
-		$ids = ($idsString) ? explode(',', $idsString) : array();
+		$ids = ($idsString) ? explode(',', $idsString) : [];
 
 		foreach ($ids as $id)
 		{
@@ -478,8 +485,8 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$html = array();
 
 		$title = ($title) ? : ' #' . $number;
-		$href = $this->container->get('app')->get('uri')->base->path
-			. 'tracker/' . $this->container->get('app')->getProject()->alias . '/' . $number;
+		$href = $this->app->get('uri')->base->path
+			. 'tracker/' . $this->app->getProject()->alias . '/' . $number;
 
 		$html[] = '<a href="' . $href . '"' . ' title="' . $title . '"' . '>';
 		$html[] = $closed ? '<del># ' . $number . '</del>' : '# ' . $number;
@@ -501,13 +508,11 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if (!$relTypes)
 		{
-			$db = $this->container->get('db');
-
-			$relTypes = $db->setQuery(
-				$db->getQuery(true)
-					->from($db->quoteName('#__issues_relations_types'))
-					->select($db->quoteName('id', 'value'))
-					->select($db->quoteName('name', 'text'))
+			$relTypes = $this->db->setQuery(
+				$this->db->getQuery(true)
+					->from($this->db->quoteName('#__issues_relations_types'))
+					->select($this->db->quoteName('id', 'value'))
+					->select($this->db->quoteName('name', 'text'))
 			)->loadObjectList();
 		}
 
@@ -705,12 +710,10 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if (!$milestones)
 		{
-			$db = $this->container->get('db');
-
-			$milestones = $db->setQuery(
-				$db->getQuery(true)
-					->select($db->quoteName(array('milestone_id', 'title')))
-					->from($db->quoteName('#__tracker_milestones'))
+			$milestones = $this->db->setQuery(
+				$this->db->getQuery(true)
+					->select($this->db->quoteName(['milestone_id', 'title']))
+					->from($this->db->quoteName('#__tracker_milestones'))
 			)->loadObjectList();
 		}
 
@@ -723,5 +726,19 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		}
 
 		return '';
+	}
+
+	/**
+	 * Returns the public URL of an asset
+	 *
+	 * @param   string  $path  The path to a media file relative to the site's media directory
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getAssetUrl($path)
+	{
+		return $this->app->get('uri.media.full') . $path;
 	}
 }
