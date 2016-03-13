@@ -39,9 +39,12 @@ module.exports = function(grunt) {
                             ]
                         },
                         'blueimp-file-upload': {
+                            images_dest: 'www/media/css/vendor',
                             files: [
                                 'css/jquery.fileupload.css',
                                 'css/jquery.fileupload-ui.css',
+                                'img/loading.gif',
+                                'img/progressbar.gif',
                                 'js/jquery.iframe-transport.js',
                                 'js/jquery.fileupload.js',
                                 'js/jquery.fileupload-process.js',
@@ -69,8 +72,13 @@ module.exports = function(grunt) {
                             ]
                         },
                         'octicons': {
+                            fonts_dest: 'www/media/css/vendor',
                             files: [
-                                'octicons/octicons.css'
+                                'octicons/octicons.css',
+                                'octicons/octicons.eot',
+                                'octicons/octicons.svg',
+                                'octicons/octicons.ttf',
+                                'octicons/octicons.woff'
                             ]
                         }
                     }
