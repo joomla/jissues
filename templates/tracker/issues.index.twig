@@ -76,6 +76,7 @@
             or state.get('filter.tests')
             or state.get('filter.easytest') != 2
             or state.get('filter.type')
+            or state.get('filter.milestone')
             or state.get('stools-active') %}
                 in
             {% endif %}
@@ -495,6 +496,7 @@
             var tests = $('#filter-tests').val();
             var easytest = $('#filter-easytest').val();
             var type = $('#filter-type').val();
+            var milestone = $('#filter-milestone').val();
             var page = $('#page').val();
 
             $.ajax({
@@ -513,6 +515,7 @@
                     'tests': tests,
                     'easytest': easytest,
                     'type': type,
+                    'milestone': milestone,
                     'stools-active': active,
                     'page': page
                 },
@@ -544,6 +547,7 @@
                                         'tests': tests,
                                         'easytest': easytest,
                                         'type': type,
+                                        'milestone': milestone,
                                         'stools-active': active
                                     },
                                     success: function (data) {
@@ -562,13 +566,13 @@
                     var categoryText = $('#filter-category option:selected').text();
 
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by, milestone
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by, milestone) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
@@ -629,6 +633,7 @@
             if (easytest != 2) { stools[stools.length] = 'easytest=' + easytest }
             if (type != 0) { stools[stools.length] = 'type=' + type }
             if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
+            if (milestone != 0) { stools[stools.length] = 'milestone=' + milestone }
 
             permaLink += filters.length ? filters.join('&') + '&' : '';
 
