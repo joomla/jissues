@@ -133,11 +133,6 @@ module.exports = function(grunt) {
         },
         uglify: {
             bower: {
-                options: {
-                    mangle: true,
-                    compress: true,
-                    preserveComments: 'all'
-                },
                 files: {
                     'www/media/js/vendor.min.js': 'www/media/js/vendor.js'
                 }
