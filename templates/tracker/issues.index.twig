@@ -29,130 +29,8 @@
     {% import "tracker.filters.twig" as filters %}
 
     <div id="issuesForm" class="form-inline form-search">
-        <div class="filters btn-toolbar clearfix">
-            <div class="clearfix">
-                <div class="btn-group pull-left" data-toggle="buttons-checkbox" id="filter-state-div">
-                    <button type="button"
-                            class="btn{% if state.get('filter.state') == 0 %} active btn-success {% endif %}"
-                            value="0">
-                        {{ 'Open'|_ }}
-                    </button>
-                    <button type="button"
-                            class="btn{% if state.get('filter.state') == 1 %} active btn-danger {% endif %}"
-                            value="1">
-                        {{ 'Closed'|_ }}
-                    </button>
-                    <button type="button"
-                            class="btn{% if state.get('filter.state') == 2 %} active btn-inverse {% endif %}"
-                            value="2">
-                        {{ 'All'|_ }}
-                    </button>
-                </div>
-                <div id="stools-button" class="btn-group">
-                    <button type="button" class="btn pull-left" data-toggle="collapse" data-target="#stools-container">
-                        {{ 'Search tools'|_ }}
-                        <b class="caret"></b>
-                    </button>
-                </div>
-                <div class="btn-group">
-                    <button class="btn" id="button-remove" type="button">{{ 'Clear'|_ }}</button>
-                </div>
-                <a class="btn pull-right" href="{{ uri.base.path }}tracker/{{ project.alias }}/random">
-                    {{ 'Feeling Lucky'|_ }}
-                </a>
-                <a class="btn pull-right" id="permalink" href="javascript:">
-                    {{ 'Permalink'|_ }}
-                </a>
-            </div>
+        {% include "tpl/filters.twig" %}
 
-            <div id="stools-container" class="collapse
-            {% if state.get('filter.status')
-            or state.get('filter.priority')
-            or state.get('filter.search')
-            or state.get('filter.sort')
-            or state.get('filter.user')
-            or state.get('filter.created_by')
-            or state.get('filter.category')
-            or state.get('filter.tests')
-            or state.get('filter.easytest') != 2
-            or state.get('filter.type')
-            or state.get('stools-active') %}
-                in
-            {% endif %}
-            clearfix pull-left">
-                <div class="filter-search btn-group input-append">
-                    <label class="filter-search-lbl element-invisible"
-                           for="filter-search">{{ 'Filter the list by summary or description.'|_ }}</label>
-                    <input type="text" class="toclear search-query input-xlarge" name="filter-search" id="filter-search"
-                           value="{{ state.get('filter.search') }}"
-                           title="{{ translate('Filter the list by ID, summary, or description.') }}"
-                           placeholder="{{ translate('Filter the list by ID, summary, or description.') }}"/>
-                    <button class="btn button-submit" type="button">
-                        <span class="icon-search"></span></button>
-                </div>
-                <div class="btn-group">
-                    {{ filters.type(state.get('filter.type'), 'filter-type', 'toclear input-medium-140') }}
-                </div>
-                {% if (state.get('filter.state') == 0) %}
-                    {% set openState = '' %}
-                    {% set closedState = ' style="display: none"' %}
-                    {% set allState = ' style="display: none"' %}
-                {% elseif (state.get('filter.state') == 2) %}
-                    {% set openState = ' style="display: none"' %}
-                    {% set closedState = ' style="display: none"' %}
-                    {% set allState = '' %}
-                {% else %}
-                    {% set openState = ' style="display: none"' %}
-                    {% set closedState = '' %}
-                    {% set allState = ' style="display: none"' %}
-                {% endif %}
-                <div id="status-open" class="btn-group"{{ openState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-open', 'toclear input-medium-160', 0) }}
-                </div>
-                <div id="status-closed" class="btn-group"{{ closedState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-closed', 'toclear input-medium-160', 1) }}
-                </div>
-                <div id="status-all" class="btn-group"{{ allState|raw }}>
-                    {{ filters.status(state.get('filter.status'), 'filter-status-all', 'toclear input-medium-160', 2) }}
-                </div>
-                <div class="btn-group">
-                    {{ filters.category(state.get('filter.category'), 'filter-category', 'toclear selectpicker', project.categories) }}
-                </div>
-                <div class="btn-group">
-                    {{ filters.label(state.get('filter.label'), 'filter-label', 'toclear selectpicker', project.labels) }}
-                </div>
-                <div class="filter-search btn-group input-append">
-                    <label class="filter-search-lbl element-invisible"
-                           for="filter-created_by">{{ 'Filter the list by creator.'|_ }}</label>
-                    <input type="text" class="toclear search-query input-medium" name="filter-created_by" id="filter-created_by"
-                           value="{{ state.get('filter.created_by') }}"
-                           title="{{ translate('Filter the list by creator.') }}"
-                           placeholder="{{ translate('Filter the list by creator.') }}"/>
-                    <button class="btn button-submit" type="button">
-                        <span class="icon-search"></span></button>
-                </div>
-                <div class="btn-group">
-                    {{ filters.priority(state.get('filter.priority'), 'filter-priority', 'toclear input-small-120') }}
-                </div>
-                <div class="btn-group">
-                    {{ filters.tests(state.get('filter.tests'), 'filter-tests', 'toclear input-medium-140') }}
-                </div>
-                <div class="btn-group">
-                    {{ filters.easytest(state.get('filter.easytest'), 'filter-easytest', 'toclear input-small') }}
-                </div>
-                {% if user.username %}
-                    <div class="btn-group">
-                        {{ filters.user(state.get('filter.user'), 'filter-user', 'input-medium-180') }}
-                    </div>
-                {% endif %}
-                <div class="btn-group">
-                    {{ filters.sort(state.get('filter.sort'), 'filter-sort', 'input-medium-180') }}
-                </div>
-            </div>
-
-            <input type="hidden" name="filter-state" id="filter-state" value="{{ state.get('filter.state') }}"/>
-            <input type="hidden" name="stools-active" id="stools-active" value="{{ state.get('stools-active') }}"/>
-        </div>
         <table class="table table-bordered table-striped table-condensed" id="issuesList">
             <thead>
             <tr>
@@ -492,6 +370,7 @@
             var tests = $('#filter-tests').val();
             var easytest = $('#filter-easytest').val();
             var type = $('#filter-type').val();
+            var milestone = $('#filter-milestone').val();
             var page = $('#page').val();
 
             $.ajax({
@@ -510,6 +389,7 @@
                     'tests': tests,
                     'easytest': easytest,
                     'type': type,
+                    'milestone': milestone,
                     'stools-active': active,
                     'page': page
                 },
@@ -541,6 +421,7 @@
                                         'tests': tests,
                                         'easytest': easytest,
                                         'type': type,
+                                        'milestone': milestone,
                                         'stools-active': active
                                     },
                                     success: function (data) {
@@ -559,13 +440,13 @@
                     var categoryText = $('#filter-category option:selected').text();
 
                     $('#permalink').attr('href', getPermaLink(
-                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by
+                            search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by, milestone
                     ));
                 }
             });
         }
 
-        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by) {
+        function getPermaLink(search, status, priority, user, sort, state, category, categoryText, label, tests, easytest, type, created_by, milestone) {
             var permaLink = '{{ uri.base.path }}tracker/{{ project.alias }}/?';
             var filters = [];
             var stools = [];
@@ -619,13 +500,14 @@
             if (search) { stools[stools.length] = 'search=' + search }
             if (status != 0) { stools[stools.length] = 'status=' + status }
             if (priority != 0) { stools[stools.length] = 'priority=' + priority }
-            if (user != 0) { stools[stools.length] = 'user=' + user }
+            if (user != 0 && user != undefined) { stools[stools.length] = 'user=' + user }
             if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
             if (label != 0) { stools[stools.length] = 'label=' + label }
             if (tests != 0) { stools[stools.length] = 'tests=' + tests }
             if (easytest != 2) { stools[stools.length] = 'easytest=' + easytest }
             if (type != 0) { stools[stools.length] = 'type=' + type }
             if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
+            if (milestone != 0) { stools[stools.length] = 'milestone=' + milestone }
 
             permaLink += filters.length ? filters.join('&') + '&' : '';
 

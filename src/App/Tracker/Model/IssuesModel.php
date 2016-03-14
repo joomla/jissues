@@ -445,6 +445,13 @@ class IssuesModel extends AbstractTrackerListModel
 			$query->where($db->quoteName('a.has_code') . ' = ' . (2 == $filter ? 0 : 1));
 		}
 
+		$filter = (int) $this->state->get('filter.milestone');
+
+		if ($filter)
+		{
+			$query->where($db->quoteName('a.milestone_id') . ' = ' . $filter);
+		}
+
 		return $query;
 	}
 }
