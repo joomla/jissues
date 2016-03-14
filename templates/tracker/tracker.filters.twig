@@ -104,3 +104,14 @@
 
     {{ fields.select('filter-type', values, value, id, class) }}
 {% endmacro %}
+
+{% macro milestone(value, id, class, milestones) %}
+    {% import "fields.twig" as fields %}
+
+    {% set values = {0: '- milestones -'|_} %}
+    {% for milestone in milestones %}
+        {% set values = values + { (milestone.milestone_id) : (milestone.title) } %}
+    {% endfor %}
+
+    {{ fields.select('filter-milestone', values, value, id, class) }}
+{% endmacro %}
