@@ -21,16 +21,23 @@
     {% if useCDN %}
     <link href="https://cdn.joomla.org/template/css/v3_template.min.css?v1.3.0" rel="stylesheet" media="screen">
     {% else %}
-    <link href="{{ uri.base.path }}jtracker/core/css/template.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
     {% endif %}
-    <link rel="stylesheet" href="{{ uri.base.path }}vendor/semantic-ui-transition/transition{{ jdebug ? "" : ".min" }}.css">
-    <link rel="stylesheet" href="{{ uri.base.path }}vendor/semantic-ui-dropdown/dropdown{{ jdebug ? "" : ".min" }}.css">
-    <link rel="stylesheet" href="{{ uri.base.path }}jtracker/core/css/jtracker.css">
-    <link rel="stylesheet" href="{{ uri.base.path }}fonts/octicons/octicons.css">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ uri.base.path }}images/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ uri.base.path }}images/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ uri.base.path }}images/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ uri.base.path }}images/apple-touch-icon-57-precomposed.png">
+
+    {# If in debug mode, load each file individually, otherwise load the combined source #}
+    {% if templateDebug %}
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-dropdown/dropdown.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/octicons/octicons/octicons.css') }}">
+    {% else %}
+    <link rel="stylesheet" href="{{ asset('css/vendor.min.css') }}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/jtracker.css') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}">
     {% if useCDN %}
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     {% endif %}
@@ -124,18 +131,24 @@
     </div>
 
 {% block JavaScriptBottom %}
-    <script src="{{ uri.base.path }}vendor/jquery/jquery{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-affix.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tab.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-collapse.js"></script>
-    <script src="{{ uri.base.path }}vendor/semantic-ui-transition/transition{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}vendor/semantic-ui-dropdown/dropdown{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}jtracker/core/js/jtracker{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}vendor/g11n-js/js/g11n{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}vendor/g11n-js/js/methods{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}vendor/g11n-js/js/phpjs{{ jdebug ? "" : ".min" }}.js"></script>
+    {# If the template is in debug mode, load each file individually, otherwise load the combined source #}
+    {% if templateDebug %}
+    <script src="{{ asset('js/vendor/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-affix.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-dropdown.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tab.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tooltip.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-collapse.js') }}"></script>
+    <script src="{{ asset('js/vendor/semantic-ui-transition/transition.js') }}"></script>
+    <script src="{{ asset('js/vendor/semantic-ui-dropdown/dropdown.js') }}"></script>
+    <script src="{{ asset('js/vendor/g11n-js/js/g11n.js') }}"></script>
+    <script src="{{ asset('js/vendor/g11n-js/js/methods.js') }}"></script>
+    <script src="{{ asset('js/vendor/g11n-js/js/phpjs.js') }}"></script>
+    {% else %}
+    <script src="{{ asset('js/vendor.min.js') }}"></script>
+    {% endif %}
+
+    <script src="{{ asset('js/jtracker' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
 
     <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
 
