@@ -13,13 +13,13 @@ use App\Projects\TrackerProject;
 use App\Tracker\Model\ActivityModel;
 use App\Tracker\Table\StatusTable;
 
-use JTracker\Github\GithubFactory;
-use JTracker\Helper\IpHelper;
-
 use Joomla\Database\DatabaseDriver;
+use Joomla\Http\Exception\InvalidResponseCodeException;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Controller\AbstractAjaxController;
+use JTracker\Github\GithubFactory;
+use JTracker\Helper\IpHelper;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -309,6 +309,18 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				$this->project->gh_user . '/' . $this->project->gh_project
 			);
 		}
+		catch (InvalidResponseCodeException $exception)
+		{
+			$this->logger->info(
+				sprintf(
+					'Error parsing comment %d with GH Markdown',
+					$this->hookData->comment->id
+				),
+				['exception' => $exception]
+			);
+
+			return '';
+		}
 		catch (\DomainException $exception)
 		{
 			$this->logger->info(
@@ -337,6 +349,20 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		try
 		{
 			$githubLabels = $this->github->issues->get($this->project->gh_user, $this->project->gh_project, $issueId)->labels;
+		}
+		catch (InvalidResponseCodeException $exception)
+		{
+			$this->logger->error(
+				sprintf(
+					'Error parsing the labels for GitHub issue %s/%s #%d',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$issueId
+				),
+				['exception' => $exception]
+			);
+
+			return '';
 		}
 		catch (\DomainException $exception)
 		{

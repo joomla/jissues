@@ -11,6 +11,7 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 use App\Projects\TrackerProject;
 
 use Joomla\Github\Github;
+use Joomla\Http\Exception\InvalidResponseCodeException;
 
 use JTracker\Github\DataType\Commit\Status;
 
@@ -55,6 +56,20 @@ abstract class AbstractListener
 		try
 		{
 			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving labels for GitHub item %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
 		catch (\DomainException $e)
 		{
@@ -137,6 +152,21 @@ abstract class AbstractListener
 							$issueNumber
 						)
 					);
+				}
+				catch (InvalidResponseCodeException $e)
+				{
+					$logger->error(
+						sprintf(
+							'Error removing the %s label from GitHub pull request %s/%s #%d',
+							$removeLabel,
+							$project->gh_user,
+							$project->gh_project,
+							$issueNumber
+						),
+						['exception' => $e]
+					);
+
+					throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 				}
 				catch (\DomainException $e)
 				{
@@ -234,6 +264,20 @@ abstract class AbstractListener
 						$issueNumber
 					)
 				);
+			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error adding labels to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$issueNumber
+					),
+					['exception' => $e]
+				);
+
+				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 			}
 			catch (\DomainException $e)
 			{
