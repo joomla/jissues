@@ -71,7 +71,7 @@ class Item extends AbstractTrackerController
 
 		$sha = false;
 
-		if ($item->commits)
+		if (!empty($item->commits))
 		{
 			$commits = json_decode($item->commits);
 			$lastCommit = end($commits);
