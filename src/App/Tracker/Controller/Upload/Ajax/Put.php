@@ -76,7 +76,7 @@ class Put extends AbstractAjaxController
 			}
 			catch (\Exception $e)
 			{
-				$application->getLogger()->error('Failed uploading file', ['errors' => $file->getErrors(), 'exception' => $e]);
+				$application->getLogger()->error('Failed uploading file', ['file' => json_encode($file), 'exception' => $e]);
 
 				$errors = [];
 
