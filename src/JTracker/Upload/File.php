@@ -20,7 +20,7 @@ use Upload\Validation\Size;
  *
  * @since  1.0
  */
-class File extends UploadFile
+class File extends UploadFile implements \JsonSerializable
 {
 	/**
 	 * Application object.
@@ -56,6 +56,22 @@ class File extends UploadFile
 		parent::__construct($key, $storage);
 
 		$this->setValidations();
+	}
+
+	/**
+	 * Specify data which should be serialized to JSON
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	public function jsonSerialize()
+	{
+		return [
+			'name'   => $this->getNameWithExtension(),
+			'mime'   => $this->getMimetype(),
+			'errors' => $this->getErrors(),
+		];
 	}
 
 	/**
