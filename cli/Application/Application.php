@@ -28,6 +28,7 @@ use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
+use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Event\DispatcherInterface;
 use Joomla\Input;
 use Joomla\Registry\Registry;
@@ -45,9 +46,9 @@ use JTracker\Service\TransifexProvider;
  *
  * @since  1.0
  */
-class Application extends AbstractCliApplication implements DispatcherAwareInterface
+class Application extends AbstractCliApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
-	use ContainerAwareTrait;
+	use ContainerAwareTrait, DispatcherAwareTrait;
 
 	/**
 	 * Quiet mode - no output.
@@ -88,14 +89,6 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 	 * @since  1.0
 	 */
 	protected $commandOptions = array();
-
-	/**
-	 * Event Dispatcher
-	 *
-	 * @var    DispatcherInterface
-	 * @since  1.0
-	 */
-	private $dispatcher;
 
 	/**
 	 * Class constructor.
@@ -307,34 +300,6 @@ class Application extends AbstractCliApplication implements DispatcherAwareInter
 		}
 
 		return $alternatives;
-	}
-
-	/**
-	 * Get the dispatcher object.
-	 *
-	 * @return  DispatcherInterface
-	 *
-	 * @since   1.0
-	 */
-	public function getDispatcher()
-	{
-		return $this->dispatcher;
-	}
-
-	/**
-	 * Set the dispatcher to use.
-	 *
-	 * @param   DispatcherInterface  $dispatcher  The dispatcher to use.
-	 *
-	 * @return  $this  Method allows chaining
-	 *
-	 * @since   1.0
-	 */
-	public function setDispatcher(DispatcherInterface $dispatcher)
-	{
-		$this->dispatcher = $dispatcher;
-
-		return $this;
 	}
 
 	/**
