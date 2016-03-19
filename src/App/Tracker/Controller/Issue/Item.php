@@ -75,7 +75,11 @@ class Item extends AbstractTrackerController
 		{
 			$commits = json_decode($item->commits);
 			$lastCommit = end($commits);
-			$sha = $lastCommit->sha;
+
+			if ($lastCommit)
+			{
+				$sha = $lastCommit->sha;
+			}
 		}
 
 		$item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
