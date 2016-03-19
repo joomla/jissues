@@ -22,6 +22,7 @@ use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Registry\Registry;
+use Joomla\Router\Router;
 
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
@@ -49,7 +50,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 final class Application extends AbstractWebApplication implements ContainerAwareInterface, DispatcherAwareInterface
 {
-	use ContainerAwareTrait, DispatcherAwareTrait;
+	use ContainerAwareTrait, DispatcherAwareTrait, ApplicationTrait;
 
 	/**
 	 * The name of the application.
@@ -67,6 +68,14 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 * @note   This has been created to avoid a conflict with the $session member var from the parent class.
 	 */
 	private $newSession = null;
+
+	/**
+	 * Application router.
+	 *
+	 * @var    Router
+	 * @since  1.0
+	 */
+	private $router;
 
 	/**
 	 * The User object.
@@ -124,6 +133,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				]
 			)
 		);
+
+		$this->setRouter(new TrackerRouter($this->getContainer(), $this->input));
 	}
 
 	/**
@@ -149,47 +160,24 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			// Instantiate the router
-			$router = new TrackerRouter($this->getContainer(), $this->input);
+			$this->getRouter()->setControllerPrefix('\\App')
+				->setDefaultController('\\Tracker\\Controller\\DefaultController');
 
-			// Search for App specific routes
-			/* @type \DirectoryIterator $fileInfo */
-			foreach (new \DirectoryIterator(JPATH_ROOT . '/src/App') as $fileInfo)
-			{
-				if ($fileInfo->isDot())
-				{
-					continue;
-				}
+			$this->bootApps();
 
-				$path = realpath(JPATH_ROOT . '/src/App/' . $fileInfo->getFilename() . '/routes.json');
-
-				if ($path)
-				{
-					$maps = json_decode(file_get_contents($path));
-
-					if (!$maps)
-					{
-						throw new \RuntimeException('Invalid router file. ' . $path, 500);
-					}
-
-					$router->addMaps($maps);
-				}
-			}
-
-			$router->setControllerPrefix('\\App');
-			$router->setDefaultController('\\Tracker\\Controller\\DefaultController');
+			$this->mark('Apps booted');
 
 			// Fetch the controller
 			/* @type AbstractTrackerController $controller */
-			$controller = $router->getController($this->get('uri.route'));
+			$controller = $this->getRouter()->getController($this->get('uri.route'));
 
-			$this->mark('Controller->initialize()');
 			$controller->initialize();
+			$this->mark('Controller initialized');
 
 			// Load the language for the application
 			// @todo language must be loaded after routing is processed cause the Project object is coupled with the User object...
-			$this->mark('loadLanguage()');
 			$this->loadLanguage();
+			$this->mark('Language loaded');
 
 			// Execute the App
 
@@ -199,9 +187,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			// Load the App language file
 			g11n::loadLanguage($controller->getApp(), 'App');
 
-			$this->mark('Controller->execute()');
-
 			$contents = $controller->execute();
+			$this->mark('Controller executed');
 
 			if (!$contents)
 			{
@@ -722,5 +709,39 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		$this->input->cookie->set('remember_me', $value, $expire);
 
 		return $this;
+	}
+
+	/**
+	 * Set the application's router.
+	 *
+	 * @param   Router  $router  Router object to set.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	public function setRouter(Router $router)
+	{
+		$this->router = $router;
+
+		return $this;
+	}
+
+	/**
+	 * Get the event dispatcher.
+	 *
+	 * @return  Router
+	 *
+	 * @since   1.0
+	 * @throws  \UnexpectedValueException May be thrown if the router has not been set.
+	 */
+	public function getRouter()
+	{
+		if ($this->router)
+		{
+			return $this->router;
+		}
+
+		throw new \UnexpectedValueException('Router not set in ' . __CLASS__);
 	}
 }
