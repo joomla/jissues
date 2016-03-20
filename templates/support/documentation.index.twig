@@ -12,57 +12,39 @@
     <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
 
     <style>
-        .spinner {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            margin-left: -33px;
-            margin-top: -33px;
-            text-align:center;
-            z-index:1234;
-            overflow: auto;
-            width: 66px;
-            height: 68px;
+        #loading {
+        	background: rgba(255, 255, 255, .8) url('/images/tracker/ajax-loader.gif') 50% 15% no-repeat;
+        	position: fixed;
+        	opacity: 0.8;
+        	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);
+        	filter: alpha(opacity = 80);
+        	margin-left: auto;
+            margin-right: auto;
+        	overflow: hidden;
         }
     </style>
 
 {% endblock %}
 
 {% block content %}
-    <div id="spinner" class="spinner" style="display:none;">
-        <img id="img-spinner" src="/images/tracker/ajax-loader.gif" alt="Loading"/>
+    <div id="docuMain" class="row-fluid">
+        <div class="span3">
+            <h2>Documentation</h2>
+            <div id="filetree"></div>
+        </div>
+        <div class="span9" id="docuContainer"></div>
     </div>
-
-	<div class="row-fluid">
-		<div class="span3">
-			<h2>Documentation</h2>
-			<div id="filetree"></div>
-
-			<!--
-			<ul class="unstyled">
-				{% for name, page in pages %}
-					<li>
-						<a href="{{ uri.base.path }}devdox/{{ page }}">
-							{{ name|title }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-			-->
-
-		</div>
-		<div class="span9" id="docuContainer"></div>
-	</div>
+    <div id="loading"></div>
 
     <!-- ++++++++++++++++++++++++++ -->
     <!-- +  JavaScript templates  + -->
     <!-- ++++++++++++++++++++++++++ -->
 
     <script type="text/x-tmpl" id="tplDocuPage">
-		<div class="breadcrumb">
-			<a class="btn btn-success" href="[%= o.editLink %]">{{ 'Improve'|_ }}</a>
-			<a class="btn btn-info pull-right" href="[%= o.permaLink %]">{{ 'Permalink'|_ }}</a>
-		</div>
+        <div class="breadcrumb">
+            <a class="btn btn-success" href="[%= o.editLink %]">{{ 'Improve'|_ }}</a>
+            <a class="btn btn-info pull-right" href="[%= o.permaLink %]">{{ 'Permalink'|_ }}</a>
+        </div>
 
         [%# o.data %]
     </script>
@@ -82,49 +64,62 @@
 
     <script src="{{ uri.base.path }}jtracker/file-tree/jqueryFileTree.js"></script>
 
-	<script type="text/javascript">
-		function loadDocuPage(fullPath) {
-			jQuery.ajax({
-				url : '{{ uri.base.path }}documentation/show/?' + fullPath,
-				beforeSend: function() {
-					$('#spinner').show();
-				},
-				success: function(response) {
-					if(response.error)
-					{
-						jQuery('#docuContainer').html(tmpl("tplDocuError", response));
-					}
-					else
-					{
-						jQuery('#docuContainer').html(tmpl("tplDocuPage", response));
-						window.history.pushState({},'', '{{ uri.base.path }}documentation/view/?' + fullPath);
-					}
-				},
-				error: (function() {
-					alert('error..');
-				}),
-				complete: function(){
-					$('#spinner').hide();
-				}
-			});
-		}
+    <script type="text/javascript">
+        function loadDocuPage(fullPath) {
+            jQuery.ajax({
+                url: '{{ uri.base.path }}documentation/show/?' + fullPath,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (response) {
+                    if (response.error) {
+                        jQuery('#docuContainer').html(tmpl("tplDocuError", response));
+                    } else {
+                        jQuery('#docuContainer').html(tmpl("tplDocuPage", response));
+                        window.history.pushState({}, '', '{{ uri.base.path }}documentation/view/?' + fullPath);
+                    }
+                },
+                error: (function () {
+                    alert('error..');
+                }),
+                complete: function () {
+                    $('#loading').hide();
 
-		$(document).ready(function() {
-			$('#filetree').fileTree({
-				root: '{{ docuBase }}',
-				script: '{{ uri.base.path }}filetree',
-				multiFolder: false
-			}, function(fullPath) {
-				loadDocuPage(fullPath);
-			});
+                    // Resize the loading overlay
+                    resizeLoading();
+                }
+            });
+        }
 
-			//
-			// Load a page if the path is given
-			// @todo update file tree
-			{% if fullPath %}
-			loadDocuPage('{{ fullPath|raw }}');
-			{% endif %}
-		});
+        function resizeLoading() {
+            var outerContainer = $('div.body > div.container'),
+                pageSection = $('#docuMain'),
+                loading = $('#loading');
 
-	</script>
+            loading.css('top', pageSection.position().top - $(window).scrollTop())
+                .css('left', pageSection.position().left)
+                .css('width', outerContainer.width())
+                .css('height', outerContainer.height())
+                .css('display', 'none');
+        }
+
+        $(document).ready(function () {
+            $('#filetree').fileTree({
+                root: '{{ docuBase }}',
+                script: '{{ uri.base.path }}filetree',
+                multiFolder: false
+            }, function (fullPath) {
+                loadDocuPage(fullPath);
+            });
+
+            resizeLoading();
+
+            //
+            // Load a page if the path is given
+            // @todo update file tree
+            {% if fullPath %}
+            loadDocuPage('{{ fullPath|raw }}');
+            {% endif %}
+        });
+    </script>
 {% endblock %}
