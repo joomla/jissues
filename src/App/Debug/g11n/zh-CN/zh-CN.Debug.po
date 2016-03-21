@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
 "PO-Revision-Date: 2016-01-08 17:52+0000\n"
 "Last-Translator: Zehan Zhao <cnallenzhao@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/opentranslators/jtracker/language/zh_CN/)\n"
@@ -28,79 +28,79 @@ msgstr "对于 %s 的查询 EXPLAIN命令失败"
 msgid "%s database is not supported yet."
 msgstr "暂不支持 %s 类型的数据库"
 
-#: /src/App/Debug/TrackerDebugger.php:277
+#: /src/App/Debug/TrackerDebugger.php:281
 msgid "Database"
 msgstr "数据库"
 
-#: /src/App/Debug/TrackerDebugger.php:286
-#: /src/App/Debug/TrackerDebugger.php:372
+#: /src/App/Debug/TrackerDebugger.php:290
+#: /src/App/Debug/TrackerDebugger.php:376
 msgid "Profile"
 msgstr "资料"
 
-#: /src/App/Debug/TrackerDebugger.php:291
-#: /src/App/Debug/TrackerDebugger.php:429
+#: /src/App/Debug/TrackerDebugger.php:295
+#: /src/App/Debug/TrackerDebugger.php:433
 msgid "User"
 msgstr "用户"
 
-#: /src/App/Debug/TrackerDebugger.php:296
-#: /src/App/Debug/TrackerDebugger.php:435
+#: /src/App/Debug/TrackerDebugger.php:300
+#: /src/App/Debug/TrackerDebugger.php:439
 msgid "Project"
 msgstr "项目"
 
-#: /src/App/Debug/TrackerDebugger.php:304
+#: /src/App/Debug/TrackerDebugger.php:308
 msgid "Language Strings"
 msgstr "语言字符"
 
-#: /src/App/Debug/TrackerDebugger.php:309
+#: /src/App/Debug/TrackerDebugger.php:313
 msgid "Language Files"
 msgstr "语言文价"
 
-#: /src/App/Debug/TrackerDebugger.php:351
+#: /src/App/Debug/TrackerDebugger.php:355
 msgid "Go up"
 msgstr "向上"
 
-#: /src/App/Debug/TrackerDebugger.php:361
-#: /src/App/Debug/TrackerDebugger.php:644
+#: /src/App/Debug/TrackerDebugger.php:365
+#: /src/App/Debug/TrackerDebugger.php:654
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
 msgstr[0] "%d 数据库查询"
 
-#: /src/App/Debug/TrackerDebugger.php:389
+#: /src/App/Debug/TrackerDebugger.php:393
 #, php-format
 msgid "One untranslated string of %2$d"
 msgid_plural "%1$d untranslated strings of %2$d"
 msgstr[0] "%1$d 个未翻译，共 %2$d 个"
 
-#: /src/App/Debug/TrackerDebugger.php:397
+#: /src/App/Debug/TrackerDebugger.php:401
 #, php-format
 msgid "One language file loaded"
 msgid_plural "%d language files loaded"
 msgstr[0] "已经加载了 %d 个语言文件"
 
-#: /src/App/Debug/TrackerDebugger.php:408
+#: /src/App/Debug/TrackerDebugger.php:412
 msgid "No Project"
 msgstr "暂无项目"
 
-#: /src/App/Debug/TrackerDebugger.php:431
+#: /src/App/Debug/TrackerDebugger.php:435
 msgid "Guest"
 msgstr "访客"
 
-#: /src/App/Debug/TrackerDebugger.php:444
+#: /src/App/Debug/TrackerDebugger.php:448
 msgid "Build"
 msgstr "版本号"
 
-#: /src/App/Debug/TrackerDebugger.php:510
+#: /src/App/Debug/TrackerDebugger.php:514
 #, php-format
 msgid ""
 "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
 msgstr "复数形式： <code>%1$d</code><br />复数函数: <code>%2$s</code>"
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:737
 msgid "File (line)"
 msgstr "文件(行)"
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:737
 msgid "String"
 msgstr "字符串"
 
