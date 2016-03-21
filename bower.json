@@ -11,6 +11,7 @@
     "bootstrap-switch": "1.8.0",
     "markitup": "1.1.14",
     "blueimp-tmpl": "2.5.3",
+    "blueimp-canvas-to-blob": "2.1.1",
     "blueimp-file-upload": "9.3.0",
     "jquery-textrange": "1.1.0",
     "g11n-js": "1.1",
