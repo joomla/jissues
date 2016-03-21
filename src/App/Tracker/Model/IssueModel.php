@@ -47,7 +47,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$identifier)
 		{
-			throw new \RuntimeException('No id given');
+			throw new \UnexpectedValueException('No id given', 404);
 		}
 
 		$item = $this->db->setQuery(
@@ -90,7 +90,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		if (!$item)
 		{
-			throw new \RuntimeException('Invalid Issue', 1);
+			throw new \RuntimeException('Invalid Issue', 404);
 		}
 
 		// Fetch activities
@@ -363,7 +363,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * @return  integer A random issue number.
 	 *
 	 * @since   1.0
-	 * @throws \RuntimeException
+	 * @throws  \RuntimeException
 	 */
 	public function getRandomNumber()
 	{
@@ -383,7 +383,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		if (!$issueNumber)
 		{
-			throw new \RunTimeException('No issues with less than 5 comments');
+			throw new \RuntimeException('No issues with less than 5 comments');
 		}
 
 		return $issueNumber;

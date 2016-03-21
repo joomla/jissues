@@ -36,7 +36,7 @@ class Refresh extends AbstractTrackerController
 
 		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given');
+			throw new \UnexpectedValueException('No id given', 404);
 		}
 
 		if (!$application->getUser()->check('admin'))
@@ -59,7 +59,7 @@ class Refresh extends AbstractTrackerController
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = new GithubUser($application->getProject(), $this->getContainer()->get('db'));
+		$user = new GitHubUser($application->getProject(), $this->getContainer()->get('db'));
 
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);

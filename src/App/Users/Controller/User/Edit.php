@@ -72,7 +72,7 @@ class Edit extends AbstractTrackerController
 
 		if (!$id)
 		{
-			throw new \UnexpectedValueException('No id given');
+			throw new \UnexpectedValueException('No id given', 404);
 		}
 
 		if (!$application->getUser()->check('admin'))
