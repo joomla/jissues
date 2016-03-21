@@ -1,22 +1,22 @@
 <?php
 /**
- * Part of the Joomla Tracker's GitHub Application
+ * Part of the Joomla Tracker's Groups Application
  *
  * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\GitHub;
+namespace App\Groups;
 
 use Joomla\DI\Container;
 use JTracker\AppInterface;
 
 /**
- * GitHub app
+ * Groups app
  *
  * @since  1.0
  */
-class GitHubApp implements AppInterface
+class GroupsApp implements AppInterface
 {
 	/**
 	 * Loads services for the component into the application's DI Container
@@ -35,7 +35,7 @@ class GitHubApp implements AppInterface
 
 		if (!$maps)
 		{
-			throw new \RuntimeException('Invalid router file for the GitHub app: ' . __DIR__ . '/routes.json', 500);
+			throw new \RuntimeException('Invalid router file for the Groups app: ' . __DIR__ . '/routes.json', 500);
 		}
 
 		/** @var \JTracker\Application $application */

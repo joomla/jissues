@@ -35,7 +35,7 @@ class ProjectsApp implements AppInterface
 
 		if (!$maps)
 		{
-			throw new \RuntimeException('Invalid router file for the Projects app.' . $path, 500);
+			throw new \RuntimeException('Invalid router file for the Projects app: ' . __DIR__ . '/routes.json', 500);
 		}
 
 		/** @var \JTracker\Application $application */

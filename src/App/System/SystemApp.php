@@ -35,7 +35,7 @@ class SystemApp implements AppInterface
 
 		if (!$maps)
 		{
-			throw new \RuntimeException('Invalid router file for the System app.' . $path, 500);
+			throw new \RuntimeException('Invalid router file for the System app: ' . __DIR__ . '/routes.json', 500);
 		}
 
 		/** @var \JTracker\Application $application */

@@ -10,6 +10,8 @@ namespace JTracker;
 
 /**
  * Trait defining common methods between application classes
+ *
+ * @since  1.0
  */
 trait ApplicationTrait
 {
