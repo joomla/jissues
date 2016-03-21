@@ -27,9 +27,9 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$lines = file(JPATH_THEMES . '/jtracker/core/css/template.css');
+		$lines = file(JPATH_THEMES . '/media/css/template.css');
 
-		$icons = array();
+		$icons = [];
 
 		foreach ($lines as $line)
 		{
@@ -46,10 +46,17 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 
 		$this->renderer->set('icons', array_unique($icons));
 
-		// Read octicons
-		$lines = file(JPATH_THEMES . '/fonts/octicons/octicons.css');
+		// Read octicons - prefer separate source if available, otherwise use combined vendor source
+		if (file_exists(JPATH_THEMES . '/media/css/vendor/octicons/octicons/octicons.css'))
+		{
+			$lines = file(JPATH_THEMES . '/media/css/vendor/octicons/octicons/octicons.css');
+		}
+		else
+		{
+			$lines = file(JPATH_THEMES . '/media/css/vendor.css');
+		}
 
-		$icons = array();
+		$icons = [];
 
 		foreach ($lines as $line)
 		{

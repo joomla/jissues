@@ -9,8 +9,14 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}jtracker/markitup/skins/markitup/style.css" rel="stylesheet" />
-    <link href="{{ uri.base.path }}jtracker/markitup/sets/markdown/style.css" rel="stylesheet" />
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css') }}">
 {% endblock %}
 
 {% block prependMenu %}
@@ -72,8 +78,13 @@
 
     {{ parent() }}
 
-    <script type="text/javascript" src="{{ uri.base.path }}vendor/markitup/markitup/jquery.markitup.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}jtracker/markitup/sets/markdown/set.js"></script>
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    <script src="{{ asset('js/vendor/markitup/markitup/jquery.markitup.js') }}"></script>
+    {% endif %}
+
+    <script type="text/javascript" src="{{ asset('css/markitup/sets/markdown/set.js') }}"></script>
+
     <script type="text/javascript">
         $('#text').markItUp(myMarkdownSettings);
 

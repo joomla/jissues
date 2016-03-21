@@ -28,8 +28,7 @@
 
 	"renderer": {
 		"type" : "twig",
-		"debug": "1",
-        "cache": false
+		"cache": false
 	},
 
 	"system": {
@@ -60,6 +59,7 @@
 		"hooks"   : "0",
 		"logging" : "0",
 		"log-path": "$OPENSHIFT_LOG_DIR",
+		"template": "0",
 		"admin"   : "1"
 	},
 

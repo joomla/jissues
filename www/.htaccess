@@ -12,6 +12,110 @@ RewriteEngine On
 
 
 ###########################################
+# ======= No directory listings =======
+
+IndexIgnore *
+Options +FollowSymLinks
+Options -Indexes
+
+###########################################
+
+
+###########################################
+# === Optimal default expiration time ===
+
+<IfModule mod_expires.c>
+	# Enable expiration control
+	ExpiresActive On
+
+	# Default expiration: 1 hour after request
+	ExpiresDefault "now plus 1 hour"
+
+	# CSS and JS expiration: 1 week after request
+	ExpiresByType text/css "now plus 1 week"
+	ExpiresByType application/javascript "now plus 1 week"
+	ExpiresByType application/x-javascript "now plus 1 week"
+
+	# Image files expiration: 1 month after request
+	ExpiresByType image/bmp "now plus 1 month"
+	ExpiresByType image/gif "now plus 1 month"
+	ExpiresByType image/jpeg "now plus 1 month"
+	ExpiresByType image/jp2 "now plus 1 month"
+	ExpiresByType image/pipeg "now plus 1 month"
+	ExpiresByType image/png "now plus 1 month"
+	ExpiresByType image/svg+xml "now plus 1 month"
+	ExpiresByType image/tiff "now plus 1 month"
+	ExpiresByType image/vnd.microsoft.icon "now plus 1 month"
+	ExpiresByType image/x-icon "now plus 1 month"
+	ExpiresByType image/ico "now plus 1 month"
+	ExpiresByType image/icon "now plus 1 month"
+	ExpiresByType text/ico "now plus 1 month"
+	ExpiresByType application/ico "now plus 1 month"
+	ExpiresByType image/vnd.wap.wbmp "now plus 1 month"
+	ExpiresByType application/vnd.wap.wbxml "now plus 1 month"
+	ExpiresByType application/smil "now plus 1 month"
+
+	# Audio files expiration: 1 month after request
+	ExpiresByType audio/basic "now plus 1 month"
+	ExpiresByType audio/mid "now plus 1 month"
+	ExpiresByType audio/midi "now plus 1 month"
+	ExpiresByType audio/mpeg "now plus 1 month"
+	ExpiresByType audio/x-aiff "now plus 1 month"
+	ExpiresByType audio/x-mpegurl "now plus 1 month"
+	ExpiresByType audio/x-pn-realaudio "now plus 1 month"
+	ExpiresByType audio/x-wav "now plus 1 month"
+
+	# Movie files expiration: 1 month after request
+	ExpiresByType application/x-shockwave-flash "now plus 1 month"
+	ExpiresByType x-world/x-vrml "now plus 1 month"
+	ExpiresByType video/x-msvideo "now plus 1 month"
+	ExpiresByType video/mpeg "now plus 1 month"
+	ExpiresByType video/mp4 "now plus 1 month"
+	ExpiresByType video/quicktime "now plus 1 month"
+	ExpiresByType video/x-la-asf "now plus 1 month"
+	ExpiresByType video/x-ms-asf "now plus 1 month"
+</IfModule>
+###########################################
+
+
+###########################################
+# == Automatic compression of resources ==
+
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/plain text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
+</IfModule>
+<IfModule mod_gzip.c>
+	mod_gzip_on Yes
+	mod_gzip_dechunk Yes
+	mod_gzip_keep_workfiles No
+	mod_gzip_can_negotiate Yes
+	mod_gzip_add_header_count Yes
+	mod_gzip_send_vary Yes
+	mod_gzip_min_http 1000
+	mod_gzip_minimum_file_size 300
+	mod_gzip_maximum_file_size 512000
+	mod_gzip_maximum_inmem_size 60000
+	mod_gzip_handle_methods GET
+	mod_gzip_item_include file \.(html?|txt|css|js|php|pl|xml|rb|py)$
+	mod_gzip_item_include mime ^text/plain$
+	mod_gzip_item_include mime ^text/xml$
+	mod_gzip_item_include mime ^text/css$
+	mod_gzip_item_include mime ^application/xml$
+	mod_gzip_item_include mime ^application/xhtml+xml$
+	mod_gzip_item_include mime ^application/rss+xml$
+	mod_gzip_item_include mime ^application/javascript$
+	mod_gzip_item_include mime ^application/x-javascript$
+	mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+	mod_gzip_item_include handler ^cgi-script$
+	mod_gzip_item_include handler ^server-status$
+	mod_gzip_item_include handler ^server-info$
+	mod_gzip_item_include handler ^application/x-httpd-php
+	mod_gzip_item_exclude mime ^image/.*
+</IfModule>
+###########################################
+
+
+###########################################
 # ======== Remove multiple slashes ========
 
 RewriteCond %{HTTP_HOST} !=""

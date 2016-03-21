@@ -2,15 +2,16 @@
   "name": "jissues",
   "version": "1.0",
   "homepage": "https://github.com/joomla/jissues",
-  "description": "JTracker project",
-  "license": "GPL",
+  "description": "Joomla! Issue Tracker",
+  "license": "GPL-2.0+",
   "dependencies": {
     "jquery": "1.9.1",
     "jquery-validation": "1.12.0",
     "bootstrap": "2.3.2",
-    "bootstrap-switch": "v1.8",
+    "bootstrap-switch": "1.8.0",
     "markitup": "1.1.14",
     "blueimp-tmpl": "2.5.3",
+    "blueimp-canvas-to-blob": "2.1.1",
     "blueimp-file-upload": "9.3.0",
     "jquery-textrange": "1.1.0",
     "g11n-js": "1.1",
@@ -20,7 +21,8 @@
     "jquery-simple-color": "1.2.1",
     "Caret.js": "0.2.0",
     "jquery.atwho": "0.5.1",
-    "semantic-ui-dropdown": "~1.10.3",
-    "semantic-ui-transition": "~1.10.4"
- }
+    "semantic-ui-dropdown": "1.10.3",
+    "semantic-ui-transition": "1.10.4",
+    "octicons": "3.5.0"
+  }
 }

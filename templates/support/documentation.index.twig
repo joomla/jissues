@@ -7,20 +7,25 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <link href="{{ uri.base.path }}jtracker/file-tree/jqueryFileTree.css" rel="stylesheet" media="screen">
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/file-tree/jqueryFileTree.css') }}">
+
     <!-- CSS for coloured code -->
-    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="{{ asset('css/code.css') }}">
 
     <style>
         #loading {
-        	background: rgba(255, 255, 255, .8) url('/images/tracker/ajax-loader.gif') 50% 15% no-repeat;
-        	position: fixed;
-        	opacity: 0.8;
-        	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);
-        	filter: alpha(opacity = 80);
-        	margin-left: auto;
+            background: rgba(255, 255, 255, .8) url('/media/images/ajax-loader.gif') 50% 15% no-repeat;
+            position: fixed;
+            opacity: 0.8;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);
+            filter: alpha(opacity = 80);
+            margin-left: auto;
             margin-right: auto;
-        	overflow: hidden;
+            overflow: hidden;
         }
     </style>
 
@@ -35,34 +40,20 @@
         <div class="span9" id="docuContainer"></div>
     </div>
     <div id="loading"></div>
-
-    <!-- ++++++++++++++++++++++++++ -->
-    <!-- +  JavaScript templates  + -->
-    <!-- ++++++++++++++++++++++++++ -->
-
-    <script type="text/x-tmpl" id="tplDocuPage">
-        <div class="breadcrumb">
-            <a class="btn btn-success" href="[%= o.editLink %]">{{ 'Improve'|_ }}</a>
-            <a class="btn btn-info pull-right" href="[%= o.permaLink %]">{{ 'Permalink'|_ }}</a>
-        </div>
-
-        [%# o.data %]
-    </script>
-    <script type="text/x-tmpl" id="tplDocuError">
-        <div class="alert alert-error">
-        [%# o.error %]
-        </div>
-    </script>
-
 {% endblock %}
 
 {% block JavaScriptBottom %}
-{{ parent() }}
+    {{ parent() }}
 
-    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js') }}"></script>
+    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js') }}"></script>
+    {% endif %}
 
-    <script src="{{ uri.base.path }}jtracker/file-tree/jqueryFileTree.js"></script>
+    <script src="{{ asset('js/jtracker-tmpl.js') }}"></script>
+    <script src="{{ asset('js/file-tree/jqueryFileTree.js') }}"></script>
 
     <script type="text/javascript">
         function loadDocuPage(fullPath) {
@@ -121,5 +112,24 @@
             loadDocuPage('{{ fullPath|raw }}');
             {% endif %}
         });
+    </script>
+
+    <!-- ++++++++++++++++++++++++++ -->
+    <!-- +  JavaScript templates  + -->
+    <!-- ++++++++++++++++++++++++++ -->
+
+    <script type="text/x-tmpl" id="tplDocuPage">
+        <div class="breadcrumb">
+            <a class="btn btn-success" href="[%= o.editLink %]">{{ 'Improve'|_ }}</a>
+            <a class="btn btn-info pull-right" href="[%= o.permaLink %]">{{ 'Permalink'|_ }}</a>
+        </div>
+
+        [%# o.data %]
+    </script>
+
+    <script type="text/x-tmpl" id="tplDocuError">
+        <div class="alert alert-error">
+            [%# o.error %]
+        </div>
     </script>
 {% endblock %}
