@@ -30,7 +30,7 @@ class UseractivityModel extends AbstractTrackerDatabaseModel
 		$query = $db->getQuery(true);
 
 		$periodList  = [1 => '-7 DAY', 2 => '-30 Day', 3 => '-90 DAY', 4 => '-1 YEAR', 5 => 'Custom'];
-		$periodValue = $periodList[$this->state->get('list.period')];
+		$periodValue = $periodList[$this->state->get('list.period', 1)];
 
 		$typeList = ['All', 'Tracker', 'Test', 'Code'];
 		$type     = $typeList[$this->state->get('list.activity_type')];

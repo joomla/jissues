@@ -63,7 +63,7 @@ class ProjectActivity extends AbstractAjaxController
 		$items = $this->model->getIssueCounts();
 		$state = $this->model->getState();
 
-		$periodType   = $state->get('list.period');
+		$periodType   = $state->get('list.period', 1);
 		$activityType = $state->get('list.activity_type');
 
 		$periodTitle = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
