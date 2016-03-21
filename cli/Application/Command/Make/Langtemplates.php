@@ -73,7 +73,7 @@ class Langtemplates extends Make
 		$this->getApplication()->outputTitle('Make Language templates');
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/jtracker');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/media');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
@@ -217,7 +217,7 @@ class Langtemplates extends Make
 		// Sort output by file location.
 		$sortByFile = ' --sort-by-file';
 
-		$extensionDir = ExtensionHelper::getExtensionPath($extension);
+		$extensionDir = $extension !== 'core.js' ? ExtensionHelper::getExtensionPath($extension) : '';
 		$dirName      = dirname($templatePath);
 
 		$cleanFiles = array();
