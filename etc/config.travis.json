@@ -17,7 +17,7 @@
 
 	"renderer": {
 		"type" : "twig",
-		"debug": "1"
+		"cache": false
 	},
 
 	"system": {
@@ -45,7 +45,8 @@
 		"language": "0",
 		"hooks"   : "0",
 		"logging" : "1",
-		"log-path": "logs"
+		"log-path": "logs",
+		"template": "0"
 	},
 
 	"languages": []

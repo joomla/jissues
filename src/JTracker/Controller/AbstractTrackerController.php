@@ -380,7 +380,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		{
 			case 'twig':
 				$config['templates_base_dir'] = JPATH_TEMPLATES;
-				$config['environment']['debug'] = JDEBUG ? true : false;
+				$config['environment']['debug'] = (bool) $application->get('debug.template', false);
 				$config['environment']['cache'] = $application->get('renderer.cache', false) ? JPATH_ROOT . '/' . $application->get('renderer.cache') : false;
 
 				break;
