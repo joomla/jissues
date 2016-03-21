@@ -102,15 +102,6 @@
                     {{ "Logs"|_ }}
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="{{ "logs/403" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/403">403</a>
-                    </li>
-                    <li class="{{ "logs/404" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/404">404</a>
-                    </li>
-                    <li class="{{ "logs/500" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/500">500</a>
-                    </li>
                     <li class="{{ "logs/app" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/app">{{ "Application"|_ }}</a>
                     </li>
