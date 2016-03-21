@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
-"PO-Revision-Date: 2016-03-10 02:49+0000\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"PO-Revision-Date: 2016-03-21 18:21+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Latvian (Latvia) (http://www.transifex.com/opentranslators/jtracker/language/lv_LV/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:29
+#: /templates/footerMenu.twig:19 /templates/topMenu.twig:30
 msgid "About"
 msgstr ""
 
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:39
+#: /templates/footerMenu.twig:20 /templates/topMenu.twig:40
 msgid "Community"
 msgstr ""
 
@@ -77,11 +77,11 @@ msgstr ""
 msgid "All rights reserved."
 msgstr ""
 
-#: /templates/index.twig:72
+#: /templates/index.twig:79
 msgid "Download"
 msgstr ""
 
-#: /templates/index.twig:75
+#: /templates/index.twig:82
 msgid "Demo"
 msgstr ""
 
@@ -230,16 +230,12 @@ msgstr ""
 msgid "Sponsorship"
 msgstr ""
 
-#: /templates/topMenu.twig:31
+#: /templates/topMenu.twig:32
 msgid "About Joomla!"
 msgstr ""
 
-#: /templates/topMenu.twig:32
-msgid "Core Features"
-msgstr ""
-
 #: /templates/topMenu.twig:33
-msgid "The Software"
+msgid "Core Features"
 msgstr ""
 
 #: /templates/topMenu.twig:34
@@ -250,119 +246,115 @@ msgstr ""
 msgid "Leadership"
 msgstr ""
 
-#: /templates/topMenu.twig:41
+#: /templates/topMenu.twig:42
 msgid "Joomla! Community Portal"
 msgstr ""
 
-#: /templates/topMenu.twig:42
+#: /templates/topMenu.twig:43
 msgid "Joomla! Events"
 msgstr ""
 
-#: /templates/topMenu.twig:43
+#: /templates/topMenu.twig:44
 msgid "Joomla! User Groups"
 msgstr ""
 
-#: /templates/topMenu.twig:44
+#: /templates/topMenu.twig:45
 msgid "Joomla! Volunteers Portal"
 msgstr ""
 
-#: /templates/topMenu.twig:47
+#: /templates/topMenu.twig:49
 msgid "Support"
 msgstr ""
 
-#: /templates/topMenu.twig:49
+#: /templates/topMenu.twig:51
 msgid "Joomla! Forum"
 msgstr ""
 
-#: /templates/topMenu.twig:50
+#: /templates/topMenu.twig:52
 msgid "Joomla! Documentation"
 msgstr ""
 
-#: /templates/topMenu.twig:51
+#: /templates/topMenu.twig:53
 msgid "Joomla! Issue Tracker"
 msgstr ""
 
-#: /templates/topMenu.twig:52
+#: /templates/topMenu.twig:54
 msgid "Joomla! Resources"
 msgstr ""
 
-#: /templates/topMenu.twig:55
+#: /templates/topMenu.twig:58
 msgid "Read"
 msgstr ""
 
-#: /templates/topMenu.twig:57
+#: /templates/topMenu.twig:60
 msgid "Joomla! Magazine"
 msgstr ""
 
-#: /templates/topMenu.twig:58
+#: /templates/topMenu.twig:61
 msgid "Joomla! Connect"
 msgstr ""
 
-#: /templates/topMenu.twig:59
+#: /templates/topMenu.twig:62
 msgid "Joomla! Mailing Lists"
 msgstr ""
 
-#: /templates/topMenu.twig:62
+#: /templates/topMenu.twig:65
 msgid "Extend"
 msgstr ""
 
-#: /templates/topMenu.twig:64
+#: /templates/topMenu.twig:67
 msgid "Extension Directory"
 msgstr ""
 
-#: /templates/topMenu.twig:65
+#: /templates/topMenu.twig:68
 msgid "Showcase Directory"
 msgstr ""
 
-#: /templates/topMenu.twig:66
-msgid "Resource Directory"
+#: /templates/topMenu.twig:69 /templates/topMenu.twig:91
+msgid "Language Packages"
 msgstr ""
 
-#: /templates/topMenu.twig:67 /templates/topMenu.twig:86
-msgid "Translations"
+#: /templates/topMenu.twig:70
+msgid "Certification Program"
 msgstr ""
 
-#: /templates/topMenu.twig:68
-msgid "Idea Pool"
-msgstr ""
-
-#: /templates/topMenu.twig:71
+#: /templates/topMenu.twig:74
 msgid "Developers"
 msgstr ""
 
-#: /templates/topMenu.twig:73
-msgid "Developer Site"
+#: /templates/topMenu.twig:76
+msgid "Developer Network"
 msgstr ""
 
-#: /templates/topMenu.twig:74 /templates/trackerMenu.twig:200
+#: /templates/topMenu.twig:77 /templates/trackerMenu.twig:200
 msgid "Documentation"
 msgstr ""
 
-#: /templates/topMenu.twig:75
+#: /templates/topMenu.twig:78
 msgid "Joomla! Bug Squad"
 msgstr ""
 
-#: /templates/topMenu.twig:76
+#: /templates/topMenu.twig:79
 msgid "Joomla! API"
 msgstr ""
 
-#: /templates/topMenu.twig:77
+#: /templates/topMenu.twig:80
 msgid "JoomlaCode"
 msgstr ""
 
-#: /templates/topMenu.twig:78
+#: /templates/topMenu.twig:81
 msgid "Joomla! Framework"
 msgstr ""
 
-#: /templates/topMenu.twig:87
+#: /templates/topMenu.twig:92
 msgid "Multilingual Demo"
 msgstr ""
 
-#: /templates/topMenu.twig:88
+#: /templates/topMenu.twig:93
 msgid "Translation Working Group"
 msgstr ""
 
-#: /templates/topMenu.twig:89
+#: /templates/topMenu.twig:94
 msgid "Translations Forum"
 msgstr ""
 

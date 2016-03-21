@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
 "PO-Revision-Date: 2016-02-29 22:34+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/opentranslators/jtracker/language/es_ES/)\n"
@@ -18,28 +18,28 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:40
 msgid "Edit Article"
 msgstr "Editar artículo"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:34
-#: /templates/text/articles.index.twig:19
+#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:40
+#: /templates/text/articles.index.twig:25
 msgid "New Article"
 msgstr "Nuevo artículo"
 
-#: /templates/text/article.edit.twig:19
+#: /templates/text/article.edit.twig:25
 msgid "Save"
 msgstr "Guardar"
 
-#: /templates/text/article.edit.twig:24
+#: /templates/text/article.edit.twig:30
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: /templates/text/article.edit.twig:41
+#: /templates/text/article.edit.twig:47
 msgid "Title"
 msgstr "Título"
 
-#: /templates/text/article.edit.twig:48
+#: /templates/text/article.edit.twig:54
 msgid "Alias"
 msgstr "Alias"
 
@@ -47,27 +47,27 @@ msgstr "Alias"
 msgid "Articles"
 msgstr "Artículos"
 
-#: /templates/text/articles.index.twig:30
+#: /templates/text/articles.index.twig:36
 msgid "Articles List"
 msgstr "Lista de Artículos"
 
-#: /templates/text/articles.index.twig:35
+#: /templates/text/articles.index.twig:41
 msgid "Title/Alias"
 msgstr "Título / Alias"
 
-#: /templates/text/articles.index.twig:36
+#: /templates/text/articles.index.twig:42
 msgid "Actions"
 msgstr "Acciones"
 
-#: /templates/text/articles.index.twig:52
+#: /templates/text/articles.index.twig:58
 msgid "View"
 msgstr "Vista"
 
-#: /templates/text/articles.index.twig:55
+#: /templates/text/articles.index.twig:61
 msgid "Delete"
 msgstr "Borrar"
 
-#: /templates/text/articles.index.twig:61
+#: /templates/text/articles.index.twig:67
 msgid "No articles found"
 msgstr "No hay artículos"
 

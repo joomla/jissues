@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: /templates/support/documentation.index.twig:63
+#: /templates/support/documentation.index.twig:123
 msgid "Improve"
 msgstr ""
 
-#: /templates/support/documentation.index.twig:64
+#: /templates/support/documentation.index.twig:124
 msgid "Permalink"
 msgstr ""
 
@@ -41,75 +41,75 @@ msgstr ""
 msgid "GitHub Flavored Markdown Preview"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:15
+#: /templates/support/markdown.index.twig:20
 msgid "Markdown TEST Page"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:17
+#: /templates/support/markdown.index.twig:22
 msgid "Info"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:18
+#: /templates/support/markdown.index.twig:23
 msgid "Headers"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:19
+#: /templates/support/markdown.index.twig:24
 msgid "Lists"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:20
-#: /templates/support/markdown.index.twig:31
+#: /templates/support/markdown.index.twig:25
+#: /templates/support/markdown.index.twig:36
 msgid "Links"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:21
+#: /templates/support/markdown.index.twig:26
 msgid "Emphasized"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:22
-#: /templates/support/markdown.index.twig:42
-#: /templates/support/markdown.index.twig:64
-#: /templates/support/markdown.index.twig:101
-#: /templates/support/markdown.index.twig:116
-#: /templates/support/markdown.index.twig:133
-#: /templates/support/markdown.index.twig:208
-#: /templates/support/markdown.index.twig:229
-#: /templates/support/markdown.index.twig:247
-#: /templates/support/markdown.index.twig:338
-#: /templates/support/markdown.index.twig:356
+#: /templates/support/markdown.index.twig:27
+#: /templates/support/markdown.index.twig:47
+#: /templates/support/markdown.index.twig:69
+#: /templates/support/markdown.index.twig:106
+#: /templates/support/markdown.index.twig:121
+#: /templates/support/markdown.index.twig:138
+#: /templates/support/markdown.index.twig:213
+#: /templates/support/markdown.index.twig:234
+#: /templates/support/markdown.index.twig:252
+#: /templates/support/markdown.index.twig:343
+#: /templates/support/markdown.index.twig:361
 msgid "Code"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:23
+#: /templates/support/markdown.index.twig:28
 msgid "Blockquotes"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:24
+#: /templates/support/markdown.index.twig:29
 msgid "HRs"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:25
+#: /templates/support/markdown.index.twig:30
 msgid "Tables"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:26
+#: /templates/support/markdown.index.twig:31
 msgid "Images"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:27
+#: /templates/support/markdown.index.twig:32
 msgid "GitHub Spice"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:51
-#: /templates/support/markdown.index.twig:78
-#: /templates/support/markdown.index.twig:107
-#: /templates/support/markdown.index.twig:122
-#: /templates/support/markdown.index.twig:161
-#: /templates/support/markdown.index.twig:215
-#: /templates/support/markdown.index.twig:236
-#: /templates/support/markdown.index.twig:273
-#: /templates/support/markdown.index.twig:342
-#: /templates/support/markdown.index.twig:366
+#: /templates/support/markdown.index.twig:56
+#: /templates/support/markdown.index.twig:83
+#: /templates/support/markdown.index.twig:112
+#: /templates/support/markdown.index.twig:127
+#: /templates/support/markdown.index.twig:166
+#: /templates/support/markdown.index.twig:220
+#: /templates/support/markdown.index.twig:241
+#: /templates/support/markdown.index.twig:278
+#: /templates/support/markdown.index.twig:347
+#: /templates/support/markdown.index.twig:371
 msgid "Output"
 msgstr ""
 

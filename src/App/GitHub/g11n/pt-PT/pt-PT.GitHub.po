@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
-"PO-Revision-Date: 2016-02-27 16:59+0000\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"PO-Revision-Date: 2016-03-15 10:04+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -163,7 +163,7 @@ msgstr ""
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
