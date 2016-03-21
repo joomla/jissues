@@ -36,7 +36,7 @@ class Save extends AbstractTrackerController
 
 		if (!$src['id'])
 		{
-			throw new \UnexpectedValueException('No id given');
+			throw new \UnexpectedValueException('No id given', 404);
 		}
 
 		if (!$application->getUser()->check('admin'))

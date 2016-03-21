@@ -87,6 +87,11 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 
 		$this->profiler = $container->get('app')->get('debug.system') ? new Profiler('Tracker') : null;
 
+		if ($this->profiler)
+		{
+			$this->profiler->setStart(JTRACKER_START_TIME, JTRACKER_START_MEMORY);
+		}
+
 		$this->setupLogging();
 
 		// Register an error handler.

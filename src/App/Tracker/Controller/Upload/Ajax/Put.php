@@ -37,10 +37,10 @@ class Put extends AbstractAjaxController
 			$file = new File($application);
 
 			// Prepare response data
-			$host       = $application->get('uri')->base->host;
-			$destName   = md5(time() . $file->getName()) . '.' . $file->getExtension();
-			$destDir    = $application->getProject()->project_id;
-			$fullPath   = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
+			$host     = $application->get('uri')->base->host;
+			$destName = md5(time() . $file->getName()) . '.' . $file->getExtension();
+			$destDir  = $application->getProject()->project_id;
+			$fullPath = $host . '/' . $application->get('system.upload_dir') . '/' . $destDir . '/' . $destName;
 
 			$isImage = (false !== strpos($file->getMimetype(), 'image'));
 
@@ -48,8 +48,8 @@ class Put extends AbstractAjaxController
 				? 'screen shot ' . date('Y-m-d') . ' at ' . date('H i s')
 				: trim($file->getName()) . '.' . $file->getExtension();
 
-			$data = array(
-				array(
+			$data = [
+				[
 					'url'          => $fullPath,
 					'thumbnailUrl' => $fullPath,
 					'name'         => $file->getName(),
@@ -58,10 +58,10 @@ class Put extends AbstractAjaxController
 					'alt'          => $alt,
 					'isImage'      => $isImage,
 					'deleteUrl'    => '/upload/delete/?file=' . $destName,
-					'deleteType'   => "POST",
+					'deleteType'   => 'POST',
 					'editorId'     => $application->input->get('editorId'),
-				)
-			);
+				]
+			];
 
 			// Do not pass the thumbnail if not an image
 			if (!$isImage)
@@ -76,18 +76,20 @@ class Put extends AbstractAjaxController
 			}
 			catch (\Exception $e)
 			{
-				$errors = array();
+				$application->getLogger()->error('Failed uploading file', ['file' => json_encode($file), 'exception' => $e]);
+
+				$errors = [];
 
 				foreach ($file->getErrors() as $error)
 				{
 					$errors[] = g11n3t($error);
 				}
 
-				$data = array(
-					array(
+				$data = [
+					[
 						'error' => $errors
-					)
-				);
+					]
+				];
 			}
 
 			$this->response->files = $data;

@@ -10,6 +10,8 @@ namespace App\Tracker\Controller\Issue;
 
 use App\Tracker\View\Issue\IssueHtmlView;
 
+use Joomla\Http\Exception\InvalidResponseCodeException;
+
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Github\GithubFactory;
 
@@ -84,18 +86,7 @@ class Add extends AbstractTrackerController
 		$project = $this->getContainer()->get('app')->getProject();
 		$github = GithubFactory::getInstance($this->getContainer()->get('app'));
 
-		try
-		{
-			// Check if the template exists in the '.github' folder.
-			$fileContents = $github->repositories->contents->get(
-				$project->getGh_User(),
-				$project->getGh_Project(),
-				'.github/ISSUE_TEMPLATE.md'
-			);
-
-			return base64_decode($fileContents->content);
-		}
-		catch (\DomainException $exception)
+		$exceptionHandler = function (\Exception $exception) use ($github)
 		{
 			try
 			{
@@ -107,6 +98,18 @@ class Add extends AbstractTrackerController
 				);
 
 				return base64_decode($fileContents->content);
+			}
+			catch (InvalidResponseCodeException $exception)
+			{
+				// Fall back to the default template.
+				$path = JPATH_ROOT . '/src/App/Tracker/tpl/new-issue-template.md';
+
+				if (!file_exists($path))
+				{
+					throw new \RuntimeException('New issue template not found.');
+				}
+
+				return file_get_contents($path);
 			}
 			catch (\DomainException $exception)
 			{
@@ -120,6 +123,26 @@ class Add extends AbstractTrackerController
 
 				return file_get_contents($path);
 			}
+		};
+
+		try
+		{
+			// Check if the template exists in the '.github' folder.
+			$fileContents = $github->repositories->contents->get(
+				$project->getGh_User(),
+				$project->getGh_Project(),
+				'.github/ISSUE_TEMPLATE.md'
+			);
+
+			return base64_decode($fileContents->content);
+		}
+		catch (InvalidResponseCodeException $exception)
+		{
+			$exceptionHandler($exception);
+		}
+		catch (\DomainException $exception)
+		{
+			$exceptionHandler($exception);
 		}
 	}
 }

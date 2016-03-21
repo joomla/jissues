@@ -11,7 +11,7 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 use App\Tracker\Table\IssuesTable;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
-
+use Joomla\Http\Exception\InvalidResponseCodeException;
 use Monolog\Logger;
 
 /**
@@ -196,6 +196,18 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
+				);
+			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
@@ -253,6 +265,18 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
+				);
+			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
@@ -301,6 +325,20 @@ class JoomlacmsPullsListener extends AbstractListener
 		try
 		{
 			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving modified files for GitHub item %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+
+			$files = [];
 		}
 		catch (\DomainException $e)
 		{
@@ -480,7 +518,19 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$table->save(['status' => 3]);
 		}
-		catch (\DomainException $e)
+		catch (\InvalidArgumentException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$table->issue_number
+				),
+				['exception' => $e]
+			);
+		}
+		catch (\RuntimeException $e)
 		{
 			$logger->error(
 				sprintf(
@@ -539,6 +589,21 @@ class JoomlacmsPullsListener extends AbstractListener
 					$hookData->pull_request->number
 				)
 			);
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error updating the title for GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+
+			// Don't change the title locally
+			return;
 		}
 		catch (\DomainException $e)
 		{
@@ -627,6 +692,18 @@ class JoomlacmsPullsListener extends AbstractListener
 						$project->gh_project,
 						$hookData->pull_request->number
 					)
+				);
+			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 			catch (\DomainException $e)
