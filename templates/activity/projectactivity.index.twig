@@ -6,8 +6,14 @@
 {% block title %}{{ "%s - Project Activity Chart"|_|format(project.short_title) }}{% endblock %}
 
 {% block headerCSS %}
-    <link href="{{ uri.base.path }}jtracker/jqplot/css/jquery.jqplot.min.css" rel="stylesheet" media="screen">
-    <link href="{{ uri.base.path }}jtracker/jqplot/css/jquery-ui-1.10.2.custom.min.css" rel="stylesheet" media="screen">
+    {{ parent() }}
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -37,16 +43,19 @@
 {% endblock %}
 
 {% block JavaScriptBottom %}
-
     {{ parent() }}
 
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/jquery.jqplot.min.js"></script>
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.barRenderer.min.js"></script>
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.categoryAxisRenderer.min.js"></script>
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.pointLabels.min.js"></script>
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/barchart.js"></script>
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script src="{{ uri.base.path }}jtracker/jqplot/js/jqplot.highlighter.min.js"></script>
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <script src="{{ asset('js/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.highlighter.js') }}"></script>
+    <script src="{{ asset('js/jqplot/barchart.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
 
     <script>
         (function ($) {
@@ -61,7 +70,8 @@
 
                     chartContainer.empty();
                     chartContainer.attr('data-href', href);
-                    var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', false, '20');
+
+                    barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', false, '20');
                 });
             });
         })(jQuery);
