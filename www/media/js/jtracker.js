@@ -221,11 +221,8 @@ JTracker.updateTests = function (testsSuccess, testsFailure) {
  *
  * http://24ways.org/2010/calculating-color-contrast/
  *
- * @param   string  hexColor  The hex color.
- *
- * @return  string
- *
- * @since   1.0
+ * @param {String} hexColor The hex color.
+ * @returns {String}
  */
 JTracker.getContrastColor = function(hexColor) {
 	var r = parseInt(hexColor.substr(0, 2), 16);
@@ -236,7 +233,13 @@ JTracker.getContrastColor = function(hexColor) {
 	return (yiq >= 128) ? 'black' : 'white';
 };
 
-JTracker.setupAtJS = function(id, projectAlias) {
+/**
+ * Configure the jquery.atwho integration
+ *
+ * @param {String} id           The target element ID
+ * @param {String} projectAlias The alias for the currently active project
+ */
+JTracker.setupAtJS = function (id, projectAlias) {
 	var emojis = $.map(
 		[
 			"smile", "iphone", "girl", "smiley", "heart", "kiss", "copyright", "coffee",
@@ -259,38 +262,43 @@ JTracker.setupAtJS = function(id, projectAlias) {
 			"womans_hat", "womens", "x", "yellow_heart", "zap", "zzz", "+1",
 			"-1", 'tongue'
 		],
-		function(value, i) {return {key: value, name:value}});
+		function (value, i) {
+			return {key: value, name: value}
+		});
 
 	var emoji_config = {
 		at: ":",
 		data: emojis,
-		tpl:"<li data-value=':${key}:'><img src='https://assets-cdn.github.com/images/icons/emoji/${key}.png' height='20' width='20' /> ${name}</li>"
+		displayTpl: "<li data-value=':${key}:'><img src='https://assets-cdn.github.com/images/icons/emoji/${key}.png' height='20' width='20' /> ${name}</li>",
+		insertTpl: ":${name}:"
 	};
 
 	var user_config = {
 		at: "@",
-		search_key: 'username',
+		searchKey: 'username',
 		callbacks: {
-			remote_filter: function(query, callback) {
-				$.getJSON('/fetch/users', {q: query}, function(response) {
+			remoteFilter: function (query, callback) {
+				$.getJSON('/fetch/users', {q: query}, function (response) {
 					callback(response.data)
 				})
 			}
 		},
-		tpl:"<li data-value='@${username}'><img src='/images/avatars/${username}.png' height='20' width='20'> ${username} <small>${name}</small></li>"
+		displayTpl: "<li data-value='@${username}'><img src='/images/avatars/${username}.png' height='20' width='20'> ${username} <small>${name}</small></li>",
+		insertTpl: "@${username}"
 	};
 
 	var issue_config = {
 		at: '#',
-		search_key: 'issue_number',
+		searchKey: 'issue_number',
 		callbacks: {
-			remote_filter: function(query, callback) {
-				$.getJSON('/fetch/issues', {q: query}, function(response) {
+			remoteFilter: function (query, callback) {
+				$.getJSON('/fetch/issues', {q: query}, function (response) {
 					callback(response.data)
 				})
 			}
 		},
-		tpl:"<li data-value='#${issue_number}'>${issue_number} <small>${title}</small></li>"
+		displayTpl: "<li data-value='#${issue_number}'>${issue_number} <small>${title}</small></li>",
+		insertTpl: "#${issue_number}"
 	};
 
 	$('#' + id)
