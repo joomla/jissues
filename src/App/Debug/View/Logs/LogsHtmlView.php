@@ -20,6 +20,8 @@ use JTracker\View\AbstractTrackerHtmlView;
 class LogsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
+	 * The log type
+	 *
 	 * @var    string
 	 * @since  1.0
 	 */
@@ -51,9 +53,6 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 				$path = $this->getDebugger()->getLogPath('php');
 				break;
 
-			case '403' :
-			case '404' :
-			case '500' :
 			case 'app' :
 			case 'cron' :
 			case 'database' :
@@ -99,9 +98,6 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		switch ($type)
 		{
-			case '403':
-			case '404':
-			case '500':
 			case 'app' :
 			case 'cron' :
 			case 'database':

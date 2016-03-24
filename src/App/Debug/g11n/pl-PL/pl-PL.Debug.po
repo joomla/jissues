@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
 "PO-Revision-Date: 2016-02-27 06:53+0000\n"
 "Last-Translator: Sebastian Łuckoś <sebastian@atrox.pl>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/opentranslators/jtracker/language/pl_PL/)\n"
@@ -28,39 +28,39 @@ msgstr "Niepowodzenie zapytania 'EXPLAIN': %s"
 msgid "%s database is not supported yet."
 msgstr "Baza danych typu %s nie jest jeszcze wspierana."
 
-#: /src/App/Debug/TrackerDebugger.php:277
+#: /src/App/Debug/TrackerDebugger.php:281
 msgid "Database"
 msgstr "Baza danych"
 
-#: /src/App/Debug/TrackerDebugger.php:286
-#: /src/App/Debug/TrackerDebugger.php:372
+#: /src/App/Debug/TrackerDebugger.php:290
+#: /src/App/Debug/TrackerDebugger.php:376
 msgid "Profile"
 msgstr "Profil"
 
-#: /src/App/Debug/TrackerDebugger.php:291
-#: /src/App/Debug/TrackerDebugger.php:429
+#: /src/App/Debug/TrackerDebugger.php:295
+#: /src/App/Debug/TrackerDebugger.php:433
 msgid "User"
 msgstr "Użytkownik"
 
-#: /src/App/Debug/TrackerDebugger.php:296
-#: /src/App/Debug/TrackerDebugger.php:435
+#: /src/App/Debug/TrackerDebugger.php:300
+#: /src/App/Debug/TrackerDebugger.php:439
 msgid "Project"
 msgstr "Projekt"
 
-#: /src/App/Debug/TrackerDebugger.php:304
+#: /src/App/Debug/TrackerDebugger.php:308
 msgid "Language Strings"
 msgstr "Tłumaczenia"
 
-#: /src/App/Debug/TrackerDebugger.php:309
+#: /src/App/Debug/TrackerDebugger.php:313
 msgid "Language Files"
 msgstr "Pliki tłumaczeń"
 
-#: /src/App/Debug/TrackerDebugger.php:351
+#: /src/App/Debug/TrackerDebugger.php:355
 msgid "Go up"
 msgstr "Wróć do góry"
 
-#: /src/App/Debug/TrackerDebugger.php:361
-#: /src/App/Debug/TrackerDebugger.php:644
+#: /src/App/Debug/TrackerDebugger.php:365
+#: /src/App/Debug/TrackerDebugger.php:654
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
@@ -68,7 +68,7 @@ msgstr[0] "Jedno zapytanie do bazy danych"
 msgstr[1] "%d - zapytania do bazy danych"
 msgstr[2] "%d - zapytań do bazy danych"
 
-#: /src/App/Debug/TrackerDebugger.php:389
+#: /src/App/Debug/TrackerDebugger.php:393
 #, php-format
 msgid "One untranslated string of %2$d"
 msgid_plural "%1$d untranslated strings of %2$d"
@@ -76,7 +76,7 @@ msgstr[0] "Jedno nieprzetłumaczony ciąg znaków z %2$d"
 msgstr[1] "%1$d nieprzetłumaczone ciągi znaków z %2$d"
 msgstr[2] "%1$d nieprzetłumaczone ciągi znaków z %2$d"
 
-#: /src/App/Debug/TrackerDebugger.php:397
+#: /src/App/Debug/TrackerDebugger.php:401
 #, php-format
 msgid "One language file loaded"
 msgid_plural "%d language files loaded"
@@ -84,29 +84,29 @@ msgstr[0] "Załadowano jeden plik tłumaczeń"
 msgstr[1] "Załadowano %d pliki tłumaczeń"
 msgstr[2] "Załadowano %d plików tłumaczeń"
 
-#: /src/App/Debug/TrackerDebugger.php:408
+#: /src/App/Debug/TrackerDebugger.php:412
 msgid "No Project"
 msgstr "Brak projektu"
 
-#: /src/App/Debug/TrackerDebugger.php:431
+#: /src/App/Debug/TrackerDebugger.php:435
 msgid "Guest"
 msgstr "Gość"
 
-#: /src/App/Debug/TrackerDebugger.php:444
+#: /src/App/Debug/TrackerDebugger.php:448
 msgid "Build"
 msgstr "Budowa"
 
-#: /src/App/Debug/TrackerDebugger.php:510
+#: /src/App/Debug/TrackerDebugger.php:514
 #, php-format
 msgid ""
 "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
 msgstr "Mnogich formularzy: <code>%1$d</code><br />Mnogich funkcji: <code>%2$s</code>"
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:737
 msgid "File (line)"
 msgstr "Plik (linia)"
 
-#: /src/App/Debug/TrackerDebugger.php:727
+#: /src/App/Debug/TrackerDebugger.php:737
 msgid "String"
 msgstr "Ciąg znaków"
 

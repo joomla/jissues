@@ -7,8 +7,13 @@
 
 {% block headerCSS %}
     {{ parent() }}
-    <!-- CSS for coloured code -->
-    <link href="{{ uri.base.path }}jtracker/core/css/code.css" rel="stylesheet" media="screen">
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if jdebug %}
+    {% endif %}
+
+	<!-- CSS for coloured code -->
+    <link rel="stylesheet" href="{{ asset('css/code.css') }}">
 {% endblock %}
 
 {% block content %}

@@ -3,11 +3,6 @@
         "group": "Media",
         "items": [
             {
-                "title": "Everaldo Crystal Clear",
-                "description": "Icon set",
-                "homepage": "http://commons.wikimedia.org/wiki/Crystal_Clear"
-            },
-            {
                 "title" : "jQuery File Tree",
                 "homepage" : "http://www.abeautifulsite.net/blog/2008/03/jquery-file-tree/"
             }
@@ -44,7 +39,7 @@
         "items": [
             {
                 "title": "Transifex",
-                "description": "The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://opentranslators.transifex.com/projects/p/jtracker/translate).",
+                "description": "The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://www.transifex.com/opentranslators/jtracker/translate/).",
                 "homepage": "https://www.transifex.com/"
             }
         ]

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
 "PO-Revision-Date: 2016-02-11 04:45+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
@@ -53,37 +53,37 @@ msgstr "Tijdzone: %1$s (GMT %2$s)"
 msgid "Users"
 msgstr "Gebruikers"
 
-#: /templates/users/users.index.twig:15
+#: /templates/users/users.index.twig:19
 msgid "Users List"
 msgstr "Gebruikerslijst"
 
-#: /templates/users/users.index.twig:21 /templates/users/users.index.twig:24
-#: /templates/users/users.index.twig:25
+#: /templates/users/users.index.twig:25 /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
 msgstr "Filter de lijst op gebruiker"
 
-#: /templates/users/users.index.twig:30
+#: /templates/users/users.index.twig:34
 msgid "Clear"
 msgstr "Legen"
 
-#: /templates/users/users.index.twig:37 /templates/users/users.index.twig:69
+#: /templates/users/users.index.twig:41 /templates/users/users.index.twig:73
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Pagina %1$s van %2$s"
 
-#: /templates/users/users.index.twig:42
+#: /templates/users/users.index.twig:46
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: /templates/users/users.index.twig:44
+#: /templates/users/users.index.twig:48
 msgid "Actions"
 msgstr "Acties"
 
-#: /templates/users/users.index.twig:46
+#: /templates/users/users.index.twig:50
 msgid "ID"
 msgstr "ID"
 
-#: /templates/users/users.index.twig:62
+#: /templates/users/users.index.twig:66
 msgid "No items found."
 msgstr "Geen items gevonden."
 

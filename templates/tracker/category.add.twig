@@ -57,6 +57,11 @@
 
 {% block JavaScriptBottom %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ uri.base.path }}vendor/jquery-simple-color/jquery.simple-color{{ jdebug ? "" : ".min" }}.js"></script>
-    <script type="text/javascript" src="{{ uri.base.path }}jtracker/core/js/color-select{{ jdebug ? "" : ".min" }}.js"></script>
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    <script src="{{ asset('js/vendor/jquery-simple-color/src/jquery.simple-color.js') }}"></script>
+    {% endif %}
+
+    <script src="{{ asset('js/color-select.js') }}"></script>
 {% endblock %}

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
-"PO-Revision-Date: 2016-02-11 17:49+0000\n"
+"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"PO-Revision-Date: 2016-03-10 14:35+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/opentranslators/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -32,32 +32,32 @@ msgid "Access Groups"
 msgstr "Benutzergruppen"
 
 #: /templates/groups/groups.index.twig:27
-#: /templates/groups/group.edit.twig:144
+#: /templates/groups/group.edit.twig:153
 msgid "Title"
 msgstr "Titel"
 
 #: /templates/groups/groups.index.twig:28
-#: /templates/groups/group.edit.twig:164
+#: /templates/groups/group.edit.twig:173
 msgid "View"
 msgstr "Ansehen"
 
 #: /templates/groups/groups.index.twig:29
-#: /templates/groups/group.edit.twig:174
+#: /templates/groups/group.edit.twig:183
 msgid "Create"
 msgstr "Erstellen"
 
 #: /templates/groups/groups.index.twig:30
-#: /templates/groups/group.edit.twig:184
+#: /templates/groups/group.edit.twig:193
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: /templates/groups/groups.index.twig:31
-#: /templates/groups/group.edit.twig:194
+#: /templates/groups/group.edit.twig:203
 msgid "Edit own"
 msgstr "Eigene bearbeiten"
 
 #: /templates/groups/groups.index.twig:32
-#: /templates/groups/group.edit.twig:204
+#: /templates/groups/group.edit.twig:213
 msgid "Manage"
 msgstr "Verwalten"
 
@@ -89,51 +89,51 @@ msgstr "Gruppe bearbeiten"
 msgid "Save"
 msgstr "Speichern"
 
-#: /templates/groups/group.edit.twig:125
+#: /templates/groups/group.edit.twig:134
 msgid "Edit Access Group"
 msgstr "Benutzergrupper bearbeiten"
 
-#: /templates/groups/group.edit.twig:127
+#: /templates/groups/group.edit.twig:136
 msgid "Add Access Group"
 msgstr "Benutzergrupper anlegen"
 
-#: /templates/groups/group.edit.twig:136
+#: /templates/groups/group.edit.twig:145
 msgid "Details"
 msgstr "Details"
 
-#: /templates/groups/group.edit.twig:154
+#: /templates/groups/group.edit.twig:163
 msgid "Permissions"
 msgstr "Berechtigungen"
 
-#: /templates/groups/group.edit.twig:217
+#: /templates/groups/group.edit.twig:226
 msgid "Users"
 msgstr "Benutzer"
 
-#: /templates/groups/group.edit.twig:221
+#: /templates/groups/group.edit.twig:230
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
-#: /templates/groups/group.edit.twig:223 /templates/groups/group.edit.twig:236
+#: /templates/groups/group.edit.twig:232 /templates/groups/group.edit.twig:245
 msgid "username"
 msgstr "Benutzername"
 
-#: /templates/groups/group.edit.twig:229
+#: /templates/groups/group.edit.twig:238
 msgid "Add User"
 msgstr "Benutzer hinzufügen"
 
-#: /templates/groups/group.edit.twig:233
+#: /templates/groups/group.edit.twig:242
 msgid "Remove user"
 msgstr "Benutzer entfernen"
 
-#: /templates/groups/group.edit.twig:241
+#: /templates/groups/group.edit.twig:250
 msgid "Remove User"
 msgstr "Benutzer entfernen"
 
-#: /templates/groups/group.edit.twig:246
+#: /templates/groups/group.edit.twig:255
 msgid "List assigned Users"
 msgstr "Zugewiesene Benutzer anzeigen"
 
-#: /templates/groups/group.edit.twig:258
+#: /templates/groups/group.edit.twig:267
 msgid "Save the group to assign users."
 msgstr "Speichern Sie die Gruppe um Benutzer hinzuzufügen."
 

@@ -28,7 +28,6 @@
 
 	"renderer": {
 		"type" : "twig",
-		"debug": "1",
         "cache": false
 	},
 
@@ -60,6 +59,7 @@
 		"hooks"   : "0",
 		"logging" : "0",
 		"log-path": "",
+		"template": "0",
 		"admin"   : "1"
 	},
 

@@ -8,8 +8,15 @@
 {% block headerText %} - {{ project.short_title }}{% endblock %}
 
 {% block headerCSS %}
-    <link href="{{ uri.base.path }}jtracker/pagination/css/pagination.css" rel="stylesheet" media="screen">
-    <link href="{{ uri.base.path }}jtracker/pagination/css/B_black.css" rel="stylesheet" media="screen">
+    {{ parent() }}
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select/dist/css/bootstrap-select.css') }}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}">
 {% endblock %}
 
 {% block prependMenu %}
@@ -73,14 +80,17 @@
 {% endblock %}
 
 {% block JavaScriptBottom %}
-
     {{ parent() }}
 
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-tooltip.js"></script>
-    <script src="{{ uri.base.path }}vendor/bootstrap/js/bootstrap-popover.js"></script>
-    <script src="{{ uri.base.path }}vendor/blueimp-tmpl/js/tmpl{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}jtracker/blueimp-tmpl/js/jtracker-tmpl{{ jdebug ? "" : ".min" }}.js"></script>
-    <script src="{{ uri.base.path }}vendor/twbs-pagination/jquery.twbsPagination{{ jdebug ? "":".min" }}.js"></script>
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js') }}"></script>
+    {% endif %}
+
+    <script src="{{ asset('js/jtracker-tmpl.js') }}"></script>
 
     <script type="text/x-tmpl" id="ajaxListing">
     [% if (o.data.items.length) { %]
@@ -528,6 +538,18 @@
                     }
                 }
         );
+
+        $('#stools-container').on('shown.bs.collapse', function () {
+            $('#stools-container').css('overflow', 'inherit');
+        }).on('hide.bs.collapse', function () {
+            $('#stools-container').css('overflow', 'hidden');
+        });
+
+        jQuery(document).ready(function($) {
+            if ($('#stools-container').hasClass('in')) {
+                $('#stools-container').css('overflow', 'inherit');
+            }
+        });
     </script>
 
 {% endblock %}

@@ -11,25 +11,32 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 ### PHP - Production
 
+#### ext-curl (*)
+
+
+
+* Installed:
+* Source URL:
+
 #### joomla/application (~1.4)
 
 Joomla Application Package
 
-* Installed: 1.4.0 
+* Installed: 1.5.1
 * Source URL: https://github.com/joomla-framework/application.git
 
 #### joomla/controller (~1.1)
 
 Joomla Controller Package
 
-* Installed: 1.1.2 
+* Installed: 1.1.2
 * Source URL: https://github.com/joomla-framework/controller.git
 
 #### joomla/database (~1.1)
 
 Joomla Database Package
 
-* Installed: 1.2.1 
+* Installed: 1.3.0
 * Source URL: https://github.com/joomla-framework/database.git
 
 #### joomla/date (~1.1)
@@ -43,35 +50,35 @@ Joomla Date Package
 
 Joomla DI Package
 
-* Installed: 1.3.1 
+* Installed: 1.3.1
 * Source URL: https://github.com/joomla-framework/di.git
 
 #### joomla/event (~1.1)
 
 Joomla Event Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/event.git
 
 #### joomla/filter (~1.1)
 
 Joomla Filter Package
 
-* Installed: 1.1.5 
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (~1.2)
 
 Joomla Github Package
 
-* Installed: 1.3.0 
+* Installed: 1.3.0
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1)
 
 Joomla HTTP Package
 
-* Installed: 1.1.7 
+* Installed: 1.2.2
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1)
@@ -85,21 +92,21 @@ Joomla Input Package
 
 Joomla Model Package
 
-* Installed: 1.2.0 
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/model.git
 
 #### joomla/profiler (~1.1)
 
 Joomla Profiler Package
 
-* Installed: 1.1.1
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/profiler.git
 
-#### joomla/registry (~1.4 &gt;=1.4.5)
+#### joomla/registry (^1.4.5)
 
 Joomla Registry Package
 
-* Installed: 1.4.5 
+* Installed: 1.5.0
 * Source URL: https://github.com/joomla-framework/registry.git
 
 #### joomla/router (~1.1)
@@ -113,7 +120,7 @@ Joomla Router Package
 
 Joomla String Package
 
-* Installed: 1.3.0 
+* Installed: 1.4.0
 * Source URL: https://github.com/joomla-framework/string.git
 
 #### joomla/uri (~1.1)
@@ -123,32 +130,32 @@ Joomla Uri Package
 * Installed: 1.1.1
 * Source URL: https://github.com/joomla-framework/uri.git
 
-#### joomla/utilities (~1.3 &gt;=1.3.3)
+#### joomla/utilities (^1.3.3)
 
 Joomla Utilities Package
 
-* Installed: 1.3.3 
+* Installed: 1.4.0
 * Source URL: https://github.com/joomla-framework/utilities.git
 
 #### joomla/view (~1.1)
 
 Joomla View Package
 
-* Installed: 1.2.0 
+* Installed: 1.2.0
 * Source URL: https://github.com/joomla-framework/view.git
 
-#### symfony/http-foundation (2.7.*)
+#### symfony/http-foundation (2.8.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v2.7.1 
-* Source URL: https://github.com/symfony/HttpFoundation.git
+* Installed: v2.8.3
+* Source URL: https://github.com/symfony/http-foundation.git
 
-#### twig/twig (1.*)
+#### twig/twig (~1.23)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.18.2 
+* Installed: v1.24.0
 * Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (2.3)
@@ -169,7 +176,7 @@ This class provides you with an easy-to-use interface to progress bars.
 
 The Transifex API Package is a wrapper of the Transifex API available for PHP developers
 
-* Installed: 1.0.0
+* Installed: 1.2.0
 * Source URL: https://github.com/BabDev/Transifex-API.git
 
 #### codeguy/upload (1.3.2)
@@ -183,7 +190,7 @@ Handle file uploads with extensible validation and storage strategies
 
 php error handling for cool kids
 
-* Installed: 1.1.6 
+* Installed: 1.1.10
 * Source URL: https://github.com/filp/whoops.git
 
 #### league/flysystem (0.4.*)
@@ -197,14 +204,14 @@ Filesystem abstraction, but easy.
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.14.0 
+* Installed: 1.18.1
 * Source URL: https://github.com/Seldaek/monolog.git
 
-#### raveren/kint (0.9)
+#### raveren/kint (~1.0)
 
 Kint - debugging helper for PHP developers
 
-* Installed: v0.9
+* Installed: 1.0.10
 * Source URL: https://github.com/raveren/kint.git
 
 #### adaptive/php-text-difference (1.*)
@@ -227,7 +234,7 @@ A Mustache implementation in PHP.
 
 The PHP Unit Testing framework.
 
-* Installed: 4.7.5 
+* Installed: 4.8.24
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*)
@@ -241,21 +248,21 @@ PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations o
 
 Copy/Paste Detector (CPD) for PHP code.
 
-* Installed: 2.0.2 
+* Installed: 2.0.2
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
 #### phploc/phploc (*)
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: 2.1.3 
+* Installed: 2.1.5
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
 
 Dependency graph visualization for composer.json
 
-* Installed: v0.1.1
+* Installed: v1.0.0
 * Source URL: https://github.com/clue/graph-composer.git
 
 ### JavaScript
@@ -264,7 +271,7 @@ Dependency graph visualization for composer.json
 
 jQuery component
 
-* Source URL: https://github.com/jquery/jquery
+* Source URL: https://github.com/jquery/jquery-dist
 
 #### jquery-validation (1.12.0)
 
@@ -278,7 +285,7 @@ Form validation made easy
 
 * Source URL: https://github.com/twbs/bootstrap
 
-#### bootstrap-switch (v1.8)
+#### bootstrap-switch (1.8.0)
 
 Unofficial bootstrap switch
 
@@ -295,6 +302,12 @@ Unofficial bootstrap switch
 &lt; 1KB lightweight, fast &amp; powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.
 
 * Source URL: https://github.com/blueimp/JavaScript-Templates
+
+#### blueimp-canvas-to-blob (2.1.1)
+
+JavaScript Canvas to Blob is a function to convert canvas elements into Blob objects.
+
+* Source URL: https://github.com/blueimp/JavaScript-Canvas-to-Blob
 
 #### blueimp-file-upload (9.3.0)
 
@@ -330,7 +343,7 @@ jQuery simple pagination plugin for bootstrap-style webpages
 
 
 
-* Source URL: https://github.com/mbostock/d3
+* Source URL: https://github.com/mbostock-bower/d3-bower
 
 #### jquery-simple-color (1.2.1)
 
@@ -350,28 +363,28 @@ A dead-simple jQuery color picker.
 
 * Source URL: https://github.com/ichord/At.js
 
-#### semantic-ui-dropdown (~1.10.3)
+#### semantic-ui-dropdown (1.10.3)
 
 Dropdown - Semantic UI
 
 * Source URL: http://www.semantic-ui.com
 
-#### semantic-ui-transition (~1.10.4)
+#### semantic-ui-transition (1.10.4)
 
 Transition - Semantic UI
 
 * Source URL: http://www.semantic-ui.com
 
+#### octicons (3.5.0)
+
+GitHub's icon font
+
+* Source URL: https://octicons.github.com
+
 
 ## Credits
 
 ### Media
-
-#### Everaldo Crystal Clear
-
-Icon set
-
-* http://commons.wikimedia.org/wiki/Crystal_Clear
 
 #### jQuery File Tree
 
@@ -405,7 +418,7 @@ GitHub acts as our authentication provider, software repository, markdown parser
 
 #### Transifex
 
-The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://opentranslators.transifex.com/projects/p/jtracker/translate).
+The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://www.transifex.com/opentranslators/jtracker/translate/).
 
 * https://www.transifex.com/
 
