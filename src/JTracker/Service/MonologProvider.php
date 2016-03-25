@@ -83,8 +83,8 @@ class MonologProvider implements ServiceProviderInterface
 			}
 		);
 
-		// Register the main Logger
-		$container->share('Monolog\\Logger',
+		// Register the application Logger
+		$container->share('monolog.logger.application',
 			function (Container $container)
 			{
 				return new Logger(
@@ -98,11 +98,6 @@ class MonologProvider implements ServiceProviderInterface
 				);
 			}
 		);
-
-		// Alias the Logger
-		$container->alias('monolog', 'Monolog\\Logger')
-			->alias('monolog.logger.application', 'Monolog\\Logger')
-			->alias('Psr\\Log\\LoggerInterface', 'Monolog\\Logger');
 
 		// Register the database Logger
 		$container->share('monolog.logger.database',

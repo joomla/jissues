@@ -47,6 +47,11 @@ try
 	// Create the application aliases for the common 'app' key and base application class
 	$container->alias('Joomla\\Application\\AbstractApplication', 'JTracker\\Application')
 		->alias('app', 'JTracker\\Application');
+
+	// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
+	$container->alias('monolog', 'monolog.logger.application')
+		->alias('Monolog\\Logger', 'monolog.logger.application')
+		->alias('Psr\\Log\\LoggerInterface', 'monolog.logger.application');
 }
 catch (\Exception $e)
 {
@@ -85,7 +90,7 @@ catch (\Exception $e)
 // Execute the application.
 try
 {
-	$app = $container->get('JTracker\\Application');
+	$app = $container->get('app');
 	$app->mark('Application started');
 	$app->execute();
 }

@@ -14,32 +14,21 @@ use App\Projects\TrackerProject;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
-use Application\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
 use g11n\g11n;
 
 use Joomla\Application\AbstractCliApplication;
-use Joomla\Application\Cli\Output\Processor\ColorProcessor;
-use Joomla\Application\Cli\ColorStyle;
-use Joomla\DI\Container;
+use Joomla\Application\Cli\CliOutput;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
-use JTracker\Service\WebApplicationProvider;
-use JTracker\Service\ConfigurationProvider;
-use JTracker\Service\DatabaseProvider;
-use JTracker\Service\DebuggerProvider;
-use JTracker\Service\GitHubProvider;
-use JTracker\Service\TransifexProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -85,10 +74,10 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	/**
 	 * Array of TrackerCommandOption objects
 	 *
-	 * @var    array
+	 * @var    TrackerCommandOption[]
 	 * @since  1.0
 	 */
-	protected $commandOptions = array();
+	protected $commandOptions = [];
 
 	/**
 	 * Class constructor.
@@ -99,22 +88,13 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	 * @param   Registry   $config  An optional argument to provide dependency injection for the application's
 	 *                              config object.  If the argument is a Registry object that object will become
 	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   CliOutput  $output  The output handler.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input\Cli $input = null, Registry $config = null)
+	public function __construct(Input\Cli $input = null, Registry $config = null, CliOutput $output = null)
 	{
-		parent::__construct($input, $config);
-
-		// Build the DI Container
-		$this->container = (new Container)
-			->registerServiceProvider(new WebApplicationProvider)
-			->registerServiceProvider(new ConfigurationProvider($this->config))
-			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new GitHubProvider)
-			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
-			->registerServiceProvider(new TransifexProvider);
+		parent::__construct($input, $config, $output);
 
 		$this->loadLanguage();
 
@@ -138,31 +118,12 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			g11n3t('Optionally log output to the specified log file.')
 		);
 
-		$this->getOutput()->setProcessor(new ColorProcessor);
-
-		/* @type ColorProcessor $processor */
-		$processor = $this->getOutput()->getProcessor();
-
-		if ($this->input->get('nocolors') || !$this->get('cli-application.colors'))
-		{
-			$processor->noColors = true;
-		}
-
-		// Setup app colors (also required in "nocolors" mode - to strip them).
-		$processor
-			->addStyle('b', new ColorStyle('', '', array('bold')))
-			->addStyle('title', new ColorStyle('yellow', '', array('bold')))
-			->addStyle('ok', new ColorStyle('green', '', array('bold')));
-
 		$this->usePBar = $this->get('cli-application.progress-bar');
 
 		if ($this->input->get('noprogress'))
 		{
 			$this->usePBar = false;
 		}
-
-		// Register the global dispatcher
-		$this->setDispatcher(new Dispatcher);
 	}
 
 	/**
