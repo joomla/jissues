@@ -83,11 +83,18 @@ class File extends UploadFile implements \JsonSerializable
 	 */
 	private function setValidations()
 	{
-		$this->addValidations(
-			array(
-				new Mimetype($this->application->get('validation.mime_types')),
-				new Size($this->application->get('validation.file_size'))
-			)
-		);
+		$validations = [
+			new Mimetype($this->application->get('validation.mime_types')),
+			new Size($this->application->get('validation.file_size'))
+		];
+
+		// Txt has mime inconsistency on different environments,
+		// so do not set mime validation for it.
+		if ($this->getExtension() == 'txt')
+		{
+			array_shift($validations);
+		}
+
+		$this->addValidations($validations);
 	}
 }
