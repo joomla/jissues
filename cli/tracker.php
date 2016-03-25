@@ -7,8 +7,6 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-use Application\Application;
-
 'cli' == PHP_SAPI
 	|| die("\nThis script must be run from the command line interface.\n\n");
 
@@ -48,7 +46,7 @@ try
 		->registerServiceProvider(new JTracker\Service\MonologProvider)
 		->registerServiceProvider(new JTracker\Service\TransifexProvider)
 		->registerServiceProvider(new JTracker\Service\WebApplicationProvider)
-		->registerServiceProvider(new \Application\Service\LoggerProvider);
+		->registerServiceProvider(new Application\Service\LoggerProvider);
 
 	// Create the application aliases for the common 'app' key and base application class
 	$container->alias('Joomla\\Application\\AbstractApplication', 'Application\\Application')
