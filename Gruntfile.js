@@ -67,7 +67,6 @@ module.exports = function(grunt) {
                                 'js/load-image.js',
                                 'js/load-image-exif.js',
                                 'js/load-image-exif-map.js',
-                                'js/load-image-ios.js',
                                 'js/load-image-meta.js',
                                 'js/load-image-orientation.js'
                             ]
@@ -109,6 +108,9 @@ module.exports = function(grunt) {
         },
         bower_concat: {
             all: {
+                options: {
+                    separator: ';\n'
+                },
                 dest: 'www/media/js/vendor.js',
                 cssDest: 'www/media/css/vendor.css',
                 mainFiles: {
@@ -118,8 +120,8 @@ module.exports = function(grunt) {
                     'semantic-ui-dropdown': ['dropdown.css', 'dropdown.js'],
                     'g11n-js': ['js/g11n.js', 'js/methods.js', 'js/phpjs.js'],
                     'blueimp-canvas-to-blob': ['js/canvas-to-blob.js'],
-                    // Added in same order as v1.13.0 Gruntfile
-                    'blueimp-load-image': ['js/load-image.js', 'js/load-image-ios.js', 'js/load-image-orientation.js', 'js/load-image-meta.js', 'js/load-image-exif.js', 'js/load-image-exif-map.js'],
+                    // v2.6.1 release order: load-image.js load-image-orientation.js load-image-meta.js load-image-exif.js load-image-exif-map.js
+                    'blueimp-load-image': ['js/load-image.js', 'js/load-image-orientation.js', 'js/load-image-meta.js', 'js/load-image-exif.js', 'js/load-image-exif-map.js'],
                     'blueimp-file-upload': ['css/jquery.fileupload.css', 'css/jquery.fileupload-ui.css', 'js/vendor/jquery.ui.widget.js', 'js/jquery.fileupload.js', 'js/jquery.fileupload-process.js', 'js/jquery.fileupload-image.js', 'js/jquery.fileupload-ui.js', 'js/jquery.fileupload-validate.js', 'js/jquery.iframe-transport.js'],
                     'bootstrap-switch': ['dist/css/bootstrap2/bootstrap-switch.css', 'dist/js/bootstrap-switch.js'],
                     'jquery-simple-color': ['src/jquery.simple-color.js'],
