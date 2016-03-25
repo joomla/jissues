@@ -57,6 +57,11 @@ module.exports = function(grunt) {
                                 'js/vendor/jquery.ui.widget.js'
                             ]
                         },
+                        'blueimp-canvas-to-blob': {
+                            files: [
+                                'js/canvas-to-blob.js'
+                            ]
+                        },
                         'blueimp-load-image': {
                             files: [
                                 'js/load-image.js',
@@ -112,9 +117,10 @@ module.exports = function(grunt) {
                     'semantic-ui-transition': ['transition.css', 'transition.js'],
                     'semantic-ui-dropdown': ['dropdown.css', 'dropdown.js'],
                     'g11n-js': ['js/g11n.js', 'js/methods.js', 'js/phpjs.js'],
-                    'blueimp-file-upload': ['css/jquery.fileupload.css', 'css/jquery.fileupload-ui.css', 'js/vendor/jquery.ui.widget.js', 'js/jquery.fileupload.js', 'js/jquery.fileupload-process.js', 'js/jquery.fileupload-image.js', 'js/jquery.fileupload-ui.js', 'js/jquery.fileupload-validate.js', 'js/jquery.iframe-transport.js'],
+                    'blueimp-canvas-to-blob': ['js/canvas-to-blob.js'],
                     // Added in same order as v1.13.0 Gruntfile
                     'blueimp-load-image': ['js/load-image.js', 'js/load-image-ios.js', 'js/load-image-orientation.js', 'js/load-image-meta.js', 'js/load-image-exif.js', 'js/load-image-exif-map.js'],
+                    'blueimp-file-upload': ['css/jquery.fileupload.css', 'css/jquery.fileupload-ui.css', 'js/vendor/jquery.ui.widget.js', 'js/jquery.fileupload.js', 'js/jquery.fileupload-process.js', 'js/jquery.fileupload-image.js', 'js/jquery.fileupload-ui.js', 'js/jquery.fileupload-validate.js', 'js/jquery.iframe-transport.js'],
                     'bootstrap-switch': ['dist/css/bootstrap2/bootstrap-switch.css', 'dist/js/bootstrap-switch.js'],
                     'jquery-simple-color': ['src/jquery.simple-color.js'],
                     'jquery-validation': ['dist/jquery.validate.js'],
