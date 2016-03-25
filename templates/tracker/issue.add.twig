@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select/dist/css/bootstrap-select.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/jquery.atwho/dist/css/jquery.atwho.css') }}">
     {% endif %}
 
@@ -41,13 +41,8 @@
         <div class="row-fluid">
             <div class="span3 pull-right well well-small issue-add-right-block">
 
-                <label for="viewMode" class="btn btn-small">{{ ('View Mode')|_ }}</label>
-                <br />
-                <div class="make-switch switch-large" id="helpSwitch"
-                     data-on-label="{{ ('Help')|_ }}" data-off-label="{{ ('Pro')|_ }}"
-                     data-on="success" data-off="info">
-                    <input id="viewMode" type="checkbox" {{ user.check("manage") ? "" : " checked='checked'" }} />
-                </div>
+                <label for="helpSwitch" class="btn btn-small">{{ ('View Mode')|_ }}</label>
+                <input id="helpSwitch" type="checkbox" data-on-text="{{ ('Help')|_ }}" data-off-text="{{ ('Pro')|_ }}" data-on-color="success" data-off-color="info"{{ user.check("manage") ? "" : " checked" }} />
 
                 <hr />
 
@@ -145,7 +140,7 @@
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
     <script src="{{ asset('js/vendor/markitup/markitup/jquery.markitup.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap-switch/static/js/bootstrap-switch.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap-switch/build/js/bootstrap-switch.js') }}"></script>
     <script src="{{ asset('js/vendor/jquery-validation/dist/jquery.validate.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js') }}"></script>
     <script src="{{ asset('js/vendor/blueimp-file-upload/js/vendor/jquery.ui.widget.js') }}"></script>
@@ -185,8 +180,10 @@
         var switcher = $('#helpSwitch');
 
         // Show and hide help texts
-        switcher.on('switch-change', function (e, data) {
-            if (data.value) {
+        switcher.bootstrapSwitch();
+
+        switcher.on('switchChange.bootstrapSwitch', function (event, state) {
+            if (state) {
                 $('.helpText').show();
             } else {
                 $('.helpText').hide();

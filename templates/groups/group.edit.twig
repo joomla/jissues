@@ -21,7 +21,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/static/stylesheets/bootstrap-switch.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css') }}">
     {% endif %}
 {% endblock %}
 
@@ -30,7 +30,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/bootstrap-switch/static/js/bootstrap-switch.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap-switch/build/js/bootstrap-switch.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-typeahead.js') }}"></script>
     {% endif %}
 
@@ -38,32 +38,36 @@
         jQuery('#searchUser').typeahead({
             source: function (query, process) {
                 return $.get(
-                        '{{ uri.base.path }}user/search', { query: query, not_in_group_id: {{ group.group_id}}  },
-                        function (response) {
-                            if (response.error) {
-                                $('#ajax-errors').html(response.error);
+                    '{{ uri.base.path }}user/search', {query: query, not_in_group_id: {{ group.group_id }}  },
+                    function (response) {
+                        if (response.error) {
+                            $('#ajax-errors').html(response.error);
 
-                                return process([]);
-                            }
+                            return process([]);
+                        }
 
-                            return process(response.data.options);
-                        });
-            }});
+                        return process(response.data.options);
+                    }
+                );
+            }
+        });
 
         jQuery('#searchUserGroup').typeahead({
             source: function (query, process) {
                 return $.get(
-                        '{{ uri.base.path }}user/search', { query: query, in_group_id: {{ group.group_id}} },
-                        function (response) {
-                            if (response.error) {
-                                $('#ajax-errors').html(response.error);
+                    '{{ uri.base.path }}user/search', {query: query, in_group_id: {{ group.group_id }} },
+                    function (response) {
+                        if (response.error) {
+                            $('#ajax-errors').html(response.error);
 
-                                return process([]);
-                            }
+                            return process([]);
+                        }
 
-                            return process(response.data.options);
-                        });
-            }});
+                        return process(response.data.options);
+                    }
+                );
+            }
+        });
 
         function assignUser(user, group_id, project_id, assign, fieldName) {
             var msg = $('#' + fieldName + '-msg');
@@ -76,53 +80,60 @@
             }
 
             jQuery.get(
-                    '{{ uri.base.path }}user/assign', { user: user, group_id: group_id, project_id: project_id, assign: assign },
-                    function (response) {
-                        if (response.error) {
-                            msg.html('<b style="color: red;">' + response.error + '</b>');
+                '{{ uri.base.path }}user/assign', {user: user, group_id: group_id, project_id: project_id, assign: assign},
+                function (response) {
+                    if (response.error) {
+                        msg.html('<b style="color: red;">' + response.error + '</b>');
 
-                            return;
-                        }
-
-                        if (response.data.message) {
-                            msg.html('<b style="color: green;">' + response.data.message + '</b>');
-                        }
-
-                        jQuery('#ajaxListUsers').html('');
-
-                        $('#' + fieldName).val('').focus();
+                        return;
                     }
+
+                    if (response.data.message) {
+                        msg.html('<b style="color: green;">' + response.data.message + '</b>');
+                    }
+
+                    jQuery('#ajaxListUsers').html('');
+
+                    $('#' + fieldName).val('').focus();
+                }
             );
         }
 
         function listUsers(group_id) {
             jQuery.get(
-                    '{{ uri.base.path }}users/list', { group_id: group_id },
-                    function (response) {
+                '{{ uri.base.path }}users/list', {group_id: group_id},
+                function (response) {
 
-                        var html = '';
+                    var html = '';
 
-                        if (response.error) {
-                            html = 'error: ' + response.error;
-                        }
-                        else if (!response.data.options.length) {
-                            html = '<p>' + 'No users found.' + '</p>';
-                        }
-                        else {
-                            html = '<ul>';
-
-                            $.each(response.data.options, function (k, user) {
-                                html += '<li><a href="{{ uri.base.path }}user/' + user.id + '">'
-                                        + user.username + '</a></li>';
-                            });
-
-                            html += '</ul>';
-                        }
-
-                        jQuery('#ajaxListUsers').html(html);
+                    if (response.error) {
+                        html = 'error: ' + response.error;
                     }
+                    else if (!response.data.options.length) {
+                        html = '<p>' + 'No users found.' + '</p>';
+                    }
+                    else {
+                        html = '<ul>';
+
+                        $.each(response.data.options, function (k, user) {
+                            html += '<li><a href="{{ uri.base.path }}user/' + user.id + '">'
+                                    + user.username + '</a></li>';
+                        });
+
+                        html += '</ul>';
+                    }
+
+                    jQuery('#ajaxListUsers').html(html);
+                }
             );
         }
+
+        // Initialize bootstrap-switch on elements
+        $('#can_view').bootstrapSwitch();
+        $('#can_create').bootstrapSwitch();
+        $('#can_edit').bootstrapSwitch();
+        $('#can_editown').bootstrapSwitch();
+        $('#can_manage').bootstrapSwitch();
     </script>
 {% endblock %}
 
@@ -164,50 +175,35 @@
 
                     <ul class="unstyled">
                         <li>
-                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
-                                <input type="checkbox" {{ group.can_view ? "checked='checked'" : "" }}
-                                       id="can_view" name="group[can_view]"/>
-                            </div>
+                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_view" name="group[can_view]"{{ group.can_view ? " checked='checked'" : "" }} />
                             <label for="can_view">
                                 <i class="icon-eye-2"></i>
                                 {{ "View"|_ }}
                             </label>
                         </li>
                         <li>
-                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
-                            <input type="checkbox" {{ group.can_create ? "checked='checked'" : "" }}
-                                   id="can_create" name="group[can_create]"/>
-                            </div>
+                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_create" name="group[can_create]"{{ group.can_create ? " checked='checked'" : "" }} />
                             <label for="can_create">
                                 <i class="icon-plus-2"></i>
                                 {{ "Create"|_ }}
                             </label>
                         </li>
                         <li>
-                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
-                            <input type="checkbox" {{ group.can_edit ? "checked='checked'" : "" }}
-                                   id="can_edit" name="group[can_edit]"/>
-                            </div>
+                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_edit" name="group[can_edit]"{{ group.can_edit ? " checked='checked'" : "" }} />
                             <label for="can_edit">
                                 <i class="icon-pencil"></i>
                                 {{ "Edit"|_ }}
                             </label>
                         </li>
                         <li>
-                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
-                                <input type="checkbox" {{ group.can_editown ? "checked='checked'" : "" }}
-                                       id="can_editown" name="group[can_editown]"/>
-                            </div>
+                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_editown" name="group[can_editown]"{{ group.can_editown ? " checked='checked'" : "" }} />
                             <label for="can_editown">
                                 <i class="icon-pencil"></i>
                                 {{ "Edit own"|_ }}
                             </label>
                         </li>
                         <li>
-                            <div class="make-switch" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>">
-                            <input type="checkbox" {{ group.can_manage ? "checked='checked'" : "" }}
-                                   id="can_manage" name="group[can_manage]"/>
-                            </div>
+                            <input type="checkbox" data-on="success" data-off="danger" data-on-label="<i class='icon-unlocked icon-white'></i>" data-off-label="<i class='icon-locked'></i>" id="can_manage" name="group[can_manage]"{{ group.can_manage ? " checked='checked'" : "" }} />
                             <label for="can_manage">
                                 <i class="icon-user-3"></i>
                                 {{ "Manage"|_ }}

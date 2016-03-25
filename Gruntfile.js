@@ -69,8 +69,8 @@ module.exports = function(grunt) {
                         },
                         'bootstrap-switch': {
                             files: [
-                                'static/stylesheets/bootstrap-switch.css',
-                                'static/js/bootstrap-switch.js'
+                                'dist/css/bootstrap2/bootstrap-switch.css',
+                                'dist/js/bootstrap-switch.js'
                             ]
                         },
                         'jquery-simple-color': {
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                     'blueimp-file-upload': ['css/jquery.fileupload.css', 'css/jquery.fileupload-ui.css', 'js/vendor/jquery.ui.widget.js', 'js/jquery.fileupload.js', 'js/jquery.fileupload-process.js', 'js/jquery.fileupload-image.js', 'js/jquery.fileupload-ui.js', 'js/jquery.fileupload-validate.js', 'js/jquery.iframe-transport.js'],
                     // Added in same order as v1.13.0 Gruntfile
                     'blueimp-load-image': ['js/load-image.js', 'js/load-image-ios.js', 'js/load-image-orientation.js', 'js/load-image-meta.js', 'js/load-image-exif.js', 'js/load-image-exif-map.js'],
-                    'bootstrap-switch': ['static/stylesheets/bootstrap-switch.css', 'static/js/bootstrap-switch.js'],
+                    'bootstrap-switch': ['dist/css/bootstrap2/bootstrap-switch.css', 'dist/js/bootstrap-switch.js'],
                     'jquery-simple-color': ['src/jquery.simple-color.js'],
                     'jquery-validation': ['dist/jquery.validate.js'],
                     'markitup': ['markitup/jquery.markitup.js'],
