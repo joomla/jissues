@@ -111,8 +111,7 @@ catch (\Exception $e)
 
 try
 {
-	$app = $container->get('app');
-	$app->execute();
+	$container->get('app')->execute();
 }
 catch (\Exception $e)
 {
