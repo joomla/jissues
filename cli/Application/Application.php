@@ -34,7 +34,7 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
-use JTracker\Service\ApplicationProvider;
+use JTracker\Service\WebApplicationProvider;
 use JTracker\Service\ConfigurationProvider;
 use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
@@ -108,7 +108,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		// Build the DI Container
 		$this->container = (new Container)
-			->registerServiceProvider(new ApplicationProvider($this))
+			->registerServiceProvider(new WebApplicationProvider)
 			->registerServiceProvider(new ConfigurationProvider($this->config))
 			->registerServiceProvider(new DatabaseProvider)
 			->registerServiceProvider(new GitHubProvider)

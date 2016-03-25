@@ -35,14 +35,14 @@ include $path;
 try
 {
 	$container = (new Joomla\DI\Container)
-		->registerServiceProvider(new JTracker\Service\ApplicationProvider)
 		->registerServiceProvider(new JTracker\Service\ConfigurationProvider)
 		->registerServiceProvider(new JTracker\Service\DatabaseProvider)
 		->registerServiceProvider(new JTracker\Service\DebuggerProvider)
 		->registerServiceProvider(new JTracker\Service\DispatcherProvider)
 		->registerServiceProvider(new JTracker\Service\GitHubProvider)
 		->registerServiceProvider(new JTracker\Service\MonologProvider)
-		->registerServiceProvider(new JTracker\Service\TransifexProvider);
+		->registerServiceProvider(new JTracker\Service\TransifexProvider)
+		->registerServiceProvider(new JTracker\Service\WebApplicationProvider);
 
 	// Create the application aliases for the common 'app' key and base application class
 	$container->alias('Joomla\\Application\\AbstractApplication', 'JTracker\\Application')

@@ -16,11 +16,11 @@ use JTracker\Router\TrackerRouter;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * Application service provider
+ * Web application service provider
  *
  * @since  1.0
  */
-class ApplicationProvider implements ServiceProviderInterface
+class WebApplicationProvider implements ServiceProviderInterface
 {
 	/**
 	 * Registers the service provider with a DI container.
