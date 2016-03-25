@@ -91,10 +91,10 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Session $session, Input $input, Registry $registry)
+	public function __construct(Session $session, Input $input, Registry $config)
 	{
 		// Run the parent constructor
-		parent::__construct($input, $registry);
+		parent::__construct($input, $config);
 
 		$this->newSession = $session;
 	}
