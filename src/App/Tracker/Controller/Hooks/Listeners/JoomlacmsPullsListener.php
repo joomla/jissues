@@ -840,6 +840,7 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				// Check for repository changes (no production code) execluding tests
 				if (strpos($file->filename, 'build/') === 0
+					|| strpos($file->filename, '.github/') === 0
 					|| $file->filename = '.gitignore'
 					|| $file->filename = 'CONTRIBUTING.md'
 					|| $file->filename = 'README.md'
