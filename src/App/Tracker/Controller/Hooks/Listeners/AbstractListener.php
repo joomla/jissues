@@ -15,6 +15,7 @@ use App\Projects\TrackerProject;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Github\Github;
+use Joomla\Http\Exception\InvalidResponseCodeException;
 
 use JTracker\Github\DataType\Commit\Status;
 
@@ -25,10 +26,8 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-abstract class AbstractListener implements ContainerAwareInterface
+abstract class AbstractListener
 {
-	use ContainerAwareTrait;
-
 	/**
 	 * Check if label already exists
 	 *
@@ -50,15 +49,11 @@ abstract class AbstractListener implements ContainerAwareInterface
 
 		if ($issueNumber === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
 		}
 
 		// Get the labels for the pull's issue
@@ -66,19 +61,33 @@ abstract class AbstractListener implements ContainerAwareInterface
 		{
 			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
 		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving labels for GitHub item %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d - %s',
+					'Error retrieving labels for GitHub item %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$issueNumber,
-					$e->getMessage()
-				)
+					$issueNumber
+				),
+				['exception' => $e]
 			);
 
-			throw new \RuntimeException($e->getMessage(), 0, $e);
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 		}
 
 		// Check if the label present that return true
@@ -118,15 +127,11 @@ abstract class AbstractListener implements ContainerAwareInterface
 
 		if ($issueNumber === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
 		}
 
 		// Only try to remove labels if the array isn't empty
@@ -152,20 +157,35 @@ abstract class AbstractListener implements ContainerAwareInterface
 						)
 					);
 				}
+				catch (InvalidResponseCodeException $e)
+				{
+					$logger->error(
+						sprintf(
+							'Error removing the %s label from GitHub pull request %s/%s #%d',
+							$removeLabel,
+							$project->gh_user,
+							$project->gh_project,
+							$issueNumber
+						),
+						['exception' => $e]
+					);
+
+					throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+				}
 				catch (\DomainException $e)
 				{
 					$logger->error(
 						sprintf(
-							'Error removing the %s label from GitHub pull request %s/%s #%d - %s',
+							'Error removing the %s label from GitHub pull request %s/%s #%d',
 							$removeLabel,
 							$project->gh_user,
 							$project->gh_project,
-							$issueNumber,
-							$e->getMessage()
-						)
+							$issueNumber
+						),
+						['exception' => $e]
 					);
 
-					throw new \RuntimeException($e->getMessage(), 0, $e);
+					throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 				}
 			}
 		}
@@ -208,6 +228,8 @@ abstract class AbstractListener implements ContainerAwareInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
+	 *
+	 * @since   1.0
 	 */
 	protected function addLabels($hookData, Github $github, Logger $logger, $project, $addLabels)
 	{
@@ -247,19 +269,33 @@ abstract class AbstractListener implements ContainerAwareInterface
 					)
 				);
 			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error adding labels to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$issueNumber
+					),
+					['exception' => $e]
+				);
+
+				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d - %s',
+						'Error adding labels to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$issueNumber,
-						$e->getMessage()
-					)
+						$issueNumber
+					),
+					['exception' => $e]
 				);
 
-				throw new \RuntimeException($e->getMessage(), 0, $e);
+				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 			}
 		}
 	}
