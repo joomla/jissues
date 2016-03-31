@@ -228,8 +228,6 @@ abstract class AbstractListener
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
-	 *
-	 * @since   1.0
 	 */
 	protected function addLabels($hookData, Github $github, Logger $logger, $project, $addLabels)
 	{
@@ -238,15 +236,11 @@ abstract class AbstractListener
 
 		if ($issueNumber === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
 		}
 
 		// Only try to add labels if the array isn't empty
@@ -351,15 +345,11 @@ abstract class AbstractListener
 
 		if ($issueNumber === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
 		}
 
 		$categoryModel            = new CategoryModel($this->getContainer()->get('db'));
@@ -391,17 +381,33 @@ abstract class AbstractListener
 		{
 			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
 		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving modified files for GitHub item %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
+					'Error retrieving modified files for GitHub item %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
 					$hookData->pull_request->number,
-					$e->getMessage()
-				)
+				),
+				['exception' => $e]
 			);
+
+			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 
 			$files = array();
 		}
