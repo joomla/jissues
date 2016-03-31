@@ -57,7 +57,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
 			
 			// Close the issue if we have a Pull Request for it
-			$this->closeTheCorrespondingIssueIfWeHaveAPullRequest($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkIfThisIsAPullRequestForAnIssue($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -579,7 +579,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function closeTheCorrespondingIssueIfWeHaveAPullRequest($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkIfThisIsAPullRequestForAnIssue($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// We want the ID. Text to check is: `Pull Request for Issue # .`
 		$body   = $hookData->pull_request->body;
@@ -626,5 +626,33 @@ class JoomlacmsPullsListener extends AbstractListener
 		$type = 'the there is a Pull Request';
 		$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
 
+		// Lets add `realted_to` property
+
+		if (!isset($table->rel_number) && !isset($checktable->rel_type)
+		{
+			$data = [
+				'rel_number'  => $id,
+				'rel_type'    => 4,
+			];
+
+			// Try to save the item
+			try
+			{
+				$table->save($data);
+			}
+			catch (\Exception $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error updating the rel_number and rel_type for issue %s/%s #%d on the tracker',
+						$project->gh_user,
+						$project->gh_project,
+						$issueNumber
+					),
+					['exception' => $e]
+				);
+			}
+		}
+		
 	}
 }
