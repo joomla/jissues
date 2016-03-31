@@ -393,7 +393,7 @@ abstract class AbstractListener
 				['exception' => $e]
 			);
 
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+			$files = array();
 		}
 		catch (\DomainException $e)
 		{
@@ -406,8 +406,6 @@ abstract class AbstractListener
 				),
 				['exception' => $e]
 			);
-
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
 
 			$files = array();
 		}
