@@ -9,9 +9,10 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
+
 use Joomla\Event\Event;
 use Joomla\Github\Github;
-use Joomla\Http\Exception\InvalidResponseCodeException;
+
 use Monolog\Logger;
 
 /**
@@ -55,6 +56,9 @@ class JoomlacmsPullsListener extends AbstractListener
 
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+
+			// Check the Categories based on the files that gets changed
+			$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -72,13 +76,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
-		// Only perform these events if this is a reopened pull, action will be 'reopened'
-		if ($arguments['action'] === 'reopened')
-		{
-			// Set the status to pending
-			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
-		}
-
 		// Check that pull requests have certain labels
 		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
@@ -87,6 +84,9 @@ class JoomlacmsPullsListener extends AbstractListener
 
 		// Add a RTC label if the item is in that status
 		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+		// Check the Categories based on the files that gets changed
+		$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 	}
 
 	/**
@@ -106,7 +106,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Set some data
 		$label      = 'RTC';
-		$labels     = [];
+		$labels     = array();
 		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
@@ -177,12 +177,12 @@ class JoomlacmsPullsListener extends AbstractListener
 				{
 					$logger->error(
 						sprintf(
-							'Error updating the state for issue %s/%s #%d on the tracker',
+							'Error updating the state for issue %s/%s #%d on the tracker: %s',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->pull_request->number
-						),
-						['exception' => $e]
+							$hookData->pull_request->number,
+							$e->getMessage()
+						)
 					);
 				}
 
@@ -196,28 +196,16 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
+						'Error posting comment to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
 				);
 			}
 		}
@@ -265,28 +253,16 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
+						'Error posting comment to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
 				);
 			}
 		}
@@ -310,9 +286,8 @@ class JoomlacmsPullsListener extends AbstractListener
 		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
-		$composerLabel        = 'Composer Dependency Changed';
-		$addLabels            = [];
-		$removeLabels         = [];
+		$addLabels            = array();
+		$removeLabels         = array();
 		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
 		// Add the PR label if it isn't already set
@@ -322,52 +297,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Get the files modified by the pull request
-		try
-		{
-			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
-		}
-		catch (InvalidResponseCodeException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				),
-				['exception' => $e]
-			);
-
-			$files = [];
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				),
-				['exception' => $e]
-			);
-
-			$files = [];
-		}
-
-		$composerChange   = $this->checkComposerChange($files);
-		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
-
-		// Add the label if we change a Composer dependency and it isn't already set
-		if ($composerChange && !$composerLabelSet)
-		{
-			$addLabels[] = $composerLabel;
-		}
-		// Remove the label if we don't change a Composer dependency
-		elseif ($composerLabelSet)
-		{
-			$removeLabels[] = $composerLabel;
-		}
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
@@ -410,32 +340,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		return;
-	}
-
-	/**
-	 * Check if we change a Composer dependency
-	 *
-	 * @param   array  $files  The files array
-	 *
-	 * @return  bool   True if we change a Composer dependency
-	 *
-	 * @since   1.0
-	 */
-	protected function checkComposerChange($files)
-	{
-		if (!empty($files))
-		{
-			foreach ($files as $file)
-			{
-				// Check for file paths libraries/vendor at position 0 or filename is composer.json or composer.lock
-				if (strpos($file->filename, 'libraries/vendor') === 0 || in_array($file->filename, ['composer.json', 'composer.lock']))
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -518,28 +422,16 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$table->save(['status' => 3]);
 		}
-		catch (\InvalidArgumentException $e)
+		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$table->issue_number
-				),
-				['exception' => $e]
-			);
-		}
-		catch (\RuntimeException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$table->issue_number
-				),
-				['exception' => $e]
+					$table->issue_number,
+					$e->getMessage()
+				)
 			);
 		}
 	}
@@ -590,31 +482,16 @@ class JoomlacmsPullsListener extends AbstractListener
 				)
 			);
 		}
-		catch (InvalidResponseCodeException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error updating the title for GitHub pull request %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				),
-				['exception' => $e]
-			);
-
-			// Don't change the title locally
-			return;
-		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error updating the title for GitHub pull request %s/%s #%d',
+					'Error updating the title for GitHub pull request %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number
-				),
-				['exception' => $e]
+					$hookData->pull_request->number,
+					$e->getMessage()
+				)
 			);
 
 			// Don't change the title locally
@@ -631,12 +508,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error updating the title for issue %s/%s #%d on the tracker',
+					'Error updating the title for issue %s/%s #%d on the tracker: %s',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->issue->number
-				),
-				['exception' => $e]
+					$hookData->issue->number,
+					$e->getMessage()
+				)
 			);
 		}
 	}
@@ -660,7 +537,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Post a comment on the PR asking to add a description
 			try
 			{
-				$addLabels                       = [];
+				$addLabels                       = array();
 				$testInstructionsMissingLabel    = 'Test instructions missing';
 				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
 
@@ -694,30 +571,273 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
+						'Error posting comment to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
+						$hookData->pull_request->number,
+						$e->getMessage()
+					)
 				);
 			}
 		}
+	}
+
+	/**
+	 * Checks the changed files and add based on that data a category (if possible)
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkCategories($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
+
+		$categories = $this->checkFilesAndAssignCategory($files);
+
+		if ($categories === array())
+		{
+			// Early return nothing to do
+			return true;
+		}
+
+		// Add the categorys we need
+		return $this->setCategories($hookData, $logger, $project, $table, $categories);
+	}
+
+	/**
+	 * Check the changed files and return the correct category if possible.
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  array  Category alias of the category we want to add
+	 *
+	 * @since   1.0
+	 */
+	protected function checkFilesAndAssignCategory($files)
+	{
+		$addCategories = array();
+
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for the installation folder
+				if (strpos($file->filename, 'installation/') === 0
+					&& !in_array('25', $addCategories))
+				{
+					// Installation
+					$addCategories[] = '25';
+				}
+
+				// Check for the admin template
+				if (strpos($file->filename, 'administrator/templates/') === 0
+					&& !in_array('31', $addCategories))
+				{
+					// Admin templates
+					$addCategories[] = '31';
+				}
+
+				// Check for the frontend template
+				if (strpos($file->filename, 'templates/') === 0
+					&& !in_array('30', $addCategories))
+				{
+					// Site Template
+					$addCategories[] = '30';
+				}
+
+				// Check for the plugins folder
+				if (strpos($file->filename, 'plugins/') === 0
+					&& !in_array('28', $addCategories))
+				{
+					// Plugins
+					$addCategories[] = '28';
+				}
+
+				// Check if the language gets changed
+				if (strpos($file->filename, 'administrator/language') === 0
+					|| strpos($file->filename, 'installation/language') === 0
+					|| strpos($file->filename, 'language') === 0
+					&& !in_array('27', $addCategories))
+				{
+					// Language & Strings
+					$addCategories[] = '27';
+				}
+
+				// Check for files & paths regarding the Unit/System Tests
+				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'phpunit.xml.dist'
+					|| $file->filename == 'travisci-phpunit.xml'
+					&& !in_array('14', $addCategories))
+				{
+					// Unit Tests
+					$addCategories[] = '14';
+				}
+
+				// Check for the libraries folder
+				if (strpos($file->filename, 'libraries/') === 0
+					&& !in_array('12', $addCategories))
+				{
+					// Libaries
+					$addCategories[] = '12';
+				}
+
+				// Check for the layouts folder
+				if (strpos($file->filename, 'layouts/') === 0
+					&& !in_array('15', $addCategories))
+				{
+					// Layout
+					$addCategories[] = '15';
+				}
+
+				// Check for the cli folder
+				if (strpos($file->filename, 'cli/') === 0
+					&& !in_array('18', $addCategories))
+				{
+					// CLI
+					$addCategories[] = '18';
+				}
+
+				// Check for external libraries folders and destinations
+				if (strpos($file->filename, 'libraries/fof/') === 0
+					|| strpos($file->filename, 'libraries/idna_convert/') === 0
+					|| strpos($file->filename, 'libraries/phpass/') === 0
+					|| strpos($file->filename, 'libraries/phputf8/') === 0
+					|| strpos($file->filename, 'libraries/simplepie/') === 0
+					|| strpos($file->filename, 'libraries/vendor/') === 0
+					|| strpos($file->filename, 'media/editors/codemirror') === 0
+					|| strpos($file->filename, 'media/editors/tinymce') === 0
+					|| $file->filename = 'composer.json'
+					|| $file->filename = 'composer.lock'
+					&& !in_array('4', $addCategories))
+				{
+					// External Library
+					$addCategories[] = '4';
+				}
+
+				// Check for repository changes (no production code) execluding tests
+				if (strpos($file->filename, 'build/') === 0
+					|| $file->filename = '.gitignore'
+					|| $file->filename = 'CONTRIBUTING.md'
+					|| $file->filename = 'README.md'
+					|| $file->filename = 'README.txt'
+					|| $file->filename = 'build.xml'
+					&& !in_array('36', $addCategories))
+				{
+					// Repository
+					$addCategories[] = '36';
+				}
+
+				// Check for tags changes
+				if (strpos($file->filename, 'administrator/components/com_tags') === 0
+					|| strpos($file->filename, 'components/com_tags') === 0
+					&& !in_array('16', $addCategories))
+				{
+					// Tags
+					$addCategories[] = '16';
+				}
+
+				// Check for sql changes
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0
+					|| strpos($file->filename, 'installation/sql') === 0
+					&& !in_array('10', $addCategories))
+				{
+					// SQL
+					$addCategories[] = '10';
+				}
+
+				// Check for postgresql changes
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0
+					|| strpos($file->filename, 'installation/sql/postgresql') === 0
+					&& !in_array('2', $addCategories))
+				{
+					// Postgresql
+					$addCategories[] = '2';
+				}
+
+				// Check for ms-sql changes
+				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0
+					|| strpos($file->filename, 'installation/sql/sqlazure') === 0
+					&& !in_array('3', $addCategories))
+				{
+					// MS SQL
+					$addCategories[] = '3';
+				}
+
+				// Check for media manager changes
+				if (strpos($file->filename, 'administrator/components/com_media') === 0
+					|| strpos($file->filename, 'components/com_media') === 0
+					&& !in_array('35', $addCategories))
+				{
+					// Media Manager
+					$addCategories[] = '35';
+				}
+
+				// Check for admin changes
+				if (strpos($file->filename, 'administrator/') === 0
+					&& !in_array('23', $addCategories))
+				{
+					// Administration
+					$addCategories[] = '23';
+				}
+
+				// Check for frontend changes
+				if (strpos($file->filename, 'components/') === 0
+					|| strpos($file->filename, 'modules/') === 0
+					|| strpos($file->filename, 'plugins/') === 0
+					|| strpos($file->filename, 'templates/') === 0
+					&& !in_array('24', $addCategories))
+				{
+					// Front End
+					$addCategories[] = '24';
+				}
+
+				// Check for admin components changes changes
+				if (strpos($file->filename, 'administrator/components/') === 0
+					&& !in_array('29', $addCategories))
+				{
+					// Components
+					$addCategories[] = '29';
+				}
+
+				// Check for frontend components changes
+				if (strpos($file->filename, 'components/') === 0
+					&& !in_array('29', $addCategories))
+				{
+					// Components
+					$addCategories[] = '29';
+				}
+
+				// Check for admin module changes changes
+				if (strpos($file->filename, 'administrator/modules/') === 0
+					&& !in_array('13', $addCategories))
+				{
+					// Modules
+					$addCategories[] = '13';
+				}
+
+				// Check for frontend module changes
+				if (strpos($file->filename, 'modules/') === 0
+					&& !in_array('13', $addCategories))
+				{
+					// Modules
+					$addCategories[] = '13';
+				}
+			}
+		}
+
+		// Return the categorys
+		return $addCategories;
 	}
 }

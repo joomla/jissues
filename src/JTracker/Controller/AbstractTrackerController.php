@@ -464,9 +464,12 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		$baseClass = ucfirst(str_replace('-', '', $application->getProject()->gh_project)) . ucfirst($type) . 'Listener';
 		$fullClass = 'App\\Tracker\\Controller\\Hooks\\Listeners\\' . $baseClass;
 
+		
 		if (class_exists($fullClass))
 		{
-			$this->getDispatcher()->addListener(new $fullClass);
+			$listener = new $fullClass;
+			$listener->setContainer($this->getContainer());
+			$this->dispatcher->addListener($listener);
 			$this->listenerSet = true;
 		}
 

@@ -8,10 +8,13 @@
 
 namespace App\Tracker\Controller\Hooks\Listeners;
 
+use App\Tracker\Model\CategoryModel;
+use App\Tracker\Table\IssuesTable;
 use App\Projects\TrackerProject;
 
+use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Github\Github;
-use Joomla\Http\Exception\InvalidResponseCodeException;
 
 use JTracker\Github\DataType\Commit\Status;
 
@@ -22,8 +25,10 @@ use Monolog\Logger;
  *
  * @since  1.0
  */
-abstract class AbstractListener
+abstract class AbstractListener implements ContainerAwareInterface
 {
+	use ContainerAwareTrait;
+
 	/**
 	 * Check if label already exists
 	 *
@@ -45,11 +50,15 @@ abstract class AbstractListener
 
 		if ($issueNumber === null)
 		{
-			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
 
-			$logger->error($message);
-
-			throw new \RuntimeException($message);
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
 		}
 
 		// Get the labels for the pull's issue
@@ -57,33 +66,19 @@ abstract class AbstractListener
 		{
 			$labels = $github->issues->get($project->gh_user, $project->gh_project, $issueNumber)->labels;
 		}
-		catch (InvalidResponseCodeException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$issueNumber
-				),
-				['exception' => $e]
-			);
-
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error retrieving labels for GitHub item %s/%s #%d',
+					'Error retrieving labels for GitHub item %s/%s #%d - %s',
 					$project->gh_user,
 					$project->gh_project,
-					$issueNumber
-				),
-				['exception' => $e]
+					$issueNumber,
+					$e->getMessage()
+				)
 			);
 
-			throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+			throw new \RuntimeException($e->getMessage(), 0, $e);
 		}
 
 		// Check if the label present that return true
@@ -123,11 +118,15 @@ abstract class AbstractListener
 
 		if ($issueNumber === null)
 		{
-			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
 
-			$logger->error($message);
-
-			throw new \RuntimeException($message);
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
 		}
 
 		// Only try to remove labels if the array isn't empty
@@ -153,35 +152,20 @@ abstract class AbstractListener
 						)
 					);
 				}
-				catch (InvalidResponseCodeException $e)
-				{
-					$logger->error(
-						sprintf(
-							'Error removing the %s label from GitHub pull request %s/%s #%d',
-							$removeLabel,
-							$project->gh_user,
-							$project->gh_project,
-							$issueNumber
-						),
-						['exception' => $e]
-					);
-
-					throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-				}
 				catch (\DomainException $e)
 				{
 					$logger->error(
 						sprintf(
-							'Error removing the %s label from GitHub pull request %s/%s #%d',
+							'Error removing the %s label from GitHub pull request %s/%s #%d - %s',
 							$removeLabel,
 							$project->gh_user,
 							$project->gh_project,
-							$issueNumber
-						),
-						['exception' => $e]
+							$issueNumber,
+							$e->getMessage()
+						)
 					);
 
-					throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+					throw new \RuntimeException($e->getMessage(), 0, $e);
 				}
 			}
 		}
@@ -224,8 +208,6 @@ abstract class AbstractListener
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
-	 *
-	 * @since   1.0
 	 */
 	protected function addLabels($hookData, Github $github, Logger $logger, $project, $addLabels)
 	{
@@ -265,33 +247,19 @@ abstract class AbstractListener
 					)
 				);
 			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$issueNumber
-					),
-					['exception' => $e]
-				);
-
-				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error adding labels to GitHub pull request %s/%s #%d',
+						'Error adding labels to GitHub pull request %s/%s #%d - %s',
 						$project->gh_user,
 						$project->gh_project,
-						$issueNumber
-					),
-					['exception' => $e]
+						$issueNumber,
+						$e->getMessage()
+					)
 				);
 
-				throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+				throw new \RuntimeException($e->getMessage(), 0, $e);
 			}
 		}
 	}
@@ -324,5 +292,108 @@ abstract class AbstractListener
 			$project->gh_user, $project->gh_project, $sha,
 			$status->state, $status->targetUrl, $status->description, $status->context
 		);
+	}
+
+	/**
+	 * Set Categories
+	 *
+	 * @param   object       $hookData       Hook data payload
+	 * @param   Logger       $logger         Logger object
+	 * @param   object       $project        Object containing project data
+	 * @param   IssuesTable  $table          Table object
+	 * @param   array        $addCategories  The Categories to add
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function setCategories($hookData, Logger $logger, $project, IssuesTable $table, $addCategories)
+	{
+		// The Github ID if we have a pull or issue so that method can handle both
+		$issueNumber = $this->getIssueNumber($hookData);
+
+		if ($issueNumber === null)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
+
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+		}
+
+		$categoryModel            = new CategoryModel($this->getContainer()->get('db'));
+		$category['issue_id']     = $table->id;
+		$category['modified_by']  = $this->getGithubBotName($project);
+		$category['categories']   = $addCategories;
+		$category['issue_number'] = $issueNumber;
+		$category['project_id']   = $project->project_id;
+
+		$categoryModel->updateCategory($category);
+	}
+
+	/**
+	 * Get the files modified by the pull request
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	protected function getChangedFilesByPullRequest($hookData, Github $github, Logger $logger, $project)
+	{
+		// Get the files modified by the pull request
+		try
+		{
+			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving modified files for GitHub item %s/%s #%d - %s',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number,
+					$e->getMessage()
+				)
+			);
+
+			$files = array();
+		}
+
+		// Retrun the changed files
+		return $files;
+	}
+
+	/**
+	 * Return the currently configured bot account. Fallback is 'joomla-cms-bot'
+	 *
+	 * @param   object  $project  Object containing project data
+	 *
+	 * @return  string  The currently configured bot account
+	 *
+	 * @since   1.0
+	 *
+	 */
+	protected function getGithubBotName($project)
+	{
+		// Look if we have a bot user configured
+		if ($project->getGh_Editbot_User())
+		{
+			// Retrun the user name
+			return $project->getGh_Editbot_User();
+		}
+
+		// Retun "joomla-cms-bot" as fallback
+		return 'joomla-cms-bot';
 	}
 }
