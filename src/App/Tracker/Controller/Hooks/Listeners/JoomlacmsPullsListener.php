@@ -12,6 +12,7 @@ use App\Tracker\Table\IssuesTable;
 
 use Joomla\Event\Event;
 use Joomla\Github\Github;
+use Joomla\Http\Exception\InvalidResponseCodeException;
 
 use Monolog\Logger;
 
@@ -35,6 +36,13 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
+
+		// Only perform these events if this is a reopened pull, action will be 'reopened'
+		if ($arguments['action'] === 'reopened')
+		{
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+		}
 
 		// Only perform these events if this is a new pull, action will be 'opened'
 		if ($arguments['action'] === 'opened')
@@ -106,7 +114,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Set some data
 		$label      = 'RTC';
-		$labels     = array();
+		$labels     = [];
 		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
@@ -177,12 +185,12 @@ class JoomlacmsPullsListener extends AbstractListener
 				{
 					$logger->error(
 						sprintf(
-							'Error updating the state for issue %s/%s #%d on the tracker: %s',
+							'Error updating the state for issue %s/%s #%d on the tracker',
 							$project->gh_user,
 							$project->gh_project,
-							$hookData->pull_request->number,
-							$e->getMessage()
-						)
+							$hookData->pull_request->number
+						),
+						['exception' => $e]
 					);
 				}
 
@@ -196,16 +204,28 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
+				);
+			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						'Error posting comment to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 		}
@@ -253,16 +273,28 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
+				);
+			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						'Error posting comment to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 		}
@@ -286,8 +318,9 @@ class JoomlacmsPullsListener extends AbstractListener
 		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
-		$addLabels            = array();
-		$removeLabels         = array();
+		$composerLabel        = 'Composer Dependency Changed';
+		$addLabels            = [];
+		$removeLabels         = [];
 		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
 		// Add the PR label if it isn't already set
@@ -297,7 +330,52 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Get the files modified by the pull request
-		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
+		try
+		{
+			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving modified files for GitHub item %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+
+			$files = [];
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving modified files for GitHub item %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+
+			$files = [];
+		}
+
+		$composerChange   = $this->checkComposerChange($files);
+		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
+
+		// Add the label if we change a Composer dependency and it isn't already set
+		if ($composerChange && !$composerLabelSet)
+		{
+			$addLabels[] = $composerLabel;
+		}
+		// Remove the label if we don't change a Composer dependency
+		elseif ($composerLabelSet)
+		{
+			$removeLabels[] = $composerLabel;
+		}
 
 		$languageChange   = $this->checkLanguageChange($files);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
@@ -340,6 +418,32 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		return;
+	}
+
+	/**
+	 * Check if we change a Composer dependency
+	 *
+	 * @param   array  $files  The files array
+	 *
+	 * @return  bool   True if we change a Composer dependency
+	 *
+	 * @since   1.0
+	 */
+	protected function checkComposerChange($files)
+	{
+		if (!empty($files))
+		{
+			foreach ($files as $file)
+			{
+				// Check for file paths libraries/vendor at position 0 or filename is composer.json or composer.lock
+				if (strpos($file->filename, 'libraries/vendor') === 0 || in_array($file->filename, ['composer.json', 'composer.lock']))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -422,16 +526,28 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$table->save(['status' => 3]);
 		}
-		catch (\DomainException $e)
+		catch (\InvalidArgumentException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d - %s',
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$table->issue_number,
-					$e->getMessage()
-				)
+					$table->issue_number
+				),
+				['exception' => $e]
+			);
+		}
+		catch (\RuntimeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error setting the status to pending in local application for GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$table->issue_number
+				),
+				['exception' => $e]
 			);
 		}
 	}
@@ -482,16 +598,31 @@ class JoomlacmsPullsListener extends AbstractListener
 				)
 			);
 		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error updating the title for GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+
+			// Don't change the title locally
+			return;
+		}
 		catch (\DomainException $e)
 		{
 			$logger->error(
 				sprintf(
-					'Error updating the title for GitHub pull request %s/%s #%d - %s',
+					'Error updating the title for GitHub pull request %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
-					$e->getMessage()
-				)
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
 			);
 
 			// Don't change the title locally
@@ -508,12 +639,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			$logger->error(
 				sprintf(
-					'Error updating the title for issue %s/%s #%d on the tracker: %s',
+					'Error updating the title for issue %s/%s #%d on the tracker',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->issue->number,
-					$e->getMessage()
-				)
+					$hookData->issue->number
+				),
+				['exception' => $e]
 			);
 		}
 	}
@@ -537,7 +668,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Post a comment on the PR asking to add a description
 			try
 			{
-				$addLabels                       = array();
+				$addLabels                       = [];
 				$testInstructionsMissingLabel    = 'Test instructions missing';
 				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
 
@@ -571,16 +702,28 @@ class JoomlacmsPullsListener extends AbstractListener
 					)
 				);
 			}
+			catch (InvalidResponseCodeException $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error posting comment to GitHub pull request %s/%s #%d',
+						$project->gh_user,
+						$project->gh_project,
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
+				);
+			}
 			catch (\DomainException $e)
 			{
 				$logger->error(
 					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d - %s',
+						'Error posting comment to GitHub pull request %s/%s #%d',
 						$project->gh_user,
 						$project->gh_project,
-						$hookData->pull_request->number,
-						$e->getMessage()
-					)
+						$hookData->pull_request->number
+					),
+					['exception' => $e]
 				);
 			}
 		}
@@ -626,7 +769,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkFilesAndAssignCategory($files)
 	{
-		$addCategories = array();
+		$addCategories = [];
 
 		if (!empty($files))
 		{
