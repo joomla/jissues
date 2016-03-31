@@ -55,6 +55,9 @@ class JoomlacmsPullsListener extends AbstractListener
 
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+			
+			// Close the issue if we have a Pull Request for it
+			$this->closeTheCorrespondingIssueIfWeHaveAPullRequest($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -560,5 +563,68 @@ class JoomlacmsPullsListener extends AbstractListener
 			$type = 'a no description';
 			$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
 		}
+	}
+
+	/**
+	 * Checks if a pull request has a refference to an issue with the template
+	 * `Pull Request for Issue # .` if yes it close the issue id and add a comment why he close it.
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function closeTheCorrespondingIssueIfWeHaveAPullRequest($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	{
+		// We want the ID. Text to check is: `Pull Request for Issue # .`
+		$body   = $hookData->pull_request->body;
+		$id  = explode('#', $body);
+		$id  = explode('.', $id[1]);
+		$id  = (int) trim($id[0]);
+		$length = strlen($id);
+
+		// If we have an integer with lenth 4 between the # and the . we have an Id to check
+		if (is_int($id) && $length == 4)
+		{
+			// Load the table for the ID
+			$checktable = (new IssuesTable($this->db))->load($id);
+
+			// If the issue is closed we don't need to do anything
+			if ($checktable->status == 10)
+			{
+				// Issue is closed nothing to do
+				return;
+			}
+
+			// Close the issue
+			$this->closeTheIssue($hookData, Github $github, Logger $logger, $project, $id);
+		}
+
+		// The Github ID if we have a pull or issue so that method can handle both
+		$issueNumber = $this->getIssueNumber($hookData);
+
+		if ($issueNumber === null)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
+
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+		}
+
+		// Add the message that this Issue gets closed because we have a Pull Request.
+		$message = 'Closed as we have a PR for testing here #' . $issueNumber . ' - Thanks';
+		$type = 'the there is a Pull Request';
+		$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
+
 	}
 }

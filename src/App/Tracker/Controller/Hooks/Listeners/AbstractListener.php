@@ -418,26 +418,37 @@ abstract class AbstractListener
 	 * @param   Github  $github     Github object
 	 * @param   Logger  $logger     Logger object
 	 * @param   object  $project    Object containing project data
+	 * @param   integer $id         The issue ID to close if not set we will use the current ID.
 	 *
 	 * @since  1.0
 	 * @return void
 	 */
-	protected function closeTheIssue($hookData, Github $github, Logger $logger, $project)
+	protected function closeTheIssue($hookData, Github $github, Logger $logger, $project, $id = null)
 	{
-		// The Github ID if we have a pull or issue so that method can handle both
-		$issueNumber = $this->getIssueNumber($hookData);
-
-		if ($issueNumber === null)
+		// Check for the optional paramenter that contains the ID to close
+		if ($id === null)
 		{
-			$logger->error(
-				sprintf(
-					'Error retrieving issue number for %s/%s',
-					$project->gh_user,
-					$project->gh_project
-				)
-			);
+			// There is no $id set so we get the current issue ID out of te hook data
+			// The Github ID if we have a pull or issue so that method can handle both
+			$issueNumber = $this->getIssueNumber($hookData);
 
-			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			if ($issueNumber === null)
+			{
+				$logger->error(
+					sprintf(
+						'Error retrieving issue number for %s/%s',
+						$project->gh_user,
+						$project->gh_project
+					)
+				);
+
+				throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			}
+		}
+		else
+		{
+			// Lets set the issueNumber
+			$issueNumber = $id;
 		}
 
 		// Close the item
