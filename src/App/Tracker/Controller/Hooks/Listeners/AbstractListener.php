@@ -388,12 +388,12 @@ abstract class AbstractListener
 					'Error retrieving modified files for GitHub item %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$issueNumber
+					$hookData->pull_request->number
 				),
 				['exception' => $e]
 			);
 
-			$files = array();
+			$files = [];
 		}
 		catch (\DomainException $e)
 		{
@@ -402,12 +402,12 @@ abstract class AbstractListener
 					'Error retrieving modified files for GitHub item %s/%s #%d',
 					$project->gh_user,
 					$project->gh_project,
-					$hookData->pull_request->number,
+					$hookData->pull_request->number
 				),
 				['exception' => $e]
 			);
 
-			$files = array();
+			$files = [];
 		}
 
 		// Retrun the changed files

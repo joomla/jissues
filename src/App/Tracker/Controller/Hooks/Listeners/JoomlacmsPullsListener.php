@@ -37,13 +37,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
-		// Only perform these events if this is a reopened pull, action will be 'reopened'
-		if ($arguments['action'] === 'reopened')
-		{
-			// Set the status to pending
-			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
-		}
-
 		// Only perform these events if this is a new pull, action will be 'opened'
 		if ($arguments['action'] === 'opened')
 		{
@@ -83,6 +76,13 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
+
+		// Only perform these events if this is a reopened pull, action will be 'reopened'
+		if ($arguments['action'] === 'reopened')
+		{
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+		}
 
 		// Check that pull requests have certain labels
 		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
@@ -330,38 +330,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Get the files modified by the pull request
-		try
-		{
-			$files = $github->pulls->getFiles($project->gh_user, $project->gh_project, $hookData->pull_request->number);
-		}
-		catch (InvalidResponseCodeException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				),
-				['exception' => $e]
-			);
-
-			$files = [];
-		}
-		catch (\DomainException $e)
-		{
-			$logger->error(
-				sprintf(
-					'Error retrieving modified files for GitHub item %s/%s #%d',
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number
-				),
-				['exception' => $e]
-			);
-
-			$files = [];
-		}
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project)
 
 		$composerChange   = $this->checkComposerChange($files);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
