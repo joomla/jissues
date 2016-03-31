@@ -12,8 +12,6 @@ use App\Tracker\Model\CategoryModel;
 use App\Tracker\Table\IssuesTable;
 use App\Projects\TrackerProject;
 
-use Joomla\DI\ContainerAwareInterface;
-use Joomla\DI\ContainerAwareTrait;
 use Joomla\Github\Github;
 use Joomla\Http\Exception\InvalidResponseCodeException;
 
@@ -415,7 +413,7 @@ abstract class AbstractListener
 	}
 
 	/**
-	 * Return the currently configured bot account. Fallback is 'joomla-cms-bot'
+	 * Return the currently configured bot account. Fallback is 'joomla-bot'
 	 *
 	 * @param   object  $project  Object containing project data
 	 *
@@ -433,7 +431,7 @@ abstract class AbstractListener
 			return $project->getGh_Editbot_User();
 		}
 
-		// Retun "joomla-cms-bot" as fallback
-		return 'joomla-cms-bot';
+		// Retun "joomla-bot" as fallback
+		return 'joomla-bot';
 	}
 }
