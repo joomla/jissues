@@ -143,83 +143,14 @@ class JoomlacmsPullsListener extends AbstractListener
 		if ($hookData->pull_request->base->ref == '2.5.x')
 		{
 			// Post a comment on the PR informing the user of end of support and close the item
-			try
-			{
-				$appNote = sprintf(
-					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
-					'https://github.com/joomla/jissues', 'J!Tracker'
-				);
+			$message  = 'Joomla! 2.5 is no longer supported.  Pull requests for this branch are no longer accepted.';
+			$type     = 'unsupported branch';
 
-				$github->issues->comments->create(
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					'Joomla! 2.5 is no longer supported.  Pull requests for this branch are no longer accepted.' . $appNote
-				);
+			// Create the Comment
+			$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
 
-				$github->pulls->edit(
-					$project->gh_user, $project->gh_project, $hookData->pull_request->number, null, null, 'closed'
-				);
-
-				// Update the local item now
-				try
-				{
-					// TODO - We'll need to inject the DB object at some point
-					$data = [
-						'status'      => 10,
-						'closed_date' => (new Date)->format('Y-m-d H:i:s'),
-						'closed_by'   => 'jissues-bot'
-					];
-
-					$table->save($data);
-				}
-				catch (\Exception $e)
-				{
-					$logger->error(
-						sprintf(
-							'Error updating the state for issue %s/%s #%d on the tracker',
-							$project->gh_user,
-							$project->gh_project,
-							$hookData->pull_request->number
-						),
-						['exception' => $e]
-					);
-				}
-
-				// Log the activity
-				$logger->info(
-					sprintf(
-						'Added unsupported branch comment to %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
+			// Close the item
+			$this->closeTheIssue($hookData, Github $github, Logger $logger, $project);
 		}
 	}
 
@@ -239,56 +170,12 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		if ($hookData->pull_request->base->ref == 'master')
 		{
-			// Post a comment on the PR asking to open a pull against staging
-			try
-			{
-				$appNote = sprintf(
-					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
-					'https://github.com/joomla/jissues', 'J!Tracker'
-				);
+			$message  = 'Pull requests to the master branch of this repo are not accepted.';
+			$message .= 'Please close this pull request and submit a new one against the staging branch.';
+			$type = 'incorrect branch';
 
-				$github->issues->comments->create(
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					'Pull requests to the master branch of this repo are not accepted.  '
-					. 'Please close this pull request and submit a new one against the staging branch.' . $appNote
-				);
-
-				// Log the activity
-				$logger->info(
-					sprintf(
-						'Added incorrect branch comment to %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
+			// Create the Comment
+			$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
 		}
 	}
 
@@ -658,66 +545,20 @@ class JoomlacmsPullsListener extends AbstractListener
 		if ($hookData->pull_request->body == '')
 		{
 			// Post a comment on the PR asking to add a description
-			try
+			$addLabels                       = [];
+			$testInstructionsMissingLabel    = 'Test instructions missing';
+			$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
+
+			// Add the Test instructions missing label if it isn't already set
+			if (!$testInstructionsMissingLabelSet)
 			{
-				$addLabels                       = [];
-				$testInstructionsMissingLabel    = 'Test instructions missing';
-				$testInstructionsMissingLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $testInstructionsMissingLabel);
-
-				// Add the Test instructions missing label if it isn't already set
-				if (!$testInstructionsMissingLabelSet)
-				{
-					$addLabels[] = $testInstructionsMissingLabel;
-					$this->addLabels($hookData, $github, $logger, $project, $addLabels);
-				}
-
-				$appNote = sprintf(
-					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
-					'https://github.com/joomla/jissues', 'J!Tracker'
-				);
-
-				$github->issues->comments->create(
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					'Please add more information to your issue. Without test instructions and/or any description we will close this issue within 4 weeks. Thanks.'
-					. $appNote
-				);
-
-				// Log the activity
-				$logger->info(
-					sprintf(
-						'Added a no description comment to %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
+				$addLabels[] = $testInstructionsMissingLabel;
+				$this->addLabels($hookData, $github, $logger, $project, $addLabels);
 			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
+
+			$message = 'Please add more information to your issue. Without test instructions and/or any description we will close this issue within 4 weeks. Thanks.';
+			$type = 'a no description';
+			$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
 		}
 	}
 }
