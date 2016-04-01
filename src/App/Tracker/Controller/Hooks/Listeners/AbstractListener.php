@@ -329,12 +329,12 @@ abstract class AbstractListener
 	/**
 	 * Create a comment to an Issue or Pull Request
 	 *
-	 * @param   object  $hookData   Hook data payload
-	 * @param   Github  $github     Github object
-	 * @param   Logger  $logger     Logger object
-	 * @param   object  $project    Object containing project data
-	 * @param   string  $message    Contains the message to be added
-	 * @param   string  $type       Contains the type of the message (that get added to the log)
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 * @param   string  $message   Contains the message to be added
+	 * @param   string  $type      Contains the type of the message (that get added to the log)
 	 *
 	 * @since  1.0
 	 * @return void
@@ -414,11 +414,11 @@ abstract class AbstractListener
 	/**
 	 * Create a status on GitHub.
 	 *
-	 * @param   object  $hookData   Hook data payload
-	 * @param   Github  $github     Github object
-	 * @param   Logger  $logger     Logger object
-	 * @param   object  $project    Object containing project data
-	 * @param   integer $id         The issue ID to close if not set we will use the current ID.
+	 * @param   object   $hookData  Hook data payload
+	 * @param   Github   $github    Github object
+	 * @param   Logger   $logger    Logger object
+	 * @param   object   $project   Object containing project data
+	 * @param   integer  $id        The issue ID to close if not set we will use the current ID.
 	 *
 	 * @since  1.0
 	 * @return void

@@ -55,9 +55,9 @@ class JoomlacmsPullsListener extends AbstractListener
 
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
-			
+
 			// Close the issue if we have a Pull Request for it
-			$this->checkIfThisIsAPullRequestForAnIssue($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkPullRequestFixesIssue($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 	}
 
@@ -559,7 +559,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				$this->addLabels($hookData, $github, $logger, $project, $addLabels);
 			}
 
-			$message = 'Please add more information to your issue. Without test instructions and/or any description we will close this issue within 4 weeks. Thanks.';
+			$message  = 'Please add more information to your issue.'
+			$message .= 'Without test instructions and/or any description we will close this issue within 4 weeks. Thanks.';
 			$type = 'a no description';
 			$this->createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type);
 		}
@@ -579,7 +580,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected function checkIfThisIsAPullRequestForAnIssue($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
+	protected function checkPullRequestFixesIssue($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
 		// We want the ID. Text to check is: `Pull Request for Issue # .`
 		$body   = $hookData->pull_request->body;
@@ -653,6 +654,5 @@ class JoomlacmsPullsListener extends AbstractListener
 				);
 			}
 		}
-		
 	}
 }
