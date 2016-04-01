@@ -92,14 +92,18 @@ class UseractivityModel extends AbstractTrackerDatabaseModel
 		// Append the code point subquery now
 		$query->join(
 			'LEFT',
-			'(' . (string) $codePointSubquery . ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by AND a.event = ' . $db->quote('open') . ')'
+			'(' . (string) $codePointSubquery 
+				. ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by AND a.event = '
+				. $db->quote('open') . ')'
 		);
 
 		if (in_array($this->state->get('list.activity_type'), [1, 2]))
 		{
 			// This can only filter Tracker and Test activity types
 			$query->where('t.activity_group = ' . $db->quote($type));
-			$query->order('SUM(CASE WHEN t.activity_group = ' . $db->quote($type) . ' THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) + (COUNT(c.id) * 5) DESC');
+			$query->order('SUM(CASE WHEN t.activity_group = '
+				. $db->quote($type)
+				. ' THEN t.activity_points ELSE 0 END) DESC, SUM(t.activity_points) + (COUNT(c.id) * 5) DESC');
 		}
 		elseif ($this->state->get('list.activity_type') == 3)
 		{

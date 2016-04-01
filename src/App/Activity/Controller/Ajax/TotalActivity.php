@@ -106,7 +106,7 @@ class TotalActivity extends AbstractAjaxController
 		$periodDays  = [7, 7, 30, 90];
 		$dayInterval = $periodDays[$periodType];
 
-		$ticks[] = date('d M',strtotime($endDate . '-' . (($dayInterval * 4) - 1) . ' day')). ' - '
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 4) - 1) . ' day')). ' - '
 					. date('d M', strtotime($endDate . '-' . ($dayInterval * 3) . ' day'));
 		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 3) - 1) . ' day')) . ' - '
 					. date('d M', strtotime($endDate . '-' . ($dayInterval * 2) . ' day'));
@@ -118,6 +118,7 @@ class TotalActivity extends AbstractAjaxController
 		$data          = [];
 		$label1        = new \stdClass;
 		$label2        = new \stdClass;
+
 		// $label3        = new \stdClass;
 		$types         = array_keys($points);
 		$label1->label = sprintf(g11n3t('%1$s Points'), $types[0]);
@@ -125,6 +126,7 @@ class TotalActivity extends AbstractAjaxController
 		if ($activityType === 0)
 		{
 			$label2->label = sprintf(g11n3t('%1$s Points'), $types[1]);
+
 			// $label3->label = sprintf(g11n3t('%1$s Points'), $types[2]);
 			$data          = [$points[$types[0]], $points[$types[1]], /*$points[$types[2]]*/];
 			$labels        = [$label1, $label2, /*$label3*/];

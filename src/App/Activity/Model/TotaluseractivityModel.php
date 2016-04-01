@@ -88,8 +88,8 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 		$query->join(
 			'LEFT',
 			'(' . (string) $codePointSubquery
-			. ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by AND a.event = '
-			. $db->quote('open') . ')'
+				. ') AS c ON (a.issue_number = c.issue_number AND a.project_id = c.project_id AND a.user = c.opened_by AND a.event = '
+				. $db->quote('open') . ')'
 		);
 
 		$query->group('t.activity_group');
