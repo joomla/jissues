@@ -330,7 +330,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Get the files modified by the pull request
-		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project)
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
 		$composerChange   = $this->checkComposerChange($files);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
