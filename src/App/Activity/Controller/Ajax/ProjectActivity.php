@@ -100,10 +100,14 @@ class ProjectActivity extends AbstractAjaxController
 		$periodDays  = [7, 7, 30, 90];
 		$dayInterval = $periodDays[$periodType];
 
-		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 4) - 1) . ' day')) . ' - ' . date('d M', strtotime($endDate . '-' . ($dayInterval * 3) . ' day'));
-		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 3) - 1) . ' day')) . ' - ' . date('d M', strtotime($endDate . '-' . ($dayInterval * 2) . ' day'));
-		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 2) - 1) . ' day')) . ' - ' . date('d M', strtotime($endDate . '-' . ($dayInterval * 1) . ' day'));
-		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 1) - 1) . ' day')) . ' - ' . date('d M', strtotime($endDate . '-' . ($dayInterval * 0) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 4) - 1) . ' day')) . ' - '
+					. date('d M', strtotime($endDate . '-' . ($dayInterval * 3) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 3) - 1) . ' day')) . ' - '
+					. date('d M', strtotime($endDate . '-' . ($dayInterval * 2) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 2) - 1) . ' day')) . ' - '
+					. date('d M', strtotime($endDate . '-' . ($dayInterval * 1) . ' day'));
+		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 1) - 1) . ' day')) . ' - '
+					. date('d M', strtotime($endDate . '-' . ($dayInterval * 0) . ' day'));
 
 		$data          = [];
 		$label1        = new \stdClass;
