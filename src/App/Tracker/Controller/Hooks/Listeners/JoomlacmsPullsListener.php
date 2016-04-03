@@ -777,9 +777,9 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check if the language gets changed
-				if (strpos($file->filename, 'administrator/language') === 0
+				if ((strpos($file->filename, 'administrator/language') === 0
 					|| strpos($file->filename, 'installation/language') === 0
-					|| strpos($file->filename, 'language') === 0
+					|| strpos($file->filename, 'language') === 0)
 					&& !in_array('27', $addCategories))
 				{
 					// Language & Strings
@@ -787,10 +787,10 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for files & paths regarding the Unit/System Tests
-				if (strpos($file->filename, 'tests') === 0
+				if ((strpos($file->filename, 'tests') === 0
 					|| $file->filename == '.travis.yml'
 					|| $file->filename == 'phpunit.xml.dist'
-					|| $file->filename == 'travisci-phpunit.xml'
+					|| $file->filename == 'travisci-phpunit.xml')
 					&& !in_array('14', $addCategories))
 				{
 					// Unit Tests
@@ -822,7 +822,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for external libraries folders and destinations
-				if (strpos($file->filename, 'libraries/fof/') === 0
+				if ((strpos($file->filename, 'libraries/fof/') === 0
 					|| strpos($file->filename, 'libraries/idna_convert/') === 0
 					|| strpos($file->filename, 'libraries/phpass/') === 0
 					|| strpos($file->filename, 'libraries/phputf8/') === 0
@@ -831,7 +831,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					|| strpos($file->filename, 'media/editors/codemirror') === 0
 					|| strpos($file->filename, 'media/editors/tinymce') === 0
 					|| $file->filename = 'composer.json'
-					|| $file->filename = 'composer.lock'
+					|| $file->filename = 'composer.lock')
 					&& !in_array('4', $addCategories))
 				{
 					// External Library
@@ -839,13 +839,13 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for repository changes (no production code) execluding tests
-				if (strpos($file->filename, 'build/') === 0
+				if ((strpos($file->filename, 'build/') === 0
 					|| strpos($file->filename, '.github/') === 0
 					|| $file->filename = '.gitignore'
 					|| $file->filename = 'CONTRIBUTING.md'
 					|| $file->filename = 'README.md'
 					|| $file->filename = 'README.txt'
-					|| $file->filename = 'build.xml'
+					|| $file->filename = 'build.xml')
 					&& !in_array('36', $addCategories))
 				{
 					// Repository
@@ -853,8 +853,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for tags changes
-				if (strpos($file->filename, 'administrator/components/com_tags') === 0
-					|| strpos($file->filename, 'components/com_tags') === 0
+				if ((strpos($file->filename, 'administrator/components/com_tags') === 0
+					|| strpos($file->filename, 'components/com_tags') === 0)
 					&& !in_array('16', $addCategories))
 				{
 					// Tags
@@ -862,8 +862,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for sql changes
-				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0
-					|| strpos($file->filename, 'installation/sql') === 0
+				if ((strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0
+					|| strpos($file->filename, 'installation/sql') === 0)
 					&& !in_array('10', $addCategories))
 				{
 					// SQL
@@ -871,8 +871,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for postgresql changes
-				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0
-					|| strpos($file->filename, 'installation/sql/postgresql') === 0
+				if ((strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0
+					|| strpos($file->filename, 'installation/sql/postgresql') === 0)
 					&& !in_array('2', $addCategories))
 				{
 					// Postgresql
@@ -880,8 +880,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for ms-sql changes
-				if (strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0
-					|| strpos($file->filename, 'installation/sql/sqlazure') === 0
+				if ((strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0
+					|| strpos($file->filename, 'installation/sql/sqlazure') === 0)
 					&& !in_array('3', $addCategories))
 				{
 					// MS SQL
@@ -889,8 +889,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for media manager changes
-				if (strpos($file->filename, 'administrator/components/com_media') === 0
-					|| strpos($file->filename, 'components/com_media') === 0
+				if ((strpos($file->filename, 'administrator/components/com_media') === 0
+					|| strpos($file->filename, 'components/com_media') === 0)
 					&& !in_array('35', $addCategories))
 				{
 					// Media Manager
@@ -906,10 +906,10 @@ class JoomlacmsPullsListener extends AbstractListener
 				}
 
 				// Check for frontend changes
-				if (strpos($file->filename, 'components/') === 0
+				if ((strpos($file->filename, 'components/') === 0
 					|| strpos($file->filename, 'modules/') === 0
 					|| strpos($file->filename, 'plugins/') === 0
-					|| strpos($file->filename, 'templates/') === 0
+					|| strpos($file->filename, 'templates/') === 0)
 					&& !in_array('24', $addCategories))
 				{
 					// Front End
