@@ -738,7 +738,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkFilesAndAssignCategory($files)
 	{
-		$addCategories = [];
+		$addCategories = array();
 
 		if (!empty($files))
 		{
@@ -830,8 +830,8 @@ class JoomlacmsPullsListener extends AbstractListener
 					|| strpos($file->filename, 'libraries/vendor/') === 0
 					|| strpos($file->filename, 'media/editors/codemirror') === 0
 					|| strpos($file->filename, 'media/editors/tinymce') === 0
-					|| $file->filename = 'composer.json'
-					|| $file->filename = 'composer.lock')
+					|| $file->filename == 'composer.json'
+					|| $file->filename == 'composer.lock')
 					&& !in_array('4', $addCategories))
 				{
 					// External Library
@@ -841,11 +841,11 @@ class JoomlacmsPullsListener extends AbstractListener
 				// Check for repository changes (no production code) execluding tests
 				if ((strpos($file->filename, 'build/') === 0
 					|| strpos($file->filename, '.github/') === 0
-					|| $file->filename = '.gitignore'
-					|| $file->filename = 'CONTRIBUTING.md'
-					|| $file->filename = 'README.md'
-					|| $file->filename = 'README.txt'
-					|| $file->filename = 'build.xml')
+					|| $file->filename == '.gitignore'
+					|| $file->filename == 'CONTRIBUTING.md'
+					|| $file->filename == 'README.md'
+					|| $file->filename == 'README.txt'
+					|| $file->filename == 'build.xml')
 					&& !in_array('36', $addCategories))
 				{
 					// Repository
