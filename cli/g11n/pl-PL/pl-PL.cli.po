@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-21 13:20-0500\n"
-"PO-Revision-Date: 2016-02-11 04:52+0000\n"
+"PO-Revision-Date: 2016-03-26 16:58+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/opentranslators/jtracker/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -408,7 +408,7 @@ msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:59
 msgid "Installer"
-msgstr ""
+msgstr "Instalator"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found !!"

@@ -86,7 +86,7 @@ class Add extends AbstractTrackerController
 		$project = $this->getContainer()->get('app')->getProject();
 		$github = GithubFactory::getInstance($this->getContainer()->get('app'));
 
-		$exceptionHandler = function (\Exception $exception) use ($github)
+		$exceptionHandler = function (\Exception $exception) use ($project, $github)
 		{
 			try
 			{
