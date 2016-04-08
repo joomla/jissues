@@ -745,7 +745,6 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkCategories($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
-
 		// The current categorys for the PR.
 		$currentCategories        = $this->getCategories($hookData, Logger $logger, $project, IssuesTable $table);
 		$categoriesThatShouldStay = array_diff($currentCategories, $this->$trackerHandeldCategories);
