@@ -30,26 +30,46 @@ class JoomlacmsPullsListener extends AbstractListener
 	 * @since   1.0
 	 */
 	protected $trackerHandeldCategories = array(
-				'2', // Postgresql
-				'3', // MS SQL
-				'4', // External Library
-				'10', // SQL
-				'12', // Libaries
-				'13', // Modules
-				'14', // Unit Tests
-				'15', // Layout
-				'16', // Tags
-				'18', // CLI
-				'23', // Administration
-				'24', // Front End
-				'25', // Installation
-				'27', // Language & Strings
-				'28', // Plugins
-				'29', // Components
-				'30', // Site Template
-				'31', // Admin templates
-				'35', // Media Manager
-				'36', // Repository
+				// Postgresql
+				'2',
+				// MS SQL
+				'3',
+				// External Library
+				'4',
+				// SQL
+				'10',
+				// Libaries
+				'12',
+				// Modules
+				'13',
+				// Unit Tests
+				'14',
+				// Layout
+				'15',
+				// Tags
+				'16',
+				// CLI
+				'18',
+				// Administration
+				'23',
+				// Front End
+				'24',
+				// Installation
+				'25',
+				// Language & Strings
+				'27',
+				// Plugins
+				'28',
+				// Components
+				'29',
+				// Site Template
+				'30',
+				// Admin templates
+				'31',
+				// Media Manager
+				'35',
+				// Repository
+				'36',
 		);
 
 
@@ -727,8 +747,6 @@ class JoomlacmsPullsListener extends AbstractListener
 			}
 		}
 	}
-
-	
 
 	/**
 	 * Checks the changed files and add based on that data a category (if possible)

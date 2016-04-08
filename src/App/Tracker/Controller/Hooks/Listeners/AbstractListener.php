@@ -367,10 +367,10 @@ abstract class AbstractListener implements ContainerAwareInterface
 	/**
 	 * Get Categories
 	 *
-	 * @param   object       $hookData       Hook data payload
-	 * @param   Logger       $logger         Logger object
-	 * @param   object       $project        Object containing project data
-	 * @param   IssuesTable  $table          Table object
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  array        The object list of the issues.
 	 *
