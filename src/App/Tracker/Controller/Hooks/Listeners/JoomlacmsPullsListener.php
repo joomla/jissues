@@ -24,6 +24,36 @@ use Monolog\Logger;
 class JoomlacmsPullsListener extends AbstractListener
 {
 	/**
+	 * The Tracker Categories that gets handeld based on the files that changed by a pull request
+	 * Changes on the pull request only affect this categories
+	 *
+	 * @since   1.0
+	 */
+	protected $trackerHandeldCategories = array(
+				'2', // Postgresql
+				'3', // MS SQL
+				'4', // External Library
+				'10', // SQL
+				'12', // Libaries
+				'13', // Modules
+				'14', // Unit Tests
+				'15', // Layout
+				'16', // Tags
+				'18', // CLI
+				'23', // Administration
+				'24', // Front End
+				'25', // Installation
+				'27', // Language & Strings
+				'28', // Plugins
+				'29', // Components
+				'30', // Site Template
+				'31', // Admin templates
+				'35', // Media Manager
+				'36', // Repository
+		);
+
+
+	/**
 	 * Event for after pull requests are created in the application
 	 *
 	 * @param   Event  $event  Event object
@@ -698,6 +728,8 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 	}
 
+	
+
 	/**
 	 * Checks the changed files and add based on that data a category (if possible)
 	 *
@@ -713,15 +745,19 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkCategories($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
+
+		// The current categorys for the PR.
+		$currentCategories        = $this->getCategories($hookData, Logger $logger, $project, IssuesTable $table);
+		$categoriesThatShouldStay = array_diff($currentCategories, $this->$trackerHandeldCategories);
+
+		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
-		$categories = $this->checkFilesAndAssignCategory($files);
+		// The new category set based on the current code of the PR
+		$newCategories = $this->checkFilesAndAssignCategory($files);
 
-		if ($categories === array())
-		{
-			// Early return nothing to do
-			return true;
-		}
+		// Merge the current and the new Categories
+		$categories = array_merge($newCategories, $categoriesThatShouldStay);
 
 		// Add the categorys we need
 		return $this->setCategories($hookData, $logger, $project, $table, $categories);

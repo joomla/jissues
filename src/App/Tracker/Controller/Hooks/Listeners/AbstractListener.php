@@ -365,6 +365,38 @@ abstract class AbstractListener implements ContainerAwareInterface
 	}
 
 	/**
+	 * Get Categories
+	 *
+	 * @param   object       $hookData       Hook data payload
+	 * @param   Logger       $logger         Logger object
+	 * @param   object       $project        Object containing project data
+	 * @param   IssuesTable  $table          Table object
+	 *
+	 * @return  array        The object list of the issues.
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function getCategories($hookData, Logger $logger, $project, IssuesTable $table)
+	{
+		// The Github ID if we have a pull or issue so that method can handle both
+		$issueNumber = $this->getIssueNumber($hookData);
+
+		if ($issueNumber === null)
+		{
+			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
+
+			$logger->error($message);
+
+			throw new \RuntimeException($message);
+		}
+
+		$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+
+		return $categoryModel->getCategories($issueNumber);
+	}
+
+	/**
 	 * Get the files modified by the pull request
 	 *
 	 * @param   object  $hookData  Hook data payload
