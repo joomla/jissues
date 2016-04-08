@@ -72,7 +72,6 @@ class JoomlacmsPullsListener extends AbstractListener
 				'36',
 		);
 
-
 	/**
 	 * Event for after pull requests are created in the application
 	 *
