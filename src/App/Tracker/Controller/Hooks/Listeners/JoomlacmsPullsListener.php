@@ -762,20 +762,25 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkCategories($hookData, Github $github, Logger $logger, $project, IssuesTable $table)
 	{
-		// The current categorys for the PR.
-		$currentCategories        = $this->getCategories($hookData, Logger $logger, $project, IssuesTable $table);
+		// The current categories for the PR.
+		$currentCategories = $this->getCategories($hookData, $logger, $project, $table);
+
+		// Hold the category ids that are added to the issue but not handeld by the tracker to readd it later
 		$categoriesThatShouldStay = array_diff($currentCategories, $this->$trackerHandeldCategories);
 
 		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
-		// The new category set based on the current code of the PR
+		// The new categories based on the current code of the PR
 		$newCategories = $this->checkFilesAndAssignCategory($files);
 
-		// Merge the current and the new Categories
+		// Merge the current and the new categories
 		$categories = array_merge($newCategories, $categoriesThatShouldStay);
 
-		// Add the categorys we need
+		// Make sure we have no dublicate entrys here
+		$categories = array_unique($array);
+
+		// Add the categories we need
 		return $this->setCategories($hookData, $logger, $project, $table, $categories);
 	}
 
