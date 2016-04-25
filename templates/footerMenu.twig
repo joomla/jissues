@@ -30,7 +30,11 @@
         <li><a href="https://www.joomla.org/accessibility-statement.html">{{ "Accessibility Statement"|_ }}</a></li>
         <li><a href="https://www.joomla.org/privacy-policy.html">{{ "Privacy Policy"|_ }}</a></li>
         <li><a href="{{ uri.base.path }}tracker/jtracker/add">{{ "Report an Issue"|_ }}</a></li>
-        <li><a href="{{ loginUrl }}">{{ "Log in"|_ }}</a></li>
+        {% if user.id %}
+            <li><a href="{{ uri.base.path }}logout">{{ "Log out"|_ }}</a></li>
+        {% else %}
+            <li><a href="{{ loginUrl }}">{{ "Log in"|_ }}</a></li>
+        {% endif %}
     </ul>
 
     <p class="copyright">&copy; 2005 - {{ now|date("Y") }} <a href="http://www.opensourcematters.org">Open Source Matters, Inc.</a> {{ "All rights reserved."|_ }}</p>
