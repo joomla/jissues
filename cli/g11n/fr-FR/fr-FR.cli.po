@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-04-25 18:04-0500\n"
 "PO-Revision-Date: 2016-02-11 04:52+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/opentranslators/jtracker/language/fr_FR/)\n"
@@ -18,40 +18,40 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /cli/Application/Application.php:130
+#: /cli/Application/Application.php:123
 msgid "Be quiet - suppress output."
 msgstr "Soyez tranquille - supprimer le rendu."
 
-#: /cli/Application/Application.php:135
+#: /cli/Application/Application.php:128
 msgid "Verbose output for debugging purpose."
 msgstr "Sortie à des fins de débogage."
 
-#: /cli/Application/Application.php:140
+#: /cli/Application/Application.php:133
 msgid "Suppress ANSI colors on unsupported terminals."
 msgstr "Supprimer les couleurs ANSI sur les supports non pris en charge."
 
-#: /cli/Application/Application.php:145
+#: /cli/Application/Application.php:138
 msgid "Optionally log output to the specified log file."
 msgstr "Sortie du journal optionnelle vers le fichier journal spécifié."
 
-#: /cli/Application/Application.php:191
+#: /cli/Application/Application.php:184
 msgid "Joomla! Tracker CLI Application"
 msgstr "Application CLI Joomla! Tracker"
 
-#: /cli/Application/Application.php:218
+#: /cli/Application/Application.php:211
 #, php-format
 msgid "Invalid command: %s"
 msgstr "Commande invalide : %s"
 
-#: /cli/Application/Application.php:225
+#: /cli/Application/Application.php:218
 msgid "Did you mean one of this?"
 msgstr "Vouliez-vous dire un de ceux-ci ?"
 
-#: /cli/Application/Application.php:254
+#: /cli/Application/Application.php:247
 msgid "Process aborted."
 msgstr "Traitement interrompu."
 
-#: /cli/Application/Application.php:261
+#: /cli/Application/Application.php:254
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr "Temps d’exécution : <b>%d sec.</b>"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-04-25 18:04-0500\n"
 "PO-Revision-Date: 2016-02-11 04:51+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/opentranslators/jtracker/language/da_DK/)\n"
@@ -19,40 +19,40 @@ msgstr ""
 "Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /cli/Application/Application.php:130
+#: /cli/Application/Application.php:123
 msgid "Be quiet - suppress output."
 msgstr "Vær stille - undertryk output."
 
-#: /cli/Application/Application.php:135
+#: /cli/Application/Application.php:128
 msgid "Verbose output for debugging purpose."
 msgstr "Omfattende output til brug for fejlfinding."
 
-#: /cli/Application/Application.php:140
+#: /cli/Application/Application.php:133
 msgid "Suppress ANSI colors on unsupported terminals."
 msgstr "Undertryk ANSI farver på ikke supporterede terminaler."
 
-#: /cli/Application/Application.php:145
+#: /cli/Application/Application.php:138
 msgid "Optionally log output to the specified log file."
 msgstr "Valgfrit log output til den specificerede logfil."
 
-#: /cli/Application/Application.php:191
+#: /cli/Application/Application.php:184
 msgid "Joomla! Tracker CLI Application"
 msgstr "Joomla! Tracker CLI Applikation"
 
-#: /cli/Application/Application.php:218
+#: /cli/Application/Application.php:211
 #, php-format
 msgid "Invalid command: %s"
 msgstr "Ugyldig kommando: %s"
 
-#: /cli/Application/Application.php:225
+#: /cli/Application/Application.php:218
 msgid "Did you mean one of this?"
 msgstr "Mener du en af disse?"
 
-#: /cli/Application/Application.php:254
+#: /cli/Application/Application.php:247
 msgid "Process aborted."
 msgstr "Processen afbrudt."
 
-#: /cli/Application/Application.php:261
+#: /cli/Application/Application.php:254
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr "Udførselstid: <b>%d sek.</b>"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-04-25 18:04-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
-#: /cli/Application/Application.php:130
+#: /cli/Application/Application.php:123
 msgid "Be quiet - suppress output."
 msgstr ""
 
-#: /cli/Application/Application.php:135
+#: /cli/Application/Application.php:128
 msgid "Verbose output for debugging purpose."
 msgstr ""
 
-#: /cli/Application/Application.php:140
+#: /cli/Application/Application.php:133
 msgid "Suppress ANSI colors on unsupported terminals."
 msgstr ""
 
-#: /cli/Application/Application.php:145
+#: /cli/Application/Application.php:138
 msgid "Optionally log output to the specified log file."
 msgstr ""
 
-#: /cli/Application/Application.php:191
+#: /cli/Application/Application.php:184
 msgid "Joomla! Tracker CLI Application"
 msgstr ""
 
-#: /cli/Application/Application.php:218
+#: /cli/Application/Application.php:211
 #, php-format
 msgid "Invalid command: %s"
 msgstr ""
 
-#: /cli/Application/Application.php:225
+#: /cli/Application/Application.php:218
 msgid "Did you mean one of this?"
 msgstr ""
 
-#: /cli/Application/Application.php:254
+#: /cli/Application/Application.php:247
 msgid "Process aborted."
 msgstr ""
 
-#: /cli/Application/Application.php:261
+#: /cli/Application/Application.php:254
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr ""
