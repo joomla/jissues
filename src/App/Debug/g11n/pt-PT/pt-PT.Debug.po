@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-04-25 18:04-0500\n"
 "PO-Revision-Date: 2015-11-09 15:49+0000\n"
 "Last-Translator: Paulo Pereira <pauloizidoro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
@@ -107,7 +107,7 @@ msgstr "Ficheiro (linha)"
 msgid "String"
 msgstr "Linha"
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:74
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
 #, php-format
 msgid "No %s log file found."
 msgstr "Ficheiro %s de registo não encontrado."

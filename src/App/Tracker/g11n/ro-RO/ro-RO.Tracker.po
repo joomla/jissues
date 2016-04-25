@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-04-25 18:04-0500\n"
 "PO-Revision-Date: 2016-03-21 18:21+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
@@ -40,21 +40,21 @@ msgid "Cancel"
 msgstr "Anulează"
 
 #: /templates/tracker/issue.edit.twig:84
-#: /templates/tracker/issues.index.twig:153
+#: /templates/tracker/issues.index.twig:155
 #: /templates/tracker/issue.index.twig:184
 msgid "Foreign ID"
 msgstr "ID Străin"
 
 #: /templates/tracker/issue.edit.twig:107
 #: /templates/tracker/tpl/activities.twig:58
-#: /templates/tracker/issues.index.twig:46
+#: /templates/tracker/issues.index.twig:47
 msgid "Status"
 msgstr "Status"
 
 #: /templates/tracker/issue.edit.twig:115
 #: /templates/tracker/tpl/activities.twig:92
-#: /templates/tracker/issues.index.twig:45
-#: /templates/tracker/issue.add.twig:54
+#: /templates/tracker/issues.index.twig:46
+#: /templates/tracker/issue.add.twig:49
 msgid "Priority"
 msgstr "Prioritate"
 
@@ -64,7 +64,7 @@ msgstr "Obiect"
 
 #: /templates/tracker/issue.edit.twig:141
 #: /templates/tracker/issue.index.twig:107
-#: /templates/tracker/issue.add.twig:62
+#: /templates/tracker/issue.add.twig:57
 msgid "Build"
 msgstr "Structură"
 
@@ -72,19 +72,19 @@ msgstr "Structură"
 msgid "Easy test"
 msgstr "Test uşor"
 
-#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:70
+#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:65
 msgid "Categories"
 msgstr "Categorii"
 
 #: /templates/tracker/issue.edit.twig:164
 #: /templates/tracker/tpl/activities.twig:113
-#: /templates/tracker/issue.add.twig:80
+#: /templates/tracker/issue.add.twig:75
 msgid "Labels"
 msgstr "Etichete"
 
 #: /templates/tracker/issue.edit.twig:171
 #: /templates/tracker/tpl/activities.twig:131
-#: /templates/tracker/issue.add.twig:85
+#: /templates/tracker/issue.add.twig:80
 msgid "Milestone"
 msgstr "Milestone"
 
@@ -92,7 +92,7 @@ msgstr "Milestone"
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.edit.twig:27
-#: /templates/tracker/issue.add.twig:105
+#: /templates/tracker/issue.add.twig:100
 #: /templates/tracker/categories.index.twig:40
 msgid "Title"
 msgstr "Titlu"
@@ -108,7 +108,7 @@ msgid "Leave a comment"
 msgstr "Lasă un comentariu"
 
 #: /templates/tracker/issue.edit.twig:314
-#: /templates/tracker/issue.add.twig:221
+#: /templates/tracker/issue.add.twig:218
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Unele câmpuri nu sunt valide. Acestea au fost marcate."
 
@@ -216,7 +216,7 @@ msgid "Open"
 msgstr "Deschis"
 
 #: /templates/tracker/tpl/filters.twig:15
-#: /templates/tracker/issues.index.twig:344
+#: /templates/tracker/issues.index.twig:346
 msgid "Closed"
 msgstr "Închis"
 
@@ -285,7 +285,7 @@ msgid "Color"
 msgstr "Culoare"
 
 #: /templates/tracker/tpl/activities.twig:24
-#: /templates/tracker/issue.add.twig:112
+#: /templates/tracker/issue.add.twig:107
 msgid "Description"
 msgstr "Descriere"
 
@@ -326,156 +326,156 @@ msgstr "Editează categoria"
 msgid "Issues List"
 msgstr "Listă de probleme"
 
-#: /templates/tracker/issues.index.twig:25 /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:102
+#: /templates/tracker/issues.index.twig:26 /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issue.add.twig:97
 msgid "New Item"
 msgstr "Obiect Nou"
 
-#: /templates/tracker/issues.index.twig:43
+#: /templates/tracker/issues.index.twig:44
 msgid "ID"
 msgstr "ID"
 
-#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
 msgid "Summary"
 msgstr "Rezumat"
 
-#: /templates/tracker/issues.index.twig:51
+#: /templates/tracker/issues.index.twig:52
 msgid "Loading, please wait..."
 msgstr "Se încarcă, vă rugăm să aşteptaţi..."
 
-#: /templates/tracker/issues.index.twig:112
+#: /templates/tracker/issues.index.twig:114
 #: /templates/tracker/issue.index.twig:79
 #: /templates/tracker/categories.index.twig:66
 msgid "Edit"
 msgstr "Editează"
 
-#: /templates/tracker/issues.index.twig:133
+#: /templates/tracker/issues.index.twig:135
 msgid "Created by"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:144
+#: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
 msgstr "ID GitHub"
 
-#: /templates/tracker/issues.index.twig:163
+#: /templates/tracker/issues.index.twig:165
 msgid "Opened "
 msgstr "Deschis"
 
-#: /templates/tracker/issues.index.twig:169
+#: /templates/tracker/issues.index.twig:171
 msgid "Closed "
 msgstr "Închis"
 
-#: /templates/tracker/issues.index.twig:175
+#: /templates/tracker/issues.index.twig:177
 msgid "Modified "
 msgstr "Modificat"
 
-#: /templates/tracker/issues.index.twig:181
+#: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Critical"
 msgstr "Critică"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Urgent"
 msgstr "Urgent"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Medium"
 msgstr "Mediu"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Low"
 msgstr "Scăzut"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Very low"
 msgstr "Foarte scazut"
 
-#: /templates/tracker/issues.index.twig:193
+#: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
 msgstr "status de îmbinare GitHub"
 
-#: /templates/tracker/issues.index.twig:203
+#: /templates/tracker/issues.index.twig:205
 msgid "No items found."
 msgstr "Nu au fost găsite obiecte."
 
-#: /templates/tracker/issues.index.twig:320
+#: /templates/tracker/issues.index.twig:322
 msgid "Success"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:322
-#: /templates/tracker/issues.index.twig:337
+#: /templates/tracker/issues.index.twig:324
+#: /templates/tracker/issues.index.twig:339
 msgid "Pending"
 msgstr "Așteaptă"
 
-#: /templates/tracker/issues.index.twig:324
+#: /templates/tracker/issues.index.twig:326
 msgid "Error"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:326
+#: /templates/tracker/issues.index.twig:328
 msgid "Failure"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:335
+#: /templates/tracker/issues.index.twig:337
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Nou"
 
-#: /templates/tracker/issues.index.twig:336
+#: /templates/tracker/issues.index.twig:338
 msgid "Confirmed"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:338
+#: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:339
+#: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:340
+#: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:341
+#: /templates/tracker/issues.index.twig:343
 msgid "Information Required"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:342
+#: /templates/tracker/issues.index.twig:344
 msgid "Unconfirmed Report"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:343
+#: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:345
+#: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:346
+#: /templates/tracker/issues.index.twig:348
 msgid "Known Issue"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:347
+#: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:410
+#: /templates/tracker/issues.index.twig:412
 msgid "First"
 msgstr "Primul"
 
-#: /templates/tracker/issues.index.twig:411
+#: /templates/tracker/issues.index.twig:413
 msgid "Previous"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:412
+#: /templates/tracker/issues.index.twig:414
 msgid "Next"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:413
+#: /templates/tracker/issues.index.twig:415
 msgid "Last"
 msgstr ""
 
@@ -569,7 +569,7 @@ msgstr "Adaugă Comentariu"
 msgid "Login with GitHub to post a comment"
 msgstr "Loghează-te cu GitHub pentru a adauga un comentariu"
 
-#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:129
+#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:124
 msgid "Submit"
 msgstr "Adaugă"
 
@@ -577,15 +577,15 @@ msgstr "Adaugă"
 msgid "View Mode"
 msgstr "Mod de vizualizare"
 
-#: /templates/tracker/issue.add.twig:47
+#: /templates/tracker/issue.add.twig:45
 msgid "Help"
 msgstr "Ajutor"
 
-#: /templates/tracker/issue.add.twig:47
+#: /templates/tracker/issue.add.twig:45
 msgid "Pro"
 msgstr "Pro"
 
-#: /templates/tracker/issue.add.twig:59
+#: /templates/tracker/issue.add.twig:54
 msgid ""
 "The priority of which this issue should be resolved. Please see the <a "
 "href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
@@ -593,15 +593,15 @@ msgid ""
 "priorities."
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:66
+#: /templates/tracker/issue.add.twig:61
 msgid "The version(s) of the project on which this issue is found."
 msgstr "Versiunea(ile) proiectului în care se găseşte această problemă."
 
-#: /templates/tracker/issue.add.twig:73
+#: /templates/tracker/issue.add.twig:68
 msgid "Please select one or more Categories here that match to your issue."
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:95
+#: /templates/tracker/issue.add.twig:90
 msgid ""
 "Report security issues to the Joomla! Security Strike Team (JSST) at <a "
 "href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
@@ -609,21 +609,21 @@ msgid ""
 "contact form</a>, please do not use the public tracker for security issues."
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:99
+#: /templates/tracker/issue.add.twig:94
 msgid ""
 "To report a bug in the Joomla! bug trackers, you need to create a tracker "
 "item. Once the tracker item is created, the developers will check the "
 "validity of it and act accordingly."
 msgstr "Pentru a raporta un bug in urmăritorul de bugs Joomla!, se cere crearea unui urmăritor de obiecte. Odata ce acesta a fost creat, developerii vor verifica validitatea lui şi vor lua măsuri."
 
-#: /templates/tracker/issue.add.twig:109
+#: /templates/tracker/issue.add.twig:104
 msgid ""
 "Describe in a few words the issues you are having. It is generally a good "
 "idea to use existing tracker items as examples if this is your first time "
 "reporting a bug."
 msgstr "Descrie în câteva cuvinte problemele întâlnite. În cazul în care este primul tău raport, folosirea obiectelor urmărite este o idee bună. "
 
-#: /templates/tracker/issue.add.twig:125
+#: /templates/tracker/issue.add.twig:120
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -635,7 +635,7 @@ msgid ""
 "report."
 msgstr "Aceasta este partea cea mai importantă în raportarea unui bug. Descrie aici, pas cu pas, cum a fost întâlnită eroarea. Încearcă să incluzi informaţii cât mai detaliate, astfel încât persoana de contact să poată să îţi urmărească paşii efectuaţi şi să observe problemă. Nu sunt necesare cunoştinţe de programare pentru a scrie un raport de bugs excelent. Daca totuşi ai aceste cunoştinţe şi ai o idee despre cum acest bug s-ar putea rezolva, te rugam sa incluzi aceste detalii în raport."
 
-#: /templates/tracker/issue.add.twig:231
+#: /templates/tracker/issue.add.twig:228
 msgid "Submitting..."
 msgstr "În proces de transmitere..."
 

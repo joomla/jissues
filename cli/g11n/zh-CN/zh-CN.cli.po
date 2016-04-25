@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-04-25 18:04-0500\n"
 "PO-Revision-Date: 2016-02-11 04:50+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/opentranslators/jtracker/language/zh_CN/)\n"
@@ -18,40 +18,40 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: /cli/Application/Application.php:130
+#: /cli/Application/Application.php:123
 msgid "Be quiet - suppress output."
 msgstr "静默模式 - 禁用输出"
 
-#: /cli/Application/Application.php:135
+#: /cli/Application/Application.php:128
 msgid "Verbose output for debugging purpose."
 msgstr "详细输出以用于调试目的"
 
-#: /cli/Application/Application.php:140
+#: /cli/Application/Application.php:133
 msgid "Suppress ANSI colors on unsupported terminals."
 msgstr "在不支持的终端中禁用ANSI色彩"
 
-#: /cli/Application/Application.php:145
+#: /cli/Application/Application.php:138
 msgid "Optionally log output to the specified log file."
 msgstr "可选，输出日志到指定的日志文件"
 
-#: /cli/Application/Application.php:191
+#: /cli/Application/Application.php:184
 msgid "Joomla! Tracker CLI Application"
 msgstr "Joomla! 跟踪系统命令行应用程序"
 
-#: /cli/Application/Application.php:218
+#: /cli/Application/Application.php:211
 #, php-format
 msgid "Invalid command: %s"
 msgstr "无效的命令:%s"
 
-#: /cli/Application/Application.php:225
+#: /cli/Application/Application.php:218
 msgid "Did you mean one of this?"
 msgstr "你是否指的是下列的某一个？"
 
-#: /cli/Application/Application.php:254
+#: /cli/Application/Application.php:247
 msgid "Process aborted."
 msgstr "进程中断。"
 
-#: /cli/Application/Application.php:261
+#: /cli/Application/Application.php:254
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr "执行时间：<b>%d 秒钟。</b>"
