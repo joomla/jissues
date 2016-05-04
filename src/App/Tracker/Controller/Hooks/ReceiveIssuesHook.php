@@ -210,27 +210,35 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->getContainer()->get('app')->close();
 		}
 
-		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		$status = $this->processStatus($action, $table->status);
+		// Handle an edit a bit differently than a general update
+		if ($action === 'edited')
+		{
+			return $this->editIssue($table);
+		}
 
-		// Try to render the description with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->issue->body);
+		// Figure out the state based on the action
+		$status = $this->processStatus($action, $table->status);
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
-		$modified   = new Date($this->hookData->issue->updated_at);
 
-		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$data = array();
-		$data['id']              = $table->id;
-		$data['title']           = $this->hookData->issue->title;
-		$data['description']     = $parsedText;
-		$data['description_raw'] = $this->hookData->issue->body;
-		$data['status']          = is_null($status) ? $table->status : $status;
-		$data['modified_date']   = $modified->format($dateFormat);
-		$data['modified_by']     = $this->hookData->sender->login;
+		// Plug in required fields based on the model and the current value of fields from the pull request data
+		$data = [
+			'id'              => $table->id,
+			'title'           => $this->hookData->issue->title,
+			'description'     => $this->parseText($this->hookData->issue->body),
+			'description_raw' => $this->hookData->issue->body,
+			'status'          => is_null($status) ? $table->status : $status,
+			'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($dateFormat),
+			'modified_by'     => $this->hookData->sender->login,
+			'priority'        => $table->priority,
+			'build'           => $table->build,
+			'rel_number'      => $table->rel_number,
+			'rel_type'        => $table->rel_type,
+			'milestone_id'    => $table->milestone_id,
+		];
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -241,13 +249,6 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Process labels for the item
 		$data['labels'] = $this->processLabels($this->hookData->issue->number);
-
-		// Grab some data based on the existing record
-		$data['priority']     = $table->priority;
-		$data['build']        = $table->build;
-		$data['rel_number']   = $table->rel_number;
-		$data['rel_type']     = $table->rel_type;
-		$data['milestone_id'] = $table->milestone_id;
 
 		if (empty($data['build']))
 		{
@@ -320,6 +321,106 @@ class ReceiveIssuesHook extends AbstractHookController
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->hookData->issue->number,
+				$table->id
+			)
+		);
+
+		return true;
+	}
+
+	/**
+	 * Process an issue for a `edited` webhook event
+	 *
+	 * @param   IssuesTable  $table  The table object for the issue being edited
+	 *
+	 * @return  boolean
+	 *
+	 * @since   1.0
+	 */
+	private function editIssue(IssuesTable $table)
+	{
+		// Issues will only track changes on the title and body fields for now
+		$data = [];
+
+		if (isset($this->hookData->changes->title))
+		{
+			$data['title'] = $this->hookData->issue->title;
+		}
+
+		if (isset($this->hookData->changes->title))
+		{
+			$data['description']     = $this->parseText($this->hookData->issue->body);
+			$data['description_raw'] = $this->hookData->issue->body;
+		}
+
+		// Ensure the data array isn't empty for some reason; if it is there's nothing to do here
+		if (empty($data))
+		{
+			return true;
+		}
+
+		// Bind over the rest of the model's required data
+		$data = array_merge(
+			$data,
+			[
+				'id'              => $table->id,
+				'title'           => isset($data['title']) ? $data['title'] : $table->title,
+				'description'     => isset($data['description']) ? $data['description'] : $table->description,
+				'description_raw' => isset($data['description_raw']) ? $data['description_raw'] : $table->description_raw,
+				'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($this->db->getDateFormat()),
+				'modified_by'     => $this->hookData->sender->login,
+				'status'          => $table->status,
+				'priority'        => $table->priority,
+				'build'           => $table->build,
+				'rel_number'      => $table->rel_number,
+				'rel_type'        => $table->rel_type,
+			]
+		);
+
+		try
+		{
+			(new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
+				->save($data);
+		}
+		catch (\Exception $e)
+		{
+			$this->setStatusCode($e->getCode());
+			$logMessage = sprintf(
+				'Error editing GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->data->number,
+				$table->id
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
+
+		// Refresh the table object for the listeners
+		$table->load($data['id']);
+
+		$this->triggerEvent('onIssueAfterUpdate', ['table' => $table]);
+
+		// Add an edit record to the activity table
+		$this->addActivityEvent(
+			'edited',
+			$this->hookData->issue->updated_at,
+			$this->hookData->sender->login,
+			$this->project->project_id,
+			$this->hookData->issue->number
+		);
+
+		// Store was successful, update status
+		$this->logger->info(
+			sprintf(
+				'Edited GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->data->number,
 				$table->id
 			)
 		);

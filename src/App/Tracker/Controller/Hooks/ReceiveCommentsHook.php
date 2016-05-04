@@ -91,9 +91,6 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			foreach ($comments as $comment)
 			{
-				// Try to render the comment with GitHub markdown
-				$parsedText = $this->parseText($comment->body);
-
 				// Add the comment
 				$this->addActivityEvent(
 					'comment',
@@ -102,16 +99,13 @@ class ReceiveCommentsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number,
 					$comment->id,
-					$parsedText,
+					$this->parseText($comment->body),
 					$comment->body
 				);
 			}
 		}
 		else
 		{
-			// Try to render the comment with GitHub markdown
-			$parsedText = $this->parseText($this->hookData->comment->body);
-
 			// Add the comment
 			$this->addActivityEvent(
 				'comment',
@@ -120,7 +114,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				$this->project->project_id,
 				$this->hookData->issue->number,
 				$this->hookData->comment->id,
-				$parsedText,
+				$this->parseText($this->hookData->comment->body),
 				$this->hookData->comment->body
 			);
 
@@ -131,12 +125,11 @@ class ReceiveCommentsHook extends AbstractHookController
 		try
 		{
 			// Get a table object for the new record to process in the event listeners
-			$issueTable = new IssuesTable($this->db);
-			$issueTable->load(
-				array(
+			$issueTable = (new IssuesTable($this->db))->load(
+				[
 					'issue_number' => $this->hookData->issue->number,
 					'project_id'   => $this->project->project_id,
-				)
+				]
 			);
 
 			$this->triggerEvent('onCommentAfterCreate', ['table' => $issueTable]);
@@ -168,23 +161,18 @@ class ReceiveCommentsHook extends AbstractHookController
 	 */
 	protected function insertIssue()
 	{
-		// Try to render the description with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->issue->body);
-
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
-		$opened     = new Date($this->hookData->issue->created_at);
-		$modified   = new Date($this->hookData->issue->updated_at);
 
 		$data = array();
 		$data['issue_number']    = $this->hookData->issue->number;
 		$data['title']           = $this->hookData->issue->title;
-		$data['description']     = $parsedText;
+		$data['description']     = $this->parseText($this->hookData->issue->body);
 		$data['description_raw'] = $this->hookData->issue->body;
 		$data['status']          = ($this->hookData->issue->state) == 'open' ? 1 : 10;
-		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_date']     = (new Date($this->hookData->issue->created_at))->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
-		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_date']   = (new Date($this->hookData->issue->updated_at))->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
@@ -192,8 +180,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$closed = new Date($this->hookData->issue->closed_at);
-			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
 			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
@@ -276,55 +263,104 @@ class ReceiveCommentsHook extends AbstractHookController
 	 */
 	protected function updateComment($id)
 	{
-		// Try to render the comment with GitHub markdown
-		$parsedText = $this->parseText($this->hookData->comment->body);
-
-		// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
-		$data = array();
-		$data['activities_id'] = $id;
-		$data['text']          = $parsedText;
-		$data['text_raw']      = $this->hookData->comment->body;
-
-		try
+		switch ($this->hookData->action)
 		{
-			$table = new ActivitiesTable($this->db);
-			$table->load(array('activities_id' => $id));
-			$table->save($data);
+			case 'deleted':
+				try
+				{
+					(new ActivitiesTable($this->db))
+						->delete($id);
+				}
+				catch (\Exception $e)
+				{
+					$this->setStatusCode($e->getCode());
+
+					$logMessage = sprintf(
+						'Error deleting GitHub comment %s/%s #%d from the tracker',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$id
+					);
+
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return false;
+				}
+
+				// Delete was successful, update status
+				$this->logger->info(
+					sprintf(
+						'Deleted comment %s/%s #%d from the tracker.',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$id
+					)
+				);
+
+				return true;
+
+			// Treat an edit the same as we do a general update
+			case 'edited':
+			default:
+				// Only update fields that may have changed, there's no API endpoint to show that so make some guesses
+				$data = [
+					'activities_id' => $id,
+					'text'          => $this->parseText($this->hookData->comment->body),
+					'text_raw'      => $this->hookData->comment->body,
+					'updated_at'    => (new Date($this->hookData->comment->updated_at))->format($this->db->getDateFormat()),
+				];
+
+				try
+				{
+					(new ActivitiesTable($this->db))
+						->load(['activities_id' => $id])
+						->save($data);
+				}
+				catch (\Exception $e)
+				{
+					$this->setStatusCode($e->getCode());
+
+					$logMessage = sprintf(
+						'Error updating GitHub comment %s/%s #%d in the tracker',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$id
+					);
+
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return false;
+				}
+
+				try
+				{
+					$issueTable = (new IssuesTable($this->db))->load(
+						[
+							'issue_number' => $this->hookData->issue->number,
+							'project_id'   => $this->project->project_id,
+						]
+					);
+
+					$this->triggerEvent('onCommentAfterUpdate', ['table' => $issueTable]);
+				}
+				catch (\Exception $e)
+				{
+					$this->logger->error('Error loading the database for issue ' . $this->hookData->issue->number, ['exception' => $e]);
+				}
+
+				// Store was successful, update status
+				$this->logger->info(
+					sprintf(
+						'Updated comment %s/%s #%d to the tracker.',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$id
+					)
+				);
+
+				return true;
 		}
-		catch (\Exception $e)
-		{
-			$this->logger->error('Error updating the database for comment ' . $id, ['exception' => $e]);
-
-			$this->getContainer()->get('app')->close();
-		}
-
-		try
-		{
-			$issueTable = new IssuesTable($this->db);
-			$issueTable->load(
-				array(
-					'issue_number' => $this->hookData->issue->number,
-					'project_id'   => $this->project->project_id,
-				)
-			);
-
-			$this->triggerEvent('onCommentAfterUpdate', ['table' => $issueTable]);
-		}
-		catch (\Exception $e)
-		{
-			$this->logger->error('Error loading the database for comment ' . $this->hookData->issue->number, ['exception' => $e]);
-		}
-
-		// Store was successful, update status
-		$this->logger->info(
-			sprintf(
-				'Updated comment %s/%s #%d to the tracker.',
-				$this->project->gh_user,
-				$this->project->gh_project,
-				$id
-			)
-		);
-
-		return true;
 	}
 }
