@@ -39,14 +39,22 @@ class DatabaseProvider implements ServiceProviderInterface
 			{
 				$app = $container->get('app');
 
-				$options = array(
-					'driver' => $app->get('database.driver'),
-					'host' => $app->get('database.host'),
-					'user' => $app->get('database.user'),
+				/*
+				 * The `mysql` driver corresponds to the Framework's PDO MySQL driver and requires 'charset' => 'utf8mb4'
+				 * The `mysqli` driver corresponds to the Framework's MySQLi driver and requires 'utf8mb4' => true
+				 *
+				 * The options are unique to each driver and do not cause misconfigurations across drivers
+				 */
+				$options = [
+					'driver'   => $app->get('database.driver'),
+					'host'     => $app->get('database.host'),
+					'user'     => $app->get('database.user'),
 					'password' => $app->get('database.password'),
 					'database' => $app->get('database.name'),
-					'prefix' => $app->get('database.prefix')
-				);
+					'prefix'   => $app->get('database.prefix'),
+					'utf8mb4'  => true,
+					'charset'  => 'utf8mb4',
+				];
 
 				$db = DatabaseDriver::getInstance($options);
 				$db->setDebug($app->get('debug.database', false));

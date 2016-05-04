@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ba76cdeb1eb4f4b846932679ca11e56",
-    "content-hash": "ed4da3963b3546411774cb28a01a4ecb",
+    "hash": "1e299ea60dd04179403a525e94ec3ee3",
+    "content-hash": "9d643edc438d54e65eb7c017a4c28c28",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -469,26 +469,26 @@
         },
         {
             "name": "joomla/database",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/database.git",
-                "reference": "c1be3fe74ef29deb8a60007a54a30851aa111d68"
+                "reference": "1e61e197614998008da632317801718e6ac12cbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/database/zipball/c1be3fe74ef29deb8a60007a54a30851aa111d68",
-                "reference": "c1be3fe74ef29deb8a60007a54a30851aa111d68",
+                "url": "https://api.github.com/repos/joomla-framework/database/zipball/1e61e197614998008da632317801718e6ac12cbc",
+                "reference": "1e61e197614998008da632317801718e6ac12cbc",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.10",
+                "php": ">=5.3.10|>=7.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
                 "joomla/test": "~1.0",
-                "phpunit/dbunit": "~1.2",
-                "phpunit/phpunit": "4.*",
+                "phpunit/dbunit": "~1.3",
+                "phpunit/phpunit": "~4.8|~5.0",
                 "squizlabs/php_codesniffer": "1.*"
             },
             "type": "joomla-package",
@@ -499,8 +499,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Joomla\\Database\\": "src/",
-                    "Joomla\\Database\\Tests\\": "Tests/"
+                    "Joomla\\Database\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -514,7 +513,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2015-12-31 17:41:40"
+            "time": "2016-05-02 13:07:53"
         },
         {
             "name": "joomla/date",
