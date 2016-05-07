@@ -144,6 +144,14 @@ class Issues extends Package
 		// Encode the request data.
 		$data = json_encode($data);
 
+		$url = $this->fetchUrl($path);
+
+		// Log the request
+		$this->logger->debug(
+			'Editing a GitHub issue',
+			['url' => $url, 'data' => $data]
+		);
+
 		// Send the request.
 		return $this->processResponse($this->client->patch($this->fetchUrl($path), $data));
 	}
@@ -165,8 +173,16 @@ class Issues extends Package
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues/' . (int) $issueId;
 
+		$url = $this->fetchUrl($path);
+
+		// Log the request
+		$this->logger->debug(
+			'Fetching a GitHub issue',
+			['url' => $url]
+		);
+
 		// Send the request.
-		return $this->processResponse($this->client->get($this->fetchUrl($path)));
+		return $this->processResponse($this->client->get($url));
 	}
 
 	/**
@@ -194,7 +210,15 @@ class Issues extends Package
 
 		// TODO Implement the filtering options.
 
-		return $this->processResponse($this->client->get($this->fetchUrl($path, $page, $limit)));
+		$url = $this->fetchUrl($path, $page, $limit);
+
+		// Log the request
+		$this->logger->debug(
+			'Fetching a list of GitHub issues for the authenticated user',
+			['url' => $url]
+		);
+
+		return $this->processResponse($this->client->get($url));
 	}
 
 	/**
@@ -265,6 +289,12 @@ class Issues extends Package
 		{
 			$uri->setVar('since', $since->toISO8601());
 		}
+
+		// Log the request
+		$this->logger->debug(
+			'Fetching a list of the repository\'s issues',
+			['url' => (string) $uri]
+		);
 
 		// Send the request.
 		return $this->processResponse($this->client->get((string) $uri));
