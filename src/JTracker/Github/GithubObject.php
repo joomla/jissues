@@ -35,7 +35,7 @@ abstract class GithubObject extends JGithubObject
 	 * @return  mixed
 	 *
 	 * @since   1.0
-	 * @throws  \JTracker\Github\Exception\GithubException
+	 * @throws  GithubException
 	 */
 	protected function processResponse(Response $response, $expectedCode = 200, $jsonDecode = true)
 	{
