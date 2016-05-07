@@ -60,7 +60,8 @@
 		"logging" : "0",
 		"log-path": "",
 		"template": "0",
-		"admin"   : "1"
+		"admin"   : "1",
+		"github"  : "0"
 	},
 
 	"languages": [

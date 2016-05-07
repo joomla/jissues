@@ -11,14 +11,18 @@ namespace JTracker\GitHub;
 use Joomla\Http\Response;
 use Joomla\Github\AbstractGithubObject as JGithubObject;
 use JTracker\Github\Exception\GithubException;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * GitHub API object class for the Joomla Framework.
  *
  * @since  1.0
  */
-abstract class GithubObject extends JGithubObject
+abstract class GithubObject extends JGithubObject implements LoggerAwareInterface
 {
+	use LoggerAwareTrait;
+
 	/**
 	 * @var    integer
 	 * @since  1.0
