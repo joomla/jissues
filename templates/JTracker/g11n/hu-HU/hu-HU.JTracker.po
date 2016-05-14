@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-04-25 23:04+0000\n"
+"POT-Creation-Date: 2016-05-14 15:58-0500\n"
+"PO-Revision-Date: 2016-05-14 20:59+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/opentranslators/jtracker/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -192,7 +192,7 @@ msgstr "Indítás"
 msgid "Cancel"
 msgstr "Mégse"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:139
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Hiba"
 
@@ -336,7 +336,7 @@ msgstr "Fejlesztők:"
 msgid "Developer Network"
 msgstr ""
 
-#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:191
+#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:203
 msgid "Documentation"
 msgstr "Dokumentáció"
 
@@ -392,122 +392,134 @@ msgstr "Projekt"
 msgid "Show"
 msgstr "Megjelenítés"
 
+#: /templates/trackerMenu.twig:28
+msgid "Project Activity"
+msgstr ""
+
 #: /templates/trackerMenu.twig:32
+msgid "Snapshot"
+msgstr ""
+
+#: /templates/trackerMenu.twig:36
+msgid "User Activity"
+msgstr ""
+
+#: /templates/trackerMenu.twig:44
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: /templates/trackerMenu.twig:43
+#: /templates/trackerMenu.twig:55
 msgid "Access Groups"
 msgstr "Hozzáférési csoportok"
 
-#: /templates/trackerMenu.twig:49
+#: /templates/trackerMenu.twig:61
 msgid "Labels"
 msgstr "Címkék"
 
-#: /templates/trackerMenu.twig:55
+#: /templates/trackerMenu.twig:67
 msgid "Milestones"
 msgstr "Mérföldkövek"
 
-#: /templates/trackerMenu.twig:61
+#: /templates/trackerMenu.twig:73
 msgid "Categories"
 msgstr "Kategóriák"
 
-#: /templates/trackerMenu.twig:71
+#: /templates/trackerMenu.twig:83
 msgid "Projects"
 msgstr "Projektek"
 
-#: /templates/trackerMenu.twig:76
+#: /templates/trackerMenu.twig:88
 msgid "Users"
 msgstr "Felhasználók"
 
-#: /templates/trackerMenu.twig:83
+#: /templates/trackerMenu.twig:95
 msgid "System"
 msgstr "Rendszer"
 
-#: /templates/trackerMenu.twig:90
+#: /templates/trackerMenu.twig:102
 msgid "Configuration"
 msgstr "Konfiguráció"
 
-#: /templates/trackerMenu.twig:96
+#: /templates/trackerMenu.twig:108
 msgid "phpinfo()"
 msgstr "phpinfo()"
 
-#: /templates/trackerMenu.twig:102
+#: /templates/trackerMenu.twig:114
 msgid "Logs"
 msgstr "Naplók"
 
-#: /templates/trackerMenu.twig:106
+#: /templates/trackerMenu.twig:118
 msgid "Application"
 msgstr ""
 
-#: /templates/trackerMenu.twig:109
+#: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
 msgstr "Cron feladatok"
 
-#: /templates/trackerMenu.twig:114
+#: /templates/trackerMenu.twig:126
 msgid "Database"
 msgstr "Adatbázis"
 
-#: /templates/trackerMenu.twig:120
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Issues"
 msgstr "GitHub-problémák"
 
-#: /templates/trackerMenu.twig:126
+#: /templates/trackerMenu.twig:138
 msgid "GitHub Comments"
 msgstr "GitHub-megjegyzések"
 
-#: /templates/trackerMenu.twig:132
+#: /templates/trackerMenu.twig:144
 msgid "GitHub Pulls"
 msgstr "GitHub-szavazások"
 
-#: /templates/trackerMenu.twig:136
+#: /templates/trackerMenu.twig:148
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:146
+#: /templates/trackerMenu.twig:158
 msgid "Icons"
 msgstr "Ikonok"
 
-#: /templates/trackerMenu.twig:152
+#: /templates/trackerMenu.twig:164
 msgid "Routes"
 msgstr "Útvonalak"
 
-#: /templates/trackerMenu.twig:158
+#: /templates/trackerMenu.twig:170
 msgid "Text"
 msgstr "Szöveg"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
 msgstr "Gyorsítótár törlése"
 
-#: /templates/trackerMenu.twig:181
+#: /templates/trackerMenu.twig:193
 msgid "About Us"
 msgstr "Rólunk"
 
-#: /templates/trackerMenu.twig:186
+#: /templates/trackerMenu.twig:198
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:210
+#: /templates/trackerMenu.twig:222
 msgid "Admin"
 msgstr "Adminisztrátor"
 
-#: /templates/trackerMenu.twig:215
+#: /templates/trackerMenu.twig:227
 msgid "View profile"
 msgstr "Profil megtekintése"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:233
 msgid "Edit profile"
 msgstr "Profil szerkesztése"
 
-#: /templates/trackerMenu.twig:228
+#: /templates/trackerMenu.twig:240
 msgid "Logout"
 msgstr "Kijelentkezés"
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
 msgstr "Belépés GitHub-fiókkal"
 
-#: /templates/trackerMenu.twig:241
+#: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr "Nincsenek GitHub hitelesítési adatok megadva a konfigurációban"
