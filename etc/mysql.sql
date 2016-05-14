@@ -217,6 +217,35 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `#__activity_types`
+--
+
+CREATE TABLE `#__activity_types` (
+  `type_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `event` varchar(32) NOT NULL COMMENT 'The event type, referenced by the #__activities.event column',
+  `activity_group` varchar(255) DEFAULT NULL,
+  `activity_description` varchar(500) DEFAULT NULL,
+  `activity_points` tinyint(4) DEFAULT NULL COMMENT 'Weighting for each type of activity',
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `#__activity_types`
+--
+
+INSERT INTO `#__activity_types` (`type_id`, `event`, `activity_group`, `activity_description`, `activity_points`)
+VALUES
+  (1, 'open', 'Tracker', 'Create a new item on the tracker.', 3),
+  (2, 'close', 'Tracker', 'Close an issue on the tracker.', 1),
+  (3, 'comment', 'Tracker', 'Add a comment to an issue.', 1),
+  (4, 'reopen', 'Tracker', 'Reopens an issue.', 1),
+  (5, 'assign', 'Tracker', 'Assign an issue to a user', 1),
+  (6, 'merge', 'Tracker', 'Merge a Pull Request', 2),
+  (7, 'test_item', 'Test', 'Test an issue.', 5),
+  (8, 'add_code', 'Code', 'Add a pull request to the tracker.', 5);
+
+
 -- --------------------------------------------------------
 
 --
