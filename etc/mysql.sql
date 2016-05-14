@@ -7,6 +7,7 @@
 -- #__issues_relations_types
 -- #__issues
 -- #__activities
+-- #__activity_types
 -- #__users
 -- #__accessgroups
 -- #__user_accessgroup_map
