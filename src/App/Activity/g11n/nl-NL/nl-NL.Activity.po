@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
+# Roland Dalmulder <contact@rolandd.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-14 15:58-0500\n"
-"PO-Revision-Date: 2016-05-14 21:01+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-05-15 09:58+0000\n"
+"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,31 +21,31 @@ msgstr ""
 #: /templates/activity/useractivity.index.twig:6
 #, php-format
 msgid "%s - User Activity Chart"
-msgstr ""
+msgstr "%s - Gebruikersactiviteit Tabel"
 
 #: /templates/activity/useractivity.index.twig:20
 #, php-format
 msgid "User Tracker Activity - %s"
-msgstr ""
+msgstr "Gebruikerstracker Activiteit - %s"
 
 #: /templates/activity/useractivity.index.twig:25
 #: /templates/activity/totaluseractivity.index.twig:25
 #: /templates/activity/projectactivity.index.twig:30
 msgid "Chart Options"
-msgstr ""
+msgstr "Tabel Opties"
 
 #: /templates/activity/useractivity.index.twig:28
 #: /templates/activity/totaluseractivity.index.twig:28
 #: /templates/activity/projectactivity.index.twig:33
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 #: /templates/activity/useractivity.index.twig:30
 #: /templates/activity/totaluseractivity.index.twig:30
 #: /templates/activity/projectactivity.index.twig:35
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "7 Days"
-msgstr ""
+msgstr "7 Dagen"
 
 #: /templates/activity/useractivity.index.twig:31
 #: /templates/activity/totaluseractivity.index.twig:31
@@ -53,7 +54,7 @@ msgstr ""
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "30 Days"
-msgstr ""
+msgstr "30 Dagen"
 
 #: /templates/activity/useractivity.index.twig:32
 #: /templates/activity/totaluseractivity.index.twig:32
@@ -62,220 +63,220 @@ msgstr ""
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "90 Days"
-msgstr ""
+msgstr "90 Dagen"
 
 #: /templates/activity/useractivity.index.twig:33
 msgid "1 Year"
-msgstr ""
+msgstr "1 Jaar"
 
 #: /templates/activity/useractivity.index.twig:34
 msgid "Custom Period"
-msgstr ""
+msgstr "Aangepaste Periode"
 
 #: /templates/activity/useractivity.index.twig:37
 #: /templates/activity/totaluseractivity.index.twig:35
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: /templates/activity/useractivity.index.twig:39
 #: /templates/activity/totaluseractivity.index.twig:37
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "All"
-msgstr ""
+msgstr "Alles"
 
 #: /templates/activity/useractivity.index.twig:40
 #: /templates/activity/totaluseractivity.index.twig:38
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "Tracker"
-msgstr ""
+msgstr "Tracker"
 
 #: /templates/activity/useractivity.index.twig:41
 #: /templates/activity/totaluseractivity.index.twig:39
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "Test"
-msgstr ""
+msgstr "Test"
 
 #: /templates/activity/useractivity.index.twig:42
 #: /templates/activity/totaluseractivity.index.twig:40
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: /templates/activity/useractivity.index.twig:45
 #: /templates/activity/totaluseractivity.index.twig:43
 #: /templates/activity/projectactivity.index.twig:40
 msgid "Update Chart"
-msgstr ""
+msgstr "Bijwerken Tabel"
 
 #: /templates/activity/useractivity.index.twig:49
 msgid "Start Date"
-msgstr ""
+msgstr "Start Datum"
 
 #: /templates/activity/useractivity.index.twig:51
 msgid "End Date"
-msgstr ""
+msgstr "Eind Datum"
 
 #: /templates/activity/snapshot.index.twig:6
 #, php-format
 msgid "%s - Open Issues By Status"
-msgstr ""
+msgstr "%s - Open Issues Bij Status"
 
 #: /templates/activity/snapshot.index.twig:20
 #, php-format
 msgid "Open Issues By Status - %s"
-msgstr ""
+msgstr "Open Issues Bij Status - %s"
 
 #: /templates/activity/totaluseractivity.index.twig:6
 #, php-format
 msgid "%s - Total Activity Chart"
-msgstr ""
+msgstr "%s - Totaal Activiteit Tabel"
 
 #: /templates/activity/totaluseractivity.index.twig:20
 #, php-format
 msgid "Total Activity - %s"
-msgstr ""
+msgstr "Totaal Activiteit - %s"
 
 #: /templates/activity/projectactivity.index.twig:6
 #, php-format
 msgid "%s - Project Activity Chart"
-msgstr ""
+msgstr "%s - Project Activiteit Tabel"
 
 #: /templates/activity/projectactivity.index.twig:20
 #, php-format
 msgid "Project Open & Close Activity - %s"
-msgstr ""
+msgstr "Project Open & Gesloten Activiteit - %s"
 
 #: /templates/activity/projectactivity.index.twig:25
 msgid ""
 "Note: An issue in the tracker may be closed in one of two ways. It may be "
 "fixed with a code change, or it may be closed because it was a duplicate "
 "issue or not considered to be a bug."
-msgstr ""
+msgstr "Opmerking: Een issue in de tracker kan op twee manieren gesloten worden. Het kan een aanpassing in de code zijn, of het kan gesloten zijn omdat het een dubbel issue is of niet als probleem wordt aangemerkt."
 
 #: /templates/activity/projectactivity.index.twig:26
 msgid ""
 "Fixed issues are issues for which a code change was made to fix the issue. "
 "Other Closed issues are issues that were closed because they were duplicate "
 "reports or not bugs."
-msgstr ""
+msgstr "Opgeloste issues zijn issues waarbij er een aanpassing in de code is gedaan om het probleem op te lossen. Andere gesloten issues zijn issues die gesloten zijn omdat het een dubbele melding is of geen probleem is."
 
 #: /templates/activity/projectactivity.index.twig:27
 msgid ""
 "Please note that pull requests merged before 12 March 2016 may not have the "
 "correct status and are included in the Other Closed issues count if so."
-msgstr ""
+msgstr "Let op: pull requests die voor 12 Maart 2016 zijn verwerkt hebben mogelijk niet de correcte status en worden geteld in de Overige Gesloten issues."
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:54
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:55
 msgid "Confirmed"
-msgstr ""
+msgstr "Bevestigd"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:56
 msgid "Pending"
-msgstr ""
+msgstr "In behandeling"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:57
 msgid "Ready To Commit"
-msgstr ""
+msgstr "Klaar om toe te voegen"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:58
 msgid "Needs Review"
-msgstr ""
+msgstr "Beoordeling nodig"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:59
 msgid "Information Required"
-msgstr ""
+msgstr "Informatie nodig"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:64
 msgid "Total Open Issues By Status"
-msgstr ""
+msgstr "Totaal Open Issues Bij Status"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:69
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
 msgid "Months"
-msgstr ""
+msgstr "Maanden"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:69
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
 msgid "Quarters"
-msgstr ""
+msgstr "Kwartalen"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:69
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
 msgid "Weeks"
-msgstr ""
+msgstr "Weken"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
 msgid "Week"
-msgstr ""
+msgstr "Week"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:75
 #, php-format
 msgid "Issues Opened and Closed for Past Four %1$s"
-msgstr ""
+msgstr "Issues Geopend en Gesloten over de afgelopen vier %1$s"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:80
 msgid "Opened"
-msgstr ""
+msgstr "Geopend"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:81
 msgid "Fixed"
-msgstr ""
+msgstr "Gerepareerd "
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:82
 msgid "Other Closed"
-msgstr ""
+msgstr "Overige Gesloten"
 
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:90
 #, php-format
 msgid "%1$s Points for Past Four %2$s"
-msgstr ""
+msgstr "%1$s Punten over de afgelopen vier %2$s"
 
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:124
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:128
 #, php-format
 msgid "%1$s Points"
-msgstr ""
+msgstr "%1$s Punten"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "12 Months"
-msgstr ""
+msgstr "12 Maanden"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "Custom"
-msgstr ""
+msgstr "Aangepast"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:93
 #, php-format
 msgid "%1$s Points From %2$s Through %3$s"
-msgstr ""
+msgstr "%1$s Punten van %2$s tot %3$s"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:97
 #, php-format
 msgid "%1$s Points for Past %2$s"
-msgstr ""
+msgstr "%1$s Punten over de afgelopen %2$s"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:120
 msgid "Tracker Points"
-msgstr ""
+msgstr "Tracker Punten"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:121
 msgid "Test Points"
-msgstr ""
+msgstr "Test Punten"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:122
 msgid "Code Points"
-msgstr ""
+msgstr "Code Punten"
