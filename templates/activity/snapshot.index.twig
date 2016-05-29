@@ -12,8 +12,8 @@
     {% if templateDebug %}
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
 {% endblock %}
 
 {% block content %}
@@ -37,7 +37,7 @@
     <script src="{{ asset('js/jqplot/barchart.js') }}"></script>
     <script src="{{ asset('js/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
 
-    <script>
+    <script type="text/javascript">
         (function ($) {
             $(document).ready(function () {
                 var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', true, '35');

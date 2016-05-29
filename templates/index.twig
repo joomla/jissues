@@ -1,7 +1,7 @@
 {# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
 {# GNU General Public License version 2 or later; see LICENSE.txt #}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ lang|split("-")|first }}" lang="{{ lang|split("-")|first }}" dir="ltr">
+<html lang="{{ lang|split("-")|first }}" dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,30 +16,30 @@
     <meta name="twitter:description" content="{{ block('metaDescription') }}" />
     <meta name="twitter:image" content="https://cdn.joomla.org/images/joomla-twitter-card.jpg" />
     <meta name="twitter:site" content="@joomla" />
-    <meta name="twitter:title" content="{{ block('title') }}"/>
+    <meta name="twitter:title" content="{{ block('title') }}" />
     {% block metadata %}{% endblock %}
     {% if useCDN %}
-    <link href="https://cdn.joomla.org/template/css/v3_template.min.css?v1.3.4" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://cdn.joomla.org/template/css/v3_template.min.css?v1.3.4" media="screen" />
     {% else %}
-    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/template.css') }}" />
     {% endif %}
 
     {# If in debug mode, load each file individually, otherwise load the combined source #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-dropdown/dropdown.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/octicons/octicons/octicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-dropdown/dropdown.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/octicons/octicons/octicons.css') }}" />
     {% else %}
-    <link rel="stylesheet" href="{{ asset('css/vendor.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor.min.css') }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/jtracker.css') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/jtracker.css') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/apple-touch-icon-144-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}" />
     {% if useCDN %}
-    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     {% endif %}
     <style type="text/css">
         h1, h2, h3, h4, h5, h6, .site-title {
@@ -170,7 +170,7 @@
 
                     // Only apply the scrollspy when the toolbar is not collapsed
                     if (document.body.clientWidth > 480) {
-                        $('.subnav-wrapper').height($('.subnav').height());
+                        $('.subnav-wrapper').height($('.subnav').outerHeight());
                         $('.subnav').affix({
                             offset: {top: $('.subnav').offset().top - $('nav.navbar').height()}
                         });
@@ -218,6 +218,5 @@
 
     </script>
 {% endblock %}
-
 </body>
 </html>
