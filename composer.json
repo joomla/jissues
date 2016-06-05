@@ -36,7 +36,8 @@
         "league/flysystem": "0.4.*",
         "monolog/monolog": "1.*",
         "raveren/kint": "~1.0",
-        "adaptive/php-text-difference": "1.*"
+        "adaptive/php-text-difference": "1.*",
+        "akeneo/crowdin-api": "1.0.0-alpha3"
     },
     "require-dev": {
         "mustache/mustache": "2.1.*",
