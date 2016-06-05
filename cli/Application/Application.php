@@ -39,6 +39,7 @@ use JTracker\Service\DatabaseProvider;
 use JTracker\Service\DebuggerProvider;
 use JTracker\Service\GitHubProvider;
 use JTracker\Service\TransifexProvider;
+use JTracker\Service\CrowdinProvider;
 
 /**
  * CLI application for installing the tracker application
@@ -113,7 +114,8 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			->registerServiceProvider(new GitHubProvider)
 			->registerServiceProvider(new DebuggerProvider)
 			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
-			->registerServiceProvider(new TransifexProvider);
+			->registerServiceProvider(new TransifexProvider)
+			->registerServiceProvider(new CrowdinProvider);
 
 		$this->loadLanguage();
 
