@@ -19,7 +19,6 @@ use Application\Command\Get\Project;
 use Joomla\Date\Date;
 
 use JTracker\Github\DataType\Commit;
-use JTracker\Github\DataType\Commit\Status;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
 
