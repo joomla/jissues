@@ -8,11 +8,10 @@
 
 namespace JTracker\Service;
 
-use Akeneo\Crowdin\Client;
+use JTracker\Crowdin\Client;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Registry\Registry;
 
 /**
  * Crowdin service provider
@@ -33,7 +32,7 @@ class CrowdinProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->set('Akeneo\\Crowdin\\Client',
+		$container->set('JTracker\\Crowdin\\Client',
 			function () use ($container)
 			{
 				/* @var \JTracker\Application $app */
@@ -42,6 +41,6 @@ class CrowdinProvider implements ServiceProviderInterface
 				// Instantiate Crowdin
 				return new Client($app->get('crowdin.project'), $app->get('crowdin.api-key'));
 			}
-		)->alias('crowdin', 'Akeneo\\Crowdin\\Client');
+		)->alias('crowdin', 'JTracker\\Crowdin\\Client');
 	}
 }
