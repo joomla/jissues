@@ -213,12 +213,9 @@ class Crowdin extends Update
 					// Call out to Crowdin
 					try
 					{
-						/** @var $api UploadTranslation */
-						$api = $this->crowdin->api('upload-translation');
+						$langTag = array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2);
 
-						$api->addTranslation($path, $fileName)
-							->setLocale(array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2))
-							->execute();
+						$this->crowdin->translation->upload(new Translation($path, $fileName), $langTag);
 
 						$this->out('ok... ', false);
 					}
