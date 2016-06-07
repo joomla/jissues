@@ -8,7 +8,7 @@
 
 namespace JTracker\Service;
 
-use JTracker\Crowdin\Client;
+use ElKuKu\Crowdin\Crowdin;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
@@ -39,7 +39,7 @@ class CrowdinProvider implements ServiceProviderInterface
 				$app = $container->get('app');
 
 				// Instantiate Crowdin
-				return new Client($app->get('crowdin.project'), $app->get('crowdin.api-key'));
+				return new Crowdin($app->get('crowdin.project'), $app->get('crowdin.api-key'));
 			}
 		)->alias('crowdin', 'ElKuKu\\Crowdin\\Crowdin');
 	}
