@@ -8,7 +8,7 @@
 
 namespace Application\Command\Update;
 
-use Akeneo\Crowdin\Client as CrowdinClient;
+use Elkuku\Crowdin\Crowdin;
 
 use BabDev\Transifex\Transifex;
 
@@ -51,7 +51,7 @@ class Update extends TrackerCommand
 	/**
 	 * Crowdin object
 	 *
-	 * @var    CrowdinClient
+	 * @var    Crowdin
 	 * @since  1.0
 	 */
 	protected $crowdin;

@@ -12,10 +12,11 @@ use App\Projects\TrackerProject;
 
 use BabDev\Transifex\Transifex;
 
+use ElKuKu\Crowdin\Crowdin;
+
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
-use JTracker\Crowdin\Client as CrowdinClient;
 use JTracker\Github\Github;
 
 /**
@@ -60,7 +61,7 @@ class Get extends TrackerCommand
 	/**
 	 * Crowdin object
 	 *
-	 * @var    CrowdinClient
+	 * @var    Crowdin
 	 * @since  1.0
 	 */
 	protected $crowdin;

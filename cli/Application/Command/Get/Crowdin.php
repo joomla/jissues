@@ -118,7 +118,7 @@ class Crowdin extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
-		// @temp - @todo move
+		// @temp - List with known "exceptions" - @todo move
 		$langMap = [
 			'es-ES' => 'es-ES',
 			'nb-NO' => 'no',
@@ -131,9 +131,6 @@ class Crowdin extends Get
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
 		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
-
-		/** @var $api ExportFile */
-		$api = $this->crowdin->api('export-file');
 
 		// Fetch the file for each language and place it in the file tree
 		foreach ($this->languages as $language)
@@ -159,10 +156,9 @@ class Crowdin extends Get
 			}
 
 			// Call out to Crowdin
-			$api->setFile($fileName)
-				->setLanguage(array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2))
-				->setSink($path)
-				->execute();
+			$langTag = array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2);
+
+			$this->crowdin->file->export($fileName, $langTag, $path);
 		}
 
 		$this->out('ok');

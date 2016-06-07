@@ -8,8 +8,7 @@
 
 namespace Application\Command\Update;
 
-use Akeneo\Crowdin\Api\UploadTranslation;
-
+use ElKuKu\Crowdin\Translation;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
@@ -118,19 +117,13 @@ class Crowdin extends Update
 				{
 					if ($create)
 					{
-						$api = $this->crowdin->api('add-file');
-
-						$api->addTranslation($templatePath, $alias)
-							->execute();
+						$this->crowdin->file->add(new Translation($templatePath, $alias));
 
 						$this->out('<ok>Resource created successfully</ok>');
 					}
 					else
 					{
-						$api = $this->crowdin->api('update-file');
-
-						$api->addTranslation($templatePath, $alias)
-							->execute();
+						$this->crowdin->file->update(new Translation($templatePath, $alias));
 
 						$this->out('<ok>Resource updated successfully</ok>');
 					}
@@ -161,7 +154,7 @@ class Crowdin extends Update
 			return $this;
 		}
 
-		// @temp - @todo move
+		// @temp - List with known "exceptions" - @todo move
 		$langMap = [
 			'es-ES' => 'es-ES',
 			'nb-NO' => 'no',

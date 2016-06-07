@@ -32,7 +32,7 @@ class CrowdinProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->set('JTracker\\Crowdin\\Client',
+		$container->set('ElKuKu\\Crowdin\\Crowdin',
 			function () use ($container)
 			{
 				/* @var \JTracker\Application $app */
@@ -41,6 +41,6 @@ class CrowdinProvider implements ServiceProviderInterface
 				// Instantiate Crowdin
 				return new Client($app->get('crowdin.project'), $app->get('crowdin.api-key'));
 			}
-		)->alias('crowdin', 'JTracker\\Crowdin\\Client');
+		)->alias('crowdin', 'ElKuKu\\Crowdin\\Crowdin');
 	}
 }
