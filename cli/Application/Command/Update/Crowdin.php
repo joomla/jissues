@@ -8,7 +8,8 @@
 
 namespace Application\Command\Update;
 
-use ElKuKu\Crowdin\Translation;
+use ElKuKu\Crowdin\Languagefile;
+
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
@@ -117,13 +118,13 @@ class Crowdin extends Update
 				{
 					if ($create)
 					{
-						$this->crowdin->file->add(new Translation($templatePath, $alias));
+						$this->crowdin->file->add(new Languagefile($templatePath, $alias));
 
 						$this->out('<ok>Resource created successfully</ok>');
 					}
 					else
 					{
-						$this->crowdin->file->update(new Translation($templatePath, $alias));
+						$this->crowdin->file->update(new Languagefile($templatePath, $alias));
 
 						$this->out('<ok>Resource updated successfully</ok>');
 					}
@@ -215,7 +216,7 @@ class Crowdin extends Update
 					{
 						$langTag = array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2);
 
-						$this->crowdin->translation->upload(new Translation($path, $fileName), $langTag);
+						$this->crowdin->translation->upload(new Languagefile($path, $fileName), $langTag);
 
 						$this->out('ok... ', false);
 					}

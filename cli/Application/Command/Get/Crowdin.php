@@ -9,7 +9,6 @@
 namespace Application\Command\Get;
 
 use g11n\Support\ExtensionHelper;
-use JTracker\Crowdin\Api\ExportFile;
 
 /**
  * Class for retrieving translations from Transifex
@@ -99,7 +98,7 @@ class Crowdin extends Get
 				continue;
 			}
 
-			$this->receiveFiles($fileInfo->getFileName(), 'App');
+			$this->receiveFiles($fileInfo->getFilename(), 'App');
 		}
 
 		return $this;
@@ -145,7 +144,7 @@ class Crowdin extends Get
 			$fileName = strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
 
 			// Create the "Sink"
-			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . 'XX.po';
+			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
 
 			if (false == is_dir(dirname($path)))
 			{
