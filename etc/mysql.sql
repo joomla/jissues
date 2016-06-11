@@ -13,6 +13,7 @@
 -- #__user_accessgroup_map
 -- #__issues_voting
 -- #__articles
+-- #__migrations
 --
 
 --
@@ -394,3 +395,14 @@ CREATE TABLE `#__issue_category_map` (
   CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `#__migrations`
+--
+CREATE TABLE `#__migrations` (
+  `version` int(11) unsigned NOT NULL COMMENT 'Applied migration versions',
+  KEY `version` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `#__migrations` (`version`) VALUES
+(20160611001);

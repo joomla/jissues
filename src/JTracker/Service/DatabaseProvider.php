@@ -11,6 +11,9 @@ namespace JTracker\Service;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use JTracker\Database\Migrations;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
@@ -35,7 +38,7 @@ class DatabaseProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->set('Joomla\\Database\\DatabaseDriver',
-			function () use ($container)
+			function (Container $container)
 			{
 				$app = $container->get('app');
 
@@ -72,5 +75,18 @@ class DatabaseProvider implements ServiceProviderInterface
 
 		// Alias the database
 		$container->alias('db', 'Joomla\\Database\\DatabaseDriver');
+
+		$container->set('JTracker\\Database\\Migrations',
+			function (Container $container)
+			{
+				return new Migrations(
+					$container->get('db'),
+					new Filesystem(new Local(JPATH_CONFIGURATION))
+				);
+			}, true, true
+		);
+
+		// Alias the migrator
+		$container->alias('db.migrations', 'JTracker\\Database\\Migrations');
 	}
 }
