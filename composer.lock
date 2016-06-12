@@ -469,16 +469,16 @@
         },
         {
             "name": "joomla/database",
-            "version": "1.4.0",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/database.git",
-                "reference": "1e61e197614998008da632317801718e6ac12cbc"
+                "reference": "c8e6bf9b3c7ad04d205b563d6e5f012ec5cb9a9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/database/zipball/1e61e197614998008da632317801718e6ac12cbc",
-                "reference": "1e61e197614998008da632317801718e6ac12cbc",
+                "url": "https://api.github.com/repos/joomla-framework/database/zipball/c8e6bf9b3c7ad04d205b563d6e5f012ec5cb9a9b",
+                "reference": "c8e6bf9b3c7ad04d205b563d6e5f012ec5cb9a9b",
                 "shasum": ""
             },
             "require": {
@@ -513,7 +513,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2016-05-02 13:07:53"
+            "time": "2016-05-18 18:51:58"
         },
         {
             "name": "joomla/date",
