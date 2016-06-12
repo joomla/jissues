@@ -8,8 +8,6 @@
 
 namespace Application\Command\Clear;
 
-use g11n\g11n;
-use g11n\Support\ExtensionHelper;
 use Joomla\Filesystem\Folder;
 
 /**

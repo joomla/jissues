@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Herman Peeren <herman@yepr.nl>, 2014
-# Roland Dalmulder <contact@rolandd.com>, 2014
+# Roland Dalmulder <contact@rolandd.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-02-11 04:44+0000\n"
+"POT-Creation-Date: 2016-05-14 15:58-0500\n"
+"PO-Revision-Date: 2016-05-15 09:52+0000\n"
 "Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -25,12 +25,12 @@ msgid "Project"
 msgstr "Project"
 
 #: /templates/projects/project.index.twig:14
-#: /templates/projects/projects.index.twig:60
+#: /templates/projects/projects.index.twig:63
 msgid "Edit"
 msgstr "Bewerken"
 
 #: /templates/projects/project.index.twig:15
-#: /templates/projects/projects.index.twig:61
+#: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
 msgstr "Verwijderen"
@@ -55,7 +55,7 @@ msgid "Hooks"
 msgstr "Hooks"
 
 #: /templates/projects/project.index.twig:51
-#: /templates/projects/projects.index.twig:59
+#: /templates/projects/projects.index.twig:62
 msgid "Groups"
 msgstr "Groepen"
 
@@ -152,6 +152,18 @@ msgstr "Stats"
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
 msgstr "Tonen"
+
+#: /templates/projects/projects.index.twig:58
+msgid "Project Activity"
+msgstr "Project activiteit"
+
+#: /templates/projects/projects.index.twig:59
+msgid "Snapshot"
+msgstr "Momentopname"
+
+#: /templates/projects/projects.index.twig:60
+msgid "User Activity"
+msgstr "Gebruikersactiviteit"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"

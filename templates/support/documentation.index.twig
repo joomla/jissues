@@ -11,14 +11,14 @@
     {% if templateDebug %}
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/file-tree/jqueryFileTree.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/file-tree/jqueryFileTree.css') }}" />
 
     <!-- CSS for coloured code -->
     <link rel="stylesheet" href="{{ asset('css/code.css') }}">
 
     <style>
         #loading {
-            background: rgba(255, 255, 255, .8) url('/media/images/ajax-loader.gif') 50% 15% no-repeat;
+            background: rgba(255, 255, 255, .8) url('{{ asset('images/ajax-loader.gif') }}') 50% 15% no-repeat;
             position: fixed;
             opacity: 0.8;
             -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);

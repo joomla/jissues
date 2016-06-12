@@ -19,17 +19,17 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload-ui.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select/dist/css/bootstrap-select.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/jquery.atwho/dist/css/jquery.atwho.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/blueimp-file-upload/css/jquery.fileupload-ui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select/dist/css/bootstrap-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/jquery.atwho/dist/css/jquery.atwho.css') }}" />
     {% endif %}
 
     <!-- CSS for coloured code -->
-    <link rel="stylesheet" href="{{ asset('css/code.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/code.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css') }}" />
 {% endblock %}
 
 {% block content %}

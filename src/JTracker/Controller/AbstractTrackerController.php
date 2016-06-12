@@ -200,10 +200,16 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			}
 		}
 
-		// Make sure the view class exists, otherwise revert to the default
+		// If there isn't a specific view class for this view, see if the app has a default for this format
 		if (!class_exists($viewClass))
 		{
-			$viewClass = '\\JTracker\\View\\TrackerDefaultView';
+			$viewClass = $base . '\\View\\Default' . ucfirst($viewFormat) . 'View';
+
+			// Make sure the view class exists, otherwise revert to the default
+			if (!class_exists($viewClass))
+			{
+				$viewClass = '\\JTracker\\View\\TrackerDefaultView';
+			}
 		}
 
 		// Register the templates paths for the view

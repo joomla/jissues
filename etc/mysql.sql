@@ -8,6 +8,7 @@
 -- #__issues_tests
 -- #__issues
 -- #__activities
+-- #__activity_types
 -- #__users
 -- #__accessgroups
 -- #__user_accessgroup_map
@@ -15,6 +16,7 @@
 -- #__articles
 -- #__issues_categories
 -- #__issue_category_map
+-- #__migrations
 --
 
 --
@@ -220,6 +222,35 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Table structure for table `#__activity_types`
+--
+
+CREATE TABLE `#__activity_types` (
+  `type_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `event` varchar(32) NOT NULL COMMENT 'The event type, referenced by the #__activities.event column',
+  `activity_group` varchar(255) DEFAULT NULL,
+  `activity_description` varchar(500) DEFAULT NULL,
+  `activity_points` tinyint(4) DEFAULT NULL COMMENT 'Weighting for each type of activity',
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `#__activity_types`
+--
+
+INSERT INTO `#__activity_types` (`type_id`, `event`, `activity_group`, `activity_description`, `activity_points`)
+VALUES
+  (1, 'open', 'Tracker', 'Create a new item on the tracker.', 3),
+  (2, 'close', 'Tracker', 'Close an issue on the tracker.', 1),
+  (3, 'comment', 'Tracker', 'Add a comment to an issue.', 1),
+  (4, 'reopen', 'Tracker', 'Reopens an issue.', 1),
+  (5, 'assign', 'Tracker', 'Assign an issue to a user', 1),
+  (6, 'merge', 'Tracker', 'Merge a Pull Request', 2),
+  (7, 'test_item', 'Test', 'Test an issue.', 5),
+  (8, 'add_code', 'Code', 'Add a pull request to the tracker.', 5);
+
+
 -- --------------------------------------------------------
 
 --
@@ -367,3 +398,14 @@ CREATE TABLE `#__issue_category_map` (
   CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `#__migrations`
+--
+CREATE TABLE `#__migrations` (
+  `version` varchar(25) NOT NULL COMMENT 'Applied migration versions',
+  KEY `version` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `#__migrations` (`version`) VALUES
+('20160611001');

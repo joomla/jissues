@@ -1,0 +1,47 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ "%s - Open Issues By Status"|_|format(project.short_title) }}{% endblock %}
+
+{% block headerCSS %}
+    {{ parent() }}
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <h2>{{ "Open Issues By Status - %s"|_|format(project.title) }}</h2>
+
+    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}/query"></div>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <script src="{{ asset('js/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.highlighter.js') }}"></script>
+    <script src="{{ asset('js/jqplot/barchart.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'vertical', true, '35');
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Marc Antoine THEVENET <mat@idimweb.com>, 2014
+# Marc Antoine THEVENET <mat@idimweb.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-03-29 09:04+0000\n"
+"POT-Creation-Date: 2016-05-14 15:58-0500\n"
+"PO-Revision-Date: 2016-05-14 21:40+0000\n"
 "Last-Translator: Marc Antoine THEVENET <mat@idimweb.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/opentranslators/jtracker/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -24,12 +24,12 @@ msgid "Project"
 msgstr "Projet"
 
 #: /templates/projects/project.index.twig:14
-#: /templates/projects/projects.index.twig:60
+#: /templates/projects/projects.index.twig:63
 msgid "Edit"
 msgstr "Éditer"
 
 #: /templates/projects/project.index.twig:15
-#: /templates/projects/projects.index.twig:61
+#: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
 msgstr "Supprimer"
@@ -54,7 +54,7 @@ msgid "Hooks"
 msgstr "Crochets"
 
 #: /templates/projects/project.index.twig:51
-#: /templates/projects/projects.index.twig:59
+#: /templates/projects/projects.index.twig:62
 msgid "Groups"
 msgstr "Groupes"
 
@@ -151,6 +151,18 @@ msgstr "Statistiques"
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
 msgstr "Montrer"
+
+#: /templates/projects/projects.index.twig:58
+msgid "Project Activity"
+msgstr "Activité du projet"
+
+#: /templates/projects/projects.index.twig:59
+msgid "Snapshot"
+msgstr "Capture instantanée"
+
+#: /templates/projects/projects.index.twig:60
+msgid "User Activity"
+msgstr "Activité de l'utilisateur"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"

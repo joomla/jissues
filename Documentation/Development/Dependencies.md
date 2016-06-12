@@ -273,7 +273,7 @@ jQuery component
 
 * Source URL: https://github.com/jquery/jquery-dist
 
-#### jquery-validation (1.12.0)
+#### jquery-validation (1.15.0)
 
 Form validation made easy
 
@@ -285,9 +285,9 @@ Form validation made easy
 
 * Source URL: https://github.com/twbs/bootstrap
 
-#### bootstrap-switch (1.8.0)
+#### bootstrap-switch (3.3.2)
 
-Unofficial bootstrap switch
+Turn checkboxes and radio buttons in toggle switches.
 
 * Source URL: https://github.com/nostalgiaz/bootstrap-switch
 
@@ -303,7 +303,7 @@ Unofficial bootstrap switch
 
 * Source URL: https://github.com/blueimp/JavaScript-Templates
 
-#### blueimp-canvas-to-blob (2.1.1)
+#### blueimp-canvas-to-blob (3.3.0)
 
 JavaScript Canvas to Blob is a function to convert canvas elements into Blob objects.
 
@@ -315,7 +315,7 @@ File Upload widget with multiple file selection, drag&amp;amp;drop support, prog
 
 * Source URL: https://github.com/blueimp/jQuery-File-Upload
 
-#### jquery-textrange (1.1.0)
+#### jquery-textrange (1.3.3)
 
 
 
@@ -327,21 +327,21 @@ g11n is a custom language handler - made primarily for Joomla!
 
 * Source URL: https://github.com/elkuku/g11n-js
 
-#### twbs-pagination (1.1.2)
+#### twbs-pagination (1.3.1)
 
 jQuery simple pagination plugin for bootstrap-style webpages
 
 * Source URL: https://github.com/esimakin/twbs-pagination
 
-#### bootstrap-select (1.6.4)
+#### bootstrap-select (1.10.0)
 
 
 
 * Source URL: http://silviomoreto.github.io/bootstrap-select
 
-#### d3 (3.4.6)
+#### d3 (3.5.16)
 
-
+A JavaScript visualization library for HTML and SVG.
 
 * Source URL: https://github.com/mbostock-bower/d3-bower
 
@@ -351,13 +351,13 @@ A dead-simple jQuery color picker.
 
 * Source URL: https://github.com/recurser/jquery-simple-color
 
-#### Caret.js (0.2.0)
+#### Caret.js (0.3.1)
 
 
 
 * Source URL: https://github.com/ichord/Caret.js
 
-#### jquery.atwho (0.5.1)
+#### jquery.atwho (1.5.0)
 
 
 

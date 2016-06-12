@@ -241,7 +241,7 @@ class Submit extends AbstractTrackerController
 					$title,
 					$body
 				),
-				['exception' => $exception]
+				['exception' => $exception, 'response' => $exception->getResponse()->body]
 			);
 
 			throw new \RuntimeException('Invalid response from GitHub', $exception->getCode(), $exception);

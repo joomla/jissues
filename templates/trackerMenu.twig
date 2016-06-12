@@ -23,6 +23,18 @@
                     <i class="icon-eye"></i>
                     {{ "Show"|_ }}
                 </a>
+                <a href="{{ uri.base.path }}activity/project/{{ project.alias }}">
+                    <i class="icon-stats-growth"></i>
+                    {{ "Project Activity"|_ }}
+                </a>
+                <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}">
+                    <i class="icon-stats-growth"></i>
+                    {{ "Snapshot"|_ }}
+                </a>
+                <a href="{{ uri.base.path }}activity/user/{{ project.alias }}">
+                    <i class="icon-stats-growth"></i>
+                    {{ "User Activity"|_ }}
+                </a>
             </li>
 
             {% if user.check("admin") %}
