@@ -75,6 +75,9 @@ class Migrations
 			$knownMigrations[] = $migrationFiles['filename'];
 		}
 
+		// Don't rely on file system ordering.
+		sort($knownMigrations);
+
 		// Validate all migrations are applied; the count and latest versions should match
 		if (count($appliedMigrations) === count($knownMigrations))
 		{
