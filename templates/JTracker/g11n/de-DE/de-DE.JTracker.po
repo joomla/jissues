@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-14 15:58-0500\n"
-"PO-Revision-Date: 2016-05-14 20:59+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
+"PO-Revision-Date: 2016-05-29 18:56+0000\n"
+"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/opentranslators/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +68,7 @@ msgstr "Melden Sie einen Fehler"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr ""
+msgstr "Abmelden"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
@@ -81,7 +81,7 @@ msgstr "Alle Rechte vorbehalten"
 #: /templates/footerMenu.twig:44
 #, php-format
 msgid "Joomla Hosting by %1$s"
-msgstr ""
+msgstr "Joomla Hosting by %1$s"
 
 #: /templates/index.twig:79
 msgid "Download"
@@ -262,7 +262,7 @@ msgstr "Joomla! Events"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Trademark & Licensing"
-msgstr ""
+msgstr "Joomla! Trademark & Licensing"
 
 #: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
@@ -394,15 +394,15 @@ msgstr "Zeigen"
 
 #: /templates/trackerMenu.twig:28
 msgid "Project Activity"
-msgstr ""
+msgstr "Projektaktivität"
 
 #: /templates/trackerMenu.twig:32
 msgid "Snapshot"
-msgstr ""
+msgstr "Snapshot"
 
 #: /templates/trackerMenu.twig:36
 msgid "User Activity"
-msgstr ""
+msgstr "Benutzeraktivität"
 
 #: /templates/trackerMenu.twig:44
 msgid "Edit"
