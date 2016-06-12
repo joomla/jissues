@@ -405,7 +405,7 @@ CREATE TABLE `#__issue_category_map` (
 CREATE TABLE `#__migrations` (
   `version` varchar(25) NOT NULL COMMENT 'Applied migration versions',
   KEY `version` (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `#__migrations` (`version`) VALUES
 ('20160611001');
