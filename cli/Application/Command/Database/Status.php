@@ -50,7 +50,16 @@ class Status extends TrackerCommand
 		else
 		{
 			$this->getApplication()->out(
-				'<comment>' . g11n3t(sprintf('Your database is not up-to-date. You are missing %d migrations.', $status['missingMigrations'])) . '</comment>'
+				'<comment>'
+				. sprintf(
+					g11n4t(
+						'Your database is not up-to-date. You are missing one migration.',
+						'Your database is not up-to-date. You are missing %d migrations.',
+						$status['missingMigrations']
+					),
+					$status['missingMigrations']
+				)
+				. '</comment>'
 			)
 				->out()
 				->out('<comment>' . g11n3t(sprintf('Current Version: %1$s', $status['currentVersion'])) . '</comment>')

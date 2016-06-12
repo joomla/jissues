@@ -10,7 +10,7 @@
         "ext-curl": "*",
         "joomla/application": "~1.4",
         "joomla/controller": "~1.1",
-        "joomla/database": "~1.1",
+        "joomla/database": "~1.4",
         "joomla/date": "~1.1",
         "joomla/di": "~1.1",
         "joomla/event": "~1.1",
