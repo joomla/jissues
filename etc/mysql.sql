@@ -408,4 +408,6 @@ CREATE TABLE `#__migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `#__migrations` (`version`) VALUES
-('20160611001');
+('20160611001'),
+('20160612001'),
+('20160612002');
