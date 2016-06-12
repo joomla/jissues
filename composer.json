@@ -6,7 +6,7 @@
     "license": "GPL-2.0+",
     "version": "1.0.0-beta",
     "require": {
-        "php": ">=5.4.4",
+        "php": ">=5.5",
         "ext-curl": "*",
         "joomla/application": "~1.4",
         "joomla/controller": "~1.1",

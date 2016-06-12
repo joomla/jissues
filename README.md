@@ -2,7 +2,7 @@
 
 The issue tracker application requires a server running:
 
-* PHP 5.4.4 or later
+* PHP 5.5 or later
 * MySQL 5.5.3 with InnoDB support (required to support the MySQL utf8mb4 charset) 
 
 The application also has external dependencies installable via Composer and Bower.  You can run `ant installdep` if you have ANT installed or `composer install` and `bower install` from the command line.
