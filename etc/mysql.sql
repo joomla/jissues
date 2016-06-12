@@ -400,9 +400,9 @@ CREATE TABLE `#__issue_category_map` (
 -- Table structure for table `#__migrations`
 --
 CREATE TABLE `#__migrations` (
-  `version` int(11) unsigned NOT NULL COMMENT 'Applied migration versions',
+  `version` varchar(25) NOT NULL COMMENT 'Applied migration versions',
   KEY `version` (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `#__migrations` (`version`) VALUES
-(20160611001);
+('20160611001');
