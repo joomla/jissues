@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
 "PO-Revision-Date: 2016-03-21 18:21+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/opentranslators/jtracker/language/nb_NO/)\n"
@@ -40,21 +40,21 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: /templates/tracker/issue.edit.twig:84
-#: /templates/tracker/issues.index.twig:153
+#: /templates/tracker/issues.index.twig:155
 #: /templates/tracker/issue.index.twig:184
 msgid "Foreign ID"
 msgstr "Fremmed ID"
 
 #: /templates/tracker/issue.edit.twig:107
 #: /templates/tracker/tpl/activities.twig:58
-#: /templates/tracker/issues.index.twig:46
+#: /templates/tracker/issues.index.twig:47
 msgid "Status"
 msgstr "Status"
 
 #: /templates/tracker/issue.edit.twig:115
 #: /templates/tracker/tpl/activities.twig:92
-#: /templates/tracker/issues.index.twig:45
-#: /templates/tracker/issue.add.twig:54
+#: /templates/tracker/issues.index.twig:46
+#: /templates/tracker/issue.add.twig:49
 msgid "Priority"
 msgstr "Prioritet"
 
@@ -64,7 +64,7 @@ msgstr "Element"
 
 #: /templates/tracker/issue.edit.twig:141
 #: /templates/tracker/issue.index.twig:107
-#: /templates/tracker/issue.add.twig:62
+#: /templates/tracker/issue.add.twig:57
 msgid "Build"
 msgstr "Versjon"
 
@@ -72,19 +72,19 @@ msgstr "Versjon"
 msgid "Easy test"
 msgstr "Enkel test"
 
-#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:70
+#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:65
 msgid "Categories"
 msgstr "Kategorier"
 
 #: /templates/tracker/issue.edit.twig:164
 #: /templates/tracker/tpl/activities.twig:113
-#: /templates/tracker/issue.add.twig:80
+#: /templates/tracker/issue.add.twig:75
 msgid "Labels"
 msgstr "Merke"
 
 #: /templates/tracker/issue.edit.twig:171
 #: /templates/tracker/tpl/activities.twig:131
-#: /templates/tracker/issue.add.twig:85
+#: /templates/tracker/issue.add.twig:80
 msgid "Milestone"
 msgstr "Milepæl"
 
@@ -92,7 +92,7 @@ msgstr "Milepæl"
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.edit.twig:27
-#: /templates/tracker/issue.add.twig:105
+#: /templates/tracker/issue.add.twig:100
 #: /templates/tracker/categories.index.twig:40
 msgid "Title"
 msgstr "Tittel"
@@ -108,7 +108,7 @@ msgid "Leave a comment"
 msgstr "Legg igjen en kommentar"
 
 #: /templates/tracker/issue.edit.twig:314
-#: /templates/tracker/issue.add.twig:221
+#: /templates/tracker/issue.add.twig:218
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Noen felt er ugyldige. Disse har blitt markert."
 
@@ -216,7 +216,7 @@ msgid "Open"
 msgstr "Åpne"
 
 #: /templates/tracker/tpl/filters.twig:15
-#: /templates/tracker/issues.index.twig:344
+#: /templates/tracker/issues.index.twig:346
 msgid "Closed"
 msgstr "Lukket"
 
@@ -285,7 +285,7 @@ msgid "Color"
 msgstr "Farge"
 
 #: /templates/tracker/tpl/activities.twig:24
-#: /templates/tracker/issue.add.twig:112
+#: /templates/tracker/issue.add.twig:107
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -326,156 +326,156 @@ msgstr "Endre kategori"
 msgid "Issues List"
 msgstr "Problemliste"
 
-#: /templates/tracker/issues.index.twig:25 /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:102
+#: /templates/tracker/issues.index.twig:26 /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issue.add.twig:97
 msgid "New Item"
 msgstr "Nytt element"
 
-#: /templates/tracker/issues.index.twig:43
+#: /templates/tracker/issues.index.twig:44
 msgid "ID"
 msgstr "Id"
 
-#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/issues.index.twig:45
 msgid "Summary"
 msgstr "Oppsummering"
 
-#: /templates/tracker/issues.index.twig:51
+#: /templates/tracker/issues.index.twig:52
 msgid "Loading, please wait..."
 msgstr "Laster, vennligst vent..."
 
-#: /templates/tracker/issues.index.twig:112
+#: /templates/tracker/issues.index.twig:114
 #: /templates/tracker/issue.index.twig:79
 #: /templates/tracker/categories.index.twig:66
 msgid "Edit"
 msgstr "Rediger"
 
-#: /templates/tracker/issues.index.twig:133
+#: /templates/tracker/issues.index.twig:135
 msgid "Created by"
 msgstr "Opprettet av"
 
-#: /templates/tracker/issues.index.twig:144
+#: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
 msgstr "GitHub id"
 
-#: /templates/tracker/issues.index.twig:163
+#: /templates/tracker/issues.index.twig:165
 msgid "Opened "
 msgstr "Åpnet"
 
-#: /templates/tracker/issues.index.twig:169
+#: /templates/tracker/issues.index.twig:171
 msgid "Closed "
 msgstr "Lukket"
 
-#: /templates/tracker/issues.index.twig:175
+#: /templates/tracker/issues.index.twig:177
 msgid "Modified "
 msgstr "Endret"
 
-#: /templates/tracker/issues.index.twig:181
+#: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Critical"
 msgstr "Kritisk"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Urgent"
 msgstr "Haster"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Medium"
 msgstr "Medium"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Low"
 msgstr "Lav"
 
-#: /templates/tracker/issues.index.twig:186
+#: /templates/tracker/issues.index.twig:188
 msgid "Very low"
 msgstr "Veldig lav"
 
-#: /templates/tracker/issues.index.twig:193
+#: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
 msgstr "Github flettestatus"
 
-#: /templates/tracker/issues.index.twig:203
+#: /templates/tracker/issues.index.twig:205
 msgid "No items found."
 msgstr "Ingen elementer funnet."
 
-#: /templates/tracker/issues.index.twig:320
+#: /templates/tracker/issues.index.twig:322
 msgid "Success"
 msgstr "Vellykket"
 
-#: /templates/tracker/issues.index.twig:322
-#: /templates/tracker/issues.index.twig:337
+#: /templates/tracker/issues.index.twig:324
+#: /templates/tracker/issues.index.twig:339
 msgid "Pending"
 msgstr "Ventende"
 
-#: /templates/tracker/issues.index.twig:324
+#: /templates/tracker/issues.index.twig:326
 msgid "Error"
 msgstr "Feil"
 
-#: /templates/tracker/issues.index.twig:326
+#: /templates/tracker/issues.index.twig:328
 msgid "Failure"
 msgstr "Svikt"
 
-#: /templates/tracker/issues.index.twig:335
+#: /templates/tracker/issues.index.twig:337
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
 msgstr "Ny"
 
-#: /templates/tracker/issues.index.twig:336
+#: /templates/tracker/issues.index.twig:338
 msgid "Confirmed"
 msgstr "Bekreftet"
 
-#: /templates/tracker/issues.index.twig:338
+#: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
 msgstr "Klar til innsendelse"
 
-#: /templates/tracker/issues.index.twig:339
+#: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
 msgstr "Rettet i kodebase"
 
-#: /templates/tracker/issues.index.twig:340
+#: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
 msgstr "Trenger gjennomgang"
 
-#: /templates/tracker/issues.index.twig:341
+#: /templates/tracker/issues.index.twig:343
 msgid "Information Required"
 msgstr "Mangler informasjon"
 
-#: /templates/tracker/issues.index.twig:342
+#: /templates/tracker/issues.index.twig:344
 msgid "Unconfirmed Report"
 msgstr "Ubekreftet rapport"
 
-#: /templates/tracker/issues.index.twig:343
+#: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
 msgstr "Ingen svar"
 
-#: /templates/tracker/issues.index.twig:345
+#: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
 msgstr "Forventet oppførsel"
 
-#: /templates/tracker/issues.index.twig:346
+#: /templates/tracker/issues.index.twig:348
 msgid "Known Issue"
 msgstr "Kjent problem"
 
-#: /templates/tracker/issues.index.twig:347
+#: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
 msgstr "Duplikat rapportering"
 
-#: /templates/tracker/issues.index.twig:410
+#: /templates/tracker/issues.index.twig:412
 msgid "First"
 msgstr "Først"
 
-#: /templates/tracker/issues.index.twig:411
+#: /templates/tracker/issues.index.twig:413
 msgid "Previous"
 msgstr "Forrige"
 
-#: /templates/tracker/issues.index.twig:412
+#: /templates/tracker/issues.index.twig:414
 msgid "Next"
 msgstr "Neste"
 
-#: /templates/tracker/issues.index.twig:413
+#: /templates/tracker/issues.index.twig:415
 msgid "Last"
 msgstr "Siste"
 
@@ -569,7 +569,7 @@ msgstr "Legg igjen en kommentar"
 msgid "Login with GitHub to post a comment"
 msgstr "Logg inn med GitHub for å legge til en kommentar"
 
-#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:129
+#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:124
 msgid "Submit"
 msgstr "Send"
 
@@ -577,15 +577,15 @@ msgstr "Send"
 msgid "View Mode"
 msgstr "Visningsmodus"
 
-#: /templates/tracker/issue.add.twig:47
+#: /templates/tracker/issue.add.twig:45
 msgid "Help"
 msgstr "Hjelp"
 
-#: /templates/tracker/issue.add.twig:47
+#: /templates/tracker/issue.add.twig:45
 msgid "Pro"
 msgstr "Pro"
 
-#: /templates/tracker/issue.add.twig:59
+#: /templates/tracker/issue.add.twig:54
 msgid ""
 "The priority of which this issue should be resolved. Please see the <a "
 "href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
@@ -593,15 +593,15 @@ msgid ""
 "priorities."
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:66
+#: /templates/tracker/issue.add.twig:61
 msgid "The version(s) of the project on which this issue is found."
 msgstr "Versjonen(e) til prosjektet hvor problemet har blitt funnet."
 
-#: /templates/tracker/issue.add.twig:73
+#: /templates/tracker/issue.add.twig:68
 msgid "Please select one or more Categories here that match to your issue."
 msgstr "Vennligst velg en eller flere kategorier her som passer ditt problem."
 
-#: /templates/tracker/issue.add.twig:95
+#: /templates/tracker/issue.add.twig:90
 msgid ""
 "Report security issues to the Joomla! Security Strike Team (JSST) at <a "
 "href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
@@ -609,21 +609,21 @@ msgid ""
 "contact form</a>, please do not use the public tracker for security issues."
 msgstr ""
 
-#: /templates/tracker/issue.add.twig:99
+#: /templates/tracker/issue.add.twig:94
 msgid ""
 "To report a bug in the Joomla! bug trackers, you need to create a tracker "
 "item. Once the tracker item is created, the developers will check the "
 "validity of it and act accordingly."
 msgstr "For å melde en feil i Joomla! problemfølgeren, må du opprette et følger element. Når følgerelementet er opprettet, vil utviklere sjekke ut validiteten til feilen og gjøre utbedringer deretter."
 
-#: /templates/tracker/issue.add.twig:109
+#: /templates/tracker/issue.add.twig:104
 msgid ""
 "Describe in a few words the issues you are having. It is generally a good "
 "idea to use existing tracker items as examples if this is your first time "
 "reporting a bug."
 msgstr "Beskriv problemet du opplever med noen få ord. Det er en god ide å bruke eksisterende følgeelementer de første gangene du rapporterer et problem."
 
-#: /templates/tracker/issue.add.twig:125
+#: /templates/tracker/issue.add.twig:120
 msgid ""
 "This is the most important part of reporting the bug. Describe here step by "
 "step how you got the error you are noticing. Include all of the information "
@@ -635,7 +635,7 @@ msgid ""
 "report."
 msgstr "Dette er den viktigste delen av rapporteringen av feil. Beskriv steg for steg hvordan du oppdaget feilen. Inkluder all informasjon her slik at andre kan prøve å feilsøke og finne den samme feilen selv. Husk: din feil vil ikke bli fikset om andre ikke finner den samme feilen. Det er derfor viktig at du er så tydelig og detaljert som mulig. Du trenger ikke å vite noe om programmering for å rapportere en feil. Derimot om du kan noe programmering og du tror du kan fikse feilen, vennligst inkluder den i rapporten."
 
-#: /templates/tracker/issue.add.twig:231
+#: /templates/tracker/issue.add.twig:228
 msgid "Submitting..."
 msgstr "Sender..."
 

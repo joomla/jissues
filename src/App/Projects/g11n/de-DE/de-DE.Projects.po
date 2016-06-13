@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the JTracker package.
 # 
 # Translators:
-# Nikolai Plath <der.el.kuku@gmail.com>, 2010,2014
+# Nikolai Plath <der.el.kuku@gmail.com>, 2010,2014,2016
 # Nikolai Plath <EMAIL@ADDRESS>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
-"PO-Revision-Date: 2016-03-10 17:26+0000\n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
+"PO-Revision-Date: 2016-05-29 18:57+0000\n"
 "Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/opentranslators/jtracker/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -25,12 +25,12 @@ msgid "Project"
 msgstr "Projekt"
 
 #: /templates/projects/project.index.twig:14
-#: /templates/projects/projects.index.twig:60
+#: /templates/projects/projects.index.twig:63
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: /templates/projects/project.index.twig:15
-#: /templates/projects/projects.index.twig:61
+#: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
 msgstr "Löschen"
@@ -55,7 +55,7 @@ msgid "Hooks"
 msgstr "Hooks"
 
 #: /templates/projects/project.index.twig:51
-#: /templates/projects/projects.index.twig:59
+#: /templates/projects/projects.index.twig:62
 msgid "Groups"
 msgstr "Gruppen"
 
@@ -152,6 +152,18 @@ msgstr "Stats"
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
 msgstr "Zeigen"
+
+#: /templates/projects/projects.index.twig:58
+msgid "Project Activity"
+msgstr "Projektaktivität"
+
+#: /templates/projects/projects.index.twig:59
+msgid "Snapshot"
+msgstr "Snapshot"
+
+#: /templates/projects/projects.index.twig:60
+msgid "User Activity"
+msgstr "Benutzeraktivität"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"

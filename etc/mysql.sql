@@ -5,13 +5,18 @@
 -- #__tracker_milestones
 -- #__status
 -- #__issues_relations_types
+-- #__issues_tests
 -- #__issues
 -- #__activities
+-- #__activity_types
 -- #__users
 -- #__accessgroups
 -- #__user_accessgroup_map
 -- #__issues_voting
 -- #__articles
+-- #__issues_categories
+-- #__issue_category_map
+-- #__migrations
 --
 
 --
@@ -30,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_projects` (
   `short_title` varchar(50) NOT NULL COMMENT 'Project short title',
   PRIMARY KEY (`project_id`),
   KEY `alias` (`alias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data `#__tracker_projects`
@@ -56,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `#__tracker_labels` (
   KEY `name` (`name`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__tracker_labels_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -76,7 +81,7 @@ CREATE TABLE `#__tracker_milestones` (
   KEY `name` (`title`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__tracker_milestones_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `#__status` (
   `status` varchar(255) DEFAULT NULL,
   `closed` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `#__status`
@@ -120,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_relations_types` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data `#__issues_relations_types`
@@ -144,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_tests` (
   `sha` varchar(40) DEFAULT NULL COMMENT 'The GitHub SHA where the issue has been tested against',
   PRIMARY KEY (`id`),
   KEY `item_id` (`item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -159,8 +164,8 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   `project_id` int(11) unsigned DEFAULT NULL COMMENT 'Project id',
   `milestone_id` int(11) unsigned DEFAULT NULL COMMENT 'Milestone id if applicable',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Issue title',
-  `description` mediumtext CHARACTER SET utf8mb4 NOT NULL COMMENT 'Issue description',
-  `description_raw` mediumtext CHARACTER SET utf8mb4 NOT NULL COMMENT 'The raw issue description (markdown)',
+  `description` mediumtext NOT NULL COMMENT 'Issue description',
+  `description_raw` mediumtext NOT NULL COMMENT 'The raw issue description (markdown)',
   `priority` tinyint(4) NOT NULL DEFAULT 3 COMMENT 'Issue priority',
   `status` int(11) unsigned NOT NULL DEFAULT 1 COMMENT 'Issue status',
   `opened_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Issue open date',
@@ -191,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `#__issues` (
   CONSTRAINT `#__issues_fk_milestone` FOREIGN KEY (`milestone_id`) REFERENCES `#__tracker_milestones` (`milestone_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `#__issues_fk_status` FOREIGN KEY (`status`) REFERENCES `#__status` (`id`),
   CONSTRAINT `#__issues_fk_rel_type` FOREIGN KEY (`rel_type`) REFERENCES `#__issues_relations_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -206,8 +211,8 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   `project_id` int(11) NOT NULL COMMENT 'The Project id',
   `user` varchar(255) NOT NULL DEFAULT '' COMMENT 'The user name',
   `event` varchar(32) NOT NULL COMMENT 'The event type',
-  `text` mediumtext CHARACTER SET utf8mb4 NULL COMMENT 'The event text',
-  `text_raw` mediumtext CHARACTER SET utf8mb4 NULL COMMENT 'The raw event text',
+  `text` mediumtext NULL COMMENT 'The event text',
+  `text_raw` mediumtext NULL COMMENT 'The raw event text',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`activities_id`),
@@ -215,7 +220,36 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__activities_fk_issue_number` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`issue_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__activities_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `#__activity_types`
+--
+
+CREATE TABLE `#__activity_types` (
+  `type_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `event` varchar(32) NOT NULL COMMENT 'The event type, referenced by the #__activities.event column',
+  `activity_group` varchar(255) DEFAULT NULL,
+  `activity_description` varchar(500) DEFAULT NULL,
+  `activity_points` tinyint(4) DEFAULT NULL COMMENT 'Weighting for each type of activity',
+  PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `#__activity_types`
+--
+
+INSERT INTO `#__activity_types` (`type_id`, `event`, `activity_group`, `activity_description`, `activity_points`)
+VALUES
+  (1, 'open', 'Tracker', 'Create a new item on the tracker.', 3),
+  (2, 'close', 'Tracker', 'Close an issue on the tracker.', 1),
+  (3, 'comment', 'Tracker', 'Add a comment to an issue.', 1),
+  (4, 'reopen', 'Tracker', 'Reopens an issue.', 1),
+  (5, 'assign', 'Tracker', 'Assign an issue to a user', 1),
+  (6, 'merge', 'Tracker', 'Merge a Pull Request', 2),
+  (7, 'test_item', 'Test', 'Test an issue.', 5),
+  (8, 'add_code', 'Code', 'Add a pull request to the tracker.', 5);
+
 
 -- --------------------------------------------------------
 
@@ -225,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `#__activities` (
 
 CREATE TABLE IF NOT EXISTS `#__users` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'The users name',
+  `name` varchar(400) NOT NULL DEFAULT '' COMMENT 'The users name',
   `username` varchar(150) NOT NULL DEFAULT '' COMMENT 'The users username',
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT 'The users e-mail',
   `block` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'If the user is blocked',
@@ -234,11 +268,11 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The last visit date',
   `params` text NOT NULL COMMENT 'Parameters',
   PRIMARY KEY (`id`),
-  KEY `idx_name` (`name`),
+  KEY `idx_name` (`name`(100)),
   KEY `idx_block` (`block`),
   KEY `username` (`username`),
   KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -259,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `#__accessgroups` (
   PRIMARY KEY (`group_id`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__accessgroups_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `#__accessgroups`
@@ -287,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `#__user_accessgroup_map` (
   PRIMARY KEY (`user_id`,`group_id`),
   CONSTRAINT `#__user_accessgroup_map_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`),
   CONSTRAINT `#__user_accessgroup_map_fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `#__accessgroups` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -304,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `#__issues_voting` (
   PRIMARY KEY (`id`),
   CONSTRAINT `#__issues_voting_fk_issue_id` FOREIGN KEY (`issue_number`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issues_voting_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `#__users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 
 -- --------------------------------------------------------
@@ -317,14 +351,14 @@ CREATE TABLE IF NOT EXISTS `#__articles` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `path` varchar(500) NOT NULL COMMENT 'The article path',
   `title` varchar(250) NOT NULL COMMENT 'The article title',
-  `alias` varchar(250) NOT NULL COMMENT 'The article alias.',
+  `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'The article alias.',
   `text` text NOT NULL COMMENT 'The article text.',
   `text_md` text NOT NULL COMMENT 'The raw article text.',
   `created_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'The created date.',
   `is_file` int(1) unsigned NOT NULL COMMENT 'If the text is present as a file (for different handling)',
   PRIMARY KEY (`article_id`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `alias` (`alias`(100))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `#__articles`
@@ -347,7 +381,7 @@ CREATE TABLE `#__issues_categories` (
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `#__issues_categories_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -363,4 +397,17 @@ CREATE TABLE `#__issue_category_map` (
   KEY `category_id` (`category_id`),
   CONSTRAINT `#__issue_category_map_ibfk_1` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issue_category_map_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `#__issues_categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `#__migrations`
+--
+CREATE TABLE `#__migrations` (
+  `version` varchar(25) NOT NULL COMMENT 'Applied migration versions',
+  KEY `version` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `#__migrations` (`version`) VALUES
+('20160611001'),
+('20160612001'),
+('20160612002');

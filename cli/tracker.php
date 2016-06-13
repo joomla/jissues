@@ -17,6 +17,11 @@ error_reporting(-1);
 ini_set('display_errors', 1);
 
 define('JPATH_ROOT', realpath(__DIR__ . '/..'));
+define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');
+define('JPATH_THEMES',        JPATH_ROOT . '/www');
+define('JPATH_TEMPLATES',     JPATH_ROOT . '/templates');
+define('JTRACKER_START_TIME', microtime(true));
+define('JTRACKER_START_MEMORY', memory_get_usage());
 
 // Load the autoloader
 $path = realpath(JPATH_ROOT . '/vendor/autoload.php');

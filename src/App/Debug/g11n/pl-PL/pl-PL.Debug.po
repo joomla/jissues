@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
 "PO-Revision-Date: 2016-02-27 06:53+0000\n"
 "Last-Translator: Sebastian Łuckoś <sebastian@atrox.pl>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/opentranslators/jtracker/language/pl_PL/)\n"
@@ -110,7 +110,7 @@ msgstr "Plik (linia)"
 msgid "String"
 msgstr "Ciąg znaków"
 
-#: /src/App/Debug/View/Logs/LogsHtmlView.php:74
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
 #, php-format
 msgid "No %s log file found."
 msgstr "Plik %s dziennika nie został znaleziony."
