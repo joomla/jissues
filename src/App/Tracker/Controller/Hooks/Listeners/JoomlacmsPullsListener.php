@@ -24,12 +24,12 @@ use Monolog\Logger;
 class JoomlacmsPullsListener extends AbstractListener
 {
 	/**
-	 * The Tracker Categories that gets handeld based on the files that changed by a pull request
+	 * The Tracker Categories that gets handled based on the files that changed by a pull request
 	 * Changes on the pull request only affect this categories
 	 *
 	 * @since   1.0
 	 */
-	protected $trackerHandeldCategories = array(
+	protected $trackerhandledCategories = array(
 				// Postgresql
 				'2',
 				// MS SQL
@@ -765,8 +765,8 @@ class JoomlacmsPullsListener extends AbstractListener
 		// The current categories for the PR.
 		$currentCategories = $this->getCategories($hookData, $logger, $project, $table);
 
-		// Hold the category ids that are added to the issue but not handeld by the tracker to readd it later
-		$categoriesThatShouldStay = array_diff($currentCategories, $this->$trackerHandeldCategories);
+		// Hold the category ids that are added to the issue but not handled by the tracker to readd it later
+		$categoriesThatShouldStay = array_diff($currentCategories, $this->$trackerhandledCategories);
 
 		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
