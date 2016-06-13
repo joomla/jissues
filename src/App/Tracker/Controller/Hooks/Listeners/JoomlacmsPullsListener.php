@@ -778,7 +778,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$categories = array_merge($newCategories, $categoriesThatShouldStay);
 
 		// Make sure we have no dublicate entrys here
-		$categories = array_unique($array);
+		$categories = array_unique($categories);
 
 		// Add the categories we need
 		return $this->setCategories($hookData, $logger, $project, $table, $categories);
