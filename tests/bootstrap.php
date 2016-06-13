@@ -19,7 +19,7 @@ ini_set('display_errors', 1);
  */
 define('JPATH_TESTS',  realpath(__DIR__));
 defined('JPATH_ROOT') || define('JPATH_ROOT',   realpath(JPATH_TESTS . '/tmp'));
-define('JPATH_THEMES', JPATH_TESTS . '/themes_base');
+defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_TESTS . '/themes_base');
 
 
 // Register the test classes.
