@@ -2,7 +2,7 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2012 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
@@ -13,11 +13,11 @@ use g11n\Support\ExtensionHelper;
 use JTracker\Helper\LanguageHelper;
 
 /**
- * Class for retrieving translations from Transifex
+ * Class for retrieving translations files.
  *
  * @since  1.0
  */
-class Transifex extends Get
+class Languagefiles extends Get
 {
 	/**
 	 * Array containing application languages to retrieve translations for
