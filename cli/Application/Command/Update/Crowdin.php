@@ -216,7 +216,7 @@ class Crowdin extends Update
 					{
 						$langTag = array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2);
 
-						$this->crowdin->translation->upload(new Languagefile($path, $fileName), $langTag, false, true);
+						$this->crowdin->translation->upload(new Languagefile($path, $fileName), $langTag, true, true);
 
 						$this->out('ok... ', false);
 					}
