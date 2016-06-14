@@ -57,6 +57,14 @@ class Update extends TrackerCommand
 	protected $crowdin;
 
 	/**
+	 * The language provider.
+	 *
+	 * @var string
+	 * @since  1.0
+	 */
+	protected $languageProvider;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -108,31 +116,31 @@ class Update extends TrackerCommand
 	}
 
 	/**
-	 * Setup the Transifex object.
+	 * Setup the Provider object.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function setupTransifex()
+	protected function setupLanguageProvider()
 	{
-		$this->transifex = $this->getContainer()->get('transifex');
+		$this->languageProvider = $this->getApplication()->input->get('provider');
 
-		return $this;
-	}
+		switch ($this->languageProvider)
+		{
+			case 'transifex':
+				$this->transifex = $this->getContainer()->get('transifex');
+				break;
 
-	/**
-	 * Setup the Crowdin object.
-	 *
-	 * @return  $this
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 */
-	protected function setupCrowdin()
-	{
-		$this->crowdin = $this->getContainer()->get('crowdin');
+			case 'crowdin':
+				$this->crowdin = $this->getContainer()->get('crowdin');
+				break;
+
+			default:
+				throw new \UnexpectedValueException('Unknown language provider');
+				break;
+		}
 
 		return $this;
 	}
