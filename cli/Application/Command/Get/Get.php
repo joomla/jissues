@@ -66,6 +66,12 @@ class Get extends TrackerCommand
 	 */
 	protected $crowdin;
 
+	/**
+	 * The language provider.
+	 *
+	 * @var string
+	 * @since  1.0
+	 */
 	protected $languageProvider;
 
 	/**
