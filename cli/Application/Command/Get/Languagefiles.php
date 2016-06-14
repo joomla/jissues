@@ -36,7 +36,7 @@ class Languagefiles extends Get
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve language files from Transifex.');
+		$this->description = g11n3t('Retrieve language files.');
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Languagefiles extends Get
 		unset($this->languages[0]);
 
 		$this->logOut(g11n3t('Start fetching translations.'))
-			->setupTransifex()
+			->setupLanguageProvider()
 			->fetchTranslations()
 			->out()
 			->logOut(g11n3t('Finished.'));
@@ -130,13 +130,6 @@ class Languagefiles extends Get
 
 			$this->out($language . '... ', false);
 
-			// Call out to Transifex
-			$translation = $this->transifex->translations->getTranslation(
-				$this->getApplication()->get('transifex.project'),
-				strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
-				str_replace('-', '_', $language)
-			);
-
 			// Write the file
 			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
 
@@ -148,9 +141,25 @@ class Languagefiles extends Get
 				}
 			}
 
-			if (!file_put_contents($path, $translation->content))
+			switch ($this->languageProvider)
 			{
-				throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
+				case 'transifex':
+					$translation = $this->transifex->translations->getTranslation(
+						$this->getApplication()->get('transifex.project'),
+						strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
+						str_replace('-', '_', $language)
+					);
+
+					if (!file_put_contents($path, $translation->content))
+					{
+						throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
+					}
+					break;
+
+				case 'crowdin':
+					$fileName = strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
+					$this->crowdin->file->export($fileName, LanguageHelper::getCrowdinLanguageTag($language), $path);
+					break;
 			}
 		}
 
