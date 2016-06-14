@@ -9,12 +9,10 @@
 namespace Application\Command\Update;
 
 use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
 
 use Joomla\Filter\OutputFilter;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 /**
  * Class for updating resources on Transifex
@@ -64,27 +62,15 @@ class Transifex extends Update
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
-		$scopes = [
-			'Core' => ['JTracker'],
-			'CoreJS' => ['JTracker.js'],
-			'Template' => ['JTracker'],
-			'CLI' => ['cli'],
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		];
-
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			foreach ($extensions as $extension)
 			{
 				$name  = $extension . ' ' . $domain;
 
-				$alias = OutputFilter::stringURLUnicodeSlug($name);
+				$alias = OutputFilter::stringUrlUnicodeSlug($name);
 
 				$this->out('Processing: ' . $name . ' - ' . $alias);
 

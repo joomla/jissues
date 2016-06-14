@@ -15,8 +15,7 @@ use g11n\Support\ExtensionHelper;
 
 use Joomla\Filter\OutputFilter;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 /**
  * Class for updating resources on Crowdin
@@ -80,21 +79,9 @@ class Crowdin extends Update
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
-		$scopes = [
-			'Core' => ['JTracker'],
-			'CoreJS' => ['JTracker.js'],
-			'Template' => ['JTracker'],
-			'CLI' => ['cli'],
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		];
-
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			foreach ($extensions as $extension)
 			{
@@ -155,32 +142,11 @@ class Crowdin extends Update
 			return $this;
 		}
 
-		// @temp - List with known "exceptions" - @todo move
-		$langMap = [
-			'es-ES' => 'es-ES',
-			'nb-NO' => 'no',
-			'pt-BR' => 'pt-BR',
-			'pt-PT' => 'pt-PT',
-			'zh-CN' => 'zh-CN'
-		];
-
 		defined('JDEBUG') || define('JDEBUG', 0);
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
-		$scopes = [
-			'Core' => ['JTracker'],
-			'CoreJS' => ['JTracker.js'],
-			'Template' => ['JTracker'],
-			'CLI' => ['cli'],
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		];
-
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			$scopePath = ExtensionHelper::getDomainPath($domain);
 
@@ -214,9 +180,7 @@ class Crowdin extends Update
 					// Call out to Crowdin
 					try
 					{
-						$langTag = array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2);
-
-						$this->crowdin->translation->upload(new Languagefile($path, $fileName), $langTag, true, true);
+						$this->crowdin->translation->upload(new Languagefile($path, $fileName), LanguageHelper::getCrowdinLanguageTag($language), true, true);
 
 						$this->out('ok... ', false);
 					}

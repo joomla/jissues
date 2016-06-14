@@ -10,6 +10,8 @@ namespace Application\Command\Get;
 
 use g11n\Support\ExtensionHelper;
 
+use JTracker\Helper\LanguageHelper;
+
 /**
  * Class for retrieving translations from Transifex
  *
@@ -69,11 +71,7 @@ class Crowdin extends Get
 	 */
 	private function fetchTranslations()
 	{
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
@@ -117,15 +115,6 @@ class Crowdin extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
-		// @temp - List with known "exceptions" - @todo move
-		$langMap = [
-			'es-ES' => 'es-ES',
-			'nb-NO' => 'no',
-			'pt-BR' => 'pt-BR',
-			'pt-PT' => 'pt-PT',
-			'zh-CN' => 'zh-CN'
-		];
-
 		$this->out(sprintf('Processing: %s %s... ', $domain, $extension), false);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
@@ -155,9 +144,7 @@ class Crowdin extends Get
 			}
 
 			// Call out to Crowdin
-			$langTag = array_key_exists($language, $langMap) ? $langMap[$language] : substr($language, 0, 2);
-
-			$this->crowdin->file->export($fileName, $langTag, $path);
+			$this->crowdin->file->export($fileName, LanguageHelper::getCrowdinLanguageTag($language), $path);
 		}
 
 		$this->out('ok');
