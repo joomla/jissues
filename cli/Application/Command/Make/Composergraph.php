@@ -10,7 +10,7 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use Clue\GraphComposer;
+use Clue\GraphComposer\Graph\GraphComposer;
 
 /**
  * Class for generating a graphical representation of the scripts that
