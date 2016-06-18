@@ -61,21 +61,7 @@ class DatabaseProvider implements ServiceProviderInterface
 
 				$db = DatabaseDriver::getInstance($options);
 				$db->setDebug($app->get('debug.database', false));
-				$db->setLogger(
-					new Logger(
-						'JTracker-Database',
-						[
-							new StreamHandler(
-								$app->get('debug.log-path', JPATH_ROOT) . '/database.log',
-								Logger::ERROR
-							)
-						],
-						[
-							new PsrLogMessageProcessor,
-							new WebProcessor
-						]
-					)
-				);
+				$db->setLogger($container->get('monolog.logger.database'));
 
 				return $db;
 			}, true, true
