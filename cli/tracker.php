@@ -59,6 +59,7 @@ try
 
 	// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
 	$container->alias('monolog', 'monolog.logger.cli')
+		->alias('logger', 'monolog.logger.application')
 		->alias('Monolog\\Logger', 'monolog.logger.cli')
 		->alias('Psr\\Log\\LoggerInterface', 'monolog.logger.cli');
 }
