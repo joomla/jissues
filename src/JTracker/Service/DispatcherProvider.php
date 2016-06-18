@@ -8,37 +8,17 @@
 
 namespace JTracker\Service;
 
-use Joomla\Application\AbstractApplication;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Event\Dispatcher;
 
 /**
- * Application service provider
+ * Event dispatcher service provider
  *
  * @since  1.0
  */
-class ApplicationProvider implements ServiceProviderInterface
+class DispatcherProvider implements ServiceProviderInterface
 {
-	/**
-	 * Application object
-	 *
-	 * @var    AbstractApplication
-	 * @since  1.0
-	 */
-	private $app;
-
-	/**
-	 * Constructor
-	 *
-	 * @param   AbstractApplication  $app  Application instance
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(AbstractApplication $app)
-	{
-		$this->app = $app;
-	}
-
 	/**
 	 * Registers the service provider with a DI container.
 	 *
@@ -50,11 +30,15 @@ class ApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->set('app',
+		$container->share('Joomla\\Event\\DispatcherInterface',
 			function ()
 			{
-				return $this->app;
-			}, true, true
+				return new Dispatcher;
+			}
 		);
+
+		// Alias the dispatcher
+		$container->alias('dispatcher', 'Joomla\\Event\\DispatcherInterface')
+			->alias('Joomla\\Event\\Dispatcher', 'Joomla\\Event\\DispatcherInterface');
 	}
 }
