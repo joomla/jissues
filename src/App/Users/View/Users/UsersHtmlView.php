@@ -36,9 +36,9 @@ class UsersHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('items', $this->model->getItems());
-		$this->renderer->set('pagination', $this->model->getPagination());
-		$this->renderer->set('state', $this->model->getState());
+		$this->addData('items', $this->model->getItems());
+		$this->addData('pagination', $this->model->getPagination());
+		$this->addData('state', $this->model->getState());
 
 		return parent::render();
 	}

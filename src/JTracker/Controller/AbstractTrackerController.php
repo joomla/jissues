@@ -364,6 +364,14 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			$this->getContainer()->alias(RendererInterface::class, "renderer.$rendererName");
 		}
 
+		// Add the app path if it exists
+		$path = JPATH_TEMPLATES . '/' . strtolower($this->app);
+
+		if (is_dir($path))
+		{
+			$renderer->addFolder($path);
+		}
+
 		$gitHubHelper = new GitHubLoginHelper($this->getContainer());
 
 		$renderer
