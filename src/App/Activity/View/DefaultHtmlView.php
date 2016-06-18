@@ -8,8 +8,6 @@
 
 namespace App\Activity\View;
 
-use App\Projects\ProjectAwareTrait;
-
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
@@ -19,8 +17,6 @@ use JTracker\View\AbstractTrackerHtmlView;
  */
 class DefaultHtmlView extends AbstractTrackerHtmlView
 {
-	use ProjectAwareTrait;
-
 	/**
 	 * Method to render the view.
 	 *
@@ -32,7 +28,7 @@ class DefaultHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
-		$this->renderer->set('project', $this->getProject());
+		$this->addData('project', $this->getProject());
 
 		return parent::render();
 	}

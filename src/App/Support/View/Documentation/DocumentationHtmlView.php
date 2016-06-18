@@ -45,7 +45,7 @@ class DocumentationHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('fullPath', $this->fullPath);
+		$this->addData('fullPath', $this->fullPath);
 
 		return parent::render();
 	}
