@@ -14,6 +14,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
 use Joomla\Profiler\Profiler;
+use Joomla\Renderer\RendererInterface;
 use Joomla\Utilities\ArrayHelper;
 
 use JTracker\Application;
@@ -22,8 +23,6 @@ use App\Debug\Database\DatabaseDebugger;
 use App\Debug\Format\Html\SqlFormat;
 use App\Debug\Format\Html\TableFormat;
 use App\Debug\Handler\ProductionHandler;
-
-use JTracker\View\Renderer\TrackerExtension;
 
 use Kint;
 
@@ -549,10 +548,23 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 			. 'Previous: ' . get_class($exception->getPrevious());
 		}
 
-		$view = new \JTracker\View\TrackerDefaultView;
+		$rendererName = $this->application->get('renderer.type');
 
-		$renderer = $view->getRenderer();
-		$renderer->addExtension(new TrackerExtension($this->getContainer()));
+
+		// The renderer should exist in the container
+		if (!$this->getContainer()->exists("renderer.$rendererName"))
+		{
+			throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
+		}
+
+		/** @var RendererInterface $renderer */
+		$renderer = $this->getContainer()->get("renderer.$rendererName");
+
+		// Alias the renderer to the interface if not set already
+		if (!$this->getContainer()->exists(RendererInterface::class))
+		{
+			$this->getContainer()->alias(RendererInterface::class, "renderer.$rendererName");
+		}
 
 		$message = '';
 
@@ -561,14 +573,12 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 			$message .= $key . ': ' . $value . "\n";
 		}
 
-		$view->setLayout('exception')
-			->getRenderer()
-			->set('exception', $exception)
+		$renderer->set('exception', $exception)
 			->set('message', str_replace(JPATH_ROOT, 'ROOT', $message));
 
 		$loaded = true;
 
-		$contents = $view->render();
+		$contents = $renderer->render('exception');
 
 		$debug = JDEBUG ? $this->getOutput() : '';
 
