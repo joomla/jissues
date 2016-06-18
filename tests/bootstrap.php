@@ -15,9 +15,9 @@ ini_set('display_errors', 1);
  * Ensure that required path constants are defined.
  */
 defined('JPATH_ROOT') || define('JPATH_ROOT', realpath(dirname(__DIR__)));
-define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');
-define('JPATH_THEMES',        JPATH_ROOT . '/www');
-define('JPATH_TEMPLATES',     JPATH_ROOT . '/templates');
+defined('JPATH_CONFIGURATION') || define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');
+defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
+defined('JPATH_TEMPLATES') || define('JPATH_TEMPLATES', JPATH_ROOT . '/templates');
 
 $composerPath = JPATH_ROOT . '/vendor/autoload.php';
 
