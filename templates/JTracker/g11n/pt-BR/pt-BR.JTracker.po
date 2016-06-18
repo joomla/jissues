@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-21 13:20-0500\n"
-"PO-Revision-Date: 2016-03-21 18:21+0000\n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
+"PO-Revision-Date: 2016-05-14 20:59+0000\n"
 "Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/opentranslators/jtracker/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -66,17 +66,22 @@ msgstr "Política de Privacidade"
 msgid "Report an Issue"
 msgstr ""
 
-#: /templates/footerMenu.twig:33
+#: /templates/footerMenu.twig:34
+msgid "Log out"
+msgstr ""
+
+#: /templates/footerMenu.twig:36
 msgid "Log in"
 msgstr ""
 
-#: /templates/footerMenu.twig:34
-msgid "Joomla Hosting by"
-msgstr "Joomla Hosting por"
-
-#: /templates/footerMenu.twig:37
+#: /templates/footerMenu.twig:40
 msgid "All rights reserved."
 msgstr "Todos os direitos reservados."
+
+#: /templates/footerMenu.twig:44
+#, php-format
+msgid "Joomla Hosting by %1$s"
+msgstr ""
 
 #: /templates/index.twig:79
 msgid "Download"
@@ -187,7 +192,7 @@ msgstr "Iniciar"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:148
+#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Erro"
 
@@ -256,106 +261,110 @@ msgid "Joomla! Events"
 msgstr "Joomla! Events"
 
 #: /templates/topMenu.twig:44
+msgid "Joomla! Trademark & Licensing"
+msgstr ""
+
+#: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
 msgstr "Joomla! User Groups"
 
-#: /templates/topMenu.twig:45
+#: /templates/topMenu.twig:46
 msgid "Joomla! Volunteers Portal"
 msgstr ""
 
-#: /templates/topMenu.twig:49
+#: /templates/topMenu.twig:50
 msgid "Support"
 msgstr "Suporte"
 
-#: /templates/topMenu.twig:51
+#: /templates/topMenu.twig:52
 msgid "Joomla! Forum"
 msgstr "Joomla! Forum"
 
-#: /templates/topMenu.twig:52
+#: /templates/topMenu.twig:53
 msgid "Joomla! Documentation"
 msgstr "Joomla! Documentation"
 
-#: /templates/topMenu.twig:53
+#: /templates/topMenu.twig:54
 msgid "Joomla! Issue Tracker"
 msgstr ""
 
-#: /templates/topMenu.twig:54
+#: /templates/topMenu.twig:55
 msgid "Joomla! Resources"
 msgstr "Joomla! Resources"
 
-#: /templates/topMenu.twig:58
+#: /templates/topMenu.twig:59
 msgid "Read"
 msgstr "Ler"
 
-#: /templates/topMenu.twig:60
+#: /templates/topMenu.twig:61
 msgid "Joomla! Magazine"
 msgstr "Joomla! Magazine"
 
-#: /templates/topMenu.twig:61
+#: /templates/topMenu.twig:62
 msgid "Joomla! Connect"
 msgstr "Joomla! Connect"
 
-#: /templates/topMenu.twig:62
+#: /templates/topMenu.twig:63
 msgid "Joomla! Mailing Lists"
 msgstr "Joomla! Mailing Lists"
 
-#: /templates/topMenu.twig:65
+#: /templates/topMenu.twig:66
 msgid "Extend"
 msgstr "Estender"
 
-#: /templates/topMenu.twig:67
+#: /templates/topMenu.twig:68
 msgid "Extension Directory"
 msgstr "Diretório de Extensões"
 
-#: /templates/topMenu.twig:68
+#: /templates/topMenu.twig:69
 msgid "Showcase Directory"
 msgstr "Diretório de Vitrines"
 
-#: /templates/topMenu.twig:69 /templates/topMenu.twig:91
+#: /templates/topMenu.twig:70 /templates/topMenu.twig:92
 msgid "Language Packages"
 msgstr ""
 
-#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:71
 msgid "Certification Program"
 msgstr ""
 
-#: /templates/topMenu.twig:74
+#: /templates/topMenu.twig:75
 msgid "Developers"
 msgstr "Desenvolvedores"
 
-#: /templates/topMenu.twig:76
+#: /templates/topMenu.twig:77
 msgid "Developer Network"
 msgstr ""
 
-#: /templates/topMenu.twig:77 /templates/trackerMenu.twig:200
+#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:203
 msgid "Documentation"
 msgstr "Documentação"
 
-#: /templates/topMenu.twig:78
+#: /templates/topMenu.twig:79
 msgid "Joomla! Bug Squad"
 msgstr "Joomla! Bug Squad"
 
-#: /templates/topMenu.twig:79
+#: /templates/topMenu.twig:80
 msgid "Joomla! API"
 msgstr "Joomla! API"
 
-#: /templates/topMenu.twig:80
+#: /templates/topMenu.twig:81
 msgid "JoomlaCode"
 msgstr "JoomlaCode"
 
-#: /templates/topMenu.twig:81
+#: /templates/topMenu.twig:82
 msgid "Joomla! Framework"
 msgstr "Joomla! Framework"
 
-#: /templates/topMenu.twig:92
+#: /templates/topMenu.twig:93
 msgid "Multilingual Demo"
 msgstr "Demostração Multilingue"
 
-#: /templates/topMenu.twig:93
+#: /templates/topMenu.twig:94
 msgid "Translation Working Group"
 msgstr "Translation Working Group"
 
-#: /templates/topMenu.twig:94
+#: /templates/topMenu.twig:95
 msgid "Translations Forum"
 msgstr "Forum de Traduções"
 
@@ -383,122 +392,134 @@ msgstr "Projeto"
 msgid "Show"
 msgstr "Mostrar"
 
+#: /templates/trackerMenu.twig:28
+msgid "Project Activity"
+msgstr ""
+
 #: /templates/trackerMenu.twig:32
+msgid "Snapshot"
+msgstr ""
+
+#: /templates/trackerMenu.twig:36
+msgid "User Activity"
+msgstr ""
+
+#: /templates/trackerMenu.twig:44
 msgid "Edit"
 msgstr "Editar"
 
-#: /templates/trackerMenu.twig:43
+#: /templates/trackerMenu.twig:55
 msgid "Access Groups"
 msgstr "Grupos de Acesso"
 
-#: /templates/trackerMenu.twig:49
+#: /templates/trackerMenu.twig:61
 msgid "Labels"
 msgstr ""
 
-#: /templates/trackerMenu.twig:55
+#: /templates/trackerMenu.twig:67
 msgid "Milestones"
 msgstr ""
 
-#: /templates/trackerMenu.twig:61
+#: /templates/trackerMenu.twig:73
 msgid "Categories"
 msgstr "Categorias"
 
-#: /templates/trackerMenu.twig:71
+#: /templates/trackerMenu.twig:83
 msgid "Projects"
 msgstr "Projetos"
 
-#: /templates/trackerMenu.twig:76
+#: /templates/trackerMenu.twig:88
 msgid "Users"
 msgstr "Usuários"
 
-#: /templates/trackerMenu.twig:83
+#: /templates/trackerMenu.twig:95
 msgid "System"
 msgstr "Sistema"
 
-#: /templates/trackerMenu.twig:90
+#: /templates/trackerMenu.twig:102
 msgid "Configuration"
 msgstr "Configuração"
 
-#: /templates/trackerMenu.twig:96
+#: /templates/trackerMenu.twig:108
 msgid "phpinfo()"
 msgstr ""
 
-#: /templates/trackerMenu.twig:102
+#: /templates/trackerMenu.twig:114
 msgid "Logs"
 msgstr "Histórico"
 
-#: /templates/trackerMenu.twig:115
+#: /templates/trackerMenu.twig:118
 msgid "Application"
 msgstr ""
 
-#: /templates/trackerMenu.twig:118
+#: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
 msgstr ""
 
-#: /templates/trackerMenu.twig:123
+#: /templates/trackerMenu.twig:126
 msgid "Database"
 msgstr "Banco de Dados"
 
-#: /templates/trackerMenu.twig:129
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Issues"
 msgstr ""
 
-#: /templates/trackerMenu.twig:135
+#: /templates/trackerMenu.twig:138
 msgid "GitHub Comments"
 msgstr ""
 
-#: /templates/trackerMenu.twig:141
+#: /templates/trackerMenu.twig:144
 msgid "GitHub Pulls"
 msgstr ""
 
-#: /templates/trackerMenu.twig:145
+#: /templates/trackerMenu.twig:148
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:155
+#: /templates/trackerMenu.twig:158
 msgid "Icons"
 msgstr "Ícones"
 
-#: /templates/trackerMenu.twig:161
+#: /templates/trackerMenu.twig:164
 msgid "Routes"
 msgstr "Rotas"
 
-#: /templates/trackerMenu.twig:167
+#: /templates/trackerMenu.twig:170
 msgid "Text"
 msgstr "Texto"
 
-#: /templates/trackerMenu.twig:173
+#: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
 msgstr "Liberar o Cache"
 
-#: /templates/trackerMenu.twig:190
+#: /templates/trackerMenu.twig:193
 msgid "About Us"
 msgstr "Sobre Nós"
 
-#: /templates/trackerMenu.twig:195
+#: /templates/trackerMenu.twig:198
 msgid "Markdown"
 msgstr ""
 
-#: /templates/trackerMenu.twig:219
+#: /templates/trackerMenu.twig:222
 msgid "Admin"
 msgstr "Admin"
 
-#: /templates/trackerMenu.twig:224
+#: /templates/trackerMenu.twig:227
 msgid "View profile"
 msgstr "Ver perfil"
 
-#: /templates/trackerMenu.twig:230
+#: /templates/trackerMenu.twig:233
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:240
 msgid "Logout"
 msgstr "Logout"
 
-#: /templates/trackerMenu.twig:246
+#: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
 msgstr "Login com GitHub"
 
-#: /templates/trackerMenu.twig:250
+#: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr "Nenhuma credencial do GitHub configurada"

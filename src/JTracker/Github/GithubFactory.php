@@ -12,6 +12,9 @@ use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
 use Joomla\Http\Transport\Curl;
 use Joomla\Registry\Registry;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Processor\WebProcessor;
 
 /**
  * Factory class for retrieving a GitHub object
@@ -105,6 +108,27 @@ abstract class GithubFactory
 		$http = new Http($options, $transport);
 
 		// Instantiate the object
-		return new Github($options, $http);
+		$github = new Github($options, $http);
+
+		// If debugging is enabled, inject a logger
+		if ($app->get('debug.github', false))
+		{
+			$github->setLogger(
+				new Logger(
+					'JTracker-Github',
+					[
+						new StreamHandler(
+							$app->get('debug.log-path', JPATH_ROOT) . '/github.log',
+							Logger::DEBUG
+						)
+					],
+					[
+						new WebProcessor
+					]
+				)
+			);
+		}
+
+		return $github;
 	}
 }

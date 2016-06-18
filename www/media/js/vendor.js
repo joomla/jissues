@@ -9594,7 +9594,7 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 	define( "jquery", [], function () { return jQuery; } );
 }
 
-})( window );
+})( window );;
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
@@ -10032,9 +10032,9 @@ $.fn.caret.apis = methods;
 
 
 }));
-
+;
 /*
- * JavaScript Canvas to Blob 2.0.5
+ * JavaScript Canvas to Blob
  * https://github.com/blueimp/JavaScript-Canvas-to-Blob
  *
  * Copyright 2012, Sebastian Tschan
@@ -10047,90 +10047,106 @@ $.fn.caret.apis = methods;
  * http://stackoverflow.com/q/4998908
  */
 
-/*jslint nomen: true, regexp: true */
-/*global window, atob, Blob, ArrayBuffer, Uint8Array, define */
+/*global window, atob, Blob, ArrayBuffer, Uint8Array, define, module */
 
-(function (window) {
-    'use strict';
-    var CanvasPrototype = window.HTMLCanvasElement &&
-            window.HTMLCanvasElement.prototype,
-        hasBlobConstructor = window.Blob && (function () {
-            try {
-                return Boolean(new Blob());
-            } catch (e) {
-                return false;
-            }
-        }()),
-        hasArrayBufferViewSupport = hasBlobConstructor && window.Uint8Array &&
-            (function () {
-                try {
-                    return new Blob([new Uint8Array(100)]).size === 100;
-                } catch (e) {
-                    return false;
-                }
-            }()),
-        BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder ||
-            window.MozBlobBuilder || window.MSBlobBuilder,
-        dataURLtoBlob = (hasBlobConstructor || BlobBuilder) && window.atob &&
-            window.ArrayBuffer && window.Uint8Array && function (dataURI) {
-                var byteString,
-                    arrayBuffer,
-                    intArray,
-                    i,
-                    mimeString,
-                    bb;
-                if (dataURI.split(',')[0].indexOf('base64') >= 0) {
-                    // Convert base64 to raw binary data held in a string:
-                    byteString = atob(dataURI.split(',')[1]);
-                } else {
-                    // Convert base64/URLEncoded data component to raw binary data:
-                    byteString = decodeURIComponent(dataURI.split(',')[1]);
-                }
-                // Write the bytes of the string to an ArrayBuffer:
-                arrayBuffer = new ArrayBuffer(byteString.length);
-                intArray = new Uint8Array(arrayBuffer);
-                for (i = 0; i < byteString.length; i += 1) {
-                    intArray[i] = byteString.charCodeAt(i);
-                }
-                // Separate out the mime component:
-                mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-                // Write the ArrayBuffer (or ArrayBufferView) to a blob:
-                if (hasBlobConstructor) {
-                    return new Blob(
-                        [hasArrayBufferViewSupport ? intArray : arrayBuffer],
-                        {type: mimeString}
-                    );
-                }
-                bb = new BlobBuilder();
-                bb.append(arrayBuffer);
-                return bb.getBlob(mimeString);
-            };
-    if (window.HTMLCanvasElement && !CanvasPrototype.toBlob) {
-        if (CanvasPrototype.mozGetAsFile) {
-            CanvasPrototype.toBlob = function (callback, type, quality) {
-                if (quality && CanvasPrototype.toDataURL && dataURLtoBlob) {
-                    callback(dataURLtoBlob(this.toDataURL(type, quality)));
-                } else {
-                    callback(this.mozGetAsFile('blob', type));
-                }
-            };
-        } else if (CanvasPrototype.toDataURL && dataURLtoBlob) {
-            CanvasPrototype.toBlob = function (callback, type, quality) {
-                callback(dataURLtoBlob(this.toDataURL(type, quality)));
-            };
+;(function (window) {
+  'use strict'
+
+  var CanvasPrototype = window.HTMLCanvasElement &&
+                          window.HTMLCanvasElement.prototype
+  var hasBlobConstructor = window.Blob && (function () {
+    try {
+      return Boolean(new Blob())
+    } catch (e) {
+      return false
+    }
+  }())
+  var hasArrayBufferViewSupport = hasBlobConstructor && window.Uint8Array &&
+    (function () {
+      try {
+        return new Blob([new Uint8Array(100)]).size === 100
+      } catch (e) {
+        return false
+      }
+    }())
+  var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder ||
+                      window.MozBlobBuilder || window.MSBlobBuilder
+  var dataURIPattern = /^data:((.*?)(;charset=.*?)?)(;base64)?,/
+  var dataURLtoBlob = (hasBlobConstructor || BlobBuilder) && window.atob &&
+    window.ArrayBuffer && window.Uint8Array &&
+    function (dataURI) {
+      var matches,
+        mediaType,
+        isBase64,
+        dataString,
+        byteString,
+        arrayBuffer,
+        intArray,
+        i,
+        bb
+      // Parse the dataURI components as per RFC 2397
+      matches = dataURI.match(dataURIPattern)
+      if (!matches) {
+        throw new Error('invalid data URI')
+      }
+      // Default to text/plain;charset=US-ASCII
+      mediaType = matches[2]
+        ? matches[1]
+        : 'text/plain' + (matches[3] || ';charset=US-ASCII')
+      isBase64 = !!matches[4]
+      dataString = dataURI.slice(matches[0].length)
+      if (isBase64) {
+        // Convert base64 to raw binary data held in a string:
+        byteString = atob(dataString)
+      } else {
+        // Convert base64/URLEncoded data component to raw binary:
+        byteString = decodeURIComponent(dataString)
+      }
+      // Write the bytes of the string to an ArrayBuffer:
+      arrayBuffer = new ArrayBuffer(byteString.length)
+      intArray = new Uint8Array(arrayBuffer)
+      for (i = 0; i < byteString.length; i += 1) {
+        intArray[i] = byteString.charCodeAt(i)
+      }
+      // Write the ArrayBuffer (or ArrayBufferView) to a blob:
+      if (hasBlobConstructor) {
+        return new Blob(
+          [hasArrayBufferViewSupport ? intArray : arrayBuffer],
+          {type: mediaType}
+        )
+      }
+      bb = new BlobBuilder()
+      bb.append(arrayBuffer)
+      return bb.getBlob(mediaType)
+    }
+  if (window.HTMLCanvasElement && !CanvasPrototype.toBlob) {
+    if (CanvasPrototype.mozGetAsFile) {
+      CanvasPrototype.toBlob = function (callback, type, quality) {
+        if (quality && CanvasPrototype.toDataURL && dataURLtoBlob) {
+          callback(dataURLtoBlob(this.toDataURL(type, quality)))
+        } else {
+          callback(this.mozGetAsFile('blob', type))
         }
+      }
+    } else if (CanvasPrototype.toDataURL && dataURLtoBlob) {
+      CanvasPrototype.toBlob = function (callback, type, quality) {
+        callback(dataURLtoBlob(this.toDataURL(type, quality)))
+      }
     }
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return dataURLtoBlob;
-        });
-    } else {
-        window.dataURLtoBlob = dataURLtoBlob;
-    }
-}(this));
-
+  }
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return dataURLtoBlob
+    })
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = dataURLtoBlob
+  } else {
+    window.dataURLtoBlob = dataURLtoBlob
+  }
+}(window))
+;
 /*
- * JavaScript Load Image 1.10.0
+ * JavaScript Load Image
  * https://github.com/blueimp/JavaScript-Load-Image
  *
  * Copyright 2011, Sebastian Tschan
@@ -10140,481 +10156,346 @@ $.fn.caret.apis = methods;
  * http://www.opensource.org/licenses/MIT
  */
 
-/*jslint nomen: true */
-/*global define, window, document, URL, webkitURL, Blob, File, FileReader */
+/*global define, module, window, document, URL, webkitURL, FileReader */
 
-(function ($) {
-    'use strict';
+;(function ($) {
+  'use strict'
 
-    // Loads an image for a given File object.
-    // Invokes the callback with an img or optional canvas
-    // element (if supported by the browser) as parameter:
-    var loadImage = function (file, callback, options) {
-            var img = document.createElement('img'),
-                url,
-                oUrl;
-            img.onerror = callback;
-            img.onload = function () {
-                if (oUrl && !(options && options.noRevoke)) {
-                    loadImage.revokeObjectURL(oUrl);
-                }
-                if (callback) {
-                    callback(loadImage.scale(img, options));
-                }
-            };
-            if (loadImage.isInstanceOf('Blob', file) ||
-                    // Files are also Blob instances, but some browsers
-                    // (Firefox 3.6) support the File API but not Blobs:
-                    loadImage.isInstanceOf('File', file)) {
-                url = oUrl = loadImage.createObjectURL(file);
-                // Store the file type for resize processing:
-                img._type = file.type;
-            } else if (typeof file === 'string') {
-                url = file;
-                if (options && options.crossOrigin) {
-                    img.crossOrigin = options.crossOrigin;
-                }
-            } else {
-                return false;
-            }
-            if (url) {
-                img.src = url;
-                return img;
-            }
-            return loadImage.readFile(file, function (e) {
-                var target = e.target;
-                if (target && target.result) {
-                    img.src = target.result;
-                } else {
-                    if (callback) {
-                        callback(e);
-                    }
-                }
-            });
-        },
-        // The check for URL.revokeObjectURL fixes an issue with Opera 12,
-        // which provides URL.createObjectURL but doesn't properly implement it:
-        urlAPI = (window.createObjectURL && window) ||
-            (window.URL && URL.revokeObjectURL && URL) ||
-            (window.webkitURL && webkitURL);
-
-    loadImage.isInstanceOf = function (type, obj) {
-        // Cross-frame instanceof check
-        return Object.prototype.toString.call(obj) === '[object ' + type + ']';
-    };
-
-    // Transform image coordinates, allows to override e.g.
-    // the canvas orientation based on the orientation option,
-    // gets canvas, options passed as arguments:
-    loadImage.transformCoordinates = function () {
-        return;
-    };
-
-    // Returns transformed options, allows to override e.g.
-    // maxWidth, maxHeight and crop options based on the aspectRatio.
-    // gets img, options passed as arguments:
-    loadImage.getTransformedOptions = function (img, options) {
-        var aspectRatio = options.aspectRatio,
-            newOptions,
-            i,
-            width,
-            height;
-        if (!aspectRatio) {
-            return options;
-        }
-        newOptions = {};
-        for (i in options) {
-            if (options.hasOwnProperty(i)) {
-                newOptions[i] = options[i];
-            }
-        }
-        newOptions.crop = true;
-        width = img.naturalWidth || img.width;
-        height = img.naturalHeight || img.height;
-        if (width / height > aspectRatio) {
-            newOptions.maxWidth = height * aspectRatio;
-            newOptions.maxHeight = height;
-        } else {
-            newOptions.maxWidth = width;
-            newOptions.maxHeight = width / aspectRatio;
-        }
-        return newOptions;
-    };
-
-    // Canvas render method, allows to override the
-    // rendering e.g. to work around issues on iOS:
-    loadImage.renderImageToCanvas = function (
-        canvas,
-        img,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        destX,
-        destY,
-        destWidth,
-        destHeight
-    ) {
-        canvas.getContext('2d').drawImage(
-            img,
-            sourceX,
-            sourceY,
-            sourceWidth,
-            sourceHeight,
-            destX,
-            destY,
-            destWidth,
-            destHeight
-        );
-        return canvas;
-    };
-
-    // This method is used to determine if the target image
-    // should be a canvas element:
-    loadImage.hasCanvasOption = function (options) {
-        return options.canvas || options.crop || options.aspectRatio;
-    };
-
-    // Scales and/or crops the given image (img or canvas HTML element)
-    // using the given options.
-    // Returns a canvas object if the browser supports canvas
-    // and the hasCanvasOption method returns true or a canvas
-    // object is passed as image, else the scaled image:
-    loadImage.scale = function (img, options) {
-        options = options || {};
-        var canvas = document.createElement('canvas'),
-            useCanvas = img.getContext ||
-                (loadImage.hasCanvasOption(options) && canvas.getContext),
-            width = img.naturalWidth || img.width,
-            height = img.naturalHeight || img.height,
-            destWidth = width,
-            destHeight = height,
-            maxWidth,
-            maxHeight,
-            minWidth,
-            minHeight,
-            sourceWidth,
-            sourceHeight,
-            sourceX,
-            sourceY,
-            tmp,
-            scaleUp = function () {
-                var scale = Math.max(
-                    (minWidth || destWidth) / destWidth,
-                    (minHeight || destHeight) / destHeight
-                );
-                if (scale > 1) {
-                    destWidth = destWidth * scale;
-                    destHeight = destHeight * scale;
-                }
-            },
-            scaleDown = function () {
-                var scale = Math.min(
-                    (maxWidth || destWidth) / destWidth,
-                    (maxHeight || destHeight) / destHeight
-                );
-                if (scale < 1) {
-                    destWidth = destWidth * scale;
-                    destHeight = destHeight * scale;
-                }
-            };
-        if (useCanvas) {
-            options = loadImage.getTransformedOptions(img, options);
-            sourceX = options.left || 0;
-            sourceY = options.top || 0;
-            if (options.sourceWidth) {
-                sourceWidth = options.sourceWidth;
-                if (options.right !== undefined && options.left === undefined) {
-                    sourceX = width - sourceWidth - options.right;
-                }
-            } else {
-                sourceWidth = width - sourceX - (options.right || 0);
-            }
-            if (options.sourceHeight) {
-                sourceHeight = options.sourceHeight;
-                if (options.bottom !== undefined && options.top === undefined) {
-                    sourceY = height - sourceHeight - options.bottom;
-                }
-            } else {
-                sourceHeight = height - sourceY - (options.bottom || 0);
-            }
-            destWidth = sourceWidth;
-            destHeight = sourceHeight;
-        }
-        maxWidth = options.maxWidth;
-        maxHeight = options.maxHeight;
-        minWidth = options.minWidth;
-        minHeight = options.minHeight;
-        if (useCanvas && maxWidth && maxHeight && options.crop) {
-            destWidth = maxWidth;
-            destHeight = maxHeight;
-            tmp = sourceWidth / sourceHeight - maxWidth / maxHeight;
-            if (tmp < 0) {
-                sourceHeight = maxHeight * sourceWidth / maxWidth;
-                if (options.top === undefined && options.bottom === undefined) {
-                    sourceY = (height - sourceHeight) / 2;
-                }
-            } else if (tmp > 0) {
-                sourceWidth = maxWidth * sourceHeight / maxHeight;
-                if (options.left === undefined && options.right === undefined) {
-                    sourceX = (width - sourceWidth) / 2;
-                }
-            }
-        } else {
-            if (options.contain || options.cover) {
-                minWidth = maxWidth = maxWidth || minWidth;
-                minHeight = maxHeight = maxHeight || minHeight;
-            }
-            if (options.cover) {
-                scaleDown();
-                scaleUp();
-            } else {
-                scaleUp();
-                scaleDown();
-            }
-        }
-        if (useCanvas) {
-            canvas.width = destWidth;
-            canvas.height = destHeight;
-            loadImage.transformCoordinates(
-                canvas,
-                options
-            );
-            return loadImage.renderImageToCanvas(
-                canvas,
-                img,
-                sourceX,
-                sourceY,
-                sourceWidth,
-                sourceHeight,
-                0,
-                0,
-                destWidth,
-                destHeight
-            );
-        }
-        img.width = destWidth;
-        img.height = destHeight;
-        return img;
-    };
-
-    loadImage.createObjectURL = function (file) {
-        return urlAPI ? urlAPI.createObjectURL(file) : false;
-    };
-
-    loadImage.revokeObjectURL = function (url) {
-        return urlAPI ? urlAPI.revokeObjectURL(url) : false;
-    };
-
-    // Loads a given File object via FileReader interface,
-    // invokes the callback with the event object (load or error).
-    // The result can be read via event.target.result:
-    loadImage.readFile = function (file, callback, method) {
-        if (window.FileReader) {
-            var fileReader = new FileReader();
-            fileReader.onload = fileReader.onerror = callback;
-            method = method || 'readAsDataURL';
-            if (fileReader[method]) {
-                fileReader[method](file);
-                return fileReader;
-            }
-        }
-        return false;
-    };
-
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return loadImage;
-        });
+  // Loads an image for a given File object.
+  // Invokes the callback with an img or optional canvas
+  // element (if supported by the browser) as parameter:
+  var loadImage = function (file, callback, options) {
+    var img = document.createElement('img')
+    var url
+    var oUrl
+    img.onerror = callback
+    img.onload = function () {
+      if (oUrl && !(options && options.noRevoke)) {
+        loadImage.revokeObjectURL(oUrl)
+      }
+      if (callback) {
+        callback(loadImage.scale(img, options))
+      }
+    }
+    if (loadImage.isInstanceOf('Blob', file) ||
+      // Files are also Blob instances, but some browsers
+      // (Firefox 3.6) support the File API but not Blobs:
+      loadImage.isInstanceOf('File', file)) {
+      url = oUrl = loadImage.createObjectURL(file)
+      // Store the file type for resize processing:
+      img._type = file.type
+    } else if (typeof file === 'string') {
+      url = file
+      if (options && options.crossOrigin) {
+        img.crossOrigin = options.crossOrigin
+      }
     } else {
-        $.loadImage = loadImage;
+      return false
     }
-}(this));
+    if (url) {
+      img.src = url
+      return img
+    }
+    return loadImage.readFile(file, function (e) {
+      var target = e.target
+      if (target && target.result) {
+        img.src = target.result
+      } else {
+        if (callback) {
+          callback(e)
+        }
+      }
+    })
+  }
+  // The check for URL.revokeObjectURL fixes an issue with Opera 12,
+  // which provides URL.createObjectURL but doesn't properly implement it:
+  var urlAPI = (window.createObjectURL && window) ||
+                (window.URL && URL.revokeObjectURL && URL) ||
+                (window.webkitURL && webkitURL)
 
-/*
- * JavaScript Load Image iOS scaling fixes 1.0.3
- * https://github.com/blueimp/JavaScript-Load-Image
- *
- * Copyright 2013, Sebastian Tschan
- * https://blueimp.net
- *
- * iOS image scaling fixes based on
- * https://github.com/stomita/ios-imagefile-megapixel
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
- */
+  loadImage.isInstanceOf = function (type, obj) {
+    // Cross-frame instanceof check
+    return Object.prototype.toString.call(obj) === '[object ' + type + ']'
+  }
 
-/*jslint nomen: true, bitwise: true */
-/*global define, window, document */
+  // Transform image coordinates, allows to override e.g.
+  // the canvas orientation based on the orientation option,
+  // gets canvas, options passed as arguments:
+  loadImage.transformCoordinates = function () {
+    return
+  }
 
-(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define(['load-image'], factory);
+  // Returns transformed options, allows to override e.g.
+  // maxWidth, maxHeight and crop options based on the aspectRatio.
+  // gets img, options passed as arguments:
+  loadImage.getTransformedOptions = function (img, options) {
+    var aspectRatio = options.aspectRatio
+    var newOptions
+    var i
+    var width
+    var height
+    if (!aspectRatio) {
+      return options
+    }
+    newOptions = {}
+    for (i in options) {
+      if (options.hasOwnProperty(i)) {
+        newOptions[i] = options[i]
+      }
+    }
+    newOptions.crop = true
+    width = img.naturalWidth || img.width
+    height = img.naturalHeight || img.height
+    if (width / height > aspectRatio) {
+      newOptions.maxWidth = height * aspectRatio
+      newOptions.maxHeight = height
     } else {
-        // Browser globals:
-        factory(window.loadImage);
+      newOptions.maxWidth = width
+      newOptions.maxHeight = width / aspectRatio
     }
-}(function (loadImage) {
-    'use strict';
+    return newOptions
+  }
 
-    // Only apply fixes on the iOS platform:
-    if (!window.navigator || !window.navigator.platform ||
-             !(/iP(hone|od|ad)/).test(window.navigator.platform)) {
-        return;
+  // Canvas render method, allows to implement a different rendering algorithm:
+  loadImage.renderImageToCanvas = function (
+    canvas,
+    img,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    destX,
+    destY,
+    destWidth,
+    destHeight
+  ) {
+    canvas.getContext('2d').drawImage(
+      img,
+      sourceX,
+      sourceY,
+      sourceWidth,
+      sourceHeight,
+      destX,
+      destY,
+      destWidth,
+      destHeight
+    )
+    return canvas
+  }
+
+  // This method is used to determine if the target image
+  // should be a canvas element:
+  loadImage.hasCanvasOption = function (options) {
+    return options.canvas || options.crop || !!options.aspectRatio
+  }
+
+  // Scales and/or crops the given image (img or canvas HTML element)
+  // using the given options.
+  // Returns a canvas object if the browser supports canvas
+  // and the hasCanvasOption method returns true or a canvas
+  // object is passed as image, else the scaled image:
+  loadImage.scale = function (img, options) {
+    options = options || {}
+    var canvas = document.createElement('canvas')
+    var useCanvas = img.getContext ||
+                    (loadImage.hasCanvasOption(options) && canvas.getContext)
+    var width = img.naturalWidth || img.width
+    var height = img.naturalHeight || img.height
+    var destWidth = width
+    var destHeight = height
+    var maxWidth
+    var maxHeight
+    var minWidth
+    var minHeight
+    var sourceWidth
+    var sourceHeight
+    var sourceX
+    var sourceY
+    var pixelRatio
+    var downsamplingRatio
+    var tmp
+    function scaleUp () {
+      var scale = Math.max(
+        (minWidth || destWidth) / destWidth,
+        (minHeight || destHeight) / destHeight
+      )
+      if (scale > 1) {
+        destWidth *= scale
+        destHeight *= scale
+      }
     }
-
-    var originalRenderMethod = loadImage.renderImageToCanvas;
-
-    // Detects subsampling in JPEG images:
-    loadImage.detectSubsampling = function (img) {
-        var canvas,
-            context;
-        if (img.width * img.height > 1024 * 1024) { // only consider mexapixel images
-            canvas = document.createElement('canvas');
-            canvas.width = canvas.height = 1;
-            context = canvas.getContext('2d');
-            context.drawImage(img, -img.width + 1, 0);
-            // subsampled image becomes half smaller in rendering size.
-            // check alpha channel value to confirm image is covering edge pixel or not.
-            // if alpha value is 0 image is not covering, hence subsampled.
-            return context.getImageData(0, 0, 1, 1).data[3] === 0;
+    function scaleDown () {
+      var scale = Math.min(
+        (maxWidth || destWidth) / destWidth,
+        (maxHeight || destHeight) / destHeight
+      )
+      if (scale < 1) {
+        destWidth *= scale
+        destHeight *= scale
+      }
+    }
+    if (useCanvas) {
+      options = loadImage.getTransformedOptions(img, options)
+      sourceX = options.left || 0
+      sourceY = options.top || 0
+      if (options.sourceWidth) {
+        sourceWidth = options.sourceWidth
+        if (options.right !== undefined && options.left === undefined) {
+          sourceX = width - sourceWidth - options.right
         }
-        return false;
-    };
-
-    // Detects vertical squash in JPEG images:
-    loadImage.detectVerticalSquash = function (img, subsampled) {
-        var naturalHeight = img.naturalHeight || img.height,
-            canvas = document.createElement('canvas'),
-            context = canvas.getContext('2d'),
-            data,
-            sy,
-            ey,
-            py,
-            alpha;
-        if (subsampled) {
-            naturalHeight /= 2;
+      } else {
+        sourceWidth = width - sourceX - (options.right || 0)
+      }
+      if (options.sourceHeight) {
+        sourceHeight = options.sourceHeight
+        if (options.bottom !== undefined && options.top === undefined) {
+          sourceY = height - sourceHeight - options.bottom
         }
-        canvas.width = 1;
-        canvas.height = naturalHeight;
-        context.drawImage(img, 0, 0);
-        data = context.getImageData(0, 0, 1, naturalHeight).data;
-        // search image edge pixel position in case it is squashed vertically:
-        sy = 0;
-        ey = naturalHeight;
-        py = naturalHeight;
-        while (py > sy) {
-            alpha = data[(py - 1) * 4 + 3];
-            if (alpha === 0) {
-                ey = py;
-            } else {
-                sy = py;
-            }
-            py = (ey + sy) >> 1;
+      } else {
+        sourceHeight = height - sourceY - (options.bottom || 0)
+      }
+      destWidth = sourceWidth
+      destHeight = sourceHeight
+    }
+    maxWidth = options.maxWidth
+    maxHeight = options.maxHeight
+    minWidth = options.minWidth
+    minHeight = options.minHeight
+    if (useCanvas && maxWidth && maxHeight && options.crop) {
+      destWidth = maxWidth
+      destHeight = maxHeight
+      tmp = sourceWidth / sourceHeight - maxWidth / maxHeight
+      if (tmp < 0) {
+        sourceHeight = maxHeight * sourceWidth / maxWidth
+        if (options.top === undefined && options.bottom === undefined) {
+          sourceY = (height - sourceHeight) / 2
         }
-        return (py / naturalHeight) || 1;
-    };
-
-    // Renders image to canvas while working around iOS image scaling bugs:
-    // https://github.com/blueimp/JavaScript-Load-Image/issues/13
-    loadImage.renderImageToCanvas = function (
-        canvas,
-        img,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        destX,
-        destY,
-        destWidth,
-        destHeight
-    ) {
-        if (img._type === 'image/jpeg') {
-            var context = canvas.getContext('2d'),
-                tmpCanvas = document.createElement('canvas'),
-                tileSize = 1024,
-                tmpContext = tmpCanvas.getContext('2d'),
-                subsampled,
-                vertSquashRatio,
-                tileX,
-                tileY;
-            tmpCanvas.width = tileSize;
-            tmpCanvas.height = tileSize;
-            context.save();
-            subsampled = loadImage.detectSubsampling(img);
-            if (subsampled) {
-                sourceX /= 2;
-                sourceY /= 2;
-                sourceWidth /= 2;
-                sourceHeight /= 2;
-            }
-            vertSquashRatio = loadImage.detectVerticalSquash(img, subsampled);
-            if (subsampled || vertSquashRatio !== 1) {
-                sourceY *= vertSquashRatio;
-                destWidth = Math.ceil(tileSize * destWidth / sourceWidth);
-                destHeight = Math.ceil(
-                    tileSize * destHeight / sourceHeight / vertSquashRatio
-                );
-                destY = 0;
-                tileY = 0;
-                while (tileY < sourceHeight) {
-                    destX = 0;
-                    tileX = 0;
-                    while (tileX < sourceWidth) {
-                        tmpContext.clearRect(0, 0, tileSize, tileSize);
-                        tmpContext.drawImage(
-                            img,
-                            sourceX,
-                            sourceY,
-                            sourceWidth,
-                            sourceHeight,
-                            -tileX,
-                            -tileY,
-                            sourceWidth,
-                            sourceHeight
-                        );
-                        context.drawImage(
-                            tmpCanvas,
-                            0,
-                            0,
-                            tileSize,
-                            tileSize,
-                            destX,
-                            destY,
-                            destWidth,
-                            destHeight
-                        );
-                        tileX += tileSize;
-                        destX += destWidth;
-                    }
-                    tileY += tileSize;
-                    destY += destHeight;
-                }
-                context.restore();
-                return canvas;
-            }
+      } else if (tmp > 0) {
+        sourceWidth = maxWidth * sourceHeight / maxHeight
+        if (options.left === undefined && options.right === undefined) {
+          sourceX = (width - sourceWidth) / 2
         }
-        return originalRenderMethod(
+      }
+    } else {
+      if (options.contain || options.cover) {
+        minWidth = maxWidth = maxWidth || minWidth
+        minHeight = maxHeight = maxHeight || minHeight
+      }
+      if (options.cover) {
+        scaleDown()
+        scaleUp()
+      } else {
+        scaleUp()
+        scaleDown()
+      }
+    }
+    if (useCanvas) {
+      pixelRatio = options.pixelRatio
+      if (pixelRatio > 1) {
+        canvas.style.width = destWidth + 'px'
+        canvas.style.height = destHeight + 'px'
+        destWidth *= pixelRatio
+        destHeight *= pixelRatio
+        canvas.getContext('2d').scale(pixelRatio, pixelRatio)
+      }
+      downsamplingRatio = options.downsamplingRatio
+      if (downsamplingRatio > 0 && downsamplingRatio < 1 &&
+            destWidth < sourceWidth && destHeight < sourceHeight) {
+        while (sourceWidth * downsamplingRatio > destWidth) {
+          canvas.width = sourceWidth * downsamplingRatio
+          canvas.height = sourceHeight * downsamplingRatio
+          loadImage.renderImageToCanvas(
             canvas,
             img,
             sourceX,
             sourceY,
             sourceWidth,
             sourceHeight,
-            destX,
-            destY,
-            destWidth,
-            destHeight
-        );
-    };
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          )
+          sourceWidth = canvas.width
+          sourceHeight = canvas.height
+          img = document.createElement('canvas')
+          img.width = sourceWidth
+          img.height = sourceHeight
+          loadImage.renderImageToCanvas(
+            img,
+            canvas,
+            0,
+            0,
+            sourceWidth,
+            sourceHeight,
+            0,
+            0,
+            sourceWidth,
+            sourceHeight
+          )
+        }
+      }
+      canvas.width = destWidth
+      canvas.height = destHeight
+      loadImage.transformCoordinates(
+        canvas,
+        options
+      )
+      return loadImage.renderImageToCanvas(
+        canvas,
+        img,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        0,
+        0,
+        destWidth,
+        destHeight
+      )
+    }
+    img.width = destWidth
+    img.height = destHeight
+    return img
+  }
 
-}));
+  loadImage.createObjectURL = function (file) {
+    return urlAPI ? urlAPI.createObjectURL(file) : false
+  }
 
+  loadImage.revokeObjectURL = function (url) {
+    return urlAPI ? urlAPI.revokeObjectURL(url) : false
+  }
+
+  // Loads a given File object via FileReader interface,
+  // invokes the callback with the event object (load or error).
+  // The result can be read via event.target.result:
+  loadImage.readFile = function (file, callback, method) {
+    if (window.FileReader) {
+      var fileReader = new FileReader()
+      fileReader.onload = fileReader.onerror = callback
+      method = method || 'readAsDataURL'
+      if (fileReader[method]) {
+        fileReader[method](file)
+        return fileReader
+      }
+    }
+    return false
+  }
+
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return loadImage
+    })
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = loadImage
+  } else {
+    $.loadImage = loadImage
+  }
+}(window))
+;
 /*
- * JavaScript Load Image Orientation 1.1.0
+ * JavaScript Load Image Orientation
  * https://github.com/blueimp/JavaScript-Load-Image
  *
  * Copyright 2013, Sebastian Tschan
@@ -10624,164 +10505,169 @@ $.fn.caret.apis = methods;
  * http://www.opensource.org/licenses/MIT
  */
 
-/*global define, window */
+/*global define, module, require, window */
 
-(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define(['load-image'], factory);
-    } else {
-        // Browser globals:
-        factory(window.loadImage);
-    }
+;(function (factory) {
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
+    // Register as an anonymous AMD module:
+    define(['./load-image'], factory)
+  } else if (typeof module === 'object' && module.exports) {
+    factory(require('./load-image'))
+  } else {
+    // Browser globals:
+    factory(window.loadImage)
+  }
 }(function (loadImage) {
-    'use strict';
+  'use strict'
 
-    var originalHasCanvasOption = loadImage.hasCanvasOption,
-        originalTransformCoordinates = loadImage.transformCoordinates,
-        originalGetTransformedOptions = loadImage.getTransformedOptions;
+  var originalHasCanvasOption = loadImage.hasCanvasOption
+  var originalTransformCoordinates = loadImage.transformCoordinates
+  var originalGetTransformedOptions = loadImage.getTransformedOptions
 
-    // This method is used to determine if the target image
-    // should be a canvas element:
-    loadImage.hasCanvasOption = function (options) {
-        return originalHasCanvasOption.call(loadImage, options) ||
-            options.orientation;
-    };
+  // This method is used to determine if the target image
+  // should be a canvas element:
+  loadImage.hasCanvasOption = function (options) {
+    return !!options.orientation ||
+      originalHasCanvasOption.call(loadImage, options)
+  }
 
-    // Transform image orientation based on
-    // the given EXIF orientation option:
-    loadImage.transformCoordinates = function (canvas, options) {
-        originalTransformCoordinates.call(loadImage, canvas, options);
-        var ctx = canvas.getContext('2d'),
-            width = canvas.width,
-            height = canvas.height,
-            orientation = options.orientation;
-        if (!orientation || orientation > 8) {
-            return;
-        }
-        if (orientation > 4) {
-            canvas.width = height;
-            canvas.height = width;
-        }
-        switch (orientation) {
-        case 2:
-            // horizontal flip
-            ctx.translate(width, 0);
-            ctx.scale(-1, 1);
-            break;
-        case 3:
-            // 180° rotate left
-            ctx.translate(width, height);
-            ctx.rotate(Math.PI);
-            break;
-        case 4:
-            // vertical flip
-            ctx.translate(0, height);
-            ctx.scale(1, -1);
-            break;
-        case 5:
-            // vertical flip + 90 rotate right
-            ctx.rotate(0.5 * Math.PI);
-            ctx.scale(1, -1);
-            break;
-        case 6:
-            // 90° rotate right
-            ctx.rotate(0.5 * Math.PI);
-            ctx.translate(0, -height);
-            break;
-        case 7:
-            // horizontal flip + 90 rotate right
-            ctx.rotate(0.5 * Math.PI);
-            ctx.translate(width, -height);
-            ctx.scale(-1, 1);
-            break;
-        case 8:
-            // 90° rotate left
-            ctx.rotate(-0.5 * Math.PI);
-            ctx.translate(-width, 0);
-            break;
-        }
-    };
+  // Transform image orientation based on
+  // the given EXIF orientation option:
+  loadImage.transformCoordinates = function (canvas, options) {
+    originalTransformCoordinates.call(loadImage, canvas, options)
+    var ctx = canvas.getContext('2d')
+    var width = canvas.width
+    var height = canvas.height
+    var styleWidth = canvas.style.width
+    var styleHeight = canvas.style.height
+    var orientation = options.orientation
+    if (!orientation || orientation > 8) {
+      return
+    }
+    if (orientation > 4) {
+      canvas.width = height
+      canvas.height = width
+      canvas.style.width = styleHeight
+      canvas.style.height = styleWidth
+    }
+    switch (orientation) {
+      case 2:
+        // horizontal flip
+        ctx.translate(width, 0)
+        ctx.scale(-1, 1)
+        break
+      case 3:
+        // 180° rotate left
+        ctx.translate(width, height)
+        ctx.rotate(Math.PI)
+        break
+      case 4:
+        // vertical flip
+        ctx.translate(0, height)
+        ctx.scale(1, -1)
+        break
+      case 5:
+        // vertical flip + 90 rotate right
+        ctx.rotate(0.5 * Math.PI)
+        ctx.scale(1, -1)
+        break
+      case 6:
+        // 90° rotate right
+        ctx.rotate(0.5 * Math.PI)
+        ctx.translate(0, -height)
+        break
+      case 7:
+        // horizontal flip + 90 rotate right
+        ctx.rotate(0.5 * Math.PI)
+        ctx.translate(width, -height)
+        ctx.scale(-1, 1)
+        break
+      case 8:
+        // 90° rotate left
+        ctx.rotate(-0.5 * Math.PI)
+        ctx.translate(-width, 0)
+        break
+    }
+  }
 
-    // Transforms coordinate and dimension options
-    // based on the given orientation option:
-    loadImage.getTransformedOptions = function (img, opts) {
-        var options = originalGetTransformedOptions.call(loadImage, img, opts),
-            orientation = options.orientation,
-            newOptions,
-            i;
-        if (!orientation || orientation > 8 || orientation === 1) {
-            return options;
-        }
-        newOptions = {};
-        for (i in options) {
-            if (options.hasOwnProperty(i)) {
-                newOptions[i] = options[i];
-            }
-        }
-        switch (options.orientation) {
-        case 2:
-            // horizontal flip
-            newOptions.left = options.right;
-            newOptions.right = options.left;
-            break;
-        case 3:
-            // 180° rotate left
-            newOptions.left = options.right;
-            newOptions.top = options.bottom;
-            newOptions.right = options.left;
-            newOptions.bottom = options.top;
-            break;
-        case 4:
-            // vertical flip
-            newOptions.top = options.bottom;
-            newOptions.bottom = options.top;
-            break;
-        case 5:
-            // vertical flip + 90 rotate right
-            newOptions.left = options.top;
-            newOptions.top = options.left;
-            newOptions.right = options.bottom;
-            newOptions.bottom = options.right;
-            break;
-        case 6:
-            // 90° rotate right
-            newOptions.left = options.top;
-            newOptions.top = options.right;
-            newOptions.right = options.bottom;
-            newOptions.bottom = options.left;
-            break;
-        case 7:
-            // horizontal flip + 90 rotate right
-            newOptions.left = options.bottom;
-            newOptions.top = options.right;
-            newOptions.right = options.top;
-            newOptions.bottom = options.left;
-            break;
-        case 8:
-            // 90° rotate left
-            newOptions.left = options.bottom;
-            newOptions.top = options.left;
-            newOptions.right = options.top;
-            newOptions.bottom = options.right;
-            break;
-        }
-        if (options.orientation > 4) {
-            newOptions.maxWidth = options.maxHeight;
-            newOptions.maxHeight = options.maxWidth;
-            newOptions.minWidth = options.minHeight;
-            newOptions.minHeight = options.minWidth;
-            newOptions.sourceWidth = options.sourceHeight;
-            newOptions.sourceHeight = options.sourceWidth;
-        }
-        return newOptions;
-    };
-
-}));
-
+  // Transforms coordinate and dimension options
+  // based on the given orientation option:
+  loadImage.getTransformedOptions = function (img, opts) {
+    var options = originalGetTransformedOptions.call(loadImage, img, opts)
+    var orientation = options.orientation
+    var newOptions
+    var i
+    if (!orientation || orientation > 8 || orientation === 1) {
+      return options
+    }
+    newOptions = {}
+    for (i in options) {
+      if (options.hasOwnProperty(i)) {
+        newOptions[i] = options[i]
+      }
+    }
+    switch (options.orientation) {
+      case 2:
+        // horizontal flip
+        newOptions.left = options.right
+        newOptions.right = options.left
+        break
+      case 3:
+        // 180° rotate left
+        newOptions.left = options.right
+        newOptions.top = options.bottom
+        newOptions.right = options.left
+        newOptions.bottom = options.top
+        break
+      case 4:
+        // vertical flip
+        newOptions.top = options.bottom
+        newOptions.bottom = options.top
+        break
+      case 5:
+        // vertical flip + 90 rotate right
+        newOptions.left = options.top
+        newOptions.top = options.left
+        newOptions.right = options.bottom
+        newOptions.bottom = options.right
+        break
+      case 6:
+        // 90° rotate right
+        newOptions.left = options.top
+        newOptions.top = options.right
+        newOptions.right = options.bottom
+        newOptions.bottom = options.left
+        break
+      case 7:
+        // horizontal flip + 90 rotate right
+        newOptions.left = options.bottom
+        newOptions.top = options.right
+        newOptions.right = options.top
+        newOptions.bottom = options.left
+        break
+      case 8:
+        // 90° rotate left
+        newOptions.left = options.bottom
+        newOptions.top = options.left
+        newOptions.right = options.top
+        newOptions.bottom = options.right
+        break
+    }
+    if (options.orientation > 4) {
+      newOptions.maxWidth = options.maxHeight
+      newOptions.maxHeight = options.maxWidth
+      newOptions.minWidth = options.minHeight
+      newOptions.minHeight = options.minWidth
+      newOptions.sourceWidth = options.sourceHeight
+      newOptions.sourceHeight = options.sourceWidth
+    }
+    return newOptions
+  }
+}))
+;
 /*
- * JavaScript Load Image Meta 1.0.2
+ * JavaScript Load Image Meta
  * https://github.com/blueimp/JavaScript-Load-Image
  *
  * Copyright 2013, Sebastian Tschan
@@ -10795,137 +10681,137 @@ $.fn.caret.apis = methods;
  * http://www.opensource.org/licenses/MIT
  */
 
-/*jslint continue:true */
-/*global define, window, DataView, Blob, Uint8Array, console */
+/*global define, module, require, window, DataView, Blob, Uint8Array, console */
 
-(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define(['load-image'], factory);
-    } else {
-        // Browser globals:
-        factory(window.loadImage);
-    }
+;(function (factory) {
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
+    // Register as an anonymous AMD module:
+    define(['./load-image'], factory)
+  } else if (typeof module === 'object' && module.exports) {
+    factory(require('./load-image'))
+  } else {
+    // Browser globals:
+    factory(window.loadImage)
+  }
 }(function (loadImage) {
-    'use strict';
+  'use strict'
 
-    var hasblobSlice = window.Blob && (Blob.prototype.slice ||
-            Blob.prototype.webkitSlice || Blob.prototype.mozSlice);
+  var hasblobSlice = window.Blob && (Blob.prototype.slice ||
+  Blob.prototype.webkitSlice || Blob.prototype.mozSlice)
 
-    loadImage.blobSlice = hasblobSlice && function () {
-        var slice = this.slice || this.webkitSlice || this.mozSlice;
-        return slice.apply(this, arguments);
-    };
+  loadImage.blobSlice = hasblobSlice && function () {
+    var slice = this.slice || this.webkitSlice || this.mozSlice
+    return slice.apply(this, arguments)
+  }
 
-    loadImage.metaDataParsers = {
-        jpeg: {
-            0xffe1: [] // APP1 marker
-        }
-    };
+  loadImage.metaDataParsers = {
+    jpeg: {
+      0xffe1: [] // APP1 marker
+    }
+  }
 
-    // Parses image meta data and calls the callback with an object argument
-    // with the following properties:
-    // * imageHead: The complete image head as ArrayBuffer (Uint8Array for IE10)
-    // The options arguments accepts an object and supports the following properties:
-    // * maxMetaDataSize: Defines the maximum number of bytes to parse.
-    // * disableImageHead: Disables creating the imageHead property.
-    loadImage.parseMetaData = function (file, callback, options) {
-        options = options || {};
-        var that = this,
-            // 256 KiB should contain all EXIF/ICC/IPTC segments:
-            maxMetaDataSize = options.maxMetaDataSize || 262144,
-            data = {},
-            noMetaData = !(window.DataView  && file && file.size >= 12 &&
-                file.type === 'image/jpeg' && loadImage.blobSlice);
-        if (noMetaData || !loadImage.readFile(
-                loadImage.blobSlice.call(file, 0, maxMetaDataSize),
-                function (e) {
-                    if (e.target.error) {
-                        // FileReader error
-                        console.log(e.target.error);
-                        callback(data);
-                        return;
-                    }
-                    // Note on endianness:
-                    // Since the marker and length bytes in JPEG files are always
-                    // stored in big endian order, we can leave the endian parameter
-                    // of the DataView methods undefined, defaulting to big endian.
-                    var buffer = e.target.result,
-                        dataView = new DataView(buffer),
-                        offset = 2,
-                        maxOffset = dataView.byteLength - 4,
-                        headLength = offset,
-                        markerBytes,
-                        markerLength,
-                        parsers,
-                        i;
-                    // Check for the JPEG marker (0xffd8):
-                    if (dataView.getUint16(0) === 0xffd8) {
-                        while (offset < maxOffset) {
-                            markerBytes = dataView.getUint16(offset);
-                            // Search for APPn (0xffeN) and COM (0xfffe) markers,
-                            // which contain application-specific meta-data like
-                            // Exif, ICC and IPTC data and text comments:
-                            if ((markerBytes >= 0xffe0 && markerBytes <= 0xffef) ||
-                                    markerBytes === 0xfffe) {
-                                // The marker bytes (2) are always followed by
-                                // the length bytes (2), indicating the length of the
-                                // marker segment, which includes the length bytes,
-                                // but not the marker bytes, so we add 2:
-                                markerLength = dataView.getUint16(offset + 2) + 2;
-                                if (offset + markerLength > dataView.byteLength) {
-                                    console.log('Invalid meta data: Invalid segment size.');
-                                    break;
-                                }
-                                parsers = loadImage.metaDataParsers.jpeg[markerBytes];
-                                if (parsers) {
-                                    for (i = 0; i < parsers.length; i += 1) {
-                                        parsers[i].call(
-                                            that,
-                                            dataView,
-                                            offset,
-                                            markerLength,
-                                            data,
-                                            options
-                                        );
-                                    }
-                                }
-                                offset += markerLength;
-                                headLength = offset;
-                            } else {
-                                // Not an APPn or COM marker, probably safe to
-                                // assume that this is the end of the meta data
-                                break;
-                            }
-                        }
-                        // Meta length must be longer than JPEG marker (2)
-                        // plus APPn marker (2), followed by length bytes (2):
-                        if (!options.disableImageHead && headLength > 6) {
-                            if (buffer.slice) {
-                                data.imageHead = buffer.slice(0, headLength);
-                            } else {
-                                // Workaround for IE10, which does not yet
-                                // support ArrayBuffer.slice:
-                                data.imageHead = new Uint8Array(buffer)
-                                    .subarray(0, headLength);
-                            }
-                        }
-                    } else {
-                        console.log('Invalid JPEG file: Missing JPEG marker.');
-                    }
-                    callback(data);
-                },
-                'readAsArrayBuffer'
-            )) {
-            callback(data);
-        }
-    };
-
-}));
-
+  // Parses image meta data and calls the callback with an object argument
+  // with the following properties:
+  // * imageHead: The complete image head as ArrayBuffer (Uint8Array for IE10)
+  // The options arguments accepts an object and supports the following properties:
+  // * maxMetaDataSize: Defines the maximum number of bytes to parse.
+  // * disableImageHead: Disables creating the imageHead property.
+  loadImage.parseMetaData = function (file, callback, options) {
+    options = options || {}
+    var that = this
+    // 256 KiB should contain all EXIF/ICC/IPTC segments:
+    var maxMetaDataSize = options.maxMetaDataSize || 262144
+    var data = {}
+    var noMetaData = !(window.DataView && file && file.size >= 12 &&
+                      file.type === 'image/jpeg' && loadImage.blobSlice)
+    if (noMetaData || !loadImage.readFile(
+        loadImage.blobSlice.call(file, 0, maxMetaDataSize),
+        function (e) {
+          if (e.target.error) {
+            // FileReader error
+            console.log(e.target.error)
+            callback(data)
+            return
+          }
+          // Note on endianness:
+          // Since the marker and length bytes in JPEG files are always
+          // stored in big endian order, we can leave the endian parameter
+          // of the DataView methods undefined, defaulting to big endian.
+          var buffer = e.target.result
+          var dataView = new DataView(buffer)
+          var offset = 2
+          var maxOffset = dataView.byteLength - 4
+          var headLength = offset
+          var markerBytes
+          var markerLength
+          var parsers
+          var i
+          // Check for the JPEG marker (0xffd8):
+          if (dataView.getUint16(0) === 0xffd8) {
+            while (offset < maxOffset) {
+              markerBytes = dataView.getUint16(offset)
+              // Search for APPn (0xffeN) and COM (0xfffe) markers,
+              // which contain application-specific meta-data like
+              // Exif, ICC and IPTC data and text comments:
+              if ((markerBytes >= 0xffe0 && markerBytes <= 0xffef) ||
+                markerBytes === 0xfffe) {
+                // The marker bytes (2) are always followed by
+                // the length bytes (2), indicating the length of the
+                // marker segment, which includes the length bytes,
+                // but not the marker bytes, so we add 2:
+                markerLength = dataView.getUint16(offset + 2) + 2
+                if (offset + markerLength > dataView.byteLength) {
+                  console.log('Invalid meta data: Invalid segment size.')
+                  break
+                }
+                parsers = loadImage.metaDataParsers.jpeg[markerBytes]
+                if (parsers) {
+                  for (i = 0; i < parsers.length; i += 1) {
+                    parsers[i].call(
+                      that,
+                      dataView,
+                      offset,
+                      markerLength,
+                      data,
+                      options
+                    )
+                  }
+                }
+                offset += markerLength
+                headLength = offset
+              } else {
+                // Not an APPn or COM marker, probably safe to
+                // assume that this is the end of the meta data
+                break
+              }
+            }
+            // Meta length must be longer than JPEG marker (2)
+            // plus APPn marker (2), followed by length bytes (2):
+            if (!options.disableImageHead && headLength > 6) {
+              if (buffer.slice) {
+                data.imageHead = buffer.slice(0, headLength)
+              } else {
+                // Workaround for IE10, which does not yet
+                // support ArrayBuffer.slice:
+                data.imageHead = new Uint8Array(buffer)
+                  .subarray(0, headLength)
+              }
+            }
+          } else {
+            console.log('Invalid JPEG file: Missing JPEG marker.')
+          }
+          callback(data)
+        },
+        'readAsArrayBuffer'
+      )) {
+      callback(data)
+    }
+  }
+}))
+;
 /*
- * JavaScript Load Image Exif Parser 1.0.0
+ * JavaScript Load Image Exif Parser
  * https://github.com/blueimp/JavaScript-Load-Image
  *
  * Copyright 2013, Sebastian Tschan
@@ -10935,297 +10821,298 @@ $.fn.caret.apis = methods;
  * http://www.opensource.org/licenses/MIT
  */
 
-/*jslint unparam: true */
-/*global define, window, console */
+/*global define, module, require, window, console */
 
-(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define(['load-image', 'load-image-meta'], factory);
-    } else {
-        // Browser globals:
-        factory(window.loadImage);
-    }
+;(function (factory) {
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
+    // Register as an anonymous AMD module:
+    define(['./load-image', './load-image-meta'], factory)
+  } else if (typeof module === 'object' && module.exports) {
+    factory(require('./load-image'), require('./load-image-meta'))
+  } else {
+    // Browser globals:
+    factory(window.loadImage)
+  }
 }(function (loadImage) {
-    'use strict';
+  'use strict'
 
-    loadImage.ExifMap = function () {
-        return this;
-    };
+  loadImage.ExifMap = function () {
+    return this
+  }
 
-    loadImage.ExifMap.prototype.map = {
-        'Orientation': 0x0112
-    };
+  loadImage.ExifMap.prototype.map = {
+    'Orientation': 0x0112
+  }
 
-    loadImage.ExifMap.prototype.get = function (id) {
-        return this[id] || this[this.map[id]];
-    };
+  loadImage.ExifMap.prototype.get = function (id) {
+    return this[id] || this[this.map[id]]
+  }
 
-    loadImage.getExifThumbnail = function (dataView, offset, length) {
-        var hexData,
-            i,
-            b;
-        if (!length || offset + length > dataView.byteLength) {
-            console.log('Invalid Exif data: Invalid thumbnail data.');
-            return;
-        }
-        hexData = [];
-        for (i = 0; i < length; i += 1) {
-            b = dataView.getUint8(offset + i);
-            hexData.push((b < 16 ? '0' : '') + b.toString(16));
-        }
-        return 'data:image/jpeg,%' + hexData.join('%');
-    };
+  loadImage.getExifThumbnail = function (dataView, offset, length) {
+    var hexData,
+      i,
+      b
+    if (!length || offset + length > dataView.byteLength) {
+      console.log('Invalid Exif data: Invalid thumbnail data.')
+      return
+    }
+    hexData = []
+    for (i = 0; i < length; i += 1) {
+      b = dataView.getUint8(offset + i)
+      hexData.push((b < 16 ? '0' : '') + b.toString(16))
+    }
+    return 'data:image/jpeg,%' + hexData.join('%')
+  }
 
-    loadImage.exifTagTypes = {
-        // byte, 8-bit unsigned int:
-        1: {
-            getValue: function (dataView, dataOffset) {
-                return dataView.getUint8(dataOffset);
-            },
-            size: 1
-        },
-        // ascii, 8-bit byte:
-        2: {
-            getValue: function (dataView, dataOffset) {
-                return String.fromCharCode(dataView.getUint8(dataOffset));
-            },
-            size: 1,
-            ascii: true
-        },
-        // short, 16 bit int:
-        3: {
-            getValue: function (dataView, dataOffset, littleEndian) {
-                return dataView.getUint16(dataOffset, littleEndian);
-            },
-            size: 2
-        },
-        // long, 32 bit int:
-        4: {
-            getValue: function (dataView, dataOffset, littleEndian) {
-                return dataView.getUint32(dataOffset, littleEndian);
-            },
-            size: 4
-        },
-        // rational = two long values, first is numerator, second is denominator:
-        5: {
-            getValue: function (dataView, dataOffset, littleEndian) {
-                return dataView.getUint32(dataOffset, littleEndian) /
-                    dataView.getUint32(dataOffset + 4, littleEndian);
-            },
-            size: 8
-        },
-        // slong, 32 bit signed int:
-        9: {
-            getValue: function (dataView, dataOffset, littleEndian) {
-                return dataView.getInt32(dataOffset, littleEndian);
-            },
-            size: 4
-        },
-        // srational, two slongs, first is numerator, second is denominator:
-        10: {
-            getValue: function (dataView, dataOffset, littleEndian) {
-                return dataView.getInt32(dataOffset, littleEndian) /
-                    dataView.getInt32(dataOffset + 4, littleEndian);
-            },
-            size: 8
-        }
-    };
-    // undefined, 8-bit byte, value depending on field:
-    loadImage.exifTagTypes[7] = loadImage.exifTagTypes[1];
+  loadImage.exifTagTypes = {
+    // byte, 8-bit unsigned int:
+    1: {
+      getValue: function (dataView, dataOffset) {
+        return dataView.getUint8(dataOffset)
+      },
+      size: 1
+    },
+    // ascii, 8-bit byte:
+    2: {
+      getValue: function (dataView, dataOffset) {
+        return String.fromCharCode(dataView.getUint8(dataOffset))
+      },
+      size: 1,
+      ascii: true
+    },
+    // short, 16 bit int:
+    3: {
+      getValue: function (dataView, dataOffset, littleEndian) {
+        return dataView.getUint16(dataOffset, littleEndian)
+      },
+      size: 2
+    },
+    // long, 32 bit int:
+    4: {
+      getValue: function (dataView, dataOffset, littleEndian) {
+        return dataView.getUint32(dataOffset, littleEndian)
+      },
+      size: 4
+    },
+    // rational = two long values, first is numerator, second is denominator:
+    5: {
+      getValue: function (dataView, dataOffset, littleEndian) {
+        return dataView.getUint32(dataOffset, littleEndian) /
+        dataView.getUint32(dataOffset + 4, littleEndian)
+      },
+      size: 8
+    },
+    // slong, 32 bit signed int:
+    9: {
+      getValue: function (dataView, dataOffset, littleEndian) {
+        return dataView.getInt32(dataOffset, littleEndian)
+      },
+      size: 4
+    },
+    // srational, two slongs, first is numerator, second is denominator:
+    10: {
+      getValue: function (dataView, dataOffset, littleEndian) {
+        return dataView.getInt32(dataOffset, littleEndian) /
+        dataView.getInt32(dataOffset + 4, littleEndian)
+      },
+      size: 8
+    }
+  }
+  // undefined, 8-bit byte, value depending on field:
+  loadImage.exifTagTypes[7] = loadImage.exifTagTypes[1]
 
-    loadImage.getExifValue = function (dataView, tiffOffset, offset, type, length, littleEndian) {
-        var tagType = loadImage.exifTagTypes[type],
-            tagSize,
-            dataOffset,
-            values,
-            i,
-            str,
-            c;
-        if (!tagType) {
-            console.log('Invalid Exif data: Invalid tag type.');
-            return;
+  loadImage.getExifValue = function (dataView, tiffOffset, offset, type, length, littleEndian) {
+    var tagType = loadImage.exifTagTypes[type]
+    var tagSize
+    var dataOffset
+    var values
+    var i
+    var str
+    var c
+    if (!tagType) {
+      console.log('Invalid Exif data: Invalid tag type.')
+      return
+    }
+    tagSize = tagType.size * length
+    // Determine if the value is contained in the dataOffset bytes,
+    // or if the value at the dataOffset is a pointer to the actual data:
+    dataOffset = tagSize > 4
+      ? tiffOffset + dataView.getUint32(offset + 8, littleEndian)
+      : (offset + 8)
+    if (dataOffset + tagSize > dataView.byteLength) {
+      console.log('Invalid Exif data: Invalid data offset.')
+      return
+    }
+    if (length === 1) {
+      return tagType.getValue(dataView, dataOffset, littleEndian)
+    }
+    values = []
+    for (i = 0; i < length; i += 1) {
+      values[i] = tagType.getValue(dataView, dataOffset + i * tagType.size, littleEndian)
+    }
+    if (tagType.ascii) {
+      str = ''
+      // Concatenate the chars:
+      for (i = 0; i < values.length; i += 1) {
+        c = values[i]
+        // Ignore the terminating NULL byte(s):
+        if (c === '\u0000') {
+          break
         }
-        tagSize = tagType.size * length;
-        // Determine if the value is contained in the dataOffset bytes,
-        // or if the value at the dataOffset is a pointer to the actual data:
-        dataOffset = tagSize > 4 ?
-                tiffOffset + dataView.getUint32(offset + 8, littleEndian) : (offset + 8);
-        if (dataOffset + tagSize > dataView.byteLength) {
-            console.log('Invalid Exif data: Invalid data offset.');
-            return;
-        }
-        if (length === 1) {
-            return tagType.getValue(dataView, dataOffset, littleEndian);
-        }
-        values = [];
-        for (i = 0; i < length; i += 1) {
-            values[i] = tagType.getValue(dataView, dataOffset + i * tagType.size, littleEndian);
-        }
-        if (tagType.ascii) {
-            str = '';
-            // Concatenate the chars:
-            for (i = 0; i < values.length; i += 1) {
-                c = values[i];
-                // Ignore the terminating NULL byte(s):
-                if (c === '\u0000') {
-                    break;
-                }
-                str += c;
-            }
-            return str;
-        }
-        return values;
-    };
+        str += c
+      }
+      return str
+    }
+    return values
+  }
 
-    loadImage.parseExifTag = function (dataView, tiffOffset, offset, littleEndian, data) {
-        var tag = dataView.getUint16(offset, littleEndian);
-        data.exif[tag] = loadImage.getExifValue(
-            dataView,
-            tiffOffset,
-            offset,
-            dataView.getUint16(offset + 2, littleEndian), // tag type
-            dataView.getUint32(offset + 4, littleEndian), // tag length
-            littleEndian
-        );
-    };
+  loadImage.parseExifTag = function (dataView, tiffOffset, offset, littleEndian, data) {
+    var tag = dataView.getUint16(offset, littleEndian)
+    data.exif[tag] = loadImage.getExifValue(
+      dataView,
+      tiffOffset,
+      offset,
+      dataView.getUint16(offset + 2, littleEndian), // tag type
+      dataView.getUint32(offset + 4, littleEndian), // tag length
+      littleEndian
+    )
+  }
 
-    loadImage.parseExifTags = function (dataView, tiffOffset, dirOffset, littleEndian, data) {
-        var tagsNumber,
-            dirEndOffset,
-            i;
-        if (dirOffset + 6 > dataView.byteLength) {
-            console.log('Invalid Exif data: Invalid directory offset.');
-            return;
-        }
-        tagsNumber = dataView.getUint16(dirOffset, littleEndian);
-        dirEndOffset = dirOffset + 2 + 12 * tagsNumber;
-        if (dirEndOffset + 4 > dataView.byteLength) {
-            console.log('Invalid Exif data: Invalid directory size.');
-            return;
-        }
-        for (i = 0; i < tagsNumber; i += 1) {
-            this.parseExifTag(
-                dataView,
-                tiffOffset,
-                dirOffset + 2 + 12 * i, // tag offset
-                littleEndian,
-                data
-            );
-        }
-        // Return the offset to the next directory:
-        return dataView.getUint32(dirEndOffset, littleEndian);
-    };
+  loadImage.parseExifTags = function (dataView, tiffOffset, dirOffset, littleEndian, data) {
+    var tagsNumber,
+      dirEndOffset,
+      i
+    if (dirOffset + 6 > dataView.byteLength) {
+      console.log('Invalid Exif data: Invalid directory offset.')
+      return
+    }
+    tagsNumber = dataView.getUint16(dirOffset, littleEndian)
+    dirEndOffset = dirOffset + 2 + 12 * tagsNumber
+    if (dirEndOffset + 4 > dataView.byteLength) {
+      console.log('Invalid Exif data: Invalid directory size.')
+      return
+    }
+    for (i = 0; i < tagsNumber; i += 1) {
+      this.parseExifTag(
+        dataView,
+        tiffOffset,
+        dirOffset + 2 + 12 * i, // tag offset
+        littleEndian,
+        data
+      )
+    }
+    // Return the offset to the next directory:
+    return dataView.getUint32(dirEndOffset, littleEndian)
+  }
 
-    loadImage.parseExifData = function (dataView, offset, length, data, options) {
-        if (options.disableExif) {
-            return;
-        }
-        var tiffOffset = offset + 10,
-            littleEndian,
-            dirOffset,
-            thumbnailData;
-        // Check for the ASCII code for "Exif" (0x45786966):
-        if (dataView.getUint32(offset + 4) !== 0x45786966) {
-            // No Exif data, might be XMP data instead
-            return;
-        }
-        if (tiffOffset + 8 > dataView.byteLength) {
-            console.log('Invalid Exif data: Invalid segment size.');
-            return;
-        }
-        // Check for the two null bytes:
-        if (dataView.getUint16(offset + 8) !== 0x0000) {
-            console.log('Invalid Exif data: Missing byte alignment offset.');
-            return;
-        }
-        // Check the byte alignment:
-        switch (dataView.getUint16(tiffOffset)) {
-        case 0x4949:
-            littleEndian = true;
-            break;
-        case 0x4D4D:
-            littleEndian = false;
-            break;
-        default:
-            console.log('Invalid Exif data: Invalid byte alignment marker.');
-            return;
-        }
-        // Check for the TIFF tag marker (0x002A):
-        if (dataView.getUint16(tiffOffset + 2, littleEndian) !== 0x002A) {
-            console.log('Invalid Exif data: Missing TIFF marker.');
-            return;
-        }
-        // Retrieve the directory offset bytes, usually 0x00000008 or 8 decimal:
-        dirOffset = dataView.getUint32(tiffOffset + 4, littleEndian);
-        // Create the exif object to store the tags:
-        data.exif = new loadImage.ExifMap();
-        // Parse the tags of the main image directory and retrieve the
-        // offset to the next directory, usually the thumbnail directory:
-        dirOffset = loadImage.parseExifTags(
-            dataView,
-            tiffOffset,
-            tiffOffset + dirOffset,
-            littleEndian,
-            data
-        );
-        if (dirOffset && !options.disableExifThumbnail) {
-            thumbnailData = {exif: {}};
-            dirOffset = loadImage.parseExifTags(
-                dataView,
-                tiffOffset,
-                tiffOffset + dirOffset,
-                littleEndian,
-                thumbnailData
-            );
-            // Check for JPEG Thumbnail offset:
-            if (thumbnailData.exif[0x0201]) {
-                data.exif.Thumbnail = loadImage.getExifThumbnail(
-                    dataView,
-                    tiffOffset + thumbnailData.exif[0x0201],
-                    thumbnailData.exif[0x0202] // Thumbnail data length
-                );
-            }
-        }
-        // Check for Exif Sub IFD Pointer:
-        if (data.exif[0x8769] && !options.disableExifSub) {
-            loadImage.parseExifTags(
-                dataView,
-                tiffOffset,
-                tiffOffset + data.exif[0x8769], // directory offset
-                littleEndian,
-                data
-            );
-        }
-        // Check for GPS Info IFD Pointer:
-        if (data.exif[0x8825] && !options.disableExifGps) {
-            loadImage.parseExifTags(
-                dataView,
-                tiffOffset,
-                tiffOffset + data.exif[0x8825], // directory offset
-                littleEndian,
-                data
-            );
-        }
-    };
+  loadImage.parseExifData = function (dataView, offset, length, data, options) {
+    if (options.disableExif) {
+      return
+    }
+    var tiffOffset = offset + 10
+    var littleEndian
+    var dirOffset
+    var thumbnailData
+    // Check for the ASCII code for "Exif" (0x45786966):
+    if (dataView.getUint32(offset + 4) !== 0x45786966) {
+      // No Exif data, might be XMP data instead
+      return
+    }
+    if (tiffOffset + 8 > dataView.byteLength) {
+      console.log('Invalid Exif data: Invalid segment size.')
+      return
+    }
+    // Check for the two null bytes:
+    if (dataView.getUint16(offset + 8) !== 0x0000) {
+      console.log('Invalid Exif data: Missing byte alignment offset.')
+      return
+    }
+    // Check the byte alignment:
+    switch (dataView.getUint16(tiffOffset)) {
+      case 0x4949:
+        littleEndian = true
+        break
+      case 0x4D4D:
+        littleEndian = false
+        break
+      default:
+        console.log('Invalid Exif data: Invalid byte alignment marker.')
+        return
+    }
+    // Check for the TIFF tag marker (0x002A):
+    if (dataView.getUint16(tiffOffset + 2, littleEndian) !== 0x002A) {
+      console.log('Invalid Exif data: Missing TIFF marker.')
+      return
+    }
+    // Retrieve the directory offset bytes, usually 0x00000008 or 8 decimal:
+    dirOffset = dataView.getUint32(tiffOffset + 4, littleEndian)
+    // Create the exif object to store the tags:
+    data.exif = new loadImage.ExifMap()
+    // Parse the tags of the main image directory and retrieve the
+    // offset to the next directory, usually the thumbnail directory:
+    dirOffset = loadImage.parseExifTags(
+      dataView,
+      tiffOffset,
+      tiffOffset + dirOffset,
+      littleEndian,
+      data
+    )
+    if (dirOffset && !options.disableExifThumbnail) {
+      thumbnailData = {exif: {}}
+      dirOffset = loadImage.parseExifTags(
+        dataView,
+        tiffOffset,
+        tiffOffset + dirOffset,
+        littleEndian,
+        thumbnailData
+      )
+      // Check for JPEG Thumbnail offset:
+      if (thumbnailData.exif[0x0201]) {
+        data.exif.Thumbnail = loadImage.getExifThumbnail(
+          dataView,
+          tiffOffset + thumbnailData.exif[0x0201],
+          thumbnailData.exif[0x0202] // Thumbnail data length
+        )
+      }
+    }
+    // Check for Exif Sub IFD Pointer:
+    if (data.exif[0x8769] && !options.disableExifSub) {
+      loadImage.parseExifTags(
+        dataView,
+        tiffOffset,
+        tiffOffset + data.exif[0x8769], // directory offset
+        littleEndian,
+        data
+      )
+    }
+    // Check for GPS Info IFD Pointer:
+    if (data.exif[0x8825] && !options.disableExifGps) {
+      loadImage.parseExifTags(
+        dataView,
+        tiffOffset,
+        tiffOffset + data.exif[0x8825], // directory offset
+        littleEndian,
+        data
+      )
+    }
+  }
 
-    // Registers the Exif parser for the APP1 JPEG meta data segment:
-    loadImage.metaDataParsers.jpeg[0xffe1].push(loadImage.parseExifData);
+  // Registers the Exif parser for the APP1 JPEG meta data segment:
+  loadImage.metaDataParsers.jpeg[0xffe1].push(loadImage.parseExifData)
 
-    // Adds the following properties to the parseMetaData callback data:
-    // * exif: The exif tags, parsed by the parseExifData method
+  // Adds the following properties to the parseMetaData callback data:
+  // * exif: The exif tags, parsed by the parseExifData method
 
-    // Adds the following options to the parseMetaData method:
-    // * disableExif: Disables Exif parsing.
-    // * disableExifThumbnail: Disables parsing of the Exif Thumbnail.
-    // * disableExifSub: Disables parsing of the Exif Sub IFD.
-    // * disableExifGps: Disables parsing of the Exif GPS Info IFD.
-
-}));
-
+  // Adds the following options to the parseMetaData method:
+  // * disableExif: Disables Exif parsing.
+  // * disableExifThumbnail: Disables parsing of the Exif Thumbnail.
+  // * disableExifSub: Disables parsing of the Exif Sub IFD.
+  // * disableExifGps: Disables parsing of the Exif GPS Info IFD.
+}))
+;
 /*
- * JavaScript Load Image Exif Map 1.0.2
+ * JavaScript Load Image Exif Map
  * https://github.com/blueimp/JavaScript-Load-Image
  *
  * Copyright 2013, Sebastian Tschan
@@ -11238,377 +11125,377 @@ $.fn.caret.apis = methods;
  * http://www.opensource.org/licenses/MIT
  */
 
-/*global define, window */
+/*global define, module, require, window */
 
-(function (factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-        // Register as an anonymous AMD module:
-        define(['load-image', 'load-image-exif'], factory);
-    } else {
-        // Browser globals:
-        factory(window.loadImage);
-    }
+;(function (factory) {
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
+    // Register as an anonymous AMD module:
+    define(['./load-image', './load-image-exif'], factory)
+  } else if (typeof module === 'object' && module.exports) {
+    factory(require('./load-image'), require('./load-image-exif'))
+  } else {
+    // Browser globals:
+    factory(window.loadImage)
+  }
 }(function (loadImage) {
-    'use strict';
+  'use strict'
 
-    loadImage.ExifMap.prototype.tags = {
-        // =================
-        // TIFF tags (IFD0):
-        // =================
-        0x0100: 'ImageWidth',
-        0x0101: 'ImageHeight',
-        0x8769: 'ExifIFDPointer',
-        0x8825: 'GPSInfoIFDPointer',
-        0xA005: 'InteroperabilityIFDPointer',
-        0x0102: 'BitsPerSample',
-        0x0103: 'Compression',
-        0x0106: 'PhotometricInterpretation',
-        0x0112: 'Orientation',
-        0x0115: 'SamplesPerPixel',
-        0x011C: 'PlanarConfiguration',
-        0x0212: 'YCbCrSubSampling',
-        0x0213: 'YCbCrPositioning',
-        0x011A: 'XResolution',
-        0x011B: 'YResolution',
-        0x0128: 'ResolutionUnit',
-        0x0111: 'StripOffsets',
-        0x0116: 'RowsPerStrip',
-        0x0117: 'StripByteCounts',
-        0x0201: 'JPEGInterchangeFormat',
-        0x0202: 'JPEGInterchangeFormatLength',
-        0x012D: 'TransferFunction',
-        0x013E: 'WhitePoint',
-        0x013F: 'PrimaryChromaticities',
-        0x0211: 'YCbCrCoefficients',
-        0x0214: 'ReferenceBlackWhite',
-        0x0132: 'DateTime',
-        0x010E: 'ImageDescription',
-        0x010F: 'Make',
-        0x0110: 'Model',
-        0x0131: 'Software',
-        0x013B: 'Artist',
-        0x8298: 'Copyright',
-        // ==================
-        // Exif Sub IFD tags:
-        // ==================
-        0x9000: 'ExifVersion',                  // EXIF version
-        0xA000: 'FlashpixVersion',              // Flashpix format version
-        0xA001: 'ColorSpace',                   // Color space information tag
-        0xA002: 'PixelXDimension',              // Valid width of meaningful image
-        0xA003: 'PixelYDimension',              // Valid height of meaningful image
-        0xA500: 'Gamma',
-        0x9101: 'ComponentsConfiguration',      // Information about channels
-        0x9102: 'CompressedBitsPerPixel',       // Compressed bits per pixel
-        0x927C: 'MakerNote',                    // Any desired information written by the manufacturer
-        0x9286: 'UserComment',                  // Comments by user
-        0xA004: 'RelatedSoundFile',             // Name of related sound file
-        0x9003: 'DateTimeOriginal',             // Date and time when the original image was generated
-        0x9004: 'DateTimeDigitized',            // Date and time when the image was stored digitally
-        0x9290: 'SubSecTime',                   // Fractions of seconds for DateTime
-        0x9291: 'SubSecTimeOriginal',           // Fractions of seconds for DateTimeOriginal
-        0x9292: 'SubSecTimeDigitized',          // Fractions of seconds for DateTimeDigitized
-        0x829A: 'ExposureTime',                 // Exposure time (in seconds)
-        0x829D: 'FNumber',
-        0x8822: 'ExposureProgram',              // Exposure program
-        0x8824: 'SpectralSensitivity',          // Spectral sensitivity
-        0x8827: 'PhotographicSensitivity',      // EXIF 2.3, ISOSpeedRatings in EXIF 2.2
-        0x8828: 'OECF',                         // Optoelectric conversion factor
-        0x8830: 'SensitivityType',
-        0x8831: 'StandardOutputSensitivity',
-        0x8832: 'RecommendedExposureIndex',
-        0x8833: 'ISOSpeed',
-        0x8834: 'ISOSpeedLatitudeyyy',
-        0x8835: 'ISOSpeedLatitudezzz',
-        0x9201: 'ShutterSpeedValue',            // Shutter speed
-        0x9202: 'ApertureValue',                // Lens aperture
-        0x9203: 'BrightnessValue',              // Value of brightness
-        0x9204: 'ExposureBias',                 // Exposure bias
-        0x9205: 'MaxApertureValue',             // Smallest F number of lens
-        0x9206: 'SubjectDistance',              // Distance to subject in meters
-        0x9207: 'MeteringMode',                 // Metering mode
-        0x9208: 'LightSource',                  // Kind of light source
-        0x9209: 'Flash',                        // Flash status
-        0x9214: 'SubjectArea',                  // Location and area of main subject
-        0x920A: 'FocalLength',                  // Focal length of the lens in mm
-        0xA20B: 'FlashEnergy',                  // Strobe energy in BCPS
-        0xA20C: 'SpatialFrequencyResponse',
-        0xA20E: 'FocalPlaneXResolution',        // Number of pixels in width direction per FPRUnit
-        0xA20F: 'FocalPlaneYResolution',        // Number of pixels in height direction per FPRUnit
-        0xA210: 'FocalPlaneResolutionUnit',     // Unit for measuring the focal plane resolution
-        0xA214: 'SubjectLocation',              // Location of subject in image
-        0xA215: 'ExposureIndex',                // Exposure index selected on camera
-        0xA217: 'SensingMethod',                // Image sensor type
-        0xA300: 'FileSource',                   // Image source (3 == DSC)
-        0xA301: 'SceneType',                    // Scene type (1 == directly photographed)
-        0xA302: 'CFAPattern',                   // Color filter array geometric pattern
-        0xA401: 'CustomRendered',               // Special processing
-        0xA402: 'ExposureMode',                 // Exposure mode
-        0xA403: 'WhiteBalance',                 // 1 = auto white balance, 2 = manual
-        0xA404: 'DigitalZoomRatio',             // Digital zoom ratio
-        0xA405: 'FocalLengthIn35mmFilm',
-        0xA406: 'SceneCaptureType',             // Type of scene
-        0xA407: 'GainControl',                  // Degree of overall image gain adjustment
-        0xA408: 'Contrast',                     // Direction of contrast processing applied by camera
-        0xA409: 'Saturation',                   // Direction of saturation processing applied by camera
-        0xA40A: 'Sharpness',                    // Direction of sharpness processing applied by camera
-        0xA40B: 'DeviceSettingDescription',
-        0xA40C: 'SubjectDistanceRange',         // Distance to subject
-        0xA420: 'ImageUniqueID',                // Identifier assigned uniquely to each image
-        0xA430: 'CameraOwnerName',
-        0xA431: 'BodySerialNumber',
-        0xA432: 'LensSpecification',
-        0xA433: 'LensMake',
-        0xA434: 'LensModel',
-        0xA435: 'LensSerialNumber',
-        // ==============
-        // GPS Info tags:
-        // ==============
-        0x0000: 'GPSVersionID',
-        0x0001: 'GPSLatitudeRef',
-        0x0002: 'GPSLatitude',
-        0x0003: 'GPSLongitudeRef',
-        0x0004: 'GPSLongitude',
-        0x0005: 'GPSAltitudeRef',
-        0x0006: 'GPSAltitude',
-        0x0007: 'GPSTimeStamp',
-        0x0008: 'GPSSatellites',
-        0x0009: 'GPSStatus',
-        0x000A: 'GPSMeasureMode',
-        0x000B: 'GPSDOP',
-        0x000C: 'GPSSpeedRef',
-        0x000D: 'GPSSpeed',
-        0x000E: 'GPSTrackRef',
-        0x000F: 'GPSTrack',
-        0x0010: 'GPSImgDirectionRef',
-        0x0011: 'GPSImgDirection',
-        0x0012: 'GPSMapDatum',
-        0x0013: 'GPSDestLatitudeRef',
-        0x0014: 'GPSDestLatitude',
-        0x0015: 'GPSDestLongitudeRef',
-        0x0016: 'GPSDestLongitude',
-        0x0017: 'GPSDestBearingRef',
-        0x0018: 'GPSDestBearing',
-        0x0019: 'GPSDestDistanceRef',
-        0x001A: 'GPSDestDistance',
-        0x001B: 'GPSProcessingMethod',
-        0x001C: 'GPSAreaInformation',
-        0x001D: 'GPSDateStamp',
-        0x001E: 'GPSDifferential',
-        0x001F: 'GPSHPositioningError'
-    };
+  loadImage.ExifMap.prototype.tags = {
+    // =================
+    // TIFF tags (IFD0):
+    // =================
+    0x0100: 'ImageWidth',
+    0x0101: 'ImageHeight',
+    0x8769: 'ExifIFDPointer',
+    0x8825: 'GPSInfoIFDPointer',
+    0xA005: 'InteroperabilityIFDPointer',
+    0x0102: 'BitsPerSample',
+    0x0103: 'Compression',
+    0x0106: 'PhotometricInterpretation',
+    0x0112: 'Orientation',
+    0x0115: 'SamplesPerPixel',
+    0x011C: 'PlanarConfiguration',
+    0x0212: 'YCbCrSubSampling',
+    0x0213: 'YCbCrPositioning',
+    0x011A: 'XResolution',
+    0x011B: 'YResolution',
+    0x0128: 'ResolutionUnit',
+    0x0111: 'StripOffsets',
+    0x0116: 'RowsPerStrip',
+    0x0117: 'StripByteCounts',
+    0x0201: 'JPEGInterchangeFormat',
+    0x0202: 'JPEGInterchangeFormatLength',
+    0x012D: 'TransferFunction',
+    0x013E: 'WhitePoint',
+    0x013F: 'PrimaryChromaticities',
+    0x0211: 'YCbCrCoefficients',
+    0x0214: 'ReferenceBlackWhite',
+    0x0132: 'DateTime',
+    0x010E: 'ImageDescription',
+    0x010F: 'Make',
+    0x0110: 'Model',
+    0x0131: 'Software',
+    0x013B: 'Artist',
+    0x8298: 'Copyright',
+    // ==================
+    // Exif Sub IFD tags:
+    // ==================
+    0x9000: 'ExifVersion', // EXIF version
+    0xA000: 'FlashpixVersion', // Flashpix format version
+    0xA001: 'ColorSpace', // Color space information tag
+    0xA002: 'PixelXDimension', // Valid width of meaningful image
+    0xA003: 'PixelYDimension', // Valid height of meaningful image
+    0xA500: 'Gamma',
+    0x9101: 'ComponentsConfiguration', // Information about channels
+    0x9102: 'CompressedBitsPerPixel', // Compressed bits per pixel
+    0x927C: 'MakerNote', // Any desired information written by the manufacturer
+    0x9286: 'UserComment', // Comments by user
+    0xA004: 'RelatedSoundFile', // Name of related sound file
+    0x9003: 'DateTimeOriginal', // Date and time when the original image was generated
+    0x9004: 'DateTimeDigitized', // Date and time when the image was stored digitally
+    0x9290: 'SubSecTime', // Fractions of seconds for DateTime
+    0x9291: 'SubSecTimeOriginal', // Fractions of seconds for DateTimeOriginal
+    0x9292: 'SubSecTimeDigitized', // Fractions of seconds for DateTimeDigitized
+    0x829A: 'ExposureTime', // Exposure time (in seconds)
+    0x829D: 'FNumber',
+    0x8822: 'ExposureProgram', // Exposure program
+    0x8824: 'SpectralSensitivity', // Spectral sensitivity
+    0x8827: 'PhotographicSensitivity', // EXIF 2.3, ISOSpeedRatings in EXIF 2.2
+    0x8828: 'OECF', // Optoelectric conversion factor
+    0x8830: 'SensitivityType',
+    0x8831: 'StandardOutputSensitivity',
+    0x8832: 'RecommendedExposureIndex',
+    0x8833: 'ISOSpeed',
+    0x8834: 'ISOSpeedLatitudeyyy',
+    0x8835: 'ISOSpeedLatitudezzz',
+    0x9201: 'ShutterSpeedValue', // Shutter speed
+    0x9202: 'ApertureValue', // Lens aperture
+    0x9203: 'BrightnessValue', // Value of brightness
+    0x9204: 'ExposureBias', // Exposure bias
+    0x9205: 'MaxApertureValue', // Smallest F number of lens
+    0x9206: 'SubjectDistance', // Distance to subject in meters
+    0x9207: 'MeteringMode', // Metering mode
+    0x9208: 'LightSource', // Kind of light source
+    0x9209: 'Flash', // Flash status
+    0x9214: 'SubjectArea', // Location and area of main subject
+    0x920A: 'FocalLength', // Focal length of the lens in mm
+    0xA20B: 'FlashEnergy', // Strobe energy in BCPS
+    0xA20C: 'SpatialFrequencyResponse',
+    0xA20E: 'FocalPlaneXResolution', // Number of pixels in width direction per FPRUnit
+    0xA20F: 'FocalPlaneYResolution', // Number of pixels in height direction per FPRUnit
+    0xA210: 'FocalPlaneResolutionUnit', // Unit for measuring the focal plane resolution
+    0xA214: 'SubjectLocation', // Location of subject in image
+    0xA215: 'ExposureIndex', // Exposure index selected on camera
+    0xA217: 'SensingMethod', // Image sensor type
+    0xA300: 'FileSource', // Image source (3 == DSC)
+    0xA301: 'SceneType', // Scene type (1 == directly photographed)
+    0xA302: 'CFAPattern', // Color filter array geometric pattern
+    0xA401: 'CustomRendered', // Special processing
+    0xA402: 'ExposureMode', // Exposure mode
+    0xA403: 'WhiteBalance', // 1 = auto white balance, 2 = manual
+    0xA404: 'DigitalZoomRatio', // Digital zoom ratio
+    0xA405: 'FocalLengthIn35mmFilm',
+    0xA406: 'SceneCaptureType', // Type of scene
+    0xA407: 'GainControl', // Degree of overall image gain adjustment
+    0xA408: 'Contrast', // Direction of contrast processing applied by camera
+    0xA409: 'Saturation', // Direction of saturation processing applied by camera
+    0xA40A: 'Sharpness', // Direction of sharpness processing applied by camera
+    0xA40B: 'DeviceSettingDescription',
+    0xA40C: 'SubjectDistanceRange', // Distance to subject
+    0xA420: 'ImageUniqueID', // Identifier assigned uniquely to each image
+    0xA430: 'CameraOwnerName',
+    0xA431: 'BodySerialNumber',
+    0xA432: 'LensSpecification',
+    0xA433: 'LensMake',
+    0xA434: 'LensModel',
+    0xA435: 'LensSerialNumber',
+    // ==============
+    // GPS Info tags:
+    // ==============
+    0x0000: 'GPSVersionID',
+    0x0001: 'GPSLatitudeRef',
+    0x0002: 'GPSLatitude',
+    0x0003: 'GPSLongitudeRef',
+    0x0004: 'GPSLongitude',
+    0x0005: 'GPSAltitudeRef',
+    0x0006: 'GPSAltitude',
+    0x0007: 'GPSTimeStamp',
+    0x0008: 'GPSSatellites',
+    0x0009: 'GPSStatus',
+    0x000A: 'GPSMeasureMode',
+    0x000B: 'GPSDOP',
+    0x000C: 'GPSSpeedRef',
+    0x000D: 'GPSSpeed',
+    0x000E: 'GPSTrackRef',
+    0x000F: 'GPSTrack',
+    0x0010: 'GPSImgDirectionRef',
+    0x0011: 'GPSImgDirection',
+    0x0012: 'GPSMapDatum',
+    0x0013: 'GPSDestLatitudeRef',
+    0x0014: 'GPSDestLatitude',
+    0x0015: 'GPSDestLongitudeRef',
+    0x0016: 'GPSDestLongitude',
+    0x0017: 'GPSDestBearingRef',
+    0x0018: 'GPSDestBearing',
+    0x0019: 'GPSDestDistanceRef',
+    0x001A: 'GPSDestDistance',
+    0x001B: 'GPSProcessingMethod',
+    0x001C: 'GPSAreaInformation',
+    0x001D: 'GPSDateStamp',
+    0x001E: 'GPSDifferential',
+    0x001F: 'GPSHPositioningError'
+  }
 
-    loadImage.ExifMap.prototype.stringValues = {
-        ExposureProgram: {
-            0: 'Undefined',
-            1: 'Manual',
-            2: 'Normal program',
-            3: 'Aperture priority',
-            4: 'Shutter priority',
-            5: 'Creative program',
-            6: 'Action program',
-            7: 'Portrait mode',
-            8: 'Landscape mode'
-        },
-        MeteringMode: {
-            0: 'Unknown',
-            1: 'Average',
-            2: 'CenterWeightedAverage',
-            3: 'Spot',
-            4: 'MultiSpot',
-            5: 'Pattern',
-            6: 'Partial',
-            255: 'Other'
-        },
-        LightSource: {
-            0: 'Unknown',
-            1: 'Daylight',
-            2: 'Fluorescent',
-            3: 'Tungsten (incandescent light)',
-            4: 'Flash',
-            9: 'Fine weather',
-            10: 'Cloudy weather',
-            11: 'Shade',
-            12: 'Daylight fluorescent (D 5700 - 7100K)',
-            13: 'Day white fluorescent (N 4600 - 5400K)',
-            14: 'Cool white fluorescent (W 3900 - 4500K)',
-            15: 'White fluorescent (WW 3200 - 3700K)',
-            17: 'Standard light A',
-            18: 'Standard light B',
-            19: 'Standard light C',
-            20: 'D55',
-            21: 'D65',
-            22: 'D75',
-            23: 'D50',
-            24: 'ISO studio tungsten',
-            255: 'Other'
-        },
-        Flash: {
-            0x0000: 'Flash did not fire',
-            0x0001: 'Flash fired',
-            0x0005: 'Strobe return light not detected',
-            0x0007: 'Strobe return light detected',
-            0x0009: 'Flash fired, compulsory flash mode',
-            0x000D: 'Flash fired, compulsory flash mode, return light not detected',
-            0x000F: 'Flash fired, compulsory flash mode, return light detected',
-            0x0010: 'Flash did not fire, compulsory flash mode',
-            0x0018: 'Flash did not fire, auto mode',
-            0x0019: 'Flash fired, auto mode',
-            0x001D: 'Flash fired, auto mode, return light not detected',
-            0x001F: 'Flash fired, auto mode, return light detected',
-            0x0020: 'No flash function',
-            0x0041: 'Flash fired, red-eye reduction mode',
-            0x0045: 'Flash fired, red-eye reduction mode, return light not detected',
-            0x0047: 'Flash fired, red-eye reduction mode, return light detected',
-            0x0049: 'Flash fired, compulsory flash mode, red-eye reduction mode',
-            0x004D: 'Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected',
-            0x004F: 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected',
-            0x0059: 'Flash fired, auto mode, red-eye reduction mode',
-            0x005D: 'Flash fired, auto mode, return light not detected, red-eye reduction mode',
-            0x005F: 'Flash fired, auto mode, return light detected, red-eye reduction mode'
-        },
-        SensingMethod: {
-            1: 'Undefined',
-            2: 'One-chip color area sensor',
-            3: 'Two-chip color area sensor',
-            4: 'Three-chip color area sensor',
-            5: 'Color sequential area sensor',
-            7: 'Trilinear sensor',
-            8: 'Color sequential linear sensor'
-        },
-        SceneCaptureType: {
-            0: 'Standard',
-            1: 'Landscape',
-            2: 'Portrait',
-            3: 'Night scene'
-        },
-        SceneType: {
-            1: 'Directly photographed'
-        },
-        CustomRendered: {
-            0: 'Normal process',
-            1: 'Custom process'
-        },
-        WhiteBalance: {
-            0: 'Auto white balance',
-            1: 'Manual white balance'
-        },
-        GainControl: {
-            0: 'None',
-            1: 'Low gain up',
-            2: 'High gain up',
-            3: 'Low gain down',
-            4: 'High gain down'
-        },
-        Contrast: {
-            0: 'Normal',
-            1: 'Soft',
-            2: 'Hard'
-        },
-        Saturation: {
-            0: 'Normal',
-            1: 'Low saturation',
-            2: 'High saturation'
-        },
-        Sharpness: {
-            0: 'Normal',
-            1: 'Soft',
-            2: 'Hard'
-        },
-        SubjectDistanceRange: {
-            0: 'Unknown',
-            1: 'Macro',
-            2: 'Close view',
-            3: 'Distant view'
-        },
-        FileSource: {
-            3: 'DSC'
-        },
-        ComponentsConfiguration: {
-            0: '',
-            1: 'Y',
-            2: 'Cb',
-            3: 'Cr',
-            4: 'R',
-            5: 'G',
-            6: 'B'
-        },
-        Orientation: {
-            1: 'top-left',
-            2: 'top-right',
-            3: 'bottom-right',
-            4: 'bottom-left',
-            5: 'left-top',
-            6: 'right-top',
-            7: 'right-bottom',
-            8: 'left-bottom'
+  loadImage.ExifMap.prototype.stringValues = {
+    ExposureProgram: {
+      0: 'Undefined',
+      1: 'Manual',
+      2: 'Normal program',
+      3: 'Aperture priority',
+      4: 'Shutter priority',
+      5: 'Creative program',
+      6: 'Action program',
+      7: 'Portrait mode',
+      8: 'Landscape mode'
+    },
+    MeteringMode: {
+      0: 'Unknown',
+      1: 'Average',
+      2: 'CenterWeightedAverage',
+      3: 'Spot',
+      4: 'MultiSpot',
+      5: 'Pattern',
+      6: 'Partial',
+      255: 'Other'
+    },
+    LightSource: {
+      0: 'Unknown',
+      1: 'Daylight',
+      2: 'Fluorescent',
+      3: 'Tungsten (incandescent light)',
+      4: 'Flash',
+      9: 'Fine weather',
+      10: 'Cloudy weather',
+      11: 'Shade',
+      12: 'Daylight fluorescent (D 5700 - 7100K)',
+      13: 'Day white fluorescent (N 4600 - 5400K)',
+      14: 'Cool white fluorescent (W 3900 - 4500K)',
+      15: 'White fluorescent (WW 3200 - 3700K)',
+      17: 'Standard light A',
+      18: 'Standard light B',
+      19: 'Standard light C',
+      20: 'D55',
+      21: 'D65',
+      22: 'D75',
+      23: 'D50',
+      24: 'ISO studio tungsten',
+      255: 'Other'
+    },
+    Flash: {
+      0x0000: 'Flash did not fire',
+      0x0001: 'Flash fired',
+      0x0005: 'Strobe return light not detected',
+      0x0007: 'Strobe return light detected',
+      0x0009: 'Flash fired, compulsory flash mode',
+      0x000D: 'Flash fired, compulsory flash mode, return light not detected',
+      0x000F: 'Flash fired, compulsory flash mode, return light detected',
+      0x0010: 'Flash did not fire, compulsory flash mode',
+      0x0018: 'Flash did not fire, auto mode',
+      0x0019: 'Flash fired, auto mode',
+      0x001D: 'Flash fired, auto mode, return light not detected',
+      0x001F: 'Flash fired, auto mode, return light detected',
+      0x0020: 'No flash function',
+      0x0041: 'Flash fired, red-eye reduction mode',
+      0x0045: 'Flash fired, red-eye reduction mode, return light not detected',
+      0x0047: 'Flash fired, red-eye reduction mode, return light detected',
+      0x0049: 'Flash fired, compulsory flash mode, red-eye reduction mode',
+      0x004D: 'Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected',
+      0x004F: 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected',
+      0x0059: 'Flash fired, auto mode, red-eye reduction mode',
+      0x005D: 'Flash fired, auto mode, return light not detected, red-eye reduction mode',
+      0x005F: 'Flash fired, auto mode, return light detected, red-eye reduction mode'
+    },
+    SensingMethod: {
+      1: 'Undefined',
+      2: 'One-chip color area sensor',
+      3: 'Two-chip color area sensor',
+      4: 'Three-chip color area sensor',
+      5: 'Color sequential area sensor',
+      7: 'Trilinear sensor',
+      8: 'Color sequential linear sensor'
+    },
+    SceneCaptureType: {
+      0: 'Standard',
+      1: 'Landscape',
+      2: 'Portrait',
+      3: 'Night scene'
+    },
+    SceneType: {
+      1: 'Directly photographed'
+    },
+    CustomRendered: {
+      0: 'Normal process',
+      1: 'Custom process'
+    },
+    WhiteBalance: {
+      0: 'Auto white balance',
+      1: 'Manual white balance'
+    },
+    GainControl: {
+      0: 'None',
+      1: 'Low gain up',
+      2: 'High gain up',
+      3: 'Low gain down',
+      4: 'High gain down'
+    },
+    Contrast: {
+      0: 'Normal',
+      1: 'Soft',
+      2: 'Hard'
+    },
+    Saturation: {
+      0: 'Normal',
+      1: 'Low saturation',
+      2: 'High saturation'
+    },
+    Sharpness: {
+      0: 'Normal',
+      1: 'Soft',
+      2: 'Hard'
+    },
+    SubjectDistanceRange: {
+      0: 'Unknown',
+      1: 'Macro',
+      2: 'Close view',
+      3: 'Distant view'
+    },
+    FileSource: {
+      3: 'DSC'
+    },
+    ComponentsConfiguration: {
+      0: '',
+      1: 'Y',
+      2: 'Cb',
+      3: 'Cr',
+      4: 'R',
+      5: 'G',
+      6: 'B'
+    },
+    Orientation: {
+      1: 'top-left',
+      2: 'top-right',
+      3: 'bottom-right',
+      4: 'bottom-left',
+      5: 'left-top',
+      6: 'right-top',
+      7: 'right-bottom',
+      8: 'left-bottom'
+    }
+  }
+
+  loadImage.ExifMap.prototype.getText = function (id) {
+    var value = this.get(id)
+    switch (id) {
+      case 'LightSource':
+      case 'Flash':
+      case 'MeteringMode':
+      case 'ExposureProgram':
+      case 'SensingMethod':
+      case 'SceneCaptureType':
+      case 'SceneType':
+      case 'CustomRendered':
+      case 'WhiteBalance':
+      case 'GainControl':
+      case 'Contrast':
+      case 'Saturation':
+      case 'Sharpness':
+      case 'SubjectDistanceRange':
+      case 'FileSource':
+      case 'Orientation':
+        return this.stringValues[id][value]
+      case 'ExifVersion':
+      case 'FlashpixVersion':
+        return String.fromCharCode(value[0], value[1], value[2], value[3])
+      case 'ComponentsConfiguration':
+        return this.stringValues[id][value[0]] +
+        this.stringValues[id][value[1]] +
+        this.stringValues[id][value[2]] +
+        this.stringValues[id][value[3]]
+      case 'GPSVersionID':
+        return value[0] + '.' + value[1] + '.' + value[2] + '.' + value[3]
+    }
+    return String(value)
+  }
+
+  ;(function (exifMapPrototype) {
+    var tags = exifMapPrototype.tags
+    var map = exifMapPrototype.map
+    var prop
+    // Map the tag names to tags:
+    for (prop in tags) {
+      if (tags.hasOwnProperty(prop)) {
+        map[tags[prop]] = prop
+      }
+    }
+  }(loadImage.ExifMap.prototype))
+
+  loadImage.ExifMap.prototype.getAll = function () {
+    var map = {}
+    var prop
+    var id
+    for (prop in this) {
+      if (this.hasOwnProperty(prop)) {
+        id = this.tags[prop]
+        if (id) {
+          map[id] = this.getText(id)
         }
-    };
-
-    loadImage.ExifMap.prototype.getText = function (id) {
-        var value = this.get(id);
-        switch (id) {
-        case 'LightSource':
-        case 'Flash':
-        case 'MeteringMode':
-        case 'ExposureProgram':
-        case 'SensingMethod':
-        case 'SceneCaptureType':
-        case 'SceneType':
-        case 'CustomRendered':
-        case 'WhiteBalance':
-        case 'GainControl':
-        case 'Contrast':
-        case 'Saturation':
-        case 'Sharpness':
-        case 'SubjectDistanceRange':
-        case 'FileSource':
-        case 'Orientation':
-            return this.stringValues[id][value];
-        case 'ExifVersion':
-        case 'FlashpixVersion':
-            return String.fromCharCode(value[0], value[1], value[2], value[3]);
-        case 'ComponentsConfiguration':
-            return this.stringValues[id][value[0]] +
-                this.stringValues[id][value[1]] +
-                this.stringValues[id][value[2]] +
-                this.stringValues[id][value[3]];
-        case 'GPSVersionID':
-            return value[0] + '.' + value[1]  + '.' + value[2]  + '.' + value[3];
-        }
-        return String(value);
-    };
-
-    (function (exifMapPrototype) {
-        var tags = exifMapPrototype.tags,
-            map = exifMapPrototype.map,
-            prop;
-
-        // Map the tag names to tags:
-        for (prop in tags) {
-            if (tags.hasOwnProperty(prop)) {
-                map[tags[prop]] = prop;
-            }
-        }
-    }(loadImage.ExifMap.prototype));
-
-    loadImage.ExifMap.prototype.getAll = function () {
-        var map = {},
-            prop,
-            id;
-        for (prop in this) {
-            if (this.hasOwnProperty(prop)) {
-                id = this.tags[prop];
-                if (id) {
-                    map[id] = this.getText(id);
-                }
-            }
-        }
-        return map;
-    };
-
-}));
-
+      }
+    }
+    return map
+  }
+}))
+;
 /*
  * JavaScript Templates 2.4.1
  * https://github.com/blueimp/JavaScript-Templates
@@ -11696,7 +11583,7 @@ $.fn.caret.apis = methods;
         $.tmpl = tmpl;
     }
 }(this));
-
+;
 /*
  * jQuery UI Widget 1.10.3+amd
  * https://github.com/blueimp/jQuery-File-Upload
@@ -12227,7 +12114,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 });
 
 }));
-
+;
 /*
  * jQuery File Upload Plugin 5.38.0
  * https://github.com/blueimp/jQuery-File-Upload
@@ -13644,7 +13531,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 
 }));
-
+;
 /*
  * jQuery File Upload Processing Plugin 1.3.0
  * https://github.com/blueimp/jQuery-File-Upload
@@ -13817,7 +13704,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 
 }));
-
+;
 /*
  * jQuery File Upload Image Preview & Resize Plugin 1.6.0
  * https://github.com/blueimp/jQuery-File-Upload
@@ -14113,7 +14000,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 
 }));
-
+;
 /*
  * jQuery File Upload User Interface Plugin 9.0.0
  * https://github.com/blueimp/jQuery-File-Upload
@@ -14813,7 +14700,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 
 }));
-
+;
 /*
  * jQuery File Upload Validation Plugin 1.1.2
  * https://github.com/blueimp/jQuery-File-Upload
@@ -14934,7 +14821,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 
 }));
-
+;
 /*
  * jQuery Iframe Transport Plugin 1.8.1
  * https://github.com/blueimp/jQuery-File-Upload
@@ -15145,7 +15032,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 
 }));
-
+;
 /* ===================================================
  * bootstrap-transition.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#transitions
@@ -15205,7 +15092,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
   })
 
-}(window.jQuery);
+}(window.jQuery);;
 /* =============================================================
  * bootstrap-collapse.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#collapse
@@ -15372,7 +15259,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $(target).collapse(option)
   })
 
-}(window.jQuery);
+}(window.jQuery);;
 /* ============================================================
  * bootstrap-dropdown.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#dropdowns
@@ -15542,7 +15429,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     .on('keydown.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
 }(window.jQuery);
-
+;
 /* =========================================================
  * bootstrap-modal.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#modals
@@ -15790,7 +15677,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
   })
 
 }(window.jQuery);
-
+;
 /* ===========================================================
  * bootstrap-tooltip.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#tooltips
@@ -16152,7 +16039,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
   }
 
 }(window.jQuery);
-
+;
 /* ===========================================================
  * bootstrap-popover.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#popovers
@@ -16267,7 +16154,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
   }
 
 }(window.jQuery);
-
+;
 /* ========================================================
  * bootstrap-tab.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#tabs
@@ -16411,7 +16298,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $(this).tab('show')
   })
 
-}(window.jQuery);
+}(window.jQuery);;
 /* =============================================================
  * bootstrap-typeahead.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#typeahead
@@ -16747,7 +16634,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
   })
 
 }(window.jQuery);
-
+;
 /* ==========================================================
  * bootstrap-affix.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#affix
@@ -16864,7 +16751,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
   })
 
 
-}(window.jQuery);
+}(window.jQuery);;
 /*!
  * Bootstrap-select v1.10.0 (http://silviomoreto.github.io/bootstrap-select)
  *
@@ -18600,391 +18487,718 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 
 }));
-
-/*! ============================================================
- * bootstrapSwitch v1.8 by Larentis Mattia @SpiritualGuru
- * http://www.larentis.eu/
- * 
- * Enhanced for radiobuttons by Stein, Peter @BdMdesigN
- * http://www.bdmdesign.org/
+;
+/* ========================================================================
+ * bootstrap-switch - v3.3.2
+ * http://www.bootstrap-switch.org
+ * ========================================================================
+ * Copyright 2012-2013 Mattia Larentis
  *
- * Project site:
- * http://www.larentis.eu/switch/
- * ============================================================
- * Licensed under the Apache License, Version 2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- * ============================================================ */
+ * ========================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================================
+ */
 
-!function ($) {
-  "use strict";
+(function() {
+  var __slice = [].slice;
 
-  $.fn['bootstrapSwitch'] = function (method) {
-    var inputSelector = 'input[type!="hidden"]';
-    var methods = {
-      init: function () {
-        return this.each(function () {
-            var $element = $(this)
-              , $div
-              , $switchLeft
-              , $switchRight
-              , $label
-              , $form = $element.closest('form')
-              , myClasses = ""
-              , classes = $element.attr('class')
-              , color
-              , moving
-              , onLabel = "ON"
-              , offLabel = "OFF"
-              , icon = false
-              , textLabel = false;
-
-            $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
-              if (classes.indexOf(el) >= 0)
-                myClasses = el;
-            });
-
-            $element.addClass('has-switch');
-
-            if ($element.data('on') !== undefined)
-              color = "switch-" + $element.data('on');
-
-            if ($element.data('on-label') !== undefined)
-              onLabel = $element.data('on-label');
-
-            if ($element.data('off-label') !== undefined)
-              offLabel = $element.data('off-label');
-
-            if ($element.data('label-icon') !== undefined)
-              icon = $element.data('label-icon');
-
-            if ($element.data('text-label') !== undefined)
-              textLabel = $element.data('text-label');
-
-            $switchLeft = $('<span>')
-              .addClass("switch-left")
-              .addClass(myClasses)
-              .addClass(color)
-              .html(onLabel);
-
-            color = '';
-            if ($element.data('off') !== undefined)
-              color = "switch-" + $element.data('off');
-
-            $switchRight = $('<span>')
-              .addClass("switch-right")
-              .addClass(myClasses)
-              .addClass(color)
-              .html(offLabel);
-
-            $label = $('<label>')
-              .html("&nbsp;")
-              .addClass(myClasses)
-              .attr('for', $element.find(inputSelector).attr('id'));
-
-            if (icon) {
-              $label.html('<i class="icon ' + icon + '"></i>');
-            }
-
-            if (textLabel) {
-              $label.html('' + textLabel + '');
-            }
-
-            $div = $element.find(inputSelector).wrap($('<div>')).parent().data('animated', false);
-
-            if ($element.data('animated') !== false)
-              $div.addClass('switch-animate').data('animated', true);
-
-            $div
-              .append($switchLeft)
-              .append($label)
-              .append($switchRight);
-
-            $element.find('>div').addClass(
-              $element.find(inputSelector).is(':checked') ? 'switch-on' : 'switch-off'
-            );
-
-            if ($element.find(inputSelector).is(':disabled'))
-              $(this).addClass('deactivate');
-
-            var changeStatus = function ($this) {
-              if ($element.parent('label').is('.label-change-switch')) {
-
-              } else {
-                $this.siblings('label').trigger('mousedown').trigger('mouseup').trigger('click');
+  (function($, window) {
+    "use strict";
+    var BootstrapSwitch;
+    BootstrapSwitch = (function() {
+      function BootstrapSwitch(element, options) {
+        if (options == null) {
+          options = {};
+        }
+        this.$element = $(element);
+        this.options = $.extend({}, $.fn.bootstrapSwitch.defaults, {
+          state: this.$element.is(":checked"),
+          size: this.$element.data("size"),
+          animate: this.$element.data("animate"),
+          disabled: this.$element.is(":disabled"),
+          readonly: this.$element.is("[readonly]"),
+          indeterminate: this.$element.data("indeterminate"),
+          inverse: this.$element.data("inverse"),
+          radioAllOff: this.$element.data("radio-all-off"),
+          onColor: this.$element.data("on-color"),
+          offColor: this.$element.data("off-color"),
+          onText: this.$element.data("on-text"),
+          offText: this.$element.data("off-text"),
+          labelText: this.$element.data("label-text"),
+          handleWidth: this.$element.data("handle-width"),
+          labelWidth: this.$element.data("label-width"),
+          baseClass: this.$element.data("base-class"),
+          wrapperClass: this.$element.data("wrapper-class")
+        }, options);
+        this.$wrapper = $("<div>", {
+          "class": (function(_this) {
+            return function() {
+              var classes;
+              classes = ["" + _this.options.baseClass].concat(_this._getClasses(_this.options.wrapperClass));
+              classes.push(_this.options.state ? "" + _this.options.baseClass + "-on" : "" + _this.options.baseClass + "-off");
+              if (_this.options.size != null) {
+                classes.push("" + _this.options.baseClass + "-" + _this.options.size);
               }
+              if (_this.options.disabled) {
+                classes.push("" + _this.options.baseClass + "-disabled");
+              }
+              if (_this.options.readonly) {
+                classes.push("" + _this.options.baseClass + "-readonly");
+              }
+              if (_this.options.indeterminate) {
+                classes.push("" + _this.options.baseClass + "-indeterminate");
+              }
+              if (_this.options.inverse) {
+                classes.push("" + _this.options.baseClass + "-inverse");
+              }
+              if (_this.$element.attr("id")) {
+                classes.push("" + _this.options.baseClass + "-id-" + (_this.$element.attr("id")));
+              }
+              return classes.join(" ");
             };
+          })(this)()
+        });
+        this.$container = $("<div>", {
+          "class": "" + this.options.baseClass + "-container"
+        });
+        this.$on = $("<span>", {
+          html: this.options.onText,
+          "class": "" + this.options.baseClass + "-handle-on " + this.options.baseClass + "-" + this.options.onColor
+        });
+        this.$off = $("<span>", {
+          html: this.options.offText,
+          "class": "" + this.options.baseClass + "-handle-off " + this.options.baseClass + "-" + this.options.offColor
+        });
+        this.$label = $("<span>", {
+          html: this.options.labelText,
+          "class": "" + this.options.baseClass + "-label"
+        });
+        this.$element.on("init.bootstrapSwitch", (function(_this) {
+          return function() {
+            return _this.options.onInit.apply(element, arguments);
+          };
+        })(this));
+        this.$element.on("switchChange.bootstrapSwitch", (function(_this) {
+          return function() {
+            return _this.options.onSwitchChange.apply(element, arguments);
+          };
+        })(this));
+        this.$container = this.$element.wrap(this.$container).parent();
+        this.$wrapper = this.$container.wrap(this.$wrapper).parent();
+        this.$element.before(this.options.inverse ? this.$off : this.$on).before(this.$label).before(this.options.inverse ? this.$on : this.$off);
+        if (this.options.indeterminate) {
+          this.$element.prop("indeterminate", true);
+        }
+        this._init();
+        this._elementHandlers();
+        this._handleHandlers();
+        this._labelHandlers();
+        this._formHandler();
+        this._externalLabelHandler();
+        this.$element.trigger("init.bootstrapSwitch");
+      }
 
-            $element.on('keydown', function (e) {
-              if (e.keyCode === 32) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
-                changeStatus($(e.target).find('span:first'));
+      BootstrapSwitch.prototype._constructor = BootstrapSwitch;
+
+      BootstrapSwitch.prototype.state = function(value, skip) {
+        if (typeof value === "undefined") {
+          return this.options.state;
+        }
+        if (this.options.disabled || this.options.readonly) {
+          return this.$element;
+        }
+        if (this.options.state && !this.options.radioAllOff && this.$element.is(":radio")) {
+          return this.$element;
+        }
+        if (this.options.indeterminate) {
+          this.indeterminate(false);
+        }
+        value = !!value;
+        this.$element.prop("checked", value).trigger("change.bootstrapSwitch", skip);
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.toggleState = function(skip) {
+        if (this.options.disabled || this.options.readonly) {
+          return this.$element;
+        }
+        if (this.options.indeterminate) {
+          this.indeterminate(false);
+          return this.state(true);
+        } else {
+          return this.$element.prop("checked", !this.options.state).trigger("change.bootstrapSwitch", skip);
+        }
+      };
+
+      BootstrapSwitch.prototype.size = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.size;
+        }
+        if (this.options.size != null) {
+          this.$wrapper.removeClass("" + this.options.baseClass + "-" + this.options.size);
+        }
+        if (value) {
+          this.$wrapper.addClass("" + this.options.baseClass + "-" + value);
+        }
+        this._width();
+        this._containerPosition();
+        this.options.size = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.animate = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.animate;
+        }
+        value = !!value;
+        if (value === this.options.animate) {
+          return this.$element;
+        }
+        return this.toggleAnimate();
+      };
+
+      BootstrapSwitch.prototype.toggleAnimate = function() {
+        this.options.animate = !this.options.animate;
+        this.$wrapper.toggleClass("" + this.options.baseClass + "-animate");
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.disabled = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.disabled;
+        }
+        value = !!value;
+        if (value === this.options.disabled) {
+          return this.$element;
+        }
+        return this.toggleDisabled();
+      };
+
+      BootstrapSwitch.prototype.toggleDisabled = function() {
+        this.options.disabled = !this.options.disabled;
+        this.$element.prop("disabled", this.options.disabled);
+        this.$wrapper.toggleClass("" + this.options.baseClass + "-disabled");
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.readonly = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.readonly;
+        }
+        value = !!value;
+        if (value === this.options.readonly) {
+          return this.$element;
+        }
+        return this.toggleReadonly();
+      };
+
+      BootstrapSwitch.prototype.toggleReadonly = function() {
+        this.options.readonly = !this.options.readonly;
+        this.$element.prop("readonly", this.options.readonly);
+        this.$wrapper.toggleClass("" + this.options.baseClass + "-readonly");
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.indeterminate = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.indeterminate;
+        }
+        value = !!value;
+        if (value === this.options.indeterminate) {
+          return this.$element;
+        }
+        return this.toggleIndeterminate();
+      };
+
+      BootstrapSwitch.prototype.toggleIndeterminate = function() {
+        this.options.indeterminate = !this.options.indeterminate;
+        this.$element.prop("indeterminate", this.options.indeterminate);
+        this.$wrapper.toggleClass("" + this.options.baseClass + "-indeterminate");
+        this._containerPosition();
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.inverse = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.inverse;
+        }
+        value = !!value;
+        if (value === this.options.inverse) {
+          return this.$element;
+        }
+        return this.toggleInverse();
+      };
+
+      BootstrapSwitch.prototype.toggleInverse = function() {
+        var $off, $on;
+        this.$wrapper.toggleClass("" + this.options.baseClass + "-inverse");
+        $on = this.$on.clone(true);
+        $off = this.$off.clone(true);
+        this.$on.replaceWith($off);
+        this.$off.replaceWith($on);
+        this.$on = $off;
+        this.$off = $on;
+        this.options.inverse = !this.options.inverse;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.onColor = function(value) {
+        var color;
+        color = this.options.onColor;
+        if (typeof value === "undefined") {
+          return color;
+        }
+        if (color != null) {
+          this.$on.removeClass("" + this.options.baseClass + "-" + color);
+        }
+        this.$on.addClass("" + this.options.baseClass + "-" + value);
+        this.options.onColor = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.offColor = function(value) {
+        var color;
+        color = this.options.offColor;
+        if (typeof value === "undefined") {
+          return color;
+        }
+        if (color != null) {
+          this.$off.removeClass("" + this.options.baseClass + "-" + color);
+        }
+        this.$off.addClass("" + this.options.baseClass + "-" + value);
+        this.options.offColor = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.onText = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.onText;
+        }
+        this.$on.html(value);
+        this._width();
+        this._containerPosition();
+        this.options.onText = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.offText = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.offText;
+        }
+        this.$off.html(value);
+        this._width();
+        this._containerPosition();
+        this.options.offText = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.labelText = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.labelText;
+        }
+        this.$label.html(value);
+        this._width();
+        this.options.labelText = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.handleWidth = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.handleWidth;
+        }
+        this.options.handleWidth = value;
+        this._width();
+        this._containerPosition();
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.labelWidth = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.labelWidth;
+        }
+        this.options.labelWidth = value;
+        this._width();
+        this._containerPosition();
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.baseClass = function(value) {
+        return this.options.baseClass;
+      };
+
+      BootstrapSwitch.prototype.wrapperClass = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.wrapperClass;
+        }
+        if (!value) {
+          value = $.fn.bootstrapSwitch.defaults.wrapperClass;
+        }
+        this.$wrapper.removeClass(this._getClasses(this.options.wrapperClass).join(" "));
+        this.$wrapper.addClass(this._getClasses(value).join(" "));
+        this.options.wrapperClass = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.radioAllOff = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.radioAllOff;
+        }
+        value = !!value;
+        if (value === this.options.radioAllOff) {
+          return this.$element;
+        }
+        this.options.radioAllOff = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.onInit = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.onInit;
+        }
+        if (!value) {
+          value = $.fn.bootstrapSwitch.defaults.onInit;
+        }
+        this.options.onInit = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.onSwitchChange = function(value) {
+        if (typeof value === "undefined") {
+          return this.options.onSwitchChange;
+        }
+        if (!value) {
+          value = $.fn.bootstrapSwitch.defaults.onSwitchChange;
+        }
+        this.options.onSwitchChange = value;
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype.destroy = function() {
+        var $form;
+        $form = this.$element.closest("form");
+        if ($form.length) {
+          $form.off("reset.bootstrapSwitch").removeData("bootstrap-switch");
+        }
+        this.$container.children().not(this.$element).remove();
+        this.$element.unwrap().unwrap().off(".bootstrapSwitch").removeData("bootstrap-switch");
+        return this.$element;
+      };
+
+      BootstrapSwitch.prototype._width = function() {
+        var $handles, handleWidth;
+        $handles = this.$on.add(this.$off);
+        $handles.add(this.$label).css("width", "");
+        handleWidth = this.options.handleWidth === "auto" ? Math.max(this.$on.width(), this.$off.width()) : this.options.handleWidth;
+        $handles.width(handleWidth);
+        this.$label.width((function(_this) {
+          return function(index, width) {
+            if (_this.options.labelWidth !== "auto") {
+              return _this.options.labelWidth;
+            }
+            if (width < handleWidth) {
+              return handleWidth;
+            } else {
+              return width;
+            }
+          };
+        })(this));
+        this._handleWidth = this.$on.outerWidth();
+        this._labelWidth = this.$label.outerWidth();
+        this.$container.width((this._handleWidth * 2) + this._labelWidth);
+        return this.$wrapper.width(this._handleWidth + this._labelWidth);
+      };
+
+      BootstrapSwitch.prototype._containerPosition = function(state, callback) {
+        if (state == null) {
+          state = this.options.state;
+        }
+        this.$container.css("margin-left", (function(_this) {
+          return function() {
+            var values;
+            values = [0, "-" + _this._handleWidth + "px"];
+            if (_this.options.indeterminate) {
+              return "-" + (_this._handleWidth / 2) + "px";
+            }
+            if (state) {
+              if (_this.options.inverse) {
+                return values[1];
+              } else {
+                return values[0];
+              }
+            } else {
+              if (_this.options.inverse) {
+                return values[0];
+              } else {
+                return values[1];
+              }
+            }
+          };
+        })(this));
+        if (!callback) {
+          return;
+        }
+        return setTimeout(function() {
+          return callback();
+        }, 50);
+      };
+
+      BootstrapSwitch.prototype._init = function() {
+        var init, initInterval;
+        init = (function(_this) {
+          return function() {
+            _this._width();
+            return _this._containerPosition(null, function() {
+              if (_this.options.animate) {
+                return _this.$wrapper.addClass("" + _this.options.baseClass + "-animate");
               }
             });
+          };
+        })(this);
+        if (this.$wrapper.is(":visible")) {
+          return init();
+        }
+        return initInterval = window.setInterval((function(_this) {
+          return function() {
+            if (_this.$wrapper.is(":visible")) {
+              init();
+              return window.clearInterval(initInterval);
+            }
+          };
+        })(this), 50);
+      };
 
-            $switchLeft.on('click', function (e) {
-              changeStatus($(this));
-            });
-
-            $switchRight.on('click', function (e) {
-              changeStatus($(this));
-            });
-
-            $element.find(inputSelector).on('change', function (e, skipOnChange) {
-              var $this = $(this)
-                , $element = $this.parent()
-                , thisState = $this.is(':checked')
-                , state = $element.is('.switch-off');
-
-              e.preventDefault();
-
-              $element.css('left', '');
-
-              if (state === thisState) {
-
-                if (thisState)
-                  $element.removeClass('switch-off').addClass('switch-on');
-                else $element.removeClass('switch-on').addClass('switch-off');
-
-                if ($element.data('animated') !== false)
-                  $element.addClass("switch-animate");
-
-                if (typeof skipOnChange === 'boolean' && skipOnChange)
-                  return;
-
-                $element.parent().trigger('switch-change', {'el': $this, 'value': thisState})
-              }
-            });
-
-            $element.find('label').on('mousedown touchstart', function (e) {
-              var $this = $(this);
-              moving = false;
-
+      BootstrapSwitch.prototype._elementHandlers = function() {
+        return this.$element.on({
+          "change.bootstrapSwitch": (function(_this) {
+            return function(e, skip) {
+              var state;
               e.preventDefault();
               e.stopImmediatePropagation();
-
-              $this.closest('div').removeClass('switch-animate');
-
-              if ($this.closest('.has-switch').is('.deactivate')) {
-                $this.unbind('click');
-              } else if ($this.closest('.switch-on').parent().is('.radio-no-uncheck')) {
-                $this.unbind('click');
-              } else {
-                $this.on('mousemove touchmove', function (e) {
-                  var $element = $(this).closest('.make-switch')
-                    , relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
-                    , percent = (relativeX / $element.width()) * 100
-                    , left = 25
-                    , right = 75;
-
-                  moving = true;
-
-                  if (percent < left)
-                    percent = left;
-                  else if (percent > right)
-                    percent = right;
-
-                  $element.find('>div').css('left', (percent - right) + "%")
-                });
-
-                $this.on('click touchend', function (e) {
-                  var $this = $(this)
-                    , $target = $(e.target)
-                    , $myRadioCheckBox = $target.siblings('input');
-
-                  e.stopImmediatePropagation();
-                  e.preventDefault();
-
-                  $this.unbind('mouseleave');
-
-                  if (moving)
-                    $myRadioCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25));
-                  else
-                    $myRadioCheckBox.prop("checked", !$myRadioCheckBox.is(":checked"));
-
-                  moving = false;
-                  $myRadioCheckBox.trigger('change');
-                });
-
-                $this.on('mouseleave', function (e) {
-                  var $this = $(this)
-                    , $myInputBox = $this.siblings('input');
-
-                  e.preventDefault();
-                  e.stopImmediatePropagation();
-
-                  $this.unbind('mouseleave');
-                  $this.trigger('mouseup');
-
-                  $myInputBox.prop('checked', !(parseInt($this.parent().css('left')) < -25)).trigger('change');
-                });
-
-                $this.on('mouseup', function (e) {
-                  e.stopImmediatePropagation();
-                  e.preventDefault();
-
-                  $(this).unbind('mousemove');
-                });
+              state = _this.$element.is(":checked");
+              _this._containerPosition(state);
+              if (state === _this.options.state) {
+                return;
               }
-            });
-
-            if ($form.data('bootstrapSwitch') !== 'injected') {
-              $form.bind('reset', function () {
-                setTimeout(function () {
-                  $form.find('.make-switch').each(function () {
-                    var $input = $(this).find(inputSelector);
-
-                    $input.prop('checked', $input.is(':checked')).trigger('change');
-                  });
-                }, 1);
-              });
-              $form.data('bootstrapSwitch', 'injected');
-            }
-          }
-        );
-      },
-      toggleActivation: function () {
-        var $this = $(this);
-
-        $this.toggleClass('deactivate');
-        $this.find(inputSelector).prop('disabled', $this.is('.deactivate'));
-      },
-      isActive: function () {
-        return !$(this).hasClass('deactivate');
-      },
-      setActive: function (active) {
-        var $this = $(this);
-
-        if (active) {
-          $this.removeClass('deactivate');
-          $this.find(inputSelector).removeAttr('disabled');
-        }
-        else {
-          $this.addClass('deactivate');
-          $this.find(inputSelector).attr('disabled', 'disabled');
-        }
-      },
-      toggleState: function (skipOnChange) {
-        var $input = $(this).find(':checkbox');
-        $input.prop('checked', !$input.is(':checked')).trigger('change', skipOnChange);
-      },
-      toggleRadioState: function (skipOnChange) {
-        var $radioinput = $(this).find(':radio');
-        $radioinput.not(':checked').prop('checked', !$radioinput.is(':checked')).trigger('change', skipOnChange);
-      },
-      toggleRadioStateAllowUncheck: function (uncheck, skipOnChange) {
-        var $radioinput = $(this).find(':radio');
-        if (uncheck) {
-          $radioinput.not(':checked').trigger('change', skipOnChange);
-        }
-        else {
-          $radioinput.not(':checked').prop('checked', !$radioinput.is(':checked')).trigger('change', skipOnChange);
-        }
-      },
-      setState: function (value, skipOnChange) {
-        $(this).find(inputSelector).prop('checked', value).trigger('change', skipOnChange);
-      },
-      setOnLabel: function (value) {
-        var $switchLeft = $(this).find(".switch-left");
-        $switchLeft.html(value);
-      },
-      setOffLabel: function (value) {
-        var $switchRight = $(this).find(".switch-right");
-        $switchRight.html(value);
-      },
-      setOnClass: function (value) {
-        var $switchLeft = $(this).find(".switch-left");
-        var color = '';
-        if (value !== undefined) {
-          if ($(this).attr('data-on') !== undefined) {
-            color = "switch-" + $(this).attr('data-on')
-          }
-          $switchLeft.removeClass(color);
-          color = "switch-" + value;
-          $switchLeft.addClass(color);
-        }
-      },
-      setOffClass: function (value) {
-        var $switchRight = $(this).find(".switch-right");
-        var color = '';
-        if (value !== undefined) {
-          if ($(this).attr('data-off') !== undefined) {
-            color = "switch-" + $(this).attr('data-off')
-          }
-          $switchRight.removeClass(color);
-          color = "switch-" + value;
-          $switchRight.addClass(color);
-        }
-      },
-      setAnimated: function (value) {
-        var $element = $(this).find(inputSelector).parent();
-        if (value === undefined) value = false;
-        $element.data('animated', value);
-        $element.attr('data-animated', value);
-
-        if ($element.data('animated') !== false) {
-          $element.addClass("switch-animate");
-        } else {
-          $element.removeClass("switch-animate");
-        }
-      },
-      setSizeClass: function (value) {
-        var $element = $(this);
-        var $switchLeft = $element.find(".switch-left");
-        var $switchRight = $element.find(".switch-right");
-        var $label = $element.find("label");
-        $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
-          if (el !== value) {
-            $switchLeft.removeClass(el)
-            $switchRight.removeClass(el);
-            $label.removeClass(el);
-          } else {
-            $switchLeft.addClass(el);
-            $switchRight.addClass(el);
-            $label.addClass(el);
-          }
+              _this.options.state = state;
+              _this.$wrapper.toggleClass("" + _this.options.baseClass + "-off").toggleClass("" + _this.options.baseClass + "-on");
+              if (!skip) {
+                if (_this.$element.is(":radio")) {
+                  $("[name='" + (_this.$element.attr('name')) + "']").not(_this.$element).prop("checked", false).trigger("change.bootstrapSwitch", true);
+                }
+                return _this.$element.trigger("switchChange.bootstrapSwitch", [state]);
+              }
+            };
+          })(this),
+          "focus.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              e.preventDefault();
+              return _this.$wrapper.addClass("" + _this.options.baseClass + "-focused");
+            };
+          })(this),
+          "blur.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              e.preventDefault();
+              return _this.$wrapper.removeClass("" + _this.options.baseClass + "-focused");
+            };
+          })(this),
+          "keydown.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              if (!e.which || _this.options.disabled || _this.options.readonly) {
+                return;
+              }
+              switch (e.which) {
+                case 37:
+                  e.preventDefault();
+                  e.stopImmediatePropagation();
+                  return _this.state(false);
+                case 39:
+                  e.preventDefault();
+                  e.stopImmediatePropagation();
+                  return _this.state(true);
+              }
+            };
+          })(this)
         });
-      },
-      status: function () {
-        return $(this).find(inputSelector).is(':checked');
-      },
-      destroy: function () {
-        var $element = $(this)
-          , $div = $element.find('div')
-          , $form = $element.closest('form')
-          , $inputbox;
+      };
 
-        $div.find(':not(input)').remove();
+      BootstrapSwitch.prototype._handleHandlers = function() {
+        this.$on.on("click.bootstrapSwitch", (function(_this) {
+          return function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            _this.state(false);
+            return _this.$element.trigger("focus.bootstrapSwitch");
+          };
+        })(this));
+        return this.$off.on("click.bootstrapSwitch", (function(_this) {
+          return function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            _this.state(true);
+            return _this.$element.trigger("focus.bootstrapSwitch");
+          };
+        })(this));
+      };
 
-        $inputbox = $div.children();
-        $inputbox.unwrap().unwrap();
+      BootstrapSwitch.prototype._labelHandlers = function() {
+        return this.$label.on({
+          "mousedown.bootstrapSwitch touchstart.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              if (_this._dragStart || _this.options.disabled || _this.options.readonly) {
+                return;
+              }
+              e.preventDefault();
+              e.stopPropagation();
+              _this._dragStart = (e.pageX || e.originalEvent.touches[0].pageX) - parseInt(_this.$container.css("margin-left"), 10);
+              if (_this.options.animate) {
+                _this.$wrapper.removeClass("" + _this.options.baseClass + "-animate");
+              }
+              return _this.$element.trigger("focus.bootstrapSwitch");
+            };
+          })(this),
+          "mousemove.bootstrapSwitch touchmove.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              var difference;
+              if (_this._dragStart == null) {
+                return;
+              }
+              e.preventDefault();
+              difference = (e.pageX || e.originalEvent.touches[0].pageX) - _this._dragStart;
+              if (difference < -_this._handleWidth || difference > 0) {
+                return;
+              }
+              _this._dragEnd = difference;
+              return _this.$container.css("margin-left", "" + _this._dragEnd + "px");
+            };
+          })(this),
+          "mouseup.bootstrapSwitch touchend.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              var state;
+              if (!_this._dragStart) {
+                return;
+              }
+              e.preventDefault();
+              if (_this.options.animate) {
+                _this.$wrapper.addClass("" + _this.options.baseClass + "-animate");
+              }
+              if (_this._dragEnd) {
+                state = _this._dragEnd > -(_this._handleWidth / 2);
+                _this._dragEnd = false;
+                _this.state(_this.options.inverse ? !state : state);
+              } else {
+                _this.state(!_this.options.state);
+              }
+              return _this._dragStart = false;
+            };
+          })(this),
+          "mouseleave.bootstrapSwitch": (function(_this) {
+            return function(e) {
+              return _this.$label.trigger("mouseup.bootstrapSwitch");
+            };
+          })(this)
+        });
+      };
 
-        $inputbox.unbind('change');
+      BootstrapSwitch.prototype._externalLabelHandler = function() {
+        var $externalLabel;
+        $externalLabel = this.$element.closest("label");
+        return $externalLabel.on("click", (function(_this) {
+          return function(event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            if (event.target === $externalLabel[0]) {
+              return _this.toggleState();
+            }
+          };
+        })(this));
+      };
 
-        if ($form) {
-          $form.unbind('reset');
-          $form.removeData('bootstrapSwitch');
+      BootstrapSwitch.prototype._formHandler = function() {
+        var $form;
+        $form = this.$element.closest("form");
+        if ($form.data("bootstrap-switch")) {
+          return;
         }
+        return $form.on("reset.bootstrapSwitch", function() {
+          return window.setTimeout(function() {
+            return $form.find("input").filter(function() {
+              return $(this).data("bootstrap-switch");
+            }).each(function() {
+              return $(this).bootstrapSwitch("state", this.checked);
+            });
+          }, 1);
+        }).data("bootstrap-switch", true);
+      };
 
-        return $inputbox;
-      }
+      BootstrapSwitch.prototype._getClasses = function(classes) {
+        var c, cls, _i, _len;
+        if (!$.isArray(classes)) {
+          return ["" + this.options.baseClass + "-" + classes];
+        }
+        cls = [];
+        for (_i = 0, _len = classes.length; _i < _len; _i++) {
+          c = classes[_i];
+          cls.push("" + this.options.baseClass + "-" + c);
+        }
+        return cls;
+      };
+
+      return BootstrapSwitch;
+
+    })();
+    $.fn.bootstrapSwitch = function() {
+      var args, option, ret;
+      option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      ret = this;
+      this.each(function() {
+        var $this, data;
+        $this = $(this);
+        data = $this.data("bootstrap-switch");
+        if (!data) {
+          $this.data("bootstrap-switch", data = new BootstrapSwitch(this, option));
+        }
+        if (typeof option === "string") {
+          return ret = data[option].apply(data, args);
+        }
+      });
+      return ret;
     };
+    $.fn.bootstrapSwitch.Constructor = BootstrapSwitch;
+    return $.fn.bootstrapSwitch.defaults = {
+      state: true,
+      size: null,
+      animate: true,
+      disabled: false,
+      readonly: false,
+      indeterminate: false,
+      inverse: false,
+      radioAllOff: false,
+      onColor: "primary",
+      offColor: "default",
+      onText: "ON",
+      offText: "OFF",
+      labelText: "&nbsp;",
+      handleWidth: "auto",
+      labelWidth: "auto",
+      baseClass: "bootstrap-switch",
+      wrapperClass: "wrapper",
+      onInit: function() {},
+      onSwitchChange: function() {}
+    };
+  })(window.jQuery, window);
 
-    if (methods[method])
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    else if (typeof method === 'object' || !method)
-      return methods.init.apply(this, arguments);
-    else
-      $.error('Method ' + method + ' does not exist!');
-  };
-}(jQuery);
-
-(function ($) {
-  $(function () {
-    $('.make-switch')['bootstrapSwitch']();
-  });
-})(jQuery);
-
+}).call(this);
+;
 !function() {
   var d3 = {
     version: "3.5.16"
@@ -28538,7 +28752,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     return request.responseXML;
   });
   if (typeof define === "function" && define.amd) this.d3 = d3, define(d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
-}();
+}();;
 /**
  * @copyright  2010-2013 Nikolai Plath
  * @license    GNU/GPL http://www.gnu.org/licenses/gpl.html
@@ -28697,7 +28911,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     };
 
 })();
-
+;
 /**
  * @copyright  2010-2013 Nikolai Plath
  * @license    GNU/GPL http://www.gnu.org/licenses/gpl.html
@@ -28737,7 +28951,7 @@ function g11n3t(original) {
 function g11n4t(singular, plural, count) {
     return g11n.translatePlural(singular, plural, count);
 }
-
+;
 /* 
  * More info at: http://phpjs.org
  * 
@@ -30010,7 +30224,7 @@ shr : function (a,b) {
 		 return s;
 		}
 	
-};//selfhtml
+};//selfhtml;
 /*
  * jQuery simple-color plugin
  * @requires jQuery v1.4.2 or later
@@ -30358,7 +30572,7 @@ shr : function (a,b) {
   };
 
 })(jQuery);
-
+;
 /**
  * jquery-textrange
  * A jQuery plugin for getting, setting and replacing the selected text in input fields and textareas.
@@ -30605,7 +30819,7 @@ shr : function (a,b) {
 		}
 	};
 });
-
+;
 /*!
  * jQuery Validation Plugin v1.15.0
  *
@@ -32137,7 +32351,7 @@ if ( $.ajaxPrefilter ) {
 	};
 }
 
-}));
+}));;
 /**
  * at.js - 1.5.0
  * Copyright (c) 2016 chord.luo <chord.luo@gmail.com>;
@@ -33336,7 +33550,7 @@ $.fn.atwho["default"] = {
 $.fn.atwho.debug = false;
 
 }));
-
+;
 // ----------------------------------------------------------------------------
 // markItUp! Universal MarkUp Engine, JQuery plugin
 // v 1.1.x
@@ -34009,7 +34223,7 @@ $.fn.atwho.debug = false;
 		}
 	};
 })(jQuery);
-
+;
 /*!
  * # Semantic UI 1.10.3 - Dropdown
  * http://github.com/semantic-org/semantic-ui/
@@ -35792,7 +36006,7 @@ $.extend( $.easing, {
 
 
 })( jQuery, window , document );
-
+;
 /*!
  * # Semantic UI 1.10.4 - Transition
  * http://github.com/semantic-org/semantic-ui/
@@ -36794,7 +37008,7 @@ $.fn.transition.settings = {
 
 
 })( jQuery, window , document );
-
+;
 /*!
  * jQuery pagination plugin v1.2.6
  * http://esimakin.github.io/twbs-pagination/

@@ -8,6 +8,7 @@
 
 namespace JTracker\Github\Exception;
 
+use Joomla\Http\Exception\UnexpectedResponseException;
 use Joomla\Http\Response;
 
 /**
@@ -15,15 +16,8 @@ use Joomla\Http\Response;
  *
  * @since  1.0
  */
-class GithubException extends \Exception
+class GithubException extends UnexpectedResponseException
 {
-	/**
-	 * @var  Response
-	 *
-	 * @since  1.0
-	 */
-	protected $response;
-
 	/**
 	 * Constructor.
 	 *
@@ -38,20 +32,6 @@ class GithubException extends \Exception
 
 		$message = isset($error->message) ? $error->message : 'Invalid response received from GitHub.';
 
-		$this->response = $response;
-
-		parent::__construct($message, $code);
-	}
-
-	/**
-	 * Get the response object.
-	 *
-	 * @return \Joomla\Http\Response
-	 *
-	 * @since  1.0
-	 */
-	public function getResponse()
-	{
-		return $this->response;
+		parent::__construct($response, $message, $code);
 	}
 }

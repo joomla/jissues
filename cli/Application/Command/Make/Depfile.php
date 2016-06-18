@@ -276,7 +276,7 @@ class Depfile extends Make
 
 					if (false == file_exists($path))
 					{
-						$this->out(sprintf('Language file not found %s, %s, %s' . $langTag, $extension, $domain));
+						$this->out(sprintf('Language file not found %s, %s, %s', $langTag, $extension, $domain));
 
 						continue;
 					}

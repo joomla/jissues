@@ -167,7 +167,7 @@ class Save extends AbstractTrackerController
 						$state,
 						$oldState
 					),
-					['exception' => $exception]
+					['exception' => $exception, 'response' => $exception->getResponse()->body]
 				);
 
 				throw new \RuntimeException('Invalid response from GitHub', $exception->getCode(), $exception);
@@ -317,7 +317,7 @@ class Save extends AbstractTrackerController
 	 * @param   integer  $milestone    The milestone to associate this issue with.
 	 * @param   array    $labels       The labels to associate with this issue.
 	 *
-	 * @throws  \JTracker\Github\Exception\GithubException
+	 * @throws  GithubException
 	 * @throws  \RuntimeException
 	 *
 	 * @return  object  The issue data
