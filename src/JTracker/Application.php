@@ -15,12 +15,11 @@ use App\Projects\TrackerProject;
 use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Router\Router;
 
@@ -30,16 +29,6 @@ use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
 use JTracker\Router\Exception\RoutingException;
-use JTracker\Router\TrackerRouter;
-use JTracker\Service\ApplicationProvider;
-use JTracker\Service\ConfigurationProvider;
-use JTracker\Service\DatabaseProvider;
-use JTracker\Service\DebuggerProvider;
-use JTracker\Service\GitHubProvider;
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\WebProcessor;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -96,45 +85,18 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	/**
 	 * Class constructor.
 	 *
+	 * @param   Session   $session  The application's session object
+	 * @param   Input     $input    The application's input object
+	 * @param   Registry  $config   The application's configuration object
+	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Session $session, Input $input, Registry $config)
 	{
 		// Run the parent constructor
-		parent::__construct();
+		parent::__construct($input, $config);
 
-		// Build the DI Container
-		$container = (new Container)
-			->registerServiceProvider(new ApplicationProvider($this))
-			->registerServiceProvider(new ConfigurationProvider($this->config))
-			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new GitHubProvider);
-
-		$this->setContainer($container);
-
-		$this->mark('Application started');
-
-		// Register the global dispatcher
-		$this->setDispatcher(new Dispatcher);
-
-		// Set up a general application logger
-		$this->setLogger(
-			new Logger(
-				'JTracker',
-				[
-					new StreamHandler(
-						$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
-						Logger::ERROR
-					)
-				],
-				[
-					new WebProcessor
-				]
-			)
-		);
-
-		$this->setRouter(new TrackerRouter($this->getContainer(), $this->input));
+		$this->newSession = $session;
 	}
 
 	/**
@@ -160,9 +122,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			$this->getRouter()->setControllerPrefix('\\App')
-				->setDefaultController('\\Tracker\\Controller\\DefaultController');
-
 			$this->bootApps();
 
 			$this->mark('Apps booted');
@@ -300,10 +259,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function getSession()
 	{
-		if (is_null($this->newSession))
+		if (!$this->newSession->isStarted())
 		{
-			$this->newSession = new Session;
-
 			$this->newSession->start();
 
 			$registry = $this->newSession->get('registry');

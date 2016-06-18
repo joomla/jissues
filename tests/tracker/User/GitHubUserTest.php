@@ -22,7 +22,15 @@ use JTracker\Authentication\GitHub\GitHubUser;
 class GitHubUserTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var GitHubUser
+	 * Array of global variables to blacklist when the global state snapshot is taken
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	protected $backupGlobalsBlacklist = ['container'];
+
+	/**
+	 * @var    GitHubUser
 	 * @since  1.0
 	 */
 	protected $object;
