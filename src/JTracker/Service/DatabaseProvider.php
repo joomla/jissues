@@ -11,13 +11,11 @@ namespace JTracker\Service;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+
 use JTracker\Database\Migrations;
+
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\PsrLogMessageProcessor;
-use Monolog\Processor\WebProcessor;
 
 /**
  * Database service provider
