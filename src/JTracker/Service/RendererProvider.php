@@ -42,7 +42,7 @@ class RendererProvider implements ServiceProviderInterface
 					$rendererConfig = [
 						'path'  => JPATH_TEMPLATES,
 						'debug' => (bool) $config->get('debug.template', false),
-						'cache' => $config->get('renderer.cache', false) ? JPATH_ROOT . '/' . $config->get('renderer.cache') : false
+						'cache' => $config->get('renderer.cache', false) ? JPATH_ROOT . '/cache/' . $config->get('renderer.cache') : false
 					];
 
 					// Instantiate the renderer object

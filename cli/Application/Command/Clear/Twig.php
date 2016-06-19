@@ -8,7 +8,8 @@
 
 namespace Application\Command\Clear;
 
-use Joomla\Filesystem\Folder;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 
 /**
  * Class for clearing the Twig cache.
@@ -43,13 +44,16 @@ class Twig extends Clear
 			return;
 		}
 
-		$cacheDir = JPATH_ROOT . '/' . $this->getApplication()->get('renderer.cache');
+		$cacheDir     = JPATH_ROOT . '/cache';
+		$twigCacheDir = $this->getApplication()->get('renderer.cache');
 
-		$this->logOut(sprintf('Cleaning the cache dir in "%s"', $cacheDir));
+		$this->logOut(sprintf('Cleaning the cache dir in "%s"', $cacheDir . '/' . $twigCacheDir));
 
-		if (is_dir($cacheDir))
+		$filesystem = new Filesystem(new Local($cacheDir));
+
+		if ($filesystem->has($twigCacheDir))
 		{
-			Folder::delete($cacheDir);
+			$filesystem->deleteDir($twigCacheDir);
 		}
 
 		$this->out()
