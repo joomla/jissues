@@ -55,7 +55,7 @@ class PageHtmlView extends AbstractTrackerHtmlView
 			throw new RoutingException($this->getAlias(), $e);
 		}
 
-		$this->renderer->set('page', $item->getIterator());
+		$this->addData('page', $item->getIterator());
 
 		return parent::render();
 	}

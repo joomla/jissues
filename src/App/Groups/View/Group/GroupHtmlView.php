@@ -39,8 +39,8 @@ class GroupHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
-		$this->renderer->set('group', ArrayHelper::fromObject($this->model->getItem()));
-		$this->renderer->set('project', $this->getProject());
+		$this->addData('group', ArrayHelper::fromObject($this->model->getItem()));
+		$this->addData('project', $this->getProject());
 
 		return parent::render();
 	}

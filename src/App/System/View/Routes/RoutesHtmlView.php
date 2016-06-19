@@ -28,7 +28,7 @@ class RoutesHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('routes', $this->getRoutes());
+		$this->addData('routes', $this->getRoutes());
 
 		return parent::render();
 	}

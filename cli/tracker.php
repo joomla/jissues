@@ -49,6 +49,7 @@ try
 		->registerServiceProvider(new JTracker\Service\DispatcherProvider)
 		->registerServiceProvider(new JTracker\Service\GitHubProvider)
 		->registerServiceProvider(new JTracker\Service\MonologProvider)
+		->registerServiceProvider(new JTracker\Service\RendererProvider)
 		->registerServiceProvider(new JTracker\Service\TransifexProvider)
 		->registerServiceProvider(new JTracker\Service\WebApplicationProvider)
 		->registerServiceProvider(new Application\Service\LoggerProvider);

@@ -44,7 +44,7 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 			}
 		}
 
-		$this->renderer->set('icons', array_unique($icons));
+		$this->addData('icons', array_unique($icons));
 
 		// Read octicons - prefer separate source if available, otherwise use combined vendor source
 		if (file_exists(JPATH_THEMES . '/media/css/vendor/octicons/octicons/octicons.css'))
@@ -66,7 +66,7 @@ class IconsHtmlView extends AbstractTrackerHtmlView
 			}
 		}
 
-		$this->renderer->set('octicons', array_unique($icons));
+		$this->addData('octicons', array_unique($icons));
 
 		return parent::render();
 	}

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02386a27a7993bf5bad52b9686faf639",
-    "content-hash": "949251ceec3254866d8efd0607143c7c",
+    "hash": "3ab5877cfa3b94cd04c3a052fcfb5fbd",
+    "content-hash": "20e7362a9e3a069ce299d1b968469f1d",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -226,37 +226,40 @@
         },
         {
             "name": "filp/whoops",
-            "version": "1.1.10",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "72538eeb70bbfb11964412a3d098d109efd012f7"
+                "reference": "d13505b240a6f580bc75ba591da30299d6cb0eec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/72538eeb70bbfb11964412a3d098d109efd012f7",
-                "reference": "72538eeb70bbfb11964412a3d098d109efd012f7",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/d13505b240a6f580bc75ba591da30299d6cb0eec",
+                "reference": "d13505b240a6f580bc75ba591da30299d6cb0eec",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.5.9"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*"
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^4.8 || ^5.0",
+                "symfony/var-dumper": "~3.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Whoops": "src/"
-                },
-                "classmap": [
-                    "src/deprecated"
-                ]
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -276,11 +279,10 @@
                 "exception",
                 "handling",
                 "library",
-                "silex-provider",
                 "whoops",
                 "zf2"
             ],
-            "time": "2015-06-29 05:42:04"
+            "time": "2016-04-07 06:16:25"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -648,52 +650,6 @@
             "time": "2016-03-13 19:41:09"
         },
         {
-            "name": "joomla/filesystem",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joomla-framework/filesystem.git",
-                "reference": "e306a6df707ac0b03e2f13c41c2c9c5b72f00b39"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/filesystem/zipball/e306a6df707ac0b03e2f13c41c2c9c5b72f00b39",
-                "reference": "e306a6df707ac0b03e2f13c41c2c9c5b72f00b39",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.10"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*",
-                "squizlabs/php_codesniffer": "1.*"
-            },
-            "type": "joomla-package",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Joomla\\Filesystem\\": "src/",
-                    "Joomla\\Filesystem\\Tests\\": "Tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "description": "Joomla Filesystem Package",
-            "homepage": "https://github.com/joomla/joomla-framework-filesystem",
-            "keywords": [
-                "filesystem",
-                "framework",
-                "joomla"
-            ],
-            "time": "2015-09-05 16:01:03"
-        },
-        {
             "name": "joomla/filter",
             "version": "1.2.0",
             "source": {
@@ -1045,6 +1001,60 @@
             "time": "2016-05-14 20:42:05"
         },
         {
+            "name": "joomla/renderer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/renderer.git",
+                "reference": "ef04b74a1a82bbda6cf7172c78dc00b45da5630c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/ef04b74a1a82bbda6cf7172c78dc00b45da5630c",
+                "reference": "ef04b74a1a82bbda6cf7172c78dc00b45da5630c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.10|>=7.0"
+            },
+            "require-dev": {
+                "league/plates": "~2.0|~3.0",
+                "mustache/mustache": "~2.0",
+                "squizlabs/php_codesniffer": "1.*",
+                "symfony/templating": "~2.0|~3.0",
+                "twig/twig": "~1.0|~2.0"
+            },
+            "suggest": {
+                "league/plates": "Install ~2.0|~3.0 if you are using the Plates template engine.",
+                "mustache/mustache": "Install ~2.0 if you are using the Mustache template engine.",
+                "symfony/templating": "Install ~2.0|~3.0 if you are using Symfony's PHP template component.",
+                "twig/twig": "Install ~1.0|~2.0 if you are using the Twig template engine."
+            },
+            "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\Renderer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1+"
+            ],
+            "description": "Joomla Renderer Package",
+            "homepage": "https://github.com/joomla-framework/renderer",
+            "keywords": [
+                "framework",
+                "joomla",
+                "renderer"
+            ],
+            "time": "2016-06-18 20:07:34"
+        },
+        {
             "name": "joomla/router",
             "version": "1.1.2",
             "source": {
@@ -1236,38 +1246,37 @@
         },
         {
             "name": "joomla/view",
-            "version": "1.2.0",
+            "version": "dev-2.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/view.git",
-                "reference": "2254fec4b1a11d2dfd0fe9dd096b263194583d22"
+                "reference": "72a39ff95896071c87b9a8115576ae41bca5eee2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/view/zipball/2254fec4b1a11d2dfd0fe9dd096b263194583d22",
-                "reference": "2254fec4b1a11d2dfd0fe9dd096b263194583d22",
+                "url": "https://api.github.com/repos/joomla-framework/view/zipball/72a39ff95896071c87b9a8115576ae41bca5eee2",
+                "reference": "72a39ff95896071c87b9a8115576ae41bca5eee2",
                 "shasum": ""
             },
             "require": {
-                "joomla/filesystem": "~1.0",
-                "joomla/model": "~1.0",
-                "php": ">=5.3.10"
+                "joomla/model": "~1.0|~2.0@dev",
+                "joomla/renderer": "~2.0@dev",
+                "php": ">=5.3.10|>=7.0"
             },
             "require-dev": {
                 "joomla/test": "~1.0",
-                "phpunit/phpunit": "4.*",
+                "phpunit/phpunit": "~4.8|~5.0",
                 "squizlabs/php_codesniffer": "1.*"
             },
             "type": "joomla-package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-2.0-dev": "2.0-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Joomla\\View\\": "src/",
-                    "Joomla\\View\\Tests\\": "Tests/"
+                    "Joomla\\View\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1281,7 +1290,7 @@
                 "joomla",
                 "view"
             ],
-            "time": "2014-09-01 02:30:31"
+            "time": "2016-06-05 16:25:12"
         },
         {
             "name": "league/flysystem",
@@ -2923,16 +2932,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "7ae5513327cb536431847bcc0c10edba2701064e"
+                "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/7ae5513327cb536431847bcc0c10edba2701064e",
-                "reference": "7ae5513327cb536431847bcc0c10edba2701064e",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/42c4c2eec485ee3e159ec9884f95b431287edde4",
+                "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4",
                 "shasum": ""
             },
             "require": {
@@ -2940,12 +2949,13 @@
                 "sebastian/recursion-context": "~1.0"
             },
             "require-dev": {
+                "ext-mbstring": "*",
                 "phpunit/phpunit": "~4.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
@@ -2985,7 +2995,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2015-06-21 07:55:53"
+            "time": "2016-06-17 09:04:28"
         },
         {
             "name": "sebastian/finder-facade",
@@ -3586,7 +3596,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "joomla/renderer": 20,
+        "joomla/view": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

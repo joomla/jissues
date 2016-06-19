@@ -26,12 +26,12 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	protected $config;
 
 	/**
-	 * Data object for the view
+	 * Contributors data object for the view
 	 *
 	 * @var    object
 	 * @since  1.0
 	 */
-	protected $data = null;
+	protected $contributors = null;
 
 	/**
 	 * Method to render the view.
@@ -42,9 +42,8 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer
-			->set('data', $this->getData())
-			->set('project', $this->getProject());
+		$this->addData('data', $this->getContributors())
+			->addData('project', $this->getProject());
 
 		return parent::render();
 	}
@@ -57,14 +56,14 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	public function getData()
+	public function getContributors()
 	{
-		if (is_null($this->data))
+		if (is_null($this->contributors))
 		{
-			throw new \UnexpectedValueException('Data not set.');
+			throw new \UnexpectedValueException('Contributor data not set.');
 		}
 
-		return $this->data;
+		return $this->contributors;
 	}
 
 	/**
@@ -76,9 +75,9 @@ class StatsHtmlView extends AbstractTrackerHtmlView
 	 *
 	 * @since   1.0
 	 */
-	public function setData($data)
+	public function setContributors($data)
 	{
-		$this->data = $data;
+		$this->contributors = $data;
 
 		return $this;
 	}
