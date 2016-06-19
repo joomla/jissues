@@ -44,6 +44,7 @@ try
 	$container = (new Joomla\DI\Container)
 		->registerServiceProvider(new JTracker\Service\CliApplicationProvider)
 		->registerServiceProvider(new JTracker\Service\ConfigurationProvider)
+		->registerServiceProvider(new JTracker\Service\CrowdinProvider)
 		->registerServiceProvider(new JTracker\Service\DatabaseProvider)
 		->registerServiceProvider(new JTracker\Service\DebuggerProvider)
 		->registerServiceProvider(new JTracker\Service\DispatcherProvider)

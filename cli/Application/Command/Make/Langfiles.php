@@ -13,6 +13,8 @@ use Application\Command\TrackerCommandOption;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
+use JTracker\Helper\LanguageHelper;
+
 use PHP_CodeSniffer_File;
 
 /**
@@ -57,10 +59,7 @@ class Langfiles extends Make
 	{
 		$this->getApplication()->outputTitle('Make Language files');
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
 		$languages = $this->getApplication()->get('languages');
 

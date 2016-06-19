@@ -2,7 +2,7 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2012 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
@@ -10,12 +10,14 @@ namespace Application\Command\Get;
 
 use g11n\Support\ExtensionHelper;
 
+use JTracker\Helper\LanguageHelper;
+
 /**
- * Class for retrieving translations from Transifex
+ * Class for retrieving translations files.
  *
  * @since  1.0
  */
-class Transifex extends Get
+class Languagefiles extends Get
 {
 	/**
 	 * Array containing application languages to retrieve translations for
@@ -34,7 +36,7 @@ class Transifex extends Get
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve language files from Transifex.');
+		$this->description = g11n3t('Retrieve language files.');
 	}
 
 	/**
@@ -54,7 +56,7 @@ class Transifex extends Get
 		unset($this->languages[0]);
 
 		$this->logOut(g11n3t('Start fetching translations.'))
-			->setupTransifex()
+			->setupLanguageProvider()
 			->fetchTranslations()
 			->out()
 			->logOut(g11n3t('Finished.'));
@@ -69,11 +71,7 @@ class Transifex extends Get
 	 */
 	private function fetchTranslations()
 	{
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
@@ -98,7 +96,7 @@ class Transifex extends Get
 				continue;
 			}
 
-			$this->receiveFiles($fileInfo->getFileName(), 'App');
+			$this->receiveFiles($fileInfo->getFilename(), 'App');
 		}
 
 		return $this;
@@ -132,13 +130,6 @@ class Transifex extends Get
 
 			$this->out($language . '... ', false);
 
-			// Call out to Transifex
-			$translation = $this->transifex->translations->getTranslation(
-				$this->getApplication()->get('transifex.project'),
-				strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
-				str_replace('-', '_', $language)
-			);
-
 			// Write the file
 			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
 
@@ -150,9 +141,25 @@ class Transifex extends Get
 				}
 			}
 
-			if (!file_put_contents($path, $translation->content))
+			switch ($this->languageProvider)
 			{
-				throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
+				case 'transifex':
+					$translation = $this->transifex->translations->getTranslation(
+						$this->getApplication()->get('transifex.project'),
+						strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
+						str_replace('-', '_', $language)
+					);
+
+					if (!file_put_contents($path, $translation->content))
+					{
+						throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
+					}
+					break;
+
+				case 'crowdin':
+					$fileName = strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
+					$this->crowdin->file->export($fileName, LanguageHelper::getCrowdinLanguageTag($language), $path);
+					break;
 			}
 		}
 

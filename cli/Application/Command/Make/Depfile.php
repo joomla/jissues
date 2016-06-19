@@ -12,8 +12,7 @@ use Application\Command\TrackerCommandOption;
 
 use g11n\Support\ExtensionHelper as g11nExtensionHelper;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
@@ -237,19 +236,7 @@ class Depfile extends Make
 	{
 		$list = array();
 
-		g11nExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11nExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11nExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-
-		$scopes = array(
-			'Core' => array(
-				'JTracker'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
+		LanguageHelper::addDomainPaths();
 
 		$langTags = $this->getApplication()->get('languages');
 		$noEmail = $this->getApplication()->input->get('noemail');
@@ -268,7 +255,7 @@ class Depfile extends Make
 
 			$translators = array();
 
-			foreach ($scopes as $domain => $extensions)
+			foreach (LanguageHelper::getScopes() as $domain => $extensions)
 			{
 				foreach ($extensions as $extension)
 				{

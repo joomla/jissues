@@ -11,8 +11,7 @@ namespace Application\Command\Test;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 use PHP_CodeSniffer_File;
 
@@ -43,19 +42,7 @@ class Langfiles extends Test
 	{
 		$this->getApplication()->outputTitle('Check language files');
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-
-		$scopes = array(
-			'Core' => array(
-				'JTracker', 'JTracker.js'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
+		LanguageHelper::addDomainPaths();
 
 		$languages = $this->getApplication()->get('languages');
 
@@ -63,7 +50,7 @@ class Langfiles extends Test
 
 		$errors = false;
 
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			foreach ($extensions as $extension)
 			{

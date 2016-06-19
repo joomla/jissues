@@ -11,6 +11,8 @@ namespace Application\Command\Export;
 use g11n\Language\Storage as g11nStorage;
 use g11n\Support\ExtensionHelper as g11nExtensionHelper;
 
+use JTracker\Helper\LanguageHelper;
+
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 
@@ -85,23 +87,11 @@ class Langfiles extends Export
 	 */
 	private function exportFiles()
 	{
-		g11nExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11nExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11nExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-
-		$scopes = array(
-			'Core' => array(
-				'JTracker'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
+		LanguageHelper::addDomainPaths();
 
 		$templates = $this->getApplication()->input->getCmd('templates');
 
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			foreach ($extensions as $extension)
 			{

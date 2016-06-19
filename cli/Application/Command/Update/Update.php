@@ -8,6 +8,8 @@
 
 namespace Application\Command\Update;
 
+use Elkuku\Crowdin\Crowdin;
+
 use BabDev\Transifex\Transifex;
 
 use Application\Command\TrackerCommand;
@@ -45,6 +47,22 @@ class Update extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $transifex;
+
+	/**
+	 * Crowdin object
+	 *
+	 * @var    Crowdin
+	 * @since  1.0
+	 */
+	protected $crowdin;
+
+	/**
+	 * The language provider.
+	 *
+	 * @var string
+	 * @since  1.0
+	 */
+	protected $languageProvider;
 
 	/**
 	 * Constructor.
@@ -98,16 +116,31 @@ class Update extends TrackerCommand
 	}
 
 	/**
-	 * Setup the Transifex object.
+	 * Setup the Provider object.
 	 *
 	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function setupTransifex()
+	protected function setupLanguageProvider()
 	{
-		$this->transifex = $this->getContainer()->get('transifex');
+		$this->languageProvider = $this->getApplication()->input->get('provider');
+
+		switch ($this->languageProvider)
+		{
+			case 'transifex':
+				$this->transifex = $this->getContainer()->get('transifex');
+				break;
+
+			case 'crowdin':
+				$this->crowdin = $this->getContainer()->get('crowdin');
+				break;
+
+			default:
+				throw new \UnexpectedValueException('Unknown language provider');
+				break;
+		}
 
 		return $this;
 	}
