@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ab5877cfa3b94cd04c3a052fcfb5fbd",
-    "content-hash": "20e7362a9e3a069ce299d1b968469f1d",
+    "hash": "f570cc0093d90ae4a29eab7f66821db6",
+    "content-hash": "c2afeca786f77265decac540e89b60e0",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -648,6 +648,52 @@
                 "joomla"
             ],
             "time": "2016-03-13 19:41:09"
+        },
+        {
+            "name": "joomla/filesystem",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/filesystem.git",
+                "reference": "e306a6df707ac0b03e2f13c41c2c9c5b72f00b39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/filesystem/zipball/e306a6df707ac0b03e2f13c41c2c9c5b72f00b39",
+                "reference": "e306a6df707ac0b03e2f13c41c2c9c5b72f00b39",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
+            },
+            "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\Filesystem\\": "src/",
+                    "Joomla\\Filesystem\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla Filesystem Package",
+            "homepage": "https://github.com/joomla/joomla-framework-filesystem",
+            "keywords": [
+                "filesystem",
+                "framework",
+                "joomla"
+            ],
+            "time": "2015-09-05 16:01:03"
         },
         {
             "name": "joomla/filter",
