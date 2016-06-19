@@ -72,7 +72,7 @@ abstract class LanguageHelper
 			'CoreJS' => ['JTracker.js'],
 			'Template' => ['JTracker'],
 			'CLI' => ['cli'],
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths())->listPaths()
+			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths)->listPaths()
 		];
 	}
 }
