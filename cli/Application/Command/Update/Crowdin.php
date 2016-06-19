@@ -6,18 +6,22 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace Application\Command\Get;
+namespace Application\Command\Update;
+
+use ElKuKu\Crowdin\Languagefile;
 
 use g11n\Support\ExtensionHelper;
+
+use Joomla\Filter\OutputFilter;
 
 use JTracker\Helper\LanguageHelper;
 
 /**
- * Class for retrieving translations files.
+ * Class for pushing translation files to Crowdin.
  *
  * @since  1.0
  */
-class Languagefiles extends Get
+class Crowdin extends Update
 {
 	/**
 	 * Array containing application languages to retrieve translations for
@@ -25,7 +29,7 @@ class Languagefiles extends Get
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $languages = array();
+	private $languages = [];
 
 	/**
 	 * Constructor.
@@ -36,7 +40,7 @@ class Languagefiles extends Get
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Retrieve language files.');
+		$this->description = g11n3t('Push language files to Crowdin project.');
 	}
 
 	/**
@@ -48,14 +52,14 @@ class Languagefiles extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Get Translations'));
+		$this->getApplication()->outputTitle(g11n3t('Upload Translation Files'));
 
 		$this->languages = $this->getApplication()->get('languages');
 
 		// Remove English from the language array
 		unset($this->languages[0]);
 
-		$this->logOut(g11n3t('Start fetching translations.'))
+		$this->logOut(g11n3t('Start importing translations.'))
 			->setupLanguageProvider()
 			->fetchTranslations()
 			->out()
@@ -103,7 +107,7 @@ class Languagefiles extends Get
 	}
 
 	/**
-	 * Receives language files from the translation provider
+	 * Receives language files from the provider
 	 *
 	 * @param   string  $extension  The extension to process
 	 * @param   string  $domain     The domain of the extension
@@ -115,6 +119,8 @@ class Languagefiles extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
+		$alias = OutputFilter::stringUrlUnicodeSlug($extension . ' ' . $domain);
+
 		$this->out(sprintf('Processing: %s %s... ', $domain, $extension), false);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
@@ -133,32 +139,10 @@ class Languagefiles extends Get
 			// Write the file
 			$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
 
-			if (false == is_dir(dirname($path)))
-			{
-				if (false == mkdir(dirname($path)))
-				{
-					throw new \Exception('Could not create the directory at: ' . str_replace(JPATH_ROOT, '', dirname($path)));
-				}
-			}
-
 			switch ($this->languageProvider)
 			{
-				case 'transifex':
-					$translation = $this->transifex->translations->getTranslation(
-						$this->getApplication()->get('transifex.project'),
-						strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain),
-						str_replace('-', '_', $language)
-					);
-
-					if (!file_put_contents($path, $translation->content))
-					{
-						throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
-					}
-					break;
-
 				case 'crowdin':
-					$fileName = strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
-					$this->crowdin->file->export($fileName, LanguageHelper::getCrowdinLanguageTag($language), $path);
+					$this->crowdin->translation->upload(new Languagefile($path, $alias . '_en.po'), LanguageHelper::getCrowdinLanguageTag($language));
 					break;
 			}
 		}
