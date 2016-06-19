@@ -26,6 +26,11 @@
 		"project" : ""
 	},
 
+	"crowdin": {
+		"project": "",
+		"api-key": ""
+	},
+
 	"renderer": {
 		"type" : "twig",
         "cache": false

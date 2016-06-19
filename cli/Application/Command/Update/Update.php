@@ -8,6 +8,8 @@
 
 namespace Application\Command\Update;
 
+use Akeneo\Crowdin\Client as CrowdinClient;
+
 use BabDev\Transifex\Transifex;
 
 use Application\Command\TrackerCommand;
@@ -45,6 +47,14 @@ class Update extends TrackerCommand
 	 * @since  1.0
 	 */
 	protected $transifex;
+
+	/**
+	 * Crowdin object
+	 *
+	 * @var    CrowdinClient
+	 * @since  1.0
+	 */
+	protected $crowdin;
 
 	/**
 	 * Constructor.
@@ -108,6 +118,21 @@ class Update extends TrackerCommand
 	protected function setupTransifex()
 	{
 		$this->transifex = $this->getContainer()->get('transifex');
+
+		return $this;
+	}
+
+	/**
+	 * Setup the Crowdin object.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function setupCrowdin()
+	{
+		$this->crowdin = $this->getContainer()->get('crowdin');
 
 		return $this;
 	}
