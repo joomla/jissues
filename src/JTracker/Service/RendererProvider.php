@@ -59,11 +59,13 @@ class RendererProvider implements ServiceProviderInterface
 
 					// Set the Lexer object
 					$renderer->getRenderer()->setLexer(
-						new \Twig_Lexer($renderer->getRenderer(), ['delimiters' => [
+						new \Twig_Lexer(
+							$renderer->getRenderer(), ['delimiters' => [
 							'tag_comment'  => ['{#', '#}'],
 							'tag_block'    => ['{%', '%}'],
 							'tag_variable' => ['{{', '}}']
-						]])
+						]]
+						)
 					);
 
 					return $renderer;

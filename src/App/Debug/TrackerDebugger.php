@@ -550,7 +550,6 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 
 		$rendererName = $this->application->get('renderer.type');
 
-
 		// The renderer should exist in the container
 		if (!$this->getContainer()->exists("renderer.$rendererName"))
 		{
