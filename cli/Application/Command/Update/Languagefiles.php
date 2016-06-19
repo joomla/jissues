@@ -8,6 +8,8 @@
 
 namespace Application\Command\Update;
 
+use Application\Command\TrackerCommandOption;
+
 use ElKuKu\Crowdin\Languagefile;
 
 use g11n\Language\Storage;
@@ -42,6 +44,19 @@ class Languagefiles extends Update
 		parent::__construct();
 
 		$this->description = g11n3t('Updates language files on a translation service.');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'provider', '',
+				'The translation service provider to use.'
+			)
+		)
+			->addOption(
+				new TrackerCommandOption(
+					'create', '',
+					'Flag if resources should be created.'
+				)
+			);
 	}
 
 	/**
