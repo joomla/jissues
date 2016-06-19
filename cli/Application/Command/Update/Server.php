@@ -68,7 +68,7 @@ class Server extends Update
 			// Perform a git pull on the active branch
 			$this->execCommand('cd ' . JPATH_ROOT . ' && git pull 2>&1');
 
-			$message ='Git update Finished';
+			$message = 'Git update Finished';
 		}
 
 		// Update the Composer installation
