@@ -56,6 +56,12 @@ class Languagefiles extends Update
 					'create', '',
 					'Flag if resources should be created.'
 				)
+			)
+			->addOption(
+				new TrackerCommandOption(
+					'translations', '',
+					'Flag if translations should be uploaded.'
+				)
 			);
 	}
 
