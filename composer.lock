@@ -1052,12 +1052,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/renderer.git",
-                "reference": "ef04b74a1a82bbda6cf7172c78dc00b45da5630c"
+                "reference": "af4fe2a19d3f5d46a9b517b1b4d615c02d6341f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/ef04b74a1a82bbda6cf7172c78dc00b45da5630c",
-                "reference": "ef04b74a1a82bbda6cf7172c78dc00b45da5630c",
+                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/af4fe2a19d3f5d46a9b517b1b4d615c02d6341f1",
+                "reference": "af4fe2a19d3f5d46a9b517b1b4d615c02d6341f1",
                 "shasum": ""
             },
             "require": {
@@ -1098,7 +1098,7 @@
                 "joomla",
                 "renderer"
             ],
-            "time": "2016-06-18 20:07:34"
+            "time": "2016-06-19 15:59:38"
         },
         {
             "name": "joomla/router",
