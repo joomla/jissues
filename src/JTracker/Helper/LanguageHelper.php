@@ -12,6 +12,7 @@ use g11n\Support\ExtensionHelper;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use League\Flysystem\Plugin\ListPaths;
 
 /**
  * Helper class containing methods for working with languages.
@@ -71,7 +72,7 @@ abstract class LanguageHelper
 			'CoreJS' => ['JTracker.js'],
 			'Template' => ['JTracker'],
 			'CLI' => ['cli'],
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
+			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths())->listPaths()
 		];
 	}
 }
