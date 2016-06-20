@@ -24,8 +24,6 @@ class Database extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		parent::__construct();
-
 		$this->description = g11n3t('This will track the database status.');
 	}
 
