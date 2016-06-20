@@ -6,17 +6,17 @@ aka [The option #3 from joomla/jissues#124](https://github.com/joomla/jissues/pu
 
 After you changed the code in your PHP or Twig files you should run
 
-* `tracker.php make langtemplates`<br />
+* `bin/jtracker make langtemplates`<br />
 This will create/update the `pot` language templates.<br />
 Those may be handed over to the translaters / Transifex.
 
 Additionally you can use `extension` argument to create/update the `pot` language templates for the specific extension only
 
-* `tracker.php make langtemplates --extension=Tracker`<br />
+* `bin/jtracker make langtemplates --extension=Tracker`<br />
 
 If you want to translate yourself you do a
 
-* `tracker.php make langfiles`<br />
+* `bin/jtracker make langfiles`<br />
 This will create/update the `po` language files according to the templates created in the previous step.
 
 After changing the `po` files you have to clean the cache to "see" the translations on the site.
@@ -25,12 +25,12 @@ This can be done by simply deleting the `/cache/g11n` directory or, if you are l
 ### The workflow for JIssues repository
 
 ```
-tracker.php make langtemplates
+bin/jtracker make langtemplates
 git commit -am "Update language templates"
-tracker.php update transifex
-tracker.php get transifex
+bin/jtracker update languagefiles --provider=transifex
+bin/jtracker get languagefiles --provider=transifex
 git commit -am "Fetch updated language files"
-tracker.php clear cache
+bin/jtracker clear cache
 git push
 ```
 
@@ -100,7 +100,7 @@ Fortunately this is a [known issues](https://github.com/fabpot/Twig-extensions/b
 There is a new script that just collects all relevant files and passes them, along with some options, to xgettext:
 
 ```
-tracker.php make langtemplates
+bin/jtracker make langtemplates
 ```
 
 Will automatically generate the language templates for the core JTracker application, the JTracker template as well as all the Apps.
@@ -137,7 +137,7 @@ Translators may notice here, that you always **see** the original in clear text 
 While you can also create those files manually, the gettext tools [msginit](http://linux.die.net/man/1/msginit) and [msgmerge](http://linux.die.net/man/1/msgmerge) can create and update language files from a given template - So why not use them (remember: me lazy...)
 
 ```
-tracker.php make langfiles
+bin/jtracker make langfiles
 ```
 
 will create language files for the core, the template and all extensions (Apps) in all defined languages.
@@ -158,7 +158,7 @@ I have not tried any of the above currently beside my own linux box, but I belie
 
 #### Known issues
 
-* There is one big FAT issue currently: Internally all strings are contained in a single array. Meaning that you can not translate the same key in two different ways in the same page call.<br />I believe that our application is "small enough", so this wont really be an issue.<br />There is a solution deep down in my head, but it hasn't been translated to code yet ;) WIP
+* There is one big FAT issue currently: Internally all strings are contained in a single array. Meaning that you can not translate the same key in two different ways in the same page call.<br />I believe that our application is "small enough", so this won't really be an issue.<br />There is a solution deep down in my head, but it hasn't been translated to code yet ;) WIP
 * <del>Pluralization is supported but not implemented yet. WIP</del>
 * JavaScript translations and pluralizations are supported but not implemented yet. WIP
 * Performance... This will be the last time that I mention that I'm lazy but... to avoid ugly escaping/unescaping of quotes, I simply base64 encode and decode the string and md5 encode the key which is, I admit that, very very time consuming W-I-P...
@@ -171,9 +171,9 @@ It goes like this:
 
 ```
 vagrant ssh
-cd /vagrant/cli
-./tracker.php make langtemplates
-./tracker.php make langfiles
+cd /vagrant
+bin/jtracker make langtemplates
+bin/jtracker make langfiles
 ```
 It would be nice if a "non-Linux" user could test this :wink:
 
