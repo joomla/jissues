@@ -32,13 +32,6 @@ class Langfiles extends Test
 		parent::__construct();
 
 		$this->description = g11n3t('Check language files');
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'project', 'p',
-				g11n3t('Process the project with the given ID.')
-			)
-		);
 	}
 
 	/**
