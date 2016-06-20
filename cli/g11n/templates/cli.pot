@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
+"POT-Creation-Date: 2016-06-20 08:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
-#: /cli/Application/Application.php:122
+#: /cli/Application/Application.php:103
 msgid "Be quiet - suppress output."
 msgstr ""
 
-#: /cli/Application/Application.php:127
+#: /cli/Application/Application.php:108
 msgid "Verbose output for debugging purpose."
 msgstr ""
 
-#: /cli/Application/Application.php:132
-msgid "Suppress ANSI colors on unsupported terminals."
+#: /cli/Application/Application.php:113
+msgid "Suppress ANSI colours on unsupported terminals."
 msgstr ""
 
-#: /cli/Application/Application.php:137
+#: /cli/Application/Application.php:118
 msgid "Optionally log output to the specified log file."
 msgstr ""
 
-#: /cli/Application/Application.php:183
+#: /cli/Application/Application.php:145
 msgid "Joomla! Tracker CLI Application"
 msgstr ""
 
-#: /cli/Application/Application.php:210
+#: /cli/Application/Application.php:172
 #, php-format
 msgid "Invalid command: %s"
 msgstr ""
 
-#: /cli/Application/Application.php:217
+#: /cli/Application/Application.php:179
 msgid "Did you mean one of this?"
 msgstr ""
 
-#: /cli/Application/Application.php:246
+#: /cli/Application/Application.php:208
 msgid "Process aborted."
 msgstr ""
 
-#: /cli/Application/Application.php:253
+#: /cli/Application/Application.php:215
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr ""
@@ -100,9 +100,9 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Languagefiles.php:62
 #: /cli/Application/Command/Get/Project/Comments.php:61
 #: /cli/Application/Command/Get/Project/Events.php:75
-#: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr ""
 
@@ -167,16 +167,28 @@ msgstr ""
 msgid "Installed: %s"
 msgstr ""
 
-#: /cli/Application/Command/Get/Get.php:66
+#: /cli/Application/Command/Get/Get.php:84
 msgid "Retrieve Information from various sources."
 msgstr ""
 
-#: /cli/Application/Command/Get/Get.php:72
+#: /cli/Application/Command/Get/Get.php:90
 msgid "Process the project with the given ID."
 msgstr ""
 
-#: /cli/Application/Command/Get/Get.php:78
+#: /cli/Application/Command/Get/Get.php:96
 msgid "Don't use a progress bar."
+msgstr ""
+
+#: /cli/Application/Command/Get/Languagefiles.php:39
+msgid "Retrieve language files."
+msgstr ""
+
+#: /cli/Application/Command/Get/Languagefiles.php:51
+msgid "Get Translations"
+msgstr ""
+
+#: /cli/Application/Command/Get/Languagefiles.php:58
+msgid "Start fetching translations."
 msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:68
@@ -409,18 +421,6 @@ msgstr ""
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
 msgstr ""
 
-#: /cli/Application/Command/Get/Transifex.php:37
-msgid "Retrieve language files from Transifex."
-msgstr ""
-
-#: /cli/Application/Command/Get/Transifex.php:49
-msgid "Get Translations"
-msgstr ""
-
-#: /cli/Application/Command/Get/Transifex.php:56
-msgid "Start fetching translations."
-msgstr ""
-
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
 msgstr ""
@@ -519,21 +519,19 @@ msgstr ""
 msgid "An unknown error occurred"
 msgstr ""
 
-#: /cli/Application/Command/Update/Server.php:84
-#, php-format
-msgid "Could not read data from the %s SQL file, please update the database manually."
+#: /cli/Application/Command/Update/Languagefiles.php:46
+msgid "Updates language files on a translation service."
 msgstr ""
 
-#: /cli/Application/Command/Update/Server.php:106
-#, php-format
-msgid "SQL query failed, please verify the database structure and finish the update manually.  The database error message is: %s"
+#: /cli/Application/Command/Update/Server.php:32
+msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
 msgstr ""
 
-#: /cli/tracker.php:54
+#: /cli/tracker.php:100 /cli/tracker.php:129
 #, php-format
 msgid "ERROR: %s"
 msgstr ""
 
-#: /cli/tracker.php:56
+#: /cli/tracker.php:102 /cli/tracker.php:131
 msgid "Call stack:"
 msgstr ""
