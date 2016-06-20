@@ -8,7 +8,6 @@
 
 namespace Application\Command\Database;
 
-use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
 /**
@@ -16,7 +15,7 @@ use Application\Command\TrackerCommandOption;
  *
  * @since  1.0
  */
-class Migrate extends TrackerCommand
+class Migrate extends Database
 {
 	/**
 	 * Constructor.
@@ -25,6 +24,8 @@ class Migrate extends TrackerCommand
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
 		$this->description = g11n3t('Migrate the database schema to a newer version.');
 
 		$this->addOption(
@@ -63,11 +64,9 @@ class Migrate extends TrackerCommand
 				['exception' => $exception]
 			);
 
-			$message = g11n3t(
-				sprintf(
-					'Error migrating database: %s',
-					$exception->getMessage()
-				)
+			$message = sprintf(
+				g11n3t('Error migrating database: %s'),
+				$exception->getMessage()
 			);
 
 			$this->getApplication()->out("<error>$message</error>");
@@ -76,6 +75,6 @@ class Migrate extends TrackerCommand
 
 		$this->getLogger()->info('Database migrated to latest version.');
 
-		$this->getApplication()->out('<info>' . g11n3t('Database migrated to latest version.') . '</info>');
+		$this->getApplication()->out('<ok>' . g11n3t('Database migrated to latest version.') . '</ok>');
 	}
 }

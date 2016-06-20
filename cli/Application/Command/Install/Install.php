@@ -142,8 +142,7 @@ class Install extends TrackerCommand
 				continue;
 			}
 
-			$this->db->setQuery('DROP TABLE IF EXISTS ' . $table)
-				->execute();
+			$this->db->dropTable($table, true);
 			$this->out('.', false);
 		}
 
@@ -203,7 +202,7 @@ class Install extends TrackerCommand
 			$this->out('.', false);
 		}
 
-		$this->outOk();
+		$this->outOK();
 
 		return $this;
 	}

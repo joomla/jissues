@@ -115,7 +115,7 @@ class Languagefiles extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
-		$this->out(sprintf('Processing: %s %s... ', $domain, $extension), false);
+		$this->out(sprintf(g11n3t('Processing: %1$s %2$s... '), $domain, $extension), false);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
 		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
@@ -154,6 +154,7 @@ class Languagefiles extends Get
 					{
 						throw new \Exception('Could not store language file at: ' . str_replace(JPATH_ROOT, '', $path));
 					}
+
 					break;
 
 				case 'crowdin':

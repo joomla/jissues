@@ -18,12 +18,16 @@ use PHPUnit_TextUI_Command;
 class Phpunit extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Run PHPUnit tests';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Run PHPUnit tests.');
+	}
 
 	/**
 	 * Execute the command.
@@ -34,7 +38,7 @@ class Phpunit extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Test PHPUnit');
+		$this->getApplication()->outputTitle(g11n3t('Test PHPUnit'));
 
 		$command = new PHPUnit_TextUI_Command;
 
@@ -48,8 +52,8 @@ class Phpunit extends Test
 			->out()
 			->out(
 			$returnVal
-				? '<error> Finished with errors. </error>'
-				: '<ok>Success</ok>'
+				? '<error>' . g11n3t('Finished with errors.') . '</error>'
+				: '<ok>' . g11n3t('Success') . '</ok>'
 		);
 
 		if ($this->exit)

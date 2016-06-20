@@ -19,12 +19,16 @@ use League\Flysystem\Filesystem;
 class Twig extends Clear
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Clear the Twig cache.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Clear the Twig cache.');
+	}
 
 	/**
 	 * Execute the command.
@@ -35,11 +39,11 @@ class Twig extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Clear Twig cache dir');
+		$this->getApplication()->outputTitle(g11n3t('Clear Twig Cache Directory'));
 
 		if (!$this->getApplication()->get('renderer.cache', false))
 		{
-			$this->out('Twig caching is not enabled.');
+			$this->out('<info>' . g11n3t('Twig caching is not enabled.') . '</info>');
 
 			return;
 		}
@@ -57,6 +61,6 @@ class Twig extends Clear
 		}
 
 		$this->out()
-			->out('The Twig cache directory has been cleared.');
+			->out('<ok>' . g11n3t('The Twig cache directory has been cleared.') . '</ok>');
 	}
 }

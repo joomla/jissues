@@ -22,20 +22,22 @@ use Joomla\Application\Cli\ColorStyle;
 class Help extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Displays helpful information.';
-
-	/**
 	 * Array containing the available commands
 	 *
 	 * @var    array
 	 * @since  1.0
 	 */
 	private $commands = array();
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->description = g11n3t('Displays helpful information');
+	}
 
 	/**
 	 * Execute the command.

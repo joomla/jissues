@@ -35,7 +35,7 @@ class Server extends Update
 		$this->addOption(
 			new TrackerCommandOption(
 				'version', 'v',
-				'An optional version number to update to.'
+				g11n3t('An optional version number to update to.')
 			)
 		);
 	}
@@ -85,11 +85,12 @@ class Server extends Update
 			->setContainer($this->getContainer())
 			->execute();
 
-		$this->logOut($message);
-
 		(new Repoinfo)
 			->setContainer($this->getContainer())
 			->execute();
+
+		$this->logOut($message);
+		$this->out("<info>$message</info>");
 
 		$this->logOut('Update Finished');
 	}

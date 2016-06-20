@@ -363,7 +363,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	public function displayGitHubRateLimit()
 	{
 		$this->out()
-			->out('<info>GitHub rate limit:...</info> ', false);
+			->out('<info>' . g11n3t('GitHub rate limit:...') . '</info> ', false);
 
 		$rate = $this->container->get('gitHub')->authorization->getRateLimit()->resources->core;
 

@@ -38,15 +38,7 @@ class Depfile extends Make
 	 * @var    array
 	 * @since  1.0
 	 */
-	public $dependencies = array();
-
-	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Create and update a dependency file.';
+	public $dependencies = [];
 
 	/**
 	 * Constructor.
@@ -57,10 +49,12 @@ class Depfile extends Make
 	{
 		parent::__construct();
 
+		$this->description = g11n3t('Create and update a dependency file.');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'file', 'f',
-				'Write output to a file.'
+				g11n3t('Write output to a file.')
 			)
 		);
 	}
@@ -129,7 +123,7 @@ class Depfile extends Make
 
 		if ($fileName)
 		{
-			$this->out('Writing contents to: ' . $fileName);
+			$this->out(sprintf(g11n3t('Writing contents to: %s'), $fileName));
 
 			file_put_contents($fileName, $contents);
 		}
@@ -263,7 +257,7 @@ class Depfile extends Make
 
 					if (false == file_exists($path))
 					{
-						$this->out(sprintf('Language file not found %s, %s, %s', $langTag, $extension, $domain));
+						$this->out(sprintf(g11n3t('Language file not found %1$s, %2$s, %3$s'), $langTag, $extension, $domain));
 
 						continue;
 					}

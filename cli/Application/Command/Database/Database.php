@@ -18,12 +18,16 @@ use Application\Command\TrackerCommand;
 class Database extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'This will track the database status.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('This will track the database status.');
+	}
 
 	/**
 	 * Execute the command.

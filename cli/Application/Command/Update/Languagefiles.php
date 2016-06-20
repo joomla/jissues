@@ -48,19 +48,19 @@ class Languagefiles extends Update
 		$this->addOption(
 			new TrackerCommandOption(
 				'provider', '',
-				'The translation service provider to use.'
+				g11n3t('The translation service provider to use.')
 			)
 		)
 			->addOption(
 				new TrackerCommandOption(
 					'create', '',
-					'Flag if resources should be created.'
+					g11n3t('Flag if resources should be created.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'translations', '',
-					'Flag if translations should be uploaded.'
+					g11n3t('Flag if translations should be uploaded.')
 				)
 			);
 	}
@@ -74,7 +74,7 @@ class Languagefiles extends Update
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Update Translations');
+		$this->getApplication()->outputTitle(g11n3t('Update Translations'));
 
 		$this->languages = $this->getApplication()->get('languages');
 

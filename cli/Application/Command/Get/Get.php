@@ -93,7 +93,7 @@ class Get extends TrackerCommand
 			->addOption(
 				new TrackerCommandOption(
 					'noprogress', '',
-					g11n3t('Don\'t use a progress bar.')
+					g11n3t("Don't use a progress bar.")
 				)
 			);
 	}

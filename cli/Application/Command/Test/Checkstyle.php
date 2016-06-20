@@ -18,12 +18,16 @@ use PHP_CodeSniffer_CLI;
 class Checkstyle extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Run PHP CodeSniffer tests';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Run PHP CodeSniffer tests.');
+	}
 
 	/**
 	 * Execute the command.
@@ -35,7 +39,7 @@ class Checkstyle extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Test Checkstyle');
+		$this->getApplication()->outputTitle(g11n3t('Test Checkstyle'));
 
 		$options = array();
 

@@ -178,7 +178,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 		$this->getApplication()->outputTitle(sprintf(g11n3t('Command: %s'), ucfirst($command)));
 
-		$errorTitle1 = g11n3t(sprintf('Missing option for command: %s', $command));
+		$errorTitle1 = sprintf(g11n3t('Missing option for command: %s'), $command);
 		$errorTitle2 = g11n3t('Please use one of the following :');
 
 		$maxLen = (strlen($errorTitle1) > strlen($errorTitle2)) ? strlen($errorTitle1) : strlen($errorTitle2);

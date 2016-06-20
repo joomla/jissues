@@ -21,17 +21,9 @@ use Clue\GraphComposer\Graph\GraphComposer;
 class Composergraph extends Make
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Graph visualization for your project\'s composer.json and its dependencies.';
-
-	/**
 	 * The GraphComposer object.
 	 *
-	 * @var GraphComposer
+	 * @var    GraphComposer
 	 * @since  1.0
 	 */
 	protected $graph = null;
@@ -45,17 +37,19 @@ class Composergraph extends Make
 	{
 		parent::__construct();
 
+		$this->description = g11n3t("Graph visualization for your project's composer.json and its dependencies.");
+
 		$this
 			->addOption(
 				new TrackerCommandOption(
 					'file', 'f',
-					'Write output to a file.'
+					g11n3t('Write output to a file.')
 				)
 			)
 			->addOption(
 				new TrackerCommandOption(
 					'format', '',
-					'The image type.'
+					g11n3t('The image type.')
 				)
 			);
 	}
@@ -69,7 +63,7 @@ class Composergraph extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make Composer graph');
+		$this->getApplication()->outputTitle(g11n3t('Make Composer graph'));
 
 		$this->graph = new GraphComposer(JPATH_ROOT);
 
@@ -105,7 +99,7 @@ class Composergraph extends Make
 
 		$this->graph->displayGraph();
 
-		return $this->out(sprintf('The graph has been created.'));
+		return $this->out(g11n3t('The graph has been created.'));
 	}
 
 	/**
@@ -143,7 +137,7 @@ class Composergraph extends Make
 
 		rename($path, $filePath);
 
-		return $this->out(sprintf('The file has been written to <fg=green>%s</fg=green>', realpath($filePath)));
+		return $this->out(sprintf(g11n3t('The file has been written to %s'), '<fg=green>' . realpath($filePath) . '</fg=green>'));
 	}
 
 	/**
@@ -160,7 +154,7 @@ class Composergraph extends Make
 		if ($format)
 		{
 			$this->graph->setFormat($format);
-			$this->debugOut(sprintf('Format has been set to <b>%s</b>', $format));
+			$this->debugOut(sprintf(g11n3t('Format has been set to %s'), '<b>' . $format . '</b>'));
 		}
 
 		return $this;

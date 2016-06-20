@@ -122,7 +122,7 @@ class Project extends Get
 			->displayGitHubRateLimit()
 			->out(
 				sprintf(
-					g11n3t('Updating project info for project: %s/%s'),
+					g11n3t('Updating project info for project: %1$s/%2$s'),
 					$this->project->gh_user,
 					$this->project->gh_project
 				)

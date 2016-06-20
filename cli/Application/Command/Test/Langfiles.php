@@ -23,12 +23,23 @@ use PHP_CodeSniffer_File;
 class Langfiles extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Check language files';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Check language files');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'project', 'p',
+				g11n3t('Process the project with the given ID.')
+			)
+		);
+	}
 
 	/**
 	 * Execute the command.
@@ -40,7 +51,7 @@ class Langfiles extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Check language files');
+		$this->getApplication()->outputTitle(g11n3t('Check language files'));
 
 		LanguageHelper::addDomainPaths();
 
@@ -78,7 +89,7 @@ class Langfiles extends Test
 					if ("\n" != PHP_CodeSniffer_File::detectLineEndings($path))
 					{
 						$this->out($path)
-							->out('<error> The file does not have UNIX style line endings ! </error>')
+							->out('<error>' . g11n3t('The file does not have UNIX style line endings!') . '</error>')
 							->out();
 
 						continue;
@@ -103,8 +114,8 @@ class Langfiles extends Test
 
 		$this->out(
 			$errors
-			? '<error> There have been errors. </error>'
-			: '<ok>Language file syntax OK</ok>'
+			? '<error>' . g11n3t('There have been errors.') . '</error>'
+			: '<ok>' . g11n3t('Language file syntax OK') . '</ok>'
 		);
 
 		if ($this->exit)

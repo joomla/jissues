@@ -26,10 +26,10 @@ class Langfiles extends Export
 	/**
 	 * List of supported languages.
 	 *
-	 * @var array
+	 * @var    array
 	 * @since  1.0
 	 */
-	private $languages = array();
+	private $languages = [];
 
 	/**
 	 * Constructor.
@@ -40,7 +40,7 @@ class Langfiles extends Export
 	{
 		parent::__construct();
 
-		$this->description = 'Backup language files to a given folder.';
+		$this->description = g11n3t('Backup language files to a given folder.');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Langfiles extends Export
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Export language files');
+		$this->getApplication()->outputTitle(g11n3t('Export language files'));
 
 		$this->setup()
 			->logOut('Start exporting language files.')
@@ -121,7 +121,7 @@ class Langfiles extends Export
 
 		$filesystem = new Filesystem(new Local($this->exportDir . '/' . $domainBase . '/' . $extension . '/' . $g11nPath));
 
-		$this->out(sprintf('Processing %s %s:... ', $domain, $extension), false);
+		$this->out(sprintf(g11n3t('Processing %1$s %2$s:... '), $domain, $extension), false);
 
 		// Process language templates
 		if ($templates)
@@ -167,7 +167,7 @@ class Langfiles extends Export
 			}
 		}
 
-		$this->out('ok');
+		$this->outOK();
 
 		return $this;
 	}

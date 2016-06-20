@@ -8,14 +8,12 @@
 
 namespace Application\Command\Database;
 
-use Application\Command\TrackerCommand;
-
 /**
  * CLI command for checking the database migration status
  *
  * @since  1.0
  */
-class Status extends TrackerCommand
+class Status extends Database
 {
 	/**
 	 * Constructor.
@@ -24,6 +22,8 @@ class Status extends TrackerCommand
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
 		$this->description = g11n3t('Check the database migration status.');
 	}
 
@@ -45,7 +45,7 @@ class Status extends TrackerCommand
 
 		if ($status['latest'])
 		{
-			$this->getApplication()->out('<fg=green;options=bold>Your database is up-to-date.</fg=green;options=bold>');
+			$this->getApplication()->out('<ok>' . g11n3t('Your database is up-to-date.') . '</ok>');
 		}
 		else
 		{
@@ -62,10 +62,10 @@ class Status extends TrackerCommand
 				. '</comment>'
 			)
 				->out()
-				->out('<comment>' . g11n3t(sprintf('Current Version: %1$s', $status['currentVersion'])) . '</comment>')
-				->out('<comment>' . g11n3t(sprintf('Latest Version: %1$s', $status['latestVersion'])) . '</comment>')
+				->out('<comment>' . sprintf(g11n3t('Current Version: %1$s'), $status['currentVersion']) . '</comment>')
+				->out('<comment>' . sprintf(g11n3t('Latest Version: %1$s'), $status['latestVersion']) . '</comment>')
 				->out()
-				->out(g11n3t(sprintf('To update, run the %1$s command.', '<question>database:migrate</question>')));
+				->out(sprintf(g11n3t('To update, run the %1$s command.'), '<question>database:migrate</question>'));
 		}
 	}
 }

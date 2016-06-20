@@ -8,6 +8,7 @@
 
 namespace Application\Command\Test;
 
+use SebastianBergmann\PHPLOC\CLI\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 
 /**
@@ -18,12 +19,16 @@ use Symfony\Component\Console\Input\ArrayInput;
 class Phploc extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Run Lines Of Code (LOC) for PHP code.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Run Lines Of Code (LOC) for PHP code.');
+	}
 
 	/**
 	 * Execute the command.
@@ -35,9 +40,9 @@ class Phploc extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Run PHP Lines Of Code');
+		$this->getApplication()->outputTitle(g11n3t('Run PHP Lines Of Code'));
 
-		$application = new \SebastianBergmann\PHPLOC\CLI\Application;
+		$application = new Application;
 
 		$application->setAutoExit(false);
 
