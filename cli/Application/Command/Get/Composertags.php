@@ -55,6 +55,7 @@ class Composertags extends Get
 
 		if (!$packages)
 		{
+			// TRANSLATORS: %s refers to a file system path.
 			throw new \UnexpectedValueException(sprintf(g11n3t('Can not read the packages file at %s'), $path));
 		}
 

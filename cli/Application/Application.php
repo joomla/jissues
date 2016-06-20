@@ -110,7 +110,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'nocolors', '',
-			g11n3t('Suppress ANSI colors on unsupported terminals.')
+			g11n3t('Suppress ANSI colours on unsupported terminals.')
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
