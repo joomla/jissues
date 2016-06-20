@@ -8,6 +8,7 @@
 
 namespace Application\Command\Update;
 
+use Application\Command\Clear\Twig;
 use Application\Command\Database\Migrate;
 use Application\Command\Make\Repoinfo;
 use Application\Command\TrackerCommandOption;
@@ -76,6 +77,11 @@ class Server extends Update
 
 		// Execute the database migrations (if any) for this version
 		(new Migrate)
+			->setContainer($this->getContainer())
+			->execute();
+
+		// Flush the Twig cache
+		(new Twig)
 			->setContainer($this->getContainer())
 			->execute();
 
