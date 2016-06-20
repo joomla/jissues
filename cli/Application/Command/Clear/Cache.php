@@ -39,7 +39,7 @@ class Cache extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n('Clear g11n Cache Directory'));
+		$this->getApplication()->outputTitle(g11n3t('Clear g11n Cache Directory'));
 
 		$this->logOut(sprintf('Cleaning the cache dir in "%s"', ExtensionHelper::getCacheDir()));
 
