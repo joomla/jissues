@@ -114,7 +114,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'--log=filename.log', '',
+			'log=filename.log', '',
 			g11n3t('Optionally log output to the specified log file.')
 		);
 
