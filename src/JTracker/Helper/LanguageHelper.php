@@ -141,7 +141,7 @@ abstract class LanguageHelper
 	 */
 	public static function getLanguageTagByCode($languageCode)
 	{
-		return  array_key_exists($languageCode, static::$languages) ? static::$languages[$languageCode] : '';
+		return  array_key_exists($languageCode, static::$languages) ? static::$languages[$languageCode]['iso'] : '';
 	}
 
 	/**
