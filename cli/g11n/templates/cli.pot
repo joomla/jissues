@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-20 11:16-0500\n"
+"POT-Creation-Date: 2016-06-21 11:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,6 +61,10 @@ msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:30
 msgid "Clear the g11n language directory."
+msgstr ""
+
+#: /cli/Application/Command/Clear/Cache.php:42
+msgid "Clear g11n Cache Directory"
 msgstr ""
 
 #: /cli/Application/Command/Clear/Cache.php:49
@@ -512,6 +516,58 @@ msgstr ""
 msgid "Displays helpful information"
 msgstr ""
 
+#: /cli/Application/Command/Help/Help.php:71
+#, php-format
+msgid "<b>Usage</b>: %s"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:71
+#: /cli/Application/Command/Help/Help.php:94
+msgid "command"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:71
+msgid "options"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:78
+msgid "Available commands:"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:94
+#, php-format
+msgid "<b>For more information use</b>: %s"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:101
+msgid "Application command <opt>options</opt>"
+msgstr ""
+
+#. TRANSLATORS: %s refers to a command name
+#: /cli/Application/Command/Help/Help.php:125
+#, php-format
+msgid "Unknown: %s"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:135
+#: /cli/Application/Command/TrackerCommand.php:179
+#, php-format
+msgid "Command: %s"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:135
+msgid "action"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:142
+#: /cli/Application/Command/Help/Help.php:165
+msgid "Available options:"
+msgstr ""
+
+#: /cli/Application/Command/Help/Help.php:153
+msgid "Available <cmd>actions</cmd>:"
+msgstr ""
+
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
 msgstr ""
@@ -804,11 +860,6 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
-msgstr ""
-
-#: /cli/Application/Command/TrackerCommand.php:179
-#, php-format
-msgid "Command: %s"
 msgstr ""
 
 #: /cli/Application/Command/TrackerCommand.php:181
