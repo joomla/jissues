@@ -35,6 +35,116 @@ abstract class LanguageHelper
 	];
 
 	/**
+	 * List of known languages.
+	 *
+	 * @var array
+	 */
+	private static $languages = [
+		'ca-ES' => [
+			'iso' => 'cat',
+			'name' => 'Catalan',
+			'display' => 'Català'
+		],
+		'da-DK' => [
+			'iso' => 'dk',
+			'name' => 'Danish',
+			'display' => 'Dansk'
+		],
+		'de-DE' => [
+			'iso' => 'de',
+			'name' => 'German',
+			'display' => 'Deutsch'
+		],
+		'en-GB' => [
+			'iso' => 'uk',
+			'name' => 'English',
+			'display' => 'English'
+		],
+		'es-ES' => [
+			'iso' => 'es',
+			'name' => 'Spanish',
+			'display' => 'Español'
+		],
+		'et-EE' => [
+			'iso' => 'ee',
+			'name' => 'Estonian',
+			'display' => 'Eesti'
+		],
+		'fr-FR' => [
+			'iso' => 'fr',
+			'name' => 'French',
+			'display' => 'Français'
+		],
+		'hu-HU' => [
+			'iso' => 'hu',
+			'name' => 'Hungarian',
+			'display' => 'Magyar'
+		],
+		'it-IT' => [
+			'iso' => 'it',
+			'name' => 'Italian',
+			'display' => 'Italiano'
+		],
+		'lv-LV' => [
+			'iso' => 'lv',
+			'name' => 'Latvian',
+			'display' => 'Latviešu valoda'
+		],
+		'nb-NO' => [
+			'iso' => 'no',
+			'name' => 'Norwegian',
+			'display' => 'Norsk'
+		],
+		'nl-NL' => [
+			'iso' => 'nl',
+			'name' => 'Dutch',
+			'display' => 'Nederlands'
+		],
+		'pl-PL' => [
+			'iso' => 'pl',
+			'name' => 'Polish',
+			'display' => 'Język polski'
+		],
+		'pt-BR' => [
+			'iso' => 'br',
+			'name' => 'Portuguese Brazil',
+			'display' => 'Português Brazil'
+		],
+		'pt-PT' => [
+			'iso' => 'pt',
+			'name' => 'Portuguese',
+			'display' => 'Português'
+		],
+		'ro-RO' => [
+			'iso' => 'ro',
+			'name' => 'Romanian',
+			'display' => 'Limba română'
+		],
+		'ru-RU' => [
+			'iso' => 'ru',
+			'name' => 'Russian',
+			'display' => 'Русский'
+		],
+		'zh-CN' => [
+			'iso' => 'cn',
+			'name' => 'Chinese',
+			'display' => '中文 (Zhōngwén)'
+		]
+	];
+
+	/**
+	 * Get a language tag by code.
+	 *
+	 * @param   string  $languageCode  The language code.
+	 *
+	 * @return string
+	 */
+	public static function getLanguageTagByCode($languageCode)
+	{
+		return  array_key_exists($languageCode, static::$languages) ? static::$languages[$languageCode] : '';
+	}
+
+	/**
 	 * Get a valid Crowdin language tag.
 	 *
 	 * @param   string  $language  The "normal" language tag.
@@ -74,5 +184,25 @@ abstract class LanguageHelper
 			'CLI' => ['cli'],
 			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths)->listPaths()
 		];
+	}
+
+	/**
+	 * Get an array with language codes (e.g. en-GB)
+	 *
+	 * @return array
+	 */
+	public static function getLanguageCodes()
+	{
+		return array_keys(self::$languages);
+	}
+
+	/**
+	 * Get an array containing information about languages.
+	 *
+	 * @return array
+	 */
+	public static function getLanguages()
+	{
+		return self::$languages;
 	}
 }
