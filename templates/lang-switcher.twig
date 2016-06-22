@@ -5,15 +5,15 @@
 
 <li class="pull-right lang-select dropdown-toggle">
     <div id="lang-switcher" class="ui floating dropdown labeled search icon button">
-        <img class="lang-icon" src="{{ uri.base.path }}images/flags/{{ lang }}.gif" alt="{{ lang }}" title="{{ lang }}"/>
+        <img src="{{ uri.base.path }}media/img/1x1.png" class="flag flag-{{ lang }}" alt="{{ lang }}" title="{{ lang }}" />
         <span class="text">{{ "Select Language"|_ }}</span>
         <span class="caret"></span>
         <div class="menu">
-            {% for l in languages %}
-                {% if l != lang %}
-                    <a class="item" href="{{ baseURI }}?lang={{ l }}" title="{{ l }}">
-                        <img src="{{ uri.base.path }}images/flags/{{ l }}.gif" />
-                        {{ l }}
+            {% for tag, l in languages %}
+                {% if tag != lang %}
+                    <a class="item" href="{{ baseURI }}?lang={{ tag }}" title="{{ l['name'] }}">
+                        <img src="{{ uri.base.path }}media/img/1x1.png" class="flag flag-{{ tag }}" />
+                        {{ l['display'] }}
                     </a>
                 {% endif %}
             {% endfor %}
