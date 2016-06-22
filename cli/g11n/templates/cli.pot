@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-21 11:16-0500\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -649,7 +649,7 @@ msgid "Writing contents to: %s"
 msgstr ""
 
 #: /cli/Application/Command/Make/Composergraph.php:40
-msgid "Graph visualization for your project's composer.json and its dependencies."
+msgid "Graph visualisation for your project's composer.json and its dependencies."
 msgstr ""
 
 #: /cli/Application/Command/Make/Composergraph.php:46
@@ -767,6 +767,32 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Langtemplates.php:338
 msgid "Your template has been created"
+msgstr ""
+
+#: /cli/Application/Command/Make/Languageflags.php:36
+msgid "Full path to the combined image file."
+msgstr ""
+
+#: /cli/Application/Command/Make/Languageflags.php:42
+msgid "Full path to the CSS file."
+msgstr ""
+
+#: /cli/Application/Command/Make/Languageflags.php:46
+msgid "Compile multiple images into a big one (CSS spriting)."
+msgstr ""
+
+#: /cli/Application/Command/Make/Languageflags.php:58
+msgid "Compile Language flag images"
+msgstr ""
+
+#: /cli/Application/Command/Make/Languageflags.php:111
+#, php-format
+msgid "Generating the combined image for %1$d flag images in %2$s"
+msgstr ""
+
+#: /cli/Application/Command/Make/Languageflags.php:117
+#, php-format
+msgid "Writing the CSS file to %s"
 msgstr ""
 
 #: /cli/Application/Command/Make/Make.php:36
