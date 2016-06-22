@@ -76,7 +76,7 @@ class Languagefiles extends Update
 	{
 		$this->getApplication()->outputTitle(g11n3t('Update Translations'));
 
-		$this->languages = $this->getApplication()->get('languages');
+		$this->languages = LanguageHelper::getLanguageCodes();
 
 		$this->logOut('Start pushing translations.')
 			->setupLanguageProvider()

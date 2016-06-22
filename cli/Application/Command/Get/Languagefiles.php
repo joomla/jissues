@@ -50,10 +50,7 @@ class Languagefiles extends Get
 	{
 		$this->getApplication()->outputTitle(g11n3t('Get Translations'));
 
-		$this->languages = $this->getApplication()->get('languages');
-
-		// Remove English from the language array
-		unset($this->languages[0]);
+		$this->languages = LanguageHelper::getLanguageCodes();
 
 		$this->logOut(g11n3t('Start fetching translations.'))
 			->setupLanguageProvider()

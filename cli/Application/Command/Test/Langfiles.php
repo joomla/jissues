@@ -48,7 +48,7 @@ class Langfiles extends Test
 
 		LanguageHelper::addDomainPaths();
 
-		$languages = $this->getApplication()->get('languages');
+		$languages = LanguageHelper::getLanguageCodes();
 
 		$languages[] = 'templates';
 

@@ -29,6 +29,7 @@ use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
+use JTracker\Helper\LanguageHelper;
 
 /**
  * CLI application for installing the tracker application
@@ -413,18 +414,20 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	 */
 	protected function loadLanguage()
 	{
+		$languages = LanguageHelper::getLanguageCodes();
+
 		// Get the language tag from user input.
 		$lang = $this->input->get('lang');
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
 				$lang = g11n::getDefault();
 			}
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';
@@ -434,7 +437,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		{
 			$lang = g11n::getCurrent();
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown current language - Fall back to British.
 				$lang = 'en-GB';

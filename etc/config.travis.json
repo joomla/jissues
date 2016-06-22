@@ -47,7 +47,5 @@
 		"logging" : "1",
 		"log-path": "logs",
 		"template": "0"
-	},
-
-	"languages": []
+	}
 }

@@ -69,27 +69,6 @@
 		"github"  : "0"
 	},
 
-	"languages": [
-		"ca-ES",
-		"da-DK",
-		"de-DE",
-		"en-GB",
-		"es-ES",
-		"et-EE",
-		"fr-FR",
-		"hu-HU",
-		"it-IT",
-		"lv-LV",
-		"nb-NO",
-		"nl-NL",
-		"pl-PL",
-		"pt-BR",
-		"pt-PT",
-		"ro-RO",
-		"ru-RU",
-		"zh-CN"
-	],
-
 	"validation": {
 		"mime_types": [
 			"image/png",

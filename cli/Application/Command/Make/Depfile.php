@@ -232,7 +232,7 @@ class Depfile extends Make
 
 		LanguageHelper::addDomainPaths();
 
-		$langTags = $this->getApplication()->get('languages');
+		$langTags = LanguageHelper::getLanguageCodes();
 		$noEmail = $this->getApplication()->input->get('noemail');
 
 		foreach ($langTags as $langTag)

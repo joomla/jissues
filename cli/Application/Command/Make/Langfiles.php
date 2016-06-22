@@ -57,7 +57,7 @@ class Langfiles extends Make
 
 		LanguageHelper::addDomainPaths();
 
-		$languages = $this->getApplication()->get('languages');
+		$languages = LanguageHelper::getLanguageCodes();
 
 		$reqExtension = $this->getApplication()->input->getCmd('extension');
 

@@ -28,6 +28,7 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Helper\LanguageHelper;
 use JTracker\Router\Exception\RoutingException;
 
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -319,18 +320,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	protected function loadLanguage()
 	{
+		$languages = LanguageHelper::getLanguageCodes();
+
 		// Get the language tag from user input.
 		$lang = $this->input->get('lang');
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
 				$lang = g11n::getDefault();
 			}
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';

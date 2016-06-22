@@ -54,7 +54,7 @@ class Langfiles extends Export
 	{
 		parent::setup();
 
-		$this->languages = $this->getApplication()->get('languages');
+		$this->languages = LanguageHelper::getLanguageCodes();
 
 		return $this;
 	}
