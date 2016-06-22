@@ -44,7 +44,7 @@ class Refresh extends AbstractTrackerController
 			if ($application->getUser()->id != $id)
 			{
 				$application->enqueueMessage(
-					g11n3t('You are not authorized to refresh this user.'), 'error'
+					g11n3t('You are not authorised to refresh this user.'), 'error'
 				)
 					->redirect(
 					$application->get('uri.base.path') . 'user/' . $id
