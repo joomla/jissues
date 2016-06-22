@@ -44,7 +44,7 @@ class Save extends AbstractTrackerController
 			if ($application->getUser()->id != $src['id'])
 			{
 				$application->enqueueMessage(
-					g11n3t('You are not authorized to edit this user.'), 'error'
+					g11n3t('You are not authorised to edit this user.'), 'error'
 				);
 
 				$application->redirect(
