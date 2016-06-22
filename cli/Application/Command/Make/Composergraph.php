@@ -37,7 +37,7 @@ class Composergraph extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t("Graph visualization for your project's composer.json and its dependencies.");
+		$this->description = g11n3t("Graph visualisation for your project's composer.json and its dependencies.");
 
 		$this
 			->addOption(
