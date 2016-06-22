@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-21 11:16-0500\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -280,7 +280,7 @@ msgstr ""
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
-msgid "Color"
+msgid "Colour"
 msgstr ""
 
 #: /templates/tracker/tpl/activities.twig:24
@@ -690,11 +690,11 @@ msgid "The length of the alias can not exceed 150 characters."
 msgstr ""
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
-msgid "Color should be the hex value."
+msgid "Colour should be the hex value."
 msgstr ""
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
-msgid "Issue id is needed"
+msgid "Issue ID is needed"
 msgstr ""
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57

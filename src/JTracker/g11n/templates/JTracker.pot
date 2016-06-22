@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-21 11:16-0500\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,136 +26,136 @@ msgstr ""
 msgid "Last"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:240
+#: /src/JTracker/View/Renderer/TrackerExtension.php:241
 msgid "Critical"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:241
+#: /src/JTracker/View/Renderer/TrackerExtension.php:242
 msgid "Urgent"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:242
+#: /src/JTracker/View/Renderer/TrackerExtension.php:243
 msgid "Medium"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:243
+#: /src/JTracker/View/Renderer/TrackerExtension.php:244
 msgid "Low"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:244
+#: /src/JTracker/View/Renderer/TrackerExtension.php:245
 msgid "Very low"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:288
+#: /src/JTracker/View/Renderer/TrackerExtension.php:289
 msgid "Duplicate of"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:289
+#: /src/JTracker/View/Renderer/TrackerExtension.php:290
 msgid "Related to"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:290
+#: /src/JTracker/View/Renderer/TrackerExtension.php:291
 msgid "Not before"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:291
+#: /src/JTracker/View/Renderer/TrackerExtension.php:292
 msgid "Pull Request for"
-msgstr ""
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:349
-#: /src/JTracker/View/Renderer/TrackerExtension.php:372
-msgid "New"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:350
 #: /src/JTracker/View/Renderer/TrackerExtension.php:373
-msgid "Confirmed"
+msgid "New"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:351
 #: /src/JTracker/View/Renderer/TrackerExtension.php:374
-#: /src/JTracker/View/Renderer/TrackerExtension.php:621
-msgid "Pending"
+msgid "Confirmed"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:352
 #: /src/JTracker/View/Renderer/TrackerExtension.php:375
-msgid "Ready To Commit"
+#: /src/JTracker/View/Renderer/TrackerExtension.php:622
+msgid "Pending"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:353
 #: /src/JTracker/View/Renderer/TrackerExtension.php:376
-msgid "Needs Review"
+msgid "Ready To Commit"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:354
 #: /src/JTracker/View/Renderer/TrackerExtension.php:377
-msgid "Information Required"
+msgid "Needs Review"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:360
+#: /src/JTracker/View/Renderer/TrackerExtension.php:355
 #: /src/JTracker/View/Renderer/TrackerExtension.php:378
-msgid "Fixed in Code Base"
+msgid "Information Required"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:361
 #: /src/JTracker/View/Renderer/TrackerExtension.php:379
-msgid "Unconfirmed Report"
+msgid "Fixed in Code Base"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:362
 #: /src/JTracker/View/Renderer/TrackerExtension.php:380
-msgid "No Reply"
+msgid "Unconfirmed Report"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:363
 #: /src/JTracker/View/Renderer/TrackerExtension.php:381
-msgid "Closed"
+msgid "No Reply"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:364
 #: /src/JTracker/View/Renderer/TrackerExtension.php:382
-msgid "Expected Behaviour"
+msgid "Closed"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:365
 #: /src/JTracker/View/Renderer/TrackerExtension.php:383
-msgid "Known Issue"
+msgid "Expected Behaviour"
 msgstr ""
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:366
 #: /src/JTracker/View/Renderer/TrackerExtension.php:384
+msgid "Known Issue"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:367
+#: /src/JTracker/View/Renderer/TrackerExtension.php:385
 msgid "Duplicate Report"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:556
+#: /src/JTracker/View/Renderer/TrackerExtension.php:557
 msgid "No"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:556
+#: /src/JTracker/View/Renderer/TrackerExtension.php:557
 msgid "Yes"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:618
+#: /src/JTracker/View/Renderer/TrackerExtension.php:619
 msgid "Success"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:624
+#: /src/JTracker/View/Renderer/TrackerExtension.php:625
 msgid "Error"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:627
+#: /src/JTracker/View/Renderer/TrackerExtension.php:628
 msgid "Failure"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:691
+#: /src/JTracker/View/Renderer/TrackerExtension.php:692
 msgid "Not tested"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:692
+#: /src/JTracker/View/Renderer/TrackerExtension.php:693
 msgid "Tested successfully"
 msgstr ""
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:693
+#: /src/JTracker/View/Renderer/TrackerExtension.php:694
 msgid "Tested unsuccessfully"
 msgstr ""
