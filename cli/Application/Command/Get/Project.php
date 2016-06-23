@@ -15,6 +15,11 @@ use Application\Command\Get\Project\Labels;
 use Application\Command\Get\Project\Milestones;
 use Application\Command\TrackerCommandOption;
 
+use Joomla\Event\Dispatcher;
+use Joomla\Event\Event;
+
+use JTracker\Database\AbstractDatabaseTable;
+
 /**
  * Class for retrieving issues from GitHub for selected projects
  *
@@ -55,6 +60,22 @@ class Project extends Get
 	 * @since  1.0
 	 */
 	protected $force = false;
+
+	/**
+	 * The dispatcher object
+	 *
+	 * @var    Dispatcher
+	 * @since  1.0
+	 */
+	protected $dispatcher;
+
+	/**
+	 * Flag if the event listener is set for a hook
+	 *
+	 * @var    boolean
+	 * @since  1.0
+	 */
+	protected $listenerSet = false;
 
 	/**
 	 * Constructor.
@@ -348,5 +369,71 @@ class Project extends Get
 
 		return ($number >= $this->rangeFrom && $number <= $this->rangeTo)
 			? true : false;
+	}
+
+	/**
+	 * Registers the event listener for the current hook and project
+	 *
+	 * @param   string  $type  The event listener type.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function addEventListener($type)
+	{
+		/*
+		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
+		 * For example, the listener for a joomla-cms pull activity would be JoomlacmsPullsListener
+		 */
+		$baseClass = ucfirst(str_replace('-', '', $this->project->gh_project)) . ucfirst($type) . 'Listener';
+		$fullClass = 'App\\Tracker\\Controller\\Hooks\\Listeners\\' . $baseClass;
+
+		if (class_exists($fullClass))
+		{
+			$this->dispatcher->addListener(new $fullClass);
+			$this->listenerSet = true;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Triggers an event if a listener is set
+	 *
+	 * @param   string                 $eventName  Name of the event to trigger
+	 * @param   AbstractDatabaseTable  $table      Table object
+	 * @param   object                 $data       Data object
+	 * @param   array                  $optional   Associative array of optional arguments for the event
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function triggerEvent($eventName, AbstractDatabaseTable $table, $data, array $optional = array())
+	{
+		if ($this->listenerSet)
+		{
+			$event = new Event($eventName);
+
+			// Add the event params
+			$event->addArgument('hookData', $data)
+				->addArgument('table', $table)
+				->addArgument('github', $this->github)
+				->addArgument('logger', $this->getLogger())
+				->addArgument('project', $this->project);
+
+			// Add optional params if present
+			if (count($optional) > 0)
+			{
+				foreach ($optional as $name => $value)
+				{
+					$event->addArgument($name, $value);
+				}
+			}
+
+			// Trigger the event
+			$this->dispatcher->triggerEvent($event);
+		}
 	}
 }
