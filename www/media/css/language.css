@@ -1,8 +1,10 @@
 .flag {
-	width: 16px !important;
-	height: 10px !important;
+	width: 16px;
+	height: 10px;
 	background:url(../img/flags.png) no-repeat
 }
+
+.ui.dropdown .menu > .item > img.flag { width:16px; height:10px; }
 
 .flag.flag-ca-ES {background-position: 0 0}
 .flag.flag-da-DK {background-position: -16px 0}
