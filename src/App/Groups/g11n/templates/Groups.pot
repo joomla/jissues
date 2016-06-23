@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"POT-Creation-Date: 2016-06-23 08:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgid "Actions"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:35
-msgid "Id"
+msgid "ID"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:64
@@ -75,7 +75,7 @@ msgid "Delete"
 msgstr ""
 
 #: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
+msgid "No groups defined!"
 msgstr ""
 
 #: /templates/groups/group.edit.twig:6

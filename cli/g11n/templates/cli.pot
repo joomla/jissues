@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"POT-Creation-Date: 2016-06-23 08:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,45 +17,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
-#: /cli/Application/Application.php:103
+#: /cli/Application/Application.php:104
 msgid "Be quiet - suppress output."
 msgstr ""
 
-#: /cli/Application/Application.php:108
+#: /cli/Application/Application.php:109
 msgid "Verbose output for debugging purpose."
 msgstr ""
 
-#: /cli/Application/Application.php:113
+#: /cli/Application/Application.php:114
 msgid "Suppress ANSI colours on unsupported terminals."
 msgstr ""
 
-#: /cli/Application/Application.php:118
+#: /cli/Application/Application.php:119
 msgid "Optionally log output to the specified log file."
 msgstr ""
 
-#: /cli/Application/Application.php:145
+#: /cli/Application/Application.php:146
 msgid "Joomla! Tracker CLI Application"
 msgstr ""
 
-#: /cli/Application/Application.php:172
+#: /cli/Application/Application.php:173
 #, php-format
 msgid "Invalid command: %s"
 msgstr ""
 
-#: /cli/Application/Application.php:179
+#: /cli/Application/Application.php:180
 msgid "Did you mean one of this?"
 msgstr ""
 
-#: /cli/Application/Application.php:208
+#: /cli/Application/Application.php:209
 msgid "Process aborted."
 msgstr ""
 
-#: /cli/Application/Application.php:215
+#: /cli/Application/Application.php:216
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr ""
 
-#: /cli/Application/Application.php:366
+#: /cli/Application/Application.php:367
 msgid "GitHub rate limit:..."
 msgstr ""
 
@@ -177,7 +177,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:67
-#: /cli/Application/Command/Get/Languagefiles.php:62
+#: /cli/Application/Command/Get/Languagefiles.php:59
 #: /cli/Application/Command/Get/Project/Comments.php:61
 #: /cli/Application/Command/Get/Project/Events.php:75
 msgid "Finished."
@@ -271,11 +271,11 @@ msgstr ""
 msgid "Get Translations"
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:58
+#: /cli/Application/Command/Get/Languagefiles.php:55
 msgid "Start fetching translations."
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:118
+#: /cli/Application/Command/Get/Languagefiles.php:115
 #, php-format
 msgid "Processing: %1$s %2$s... "
 msgstr ""
@@ -581,11 +581,11 @@ msgid "Installer"
 msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:71
-msgid "WARNING: A database has been found !!"
+msgid "WARNING: A database has been found!"
 msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:73
-msgid "Do you want to reinstall ?"
+msgid "Do you want to reinstall?"
 msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:75
