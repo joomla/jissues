@@ -84,7 +84,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			'languageCodes'  => LanguageHelper::getLanguageCodes(),
 			'jdebug'         => JDEBUG,
 			'templateDebug'  => $this->app->get('debug.template', false),
-			'lang'           => $this->app->getUser()->params->get('language') ?: g11n::getCurrent(),
+			'lang'           => $this->app->getLanguageTag(),
 			'g11nJavaScript' => g11n::getJavaScript(),
 			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
