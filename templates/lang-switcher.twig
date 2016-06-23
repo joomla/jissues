@@ -11,7 +11,7 @@
         <div class="menu">
             {% for tag, l in languages %}
                 {% if tag != lang %}
-                    <a class="item" href="{{ baseURI }}?lang={{ tag }}" title="{{ l['name'] }}">
+                    <a class="item" href="{{ baseURI }}?lang={{ tag }}" title="{{ tag }}">
                         <img src="{{ uri.base.path }}media/img/1x1.png" class="flag flag-{{ tag }}" />
                         {{ l['display'] }}
                     </a>
