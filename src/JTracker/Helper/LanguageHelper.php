@@ -205,4 +205,24 @@ abstract class LanguageHelper
 	{
 		return self::$languages;
 	}
+
+	/**
+	 * Get an array containing information about languages.
+	 * Sorted by display name.
+	 *
+	 * @return array
+	 */
+	public static function getLanguagesSortedByDisplayName()
+	{
+		$languages = self::$languages;
+
+		uasort(
+			$languages, function($a, $b)
+			{
+				return strcmp($a['display'], $b['display']);
+			}
+		);
+
+		return $languages;
+	}
 }
