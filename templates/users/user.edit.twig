@@ -69,7 +69,7 @@
             <div class="control-group">
                 {{ fields.label('language', "Language"|_, 'control-label') }}
                 <div class="controls">
-                    {{ fields.selectequal('item[params][language]', languages, item.params.language ? item.params.language : lang, 'language', 'input-small-100') }}
+                    {{ fields.selectequal('item[params][language]', languageCodes, item.params.language ? item.params.language : lang, 'language', 'input-small-100') }}
                 </div>
             </div>
 

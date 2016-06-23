@@ -81,6 +81,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			'uri'            => $this->app->get('uri'),
 			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
 			'languages'      => LanguageHelper::getLanguages(),
+			'languageCodes'  => LanguageHelper::getLanguageCodes(),
 			'jdebug'         => JDEBUG,
 			'templateDebug'  => $this->app->get('debug.template', false),
 			'lang'           => $this->app->getUser()->params->get('language') ?: g11n::getCurrent(),
