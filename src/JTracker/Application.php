@@ -89,7 +89,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 * @var    string
 	 * @since  1.0
 	 */
-	private $languageTag;
+	private $languageTag = 'en-GB';
 
 	/**
 	 * Class constructor.
@@ -378,6 +378,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		{
 			// Set the current language if anything has been found.
 			g11n::setCurrent($lang);
+
+			$this->languageTag = $lang;
 		}
 
 		// Set language debugging.
