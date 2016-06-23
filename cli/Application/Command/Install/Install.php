@@ -68,9 +68,9 @@ class Install extends TrackerCommand
 			if (!$this->getApplication()->input->get('reinstall'))
 			{
 				$this->out()
-					->out('<fg=black;bg=yellow>' . g11n3t('WARNING: A database has been found !!') . '</fg=black;bg=yellow>')
+					->out('<fg=black;bg=yellow>' . g11n3t('WARNING: A database has been found!') . '</fg=black;bg=yellow>')
 					->out()
-					->out(g11n3t('Do you want to reinstall ?'))
+					->out(g11n3t('Do you want to reinstall?'))
 					->out()
 					->out('1) ' . g11n3t('Yes'))
 					->out('2) ' . g11n3t('No'))
