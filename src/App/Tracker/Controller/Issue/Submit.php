@@ -8,8 +8,10 @@
 
 namespace App\Tracker\Controller\Issue;
 
+use App\Projects\TrackerProject;
 use App\Tracker\Model\CategoryModel;
 use App\Tracker\Model\IssueModel;
+use App\Tracker\Table\IssuesTable;
 
 use Joomla\Date\Date;
 
@@ -52,6 +54,9 @@ class Submit extends AbstractTrackerController
 		{
 			throw new \RuntimeException('No body received.');
 		}
+
+		$this->dispatcher = $application->getDispatcher();
+		$this->addEventListener('items');
 
 		// Prepare issue for the store
 		$data = array();
@@ -170,11 +175,28 @@ class Submit extends AbstractTrackerController
 			);
 		}
 
+		// Process save events
+		$this->setProjectGitHubBot($project);
+
+		$issueNumber = $data['issue_number'];
+
+		$data = new \stdClass;
+		$data->issue = new \stdClass;
+		$data->issue->number = $issueNumber;
+
+		$table = (new IssuesTable($this->getContainer()->get('db')))
+			->load(['project_id' => $project->getProject_Id(), 'issue_number' => $issueNumber]);
+
+		$this->triggerEvent(
+			'onItemAfterSubmit',
+			['issueNumber' => $issueNumber, 'data' => $data, 'table' => $table]
+		);
+
 		$application->enqueueMessage(g11n3t('Your report has been submitted.'), 'success');
 
 		$application->redirect(
 			$application->get('uri.base.path')
-			. 'tracker/' . $project->alias . '/' . $data['number']
+			. 'tracker/' . $project->alias . '/' . $issueNumber
 		);
 
 		return;
@@ -265,5 +287,33 @@ class Submit extends AbstractTrackerController
 		}
 
 		return $gitHubResponse;
+	}
+
+	/**
+	 * Set the GitHub object with the credentials from the project or,
+	 * if not found, with those from the configuration file.
+	 *
+	 * @param   TrackerProject  $project  The Project object.
+	 *
+	 * @since   1.0
+	 * @return $this
+	 */
+	protected function setProjectGitHubBot(TrackerProject $project)
+	{
+		// If there is a bot defined for the project, prefer it over the config credentials.
+		if ($project->gh_editbot_user && $project->gh_editbot_pass)
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app'), true, $project->gh_editbot_user, $project->gh_editbot_pass
+			);
+		}
+		else
+		{
+			$this->github = GithubFactory::getInstance(
+				$this->getContainer()->get('app')
+			);
+		}
+
+		return $this;
 	}
 }
