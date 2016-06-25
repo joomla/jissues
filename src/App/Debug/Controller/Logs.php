@@ -8,7 +8,6 @@
 
 namespace App\Debug\Controller;
 
-use App\Debug\TrackerDebugger;
 use App\Debug\View\Logs\LogsHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;

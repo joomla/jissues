@@ -8,7 +8,6 @@
 
 namespace Application\Command\Test;
 
-use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
