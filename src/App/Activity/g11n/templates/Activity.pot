@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-23 08:17-0500\n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,8 +48,6 @@ msgstr ""
 #: /templates/activity/useractivity.index.twig:31
 #: /templates/activity/totaluseractivity.index.twig:31
 #: /templates/activity/projectactivity.index.twig:36
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "30 Days"
 msgstr ""
@@ -57,8 +55,6 @@ msgstr ""
 #: /templates/activity/useractivity.index.twig:32
 #: /templates/activity/totaluseractivity.index.twig:32
 #: /templates/activity/projectactivity.index.twig:37
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "90 Days"
 msgstr ""
@@ -78,28 +74,28 @@ msgstr ""
 
 #: /templates/activity/useractivity.index.twig:39
 #: /templates/activity/totaluseractivity.index.twig:37
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "All"
 msgstr ""
 
 #: /templates/activity/useractivity.index.twig:40
 #: /templates/activity/totaluseractivity.index.twig:38
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "Tracker"
 msgstr ""
 
 #: /templates/activity/useractivity.index.twig:41
 #: /templates/activity/totaluseractivity.index.twig:39
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "Test"
 msgstr ""
 
 #: /templates/activity/useractivity.index.twig:42
 #: /templates/activity/totaluseractivity.index.twig:40
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:86
 msgid "Code"
 msgstr ""
@@ -188,55 +184,45 @@ msgstr ""
 msgid "Total Open Issues By Status"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:69
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:67
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
 msgid "Months"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:69
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:67
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
 msgid "Quarters"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:69
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:67
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
 msgid "Weeks"
 msgstr ""
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
-msgid "None"
-msgstr ""
-
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:84
-msgid "Week"
-msgstr ""
-
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:75
 #, php-format
 msgid "Issues Opened and Closed for Past Four %1$s"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:80
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:75
 msgid "Opened"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:81
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:76
 msgid "Fixed"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:82
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:77
 msgid "Other Closed"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:90
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
 #, php-format
 msgid "%1$s Points for Past Four %2$s"
 msgstr ""
 
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:124
-#: /src/App/Activity/Controller/Ajax/TotalActivity.php:128
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:122
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:126
 #, php-format
 msgid "%1$s Points"
 msgstr ""
