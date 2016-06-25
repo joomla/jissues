@@ -132,25 +132,25 @@ class GitHubLoginHelper
 	{
 		// GitHub API works best with cURL
 		$options   = new Registry;
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
 
-		if (false == $transport)
+		if (false === $transport)
 		{
 			throw new \DomainException('No transports available (please install php-curl)');
 		}
 
 		$http = new Http($options, $transport);
 
-		$data = array(
+		$data = [
 			'client_id'     => $this->clientId,
 			'client_secret' => $this->clientSecret,
 			'code'          => $code
-		);
+		];
 
 		$response = $http->post(
 			'https://github.com/login/oauth/access_token',
 			$data,
-			array('Accept' => 'application/json')
+			['Accept' => 'application/json']
 		);
 
 		if (200 != $response->code)

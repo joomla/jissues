@@ -97,7 +97,12 @@ class Login extends AbstractTrackerController
 		$options->set('gh.token', $accessToken);
 
 		// GitHub API works best with cURL
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
+
+		if (false === $transport)
+		{
+			throw new \DomainException('No transports available (please install php-curl)');
+		}
 
 		$http = new Http($options, $transport);
 
@@ -106,7 +111,7 @@ class Login extends AbstractTrackerController
 
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = new GithubUser($app->getProject(), $this->getContainer()->get('db'));
+		$user = new GitHubUser($app->getProject(), $this->getContainer()->get('db'));
 
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
