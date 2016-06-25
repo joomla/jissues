@@ -97,12 +97,12 @@ abstract class GithubFactory
 		}
 
 		// The cURL extension is required to properly work.
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
 
 		// Check if we *really* got a cURL transport...
-		if (!($transport instanceof Curl))
+		if (false === $transport)
 		{
-			throw new \RuntimeException('Please enable cURL.');
+			throw new \RuntimeException('No transports available (please install php-curl)');
 		}
 
 		$http = new Http($options, $transport);

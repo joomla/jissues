@@ -65,16 +65,14 @@ class Export extends TrackerCommand
 	 */
 	protected function setup()
 	{
-		// @todo report a bug in getPath() - A leading slash (aka an absolute UNIX path) gets filtered :(
-		// @$this->exportDir = $this->getApplication()->input->getPath('output', $this->getApplication()->input->getPath('o'));
-		$this->exportDir = $this->getApplication()->input->get('output', $this->getApplication()->input->get('o', '', 'raw'), 'raw');
+		$this->exportDir = $this->getApplication()->input->getPath('output', $this->getApplication()->input->getPath('o'));
 
 		if (!$this->exportDir)
 		{
 			throw new \RuntimeException("Please specify an output directory using 'outputdir' ('o')");
 		}
 
-		if (false == is_dir($this->exportDir))
+		if (false === is_dir($this->exportDir))
 		{
 			throw new \RuntimeException("The output directory does not exist.");
 		}

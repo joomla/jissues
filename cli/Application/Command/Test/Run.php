@@ -62,7 +62,7 @@ class Run extends Test
 
 		 */
 
-		$status = ($statusCS || $statusUT) ? 1 : 0;
+		$status = ($statusCS || $statusUT || $statusLang) ? 1 : 0;
 
 		$this
 			->out()

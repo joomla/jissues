@@ -58,8 +58,6 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 		];
 
 		$periodList  = [1 => 7, 2 => 30, 3 => 90];
-		$periodNames = [1 => 'Weeks', 2 => 'Months', 3 => 'Quarters'];
-		$periodName  = $periodNames[$this->state->get('list.period')];
 		$periodValue = $periodList[$this->state->get('list.period')];
 
 		// Get 12 columns

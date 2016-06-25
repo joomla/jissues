@@ -80,10 +80,8 @@ class TotalActivity extends AbstractAjaxController
 		$periodType   = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle   = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
-		$axisLabels    = [g11n3t('None'), g11n3t('Week'), g11n3t('30 Days'), g11n3t('90 Days')];
-		$periodText    = $periodTitle[$periodType];
-		$axisLableText = $axisLabels[$periodType];
+		$periodTitle = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
+		$periodText  = $periodTitle[$periodType];
 
 		$activityTypes = [g11n3t('All'), g11n3t('Tracker'), g11n3t('Test'), g11n3t('Code')];
 		$activityText  = $activityTypes[$activityType];
@@ -115,11 +113,11 @@ class TotalActivity extends AbstractAjaxController
 		$ticks[] = date('d M', strtotime($endDate . '-' . (($dayInterval * 1) - 1) . ' day')) . ' - '
 					. date('d M', strtotime($endDate . '-' . ($dayInterval * 0) . ' day'));
 
-		$data          = [];
-		$label1        = new \stdClass;
-		$label2        = new \stdClass;
+		$data   = [];
+		$label1 = new \stdClass;
+		$label2 = new \stdClass;
+		/* $label3 = new \stdClass; */
 
-		/* $label3        = new \stdClass; */
 		$types         = array_keys($points);
 		$label1->label = sprintf(g11n3t('%1$s Points'), $types[0]);
 

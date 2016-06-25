@@ -117,7 +117,7 @@ class Help extends TrackerCommand
 	 */
 	protected function helpCommand($command)
 	{
-		if (false == array_key_exists($command, $this->commands))
+		if (false === array_key_exists($command, $this->commands))
 		{
 			$this->out()
 				// TRANSLATORS: %s refers to a command name
@@ -215,7 +215,7 @@ class Help extends TrackerCommand
 
 			$className = "Application\\Command\\$c\\$c";
 
-			if (false == class_exists($className))
+			if (false === class_exists($className))
 			{
 				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
 			}

@@ -128,14 +128,14 @@ class DatabaseDebugger
 		// Run a SHOW PROFILE query:
 		$profile = '';
 
-		if (false == in_array($db->name, ['mysqli', 'mysql']))
+		if (false === in_array($db->getName(), ['mysqli', 'mysql']))
 		{
-			return sprintf(g11n3t('%s database is not supported yet.'), $db->name);
+			return sprintf(g11n3t('%s database is not supported yet.'), $db->getName());
 		}
 
 		$db->setDebug(false);
 
-		$dbVersion5037 = (strncmp($db->name, 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.0.37', '>=');
+		$dbVersion5037 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.0.37', '>=');
 
 		if ($dbVersion5037)
 		{

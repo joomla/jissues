@@ -70,7 +70,7 @@ class Langfiles extends Test
 
 					$this->debugOut(sprintf('Check: %s-%s %s in %s', $domain, $extension, $language, $path));
 
-					if (false == file_exists($path))
+					if (false === file_exists($path))
 					{
 						$this->debugOut('not found');
 

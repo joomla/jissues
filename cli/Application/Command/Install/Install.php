@@ -173,14 +173,14 @@ class Install extends TrackerCommand
 
 		$fName = JPATH_ROOT . '/etc/' . $dbType . '.sql';
 
-		if (false == file_exists($fName))
+		if (false === file_exists($fName))
 		{
 			throw new \UnexpectedValueException(sprintf(g11n3t('Install SQL file for %s not found.'), $dbType));
 		}
 
 		$sql = file_get_contents($fName);
 
-		if (false == $sql)
+		if (false === $sql)
 		{
 			throw new \UnexpectedValueException(g11n3t('SQL file corrupted.'));
 		}

@@ -530,7 +530,7 @@ class Langtemplates extends Make
 				$f->twigPhpPath = str_replace(JPATH_ROOT, '', $fileInfo->getPathname());
 				$f->lines = file($fileInfo->getPathname());
 
-				if (false == isset($f->lines[2]) || false == preg_match('| ([A-z0-9\.\-\/]+)|', $f->lines[2], $matches))
+				if (false === isset($f->lines[2]) || false === preg_match('| ([A-z0-9\.\-\/]+)|', $f->lines[2], $matches))
 				{
 					throw new \RuntimeException('Can not parse the twig template at: ' . $fileInfo->getPathname());
 				}
@@ -550,7 +550,7 @@ class Langtemplates extends Make
 				$path = $matches[1];
 				$lineNo = $matches[2];
 
-				if (false == array_key_exists($path, $pathMap))
+				if (false === array_key_exists($path, $pathMap))
 				{
 					// Not a twig template
 					continue;
@@ -595,13 +595,13 @@ class Langtemplates extends Make
 	 */
 	private function delTree($dir)
 	{
-		if (false == is_dir($dir))
+		if (false === is_dir($dir))
 		{
 			// Directory does not exist.
 			return true;
 		}
 
-		$files = array_diff(scandir($dir), array('.', '..'));
+		$files = array_diff(scandir($dir), ['.', '..']);
 
 		foreach ($files as $file)
 		{

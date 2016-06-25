@@ -151,7 +151,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->select('t.name AS rel_name')
 				->select('s.status AS status_title, s.closed AS closed')
 				->where($this->db->quoteName('a.rel_number') . '=' . (int) $item->issue_number)
-				->order(array('a.issue_number', 'a.rel_type'))
+				->order(['a.issue_number', 'a.rel_type'])
 		)->loadObjectList();
 
 		// Group relations by type
@@ -161,9 +161,9 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 			foreach ($item->relations_f as $relation)
 			{
-				if (false == isset($arr[$relation->rel_name]))
+				if (false === isset($arr[$relation->rel_name]))
 				{
-					$arr[$relation->rel_name] = array();
+					$arr[$relation->rel_name] = [];
 				}
 
 				$arr[$relation->rel_name][] = $relation;
