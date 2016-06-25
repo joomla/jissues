@@ -357,7 +357,6 @@ class Events extends Project
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');
 
-		$query   = $db->getQuery(true);
 		$changes = [];
 
 		switch ($event->event)
