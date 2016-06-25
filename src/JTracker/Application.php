@@ -84,6 +84,14 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	private $project;
 
 	/**
+	 * The current language in use. E.g. "en-GB".
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $languageTag = 'en-GB';
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   Session   $session  The application's session object
@@ -98,6 +106,18 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		parent::__construct($input, $config);
 
 		$this->newSession = $session;
+	}
+
+	/**
+	 * Get the current language tag. E.g. en-GB.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguageTag()
+	{
+		return $this->languageTag;
 	}
 
 	/**
@@ -345,14 +365,21 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		else
 		{
-			// Get the language tag from the user params or session. Default to British.
-			$lang = $this->getUser()->params->get('language', $this->getSession()->get('lang', 'en-GB'));
+			/*
+			 * Get the language tag:
+			 * 1. From the session
+			 * 2. From the user param
+			 * 3. Default to British
+			 */
+			$lang = $this->getSession()->get('lang', $this->getUser()->params->get('language', 'en-GB'));
 		}
 
 		if ($lang)
 		{
 			// Set the current language if anything has been found.
 			g11n::setCurrent($lang);
+
+			$this->languageTag = $lang;
 		}
 
 		// Set language debugging.
