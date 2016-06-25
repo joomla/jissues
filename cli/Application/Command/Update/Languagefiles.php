@@ -114,7 +114,7 @@ class Languagefiles extends Update
 
 				$templatePath = Storage::getTemplatePath($extension, $domain);
 
-				if (false == file_exists($templatePath))
+				if (false === file_exists($templatePath))
 				{
 					throw new \DomainException(sprintf('Language template for %s not found.', $name));
 				}
@@ -222,7 +222,7 @@ class Languagefiles extends Update
 					// Get the "Sink"
 					$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';
 
-					if (false == is_dir(dirname($path)))
+					if (false === is_dir(dirname($path)))
 					{
 						$this->out('<info>NOT FOUND</info>... ', false);
 

@@ -193,7 +193,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	{
 		// $db = $this->getContainer()->get('db');
 
-		if (false == isset($record['context']))
+		if (false === isset($record['context']))
 		{
 			return $record;
 		}
@@ -243,7 +243,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	{
 		if ($category)
 		{
-			if (false == array_key_exists($category, $this->log))
+			if (false === array_key_exists($category, $this->log))
 			{
 				throw new \UnexpectedValueException(__METHOD__ . ' unknown category: ' . $category);
 			}

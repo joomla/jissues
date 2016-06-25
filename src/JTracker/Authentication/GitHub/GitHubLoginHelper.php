@@ -209,7 +209,7 @@ class GitHubLoginHelper
 			return 1;
 		}
 
-		if (false == function_exists('curl_setopt'))
+		if (false === function_exists('curl_setopt'))
 		{
 			throw new \RuntimeException('cURL is not installed - no avatar support.');
 		}
@@ -234,7 +234,7 @@ class GitHubLoginHelper
 
 		$result = file_put_contents($path, $data);
 
-		if (false == $result)
+		if (false === $result)
 		{
 			throw new \RuntimeException(sprintf('Can not write the avatar image to file %s', $path));
 		}
@@ -259,7 +259,7 @@ class GitHubLoginHelper
 
 		if (file_exists($path))
 		{
-			if (false == unlink($path))
+			if (false === unlink($path))
 			{
 				throw new \DomainException('Can not remove: ' . $path);
 			}

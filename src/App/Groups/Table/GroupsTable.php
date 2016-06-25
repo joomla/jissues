@@ -58,7 +58,7 @@ class GroupsTable extends AbstractDatabaseTable
 	 */
 	public function bind($source, $ignore = array())
 	{
-		if (false == is_array($source))
+		if (false === is_array($source))
 		{
 			throw new \UnexpectedValueException(__METHOD__ . ' only accepts arrays :(');
 		}

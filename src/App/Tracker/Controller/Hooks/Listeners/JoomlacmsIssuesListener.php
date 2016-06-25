@@ -58,10 +58,10 @@ class JoomlacmsIssuesListener extends AbstractListener
 	{
 		// Set some data
 		$label      = 'No Code Attached Yet';
-		$labels     = array();
+		$labels     = [];
 		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
-		if ($labelIsSet == false)
+		if ($labelIsSet === false)
 		{
 			// Add the label as it isn't already set
 			$labels[] = $label;

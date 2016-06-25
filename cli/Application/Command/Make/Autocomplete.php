@@ -81,14 +81,14 @@ class Autocomplete extends Make
 				$class = new $className($this->getApplication());
 				$class->setContainer($this->getContainer());
 
-				$help = str_replace(array('<cmd>', '</cmd>', '<', '>'), '', $class->getDescription());
+				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
 
 				$xmlCommand = $xml->addChild('command');
 
 				$xmlCommand->addChild('name', strtolower($command));
 				$xmlCommand->addChild('help', $help);
 
-				if (false == in_array($command, array('Help', 'Install')))
+				if (false === in_array($command, ['Help', 'Install']))
 				{
 					$xmlCommand->addChild('params', 'option');
 				}
@@ -98,7 +98,7 @@ class Autocomplete extends Make
 				/* @type TrackerCommand $option */
 				foreach ($actions as $name => $option)
 				{
-					$help = str_replace(array('<cmd>', '</cmd>', '<', '>'), '', $option->getDescription());
+					$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $option->getDescription());
 
 					$xmlCommand = $xml->addChild('command');
 					$xmlCommand->addChild('name', strtolower($command) . ' ' . strtolower($name));

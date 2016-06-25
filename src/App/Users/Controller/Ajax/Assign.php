@@ -28,7 +28,7 @@ class Assign extends AbstractAjaxController
 	 */
 	protected function prepareResponse()
 	{
-		if (false == $this->getContainer()->get('app')->getUser()->check('manage'))
+		if (false === $this->getContainer()->get('app')->getUser()->check('manage'))
 		{
 			throw new \Exception('You are not authorized');
 		}

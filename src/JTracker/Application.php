@@ -347,13 +347,13 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $languages))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
 				$lang = g11n::getDefault();
 			}
 
-			if (false == in_array($lang, $languages))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';

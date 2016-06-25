@@ -162,7 +162,7 @@ class Langfiles extends Make
 			return $this;
 		}
 
-		if (false == $languageFile)
+		if (false === $languageFile)
 		{
 			$this->out(g11n3t('Creating language file...'));
 

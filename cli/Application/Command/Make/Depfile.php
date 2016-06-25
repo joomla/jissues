@@ -255,7 +255,7 @@ class Depfile extends Make
 				{
 					$path = g11nExtensionHelper::findLanguageFile($langTag, $extension, $domain);
 
-					if (false == file_exists($path))
+					if (false === file_exists($path))
 					{
 						$this->out(sprintf(g11n3t('Language file not found %1$s, %2$s, %3$s'), $langTag, $extension, $domain));
 
@@ -301,7 +301,7 @@ class Depfile extends Make
 							$line = preg_replace('/<[a-z0-9\.\-+]+@[a-z\.]+>,\s/i', '', $line);
 						}
 
-						if (false == in_array($line, $translators))
+						if (false === in_array($line, $translators))
 						{
 							$translators[] = $line;
 						}

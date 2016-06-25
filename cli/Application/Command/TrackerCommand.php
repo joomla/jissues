@@ -320,7 +320,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new AbortException(g11n3t('Aborted'));
 			}
 
-			if (false == array_key_exists($resp, $checks))
+			if (false === array_key_exists($resp, $checks))
 			{
 				throw new AbortException(g11n3t('Invalid project'));
 			}

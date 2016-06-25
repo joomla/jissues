@@ -69,7 +69,7 @@ class Comments extends Package
 		// Build the request path.
 		$path = '/repos/' . $owner . '/' . $repo . '/issues/comments';
 
-		if (false == in_array($sort, array('created', 'updated')))
+		if (false === in_array($sort, ['created', 'updated']))
 		{
 			throw new \UnexpectedValueException(
 				sprintf(
@@ -78,7 +78,7 @@ class Comments extends Package
 			);
 		}
 
-		if (false == in_array($direction, array('asc', 'desc')))
+		if (false === in_array($direction, ['asc', 'desc']))
 		{
 			throw new \UnexpectedValueException(
 				sprintf(

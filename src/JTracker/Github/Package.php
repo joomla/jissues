@@ -48,11 +48,11 @@ abstract class Package extends GithubObject
 	{
 		$class = '\\JTracker\\Github\\Package\\' . $this->package . '\\' . ucfirst($name);
 
-		if (false == class_exists($class))
+		if (false === class_exists($class))
 		{
 			$class = '\\Joomla\\Github\\Package\\' . $this->package . '\\' . ucfirst($name);
 
-			if (false == class_exists($class))
+			if (false === class_exists($class))
 			{
 				throw new \InvalidArgumentException(
 					sprintf(
@@ -63,7 +63,7 @@ abstract class Package extends GithubObject
 			}
 		}
 
-		if (false == isset($this->$name))
+		if (false === isset($this->$name))
 		{
 			$this->$name = new $class($this->options, $this->client);
 		}

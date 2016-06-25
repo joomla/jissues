@@ -72,7 +72,7 @@ class Export extends TrackerCommand
 			throw new \RuntimeException("Please specify an output directory using 'outputdir' ('o')");
 		}
 
-		if (false == is_dir($this->exportDir))
+		if (false === is_dir($this->exportDir))
 		{
 			throw new \RuntimeException("The output directory does not exist.");
 		}

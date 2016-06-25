@@ -43,7 +43,7 @@ class Github extends JGitHub implements LoggerAwareInterface
 
 		if (class_exists($class))
 		{
-			if (false == isset($this->$name))
+			if (false === isset($this->$name))
 			{
 				$this->$name = new $class($this->options, $this->client);
 
