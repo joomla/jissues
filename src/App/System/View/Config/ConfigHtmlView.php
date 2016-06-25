@@ -32,8 +32,8 @@ class ConfigHtmlView extends AbstractTrackerHtmlView
 
 		$config = json_decode(file_get_contents(JPATH_CONFIGURATION . '/' . $fileName), true);
 
-		$this->renderer->set('config', $config);
-		$this->renderer->set('configFile', $fileName);
+		$this->addData('config', $config);
+		$this->addData('configFile', $fileName);
 
 		return parent::render();
 	}

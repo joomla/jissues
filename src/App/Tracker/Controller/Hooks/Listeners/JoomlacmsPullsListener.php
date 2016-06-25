@@ -10,6 +10,7 @@ namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
 
+use Joomla\Date\Date;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 use Joomla\Http\Exception\InvalidResponseCodeException;
@@ -102,7 +103,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
 			// Send a message if there is no comment in the pull request
-			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 			// Set the status to pending
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);

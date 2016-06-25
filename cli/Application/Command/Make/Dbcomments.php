@@ -16,12 +16,16 @@ namespace Application\Command\Make;
 class Dbcomments extends Make
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Generate file headers for Table classes';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Generate class doc blocks for Table classes');
+	}
 
 	/**
 	 * Execute the command.
@@ -32,7 +36,7 @@ class Dbcomments extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make DB Comments');
+		$this->getApplication()->outputTitle(g11n3t('Make Table Comments'));
 
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->getContainer()->get('db');

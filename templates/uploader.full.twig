@@ -32,8 +32,8 @@
 <div id="upload-info">
     <h3 class="panel-title">{{ "Upload Notes"|_ }}</h3>
     <ul>
-        <li>{{ "The maximum file size for uploads is <strong>1 MB</strong>."|_|raw }}</li>
-        <li>{{ "The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX, XLSX, PPTX</strong>."|_|raw }}</li>
+        <li>{{ sprintf("The maximum file size for uploads is %s."|_, "<strong>1 MB</strong>")|raw }}</li>
+        <li>{{ sprintf("The following file types are allowed: %s"|_, "<strong>JPG, GIF, PNG, TXT, PDF, DOCX, XLSX, PPTX</strong>")|raw }}</li>
         <li>{{ "You can <strong>drag & drop</strong> files from your desktop on this webpage."|_|raw }}</li>
     </ul>
 </div>

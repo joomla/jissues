@@ -162,7 +162,16 @@ class Issues extends Project
 			}
 		);
 
-		$this->logOut(sprintf(g11n3t('Retrieved <b>%d</b> items from GitHub.'), count($issues)));
+		$this->logOut(
+			sprintf(
+				g11n4t(
+					'Retrieved <b>1</b> item from GitHub.',
+					'Retrieved <b>%d</b> items from GitHub.',
+					count($issues)
+				),
+				count($issues)
+			)
+		);
 
 		$this->issues = $issues;
 

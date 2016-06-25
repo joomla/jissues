@@ -10,6 +10,7 @@ namespace Application\Command\Make;
 
 use Application\Command\Help\Help;
 use Application\Command\TrackerCommand;
+use Application\Command\TrackerCommandOption;
 
 /**
  * Class for generating a PhpStorm autocomplete file for using the CLI tools
@@ -19,12 +20,23 @@ use Application\Command\TrackerCommand;
 class Autocomplete extends Make
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Generate an auto complete file for PhpStorm';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Generate an autocomplete file for PhpStorm.');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'file', 'f',
+				g11n3t('An optional file to write the results to.')
+			)
+		);
+	}
 
 	/**
 	 * Execute the command.
@@ -35,7 +47,7 @@ class Autocomplete extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make Auto complete');
+		$this->getApplication()->outputTitle(g11n3t('Make Auto complete'));
 
 		$cliBase = JPATH_ROOT . '/cli/Application/Command';
 
@@ -109,7 +121,7 @@ class Autocomplete extends Make
 
 		if ($fileName)
 		{
-			$this->out('Writing contents to: ' . $fileName);
+			$this->out(sprintf(g11n3t('Writing contents to: %s'), $fileName));
 
 			file_put_contents($fileName, $contents);
 		}

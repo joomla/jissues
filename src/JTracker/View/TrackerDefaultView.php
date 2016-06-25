@@ -9,8 +9,7 @@
 namespace JTracker\View;
 
 use Joomla\Model\ModelInterface;
-use Joomla\View\Renderer\RendererInterface;
-use Joomla\View\Renderer\Twig;
+use Joomla\Renderer\RendererInterface;
 
 use JTracker\Model\TrackerDefaultModel;
 
@@ -31,17 +30,13 @@ class TrackerDefaultView  extends AbstractTrackerHtmlView
 	 */
 	public function __construct(ModelInterface $model = null, RendererInterface $renderer = null)
 	{
-		$model = $model ? : new TrackerDefaultModel;
-
-		if (is_null($renderer))
+		// We need a renderer but it has to be an optional argument unless we want to break a lot more stuff
+		if (!$renderer)
 		{
-			$renderer = new Twig(
-				array(
-					'templates_base_dir' => JPATH_TEMPLATES,
-					'environment' => array('debug' => true)
-				)
-			);
+			throw new \InvalidArgumentException('Missing renderer');
 		}
+
+		$model = $model ?: new TrackerDefaultModel;
 
 		parent::__construct($model, $renderer);
 	}

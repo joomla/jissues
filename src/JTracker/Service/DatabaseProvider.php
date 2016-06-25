@@ -11,13 +11,11 @@ namespace JTracker\Service;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+
 use JTracker\Database\Migrations;
+
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\PsrLogMessageProcessor;
-use Monolog\Processor\WebProcessor;
 
 /**
  * Database service provider
@@ -61,21 +59,7 @@ class DatabaseProvider implements ServiceProviderInterface
 
 				$db = DatabaseDriver::getInstance($options);
 				$db->setDebug($app->get('debug.database', false));
-				$db->setLogger(
-					new Logger(
-						'JTracker-Database',
-						[
-							new StreamHandler(
-								$app->get('debug.log-path', JPATH_ROOT) . '/database.log',
-								Logger::ERROR
-							)
-						],
-						[
-							new PsrLogMessageProcessor,
-							new WebProcessor
-						]
-					)
-				);
+				$db->setLogger($container->get('monolog.logger.database'));
 
 				return $db;
 			}, true, true

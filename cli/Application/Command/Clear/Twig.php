@@ -8,7 +8,8 @@
 
 namespace Application\Command\Clear;
 
-use Joomla\Filesystem\Folder;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 
 /**
  * Class for clearing the Twig cache.
@@ -18,12 +19,16 @@ use Joomla\Filesystem\Folder;
 class Twig extends Clear
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Clear the Twig cache.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Clear the Twig cache.');
+	}
 
 	/**
 	 * Execute the command.
@@ -34,25 +39,28 @@ class Twig extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Clear Twig cache dir');
+		$this->getApplication()->outputTitle(g11n3t('Clear Twig Cache Directory'));
 
 		if (!$this->getApplication()->get('renderer.cache', false))
 		{
-			$this->out('Twig caching is not enabled.');
+			$this->out('<info>' . g11n3t('Twig caching is not enabled.') . '</info>');
 
 			return;
 		}
 
-		$cacheDir = JPATH_ROOT . '/' . $this->getApplication()->get('renderer.cache');
+		$cacheDir     = JPATH_ROOT . '/cache';
+		$twigCacheDir = $this->getApplication()->get('renderer.cache');
 
-		$this->logOut(sprintf('Cleaning the cache dir in "%s"', $cacheDir));
+		$this->logOut(sprintf('Cleaning the cache dir in "%s"', $cacheDir . '/' . $twigCacheDir));
 
-		if (is_dir($cacheDir))
+		$filesystem = new Filesystem(new Local($cacheDir));
+
+		if ($filesystem->has($twigCacheDir))
 		{
-			Folder::delete($cacheDir);
+			$filesystem->deleteDir($twigCacheDir);
 		}
 
 		$this->out()
-			->out('The Twig cache directory has been cleared.');
+			->out('<ok>' . g11n3t('The Twig cache directory has been cleared.') . '</ok>');
 	}
 }

@@ -15,12 +15,11 @@ use App\Projects\TrackerProject;
 use g11n\g11n;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Router\Router;
 
@@ -29,17 +28,8 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Helper\LanguageHelper;
 use JTracker\Router\Exception\RoutingException;
-use JTracker\Router\TrackerRouter;
-use JTracker\Service\ApplicationProvider;
-use JTracker\Service\ConfigurationProvider;
-use JTracker\Service\DatabaseProvider;
-use JTracker\Service\DebuggerProvider;
-use JTracker\Service\GitHubProvider;
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\WebProcessor;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -94,47 +84,40 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	private $project;
 
 	/**
+	 * The current language in use. E.g. "en-GB".
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $languageTag = 'en-GB';
+
+	/**
 	 * Class constructor.
+	 *
+	 * @param   Session   $session  The application's session object
+	 * @param   Input     $input    The application's input object
+	 * @param   Registry  $config   The application's configuration object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Session $session, Input $input, Registry $config)
 	{
 		// Run the parent constructor
-		parent::__construct();
+		parent::__construct($input, $config);
 
-		// Build the DI Container
-		$container = (new Container)
-			->registerServiceProvider(new ApplicationProvider($this))
-			->registerServiceProvider(new ConfigurationProvider($this->config))
-			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new GitHubProvider);
+		$this->newSession = $session;
+	}
 
-		$this->setContainer($container);
-
-		$this->mark('Application started');
-
-		// Register the global dispatcher
-		$this->setDispatcher(new Dispatcher);
-
-		// Set up a general application logger
-		$this->setLogger(
-			new Logger(
-				'JTracker',
-				[
-					new StreamHandler(
-						$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
-						Logger::ERROR
-					)
-				],
-				[
-					new WebProcessor
-				]
-			)
-		);
-
-		$this->setRouter(new TrackerRouter($this->getContainer(), $this->input));
+	/**
+	 * Get the current language tag. E.g. en-GB.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguageTag()
+	{
+		return $this->languageTag;
 	}
 
 	/**
@@ -160,9 +143,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			$this->getRouter()->setControllerPrefix('\\App')
-				->setDefaultController('\\Tracker\\Controller\\DefaultController');
-
 			$this->bootApps();
 
 			$this->mark('Apps booted');
@@ -300,10 +280,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function getSession()
 	{
-		if (is_null($this->newSession))
+		if (!$this->newSession->isStarted())
 		{
-			$this->newSession = new Session;
-
 			$this->newSession->start();
 
 			$registry = $this->newSession->get('registry');
@@ -362,18 +340,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	protected function loadLanguage()
 	{
+		$languages = LanguageHelper::getLanguageCodes();
+
 		// Get the language tag from user input.
 		$lang = $this->input->get('lang');
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
 				$lang = g11n::getDefault();
 			}
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false == in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';
@@ -385,14 +365,21 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		else
 		{
-			// Get the language tag from the user params or session. Default to British.
-			$lang = $this->getUser()->params->get('language', $this->getSession()->get('lang', 'en-GB'));
+			/*
+			 * Get the language tag:
+			 * 1. From the session
+			 * 2. From the user param
+			 * 3. Default to British
+			 */
+			$lang = $this->getSession()->get('lang', $this->getUser()->params->get('language', 'en-GB'));
 		}
 
 		if ($lang)
 		{
 			// Set the current language if anything has been found.
 			g11n::setCurrent($lang);
+
+			$this->languageTag = $lang;
 		}
 
 		// Set language debugging.

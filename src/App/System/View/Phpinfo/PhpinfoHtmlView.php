@@ -40,7 +40,7 @@ class PhpinfoHtmlView extends AbstractTrackerHtmlView
 		$output = str_replace('</table>', '</tbody></table>', $output);
 		$output = str_replace('</div>', '', $output);
 
-		$this->renderer->set('phpinfo', $output);
+		$this->addData('phpinfo', $output);
 
 		return parent::render();
 	}

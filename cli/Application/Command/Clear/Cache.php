@@ -19,12 +19,16 @@ use g11n\Support\ExtensionHelper;
 class Cache extends Clear
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Clear the g11n language directory.';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Clear the g11n language directory.');
+	}
 
 	/**
 	 * Execute the command.
@@ -35,13 +39,13 @@ class Cache extends Clear
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Clear g11n cache dir');
+		$this->getApplication()->outputTitle(g11n3t('Clear g11n Cache Directory'));
 
 		$this->logOut(sprintf('Cleaning the cache dir in "%s"', ExtensionHelper::getCacheDir()));
 
 		g11n::cleanCache();
 
 		$this->out()
-			->out('The g11n cache directory has been cleared.');
+			->out('<ok>' . g11n3t('The g11n cache directory has been cleared.') . '</ok>');
 	}
 }

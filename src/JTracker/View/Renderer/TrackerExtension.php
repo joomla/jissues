@@ -18,6 +18,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 
 use JTracker\Application;
+use JTracker\Helper\LanguageHelper;
 
 /**
  * Twig extension class
@@ -79,10 +80,11 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		return [
 			'uri'            => $this->app->get('uri'),
 			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
-			'languages'      => $this->app->get('languages'),
+			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
+			'languageCodes'  => LanguageHelper::getLanguageCodes(),
 			'jdebug'         => JDEBUG,
 			'templateDebug'  => $this->app->get('debug.template', false),
-			'lang'           => $this->app->getUser()->params->get('language') ?: g11n::getCurrent(),
+			'lang'           => $this->app->getLanguageTag(),
 			'g11nJavaScript' => g11n::getJavaScript(),
 			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
@@ -653,7 +655,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$renderer->setShowLineNumbers($showLineNumbers);
 		$renderer->setShowHeader($showHeader);
 
-		return $diff->Render($renderer);
+		return $diff->render($renderer);
 	}
 
 	/**

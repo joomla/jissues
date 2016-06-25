@@ -16,12 +16,16 @@ namespace Application\Command\Test;
 class Run extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Run all tests';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Run all tests');
+	}
 
 	/**
 	 * Execute the command.
@@ -32,7 +36,7 @@ class Run extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Test Suite');
+		$this->getApplication()->outputTitle(g11n3t('Test Suite'));
 
 		$statusCS = (new Checkstyle)
 			->setContainer($this->getContainer())
@@ -64,8 +68,8 @@ class Run extends Test
 			->out()
 			->out(
 				$status
-					? '<error> Test Suite Finished with errors </error>.'
-					: '<ok>Test Suite Finished.</ok>'
+					? '<error>' . g11n3t('Test Suite Finished with errors.') . '</error>'
+					: '<ok>' . g11n3t('Test Suite Finished.') . '</ok>'
 			);
 
 		exit($status);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/bootstrap.php" colors="false">
+	<testsuites>
+		<testsuite name="Unit">
+			<directory>tests/tracker</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

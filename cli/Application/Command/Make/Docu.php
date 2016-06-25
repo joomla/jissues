@@ -18,12 +18,16 @@ use App\Text\Table\ArticlesTable;
 class Docu extends Make
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Compile documentation using GitHub Flavored Markdown';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Compile documentation using GitHub Flavored Markdown');
+	}
 
 	/**
 	 * Execute the command.
@@ -34,7 +38,7 @@ class Docu extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make Documentation');
+		$this->getApplication()->outputTitle(g11n3t('Make Documentation'));
 
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
@@ -56,7 +60,7 @@ class Docu extends Make
 		$it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($docuBase, \FilesystemIterator::SKIP_DOTS));
 
 		$this
-			->out('Compiling documentation in: ' . $docuBase)
+			->out(sprintf(g11n3t('Compiling documentation in: %s'), $docuBase))
 			->out();
 
 		$table = new ArticlesTable($db);

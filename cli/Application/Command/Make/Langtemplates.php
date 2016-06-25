@@ -29,17 +29,9 @@ use Twig_Loader_Filesystem;
 class Langtemplates extends Make
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Create language file templates.';
-
-	/**
 	 * The software product.
 	 *
-	 * @var \stdClass
+	 * @var    \stdClass
 	 * @since  1.0
 	 */
 	private $product = null;
@@ -51,10 +43,14 @@ class Langtemplates extends Make
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
+		$this->description = g11n3t('Create language file templates.');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'extension', '',
-				'Process only this extension'
+				g11n3t('Process only this extension')
 			)
 		);
 
@@ -70,10 +66,10 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle(g11n3t('Make Language templates'));
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/media');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/media/js');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
@@ -91,7 +87,7 @@ class Langtemplates extends Make
 			$extension = 'JTracker';
 			$domain    = 'Core';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$templatePath = Storage::getTemplatePath($extension, $domain);
 
@@ -104,7 +100,7 @@ class Langtemplates extends Make
 			$extension = 'core.js';
 			$domain    = 'CoreJS';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$templatePath = Storage::getTemplatePath('JTracker.js', 'Core');
 
@@ -117,7 +113,7 @@ class Langtemplates extends Make
 			$extension = 'JTracker';
 			$domain    = 'Template';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
 
@@ -136,7 +132,7 @@ class Langtemplates extends Make
 			$extension = 'cli';
 			$domain    = 'CLI';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$templatePath = Storage::getTemplatePath($extension, $domain);
 
@@ -155,14 +151,14 @@ class Langtemplates extends Make
 				continue;
 			}
 
-			$extension = $fileInfo->getFileName();
+			$extension = $fileInfo->getFilename();
 
 			if ($reqExtension && $reqExtension != $extension)
 			{
 				continue;
 			}
 
-			$this->out('Processing App: ' . $extension);
+			$this->out(sprintf(g11n3t('Processing App: %s'), $extension));
 
 			$domain = 'App';
 
@@ -223,6 +219,31 @@ class Langtemplates extends Make
 		$cleanFiles = array();
 		$excludes   = array();
 
+		$buildOpts = '';
+
+		switch ($type)
+		{
+			case 'js':
+				$buildOpts .= ' -L python';
+				$excludes[] = '/jqplot/';
+				$excludes[] = '/vendor/';
+				$excludes[] = '/jquery-ui/';
+				$excludes[] = '/validation';
+				$excludes[] = 'vendor.js';
+				$excludes[] = 'vendor.min.js';
+				$excludes[] = 'jtracker-tmpl.js';
+				$excludes[] = 'jtracker.min.js';
+				break;
+
+			case 'config':
+				$excludes[] = '/templates/';
+				$excludes[] = '/scripts/';
+				break;
+
+			default:
+				break;
+		}
+
 		foreach ($paths as $base)
 		{
 			if (!is_dir($base . '/' . $extensionDir))
@@ -246,23 +267,6 @@ class Langtemplates extends Make
 		if (strpos($extension, '.'))
 		{
 			$subType = substr($extension, strpos($extension, '.') + 1);
-		}
-
-		$buildOpts = '';
-
-		switch ($type)
-		{
-			case 'js':
-				$buildOpts .= ' -L python';
-				break;
-
-			case 'config':
-				$excludes[] = '/templates/';
-				$excludes[] = '/scripts/';
-				break;
-
-			default:
-				break;
 		}
 
 		$this->debugOut(sprintf('Found %d files', count($cleanFiles)));
@@ -331,7 +335,7 @@ class Langtemplates extends Make
 
 		file_put_contents($templatePath, $contents);
 
-		$this->out('Your template has been created');
+		$this->out(g11n3t('Your template has been created'));
 
 		return $this;
 	}
@@ -363,7 +367,7 @@ class Langtemplates extends Make
 
 			foreach ($excludes as $exclude)
 			{
-				if (strpos($fileInfo->getFilename(), $exclude))
+				if (false !== strpos($fileInfo->getPathname(), $exclude))
 				{
 					$excluded = true;
 				}

@@ -12,8 +12,7 @@ use Application\Command\TrackerCommandOption;
 
 use g11n\Support\ExtensionHelper as g11nExtensionHelper;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
@@ -39,15 +38,7 @@ class Depfile extends Make
 	 * @var    array
 	 * @since  1.0
 	 */
-	public $dependencies = array();
-
-	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Create and update a dependency file.';
+	public $dependencies = [];
 
 	/**
 	 * Constructor.
@@ -58,10 +49,12 @@ class Depfile extends Make
 	{
 		parent::__construct();
 
+		$this->description = g11n3t('Create and update a dependency file.');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'file', 'f',
-				'Write output to a file.'
+				g11n3t('Write output to a file.')
 			)
 		);
 	}
@@ -130,7 +123,7 @@ class Depfile extends Make
 
 		if ($fileName)
 		{
-			$this->out('Writing contents to: ' . $fileName);
+			$this->out(sprintf(g11n3t('Writing contents to: %s'), $fileName));
 
 			file_put_contents($fileName, $contents);
 		}
@@ -237,21 +230,9 @@ class Depfile extends Make
 	{
 		$list = array();
 
-		g11nExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11nExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11nExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		LanguageHelper::addDomainPaths();
 
-		$scopes = array(
-			'Core' => array(
-				'JTracker'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
-
-		$langTags = $this->getApplication()->get('languages');
+		$langTags = LanguageHelper::getLanguageCodes();
 		$noEmail = $this->getApplication()->input->get('noemail');
 
 		foreach ($langTags as $langTag)
@@ -268,7 +249,7 @@ class Depfile extends Make
 
 			$translators = array();
 
-			foreach ($scopes as $domain => $extensions)
+			foreach (LanguageHelper::getScopes() as $domain => $extensions)
 			{
 				foreach ($extensions as $extension)
 				{
@@ -276,7 +257,7 @@ class Depfile extends Make
 
 					if (false == file_exists($path))
 					{
-						$this->out(sprintf('Language file not found %s, %s, %s', $langTag, $extension, $domain));
+						$this->out(sprintf(g11n3t('Language file not found %1$s, %2$s, %3$s'), $langTag, $extension, $domain));
 
 						continue;
 					}

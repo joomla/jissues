@@ -18,13 +18,14 @@ use Application\Command\TrackerCommand;
 class Clear extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'This will clear things.';
+	public function __construct()
+	{
+		$this->description = g11n3t('This will clear things.');
+	}
 
 	/**
 	 * Execute the command.

@@ -13,6 +13,8 @@ use Application\Command\TrackerCommandOption;
 use g11n\Language\Storage;
 use g11n\Support\ExtensionHelper;
 
+use JTracker\Helper\LanguageHelper;
+
 use PHP_CodeSniffer_File;
 
 /**
@@ -23,24 +25,20 @@ use PHP_CodeSniffer_File;
 class Langfiles extends Make
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Create and update language files.';
-
-	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
+		$this->description = g11n3t('Create and update language files.');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'extension', '',
-				'Process only this extension'
+				g11n3t('Process only this extension')
 			)
 		);
 	}
@@ -55,14 +53,11 @@ class Langfiles extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make Language files');
+		$this->getApplication()->outputTitle(g11n3t('Make Language files'));
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
-		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		LanguageHelper::addDomainPaths();
 
-		$languages = $this->getApplication()->get('languages');
+		$languages = LanguageHelper::getLanguageCodes();
 
 		$reqExtension = $this->getApplication()->input->getCmd('extension');
 
@@ -114,7 +109,7 @@ class Langfiles extends Make
 				continue;
 			}
 
-			$extension = $fileInfo->getFileName();
+			$extension = $fileInfo->getFilename();
 
 			if ($reqExtension && $reqExtension != $extension)
 			{
@@ -152,7 +147,7 @@ class Langfiles extends Make
 	 */
 	protected function processDomain($extension, $domain, $lang)
 	{
-		$this->out(sprintf('Processing: %1$s %2$s %3$s', $domain, $extension, $lang));
+		$this->out(sprintf(g11n3t('Processing: %1$s %2$s %3$s'), $domain, $extension, $lang));
 
 		$languageFile = ExtensionHelper::findLanguageFile($lang, $extension, $domain);
 		$templateFile = Storage::getTemplatePath($extension, $domain);
@@ -161,7 +156,7 @@ class Langfiles extends Make
 		if ("\n" != PHP_CodeSniffer_File::detectLineEndings($templateFile))
 		{
 			$this->out($templateFile)
-				->out('<error> The file does not have UNIX style line endings ! </error>')
+				->out('<error>' . g11n3t('The file does not have UNIX style line endings!') . '</error>')
 				->out();
 
 			return $this;
@@ -169,7 +164,7 @@ class Langfiles extends Make
 
 		if (false == $languageFile)
 		{
-			$this->out('Creating language file...');
+			$this->out(g11n3t('Creating language file...'));
 
 			$scopePath     = ExtensionHelper::getDomainPath($domain);
 			$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
@@ -208,12 +203,12 @@ class Langfiles extends Make
 				throw new \Exception('Can not create the language file');
 			}
 
-			$this->out('The language file has been created')
+			$this->out(g11n3t('The language file has been created'))
 				->out($msg);
 		}
 		else
 		{
-			$this->out('Updating language file...');
+			$this->out(g11n3t('Updating language file...'));
 
 			$options = array();
 
