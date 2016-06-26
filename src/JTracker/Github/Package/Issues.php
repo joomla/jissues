@@ -8,7 +8,6 @@
 
 namespace JTracker\Github\Package;
 
-use Joomla\Github\Package\Issues as JGithubIssues;
 use Joomla\Date\Date;
 use Joomla\Uri\Uri;
 

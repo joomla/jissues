@@ -133,7 +133,7 @@ class Langfiles extends Export
 			$contents = (new Filesystem(new Local(dirname($path))))
 				->read(basename($path));
 
-			if (false == $filesystem->put('templates/' . basename($path), $contents))
+			if (false === $filesystem->put('templates/' . basename($path), $contents))
 			{
 				throw new \DomainException('Can not write the file at: ' . $path);
 			}
@@ -161,7 +161,7 @@ class Langfiles extends Export
 			$contents = (new Filesystem(new Local(dirname($path))))
 				->read(basename($path));
 
-			if (false == $filesystem->put($lang . '/' . basename($path), $contents))
+			if (false === $filesystem->put($lang . '/' . basename($path), $contents))
 			{
 				throw new \DomainException('Can not write the file: ' . basename($path));
 			}

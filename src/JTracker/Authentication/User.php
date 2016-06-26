@@ -327,7 +327,7 @@ abstract class User implements \Serializable
 			throw new AuthenticationException($this, $action);
 		}
 
-		if (false == in_array($action, $this->getProject()->getDefaultActions()))
+		if (false === in_array($action, $this->getProject()->getDefaultActions()))
 		{
 			throw new \InvalidArgumentException('Undefined action: ' . $action);
 		}

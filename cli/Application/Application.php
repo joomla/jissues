@@ -167,7 +167,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		$className = 'Application\\Command\\' . ucfirst($command) . '\\' . ucfirst($action);
 
-		if (false == class_exists($className))
+		if (false === class_exists($className))
 		{
 			$this->out()
 				->out(sprintf(g11n3t('Invalid command: %s'), '<error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>'))
@@ -186,7 +186,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			$className = 'Application\\Command\\Help\\Help';
 		}
 
-		if (false == method_exists($className, 'execute'))
+		if (false === method_exists($className, 'execute'))
 		{
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
@@ -236,7 +236,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		$alternatives = [];
 
-		if (false == array_key_exists($command, $commands))
+		if (false === array_key_exists($command, $commands))
 		{
 			// Unknown command
 			foreach (array_keys($commands) as $cmd)
@@ -421,13 +421,13 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $languages))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
 				$lang = g11n::getDefault();
 			}
 
-			if (false == in_array($lang, $languages))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';
@@ -437,7 +437,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		{
 			$lang = g11n::getCurrent();
 
-			if (false == in_array($lang, $languages))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown current language - Fall back to British.
 				$lang = 'en-GB';

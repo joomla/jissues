@@ -91,7 +91,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 */
 	protected function processLog($type, $path)
 	{
-		if (false == file_exists($path))
+		if (false === file_exists($path))
 		{
 			return ['File not found in path: ' . $path];
 		}

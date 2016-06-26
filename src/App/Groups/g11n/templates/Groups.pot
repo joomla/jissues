@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-23 08:17-0500\n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,6 +107,7 @@ msgid "Users"
 msgstr ""
 
 #: /templates/groups/group.edit.twig:226
+#: /templates/groups/group.edit.twig:234
 msgid "Add user"
 msgstr ""
 
@@ -115,20 +116,13 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:234
-msgid "Add User"
-msgstr ""
-
 #: /templates/groups/group.edit.twig:238
+#: /templates/groups/group.edit.twig:246
 msgid "Remove user"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:246
-msgid "Remove User"
-msgstr ""
-
 #: /templates/groups/group.edit.twig:251
-msgid "List assigned Users"
+msgid "List assigned users"
 msgstr ""
 
 #: /templates/groups/group.edit.twig:263

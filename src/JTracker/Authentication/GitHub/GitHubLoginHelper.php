@@ -132,25 +132,25 @@ class GitHubLoginHelper
 	{
 		// GitHub API works best with cURL
 		$options   = new Registry;
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
 
-		if (false == $transport)
+		if (false === $transport)
 		{
 			throw new \DomainException('No transports available (please install php-curl)');
 		}
 
 		$http = new Http($options, $transport);
 
-		$data = array(
+		$data = [
 			'client_id'     => $this->clientId,
 			'client_secret' => $this->clientSecret,
 			'code'          => $code
-		);
+		];
 
 		$response = $http->post(
 			'https://github.com/login/oauth/access_token',
 			$data,
-			array('Accept' => 'application/json')
+			['Accept' => 'application/json']
 		);
 
 		if (200 != $response->code)
@@ -209,7 +209,7 @@ class GitHubLoginHelper
 			return 1;
 		}
 
-		if (false == function_exists('curl_setopt'))
+		if (false === function_exists('curl_setopt'))
 		{
 			throw new \RuntimeException('cURL is not installed - no avatar support.');
 		}
@@ -234,7 +234,7 @@ class GitHubLoginHelper
 
 		$result = file_put_contents($path, $data);
 
-		if (false == $result)
+		if (false === $result)
 		{
 			throw new \RuntimeException(sprintf('Can not write the avatar image to file %s', $path));
 		}
@@ -259,7 +259,7 @@ class GitHubLoginHelper
 
 		if (file_exists($path))
 		{
-			if (false == unlink($path))
+			if (false === unlink($path))
 			{
 				throw new \DomainException('Can not remove: ' . $path);
 			}

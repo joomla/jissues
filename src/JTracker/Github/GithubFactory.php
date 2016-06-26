@@ -10,8 +10,10 @@ namespace JTracker\Github;
 
 use Joomla\Github\Http;
 use Joomla\Http\HttpFactory;
-use Joomla\Http\Transport\Curl;
 use Joomla\Registry\Registry;
+
+use JTracker\Application;
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\WebProcessor;
@@ -41,7 +43,7 @@ abstract class GithubFactory
 		$options = new Registry;
 
 		// Check if we're in the web application and a token exists
-		if ($app instanceof \JTracker\Application)
+		if ($app instanceof Application)
 		{
 			$session = $app->getSession();
 
@@ -97,12 +99,12 @@ abstract class GithubFactory
 		}
 
 		// The cURL extension is required to properly work.
-		$transport = HttpFactory::getAvailableDriver($options, array('curl'));
+		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
 
 		// Check if we *really* got a cURL transport...
-		if (!($transport instanceof Curl))
+		if (false === $transport)
 		{
-			throw new \RuntimeException('Please enable cURL.');
+			throw new \RuntimeException('No transports available (please install php-curl)');
 		}
 
 		$http = new Http($options, $transport);

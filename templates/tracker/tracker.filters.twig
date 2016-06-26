@@ -4,7 +4,7 @@
 {% macro status(value, id, class, state) %}
   {% import "fields.twig" as fields %}
 
-  {% set values = {0: '- status -'|_} %}
+  {% set values = {0: '- Status -'|_} %}
   {% set values = values + getStatuses(state) %}
 
   {{ fields.select('filter-status', values, value, id, class) }}
@@ -13,7 +13,7 @@
 {% macro priority(value, id, class) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- priority -'|_} %}
+    {% set values = {0: '- Priority -'|_} %}
     {% set values = values + priorities() %}
 
     {{ fields.select('filter-priority', values, value, id, class) }}
@@ -47,7 +47,7 @@
 {% macro category(value, id, class, categories) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- categories -'|_,
+    {% set values = {0: '- Categories -'|_,
     (-1): 'No categories'|_
     } %}
     {% for category in categories %}
@@ -60,7 +60,7 @@
 {% macro label(value, id, class, labels) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- labels -'|_} %}
+    {% set values = {0: '- Labels -'|_} %}
     {% for id,label in labels %}
         {% set values = values + { (id) : (label.name) } %}
     {% endfor %}
@@ -72,7 +72,7 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: '- tests -'|_,
+        0: '- Tests -'|_,
         1: 'Needs one test'|_,
         2: 'Has two tests'|_,
         3: 'Needs tests'|_,
@@ -85,7 +85,7 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        2: '- easy -'|_,
+        2: '- Easy -'|_,
         1: 'Yes'|_,
         0: 'No'|_
     } %}
@@ -97,7 +97,7 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {
-        0: '- type -'|_,
+        0: '- Type -'|_,
         1: 'Pull Request'|_,
         2: 'Issue'|_,
     } %}
@@ -108,7 +108,7 @@
 {% macro milestone(value, id, class, milestones) %}
     {% import "fields.twig" as fields %}
 
-    {% set values = {0: '- milestones -'|_} %}
+    {% set values = {0: '- Milestones -'|_} %}
     {% for milestone in milestones %}
         {% set values = values + { (milestone.milestone_id) : (milestone.title) } %}
     {% endfor %}

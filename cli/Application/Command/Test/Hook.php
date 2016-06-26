@@ -138,7 +138,7 @@ class Hook extends Test
 			throw new AbortException('Aborted');
 		}
 
-		if (false == array_key_exists($resp, $checks))
+		if (false === array_key_exists($resp, $checks))
 		{
 			throw new AbortException('Invalid hook');
 		}
@@ -216,7 +216,7 @@ class Hook extends Test
 				throw new AbortException('Aborted');
 			}
 
-			if (false == array_key_exists($resp, $checks))
+			if (false === array_key_exists($resp, $checks))
 			{
 				throw new AbortException('Invalid project');
 			}

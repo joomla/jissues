@@ -168,14 +168,14 @@ class JoomlacmsPullsListener extends AbstractListener
 		$labelIsSet = $this->checkLabel($hookData, $github, $logger, $project, $label);
 
 		// Validation, if the status isn't RTC or the Label is set then go no further
-		if ($labelIsSet == true && $table->status != 4)
+		if ($labelIsSet === true && $table->status != 4)
 		{
 			// Remove the RTC label as it isn't longer set to RTC
 			$labels[] = $label;
 			$this->removeLabels($hookData, $github, $logger, $project, $labels);
 		}
 
-		if ($labelIsSet == false && $table->status == 4)
+		if ($labelIsSet === false && $table->status == 4)
 		{
 			// Add the RTC label as it isn't already set
 			$labels[] = $label;

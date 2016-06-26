@@ -197,12 +197,12 @@ class TrackerProject implements \Serializable
 	 */
 	public function getAccessGroups($action, $filter = '')
 	{
-		if (false == in_array($action, $this->defaultActions))
+		if (false === in_array($action, $this->defaultActions))
 		{
 			throw new \InvalidArgumentException(__METHOD__ . ' - Invalid action: ' . $action);
 		}
 
-		if ($filter && false == in_array($filter, $this->defaultGroups))
+		if ($filter && false === in_array($filter, $this->defaultGroups))
 		{
 			throw new \InvalidArgumentException(__METHOD__ . ' - Invalid filter: ' . $filter);
 		}

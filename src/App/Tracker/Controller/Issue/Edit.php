@@ -104,7 +104,7 @@ class Edit extends AbstractTrackerController
 		catch (AuthenticationException $e)
 		{
 			// Check if the user has "edit own" permission
-			if (false == $user->canEditOwn($item->opened_by))
+			if (false === $user->canEditOwn($item->opened_by))
 			{
 				throw $e;
 			}
