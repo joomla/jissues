@@ -30,7 +30,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected $trackerhandledCategories = array(
+	protected $trackerHandledCategories = array(
 				// Postgresql
 				'2',
 				// MS SQL
@@ -767,7 +767,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$currentCategories = $this->getCategories($hookData, $logger, $project, $table);
 
 		// Hold the category ids that are added to the issue but not handled by the tracker to readd it later
-		$categoriesThatShouldStay = array_diff($currentCategories, $this->$trackerhandledCategories);
+		$categoriesThatShouldStay = array_diff($currentCategories, $this->trackerHandledCategories);
 
 		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
