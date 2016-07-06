@@ -593,10 +593,10 @@
 
     <ul class="pager">
         <li class="previous{% if not item.previousIssue %} disabled{% endif %}">
-            <a href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><i class="icon-arrow-left"></i> Older</a>
+            <a href="{% if item.previousIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.previousIssue }}{% else %}#{% endif %}"><i class="icon-arrow-left"></i> {{ "Older"|_ }}</a>
         </li>
         <li class="next{% if not item.nextIssue %} disabled{% endif %}">
-            <a href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">Newer <i class="icon-arrow-right"></i></a>
+            <a href="{% if item.nextIssue %}{{ uri.base.path }}tracker/{{ project.alias }}/{{ item.nextIssue }}{% else %}#{% endif %}">{{ "Newer"|_ }} <i class="icon-arrow-right"></i></a>
         </li>
     </ul>
 
