@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -876,11 +876,11 @@ msgstr ""
 msgid "Test Suite"
 msgstr ""
 
-#: /cli/Application/Command/Test/Run.php:71
+#: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
 msgstr ""
 
-#: /cli/Application/Command/Test/Run.php:72
+#: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
 msgstr ""
 

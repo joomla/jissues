@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -568,6 +568,14 @@ msgstr ""
 
 #: /templates/tracker/issue.index.twig:591
 msgid "Login with GitHub to post a comment"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:596
+msgid "Older"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:599
+msgid "Newer"
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:12
