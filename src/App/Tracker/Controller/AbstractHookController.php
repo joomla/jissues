@@ -195,7 +195,17 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 		if (!$data)
 		{
-			$this->logger->error('No data received.');
+			$this->logger->error('No data received.', ['data' => $data, 'payload' => isset($_POST['payload']) ? $_POST['payload'] : 'N/A']);
+
+			$this->getContainer()->get('app')->setHeader('Content-Type', 'application/json; charset=' . $this->getContainer()->get('app')->charSet);
+			$this->getContainer()->get('app')->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
+
+			$this->response->error = 'Missing webhook data payload, check the logs for additional information.';
+
+			$this->getContainer()->get('app')->sendHeaders();
+
+			echo json_encode($this->response);
+
 			$this->getContainer()->get('app')->close();
 		}
 
