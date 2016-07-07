@@ -54,9 +54,9 @@
                 </td>
 
                     <td style="white-space: nowrap;">
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}">{{ "Show"|_ }}</a>
-                        <a href="{{ uri.base.path }}activity/project/{{ project.alias }}">{{ "Project Activity"|_ }}</a>
-                        <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}">{{ "Snapshot"|_ }}</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}">{{ "Show"|_ }}</a> |
+                        <a href="{{ uri.base.path }}activity/project/{{ project.alias }}">{{ "Project Activity"|_ }}</a> |
+                        <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}">{{ "Snapshot"|_ }}</a> |
                         <a href="{{ uri.base.path }}activity/user/{{ project.alias }}">{{ "User Activity"|_ }}</a>
                     {% if user.isAdmin %}
                         <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
