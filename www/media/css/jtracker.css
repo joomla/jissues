@@ -287,6 +287,10 @@ li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
         margin: 0;
         padding-bottom: 4px;
     }
+    
+    #filter-state-div .btn {
+        width: 33.33%;
+    }
 
     .well-small.user-wrapper > .avatar {
         float: left;
