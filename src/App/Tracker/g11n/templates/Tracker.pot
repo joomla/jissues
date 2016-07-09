@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"POT-Creation-Date: 2016-07-09 16:50-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -322,7 +322,8 @@ msgid "Edit Category"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:6
-msgid "Issues List"
+#, php-format
+msgid "%s Issues"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:26

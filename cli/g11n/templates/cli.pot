@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"POT-Creation-Date: 2016-07-09 16:50-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -177,7 +177,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:67
-#: /cli/Application/Command/Get/Languagefiles.php:59
+#: /cli/Application/Command/Get/Languagefiles.php:76
 #: /cli/Application/Command/Get/Project/Comments.php:61
 #: /cli/Application/Command/Get/Project/Events.php:75
 msgid "Finished."
@@ -263,19 +263,23 @@ msgstr ""
 msgid "Don't use a progress bar."
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:39
+#: /cli/Application/Command/Get/Languagefiles.php:48
 msgid "Retrieve language files."
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:51
+#: /cli/Application/Command/Get/Languagefiles.php:53
+msgid "Optionally specify a single language to fetch."
+msgstr ""
+
+#: /cli/Application/Command/Get/Languagefiles.php:67
 msgid "Get Translations"
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:55
+#: /cli/Application/Command/Get/Languagefiles.php:72
 msgid "Start fetching translations."
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:115
+#: /cli/Application/Command/Get/Languagefiles.php:132
 #, php-format
 msgid "Processing: %1$s %2$s... "
 msgstr ""
