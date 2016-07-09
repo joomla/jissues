@@ -95,11 +95,12 @@ module.exports = function(grunt) {
                         'octicons': {
                             fonts_dest: 'www/media/css/vendor',
                             files: [
-                                'octicons/octicons.css',
-                                'octicons/octicons.eot',
-                                'octicons/octicons.svg',
-                                'octicons/octicons.ttf',
-                                'octicons/octicons.woff'
+                                'build/font/octicons.css',
+                                'build/font/octicons.eot',
+                                'build/font/octicons.svg',
+                                'build/font/octicons.ttf',
+                                'build/font/octicons.woff',
+                                'build/font/octicons.woff2'
                             ]
                         }
                     }
@@ -128,7 +129,7 @@ module.exports = function(grunt) {
                     'jquery-validation': ['dist/jquery.validate.js'],
                     'markitup': ['markitup/jquery.markitup.js'],
                     'twbs-pagination': ['jquery.twbsPagination.js'],
-                    'octicons': ['octicons/octicons.css']
+                    'octicons': ['build/font/octicons.css']
                 }
             }
         },
@@ -164,8 +165,8 @@ module.exports = function(grunt) {
         copy: {
             octicons: {
                 expand: true,
-                cwd: 'bower_components/octicons/octicons',
-                src: ['octicons.eot', 'octicons.svg', 'octicons.ttf', 'octicons.woff'],
+                cwd: 'bower_components/octicons/build/font',
+                src: ['octicons.eot', 'octicons.svg', 'octicons.ttf', 'octicons.woff', 'octicons.woff2'],
                 dest: 'www/media/fonts/'
             },
             upload: {
