@@ -27,6 +27,7 @@ abstract class LanguageHelper
 	 * @var array
 	 */
 	private static $knownCrowdinExceptions = [
+		'es-CO' => 'es-CO',
 		'es-ES' => 'es-ES',
 		'nb-NO' => 'nb',
 		'pt-BR' => 'pt-BR',
@@ -59,6 +60,11 @@ abstract class LanguageHelper
 			'iso' => 'uk',
 			'name' => 'English',
 			'display' => 'English'
+		],
+		'es-CO' => [
+			'iso' => 'es-CO',
+			'name' => 'Spanish (Colombia)',
+			'display' => 'Español (Colombia)'
 		],
 		'es-ES' => [
 			'iso' => 'es',

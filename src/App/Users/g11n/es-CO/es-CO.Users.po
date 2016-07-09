@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:44-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Spanish, Colombia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: es-CO\n"
+"X-Crowdin-File: users-app_en.po\n"
+"Language: es_CO\n"
+
+#: /templates/users/user.index.twig:12
+#: /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "Usuario no válido"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: /templates/users/user.index.twig:22
+#: /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Actualizar perfil desde GitHub"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Mi perfil"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Perfil"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Idioma: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Zona horaria: %1$s (GMT %2$s)"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Usuarios"
+
+#: /templates/users/users.index.twig:19
+msgid "Users List"
+msgstr "Lista de usuarios"
+
+#: /templates/users/users.index.twig:25
+#: /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:29
+msgid "Filter the list by user."
+msgstr "Filtrar la lista por usuario."
+
+#: /templates/users/users.index.twig:34
+msgid "Clear"
+msgstr "Limpiar"
+
+#: /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:73
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Página %1$s de %2$s"
+
+#: /templates/users/users.index.twig:46
+msgid "Username"
+msgstr "Usuario"
+
+#: /templates/users/users.index.twig:48
+msgid "Actions"
+msgstr "Acciones"
+
+#: /templates/users/users.index.twig:50
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/users.index.twig:66
+msgid "No items found."
+msgstr "No se encontraron elementos."
+
+#: /templates/users/user.edit.twig:6
+#: /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Editar usuario"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Guardar"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "Perfil de GitHub"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Parámetros"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Idioma"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Zona horaria"
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
+msgid "The user has been assigned."
+msgstr "El usuario ha sido asignado."
+
+#: /src/App/Users/Controller/Ajax/Assign.php:85
+msgid "The user has been unassigned."
+msgstr "El usuario fue desasignado."
+
+#: /src/App/Users/Controller/User/Edit.php:83
+#: /src/App/Users/Controller/User/Save.php:47
+msgid "You are not authorised to edit this user."
+msgstr "No está autorizado para modificar este usuario."
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorised to refresh this user."
+msgstr "No está autorizado para actualizar este usuario."
+
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr "Hubo un error al actualizar el email."
+
+#: /src/App/Users/Controller/User/Refresh.php:82
+msgid "The profile has been refreshed."
+msgstr "El perfil ha sido actualizado."
+
+#: /src/App/Users/Controller/User/Save.php:62
+msgid "The changes have been saved."
+msgstr "Los cambios fueron guardados."
+
