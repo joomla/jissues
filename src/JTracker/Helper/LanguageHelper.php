@@ -29,6 +29,7 @@ abstract class LanguageHelper
 	private static $knownCrowdinExceptions = [
 		'es-CO' => 'es-CO',
 		'es-ES' => 'es-ES',
+		'fr-CA' => 'fr-CA',
 		'nb-NO' => 'nb',
 		'pt-BR' => 'pt-BR',
 		'pt-PT' => 'pt-PT',
@@ -75,6 +76,11 @@ abstract class LanguageHelper
 			'iso' => 'ee',
 			'name' => 'Estonian',
 			'display' => 'Eesti'
+		],
+		'fr-CA' => [
+			'iso' => 'fr-CA',
+			'name' => 'French (Canada)',
+			'display' => 'Français (Canada)'
 		],
 		'fr-FR' => [
 			'iso' => 'fr',
