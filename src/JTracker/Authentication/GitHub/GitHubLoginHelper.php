@@ -131,15 +131,7 @@ class GitHubLoginHelper
 	public function requestToken($code)
 	{
 		// GitHub API works best with cURL
-		$options   = new Registry;
-		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
-
-		if (false === $transport)
-		{
-			throw new \DomainException('No transports available (please install php-curl)');
-		}
-
-		$http = new Http($options, $transport);
+		$http = HttpFactory::getHttp([], ['curl']);
 
 		$data = [
 			'client_id'     => $this->clientId,
@@ -217,22 +209,15 @@ class GitHubLoginHelper
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->container->get('gitHub');
 
-		$ch = curl_init($github->users->get($username)->avatar_url);
+		// GitHub API works best with cURL
+		$response = HttpFactory::getHttp([], ['curl'])->get($github->users->get($username)->avatar_url);
 
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-
-		$data = curl_exec($ch);
-
-		curl_close($ch);
-
-		if (!$data)
+		if ($response->code != 200)
 		{
 			throw new \DomainException(sprintf('Can not retrieve the avatar for user %s', $username));
 		}
 
-		$result = file_put_contents($path, $data);
+		$result = file_put_contents($path, $response->body);
 
 		if (false === $result)
 		{
