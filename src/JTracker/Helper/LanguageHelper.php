@@ -92,6 +92,11 @@ abstract class LanguageHelper
 			'name' => 'Hungarian',
 			'display' => 'Magyar'
 		],
+		'id-ID' => [
+			'iso' => 'id',
+			'name' => 'Indonesian',
+			'display' => 'Bahasa Indonesia'
+		],
 		'it-IT' => [
 			'iso' => 'it',
 			'name' => 'Italian',
