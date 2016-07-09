@@ -28,7 +28,7 @@ abstract class LanguageHelper
 	 */
 	private static $knownCrowdinExceptions = [
 		'es-ES' => 'es-ES',
-		'nb-NO' => 'no',
+		'nb-NO' => 'nb',
 		'pt-BR' => 'pt-BR',
 		'pt-PT' => 'pt-PT',
 		'zh-CN' => 'zh-CN'
@@ -91,9 +91,9 @@ abstract class LanguageHelper
 			'display' => 'Latviešu valoda'
 		],
 		'nb-NO' => [
-			'iso' => 'no',
-			'name' => 'Norwegian',
-			'display' => 'Norsk'
+			'iso' => 'nb',
+			'name' => 'Norwegian Bokmal',
+			'display' => 'Norsk bokmål'
 		],
 		'nl-NL' => [
 			'iso' => 'nl',

@@ -1,30 +1,29 @@
-# JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Herman Peeren <herman@yepr.nl>, 2014
-# Roland Dalmulder <contact@rolandd.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-03-21 16:08+0000\n"
-"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
+"POT-Creation-Date: 2016-06-20 08:40-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: nl\n"
+"X-Crowdin-File: github-app_en.po\n"
+"Language: nl_NL\n"
 
-#: /templates/github/stats.index.twig:52 /templates/github/stats.index.twig:56
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
 msgstr "%s - Statistieken"
 
-#: /templates/github/hooks.index.twig:6 /templates/github/hooks.index.twig:10
+#: /templates/github/hooks.index.twig:6
+#: /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
 msgstr "%s - hooks"
@@ -37,12 +36,14 @@ msgstr "Toon Hooks"
 msgid "New Hook"
 msgstr "Nieuwe Hook"
 
-#: /templates/github/hooks.index.twig:22 /templates/github/hooks.index.twig:87
+#: /templates/github/hooks.index.twig:22
+#: /templates/github/hooks.index.twig:87
 #: /templates/github/labels.index.twig:44
 msgid "URL"
 msgstr "URL"
 
-#: /templates/github/hooks.index.twig:26 /templates/github/hooks.index.twig:88
+#: /templates/github/hooks.index.twig:26
+#: /templates/github/hooks.index.twig:88
 msgid "Events"
 msgstr "Gebeurtenissen"
 
@@ -114,11 +115,11 @@ msgstr "Label naam"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
-msgid "Color"
+msgid "Colour"
 msgstr "Kleur"
 
 #: /templates/github/labels.index.twig:28
-msgid "Label color"
+msgid "Label colour"
 msgstr "Label kleur"
 
 #: /templates/github/labels.index.twig:31
@@ -187,3 +188,4 @@ msgstr "Bewerken"
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
 msgstr "Geen voorbeeld..."
+

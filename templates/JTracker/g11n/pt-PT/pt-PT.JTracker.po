@@ -1,32 +1,32 @@
-# JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Paulo Pereira <pauloizidoro@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-05-14 20:59+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: pt-PT\n"
+"X-Crowdin-File: jtracker-template_en.po\n"
+"Language: pt_PT\n"
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
 msgstr "Entrada"
 
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:30
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
 msgid "About"
 msgstr "Sobre"
 
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:40
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
 msgid "Community"
 msgstr "Comunidade"
 
@@ -72,7 +72,7 @@ msgstr ""
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
-msgstr ""
+msgstr "Autenticar"
 
 #: /templates/footerMenu.twig:40
 msgid "All rights reserved."
@@ -80,14 +80,14 @@ msgstr ""
 
 #: /templates/footerMenu.twig:44
 #, php-format
-msgid "Joomla Hosting by %1$s"
+msgid "Joomla! Hosting by %1$s"
 msgstr ""
 
-#: /templates/index.twig:79
+#: /templates/index.twig:80
 msgid "Download"
 msgstr "Descarregar"
 
-#: /templates/index.twig:82
+#: /templates/index.twig:83
 msgid "Demo"
 msgstr "Demo"
 
@@ -97,7 +97,7 @@ msgstr ""
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr ""
+msgstr "Selecionar marco..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
@@ -105,9 +105,10 @@ msgstr ""
 
 #: /templates/fields.twig:73
 msgid "Select labels..."
-msgstr ""
+msgstr "Selecionar etiquetas..."
 
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
 msgid "Submit test result"
 msgstr ""
 
@@ -131,7 +132,8 @@ msgstr ""
 msgid "Leave a comment (optional)"
 msgstr ""
 
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
 msgid "Alter test result"
 msgstr ""
 
@@ -142,21 +144,22 @@ msgstr ""
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr ""
+msgstr "nome de utilizador"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
-msgstr ""
+msgstr "Adicionar ficheiros..."
 
 #: /templates/uploader.full.twig:18
 msgid "Start upload"
-msgstr ""
+msgstr "Iniciar carregamento"
 
 #: /templates/uploader.full.twig:21
 msgid "Cancel upload"
 msgstr ""
 
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -165,40 +168,40 @@ msgid "Upload Notes"
 msgstr ""
 
 #: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
+#, php-format
+msgid "The maximum file size for uploads is %s."
 msgstr ""
 
 #: /templates/uploader.full.twig:36
-msgid ""
-"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
-" XLSX, PPTX</strong>."
+#, php-format
+msgid "The following file types are allowed: %s"
 msgstr ""
 
 #: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
 msgstr ""
 
 #: /templates/uploader.full.twig:52
 msgid "Processing..."
-msgstr ""
+msgstr "A processar..."
 
 #: /templates/uploader.full.twig:58
 msgid "Start"
 msgstr "Início"
 
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Cancelar pedido"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:151
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Erro"
 
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
-msgstr ""
+msgstr "Escolher idioma"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
@@ -210,15 +213,15 @@ msgstr "Notícias Recentes"
 
 #: /templates/topMenu.twig:19
 msgid "Announcements"
-msgstr ""
+msgstr "Anúncios"
 
 #: /templates/topMenu.twig:20
 msgid "Blogs"
-msgstr ""
+msgstr "Blogues"
 
 #: /templates/topMenu.twig:21
 msgid "Magazine"
-msgstr ""
+msgstr "Revista"
 
 #: /templates/topMenu.twig:23
 msgid "Support Joomla!"
@@ -226,7 +229,7 @@ msgstr ""
 
 #: /templates/topMenu.twig:24
 msgid "Contribute"
-msgstr ""
+msgstr "Contribuir"
 
 #: /templates/topMenu.twig:25
 msgid "Shop Joomla Gear"
@@ -234,11 +237,11 @@ msgstr ""
 
 #: /templates/topMenu.twig:26
 msgid "Sponsorship"
-msgstr ""
+msgstr "Patrocínio"
 
 #: /templates/topMenu.twig:32
 msgid "About Joomla!"
-msgstr ""
+msgstr "Sobre o Joomla!"
 
 #: /templates/topMenu.twig:33
 msgid "Core Features"
@@ -274,11 +277,11 @@ msgstr ""
 
 #: /templates/topMenu.twig:50
 msgid "Support"
-msgstr ""
+msgstr "Ajuda"
 
 #: /templates/topMenu.twig:52
 msgid "Joomla! Forum"
-msgstr ""
+msgstr "Fórum Joomla!"
 
 #: /templates/topMenu.twig:53
 msgid "Joomla! Documentation"
@@ -320,9 +323,10 @@ msgstr ""
 msgid "Showcase Directory"
 msgstr ""
 
-#: /templates/topMenu.twig:70 /templates/topMenu.twig:92
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
 msgid "Language Packages"
-msgstr ""
+msgstr "Pacotes de idioma"
 
 #: /templates/topMenu.twig:71
 msgid "Certification Program"
@@ -336,9 +340,10 @@ msgstr ""
 msgid "Developer Network"
 msgstr ""
 
-#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:203
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
 msgid "Documentation"
-msgstr ""
+msgstr "Documentação"
 
 #: /templates/topMenu.twig:79
 msgid "Joomla! Bug Squad"
@@ -402,7 +407,7 @@ msgstr ""
 
 #: /templates/trackerMenu.twig:36
 msgid "User Activity"
-msgstr ""
+msgstr "Atividade do utilizador"
 
 #: /templates/trackerMenu.twig:44
 msgid "Edit"
@@ -414,7 +419,7 @@ msgstr "Grupos de acesso"
 
 #: /templates/trackerMenu.twig:61
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: /templates/trackerMenu.twig:67
 msgid "Milestones"
@@ -446,11 +451,11 @@ msgstr ""
 
 #: /templates/trackerMenu.twig:114
 msgid "Logs"
-msgstr ""
+msgstr "Registos"
 
 #: /templates/trackerMenu.twig:118
 msgid "Application"
-msgstr ""
+msgstr "Aplicação"
 
 #: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
@@ -482,7 +487,7 @@ msgstr "Ícones"
 
 #: /templates/trackerMenu.twig:164
 msgid "Routes"
-msgstr ""
+msgstr "Rotas"
 
 #: /templates/trackerMenu.twig:170
 msgid "Text"
@@ -506,7 +511,7 @@ msgstr "Administrador"
 
 #: /templates/trackerMenu.twig:227
 msgid "View profile"
-msgstr ""
+msgstr "Ver perfil"
 
 #: /templates/trackerMenu.twig:233
 msgid "Edit profile"
@@ -523,3 +528,4 @@ msgstr ""
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr ""
+

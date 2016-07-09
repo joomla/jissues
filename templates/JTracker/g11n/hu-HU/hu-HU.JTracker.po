@@ -1,32 +1,32 @@
-# JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# József Tamás Herczeg <jtherczeg@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-05-14 20:59+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/opentranslators/jtracker/language/hu_HU/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: hu\n"
+"X-Crowdin-File: jtracker-template_en.po\n"
+"Language: hu_HU\n"
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
 msgstr "Főlap"
 
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:30
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
 msgid "About"
 msgstr "Rólunk"
 
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:40
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
 msgid "Community"
 msgstr "Közösség"
 
@@ -56,7 +56,7 @@ msgstr "Bolt"
 
 #: /templates/footerMenu.twig:30
 msgid "Accessibility Statement"
-msgstr "Akadálymentességi nyilatkozat"
+msgstr "Hozzáférhetőségi nyilatkozat"
 
 #: /templates/footerMenu.twig:31
 msgid "Privacy Policy"
@@ -64,15 +64,15 @@ msgstr "Adatvédelmi szabályzat"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr ""
+msgstr "Hiba jelzése"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr ""
+msgstr "Kijelentkezés"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
-msgstr ""
+msgstr "Bejelentkezés"
 
 #: /templates/footerMenu.twig:40
 msgid "All rights reserved."
@@ -80,14 +80,14 @@ msgstr "Minden jog fenntartva."
 
 #: /templates/footerMenu.twig:44
 #, php-format
-msgid "Joomla Hosting by %1$s"
-msgstr ""
+msgid "Joomla! Hosting by %1$s"
+msgstr "Joomla tárhelyszolgáltató %1$s"
 
-#: /templates/index.twig:79
+#: /templates/index.twig:80
 msgid "Download"
 msgstr "Letöltés"
 
-#: /templates/index.twig:82
+#: /templates/index.twig:83
 msgid "Demo"
 msgstr "Demó"
 
@@ -105,44 +105,46 @@ msgstr "Nincs mérföldkő"
 
 #: /templates/fields.twig:73
 msgid "Select labels..."
-msgstr ""
+msgstr "Válassza ki a címkéket..."
 
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
 msgid "Submit test result"
-msgstr ""
+msgstr "Teszteredmények beküldése"
 
 #: /templates/testcontainer.twig:8
 msgid "I have tested this item"
-msgstr ""
+msgstr "Teszteltem ezt az elemet"
 
 #: /templates/testcontainer.twig:19
 msgid "Not tested"
-msgstr ""
+msgstr "Nincs tesztelve"
 
 #: /templates/testcontainer.twig:25
 msgid "Tested successfully"
-msgstr ""
+msgstr "Sikeresen tesztelve"
 
 #: /templates/testcontainer.twig:31
 msgid "Tested unsuccessfully"
-msgstr ""
+msgstr "Sikertelenül tesztelve"
 
 #: /templates/testcontainer.twig:40
 msgid "Leave a comment (optional)"
-msgstr ""
+msgstr "Szólj hozzá (nem kötelező)"
 
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
 msgid "Alter test result"
-msgstr ""
+msgstr "Vizsgálati eredmény megváltoztatása"
 
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "A teszt eredménybeállítása a %s felhasználónak %s-re"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr ""
+msgstr "felhasználó"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
@@ -156,7 +158,8 @@ msgstr "Feltöltés"
 msgid "Cancel upload"
 msgstr "Feltöltés megszakítása"
 
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Törlés"
 
@@ -165,19 +168,17 @@ msgid "Upload Notes"
 msgstr "Megjegyzések a feltöltéshez"
 
 #: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "A feltölthető legnagyobb fájlméret <strong>1 MB</strong>."
+#, php-format
+msgid "The maximum file size for uploads is %s."
+msgstr "Fájl feltöltések maximális mérete %s."
 
 #: /templates/uploader.full.twig:36
-msgid ""
-"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
-" XLSX, PPTX</strong>."
-msgstr ""
+#, php-format
+msgid "The following file types are allowed: %s"
+msgstr "A következő fájltípusok megengedettek: %s"
 
 #: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
 msgstr "Az asztalodról <strong>húzhatsz</strong> fájlokat erre a weboldalra."
 
 #: /templates/uploader.full.twig:52
@@ -188,21 +189,23 @@ msgstr "Feldolgozás..."
 msgid "Start"
 msgstr "Indítás"
 
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Mégse"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:151
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Hiba"
 
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
-msgstr ""
+msgstr "Válasszon nyelvet"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
-msgstr ""
+msgstr "Joomla! Főlap"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -226,7 +229,7 @@ msgstr "A Joomla! támogatása"
 
 #: /templates/topMenu.twig:24
 msgid "Contribute"
-msgstr ""
+msgstr "Közreműködés"
 
 #: /templates/topMenu.twig:25
 msgid "Shop Joomla Gear"
@@ -234,7 +237,7 @@ msgstr "Joomla! bolt"
 
 #: /templates/topMenu.twig:26
 msgid "Sponsorship"
-msgstr ""
+msgstr "Támogatás"
 
 #: /templates/topMenu.twig:32
 msgid "About Joomla!"
@@ -262,7 +265,7 @@ msgstr "Joomla! események"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Trademark & Licensing"
-msgstr ""
+msgstr "Joomla! Védjegy & Licenc"
 
 #: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
@@ -270,7 +273,7 @@ msgstr "Joomla! felhasználócsoportok"
 
 #: /templates/topMenu.twig:46
 msgid "Joomla! Volunteers Portal"
-msgstr ""
+msgstr "Joomla! Önkéntesek portál"
 
 #: /templates/topMenu.twig:50
 msgid "Support"
@@ -286,7 +289,7 @@ msgstr "Joomla! dokumentáció"
 
 #: /templates/topMenu.twig:54
 msgid "Joomla! Issue Tracker"
-msgstr ""
+msgstr "Joomla! Problémakövető"
 
 #: /templates/topMenu.twig:55
 msgid "Joomla! Resources"
@@ -294,7 +297,7 @@ msgstr "Joomla! erőforrások"
 
 #: /templates/topMenu.twig:59
 msgid "Read"
-msgstr "Olvasás"
+msgstr "Olvasott"
 
 #: /templates/topMenu.twig:61
 msgid "Joomla! Magazine"
@@ -320,13 +323,14 @@ msgstr "Bővítménytár"
 msgid "Showcase Directory"
 msgstr "Showcase Directory"
 
-#: /templates/topMenu.twig:70 /templates/topMenu.twig:92
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
 msgid "Language Packages"
-msgstr ""
+msgstr "Nyelvi csomagok"
 
 #: /templates/topMenu.twig:71
 msgid "Certification Program"
-msgstr ""
+msgstr "Minősítési Program"
 
 #: /templates/topMenu.twig:75
 msgid "Developers"
@@ -334,9 +338,10 @@ msgstr "Fejlesztők:"
 
 #: /templates/topMenu.twig:77
 msgid "Developer Network"
-msgstr ""
+msgstr "Fejlesztői hálózat"
 
-#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:203
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
 msgid "Documentation"
 msgstr "Dokumentáció"
 
@@ -370,7 +375,7 @@ msgstr "Fordítások fóruma"
 
 #: /templates/editor.twig:5
 msgid "Markdown Help"
-msgstr ""
+msgstr "Markdown-Súgó"
 
 #: /templates/editor.twig:6
 msgid "Write"
@@ -394,15 +399,15 @@ msgstr "Megjelenítés"
 
 #: /templates/trackerMenu.twig:28
 msgid "Project Activity"
-msgstr ""
+msgstr "Projekttevékenység"
 
 #: /templates/trackerMenu.twig:32
 msgid "Snapshot"
-msgstr ""
+msgstr "Pillanatkép"
 
 #: /templates/trackerMenu.twig:36
 msgid "User Activity"
-msgstr ""
+msgstr "Felhasználói tevékenység"
 
 #: /templates/trackerMenu.twig:44
 msgid "Edit"
@@ -450,7 +455,7 @@ msgstr "Naplók"
 
 #: /templates/trackerMenu.twig:118
 msgid "Application"
-msgstr ""
+msgstr "Alkalmazás"
 
 #: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
@@ -523,3 +528,4 @@ msgstr "Belépés GitHub-fiókkal"
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr "Nincsenek GitHub hitelesítési adatok megadva a konfigurációban"
+
