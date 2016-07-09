@@ -125,6 +125,11 @@ abstract class LanguageHelper
 			'name' => 'Russian',
 			'display' => 'Русский'
 		],
+		'sl-SI' => [
+			'iso' => 'sl',
+			'name' => 'Slovenian',
+			'display' => 'slovenski jezik'
+		],
 		'zh-CN' => [
 			'iso' => 'cn',
 			'name' => 'Chinese',

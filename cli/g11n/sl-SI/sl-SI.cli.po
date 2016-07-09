@@ -1,0 +1,1022 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"PO-Revision-Date: 2016-07-09 11:31-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovenian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sl\n"
+"X-Crowdin-File: cli-cli_en.po\n"
+"Language: sl_SI\n"
+
+#: /cli/Application/Application.php:104
+msgid "Be quiet - suppress output."
+msgstr "Tiho - Zmanjšaj izhod."
+
+#: /cli/Application/Application.php:109
+msgid "Verbose output for debugging purpose."
+msgstr "Glej verbosly proizvodnja za razhroščevanje namene."
+
+#: /cli/Application/Application.php:114
+msgid "Suppress ANSI colours on unsupported terminals."
+msgstr "Zatiranje ANSI barve na nepodprto terminalov."
+
+#: /cli/Application/Application.php:119
+msgid "Optionally log output to the specified log file."
+msgstr "Neobvezna prijava izhoda v določeno dnevniško datoteko."
+
+#: /cli/Application/Application.php:146
+msgid "Joomla! Tracker CLI Application"
+msgstr "Joomla! Tracker CLI Aplikacija"
+
+#: /cli/Application/Application.php:173
+#, php-format
+msgid "Invalid command: %s"
+msgstr "Neveljaven ukaz: %s"
+
+#: /cli/Application/Application.php:180
+msgid "Did you mean one of this?"
+msgstr "Ali ste mislili eno od tega?"
+
+#: /cli/Application/Application.php:209
+msgid "Process aborted."
+msgstr "Postopek prekinjen."
+
+#: /cli/Application/Application.php:216
+#, php-format
+msgid "Execution time: <b>%d sec.</b>"
+msgstr "Čas izvajanja: <b>%d sec.</b>"
+
+#: /cli/Application/Application.php:367
+msgid "GitHub rate limit:..."
+msgstr "GitHub stopnja omejitve:..."
+
+#: /cli/Application/Command/Clear/Cache.php:30
+msgid "Clear the g11n language directory."
+msgstr "Počistite g11n imenik jezika."
+
+#: /cli/Application/Command/Clear/Cache.php:42
+msgid "Clear g11n Cache Directory"
+msgstr "Počistite g11n predpomnilnik imenika"
+
+#: /cli/Application/Command/Clear/Cache.php:49
+msgid "The g11n cache directory has been cleared."
+msgstr "G11n predpomnilnik imenika je bil izpraznjen."
+
+#: /cli/Application/Command/Clear/Clear.php:27
+msgid "This will clear things."
+msgstr "To bo počistilo zadeve."
+
+#: /cli/Application/Command/Clear/Twig.php:30
+msgid "Clear the Twig cache."
+msgstr "Počisti vejico predpomnilnika."
+
+#: /cli/Application/Command/Clear/Twig.php:42
+msgid "Clear Twig Cache Directory"
+msgstr "Počisti vejico predpomnilnika imenika"
+
+#: /cli/Application/Command/Clear/Twig.php:46
+msgid "Twig caching is not enabled."
+msgstr "Vejica predpomnjenja ni omogočena."
+
+#: /cli/Application/Command/Clear/Twig.php:64
+msgid "The Twig cache directory has been cleared."
+msgstr "Vejica predpomnilnika imenika je bil izpraznjena."
+
+#: /cli/Application/Command/Database/Database.php:27
+msgid "This will track the database status."
+msgstr "To sledenje je stanje zbirke podatkov."
+
+#: /cli/Application/Command/Database/Migrate.php:29
+msgid "Migrate the database schema to a newer version."
+msgstr "Selitev sheme zbirke podatkov na novejšo različico."
+
+#: /cli/Application/Command/Database/Migrate.php:34
+msgid "Apply a specific database version."
+msgstr "Uporabi različico posebne zbirke podatkov."
+
+#: /cli/Application/Command/Database/Migrate.php:48
+msgid "Database Migrations: Migrate"
+msgstr "Baze podatkov migracije: migrirajo"
+
+#: /cli/Application/Command/Database/Migrate.php:68
+#, php-format
+msgid "Error migrating database: %s"
+msgstr "Napaka migracije zbirke podatkov: %s"
+
+#: /cli/Application/Command/Database/Migrate.php:78
+msgid "Database migrated to latest version."
+msgstr "Zbirke podatkov migracija v novejšo različico."
+
+#: /cli/Application/Command/Database/Status.php:27
+msgid "Check the database migration status."
+msgstr "Preverite stanje migracije zbirke podatkov."
+
+#: /cli/Application/Command/Database/Status.php:39
+msgid "Database Migrations: Check Status"
+msgstr "Zbirke podatkov migracije: Preveri stanje"
+
+#: /cli/Application/Command/Database/Status.php:48
+msgid "Your database is up-to-date."
+msgstr "Zbirko podatkov je najnovejše."
+
+#: /cli/Application/Command/Database/Status.php:56
+#, php-format
+msgid "Your database is not up-to-date. You are missing one migration."
+msgid_plural "Your database is not up-to-date. You are missing %d migrations."
+msgstr[0] "Zbirka podatkov ni posodobljeno. Pogrešate eno migracijo."
+msgstr[1] "Zbirka podatkov ni posodobljeno. Pogrešate %d migracije."
+msgstr[2] "Zbirka podatkov ni posodobljeno. Pogrešate %d migracije."
+msgstr[3] "Zbirka podatkov ni posodobljeno. Pogrešate %d migracije."
+
+#: /cli/Application/Command/Database/Status.php:65
+#, php-format
+msgid "Current Version: %1$s"
+msgstr "Trenutna različica: %1$s"
+
+#: /cli/Application/Command/Database/Status.php:66
+#, php-format
+msgid "Latest Version: %1$s"
+msgstr "Zadnja različica: %1$s"
+
+#: /cli/Application/Command/Database/Status.php:68
+#, php-format
+msgid "To update, run the %1$s command."
+msgstr "Če želite posodobiti, zaženite ukaz %1$s."
+
+#: /cli/Application/Command/Export/Langfiles.php:43
+msgid "Backup language files to a given folder."
+msgstr "Varnostno kopiranje jezikovne datoteke v določeno mapo."
+
+#: /cli/Application/Command/Export/Langfiles.php:72
+msgid "Export language files"
+msgstr "Izvoz jezikovne datoteke"
+
+#: /cli/Application/Command/Export/Langfiles.php:124
+#, php-format
+msgid "Processing %1$s %2$s:... "
+msgstr "Procesiram %1$s %2$s:... "
+
+#: /cli/Application/Command/Get/Avatars.php:29
+msgid "Retrieve avatar images from GitHub."
+msgstr "Naložite avatar sliko iz GitHub."
+
+#: /cli/Application/Command/Get/Avatars.php:50
+msgid "Retrieve Avatars"
+msgstr "Pridobivanje avatarjev"
+
+#: /cli/Application/Command/Get/Avatars.php:52
+msgid "Start retrieving Avatars."
+msgstr "Začetek pridobivanje avatarjev."
+
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:67
+#: /cli/Application/Command/Get/Languagefiles.php:59
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:75
+msgid "Finished."
+msgstr "Končano."
+
+#: /cli/Application/Command/Get/Avatars.php:81
+msgid "No users found in database."
+msgstr "V bazi ni nobenega uporabnika."
+
+#: /cli/Application/Command/Get/Avatars.php:87
+#, php-format
+msgid "Processing avatars for one user."
+msgid_plural "Processing avatars for %d users."
+msgstr[0] "Procesiranje avatarjev za enega uporabnika."
+msgstr[1] "Procesiranje avatarjev za %d uporabnike."
+msgstr[2] "Procesiranje avatarjev za %d uporabnike."
+msgstr[3] "Procesiranje avatarjev za %d uporabnike."
+
+#: /cli/Application/Command/Get/Avatars.php:113
+#, php-format
+msgid "User avatar already fetched for user %s"
+msgstr "Uporabniški avatar je že zapisan za prikaz uporabnika %s"
+
+#: /cli/Application/Command/Get/Avatars.php:122
+#, php-format
+msgid "Fetching avatar for user: %s"
+msgstr "Pridobivam avatar za uporabnika: %s"
+
+#: /cli/Application/Command/Get/Avatars.php:134
+#, php-format
+msgid "Copy default image for user: %s"
+msgstr "Kopiraj privzeto slike za uporabnika: %s"
+
+#: /cli/Application/Command/Get/Avatars.php:151
+#, php-format
+msgid "Added one new user avatar"
+msgid_plural "Added %d new user avatars"
+msgstr[0] "Doda en nov uporabnik avatar"
+msgstr[1] "Dodano %d novih uporabniških avatarjev"
+msgstr[2] "Dodano %d novih uporabniških avatarjev"
+msgstr[3] "Dodano %d novih uporabniških avatarjev"
+
+#: /cli/Application/Command/Get/Composertags.php:29
+msgid "Retrieve a list of project tags from GitHub and show their installed versions."
+msgstr "Pridobivanje seznama oznak projekt iz GitHub in pokazati svoje nameščene različice."
+
+#: /cli/Application/Command/Get/Composertags.php:35
+msgid "Show all tags or only the most recent."
+msgstr "Prikaži vse oznake ali le najnovejše."
+
+#: /cli/Application/Command/Get/Composertags.php:50
+msgid "Retrieve Composer tags"
+msgstr "Pridobitev oznake skladatelja"
+
+#. TRANSLATORS: %s refers to a file system path.
+#: /cli/Application/Command/Get/Composertags.php:59
+#, php-format
+msgid "Can not read the packages file at %s"
+msgstr "Ne more prebrati datoteke paketov na %s"
+
+#: /cli/Application/Command/Get/Composertags.php:62
+msgid "Start getting Composer tags."
+msgstr "Začeli že skladatelj oznake."
+
+#: /cli/Application/Command/Get/Composertags.php:104
+msgid "Installed"
+msgstr "Nameščeno"
+
+#: /cli/Application/Command/Get/Composertags.php:121
+#, php-format
+msgid "Installed: %s"
+msgstr "Nameščeno: %s"
+
+#: /cli/Application/Command/Get/Get.php:84
+msgid "Retrieve Information from various sources."
+msgstr "Pridobivanje informacij iz različnih virov."
+
+#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Test/Hook.php:66
+#: /cli/Application/Command/Update/Update.php:72
+msgid "Process the project with the given ID."
+msgstr "Proces projekta z določenim ID."
+
+#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Make/Make.php:41
+#: /cli/Application/Command/Update/Update.php:78
+msgid "Don't use a progress bar."
+msgstr "Ne uporabljajte napredek bara."
+
+#: /cli/Application/Command/Get/Languagefiles.php:39
+msgid "Retrieve language files."
+msgstr "Pridobivanje, jezikovnih datotek."
+
+#: /cli/Application/Command/Get/Languagefiles.php:51
+msgid "Get Translations"
+msgstr "Pridobite prevode"
+
+#: /cli/Application/Command/Get/Languagefiles.php:55
+msgid "Start fetching translations."
+msgstr "Začetek pridobivanja prevodov."
+
+#: /cli/Application/Command/Get/Languagefiles.php:115
+#, php-format
+msgid "Processing: %1$s %2$s... "
+msgstr "Obdelujem: %1$s %2$s... "
+
+#: /cli/Application/Command/Get/Project.php:68
+msgid "Get the whole project info from GitHub, including issues and issue comments."
+msgstr "Pridobite informacije celotnega projekta od GitHub, vključno z vprašanji in komentarji vprašanj."
+
+#: /cli/Application/Command/Get/Project.php:74
+#: /cli/Application/Command/Get/Project/Events.php:53
+msgid "Process all issues."
+msgstr "Obdelava vseh vprašanj."
+
+#: /cli/Application/Command/Get/Project.php:80
+#: /cli/Application/Command/Get/Project/Events.php:48
+msgid "<n> Process only a single issue."
+msgstr "<n> Obdelaj samo eno vprašanje."
+
+#: /cli/Application/Command/Get/Project.php:86
+msgid "<n> First issue to process."
+msgstr "<n> Prvo vprašanje za obdelavo."
+
+#: /cli/Application/Command/Get/Project.php:92
+msgid "<n> Last issue to process."
+msgstr "<n> Zadnje vprašanje za obdelavo."
+
+#: /cli/Application/Command/Get/Project.php:98
+msgid "Force an update even if the issue has not changed."
+msgstr "Vsiliti posodobljene, tudi če se vprašanje ni spremenilo."
+
+#: /cli/Application/Command/Get/Project.php:112
+msgid "Retrieve Project"
+msgstr "Pridobitev projekt"
+
+#: /cli/Application/Command/Get/Project.php:114
+msgid "Bulk Start retrieve Project"
+msgstr "Začetek množičnega reševanja projekta"
+
+#: /cli/Application/Command/Get/Project.php:125
+#, php-format
+msgid "Updating project info for project: %1$s/%2$s"
+msgstr "Posodabljanje informacij za projekt: %1$s/%2$s"
+
+#: /cli/Application/Command/Get/Project.php:137
+msgid "Bulk Finished"
+msgstr "Večina končanih"
+
+#: /cli/Application/Command/Get/Project.php:310
+msgid "GitHub issues to process?"
+msgstr "Obdelam GitHub vprašanja?"
+
+#: /cli/Application/Command/Get/Project.php:312
+msgid "All"
+msgstr "Vse"
+
+#: /cli/Application/Command/Get/Project.php:313
+msgid "Range"
+msgstr "Obseg"
+
+#: /cli/Application/Command/Get/Project.php:314
+msgid "Select: "
+msgstr "Izberite: "
+
+#: /cli/Application/Command/Get/Project.php:321
+msgid "Enter the first GitHub issue ID to process (from):"
+msgstr "Vnesite prvo ID GitHub vprašanja za obdelavo (iz):"
+
+#: /cli/Application/Command/Get/Project.php:325
+msgid "Enter the latest GitHub issue ID to process (to):"
+msgstr "Vnesite najnovejši ID GitHub vprašanja za obdelavo (v):"
+
+#: /cli/Application/Command/Get/Project/Comments.php:41
+msgid "Retrieve comments from GitHub."
+msgstr "Pridobivanje pripombe iz GitHub."
+
+#: /cli/Application/Command/Get/Project/Comments.php:53
+msgid "Retrieve Comments"
+msgstr "Pridobivanje pripombe"
+
+#: /cli/Application/Command/Get/Project/Comments.php:55
+msgid "Start retrieve Comments"
+msgstr "Začetek pridobivanja pripombe"
+
+#: /cli/Application/Command/Get/Project/Comments.php:97
+#, php-format
+msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
+msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
+msgstr[0] "Pridobivam pripombe za <b>eno</b> spremenjeno vprašanje iz GitHub..."
+msgstr[1] "Pridobivam pripombe za <b>%d</b> spremenjenih vprašanj iz GitHub..."
+msgstr[2] "Pridobivam pripombe za <b>%d</b> spremenjenih vprašanj iz GitHub..."
+msgstr[3] "Pridobivam pripombe za <b>%d</b> spremenjenih vprašanj iz GitHub..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:167
+#: /cli/Application/Command/Get/Project/Events.php:181
+msgid "Everything is up to date."
+msgstr "Vse je posodobljeno."
+
+#: /cli/Application/Command/Get/Project/Comments.php:181
+#, php-format
+msgid "Processing comments for one modified issue..."
+msgid_plural "Processing comments for %d modified issues..."
+msgstr[0] "Obdelava pripombe za spremenjeno eno vprašanje..."
+msgstr[1] "Obdelavo pripomb za %d spremenjenih vprašanj..."
+msgstr[2] "Obdelavo pripomb za %d spremenjenih vprašanj..."
+msgstr[3] "Obdelavo pripomb za %d spremenjenih vprašanj..."
+
+#: /cli/Application/Command/Get/Project/Comments.php:210
+#, php-format
+msgid "No comments for issue # %d"
+msgstr "Ni komentarjev za vprašanje # %d"
+
+#: /cli/Application/Command/Get/Project/Comments.php:219
+#, php-format
+msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
+msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
+msgstr[0] "Obdelujem en komentar za vprašanje # %2$d (%3$d/%4$d)"
+msgstr[1] "Obdelujem %1$d komentarje za vprašanje # %2$d (%3$d/%4$d)"
+msgstr[2] "Obdelujem %1$d komentarje za vprašanje # %2$d (%3$d/%4$d)"
+msgstr[3] "Obdelujem %1$d komentarje za vprašanje # %2$d (%3$d/%4$d)"
+
+#: /cli/Application/Command/Get/Project/Comments.php:331
+#, php-format
+msgid "%1$d added, %2$d updated, %3$d deleted."
+msgstr "%1$d dodano, %2$d posodobljeno, %3$d izbrisano."
+
+#: /cli/Application/Command/Get/Project/Comments.php:352
+msgid "Getting issue comments."
+msgstr "Pridobivanje pripombe vprašanja."
+
+#: /cli/Application/Command/Get/Project/Comments.php:381
+msgid "Deleting issues comments."
+msgstr "Brisanje pripombe vprašanja."
+
+#: /cli/Application/Command/Get/Project/Events.php:43
+msgid "Retrieve issue events from GitHub."
+msgstr "Pridobivanje dogodkov vprašanja iz GitHub."
+
+#: /cli/Application/Command/Get/Project/Events.php:67
+msgid "Retrieve Events"
+msgstr "Pridobivanje dogodkov"
+
+#: /cli/Application/Command/Get/Project/Events.php:69
+msgid "Start retrieve Events"
+msgstr "Začetek pridobivanja dogodkov"
+
+#: /cli/Application/Command/Get/Project/Events.php:111
+#, php-format
+msgid "Fetch events for one issue from GitHub..."
+msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
+msgstr[0] "Pridobivam dogodke za eno vprašanje iz GitHub..."
+msgstr[1] "Pridobivam dogodke za <b>%d</b> vprašanj iz GitHub..."
+msgstr[2] "Pridobivam dogodke za <b>%d</b> vprašanj iz GitHub..."
+msgstr[3] "Pridobivam dogodke za <b>%d</b> vprašanj iz GitHub..."
+
+#: /cli/Application/Command/Get/Project/Events.php:191
+msgid "Adding events to the database..."
+msgstr "Dodajanje dogodkov v bazo podatkov..."
+
+#: /cli/Application/Command/Get/Project/Events.php:341
+#, php-format
+msgid "Added %d new issue events to the database"
+msgstr "Dodano %d novo vprašanje dogodkov v bazo podatkov"
+
+#: /cli/Application/Command/Get/Project/Issues.php:66
+msgid "Retrieve issues from GitHub."
+msgstr "Pridobivanje vprašanja iz GitHub."
+
+#: /cli/Application/Command/Get/Project/Issues.php:78
+msgid "Retrieve Issues"
+msgstr "Pridobivanje vprašanja"
+
+#: /cli/Application/Command/Get/Project/Issues.php:83
+msgid "Start retrieve Issues"
+msgstr "Začetek pridobivanja vprašanja"
+
+#: /cli/Application/Command/Get/Project/Issues.php:89
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+msgid "Finished"
+msgstr "Končal"
+
+#: /cli/Application/Command/Get/Project/Issues.php:105
+#, php-format
+msgid "Retrieving <b>%s</b> items from GitHub..."
+msgstr "Pridobivam <b>%s</b> postavko iz GitHub..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:167
+#, php-format
+msgid "Retrieved <b>1</b> item from GitHub."
+msgid_plural "Retrieved <b>%d</b> items from GitHub."
+msgstr[0] "Pridobljena <b>1</b> postavka iz GitHub."
+msgstr[1] "Pridobljenih <b>%d</b> postavk iz GitHub."
+msgstr[2] "Pridobljenih <b>%d</b> postavk iz GitHub."
+msgstr[3] "Pridobljenih <b>%d</b> postavk iz GitHub."
+
+#: /cli/Application/Command/Get/Project/Issues.php:203
+msgid "Adding issues to the database..."
+msgstr "Dodajanje vprašanj v bazo podatkov..."
+
+#: /cli/Application/Command/Get/Project/Issues.php:447
+#, php-format
+msgid "<ok>%1$d added, %2$d updated.</ok>"
+msgstr "<ok>%1$d dodano, %2$d posodobljeno.</ok>"
+
+#: /cli/Application/Command/Get/Project/Labels.php:31
+msgid "Retrieve project labels from GitHub."
+msgstr "Pridobivanje nalepk projekta iz GitHub."
+
+#: /cli/Application/Command/Get/Project/Labels.php:43
+msgid "Retrieve Labels"
+msgstr "Pridobivanje nalepk"
+
+#: /cli/Application/Command/Get/Project/Labels.php:45
+msgid "Start retrieve Labels"
+msgstr "Začetek pridobivanja nalepk"
+
+#: /cli/Application/Command/Get/Project/Labels.php:62
+msgid "Fetching labels..."
+msgstr "Pridobivam nalepke..."
+
+#: /cli/Application/Command/Get/Project/Labels.php:141
+#, php-format
+msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Nalepke: %1$d novih, %2$d posodobljeno, %3$d izbrisano."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:33
+msgid "Retrieve project milestones from GitHub."
+msgstr "Pridobivanje mejnikov projekta iz GitHub."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:45
+msgid "Retrieve Milestones"
+msgstr "Pridobivanje mejnikov"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:47
+msgid "Start retrieving Milestones"
+msgstr "Začetek pridobivanja mejnikov"
+
+#: /cli/Application/Command/Get/Project/Milestones.php:64
+msgid "Fetching milestones..."
+msgstr "Pridobivam mejnike..."
+
+#: /cli/Application/Command/Get/Project/Milestones.php:151
+#, php-format
+msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
+msgstr "Mejniki: %1$d novih, %2$d posodobljeno, %3$d izbrisano."
+
+#: /cli/Application/Command/Help/Help.php:38
+msgid "Displays helpful information"
+msgstr "Prikaži koristne informacije"
+
+#: /cli/Application/Command/Help/Help.php:70
+#, php-format
+msgid "<b>Usage</b>: %s"
+msgstr "<b>Uporaba</b>: %s"
+
+#: /cli/Application/Command/Help/Help.php:70
+#: /cli/Application/Command/Help/Help.php:93
+msgid "command"
+msgstr "ukaz"
+
+#: /cli/Application/Command/Help/Help.php:70
+msgid "options"
+msgstr "možnosti"
+
+#: /cli/Application/Command/Help/Help.php:77
+msgid "Available commands:"
+msgstr "Razpoložljivi ukazi:"
+
+#: /cli/Application/Command/Help/Help.php:93
+#, php-format
+msgid "<b>For more information use</b>: %s"
+msgstr "<b>Za več informacij</b>: %s"
+
+#: /cli/Application/Command/Help/Help.php:100
+msgid "Application command <opt>options</opt>"
+msgstr "Uporabite ukazne <opt>možnosti</opt>"
+
+#. TRANSLATORS: %s refers to a command name
+#: /cli/Application/Command/Help/Help.php:124
+#, php-format
+msgid "Unknown: %s"
+msgstr "Neznan: %s"
+
+#: /cli/Application/Command/Help/Help.php:134
+#: /cli/Application/Command/TrackerCommand.php:179
+#, php-format
+msgid "Command: %s"
+msgstr "Ukaz: %s"
+
+#: /cli/Application/Command/Help/Help.php:134
+msgid "action"
+msgstr "dejanje"
+
+#: /cli/Application/Command/Help/Help.php:141
+#: /cli/Application/Command/Help/Help.php:164
+msgid "Available options:"
+msgstr "Razpoložljive možnosti:"
+
+#: /cli/Application/Command/Help/Help.php:152
+msgid "Available <cmd>actions</cmd>:"
+msgstr "Razpoložljiva <cmd>dejanja</cmd>:"
+
+#: /cli/Application/Command/Install/Install.php:37
+msgid "Install the application."
+msgstr "Namestiti aplikacijo."
+
+#: /cli/Application/Command/Install/Install.php:42
+msgid "Reinstall the application (without confirmation)"
+msgstr "Znova namestite program (brez potrditve)"
+
+#: /cli/Application/Command/Install/Install.php:59
+msgid "Installer"
+msgstr "Namestitev"
+
+#: /cli/Application/Command/Install/Install.php:71
+msgid "WARNING: A database has been found!"
+msgstr "OPOZORILO: baza je bila najdena!"
+
+#: /cli/Application/Command/Install/Install.php:73
+msgid "Do you want to reinstall?"
+msgstr "Ali želite ponovno namestiti?"
+
+#: /cli/Application/Command/Install/Install.php:75
+msgid "Yes"
+msgstr "Da"
+
+#: /cli/Application/Command/Install/Install.php:76
+msgid "No"
+msgstr "Ne"
+
+#: /cli/Application/Command/Install/Install.php:78
+msgid "Select:"
+msgstr "Izberite:"
+
+#: /cli/Application/Command/Install/Install.php:98
+msgid "No database found."
+msgstr "Baza ni najdena."
+
+#: /cli/Application/Command/Install/Install.php:99
+msgid "Creating the database..."
+msgstr "Ustvarjanje baze podatkov..."
+
+#: /cli/Application/Command/Install/Install.php:118
+msgid "Installation has been completed successfully."
+msgstr "Namestitev je uspešno dokončana."
+
+#: /cli/Application/Command/Install/Install.php:132
+msgid "Removing existing tables..."
+msgstr "Odstranjevanje obstoječih tabel..."
+
+#: /cli/Application/Command/Install/Install.php:178
+#, php-format
+msgid "Install SQL file for %s not found."
+msgstr "Namestitveno SQL datoteko za %s ni mogoče najti."
+
+#: /cli/Application/Command/Install/Install.php:185
+msgid "SQL file corrupted."
+msgstr "SQL datoteka poškodovana."
+
+#: /cli/Application/Command/Install/Install.php:188
+#, php-format
+msgid "Creating tables from file %s"
+msgstr "Ustvari tabele iz datoteke %s"
+
+#: /cli/Application/Command/Make/Autocomplete.php:31
+msgid "Generate an autocomplete file for PhpStorm."
+msgstr "Ustvari datoteko samodokončaj za PhpStorm."
+
+#: /cli/Application/Command/Make/Autocomplete.php:36
+msgid "An optional file to write the results to."
+msgstr "Neobvezna datoteka za pisanje rezultatov."
+
+#: /cli/Application/Command/Make/Autocomplete.php:50
+msgid "Make Auto complete"
+msgstr "Naredi samodokončanje"
+
+#: /cli/Application/Command/Make/Autocomplete.php:124
+#: /cli/Application/Command/Make/Depfile.php:126
+#, php-format
+msgid "Writing contents to: %s"
+msgstr "Pisanje vsebine na: %s"
+
+#: /cli/Application/Command/Make/Composergraph.php:40
+msgid "Graph visualisation for your project's composer.json and its dependencies."
+msgstr "Graf vizualizacije za vaš projekt composer.json in njegove odvisnosti."
+
+#: /cli/Application/Command/Make/Composergraph.php:46
+#: /cli/Application/Command/Make/Depfile.php:57
+msgid "Write output to a file."
+msgstr "Napiši izhodne podatke v datoteko."
+
+#: /cli/Application/Command/Make/Composergraph.php:52
+msgid "The image type."
+msgstr "Vrsta slike."
+
+#: /cli/Application/Command/Make/Composergraph.php:66
+msgid "Make Composer graph"
+msgstr "Naredi Composer graf"
+
+#: /cli/Application/Command/Make/Composergraph.php:102
+msgid "The graph has been created."
+msgstr "Graf je ustvarjen."
+
+#: /cli/Application/Command/Make/Composergraph.php:140
+#, php-format
+msgid "The file has been written to %s"
+msgstr "Datoteka je bila napisana za %s"
+
+#: /cli/Application/Command/Make/Composergraph.php:157
+#, php-format
+msgid "Format has been set to %s"
+msgstr "Oblika je bila nastavljana za %s"
+
+#: /cli/Application/Command/Make/Dbcomments.php:27
+msgid "Generate class doc blocks for Table classes"
+msgstr "Ustvari razred doc bloke za tabelo razredi"
+
+#: /cli/Application/Command/Make/Dbcomments.php:39
+msgid "Make Table Comments"
+msgstr "Naredi tabelo komentarjev"
+
+#: /cli/Application/Command/Make/Depfile.php:52
+msgid "Create and update a dependency file."
+msgstr "Ustvarite in posodobite datoteko o odvisnostih."
+
+#: /cli/Application/Command/Make/Depfile.php:260
+#, php-format
+msgid "Language file not found %1$s, %2$s, %3$s"
+msgstr "Jezikovne datoteke ni mogoče najti %1$s, %2$s, %3$s"
+
+#: /cli/Application/Command/Make/Docu.php:29
+msgid "Compile documentation using GitHub Flavored Markdown"
+msgstr "Prevedite dokumentacijo uporabe GitHub Flavored Markdown"
+
+#: /cli/Application/Command/Make/Docu.php:41
+msgid "Make Documentation"
+msgstr "Naredite dokumentacijo"
+
+#: /cli/Application/Command/Make/Docu.php:63
+#, php-format
+msgid "Compiling documentation in: %s"
+msgstr "Priprava dokumentacije v: %s"
+
+#: /cli/Application/Command/Make/Langfiles.php:36
+msgid "Create and update language files."
+msgstr "Ustvarite in posodobite jezikovne datoteke."
+
+#: /cli/Application/Command/Make/Langfiles.php:41
+#: /cli/Application/Command/Make/Langtemplates.php:53
+msgid "Process only this extension"
+msgstr "Obdelaj le to razširitev"
+
+#: /cli/Application/Command/Make/Langfiles.php:56
+msgid "Make Language files"
+msgstr "Naredi jezikovne datoteke"
+
+#: /cli/Application/Command/Make/Langfiles.php:150
+#, php-format
+msgid "Processing: %1$s %2$s %3$s"
+msgstr "Obdelujem: %1$s %2$s %3$s"
+
+#: /cli/Application/Command/Make/Langfiles.php:159
+#: /cli/Application/Command/Test/Langfiles.php:84
+msgid "The file does not have UNIX style line endings!"
+msgstr "Datoteka nima UNIX sloga zaključka vrstic!"
+
+#: /cli/Application/Command/Make/Langfiles.php:167
+msgid "Creating language file..."
+msgstr "Ustvarjanje jezikovne datoteke..."
+
+#: /cli/Application/Command/Make/Langfiles.php:206
+msgid "The language file has been created"
+msgstr "Jezikovna datoteka je ustvarjena"
+
+#: /cli/Application/Command/Make/Langfiles.php:211
+msgid "Updating language file..."
+msgstr "Posodabljam jezikovno datoteko..."
+
+#: /cli/Application/Command/Make/Langtemplates.php:48
+msgid "Create language file templates."
+msgstr "Ustvarjanje predloge jezikovne datoteke."
+
+#: /cli/Application/Command/Make/Langtemplates.php:69
+msgid "Make Language templates"
+msgstr "Naredi predlogo jezika"
+
+#: /cli/Application/Command/Make/Langtemplates.php:90
+#: /cli/Application/Command/Make/Langtemplates.php:103
+#: /cli/Application/Command/Make/Langtemplates.php:116
+#: /cli/Application/Command/Make/Langtemplates.php:135
+#, php-format
+msgid "Processing: %1$s %2$s"
+msgstr "Obdelujem: %1$s %2$s"
+
+#: /cli/Application/Command/Make/Langtemplates.php:161
+#, php-format
+msgid "Processing App: %s"
+msgstr "Obdelujem App: %s"
+
+#: /cli/Application/Command/Make/Langtemplates.php:338
+msgid "Your template has been created"
+msgstr "Vaša predloga Je ustvarjena"
+
+#: /cli/Application/Command/Make/Languageflags.php:34
+msgid "Full path to the combined image file."
+msgstr "Celotna pot do datoteke kombinirane slike."
+
+#: /cli/Application/Command/Make/Languageflags.php:40
+msgid "Full path to the CSS file."
+msgstr "Celotno pot do datoteke CSS."
+
+#: /cli/Application/Command/Make/Languageflags.php:44
+msgid "Compile multiple images into a big one (CSS spriting)."
+msgstr "Prevedite več slik v eno veliko (CSS spriting)."
+
+#: /cli/Application/Command/Make/Languageflags.php:56
+msgid "Compile Language flag images"
+msgstr "Prevedite sliko zastave jezika"
+
+#: /cli/Application/Command/Make/Languageflags.php:109
+#, php-format
+msgid "Generating the combined image for %1$d flag images in %2$s"
+msgstr "Ustvarjanje kombinirane slike za %1$d sliko zastave v %2$s"
+
+#: /cli/Application/Command/Make/Languageflags.php:115
+#, php-format
+msgid "Writing the CSS file to %s"
+msgstr "Pisanje CSS datoteke za %s"
+
+#: /cli/Application/Command/Make/Make.php:36
+msgid "The make engine"
+msgstr "Naredite engine"
+
+#: /cli/Application/Command/Make/Repoinfo.php:35
+msgid "Generate repository information."
+msgstr "Ustvarite skladišče informacij."
+
+#: /cli/Application/Command/Make/Repoinfo.php:50
+msgid "Generate Repo information"
+msgstr "Ustvarite Repo informacije"
+
+#: /cli/Application/Command/Test/Checkstyle.php:29
+msgid "Run PHP CodeSniffer tests."
+msgstr "Zaženite PHP CodeSniffer preizkus."
+
+#: /cli/Application/Command/Test/Checkstyle.php:42
+msgid "Test Checkstyle"
+msgstr "Preizkus Checkstyle"
+
+#: /cli/Application/Command/Test/Copypaste.php:30
+msgid "Run Copy/Paste Detector (CPD) for PHP code."
+msgstr "Zaženite Copy/Paste Detector (CPD) za PHP kodo."
+
+#: /cli/Application/Command/Test/Copypaste.php:43
+msgid "Run Copy/Paste Detector"
+msgstr "Zaženite Copy/Paste Detector"
+
+#: /cli/Application/Command/Test/Hook.php:61
+msgid "Tests web hooks"
+msgstr "Preskusi spletni kavlje"
+
+#: /cli/Application/Command/Test/Hook.php:81
+msgid "Test Hooks"
+msgstr "Preskus kavljev"
+
+#: /cli/Application/Command/Test/Langfiles.php:33
+#: /cli/Application/Command/Test/Langfiles.php:46
+msgid "Check language files"
+msgstr "Preverjanje jezikovne datoteke"
+
+#: /cli/Application/Command/Test/Langfiles.php:109
+msgid "There have been errors."
+msgstr "Prišlo do napake."
+
+#: /cli/Application/Command/Test/Langfiles.php:110
+msgid "Language file syntax OK"
+msgstr "Sintaksa jezikovne datoteke OK"
+
+#: /cli/Application/Command/Test/Phploc.php:30
+msgid "Run Lines Of Code (LOC) for PHP code."
+msgstr "Zaženite Lines Of Code (LOC) za PHP kodo."
+
+#: /cli/Application/Command/Test/Phploc.php:43
+msgid "Run PHP Lines Of Code"
+msgstr "Zaženite PHP Lines Of Code"
+
+#: /cli/Application/Command/Test/Phpunit.php:29
+msgid "Run PHPUnit tests."
+msgstr "Zaženite PHPUnit preizkus."
+
+#: /cli/Application/Command/Test/Phpunit.php:41
+msgid "Test PHPUnit"
+msgstr "Preizkus PHPUnit"
+
+#: /cli/Application/Command/Test/Phpunit.php:55
+msgid "Finished with errors."
+msgstr "Dokončano z napakami."
+
+#: /cli/Application/Command/Test/Phpunit.php:56
+msgid "Success"
+msgstr "Uspešno"
+
+#: /cli/Application/Command/Test/Run.php:27
+msgid "Run all tests"
+msgstr "Zaženite vse preskuse"
+
+#: /cli/Application/Command/Test/Run.php:39
+msgid "Test Suite"
+msgstr "Preskusni Suite"
+
+#: /cli/Application/Command/Test/Run.php:66
+msgid "Test Suite Finished with errors."
+msgstr "Suite preizkus končan z napakami."
+
+#: /cli/Application/Command/Test/Run.php:67
+msgid "Test Suite Finished."
+msgstr "Suite preizkus končan."
+
+#: /cli/Application/Command/Test/Test.php:35
+msgid "The test engine"
+msgstr "Preizkus engine"
+
+#: /cli/Application/Command/TrackerCommand.php:181
+#, php-format
+msgid "Missing option for command: %s"
+msgstr "Manjka možnost za ukaz: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:182
+msgid "Please use one of the following :"
+msgstr "Prosimo, uporabite eno od naslednjih:"
+
+#: /cli/Application/Command/TrackerCommand.php:296
+msgid "Available projects:"
+msgstr "Razpoložljivi projekti:"
+
+#: /cli/Application/Command/TrackerCommand.php:314
+msgid "Select a project:"
+msgstr "Izberite projekt:"
+
+#: /cli/Application/Command/TrackerCommand.php:320
+msgid "Aborted"
+msgstr "Prekinjeno"
+
+#: /cli/Application/Command/TrackerCommand.php:325
+#: /cli/Application/Command/TrackerCommand.php:344
+msgid "Invalid project"
+msgstr "Neveljaven projekt"
+
+#: /cli/Application/Command/TrackerCommand.php:348
+#, php-format
+msgid "Processing project: %s"
+msgstr "Procesiranje projekta: %s"
+
+#: /cli/Application/Command/TrackerCommand.php:379
+#: /cli/Application/Command/TrackerCommand.php:381
+msgid "An unknown error occurred"
+msgstr "Neznana napaka"
+
+#: /cli/Application/Command/Update/Languagefiles.php:46
+msgid "Updates language files on a translation service."
+msgstr "Posodobi jezik datoteke na prevajalske storitve."
+
+#: /cli/Application/Command/Update/Languagefiles.php:51
+msgid "The translation service provider to use."
+msgstr "Ponudnik prevajalske storitve za uporabo."
+
+#: /cli/Application/Command/Update/Languagefiles.php:57
+msgid "Flag if resources should be created."
+msgstr "Zastava, če bi bilo treba ustvariti vir."
+
+#: /cli/Application/Command/Update/Languagefiles.php:63
+msgid "Flag if translations should be uploaded."
+msgstr "Zastava če je potrebno prevode naložiti."
+
+#: /cli/Application/Command/Update/Languagefiles.php:77
+msgid "Update Translations"
+msgstr "Posodobitev prevodov"
+
+#: /cli/Application/Command/Update/Pulls.php:35
+msgid "Updates selected information for pull requests on GitHub for a specified project."
+msgstr "Posodobite izbrane podatke za pull zahteve na GitHub za določen projekt."
+
+#: /cli/Application/Command/Update/Pulls.php:47
+msgid "Update Pull Requests"
+msgstr "Zahteve za Pull posodobitve"
+
+#: /cli/Application/Command/Update/Pulls.php:59
+#, php-format
+msgid "Updating pull requests for project: %s/%s"
+msgstr "Posodabljanje pull zahteve za projekt: %s/%s"
+
+#: /cli/Application/Command/Update/Pulls.php:101
+#, php-format
+msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
+msgstr "GitHub postavka %s/%s #%d je bil zaprt, ker je pull usmerjanja Joomla! 2.5."
+
+#: /cli/Application/Command/Update/Pulls.php:114
+#: /cli/Application/Command/Update/Pulls.php:238
+#: /cli/Application/Command/Update/Pulls.php:285
+#, php-format
+msgid "The %s/%s project is not supported by this command at this time."
+msgstr "%s/%s projekta ta ukaz ni trenutno podprt."
+
+#: /cli/Application/Command/Update/Pulls.php:201
+#, php-format
+msgid "GitHub item %s/%s #%d already has the %s label."
+msgstr "GitHub postavka %s/%s #%d že ima %s nalepko."
+
+#: /cli/Application/Command/Update/Pulls.php:220
+#, php-format
+msgid "Adding %s label to %s/%s #%d"
+msgstr "Dodajanje %s nalepke za %s/%s #%d"
+
+#: /cli/Application/Command/Update/Pulls.php:272
+#, php-format
+msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
+msgstr "GitHub postavka %s/%s #%d je imel status združitve nastavljen na \"napaka\"."
+
+#: /cli/Application/Command/Update/Server.php:33
+msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
+msgstr "Posodobi lokalne namestitve v določeno različico ali najnovejšo git HEAD za aktivno vejo"
+
+#: /cli/Application/Command/Update/Server.php:38
+msgid "An optional version number to update to."
+msgstr "Številko bodisi različica za posodobitev."
+
+#: /cli/Application/Command/Update/Update.php:66
+msgid "Used to update resources"
+msgstr "Uporablja za posodabljanje virov"
+
+#: /cli/tracker.php:100 /cli/tracker.php:129
+#, php-format
+msgid "ERROR: %s"
+msgstr "NAPAKA: %s"
+
+#: /cli/tracker.php:102 /cli/tracker.php:131
+msgid "Call stack:"
+msgstr "Sklad klica:"
+
