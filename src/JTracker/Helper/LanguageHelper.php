@@ -31,6 +31,7 @@ abstract class LanguageHelper
 		'es-ES' => 'es-ES',
 		'fr-CA' => 'fr-CA',
 		'nb-NO' => 'nb',
+		'nl-BE' => 'nl-BE',
 		'pt-BR' => 'pt-BR',
 		'pt-PT' => 'pt-PT',
 		'zh-CN' => 'zh-CN'
@@ -111,6 +112,11 @@ abstract class LanguageHelper
 			'iso' => 'nb',
 			'name' => 'Norwegian Bokmal',
 			'display' => 'Norsk bokmål'
+		],
+		'nl-BE' => [
+			'iso' => 'nl-BE',
+			'name' => 'Dutch (Belgium)',
+			'display' => 'Nederlands (België)'
 		],
 		'nl-NL' => [
 			'iso' => 'nl',
