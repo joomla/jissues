@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "GitHub Flavored Markdown Preview"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "GitHub Flavored Markdown Preview"|_ }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}

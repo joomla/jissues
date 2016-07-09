@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} - {{ ('New Item')|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ project.title }} - {{ 'New Item'|_ }}{% endblock %}
 
 {% block headerText %} - {{ project.short_title }}{% endblock %}
 

@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Projects"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Projects"|_ }}{% endblock %}
 
 {% block prependMenu %}
     {% if user.isAdmin %}
