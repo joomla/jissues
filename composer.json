@@ -8,6 +8,7 @@
     "require": {
         "php": ">=5.5",
         "ext-curl": "*",
+        "ext-intl": "*",
         "joomla/application": "~1.4",
         "joomla/controller": "~1.1",
         "joomla/database": "~1.4",
