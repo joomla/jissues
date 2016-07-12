@@ -10,9 +10,7 @@ namespace JTracker\Authentication\GitHub;
 
 use Joomla\Date\Date;
 use Joomla\DI\Container;
-use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
-use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
@@ -228,32 +226,6 @@ class GitHubLoginHelper
 	}
 
 	/**
-	 * Refresh an avatar.
-	 *
-	 * @param   string  $username  The username to retrieve the avatar for.
-	 *
-	 * @return  integer  The function returns the number of bytes that were written to the file, or false on failure.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 * @throws  \DomainException
-	 */
-	public function refreshAvatar($username)
-	{
-		$path = $this->avatarPath . '/' . $username . '.png';
-
-		if (file_exists($path))
-		{
-			if (false === unlink($path))
-			{
-				throw new \DomainException('Can not remove: ' . $path);
-			}
-		}
-
-		return $this->saveAvatar($username);
-	}
-
-	/**
 	 * Get an avatar path.
 	 *
 	 * @param   GitHubUser  $user  The user.
@@ -279,49 +251,42 @@ class GitHubLoginHelper
 	}
 
 	/**
-	 * Set the email for a user
+	 * Refresh local user information with data from GitHub.
 	 *
-	 * @param   integer  $id     The user ID to update
-	 * @param   string   $email  The email address to set
+	 * @param   GitHubUser  $user  The GitHub user object.
 	 *
-	 * @return  void
-	 *
-	 * @since   1.0
+	 * @return $this
 	 */
-	public function setEmail($id, $email = '')
+	public function refreshUser(GitHubUser $user)
 	{
+		// Refresh the avatar
+		$path = $this->avatarPath . '/' . $user->username . '.png';
+
+		if (file_exists($path))
+		{
+			if (false === unlink($path))
+			{
+				throw new \DomainException('Can not remove: ' . $path);
+			}
+		}
+
+		$this->saveAvatar($user->username);
+
+		// Refresh user data in database.
+
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
 
 		$db->setQuery(
 			$db->getQuery(true)
 				->update($db->quoteName('#__users'))
-				->set($db->quoteName('email') . '=' . $db->quote($email))
-				->where($db->quoteName('id') . '=' . (int) $id)
-		)->execute();
-	}
+				->set($db->quoteName('email') . '=' . $db->quote($user->email))
+				->set($db->quoteName('name') . '=' . $db->quote($user->name))
+				->where($db->quoteName('id') . '=' . (int) $user->id)
 
-	/**
-	 * Set the name for a user
-	 *
-	 * @param   integer  $userName  The username to update
-	 * @param   string   $name      The name to set
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	public function setName($userName, $name = '')
-	{
-		/* @type \Joomla\Database\DatabaseDriver $db */
-		$db = $this->container->get('db');
-
-		$db->setQuery(
-			$db->getQuery(true)
-				->update($db->quoteName('#__users'))
-				->set($db->quoteName('name') . '=' . $db->quote($name))
-				->where($db->quoteName('username') . '=' . $db->quote($userName))
 		)->execute();
+
+		return $this;
 	}
 
 	/**
