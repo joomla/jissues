@@ -302,6 +302,29 @@ class GitHubLoginHelper
 	}
 
 	/**
+	 * Set the name for a user
+	 *
+	 * @param   integer  $userName  The username to update
+	 * @param   string   $name      The name to set
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function setName($userName, $name = '')
+	{
+		/* @type \Joomla\Database\DatabaseDriver $db */
+		$db = $this->container->get('db');
+
+		$db->setQuery(
+			$db->getQuery(true)
+				->update($db->quoteName('#__users'))
+				->set($db->quoteName('name') . '=' . $db->quote($name))
+				->where($db->quoteName('username') . '=' . $db->quote($userName))
+		)->execute();
+	}
+
+	/**
 	 * Set the last visited time for a newly logged in user
 	 *
 	 * @param   integer  $id  The user ID to update

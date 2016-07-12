@@ -78,6 +78,17 @@ class Refresh extends AbstractTrackerController
 			);
 		}
 
+		try
+		{
+			$loginHelper->setName($user->username, $gitHubUser->name);
+		}
+		catch (\RuntimeException $e)
+		{
+			$application->enqueueMessage(
+				g11n3t('An error has occurred during name refresh.'), 'error'
+			);
+		}
+
 		$application->enqueueMessage(
 			g11n3t('The profile has been refreshed.'), 'success'
 		)
