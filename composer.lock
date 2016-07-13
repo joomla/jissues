@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "06b0a4fc084bf9b4a1dee00826d3eb45",
-    "content-hash": "eaf060e3a0b51690654c385dc6cf70ae",
+    "hash": "fa694a0b2d79304f61bf6b8f24bd98cc",
+    "content-hash": "f83b3daff03fa9668396bef0fcb07336",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -233,21 +233,25 @@
         },
         {
             "name": "elkuku/g11n",
-            "version": "dev-master",
+            "version": "2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "b343632d5b7ffb43c18e5eef2829526ad2606085"
+                "reference": "b6004a86a51b94a42ff80ec2e41155cdd036e0a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/b343632d5b7ffb43c18e5eef2829526ad2606085",
-                "reference": "b343632d5b7ffb43c18e5eef2829526ad2606085",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/b6004a86a51b94a42ff80ec2e41155cdd036e0a5",
+                "reference": "b6004a86a51b94a42ff80ec2e41155cdd036e0a5",
                 "shasum": ""
             },
             "require": {
                 "league/flysystem": "1.*",
-                "php": ">=5.3.10"
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
             },
             "type": "library",
             "autoload": {
@@ -266,7 +270,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2016-07-13 16:56:31"
+            "time": "2016-07-13 22:29:54"
         },
         {
             "name": "filp/whoops",
@@ -3878,8 +3882,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "joomla/renderer": 20,
-        "joomla/view": 20,
-        "elkuku/g11n": 20
+        "joomla/view": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

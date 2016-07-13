@@ -30,7 +30,7 @@
         "joomla/view": "~2.0@dev",
         "symfony/http-foundation": "2.8.*",
         "twig/twig": "~1.23",
-        "elkuku/g11n": "dev-master",
+        "elkuku/g11n": "~2.0",
         "elkuku/console-progressbar": "1.0",
         "elkuku/crowdin-api": "~1.0",
         "babdev/transifex": "~1.0",
