@@ -47,6 +47,15 @@ class Issues extends Project
 	protected $issues = array();
 
 	/**
+	 * Status of issues.
+	 *
+	 * @var array
+	 *
+	 * @since  1.0
+	 */
+	protected $issuesStatus = array();
+
+	/**
 	 * Github object as a bot account
 	 *
 	 * @var    \JTracker\Github\Github
@@ -83,10 +92,44 @@ class Issues extends Project
 		$this->logOut(g11n3t('Start retrieve Issues'))
 			->selectProject()
 			->setupGitHub()
+			->selectType()
 			->fetchData()
 			->processData()
 			->out()
 			->logOut(g11n3t('Finished'));
+	}
+
+	/**
+	 * Select the status of issues to process.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function selectType()
+	{
+		// Select what to process
+		$this->out('<question>' . g11n3t('Select GitHub issues status?') . '</question>')
+			->out()
+			->out('1) ' . g11n3t('All'))
+			->out('2) ' . g11n3t('Open'))
+			->out('3) ' . g11n3t('Closed'))
+			->out(g11n3t('Select: '), false);
+
+		$resp = trim($this->getApplication()->in());
+
+		$this->issuesStatus = array('open', 'closed');
+
+		if (2 == (int) $resp)
+		{
+			$this->issuesStatus = array('open');
+		}
+		else if (3 == (int) $resp)
+		{
+			$this->issuesStatus = array('closed');
+		}
+
+		return $this;
 	}
 
 	/**
@@ -100,7 +143,7 @@ class Issues extends Project
 	{
 		$issues = array();
 
-		foreach (array('open', 'closed') as $state)
+		foreach ($this->issuesStatus as $state)
 		{
 			$this->out(sprintf(g11n3t('Retrieving <b>%s</b> items from GitHub...'), $state), false);
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
