@@ -8,7 +8,10 @@
 
 namespace Application\Command\Get;
 
-use JTracker\Authentication\Database\TableUsers;
+use App\Projects\TrackerProject;
+
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
+use JTracker\Authentication\GitHub\GitHubUser;
 
 /**
  * Class for updating user information from GitHub.
@@ -72,36 +75,37 @@ class Users extends Get
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->getContainer()->get('gitHub');
 
-		$usernames = $db->setQuery(
+		$userNames = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__activities'))
 				->select('DISTINCT ' . $db->quoteName('user'))
 				->order($db->quoteName('user'))
 		)->loadColumn();
 
-		if (!count($usernames))
+		if (!count($userNames))
 		{
 			throw new \UnexpectedValueException(g11n3t('No users found in database.'));
 		}
 
-		$this->logOut(
+		$this->out(
 			sprintf(
 				g11n4t(
 					'Getting user info for one user.',
 					'Getting user info for %d users.',
-					count($usernames)
+					count($userNames)
 				),
-				count($usernames)
+				count($userNames)
 			)
 		);
 
-		$progressBar = $this->getProgressBar(count($usernames));
+		$progressBar = $this->getProgressBar(count($userNames));
 
 		$this->usePBar ? $this->out() : null;
 
-		$adds = 0;
+		$loginHelper = new GitHubLoginHelper($this->getContainer());
+		$user = new GitHubUser(new TrackerProject($this->getContainer()->get('db')), $this->getContainer()->get('db'));
 
-		foreach ($usernames as $i => $userName)
+		foreach ($userNames as $i => $userName)
 		{
 			if (!$userName)
 			{
@@ -114,58 +118,24 @@ class Users extends Get
 			{
 				$ghUser = $github->users->get($userName);
 
-				$newInfo = new \stdClass;
+				$user->id = 0;
 
-				// Set name fatched from github
-				$newInfo->name = ($ghUser->name != null) ? $ghUser->name : '';
+				// Refresh the user data
+				$user->loadGitHubData($ghUser)
+					->loadByUserName($user->username);
 
-				$table = new TableUsers($db);
-
-				$table->loadByUserName($userName);
-
-				if (!$table->id)
-				{
-					// Register a new user
-					$date               = new Date;
-					$newInfo->registerDate = $date->format($db->getDateFormat());
-
-					// Setting null id for new record.
-					$newInfo->id = 0;
-
-					// Setting username as we have the only info.
-					$newInfo->username = $userName;
-				}
-
-				$table->save($newInfo);
-
-				if ($newInfo->name != null)
-				{
-					$this->debugOut(sprintf(g11n3t('User Name: %s'), $newInfo->name));
-				}
-
-				++$adds;
-
+				$loginHelper->refreshUser($user);
 			}
-			catch (\DomainException $e)
+			catch (\Exception $exception)
 			{
-				$this->debugOut($e->getMessage());
+				$this->out(g11n3t(sprintf('An error has occurred during user refresh: %s', $exception->getMessage())));
 			}
 
 			$this->usePBar
 				? $progressBar->update($i + 1)
-				: $this->out('+', false);
+				: $this->out('.', false);
 		}
 
-		return $this->out()
-			->logOut(
-				sprintf(
-					g11n4t(
-						'Added one new user',
-						'Added %d new user',
-						$adds
-					),
-					$adds
-				)
-			);
+		return $this->out(g11n3t('User information has been refreshed.'));
 	}
 }
