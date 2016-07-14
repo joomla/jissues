@@ -60,7 +60,7 @@ try
 		->alias('app', 'Application\\Application');
 
 	// Alias the input object to the base class name
-	$container->alias('Joomla\\Input\\Cli', 'Joomla\\Input\\Input');
+	$container->alias('Joomla\\Input\\Input', 'Joomla\\Input\\Cli');
 
 	// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
 	$container->alias('monolog', 'monolog.logger.cli')
