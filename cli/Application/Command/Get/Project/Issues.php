@@ -15,6 +15,7 @@ use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
 use Application\Command\Get\Project;
+use Application\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 
@@ -72,6 +73,14 @@ class Issues extends Project
 	{
 		parent::__construct();
 
+		$this
+			->addOption(
+				new TrackerCommandOption(
+					'status', '',
+					g11n3t('<n> Process only a issue of given status.')
+				)
+			);
+
 		$this->description = g11n3t('Retrieve issues from GitHub.');
 	}
 
@@ -108,7 +117,24 @@ class Issues extends Project
 	 */
 	protected function selectType()
 	{
-		// Select what to process
+		// Get status option
+		$status = $this->getApplication()->input->get('status');
+
+		// Process all the status - do nothing
+		if ($status == 'all')
+		{
+			return $this;
+		}
+
+		// When status option is open or closed process it directly.
+		if ($status == 'open' || $status == 'closed')
+		{
+			$this->issueStates = [$status];
+
+			return $this;
+		}
+
+		// Get input from user to process based on different status of the issue.
 		$this->out('<question>' . g11n3t('Select GitHub issues status?') . '</question>')
 			->out()
 			->out('1) ' . g11n3t('All'))
