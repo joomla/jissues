@@ -255,7 +255,7 @@ class Depfile extends Make
 				{
 					$path = g11nExtensionHelper::findLanguageFile($langTag, $extension, $domain);
 
-					if (true === file_exists($path))
+					if (false === file_exists($path))
 					{
 						$this->out(
 							g11n3t(
