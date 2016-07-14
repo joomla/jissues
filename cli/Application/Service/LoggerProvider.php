@@ -41,7 +41,7 @@ class LoggerProvider implements ServiceProviderInterface
 			function (Container $container)
 			{
 				/** @var Input $input */
-				$input = $container->get('Joomla\\Input\\Cli');
+				$input = $container->get('Joomla\\Input\\Input');
 
 				// Instantiate the object
 				$logger = new Logger('JTracker');
