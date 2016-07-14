@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "97068aefac6343c7da6522a78b90c35d",
-    "content-hash": "b89c8dcb3fb6b06c757f478e170978ff",
+    "hash": "fa694a0b2d79304f61bf6b8f24bd98cc",
+    "content-hash": "f83b3daff03fa9668396bef0fcb07336",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -233,21 +233,25 @@
         },
         {
             "name": "elkuku/g11n",
-            "version": "2.4",
+            "version": "2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "026932fb3a430689c3fd3a96d7bbe4fb6b850f3c"
+                "reference": "b6004a86a51b94a42ff80ec2e41155cdd036e0a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/026932fb3a430689c3fd3a96d7bbe4fb6b850f3c",
-                "reference": "026932fb3a430689c3fd3a96d7bbe4fb6b850f3c",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/b6004a86a51b94a42ff80ec2e41155cdd036e0a5",
+                "reference": "b6004a86a51b94a42ff80ec2e41155cdd036e0a5",
                 "shasum": ""
             },
             "require": {
                 "league/flysystem": "1.*",
-                "php": ">=5.3.10"
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
             },
             "type": "library",
             "autoload": {
@@ -266,7 +270,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2016-06-19 13:59:08"
+            "time": "2016-07-13 22:29:54"
         },
         {
             "name": "filp/whoops",

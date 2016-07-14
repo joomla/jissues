@@ -101,6 +101,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	{
 		$functions = [
 			new \Twig_SimpleFunction('translate', 'g11n3t'),
+			new \Twig_SimpleFunction('_', 'g11n3t'),
 			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', [$this, 'stripJRoot']),
