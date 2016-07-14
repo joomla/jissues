@@ -77,13 +77,22 @@ class Autocomplete extends Make
 			}
 		}
 
-		sort($commands);
+		// Sort the array and put the "Help" command in first place.
+		usort(
+			$commands, function($a, $b)
+			{
+				if ('Help' == $a)
+				{
+					return -1;
+				}
+				elseif ('Help' == $b)
+				{
+					return 1;
+				}
 
-		$hc = $commands[array_search('Help', $commands)];
-
-		unset($commands[array_search('Help', $commands)]);
-
-		$commands = [$hc] + $commands;
+				return strcmp($a, $b);
+			}
+		);
 
 		foreach ($commands as $command)
 		{
