@@ -56,10 +56,12 @@ class Autocomplete extends Make
 
 		$xml = simplexml_load_string(
 			'<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-			. ' xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.3.xsd"'
-			. ' name="Custom_jtracker" invoke="cli/tracker.php" alias="jtracker" enabled="true" version="2">'
+			. ' xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.4.xsd"'
+			. ' name="Custom_jtracker" invoke="cli/tracker.php" alias="jt" enabled="true" version="2">'
 			. '</framework>'
 		);
+
+		$commands = [];
 
 		/* @type \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator($cliBase) as $fileInfo)
@@ -71,39 +73,52 @@ class Autocomplete extends Make
 
 			if ($fileInfo->isDir())
 			{
-				$command = $fileInfo->getFilename();
+				$commands[] = $fileInfo->getFilename();
+			}
+		}
 
-				$commandName = '\\Application\\Command\\' . $command;
+		sort($commands);
 
-				$className = $commandName . '\\' . $command;
+		$hc = $commands[array_search('Help', $commands)];
 
-				/* @type TrackerCommand $class */
-				$class = new $className($this->getApplication());
-				$class->setContainer($this->getContainer());
+		unset($commands[array_search('Help', $commands)]);
 
-				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
+		$commands = [$hc] + $commands;
+
+		foreach ($commands as $command)
+		{
+			$commandName = '\\Application\\Command\\' . $command;
+
+			$className = $commandName . '\\' . $command;
+
+			/* @type TrackerCommand $class */
+			$class = new $className($this->getApplication());
+			$class->setContainer($this->getContainer());
+
+			$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
+
+			$xmlCommand = $xml->addChild('command');
+
+			$xmlCommand->addChild('name', strtolower($command));
+			$xmlCommand->addChild('help', $help);
+
+			if (false === in_array($command, ['Help', 'Install']))
+			{
+				$xmlCommand->addChild('params', 'option');
+			}
+
+			$actions = $helper->getActions($command);
+
+			ksort($actions);
+
+			/* @type TrackerCommand $option */
+			foreach ($actions as $name => $option)
+			{
+				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $option->getDescription());
 
 				$xmlCommand = $xml->addChild('command');
-
-				$xmlCommand->addChild('name', strtolower($command));
+				$xmlCommand->addChild('name', strtolower($command) . ' ' . strtolower($name));
 				$xmlCommand->addChild('help', $help);
-
-				if (false === in_array($command, ['Help', 'Install']))
-				{
-					$xmlCommand->addChild('params', 'option');
-				}
-
-				$actions = $helper->getActions($command);
-
-				/* @type TrackerCommand $option */
-				foreach ($actions as $name => $option)
-				{
-					$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $option->getDescription());
-
-					$xmlCommand = $xml->addChild('command');
-					$xmlCommand->addChild('name', strtolower($command) . ' ' . strtolower($name));
-					$xmlCommand->addChild('help', $help);
-				}
 			}
 		}
 
