@@ -1,58 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.3.xsd" name="Custom_jtracker" invoke="cli/tracker.php" alias="jtracker" enabled="true" version="2">
+<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.4.xsd" name="Custom_jtracker" invoke="cli/tracker.php" alias="jt" enabled="true" version="2">
     <command>
-        <name>get</name>
-        <help>Retrieve issues, comments or avatars.</help>
+        <name>help</name>
+        <help>Displays helpful information</help>
+    </command>
+    <command>
+        <name>database</name>
+        <help>This will track the database status.</help>
         <params>option</params>
     </command>
     <command>
-        <name>get comments</name>
-        <help>Retrieve comments from GitHub.</help>
+        <name>database migrate</name>
+        <help>Migrate the database schema to a newer version.</help>
+    </command>
+    <command>
+        <name>database status</name>
+        <help>Check the database migration status.</help>
+    </command>
+    <command>
+        <name>export</name>
+        <help>Export langfiles.</help>
+        <params>option</params>
+    </command>
+    <command>
+        <name>export langfiles</name>
+        <help>Backup language files to a given folder.</help>
+    </command>
+    <command>
+        <name>get</name>
+        <help>Retrieve Information from various sources.</help>
+        <params>option</params>
     </command>
     <command>
         <name>get avatars</name>
         <help>Retrieve avatar images from GitHub.</help>
     </command>
     <command>
-        <name>get issues</name>
-        <help>Retrieve issues from GitHub.</help>
+        <name>get composertags</name>
+        <help>Retrieve a list of project tags from GitHub and show their installed versions.</help>
+    </command>
+    <command>
+        <name>get languagefiles</name>
+        <help>Retrieve language files.</help>
+    </command>
+    <command>
+        <name>get project</name>
+        <help>Get the whole project info from GitHub, including issues and issue comments.</help>
+    </command>
+    <command>
+        <name>get users</name>
+        <help>Retrieve user info from GitHub.</help>
     </command>
     <command>
         <name>install</name>
         <help>Install the application.</help>
     </command>
     <command>
-        <name>help</name>
-        <help>Displays helpful information.</help>
-    </command>
-    <command>
         <name>make</name>
-        <help>The make engine.</help>
+        <help>The make engine</help>
         <params>option</params>
-    </command>
-    <command>
-        <name>make docu</name>
-        <help>Compile documentation using GitHub markdown.</help>
-    </command>
-    <command>
-        <name>make dbcomments</name>
-        <help>Generate file headers for Table classes.</help>
     </command>
     <command>
         <name>make autocomplete</name>
-        <help>Generate an auto complete file for PHPStorm.</help>
+        <help>Generate an autocomplete file for PhpStorm.</help>
     </command>
     <command>
-        <name>update</name>
-        <help>Update data on GitHub.</help>
+        <name>make composergraph</name>
+        <help>Graph visualisation for your project's composer.json and its dependencies.</help>
+    </command>
+    <command>
+        <name>make dbcomments</name>
+        <help>Generate class doc blocks for Table classes</help>
+    </command>
+    <command>
+        <name>make depfile</name>
+        <help>Create and update a dependency file.</help>
+    </command>
+    <command>
+        <name>make docu</name>
+        <help>Compile documentation using GitHub Flavored Markdown</help>
+    </command>
+    <command>
+        <name>make langfiles</name>
+        <help>Create and update language files.</help>
+    </command>
+    <command>
+        <name>make langtemplates</name>
+        <help>Create language file templates.</help>
+    </command>
+    <command>
+        <name>make languageflags</name>
+        <help>Compile multiple images into a big one (CSS spriting).</help>
+    </command>
+    <command>
+        <name>make repoinfo</name>
+        <help>Generate repository information.</help>
+    </command>
+    <command>
+        <name>test</name>
+        <help>The test engine</help>
         <params>option</params>
     </command>
     <command>
+        <name>test checkstyle</name>
+        <help>Run PHP CodeSniffer tests.</help>
+    </command>
+    <command>
+        <name>test copypaste</name>
+        <help>Run Copy/Paste Detector (CPD) for PHP code.</help>
+    </command>
+    <command>
+        <name>test hook</name>
+        <help>Tests web hooks</help>
+    </command>
+    <command>
+        <name>test langfiles</name>
+        <help>Check language files</help>
+    </command>
+    <command>
+        <name>test phploc</name>
+        <help>Run Lines Of Code (LOC) for PHP code.</help>
+    </command>
+    <command>
+        <name>test phpunit</name>
+        <help>Run PHPUnit tests.</help>
+    </command>
+    <command>
+        <name>test run</name>
+        <help>Run all tests</help>
+    </command>
+    <command>
+        <name>update</name>
+        <help>Used to update resources</help>
+        <params>option</params>
+    </command>
+    <command>
+        <name>update languagefiles</name>
+        <help>Updates language files on a translation service.</help>
+    </command>
+    <command>
         <name>update pulls</name>
-        <help>Update pull requests on GitHub.</help>
+        <help>Updates selected information for pull requests on GitHub for a specified project.</help>
     </command>
     <command>
         <name>update server</name>
-        <help>Updates the local installation to either a specified version or latest HEAD for the active branch.</help>
+        <help>Updates the local installation to either a specified version or latest git HEAD for the active branch</help>
     </command>
 </framework>
