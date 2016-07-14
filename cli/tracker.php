@@ -61,7 +61,7 @@ try
 
 	// Create the logger aliases for the common 'monolog' key, the Monolog Logger class, and the PSR-3 interface
 	$container->alias('monolog', 'monolog.logger.cli')
-		->alias('logger', 'monolog.logger.application')
+		->alias('logger', 'monolog.logger.cli')
 		->alias('Monolog\\Logger', 'monolog.logger.cli')
 		->alias('Psr\\Log\\LoggerInterface', 'monolog.logger.cli');
 }
@@ -72,8 +72,7 @@ catch (\Exception $e)
 		// Try to write to a log
 		try
 		{
-			$logger = $container->get('monolog.logger.cli');
-			$logger->critical(
+			$container->get('monolog.logger.cli')->critical(
 				sprintf(
 					'Exception of type %1$s thrown while booting the application',
 					get_class($e)
