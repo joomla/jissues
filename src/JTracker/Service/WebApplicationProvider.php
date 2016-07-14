@@ -47,7 +47,6 @@ class WebApplicationProvider implements ServiceProviderInterface
 					// Inject extra services
 					$application->setContainer($container);
 					$application->setDispatcher($container->get('dispatcher'));
-					$application->setLogger($container->get('monolog'));
 					$application->setRouter($container->get('router'));
 
 					return $application;
