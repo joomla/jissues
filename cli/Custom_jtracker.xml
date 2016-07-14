@@ -5,6 +5,19 @@
         <help>Displays helpful information</help>
     </command>
     <command>
+        <name>clear</name>
+        <help>This will clear things.</help>
+        <params>option</params>
+    </command>
+    <command>
+        <name>clear cache</name>
+        <help>Clear the g11n language directory.</help>
+    </command>
+    <command>
+        <name>clear twig</name>
+        <help>Clear the Twig cache.</help>
+    </command>
+    <command>
         <name>database</name>
         <help>This will track the database status.</help>
         <params>option</params>
