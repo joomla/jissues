@@ -53,7 +53,7 @@ class Issues extends Project
 	 *
 	 * @since  1.0
 	 */
-	protected $issuesStatus = array();
+	protected $issueStates = ['open', 'closed'];
 
 	/**
 	 * Github object as a bot account
@@ -118,15 +118,13 @@ class Issues extends Project
 
 		$resp = trim($this->getApplication()->in());
 
-		$this->issuesStatus = array('open', 'closed');
-
 		if (2 == (int) $resp)
 		{
-			$this->issuesStatus = array('open');
+			$this->issueStates = ['open'];
 		}
-		else if (3 == (int) $resp)
+		elseif (3 == (int) $resp)
 		{
-			$this->issuesStatus = array('closed');
+			$this->issueStates = ['closed'];
 		}
 
 		return $this;
@@ -143,7 +141,7 @@ class Issues extends Project
 	{
 		$issues = array();
 
-		foreach ($this->issuesStatus as $state)
+		foreach ($this->issueStates as $state)
 		{
 			$this->out(sprintf(g11n3t('Retrieving <b>%s</b> items from GitHub...'), $state), false);
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
