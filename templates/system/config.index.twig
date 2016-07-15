@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Configuration"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Configuration"|_ }}{% endblock %}
 
 {% block prependMenu %}
     {% if user.check("create") %}

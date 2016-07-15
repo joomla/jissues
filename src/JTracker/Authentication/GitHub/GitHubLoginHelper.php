@@ -10,9 +10,7 @@ namespace JTracker\Authentication\GitHub;
 
 use Joomla\Date\Date;
 use Joomla\DI\Container;
-use Joomla\Http\Http;
 use Joomla\Http\HttpFactory;
-use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 /**
@@ -131,15 +129,7 @@ class GitHubLoginHelper
 	public function requestToken($code)
 	{
 		// GitHub API works best with cURL
-		$options   = new Registry;
-		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
-
-		if (false === $transport)
-		{
-			throw new \DomainException('No transports available (please install php-curl)');
-		}
-
-		$http = new Http($options, $transport);
+		$http = HttpFactory::getHttp([], ['curl']);
 
 		$data = [
 			'client_id'     => $this->clientId,
@@ -217,22 +207,15 @@ class GitHubLoginHelper
 		/* @type \Joomla\Github\Github $github */
 		$github = $this->container->get('gitHub');
 
-		$ch = curl_init($github->users->get($username)->avatar_url);
+		// GitHub API works best with cURL
+		$response = HttpFactory::getHttp([], ['curl'])->get($github->users->get($username)->avatar_url);
 
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-
-		$data = curl_exec($ch);
-
-		curl_close($ch);
-
-		if (!$data)
+		if ($response->code != 200)
 		{
 			throw new \DomainException(sprintf('Can not retrieve the avatar for user %s', $username));
 		}
 
-		$result = file_put_contents($path, $data);
+		$result = file_put_contents($path, $response->body);
 
 		if (false === $result)
 		{
@@ -240,32 +223,6 @@ class GitHubLoginHelper
 		}
 
 		return $result;
-	}
-
-	/**
-	 * Refresh an avatar.
-	 *
-	 * @param   string  $username  The username to retrieve the avatar for.
-	 *
-	 * @return  integer  The function returns the number of bytes that were written to the file, or false on failure.
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 * @throws  \DomainException
-	 */
-	public function refreshAvatar($username)
-	{
-		$path = $this->avatarPath . '/' . $username . '.png';
-
-		if (file_exists($path))
-		{
-			if (false === unlink($path))
-			{
-				throw new \DomainException('Can not remove: ' . $path);
-			}
-		}
-
-		return $this->saveAvatar($username);
 	}
 
 	/**
@@ -294,26 +251,42 @@ class GitHubLoginHelper
 	}
 
 	/**
-	 * Set the email for a user
+	 * Refresh local user information with data from GitHub.
 	 *
-	 * @param   integer  $id     The user ID to update
-	 * @param   string   $email  The email address to set
+	 * @param   GitHubUser  $user  The GitHub user object.
 	 *
-	 * @return  void
-	 *
-	 * @since   1.0
+	 * @return $this
 	 */
-	public function setEmail($id, $email = '')
+	public function refreshUser(GitHubUser $user)
 	{
+		// Refresh the avatar
+		$path = $this->avatarPath . '/' . $user->username . '.png';
+
+		if (file_exists($path))
+		{
+			if (false === unlink($path))
+			{
+				throw new \DomainException('Can not remove: ' . $path);
+			}
+		}
+
+		$this->saveAvatar($user->username);
+
+		// Refresh user data in database.
+
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
 
 		$db->setQuery(
 			$db->getQuery(true)
 				->update($db->quoteName('#__users'))
-				->set($db->quoteName('email') . '=' . $db->quote($email))
-				->where($db->quoteName('id') . '=' . (int) $id)
+				->set($db->quoteName('email') . '=' . $db->quote($user->email))
+				->set($db->quoteName('name') . '=' . $db->quote($user->name))
+				->where($db->quoteName('id') . '=' . (int) $user->id)
+
 		)->execute();
+
+		return $this;
 	}
 
 	/**

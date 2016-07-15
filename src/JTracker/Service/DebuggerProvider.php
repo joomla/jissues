@@ -33,7 +33,7 @@ class DebuggerProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->set('App\\Debug\\TrackerDebugger',
-			function () use ($container)
+			function (Container $container)
 			{
 				return new TrackerDebugger($container);
 			}, true, true

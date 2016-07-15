@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Edit user"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Edit user"|_ }}{% endblock %}
 
 {% block content %}
     {% if 0 == item.id %}

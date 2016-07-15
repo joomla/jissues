@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Icons"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Icons"|_ }}{% endblock %}
 
 {% block content %}
 
@@ -11,9 +11,10 @@
 
     <div class="row">
     {% for icon in icons %}
-        <div class="span3 well well-small">
-            <i style="font-size: 16px;" class="{{ icon }}"></i>
-            &nbsp;{{ icon }}
+        <div class="span3">
+            <div class="well well-small">
+                <span class="{{ icon }}"></span>&nbsp;{{ icon }}
+            </div>
         </div>
     {% endfor %}
     </div>
@@ -22,9 +23,10 @@
 
     <div class="row">
     {% for icon in octicons %}
-        <div class="span3 well well-small">
-            <i style="font-size: 16px;" class="octicon {{ icon }}"></i>
-            &nbsp;{{ icon }}
+        <div class="span3">
+            <div class="well well-small">
+                <span class="octicon {{ icon }}"></span>&nbsp;{{ icon }}
+            </div>
         </div>
     {% endfor %}
     </div>

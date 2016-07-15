@@ -50,7 +50,6 @@ class CliApplicationProvider implements ServiceProviderInterface
 					// Inject extra services
 					$application->setContainer($container);
 					$application->setDispatcher($container->get('dispatcher'));
-					$application->setLogger($container->get('monolog'));
 
 					return $application;
 				}

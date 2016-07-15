@@ -1,31 +1,30 @@
-# JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-05-14 20:59+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: pt-PT\n"
+"X-Crowdin-File: projects-app_en.po\n"
+"Language: pt_PT\n"
 
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
 msgid "Project"
-msgstr ""
+msgstr "Projecto"
 
 #: /templates/projects/project.index.twig:14
 #: /templates/projects/projects.index.twig:63
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: /templates/projects/project.index.twig:15
 #: /templates/projects/projects.index.twig:64
@@ -55,7 +54,7 @@ msgstr ""
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62
 msgid "Groups"
-msgstr ""
+msgstr "Grupos"
 
 #: /templates/projects/project.index.twig:54
 #: /templates/projects/projects.index.twig:46
@@ -83,27 +82,27 @@ msgstr ""
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
 msgid "Details"
-msgstr ""
+msgstr "Detalhes"
 
 #: /templates/projects/project.add.twig:28
 #: /templates/projects/project.edit.twig:37
 msgid "Title"
-msgstr "Nome"
+msgstr "Título"
 
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
 msgid "Short Title"
-msgstr ""
+msgstr "Título curto"
 
 #: /templates/projects/project.add.twig:38
 #: /templates/projects/project.edit.twig:51
 msgid "Alias"
-msgstr ""
+msgstr "Alternativo"
 
 #: /templates/projects/project.add.twig:43
 #: /templates/projects/project.edit.twig:58
 msgid "GitHub Owner"
-msgstr ""
+msgstr "Proprietário do GitHub"
 
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
@@ -117,7 +116,7 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
-msgstr ""
+msgstr "Projetos"
 
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
@@ -125,7 +124,7 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:23
 msgid "Projects List"
-msgstr "Lista de Projetos"
+msgstr "Lista de projetos"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
@@ -133,23 +132,23 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:29
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: /templates/projects/projects.index.twig:30
 msgid "Actions"
-msgstr ""
+msgstr "Ações"
 
 #: /templates/projects/projects.index.twig:33
-msgid "Id"
+msgid "ID"
 msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
-msgstr ""
+msgstr "Estatísticas"
 
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
-msgstr ""
+msgstr "Exibir"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
@@ -157,15 +156,15 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr ""
+msgstr "Instantâneo"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
-msgstr ""
+msgstr "Atividade do utilizador"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
-msgstr ""
+msgstr "Editar projeto"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
@@ -186,3 +185,4 @@ msgstr ""
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
 msgstr ""
+

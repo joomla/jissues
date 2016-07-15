@@ -1,26 +1,24 @@
-# JTracker App Groups 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Paulo Pereira <pauloizidoro@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-03-15 10:04+0000\n"
-"Last-Translator: Michael Babker <mbabker@flbab.com>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/opentranslators/jtracker/language/pt_PT/)\n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: pt-PT\n"
+"X-Crowdin-File: groups-app_en.po\n"
+"Language: pt_PT\n"
 
 #: /templates/groups/groups.index.twig:6
 msgid "Groups"
-msgstr ""
+msgstr "Grupos"
 
 #: /templates/groups/groups.index.twig:11
 msgid "Add Group"
@@ -53,7 +51,7 @@ msgstr "Editar"
 #: /templates/groups/groups.index.twig:31
 #: /templates/groups/group.edit.twig:202
 msgid "Edit own"
-msgstr ""
+msgstr "Editar os próprios"
 
 #: /templates/groups/groups.index.twig:32
 #: /templates/groups/group.edit.twig:209
@@ -65,8 +63,8 @@ msgid "Actions"
 msgstr "Ações"
 
 #: /templates/groups/groups.index.twig:35
-msgid "Id"
-msgstr "Id"
+msgid "ID"
+msgstr ""
 
 #: /templates/groups/groups.index.twig:64
 msgid "System"
@@ -77,12 +75,12 @@ msgid "Delete"
 msgstr "Eliminar"
 
 #: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
-msgstr "Nenhum grupo definido!"
+msgid "No groups defined!"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
-msgstr ""
+msgstr "Editar grupo"
 
 #: /templates/groups/group.edit.twig:11
 msgid "Save"
@@ -109,28 +107,23 @@ msgid "Users"
 msgstr "Membros"
 
 #: /templates/groups/group.edit.twig:226
+#: /templates/groups/group.edit.twig:234
 msgid "Add user"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:228 /templates/groups/group.edit.twig:241
+#: /templates/groups/group.edit.twig:228
+#: /templates/groups/group.edit.twig:241
 msgid "username"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:234
-msgid "Add User"
-msgstr "Adicionar utilizador"
-
 #: /templates/groups/group.edit.twig:238
+#: /templates/groups/group.edit.twig:246
 msgid "Remove user"
 msgstr ""
 
-#: /templates/groups/group.edit.twig:246
-msgid "Remove User"
-msgstr "Remover utilizador"
-
 #: /templates/groups/group.edit.twig:251
-msgid "List assigned Users"
-msgstr "Listas utilizadores atribuídos"
+msgid "List assigned users"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
@@ -142,4 +135,5 @@ msgstr "O grupo foi eliminado"
 
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"
-msgstr "Título é obrigatório!"
+msgstr "É obrigatório um título"
+

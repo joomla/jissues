@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "%s - Open Issues By Status"|_|format(project.short_title) }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "%s - Open Issues By Status"|_|format(project.short_title) }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}

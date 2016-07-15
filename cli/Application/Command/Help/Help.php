@@ -12,6 +12,7 @@ use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
 use Joomla\Application\Cli\ColorStyle;
+use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 
 /**
  * Class for displaying help data for the installer application.
@@ -26,7 +27,7 @@ class Help extends TrackerCommand
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $commands = array();
+	private $commands = [];
 
 	/**
 	 * Constructor.
@@ -201,7 +202,7 @@ class Help extends TrackerCommand
 	 */
 	public function getCommands()
 	{
-		$commands = array();
+		$commands = [];
 
 		/* @type \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/..') as $fileInfo)
@@ -237,7 +238,7 @@ class Help extends TrackerCommand
 	 */
 	public function getActions($commandName)
 	{
-		$actions = array();
+		$actions = [];
 		$cName = ucfirst($commandName);
 
 		/* @var \DirectoryIterator $fileInfo */

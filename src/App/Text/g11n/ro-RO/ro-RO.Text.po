@@ -1,28 +1,28 @@
-# JTracker App Text 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Oana Andrada Florescu <oana@redweb.dk>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-02-25 22:02+0000\n"
-"Last-Translator: Oana Andrada Florescu <oana@redweb.dk>\n"
-"Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ro\n"
+"X-Crowdin-File: text-app_en.po\n"
 "Language: ro_RO\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:40
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
 msgid "Edit Article"
 msgstr "Editează Articolul"
 
-#: /templates/text/article.edit.twig:7 /templates/text/article.edit.twig:40
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
 #: /templates/text/articles.index.twig:25
 msgid "New Article"
 msgstr "Articol Nou"
@@ -43,7 +43,8 @@ msgstr "Titlu"
 msgid "Alias"
 msgstr "Alias"
 
-#: /templates/text/articles.index.twig:6 /templates/text/articles.index.twig:8
+#: /templates/text/articles.index.twig:6
+#: /templates/text/articles.index.twig:8
 msgid "Articles"
 msgstr "Articole"
 
@@ -86,3 +87,4 @@ msgstr "Un alias sau un titlu este necesar."
 #: /src/App/Text/Table/ArticlesTable.php:99
 msgid "Some text is required."
 msgstr "Este necesar un text."
+

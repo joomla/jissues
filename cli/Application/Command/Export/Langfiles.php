@@ -121,7 +121,7 @@ class Langfiles extends Export
 
 		$filesystem = new Filesystem(new Local($this->exportDir . '/' . $domainBase . '/' . $extension . '/' . $g11nPath));
 
-		$this->out(sprintf(g11n3t('Processing %1$s %2$s:... '), $domain, $extension), false);
+		$this->out(g11n3t('Processing %domain% %extension%... ', ['%domain%' => $domain, '%extension%' => $extension]), false);
 
 		// Process language templates
 		if ($templates)

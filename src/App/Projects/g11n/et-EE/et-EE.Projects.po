@@ -1,22 +1,20 @@
-# JTracker App Projects 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Rivo Zängov <eraser@eraser.ee>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-05-14 20:59+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Estonian (Estonia) (http://www.transifex.com/opentranslators/jtracker/language/et_EE/)\n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Estonian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et_EE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: et\n"
+"X-Crowdin-File: projects-app_en.po\n"
+"Language: et_EE\n"
 
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
@@ -37,12 +35,12 @@ msgstr "Kustuta"
 #: /templates/projects/project.index.twig:26
 #, php-format
 msgid "Project %s Tracker"
-msgstr ""
+msgstr "Projekti %s jälitaja"
 
 #: /templates/projects/project.index.twig:35
 #, php-format
 msgid "Project %s on GitHub"
-msgstr ""
+msgstr "Projekt %s GitHub-is"
 
 #: /templates/projects/project.index.twig:39
 msgid "Statistics"
@@ -51,7 +49,7 @@ msgstr "Statistika"
 #: /templates/projects/project.index.twig:45
 #: /templates/projects/projects.index.twig:45
 msgid "Hooks"
-msgstr ""
+msgstr "Haakijad"
 
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62
@@ -109,12 +107,12 @@ msgstr "Omanik GitHubis"
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
 msgid "GitHub Repo"
-msgstr ""
+msgstr "GitHub hoidla"
 
 #: /templates/projects/project.add.twig:53
 #: /templates/projects/project.edit.twig:86
 msgid "External Tracker Link"
-msgstr ""
+msgstr "Väline jälitaja link"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
@@ -130,7 +128,7 @@ msgstr "Projektide nimekiri"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
-msgstr ""
+msgstr "Jälitaja"
 
 #: /templates/projects/projects.index.twig:29
 msgid "GitHub"
@@ -141,8 +139,8 @@ msgid "Actions"
 msgstr "Tegevused"
 
 #: /templates/projects/projects.index.twig:33
-msgid "Id"
-msgstr "Id"
+msgid "ID"
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
@@ -154,15 +152,15 @@ msgstr "Näita"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr ""
+msgstr "Projekti aktiivsus"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr ""
+msgstr "Ülesvõte"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
-msgstr ""
+msgstr "Kasutaja aktiivsus"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
@@ -174,11 +172,11 @@ msgstr "Muuda projekti"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
-msgstr ""
+msgstr "GitHub-i editbot kasutaja"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr ""
+msgstr "GitHub editbot parool"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
@@ -187,3 +185,4 @@ msgstr "Pealkiri on nõutud"
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
 msgstr "Lühike pealkiri on nõutud"
+

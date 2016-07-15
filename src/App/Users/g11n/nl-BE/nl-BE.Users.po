@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:58-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Dutch, Belgium\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: nl-BE\n"
+"X-Crowdin-File: users-app_en.po\n"
+"Language: nl_BE\n"
+
+#: /templates/users/user.index.twig:12
+#: /templates/users/user.edit.twig:11
+msgid "Invalid user!"
+msgstr "Ongeldige gebruiker!"
+
+#: /templates/users/user.index.twig:19
+msgid "Edit profile"
+msgstr "Bewerk profiel"
+
+#: /templates/users/user.index.twig:22
+#: /templates/users/user.edit.twig:32
+msgid "Refresh profile from GitHub"
+msgstr "Vernieuw profiel vanuit GitHub"
+
+#: /templates/users/user.index.twig:26
+msgid "My Profile"
+msgstr "Mijn profiel"
+
+#: /templates/users/user.index.twig:28
+msgid "Profile"
+msgstr "Profiel"
+
+#: /templates/users/user.index.twig:57
+#, php-format
+msgid "Language: %s"
+msgstr "Taal: %s"
+
+#: /templates/users/user.index.twig:62
+#, php-format
+msgid "Timezone: %1$s (GMT %2$s)"
+msgstr "Tijdzone: %1$s (GMT %2$s)"
+
+#: /templates/users/users.index.twig:6
+msgid "Users"
+msgstr "Gebruikers"
+
+#: /templates/users/users.index.twig:19
+msgid "Users List"
+msgstr "Gebruikerslijst"
+
+#: /templates/users/users.index.twig:25
+#: /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:29
+msgid "Filter the list by user."
+msgstr "Filter de lijst op gebruiker."
+
+#: /templates/users/users.index.twig:34
+msgid "Clear"
+msgstr "Wissen"
+
+#: /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:73
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Pagina %1$s van %2$s"
+
+#: /templates/users/users.index.twig:46
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: /templates/users/users.index.twig:48
+msgid "Actions"
+msgstr "Acties"
+
+#: /templates/users/users.index.twig:50
+msgid "ID"
+msgstr "ID"
+
+#: /templates/users/users.index.twig:66
+msgid "No items found."
+msgstr "Geen items gevonden."
+
+#: /templates/users/user.edit.twig:6
+#: /templates/users/user.edit.twig:17
+msgid "Edit user"
+msgstr "Bewerk gebruiker"
+
+#: /templates/users/user.edit.twig:22
+msgid "Save"
+msgstr "Opslaan"
+
+#: /templates/users/user.edit.twig:27
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: /templates/users/user.edit.twig:44
+msgid "GitHub Profile"
+msgstr "GitHub profiel"
+
+#: /templates/users/user.edit.twig:67
+msgid "Params"
+msgstr "Parameters"
+
+#: /templates/users/user.edit.twig:70
+msgid "Language"
+msgstr "Taal"
+
+#: /templates/users/user.edit.twig:77
+msgid "Timezone"
+msgstr "Tijdzone"
+
+#: /src/App/Users/Controller/Ajax/Assign.php:74
+msgid "The user has been assigned."
+msgstr "De gebruiker is toegewezen."
+
+#: /src/App/Users/Controller/Ajax/Assign.php:85
+msgid "The user has been unassigned."
+msgstr "De gebruiker is niet meer toegewezen."
+
+#: /src/App/Users/Controller/User/Edit.php:83
+#: /src/App/Users/Controller/User/Save.php:47
+msgid "You are not authorised to edit this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:47
+msgid "You are not authorised to refresh this user."
+msgstr ""
+
+#: /src/App/Users/Controller/User/Refresh.php:77
+msgid "An error has occurred during email refresh."
+msgstr "Er is een fout opgetreden tijdens het vernieuwen van de e-mails."
+
+#: /src/App/Users/Controller/User/Refresh.php:82
+msgid "The profile has been refreshed."
+msgstr "Het profiel is bijgewerkt."
+
+#: /src/App/Users/Controller/User/Save.php:62
+msgid "The changes have been saved."
+msgstr "De wijzigingen zijn opgeslagen."
+

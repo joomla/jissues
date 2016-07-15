@@ -1,22 +1,20 @@
-# JTracker Core JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Oana Andrada Florescu <oana@redweb.dk>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-02-25 22:01+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
+"POT-Creation-Date: 2016-06-23 08:17-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ro\n"
+"X-Crowdin-File: jtracker-core_en.po\n"
 "Language: ro_RO\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #: /src/JTracker/Pagination/TrackerPagination.php:221
 #: /src/JTracker/Pagination/TrackerPagination.php:226
@@ -28,136 +26,137 @@ msgstr "Următor"
 msgid "Last"
 msgstr "Ultimul"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:240
+#: /src/JTracker/View/Renderer/TrackerExtension.php:242
 msgid "Critical"
 msgstr "Critică"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:241
+#: /src/JTracker/View/Renderer/TrackerExtension.php:243
 msgid "Urgent"
 msgstr "Urgent"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:242
+#: /src/JTracker/View/Renderer/TrackerExtension.php:244
 msgid "Medium"
 msgstr "Mediu"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:243
+#: /src/JTracker/View/Renderer/TrackerExtension.php:245
 msgid "Low"
 msgstr "Scăzut"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:244
+#: /src/JTracker/View/Renderer/TrackerExtension.php:246
 msgid "Very low"
 msgstr "Foarte scazut"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:288
-msgid "Duplicate of"
-msgstr ""
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:289
-msgid "Related to"
-msgstr ""
-
 #: /src/JTracker/View/Renderer/TrackerExtension.php:290
-msgid "Not before"
-msgstr ""
+msgid "Duplicate of"
+msgstr "Duplicat al"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:291
+msgid "Related to"
+msgstr "Asociat cu"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:292
+msgid "Not before"
+msgstr "Nu înainte de"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:293
 msgid "Pull Request for"
-msgstr ""
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:349
-#: /src/JTracker/View/Renderer/TrackerExtension.php:372
-msgid "New"
-msgstr "Nou"
-
-#: /src/JTracker/View/Renderer/TrackerExtension.php:350
-#: /src/JTracker/View/Renderer/TrackerExtension.php:373
-msgid "Confirmed"
-msgstr "Confirmat"
+msgstr "Cerere pull pentru"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:351
 #: /src/JTracker/View/Renderer/TrackerExtension.php:374
-#: /src/JTracker/View/Renderer/TrackerExtension.php:621
-msgid "Pending"
-msgstr "În aşteptare"
+msgid "New"
+msgstr "Nou"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:352
 #: /src/JTracker/View/Renderer/TrackerExtension.php:375
-msgid "Ready To Commit"
-msgstr "Gata de executie"
+msgid "Confirmed"
+msgstr "Confirmat"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:353
 #: /src/JTracker/View/Renderer/TrackerExtension.php:376
-msgid "Needs Review"
-msgstr "Așteaptă evaluare"
+#: /src/JTracker/View/Renderer/TrackerExtension.php:623
+msgid "Pending"
+msgstr "În aşteptare"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:354
 #: /src/JTracker/View/Renderer/TrackerExtension.php:377
+msgid "Ready To Commit"
+msgstr "Gata de executie"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:355
+#: /src/JTracker/View/Renderer/TrackerExtension.php:378
+msgid "Needs Review"
+msgstr "Așteaptă evaluare"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:356
+#: /src/JTracker/View/Renderer/TrackerExtension.php:379
 msgid "Information Required"
 msgstr "Necesită informație"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:360
-#: /src/JTracker/View/Renderer/TrackerExtension.php:378
+#: /src/JTracker/View/Renderer/TrackerExtension.php:362
+#: /src/JTracker/View/Renderer/TrackerExtension.php:380
 msgid "Fixed in Code Base"
 msgstr "Efectuat in Codul de Bază"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:361
-#: /src/JTracker/View/Renderer/TrackerExtension.php:379
+#: /src/JTracker/View/Renderer/TrackerExtension.php:363
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
 msgid "Unconfirmed Report"
 msgstr "Raportul așteaptă Confirmare"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:362
-#: /src/JTracker/View/Renderer/TrackerExtension.php:380
+#: /src/JTracker/View/Renderer/TrackerExtension.php:364
+#: /src/JTracker/View/Renderer/TrackerExtension.php:382
 msgid "No Reply"
 msgstr "Răspunde"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:363
-#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+#: /src/JTracker/View/Renderer/TrackerExtension.php:365
+#: /src/JTracker/View/Renderer/TrackerExtension.php:383
 msgid "Closed"
 msgstr "Închis"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:364
-#: /src/JTracker/View/Renderer/TrackerExtension.php:382
+#: /src/JTracker/View/Renderer/TrackerExtension.php:366
+#: /src/JTracker/View/Renderer/TrackerExtension.php:384
 msgid "Expected Behaviour"
 msgstr "Așteaptă Acțiune"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:365
-#: /src/JTracker/View/Renderer/TrackerExtension.php:383
+#: /src/JTracker/View/Renderer/TrackerExtension.php:367
+#: /src/JTracker/View/Renderer/TrackerExtension.php:385
 msgid "Known Issue"
 msgstr "Subiect Cunoscut"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:366
-#: /src/JTracker/View/Renderer/TrackerExtension.php:384
+#: /src/JTracker/View/Renderer/TrackerExtension.php:368
+#: /src/JTracker/View/Renderer/TrackerExtension.php:386
 msgid "Duplicate Report"
 msgstr "Duplicare Raport"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:556
+#: /src/JTracker/View/Renderer/TrackerExtension.php:558
 msgid "No"
 msgstr "Nu"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:556
+#: /src/JTracker/View/Renderer/TrackerExtension.php:558
 msgid "Yes"
 msgstr "Da"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:618
+#: /src/JTracker/View/Renderer/TrackerExtension.php:620
 msgid "Success"
 msgstr "Succes"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:624
+#: /src/JTracker/View/Renderer/TrackerExtension.php:626
 msgid "Error"
 msgstr "Eroare"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:627
+#: /src/JTracker/View/Renderer/TrackerExtension.php:629
 msgid "Failure"
 msgstr "Eșuat"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:691
+#: /src/JTracker/View/Renderer/TrackerExtension.php:693
 msgid "Not tested"
 msgstr "Așteaptă evaluare"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:692
+#: /src/JTracker/View/Renderer/TrackerExtension.php:694
 msgid "Tested successfully"
 msgstr "Testat cu succes"
 
-#: /src/JTracker/View/Renderer/TrackerExtension.php:693
+#: /src/JTracker/View/Renderer/TrackerExtension.php:695
 msgid "Tested unsuccessfully"
 msgstr "Testul nu a avut succes"
+

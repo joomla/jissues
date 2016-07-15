@@ -1,33 +1,32 @@
-# JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Jesper Post Tønder <jpt@redweb.dk>, 2014
-# Ole Ottosen <ot2sen@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-05-14 20:59+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Danish (Denmark) (http://www.transifex.com/opentranslators/jtracker/language/da_DK/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: da\n"
+"X-Crowdin-File: jtracker-template_en.po\n"
+"Language: da_DK\n"
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
 msgstr "Hjem"
 
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:30
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
 msgid "About"
 msgstr "Om"
 
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:40
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
 msgid "Community"
 msgstr "Community"
 
@@ -81,14 +80,14 @@ msgstr "Alle rettigheder forbeholdt."
 
 #: /templates/footerMenu.twig:44
 #, php-format
-msgid "Joomla Hosting by %1$s"
+msgid "Joomla! Hosting by %1$s"
 msgstr ""
 
-#: /templates/index.twig:79
+#: /templates/index.twig:80
 msgid "Download"
 msgstr "Download"
 
-#: /templates/index.twig:82
+#: /templates/index.twig:83
 msgid "Demo"
 msgstr "Demo"
 
@@ -108,7 +107,8 @@ msgstr "Ingen milepæl"
 msgid "Select labels..."
 msgstr ""
 
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
 msgid "Submit test result"
 msgstr ""
 
@@ -132,7 +132,8 @@ msgstr ""
 msgid "Leave a comment (optional)"
 msgstr ""
 
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
 msgid "Alter test result"
 msgstr ""
 
@@ -157,7 +158,8 @@ msgstr "Start upload"
 msgid "Cancel upload"
 msgstr "Fortryd upload"
 
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Slet"
 
@@ -166,19 +168,17 @@ msgid "Upload Notes"
 msgstr "Upload noter"
 
 #: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "Maksimal filstørrelse for uploads er <strong>1 MB</strong>"
+#, php-format
+msgid "The maximum file size for uploads is %s."
+msgstr ""
 
 #: /templates/uploader.full.twig:36
-msgid ""
-"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
-" XLSX, PPTX</strong>."
+#, php-format
+msgid "The following file types are allowed: %s"
 msgstr ""
 
 #: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
 msgstr "Du kan <strong>trække og slippe</strong> filer fra dit skrivebord til denne webside."
 
 #: /templates/uploader.full.twig:52
@@ -189,11 +189,13 @@ msgstr "Behandler..."
 msgid "Start"
 msgstr "Start"
 
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Fortryd"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:151
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Fejl"
 
@@ -321,7 +323,8 @@ msgstr "Extension Directory"
 msgid "Showcase Directory"
 msgstr "Showcase Directory"
 
-#: /templates/topMenu.twig:70 /templates/topMenu.twig:92
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
 msgid "Language Packages"
 msgstr ""
 
@@ -337,7 +340,8 @@ msgstr "Udviklere"
 msgid "Developer Network"
 msgstr ""
 
-#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:203
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -524,3 +528,4 @@ msgstr "Log ind med GitHub"
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr "Ingen GitHub legitimationsoplysninger angivet i konfig"
+

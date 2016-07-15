@@ -4,7 +4,7 @@
 {% extends "index.twig" %}
 
 {% block title %}
-    {{ item.article_id ? "Edit Article"|_ : "New Article"|_ }}
+    {{ parent() }} | {{ item.article_id ? "Edit Article"|_ : "New Article"|_ }}
 {% endblock %}
 
 {% block headerCSS %}

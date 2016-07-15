@@ -8,6 +8,7 @@
 
 namespace Application\Command\Get;
 
+use Application\Command\TrackerCommandOption;
 use g11n\Support\ExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
@@ -20,12 +21,20 @@ use JTracker\Helper\LanguageHelper;
 class Languagefiles extends Get
 {
 	/**
+	 * Optional single language to process
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $language;
+
+	/**
 	 * Array containing application languages to retrieve translations for
 	 *
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $languages = array();
+	private $languages = [];
 
 	/**
 	 * Constructor.
@@ -37,6 +46,13 @@ class Languagefiles extends Get
 		parent::__construct();
 
 		$this->description = g11n3t('Retrieve language files.');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'language', '',
+				g11n3t('Optionally specify a single language to fetch.')
+			)
+		);
 	}
 
 	/**
@@ -51,6 +67,7 @@ class Languagefiles extends Get
 		$this->getApplication()->outputTitle(g11n3t('Get Translations'));
 
 		$this->languages = LanguageHelper::getLanguageCodes();
+		$this->language  = $this->getApplication()->input->get('language');
 
 		$this->logOut(g11n3t('Start fetching translations.'))
 			->setupLanguageProvider()
@@ -112,7 +129,7 @@ class Languagefiles extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
-		$this->out(sprintf(g11n3t('Processing: %1$s %2$s... '), $domain, $extension), false);
+		$this->out(g11n3t('Processing %domain% %extension%... ', ['%domain%' => $domain, '%extension%' => $extension]), false);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
 		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);
@@ -121,6 +138,12 @@ class Languagefiles extends Get
 		foreach ($this->languages as $language)
 		{
 			if ('en-GB' == $language)
+			{
+				continue;
+			}
+
+			// Check for a single language and only process that if specified
+			if ($this->language && $this->language != $language)
 			{
 				continue;
 			}

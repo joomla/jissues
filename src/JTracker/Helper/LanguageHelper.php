@@ -27,8 +27,11 @@ abstract class LanguageHelper
 	 * @var array
 	 */
 	private static $knownCrowdinExceptions = [
+		'es-CO' => 'es-CO',
 		'es-ES' => 'es-ES',
-		'nb-NO' => 'no',
+		'fr-CA' => 'fr-CA',
+		'nb-NO' => 'nb',
+		'nl-BE' => 'nl-BE',
 		'pt-BR' => 'pt-BR',
 		'pt-PT' => 'pt-PT',
 		'zh-CN' => 'zh-CN'
@@ -60,6 +63,11 @@ abstract class LanguageHelper
 			'name' => 'English',
 			'display' => 'English'
 		],
+		'es-CO' => [
+			'iso' => 'es-CO',
+			'name' => 'Spanish (Colombia)',
+			'display' => 'Español (Colombia)'
+		],
 		'es-ES' => [
 			'iso' => 'es',
 			'name' => 'Spanish',
@@ -70,6 +78,11 @@ abstract class LanguageHelper
 			'name' => 'Estonian',
 			'display' => 'Eesti'
 		],
+		'fr-CA' => [
+			'iso' => 'fr-CA',
+			'name' => 'French (Canada)',
+			'display' => 'Français (Canada)'
+		],
 		'fr-FR' => [
 			'iso' => 'fr',
 			'name' => 'French',
@@ -79,6 +92,11 @@ abstract class LanguageHelper
 			'iso' => 'hu',
 			'name' => 'Hungarian',
 			'display' => 'Magyar'
+		],
+		'id-ID' => [
+			'iso' => 'id',
+			'name' => 'Indonesian',
+			'display' => 'Bahasa Indonesia'
 		],
 		'it-IT' => [
 			'iso' => 'it',
@@ -91,9 +109,14 @@ abstract class LanguageHelper
 			'display' => 'Latviešu valoda'
 		],
 		'nb-NO' => [
-			'iso' => 'no',
-			'name' => 'Norwegian',
-			'display' => 'Norsk'
+			'iso' => 'nb',
+			'name' => 'Norwegian Bokmal',
+			'display' => 'Norsk bokmål'
+		],
+		'nl-BE' => [
+			'iso' => 'nl-BE',
+			'name' => 'Dutch (Belgium)',
+			'display' => 'Nederlands (België)'
 		],
 		'nl-NL' => [
 			'iso' => 'nl',
@@ -124,6 +147,11 @@ abstract class LanguageHelper
 			'iso' => 'ru',
 			'name' => 'Russian',
 			'display' => 'Русский'
+		],
+		'sl-SI' => [
+			'iso' => 'sl',
+			'name' => 'Slovenian',
+			'display' => 'slovenski jezik'
 		],
 		'zh-CN' => [
 			'iso' => 'cn',

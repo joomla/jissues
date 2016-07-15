@@ -1,45 +1,40 @@
-## tracker.php
+## CLI - Command Line Application
+
+The script is located at `/bin/jtracker`, which is a symlink to `/cli/tracker.php` created for convenience.
+It is meant to be executed on the computers [command line interface](https://en.wikipedia.org/wiki/Command-line_interface).
 
 This script will do:
 
 * Setup the required database for the application.
 * Initial import and further update of issues and issue comments from GitHub.
-
-It is meant to be used during the development process and must be run from the PHP command line interface.
+* Lots of other functionality for maintaining the application in sync and generate lots of useful stuff.
 
 Usage:
 
-`tracker.php <command> [action]`
+`jtracker <command> [action]`
 
-Available commands:
+See: `jtracker help` for more information.
+Or: `jtracker help <command>` for more information on a specific command.
 
-* `get` Retrieve issues, issue comments, issue events, user avatars, project labels, or project milestones
-* `help` Display a lot of helpful text.
-* `install` Install the application.
-* `make` Make documentation, database table comments, autocomplete files, language files, or language templates
-* `update` Update GitHub data
+The output of the script is language aware. Just add a `--lang` argument:
 
-The output of the commands `install` and `get` is translatable. Just add `--lang` argument:
-`tracker.php get project --lang=ru-RU`
-
-For more information use `tracker.php help`.
-For more information on a specific command use `tracker.php help <command>`.
+`jtracker get project --lang=ru-RU`
 
 ### Install the application
 
-Copy `/etc/config.dist.json` to `/etc/config.json` and fill in your database details.  To interface with GitHub, fill in your GitHub credentials.
+Copy `/etc/config.dist.json` to `/etc/config.json` and fill in your database details. To interface with GitHub, fill in your GitHub credentials.
 
 Then run:
-`tracker.php install`
+`jtracker install`
 
 ### Import a project from GitHub
 
-The command `tracker.php get project` will retrieve the information for a given project from GitHub.
+The command `jtracker get project` will retrieve the information for a given project from GitHub.
 This should be used during installation and periodical executions.
 
 To bypass inputs and write the output to a log file during cron execution, a similar command could be used:
 
-`/path/to/tracker.php get project -p 2 --all --quiet --log cron.log`
+`jtracker get project -p 2 --all --status=all --quiet --noprogress --log cron.log`
 
 *Note* `get project` will "batch run" the available `get` commands in the correct (..erm) order.
 
@@ -73,15 +68,15 @@ If your terminal does not support ANSI control codes you may see something like 
 To suppress color ouput for a single command use the `--nocolors` switch.
 To suppress the progress bar for a single command use the `--noprogress` switch.
 Example:
-`tracker.php retrieve issues --nocolors --noprogress`
+`jtracker get project --nocolors --noprogress`
 
 To turn the feature(s) off permanently edit `etc/config.json` and set the values for the undesired features from `1` to `0`.
 
 ### Auto Complete
 
-If you use PHPStorm, you may use the [Command Line Tools Console](http://www.jetbrains.com/phpstorm/webhelp/command-line-tools-console-tool-window.html) to execute the tracker.php script.
+If you use PHPStorm, you may use the [Command Line Tools Console](http://www.jetbrains.com/phpstorm/webhelp/command-line-tools-console-tool-window.html) to execute the jtracker script.
 
-To get auto complete for the tracker.php commands, copy the file `Custom_jtracker.xml` to the folder `.idea/commandlinetools` inside your JTracker project. This will set up an alias `jtracker` that points to the `/cli/tracker.php` script.
+To get auto complete for the `jtracker` commands, copy the file `Custom_jtracker.xml` to the folder `.idea/commandlinetools` inside your JTracker project (create the folder if it does not exist). This will set up an alias `jt` that points to the `/bin/jtracker` script.
 
 ![cli-auto-complete](https://f.cloud.github.com/assets/2059654/738999/cc8f5ba2-e351-11e2-8389-8fbb1e4a3243.png)
 

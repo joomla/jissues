@@ -1,32 +1,32 @@
-# JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Nikolai Plath <der.el.kuku@gmail.com>, 2010,2014-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-05-29 18:56+0000\n"
-"Last-Translator: Nikolai Plath <der.el.kuku@gmail.com>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/opentranslators/jtracker/language/de_DE/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: jtracker-template_en.po\n"
+"Language: de_DE\n"
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
 msgstr "Home"
 
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:30
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
 msgid "About"
 msgstr "Über uns"
 
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:40
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
 msgid "Community"
 msgstr "Community"
 
@@ -80,14 +80,14 @@ msgstr "Alle Rechte vorbehalten"
 
 #: /templates/footerMenu.twig:44
 #, php-format
-msgid "Joomla Hosting by %1$s"
-msgstr "Joomla Hosting by %1$s"
+msgid "Joomla! Hosting by %1$s"
+msgstr "Joomla! Hosting durch %1$s"
 
-#: /templates/index.twig:79
+#: /templates/index.twig:80
 msgid "Download"
 msgstr "Download"
 
-#: /templates/index.twig:82
+#: /templates/index.twig:83
 msgid "Demo"
 msgstr "Demo"
 
@@ -107,7 +107,8 @@ msgstr "Kein Meilenstein"
 msgid "Select labels..."
 msgstr "Labels wählen..."
 
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
 msgid "Submit test result"
 msgstr "Testergebnis abschicken"
 
@@ -131,7 +132,8 @@ msgstr "Nicht erfolgreich getestet"
 msgid "Leave a comment (optional)"
 msgstr "Kommentar schreiben (optional)"
 
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
 msgid "Alter test result"
 msgstr "Testergebnis modifizieren"
 
@@ -156,7 +158,8 @@ msgstr "Upload starten"
 msgid "Cancel upload"
 msgstr "Upload abbrechen"
 
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Löschen"
 
@@ -165,19 +168,17 @@ msgid "Upload Notes"
 msgstr "Upload Notizen"
 
 #: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "Maximale Upload-Größe ist mit <strong>1 MB</strong> angegeben"
+#, php-format
+msgid "The maximum file size for uploads is %s."
+msgstr "Maximale Dateigröße für Uploads ist %sKB."
 
 #: /templates/uploader.full.twig:36
-msgid ""
-"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
-" XLSX, PPTX</strong>."
-msgstr "Die folgenden Dateitypen sind erlaubt: <strong>JPG, GIF, PNG, TXT, PDF, DOCX, XLSX, PPTX</strong>."
+#, php-format
+msgid "The following file types are allowed: %s"
+msgstr "Die folgenden Dateitypen sind erlaubt: %s"
 
 #: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
 msgstr "Sie können Dateien per <strong>drag & drop</strong> von Ihrem Desktop auf diese Website übertragen."
 
 #: /templates/uploader.full.twig:52
@@ -188,11 +189,13 @@ msgstr "Verarbeitung läuft..."
 msgid "Start"
 msgstr "Start"
 
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:151
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Fehler"
 
@@ -320,7 +323,8 @@ msgstr "Extension Directory"
 msgid "Showcase Directory"
 msgstr "Showcase Directory"
 
-#: /templates/topMenu.twig:70 /templates/topMenu.twig:92
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
 msgid "Language Packages"
 msgstr "Sprachpakete"
 
@@ -336,7 +340,8 @@ msgstr "Entwickler"
 msgid "Developer Network"
 msgstr "Entwicklernetzwerk"
 
-#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:203
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -523,3 +528,4 @@ msgstr "Mit GitHub einloggen"
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr "Keine GitHub Daten in der Konfiguration gefunden"
+
