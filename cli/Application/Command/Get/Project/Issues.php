@@ -10,7 +10,6 @@ namespace Application\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
-use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
@@ -57,14 +56,6 @@ class Issues extends Project
 	protected $issueStates = ['open', 'closed'];
 
 	/**
-	 * Github object as a bot account
-	 *
-	 * @var    \JTracker\Github\Github
-	 * @since  1.0
-	 */
-	protected $githubBot;
-
-	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -94,9 +85,6 @@ class Issues extends Project
 	public function execute()
 	{
 		$this->getApplication()->outputTitle(g11n3t('Retrieve Issues'));
-
-		// This class has actions that depend on a bot account, fetch a GitHub instance as a bot
-		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
 
 		$this->logOut(g11n3t('Start retrieve Issues'))
 			->selectProject()
@@ -273,17 +261,6 @@ class Issues extends Project
 
 		$this->usePBar ? $this->out() : null;
 
-		$gitHubBot = null;
-
-		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
-		{
-			$gitHubBot = new GitHubHelper(
-				GithubFactory::getInstance(
-					$this->getApplication(), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
-				)
-			);
-		}
-
 		// Start processing the pulls now
 		foreach ($ghIssues as $count => $ghIssue)
 		{
@@ -403,27 +380,6 @@ class Issues extends Project
 					: 'unknown_repository';
 
 				$table->pr_head_ref = $pullRequest->head->ref;
-
-				if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $pullRequest->head->sha)
-				{
-					// The PR has been updated.
-					$testers = (new IssueModel($this->getContainer()->get('db')))
-						->getAllTests($table->id);
-
-					if ($testers)
-					{
-						// Send a notification.
-						$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
-
-						// @todo send application comment - find a way to set a WEB URL in CLI scripts.
-						// @todo $comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
-
-						$gitHubBot->addComment(
-							$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
-						);
-					}
-				}
-
 				$table->pr_head_sha = $pullRequest->head->sha;
 
 				$combinedStatus = $gitHubHelper->getCombinedStatus($this->project, $pullRequest->head->sha);
