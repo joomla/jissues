@@ -77,7 +77,7 @@ class Issues extends Project
 			->addOption(
 				new TrackerCommandOption(
 					'status', '',
-					g11n3t('<n> Process only a issue of given status.')
+					g11n3t('<n> Process only an issue of given status.')
 				)
 			);
 
