@@ -12,6 +12,9 @@ use Application\Command\Help\Help;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+
 /**
  * Class for generating a PhpStorm autocomplete file for using the CLI tools
  *
@@ -19,6 +22,16 @@ use Application\Command\TrackerCommandOption;
  */
 class Autocomplete extends Make
 {
+	/**
+	 * @var boolean
+	 */
+	private $echo = false;
+
+	/**
+	 * @var Filesystem
+	 */
+	private $fileSystem = null;
+
 	/**
 	 * Constructor.
 	 *
@@ -49,11 +62,50 @@ class Autocomplete extends Make
 	{
 		$this->getApplication()->outputTitle(g11n3t('Make Auto complete'));
 
-		$cliBase = JPATH_ROOT . '/cli/Application/Command';
+		$commands = $this->getCommands();
+		$applicationOptions = $this->getApplication()->getCommandOptions();
 
-		$helper = new Help;
-		$helper->setContainer($this->getContainer());
+		$type = $this->getApplication()->input->getString('type');
+		$this->echo = (boolean) $this->getApplication()->input->getString('echo');
 
+		$this->fileSystem = new Filesystem(new Local(JPATH_ROOT));
+
+		if ($type)
+		{
+			switch ($type)
+			{
+				case 'phpstorm':
+					$this->makePhpStorm($commands);
+					break;
+
+				case 'fish':
+					$this->makeFish($commands, $applicationOptions);
+					break;
+
+				default:
+					throw new \InvalidArgumentException(g11n3t('Invalid type supplied.'));
+					break;
+			}
+		}
+		else
+		{
+			$this->makePhpStorm($commands);
+			$this->makeFish($commands, $applicationOptions);
+		}
+
+		$this->out()
+			->out('Finished =;)');
+	}
+
+	/**
+	 * Make a PHPStorm auto complete file.
+	 *
+	 * @param   array  $commands  Available commands.
+	 *
+	 * @return $this
+	 */
+	private function makePhpStorm(array $commands)
+	{
 		$xml = simplexml_load_string(
 			'<framework xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
 			. ' xsi:noNamespaceSchemaLocation="schemas/frameworkDescriptionVersion1.1.4.xsd"'
@@ -61,72 +113,25 @@ class Autocomplete extends Make
 			. '</framework>'
 		);
 
-		$commands = [];
-
-		/* @type \DirectoryIterator $fileInfo */
-		foreach (new \DirectoryIterator($cliBase) as $fileInfo)
-		{
-			if ($fileInfo->isDot())
-			{
-				continue;
-			}
-
-			if ($fileInfo->isDir())
-			{
-				$commands[] = $fileInfo->getFilename();
-			}
-		}
-
-		// Sort the array and put the "Help" command in first place.
-		usort(
-			$commands, function($a, $b)
-			{
-				if ('Help' == $a)
-				{
-					return -1;
-				}
-				elseif ('Help' == $b)
-				{
-					return 1;
-				}
-
-				return strcmp($a, $b);
-			}
-		);
-
 		foreach ($commands as $command)
 		{
-			$commandName = '\\Application\\Command\\' . $command;
-
-			$className = $commandName . '\\' . $command;
-
-			/* @type TrackerCommand $class */
-			$class = new $className($this->getApplication());
-			$class->setContainer($this->getContainer());
-
-			$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
-
 			$xmlCommand = $xml->addChild('command');
 
-			$xmlCommand->addChild('name', strtolower($command));
-			$xmlCommand->addChild('help', $help);
+			$xmlCommand->addChild('name', $command->name);
+			$xmlCommand->addChild('help', $command->description);
 
-			if (false === in_array($command, ['Help', 'Install']))
+			if (false === in_array($command->name, ['help', 'install']))
 			{
 				$xmlCommand->addChild('params', 'option');
 			}
 
-			$actions = $helper->getActions($command);
-
-			ksort($actions);
-
-			/* @type TrackerCommand $option */
-			foreach ($actions as $name => $option)
+			/* @type TrackerCommand $action */
+			foreach ($command->actions as $name => $action)
 			{
-				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $option->getDescription());
+				$help = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
 
 				$xmlCommand = $xml->addChild('command');
-				$xmlCommand->addChild('name', strtolower($command) . ' ' . strtolower($name));
+				$xmlCommand->addChild('name', $command->name . ' ' . strtolower($name));
 				$xmlCommand->addChild('help', $help);
 			}
 		}
@@ -141,20 +146,175 @@ class Autocomplete extends Make
 
 		$contents = $doc->saveXML();
 
-		$fileName = $this->getApplication()->input->getPath('file', $this->getApplication()->input->getPath('f'));
-
-		if ($fileName)
-		{
-			$this->out(sprintf(g11n3t('Writing contents to: %s'), $fileName));
-
-			file_put_contents($fileName, $contents);
-		}
-		else
+		if ($this->echo)
 		{
 			echo $contents;
 		}
+		else
+		{
+			$path = 'cli/completions/Custom_jtracker.xml';
 
-		$this->out()
-			->out('Finished =;)');
+			if (!$this->fileSystem->put($path, $contents))
+			{
+				throw new \RuntimeException('Can not write to path.');
+			}
+
+			$this->out(g11n3t('File has been written to: %path%', ['%path%' => $path]));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Make a fish auto complete file.
+	 *
+	 * @param   array  $commands            Available commands.
+	 * @param   array  $applicationOptions  Available application options.
+	 *
+	 * @return $this
+	 */
+	private function makeFish(array $commands, array $applicationOptions)
+	{
+		$fishTemplate = $this->fileSystem->read('cli/completions/tpl_jtracker.fish');
+		$fishLines = [];
+
+		foreach ($commands as $command)
+		{
+			$fishLines[] = "# jtracker $command->name";
+			$fishLines[] = "complete -f -c jtracker -n '__fish_jtracker_needs_command' -a $command->name -d \"$command->description\"";
+
+			/* @type TrackerCommand $action */
+			foreach ($command->actions as $name => $action)
+			{
+				$description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
+
+				$fishLines[] = "complete -f -c jtracker -n '__fish_jtracker_using_command $command->name' -a $name -d \"$description\"";
+
+				if ($action->options)
+				{
+					foreach ($action->options as $option)
+					{
+						$fishLines[] = $this->formatOption($option, $command->name, $name);
+					}
+				}
+
+				if ($applicationOptions)
+				{
+					foreach ($applicationOptions as $option)
+					{
+						$fishLines[] = $this->formatOption($option, $command->name, $name);
+					}
+				}
+			}
+
+			$fishLines[] = '';
+		}
+
+		$contents = $fishTemplate . "\n" . implode("\n", $fishLines);
+
+		if ($this->echo)
+		{
+			echo $contents;
+		}
+		else
+		{
+			$path = 'cli/completions/jtracker.fish';
+
+			if (!$this->fileSystem->put($path, $contents))
+			{
+				throw new \RuntimeException('Can not write to path.');
+			}
+
+			$this->out(g11n3t('File has been written to: %path%', ['%path%' => $path]));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * get known commands.
+	 *
+	 * @return array
+	 */
+	private function getCommands()
+	{
+		$commands = [];
+		$names = [];
+
+		$helper = new Help;
+		$helper->setContainer($this->getContainer());
+
+		/* @type \DirectoryIterator $fileInfo */
+		foreach (new \DirectoryIterator(JPATH_ROOT . '/cli/Application/Command') as $fileInfo)
+		{
+			if ($fileInfo->isDot())
+			{
+				continue;
+			}
+
+			if ($fileInfo->isDir())
+			{
+				$names[] = $fileInfo->getFilename();
+			}
+		}
+
+		// Sort the array and put the "Help" command in first place.
+		usort(
+			$names, function($a, $b)
+			{
+				if ('Help' == $a)
+				{
+					return -1;
+				}
+				elseif ('Help' == $b)
+				{
+					return 1;
+				}
+
+				return strcmp($a, $b);
+			}
+		);
+
+		foreach ($names as $name)
+		{
+			$command = new \stdClass;
+			$commandName = '\\Application\\Command\\' . $name;
+
+			$className = $commandName . '\\' . $name;
+
+			/* @type TrackerCommand $class */
+			$class = new $className($this->getApplication());
+			$class->setContainer($this->getContainer());
+
+			$command->name = strtolower($name);
+			$command->description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $class->getDescription());
+
+			$actions = $helper->getActions($command->name);
+
+			ksort($actions);
+
+			$command->actions = $actions;
+
+			$commands[] = $command;
+		}
+
+		return $commands;
+	}
+
+	/**
+	 * Display a command option.
+	 *
+	 * @param   TrackerCommandOption  $option   The command option.
+	 * @param   string                $command  The command name.
+	 * @param   string                $action   The action name.
+	 *
+	 * @return string
+	 */
+	private function formatOption(TrackerCommandOption $option, $command, $action)
+	{
+		$shortArg = $option->shortArg ? " -s $option->shortArg" : '';
+		$longArg = $option->longArg ? " -l $option->longArg" : '';
+
+		return "complete -f -c jtracker -n '__fish_jtracker_using_action $command $action'$shortArg$longArg -d \"$option->description\"";
 	}
 }
