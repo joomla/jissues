@@ -32,7 +32,7 @@ class Languagefiles extends Update
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $languages = array();
+	private $languages = [];
 
 	/**
 	 * Constructor.
@@ -83,7 +83,7 @@ class Languagefiles extends Update
 			->uploadTemplates()
 			->uploadTranslations()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**

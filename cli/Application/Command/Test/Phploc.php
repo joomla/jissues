@@ -53,16 +53,11 @@ class Phploc extends Test
 					JPATH_ROOT . '/cli',
 					JPATH_ROOT . '/src'
 					],
-					/*
-					'--log-csv' => 'lllog.csv',
-					'--progress' => '1',
-					'--git-repository' => '.'
-					*/
 				]
 			)
 		);
 
-		$this->out('Finished');
+		$this->out(g11n3t('Finished.'));
 
 		return $this;
 	}

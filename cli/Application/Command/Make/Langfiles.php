@@ -130,7 +130,7 @@ class Langfiles extends Make
 		}
 
 		$this->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Langfiles extends Make
 
 			$fileName = $lang . '.' . $extension . '.po';
 
-			$options = array();
+			$options = [];
 
 			$options[] = 'input=' . $templateFile;
 			$options[] = 'output=' . $path . '/' . $fileName;
@@ -210,7 +210,7 @@ class Langfiles extends Make
 		{
 			$this->out(g11n3t('Updating language file...'));
 
-			$options = array();
+			$options = [];
 
 			$options[] = 'update';
 			$options[] = 'backup=off';
@@ -218,7 +218,7 @@ class Langfiles extends Make
 			$options[] = 'verbose';
 			$options[] = 'no-wrap';
 
-			$paths = array();
+			$paths = [];
 			$paths[] = $languageFile;
 			$paths[] = $templateFile;
 

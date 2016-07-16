@@ -47,7 +47,7 @@ class Labels extends Project
 			->setupGitHub()
 			->processLabels()
 			->out()
-			->logOut(g11n3t('Finished'));
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Labels extends Project
 			$this->project->gh_user, $this->project->gh_project
 		);
 
-		$names = array();
+		$names = [];
 
 		$cntUpdated = 0;
 		$cntNew = 0;
@@ -83,10 +83,10 @@ class Labels extends Project
 
 				// Check if the label exists
 				$table->load(
-					array(
+					[
 						'project_id' => $this->project->project_id,
 						'name'       => $label->name
-					)
+					]
 				);
 
 				// Values that may have changed

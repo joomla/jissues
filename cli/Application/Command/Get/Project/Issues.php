@@ -35,7 +35,7 @@ class Issues extends Project
 	 *
 	 * @since  1.0
 	 */
-	protected $changedIssueNumbers = array();
+	protected $changedIssueNumbers = [];
 
 	/**
 	 * List of issues.
@@ -44,7 +44,7 @@ class Issues extends Project
 	 *
 	 * @since  1.0
 	 */
-	protected $issues = array();
+	protected $issues = [];
 
 	/**
 	 * Status of issues.
@@ -93,7 +93,7 @@ class Issues extends Project
 			->fetchData()
 			->processData()
 			->out()
-			->logOut(g11n3t('Finished'));
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -153,7 +153,7 @@ class Issues extends Project
 	 */
 	protected function fetchData()
 	{
-		$issues = array();
+		$issues = [];
 
 		foreach ($this->issueStates as $state)
 		{
@@ -483,7 +483,7 @@ class Issues extends Project
 	 */
 	private function getLabelIds($labelObjects)
 	{
-		static $labels = array();
+		static $labels = [];
 
 		if (!$labels)
 		{
@@ -495,7 +495,7 @@ class Issues extends Project
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
 				->from($db->quoteName($table->getTableName()))
-				->select(array('label_id', 'name'))
+				->select(['label_id', 'name'])
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 			)->loadObjectList();
 
@@ -505,7 +505,7 @@ class Issues extends Project
 			}
 		}
 
-		$ids = array();
+		$ids = [];
 
 		foreach ($labelObjects as $label)
 		{
@@ -538,7 +538,7 @@ class Issues extends Project
 		$milestoneList = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName($table->getTableName()))
-				->select(array('milestone_number', 'milestone_id'))
+				->select(['milestone_number', 'milestone_id'])
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 		)->loadAssocList('milestone_number', 'milestone_id');
 

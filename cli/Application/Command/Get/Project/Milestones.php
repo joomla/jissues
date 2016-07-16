@@ -49,7 +49,7 @@ class Milestones extends Project
 			->setupGitHub()
 			->processMilestones()
 			->out()
-			->logOut(g11n3t('Finished'));
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Milestones extends Project
 			)
 		);
 
-		$titles = array();
+		$titles = [];
 
 		$cntUpdated = 0;
 		$cntNew = 0;
@@ -90,10 +90,10 @@ class Milestones extends Project
 
 				// Check if the milestone exists
 				$table->load(
-					array(
+					[
 						'project_id' => $this->project->project_id,
 						'milestone_number' => $milestone->number
-					)
+					]
 				);
 
 				// Values that may have changed

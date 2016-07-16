@@ -62,6 +62,6 @@ class Repoinfo extends Make
 
 		$this->logOut(sprintf('Wrote repoinfo file to: %s', str_replace(JPATH_ROOT, 'J_ROOT', $path)))
 			->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
 	}
 }

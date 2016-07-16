@@ -69,8 +69,8 @@ class Depfile extends Make
 	 */
 	public function execute()
 	{
-		$packages = array();
-		$defined  = array();
+		$packages = [];
+		$defined  = [];
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
@@ -95,7 +95,7 @@ class Depfile extends Make
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
 		{
-			$output = array();
+			$output = [];
 
 			exec('bower info --json ' . $packageName . '#' . $version, $output);
 
@@ -133,7 +133,7 @@ class Depfile extends Make
 		}
 
 		$this->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
 	}
 
 	/**
@@ -148,11 +148,11 @@ class Depfile extends Make
 	 */
 	private function getSorted(array $defined, array $packages)
 	{
-		$sorted = array();
+		$sorted = [];
 
-		foreach (array('require' => 'php', 'require-dev' => 'php-dev') as $sub => $section)
+		foreach (['require' => 'php', 'require-dev' => 'php-dev'] as $sub => $section)
 		{
-			$items = array();
+			$items = [];
 
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
@@ -228,7 +228,7 @@ class Depfile extends Make
 	 */
 	private function checkLanguageFiles()
 	{
-		$list = array();
+		$list = [];
 
 		LanguageHelper::addDomainPaths();
 
@@ -245,9 +245,9 @@ class Depfile extends Make
 			$langInfo = new \stdClass;
 
 			$langInfo->tag = $langTag;
-			$langInfo->translators = array();
+			$langInfo->translators = [];
 
-			$translators = array();
+			$translators = [];
 
 			foreach (LanguageHelper::getScopes() as $domain => $extensions)
 			{

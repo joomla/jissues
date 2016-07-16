@@ -45,7 +45,7 @@ class Project extends Get
 	 *
 	 * @since  1.0
 	 */
-	protected $changedIssueNumbers = array();
+	protected $changedIssueNumbers = [];
 
 	/**
 	 * Force update.

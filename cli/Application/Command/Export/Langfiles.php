@@ -72,10 +72,10 @@ class Langfiles extends Export
 		$this->getApplication()->outputTitle(g11n3t('Export language files'));
 
 		$this->setup()
-			->logOut('Start exporting language files.')
+			->logOut(g11n3t('Start exporting language files.'))
 			->exportFiles()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
