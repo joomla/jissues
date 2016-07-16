@@ -8,7 +8,7 @@
 
 namespace App\Support\Controller;
 
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use JTracker\Controller\AbstractTrackerController;
 

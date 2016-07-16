@@ -8,7 +8,7 @@
 
 namespace Application\Command\Clear;
 
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 /**
  * Class for generating language template files.

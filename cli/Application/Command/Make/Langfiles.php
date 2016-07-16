@@ -10,8 +10,8 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Language\Storage;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 

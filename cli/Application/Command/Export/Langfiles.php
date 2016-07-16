@@ -8,8 +8,8 @@
 
 namespace Application\Command\Export;
 
-use g11n\Language\Storage as g11nStorage;
-use g11n\Support\ExtensionHelper as g11nExtensionHelper;
+use ElKuKu\G11n\Language\Storage as g11nStorage;
+use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 

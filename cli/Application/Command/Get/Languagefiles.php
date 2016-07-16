@@ -9,7 +9,8 @@
 namespace Application\Command\Get;
 
 use Application\Command\TrackerCommandOption;
-use g11n\Support\ExtensionHelper;
+
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 

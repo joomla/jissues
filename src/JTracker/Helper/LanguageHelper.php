@@ -8,7 +8,7 @@
 
 namespace JTracker\Helper;
 
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;

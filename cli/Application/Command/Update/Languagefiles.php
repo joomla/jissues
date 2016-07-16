@@ -12,8 +12,8 @@ use Application\Command\TrackerCommandOption;
 
 use ElKuKu\Crowdin\Languagefile;
 
-use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Language\Storage;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Filter\OutputFilter;
 

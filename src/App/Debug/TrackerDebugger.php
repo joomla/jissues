@@ -8,7 +8,7 @@
 
 namespace App\Debug;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
 
 use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
@@ -117,7 +117,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	protected function setupLogging()
 	{
-		$this->log['db'] = array();
+		$this->log['db'] = [];
 
 		if ($this->application->get('debug.database'))
 		{
@@ -263,7 +263,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	public function getOutput()
 	{
-		$debug = array();
+		$debug = [];
 
 		// Check if debug is only displayed for admin users
 		if ($this->application->get('debug.admin'))
@@ -331,7 +331,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	private function getNavigation()
 	{
-		$navigation = array();
+		$navigation = [];
 
 		// OK, here comes some very beautiful CSS !!
 		// It's kinda "hidden" here, so evil template designers won't find it :P
@@ -384,7 +384,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 		{
 			$info = $this->getLanguageStringsInfo();
 			$badge = $this->getBadge($info->untranslateds, [1 => 'badge-warning']);
-			$count = count(g11n::getEvents());
+			$count = count(G11n::getEvents());
 
 			$navigation[] = '<li class="hasTooltip"'
 				. ' title="' . sprintf(
@@ -500,10 +500,10 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	public function renderLanguageFiles()
 	{
-		$items = array();
+		$items = [];
 		$tableFormat = new TableFormat;
 
-		foreach (g11n::getEvents() as $e)
+		foreach (G11n::getEvents() as $e)
 		{
 			$items[] = ArrayHelper::fromObject($e);
 		}
@@ -511,7 +511,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 		$pluralInfo = sprintf(
 			g11n3t(
 				'Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>'),
-			g11n::get('pluralForms'), g11n::get('pluralFunctionRaw'
+			G11n::get('pluralForms'), G11n::get('pluralFunctionRaw'
 			)
 		);
 
@@ -647,7 +647,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	protected function renderDatabase()
 	{
-		$debug = array();
+		$debug = [];
 
 		$dbLog = $this->getLog('db');
 
@@ -737,9 +737,9 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	protected function renderLanguageStrings()
 	{
-		$html = array();
+		$html = [];
 
-		$items = g11n::get('processedItems');
+		$items = G11n::get('processedItems');
 
 		$html[] = '<table class="table table-hover table-condensed">';
 		$html[] = '<tr>';
@@ -783,7 +783,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 */
 	protected function getLanguageStringsInfo()
 	{
-		$items = g11n::get('processedItems');
+		$items = G11n::get('processedItems');
 
 		$info = new \stdClass;
 
@@ -814,7 +814,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 	 *
 	 * @since   1.0
 	 */
-	private function getBadge($count, array $options = array())
+	private function getBadge($count, array $options = [])
 	{
 		$class = '';
 

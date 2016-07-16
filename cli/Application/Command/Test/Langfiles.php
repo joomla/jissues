@@ -8,7 +8,7 @@
 
 namespace Application\Command\Test;
 
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 

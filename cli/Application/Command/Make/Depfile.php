@@ -10,7 +10,7 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use g11n\Support\ExtensionHelper as g11nExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 
