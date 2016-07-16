@@ -33,6 +33,13 @@ class Autocomplete extends Make
 	private $fileSystem = null;
 
 	/**
+	 * Array of known auto complete file types.
+	 *
+	 * @var array
+	 */
+	private $knownTypes = ['phpstorm', 'fish'];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0
@@ -41,12 +48,18 @@ class Autocomplete extends Make
 	{
 		parent::__construct();
 
-		$this->description = g11n3t('Generate an autocomplete file for PhpStorm.');
+		$this->description = g11n3t('Generate autocomplete files.');
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'file', 'f',
-				g11n3t('An optional file to write the results to.')
+				'type', '',
+				sprintf(g11n3t('The type of auto complete file (currently supported: %s).'), "'" . implode("' '", $this->knownTypes) . "'")
+			)
+		)
+		->addOption(
+			new TrackerCommandOption(
+				'echo', '',
+				g11n3t('Echo the output instead of writing it to a file.')
 			)
 		);
 	}
@@ -72,29 +85,32 @@ class Autocomplete extends Make
 
 		if ($type)
 		{
-			switch ($type)
+			if (false === in_array($type, $this->knownTypes))
 			{
-				case 'phpstorm':
-					$this->makePhpStorm($commands);
-					break;
-
-				case 'fish':
-					$this->makeFish($commands, $applicationOptions);
-					break;
-
-				default:
-					throw new \InvalidArgumentException(g11n3t('Invalid type supplied.'));
-					break;
+				throw new \InvalidArgumentException(sprintf(g11n3t('Invalid type supplied. Valid types are: %s'), "'" . implode("' '", $this->knownTypes) . "'"));
 			}
+
+			$command = 'make' . $type;
+			$this->$command($commands, $applicationOptions);
 		}
 		else
 		{
-			$this->makePhpStorm($commands);
-			$this->makeFish($commands, $applicationOptions);
+			foreach ($this->knownTypes as $type)
+			{
+				$command = 'make' . $type;
+				$this->$command($commands, $applicationOptions);
+			}
 		}
 
 		$this->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
+
+		if (false)
+		{
+			// This is here just to make our IDEs happy :P
+			$this->makeFish($commands, $applicationOptions);
+			$this->makePhpStorm($commands);
+		}
 	}
 
 	/**
@@ -175,26 +191,26 @@ class Autocomplete extends Make
 	 */
 	private function makeFish(array $commands, array $applicationOptions)
 	{
-		$fishTemplate = $this->fileSystem->read('cli/completions/tpl_jtracker.fish');
-		$fishLines = [];
+		$template = $this->fileSystem->read('cli/completions/tpl_jtracker.fish');
+		$lines = [];
 
 		foreach ($commands as $command)
 		{
-			$fishLines[] = "# jtracker $command->name";
-			$fishLines[] = "complete -f -c jtracker -n '__fish_jtracker_needs_command' -a $command->name -d \"$command->description\"";
+			$lines[] = "# jtracker $command->name";
+			$lines[] = "complete -f -c jtracker -n '__fish_jtracker_needs_command' -a $command->name -d \"$command->description\"";
 
 			/* @type TrackerCommand $action */
 			foreach ($command->actions as $name => $action)
 			{
 				$description = str_replace(['<cmd>', '</cmd>', '<', '>'], '', $action->getDescription());
 
-				$fishLines[] = "complete -f -c jtracker -n '__fish_jtracker_using_command $command->name' -a $name -d \"$description\"";
+				$lines[] = "complete -f -c jtracker -n '__fish_jtracker_using_command $command->name' -a $name -d \"$description\"";
 
 				if ($action->options)
 				{
 					foreach ($action->options as $option)
 					{
-						$fishLines[] = $this->formatOption($option, $command->name, $name);
+						$lines[] = $this->formatOption($option, $command->name, $name);
 					}
 				}
 
@@ -202,15 +218,15 @@ class Autocomplete extends Make
 				{
 					foreach ($applicationOptions as $option)
 					{
-						$fishLines[] = $this->formatOption($option, $command->name, $name);
+						$lines[] = $this->formatOption($option, $command->name, $name);
 					}
 				}
 			}
 
-			$fishLines[] = '';
+			$lines[] = '';
 		}
 
-		$contents = $fishTemplate . "\n" . implode("\n", $fishLines);
+		$contents = $template . "\n" . implode("\n", $lines);
 
 		if ($this->echo)
 		{
@@ -312,8 +328,8 @@ class Autocomplete extends Make
 	 */
 	private function formatOption(TrackerCommandOption $option, $command, $action)
 	{
-		$shortArg = $option->shortArg ? " -s $option->shortArg" : '';
-		$longArg = $option->longArg ? " -l $option->longArg" : '';
+		$shortArg = $option->shortArg ? ' -s ' . $option->shortArg : '';
+		$longArg = $option->longArg ? ' -l ' . $option->longArg : '';
 
 		return "complete -f -c jtracker -n '__fish_jtracker_using_action $command $action'$shortArg$longArg -d \"$option->description\"";
 	}

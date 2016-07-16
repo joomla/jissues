@@ -121,9 +121,10 @@ complete -f -c jtracker -n '__fish_jtracker_needs_command' -a install -d "Instal
 
 # jtracker make
 complete -f -c jtracker -n '__fish_jtracker_needs_command' -a make -d "The make engine"
-complete -f -c jtracker -n '__fish_jtracker_using_command make' -a autocomplete -d "Generate an autocomplete file for PhpStorm."
+complete -f -c jtracker -n '__fish_jtracker_using_command make' -a autocomplete -d "Generate autocomplete files."
 complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -l noprogress -d "Don't use a progress bar."
-complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -s f -l file -d "An optional file to write the results to."
+complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -l type -d "The type of auto complete file (currently supported: 'phpstorm' 'fish')."
+complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -l echo -d "Echo the output instead of writing it to a file."
 complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -s q -l quiet -d "Be quiet - suppress output."
 complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -s v -l verbose -d "Verbose output for debugging purpose."
 complete -f -c jtracker -n '__fish_jtracker_using_action make autocomplete' -l nocolors -d "Suppress ANSI colours on unsupported terminals."
