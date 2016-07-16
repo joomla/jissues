@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fa694a0b2d79304f61bf6b8f24bd98cc",
-    "content-hash": "f83b3daff03fa9668396bef0fcb07336",
+    "hash": "69b42cd78a529fe8a048b8199cc5f144",
+    "content-hash": "51a561ed7f4ff31c45ff40d359b30f39",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -233,16 +233,16 @@
         },
         {
             "name": "elkuku/g11n",
-            "version": "2.7",
+            "version": "3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "b6004a86a51b94a42ff80ec2e41155cdd036e0a5"
+                "reference": "614a4ab964c206f9d7092e70db4d2269a8e5428a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/b6004a86a51b94a42ff80ec2e41155cdd036e0a5",
-                "reference": "b6004a86a51b94a42ff80ec2e41155cdd036e0a5",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/614a4ab964c206f9d7092e70db4d2269a8e5428a",
+                "reference": "614a4ab964c206f9d7092e70db4d2269a8e5428a",
                 "shasum": ""
             },
             "require": {
@@ -255,8 +255,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "g11n": "library/"
+                "psr-4": {
+                    "ElKuKu\\G11n\\": "library/g11n/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -270,7 +270,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2016-07-13 22:29:54"
+            "time": "2016-07-16 23:04:45"
         },
         {
             "name": "filp/whoops",
