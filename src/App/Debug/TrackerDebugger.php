@@ -299,6 +299,11 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 			$debug[] = '<h3>' . g11n3t('Project') . '</h3>';
 			$debug[] = @Kint::dump($this->application->getProject());
 			$debug[] = '</div>';
+
+			$debug[] = '<div id="dbgRequest">';
+			$debug[] = '<h3>' . g11n3t('Request') . '</h3>';
+			$debug[] = @Kint::dump($_REQUEST);
+			$debug[] = '</div>';
 		}
 
 		if ($this->application->get('debug.language'))
@@ -438,6 +443,12 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 				. ' title="' . g11n3t('Project') . '">'
 				. '<a href="#dbgProject"><i class="icon icon-cube"></i> <span class="badge">'
 				. $title
+				. '</span></a></li>';
+
+			$navigation[] = '<li class="hasTooltip"'
+				. ' title="' . g11n3t('Request variables') . '">'
+				. '<a href="#dbgRequest"><i class="icon icon-earth"></i> <span class="badge">'
+				. g11n3t('Request')
 				. '</span></a></li>';
 
 			// Display the build to admins
