@@ -214,7 +214,14 @@ class Depfile extends Make
 
 		$sorted['credits'] = $defined['credits'];
 
-		$sorted['lang-credits'] = $this->checkLanguageFiles();
+		if (false)
+		{
+			/*
+			 * @todo Translator credits are disabled
+			 * Our current translation service provider "Crowdin" does not support translator credits (yet).
+			 */
+			$sorted['lang-credits'] = $this->checkLanguageFiles();
+		}
 
 		return $sorted;
 	}
