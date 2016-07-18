@@ -12,6 +12,7 @@ use Joomla\Date\Date;
 use Joomla\DI\Container;
 use Joomla\Http\HttpFactory;
 use Joomla\Uri\Uri;
+use JTracker\Github\Github;
 
 /**
  * Helper class for logging into the application via GitHub.
@@ -107,74 +108,9 @@ class GitHubLoginHelper
 
 		$uri->setVar('usr_redirect', $usrRedirect);
 
-		$redirect = (string) $uri;
-
-		// Use "raw URI" here to partial encode the url.
-		return 'https://github.com/login/oauth/authorize?scope=' . $application->get('github.auth_scope', 'public_repo')
-			. '&client_id=' . $this->clientId
-			. '&redirect_uri=' . urlencode($redirect);
-	}
-
-	/**
-	 * Request an oAuth token from GitHub.
-	 *
-	 * @param   string  $code  The code obtained form GitHub on the previous step.
-	 *
-	 * @return  string  The OAuth token
-	 *
-	 * @since   1.0
-	 * @throws  \RuntimeException
-	 * @throws  \DomainException
-	 */
-	public function requestToken($code)
-	{
-		// GitHub API works best with cURL
-		$http = HttpFactory::getHttp([], ['curl']);
-
-		$data = [
-			'client_id'     => $this->clientId,
-			'client_secret' => $this->clientSecret,
-			'code'          => $code
-		];
-
-		$response = $http->post(
-			'https://github.com/login/oauth/access_token',
-			$data,
-			['Accept' => 'application/json']
+		return (new Github)->authorization->getAuthorizationLink(
+			$this->clientId, (string) $uri, $application->get('github.auth_scope', 'public_repo')
 		);
-
-		if (200 != $response->code)
-		{
-			if (JDEBUG)
-			{
-				var_dump($response);
-			}
-
-			throw new \DomainException('Invalid response from GitHub (2) :(');
-		}
-
-		$body = json_decode($response->body);
-
-		if (isset($body->error))
-		{
-			switch ($body->error)
-			{
-				case 'bad_verification_code' :
-					throw new \DomainException('bad verification code');
-					break;
-
-				default :
-					throw new \DomainException('Unknown (2) ' . $body->error);
-					break;
-			}
-		}
-
-		if (!isset($body->access_token))
-		{
-			throw new \DomainException('Can not retrieve the access token');
-		}
-
-		return $body->access_token;
 	}
 
 	/**

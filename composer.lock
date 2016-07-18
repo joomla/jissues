@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "69b42cd78a529fe8a048b8199cc5f144",
-    "content-hash": "51a561ed7f4ff31c45ff40d359b30f39",
+    "hash": "bf43a8eb98ac3f10d697c982556f22ef",
+    "content-hash": "1f3c6680cbed95d212d7c2ca870ebb95",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1119,6 +1119,56 @@
                 "model"
             ],
             "time": "2014-11-03 16:43:46"
+        },
+        {
+            "name": "joomla/oauth2",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/oauth2.git",
+                "reference": "50983469c40a20f542f914251102e262b67b9afc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/oauth2/zipball/50983469c40a20f542f914251102e262b67b9afc",
+                "reference": "50983469c40a20f542f914251102e262b67b9afc",
+                "shasum": ""
+            },
+            "require": {
+                "joomla/application": "~1.0",
+                "joomla/http": "~1.0",
+                "joomla/input": "~1.0",
+                "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "joomla/test": "~1.0",
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
+            },
+            "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\OAuth2\\": "src/",
+                    "Joomla\\OAuth2\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla OAuth2 Package",
+            "homepage": "https://github.com/joomla-framework/oauth2",
+            "keywords": [
+                "framework",
+                "joomla",
+                "oauth2"
+            ],
+            "time": "2014-09-01 02:11:13"
         },
         {
             "name": "joomla/profiler",

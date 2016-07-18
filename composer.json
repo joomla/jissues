@@ -20,6 +20,7 @@
         "joomla/http": "~1.1",
         "joomla/input": "~1.1",
         "joomla/model": "~1.1",
+        "joomla/oauth2": "~1.1",
         "joomla/profiler": "~1.1",
         "joomla/registry": "^1.4.5",
         "joomla/renderer": "~2.0@dev",
