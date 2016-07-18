@@ -18,6 +18,13 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 * Installed:  
 * Source URL: 
 
+#### ext-intl (*)
+
+
+
+* Installed:
+* Source URL:
+
 #### joomla/application (~1.4)
 
 Joomla Application Package
@@ -95,6 +102,13 @@ Joomla Model Package
 * Installed: 1.2.0 
 * Source URL: https://github.com/joomla-framework/model.git
 
+#### joomla/oauth2 (~1.1)
+
+Joomla OAuth2 Package
+
+* Installed: 1.1.4
+* Source URL: https://github.com/joomla-framework/oauth2.git
+
 #### joomla/profiler (~1.1)
 
 Joomla Profiler Package
@@ -155,7 +169,7 @@ Joomla View Package
 
 Symfony HttpFoundation Component
 
-* Installed: v2.8.7 
+* Installed: v2.8.8
 * Source URL: https://github.com/symfony/http-foundation.git
 
 #### twig/twig (~1.23)
@@ -165,11 +179,11 @@ Twig, the flexible, fast, and secure template language for PHP
 * Installed: v1.24.1 
 * Source URL: https://github.com/twigphp/Twig.git
 
-#### elkuku/g11n (~2.4)
+#### elkuku/g11n (~3.0)
 
 The g11n language library
 
-* Installed: 2.4 
+* Installed: 3.0
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -218,7 +232,7 @@ Filesystem abstraction: Many filesystems, one API.
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.19.0 
+* Installed: 1.20.0
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (~1.0)
@@ -269,7 +283,7 @@ Copy/Paste Detector (CPD) for PHP code.
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: 2.1.5 
+* Installed: 3.0.1
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
@@ -389,11 +403,11 @@ Transition - Semantic UI
 
 * Source URL: http://www.semantic-ui.com
 
-#### octicons (3.5.0)
+#### octicons (4.2.0)
 
-GitHub's icon font
 
-* Source URL: https://octicons.github.com
+
+* Source URL: https://github.com/github/octicons
 
 
 ## Credits
@@ -436,11 +450,11 @@ GitHub acts as our authentication provider, software repository, markdown parser
 
 ### Translations
 
-#### Transifex
+#### Crowdin
 
-The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://www.transifex.com/opentranslators/jtracker/translate/).
+The Issue Tracker utilises Crowdin to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Crowdin](https://crowdin.com/project/joomla-official-sites).
 
-* https://www.transifex.com/
+* https://crowdin.com/
 
 
 ### Translators
@@ -456,6 +470,8 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### de-DE
 * Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2013-2016
 
+#### es-CO
+
 #### es-ES
 * Marcos Peebles &lt;marcos.peebles@gmail.com&gt;, 2014
 * Nikolai Plath &lt;der.el.kuku@gmail.com&gt;, 2014
@@ -463,12 +479,16 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### et-EE
 * Rivo Zängov &lt;eraser@eraser.ee&gt;, 2014
 
+#### fr-CA
+
 #### fr-FR
 * Marc Antoine THEVENET &lt;mat@idimweb.com&gt;, 2014-2016
 * SandraThevenet &lt;sandra@idimweb.com&gt;, 2016
 
 #### hu-HU
 * József Tamás Herczeg &lt;jtherczeg@gmail.com&gt;, 2014
+
+#### id-ID
 
 #### it-IT
 * Kravenor &lt;baldelli.simone@gmail.com&gt;, 2014
@@ -478,6 +498,8 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 
 #### nb-NO
 * Kenneth Strømsvold &lt;kenneth@stromsvold.com&gt;, 2014-2015
+
+#### nl-BE
 
 #### nl-NL
 * Herman Peeren &lt;herman@yepr.nl&gt;, 2014
@@ -500,6 +522,8 @@ The Issue Tracker utilizes Transifex to manage translations of the user interfac
 #### ru-RU
 * Dmitry Rekun, 2014-2016
 * Иван, 2014
+
+#### sl-SI
 
 #### zh-CN
 * Zehan Zhao &lt;cnallenzhao@gmail.com&gt;, 2014
