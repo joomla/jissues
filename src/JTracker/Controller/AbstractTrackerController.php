@@ -57,7 +57,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	/**
 	 * View object
 	 *
-	 * @var    \Joomla\View\AbstractHtmlView
+	 * @var    \Joomla\View\BaseHtmlView
 	 * @since  1.0
 	 */
 	protected $view;
