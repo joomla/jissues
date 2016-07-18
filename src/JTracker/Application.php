@@ -158,7 +158,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			// Load the language for the application
 			// @todo language must be loaded after routing is processed cause the Project object is coupled with the User object...
 			$this->loadLanguage();
-			$this->mark('Language loaded');
 
 			// Execute the App
 
@@ -167,6 +166,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			// Load the App language file
 			G11n::loadLanguage($controller->getApp(), 'App');
+			$this->mark('Language loaded');
 
 			$contents = $controller->execute();
 			$this->mark('Controller executed');
