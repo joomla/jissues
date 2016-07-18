@@ -12,7 +12,7 @@ use Joomla\Date\Date;
 use Joomla\DI\Container;
 use Joomla\Http\HttpFactory;
 use Joomla\Uri\Uri;
-use JTracker\GitHub\Github;
+use JTracker\Github\Github;
 
 /**
  * Helper class for logging into the application via GitHub.
@@ -107,8 +107,6 @@ class GitHubLoginHelper
 		$usrRedirect = base64_encode((string) new Uri($application->get('uri.request')));
 
 		$uri->setVar('usr_redirect', $usrRedirect);
-
-		$redirect = (string) $uri;
 
 		return (new Github)->authorization->getAuthorizationLink(
 			$this->clientId, (string) $uri, $application->get('github.auth_scope', 'public_repo')
