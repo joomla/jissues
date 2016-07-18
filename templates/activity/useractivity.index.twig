@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "%s - User Activity Chart"|_|format(project.short_title) }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "%s - User Activity Chart"|_|format(project.short_title) }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}

@@ -33,7 +33,7 @@ class CrowdinProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->set('ElKuKu\\Crowdin\\Crowdin',
-			function () use ($container)
+			function (Container $container)
 			{
 				/* @var \JTracker\Application $app */
 				$app = $container->get('app');

@@ -8,8 +8,8 @@
 
 namespace Application\Command\Export;
 
-use g11n\Language\Storage as g11nStorage;
-use g11n\Support\ExtensionHelper as g11nExtensionHelper;
+use ElKuKu\G11n\Language\Storage as g11nStorage;
+use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 
@@ -72,10 +72,10 @@ class Langfiles extends Export
 		$this->getApplication()->outputTitle(g11n3t('Export language files'));
 
 		$this->setup()
-			->logOut('Start exporting language files.')
+			->logOut(g11n3t('Start exporting language files.'))
 			->exportFiles()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Langfiles extends Export
 
 		$filesystem = new Filesystem(new Local($this->exportDir . '/' . $domainBase . '/' . $extension . '/' . $g11nPath));
 
-		$this->out(sprintf(g11n3t('Processing %1$s %2$s:... '), $domain, $extension), false);
+		$this->out(g11n3t('Processing %domain% %extension%... ', ['%domain%' => $domain, '%extension%' => $extension]), false);
 
 		// Process language templates
 		if ($templates)

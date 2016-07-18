@@ -29,7 +29,7 @@ class Events extends Project
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $items = array();
+	protected $items = [];
 
 	/**
 	 * Constructor.
@@ -132,7 +132,7 @@ class Events extends Project
 				);
 
 			$page = 0;
-			$this->items[$issueNumber] = array();
+			$this->items[$issueNumber] = [];
 
 			do
 			{
@@ -259,13 +259,13 @@ class Events extends Project
 						}
 
 						// Translate GitHub event names to "our" name schema
-						$evTrans = array(
+						$evTrans = [
 							'referenced' => 'reference', 'closed' => 'close', 'reopened' => 'reopen',
 							'assigned' => 'assigned', 'unassigned' => 'unassigned', 'merged' => 'merge',
 							'head_ref_deleted' => 'head_ref_deleted', 'head_ref_restored' => 'head_ref_restored',
 							'milestoned' => 'change', 'demilestoned' => 'change', 'labeled' => 'change', 'unlabeled' => 'change',
 							'renamed' => 'change', 'locked' => 'locked', 'unlocked' => 'unlocked',
-						);
+						];
 
 						$table->gh_comment_id = $event->id;
 						$table->issue_number  = $issueNumber;

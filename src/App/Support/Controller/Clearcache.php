@@ -8,7 +8,7 @@
 
 namespace App\Support\Controller;
 
-use g11n\g11n;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use JTracker\Controller\AbstractTrackerController;
 
@@ -35,7 +35,7 @@ class Clearcache extends AbstractTrackerController
 
 		try
 		{
-			g11n::cleanCache();
+			ExtensionHelper::cleanCache();
 
 			$application->enqueueMessage(g11n3t('The cache has been cleared.'), 'success');
 		}

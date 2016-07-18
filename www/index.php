@@ -93,6 +93,10 @@ catch (\Exception $e)
 try
 {
 	$app = $container->get('app');
+
+	// Set the logger for the application.  We're doing it here because there is a recursion issue with correct service resolution that needs to be fixed.
+	$app->setLogger($container->get('monolog'));
+
 	$app->mark('Application started');
 	$app->execute();
 }

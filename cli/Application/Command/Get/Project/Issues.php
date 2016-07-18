@@ -10,11 +10,11 @@ namespace Application\Command\Get\Project;
 
 use App\Projects\Table\LabelsTable;
 use App\Projects\Table\MilestonesTable;
-use App\Tracker\Model\IssueModel;
 use App\Tracker\Table\IssuesTable;
 use App\Tracker\Table\StatusTable;
 
 use Application\Command\Get\Project;
+use Application\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 
@@ -35,7 +35,7 @@ class Issues extends Project
 	 *
 	 * @since  1.0
 	 */
-	protected $changedIssueNumbers = array();
+	protected $changedIssueNumbers = [];
 
 	/**
 	 * List of issues.
@@ -44,15 +44,16 @@ class Issues extends Project
 	 *
 	 * @since  1.0
 	 */
-	protected $issues = array();
+	protected $issues = [];
 
 	/**
-	 * Github object as a bot account
+	 * Status of issues.
 	 *
-	 * @var    \JTracker\Github\Github
+	 * @var array
+	 *
 	 * @since  1.0
 	 */
-	protected $githubBot;
+	protected $issueStates = ['open', 'closed'];
 
 	/**
 	 * Constructor.
@@ -62,6 +63,14 @@ class Issues extends Project
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this
+			->addOption(
+				new TrackerCommandOption(
+					'status', '',
+					g11n3t('<n> Process only an issue of given status.')
+				)
+			);
 
 		$this->description = g11n3t('Retrieve issues from GitHub.');
 	}
@@ -77,16 +86,62 @@ class Issues extends Project
 	{
 		$this->getApplication()->outputTitle(g11n3t('Retrieve Issues'));
 
-		// This class has actions that depend on a bot account, fetch a GitHub instance as a bot
-		$this->githubBot = GithubFactory::getInstance($this->getApplication(), true);
-
 		$this->logOut(g11n3t('Start retrieve Issues'))
 			->selectProject()
 			->setupGitHub()
+			->selectType()
 			->fetchData()
 			->processData()
 			->out()
-			->logOut(g11n3t('Finished'));
+			->logOut(g11n3t('Finished.'));
+	}
+
+	/**
+	 * Select the status of issues to process.
+	 *
+	 * @return  $this
+	 *
+	 * @since   1.0
+	 */
+	protected function selectType()
+	{
+		// Get status option
+		$status = $this->getApplication()->input->get('status');
+
+		// Process all the status - do nothing
+		if ($status == 'all')
+		{
+			return $this;
+		}
+
+		// When status option is open or closed process it directly.
+		if ($status == 'open' || $status == 'closed')
+		{
+			$this->issueStates = [$status];
+
+			return $this;
+		}
+
+		// Get input from user to process based on different status of the issue.
+		$this->out('<question>' . g11n3t('Select GitHub issues status?') . '</question>')
+			->out()
+			->out('1) ' . g11n3t('All'))
+			->out('2) ' . g11n3t('Open'))
+			->out('3) ' . g11n3t('Closed'))
+			->out(g11n3t('Select: '), false);
+
+		$resp = trim($this->getApplication()->in());
+
+		if (2 == (int) $resp)
+		{
+			$this->issueStates = ['open'];
+		}
+		elseif (3 == (int) $resp)
+		{
+			$this->issueStates = ['closed'];
+		}
+
+		return $this;
 	}
 
 	/**
@@ -98,9 +153,9 @@ class Issues extends Project
 	 */
 	protected function fetchData()
 	{
-		$issues = array();
+		$issues = [];
 
-		foreach (array('open', 'closed') as $state)
+		foreach ($this->issueStates as $state)
 		{
 			$this->out(sprintf(g11n3t('Retrieving <b>%s</b> items from GitHub...'), $state), false);
 			$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
@@ -205,17 +260,6 @@ class Issues extends Project
 		$progressBar = $this->getProgressBar(count($ghIssues));
 
 		$this->usePBar ? $this->out() : null;
-
-		$gitHubBot = null;
-
-		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
-		{
-			$gitHubBot = new GitHubHelper(
-				GithubFactory::getInstance(
-					$this->getApplication(), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
-				)
-			);
-		}
 
 		// Start processing the pulls now
 		foreach ($ghIssues as $count => $ghIssue)
@@ -336,27 +380,6 @@ class Issues extends Project
 					: 'unknown_repository';
 
 				$table->pr_head_ref = $pullRequest->head->ref;
-
-				if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $pullRequest->head->sha)
-				{
-					// The PR has been updated.
-					$testers = (new IssueModel($this->getContainer()->get('db')))
-						->getAllTests($table->id);
-
-					if ($testers)
-					{
-						// Send a notification.
-						$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
-
-						// @todo send application comment - find a way to set a WEB URL in CLI scripts.
-						// @todo $comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
-
-						$gitHubBot->addComment(
-							$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
-						);
-					}
-				}
-
 				$table->pr_head_sha = $pullRequest->head->sha;
 
 				$combinedStatus = $gitHubHelper->getCombinedStatus($this->project, $pullRequest->head->sha);
@@ -460,7 +483,7 @@ class Issues extends Project
 	 */
 	private function getLabelIds($labelObjects)
 	{
-		static $labels = array();
+		static $labels = [];
 
 		if (!$labels)
 		{
@@ -472,7 +495,7 @@ class Issues extends Project
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
 				->from($db->quoteName($table->getTableName()))
-				->select(array('label_id', 'name'))
+				->select(['label_id', 'name'])
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 			)->loadObjectList();
 
@@ -482,7 +505,7 @@ class Issues extends Project
 			}
 		}
 
-		$ids = array();
+		$ids = [];
 
 		foreach ($labelObjects as $label)
 		{
@@ -515,7 +538,7 @@ class Issues extends Project
 		$milestoneList = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName($table->getTableName()))
-				->select(array('milestone_number', 'milestone_id'))
+				->select(['milestone_number', 'milestone_id'])
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
 		)->loadAssocList('milestone_number', 'milestone_id');
 

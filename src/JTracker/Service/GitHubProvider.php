@@ -33,7 +33,7 @@ class GitHubProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->share('JTracker\\Github\\Github',
-			function () use ($container)
+			function (Container $container)
 			{
 				// Call the Github factory's getInstance method and inject the application; it handles the rest of the configuration
 				return GithubFactory::getInstance($container->get('app'));

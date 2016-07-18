@@ -12,7 +12,7 @@ use Adaptive\Diff\Diff;
 
 use App\Tracker\DiffRenderer\Html\Inline;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
@@ -85,7 +85,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			'jdebug'         => JDEBUG,
 			'templateDebug'  => $this->app->get('debug.template', false),
 			'lang'           => $this->app->getLanguageTag(),
-			'g11nJavaScript' => g11n::getJavaScript(),
+			'g11nJavaScript' => G11n::getJavaScript(),
 			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
 	}
@@ -101,6 +101,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	{
 		$functions = [
 			new \Twig_SimpleFunction('translate', 'g11n3t'),
+			new \Twig_SimpleFunction('_', 'g11n3t'),
 			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', [$this, 'stripJRoot']),
@@ -485,7 +486,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function issueLink($number, $closed, $title = '')
 	{
-		$html = array();
+		$html = [];
 
 		$title = ($title) ? : ' #' . $number;
 		$href = $this->app->get('uri')->base->path

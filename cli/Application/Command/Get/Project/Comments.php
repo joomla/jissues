@@ -27,7 +27,7 @@ class Comments extends Project
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $items = array();
+	protected $items = [];
 
 	/**
 	 * Constructor.
@@ -120,7 +120,7 @@ class Comments extends Project
 
 			$page = 0;
 
-			$this->items[$issueNumber] = array();
+			$this->items[$issueNumber] = [];
 
 			do
 			{
@@ -195,10 +195,10 @@ class Comments extends Project
 		$table = new ActivitiesTable($db);
 
 		// Comments ids for computing the difference
-		$commentsIds = array();
+		$commentsIds = [];
 
 		// Comments ids to delete
-		$toDelete = array();
+		$toDelete = [];
 
 		// Start processing the comments now
 		foreach ($this->items as $issueNumber => $comments)

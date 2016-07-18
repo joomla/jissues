@@ -12,7 +12,8 @@ use App\Debug\TrackerDebugger;
 use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Application\AbstractWebApplication;
 use Joomla\DI\ContainerAwareInterface;
@@ -165,7 +166,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
 
 			// Load the App language file
-			g11n::loadLanguage($controller->getApp(), 'App');
+			G11n::loadLanguage($controller->getApp(), 'App');
 
 			$contents = $controller->execute();
 			$this->mark('Controller executed');
@@ -189,7 +190,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
-			$context = array();
+			$context = [];
 			$context['message'] = 'Authentication failure';
 
 			if (JDEBUG)
@@ -212,7 +213,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
-			$context = JDEBUG ? array('message' => $exception->getRawRoute()) : array();
+			$context = JDEBUG ? ['message' => $exception->getRawRoute()] : [];
 
 			$this->setBody($this->getDebugger()->renderException($exception, $context));
 		}
@@ -350,7 +351,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			if (false === in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
-				$lang = g11n::getDefault();
+				$lang = G11n::getDefault();
 			}
 
 			if (false === in_array($lang, $languages))
@@ -377,41 +378,41 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		if ($lang)
 		{
 			// Set the current language if anything has been found.
-			g11n::setCurrent($lang);
+			G11n::setCurrent($lang);
 
 			$this->languageTag = $lang;
 		}
 
 		// Set language debugging.
-		g11n::setDebug($this->get('debug.language'));
+		G11n::setDebug($this->get('debug.language'));
 
 		// Set the language cache directory.
 		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
 		{
-			g11n::setCacheDir('/tmp');
+			ExtensionHelper::setCacheDir('/tmp');
 		}
 		else
 		{
-			g11n::setCacheDir(JPATH_ROOT . '/cache');
+			ExtensionHelper::setCacheDir(JPATH_ROOT . '/cache');
 		}
 
 		// Load the core language file.
-		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11n::loadLanguage('JTracker', 'Core');
+		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		G11n::loadLanguage('JTracker', 'Core');
 
 		// Load template language files.
-		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11n::loadLanguage('JTracker', 'Template');
+		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
+		G11n::loadLanguage('JTracker', 'Template');
 
 		// Add the App domain path.
-		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
+		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
 		if ($this->get('debug.system')
 			|| $this->get('debug.database')
 			|| $this->get('debug.language'))
 		{
 			// Load the Debug App language file.
-			g11n::loadLanguage('Debug', 'App');
+			G11n::loadLanguage('Debug', 'App');
 		}
 
 		return $this;

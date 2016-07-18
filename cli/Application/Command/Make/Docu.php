@@ -92,7 +92,7 @@ class Docu extends Make
 
 			try
 			{
-				$table->load(array('alias' => $page, 'path' => $path));
+				$table->load(['alias' => $page, 'path' => $path]);
 			}
 			catch (\RuntimeException $e)
 			{
@@ -112,6 +112,6 @@ class Docu extends Make
 		}
 
 		$this->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
 	}
 }

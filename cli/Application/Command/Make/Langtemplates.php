@@ -10,11 +10,11 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use g11n\g11n;
-use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
-use g11n\Support\FileInfo;
-use g11n\Support\TransInfo;
+use ElKuKu\G11n\G11n;
+use ElKuKu\G11n\Language\Storage;
+use ElKuKu\G11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\FileInfo;
+use ElKuKu\G11n\Support\TransInfo;
 
 use JTracker\View\Renderer\TrackerExtension;
 
@@ -91,7 +91,7 @@ class Langtemplates extends Make
 
 			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
@@ -104,7 +104,7 @@ class Langtemplates extends Make
 
 			$templatePath = Storage::getTemplatePath('JTracker.js', 'Core');
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'js', $paths, $templatePath);
 
@@ -121,7 +121,7 @@ class Langtemplates extends Make
 
 			$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
@@ -136,7 +136,7 @@ class Langtemplates extends Make
 
 			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 		}
@@ -166,10 +166,10 @@ class Langtemplates extends Make
 
 			$templatePath = JPATH_ROOT . '/src/App/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-			$paths = array(
+			$paths = [
 				ExtensionHelper::getDomainPath($domain),
 				JPATH_ROOT . '/src/App'
-			);
+			];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
@@ -216,8 +216,8 @@ class Langtemplates extends Make
 		$extensionDir = $extension !== 'core.js' ? ExtensionHelper::getExtensionPath($extension) : '';
 		$dirName      = dirname($templatePath);
 
-		$cleanFiles = array();
-		$excludes   = array();
+		$cleanFiles = [];
+		$excludes   = [];
 
 		$buildOpts = '';
 
@@ -353,7 +353,7 @@ class Langtemplates extends Make
 	 */
 	private function getCleanFiles($path, $search, $excludes)
 	{
-		$cleanFiles = array();
+		$cleanFiles = [];
 
 		/* @type \SplFileInfo $fileInfo */
 		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $fileInfo)
@@ -397,8 +397,8 @@ class Langtemplates extends Make
 	private function processConfigFiles($cleanFiles, $templatePath)
 	{
 		defined('NL') || define('NL', "\n");
-		$parser    = g11n::getCodeParser('xml');
-		$potParser = g11n::getLanguageParser('pot');
+		$parser    = G11n::getCodeParser('xml');
+		$potParser = G11n::getLanguageParser('pot');
 
 		$options = new \stdClass;
 
@@ -413,7 +413,7 @@ class Langtemplates extends Make
 				continue;
 			}
 
-			$relPath = str_replace(JPATH_ROOT . DS, '', $fileName);
+			$relPath = str_replace(JPATH_ROOT . '/', '', $fileName);
 
 			foreach ($fileInfo->strings as $key => $strings)
 			{
@@ -461,15 +461,15 @@ class Langtemplates extends Make
 	 */
 	protected function makePhpFromTwig($twigDir, $cacheDir, $recursive = false)
 	{
-		$loader = new Twig_Loader_Filesystem(array(JPATH_ROOT . '/templates', $twigDir));
+		$loader = new Twig_Loader_Filesystem([JPATH_ROOT . '/templates', $twigDir]);
 
 		// Force auto-reload to always have the latest version of the template
 		$twig = new Twig_Environment(
 			$loader,
-			array(
+			[
 				'cache'       => $cacheDir,
 				'auto_reload' => true
-			)
+			]
 		);
 
 		// Configure Twig the way you want
@@ -518,7 +518,7 @@ class Langtemplates extends Make
 	 */
 	private function replacePaths($sourcePath, $twigPath, $templateFile)
 	{
-		$pathMap = array();
+		$pathMap = [];
 
 		/* @type \DirectoryIterator $fileInfo */
 		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($twigPath)) as $fileInfo)

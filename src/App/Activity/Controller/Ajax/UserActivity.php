@@ -88,12 +88,21 @@ class UserActivity extends AbstractAjaxController
 
 		if ($periodType == 5)
 		{
-			$start = date('d M Y', strtotime($state->get('list.startdate')));
-			$end   = date('d M Y', strtotime($state->get('list.enddate')));
+			$fmt = new \IntlDateFormatter(
+				$this->getContainer()->get('app')->getLanguageTag(),
+				\IntlDateFormatter::LONG,
+				\IntlDateFormatter::NONE
+			);
+
+			$start = $fmt->format(strtotime($state->get('list.startdate')));
+			$end   = $fmt->format(strtotime($state->get('list.enddate')));
+
+			// Segment 1 is the activity type, segment 2 is the from date, segment 3 is the to date, the dates are translated by PHP
 			$title = sprintf(g11n3t('%1$s Points From %2$s Through %3$s'), $activityText, $start, $end);
 		}
 		else
 		{
+			// Segment 1 is the activity type, segment 2 is the period length
 			$title = sprintf(g11n3t('%1$s Points for Past %2$s'), $activityText, $periodText);
 		}
 

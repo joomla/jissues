@@ -3,9 +3,9 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Articles"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Articles"|_ }}{% endblock %}
 
-{% block headerText %}{{ "Articles"|_ }}{% endblock %}
+{% block headerText %} - {{ "Articles"|_ }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}

@@ -46,7 +46,7 @@ class Pulls extends Update
 	{
 		$this->getApplication()->outputTitle(g11n3t('Update Pull Requests'));
 
-		$this->logOut('Start Updating Project');
+		$this->logOut(g11n3t('Start Updating Project'));
 
 		$this->selectProject();
 
@@ -66,7 +66,7 @@ class Pulls extends Update
 			->updatePullStatus()
 			->closePulls()
 			->out()
-			->logOut('Finished');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Pulls extends Update
 		$this->out(sprintf('Retrieving <b>open</b> pull requests from GitHub...'), false);
 		$this->debugOut('For: ' . $this->project->gh_user . '/' . $this->project->gh_project);
 
-		$pulls = array();
+		$pulls = [];
 		$page  = 0;
 
 		do
@@ -226,7 +226,7 @@ class Pulls extends Update
 					);
 
 					$this->github->issues->labels->add(
-						$this->project->gh_user, $this->project->gh_project, $pullID, array($issueLabel)
+						$this->project->gh_user, $this->project->gh_project, $pullID, [$issueLabel]
 					);
 				}
 			}

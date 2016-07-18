@@ -117,6 +117,6 @@ class Languageflags extends Make
 		file_put_contents($resultCssFile, implode("\n", $cssLines));
 
 		$this->out()
-			->out('Finished.');
+			->out(g11n3t('Finished.'));
 	}
 }

@@ -64,24 +64,23 @@ class Refresh extends AbstractTrackerController
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
 
-		// Refresh the avatar
-		$loginHelper->refreshAvatar($user->username);
-
 		try
 		{
-			$loginHelper->setEmail($user->id, $gitHubUser->email);
+			// Refresh the user data
+			$loginHelper->refreshUser($user);
+
+			$application->enqueueMessage(
+				g11n3t('The profile has been refreshed.'), 'success'
+			);
 		}
-		catch (\RuntimeException $e)
+		catch (\Exception $exception)
 		{
 			$application->enqueueMessage(
-				g11n3t('An error has occurred during email refresh.'), 'error'
+				g11n3t(sprintf('An error has occurred during user refresh: %s', $exception->getMessage())), 'error'
 			);
 		}
 
-		$application->enqueueMessage(
-			g11n3t('The profile has been refreshed.'), 'success'
-		)
-			->redirect(
+		$application->redirect(
 			$application->get('uri.base.path') . 'user/' . $id
 		);
 

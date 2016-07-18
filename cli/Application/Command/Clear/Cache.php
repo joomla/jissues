@@ -8,8 +8,7 @@
 
 namespace Application\Command\Clear;
 
-use g11n\g11n;
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 /**
  * Class for generating language template files.
@@ -43,7 +42,7 @@ class Cache extends Clear
 
 		$this->logOut(sprintf('Cleaning the cache dir in "%s"', ExtensionHelper::getCacheDir()));
 
-		g11n::cleanCache();
+		ExtensionHelper::cleanCache();
 
 		$this->out()
 			->out('<ok>' . g11n3t('The g11n cache directory has been cleared.') . '</ok>');

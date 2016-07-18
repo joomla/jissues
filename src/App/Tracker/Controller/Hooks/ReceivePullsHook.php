@@ -317,36 +317,6 @@ class ReceivePullsHook extends AbstractHookController
 		$data['old_state'] = $oldState;
 		$data['new_state'] = $state;
 
-		$gitHubBot = null;
-
-		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
-		{
-			$gitHubBot = new GitHubHelper(
-				GithubFactory::getInstance(
-					$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
-				)
-			);
-		}
-
-		if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $this->data->head->sha)
-		{
-			// The PR has been updated.
-			$testers = (new IssueModel($this->getContainer()->get('db')))
-				->getAllTests($table->id);
-
-			if ($testers)
-			{
-				// Send a notification.
-				$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
-
-				$comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
-
-				$gitHubBot->addComment(
-					$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
-				);
-			}
-		}
-
 		$data['pr_head_sha'] = $this->data->head->sha;
 
 		$gitHubHelper = new GitHubHelper(GithubFactory::getInstance($this->getContainer()->get('app')));

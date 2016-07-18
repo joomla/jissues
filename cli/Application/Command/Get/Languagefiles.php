@@ -9,7 +9,8 @@
 namespace Application\Command\Get;
 
 use Application\Command\TrackerCommandOption;
-use g11n\Support\ExtensionHelper;
+
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 
@@ -129,7 +130,7 @@ class Languagefiles extends Get
 	 */
 	private function receiveFiles($extension, $domain)
 	{
-		$this->out(sprintf(g11n3t('Processing: %1$s %2$s... '), $domain, $extension), false);
+		$this->out(g11n3t('Processing %domain% %extension%... ', ['%domain%' => $domain, '%extension%' => $extension]), false);
 
 		$scopePath     = ExtensionHelper::getDomainPath($domain);
 		$extensionPath = ExtensionHelper::getExtensionLanguagePath($extension);

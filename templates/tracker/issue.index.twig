@@ -5,7 +5,7 @@
 
 {% import "tpl/activities.twig" as activities %}
 
-{% block title %}{{ project.title }} #{{ item.issue_number }} - {{ item.title }}{% endblock %}
+{% block title %}{{ parent() }} | {{ project.title }} #{{ item.issue_number }} - {{ item.title }}{% endblock %}
 
 {% block headerText %} - {{ project.short_title }}{% endblock %}
 

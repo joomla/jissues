@@ -45,7 +45,7 @@ class Project extends Get
 	 *
 	 * @since  1.0
 	 */
-	protected $changedIssueNumbers = array();
+	protected $changedIssueNumbers = [];
 
 	/**
 	 * Force update.
@@ -121,10 +121,8 @@ class Project extends Get
 			->setupGitHub()
 			->displayGitHubRateLimit()
 			->out(
-				sprintf(
-					g11n3t('Updating project info for project: %1$s/%2$s'),
-					$this->project->gh_user,
-					$this->project->gh_project
+				g11n3t('Updating project info for project: %user%/%project%',
+					['%user%' => $this->project->gh_user, '%project%' => $this->project->gh_project]
 				)
 			)
 			->processLabels()

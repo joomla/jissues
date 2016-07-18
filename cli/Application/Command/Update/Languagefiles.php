@@ -12,8 +12,8 @@ use Application\Command\TrackerCommandOption;
 
 use ElKuKu\Crowdin\Languagefile;
 
-use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Language\Storage;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Filter\OutputFilter;
 
@@ -32,7 +32,7 @@ class Languagefiles extends Update
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $languages = array();
+	private $languages = [];
 
 	/**
 	 * Constructor.
@@ -83,7 +83,7 @@ class Languagefiles extends Update
 			->uploadTemplates()
 			->uploadTranslations()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7986fecda60fbbd50811c85a97542c87",
-    "content-hash": "d01089ac2624ffbc2a69d6641b9d44a6",
+    "hash": "69b42cd78a529fe8a048b8199cc5f144",
+    "content-hash": "51a561ed7f4ff31c45ff40d359b30f39",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -233,26 +233,30 @@
         },
         {
             "name": "elkuku/g11n",
-            "version": "2.4",
+            "version": "3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/g11n.git",
-                "reference": "026932fb3a430689c3fd3a96d7bbe4fb6b850f3c"
+                "reference": "614a4ab964c206f9d7092e70db4d2269a8e5428a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/g11n/zipball/026932fb3a430689c3fd3a96d7bbe4fb6b850f3c",
-                "reference": "026932fb3a430689c3fd3a96d7bbe4fb6b850f3c",
+                "url": "https://api.github.com/repos/elkuku/g11n/zipball/614a4ab964c206f9d7092e70db4d2269a8e5428a",
+                "reference": "614a4ab964c206f9d7092e70db4d2269a8e5428a",
                 "shasum": ""
             },
             "require": {
                 "league/flysystem": "1.*",
-                "php": ">=5.3.10"
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "1.*"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "g11n": "library/"
+                "psr-4": {
+                    "ElKuKu\\G11n\\": "library/g11n/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -266,7 +270,7 @@
                 }
             ],
             "description": "The g11n language library",
-            "time": "2016-06-19 13:59:08"
+            "time": "2016-07-16 23:04:45"
         },
         {
             "name": "filp/whoops",
@@ -1115,56 +1119,6 @@
                 "model"
             ],
             "time": "2014-11-03 16:43:46"
-        },
-        {
-            "name": "joomla/oauth2",
-            "version": "1.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/joomla-framework/oauth2.git",
-                "reference": "50983469c40a20f542f914251102e262b67b9afc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/oauth2/zipball/50983469c40a20f542f914251102e262b67b9afc",
-                "reference": "50983469c40a20f542f914251102e262b67b9afc",
-                "shasum": ""
-            },
-            "require": {
-                "joomla/application": "~1.0",
-                "joomla/http": "~1.0",
-                "joomla/input": "~1.0",
-                "php": ">=5.3.10"
-            },
-            "require-dev": {
-                "joomla/test": "~1.0",
-                "phpunit/phpunit": "4.*",
-                "squizlabs/php_codesniffer": "1.*"
-            },
-            "type": "joomla-package",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Joomla\\OAuth2\\": "src/",
-                    "Joomla\\OAuth2\\Tests\\": "Tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "description": "Joomla OAuth2 Package",
-            "homepage": "https://github.com/joomla-framework/oauth2",
-            "keywords": [
-                "framework",
-                "joomla",
-                "oauth2"
-            ],
-            "time": "2014-09-01 02:11:13"
         },
         {
             "name": "joomla/profiler",
@@ -3934,7 +3888,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.5",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-intl": "*"
     },
     "platform-dev": [],
     "platform-overrides": {

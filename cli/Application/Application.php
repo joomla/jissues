@@ -17,7 +17,8 @@ use Application\Exception\AbortException;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Application\AbstractCliApplication;
 use Joomla\Application\Cli\CliOutput;
@@ -115,8 +116,13 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'log=filename.log', '',
+			'log', '',
 			g11n3t('Optionally log output to the specified log file.')
+		);
+
+		$this->commandOptions[] = new TrackerCommandOption(
+			'lang', '',
+			g11n3t('Set the language used by the application.')
 		);
 
 		$this->usePBar = $this->get('cli-application.progress-bar');
@@ -424,7 +430,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			if (false === in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
-				$lang = g11n::getDefault();
+				$lang = G11n::getDefault();
 			}
 
 			if (false === in_array($lang, $languages))
@@ -435,7 +441,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		}
 		else
 		{
-			$lang = g11n::getCurrent();
+			$lang = G11n::getCurrent();
 
 			if (false === in_array($lang, $languages))
 			{
@@ -447,25 +453,25 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		if ($lang)
 		{
 			// Set the current language if anything has been found.
-			g11n::setCurrent($lang);
+			G11n::setCurrent($lang);
 		}
 
 		// Set language debugging.
-		g11n::setDebug($this->get('debug.language'));
+		G11n::setDebug($this->get('debug.language'));
 
 		// Set the language cache directory.
 		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
 		{
-			g11n::setCacheDir('/tmp');
+			ExtensionHelper::setCacheDir('/tmp');
 		}
 		else
 		{
-			g11n::setCacheDir(JPATH_ROOT . '/cache');
+			ExtensionHelper::setCacheDir(JPATH_ROOT . '/cache');
 		}
 
 		// Load the CLI language file.
-		g11n::addDomainPath('CLI', JPATH_ROOT);
-		g11n::loadLanguage('cli', 'CLI');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		G11n::loadLanguage('cli', 'CLI');
 
 		return $this;
 	}

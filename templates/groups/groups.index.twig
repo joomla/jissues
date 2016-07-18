@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Groups"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Groups"|_ }}{% endblock %}
 
 {% block prependMenu %}
     <li>

@@ -43,13 +43,13 @@ class Dbcomments extends Make
 
 		$tables = $db->getTableList();
 
-		$comms = array();
+		$comms = [];
 
 		foreach ($tables as $table)
 		{
 			$fields = $db->getTableColumns($table, false);
 
-			$lines = array();
+			$lines = [];
 
 			foreach ($fields as $field)
 			{
@@ -88,7 +88,7 @@ class Dbcomments extends Make
 		}
 
 		$this->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
 	}
 
 	/**

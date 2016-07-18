@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ project.title }} - {{ ('New Item')|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ project.title }} - {{ 'New Item'|_ }}{% endblock %}
 
 {% block headerText %} - {{ project.short_title }}{% endblock %}
 
@@ -51,7 +51,10 @@
                 {{ fields.select('priority', priorities, item.priority, 'priority', 'input-small-100') }}
 
                 <div class="helpText alert alert-info">
-                    {{ "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."|_|raw }}
+                    {{ _(
+                    "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities.",
+                    {"%class%" : "class=\"alert-link\""}
+                    )|raw }}
                 </div>
 
                 {{ fields.label('build', 'Build'|_, '') }}
@@ -87,7 +90,10 @@
             <div class="span9 issue-add-details">
 
                 <div class="alert alert-warning">
-                    {{ "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."|_|raw }}
+                    {{ _(
+                    "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues.",
+                    {"%class1%" : "class=\"alert-link\"", "%href1%" : "href=\"mailto:security@joomla.org\"", "%class2%" : "class=\"alert-link\"", "%href2" : "href=\"https://developer.joomla.org/contact-security-team.html\""}
+                    )|raw }}
                 </div>
 
                 <div class="helpText alert alert-info">
