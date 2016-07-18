@@ -100,13 +100,9 @@ class GitHubLoginHelper
 		/* @type \JTracker\Application $application */
 		$application = $this->container->get('app');
 
-		$redirect = $application->get('uri.base.full') . 'login';
+		$uri = new Uri($application->get('uri.base.full') . 'login');
 
-		$uri = new Uri($redirect);
-
-		$usrRedirect = base64_encode((string) new Uri($application->get('uri.request')));
-
-		$uri->setVar('usr_redirect', $usrRedirect);
+		$uri->setVar('usr_redirect', base64_encode((string) new Uri($application->get('uri.request'))));
 
 		return (new Github)->authorization->getAuthorizationLink(
 			$this->clientId, (string) $uri, $application->get('github.auth_scope', 'public_repo')
