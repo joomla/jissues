@@ -116,8 +116,13 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'log=filename.log', '',
+			'log', '',
 			g11n3t('Optionally log output to the specified log file.')
+		);
+
+		$this->commandOptions[] = new TrackerCommandOption(
+			'lang', '',
+			g11n3t('Set the language used by the application.')
 		);
 
 		$this->usePBar = $this->get('cli-application.progress-bar');
