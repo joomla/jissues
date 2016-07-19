@@ -325,4 +325,210 @@ abstract class AbstractListener
 			$status->state, $status->targetUrl, $status->description, $status->context
 		);
 	}
+
+	/**
+	 * Create a comment to an Issue or Pull Request
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 * @param   string  $message   Contains the message to be added
+	 * @param   string  $type      Contains the type of the message (that get added to the log)
+	 *
+	 * @since  1.0
+	 * @return void
+	 */
+	protected function createCommentToIssue($hookData, Github $github, Logger $logger, $project, $message, $type)
+	{
+		// The Github ID if we have a pull or issue so that method can handle both
+		$issueNumber = $this->getIssueNumber($hookData);
+
+		if ($issueNumber === null)
+		{
+			$logger->error(
+				sprintf(
+					'Error retrieving issue number for %s/%s',
+					$project->gh_user,
+					$project->gh_project
+				)
+			);
+
+			throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+		}
+
+		$appNote = sprintf(
+			'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
+			'https://github.com/joomla/jissues', 'J!Tracker'
+		);
+
+		// Add the App Note to the message
+		$message = $message . $appNote;
+
+		// Post the comment on the PR/Issue
+		try
+		{
+			$github->issues->comments->create(
+				$project->gh_user,
+				$project->gh_project,
+				$issueNumber,
+				$message
+			);
+
+			// Log the activity
+			$logger->info(
+				sprintf(
+					'Added ' . $type . ' comment to %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				)
+			);
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error posting comment to GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error posting comment to GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+		}
+	}
+
+	/**
+	 * Create a status on GitHub.
+	 *
+	 * @param   object   $hookData  Hook data payload
+	 * @param   Github   $github    Github object
+	 * @param   Logger   $logger    Logger object
+	 * @param   object   $project   Object containing project data
+	 * @param   integer  $id        The issue ID to close if not set we will use the current ID.
+	 *
+	 * @since  1.0
+	 * @return void
+	 */
+	protected function closeTheIssue($hookData, Github $github, Logger $logger, $project, $id = null)
+	{
+		// Check for the optional paramenter that contains the ID to close
+		if ($id === null)
+		{
+			// There is no $id set so we get the current issue ID out of te hook data
+			// The Github ID if we have a pull or issue so that method can handle both
+			$issueNumber = $this->getIssueNumber($hookData);
+
+			if ($issueNumber === null)
+			{
+				$logger->error(
+					sprintf(
+						'Error retrieving issue number for %s/%s',
+						$project->gh_user,
+						$project->gh_project
+					)
+				);
+
+				throw new \RuntimeException('Error retrieving issue number for ' . $project->gh_user . '/' . $project->gh_project);
+			}
+		}
+		else
+		{
+			// Lets set the issueNumber
+			$issueNumber = $id;
+		}
+
+		// Close the item
+		try
+		{
+			$github->pulls->edit(
+				$project->gh_user, $project->gh_project, $issueNumber, null, null, 'closed'
+			);
+
+			// Update the local item now
+			try
+			{
+				// TODO - We'll need to inject the DB object at some point
+				$data = [
+					'status'      => 10,
+					'closed_date' => (new Date)->format('Y-m-d H:i:s'),
+					'closed_by'   => $this->getGithubBotName($project);
+				];
+
+				$table->save($data);
+			}
+			catch (\Exception $e)
+			{
+				$logger->error(
+					sprintf(
+						'Error updating the state for issue %s/%s #%d on the tracker',
+						$project->gh_user,
+						$project->gh_project,
+						$issueNumber
+					),
+					['exception' => $e]
+				);
+			}
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error closing GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error closing GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$issueNumber
+				),
+				['exception' => $e]
+			);
+		}
+	}
+
+	/**
+	 * Return the currently configured bot account. Fallback is 'joomla-bot'
+	 *
+	 * @param   object  $project  Object containing project data
+	 *
+	 * @return  string  The currently configured bot account
+	 *
+	 * @since   1.0
+	 *
+	 */
+	protected function getGithubBotName($project)
+	{
+		// Look if we have a bot user configured
+		if ($project->getGh_Editbot_User())
+		{
+			// Retrun the user name
+			return $project->getGh_Editbot_User();
+		}
+
+		// Retun "joomla-bot" as fallback
+		return 'joomla-bot';
+	}
 }
