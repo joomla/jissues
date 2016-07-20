@@ -64,7 +64,7 @@ class ArticlesTable extends AbstractDatabaseTable
 		return $this->db->setQuery(
 			$this->db->getQuery(true)
 				->from($this->db->quoteName($this->tableName))
-				->select(array('title', 'text'))
+				->select(['title', 'text'])
 				->where($this->db->quoteName('alias') . ' = ' . $this->db->quote($alias))
 		)->loadObject();
 	}
@@ -80,7 +80,7 @@ class ArticlesTable extends AbstractDatabaseTable
 	 */
 	public function check()
 	{
-		$errors = array();
+		$errors = [];
 
 		if (trim($this->alias) == '')
 		{
@@ -99,7 +99,7 @@ class ArticlesTable extends AbstractDatabaseTable
 			$errors[] = g11n3t('Some text is required.');
 		}
 
-		$this->alias = OutputFilter::stringURLUnicodeSlug($this->alias);
+		$this->alias = OutputFilter::stringUrlUnicodeSlug($this->alias);
 
 		if ($errors)
 		{
