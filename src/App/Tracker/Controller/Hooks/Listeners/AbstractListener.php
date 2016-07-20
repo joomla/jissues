@@ -379,21 +379,18 @@ abstract class AbstractListener implements ContainerAwareInterface
 	 */
 	protected function getCategories($hookData, Logger $logger, $project, IssuesTable $table)
 	{
-		// The Github ID if we have a pull or issue so that method can handle both
-		$issueNumber = $this->getIssueNumber($hookData);
-
-		if ($issueNumber === null)
-		{
-			$message = sprintf('Error retrieving issue number for %s/%s', $project->gh_user, $project->gh_project);
-
-			$logger->error($message);
-
-			throw new \RuntimeException($message);
-		}
-
 		$categoryModel = new CategoryModel($this->getContainer()->get('db'));
 
-		return $categoryModel->getCategories($issueNumber);
+		$items = $categoryModel->getCategories($table->id);
+
+		$categories = [];
+
+		foreach ($items as $category)
+		{
+		    $categories[] = $category->category_id;
+		}
+
+		return $categories;
 	}
 
 	/**
