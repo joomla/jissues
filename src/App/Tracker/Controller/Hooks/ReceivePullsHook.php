@@ -57,6 +57,14 @@ class ReceivePullsHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
+		if (!isset($this->hookData->pull_request->number) || !is_object($this->hookData))
+		{
+			// If we can't get the issue number exit.
+			$this->response->message = 'Hook data did not exists';
+
+			return;
+		}
+
 		// Pull or Issue ?
 		$this->data = $this->hookData->pull_request;
 
@@ -73,6 +81,10 @@ class ReceivePullsHook extends AbstractHookController
 		if ($result)
 		{
 			$this->response->message = 'Hook data processed successfully.';
+		}
+		else
+		{
+			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
 
