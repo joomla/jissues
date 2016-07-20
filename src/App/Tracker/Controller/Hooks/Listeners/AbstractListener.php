@@ -387,7 +387,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 
 		foreach ($items as $category)
 		{
-		    $categories[] = $category->category_id;
+			$categories[] = $category->category_id;
 		}
 
 		return $categories;
