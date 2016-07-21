@@ -34,7 +34,7 @@ class Server extends Update
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'version', 'v',
+				'version', '',
 				g11n3t('An optional version number to update to.')
 			)
 		);
@@ -55,10 +55,10 @@ class Server extends Update
 
 		$this->logOut('Beginning git update');
 
-		if ($this->getApplication()->input->getBool('version', false))
-		{
-			$version = $this->getApplication()->input->getString('version');
+		$version = $this->getOption('version');
 
+		if ($version)
+		{
 			// Fetch from remote sources and checkout the specified version tag
 			$this->execCommand('cd ' . JPATH_ROOT . ' && git fetch && git checkout ' . $version . ' 2>&1');
 

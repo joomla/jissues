@@ -65,7 +65,7 @@ class Install extends TrackerCommand
 			// Check if the database "exists"
 			$tables = $this->db->getTableList();
 
-			if (!$this->getApplication()->input->get('reinstall'))
+			if (!$this->getOption('reinstall'))
 			{
 				$this->out()
 					->out('<fg=black;bg=yellow>' . g11n3t('WARNING: A database has been found!') . '</fg=black;bg=yellow>')

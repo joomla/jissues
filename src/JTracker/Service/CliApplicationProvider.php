@@ -9,14 +9,16 @@
 namespace JTracker\Service;
 
 use Application\Application;
+
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\Output\Stdout;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Input\Cli;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
+
+use JTracker\Input\Cli;
 
 /**
  * CLI application service provider
@@ -42,7 +44,7 @@ class CliApplicationProvider implements ServiceProviderInterface
 				function (Container $container)
 				{
 					$application = new Application(
-						$container->get('Joomla\\Input\\Cli'),
+						$container->get('JTracker\\Input\\Cli'),
 						$container->get('config'),
 						$container->get('Joomla\\Application\\Cli\\CliOutput')
 					);
@@ -56,7 +58,7 @@ class CliApplicationProvider implements ServiceProviderInterface
 			);
 
 		$container->share(
-			'Joomla\\Input\\Cli',
+			'JTracker\\Input\\Cli',
 			function ()
 			{
 				return new Cli;
@@ -70,7 +72,7 @@ class CliApplicationProvider implements ServiceProviderInterface
 				$processor = new ColorProcessor;
 
 				/** @var Input $input */
-				$input = $container->get('Joomla\\Input\\Cli');
+				$input = $container->get('JTracker\\Input\\Cli');
 
 				/** @var Registry $config */
 				$config = $container->get('config');

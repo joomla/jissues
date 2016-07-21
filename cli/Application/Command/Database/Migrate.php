@@ -30,7 +30,7 @@ class Migrate extends Database
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'version', 'v',
+				'version', '',
 				g11n3t('Apply a specific database version.')
 			)
 		);
@@ -51,7 +51,7 @@ class Migrate extends Database
 		$migrations = $this->getContainer()->get('db.migrations');
 
 		// If a version is given, we are only executing that migration
-		$version = $this->getApplication()->input->getString('version', $this->getApplication()->input->getString('v'));
+		$version = $this->getOption('version');
 
 		try
 		{

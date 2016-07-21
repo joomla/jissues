@@ -119,7 +119,7 @@ class Update extends TrackerCommand
 	 */
 	protected function setupLanguageProvider()
 	{
-		$this->languageProvider = $this->getApplication()->input->get('provider');
+		$this->languageProvider = $this->getOption('provider');
 
 		switch ($this->languageProvider)
 		{

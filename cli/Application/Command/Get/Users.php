@@ -43,7 +43,7 @@ class Users extends Get
 	{
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getApplication()->input->get('noprogress'))
+		if ($this->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}

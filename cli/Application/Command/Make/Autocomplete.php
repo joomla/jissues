@@ -52,13 +52,13 @@ class Autocomplete extends Make
 
 		$this->addOption(
 			new TrackerCommandOption(
-				'type', '',
+				'type', 't',
 				sprintf(g11n3t('The type of auto complete file (currently supported: %s).'), "'" . implode("' '", $this->knownTypes) . "'")
 			)
 		)
 		->addOption(
 			new TrackerCommandOption(
-				'echo', '',
+				'echo', 'e',
 				g11n3t('Echo the output instead of writing it to a file.')
 			)
 		);
@@ -78,8 +78,8 @@ class Autocomplete extends Make
 		$commands = $this->getCommands();
 		$applicationOptions = $this->getApplication()->getCommandOptions();
 
-		$type = $this->getApplication()->input->getString('type');
-		$this->echo = (boolean) $this->getApplication()->input->getString('echo');
+		$type = $this->getOption('type');
+		$this->echo = (boolean) $this->getOption('echo');
 
 		$this->fileSystem = new Filesystem(new Local(JPATH_ROOT));
 

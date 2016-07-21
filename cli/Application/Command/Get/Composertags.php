@@ -62,7 +62,7 @@ class Composertags extends Get
 		$this->logOut(g11n3t('Start getting Composer tags.'))
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			->fetchTags($packages, $this->getApplication()->input->get('all'))
+			->fetchTags($packages, $this->getOption('all'))
 			->out()
 			->logOut(g11n3t('Finished.'));
 	}

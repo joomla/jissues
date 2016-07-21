@@ -76,7 +76,7 @@ class Langtemplates extends Make
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
-		$reqExtension = $this->getApplication()->input->getCmd('extension');
+		$reqExtension = $this->getOption('extension');
 
 		// Cleanup
 		$this->delTree(JPATH_ROOT . '/cache/twig');
