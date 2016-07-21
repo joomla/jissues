@@ -275,7 +275,7 @@ complete -f -c jtracker -n '__fish_jtracker_using_action update pulls' -l lang -
 complete -f -c jtracker -n '__fish_jtracker_using_command update' -a server -d "Updates the local installation to either a specified version or latest git HEAD for the active branch"
 complete -f -c jtracker -n '__fish_jtracker_using_action update server' -s p -l project -d "Process the project with the given ID."
 complete -f -c jtracker -n '__fish_jtracker_using_action update server' -l noprogress -d "Don't use a progress bar."
-complete -f -c jtracker -n '__fish_jtracker_using_action update server' -s v -l version -d "An optional version number to update to."
+complete -f -c jtracker -n '__fish_jtracker_using_action update server' -l version -d "An optional version number to update to."
 complete -f -c jtracker -n '__fish_jtracker_using_action update server' -s q -l quiet -d "Be quiet - suppress output."
 complete -f -c jtracker -n '__fish_jtracker_using_action update server' -s v -l verbose -d "Verbose output for debugging purpose."
 complete -f -c jtracker -n '__fish_jtracker_using_action update server' -l nocolors -d "Suppress ANSI colours on unsupported terminals."
