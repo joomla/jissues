@@ -68,7 +68,7 @@ class Languagefiles extends Get
 		$this->getApplication()->outputTitle(g11n3t('Get Translations'));
 
 		$this->languages = LanguageHelper::getLanguageCodes();
-		$this->language  = $this->getApplication()->input->get('language');
+		$this->language  = $this->getOption('language');
 
 		$this->logOut(g11n3t('Start fetching translations.'))
 			->setupLanguageProvider()

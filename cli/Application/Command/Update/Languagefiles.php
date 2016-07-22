@@ -96,7 +96,7 @@ class Languagefiles extends Update
 	 */
 	private function uploadTemplates()
 	{
-		$create = $this->getApplication()->input->get('create');
+		$create = $this->getOption('create');
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
@@ -189,7 +189,7 @@ class Languagefiles extends Update
 			return $this;
 		}
 
-		if (!$this->getApplication()->input->get('translations'))
+		if (!$this->getOption('translations'))
 		{
 			return $this;
 		}

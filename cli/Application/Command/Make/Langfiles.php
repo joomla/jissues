@@ -59,7 +59,7 @@ class Langfiles extends Make
 
 		$languages = LanguageHelper::getLanguageCodes();
 
-		$reqExtension = $this->getApplication()->input->getCmd('extension');
+		$reqExtension = $this->getOption('extension');
 
 		// Process the CLI application
 

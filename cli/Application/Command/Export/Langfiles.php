@@ -8,6 +8,8 @@
 
 namespace Application\Command\Export;
 
+use Application\Command\TrackerCommandOption;
+
 use ElKuKu\G11n\Language\Storage as g11nStorage;
 use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
 
@@ -41,6 +43,13 @@ class Langfiles extends Export
 		parent::__construct();
 
 		$this->description = g11n3t('Backup language files to a given folder.');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'templates', '',
+				g11n3t('Export also language template files.')
+			)
+		);
 	}
 
 	/**
@@ -89,7 +98,7 @@ class Langfiles extends Export
 	{
 		LanguageHelper::addDomainPaths();
 
-		$templates = $this->getApplication()->input->getCmd('templates');
+		$templates = (boolean) $this->getOption('templates');
 
 		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{

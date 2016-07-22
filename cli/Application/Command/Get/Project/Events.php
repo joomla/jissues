@@ -41,18 +41,6 @@ class Events extends Project
 		parent::__construct();
 
 		$this->description = g11n3t('Retrieve issue events from GitHub.');
-
-		$this->addOption(
-			new TrackerCommandOption(
-				'issue', '',
-				g11n3t('<n> Process only a single issue.')
-			)
-		)->addOption(
-			new TrackerCommandOption(
-				'all', '',
-				g11n3t('Process all issues.')
-			)
-		);
 	}
 
 	/**

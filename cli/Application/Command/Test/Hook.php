@@ -103,13 +103,13 @@ class Hook extends Test
 	protected function selectHook()
 	{
 		$paths = (new Filesystem(new Local(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
-		$hooks = array();
+		$hooks = [];
 
 		foreach ($paths as $path)
 		{
 			if ('file' == $path['type'])
 			{
-				$hooks[] = str_replace(array('Receive', 'Hook'), '', $path['filename']);
+				$hooks[] = str_replace(['Receive', 'Hook'], '', $path['filename']);
 			}
 		}
 
@@ -119,7 +119,7 @@ class Hook extends Test
 
 		$cnt = 1;
 
-		$checks = array();
+		$checks = [];
 
 		foreach ($hooks as $hook)
 		{
@@ -176,15 +176,11 @@ class Hook extends Test
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
-				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
+				->select(['project_id', 'title', 'gh_user', 'gh_project'])
 
 		)->loadObjectList();
-/*
-		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);
-		$user = new GitHubUser($this->getApplication()->getp);
-		$projects = with()->getItems();
-*/
-		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
+
+		$id = (integer) $this->getOption('project');
 
 		if (!$id)
 		{
@@ -194,7 +190,7 @@ class Hook extends Test
 
 			$cnt = 1;
 
-			$checks = array();
+			$checks = [];
 
 			foreach ($projects as $project)
 			{

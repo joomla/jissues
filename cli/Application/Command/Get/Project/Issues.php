@@ -106,7 +106,7 @@ class Issues extends Project
 	protected function selectType()
 	{
 		// Get status option
-		$status = $this->getApplication()->input->get('status');
+		$status = $this->getOption('status');
 
 		// Process all the status - do nothing
 		if ($status == 'all')

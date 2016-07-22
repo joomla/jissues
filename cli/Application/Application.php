@@ -82,6 +82,14 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	protected $commandOptions = [];
 
 	/**
+	 * The application input object.
+	 *
+	 * @var    \JTracker\Input\Cli
+	 * @since  1.0
+	 */
+	public $input;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @param   Input\Cli  $input   An optional argument to provide dependency injection for the application's
@@ -165,12 +173,6 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			$action = (isset($args[1])) ? $args[1] : $command;
 		}
 
-		if ('retrieve' == $command)
-		{
-			// @legacy JTracker
-			$command = 'get';
-		}
-
 		$className = 'Application\\Command\\' . ucfirst($command) . '\\' . ucfirst($action);
 
 		if (false === class_exists($className))
@@ -206,6 +208,8 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			{
 				$command->setContainer($this->container);
 			}
+
+			$this->checkCommandOptions($command);
 
 			$command->execute();
 		}
@@ -337,6 +341,54 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	public function getCommandOptions()
 	{
 		return $this->commandOptions;
+	}
+
+	/**
+	 * Check if command options conflict with application options.
+	 *
+	 * @param   TrackerCommand  $command  The command.
+	 *
+	 * @return $this
+	 */
+	private function checkCommandOptions(TrackerCommand $command)
+	{
+		// This error should only happen during development so the message might not be translated.
+		$message = 'The command "%s" option "%s" already defined in the application.';
+
+		// Check command options against application options.
+		foreach ($command->getOptions() as $option)
+		{
+			foreach ($this->commandOptions as $commandOption)
+			{
+				if ($commandOption->longArg == $option->longArg)
+				{
+					throw new \UnexpectedValueException(sprintf($message, get_class($command), $option->longArg));
+				}
+
+				if ($commandOption->shortArg && $commandOption->shortArg == $option->shortArg)
+				{
+					throw new \UnexpectedValueException(sprintf($message, get_class($command), $option->shortArg));
+				}
+			}
+		}
+
+		// Check for unknown arguments from user input.
+		$allOptions = array_merge($command->getOptions(), $this->commandOptions);
+
+		foreach ($this->input->getArguments() as $argument)
+		{
+			foreach ($allOptions as $option)
+			{
+				if ($option->longArg == $argument || $option->shortArg == $argument)
+				{
+					continue 2;
+				}
+			}
+
+			throw new \UnexpectedValueException(sprintf(g11n3t('The argument "%s" is not recognized.'), $argument));
+		}
+
+		return $this;
 	}
 
 	/**

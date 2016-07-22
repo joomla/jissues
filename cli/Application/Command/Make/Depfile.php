@@ -119,7 +119,7 @@ class Depfile extends Make
 				$this
 			);
 
-		$fileName = $this->getApplication()->input->getPath('file', $this->getApplication()->input->getPath('f'));
+		$fileName = $this->getOption('file');
 
 		if ($fileName)
 		{
@@ -240,7 +240,7 @@ class Depfile extends Make
 		LanguageHelper::addDomainPaths();
 
 		$langTags = LanguageHelper::getLanguageCodes();
-		$noEmail = $this->getApplication()->input->get('noemail');
+		$noEmail = $this->getOption('noemail');
 
 		foreach ($langTags as $langTag)
 		{
