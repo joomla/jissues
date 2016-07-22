@@ -30,7 +30,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 *
 	 * @since   1.0
 	 */
-	protected $trackerHandledCategories = array(
+	protected $trackerHandledCategories = [
 				// Postgresql
 				'2',
 				// MS SQL
@@ -73,7 +73,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				'36',
 				// JavaScript
 				'1',
-		);
+	];
 
 	/**
 	 * Event for after pull requests are created in the application
@@ -780,11 +780,11 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Merge the current and the new categories
 		$categories = array_merge($newCategories, $categoriesThatShouldStay);
 
-		// Make sure we have no dublicate entrys here
+		// Make sure we have no duplicate entries here
 		$categories = array_unique($categories);
 
 		// Add the categories we need
-		return $this->setCategories($hookData, $logger, $project, $table, $categories);
+		$this->setCategories($hookData, $logger, $project, $table, $categories);
 	}
 
 	/**
@@ -798,14 +798,14 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkFilesAndAssignCategory($files)
 	{
-		$addCategories = array();
+		$addCategories = [];
 
 		if (!empty($files))
 		{
 			foreach ($files as $file)
 			{
 				// Check for javascript file changes
-				if (strpos($file->filename, '.js') === 0
+				if (preg_match('/.js$/', $file)
 					&& !in_array('1', $addCategories))
 				{
 					// Javascript
@@ -869,7 +869,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				if (strpos($file->filename, 'libraries/') === 0
 					&& !in_array('12', $addCategories))
 				{
-					// Libaries
+					// Libraries
 					$addCategories[] = '12';
 				}
 
@@ -906,7 +906,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					$addCategories[] = '4';
 				}
 
-				// Check for repository changes (no production code) execluding tests
+				// Check for repository changes (no production code) excluding tests
 				if ((strpos($file->filename, 'build/') === 0
 					|| strpos($file->filename, '.github/') === 0
 					|| $file->filename == '.gitignore'
@@ -1018,7 +1018,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			}
 		}
 
-		// Return the categorys
+		// Return the categories
 		return $addCategories;
 	}
 }
