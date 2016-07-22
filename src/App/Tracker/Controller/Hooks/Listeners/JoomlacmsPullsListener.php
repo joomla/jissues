@@ -71,6 +71,8 @@ class JoomlacmsPullsListener extends AbstractListener
 				'35',
 				// Repository
 				'36',
+				// JavaScript
+				'1',
 		);
 
 	/**
@@ -802,6 +804,14 @@ class JoomlacmsPullsListener extends AbstractListener
 		{
 			foreach ($files as $file)
 			{
+				// Check for javascrip file changes
+				if (strpos($file->filename, '.js') === 0
+					&& !in_array('1', $addCategories))
+				{
+					// Javascript
+					$addCategories[] = '1';
+				}
+				
 				// Check for the installation folder
 				if (strpos($file->filename, 'installation/') === 0
 					&& !in_array('25', $addCategories))
