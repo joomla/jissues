@@ -12,6 +12,7 @@ use Application\Command\TrackerCommandOption;
 
 use ElKuKu\G11n\Support\ExtensionHelper;
 
+use GuzzleHttp\Exception\RequestException;
 use JTracker\Helper\LanguageHelper;
 
 /**
@@ -52,6 +53,12 @@ class Languagefiles extends Get
 			new TrackerCommandOption(
 				'language', '',
 				g11n3t('Optionally specify a single language to fetch.')
+			)
+		)
+		->addOption(
+			new TrackerCommandOption(
+				'provider', '',
+				g11n3t('The translation service provider to use.')
 			)
 		);
 	}
