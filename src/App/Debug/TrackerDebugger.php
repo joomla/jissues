@@ -29,7 +29,6 @@ use Kint;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Processor\WebProcessor;
 
 use Psr\Log\LoggerAwareInterface;
@@ -123,22 +122,7 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 		{
 			$db = $this->getContainer()->get('db');
 			$db->setDebug(true);
-			$db->setLogger(
-				new Logger(
-					'JTracker',
-					[
-						new StreamHandler(
-							$this->getLogPath('root') . '/database.log',
-							Logger::DEBUG
-						)
-					],
-					[
-						new PsrLogMessageProcessor,
-						new WebProcessor,
-						[$this, 'addDatabaseEntry']
-					]
-				)
-			);
+			$db->setLogger(new Logger('JTracker', [new NullHandler], [[$this, 'addDatabaseEntry']]));
 		}
 
 		if (!$this->application->get('debug.logging'))

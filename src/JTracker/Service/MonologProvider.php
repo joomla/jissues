@@ -74,7 +74,7 @@ class MonologProvider implements ServiceProviderInterface
 				$config = $container->get('config');
 
 				// If database debugging is enabled then force the logger's error level to DEBUG, otherwise use the level defined in the app config
-				$level = $config->get('debug.database', false) ? 'debug' : strtoupper($config->get('log.levels.database', $config->get('log.level', 'error')));
+				$level = strtoupper($config->get('debug.database', false) ? 'debug' : $config->get('log.levels.database', $config->get('log.level', 'error')));
 
 				return new StreamHandler(
 					$config->get('debug.log-path', JPATH_ROOT) . '/database.log',
