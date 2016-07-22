@@ -78,7 +78,7 @@ Joomla Filter Package
 
 Joomla Github Package
 
-* Installed: 1.3.0 
+* Installed: 1.4.0 
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1)
