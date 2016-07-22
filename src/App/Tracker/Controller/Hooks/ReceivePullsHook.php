@@ -446,7 +446,7 @@ class ReceivePullsHook extends AbstractHookController
 			$data['title'] = $this->data->title;
 		}
 
-		if (isset($this->hookData->changes->title))
+		if (isset($this->hookData->changes->body))
 		{
 			$data['description']     = $this->parseText($this->data->body);
 			$data['description_raw'] = $this->data->body;

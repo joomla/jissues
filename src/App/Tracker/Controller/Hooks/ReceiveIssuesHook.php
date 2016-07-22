@@ -363,7 +363,7 @@ class ReceiveIssuesHook extends AbstractHookController
 			$data['title'] = $this->hookData->issue->title;
 		}
 
-		if (isset($this->hookData->changes->title))
+		if (isset($this->hookData->changes->body))
 		{
 			$data['description']     = $this->parseText($this->hookData->issue->body);
 			$data['description_raw'] = $this->hookData->issue->body;
