@@ -12,7 +12,6 @@ use Application\Command\TrackerCommandOption;
 
 use ElKuKu\G11n\Support\ExtensionHelper;
 
-use GuzzleHttp\Exception\RequestException;
 use JTracker\Helper\LanguageHelper;
 
 /**
