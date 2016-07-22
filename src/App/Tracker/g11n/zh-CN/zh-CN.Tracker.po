@@ -1,22 +1,20 @@
-# JTracker App Tracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Zehan Zhao <cnallenzhao@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-03-21 18:21+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/opentranslators/jtracker/language/zh_CN/)\n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: tracker-app_en.po\n"
+"Language: zh_CN\n"
 
 #: /templates/tracker/issue.edit.twig:52
 #: /templates/tracker/issue.edit.twig:217
@@ -72,7 +70,8 @@ msgstr "版本号"
 msgid "Easy test"
 msgstr "简易测试"
 
-#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.add.twig:65
 msgid "Categories"
 msgstr "分类"
 
@@ -118,12 +117,12 @@ msgid "Saving..."
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:7
-msgid "- status -"
-msgstr "- 状态 -"
+msgid "- Status -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:16
-msgid "- priority -"
-msgstr "- 优先级 -"
+msgid "- Priority -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -154,7 +153,7 @@ msgid "You participated in"
 msgstr "您参与的"
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "- categories -"
+msgid "- Categories -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:50
@@ -162,11 +161,11 @@ msgid "No categories"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:63
-msgid "- labels -"
+msgid "- Labels -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:74
-msgid "- tests -"
+msgid "- Tests -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:74
@@ -182,7 +181,7 @@ msgid "Needs tests"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:87
-msgid "- easy -"
+msgid "- Easy -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:87
@@ -196,7 +195,7 @@ msgid "Yes"
 msgstr "是"
 
 #: /templates/tracker/tracker.filters.twig:99
-msgid "- type -"
+msgid "- Type -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:99
@@ -208,7 +207,7 @@ msgid "Pull Request"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:111
-msgid "- milestones -"
+msgid "- Milestones -"
 msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:10
@@ -281,7 +280,7 @@ msgstr ""
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
-msgid "Color"
+msgid "Colour"
 msgstr ""
 
 #: /templates/tracker/tpl/activities.twig:24
@@ -326,12 +325,14 @@ msgstr ""
 msgid "Issues List"
 msgstr "Issue列表"
 
-#: /templates/tracker/issues.index.twig:26 /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issues.index.twig:26
+#: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:97
 msgid "New Item"
 msgstr "新条目"
 
 #: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/categories.index.twig:48
 msgid "ID"
 msgstr "ID"
 
@@ -569,7 +570,16 @@ msgstr "发布评论"
 msgid "Login with GitHub to post a comment"
 msgstr "请用GitHub帐号登录以发表评论"
 
-#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:124
+#: /templates/tracker/issue.index.twig:596
+msgid "Older"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:599
+msgid "Newer"
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:124
 msgid "Submit"
 msgstr "提交"
 
@@ -586,11 +596,7 @@ msgid "Pro"
 msgstr "专家"
 
 #: /templates/tracker/issue.add.twig:54
-msgid ""
-"The priority of which this issue should be resolved. Please see the <a "
-"href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
-"Tracking Process</a> page for detailed information about the project's "
-"priorities."
+msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:61
@@ -602,37 +608,19 @@ msgid "Please select one or more Categories here that match to your issue."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:90
-msgid ""
-"Report security issues to the Joomla! Security Strike Team (JSST) at <a "
-"href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"https://developer.joomla.org/contact-security-team.html\">JSST "
-"contact form</a>, please do not use the public tracker for security issues."
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
 msgstr ""
 
 #: /templates/tracker/issue.add.twig:94
-msgid ""
-"To report a bug in the Joomla! bug trackers, you need to create a tracker "
-"item. Once the tracker item is created, the developers will check the "
-"validity of it and act accordingly."
+msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
 msgstr "要在Joomla! bug追踪系统中报告bug,您需要在追踪系统里创建一个条目。条目创建后，开发者将会检查条目的有效性，并作出相应的操作。"
 
 #: /templates/tracker/issue.add.twig:104
-msgid ""
-"Describe in a few words the issues you are having. It is generally a good "
-"idea to use existing tracker items as examples if this is your first time "
-"reporting a bug."
+msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
 msgstr "用少量的文字描述您所遇到的问题。如果您是第一次报告一个bug，参考之前的追踪项目不失为一个好主意。"
 
 #: /templates/tracker/issue.add.twig:120
-msgid ""
-"This is the most important part of reporting the bug. Describe here step by "
-"step how you got the error you are noticing. Include all of the information "
-"that someone will need to re-trace your steps and see the problem. Remember:"
-" your bug will not be fixed unless others can see the problem, so you want "
-"to be as clear and detailed as possible. You do not need to know anything "
-"about programming to write a great bug report. But if you do understand the "
-"code and think you know how to fix the bug, please include this in the "
-"report."
+msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
 msgstr "这是报告问题的最重要的部分。请在这里一步步地描述您是如何注意到您所遇到的问题的。请将他人在重复您的步骤和重现问题的过程中所需的全部信息。注意：除非他人能重现您的问题，否则您的问题不能被解决，所以您需要描述地尽可能的明确和详细。您无需了解编程，也能写出一个极佳的问题报告。但是如果您能够理解代码并认为您知道如何修复这个问题，请将此内容包含在报告内。"
 
 #: /templates/tracker/issue.add.twig:228
@@ -646,10 +634,6 @@ msgstr "分类目录"
 
 #: /templates/tracker/categories.index.twig:44
 msgid "Actions"
-msgstr ""
-
-#: /templates/tracker/categories.index.twig:48
-msgid "Id"
 msgstr ""
 
 #: /templates/tracker/categories.index.twig:65
@@ -711,11 +695,11 @@ msgid "The length of the alias can not exceed 150 characters."
 msgstr ""
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
-msgid "Color should be the hex value."
+msgid "Colour should be the hex value."
 msgstr ""
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
-msgid "Issue id is needed"
+msgid "Issue ID is needed"
 msgstr ""
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
@@ -737,3 +721,4 @@ msgstr "必须键入版本号"
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
 msgstr "版本号不能超过40个字符"
+

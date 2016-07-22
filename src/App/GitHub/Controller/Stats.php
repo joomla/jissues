@@ -61,7 +61,7 @@ class Stats extends AbstractTrackerController
 		$data = array_reverse($data);
 
 		$this->view->setProject($project);
-		$this->view->setData($data);
+		$this->view->setContributors($data);
 
 		return $this;
 	}

@@ -3,9 +3,9 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Articles"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Articles"|_ }}{% endblock %}
 
-{% block headerText %}{{ "Articles"|_ }}{% endblock %}
+{% block headerText %} - {{ "Articles"|_ }}{% endblock %}
 
 {% block headerCSS %}
     {{ parent() }}
@@ -14,8 +14,8 @@
     {% if templateDebug %}
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}" />
 {% endblock %}
 
 {% block prependMenu %}

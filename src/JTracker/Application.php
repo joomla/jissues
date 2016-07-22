@@ -12,15 +12,15 @@ use App\Debug\TrackerDebugger;
 use App\Projects\Model\ProjectModel;
 use App\Projects\TrackerProject;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Application\AbstractWebApplication;
-use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Joomla\Router\Router;
 
@@ -29,17 +29,8 @@ use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Authentication\GitHub\GitHubUser;
 use JTracker\Authentication\User;
 use JTracker\Controller\AbstractTrackerController;
+use JTracker\Helper\LanguageHelper;
 use JTracker\Router\Exception\RoutingException;
-use JTracker\Router\TrackerRouter;
-use JTracker\Service\ApplicationProvider;
-use JTracker\Service\ConfigurationProvider;
-use JTracker\Service\DatabaseProvider;
-use JTracker\Service\DebuggerProvider;
-use JTracker\Service\GitHubProvider;
-
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Processor\WebProcessor;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -94,47 +85,40 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	private $project;
 
 	/**
+	 * The current language in use. E.g. "en-GB".
+	 *
+	 * @var    string
+	 * @since  1.0
+	 */
+	private $languageTag = 'en-GB';
+
+	/**
 	 * Class constructor.
+	 *
+	 * @param   Session   $session  The application's session object
+	 * @param   Input     $input    The application's input object
+	 * @param   Registry  $config   The application's configuration object
 	 *
 	 * @since   1.0
 	 */
-	public function __construct()
+	public function __construct(Session $session, Input $input, Registry $config)
 	{
 		// Run the parent constructor
-		parent::__construct();
+		parent::__construct($input, $config);
 
-		// Build the DI Container
-		$container = (new Container)
-			->registerServiceProvider(new ApplicationProvider($this))
-			->registerServiceProvider(new ConfigurationProvider($this->config))
-			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new GitHubProvider);
+		$this->newSession = $session;
+	}
 
-		$this->setContainer($container);
-
-		$this->mark('Application started');
-
-		// Register the global dispatcher
-		$this->setDispatcher(new Dispatcher);
-
-		// Set up a general application logger
-		$this->setLogger(
-			new Logger(
-				'JTracker',
-				[
-					new StreamHandler(
-						$this->get('debug.log-path', JPATH_ROOT) . '/app.log',
-						Logger::ERROR
-					)
-				],
-				[
-					new WebProcessor
-				]
-			)
-		);
-
-		$this->setRouter(new TrackerRouter($this->getContainer(), $this->input));
+	/**
+	 * Get the current language tag. E.g. en-GB.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getLanguageTag()
+	{
+		return $this->languageTag;
 	}
 
 	/**
@@ -160,9 +144,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	{
 		try
 		{
-			$this->getRouter()->setControllerPrefix('\\App')
-				->setDefaultController('\\Tracker\\Controller\\DefaultController');
-
 			$this->bootApps();
 
 			$this->mark('Apps booted');
@@ -171,21 +152,23 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			/* @type AbstractTrackerController $controller */
 			$controller = $this->getRouter()->getController($this->get('uri.route'));
 
+			$this->mark('Initializing controller: ' . get_class($controller));
 			$controller->initialize();
-			$this->mark('Controller initialized');
+			$this->mark('Controller initialized.');
 
 			// Load the language for the application
 			// @todo language must be loaded after routing is processed cause the Project object is coupled with the User object...
 			$this->loadLanguage();
-			$this->mark('Language loaded');
 
 			// Execute the App
 
 			// Define the app path
 			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
+			$this->mark('JPATH_APP=' . JPATH_APP);
 
 			// Load the App language file
-			g11n::loadLanguage($controller->getApp(), 'App');
+			G11n::loadLanguage($controller->getApp(), 'App');
+			$this->mark('Language loaded');
 
 			$contents = $controller->execute();
 			$this->mark('Controller executed');
@@ -209,7 +192,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with an AUTH EXCEPTION');
 
-			$context = array();
+			$context = [];
 			$context['message'] = 'Authentication failure';
 
 			if (JDEBUG)
@@ -232,7 +215,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with a ROUTING EXCEPTION');
 
-			$context = JDEBUG ? array('message' => $exception->getRawRoute()) : array();
+			$context = JDEBUG ? ['message' => $exception->getRawRoute()] : [];
 
 			$this->setBody($this->getDebugger()->renderException($exception, $context));
 		}
@@ -300,10 +283,8 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	public function getSession()
 	{
-		if (is_null($this->newSession))
+		if (!$this->newSession->isStarted())
 		{
-			$this->newSession = new Session;
-
 			$this->newSession->start();
 
 			$registry = $this->newSession->get('registry');
@@ -362,18 +343,20 @@ final class Application extends AbstractWebApplication implements ContainerAware
 	 */
 	protected function loadLanguage()
 	{
+		$languages = LanguageHelper::getLanguageCodes();
+
 		// Get the language tag from user input.
 		$lang = $this->input->get('lang');
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $this->get('languages')))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
-				$lang = g11n::getDefault();
+				$lang = G11n::getDefault();
 			}
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';
@@ -385,46 +368,53 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 		else
 		{
-			// Get the language tag from the user params or session. Default to British.
-			$lang = $this->getUser()->params->get('language', $this->getSession()->get('lang', 'en-GB'));
+			/*
+			 * Get the language tag:
+			 * 1. From the session
+			 * 2. From the user param
+			 * 3. Default to British
+			 */
+			$lang = $this->getSession()->get('lang', $this->getUser()->params->get('language', 'en-GB'));
 		}
 
 		if ($lang)
 		{
 			// Set the current language if anything has been found.
-			g11n::setCurrent($lang);
+			G11n::setCurrent($lang);
+
+			$this->languageTag = $lang;
 		}
 
 		// Set language debugging.
-		g11n::setDebug($this->get('debug.language'));
+		G11n::setDebug($this->get('debug.language'));
 
 		// Set the language cache directory.
 		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
 		{
-			g11n::setCacheDir('/tmp');
+			ExtensionHelper::setCacheDir('/tmp');
 		}
 		else
 		{
-			g11n::setCacheDir(JPATH_ROOT . '/cache');
+			ExtensionHelper::setCacheDir(JPATH_ROOT . '/cache');
 		}
 
 		// Load the core language file.
-		g11n::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11n::loadLanguage('JTracker', 'Core');
+		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
+		G11n::loadLanguage('JTracker', 'Core');
 
 		// Load template language files.
-		g11n::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11n::loadLanguage('JTracker', 'Template');
+		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
+		G11n::loadLanguage('JTracker', 'Template');
 
 		// Add the App domain path.
-		g11n::addDomainPath('App', JPATH_ROOT . '/src/App');
+		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
 
 		if ($this->get('debug.system')
 			|| $this->get('debug.database')
 			|| $this->get('debug.language'))
 		{
 			// Load the Debug App language file.
-			g11n::loadLanguage('Debug', 'App');
+			G11n::loadLanguage('Debug', 'App');
 		}
 
 		return $this;

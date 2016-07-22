@@ -26,6 +26,11 @@
 		"project" : ""
 	},
 
+	"crowdin": {
+		"project": "",
+		"api-key": ""
+	},
+
 	"renderer": {
 		"type" : "twig",
         "cache": false
@@ -60,29 +65,9 @@
 		"logging" : "0",
 		"log-path": "",
 		"template": "0",
-		"admin"   : "1"
+		"admin"   : "1",
+		"github"  : "0"
 	},
-
-	"languages": [
-		"ca-ES",
-		"da-DK",
-		"de-DE",
-		"en-GB",
-		"es-ES",
-		"et-EE",
-		"fr-FR",
-		"hu-HU",
-		"it-IT",
-		"lv-LV",
-		"nb-NO",
-		"nl-NL",
-		"pl-PL",
-		"pt-BR",
-		"pt-PT",
-		"ro-RO",
-		"ru-RU",
-		"zh-CN"
-	],
 
 	"validation": {
 		"mime_types": [

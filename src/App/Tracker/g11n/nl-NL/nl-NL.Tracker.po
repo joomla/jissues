@@ -1,22 +1,20 @@
-# JTracker App Tracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Roland Dalmulder <contact@rolandd.com>, 2014-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-03-22 09:06+0000\n"
-"Last-Translator: Roland Dalmulder <contact@rolandd.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/opentranslators/jtracker/language/nl_NL/)\n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: nl\n"
+"X-Crowdin-File: tracker-app_en.po\n"
+"Language: nl_NL\n"
 
 #: /templates/tracker/issue.edit.twig:52
 #: /templates/tracker/issue.edit.twig:217
@@ -28,7 +26,7 @@ msgstr "Opslaan"
 #: /templates/tracker/issue.edit.twig:58
 #: /templates/tracker/issue.index.twig:279
 msgid "Test this"
-msgstr "Getest"
+msgstr "Test dit"
 
 #: /templates/tracker/issue.edit.twig:62
 #: /templates/tracker/issue.index.twig:284
@@ -37,7 +35,7 @@ msgstr "Wijzig test"
 
 #: /templates/tracker/issue.edit.twig:67
 msgid "Cancel"
-msgstr "Annuleer"
+msgstr "Annuleren"
 
 #: /templates/tracker/issue.edit.twig:84
 #: /templates/tracker/issues.index.twig:155
@@ -72,7 +70,8 @@ msgstr "Versie"
 msgid "Easy test"
 msgstr "Makkelijke test"
 
-#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.add.twig:65
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -105,12 +104,12 @@ msgstr "Reactie toevoegen"
 #: /templates/tracker/issue.edit.twig:214
 #: /templates/tracker/issue.index.twig:567
 msgid "Leave a comment"
-msgstr "Reactie schrijven"
+msgstr "Reactie achterlaten"
 
 #: /templates/tracker/issue.edit.twig:314
 #: /templates/tracker/issue.add.twig:218
 msgid "Some fields are invalid. They have been highlighted."
-msgstr "Sommige velden zijn fout, deze zijn aangegeven."
+msgstr "Sommige velden zijn fout. Ze zijn gemarkeerd."
 
 #: /templates/tracker/issue.edit.twig:324
 #: /templates/tracker/issue.edit.twig:331
@@ -118,12 +117,12 @@ msgid "Saving..."
 msgstr "Opslaan..."
 
 #: /templates/tracker/tracker.filters.twig:7
-msgid "- status -"
-msgstr "- status -"
+msgid "- Status -"
+msgstr "- Status -"
 
 #: /templates/tracker/tracker.filters.twig:16
-msgid "- priority -"
-msgstr "- prioriteit -"
+msgid "- Priority -"
+msgstr "-Prioriteit-"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -147,27 +146,27 @@ msgstr "Gemaakt door u"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Everyone's issues"
-msgstr "Alle problemen"
+msgstr "Algemene problemen"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "You participated in"
 msgstr "U heeft deelgenomen in"
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "- categories -"
-msgstr "- categorieën -"
+msgid "- Categories -"
+msgstr "-Categorieën-"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No categories"
 msgstr "Geen categorieën"
 
 #: /templates/tracker/tracker.filters.twig:63
-msgid "- labels -"
-msgstr "- labels -"
+msgid "- Labels -"
+msgstr "- Labels -"
 
 #: /templates/tracker/tracker.filters.twig:74
-msgid "- tests -"
-msgstr "- testen -"
+msgid "- Tests -"
+msgstr "- Testen -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
@@ -179,11 +178,11 @@ msgstr "Vereist één test"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Needs tests"
-msgstr "Testen nodig"
+msgstr "Heeft testen nodig"
 
 #: /templates/tracker/tracker.filters.twig:87
-msgid "- easy -"
-msgstr "- makkelijk -"
+msgid "- Easy -"
+msgstr "-Gemakkelijk -"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
@@ -196,20 +195,20 @@ msgid "Yes"
 msgstr "Ja"
 
 #: /templates/tracker/tracker.filters.twig:99
-msgid "- type -"
-msgstr "- type -"
+msgid "- Type -"
+msgstr "-Type-"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
-msgstr "Issue zonder code"
+msgstr "Probleem"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Pull Request"
-msgstr "Issue met code"
+msgstr "Pull request"
 
 #: /templates/tracker/tracker.filters.twig:111
-msgid "- milestones -"
-msgstr "- mijlpalen -"
+msgid "- Milestones -"
+msgstr "-Mijlpalen-"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
@@ -222,15 +221,15 @@ msgstr "Gesloten"
 
 #: /templates/tracker/tpl/filters.twig:20
 msgid "All"
-msgstr "Alles"
+msgstr "Alle"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search tools"
-msgstr "Zoekmiddelen"
+msgstr "Zoekhulpmiddelen"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
-msgstr "Opschonen"
+msgstr "Wissen"
 
 #: /templates/tracker/tpl/filters.twig:33
 #: /templates/tracker/issue.index.twig:64
@@ -281,7 +280,7 @@ msgstr "Alias"
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
-msgid "Color"
+msgid "Colour"
 msgstr "Kleur"
 
 #: /templates/tracker/tpl/activities.twig:24
@@ -326,12 +325,14 @@ msgstr "Bewerk categorie"
 msgid "Issues List"
 msgstr "Issuelijst"
 
-#: /templates/tracker/issues.index.twig:26 /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issues.index.twig:26
+#: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:97
 msgid "New Item"
 msgstr "Nieuw issue"
 
 #: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/categories.index.twig:48
 msgid "ID"
 msgstr "ID"
 
@@ -429,11 +430,11 @@ msgstr "Bevestigd"
 
 #: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
-msgstr "Klaar om toe te voegen"
+msgstr "Klaar om goed te keuren"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr "Opgelost"
+msgstr "Opgelost in de basiscode"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
@@ -445,7 +446,7 @@ msgstr "Informatie nodig"
 
 #: /templates/tracker/issues.index.twig:344
 msgid "Unconfirmed Report"
-msgstr "Onbevestigd"
+msgstr "Onbevestigd verslag"
 
 #: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
@@ -453,11 +454,11 @@ msgstr "Geen antwoord"
 
 #: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
-msgstr "Verwachte werking"
+msgstr "Verwacht gedrag"
 
 #: /templates/tracker/issues.index.twig:348
 msgid "Known Issue"
-msgstr "Bekende melding"
+msgstr "Bekend probleem"
 
 #: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
@@ -481,7 +482,7 @@ msgstr "Laatste"
 
 #: /templates/tracker/issue.index.twig:59
 msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr "Deze melding bestaat niet, of het ID dat is ingevoerd is incorrect."
+msgstr "Dit probleem bestaat niet, of het ID dat is ingevoerd is incorrect."
 
 #: /templates/tracker/issue.index.twig:115
 msgid "Easy Test"
@@ -489,27 +490,27 @@ msgstr "Makkelijke test"
 
 #: /templates/tracker/issue.index.twig:123
 msgid "# of Successful Tests"
-msgstr "# van succesvolle tests"
+msgstr "# succesvolle testen"
 
 #: /templates/tracker/issue.index.twig:133
 msgid "To comment"
-msgstr "Voor commentaar"
+msgstr "Reageren"
 
 #: /templates/tracker/issue.index.twig:142
 msgid "View this issue on GitHub"
-msgstr "Bekijk dit probleem op GitHub"
+msgstr "Bekijk dit probleem in GitHub"
 
 #: /templates/tracker/issue.index.twig:152
 msgid "View a plain diff for this pull request"
-msgstr "Bekijk een diff van deze pull request"
+msgstr "Bekijk een verschillen overzicht van dit pull request"
 
 #: /templates/tracker/issue.index.twig:154
 msgid "Diff"
-msgstr "Diff"
+msgstr "Verschillen"
 
 #: /templates/tracker/issue.index.twig:170
 msgid "Download this fork as a ZIP file"
-msgstr "Download deze kopie als ZIP bestand"
+msgstr "Download deze kopie als ZIP-bestand"
 
 #: /templates/tracker/issue.index.twig:226
 msgid "Categories:"
@@ -539,7 +540,7 @@ msgstr "Stemmen"
 
 #: /templates/tracker/issue.index.twig:341
 msgid "# of Users Experiencing Issue"
-msgstr "aantal gebruikers die de melding ondervinden"
+msgstr "aantal gebruikers die dit probleem ondervinden"
 
 #: /templates/tracker/issue.index.twig:345
 msgid "Average Importance Score"
@@ -547,11 +548,11 @@ msgstr "Gemiddelde belangrijkheid score"
 
 #: /templates/tracker/issue.index.twig:354
 msgid "I've experienced this issue"
-msgstr "Heeft u deze melding ondervonden?"
+msgstr "Ik heb dit probleem ondervonden"
 
 #: /templates/tracker/issue.index.twig:366
 msgid "Importance of issue to me"
-msgstr "Belangrijkheid van deze melding voor u"
+msgstr "Belangrijkheid van dit probleem voor mij"
 
 #: /templates/tracker/issue.index.twig:391
 msgid "Vote"
@@ -569,7 +570,16 @@ msgstr "Reactie verzenden"
 msgid "Login with GitHub to post a comment"
 msgstr "Log in met GitHub om een reactie te plaatsen"
 
-#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:124
+#: /templates/tracker/issue.index.twig:596
+msgid "Older"
+msgstr "Ouder"
+
+#: /templates/tracker/issue.index.twig:599
+msgid "Newer"
+msgstr "Nieuwer"
+
+#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:124
 msgid "Submit"
 msgstr "Vestuur"
 
@@ -586,54 +596,32 @@ msgid "Pro"
 msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
-msgid ""
-"The priority of which this issue should be resolved. Please see the <a "
-"href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
-"Tracking Process</a> page for detailed information about the project's "
-"priorities."
-msgstr "De prioriteit waarmee deze melding dient te worden opgelost. Zie  de <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> pagina voor gedetailleerde informatie over de prioriteiten van het project."
+msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgstr "De prioriteit waarmee dit probleem dient te worden opgelost. Zie de <a href=\"http://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> pagina voor gedetailleerde informatie over de prioriteiten van het project."
 
 #: /templates/tracker/issue.add.twig:61
 msgid "The version(s) of the project on which this issue is found."
-msgstr "De versie(s) van het project waar deze melding is gevonden."
+msgstr "De versie(s) van het project waarin dit probleem is gevonden."
 
 #: /templates/tracker/issue.add.twig:68
 msgid "Please select one or more Categories here that match to your issue."
-msgstr "Selecteer één of meer categorieën waar de melding aan voldoet"
+msgstr "Selecteer hier één of meer categorieën die aan uw probleem voldoen."
 
 #: /templates/tracker/issue.add.twig:90
-msgid ""
-"Report security issues to the Joomla! Security Strike Team (JSST) at <a "
-"href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"https://developer.joomla.org/contact-security-team.html\">JSST "
-"contact form</a>, please do not use the public tracker for security issues."
-msgstr "Meld beveilingslekken aan het Joomla! Security Strike Team (JSST) op <a href=\"mailto:security@joomla.org\">security@joomla.org</a> of met het <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact formulier</a>, gebruik alstublieft niet de publieke lijst voor beveiligingslekken."
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
+msgstr "Meld beveilingslekken bij het Joomla! Security Strike Team (JSST) op <a href=\"mailto:security@joomla.org\">security@joomla.org</a> of met het <a href=\"http://developer.joomla.org/contact-security-team.html\">JSST contact formulier</a>, gebruik alstublieft niet de publieke lijst voor beveiligingslekken."
 
 #: /templates/tracker/issue.add.twig:94
-msgid ""
-"To report a bug in the Joomla! bug trackers, you need to create a tracker "
-"item. Once the tracker item is created, the developers will check the "
-"validity of it and act accordingly."
-msgstr "Om een probleem of verzoek te melden op de Joomla! issue tracker, dient u een melding aan te maken. Wanneer er een melding is aangemaakt zullen ontwikkelaars het probleem onderzoeken en de benodigde acties uitvoeren."
+msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
+msgstr "Om een bug te melden op de Joomla! issue tracker, dient u een probleem aan te maken. Wanneer er een melding is aangemaakt zullen ontwikkelaars het probleem onderzoeken en de benodigde acties uitvoeren."
 
 #: /templates/tracker/issue.add.twig:104
-msgid ""
-"Describe in a few words the issues you are having. It is generally a good "
-"idea to use existing tracker items as examples if this is your first time "
-"reporting a bug."
-msgstr "Omschrijf in een paar woorden het probleem dat u ondervindt. Het is over het algemeen een goed idee om bestaande melding als voorbeeld te gebruiken als dit de eerste keer is als u een melding aanmaakt."
+msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
+msgstr "Omschrijf in een paar woorden het probleem dat u ondervindt. Het is in het algemeen een goed idee om bestaande melding als voorbeeld te gebruiken als dit de eerste keer is dat u een melding aanmaakt."
 
 #: /templates/tracker/issue.add.twig:120
-msgid ""
-"This is the most important part of reporting the bug. Describe here step by "
-"step how you got the error you are noticing. Include all of the information "
-"that someone will need to re-trace your steps and see the problem. Remember:"
-" your bug will not be fixed unless others can see the problem, so you want "
-"to be as clear and detailed as possible. You do not need to know anything "
-"about programming to write a great bug report. But if you do understand the "
-"code and think you know how to fix the bug, please include this in the "
-"report."
-msgstr "De meest belangrijke stap van het melden van een probleem. Omschrijf hier stap voor stap hoe dat u het probleem krijgt. Geef alle informatie die iemand nodig heeft om het probleem stap voor stap te reproduceren. Let op: het probleem zal alleen worden opgelost als anderen ook het probleem kunnen reproduceren. Wees dus zo duidelijk en uitgebreid mogelijk. U hoeft niets van programmeren te weten om een goede melding te schrijven. Als u de code wel begrijpt en denkt te weten hoe het opgelost kan worden, vermeldt u dit dan in het rapport"
+msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
+msgstr "Dit is de belangrijkste stap bij het melden van een bug. Omschrijf hier stap voor stap hoe u de fout krijgt. Geef alle informatie die iemand nodig heeft om het probleem stap voor stap te reproduceren. Let op: het probleem zal alleen worden opgelost als anderen het probleem kunnen reproduceren. Wees dus zo duidelijk en uitgebreid mogelijk. U hoeft niets van programmeren te weten om een goede melding te schrijven. Als u de code wel begrijpt en denkt te weten hoe het opgelost kan worden, vermeld dit dan in het rapport."
 
 #: /templates/tracker/issue.add.twig:228
 msgid "Submitting..."
@@ -647,10 +635,6 @@ msgstr "Categorieënlijst"
 #: /templates/tracker/categories.index.twig:44
 msgid "Actions"
 msgstr "Acties"
-
-#: /templates/tracker/categories.index.twig:48
-msgid "Id"
-msgstr "ID"
 
 #: /templates/tracker/categories.index.twig:65
 msgid "Delete"
@@ -711,12 +695,12 @@ msgid "The length of the alias can not exceed 150 characters."
 msgstr "De lengte van de alias mag niet meer dan 150 karakters zijn."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
-msgid "Color should be the hex value."
+msgid "Colour should be the hex value."
 msgstr "De kleur dient een hex waarde te zijn."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
-msgid "Issue id is needed"
-msgstr "Issue ID is verplicht"
+msgid "Issue ID is needed"
+msgstr "Probleem-ID is nodig"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
@@ -737,3 +721,4 @@ msgstr "Een versie is verplicht."
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
 msgstr "De maximale versie lengte is 40 tekens."
+

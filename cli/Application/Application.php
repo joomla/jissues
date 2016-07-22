@@ -14,32 +14,23 @@ use App\Projects\TrackerProject;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
-use Application\Service\LoggerProvider;
 
 use Elkuku\Console\Helper\ConsoleProgressBar;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
 use Joomla\Application\AbstractCliApplication;
-use Joomla\Application\Cli\Output\Processor\ColorProcessor;
-use Joomla\Application\Cli\ColorStyle;
-use Joomla\DI\Container;
+use Joomla\Application\Cli\CliOutput;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Event\Dispatcher;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Input;
 use Joomla\Registry\Registry;
 
 use JTracker\Authentication\GitHub\GitHubUser;
-use JTracker\Service\ApplicationProvider;
-use JTracker\Service\ConfigurationProvider;
-use JTracker\Service\DatabaseProvider;
-use JTracker\Service\DebuggerProvider;
-use JTracker\Service\GitHubProvider;
-use JTracker\Service\TransifexProvider;
+use JTracker\Helper\LanguageHelper;
 
 /**
  * CLI application for installing the tracker application
@@ -85,10 +76,18 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	/**
 	 * Array of TrackerCommandOption objects
 	 *
-	 * @var    array
+	 * @var    TrackerCommandOption[]
 	 * @since  1.0
 	 */
-	protected $commandOptions = array();
+	protected $commandOptions = [];
+
+	/**
+	 * The application input object.
+	 *
+	 * @var    \JTracker\Input\Cli
+	 * @since  1.0
+	 */
+	public $input;
 
 	/**
 	 * Class constructor.
@@ -99,22 +98,13 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	 * @param   Registry   $config  An optional argument to provide dependency injection for the application's
 	 *                              config object.  If the argument is a Registry object that object will become
 	 *                              the application's config object, otherwise a default config object is created.
+	 * @param   CliOutput  $output  The output handler.
 	 *
 	 * @since   1.0
 	 */
-	public function __construct(Input\Cli $input = null, Registry $config = null)
+	public function __construct(Input\Cli $input = null, Registry $config = null, CliOutput $output = null)
 	{
-		parent::__construct($input, $config);
-
-		// Build the DI Container
-		$this->container = (new Container)
-			->registerServiceProvider(new ApplicationProvider($this))
-			->registerServiceProvider(new ConfigurationProvider($this->config))
-			->registerServiceProvider(new DatabaseProvider)
-			->registerServiceProvider(new GitHubProvider)
-			->registerServiceProvider(new DebuggerProvider)
-			->registerServiceProvider(new LoggerProvider($this->input->get('log'), $this->input->get('quiet', $this->input->get('q'))))
-			->registerServiceProvider(new TransifexProvider);
+		parent::__construct($input, $config, $output);
 
 		$this->loadLanguage();
 
@@ -130,29 +120,18 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		$this->commandOptions[] = new TrackerCommandOption(
 			'nocolors', '',
-			g11n3t('Suppress ANSI colors on unsupported terminals.')
+			g11n3t('Suppress ANSI colours on unsupported terminals.')
 		);
 
 		$this->commandOptions[] = new TrackerCommandOption(
-			'--log=filename.log', '',
+			'log', '',
 			g11n3t('Optionally log output to the specified log file.')
 		);
 
-		$this->getOutput()->setProcessor(new ColorProcessor);
-
-		/* @type ColorProcessor $processor */
-		$processor = $this->getOutput()->getProcessor();
-
-		if ($this->input->get('nocolors') || !$this->get('cli-application.colors'))
-		{
-			$processor->noColors = true;
-		}
-
-		// Setup app colors (also required in "nocolors" mode - to strip them).
-		$processor
-			->addStyle('b', new ColorStyle('', '', array('bold')))
-			->addStyle('title', new ColorStyle('yellow', '', array('bold')))
-			->addStyle('ok', new ColorStyle('green', '', array('bold')));
+		$this->commandOptions[] = new TrackerCommandOption(
+			'lang', '',
+			g11n3t('Set the language used by the application.')
+		);
 
 		$this->usePBar = $this->get('cli-application.progress-bar');
 
@@ -160,9 +139,6 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		{
 			$this->usePBar = false;
 		}
-
-		// Register the global dispatcher
-		$this->setDispatcher(new Dispatcher);
 	}
 
 	/**
@@ -197,15 +173,9 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			$action = (isset($args[1])) ? $args[1] : $command;
 		}
 
-		if ('retrieve' == $command)
-		{
-			// @legacy JTracker
-			$command = 'get';
-		}
-
 		$className = 'Application\\Command\\' . ucfirst($command) . '\\' . ucfirst($action);
 
-		if (false == class_exists($className))
+		if (false === class_exists($className))
 		{
 			$this->out()
 				->out(sprintf(g11n3t('Invalid command: %s'), '<error> ' . (($command == $action) ? $command : $command . ' ' . $action) . ' </error>'))
@@ -224,7 +194,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			$className = 'Application\\Command\\Help\\Help';
 		}
 
-		if (false == method_exists($className, 'execute'))
+		if (false === method_exists($className, 'execute'))
 		{
 			throw new \RuntimeException(sprintf('Missing method %1$s::%2$s', $className, 'execute'));
 		}
@@ -238,6 +208,8 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 			{
 				$command->setContainer($this->container);
 			}
+
+			$this->checkCommandOptions($command);
 
 			$command->execute();
 		}
@@ -274,7 +246,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 
 		$alternatives = [];
 
-		if (false == array_key_exists($command, $commands))
+		if (false === array_key_exists($command, $commands))
 		{
 			// Unknown command
 			foreach (array_keys($commands) as $cmd)
@@ -372,6 +344,54 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	}
 
 	/**
+	 * Check if command options conflict with application options.
+	 *
+	 * @param   TrackerCommand  $command  The command.
+	 *
+	 * @return $this
+	 */
+	private function checkCommandOptions(TrackerCommand $command)
+	{
+		// This error should only happen during development so the message might not be translated.
+		$message = 'The command "%s" option "%s" already defined in the application.';
+
+		// Check command options against application options.
+		foreach ($command->getOptions() as $option)
+		{
+			foreach ($this->commandOptions as $commandOption)
+			{
+				if ($commandOption->longArg == $option->longArg)
+				{
+					throw new \UnexpectedValueException(sprintf($message, get_class($command), $option->longArg));
+				}
+
+				if ($commandOption->shortArg && $commandOption->shortArg == $option->shortArg)
+				{
+					throw new \UnexpectedValueException(sprintf($message, get_class($command), $option->shortArg));
+				}
+			}
+		}
+
+		// Check for unknown arguments from user input.
+		$allOptions = array_merge($command->getOptions(), $this->commandOptions);
+
+		foreach ($this->input->getArguments() as $argument)
+		{
+			foreach ($allOptions as $option)
+			{
+				if ($option->longArg == $argument || $option->shortArg == $argument)
+				{
+					continue 2;
+				}
+			}
+
+			throw new \UnexpectedValueException(sprintf(g11n3t('The argument "%s" is not recognized.'), $argument));
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Get a user object.
 	 *
 	 * Some methods check for an authenticated user...
@@ -402,7 +422,7 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	public function displayGitHubRateLimit()
 	{
 		$this->out()
-			->out('<info>GitHub rate limit:...</info> ', false);
+			->out('<info>' . g11n3t('GitHub rate limit:...') . '</info> ', false);
 
 		$rate = $this->container->get('gitHub')->authorization->getRateLimit()->resources->core;
 
@@ -452,18 +472,20 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 	 */
 	protected function loadLanguage()
 	{
+		$languages = LanguageHelper::getLanguageCodes();
+
 		// Get the language tag from user input.
 		$lang = $this->input->get('lang');
 
 		if ($lang)
 		{
-			if (false == in_array($lang, $this->get('languages')))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown language from user input - fall back to default
-				$lang = g11n::getDefault();
+				$lang = G11n::getDefault();
 			}
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown default language - Fall back to British.
 				$lang = 'en-GB';
@@ -471,9 +493,9 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		}
 		else
 		{
-			$lang = g11n::getCurrent();
+			$lang = G11n::getCurrent();
 
-			if (false == in_array($lang, $this->get('languages')))
+			if (false === in_array($lang, $languages))
 			{
 				// Unknown current language - Fall back to British.
 				$lang = 'en-GB';
@@ -483,25 +505,25 @@ class Application extends AbstractCliApplication implements ContainerAwareInterf
 		if ($lang)
 		{
 			// Set the current language if anything has been found.
-			g11n::setCurrent($lang);
+			G11n::setCurrent($lang);
 		}
 
 		// Set language debugging.
-		g11n::setDebug($this->get('debug.language'));
+		G11n::setDebug($this->get('debug.language'));
 
 		// Set the language cache directory.
 		if ('vagrant' == getenv('JTRACKER_ENVIRONMENT'))
 		{
-			g11n::setCacheDir('/tmp');
+			ExtensionHelper::setCacheDir('/tmp');
 		}
 		else
 		{
-			g11n::setCacheDir(JPATH_ROOT . '/cache');
+			ExtensionHelper::setCacheDir(JPATH_ROOT . '/cache');
 		}
 
 		// Load the CLI language file.
-		g11n::addDomainPath('CLI', JPATH_ROOT);
-		g11n::loadLanguage('cli', 'CLI');
+		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
+		G11n::loadLanguage('cli', 'CLI');
 
 		return $this;
 	}

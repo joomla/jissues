@@ -1,32 +1,32 @@
-# JTracker Template JTracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Kenneth Strømsvold <kenneth@stromsvold.com>, 2014-2015
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-04-25 23:04+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/opentranslators/jtracker/language/nb_NO/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Norwegian Bokmal\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: nb\n"
+"X-Crowdin-File: jtracker-template_en.po\n"
+"Language: nb_NO\n"
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
 msgstr "Hjem"
 
-#: /templates/footerMenu.twig:19 /templates/topMenu.twig:30
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
 msgid "About"
 msgstr "Om"
 
-#: /templates/footerMenu.twig:20 /templates/topMenu.twig:40
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
 msgid "Community"
 msgstr "Fellesskap"
 
@@ -68,7 +68,7 @@ msgstr "Rapporter en feil"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr ""
+msgstr "Logg ut"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
@@ -80,14 +80,14 @@ msgstr "Alt innhold er opphavsrettslig beskyttet."
 
 #: /templates/footerMenu.twig:44
 #, php-format
-msgid "Joomla Hosting by %1$s"
-msgstr ""
+msgid "Joomla! Hosting by %1$s"
+msgstr "Joomla! hosting ved %1$s"
 
-#: /templates/index.twig:79
+#: /templates/index.twig:80
 msgid "Download"
 msgstr "Last ned"
 
-#: /templates/index.twig:82
+#: /templates/index.twig:83
 msgid "Demo"
 msgstr "Demo"
 
@@ -107,7 +107,8 @@ msgstr "Ingen milepæl"
 msgid "Select labels..."
 msgstr "Velger etiketter..."
 
-#: /templates/testcontainer.twig:6 /templates/testcontainer.twig:47
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
 msgid "Submit test result"
 msgstr "Send inn testresultater"
 
@@ -131,7 +132,8 @@ msgstr "Test feilet"
 msgid "Leave a comment (optional)"
 msgstr "Legg igjen en kommentar (valgfritt)"
 
-#: /templates/testcontainer.twig:53 /templates/testcontainer.twig:68
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
 msgid "Alter test result"
 msgstr "Forandre testresultat"
 
@@ -156,7 +158,8 @@ msgstr "Start opplasting"
 msgid "Cancel upload"
 msgstr "Avbryt opplasting"
 
-#: /templates/uploader.full.twig:24 /templates/uploader.full.twig:101
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
 msgid "Delete"
 msgstr "Slett"
 
@@ -165,19 +168,17 @@ msgid "Upload Notes"
 msgstr "Opplastingsnotater"
 
 #: /templates/uploader.full.twig:35
-msgid "The maximum file size for uploads is <strong>1 MB</strong>."
-msgstr "Den største filstørrelsen for opplastinger er satt til <strong>1 MB</strong>."
+#, php-format
+msgid "The maximum file size for uploads is %s."
+msgstr "Maksimal filstørrelse for opplastinger er %s."
 
 #: /templates/uploader.full.twig:36
-msgid ""
-"The following file types are allowed: <strong>JPG, GIF, PNG, TXT, PDF, DOCX,"
-" XLSX, PPTX</strong>."
-msgstr ""
+#, php-format
+msgid "The following file types are allowed: %s"
+msgstr "Følgende filtyper er tillatt: %s"
 
 #: /templates/uploader.full.twig:37
-msgid ""
-"You can <strong>drag & drop</strong> files from your desktop on this "
-"webpage."
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
 msgstr "Du kan <strong>dra og slippe</strong> filer fra ditt skrivebord på denne nettsiden."
 
 #: /templates/uploader.full.twig:52
@@ -188,11 +189,13 @@ msgstr "Behandler..."
 msgid "Start"
 msgstr "Start"
 
-#: /templates/uploader.full.twig:63 /templates/uploader.full.twig:106
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: /templates/uploader.full.twig:76 /templates/trackerMenu.twig:139
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
 msgid "Error"
 msgstr "Feil"
 
@@ -262,7 +265,7 @@ msgstr "Joomla! arrangementer"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Trademark & Licensing"
-msgstr ""
+msgstr "Joomla! varemerke og lisensiering"
 
 #: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
@@ -320,13 +323,14 @@ msgstr "Utvidelsesregister"
 msgid "Showcase Directory"
 msgstr "Visningsregister"
 
-#: /templates/topMenu.twig:70 /templates/topMenu.twig:92
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
 msgid "Language Packages"
-msgstr ""
+msgstr "Språkpakker"
 
 #: /templates/topMenu.twig:71
 msgid "Certification Program"
-msgstr ""
+msgstr "Sertifiseringsprogram"
 
 #: /templates/topMenu.twig:75
 msgid "Developers"
@@ -334,9 +338,10 @@ msgstr "Utviklere"
 
 #: /templates/topMenu.twig:77
 msgid "Developer Network"
-msgstr ""
+msgstr "Utviklernettverk"
 
-#: /templates/topMenu.twig:78 /templates/trackerMenu.twig:191
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
 msgid "Documentation"
 msgstr "Dokumentasjon"
 
@@ -392,122 +397,135 @@ msgstr "Prosjekt"
 msgid "Show"
 msgstr "Vis"
 
+#: /templates/trackerMenu.twig:28
+msgid "Project Activity"
+msgstr "Prosjektaktivitet"
+
 #: /templates/trackerMenu.twig:32
+msgid "Snapshot"
+msgstr "Øyeblikksbilde"
+
+#: /templates/trackerMenu.twig:36
+msgid "User Activity"
+msgstr "Brukeraktivitet"
+
+#: /templates/trackerMenu.twig:44
 msgid "Edit"
 msgstr "Endre"
 
-#: /templates/trackerMenu.twig:43
+#: /templates/trackerMenu.twig:55
 msgid "Access Groups"
 msgstr "Tilgangsgrupper"
 
-#: /templates/trackerMenu.twig:49
+#: /templates/trackerMenu.twig:61
 msgid "Labels"
 msgstr "Etiketter"
 
-#: /templates/trackerMenu.twig:55
+#: /templates/trackerMenu.twig:67
 msgid "Milestones"
 msgstr "Milepæler"
 
-#: /templates/trackerMenu.twig:61
+#: /templates/trackerMenu.twig:73
 msgid "Categories"
 msgstr "Kategorier"
 
-#: /templates/trackerMenu.twig:71
+#: /templates/trackerMenu.twig:83
 msgid "Projects"
 msgstr "Prosjekter"
 
-#: /templates/trackerMenu.twig:76
+#: /templates/trackerMenu.twig:88
 msgid "Users"
 msgstr "Brukere"
 
-#: /templates/trackerMenu.twig:83
+#: /templates/trackerMenu.twig:95
 msgid "System"
 msgstr "System"
 
-#: /templates/trackerMenu.twig:90
+#: /templates/trackerMenu.twig:102
 msgid "Configuration"
 msgstr "Konfigurasjon"
 
-#: /templates/trackerMenu.twig:96
+#: /templates/trackerMenu.twig:108
 msgid "phpinfo()"
 msgstr "phpinfo()"
 
-#: /templates/trackerMenu.twig:102
+#: /templates/trackerMenu.twig:114
 msgid "Logs"
 msgstr "Logger"
 
-#: /templates/trackerMenu.twig:106
+#: /templates/trackerMenu.twig:118
 msgid "Application"
 msgstr "Applikasjon"
 
-#: /templates/trackerMenu.twig:109
+#: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
 msgstr "Cron Jobs"
 
-#: /templates/trackerMenu.twig:114
+#: /templates/trackerMenu.twig:126
 msgid "Database"
 msgstr "Database"
 
-#: /templates/trackerMenu.twig:120
+#: /templates/trackerMenu.twig:132
 msgid "GitHub Issues"
 msgstr "GitHub Issues"
 
-#: /templates/trackerMenu.twig:126
+#: /templates/trackerMenu.twig:138
 msgid "GitHub Comments"
 msgstr "GitHub kommentarer"
 
-#: /templates/trackerMenu.twig:132
+#: /templates/trackerMenu.twig:144
 msgid "GitHub Pulls"
 msgstr "GitHub spørreundersøkelser"
 
-#: /templates/trackerMenu.twig:136
+#: /templates/trackerMenu.twig:148
 msgid "PHP"
 msgstr "PHP"
 
-#: /templates/trackerMenu.twig:146
+#: /templates/trackerMenu.twig:158
 msgid "Icons"
 msgstr "Ikoner"
 
-#: /templates/trackerMenu.twig:152
+#: /templates/trackerMenu.twig:164
 msgid "Routes"
 msgstr "Ruter"
 
-#: /templates/trackerMenu.twig:158
+#: /templates/trackerMenu.twig:170
 msgid "Text"
 msgstr "Tekst"
 
-#: /templates/trackerMenu.twig:164
+#: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
 msgstr "Tøm hurtiglager"
 
-#: /templates/trackerMenu.twig:181
+#: /templates/trackerMenu.twig:193
 msgid "About Us"
 msgstr "Om oss"
 
-#: /templates/trackerMenu.twig:186
+#: /templates/trackerMenu.twig:198
 msgid "Markdown"
 msgstr "Markdown"
 
-#: /templates/trackerMenu.twig:210
+#: /templates/trackerMenu.twig:222
 msgid "Admin"
 msgstr "Admin"
 
-#: /templates/trackerMenu.twig:215
+#: /templates/trackerMenu.twig:227
 msgid "View profile"
 msgstr "Vis profil"
 
-#: /templates/trackerMenu.twig:221
+#: /templates/trackerMenu.twig:233
 msgid "Edit profile"
 msgstr "Rediger profil"
 
-#: /templates/trackerMenu.twig:228
+#: /templates/trackerMenu.twig:240
 msgid "Logout"
 msgstr "Logg ut"
 
-#: /templates/trackerMenu.twig:237
+#: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
 msgstr "Logg inn med GitHub"
 
-#: /templates/trackerMenu.twig:241
+#: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
 msgstr "Ingen GitHub legitimasjonsopplysninger satt i konfigurasjonen"
+

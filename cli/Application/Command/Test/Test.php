@@ -20,7 +20,7 @@ class Test extends TrackerCommand
 	/**
 	 * Should the command exit or return the status.
 	 *
-	 * @var bool
+	 * @var    bool
 	 * @since  1.0
 	 */
 	protected $exit = true;
@@ -32,7 +32,7 @@ class Test extends TrackerCommand
 	 */
 	public function __construct()
 	{
-		$this->description = 'The test engine';
+		$this->description = g11n3t('The test engine');
 	}
 
 	/**

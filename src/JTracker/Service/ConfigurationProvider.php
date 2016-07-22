@@ -30,12 +30,10 @@ class ConfigurationProvider implements ServiceProviderInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param   Registry  $config  The config object.
-	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function __construct(Registry $config)
+	public function __construct()
 	{
 		// Check for a custom configuration.
 		$type = trim(getenv('JTRACKER_ENVIRONMENT'));
@@ -59,11 +57,9 @@ class ConfigurationProvider implements ServiceProviderInterface
 			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
 		}
 
-		$config->loadObject($configObject);
+		$this->config = (new Registry)->loadObject($configObject);
 
-		defined('JDEBUG') || define('JDEBUG', ($config->get('debug.system') || $config->get('debug.database')));
-
-		$this->config = $config;
+		defined('JDEBUG') || define('JDEBUG', ($this->config->get('debug.system') || $this->config->get('debug.database')));
 	}
 
 	/**
@@ -77,11 +73,11 @@ class ConfigurationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->set('config',
+		$container->share('config',
 			function ()
 			{
 				return $this->config;
-			}, true, true
+			}, true
 		);
 	}
 

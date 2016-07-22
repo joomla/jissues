@@ -38,17 +38,32 @@ class ReceiveIssuesHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
+		if (!isset($this->hookData->issue->number) || !is_object($this->hookData))
+		{
+			// If we can't get the issue number exit.
+			$this->response->message = 'Hook data did not exists';
+
+			return;
+		}
+
 		// If the item is already in the database, update it; else, insert it.
 		if ($this->checkIssueExists((int) $this->hookData->issue->number))
 		{
-			$this->updateData();
+			$result = $this->updateData();
 		}
 		else
 		{
-			$this->insertData();
+			$result = $this->insertData();
 		}
 
-		$this->response->message = 'Hook data processed successfully.';
+		if ($result)
+		{
+			$this->response->message = 'Hook data processed successfully.';
+		}
+		else
+		{
+			$this->response->message = 'Hook data processed unsuccessfully.';
+		}
 	}
 
 	/**
@@ -115,17 +130,18 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error adding GitHub issue %s/%s #%d to the tracker',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->hookData->issue->number
-				),
-				['exception' => $e]
+			$this->setStatusCode($e->getCode());
+			$logMessage = sprintf(
+				'Error adding GitHub issue %s/%s #%d to the tracker',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number
 			);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
 
-			$this->getContainer()->get('app')->close();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
 		}
 
 		// Get a table object for the new record to process in the event listeners

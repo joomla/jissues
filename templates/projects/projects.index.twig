@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Projects"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Projects"|_ }}{% endblock %}
 
 {% block prependMenu %}
     {% if user.isAdmin %}
@@ -30,7 +30,7 @@
             <th>{{ "Actions"|_ }}</th>
 
             {% if jdebug %}
-                <th style="width: 5%;">{{ "Id"|_ }}</th>
+                <th style="width: 5%;">{{ "ID"|_ }}</th>
             {% endif %}
         </tr>
 
@@ -42,10 +42,10 @@
                 <td>
                     {% if project.gh_user %}
                         {% if user.isAdmin %}
-                            <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">{{ "Hooks"|_ }}</a>
-                            <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">{{ "Labels"|_ }}</a>
+                            <a href="{{ uri.base.path }}project/{{ project.alias }}/hooks">{{ "Hooks"|_ }}</a> |
+                            <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">{{ "Labels"|_ }}</a> |
                         {% endif %}
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">{{ "Stats"|_ }}</a>
+                        <a href="{{ uri.base.path }}project/{{ project.alias }}/stats">{{ "Stats"|_ }}</a> |
                         <i class="icon-github"></i>
                         <a href="https://github.com/{{ project.gh_user }}/{{ project.gh_project }}">
                             {{ project.gh_user }}/{{ project.gh_project }}
@@ -53,12 +53,15 @@
                     {% endif %}
                 </td>
 
-                    <td style="white-space: nowrap;">
+                    <td>
                         <a href="{{ uri.base.path }}project/{{ project.alias }}">{{ "Show"|_ }}</a>
+                        | <a href="{{ uri.base.path }}activity/project/{{ project.alias }}">{{ "Project Activity"|_ }}</a>
+                        | <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}">{{ "Snapshot"|_ }}</a>
+                        | <a href="{{ uri.base.path }}activity/user/{{ project.alias }}">{{ "User Activity"|_ }}</a>
                     {% if user.isAdmin %}
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">{{ "Edit"|_ }}</a>
-                        <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">{{ "Delete"|_ }}</a>
+                        | <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">{{ "Groups"|_ }}</a>
+                        | <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">{{ "Edit"|_ }}</a>
+                        | <a href="{{ uri.base.path }}project/{{ project.alias }}/delete">{{ "Delete"|_ }}</a>
                     {% endif %}
                     </td>
 

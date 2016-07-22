@@ -19,14 +19,6 @@ use Application\Command\TrackerCommandOption;
 class Make extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'The make engine';
-
-	/**
 	 * Joomla! Github object
 	 *
 	 * @var    \Joomla\Github\Github
@@ -41,10 +33,12 @@ class Make extends TrackerCommand
 	 */
 	public function __construct()
 	{
+		$this->description = g11n3t('The make engine');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'noprogress', '',
-				'Don\'t use a progress bar.'
+				g11n3t("Don't use a progress bar.")
 			)
 		);
 	}

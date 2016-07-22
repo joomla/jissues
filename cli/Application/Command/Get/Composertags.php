@@ -24,6 +24,8 @@ class Composertags extends Get
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
 		$this->description = g11n3t('Retrieve a list of project tags from GitHub and show their installed versions.');
 
 		$this
@@ -45,7 +47,7 @@ class Composertags extends Get
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle(g11n3t('Retrieve composer tags'));
+		$this->getApplication()->outputTitle(g11n3t('Retrieve Composer tags'));
 
 		$path = JPATH_ROOT . '/vendor/composer/installed.json';
 
@@ -53,13 +55,14 @@ class Composertags extends Get
 
 		if (!$packages)
 		{
+			// TRANSLATORS: %s refers to a file system path.
 			throw new \UnexpectedValueException(sprintf(g11n3t('Can not read the packages file at %s'), $path));
 		}
 
-		$this->logOut(g11n3t('Start getting composer tags.'))
+		$this->logOut(g11n3t('Start getting Composer tags.'))
 			->setupGitHub()
 			->displayGitHubRateLimit()
-			->fetchTags($packages, $this->getApplication()->input->get('all'))
+			->fetchTags($packages, $this->getOption('all'))
 			->out()
 			->logOut(g11n3t('Finished.'));
 	}

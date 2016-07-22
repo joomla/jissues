@@ -1,23 +1,20 @@
-# JTracker App Tracker 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Dmitry Rekun, 2014-2015
-# Иван, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-03-22 16:44+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Russian (Russia) (http://www.transifex.com/opentranslators/jtracker/language/ru_RU/)\n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ru\n"
+"X-Crowdin-File: tracker-app_en.po\n"
 "Language: ru_RU\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: /templates/tracker/issue.edit.twig:52
 #: /templates/tracker/issue.edit.twig:217
@@ -73,7 +70,8 @@ msgstr "Билд"
 msgid "Easy test"
 msgstr "Простой тест"
 
-#: /templates/tracker/issue.edit.twig:155 /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.add.twig:65
 msgid "Categories"
 msgstr "Категории"
 
@@ -119,12 +117,12 @@ msgid "Saving..."
 msgstr "Сохранение..."
 
 #: /templates/tracker/tracker.filters.twig:7
-msgid "- status -"
-msgstr "- статус -"
+msgid "- Status -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:16
-msgid "- priority -"
-msgstr "- приоритет -"
+msgid "- Priority -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -155,20 +153,20 @@ msgid "You participated in"
 msgstr "В которых участвуешь"
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "- categories -"
-msgstr "- категории -"
+msgid "- Categories -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No categories"
 msgstr "Нет категорий"
 
 #: /templates/tracker/tracker.filters.twig:63
-msgid "- labels -"
-msgstr "- лейблы -"
+msgid "- Labels -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:74
-msgid "- tests -"
-msgstr "- тесты -"
+msgid "- Tests -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
@@ -183,8 +181,8 @@ msgid "Needs tests"
 msgstr "Нужны тесты"
 
 #: /templates/tracker/tracker.filters.twig:87
-msgid "- easy -"
-msgstr "- легкий -"
+msgid "- Easy -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
@@ -197,8 +195,8 @@ msgid "Yes"
 msgstr "Да"
 
 #: /templates/tracker/tracker.filters.twig:99
-msgid "- type -"
-msgstr "- тип -"
+msgid "- Type -"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
@@ -209,7 +207,7 @@ msgid "Pull Request"
 msgstr "Pull Request"
 
 #: /templates/tracker/tracker.filters.twig:111
-msgid "- milestones -"
+msgid "- Milestones -"
 msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:10
@@ -282,8 +280,8 @@ msgstr "Алиас"
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
-msgid "Color"
-msgstr "Цвет"
+msgid "Colour"
+msgstr ""
 
 #: /templates/tracker/tpl/activities.twig:24
 #: /templates/tracker/issue.add.twig:107
@@ -327,12 +325,14 @@ msgstr "Редактировать категорию"
 msgid "Issues List"
 msgstr "Список проблем"
 
-#: /templates/tracker/issues.index.twig:26 /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issues.index.twig:26
+#: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:97
 msgid "New Item"
 msgstr "Новая запись"
 
 #: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/categories.index.twig:48
 msgid "ID"
 msgstr "ID"
 
@@ -372,7 +372,7 @@ msgstr "Изменено"
 
 #: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
-msgstr ""
+msgstr "Веха: "
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Critical"
@@ -570,7 +570,16 @@ msgstr "Отправить комментарий"
 msgid "Login with GitHub to post a comment"
 msgstr "Войдите с GitHub, чтобы оставить комментарий"
 
-#: /templates/tracker/issue.add.twig:12 /templates/tracker/issue.add.twig:124
+#: /templates/tracker/issue.index.twig:596
+msgid "Older"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:599
+msgid "Newer"
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:124
 msgid "Submit"
 msgstr "Отправить"
 
@@ -587,11 +596,7 @@ msgid "Pro"
 msgstr "Про"
 
 #: /templates/tracker/issue.add.twig:54
-msgid ""
-"The priority of which this issue should be resolved. Please see the <a "
-"href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug "
-"Tracking Process</a> page for detailed information about the project's "
-"priorities."
+msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
 msgstr "Приоритет, с которым должна быть разрешена эта проблема. На странице <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> Вы найдете больше информации о приоритетах."
 
 #: /templates/tracker/issue.add.twig:61
@@ -603,37 +608,19 @@ msgid "Please select one or more Categories here that match to your issue."
 msgstr "Пожалуйста выберите одну или несколько категорий, которые подходят для вашей проблемы."
 
 #: /templates/tracker/issue.add.twig:90
-msgid ""
-"Report security issues to the Joomla! Security Strike Team (JSST) at <a "
-"href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a "
-"href=\"https://developer.joomla.org/contact-security-team.html\">JSST "
-"contact form</a>, please do not use the public tracker for security issues."
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
 msgstr "Подавайте отчет о проблемах безопасности команде Joomla! Security Strike Team (JSST) на <a href=\"mailto:security@joomla.org\">security@joomla.org</a> или через <a href=\"https://developer.joomla.org/contact-security-team.html\">форму контактов JSST </a>, пожалуйста не используйте для этих целей публичный трекер."
 
 #: /templates/tracker/issue.add.twig:94
-msgid ""
-"To report a bug in the Joomla! bug trackers, you need to create a tracker "
-"item. Once the tracker item is created, the developers will check the "
-"validity of it and act accordingly."
+msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
 msgstr "Для сообщения о баге, необходимо создать запись на трекере. Как только запись на трекере будет создана, разработчики проверят её и далее будут действовать в соответствии процессу. Язык заполнения - английский."
 
 #: /templates/tracker/issue.add.twig:104
-msgid ""
-"Describe in a few words the issues you are having. It is generally a good "
-"idea to use existing tracker items as examples if this is your first time "
-"reporting a bug."
+msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
 msgstr "Опишите в нескольких словах проблему, которая у Вас возникла. Если это Ваше первое сообщение о баге, то неплохой идеей является использование существующих записей на трекере в качестве примера."
 
 #: /templates/tracker/issue.add.twig:120
-msgid ""
-"This is the most important part of reporting the bug. Describe here step by "
-"step how you got the error you are noticing. Include all of the information "
-"that someone will need to re-trace your steps and see the problem. Remember:"
-" your bug will not be fixed unless others can see the problem, so you want "
-"to be as clear and detailed as possible. You do not need to know anything "
-"about programming to write a great bug report. But if you do understand the "
-"code and think you know how to fix the bug, please include this in the "
-"report."
+msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
 msgstr "Это самая важная часть сообщения о баге. Опишите здесь шаг за шагом, как Вы обнаружили ошибку. Включите сюда всю информацию, чтобы тот, кто будет обрабатывать отчет, смог пройти по Вашим шагам и увидеть проблему. Помните: Ваш баг не будет исправлен, пока остальные не увидят проблему, поэтому старайтесь описать всё как можно подробней и понятней. Вам ничего не надо знать о программировании чтобы подать отчет. Но если Вы понимаете код и знаете как исправить проблему, то включитте это в отчет."
 
 #: /templates/tracker/issue.add.twig:228
@@ -648,10 +635,6 @@ msgstr "Список категорий"
 #: /templates/tracker/categories.index.twig:44
 msgid "Actions"
 msgstr "Действия"
-
-#: /templates/tracker/categories.index.twig:48
-msgid "Id"
-msgstr "Id"
 
 #: /templates/tracker/categories.index.twig:65
 msgid "Delete"
@@ -712,12 +695,12 @@ msgid "The length of the alias can not exceed 150 characters."
 msgstr "Длина алиаса не может привышать 150 символов."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
-msgid "Color should be the hex value."
-msgstr "Цвет должен быть в значении hex."
+msgid "Colour should be the hex value."
+msgstr ""
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
-msgid "Issue id is needed"
-msgstr "Необходимо id ошибки."
+msgid "Issue ID is needed"
+msgstr ""
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
@@ -738,3 +721,4 @@ msgstr "Билд обязателен"
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
 msgstr "Макс. длина билда 40 символов."
+

@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ item.username }}{% endblock %}
+{% block title %}{{ parent() }} | {{ item.username }}{% endblock %}
 
 {% block content %}
 

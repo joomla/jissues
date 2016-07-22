@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Edit Group"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Edit Group"|_ }}{% endblock %}
 
 {% block prependMenu %}
     <li>
@@ -21,7 +21,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-switch/build/css/bootstrap2/bootstrap-switch.css') }}" />
     {% endif %}
 {% endblock %}
 
@@ -34,7 +34,7 @@
     <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-typeahead.js') }}"></script>
     {% endif %}
 
-    <script>
+    <script type="text/javascript">
         jQuery('#searchUser').typeahead({
             source: function (query, process) {
                 return $.get(
@@ -231,7 +231,7 @@
                            onclick="assignUser(
                                    $('#searchUser').val(), {{ group.group_id }}, {{ project.project_id }}, 1, 'searchUser'
                                    );">
-                            {{ "Add User"|_ }}
+                            {{ "Add user"|_ }}
                         </a>
                     </div>
                     <div class="span4">
@@ -243,12 +243,12 @@
                            onclick="assignUser(
                                    $('#searchUserGroup').val(), {{ group.group_id }}, {{ project.project_id }}, 0, 'searchUserGroup'
                                    );">
-                            {{ "Remove User"|_ }}
+                            {{ "Remove user"|_ }}
                         </a>
                     </div>
                     <div class="span4">
                         <a class="btn" href="javascript:" onclick="listUsers({{ group.group_id }});">
-                            {{ "List assigned Users"|_ }}
+                            {{ "List assigned users"|_ }}
                         </a>
 
                         <div class="well-small" id="ajaxListUsers"></div>

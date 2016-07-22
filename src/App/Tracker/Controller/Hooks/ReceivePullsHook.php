@@ -57,6 +57,14 @@ class ReceivePullsHook extends AbstractHookController
 	 */
 	protected function prepareResponse()
 	{
+		if (!isset($this->hookData->pull_request->number) || !is_object($this->hookData))
+		{
+			// If we can't get the issue number exit.
+			$this->response->message = 'Hook data did not exists';
+
+			return;
+		}
+
 		// Pull or Issue ?
 		$this->data = $this->hookData->pull_request;
 
@@ -73,6 +81,10 @@ class ReceivePullsHook extends AbstractHookController
 		if ($result)
 		{
 			$this->response->message = 'Hook data processed successfully.';
+		}
+		else
+		{
+			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
 
@@ -314,36 +326,6 @@ class ReceivePullsHook extends AbstractHookController
 
 		$data['old_state'] = $oldState;
 		$data['new_state'] = $state;
-
-		$gitHubBot = null;
-
-		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
-		{
-			$gitHubBot = new GitHubHelper(
-				GithubFactory::getInstance(
-					$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
-				)
-			);
-		}
-
-		if ($gitHubBot && $table->pr_head_sha && $table->pr_head_sha != $this->data->head->sha)
-		{
-			// The PR has been updated.
-			$testers = (new IssueModel($this->getContainer()->get('db')))
-				->getAllTests($table->id);
-
-			if ($testers)
-			{
-				// Send a notification.
-				$comment = "This PR has received new commits.\n\n**CC:** @" . implode(', @', $testers);
-
-				$comment .= $gitHubBot->getApplicationComment($this->getContainer()->get('app'), $this->project, $table->issue_number);
-
-				$gitHubBot->addComment(
-					$this->project, $table->issue_number, $comment, $this->project->gh_editbot_user, $this->getContainer()->get('db')
-				);
-			}
-		}
 
 		$data['pr_head_sha'] = $this->data->head->sha;
 

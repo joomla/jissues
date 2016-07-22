@@ -4,7 +4,7 @@ The Issue Tracker proudly welcomes translations contributed via [Transifex](http
 
 ### Application configuration
 
-In order to interface with Transifex, the [BabDev Library](https://github.com/BabDev/BabDev-Library) is implemented which includes a wrapper for the Transifex API.  Within the application, a `transifex` array exists within the overall JSON object with three parameters:
+In order to interface with Transifex, the [BabDev Transifex Library](https://github.com/BabDev/Transifex-API) is implemented which includes a wrapper for the Transifex API.  Within the application, a `transifex` array exists within the overall JSON object with three parameters:
 
 * `username` - The username of your Transifex account
 * `password` - The password of your Transifex account
@@ -24,10 +24,10 @@ Resources should follow a `"extension" "domain"` naming convention for both the 
 
 #### Pushing to Transifex
 
-A CLI command, `update transifex`, pushes all of the language templates to Transifex which updates the source language for each resource.  Presently, the `GitHub` and `System` apps are not included since there are not any translatable strings.  The `Debug` template must be manually updated on Transifex because the Transifex object is not properly supporting sending it.  **TODO** Debug this.
+A CLI command, `update languagefiles --provider=transifex`, pushes all of the language templates to Transifex which updates the source language for each resource.  The `Debug` template must be manually updated on Transifex because the Transifex object is not properly supporting sending it.  **TODO** Debug this.
 
 #### Pulling from Transifex
 
-A CLI command, `get transifex` retrieves all translations from Transifex and updates the `.po` files in the filesystem with these resources.  Only languages listed in the `languages` array in the configuration JSON are retrieved.
+A CLI command, `get languagefiles --provider=transifex` retrieves all translations from Transifex and updates the `.po` files in the filesystem with these resources.  Only languages listed in the `languages` array in the configuration JSON are retrieved.
 
 * **TODO** Establish guidance on when a language is added to the configuration.

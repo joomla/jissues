@@ -12,12 +12,13 @@ use Adaptive\Diff\Diff;
 
 use App\Tracker\DiffRenderer\Html\Inline;
 
-use g11n\g11n;
+use ElKuKu\G11n\G11n;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 
 use JTracker\Application;
+use JTracker\Helper\LanguageHelper;
 
 /**
  * Twig extension class
@@ -79,11 +80,12 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		return [
 			'uri'            => $this->app->get('uri'),
 			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
-			'languages'      => $this->app->get('languages'),
+			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
+			'languageCodes'  => LanguageHelper::getLanguageCodes(),
 			'jdebug'         => JDEBUG,
 			'templateDebug'  => $this->app->get('debug.template', false),
-			'lang'           => $this->app->getUser()->params->get('language') ?: g11n::getCurrent(),
-			'g11nJavaScript' => g11n::getJavaScript(),
+			'lang'           => $this->app->getLanguageTag(),
+			'g11nJavaScript' => G11n::getJavaScript(),
 			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
 	}
@@ -99,6 +101,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	{
 		$functions = [
 			new \Twig_SimpleFunction('translate', 'g11n3t'),
+			new \Twig_SimpleFunction('_', 'g11n3t'),
 			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
 			new \Twig_SimpleFunction('sprintf', 'sprintf'),
 			new \Twig_SimpleFunction('stripJRoot', [$this, 'stripJRoot']),
@@ -483,7 +486,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function issueLink($number, $closed, $title = '')
 	{
-		$html = array();
+		$html = [];
 
 		$title = ($title) ? : ' #' . $number;
 		$href = $this->app->get('uri')->base->path
@@ -653,7 +656,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$renderer->setShowLineNumbers($showLineNumbers);
 		$renderer->setShowHeader($showHeader);
 
-		return $diff->Render($renderer);
+		return $diff->render($renderer);
 	}
 
 	/**

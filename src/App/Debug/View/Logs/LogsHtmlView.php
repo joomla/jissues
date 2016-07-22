@@ -72,8 +72,8 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 			? $this->processLog($type, $path)
 			: [sprintf(g11n3t('No %s log file found.'), $type)];
 
-		$this->renderer->set('log', $log);
-		$this->renderer->set('log_type', $type);
+		$this->addData('log', $log);
+		$this->addData('log_type', $type);
 
 		return parent::render();
 	}
@@ -91,7 +91,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 */
 	protected function processLog($type, $path)
 	{
-		if (false == file_exists($path))
+		if (false === file_exists($path))
 		{
 			return ['File not found in path: ' . $path];
 		}

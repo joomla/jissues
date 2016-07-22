@@ -10,6 +10,7 @@ namespace Application\Command\Test;
 
 use App\Projects\TrackerProject;
 
+use Application\Command\TrackerCommandOption;
 use Application\Exception\AbortException;
 
 use Joomla\Github\Github;
@@ -33,14 +34,6 @@ class Hook extends Test
 	protected $controller;
 
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Tests web hooks';
-
-	/**
 	 * Joomla! Github object
 	 *
 	 * @var    Github
@@ -57,6 +50,25 @@ class Hook extends Test
 	protected $project;
 
 	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Tests web hooks');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'project', 'p',
+				g11n3t('Process the project with the given ID.')
+			)
+		);
+	}
+
+	/**
 	 * Execute the command.
 	 *
 	 * @return  void
@@ -66,10 +78,7 @@ class Hook extends Test
 	 */
 	public function execute()
 	{
-		// Define JPATH_THEMES as it is used in the hooks
-		define('JPATH_THEMES', JPATH_ROOT . '/www');
-
-		$this->getApplication()->outputTitle('Test Hooks');
+		$this->getApplication()->outputTitle(g11n3t('Test Hooks'));
 
 		$this->logOut('Start testing hook');
 
@@ -94,13 +103,13 @@ class Hook extends Test
 	protected function selectHook()
 	{
 		$paths = (new Filesystem(new Local(JPATH_ROOT . '/src/App/Tracker/Controller/Hooks')))->listContents();
-		$hooks = array();
+		$hooks = [];
 
 		foreach ($paths as $path)
 		{
 			if ('file' == $path['type'])
 			{
-				$hooks[] = str_replace(array('Receive', 'Hook'), '', $path['filename']);
+				$hooks[] = str_replace(['Receive', 'Hook'], '', $path['filename']);
 			}
 		}
 
@@ -110,7 +119,7 @@ class Hook extends Test
 
 		$cnt = 1;
 
-		$checks = array();
+		$checks = [];
 
 		foreach ($hooks as $hook)
 		{
@@ -129,7 +138,7 @@ class Hook extends Test
 			throw new AbortException('Aborted');
 		}
 
-		if (false == array_key_exists($resp, $checks))
+		if (false === array_key_exists($resp, $checks))
 		{
 			throw new AbortException('Invalid hook');
 		}
@@ -167,15 +176,11 @@ class Hook extends Test
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
-				->select(array('project_id', 'title', 'gh_user', 'gh_project'))
+				->select(['project_id', 'title', 'gh_user', 'gh_project'])
 
 		)->loadObjectList();
-/*
-		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);
-		$user = new GitHubUser($this->getApplication()->getp);
-		$projects = with()->getItems();
-*/
-		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
+
+		$id = (integer) $this->getOption('project');
 
 		if (!$id)
 		{
@@ -185,7 +190,7 @@ class Hook extends Test
 
 			$cnt = 1;
 
-			$checks = array();
+			$checks = [];
 
 			foreach ($projects as $project)
 			{
@@ -207,7 +212,7 @@ class Hook extends Test
 				throw new AbortException('Aborted');
 			}
 
-			if (false == array_key_exists($resp, $checks))
+			if (false === array_key_exists($resp, $checks))
 			{
 				throw new AbortException('Invalid project');
 			}

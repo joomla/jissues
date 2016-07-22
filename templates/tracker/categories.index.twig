@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Categories List"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Categories List"|_ }}{% endblock %}
 
 {% block prependMenu %}
     {% if user.check("manage") %}
@@ -25,8 +25,8 @@
     {% if templateDebug %}
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}" />
 {% endblock %}
 
 {% block content %}
@@ -38,14 +38,14 @@
         <tr>
             <th style="width: 10%">{{ "Alias"|_ }}</th>
             <th style="width: 10%">{{ "Title"|_ }}</th>
-            <th style="width: 10%">{{ "Color"|_ }}</th>
+            <th style="width: 10%">{{ "Colour"|_ }}</th>
 
             {% if user.check("manage") %}
                 <th style="width: 10%;">{{ "Actions"|_ }}</th>
             {% endif %}
 
             {% if jdebug %}
-                <th style="width: 5%;">{{ "Id"|_ }}</th>
+                <th style="width: 5%;">{{ "ID"|_ }}</th>
             {% endif %}
         </tr>
 

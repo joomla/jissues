@@ -40,7 +40,7 @@ class Avatars extends Get
 	{
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getApplication()->input->get('noprogress'))
+		if ($this->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -145,6 +145,15 @@ class Avatars extends Get
 		}
 
 		return $this->out()
-			->logOut(sprintf(g11n3t('Added %d new user avatars'), $adds));
+			->logOut(
+				sprintf(
+					g11n4t(
+						'Added one new user avatar',
+						'Added %d new user avatars',
+						$adds
+					),
+					$adds
+				)
+			);
 	}
 }

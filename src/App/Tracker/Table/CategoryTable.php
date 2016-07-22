@@ -71,7 +71,7 @@ class CategoryTable extends AbstractDatabaseTable
 
 		if (strlen($this->color) != 6)
 		{
-			$errors[] = g11n3t('Color should be the hex value.');
+			$errors[] = g11n3t('Colour should be the hex value.');
 		}
 
 		if ($errors)

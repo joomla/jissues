@@ -66,5 +66,7 @@ class Edit extends AbstractTrackerController
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
 		$this->view->setItem($this->model->getItem($this->getContainer()->get('app')->input->getInt('id')));
+
+		return $this;
 	}
 }

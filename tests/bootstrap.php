@@ -7,9 +7,6 @@
  * @link       http://www.phpunit.de/manual/current/en/installation.html
  */
 
-// Fix magic quotes.
-@ini_set('magic_quotes_runtime', 0);
-
 // Maximise error reporting.
 error_reporting(-1);
 ini_set('display_errors', 1);
@@ -17,21 +14,16 @@ ini_set('display_errors', 1);
 /*
  * Ensure that required path constants are defined.
  */
-define('JPATH_TESTS',  realpath(__DIR__));
-defined('JPATH_ROOT') || define('JPATH_ROOT',   realpath(JPATH_TESTS . '/tmp'));
-define('JPATH_THEMES', JPATH_TESTS . '/themes_base');
+defined('JPATH_ROOT') || define('JPATH_ROOT', realpath(dirname(__DIR__)));
+defined('JPATH_CONFIGURATION') || define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');
+defined('JPATH_THEMES') || define('JPATH_THEMES', JPATH_ROOT . '/www');
+defined('JPATH_TEMPLATES') || define('JPATH_TEMPLATES', JPATH_ROOT . '/templates');
 
+$composerPath = JPATH_ROOT . '/vendor/autoload.php';
 
-// Register the test classes.
-$loader = require __DIR__ . '/../vendor/autoload.php';
+if (!file_exists($composerPath))
+{
+	throw new RuntimeException('Composer is not set up, please run "composer install".');
+}
 
-// Add the namespace for our application to the autoloader.
-$loader->add('Test', __DIR__);
-
-/*
- * The PHP garbage collector can be too aggressive in closing circular references before they are no longer needed.  This can cause
- * segfaults during long, memory-intensive processes such as testing large test suites and collecting coverage data.  We explicitly
- * disable garbage collection during the execution of PHPUnit processes so that we (hopefully) don't run into these issues going
- * forwards.  This is only a problem PHP 5.3+.
- */
-gc_disable();
+require JPATH_ROOT . '/vendor/autoload.php';

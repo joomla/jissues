@@ -3,15 +3,15 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Users"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Users"|_ }}{% endblock %}
 
 {% block headerCSS %}
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}" />
 {% endblock %}
 
 {% block content %}

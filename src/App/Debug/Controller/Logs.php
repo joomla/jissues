@@ -8,7 +8,6 @@
 
 namespace App\Debug\Controller;
 
-use App\Debug\TrackerDebugger;
 use App\Debug\View\Logs\LogsHtmlView;
 
 use JTracker\Controller\AbstractTrackerController;
@@ -39,7 +38,7 @@ class Logs extends AbstractTrackerController
 		$this->getContainer()->get('app')->getUser()->authorize('admin');
 
 		$this->view->setLogType($this->getContainer()->get('app')->input->get('log_type'));
-		$this->view->setDebugger(new TrackerDebugger($this->getContainer()));
+		$this->view->setDebugger($this->getContainer()->get('debugger'));
 
 		return $this;
 	}

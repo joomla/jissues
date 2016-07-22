@@ -1,0 +1,531 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:50-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: French, Canada\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: fr-CA\n"
+"X-Crowdin-File: jtracker-template_en.po\n"
+"Language: fr_CA\n"
+
+#: /templates/footerMenu.twig:18
+msgid "Home"
+msgstr "Accueil"
+
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
+msgid "About"
+msgstr "À propos"
+
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
+msgid "Community"
+msgstr "Communauté"
+
+#: /templates/footerMenu.twig:21
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:22
+msgid "Extensions"
+msgstr "Extensions"
+
+#: /templates/footerMenu.twig:23
+msgid "Resources"
+msgstr "Ressources"
+
+#: /templates/footerMenu.twig:24
+msgid "Docs"
+msgstr "Documentation"
+
+#: /templates/footerMenu.twig:25
+msgid "Developer"
+msgstr "Développeur"
+
+#: /templates/footerMenu.twig:26
+msgid "Shop"
+msgstr "Boutique"
+
+#: /templates/footerMenu.twig:30
+msgid "Accessibility Statement"
+msgstr "Déclaration d'accessibilité"
+
+#: /templates/footerMenu.twig:31
+msgid "Privacy Policy"
+msgstr "Charte de confidentialité"
+
+#: /templates/footerMenu.twig:32
+msgid "Report an Issue"
+msgstr "Signaler une anomalie"
+
+#: /templates/footerMenu.twig:34
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: /templates/footerMenu.twig:36
+msgid "Log in"
+msgstr "Connexion"
+
+#: /templates/footerMenu.twig:40
+msgid "All rights reserved."
+msgstr "Tous droits réservés."
+
+#: /templates/footerMenu.twig:44
+#, php-format
+msgid "Joomla! Hosting by %1$s"
+msgstr "Joomla! est hébergé par %1$s"
+
+#: /templates/index.twig:80
+msgid "Download"
+msgstr "Télécharger"
+
+#: /templates/index.twig:83
+msgid "Demo"
+msgstr "Démo"
+
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr "Sélectionner les catégories"
+
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr "Sélectionner un objectif"
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr "Aucun objectif"
+
+#: /templates/fields.twig:73
+msgid "Select labels..."
+msgstr "Sélectionner les étiquettes"
+
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr "Soumettre un résultat de test"
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr "J'ai testé cet élément"
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr "Non testé"
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr "Testé avec succès"
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr "Testé sans succès"
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr "Rédiger un commentaire (optionnel)"
+
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr "Modifier le résultat du test"
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr "Définir le résultat du test pour l'utilisateur %s comme %s"
+
+#: /templates/testcontainer.twig:55
+msgid "username"
+msgstr "Nom d'utilisateur"
+
+#: /templates/uploader.full.twig:14
+msgid "Add files..."
+msgstr "Ajouter des fichiers..."
+
+#: /templates/uploader.full.twig:18
+msgid "Start upload"
+msgstr "Débuter le chargement"
+
+#: /templates/uploader.full.twig:21
+msgid "Cancel upload"
+msgstr "Annuler le chargement"
+
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
+msgid "Delete"
+msgstr "Supprimer"
+
+#: /templates/uploader.full.twig:33
+msgid "Upload Notes"
+msgstr "Notes de chargement"
+
+#: /templates/uploader.full.twig:35
+#, php-format
+msgid "The maximum file size for uploads is %s."
+msgstr "La taille de fichier maximale pour les chargements est de %s."
+
+#: /templates/uploader.full.twig:36
+#, php-format
+msgid "The following file types are allowed: %s"
+msgstr "Les types de fichiers suivants sont autorisés : %s"
+
+#: /templates/uploader.full.twig:37
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
+msgstr "Vous pouvez <strong>Glisser-Déposer</strong> les fichiers depuis votre ordinateur vers cette page Web."
+
+#: /templates/uploader.full.twig:52
+msgid "Processing..."
+msgstr "Traitement en cours..."
+
+#: /templates/uploader.full.twig:58
+msgid "Start"
+msgstr "Démarrer"
+
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
+msgid "Cancel"
+msgstr "Annuler"
+
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
+msgid "Error"
+msgstr "Erreur"
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
+msgstr "Sélectionner la langue"
+
+#: /templates/topMenu.twig:16
+msgid "Joomla! Home"
+msgstr "Accueil Joomla!"
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "Actualités"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "Annonces"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "Blogs"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "Magazine"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "Aider Joomla!"
+
+#: /templates/topMenu.twig:24
+msgid "Contribute"
+msgstr "Contribuer"
+
+#: /templates/topMenu.twig:25
+msgid "Shop Joomla Gear"
+msgstr "La boutique Joomla!"
+
+#: /templates/topMenu.twig:26
+msgid "Sponsorship"
+msgstr "Parrainage"
+
+#: /templates/topMenu.twig:32
+msgid "About Joomla!"
+msgstr "À propos de Joomla!"
+
+#: /templates/topMenu.twig:33
+msgid "Core Features"
+msgstr "Fonctionnalités du noyau"
+
+#: /templates/topMenu.twig:34
+msgid "The Project"
+msgstr "Le Projet"
+
+#: /templates/topMenu.twig:35
+msgid "Leadership"
+msgstr "La direction"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! Community Portal"
+msgstr "Portail de la Communauté Joomla!"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! Events"
+msgstr "Événements Joomla!"
+
+#: /templates/topMenu.twig:44
+msgid "Joomla! Trademark & Licensing"
+msgstr "Joomla! Trademark & Licence"
+
+#: /templates/topMenu.twig:45
+msgid "Joomla! User Groups"
+msgstr "Groupes d'utilisateurs Joomla!"
+
+#: /templates/topMenu.twig:46
+msgid "Joomla! Volunteers Portal"
+msgstr "Portail des volontaires Joomla!"
+
+#: /templates/topMenu.twig:50
+msgid "Support"
+msgstr "Support"
+
+#: /templates/topMenu.twig:52
+msgid "Joomla! Forum"
+msgstr "Forum Joomla!"
+
+#: /templates/topMenu.twig:53
+msgid "Joomla! Documentation"
+msgstr "Documentation Joomla!"
+
+#: /templates/topMenu.twig:54
+msgid "Joomla! Issue Tracker"
+msgstr "Suiveur d'anomalies Joomla!"
+
+#: /templates/topMenu.twig:55
+msgid "Joomla! Resources"
+msgstr "Ressources Joomla!"
+
+#: /templates/topMenu.twig:59
+msgid "Read"
+msgstr "Lire"
+
+#: /templates/topMenu.twig:61
+msgid "Joomla! Magazine"
+msgstr "Magazine Joomla!"
+
+#: /templates/topMenu.twig:62
+msgid "Joomla! Connect"
+msgstr "Se connecter à Joomla!"
+
+#: /templates/topMenu.twig:63
+msgid "Joomla! Mailing Lists"
+msgstr "Listes de diffusion Joomla!"
+
+#: /templates/topMenu.twig:66
+msgid "Extend"
+msgstr "Enrichir"
+
+#: /templates/topMenu.twig:68
+msgid "Extension Directory"
+msgstr "Répertoire des extensions"
+
+#: /templates/topMenu.twig:69
+msgid "Showcase Directory"
+msgstr "Répertoire vitrine"
+
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
+msgid "Language Packages"
+msgstr "Paquets de langue"
+
+#: /templates/topMenu.twig:71
+msgid "Certification Program"
+msgstr "Programme de certification"
+
+#: /templates/topMenu.twig:75
+msgid "Developers"
+msgstr "Développeurs"
+
+#: /templates/topMenu.twig:77
+msgid "Developer Network"
+msgstr "Réseau des développeurs"
+
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
+msgid "Documentation"
+msgstr "Documentation"
+
+#: /templates/topMenu.twig:79
+msgid "Joomla! Bug Squad"
+msgstr "Joomla! Bug Squad"
+
+#: /templates/topMenu.twig:80
+msgid "Joomla! API"
+msgstr "API Joomla!"
+
+#: /templates/topMenu.twig:81
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:82
+msgid "Joomla! Framework"
+msgstr "Framework Joomla!"
+
+#: /templates/topMenu.twig:93
+msgid "Multilingual Demo"
+msgstr "Démo multilingue"
+
+#: /templates/topMenu.twig:94
+msgid "Translation Working Group"
+msgstr "Groupe de travail pour les traductions"
+
+#: /templates/topMenu.twig:95
+msgid "Translations Forum"
+msgstr "Forum des traductions"
+
+#: /templates/editor.twig:5
+msgid "Markdown Help"
+msgstr "Aide Markdown"
+
+#: /templates/editor.twig:6
+msgid "Write"
+msgstr "Écrire"
+
+#: /templates/editor.twig:7
+msgid "Preview"
+msgstr "Aperçu"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Suiveur d'anomalies"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projet"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Afficher"
+
+#: /templates/trackerMenu.twig:28
+msgid "Project Activity"
+msgstr "Activité du projet"
+
+#: /templates/trackerMenu.twig:32
+msgid "Snapshot"
+msgstr "Capture instantanée"
+
+#: /templates/trackerMenu.twig:36
+msgid "User Activity"
+msgstr "Activité de l'utilisateur"
+
+#: /templates/trackerMenu.twig:44
+msgid "Edit"
+msgstr "Modifier"
+
+#: /templates/trackerMenu.twig:55
+msgid "Access Groups"
+msgstr "Groupes d'accès"
+
+#: /templates/trackerMenu.twig:61
+msgid "Labels"
+msgstr "Étiquettes"
+
+#: /templates/trackerMenu.twig:67
+msgid "Milestones"
+msgstr "Objectifs"
+
+#: /templates/trackerMenu.twig:73
+msgid "Categories"
+msgstr "Catégories"
+
+#: /templates/trackerMenu.twig:83
+msgid "Projects"
+msgstr "Projets"
+
+#: /templates/trackerMenu.twig:88
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: /templates/trackerMenu.twig:95
+msgid "System"
+msgstr "Système"
+
+#: /templates/trackerMenu.twig:102
+msgid "Configuration"
+msgstr "Configuration"
+
+#: /templates/trackerMenu.twig:108
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:114
+msgid "Logs"
+msgstr "Journaux"
+
+#: /templates/trackerMenu.twig:118
+msgid "Application"
+msgstr "Application"
+
+#: /templates/trackerMenu.twig:121
+msgid "Cron Jobs"
+msgstr "Exécution automatique de scripts"
+
+#: /templates/trackerMenu.twig:126
+msgid "Database"
+msgstr "Base de données"
+
+#: /templates/trackerMenu.twig:132
+msgid "GitHub Issues"
+msgstr "Anomalies GitHub"
+
+#: /templates/trackerMenu.twig:138
+msgid "GitHub Comments"
+msgstr "Commentaires GitHub"
+
+#: /templates/trackerMenu.twig:144
+msgid "GitHub Pulls"
+msgstr "Pulls GitHub"
+
+#: /templates/trackerMenu.twig:148
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:158
+msgid "Icons"
+msgstr "Icônes"
+
+#: /templates/trackerMenu.twig:164
+msgid "Routes"
+msgstr "Chemins"
+
+#: /templates/trackerMenu.twig:170
+msgid "Text"
+msgstr "Texte"
+
+#: /templates/trackerMenu.twig:176
+msgid "Clear Cache"
+msgstr "Vider le cache"
+
+#: /templates/trackerMenu.twig:193
+msgid "About Us"
+msgstr "À propos de nous"
+
+#: /templates/trackerMenu.twig:198
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:222
+msgid "Admin"
+msgstr "Administrateur"
+
+#: /templates/trackerMenu.twig:227
+msgid "View profile"
+msgstr "Visualiser le profil"
+
+#: /templates/trackerMenu.twig:233
+msgid "Edit profile"
+msgstr "Modifier le profil"
+
+#: /templates/trackerMenu.twig:240
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: /templates/trackerMenu.twig:249
+msgid "Login with GitHub"
+msgstr "Connexion avec GitHub"
+
+#: /templates/trackerMenu.twig:253
+msgid "No GitHub credentials set in config"
+msgstr "Aucune information d'identification GitHub configurée"
+

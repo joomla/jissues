@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
+"POT-Creation-Date: 2016-07-18 09:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,12 @@ msgid "Project"
 msgstr ""
 
 #: /templates/projects/project.index.twig:14
-#: /templates/projects/projects.index.twig:60
+#: /templates/projects/projects.index.twig:63
 msgid "Edit"
 msgstr ""
 
 #: /templates/projects/project.index.twig:15
-#: /templates/projects/projects.index.twig:61
+#: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
 msgstr ""
@@ -52,7 +52,7 @@ msgid "Hooks"
 msgstr ""
 
 #: /templates/projects/project.index.twig:51
-#: /templates/projects/projects.index.twig:59
+#: /templates/projects/projects.index.twig:62
 msgid "Groups"
 msgstr ""
 
@@ -139,7 +139,7 @@ msgid "Actions"
 msgstr ""
 
 #: /templates/projects/projects.index.twig:33
-msgid "Id"
+msgid "ID"
 msgstr ""
 
 #: /templates/projects/projects.index.twig:48
@@ -148,6 +148,18 @@ msgstr ""
 
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:58
+msgid "Project Activity"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:59
+msgid "Snapshot"
+msgstr ""
+
+#: /templates/projects/projects.index.twig:60
+msgid "User Activity"
 msgstr ""
 
 #: /templates/projects/project.edit.twig:6

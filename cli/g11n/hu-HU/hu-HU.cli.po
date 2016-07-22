@@ -1,60 +1,166 @@
-# JTracker CLI cli 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# József Tamás Herczeg <jtherczeg@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-02-11 04:52+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/opentranslators/jtracker/language/hu_HU/)\n"
+"POT-Creation-Date: 2016-07-07 12:51-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: hu\n"
+"X-Crowdin-File: cli-cli_en.po\n"
+"Language: hu_HU\n"
 
-#: /cli/Application/Application.php:123
+#: /cli/Application/Application.php:104
 msgid "Be quiet - suppress output."
-msgstr "Hagyd békén - a kimenet mellőzése."
+msgstr "Csendes - a kimenet mellőzése."
 
-#: /cli/Application/Application.php:128
+#: /cli/Application/Application.php:109
 msgid "Verbose output for debugging purpose."
 msgstr "Részletes kimenet hibakeresés céljából."
 
-#: /cli/Application/Application.php:133
-msgid "Suppress ANSI colors on unsupported terminals."
+#: /cli/Application/Application.php:114
+msgid "Suppress ANSI colours on unsupported terminals."
 msgstr "Nem támogatott terminálokon az ANSI-színek mellőzése."
 
-#: /cli/Application/Application.php:138
+#: /cli/Application/Application.php:119
 msgid "Optionally log output to the specified log file."
 msgstr "A kimenet esetleges naplózása a megadott naplófájlba."
 
-#: /cli/Application/Application.php:184
+#: /cli/Application/Application.php:146
 msgid "Joomla! Tracker CLI Application"
 msgstr "Joomla! problémakövető CLI-alkalmazás"
 
-#: /cli/Application/Application.php:211
+#: /cli/Application/Application.php:173
 #, php-format
 msgid "Invalid command: %s"
 msgstr "Érvénytelen parancs: %s"
 
-#: /cli/Application/Application.php:218
+#: /cli/Application/Application.php:180
 msgid "Did you mean one of this?"
 msgstr "Ezek közül az egyikre gondoltál?"
 
-#: /cli/Application/Application.php:247
+#: /cli/Application/Application.php:209
 msgid "Process aborted."
 msgstr "A feldolgozás megszakadt."
 
-#: /cli/Application/Application.php:254
+#: /cli/Application/Application.php:216
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr "Végrehajtási idő: <b>%d mp..</b>"
+
+#: /cli/Application/Application.php:367
+msgid "GitHub rate limit:..."
+msgstr "GitHub sebességhatár:..."
+
+#: /cli/Application/Command/Clear/Cache.php:30
+msgid "Clear the g11n language directory."
+msgstr "Törölje a g11n nyelvi könyvtárat."
+
+#: /cli/Application/Command/Clear/Cache.php:42
+msgid "Clear g11n Cache Directory"
+msgstr "Törölje a g11n lemezgyorsítótár könyvtárat"
+
+#: /cli/Application/Command/Clear/Cache.php:49
+msgid "The g11n cache directory has been cleared."
+msgstr "A g11n lemezgyorsítótár könyvtár törölve."
+
+#: /cli/Application/Command/Clear/Clear.php:27
+msgid "This will clear things."
+msgstr "Ez ki fog takarítani dolgokat."
+
+#: /cli/Application/Command/Clear/Twig.php:30
+msgid "Clear the Twig cache."
+msgstr "Twig gyorsítótár ürítése."
+
+#: /cli/Application/Command/Clear/Twig.php:42
+msgid "Clear Twig Cache Directory"
+msgstr "Twig gyorsítótár könyvtár törlése"
+
+#: /cli/Application/Command/Clear/Twig.php:46
+msgid "Twig caching is not enabled."
+msgstr "Twig gyorsítótárazás nincs engedélyezve."
+
+#: /cli/Application/Command/Clear/Twig.php:64
+msgid "The Twig cache directory has been cleared."
+msgstr "A Twig lemezgyorsítótár könyvtár törölve."
+
+#: /cli/Application/Command/Database/Database.php:27
+msgid "This will track the database status."
+msgstr "Ez követni fogja az adatbázis állapotát."
+
+#: /cli/Application/Command/Database/Migrate.php:29
+msgid "Migrate the database schema to a newer version."
+msgstr "Az adatbázis-séma migrálása egy újabb verzióra."
+
+#: /cli/Application/Command/Database/Migrate.php:34
+msgid "Apply a specific database version."
+msgstr "Egy adott adatbázis-verzió alkalmazása."
+
+#: /cli/Application/Command/Database/Migrate.php:48
+msgid "Database Migrations: Migrate"
+msgstr "Adatbázis-áttelepítések: áttelepítés"
+
+#: /cli/Application/Command/Database/Migrate.php:68
+#, php-format
+msgid "Error migrating database: %s"
+msgstr "Hiba az adatbázis migrációja közben: %s"
+
+#: /cli/Application/Command/Database/Migrate.php:78
+msgid "Database migrated to latest version."
+msgstr "Adatbázis migrálás a legutolsó változatra."
+
+#: /cli/Application/Command/Database/Status.php:27
+msgid "Check the database migration status."
+msgstr "Ellenőrizze az adatbázis migráció állapotát."
+
+#: /cli/Application/Command/Database/Status.php:39
+msgid "Database Migrations: Check Status"
+msgstr "Adatbázis-Migrálás: Állapot ellenőrzése"
+
+#: /cli/Application/Command/Database/Status.php:48
+msgid "Your database is up-to-date."
+msgstr "Az adatbázisa napakész."
+
+#: /cli/Application/Command/Database/Status.php:56
+#, php-format
+msgid "Your database is not up-to-date. You are missing one migration."
+msgid_plural "Your database is not up-to-date. You are missing %d migrations."
+msgstr[0] "Az adatbázis már nem aktuális. Hiányzik egy migráció."
+msgstr[1] "Az adatbázis már nem aktuális. Hiányzik %d migráció."
+
+#: /cli/Application/Command/Database/Status.php:65
+#, php-format
+msgid "Current Version: %1$s"
+msgstr "Aktuális verzió: %1$s"
+
+#: /cli/Application/Command/Database/Status.php:66
+#, php-format
+msgid "Latest Version: %1$s"
+msgstr "Legújabb verzió: %1$s"
+
+#: /cli/Application/Command/Database/Status.php:68
+#, php-format
+msgid "To update, run the %1$s command."
+msgstr "Frissítéséhez futtassa a %1$s parancsot."
+
+#: /cli/Application/Command/Export/Langfiles.php:43
+msgid "Backup language files to a given folder."
+msgstr "Készítsen biztonsági másolatot a nyelvi fájlokról egy adott mappába."
+
+#: /cli/Application/Command/Export/Langfiles.php:72
+msgid "Export language files"
+msgstr "Nyelvi fájlok exportálása"
+
+#: /cli/Application/Command/Export/Langfiles.php:124
+#, php-format
+msgid "Processing %1$s %2$s:... "
+msgstr "Feldolgozás %1$s %2$s:... "
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
@@ -69,10 +175,10 @@ msgid "Start retrieving Avatars."
 msgstr "Az avatarok lekérésének indítása."
 
 #: /cli/Application/Command/Get/Avatars.php:56
-#: /cli/Application/Command/Get/Composertags.php:64
+#: /cli/Application/Command/Get/Composertags.php:67
+#: /cli/Application/Command/Get/Languagefiles.php:59
 #: /cli/Application/Command/Get/Project/Comments.php:61
 #: /cli/Application/Command/Get/Project/Events.php:75
-#: /cli/Application/Command/Get/Transifex.php:60
 msgid "Finished."
 msgstr "Kész."
 
@@ -95,65 +201,86 @@ msgstr "A/z %s nevű felhasználó avatarja már lehívásra került."
 #: /cli/Application/Command/Get/Avatars.php:122
 #, php-format
 msgid "Fetching avatar for user: %s"
-msgstr "A/z %s nevű felhasználó avatarjának lehívása"
+msgstr "A/z %s felhasználó avatarjának lehívása"
 
 #: /cli/Application/Command/Get/Avatars.php:134
 #, php-format
 msgid "Copy default image for user: %s"
 msgstr "A/z %s nevű felhasználó alapértelmezett képének másolása"
 
-#: /cli/Application/Command/Get/Avatars.php:148
+#: /cli/Application/Command/Get/Avatars.php:151
 #, php-format
-msgid "Added %d new user avatars"
-msgstr "%d új felhasználói avatar került hozzáadásra"
+msgid "Added one new user avatar"
+msgid_plural "Added %d new user avatars"
+msgstr[0] "Egy új felhasználó avatar hozzáadva"
+msgstr[1] "%d új felhasználói avatar került hozzáadásra"
 
-#: /cli/Application/Command/Get/Composertags.php:27
-msgid ""
-"Retrieve a list of project tags from GitHub and show their installed "
-"versions."
+#: /cli/Application/Command/Get/Composertags.php:29
+msgid "Retrieve a list of project tags from GitHub and show their installed versions."
 msgstr "A projektcímkék listájának lekérése a GitHubról, és telepített verzióik megjelenítése."
 
-#: /cli/Application/Command/Get/Composertags.php:33
+#: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
 msgstr "Az összes vagy csak a legújabb címkék megjelenítése."
 
-#: /cli/Application/Command/Get/Composertags.php:48
-msgid "Retrieve composer tags"
+#: /cli/Application/Command/Get/Composertags.php:50
+msgid "Retrieve Composer tags"
 msgstr "A szerkesztő címkéinek lekérése"
 
-#: /cli/Application/Command/Get/Composertags.php:56
+#. TRANSLATORS: %s refers to a file system path.
+#: /cli/Application/Command/Get/Composertags.php:59
 #, php-format
 msgid "Can not read the packages file at %s"
 msgstr "Nem olvashatók a csomagfájlok itt: %s"
 
-#: /cli/Application/Command/Get/Composertags.php:59
-msgid "Start getting composer tags."
+#: /cli/Application/Command/Get/Composertags.php:62
+msgid "Start getting Composer tags."
 msgstr "A szerkesztő címkék lekérdezésének indítása."
 
-#: /cli/Application/Command/Get/Composertags.php:101
+#: /cli/Application/Command/Get/Composertags.php:104
 msgid "Installed"
 msgstr "Telepítve"
 
-#: /cli/Application/Command/Get/Composertags.php:118
+#: /cli/Application/Command/Get/Composertags.php:121
 #, php-format
 msgid "Installed: %s"
 msgstr "Telepítve: %s"
 
-#: /cli/Application/Command/Get/Get.php:66
+#: /cli/Application/Command/Get/Get.php:84
 msgid "Retrieve Information from various sources."
 msgstr "Információk lekérése különböző forrásokból."
 
-#: /cli/Application/Command/Get/Get.php:72
+#: /cli/Application/Command/Get/Get.php:90
+#: /cli/Application/Command/Test/Hook.php:66
+#: /cli/Application/Command/Update/Update.php:72
 msgid "Process the project with the given ID."
 msgstr "A megadott azonosítószámú projekt feldolgozása."
 
-#: /cli/Application/Command/Get/Get.php:78
+#: /cli/Application/Command/Get/Get.php:96
+#: /cli/Application/Command/Make/Make.php:41
+#: /cli/Application/Command/Update/Update.php:78
 msgid "Don't use a progress bar."
 msgstr "Nincs folyamatjelző használata."
 
+#: /cli/Application/Command/Get/Languagefiles.php:39
+msgid "Retrieve language files."
+msgstr "Nyelvi fájlok letöltése."
+
+#: /cli/Application/Command/Get/Languagefiles.php:51
+msgid "Get Translations"
+msgstr "Fordítások letöltése"
+
+#: /cli/Application/Command/Get/Languagefiles.php:55
+msgid "Start fetching translations."
+msgstr "A fordítások lehívásának indítása."
+
+#: /cli/Application/Command/Get/Languagefiles.php:115
+#, php-format
+msgid "Processing: %1$s %2$s... "
+msgstr "Feldolgozás %1$s %2$s... "
+
 #: /cli/Application/Command/Get/Project.php:68
-msgid ""
-"Get the whole project info from GitHub, including issues and issue comments."
+msgid "Get the whole project info from GitHub, including issues and issue comments."
 msgstr "A projekt összes információjának lekérése a GitHubról, a problémákkal és a problémák megjegyzéseivel együtt."
 
 #: /cli/Application/Command/Get/Project.php:74
@@ -188,8 +315,8 @@ msgstr "Projekt lekérés tömeges indítása"
 
 #: /cli/Application/Command/Get/Project.php:125
 #, php-format
-msgid "Updating project info for project: %s/%s"
-msgstr "A következő projekt adatainak frissítése: %s/%s"
+msgid "Updating project info for project: %1$s/%2$s"
+msgstr "A következő projekt adatainak frissítése: %1$s/%2$s"
 
 #: /cli/Application/Command/Get/Project.php:137
 msgid "Bulk Finished"
@@ -209,7 +336,7 @@ msgstr "Tartomány"
 
 #: /cli/Application/Command/Get/Project.php:314
 msgid "Select: "
-msgstr "Válassz"
+msgstr "Válassz: "
 
 #: /cli/Application/Command/Get/Project.php:321
 msgid "Enter the first GitHub issue ID to process (from):"
@@ -259,21 +386,21 @@ msgstr "A/z %d sz. problémának nincsenek megjegyzései."
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
-msgstr[0] "A/z %2$d sz. probléma (%3$d/%4$d) egy megjegyzésének feldolgozása"
+msgstr[0] "A %2$d sz. probléma (%3$d/%4$d) egy megjegyzésének feldolgozása"
 msgstr[1] "A/z %2$d sz. probléma (%3$d/%4$d) %1$d megjegyzésének feldolgozása"
 
 #: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
 msgid "%1$d added, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "%1$d hozzáadva, %2$d frissítve, %3$d törölve."
 
 #: /cli/Application/Command/Get/Project/Comments.php:352
 msgid "Getting issue comments."
-msgstr ""
+msgstr "Megjegyzések lekérése."
 
 #: /cli/Application/Command/Get/Project/Comments.php:381
 msgid "Deleting issues comments."
-msgstr ""
+msgstr "Megjegyzések törlése."
 
 #: /cli/Application/Command/Get/Project/Events.php:43
 msgid "Retrieve issue events from GitHub."
@@ -303,39 +430,41 @@ msgstr "Események hozzáadása az adatbázishoz..."
 msgid "Added %d new issue events to the database"
 msgstr "A/z %d új probléma esemény hozzáadásra került az adatbázishoz"
 
-#: /cli/Application/Command/Get/Project/Issues.php:68
+#: /cli/Application/Command/Get/Project/Issues.php:66
 msgid "Retrieve issues from GitHub."
 msgstr "Problémák lekérése a GitHubról..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:80
+#: /cli/Application/Command/Get/Project/Issues.php:78
 msgid "Retrieve Issues"
 msgstr "Problémák lekérése"
 
-#: /cli/Application/Command/Get/Project/Issues.php:85
+#: /cli/Application/Command/Get/Project/Issues.php:83
 msgid "Start retrieve Issues"
 msgstr "Problémák lekérésének indítása"
 
-#: /cli/Application/Command/Get/Project/Issues.php:91
+#: /cli/Application/Command/Get/Project/Issues.php:89
 #: /cli/Application/Command/Get/Project/Labels.php:50
 #: /cli/Application/Command/Get/Project/Milestones.php:52
 msgid "Finished"
 msgstr "Kész."
 
-#: /cli/Application/Command/Get/Project/Issues.php:107
+#: /cli/Application/Command/Get/Project/Issues.php:105
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
 msgstr "<b>%s</b> elem lekérése a GitHubról..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:166
+#: /cli/Application/Command/Get/Project/Issues.php:167
 #, php-format
-msgid "Retrieved <b>%d</b> items from GitHub."
-msgstr "<b>%d</b> elem került lekérésre a GitHubról."
+msgid "Retrieved <b>1</b> item from GitHub."
+msgid_plural "Retrieved <b>%d</b> items from GitHub."
+msgstr[0] "<b>1</b> elem került lekérésre a GitHubról."
+msgstr[1] "<b>%d</b> elem került lekérésre a GitHubról."
 
-#: /cli/Application/Command/Get/Project/Issues.php:196
+#: /cli/Application/Command/Get/Project/Issues.php:203
 msgid "Adding issues to the database..."
 msgstr "A problémák hozzáadása az adatbázishoz..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:440
+#: /cli/Application/Command/Get/Project/Issues.php:447
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
 msgstr "<ok>%1$d hozzáadva, %2$d frissítve.</ok>"
@@ -382,17 +511,61 @@ msgstr "A mérföldkövek lehívása..."
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
 msgstr "Mérföldkövek: %1$d új, %2$d frissítve, %3$d törölve."
 
-#: /cli/Application/Command/Get/Transifex.php:37
-msgid "Retrieve language files from Transifex."
-msgstr "Nyelvi fájlok lekérése a Transifexről."
+#: /cli/Application/Command/Help/Help.php:38
+msgid "Displays helpful information"
+msgstr "Megjeleníti a hasznos információkat"
 
-#: /cli/Application/Command/Get/Transifex.php:49
-msgid "Get Translations"
-msgstr "Fordítások letöltése"
+#: /cli/Application/Command/Help/Help.php:70
+#, php-format
+msgid "<b>Usage</b>: %s"
+msgstr "<b>Használat</b>: %s"
 
-#: /cli/Application/Command/Get/Transifex.php:56
-msgid "Start fetching translations."
-msgstr "A fordítások lehívásának indítása."
+#: /cli/Application/Command/Help/Help.php:70
+#: /cli/Application/Command/Help/Help.php:93
+msgid "command"
+msgstr "parancs"
+
+#: /cli/Application/Command/Help/Help.php:70
+msgid "options"
+msgstr "beállítások"
+
+#: /cli/Application/Command/Help/Help.php:77
+msgid "Available commands:"
+msgstr "Rendelkezésre álló parancsok:"
+
+#: /cli/Application/Command/Help/Help.php:93
+#, php-format
+msgid "<b>For more information use</b>: %s"
+msgstr "<b>További információért használja</b>: %s"
+
+#: /cli/Application/Command/Help/Help.php:100
+msgid "Application command <opt>options</opt>"
+msgstr "Alkalmazás parancs <opt>beállítások</opt>"
+
+#. TRANSLATORS: %s refers to a command name
+#: /cli/Application/Command/Help/Help.php:124
+#, php-format
+msgid "Unknown: %s"
+msgstr "Ismeretlen: %s"
+
+#: /cli/Application/Command/Help/Help.php:134
+#: /cli/Application/Command/TrackerCommand.php:179
+#, php-format
+msgid "Command: %s"
+msgstr "Parancs: %s"
+
+#: /cli/Application/Command/Help/Help.php:134
+msgid "action"
+msgstr "művelet"
+
+#: /cli/Application/Command/Help/Help.php:141
+#: /cli/Application/Command/Help/Help.php:164
+msgid "Available options:"
+msgstr "Rendelkezésre álló lehetőségek:"
+
+#: /cli/Application/Command/Help/Help.php:152
+msgid "Available <cmd>actions</cmd>:"
+msgstr "Rendelkezésre álló <cmd>műveletek</cmd>:"
 
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
@@ -407,11 +580,11 @@ msgid "Installer"
 msgstr "Telepítő"
 
 #: /cli/Application/Command/Install/Install.php:71
-msgid "WARNING: A database has been found !!"
-msgstr "FIGYELMEZTETÉS: Található adatbázis!!"
+msgid "WARNING: A database has been found!"
+msgstr "FIGYELMEZTETÉS: Található adatbázis!"
 
 #: /cli/Application/Command/Install/Install.php:73
-msgid "Do you want to reinstall ?"
+msgid "Do you want to reinstall?"
 msgstr "Újra akarod telepíteni?"
 
 #: /cli/Application/Command/Install/Install.php:75
@@ -436,30 +609,288 @@ msgstr "Az adatbázis létrehozása..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has been completed successfully."
-msgstr ""
+msgstr "A telepítés sikeresen befejeződött."
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
 msgstr "A létező táblák eltávolítása..."
 
-#: /cli/Application/Command/Install/Install.php:179
+#: /cli/Application/Command/Install/Install.php:178
 #, php-format
 msgid "Install SQL file for %s not found."
 msgstr "A/z %s SQL-telepítőfájlja nem található."
 
-#: /cli/Application/Command/Install/Install.php:186
+#: /cli/Application/Command/Install/Install.php:185
 msgid "SQL file corrupted."
 msgstr "Az SQL-fájl sérült."
 
-#: /cli/Application/Command/Install/Install.php:189
+#: /cli/Application/Command/Install/Install.php:188
 #, php-format
 msgid "Creating tables from file %s"
 msgstr "Táblák létrehozása a/z %s fájlból"
 
-#: /cli/Application/Command/TrackerCommand.php:179
+#: /cli/Application/Command/Make/Autocomplete.php:31
+msgid "Generate an autocomplete file for PhpStorm."
+msgstr "Létrehoz egy automatikusan kitöltődő fájlt a PhpStorm-hoz."
+
+#: /cli/Application/Command/Make/Autocomplete.php:36
+msgid "An optional file to write the results to."
+msgstr "Egy opcionális fájlt az eredmények kiírásához."
+
+#: /cli/Application/Command/Make/Autocomplete.php:50
+msgid "Make Auto complete"
+msgstr "Automatikus kitöltés végrehajtása"
+
+#: /cli/Application/Command/Make/Autocomplete.php:124
+#: /cli/Application/Command/Make/Depfile.php:126
 #, php-format
-msgid "Command: %s"
-msgstr "Parancs: %s"
+msgid "Writing contents to: %s"
+msgstr "Tartalom kiírása: %s"
+
+#: /cli/Application/Command/Make/Composergraph.php:40
+msgid "Graph visualisation for your project's composer.json and its dependencies."
+msgstr "Grafikon megjelenítés a projekt composer.json-hoz és az összefüggésekhez."
+
+#: /cli/Application/Command/Make/Composergraph.php:46
+#: /cli/Application/Command/Make/Depfile.php:57
+msgid "Write output to a file."
+msgstr "Kimenet fájlba írása."
+
+#: /cli/Application/Command/Make/Composergraph.php:52
+msgid "The image type."
+msgstr "A kép típusa."
+
+#: /cli/Application/Command/Make/Composergraph.php:66
+msgid "Make Composer graph"
+msgstr "A Composer diagram generálása"
+
+#: /cli/Application/Command/Make/Composergraph.php:102
+msgid "The graph has been created."
+msgstr "A grafikon létrehozva."
+
+#: /cli/Application/Command/Make/Composergraph.php:140
+#, php-format
+msgid "The file has been written to %s"
+msgstr "A fájl kiírva %s"
+
+#: /cli/Application/Command/Make/Composergraph.php:157
+#, php-format
+msgid "Format has been set to %s"
+msgstr "Formátum beállítva %s"
+
+#: /cli/Application/Command/Make/Dbcomments.php:27
+msgid "Generate class doc blocks for Table classes"
+msgstr "Osztály doc blokkok létrehozása a tábla osztályokhoz"
+
+#: /cli/Application/Command/Make/Dbcomments.php:39
+msgid "Make Table Comments"
+msgstr "Táblázat észrevételei létrehozása"
+
+#: /cli/Application/Command/Make/Depfile.php:52
+msgid "Create and update a dependency file."
+msgstr "Hozza létre és frissítse a függőség fájlt."
+
+#: /cli/Application/Command/Make/Depfile.php:260
+#, php-format
+msgid "Language file not found %1$s, %2$s, %3$s"
+msgstr "Nyelvi fájl nem található %1$s, %2$s, %3$s"
+
+#: /cli/Application/Command/Make/Docu.php:29
+msgid "Compile documentation using GitHub Flavored Markdown"
+msgstr "Dokumentáció készítése a GitHub Flavored Markdown segítségével"
+
+#: /cli/Application/Command/Make/Docu.php:41
+msgid "Make Documentation"
+msgstr "Dokumentáció létrehozása"
+
+#: /cli/Application/Command/Make/Docu.php:63
+#, php-format
+msgid "Compiling documentation in: %s"
+msgstr "A dokumentáció összeállítása: %s"
+
+#: /cli/Application/Command/Make/Langfiles.php:36
+msgid "Create and update language files."
+msgstr "A nyelvi fájlok létrehozása és frissítése."
+
+#: /cli/Application/Command/Make/Langfiles.php:41
+#: /cli/Application/Command/Make/Langtemplates.php:53
+msgid "Process only this extension"
+msgstr "Csak ennek a kiterjesztésnek a kezelése"
+
+#: /cli/Application/Command/Make/Langfiles.php:56
+msgid "Make Language files"
+msgstr "Nyelvi fájlok létrehozása"
+
+#: /cli/Application/Command/Make/Langfiles.php:150
+#, php-format
+msgid "Processing: %1$s %2$s %3$s"
+msgstr "Feldolgozás: %1$s %2$s %3$s"
+
+#: /cli/Application/Command/Make/Langfiles.php:159
+#: /cli/Application/Command/Test/Langfiles.php:84
+msgid "The file does not have UNIX style line endings!"
+msgstr "A fájl nem tartalmaz UNIX stílusú sorvégződéseket!"
+
+#: /cli/Application/Command/Make/Langfiles.php:167
+msgid "Creating language file..."
+msgstr "Nyelvi fájl létrehozása..."
+
+#: /cli/Application/Command/Make/Langfiles.php:206
+msgid "The language file has been created"
+msgstr "A nyelvi fájl létre lett hozva"
+
+#: /cli/Application/Command/Make/Langfiles.php:211
+msgid "Updating language file..."
+msgstr "Nyelvi fájl frissítése..."
+
+#: /cli/Application/Command/Make/Langtemplates.php:48
+msgid "Create language file templates."
+msgstr "Hozzon létre a nyelvi fájl sablonokat."
+
+#: /cli/Application/Command/Make/Langtemplates.php:69
+msgid "Make Language templates"
+msgstr "Nyelvi sablonok létrehozása"
+
+#: /cli/Application/Command/Make/Langtemplates.php:90
+#: /cli/Application/Command/Make/Langtemplates.php:103
+#: /cli/Application/Command/Make/Langtemplates.php:116
+#: /cli/Application/Command/Make/Langtemplates.php:135
+#, php-format
+msgid "Processing: %1$s %2$s"
+msgstr "Feldolgozás: %1$s %2$s"
+
+#: /cli/Application/Command/Make/Langtemplates.php:161
+#, php-format
+msgid "Processing App: %s"
+msgstr "Alkalmazás feldolgozása: %s"
+
+#: /cli/Application/Command/Make/Langtemplates.php:338
+msgid "Your template has been created"
+msgstr "A sablon létre lett hozva"
+
+#: /cli/Application/Command/Make/Languageflags.php:34
+msgid "Full path to the combined image file."
+msgstr "A kombinált kép fájl teljes elérési útja."
+
+#: /cli/Application/Command/Make/Languageflags.php:40
+msgid "Full path to the CSS file."
+msgstr "A CSS-fájl teljes elérési útja."
+
+#: /cli/Application/Command/Make/Languageflags.php:44
+msgid "Compile multiple images into a big one (CSS spriting)."
+msgstr "Összerak több képet egy nagy fájlba (CSS spriting)."
+
+#: /cli/Application/Command/Make/Languageflags.php:56
+msgid "Compile Language flag images"
+msgstr "Összerakja a nyelvet jelző zászló-képeket"
+
+#: /cli/Application/Command/Make/Languageflags.php:109
+#, php-format
+msgid "Generating the combined image for %1$d flag images in %2$s"
+msgstr "A zászlót jelző %1$d képek összerakása egy kombinált nagy képbe %2$s"
+
+#: /cli/Application/Command/Make/Languageflags.php:115
+#, php-format
+msgid "Writing the CSS file to %s"
+msgstr "A CSS-fájl írása %s"
+
+#: /cli/Application/Command/Make/Make.php:36
+msgid "The make engine"
+msgstr "A létrehozó motor"
+
+#: /cli/Application/Command/Make/Repoinfo.php:35
+msgid "Generate repository information."
+msgstr "Tároló információk létrehozása."
+
+#: /cli/Application/Command/Make/Repoinfo.php:50
+msgid "Generate Repo information"
+msgstr "Tároló információk létrehozása"
+
+#: /cli/Application/Command/Test/Checkstyle.php:29
+msgid "Run PHP CodeSniffer tests."
+msgstr "A PHP CodeSniffer vizsgálatok futtatása."
+
+#: /cli/Application/Command/Test/Checkstyle.php:42
+msgid "Test Checkstyle"
+msgstr "Checkstyle teszt"
+
+#: /cli/Application/Command/Test/Copypaste.php:30
+msgid "Run Copy/Paste Detector (CPD) for PHP code."
+msgstr "A Copy/Paste detektor (CPD) futtatása a PHP kódra."
+
+#: /cli/Application/Command/Test/Copypaste.php:43
+msgid "Run Copy/Paste Detector"
+msgstr "A Copy/Paste detektor futtatása"
+
+#: /cli/Application/Command/Test/Hook.php:61
+msgid "Tests web hooks"
+msgstr "Webes beavatkozási rutinok vizsgálata"
+
+#: /cli/Application/Command/Test/Hook.php:81
+msgid "Test Hooks"
+msgstr "Beavatkozási rutinok vizsgálata"
+
+#: /cli/Application/Command/Test/Langfiles.php:33
+#: /cli/Application/Command/Test/Langfiles.php:46
+msgid "Check language files"
+msgstr "Ellenőrizze a nyelvi fájlokat"
+
+#: /cli/Application/Command/Test/Langfiles.php:109
+msgid "There have been errors."
+msgstr "Hibák történtek."
+
+#: /cli/Application/Command/Test/Langfiles.php:110
+msgid "Language file syntax OK"
+msgstr "Nyelvi fájl szintaxis OK"
+
+#: /cli/Application/Command/Test/Phploc.php:30
+msgid "Run Lines Of Code (LOC) for PHP code."
+msgstr "Futtassa a Lines Of Code-t (LOC) a PHP kódon."
+
+#: /cli/Application/Command/Test/Phploc.php:43
+msgid "Run PHP Lines Of Code"
+msgstr "Futtatni a PHP Lines Of Code-t"
+
+#: /cli/Application/Command/Test/Phpunit.php:29
+msgid "Run PHPUnit tests."
+msgstr "Futtassa PHPUnit teszteket."
+
+#: /cli/Application/Command/Test/Phpunit.php:41
+msgid "Test PHPUnit"
+msgstr "PHPUnit teszt"
+
+#: /cli/Application/Command/Test/Phpunit.php:55
+msgid "Finished with errors."
+msgstr "Kész, hibákkal."
+
+#: /cli/Application/Command/Test/Phpunit.php:56
+msgid "Success"
+msgstr "Sikeres"
+
+#: /cli/Application/Command/Test/Run.php:27
+msgid "Run all tests"
+msgstr "Az összes tesztet futtatja"
+
+#: /cli/Application/Command/Test/Run.php:39
+msgid "Test Suite"
+msgstr "Teszt Sorozat"
+
+#: /cli/Application/Command/Test/Run.php:66
+msgid "Test Suite Finished with errors."
+msgstr "Tesztcsomag hibákkal fejeződött be."
+
+#: /cli/Application/Command/Test/Run.php:67
+msgid "Test Suite Finished."
+msgstr "Teszt csomag befejeződött."
+
+#: /cli/Application/Command/Test/Test.php:35
+msgid "The test engine"
+msgstr "A teszt motor"
+
+#: /cli/Application/Command/TrackerCommand.php:181
+#, php-format
+msgid "Missing option for command: %s"
+msgstr "Hiányzó parancs beállítás: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:182
 msgid "Please use one of the following :"
@@ -492,25 +923,84 @@ msgstr "Feldolgozás alatt álló projekt: %s"
 msgid "An unknown error occurred"
 msgstr "Ismeretlen hiba történt."
 
-#: /cli/Application/Command/Update/Server.php:84
-#, php-format
-msgid ""
-"Could not read data from the %s SQL file, please update the database "
-"manually."
-msgstr ""
+#: /cli/Application/Command/Update/Languagefiles.php:46
+msgid "Updates language files on a translation service."
+msgstr "Nyelvi fájlok frissítése a fordítási szolgáltatón."
 
-#: /cli/Application/Command/Update/Server.php:106
-#, php-format
-msgid ""
-"SQL query failed, please verify the database structure and finish the update"
-" manually.  The database error message is: %s"
-msgstr ""
+#: /cli/Application/Command/Update/Languagefiles.php:51
+msgid "The translation service provider to use."
+msgstr "A használandó fordítási szolgáltató."
 
-#: /cli/tracker.php:49
+#: /cli/Application/Command/Update/Languagefiles.php:57
+msgid "Flag if resources should be created."
+msgstr "Jelezze, ha erőforrásokat kell létrehozni."
+
+#: /cli/Application/Command/Update/Languagefiles.php:63
+msgid "Flag if translations should be uploaded."
+msgstr "Jelezze, ha fordítást kell feltölteni."
+
+#: /cli/Application/Command/Update/Languagefiles.php:77
+msgid "Update Translations"
+msgstr "Fordítások frissítése"
+
+#: /cli/Application/Command/Update/Pulls.php:35
+msgid "Updates selected information for pull requests on GitHub for a specified project."
+msgstr "Frissíti a kijelölt \"pull\" kéréseket a GitHubon egy projektre vonatkozóan."
+
+#: /cli/Application/Command/Update/Pulls.php:47
+msgid "Update Pull Requests"
+msgstr "\"Pull\" kérések frissítése"
+
+#: /cli/Application/Command/Update/Pulls.php:59
+#, php-format
+msgid "Updating pull requests for project: %s/%s"
+msgstr "A projekt \"pull\" kéréseinek frissítése: %s/%s"
+
+#: /cli/Application/Command/Update/Pulls.php:101
+#, php-format
+msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
+msgstr "GitHub elem %s/%s #%d lezárták, mert ez egy Joomla! 2.5-re vonatkozó \"pull\" kérés."
+
+#: /cli/Application/Command/Update/Pulls.php:114
+#: /cli/Application/Command/Update/Pulls.php:238
+#: /cli/Application/Command/Update/Pulls.php:285
+#, php-format
+msgid "The %s/%s project is not supported by this command at this time."
+msgstr "A %s/%s-projekt ebben az időben nem támogatja ezt a parancsot."
+
+#: /cli/Application/Command/Update/Pulls.php:201
+#, php-format
+msgid "GitHub item %s/%s #%d already has the %s label."
+msgstr "A %s/%s #%d GitHub elem már megkapta a %s címkét."
+
+#: /cli/Application/Command/Update/Pulls.php:220
+#, php-format
+msgid "Adding %s label to %s/%s #%d"
+msgstr "%s címke hozzáadása a %s/%s #%d"
+
+#: /cli/Application/Command/Update/Pulls.php:272
+#, php-format
+msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
+msgstr "GitHub elem %s/%s #%d összefésülés állapota \"hiba\" értékre állítva."
+
+#: /cli/Application/Command/Update/Server.php:33
+msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
+msgstr "A helyi telepítést frissíti a megadott verzióra vagy az aktív ág legújabb git HEAD-ig"
+
+#: /cli/Application/Command/Update/Server.php:38
+msgid "An optional version number to update to."
+msgstr "Egy opcionális verziószám a frissítéséhez."
+
+#: /cli/Application/Command/Update/Update.php:66
+msgid "Used to update resources"
+msgstr "Az erőforrások frissítésére használva"
+
+#: /cli/tracker.php:100 /cli/tracker.php:129
 #, php-format
 msgid "ERROR: %s"
 msgstr "HIBA: %s"
 
-#: /cli/tracker.php:51
+#: /cli/tracker.php:102 /cli/tracker.php:131
 msgid "Call stack:"
-msgstr "Hívásverem"
+msgstr "Hívási verem:"
+

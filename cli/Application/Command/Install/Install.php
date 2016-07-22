@@ -65,12 +65,12 @@ class Install extends TrackerCommand
 			// Check if the database "exists"
 			$tables = $this->db->getTableList();
 
-			if (!$this->getApplication()->input->get('reinstall'))
+			if (!$this->getOption('reinstall'))
 			{
 				$this->out()
-					->out('<fg=black;bg=yellow>' . g11n3t('WARNING: A database has been found !!') . '</fg=black;bg=yellow>')
+					->out('<fg=black;bg=yellow>' . g11n3t('WARNING: A database has been found!') . '</fg=black;bg=yellow>')
 					->out()
-					->out(g11n3t('Do you want to reinstall ?'))
+					->out(g11n3t('Do you want to reinstall?'))
 					->out()
 					->out('1) ' . g11n3t('Yes'))
 					->out('2) ' . g11n3t('No'))
@@ -142,8 +142,7 @@ class Install extends TrackerCommand
 				continue;
 			}
 
-			$this->db->setQuery('DROP TABLE IF EXISTS ' . $table)
-				->execute();
+			$this->db->dropTable($table, true);
 			$this->out('.', false);
 		}
 
@@ -174,14 +173,14 @@ class Install extends TrackerCommand
 
 		$fName = JPATH_ROOT . '/etc/' . $dbType . '.sql';
 
-		if (false == file_exists($fName))
+		if (false === file_exists($fName))
 		{
 			throw new \UnexpectedValueException(sprintf(g11n3t('Install SQL file for %s not found.'), $dbType));
 		}
 
 		$sql = file_get_contents($fName);
 
-		if (false == $sql)
+		if (false === $sql)
 		{
 			throw new \UnexpectedValueException(g11n3t('SQL file corrupted.'));
 		}
@@ -203,7 +202,7 @@ class Install extends TrackerCommand
 			$this->out('.', false);
 		}
 
-		$this->outOk();
+		$this->outOK();
 
 		return $this;
 	}

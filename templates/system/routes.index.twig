@@ -3,7 +3,7 @@
 
 {% extends "index.twig" %}
 
-{% block title %}{{ "Routes"|_ }}{% endblock %}
+{% block title %}{{ parent() }} | {{ "Routes"|_ }}{% endblock %}
 
 {% block content %}
     <h2>{{ "Routes"|_ }}</h2>

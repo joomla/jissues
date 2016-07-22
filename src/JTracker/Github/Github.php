@@ -8,7 +8,11 @@
 
 namespace JTracker\GitHub;
 
-use \Joomla\Github\Github as JGitHub;
+use Joomla\Github\Github as JGitHub;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Joomla! Tracker class for interacting with a GitHub server instance.
@@ -19,14 +23,16 @@ use \Joomla\Github\Github as JGitHub;
  *
  * @since  1.0
  */
-class Github extends JGitHub
+class Github extends JGitHub implements LoggerAwareInterface
 {
+	use LoggerAwareTrait;
+
 	/**
 	 * Magic method to lazily create API objects
 	 *
 	 * @param   string  $name  Name of property to retrieve
 	 *
-	 * @return  Object  GitHub API object (gists, issues, pulls, etc).
+	 * @return  GithubObject  GitHub API object (gists, issues, pulls, etc).
 	 *
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException If $name is not a valid sub class.
@@ -37,14 +43,35 @@ class Github extends JGitHub
 
 		if (class_exists($class))
 		{
-			if (false == isset($this->$name))
+			if (false === isset($this->$name))
 			{
 				$this->$name = new $class($this->options, $this->client);
+
+				// Inject the logger
+				$this->$name->setLogger($this->getLogger());
 			}
 
 			return $this->$name;
 		}
 
 		return parent::__get($name);
+	}
+
+	/**
+	 * Get the logger.
+	 *
+	 * @return  LoggerInterface
+	 *
+	 * @since   1.0
+	 */
+	public function getLogger()
+	{
+		// If a logger hasn't been set, use NullLogger
+		if (!($this->logger instanceof LoggerInterface))
+		{
+			$this->logger = new NullLogger;
+		}
+
+		return $this->logger;
 	}
 }

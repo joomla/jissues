@@ -45,7 +45,7 @@ class ArticleHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('item', $this->getItem());
+		$this->addData('item', $this->getItem());
 
 		return parent::render();
 	}

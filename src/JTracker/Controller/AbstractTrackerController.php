@@ -14,13 +14,12 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Event\Event;
 use Joomla\Input\Input;
-use Joomla\View\Renderer\RendererInterface;
+use Joomla\Renderer\RendererInterface;
 
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\GitHub\Github;
 use JTracker\Github\GithubFactory;
 use JTracker\View\AbstractTrackerHtmlView;
-use JTracker\View\Renderer\TrackerExtension;
 
 /**
  * Abstract Controller class for the Tracker Application
@@ -58,7 +57,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	/**
 	 * View object
 	 *
-	 * @var    \Joomla\View\AbstractHtmlView
+	 * @var    \Joomla\View\BaseHtmlView
 	 * @since  1.0
 	 */
 	protected $view;
@@ -200,25 +199,17 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			}
 		}
 
-		// Make sure the view class exists, otherwise revert to the default
+		// If there isn't a specific view class for this view, see if the app has a default for this format
 		if (!class_exists($viewClass))
 		{
-			$viewClass = '\\JTracker\\View\\TrackerDefaultView';
+			$viewClass = $base . '\\View\\Default' . ucfirst($viewFormat) . 'View';
+
+			// Make sure the view class exists, otherwise revert to the default
+			if (!class_exists($viewClass))
+			{
+				$viewClass = '\\JTracker\\View\\TrackerDefaultView';
+			}
 		}
-
-		// Register the templates paths for the view
-		$paths = array();
-
-		$sub = ('php' == $this->getContainer()->get('app')->get('renderer.type')) ? '/php' : '';
-
-		$path = JPATH_TEMPLATES . $sub . '/' . strtolower($this->app);
-
-		if (is_dir($path))
-		{
-			$paths[] = $path;
-		}
-
-		// @$this->model = $this->getContainer()->buildObject($modelClass);
 
 		$this->model = new $modelClass($this->getContainer()->get('db'), $this->getContainer()->get('app')->input);
 
@@ -226,10 +217,14 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		/* @type AbstractTrackerHtmlView $view */
 		$this->view = new $viewClass(
 			$this->model,
-			$this->fetchRenderer($paths)
+			$this->fetchRenderer()
 		);
 
 		$this->view->setLayout($viewName . '.' . $layoutName);
+
+		$this->getContainer()->get('app')->mark('Model: ' . $modelClass);
+		$this->getContainer()->get('app')->mark('View: ' . $viewClass);
+		$this->getContainer()->get('app')->mark('Layout: ' . $layoutName);
 
 		return $this;
 	}
@@ -249,6 +244,8 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		{
 			// Render our view.
 			$contents = $this->view->render();
+
+			$this->getContainer()->get('app')->mark('View rendered: ' . $this->view->getLayout());
 		}
 		catch (\Exception $e)
 		{
@@ -346,77 +343,39 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	/**
 	 * Get a renderer object.
 	 *
-	 * @param   string|array  $templatesPaths  A path or an array of paths where to look for templates.
-	 *
 	 * @return  RendererInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetchRenderer($templatesPaths)
+	protected function fetchRenderer()
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
 		$rendererName = $application->get('renderer.type');
 
-		$className = 'JTracker\\View\\Renderer\\' . ucfirst($rendererName);
-
-		// Check if the specified renderer exists in the application
-		if (false == class_exists($className))
+		// The renderer should exist in the container
+		if (!$this->getContainer()->exists("renderer.$rendererName"))
 		{
-			$className = 'Joomla\\View\\Renderer\\' . ucfirst($rendererName);
-
-			// Check if the specified renderer exists in the Framework
-			if (false == class_exists($className))
-			{
-				throw new \RuntimeException(sprintf('Invalid renderer: %s', $rendererName));
-			}
+			throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
 		}
 
-		$config = array();
+		/** @var RendererInterface $renderer */
+		$renderer = $this->getContainer()->get("renderer.$rendererName");
 
-		switch ($rendererName)
+		// Alias the renderer to the interface if not set already
+		if (!$this->getContainer()->exists(RendererInterface::class))
 		{
-			case 'twig':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
-				$config['environment']['debug'] = (bool) $application->get('debug.template', false);
-				$config['environment']['cache'] = $application->get('renderer.cache', false) ? JPATH_ROOT . '/' . $application->get('renderer.cache') : false;
-
-				break;
-
-			case 'mustache':
-				$config['templates_base_dir'] = JPATH_TEMPLATES;
-
-				// . '/partials';
-				$config['partials_base_dir'] = JPATH_TEMPLATES;
-
-				$config['environment']['debug'] = JDEBUG ? true : false;
-
-				break;
-
-			case 'php':
-				$config['templates_base_dir'] = JPATH_TEMPLATES . '/php';
-				$config['debug'] = JDEBUG ? true : false;
-
-				break;
-
-			default:
-				throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
-				break;
+			$this->getContainer()->alias(RendererInterface::class, "renderer.$rendererName");
 		}
 
-		// Load the renderer.
-		/* @type RendererInterface $renderer */
-		$renderer = new $className($config);
+		// Add the app path if it exists
+		$path = JPATH_TEMPLATES . '/' . strtolower($this->app);
 
-		// Register tracker's extension.
-		$renderer->addExtension(new TrackerExtension($this->getContainer()));
-
-		// Register additional paths.
-		if (!empty($templatesPaths))
+		if (is_dir($path))
 		{
-			$renderer->setTemplatesPaths($templatesPaths, true);
+			$renderer->addFolder($path);
 		}
 
 		$gitHubHelper = new GitHubLoginHelper($this->getContainer());
@@ -466,7 +425,9 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 
 		if (class_exists($fullClass))
 		{
-			$this->getDispatcher()->addListener(new $fullClass);
+			$listener = new $fullClass;
+			$listener->setContainer($this->getContainer());
+			$this->dispatcher->addListener($listener);
 			$this->listenerSet = true;
 		}
 

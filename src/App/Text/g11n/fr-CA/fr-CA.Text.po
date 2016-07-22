@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
+"PO-Revision-Date: 2016-07-09 11:50-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: French, Canada\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: fr-CA\n"
+"X-Crowdin-File: text-app_en.po\n"
+"Language: fr_CA\n"
+
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
+msgid "Edit Article"
+msgstr "Modifier l'article"
+
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
+#: /templates/text/articles.index.twig:25
+msgid "New Article"
+msgstr "Nouvel article"
+
+#: /templates/text/article.edit.twig:25
+msgid "Save"
+msgstr "Enregistrer"
+
+#: /templates/text/article.edit.twig:30
+msgid "Cancel"
+msgstr "Annuler"
+
+#: /templates/text/article.edit.twig:47
+msgid "Title"
+msgstr "Titre"
+
+#: /templates/text/article.edit.twig:54
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/text/articles.index.twig:6
+#: /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Articles"
+
+#: /templates/text/articles.index.twig:36
+msgid "Articles List"
+msgstr "Liste des articles"
+
+#: /templates/text/articles.index.twig:41
+msgid "Title/Alias"
+msgstr "Titre/Alias"
+
+#: /templates/text/articles.index.twig:42
+msgid "Actions"
+msgstr "Actions"
+
+#: /templates/text/articles.index.twig:58
+msgid "View"
+msgstr "Vue"
+
+#: /templates/text/articles.index.twig:61
+msgid "Delete"
+msgstr "Supprimer"
+
+#: /templates/text/articles.index.twig:67
+msgid "No articles found"
+msgstr "Aucun article trouvé"
+
+#: /src/App/Text/Controller/Article/Delete.php:47
+msgid "The article has been deleted."
+msgstr "L'article a été supprimé."
+
+#: /src/App/Text/Controller/Article/Save.php:50
+msgid "The article has been saved."
+msgstr "L'article a été enregistré."
+
+#: /src/App/Text/Table/ArticlesTable.php:93
+msgid "An alias or a title is required."
+msgstr "Un alias ou un titre est requis."
+
+#: /src/App/Text/Table/ArticlesTable.php:99
+msgid "Some text is required."
+msgstr "Du texte est requis."
+

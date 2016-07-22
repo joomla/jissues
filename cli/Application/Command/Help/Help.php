@@ -11,8 +11,8 @@ namespace Application\Command\Help;
 use Application\Command\TrackerCommand;
 use Application\Command\TrackerCommandOption;
 
-use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\ColorStyle;
+use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 
 /**
  * Class for displaying help data for the installer application.
@@ -22,20 +22,22 @@ use Joomla\Application\Cli\ColorStyle;
 class Help extends TrackerCommand
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Displays helpful information.';
-
-	/**
 	 * Array containing the available commands
 	 *
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $commands = array();
+	private $commands = [];
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 */
+	public function __construct()
+	{
+		$this->description = g11n3t('Displays helpful information');
+	}
 
 	/**
 	 * Execute the command.
@@ -65,13 +67,15 @@ class Help extends TrackerCommand
 		}
 
 		$this->out(
-			sprintf('<b>Usage:</b> <info>%s</info> <cmd><command></cmd> <opt>[options]</opt>',
+			sprintf(
+				g11n3t('<b>Usage</b>: %s'), sprintf(' <info>%s</info> <cmd><' . g11n3t('command') . '></cmd> <opt>[' . g11n3t('options') . ']</opt>',
 				$executable
+				)
 			)
 		);
 
 		$this->out()
-			->out('Available commands:')
+			->out(g11n3t('Available commands:'))
 			->out();
 
 		/* @type  TrackerCommand $command */
@@ -87,14 +91,14 @@ class Help extends TrackerCommand
 			$this->out();
 		}
 
-		$this->out('<b>For more information use</b> <info>' . $executable . ' help</info> <cmd><command></cmd>.')
+		$this->out(sprintf(g11n3t('<b>For more information use</b>: %s'), ' <info>' . $executable . ' help</info> <cmd><' . g11n3t('command') . '></cmd>.'))
 			->out();
 
 		$options = $this->getApplication()->getCommandOptions();
 
 		if ($options)
 		{
-			$this->out('Application command <opt>options</opt>');
+			$this->out(g11n3t('Application command <opt>options</opt>'));
 
 			foreach ($options as $option)
 			{
@@ -114,10 +118,11 @@ class Help extends TrackerCommand
 	 */
 	protected function helpCommand($command)
 	{
-		if (false == array_key_exists($command, $this->commands))
+		if (false === array_key_exists($command, $this->commands))
 		{
 			$this->out()
-				->out('Unknown: ' . $command);
+				// TRANSLATORS: %s refers to a command name
+				->out(sprintf(g11n3t('Unknown: %s'), $command));
 
 			return;
 		}
@@ -127,14 +132,14 @@ class Help extends TrackerCommand
 		/* @type TrackerCommand $c */
 		$c = $this->commands[$command];
 
-		$this->out('Command: <b>' . $command . '</b>' . ($actions ? ' <cmd><action></cmd>' : ''))
+		$this->out(sprintf(g11n3t('Command: %s'), ' <b>' . $command . '</b>' . ($actions ? ' <cmd><' . g11n3t('action') . '></cmd>' : '')))
 			->out()
 			->out('    ' . $c->getDescription());
 
 		if ($c->options)
 		{
 			$this->out()
-				->out('  Available options:');
+				->out('  ' . g11n3t('Available options:'));
 
 			foreach ($c->options as $option)
 			{
@@ -145,7 +150,7 @@ class Help extends TrackerCommand
 		if ($actions)
 		{
 			$this->out()
-				->out('  Available <cmd>actions</cmd>:')
+				->out('  ' . g11n3t('Available <cmd>actions</cmd>:'))
 			->out();
 
 			/* @type TrackerCommand $action */
@@ -157,7 +162,7 @@ class Help extends TrackerCommand
 				if ($action->options)
 				{
 					$this->out()
-						->out('  Available options:');
+						->out('  ' . g11n3t('Available options:'));
 
 					foreach ($action->options as $option)
 					{
@@ -197,7 +202,7 @@ class Help extends TrackerCommand
 	 */
 	public function getCommands()
 	{
-		$commands = array();
+		$commands = [];
 
 		/* @type \DirectoryIterator $fileInfo */
 		foreach (new \DirectoryIterator(__DIR__ . '/..') as $fileInfo)
@@ -211,7 +216,7 @@ class Help extends TrackerCommand
 
 			$className = "Application\\Command\\$c\\$c";
 
-			if (false == class_exists($className))
+			if (false === class_exists($className))
 			{
 				throw new \RuntimeException(sprintf('Required class "%s" not found.', $className));
 			}
@@ -233,7 +238,7 @@ class Help extends TrackerCommand
 	 */
 	public function getActions($commandName)
 	{
-		$actions = array();
+		$actions = [];
 		$cName = ucfirst($commandName);
 
 		/* @var \DirectoryIterator $fileInfo */

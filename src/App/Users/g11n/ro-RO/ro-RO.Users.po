@@ -1,24 +1,23 @@
-# JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Oana Andrada Florescu <oana@redweb.dk>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-02-25 22:02+0000\n"
-"Last-Translator: J!Tracker Bot <jissues@babdev.com>\n"
-"Language-Team: Romanian (Romania) (http://www.transifex.com/opentranslators/jtracker/language/ro_RO/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100>0 && n%100<20)) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ro\n"
+"X-Crowdin-File: users-app_en.po\n"
 "Language: ro_RO\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+#: /templates/users/user.index.twig:12
+#: /templates/users/user.edit.twig:11
 msgid "Invalid user!"
 msgstr "Utilizatorul nu este valid"
 
@@ -26,7 +25,8 @@ msgstr "Utilizatorul nu este valid"
 msgid "Edit profile"
 msgstr "Editează profilul"
 
-#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+#: /templates/users/user.index.twig:22
+#: /templates/users/user.edit.twig:32
 msgid "Refresh profile from GitHub"
 msgstr "Reîncarcă profilul din GitHub"
 
@@ -56,16 +56,18 @@ msgstr "Utilizatori"
 msgid "Users List"
 msgstr "Listă de utilizatori"
 
-#: /templates/users/users.index.twig:25 /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:25
+#: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
-msgstr ""
+msgstr "Filtrează lista după utilizator."
 
 #: /templates/users/users.index.twig:34
 msgid "Clear"
 msgstr "Șterge"
 
-#: /templates/users/users.index.twig:41 /templates/users/users.index.twig:73
+#: /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:73
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Pagina %1$s din %2$s"
@@ -86,7 +88,8 @@ msgstr "ID"
 msgid "No items found."
 msgstr "Nu s-a găsit niciun produs."
 
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+#: /templates/users/user.edit.twig:6
+#: /templates/users/user.edit.twig:17
 msgid "Edit user"
 msgstr "Editare utilizator"
 
@@ -124,16 +127,16 @@ msgstr "Utilizatorul a fost dezalocat."
 
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
-msgid "You are not authorized to edit this user."
-msgstr "Nu aveţi autoritatea de a edita acest utilizator."
+msgid "You are not authorised to edit this user."
+msgstr "Nu sunteți autorizat pentru a edita acest utilizator."
 
 #: /src/App/Users/Controller/User/Refresh.php:47
-msgid "You are not authorized to refresh this user."
-msgstr "Nu aveţi autoritatea de a reîncărca acest utilizator."
+msgid "You are not authorised to refresh this user."
+msgstr "Nu sunteți autorizat pentru a actualiza acest utilizator."
 
 #: /src/App/Users/Controller/User/Refresh.php:77
 msgid "An error has occurred during email refresh."
-msgstr ""
+msgstr "Eroare în timpul reîmprospătării e-mail."
 
 #: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
@@ -142,3 +145,4 @@ msgstr "Profilul a fost reîncărcat cu succes."
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."
 msgstr "Modificările au fost salvate cu succes!"
+

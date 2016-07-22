@@ -1,24 +1,23 @@
-# JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Dmitry Rekun, 2014-2015
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-02-29 16:08+0000\n"
-"Last-Translator: Dmitry Rekun\n"
-"Language-Team: Russian (Russia) (http://www.transifex.com/opentranslators/jtracker/language/ru_RU/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ru\n"
+"X-Crowdin-File: users-app_en.po\n"
 "Language: ru_RU\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+#: /templates/users/user.index.twig:12
+#: /templates/users/user.edit.twig:11
 msgid "Invalid user!"
 msgstr "Пользователя не существует!"
 
@@ -26,7 +25,8 @@ msgstr "Пользователя не существует!"
 msgid "Edit profile"
 msgstr "Изменить профиль"
 
-#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+#: /templates/users/user.index.twig:22
+#: /templates/users/user.edit.twig:32
 msgid "Refresh profile from GitHub"
 msgstr "Обновить профиль из GitHub"
 
@@ -56,7 +56,8 @@ msgstr "Пользователи"
 msgid "Users List"
 msgstr "Список пользователей"
 
-#: /templates/users/users.index.twig:25 /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:25
+#: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
 msgstr "Фильтровать по пользователю."
@@ -65,7 +66,8 @@ msgstr "Фильтровать по пользователю."
 msgid "Clear"
 msgstr "Очистить"
 
-#: /templates/users/users.index.twig:41 /templates/users/users.index.twig:73
+#: /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:73
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Страница %1$s из %2$s"
@@ -86,7 +88,8 @@ msgstr "ID"
 msgid "No items found."
 msgstr "Ничего не найдено."
 
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+#: /templates/users/user.edit.twig:6
+#: /templates/users/user.edit.twig:17
 msgid "Edit user"
 msgstr "Редактировать пользователя"
 
@@ -124,12 +127,12 @@ msgstr "Назначение снято с пользователя."
 
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
-msgid "You are not authorized to edit this user."
-msgstr "Вы не авторизованы для редактирования этого пользователя."
+msgid "You are not authorised to edit this user."
+msgstr ""
 
 #: /src/App/Users/Controller/User/Refresh.php:47
-msgid "You are not authorized to refresh this user."
-msgstr "У вас нет прав для обновления этого пользователя."
+msgid "You are not authorised to refresh this user."
+msgstr ""
 
 #: /src/App/Users/Controller/User/Refresh.php:77
 msgid "An error has occurred during email refresh."
@@ -142,3 +145,4 @@ msgstr "Этот профиль был успешно обновлен."
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."
 msgstr "Изменения были сохранены."
+

@@ -1,0 +1,128 @@
+{# Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block title %}{{ parent() }} | {{ "%s - User Activity Chart"|_|format(project.short_title) }}{% endblock %}
+
+{% block headerCSS %}
+    {{ parent() }}
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <h2>{{ "User Tracker Activity - %s"|_|format(project.title) }}</h2>
+
+    <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/user/{{ project.alias }}/query"></div>
+
+    <br />
+    <h3>{{ "Chart Options"|_ }}</h3>
+    <div class="form-inline">
+    	<fieldset>
+    		<label>{{ "Period"|_ }}</label>
+    		<select id="period" name="period" class="input" size="1">
+    			<option value="1" selected="selected">{{ "7 Days"|_ }}</option>
+    			<option value="2">{{ "30 Days"|_ }}</option>
+    			<option value="3">{{ "90 Days"|_ }}</option>
+    			<option value="4">{{ "1 Year"|_ }}</option>
+    			<option value="5">{{ "Custom Period"|_ }}</option>
+    		</select>
+
+    		<label>{{ "Type"|_ }}</label>
+    		<select id="type" name="type" class="input-small" size="1">
+    			<option value="0" selected="selected">{{ "All"|_ }}</option>
+    			<option value="1">{{ "Tracker"|_ }}</option>
+    			<option value="2">{{ "Test"|_ }}</option>
+    			<option value="3">{{ "Code"|_ }}</option>
+    		</select>
+
+    		<button class="btn btn-primary" id="dataUpdate">{{ "Update Chart"|_ }}</button>
+    		<br />
+    		<br />
+    		<div id="hidedates" class="form-inline">
+    			<label>{{ "Start Date"|_ }}</label>
+    			<input id="start_date" class="datepicker input-small" type="text" />
+    			<label>{{ "End Date"|_ }}</label>
+    			<input id="end_date" class="datepicker input-small" type="text" />
+    		</div>
+
+    	</fieldset>
+    </div>
+{% endblock %}
+
+{% block JavaScriptBottom %}
+    {{ parent() }}
+
+    {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
+    {% if templateDebug %}
+    {% endif %}
+
+    <script src="{{ asset('js/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.highlighter.js') }}"></script>
+    <script src="{{ asset('js/jqplot/barchart.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                var barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', true, '10');
+
+                $('#dataUpdate').click(function () {
+                    // add the form variables to the URL
+                    var chartContainer = $('#barchart'),
+                        period = $('#period').val(),
+                        type = $('#type').val(),
+                        startdate = $('#start_date').val(),
+                        enddate = $('#end_date').val(),
+                        href = '{{ uri.base.path }}activity/user/{{ project.alias }}/query?period=' + period + '&activity_type=' + type;
+
+                    if (period == 5) {
+                        href += '&startdate=' + startdate + '&enddate=' + enddate;
+                    }
+
+                    chartContainer.empty();
+                    chartContainer.attr('data-href', href);
+
+                    barchart = new $.JQPLOTBarchart('barchart', 'barchart', 'horizontal', true, '10');
+                });
+
+                $('#hidedates').hide();
+
+                $('#period').change(function () {
+                    if ($(this).val() == 5) {
+                        $('#hidedates').show();
+                    } else {
+                        $('#hidedates').hide();
+                    }
+                });
+            });
+        })(jQuery);
+
+        /*
+         * jQuery UI Datepicker: Parse and Format Dates
+         * http://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
+         */
+        (function ($) {
+            $(document).ready(function () {
+                $('.datepicker').datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    onSelect: function (dateText, inst) {
+                        var date = $.datepicker.parseDate(inst.settings.dateFormat || $.datepicker._defaults.dateFormat, dateText, inst.settings);
+                        var dateText1 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
+                        date.setDate(date.getDate() + 7);
+                        var dateText2 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
+                    }
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

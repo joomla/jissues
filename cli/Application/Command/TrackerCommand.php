@@ -34,10 +34,10 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	/**
 	 * Array of options.
 	 *
-	 * @var    array
+	 * @var    TrackerCommandOption[]
 	 * @since  1.0
 	 */
-	protected $options = array();
+	protected $options = [];
 
 	/**
 	 * The command "description" used for help texts.
@@ -95,9 +95,63 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	protected function addOption(TrackerCommandOption $option)
 	{
+		// Check if the option has been defined already.
+		foreach ($this->options as $hasOption)
+		{
+			if ($hasOption->longArg == $option->longArg)
+			{
+				throw new \UnexpectedValueException(
+					sprintf('The command "%s" already has an option "%s"', get_class($this), $option->longArg)
+				);
+			}
+
+			if ($hasOption->shortArg && $hasOption->shortArg == $option->shortArg)
+			{
+				throw new \UnexpectedValueException(
+					sprintf('The command "%s" already has an option "%s"', get_class($this), $option->shortArg)
+				);
+			}
+		}
+
 		$this->options[] = $option;
 
 		return $this;
+	}
+
+	/**
+	 * Get the current value of a command option.
+	 *
+	 * Checks first the long option (e.g. --option) then the short option (e.g. -o).
+	 *
+	 * @param   string  $name  the option name.
+	 *
+	 * @return string
+	 */
+	protected function getOption($name)
+	{
+		$input = $this->getApplication()->input;
+
+		foreach ($this->options as $option)
+		{
+			if ($option->longArg == $name)
+			{
+				return $option->shortArg
+				? $input->get($option->longArg, $input->get($option->shortArg))
+				: $input->get($option->longArg);
+			}
+		}
+
+		throw new \UnexpectedValueException(sprintf('Option "%s" has not been added to class "%s"', $name, get_class($this)));
+	}
+
+	/**
+	 * Get defined options.
+	 *
+	 * @return TrackerCommandOption[]
+	 */
+	public function getOptions()
+	{
+		return $this->options;
 	}
 
 	/**
@@ -178,7 +232,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 		$this->getApplication()->outputTitle(sprintf(g11n3t('Command: %s'), ucfirst($command)));
 
-		$errorTitle1 = g11n3t(sprintf('Missing option for command: %s', $command));
+		$errorTitle1 = sprintf(g11n3t('Missing option for command: %s'), $command);
 		$errorTitle2 = g11n3t('Please use one of the following :');
 
 		$maxLen = (strlen($errorTitle1) > strlen($errorTitle2)) ? strlen($errorTitle1) : strlen($errorTitle2);
@@ -209,6 +263,8 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		}
 
 		$this->out('<error>  ' . str_repeat(' ', $maxLen) . '  </error>');
+
+		return $this;
 	}
 
 	/**
@@ -280,15 +336,11 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 		$projects = $db->setQuery(
 			$db->getQuery(true)
 				->from($db->quoteName('#__tracker_projects'))
-				->select(array('project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'))
+				->select(['project_id', 'title', 'gh_user', 'gh_project', 'gh_editbot_user', 'gh_editbot_pass'])
 
 		)->loadObjectList();
-/*
-		$projectsModel = new ProjectsModel($this->getContainer()->get('db'), $this->getApplication()->input);
-		$user = new GitHubUser($this->getApplication()->getp);
-		$projects = with()->getItems();
-*/
-		$id = $this->getApplication()->input->getInt('project', $this->getApplication()->input->getInt('p'));
+
+		$id = (integer) $this->getOption('project');
 
 		if (!$id)
 		{
@@ -298,7 +350,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 
 			$cnt = 1;
 
-			$checks = array();
+			$checks = [];
 
 			foreach ($projects as $project)
 			{
@@ -320,7 +372,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 				throw new AbortException(g11n3t('Aborted'));
 			}
 
-			if (false == array_key_exists($resp, $checks))
+			if (false === array_key_exists($resp, $checks))
 			{
 				throw new AbortException(g11n3t('Invalid project'));
 			}

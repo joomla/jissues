@@ -18,12 +18,16 @@ use PHP_CodeSniffer_CLI;
 class Checkstyle extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Run PHP CodeSniffer tests';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Run PHP CodeSniffer tests.');
+	}
 
 	/**
 	 * Execute the command.
@@ -35,55 +39,30 @@ class Checkstyle extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Test Checkstyle');
+		$this->getApplication()->outputTitle(g11n3t('Test Checkstyle'));
 
-		$options = array();
+		$options = [];
 
-		$options['files'] = array(
+		$options['files'] = [
 			JPATH_ROOT . '/cli',
 			JPATH_ROOT . '/src'
-		);
+		];
 
-		$options['standard'] = array(JPATH_ROOT . '/build/phpcs/Joomla');
-
-		/*
-		$options['verbosity']       = 0;
-		$options['interactive']     = false;
-		$options['explain']         = false;
-		$options['local']           = false;
-		$options['showSources']     = false;
-		$options['extensions']      = array();
-		$options['sniffs']          = array();
-		$options['ignored']         = array();
-
-		$options['reports'][$reportFormat] = null;
-		$options['reportFile']      = null;
-
-		$options['generator']       = '';
-		$options['reports']         = array();
-		$options['errorSeverity']   = null;
-		$options['warningSeverity'] = null;
-
-		$options['tabWidth'] = 0;
-		$options['errorSeverity']   = 0;
-		$options['encoding'] = 'iso-8859-1';
-		$options['warningSeverity'] = 0;
-		$options['reportWidth'] = 80;
-		*/
+		$options['standard'] = [JPATH_ROOT . '/build/phpcs/Joomla'];
 
 		$options['showProgress'] = true;
 
-		$phpcs = new PHP_CodeSniffer_CLI;
-		$phpcs->checkRequirements();
+		$phpCs = new PHP_CodeSniffer_CLI;
+		$phpCs->checkRequirements();
 
-		$numErrors = $phpcs->process($options);
+		$numErrors = $phpCs->process($options);
 
 		$this
 			->out()
 			->out(
 			$numErrors
-				? sprintf('<error> Finished with %d errors </error>', $numErrors)
-				: '<ok>Success</ok>'
+				? sprintf('<error> %s </error>', sprintf(g11n4t('Finished with one error', 'Finished with %d errors', $numErrors), $numErrors))
+				: sprintf('<ok>%s</ok>', g11n3t('Success'))
 		);
 
 		if ($this->exit)

@@ -8,8 +8,12 @@
 
 namespace Application\Command\Export;
 
-use g11n\Language\Storage as g11nStorage;
-use g11n\Support\ExtensionHelper as g11nExtensionHelper;
+use Application\Command\TrackerCommandOption;
+
+use ElKuKu\G11n\Language\Storage as g11nStorage;
+use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
+
+use JTracker\Helper\LanguageHelper;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
@@ -24,10 +28,10 @@ class Langfiles extends Export
 	/**
 	 * List of supported languages.
 	 *
-	 * @var array
+	 * @var    array
 	 * @since  1.0
 	 */
-	private $languages = array();
+	private $languages = [];
 
 	/**
 	 * Constructor.
@@ -38,7 +42,14 @@ class Langfiles extends Export
 	{
 		parent::__construct();
 
-		$this->description = 'Backup language files to a given folder.';
+		$this->description = g11n3t('Backup language files to a given folder.');
+
+		$this->addOption(
+			new TrackerCommandOption(
+				'templates', '',
+				g11n3t('Export also language template files.')
+			)
+		);
 	}
 
 	/**
@@ -52,7 +63,7 @@ class Langfiles extends Export
 	{
 		parent::setup();
 
-		$this->languages = $this->getApplication()->get('languages');
+		$this->languages = LanguageHelper::getLanguageCodes();
 
 		return $this;
 	}
@@ -67,13 +78,13 @@ class Langfiles extends Export
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Export language files');
+		$this->getApplication()->outputTitle(g11n3t('Export language files'));
 
 		$this->setup()
-			->logOut('Start exporting language files.')
+			->logOut(g11n3t('Start exporting language files.'))
 			->exportFiles()
 			->out()
-			->logOut('Finished.');
+			->logOut(g11n3t('Finished.'));
 	}
 
 	/**
@@ -85,23 +96,11 @@ class Langfiles extends Export
 	 */
 	private function exportFiles()
 	{
-		g11nExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11nExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11nExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		LanguageHelper::addDomainPaths();
 
-		$scopes = array(
-			'Core' => array(
-				'JTracker'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
+		$templates = (boolean) $this->getOption('templates');
 
-		$templates = $this->getApplication()->input->getCmd('templates');
-
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			foreach ($extensions as $extension)
 			{
@@ -131,7 +130,7 @@ class Langfiles extends Export
 
 		$filesystem = new Filesystem(new Local($this->exportDir . '/' . $domainBase . '/' . $extension . '/' . $g11nPath));
 
-		$this->out(sprintf('Processing %s %s:... ', $domain, $extension), false);
+		$this->out(g11n3t('Processing %domain% %extension%... ', ['%domain%' => $domain, '%extension%' => $extension]), false);
 
 		// Process language templates
 		if ($templates)
@@ -143,7 +142,7 @@ class Langfiles extends Export
 			$contents = (new Filesystem(new Local(dirname($path))))
 				->read(basename($path));
 
-			if (false == $filesystem->put('templates/' . basename($path), $contents))
+			if (false === $filesystem->put('templates/' . basename($path), $contents))
 			{
 				throw new \DomainException('Can not write the file at: ' . $path);
 			}
@@ -171,13 +170,13 @@ class Langfiles extends Export
 			$contents = (new Filesystem(new Local(dirname($path))))
 				->read(basename($path));
 
-			if (false == $filesystem->put($lang . '/' . basename($path), $contents))
+			if (false === $filesystem->put($lang . '/' . basename($path), $contents))
 			{
 				throw new \DomainException('Can not write the file: ' . basename($path));
 			}
 		}
 
-		$this->out('ok');
+		$this->outOK();
 
 		return $this;
 	}

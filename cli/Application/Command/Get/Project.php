@@ -45,7 +45,7 @@ class Project extends Get
 	 *
 	 * @since  1.0
 	 */
-	protected $changedIssueNumbers = array();
+	protected $changedIssueNumbers = [];
 
 	/**
 	 * Force update.
@@ -121,10 +121,8 @@ class Project extends Get
 			->setupGitHub()
 			->displayGitHubRateLimit()
 			->out(
-				sprintf(
-					g11n3t('Updating project info for project: %s/%s'),
-					$this->project->gh_user,
-					$this->project->gh_project
+				g11n3t('Updating project info for project: %user%/%project%',
+					['%user%' => $this->project->gh_user, '%project%' => $this->project->gh_project]
 				)
 			)
 			->processLabels()
@@ -146,11 +144,11 @@ class Project extends Get
 	 */
 	protected function setParams()
 	{
-		$this->force = $this->getApplication()->input->get('force', $this->getApplication()->input->get('f'));
+		$this->force = $this->getOption('force');
 
 		$this->usePBar = $this->getApplication()->get('cli-application.progress-bar');
 
-		if ($this->getApplication()->input->get('noprogress'))
+		if ($this->getOption('noprogress'))
 		{
 			$this->usePBar = false;
 		}
@@ -283,12 +281,12 @@ class Project extends Get
 	 */
 	protected function selectRange()
 	{
-		$issue = $this->getApplication()->input->getInt('issue');
+		$issue = (integer) $this->getOption('issue');
 
-		$rangeFrom = $this->getApplication()->input->getInt('range_from');
-		$rangeTo = $this->getApplication()->input->getInt('range_to');
+		$rangeFrom = (integer) $this->getOption('range_from');
+		$rangeTo = (integer) $this->getOption('range_to');
 
-		if ($this->getApplication()->input->get('all'))
+		if ($this->getOption('all'))
 		{
 			// Process all issues - do nothing
 		}

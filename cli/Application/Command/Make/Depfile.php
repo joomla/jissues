@@ -10,10 +10,9 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use g11n\Support\ExtensionHelper as g11nExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
@@ -39,15 +38,7 @@ class Depfile extends Make
 	 * @var    array
 	 * @since  1.0
 	 */
-	public $dependencies = array();
-
-	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Create and update a dependency file.';
+	public $dependencies = [];
 
 	/**
 	 * Constructor.
@@ -58,10 +49,12 @@ class Depfile extends Make
 	{
 		parent::__construct();
 
+		$this->description = g11n3t('Create and update a dependency file.');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'file', 'f',
-				'Write output to a file.'
+				g11n3t('Write output to a file.')
 			)
 		);
 	}
@@ -76,8 +69,8 @@ class Depfile extends Make
 	 */
 	public function execute()
 	{
-		$packages = array();
-		$defined  = array();
+		$packages = [];
+		$defined  = [];
 
 		$defined['composer'] = json_decode(file_get_contents(JPATH_ROOT . '/composer.json'));
 		$defined['bower']    = json_decode(file_get_contents(JPATH_ROOT . '/bower.json'));
@@ -102,7 +95,7 @@ class Depfile extends Make
 
 		foreach ($defined['bower']->dependencies as $packageName => $version)
 		{
-			$output = array();
+			$output = [];
 
 			exec('bower info --json ' . $packageName . '#' . $version, $output);
 
@@ -126,11 +119,11 @@ class Depfile extends Make
 				$this
 			);
 
-		$fileName = $this->getApplication()->input->getPath('file', $this->getApplication()->input->getPath('f'));
+		$fileName = $this->getOption('file');
 
 		if ($fileName)
 		{
-			$this->out('Writing contents to: ' . $fileName);
+			$this->out(sprintf(g11n3t('Writing contents to: %s'), $fileName));
 
 			file_put_contents($fileName, $contents);
 		}
@@ -140,7 +133,7 @@ class Depfile extends Make
 		}
 
 		$this->out()
-			->out('Finished =;)');
+			->out(g11n3t('Finished.'));
 	}
 
 	/**
@@ -155,11 +148,11 @@ class Depfile extends Make
 	 */
 	private function getSorted(array $defined, array $packages)
 	{
-		$sorted = array();
+		$sorted = [];
 
-		foreach (array('require' => 'php', 'require-dev' => 'php-dev') as $sub => $section)
+		foreach (['require' => 'php', 'require-dev' => 'php-dev'] as $sub => $section)
 		{
-			$items = array();
+			$items = [];
 
 			foreach ($defined['composer']->$sub as $packageName => $version)
 			{
@@ -221,7 +214,14 @@ class Depfile extends Make
 
 		$sorted['credits'] = $defined['credits'];
 
-		$sorted['lang-credits'] = $this->checkLanguageFiles();
+		if (false)
+		{
+			/*
+			 * @todo Translator credits are disabled
+			 * Our current translation service provider "Crowdin" does not support translator credits (yet).
+			 */
+			$sorted['lang-credits'] = $this->checkLanguageFiles();
+		}
 
 		return $sorted;
 	}
@@ -235,24 +235,12 @@ class Depfile extends Make
 	 */
 	private function checkLanguageFiles()
 	{
-		$list = array();
+		$list = [];
 
-		g11nExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		g11nExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		g11nExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		LanguageHelper::addDomainPaths();
 
-		$scopes = array(
-			'Core' => array(
-				'JTracker'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
-
-		$langTags = $this->getApplication()->get('languages');
-		$noEmail = $this->getApplication()->input->get('noemail');
+		$langTags = LanguageHelper::getLanguageCodes();
+		$noEmail = $this->getOption('noemail');
 
 		foreach ($langTags as $langTag)
 		{
@@ -264,19 +252,24 @@ class Depfile extends Make
 			$langInfo = new \stdClass;
 
 			$langInfo->tag = $langTag;
-			$langInfo->translators = array();
+			$langInfo->translators = [];
 
-			$translators = array();
+			$translators = [];
 
-			foreach ($scopes as $domain => $extensions)
+			foreach (LanguageHelper::getScopes() as $domain => $extensions)
 			{
 				foreach ($extensions as $extension)
 				{
 					$path = g11nExtensionHelper::findLanguageFile($langTag, $extension, $domain);
 
-					if (false == file_exists($path))
+					if (false === file_exists($path))
 					{
-						$this->out(sprintf('Language file not found %s, %s, %s' . $langTag, $extension, $domain));
+						$this->out(
+							g11n3t(
+							'Language file not found: %tag%, %extension%, %domain%',
+							['%tag%' => $langTag, '%domain%' => $domain, '%extension%' => $extension]
+							)
+						);
 
 						continue;
 					}
@@ -320,7 +313,7 @@ class Depfile extends Make
 							$line = preg_replace('/<[a-z0-9\.\-+]+@[a-z\.]+>,\s/i', '', $line);
 						}
 
-						if (false == in_array($line, $translators))
+						if (false === in_array($line, $translators))
 						{
 							$translators[] = $line;
 						}

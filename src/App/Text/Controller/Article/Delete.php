@@ -36,17 +36,17 @@ class Delete extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$app = $this->getContainer()->get('app');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
 
-		$app->getUser()->authorize('admin');
+		$application->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->getContainer()->get('db'));
+		(new ArticlesTable($this->getContainer()->get('db')))
+			->delete($application->input->getInt('id'));
 
-		$table->delete($app->input->getInt('id'));
-
-		$app->enqueueMessage(g11n3t('The article has been deleted.'), 'success');
-
-		$this->getContainer()->get('app')->input->set('view', 'articles');
+		$application
+			->enqueueMessage(g11n3t('The article has been deleted.'), 'success')
+			->redirect($application->get('uri.base.path') . 'text');
 
 		return parent::execute();
 	}

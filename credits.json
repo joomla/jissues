@@ -4,7 +4,11 @@
         "items": [
             {
                 "title" : "jQuery File Tree",
-                "homepage" : "http://www.abeautifulsite.net/blog/2008/03/jquery-file-tree/"
+                "homepage" : "https://www.abeautifulsite.net/jquery-file-tree"
+            },
+            {
+                "title" : "Flags Icons",
+                "homepage" : "http://forum.tsgk.com/viewtopic.php?t=4921"
             }
         ]
     },
@@ -21,7 +25,6 @@
                 "description": "Sublime Text is a sophisticated text editor for code, markup and prose.",
                 "homepage": "http://www.sublimetext.com/"
             }
-
         ]
     },
     {
@@ -38,9 +41,9 @@
         "group": "Translations",
         "items": [
             {
-                "title": "Transifex",
-                "description": "The Issue Tracker utilizes Transifex to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Transifex](https://www.transifex.com/opentranslators/jtracker/translate/).",
-                "homepage": "https://www.transifex.com/"
+                "title": "Crowdin",
+                "description": "The Issue Tracker utilises Crowdin to manage translations of the user interface. If you would like to help translating, please head over to the [project page on Crowdin](https://crowdin.com/project/joomla-official-sites).",
+                "homepage": "https://crowdin.com/"
             }
         ]
     }

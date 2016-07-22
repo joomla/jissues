@@ -1,26 +1,23 @@
-# JTracker App Users 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Jesper Post Tønder <jpt@redweb.dk>, 2014
-# Ole Ottosen <ot2sen@gmail.com>, 2014
-# Peter Lose <mail@peterlose.dk>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-02-11 04:43+0000\n"
-"Last-Translator: Peter Lose <mail@peterlose.dk>\n"
-"Language-Team: Danish (Denmark) (http://www.transifex.com/opentranslators/jtracker/language/da_DK/)\n"
+"POT-Creation-Date: 2016-06-22 10:06-0500\n"
+"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: da\n"
+"X-Crowdin-File: users-app_en.po\n"
+"Language: da_DK\n"
 
-#: /templates/users/user.index.twig:12 /templates/users/user.edit.twig:11
+#: /templates/users/user.index.twig:12
+#: /templates/users/user.edit.twig:11
 msgid "Invalid user!"
 msgstr "Ugyldig bruger!"
 
@@ -28,7 +25,8 @@ msgstr "Ugyldig bruger!"
 msgid "Edit profile"
 msgstr "Ret profil"
 
-#: /templates/users/user.index.twig:22 /templates/users/user.edit.twig:32
+#: /templates/users/user.index.twig:22
+#: /templates/users/user.edit.twig:32
 msgid "Refresh profile from GitHub"
 msgstr "Genopfrisk profil fra GitHub"
 
@@ -58,7 +56,8 @@ msgstr "Brugere"
 msgid "Users List"
 msgstr "Brugerliste"
 
-#: /templates/users/users.index.twig:25 /templates/users/users.index.twig:28
+#: /templates/users/users.index.twig:25
+#: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
 msgstr "Filtrer efter bruger."
@@ -67,7 +66,8 @@ msgstr "Filtrer efter bruger."
 msgid "Clear"
 msgstr "Ryd"
 
-#: /templates/users/users.index.twig:41 /templates/users/users.index.twig:73
+#: /templates/users/users.index.twig:41
+#: /templates/users/users.index.twig:73
 #, php-format
 msgid "Page %1$s of %2$s"
 msgstr "Side %1$s af %2$s"
@@ -86,9 +86,10 @@ msgstr "ID"
 
 #: /templates/users/users.index.twig:66
 msgid "No items found."
-msgstr ""
+msgstr "Ingen elementer fundet."
 
-#: /templates/users/user.edit.twig:6 /templates/users/user.edit.twig:17
+#: /templates/users/user.edit.twig:6
+#: /templates/users/user.edit.twig:17
 msgid "Edit user"
 msgstr "Rediger bruger"
 
@@ -126,16 +127,16 @@ msgstr "Brugeren er ikke længere tilknyttet."
 
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
-msgid "You are not authorized to edit this user."
-msgstr "Du har ikke adgang til at rette denne bruger."
+msgid "You are not authorised to edit this user."
+msgstr ""
 
 #: /src/App/Users/Controller/User/Refresh.php:47
-msgid "You are not authorized to refresh this user."
-msgstr "Du har ikke adgang til at genopfriske denne bruger."
+msgid "You are not authorised to refresh this user."
+msgstr ""
 
 #: /src/App/Users/Controller/User/Refresh.php:77
 msgid "An error has occurred during email refresh."
-msgstr ""
+msgstr "Der opstod en fejl under opdatering af e-mail."
 
 #: /src/App/Users/Controller/User/Refresh.php:82
 msgid "The profile has been refreshed."
@@ -144,3 +145,4 @@ msgstr "Profilen er blevet genopfrisket."
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."
 msgstr "Ændringerne er blevet gemt."
+

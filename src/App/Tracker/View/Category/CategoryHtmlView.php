@@ -83,9 +83,9 @@ class CategoryHtmlView extends AbstractTrackerHtmlView
 	public function render()
 	{
 		// Set the vars to the template.
-		$this->renderer->set('state', $this->model->getState());
-		$this->renderer->set('project', $this->getProject());
-		$this->renderer->set('item', $this->getItem());
+		$this->addData('state', $this->model->getState());
+		$this->addData('project', $this->getProject());
+		$this->addData('item', $this->getItem());
 
 		return parent::render();
 	}

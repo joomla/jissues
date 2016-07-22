@@ -34,7 +34,7 @@ class TransifexProvider implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		return $container->set('BabDev\\Transifex\\Transifex',
-			function () use ($container)
+			function (Container $container)
 			{
 				$options = new Registry;
 

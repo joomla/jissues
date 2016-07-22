@@ -29,7 +29,7 @@ class ArticlesModel extends AbstractTrackerListModel
 	protected function getListQuery()
 	{
 		return $this->db->getQuery(true)
-			->select($this->db->quoteName(array('article_id', 'title', 'alias', 'text')))
+			->select($this->db->quoteName(['article_id', 'title', 'alias', 'text']))
 			->from($this->db->quoteName('#__articles'))
 			->where($this->db->quoteName('is_file') . ' = 0');
 	}

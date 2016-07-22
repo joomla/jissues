@@ -1,23 +1,20 @@
-# JTracker App Groups 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
-# This file is distributed under the same license as the JTracker package.
-# 
-# Translators:
-# Jesper Post Tønder <jpt@redweb.dk>, 2014
-# Ole Ottosen <ot2sen@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: JTracker\n"
+"Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 18:04-0500\n"
-"PO-Revision-Date: 2016-02-11 04:43+0000\n"
-"Last-Translator: Jesper Post Tønder <jpt@redweb.dk>\n"
-"Language-Team: Danish (Denmark) (http://www.transifex.com/opentranslators/jtracker/language/da_DK/)\n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: da\n"
+"X-Crowdin-File: groups-app_en.po\n"
+"Language: da_DK\n"
 
 #: /templates/groups/groups.index.twig:6
 msgid "Groups"
@@ -66,8 +63,8 @@ msgid "Actions"
 msgstr "Handlinger"
 
 #: /templates/groups/groups.index.twig:35
-msgid "Id"
-msgstr "Id"
+msgid "ID"
+msgstr ""
 
 #: /templates/groups/groups.index.twig:64
 msgid "System"
@@ -78,8 +75,8 @@ msgid "Delete"
 msgstr "Slet"
 
 #: /templates/groups/groups.index.twig:79
-msgid "No groups defined !"
-msgstr "Ingen grupper defineret!"
+msgid "No groups defined!"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
@@ -110,28 +107,23 @@ msgid "Users"
 msgstr "Brugere"
 
 #: /templates/groups/group.edit.twig:226
+#: /templates/groups/group.edit.twig:234
 msgid "Add user"
 msgstr "Tilføj bruger"
 
-#: /templates/groups/group.edit.twig:228 /templates/groups/group.edit.twig:241
+#: /templates/groups/group.edit.twig:228
+#: /templates/groups/group.edit.twig:241
 msgid "username"
 msgstr "brugernavn"
 
-#: /templates/groups/group.edit.twig:234
-msgid "Add User"
-msgstr "Tilføj bruger"
-
 #: /templates/groups/group.edit.twig:238
+#: /templates/groups/group.edit.twig:246
 msgid "Remove user"
 msgstr "Fjern bruger"
 
-#: /templates/groups/group.edit.twig:246
-msgid "Remove User"
-msgstr "Fjern Bruger"
-
 #: /templates/groups/group.edit.twig:251
-msgid "List assigned Users"
-msgstr "List tilknyttede brugere"
+msgid "List assigned users"
+msgstr ""
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
@@ -144,3 +136,4 @@ msgstr "Gruppen er blevet slettet."
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"
 msgstr "En titel er påkrævet"
+

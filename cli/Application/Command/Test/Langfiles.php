@@ -8,11 +8,9 @@
 
 namespace Application\Command\Test;
 
-use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\ExtensionHelper;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use JTracker\Helper\LanguageHelper;
 
 use PHP_CodeSniffer_File;
 
@@ -24,12 +22,16 @@ use PHP_CodeSniffer_File;
 class Langfiles extends Test
 {
 	/**
-	 * The command "description" used for help texts.
+	 * Constructor.
 	 *
-	 * @var    string
-	 * @since  1.0
+	 * @since   1.0
 	 */
-	protected $description = 'Check language files';
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->description = g11n3t('Check language files');
+	}
 
 	/**
 	 * Execute the command.
@@ -41,29 +43,17 @@ class Langfiles extends Test
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Check language files');
+		$this->getApplication()->outputTitle(g11n3t('Check language files'));
 
-		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/templates');
-		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/src/App');
+		LanguageHelper::addDomainPaths();
 
-		$scopes = array(
-			'Core' => array(
-				'JTracker', 'JTracker.js'
-			),
-			'Template' => array(
-				'JTracker'
-			),
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->listPaths()
-		);
-
-		$languages = $this->getApplication()->get('languages');
+		$languages = LanguageHelper::getLanguageCodes();
 
 		$languages[] = 'templates';
 
 		$errors = false;
 
-		foreach ($scopes as $domain => $extensions)
+		foreach (LanguageHelper::getScopes() as $domain => $extensions)
 		{
 			foreach ($extensions as $extension)
 			{
@@ -80,7 +70,7 @@ class Langfiles extends Test
 
 					$this->debugOut(sprintf('Check: %s-%s %s in %s', $domain, $extension, $language, $path));
 
-					if (false == file_exists($path))
+					if (false === file_exists($path))
 					{
 						$this->debugOut('not found');
 
@@ -91,7 +81,7 @@ class Langfiles extends Test
 					if ("\n" != PHP_CodeSniffer_File::detectLineEndings($path))
 					{
 						$this->out($path)
-							->out('<error> The file does not have UNIX style line endings ! </error>')
+							->out('<error>' . g11n3t('The file does not have UNIX style line endings!') . '</error>')
 							->out();
 
 						continue;
@@ -116,8 +106,8 @@ class Langfiles extends Test
 
 		$this->out(
 			$errors
-			? '<error> There have been errors. </error>'
-			: '<ok>Language file syntax OK</ok>'
+			? '<error>' . g11n3t('There have been errors.') . '</error>'
+			: '<ok>' . g11n3t('Language file syntax OK') . '</ok>'
 		);
 
 		if ($this->exit)

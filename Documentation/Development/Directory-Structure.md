@@ -12,6 +12,7 @@
 `│   ├── Custom_jtracker.xml` A PHPStorm autocomplete file for the JTracker CLI Application.<br />
 `├── Documentation` The project documentation.<br />
 `├── etc`<br />
+`│   ├── migrations` Database migrations
 `│   ├── config.dist.json` Copy this file to `config.json`.<br />
 `│   ├── config.json` This is your configuration file.<br />
 `│   ├── config.travis.json` Configuration file used for the Travis CI server.<br />

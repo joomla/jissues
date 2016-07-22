@@ -10,11 +10,11 @@ namespace Application\Command\Make;
 
 use Application\Command\TrackerCommandOption;
 
-use g11n\g11n;
-use g11n\Language\Storage;
-use g11n\Support\ExtensionHelper;
-use g11n\Support\FileInfo;
-use g11n\Support\TransInfo;
+use ElKuKu\G11n\G11n;
+use ElKuKu\G11n\Language\Storage;
+use ElKuKu\G11n\Support\ExtensionHelper;
+use ElKuKu\G11n\Support\FileInfo;
+use ElKuKu\G11n\Support\TransInfo;
 
 use JTracker\View\Renderer\TrackerExtension;
 
@@ -29,17 +29,9 @@ use Twig_Loader_Filesystem;
 class Langtemplates extends Make
 {
 	/**
-	 * The command "description" used for help texts.
-	 *
-	 * @var    string
-	 * @since  1.0
-	 */
-	protected $description = 'Create language file templates.';
-
-	/**
 	 * The software product.
 	 *
-	 * @var \stdClass
+	 * @var    \stdClass
 	 * @since  1.0
 	 */
 	private $product = null;
@@ -51,10 +43,14 @@ class Langtemplates extends Make
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
+		$this->description = g11n3t('Create language file templates.');
+
 		$this->addOption(
 			new TrackerCommandOption(
 				'extension', '',
-				'Process only this extension'
+				g11n3t('Process only this extension')
 			)
 		);
 
@@ -70,17 +66,17 @@ class Langtemplates extends Make
 	 */
 	public function execute()
 	{
-		$this->getApplication()->outputTitle('Make Language templates');
+		$this->getApplication()->outputTitle(g11n3t('Make Language templates'));
 
 		ExtensionHelper::addDomainPath('Core', JPATH_ROOT . '/src');
-		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/media');
+		ExtensionHelper::addDomainPath('CoreJS', JPATH_ROOT . '/www/media/js');
 		ExtensionHelper::addDomainPath('Template', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('App', JPATH_ROOT . '/cache/twig');
 		ExtensionHelper::addDomainPath('CLI', JPATH_ROOT);
 
 		defined('JDEBUG') || define('JDEBUG', 0);
 
-		$reqExtension = $this->getApplication()->input->getCmd('extension');
+		$reqExtension = $this->getOption('extension');
 
 		// Cleanup
 		$this->delTree(JPATH_ROOT . '/cache/twig');
@@ -91,11 +87,11 @@ class Langtemplates extends Make
 			$extension = 'JTracker';
 			$domain    = 'Core';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
@@ -104,11 +100,11 @@ class Langtemplates extends Make
 			$extension = 'core.js';
 			$domain    = 'CoreJS';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$templatePath = Storage::getTemplatePath('JTracker.js', 'Core');
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'js', $paths, $templatePath);
 
@@ -117,7 +113,7 @@ class Langtemplates extends Make
 			$extension = 'JTracker';
 			$domain    = 'Template';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$twigDir = JPATH_ROOT . '/cache/twig/JTracker';
 
@@ -125,7 +121,7 @@ class Langtemplates extends Make
 
 			$templatePath = JPATH_ROOT . '/templates/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
@@ -136,11 +132,11 @@ class Langtemplates extends Make
 			$extension = 'cli';
 			$domain    = 'CLI';
 
-			$this->out('Processing: ' . $domain . ' ' . $extension);
+			$this->out(sprintf(g11n3t('Processing: %1$s %2$s'), $domain, $extension));
 
 			$templatePath = Storage::getTemplatePath($extension, $domain);
 
-			$paths = array(ExtensionHelper::getDomainPath($domain));
+			$paths = [ExtensionHelper::getDomainPath($domain)];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 		}
@@ -155,14 +151,14 @@ class Langtemplates extends Make
 				continue;
 			}
 
-			$extension = $fileInfo->getFileName();
+			$extension = $fileInfo->getFilename();
 
 			if ($reqExtension && $reqExtension != $extension)
 			{
 				continue;
 			}
 
-			$this->out('Processing App: ' . $extension);
+			$this->out(sprintf(g11n3t('Processing App: %s'), $extension));
 
 			$domain = 'App';
 
@@ -170,10 +166,10 @@ class Langtemplates extends Make
 
 			$templatePath = JPATH_ROOT . '/src/App/' . $extension . '/' . ExtensionHelper::$langDirName . '/templates/' . $extension . '.pot';
 
-			$paths = array(
+			$paths = [
 				ExtensionHelper::getDomainPath($domain),
 				JPATH_ROOT . '/src/App'
-			);
+			];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
 
@@ -220,8 +216,33 @@ class Langtemplates extends Make
 		$extensionDir = $extension !== 'core.js' ? ExtensionHelper::getExtensionPath($extension) : '';
 		$dirName      = dirname($templatePath);
 
-		$cleanFiles = array();
-		$excludes   = array();
+		$cleanFiles = [];
+		$excludes   = [];
+
+		$buildOpts = '';
+
+		switch ($type)
+		{
+			case 'js':
+				$buildOpts .= ' -L python';
+				$excludes[] = '/jqplot/';
+				$excludes[] = '/vendor/';
+				$excludes[] = '/jquery-ui/';
+				$excludes[] = '/validation';
+				$excludes[] = 'vendor.js';
+				$excludes[] = 'vendor.min.js';
+				$excludes[] = 'jtracker-tmpl.js';
+				$excludes[] = 'jtracker.min.js';
+				break;
+
+			case 'config':
+				$excludes[] = '/templates/';
+				$excludes[] = '/scripts/';
+				break;
+
+			default:
+				break;
+		}
 
 		foreach ($paths as $base)
 		{
@@ -246,23 +267,6 @@ class Langtemplates extends Make
 		if (strpos($extension, '.'))
 		{
 			$subType = substr($extension, strpos($extension, '.') + 1);
-		}
-
-		$buildOpts = '';
-
-		switch ($type)
-		{
-			case 'js':
-				$buildOpts .= ' -L python';
-				break;
-
-			case 'config':
-				$excludes[] = '/templates/';
-				$excludes[] = '/scripts/';
-				break;
-
-			default:
-				break;
 		}
 
 		$this->debugOut(sprintf('Found %d files', count($cleanFiles)));
@@ -331,7 +335,7 @@ class Langtemplates extends Make
 
 		file_put_contents($templatePath, $contents);
 
-		$this->out('Your template has been created');
+		$this->out(g11n3t('Your template has been created'));
 
 		return $this;
 	}
@@ -349,7 +353,7 @@ class Langtemplates extends Make
 	 */
 	private function getCleanFiles($path, $search, $excludes)
 	{
-		$cleanFiles = array();
+		$cleanFiles = [];
 
 		/* @type \SplFileInfo $fileInfo */
 		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $fileInfo)
@@ -363,7 +367,7 @@ class Langtemplates extends Make
 
 			foreach ($excludes as $exclude)
 			{
-				if (strpos($fileInfo->getFilename(), $exclude))
+				if (false !== strpos($fileInfo->getPathname(), $exclude))
 				{
 					$excluded = true;
 				}
@@ -393,8 +397,8 @@ class Langtemplates extends Make
 	private function processConfigFiles($cleanFiles, $templatePath)
 	{
 		defined('NL') || define('NL', "\n");
-		$parser    = g11n::getCodeParser('xml');
-		$potParser = g11n::getLanguageParser('pot');
+		$parser    = G11n::getCodeParser('xml');
+		$potParser = G11n::getLanguageParser('pot');
 
 		$options = new \stdClass;
 
@@ -409,7 +413,7 @@ class Langtemplates extends Make
 				continue;
 			}
 
-			$relPath = str_replace(JPATH_ROOT . DS, '', $fileName);
+			$relPath = str_replace(JPATH_ROOT . '/', '', $fileName);
 
 			foreach ($fileInfo->strings as $key => $strings)
 			{
@@ -457,15 +461,15 @@ class Langtemplates extends Make
 	 */
 	protected function makePhpFromTwig($twigDir, $cacheDir, $recursive = false)
 	{
-		$loader = new Twig_Loader_Filesystem(array(JPATH_ROOT . '/templates', $twigDir));
+		$loader = new Twig_Loader_Filesystem([JPATH_ROOT . '/templates', $twigDir]);
 
 		// Force auto-reload to always have the latest version of the template
 		$twig = new Twig_Environment(
 			$loader,
-			array(
+			[
 				'cache'       => $cacheDir,
 				'auto_reload' => true
-			)
+			]
 		);
 
 		// Configure Twig the way you want
@@ -514,7 +518,7 @@ class Langtemplates extends Make
 	 */
 	private function replacePaths($sourcePath, $twigPath, $templateFile)
 	{
-		$pathMap = array();
+		$pathMap = [];
 
 		/* @type \DirectoryIterator $fileInfo */
 		foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($twigPath)) as $fileInfo)
@@ -526,7 +530,7 @@ class Langtemplates extends Make
 				$f->twigPhpPath = str_replace(JPATH_ROOT, '', $fileInfo->getPathname());
 				$f->lines = file($fileInfo->getPathname());
 
-				if (false == isset($f->lines[2]) || false == preg_match('| ([A-z0-9\.\-\/]+)|', $f->lines[2], $matches))
+				if (false === isset($f->lines[2]) || false === preg_match('| ([A-z0-9\.\-\/]+)|', $f->lines[2], $matches))
 				{
 					throw new \RuntimeException('Can not parse the twig template at: ' . $fileInfo->getPathname());
 				}
@@ -546,7 +550,7 @@ class Langtemplates extends Make
 				$path = $matches[1];
 				$lineNo = $matches[2];
 
-				if (false == array_key_exists($path, $pathMap))
+				if (false === array_key_exists($path, $pathMap))
 				{
 					// Not a twig template
 					continue;
@@ -591,13 +595,13 @@ class Langtemplates extends Make
 	 */
 	private function delTree($dir)
 	{
-		if (false == is_dir($dir))
+		if (false === is_dir($dir))
 		{
 			// Directory does not exist.
 			return true;
 		}
 
-		$files = array_diff(scandir($dir), array('.', '..'));
+		$files = array_diff(scandir($dir), ['.', '..']);
 
 		foreach ($files as $file)
 		{

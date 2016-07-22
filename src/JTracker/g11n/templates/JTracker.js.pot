@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-09 20:49-0600\n"
+"POT-Creation-Date: 2016-07-18 09:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,38 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /www/jtracker/core/js/jtracker.js:11
-#: /www/jtracker/core/js/jtracker.min.js:1
+#: /www/media/js/jtracker.js:19
 msgid "Loading preview..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:22
-#: /www/jtracker/core/js/jtracker.js:43
-#: /www/jtracker/core/js/jtracker.min.js:1
+#: /www/media/js/jtracker.js:30
+#: /www/media/js/jtracker.js:58
 msgid "Invalid response."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:35
-#: /www/jtracker/core/js/jtracker.min.js:1
+#: /www/media/js/jtracker.js:50
 msgid "Submitting comment..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:71
-#: /www/jtracker/core/js/jtracker.min.js:1
+#: /www/media/js/jtracker.js:90
 msgid "Adding vote..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:103
-#: /www/jtracker/core/js/jtracker.js:184
-#: /www/jtracker/core/js/jtracker.min.js:1
+#: /www/media/js/jtracker.js:131
+#: /www/media/js/jtracker.js:224
 msgid "Submitting test result..."
 msgstr ""
 
-#: /www/jtracker/core/js/jtracker.js:179
-#: /www/jtracker/core/js/jtracker.min.js:1
+#: /www/media/js/jtracker.js:219
 msgid "Please select a user"
 msgstr ""
 
-#: /www/jtracker/core/js/uploader-img.js:38
+#: /www/media/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
 msgstr ""

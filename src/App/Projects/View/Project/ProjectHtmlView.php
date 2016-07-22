@@ -42,7 +42,7 @@ class ProjectHtmlView extends AbstractTrackerHtmlView
 	 */
 	public function render()
 	{
-		$this->renderer->set('project', $this->model->getByAlias($this->getAlias()));
+		$this->addData('project', $this->model->getByAlias($this->getAlias()));
 
 		return parent::render();
 	}

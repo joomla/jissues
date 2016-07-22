@@ -4,7 +4,7 @@
 {% extends "index.twig" %}
 
 {% block title %}
-    {{ item.article_id ? "Edit Article"|_ : "New Article"|_ }}
+    {{ parent() }} | {{ item.article_id ? "Edit Article"|_ : "New Article"|_ }}
 {% endblock %}
 
 {% block headerCSS %}
@@ -12,11 +12,11 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/markitup/skins/markitup/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/markitup/sets/markdown/style.css') }}" />
 {% endblock %}
 
 {% block prependMenu %}
@@ -83,7 +83,7 @@
     <script src="{{ asset('js/vendor/markitup/markitup/jquery.markitup.js') }}"></script>
     {% endif %}
 
-    <script type="text/javascript" src="{{ asset('css/markitup/sets/markdown/set.js') }}"></script>
+    <script src="{{ asset('css/markitup/sets/markdown/set.js') }}"></script>
 
     <script type="text/javascript">
         $('#text').markItUp(myMarkdownSettings);
