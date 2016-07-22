@@ -45,7 +45,7 @@ class IssueCategoryMappingTable extends AbstractDatabaseTable
 	 */
 	public function check()
 	{
-		$errors = array();
+		$errors = [];
 
 		if (trim($this->issue_id) == '')
 		{

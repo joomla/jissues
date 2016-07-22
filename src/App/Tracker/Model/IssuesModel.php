@@ -363,7 +363,7 @@ class IssuesModel extends AbstractTrackerListModel
 
 			if ($issues != null)
 			{
-				$issueId = array();
+				$issueId = [];
 
 				foreach ($issues as $issue)
 				{

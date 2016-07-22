@@ -87,7 +87,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		$opened   = new Date($this->hookData->issue->created_at);
 		$modified = new Date($this->hookData->issue->updated_at);
 
-		$data = array();
+		$data = [];
 		$data['issue_number']    = $this->hookData->issue->number;
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $parsedText;
@@ -205,10 +205,10 @@ class ReceiveIssuesHook extends AbstractHookController
 		try
 		{
 			$table->load(
-				array(
+				[
 					'issue_number' => $this->hookData->issue->number,
-					'project_id' => $this->project->project_id
-				)
+					'project_id' => $this->project->project_id,
+				]
 			);
 		}
 		catch (\Exception $e)

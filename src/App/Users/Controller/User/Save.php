@@ -32,7 +32,7 @@ class Save extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$src = $application->input->get('item', array(), 'array');
+		$src = $application->input->get('item', [], 'array');
 
 		if (!$src['id'])
 		{

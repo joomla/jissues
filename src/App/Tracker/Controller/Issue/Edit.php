@@ -89,7 +89,7 @@ class Edit extends AbstractTrackerController
 
 		$item->userTest = $this->model->getUserTest($item->id, $user->username, $sha);
 
-		$item->categoryids = array();
+		$item->categoryids = [];
 
 		foreach ($item->categories as $category)
 		{

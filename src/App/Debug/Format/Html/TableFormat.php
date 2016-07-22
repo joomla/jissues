@@ -46,7 +46,7 @@ class TableFormat
 
 			foreach ($tr as $td)
 			{
-				$html .= '<td>' . ($td === null ? 'NULL' : htmlspecialchars($td) ) . '</td>';
+				$html .= '<td>' . ($td === null ? 'NULL' : htmlspecialchars($td)) . '</td>';
 			}
 
 			$html .= '</tr>';
@@ -70,7 +70,7 @@ class TableFormat
 	{
 		$linkFormat = new LinkFormat;
 
-		$html = array();
+		$html = [];
 
 		$html[] = '<table class="table table-hover table-condensed">';
 

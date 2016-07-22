@@ -214,7 +214,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 			return $hookData->issue->number;
 		}
 
-		return null;
+		return;
 	}
 
 	/**
@@ -453,7 +453,6 @@ abstract class AbstractListener implements ContainerAwareInterface
 	 * @return  string  The currently configured bot account
 	 *
 	 * @since   1.0
-	 *
 	 */
 	protected function getGithubBotName($project)
 	{

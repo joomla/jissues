@@ -32,7 +32,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $tableKeys = array();
+	protected $tableKeys = [];
 
 	/**
 	 * Indicates that the primary keys autoincrement.
@@ -80,7 +80,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		// Set the key to be an array.
 		if (is_string($keys))
 		{
-			$keys = array($keys);
+			$keys = [$keys];
 		}
 		elseif (is_object($keys))
 		{
@@ -189,7 +189,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
 	 */
-	public function bind($src, $ignore = array())
+	public function bind($src, $ignore = [])
 	{
 		// If the source value is not an array or object return false.
 		if (!is_object($src) && !is_array($src))
@@ -242,7 +242,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		if (empty($keys))
 		{
 			$empty = true;
-			$keys  = array();
+			$keys  = [];
 
 			// If empty, use the value of the current key
 			foreach ($this->tableKeys as $key)
@@ -269,7 +269,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 					throw new \InvalidArgumentException('Table has multiple primary keys specified, only one primary key value provided.');
 				}
 
-				$keys = array($this->getKeyName() => $keys);
+				$keys = [$this->getKeyName() => $keys];
 			}
 			else
 			{
@@ -478,12 +478,12 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		{
 			if (is_string($pk))
 			{
-				$pk = array($this->tableKeys[0] => $pk);
+				$pk = [$this->tableKeys[0] => $pk];
 			}
 
 			$pk = (object) $pk;
 
-			foreach ($this->tableKeys AS $k)
+			foreach ($this->tableKeys as $k)
 			{
 				$query->where($this->db->quoteName($k) . ' = ' . $this->db->quote($pk->$k));
 			}

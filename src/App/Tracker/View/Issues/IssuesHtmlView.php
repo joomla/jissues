@@ -41,7 +41,7 @@ class IssuesHtmlView extends AbstractTrackerHtmlView
 		$this->setData(
 			[
 				'state'   => $this->model->getState(),
-				'project' => $this->getProject()
+				'project' => $this->getProject(),
 			]
 		);
 

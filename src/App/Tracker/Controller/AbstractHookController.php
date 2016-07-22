@@ -179,7 +179,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				[
 					new StreamHandler(
 						$this->getContainer()->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
-					)
+					),
 				]
 			)
 		);
@@ -389,7 +389,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			return '';
 		}
 
-		$appLabelIds = array();
+		$appLabelIds = [];
 
 		// Make sure the label is present in the database by pulling the ID, add it if it isn't
 		$query = $this->db->getQuery(true);
@@ -410,7 +410,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			{
 				$table = new LabelsTable($this->db);
 
-				$data = array();
+				$data = [];
 				$data['project_id'] = $this->project->project_id;
 				$data['name']       = $label->name;
 				$data['color']      = $label->color;
@@ -496,7 +496,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				return $status;
 
 			default :
-				return null;
+				return;
 		}
 	}
 

@@ -42,7 +42,7 @@ class Save extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$src = $application->input->get('item', array(), 'array');
+		$src = $application->input->get('item', [], 'array');
 
 		$user = $application->getUser();
 		$project = $application->getProject();
@@ -59,7 +59,7 @@ class Save extends AbstractTrackerController
 
 		$item = $model->getItem($issueNumber);
 
-		$data = array();
+		$data = [];
 
 		if ($user->check('edit'))
 		{

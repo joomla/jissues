@@ -109,8 +109,8 @@ class Modify extends AbstractAjaxController
 			$hook->name,
 			$hook->config,
 			$hook->events,
-			array(),
-			array(),
+			[],
+			[],
 			$hook->active
 		);
 

@@ -21,7 +21,7 @@ class ValidationException extends \Exception
 	 * @var    array|string
 	 * @since  1.0
 	 */
-	protected $errors = array();
+	protected $errors = [];
 
 	/**
 	 * Constructor.

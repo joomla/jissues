@@ -46,7 +46,7 @@ class ActivityModel extends AbstractTrackerDatabaseModel
 			'issue_number' => (int) $itemNumber,
 			'gh_comment_id' => (int) $commentId,
 			'text' => $text,
-			'text_raw' => $textRaw
+			'text_raw' => $textRaw,
 			]
 		);
 	}

@@ -37,7 +37,7 @@ class Markdown extends Package
 	public function render($text, $mode = 'gfm', $context = null)
 	{
 		// The valid modes
-		$validModes = array('gfm', 'markdown');
+		$validModes = ['gfm', 'markdown'];
 
 		// Make sure the scope is valid
 		if (!in_array($mode, $validModes))
@@ -55,11 +55,11 @@ class Markdown extends Package
 
 		// Build the request data.
 		$data = str_replace('\\/', '/', json_encode(
-				array(
+				[
 					'text'    => $text,
 					'mode'    => $mode,
-					'context' => $context
-				)
+					'context' => $context,
+				]
 			)
 		);
 

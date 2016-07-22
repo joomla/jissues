@@ -37,7 +37,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function add(array $src)
 	{
-		$data = array();
+		$data = [];
 
 		$filter              = new InputFilter;
 		$data['title']       = $filter->clean($src['title'], 'string');
@@ -104,7 +104,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$db     = $this->getDb();
 		$filter = new InputFilter;
 
-		$data = array();
+		$data = [];
 		$data['id']          = $filter->clean($src['id'], 'uint');
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
@@ -224,7 +224,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function saveCategory(array $src)
 	{
-		$data       = array();
+		$data       = [];
 		$issue_id   = (int) $src['issue_id'];
 
 		if ($src['categories'])
@@ -279,10 +279,10 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function updateCategory(array $src)
 	{
-		$newCategories    = ($src['categories']) ? $src['categories'] : array();
+		$newCategories    = ($src['categories']) ? $src['categories'] : [];
 		$oldSrc           = $this->getCategories($src['issue_id']);
-		$oldCategories    = array();
-		$data             = array();
+		$oldCategories    = [];
+		$data             = [];
 		$data['issue_id'] = (int) $src['issue_id'];
 
 		foreach ($oldSrc as $category)
@@ -310,7 +310,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		if ($insert || $delete)
 		{
-			$changes                 = array();
+			$changes                 = [];
 			$changes['modified_by']  = $src['modified_by'];
 			$changes['issue_number'] = $src['issue_number'];
 			$changes['project_id']   = $src['project_id'];
@@ -375,8 +375,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$change       = new \stdClass;
 		$change->name = 'category';
-		$change->old  = array();
-		$change->new  = array();
+		$change->old  = [];
+		$change->new  = [];
 
 		foreach ($src['old'] as $key => $old)
 		{
@@ -392,13 +392,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			$change->new[$key]['color'] = $newCategory->color;
 		}
 
-		$data                 = array();
+		$data                 = [];
 		$data['event']        = 'change';
 		$data['created_date'] = $date;
 		$data['user']         = $src['modified_by'];
 		$data['issue_number'] = (int) $src['issue_number'];
 		$data['project_id']   = (int) $src['project_id'];
-		$data['text']         = json_encode(array($change));
+		$data['text']         = json_encode([$change]);
 
 		$table = new ActivitiesTable($this->getDb());
 		$table->save($data);

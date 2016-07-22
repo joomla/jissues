@@ -69,7 +69,7 @@ class Search extends AbstractAjaxController
 			$users = $db->setQuery($query, 0, 10)
 				->loadColumn();
 
-			$this->response->data->options = $users ? : array();
+			$this->response->data->options = $users ? : [];
 		}
 	}
 }

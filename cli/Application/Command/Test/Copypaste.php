@@ -50,7 +50,7 @@ class Copypaste extends Test
 			new ArrayInput(
 				['values' => [
 					JPATH_ROOT . '/cli',
-					JPATH_ROOT . '/src'
+					JPATH_ROOT . '/src',
 				]]
 			)
 		);

@@ -244,7 +244,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			2 => g11n3t('Urgent'),
 			3 => g11n3t('Medium'),
 			4 => g11n3t('Low'),
-			5 => g11n3t('Very low')
+			5 => g11n3t('Very low'),
 		];
 	}
 
@@ -291,7 +291,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			'duplicate_of' => g11n3t('Duplicate of'),
 			'related_to' => g11n3t('Related to'),
 			'not_before' => g11n3t('Not before'),
-			'pr_for' => g11n3t('Pull Request for')
+			'pr_for' => g11n3t('Pull Request for'),
 		];
 
 		return $relations[$relation];
@@ -354,7 +354,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					3 => g11n3t('Pending'),
 					4 => g11n3t('Ready To Commit'),
 					6 => g11n3t('Needs Review'),
-					7 => g11n3t('Information Required')
+					7 => g11n3t('Information Required'),
 				];
 				break;
 
@@ -366,7 +366,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
 					12 => g11n3t('Known Issue'),
-					13 => g11n3t('Duplicate Report')
+					13 => g11n3t('Duplicate Report'),
 				];
 				break;
 
@@ -384,7 +384,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					10 => g11n3t('Closed'),
 					11 => g11n3t('Expected Behaviour'),
 					12 => g11n3t('Known Issue'),
-					13 => g11n3t('Duplicate Report')
+					13 => g11n3t('Duplicate Report'),
 				];
 		}
 
@@ -693,7 +693,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$options = $options ? : [
 			0 => g11n3t('Not tested'),
 			1 => g11n3t('Tested successfully'),
-			2 => g11n3t('Tested unsuccessfully')
+			2 => g11n3t('Tested unsuccessfully'),
 		];
 
 		return ($id !== null && array_key_exists($id, $options)) ? $options[$id] : $options;

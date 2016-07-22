@@ -54,7 +54,7 @@ class Submit extends AbstractTrackerController
 		}
 
 		// Prepare issue for the store
-		$data = array();
+		$data = [];
 
 		$data['title']        = $application->input->getString('title');
 		$data['milestone_id'] = $application->input->getInt('milestone_id');

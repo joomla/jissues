@@ -71,7 +71,7 @@ class Login extends AbstractTrackerController
 				'tokenurl'     => 'https://github.com/login/oauth/access_token',
 				'redirect_uri' => $app->get('uri.request'),
 				'clientid'     => $app->get('github.client_id'),
-				'clientsecret' => $app->get('github.client_secret')
+				'clientsecret' => $app->get('github.client_secret'),
 			]
 		);
 

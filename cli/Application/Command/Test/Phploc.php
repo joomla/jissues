@@ -51,7 +51,7 @@ class Phploc extends Test
 				[
 					'values' => [
 					JPATH_ROOT . '/cli',
-					JPATH_ROOT . '/src'
+					JPATH_ROOT . '/src',
 					],
 				]
 			)

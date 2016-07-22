@@ -203,7 +203,7 @@ class Listing extends AbstractAjaxController
 		}
 
 		// Prepare the response.
-		$items                = array('items' => $listItems, 'pagesTotal' => $pagesTotal, 'currentPage' => $currentPage);
+		$items                = ['items' => $listItems, 'pagesTotal' => $pagesTotal, 'currentPage' => $currentPage];
 		$this->response->data = (object) $items;
 	}
 }

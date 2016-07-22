@@ -139,9 +139,9 @@ class Comments extends Package
 
 		// Build the request data.
 		$data = json_encode(
-			array(
-				'body' => $body
-			)
+			[
+				'body' => $body,
+			]
 		);
 
 		// Send the request.
@@ -170,9 +170,9 @@ class Comments extends Package
 
 		// Build the request data.
 		$data = json_encode(
-			array(
+			[
 				'body' => $body,
-			)
+			]
 		);
 
 		// Send the request.
