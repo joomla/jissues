@@ -390,6 +390,8 @@ class ReceiveIssuesHook extends AbstractHookController
 				'build'           => $table->build,
 				'rel_number'      => $table->rel_number,
 				'rel_type'        => $table->rel_type,
+				'milestone_id'    => $table->milestone_id,
+				'labels'          => $this->processLabels($table->issue_number),
 			]
 		);
 
