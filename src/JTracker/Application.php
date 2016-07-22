@@ -152,8 +152,9 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			/* @type AbstractTrackerController $controller */
 			$controller = $this->getRouter()->getController($this->get('uri.route'));
 
+			$this->mark('Initializing controller: ' . get_class($controller));
 			$controller->initialize();
-			$this->mark('Controller initialized');
+			$this->mark('Controller initialized.');
 
 			// Load the language for the application
 			// @todo language must be loaded after routing is processed cause the Project object is coupled with the User object...
@@ -163,6 +164,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			// Define the app path
 			define('JPATH_APP', JPATH_ROOT . '/src/App/' . ucfirst($controller->getApp()));
+			$this->mark('JPATH_APP=' . JPATH_APP);
 
 			// Load the App language file
 			G11n::loadLanguage($controller->getApp(), 'App');

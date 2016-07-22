@@ -222,6 +222,10 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 
 		$this->view->setLayout($viewName . '.' . $layoutName);
 
+		$this->getContainer()->get('app')->mark('Model: ' . $modelClass);
+		$this->getContainer()->get('app')->mark('View: ' . $viewClass);
+		$this->getContainer()->get('app')->mark('Layout: ' . $layoutName);
+
 		return $this;
 	}
 
@@ -240,6 +244,8 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		{
 			// Render our view.
 			$contents = $this->view->render();
+
+			$this->getContainer()->get('app')->mark('View rendered: ' . $this->view->getLayout());
 		}
 		catch (\Exception $e)
 		{
