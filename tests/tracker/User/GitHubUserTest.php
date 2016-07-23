@@ -44,7 +44,7 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		// Mock the base database driver withotu calling the original constructor
+		// Mock the base database driver without calling the original constructor
 		$driver = $this->getMockForAbstractClass(DatabaseDriver::class, [], '', false);
 
 		// Mock the project object
