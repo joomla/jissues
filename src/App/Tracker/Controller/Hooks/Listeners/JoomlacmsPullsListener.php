@@ -800,225 +800,136 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		$addCategories = [];
 
-		if (!empty($files))
+		if (empty($files))
 		{
-			foreach ($files as $file)
+			// Nothing to do here...
+			return [];
+		}
+
+		// List of checks
+		// Category id as key, checks as index
+		$fileChecks = [
+			// Check for javascript file changes
+			'1'  => ['.js$'],
+			// Check for the installation folder
+			'25' => ['^installation\/'],
+			// Check for the admin template
+			'31' => ['^administrator\/templates\/'],
+			// Check for the frontend template
+			'30' => ['^templates\/'],
+			// Check for the plugins folder
+			'28' => ['^plugins\/'],
+			// Check if the language gets changed
+			'27' => [
+				'^administrator\/language',
+				'^installation\/language',
+				'^language',
+			],
+			// Check for files & paths regarding the Unit/System Tests
+			'14' => [
+				'^tests',
+				'.travis.yml',
+				'phpunit.xml.dist',
+				'travisci-phpunit.xml',
+			],
+			// Check for the libraries folder
+			'12' => ['^libraries\/'],
+			// Check for the layouts folder
+			'15' => ['^layouts\/'],
+			// Check for the cli folder
+			'18' => ['^cli\/'],
+			// Check for external libraries folders and destinations
+			'4' => [
+				'^libraries\/fof\/',
+				'^libraries\/idna_convert\/',
+				'^libraries\/phpass\/',
+				'^libraries\/phputf8\/',
+				'^libraries\/simplepie\/',
+				'^libraries\/vendor\/',
+				'^media\/editors\/codemirror',
+				'^media\/editors\/tinymce',
+				'composer.json',
+				'composer.lock',
+			],
+			// Check for repository changes (no production code) excluding tests
+			'36' => [
+				'^build\/',
+				'^.github\/',
+				'.gitignore',
+				'CONTRIBUTING.md',
+				'README.md',
+				'README.txt',
+				'build.xml',
+			],
+			// Check for tags changes
+			'16' => [
+				'^administrator\/components\/com_tags',
+				'^components\/com_tags',
+			],
+			// Check for sql changes
+			'10' => [
+				'^administrator\/components\/com_admin\/sql\/updates',
+				'^installation\/sql',
+			],
+			// Check for postgresql changes
+			'2' => [
+				'^administrator\/components\/com_admin\/sql\/updates\/postgresql',
+				'^installation\/sql\/postgresql',
+			],
+			// Check for ms-sql changes
+			'3' => [
+				'^administrator\/components\/com_admin\/sql\/updates\/sqlazure',
+				'^installation\/sql\/sqlazure',
+			],
+			// Check for media manager changes
+			'35' => [
+				'^administrator\/components\/com_media',
+				'^components\/com_media',
+			],
+			// Check for admin changes
+			'23' => ['^administrator\/'],
+			// Check for ms-sql changes
+			'24' => [
+				'^components\/',
+				'^modules\/',
+				'^plugins\/',
+				'^templates\/',
+			],
+			// Check for admin components changes changes
+			// Check for frontend components changes
+			'29' => [
+				'^administrator\/components\/',
+				'^components\/',
+			],
+			// Check for admin module changes
+			// Check for frontend module changes
+			'13' => [
+				'^administrator\/modules\/',
+				'^modules\/',
+			],
+		];
+
+		foreach ($files as $file)
+		{
+			foreach ($fileChecks as $catIndex => $checks)
 			{
-				// Check for javascript file changes
-				if (preg_match('/.js$/', $file)
-					&& !in_array('1', $addCategories))
+				if (in_array($catIndex, $addCategories))
 				{
-					// Javascript
-					$addCategories[] = '1';
+					continue;
 				}
 
-				// Check for the installation folder
-				if (strpos($file->filename, 'installation/') === 0
-					&& !in_array('25', $addCategories))
+				foreach ($checks as $check)
 				{
-					// Installation
-					$addCategories[] = '25';
-				}
+					if (preg_match('/' . $check . '/', $file->filename))
+					{
+						$addCategories[] = $catIndex;
 
-				// Check for the admin template
-				if (strpos($file->filename, 'administrator/templates/') === 0
-					&& !in_array('31', $addCategories))
-				{
-					// Admin templates
-					$addCategories[] = '31';
-				}
-
-				// Check for the frontend template
-				if (strpos($file->filename, 'templates/') === 0
-					&& !in_array('30', $addCategories))
-				{
-					// Site Template
-					$addCategories[] = '30';
-				}
-
-				// Check for the plugins folder
-				if (strpos($file->filename, 'plugins/') === 0
-					&& !in_array('28', $addCategories))
-				{
-					// Plugins
-					$addCategories[] = '28';
-				}
-
-				// Check if the language gets changed
-				if ((strpos($file->filename, 'administrator/language') === 0
-					|| strpos($file->filename, 'installation/language') === 0
-					|| strpos($file->filename, 'language') === 0)
-					&& !in_array('27', $addCategories))
-				{
-					// Language & Strings
-					$addCategories[] = '27';
-				}
-
-				// Check for files & paths regarding the Unit/System Tests
-				if ((strpos($file->filename, 'tests') === 0
-					|| $file->filename == '.travis.yml'
-					|| $file->filename == 'phpunit.xml.dist'
-					|| $file->filename == 'travisci-phpunit.xml')
-					&& !in_array('14', $addCategories))
-				{
-					// Unit Tests
-					$addCategories[] = '14';
-				}
-
-				// Check for the libraries folder
-				if (strpos($file->filename, 'libraries/') === 0
-					&& !in_array('12', $addCategories))
-				{
-					// Libraries
-					$addCategories[] = '12';
-				}
-
-				// Check for the layouts folder
-				if (strpos($file->filename, 'layouts/') === 0
-					&& !in_array('15', $addCategories))
-				{
-					// Layout
-					$addCategories[] = '15';
-				}
-
-				// Check for the cli folder
-				if (strpos($file->filename, 'cli/') === 0
-					&& !in_array('18', $addCategories))
-				{
-					// CLI
-					$addCategories[] = '18';
-				}
-
-				// Check for external libraries folders and destinations
-				if ((strpos($file->filename, 'libraries/fof/') === 0
-					|| strpos($file->filename, 'libraries/idna_convert/') === 0
-					|| strpos($file->filename, 'libraries/phpass/') === 0
-					|| strpos($file->filename, 'libraries/phputf8/') === 0
-					|| strpos($file->filename, 'libraries/simplepie/') === 0
-					|| strpos($file->filename, 'libraries/vendor/') === 0
-					|| strpos($file->filename, 'media/editors/codemirror') === 0
-					|| strpos($file->filename, 'media/editors/tinymce') === 0
-					|| $file->filename == 'composer.json'
-					|| $file->filename == 'composer.lock')
-					&& !in_array('4', $addCategories))
-				{
-					// External Library
-					$addCategories[] = '4';
-				}
-
-				// Check for repository changes (no production code) excluding tests
-				if ((strpos($file->filename, 'build/') === 0
-					|| strpos($file->filename, '.github/') === 0
-					|| $file->filename == '.gitignore'
-					|| $file->filename == 'CONTRIBUTING.md'
-					|| $file->filename == 'README.md'
-					|| $file->filename == 'README.txt'
-					|| $file->filename == 'build.xml')
-					&& !in_array('36', $addCategories))
-				{
-					// Repository
-					$addCategories[] = '36';
-				}
-
-				// Check for tags changes
-				if ((strpos($file->filename, 'administrator/components/com_tags') === 0
-					|| strpos($file->filename, 'components/com_tags') === 0)
-					&& !in_array('16', $addCategories))
-				{
-					// Tags
-					$addCategories[] = '16';
-				}
-
-				// Check for sql changes
-				if ((strpos($file->filename, 'administrator/components/com_admin/sql/updates') === 0
-					|| strpos($file->filename, 'installation/sql') === 0)
-					&& !in_array('10', $addCategories))
-				{
-					// SQL
-					$addCategories[] = '10';
-				}
-
-				// Check for postgresql changes
-				if ((strpos($file->filename, 'administrator/components/com_admin/sql/updates/postgresql') === 0
-					|| strpos($file->filename, 'installation/sql/postgresql') === 0)
-					&& !in_array('2', $addCategories))
-				{
-					// Postgresql
-					$addCategories[] = '2';
-				}
-
-				// Check for ms-sql changes
-				if ((strpos($file->filename, 'administrator/components/com_admin/sql/updates/sqlazure') === 0
-					|| strpos($file->filename, 'installation/sql/sqlazure') === 0)
-					&& !in_array('3', $addCategories))
-				{
-					// MS SQL
-					$addCategories[] = '3';
-				}
-
-				// Check for media manager changes
-				if ((strpos($file->filename, 'administrator/components/com_media') === 0
-					|| strpos($file->filename, 'components/com_media') === 0)
-					&& !in_array('35', $addCategories))
-				{
-					// Media Manager
-					$addCategories[] = '35';
-				}
-
-				// Check for admin changes
-				if (strpos($file->filename, 'administrator/') === 0
-					&& !in_array('23', $addCategories))
-				{
-					// Administration
-					$addCategories[] = '23';
-				}
-
-				// Check for frontend changes
-				if ((strpos($file->filename, 'components/') === 0
-					|| strpos($file->filename, 'modules/') === 0
-					|| strpos($file->filename, 'plugins/') === 0
-					|| strpos($file->filename, 'templates/') === 0)
-					&& !in_array('24', $addCategories))
-				{
-					// Front End
-					$addCategories[] = '24';
-				}
-
-				// Check for admin components changes changes
-				if (strpos($file->filename, 'administrator/components/') === 0
-					&& !in_array('29', $addCategories))
-				{
-					// Components
-					$addCategories[] = '29';
-				}
-
-				// Check for frontend components changes
-				if (strpos($file->filename, 'components/') === 0
-					&& !in_array('29', $addCategories))
-				{
-					// Components
-					$addCategories[] = '29';
-				}
-
-				// Check for admin module changes changes
-				if (strpos($file->filename, 'administrator/modules/') === 0
-					&& !in_array('13', $addCategories))
-				{
-					// Modules
-					$addCategories[] = '13';
-				}
-
-				// Check for frontend module changes
-				if (strpos($file->filename, 'modules/') === 0
-					&& !in_array('13', $addCategories))
-				{
-					// Modules
-					$addCategories[] = '13';
+						continue 2;
+					}
 				}
 			}
 		}
 
-		// Return the categories
 		return $addCategories;
 	}
 }
