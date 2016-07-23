@@ -23,10 +23,6 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 	 */
 	protected $object;
 
-	protected $runTestInSeparateProcess = true;
-
-	protected $backupGlobalsBlacklist = ['container'];
-
 	/**
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
@@ -50,8 +46,8 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 			'test.js' => ['1'],
 			'installation/' => ['25'],
 			'administrator/' => ['23'],
-			'administrator/language' => ['27', '23'],
-			'administrator/templates/' => ['31', '23'],
+			'administrator/language' => ['23', '27'],
+			'administrator/templates/' => ['23', '31'],
 			'installation/language' => ['25', '27'],
 			'language' => ['27'],
 			'tests' => ['14'],
@@ -61,12 +57,12 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 			'libraries/' => ['12'],
 			'layouts/' => ['15'],
 			'cli/' => ['18'],
-			'libraries/fof/' => ['12', '4'],
-			'libraries/idna_convert/' => ['12', '4'],
-			'libraries/phpass/' => ['12', '4'],
-			'libraries/phputf8/' => ['12', '4'],
-			'libraries/simplepie/' => ['12', '4'],
-			'libraries/vendor/' => ['12', '4'],
+			'libraries/fof/' => ['4', '12'],
+			'libraries/idna_convert/' => ['4', '12'],
+			'libraries/phpass/' => ['4', '12'],
+			'libraries/phputf8/' => ['4', '12'],
+			'libraries/simplepie/' => ['4', '12'],
+			'libraries/vendor/' => ['4', '12'],
 			'media/editors/codemirror' => ['4'],
 			'media/editors/tinymce' => ['4'],
 			'composer.json' => ['4'],
@@ -81,20 +77,19 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 			'administrator/components/com_tags' => ['16', '23', '29'],
 			'components/com_tags' => ['16', '24', '29'],
 			'administrator/components/com_admin/sql/updates' => ['10', '23', '29'],
-			'installation/sql' => ['25', '10'],
-			'administrator/components/com_admin/sql/updates/postgresql' => ['10', '2', '23', '29'],
-			'installation/sql/postgresql' => ['25', '10', '2'],
-			'administrator/components/com_admin/sql/updates/sqlazure' => ['10', '3', '23', '29'],
-			'installation/sql/sqlazure' => ['25', '10', '3'],
-			'administrator/components/com_media' => ['35', '23', '29'],
-			'components/com_media' => ['35', '24', '29'],
+			'installation/sql' => ['10', '25'],
+			'administrator/components/com_admin/sql/updates/postgresql' => ['2', '10', '23', '29'],
+			'installation/sql/postgresql' => ['2', '10', '25'],
+			'administrator/components/com_admin/sql/updates/sqlazure' => ['3', '10', '23', '29'],
+			'installation/sql/sqlazure' => ['3', '10', '25'],
+			'administrator/components/com_media' => ['23', '29', '35'],
+			'components/com_media' => ['24', '29', '35'],
 			'components/' => ['24', '29'],
-			'modules/' => ['24', '13'],
-			'plugins/' => ['28', '24'],
-			'templates/' => ['30', '24'],
+			'modules/' => ['13', '24'],
+			'plugins/' => ['24', '28'],
+			'templates/' => ['24', '30'],
 			'administrator/components/' => ['23', '29'],
-			'administrator/modules/' => ['23', '13'],
-
+			'administrator/modules/' => ['13', '23'],
 		];
 
 		$f = new \stdClass;
