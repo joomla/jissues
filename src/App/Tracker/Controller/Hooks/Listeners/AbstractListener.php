@@ -365,32 +365,28 @@ abstract class AbstractListener implements ContainerAwareInterface
 	}
 
 	/**
-	 * Get Categories
+	 * Get Categories for an issue.
 	 *
-	 * @param   object       $hookData  Hook data payload
-	 * @param   Logger       $logger    Logger object
-	 * @param   object       $project   Object containing project data
-	 * @param   IssuesTable  $table     Table object
+	 * @param   IssuesTable  $table  Table object
 	 *
-	 * @return  array        The object list of the issues.
+	 * @return  array   Array with category ids.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function getCategories($hookData, Logger $logger, $project, IssuesTable $table)
+	protected function getCategories(IssuesTable $table)
 	{
-		$categoryModel = new CategoryModel($this->getContainer()->get('db'));
+		$categories = (new CategoryModel($this->getContainer()->get('db')))
+			->getCategories($table->id);
 
-		$items = $categoryModel->getCategories($table->id);
+		$ids = [];
 
-		$categories = [];
-
-		foreach ($items as $category)
+		foreach ($categories as $category)
 		{
-			$categories[] = $category->category_id;
+			$ids[] = $category->category_id;
 		}
 
-		return $categories;
+		return $ids;
 	}
 
 	/**
