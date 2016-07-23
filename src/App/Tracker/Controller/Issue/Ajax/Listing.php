@@ -20,20 +20,18 @@ use Joomla\Uri\Uri;
 /**
  * Listing controller to respond ajax request.
  *
- * @package  App\Tracker\Controller\Issue\Ajax
- *
- * @since    1.0
+ * @since  1.0
  */
 class Listing extends AbstractAjaxController
 {
 	/**
 	 * Setting model state that will be used for filtering.
 	 *
-	 * @param   \App\Tracker\Model\IssuesModel  $model  The issues model
+	 * @param   IssuesModel  $model  The issues model
 	 *
 	 * @return  \Joomla\Registry\Registry
 	 *
-	 * @since 1.0
+	 * @since   1.0
 	 */
 	private function setModelState(IssuesModel $model)
 	{

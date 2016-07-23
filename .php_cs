@@ -34,16 +34,20 @@ return Symfony\CS\Config\Config::create()
 			'list_commas',
 			'multiline_array_trailing_comma',
 			'no_blank_lines_after_class_opening',
+			'phpdoc_no_package',
 			'phpdoc_trim',
 			'return',
+			'self_accessor',
 			'single_array_no_trailing_comma',
 			'single_blank_line_before_namespace',
 			'spaces_cast',
+			'trim_array_spaces',
 			'unneeded_control_parentheses',
 			'unused_use',
 			'whitespacy_lines',
 			// contrib
 			'concat_with_spaces',
+			'newline_after_open_tag',
 			'short_array_syntax',
 		]
 	)

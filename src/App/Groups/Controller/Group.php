@@ -16,8 +16,7 @@ use JTracker\Controller\AbstractTrackerController;
 /**
  * Controller class to manage a user group.
  *
- * @package  JTracker\Components\Tracker
- * @since    1.0
+ * @since  1.0
  */
 class Group extends AbstractTrackerController
 {
