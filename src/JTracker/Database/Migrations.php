@@ -106,7 +106,7 @@ class Migrations
 			[
 				'missingMigrations' => $countMissing,
 				'currentVersion'    => $currentVersion,
-				'latestVersion'     => $latestVersion
+				'latestVersion'     => $latestVersion,
 			]
 		);
 	}

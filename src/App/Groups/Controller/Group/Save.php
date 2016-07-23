@@ -73,7 +73,7 @@ class Save extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$group = $this->getContainer()->get('app')->input->get('group', array(), 'array');
+		$group = $this->getContainer()->get('app')->input->get('group', [], 'array');
 
 		$table = new GroupsTable($this->getContainer()->get('db'));
 

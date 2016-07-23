@@ -32,7 +32,7 @@ class UsersModel extends AbstractTrackerListModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$query->select(array('id', 'username'));
+		$query->select(['id', 'username']);
 		$query->from('#__users');
 
 		$filter = $this->state->get('filter.search-user');

@@ -60,7 +60,7 @@ class Put extends AbstractAjaxController
 					'deleteUrl'    => '/upload/delete/?file=' . $destName,
 					'deleteType'   => 'POST',
 					'editorId'     => $application->input->get('editorId'),
-				]
+				],
 			];
 
 			// Do not pass the thumbnail if not an image
@@ -87,8 +87,8 @@ class Put extends AbstractAjaxController
 
 				$data = [
 					[
-						'error' => $errors
-					]
+						'error' => $errors,
+					],
 				];
 			}
 

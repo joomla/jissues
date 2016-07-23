@@ -21,7 +21,7 @@ abstract class IpHelper
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected static $cidrRanges = array(
+	protected static $cidrRanges = [
 		0  => 4294967296,
 		1  => 2147483648,
 		2  => 1073741824,
@@ -54,8 +54,8 @@ abstract class IpHelper
 		29 => 8,
 		30 => 4,
 		31 => 2,
-		32 => 1
-	);
+		32 => 1,
+	];
 
 	/**
 	 * Array containing the authorized lookup types for ipInRange()
@@ -63,7 +63,7 @@ abstract class IpHelper
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected static $authorizedTypes = array('cidr', 'range');
+	protected static $authorizedTypes = ['cidr', 'range'];
 
 	/**
 	 * Determines if the supplied IP address is in the valid IP range
@@ -116,7 +116,7 @@ abstract class IpHelper
 		{
 			case 'cidr':
 				// Split the CIDR address into a separate IP address and bits
-				list ($subnet, $bits) = explode('/', $valid);
+				list($subnet, $bits) = explode('/', $valid);
 
 				// Convert the network address into number format and calculate the end value
 				$start = ip2long($subnet);
@@ -141,6 +141,6 @@ abstract class IpHelper
 				);
 		}
 
-		return array('start' => $start, 'end' => $end);
+		return ['start' => $start, 'end' => $end];
 	}
 }

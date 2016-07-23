@@ -76,7 +76,7 @@ class ProjectsModel extends AbstractTrackerListModel
 		$query = $db->getQuery(true);
 
 		$query->select('DISTINCT ' . $db->quoteName('p.project_id'));
-		$query->select($db->quoteName(array('p.title', 'p.alias', 'p.gh_user', 'p.gh_project')));
+		$query->select($db->quoteName(['p.title', 'p.alias', 'p.gh_user', 'p.gh_project']));
 
 		$query->from($db->quoteName('#__tracker_projects', 'p'));
 

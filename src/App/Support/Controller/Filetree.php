@@ -63,7 +63,7 @@ class Filetree extends AbstractTrackerController
 			// All files
 			foreach ($files as $file)
 			{
-				if (!is_dir($path . '/' . $file) )
+				if (!is_dir($path . '/' . $file))
 				{
 					// Dumb spoof check
 					$file = str_replace('..', '', $file);

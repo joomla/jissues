@@ -139,10 +139,10 @@ class TrackerDebugger implements LoggerAwareInterface, ContainerAwareInterface
 					new StreamHandler(
 						$this->getLogPath('root') . '/error.log',
 						Logger::ERROR
-					)
+					),
 				],
 				[
-					new WebProcessor
+					new WebProcessor,
 				]
 			)
 		);

@@ -100,10 +100,10 @@ class Assign extends AbstractAjaxController
 	{
 		$db = $this->getContainer()->get('db');
 
-		$data = array(
+		$data = [
 			$db->quoteName('user_id')  => (int) $userId,
-			$db->quoteName('group_id') => (int) $groupId
-		);
+			$db->quoteName('group_id') => (int) $groupId,
+		];
 
 		$db->setQuery(
 			$db->getQuery(true)

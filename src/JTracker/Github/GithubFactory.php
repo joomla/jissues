@@ -122,10 +122,10 @@ abstract class GithubFactory
 						new StreamHandler(
 							$app->get('debug.log-path', JPATH_ROOT) . '/github.log',
 							Logger::DEBUG
-						)
+						),
 					],
 					[
-						new WebProcessor
+						new WebProcessor,
 					]
 				)
 			);

@@ -45,7 +45,7 @@ class Checkstyle extends Test
 
 		$options['files'] = [
 			JPATH_ROOT . '/cli',
-			JPATH_ROOT . '/src'
+			JPATH_ROOT . '/src',
 		];
 
 		$options['standard'] = [JPATH_ROOT . '/build/phpcs/Joomla'];

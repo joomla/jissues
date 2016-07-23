@@ -28,7 +28,7 @@ abstract class AbstractTrackerListModel extends AbstractTrackerDatabaseModel
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $cache = array();
+	protected $cache = [];
 
 	/**
 	 * Context string for the model type.  This is used to handle uniqueness

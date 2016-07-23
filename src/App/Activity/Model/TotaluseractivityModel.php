@@ -54,7 +54,7 @@ class TotaluseractivityModel extends AbstractTrackerDatabaseModel
 		// Select required data.
 		$select = [
 			't.activity_group',
-			'DATE(NOW()) AS end_date'
+			'DATE(NOW()) AS end_date',
 		];
 
 		$periodList  = [1 => 7, 2 => 30, 3 => 90];

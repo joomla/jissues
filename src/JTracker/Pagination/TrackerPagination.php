@@ -130,7 +130,7 @@ class TrackerPagination
 		$lastPage = $this->getPagesTotal();
 		$lpm1     = $lastPage - 1;
 
-		$bar = array();
+		$bar = [];
 		$counter    = 0;
 
 		if ($lastPage < 2)

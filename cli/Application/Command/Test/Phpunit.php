@@ -43,7 +43,7 @@ class Phpunit extends Test
 		$command = new PHPUnit_TextUI_Command;
 
 		$options = [
-			'--configuration=' . JPATH_ROOT . '/phpunit.xml'
+			'--configuration=' . JPATH_ROOT . '/phpunit.xml',
 		];
 
 		$returnVal = $command->run($options, false);

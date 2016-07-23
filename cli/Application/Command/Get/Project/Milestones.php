@@ -92,7 +92,7 @@ class Milestones extends Project
 				$table->load(
 					[
 						'project_id' => $this->project->project_id,
-						'milestone_number' => $milestone->number
+						'milestone_number' => $milestone->number,
 					]
 				);
 

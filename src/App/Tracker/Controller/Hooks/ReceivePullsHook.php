@@ -107,7 +107,7 @@ class ReceivePullsHook extends AbstractHookController
 		$opened     = new Date($this->data->created_at);
 		$modified   = new Date($this->data->updated_at);
 
-		$data = array();
+		$data = [];
 		$data['issue_number']    = $this->data->number;
 		$data['title']           = $this->data->title;
 		$data['description']     = $this->parseText($this->data->body);
@@ -252,10 +252,10 @@ class ReceivePullsHook extends AbstractHookController
 		try
 		{
 			$table->load(
-				array(
+				[
 					'issue_number' => $this->data->number,
-					'project_id' => $this->project->project_id
-				)
+					'project_id' => $this->project->project_id,
+				]
 			);
 		}
 		catch (\Exception $e)

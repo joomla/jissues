@@ -46,7 +46,7 @@ class Issues extends Package
 	 * @since   1.0
 	 * @throws  \DomainException
 	 */
-	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = array())
+	public function create($user, $repo, $title, $body = null, $assignee = null, $milestone = null, array $labels = [])
 	{
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues';
@@ -59,13 +59,13 @@ class Issues extends Package
 
 		// Build the request data.
 		$data = json_encode(
-			array(
+			[
 				'title'     => $title,
 				'assignee'  => $assignee,
 				'milestone' => $milestone,
 				'labels'    => $labels,
-				'body'      => $body
-			)
+				'body'      => $body,
+			]
 		);
 
 		// Send the request.

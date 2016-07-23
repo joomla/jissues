@@ -228,7 +228,7 @@ abstract class TrackerCommand implements LoggerAwareInterface, ContainerAwareInt
 	 */
 	public function displayMissingOption($dir)
 	{
-		$command = strtolower(join('', array_slice(explode('\\', get_class($this)), -1)));
+		$command = strtolower(implode('', array_slice(explode('\\', get_class($this)), -1)));
 
 		$this->getApplication()->outputTitle(sprintf(g11n3t('Command: %s'), ucfirst($command)));
 

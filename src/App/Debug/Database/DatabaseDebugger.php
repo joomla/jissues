@@ -33,7 +33,7 @@ class DatabaseDebugger
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $sqlShowProfileEach = array();
+	private $sqlShowProfileEach = [];
 
 	/**
 	 * Array containing EXPLAIN query results
@@ -41,7 +41,7 @@ class DatabaseDebugger
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $explains = array();
+	private $explains = [];
 
 	/**
 	 * Constructor.

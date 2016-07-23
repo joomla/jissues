@@ -89,7 +89,7 @@ abstract class User implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $accessGroups = array();
+	protected $accessGroups = [];
 
 	/**
 	 * A list of cleared access rights.
@@ -97,7 +97,7 @@ abstract class User implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $cleared = array();
+	private $cleared = [];
 
 	/**
 	 * Database object
@@ -260,7 +260,7 @@ abstract class User implements \Serializable
 	 */
 	public function canEditOwn($username)
 	{
-		return ($this->check('editown') && $this->username == $username);
+		return $this->check('editown') && $this->username == $username;
 	}
 
 	/**
@@ -385,7 +385,7 @@ abstract class User implements \Serializable
 			[
 				$this->id,
 				$this->username,
-				$this->project
+				$this->project,
 			]
 		);
 	}
@@ -401,7 +401,7 @@ abstract class User implements \Serializable
 	 */
 	public function unserialize($serialized)
 	{
-		list ($this->id, $this->username, $this->project) = unserialize($serialized);
+		list($this->id, $this->username, $this->project) = unserialize($serialized);
 
 		// Initialize the user parameters object.
 		$this->params = new Registry;

@@ -90,10 +90,10 @@ class MonologProvider implements ServiceProviderInterface
 				return new Logger(
 					'JTracker',
 					[
-						$container->get('monolog.handler.application')
+						$container->get('monolog.handler.application'),
 					],
 					[
-						$container->get('monolog.processor.web')
+						$container->get('monolog.processor.web'),
 					]
 				);
 			}
@@ -106,11 +106,11 @@ class MonologProvider implements ServiceProviderInterface
 				return new Logger(
 					'JTracker',
 					[
-						$container->get('monolog.handler.database')
+						$container->get('monolog.handler.database'),
 					],
 					[
 						$container->get('monolog.processor.psr3'),
-						$container->get('monolog.processor.web')
+						$container->get('monolog.processor.web'),
 					]
 				);
 			}

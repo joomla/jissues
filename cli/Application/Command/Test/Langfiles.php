@@ -115,6 +115,6 @@ class Langfiles extends Test
 			exit($errors ? 1 : 0);
 		}
 
-		return ($errors ? 1 : 0);
+		return $errors ? 1 : 0;
 	}
 }

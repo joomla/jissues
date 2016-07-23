@@ -202,7 +202,7 @@ class Repositories extends Package
 			// Create a repository for a user
 			: '/user/repos';
 
-		$data = array(
+		$data = [
 			'name'               => $name,
 			'description'        => $description,
 			'homepage'           => $homepage,
@@ -212,8 +212,8 @@ class Repositories extends Package
 			'has_downloads'      => $has_downloads,
 			'team_id'            => $team_id,
 			'auto_init'          => $auto_init,
-			'gitignore_template' => $gitignore_template
-		);
+			'gitignore_template' => $gitignore_template,
+		];
 
 		// Send the request.
 		return $this->processResponse(
@@ -267,7 +267,7 @@ class Repositories extends Package
 	{
 		$path = '/repos/' . $owner . '/' . $repo;
 
-		$data = array(
+		$data = [
 			'name'           => $name,
 			'description'    => $description,
 			'homepage'       => $homepage,
@@ -275,8 +275,8 @@ class Repositories extends Package
 			'has_issues'     => $has_issues,
 			'has_wiki'       => $has_wiki,
 			'has_downloads'  => $has_downloads,
-			'default_branch' => $default_branch
-		);
+			'default_branch' => $default_branch,
+		];
 
 		// Send the request.
 		return $this->processResponse(

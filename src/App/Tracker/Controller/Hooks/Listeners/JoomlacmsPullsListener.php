@@ -228,7 +228,7 @@ class JoomlacmsPullsListener extends AbstractListener
 					$data = [
 						'status'      => 10,
 						'closed_date' => (new Date)->format('Y-m-d H:i:s'),
-						'closed_by'   => 'jissues-bot'
+						'closed_by'   => 'jissues-bot',
 					];
 
 					$table->save($data);
