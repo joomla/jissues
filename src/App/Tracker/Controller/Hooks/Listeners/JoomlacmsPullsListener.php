@@ -31,48 +31,102 @@ class JoomlacmsPullsListener extends AbstractListener
 	 * @since   1.0
 	 */
 	protected $trackerHandledCategories = [
-				// Postgresql
-				'2',
-				// MS SQL
-				'3',
-				// External Library
-				'4',
-				// SQL
-				'10',
-				// Libaries
-				'12',
-				// Modules
-				'13',
-				// Unit Tests
-				'14',
-				// Layout
-				'15',
-				// Tags
-				'16',
-				// CLI
-				'18',
-				// Administration
-				'23',
-				// Front End
-				'24',
-				// Installation
-				'25',
-				// Language & Strings
-				'27',
-				// Plugins
-				'28',
-				// Components
-				'29',
-				// Site Template
-				'30',
-				// Admin templates
-				'31',
-				// Media Manager
-				'35',
-				// Repository
-				'36',
-				// JavaScript
-				'1',
+		// JavaScript
+		'1' => ['.js$'],
+		// Postgresql
+		'2' => [
+			'^administrator\/components\/com_admin\/sql\/updates\/postgresql',
+			'^installation\/sql\/postgresql',
+		],
+		// MS SQL
+		'3' => [
+			'^administrator\/components\/com_admin\/sql\/updates\/sqlazure',
+			'^installation\/sql\/sqlazure',
+		],
+		// External Library
+		'4' => [
+			'^libraries\/fof\/',
+			'^libraries\/idna_convert\/',
+			'^libraries\/phpass\/',
+			'^libraries\/phputf8\/',
+			'^libraries\/simplepie\/',
+			'^libraries\/vendor\/',
+			'^media\/editors\/codemirror',
+			'^media\/editors\/tinymce',
+			'composer.json',
+			'composer.lock',
+		],
+		// SQL
+		'10' => [
+			'^administrator\/components\/com_admin\/sql\/updates',
+			'^installation\/sql',
+		],
+		// Libaries
+		'12' => ['^libraries\/'],
+		// Modules
+		'13' => [
+			'^administrator\/modules\/',
+			'^modules\/',
+		],
+		// Unit Tests
+		'14' => [
+			'^tests',
+			'.travis.yml',
+			'phpunit.xml.dist',
+			'travisci-phpunit.xml',
+		],
+		// Layout
+		'15' => ['^layouts\/'],
+		// Tags
+		'16' => [
+			'^administrator\/components\/com_tags',
+			'^components\/com_tags',
+		],
+		// CLI
+		'18' => ['^cli\/'],
+		// Administration
+		'23' => ['^administrator\/'],
+		// Front End
+		'24' => [
+			'^components\/',
+			'^modules\/',
+			'^plugins\/',
+			'^templates\/',
+		],
+		// Installation
+		'25' => ['^installation\/'],
+		// Language & Strings
+		'27' => [
+			'^administrator\/language',
+			'^installation\/language',
+			'^language',
+		],
+		// Plugins
+		'28' => ['^plugins\/'],
+		// Components
+		'29' => [
+			'^administrator\/components\/',
+			'^components\/',
+		],
+		// Site Template
+		'30' => ['^templates\/'],
+		// Admin templates
+		'31' => ['^administrator\/templates\/'],
+		// Media Manager
+		'35' => [
+			'^administrator\/components\/com_media',
+			'^components\/com_media',
+		],
+		// Repository
+		'36' => [
+			'^build\/',
+			'^.github\/',
+			'.gitignore',
+			'CONTRIBUTING.md',
+			'README.md',
+			'README.txt',
+			'build.xml',
+		],
 	];
 
 	/**
@@ -769,7 +823,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$currentCategories = $this->getCategories($hookData, $logger, $project, $table);
 
 		// Hold the category ids that are added to the issue but not handled by the tracker to readd it later
-		$categoriesThatShouldStay = array_diff($currentCategories, $this->trackerHandledCategories);
+		$categoriesThatShouldStay = array_diff($currentCategories, array_keys($this->trackerHandledCategories));
 
 		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
@@ -798,7 +852,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function checkFilesAndAssignCategory($files)
 	{
-		$addCategories = [];
+		$categories = [];
 
 		if (empty($files))
 		{
@@ -806,114 +860,11 @@ class JoomlacmsPullsListener extends AbstractListener
 			return [];
 		}
 
-		// List of checks
-		// Category id as key, checks as index
-		$fileChecks = [
-			// Check for javascript file changes
-			'1'  => ['.js$'],
-			// Check for the installation folder
-			'25' => ['^installation\/'],
-			// Check for the admin template
-			'31' => ['^administrator\/templates\/'],
-			// Check for the frontend template
-			'30' => ['^templates\/'],
-			// Check for the plugins folder
-			'28' => ['^plugins\/'],
-			// Check if the language gets changed
-			'27' => [
-				'^administrator\/language',
-				'^installation\/language',
-				'^language',
-			],
-			// Check for files & paths regarding the Unit/System Tests
-			'14' => [
-				'^tests',
-				'.travis.yml',
-				'phpunit.xml.dist',
-				'travisci-phpunit.xml',
-			],
-			// Check for the libraries folder
-			'12' => ['^libraries\/'],
-			// Check for the layouts folder
-			'15' => ['^layouts\/'],
-			// Check for the cli folder
-			'18' => ['^cli\/'],
-			// Check for external libraries folders and destinations
-			'4' => [
-				'^libraries\/fof\/',
-				'^libraries\/idna_convert\/',
-				'^libraries\/phpass\/',
-				'^libraries\/phputf8\/',
-				'^libraries\/simplepie\/',
-				'^libraries\/vendor\/',
-				'^media\/editors\/codemirror',
-				'^media\/editors\/tinymce',
-				'composer.json',
-				'composer.lock',
-			],
-			// Check for repository changes (no production code) excluding tests
-			'36' => [
-				'^build\/',
-				'^.github\/',
-				'.gitignore',
-				'CONTRIBUTING.md',
-				'README.md',
-				'README.txt',
-				'build.xml',
-			],
-			// Check for tags changes
-			'16' => [
-				'^administrator\/components\/com_tags',
-				'^components\/com_tags',
-			],
-			// Check for sql changes
-			'10' => [
-				'^administrator\/components\/com_admin\/sql\/updates',
-				'^installation\/sql',
-			],
-			// Check for postgresql changes
-			'2' => [
-				'^administrator\/components\/com_admin\/sql\/updates\/postgresql',
-				'^installation\/sql\/postgresql',
-			],
-			// Check for ms-sql changes
-			'3' => [
-				'^administrator\/components\/com_admin\/sql\/updates\/sqlazure',
-				'^installation\/sql\/sqlazure',
-			],
-			// Check for media manager changes
-			'35' => [
-				'^administrator\/components\/com_media',
-				'^components\/com_media',
-			],
-			// Check for admin changes
-			'23' => ['^administrator\/'],
-			// Check for ms-sql changes
-			'24' => [
-				'^components\/',
-				'^modules\/',
-				'^plugins\/',
-				'^templates\/',
-			],
-			// Check for admin components changes changes
-			// Check for frontend components changes
-			'29' => [
-				'^administrator\/components\/',
-				'^components\/',
-			],
-			// Check for admin module changes
-			// Check for frontend module changes
-			'13' => [
-				'^administrator\/modules\/',
-				'^modules\/',
-			],
-		];
-
 		foreach ($files as $file)
 		{
-			foreach ($fileChecks as $catIndex => $checks)
+			foreach ($this->trackerHandledCategories as $catIndex => $checks)
 			{
-				if (in_array($catIndex, $addCategories))
+				if (in_array($catIndex, $categories))
 				{
 					continue;
 				}
@@ -922,7 +873,7 @@ class JoomlacmsPullsListener extends AbstractListener
 				{
 					if (preg_match('/' . $check . '/', $file->filename))
 					{
-						$addCategories[] = $catIndex;
+						$categories[] = $catIndex;
 
 						continue 2;
 					}
@@ -930,6 +881,6 @@ class JoomlacmsPullsListener extends AbstractListener
 			}
 		}
 
-		return $addCategories;
+		return $categories;
 	}
 }
