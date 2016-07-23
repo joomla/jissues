@@ -35,38 +35,38 @@ class JoomlacmsPullsListener extends AbstractListener
 		'1' => ['.js$'],
 		// Postgresql
 		'2' => [
-			'^administrator\/components\/com_admin\/sql\/updates\/postgresql',
-			'^installation\/sql\/postgresql',
+			'^administrator/components/com_admin/sql/updates/postgresql',
+			'^installation/sql/postgresql',
 		],
 		// MS SQL
 		'3' => [
-			'^administrator\/components\/com_admin\/sql\/updates\/sqlazure',
-			'^installation\/sql\/sqlazure',
+			'^administrator/components/com_admin/sql/updates/sqlazure',
+			'^installation/sql/sqlazure',
 		],
 		// External Library
 		'4' => [
-			'^libraries\/fof\/',
-			'^libraries\/idna_convert\/',
-			'^libraries\/phpass\/',
-			'^libraries\/phputf8\/',
-			'^libraries\/simplepie\/',
-			'^libraries\/vendor\/',
-			'^media\/editors\/codemirror',
-			'^media\/editors\/tinymce',
+			'^libraries/fof/',
+			'^libraries/idna_convert/',
+			'^libraries/phpass/',
+			'^libraries/phputf8/',
+			'^libraries/simplepie/',
+			'^libraries/vendor/',
+			'^media/editors/codemirror',
+			'^media/editors/tinymce',
 			'composer.json',
 			'composer.lock',
 		],
 		// SQL
 		'10' => [
-			'^administrator\/components\/com_admin\/sql\/updates',
-			'^installation\/sql',
+			'^administrator/components/com_admin/sql/updates',
+			'^installation/sql',
 		],
 		// Libaries
-		'12' => ['^libraries\/'],
+		'12' => ['^libraries/'],
 		// Modules
 		'13' => [
-			'^administrator\/modules\/',
-			'^modules\/',
+			'^administrator/modules/',
+			'^modules/',
 		],
 		// Unit Tests
 		'14' => [
@@ -76,51 +76,51 @@ class JoomlacmsPullsListener extends AbstractListener
 			'travisci-phpunit.xml',
 		],
 		// Layout
-		'15' => ['^layouts\/'],
+		'15' => ['^layouts/'],
 		// Tags
 		'16' => [
-			'^administrator\/components\/com_tags',
-			'^components\/com_tags',
+			'^administrator/components/com_tags',
+			'^components/com_tags',
 		],
 		// CLI
-		'18' => ['^cli\/'],
+		'18' => ['^cli/'],
 		// Administration
-		'23' => ['^administrator\/'],
+		'23' => ['^administrator/'],
 		// Front End
 		'24' => [
-			'^components\/',
-			'^modules\/',
-			'^plugins\/',
-			'^templates\/',
+			'^components/',
+			'^modules/',
+			'^plugins/',
+			'^templates/',
 		],
 		// Installation
-		'25' => ['^installation\/'],
+		'25' => ['^installation/'],
 		// Language & Strings
 		'27' => [
-			'^administrator\/language',
-			'^installation\/language',
+			'^administrator/language',
+			'^installation/language',
 			'^language',
 		],
 		// Plugins
-		'28' => ['^plugins\/'],
+		'28' => ['^plugins/'],
 		// Components
 		'29' => [
-			'^administrator\/components\/',
-			'^components\/',
+			'^administrator/components/',
+			'^components/',
 		],
 		// Site Template
-		'30' => ['^templates\/'],
+		'30' => ['^templates/'],
 		// Admin templates
-		'31' => ['^administrator\/templates\/'],
+		'31' => ['^administrator/templates/'],
 		// Media Manager
 		'35' => [
-			'^administrator\/components\/com_media',
-			'^components\/com_media',
+			'^administrator/components/com_media',
+			'^components/com_media',
 		],
 		// Repository
 		'36' => [
-			'^build\/',
-			'^.github\/',
+			'^build/',
+			'^.github/',
 			'.gitignore',
 			'CONTRIBUTING.md',
 			'README.md',
@@ -871,6 +871,8 @@ class JoomlacmsPullsListener extends AbstractListener
 
 				foreach ($checks as $check)
 				{
+					$check = str_replace('/', '\/', $check);
+
 					if (preg_match('/' . $check . '/', $file->filename))
 					{
 						$categories[] = $catIndex;
