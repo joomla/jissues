@@ -85,7 +85,7 @@ class Labels extends Project
 				$table->load(
 					[
 						'project_id' => $this->project->project_id,
-						'name'       => $label->name
+						'name'       => $label->name,
 					]
 				);
 

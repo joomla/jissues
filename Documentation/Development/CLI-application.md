@@ -25,7 +25,7 @@ The output of the script is language aware. Just add a `--lang` argument:
 Copy `/etc/config.dist.json` to `/etc/config.json` and fill in your database details. To interface with GitHub, fill in your GitHub credentials.
 
 Then run:
-`jtracker install`
+	`jtracker install`
 
 ### Import a project from GitHub
 
@@ -74,6 +74,16 @@ To turn the feature(s) off permanently edit `etc/config.json` and set the values
 
 ### Auto Complete
 
+Auto complete files are provided for some environments.
+
+Optionally you can generate the files four your language using
+
+`jtracker make autocomplete --lang=xx-XX`
+
+using one of the supported languages.
+
+#### PHPStorm
+
 If you use PHPStorm, you may use the [Command Line Tools Console](http://www.jetbrains.com/phpstorm/webhelp/command-line-tools-console-tool-window.html) to execute the jtracker script.
 
 To get auto complete for the `jtracker` commands, copy the file `Custom_jtracker.xml` to the folder `.idea/commandlinetools` inside your JTracker project (create the folder if it does not exist). This will set up an alias `jt` that points to the `/bin/jtracker` script.
@@ -83,3 +93,27 @@ To get auto complete for the `jtracker` commands, copy the file `Custom_jtracker
 Don't miss the documentation - Press <kbd>Ctrl</kbd> + <kbd>Q</kbd>
 
 ![cli-auto-complete1](https://f.cloud.github.com/assets/2059654/739003/d0295894-e351-11e2-8ee6-973d8741a3cd.png)
+
+#### The `fish` shell
+
+Provides auto complete for users of the [fish shell](https://fishshell.com).
+
+To use it, copy (or better symlink) the file 
+`{repo}/cli/completions/jtracker.fish`
+to
+`~/.config/fish/completions/`
+and restart your shell.
+
+Works in PHPStorms "Terminal".
+
+![2016-07-15-125504_1366x768_scrot](https://cloud.githubusercontent.com/assets/33978/16890651/1dc653da-4ab6-11e6-91d8-ba62b1d11603.png)
+
+![2016-07-15-125543_1366x768_scrot](https://cloud.githubusercontent.com/assets/33978/16890652/1dce0ada-4ab6-11e6-963c-01a0e5c2240a.png)
+
+![2016-07-15-125430_1366x768_scrot](https://cloud.githubusercontent.com/assets/33978/16890650/1dc25906-4ab6-11e6-88d0-aeb7d1386e4a.png)
+
+And of course in your favourite terminal too.
+
+![tty](https://cloud.githubusercontent.com/assets/33978/16890656/2373b23c-4ab6-11e6-875b-d90f7d1de8a2.gif)
+
+Happy auto completing `=;)`

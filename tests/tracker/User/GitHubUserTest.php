@@ -10,7 +10,7 @@ namespace Joomla\Tracker\Tests\Authentication\GitHub;
 
 use App\Projects\TrackerProject;
 
-use Joomla\Database\Mysqli\MysqliDriver;
+use Joomla\Database\DatabaseDriver;
 
 use JTracker\Authentication\GitHub\GitHubUser;
 
@@ -44,9 +44,13 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$options = array();
-		$driver  = new MysqliDriver($options);
-		$project = new TrackerProject($driver);
+		// Mock the base database driver without calling the original constructor
+		$driver = $this->getMockForAbstractClass(DatabaseDriver::class, [], '', false);
+
+		// Mock the project object
+		$project = $this->getMockBuilder(TrackerProject::class)
+			->setConstructorArgs([$driver])
+			->getMock();
 
 		$this->object = new GitHubUser($project, $driver);
 	}

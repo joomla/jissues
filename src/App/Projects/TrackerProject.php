@@ -108,7 +108,7 @@ class TrackerProject implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	protected $accessMap = array();
+	protected $accessMap = [];
 
 	/**
 	 * Array containing default actions
@@ -116,7 +116,7 @@ class TrackerProject implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $defaultActions = array('view', 'create', 'edit', 'editown', 'manage');
+	private $defaultActions = ['view', 'create', 'edit', 'editown', 'manage'];
 
 	/**
 	 * Array containing default user groups
@@ -124,7 +124,7 @@ class TrackerProject implements \Serializable
 	 * @var    array
 	 * @since  1.0
 	 */
-	private $defaultGroups = array('Public', 'User');
+	private $defaultGroups = ['Public', 'User'];
 
 	/**
 	 * @var    DatabaseDriver
@@ -234,7 +234,7 @@ class TrackerProject implements \Serializable
 	{
 		$db = $this->database;
 
-		$map = array();
+		$map = [];
 
 		foreach ($this->defaultGroups as $group)
 		{
@@ -243,7 +243,7 @@ class TrackerProject implements \Serializable
 
 		foreach ($this->defaultActions as $action)
 		{
-			$map['Custom'][$action] = array();
+			$map['Custom'][$action] = [];
 
 			foreach ($this->defaultGroups as $group)
 			{
@@ -251,7 +251,7 @@ class TrackerProject implements \Serializable
 			}
 		}
 
-		$groups = array();
+		$groups = [];
 
 		if ($this->project_id)
 		{
@@ -311,7 +311,7 @@ class TrackerProject implements \Serializable
 	 */
 	public function getLabels()
 	{
-		static $labels = array();
+		static $labels = [];
 
 		if (!$labels)
 		{
@@ -322,7 +322,7 @@ class TrackerProject implements \Serializable
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
 					->from($db->quoteName($table->getTableName()))
-					->select(array('label_id', 'name', 'color'))
+					->select(['label_id', 'name', 'color'])
 					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
 			)->loadObjectList();
 
@@ -360,7 +360,7 @@ class TrackerProject implements \Serializable
 			$milestones = $db ->setQuery(
 				$db->getQuery(true)
 					->from($db->quoteName($table->getTableName()))
-					->select(array('milestone_id', 'milestone_number', 'title', 'description', 'state', 'due_on'))
+					->select(['milestone_id', 'milestone_number', 'title', 'description', 'state', 'due_on'])
 					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
 					->order($db->quoteName('title'))
 			)->loadObjectList();
@@ -482,11 +482,11 @@ class TrackerProject implements \Serializable
 	 */
 	public function serialize()
 	{
-		$props = array();
+		$props = [];
 
 		foreach (get_object_vars($this) as $key => $value)
 		{
-			if (in_array($key, array('authModel', 'cleared', 'authId', 'database')))
+			if (in_array($key, ['authModel', 'cleared', 'authId', 'database']))
 			{
 				continue;
 			}

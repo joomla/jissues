@@ -60,7 +60,7 @@ class UserModel extends AbstractTrackerDatabaseModel
 	{
 		$filter = new InputFilter;
 
-		$data = array();
+		$data = [];
 
 		$data['id'] = $filter->clean($src['id'], 'int');
 

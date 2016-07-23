@@ -85,7 +85,7 @@ class File extends UploadFile implements \JsonSerializable
 	{
 		$validations = [
 			new Mimetype($this->application->get('validation.mime_types')),
-			new Size($this->application->get('validation.file_size'))
+			new Size($this->application->get('validation.file_size')),
 		];
 
 		// Txt has mime inconsistency on different environments,

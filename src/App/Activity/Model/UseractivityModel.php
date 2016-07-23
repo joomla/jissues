@@ -57,7 +57,7 @@ class UseractivityModel extends AbstractTrackerDatabaseModel
 			'SUM(t.activity_points) + (COUNT(c.id) * 5) AS total_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Tracker') . ' THEN t.activity_points ELSE 0 END) AS tracker_points',
 			'SUM(CASE WHEN t.activity_group = ' . $db->quote('Test') . ' THEN t.activity_points ELSE 0 END) AS test_points',
-			'(COUNT(c.id) * 5) AS code_points'
+			'(COUNT(c.id) * 5) AS code_points',
 		];
 
 		$query->select($select)

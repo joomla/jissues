@@ -34,7 +34,7 @@ abstract class LanguageHelper
 		'nl-BE' => 'nl-BE',
 		'pt-BR' => 'pt-BR',
 		'pt-PT' => 'pt-PT',
-		'zh-CN' => 'zh-CN'
+		'zh-CN' => 'zh-CN',
 	];
 
 	/**
@@ -46,118 +46,118 @@ abstract class LanguageHelper
 		'ca-ES' => [
 			'iso' => 'cat',
 			'name' => 'Catalan',
-			'display' => 'Català'
+			'display' => 'Català',
 		],
 		'da-DK' => [
 			'iso' => 'dk',
 			'name' => 'Danish',
-			'display' => 'Dansk'
+			'display' => 'Dansk',
 		],
 		'de-DE' => [
 			'iso' => 'de',
 			'name' => 'German',
-			'display' => 'Deutsch'
+			'display' => 'Deutsch',
 		],
 		'en-GB' => [
 			'iso' => 'uk',
 			'name' => 'English',
-			'display' => 'English'
+			'display' => 'English',
 		],
 		'es-CO' => [
 			'iso' => 'es-CO',
 			'name' => 'Spanish (Colombia)',
-			'display' => 'Español (Colombia)'
+			'display' => 'Español (Colombia)',
 		],
 		'es-ES' => [
 			'iso' => 'es',
 			'name' => 'Spanish',
-			'display' => 'Español'
+			'display' => 'Español',
 		],
 		'et-EE' => [
 			'iso' => 'ee',
 			'name' => 'Estonian',
-			'display' => 'Eesti'
+			'display' => 'Eesti',
 		],
 		'fr-CA' => [
 			'iso' => 'fr-CA',
 			'name' => 'French (Canada)',
-			'display' => 'Français (Canada)'
+			'display' => 'Français (Canada)',
 		],
 		'fr-FR' => [
 			'iso' => 'fr',
 			'name' => 'French',
-			'display' => 'Français'
+			'display' => 'Français',
 		],
 		'hu-HU' => [
 			'iso' => 'hu',
 			'name' => 'Hungarian',
-			'display' => 'Magyar'
+			'display' => 'Magyar',
 		],
 		'id-ID' => [
 			'iso' => 'id',
 			'name' => 'Indonesian',
-			'display' => 'Bahasa Indonesia'
+			'display' => 'Bahasa Indonesia',
 		],
 		'it-IT' => [
 			'iso' => 'it',
 			'name' => 'Italian',
-			'display' => 'Italiano'
+			'display' => 'Italiano',
 		],
 		'lv-LV' => [
 			'iso' => 'lv',
 			'name' => 'Latvian',
-			'display' => 'Latviešu valoda'
+			'display' => 'Latviešu valoda',
 		],
 		'nb-NO' => [
 			'iso' => 'nb',
 			'name' => 'Norwegian Bokmal',
-			'display' => 'Norsk bokmål'
+			'display' => 'Norsk bokmål',
 		],
 		'nl-BE' => [
 			'iso' => 'nl-BE',
 			'name' => 'Dutch (Belgium)',
-			'display' => 'Nederlands (België)'
+			'display' => 'Nederlands (België)',
 		],
 		'nl-NL' => [
 			'iso' => 'nl',
 			'name' => 'Dutch',
-			'display' => 'Nederlands'
+			'display' => 'Nederlands',
 		],
 		'pl-PL' => [
 			'iso' => 'pl',
 			'name' => 'Polish',
-			'display' => 'Język polski'
+			'display' => 'Język polski',
 		],
 		'pt-BR' => [
 			'iso' => 'br',
 			'name' => 'Portuguese Brazil',
-			'display' => 'Português Brazil'
+			'display' => 'Português Brazil',
 		],
 		'pt-PT' => [
 			'iso' => 'pt',
 			'name' => 'Portuguese',
-			'display' => 'Português'
+			'display' => 'Português',
 		],
 		'ro-RO' => [
 			'iso' => 'ro',
 			'name' => 'Romanian',
-			'display' => 'Limba română'
+			'display' => 'Limba română',
 		],
 		'ru-RU' => [
 			'iso' => 'ru',
 			'name' => 'Russian',
-			'display' => 'Русский'
+			'display' => 'Русский',
 		],
 		'sl-SI' => [
 			'iso' => 'sl',
 			'name' => 'Slovenian',
-			'display' => 'slovenski jezik'
+			'display' => 'slovenski jezik',
 		],
 		'zh-CN' => [
 			'iso' => 'cn',
 			'name' => 'Chinese',
-			'display' => '中文 (Zhōngwén)'
-		]
+			'display' => '中文 (Zhōngwén)',
+		],
 	];
 
 	/**
@@ -210,7 +210,7 @@ abstract class LanguageHelper
 			'CoreJS' => ['JTracker.js'],
 			'Template' => ['JTracker'],
 			'CLI' => ['cli'],
-			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths)->listPaths()
+			'App' => (new Filesystem(new Local(JPATH_ROOT . '/src/App')))->addPlugin(new ListPaths)->listPaths(),
 		];
 	}
 

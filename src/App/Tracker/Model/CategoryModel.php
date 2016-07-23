@@ -18,11 +18,8 @@ use Joomla\Date\Date;
 
 /**
  * Model of categories
- * Class CategoryModel
  *
- * @package  App\Tracker\Model
- *
- * @since    1.0
+ * @since  1.0
  */
 class CategoryModel extends AbstractTrackerDatabaseModel
 {
@@ -33,11 +30,11 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @return  $this  This allows chaining
 	 *
-	 * @since  1.0
+	 * @since   1.0
 	 */
 	public function add(array $src)
 	{
-		$data = array();
+		$data = [];
 
 		$filter              = new InputFilter;
 		$data['title']       = $filter->clean($src['title'], 'string');
@@ -59,9 +56,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @return  CategoryTable
 	 *
-	 * @throws  \RuntimeException
-	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function getItem($id)
 	{
@@ -93,18 +89,17 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   array  $src  The source
 	 *
-	 * @throws  \RuntimeException
-	 *
 	 * @return  $this This allows chaining
 	 *
-	 * @since 1.0
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function save(array $src)
 	{
 		$db     = $this->getDb();
 		$filter = new InputFilter;
 
-		$data = array();
+		$data = [];
 		$data['id']          = $filter->clean($src['id'], 'uint');
 		$data['title']       = $filter->clean($src['title'], 'string');
 		$data['alias']       = $filter->clean($src['alias'], 'cmd');
@@ -131,7 +126,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @return  object
 	 *
-	 * @since 1.0
+	 * @since   1.0
 	 */
 	public function getByName($name = '')
 	{
@@ -156,7 +151,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @return  object
 	 *
-	 * @since 1.0
+	 * @since   1.0
 	 */
 	public function getByAlias($alias = '')
 	{
@@ -216,15 +211,14 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 * @param   array  $src  The source, should contain three parts, $src['issue_id'] is the id of the issue,
 	 *                       and $src['categories'] should be an array of category id(s).
 	 *
-	 * @throws  \RuntimeException
-	 *
 	 * @return  $this This allows chaining
 	 *
-	 * @since 1.0
+	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	public function saveCategory(array $src)
 	{
-		$data       = array();
+		$data       = [];
 		$issue_id   = (int) $src['issue_id'];
 
 		if ($src['categories'])
@@ -252,9 +246,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   int  $issueId  The id of the issue.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  array  The object list of the issues.
+	 *
+	 * @since   1.0
 	 */
 	public function getCategories($issueId)
 	{
@@ -273,16 +267,16 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 * @param   array  $src  The source of the category, should include: $src['issue_id'], the issue's id; $src['categories'],
 	 *                       the category ids' array.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	public function updateCategory(array $src)
 	{
-		$newCategories    = ($src['categories']) ? $src['categories'] : array();
+		$newCategories    = ($src['categories']) ? $src['categories'] : [];
 		$oldSrc           = $this->getCategories($src['issue_id']);
-		$oldCategories    = array();
-		$data             = array();
+		$oldCategories    = [];
+		$data             = [];
 		$data['issue_id'] = (int) $src['issue_id'];
 
 		foreach ($oldSrc as $category)
@@ -310,7 +304,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		if ($insert || $delete)
 		{
-			$changes                 = array();
+			$changes                 = [];
 			$changes['modified_by']  = $src['modified_by'];
 			$changes['issue_number'] = $src['issue_number'];
 			$changes['project_id']   = $src['project_id'];
@@ -328,9 +322,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *
 	 * @param   int  $categoryId  The id of the category.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  array  The object array of the issue ids.
+	 *
+	 * @since   1.0
 	 */
 	public function getIssueIdsByCategory($categoryId)
 	{
@@ -344,9 +338,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get the distinct Issue ids with categories, returning the object list.
 	 *
-	 * @since    1.0
-	 *
 	 * @return   array  The object array of the issue ids.
+	 *
+	 * @since    1.0
 	 */
 	public function getIssueIdsWithCategory()
 	{
@@ -364,9 +358,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 *                       the issue's project id; $src['old'] and $src['new'] for old and new categories; $src['modified_by'],
 	 *                       modified username.
 	 *
-	 * @since   1.0
-	 *
 	 * @return  $this
+	 *
+	 * @since   1.0
 	 */
 	private function processChanges(array $src)
 	{
@@ -375,8 +369,8 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$change       = new \stdClass;
 		$change->name = 'category';
-		$change->old  = array();
-		$change->new  = array();
+		$change->old  = [];
+		$change->new  = [];
 
 		foreach ($src['old'] as $key => $old)
 		{
@@ -392,13 +386,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			$change->new[$key]['color'] = $newCategory->color;
 		}
 
-		$data                 = array();
+		$data                 = [];
 		$data['event']        = 'change';
 		$data['created_date'] = $date;
 		$data['user']         = $src['modified_by'];
 		$data['issue_number'] = (int) $src['issue_number'];
 		$data['project_id']   = (int) $src['project_id'];
-		$data['text']         = json_encode(array($change));
+		$data['text']         = json_encode([$change]);
 
 		$table = new ActivitiesTable($this->getDb());
 		$table->save($data);

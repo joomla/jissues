@@ -164,7 +164,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
 
-		$data = array();
+		$data = [];
 		$data['issue_number']    = $this->hookData->issue->number;
 		$data['title']           = $this->hookData->issue->title;
 		$data['description']     = $this->parseText($this->hookData->issue->body);

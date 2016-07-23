@@ -12,7 +12,6 @@ use App\Projects\TrackerProject;
 use App\Tracker\Table\ActivitiesTable;
 
 use Application\Command\Get\Project;
-use Application\Command\TrackerCommandOption;
 
 use Joomla\Date\Date;
 

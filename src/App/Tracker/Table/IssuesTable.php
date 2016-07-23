@@ -85,11 +85,11 @@ class IssuesTable extends AbstractDatabaseTable
 	 * @since   1.0
 	 * @throws  \InvalidArgumentException
 	 */
-	public function bind($src, $ignore = array())
+	public function bind($src, $ignore = [])
 	{
 		if ($this->id)
 		{
-			$oldValues = array();
+			$oldValues = [];
 
 			foreach ($this as $k => $v)
 			{
@@ -126,7 +126,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	public function check()
 	{
-		$errors = array();
+		$errors = [];
 
 		$this->title = trim($this->title);
 
@@ -224,7 +224,7 @@ class IssuesTable extends AbstractDatabaseTable
 		// Add a record to the activity table if a new item
 		if ($isNew)
 		{
-			$data = array();
+			$data = [];
 			$data['event']        = 'open';
 			$data['created_date'] = $this->opened_date;
 			$data['user']         = $this->opened_by;
@@ -253,7 +253,7 @@ class IssuesTable extends AbstractDatabaseTable
 	 */
 	private function processChanges()
 	{
-		$changes = array();
+		$changes = [];
 
 		foreach ($this as $fName => $field)
 		{
@@ -295,7 +295,7 @@ class IssuesTable extends AbstractDatabaseTable
 
 		if ($changes)
 		{
-			$data = array();
+			$data = [];
 			$data['event']        = 'change';
 			$data['created_date'] = $this->modified_date;
 			$data['user']         = $this->modified_by;

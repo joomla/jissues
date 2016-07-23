@@ -33,7 +33,7 @@ class Save extends AbstractTrackerController
 
 		$application->getUser()->authorize('admin');
 
-		$config = $this->cleanArray($application->input->get('config', array(), 'array'));
+		$config = $this->cleanArray($application->input->get('config', [], 'array'));
 
 		if (!$config)
 		{

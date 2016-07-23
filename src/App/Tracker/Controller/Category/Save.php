@@ -53,7 +53,7 @@ class Save extends AbstractTrackerController
 		try
 		{
 			$this->model->setProject($project);
-			$data = $app->input->get('category', array(), 'array');
+			$data = $app->input->get('category', [], 'array');
 
 			if (isset($data['id']))
 			{

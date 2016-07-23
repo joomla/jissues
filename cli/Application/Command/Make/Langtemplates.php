@@ -168,7 +168,7 @@ class Langtemplates extends Make
 
 			$paths = [
 				ExtensionHelper::getDomainPath($domain),
-				JPATH_ROOT . '/src/App'
+				JPATH_ROOT . '/src/App',
 			];
 
 			$this->processTemplates($extension, $domain, 'php', $paths, $templatePath);
@@ -468,7 +468,7 @@ class Langtemplates extends Make
 			$loader,
 			[
 				'cache'       => $cacheDir,
-				'auto_reload' => true
+				'auto_reload' => true,
 			]
 		);
 

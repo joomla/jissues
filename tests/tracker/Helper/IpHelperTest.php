@@ -34,97 +34,97 @@ class IpHelperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function dataTestIpInRange()
 	{
-		return array(
+		return [
 			// Element order: result, test address, range element, type
-			array(
+			[
 				true,
 				'192.168.0.32',
-				array(
-					array(
+				[
+					[
 						'start_range' => '192.168.0.0',
 						'end_range'   => '192.168.0.255',
-					)
-				),
-				'range'
-			),
-			array(
+					],
+				],
+				'range',
+			],
+			[
 				false,
 				'192.168.1.32',
-				array(
-					array(
+				[
+					[
 						'start_range' => '192.168.0.0',
 						'end_range'   => '192.168.0.255',
-					)
-				),
-				'range'
-			),
-			array(
+					],
+				],
+				'range',
+			],
+			[
 				true,
 				'192.168.1.32',
-				array(
-					array(
+				[
+					[
 						'start_range' => '192.168.0.0',
 						'end_range'   => '192.168.0.255',
-					),
-					array(
+					],
+					[
 						'start_range' => '192.168.1.0',
 						'end_range'   => '192.168.1.255',
-					)
-				),
-				'range'
-			),
-			array(
+					],
+				],
+				'range',
+			],
+			[
 				false,
 				'192.168.1.32',
-				array(
-					array(
+				[
+					[
 						'start_range' => '192.168.0.0',
 						'end_range'   => '192.168.0.255',
-					),
-					array(
+					],
+					[
 						'start_range' => '192.168.2.0',
 						'end_range'   => '192.168.2.255',
-					)
-				),
-				'range'
-			),
-			array(
+					],
+				],
+				'range',
+			],
+			[
 				true,
 				'192.168.0.32',
-				array(
-					'192.168.0.0/24'
-				),
-				'cidr'
-			),
-			array(
+				[
+					'192.168.0.0/24',
+				],
+				'cidr',
+			],
+			[
 				false,
 				'192.168.0.32',
-				array(
-					'192.168.0.0/28'
-				),
-				'cidr'
-			),
-			array(
+				[
+					'192.168.0.0/28',
+				],
+				'cidr',
+			],
+			[
 				true,
 				'192.168.3.32',
-				array(
+				[
 					'192.168.0.0/24',
 					'192.168.1.128/25',
-					'192.168.2.0/23'
-				),
-				'cidr'
-			),
-			array(
+					'192.168.2.0/23',
+				],
+				'cidr',
+			],
+			[
 				false,
 				'192.168.1.32',
-				array(
+				[
 					'192.168.0.0/24',
 					'192.168.1.128/25',
-					'192.168.2.0/23'
-				),
-				'cidr'
-			),
-		);
+					'192.168.2.0/23',
+				],
+				'cidr',
+			],
+		];
 	}
 
 	/**
@@ -164,6 +164,6 @@ class IpHelperTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testIpInRangeException()
 	{
-		IpHelper::ipInRange('192.168.0.32', array('192.168.0.0/24'), 'decimal');
+		IpHelper::ipInRange('192.168.0.32', ['192.168.0.0/24'], 'decimal');
 	}
 }

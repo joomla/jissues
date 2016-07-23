@@ -56,7 +56,7 @@ class GroupsTable extends AbstractDatabaseTable
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
 	 */
-	public function bind($source, $ignore = array())
+	public function bind($source, $ignore = [])
 	{
 		if (false === is_array($source))
 		{

@@ -39,10 +39,10 @@ class Add extends AbstractAjaxController
 		$name   = 'web';
 		$active = 1;
 
-		$config = array(
+		$config = [
 			'url'          => $url,
-			'content-type' => 'json'
-		);
+			'content-type' => 'json',
+		];
 
 		// Create the hook.
 		$gitHub->repositories->hooks->create(

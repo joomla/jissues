@@ -132,7 +132,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 					$activities[] = $a;
 
-					unset ($commits[$i1]);
+					unset($commits[$i1]);
 				}
 			}
 
@@ -157,7 +157,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		// Group relations by type
 		if ($item->relations_f)
 		{
-			$arr = array();
+			$arr = [];
 
 			foreach ($item->relations_f as $relation)
 			{
@@ -344,7 +344,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		if (!$sha)
 		{
-			return null;
+			return;
 		}
 
 		return $this->db->setQuery(
@@ -472,7 +472,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	{
 		$filter = new InputFilter;
 
-		$data = array();
+		$data = [];
 
 		$data['id']              = $filter->clean($src['id'], 'int');
 		$data['status']          = $filter->clean($src['status'], 'int');
@@ -574,12 +574,12 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		// Insert a new record if one doesn't exist
 		if (!$voteId)
 		{
-			$columnsArray = array(
+			$columnsArray = [
 				$db->quoteName('issue_number'),
 				$db->quoteName('user_id'),
 				$db->quoteName('experienced'),
 				$db->quoteName('score'),
-			);
+			];
 
 			$query->clear()
 				->insert($db->quoteName('#__issues_voting'))

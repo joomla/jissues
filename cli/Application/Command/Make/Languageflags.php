@@ -73,7 +73,7 @@ class Languageflags extends Make
 			'	height: ' . $flagHeight . 'px;',
 			'	background:url(flags.png) no-repeat',
 			'}',
-			''
+			'',
 		];
 
 		$colCount = 0;

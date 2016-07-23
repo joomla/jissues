@@ -45,7 +45,7 @@ class SqlFormat
 
 			// Tables are identified by the prefix
 			'/(' . $prefix . '[a-z_0-9]+)/'
-			=> '<span class="dbgTable">$1</span>'
+			=> '<span class="dbgTable">$1</span>',
 		];
 
 		$query = preg_replace(array_keys($regex), array_values($regex), $query);
