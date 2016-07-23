@@ -44,7 +44,7 @@ class GitHubUserTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$options = array();
+		$options = [];
 		$driver  = new MysqliDriver($options);
 		$project = new TrackerProject($driver);
 

@@ -52,6 +52,7 @@ return Symfony\CS\Config\Config::create()
 			[
 				__DIR__ . '/src',
 				__DIR__ . '/cli',
+				__DIR__ . '/tests',
 			]
 		)
 	);
