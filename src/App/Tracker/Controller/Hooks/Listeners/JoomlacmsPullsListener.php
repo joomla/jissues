@@ -25,8 +25,9 @@ use Monolog\Logger;
 class JoomlacmsPullsListener extends AbstractListener
 {
 	/**
-	 * The Tracker Categories that gets handled based on the files that changed by a pull request
-	 * Changes on the pull request only affect this categories
+	 * The Tracker Categories that are handled based on the files that changed by a pull request.
+	 *
+	 * The category index is provided as the key while the values are containing regular expressions matching the file paths.
 	 *
 	 * @since   1.0
 	 */
