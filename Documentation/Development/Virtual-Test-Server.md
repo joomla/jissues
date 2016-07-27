@@ -30,7 +30,7 @@ You have to run the setup from the command line of your virtual "guest" operatin
 * `cd to/the/path` where you downloaded/checked out the code
 * `vagrant ssh` - Welcome to Linux ;)
 * `cd /vagrant` - ! **Note** that this is actually the repository root **outside** of your virtual machine which is mounted as a [shared folder](https://www.virtualbox.org/manual/ch04.html#sharedfolders) !! (!)
-* Follow the general setup instructions.<br />`./cli/tracker.php install`
+* Follow the general setup instructions.<br />`bin/jtracker install`
 * The config file `config.vagrant.json` will be used for setup.
 
 **NOTE** The `config.vagrant.json` file is under version control so you might want to issue the following command to ignore changes made to this file:

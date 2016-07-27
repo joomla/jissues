@@ -1,13 +1,16 @@
-## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=framework)](https://travis-ci.org/joomla/jissues) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/joomla/jissues/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joomla/jissues/?branch=master)
+## Requirements [![Build Status](https://travis-ci.org/joomla/jissues.png?branch=master)](https://travis-ci.org/joomla/jissues) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/joomla/jissues/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/joomla/jissues/?branch=master)
 
 The issue tracker application requires a server running:
 
 * PHP 5.5 or later
+    * PHP's `ext/curl` and `ext/intl` should also be installed
 * MySQL 5.5.3 with InnoDB support (required to support the MySQL utf8mb4 charset) 
 
-The application also has external dependencies installable via Composer and Bower.  You can run `ant installdep` if you have ANT installed or `composer install` and `bower install` from the command line.
+The application also has external dependencies installable via [Composer](https://getcomposer.org/) and [Bower](https://bower.io/).
 
 See also: [Dependencies](Documentation/Development/Dependencies.md).
+
+Note: All references to `bin/jtracker` refer to an executable symlink to `cli/tracker.php`. If you cannot execute the `bin/jtracker` symlink replace that path with `cli/tracker.php`
 
 ## Setup
 
@@ -17,16 +20,16 @@ See also: [Dependencies](Documentation/Development/Dependencies.md).
 1. In the `etc/config.json` file, enter your database credentials and other information.
 1. Run `composer install` (or the equivalent for your system) to install dependencies from Composer.
     * If you need to install Composer, you can do so from http://getcomposer.org/download/.
-1. Run `bower install` to install media files from Bower
-    * If you need to install Bower you can do so by using NPM. Read more http://bower.io/.
-1. From a command prompt, run the script located at `cli/tracker.php` with the install option to set up your database.
-    * `./cli/tracker.php install`
+1. From a command prompt, run the `install` command to set up your database.
+    * `bin/jtracker install`
+
+If you are making a change to the issue tracker's web assets, you'll also need to set up Bower and Grunt. Please see the [Asset Management](Documentation/Development/Asset-Management.md) documentation for more information.
 
 Verify the installation is successful by doing the following:
 
 1. View the site in your browser.
-1. Open a console and execute the `tracker.php` script with the `get project` option to pull issues, issue comments and other information related to the project from GitHub.
-    * `cli/tracker.php get project`
+1. Run the `get project` command to pull issues, issue comments and other information related to the project from GitHub.
+    * `bin/jtracker get project`
 
 See also: [CLI script](Documentation/Development/CLI-application.md).
 
@@ -36,18 +39,17 @@ As an alternative method, there is a setup for a virtual test environment using 
 
 See also: [Virtual server documentation](Documentation/Development/Virtual-Test-Server.md)
 
-### Using Login with Github
+### Using Login with GitHub
 
-If you want the 'login with Github' button to work properly you'll need to register an app with Github. To do this manage your account at github.com and go to the applications page. Create a new application.
+If you want the 'Login with GitHub' button to work properly you'll need to register an app with GitHub. To do this manage your account at github.com and go to the applications page. Create a new application.
 
-You'll be asked for the application URL and the callback URL. This can be your test server or your localhost environment. As long as you enter the URL that your localhost app is running on. An example might be ```http://jissues.local```.
+You'll be asked for the application URL and the callback URL. This can be your test server or your localhost environment. As long as you enter the URL that your localhost app is running on. An example might be `http://jissues.local`.
 
-Once you've registered the app at Github you'll receive a ```Client ID``` and a ```Client Secret```, enter these into your JTracker ```config.json``` file, along with your Github login credentials. You should now be able to login with Github successfully
+Once you've registered the app at GitHub you'll receive a `Client ID` and a `Client Secret`, enter these into your installation's `etc/config.json` file, along with your GitHub login credentials. You should now be able to login with GitHub successfully.
 
 See also: [GitHub Authentication](Documentation/Users/GitHub-Authentication.md)
 
 ## Support & Discussion
 
 * If you've found a bug, please report it to the Issue Tracker at https://github.com/joomla/jissues/issues.
-* Please note this repository is _not_ for the Joomla CMS. Take all Joomla CMS issues, bug reports, etc.. to: http://github.com/joomla/joomla-cms
-* For discussion about this project, please visit the Google+ Community at https://plus.google.com/u/0/communities/102541713885101375024.
+* Please note this repository is _not_ for the Joomla! CMS. Take all Joomla! CMS issues, bug reports, etc.. to: http://github.com/joomla/joomla-cms

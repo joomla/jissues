@@ -15,9 +15,7 @@ Debug and profile the application, manage log files.
 To activate or deactivate logging use the `debug.logging` option in `etc/config.json`.
 
 Supported log events:
-* 403
-* 404
-* 500
+* application
 * cron jobs
 * database queries
 * GitHub issues
@@ -26,4 +24,4 @@ Supported log events:
 * PHP error log
 
 The supported "events" are written to separate log files.
-Unsupported events go to the `500.log`.
+Unsupported events go to the `error.log`.

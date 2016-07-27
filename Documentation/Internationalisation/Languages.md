@@ -20,7 +20,7 @@ To add a new language, add the following to the array of `$languages`:
 ## Update language selector flag images
 
 * Download the icon pack from http://forum.tsgk.com/viewtopic.php?t=4921 and store it "somewhere"
-* Issue the command `jtracker make languageflags` using the following parameters:
+* Issue the command `make languageflags` using the following parameters:
     * The path where the flag images are stored ("somewhere").
     * `--imagefile` (optional) path to store the result image.
     * `--cssfile` (optional) path to store the result CSS file.

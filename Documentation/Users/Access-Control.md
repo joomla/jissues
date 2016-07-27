@@ -7,7 +7,7 @@ ACL is limited and very specific:
 * It is based on **groups** a user automatically belongs to or can be assigned to.<br />
 For every project two **system groups** are created by default:<br />`Public` and `User`.
 
-The special **admin user** role that is assigned using the `config.json` file is granted global access.
+The special **admin user** role that is assigned using the `etc/config.json` file is granted global access.
 
 Following is an example setup for a security tracker with non public access and two additionally created custom groups:
 

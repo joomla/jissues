@@ -30,8 +30,10 @@
 
 	<target name="installdep" description="Install build dependencies using composer">
 		<exec executable="composer">
-			<arg value="update" />
-			<arg value="--dev" />
+			<arg value="install" />
+		</exec>
+		<exec executable="bower">
+			<arg value="install" />
 		</exec>
 	</target>
 

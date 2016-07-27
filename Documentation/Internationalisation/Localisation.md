@@ -8,13 +8,13 @@ After you changed the code in your PHP or Twig files you should run
 
 * `bin/jtracker make langtemplates`<br />
 This will create/update the `pot` language templates.<br />
-Those may be handed over to the translaters / Transifex.
+Those may be handed over to the translaters.
 
-Additionally you can use `extension` argument to create/update the `pot` language templates for the specific extension only
+Additionally you can use the `extension` argument to create/update the `pot` language templates for the specific extension only
 
 * `bin/jtracker make langtemplates --extension=Tracker`<br />
 
-If you want to translate yourself you do a
+If you want to translate yourself run the following command:
 
 * `bin/jtracker make langfiles`<br />
 This will create/update the `po` language files according to the templates created in the previous step.
@@ -27,8 +27,8 @@ This can be done by simply deleting the `/cache/g11n` directory or, if you are l
 ```
 bin/jtracker make langtemplates
 git commit -am "Update language templates"
-bin/jtracker update languagefiles --provider=transifex
-bin/jtracker get languagefiles --provider=transifex
+bin/jtracker update languagefiles --provider=crowdin
+bin/jtracker get languagefiles --provider=crowdin
 git commit -am "Fetch updated language files"
 bin/jtracker clear cache
 git push
@@ -81,7 +81,7 @@ The next step would be the creation of the language files.
 #### 3b) Language template creation
 
 For gettext files, you first create a **template** that contains all the **keys** and **empty values**.
-These templates are used to create and update the localized language files.
+These templates are used to create and update the localised language files.
 The file extension for template files is `.pot`.
 
 ```
@@ -105,13 +105,13 @@ bin/jtracker make langtemplates
 
 Will automatically generate the language templates for the core JTracker application, the JTracker template as well as all the Apps.
 
-Those language templates, once created, are now ready to hand over to the translators or send them to an online translation service (e.g. transifex).
+Those language templates, once created, are now ready to hand over to the translators or send them to an online translation service.
 
 Job finished :)
 
-#### 3c) Localize It !
+#### 3c) Localise It !
 
-To actually "see" the site in different languages, you have to create a file that contains the localized strings for every language.
+To actually "see" the site in different languages, you have to create a file that contains the localised strings for every language.
 The extension for language files is `.po`.
 
 For example a german language file might look like this:
@@ -122,7 +122,7 @@ msgid "My String"
 msgstr "Meine Zeichenkette"
 ```
 
-A chinese language file might look like this (google says..):
+A chinese language file might look like this (Google says..):
 ```
 # zh-CN.Extension.po
 
@@ -159,7 +159,6 @@ I have not tried any of the above currently beside my own linux box, but I belie
 #### Known issues
 
 * There is one big FAT issue currently: Internally all strings are contained in a single array. Meaning that you can not translate the same key in two different ways in the same page call.<br />I believe that our application is "small enough", so this won't really be an issue.<br />There is a solution deep down in my head, but it hasn't been translated to code yet ;) WIP
-* <del>Pluralization is supported but not implemented yet. WIP</del>
 * JavaScript translations and pluralizations are supported but not implemented yet. WIP
 * Performance... This will be the last time that I mention that I'm lazy but... to avoid ugly escaping/unescaping of quotes, I simply base64 encode and decode the string and md5 encode the key which is, I admit that, very very time consuming W-I-P...
 
