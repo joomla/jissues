@@ -113,7 +113,8 @@ INSERT INTO `#__status` (`id`, `status`, `closed`) VALUES
 (10, 'Closed', 1),
 (11, 'Expected Behaviour', 1),
 (12, 'Known Issue', 1),
-(13, 'Duplicate Report', 1);
+(13, 'Duplicate Report', 1),
+(14, 'Discussion', 1);
 
 -- --------------------------------------------------------
 

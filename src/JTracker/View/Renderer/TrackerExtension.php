@@ -355,6 +355,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					4 => g11n3t('Ready To Commit'),
 					6 => g11n3t('Needs Review'),
 					7 => g11n3t('Information Required'),
+					14 => g11n3t('Discussion'),
 				];
 				break;
 
@@ -378,6 +379,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					4 => g11n3t('Ready To Commit'),
 					6 => g11n3t('Needs Review'),
 					7 => g11n3t('Information Required'),
+					14 => g11n3t('Discussion'),
 					5 => g11n3t('Fixed in Code Base'),
 					8 => g11n3t('Unconfirmed Report'),
 					9 => g11n3t('No Reply'),

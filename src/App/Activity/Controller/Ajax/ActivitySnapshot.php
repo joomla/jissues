@@ -57,6 +57,7 @@ class ActivitySnapshot extends AbstractAjaxController
 			4 => g11n3t('Ready To Commit'),
 			6 => g11n3t('Needs Review'),
 			7 => g11n3t('Information Required'),
+			14 => g11n3t('Discussion'),
 		];
 
 		$iterator = $this->model->getOpenIssues();
