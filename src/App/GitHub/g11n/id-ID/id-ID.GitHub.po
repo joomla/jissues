@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -20,172 +20,172 @@ msgstr ""
 #: /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
-msgstr ""
+msgstr "%s - Statistik"
 
 #: /templates/github/hooks.index.twig:6
 #: /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
-msgstr ""
+msgstr "%s - Kait"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr ""
+msgstr "Daftar Kait"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr ""
+msgstr "Kait Baru"
 
 #: /templates/github/hooks.index.twig:22
 #: /templates/github/hooks.index.twig:87
 #: /templates/github/labels.index.twig:44
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: /templates/github/hooks.index.twig:26
 #: /templates/github/hooks.index.twig:88
 msgid "Events"
-msgstr ""
+msgstr "Event"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr ""
+msgstr "CATATAN: dipisahkan koma, tanpa spasi"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr ""
+msgstr "Tambah Kait"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
-msgstr ""
+msgstr "Jenis"
 
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: /templates/github/hooks.index.twig:89
 #: /templates/github/milestones.index.twig:79
 msgid "Actions"
-msgstr ""
+msgstr "Tindakan"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"
-msgstr ""
+msgstr "Aktif"
 
 #: /templates/github/hooks.index.twig:101
 msgid "Inactive"
-msgstr ""
+msgstr "Tidak Aktif"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktivasi"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr ""
+msgstr "Aktivasi"
 
 #: /templates/github/hooks.index.twig:120
 #: /templates/github/labels.index.twig:59
 #: /templates/github/milestones.index.twig:98
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: /templates/github/labels.index.twig:6
 #: /templates/github/labels.index.twig:10
 #, php-format
 msgid "%s - Labels"
-msgstr ""
+msgstr "%s - Label"
 
 #: /templates/github/labels.index.twig:12
 msgid "List Labels"
-msgstr ""
+msgstr "Daftar Label"
 
 #: /templates/github/labels.index.twig:17
 msgid "New Label"
-msgstr ""
+msgstr "Label Baru"
 
 #: /templates/github/labels.index.twig:22
 #: /templates/github/labels.index.twig:45
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: /templates/github/labels.index.twig:23
 msgid "Label name"
-msgstr ""
+msgstr "Nama label"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
 msgid "Colour"
-msgstr ""
+msgstr "Warna"
 
 #: /templates/github/labels.index.twig:28
 msgid "Label colour"
-msgstr ""
+msgstr "Warna label"
 
 #: /templates/github/labels.index.twig:31
 msgid "Add Label"
-msgstr ""
+msgstr "Tambah Label"
 
 #: /templates/github/milestones.index.twig:6
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr ""
+msgstr "%s - Jejak"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr ""
+msgstr "Jejak Baru"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
 msgid "Number"
-msgstr ""
+msgstr "Nomor"
 
 #: /templates/github/milestones.index.twig:35
 #: /templates/github/milestones.index.twig:75
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "Judul jejak"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "Jatuh tempo pada"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
-msgstr ""
+msgstr "Tanggal"
 
 #: /templates/github/milestones.index.twig:43
 #: /templates/github/milestones.index.twig:77
 msgid "State"
-msgstr ""
+msgstr "Kondisi"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr ""
+msgstr "Terbuka"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
-msgstr ""
+msgstr "Ditutup"
 
 #: /templates/github/milestones.index.twig:51
 #: /templates/github/milestones.index.twig:76
 msgid "Description"
-msgstr ""
+msgstr "Deskripsi"
 
 #: /templates/github/milestones.index.twig:59
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
-msgstr ""
+msgstr "Tidak ada pratinjau..."
 

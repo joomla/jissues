@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 12:51-0500\n"
-"PO-Revision-Date: 2016-07-09 11:31-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "Postavka"
 
 #: /templates/tracker/issue.edit.twig:141
 #: /templates/tracker/issue.index.twig:107
-#: /templates/tracker/issue.add.twig:57
+#: /templates/tracker/issue.add.twig:60
 msgid "Build"
 msgstr "Vgrajen"
 
@@ -71,19 +71,19 @@ msgid "Easy test"
 msgstr "Preprost preizkus"
 
 #: /templates/tracker/issue.edit.twig:155
-#: /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.add.twig:68
 msgid "Categories"
 msgstr "Kategorije"
 
 #: /templates/tracker/issue.edit.twig:164
 #: /templates/tracker/tpl/activities.twig:113
-#: /templates/tracker/issue.add.twig:75
+#: /templates/tracker/issue.add.twig:78
 msgid "Labels"
 msgstr "Nalepke"
 
 #: /templates/tracker/issue.edit.twig:171
 #: /templates/tracker/tpl/activities.twig:131
-#: /templates/tracker/issue.add.twig:80
+#: /templates/tracker/issue.add.twig:83
 msgid "Milestone"
 msgstr "Mejnik"
 
@@ -91,7 +91,7 @@ msgstr "Mejnik"
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.edit.twig:27
-#: /templates/tracker/issue.add.twig:100
+#: /templates/tracker/issue.add.twig:106
 #: /templates/tracker/categories.index.twig:40
 msgid "Title"
 msgstr "Naslov"
@@ -107,7 +107,7 @@ msgid "Leave a comment"
 msgstr "Pusti komentar"
 
 #: /templates/tracker/issue.edit.twig:314
-#: /templates/tracker/issue.add.twig:218
+#: /templates/tracker/issue.add.twig:224
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Nekatera polja so neveljavne. So bila poudarjena."
 
@@ -157,8 +157,8 @@ msgid "- Categories -"
 msgstr "- Kategorije -"
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "No categories"
-msgstr "Ni kategorij"
+msgid "No Categories"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
@@ -224,8 +224,8 @@ msgid "All"
 msgstr "Vse"
 
 #: /templates/tracker/tpl/filters.twig:25
-msgid "Search tools"
-msgstr "Orodja za iskanje"
+msgid "Search Tools"
+msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -284,7 +284,7 @@ msgid "Colour"
 msgstr "Barva"
 
 #: /templates/tracker/tpl/activities.twig:24
-#: /templates/tracker/issue.add.twig:107
+#: /templates/tracker/issue.add.twig:113
 msgid "Description"
 msgstr "Opis"
 
@@ -322,12 +322,13 @@ msgid "Edit Category"
 msgstr "Uredi Kategorijo"
 
 #: /templates/tracker/issues.index.twig:6
-msgid "Issues List"
-msgstr "Seznam vprašanj"
+#, php-format
+msgid "%s Issues"
+msgstr "%s vprašanj"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:97
+#: /templates/tracker/issue.add.twig:103
 msgid "New Item"
 msgstr "Nova postavka"
 
@@ -391,8 +392,8 @@ msgid "Low"
 msgstr "Nizko"
 
 #: /templates/tracker/issues.index.twig:188
-msgid "Very low"
-msgstr "Zelo nizko"
+msgid "Very Low"
+msgstr ""
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
@@ -464,19 +465,23 @@ msgstr "Znana težava"
 msgid "Duplicate Report"
 msgstr "Podvojeno poročilo"
 
-#: /templates/tracker/issues.index.twig:412
+#: /templates/tracker/issues.index.twig:350
+msgid "Discussion"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:413
 msgid "First"
 msgstr "Prvi"
 
-#: /templates/tracker/issues.index.twig:413
+#: /templates/tracker/issues.index.twig:414
 msgid "Previous"
 msgstr "Prejšnje"
 
-#: /templates/tracker/issues.index.twig:414
+#: /templates/tracker/issues.index.twig:415
 msgid "Next"
 msgstr "Naslednja"
 
-#: /templates/tracker/issues.index.twig:415
+#: /templates/tracker/issues.index.twig:416
 msgid "Last"
 msgstr "Zadnji"
 
@@ -579,7 +584,7 @@ msgid "Newer"
 msgstr "Novejši"
 
 #: /templates/tracker/issue.add.twig:12
-#: /templates/tracker/issue.add.twig:124
+#: /templates/tracker/issue.add.twig:130
 msgid "Submit"
 msgstr "Potrdi"
 
@@ -596,34 +601,34 @@ msgid "Pro"
 msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
-msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr "Prednostna naloga, ki treba rešiti to vprašanje. Glej <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Sledenje procesa</a> stran za podrobnejše informacije o prednostnih nalogah projekta."
+msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgstr "Prednostna naloga, ki treba rešiti to vprašanje. Glej <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug sledenje procesov</a> stran za podrobne informacije o prednostnih nalogah projekta."
 
-#: /templates/tracker/issue.add.twig:61
+#: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
 msgstr "Različice projekta, ki je našel težavo."
 
-#: /templates/tracker/issue.add.twig:68
+#: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
 msgstr "Izberite eno ali več kategorij tukaj ki se ujemajo z vašim vprašanjem."
 
-#: /templates/tracker/issue.add.twig:90
-msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr "Prijavi varnostna vprašanja na Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> ali z <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST kontaktnim obrazcem</a>, ne uporabljajte javni sledilnik za varnostna vprašanja."
+#: /templates/tracker/issue.add.twig:93
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
+msgstr "Poročilo varnostnih vprašanj za Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> ali z <a %class2% %href2%>JSST kontaktnim obrazcem</a>, prosimo, ne uporabljajte javni sledilnik za varnostna vprašanja."
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
 msgstr "Za poročilo bug v Joomla! sledilnikom, boste morali ustvariti sledilni pas postavke. Ko ustvarite sledilnik postavke, razvijalci preverjajo veljavnosti in ustrezno bodo ukrepali."
 
-#: /templates/tracker/issue.add.twig:104
+#: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
 msgstr "Opišite z nekaj besedami kakšne težave imate. Na splošno je priporočljivo, da uporabite obstoječe postavke kot primere, če je to vaše prvo poročanje bug."
 
-#: /templates/tracker/issue.add.twig:120
+#: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
 msgstr "To je najbolj pomemben del poročanja bug. Opišite tukaj korak za korakom kako imaš napake so opazen. Vključuje vse informacije, da nekdo bo treba ponovno slediti vaš lestev ter zagledati naloga. Ne pozabite: vaš bug ne bo treba določiti razen če drugi lahko vidijo problem, Torej hočeš biti kot jasna in čim bolj natančno. Ne moraš vedeti ničesar o programiranju napisati velik bug poročilo. Vendar če razumete kodo in mislim, da veste, kako popraviti napako in to vključiti v poročilo."
 
-#: /templates/tracker/issue.add.twig:228
+#: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
 msgstr "Pošiljanje..."
 
@@ -670,11 +675,11 @@ msgstr "Preizkus je uspešno dodan"
 msgid "Old"
 msgstr "Starejši"
 
-#: /src/App/Tracker/Model/CategoryModel.php:70
+#: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
 msgstr "Manjka ID"
 
-#: /src/App/Tracker/Model/CategoryModel.php:85
+#: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
 msgstr "Neveljavna kategorija"
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "%s - Ganchos"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr "Listear Ganchos"
+msgstr "Listar Ganchos"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
@@ -49,7 +49,7 @@ msgstr "Eventos"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr "NOTA: separado por comas, no espacios"
+msgstr "NOTA: separado por comas, sin espacios"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
@@ -98,7 +98,7 @@ msgstr "%s - Etiquetas"
 
 #: /templates/github/labels.index.twig:12
 msgid "List Labels"
-msgstr "Listear Etiquetas"
+msgstr "Listar Etiquetas"
 
 #: /templates/github/labels.index.twig:17
 msgid "New Label"
@@ -116,11 +116,11 @@ msgstr "Nombre de la etiqueta"
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
 msgid "Colour"
-msgstr ""
+msgstr "Color"
 
 #: /templates/github/labels.index.twig:28
 msgid "Label colour"
-msgstr ""
+msgstr "Color de la etiqueta"
 
 #: /templates/github/labels.index.twig:31
 msgid "Add Label"
@@ -153,7 +153,7 @@ msgstr "Título del hito"
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr "Debido en"
+msgstr "Previsto para el"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 12:51-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:33-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -16,57 +16,66 @@ msgstr ""
 "X-Crowdin-File: cli-cli_en.po\n"
 "Language: id_ID\n"
 
-#: /cli/Application/Application.php:104
+#: /cli/Application/Application.php:113
 msgid "Be quiet - suppress output."
 msgstr "Tenanglah - menekan output."
 
-#: /cli/Application/Application.php:109
+#: /cli/Application/Application.php:118
 msgid "Verbose output for debugging purpose."
-msgstr "Output verbose untuk tujuan pemeriksaan."
+msgstr "Output banyak kata untuk tujuan pemeriksaan."
 
-#: /cli/Application/Application.php:114
+#: /cli/Application/Application.php:123
 msgid "Suppress ANSI colours on unsupported terminals."
 msgstr "Menekan warna-warna ANSI untuk terminal yang tidak didukung."
 
-#: /cli/Application/Application.php:119
+#: /cli/Application/Application.php:128
 msgid "Optionally log output to the specified log file."
 msgstr "Log output opsional untuk berkas log tertentu."
 
-#: /cli/Application/Application.php:146
-msgid "Joomla! Tracker CLI Application"
-msgstr "Aplikasi CLI Joomla! Tracker"
+#: /cli/Application/Application.php:133
+msgid "Set the language used by the application."
+msgstr "Atur bahasa yang digunakan oleh aplikasi."
 
-#: /cli/Application/Application.php:173
+#: /cli/Application/Application.php:160
+msgid "Joomla! Tracker CLI Application"
+msgstr "Aplikasi CLI Penelusur Joomla!"
+
+#: /cli/Application/Application.php:181
 #, php-format
 msgid "Invalid command: %s"
-msgstr "Perintah tidak benar: %s"
+msgstr "Perintah tidak valid: %s"
 
-#: /cli/Application/Application.php:180
+#: /cli/Application/Application.php:188
 msgid "Did you mean one of this?"
-msgstr "Apakah yang Anda maksudkan salah satu dari ini?"
+msgstr "Apakah yang Anda maksudkan adalah salah satu dari ini?"
 
-#: /cli/Application/Application.php:209
+#: /cli/Application/Application.php:219
 msgid "Process aborted."
 msgstr "Proses dibatalkan."
 
-#: /cli/Application/Application.php:216
+#: /cli/Application/Application.php:226
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr "Waktu eksekusi: <b>%d detik.</b>"
 
-#: /cli/Application/Application.php:367
+#: /cli/Application/Application.php:388
+#, php-format
+msgid "The argument \"%s\" is not recognized."
+msgstr ""
+
+#: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
 msgstr "Batas peringkat GitHub:..."
 
-#: /cli/Application/Command/Clear/Cache.php:30
+#: /cli/Application/Command/Clear/Cache.php:29
 msgid "Clear the g11n language directory."
 msgstr "Bersihkan direktori bahasa g11n."
 
-#: /cli/Application/Command/Clear/Cache.php:42
+#: /cli/Application/Command/Clear/Cache.php:41
 msgid "Clear g11n Cache Directory"
 msgstr "Bersihkan Direktori Cache g11n"
 
-#: /cli/Application/Command/Clear/Cache.php:49
+#: /cli/Application/Command/Clear/Cache.php:48
 msgid "The g11n cache directory has been cleared."
 msgstr "Direktori cache g11n telah dibersihkan."
 
@@ -125,7 +134,7 @@ msgstr "Migrasi Basisdata: Periksa Status"
 
 #: /cli/Application/Command/Database/Status.php:48
 msgid "Your database is up-to-date."
-msgstr "Basisdata Anda adalah yang paling baru."
+msgstr "Basisdata Anda adalah yang terbaru."
 
 #: /cli/Application/Command/Database/Status.php:56
 #, php-format
@@ -148,40 +157,64 @@ msgstr "Versi Terakhir: %1$s"
 msgid "To update, run the %1$s command."
 msgstr "Untuk memperbarui, jalankan perintah %1$s."
 
-#: /cli/Application/Command/Export/Langfiles.php:43
+#: /cli/Application/Command/Export/Langfiles.php:45
 msgid "Backup language files to a given folder."
-msgstr "Berkas bahasa cadangan ke folder yang tertentu."
+msgstr "Cadangkan berkas-berkas bahasa ke sebuah folder yang ditentukan."
 
-#: /cli/Application/Command/Export/Langfiles.php:72
+#: /cli/Application/Command/Export/Langfiles.php:50
+msgid "Export also language template files."
+msgstr ""
+
+#: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
 msgstr "Ekspor berkas bahasa"
 
-#: /cli/Application/Command/Export/Langfiles.php:124
-#, php-format
-msgid "Processing %1$s %2$s:... "
-msgstr "Memproses %1$s %2$s:... "
+#: /cli/Application/Command/Export/Langfiles.php:84
+msgid "Start exporting language files."
+msgstr "Mulai mengekspor berkas-berkas bahasa."
+
+#: /cli/Application/Command/Export/Langfiles.php:87
+#: /cli/Application/Command/Get/Avatars.php:56
+#: /cli/Application/Command/Get/Composertags.php:67
+#: /cli/Application/Command/Get/Languagefiles.php:83
+#: /cli/Application/Command/Get/Project/Comments.php:61
+#: /cli/Application/Command/Get/Project/Events.php:62
+#: /cli/Application/Command/Get/Project/Issues.php:96
+#: /cli/Application/Command/Get/Project/Labels.php:50
+#: /cli/Application/Command/Get/Project/Milestones.php:52
+#: /cli/Application/Command/Get/Users.php:59
+#: /cli/Application/Command/Make/Autocomplete.php:106
+#: /cli/Application/Command/Make/Dbcomments.php:91
+#: /cli/Application/Command/Make/Depfile.php:136
+#: /cli/Application/Command/Make/Docu.php:115
+#: /cli/Application/Command/Make/Langfiles.php:133
+#: /cli/Application/Command/Make/Languageflags.php:120
+#: /cli/Application/Command/Make/Repoinfo.php:65
+#: /cli/Application/Command/Test/Phploc.php:60
+#: /cli/Application/Command/Update/Languagefiles.php:86
+#: /cli/Application/Command/Update/Pulls.php:69
+msgid "Finished."
+msgstr "Selesai."
+
+#: /cli/Application/Command/Export/Langfiles.php:133
+#: /cli/Application/Command/Get/Languagefiles.php:139
+msgid "Processing %domain% %extension%... "
+msgstr "Memproses %domain% %extension%... "
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
-msgstr "Mendapatkan gambar avatar dari GitHub."
+msgstr "Dapatkan gambar avatar dari GitHub."
 
 #: /cli/Application/Command/Get/Avatars.php:50
 msgid "Retrieve Avatars"
-msgstr "Mendapatkan Avatar"
+msgstr "Dapatkan Avatar"
 
 #: /cli/Application/Command/Get/Avatars.php:52
 msgid "Start retrieving Avatars."
 msgstr "Mulai mendapatkan Avatar."
 
-#: /cli/Application/Command/Get/Avatars.php:56
-#: /cli/Application/Command/Get/Composertags.php:67
-#: /cli/Application/Command/Get/Languagefiles.php:59
-#: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:75
-msgid "Finished."
-msgstr "Selesai."
-
 #: /cli/Application/Command/Get/Avatars.php:81
+#: /cli/Application/Command/Get/Users.php:87
 msgid "No users found in database."
 msgstr "Tidak ada pengguna yang ditemukan di basisdata."
 
@@ -204,7 +237,7 @@ msgstr "Menarik avatar untuk pengguna: %s"
 #: /cli/Application/Command/Get/Avatars.php:134
 #, php-format
 msgid "Copy default image for user: %s"
-msgstr "Salin gambar standar untuk pengguna: %s"
+msgstr "Salin standar gambar untuk pengguna: %s"
 
 #: /cli/Application/Command/Get/Avatars.php:151
 #, php-format
@@ -214,7 +247,7 @@ msgstr[0] "%d avatar pengguna baru telah ditambahkan"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
-msgstr "Mendapatkan daftar tagar proyek dari GitHub dan menampilkan versi pemasangannya."
+msgstr "Dapatkan daftar tagar proyek dari GitHub dan tampilkan versi pemasangannya."
 
 #: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
@@ -222,13 +255,13 @@ msgstr "Tampilkan semua tagar atau hanya yang terkini."
 
 #: /cli/Application/Command/Get/Composertags.php:50
 msgid "Retrieve Composer tags"
-msgstr "Mendapatkan tagar Komposer"
+msgstr "Dapatkan tagar Komposer"
 
 #. TRANSLATORS: %s refers to a file system path.
 #: /cli/Application/Command/Get/Composertags.php:59
 #, php-format
 msgid "Can not read the packages file at %s"
-msgstr "Tidak dapat membaca berkas paket pada %s"
+msgstr "Tidak dapat membaca berkas paket di %s"
 
 #: /cli/Application/Command/Get/Composertags.php:62
 msgid "Start getting Composer tags."
@@ -245,7 +278,7 @@ msgstr "Terpasang: %s"
 
 #: /cli/Application/Command/Get/Get.php:84
 msgid "Retrieve Information from various sources."
-msgstr "Mendapatkan informasi dari berbagai sumber."
+msgstr "Dapatkan informasi dari berbagai sumber."
 
 #: /cli/Application/Command/Get/Get.php:90
 #: /cli/Application/Command/Test/Hook.php:66
@@ -259,44 +292,46 @@ msgstr "Proses proyeknya dengan ID yang diberikan."
 msgid "Don't use a progress bar."
 msgstr "Jangan gunakan bilah progres."
 
-#: /cli/Application/Command/Get/Languagefiles.php:39
+#: /cli/Application/Command/Get/Languagefiles.php:49
 msgid "Retrieve language files."
-msgstr "Mendapatkan berkas bahasa."
+msgstr "Dapatkan berkas bahasa."
 
-#: /cli/Application/Command/Get/Languagefiles.php:51
+#: /cli/Application/Command/Get/Languagefiles.php:54
+msgid "Optionally specify a single language to fetch."
+msgstr "Menentukan sebuah bahasa tunggal untuk ditarik secara opsional."
+
+#: /cli/Application/Command/Get/Languagefiles.php:60
+#: /cli/Application/Command/Update/Languagefiles.php:51
+msgid "The translation service provider to use."
+msgstr "Penyedia layanan terjemahan yang digunakan."
+
+#: /cli/Application/Command/Get/Languagefiles.php:74
 msgid "Get Translations"
 msgstr "Dapatkan Terjemahan"
 
-#: /cli/Application/Command/Get/Languagefiles.php:55
+#: /cli/Application/Command/Get/Languagefiles.php:79
 msgid "Start fetching translations."
 msgstr "Mulai menarik terjemahan."
-
-#: /cli/Application/Command/Get/Languagefiles.php:115
-#, php-format
-msgid "Processing: %1$s %2$s... "
-msgstr "Memproses: %1$s %2$s... "
 
 #: /cli/Application/Command/Get/Project.php:68
 msgid "Get the whole project info from GitHub, including issues and issue comments."
 msgstr "Dapatkan seluruh info proyek dari GitHub, termasuk isu dan komentar isu."
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr "Proses semua isu."
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr "<n> Proses isu tunggal saja."
 
 #: /cli/Application/Command/Get/Project.php:86
 msgid "<n> First issue to process."
-msgstr "<n> Isu pertama diproses."
+msgstr "<n> Isu pertama yang diproses."
 
 #: /cli/Application/Command/Get/Project.php:92
 msgid "<n> Last issue to process."
-msgstr "<n> Isu terakhir diproses."
+msgstr "<n> Isu terakhir yang diproses."
 
 #: /cli/Application/Command/Get/Project.php:98
 msgid "Force an update even if the issue has not changed."
@@ -308,44 +343,45 @@ msgstr "Dapatkan Proyek"
 
 #: /cli/Application/Command/Get/Project.php:114
 msgid "Bulk Start retrieve Project"
-msgstr "Mulai Massal mendapatkan Proyek"
+msgstr "Mulai Massal dapatkan Proyek"
 
-#: /cli/Application/Command/Get/Project.php:125
-#, php-format
-msgid "Updating project info for project: %1$s/%2$s"
-msgstr "Memperbarui info proyek untuk proyek %1$s/%2$s"
+#: /cli/Application/Command/Get/Project.php:124
+msgid "Updating project info for project: %user%/%project%"
+msgstr "Memperbarui info proyek untuk proyek: %user%/%project%"
 
-#: /cli/Application/Command/Get/Project.php:137
+#: /cli/Application/Command/Get/Project.php:135
 msgid "Bulk Finished"
 msgstr "Selesai Massal"
 
-#: /cli/Application/Command/Get/Project.php:310
+#: /cli/Application/Command/Get/Project.php:308
 msgid "GitHub issues to process?"
-msgstr "Isu GitHub diproses?"
+msgstr "Isu GitHub yang diproses?"
 
-#: /cli/Application/Command/Get/Project.php:312
+#: /cli/Application/Command/Get/Project.php:310
+#: /cli/Application/Command/Get/Project/Issues.php:128
 msgid "All"
 msgstr "Semua"
 
-#: /cli/Application/Command/Get/Project.php:313
+#: /cli/Application/Command/Get/Project.php:311
 msgid "Range"
-msgstr "Waktu"
+msgstr "Rentang Waktu"
 
-#: /cli/Application/Command/Get/Project.php:314
+#: /cli/Application/Command/Get/Project.php:312
+#: /cli/Application/Command/Get/Project/Issues.php:131
 msgid "Select: "
 msgstr "Pilih: "
 
-#: /cli/Application/Command/Get/Project.php:321
+#: /cli/Application/Command/Get/Project.php:319
 msgid "Enter the first GitHub issue ID to process (from):"
-msgstr "Masukkan ID isu GitHub untuk diproses (dari):"
+msgstr "Masukkan ID isu GitHub yang diproses (dari):"
 
-#: /cli/Application/Command/Get/Project.php:325
+#: /cli/Application/Command/Get/Project.php:323
 msgid "Enter the latest GitHub issue ID to process (to):"
-msgstr "Masukkan ID isu GitHub terakhir untuk diproses (sampai):"
+msgstr "Masukkan ID isu GitHub terakhir yang diproses (sampai):"
 
 #: /cli/Application/Command/Get/Project/Comments.php:41
 msgid "Retrieve comments from GitHub."
-msgstr "Mendapatkan komentar dari GitHub."
+msgstr "Dapatkan komentar dari GitHub."
 
 #: /cli/Application/Command/Get/Project/Comments.php:53
 msgid "Retrieve Comments"
@@ -359,10 +395,10 @@ msgstr "Mulai mendapatkan Komentar"
 #, php-format
 msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
-msgstr[0] "Menarik komentar untuk <b>%d</b> isu yang dimodifikasi dari GitHub..."
+msgstr[0] "Menarik komentar untuk <b>%d</b> isu yang telah dimodifikasi dari GitHub..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:181
+#: /cli/Application/Command/Get/Project/Events.php:168
 msgid "Everything is up to date."
 msgstr "Semuanya sudah diperbarui."
 
@@ -370,7 +406,7 @@ msgstr "Semuanya sudah diperbarui."
 #, php-format
 msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
-msgstr[0] "Memproses komentar untuk %d isu yang dimodifikasi..."
+msgstr[0] "Memproses komentar untuk %d isu yang telah dimodifikasi..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
@@ -386,222 +422,259 @@ msgstr[0] "Memproses %1$d komentar untuk isu # %2$d (%3$d/%4$d)"
 #: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
 msgid "%1$d added, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "%1$d ditambahkan, %2$d diperbarui, %3$d dihapus."
 
 #: /cli/Application/Command/Get/Project/Comments.php:352
 msgid "Getting issue comments."
-msgstr ""
+msgstr "Mendapatkan komentar-komentar isu."
 
 #: /cli/Application/Command/Get/Project/Comments.php:381
 msgid "Deleting issues comments."
-msgstr ""
+msgstr "Menghapus komentar-komentar isu."
 
-#: /cli/Application/Command/Get/Project/Events.php:43
+#: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
-msgstr ""
+msgstr "Dapatka event isu dari GitHub."
 
-#: /cli/Application/Command/Get/Project/Events.php:67
+#: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
-msgstr ""
+msgstr "Dapatkan Event"
 
-#: /cli/Application/Command/Get/Project/Events.php:69
+#: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
-msgstr ""
+msgstr "Mulai mendapatkan Event"
 
-#: /cli/Application/Command/Get/Project/Events.php:111
+#: /cli/Application/Command/Get/Project/Events.php:98
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
-msgstr[0] ""
+msgstr[0] "Tarik event untuk <b>%d</b> isu dari GitHub..."
 
-#: /cli/Application/Command/Get/Project/Events.php:191
+#: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
-msgstr ""
+msgstr "Menambahkan event ke basisdata..."
 
-#: /cli/Application/Command/Get/Project/Events.php:341
+#: /cli/Application/Command/Get/Project/Events.php:328
 #, php-format
 msgid "Added %d new issue events to the database"
-msgstr ""
+msgstr "%d event isu baru telah ditambahkan ke basisdata"
 
-#: /cli/Application/Command/Get/Project/Issues.php:66
+#: /cli/Application/Command/Get/Project/Issues.php:71
+msgid "<n> Process only an issue of given status."
+msgstr "<n> Proses hanya isu berstatus itu saja."
+
+#: /cli/Application/Command/Get/Project/Issues.php:75
 msgid "Retrieve issues from GitHub."
-msgstr ""
+msgstr "Dapatkan isu dari GitHub."
 
-#: /cli/Application/Command/Get/Project/Issues.php:78
+#: /cli/Application/Command/Get/Project/Issues.php:87
 msgid "Retrieve Issues"
-msgstr ""
-
-#: /cli/Application/Command/Get/Project/Issues.php:83
-msgid "Start retrieve Issues"
-msgstr ""
+msgstr "Dapatkan isu"
 
 #: /cli/Application/Command/Get/Project/Issues.php:89
-#: /cli/Application/Command/Get/Project/Labels.php:50
-#: /cli/Application/Command/Get/Project/Milestones.php:52
-msgid "Finished"
-msgstr ""
+msgid "Start retrieve Issues"
+msgstr "Mulai mendapatkan isu"
 
-#: /cli/Application/Command/Get/Project/Issues.php:105
+#: /cli/Application/Command/Get/Project/Issues.php:126
+msgid "Select GitHub issues status?"
+msgstr "Pilih status isu GitHub?"
+
+#: /cli/Application/Command/Get/Project/Issues.php:129
+msgid "Open"
+msgstr "Terbuka"
+
+#: /cli/Application/Command/Get/Project/Issues.php:130
+msgid "Closed"
+msgstr "Ditutup"
+
+#: /cli/Application/Command/Get/Project/Issues.php:160
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
-msgstr ""
+msgstr "Mendapatkan <b>%s</b> butir dari GitHub..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:167
+#: /cli/Application/Command/Get/Project/Issues.php:222
 #, php-format
 msgid "Retrieved <b>1</b> item from GitHub."
 msgid_plural "Retrieved <b>%d</b> items from GitHub."
-msgstr[0] ""
+msgstr[0] "Dapatkan <b>%d</b> butir dari GitHub."
 
-#: /cli/Application/Command/Get/Project/Issues.php:203
+#: /cli/Application/Command/Get/Project/Issues.php:258
 msgid "Adding issues to the database..."
-msgstr ""
+msgstr "Menambahkan isu ke basisdata..."
 
-#: /cli/Application/Command/Get/Project/Issues.php:447
+#: /cli/Application/Command/Get/Project/Issues.php:470
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
-msgstr ""
+msgstr "<ok>%1$d ditambahkan, %2$d diperbarui.</ok>"
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
-msgstr ""
+msgstr "Dapatkan label-label proyek dari GitHub."
 
 #: /cli/Application/Command/Get/Project/Labels.php:43
 msgid "Retrieve Labels"
-msgstr ""
+msgstr "Dapatkan Label"
 
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
-msgstr ""
+msgstr "Mulai mendapatkan Label"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
-msgstr ""
+msgstr "Menarik label..."
 
 #: /cli/Application/Command/Get/Project/Labels.php:141
 #, php-format
 msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "Label: %1$d baru, %2$d diperbarui, %3$d dihapus."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
-msgstr ""
+msgstr "Dapatkan jejak proyek dari GitHub."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:45
 msgid "Retrieve Milestones"
-msgstr ""
+msgstr "Dapatkan Jejak"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:47
 msgid "Start retrieving Milestones"
-msgstr ""
+msgstr "Mulai mendapatkan Jejak"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:64
 msgid "Fetching milestones..."
-msgstr ""
+msgstr "Menarik jejak..."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:151
 #, php-format
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "Jejak: %1$d baru, %2$d diperbarui, %3$d dihapus."
 
-#: /cli/Application/Command/Help/Help.php:38
+#: /cli/Application/Command/Get/Users.php:32
+msgid "Retrieve user info from GitHub."
+msgstr "Dapatkan info pengguna dari GitHub."
+
+#: /cli/Application/Command/Get/Users.php:53
+msgid "Retrieve Users"
+msgstr "Dapatkan Pengguna"
+
+#: /cli/Application/Command/Get/Users.php:55
+msgid "Start retrieving Users."
+msgstr "Mulai mendapatkan Pengguna."
+
+#: /cli/Application/Command/Get/Users.php:93
+#, php-format
+msgid "Getting user info for one user."
+msgid_plural "Getting user info for %d users."
+msgstr[0] "Mendapatkan info pengguna untuk %d orang pengguna."
+
+#: /cli/Application/Command/Get/Users.php:115
+#, php-format
+msgid "Fetching User Info for user: %s"
+msgstr "Menarik Info Pengguna untuk pengguna: %s"
+
+#: /cli/Application/Command/Get/Users.php:139
+msgid "User information has been refreshed."
+msgstr "Informasi Pengguna telah disegarkan."
+
+#: /cli/Application/Command/Help/Help.php:39
 msgid "Displays helpful information"
-msgstr ""
+msgstr "Menampilkan informasi berguna"
 
-#: /cli/Application/Command/Help/Help.php:70
+#: /cli/Application/Command/Help/Help.php:71
 #, php-format
 msgid "<b>Usage</b>: %s"
-msgstr ""
+msgstr "<b>Pemakaian</b>: %s"
 
-#: /cli/Application/Command/Help/Help.php:70
-#: /cli/Application/Command/Help/Help.php:93
+#: /cli/Application/Command/Help/Help.php:71
+#: /cli/Application/Command/Help/Help.php:94
 msgid "command"
-msgstr ""
+msgstr "perintah"
 
-#: /cli/Application/Command/Help/Help.php:70
+#: /cli/Application/Command/Help/Help.php:71
 msgid "options"
-msgstr ""
+msgstr "opsi"
 
-#: /cli/Application/Command/Help/Help.php:77
+#: /cli/Application/Command/Help/Help.php:78
 msgid "Available commands:"
-msgstr ""
+msgstr "Perintah-perintah yang tersedia:"
 
-#: /cli/Application/Command/Help/Help.php:93
+#: /cli/Application/Command/Help/Help.php:94
 #, php-format
 msgid "<b>For more information use</b>: %s"
-msgstr ""
+msgstr "<b>Untuk informasi selengkapnya gunakan</b>: %s"
 
-#: /cli/Application/Command/Help/Help.php:100
+#: /cli/Application/Command/Help/Help.php:101
 msgid "Application command <opt>options</opt>"
-msgstr ""
+msgstr "Perintah aplikasi <opt>opsi</opt>"
 
 #. TRANSLATORS: %s refers to a command name
-#: /cli/Application/Command/Help/Help.php:124
+#: /cli/Application/Command/Help/Help.php:125
 #, php-format
 msgid "Unknown: %s"
-msgstr ""
+msgstr "Tidak diketahui: %s"
 
-#: /cli/Application/Command/Help/Help.php:134
-#: /cli/Application/Command/TrackerCommand.php:179
+#: /cli/Application/Command/Help/Help.php:135
+#: /cli/Application/Command/TrackerCommand.php:233
 #, php-format
 msgid "Command: %s"
-msgstr ""
+msgstr "Perintah: %s"
 
-#: /cli/Application/Command/Help/Help.php:134
+#: /cli/Application/Command/Help/Help.php:135
 msgid "action"
-msgstr ""
+msgstr "tindakan"
 
-#: /cli/Application/Command/Help/Help.php:141
-#: /cli/Application/Command/Help/Help.php:164
+#: /cli/Application/Command/Help/Help.php:142
+#: /cli/Application/Command/Help/Help.php:165
 msgid "Available options:"
-msgstr ""
+msgstr "Opsi yang tersedia:"
 
-#: /cli/Application/Command/Help/Help.php:152
+#: /cli/Application/Command/Help/Help.php:153
 msgid "Available <cmd>actions</cmd>:"
-msgstr ""
+msgstr "<cmd>Tindakan</cmd> yang tersedia:"
 
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
-msgstr ""
+msgstr "Pasang aplikasi."
 
 #: /cli/Application/Command/Install/Install.php:42
 msgid "Reinstall the application (without confirmation)"
-msgstr ""
+msgstr "Pasang ulang aplikasi (tanpa konfirmasi)"
 
 #: /cli/Application/Command/Install/Install.php:59
 msgid "Installer"
-msgstr ""
+msgstr "Pemasang"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found!"
-msgstr ""
+msgstr "PERINGATAN: Sebuah basisdata telah ditemukan!"
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall?"
-msgstr ""
+msgstr "Apakah Anda ingin memasang ulang?"
 
 #: /cli/Application/Command/Install/Install.php:75
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 #: /cli/Application/Command/Install/Install.php:76
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: /cli/Application/Command/Install/Install.php:78
 msgid "Select:"
-msgstr ""
+msgstr "Pilih:"
 
 #: /cli/Application/Command/Install/Install.php:98
 msgid "No database found."
-msgstr ""
+msgstr "Tidak ada basisdata ditemukan."
 
 #: /cli/Application/Command/Install/Install.php:99
 msgid "Creating the database..."
-msgstr ""
+msgstr "Membuat basisdata..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has been completed successfully."
-msgstr ""
+msgstr "Pemasangan telah berhasil."
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
@@ -621,23 +694,32 @@ msgstr "Berkas SQL korup."
 msgid "Creating tables from file %s"
 msgstr "Membuat tabel dari berkas %s"
 
-#: /cli/Application/Command/Make/Autocomplete.php:31
-msgid "Generate an autocomplete file for PhpStorm."
-msgstr "Hasilkan sebuah berkas autocomplete untuk PhpStorm."
+#: /cli/Application/Command/Make/Autocomplete.php:51
+msgid "Generate autocomplete files."
+msgstr "Hasilkan berkas-berkas autocomplete."
 
-#: /cli/Application/Command/Make/Autocomplete.php:36
-msgid "An optional file to write the results to."
-msgstr "Sebuah berkas opsional untuk menulis hasil."
+#: /cli/Application/Command/Make/Autocomplete.php:56
+#, php-format
+msgid "The type of auto complete file (currently supported: %s)."
+msgstr "Jenis berkas auto complete (saat ini mendukung: %s)."
 
-#: /cli/Application/Command/Make/Autocomplete.php:50
+#: /cli/Application/Command/Make/Autocomplete.php:62
+msgid "Echo the output instead of writing it to a file."
+msgstr "Echo output daripada menuliskannya ke sebuah berkas."
+
+#: /cli/Application/Command/Make/Autocomplete.php:76
 msgid "Make Auto complete"
 msgstr "Buat Auto complete"
 
-#: /cli/Application/Command/Make/Autocomplete.php:124
-#: /cli/Application/Command/Make/Depfile.php:126
+#: /cli/Application/Command/Make/Autocomplete.php:90
 #, php-format
-msgid "Writing contents to: %s"
-msgstr "Menulis konten ke: %s"
+msgid "Invalid type supplied. Valid types are: %s"
+msgstr "Jenis yang diberikan tidak valid. Jenis yang valid adalah: %s"
+
+#: /cli/Application/Command/Make/Autocomplete.php:178
+#: /cli/Application/Command/Make/Autocomplete.php:244
+msgid "File has been written to: %path%"
+msgstr "Berkas telah ditulis ke %path%"
 
 #: /cli/Application/Command/Make/Composergraph.php:40
 msgid "Graph visualisation for your project's composer.json and its dependencies."
@@ -682,10 +764,14 @@ msgstr "Buat Komentar Tabel"
 msgid "Create and update a dependency file."
 msgstr "Buat dan perbarui sebuah berkas dependensi."
 
-#: /cli/Application/Command/Make/Depfile.php:260
+#: /cli/Application/Command/Make/Depfile.php:126
 #, php-format
-msgid "Language file not found %1$s, %2$s, %3$s"
-msgstr "Berkas bahasa tidak ditemukan %1$s, %2$s, %3$s"
+msgid "Writing contents to: %s"
+msgstr "Menulis konten ke: %s"
+
+#: /cli/Application/Command/Make/Depfile.php:269
+msgid "Language file not found: %tag%, %extension%, %domain%"
+msgstr "Berkas bahasa tidak ditemukan: %tag%, %extension%, %domain%"
 
 #: /cli/Application/Command/Make/Docu.php:29
 msgid "Compile documentation using GitHub Flavored Markdown"
@@ -725,23 +811,23 @@ msgstr "Berkas tidak memiliki akhiran baris bergaya UNIX!"
 
 #: /cli/Application/Command/Make/Langfiles.php:167
 msgid "Creating language file..."
-msgstr ""
+msgstr "Membuat berkas bahasa..."
 
 #: /cli/Application/Command/Make/Langfiles.php:206
 msgid "The language file has been created"
-msgstr ""
+msgstr "Berkas bahasa telah dibuat"
 
 #: /cli/Application/Command/Make/Langfiles.php:211
 msgid "Updating language file..."
-msgstr ""
+msgstr "Memperbarui berkas bahasa..."
 
 #: /cli/Application/Command/Make/Langtemplates.php:48
 msgid "Create language file templates."
-msgstr ""
+msgstr "Buat templat berkas bahasa."
 
 #: /cli/Application/Command/Make/Langtemplates.php:69
 msgid "Make Language templates"
-msgstr ""
+msgstr "Buat templat Bahasa"
 
 #: /cli/Application/Command/Make/Langtemplates.php:90
 #: /cli/Application/Command/Make/Langtemplates.php:103
@@ -749,250 +835,257 @@ msgstr ""
 #: /cli/Application/Command/Make/Langtemplates.php:135
 #, php-format
 msgid "Processing: %1$s %2$s"
-msgstr ""
+msgstr "Memproses: %1$s %2$s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:161
 #, php-format
 msgid "Processing App: %s"
-msgstr ""
+msgstr "Memproses Aplikasi: %s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:338
 msgid "Your template has been created"
-msgstr ""
+msgstr "Templat Anda telah dibuat"
 
 #: /cli/Application/Command/Make/Languageflags.php:34
 msgid "Full path to the combined image file."
-msgstr ""
+msgstr "Jalur lengkap ke berkas gambar gabungan."
 
 #: /cli/Application/Command/Make/Languageflags.php:40
 msgid "Full path to the CSS file."
-msgstr ""
+msgstr "Jalur lengkap ke berkas CSS."
 
 #: /cli/Application/Command/Make/Languageflags.php:44
 msgid "Compile multiple images into a big one (CSS spriting)."
-msgstr ""
+msgstr "Kompilasikan multi gambar ke satu gambar (CSS sprite)."
 
 #: /cli/Application/Command/Make/Languageflags.php:56
 msgid "Compile Language flag images"
-msgstr ""
+msgstr "Kompilasikan gambar bendera Bahasa"
 
 #: /cli/Application/Command/Make/Languageflags.php:109
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
-msgstr ""
+msgstr "Menghasilkan gambar gabungan untuk gambar bendera %1$d di %2$s"
 
 #: /cli/Application/Command/Make/Languageflags.php:115
 #, php-format
 msgid "Writing the CSS file to %s"
-msgstr ""
+msgstr "Menulis berkas CSS ke %s"
 
 #: /cli/Application/Command/Make/Make.php:36
 msgid "The make engine"
-msgstr ""
+msgstr "Mesin pembuatan"
 
 #: /cli/Application/Command/Make/Repoinfo.php:35
 msgid "Generate repository information."
-msgstr ""
+msgstr "Hasilkan informasi repositori."
 
 #: /cli/Application/Command/Make/Repoinfo.php:50
 msgid "Generate Repo information"
-msgstr ""
+msgstr "Hasilkan informasi Repo"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."
-msgstr ""
+msgstr "Jalankan pengujian PHP CodeSniffer."
 
 #: /cli/Application/Command/Test/Checkstyle.php:42
 msgid "Test Checkstyle"
-msgstr ""
+msgstr "Uji Checkstyle"
+
+#: /cli/Application/Command/Test/Checkstyle.php:64
+#, php-format
+msgid "Finished with one error"
+msgid_plural "Finished with %d errors"
+msgstr[0] "Selesai dengan %d galat"
+
+#: /cli/Application/Command/Test/Checkstyle.php:65
+#: /cli/Application/Command/Test/Phpunit.php:56
+msgid "Success"
+msgstr "Berhasil"
 
 #: /cli/Application/Command/Test/Copypaste.php:30
 msgid "Run Copy/Paste Detector (CPD) for PHP code."
-msgstr ""
+msgstr "Jalankan Copy/Paste Detector (CPD) untuk kode PHP."
 
 #: /cli/Application/Command/Test/Copypaste.php:43
 msgid "Run Copy/Paste Detector"
-msgstr ""
+msgstr "Jalankan Copy/Paste Detector"
 
 #: /cli/Application/Command/Test/Hook.php:61
 msgid "Tests web hooks"
-msgstr ""
+msgstr "Pengujian kait web"
 
 #: /cli/Application/Command/Test/Hook.php:81
 msgid "Test Hooks"
-msgstr ""
+msgstr "Uji Kait"
 
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
 msgid "Check language files"
-msgstr ""
+msgstr "Periksa berkas-berkas bahasa"
 
 #: /cli/Application/Command/Test/Langfiles.php:109
 msgid "There have been errors."
-msgstr ""
+msgstr "Terdapat beberapa galat."
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
-msgstr ""
+msgstr "Sintak berkas bahasa OK"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
-msgstr ""
+msgstr "Jalankan Lines Of Code (LOC) untuk kode PHP."
 
 #: /cli/Application/Command/Test/Phploc.php:43
 msgid "Run PHP Lines Of Code"
-msgstr ""
+msgstr "Jalankan Lines Of Code PHP"
 
 #: /cli/Application/Command/Test/Phpunit.php:29
 msgid "Run PHPUnit tests."
-msgstr ""
+msgstr "Jalankan pengujian PHPUnit."
 
 #: /cli/Application/Command/Test/Phpunit.php:41
 msgid "Test PHPUnit"
-msgstr ""
+msgstr "Uji PHPUnit"
 
 #: /cli/Application/Command/Test/Phpunit.php:55
 msgid "Finished with errors."
-msgstr ""
-
-#: /cli/Application/Command/Test/Phpunit.php:56
-msgid "Success"
-msgstr ""
+msgstr "Selesai dengan galat."
 
 #: /cli/Application/Command/Test/Run.php:27
 msgid "Run all tests"
-msgstr ""
+msgstr "Jalankan semua pengujian"
 
 #: /cli/Application/Command/Test/Run.php:39
 msgid "Test Suite"
-msgstr ""
+msgstr "Perangkat Uji"
 
 #: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
-msgstr ""
+msgstr "Perangkat Uji Selesai dengan galat."
 
 #: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
-msgstr ""
+msgstr "Perangkat Uji Selesai."
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
-msgstr ""
+msgstr "Mesin pengujian"
 
-#: /cli/Application/Command/TrackerCommand.php:181
+#: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
-msgstr ""
+msgstr "Kehilangan opsi untuk perintah: %s"
 
-#: /cli/Application/Command/TrackerCommand.php:182
+#: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
-msgstr ""
-
-#: /cli/Application/Command/TrackerCommand.php:296
-msgid "Available projects:"
-msgstr ""
-
-#: /cli/Application/Command/TrackerCommand.php:314
-msgid "Select a project:"
-msgstr ""
-
-#: /cli/Application/Command/TrackerCommand.php:320
-msgid "Aborted"
-msgstr ""
-
-#: /cli/Application/Command/TrackerCommand.php:325
-#: /cli/Application/Command/TrackerCommand.php:344
-msgid "Invalid project"
-msgstr ""
+msgstr "Gunakanlah salah satu dari berikut ini :"
 
 #: /cli/Application/Command/TrackerCommand.php:348
+msgid "Available projects:"
+msgstr "Proyek yang tersedia:"
+
+#: /cli/Application/Command/TrackerCommand.php:366
+msgid "Select a project:"
+msgstr "Pilih sebuah proyek:"
+
+#: /cli/Application/Command/TrackerCommand.php:372
+msgid "Aborted"
+msgstr "Dibatalkan"
+
+#: /cli/Application/Command/TrackerCommand.php:377
+#: /cli/Application/Command/TrackerCommand.php:396
+msgid "Invalid project"
+msgstr "Proyek tidak valid"
+
+#: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
 msgid "Processing project: %s"
-msgstr ""
+msgstr "Memproses proyek: %s"
 
-#: /cli/Application/Command/TrackerCommand.php:379
-#: /cli/Application/Command/TrackerCommand.php:381
+#: /cli/Application/Command/TrackerCommand.php:431
+#: /cli/Application/Command/TrackerCommand.php:433
 msgid "An unknown error occurred"
-msgstr ""
+msgstr "Sebuah galat yang tidak diketahui telah muncul"
 
 #: /cli/Application/Command/Update/Languagefiles.php:46
 msgid "Updates language files on a translation service."
-msgstr ""
-
-#: /cli/Application/Command/Update/Languagefiles.php:51
-msgid "The translation service provider to use."
-msgstr ""
+msgstr "Perbarui berkas-berkas bahasa di sebuah layanan terjemahan."
 
 #: /cli/Application/Command/Update/Languagefiles.php:57
 msgid "Flag if resources should be created."
-msgstr ""
+msgstr "Tandai bila sumber harus dibuat."
 
 #: /cli/Application/Command/Update/Languagefiles.php:63
 msgid "Flag if translations should be uploaded."
-msgstr ""
+msgstr "Tandai bila terjemahan harus diunggah."
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
-msgstr ""
+msgstr "Perbarui Terjemahan"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
-msgstr ""
+msgstr "Perbarui informasi tarik permintaan yang dipilih di GitHub untuk sebuah proyek tertentu."
 
 #: /cli/Application/Command/Update/Pulls.php:47
 msgid "Update Pull Requests"
-msgstr ""
+msgstr "Perbarui Tarik Permintaan"
+
+#: /cli/Application/Command/Update/Pulls.php:49
+msgid "Start Updating Project"
+msgstr "Mulai Memperbarui Proyek"
 
 #: /cli/Application/Command/Update/Pulls.php:59
 #, php-format
 msgid "Updating pull requests for project: %s/%s"
-msgstr ""
+msgstr "Memperbarui tarik permintaan untuk proyek: %s/%s"
 
 #: /cli/Application/Command/Update/Pulls.php:101
 #, php-format
 msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
-msgstr ""
+msgstr "Butir GitHub %s/%s #%d telah ditutup karena merupakan sebuah penarikan untuk Joomla! 2.5."
 
 #: /cli/Application/Command/Update/Pulls.php:114
 #: /cli/Application/Command/Update/Pulls.php:238
 #: /cli/Application/Command/Update/Pulls.php:285
 #, php-format
 msgid "The %s/%s project is not supported by this command at this time."
-msgstr ""
+msgstr "Proyek %s/%s tidak didukung oleh perintah ini pada saat ini."
 
 #: /cli/Application/Command/Update/Pulls.php:201
 #, php-format
 msgid "GitHub item %s/%s #%d already has the %s label."
-msgstr ""
+msgstr "Butir GitHub %s/%s #%d sudah memiliki label %s."
 
 #: /cli/Application/Command/Update/Pulls.php:220
 #, php-format
 msgid "Adding %s label to %s/%s #%d"
-msgstr ""
+msgstr "Menambahkan label %s ke %s/%s #%d"
 
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
 msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
-msgstr ""
+msgstr "Butir GitHub %s/%s #%d telah memiliki status penggabungan yang diatur ke \"galat\"."
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
-msgstr ""
+msgstr "Perbarui pemasangan lokal ke sebuah versi tertentu atau git HEAD terakhir untuk cabang yang aktif"
 
 #: /cli/Application/Command/Update/Server.php:38
 msgid "An optional version number to update to."
-msgstr ""
+msgstr "Nomor versi opsional untuk diperbarui."
 
 #: /cli/Application/Command/Update/Update.php:66
 msgid "Used to update resources"
-msgstr ""
+msgstr "Dipakai untuk memperbarui sumber"
 
-#: /cli/tracker.php:100 /cli/tracker.php:129
+#: /cli/tracker.php:99 /cli/tracker.php:131
 #, php-format
 msgid "ERROR: %s"
-msgstr ""
+msgstr "GALAT: %s"
 
-#: /cli/tracker.php:102 /cli/tracker.php:131
+#: /cli/tracker.php:101 /cli/tracker.php:133
 msgid "Call stack:"
-msgstr ""
+msgstr "Tumpukan panggilan:"
 

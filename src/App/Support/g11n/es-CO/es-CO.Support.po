@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:44-0400\n"
+"POT-Creation-Date: 2016-07-09 16:50-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Spanish, Colombia\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Enlace permanente"
 msgid "Icons"
 msgstr "Íconos"
 
-#: /templates/support/icons.index.twig:21
+#: /templates/support/icons.index.twig:22
 msgid "OctIcons"
 msgstr "OctIcons"
 
@@ -64,7 +64,7 @@ msgstr "Enlaces"
 
 #: /templates/support/markdown.index.twig:26
 msgid "Emphasised"
-msgstr ""
+msgstr "Resaltar"
 
 #: /templates/support/markdown.index.twig:27
 #: /templates/support/markdown.index.twig:47
@@ -98,7 +98,7 @@ msgstr "Imágenes"
 
 #: /templates/support/markdown.index.twig:32
 msgid "GitHub Spice"
-msgstr ""
+msgstr "Para GitHub"
 
 #: /templates/support/markdown.index.twig:56
 #: /templates/support/markdown.index.twig:83
@@ -111,7 +111,7 @@ msgstr ""
 #: /templates/support/markdown.index.twig:347
 #: /templates/support/markdown.index.twig:371
 msgid "Output"
-msgstr ""
+msgstr "Resultado"
 
 #: /src/App/Support/Controller/Clearcache.php:40
 msgid "The cache has been cleared."

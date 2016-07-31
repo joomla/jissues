@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -19,29 +19,29 @@ msgstr ""
 #: /templates/text/article.edit.twig:7
 #: /templates/text/article.edit.twig:40
 msgid "Edit Article"
-msgstr ""
+msgstr "Labot rakstu"
 
 #: /templates/text/article.edit.twig:7
 #: /templates/text/article.edit.twig:40
 #: /templates/text/articles.index.twig:25
 msgid "New Article"
-msgstr ""
+msgstr "Jauns raksts"
 
 #: /templates/text/article.edit.twig:25
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: /templates/text/article.edit.twig:30
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: /templates/text/article.edit.twig:47
 msgid "Title"
-msgstr ""
+msgstr "Virsraksts"
 
 #: /templates/text/article.edit.twig:54
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /templates/text/articles.index.twig:6
 #: /templates/text/articles.index.twig:8
@@ -50,15 +50,15 @@ msgstr "Raksti"
 
 #: /templates/text/articles.index.twig:36
 msgid "Articles List"
-msgstr ""
+msgstr "Rakstu saraksts"
 
 #: /templates/text/articles.index.twig:41
 msgid "Title/Alias"
-msgstr ""
+msgstr "Nosaukums/Alias"
 
 #: /templates/text/articles.index.twig:42
 msgid "Actions"
-msgstr ""
+msgstr "Darbības"
 
 #: /templates/text/articles.index.twig:58
 msgid "View"
@@ -66,25 +66,25 @@ msgstr "Skats"
 
 #: /templates/text/articles.index.twig:61
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: /templates/text/articles.index.twig:67
 msgid "No articles found"
-msgstr ""
+msgstr "Nav ierakstu"
 
-#: /src/App/Text/Controller/Article/Delete.php:47
+#: /src/App/Text/Controller/Article/Delete.php:48
 msgid "The article has been deleted."
-msgstr ""
+msgstr "Raksts ir dzēsts."
 
-#: /src/App/Text/Controller/Article/Save.php:50
+#: /src/App/Text/Controller/Article/Save.php:52
 msgid "The article has been saved."
-msgstr ""
+msgstr "Raksts ir saglabāts."
 
 #: /src/App/Text/Table/ArticlesTable.php:93
 msgid "An alias or a title is required."
-msgstr ""
+msgstr "Nosaukums vai Alias ir obligāts."
 
 #: /src/App/Text/Table/ArticlesTable.php:99
 msgid "Some text is required."
-msgstr ""
+msgstr "Nepieciešams teksts."
 

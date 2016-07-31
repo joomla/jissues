@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 12:51-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -21,704 +21,709 @@ msgstr ""
 #: /templates/tracker/category.add.twig:11
 #: /templates/tracker/category.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: /templates/tracker/issue.edit.twig:58
 #: /templates/tracker/issue.index.twig:279
 msgid "Test this"
-msgstr ""
+msgstr "Uji ini"
 
 #: /templates/tracker/issue.edit.twig:62
 #: /templates/tracker/issue.index.twig:284
 msgid "Alter test"
-msgstr ""
+msgstr "Ubah pengujian"
 
 #: /templates/tracker/issue.edit.twig:67
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #: /templates/tracker/issue.edit.twig:84
 #: /templates/tracker/issues.index.twig:155
 #: /templates/tracker/issue.index.twig:184
 msgid "Foreign ID"
-msgstr ""
+msgstr "ID Asing"
 
 #: /templates/tracker/issue.edit.twig:107
 #: /templates/tracker/tpl/activities.twig:58
 #: /templates/tracker/issues.index.twig:47
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: /templates/tracker/issue.edit.twig:115
 #: /templates/tracker/tpl/activities.twig:92
 #: /templates/tracker/issues.index.twig:46
 #: /templates/tracker/issue.add.twig:49
 msgid "Priority"
-msgstr ""
+msgstr "Prioritas"
 
 #: /templates/tracker/issue.edit.twig:124
 msgid "Item"
-msgstr ""
+msgstr "Butir"
 
 #: /templates/tracker/issue.edit.twig:141
 #: /templates/tracker/issue.index.twig:107
-#: /templates/tracker/issue.add.twig:57
+#: /templates/tracker/issue.add.twig:60
 msgid "Build"
-msgstr ""
+msgstr "Versi"
 
 #: /templates/tracker/issue.edit.twig:146
 msgid "Easy test"
-msgstr ""
+msgstr "Pengujian yang mudah"
 
 #: /templates/tracker/issue.edit.twig:155
-#: /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.add.twig:68
 msgid "Categories"
-msgstr ""
+msgstr "Kategori"
 
 #: /templates/tracker/issue.edit.twig:164
 #: /templates/tracker/tpl/activities.twig:113
-#: /templates/tracker/issue.add.twig:75
+#: /templates/tracker/issue.add.twig:78
 msgid "Labels"
-msgstr ""
+msgstr "Label"
 
 #: /templates/tracker/issue.edit.twig:171
 #: /templates/tracker/tpl/activities.twig:131
-#: /templates/tracker/issue.add.twig:80
+#: /templates/tracker/issue.add.twig:83
 msgid "Milestone"
-msgstr ""
+msgstr "Jejak"
 
 #: /templates/tracker/issue.edit.twig:184
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.edit.twig:27
-#: /templates/tracker/issue.add.twig:100
+#: /templates/tracker/issue.add.twig:106
 #: /templates/tracker/categories.index.twig:40
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: /templates/tracker/issue.edit.twig:206
 #: /templates/tracker/issue.index.twig:554
 msgid "Add a Comment"
-msgstr ""
+msgstr "Tambah Komentar"
 
 #: /templates/tracker/issue.edit.twig:214
 #: /templates/tracker/issue.index.twig:567
 msgid "Leave a comment"
-msgstr ""
+msgstr "Tinggalkan Komentar"
 
 #: /templates/tracker/issue.edit.twig:314
-#: /templates/tracker/issue.add.twig:218
+#: /templates/tracker/issue.add.twig:224
 msgid "Some fields are invalid. They have been highlighted."
-msgstr ""
+msgstr "Beberapa kolom tidak valid. Lihat yang disoroti."
 
 #: /templates/tracker/issue.edit.twig:324
 #: /templates/tracker/issue.edit.twig:331
 msgid "Saving..."
-msgstr ""
+msgstr "Menyimpan..."
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- Status -"
-msgstr ""
+msgstr "- Status -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- Priority -"
-msgstr ""
+msgstr "- Prioritas -"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
-msgstr ""
+msgstr "Diperbarui baru-baru ini"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Newest"
-msgstr ""
+msgstr "Terbaru"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Oldest"
-msgstr ""
+msgstr "Terlama"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Recently updated"
-msgstr ""
+msgstr "Baru saja diperbarui"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Created by you"
-msgstr ""
+msgstr "Dibuat oleh Anda"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Everyone's issues"
-msgstr ""
+msgstr "Isu semua orang"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "You participated in"
-msgstr ""
+msgstr "Anda telah berpartisipasi dalam"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "- Categories -"
-msgstr ""
+msgstr "- Kategori -"
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "No categories"
+msgid "No Categories"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
-msgstr ""
+msgstr "- Label -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- Tests -"
-msgstr ""
+msgstr "- Pengujian -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
-msgstr ""
+msgstr "Memiliki dua pengujian"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Needs one test"
-msgstr ""
+msgstr "Perlu satu pengujian"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Needs tests"
-msgstr ""
+msgstr "Perlu pengujian"
 
 #: /templates/tracker/tracker.filters.twig:87
 msgid "- Easy -"
-msgstr ""
+msgstr "- Mudah -"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:357
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "- Type -"
-msgstr ""
+msgstr "- Jenis -"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
-msgstr ""
+msgstr "Isu"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Pull Request"
-msgstr ""
+msgstr "Tarik Permintaan"
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
-msgstr ""
+msgstr "- Jejak -"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
-msgstr ""
+msgstr "Terbuka"
 
 #: /templates/tracker/tpl/filters.twig:15
 #: /templates/tracker/issues.index.twig:346
 msgid "Closed"
-msgstr ""
+msgstr "Ditutup"
 
 #: /templates/tracker/tpl/filters.twig:20
 msgid "All"
-msgstr ""
+msgstr "Semua"
 
 #: /templates/tracker/tpl/filters.twig:25
-msgid "Search tools"
+msgid "Search Tools"
 msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
-msgstr ""
+msgstr "Bersihkan"
 
 #: /templates/tracker/tpl/filters.twig:33
 #: /templates/tracker/issue.index.twig:64
 msgid "Feeling Lucky"
-msgstr ""
+msgstr "Merasa Beruntung"
 
 #: /templates/tracker/tpl/filters.twig:36
 msgid "Permalink"
-msgstr ""
+msgstr "Pranala"
 
 #: /templates/tracker/tpl/filters.twig:58
 msgid "Filter the list by summary or description."
-msgstr ""
+msgstr "Filter daftar ini berdasarkan kesimpulan atau keterangan."
 
 #: /templates/tracker/tpl/filters.twig:61
 #: /templates/tracker/tpl/filters.twig:62
 msgid "Filter the list by ID, summary, or description."
-msgstr ""
+msgstr "Filter daftar ini berdasarkan ID, kesimpulan, atau keterangan."
 
 #: /templates/tracker/tpl/filters.twig:99
 #: /templates/tracker/tpl/filters.twig:102
 #: /templates/tracker/tpl/filters.twig:103
 msgid "Filter the list by creator."
-msgstr ""
+msgstr "Filter daftar ini berdasarkan pembuat."
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
-msgstr ""
+msgstr "Tambah Kategori"
 
 #: /templates/tracker/category.add.twig:20
 #: /templates/tracker/categories.index.twig:12
 msgid "New Category"
-msgstr ""
+msgstr "Kategori Baru"
 
 #: /templates/tracker/category.add.twig:24
 #: /templates/tracker/category.edit.twig:24
 #: /templates/tracker/issue.index.twig:202
 #: /templates/tracker/issue.index.twig:214
 msgid "Details"
-msgstr ""
+msgstr "Detail"
 
 #: /templates/tracker/category.add.twig:35
 #: /templates/tracker/category.edit.twig:35
 #: /templates/tracker/categories.index.twig:39
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
 msgid "Colour"
-msgstr ""
+msgstr "Warna"
 
 #: /templates/tracker/tpl/activities.twig:24
-#: /templates/tracker/issue.add.twig:107
+#: /templates/tracker/issue.add.twig:113
 msgid "Description"
-msgstr ""
+msgstr "Deskripsi"
 
 #: /templates/tracker/tpl/activities.twig:28
 #: /templates/tracker/tpl/activities.twig:45
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
 msgid "Differences"
-msgstr ""
+msgstr "Perbedaan"
 
 #: /templates/tracker/tpl/activities.twig:75
 msgid "Easy"
-msgstr ""
+msgstr "Mudah"
 
 #: /templates/tracker/tpl/activities.twig:118
 #: /templates/tracker/tpl/activities.twig:135
 msgid "Added"
-msgstr ""
+msgstr "Ditambahkan"
 
 #: /templates/tracker/tpl/activities.twig:122
 #: /templates/tracker/tpl/activities.twig:139
 msgid "Removed"
-msgstr ""
+msgstr "Dibuang"
 
 #: /templates/tracker/tpl/activities.twig:148
 msgid "Relation Type"
-msgstr ""
+msgstr "Jenis Hubungan"
 
 #: /templates/tracker/tpl/activities.twig:165
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
 #: /templates/tracker/category.edit.twig:6
 #: /templates/tracker/category.edit.twig:20
 msgid "Edit Category"
-msgstr ""
+msgstr "Edit Kategori"
 
 #: /templates/tracker/issues.index.twig:6
-msgid "Issues List"
-msgstr ""
+#, php-format
+msgid "%s Issues"
+msgstr "Isu %s"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:97
+#: /templates/tracker/issue.add.twig:103
 msgid "New Item"
-msgstr ""
+msgstr "Butir Baru"
 
 #: /templates/tracker/issues.index.twig:44
 #: /templates/tracker/categories.index.twig:48
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/tracker/issues.index.twig:45
 msgid "Summary"
-msgstr ""
+msgstr "Kesimpulan"
 
 #: /templates/tracker/issues.index.twig:52
 msgid "Loading, please wait..."
-msgstr ""
+msgstr "Sedang memuat, mohon tunggul..."
 
 #: /templates/tracker/issues.index.twig:114
 #: /templates/tracker/issue.index.twig:79
 #: /templates/tracker/categories.index.twig:66
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: /templates/tracker/issues.index.twig:135
 msgid "Created by"
-msgstr ""
+msgstr "Dibuat oleh"
 
 #: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
-msgstr ""
+msgstr "ID GitHub"
 
 #: /templates/tracker/issues.index.twig:165
 msgid "Opened "
-msgstr ""
+msgstr "Terbuka "
 
 #: /templates/tracker/issues.index.twig:171
 msgid "Closed "
-msgstr ""
+msgstr "Ditutup "
 
 #: /templates/tracker/issues.index.twig:177
 msgid "Modified "
-msgstr ""
+msgstr "Dimodifikasi "
 
 #: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
-msgstr ""
+msgstr "Jejak: "
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Critical"
-msgstr ""
+msgstr "Kritikal"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Urgent"
-msgstr ""
+msgstr "Penting"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Medium"
-msgstr ""
+msgstr "Menengah"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Low"
-msgstr ""
+msgstr "Rendah"
 
 #: /templates/tracker/issues.index.twig:188
-msgid "Very low"
+msgid "Very Low"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
-msgstr ""
+msgstr "Status penggabungan GitHub"
 
 #: /templates/tracker/issues.index.twig:205
 msgid "No items found."
-msgstr ""
+msgstr "Tidak ada butir ditemukan."
 
 #: /templates/tracker/issues.index.twig:322
 msgid "Success"
-msgstr ""
+msgstr "Berhasil"
 
 #: /templates/tracker/issues.index.twig:324
 #: /templates/tracker/issues.index.twig:339
 msgid "Pending"
-msgstr ""
+msgstr "Ditunda"
 
 #: /templates/tracker/issues.index.twig:326
 msgid "Error"
-msgstr ""
+msgstr "Galat"
 
 #: /templates/tracker/issues.index.twig:328
 msgid "Failure"
-msgstr ""
+msgstr "Kegagalan"
 
 #: /templates/tracker/issues.index.twig:337
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
-msgstr ""
+msgstr "Baru"
 
 #: /templates/tracker/issues.index.twig:338
 msgid "Confirmed"
-msgstr ""
+msgstr "Dikonfirmasi"
 
 #: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
-msgstr ""
+msgstr "Siap Untuk Komit"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr ""
+msgstr "Diperbaiki di Basis Kode"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
-msgstr ""
+msgstr "Perlu Ulasan"
 
 #: /templates/tracker/issues.index.twig:343
 msgid "Information Required"
-msgstr ""
+msgstr "Informasi Wajib"
 
 #: /templates/tracker/issues.index.twig:344
 msgid "Unconfirmed Report"
-msgstr ""
+msgstr "Laporan Tidak Dikonfirmasi"
 
 #: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
-msgstr ""
+msgstr "Tidak Ada Balasan"
 
 #: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
-msgstr ""
+msgstr "Perilaku Yang Diharapkan"
 
 #: /templates/tracker/issues.index.twig:348
 msgid "Known Issue"
-msgstr ""
+msgstr "Isu Yang Dikenali"
 
 #: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
-msgstr ""
+msgstr "Duplikasi Laporan"
 
-#: /templates/tracker/issues.index.twig:412
-msgid "First"
+#: /templates/tracker/issues.index.twig:350
+msgid "Discussion"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:413
-msgid "Previous"
-msgstr ""
+msgid "First"
+msgstr "Pertama"
 
 #: /templates/tracker/issues.index.twig:414
-msgid "Next"
-msgstr ""
+msgid "Previous"
+msgstr "Sebelumnya"
 
 #: /templates/tracker/issues.index.twig:415
+msgid "Next"
+msgstr "Berikutnya"
+
+#: /templates/tracker/issues.index.twig:416
 msgid "Last"
-msgstr ""
+msgstr "Terakhir"
 
 #: /templates/tracker/issue.index.twig:59
 msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr ""
+msgstr "Isu itu tidak ada, atau ID yang Anda ketikkan tidak benar."
 
 #: /templates/tracker/issue.index.twig:115
 msgid "Easy Test"
-msgstr ""
+msgstr "Pengujian Yang Mudah"
 
 #: /templates/tracker/issue.index.twig:123
 msgid "# of Successful Tests"
-msgstr ""
+msgstr "# Pengujian Yang Berhasil"
 
 #: /templates/tracker/issue.index.twig:133
 msgid "To comment"
-msgstr ""
+msgstr "Untuk berkomentar"
 
 #: /templates/tracker/issue.index.twig:142
 msgid "View this issue on GitHub"
-msgstr ""
+msgstr "Lihat isu ini di GitHub"
 
 #: /templates/tracker/issue.index.twig:152
 msgid "View a plain diff for this pull request"
-msgstr ""
+msgstr "Lihat diff bebas untuk tarik permintaan ini"
 
 #: /templates/tracker/issue.index.twig:154
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: /templates/tracker/issue.index.twig:170
 msgid "Download this fork as a ZIP file"
-msgstr ""
+msgstr "Unduh fork ini sebagai sebuah berkas ZIP"
 
 #: /templates/tracker/issue.index.twig:226
 msgid "Categories:"
-msgstr ""
+msgstr "Kategori:"
 
 #: /templates/tracker/issue.index.twig:251
 msgid "Referenced as"
-msgstr ""
+msgstr "Direferensikan sebagai"
 
 #: /templates/tracker/issue.index.twig:289
 msgid "User tests:"
-msgstr ""
+msgstr "Pengujian pengguna:"
 
 #: /templates/tracker/issue.index.twig:290
 #, php-format
 msgid "Successful: %s"
-msgstr ""
+msgstr "Berhasil: %s"
 
 #: /templates/tracker/issue.index.twig:292
 #, php-format
 msgid "Unsuccessful: %s"
-msgstr ""
+msgstr "Tidak Berhasil: %s"
 
 #: /templates/tracker/issue.index.twig:331
 msgid "Votes"
-msgstr ""
+msgstr "Voting"
 
 #: /templates/tracker/issue.index.twig:341
 msgid "# of Users Experiencing Issue"
-msgstr ""
+msgstr "# Pengguna Yang Mengalami Isu"
 
 #: /templates/tracker/issue.index.twig:345
 msgid "Average Importance Score"
-msgstr ""
+msgstr "Skor Kepentingan Rata-Rata"
 
 #: /templates/tracker/issue.index.twig:354
 msgid "I've experienced this issue"
-msgstr ""
+msgstr "Saya mengalami isu ini"
 
 #: /templates/tracker/issue.index.twig:366
 msgid "Importance of issue to me"
-msgstr ""
+msgstr "Isu yang penting bagi saya"
 
 #: /templates/tracker/issue.index.twig:391
 msgid "Vote"
-msgstr ""
+msgstr "Voting"
 
 #: /templates/tracker/issue.index.twig:497
 msgid "The description was changed"
-msgstr ""
+msgstr "Keterangan telah diganti"
 
 #: /templates/tracker/issue.index.twig:576
 msgid "Post Comment"
-msgstr ""
+msgstr "Kirim Komentar"
 
 #: /templates/tracker/issue.index.twig:591
 msgid "Login with GitHub to post a comment"
-msgstr ""
+msgstr "Masuk dengan GitHub untuk mengirimkan komentar"
 
 #: /templates/tracker/issue.index.twig:596
 msgid "Older"
-msgstr ""
+msgstr "Sebelumnya"
 
 #: /templates/tracker/issue.index.twig:599
 msgid "Newer"
-msgstr ""
+msgstr "Berikutnya"
 
 #: /templates/tracker/issue.add.twig:12
-#: /templates/tracker/issue.add.twig:124
+#: /templates/tracker/issue.add.twig:130
 msgid "Submit"
-msgstr ""
+msgstr "Kirim"
 
 #: /templates/tracker/issue.add.twig:44
 msgid "View Mode"
-msgstr ""
+msgstr "Mode Lihat"
 
 #: /templates/tracker/issue.add.twig:45
 msgid "Help"
-msgstr ""
+msgstr "Bantuan"
 
 #: /templates/tracker/issue.add.twig:45
 msgid "Pro"
-msgstr ""
+msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
-msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr ""
+msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgstr "Prioritas isu yang harus dipecahkan. Lihat halaman <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Proses Penelusuran Bug</a> untuk informasi selengkapnya tentang prioritas-prioritas proyek."
 
-#: /templates/tracker/issue.add.twig:61
+#: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
-msgstr ""
+msgstr "Versi dari proyek dimana isu ini ditemukan."
 
-#: /templates/tracker/issue.add.twig:68
+#: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "Pilihlah satu atau lebih Kategori yang ada disini yang cocok dengan isu Anda."
 
-#: /templates/tracker/issue.add.twig:90
-msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+#: /templates/tracker/issue.add.twig:93
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
+msgstr "Laporkan isu-isu keamanan kepada Joomla! Security Strike Team (JSST) di <a %class1% %href1%>security@joomla.org</a> atau melalui <a %class2% %href2%>form kontak JSST</a>, mohon tidak menggunakan penelusur publik untuk isu-isu keamanan."
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr ""
+msgstr "Untuk melaporkan sebuah bug ke penelusur bug Joomla, Anda perlu membuat sebuah butir penelusur terlebih dahulu. Bila butir penelusur sudah dibuat, para pengembang akan memeriksa validitasnya dan melakukan tindakan yang sesuai."
 
-#: /templates/tracker/issue.add.twig:104
+#: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr ""
+msgstr "Jelaskan dalam beberapa kata isu yang Anda hadapi, adalah baik bila menggunakan contoh butir penelusur yang sudah ada jika ini adalah pertama kalinya Anda melaporkan sebuah bug."
 
-#: /templates/tracker/issue.add.twig:120
+#: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr ""
+msgstr "Ini adalah bagian terpenting dalam pelaporan bug. Jelaskan disini langkah demi langkah bagaimana Anda bisa menemukan galat tersebut, sertakan semua informasi yang diperlukan oleh orang lain untuk mengikuti kembali langkah-langkah Anda dan untuk melihat permasalahannya. Ingat: bug Anda tidak akan diperbaiki kecuali orang lain dapat melihat permasalahannya, jadi Anda harus sejelas mungkin dan sedetail mungkin. Anda tidak perlu ahli dalam hal pemrograman untuk menuliskan sebuah laporan bug yang hebat. Tapi bila Anda memahami pengkodean dan Anda tahu bagaimana memperbaiki bug, sertakanlah dalam laporan ini."
 
-#: /templates/tracker/issue.add.twig:228
+#: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
-msgstr ""
+msgstr "Mengirimkan..."
 
 #: /templates/tracker/categories.index.twig:6
 #: /templates/tracker/categories.index.twig:34
 msgid "Categories List"
-msgstr ""
+msgstr "Daftar Kategori"
 
 #: /templates/tracker/categories.index.twig:44
 msgid "Actions"
-msgstr ""
+msgstr "Tindakan"
 
 #: /templates/tracker/categories.index.twig:65
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: /templates/tracker/categories.index.twig:77
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "Halaman %1$s dari %2$s"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
-msgstr ""
+msgstr "Kategori telah dihapus"
 
 #: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:58
 msgid "Your comment has been submitted"
-msgstr ""
+msgstr "Komentar Anda telah dikirimkan"
 
 #: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
 msgid "Vote successfully added"
-msgstr ""
+msgstr "Pilihan berhasil ditambahkan"
 
 #: /src/App/Tracker/Controller/Issue/Submit.php:173
 msgid "Your report has been submitted."
-msgstr ""
+msgstr "Laporan Anda telah dikirimkan."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
 #: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
 msgid "Test successfully added"
-msgstr ""
+msgstr "Uji berhasil ditambahkan"
 
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
 msgid "Old"
-msgstr ""
+msgstr "Lama"
 
-#: /src/App/Tracker/Model/CategoryModel.php:70
+#: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
-msgstr ""
+msgstr "Kehilangan ID"
 
-#: /src/App/Tracker/Model/CategoryModel.php:85
+#: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
-msgstr ""
+msgstr "Kategori Tidak Valid"
 
 #: /src/App/Tracker/Table/CategoryTable.php:54
 msgid "A name is required for the category."
-msgstr ""
+msgstr "Nama adalah wajib untuk kategori."
 
 #: /src/App/Tracker/Table/CategoryTable.php:59
 msgid "The length of the name can not exceed 150 characters."
-msgstr ""
+msgstr "Panjang nama tidak boleh melebihi 150 karakter."
 
 #: /src/App/Tracker/Table/CategoryTable.php:64
 msgid "An alias is required for the category."
-msgstr ""
+msgstr "Alias adalah wajib untuk kategori."
 
 #: /src/App/Tracker/Table/CategoryTable.php:69
 msgid "The length of the alias can not exceed 150 characters."
-msgstr ""
+msgstr "Panjang alias tidak boleh melebihi 150 karakter."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "Warna harus dalam nilai hex."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr ""
+msgstr "ID isu wajib"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
-msgstr ""
+msgstr "ID kategori diperlukan."
 
 #: /src/App/Tracker/Table/IssuesTable.php:135
 msgid "A title is required."
-msgstr ""
+msgstr "Judul wajib."
 
 #: /src/App/Tracker/Table/IssuesTable.php:139
 msgid "The title max length is 255 chars."
-msgstr ""
+msgstr "Panjang maksimal judul adalah 255 karakter."
 
 #: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
-msgstr ""
+msgstr "Versi wajib."
 
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
-msgstr ""
+msgstr "Panjang maksimal versi adalah 40 karakter."
 

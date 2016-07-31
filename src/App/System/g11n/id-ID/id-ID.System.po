@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -18,27 +18,27 @@ msgstr ""
 
 #: /templates/system/config.index.twig:6
 msgid "Configuration"
-msgstr ""
+msgstr "Konfigurasi"
 
 #: /templates/system/config.index.twig:12
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: /templates/system/config.index.twig:37
 msgid "Edit Configuration"
-msgstr ""
+msgstr "Edit Konfigurasi"
 
 #: /templates/system/config.index.twig:39
 #, php-format
 msgid "Loaded configuration file: %s"
-msgstr ""
+msgstr "Berkas konfigurasi dimuat: %s"
 
 #: /templates/system/routes.index.twig:6
 #: /templates/system/routes.index.twig:9
 msgid "Routes"
-msgstr ""
+msgstr "Rute"
 
 #: /src/App/System/Controller/Config/Save.php:52
 msgid "The configuration file has been saved."
-msgstr ""
+msgstr "Berkas konfigurasi telah disimpan."
 

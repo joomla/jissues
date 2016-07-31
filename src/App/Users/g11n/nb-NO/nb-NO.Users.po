@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"POT-Creation-Date: 2016-07-14 16:01-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Norwegian Bokmal\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Språk: %s"
 #: /templates/users/user.index.twig:62
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
-msgstr "Timezone: %1$s (GMT %2$s)"
+msgstr "Tidsone: %1$s (GMT %2$s)"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -64,7 +64,7 @@ msgstr "Filtrer listen etter bruker."
 
 #: /templates/users/users.index.twig:34
 msgid "Clear"
-msgstr "Fjern"
+msgstr "Tøm"
 
 #: /templates/users/users.index.twig:41
 #: /templates/users/users.index.twig:73
@@ -103,11 +103,11 @@ msgstr "Avbryt"
 
 #: /templates/users/user.edit.twig:44
 msgid "GitHub Profile"
-msgstr "GitHub Profil"
+msgstr "GitHub-profil"
 
 #: /templates/users/user.edit.twig:67
 msgid "Params"
-msgstr "Parametre"
+msgstr "Parametere"
 
 #: /templates/users/user.edit.twig:70
 msgid "Language"
@@ -134,11 +134,7 @@ msgstr "Du har ikke tilgang til å redigere denne brukeren."
 msgid "You are not authorised to refresh this user."
 msgstr "Du har ikke tilgang til å oppdatere denne brukeren."
 
-#: /src/App/Users/Controller/User/Refresh.php:77
-msgid "An error has occurred during email refresh."
-msgstr "En feil har oppstått under oppfriskning av e-post."
-
-#: /src/App/Users/Controller/User/Refresh.php:82
+#: /src/App/Users/Controller/User/Refresh.php:73
 msgid "The profile has been refreshed."
 msgstr "Profilen har blitt oppfrisket."
 

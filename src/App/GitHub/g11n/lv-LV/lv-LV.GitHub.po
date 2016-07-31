@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -20,21 +20,21 @@ msgstr ""
 #: /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
-msgstr ""
+msgstr "%s - Statistika"
 
 #: /templates/github/hooks.index.twig:6
 #: /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
-msgstr ""
+msgstr "%s - Hooks"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr ""
+msgstr "Skatīt āķus"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr ""
+msgstr "Jauns āķis"
 
 #: /templates/github/hooks.index.twig:22
 #: /templates/github/hooks.index.twig:87
@@ -45,19 +45,19 @@ msgstr "Saite"
 #: /templates/github/hooks.index.twig:26
 #: /templates/github/hooks.index.twig:88
 msgid "Events"
-msgstr ""
+msgstr "Notikumi"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr ""
+msgstr "PIEZĪME: atdalīts ar komatu, bez atstarpēm"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr ""
+msgstr "Pievienot āķi"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
-msgstr ""
+msgstr "Veids"
 
 #: /templates/github/hooks.index.twig:86
 msgid "Status"
@@ -66,94 +66,94 @@ msgstr "Statuss"
 #: /templates/github/hooks.index.twig:89
 #: /templates/github/milestones.index.twig:79
 msgid "Actions"
-msgstr ""
+msgstr "Darbības"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"
-msgstr ""
+msgstr "Aktīvs"
 
 #: /templates/github/hooks.index.twig:101
 msgid "Inactive"
-msgstr ""
+msgstr "Neaktīvs"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktivizēt"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr ""
+msgstr "Aktivizēt"
 
 #: /templates/github/hooks.index.twig:120
 #: /templates/github/labels.index.twig:59
 #: /templates/github/milestones.index.twig:98
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: /templates/github/labels.index.twig:6
 #: /templates/github/labels.index.twig:10
 #, php-format
 msgid "%s - Labels"
-msgstr ""
+msgstr "%s - etiķetes"
 
 #: /templates/github/labels.index.twig:12
 msgid "List Labels"
-msgstr ""
+msgstr "Skatīt etiķetes"
 
 #: /templates/github/labels.index.twig:17
 msgid "New Label"
-msgstr ""
+msgstr "Jauna etiķete"
 
 #: /templates/github/labels.index.twig:22
 #: /templates/github/labels.index.twig:45
 msgid "Name"
-msgstr ""
+msgstr "Nosaukums"
 
 #: /templates/github/labels.index.twig:23
 msgid "Label name"
-msgstr ""
+msgstr "Etiķetes nosaukums"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
 msgid "Colour"
-msgstr ""
+msgstr "Krāsa"
 
 #: /templates/github/labels.index.twig:28
 msgid "Label colour"
-msgstr ""
+msgstr "Etiķetes krāsa"
 
 #: /templates/github/labels.index.twig:31
 msgid "Add Label"
-msgstr ""
+msgstr "Pievienot etiķeti"
 
 #: /templates/github/milestones.index.twig:6
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr ""
+msgstr "%s - atskaites punkti"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr ""
+msgstr "Jauns atskaites punkts"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
 msgid "Number"
-msgstr ""
+msgstr "Numurs"
 
 #: /templates/github/milestones.index.twig:35
 #: /templates/github/milestones.index.twig:75
 msgid "Title"
-msgstr ""
+msgstr "Nosaukums"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "Atskaites punkta nosaukums"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "Termiņš beidzas"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
@@ -162,15 +162,15 @@ msgstr "Datums"
 #: /templates/github/milestones.index.twig:43
 #: /templates/github/milestones.index.twig:77
 msgid "State"
-msgstr ""
+msgstr "Statuss"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr ""
+msgstr "Atvērt"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
-msgstr ""
+msgstr "Aizvērts"
 
 #: /templates/github/milestones.index.twig:51
 #: /templates/github/milestones.index.twig:76
@@ -179,7 +179,7 @@ msgstr "Apraksts"
 
 #: /templates/github/milestones.index.twig:59
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
@@ -187,5 +187,5 @@ msgstr "Labot"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
-msgstr ""
+msgstr "Nav priekšskata..."
 
