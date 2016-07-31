@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-18 09:18-0500\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,49 +17,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
-#: /cli/Application/Application.php:105
+#: /cli/Application/Application.php:113
 msgid "Be quiet - suppress output."
 msgstr ""
 
-#: /cli/Application/Application.php:110
+#: /cli/Application/Application.php:118
 msgid "Verbose output for debugging purpose."
 msgstr ""
 
-#: /cli/Application/Application.php:115
+#: /cli/Application/Application.php:123
 msgid "Suppress ANSI colours on unsupported terminals."
 msgstr ""
 
-#: /cli/Application/Application.php:120
+#: /cli/Application/Application.php:128
 msgid "Optionally log output to the specified log file."
 msgstr ""
 
-#: /cli/Application/Application.php:125
+#: /cli/Application/Application.php:133
 msgid "Set the language used by the application."
 msgstr ""
 
-#: /cli/Application/Application.php:152
+#: /cli/Application/Application.php:160
 msgid "Joomla! Tracker CLI Application"
 msgstr ""
 
-#: /cli/Application/Application.php:179
+#: /cli/Application/Application.php:181
 #, php-format
 msgid "Invalid command: %s"
 msgstr ""
 
-#: /cli/Application/Application.php:186
+#: /cli/Application/Application.php:188
 msgid "Did you mean one of this?"
 msgstr ""
 
-#: /cli/Application/Application.php:215
+#: /cli/Application/Application.php:219
 msgid "Process aborted."
 msgstr ""
 
-#: /cli/Application/Application.php:222
+#: /cli/Application/Application.php:226
 #, php-format
 msgid "Execution time: <b>%d sec.</b>"
 msgstr ""
 
-#: /cli/Application/Application.php:373
+#: /cli/Application/Application.php:388
+#, php-format
+msgid "The argument \"%s\" is not recognized."
+msgstr ""
+
+#: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
 msgstr ""
 
@@ -154,24 +159,28 @@ msgstr ""
 msgid "To update, run the %1$s command."
 msgstr ""
 
-#: /cli/Application/Command/Export/Langfiles.php:43
+#: /cli/Application/Command/Export/Langfiles.php:45
 msgid "Backup language files to a given folder."
 msgstr ""
 
-#: /cli/Application/Command/Export/Langfiles.php:72
+#: /cli/Application/Command/Export/Langfiles.php:50
+msgid "Export also language template files."
+msgstr ""
+
+#: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
 msgstr ""
 
-#: /cli/Application/Command/Export/Langfiles.php:75
+#: /cli/Application/Command/Export/Langfiles.php:84
 msgid "Start exporting language files."
 msgstr ""
 
-#: /cli/Application/Command/Export/Langfiles.php:78
+#: /cli/Application/Command/Export/Langfiles.php:87
 #: /cli/Application/Command/Get/Avatars.php:56
 #: /cli/Application/Command/Get/Composertags.php:67
-#: /cli/Application/Command/Get/Languagefiles.php:77
+#: /cli/Application/Command/Get/Languagefiles.php:83
 #: /cli/Application/Command/Get/Project/Comments.php:61
-#: /cli/Application/Command/Get/Project/Events.php:75
+#: /cli/Application/Command/Get/Project/Events.php:62
 #: /cli/Application/Command/Get/Project/Issues.php:96
 #: /cli/Application/Command/Get/Project/Labels.php:50
 #: /cli/Application/Command/Get/Project/Milestones.php:52
@@ -189,8 +198,8 @@ msgstr ""
 msgid "Finished."
 msgstr ""
 
-#: /cli/Application/Command/Export/Langfiles.php:124
-#: /cli/Application/Command/Get/Languagefiles.php:133
+#: /cli/Application/Command/Export/Langfiles.php:133
+#: /cli/Application/Command/Get/Languagefiles.php:139
 msgid "Processing %domain% %extension%... "
 msgstr ""
 
@@ -295,11 +304,16 @@ msgstr ""
 msgid "Optionally specify a single language to fetch."
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:68
+#: /cli/Application/Command/Get/Languagefiles.php:60
+#: /cli/Application/Command/Update/Languagefiles.php:51
+msgid "The translation service provider to use."
+msgstr ""
+
+#: /cli/Application/Command/Get/Languagefiles.php:74
 msgid "Get Translations"
 msgstr ""
 
-#: /cli/Application/Command/Get/Languagefiles.php:73
+#: /cli/Application/Command/Get/Languagefiles.php:79
 msgid "Start fetching translations."
 msgstr ""
 
@@ -308,12 +322,10 @@ msgid "Get the whole project info from GitHub, including issues and issue commen
 msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:74
-#: /cli/Application/Command/Get/Project/Events.php:53
 msgid "Process all issues."
 msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:80
-#: /cli/Application/Command/Get/Project/Events.php:48
 msgid "<n> Process only a single issue."
 msgstr ""
 
@@ -391,7 +403,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
-#: /cli/Application/Command/Get/Project/Events.php:181
+#: /cli/Application/Command/Get/Project/Events.php:168
 msgid "Everything is up to date."
 msgstr ""
 
@@ -427,30 +439,30 @@ msgstr ""
 msgid "Deleting issues comments."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:43
+#: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:67
+#: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:69
+#: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:111
+#: /cli/Application/Command/Get/Project/Events.php:98
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: /cli/Application/Command/Get/Project/Events.php:191
+#: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
 msgstr ""
 
-#: /cli/Application/Command/Get/Project/Events.php:341
+#: /cli/Application/Command/Get/Project/Events.php:328
 #, php-format
 msgid "Added %d new issue events to the database"
 msgstr ""
@@ -612,7 +624,7 @@ msgid "Unknown: %s"
 msgstr ""
 
 #: /cli/Application/Command/Help/Help.php:135
-#: /cli/Application/Command/TrackerCommand.php:179
+#: /cli/Application/Command/TrackerCommand.php:233
 #, php-format
 msgid "Command: %s"
 msgstr ""
@@ -767,7 +779,7 @@ msgstr ""
 msgid "Writing contents to: %s"
 msgstr ""
 
-#: /cli/Application/Command/Make/Depfile.php:262
+#: /cli/Application/Command/Make/Depfile.php:269
 msgid "Language file not found: %tag%, %extension%, %domain%"
 msgstr ""
 
@@ -971,48 +983,44 @@ msgstr ""
 msgid "The test engine"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:181
+#: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:182
+#: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:296
+#: /cli/Application/Command/TrackerCommand.php:348
 msgid "Available projects:"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:314
+#: /cli/Application/Command/TrackerCommand.php:366
 msgid "Select a project:"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:320
+#: /cli/Application/Command/TrackerCommand.php:372
 msgid "Aborted"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:325
-#: /cli/Application/Command/TrackerCommand.php:344
+#: /cli/Application/Command/TrackerCommand.php:377
+#: /cli/Application/Command/TrackerCommand.php:396
 msgid "Invalid project"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:348
+#: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
 msgid "Processing project: %s"
 msgstr ""
 
-#: /cli/Application/Command/TrackerCommand.php:379
-#: /cli/Application/Command/TrackerCommand.php:381
+#: /cli/Application/Command/TrackerCommand.php:431
+#: /cli/Application/Command/TrackerCommand.php:433
 msgid "An unknown error occurred"
 msgstr ""
 
 #: /cli/Application/Command/Update/Languagefiles.php:46
 msgid "Updates language files on a translation service."
-msgstr ""
-
-#: /cli/Application/Command/Update/Languagefiles.php:51
-msgid "The translation service provider to use."
 msgstr ""
 
 #: /cli/Application/Command/Update/Languagefiles.php:57

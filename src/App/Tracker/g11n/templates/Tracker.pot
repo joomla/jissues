@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-18 09:18-0500\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,7 +157,7 @@ msgid "- Categories -"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "No categories"
+msgid "No Categories"
 msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:63
@@ -224,7 +224,7 @@ msgid "All"
 msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:25
-msgid "Search tools"
+msgid "Search Tools"
 msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:30
@@ -392,7 +392,7 @@ msgid "Low"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:188
-msgid "Very low"
+msgid "Very Low"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:195
@@ -465,19 +465,23 @@ msgstr ""
 msgid "Duplicate Report"
 msgstr ""
 
-#: /templates/tracker/issues.index.twig:412
-msgid "First"
+#: /templates/tracker/issues.index.twig:350
+msgid "Discussion"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:413
-msgid "Previous"
+msgid "First"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:414
-msgid "Next"
+msgid "Previous"
 msgstr ""
 
 #: /templates/tracker/issues.index.twig:415
+msgid "Next"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:416
 msgid "Last"
 msgstr ""
 
@@ -671,11 +675,11 @@ msgstr ""
 msgid "Old"
 msgstr ""
 
-#: /src/App/Tracker/Model/CategoryModel.php:70
+#: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
 msgstr ""
 
-#: /src/App/Tracker/Model/CategoryModel.php:85
+#: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
 msgstr ""
 
