@@ -48,7 +48,7 @@
     {% import "fields.twig" as fields %}
 
     {% set values = {0: '- Categories -'|_,
-    (-1): 'No categories'|_
+    (-1): 'No Categories'|_
     } %}
     {% for category in categories %}
         {% set values = values + { (category.id) : (category.title) } %}
