@@ -80,13 +80,14 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		return [
 			'uri'            => $this->app->get('uri'),
 			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
+			'useCDN'         => $this->app->get('system.use_cdn'),
+			'templateDebug'  => $this->app->get('debug.template', false),
+			'jdebug'         => JDEBUG,
+			'lang'           => $this->app->getLanguageTag(),
 			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
 			'languageCodes'  => LanguageHelper::getLanguageCodes(),
-			'jdebug'         => JDEBUG,
-			'templateDebug'  => $this->app->get('debug.template', false),
-			'lang'           => $this->app->getLanguageTag(),
+			'langDirection'  => LanguageHelper::getDirection($this->app->getLanguageTag()),
 			'g11nJavaScript' => G11n::getJavaScript(),
-			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
 	}
 
