@@ -74,6 +74,8 @@ class Languageflags extends Make
 			'	background:url(flags.png) no-repeat',
 			'}',
 			'',
+			'.ui.dropdown .menu > .item > img.flag { width:16px; height:10px; }',
+			'',
 		];
 
 		$colCount = 0;
