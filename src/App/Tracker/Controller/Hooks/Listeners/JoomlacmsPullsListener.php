@@ -805,7 +805,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			foreach ($files as $file)
 			{
 				// Check for javascript file changes
-				if (preg_match('/.js$/', $file)
+				if (preg_match('/.js$/', $file->filename)
 					&& !in_array('1', $addCategories))
 				{
 					// Javascript
