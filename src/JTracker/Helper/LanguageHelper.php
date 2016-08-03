@@ -43,6 +43,12 @@ abstract class LanguageHelper
 	 * @var array
 	 */
 	private static $languages = [
+		'ar-AA' => [
+			'iso' => 'ar',
+			'name' => 'Arabic',
+			'display' => 'العربية',
+			'direction' => 'rtl',
+		],
 		'ca-ES' => [
 			'iso' => 'cat',
 			'name' => 'Catalan',

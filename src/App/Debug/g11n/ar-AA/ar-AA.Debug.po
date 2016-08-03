@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-08-03 08:40-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: debug-app_en.po\n"
+"Language: ar_SA\n"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:104
+#, php-format
+msgid "Failed EXPLAIN on query: %s"
+msgstr "فشل شرح الاستعلام: %s"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:133
+#, php-format
+msgid "%s database is not supported yet."
+msgstr "%s قاعدة بيانات غير مدعومة حتى الآن."
+
+#: /src/App/Debug/TrackerDebugger.php:264
+msgid "Database"
+msgstr "قاعدة بيانات"
+
+#: /src/App/Debug/TrackerDebugger.php:273
+#: /src/App/Debug/TrackerDebugger.php:364
+msgid "Profile"
+msgstr "الملفّ الشخصيّ"
+
+#: /src/App/Debug/TrackerDebugger.php:278
+#: /src/App/Debug/TrackerDebugger.php:421
+msgid "User"
+msgstr "مستخدم"
+
+#: /src/App/Debug/TrackerDebugger.php:283
+#: /src/App/Debug/TrackerDebugger.php:427
+msgid "Project"
+msgstr "المشروع"
+
+#: /src/App/Debug/TrackerDebugger.php:288
+#: /src/App/Debug/TrackerDebugger.php:435
+msgid "Request"
+msgstr "طلب"
+
+#: /src/App/Debug/TrackerDebugger.php:296
+msgid "Language Strings"
+msgstr "سلاسل اللغة"
+
+#: /src/App/Debug/TrackerDebugger.php:301
+msgid "Language Files"
+msgstr "ملفات اللغة"
+
+#: /src/App/Debug/TrackerDebugger.php:343
+msgid "Go up"
+msgstr "الانتقال لأعلى"
+
+#: /src/App/Debug/TrackerDebugger.php:353
+#: /src/App/Debug/TrackerDebugger.php:658
+#, php-format
+msgid "One database query"
+msgid_plural "%d database queries"
+msgstr[0] "استعلامات قاعدة البيانات %d"
+msgstr[1] "استعلامات قاعدة البيانات %d"
+msgstr[2] "استعلامات قاعدة البيانات %d"
+msgstr[3] "استعلامات قاعدة البيانات %d"
+msgstr[4] "استعلامات قاعدة البيانات %d"
+msgstr[5] "استعلامات قاعدة البيانات %d"
+
+#: /src/App/Debug/TrackerDebugger.php:381
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] "%1$d سلسلة واحدة غير مترجمة من %2$d"
+msgstr[1] "سلسلة واحدة غير مترجمة من %2$d"
+msgstr[2] "%1$d سلاسل غير مترجمة من %2$d"
+msgstr[3] "%1$d سلاسل غير مترجمة من %2$d"
+msgstr[4] "%1$d سلاسل غير مترجمة من %2$d"
+msgstr[5] "%1$d سلاسل غير مترجمة من %2$d"
+
+#: /src/App/Debug/TrackerDebugger.php:389
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] "تم تحميل %d ملفات لغة"
+msgstr[1] "تم تحميل %d ملفات لغة"
+msgstr[2] "تم تحميل %d ملفات لغة"
+msgstr[3] "تم تحميل %d ملفات لغة"
+msgstr[4] "تم تحميل %d ملفات لغة"
+msgstr[5] "تم تحميل %d ملفات لغة"
+
+#: /src/App/Debug/TrackerDebugger.php:400
+msgid "No Project"
+msgstr "لا يوجد مشروع"
+
+#: /src/App/Debug/TrackerDebugger.php:423
+msgid "Guest"
+msgstr "ضيف"
+
+#: /src/App/Debug/TrackerDebugger.php:433
+msgid "Request variables"
+msgstr "طلب متغيرات"
+
+#: /src/App/Debug/TrackerDebugger.php:442
+msgid "Build"
+msgstr "بناء"
+
+#: /src/App/Debug/TrackerDebugger.php:508
+#, php-format
+msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr "صيغ الجمع: <code>%1$d</code><br /> دالة الجمع: <code>%2$s</code>"
+
+#: /src/App/Debug/TrackerDebugger.php:741
+msgid "File (line)"
+msgstr "ملف (خط)"
+
+#: /src/App/Debug/TrackerDebugger.php:741
+msgid "String"
+msgstr "سلسلة"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
+msgstr "لم يتم العثور على %s ملف سجل."
+

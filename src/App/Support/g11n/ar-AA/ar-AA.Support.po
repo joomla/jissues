@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-09 16:50-0500\n"
+"PO-Revision-Date: 2016-08-03 08:40-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: support-app_en.po\n"
+"Language: ar_SA\n"
+
+#: /templates/support/documentation.index.twig:6
+msgid "Documentation"
+msgstr "الوثائق"
+
+#: /templates/support/documentation.index.twig:123
+msgid "Improve"
+msgstr "تحسين"
+
+#: /templates/support/documentation.index.twig:124
+msgid "Permalink"
+msgstr "الرابط الثابت"
+
+#: /templates/support/icons.index.twig:6
+#: /templates/support/icons.index.twig:10
+msgid "Icons"
+msgstr "أيقونة"
+
+#: /templates/support/icons.index.twig:22
+msgid "OctIcons"
+msgstr "OctIcons"
+
+#: /templates/support/markdown.index.twig:6
+msgid "GitHub Flavored Markdown Preview"
+msgstr "عرض نكهة تخفيض السعر لـ GitHub"
+
+#: /templates/support/markdown.index.twig:20
+msgid "Markdown TEST Page"
+msgstr "صفحة اختبار مخفض"
+
+#: /templates/support/markdown.index.twig:22
+msgid "Info"
+msgstr "معلومات"
+
+#: /templates/support/markdown.index.twig:23
+msgid "Headers"
+msgstr "ترويسات"
+
+#: /templates/support/markdown.index.twig:24
+msgid "Lists"
+msgstr "قوائم"
+
+#: /templates/support/markdown.index.twig:25
+#: /templates/support/markdown.index.twig:36
+msgid "Links"
+msgstr "روابط"
+
+#: /templates/support/markdown.index.twig:26
+msgid "Emphasised"
+msgstr "تأكيد"
+
+#: /templates/support/markdown.index.twig:27
+#: /templates/support/markdown.index.twig:47
+#: /templates/support/markdown.index.twig:69
+#: /templates/support/markdown.index.twig:106
+#: /templates/support/markdown.index.twig:121
+#: /templates/support/markdown.index.twig:138
+#: /templates/support/markdown.index.twig:213
+#: /templates/support/markdown.index.twig:234
+#: /templates/support/markdown.index.twig:252
+#: /templates/support/markdown.index.twig:343
+#: /templates/support/markdown.index.twig:361
+msgid "Code"
+msgstr "رمز"
+
+#: /templates/support/markdown.index.twig:28
+msgid "Blockquotes"
+msgstr "علامة اقتباس فقرة"
+
+#: /templates/support/markdown.index.twig:29
+msgid "HRs"
+msgstr "HRs"
+
+#: /templates/support/markdown.index.twig:30
+msgid "Tables"
+msgstr "الجداول"
+
+#: /templates/support/markdown.index.twig:31
+msgid "Images"
+msgstr "الصور"
+
+#: /templates/support/markdown.index.twig:32
+msgid "GitHub Spice"
+msgstr "توابل GitHub"
+
+#: /templates/support/markdown.index.twig:56
+#: /templates/support/markdown.index.twig:83
+#: /templates/support/markdown.index.twig:112
+#: /templates/support/markdown.index.twig:127
+#: /templates/support/markdown.index.twig:166
+#: /templates/support/markdown.index.twig:220
+#: /templates/support/markdown.index.twig:241
+#: /templates/support/markdown.index.twig:278
+#: /templates/support/markdown.index.twig:347
+#: /templates/support/markdown.index.twig:371
+msgid "Output"
+msgstr "الخرج"
+
+#: /src/App/Support/Controller/Clearcache.php:40
+msgid "The cache has been cleared."
+msgstr "تم مسح ذاكرة التخزين المؤقت."
+
