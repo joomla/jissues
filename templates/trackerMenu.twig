@@ -104,7 +104,7 @@
             </li>
             <li class="{{ "phpinfo" == uri.route ? "active" : "" }}">
                 <a href="{{ uri.base.path }}phpinfo">
-                    <i class="icon-code"></i>
+                    <i class="icon-star"></i>
                     {{ "phpinfo()"|_ }}
                 </a>
             </li>
@@ -114,47 +114,48 @@
                     {{ "Logs"|_ }}
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="{{ "logs/app" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/app">{{ "Application"|_ }}</a>
+                    <li class="{{ "monologs/app" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/app"><i class="icon-flash"></i> {{ "Application"|_ }}</a>
                     </li>
-                    <li class="{{ "logs/cron" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/cron">{{ "Cron Jobs"|_ }}</a>
+                    <li class="{{ "monologs/error" == uri.route ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/error"><i class="icon-flag"></i> {{ "Error"|_ }}</a>
                     </li>
-                    <li class="{{ "logs/database" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/database">
+                    <li class="{{ "monologs/cron" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/cron"><i class="icon-basket"></i> {{ "Cron Jobs"|_ }}</a>
+                    </li>
+                    <li class="{{ "monologs/database" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/database">
                             <i class="icon-database"></i>
                             {{ "Database"|_ }}
                         </a>
                     </li>
-                    <li class="{{ "logs/github_issues" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/github_issues">
+                    <li class="{{ "monologs/github_issues" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/github_issues">
                             <i class="icon-github"></i>
                             {{ "GitHub Issues"|_ }}
                         </a>
                     </li>
-                    <li class="{{ "logs/github_comments" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/github_comments">
+                    <li class="{{ "monologs/github_comments" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/github_comments">
                             <i class="icon-github"></i>
                             {{ "GitHub Comments"|_ }}
                         </a>
                     </li>
-                    <li class="{{ "logs/github_pulls" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/github_pulls">
+                    <li class="{{ "monologs/github_pulls" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/github_pulls">
                             <i class="icon-github"></i>
                             {{ "GitHub Pulls"|_ }}
                         </a>
                     </li>
+                    <li class="divider"></li>
                     <li class="{{ "logs/php" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/php">{{ "PHP"|_ }}</a>
-                    </li>
-                    <li class="{{ "logs/error" == uri.route ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}logs/error">{{ "Error"|_ }}</a>
+                        <a href="{{ uri.base.path }}logs/php"><i class="icon-heart-2"></i> {{ "PHP"|_ }}</a>
                     </li>
                 </ul>
             </li>
             <li class="{{ "icons" == firstPart ? "active" : "" }}">
                 <a href="{{ uri.base.path }}icons">
-                    <i class="icon-happy"></i>
+                    <i class="icon-smiley-2"></i>
                     {{ "Icons"|_ }}
                 </a>
             </li>

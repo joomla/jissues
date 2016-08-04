@@ -1,0 +1,51 @@
+{# Copyright (C) 2016 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% macro messageHeader(message) %}
+    {% if message|length > 80 %}
+        {{ message|slice(0, 80) }}&hellip;
+    {% else %}
+        {{ message }}
+    {% endif %}
+{% endmacro %}
+
+{% macro displayFields(title, fields) %}
+    <h4>{{ title }}</h4>
+    <ul class="unstyled">
+    {% for key, value in fields %}
+        {% if 'trace' == key %}
+            <li>
+                <table class="table table-striped table-condensed table-hover">
+                    <tr>
+                        <th>Function</th>
+                        <th>File</th>
+                    </tr>
+                    {% for line in value %}
+                    <tr>
+                        <td>{{ line['class'] }}{{ line['type'] }}{{ line['function'] }}()</td>
+                        <td>{{ line['file']|stripJRoot }}:{{ line['line'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </li>
+        {% else %}
+            <li><code>{{ key }}</code> {{ value|stripJRoot }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro level(level) %}
+    {% set cssClass = '' %}
+
+    {% if level == 'CRITICAL' %}
+        {% set cssClass = 'label-warning' %}
+    {% elseif level == 'ERROR' %}
+        {% set cssClass = 'label-important' %}
+    {% elseif level == 'INFO' %}
+        {% set cssClass = 'label-info' %}
+    {% elseif level == 'DEBUG' %}
+        {% set cssClass = 'label-inverse' %}
+    {% endif %}
+    <span class="label {{ cssClass }}">{{ level }}</span>
+{% endmacro %}

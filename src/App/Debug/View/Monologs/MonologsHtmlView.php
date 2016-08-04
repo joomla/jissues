@@ -2,22 +2,24 @@
 /**
  * Part of the Joomla! Tracker application.
  *
- * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2016 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-namespace App\Debug\View\Logs;
+namespace App\Debug\View\Monologs;
 
 use App\Debug\TrackerDebugger;
+
+use Dubture\Monolog\Reader\LogReader;
 
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
- * System configuration view.
+ * Monolog log file view.
  *
  * @since  1.0
  */
-class LogsHtmlView extends AbstractTrackerHtmlView
+class MonologsHtmlView extends AbstractTrackerHtmlView
 {
 	/**
 	 * The log type
@@ -36,6 +38,12 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	protected $debugger = null;
 
 	/**
+	 * Log lines to show.
+	 * @var int
+	 */
+	protected $count = 20;
+
+	/**
 	 * Method to render the view.
 	 *
 	 * @return  string  The rendered view.
@@ -47,21 +55,20 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	{
 		$type = $this->getLogType();
 
-		switch ($type)
+		if (in_array($type, ['app', 'cron', 'database', 'error', 'github_issues', 'github_comments', 'github_pulls']))
 		{
-			case 'php' :
-				$path = $this->getDebugger()->getLogPath('php');
-				break;
-
-			default :
-				throw new \UnexpectedValueException('Invalid log type');
-			break;
+			$path = $this->getDebugger()->getLogPath('root') . '/' . $type . '.log';
+		}
+		else
+		{
+			throw new \UnexpectedValueException('Invalid log type');
 		}
 
-		$log = (realpath($path)) ? $this->processLog($type, $path) : [sprintf(g11n3t('No %s log file found.'), $type)];
+		$log = (realpath($path)) ? $this->processLog($type, $path) : 'file-not-found';
 
 		$this->addData('log', $log)
-			->addData('log_type', $type);
+			->addData('log_type', $type)
+			->addData('count', $this->count);
 
 		return parent::render();
 	}
@@ -72,7 +79,7 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	 * @param   string  $type  The log type
 	 * @param   string  $path  Path to log file
 	 *
-	 * @return  array
+	 * @return  LogReader
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
@@ -81,25 +88,28 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	{
 		if (false === file_exists($path))
 		{
-			return ['File not found in path: ' . $path];
+			throw new \UnexpectedValueException('Log file not found.');
 		}
 
 		switch ($type)
 		{
-			case 'php':
-				// @todo beautifyMe
-				$log = explode("\n\n", file_get_contents($path));
-				break;
+			case 'app' :
+			case 'database' :
+			case 'error' :
+				return new LogReader($path, '/\[(?P<date>.*)\] (?P<logger>\w+).(?P<level>\w+): (?P<message>[^{]+) (?P<extra>.*) (?P<context>.*)/');
+			break;
+
+			case 'cron' :
+			case 'github_issues' :
+			case 'github_comments' :
+			case 'github_pulls' :
+				return new LogReader($path);
+			break;
 
 			default :
 				throw new \UnexpectedValueException(__METHOD__ . ' - undefined type: ' . $type);
 				break;
 		}
-
-		// Reverse log
-		$log = array_reverse($log);
-
-		return $log;
 	}
 
 	/**
@@ -166,6 +176,20 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 	public function setLogType($logType)
 	{
 		$this->logType = $logType;
+
+		return $this;
+	}
+
+	/**
+	 * Set the number of items to show.
+	 *
+	 * @param   integer  $count  Number of items to show.
+	 *
+	 * @return $this
+	 */
+	public function setCount($count)
+	{
+		$this->count = (int) $count;
 
 		return $this;
 	}
