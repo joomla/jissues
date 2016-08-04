@@ -1,3 +1,4 @@
 {
-	"logs/:log_type": "\\Debug\\Controller\\Logs"
+	"logs/:log_type": "\\Debug\\Controller\\Logs",
+	"monologs/:log_type": "\\Debug\\Controller\\Monologs"
 }

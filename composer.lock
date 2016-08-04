@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a89796476d29c2c8c2795981a18fd2da",
-    "content-hash": "0e2e417241d9e4cb8fa1cd79a666f153",
+    "hash": "0f62dcc16d67daf7035f8f9e2a6b92d7",
+    "content-hash": "4778c962508a1ba5ffab04f89413b7f9",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1806,6 +1806,45 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "pulse00/monolog-parser",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pulse00/monolog-parser.git",
+                "reference": "2ef54746f428f0efe959a9bdeb11294aa8872d2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pulse00/monolog-parser/zipball/2ef54746f428f0efe959a9bdeb11294aa8872d2f",
+                "reference": "2ef54746f428f0efe959a9bdeb11294aa8872d2f",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "1.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Dubture": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Gruendler",
+                    "email": "r.gruendler@gmail.com"
+                }
+            ],
+            "description": "A parser for monolog log entries",
+            "time": "2015-05-21 16:25:17"
         },
         {
             "name": "raveren/kint",

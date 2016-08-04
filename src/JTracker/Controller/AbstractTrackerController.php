@@ -249,7 +249,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		}
 		catch (\Exception $e)
 		{
-			$contents = $this->getContainer()->get('app')->getDebugger()->renderException($e);
+			$contents = $this->getContainer()->get('app')->renderException($e);
 		}
 
 		return $contents;
