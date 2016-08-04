@@ -1,8 +1,8 @@
 <?php
 /**
- * Part of the Joomla Tracker's Debug Application
+ * Part of the Joomla! Tracker Application
  *
- * @copyright  Copyright (C) 2012 - 2014 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2016 Open Source Matters, Inc. All rights reserved.
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
@@ -13,7 +13,7 @@ use App\Debug\View\Monologs\MonologsHtmlView;
 use JTracker\Controller\AbstractTrackerController;
 
 /**
- * Controller class to display the application configuration
+ * Controller class to display Monolog log files.
  *
  * @since  1.0
  */

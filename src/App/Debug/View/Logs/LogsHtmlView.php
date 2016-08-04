@@ -13,7 +13,7 @@ use App\Debug\TrackerDebugger;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
- * System configuration view.
+ * Log file view.
  *
  * @since  1.0
  */

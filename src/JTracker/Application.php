@@ -777,7 +777,6 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 	}
 
-
 	/**
 	 * Method to render an exception in a user friendly format
 	 *
