@@ -1,6 +1,6 @@
 {
     "name": "joomla/tracker",
-    "description": "Issue Tracking application built on the Joomla! Framework integrating with GitHub to replace the existing Joomlacode solution.",
+    "description": "Issue tracking application extending GitHub's issues and pull requests for the Joomla! project.",
     "keywords": ["joomla", "tracker"],
     "homepage": "https://github.com/joomla/jissues",
     "license": "GPL-2.0+",
