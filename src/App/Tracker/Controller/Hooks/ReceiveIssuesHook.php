@@ -408,7 +408,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Error editing GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number,
+				$this->hookData->issue->number,
 				$table->id
 			);
 
@@ -438,7 +438,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Edited GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number,
+				$this->hookData->issue->number,
 				$table->id
 			)
 		);
