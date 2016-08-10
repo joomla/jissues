@@ -148,6 +148,10 @@ class Submit extends AbstractTrackerController
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;
 
+		// On submit the state is allways open; see #862
+		$data['new_state'] = 'open';
+		$data['old_state'] = 'open';
+
 		// Store the issue
 		try
 		{
