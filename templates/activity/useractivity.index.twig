@@ -10,6 +10,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
+        <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" />
     {% endif %}
 
     <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
@@ -61,8 +62,11 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
+        <script src="{{ asset('js/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
     {% endif %}
 
+    {# TODO - Make the datepicker locale aware... For now though, stick to default en-GB#}
+    <script src="{{ asset('js/datepicker/bootstrap-datepicker-en-GB.min.js') }}"></script>
     <script src="{{ asset('js/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.barRenderer.js') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js') }}"></script>
@@ -107,22 +111,8 @@
             });
         })(jQuery);
 
-        /*
-         * jQuery UI Datepicker: Parse and Format Dates
-         * http://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
-         */
-        (function ($) {
-            $(document).ready(function () {
-                $('.datepicker').datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    onSelect: function (dateText, inst) {
-                        var date = $.datepicker.parseDate(inst.settings.dateFormat || $.datepicker._defaults.dateFormat, dateText, inst.settings);
-                        var dateText1 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
-                        date.setDate(date.getDate() + 7);
-                        var dateText2 = $.datepicker.formatDate('D, d M yy', date, inst.settings);
-                    }
-                });
-            });
-        })(jQuery);
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
     </script>
 {% endblock %}

@@ -102,6 +102,12 @@ module.exports = function(grunt) {
                                 'build/font/octicons.woff',
                                 'build/font/octicons.woff2'
                             ]
+                        },
+                        'bootstrap-datepicker': {
+                            files: [
+                                'dist/css/bootstrap-datepicker.css',
+                                'dist/js/bootstrap-datepicker.js'
+                            ]
                         }
                     }
                 }
@@ -129,7 +135,8 @@ module.exports = function(grunt) {
                     'jquery-validation': ['dist/jquery.validate.js'],
                     'markitup': ['markitup/jquery.markitup.js'],
                     'twbs-pagination': ['jquery.twbsPagination.js'],
-                    'octicons': ['build/font/octicons.css']
+                    'octicons': ['build/font/octicons.css'],
+                    'bootstrap-datepicker': ['dist/css/bootstrap-datepicker.css']
                 }
             }
         },
@@ -180,6 +187,12 @@ module.exports = function(grunt) {
                 cwd: 'bower_components/jquery-validation/src/localization',
                 src: '*',
                 dest: 'www/media/js/validation/'
+            },
+            datepicker: {
+                expand: true,
+                cwd: 'bower_components/bootstrap-datepicker/dist/locales',
+                src: '*',
+                dest: 'www/media/js/datepicker/'
             }
         },
     });
@@ -202,6 +215,7 @@ module.exports = function(grunt) {
         'cssmin',
         'copy:octicons',
         'copy:upload',
-        'copy:validation'
+        'copy:validation',
+        'copy:datepicker'
     ]);
 };
