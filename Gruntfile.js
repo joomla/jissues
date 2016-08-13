@@ -136,7 +136,7 @@ module.exports = function(grunt) {
                     'markitup': ['markitup/jquery.markitup.js'],
                     'twbs-pagination': ['jquery.twbsPagination.js'],
                     'octicons': ['build/font/octicons.css'],
-                    'bootstrap-datepicker': ['dist/css/bootstrap-datepicker.css']
+                    'bootstrap-datepicker': ['dist/css/bootstrap-datepicker.css', 'dist/js/bootstrap-datepicker.js']
                 }
             }
         },
