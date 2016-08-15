@@ -331,3 +331,10 @@ div.logMessage {
     background-color: #eeeeee;
     display: none;
 }
+
+/* Show upload button text on handheld devices */
+@media (max-width: 767px) {
+    .files .btn span, .files .toggle, .fileupload-buttonbar .toggle {
+        display: inherit;
+    }
+}
