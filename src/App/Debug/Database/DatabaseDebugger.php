@@ -87,9 +87,9 @@ class DatabaseDebugger
 
 		$tableFormat = new TableFormat;
 
-		if (in_array($db->name, ['mysqli', 'mysql', 'postgresql']))
+		if (in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
 		{
-			$dbVersion56 = (strncmp($db->name, 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
+			$dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
 
 			if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0) || (stripos($query, 'update') === 0))))
 			{
@@ -154,13 +154,13 @@ class DatabaseDebugger
 			}
 		}
 
-		if (in_array($db->name, ['mysqli', 'mysql', 'postgresql']))
+		if (in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
 		{
 			$log = $db->getLog();
 
 			foreach ($log as $k => $query)
 			{
-				$dbVersion56 = (strncmp($db->name, 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
+				$dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
 
 				if ((stripos($query, 'select') === 0) || ($dbVersion56 && ((stripos($query, 'delete') === 0) || (stripos($query, 'update') === 0))))
 				{
