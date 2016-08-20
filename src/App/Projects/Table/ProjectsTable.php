@@ -139,14 +139,14 @@ class ProjectsTable extends AbstractDatabaseTable
 				$data['can_manage'] = 0;
 				$data['system']     = 1;
 
-				$group = new GroupsTable($this->db);
-				$group->save($data);
+				(new GroupsTable($this->db))
+					->save($data);
 
 				$data['title']      = 'User';
 				$data['can_create'] = 1;
 
-				$group = new GroupsTable($this->db);
-				$group->save($data);
+				(new GroupsTable($this->db))
+					->save($data);
 			}
 		}
 

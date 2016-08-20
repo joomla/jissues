@@ -159,10 +159,12 @@ class Submit extends AbstractTrackerController
 			$issue_id = $issueModel->add($data)->getState()->get('issue_id');
 
 			// Save the category for the issue
-			$category['issue_id']   = $issue_id;
-			$category['categories'] = $application->input->get('categories', null, 'array');
-			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
-			$categoryModel->saveCategory($category);
+			$category = [
+				'issue_id'   => $issue_id,
+				'categories' => $application->input->get('categories', null, 'array'),
+			];
+
+			(new CategoryModel($this->getContainer()->get('db')))->saveCategory($category);
 		}
 		catch (\RuntimeException $e)
 		{

@@ -104,8 +104,6 @@ class ReceivePullsHook extends AbstractHookController
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
-		$opened     = new Date($this->data->created_at);
-		$modified   = new Date($this->data->updated_at);
 
 		$data = [];
 		$data['issue_number']    = $this->data->number;
@@ -113,9 +111,9 @@ class ReceivePullsHook extends AbstractHookController
 		$data['description']     = $this->parseText($this->data->body);
 		$data['description_raw'] = $this->data->body;
 		$data['status']          = (is_null($status)) ? 1 : $status;
-		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_date']     = (new Date($this->data->created_at))->format($dateFormat);
 		$data['opened_by']       = $this->data->user->login;
-		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_date']   = (new Date($this->data->updated_at))->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['has_code']        = 1;
@@ -137,8 +135,7 @@ class ReceivePullsHook extends AbstractHookController
 		// Add the closed date if the status is closed
 		if ($this->data->closed_at)
 		{
-			$closed = new Date($this->data->closed_at);
-			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_date'] = (new Date($this->data->closed_at))->format($dateFormat);
 			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
@@ -247,11 +244,9 @@ class ReceivePullsHook extends AbstractHookController
 	 */
 	protected function updateData()
 	{
-		$table = new IssuesTable($this->db);
-
 		try
 		{
-			$table->load(
+			$table = (new IssuesTable($this->db))->load(
 				[
 					'issue_number' => $this->data->number,
 					'project_id' => $this->project->project_id,

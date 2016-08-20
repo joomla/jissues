@@ -215,8 +215,8 @@ class DefaultController extends AbstractTrackerListController
 		{
 			$categoryId = 0;
 
-			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
-			$category      = $categoryModel->setProject($application->getProject())->getByAlias($categoryAlias);
+			$category = (new CategoryModel($this->getContainer()->get('db')))
+				->setProject($application->getProject())->getByAlias($categoryAlias);
 
 			if ($category)
 			{

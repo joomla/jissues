@@ -86,9 +86,7 @@ class GitHubHelper
 		}
 		else
 		{
-			$date = new Date;
-
-			$data->created_at = $date->format($database->getDateFormat());
+			$data->created_at = (new Date)->format($database->getDateFormat());
 			$data->opened_by  = $userName;
 			$data->comment_id = '???';
 			$data->text_raw = $comment;
@@ -103,8 +101,7 @@ class GitHubHelper
 
 		$data->activities_id = $database->insertid();
 
-		$date = new Date($data->created_at);
-		$data->created_at = $date->format('j M Y');
+		$data->created_at = (new Date($data->created_at))->format('j M Y');
 
 		return $data;
 	}

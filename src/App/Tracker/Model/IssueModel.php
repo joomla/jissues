@@ -94,11 +94,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		}
 
 		// Fetch activities
-		$table = new ActivitiesTable($this->db);
 		$query = $this->db->getQuery(true);
 
 		$query->select('a.*');
-		$query->from($this->db->quoteName($table->getTableName(), 'a'));
+		$query->from($this->db->quoteName((new ActivitiesTable($this->db))->getTableName(), 'a'));
 		$query->where($this->db->quoteName('a.project_id') . ' = ' . (int) $this->getProject()->project_id);
 		$query->where($this->db->quoteName('a.issue_number') . ' = ' . (int) $item->issue_number);
 		$query->order($this->db->quoteName('a.created_date'));
@@ -436,9 +435,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	public function add(array $src)
 	{
 		// Store the issue
-		$table = new IssuesTable($this->db);
-
-		$table->save($src);
+		$table = (new IssuesTable($this->db))
+			->save($src);
 
 		// Store the saved issue id for category.
 		$state = $this->getState();
@@ -536,9 +534,8 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			throw new \RuntimeException('Missing ID');
 		}
 
-		$table = new IssuesTable($this->db);
-
-		$table->load($data['id'])
+		(new IssuesTable($this->db))
+			->load($data['id'])
 			->bind($data)
 			->check()
 			->store(true);
@@ -629,9 +626,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 */
 	public function getOpenClosed($statusId)
 	{
-		$table = new StatusTable($this->getDb());
-
-		$table->load($statusId);
+		$table = (new StatusTable($this->getDb()))->load($statusId);
 
 		return $table->closed ? 'closed' : 'open';
 	}

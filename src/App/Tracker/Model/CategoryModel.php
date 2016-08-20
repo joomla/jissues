@@ -34,17 +34,16 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function add(array $src)
 	{
-		$data = [];
+		$filter = new InputFilter;
 
-		$filter              = new InputFilter;
-		$data['title']       = $filter->clean($src['title'], 'string');
-		$data['alias']       = $filter->clean($src['alias'], 'cmd');
-		$data['color']       = $filter->clean($src['color'], 'string');
-		$data['project_id']  = $this->getProject()->project_id;
+		$data = [
+			'title'       => $filter->clean($src['title'], 'string'),
+			'alias'       => $filter->clean($src['alias'], 'cmd'),
+			'color'       => $filter->clean($src['color'], 'string'),
+			'project_id'  => $this->getProject()->project_id,
+		];
 
-		$table = new CategoryTable($this->getDb());
-
-		$table->save($data);
+		(new CategoryTable($this->getDb()))->save($data);
 
 		return $this;
 	}
@@ -69,10 +68,9 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		$db    = $this->getDb();
 		$query = $db->getQuery(true);
 
-		$table = new CategoryTable($db);
 		$item  = $db->setQuery(
 			$query->select('*')
-				->from($db->quoteName($table->getTableName()))
+				->from($db->quoteName((new CategoryTable($db))->getTableName()))
 				->where($db->quoteName('id') . '=' . (int) $id)
 		)->loadObject();
 
@@ -96,24 +94,23 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	public function save(array $src)
 	{
-		$db     = $this->getDb();
 		$filter = new InputFilter;
 
-		$data = [];
-		$data['id']          = $filter->clean($src['id'], 'uint');
-		$data['title']       = $filter->clean($src['title'], 'string');
-		$data['alias']       = $filter->clean($src['alias'], 'cmd');
-		$data['color']       = $filter->clean($src['color'], 'string');
-		$data['project_id']  = $this->getProject()->project_id;
+		$data = [
+			'id'          => $filter->clean($src['id'], 'uint'),
+			'title'       => $filter->clean($src['title'], 'string'),
+			'alias'       => $filter->clean($src['alias'], 'cmd'),
+			'color'       => $filter->clean($src['color'], 'string'),
+			'project_id'  => $this->getProject()->project_id,
+		];
 
 		if ($data['id'] == null)
 		{
 			throw new \RuntimeException('Missing ID');
 		}
 
-		$table = new CategoryTable($db);
-
-		$table->load($data['id'])
+		(new CategoryTable($this->getDb()))
+			->load($data['id'])
 			->save($data);
 
 		return $this;
@@ -163,8 +160,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 			->from('#__issues_categories')
 			->where($db->quoteName('project_id') . '=' . $projectId);
 
-		$filter = new InputFilter;
-		$alias = $filter->clean($alias, 'cmd');
+		$alias = (new InputFilter)->clean($alias, 'cmd');
 
 		if ($alias)
 		{
@@ -198,9 +194,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 		)->execute();
 
 		// Delete the category from the table
-		$table = new CategoryTable($db);
-
-		$table->delete($id);
+		(new CategoryTable($db))->delete($id);
 
 		return $this;
 	}
@@ -233,8 +227,7 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 			foreach ($data as $item)
 			{
-				$table = new IssueCategoryMappingTable($db);
-				$table->save($item);
+				(new IssueCategoryMappingTable($db))->save($item);
 			}
 		}
 
@@ -364,9 +357,6 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 	 */
 	private function processChanges(array $src)
 	{
-		$date = new Date;
-		$date = $date->format($this->getDb()->getDateFormat());
-
 		$change       = new \stdClass;
 		$change->name = 'category';
 		$change->old  = [];
@@ -388,14 +378,13 @@ class CategoryModel extends AbstractTrackerDatabaseModel
 
 		$data                 = [];
 		$data['event']        = 'change';
-		$data['created_date'] = $date;
+		$data['created_date'] = (new Date)->format($this->getDb()->getDateFormat());
 		$data['user']         = $src['modified_by'];
 		$data['issue_number'] = (int) $src['issue_number'];
 		$data['project_id']   = (int) $src['project_id'];
 		$data['text']         = json_encode([$change]);
 
-		$table = new ActivitiesTable($this->getDb());
-		$table->save($data);
+		(new ActivitiesTable($this->getDb()))->save($data);
 
 		return $this;
 	}

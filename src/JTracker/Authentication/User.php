@@ -158,15 +158,13 @@ abstract class User implements \Serializable
 	{
 		$db = $this->database;
 
-		$table = new TableUsers($db);
-
-		$table->loadByUserName($userName);
+		$table = (new TableUsers($db))
+			->loadByUserName($userName);
 
 		if (!$table->id)
 		{
 			// Register a new user
-			$date               = new Date;
-			$this->registerDate = $date->format($db->getDateFormat());
+			$this->registerDate = (new Date)->format($db->getDateFormat());
 
 			$table->save($this);
 		}
@@ -203,13 +201,15 @@ abstract class User implements \Serializable
 	 */
 	protected function load($identifier)
 	{
-		// Create the user table object
-		$table = new TableUsers($this->database);
-
 		// Load the User object based on the user id or throw a warning.
-		if (!$table->load($identifier))
+		try
 		{
-			throw new \RuntimeException('Unable to load the user with id: ' . $identifier);
+			$table = (new TableUsers($this->database))
+				->load($identifier);
+		}
+		catch (\Exception $e)
+		{
+			throw new \RuntimeException('Unable to load the user with id: ' . $identifier, $e->getCode(), $e);
 		}
 
 		// Assuming all is well at this point let's bind the data

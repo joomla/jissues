@@ -33,12 +33,9 @@ class GroupsModel extends AbstractTrackerListModel
 		$projectId = $this->getProject()->project_id;
 
 		$db    = $this->getDb();
-		$query = $db->getQuery(true);
-
-		$table = new GroupsTable($db);
-
-		$query->select('a.*')
-			->from($db->quoteName($table->getTableName(), 'a'))
+		$query = $db->getQuery(true)
+			->select('a.*')
+			->from($db->quoteName((new GroupsTable($db))->getTableName(), 'a'))
 			->where($db->quoteName('project_id') . ' = ' . (int) $projectId);
 
 		return $query;

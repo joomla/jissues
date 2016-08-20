@@ -652,14 +652,11 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	{
 		$options = [];
 
-		$diff = new Diff(explode("\n", $old), explode("\n", $new), $options);
+		$renderer = (new Inline)
+			->setShowLineNumbers($showLineNumbers)
+			->setShowHeader($showHeader);
 
-		$renderer = new Inline;
-
-		$renderer->setShowLineNumbers($showLineNumbers);
-		$renderer->setShowHeader($showHeader);
-
-		return $diff->render($renderer);
+		return (new Diff(explode("\n", $old), explode("\n", $new), $options))->render($renderer);
 	}
 
 	/**

@@ -77,7 +77,7 @@ class Save extends AbstractTrackerController
 				$data['milestone_id'] = $item->milestone_id;
 			}
 		}
-		elseif($user->canEditOwn($item->opened_by))
+		elseif ($user->canEditOwn($item->opened_by))
 		{
 			// The user has "edit own" permission.
 			$data['id']              = (int) $src['id'];
@@ -196,14 +196,15 @@ class Save extends AbstractTrackerController
 			// If the user have edit permission, let him / her modify the categories.
 			if ($user->check('edit'))
 			{
-				$categoryModel            = new CategoryModel($this->getContainer()->get('db'));
-				$category['issue_id']     = $data['id'];
-				$category['modified_by']  = $user->username;
-				$category['categories']   = $application->input->get('categories', null, 'array');
-				$category['issue_number'] = $data['issue_number'];
-				$category['project_id']   = $project->project_id;
+				$category = [
+					'issue_id'     => $data['id'],
+					'modified_by'  => $user->username,
+					'categories'   => $application->input->get('categories', null, 'array'),
+					'issue_number' => $data['issue_number'],
+					'project_id'   => $project->project_id,
+				];
 
-				$categoryModel->updateCategory($category);
+				(new CategoryModel($this->getContainer()->get('db')))->updateCategory($category);
 			}
 
 			// Pass the old and new states into the save method
@@ -227,9 +228,7 @@ class Save extends AbstractTrackerController
 
 				$project = $application->getProject();
 
-				$gitHubHelper = new GitHubHelper($github);
-
-				$comment .= $gitHubHelper->getApplicationComment($application, $project, $issueNumber);
+				$comment .= (new GitHubHelper($github))->getApplicationComment($application, $project, $issueNumber);
 
 				$data = new \stdClass;
 				$db   = $this->getContainer()->get('db');
@@ -258,9 +257,7 @@ class Save extends AbstractTrackerController
 				}
 				else
 				{
-					$date = new Date;
-
-					$data->created_at = $date->format($db->getDateFormat());
+					$data->created_at = (new Date)->format($db->getDateFormat());
 					$data->opened_by  = $application->getUser()->username;
 					$data->comment_id = '???';
 

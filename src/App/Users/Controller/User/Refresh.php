@@ -55,19 +55,16 @@ class Refresh extends AbstractTrackerController
 		/* @type \Joomla\Github\Github $github */
 		$gitHub = $this->getContainer()->get('gitHub');
 
-		$loginHelper = new GitHubLoginHelper($this->getContainer());
-
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
-		$user = new GitHubUser($application->getProject(), $this->getContainer()->get('db'));
-
-		$user->loadGitHubData($gitHubUser)
+		$user = (new GitHubUser($application->getProject(), $this->getContainer()->get('db')))
+			->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
 
 		try
 		{
 			// Refresh the user data
-			$loginHelper->refreshUser($user);
+			(new GitHubLoginHelper($this->getContainer()))->refreshUser($user);
 
 			$application->enqueueMessage(
 				g11n3t('The profile has been refreshed.'), 'success'

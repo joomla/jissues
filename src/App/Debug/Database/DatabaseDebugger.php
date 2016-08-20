@@ -85,8 +85,6 @@ class DatabaseDebugger
 		// Run an EXPLAIN EXTENDED query on the SQL query if possible:
 		$explain = '';
 
-		$tableFormat = new TableFormat;
-
 		if (in_array($db->getName(), ['mysqli', 'mysql', 'postgresql']))
 		{
 			$dbVersion56 = (strncmp($db->getName(), 'mysql', 5) == 0) && version_compare($db->getVersion(), '5.6', '>=');
@@ -97,7 +95,7 @@ class DatabaseDebugger
 
 				if ($db->execute())
 				{
-					$explain = $tableFormat->fromArray($db->loadAssocList());
+					$explain = (new TableFormat)->fromArray($db->loadAssocList());
 				}
 				else
 				{

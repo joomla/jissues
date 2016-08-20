@@ -36,9 +36,7 @@ class Info extends AbstractAjaxController
 			throw new \RuntimeException('No id received.');
 		}
 
-		$model = new IssueModel($this->getContainer()->get('db'));
-
-		$item = $model->getItem($id);
+		$item = (new IssueModel($this->getContainer()->get('db')))->getItem($id);
 
 		$issue = new \stdClass;
 

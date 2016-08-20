@@ -235,12 +235,10 @@ class GitHubLoginHelper
 		/* @type \Joomla\Database\DatabaseDriver $db */
 		$db = $this->container->get('db');
 
-		$date = new Date;
-
 		$db->setQuery(
 			$db->getQuery(true)
 				->update($db->quoteName('#__users'))
-				->set($db->quoteName('lastvisitDate') . '=' . $db->quote($date->format($db->getDateFormat())))
+				->set($db->quoteName('lastvisitDate') . '=' . $db->quote((new Date)->format($db->getDateFormat())))
 				->where($db->quoteName('id') . '=' . (int) $id)
 		)->execute();
 	}

@@ -354,7 +354,6 @@ class Html implements ContainerAwareInterface
 	public function renderLanguageFiles()
 	{
 		$items = [];
-		$tableFormat = new TableFormat;
 
 		foreach (G11n::getEvents() as $e)
 		{
@@ -367,7 +366,7 @@ class Html implements ContainerAwareInterface
 			G11n::get('pluralForms'), G11n::get('pluralFunctionRaw')
 		);
 
-		return $tableFormat->fromArray($items) . $pluralInfo;
+		return (new TableFormat)->fromArray($items) . $pluralInfo;
 	}
 
 	/**

@@ -354,14 +354,15 @@ abstract class AbstractListener implements ContainerAwareInterface
 			throw new \RuntimeException($message);
 		}
 
-		$categoryModel            = new CategoryModel($this->getContainer()->get('db'));
-		$category['issue_id']     = $table->id;
-		$category['modified_by']  = $this->getGithubBotName($project);
-		$category['categories']   = $addCategories;
-		$category['issue_number'] = $issueNumber;
-		$category['project_id']   = $project->project_id;
+		$category = [
+			'issue_id'     => $table->id,
+			'modified_by'  => $this->getGithubBotName($project),
+			'categories'   => $addCategories,
+			'issue_number' => $issueNumber,
+			'project_id'   => $project->project_id,
+		];
 
-		$categoryModel->updateCategory($category);
+		(new CategoryModel($this->getContainer()->get('db')))->updateCategory($category);
 	}
 
 	/**
@@ -379,9 +380,7 @@ abstract class AbstractListener implements ContainerAwareInterface
 	 */
 	protected function getCategories($hookData, Logger $logger, $project, IssuesTable $table)
 	{
-		$categoryModel = new CategoryModel($this->getContainer()->get('db'));
-
-		$items = $categoryModel->getCategories($table->id);
+		$items = (new CategoryModel($this->getContainer()->get('db')))->getCategories($table->id);
 
 		$categories = [];
 

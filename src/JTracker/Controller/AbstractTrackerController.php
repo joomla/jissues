@@ -264,10 +264,8 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			$renderer->addFolder($path);
 		}
 
-		$gitHubHelper = new GitHubLoginHelper($this->getContainer());
-
 		$renderer
-			->set('loginUrl', $gitHubHelper->getLoginUri())
+			->set('loginUrl', (new GitHubLoginHelper($this->getContainer()))->getLoginUri())
 			->set('user', $application->getUser());
 
 		// Retrieve and clear the message queue
@@ -340,10 +338,9 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$event = new Event($eventName);
-
-		// Add default event arguments.
-		$event->addArgument('github', ($this->github ? : GithubFactory::getInstance($application)))
+		// Create the event with default arguments.
+		$event = (new Event($eventName))
+			->addArgument('github', ($this->github ?: GithubFactory::getInstance($application)))
 			->addArgument('logger', $application->getLogger())
 			->addArgument('project', $application->getProject());
 
