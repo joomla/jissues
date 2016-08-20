@@ -117,8 +117,8 @@ class Login extends AbstractTrackerController
 
 		$gitHubUser = (new Github($options, new Http($options, $transport)))->users->getAuthenticatedUser();
 
-		$user = (new GitHubUser($app->getProject(), $this->getContainer()->get('db')))
-			->loadGitHubData($gitHubUser)
+		$user = new GitHubUser($app->getProject(), $this->getContainer()->get('db'));
+		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
 
 		// Save the avatar
