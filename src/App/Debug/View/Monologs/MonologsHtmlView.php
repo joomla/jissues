@@ -55,14 +55,12 @@ class MonologsHtmlView extends AbstractTrackerHtmlView
 	{
 		$type = $this->getLogType();
 
-		if (in_array($type, ['app', 'cron', 'database', 'error', 'github_issues', 'github_comments', 'github_pulls']))
-		{
-			$path = $this->getDebugger()->getLogPath('root') . '/' . $type . '.log';
-		}
-		else
+		if (!in_array($type, ['app', 'cron', 'database', 'error', 'github_issues', 'github_comments', 'github_pulls']))
 		{
 			throw new \UnexpectedValueException('Invalid log type');
 		}
+
+		$path = $this->getDebugger()->getLogPath('root') . '/' . $type . '.log';
 
 		$log = (realpath($path)) ? $this->processLog($type, $path) : 'file-not-found';
 
@@ -97,18 +95,15 @@ class MonologsHtmlView extends AbstractTrackerHtmlView
 			case 'database' :
 			case 'error' :
 				return new LogReader($path, '/\[(?P<date>.*)\] (?P<logger>\w+).(?P<level>\w+): (?P<message>[^{]+) (?P<extra>.*) (?P<context>.*)/');
-			break;
 
 			case 'cron' :
 			case 'github_issues' :
 			case 'github_comments' :
 			case 'github_pulls' :
 				return new LogReader($path);
-			break;
 
 			default :
 				throw new \UnexpectedValueException(__METHOD__ . ' - undefined type: ' . $type);
-				break;
 		}
 	}
 

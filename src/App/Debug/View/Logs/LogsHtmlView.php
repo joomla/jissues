@@ -55,7 +55,6 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 			default :
 				throw new \UnexpectedValueException('Invalid log type');
-			break;
 		}
 
 		$log = (realpath($path)) ? $this->processLog($type, $path) : [sprintf(g11n3t('No %s log file found.'), $type)];
@@ -93,7 +92,6 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 			default :
 				throw new \UnexpectedValueException(__METHOD__ . ' - undefined type: ' . $type);
-				break;
 		}
 
 		// Reverse log
