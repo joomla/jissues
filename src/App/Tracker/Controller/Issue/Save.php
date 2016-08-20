@@ -417,8 +417,8 @@ class Save extends AbstractTrackerController
 		}
 		catch (GithubException $exception)
 		{
-			// GitHub will return a "404 - not found" in case there is a permission problem.
-			if (404 != $exception->getCode())
+			// GitHub will return either a 403 or 404 in case there is a permission problem.
+			if (!in_array($exception->getCode(), [403, 404]))
 			{
 				throw $exception;
 			}
