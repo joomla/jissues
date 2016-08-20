@@ -73,6 +73,7 @@ class Server extends Update
 		}
 
 		// Update the Composer installation
+		$this->out('<info>' . g11n3t('Installing current Composer dependencies and regenerating autoloader') . '</info>');
 		$this->execCommand('cd ' . JPATH_ROOT . ' && composer install --no-dev --optimize-autoloader 2>&1');
 
 		// Execute the database migrations (if any) for this version
