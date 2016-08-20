@@ -111,47 +111,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	}
 
 	/**
-	 * Method to check whether an ID is in the edit list.
-	 *
-	 * @param   string   $context  The context for the session storage.
-	 * @param   integer  $id       The ID of the record to add to the edit list.
-	 *
-	 * @return  boolean  True if the ID is in the edit list.
-	 *
-	 * @since   1.0
-	 */
-	protected function checkEditId($context, $id)
-	{
-		if ($id)
-		{
-			$app    = $this->getContainer()->get('app');
-			$values = (array) $app->getUserState($context . '.id');
-
-			$result = in_array((int) $id, $values);
-
-			if (defined('JDEBUG') && JDEBUG)
-			{
-				$app->getLogger()->info(
-					sprintf(
-						'Checking edit ID %s.%s: %d %s',
-						$context,
-						$id,
-						(int) $result,
-						str_replace("\n", ' ', print_r($values, 1))
-					)
-				);
-			}
-
-			return $result;
-		}
-		else
-		{
-			// No id for a new item.
-			return true;
-		}
-	}
-
-	/**
 	 * Initialize the controller.
 	 *
 	 * This will set up default model and view classes.
@@ -265,79 +224,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	public function getApp()
 	{
 		return $this->app;
-	}
-
-	/**
-	 * Method to add a record ID to the edit list.
-	 *
-	 * @param   string   $context  The context for the session storage.
-	 * @param   integer  $id       The ID of the record to add to the edit list.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function holdEditId($context, $id)
-	{
-		$app = $this->getContainer()->get('app');
-		$values = (array) $app->getUserState($context . '.id');
-
-		// Add the id to the list if non-zero.
-		if (!empty($id))
-		{
-			array_push($values, (int) $id);
-			$values = array_unique($values);
-			$app->setUserState($context . '.id', $values);
-
-			if (defined('JDEBUG') && JDEBUG)
-			{
-				$app->getLogger()->info(
-					sprintf(
-						'Holding edit ID %s.%s %s',
-						$context,
-						$id,
-						str_replace("\n", ' ', print_r($values, 1))
-					)
-				);
-			}
-		}
-	}
-
-	/**
-	 * Method to check whether an ID is in the edit list.
-	 *
-	 * @param   string   $context  The context for the session storage.
-	 * @param   integer  $id       The ID of the record to add to the edit list.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function releaseEditId($context, $id)
-	{
-		$app    = $this->getContainer()->get('app');
-		$values = (array) $app->getUserState($context . '.id');
-
-		// Do a strict search of the edit list values.
-		$index = array_search((int) $id, $values, true);
-
-		if (is_int($index))
-		{
-			unset($values[$index]);
-			$app->setUserState($context . '.id', $values);
-
-			if (defined('JDEBUG') && JDEBUG)
-			{
-				$app->getLogger()->info(
-					sprintf(
-						'Releasing edit ID %s.%s %s',
-						$context,
-						$id,
-						str_replace("\n", ' ', print_r($values, 1))
-					)
-				);
-			}
-		}
 	}
 
 	/**
