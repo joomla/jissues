@@ -506,7 +506,7 @@ class Save extends AbstractTrackerController
 					)
 				);
 
-				$gitHub->issues->comments->create(
+				$gitHubBot->issues->comments->create(
 					$project->gh_user, $project->gh_project,
 					$issueNumber, $body
 				);
