@@ -44,7 +44,15 @@ class Save extends AbstractTrackerController
 
 		$fileName = ($type) ? 'config.' . $type . '.json' : 'config.json';
 
-		if (!file_put_contents(JPATH_ROOT . '/etc/' . $fileName, json_encode($config, JSON_PRETTY_PRINT)))
+		$data = json_encode($config, JSON_PRETTY_PRINT);
+
+		// Check for errors converting the config to JSON
+		if (json_last_error())
+		{
+			throw new \RuntimeException('Could not convert config data to JSON: ' . json_last_error_msg());
+		}
+
+		if (!file_put_contents(JPATH_ROOT . '/etc/' . $fileName, $data))
 		{
 			throw new \RuntimeException('Could not write the configuration data to file /etc/' . $fileName);
 		}
