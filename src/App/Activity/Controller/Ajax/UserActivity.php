@@ -81,7 +81,6 @@ class UserActivity extends AbstractAjaxController
 		$activityType = $state->get('list.activity_type');
 
 		$periodTitle = [1 => g11n3t('7 Days'), 2 => g11n3t('30 Days'), 3 => g11n3t('90 Days'), 4 => g11n3t('12 Months')];
-		$periodText  = $periodTitle[$periodType];
 
 		if ($periodType == 5)
 		{
@@ -108,6 +107,8 @@ class UserActivity extends AbstractAjaxController
 		}
 		else
 		{
+			$periodText = $periodTitle[$periodType];
+
 			// For the best translations, some languages need the ability to move the activity type segment, so translate each string individually
 			$titles = [
 				// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "7 Days" or "12 Months")
