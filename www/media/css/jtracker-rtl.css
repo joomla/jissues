@@ -30,3 +30,7 @@
 ul.trackerPagination li {
   float: right !important;
 }
+
+.example-markdown, .example-rendered {
+  direction: ltr;
+}
