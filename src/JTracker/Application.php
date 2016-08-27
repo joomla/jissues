@@ -832,7 +832,10 @@ final class Application extends AbstractWebApplication implements ContainerAware
 		}
 
 		$renderer->set('exception', $exception)
-			->set('message', str_replace(JPATH_ROOT, 'ROOT', $message));
+			->set('message', str_replace(JPATH_ROOT, 'ROOT', $message))
+			->set('view', 'exception')
+			->set('layout', '')
+			->set('app', 'core');
 
 		$loaded = true;
 

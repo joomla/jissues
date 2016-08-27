@@ -176,7 +176,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		/* @type AbstractTrackerHtmlView $view */
 		$this->view = new $viewClass(
 			$this->model,
-			$this->fetchRenderer()
+			$this->fetchRenderer($viewName, $layoutName)
 		);
 
 		$this->view->setLayout($viewName . '.' . $layoutName);
@@ -229,12 +229,15 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	/**
 	 * Get a renderer object.
 	 *
+	 * @param   string  $view    The view to render
+	 * @param   string  $layout  The layout in the view
+	 *
 	 * @return  RendererInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetchRenderer()
+	protected function fetchRenderer($view, $layout)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
@@ -266,7 +269,10 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 
 		$renderer
 			->set('loginUrl', (new GitHubLoginHelper($this->getContainer()))->getLoginUri())
-			->set('user', $application->getUser());
+			->set('user', $application->getUser())
+			->set('view', $view)
+			->set('layout', $layout)
+			->set('app', strtolower($this->getApp()));
 
 		// Retrieve and clear the message queue
 		$renderer->set('flashBag', $application->getMessageQueue());
