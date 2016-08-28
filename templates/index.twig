@@ -70,7 +70,13 @@
                 <div class="navbar-inner">
                     <div class="container">
                         {% block topnav %}
-                            {% include "topMenu.twig" %}
+                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+
+                            {{ cdn_menu()|raw }}
                         {% endblock %}
                     </div>
                 </div>
@@ -137,7 +143,8 @@
     <div class="footer center">
         <div class="container">
             {% block footer %}
-                {% include "footerMenu.twig" %}
+                <hr />
+                {{ cdn_footer()|raw }}
             {% endblock %}
         </div>
     </div>

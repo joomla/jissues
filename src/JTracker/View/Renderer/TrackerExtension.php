@@ -17,8 +17,11 @@ use ElKuKu\G11n\G11n;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 
+use Joomla\Http\HttpFactory;
 use JTracker\Application;
+use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Helper\LanguageHelper;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Twig extension class
@@ -36,12 +39,28 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	private $app;
 
 	/**
+	 * Cache pool
+	 *
+	 * @var    CacheItemPoolInterface
+	 * @since  1.0
+	 */
+	private $cache;
+
+	/**
 	 * Database connector
 	 *
 	 * @var    DatabaseDriver
 	 * @since  1.0
 	 */
 	private $db;
+
+	/**
+	 * Login helper
+	 *
+	 * @var    GitHubLoginHelper
+	 * @since  1.0
+	 */
+	private $loginHelper;
 
 	/**
 	 * Constructor.
@@ -52,8 +71,10 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	 */
 	public function __construct(Container $container)
 	{
-		$this->app = $container->get('app');
-		$this->db  = $container->get('db');
+		$this->app         = $container->get('app');
+		$this->cache       = $container->get('cache');
+		$this->db          = $container->get('db');
+		$this->loginHelper = new GitHubLoginHelper($container);
 	}
 
 	/**
@@ -88,6 +109,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			'languageCodes'  => LanguageHelper::getLanguageCodes(),
 			'langDirection'  => LanguageHelper::getDirection($this->app->getLanguageTag()),
 			'g11nJavaScript' => G11n::getJavaScript(),
+			'loginUrl'       => $this->loginHelper->getLoginUri()
 		];
 	}
 
@@ -125,6 +147,8 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 			new \Twig_SimpleFunction('arrayDiff', [$this, 'arrayDiff']),
 			new \Twig_SimpleFunction('userTestOptions', [$this, 'getUserTestOptions']),
 			new \Twig_SimpleFunction('getMilestoneTitle', [$this, 'getMilestoneTitle']),
+			new \Twig_SimpleFunction('cdn_footer', [$this, 'getCdnFooter']),
+			new \Twig_SimpleFunction('cdn_menu', [$this, 'getCdnMenu']),
 		];
 
 		if (!JDEBUG)
@@ -199,6 +223,226 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		. ' src="' . $base . 'images/avatars/' . $avatar . '"'
 		. $width
 		. ' />';
+	}
+
+	/**
+	 * Fetches and renders the CDN footer element, optionally caching the data.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getCdnFooter()
+	{
+		$key = md5(get_class($this) . '::' . __METHOD__ . ' - language - ' . $this->app->getLanguageTag());
+
+		$fetchPage = function ()
+		{
+			// Set a very short timeout to try and not bring the site down
+			$response = HttpFactory::getHttp()->get(
+				'https://cdn.joomla.org/template/renderer.php?section=footer&language=' . $this->app->getLanguageTag(),
+				[],
+				2
+			);
+
+			if ($response->code !== 200)
+			{
+				return g11n3t('Could not load template section.');
+			}
+
+			$body = $response->body;
+
+			// Replace the common placeholders
+			$body = strtr(
+				$body,
+				[
+					'%reportroute%'  => $this->app->get('uri.base.path') . 'tracker/jtracker/add',
+					'%currentyear%' => date('Y'),
+				]
+			);
+
+			// Replace the context aware placeholders
+			if ($this->app->getUser()->id)
+			{
+				$body = strtr(
+					$body,
+					[
+						'%loginroute%' => $this->app->get('uri.base.path') . 'logout',
+						'%logintext%'  => g11n3t('Log out'),
+					]
+				);
+			}
+			else
+			{
+				$body = strtr(
+					$body,
+					[
+						'%loginroute%' => $this->loginHelper->getLoginUri(),
+						'%logintext%'  => g11n3t('Log in'),
+					]
+				);
+			}
+
+			return $body;
+		};
+
+		if ($this->app->get('cache.enabled', false))
+		{
+			/** @var \Psr\Cache\CacheItemPoolInterface $cache */
+			$cache = $container->get('cache');
+
+			if ($cache->hasItem($key))
+			{
+				$item = $cache->getItem($key);
+
+				// Make sure we got a hit on the item, otherwise we'll have to re-cache
+				if ($item->isHit())
+				{
+					$body = $item->get();
+				}
+				else
+				{
+					try
+					{
+						$body = $fetchPage();
+
+						$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
+							->set($body);
+
+						$cache->save($item);
+					}
+					catch (\RuntimeException $e)
+					{
+						$body = 'Could not load template section.';
+					}
+				}
+			}
+			else
+			{
+				try
+				{
+					$body = $fetchPage();
+
+					$item = (new Item($key, $container->get('app')->get('cache.lifetime', 900)))
+						->set($body);
+
+					$cache->save($item);
+				}
+				catch (\RuntimeException $e)
+				{
+					$body = 'Could not load template section.';
+				}
+			}
+		}
+		else
+		{
+			try
+			{
+				$body = $fetchPage();
+			}
+			catch (\RuntimeException $e)
+			{
+				$body = 'Could not load template section.';
+			}
+		}
+
+		return $body;
+	}
+
+	/**
+	 * Fetches and renders the CDN menu element, optionally caching the data.
+	 *
+	 * @return  string
+	 *
+	 * @since   1.0
+	 */
+	public function getCdnMenu()
+	{
+		$key = md5(get_class($this) . '::' . __METHOD__ . ' - language - ' . $this->app->getLanguageTag());
+
+		$fetchPage = function ()
+		{
+			// Set a very short timeout to try and not bring the site down
+			$response = HttpFactory::getHttp()->get(
+				'https://cdn.joomla.org/template/renderer.php?section=menu&language=' . $this->app->getLanguageTag(),
+				[],
+				2
+			);
+
+			if ($response->code !== 200)
+			{
+				return g11n3t('Could not load template section.');
+			}
+
+			$body = $response->body;
+
+			// Remove the search module
+			$body = str_replace("\t<div id=\"nav-search\" class=\"navbar-search pull-right\">\n\t\t<jdoc:include type=\"modules\" name=\"position-0\" style=\"none\" />\n\t</div>\n", '', $body);
+
+			return $body;
+		};
+
+		if ($this->app->get('cache.enabled', false))
+		{
+			/** @var \Psr\Cache\CacheItemPoolInterface $cache */
+			$cache = $container->get('cache');
+
+			if ($cache->hasItem($key))
+			{
+				$item = $cache->getItem($key);
+
+				// Make sure we got a hit on the item, otherwise we'll have to re-cache
+				if ($item->isHit())
+				{
+					$body = $item->get();
+				}
+				else
+				{
+					try
+					{
+						$body = $fetchPage();
+
+						$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
+							->set($body);
+
+						$cache->save($item);
+					}
+					catch (\RuntimeException $e)
+					{
+						$body = 'Could not load template section.';
+					}
+				}
+			}
+			else
+			{
+				try
+				{
+					$body = $fetchPage();
+
+					$item = (new Item($key, $container->get('app')->get('cache.lifetime', 900)))
+						->set($body);
+
+					$cache->save($item);
+				}
+				catch (\RuntimeException $e)
+				{
+					$body = 'Could not load template section.';
+				}
+			}
+		}
+		else
+		{
+			try
+			{
+				$body = $fetchPage();
+			}
+			catch (\RuntimeException $e)
+			{
+				$body = 'Could not load template section.';
+			}
+		}
+
+		return $body;
 	}
 
 	/**

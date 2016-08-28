@@ -268,7 +268,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		}
 
 		$renderer
-			->set('loginUrl', (new GitHubLoginHelper($this->getContainer()))->getLoginUri())
 			->set('user', $application->getUser())
 			->set('view', $view)
 			->set('layout', $layout)
