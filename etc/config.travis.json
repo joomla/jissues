@@ -30,6 +30,12 @@
 		"error_reporting": "32767"
 	},
 
+	"cache": {
+		"enabled" : false,
+		"lifetime": 900,
+		"adapter" : "file"
+	},
+
 	"acl": {
 		"admin_users": [
 			"", ""

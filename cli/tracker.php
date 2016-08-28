@@ -42,6 +42,7 @@ $loader->add('Application', __DIR__);
 try
 {
 	$container = (new Joomla\DI\Container)
+		->registerServiceProvider(new JTracker\Service\CacheProvider)
 		->registerServiceProvider(new JTracker\Service\CliApplicationProvider)
 		->registerServiceProvider(new JTracker\Service\ConfigurationProvider)
 		->registerServiceProvider(new JTracker\Service\CrowdinProvider)
