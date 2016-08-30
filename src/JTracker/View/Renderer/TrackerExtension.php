@@ -376,8 +376,16 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 			$body = $response->body;
 
+			// Needless concatenation for PHPCS 150 character line limits...
+			$replace = "\t<div id=\"nav-search\" class=\"navbar-search pull-right\">\n\t\t"
+				. "<jdoc:include type=\"modules\" name=\"position-0\" style=\"none\" />\n\t</div>\n";
+
 			// Remove the search module
-			$body = str_replace("\t<div id=\"nav-search\" class=\"navbar-search pull-right\">\n\t\t<jdoc:include type=\"modules\" name=\"position-0\" style=\"none\" />\n\t</div>\n", '', $body);
+			$body = str_replace(
+				$replace,
+				'',
+				$body
+			);
 
 			return $body;
 		};
