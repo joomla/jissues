@@ -185,7 +185,7 @@
                     </span>
                 </td>
                 <td class="center valign-center">
-                    [% var priorities = {1: '{{ 'Critical'|_ }}', 2: '{{ 'Urgent'|_ }}', 3: '{{ 'Medium'|_ }}', 4: '{{ 'Low'|_ }}', 5: '{{ 'Very low'|_ }}'  }; %]
+                    [% var priorities = {1: '{{ 'Critical'|_ }}', 2: '{{ 'Urgent'|_ }}', 3: '{{ 'Medium'|_ }}', 4: '{{ 'Low'|_ }}', 5: '{{ 'Very Low'|_ }}'  }; %]
                     <span class="badge [%=prioClass(item.priority)%] ">[%=priorities[item.priority]%]</span>
                  </td>
                 <td class="center valign-center">
@@ -347,6 +347,7 @@
             statuses['11'] = '{{ 'Expected Behaviour'|_ }}';
             statuses['12'] = '{{ 'Known Issue'|_ }}';
             statuses['13'] = '{{ 'Duplicate Report'|_ }}';
+            statuses['14'] = '{{ 'Discussion'|_ }}';
 
             return statuses[id];
         }

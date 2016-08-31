@@ -94,8 +94,7 @@ class ActivitiesTable extends AbstractDatabaseTable
 			// New item
 			if (!$this->created_date)
 			{
-				$date = new \DateTime;
-				$this->created_date = $date->format('Y-m-d H:i:s');
+				$this->created_date = (new \DateTime)->format($this->db->getDateFormat());
 			}
 		}
 

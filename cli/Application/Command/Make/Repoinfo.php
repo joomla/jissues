@@ -47,7 +47,7 @@ class Repoinfo extends Make
 	{
 		$path = JPATH_ROOT . '/current_SHA';
 
-		$this->getApplication()->outputTitle(g11n3t('Generate Repo information'));
+		$this->getApplication()->outputTitle(g11n3t('Generate repository information'));
 		$this->logOut('Generating Repoinfo.');
 
 		$info   = $this->execCommand('cd ' . JPATH_ROOT . ' && git describe --long --abbrev=10 --tags 2>&1');

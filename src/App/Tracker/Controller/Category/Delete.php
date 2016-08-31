@@ -76,11 +76,9 @@ class Delete extends AbstractTrackerController
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$model = new CategoryModel($this->getContainer()->get('db'));
-
 		try
 		{
-			$model->delete($application->input->get('id'));
+			$this->model->delete($application->input->get('id'));
 			$application->enqueueMessage(g11n3t('The category has been deleted'), 'success');
 		}
 		catch (\Exception $exception)

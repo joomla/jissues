@@ -38,8 +38,8 @@ class UsersApp implements AppInterface
 			throw new \RuntimeException('Invalid router file for the Users app: ' . __DIR__ . '/routes.json', 500);
 		}
 
-		/** @var \JTracker\Application $application */
-		$application = $container->get('app');
-		$application->getRouter()->addMaps($maps);
+		/** @var \JTracker\Router\TrackerRouter $router */
+		$router = $container->get('router');
+		$router->addMaps($maps);
 	}
 }

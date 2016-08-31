@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,20 @@ msgstr ""
 
 #: /templates/groups/groups.index.twig:6
 msgid "Groups"
-msgstr ""
+msgstr "Grupas"
 
 #: /templates/groups/groups.index.twig:11
 msgid "Add Group"
-msgstr ""
+msgstr "Pievienot Grupu"
 
 #: /templates/groups/groups.index.twig:22
 msgid "Access Groups"
-msgstr ""
+msgstr "Piekļuves grupas"
 
 #: /templates/groups/groups.index.twig:27
 #: /templates/groups/group.edit.twig:164
 msgid "Title"
-msgstr ""
+msgstr "Virsraksts"
 
 #: /templates/groups/groups.index.twig:28
 #: /templates/groups/group.edit.twig:181
@@ -41,7 +41,7 @@ msgstr "Skats"
 #: /templates/groups/groups.index.twig:29
 #: /templates/groups/group.edit.twig:188
 msgid "Create"
-msgstr ""
+msgstr "Izveidot"
 
 #: /templates/groups/groups.index.twig:30
 #: /templates/groups/group.edit.twig:195
@@ -51,56 +51,56 @@ msgstr "Labot"
 #: /templates/groups/groups.index.twig:31
 #: /templates/groups/group.edit.twig:202
 msgid "Edit own"
-msgstr ""
+msgstr "Labot savu"
 
 #: /templates/groups/groups.index.twig:32
 #: /templates/groups/group.edit.twig:209
 msgid "Manage"
-msgstr ""
+msgstr "Pārvaldīt"
 
 #: /templates/groups/groups.index.twig:33
 msgid "Actions"
-msgstr ""
+msgstr "Darbības"
 
 #: /templates/groups/groups.index.twig:35
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/groups/groups.index.twig:64
 msgid "System"
-msgstr ""
+msgstr "Sistēma"
 
 #: /templates/groups/groups.index.twig:67
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: /templates/groups/groups.index.twig:79
 msgid "No groups defined!"
-msgstr ""
+msgstr "Nav definētu grupu!"
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
-msgstr ""
+msgstr "Labot grupu"
 
 #: /templates/groups/group.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: /templates/groups/group.edit.twig:145
 msgid "Edit Access Group"
-msgstr ""
+msgstr "Labot piekļuves grupu"
 
 #: /templates/groups/group.edit.twig:147
 msgid "Add Access Group"
-msgstr ""
+msgstr "Pievienot piekļuves grupu"
 
 #: /templates/groups/group.edit.twig:156
 msgid "Details"
-msgstr ""
+msgstr "Detaļas"
 
 #: /templates/groups/group.edit.twig:174
 msgid "Permissions"
-msgstr ""
+msgstr "Atļaujas"
 
 #: /templates/groups/group.edit.twig:222
 msgid "Users"
@@ -109,31 +109,31 @@ msgstr "Lietotāji"
 #: /templates/groups/group.edit.twig:226
 #: /templates/groups/group.edit.twig:234
 msgid "Add user"
-msgstr ""
+msgstr "Pievienot lietotāju"
 
 #: /templates/groups/group.edit.twig:228
 #: /templates/groups/group.edit.twig:241
 msgid "username"
-msgstr ""
+msgstr "lietotājvārds"
 
 #: /templates/groups/group.edit.twig:238
 #: /templates/groups/group.edit.twig:246
 msgid "Remove user"
-msgstr ""
+msgstr "Dzēst lietotāju"
 
 #: /templates/groups/group.edit.twig:251
 msgid "List assigned users"
-msgstr ""
+msgstr "Atlasīt atzīmētos lietotājus"
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
-msgstr ""
+msgstr "Saglabāt grupu lai iekļautu lietotājus."
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."
-msgstr ""
+msgstr "Grupa tika dzēsta."
 
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"
-msgstr ""
+msgstr "Nepieciešams nosaukums"
 

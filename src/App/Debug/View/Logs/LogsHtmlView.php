@@ -13,7 +13,7 @@ use App\Debug\TrackerDebugger;
 use JTracker\View\AbstractTrackerHtmlView;
 
 /**
- * System configuration view.
+ * Log file view.
  *
  * @since  1.0
  */
@@ -53,27 +53,14 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 				$path = $this->getDebugger()->getLogPath('php');
 				break;
 
-			case 'app' :
-			case 'cron' :
-			case 'database' :
-			case 'error' :
-			case 'github_issues' :
-			case 'github_comments' :
-			case 'github_pulls' :
-				$path = $this->getDebugger()->getLogPath('root') . '/' . $type . '.log';
-				break;
-
 			default :
 				throw new \UnexpectedValueException('Invalid log type');
-			break;
 		}
 
-		$log = (realpath($path))
-			? $this->processLog($type, $path)
-			: [sprintf(g11n3t('No %s log file found.'), $type)];
+		$log = (realpath($path)) ? $this->processLog($type, $path) : [sprintf(g11n3t('No %s log file found.'), $type)];
 
-		$this->addData('log', $log);
-		$this->addData('log_type', $type);
+		$this->addData('log', $log)
+			->addData('log_type', $type);
 
 		return parent::render();
 	}
@@ -98,21 +85,13 @@ class LogsHtmlView extends AbstractTrackerHtmlView
 
 		switch ($type)
 		{
-			case 'app' :
-			case 'cron' :
-			case 'database':
-			case 'error':
 			case 'php':
-			case 'github_issues':
-			case 'github_comments':
-			case 'github_pulls':
 				// @todo beautifyMe
 				$log = explode("\n\n", file_get_contents($path));
 				break;
 
 			default :
 				throw new \UnexpectedValueException(__METHOD__ . ' - undefined type: ' . $type);
-				break;
 		}
 
 		// Reverse log

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"PO-Revision-Date: 2016-07-31 12:33-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -18,31 +18,31 @@ msgstr ""
 
 #: /www/media/js/jtracker.js:19
 msgid "Loading preview..."
-msgstr ""
+msgstr "Memuat pratinjau..."
 
 #: /www/media/js/jtracker.js:30
 #: /www/media/js/jtracker.js:58
 msgid "Invalid response."
-msgstr ""
+msgstr "Respon tidak valid."
 
 #: /www/media/js/jtracker.js:50
 msgid "Submitting comment..."
-msgstr ""
+msgstr "Mengirimkan komentar..."
 
 #: /www/media/js/jtracker.js:90
 msgid "Adding vote..."
-msgstr ""
+msgstr "Menambahkan voting..."
 
 #: /www/media/js/jtracker.js:131
 #: /www/media/js/jtracker.js:224
 msgid "Submitting test result..."
-msgstr ""
+msgstr "Mengirimkan hasil pengujian..."
 
 #: /www/media/js/jtracker.js:219
 msgid "Please select a user"
-msgstr ""
+msgstr "Pilihlah seorang pengguna"
 
 #: /www/media/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
-msgstr ""
+msgstr "Pilihlah sebuah editor terlebih dahulu untuk melampirkan unggahan."
 

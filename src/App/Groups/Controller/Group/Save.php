@@ -75,9 +75,8 @@ class Save extends AbstractTrackerController
 	{
 		$group = $this->getContainer()->get('app')->input->get('group', [], 'array');
 
-		$table = new GroupsTable($this->getContainer()->get('db'));
-
-		$table->save($group);
+		(new GroupsTable($this->getContainer()->get('db')))
+			->save($group);
 
 		return parent::execute();
 	}

@@ -111,47 +111,6 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	}
 
 	/**
-	 * Method to check whether an ID is in the edit list.
-	 *
-	 * @param   string   $context  The context for the session storage.
-	 * @param   integer  $id       The ID of the record to add to the edit list.
-	 *
-	 * @return  boolean  True if the ID is in the edit list.
-	 *
-	 * @since   1.0
-	 */
-	protected function checkEditId($context, $id)
-	{
-		if ($id)
-		{
-			$app    = $this->getContainer()->get('app');
-			$values = (array) $app->getUserState($context . '.id');
-
-			$result = in_array((int) $id, $values);
-
-			if (defined('JDEBUG') && JDEBUG)
-			{
-				$app->getLogger()->info(
-					sprintf(
-						'Checking edit ID %s.%s: %d %s',
-						$context,
-						$id,
-						(int) $result,
-						str_replace("\n", ' ', print_r($values, 1))
-					)
-				);
-			}
-
-			return $result;
-		}
-		else
-		{
-			// No id for a new item.
-			return true;
-		}
-	}
-
-	/**
 	 * Initialize the controller.
 	 *
 	 * This will set up default model and view classes.
@@ -217,7 +176,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		/* @type AbstractTrackerHtmlView $view */
 		$this->view = new $viewClass(
 			$this->model,
-			$this->fetchRenderer()
+			$this->fetchRenderer($viewName, $layoutName)
 		);
 
 		$this->view->setLayout($viewName . '.' . $layoutName);
@@ -249,7 +208,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		}
 		catch (\Exception $e)
 		{
-			$contents = $this->getContainer()->get('app')->getDebugger()->renderException($e);
+			$contents = $this->getContainer()->get('app')->renderException($e);
 		}
 
 		return $contents;
@@ -268,87 +227,17 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	}
 
 	/**
-	 * Method to add a record ID to the edit list.
-	 *
-	 * @param   string   $context  The context for the session storage.
-	 * @param   integer  $id       The ID of the record to add to the edit list.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function holdEditId($context, $id)
-	{
-		$app = $this->getContainer()->get('app');
-		$values = (array) $app->getUserState($context . '.id');
-
-		// Add the id to the list if non-zero.
-		if (!empty($id))
-		{
-			array_push($values, (int) $id);
-			$values = array_unique($values);
-			$app->setUserState($context . '.id', $values);
-
-			if (defined('JDEBUG') && JDEBUG)
-			{
-				$app->getLogger()->info(
-					sprintf(
-						'Holding edit ID %s.%s %s',
-						$context,
-						$id,
-						str_replace("\n", ' ', print_r($values, 1))
-					)
-				);
-			}
-		}
-	}
-
-	/**
-	 * Method to check whether an ID is in the edit list.
-	 *
-	 * @param   string   $context  The context for the session storage.
-	 * @param   integer  $id       The ID of the record to add to the edit list.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function releaseEditId($context, $id)
-	{
-		$app    = $this->getContainer()->get('app');
-		$values = (array) $app->getUserState($context . '.id');
-
-		// Do a strict search of the edit list values.
-		$index = array_search((int) $id, $values, true);
-
-		if (is_int($index))
-		{
-			unset($values[$index]);
-			$app->setUserState($context . '.id', $values);
-
-			if (defined('JDEBUG') && JDEBUG)
-			{
-				$app->getLogger()->info(
-					sprintf(
-						'Releasing edit ID %s.%s %s',
-						$context,
-						$id,
-						str_replace("\n", ' ', print_r($values, 1))
-					)
-				);
-			}
-		}
-	}
-
-	/**
 	 * Get a renderer object.
+	 *
+	 * @param   string  $view    The view to render
+	 * @param   string  $layout  The layout in the view
 	 *
 	 * @return  RendererInterface
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	protected function fetchRenderer()
+	protected function fetchRenderer($view, $layout)
 	{
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
@@ -378,11 +267,12 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			$renderer->addFolder($path);
 		}
 
-		$gitHubHelper = new GitHubLoginHelper($this->getContainer());
-
 		$renderer
-			->set('loginUrl', $gitHubHelper->getLoginUri())
-			->set('user', $application->getUser());
+			->set('loginUrl', (new GitHubLoginHelper($this->getContainer()))->getLoginUri())
+			->set('user', $application->getUser())
+			->set('view', $view)
+			->set('layout', $layout)
+			->set('app', strtolower($this->getApp()));
 
 		// Retrieve and clear the message queue
 		$renderer->set('flashBag', $application->getMessageQueue());
@@ -454,10 +344,9 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		/* @type \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
 
-		$event = new Event($eventName);
-
-		// Add default event arguments.
-		$event->addArgument('github', ($this->github ? : GithubFactory::getInstance($application)))
+		// Create the event with default arguments.
+		$event = (new Event($eventName))
+			->addArgument('github', ($this->github ?: GithubFactory::getInstance($application)))
 			->addArgument('logger', $application->getLogger())
 			->addArgument('project', $application->getProject());
 

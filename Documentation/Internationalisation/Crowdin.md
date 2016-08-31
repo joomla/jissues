@@ -1,4 +1,4 @@
-## Translations via Crowdin
+## Translations via Crowdin  [![Crowdin](https://d322cqt584bo4o.cloudfront.net/joomla-official-sites/localized.svg)](https://crowdin.com/project/joomla-official-sites)
 
 The Issue Tracker proudly welcomes translations contributed via [Crowdin](https://crowdin.com/). The project can be found at [https://crowdin.com/project/joomla-official-sites](https://crowdin.com/project/joomla-official-sites).
 

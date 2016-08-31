@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgstr "Acasă"
 
 #: /templates/footerMenu.twig:19
 #: /templates/topMenu.twig:30
+#: /templates/trackerMenu.twig:193
 msgid "About"
 msgstr "Despre"
 
@@ -79,9 +80,8 @@ msgid "All rights reserved."
 msgstr "Toate drepturile rezervate."
 
 #: /templates/footerMenu.twig:44
-#, php-format
-msgid "Joomla! Hosting by %1$s"
-msgstr "Găzduire Joomla! de către %1$s"
+msgid "Joomla! Hosting by %provider%"
+msgstr "Găzduire Joomla! de către %provider%"
 
 #: /templates/index.twig:80
 msgid "Download"
@@ -140,7 +140,7 @@ msgstr "Modifica rezultatul testului"
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "Setează rezultatul testului pentru utilizator %s la %s"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
@@ -265,7 +265,7 @@ msgstr "Joomla! Evenimente"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Trademark & Licensing"
-msgstr ""
+msgstr "Joomla! Marcă comercială și licenţiere"
 
 #: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
@@ -496,10 +496,6 @@ msgstr "Text"
 #: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
 msgstr "Curăță Cache"
-
-#: /templates/trackerMenu.twig:193
-msgid "About Us"
-msgstr "Despre Noi"
 
 #: /templates/trackerMenu.twig:198
 msgid "Markdown"

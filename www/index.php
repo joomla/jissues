@@ -6,9 +6,6 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License Version 2 or Later
  */
 
-// Set error reporting for development
-error_reporting(-1);
-
 // Define required paths
 define('JPATH_ROOT',          dirname(__DIR__));
 define('JPATH_CONFIGURATION', JPATH_ROOT . '/etc');
@@ -54,6 +51,11 @@ try
 		->alias('logger', 'monolog.logger.application')
 		->alias('Monolog\\Logger', 'monolog.logger.application')
 		->alias('Psr\\Log\\LoggerInterface', 'monolog.logger.application');
+
+	// Set error reporting based on config
+	$errorReporting = (int) $container->get('config')->get('system.error_reporting', 0);
+	error_reporting($errorReporting);
+	ini_set('display_errors', (bool) $errorReporting);
 }
 catch (\Exception $e)
 {

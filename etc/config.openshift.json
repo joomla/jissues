@@ -32,12 +32,13 @@
 	},
 
 	"system": {
-		"list_limit": "20",
-		"gzip"      : "0",
-		"offset"    : "UTC",
-		"upload_dir": "uploads",
-		"use_cdn"   : "1",
-		"remember_me": "1"
+		"list_limit"     : "20",
+		"gzip"           : "0",
+		"offset"         : "UTC",
+		"upload_dir"     : "uploads",
+		"use_cdn"        : "1",
+		"remember_me"    : "1",
+		"error_reporting": "32767"
 	},
 
 	"acl": {

@@ -22,6 +22,7 @@ use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
+use Joomla\Renderer\RendererInterface;
 use Joomla\Router\Router;
 
 use JTracker\Authentication\Exception\AuthenticationException;
@@ -207,7 +208,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 				$context['action'] = $exception->getAction();
 			}
 
-			$this->setBody($this->getDebugger()->renderException($exception, $context));
+			$this->setBody($this->renderException($exception, $context));
 		}
 		catch (RoutingException $exception)
 		{
@@ -217,7 +218,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$context = JDEBUG ? ['message' => $exception->getRawRoute()] : [];
 
-			$this->setBody($this->getDebugger()->renderException($exception, $context));
+			$this->setBody($this->renderException($exception, $context));
 		}
 		catch (\Exception $exception)
 		{
@@ -234,7 +235,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 			$this->mark('Application terminated with an EXCEPTION');
 
-			$this->setBody($this->getDebugger()->renderException($exception));
+			$this->setBody($this->renderException($exception));
 		}
 	}
 
@@ -570,7 +571,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 			return $registry->set($key, $value);
 		}
 
-		return;
+		return null;
 	}
 
 	/**
@@ -774,5 +775,78 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 				break;
 		}
+	}
+
+	/**
+	 * Method to render an exception in a user friendly format
+	 *
+	 * @param   \Exception  $exception  The caught exception.
+	 * @param   array       $context    The message to display.
+	 *
+	 * @return  string  The exception output in rendered format.
+	 *
+	 * @since   1.0
+	 */
+	public function renderException(\Exception $exception, array $context = [])
+	{
+		static $loaded = false;
+
+		// Attach the Exception to the context array (per PSR-3) if not already
+		if (!isset($context['exception']))
+		{
+			$context['exception'] = $exception;
+		}
+
+		if ($loaded)
+		{
+			// Seems that we're recursing...
+			$this->getLogger()->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
+
+			return str_replace(JPATH_ROOT, 'JROOT', $exception->getMessage())
+			. '<pre>' . $exception->getTraceAsString() . '</pre>'
+			. 'Previous: ' . get_class($exception->getPrevious());
+		}
+
+		$rendererName = $this->get('renderer.type');
+
+		// The renderer should exist in the container
+		if (!$this->getContainer()->exists("renderer.$rendererName"))
+		{
+			throw new \RuntimeException('Unsupported renderer: ' . $rendererName);
+		}
+
+		/** @var RendererInterface $renderer */
+		$renderer = $this->getContainer()->get("renderer.$rendererName");
+
+		// Alias the renderer to the interface if not set already
+		if (!$this->getContainer()->exists(RendererInterface::class))
+		{
+			$this->getContainer()->alias(RendererInterface::class, "renderer.$rendererName");
+		}
+
+		$message = '';
+
+		foreach ($context as $key => $value)
+		{
+			$message .= $key . ': ' . $value . "\n";
+		}
+
+		$renderer->set('exception', $exception)
+			->set('message', str_replace(JPATH_ROOT, 'ROOT', $message))
+			->set('view', 'exception')
+			->set('layout', '')
+			->set('app', 'core');
+
+		$loaded = true;
+
+		$contents = $renderer->render('exception');
+
+		$debug = JDEBUG ? $this->getDebugger()->getOutput() : '';
+
+		$contents = str_replace('%%%DEBUG%%%', $debug, $contents);
+
+		$this->getLogger()->error($exception->getCode() . ' ' . $exception->getMessage(), $context);
+
+		return $contents;
 	}
 }

@@ -6,7 +6,7 @@
   "license": "GPL-2.0+",
   "dependencies": {
     "jquery": "1.9.1",
-    "jquery-validation": "1.15.0",
+    "jquery-validation": "1.15.1",
     "bootstrap": "2.3.2",
     "bootstrap-switch": "3.3.2",
     "markitup": "1.1.14",
@@ -23,6 +23,7 @@
     "jquery.atwho": "1.5.0",
     "semantic-ui-dropdown": "1.10.3",
     "semantic-ui-transition": "1.10.4",
-    "octicons": "4.2.0"
+    "octicons": "4.3.0",
+    "bootstrap-datepicker": "1.6.4"
   }
 }

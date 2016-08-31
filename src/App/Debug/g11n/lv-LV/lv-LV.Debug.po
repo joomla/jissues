@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -19,96 +19,105 @@ msgstr ""
 #: /src/App/Debug/Database/DatabaseDebugger.php:104
 #, php-format
 msgid "Failed EXPLAIN on query: %s"
-msgstr ""
+msgstr "Neizdevās EXPLAIN pieprasījumam: %s"
 
 #: /src/App/Debug/Database/DatabaseDebugger.php:133
 #, php-format
 msgid "%s database is not supported yet."
-msgstr ""
+msgstr "%s datu bāze pašlaik netiek atbalstīta."
 
-#: /src/App/Debug/TrackerDebugger.php:280
+#: /src/App/Debug/TrackerDebugger.php:264
 msgid "Database"
-msgstr ""
+msgstr "Datu bāze"
 
-#: /src/App/Debug/TrackerDebugger.php:289
-#: /src/App/Debug/TrackerDebugger.php:375
-msgid "Profile"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:294
-#: /src/App/Debug/TrackerDebugger.php:432
-msgid "User"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:299
-#: /src/App/Debug/TrackerDebugger.php:438
-msgid "Project"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:307
-msgid "Language Strings"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:312
-msgid "Language Files"
-msgstr ""
-
-#: /src/App/Debug/TrackerDebugger.php:354
-msgid "Go up"
-msgstr ""
-
+#: /src/App/Debug/TrackerDebugger.php:273
 #: /src/App/Debug/TrackerDebugger.php:364
-#: /src/App/Debug/TrackerDebugger.php:663
+msgid "Profile"
+msgstr "Profils"
+
+#: /src/App/Debug/TrackerDebugger.php:278
+#: /src/App/Debug/TrackerDebugger.php:421
+msgid "User"
+msgstr "Lietotājs"
+
+#: /src/App/Debug/TrackerDebugger.php:283
+#: /src/App/Debug/TrackerDebugger.php:427
+msgid "Project"
+msgstr "Projekts"
+
+#: /src/App/Debug/TrackerDebugger.php:288
+#: /src/App/Debug/TrackerDebugger.php:435
+msgid "Request"
+msgstr "Pieprasījums"
+
+#: /src/App/Debug/TrackerDebugger.php:296
+msgid "Language Strings"
+msgstr "Valodas saites"
+
+#: /src/App/Debug/TrackerDebugger.php:301
+msgid "Language Files"
+msgstr "Valodas faili"
+
+#: /src/App/Debug/TrackerDebugger.php:343
+msgid "Go up"
+msgstr "Uz augšu"
+
+#: /src/App/Debug/TrackerDebugger.php:353
+#: /src/App/Debug/TrackerDebugger.php:658
 #, php-format
 msgid "One database query"
 msgid_plural "%d database queries"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Viens datu bāzes pieprasījums"
+msgstr[1] "Viens datu bāzes pieprasījums"
+msgstr[2] "%d datu bāzes pieprasījumi"
 
-#: /src/App/Debug/TrackerDebugger.php:392
+#: /src/App/Debug/TrackerDebugger.php:381
 #, php-format
 msgid "One untranslated string of %2$d"
 msgid_plural "%1$d untranslated strings of %2$d"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Viena netulkota saite no %2$d"
+msgstr[1] "Viena netulkota saite no %2$d"
+msgstr[2] "%1$d netulkotas saites no %2$d"
 
-#: /src/App/Debug/TrackerDebugger.php:400
+#: /src/App/Debug/TrackerDebugger.php:389
 #, php-format
 msgid "One language file loaded"
 msgid_plural "%d language files loaded"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ielādēts valodas fails"
+msgstr[1] "Ielādēts valodas fails"
+msgstr[2] "ielādēti %d valodas faili"
 
-#: /src/App/Debug/TrackerDebugger.php:411
+#: /src/App/Debug/TrackerDebugger.php:400
 msgid "No Project"
-msgstr ""
+msgstr "Nav projekta"
 
-#: /src/App/Debug/TrackerDebugger.php:434
+#: /src/App/Debug/TrackerDebugger.php:423
 msgid "Guest"
-msgstr ""
+msgstr "Viesis"
 
-#: /src/App/Debug/TrackerDebugger.php:447
+#: /src/App/Debug/TrackerDebugger.php:433
+msgid "Request variables"
+msgstr "Pieprasījuma mainīgie"
+
+#: /src/App/Debug/TrackerDebugger.php:442
 msgid "Build"
-msgstr ""
+msgstr "Kompilēt"
 
-#: /src/App/Debug/TrackerDebugger.php:513
+#: /src/App/Debug/TrackerDebugger.php:508
 #, php-format
 msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
-msgstr ""
+msgstr "Daudzskaitļa formas: <code>%1$d</code><br />Daudzskaitļa funkcija: <code>%2$s</code>"
 
-#: /src/App/Debug/TrackerDebugger.php:746
+#: /src/App/Debug/TrackerDebugger.php:741
 msgid "File (line)"
-msgstr ""
+msgstr "Fails (rinda)"
 
-#: /src/App/Debug/TrackerDebugger.php:746
+#: /src/App/Debug/TrackerDebugger.php:741
 msgid "String"
-msgstr ""
+msgstr "Saite"
 
 #: /src/App/Debug/View/Logs/LogsHtmlView.php:73
 #, php-format
 msgid "No %s log file found."
-msgstr ""
+msgstr "Nav atrasts %s log fails."
 

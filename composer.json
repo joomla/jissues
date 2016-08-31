@@ -1,6 +1,6 @@
 {
     "name": "joomla/tracker",
-    "description": "Issue Tracking application built on the Joomla! Framework integrating with GitHub to replace the existing Joomlacode solution.",
+    "description": "Issue tracking application extending GitHub's issues and pull requests for the Joomla! project.",
     "keywords": ["joomla", "tracker"],
     "homepage": "https://github.com/joomla/jissues",
     "license": "GPL-2.0+",
@@ -40,7 +40,8 @@
         "league/flysystem": "~1.0",
         "monolog/monolog": "1.*",
         "raveren/kint": "~1.0",
-        "adaptive/php-text-difference": "1.*"
+        "adaptive/php-text-difference": "1.*",
+        "pulse00/monolog-parser": "^0.0.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~1.11",

@@ -20,14 +20,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Documentation extends AbstractTrackerController
 {
 	/**
-	 * View object
-	 *
-	 * @var    DocumentationHtmlView
-	 * @since  1.0
-	 */
-	protected $view = null;
-
-	/**
 	 * Initialize the controller.
 	 *
 	 * @return  $this  Method supports chaining
@@ -49,7 +41,7 @@ class Documentation extends AbstractTrackerController
 		{
 			$fullPath = 'page=' . $page . ($path ? '&path=' . $path : '');
 
-			$this->view->setFullPath($fullPath);
+			$this->view->addData('fullPath', $fullPath);
 		}
 	}
 }

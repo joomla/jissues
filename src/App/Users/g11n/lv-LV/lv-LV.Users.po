@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"POT-Creation-Date: 2016-07-14 16:01-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -19,34 +19,34 @@ msgstr ""
 #: /templates/users/user.index.twig:12
 #: /templates/users/user.edit.twig:11
 msgid "Invalid user!"
-msgstr ""
+msgstr "Nepareizs lietotājs!"
 
 #: /templates/users/user.index.twig:19
 msgid "Edit profile"
-msgstr ""
+msgstr "Labot profila informāciju"
 
 #: /templates/users/user.index.twig:22
 #: /templates/users/user.edit.twig:32
 msgid "Refresh profile from GitHub"
-msgstr ""
+msgstr "Atjaunot profilu no GitHub"
 
 #: /templates/users/user.index.twig:26
 msgid "My Profile"
-msgstr ""
+msgstr "Mans profils"
 
 #: /templates/users/user.index.twig:28
 msgid "Profile"
-msgstr ""
+msgstr "Profils"
 
 #: /templates/users/user.index.twig:57
 #, php-format
 msgid "Language: %s"
-msgstr ""
+msgstr "Valoda: %s"
 
 #: /templates/users/user.index.twig:62
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
-msgstr ""
+msgstr "Laika zona: %1$s (GMT %2$s)"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -54,95 +54,91 @@ msgstr "Lietotāji"
 
 #: /templates/users/users.index.twig:19
 msgid "Users List"
-msgstr ""
+msgstr "Lietotāju saraksts"
 
 #: /templates/users/users.index.twig:25
 #: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
-msgstr ""
+msgstr "Filtrēt sarakstu pēc lietotāja."
 
 #: /templates/users/users.index.twig:34
 msgid "Clear"
-msgstr ""
+msgstr "Notīrīt"
 
 #: /templates/users/users.index.twig:41
 #: /templates/users/users.index.twig:73
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "Lapa %1$s no %2$s"
 
 #: /templates/users/users.index.twig:46
 msgid "Username"
-msgstr ""
+msgstr "Lietotājvārds"
 
 #: /templates/users/users.index.twig:48
 msgid "Actions"
-msgstr ""
+msgstr "Darbības"
 
 #: /templates/users/users.index.twig:50
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/users/users.index.twig:66
 msgid "No items found."
-msgstr ""
+msgstr "Nekas nav atrasts."
 
 #: /templates/users/user.edit.twig:6
 #: /templates/users/user.edit.twig:17
 msgid "Edit user"
-msgstr ""
+msgstr "Labot lietotāja profilu"
 
 #: /templates/users/user.edit.twig:22
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: /templates/users/user.edit.twig:27
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: /templates/users/user.edit.twig:44
 msgid "GitHub Profile"
-msgstr ""
+msgstr "GitHub profils"
 
 #: /templates/users/user.edit.twig:67
 msgid "Params"
-msgstr ""
+msgstr "Parametri"
 
 #: /templates/users/user.edit.twig:70
 msgid "Language"
-msgstr ""
+msgstr "Valoda"
 
 #: /templates/users/user.edit.twig:77
 msgid "Timezone"
-msgstr ""
+msgstr "Laika zona"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
-msgstr ""
+msgstr "Lietotājs ir piešķirts."
 
 #: /src/App/Users/Controller/Ajax/Assign.php:85
 msgid "The user has been unassigned."
-msgstr ""
+msgstr "Lietotājs ir noņemts."
 
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorised to edit this user."
-msgstr ""
+msgstr "Jums nav tiesību labot šo lietotāja profilu."
 
 #: /src/App/Users/Controller/User/Refresh.php:47
 msgid "You are not authorised to refresh this user."
-msgstr ""
+msgstr "Jums nav tiesību atjaunot šo lietotāja profilu."
 
-#: /src/App/Users/Controller/User/Refresh.php:77
-msgid "An error has occurred during email refresh."
-msgstr ""
-
-#: /src/App/Users/Controller/User/Refresh.php:82
+#: /src/App/Users/Controller/User/Refresh.php:73
 msgid "The profile has been refreshed."
-msgstr ""
+msgstr "Profils tika atjaunots."
 
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."
-msgstr ""
+msgstr "Izmaiņas tika saglabātas."
 

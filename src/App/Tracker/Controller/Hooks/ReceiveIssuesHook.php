@@ -84,8 +84,6 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Prepare the dates for insertion to the database
 		$dateFormat = $this->db->getDateFormat();
-		$opened   = new Date($this->hookData->issue->created_at);
-		$modified = new Date($this->hookData->issue->updated_at);
 
 		$data = [];
 		$data['issue_number']    = $this->hookData->issue->number;
@@ -93,9 +91,9 @@ class ReceiveIssuesHook extends AbstractHookController
 		$data['description']     = $parsedText;
 		$data['description_raw'] = $this->hookData->issue->body;
 		$data['status']          = (is_null($status)) ? 1 : $status;
-		$data['opened_date']     = $opened->format($dateFormat);
+		$data['opened_date']     = (new Date($this->hookData->issue->created_at))->format($dateFormat);
 		$data['opened_by']       = $this->hookData->issue->user->login;
-		$data['modified_date']   = $modified->format($dateFormat);
+		$data['modified_date']   = (new Date($this->hookData->issue->updated_at))->format($dateFormat);
 		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
@@ -103,8 +101,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$closed = new Date($this->hookData->issue->closed_at);
-			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
 			$data['closed_by']   = $this->hookData->sender->login;
 		}
 
@@ -259,8 +256,7 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$closed = new Date($this->hookData->issue->closed_at);
-			$data['closed_date'] = $closed->format($dateFormat);
+			$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
 		}
 
 		// Process labels for the item
@@ -408,7 +404,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Error editing GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number,
+				$this->hookData->issue->number,
 				$table->id
 			);
 
@@ -438,7 +434,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Edited GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->data->number,
+				$this->hookData->issue->number,
 				$table->id
 			)
 		);

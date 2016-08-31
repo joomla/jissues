@@ -43,6 +43,12 @@ abstract class LanguageHelper
 	 * @var array
 	 */
 	private static $languages = [
+		'ar-AA' => [
+			'iso' => 'ar',
+			'name' => 'Arabic',
+			'display' => 'العربية',
+			'direction' => 'rtl',
+		],
 		'ca-ES' => [
 			'iso' => 'cat',
 			'name' => 'Catalan',
@@ -252,5 +258,22 @@ abstract class LanguageHelper
 		);
 
 		return $languages;
+	}
+
+	/**
+	 * Get the defined direction for a language.
+	 *
+	 * @param   string  $languageCode  The language code e.g. en-GB
+	 *
+	 * @return string 'ltr' or 'rtl'. Defaults to 'ltr'
+	 */
+	public static function getDirection($languageCode)
+	{
+		if (array_key_exists($languageCode, static::$languages))
+		{
+			return isset(static::$languages[$languageCode]['direction']) ? static::$languages[$languageCode]['direction'] : 'ltr';
+		}
+
+		return 'ltr';
 	}
 }

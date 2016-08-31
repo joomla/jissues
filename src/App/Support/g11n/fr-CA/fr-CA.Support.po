@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:50-0400\n"
+"POT-Creation-Date: 2016-07-09 16:50-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: French, Canada\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Permalien"
 msgid "Icons"
 msgstr "Icônes"
 
-#: /templates/support/icons.index.twig:21
+#: /templates/support/icons.index.twig:22
 msgid "OctIcons"
 msgstr "OctIcons"
 
@@ -90,7 +90,7 @@ msgstr "Règles horizontales"
 
 #: /templates/support/markdown.index.twig:30
 msgid "Tables"
-msgstr "Tables"
+msgstr "Tableaux"
 
 #: /templates/support/markdown.index.twig:31
 msgid "Images"

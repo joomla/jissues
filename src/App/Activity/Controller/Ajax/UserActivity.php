@@ -80,11 +80,7 @@ class UserActivity extends AbstractAjaxController
 		$periodType   = $state->get('list.period');
 		$activityType = $state->get('list.activity_type');
 
-		$periodTitle = [1 => g11n3t('7 Days'), 2 => g11n3t('30 Days'), 3 => g11n3t('90 Days'), 4 => g11n3t('12 Months'), 5 => g11n3t('Custom')];
-		$periodText  = $periodTitle[$periodType];
-
-		$activityTypes = [g11n3t('All'), g11n3t('Tracker'), g11n3t('Test'), g11n3t('Code')];
-		$activityText  = $activityTypes[$activityType];
+		$periodTitle = [1 => g11n3t('7 Days'), 2 => g11n3t('30 Days'), 3 => g11n3t('90 Days'), 4 => g11n3t('12 Months')];
 
 		if ($periodType == 5)
 		{
@@ -97,14 +93,36 @@ class UserActivity extends AbstractAjaxController
 			$start = $fmt->format(strtotime($state->get('list.startdate')));
 			$end   = $fmt->format(strtotime($state->get('list.enddate')));
 
-			// Segment 1 is the activity type, segment 2 is the from date, segment 3 is the to date, the dates are translated by PHP
-			$title = sprintf(g11n3t('%1$s Points From %2$s Through %3$s'), $activityText, $start, $end);
+			// For the best translations, some languages need the ability to move the activity type segment, so translate each string individually
+			$titles = [
+				// TRANSLATORS - Segment 1 is the from date, segment 2 is the to date, the dates are translated by PHP
+				sprintf(g11n3t('All Points From %1$s Through %2$s'), $start, $end),
+				// TRANSLATORS - Segment 1 is the from date, segment 2 is the to date, the dates are translated by PHP
+				sprintf(g11n3t('Tracker Points From %1$s Through %2$s'), $start, $end),
+				// TRANSLATORS - Segment 1 is the from date, segment 2 is the to date, the dates are translated by PHP
+				sprintf(g11n3t('Test Points From %1$s Through %2$s'), $start, $end),
+				// TRANSLATORS - Segment 1 is the from date, segment 2 is the to date, the dates are translated by PHP
+				sprintf(g11n3t('Code Points From %1$s Through %2$s'), $start, $end),
+			];
 		}
 		else
 		{
-			// Segment 1 is the activity type, segment 2 is the period length
-			$title = sprintf(g11n3t('%1$s Points for Past %2$s'), $activityText, $periodText);
+			$periodText = $periodTitle[$periodType];
+
+			// For the best translations, some languages need the ability to move the activity type segment, so translate each string individually
+			$titles = [
+				// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "7 Days" or "12 Months")
+				sprintf(g11n3t('All Points for Past %s'), $periodText),
+				// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "7 Days" or "12 Months")
+				sprintf(g11n3t('Tracker Points for Past %s'), $periodText),
+				// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "7 Days" or "12 Months")
+				sprintf(g11n3t('Test Points for Past %s'), $periodText),
+				// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "7 Days" or "12 Months")
+				sprintf(g11n3t('Code Points for Past %s'), $periodText),
+			];
 		}
+
+		$title = $titles[$activityType];
 
 		$ticks         = [];
 		$trackerPoints = [];
@@ -130,24 +148,24 @@ class UserActivity extends AbstractAjaxController
 		$label2->label = g11n3t('Test Points');
 		$label3->label = g11n3t('Code Points');
 
-		switch ($activityText)
+		switch ($activityType)
 		{
-			case 'Tracker':
+			case 1:
 				$data   = [$trackerPoints];
 				$labels = [$label1];
 				break;
 
-			case 'Test':
+			case 2:
 				$data   = [$testPoints];
 				$labels = [$label2];
 				break;
 
-			case 'Code':
+			case 3:
 				$data   = [$codePoints];
 				$labels = [$label3];
 				break;
 
-			case 'All':
+			case 0:
 			default:
 				$data   = [$trackerPoints, $testPoints, $codePoints];
 				$labels = [$label1, $label2, $label3];

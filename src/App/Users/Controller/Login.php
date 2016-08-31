@@ -115,15 +115,9 @@ class Login extends AbstractTrackerController
 			throw new \DomainException('No transports available (please install php-curl)');
 		}
 
-		$http = new Http($options, $transport);
-
-		// Instantiate Github
-		$gitHub = new Github($options, $http);
-
-		$gitHubUser = $gitHub->users->getAuthenticatedUser();
+		$gitHubUser = (new Github($options, new Http($options, $transport)))->users->getAuthenticatedUser();
 
 		$user = new GitHubUser($app->getProject(), $this->getContainer()->get('db'));
-
 		$user->loadGitHubData($gitHubUser)
 			->loadByUserName($user->username);
 

@@ -65,9 +65,7 @@ class GroupsTable extends AbstractDatabaseTable
 
 		$src = new Registry($source);
 
-		$filter = new InputFilter;
-
-		$this->title = $filter->clean($src->get('title'));
+		$this->title = (new InputFilter)->clean($src->get('title'));
 
 		$this->group_id   = (int) $src->get('group_id');
 		$this->project_id = (int) $src->get('project_id');

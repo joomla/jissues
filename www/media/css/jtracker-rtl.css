@@ -1,0 +1,36 @@
+.ui.dropdown .menu {
+  text-align: right;
+}
+
+.ui.dropdown .menu > .item {
+  padding: 5px 5px 5px 40px !important;
+}
+
+.ui.dropdown .menu>.item>.flag, .ui.dropdown .menu>.item>.icon, .ui.dropdown .menu>.item>.image, .ui.dropdown .menu>.item>.label, .ui.dropdown .menu>.item>img, .ui.dropdown>.text>.flag, .ui.dropdown>.text>.icon, .ui.dropdown>.text>.image, .ui.dropdown>.text>.label, .ui.dropdown>.text>img {
+  margin-left: .75em;
+  margin-right: 0;
+}
+
+.ui.dropdown .menu .item .dropdown.icon:before {
+  content: '\f0d9';
+}
+.ui.dropdown .item .left.dropdown.icon:before,
+.ui.dropdown .left.menu .item .dropdown.icon:before {
+  content: "\f0da";
+}
+
+.ui.vertical.menu .dropdown.item > .dropdown.icon:before {
+  content: "\f0d9";
+}
+
+.subnav li.pull-right {
+  float: left;
+}
+
+ul.trackerPagination li {
+  float: right !important;
+}
+
+.example-markdown, .example-rendered {
+  direction: ltr;
+}

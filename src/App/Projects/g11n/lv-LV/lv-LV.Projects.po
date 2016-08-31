@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
 msgid "Project"
-msgstr ""
+msgstr "Projekts"
 
 #: /templates/projects/project.index.twig:14
 #: /templates/projects/projects.index.twig:63
@@ -30,36 +30,36 @@ msgstr "Labot"
 #: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: /templates/projects/project.index.twig:26
 #, php-format
 msgid "Project %s Tracker"
-msgstr ""
+msgstr "Projekta %s trekeris"
 
 #: /templates/projects/project.index.twig:35
 #, php-format
 msgid "Project %s on GitHub"
-msgstr ""
+msgstr "GitHub projekts %s"
 
 #: /templates/projects/project.index.twig:39
 msgid "Statistics"
-msgstr ""
+msgstr "Statistika"
 
 #: /templates/projects/project.index.twig:45
 #: /templates/projects/projects.index.twig:45
 msgid "Hooks"
-msgstr ""
+msgstr "Āķi"
 
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62
 msgid "Groups"
-msgstr ""
+msgstr "Grupas"
 
 #: /templates/projects/project.index.twig:54
 #: /templates/projects/projects.index.twig:46
 msgid "Labels"
-msgstr ""
+msgstr "Etiķetes"
 
 #: /templates/projects/project.index.twig:57
 msgid "Categories"
@@ -67,122 +67,122 @@ msgstr "Kategorijas"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
-msgstr ""
+msgstr "Pievienot projektu"
 
 #: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: /templates/projects/project.add.twig:20
 #: /templates/projects/project.edit.twig:30
 msgid "New project"
-msgstr ""
+msgstr "Jauns projekts"
 
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
 msgid "Details"
-msgstr ""
+msgstr "Detaļas"
 
 #: /templates/projects/project.add.twig:28
 #: /templates/projects/project.edit.twig:37
 msgid "Title"
-msgstr ""
+msgstr "Virsraksts"
 
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
 msgid "Short Title"
-msgstr ""
+msgstr "Īsais virsraksts"
 
 #: /templates/projects/project.add.twig:38
 #: /templates/projects/project.edit.twig:51
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /templates/projects/project.add.twig:43
 #: /templates/projects/project.edit.twig:58
 msgid "GitHub Owner"
-msgstr ""
+msgstr "GitHub īpašnieks"
 
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
 msgid "GitHub Repo"
-msgstr ""
+msgstr "GitHub Repo"
 
 #: /templates/projects/project.add.twig:53
 #: /templates/projects/project.edit.twig:86
 msgid "External Tracker Link"
-msgstr ""
+msgstr "Ārējā trekera saite"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
-msgstr ""
+msgstr "Projekti"
 
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
-msgstr ""
+msgstr "Jauns projekts"
 
 #: /templates/projects/projects.index.twig:23
 msgid "Projects List"
-msgstr ""
+msgstr "Projektu saraksts"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
-msgstr ""
+msgstr "Trekeris"
 
 #: /templates/projects/projects.index.twig:29
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: /templates/projects/projects.index.twig:30
 msgid "Actions"
-msgstr ""
+msgstr "Darbības"
 
 #: /templates/projects/projects.index.twig:33
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
-msgstr ""
+msgstr "Statistika"
 
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
-msgstr ""
+msgstr "Rādīt"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr ""
+msgstr "Projekta aktivitāte"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr ""
+msgstr "Momentuzņēmums"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
-msgstr ""
+msgstr "Lietotāja aktivitāte"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
-msgstr ""
+msgstr "Labot projektu"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
-msgstr ""
+msgstr "Labot projektu"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
-msgstr ""
+msgstr "GitHub Editbot lietotājs"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr ""
+msgstr "GitHub Editbot parole"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
-msgstr ""
+msgstr "Nepieciešams nosaukums"
 
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
-msgstr ""
+msgstr "Nepieciešams īsais nosaukums"
 

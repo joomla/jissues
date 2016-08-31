@@ -58,11 +58,9 @@ class UserModel extends AbstractTrackerDatabaseModel
 	 */
 	public function save(array $src)
 	{
-		$filter = new InputFilter;
-
-		$data = [];
-
-		$data['id'] = $filter->clean($src['id'], 'int');
+		$data = [
+			'id' => (new InputFilter)->clean($src['id'], 'int'),
+		];
 
 		if (!$data['id'])
 		{

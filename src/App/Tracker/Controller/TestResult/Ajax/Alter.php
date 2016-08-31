@@ -62,8 +62,7 @@ class Alter extends AbstractAjaxController
 
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
-		$data->testResults = $issueModel
-			->saveTest($issueId, $result->user, $result->value, $sha);
+		$data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
 
 		$issueNumber = $issueModel->getIssueNumberById($issueId);
 

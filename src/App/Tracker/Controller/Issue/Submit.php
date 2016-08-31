@@ -148,6 +148,10 @@ class Submit extends AbstractTrackerController
 		$data['issue_number']    = $data['number'];
 		$data['description_raw'] = $body;
 
+		// On submit the state is allways open; see #862
+		$data['new_state'] = 'open';
+		$data['old_state'] = 'open';
+
 		// Store the issue
 		try
 		{
@@ -155,10 +159,12 @@ class Submit extends AbstractTrackerController
 			$issue_id = $issueModel->add($data)->getState()->get('issue_id');
 
 			// Save the category for the issue
-			$category['issue_id']   = $issue_id;
-			$category['categories'] = $application->input->get('categories', null, 'array');
-			$categoryModel = new CategoryModel($this->getContainer()->get('db'));
-			$categoryModel->saveCategory($category);
+			$category = [
+				'issue_id'   => $issue_id,
+				'categories' => $application->input->get('categories', null, 'array'),
+			];
+
+			(new CategoryModel($this->getContainer()->get('db')))->saveCategory($category);
 		}
 		catch (\RuntimeException $e)
 		{

@@ -54,9 +54,7 @@ class Vote extends AbstractAjaxController
 			throw new \Exception('Issue importance not received');
 		}
 
-		$model = new IssueModel($this->getContainer()->get('db'));
-
-		$data = $model->vote($issue, $experienced, $importance, $userID);
+		$data = (new IssueModel($this->getContainer()->get('db')))->vote($issue, $experienced, $importance, $userID);
 
 		// Add the new score
 		$data->importanceScore = $data->score / $data->votes;

@@ -74,9 +74,8 @@ class Delete extends AbstractTrackerController
 	 */
 	public function execute()
 	{
-		$table = new GroupsTable($this->getContainer()->get('db'));
-
-		$table->load($this->getContainer()->get('app')->input->getInt('group_id'))
+		(new GroupsTable($this->getContainer()->get('db')))
+			->load($this->getContainer()->get('app')->input->getInt('group_id'))
 			->delete();
 
 		$this->getContainer()->get('app')->enqueueMessage(g11n3t('The group has been deleted.'), 'success');

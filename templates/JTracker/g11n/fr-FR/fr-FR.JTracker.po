@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:33-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgstr "Accueil"
 
 #: /templates/footerMenu.twig:19
 #: /templates/topMenu.twig:30
+#: /templates/trackerMenu.twig:193
 msgid "About"
 msgstr "À propos"
 
@@ -79,9 +80,8 @@ msgid "All rights reserved."
 msgstr "Tous droits réservés."
 
 #: /templates/footerMenu.twig:44
-#, php-format
-msgid "Joomla! Hosting by %1$s"
-msgstr "Joomla! est hébergé par %1$s"
+msgid "Joomla! Hosting by %provider%"
+msgstr "Joomla! est hébergé par %provider%"
 
 #: /templates/index.twig:80
 msgid "Download"
@@ -387,7 +387,7 @@ msgstr "Aperçu"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
-msgstr "Tracker d'anomalies"
+msgstr "Traqueur d'anomalies"
 
 #: /templates/trackerMenu.twig:14
 msgid "Project"
@@ -496,10 +496,6 @@ msgstr "Texte"
 #: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
 msgstr "Vider le cache"
-
-#: /templates/trackerMenu.twig:193
-msgid "About Us"
-msgstr "À propos de nous"
 
 #: /templates/trackerMenu.twig:198
 msgid "Markdown"

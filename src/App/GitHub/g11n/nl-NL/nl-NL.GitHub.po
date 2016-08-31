@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -49,11 +49,11 @@ msgstr "Gebeurtenissen"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr "NOTITIE: komma gescheiden, geen spaties"
+msgstr "Opmerking: komma gescheiden, geen spaties"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr "Hook Toevoegen"
+msgstr "Hook toevoegen"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
@@ -78,11 +78,11 @@ msgstr "Inactief"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr "Deactiveren"
+msgstr "Uitschakelen"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr "Activeeren"
+msgstr "Activeren"
 
 #: /templates/github/hooks.index.twig:120
 #: /templates/github/labels.index.twig:59
@@ -111,7 +111,7 @@ msgstr "Naam"
 
 #: /templates/github/labels.index.twig:23
 msgid "Label name"
-msgstr "Label naam"
+msgstr "Labelnaam"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
@@ -120,7 +120,7 @@ msgstr "Kleur"
 
 #: /templates/github/labels.index.twig:28
 msgid "Label colour"
-msgstr "Label kleur"
+msgstr "Labelkleur"
 
 #: /templates/github/labels.index.twig:31
 msgid "Add Label"
@@ -162,7 +162,7 @@ msgstr "Datum"
 #: /templates/github/milestones.index.twig:43
 #: /templates/github/milestones.index.twig:77
 msgid "State"
-msgstr "Staat"
+msgstr "Status"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"

@@ -8,8 +8,6 @@
 
 namespace App\GitHub\Controller;
 
-use App\GitHub\View\Labels\LabelsHtmlView;
-
 use JTracker\Controller\AbstractTrackerController;
 
 /**
@@ -19,14 +17,6 @@ use JTracker\Controller\AbstractTrackerController;
  */
 class Labels extends AbstractTrackerController
 {
-	/**
-	 * View object
-	 *
-	 * @var    LabelsHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
-
 	/**
 	 * Initialize the controller.
 	 *
@@ -41,7 +31,7 @@ class Labels extends AbstractTrackerController
 
 		$this->getContainer()->get('app')->getUser()->authorize('manage');
 
-		$this->view->setProject($this->getContainer()->get('app')->getProject());
+		$this->view->addData('project', $this->getContainer()->get('app')->getProject());
 
 		return $this;
 	}

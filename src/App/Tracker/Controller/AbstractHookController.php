@@ -408,16 +408,15 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			// If null, add the label
 			if ($id === null)
 			{
-				$table = new LabelsTable($this->db);
-
-				$data = [];
-				$data['project_id'] = $this->project->project_id;
-				$data['name']       = $label->name;
-				$data['color']      = $label->color;
+				$data = [
+					'project_id' => $this->project->project_id,
+					'name'       => $label->name,
+					'color'      => $label->color,
+				];
 
 				try
 				{
-					$table->save($data);
+					$table = (new LabelsTable($this->db))->save($data);
 
 					$id = $table->label_id;
 				}

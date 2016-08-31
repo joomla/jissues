@@ -317,11 +317,9 @@ class TrackerProject implements \Serializable
 		{
 			$db = $this->database;
 
-			$table = new LabelsTable($db);
-
 			$labelList = $db ->setQuery(
 				$db->getQuery(true)
-					->from($db->quoteName($table->getTableName()))
+					->from($db->quoteName((new LabelsTable($db))->getTableName()))
 					->select(['label_id', 'name', 'color'])
 					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
 			)->loadObjectList();
@@ -355,11 +353,9 @@ class TrackerProject implements \Serializable
 		{
 			$db = $this->database;
 
-			$table = new MilestonesTable($db);
-
 			$milestones = $db ->setQuery(
 				$db->getQuery(true)
-					->from($db->quoteName($table->getTableName()))
+					->from($db->quoteName((new MilestonesTable($db))->getTableName()))
 					->select(['milestone_id', 'milestone_number', 'title', 'description', 'state', 'due_on'])
 					->where($db->quoteName('project_id') . ' = ' . $this->project_id)
 					->order($db->quoteName('title'))

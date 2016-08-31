@@ -18,14 +18,6 @@ use JTracker\Controller\AbstractTrackerController;
 class Routes extends AbstractTrackerController
 {
 	/**
-	 * View object
-	 *
-	 * @var    \App\System\View\Routes\RoutesHtmlView
-	 * @since  1.0
-	 */
-	protected $view;
-
-	/**
 	 * Execute the controller.
 	 *
 	 * @return  string
@@ -62,7 +54,7 @@ class Routes extends AbstractTrackerController
 			}
 		}
 
-		$this->view->setRoutes($routes);
+		$this->view->addData('routes', $routes);
 
 		return parent::execute();
 	}

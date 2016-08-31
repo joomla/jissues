@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-12 14:02-0500\n"
-"PO-Revision-Date: 2016-07-09 11:31-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
@@ -72,11 +72,11 @@ msgstr "Izbriši"
 msgid "No articles found"
 msgstr "Ni prispevkov na voljo"
 
-#: /src/App/Text/Controller/Article/Delete.php:47
+#: /src/App/Text/Controller/Article/Delete.php:48
 msgid "The article has been deleted."
 msgstr "Prispevek je bil izbrisan."
 
-#: /src/App/Text/Controller/Article/Save.php:50
+#: /src/App/Text/Controller/Article/Save.php:52
 msgid "The article has been saved."
 msgstr "Prispevek je bil shranjen."
 

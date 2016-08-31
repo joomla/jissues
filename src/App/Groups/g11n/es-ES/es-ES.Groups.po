@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "Acciones"
 
 #: /templates/groups/groups.index.twig:35
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/groups/groups.index.twig:64
 msgid "System"
@@ -76,7 +76,7 @@ msgstr "Borrar"
 
 #: /templates/groups/groups.index.twig:79
 msgid "No groups defined!"
-msgstr ""
+msgstr "¡No hay grupos definidos!"
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
@@ -123,15 +123,15 @@ msgstr "Eliminar usuario"
 
 #: /templates/groups/group.edit.twig:251
 msgid "List assigned users"
-msgstr ""
+msgstr "Lista de usuarios asignados"
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
-msgstr "Guarde el grupo como usuarios asignados."
+msgstr "Guardar el grupo para asignar usuarios."
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."
-msgstr "Este grupo ha sido borrado"
+msgstr "Este grupo ha sido borrado."
 
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"

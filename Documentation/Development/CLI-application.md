@@ -40,20 +40,19 @@ To bypass inputs and write the output to a log file during cron execution, a sim
 
 ### Colors
 
-Recently a new feature has been added to the framework that allows CLI applications to display colorful output on ANSI enabled terminals. So I thought we might see how it looks and feels ;)
+The Joomla! Framework's command line application class supports the display of colorful output on ANSI enabled terminals and the issue tracker makes use of this.
 
 ANSI color codes are supported in most (if not all) *nix style terminals.
-To test this feature I grabbed a VM with Windows XP, installed git for Windows and GitHub (both include terminals) but neither them nor the standard Windows thingy supported ANSI colors.
-Then I installed [Cygwin](http://www.cygwin.com/) (which is a good choice anyway), and got the following output:
+Windows support was tested from a virtual machine running Windows XP with Git for Windows and GitHub for Windows (both include terminals) but neither those nor the standard Windows command prompt supported ANSI colors.
+Then [Cygwin](http://www.cygwin.com/) was installed and produced the following output:
 
 ![win-colors1](https://f.cloud.github.com/assets/33978/491726/2c5ff9b4-ba54-11e2-80eb-76a29914d58a.png)
 
 ### Progress Bar
 
-Since we have some long running operations (currently ~10 min pulling the CMS issues on my slow i-net), I thought we might use some "high class" progress bar.
+Since there are some long running operations (over 10 minutes pulling the CMS' issues), there is support for a "high class" progress bar.
 
-The progress bar is not part of the repo and has to be installed using composer from [elkuku/console-progressbar](https://packagist.org/packages/elkuku/console-progressbar) (which is a fork of [PEAR/Console_ProgressBar](http://pear.php.net/package/Console_ProgressBar) with a facelifting ;)
-I haven't tried that on Windows, but it might work on cygwin...
+The progress bar comes from the [elkuku/console-progressbar](https://packagist.org/packages/elkuku/console-progressbar) package (which is a fork of [PEAR/Console_ProgressBar](http://pear.php.net/package/Console_ProgressBar))
 
 ![progressbar3](https://f.cloud.github.com/assets/33978/491733/a36ce152-ba54-11e2-8c06-179b6a379876.png)
 
@@ -65,7 +64,7 @@ If your terminal does not support ANSI control codes you may see something like 
 
 ### Turn it off !
 
-To suppress color ouput for a single command use the `--nocolors` switch.
+To suppress color output for a single command use the `--nocolors` switch.
 To suppress the progress bar for a single command use the `--noprogress` switch.
 Example:
 `jtracker get project --nocolors --noprogress`
@@ -76,15 +75,15 @@ To turn the feature(s) off permanently edit `etc/config.json` and set the values
 
 Auto complete files are provided for some environments.
 
-Optionally you can generate the files four your language using
+Optionally you can generate the files for your language using
 
 `jtracker make autocomplete --lang=xx-XX`
 
 using one of the supported languages.
 
-#### PHPStorm
+#### PhpStorm
 
-If you use PHPStorm, you may use the [Command Line Tools Console](http://www.jetbrains.com/phpstorm/webhelp/command-line-tools-console-tool-window.html) to execute the jtracker script.
+If you use PhpStorm, you may use the [Command Line Tools Console](http://www.jetbrains.com/phpstorm/webhelp/command-line-tools-console-tool-window.html) to execute the jtracker script.
 
 To get auto complete for the `jtracker` commands, copy the file `Custom_jtracker.xml` to the folder `.idea/commandlinetools` inside your JTracker project (create the folder if it does not exist). This will set up an alias `jt` that points to the `/bin/jtracker` script.
 

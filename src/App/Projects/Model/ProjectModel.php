@@ -102,9 +102,8 @@ class ProjectModel extends AbstractTrackerDatabaseModel
 		// @todo: cleanup more.
 
 		// Delete the project
-		$table = new ProjectsTable($this->db);
-
-		$table->delete($project->project_id);
+		(new ProjectsTable($this->db))
+			->delete($project->project_id);
 
 		return $this;
 	}

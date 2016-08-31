@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-20 08:40-0500\n"
+"PO-Revision-Date: 2016-08-03 08:40-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: github-app_en.po\n"
+"Language: ar_SA\n"
+
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - الإحصاءات"
+
+#: /templates/github/hooks.index.twig:6
+#: /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - صيد"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "قائمة الصيد"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "صيد جديد"
+
+#: /templates/github/hooks.index.twig:22
+#: /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "عنوان الموارد الموحد (URL)"
+
+#: /templates/github/hooks.index.twig:26
+#: /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "الأحداث"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "ملاحظة: مفصولة بفاصلة، لا بفراغ"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "اضافة صيد"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "نوع"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "حالة"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "إجراءات"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "نشط"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "غير نشط"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "إلغاء تنشيط"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "تنشيط"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "حذف"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - تسميات"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "قائمة تسميات"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "تسمية جديدة"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:45
+msgid "Name"
+msgstr "اسم"
+
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "اسم التسمية"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:46
+msgid "Colour"
+msgstr "لون"
+
+#: /templates/github/labels.index.twig:28
+msgid "Label colour"
+msgstr "لون التسمية"
+
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "إضافة تسمية"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr "%s - نقاط بارزة"
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr "نقاط بارزة جديدة"
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr "رقم"
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "عنوان"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr "عنوان النقطة البارزة"
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr "الواجب في"
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "تاريخ"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr "حالة"
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr "مفتوح"
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr "مغلقة"
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "وصف"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "حفظ"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "تحرير"
+
+#: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
+msgid "Nothing to preview..."
+msgstr "لا شيء لمعاينة..."
+

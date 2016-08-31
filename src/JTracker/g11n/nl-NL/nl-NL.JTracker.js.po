@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-09 11:22-0400\n"
+"PO-Revision-Date: 2016-07-31 12:33-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Stem toevoegen..."
 #: /www/media/js/jtracker.js:131
 #: /www/media/js/jtracker.js:224
 msgid "Submitting test result..."
-msgstr "Versturen test resultaten..."
+msgstr "Versturen testresultaat..."
 
 #: /www/media/js/jtracker.js:219
 msgid "Please select a user"
@@ -44,5 +44,5 @@ msgstr "Selecteer gebruiker"
 
 #: /www/media/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
-msgstr "Kies eerst een invoerscherm om de bestanden aan te koppelen."
+msgstr "Kies eerst een tekstverwerker om de bestanden aan te koppelen."
 

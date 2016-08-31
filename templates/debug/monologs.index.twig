@@ -1,0 +1,46 @@
+{# Copyright (C) 2016 Open Source Matters, Inc. All rights reserved. #}
+{# GNU General Public License version 2 or later; see LICENSE.txt #}
+
+{% extends "index.twig" %}
+
+{% block content %}
+    {% import "debug/logfields.twig" as fields %}
+
+    <h2>{{ log_type|title }} Log</h2>
+
+    {% if 'file-not-found' == log %}
+        <h2>Log file not found</h2>
+    {% elseif not log|length %}
+        <h2>The log file is empty</h2>
+    {% else %}
+        <label>Show lines</label>
+        <select onchange="window.location = '?c=' + $(this).val()">
+            {% for c in [5, 10 , 30, 50, 100] %}
+            <option {% if c == count %}selected="selected"{% endif %}>{{ c }}</option>
+            {% endfor %}
+        </select>
+        <ul class="unstyled">
+        {% for entry in log|slice(-count-1)|reverse %}
+            <li>
+                <div class="logHeader" onclick="$('.logMessage').hide(); $(this).next().show()">
+                    {{ fields.level(entry['level']) }}
+                    {{ entry['date'].format('Y-m-d h:i:s') }}
+                    {{ fields.messageHeader(entry['message']) }}
+                </div>
+
+                <div class="logMessage">
+                    <p class="alert">{{ entry['message'] }}</p>
+                    {% if entry['extra'] %}
+                        {{ fields.displayFields('Extra', entry['extra']) }}
+                    {% endif %}
+                    {% if entry['context'] %}
+                        {{ fields.displayFields('Context', entry['context']) }}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:33-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -18,514 +18,510 @@ msgstr ""
 
 #: /templates/footerMenu.twig:18
 msgid "Home"
-msgstr ""
+msgstr "Beranda"
 
 #: /templates/footerMenu.twig:19
 #: /templates/topMenu.twig:30
+#: /templates/trackerMenu.twig:193
 msgid "About"
-msgstr ""
+msgstr "Tentang"
 
 #: /templates/footerMenu.twig:20
 #: /templates/topMenu.twig:40
 msgid "Community"
-msgstr ""
+msgstr "Komunitas"
 
 #: /templates/footerMenu.twig:21
 msgid "Forum"
-msgstr ""
+msgstr "Forum"
 
 #: /templates/footerMenu.twig:22
 msgid "Extensions"
-msgstr ""
+msgstr "Ekstensi"
 
 #: /templates/footerMenu.twig:23
 msgid "Resources"
-msgstr ""
+msgstr "Sumber"
 
 #: /templates/footerMenu.twig:24
 msgid "Docs"
-msgstr ""
+msgstr "Dok"
 
 #: /templates/footerMenu.twig:25
 msgid "Developer"
-msgstr ""
+msgstr "Pengembang"
 
 #: /templates/footerMenu.twig:26
 msgid "Shop"
-msgstr ""
+msgstr "Toko"
 
 #: /templates/footerMenu.twig:30
 msgid "Accessibility Statement"
-msgstr ""
+msgstr "Pernyataan Aksesibilitas"
 
 #: /templates/footerMenu.twig:31
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Ketentuan Kebijakan"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr ""
+msgstr "Laporkan sebuah isu"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr ""
+msgstr "Keluar"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
-msgstr ""
+msgstr "Masuk"
 
 #: /templates/footerMenu.twig:40
 msgid "All rights reserved."
-msgstr ""
+msgstr "Semua hak cipta dilindungi."
 
 #: /templates/footerMenu.twig:44
-#, php-format
-msgid "Joomla! Hosting by %1$s"
-msgstr ""
+msgid "Joomla! Hosting by %provider%"
+msgstr "Joomla! Dihosting oleh %provider%"
 
 #: /templates/index.twig:80
 msgid "Download"
-msgstr ""
+msgstr "Unduh"
 
 #: /templates/index.twig:83
 msgid "Demo"
-msgstr ""
+msgstr "Demo"
 
 #: /templates/fields.twig:44
 msgid "Select Categories..."
-msgstr ""
+msgstr "Pilih Kategori..."
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr ""
+msgstr "Pilih Jejak..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
-msgstr ""
+msgstr "Tidak Ada Jejak"
 
 #: /templates/fields.twig:73
 msgid "Select labels..."
-msgstr ""
+msgstr "Pilih label..."
 
 #: /templates/testcontainer.twig:6
 #: /templates/testcontainer.twig:47
 msgid "Submit test result"
-msgstr ""
+msgstr "Kirim hasil pengujian"
 
 #: /templates/testcontainer.twig:8
 msgid "I have tested this item"
-msgstr ""
+msgstr "Saya sudah menguji butir ini"
 
 #: /templates/testcontainer.twig:19
 msgid "Not tested"
-msgstr ""
+msgstr "Tidak diuji"
 
 #: /templates/testcontainer.twig:25
 msgid "Tested successfully"
-msgstr ""
+msgstr "Berhasil diuji"
 
 #: /templates/testcontainer.twig:31
 msgid "Tested unsuccessfully"
-msgstr ""
+msgstr "Tidak berhasil diuji"
 
 #: /templates/testcontainer.twig:40
 msgid "Leave a comment (optional)"
-msgstr ""
+msgstr "Tinggalkan komentar (opsional)"
 
 #: /templates/testcontainer.twig:53
 #: /templates/testcontainer.twig:68
 msgid "Alter test result"
-msgstr ""
+msgstr "Ubah hasil pengujian"
 
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "Atur hasil pengujian untuk pengguna %s ke %s"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr ""
+msgstr "nama pengguna"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
-msgstr ""
+msgstr "Tambah berkas..."
 
 #: /templates/uploader.full.twig:18
 msgid "Start upload"
-msgstr ""
+msgstr "Mulai unggah"
 
 #: /templates/uploader.full.twig:21
 msgid "Cancel upload"
-msgstr ""
+msgstr "Batal unggah"
 
 #: /templates/uploader.full.twig:24
 #: /templates/uploader.full.twig:101
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: /templates/uploader.full.twig:33
 msgid "Upload Notes"
-msgstr ""
+msgstr "Unggah Catatan"
 
 #: /templates/uploader.full.twig:35
 #, php-format
 msgid "The maximum file size for uploads is %s."
-msgstr ""
+msgstr "Ukuran maksimal berkas untuk pengunggahan adalah %s."
 
 #: /templates/uploader.full.twig:36
 #, php-format
 msgid "The following file types are allowed: %s"
-msgstr ""
+msgstr "Jenis berkas berikut ini diizinkan: %s"
 
 #: /templates/uploader.full.twig:37
 msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
-msgstr ""
+msgstr "Anda dapat <strong>seret & jatuhkan</strong> berkas-berkas dari komputer Anda ke halaman web ini."
 
 #: /templates/uploader.full.twig:52
 msgid "Processing..."
-msgstr ""
+msgstr "Memproses..."
 
 #: /templates/uploader.full.twig:58
 msgid "Start"
-msgstr ""
+msgstr "Mulai"
 
 #: /templates/uploader.full.twig:63
 #: /templates/uploader.full.twig:106
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #: /templates/uploader.full.twig:76
 #: /templates/trackerMenu.twig:151
 msgid "Error"
-msgstr ""
+msgstr "Galat"
 
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
-msgstr ""
+msgstr "Pilih Bahasa"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
-msgstr ""
+msgstr "Beranda Joomla!"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
-msgstr ""
+msgstr "Berita Terkini"
 
 #: /templates/topMenu.twig:19
 msgid "Announcements"
-msgstr ""
+msgstr "Pengumuman"
 
 #: /templates/topMenu.twig:20
 msgid "Blogs"
-msgstr ""
+msgstr "Blog"
 
 #: /templates/topMenu.twig:21
 msgid "Magazine"
-msgstr ""
+msgstr "Majalah"
 
 #: /templates/topMenu.twig:23
 msgid "Support Joomla!"
-msgstr ""
+msgstr "Dukung Joomla!"
 
 #: /templates/topMenu.twig:24
 msgid "Contribute"
-msgstr ""
+msgstr "Kontribusi"
 
 #: /templates/topMenu.twig:25
 msgid "Shop Joomla Gear"
-msgstr ""
+msgstr "Belanja Atribut Joomla"
 
 #: /templates/topMenu.twig:26
 msgid "Sponsorship"
-msgstr ""
+msgstr "Sponsor"
 
 #: /templates/topMenu.twig:32
 msgid "About Joomla!"
-msgstr ""
+msgstr "Tentang Joomla!"
 
 #: /templates/topMenu.twig:33
 msgid "Core Features"
-msgstr ""
+msgstr "Fitur Inti"
 
 #: /templates/topMenu.twig:34
 msgid "The Project"
-msgstr ""
+msgstr "Proyek"
 
 #: /templates/topMenu.twig:35
 msgid "Leadership"
-msgstr ""
+msgstr "Kepemimpinan"
 
 #: /templates/topMenu.twig:42
 msgid "Joomla! Community Portal"
-msgstr ""
+msgstr "Portal Komunitas Joomla!"
 
 #: /templates/topMenu.twig:43
 msgid "Joomla! Events"
-msgstr ""
+msgstr "Acara Joomla!"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Trademark & Licensing"
-msgstr ""
+msgstr "Merek Dagang & Lisensi Joomla!"
 
 #: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
-msgstr ""
+msgstr "Kelompok Pengguna Joomla!"
 
 #: /templates/topMenu.twig:46
 msgid "Joomla! Volunteers Portal"
-msgstr ""
+msgstr "Portal Relawan Joomla!"
 
 #: /templates/topMenu.twig:50
 msgid "Support"
-msgstr ""
+msgstr "Dukung"
 
 #: /templates/topMenu.twig:52
 msgid "Joomla! Forum"
-msgstr ""
+msgstr "Forum Joomla!"
 
 #: /templates/topMenu.twig:53
 msgid "Joomla! Documentation"
-msgstr ""
+msgstr "Dokumentasi Joomla!"
 
 #: /templates/topMenu.twig:54
 msgid "Joomla! Issue Tracker"
-msgstr ""
+msgstr "Penelusur Isu Joomla!"
 
 #: /templates/topMenu.twig:55
 msgid "Joomla! Resources"
-msgstr ""
+msgstr "Sumber Joomla!"
 
 #: /templates/topMenu.twig:59
 msgid "Read"
-msgstr ""
+msgstr "Baca"
 
 #: /templates/topMenu.twig:61
 msgid "Joomla! Magazine"
-msgstr ""
+msgstr "Majalah Joomla!"
 
 #: /templates/topMenu.twig:62
 msgid "Joomla! Connect"
-msgstr ""
+msgstr "Koneksi Joomla!"
 
 #: /templates/topMenu.twig:63
 msgid "Joomla! Mailing Lists"
-msgstr ""
+msgstr "Daftar Milis Joomla!"
 
 #: /templates/topMenu.twig:66
 msgid "Extend"
-msgstr ""
+msgstr "Perluas"
 
 #: /templates/topMenu.twig:68
 msgid "Extension Directory"
-msgstr ""
+msgstr "Direktori Ekstensi"
 
 #: /templates/topMenu.twig:69
 msgid "Showcase Directory"
-msgstr ""
+msgstr "Direktori Contoh Web"
 
 #: /templates/topMenu.twig:70
 #: /templates/topMenu.twig:92
 msgid "Language Packages"
-msgstr ""
+msgstr "Paket Bahasa"
 
 #: /templates/topMenu.twig:71
 msgid "Certification Program"
-msgstr ""
+msgstr "Program Sertifikasi"
 
 #: /templates/topMenu.twig:75
 msgid "Developers"
-msgstr ""
+msgstr "Pengembang"
 
 #: /templates/topMenu.twig:77
 msgid "Developer Network"
-msgstr ""
+msgstr "Jaringan Pengembang"
 
 #: /templates/topMenu.twig:78
 #: /templates/trackerMenu.twig:203
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentasi"
 
 #: /templates/topMenu.twig:79
 msgid "Joomla! Bug Squad"
-msgstr ""
+msgstr "Regu Bug Joomla!"
 
 #: /templates/topMenu.twig:80
 msgid "Joomla! API"
-msgstr ""
+msgstr "API Joomla!"
 
 #: /templates/topMenu.twig:81
 msgid "JoomlaCode"
-msgstr ""
+msgstr "JoomlaCode"
 
 #: /templates/topMenu.twig:82
 msgid "Joomla! Framework"
-msgstr ""
+msgstr "Kerangka Joomla!"
 
 #: /templates/topMenu.twig:93
 msgid "Multilingual Demo"
-msgstr ""
+msgstr "Demo Multi-Bahasa"
 
 #: /templates/topMenu.twig:94
 msgid "Translation Working Group"
-msgstr ""
+msgstr "Kelompok Kerja Terjemahan"
 
 #: /templates/topMenu.twig:95
 msgid "Translations Forum"
-msgstr ""
+msgstr "Forum Terjemahan"
 
 #: /templates/editor.twig:5
 msgid "Markdown Help"
-msgstr ""
+msgstr "Bantuan Markdown"
 
 #: /templates/editor.twig:6
 msgid "Write"
-msgstr ""
+msgstr "Tulis"
 
 #: /templates/editor.twig:7
 msgid "Preview"
-msgstr ""
+msgstr "Pratinjau"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
-msgstr ""
+msgstr "Penelusur"
 
 #: /templates/trackerMenu.twig:14
 msgid "Project"
-msgstr ""
+msgstr "Proyek"
 
 #: /templates/trackerMenu.twig:24
 msgid "Show"
-msgstr ""
+msgstr "Tampilkan"
 
 #: /templates/trackerMenu.twig:28
 msgid "Project Activity"
-msgstr ""
+msgstr "Aktivitas Proyek"
 
 #: /templates/trackerMenu.twig:32
 msgid "Snapshot"
-msgstr ""
+msgstr "Gambar layar"
 
 #: /templates/trackerMenu.twig:36
 msgid "User Activity"
-msgstr ""
+msgstr "Aktivitas Pengguna"
 
 #: /templates/trackerMenu.twig:44
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: /templates/trackerMenu.twig:55
 msgid "Access Groups"
-msgstr ""
+msgstr "Kelompok Akses"
 
 #: /templates/trackerMenu.twig:61
 msgid "Labels"
-msgstr ""
+msgstr "Label"
 
 #: /templates/trackerMenu.twig:67
 msgid "Milestones"
-msgstr ""
+msgstr "Jejak"
 
 #: /templates/trackerMenu.twig:73
 msgid "Categories"
-msgstr ""
+msgstr "Kategori"
 
 #: /templates/trackerMenu.twig:83
 msgid "Projects"
-msgstr ""
+msgstr "Proyek"
 
 #: /templates/trackerMenu.twig:88
 msgid "Users"
-msgstr ""
+msgstr "Pengguna"
 
 #: /templates/trackerMenu.twig:95
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: /templates/trackerMenu.twig:102
 msgid "Configuration"
-msgstr ""
+msgstr "Konfigurasi"
 
 #: /templates/trackerMenu.twig:108
 msgid "phpinfo()"
-msgstr ""
+msgstr "phpinfo()"
 
 #: /templates/trackerMenu.twig:114
 msgid "Logs"
-msgstr ""
+msgstr "Log"
 
 #: /templates/trackerMenu.twig:118
 msgid "Application"
-msgstr ""
+msgstr "Aplikasi"
 
 #: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
-msgstr ""
+msgstr "Cron Jobs"
 
 #: /templates/trackerMenu.twig:126
 msgid "Database"
-msgstr ""
+msgstr "Basisdata"
 
 #: /templates/trackerMenu.twig:132
 msgid "GitHub Issues"
-msgstr ""
+msgstr "Isu GitHub"
 
 #: /templates/trackerMenu.twig:138
 msgid "GitHub Comments"
-msgstr ""
+msgstr "Komentar GitHub"
 
 #: /templates/trackerMenu.twig:144
 msgid "GitHub Pulls"
-msgstr ""
+msgstr "Penarikan GitHub"
 
 #: /templates/trackerMenu.twig:148
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: /templates/trackerMenu.twig:158
 msgid "Icons"
-msgstr ""
+msgstr "Ikon"
 
 #: /templates/trackerMenu.twig:164
 msgid "Routes"
-msgstr ""
+msgstr "Rute"
 
 #: /templates/trackerMenu.twig:170
 msgid "Text"
-msgstr ""
+msgstr "Teks"
 
 #: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
-msgstr ""
-
-#: /templates/trackerMenu.twig:193
-msgid "About Us"
-msgstr ""
+msgstr "Bersihkan Cache"
 
 #: /templates/trackerMenu.twig:198
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #: /templates/trackerMenu.twig:222
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: /templates/trackerMenu.twig:227
 msgid "View profile"
-msgstr ""
+msgstr "Lihat profil"
 
 #: /templates/trackerMenu.twig:233
 msgid "Edit profile"
-msgstr ""
+msgstr "Edit profil"
 
 #: /templates/trackerMenu.twig:240
 msgid "Logout"
-msgstr ""
+msgstr "Keluar"
 
 #: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
-msgstr ""
+msgstr "Masuk dengan GitHub"
 
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
-msgstr ""
+msgstr "Tidak ada pengenal GitHub yang diatur di konfigurasi"
 

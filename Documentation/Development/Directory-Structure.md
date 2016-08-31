@@ -1,15 +1,19 @@
 ## Directory structure
 
 `Project ROOT`<br />
+`├── .github` GitHub repository metadata<br />
 `├── bin`<br />
 `│   └── jtracker -> ../cli/tracker.php` A symbolic link to the JTracker CLI Application.<br />
 `├── build`<br />
 `│   ├── phpcs`<br />
-`│   │   └── Joomla` The Joomla! Coding Standards<br />If this folder does not exist, run `git submodule init` and `git submodule update` from within you project root directory.<br />
+`│   │   └── Joomla` The Joomla! Coding Standards<br />If this folder does not exist, run `git submodule init` and `git submodule update` from within your project root directory.<br />
 `│   ├── puppet` Configuration files for the Vagrant virtual machine.<br />
 `├── cache` The cache directory.<br />
 `├── cli` The command line application.<br />
-`│   ├── Custom_jtracker.xml` A PHPStorm autocomplete file for the JTracker CLI Application.<br />
+`│   ├── Application` All code for the command line application.<br />
+`│   ├── completions` Autocomplete files for various command line resources.<br />
+`│   ├── g11n` Translations for the command line application's output.<br />
+`│   ├── tracker.php` The front controller for the command line application.<br />
 `├── Documentation` The project documentation.<br />
 `├── etc`<br />
 `│   ├── migrations` Database migrations
@@ -21,30 +25,28 @@
 `├── logs` The log directory (This folder must be set to 077 if you use the Vagrant box).<br />
 `├── src`<br />
 `│   ├── App` The custom Apps (extensions) the make up the Application.<br />
-`│   ├── Joomla` Custom Joomla! Framework overrides.<br />
 `│   └── JTracker` The JTracker "Core" Application.<br />
 `├── templates` Template files (Twig, PHP, etc).<br />
 `│   ├── JTracker`<br />
 `│   │   └── g11n` The language files for the JTracker template.<br />
-`│   ├── php` Currently PHP templates live here.<br />
 `├── tests` The tests directory.<br />
 `├── vendor` All 3rd party vendor code (PHP).<br />
 `├── www` This is the Web root folder.<br />
-`│   ├── fonts` Template fonts.<br />
 `│   ├── images`<br />
 `│   │   ├── avatars` Avatar images (This folder must be set to 077 if you use the Vagrant box).<br />
-`│   │   ├── flags` Flag images for the language chooser.<br />
-`│   │   ├── tracker` JTracker images.<br />
-`│   ├── jtracker` Custom assets for the JTracker Application.<br />
-`│   ├── vendor` All 3rd party vendor assets.<br />
-`│   ├── index.php` The main entry point.<br />
+`│   ├── media` Most web accessible media (CSS, JavaScript, fonts) lives here. Also, if you have set up Bower and Grunt for development, uncompressed media from Bower projects is placed here.<br />
+`│   ├── index.php` The front controller for the web application.<br />
+`├── .gitignore` Git ignore definitions.<br />
+`├── .gitmodules` Git submodule definitions.<br />
+`├── .php_cs` PHP-CS-Fixer config file.<br />
+`├── .travis.yml` Travis-CI config file.<br />
 `├── bower.json` Bower config file.<br />
 `├── build.xml` Ant config (not used).<br />
 `├── composer.json` Composer config file.<br />
 `├── composer.lock` Composer lock file.<br />
-`├── CONTRIBUTING.md` Contributors readme.<br />
 `├── credits.json` Credits file.<br />
-`├── phpunit.travis.xml` PHPUnit Travis config.<br />
-`├── phpunit.xml.dist` PHPUnit config.<br />
+`├── Gruntfile.js` Grunt task configuration.<br />
+`├── package.json` Node package definition.<br />
+`├── phpunit.xml` PHPUnit config.<br />
 `├── README.md` Please read me...<br />
 `├── Vagrantfile` Vagrant config file.<br />

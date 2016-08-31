@@ -41,12 +41,9 @@ class Save extends AbstractTrackerController
 
 		$application->getUser()->authorize('admin');
 
-		$table = new ArticlesTable($this->getContainer()->get('db'));
-
-		/* @type \Joomla\Github\Github $gitHub */
-		$table->setGitHub($this->getContainer()->get('gitHub'));
-
-		$table->save($application->input->get('article', [], 'array'));
+		(new ArticlesTable($this->getContainer()->get('db')))
+			->setGitHub($this->getContainer()->get('gitHub'))
+			->save($application->input->get('article', [], 'array'));
 
 		$application
 			->enqueueMessage(g11n3t('The article has been saved.'), 'success')

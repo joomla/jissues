@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -19,170 +19,170 @@ msgstr ""
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
 msgid "Project"
-msgstr ""
+msgstr "Proyek"
 
 #: /templates/projects/project.index.twig:14
 #: /templates/projects/projects.index.twig:63
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: /templates/projects/project.index.twig:15
 #: /templates/projects/projects.index.twig:64
 #: /templates/projects/project.edit.twig:17
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: /templates/projects/project.index.twig:26
 #, php-format
 msgid "Project %s Tracker"
-msgstr ""
+msgstr "Penelusur Proyek %s"
 
 #: /templates/projects/project.index.twig:35
 #, php-format
 msgid "Project %s on GitHub"
-msgstr ""
+msgstr "Proyek %s di GitHub"
 
 #: /templates/projects/project.index.twig:39
 msgid "Statistics"
-msgstr ""
+msgstr "Statistik"
 
 #: /templates/projects/project.index.twig:45
 #: /templates/projects/projects.index.twig:45
 msgid "Hooks"
-msgstr ""
+msgstr "Kait"
 
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62
 msgid "Groups"
-msgstr ""
+msgstr "Kelompok"
 
 #: /templates/projects/project.index.twig:54
 #: /templates/projects/projects.index.twig:46
 msgid "Labels"
-msgstr ""
+msgstr "Label"
 
 #: /templates/projects/project.index.twig:57
 msgid "Categories"
-msgstr ""
+msgstr "Kategori"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
-msgstr ""
+msgstr "Tambah Proyek"
 
 #: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: /templates/projects/project.add.twig:20
 #: /templates/projects/project.edit.twig:30
 msgid "New project"
-msgstr ""
+msgstr "Proyek baru"
 
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
 msgid "Details"
-msgstr ""
+msgstr "Detail"
 
 #: /templates/projects/project.add.twig:28
 #: /templates/projects/project.edit.twig:37
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
 msgid "Short Title"
-msgstr ""
+msgstr "Judul Pendek"
 
 #: /templates/projects/project.add.twig:38
 #: /templates/projects/project.edit.twig:51
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /templates/projects/project.add.twig:43
 #: /templates/projects/project.edit.twig:58
 msgid "GitHub Owner"
-msgstr ""
+msgstr "Pemilik GitHub"
 
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
 msgid "GitHub Repo"
-msgstr ""
+msgstr "Repo GitHub"
 
 #: /templates/projects/project.add.twig:53
 #: /templates/projects/project.edit.twig:86
 msgid "External Tracker Link"
-msgstr ""
+msgstr "Tautan Penelusur Eksternal"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
-msgstr ""
+msgstr "Proyek"
 
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
-msgstr ""
+msgstr "Proyek Baru"
 
 #: /templates/projects/projects.index.twig:23
 msgid "Projects List"
-msgstr ""
+msgstr "Daftar Proyek"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
-msgstr ""
+msgstr "Penelusur"
 
 #: /templates/projects/projects.index.twig:29
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: /templates/projects/projects.index.twig:30
 msgid "Actions"
-msgstr ""
+msgstr "Tindakan"
 
 #: /templates/projects/projects.index.twig:33
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
-msgstr ""
+msgstr "Stat"
 
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
-msgstr ""
+msgstr "Tampilkan"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr ""
+msgstr "Aktivitas Proyek"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr ""
+msgstr "Gambar layar"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
-msgstr ""
+msgstr "Aktivitas Pengguna"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
-msgstr ""
+msgstr "Edit Proyek"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
-msgstr ""
+msgstr "Edit proyek"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
-msgstr ""
+msgstr "Pengguna Editbot GitHub"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr ""
+msgstr "Sandi Editbot GitHub"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
-msgstr ""
+msgstr "Judul wajib"
 
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
-msgstr ""
+msgstr "Judul singkat wajib"
 

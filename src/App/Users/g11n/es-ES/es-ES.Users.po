@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"POT-Creation-Date: 2016-07-14 16:01-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Editar perfil"
 #: /templates/users/user.index.twig:22
 #: /templates/users/user.edit.twig:32
 msgid "Refresh profile from GitHub"
-msgstr "Actualizar perfil de GitHub"
+msgstr "Actualizar perfil desde GitHub"
 
 #: /templates/users/user.index.twig:26
 msgid "My Profile"
@@ -41,7 +41,7 @@ msgstr "Perfil"
 #: /templates/users/user.index.twig:57
 #, php-format
 msgid "Language: %s"
-msgstr "Idioma %s"
+msgstr "Idioma: %s"
 
 #: /templates/users/user.index.twig:62
 #, php-format
@@ -60,7 +60,7 @@ msgstr "Lista de usuarios"
 #: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
-msgstr ""
+msgstr "Filtrar la lista por usuario."
 
 #: /templates/users/users.index.twig:34
 msgid "Clear"
@@ -74,7 +74,7 @@ msgstr "Página %1$s de %2$s"
 
 #: /templates/users/users.index.twig:46
 msgid "Username"
-msgstr "Nombre de Usuario"
+msgstr "Nombre de usuario"
 
 #: /templates/users/users.index.twig:48
 msgid "Actions"
@@ -103,7 +103,7 @@ msgstr "Cancelar"
 
 #: /templates/users/user.edit.twig:44
 msgid "GitHub Profile"
-msgstr "Perfil en GitHub"
+msgstr "Perfil de GitHub"
 
 #: /templates/users/user.edit.twig:67
 msgid "Params"
@@ -119,28 +119,24 @@ msgstr "Zona horaria"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
-msgstr "El usuario ha sido asignado"
+msgstr "El usuario ha sido asignado."
 
 #: /src/App/Users/Controller/Ajax/Assign.php:85
 msgid "The user has been unassigned."
-msgstr "El usuario ha sido removido"
+msgstr "El usuario ya no está asignado."
 
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorised to edit this user."
-msgstr ""
+msgstr "No estás autorizado para modificar este usuario."
 
 #: /src/App/Users/Controller/User/Refresh.php:47
 msgid "You are not authorised to refresh this user."
-msgstr ""
+msgstr "No estás autorizado para actualizar este usuario."
 
-#: /src/App/Users/Controller/User/Refresh.php:77
-msgid "An error has occurred during email refresh."
-msgstr ""
-
-#: /src/App/Users/Controller/User/Refresh.php:82
+#: /src/App/Users/Controller/User/Refresh.php:73
 msgid "The profile has been refreshed."
-msgstr "El perfil ha sido actualizado"
+msgstr "El perfil ha sido actualizado."
 
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."

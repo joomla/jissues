@@ -107,10 +107,8 @@ abstract class GithubFactory
 			throw new \RuntimeException('No transports available (please install php-curl)');
 		}
 
-		$http = new Http($options, $transport);
-
 		// Instantiate the object
-		$github = new Github($options, $http);
+		$github = new Github($options, new Http($options, $transport));
 
 		// If debugging is enabled, inject a logger
 		if ($app->get('debug.github', false))

@@ -1,6 +1,6 @@
 ## Asset Management
 
-The issue tracker uses [Bower](http://bower.io) and [Grunt](http://gruntjs.com) for managing and compiling its media assets.
+The issue tracker uses [Bower](https://bower.io) and [Grunt](http://gruntjs.com) for managing and compiling its media assets.
  
 ### Default Environment
 

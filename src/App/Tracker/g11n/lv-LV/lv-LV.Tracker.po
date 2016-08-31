@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 12:51-0500\n"
-"PO-Revision-Date: 2016-07-09 11:23-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -26,12 +26,12 @@ msgstr "Saglabāt"
 #: /templates/tracker/issue.edit.twig:58
 #: /templates/tracker/issue.index.twig:279
 msgid "Test this"
-msgstr ""
+msgstr "Pārbaudīt"
 
 #: /templates/tracker/issue.edit.twig:62
 #: /templates/tracker/issue.index.twig:284
 msgid "Alter test"
-msgstr ""
+msgstr "Mainīt testu"
 
 #: /templates/tracker/issue.edit.twig:67
 msgid "Cancel"
@@ -62,7 +62,7 @@ msgstr "Vienums"
 
 #: /templates/tracker/issue.edit.twig:141
 #: /templates/tracker/issue.index.twig:107
-#: /templates/tracker/issue.add.twig:57
+#: /templates/tracker/issue.add.twig:60
 msgid "Build"
 msgstr "Build"
 
@@ -71,19 +71,19 @@ msgid "Easy test"
 msgstr "Vieglais tests"
 
 #: /templates/tracker/issue.edit.twig:155
-#: /templates/tracker/issue.add.twig:65
+#: /templates/tracker/issue.add.twig:68
 msgid "Categories"
 msgstr "Kategorijas"
 
 #: /templates/tracker/issue.edit.twig:164
 #: /templates/tracker/tpl/activities.twig:113
-#: /templates/tracker/issue.add.twig:75
+#: /templates/tracker/issue.add.twig:78
 msgid "Labels"
 msgstr "Labels"
 
 #: /templates/tracker/issue.edit.twig:171
 #: /templates/tracker/tpl/activities.twig:131
-#: /templates/tracker/issue.add.twig:80
+#: /templates/tracker/issue.add.twig:83
 msgid "Milestone"
 msgstr "Milestone"
 
@@ -91,7 +91,7 @@ msgstr "Milestone"
 #: /templates/tracker/category.add.twig:27
 #: /templates/tracker/tpl/activities.twig:41
 #: /templates/tracker/category.edit.twig:27
-#: /templates/tracker/issue.add.twig:100
+#: /templates/tracker/issue.add.twig:106
 #: /templates/tracker/categories.index.twig:40
 msgid "Title"
 msgstr "Virsraksts"
@@ -107,7 +107,7 @@ msgid "Leave a comment"
 msgstr "Atstāt komentāru"
 
 #: /templates/tracker/issue.edit.twig:314
-#: /templates/tracker/issue.add.twig:218
+#: /templates/tracker/issue.add.twig:224
 msgid "Some fields are invalid. They have been highlighted."
 msgstr "Dažie lauki ir nekorēkti. Tie tika izcelti."
 
@@ -118,11 +118,11 @@ msgstr "Saglabāju..."
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- Status -"
-msgstr ""
+msgstr "- Statuss -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- Priority -"
-msgstr ""
+msgstr "- Prioritāte -"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -154,19 +154,19 @@ msgstr "Tu piedalījies"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "- Categories -"
-msgstr ""
+msgstr "- Kategorijas -"
 
 #: /templates/tracker/tracker.filters.twig:50
-msgid "No categories"
-msgstr "Nav kategoriju"
+msgid "No Categories"
+msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
-msgstr ""
+msgstr "-Etiķetes-"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- Tests -"
-msgstr ""
+msgstr "- Testi -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
@@ -182,7 +182,7 @@ msgstr "Vajag testus"
 
 #: /templates/tracker/tracker.filters.twig:87
 msgid "- Easy -"
-msgstr ""
+msgstr "- Viegls -"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
@@ -196,19 +196,19 @@ msgstr "Jā"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "- Type -"
-msgstr ""
+msgstr "- Veids -"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
-msgstr ""
+msgstr "Kļūda"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Pull Request"
-msgstr ""
+msgstr "Jautāt pieprasījumu"
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
-msgstr ""
+msgstr "- Atskaites punkti -"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
@@ -224,8 +224,8 @@ msgid "All"
 msgstr "Viss"
 
 #: /templates/tracker/tpl/filters.twig:25
-msgid "Search tools"
-msgstr "Meklēšanas rīki"
+msgid "Search Tools"
+msgstr ""
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -281,10 +281,10 @@ msgstr "Alias"
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
 msgid "Colour"
-msgstr ""
+msgstr "Krāsa"
 
 #: /templates/tracker/tpl/activities.twig:24
-#: /templates/tracker/issue.add.twig:107
+#: /templates/tracker/issue.add.twig:113
 msgid "Description"
 msgstr "Apraksts"
 
@@ -322,12 +322,13 @@ msgid "Edit Category"
 msgstr "Rēdiģēt kategoriju"
 
 #: /templates/tracker/issues.index.twig:6
-msgid "Issues List"
-msgstr "Problēmu saraksts"
+#, php-format
+msgid "%s Issues"
+msgstr "%s kļūdas"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
-#: /templates/tracker/issue.add.twig:97
+#: /templates/tracker/issue.add.twig:103
 msgid "New Item"
 msgstr "Jauns vienums"
 
@@ -372,7 +373,7 @@ msgstr " Izmainīts"
 
 #: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
-msgstr ""
+msgstr "Atskaites punkts: "
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Critical"
@@ -391,12 +392,12 @@ msgid "Low"
 msgstr "Zems"
 
 #: /templates/tracker/issues.index.twig:188
-msgid "Very low"
-msgstr "Ļoti zems"
+msgid "Very Low"
+msgstr ""
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
-msgstr ""
+msgstr "GitHub sapludināšanas statuss"
 
 #: /templates/tracker/issues.index.twig:205
 msgid "No items found."
@@ -464,19 +465,23 @@ msgstr "Zināma problēma"
 msgid "Duplicate Report"
 msgstr "Ziņojuma dublikāts"
 
-#: /templates/tracker/issues.index.twig:412
+#: /templates/tracker/issues.index.twig:350
+msgid "Discussion"
+msgstr ""
+
+#: /templates/tracker/issues.index.twig:413
 msgid "First"
 msgstr "Pirmā"
 
-#: /templates/tracker/issues.index.twig:413
+#: /templates/tracker/issues.index.twig:414
 msgid "Previous"
 msgstr "Iepriekš."
 
-#: /templates/tracker/issues.index.twig:414
+#: /templates/tracker/issues.index.twig:415
 msgid "Next"
 msgstr "Nākama"
 
-#: /templates/tracker/issues.index.twig:415
+#: /templates/tracker/issues.index.twig:416
 msgid "Last"
 msgstr "Pēdeja"
 
@@ -522,7 +527,7 @@ msgstr "Norāde no"
 
 #: /templates/tracker/issue.index.twig:289
 msgid "User tests:"
-msgstr ""
+msgstr "Lietotāja testi:"
 
 #: /templates/tracker/issue.index.twig:290
 #, php-format
@@ -572,14 +577,14 @@ msgstr "Ielogojies ar GitHub lai atstāt komentāri"
 
 #: /templates/tracker/issue.index.twig:596
 msgid "Older"
-msgstr ""
+msgstr "Vecāks"
 
 #: /templates/tracker/issue.index.twig:599
 msgid "Newer"
-msgstr ""
+msgstr "Jaunāks"
 
 #: /templates/tracker/issue.add.twig:12
-#: /templates/tracker/issue.add.twig:124
+#: /templates/tracker/issue.add.twig:130
 msgid "Submit"
 msgstr "Nosūtīt"
 
@@ -596,34 +601,34 @@ msgid "Pro"
 msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
-msgid "The priority of which this issue should be resolved. Please see the <a href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr ""
+msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgstr "Kļūdas risināšanas prioritāte. Skatīt projekta prioritātes <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Kļūdu izsekošanas procesam</a> detalizētai informācijai."
 
-#: /templates/tracker/issue.add.twig:61
+#: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
-msgstr ""
+msgstr "Projekta versija(s) kurā ir atrasta šī kļūda."
 
-#: /templates/tracker/issue.add.twig:68
+#: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "Izvēlieties vienu vai vairākas Kategorijas kas atbilst šai kļūdai."
 
-#: /templates/tracker/issue.add.twig:90
-msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a href=\"mailto:security@joomla.org\">security@joomla.org</a> or with the <a href=\"https://developer.joomla.org/contact-security-team.html\">JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+#: /templates/tracker/issue.add.twig:93
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
+msgstr "Ziņojiet par kļūdu Joomla! Security Strike Team (JSST) e-pastu <a %class1% %href1%>security@joomla.org</a> vai <a %class2% %href2%>JSST kontaktformu</a>, lūdzu neizmantojiet kļūdām publisko trekeri."
 
-#: /templates/tracker/issue.add.twig:94
+#: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr ""
+msgstr "Lai paziņotu par kļūdu Joomla! kļūdu trekerī ir jāizveido trekera tēma. Kad trekera tēma ir izveidota, izstrādātāji to pārbaudīs un attiecīgi darbosies."
 
-#: /templates/tracker/issue.add.twig:104
+#: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr ""
+msgstr "Aprakstiet pāris vārdos esošo kļūdu. Ja ziņojat pirmo reizi, izmantojiet jau esošu kļūdu ziņojumus kā paraugu."
 
-#: /templates/tracker/issue.add.twig:120
+#: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr ""
+msgstr "Šī ir vissvarīgākā kļūdu paziņojumu daļa. Aprakstiet soli pa solim kā tika iegūta kļūda. Iekļaujiet visu informāciju, lai varētu atkārtot kļūdas rašanos un konstatēt problēmu. Atcerieties: kļūda netiks labota, kamēr to nevarēs atrast un atkārtot, esiet precīzi un to maksimāli skaidri aprakstiet. Jums nav jāprot programmēt, lai uzrakstītu kļūdas ziņojumu. Ja gadījumā saprotat kodu un Jums liekas ka zināt kā izlabot kļūdu, lūdzu iekļaujiet to ziņojumā."
 
-#: /templates/tracker/issue.add.twig:228
+#: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
 msgstr "Nosūtīšana..."
 
@@ -670,11 +675,11 @@ msgstr "Test ir pievienots"
 msgid "Old"
 msgstr "Vecs"
 
-#: /src/App/Tracker/Model/CategoryModel.php:70
+#: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
 msgstr "Nav ID"
 
-#: /src/App/Tracker/Model/CategoryModel.php:85
+#: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
 msgstr "Nekorēkta  kategorija"
 
@@ -696,27 +701,27 @@ msgstr "Aliasa garums nevar būt vairāk neka 150 simboli."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "Krāsai jābūt hex vērtībai."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr ""
+msgstr "Nepieciešams kļūdas ID"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
-msgstr ""
+msgstr "Nepieciešams kategorijas ID."
 
 #: /src/App/Tracker/Table/IssuesTable.php:135
 msgid "A title is required."
-msgstr ""
+msgstr "Nepieciešams nosaukums."
 
 #: /src/App/Tracker/Table/IssuesTable.php:139
 msgid "The title max length is 255 chars."
-msgstr ""
+msgstr "Nosaukuma maksimālais garums ir 255 simboli."
 
 #: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
-msgstr ""
+msgstr "Nepieciešama kompilācija."
 
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."

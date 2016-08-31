@@ -30,8 +30,6 @@ class Show extends AbstractAjaxController
 	{
 		ob_start();
 
-		$model = new DefaultModel($this->getContainer()->get('db'));
-
 		/* @type $input \Joomla\Input\Input */
 		$input = $this->getContainer()->get('app')->input;
 
@@ -43,7 +41,7 @@ class Show extends AbstractAjaxController
 		$this->response->editLink = 'https://github.com/joomla/jissues/edit/master/Documentation/' . ($path ? $path . '/' : '') . $page . '.md';
 		$this->response->permaLink = $base . 'documentation/view/?page=' . $page . ($path ? '&path=' . $path : '');
 
-		$data = $model->getItem($page, $path)->text;
+		$data = (new DefaultModel($this->getContainer()->get('db')))->getItem($page, $path)->text;
 
 		$err = ob_get_clean();
 

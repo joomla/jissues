@@ -191,8 +191,7 @@ class IssuesTable extends AbstractDatabaseTable
 	public function store($updateNulls = false)
 	{
 		$isNew = ($this->id < 1);
-		$date  = new Date;
-		$date  = $date->format($this->db->getDateFormat());
+		$date  = (new Date)->format($this->db->getDateFormat());
 
 		if (!$isNew)
 		{
@@ -231,8 +230,7 @@ class IssuesTable extends AbstractDatabaseTable
 			$data['issue_number'] = (int) $this->issue_number;
 			$data['project_id']   = (int) $this->project_id;
 
-			$table = new ActivitiesTable($this->db);
-			$table->save($data);
+			(new ActivitiesTable($this->db))->save($data);
 		}
 
 		if ($this->oldObject)
@@ -303,8 +301,7 @@ class IssuesTable extends AbstractDatabaseTable
 			$data['project_id']   = (int) $this->project_id;
 			$data['text']         = json_encode($changes);
 
-			$table = new ActivitiesTable($this->db);
-			$table->save($data);
+			(new ActivitiesTable($this->db))->save($data);
 		}
 
 		return $this;

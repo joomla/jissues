@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-09 11:54-0400\n"
+"POT-Creation-Date: 2016-07-09 16:50-0500\n"
+"PO-Revision-Date: 2016-07-31 12:34-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -18,53 +18,53 @@ msgstr ""
 
 #: /templates/support/documentation.index.twig:6
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentasi"
 
 #: /templates/support/documentation.index.twig:123
 msgid "Improve"
-msgstr ""
+msgstr "Tingkatkan"
 
 #: /templates/support/documentation.index.twig:124
 msgid "Permalink"
-msgstr ""
+msgstr "Pranala"
 
 #: /templates/support/icons.index.twig:6
 #: /templates/support/icons.index.twig:10
 msgid "Icons"
-msgstr ""
+msgstr "Ikon"
 
-#: /templates/support/icons.index.twig:21
+#: /templates/support/icons.index.twig:22
 msgid "OctIcons"
-msgstr ""
+msgstr "OctIcons"
 
 #: /templates/support/markdown.index.twig:6
 msgid "GitHub Flavored Markdown Preview"
-msgstr ""
+msgstr "Pratinjau Markdown Bercitarasa GitHub"
 
 #: /templates/support/markdown.index.twig:20
 msgid "Markdown TEST Page"
-msgstr ""
+msgstr "Halaman UJI Markdown"
 
 #: /templates/support/markdown.index.twig:22
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: /templates/support/markdown.index.twig:23
 msgid "Headers"
-msgstr ""
+msgstr "Tajuk"
 
 #: /templates/support/markdown.index.twig:24
 msgid "Lists"
-msgstr ""
+msgstr "Daftar"
 
 #: /templates/support/markdown.index.twig:25
 #: /templates/support/markdown.index.twig:36
 msgid "Links"
-msgstr ""
+msgstr "Tautan"
 
 #: /templates/support/markdown.index.twig:26
 msgid "Emphasised"
-msgstr ""
+msgstr "Penekanan"
 
 #: /templates/support/markdown.index.twig:27
 #: /templates/support/markdown.index.twig:47
@@ -78,27 +78,27 @@ msgstr ""
 #: /templates/support/markdown.index.twig:343
 #: /templates/support/markdown.index.twig:361
 msgid "Code"
-msgstr ""
+msgstr "Kode"
 
 #: /templates/support/markdown.index.twig:28
 msgid "Blockquotes"
-msgstr ""
+msgstr "Kutipan"
 
 #: /templates/support/markdown.index.twig:29
 msgid "HRs"
-msgstr ""
+msgstr "HRs"
 
 #: /templates/support/markdown.index.twig:30
 msgid "Tables"
-msgstr ""
+msgstr "Tabel"
 
 #: /templates/support/markdown.index.twig:31
 msgid "Images"
-msgstr ""
+msgstr "Gambar"
 
 #: /templates/support/markdown.index.twig:32
 msgid "GitHub Spice"
-msgstr ""
+msgstr "Bumbu GitHub"
 
 #: /templates/support/markdown.index.twig:56
 #: /templates/support/markdown.index.twig:83
@@ -111,9 +111,9 @@ msgstr ""
 #: /templates/support/markdown.index.twig:347
 #: /templates/support/markdown.index.twig:371
 msgid "Output"
-msgstr ""
+msgstr "Output"
 
 #: /src/App/Support/Controller/Clearcache.php:40
 msgid "The cache has been cleared."
-msgstr ""
+msgstr "Cache telah dibersihkan."
 

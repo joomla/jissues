@@ -80,13 +80,14 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		return [
 			'uri'            => $this->app->get('uri'),
 			'offset'         => $this->app->getUser()->params->get('timezone') ?: $this->app->get('system.offset'),
+			'useCDN'         => $this->app->get('system.use_cdn'),
+			'templateDebug'  => $this->app->get('debug.template', false),
+			'jdebug'         => JDEBUG,
+			'lang'           => $this->app->getLanguageTag(),
 			'languages'      => LanguageHelper::getLanguagesSortedByDisplayName(),
 			'languageCodes'  => LanguageHelper::getLanguageCodes(),
-			'jdebug'         => JDEBUG,
-			'templateDebug'  => $this->app->get('debug.template', false),
-			'lang'           => $this->app->getLanguageTag(),
+			'langDirection'  => LanguageHelper::getDirection($this->app->getLanguageTag()),
 			'g11nJavaScript' => G11n::getJavaScript(),
-			'useCDN'         => $this->app->get('system.use_cdn'),
 		];
 	}
 
@@ -355,6 +356,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					4 => g11n3t('Ready To Commit'),
 					6 => g11n3t('Needs Review'),
 					7 => g11n3t('Information Required'),
+					14 => g11n3t('Discussion'),
 				];
 				break;
 
@@ -378,6 +380,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					4 => g11n3t('Ready To Commit'),
 					6 => g11n3t('Needs Review'),
 					7 => g11n3t('Information Required'),
+					14 => g11n3t('Discussion'),
 					5 => g11n3t('Fixed in Code Base'),
 					8 => g11n3t('Unconfirmed Report'),
 					9 => g11n3t('No Reply'),
@@ -538,7 +541,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		{
 			if ($relType->value == $id)
 			{
-				return $relType->text;
+				return $this->getRelation($relType->text);
 			}
 		}
 
@@ -649,14 +652,11 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	{
 		$options = [];
 
-		$diff = new Diff(explode("\n", $old), explode("\n", $new), $options);
+		$renderer = (new Inline)
+			->setShowLineNumbers($showLineNumbers)
+			->setShowHeader($showHeader);
 
-		$renderer = new Inline;
-
-		$renderer->setShowLineNumbers($showLineNumbers);
-		$renderer->setShowHeader($showHeader);
-
-		return $diff->render($renderer);
+		return (new Diff(explode("\n", $old), explode("\n", $new), $options))->render($renderer);
 	}
 
 	/**

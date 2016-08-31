@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-22 10:06-0500\n"
-"PO-Revision-Date: 2016-07-09 11:44-0400\n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-07-31 12:33-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Spanish, Colombia\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgstr "Inicio"
 
 #: /templates/footerMenu.twig:19
 #: /templates/topMenu.twig:30
+#: /templates/trackerMenu.twig:193
 msgid "About"
 msgstr "Acerca de"
 
@@ -64,7 +65,7 @@ msgstr "Política de privacidad"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr "Reportar un problema"
+msgstr "Reportar un error"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
@@ -79,9 +80,8 @@ msgid "All rights reserved."
 msgstr "Todos los derechos reservados."
 
 #: /templates/footerMenu.twig:44
-#, php-format
-msgid "Joomla! Hosting by %1$s"
-msgstr "Joomla! Hosting por %1$s"
+msgid "Joomla! Hosting by %provider%"
+msgstr "Joomla! Hosting de %provider%"
 
 #: /templates/index.twig:80
 msgid "Download"
@@ -114,7 +114,7 @@ msgstr "Enviar resultado de la prueba"
 
 #: /templates/testcontainer.twig:8
 msgid "I have tested this item"
-msgstr "Probé este elemento"
+msgstr "Probé esta corrección"
 
 #: /templates/testcontainer.twig:19
 msgid "Not tested"
@@ -152,11 +152,11 @@ msgstr "Agregar archivos..."
 
 #: /templates/uploader.full.twig:18
 msgid "Start upload"
-msgstr "Iniciar subida"
+msgstr "Iniciar carga de archivos"
 
 #: /templates/uploader.full.twig:21
 msgid "Cancel upload"
-msgstr "Cancelar subida"
+msgstr "Cancelar carga de archivos"
 
 #: /templates/uploader.full.twig:24
 #: /templates/uploader.full.twig:101
@@ -170,7 +170,7 @@ msgstr "Subir notas"
 #: /templates/uploader.full.twig:35
 #, php-format
 msgid "The maximum file size for uploads is %s."
-msgstr "El tamaño máximo de archivo para subidas es %s."
+msgstr "El tamaño máximo de archivos que puede subir es de %s."
 
 #: /templates/uploader.full.twig:36
 #, php-format
@@ -179,7 +179,7 @@ msgstr "Estos tipos de archivo están permitidos: %s"
 
 #: /templates/uploader.full.twig:37
 msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
-msgstr "Puede <strong>arrastrar y soltar</strong> archivos desde su escritorio a está página web."
+msgstr "Puede <strong>arrastrar y soltar</strong> archivos desde su escritorio a esta página web."
 
 #: /templates/uploader.full.twig:52
 msgid "Processing..."
@@ -496,10 +496,6 @@ msgstr "Texto"
 #: /templates/trackerMenu.twig:176
 msgid "Clear Cache"
 msgstr "Borrar caché"
-
-#: /templates/trackerMenu.twig:193
-msgid "About Us"
-msgstr "Quienes somos"
 
 #: /templates/trackerMenu.twig:198
 msgid "Markdown"

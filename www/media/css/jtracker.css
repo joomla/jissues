@@ -287,15 +287,15 @@ li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
         margin: 0;
         padding-bottom: 4px;
     }
-    
+
     #filter-state-div .btn {
         width: 33.33%;
     }
-    
+
     .form-search .input-append .btn {
         width: auto;
     }
-    
+
     #filtersForm .btn-group {
         margin: 0 5px;
         width: auto;
@@ -319,5 +319,22 @@ li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
 
     div#stools-container button {
         width: 25%;
+    }
+}
+
+div.logHeader:hover {
+    background: #e1e1e8;
+    cursor: pointer;
+}
+
+div.logMessage {
+    background-color: #eeeeee;
+    display: none;
+}
+
+/* Show upload button text on handheld devices */
+@media (max-width: 767px) {
+    .files .btn span, .files .toggle, .fileupload-buttonbar .toggle {
+        display: inherit;
     }
 }

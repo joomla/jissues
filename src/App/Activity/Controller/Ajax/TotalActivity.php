@@ -83,9 +83,19 @@ class TotalActivity extends AbstractAjaxController
 		$periodTitle = [1 => g11n3t('Weeks'), 2 => g11n3t('Months'), 3 => g11n3t('Quarters')];
 		$periodText  = $periodTitle[$periodType];
 
-		$activityTypes = [g11n3t('All'), g11n3t('Tracker'), g11n3t('Test'), g11n3t('Code')];
-		$activityText  = $activityTypes[$activityType];
-		$title         = sprintf(g11n3t('%1$s Points for Past Four %2$s'), $activityText, $periodText);
+		// For the best translations, some languages need the ability to move the activity type segment, so translate each string individually
+		$titles = [
+			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
+			sprintf(g11n3t('All Points for Past Four %s'), $periodText),
+			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
+			sprintf(g11n3t('Tracker Points for Past Four %s'), $periodText),
+			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
+			sprintf(g11n3t('Test Points for Past Four %s'), $periodText),
+			// TRANSLATORS - The merged segment is the "period text" translated separately (i.e. "Weeks" or "Quarters")
+			sprintf(g11n3t('Code Points for Past Four %s'), $periodText),
+		];
+
+		$title = $titles[$activityType];
 
 		$ticks  = [];
 		$points = [];
