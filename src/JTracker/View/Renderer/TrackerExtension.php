@@ -541,7 +541,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		{
 			if ($relType->value == $id)
 			{
-				return $relType->text;
+				return $this->getRelation($relType->text);
 			}
 		}
 
