@@ -38,11 +38,14 @@ class JoomlacmsPullsListener extends AbstractListener
 		'2' => [
 			'^administrator/components/com_admin/sql/updates/postgresql',
 			'^installation/sql/postgresql',
+			'^libraries/joomla/database/(.*)/postgresql.php',
 		],
 		// MS SQL
 		'3' => [
 			'^administrator/components/com_admin/sql/updates/sqlazure',
 			'^installation/sql/sqlazure',
+			'^libraries/joomla/database/(.*)/sqlazure.php',
+			'^libraries/joomla/database/(.*)/sqlsrv.php',
 		],
 		// External Library
 		'4' => [
