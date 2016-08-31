@@ -242,7 +242,7 @@
     {% if item.rel_number %}
         <div class="alert">
             {{ relation(item.rel_name) }}
-            {{ issueLink(item.rel_number, item.rel_closed, item.rel_title)|raw }}
+            {{ issueLink(item.rel_number, false, item.rel_title)|raw }}
         </div>
     {% endif %}
 
