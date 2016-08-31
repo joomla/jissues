@@ -79,6 +79,8 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 			'language' => ['27'],
 			'libraries/' => ['12'],
 			'libraries/fof/' => ['4', '12'],
+			'libraries/joomla/database/query/postgresql.php' => ['2', '12'],
+			'libraries/joomla/database/driver/sqlsrv.php' => ['3', '12'],
 			'libraries/idna_convert/' => ['4', '12'],
 			'libraries/phpass/' => ['4', '12'],
 			'libraries/phputf8/' => ['4', '12'],
