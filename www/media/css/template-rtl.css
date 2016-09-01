@@ -821,6 +821,11 @@ input[type="url"] {
   margin-left: .25em;
 }
 
+ul,
+ol {
+  margin: 0 25px 9px 0;
+}
+
 .nav-tabs.nav-stacked > li:first-child > a {
   -webkit-border-top-right-radius: 0;
           border-top-right-radius: 0;

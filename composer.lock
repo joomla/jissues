@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "73c7a046762255d9327b4edd3c7ed787",
-    "content-hash": "4778c962508a1ba5ffab04f89413b7f9",
+    "hash": "c5098417b532236029c679239c15e363",
+    "content-hash": "b7c10f85b3e5a731e1bc8990f9057e94",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -599,6 +599,61 @@
                 "joomla"
             ],
             "time": "2016-04-09 03:08:55"
+        },
+        {
+            "name": "joomla/cache",
+            "version": "dev-2.0-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/cache.git",
+                "reference": "5944f47033e3a8ec463cbe363a19d1e1a324ac74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/cache/zipball/5944f47033e3a8ec463cbe363a19d1e1a324ac74",
+                "reference": "5944f47033e3a8ec463cbe363a19d1e1a324ac74",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.4|~7.0",
+                "psr/cache": "~1.0"
+            },
+            "require-dev": {
+                "joomla/test": "~1.0",
+                "phpunit/phpunit": "~4.8|~5.0",
+                "squizlabs/php_codesniffer": "1.*"
+            },
+            "suggest": {
+                "ext-apc": "To use APC caching",
+                "ext-apcu": "To use APCu caching",
+                "ext-memcached": "To use Memcached caching",
+                "ext-redis": "To use Redis caching",
+                "ext-wincache": "To use WinCache caching",
+                "ext-xcache": "To use XCache caching"
+            },
+            "type": "joomla-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.0-dev": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla Cache Package",
+            "homepage": "https://github.com/joomla-framework/cache",
+            "keywords": [
+                "cache",
+                "framework",
+                "joomla"
+            ],
+            "time": "2016-08-18 15:30:32"
         },
         {
             "name": "joomla/compat",
@@ -1720,6 +1775,52 @@
                 "psr-3"
             ],
             "time": "2016-07-29 03:23:52"
+        },
+        {
+            "name": "psr/cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for caching libraries",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr-6"
+            ],
+            "time": "2016-08-06 20:24:11"
         },
         {
             "name": "psr/http-message",
@@ -4236,6 +4337,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "joomla/cache": 20,
         "joomla/renderer": 20,
         "joomla/view": 20
     },

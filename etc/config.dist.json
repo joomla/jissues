@@ -46,6 +46,12 @@
 		"error_reporting": "0"
 	},
 
+	"cache": {
+		"enabled" : false,
+		"lifetime": 900,
+		"adapter" : "file"
+	},
+
 	"acl": {
 		"admin_users": [
 			"", ""

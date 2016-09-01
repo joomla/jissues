@@ -32,6 +32,7 @@ include $path;
 try
 {
 	$container = (new Joomla\DI\Container)
+		->registerServiceProvider(new JTracker\Service\CacheProvider)
 		->registerServiceProvider(new JTracker\Service\ConfigurationProvider)
 		->registerServiceProvider(new JTracker\Service\DatabaseProvider)
 		->registerServiceProvider(new JTracker\Service\DebuggerProvider)

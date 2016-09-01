@@ -2007,6 +2007,7 @@ legend + .control-group {
 
 /*Fix for tooltips wrong positioning*/
 
+.control-label .hasPopover,
 .control-label .hasTooltip {
   display: inline-block;
 }
@@ -2405,7 +2406,7 @@ table th[class*="span"],
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  color: #333333;
+  color: #ffffff;
   text-decoration: none;
   background-color: #0081c2;
   background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
@@ -2625,6 +2626,24 @@ button.close {
   background: transparent;
   border: 0;
   -webkit-appearance: none;
+}
+
+.alert-options {
+  float: right;
+  line-height: 18px;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.alert-options:hover,
+.alert-options:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 
 .btn {
@@ -7253,6 +7272,10 @@ th .tooltip-inner {
 
 .alert-link {
   font-weight: bold;
+}
+
+.alert .alert-link {
+  color: #a47e3c;
 }
 
 .alert-success .alert-link {
