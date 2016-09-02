@@ -14,10 +14,11 @@ use App\Tracker\DiffRenderer\Html\Inline;
 
 use ElKuKu\G11n\G11n;
 
+use Joomla\Cache\Item\Item;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
-
 use Joomla\Http\HttpFactory;
+
 use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Helper\LanguageHelper;
