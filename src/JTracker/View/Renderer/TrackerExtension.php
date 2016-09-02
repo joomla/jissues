@@ -321,7 +321,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 				{
 					$body = $fetchPage();
 
-					$item = (new Item($key, $container->get('app')->get('cache.lifetime', 900)))
+					$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
 						->set($body);
 
 					$this->cache->save($item);
@@ -422,7 +422,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 				{
 					$body = $fetchPage();
 
-					$item = (new Item($key, $container->get('app')->get('cache.lifetime', 900)))
+					$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
 						->set($body);
 
 					$this->cache->save($item);
