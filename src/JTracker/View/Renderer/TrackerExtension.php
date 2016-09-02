@@ -288,12 +288,9 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if ($this->app->get('cache.enabled', false))
 		{
-			/** @var \Psr\Cache\CacheItemPoolInterface $cache */
-			$cache = $container->get('cache');
-
-			if ($cache->hasItem($key))
+			if ($this->cache->hasItem($key))
 			{
-				$item = $cache->getItem($key);
+				$item = $this->cache->getItem($key);
 
 				// Make sure we got a hit on the item, otherwise we'll have to re-cache
 				if ($item->isHit())
@@ -309,7 +306,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 						$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
 							->set($body);
 
-						$cache->save($item);
+						$this->cache->save($item);
 					}
 					catch (\RuntimeException $e)
 					{
@@ -326,7 +323,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					$item = (new Item($key, $container->get('app')->get('cache.lifetime', 900)))
 						->set($body);
 
-					$cache->save($item);
+					$this->cache->save($item);
 				}
 				catch (\RuntimeException $e)
 				{
@@ -392,12 +389,9 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if ($this->app->get('cache.enabled', false))
 		{
-			/** @var \Psr\Cache\CacheItemPoolInterface $cache */
-			$cache = $container->get('cache');
-
-			if ($cache->hasItem($key))
+			if ($this->cache->hasItem($key))
 			{
-				$item = $cache->getItem($key);
+				$item = $this->cache->getItem($key);
 
 				// Make sure we got a hit on the item, otherwise we'll have to re-cache
 				if ($item->isHit())
@@ -413,7 +407,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 						$item = (new Item($key, $this->app->get('cache.lifetime', 900)))
 							->set($body);
 
-						$cache->save($item);
+						$this->cache->save($item);
 					}
 					catch (\RuntimeException $e)
 					{
@@ -430,7 +424,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 					$item = (new Item($key, $container->get('app')->get('cache.lifetime', 900)))
 						->set($body);
 
-					$cache->save($item);
+					$this->cache->save($item);
 				}
 				catch (\RuntimeException $e)
 				{
