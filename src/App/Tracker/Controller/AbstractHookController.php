@@ -170,7 +170,13 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	public function initialize()
 	{
-		$this->debug = $this->getContainer()->get('app')->get('debug.hooks');
+		/* @type \JTracker\Application $application */
+		$application = $this->getContainer()->get('app');
+
+		$this->debug = $application->get('debug.hooks');
+
+		// Set the log level to use
+		$level = strtoupper($application->get('log.levels.github_' . strtolower($this->type), $application->get('log.level', 'error')));
 
 		// Initialize the logger
 		$this->setLogger(
@@ -178,35 +184,36 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 				'JTracker',
 				[
 					new StreamHandler(
-						$this->getContainer()->get('app')->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log'
+						$application->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log',
+						constant('\\Monolog\\Logger::' . $level)
 					),
 				]
 			)
 		);
 
 		// Get the event dispatcher
-		$this->setDispatcher($this->getContainer()->get('app')->getDispatcher());
+		$this->setDispatcher($application->getDispatcher());
 
 		// Get a database object
 		$this->db = $this->getContainer()->get('db');
 
 		// Get the payload data
-		$data = $this->getContainer()->get('app')->input->post->get('payload', null, 'raw');
+		$data = $application->input->post->get('payload', null, 'raw');
 
 		if (!$data)
 		{
-			$this->logger->error('No data received.', ['data' => $data, 'payload' => isset($_POST['payload']) ? $_POST['payload'] : 'N/A']);
+			$this->logger->error('No data received from GitHub.');
 
-			$this->getContainer()->get('app')->setHeader('Content-Type', 'application/json; charset=' . $this->getContainer()->get('app')->charSet);
-			$this->getContainer()->get('app')->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
+			$application->setHeader('Content-Type', 'application/json; charset=' . $application->charSet);
+			$application->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
 
 			$this->response->error = 'Missing webhook data payload, check the logs for additional information.';
 
-			$this->getContainer()->get('app')->sendHeaders();
+			$application->sendHeaders();
 
 			echo json_encode($this->response);
 
-			$this->getContainer()->get('app')->close();
+			$application->close();
 		}
 
 		// Decode it
@@ -218,15 +225,11 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		// If we have a bot defined for the project, prefer it over the DI object
 		if ($this->project->gh_editbot_user && $this->project->gh_editbot_pass)
 		{
-			$this->github = GithubFactory::getInstance(
-				$this->getContainer()->get('app'), true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass
-			);
+			$this->github = GithubFactory::getInstance($application, true, $this->project->gh_editbot_user, $this->project->gh_editbot_pass);
 		}
 		else
 		{
-			$this->github = GithubFactory::getInstance(
-				$this->getContainer()->get('app')
-			);
+			$this->github = GithubFactory::getInstance($application);
 		}
 
 		// Check the request is coming from GitHub
@@ -244,14 +247,14 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		else
 		{
-			$myIP = $this->getContainer()->get('app')->input->server->getString('REMOTE_ADDR');
+			$myIP = $application->input->server->getString('REMOTE_ADDR');
 		}
 
 		if (!IpHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
 			$this->logger->error('Unauthorized request from ' . $myIP);
-			$this->getContainer()->get('app')->close();
+			$application->close();
 		}
 
 		// Set up the event listener
