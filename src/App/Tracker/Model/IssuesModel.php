@@ -291,19 +291,19 @@ class IssuesModel extends AbstractTrackerListModel
 			$query = $this->processSearchFilter($query, $filter);
 		}
 
-		$filter = $this->state->get('filter.status');
+		$statusFilter = $this->state->get('filter.status');
 
-		if ($filter)
+		if ($statusFilter)
 		{
-			$query->where($db->quoteName('a.status') . ' = ' . (int) $filter);
+			$query->where($db->quoteName('a.status') . ' = ' . (int) $statusFilter);
 		}
 
-		$filter = $this->state->get('filter.state');
+		$stateFilter = $this->state->get('filter.state');
 
 		// State == 2 means "all".
-		if (is_numeric($filter) && 2 != $filter)
+		if (is_numeric($stateFilter) && 2 != $stateFilter)
 		{
-			$query->where($db->quoteName('s.closed') . ' = ' . (int) $filter);
+			$query->where($db->quoteName('s.closed') . ' = ' . (int) $stateFilter);
 		}
 
 		$filter = $this->state->get('filter.priority');
@@ -401,11 +401,16 @@ class IssuesModel extends AbstractTrackerListModel
 		{
 			// Common query elements
 			$query
-				->leftJoin(
-					$db->quoteName('#__issues_tests', 'it') . ' ON a.id = it.item_id')
+				->leftJoin($db->quoteName('#__issues_tests', 'it') . ' ON a.id = it.item_id')
 				->where($db->quoteName('a.has_code') . ' = 1')
-				->where($db->quoteName('it.sha') . ' = ' . $db->quoteName('a.pr_head_sha') . ' OR ' . $db->quoteName('it.sha') . ' IS NULL')
+				->where('(' . $db->quoteName('it.sha') . ' = ' . $db->quoteName('a.pr_head_sha') . ' OR ' . $db->quoteName('it.sha') . ' IS NULL)')
 				->group('a.issue_number');
+
+			// We can only reliably set this WHERE clause if the status and state filters are not set
+			if (!$statusFilter && !is_numeric($stateFilter))
+			{
+				$query->where($db->quoteName('s.closed') . ' = 0');
+			}
 
 			switch ($filter)
 			{
