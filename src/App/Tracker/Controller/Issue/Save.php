@@ -44,6 +44,8 @@ class Save extends AbstractTrackerController
 
 		$src = $application->input->get('item', [], 'array');
 
+		$application->getLogger()->debug('Submitted data from save controller.', ['data' => $src]);
+
 		$user = $application->getUser();
 		$project = $application->getProject();
 
@@ -54,6 +56,8 @@ class Save extends AbstractTrackerController
 
 		if (!$issueNumber)
 		{
+			$application->getLogger()->error('No issue number received from save controller.', ['data' => $src]);
+
 			throw new \UnexpectedValueException('No issue number received.');
 		}
 
@@ -156,7 +160,7 @@ class Save extends AbstractTrackerController
 			}
 			catch (GithubException $exception)
 			{
-				$this->getContainer()->get('app')->getLogger()->error(
+				$application->getLogger()->error(
 					sprintf(
 						'Error code %1$s received from GitHub when editing an issue with the following data:'
 						. ' GitHub User: %2$s; GitHub Repo: %3$s; Issue Number: %4$s; State: %5$s, Old state: %6$s',
