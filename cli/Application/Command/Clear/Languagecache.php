@@ -11,11 +11,11 @@ namespace Application\Command\Clear;
 use ElKuKu\G11n\Support\ExtensionHelper;
 
 /**
- * Class for generating language template files.
+ * Class for clearing the language cache.
  *
  * @since  1.0
  */
-class Cache extends Clear
+class Languagecache extends Clear
 {
 	/**
 	 * Constructor.

@@ -10,7 +10,7 @@
     <params>option</params>
   </command>
   <command>
-    <name>clear cache</name>
+    <name>clear languagecache</name>
     <help>Clear the g11n language directory.</help>
   </command>
   <command>

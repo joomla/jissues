@@ -30,7 +30,7 @@ git commit -am "Update language templates"
 bin/jtracker update languagefiles --provider=crowdin
 bin/jtracker get languagefiles --provider=crowdin
 git commit -am "Fetch updated language files"
-bin/jtracker clear cache
+bin/jtracker clear languagecache
 git push
 ```
 
