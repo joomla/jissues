@@ -10,6 +10,14 @@
     <params>option</params>
   </command>
   <command>
+    <name>clear allcache</name>
+    <help>Clear all cache stores.</help>
+  </command>
+  <command>
+    <name>clear cache</name>
+    <help>Clear the application cache.</help>
+  </command>
+  <command>
     <name>clear languagecache</name>
     <help>Clear the g11n language directory.</help>
   </command>

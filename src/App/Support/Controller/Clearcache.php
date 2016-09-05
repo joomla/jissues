@@ -9,9 +9,10 @@
 namespace App\Support\Controller;
 
 use ElKuKu\G11n\Support\ExtensionHelper;
+use JTracker\Controller\AbstractTrackerController;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
-use JTracker\Controller\AbstractTrackerController;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Controller class for clearing the application's cache.
@@ -46,25 +47,39 @@ class Clearcache extends AbstractTrackerController
 		}
 
 		// Skip Twig cache if disabled
-		if (!$application->get('renderer.cache', false))
+		if ($application->get('renderer.cache', false))
 		{
-			$application->redirect('/');
+			$cacheDir     = JPATH_ROOT . '/cache';
+			$twigCacheDir = $application->get('renderer.cache');
+
+			$filesystem = new Filesystem(new Local($cacheDir));
+
+			if ($filesystem->has($twigCacheDir))
+			{
+				if (!$filesystem->deleteDir($twigCacheDir))
+				{
+					$application->enqueueMessage(g11n3t('There was an error clearing the Twig cache.'), 'error');
+				}
+				else
+				{
+					$application->enqueueMessage(g11n3t('The Twig cache has been cleared.'), 'success');
+				}
+			}
 		}
 
-		$cacheDir     = JPATH_ROOT . '/cache';
-		$twigCacheDir = $application->get('renderer.cache');
-
-		$filesystem = new Filesystem(new Local($cacheDir));
-
-		if ($filesystem->has($twigCacheDir))
+		// Skip application cache if disabled
+		if ($application->get('cache.enabled', false))
 		{
-			if (!$filesystem->deleteDir($twigCacheDir))
+			/** @var CacheItemPoolInterface $cache */
+			$cache = $this->getContainer()->get('cache');
+
+			if ($cache->clear())
 			{
-				$application->enqueueMessage(g11n3t('There was an error clearing the Twig cache.'), 'error');
+				$application->enqueueMessage(g11n3t('The application cache has been cleared.'), 'success');
 			}
 			else
 			{
-				$application->enqueueMessage(g11n3t('The Twig cache has been cleared.'), 'success');
+				$application->enqueueMessage(g11n3t('There was an error clearing the application cache.'), 'error');
 			}
 		}
 

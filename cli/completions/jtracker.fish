@@ -37,6 +37,18 @@ complete -f -c jtracker -n '__fish_jtracker_needs_command' -a help -d "Displays 
 
 # jtracker clear
 complete -f -c jtracker -n '__fish_jtracker_needs_command' -a clear -d "This will clear things."
+complete -f -c jtracker -n '__fish_jtracker_using_command clear' -a allcache -d "Clear all cache stores."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear allcache' -s q -l quiet -d "Be quiet - suppress output."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear allcache' -s v -l verbose -d "Verbose output for debugging purpose."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear allcache' -l nocolors -d "Suppress ANSI colours on unsupported terminals."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear allcache' -l log -d "Optionally log output to the specified log file."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear allcache' -l lang -d "Set the language used by the application."
+complete -f -c jtracker -n '__fish_jtracker_using_command clear' -a cache -d "Clear the application cache."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear cache' -s q -l quiet -d "Be quiet - suppress output."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear cache' -s v -l verbose -d "Verbose output for debugging purpose."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear cache' -l nocolors -d "Suppress ANSI colours on unsupported terminals."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear cache' -l log -d "Optionally log output to the specified log file."
+complete -f -c jtracker -n '__fish_jtracker_using_action clear cache' -l lang -d "Set the language used by the application."
 complete -f -c jtracker -n '__fish_jtracker_using_command clear' -a languagecache -d "Clear the g11n language directory."
 complete -f -c jtracker -n '__fish_jtracker_using_action clear languagecache' -s q -l quiet -d "Be quiet - suppress output."
 complete -f -c jtracker -n '__fish_jtracker_using_action clear languagecache' -s v -l verbose -d "Verbose output for debugging purpose."
