@@ -3,13 +3,13 @@
 
 {% set firstPart = uri.route|split("?")|first|split("/")|first %}
 
-<li class="{{ "" == uri.route or "tracker" == firstPart ? "active" : "" }}">
+<li{{ "" == uri.route or "tracker" == firstPart ? 'class="active"' : "" }}>
     <a href="{{ uri.base.path }}tracker/{{ project.alias }}">
         {{ "Tracker"|_ }}
     </a>
 </li>
 {% if project.project_id %}
-    <li class="dropdown {{ "project" == firstPart ? "active" : "" }}">
+    <li class="dropdown{{ firstPart in ['project', 'activity', 'category'] ? " active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ "Project"|_ }}
             <span class="caret"></span>
@@ -90,7 +90,7 @@
 </li>
 
 {% if user.isAdmin %}
-    <li class="dropdown{{ firstPart in ['config', 'text', 'icons', 'logs'] ? " active" : "" }}">
+    <li class="dropdown{{ firstPart in ['config', 'phpinfo', 'monologs', 'logs', 'icons', 'routes', 'text'] ? " active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
             {{ "System"|_ }}
             <span class="caret"></span>
@@ -181,7 +181,7 @@
     </li>
 {% endif %}
 
-<li class="dropdown {{firstPart in ['page/about', 'markdown', 'devdox'] ? 'active' : '' }}">
+<li class="dropdown{{firstPart in ['page/about', 'markdown', 'documentation'] ? ' active' : '' }}">
     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
         /etc
         <span class="caret"></span>
