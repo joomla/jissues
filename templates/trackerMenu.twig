@@ -147,6 +147,13 @@
                             {{ "GitHub Pulls"|_ }}
                         </a>
                     </li>
+                    </li>
+                    <li class="{{ "monologs/github_releases" == firstPart ? "active" : "" }}">
+                        <a href="{{ uri.base.path }}monologs/github_releases">
+                            <i class="icon-github"></i>
+                            {{ "GitHub Releases"|_ }}
+                        </a>
+                    </li>
                     <li class="divider"></li>
                     <li class="{{ "logs/php" == firstPart ? "active" : "" }}">
                         <a href="{{ uri.base.path }}logs/php"><i class="icon-heart-2"></i> {{ "PHP"|_ }}</a>

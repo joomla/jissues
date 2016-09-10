@@ -55,7 +55,7 @@ class MonologsHtmlView extends AbstractTrackerHtmlView
 	{
 		$type = $this->getLogType();
 
-		if (!in_array($type, ['app', 'cron', 'database', 'error', 'github_issues', 'github_comments', 'github_pulls']))
+		if (!in_array($type, ['app', 'cron', 'database', 'error', 'github_issues', 'github_comments', 'github_pulls', 'github_releases']))
 		{
 			throw new \UnexpectedValueException('Invalid log type');
 		}
@@ -100,6 +100,7 @@ class MonologsHtmlView extends AbstractTrackerHtmlView
 			case 'github_issues' :
 			case 'github_comments' :
 			case 'github_pulls' :
+			case 'github_releases' :
 				return new LogReader($path);
 
 			default :
