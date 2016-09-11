@@ -11,67 +11,39 @@
 {% if project.project_id %}
     <li class="dropdown{{ firstPart in ['project', 'activity', 'category'] ? " active" : "" }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-            {{ "Project"|_ }}
-            <span class="caret"></span>
+            {{ "Project"|_ }} <span class="caret"></span>
         </a>
 
         <ul class="dropdown-menu">
             <li class="nav-header">{{ project.title }}</li>
             <li class="divider"><span></span></li>
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}">
-                    <i class="icon-eye"></i>
-                    {{ "Show"|_ }}
-                </a>
-                <a href="{{ uri.base.path }}activity/project/{{ project.alias }}">
-                    <i class="icon-stats-growth"></i>
-                    {{ "Project Activity"|_ }}
-                </a>
-                <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}">
-                    <i class="icon-stats-growth"></i>
-                    {{ "Snapshot"|_ }}
-                </a>
-                <a href="{{ uri.base.path }}activity/user/{{ project.alias }}">
-                    <i class="icon-stats-growth"></i>
-                    {{ "User Activity"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}"><i class="icon-eye"></i> {{ "Show"|_ }}</a>
+                <a href="{{ uri.base.path }}activity/project/{{ project.alias }}"><i class="icon-stats-growth"></i> {{ "Project Activity"|_ }}</a>
+                <a href="{{ uri.base.path }}activity/snapshot/{{ project.alias }}"><i class="icon-stats-growth"></i> {{ "Snapshot"|_ }}</a>
+                <a href="{{ uri.base.path }}activity/user/{{ project.alias }}"><i class="icon-stats-growth"></i> {{ "User Activity"|_ }}</a>
             </li>
 
             {% if user.check("admin") %}
             <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit">
-                    <i class="icon-pencil"></i>
-                    {{ "Edit"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/edit"><i class="icon-pencil"></i> {{ "Edit"|_ }}</a>
             </li>
             {% endif %}
 
             {% if user.check("manage") %}
             <li class="divider"><span></span></li>
 
-            <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/groups">
-                    <i class="icon-user-2"></i>
-                    {{ "Access Groups"|_ }}
-                </a>
+            <li{{ "project/" ~ project.alias ~ "/groups" == firstPart ? ' class="active"' : "" }}>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/groups"><i class="icon-user-2"></i> {{ "Access Groups"|_ }}</a>
             </li>
-            <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/labels">
-                    <i class="icon-tag"></i>
-                    {{ "Labels"|_ }}
-                </a>
+            <li{{ "project/" ~ project.alias ~ "/labels" == firstPart ? ' class="active"' : "" }}>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/labels"><i class="icon-tag"></i> {{ "Labels"|_ }}</a>
             </li>
-            <li>
-                <a href="{{ uri.base.path }}project/{{ project.alias }}/milestones">
-                    <i class="octicon octicon-milestone"></i>
-                    {{ "Milestones"|_ }}
-                </a>
+            <li{{ "project/" ~ project.alias ~ "/milestones" == firstPart ? ' class="active"' : "" }}>
+                <a href="{{ uri.base.path }}project/{{ project.alias }}/milestones"><i class="octicon octicon-milestone"></i> {{ "Milestones"|_ }}</a>
             </li>
-            <li>
-                <a href="{{ uri.base.path }}category/{{ project.alias }}">
-                        <i class="icon-tag"></i>
-                        {{ "Categories"|_ }}
-                </a>
+            <li{{ "category/" ~ project.alias == firstPart ? ' class="active"' : "" }}>
+                <a href="{{ uri.base.path }}category/{{ project.alias }}"><i class="icon-tag"></i> {{ "Categories"|_ }}</a>
             </li>
             {% endif %}
         </ul>
@@ -96,86 +68,53 @@
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li class="{{ "config" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}config">
-                    <i class="icon-dashboard"></i>
-                    {{ "Configuration"|_ }}
-                </a>
+            <li{{ "config" == firstPart ? ' class="active"' : "" }}>
+                <a href="{{ uri.base.path }}config"><i class="icon-dashboard"></i> {{ "Configuration"|_ }}</a>
             </li>
-            <li class="{{ "phpinfo" == uri.route ? "active" : "" }}">
-                <a href="{{ uri.base.path }}phpinfo">
-                    <i class="icon-star"></i>
-                    {{ "phpinfo()"|_ }}
-                </a>
+            <li{{ "phpinfo" == firstPart ? ' class="active"' : "" }}>
+                <a href="{{ uri.base.path }}phpinfo"><i class="icon-star"></i> {{ "phpinfo()"|_ }}</a>
             </li>
-            <li class="dropdown-submenu">
-                <a tabindex="-1" href="#">
-                    <i class="icon-copy"></i>
-                    {{ "Logs"|_ }}
-                </a>
+            <li class="dropdown-submenu{{ firstPart in ['monologs', 'logs'] ? " active" : "" }}">
+                <a tabindex="-1" href="#"><i class="icon-copy"></i> {{ "Logs"|_ }}</a>
                 <ul class="dropdown-menu">
-                    <li class="{{ "monologs/app" == firstPart ? "active" : "" }}">
+                    <li{{ "monologs/app" == firstPart ? ' class="active"' : "" }}>
                         <a href="{{ uri.base.path }}monologs/app"><i class="icon-flash"></i> {{ "Application"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/error" == uri.route ? "active" : "" }}">
+                    <li{{ "monologs/error" == firstPart ? ' class="active"' : "" }}>
                         <a href="{{ uri.base.path }}monologs/error"><i class="icon-flag"></i> {{ "Error"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/cron" == firstPart ? "active" : "" }}">
+                    <li{{ "monologs/cron" == firstPart ? ' class="active"' : "" }}>
                         <a href="{{ uri.base.path }}monologs/cron"><i class="icon-basket"></i> {{ "Cron Jobs"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/database" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}monologs/database">
-                            <i class="icon-database"></i>
-                            {{ "Database"|_ }}
-                        </a>
+                    <li{{ "monologs/database" == firstPart ? ' class="active"' : "" }}>
+                        <a href="{{ uri.base.path }}monologs/database"><i class="icon-database"></i> {{ "Database"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/github_issues" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}monologs/github_issues">
-                            <i class="icon-github"></i>
-                            {{ "GitHub Issues"|_ }}
-                        </a>
+                    <li{{ "monologs/github_issues" == firstPart ? ' class="active"' : "" }}>
+                        <a href="{{ uri.base.path }}monologs/github_issues"><i class="icon-github"></i> {{ "GitHub Issues"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/github_comments" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}monologs/github_comments">
-                            <i class="icon-github"></i>
-                            {{ "GitHub Comments"|_ }}
-                        </a>
+                    <li{{ "monologs/github_comments" == firstPart ? ' class="active"' : "" }}>
+                        <a href="{{ uri.base.path }}monologs/github_comments"><i class="icon-github"></i> {{ "GitHub Comments"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/github_pulls" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}monologs/github_pulls">
-                            <i class="icon-github"></i>
-                            {{ "GitHub Pulls"|_ }}
-                        </a>
+                    <li{{ "monologs/github_pulls" == firstPart ? ' class="active"' : "" }}>
+                        <a href="{{ uri.base.path }}monologs/github_pulls"><i class="icon-github"></i> {{ "GitHub Pulls"|_ }}</a>
                     </li>
                     <li class="divider"></li>
-                    <li class="{{ "logs/php" == firstPart ? "active" : "" }}">
+                    <li{{ "logs/php" == firstPart ? ' class="active"' : "" }}>
                         <a href="{{ uri.base.path }}logs/php"><i class="icon-heart-2"></i> {{ "PHP"|_ }}</a>
                     </li>
                 </ul>
             </li>
             <li class="{{ "icons" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}icons">
-                    <i class="icon-smiley-2"></i>
-                    {{ "Icons"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}icons"><i class="icon-smiley-2"></i> {{ "Icons"|_ }}</a>
             </li>
             <li class="{{ "routes" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}routes">
-                    <i class="icon-link"></i>
-                    {{ "Routes"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}routes"><i class="icon-link"></i> {{ "Routes"|_ }}</a>
             </li>
             <li class="{{ "text" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}text">
-                    <i class="icon-pencil-2"></i>
-                    {{ "Text"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}text"><i class="icon-pencil-2"></i> {{ "Text"|_ }}</a>
             </li>
             <li class="{{ "clearcache" == firstPart ? "active" : "" }}">
-                <a href="{{ uri.base.path }}clearcache">
-                    <i class="icon-pencil-2"></i>
-                    {{ "Clear Cache"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}clearcache"><i class="icon-trash"></i> {{ "Clear Cache"|_ }}</a>
             </li>
         </ul>
     </li>
@@ -183,28 +122,19 @@
 
 <li class="dropdown{{firstPart in ['page/about', 'markdown', 'documentation'] ? ' active' : '' }}">
     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-        /etc
-        <span class="caret"></span>
+        /etc <span class="caret"></span>
     </a>
 
     <ul class="dropdown-menu">
-
         <li class="{{ "page/about" == firstPart ? "active" : "" }}">
-            <a href="{{ uri.base.path }}page/about">
-                {{ "About"|_ }}
-            </a>
+            <a href="{{ uri.base.path }}page/about">{{ "About"|_ }}</a>
         </li>
         <li class="{{ "markdown" == firstPart ? "active" : "" }}">
-            <a href="{{ uri.base.path }}markdown">
-                {{ "Markdown"|_ }}
-            </a>
+            <a href="{{ uri.base.path }}markdown">{{ "Markdown"|_ }}</a>
         </li>
         <li class="{{ "documentation" == firstPart ? "active" : "" }}">
-            <a href="{{ uri.base.path }}documentation">
-                {{ "Documentation"|_ }}
-            </a>
+            <a href="{{ uri.base.path }}documentation">{{ "Documentation"|_ }}</a>
         </li>
-
     </ul>
 </li>
 
@@ -213,46 +143,30 @@
     {% if user.id %}
     <li class="dropdown pull-right">
         <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-            {{ avatar(user.username, 20)|raw }}
-            &nbsp;
-            {{ user.username }}
-            <span class="caret"></span>
+            {{ avatar(user.username, 20)|raw }}&nbsp;{{ user.username }} <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
             {% if user.isAdmin %}
                 <li class="nav-header"><i class="icon-user-3"></i> {{ "Admin"|_ }}</li>
             {% endif %}
             <li>
-                <a href="{{ uri.base.path }}user/{{ user.id }}">
-                    <i class="icon-user"></i>
-                    {{ "View profile"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}user/{{ user.id }}"><i class="icon-user"></i> {{ "View profile"|_ }}</a>
             </li>
             <li>
-                <a href="{{ uri.base.path }}user/{{ user.id }}/edit">
-                    <i class="icon-user"></i>
-                    {{ "Edit profile"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}user/{{ user.id }}/edit"><i class="icon-user"></i> {{ "Edit profile"|_ }}</a>
             </li>
             <li class="divider"><span></span></li>
             <li>
-                <a href="{{ uri.base.path }}logout">
-                    <i class="icon-lock"></i>
-                    {{ "Logout"|_ }}
-                </a>
+                <a href="{{ uri.base.path }}logout"><i class="icon-lock"></i> {{ "Logout"|_ }}</a>
             </li>
         </ul>
     </li>
     {% else %}
     <li class="pull-right">
         {% if loginUrl %}
-            <a class="btn-success" href="{{ loginUrl }}">
-                {{ "Login with GitHub"|_ }}
-            </a>
+            <a class="btn-success" href="{{ loginUrl }}">{{ "Login with GitHub"|_ }}</a>
         {% else %}
-            <a class="btn-danger" href="#">
-                {{ 'No GitHub credentials set in config'|_ }}
-            </a>
+            <a class="btn-danger" href="#">{{ 'No GitHub credentials set in config'|_ }}</a>
         {% endif %}
     </li>
     {% endif %}
