@@ -98,11 +98,8 @@
                     <li{{ "monologs/github_pulls" == uri.route ? ' class="active"' : "" }}>
                         <a href="{{ uri.base.path }}monologs/github_pulls"><i class="icon-github"></i> {{ "GitHub Pulls"|_ }}</a>
                     </li>
-                    <li class="{{ "monologs/github_releases" == firstPart ? "active" : "" }}">
-                        <a href="{{ uri.base.path }}monologs/github_releases">
-                            <i class="icon-github"></i>
-                            {{ "GitHub Releases"|_ }}
-                        </a>
+                    <li{{ "monologs/github_releases" == uri.route ? ' class="active"' : "" }}>
+                        <a href="{{ uri.base.path }}monologs/github_releases"><i class="icon-github"></i> {{ "GitHub Releases"|_ }}</a>
                     </li>
                     <li class="divider"></li>
                     <li{{ "logs/php" == uri.route ? ' class="active"' : "" }}>
