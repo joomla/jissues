@@ -3,7 +3,7 @@
 
 {% set firstPart = uri.route|split("?")|first|split("/")|first %}
 
-<li{{ "" == uri.route or "tracker" == firstPart ? 'class="active"' : "" }}>
+<li{{ "" == uri.route or "tracker" == firstPart ? ' class="active"' : "" }}>
     <a href="{{ uri.base.path }}tracker/{{ project.alias }}">
         {{ "Tracker"|_ }}
     </a>
