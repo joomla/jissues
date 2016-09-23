@@ -185,7 +185,8 @@ class Languagefiles extends Get
 					break;
 
 				case 'crowdin':
-					$fileName = strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
+					$fileName = $this->getApplication()->get('crowdin.filepath', '')
+						. strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
 					$this->crowdin->file->export($fileName, LanguageHelper::getCrowdinLanguageTag($language), $path);
 					break;
 			}

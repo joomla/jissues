@@ -135,7 +135,8 @@ class Languagefiles extends Update
 								break;
 
 							case 'crowdin':
-								$this->crowdin->file->add(new Languagefile($templatePath, $alias . '_en.po'));
+								$fileName = $this->getApplication()->get('crowdin.filepath', '') . $alias . '_en.po';
+								$this->crowdin->file->add(new Languagefile($templatePath, $fileName));
 
 								break;
 						}
@@ -154,7 +155,8 @@ class Languagefiles extends Update
 								break;
 
 							case 'crowdin':
-								$this->crowdin->file->update(new Languagefile($templatePath, $alias . '_en.po'));
+								$fileName = $this->getApplication()->get('crowdin.filepath', '') . $alias . '_en.po';
+								$this->crowdin->file->update(new Languagefile($templatePath, $fileName));
 
 								break;
 						}
@@ -217,7 +219,8 @@ class Languagefiles extends Update
 
 					$this->out($language . '... ', false);
 
-					$fileName = strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
+					$fileName = $this->getApplication()->get('crowdin.filepath', '')
+						. strtolower(str_replace('.', '-', $extension)) . '-' . strtolower($domain) . '_en.po';
 
 					// Get the "Sink"
 					$path = $scopePath . '/' . $extensionPath . '/' . $language . '/' . $language . '.' . $extension . '.po';

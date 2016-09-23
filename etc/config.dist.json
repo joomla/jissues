@@ -27,8 +27,9 @@
 	},
 
 	"crowdin": {
-		"project": "",
-		"api-key": ""
+		"project" : "",
+		"api-key" : "",
+		"filepath": ""
 	},
 
 	"renderer": {
