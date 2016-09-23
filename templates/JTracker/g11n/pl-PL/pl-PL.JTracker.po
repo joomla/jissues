@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: pl\n"
-"X-Crowdin-File: jtracker-template_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/jtracker-template_en.po\n"
 "Language: pl_PL\n"
 
 #: /templates/footerMenu.twig:18
@@ -65,29 +65,29 @@ msgstr "Polityka prywatności"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr ""
+msgstr "Zgłoś nadużycie"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr ""
+msgstr "Wyloguj"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
-msgstr ""
+msgstr "Zaloguj"
 
 #: /templates/footerMenu.twig:40
-msgid "All rights reserved."
-msgstr "Wszystkie prawa zastrzeżone."
+msgid "&copy; 2005 - %currentYear% %osm% All Rights Reserved."
+msgstr "© %osm% 2005 - %currentYear% wszelkie prawa zastrzeżone."
 
 #: /templates/footerMenu.twig:44
 msgid "Joomla! Hosting by %provider%"
-msgstr ""
+msgstr "Joomla! Hosting przez %provider%"
 
-#: /templates/index.twig:80
+#: /templates/index.twig:85
 msgid "Download"
 msgstr "Pobierz"
 
-#: /templates/index.twig:83
+#: /templates/index.twig:88
 msgid "Demo"
 msgstr "Demo"
 
@@ -105,46 +105,46 @@ msgstr "Brak kamieni milowych"
 
 #: /templates/fields.twig:73
 msgid "Select labels..."
-msgstr ""
+msgstr "Wybierz etykiety..."
 
 #: /templates/testcontainer.twig:6
 #: /templates/testcontainer.twig:47
 msgid "Submit test result"
-msgstr ""
+msgstr "Przedstawia wynik testu"
 
 #: /templates/testcontainer.twig:8
 msgid "I have tested this item"
-msgstr ""
+msgstr "Mam testowany ten przedmiot"
 
 #: /templates/testcontainer.twig:19
 msgid "Not tested"
-msgstr ""
+msgstr "Nieprzetestowane"
 
 #: /templates/testcontainer.twig:25
 msgid "Tested successfully"
-msgstr ""
+msgstr "Przetestowane pomyślnie"
 
 #: /templates/testcontainer.twig:31
 msgid "Tested unsuccessfully"
-msgstr ""
+msgstr "Przetestowane niepomyślnie"
 
 #: /templates/testcontainer.twig:40
 msgid "Leave a comment (optional)"
-msgstr ""
+msgstr "Zostaw komentarz (opcjonalnie)"
 
 #: /templates/testcontainer.twig:53
 #: /templates/testcontainer.twig:68
 msgid "Alter test result"
-msgstr ""
+msgstr "Wynik testu"
 
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "Ustawić wynik testu dla użytkownika %s %s"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr ""
+msgstr "Użytkownik"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."

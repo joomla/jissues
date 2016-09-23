@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: id\n"
-"X-Crowdin-File: activity-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/activity-app_en.po\n"
 "Language: id_ID\n"
 
 #: /templates/activity/useractivity.index.twig:6
@@ -182,7 +182,7 @@ msgstr "Wajib Informasi"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:60
 msgid "Discussion"
-msgstr ""
+msgstr "Diskusi"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:65
 msgid "Total Open Issues By Status"
@@ -229,7 +229,7 @@ msgstr "Poin %1$s untuk Empat %2$s Sebelumnya"
 #: /src/App/Activity/Controller/Ajax/TotalActivity.php:126
 #, php-format
 msgid "%1$s Points"
-msgstr "%1$s Poin"
+msgstr "Poin %1$s"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:83
 msgid "12 Months"
@@ -242,7 +242,7 @@ msgstr "Kustom"
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:101
 #, php-format
 msgid "%1$s Points From %2$s Through %3$s"
-msgstr "%1$s Poin Dari %2$s Melalui %3$s"
+msgstr "Poin %1$s Dari %2$s Melalui %3$s"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:106
 #, php-format

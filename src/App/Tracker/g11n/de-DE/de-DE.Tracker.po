@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: de\n"
-"X-Crowdin-File: tracker-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/tracker-app_en.po\n"
 "Language: de_DE\n"
 
 #: /templates/tracker/issue.edit.twig:52
@@ -54,7 +54,7 @@ msgstr "Status"
 #: /templates/tracker/issues.index.twig:46
 #: /templates/tracker/issue.add.twig:49
 msgid "Priority"
-msgstr "Dringlichkeit"
+msgstr "Priorität"
 
 #: /templates/tracker/issue.edit.twig:124
 msgid "Item"
@@ -142,7 +142,7 @@ msgstr "Zuletzt aktualisiert"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Created by you"
-msgstr "Erstellt von mir"
+msgstr "Von dir erstellt"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Everyone's issues"
@@ -158,7 +158,7 @@ msgstr "- Kategorien -"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No Categories"
-msgstr ""
+msgstr "Keine Kategorien"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
@@ -225,7 +225,7 @@ msgstr "Alle"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search Tools"
-msgstr ""
+msgstr "Suchwerkzeuge"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -330,7 +330,7 @@ msgstr "%s Issues"
 #: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:103
 msgid "New Item"
-msgstr "Neuer Artikel"
+msgstr "Neue Meldung"
 
 #: /templates/tracker/issues.index.twig:44
 #: /templates/tracker/categories.index.twig:48
@@ -393,11 +393,11 @@ msgstr "Niedrig"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Very Low"
-msgstr ""
+msgstr "Sehr niedrig"
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
-msgstr "GitHub merge Status"
+msgstr "GitHub Merge Status"
 
 #: /templates/tracker/issues.index.twig:205
 msgid "No items found."
@@ -435,7 +435,7 @@ msgstr "Fertig zum Anwenden"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr "Im code repariert"
+msgstr "Im Code repariert"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
@@ -467,7 +467,7 @@ msgstr "Doppelter Bericht"
 
 #: /templates/tracker/issues.index.twig:350
 msgid "Discussion"
-msgstr ""
+msgstr "Diskussion"
 
 #: /templates/tracker/issues.index.twig:413
 msgid "First"
@@ -515,7 +515,7 @@ msgstr "Diff"
 
 #: /templates/tracker/issue.index.twig:170
 msgid "Download this fork as a ZIP file"
-msgstr "Diese Fork als ZIP Datei herunterladen"
+msgstr "Diesen Fork als ZIP Datei herunterladen"
 
 #: /templates/tracker/issue.index.twig:226
 msgid "Categories:"

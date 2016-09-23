@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:33-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: ro\n"
-"X-Crowdin-File: cli-cli_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/cli-cli_en.po\n"
 "Language: ro_RO\n"
 
 #: /cli/Application/Application.php:113
@@ -34,7 +34,7 @@ msgstr "Opţional, loghează ieşirea în fişierul jurnal specificat."
 
 #: /cli/Application/Application.php:133
 msgid "Set the language used by the application."
-msgstr ""
+msgstr "Setarea limbii utilizate de aplicaţie."
 
 #: /cli/Application/Application.php:160
 msgid "Joomla! Tracker CLI Application"
@@ -61,7 +61,7 @@ msgstr "Timp de execuţie: <b>%d sec.</b>"
 #: /cli/Application/Application.php:388
 #, php-format
 msgid "The argument \"%s\" is not recognized."
-msgstr ""
+msgstr "Argumentul \"%s\" nu este recunoscut."
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
@@ -165,7 +165,7 @@ msgstr "Backup fişiere de limbă într-un anumit folder."
 
 #: /cli/Application/Command/Export/Langfiles.php:50
 msgid "Export also language template files."
-msgstr ""
+msgstr "Exportă, de asemenea, fişierele de limbă."
 
 #: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
@@ -173,7 +173,7 @@ msgstr "Export fişiere de limbă"
 
 #: /cli/Application/Command/Export/Langfiles.php:84
 msgid "Start exporting language files."
-msgstr ""
+msgstr "Începe exportul de fişiere de limbă."
 
 #: /cli/Application/Command/Export/Langfiles.php:87
 #: /cli/Application/Command/Get/Avatars.php:56
@@ -190,7 +190,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Depfile.php:136
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:120
+#: /cli/Application/Command/Make/Languageflags.php:122
 #: /cli/Application/Command/Make/Repoinfo.php:65
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
@@ -475,7 +475,7 @@ msgstr "%d evenimente de subiect noi au fost adăugate în baza de date"
 
 #: /cli/Application/Command/Get/Project/Issues.php:71
 msgid "<n> Process only an issue of given status."
-msgstr ""
+msgstr "<n>Procesează numai problemele cu un statut dat."
 
 #: /cli/Application/Command/Get/Project/Issues.php:75
 msgid "Retrieve issues from GitHub."
@@ -511,7 +511,7 @@ msgstr "În curs de recuperare a <b>%s</b> obiectelor din GitHub..."
 msgid "Retrieved <b>1</b> item from GitHub."
 msgid_plural "Retrieved <b>%d</b> items from GitHub."
 msgstr[0] "Preluat <b>1</b> element din GitHub."
-msgstr[1] ""
+msgstr[1] "Preluate <b>%d</b> elemente din GitHub."
 msgstr[2] "Preluate <b>%d</b> elemente din GitHub."
 
 #: /cli/Application/Command/Get/Project/Issues.php:258
@@ -582,7 +582,7 @@ msgstr "Începe preluarea utilizatorilor."
 msgid "Getting user info for one user."
 msgid_plural "Getting user info for %d users."
 msgstr[0] "Preluare informații utilizator pentru un utilizator."
-msgstr[1] ""
+msgstr[1] "Preluare informații utilizator pentru %d utilizatori."
 msgstr[2] "Preluare informații utilizator pentru %d utilizatori."
 
 #: /cli/Application/Command/Get/Users.php:115
@@ -714,16 +714,16 @@ msgstr "Tabelele din fişierul %s sunt în curs de creare"
 
 #: /cli/Application/Command/Make/Autocomplete.php:51
 msgid "Generate autocomplete files."
-msgstr ""
+msgstr "Genera fişierele de completare automată."
 
 #: /cli/Application/Command/Make/Autocomplete.php:56
 #, php-format
 msgid "The type of auto complete file (currently supported: %s)."
-msgstr ""
+msgstr "Tipul de fişier de completare automată (suportat în prezent: %s)."
 
 #: /cli/Application/Command/Make/Autocomplete.php:62
 msgid "Echo the output instead of writing it to a file."
-msgstr ""
+msgstr "Ecou ieşire în loc de scriere într-un fişier."
 
 #: /cli/Application/Command/Make/Autocomplete.php:76
 msgid "Make Auto complete"
@@ -732,12 +732,12 @@ msgstr "Generare Auto completare"
 #: /cli/Application/Command/Make/Autocomplete.php:90
 #, php-format
 msgid "Invalid type supplied. Valid types are: %s"
-msgstr ""
+msgstr "S-a furnizat un tip invalid. Tipurile valabile sunt: %s"
 
 #: /cli/Application/Command/Make/Autocomplete.php:178
 #: /cli/Application/Command/Make/Autocomplete.php:244
 msgid "File has been written to: %path%"
-msgstr ""
+msgstr "Fişierul a fost scris la: %path%"
 
 #: /cli/Application/Command/Make/Composergraph.php:40
 msgid "Graph visualisation for your project's composer.json and its dependencies."
@@ -776,7 +776,7 @@ msgstr "Generează class doc blocks pentru clasele de tabel"
 
 #: /cli/Application/Command/Make/Dbcomments.php:39
 msgid "Make Table Comments"
-msgstr ""
+msgstr "Creare comentarii tabel"
 
 #: /cli/Application/Command/Make/Depfile.php:52
 msgid "Create and update a dependency file."
@@ -880,12 +880,12 @@ msgstr "Compilează mai multe imagini într-una mare (CSS spriting)."
 msgid "Compile Language flag images"
 msgstr "Compilează imaginile de steaguri limbă"
 
-#: /cli/Application/Command/Make/Languageflags.php:109
+#: /cli/Application/Command/Make/Languageflags.php:111
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
-msgstr ""
+msgstr "Generare de imagine combinată pentru imagini de stegulețe %1$d în %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:115
+#: /cli/Application/Command/Make/Languageflags.php:117
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "Scrierea fişierul CSS în %s"
@@ -899,8 +899,8 @@ msgid "Generate repository information."
 msgstr "Generarea de informaţii de repository."
 
 #: /cli/Application/Command/Make/Repoinfo.php:50
-msgid "Generate Repo information"
-msgstr "Generarea de informaţii Repo"
+msgid "Generate repository information"
+msgstr "Generarea de informaţii de repository"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."
@@ -914,9 +914,9 @@ msgstr "Test Checkstyle"
 #, php-format
 msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Fnalizat cu o eroare"
+msgstr[1] "Finalizat cu %d erori"
+msgstr[2] "Finalizat cu %d erori"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
@@ -933,11 +933,11 @@ msgstr "Rulează detectorul de Copy/Paste"
 
 #: /cli/Application/Command/Test/Hook.php:61
 msgid "Tests web hooks"
-msgstr ""
+msgstr "Teste rutine webhooks"
 
 #: /cli/Application/Command/Test/Hook.php:81
 msgid "Test Hooks"
-msgstr ""
+msgstr "Testare hooks"
 
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
@@ -1054,7 +1054,7 @@ msgstr "Actualizare pull requests"
 
 #: /cli/Application/Command/Update/Pulls.php:49
 msgid "Start Updating Project"
-msgstr ""
+msgstr "Începe actualizarea proiectului"
 
 #: /cli/Application/Command/Update/Pulls.php:59
 #, php-format

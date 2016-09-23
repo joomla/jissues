@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -13,28 +13,28 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: it\n"
-"X-Crowdin-File: github-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/github-app_en.po\n"
 "Language: it_IT\n"
 
 #: /templates/github/stats.index.twig:52
 #: /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
-msgstr ""
+msgstr "%s - Statistiche"
 
 #: /templates/github/hooks.index.twig:6
 #: /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
-msgstr ""
+msgstr "%s - Hooks"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr ""
+msgstr "Elenca Hooks"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr ""
+msgstr "Nuovo Hook"
 
 #: /templates/github/hooks.index.twig:22
 #: /templates/github/hooks.index.twig:87
@@ -49,11 +49,11 @@ msgstr "Eventi"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr ""
+msgstr "Nota: separato da virgole, senza spazi"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr ""
+msgstr "Aggiungi Hook"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
@@ -70,19 +70,19 @@ msgstr "Azioni"
 
 #: /templates/github/hooks.index.twig:99
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #: /templates/github/hooks.index.twig:101
 msgid "Inactive"
-msgstr ""
+msgstr "Inattivo"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr ""
+msgstr "Disattiva"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr ""
+msgstr "Attiva"
 
 #: /templates/github/hooks.index.twig:120
 #: /templates/github/labels.index.twig:59
@@ -94,15 +94,15 @@ msgstr "Cancella"
 #: /templates/github/labels.index.twig:10
 #, php-format
 msgid "%s - Labels"
-msgstr ""
+msgstr "%s - Etichette"
 
 #: /templates/github/labels.index.twig:12
 msgid "List Labels"
-msgstr ""
+msgstr "Elenca etichette"
 
 #: /templates/github/labels.index.twig:17
 msgid "New Label"
-msgstr ""
+msgstr "Nuova etichetta"
 
 #: /templates/github/labels.index.twig:22
 #: /templates/github/labels.index.twig:45
@@ -111,35 +111,35 @@ msgstr "Nome"
 
 #: /templates/github/labels.index.twig:23
 msgid "Label name"
-msgstr ""
+msgstr "Nome etichetta"
 
 #: /templates/github/labels.index.twig:26
 #: /templates/github/labels.index.twig:46
 msgid "Colour"
-msgstr ""
+msgstr "Colore"
 
 #: /templates/github/labels.index.twig:28
 msgid "Label colour"
-msgstr ""
+msgstr "Colore etichetta"
 
 #: /templates/github/labels.index.twig:31
 msgid "Add Label"
-msgstr ""
+msgstr "Aggiungi etichetta"
 
 #: /templates/github/milestones.index.twig:6
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr ""
+msgstr "%s - Pietre miliari"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr ""
+msgstr "Nuova pietra miliare"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
 msgid "Number"
-msgstr ""
+msgstr "Numero"
 
 #: /templates/github/milestones.index.twig:35
 #: /templates/github/milestones.index.twig:75
@@ -148,12 +148,12 @@ msgstr "Titolo"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "Titolo Pietra miliare"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "Dovuto il"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
@@ -166,11 +166,11 @@ msgstr "Stato"
 
 #: /templates/github/milestones.index.twig:45
 msgid "Open"
-msgstr "Apri"
+msgstr "Aperto"
 
 #: /templates/github/milestones.index.twig:46
 msgid "Closed"
-msgstr ""
+msgstr "Chiuso"
 
 #: /templates/github/milestones.index.twig:51
 #: /templates/github/milestones.index.twig:76
@@ -187,5 +187,5 @@ msgstr "Modifica"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
-msgstr ""
+msgstr "Niente da vedere in anteprima..."
 

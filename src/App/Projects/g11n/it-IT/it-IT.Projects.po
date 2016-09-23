@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -13,13 +13,13 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: it\n"
-"X-Crowdin-File: projects-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/projects-app_en.po\n"
 "Language: it_IT\n"
 
 #: /templates/projects/project.index.twig:6
 #: /templates/projects/project.index.twig:8
 msgid "Project"
-msgstr ""
+msgstr "Progetto"
 
 #: /templates/projects/project.index.twig:14
 #: /templates/projects/projects.index.twig:63
@@ -35,21 +35,21 @@ msgstr "Cancella"
 #: /templates/projects/project.index.twig:26
 #, php-format
 msgid "Project %s Tracker"
-msgstr ""
+msgstr "Tracker del Progetto %s"
 
 #: /templates/projects/project.index.twig:35
 #, php-format
 msgid "Project %s on GitHub"
-msgstr ""
+msgstr "Progetto %s su GitHub"
 
 #: /templates/projects/project.index.twig:39
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiche"
 
 #: /templates/projects/project.index.twig:45
 #: /templates/projects/projects.index.twig:45
 msgid "Hooks"
-msgstr ""
+msgstr "Hooks"
 
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62
@@ -59,7 +59,7 @@ msgstr "Gruppi"
 #: /templates/projects/project.index.twig:54
 #: /templates/projects/projects.index.twig:46
 msgid "Labels"
-msgstr ""
+msgstr "Etichette"
 
 #: /templates/projects/project.index.twig:57
 msgid "Categories"
@@ -67,7 +67,7 @@ msgstr "Categorie"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
-msgstr ""
+msgstr "Aggiungi progetto"
 
 #: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
@@ -77,7 +77,7 @@ msgstr "Salva"
 #: /templates/projects/project.add.twig:20
 #: /templates/projects/project.edit.twig:30
 msgid "New project"
-msgstr ""
+msgstr "Nuovo progetto"
 
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
@@ -92,47 +92,47 @@ msgstr "Titolo"
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
 msgid "Short Title"
-msgstr ""
+msgstr "Titolo breve"
 
 #: /templates/projects/project.add.twig:38
 #: /templates/projects/project.edit.twig:51
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /templates/projects/project.add.twig:43
 #: /templates/projects/project.edit.twig:58
 msgid "GitHub Owner"
-msgstr ""
+msgstr "Proprietario su GitHub"
 
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
 msgid "GitHub Repo"
-msgstr ""
+msgstr "Repository su GitHub"
 
 #: /templates/projects/project.add.twig:53
 #: /templates/projects/project.edit.twig:86
 msgid "External Tracker Link"
-msgstr ""
+msgstr "Link esterno Tracker"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
-msgstr ""
+msgstr "Progetti"
 
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
-msgstr ""
+msgstr "Nuovo Progetto"
 
 #: /templates/projects/projects.index.twig:23
 msgid "Projects List"
-msgstr ""
+msgstr "Elenco progetti"
 
 #: /templates/projects/projects.index.twig:28
 msgid "Tracker"
-msgstr ""
+msgstr "Tracker"
 
 #: /templates/projects/projects.index.twig:29
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: /templates/projects/projects.index.twig:30
 msgid "Actions"
@@ -140,49 +140,49 @@ msgstr "Azioni"
 
 #: /templates/projects/projects.index.twig:33
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
-msgstr ""
+msgstr "Statistiche"
 
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
-msgstr ""
+msgstr "Mostra"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr ""
+msgstr "Attività del progetto"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr ""
+msgstr "Istantanea"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
-msgstr ""
+msgstr "Attività utente"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
-msgstr ""
+msgstr "Modifica progetto"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
-msgstr ""
+msgstr "Modifica progetto"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
-msgstr ""
+msgstr "Utente Editbot GitHub"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr ""
+msgstr "Password Editbot GitHub"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
-msgstr ""
+msgstr "È necessario un titolo"
 
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
-msgstr ""
+msgstr "È necessario un titolo breve"
 

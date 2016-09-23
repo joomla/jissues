@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:33-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Estonian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: et\n"
-"X-Crowdin-File: jtracker-template_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/jtracker-template_en.po\n"
 "Language: et_EE\n"
 
 #: /templates/footerMenu.twig:18
@@ -57,7 +57,7 @@ msgstr "Pood"
 
 #: /templates/footerMenu.twig:30
 msgid "Accessibility Statement"
-msgstr ""
+msgstr "Kättesaadavuse kinnitus"
 
 #: /templates/footerMenu.twig:31
 msgid "Privacy Policy"
@@ -65,86 +65,86 @@ msgstr "Privaatsuspoliitika"
 
 #: /templates/footerMenu.twig:32
 msgid "Report an Issue"
-msgstr ""
+msgstr "Teavita probleemist"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr ""
+msgstr "Logi välja"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
-msgstr ""
+msgstr "Logi sisse"
 
 #: /templates/footerMenu.twig:40
-msgid "All rights reserved."
-msgstr ""
+msgid "&copy; 2005 - %currentYear% %osm% All Rights Reserved."
+msgstr "&copy; 2005 - %currentYear% %osm% kõik õigused reserveeritud."
 
 #: /templates/footerMenu.twig:44
 msgid "Joomla! Hosting by %provider%"
-msgstr ""
+msgstr "Joomla! Veebimajutust pakub %provider%"
 
-#: /templates/index.twig:80
+#: /templates/index.twig:85
 msgid "Download"
 msgstr "Laadi alla"
 
-#: /templates/index.twig:83
+#: /templates/index.twig:88
 msgid "Demo"
 msgstr "Demo"
 
 #: /templates/fields.twig:44
 msgid "Select Categories..."
-msgstr ""
+msgstr "Vali kategooriad..."
 
 #: /templates/fields.twig:59
 msgid "Select Milestone..."
-msgstr ""
+msgstr "Valige eesmärk..."
 
 #: /templates/fields.twig:60
 msgid "No Milestone"
-msgstr ""
+msgstr "Eesmärk puudub"
 
 #: /templates/fields.twig:73
 msgid "Select labels..."
-msgstr ""
+msgstr "Vali sildid..."
 
 #: /templates/testcontainer.twig:6
 #: /templates/testcontainer.twig:47
 msgid "Submit test result"
-msgstr ""
+msgstr "Esita testi tulemus"
 
 #: /templates/testcontainer.twig:8
 msgid "I have tested this item"
-msgstr ""
+msgstr "Testisin antud probleemi"
 
 #: /templates/testcontainer.twig:19
 msgid "Not tested"
-msgstr ""
+msgstr "Testimata"
 
 #: /templates/testcontainer.twig:25
 msgid "Tested successfully"
-msgstr ""
+msgstr "Testitud edukalt"
 
 #: /templates/testcontainer.twig:31
 msgid "Tested unsuccessfully"
-msgstr ""
+msgstr "Testitud ebaõnnestunult"
 
 #: /templates/testcontainer.twig:40
 msgid "Leave a comment (optional)"
-msgstr ""
+msgstr "Jäta kommentaar (valikuline)"
 
 #: /templates/testcontainer.twig:53
 #: /templates/testcontainer.twig:68
 msgid "Alter test result"
-msgstr ""
+msgstr "Muuda testi tulemust"
 
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "Määra testitulemus kasutajale %s %s-ks"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr ""
+msgstr "kasutajanimi"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
@@ -165,21 +165,21 @@ msgstr "Kustuta"
 
 #: /templates/uploader.full.twig:33
 msgid "Upload Notes"
-msgstr ""
+msgstr "Üleslaadimise märkused"
 
 #: /templates/uploader.full.twig:35
 #, php-format
 msgid "The maximum file size for uploads is %s."
-msgstr ""
+msgstr "Üleslaetava faili maksimaalne suurus on %s."
 
 #: /templates/uploader.full.twig:36
 #, php-format
 msgid "The following file types are allowed: %s"
-msgstr ""
+msgstr "Lubatud on järgnevad failitüübid: %s"
 
 #: /templates/uploader.full.twig:37
 msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
-msgstr ""
+msgstr "Saad <strong>lohista & aseta</strong> funktsiooniga faile üles laadida."
 
 #: /templates/uploader.full.twig:52
 msgid "Processing..."
@@ -201,11 +201,11 @@ msgstr "Viga"
 
 #: /templates/lang-switcher.twig:9
 msgid "Select Language"
-msgstr ""
+msgstr "Vali keel"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
-msgstr ""
+msgstr "Joomla! Kodu"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -229,15 +229,15 @@ msgstr "Toeta Joomlat"
 
 #: /templates/topMenu.twig:24
 msgid "Contribute"
-msgstr ""
+msgstr "Panusta"
 
 #: /templates/topMenu.twig:25
 msgid "Shop Joomla Gear"
-msgstr ""
+msgstr "Osta Joomla kraami"
 
 #: /templates/topMenu.twig:26
 msgid "Sponsorship"
-msgstr ""
+msgstr "Sponsorlus"
 
 #: /templates/topMenu.twig:32
 msgid "About Joomla!"
@@ -265,7 +265,7 @@ msgstr "Joomla1 üritused"
 
 #: /templates/topMenu.twig:44
 msgid "Joomla! Trademark & Licensing"
-msgstr ""
+msgstr "Joomla! kaubamärk ja litsenseerimine"
 
 #: /templates/topMenu.twig:45
 msgid "Joomla! User Groups"
@@ -273,7 +273,7 @@ msgstr "Jooml! kasutajagrupid"
 
 #: /templates/topMenu.twig:46
 msgid "Joomla! Volunteers Portal"
-msgstr ""
+msgstr "Joomla! vabatahtlike portaal"
 
 #: /templates/topMenu.twig:50
 msgid "Support"
@@ -289,7 +289,7 @@ msgstr "Joomla! dokumentatsioon"
 
 #: /templates/topMenu.twig:54
 msgid "Joomla! Issue Tracker"
-msgstr ""
+msgstr "Joomla! probleemide jälgija"
 
 #: /templates/topMenu.twig:55
 msgid "Joomla! Resources"
@@ -305,11 +305,11 @@ msgstr "Joomla! ajakiri"
 
 #: /templates/topMenu.twig:62
 msgid "Joomla! Connect"
-msgstr ""
+msgstr "Joomla! ühendused"
 
 #: /templates/topMenu.twig:63
 msgid "Joomla! Mailing Lists"
-msgstr ""
+msgstr "Joomla! meililistid"
 
 #: /templates/topMenu.twig:66
 msgid "Extend"
@@ -326,11 +326,11 @@ msgstr "Näidis"
 #: /templates/topMenu.twig:70
 #: /templates/topMenu.twig:92
 msgid "Language Packages"
-msgstr ""
+msgstr "Keelepakid"
 
 #: /templates/topMenu.twig:71
 msgid "Certification Program"
-msgstr ""
+msgstr "Sertifitseerimisprogramm"
 
 #: /templates/topMenu.twig:75
 msgid "Developers"
@@ -338,7 +338,7 @@ msgstr "Arendajad"
 
 #: /templates/topMenu.twig:77
 msgid "Developer Network"
-msgstr ""
+msgstr "Arendajate võrgustik"
 
 #: /templates/topMenu.twig:78
 #: /templates/trackerMenu.twig:203
@@ -347,7 +347,7 @@ msgstr "Dokumentatsioon"
 
 #: /templates/topMenu.twig:79
 msgid "Joomla! Bug Squad"
-msgstr ""
+msgstr "Joomla! Vigade kõrvaldamise rühm"
 
 #: /templates/topMenu.twig:80
 msgid "Joomla! API"
@@ -375,7 +375,7 @@ msgstr "Tõlkijate foorum"
 
 #: /templates/editor.twig:5
 msgid "Markdown Help"
-msgstr ""
+msgstr "Abi koodi kasutamiseks"
 
 #: /templates/editor.twig:6
 msgid "Write"
@@ -387,7 +387,7 @@ msgstr "Eelvaade"
 
 #: /templates/trackerMenu.twig:8
 msgid "Tracker"
-msgstr ""
+msgstr "Jälgija"
 
 #: /templates/trackerMenu.twig:14
 msgid "Project"
@@ -399,15 +399,15 @@ msgstr "Näita"
 
 #: /templates/trackerMenu.twig:28
 msgid "Project Activity"
-msgstr ""
+msgstr "Projekti aktiivsus"
 
 #: /templates/trackerMenu.twig:32
 msgid "Snapshot"
-msgstr ""
+msgstr "Ekraanipilt"
 
 #: /templates/trackerMenu.twig:36
 msgid "User Activity"
-msgstr ""
+msgstr "Kasutaja tegevus"
 
 #: /templates/trackerMenu.twig:44
 msgid "Edit"
@@ -419,11 +419,11 @@ msgstr "Ligipääsu grupid"
 
 #: /templates/trackerMenu.twig:61
 msgid "Labels"
-msgstr ""
+msgstr "Sildid"
 
 #: /templates/trackerMenu.twig:67
 msgid "Milestones"
-msgstr ""
+msgstr "Eesmärgid"
 
 #: /templates/trackerMenu.twig:73
 msgid "Categories"
@@ -447,19 +447,19 @@ msgstr "Seadistamine"
 
 #: /templates/trackerMenu.twig:108
 msgid "phpinfo()"
-msgstr ""
+msgstr "phpinfo()"
 
 #: /templates/trackerMenu.twig:114
 msgid "Logs"
-msgstr ""
+msgstr "Logid"
 
 #: /templates/trackerMenu.twig:118
 msgid "Application"
-msgstr ""
+msgstr "Rakendus"
 
 #: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
-msgstr ""
+msgstr "Cron tööd"
 
 #: /templates/trackerMenu.twig:126
 msgid "Database"
@@ -467,19 +467,19 @@ msgstr "Andmebaas"
 
 #: /templates/trackerMenu.twig:132
 msgid "GitHub Issues"
-msgstr ""
+msgstr "GitHub probleemid"
 
 #: /templates/trackerMenu.twig:138
 msgid "GitHub Comments"
-msgstr ""
+msgstr "GitHub kommentaarid"
 
 #: /templates/trackerMenu.twig:144
 msgid "GitHub Pulls"
-msgstr ""
+msgstr "GitHubi tõmbamised"
 
 #: /templates/trackerMenu.twig:148
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: /templates/trackerMenu.twig:158
 msgid "Icons"
@@ -487,7 +487,7 @@ msgstr "koonid"
 
 #: /templates/trackerMenu.twig:164
 msgid "Routes"
-msgstr ""
+msgstr "Marsruudid"
 
 #: /templates/trackerMenu.twig:170
 msgid "Text"
@@ -499,7 +499,7 @@ msgstr "Tühjenda vahemälu"
 
 #: /templates/trackerMenu.twig:198
 msgid "Markdown"
-msgstr ""
+msgstr "Kood"
 
 #: /templates/trackerMenu.twig:222
 msgid "Admin"
@@ -519,9 +519,9 @@ msgstr "Logi välja"
 
 #: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
-msgstr ""
+msgstr "Logi sisse GitHubiga"
 
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
-msgstr ""
+msgstr "Seadetes pole GitHubi kasutaja andmeid määrtud"
 

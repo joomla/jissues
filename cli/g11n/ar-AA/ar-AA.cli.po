@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-08-03 08:40-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: ar\n"
-"X-Crowdin-File: cli-cli_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/cli-cli_en.po\n"
 "Language: ar_SA\n"
 
 #: /cli/Application/Application.php:113
@@ -193,7 +193,7 @@ msgstr "بدء تصدير ملفات اللغة."
 #: /cli/Application/Command/Make/Depfile.php:136
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:120
+#: /cli/Application/Command/Make/Languageflags.php:122
 #: /cli/Application/Command/Make/Repoinfo.php:65
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
@@ -907,12 +907,12 @@ msgstr "تجميع صور متعددة في صورة واحدة كبيرة (CSSC
 msgid "Compile Language flag images"
 msgstr "تحويل صور عَلَم اللغة الى لغة الألة"
 
-#: /cli/Application/Command/Make/Languageflags.php:109
+#: /cli/Application/Command/Make/Languageflags.php:111
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr "توليد الصورة الموحدة لـ %1$d صور عَلَم في %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:115
+#: /cli/Application/Command/Make/Languageflags.php:117
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "كتابة ملف CSS إلى %s"
@@ -926,8 +926,8 @@ msgid "Generate repository information."
 msgstr "توليد معلومات المخزن."
 
 #: /cli/Application/Command/Make/Repoinfo.php:50
-msgid "Generate Repo information"
-msgstr "توليد معلومات الريبو"
+msgid "Generate repository information"
+msgstr "توليد معلومات المخزن"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."

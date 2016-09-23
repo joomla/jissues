@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: it\n"
-"X-Crowdin-File: groups-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/groups-app_en.po\n"
 "Language: it_IT\n"
 
 #: /templates/groups/groups.index.twig:6
@@ -22,11 +22,11 @@ msgstr "Gruppi"
 
 #: /templates/groups/groups.index.twig:11
 msgid "Add Group"
-msgstr ""
+msgstr "Aggiungi gruppo"
 
 #: /templates/groups/groups.index.twig:22
 msgid "Access Groups"
-msgstr ""
+msgstr "Gruppi di accesso"
 
 #: /templates/groups/groups.index.twig:27
 #: /templates/groups/group.edit.twig:164
@@ -41,7 +41,7 @@ msgstr "Visualizza"
 #: /templates/groups/groups.index.twig:29
 #: /templates/groups/group.edit.twig:188
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #: /templates/groups/groups.index.twig:30
 #: /templates/groups/group.edit.twig:195
@@ -51,12 +51,12 @@ msgstr "Modifica"
 #: /templates/groups/groups.index.twig:31
 #: /templates/groups/group.edit.twig:202
 msgid "Edit own"
-msgstr ""
+msgstr "Modifica elementi propri"
 
 #: /templates/groups/groups.index.twig:32
 #: /templates/groups/group.edit.twig:209
 msgid "Manage"
-msgstr ""
+msgstr "Gestisci"
 
 #: /templates/groups/groups.index.twig:33
 msgid "Actions"
@@ -64,11 +64,11 @@ msgstr "Azioni"
 
 #: /templates/groups/groups.index.twig:35
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/groups/groups.index.twig:64
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: /templates/groups/groups.index.twig:67
 msgid "Delete"
@@ -76,11 +76,11 @@ msgstr "Cancella"
 
 #: /templates/groups/groups.index.twig:79
 msgid "No groups defined!"
-msgstr ""
+msgstr "Nessun gruppo definito!"
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
-msgstr ""
+msgstr "Modifica gruppo"
 
 #: /templates/groups/group.edit.twig:11
 msgid "Save"
@@ -88,11 +88,11 @@ msgstr "Salva"
 
 #: /templates/groups/group.edit.twig:145
 msgid "Edit Access Group"
-msgstr ""
+msgstr "Modifica gruppo di accesso"
 
 #: /templates/groups/group.edit.twig:147
 msgid "Add Access Group"
-msgstr ""
+msgstr "Aggiungi gruppo di accesso"
 
 #: /templates/groups/group.edit.twig:156
 msgid "Details"
@@ -109,31 +109,31 @@ msgstr "Utenti"
 #: /templates/groups/group.edit.twig:226
 #: /templates/groups/group.edit.twig:234
 msgid "Add user"
-msgstr ""
+msgstr "Aggiungi utente"
 
 #: /templates/groups/group.edit.twig:228
 #: /templates/groups/group.edit.twig:241
 msgid "username"
-msgstr ""
+msgstr "nome utente"
 
 #: /templates/groups/group.edit.twig:238
 #: /templates/groups/group.edit.twig:246
 msgid "Remove user"
-msgstr ""
+msgstr "Rimuovi utente"
 
 #: /templates/groups/group.edit.twig:251
 msgid "List assigned users"
-msgstr ""
+msgstr "Elenca utenti assegnati"
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
-msgstr ""
+msgstr "Salva il gruppo per assegnare utenti."
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."
-msgstr ""
+msgstr "Il gruppo è stato eliminato."
 
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"
-msgstr ""
+msgstr "E' richiesto un titolo"
 
