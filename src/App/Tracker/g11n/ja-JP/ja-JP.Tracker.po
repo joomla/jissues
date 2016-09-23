@@ -1,0 +1,729 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/tracker-app_en.po\n"
+"Language: ja_JP\n"
+
+#: /templates/tracker/issue.edit.twig:52
+#: /templates/tracker/issue.edit.twig:217
+#: /templates/tracker/category.add.twig:11
+#: /templates/tracker/category.edit.twig:11
+msgid "Save"
+msgstr "保存"
+
+#: /templates/tracker/issue.edit.twig:58
+#: /templates/tracker/issue.index.twig:279
+msgid "Test this"
+msgstr "これをテスト"
+
+#: /templates/tracker/issue.edit.twig:62
+#: /templates/tracker/issue.index.twig:284
+msgid "Alter test"
+msgstr "テストの変更"
+
+#: /templates/tracker/issue.edit.twig:67
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: /templates/tracker/issue.edit.twig:84
+#: /templates/tracker/issues.index.twig:155
+#: /templates/tracker/issue.index.twig:184
+msgid "Foreign ID"
+msgstr "外部 ID"
+
+#: /templates/tracker/issue.edit.twig:107
+#: /templates/tracker/tpl/activities.twig:58
+#: /templates/tracker/issues.index.twig:47
+msgid "Status"
+msgstr "状況"
+
+#: /templates/tracker/issue.edit.twig:115
+#: /templates/tracker/tpl/activities.twig:92
+#: /templates/tracker/issues.index.twig:46
+#: /templates/tracker/issue.add.twig:49
+msgid "Priority"
+msgstr "優先度"
+
+#: /templates/tracker/issue.edit.twig:124
+msgid "Item"
+msgstr "アイテム"
+
+#: /templates/tracker/issue.edit.twig:141
+#: /templates/tracker/issue.index.twig:107
+#: /templates/tracker/issue.add.twig:60
+msgid "Build"
+msgstr "ビルド"
+
+#: /templates/tracker/issue.edit.twig:146
+msgid "Easy test"
+msgstr "簡単なテスト"
+
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.add.twig:68
+msgid "Categories"
+msgstr "カテゴリ"
+
+#: /templates/tracker/issue.edit.twig:164
+#: /templates/tracker/tpl/activities.twig:113
+#: /templates/tracker/issue.add.twig:78
+msgid "Labels"
+msgstr "ラベル"
+
+#: /templates/tracker/issue.edit.twig:171
+#: /templates/tracker/tpl/activities.twig:131
+#: /templates/tracker/issue.add.twig:83
+msgid "Milestone"
+msgstr "マイルストーン"
+
+#: /templates/tracker/issue.edit.twig:184
+#: /templates/tracker/category.add.twig:27
+#: /templates/tracker/tpl/activities.twig:41
+#: /templates/tracker/category.edit.twig:27
+#: /templates/tracker/issue.add.twig:106
+#: /templates/tracker/categories.index.twig:40
+msgid "Title"
+msgstr "タイトル"
+
+#: /templates/tracker/issue.edit.twig:206
+#: /templates/tracker/issue.index.twig:554
+msgid "Add a Comment"
+msgstr "コメントの追加"
+
+#: /templates/tracker/issue.edit.twig:214
+#: /templates/tracker/issue.index.twig:567
+msgid "Leave a comment"
+msgstr "コメントを残す"
+
+#: /templates/tracker/issue.edit.twig:314
+#: /templates/tracker/issue.add.twig:224
+msgid "Some fields are invalid. They have been highlighted."
+msgstr "強調表示されているフィールドが無効です。"
+
+#: /templates/tracker/issue.edit.twig:324
+#: /templates/tracker/issue.edit.twig:331
+msgid "Saving..."
+msgstr "保存中..."
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- Status -"
+msgstr "- 状況 -"
+
+#: /templates/tracker/tracker.filters.twig:16
+msgid "- Priority -"
+msgstr "- 優先度 -"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Least recently updated"
+msgstr "少なくとも最近更新"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Newest"
+msgstr "最新"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Oldest"
+msgstr "最も古い"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Recently updated"
+msgstr "最近の更新"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "Created by you"
+msgstr "あなたが作成"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "Everyone's issues"
+msgstr "みんなの問題"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "You participated in"
+msgstr "あなたが参加"
+
+#: /templates/tracker/tracker.filters.twig:50
+msgid "- Categories -"
+msgstr "- カテゴリ -"
+
+#: /templates/tracker/tracker.filters.twig:50
+msgid "No Categories"
+msgstr "カテゴリなし"
+
+#: /templates/tracker/tracker.filters.twig:63
+msgid "- Labels -"
+msgstr "- ラベル -"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "- Tests -"
+msgstr "- テスト -"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Has two tests"
+msgstr "テストが 2 つあります"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Needs one test"
+msgstr "テストが必要"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Needs tests"
+msgstr "テストが必要"
+
+#: /templates/tracker/tracker.filters.twig:87
+msgid "- Easy -"
+msgstr "- 簡単 -"
+
+#: /templates/tracker/tracker.filters.twig:87
+#: /templates/tracker/issue.index.twig:361
+msgid "No"
+msgstr "いいえ"
+
+#: /templates/tracker/tracker.filters.twig:87
+#: /templates/tracker/issue.index.twig:357
+msgid "Yes"
+msgstr "はい"
+
+#: /templates/tracker/tracker.filters.twig:99
+msgid "- Type -"
+msgstr "- タイプ -"
+
+#: /templates/tracker/tracker.filters.twig:99
+msgid "Issue"
+msgstr "問題"
+
+#: /templates/tracker/tracker.filters.twig:99
+msgid "Pull Request"
+msgstr "プルリクエスト"
+
+#: /templates/tracker/tracker.filters.twig:111
+msgid "- Milestones -"
+msgstr "- マイルストーン -"
+
+#: /templates/tracker/tpl/filters.twig:10
+msgid "Open"
+msgstr "未解決"
+
+#: /templates/tracker/tpl/filters.twig:15
+#: /templates/tracker/issues.index.twig:346
+msgid "Closed"
+msgstr "終了"
+
+#: /templates/tracker/tpl/filters.twig:20
+msgid "All"
+msgstr "すべて"
+
+#: /templates/tracker/tpl/filters.twig:25
+msgid "Search Tools"
+msgstr "検索ツール"
+
+#: /templates/tracker/tpl/filters.twig:30
+msgid "Clear"
+msgstr "消去"
+
+#: /templates/tracker/tpl/filters.twig:33
+#: /templates/tracker/issue.index.twig:64
+msgid "Feeling Lucky"
+msgstr "ランダム表示"
+
+#: /templates/tracker/tpl/filters.twig:36
+msgid "Permalink"
+msgstr "パーマリンク"
+
+#: /templates/tracker/tpl/filters.twig:58
+msgid "Filter the list by summary or description."
+msgstr "要約や説明で一覧をフィルタリングします。"
+
+#: /templates/tracker/tpl/filters.twig:61
+#: /templates/tracker/tpl/filters.twig:62
+msgid "Filter the list by ID, summary, or description."
+msgstr ""
+
+#: /templates/tracker/tpl/filters.twig:99
+#: /templates/tracker/tpl/filters.twig:102
+#: /templates/tracker/tpl/filters.twig:103
+msgid "Filter the list by creator."
+msgstr "作成者で一覧をフィルタリングします。"
+
+#: /templates/tracker/category.add.twig:6
+msgid "Add Category"
+msgstr "カテゴリ追加"
+
+#: /templates/tracker/category.add.twig:20
+#: /templates/tracker/categories.index.twig:12
+msgid "New Category"
+msgstr "新しいカテゴリ"
+
+#: /templates/tracker/category.add.twig:24
+#: /templates/tracker/category.edit.twig:24
+#: /templates/tracker/issue.index.twig:202
+#: /templates/tracker/issue.index.twig:214
+msgid "Details"
+msgstr "詳細"
+
+#: /templates/tracker/category.add.twig:35
+#: /templates/tracker/category.edit.twig:35
+#: /templates/tracker/categories.index.twig:39
+msgid "Alias"
+msgstr "エイリアス"
+
+#: /templates/tracker/category.add.twig:43
+#: /templates/tracker/category.edit.twig:43
+#: /templates/tracker/categories.index.twig:41
+msgid "Colour"
+msgstr "カラー"
+
+#: /templates/tracker/tpl/activities.twig:24
+#: /templates/tracker/issue.add.twig:113
+msgid "Description"
+msgstr "説明"
+
+#: /templates/tracker/tpl/activities.twig:28
+#: /templates/tracker/tpl/activities.twig:45
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
+msgid "Differences"
+msgstr "差違"
+
+#: /templates/tracker/tpl/activities.twig:75
+msgid "Easy"
+msgstr "簡単"
+
+#: /templates/tracker/tpl/activities.twig:118
+#: /templates/tracker/tpl/activities.twig:135
+msgid "Added"
+msgstr "追加"
+
+#: /templates/tracker/tpl/activities.twig:122
+#: /templates/tracker/tpl/activities.twig:139
+msgid "Removed"
+msgstr "削除"
+
+#: /templates/tracker/tpl/activities.twig:148
+msgid "Relation Type"
+msgstr "関連タイプ"
+
+#: /templates/tracker/tpl/activities.twig:165
+msgid "Category"
+msgstr "カテゴリ"
+
+#: /templates/tracker/category.edit.twig:6
+#: /templates/tracker/category.edit.twig:20
+msgid "Edit Category"
+msgstr "カテゴリの編集"
+
+#: /templates/tracker/issues.index.twig:6
+#, php-format
+msgid "%s Issues"
+msgstr "%s の問題"
+
+#: /templates/tracker/issues.index.twig:26
+#: /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issue.add.twig:103
+msgid "New Item"
+msgstr "新しいアイテム"
+
+#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/categories.index.twig:48
+msgid "ID"
+msgstr "ID"
+
+#: /templates/tracker/issues.index.twig:45
+msgid "Summary"
+msgstr "概要"
+
+#: /templates/tracker/issues.index.twig:52
+msgid "Loading, please wait..."
+msgstr "読み込んでいます、お待ちください..."
+
+#: /templates/tracker/issues.index.twig:114
+#: /templates/tracker/issue.index.twig:79
+#: /templates/tracker/categories.index.twig:66
+msgid "Edit"
+msgstr "編集"
+
+#: /templates/tracker/issues.index.twig:135
+msgid "Created by"
+msgstr "作成者"
+
+#: /templates/tracker/issues.index.twig:146
+msgid "GitHub ID"
+msgstr "GitHub ID"
+
+#: /templates/tracker/issues.index.twig:165
+msgid "Opened "
+msgstr "発行"
+
+#: /templates/tracker/issues.index.twig:171
+msgid "Closed "
+msgstr "終了"
+
+#: /templates/tracker/issues.index.twig:177
+msgid "Modified "
+msgstr "更新"
+
+#: /templates/tracker/issues.index.twig:183
+msgid "Milestone: "
+msgstr "マイルストーン："
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Critical"
+msgstr "重大な"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Urgent"
+msgstr "緊急"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Medium"
+msgstr "中"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Low"
+msgstr "低"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Very Low"
+msgstr "とても低い"
+
+#: /templates/tracker/issues.index.twig:195
+msgid "GitHub merge status"
+msgstr "GitHub マージ ステータス"
+
+#: /templates/tracker/issues.index.twig:205
+msgid "No items found."
+msgstr "アイテムが見つかりません。"
+
+#: /templates/tracker/issues.index.twig:322
+msgid "Success"
+msgstr "成功"
+
+#: /templates/tracker/issues.index.twig:324
+#: /templates/tracker/issues.index.twig:339
+msgid "Pending"
+msgstr "保留"
+
+#: /templates/tracker/issues.index.twig:326
+msgid "Error"
+msgstr "エラー"
+
+#: /templates/tracker/issues.index.twig:328
+msgid "Failure"
+msgstr "失敗"
+
+#: /templates/tracker/issues.index.twig:337
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
+msgid "New"
+msgstr "New"
+
+#: /templates/tracker/issues.index.twig:338
+msgid "Confirmed"
+msgstr "確認済"
+
+#: /templates/tracker/issues.index.twig:340
+msgid "Ready To Commit"
+msgstr "コミットできます"
+
+#: /templates/tracker/issues.index.twig:341
+msgid "Fixed in Code Base"
+msgstr "コードベースで修正"
+
+#: /templates/tracker/issues.index.twig:342
+msgid "Needs Review"
+msgstr "要レビュー"
+
+#: /templates/tracker/issues.index.twig:343
+msgid "Information Required"
+msgstr "要情報"
+
+#: /templates/tracker/issues.index.twig:344
+msgid "Unconfirmed Report"
+msgstr "未確認のレポート"
+
+#: /templates/tracker/issues.index.twig:345
+msgid "No Reply"
+msgstr "返信なし"
+
+#: /templates/tracker/issues.index.twig:347
+msgid "Expected Behaviour"
+msgstr "期待する動作"
+
+#: /templates/tracker/issues.index.twig:348
+msgid "Known Issue"
+msgstr "既知の問題"
+
+#: /templates/tracker/issues.index.twig:349
+msgid "Duplicate Report"
+msgstr "報告を複製"
+
+#: /templates/tracker/issues.index.twig:350
+msgid "Discussion"
+msgstr "ディスカッション"
+
+#: /templates/tracker/issues.index.twig:413
+msgid "First"
+msgstr "最初"
+
+#: /templates/tracker/issues.index.twig:414
+msgid "Previous"
+msgstr "前へ"
+
+#: /templates/tracker/issues.index.twig:415
+msgid "Next"
+msgstr "次へ"
+
+#: /templates/tracker/issues.index.twig:416
+msgid "Last"
+msgstr "最後"
+
+#: /templates/tracker/issue.index.twig:59
+msgid "That issue does not exist, or the ID you typed is incorrect."
+msgstr "その問題は存在しないか、入力したIDが正しくありません。"
+
+#: /templates/tracker/issue.index.twig:115
+msgid "Easy Test"
+msgstr "簡単なテスト"
+
+#: /templates/tracker/issue.index.twig:123
+msgid "# of Successful Tests"
+msgstr "成功したテスト数"
+
+#: /templates/tracker/issue.index.twig:133
+msgid "To comment"
+msgstr "コメントするには"
+
+#: /templates/tracker/issue.index.twig:142
+msgid "View this issue on GitHub"
+msgstr " GitHub でこの問題を表示"
+
+#: /templates/tracker/issue.index.twig:152
+msgid "View a plain diff for this pull request"
+msgstr "このプルリクエストのプレーンな差分を表示"
+
+#: /templates/tracker/issue.index.twig:154
+msgid "Diff"
+msgstr "差分"
+
+#: /templates/tracker/issue.index.twig:170
+msgid "Download this fork as a ZIP file"
+msgstr "ZIP ファイルとしてこのフォークをダウンロード"
+
+#: /templates/tracker/issue.index.twig:226
+msgid "Categories:"
+msgstr "カテゴリ："
+
+#: /templates/tracker/issue.index.twig:251
+msgid "Referenced as"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:289
+msgid "User tests:"
+msgstr "ユーザテスト："
+
+#: /templates/tracker/issue.index.twig:290
+#, php-format
+msgid "Successful: %s"
+msgstr "成功：%s"
+
+#: /templates/tracker/issue.index.twig:292
+#, php-format
+msgid "Unsuccessful: %s"
+msgstr "失敗：%s"
+
+#: /templates/tracker/issue.index.twig:331
+msgid "Votes"
+msgstr "評価"
+
+#: /templates/tracker/issue.index.twig:341
+msgid "# of Users Experiencing Issue"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:345
+msgid "Average Importance Score"
+msgstr ""
+
+#: /templates/tracker/issue.index.twig:354
+msgid "I've experienced this issue"
+msgstr "私はこの問題を経験しました"
+
+#: /templates/tracker/issue.index.twig:366
+msgid "Importance of issue to me"
+msgstr "私には重要な問題"
+
+#: /templates/tracker/issue.index.twig:391
+msgid "Vote"
+msgstr "評価"
+
+#: /templates/tracker/issue.index.twig:497
+msgid "The description was changed"
+msgstr "説明を変更しました"
+
+#: /templates/tracker/issue.index.twig:576
+msgid "Post Comment"
+msgstr "コメントの投稿"
+
+#: /templates/tracker/issue.index.twig:591
+msgid "Login with GitHub to post a comment"
+msgstr "GitHub でログインしてコメントを投稿"
+
+#: /templates/tracker/issue.index.twig:596
+msgid "Older"
+msgstr "古い"
+
+#: /templates/tracker/issue.index.twig:599
+msgid "Newer"
+msgstr "新しい"
+
+#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:130
+msgid "Submit"
+msgstr "送信"
+
+#: /templates/tracker/issue.add.twig:44
+msgid "View Mode"
+msgstr "表示モード"
+
+#: /templates/tracker/issue.add.twig:45
+msgid "Help"
+msgstr "ヘルプ"
+
+#: /templates/tracker/issue.add.twig:45
+msgid "Pro"
+msgstr "プロ"
+
+#: /templates/tracker/issue.add.twig:54
+msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgstr "問題の解決する優先度です。プロジェクトの優先度についての詳細は<a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">バグ 追跡プロセス</a>ページを参照してください。"
+
+#: /templates/tracker/issue.add.twig:64
+msgid "The version(s) of the project on which this issue is found."
+msgstr "この問題が発見されているプロジェクトのバージョン。"
+
+#: /templates/tracker/issue.add.twig:71
+msgid "Please select one or more Categories here that match to your issue."
+msgstr "あなたの問題に一致するカテゴリをここで 1 つ以上選択してください。"
+
+#: /templates/tracker/issue.add.twig:93
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:100
+msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:110
+msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:126
+msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
+msgstr ""
+
+#: /templates/tracker/issue.add.twig:234
+msgid "Submitting..."
+msgstr "送信しています..."
+
+#: /templates/tracker/categories.index.twig:6
+#: /templates/tracker/categories.index.twig:34
+msgid "Categories List"
+msgstr "カテゴリ一覧"
+
+#: /templates/tracker/categories.index.twig:44
+msgid "Actions"
+msgstr "アクション"
+
+#: /templates/tracker/categories.index.twig:65
+msgid "Delete"
+msgstr "削除"
+
+#: /templates/tracker/categories.index.twig:77
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "%1$s / %2$s"
+
+#: /src/App/Tracker/Controller/Category/Delete.php:84
+msgid "The category has been deleted"
+msgstr "カテゴリを削除しました。"
+
+#: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:58
+msgid "Your comment has been submitted"
+msgstr "コメントが送信されました"
+
+#: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
+msgid "Vote successfully added"
+msgstr "投票を追加しました"
+
+#: /src/App/Tracker/Controller/Issue/Submit.php:173
+msgid "Your report has been submitted."
+msgstr "レポートが送信されました"
+
+#: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
+msgid "Test successfully added"
+msgstr "投票を追加しました"
+
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
+msgid "Old"
+msgstr "古い"
+
+#: /src/App/Tracker/Model/CategoryModel.php:66
+msgid "Missing ID"
+msgstr "不足している ID"
+
+#: /src/App/Tracker/Model/CategoryModel.php:81
+msgid "Invalid Category"
+msgstr "無効なカテゴリ"
+
+#: /src/App/Tracker/Table/CategoryTable.php:54
+msgid "A name is required for the category."
+msgstr "カテゴリには名前が必要です。"
+
+#: /src/App/Tracker/Table/CategoryTable.php:59
+msgid "The length of the name can not exceed 150 characters."
+msgstr "名前は 150 文字を超えることはできません。"
+
+#: /src/App/Tracker/Table/CategoryTable.php:64
+msgid "An alias is required for the category."
+msgstr "カテゴリにはエイリアスが必要です。"
+
+#: /src/App/Tracker/Table/CategoryTable.php:69
+msgid "The length of the alias can not exceed 150 characters."
+msgstr "エイリアスは 150 文字を超えることはできません。"
+
+#: /src/App/Tracker/Table/CategoryTable.php:74
+msgid "Colour should be the hex value."
+msgstr "カラーは HEX 値でなければなりません。"
+
+#: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
+msgid "Issue ID is needed"
+msgstr "問題 ID が必要です"
+
+#: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
+msgid "Category ID is needed."
+msgstr "カテゴリ ID が必要です"
+
+#: /src/App/Tracker/Table/IssuesTable.php:135
+msgid "A title is required."
+msgstr "タイトルが必要です。"
+
+#: /src/App/Tracker/Table/IssuesTable.php:139
+msgid "The title max length is 255 chars."
+msgstr "タイトルは255 文字以内で入力してください。"
+
+#: /src/App/Tracker/Table/IssuesTable.php:144
+msgid "A build is required."
+msgstr "ビルドが必要です。"
+
+#: /src/App/Tracker/Table/IssuesTable.php:148
+msgid "A build max length is 40 chars."
+msgstr "ビルドは 40 文字以内で入力してください。"
+

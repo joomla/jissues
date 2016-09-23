@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/jtracker-core_en.po\n"
+"Language: ja_JP\n"
+
+#: /src/JTracker/Pagination/TrackerPagination.php:221
+#: /src/JTracker/Pagination/TrackerPagination.php:226
+msgid "Next"
+msgstr "次へ"
+
+#: /src/JTracker/Pagination/TrackerPagination.php:222
+#: /src/JTracker/Pagination/TrackerPagination.php:227
+msgid "Last"
+msgstr "最後"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:244
+msgid "Critical"
+msgstr "重大な"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:245
+msgid "Urgent"
+msgstr "緊急"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:246
+msgid "Medium"
+msgstr "中"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:247
+msgid "Low"
+msgstr "低"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:248
+msgid "Very low"
+msgstr "非常に低い"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:292
+msgid "Duplicate of"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:293
+msgid "Related to"
+msgstr "関連先"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:294
+msgid "Not before"
+msgstr ""
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:295
+msgid "Pull Request for"
+msgstr "プルリクエスト"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:353
+#: /src/JTracker/View/Renderer/TrackerExtension.php:377
+msgid "New"
+msgstr "新しい"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:354
+#: /src/JTracker/View/Renderer/TrackerExtension.php:378
+msgid "Confirmed"
+msgstr "確認済"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:355
+#: /src/JTracker/View/Renderer/TrackerExtension.php:379
+#: /src/JTracker/View/Renderer/TrackerExtension.php:627
+msgid "Pending"
+msgstr "保留"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:356
+#: /src/JTracker/View/Renderer/TrackerExtension.php:380
+msgid "Ready To Commit"
+msgstr "コミットできます"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:357
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+msgid "Needs Review"
+msgstr "レビューが必要"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:358
+#: /src/JTracker/View/Renderer/TrackerExtension.php:382
+msgid "Information Required"
+msgstr "要情報"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:359
+#: /src/JTracker/View/Renderer/TrackerExtension.php:383
+msgid "Discussion"
+msgstr "ディスカッション"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:365
+#: /src/JTracker/View/Renderer/TrackerExtension.php:384
+msgid "Fixed in Code Base"
+msgstr "コードベースで修正"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:366
+#: /src/JTracker/View/Renderer/TrackerExtension.php:385
+msgid "Unconfirmed Report"
+msgstr "未確認のレポート"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:367
+#: /src/JTracker/View/Renderer/TrackerExtension.php:386
+msgid "No Reply"
+msgstr "応答なし"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:368
+#: /src/JTracker/View/Renderer/TrackerExtension.php:387
+msgid "Closed"
+msgstr "終了"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:369
+#: /src/JTracker/View/Renderer/TrackerExtension.php:388
+msgid "Expected Behaviour"
+msgstr "期待する動作"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:370
+#: /src/JTracker/View/Renderer/TrackerExtension.php:389
+msgid "Known Issue"
+msgstr "既知の問題"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:371
+#: /src/JTracker/View/Renderer/TrackerExtension.php:390
+msgid "Duplicate Report"
+msgstr "報告を複製"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:562
+msgid "No"
+msgstr "いいえ"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:562
+msgid "Yes"
+msgstr "はい"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:624
+msgid "Success"
+msgstr "成功"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:630
+msgid "Error"
+msgstr "エラー"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:633
+msgid "Failure"
+msgstr "失敗"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:697
+msgid "Not tested"
+msgstr "テストなし"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:698
+msgid "Tested successfully"
+msgstr "テスト成功"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:699
+msgid "Tested unsuccessfully"
+msgstr "テスト失敗"
+

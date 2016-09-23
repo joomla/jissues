@@ -1,0 +1,139 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/groups-app_en.po\n"
+"Language: ja_JP\n"
+
+#: /templates/groups/groups.index.twig:6
+msgid "Groups"
+msgstr "グループ"
+
+#: /templates/groups/groups.index.twig:11
+msgid "Add Group"
+msgstr "グループの追加"
+
+#: /templates/groups/groups.index.twig:22
+msgid "Access Groups"
+msgstr "アクセス グループ"
+
+#: /templates/groups/groups.index.twig:27
+#: /templates/groups/group.edit.twig:164
+msgid "Title"
+msgstr "タイトル"
+
+#: /templates/groups/groups.index.twig:28
+#: /templates/groups/group.edit.twig:181
+msgid "View"
+msgstr "参照"
+
+#: /templates/groups/groups.index.twig:29
+#: /templates/groups/group.edit.twig:188
+msgid "Create"
+msgstr "作成"
+
+#: /templates/groups/groups.index.twig:30
+#: /templates/groups/group.edit.twig:195
+msgid "Edit"
+msgstr "編集"
+
+#: /templates/groups/groups.index.twig:31
+#: /templates/groups/group.edit.twig:202
+msgid "Edit own"
+msgstr "自身の編集"
+
+#: /templates/groups/groups.index.twig:32
+#: /templates/groups/group.edit.twig:209
+msgid "Manage"
+msgstr "管理"
+
+#: /templates/groups/groups.index.twig:33
+msgid "Actions"
+msgstr "アクション"
+
+#: /templates/groups/groups.index.twig:35
+msgid "ID"
+msgstr "ID"
+
+#: /templates/groups/groups.index.twig:64
+msgid "System"
+msgstr "システム"
+
+#: /templates/groups/groups.index.twig:67
+msgid "Delete"
+msgstr "削除"
+
+#: /templates/groups/groups.index.twig:79
+msgid "No groups defined!"
+msgstr "グループが定義されていません！"
+
+#: /templates/groups/group.edit.twig:6
+msgid "Edit Group"
+msgstr "グループの編集"
+
+#: /templates/groups/group.edit.twig:11
+msgid "Save"
+msgstr "保存"
+
+#: /templates/groups/group.edit.twig:145
+msgid "Edit Access Group"
+msgstr "アクセス グループの編集"
+
+#: /templates/groups/group.edit.twig:147
+msgid "Add Access Group"
+msgstr "アクセスグループの追加"
+
+#: /templates/groups/group.edit.twig:156
+msgid "Details"
+msgstr "詳細"
+
+#: /templates/groups/group.edit.twig:174
+msgid "Permissions"
+msgstr "権限"
+
+#: /templates/groups/group.edit.twig:222
+msgid "Users"
+msgstr "ユーザ"
+
+#: /templates/groups/group.edit.twig:226
+#: /templates/groups/group.edit.twig:234
+msgid "Add user"
+msgstr "ユーザーの追加"
+
+#: /templates/groups/group.edit.twig:228
+#: /templates/groups/group.edit.twig:241
+msgid "username"
+msgstr "ユーザー名"
+
+#: /templates/groups/group.edit.twig:238
+#: /templates/groups/group.edit.twig:246
+msgid "Remove user"
+msgstr "ユーザーの削除"
+
+#: /templates/groups/group.edit.twig:251
+msgid "List assigned users"
+msgstr "割り当てられたユーザ一覧"
+
+#: /templates/groups/group.edit.twig:263
+msgid "Save the group to assign users."
+msgstr "ユーザを割り当てるグループを保存します。"
+
+#: /src/App/Groups/Controller/Group/Delete.php:82
+msgid "The group has been deleted."
+msgstr "グループを削除しました。"
+
+#: /src/App/Groups/Table/GroupsTable.php:99
+msgid "A title is required"
+msgstr "タイトルが必要です"
+

@@ -1,0 +1,263 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/activity-app_en.po\n"
+"Language: ja_JP\n"
+
+#: /templates/activity/useractivity.index.twig:6
+#, php-format
+msgid "%s - User Activity Chart"
+msgstr "%s - ユーザ アクティビティ チャート"
+
+#: /templates/activity/useractivity.index.twig:20
+#, php-format
+msgid "User Tracker Activity - %s"
+msgstr "ユーザ トラッカーのアクティビティ - %s"
+
+#: /templates/activity/useractivity.index.twig:25
+#: /templates/activity/totaluseractivity.index.twig:25
+#: /templates/activity/projectactivity.index.twig:30
+msgid "Chart Options"
+msgstr "グラフのオプション"
+
+#: /templates/activity/useractivity.index.twig:28
+#: /templates/activity/totaluseractivity.index.twig:28
+#: /templates/activity/projectactivity.index.twig:33
+msgid "Period"
+msgstr "期間"
+
+#: /templates/activity/useractivity.index.twig:30
+#: /templates/activity/totaluseractivity.index.twig:30
+#: /templates/activity/projectactivity.index.twig:35
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:83
+msgid "7 Days"
+msgstr "7 日間"
+
+#: /templates/activity/useractivity.index.twig:31
+#: /templates/activity/totaluseractivity.index.twig:31
+#: /templates/activity/projectactivity.index.twig:36
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:83
+msgid "30 Days"
+msgstr "30 日間"
+
+#: /templates/activity/useractivity.index.twig:32
+#: /templates/activity/totaluseractivity.index.twig:32
+#: /templates/activity/projectactivity.index.twig:37
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:83
+msgid "90 Days"
+msgstr "90 日間"
+
+#: /templates/activity/useractivity.index.twig:33
+msgid "1 Year"
+msgstr "1 年間"
+
+#: /templates/activity/useractivity.index.twig:34
+msgid "Custom Period"
+msgstr "カスタム期間"
+
+#: /templates/activity/useractivity.index.twig:37
+#: /templates/activity/totaluseractivity.index.twig:35
+msgid "Type"
+msgstr "タイプ"
+
+#: /templates/activity/useractivity.index.twig:39
+#: /templates/activity/totaluseractivity.index.twig:37
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+msgid "All"
+msgstr "すべて"
+
+#: /templates/activity/useractivity.index.twig:40
+#: /templates/activity/totaluseractivity.index.twig:38
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+msgid "Tracker"
+msgstr "トラッカー"
+
+#: /templates/activity/useractivity.index.twig:41
+#: /templates/activity/totaluseractivity.index.twig:39
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+msgid "Test"
+msgstr "テスト"
+
+#: /templates/activity/useractivity.index.twig:42
+#: /templates/activity/totaluseractivity.index.twig:40
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:86
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:86
+msgid "Code"
+msgstr "コード"
+
+#: /templates/activity/useractivity.index.twig:45
+#: /templates/activity/totaluseractivity.index.twig:43
+#: /templates/activity/projectactivity.index.twig:40
+msgid "Update Chart"
+msgstr "チャートの更新"
+
+#: /templates/activity/useractivity.index.twig:49
+msgid "Start Date"
+msgstr "開始日"
+
+#: /templates/activity/useractivity.index.twig:51
+msgid "End Date"
+msgstr "公開終了日"
+
+#: /templates/activity/snapshot.index.twig:6
+#, php-format
+msgid "%s - Open Issues By Status"
+msgstr "%s - 状況別の未解決の問題"
+
+#: /templates/activity/snapshot.index.twig:20
+#, php-format
+msgid "Open Issues By Status - %s"
+msgstr "状態が %s の未解決問題"
+
+#: /templates/activity/totaluseractivity.index.twig:6
+#, php-format
+msgid "%s - Total Activity Chart"
+msgstr "%s - トータル アクティビティ チャート"
+
+#: /templates/activity/totaluseractivity.index.twig:20
+#, php-format
+msgid "Total Activity - %s"
+msgstr "合計アクティビティ - %s"
+
+#: /templates/activity/projectactivity.index.twig:6
+#, php-format
+msgid "%s - Project Activity Chart"
+msgstr "%s - プロジェクト アクティビティ チャート"
+
+#: /templates/activity/projectactivity.index.twig:20
+#, php-format
+msgid "Project Open & Close Activity - %s"
+msgstr "プロジェクト 未解決と解決のアクティビティ - %s"
+
+#: /templates/activity/projectactivity.index.twig:25
+msgid "Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was a duplicate issue or not considered to be a bug."
+msgstr "（注）トラッカーの問題は次のいずれかの方法で終了する可能性があります。コードを変更して修正される場合もあれば、問題の重複、バグあるとは考えられないと判断され終了する場合があります。"
+
+#: /templates/activity/projectactivity.index.twig:26
+msgid "Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed because they were duplicate reports or not bugs."
+msgstr "修正された問題は、コードの変更が問題を解決するためになされた問題です。その他の終了した問題は重複が報告されたものや、バグではなかったものが挙げられます。"
+
+#: /templates/activity/projectactivity.index.twig:27
+msgid "Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so."
+msgstr "2016年3月12日以前にマージされたプルリクエストは正しいステータスを持っていない可能性があり、そうだとすれば他の終了した問題もカウントされていますのでご注意ください。"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:54
+msgid "New"
+msgstr "新規"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:55
+msgid "Confirmed"
+msgstr "承認済み"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:56
+msgid "Pending"
+msgstr "保留"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:57
+msgid "Ready To Commit"
+msgstr "コミットできます"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:58
+msgid "Needs Review"
+msgstr "レビューが必要"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:59
+msgid "Information Required"
+msgstr "要情報"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:60
+msgid "Discussion"
+msgstr "ディスカッション"
+
+#: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:65
+msgid "Total Open Issues By Status"
+msgstr "状況別の合計の未解決の問題"
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:67
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
+msgid "Months"
+msgstr "月"
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:67
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
+msgid "Quarters"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:67
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:83
+msgid "Weeks"
+msgstr "週間"
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
+#, php-format
+msgid "Issues Opened and Closed for Past Four %1$s"
+msgstr "過去 4 %1$s に発行され完了した問題"
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:75
+msgid "Opened"
+msgstr "発行"
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:76
+msgid "Fixed"
+msgstr "修正済み"
+
+#: /src/App/Activity/Controller/Ajax/ProjectActivity.php:77
+msgid "Other Closed"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:88
+#, php-format
+msgid "%1$s Points for Past Four %2$s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:122
+#: /src/App/Activity/Controller/Ajax/TotalActivity.php:126
+#, php-format
+msgid "%1$s Points"
+msgstr "%1$s ポイント"
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:83
+msgid "12 Months"
+msgstr "12 ヶ月"
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:83
+msgid "Custom"
+msgstr "カスタム"
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:101
+#, php-format
+msgid "%1$s Points From %2$s Through %3$s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:106
+#, php-format
+msgid "%1$s Points for Past %2$s"
+msgstr ""
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:129
+msgid "Tracker Points"
+msgstr "トラッカー ポイント"
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:130
+msgid "Test Points"
+msgstr "テスト ポイント"
+
+#: /src/App/Activity/Controller/Ajax/UserActivity.php:131
+msgid "Code Points"
+msgstr "コード ポイント"
+

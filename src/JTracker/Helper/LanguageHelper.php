@@ -109,6 +109,11 @@ abstract class LanguageHelper
 			'name' => 'Italian',
 			'display' => 'Italiano',
 		],
+		'ja-JP' => [
+			'iso' => 'ja',
+			'name' => 'Japanese',
+			'display' => '日本語 (にほんご)',
+		],
 		'lv-LV' => [
 			'iso' => 'lv',
 			'name' => 'Latvian',
