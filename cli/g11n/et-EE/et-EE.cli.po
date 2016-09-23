@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:33-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Estonian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: et\n"
-"X-Crowdin-File: cli-cli_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/cli-cli_en.po\n"
 "Language: et_EE\n"
 
 #: /cli/Application/Application.php:113
@@ -189,7 +189,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Depfile.php:136
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:120
+#: /cli/Application/Command/Make/Languageflags.php:122
 #: /cli/Application/Command/Make/Repoinfo.php:65
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
@@ -293,11 +293,11 @@ msgstr ""
 #: /cli/Application/Command/Make/Make.php:41
 #: /cli/Application/Command/Update/Update.php:78
 msgid "Don't use a progress bar."
-msgstr ""
+msgstr "Ära kasuta edenemisriba."
 
 #: /cli/Application/Command/Get/Languagefiles.php:49
 msgid "Retrieve language files."
-msgstr ""
+msgstr "Keelefailide hankimine."
 
 #: /cli/Application/Command/Get/Languagefiles.php:54
 msgid "Optionally specify a single language to fetch."
@@ -310,11 +310,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Languagefiles.php:74
 msgid "Get Translations"
-msgstr ""
+msgstr "Hangi tõlkeid"
 
 #: /cli/Application/Command/Get/Languagefiles.php:79
 msgid "Start fetching translations."
-msgstr ""
+msgstr "Alusta tõlgete tõmbamist."
 
 #: /cli/Application/Command/Get/Project.php:68
 msgid "Get the whole project info from GitHub, including issues and issue comments."
@@ -322,7 +322,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:74
 msgid "Process all issues."
-msgstr ""
+msgstr "Töötle kõiki probleeme."
 
 #: /cli/Application/Command/Get/Project.php:80
 msgid "<n> Process only a single issue."
@@ -367,12 +367,12 @@ msgstr "Kõik"
 
 #: /cli/Application/Command/Get/Project.php:311
 msgid "Range"
-msgstr ""
+msgstr "Vahemik"
 
 #: /cli/Application/Command/Get/Project.php:312
 #: /cli/Application/Command/Get/Project/Issues.php:131
 msgid "Select: "
-msgstr ""
+msgstr "Valitud: "
 
 #: /cli/Application/Command/Get/Project.php:319
 msgid "Enter the first GitHub issue ID to process (from):"
@@ -432,11 +432,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Comments.php:352
 msgid "Getting issue comments."
-msgstr ""
+msgstr "Probleemi kommentaaride hankimine."
 
 #: /cli/Application/Command/Get/Project/Comments.php:381
 msgid "Deleting issues comments."
-msgstr ""
+msgstr "Probleemi kommentaaride kustutamine."
 
 #: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
@@ -444,11 +444,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
-msgstr ""
+msgstr "Sündmuste hankimine"
 
 #: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
-msgstr ""
+msgstr "Alusta sündmuste tõmbamist"
 
 #: /cli/Application/Command/Get/Project/Events.php:98
 #, php-format
@@ -459,12 +459,12 @@ msgstr[1] ""
 
 #: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
-msgstr ""
+msgstr "Sündmuste lisamine andmebaasi..."
 
 #: /cli/Application/Command/Get/Project/Events.php:328
 #, php-format
 msgid "Added %d new issue events to the database"
-msgstr ""
+msgstr "Andmebaasi lisatu %d uut probleemi"
 
 #: /cli/Application/Command/Get/Project/Issues.php:71
 msgid "<n> Process only an issue of given status."
@@ -476,11 +476,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Issues.php:87
 msgid "Retrieve Issues"
-msgstr ""
+msgstr "Probleemide tõmbamine"
 
 #: /cli/Application/Command/Get/Project/Issues.php:89
 msgid "Start retrieve Issues"
-msgstr ""
+msgstr "Alusta probleemide tõmbamist"
 
 #: /cli/Application/Command/Get/Project/Issues.php:126
 msgid "Select GitHub issues status?"
@@ -488,11 +488,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Issues.php:129
 msgid "Open"
-msgstr ""
+msgstr "Avatud"
 
 #: /cli/Application/Command/Get/Project/Issues.php:130
 msgid "Closed"
-msgstr ""
+msgstr "Suletud"
 
 #: /cli/Application/Command/Get/Project/Issues.php:160
 #, php-format
@@ -563,11 +563,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Users.php:53
 msgid "Retrieve Users"
-msgstr ""
+msgstr "Kasutajate tõmbamine"
 
 #: /cli/Application/Command/Get/Users.php:55
 msgid "Start retrieving Users."
-msgstr ""
+msgstr "Alusta kasutajate tõmbamist."
 
 #: /cli/Application/Command/Get/Users.php:93
 #, php-format
@@ -592,25 +592,25 @@ msgstr ""
 #: /cli/Application/Command/Help/Help.php:71
 #, php-format
 msgid "<b>Usage</b>: %s"
-msgstr ""
+msgstr "<b>Kasutamine</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:71
 #: /cli/Application/Command/Help/Help.php:94
 msgid "command"
-msgstr ""
+msgstr "käsk"
 
 #: /cli/Application/Command/Help/Help.php:71
 msgid "options"
-msgstr ""
+msgstr "valikud"
 
 #: /cli/Application/Command/Help/Help.php:78
 msgid "Available commands:"
-msgstr ""
+msgstr "Saadaolevad käsud:"
 
 #: /cli/Application/Command/Help/Help.php:94
 #, php-format
 msgid "<b>For more information use</b>: %s"
-msgstr ""
+msgstr "<b>Lisateabe saamiseks kasuta</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:101
 msgid "Application command <opt>options</opt>"
@@ -620,30 +620,30 @@ msgstr ""
 #: /cli/Application/Command/Help/Help.php:125
 #, php-format
 msgid "Unknown: %s"
-msgstr ""
+msgstr "Tundmatu: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 #: /cli/Application/Command/TrackerCommand.php:233
 #, php-format
 msgid "Command: %s"
-msgstr ""
+msgstr "Käsk: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 msgid "action"
-msgstr ""
+msgstr "tegevus"
 
 #: /cli/Application/Command/Help/Help.php:142
 #: /cli/Application/Command/Help/Help.php:165
 msgid "Available options:"
-msgstr ""
+msgstr "Saadaolevad valikud:"
 
 #: /cli/Application/Command/Help/Help.php:153
 msgid "Available <cmd>actions</cmd>:"
-msgstr ""
+msgstr "Saadaolevad <cmd>toimingud</cmd>:"
 
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
-msgstr ""
+msgstr "Paigalda rakendus."
 
 #: /cli/Application/Command/Install/Install.php:42
 msgid "Reinstall the application (without confirmation)"
@@ -651,7 +651,7 @@ msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:59
 msgid "Installer"
-msgstr ""
+msgstr "Paigaldaja"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found!"
@@ -659,7 +659,7 @@ msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall?"
-msgstr ""
+msgstr "Kas sa soovid uuesti paigaldada?"
 
 #: /cli/Application/Command/Install/Install.php:75
 msgid "Yes"
@@ -671,23 +671,23 @@ msgstr "Ei"
 
 #: /cli/Application/Command/Install/Install.php:78
 msgid "Select:"
-msgstr ""
+msgstr "Vali:"
 
 #: /cli/Application/Command/Install/Install.php:98
 msgid "No database found."
-msgstr ""
+msgstr "Andmebaasi ei leitud."
 
 #: /cli/Application/Command/Install/Install.php:99
 msgid "Creating the database..."
-msgstr ""
+msgstr "Andmebaasi loomine..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has been completed successfully."
-msgstr ""
+msgstr "Paigaldamine on edukalt lõpettud."
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
-msgstr ""
+msgstr "Olemasolevate tabelite eemaldamine..."
 
 #: /cli/Application/Command/Install/Install.php:178
 #, php-format
@@ -696,7 +696,7 @@ msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:185
 msgid "SQL file corrupted."
-msgstr ""
+msgstr "SQL-fail on rikutud."
 
 #: /cli/Application/Command/Install/Install.php:188
 #, php-format
@@ -741,7 +741,7 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Composergraph.php:52
 msgid "The image type."
-msgstr ""
+msgstr "Pildi tüüp."
 
 #: /cli/Application/Command/Make/Composergraph.php:66
 msgid "Make Composer graph"
@@ -811,7 +811,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Langfiles.php:150
 #, php-format
 msgid "Processing: %1$s %2$s %3$s"
-msgstr ""
+msgstr "Töötlemine: %1$s %2$s %3$s"
 
 #: /cli/Application/Command/Make/Langfiles.php:159
 #: /cli/Application/Command/Test/Langfiles.php:84
@@ -820,15 +820,15 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Langfiles.php:167
 msgid "Creating language file..."
-msgstr ""
+msgstr "Keelefaili loomine..."
 
 #: /cli/Application/Command/Make/Langfiles.php:206
 msgid "The language file has been created"
-msgstr ""
+msgstr "Keelefail on loodud"
 
 #: /cli/Application/Command/Make/Langfiles.php:211
 msgid "Updating language file..."
-msgstr ""
+msgstr "Keelefaili värskendamine..."
 
 #: /cli/Application/Command/Make/Langtemplates.php:48
 msgid "Create language file templates."
@@ -849,7 +849,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Langtemplates.php:161
 #, php-format
 msgid "Processing App: %s"
-msgstr ""
+msgstr "Töötlemise rakendus: %s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:338
 msgid "Your template has been created"
@@ -861,7 +861,7 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Languageflags.php:40
 msgid "Full path to the CSS file."
-msgstr ""
+msgstr "CSS-faili täielik asukoht."
 
 #: /cli/Application/Command/Make/Languageflags.php:44
 msgid "Compile multiple images into a big one (CSS spriting)."
@@ -871,12 +871,12 @@ msgstr ""
 msgid "Compile Language flag images"
 msgstr ""
 
-#: /cli/Application/Command/Make/Languageflags.php:109
+#: /cli/Application/Command/Make/Languageflags.php:111
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr ""
 
-#: /cli/Application/Command/Make/Languageflags.php:115
+#: /cli/Application/Command/Make/Languageflags.php:117
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr ""
@@ -890,7 +890,7 @@ msgid "Generate repository information."
 msgstr ""
 
 #: /cli/Application/Command/Make/Repoinfo.php:50
-msgid "Generate Repo information"
+msgid "Generate repository information"
 msgstr ""
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
@@ -911,7 +911,7 @@ msgstr[1] ""
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
 msgid "Success"
-msgstr ""
+msgstr "Korras"
 
 #: /cli/Application/Command/Test/Copypaste.php:30
 msgid "Run Copy/Paste Detector (CPD) for PHP code."
@@ -940,7 +940,7 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
-msgstr ""
+msgstr "Keelefaili süntaks on korras"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
@@ -1001,12 +1001,12 @@ msgstr ""
 
 #: /cli/Application/Command/TrackerCommand.php:372
 msgid "Aborted"
-msgstr ""
+msgstr "Katkestatud"
 
 #: /cli/Application/Command/TrackerCommand.php:377
 #: /cli/Application/Command/TrackerCommand.php:396
 msgid "Invalid project"
-msgstr ""
+msgstr "Sobimatu projekti"
 
 #: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
@@ -1032,7 +1032,7 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
-msgstr ""
+msgstr "Värskenda tõlkeid"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."

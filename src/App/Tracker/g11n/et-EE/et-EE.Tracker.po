@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Estonian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: et\n"
-"X-Crowdin-File: tracker-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/tracker-app_en.po\n"
 "Language: et_EE\n"
 
 #: /templates/tracker/issue.edit.twig:52
@@ -26,12 +26,12 @@ msgstr "Salvesta"
 #: /templates/tracker/issue.edit.twig:58
 #: /templates/tracker/issue.index.twig:279
 msgid "Test this"
-msgstr ""
+msgstr "Testi seda"
 
 #: /templates/tracker/issue.edit.twig:62
 #: /templates/tracker/issue.index.twig:284
 msgid "Alter test"
-msgstr ""
+msgstr "Muuda testi"
 
 #: /templates/tracker/issue.edit.twig:67
 msgid "Cancel"
@@ -64,7 +64,7 @@ msgstr "Kirje"
 #: /templates/tracker/issue.index.twig:107
 #: /templates/tracker/issue.add.twig:60
 msgid "Build"
-msgstr ""
+msgstr "Järk"
 
 #: /templates/tracker/issue.edit.twig:146
 msgid "Easy test"
@@ -79,13 +79,13 @@ msgstr "Kategooriad"
 #: /templates/tracker/tpl/activities.twig:113
 #: /templates/tracker/issue.add.twig:78
 msgid "Labels"
-msgstr ""
+msgstr "Sildid"
 
 #: /templates/tracker/issue.edit.twig:171
 #: /templates/tracker/tpl/activities.twig:131
 #: /templates/tracker/issue.add.twig:83
 msgid "Milestone"
-msgstr ""
+msgstr "Eesmärk"
 
 #: /templates/tracker/issue.edit.twig:184
 #: /templates/tracker/category.add.twig:27
@@ -109,20 +109,20 @@ msgstr "Jäta kommentaar"
 #: /templates/tracker/issue.edit.twig:314
 #: /templates/tracker/issue.add.twig:224
 msgid "Some fields are invalid. They have been highlighted."
-msgstr ""
+msgstr "Mõned väljad on vigased. Need on esile tõstetud."
 
 #: /templates/tracker/issue.edit.twig:324
 #: /templates/tracker/issue.edit.twig:331
 msgid "Saving..."
-msgstr ""
+msgstr "Salvestamine..."
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- Status -"
-msgstr ""
+msgstr "- Staatus -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- Priority -"
-msgstr ""
+msgstr "- Tähtsus -"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -146,43 +146,43 @@ msgstr "Sinu poolt loodud"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "Everyone's issues"
-msgstr ""
+msgstr "Kõigi probleemid"
 
 #: /templates/tracker/tracker.filters.twig:38
 msgid "You participated in"
-msgstr ""
+msgstr "Milles sa oled osalenud"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "- Categories -"
-msgstr ""
+msgstr "- Kategooriad -"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No Categories"
-msgstr ""
+msgstr "Kategooriaid pole"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
-msgstr ""
+msgstr "- Sildid -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- Tests -"
-msgstr ""
+msgstr "- Testid -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
-msgstr ""
+msgstr "Kahe testiga"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Needs one test"
-msgstr ""
+msgstr "Vajab rohkem teste"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Needs tests"
-msgstr ""
+msgstr "Vajab testimist"
 
 #: /templates/tracker/tracker.filters.twig:87
 msgid "- Easy -"
-msgstr ""
+msgstr "- Lihtne -"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
@@ -196,11 +196,11 @@ msgstr "Jah"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "- Type -"
-msgstr ""
+msgstr "- Liik -"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
-msgstr ""
+msgstr "Probleem"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Pull Request"
@@ -208,7 +208,7 @@ msgstr ""
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
-msgstr ""
+msgstr "- Eesmärgid -"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
@@ -225,7 +225,7 @@ msgstr "Kõik"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search Tools"
-msgstr ""
+msgstr "Otsinguvahendid"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -234,35 +234,35 @@ msgstr "Tühjenda"
 #: /templates/tracker/tpl/filters.twig:33
 #: /templates/tracker/issue.index.twig:64
 msgid "Feeling Lucky"
-msgstr ""
+msgstr "Ehk mul veab"
 
 #: /templates/tracker/tpl/filters.twig:36
 msgid "Permalink"
-msgstr ""
+msgstr "Püsilink"
 
 #: /templates/tracker/tpl/filters.twig:58
 msgid "Filter the list by summary or description."
-msgstr ""
+msgstr "Filtreeri nimekirja kokkuvõtte või kirjelduse järgi."
 
 #: /templates/tracker/tpl/filters.twig:61
 #: /templates/tracker/tpl/filters.twig:62
 msgid "Filter the list by ID, summary, or description."
-msgstr ""
+msgstr "Filtreeri nimekirja ID, kokkuvõtte või kirjelduse järgi."
 
 #: /templates/tracker/tpl/filters.twig:99
 #: /templates/tracker/tpl/filters.twig:102
 #: /templates/tracker/tpl/filters.twig:103
 msgid "Filter the list by creator."
-msgstr ""
+msgstr "Filtreeri nimekirja autori järgi."
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
-msgstr ""
+msgstr "Lisa kategooria"
 
 #: /templates/tracker/category.add.twig:20
 #: /templates/tracker/categories.index.twig:12
 msgid "New Category"
-msgstr ""
+msgstr "Uus kategooria"
 
 #: /templates/tracker/category.add.twig:24
 #: /templates/tracker/category.edit.twig:24
@@ -275,13 +275,13 @@ msgstr "Lisainfo"
 #: /templates/tracker/category.edit.twig:35
 #: /templates/tracker/categories.index.twig:39
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
 msgid "Colour"
-msgstr ""
+msgstr "Värv"
 
 #: /templates/tracker/tpl/activities.twig:24
 #: /templates/tracker/issue.add.twig:113
@@ -292,11 +292,11 @@ msgstr "Kirjeldus"
 #: /templates/tracker/tpl/activities.twig:45
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
 msgid "Differences"
-msgstr ""
+msgstr "Erinevused"
 
 #: /templates/tracker/tpl/activities.twig:75
 msgid "Easy"
-msgstr ""
+msgstr "Lihtne"
 
 #: /templates/tracker/tpl/activities.twig:118
 #: /templates/tracker/tpl/activities.twig:135
@@ -306,25 +306,25 @@ msgstr "Lisatud"
 #: /templates/tracker/tpl/activities.twig:122
 #: /templates/tracker/tpl/activities.twig:139
 msgid "Removed"
-msgstr ""
+msgstr "Eemaldatud"
 
 #: /templates/tracker/tpl/activities.twig:148
 msgid "Relation Type"
-msgstr ""
+msgstr "Seose liik"
 
 #: /templates/tracker/tpl/activities.twig:165
 msgid "Category"
-msgstr ""
+msgstr "Kategooria"
 
 #: /templates/tracker/category.edit.twig:6
 #: /templates/tracker/category.edit.twig:20
 msgid "Edit Category"
-msgstr ""
+msgstr "Muuda kategooriat"
 
 #: /templates/tracker/issues.index.twig:6
 #, php-format
 msgid "%s Issues"
-msgstr ""
+msgstr "%s probleemi"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
@@ -343,7 +343,7 @@ msgstr "Kokkuvõte"
 
 #: /templates/tracker/issues.index.twig:52
 msgid "Loading, please wait..."
-msgstr ""
+msgstr "Laadimine. Palun oota..."
 
 #: /templates/tracker/issues.index.twig:114
 #: /templates/tracker/issue.index.twig:79
@@ -353,7 +353,7 @@ msgstr "Muuda"
 
 #: /templates/tracker/issues.index.twig:135
 msgid "Created by"
-msgstr ""
+msgstr "Lisas"
 
 #: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
@@ -361,43 +361,43 @@ msgstr "GitHub ID"
 
 #: /templates/tracker/issues.index.twig:165
 msgid "Opened "
-msgstr ""
+msgstr "Avatud "
 
 #: /templates/tracker/issues.index.twig:171
 msgid "Closed "
-msgstr ""
+msgstr "Suletud "
 
 #: /templates/tracker/issues.index.twig:177
 msgid "Modified "
-msgstr ""
+msgstr "Muudetud "
 
 #: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
-msgstr ""
+msgstr "Eesmärk: "
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Critical"
-msgstr ""
+msgstr "Kriitiline"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Urgent"
-msgstr ""
+msgstr "Kiireloomuline"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Medium"
-msgstr ""
+msgstr "Keskmine"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Low"
-msgstr ""
+msgstr "Madal"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Very Low"
-msgstr ""
+msgstr "Väga madal"
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
-msgstr ""
+msgstr "GitHubi liitmise staatus"
 
 #: /templates/tracker/issues.index.twig:205
 msgid "No items found."
@@ -405,7 +405,7 @@ msgstr "Ühtegi kirjet ei leitud."
 
 #: /templates/tracker/issues.index.twig:322
 msgid "Success"
-msgstr ""
+msgstr "Korras"
 
 #: /templates/tracker/issues.index.twig:324
 #: /templates/tracker/issues.index.twig:339
@@ -414,11 +414,11 @@ msgstr "Ootel"
 
 #: /templates/tracker/issues.index.twig:326
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #: /templates/tracker/issues.index.twig:328
 msgid "Failure"
-msgstr ""
+msgstr "Tõrge"
 
 #: /templates/tracker/issues.index.twig:337
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
@@ -431,79 +431,79 @@ msgstr "Kinnitatud"
 
 #: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
-msgstr ""
+msgstr "Valmis lisamiseks"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr ""
+msgstr "Koodibaasis parandatud"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
-msgstr ""
+msgstr "Vajab läbivaatamist"
 
 #: /templates/tracker/issues.index.twig:343
 msgid "Information Required"
-msgstr ""
+msgstr "Vajab lisainfot"
 
 #: /templates/tracker/issues.index.twig:344
 msgid "Unconfirmed Report"
-msgstr ""
+msgstr "Kinnitamata aruanne"
 
 #: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
-msgstr ""
+msgstr "Vastus puudub"
 
 #: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
-msgstr ""
+msgstr "Oodatav käitumine"
 
 #: /templates/tracker/issues.index.twig:348
 msgid "Known Issue"
-msgstr ""
+msgstr "Teadaolev probleem"
 
 #: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
-msgstr ""
+msgstr "Dubleeritud aruanne"
 
 #: /templates/tracker/issues.index.twig:350
 msgid "Discussion"
-msgstr ""
+msgstr "Arutelu"
 
 #: /templates/tracker/issues.index.twig:413
 msgid "First"
-msgstr ""
+msgstr "Esimene"
 
 #: /templates/tracker/issues.index.twig:414
 msgid "Previous"
-msgstr ""
+msgstr "Eelmised"
 
 #: /templates/tracker/issues.index.twig:415
 msgid "Next"
-msgstr ""
+msgstr "Järgmised"
 
 #: /templates/tracker/issues.index.twig:416
 msgid "Last"
-msgstr ""
+msgstr "Viimane"
 
 #: /templates/tracker/issue.index.twig:59
 msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr ""
+msgstr "Seda probleemi pole olemas või sisestatud ID pole korrektne."
 
 #: /templates/tracker/issue.index.twig:115
 msgid "Easy Test"
-msgstr ""
+msgstr "Lihtne test"
 
 #: /templates/tracker/issue.index.twig:123
 msgid "# of Successful Tests"
-msgstr ""
+msgstr "Edukate testide arv"
 
 #: /templates/tracker/issue.index.twig:133
 msgid "To comment"
-msgstr ""
+msgstr "Kommenteerimine"
 
 #: /templates/tracker/issue.index.twig:142
 msgid "View this issue on GitHub"
-msgstr ""
+msgstr "Vaata probleemi GitHubis"
 
 #: /templates/tracker/issue.index.twig:152
 msgid "View a plain diff for this pull request"
@@ -511,49 +511,49 @@ msgstr ""
 
 #: /templates/tracker/issue.index.twig:154
 msgid "Diff"
-msgstr ""
+msgstr "Erinevus"
 
 #: /templates/tracker/issue.index.twig:170
 msgid "Download this fork as a ZIP file"
-msgstr ""
+msgstr "Laadi see versioon ZIP-failina alla"
 
 #: /templates/tracker/issue.index.twig:226
 msgid "Categories:"
-msgstr ""
+msgstr "Kategooriad:"
 
 #: /templates/tracker/issue.index.twig:251
 msgid "Referenced as"
-msgstr ""
+msgstr "Viidatud kui"
 
 #: /templates/tracker/issue.index.twig:289
 msgid "User tests:"
-msgstr ""
+msgstr "Kasutaja testid:"
 
 #: /templates/tracker/issue.index.twig:290
 #, php-format
 msgid "Successful: %s"
-msgstr ""
+msgstr "Edukas: %s"
 
 #: /templates/tracker/issue.index.twig:292
 #, php-format
 msgid "Unsuccessful: %s"
-msgstr ""
+msgstr "Polnud edukas: %s"
 
 #: /templates/tracker/issue.index.twig:331
 msgid "Votes"
-msgstr ""
+msgstr "Häält"
 
 #: /templates/tracker/issue.index.twig:341
 msgid "# of Users Experiencing Issue"
-msgstr ""
+msgstr "Nende kasutajate arv, kellel tekkis probleeme"
 
 #: /templates/tracker/issue.index.twig:345
 msgid "Average Importance Score"
-msgstr ""
+msgstr "Keskmine tähtsus"
 
 #: /templates/tracker/issue.index.twig:354
 msgid "I've experienced this issue"
-msgstr ""
+msgstr "Mul on seda probleemi esinenud"
 
 #: /templates/tracker/issue.index.twig:366
 msgid "Importance of issue to me"
@@ -565,7 +565,7 @@ msgstr "Hinda"
 
 #: /templates/tracker/issue.index.twig:497
 msgid "The description was changed"
-msgstr ""
+msgstr "Kirjeldust muudeti"
 
 #: /templates/tracker/issue.index.twig:576
 msgid "Post Comment"
@@ -573,15 +573,15 @@ msgstr "Lisa kommentaar"
 
 #: /templates/tracker/issue.index.twig:591
 msgid "Login with GitHub to post a comment"
-msgstr ""
+msgstr "Kommenteerimiseks logi GitHubiga sisse"
 
 #: /templates/tracker/issue.index.twig:596
 msgid "Older"
-msgstr ""
+msgstr "Vanem"
 
 #: /templates/tracker/issue.index.twig:599
 msgid "Newer"
-msgstr ""
+msgstr "Uuem"
 
 #: /templates/tracker/issue.add.twig:12
 #: /templates/tracker/issue.add.twig:130
@@ -630,16 +630,16 @@ msgstr ""
 
 #: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
-msgstr ""
+msgstr "Lisamine..."
 
 #: /templates/tracker/categories.index.twig:6
 #: /templates/tracker/categories.index.twig:34
 msgid "Categories List"
-msgstr ""
+msgstr "Kategooriate nimekiri"
 
 #: /templates/tracker/categories.index.twig:44
 msgid "Actions"
-msgstr ""
+msgstr "Tegevused"
 
 #: /templates/tracker/categories.index.twig:65
 msgid "Delete"
@@ -648,68 +648,68 @@ msgstr "Kustuta"
 #: /templates/tracker/categories.index.twig:77
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "Leht %2$s/%1$s"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
-msgstr ""
+msgstr "Kategooria on kustutatud"
 
 #: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:58
 msgid "Your comment has been submitted"
-msgstr ""
+msgstr "Sinu kommentaar on lisatud"
 
 #: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
 msgid "Vote successfully added"
-msgstr ""
+msgstr "Hääl on lisatud"
 
 #: /src/App/Tracker/Controller/Issue/Submit.php:173
 msgid "Your report has been submitted."
-msgstr ""
+msgstr "Sinu teavitus on edastatud."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
 #: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
 msgid "Test successfully added"
-msgstr ""
+msgstr "Test on lisatud"
 
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
 msgid "Old"
-msgstr ""
+msgstr "Vana"
 
 #: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
-msgstr ""
+msgstr "ID puudub"
 
 #: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
-msgstr ""
+msgstr "Vigane kategooria"
 
 #: /src/App/Tracker/Table/CategoryTable.php:54
 msgid "A name is required for the category."
-msgstr ""
+msgstr "Kategoorial peab olema nimi."
 
 #: /src/App/Tracker/Table/CategoryTable.php:59
 msgid "The length of the name can not exceed 150 characters."
-msgstr ""
+msgstr "Nimi ei tohi olla pikem kui 150 märki."
 
 #: /src/App/Tracker/Table/CategoryTable.php:64
 msgid "An alias is required for the category."
-msgstr ""
+msgstr "Kategoorial peab olema alias."
 
 #: /src/App/Tracker/Table/CategoryTable.php:69
 msgid "The length of the alias can not exceed 150 characters."
-msgstr ""
+msgstr "Alias ei tohi olla pikem kui 150 märki."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "Värv tuleb sisestada HEX väärtusena."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr ""
+msgstr "Probleemi ID on vajalik"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
-msgstr ""
+msgstr "Kategooria ID on vajalik."
 
 #: /src/App/Tracker/Table/IssuesTable.php:135
 msgid "A title is required."
@@ -721,9 +721,9 @@ msgstr "Pealkirja maksimaalne pikkus on 255 märki."
 
 #: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
-msgstr ""
+msgstr "Järgu number on nõutud."
 
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
-msgstr ""
+msgstr "Järgu maksimaalne pikkus on 40 märki."
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:33-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -13,16 +13,16 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: de\n"
-"X-Crowdin-File: cli-cli_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/cli-cli_en.po\n"
 "Language: de_DE\n"
 
 #: /cli/Application/Application.php:113
 msgid "Be quiet - suppress output."
-msgstr "Sei leise - unterdrücke Ausgaben."
+msgstr "Unterdrückte Ausgaben."
 
 #: /cli/Application/Application.php:118
 msgid "Verbose output for debugging purpose."
-msgstr "Wortreiche ausgabe zum debuggen."
+msgstr "Debug Ausgabe."
 
 #: /cli/Application/Application.php:123
 msgid "Suppress ANSI colours on unsupported terminals."
@@ -61,7 +61,7 @@ msgstr "Ausführungszeit: <b>%d Sek.</b>"
 #: /cli/Application/Application.php:388
 #, php-format
 msgid "The argument \"%s\" is not recognized."
-msgstr ""
+msgstr "Das Argument \"%s\" wurde nicht erkannt."
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
@@ -164,7 +164,7 @@ msgstr "Speichert Sprachdateien in ein angegebenes Verzeichnis."
 
 #: /cli/Application/Command/Export/Langfiles.php:50
 msgid "Export also language template files."
-msgstr ""
+msgstr "Exportieren Sie auch die Sprache-Template-Dateien."
 
 #: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
@@ -189,7 +189,7 @@ msgstr "Starte den Export der Sprachdateien."
 #: /cli/Application/Command/Make/Depfile.php:136
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:120
+#: /cli/Application/Command/Make/Languageflags.php:122
 #: /cli/Application/Command/Make/Repoinfo.php:65
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
@@ -513,7 +513,7 @@ msgstr "Einträge werden in der Datenbank gespeichert..."
 #: /cli/Application/Command/Get/Project/Issues.php:470
 #, php-format
 msgid "<ok>%1$d added, %2$d updated.</ok>"
-msgstr "<ok>%1$d hizugefügt, %2$d aktualisiert.</ok>"
+msgstr "<ok>%1$d hinzugefügt, %2$d aktualisiert.</ok>"
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
@@ -651,11 +651,11 @@ msgstr "Die Applikation neu installieren (ohne Rückfrage)"
 
 #: /cli/Application/Command/Install/Install.php:59
 msgid "Installer"
-msgstr "Installierer"
+msgstr "Installer"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found!"
-msgstr "WARNUNG: Eine Datenbank wurde gefunden !!"
+msgstr "WARNUNG: Es wurde eine Datenbank wurde gefunden!"
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall?"
@@ -692,7 +692,7 @@ msgstr "Vorhandene Tabellen werden gelöscht..."
 #: /cli/Application/Command/Install/Install.php:178
 #, php-format
 msgid "Install SQL file for %s not found."
-msgstr "Install SQL Datei für %s wurde nicht gefunden."
+msgstr "Installations SQL Datei für %s wurde nicht gefunden."
 
 #: /cli/Application/Command/Install/Install.php:185
 msgid "SQL file corrupted."
@@ -871,12 +871,12 @@ msgstr "Mehrere Bilder in einem großen kompilieren (CSS Spriting)."
 msgid "Compile Language flag images"
 msgstr "Kompilieren Sie Sprachflaggen Bilder"
 
-#: /cli/Application/Command/Make/Languageflags.php:109
+#: /cli/Application/Command/Make/Languageflags.php:111
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
 msgstr "Das kombinierte Bild für %1$d Flaggenbilder erzeugen in %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:115
+#: /cli/Application/Command/Make/Languageflags.php:117
 #, php-format
 msgid "Writing the CSS file to %s"
 msgstr "Schreiben der CSS-Datei in %s"
@@ -890,8 +890,8 @@ msgid "Generate repository information."
 msgstr "Generiere Repository Information."
 
 #: /cli/Application/Command/Make/Repoinfo.php:50
-msgid "Generate Repo information"
-msgstr "Generiere Repo Information"
+msgid "Generate repository information"
+msgstr "Generiere Repository Information"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."
@@ -1036,7 +1036,7 @@ msgstr "Aktualisierte Übersetzungen"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
-msgstr "Ausgewählte Informationen zu Softwareupdates für Pull-Anforderungen auf GitHub für ein bestimmtes Projekt."
+msgstr "Aktualisiert ausgewählte Informationen für Pull-Requests auf GitHub für ein bestimmtes Projekt."
 
 #: /cli/Application/Command/Update/Pulls.php:47
 msgid "Update Pull Requests"
@@ -1054,7 +1054,7 @@ msgstr "Aktualisiere Pull Requests für Projekt: %s/%s"
 #: /cli/Application/Command/Update/Pulls.php:101
 #, php-format
 msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
-msgstr "GitHub item %s/%s #%d wurde geschlossen, da der Pull für Joomla! 2.5 ist."
+msgstr "GitHub item %s/%s #%d wurde geschlossen, da der Pull Requests für Joomla! 2.5 ist."
 
 #: /cli/Application/Command/Update/Pulls.php:114
 #: /cli/Application/Command/Update/Pulls.php:238
@@ -1076,7 +1076,7 @@ msgstr "%s/%s #%d %s Label hinzufügen"
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
 msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
-msgstr "GitHub Element %s/%s #%d hat seinen Merge Status \"Fehler\" eingestellt hatte."
+msgstr "GitHub Element %s/%s #%d hat seinen Merge Status auf \"Fehler\" gesetzt."
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"

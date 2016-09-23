@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:34-0400\n"
+"PO-Revision-Date: 2016-09-23 04:27-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: lv\n"
-"X-Crowdin-File: tracker-app_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/tracker-app_en.po\n"
 "Language: lv_LV\n"
 
 #: /templates/tracker/issue.edit.twig:52
@@ -158,7 +158,7 @@ msgstr "- Kategorijas -"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No Categories"
-msgstr ""
+msgstr "Nav kategoriju"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
@@ -225,7 +225,7 @@ msgstr "Viss"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search Tools"
-msgstr ""
+msgstr "Meklēšanas rīki"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -393,7 +393,7 @@ msgstr "Zems"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Very Low"
-msgstr ""
+msgstr "Ļoti zems"
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
@@ -467,7 +467,7 @@ msgstr "Ziņojuma dublikāts"
 
 #: /templates/tracker/issues.index.twig:350
 msgid "Discussion"
-msgstr ""
+msgstr "Diskusija"
 
 #: /templates/tracker/issues.index.twig:413
 msgid "First"

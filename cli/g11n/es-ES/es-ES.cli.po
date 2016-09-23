@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-07-31 12:33-0400\n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2016-09-23 04:26-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: joomla-official-sites\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: cli-cli_en.po\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/cli-cli_en.po\n"
 "Language: es_ES\n"
 
 #: /cli/Application/Application.php:113
@@ -61,7 +61,7 @@ msgstr "Tiempo de ejecución: <b>%d seg.</b>"
 #: /cli/Application/Application.php:388
 #, php-format
 msgid "The argument \"%s\" is not recognized."
-msgstr ""
+msgstr "El argumento \"%s\" no se reconoce."
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
@@ -130,7 +130,7 @@ msgstr "Comprobar el estado de migración de la base de datos."
 
 #: /cli/Application/Command/Database/Status.php:39
 msgid "Database Migrations: Check Status"
-msgstr ""
+msgstr "Migraciones de base de datos: comprobar estado"
 
 #: /cli/Application/Command/Database/Status.php:48
 msgid "Your database is up-to-date."
@@ -164,7 +164,7 @@ msgstr "Respaldar los ficheros de idioma en una carpeta determinada."
 
 #: /cli/Application/Command/Export/Langfiles.php:50
 msgid "Export also language template files."
-msgstr ""
+msgstr "Exportar también los archivos de la plantilla de idioma."
 
 #: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
@@ -172,7 +172,7 @@ msgstr "Exportar ficheros de idioma"
 
 #: /cli/Application/Command/Export/Langfiles.php:84
 msgid "Start exporting language files."
-msgstr ""
+msgstr "Comenzar a exportar archivos de idioma."
 
 #: /cli/Application/Command/Export/Langfiles.php:87
 #: /cli/Application/Command/Get/Avatars.php:56
@@ -189,30 +189,30 @@ msgstr ""
 #: /cli/Application/Command/Make/Depfile.php:136
 #: /cli/Application/Command/Make/Docu.php:115
 #: /cli/Application/Command/Make/Langfiles.php:133
-#: /cli/Application/Command/Make/Languageflags.php:120
+#: /cli/Application/Command/Make/Languageflags.php:122
 #: /cli/Application/Command/Make/Repoinfo.php:65
 #: /cli/Application/Command/Test/Phploc.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
 msgid "Finished."
-msgstr "Terminado"
+msgstr "Terminado."
 
 #: /cli/Application/Command/Export/Langfiles.php:133
 #: /cli/Application/Command/Get/Languagefiles.php:139
 msgid "Processing %domain% %extension%... "
-msgstr ""
+msgstr "Procesando %domain% %extension%... "
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
-msgstr ""
+msgstr "Recuperar imágenes de avatar de GitHub."
 
 #: /cli/Application/Command/Get/Avatars.php:50
 msgid "Retrieve Avatars"
-msgstr ""
+msgstr "Recuperar avatares"
 
 #: /cli/Application/Command/Get/Avatars.php:52
 msgid "Start retrieving Avatars."
-msgstr ""
+msgstr "Empezar a recuperar avatares."
 
 #: /cli/Application/Command/Get/Avatars.php:81
 #: /cli/Application/Command/Get/Users.php:87
@@ -229,12 +229,12 @@ msgstr[1] "Procesando avatares para %d usuarios."
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
 msgid "User avatar already fetched for user %s"
-msgstr ""
+msgstr "Avatar de usuario ya utilizado por el usuario %s"
 
 #: /cli/Application/Command/Get/Avatars.php:122
 #, php-format
 msgid "Fetching avatar for user: %s"
-msgstr ""
+msgstr "Obteniendo avatar de usuario: %s"
 
 #: /cli/Application/Command/Get/Avatars.php:134
 #, php-format
@@ -250,25 +250,25 @@ msgstr[1] "Se añadieron %d nuevos avatares de usuario"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
-msgstr ""
+msgstr "Recuperar una lista de etiquetas del proyecto en GitHub y mostrar sus versiones instaladas."
 
 #: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
-msgstr ""
+msgstr "Mostrar todas las etiquetas o sólo la más reciente."
 
 #: /cli/Application/Command/Get/Composertags.php:50
 msgid "Retrieve Composer tags"
-msgstr ""
+msgstr "Recuperar etiquetas de Composer"
 
 #. TRANSLATORS: %s refers to a file system path.
 #: /cli/Application/Command/Get/Composertags.php:59
 #, php-format
 msgid "Can not read the packages file at %s"
-msgstr ""
+msgstr "No se puede leer el archivo de paquetes en %s"
 
 #: /cli/Application/Command/Get/Composertags.php:62
 msgid "Start getting Composer tags."
-msgstr ""
+msgstr "Comenzar a recibir etiquetas de Composer."
 
 #: /cli/Application/Command/Get/Composertags.php:104
 msgid "Installed"
@@ -281,19 +281,19 @@ msgstr "Instalado: %s"
 
 #: /cli/Application/Command/Get/Get.php:84
 msgid "Retrieve Information from various sources."
-msgstr ""
+msgstr "Recuperar información de diversas fuentes."
 
 #: /cli/Application/Command/Get/Get.php:90
 #: /cli/Application/Command/Test/Hook.php:66
 #: /cli/Application/Command/Update/Update.php:72
 msgid "Process the project with the given ID."
-msgstr ""
+msgstr "Procesar el proyecto con el ID dado."
 
 #: /cli/Application/Command/Get/Get.php:96
 #: /cli/Application/Command/Make/Make.php:41
 #: /cli/Application/Command/Update/Update.php:78
 msgid "Don't use a progress bar."
-msgstr ""
+msgstr "No utilice una barra de progreso."
 
 #: /cli/Application/Command/Get/Languagefiles.php:49
 msgid "Retrieve language files."
@@ -301,12 +301,12 @@ msgstr "Recuperar archivos de idioma."
 
 #: /cli/Application/Command/Get/Languagefiles.php:54
 msgid "Optionally specify a single language to fetch."
-msgstr ""
+msgstr "Opcionalmente, especificar un solo idioma a recuperar."
 
 #: /cli/Application/Command/Get/Languagefiles.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:51
 msgid "The translation service provider to use."
-msgstr ""
+msgstr "El proveedor de servicios de traducción a utilizar."
 
 #: /cli/Application/Command/Get/Languagefiles.php:74
 msgid "Get Translations"
@@ -318,27 +318,27 @@ msgstr "Empezar a traer las traducciones."
 
 #: /cli/Application/Command/Get/Project.php:68
 msgid "Get the whole project info from GitHub, including issues and issue comments."
-msgstr ""
+msgstr "Obtén la información de todo el proyecto en GitHub, incluyendo incidencias y sus comentarios."
 
 #: /cli/Application/Command/Get/Project.php:74
 msgid "Process all issues."
-msgstr ""
+msgstr "Procesar todas las incidencias."
 
 #: /cli/Application/Command/Get/Project.php:80
 msgid "<n> Process only a single issue."
-msgstr ""
+msgstr "<n>Procesar sólo una incidencia."
 
 #: /cli/Application/Command/Get/Project.php:86
 msgid "<n> First issue to process."
-msgstr ""
+msgstr "<n> Primera incidencia a procesar."
 
 #: /cli/Application/Command/Get/Project.php:92
 msgid "<n> Last issue to process."
-msgstr ""
+msgstr "<n> Última incidencia a procesar."
 
 #: /cli/Application/Command/Get/Project.php:98
 msgid "Force an update even if the issue has not changed."
-msgstr ""
+msgstr "Forzar una actualización, incluso si la incidencia no ha cambiado."
 
 #: /cli/Application/Command/Get/Project.php:112
 msgid "Retrieve Project"
@@ -346,19 +346,19 @@ msgstr "Recuperar proyecto"
 
 #: /cli/Application/Command/Get/Project.php:114
 msgid "Bulk Start retrieve Project"
-msgstr ""
+msgstr "Comienzo a recuperar el proyecto en bloque"
 
 #: /cli/Application/Command/Get/Project.php:124
 msgid "Updating project info for project: %user%/%project%"
-msgstr ""
+msgstr "Actualizando la información del proyecto para el proyecto: %user%/%project%"
 
 #: /cli/Application/Command/Get/Project.php:135
 msgid "Bulk Finished"
-msgstr ""
+msgstr "Bloque finalizado"
 
 #: /cli/Application/Command/Get/Project.php:308
 msgid "GitHub issues to process?"
-msgstr ""
+msgstr "¿Incidencias de GitHub para procesar?"
 
 #: /cli/Application/Command/Get/Project.php:310
 #: /cli/Application/Command/Get/Project/Issues.php:128
@@ -376,30 +376,30 @@ msgstr "Selección:"
 
 #: /cli/Application/Command/Get/Project.php:319
 msgid "Enter the first GitHub issue ID to process (from):"
-msgstr ""
+msgstr "Introducir el ID de la primera incidencia de GitHub para procesar (desde):"
 
 #: /cli/Application/Command/Get/Project.php:323
 msgid "Enter the latest GitHub issue ID to process (to):"
-msgstr ""
+msgstr "Introduzca el ID de la última incidencia de GitHub para procesar (hasta):"
 
 #: /cli/Application/Command/Get/Project/Comments.php:41
 msgid "Retrieve comments from GitHub."
-msgstr ""
+msgstr "Recuperar comentarios de GitHub."
 
 #: /cli/Application/Command/Get/Project/Comments.php:53
 msgid "Retrieve Comments"
-msgstr ""
+msgstr "Recuperar comentarios"
 
 #: /cli/Application/Command/Get/Project/Comments.php:55
 msgid "Start retrieve Comments"
-msgstr ""
+msgstr "Empezar a recuperar comentarios"
 
 #: /cli/Application/Command/Get/Project/Comments.php:97
 #, php-format
 msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Recuperando comentarios desde GitHub para <b>una</b> incidencia modificada..."
+msgstr[1] "Recuperando comentarios desde GitHub para <b>%d</b> incidencias modificadas..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:168
@@ -410,8 +410,8 @@ msgstr "Todo está actualizado."
 #, php-format
 msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Procesando comentarios para una incidencia modificada..."
+msgstr[1] "Procesando comentarios para %d incidencias modificadas..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
@@ -422,25 +422,25 @@ msgstr "No hay comentarios para la incidencia # %d"
 #, php-format
 msgid "Processing one comment for issue # %2$d (%3$d/%4$d)"
 msgid_plural "Processing %1$d comments for issue # %2$d (%3$d/%4$d)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Procesando un comentario para la incidencia # %2$d (%3$d/%4$d)"
+msgstr[1] "Procesando %1$d comentarios para la incidencia # %2$d (%3$d/%4$d)"
 
 #: /cli/Application/Command/Get/Project/Comments.php:331
 #, php-format
 msgid "%1$d added, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "%1$d añadidos, %2$d actualizados, %3$d eliminados."
 
 #: /cli/Application/Command/Get/Project/Comments.php:352
 msgid "Getting issue comments."
-msgstr ""
+msgstr "Recibiendo comentarios de la incidencia."
 
 #: /cli/Application/Command/Get/Project/Comments.php:381
 msgid "Deleting issues comments."
-msgstr ""
+msgstr "Borrando comentarios de las incidencias."
 
 #: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
-msgstr ""
+msgstr "Recuperando eventos de la incidencia desde GitHub."
 
 #: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
@@ -448,31 +448,31 @@ msgstr "Recuperar eventos"
 
 #: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
-msgstr ""
+msgstr "Comenzar a recuperar Eventos"
 
 #: /cli/Application/Command/Get/Project/Events.php:98
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Traer eventos para una incidencia desde GitHib..."
+msgstr[1] "Traer eventos para <b>%d</b> incidencias desde GitHib..."
 
 #: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
-msgstr ""
+msgstr "Añadiendo eventos a la base de datos..."
 
 #: /cli/Application/Command/Get/Project/Events.php:328
 #, php-format
 msgid "Added %d new issue events to the database"
-msgstr ""
+msgstr "Añadidos %d nuevos eventos de incidencia a la base de datos"
 
 #: /cli/Application/Command/Get/Project/Issues.php:71
 msgid "<n> Process only an issue of given status."
-msgstr ""
+msgstr "<n> Procesar sólo una incidencia de un estado dado."
 
 #: /cli/Application/Command/Get/Project/Issues.php:75
 msgid "Retrieve issues from GitHub."
-msgstr ""
+msgstr "Recuperar incidencias desde GitHub."
 
 #: /cli/Application/Command/Get/Project/Issues.php:87
 msgid "Retrieve Issues"
@@ -480,11 +480,11 @@ msgstr "Recuperar incidencias"
 
 #: /cli/Application/Command/Get/Project/Issues.php:89
 msgid "Start retrieve Issues"
-msgstr ""
+msgstr "Empezar a recuperar incidencias"
 
 #: /cli/Application/Command/Get/Project/Issues.php:126
 msgid "Select GitHub issues status?"
-msgstr ""
+msgstr "¿Seleccionar el estado de las incidencias de GitHib?"
 
 #: /cli/Application/Command/Get/Project/Issues.php:129
 msgid "Open"
@@ -497,14 +497,14 @@ msgstr "Cerrado"
 #: /cli/Application/Command/Get/Project/Issues.php:160
 #, php-format
 msgid "Retrieving <b>%s</b> items from GitHub..."
-msgstr ""
+msgstr "Recuperando <b>%s</b> artículos de GitHub..."
 
 #: /cli/Application/Command/Get/Project/Issues.php:222
 #, php-format
 msgid "Retrieved <b>1</b> item from GitHub."
 msgid_plural "Retrieved <b>%d</b> items from GitHub."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>1</b> elemento recuperado desde GitHub."
+msgstr[1] "<b>%d</b> elementos recuperados desde GitHub."
 
 #: /cli/Application/Command/Get/Project/Issues.php:258
 msgid "Adding issues to the database..."
@@ -517,7 +517,7 @@ msgstr "<ok>%1$d añadido(s), %2$d actualizado(s).</ok>"
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
-msgstr ""
+msgstr "Obtener las etiquetas del proyecto desde GitHub."
 
 #: /cli/Application/Command/Get/Project/Labels.php:43
 msgid "Retrieve Labels"
@@ -525,74 +525,74 @@ msgstr "Recuperar las etiquetas"
 
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
-msgstr ""
+msgstr "Empezar a obtener las etiquetas"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
-msgstr ""
+msgstr "Obteniendo etiquetas..."
 
 #: /cli/Application/Command/Get/Project/Labels.php:141
 #, php-format
 msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "Etiquetas: %1$d nueva(s), %2$d actualizada(s), %3$d borrada(s)."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
-msgstr ""
+msgstr "Recuperar los hitos del proyecto desde GitHub."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:45
 msgid "Retrieve Milestones"
-msgstr ""
+msgstr "Recuperar hitos"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:47
 msgid "Start retrieving Milestones"
-msgstr ""
+msgstr "Empezar a recuperar hitos"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:64
 msgid "Fetching milestones..."
-msgstr ""
+msgstr "Recuperando hitos..."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:151
 #, php-format
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "Hitos: %1$d nuevos, %2$d actualizados, %3$d borrados."
 
 #: /cli/Application/Command/Get/Users.php:32
 msgid "Retrieve user info from GitHub."
-msgstr ""
+msgstr "Recuperar usuario desde GitHub."
 
 #: /cli/Application/Command/Get/Users.php:53
 msgid "Retrieve Users"
-msgstr ""
+msgstr "Recuperar usuarios"
 
 #: /cli/Application/Command/Get/Users.php:55
 msgid "Start retrieving Users."
-msgstr ""
+msgstr "Empezar a recuperar usuarios."
 
 #: /cli/Application/Command/Get/Users.php:93
 #, php-format
 msgid "Getting user info for one user."
 msgid_plural "Getting user info for %d users."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Obteniendo información de usuario para un usuario."
+msgstr[1] "Obteniendo información de usuario para %d usuarios."
 
 #: /cli/Application/Command/Get/Users.php:115
 #, php-format
 msgid "Fetching User Info for user: %s"
-msgstr ""
+msgstr "Obteniendo información de usuario para el usuario: %s"
 
 #: /cli/Application/Command/Get/Users.php:139
 msgid "User information has been refreshed."
-msgstr ""
+msgstr "Se ha refrescado la información de usuario."
 
 #: /cli/Application/Command/Help/Help.php:39
 msgid "Displays helpful information"
-msgstr ""
+msgstr "Muestra información útil"
 
 #: /cli/Application/Command/Help/Help.php:71
 #, php-format
 msgid "<b>Usage</b>: %s"
-msgstr ""
+msgstr "<b>Uso</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:71
 #: /cli/Application/Command/Help/Help.php:94
@@ -610,56 +610,56 @@ msgstr "Comandos disponibles:"
 #: /cli/Application/Command/Help/Help.php:94
 #, php-format
 msgid "<b>For more information use</b>: %s"
-msgstr ""
+msgstr "<b>Para más información</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:101
 msgid "Application command <opt>options</opt>"
-msgstr ""
+msgstr "<opt>Opciones</opt> de comandos de la aplicación"
 
 #. TRANSLATORS: %s refers to a command name
 #: /cli/Application/Command/Help/Help.php:125
 #, php-format
 msgid "Unknown: %s"
-msgstr ""
+msgstr "Desconocido: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 #: /cli/Application/Command/TrackerCommand.php:233
 #, php-format
 msgid "Command: %s"
-msgstr ""
+msgstr "Comando: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 msgid "action"
-msgstr ""
+msgstr "acción"
 
 #: /cli/Application/Command/Help/Help.php:142
 #: /cli/Application/Command/Help/Help.php:165
 msgid "Available options:"
-msgstr ""
+msgstr "Opciones disponibles:"
 
 #: /cli/Application/Command/Help/Help.php:153
 msgid "Available <cmd>actions</cmd>:"
-msgstr ""
+msgstr "<cmd>Acciones</cmd> disponibles:"
 
 #: /cli/Application/Command/Install/Install.php:37
 msgid "Install the application."
-msgstr ""
+msgstr "Instalar la aplicación."
 
 #: /cli/Application/Command/Install/Install.php:42
 msgid "Reinstall the application (without confirmation)"
-msgstr ""
+msgstr "Reinstalar la aplicación (sin confirmación)"
 
 #: /cli/Application/Command/Install/Install.php:59
 msgid "Installer"
-msgstr ""
+msgstr "Instalador"
 
 #: /cli/Application/Command/Install/Install.php:71
 msgid "WARNING: A database has been found!"
-msgstr ""
+msgstr "ADVERTENCIA: ¡Se ha encontrado una base de datos!"
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall?"
-msgstr ""
+msgstr "¿Desea reinstalar?"
 
 #: /cli/Application/Command/Install/Install.php:75
 msgid "Yes"
@@ -671,172 +671,172 @@ msgstr "No"
 
 #: /cli/Application/Command/Install/Install.php:78
 msgid "Select:"
-msgstr ""
+msgstr "Seleccionar:"
 
 #: /cli/Application/Command/Install/Install.php:98
 msgid "No database found."
-msgstr ""
+msgstr "No se ha encontrado ninguna base de datos."
 
 #: /cli/Application/Command/Install/Install.php:99
 msgid "Creating the database..."
-msgstr ""
+msgstr "Creando la base de datos..."
 
 #: /cli/Application/Command/Install/Install.php:118
 msgid "Installation has been completed successfully."
-msgstr ""
+msgstr "La instalación se ha completado correctamente."
 
 #: /cli/Application/Command/Install/Install.php:132
 msgid "Removing existing tables..."
-msgstr ""
+msgstr "Eliminando tablas existentes..."
 
 #: /cli/Application/Command/Install/Install.php:178
 #, php-format
 msgid "Install SQL file for %s not found."
-msgstr ""
+msgstr "No se encuentra el fichero de instalación SQL para %s."
 
 #: /cli/Application/Command/Install/Install.php:185
 msgid "SQL file corrupted."
-msgstr ""
+msgstr "Fichero SQL corrupto."
 
 #: /cli/Application/Command/Install/Install.php:188
 #, php-format
 msgid "Creating tables from file %s"
-msgstr ""
+msgstr "Creando tablas del fichero %s"
 
 #: /cli/Application/Command/Make/Autocomplete.php:51
 msgid "Generate autocomplete files."
-msgstr ""
+msgstr "Generar ficheros de autocompletado."
 
 #: /cli/Application/Command/Make/Autocomplete.php:56
 #, php-format
 msgid "The type of auto complete file (currently supported: %s)."
-msgstr ""
+msgstr "El tipo de fichero de auto completado (actualmente soportado: %s)."
 
 #: /cli/Application/Command/Make/Autocomplete.php:62
 msgid "Echo the output instead of writing it to a file."
-msgstr ""
+msgstr "Eco de la salida en lugar de escribir en un archivo."
 
 #: /cli/Application/Command/Make/Autocomplete.php:76
 msgid "Make Auto complete"
-msgstr ""
+msgstr "Genera Auto Completar"
 
 #: /cli/Application/Command/Make/Autocomplete.php:90
 #, php-format
 msgid "Invalid type supplied. Valid types are: %s"
-msgstr ""
+msgstr "El tipo suministrado no es válido. Tipos válidos son: %s"
 
 #: /cli/Application/Command/Make/Autocomplete.php:178
 #: /cli/Application/Command/Make/Autocomplete.php:244
 msgid "File has been written to: %path%"
-msgstr ""
+msgstr "El fichero se ha escrito a: %path%"
 
 #: /cli/Application/Command/Make/Composergraph.php:40
 msgid "Graph visualisation for your project's composer.json and its dependencies."
-msgstr ""
+msgstr "Visualización gráfica para el composer.json y sus dependencias en tus proyectos."
 
 #: /cli/Application/Command/Make/Composergraph.php:46
 #: /cli/Application/Command/Make/Depfile.php:57
 msgid "Write output to a file."
-msgstr ""
+msgstr "Escribir la salida en un archivo."
 
 #: /cli/Application/Command/Make/Composergraph.php:52
 msgid "The image type."
-msgstr ""
+msgstr "El tipo de imagen."
 
 #: /cli/Application/Command/Make/Composergraph.php:66
 msgid "Make Composer graph"
-msgstr ""
+msgstr "Genera Gráfico de Composer"
 
 #: /cli/Application/Command/Make/Composergraph.php:102
 msgid "The graph has been created."
-msgstr ""
+msgstr "Se ha creado el gráfico."
 
 #: /cli/Application/Command/Make/Composergraph.php:140
 #, php-format
 msgid "The file has been written to %s"
-msgstr ""
+msgstr "Se ha escrito el fichero en %s"
 
 #: /cli/Application/Command/Make/Composergraph.php:157
 #, php-format
 msgid "Format has been set to %s"
-msgstr ""
+msgstr "El formato se ha definido como %s"
 
 #: /cli/Application/Command/Make/Dbcomments.php:27
 msgid "Generate class doc blocks for Table classes"
-msgstr ""
+msgstr "Generar bloques de class doc para las clases de Table"
 
 #: /cli/Application/Command/Make/Dbcomments.php:39
 msgid "Make Table Comments"
-msgstr ""
+msgstr "Genera comentarios para tablas"
 
 #: /cli/Application/Command/Make/Depfile.php:52
 msgid "Create and update a dependency file."
-msgstr ""
+msgstr "Crear y actualizar un fichero de dependencia."
 
 #: /cli/Application/Command/Make/Depfile.php:126
 #, php-format
 msgid "Writing contents to: %s"
-msgstr ""
+msgstr "Escribiendo contenidos a: %s"
 
 #: /cli/Application/Command/Make/Depfile.php:269
 msgid "Language file not found: %tag%, %extension%, %domain%"
-msgstr ""
+msgstr "Fichero de idioma no encontrado: %tag%, %extension%, %domain%"
 
 #: /cli/Application/Command/Make/Docu.php:29
 msgid "Compile documentation using GitHub Flavored Markdown"
-msgstr ""
+msgstr "Compilar documentación utilizando Markdown estilo GitHub"
 
 #: /cli/Application/Command/Make/Docu.php:41
 msgid "Make Documentation"
-msgstr ""
+msgstr "Genera Documentación"
 
 #: /cli/Application/Command/Make/Docu.php:63
 #, php-format
 msgid "Compiling documentation in: %s"
-msgstr ""
+msgstr "Compilando documentación en: %s"
 
 #: /cli/Application/Command/Make/Langfiles.php:36
 msgid "Create and update language files."
-msgstr ""
+msgstr "Ficheros de idioma creados y actualizados."
 
 #: /cli/Application/Command/Make/Langfiles.php:41
 #: /cli/Application/Command/Make/Langtemplates.php:53
 msgid "Process only this extension"
-msgstr ""
+msgstr "Procesar sólo esta extensión"
 
 #: /cli/Application/Command/Make/Langfiles.php:56
 msgid "Make Language files"
-msgstr ""
+msgstr "Genera Archivos de Idioma"
 
 #: /cli/Application/Command/Make/Langfiles.php:150
 #, php-format
 msgid "Processing: %1$s %2$s %3$s"
-msgstr ""
+msgstr "Procesando: %1$s %2$s %3$s"
 
 #: /cli/Application/Command/Make/Langfiles.php:159
 #: /cli/Application/Command/Test/Langfiles.php:84
 msgid "The file does not have UNIX style line endings!"
-msgstr ""
+msgstr "¡El fichero no tiene finales de línea de estilo UNIX!"
 
 #: /cli/Application/Command/Make/Langfiles.php:167
 msgid "Creating language file..."
-msgstr ""
+msgstr "Creando fichero de idioma..."
 
 #: /cli/Application/Command/Make/Langfiles.php:206
 msgid "The language file has been created"
-msgstr ""
+msgstr "Se ha creado el fichero de idioma"
 
 #: /cli/Application/Command/Make/Langfiles.php:211
 msgid "Updating language file..."
-msgstr ""
+msgstr "Actualizando el fichero de idioma..."
 
 #: /cli/Application/Command/Make/Langtemplates.php:48
 msgid "Create language file templates."
-msgstr ""
+msgstr "Crear plantillas de fichero de idioma."
 
 #: /cli/Application/Command/Make/Langtemplates.php:69
 msgid "Make Language templates"
-msgstr ""
+msgstr "Genera Plantillas de Idioma"
 
 #: /cli/Application/Command/Make/Langtemplates.php:90
 #: /cli/Application/Command/Make/Langtemplates.php:103
@@ -844,69 +844,69 @@ msgstr ""
 #: /cli/Application/Command/Make/Langtemplates.php:135
 #, php-format
 msgid "Processing: %1$s %2$s"
-msgstr ""
+msgstr "Procesando: %1$s %2$s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:161
 #, php-format
 msgid "Processing App: %s"
-msgstr ""
+msgstr "Procesando App: %s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:338
 msgid "Your template has been created"
-msgstr ""
+msgstr "Se ha creado la plantilla"
 
 #: /cli/Application/Command/Make/Languageflags.php:34
 msgid "Full path to the combined image file."
-msgstr ""
+msgstr "Ruta completa hacia la imagen combinada."
 
 #: /cli/Application/Command/Make/Languageflags.php:40
 msgid "Full path to the CSS file."
-msgstr ""
+msgstr "Ruta completa hacia el archivo CSS."
 
 #: /cli/Application/Command/Make/Languageflags.php:44
 msgid "Compile multiple images into a big one (CSS spriting)."
-msgstr ""
+msgstr "Compila múltiples imágenes en una grande (Css spriting)."
 
 #: /cli/Application/Command/Make/Languageflags.php:56
 msgid "Compile Language flag images"
-msgstr ""
+msgstr "Compila imágenes de banderas de idioma"
 
-#: /cli/Application/Command/Make/Languageflags.php:109
+#: /cli/Application/Command/Make/Languageflags.php:111
 #, php-format
 msgid "Generating the combined image for %1$d flag images in %2$s"
-msgstr ""
+msgstr "Generando la imagen combinada para %1$d imágenes de banderas en %2$s"
 
-#: /cli/Application/Command/Make/Languageflags.php:115
+#: /cli/Application/Command/Make/Languageflags.php:117
 #, php-format
 msgid "Writing the CSS file to %s"
-msgstr ""
+msgstr "Escribiendo el archivo CSS a %s"
 
 #: /cli/Application/Command/Make/Make.php:36
 msgid "The make engine"
-msgstr ""
+msgstr "El motor \"Make\""
 
 #: /cli/Application/Command/Make/Repoinfo.php:35
 msgid "Generate repository information."
-msgstr ""
+msgstr "Genera informaciones sobre el repositorio."
 
 #: /cli/Application/Command/Make/Repoinfo.php:50
-msgid "Generate Repo information"
-msgstr ""
+msgid "Generate repository information"
+msgstr "Genera información sobre el repositorio"
 
 #: /cli/Application/Command/Test/Checkstyle.php:29
 msgid "Run PHP CodeSniffer tests."
-msgstr ""
+msgstr "Ejecutar las pruebas de PHP CodeSniffer."
 
 #: /cli/Application/Command/Test/Checkstyle.php:42
 msgid "Test Checkstyle"
-msgstr ""
+msgstr "Prueba de checkstyle"
 
 #: /cli/Application/Command/Test/Checkstyle.php:64
 #, php-format
 msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Terminado con un error"
+msgstr[1] "Terminado con %d errores"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
@@ -915,89 +915,89 @@ msgstr "Éxito"
 
 #: /cli/Application/Command/Test/Copypaste.php:30
 msgid "Run Copy/Paste Detector (CPD) for PHP code."
-msgstr ""
+msgstr "Ejecuta el Copy/Paste Detector (CPD) para código de PHP."
 
 #: /cli/Application/Command/Test/Copypaste.php:43
 msgid "Run Copy/Paste Detector"
-msgstr ""
+msgstr "Ejecuta el Copy/Paste Detector"
 
 #: /cli/Application/Command/Test/Hook.php:61
 msgid "Tests web hooks"
-msgstr ""
+msgstr "Prueba los web hooks"
 
 #: /cli/Application/Command/Test/Hook.php:81
 msgid "Test Hooks"
-msgstr ""
+msgstr "Prueba los hooks"
 
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
 msgid "Check language files"
-msgstr ""
+msgstr "Prueba los archivos de idioma"
 
 #: /cli/Application/Command/Test/Langfiles.php:109
 msgid "There have been errors."
-msgstr ""
+msgstr "Han habido errores."
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
-msgstr ""
+msgstr "Sintaxis de los archivos de idioma correcta"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
-msgstr ""
+msgstr "Ejecuta \"Lines Of Code\" (LOC) para código de PHP."
 
 #: /cli/Application/Command/Test/Phploc.php:43
 msgid "Run PHP Lines Of Code"
-msgstr ""
+msgstr "Ejecuta \"PHP Lines Of Code\""
 
 #: /cli/Application/Command/Test/Phpunit.php:29
 msgid "Run PHPUnit tests."
-msgstr ""
+msgstr "Ejecuta pruebas de PHPUnit."
 
 #: /cli/Application/Command/Test/Phpunit.php:41
 msgid "Test PHPUnit"
-msgstr ""
+msgstr "Prueba de PHPUnit"
 
 #: /cli/Application/Command/Test/Phpunit.php:55
 msgid "Finished with errors."
-msgstr ""
+msgstr "Terminado con errores."
 
 #: /cli/Application/Command/Test/Run.php:27
 msgid "Run all tests"
-msgstr ""
+msgstr "Ejecuta todos los tests"
 
 #: /cli/Application/Command/Test/Run.php:39
 msgid "Test Suite"
-msgstr ""
+msgstr "Banco de pruebas"
 
 #: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
-msgstr ""
+msgstr "Banco de pruebas terminado con errores."
 
 #: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
-msgstr ""
+msgstr "Banco de pruebas terminado."
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
-msgstr ""
+msgstr "El motor \"Test\""
 
 #: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
-msgstr ""
+msgstr "Falta la opción para el comando: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
-msgstr ""
+msgstr "Por favor usa uno de los siguientes:"
 
 #: /cli/Application/Command/TrackerCommand.php:348
 msgid "Available projects:"
-msgstr ""
+msgstr "Proyectos disponibles:"
 
 #: /cli/Application/Command/TrackerCommand.php:366
 msgid "Select a project:"
-msgstr ""
+msgstr "Seleccione un proyecto:"
 
 #: /cli/Application/Command/TrackerCommand.php:372
 msgid "Aborted"
@@ -1006,12 +1006,12 @@ msgstr "Cancelado"
 #: /cli/Application/Command/TrackerCommand.php:377
 #: /cli/Application/Command/TrackerCommand.php:396
 msgid "Invalid project"
-msgstr ""
+msgstr "Producto no válido"
 
 #: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
 msgid "Processing project: %s"
-msgstr ""
+msgstr "Procesando proyecto: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:431
 #: /cli/Application/Command/TrackerCommand.php:433
@@ -1020,82 +1020,82 @@ msgstr "Se ha producido un error desconocido"
 
 #: /cli/Application/Command/Update/Languagefiles.php:46
 msgid "Updates language files on a translation service."
-msgstr ""
+msgstr "Actualiza archivos de idioma en un servicio de traducción."
 
 #: /cli/Application/Command/Update/Languagefiles.php:57
 msgid "Flag if resources should be created."
-msgstr ""
+msgstr "Indicador si los recursos deben ser creados."
 
 #: /cli/Application/Command/Update/Languagefiles.php:63
 msgid "Flag if translations should be uploaded."
-msgstr ""
+msgstr "Indicador si los traducciones deben ser subidos."
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
-msgstr ""
+msgstr "Subir traducciones"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
-msgstr ""
+msgstr "Actualiza informaciones seleccionadas para pull requests en GitHub para un proyecto especificado."
 
 #: /cli/Application/Command/Update/Pulls.php:47
 msgid "Update Pull Requests"
-msgstr ""
+msgstr "Actualiza Pull Requests"
 
 #: /cli/Application/Command/Update/Pulls.php:49
 msgid "Start Updating Project"
-msgstr ""
+msgstr "Empezando a actualizar el proyecto"
 
 #: /cli/Application/Command/Update/Pulls.php:59
 #, php-format
 msgid "Updating pull requests for project: %s/%s"
-msgstr ""
+msgstr "Actualizando pull request para proyecto: %s/%s"
 
 #: /cli/Application/Command/Update/Pulls.php:101
 #, php-format
 msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
-msgstr ""
+msgstr "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
 
 #: /cli/Application/Command/Update/Pulls.php:114
 #: /cli/Application/Command/Update/Pulls.php:238
 #: /cli/Application/Command/Update/Pulls.php:285
 #, php-format
 msgid "The %s/%s project is not supported by this command at this time."
-msgstr ""
+msgstr "El proyecto %s/%s no es compatible con este comando en este momento."
 
 #: /cli/Application/Command/Update/Pulls.php:201
 #, php-format
 msgid "GitHub item %s/%s #%d already has the %s label."
-msgstr ""
+msgstr "El elemento GitHub %s/%s #%d ya tiene la etiqueta%s."
 
 #: /cli/Application/Command/Update/Pulls.php:220
 #, php-format
 msgid "Adding %s label to %s/%s #%d"
-msgstr ""
+msgstr "Añadiendo la etiqueta %s a %s/%s #%d"
 
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
 msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
-msgstr ""
+msgstr "El elemento de GitHub %s/%s #%d tenia su estado de merge puesto en \"error\"."
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
-msgstr ""
+msgstr "Actualiza la instalación local a una versión especificada o al ultimo git HEAD para el branch activo"
 
 #: /cli/Application/Command/Update/Server.php:38
 msgid "An optional version number to update to."
-msgstr ""
+msgstr "Un numero de versión opcional para actualizar."
 
 #: /cli/Application/Command/Update/Update.php:66
 msgid "Used to update resources"
-msgstr ""
+msgstr "Usado para actualizar recursos"
 
 #: /cli/tracker.php:99 /cli/tracker.php:131
 #, php-format
 msgid "ERROR: %s"
-msgstr ""
+msgstr "ERROR: %s"
 
 #: /cli/tracker.php:101 /cli/tracker.php:133
 msgid "Call stack:"
-msgstr ""
+msgstr "Pila de llamadas:"
 
