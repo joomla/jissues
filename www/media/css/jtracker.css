@@ -254,6 +254,13 @@ li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
 
 /* end language select */
 
+/* Force Bootstrap Select to have the same width as normal selects on desktop; can't use the input-medium class due to load order */
+@media (min-width: 768px) {
+    .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+        width: 140px !important;
+    }
+}
+
 @media (max-width: 767px) {
     ul.test-results {
         float: none;
@@ -320,6 +327,11 @@ li.lang-select .ui.active.search.dropdown>input.search:focus+.text {
     div#stools-container button {
         width: 25%;
     }
+
+    /* Show upload button text on handheld devices */
+    .files .btn span, .files .toggle, .fileupload-buttonbar .toggle {
+        display: inherit;
+    }
 }
 
 div.logHeader:hover {
@@ -330,11 +342,4 @@ div.logHeader:hover {
 div.logMessage {
     background-color: #eeeeee;
     display: none;
-}
-
-/* Show upload button text on handheld devices */
-@media (max-width: 767px) {
-    .files .btn span, .files .toggle, .fileupload-buttonbar .toggle {
-        display: inherit;
-    }
 }
