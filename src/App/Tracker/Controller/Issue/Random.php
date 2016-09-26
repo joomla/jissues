@@ -36,6 +36,9 @@ class Random extends AbstractTrackerController
 
 		$application->getUser()->authorize('view');
 
+		// Don't cache this response, ever
+		$application->allowCache(false);
+
 		try
 		{
 			$randomNumber = (new IssueModel($this->getContainer()->get('db')))
