@@ -360,6 +360,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	 * Get a random issue number.
 	 *
 	 * @param   integer  $previousRandom  The previously returned random issue number
+	 *
 	 * @return  integer A random issue number.
 	 *
 	 * @since   1.0
