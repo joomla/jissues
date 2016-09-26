@@ -232,46 +232,43 @@
          */
 
         $('[id^=filter]').change(function () {
-                $('#page').val(0);
-                getListItems();
+            $('#page').val(0);
+            getListItems();
+        });
+
+        $('#filter-state-div button').click(function () {
+            var val = $(this).val();
+            $('#filter-state').val(val);
+
+            if (val == 0) {
+                // Open
+                $(this).addClass("active btn-success");
+                $(this).next().removeClass("active btn-danger");
+                $(this).next().next().removeClass("active btn-inverse");
+                $('#status-open').show();
+                $('#status-closed').hide();
+                $('#status-all').hide();
+            } else if (val == 2) {
+                // All
+                $(this).addClass("active btn-inverse");
+                $(this).prev().removeClass("active btn-danger");
+                $(this).prev().prev().removeClass("active btn-success");
+                $('#status-open').hide();
+                $('#status-closed').hide();
+                $('#status-all').show();
+            } else {
+                // Closed
+                $(this).addClass("active btn-danger");
+                $(this).prev().removeClass("active btn-success");
+                $(this).next().removeClass("active btn-inverse");
+                $('#status-open').hide();
+                $('#status-closed').show();
+                $('#status-all').hide();
             }
-        );
 
-        $('#filter-state-div button').click(
-                function () {
-                    var val = $(this).val();
-                    $('#filter-state').val(val);
-
-                    if (val == 0) {
-                        // Open
-                        $(this).addClass("active btn-success");
-                        $(this).next().removeClass("active btn-danger");
-                        $(this).next().next().removeClass("active btn-inverse");
-                        $('#status-open').show();
-                        $('#status-closed').hide();
-                        $('#status-all').hide();
-                    } else if (val == 2) {
-                        // All
-                        $(this).addClass("active btn-inverse");
-                        $(this).prev().removeClass("active btn-danger");
-                        $(this).prev().prev().removeClass("active btn-success");
-                        $('#status-open').hide();
-                        $('#status-closed').hide();
-                        $('#status-all').show();
-                    } else {
-                        // Closed
-                        $(this).addClass("active btn-danger");
-                        $(this).prev().removeClass("active btn-success");
-                        $(this).next().removeClass("active btn-inverse");
-                        $('#status-open').hide();
-                        $('#status-closed').show();
-                        $('#status-all').hide();
-                    }
-
-                    $('#page').val(0);
-                    getListItems();
-                }
-        );
+            $('#page').val(0);
+            getListItems();
+        });
 
         $("#button-remove").click(function () {
             $('[class^=toclear]').val('');
@@ -286,6 +283,7 @@
 
         function prioClass(priority) {
             priority = parseInt(priority);
+
             switch (priority) {
                 case 1 :
                     return 'badge-important';
@@ -314,10 +312,8 @@
             return '';
         }
 
-        function translateMergeState(state)
-        {
-            switch (state)
-            {
+        function translateMergeState(state) {
+            switch (state) {
                 case 'success':
                     return '{{ 'Success'|_ }}';
                 case 'pending':
@@ -331,8 +327,7 @@
             return '?';
         }
 
-        function translateStatus(id)
-        {
+        function translateStatus(id) {
             statuses = [];
             statuses['1'] = '{{ 'New'|_ }}';
             statuses['2'] = '{{ 'Confirmed'|_ }}';
@@ -383,6 +378,14 @@
             var type = $('#filter-type').val();
             var milestone = $('#filter-milestone').val();
             var page = $('#page').val();
+
+            // If the tests filter is active, we need to reset the state to open items only
+            if (tests != 0 && state != 0) {
+                $('#filter-state-div button:first').click();
+
+                // Clicking the button triggers the onclick handler which calls back into this function, we won't need to process the rest
+                return;
+            }
 
             $.ajax({
                 type: 'POST',
@@ -437,7 +440,7 @@
                                     },
                                     success: function (data) {
                                         $('#issuesList tbody').html(tmpl("ajaxListing", data));
-                                        $('#issuesList tbody').animate({opacity:1}, 100);
+                                        $('#issuesList tbody').animate({opacity: 1}, 100);
                                     }
                                 });
                             }
@@ -463,12 +466,11 @@
             var stools = [];
 
             // Replace non alpha numeric chars with dash
-            categoryText = categoryText.replace(/[\W_]+/g,'-');
+            categoryText = categoryText.replace(/[\W_]+/g, '-');
 
             // Remove the last dash if exists
-            if (categoryText.charAt(categoryText.length - 1) == '-')
-            {
-                categoryText = categoryText.slice(0, - 1);
+            if (categoryText.charAt(categoryText.length - 1) == '-') {
+                categoryText = categoryText.slice(0, -1);
             }
 
             // Process sorting
@@ -508,17 +510,39 @@
 
             filters[filters.length] = stateStr;
 
-            if (search) { stools[stools.length] = 'search=' + search }
-            if (status != 0) { stools[stools.length] = 'status=' + status }
-            if (priority != 0) { stools[stools.length] = 'priority=' + priority }
-            if (user != 0 && user != undefined) { stools[stools.length] = 'user=' + user }
-            if (category != 0) { stools[stools.length] = 'category=' + categoryText.toLowerCase() }
-            if (label != 0) { stools[stools.length] = 'label=' + label }
-            if (tests != 0) { stools[stools.length] = 'tests=' + tests }
-            if (easytest != 2) { stools[stools.length] = 'easytest=' + easytest }
-            if (type != 0) { stools[stools.length] = 'type=' + type }
-            if (created_by != 0) { stools[stools.length] = 'created_by=' + created_by }
-            if (milestone != 0) { stools[stools.length] = 'milestone=' + milestone }
+            if (search) {
+                stools[stools.length] = 'search=' + search
+            }
+            if (status != 0) {
+                stools[stools.length] = 'status=' + status
+            }
+            if (priority != 0) {
+                stools[stools.length] = 'priority=' + priority
+            }
+            if (user != 0 && user != undefined) {
+                stools[stools.length] = 'user=' + user
+            }
+            if (category != 0) {
+                stools[stools.length] = 'category=' + categoryText.toLowerCase()
+            }
+            if (label != 0) {
+                stools[stools.length] = 'label=' + label
+            }
+            if (tests != 0) {
+                stools[stools.length] = 'tests=' + tests
+            }
+            if (easytest != 2) {
+                stools[stools.length] = 'easytest=' + easytest
+            }
+            if (type != 0) {
+                stools[stools.length] = 'type=' + type
+            }
+            if (created_by != 0) {
+                stools[stools.length] = 'created_by=' + created_by
+            }
+            if (milestone != 0) {
+                stools[stools.length] = 'milestone=' + milestone
+            }
 
             permaLink += filters.length ? filters.join('&') + '&' : '';
 
