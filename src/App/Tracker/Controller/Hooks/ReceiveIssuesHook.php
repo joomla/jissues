@@ -371,6 +371,11 @@ class ReceiveIssuesHook extends AbstractHookController
 			return true;
 		}
 
+		$model = (new IssueModel($this->db))
+			->setProject(new TrackerProject($this->db, $this->project));
+
+		$state = $model->getOpenClosed($table->status);
+
 		// Bind over the rest of the model's required data
 		$data = array_merge(
 			$data,
@@ -388,14 +393,14 @@ class ReceiveIssuesHook extends AbstractHookController
 				'rel_type'        => $table->rel_type,
 				'milestone_id'    => $table->milestone_id,
 				'labels'          => $this->processLabels($table->issue_number),
+				'old_state'       => $state,
+				'new_state'       => $state,
 			]
 		);
 
 		try
 		{
-			(new IssueModel($this->db))
-				->setProject(new TrackerProject($this->db, $this->project))
-				->save($data);
+			$model->save($data);
 		}
 		catch (\Exception $e)
 		{
