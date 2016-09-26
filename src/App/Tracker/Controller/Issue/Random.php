@@ -29,15 +29,20 @@ class Random extends AbstractTrackerController
 	 */
 	public function execute()
 	{
+		/** @var \JTracker\Application $application */
 		$application = $this->getContainer()->get('app');
+		$session = $application->getSession();
+		$project = $application->getProject();
 
 		$application->getUser()->authorize('view');
 
 		try
 		{
 			$randomNumber = (new IssueModel($this->getContainer()->get('db')))
-				->setProject($this->getContainer()->get('app')->getProject())
-				->getRandomNumber();
+				->setProject($project)
+				->getRandomNumber($session->get('tracker.previous_random.' . $project->project_id, 0));
+
+			$session->set('tracker.previous_random.' . $project->project_id, $randomNumber);
 
 			$application->redirect(
 				$application->get('uri.base.path')

@@ -359,12 +359,13 @@ class IssueModel extends AbstractTrackerDatabaseModel
 	/**
 	 * Get a random issue number.
 	 *
+	 * @param   integer  $previousRandom  The previously returned random issue number
 	 * @return  integer A random issue number.
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
-	public function getRandomNumber()
+	public function getRandomNumber($previousRandom = 0)
 	{
 		$issueNumber = $this->db->setQuery(
 			$this->db->getQuery(true)
@@ -375,6 +376,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 				->where($this->db->quoteName('i.project_id') . ' = ' . (int) $this->getProject()->project_id)
 				->where($this->db->quoteName('s.closed') . '=' . 0)
 				->where($this->db->quoteName('a.event') . '=' . $this->db->quote('comment'))
+				->where($this->db->quoteName('i.issue_number') . ' != ' . (int) $previousRandom)
 				->group('i.id')
 				->having('COUNT(a.activities_id) < 5')
 				->order('RAND()'), 0, 1
