@@ -546,9 +546,31 @@
             $('#stools-container').css('overflow', 'hidden');
         });
 
-        jQuery(document).ready(function($) {
+        $(document).ready(function ($) {
             if ($('#stools-container').hasClass('in')) {
                 $('#stools-container').css('overflow', 'inherit');
+            }
+
+            if ($('#filter-tests').find(':selected').val() != 0) {
+                $('#filter-state-div > button').each(function () {
+                    $(this).attr('disabled', true);
+                });
+            }
+        });
+
+        $('#filter-tests').on('change', function () {
+            var filterValue = $(this).find(':selected').val(),
+                buttons = $('#filter-state-div > button');
+
+            // If the tests filter is active, disable the state filter buttons
+            if (filterValue != 0) {
+                buttons.each(function () {
+                    $(this).attr('disabled', true);
+                });
+            } else {
+                buttons.each(function () {
+                    $(this).removeAttr('disabled');
+                });
             }
         });
     </script>
