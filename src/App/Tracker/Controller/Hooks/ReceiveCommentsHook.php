@@ -54,7 +54,10 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\RuntimeException $e)
 		{
-			$this->logger->error('Error checking the database for comment ID', ['exception' => $e]);
+			$this->logger->error(
+				'Error checking the database for comment',
+				['comment_id' => (int) $this->hookData->comment->id, 'exception' => $e]
+			);
 			$this->getContainer()->get('app')->close();
 		}
 
@@ -136,7 +139,7 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error('Error loading the database for comment ' . $this->hookData->issue->number, ['exception' => $e]);
+			$this->logger->error('Error loading the database for issue', ['issue_number' => (int) $this->hookData->issue->number, 'exception' => $e]);
 		}
 
 		// Store was successful, update status

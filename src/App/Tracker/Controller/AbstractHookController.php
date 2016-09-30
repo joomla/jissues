@@ -128,7 +128,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		catch (\RuntimeException $e)
 		{
-			$this->logger->info(
+			$this->logger->error(
 				sprintf(
 					'Error retrieving the project alias for GitHub repo %s in the database',
 					$this->hookData->repository->name
@@ -142,7 +142,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		// Make sure we have a valid project.
 		if (!$alias)
 		{
-			$this->logger->info(
+			$this->logger->error(
 				sprintf(
 					'A project does not exist for the %s GitHub repo in the database, cannot add data for it.',
 					$this->hookData->repository->name
@@ -202,7 +202,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 
 		if (!$data)
 		{
-			$this->logger->error('No data received from GitHub.');
+			$this->logger->critical('No data received from GitHub.');
 
 			$application->setHeader('Content-Type', 'application/json; charset=' . $application->charSet);
 			$application->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
@@ -253,7 +253,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		if (!IpHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
-			$this->logger->error('Unauthorized request from ' . $myIP);
+			$this->logger->critical('Unauthorized request from ' . $myIP);
 			$application->close();
 		}
 
@@ -287,7 +287,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		catch (\Exception $exception)
 		{
-			$this->logger->info(
+			$this->logger->error(
 				sprintf(
 					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d)',
 					$event,
@@ -324,7 +324,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		catch (InvalidResponseCodeException $exception)
 		{
-			$this->logger->info(
+			$this->logger->error(
 				sprintf(
 					'Error parsing comment %d with GH Markdown',
 					$this->hookData->comment->id
@@ -336,7 +336,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 		catch (\DomainException $exception)
 		{
-			$this->logger->info(
+			$this->logger->error(
 				sprintf(
 					'Error parsing comment %d with GH Markdown',
 					$this->hookData->comment->id
