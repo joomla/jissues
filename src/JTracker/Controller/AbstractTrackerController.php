@@ -346,13 +346,18 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 		// Create the event with default arguments.
 		$event = (new Event($eventName))
 			->addArgument('github', ($this->github ?: GithubFactory::getInstance($application)))
-			->addArgument('logger', $application->getLogger())
 			->addArgument('project', $application->getProject());
 
 		// Add event arguments passed as parameters.
 		foreach ($arguments as $name => $value)
 		{
 			$event->addArgument($name, $value);
+		}
+
+		// Add the logger if the event doesn't already have it
+		if (!$event->hasArgument('logger'))
+		{
+			$event->addArgument('logger', $application->getLogger());
 		}
 
 		// Trigger the event.
