@@ -829,6 +829,12 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		foreach ($context as $key => $value)
 		{
+			// Only render the Exception if debugging
+			if ($key === 'exception' && !JDEBUG)
+			{
+				continue;
+			}
+
 			$message .= $key . ': ' . $value . "\n";
 		}
 
