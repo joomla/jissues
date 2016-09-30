@@ -29,7 +29,7 @@ Options -Indexes
 	ExpiresActive On
 
 	# Default expiration: 1 hour after request
-	ExpiresDefault "now plus 1 hour"
+	# ExpiresDefault "now plus 1 hour"
 
 	# CSS and JS expiration: 1 week after request
 	ExpiresByType text/css "now plus 1 week"
