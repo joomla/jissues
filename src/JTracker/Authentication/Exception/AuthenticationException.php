@@ -45,7 +45,15 @@ class AuthenticationException extends \Exception
 	{
 		$this->user   = $user;
 		$this->action = $action;
-		$this->code   = 403;
+
+		parent::__construct(
+			sprintf(
+				'Authentication Exception for user ID %1$d checking "%2$s" action.',
+				(int) $user->id,
+				$action
+			),
+			403
+		);
 	}
 
 	/**
