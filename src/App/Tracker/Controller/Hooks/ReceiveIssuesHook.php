@@ -145,7 +145,22 @@ class ReceiveIssuesHook extends AbstractHookController
 		$table = (new IssuesTable($this->db))
 			->load($this->db->insertid());
 
-		$this->triggerEvent('onIssueAfterCreate', ['table' => $table, 'action' => $action]);
+		try
+		{
+			$this->triggerEvent('onIssueAfterCreate', ['table' => $table, 'action' => $action]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onIssueAfterCreate` event for issue number %d',
+				$this->hookData->issue->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->issue->user->login);
@@ -153,25 +168,57 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
-			$this->addActivityEvent(
-				'reopen',
-				$data['modified_date'],
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->hookData->issue->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'reopen',
+					$data['modified_date'],
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$this->addActivityEvent(
-				'close',
-				$data['closed_date'],
-				$this->hookData->issue->user->login,
-				$this->project->project_id,
-				$this->hookData->issue->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'close',
+					$data['closed_date'],
+					$this->hookData->issue->user->login,
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Store was successful, update status
@@ -210,17 +257,17 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error loading GitHub issue %s/%s #%d in the tracker',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->hookData->issue->number
-				),
-				['exception' => $e]
+			$logMessage = sprintf(
+				'Error loading GitHub issue %s/%s #%d in the tracker',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number
 			);
 
-			$this->getContainer()->get('app')->close();
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
 		}
 
 		$action = $this->hookData->action;
@@ -300,30 +347,77 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Refresh the table object for the listeners
 		$table->load($data['id']);
 
-		$this->triggerEvent('onIssueAfterUpdate', ['table' => $table]);
+		try
+		{
+			$this->triggerEvent('onIssueAfterUpdate', ['table' => $table]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onIssueAfterUpdate` event for issue number %d',
+				$this->hookData->issue->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Add a reopen record to the activity table if the status is closed
 		if ($action == 'reopened')
 		{
-			$this->addActivityEvent(
-				'reopen',
-				$this->hookData->issue->updated_at,
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->hookData->issue->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'reopen',
+					$this->hookData->issue->updated_at,
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$this->addActivityEvent(
-				'close',
-				$this->hookData->issue->closed_at,
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->hookData->issue->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'close',
+					$this->hookData->issue->closed_at,
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Store was successful, update status
@@ -422,16 +516,47 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Refresh the table object for the listeners
 		$table->load($data['id']);
 
-		$this->triggerEvent('onIssueAfterUpdate', ['table' => $table]);
+		try
+		{
+			$this->triggerEvent('onIssueAfterUpdate', ['table' => $table]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onIssueAfterUpdate` event for issue number %d',
+				$this->hookData->issue->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Add an edit record to the activity table
-		$this->addActivityEvent(
-			'edited',
-			$this->hookData->issue->updated_at,
-			$this->hookData->sender->login,
-			$this->project->project_id,
-			$this->hookData->issue->number
-		);
+		try
+		{
+			$this->addActivityEvent(
+				'edited',
+				$this->hookData->issue->updated_at,
+				$this->hookData->sender->login,
+				$this->project->project_id,
+				$this->hookData->issue->number
+			);
+		}
+		catch (\RuntimeException $e)
+		{
+			$logMessage = sprintf(
+				'Error storing edited activity to the database (Project ID: %1$d, Item #: %2$d)',
+				$this->project->project_id,
+				$this->hookData->issue->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Store was successful, update status
 		$this->logger->info(

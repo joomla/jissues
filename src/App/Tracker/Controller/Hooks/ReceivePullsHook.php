@@ -180,7 +180,22 @@ class ReceivePullsHook extends AbstractHookController
 		$table = (new IssuesTable($this->db))
 			->load($model->getState()->get('issue_id'));
 
-		$this->triggerEvent('onPullAfterCreate', ['table' => $table, 'action' => $action]);
+		try
+		{
+			$this->triggerEvent('onPullAfterCreate', ['table' => $table, 'action' => $action]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onPullAfterCreate` event for issue number %d',
+				$this->data->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->data->user->login);
@@ -188,37 +203,85 @@ class ReceivePullsHook extends AbstractHookController
 		// Add a reopen record to the activity table if the action is reopened
 		if ($action == 'reopened')
 		{
-			$this->addActivityEvent(
-				'reopen',
-				$data['modified_date'],
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'reopen',
+					$data['modified_date'],
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->data->closed_at)
 		{
-			$this->addActivityEvent(
-				'close',
-				$data['closed_date'],
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'close',
+					$data['closed_date'],
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a merge record to the activity table if the request was merged
 		if ($action == 'closed' && $this->data->merged)
 		{
-			$this->addActivityEvent(
-				'merge',
-				$data['closed_date'],
-				$this->data->merged_by->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'merge',
+					$data['closed_date'],
+					$this->data->merged_by->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing merge activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Store was successful, update status
@@ -358,54 +421,133 @@ class ReceivePullsHook extends AbstractHookController
 		// Refresh the table object for the listeners
 		$table->load($data['id']);
 
-		$this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => $action]);
+		try
+		{
+			$this->triggerEvent('onPullAfterCreate', ['table' => $table, 'action' => $action]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onPullAfterCreate` event for issue number %d',
+				$this->data->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Add a reopen record to the activity table if the status is reopened
 		if ($action == 'reopened')
 		{
-			$this->addActivityEvent(
-				'reopen',
-				$this->data->updated_at,
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'reopen',
+					$this->data->updated_at,
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a synchronize record to the activity table if the action is synchronized
 		if ($action == 'synchronize')
 		{
-			$this->addActivityEvent(
-				'synchronize',
-				$this->data->updated_at,
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'synchronize',
+					$this->data->updated_at,
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing synchronize activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a close record to the activity table if the status is closed
 		if ($this->data->closed_at)
 		{
-			$this->addActivityEvent(
-				'close',
-				$this->data->closed_at,
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'close',
+					$this->data->closed_at,
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Add a merge record to the activity table if the request was merged
 		if ($action == 'closed' && $this->data->merged)
 		{
-			$this->addActivityEvent(
-				'merge',
-				$this->data->closed_at,
-				$this->data->merged_by->login,
-				$this->project->project_id,
-				$this->data->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'merge',
+					$this->data->closed_at,
+					$this->data->merged_by->login,
+					$this->project->project_id,
+					$this->data->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing merge activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->data->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Store was successful, update status
@@ -505,16 +647,47 @@ class ReceivePullsHook extends AbstractHookController
 		// Refresh the table object for the listeners
 		$table->load($data['id']);
 
-		$this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => 'edited']);
+		try
+		{
+			$this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => 'edited']);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onPullAfterUpdate` event for issue number %d',
+				$this->data->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Add an edit record to the activity table
-		$this->addActivityEvent(
-			'edited',
-			$this->data->updated_at,
-			$this->hookData->sender->login,
-			$this->project->project_id,
-			$this->data->number
-		);
+		try
+		{
+			$this->addActivityEvent(
+				'edited',
+				$this->data->updated_at,
+				$this->hookData->sender->login,
+				$this->project->project_id,
+				$this->data->number
+			);
+		}
+		catch (\RuntimeException $e)
+		{
+			$logMessage = sprintf(
+				'Error storing edit activity to the database (Project ID: %1$d, Item #: %2$d)',
+				$this->project->project_id,
+				$this->data->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Store was successful, update status
 		$this->logger->info(

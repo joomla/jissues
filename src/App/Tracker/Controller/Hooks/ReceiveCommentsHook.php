@@ -64,14 +64,21 @@ class ReceiveCommentsHook extends AbstractHookController
 		// If the item is already in the database, update it; else, insert it
 		if ($commentId)
 		{
-			$this->updateComment($commentId);
+			$result = $this->updateComment($commentId);
 		}
 		else
 		{
-			$this->insertComment();
+			$result = $this->insertComment();
 		}
 
-		$this->response->message = 'Hook data processed successfully.';
+		if ($result)
+		{
+			$this->response->message = 'Hook data processed successfully.';
+		}
+		else
+		{
+			$this->response->message = 'Hook data processed unsuccessfully.';
+		}
 	}
 
 	/**
@@ -86,7 +93,10 @@ class ReceiveCommentsHook extends AbstractHookController
 		// If we don't have an ID, we need to insert the issue and all comments, or we only insert the newly received comment
 		if (!$this->checkIssueExists((int) $this->hookData->issue->number))
 		{
-			$this->insertIssue();
+			if (!$this->insertIssue())
+			{
+				return false;
+			}
 
 			$comments = $this->github->issues->comments->getList(
 				$this->project->gh_user, $this->project->gh_project, $this->hookData->issue->number
@@ -94,35 +104,66 @@ class ReceiveCommentsHook extends AbstractHookController
 
 			foreach ($comments as $comment)
 			{
-				// Add the comment
-				$this->addActivityEvent(
-					'comment',
-					$comment->created_at,
-					$comment->user->login,
-					$this->project->project_id,
-					$this->hookData->issue->number,
-					$comment->id,
-					$this->parseText($comment->body),
-					$comment->body
-				);
+				try
+				{
+					$this->addActivityEvent(
+						'comment',
+						$comment->created_at,
+						$comment->user->login,
+						$this->project->project_id,
+						$this->hookData->issue->number,
+						$comment->id,
+						$this->parseText($comment->body),
+						$comment->body
+					);
+				}
+				catch (\RuntimeException $e)
+				{
+					$logMessage = sprintf(
+						'Error storing comment activity to the database (Project ID: %1$d, Item #: %2$d)',
+						$this->project->project_id,
+						$this->hookData->issue->number
+					);
+
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return false;
+				}
 			}
 		}
 		else
 		{
-			// Add the comment
-			$this->addActivityEvent(
-				'comment',
-				$this->hookData->comment->created_at,
-				$this->hookData->comment->user->login,
-				$this->project->project_id,
-				$this->hookData->issue->number,
-				$this->hookData->comment->id,
-				$this->parseText($this->hookData->comment->body),
-				$this->hookData->comment->body
-			);
+			try
+			{
+				// Add the comment
+				$this->addActivityEvent(
+					'comment',
+					$this->hookData->comment->created_at,
+					$this->hookData->comment->user->login,
+					$this->project->project_id,
+					$this->hookData->issue->number,
+					$this->hookData->comment->id,
+					$this->parseText($this->hookData->comment->body),
+					$this->hookData->comment->body
+				);
 
-			// Pull the user's avatar if it does not exist
-			$this->pullUserAvatar($this->hookData->comment->user->login);
+				// Pull the user's avatar if it does not exist
+				$this->pullUserAvatar($this->hookData->comment->user->login);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing comment activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		try
@@ -139,7 +180,15 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error('Error loading the database for issue', ['issue_number' => (int) $this->hookData->issue->number, 'exception' => $e]);
+			$logMessage = sprintf(
+				'Error processing `onCommentAfterCreate` event for issue number %d',
+				$this->hookData->issue->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
 		}
 
 		// Store was successful, update status
@@ -158,7 +207,7 @@ class ReceiveCommentsHook extends AbstractHookController
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
@@ -209,24 +258,39 @@ class ReceiveCommentsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error adding GitHub issue %s/%s #%d to the tracker',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->hookData->issue->number
-				),
-				['exception' => $e]
+			$logMessage = sprintf(
+				'Error adding GitHub issue %s/%s #%d to the tracker',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number
 			);
 
-			$this->getContainer()->get('app')->close();
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
 		}
 
 		// Get a table object for the new record to process in the event listeners
 		$table = (new IssuesTable($this->db))
 			->load($this->db->insertid());
 
-		$this->triggerEvent('onCommentAfterCreateIssue', ['table' => $table]);
+		try
+		{
+			$this->triggerEvent('onCommentAfterCreateIssue', ['table' => $table]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onCommentAfterCreateIssue` event for issue number %d',
+				$this->hookData->issue->number
+			);
+
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return false;
+		}
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->issue->user->login);
@@ -234,13 +298,29 @@ class ReceiveCommentsHook extends AbstractHookController
 		// Add a close record to the activity table if the status is closed
 		if ($this->hookData->issue->closed_at)
 		{
-			$this->addActivityEvent(
-				'close',
-				$data['closed_date'],
-				$this->hookData->sender->login,
-				$this->project->project_id,
-				$this->hookData->issue->number
-			);
+			try
+			{
+				$this->addActivityEvent(
+					'close',
+					$data['closed_date'],
+					$this->hookData->sender->login,
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = sprintf(
+					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+					$this->project->project_id,
+					$this->hookData->issue->number
+				);
+
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->logger->error($logMessage, ['exception' => $e]);
+
+				return false;
+			}
 		}
 
 		// Store was successful, update status
@@ -350,7 +430,15 @@ class ReceiveCommentsHook extends AbstractHookController
 				}
 				catch (\Exception $e)
 				{
-					$this->logger->error('Error loading the database for issue ' . $this->hookData->issue->number, ['exception' => $e]);
+					$logMessage = sprintf(
+						'Error processing `onCommentAfterUpdate` event for issue number %d',
+						$this->hookData->issue->number
+					);
+
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return false;
 				}
 
 				// Store was successful, update status

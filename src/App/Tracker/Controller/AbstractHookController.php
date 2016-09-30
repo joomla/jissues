@@ -253,7 +253,16 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		if (!IpHelper::ipInRange($myIP, $validIps->hooks, 'cidr') && '127.0.0.1' != $myIP)
 		{
 			// Log the unauthorized request
-			$this->logger->critical('Unauthorized request from ' . $myIP);
+			$this->logger->critical('Unauthorised request from ' . $myIP);
+
+			$application->setHeader('HTTP/1.1 403 Forbidden', 403, true);
+
+			$this->response->error = 'You are not authorised to access this resource.';
+
+			$application->sendHeaders();
+
+			echo json_encode($this->response);
+
 			$application->close();
 		}
 
@@ -281,24 +290,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 	 */
 	protected function addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId = null, $text = '', $textRaw = '')
 	{
-		try
-		{
-			(new ActivityModel($this->db))->addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId, $text, $textRaw);
-		}
-		catch (\Exception $exception)
-		{
-			$this->logger->error(
-				sprintf(
-					'Error storing %s activity to the database (ProjectId: %d, ItemNo: %d)',
-					$event,
-					$projectId,
-					$itemNumber
-				),
-				['exception' => $exception]
-			);
-
-			$this->getContainer()->get('app')->close();
-		}
+		(new ActivityModel($this->db))->addActivityEvent($event, $dateTime, $userName, $projectId, $itemNumber, $commentId, $text, $textRaw);
 
 		return $this;
 	}
