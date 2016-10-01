@@ -24,11 +24,13 @@
 {% endblock %}
 
 {% block content %}
-    {% if project.project_id %}
-        <h2>{{ "Edit project"|_ }}</h2>
-    {% else %}
-        <h2>{{ "New project"|_ }}</h2>
-    {% endif %}
+    <div class="page-header">
+        {% if project.project_id %}
+            <h1>{{ "Edit project"|_ }}</h1>
+        {% else %}
+            <h1>{{ "New project"|_ }}</h1>
+        {% endif %}
+    </div>
 
     <form method="post" action="{{ uri.base.path }}saveproject" class="form-horizontal" name="editForm">
         <fieldset>

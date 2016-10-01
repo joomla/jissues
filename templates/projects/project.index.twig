@@ -16,15 +16,16 @@
         </div>
     {% endif %}
 
-
-    <h2>{{ project.title }}</h2>
+    <div class="page-header">
+        <h1>{{ project.title }}</h1>
+    </div>
 
     <p>Some stuff about the Project here...</p>
 
-<p>
-<a class="btn btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}">
-        {{ "Project %s Tracker"|_|format(project.title) }}
-    </a>
+    <p>
+        <a class="btn btn-success" href="{{ uri.base.path }}tracker/{{ project.alias }}">
+            {{ "Project %s Tracker"|_|format(project.title) }}
+        </a>
     </p>
 
     <ul>

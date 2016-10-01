@@ -18,7 +18,9 @@
 
 {% block content %}
 
-    <h2>{{ '%s - Milestones'|_|format(project.title) }}</h2>
+    <div class="page-header">
+        <h1>{{ '%s - Milestones'|_|format(project.title) }}</h1>
+    </div>
 
     <div id="milestoneModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">

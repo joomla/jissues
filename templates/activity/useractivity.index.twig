@@ -18,12 +18,14 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ "User Tracker Activity - %s"|_|format(project.title) }}</h2>
+    <div class="page-header">
+        <h1>{{ "User Tracker Activity - %s"|_|format(project.title) }}</h1>
+    </div>
 
     <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/user/{{ project.alias }}/query"></div>
 
     <br />
-    <h3>{{ "Chart Options"|_ }}</h3>
+    <h2>{{ "Chart Options"|_ }}</h2>
     <div class="form-inline">
     	<fieldset>
     		<label>{{ "Period"|_ }}</label>

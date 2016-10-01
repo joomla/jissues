@@ -17,7 +17,9 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ "Edit Category"|_ }}</h2>
+    <div class="page-header">
+        <h1>{{ "Edit Category"|_ }}</h1>
+    </div>
 
     <form method="post" action="{{ uri.base.path }}category/save" class="form-inline" name="editForm">
         <fieldset>

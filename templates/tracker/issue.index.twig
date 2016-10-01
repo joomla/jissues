@@ -59,12 +59,13 @@
             {{ 'That issue does not exist, or the ID you typed is incorrect.'|_ }}
         </div>
     {% else %}
+        <div class="page-header">
+            <a class="btn pull-right"
+               href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}
+            </a>
 
-        <a class="btn pull-right"
-           href="{{ uri.base.path }}tracker/{{ project.alias }}/random">{{ 'Feeling Lucky'|_ }}
-        </a>
-
-        <h2>[#{{ item.issue_number }}] - {{ item.title }}</h2>
+            <h1>[#{{ item.issue_number }}] - {{ item.title }}</h1>
+        </div>
 
     <!-- Status bar -->
 

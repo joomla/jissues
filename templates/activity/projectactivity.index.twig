@@ -17,7 +17,9 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ "Project Open & Close Activity - %s"|_|format(project.title) }}</h2>
+    <div class="page-header">
+        <h1>{{ "Project Open & Close Activity - %s"|_|format(project.title) }}</h1>
+    </div>
 
     <div id="barchart" style="width:700px; height:600px;" data-href="{{ uri.base.path }}activity/project/{{ project.alias }}/query"></div>
 
@@ -27,7 +29,7 @@
         <p>{{ "Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so."|_ }}</p>
     </div>
 
-    <h3>{{ "Chart Options"|_ }}</h3>
+    <h2>{{ "Chart Options"|_ }}</h2>
     <div class="form-inline">
     	<fieldset>
             <label>{{ "Period"|_ }}</label>

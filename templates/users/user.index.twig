@@ -23,9 +23,13 @@
                 </a>
             </div>
 
-            <h1>{{ "My Profile"|_ }}</h1>
+            <div class="page-header">
+                <h1>{{ "My Profile"|_ }}</h1>
+            </div>
         {% else %}
-            <h1>{{ "Profile"|_ }}</h1>
+            <div class="page-header">
+                <h1>{{ "Profile"|_ }}</h1>
+            </div>
         {% endif %}
 
         <div class="row-fluid">

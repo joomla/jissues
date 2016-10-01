@@ -42,7 +42,9 @@
 
     {% import "fields.twig" as fields %}
 
-    <h2>{{ project.title }} #{{ item.issue_number }}</h2>
+    <div class="page-header">
+        <h1>{{ project.title }} #{{ item.issue_number }}</h1>
+    </div>
 
     <!-- Status bar -->
 

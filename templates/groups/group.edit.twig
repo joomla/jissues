@@ -139,12 +139,14 @@
 
 {% block content %}
 
-    <h2>{{ project.title }}</h2>
+    <div class="page-header">
+        <h1>{{ project.title }}</h1>
+    </div>
 
     {% if group.group_id %}
-        <h3>{{ "Edit Access Group"|_ }}</h3>
+        <h2>{{ "Edit Access Group"|_ }}</h2>
     {% else %}
-        <h3>{{ "Add Access Group"|_ }}</h3>
+        <h2>{{ "Add Access Group"|_ }}</h2>
     {% endif %}
 
     <form method="post" action="{{ uri.base.path }}project/{{ project.alias }}/savegroup" class="form-inline" name="editForm">

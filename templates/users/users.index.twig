@@ -16,7 +16,9 @@
 
 {% block content %}
 
-    <h2>{{ "Users List"|_ }}</h2>
+    <div class="page-header">
+        <h1>{{ "Users List"|_ }}</h1>
+    </div>
 
     <form id="filtersForm" class="form-inline form-search" action="{{ uri.route }}">
         <div class="filters btn-toolbar clearfix">

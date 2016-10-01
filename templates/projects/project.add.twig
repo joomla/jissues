@@ -17,7 +17,9 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ "New project"|_ }}</h2>
+    <div class="page-header">
+        <h1>{{ "New project"|_ }}</h1>
+    </div>
 
     <form method="post" action="{{ uri.base.path }}saveproject" class="form-inline" name="editForm">
         <fieldset>

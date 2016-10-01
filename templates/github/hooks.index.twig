@@ -7,14 +7,16 @@
 
 {% block content %}
 
-    <h2>{{ '%s - Hooks'|_|format(project.title) }}</h2>
+    <div class="page-header">
+        <h1>{{ '%s - Hooks'|_|format(project.title) }}</h1>
+    </div>
 
     <div class="btn" onclick="listHooks('{{ project.alias }}');">{{ 'List Hooks'|_ }}</div>
 
     <div id="listHooks"></div>
     <div id="ajaxDebug" class="alert-error"></div>
 
-    <h3>{{ 'New Hook'|_ }}</h3>
+    <h2>{{ 'New Hook'|_ }}</h2>
 
     <form name="newHook" class="form-inline">
         <div class="row-fluid well well-small">

@@ -7,14 +7,16 @@
 
 {% block content %}
 
-    <h2>{{ '%s - Labels'|_|format(project.title) }}</h2>
+    <div class="page-header">
+        <h1>{{ '%s - Labels'|_|format(project.title) }}</h1>
+    </div>
 
     <div class="btn" onclick="listLabels('{{ project.alias }}');">{{ 'List Labels'|_ }}</div>
 
     <div id="listLabels"></div>
     <div id="ajaxDebug" class="alert-error"></div>
 
-    <h3>{{ 'New Label'|_ }}</h3>
+    <h2>{{ 'New Label'|_ }}</h2>
 
     <form name="newLabel" class="form-inline">
         <div class="row-fluid well well-small">

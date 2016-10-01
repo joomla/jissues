@@ -53,7 +53,9 @@
 
 {% block content %}
 
-    <h2>{{ '%s - Statistics'|_|format(project.title) }}</h2>
+    <div class="page-header">
+        <h1>{{ '%s - Statistics'|_|format(project.title) }}</h1>
+    </div>
 
     {% if false == data %}
 
@@ -77,7 +79,7 @@
             <div id="commits-{{ stats.author.login }}" style="border: 1px solid silver; padding: 5px;"></div>
         {% endfor %}
 
-        <h3>RAW data...</h3>
+        <h2>RAW data...</h2>
 
         <table class="table table-bordered">
 

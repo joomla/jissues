@@ -6,7 +6,9 @@
 {% block content %}
     {% import "debug/logfields.twig" as fields %}
 
-    <h2>{{ log_type|title }} Log</h2>
+    <div class="page-header">
+        <h1>{{ log_type|title }} Log</h1>
+    </div>
 
     {% if 'file-not-found' == log %}
         <h2>Log file not found</h2>
@@ -15,7 +17,7 @@
     {% else %}
         <label>Show lines</label>
         <select onchange="window.location = '?c=' + $(this).val()">
-            {% for c in [5, 10 , 30, 50, 100] %}
+            {% for c in [5, 10, 30, 50, 100] %}
             <option {% if c == count %}selected="selected"{% endif %}>{{ c }}</option>
             {% endfor %}
         </select>
