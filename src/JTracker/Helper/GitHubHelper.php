@@ -224,7 +224,7 @@ class GitHubHelper
 			'<hr /><sub>This comment was created with the <a href="%1$s">%2$s Application</a> at <a href="%3$s">%4$s</a>.</sub>',
 			'https://github.com/joomla/jissues', 'J!Tracker',
 			$application->get('uri')->base->full . 'tracker/' . $project->alias . '/' . $issueNumber,
-			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . $project->alias . '/' . $issueNumber
+			str_replace(['http://', 'https://'], '', $application->get('uri')->base->full) . 'tracker/' . $project->alias . '/' . $issueNumber
 		);
 	}
 }
