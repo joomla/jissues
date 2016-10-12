@@ -41,27 +41,39 @@ class ReceiveIssuesHook extends AbstractHookController
 		if (!isset($this->hookData->issue->number) || !is_object($this->hookData))
 		{
 			// If we can't get the issue number exit.
-			$this->response->message = 'Hook data did not exists';
+			$this->response->message = 'Hook data does not exist';
 
 			return;
 		}
 
-		// If the item is already in the database, update it; else, insert it.
-		if ($this->checkIssueExists((int) $this->hookData->issue->number))
+		try
 		{
-			$result = $this->updateData();
-		}
-		else
-		{
-			$result = $this->insertData();
-		}
+			// If the item is already in the database, update it; else, insert it.
+			if ($this->checkIssueExists((int) $this->hookData->issue->number))
+			{
+				$result = $this->updateData();
+			}
+			else
+			{
+				$result = $this->insertData();
+			}
 
-		if ($result)
-		{
-			$this->response->message = 'Hook data processed successfully.';
+			if ($result)
+			{
+				$this->response->message = 'Hook data processed successfully.';
+			}
+			else
+			{
+				$this->response->message = 'Hook data processed unsuccessfully.';
+			}
 		}
-		else
+		catch (\Exception $e)
 		{
+			$logMessage = 'Uncaught Exception processing issue webhook';
+
+			$this->logger->critical($logMessage, ['exception' => $e]);
+			$this->setStatusCode(500);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
@@ -127,15 +139,14 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error adding GitHub issue %s/%s #%d to the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->hookData->issue->number
 			);
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
-
 			$this->logger->error($logMessage, ['exception' => $e]);
 
 			return false;
@@ -155,7 +166,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Error processing `onIssueAfterCreate` event for issue number %d',
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -185,7 +196,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -213,7 +224,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -263,7 +274,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				$this->project->gh_project,
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -330,18 +341,18 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->logger->error(
-				sprintf(
-					'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
-					$this->project->gh_user,
-					$this->project->gh_project,
-					$this->hookData->issue->number,
-					$table->id
-				),
-				['exception' => $e]
+			$logMessage = sprintf(
+				'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->issue->number,
+				$table->id
 			);
+			$this->setStatusCode(500);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
 
-			$this->getContainer()->get('app')->close();
+			return false;
 		}
 
 		// Refresh the table object for the listeners
@@ -357,7 +368,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Error processing `onIssueAfterUpdate` event for issue number %d',
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -384,7 +395,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -412,7 +423,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -498,7 +509,6 @@ class ReceiveIssuesHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error editing GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
 				$this->project->gh_user,
@@ -506,7 +516,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				$this->hookData->issue->number,
 				$table->id
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -526,7 +536,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'Error processing `onIssueAfterUpdate` event for issue number %d',
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -551,7 +561,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				$this->project->project_id,
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 

@@ -44,39 +44,57 @@ class ReceiveCommentsHook extends AbstractHookController
 
 		try
 		{
-			// Check to see if the comment is already in the database
-			$commentId = $this->db->setQuery(
-				$this->db->getQuery(true)
-					->select($this->db->quoteName('activities_id'))
-					->from($this->db->quoteName('#__activities'))
-					->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $this->hookData->comment->id)
-			)->loadResult();
-		}
-		catch (\RuntimeException $e)
-		{
-			$this->logger->error(
-				'Error checking the database for comment',
-				['comment_id' => (int) $this->hookData->comment->id, 'exception' => $e]
-			);
-			$this->getContainer()->get('app')->close();
-		}
+			try
+			{
+				// Check to see if the comment is already in the database
+				$commentId = $this->db->setQuery(
+					$this->db->getQuery(true)
+						->select($this->db->quoteName('activities_id'))
+						->from($this->db->quoteName('#__activities'))
+						->where($this->db->quoteName('gh_comment_id') . ' = ' . (int) $this->hookData->comment->id)
+				)->loadResult();
+			}
+			catch (\RuntimeException $e)
+			{
+				$logMessage = 'Error checking the database for comment';
 
-		// If the item is already in the database, update it; else, insert it
-		if ($commentId)
-		{
-			$result = $this->updateComment($commentId);
-		}
-		else
-		{
-			$result = $this->insertComment();
-		}
+				$this->logger->error(
+					$logMessage,
+					['comment_id' => (int) $this->hookData->comment->id, 'exception' => $e]
+				);
+				$this->setStatusCode(500);
+				$this->response->error = $logMessage . ': ' . $e->getMessage();
+				$this->response->message = 'Hook data processed unsuccessfully.';
 
-		if ($result)
-		{
-			$this->response->message = 'Hook data processed successfully.';
+				return;
+			}
+
+			// If the item is already in the database, update it; else, insert it
+			if ($commentId)
+			{
+				$result = $this->updateComment($commentId);
+			}
+			else
+			{
+				$result = $this->insertComment();
+			}
+
+			if ($result)
+			{
+				$this->response->message = 'Hook data processed successfully.';
+			}
+			else
+			{
+				$this->response->message = 'Hook data processed unsuccessfully.';
+			}
 		}
-		else
+		catch (\Exception $e)
 		{
+			$logMessage = 'Uncaught Exception processing comment webhook';
+
+			$this->logger->critical($logMessage, ['exception' => $e]);
+			$this->setStatusCode(500);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
@@ -124,7 +142,7 @@ class ReceiveCommentsHook extends AbstractHookController
 						$this->project->project_id,
 						$this->hookData->issue->number
 					);
-
+					$this->setStatusCode(500);
 					$this->response->error = $logMessage . ': ' . $e->getMessage();
 					$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -158,7 +176,7 @@ class ReceiveCommentsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -184,7 +202,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				'Error processing `onCommentAfterCreate` event for issue number %d',
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -264,7 +282,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				$this->project->gh_project,
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -285,7 +303,7 @@ class ReceiveCommentsHook extends AbstractHookController
 				'Error processing `onCommentAfterCreateIssue` event for issue number %d',
 				$this->hookData->issue->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -315,7 +333,7 @@ class ReceiveCommentsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->hookData->issue->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -364,7 +382,7 @@ class ReceiveCommentsHook extends AbstractHookController
 						$this->project->gh_project,
 						$id
 					);
-
+					$this->setStatusCode(500);
 					$this->response->error = $logMessage . ': ' . $e->getMessage();
 					$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -410,7 +428,7 @@ class ReceiveCommentsHook extends AbstractHookController
 						$this->project->gh_project,
 						$id
 					);
-
+					$this->setStatusCode(500);
 					$this->response->error = $logMessage . ': ' . $e->getMessage();
 					$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -434,7 +452,7 @@ class ReceiveCommentsHook extends AbstractHookController
 						'Error processing `onCommentAfterUpdate` event for issue number %d',
 						$this->hookData->issue->number
 					);
-
+					$this->setStatusCode(500);
 					$this->response->error = $logMessage . ': ' . $e->getMessage();
 					$this->logger->error($logMessage, ['exception' => $e]);
 

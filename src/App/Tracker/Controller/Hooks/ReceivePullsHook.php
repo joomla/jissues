@@ -68,22 +68,34 @@ class ReceivePullsHook extends AbstractHookController
 		// Pull or Issue ?
 		$this->data = $this->hookData->pull_request;
 
-		// If the item is already in the database, update it; else, insert it.
-		if ($this->checkIssueExists((int) $this->data->number))
+		try
 		{
-			$result = $this->updateData();
-		}
-		else
-		{
-			$result = $this->insertData();
-		}
+			// If the item is already in the database, update it; else, insert it.
+			if ($this->checkIssueExists((int) $this->data->number))
+			{
+				$result = $this->updateData();
+			}
+			else
+			{
+				$result = $this->insertData();
+			}
 
-		if ($result)
-		{
-			$this->response->message = 'Hook data processed successfully.';
+			if ($result)
+			{
+				$this->response->message = 'Hook data processed successfully.';
+			}
+			else
+			{
+				$this->response->message = 'Hook data processed unsuccessfully.';
+			}
 		}
-		else
+		catch (\Exception $e)
 		{
+			$logMessage = 'Uncaught Exception processing pull request webhook';
+
+			$this->logger->critical($logMessage, ['exception' => $e]);
+			$this->setStatusCode(500);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
 	}
@@ -162,15 +174,14 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error adding GitHub pull request %s/%s #%d to the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->data->number
 			);
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
-
 			$this->logger->error($logMessage, ['exception' => $e]);
 
 			return false;
@@ -190,7 +201,7 @@ class ReceivePullsHook extends AbstractHookController
 				'Error processing `onPullAfterCreate` event for issue number %d',
 				$this->data->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -220,7 +231,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -248,7 +259,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -276,7 +287,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -318,13 +329,13 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error loading GitHub issue %s/%s #%d in the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
 				$this->data->number
 			);
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -404,7 +415,6 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error updating GitHub pull request %s/%s #%d (Database ID #%d) to the tracker',
 				$this->project->gh_user,
@@ -412,6 +422,7 @@ class ReceivePullsHook extends AbstractHookController
 				$this->data->number,
 				$table->id
 			);
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -431,7 +442,7 @@ class ReceivePullsHook extends AbstractHookController
 				'Error processing `onPullAfterCreate` event for issue number %d',
 				$this->data->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -458,7 +469,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -486,7 +497,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -514,7 +525,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -542,7 +553,7 @@ class ReceivePullsHook extends AbstractHookController
 					$this->project->project_id,
 					$this->data->number
 				);
-
+				$this->setStatusCode(500);
 				$this->response->error = $logMessage . ': ' . $e->getMessage();
 				$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -629,7 +640,6 @@ class ReceivePullsHook extends AbstractHookController
 		}
 		catch (\Exception $e)
 		{
-			$this->setStatusCode($e->getCode());
 			$logMessage = sprintf(
 				'Error editing GitHub pull request %s/%s #%d (Database ID #%d) in the tracker',
 				$this->project->gh_user,
@@ -637,7 +647,7 @@ class ReceivePullsHook extends AbstractHookController
 				$this->data->number,
 				$table->id
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -657,7 +667,7 @@ class ReceivePullsHook extends AbstractHookController
 				'Error processing `onPullAfterUpdate` event for issue number %d',
 				$this->data->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
@@ -682,7 +692,7 @@ class ReceivePullsHook extends AbstractHookController
 				$this->project->project_id,
 				$this->data->number
 			);
-
+			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
