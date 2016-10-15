@@ -99,25 +99,28 @@ abstract class GithubFactory
 		}
 
 		// The cURL extension is required to properly work.
-		$github = new Github($options, new Http($options, new CurlTransport($options)));
+		$transport = new CurlTransport($options);
+
+		$github = new Github($options, new Http($options, $transport));
 
 		// If debugging is enabled, inject a logger
 		if ($app->get('debug.github', false))
 		{
-			$github->setLogger(
-				new Logger(
-					'JTracker-Github',
-					[
-						new StreamHandler(
-							$app->get('debug.log-path', JPATH_ROOT) . '/github.log',
-							Logger::DEBUG
-						),
-					],
-					[
-						new WebProcessor,
-					]
-				)
+			$logger = new Logger(
+				'JTracker-Github',
+				[
+					new StreamHandler(
+						$app->get('debug.log-path', JPATH_ROOT) . '/github.log',
+						Logger::DEBUG
+					),
+				],
+				[
+					new WebProcessor,
+				]
 			);
+
+			$github->setLogger($logger);
+			$transport->setLogger($logger);
 		}
 
 		return $github;

@@ -91,12 +91,6 @@ class Github extends JGitHub implements LoggerAwareInterface
 	 */
 	public function setLogger(LoggerInterface $logger)
 	{
-		// Also inject the logger into the transport if it supports logging
-		if ($this->client instanceof LoggerAwareInterface)
-		{
-			$this->client->setLogger($logger);
-		}
-
 		$this->logger = $logger;
 	}
 }
