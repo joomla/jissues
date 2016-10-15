@@ -9,10 +9,10 @@
 namespace JTracker\Github;
 
 use Joomla\Github\Http;
-use Joomla\Http\HttpFactory;
 use Joomla\Registry\Registry;
 
 use JTracker\Application;
+use JTracker\Http\CurlTransport;
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -99,16 +99,7 @@ abstract class GithubFactory
 		}
 
 		// The cURL extension is required to properly work.
-		$transport = HttpFactory::getAvailableDriver($options, ['curl']);
-
-		// Check if we *really* got a cURL transport...
-		if (false === $transport)
-		{
-			throw new \RuntimeException('No transports available (please install php-curl)');
-		}
-
-		// Instantiate the object
-		$github = new Github($options, new Http($options, $transport));
+		$github = new Github($options, new Http($options, new CurlTransport($options)));
 
 		// If debugging is enabled, inject a logger
 		if ($app->get('debug.github', false))

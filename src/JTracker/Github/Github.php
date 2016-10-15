@@ -10,7 +10,6 @@ namespace JTracker\GitHub;
 
 use Joomla\Github\Github as JGitHub;
 use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -25,7 +24,13 @@ use Psr\Log\NullLogger;
  */
 class Github extends JGitHub implements LoggerAwareInterface
 {
-	use LoggerAwareTrait;
+	/**
+	 * Logger
+	 *
+	 * @var    LoggerInterface
+	 * @since  1.0
+	 */
+	protected $logger;
 
 	/**
 	 * Magic method to lazily create API objects
@@ -73,5 +78,25 @@ class Github extends JGitHub implements LoggerAwareInterface
 		}
 
 		return $this->logger;
+	}
+
+	/**
+	 * Sets a logger.
+	 *
+	 * @param   LoggerInterface  $logger  The logger object.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		// Also inject the logger into the transport if it supports logging
+		if ($this->client instanceof LoggerAwareInterface)
+		{
+			$this->client->setLogger($logger);
+		}
+
+		$this->logger = $logger;
 	}
 }
