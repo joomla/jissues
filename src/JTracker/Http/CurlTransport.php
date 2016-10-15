@@ -58,7 +58,7 @@ class CurlTransport extends Curl implements LoggerAwareInterface
 	 */
 	protected function getResponse($content, $info)
 	{
-		$this->logger->debug(
+		$this->getLogger()->debug(
 			'Building response for curl request',
 			[
 				'response'       => $content,
@@ -86,7 +86,7 @@ class CurlTransport extends Curl implements LoggerAwareInterface
 	 */
 	public function request($method, UriInterface $uri, $data = null, array $headers = null, $timeout = null, $userAgent = null)
 	{
-		$this->logger->debug(
+		$this->getLogger()->debug(
 			'Request started for curl transport',
 			[
 				'method'  => $method,
