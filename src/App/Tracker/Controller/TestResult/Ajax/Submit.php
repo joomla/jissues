@@ -43,14 +43,19 @@ class Submit extends AbstractAjaxController
 			throw new \Exception('You are not allowed to test this item.');
 		}
 
-		$issueId = $application->input->getUint('issueId');
-		$result  = $application->input->getUint('result');
+		$issueId     = $application->input->getUint('issueId');
+		$result      = $application->input->getUint('result');
 		$userComment = $application->input->get('comment', '', 'raw');
-		$sha     = $application->input->getCmd('sha');
+		$sha         = $application->input->getCmd('sha');
 
 		if (!$issueId)
 		{
 			throw new \Exception('No issue ID received.');
+		}
+
+		if (!$sha)
+		{
+			throw new \Exception('Missing commit SHA.');
 		}
 
 		$this->setDispatcher($application->getDispatcher());

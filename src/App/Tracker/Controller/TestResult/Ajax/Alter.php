@@ -60,6 +60,11 @@ class Alter extends AbstractAjaxController
 		$result->value = $application->input->getUint('result');
 		$sha           = $application->input->getCmd('sha');
 
+		if (!$sha)
+		{
+			throw new \Exception('Missing commit SHA.');
+		}
+
 		$issueModel = new IssueModel($this->getContainer()->get('db'));
 
 		$data->testResults = $issueModel->saveTest($issueId, $result->user, $result->value, $sha);
