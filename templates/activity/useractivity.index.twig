@@ -67,8 +67,7 @@
         <script src="{{ asset('js/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
     {% endif %}
 
-    {# TODO - Make the datepicker locale aware... For now though, stick to default en-GB#}
-    <script src="{{ asset('js/datepicker/bootstrap-datepicker.en-GB.min.js') }}"></script>
+    <script src="{{ datepicker_locale_js(lang) }}"></script>
     <script src="{{ asset('js/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.barRenderer.js') }}"></script>
     <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js') }}"></script>
@@ -114,7 +113,8 @@
         })(jQuery);
 
         $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            language: '{{ datepicker_locale_code(lang) }}'
         });
     </script>
 {% endblock %}
