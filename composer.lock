@@ -1044,16 +1044,16 @@
         },
         {
             "name": "joomla/github",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/github-api.git",
-                "reference": "77a55bfba8a51cf9f208ea4f7776e9f1a4a55870"
+                "reference": "2392682e84b131d569e63632086dee7340c6a125"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/github-api/zipball/77a55bfba8a51cf9f208ea4f7776e9f1a4a55870",
-                "reference": "77a55bfba8a51cf9f208ea4f7776e9f1a4a55870",
+                "url": "https://api.github.com/repos/joomla-framework/github-api/zipball/2392682e84b131d569e63632086dee7340c6a125",
+                "reference": "2392682e84b131d569e63632086dee7340c6a125",
                 "shasum": ""
             },
             "require": {
@@ -1088,7 +1088,7 @@
                 "github",
                 "joomla"
             ],
-            "time": "2016-10-16 17:29:26"
+            "time": "2016-10-16 21:03:58"
         },
         {
             "name": "joomla/http",
