@@ -42,16 +42,18 @@
          * @param {String} statusContainer The target status container
          * @param {String} outContainer    The target output container
          * @param {String} template        The name of the output template
+         * @param {String} shaContainer    The container where the commit SHA is located
          */
-        submitComment: function (issue_number, statusContainer, outContainer, template) {
+        submitComment: function (issue_number, statusContainer, outContainer, template, shaContainer) {
             var out = $(outContainer),
-                status = $(statusContainer);
+                status = $(statusContainer),
+                sha = $(shaContainer).val();
 
             status.html(g11n3t('Submitting comment...'));
 
             $.post(
                 '/submit/comment',
-                {text: $('#comment').val(), issue_number: issue_number},
+                {text: $('#comment').val(), issue_number: issue_number, sha: sha},
                 function (r) {
                     if (!r.data) {
                         // Misc failure
@@ -69,8 +71,12 @@
                         $('#comment').val('');
                         $('tbody.files').empty();
 
-                        // Submit test result
-                        JTracker.submitTestWithComment(out, 'tplNewTestResult');
+                        // Submit test result but only when the "Not Tested" option is not selected
+                        var testResult = $('input[name=comment-tested]').filter(':checked').val();
+
+                        if (testResult > 0) {
+                            JTracker.submitTestWithComment(out, 'tplNewTestResult');
+                        }
                     }
                 }
             );
@@ -256,7 +262,7 @@
         updateTests: function (testsSuccess, testsFailure) {
             $('#usertests-success-num').text(testsSuccess.length);
            	$('#usertests-success').text(testsSuccess.join(', '));
-       
+
            	$('#usertests-fail-num').text(testsFailure.length);
            	$('#usertests-fail').text(testsFailure.join(', '));
         },
