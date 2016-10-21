@@ -309,7 +309,14 @@ class AbstractDatabaseTable implements \IteratorAggregate
 		// Check that we have a result.
 		if (empty($row))
 		{
-			throw new \RuntimeException(__METHOD__ . ' can not bind.');
+			throw new \RuntimeException(
+				sprintf(
+					'%1$s() can not bind keys "%2$s" for table %3$s due to an empty result set.',
+					__METHOD__,
+					implode(', ', $keys),
+					$this->tableName
+				)
+			);
 		}
 
 		// Bind the object with the row and return.
