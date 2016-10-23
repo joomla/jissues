@@ -24,6 +24,7 @@ use JTracker\Helper\IpHelper;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
+use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
@@ -187,6 +188,9 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 						$application->get('debug.log-path') . '/github_' . strtolower($this->type) . '.log',
 						constant('\\Monolog\\Logger::' . $level)
 					),
+				],
+				[
+					new WebProcessor,
 				]
 			)
 		);
