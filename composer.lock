@@ -664,12 +664,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/cache.git",
-                "reference": "fb94a0ce821d1b581c56b2e02cfd237afd281387"
+                "reference": "3ddee5cba4e5b3ddaeae1e10cbe8b504bd28142c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/cache/zipball/fb94a0ce821d1b581c56b2e02cfd237afd281387",
-                "reference": "fb94a0ce821d1b581c56b2e02cfd237afd281387",
+                "url": "https://api.github.com/repos/joomla-framework/cache/zipball/3ddee5cba4e5b3ddaeae1e10cbe8b504bd28142c",
+                "reference": "3ddee5cba4e5b3ddaeae1e10cbe8b504bd28142c",
                 "shasum": ""
             },
             "require": {
@@ -714,7 +714,7 @@
                 "framework",
                 "joomla"
             ],
-            "time": "2016-09-17 16:17:27"
+            "time": "2016-10-17 02:33:34"
         },
         {
             "name": "joomla/compat",
@@ -1044,16 +1044,16 @@
         },
         {
             "name": "joomla/github",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/github-api.git",
-                "reference": "2392682e84b131d569e63632086dee7340c6a125"
+                "reference": "be2a51b389f4f8c1dc9d59cb9ba998daf481a3da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/github-api/zipball/2392682e84b131d569e63632086dee7340c6a125",
-                "reference": "2392682e84b131d569e63632086dee7340c6a125",
+                "url": "https://api.github.com/repos/joomla-framework/github-api/zipball/be2a51b389f4f8c1dc9d59cb9ba998daf481a3da",
+                "reference": "be2a51b389f4f8c1dc9d59cb9ba998daf481a3da",
                 "shasum": ""
             },
             "require": {
@@ -1088,7 +1088,7 @@
                 "github",
                 "joomla"
             ],
-            "time": "2016-10-16 21:03:58"
+            "time": "2016-10-23 15:52:56"
         },
         {
             "name": "joomla/http",
@@ -1686,20 +1686,20 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.28",
+            "version": "1.0.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "a9663643ff2d16d7f66ed1e0d3212c5491bc9044"
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a9663643ff2d16d7f66ed1e0d3212c5491bc9044",
-                "reference": "a9663643ff2d16d7f66ed1e0d3212c5491bc9044",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
+                "reference": "1b5c4a0031697f46e779a9d1b309c2e1b24daeab",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.5.9"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
@@ -1765,7 +1765,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-10-07 12:20:37"
+            "time": "2016-10-19 20:38:46"
         },
         {
             "name": "monolog/monolog",
