@@ -131,6 +131,72 @@ class JoomlacmsPullsListener extends AbstractListener
 			'README.txt',
 			'build.xml',
 		],
+		'41' => [
+			'^administrator/components/com_ajax',
+			'^components/com_ajax',
+		],
+		'42' => ['^administrator/components/com_admin'],
+		'43' => [
+			'^administrator/components/com_banners',
+			'^components/com_banners',
+		],
+		'44' => ['^administrator/components/com_cache'],
+		'45' => ['^administrator/components/com_categories'],
+		'46' => ['^administrator/components/com_checkin'],
+		'47' => [
+			'^administrator/components/com_config',
+			'^components/com_config',
+		],
+		'48' => [
+			'^administrator/components/com_contact',
+			'^components/com_contact',
+		],
+		'49' => [
+			'^administrator/components/com_content',
+			'^components/com_content',
+		],
+		'50' => [
+			'^administrator/components/com_contenthistory',
+			'^components/com_contenthistory',
+		],
+		'51' => ['^administrator/components/com_cpanel'],
+		'52' => [
+			'^administrator/components/com_finder',
+			'^components/com_finder',
+		],
+		'53' => ['^administrator/components/com_installer'],
+		'54' => ['^administrator/components/com_joomlaupdate'],
+		'55' => ['^administrator/components/com_languages'],
+		'56' => ['^administrator/components/com_login'],
+		'57' => [
+			'^administrator/components/com_media',
+			'^components/com_media',
+		],
+		'58' => ['^administrator/components/com_menus'],
+		'59' => ['^administrator/components/com_messages'],
+		'60' => [
+			'^administrator/components/com_modules',
+			'^components/com_modules',
+		],
+		'61' => [
+			'^administrator/components/com_newsfeeds',
+			'^components/com_newsfeeds',
+		],
+		'62' => ['^administrator/components/com_plugins'],
+		'63' => ['^administrator/components/com_postinstall'],
+		'64' => ['^administrator/components/com_redirect'],
+		'65' => ['^administrator/components/com_search'],
+		'66' => [
+			'^administrator/components/com_tags',
+			'^components/com_tags',
+		],
+		'67' => ['^administrator/components/com_templates'],
+		'68' => [
+			'^administrator/components/com_users',
+			'^components/com_users',
+		],
+		'69' => ['^components/com_mailto'],
+		'70' => ['^components/com_wrapper'],
 	];
 
 	/**
