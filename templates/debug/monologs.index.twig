@@ -26,7 +26,7 @@
             <li>
                 <div class="logHeader" onclick="$('.logMessage').hide(); $(this).next().show()">
                     {{ fields.level(entry['level']) }}
-                    {{ entry['date'].format('Y-m-d h:i:s') }}
+                    {{ entry['date'].format('Y-m-d H:i:s') }}
                     {{ fields.messageHeader(entry['message']) }}
                 </div>
 
