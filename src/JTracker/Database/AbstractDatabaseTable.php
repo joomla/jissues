@@ -313,7 +313,7 @@ class AbstractDatabaseTable implements \IteratorAggregate
 				sprintf(
 					'%1$s() can not bind keys "%2$s" for table %3$s due to an empty result set.',
 					__METHOD__,
-					implode(', ', $keys),
+					http_build_query($keys),
 					$this->tableName
 				)
 			);
