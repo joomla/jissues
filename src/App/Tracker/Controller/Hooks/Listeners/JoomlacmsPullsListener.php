@@ -107,11 +107,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		],
 		// Plugins
 		'28' => ['^plugins/'],
-		// Components
-		'29' => [
-			'^administrator/components/',
-			'^components/',
-		],
 		// Site Template
 		'30' => ['^templates/'],
 		// Admin templates
