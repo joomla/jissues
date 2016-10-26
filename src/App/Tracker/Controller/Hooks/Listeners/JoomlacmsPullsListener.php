@@ -442,6 +442,31 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Get the files modified by the pull request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
+		// DEBUG
+		if (is_array($files))
+		{
+			$logger->message(
+				sprintf(
+					'We got some changed files from the pullrequest %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		else
+		{
+			$logger->message(
+				sprintf(
+					'We got NONE changed files from the pullrequest %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		// DEBUG
+		
 		$composerChange   = $this->checkComposerChange($files);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
 
@@ -456,7 +481,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $composerLabel;
 		}
 
-		$languageChange   = $this->checkLanguageChange($files);
+		$languageChange   = $this->checkLanguageChange($files);	
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
 		// Add the label if we change the language files and it isn't already set
@@ -473,6 +498,31 @@ class JoomlacmsPullsListener extends AbstractListener
 		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
 		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
+		// DEBUG
+		if ($unitSystemTestsChange)
+		{
+			$logger->message(
+				sprintf(
+					'We detected a unittest change for the pullrequest %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		else
+		{
+			$logger->message(
+				sprintf(
+					'We NOT detected a unittest change for the pullrequest %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		// DEBUG
+		
 		// Add the label if we change the Unit/System Tests and it isn't already set
 		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
 		{
