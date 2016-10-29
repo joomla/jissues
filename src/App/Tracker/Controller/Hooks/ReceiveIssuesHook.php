@@ -90,6 +90,19 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
+		// We can only reliably insert records for an open/close event
+		$insertEvents = ['opened', 'closed'];
+
+		if (!in_array($action, $insertEvents))
+		{
+			$this->response->data = (object) [
+				'processed' => false,
+				'reason'    => 'Records can only be inserted for an open/close event.',
+			];
+
+			return false;
+		}
+
 		$status = $this->processStatus($action);
 
 		$parsedText = $this->parseText($this->hookData->issue->body);
