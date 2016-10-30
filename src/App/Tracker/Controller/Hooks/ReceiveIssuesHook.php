@@ -146,7 +146,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			(new IssueModel($this->db))
+			$model = (new IssueModel($this->db))
 				->setProject(new TrackerProject($this->db, $this->project))
 				->add($data);
 		}
@@ -167,7 +167,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		// Get a table object for the new record to process in the event listeners
 		$table = (new IssuesTable($this->db))
-			->load($this->db->insertid());
+			->load($model->getState()->get('issue_id'));
 
 		try
 		{

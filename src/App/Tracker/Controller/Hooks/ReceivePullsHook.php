@@ -178,11 +178,10 @@ class ReceivePullsHook extends AbstractHookController
 		// Process labels for the item
 		$data['labels'] = $this->processLabels($this->data->number);
 
-		$model = new IssueModel($this->db);
-
 		try
 		{
-			$model->setProject(new TrackerProject($this->db, $this->project))
+			$model = (new IssueModel($this->db))
+				->setProject(new TrackerProject($this->db, $this->project))
 				->add($data);
 		}
 		catch (\Exception $e)
