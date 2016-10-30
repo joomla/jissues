@@ -43,6 +43,32 @@ class JoomlacmsIssuesListener extends AbstractListener
 	}
 
 	/**
+	 * Event for after issues are created in the application
+	 *
+	 * @param   Event  $event  Event object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	public function onIssueAfterUpdate(Event $event)
+	{
+		// Pull the arguments array
+		$arguments = $event->getArguments();
+
+		/*
+		 * Only perform these events if this is a new issue, action will be 'opened'
+		 * Generally this isn't necessary, however if the initial create webhook fails and someone redelivers the webhook from GitHub,
+		 * then this will allow the correct actions to be taken
+		 */
+		if ($arguments['action'] === 'opened')
+		{
+			// Add a "no code" label
+			$this->checkNoCodelabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		}
+	}
+
+	/**
 	 * Adds a "No Code Attached Yet" label
 	 *
 	 * @param   object  $hookData  Hook data payload

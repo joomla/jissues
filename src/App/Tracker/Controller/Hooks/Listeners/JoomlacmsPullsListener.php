@@ -187,6 +187,26 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		/*
+		 * Only perform these events if this is a new pull, action will be 'opened'
+		 * Generally this isn't necessary, however if the initial create webhook fails and someone redelivers the webhook from GitHub,
+		 * then this will allow the correct actions to be taken
+		 */
+		if ($arguments['action'] === 'opened')
+		{
+			// Check if the pull request targets the master branch
+			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
+			// Check if the pull request targets the 2.5.x branch
+			$this->check25Branch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+
+			// Send a message if there is no comment in the pull request
+			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
+			// Set the status to pending
+			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
+		}
+
 		// Only perform these events if this is a reopened pull, action will be 'reopened'
 		if ($arguments['action'] === 'reopened')
 		{
