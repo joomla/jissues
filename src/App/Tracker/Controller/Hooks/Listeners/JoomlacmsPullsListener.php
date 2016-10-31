@@ -126,72 +126,97 @@ class JoomlacmsPullsListener extends AbstractListener
 			'README.txt',
 			'build.xml',
 		],
+		// com_ajax
 		'41' => [
 			'^administrator/components/com_ajax',
 			'^components/com_ajax',
 		],
+		// com_admin
 		'42' => ['^administrator/components/com_admin'],
+		// com_banners
 		'43' => [
 			'^administrator/components/com_banners',
 			'^components/com_banners',
 		],
+		// com_cache
 		'44' => ['^administrator/components/com_cache'],
+		// com_categories
 		'45' => ['^administrator/components/com_categories'],
+		// com_checkin
 		'46' => ['^administrator/components/com_checkin'],
+		// com_config
 		'47' => [
 			'^administrator/components/com_config',
 			'^components/com_config',
 		],
+		// com_contact
 		'48' => [
 			'^administrator/components/com_contact',
 			'^components/com_contact',
 		],
+		// com_content
 		'49' => [
 			'^administrator/components/com_content',
 			'^components/com_content',
 		],
+		// com_contenthistory
 		'50' => [
 			'^administrator/components/com_contenthistory',
 			'^components/com_contenthistory',
 		],
+		// com_cpanel
 		'51' => ['^administrator/components/com_cpanel'],
+		// com_finder
 		'52' => [
 			'^administrator/components/com_finder',
 			'^components/com_finder',
 		],
+		// com_installer
 		'53' => ['^administrator/components/com_installer'],
+		// com_joomlaupdate
 		'54' => ['^administrator/components/com_joomlaupdate'],
+		// com_lanuages
 		'55' => ['^administrator/components/com_languages'],
+		// com_login
 		'56' => ['^administrator/components/com_login'],
-		'57' => [
-			'^administrator/components/com_media',
-			'^components/com_media',
-		],
+		// com_menus
 		'58' => ['^administrator/components/com_menus'],
+		// com_messages
 		'59' => ['^administrator/components/com_messages'],
+		// com_modules
 		'60' => [
 			'^administrator/components/com_modules',
 			'^components/com_modules',
 		],
+		// com_newsfeeds
 		'61' => [
 			'^administrator/components/com_newsfeeds',
 			'^components/com_newsfeeds',
 		],
+		// com_plugins
 		'62' => ['^administrator/components/com_plugins'],
+		// com_postinstall
 		'63' => ['^administrator/components/com_postinstall'],
+		// com_redirect
 		'64' => ['^administrator/components/com_redirect'],
+		// com_search
 		'65' => ['^administrator/components/com_search'],
-		'66' => [
-			'^administrator/components/com_tags',
-			'^components/com_tags',
-		],
+		// com_templates
 		'67' => ['^administrator/components/com_templates'],
+		// com_users
 		'68' => [
 			'^administrator/components/com_users',
 			'^components/com_users',
 		],
+		// com_mailto
 		'69' => ['^components/com_mailto'],
+		// com_wrapper
 		'70' => ['^components/com_wrapper'],
+		// com_fields
+		'71' => [
+			'^administrator/components/com_fields',
+			'^components/com_fields',
+		],
 	];
 
 	/**
