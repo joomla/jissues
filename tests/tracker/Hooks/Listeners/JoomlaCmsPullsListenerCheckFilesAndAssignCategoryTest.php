@@ -52,10 +52,10 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 	{
 		$files = [
 			'administrator/' => ['23'],
-			'administrator/components/' => ['23', '29'],
-			'administrator/components/com_admin/sql/updates' => ['10', '23', '29'],
-			'administrator/components/com_admin/sql/updates/postgresql' => ['2', '10', '23', '29'],
-			'administrator/components/com_admin/sql/updates/sqlazure' => ['3', '10', '23', '29'],
+			'administrator/components/' => ['23'],
+			'administrator/components/com_admin/sql/updates' => ['10', '23', '29', '42'],
+			'administrator/components/com_admin/sql/updates/postgresql' => ['2', '10', '23', '29', '42'],
+			'administrator/components/com_admin/sql/updates/sqlazure' => ['3', '10', '23', '29', '42'],
 			'administrator/components/com_media' => ['23', '29', '35'],
 			'administrator/components/com_tags' => ['16', '23', '29'],
 			'administrator/language' => ['23', '27'],
