@@ -126,93 +126,93 @@ class JoomlacmsPullsListener extends AbstractListener
 			'README.txt',
 			'build.xml',
 		],
-		// Components com_ajax
+		// Component com_ajax
 		'41' => [
 			'^administrator/components/com_ajax',
 			'^components/com_ajax',
 		],
-		// Components com_admin
+		// Component com_admin
 		'42' => ['^administrator/components/com_admin'],
-		// Components com_banners
+		// Component com_banners
 		'43' => [
 			'^administrator/components/com_banners',
 			'^components/com_banners',
 		],
-		// Components com_cache
+		// Component com_cache
 		'44' => ['^administrator/components/com_cache'],
-		// Components com_categories
+		// Component com_categories
 		'45' => ['^administrator/components/com_categories'],
-		// Components com_checkin
+		// Component com_checkin
 		'46' => ['^administrator/components/com_checkin'],
-		// Components com_config
+		// Component com_config
 		'47' => [
 			'^administrator/components/com_config',
 			'^components/com_config',
 		],
-		// Components com_contact
+		// Component com_contact
 		'48' => [
 			'^administrator/components/com_contact',
 			'^components/com_contact',
 		],
-		// Components com_content
+		// Component com_content
 		'49' => [
 			'^administrator/components/com_content',
 			'^components/com_content',
 		],
-		// Components com_contenthistory
+		// Component com_contenthistory
 		'50' => [
 			'^administrator/components/com_contenthistory',
 			'^components/com_contenthistory',
 		],
-		// Components com_cpanel
+		// Component com_cpanel
 		'51' => ['^administrator/components/com_cpanel'],
-		// Components com_finder
+		// Component com_finder
 		'52' => [
 			'^administrator/components/com_finder',
 			'^components/com_finder',
 		],
-		// Components com_installer
+		// Component com_installer
 		'53' => ['^administrator/components/com_installer'],
-		// Components com_joomlaupdate
+		// Component com_joomlaupdate
 		'54' => ['^administrator/components/com_joomlaupdate'],
-		// Components com_lanuages
+		// Component com_lanuages
 		'55' => ['^administrator/components/com_languages'],
-		// Components com_login
+		// Component com_login
 		'56' => ['^administrator/components/com_login'],
-		// Components com_menus
+		// Component com_menus
 		'58' => ['^administrator/components/com_menus'],
-		// Components com_messages
+		// Component com_messages
 		'59' => ['^administrator/components/com_messages'],
-		// Components com_modules
+		// Component com_modules
 		'60' => [
 			'^administrator/components/com_modules',
 			'^components/com_modules',
 		],
-		// Components com_newsfeeds
+		// Component com_newsfeeds
 		'61' => [
 			'^administrator/components/com_newsfeeds',
 			'^components/com_newsfeeds',
 		],
-		// Components com_plugins
+		// Component com_plugins
 		'62' => ['^administrator/components/com_plugins'],
-		// Components com_postinstall
+		// Component com_postinstall
 		'63' => ['^administrator/components/com_postinstall'],
-		// Components com_redirect
+		// Component com_redirect
 		'64' => ['^administrator/components/com_redirect'],
-		// Components com_search
+		// Component com_search
 		'65' => ['^administrator/components/com_search'],
-		// Components com_templates
+		// Component com_templates
 		'67' => ['^administrator/components/com_templates'],
-		// Components com_users
+		// Component com_users
 		'68' => [
 			'^administrator/components/com_users',
 			'^components/com_users',
 		],
-		// Components com_mailto
+		// Component com_mailto
 		'69' => ['^components/com_mailto'],
-		// Components com_wrapper
+		// Component com_wrapper
 		'70' => ['^components/com_wrapper'],
-		// Components com_fields
+		// Component com_fields
 		'71' => [
 			'^administrator/components/com_fields',
 			'^components/com_fields',
