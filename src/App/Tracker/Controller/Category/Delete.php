@@ -26,7 +26,7 @@ class Delete extends AbstractTrackerController
 	 * @var    string
 	 * @since  1.0
 	 */
-	protected $defaultView = 'categories';
+	protected $defaultView = 'category';
 
 	/**
 	 * Model object
