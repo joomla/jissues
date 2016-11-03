@@ -541,7 +541,7 @@ class ReceiveIssuesHook extends AbstractHookController
 
 		try
 		{
-			$this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => $action]);
+			$this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => 'edited']);
 		}
 		catch (\Exception $e)
 		{
