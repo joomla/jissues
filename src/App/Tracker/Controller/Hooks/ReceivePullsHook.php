@@ -449,12 +449,12 @@ class ReceivePullsHook extends AbstractHookController
 
 		try
 		{
-			$this->triggerEvent('onPullAfterCreate', ['table' => $table, 'action' => $action]);
+			$this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => $action]);
 		}
 		catch (\Exception $e)
 		{
 			$logMessage = sprintf(
-				'Error processing `onPullAfterCreate` event for issue number %d',
+				'Error processing `onPullAfterUpdate` event for issue number %d',
 				$this->data->number
 			);
 			$this->setStatusCode(500);
