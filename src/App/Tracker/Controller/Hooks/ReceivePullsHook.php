@@ -60,7 +60,15 @@ class ReceivePullsHook extends AbstractHookController
 		if (!isset($this->hookData->pull_request->number) || !is_object($this->hookData))
 		{
 			// If we can't get the issue number exit.
-			$this->response->message = 'Hook data did not exists';
+			$this->response->message = 'Hook data does not exist.';
+
+			return;
+		}
+
+		// Stop running for label events
+		if (in_array($this->hookData->action, ['labeled', 'unlabeled']))
+		{
+			$this->response->message = 'Ignoring label events now.';
 
 			return;
 		}
