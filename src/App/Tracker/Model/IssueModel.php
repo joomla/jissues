@@ -484,9 +484,10 @@ class IssueModel extends AbstractTrackerDatabaseModel
 		$data['description_raw'] = $filter->clean($src['description_raw'], 'raw');
 		$data['rel_number']      = $filter->clean($src['rel_number'], 'int');
 		$data['rel_type']        = $filter->clean($src['rel_type'], 'int');
-
-		$data['commits'] = isset($src['commits']) ? $src['commits'] : '';
-		$data['pr_head_sha'] = isset($src['pr_head_sha']) ? $src['pr_head_sha'] : '';
+		$data['commits']         = isset($src['commits']) ? $src['commits'] : '';
+		$data['pr_head_sha']     = isset($src['pr_head_sha']) ? $src['pr_head_sha'] : '';
+		$data['pr_head_user']    = isset($src['pr_head_user']) ? $src['pr_head_user'] : '';
+		$data['pr_head_ref']     = isset($src['pr_head_ref']) ? $src['pr_head_ref'] : '';
 
 		if (isset($src['easy']))
 		{

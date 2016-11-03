@@ -144,6 +144,8 @@ class ReceivePullsHook extends AbstractHookController
 		$data['has_code']        = 1;
 		$data['build']           = $this->data->base->ref;
 		$data['pr_head_sha']     = $this->data->head->sha;
+		$data['pr_head_user']    = (isset($this->data->head->user)) ? $this->data->head->user->login : 'unknown_repository';
+		$data['pr_head_ref']     = $this->data->head->ref;
 
 		$gitHubHelper = new GitHubHelper(GithubFactory::getInstance($this->getContainer()->get('app')));
 
@@ -382,6 +384,9 @@ class ReceivePullsHook extends AbstractHookController
 			'rel_number'      => $table->rel_number,
 			'rel_type'        => $table->rel_type,
 			'milestone_id'    => $table->milestone_id,
+			'pr_head_sha'     => $this->data->head->sha,
+			'pr_head_user'    => (isset($this->data->head->user)) ? $this->data->head->user->login : 'unknown_repository',
+			'pr_head_ref'     => $this->data->head->ref,
 		];
 
 		// Add the closed date if the status is closed
@@ -407,8 +412,6 @@ class ReceivePullsHook extends AbstractHookController
 
 		$data['old_state'] = $oldState;
 		$data['new_state'] = $state;
-
-		$data['pr_head_sha'] = $this->data->head->sha;
 
 		$gitHubHelper = new GitHubHelper(GithubFactory::getInstance($this->getContainer()->get('app')));
 
@@ -642,7 +645,9 @@ class ReceivePullsHook extends AbstractHookController
 				'labels'          => $this->processLabels($table->issue_number),
 				'old_state'       => $state,
 				'new_state'       => $state,
-
+				'pr_head_sha'     => $table->pr_head_sha,
+				'pr_head_user'    => $table->pr_head_user,
+				'pr_head_ref'     => $table->pr_head_ref,
 			]
 		);
 

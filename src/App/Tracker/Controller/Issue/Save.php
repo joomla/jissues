@@ -216,8 +216,10 @@ class Save extends AbstractTrackerController
 			$data['new_state'] = $state;
 
 			// Values that are not supposed to change.
-			$data['commits'] = $item->commits;
-			$data['pr_head_sha'] = $item->pr_head_sha;
+			$data['commits']      = $item->commits;
+			$data['pr_head_sha']  = $item->pr_head_sha;
+			$data['pr_head_user'] = $item->pr_head_user;
+			$data['pr_head_ref']  = $item->pr_head_ref;
 
 			// Save the record.
 			$model->save($data);
