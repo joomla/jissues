@@ -58,8 +58,9 @@ class Refresh extends AbstractTrackerController
 		$gitHubUser = $gitHub->users->getAuthenticatedUser();
 
 		$user = (new GitHubUser($application->getProject(), $this->getContainer()->get('db')))
-			->loadGitHubData($gitHubUser)
-			->loadByUserName($user->username);
+			->loadGitHubData($gitHubUser);
+
+		$user->loadByUserName($user->username);
 
 		try
 		{
