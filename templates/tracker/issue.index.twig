@@ -534,7 +534,7 @@
                         {{ activity.text|raw }}
                     </div>
                 </div>
-            {% else %}
+            {% elseif activity.event != 'synchronize' %}
                 <div class="offset1 span9">
                     <i class="octicon octicon-pulse"></i>
                     {{ avatar(activity.user, 20, 'avatar')|raw }}
