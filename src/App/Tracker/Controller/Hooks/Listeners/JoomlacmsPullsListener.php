@@ -215,7 +215,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		// Only perform these events for open/close/edit/sync events
-		if (in_array($arguments['action'], ['opened', 'closed', 'reopened', 'edited', 'synchronized']))
+		if (in_array($arguments['action'], ['opened', 'closed', 'reopened', 'edited', 'synchronize']))
 		{
 			// Check that pull requests have certain labels
 			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
