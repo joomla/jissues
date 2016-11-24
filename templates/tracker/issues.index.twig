@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-select/dist/css/bootstrap-select.css') }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/pagination/pagination.css', 'debug') }}" />
+    <link rel="stylesheet" href="{{ asset('css/pagination/B_black.css', 'debug') }}" />
 {% endblock %}
 
 {% block prependMenu %}
@@ -84,13 +84,13 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
-    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap-select/dist/js/bootstrap-select.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js', 'noversion') }}"></script>
     {% endif %}
 
-    <script src="{{ asset('js/jtracker-tmpl.js') }}"></script>
+    <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>
 
     <script type="text/x-tmpl" id="ajaxListing">
     [% if (o.data.items.length) { %]

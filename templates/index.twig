@@ -22,35 +22,35 @@
     <link rel="stylesheet" href="https://cdn.joomla.org/template/css/template_2.1.1.min.css" media="screen" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     {% else %}
-    <link rel="stylesheet" href="{{ asset('css/template.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/template.css', 'noversion') }}" />
     {% endif %}
 
     {# If a RTL language is in use then load the extra RTL CSS for the template #}
     {% if langDirection == 'rtl' %}
-    <link rel="stylesheet" href="{{ asset('css/template-rtl' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/template-rtl.min.css', 'debug') }}" />
     {% endif %}
 
     {# If in debug mode, load each file individually, otherwise load the combined source #}
     {% if templateDebug %}
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-dropdown/dropdown.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor/octicons/octicons/octicons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-transition/transition.css', 'noversion') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/semantic-ui-dropdown/dropdown.css', 'noversion') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor/octicons/octicons/octicons.css', 'noversion') }}" />
     {% else %}
     <link rel="stylesheet" href="{{ asset('css/vendor.min.css') }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/jtracker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/language.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jtracker.css', 'debug') }}" />
+    <link rel="stylesheet" href="{{ asset('css/language.css', 'debug') }}" />
 
     {# If a RTL language is in use then load the extra RTL CSS for the tracker #}
     {% if langDirection == 'rtl' %}
-    <link rel="stylesheet" href="{{ asset('css/jtracker-rtl.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jtracker-rtl.css', 'debug') }}" />
     {% endif %}
 
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-144-precomposed.png') }}" sizes="144x144" />
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}" sizes="114x114" />
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}" sizes="72x72" />
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-144-precomposed.png', 'noversion') }}" sizes="144x144" />
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-114-precomposed.png', 'noversion') }}" sizes="114x114" />
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-72-precomposed.png', 'noversion') }}" sizes="72x72" />
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png', 'noversion') }}" />
     <style type="text/css">
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Open Sans', sans-serif;
@@ -152,22 +152,22 @@
 {% block JavaScriptBottom %}
     {# If the template is in debug mode, load each file individually, otherwise load the combined source #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-affix.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-dropdown.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tab.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tooltip.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-collapse.js') }}"></script>
-    <script src="{{ asset('js/vendor/semantic-ui-transition/transition.js') }}"></script>
-    <script src="{{ asset('js/vendor/semantic-ui-dropdown/dropdown.js') }}"></script>
-    <script src="{{ asset('js/vendor/g11n-js/js/g11n.js') }}"></script>
-    <script src="{{ asset('js/vendor/g11n-js/js/methods.js') }}"></script>
-    <script src="{{ asset('js/vendor/g11n-js/js/phpjs.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery/jquery.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-affix.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-dropdown.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tab.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-tooltip.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-collapse.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/semantic-ui-transition/transition.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/semantic-ui-dropdown/dropdown.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/g11n-js/js/g11n.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/g11n-js/js/methods.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/g11n-js/js/phpjs.js', 'noversion') }}"></script>
     {% else %}
     <script src="{{ asset('js/vendor.min.js') }}"></script>
     {% endif %}
 
-    <script src="{{ asset('js/jtracker' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+    <script src="{{ asset('js/jtracker.min.js', 'debug') }}"></script>
 
     <script type="text/javascript">{{ g11nJavaScript|raw }}</script>
 

@@ -109,7 +109,7 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/d3/d3.js') }}"></script>
+    <script src="{{ asset('js/vendor/d3/d3.js', 'noversion') }}"></script>
     {% endif %}
 
     <script type="text/javascript">

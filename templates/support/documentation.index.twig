@@ -11,14 +11,14 @@
     {% if templateDebug %}
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/file-tree/jqueryFileTree.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/file-tree/jqueryFileTree.css', 'debug') }}" />
 
     <!-- CSS for coloured code -->
-    <link rel="stylesheet" href="{{ asset('css/code.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/code.css', 'debug') }}">
 
     <style>
         #loading {
-            background: rgba(255, 255, 255, .8) url('{{ asset('images/ajax-loader.gif') }}') 50% 15% no-repeat;
+            background: rgba(255, 255, 255, .8) url('{{ asset('images/ajax-loader.gif', 'noversion') }}') 50% 15% no-repeat;
             position: fixed;
             opacity: 0.8;
             -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 80);
@@ -47,13 +47,13 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js') }}"></script>
-    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js') }}"></script>
-    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js') }}"></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap-popover.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
+    <script src="{{ asset('js/vendor/twbs-pagination/jquery.twbsPagination.js', 'noversion') }}"></script>
     {% endif %}
 
-    <script src="{{ asset('js/jtracker-tmpl.js') }}"></script>
-    <script src="{{ asset('js/file-tree/jqueryFileTree.js') }}"></script>
+    <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>
+    <script src="{{ asset('js/file-tree/jqueryFileTree.js', 'debug') }}"></script>
 
     <script type="text/javascript">
         function loadDocuPage(fullPath) {

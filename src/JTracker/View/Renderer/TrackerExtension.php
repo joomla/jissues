@@ -23,6 +23,7 @@ use JTracker\Application;
 use JTracker\Authentication\GitHub\GitHubLoginHelper;
 use JTracker\Helper\LanguageHelper;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Asset\Packages;
 
 /**
  * Twig extension class
@@ -64,6 +65,14 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	private $loginHelper;
 
 	/**
+	 * Packages object to look up asset paths
+	 *
+	 * @var    Packages
+	 * @since  1.0
+	 */
+	private $packages;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param   Container  $container  The DI container.
@@ -76,6 +85,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 		$this->cache       = $container->get('cache');
 		$this->db          = $container->get('db');
 		$this->loginHelper = new GitHubLoginHelper($container);
+		$this->packages    = $container->get(Packages::class);
 	}
 
 	/**
@@ -982,17 +992,18 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	}
 
 	/**
-	 * Returns the public URL of an asset
+	 * Get the URI for an asset
 	 *
-	 * @param   string  $path  The path to a media file relative to the site's media directory
+	 * @param   string  $path         A public path
+	 * @param   string  $packageName  The name of the asset package to use
 	 *
 	 * @return  string
 	 *
 	 * @since   1.0
 	 */
-	public function getAssetUrl($path)
+	public function getAssetUrl($path, $packageName = null)
 	{
-		return $this->app->get('uri.media.full') . $path;
+		return $this->packages->getUrl($path, $packageName);
 	}
 
 	/**
@@ -1014,7 +1025,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 		if (file_exists($basePath . $localeSegment))
 		{
-			return $this->getAssetUrl($localeSegment);
+			return $this->getAssetUrl($localeSegment, 'debug');
 		}
 
 		// Doesn't exist, check the first segment of the locale now if it's got a - in it (i.e. fr-FR)
@@ -1026,14 +1037,14 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 
 			if (file_exists($basePath . $localeSegment))
 			{
-				return $this->getAssetUrl($localeSegment);
+				return $this->getAssetUrl($localeSegment, 'debug');
 			}
 		}
 
 		// We don't have a locale, load English
 		$localeSegment = strtr($localePathSegment, ['%locale%' => 'en-GB']);
 
-		return $this->getAssetUrl($localeSegment);
+		return $this->getAssetUrl($localeSegment, 'debug');
 	}
 
 	/**

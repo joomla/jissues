@@ -10,11 +10,11 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-        <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.css', 'noversion') }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jqplot/jquery.jqplot.min.css', 'debug') }}" />
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui/jquery-ui.min.css', 'debug') }}" />
 {% endblock %}
 
 {% block content %}
@@ -64,17 +64,17 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-        <script src="{{ asset('js/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('js/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.js', 'noversion') }}"></script>
     {% endif %}
 
     <script src="{{ datepicker_locale_js(lang) }}"></script>
-    <script src="{{ asset('js/jqplot/jquery.jqplot' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js') }}"></script>
-    <script src="{{ asset('js/jqplot/jqplot.highlighter.js') }}"></script>
-    <script src="{{ asset('js/jqplot/barchart.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui/jquery-ui' ~ (templateDebug ? '' : '.min') ~ '.js') }}"></script>
+    <script src="{{ asset('js/jqplot/jquery.jqplot.min.js', 'debug') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.barRenderer.js', 'debug') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.categoryAxisRenderer.js', 'debug') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.pointLabels.js', 'debug') }}"></script>
+    <script src="{{ asset('js/jqplot/jqplot.highlighter.js', 'debug') }}"></script>
+    <script src="{{ asset('js/jqplot/barchart.js', 'debug') }}"></script>
+    <script src="{{ asset('js/jquery-ui/jquery-ui.min.js', 'debug') }}"></script>
 
     <script type="text/javascript">
         (function ($) {

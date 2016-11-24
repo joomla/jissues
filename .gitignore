@@ -28,6 +28,7 @@ cache.properties
 build/api/*
 build/logs/*
 current_SHA
+/sha.txt
 /.php_cs.cache
 
 # Ignore uploads #

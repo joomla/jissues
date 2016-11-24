@@ -12,7 +12,13 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Renderer\MustacheRenderer;
 use Joomla\Renderer\TwigRenderer;
+use JTracker\View\Renderer\ApplicationContext;
+use JTracker\View\Renderer\DebugPathPackage;
 use JTracker\View\Renderer\TrackerExtension;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
 
 /**
  * Template renderer service provider
@@ -89,5 +95,26 @@ class RendererProvider implements ServiceProviderInterface
 				},
 				true
 			);
+
+		$container->share(
+			Packages::class,
+			function (Container $container) {
+				$version = file_exists(JPATH_ROOT . '/sha.txt') ? trim(file_get_contents(JPATH_ROOT . '/sha.txt')) : md5(get_class($this));
+				$context = new ApplicationContext($container->get('app'));
+
+				return new Packages(
+					new PathPackage('media', new StaticVersionStrategy($version), $context),
+					[
+						'debug'     => new DebugPathPackage(
+							'media',
+							new StaticVersionStrategy($version),
+							$context,
+							$container->get('app')->get('debug.template', false)
+						),
+						'noversion' => new PathPackage('media', new EmptyVersionStrategy, $context),
+					]
+				);
+			}
+		);
 	}
 }

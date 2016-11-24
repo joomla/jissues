@@ -132,10 +132,10 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js') }}"></script>
+    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
     {% endif %}
 
-    <script src="{{ asset('js/jtracker-tmpl.js') }}"></script>
+    <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>
 
 <script type="text/x-tmpl" id="simpleArray">
     <div class="control-group">
