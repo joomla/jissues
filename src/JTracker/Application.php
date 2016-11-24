@@ -846,7 +846,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 		$loaded = true;
 
-		$contents = $renderer->render('exception');
+		$contents = $renderer->render('exception.twig');
 
 		$debug = JDEBUG ? $this->getDebugger()->getOutput() : '';
 

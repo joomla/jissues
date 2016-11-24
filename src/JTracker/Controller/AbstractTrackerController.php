@@ -179,7 +179,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 			$this->fetchRenderer($viewName, $layoutName)
 		);
 
-		$this->view->setLayout($viewName . '.' . $layoutName);
+		$this->view->setLayout($viewName . '.' . $layoutName . '.twig');
 
 		$this->getContainer()->get('app')->mark('Model: ' . $modelClass);
 		$this->getContainer()->get('app')->mark('View: ' . $viewClass);

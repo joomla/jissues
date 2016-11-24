@@ -1397,30 +1397,34 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/renderer.git",
-                "reference": "5d4338bb6762568e6ea5e0415541dd63ca5752a6"
+                "reference": "7182ff66e1fe6a5a717d810654b21b71f19da2f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/5d4338bb6762568e6ea5e0415541dd63ca5752a6",
-                "reference": "5d4338bb6762568e6ea5e0415541dd63ca5752a6",
+                "url": "https://api.github.com/repos/joomla-framework/renderer/zipball/7182ff66e1fe6a5a717d810654b21b71f19da2f0",
+                "reference": "7182ff66e1fe6a5a717d810654b21b71f19da2f0",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.5.9|~7.0"
             },
             "require-dev": {
-                "league/plates": "~2.0|~3.0",
-                "mustache/mustache": "~2.0",
+                "illuminate/events": "~5.1",
+                "illuminate/filesystem": "~5.1",
+                "illuminate/view": "~5.1",
+                "league/plates": "~3.0",
+                "mustache/mustache": "~2.3",
+                "phpunit/phpunit": "~4.8|~5.0",
                 "squizlabs/php_codesniffer": "1.*",
-                "symfony/templating": "~2.0|~3.0",
-                "twig/twig": "~1.0|~2.0"
+                "symfony/templating": "~2.7|~3.0",
+                "twig/twig": "~1.14|~2.0"
             },
             "suggest": {
                 "illuminate/view": "Install ~5.1 if you are using Laravel's Blade template engine.",
-                "league/plates": "Install ~2.0|~3.0 if you are using the Plates template engine.",
-                "mustache/mustache": "Install ~2.0 if you are using the Mustache template engine.",
-                "symfony/templating": "Install ~2.0|~3.0 if you are using Symfony's PHP template component.",
-                "twig/twig": "Install ~1.0|~2.0 if you are using the Twig template engine."
+                "league/plates": "Install ~3.0 if you are using the Plates template engine.",
+                "mustache/mustache": "Install ~2.3 if you are using the Mustache template engine.",
+                "symfony/templating": "Install ~2.7|~3.0 if you are using Symfony's PHP template component.",
+                "twig/twig": "Install ~1.14|~2.0 if you are using the Twig template engine."
             },
             "type": "joomla-package",
             "extra": {
@@ -1444,7 +1448,7 @@
                 "joomla",
                 "renderer"
             ],
-            "time": "2016-09-26 10:08:05"
+            "time": "2016-11-21 03:53:40"
         },
         {
             "name": "joomla/router",

@@ -40,35 +40,36 @@ class RendererProvider implements ServiceProviderInterface
 					$config = $container->get('config');
 
 					$rendererConfig = [
-						'path'  => JPATH_TEMPLATES,
 						'debug' => (bool) $config->get('debug.template', false),
 						'cache' => $config->get('renderer.cache', false) ? JPATH_ROOT . '/cache/' . $config->get('renderer.cache') : false,
 					];
 
-					// Instantiate the renderer object
-					$renderer = new TwigRenderer($rendererConfig);
+					// Instantiate the Twig environment
+					$environment = new \Twig_Environment(new \Twig_Loader_Filesystem([JPATH_TEMPLATES]), $rendererConfig);
 
 					// Add our Twig extension
-					$renderer->getRenderer()->addExtension(new TrackerExtension($container));
+					$environment->addExtension(new TrackerExtension($container));
 
 					// Add the debug extension if enabled
 					if ($rendererConfig['debug'])
 					{
-						$renderer->getRenderer()->addExtension(new \Twig_Extension_Debug);
+						$environment->addExtension(new \Twig_Extension_Debug);
 					}
 
 					// Set the Lexer object
-					$renderer->getRenderer()->setLexer(
+					$environment->setLexer(
 						new \Twig_Lexer(
-							$renderer->getRenderer(), ['delimiters' => [
-							'tag_comment'  => ['{#', '#}'],
-							'tag_block'    => ['{%', '%}'],
-							'tag_variable' => ['{{', '}}'],
-						]]
+							$environment, [
+								'delimiters' => [
+									'tag_comment'  => ['{#', '#}'],
+									'tag_block'    => ['{%', '%}'],
+									'tag_variable' => ['{{', '}}'],
+								],
+							]
 						)
 					);
 
-					return $renderer;
+					return new TwigRenderer($environment);
 				},
 				true
 			);
@@ -77,12 +78,14 @@ class RendererProvider implements ServiceProviderInterface
 			->share(
 				MustacheRenderer::class,
 				function (Container $container) {
-					$rendererConfig = [
-						'loader'          => new \Mustache_Loader_FilesystemLoader(JPATH_TEMPLATES),
-						'partials_loader' => new \Mustache_Loader_FilesystemLoader(JPATH_TEMPLATES),
-					];
+					$engine = new \Mustache_Engine(
+						[
+							'loader'          => new \Mustache_Loader_FilesystemLoader(JPATH_TEMPLATES),
+							'partials_loader' => new \Mustache_Loader_FilesystemLoader(JPATH_TEMPLATES),
+						]
+					);
 
-					return new MustacheRenderer($rendererConfig);
+					return new MustacheRenderer($engine);
 				},
 				true
 			);
