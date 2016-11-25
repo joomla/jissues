@@ -15,7 +15,7 @@ use App\Tracker\Table\IssuesTable;
 use Joomla\Date\Date;
 
 /**
- * Controller class receive and inject issue reports from GitHub
+ * Controller class receive and inject issue webhook events from GitHub.
  *
  * @since  1.0
  */
@@ -51,20 +51,11 @@ class ReceiveIssuesHook extends AbstractHookController
 			// If the item is already in the database, update it; else, insert it.
 			if ($this->checkIssueExists((int) $this->hookData->issue->number))
 			{
-				$result = $this->updateData();
+				$this->updateData();
 			}
 			else
 			{
-				$result = $this->insertData();
-			}
-
-			if ($result)
-			{
-				$this->response->message = 'Hook data processed successfully.';
-			}
-			else
-			{
-				$this->response->message = 'Hook data processed unsuccessfully.';
+				$this->insertData();
 			}
 		}
 		catch (\Exception $e)
@@ -81,7 +72,7 @@ class ReceiveIssuesHook extends AbstractHookController
 	/**
 	 * Method to insert data for an issue from GitHub
 	 *
-	 * @return  boolean  True on success
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -90,179 +81,181 @@ class ReceiveIssuesHook extends AbstractHookController
 		// Figure out the state based on the action
 		$action = $this->hookData->action;
 
-		// We can only reliably insert records for an open/close event
-		$insertEvents = ['opened', 'closed'];
-
-		if (!in_array($action, $insertEvents))
+		switch ($action)
 		{
-			$this->response->data = (object) [
-				'processed' => false,
-				'reason'    => 'Records can only be inserted for an open/close event.',
-			];
+			case 'opened':
+			case 'closed':
+			case 'reopened':
+				$status = $this->processStatus($action);
 
-			return false;
-		}
+				// Prepare the dates for insertion to the database
+				$dateFormat = $this->db->getDateFormat();
 
-		$status = $this->processStatus($action);
+				$data = [
+					'issue_number'    => $this->hookData->issue->number,
+					'title'           => $this->hookData->issue->title,
+					'description'     => $this->parseText($this->hookData->issue->body),
+					'description_raw' => $this->hookData->issue->body,
+					'status'          => (is_null($status)) ? 1 : $status,
+					'opened_date'     => (new Date($this->hookData->issue->created_at))->format($dateFormat),
+					'opened_by'       => $this->hookData->issue->user->login,
+					'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($dateFormat),
+					'modified_by'     => $this->hookData->sender->login,
+					'project_id'      => $this->project->project_id,
+					'build'           => $this->hookData->repository->default_branch,
+					'labels'          => $this->processLabels($this->hookData->issue->number),
+				];
 
-		$parsedText = $this->parseText($this->hookData->issue->body);
+				// Add the closed date if the status is closed
+				if ($this->hookData->issue->closed_at)
+				{
+					$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
+					$data['closed_by']   = $this->hookData->sender->login;
+				}
 
-		// Prepare the dates for insertion to the database
-		$dateFormat = $this->db->getDateFormat();
+				// If the title has a [# in it, assume it's a JoomlaCode Tracker ID
+				if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
+				{
+					$data['foreign_number'] = $matches[1];
+				}
+				// If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
+				elseif (preg_match('/tracker_item_id=([0-9]+)/', $this->hookData->issue->body, $matches))
+				{
+					$data['foreign_number'] = $matches[1];
+				}
 
-		$data = [];
-		$data['issue_number']    = $this->hookData->issue->number;
-		$data['title']           = $this->hookData->issue->title;
-		$data['description']     = $parsedText;
-		$data['description_raw'] = $this->hookData->issue->body;
-		$data['status']          = (is_null($status)) ? 1 : $status;
-		$data['opened_date']     = (new Date($this->hookData->issue->created_at))->format($dateFormat);
-		$data['opened_by']       = $this->hookData->issue->user->login;
-		$data['modified_date']   = (new Date($this->hookData->issue->updated_at))->format($dateFormat);
-		$data['modified_by']     = $this->hookData->sender->login;
-		$data['project_id']      = $this->project->project_id;
-		$data['build']           = $this->hookData->repository->default_branch;
+				try
+				{
+					$model = (new IssueModel($this->db))
+						->setProject(new TrackerProject($this->db, $this->project))
+						->add($data);
+				}
+				catch (\Exception $e)
+				{
+					$logMessage = sprintf(
+						'Error adding GitHub issue %s/%s #%d to the tracker',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->hookData->issue->number
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
 
-		// Add the closed date if the status is closed
-		if ($this->hookData->issue->closed_at)
-		{
-			$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
-			$data['closed_by']   = $this->hookData->sender->login;
-		}
+					return;
+				}
 
-		// If the title has a [# in it, assume it's a JoomlaCode Tracker ID
-		if (preg_match('/\[#([0-9]+)\]/', $this->hookData->issue->title, $matches))
-		{
-			$data['foreign_number'] = $matches[1];
-		}
-		// If the body has tracker_item_id= in it, that is a JoomlaCode Tracker ID
-		elseif (preg_match('/tracker_item_id=([0-9]+)/', $this->hookData->issue->body, $matches))
-		{
-			$data['foreign_number'] = $matches[1];
-		}
+				// Get a table object for the new record to process in the event listeners
+				$table = (new IssuesTable($this->db))
+					->load($model->getState()->get('issue_id'));
 
-		// Process labels for the item
-		$data['labels'] = $this->processLabels($this->hookData->issue->number);
+				try
+				{
+					$this->triggerEvent('onIssueAfterCreate', ['table' => $table, 'action' => $action]);
+				}
+				catch (\Exception $e)
+				{
+					$logMessage = sprintf(
+						'Error processing `onIssueAfterCreate` event for issue number %d',
+						$this->hookData->issue->number
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
 
-		try
-		{
-			$model = (new IssueModel($this->db))
-				->setProject(new TrackerProject($this->db, $this->project))
-				->add($data);
-		}
-		catch (\Exception $e)
-		{
-			$logMessage = sprintf(
-				'Error adding GitHub issue %s/%s #%d to the tracker',
-				$this->project->gh_user,
-				$this->project->gh_project,
-				$this->hookData->issue->number
-			);
-			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
-			$this->logger->error($logMessage, ['exception' => $e]);
+					return;
+				}
 
-			return false;
-		}
+				// Pull the user's avatar if it does not exist
+				$this->pullUserAvatar($this->hookData->issue->user->login);
 
-		// Get a table object for the new record to process in the event listeners
-		$table = (new IssuesTable($this->db))
-			->load($model->getState()->get('issue_id'));
+				// Add a reopen record to the activity table if the status is closed
+				if ($action == 'reopened')
+				{
+					try
+					{
+						$this->addActivityEvent(
+							'reopen',
+							$data['modified_date'],
+							$this->hookData->sender->login,
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+					}
+					catch (\RuntimeException $e)
+					{
+						$logMessage = sprintf(
+							'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+						$this->setStatusCode(500);
+						$this->response->error = $logMessage . ': ' . $e->getMessage();
+						$this->logger->error($logMessage, ['exception' => $e]);
 
-		try
-		{
-			$this->triggerEvent('onIssueAfterCreate', ['table' => $table, 'action' => $action]);
-		}
-		catch (\Exception $e)
-		{
-			$logMessage = sprintf(
-				'Error processing `onIssueAfterCreate` event for issue number %d',
-				$this->hookData->issue->number
-			);
-			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
-			$this->logger->error($logMessage, ['exception' => $e]);
+						return;
+					}
+				}
 
-			return false;
-		}
+				// Add a close record to the activity table if the status is closed
+				if ($this->hookData->issue->closed_at)
+				{
+					try
+					{
+						$this->addActivityEvent(
+							'close',
+							$data['closed_date'],
+							$this->hookData->issue->user->login,
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+					}
+					catch (\RuntimeException $e)
+					{
+						$logMessage = sprintf(
+							'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+						$this->setStatusCode(500);
+						$this->response->error = $logMessage . ': ' . $e->getMessage();
+						$this->logger->error($logMessage, ['exception' => $e]);
 
-		// Pull the user's avatar if it does not exist
-		$this->pullUserAvatar($this->hookData->issue->user->login);
+						return;
+					}
+				}
 
-		// Add a reopen record to the activity table if the status is closed
-		if ($action == 'reopened')
-		{
-			try
-			{
-				$this->addActivityEvent(
-					'reopen',
-					$data['modified_date'],
-					$this->hookData->sender->login,
-					$this->project->project_id,
-					$this->hookData->issue->number
+				// Store was successful, update status
+				$this->logger->info(
+					sprintf(
+						'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->hookData->issue->number,
+						$table->id
+					)
 				);
-			}
-			catch (\RuntimeException $e)
-			{
-				$logMessage = sprintf(
-					'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
-					$this->project->project_id,
-					$this->hookData->issue->number
-				);
-				$this->setStatusCode(500);
-				$this->response->error = $logMessage . ': ' . $e->getMessage();
-				$this->logger->error($logMessage, ['exception' => $e]);
 
-				return false;
-			}
+				$this->response->message = 'Hook data processed successfully.';
+
+				break;
+
+			default:
+				$this->response->data = (object) [
+					'processed' => false,
+					'reason'    => 'Records can only be inserted for an open/close event.',
+				];
+
+				$this->response->message = 'Hook data not processed.';
+
+				break;
 		}
-
-		// Add a close record to the activity table if the status is closed
-		if ($this->hookData->issue->closed_at)
-		{
-			try
-			{
-				$this->addActivityEvent(
-					'close',
-					$data['closed_date'],
-					$this->hookData->issue->user->login,
-					$this->project->project_id,
-					$this->hookData->issue->number
-				);
-			}
-			catch (\RuntimeException $e)
-			{
-				$logMessage = sprintf(
-					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
-					$this->project->project_id,
-					$this->hookData->issue->number
-				);
-				$this->setStatusCode(500);
-				$this->response->error = $logMessage . ': ' . $e->getMessage();
-				$this->logger->error($logMessage, ['exception' => $e]);
-
-				return false;
-			}
-		}
-
-		// Store was successful, update status
-		$this->logger->info(
-			sprintf(
-				'Added GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
-				$this->project->gh_user,
-				$this->project->gh_project,
-				$this->hookData->issue->number,
-				$table->id
-			)
-		);
-
-		return true;
 	}
 
 	/**
 	 * Method to update data for an issue from GitHub
 	 *
-	 * @return  boolean  True on success
+	 * @return  void
 	 *
 	 * @since   1.0
 	 */
@@ -291,171 +284,276 @@ class ReceiveIssuesHook extends AbstractHookController
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
-			return false;
+			return;
 		}
 
 		$action = $this->hookData->action;
 
-		// Handle an edit a bit differently than a general update
-		if ($action === 'edited')
+		switch ($action)
 		{
-			return $this->editIssue($table);
-		}
+			case 'opened':
+			case 'closed':
+			case 'reopened':
+				// Figure out the state based on the action
+				$status = $this->processStatus($action, $table->status);
 
-		// Figure out the state based on the action
-		$status = $this->processStatus($action, $table->status);
+				// Prepare the dates for insertion to the database
+				$dateFormat = $this->db->getDateFormat();
 
-		// Prepare the dates for insertion to the database
-		$dateFormat = $this->db->getDateFormat();
+				// Plug in required fields based on the model and the current value of fields from the pull request data
+				$data = [
+					'id'              => $table->id,
+					'title'           => $this->hookData->issue->title,
+					'description'     => $this->parseText($this->hookData->issue->body),
+					'description_raw' => $this->hookData->issue->body,
+					'status'          => is_null($status) ? $table->status : $status,
+					'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($dateFormat),
+					'modified_by'     => $this->hookData->sender->login,
+					'priority'        => $table->priority,
+					'build'           => $table->build,
+					'rel_number'      => $table->rel_number,
+					'rel_type'        => $table->rel_type,
+					'milestone_id'    => $table->milestone_id,
+					'labels'          => $this->processLabels($this->hookData->issue->number),
+				];
 
-		// Plug in required fields based on the model and the current value of fields from the pull request data
-		$data = [
-			'id'              => $table->id,
-			'title'           => $this->hookData->issue->title,
-			'description'     => $this->parseText($this->hookData->issue->body),
-			'description_raw' => $this->hookData->issue->body,
-			'status'          => is_null($status) ? $table->status : $status,
-			'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($dateFormat),
-			'modified_by'     => $this->hookData->sender->login,
-			'priority'        => $table->priority,
-			'build'           => $table->build,
-			'rel_number'      => $table->rel_number,
-			'rel_type'        => $table->rel_type,
-			'milestone_id'    => $table->milestone_id,
-		];
+				// Add the closed date if the status is closed
+				if ($this->hookData->issue->closed_at)
+				{
+					$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
+				}
 
-		// Add the closed date if the status is closed
-		if ($this->hookData->issue->closed_at)
-		{
-			$data['closed_date'] = (new Date($this->hookData->issue->closed_at))->format($dateFormat);
-		}
+				if (empty($data['build']))
+				{
+					$data['build'] = $this->hookData->repository->default_branch;
+				}
 
-		// Process labels for the item
-		$data['labels'] = $this->processLabels($this->hookData->issue->number);
+				$model = (new IssueModel($this->db))
+					->setProject(new TrackerProject($this->db, $this->project));
 
-		if (empty($data['build']))
-		{
-			$data['build'] = $this->hookData->repository->default_branch;
-		}
+				// Check if the state has changed (e.g. open/closed)
+				$oldState = $model->getOpenClosed($table->status);
+				$state    = is_null($status) ? $oldState : $model->getOpenClosed($data['status']);
 
-		$model = (new IssueModel($this->db))
-			->setProject(new TrackerProject($this->db, $this->project));
+				$data['old_state'] = $oldState;
+				$data['new_state'] = $state;
 
-		// Check if the state has changed (e.g. open/closed)
-		$oldState = $model->getOpenClosed($table->status);
-		$state    = is_null($status) ? $oldState : $model->getOpenClosed($data['status']);
+				try
+				{
+					$model->save($data);
+				}
+				catch (\Exception $e)
+				{
+					$logMessage = sprintf(
+						'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->hookData->issue->number,
+						$table->id
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
 
-		$data['old_state'] = $oldState;
-		$data['new_state'] = $state;
+					return;
+				}
 
-		try
-		{
-			$model->save($data);
-		}
-		catch (\Exception $e)
-		{
-			$logMessage = sprintf(
-				'Error updating GitHub issue %s/%s #%d (Database ID #%d) in the tracker',
-				$this->project->gh_user,
-				$this->project->gh_project,
-				$this->hookData->issue->number,
-				$table->id
-			);
-			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
-			$this->logger->error($logMessage, ['exception' => $e]);
+				// Refresh the table object for the listeners
+				$table->load($data['id']);
 
-			return false;
-		}
+				try
+				{
+					$this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => $action]);
+				}
+				catch (\Exception $e)
+				{
+					$logMessage = sprintf(
+						'Error processing `onIssueAfterUpdate` event for issue number %d',
+						$this->hookData->issue->number
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
 
-		// Refresh the table object for the listeners
-		$table->load($data['id']);
+					return;
+				}
 
-		try
-		{
-			$this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => $action]);
-		}
-		catch (\Exception $e)
-		{
-			$logMessage = sprintf(
-				'Error processing `onIssueAfterUpdate` event for issue number %d',
-				$this->hookData->issue->number
-			);
-			$this->setStatusCode(500);
-			$this->response->error = $logMessage . ': ' . $e->getMessage();
-			$this->logger->error($logMessage, ['exception' => $e]);
+				// Add a reopen record to the activity table if the status is closed
+				if ($action == 'reopened')
+				{
+					try
+					{
+						$this->addActivityEvent(
+							'reopen',
+							$this->hookData->issue->updated_at,
+							$this->hookData->sender->login,
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+					}
+					catch (\RuntimeException $e)
+					{
+						$logMessage = sprintf(
+							'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+						$this->setStatusCode(500);
+						$this->response->error = $logMessage . ': ' . $e->getMessage();
+						$this->logger->error($logMessage, ['exception' => $e]);
 
-			return false;
-		}
+						return;
+					}
+				}
 
-		// Add a reopen record to the activity table if the status is closed
-		if ($action == 'reopened')
-		{
-			try
-			{
-				$this->addActivityEvent(
-					'reopen',
-					$this->hookData->issue->updated_at,
-					$this->hookData->sender->login,
-					$this->project->project_id,
-					$this->hookData->issue->number
+				// Add a close record to the activity table if the status is closed
+				if ($this->hookData->issue->closed_at)
+				{
+					try
+					{
+						$this->addActivityEvent(
+							'close',
+							$this->hookData->issue->closed_at,
+							$this->hookData->sender->login,
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+					}
+					catch (\RuntimeException $e)
+					{
+						$logMessage = sprintf(
+							'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
+							$this->project->project_id,
+							$this->hookData->issue->number
+						);
+						$this->setStatusCode(500);
+						$this->response->error = $logMessage . ': ' . $e->getMessage();
+						$this->logger->error($logMessage, ['exception' => $e]);
+
+						return;
+					}
+				}
+
+				// Store was successful, update status
+				$this->logger->info(
+					sprintf(
+						'Updated GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->hookData->issue->number,
+						$table->id
+					)
 				);
-			}
-			catch (\RuntimeException $e)
-			{
-				$logMessage = sprintf(
-					'Error storing reopen activity to the database (Project ID: %1$d, Item #: %2$d)',
-					$this->project->project_id,
-					$this->hookData->issue->number
-				);
-				$this->setStatusCode(500);
-				$this->response->error = $logMessage . ': ' . $e->getMessage();
-				$this->logger->error($logMessage, ['exception' => $e]);
 
-				return false;
-			}
+				$this->response->message = 'Hook data processed successfully.';
+
+				break;
+
+			case 'edited':
+				// A false return will set an error message to the response
+				if ($this->editIssue($table))
+				{
+					$this->response->message = 'Hook data processed successfully.';
+				}
+
+				break;
+
+			case 'labeled':
+			case 'unlabeled':
+				$model = (new IssueModel($this->db))
+					->setProject(new TrackerProject($this->db, $this->project));
+
+				$state = $model->getOpenClosed($table->status);
+
+				// Bind over the model's required data with the updated labels
+				$data = array_merge(
+					$data,
+					[
+						'id'              => $table->id,
+						'title'           => $table->title,
+						'description'     => $table->description,
+						'description_raw' => $table->description_raw,
+						'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($this->db->getDateFormat()),
+						'modified_by'     => $this->hookData->sender->login,
+						'status'          => $table->status,
+						'priority'        => $table->priority,
+						'build'           => $table->build,
+						'rel_number'      => $table->rel_number,
+						'rel_type'        => $table->rel_type,
+						'milestone_id'    => $table->milestone_id,
+						'labels'          => $this->processLabels($table->issue_number),
+						'old_state'       => $state,
+						'new_state'       => $state,
+					]
+				);
+
+				try
+				{
+					$this->triggerEvent('onIssueAfterUpdate', ['table' => $table, 'action' => $action]);
+				}
+				catch (\Exception $e)
+				{
+					$logMessage = sprintf(
+						'Error processing `onIssueAfterUpdate` event for issue number %d',
+						$this->hookData->issue->number
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return;
+				}
+
+				// Add a labeled record to the activity table
+				try
+				{
+					$this->addActivityEvent(
+						$action,
+						$this->data->updated_at,
+						$this->hookData->sender->login,
+						$this->project->project_id,
+						$this->data->number
+					);
+				}
+				catch (\RuntimeException $e)
+				{
+					$logMessage = sprintf(
+						'Error storing label activity to the database (Project ID: %1$d, Item #: %2$d)',
+						$this->project->project_id,
+						$this->data->number
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return;
+				}
+
+				// Store was successful, update status
+				$this->logger->info(
+					sprintf(
+						'Updated labels for GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->data->number,
+						$table->id
+					)
+				);
+
+				$this->response->message = 'Hook data processed successfully.';
+
+				break;
+
+			default:
+				$this->response->data = (object) [
+					'processed' => false,
+					'reason'    => "The '$action' action is not supported by this webhook.",
+				];
+
+				$this->response->message = 'Hook data not processed.';
+
+				break;
 		}
-
-		// Add a close record to the activity table if the status is closed
-		if ($this->hookData->issue->closed_at)
-		{
-			try
-			{
-				$this->addActivityEvent(
-					'close',
-					$this->hookData->issue->closed_at,
-					$this->hookData->sender->login,
-					$this->project->project_id,
-					$this->hookData->issue->number
-				);
-			}
-			catch (\RuntimeException $e)
-			{
-				$logMessage = sprintf(
-					'Error storing close activity to the database (Project ID: %1$d, Item #: %2$d)',
-					$this->project->project_id,
-					$this->hookData->issue->number
-				);
-				$this->setStatusCode(500);
-				$this->response->error = $logMessage . ': ' . $e->getMessage();
-				$this->logger->error($logMessage, ['exception' => $e]);
-
-				return false;
-			}
-		}
-
-		// Store was successful, update status
-		$this->logger->info(
-			sprintf(
-				'Updated GitHub issue %s/%s #%d (Database ID #%d) to the tracker.',
-				$this->project->gh_user,
-				$this->project->gh_project,
-				$this->hookData->issue->number,
-				$table->id
-			)
-		);
-
-		return true;
 	}
 
 	/**
@@ -510,7 +608,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				'rel_number'      => $table->rel_number,
 				'rel_type'        => $table->rel_type,
 				'milestone_id'    => $table->milestone_id,
-				'labels'          => $this->processLabels($table->issue_number),
+				'labels'          => $table->labels,
 				'old_state'       => $state,
 				'new_state'       => $state,
 			]

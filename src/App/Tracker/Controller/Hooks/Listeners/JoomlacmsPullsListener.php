@@ -300,17 +300,21 @@ class JoomlacmsPullsListener extends AbstractListener
 			$this->setPending($arguments['logger'], $arguments['project'], $arguments['table']);
 		}
 
-		// Check that pull requests have certain labels
-		$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		// Only perform these events for open/close/edit/sync events
+		if (in_array($arguments['action'], ['opened', 'closed', 'reopened', 'edited', 'synchronize']))
+		{
+			// Check that pull requests have certain labels
+			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-		// Place the JoomlaCode ID in the issue title if it isn't already there
-		$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			// Place the JoomlaCode ID in the issue title if it isn't already there
+			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
-		// Add a RTC label if the item is in that status
-		$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			// Add a RTC label if the item is in that status
+			$this->checkRTClabel($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
-		// Check the Categories based on the files that gets changed
-		$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+			// Check the Categories based on the files that gets changed
+			$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
+		}
 	}
 
 	/**
