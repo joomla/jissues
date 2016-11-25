@@ -465,27 +465,24 @@ class ReceiveIssuesHook extends AbstractHookController
 
 				$state = $model->getOpenClosed($table->status);
 
-				// Bind over the model's required data with the updated labels
-				$data = array_merge(
-					$data,
-					[
-						'id'              => $table->id,
-						'title'           => $table->title,
-						'description'     => $table->description,
-						'description_raw' => $table->description_raw,
-						'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($this->db->getDateFormat()),
-						'modified_by'     => $this->hookData->sender->login,
-						'status'          => $table->status,
-						'priority'        => $table->priority,
-						'build'           => $table->build,
-						'rel_number'      => $table->rel_number,
-						'rel_type'        => $table->rel_type,
-						'milestone_id'    => $table->milestone_id,
-						'labels'          => $this->processLabels($table->issue_number),
-						'old_state'       => $state,
-						'new_state'       => $state,
-					]
-				);
+				// Plug in required fields based on the model and the current value of fields from the pull request data
+				$data = [
+					'id'              => $table->id,
+					'title'           => $table->title,
+					'description'     => $table->description,
+					'description_raw' => $table->description_raw,
+					'modified_date'   => (new Date($this->hookData->issue->updated_at))->format($this->db->getDateFormat()),
+					'modified_by'     => $this->hookData->sender->login,
+					'status'          => $table->status,
+					'priority'        => $table->priority,
+					'build'           => $table->build,
+					'rel_number'      => $table->rel_number,
+					'rel_type'        => $table->rel_type,
+					'milestone_id'    => $table->milestone_id,
+					'labels'          => $this->processLabels($table->issue_number),
+					'old_state'       => $state,
+					'new_state'       => $state,
+				];
 
 				try
 				{

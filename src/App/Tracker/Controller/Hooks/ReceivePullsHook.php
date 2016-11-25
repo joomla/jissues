@@ -595,29 +595,26 @@ class ReceivePullsHook extends AbstractHookController
 				$state = $model->getOpenClosed($table->status);
 
 				// Bind over the model's required data with the updated labels
-				$data = array_merge(
-					$data,
-					[
-						'id'              => $table->id,
-						'title'           => $table->title,
-						'description'     => $table->description,
-						'description_raw' => $table->description_raw,
-						'modified_date'   => (new Date($this->data->updated_at))->format($this->db->getDateFormat()),
-						'modified_by'     => $this->hookData->sender->login,
-						'status'          => $table->status,
-						'priority'        => $table->priority,
-						'build'           => $table->build,
-						'rel_number'      => $table->rel_number,
-						'rel_type'        => $table->rel_type,
-						'milestone_id'    => $table->milestone_id,
-						'labels'          => $this->processLabels($table->issue_number),
-						'old_state'       => $state,
-						'new_state'       => $state,
-						'pr_head_sha'     => $table->pr_head_sha,
-						'pr_head_user'    => $table->pr_head_user,
-						'pr_head_ref'     => $table->pr_head_ref,
-					]
-				);
+				$data = [
+					'id'              => $table->id,
+					'title'           => $table->title,
+					'description'     => $table->description,
+					'description_raw' => $table->description_raw,
+					'modified_date'   => (new Date($this->data->updated_at))->format($this->db->getDateFormat()),
+					'modified_by'     => $this->hookData->sender->login,
+					'status'          => $table->status,
+					'priority'        => $table->priority,
+					'build'           => $table->build,
+					'rel_number'      => $table->rel_number,
+					'rel_type'        => $table->rel_type,
+					'milestone_id'    => $table->milestone_id,
+					'labels'          => $this->processLabels($table->issue_number),
+					'old_state'       => $state,
+					'new_state'       => $state,
+					'pr_head_sha'     => $table->pr_head_sha,
+					'pr_head_user'    => $table->pr_head_user,
+					'pr_head_ref'     => $table->pr_head_ref,
+				];
 
 				try
 				{
