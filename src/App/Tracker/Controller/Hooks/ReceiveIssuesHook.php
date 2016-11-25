@@ -529,7 +529,7 @@ class ReceiveIssuesHook extends AbstractHookController
 				{
 					$this->addActivityEvent(
 						$action,
-						$this->data->updated_at,
+						$this->hookData->issue->updated_at,
 						$this->hookData->sender->login,
 						$this->project->project_id,
 						$this->hookData->issue->number
