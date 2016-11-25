@@ -618,6 +618,29 @@ class ReceivePullsHook extends AbstractHookController
 
 				try
 				{
+					$model->save($data);
+				}
+				catch (\Exception $e)
+				{
+					$logMessage = sprintf(
+						'Error updating labels for GitHub pull request %s/%s #%d (Database ID #%d) in the tracker',
+						$this->project->gh_user,
+						$this->project->gh_project,
+						$this->hookData->issue->number,
+						$table->id
+					);
+					$this->setStatusCode(500);
+					$this->response->error = $logMessage . ': ' . $e->getMessage();
+					$this->logger->error($logMessage, ['exception' => $e]);
+
+					return;
+				}
+
+				// Refresh the table object for the listeners
+				$table->load($data['id']);
+
+				try
+				{
 					$this->triggerEvent('onPullAfterUpdate', ['table' => $table, 'action' => $action]);
 				}
 				catch (\Exception $e)
