@@ -512,7 +512,7 @@ class ReceiveIssuesHook extends AbstractHookController
 						$this->data->updated_at,
 						$this->hookData->sender->login,
 						$this->project->project_id,
-						$this->data->number
+						$this->hookData->issue->number
 					);
 				}
 				catch (\RuntimeException $e)
@@ -520,7 +520,7 @@ class ReceiveIssuesHook extends AbstractHookController
 					$logMessage = sprintf(
 						'Error storing label activity to the database (Project ID: %1$d, Item #: %2$d)',
 						$this->project->project_id,
-						$this->data->number
+						$this->hookData->issue->number
 					);
 					$this->setStatusCode(500);
 					$this->response->error = $logMessage . ': ' . $e->getMessage();
@@ -535,7 +535,7 @@ class ReceiveIssuesHook extends AbstractHookController
 						'Updated labels for GitHub issue %s/%s #%d (Database ID #%d) in the tracker.',
 						$this->project->gh_user,
 						$this->project->gh_project,
-						$this->data->number,
+						$this->hookData->issue->number,
 						$table->id
 					)
 				);
