@@ -561,7 +561,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $composerLabel;
 		}
 		// Remove the label if we don't change a Composer dependency
-		elseif ($composerLabelSet)
+		elseif (!$composerChange && $composerLabelSet)
 		{
 			$removeLabels[] = $composerLabel;
 		}
@@ -575,7 +575,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $languageLabel;
 		}
 		// Remove the label if we don't change the language files
-		elseif ($languageLabelSet)
+		elseif (!$languageChange && $languageLabelSet)
 		{
 			$removeLabels[] = $languageLabel;
 		}
@@ -589,7 +589,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $unitSystemTestsLabel;
 		}
 		// Remove the label if we don't change the Unit/System Tests
-		elseif ($unitSystemTestsLabelSet)
+		elseif (!$unitSystemTestsChange && $unitSystemTestsLabelSet)
 		{
 			$removeLabels[] = $unitSystemTestsLabel;
 		}
