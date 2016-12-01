@@ -535,18 +535,21 @@ class IssueModel extends AbstractTrackerDatabaseModel
 			$data['closed_by']   = null;
 		}
 
-		$data['labels'] = null;
-
-		if (!empty($src['labels']))
+		if (isset($src['labels']))
 		{
-			$labels = [];
+			$data['labels'] = null;
 
-			foreach ($src['labels'] as $labelId)
+			if (!empty($src['labels']))
 			{
-				$labels[] = (int) $labelId;
-			}
+				$labels = [];
 
-			$data['labels'] = implode(',', $labels);
+				foreach ($src['labels'] as $labelId)
+				{
+					$labels[] = (int) $labelId;
+				}
+
+				$data['labels'] = implode(',', $labels);
+			}
 		}
 
 		if (!$data['id'])
