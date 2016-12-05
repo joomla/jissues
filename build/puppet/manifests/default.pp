@@ -88,7 +88,8 @@ class php {
     'php5-mysql',
     'php5-curl',
     'php5-xdebug',
-    'php5-cli'
+    'php5-cli',
+    'php5-intl'
   ]:
     ensure  => 'installed',
     require => Exec['apt-get update'],
