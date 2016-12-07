@@ -14,9 +14,9 @@ use App\Tracker\Table\ActivitiesTable;
 
 use Joomla\Date\Date;
 
+use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Authentication\Exception\AuthenticationException;
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Github\Exception\GithubException;
 use JTracker\Github\GithubFactory;
 use JTracker\Helper\GitHubHelper;
 
@@ -158,7 +158,7 @@ class Save extends AbstractTrackerController
 				// Set the modified_date from GitHub (important!)
 				$data['modified_date'] = $gitHubResponse->updated_at;
 			}
-			catch (GithubException $exception)
+			catch (UnexpectedResponseException $exception)
 			{
 				$application->getLogger()->error(
 					sprintf(
@@ -320,12 +320,10 @@ class Save extends AbstractTrackerController
 	 * @param   integer  $milestone    The milestone to associate this issue with.
 	 * @param   array    $labels       The labels to associate with this issue.
 	 *
-	 * @throws  GithubException
-	 * @throws  \RuntimeException
-	 *
 	 * @return  object  The issue data
 	 *
 	 * @since   1.0
+	 * @throws  \RuntimeException
 	 */
 	private function updateGitHub($issueNumber, array $data, $state, $oldState, $assignee, $milestone, $labels)
 	{
@@ -418,7 +416,7 @@ class Save extends AbstractTrackerController
 				);
 			}
 		}
-		catch (GithubException $exception)
+		catch (UnexpectedResponseException $exception)
 		{
 			// GitHub will return either a 403 or 404 in case there is a permission problem.
 			if (!in_array($exception->getCode(), [403, 404]))

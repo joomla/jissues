@@ -13,8 +13,8 @@ use App\Tracker\Model\IssueModel;
 
 use Joomla\Date\Date;
 
+use Joomla\Http\Exception\UnexpectedResponseException;
 use JTracker\Controller\AbstractTrackerController;
-use JTracker\Github\Exception\GithubException;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -235,7 +235,7 @@ class Submit extends AbstractTrackerController
 				$title, $body, $assignee, $milestone, $labels
 			);
 		}
-		catch (GithubException $exception)
+		catch (UnexpectedResponseException $exception)
 		{
 			$this->getContainer()->get('app')->getLogger()->error(
 				sprintf(
