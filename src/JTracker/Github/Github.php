@@ -16,7 +16,6 @@ use Psr\Log\NullLogger;
 /**
  * Joomla! Tracker class for interacting with a GitHub server instance.
  *
- * @property-read  Package\Issues         $issues         GitHub API object for the issues package.
  * @property-read  Package\Repositories   $repositories   GitHub API object for the repositories package.
  * @property-read  Package\Markdown       $markdown       GitHub API object for the issues package.
  *
