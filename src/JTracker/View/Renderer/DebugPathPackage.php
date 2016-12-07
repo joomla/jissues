@@ -30,10 +30,10 @@ class DebugPathPackage extends BasePathPackage
 	/**
 	 * Package constructor
 	 *
-	 * @param   string                   $basePath
-	 * @param   VersionStrategyInterface $versionStrategy
-	 * @param   ContextInterface         $context
-	 * @param   boolean                  $debug
+	 * @param   string                    $basePath         The base path assets are found in relative to the web directory
+	 * @param   VersionStrategyInterface  $versionStrategy  The version strategy to use with this package
+	 * @param   ContextInterface          $context          The context to use with this package
+	 * @param   boolean                   $debug            Flag if the template is in debug mode
 	 *
 	 * @since   1.0
 	 */
@@ -49,7 +49,7 @@ class DebugPathPackage extends BasePathPackage
 	 *
 	 * @param   string  $path  A path
 	 *
-	 * @return  string The public path
+	 * @return  string  The public path
 	 *
 	 * @since   1.0
 	 */
