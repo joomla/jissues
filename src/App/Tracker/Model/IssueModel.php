@@ -537,7 +537,7 @@ class IssueModel extends AbstractTrackerDatabaseModel
 
 		$data['labels'] = null;
 
-		if (!empty($src['labels']))
+		if (is_array($src['labels']) && !empty($src['labels']))
 		{
 			$labels = [];
 
