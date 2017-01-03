@@ -104,6 +104,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			'^administrator/language',
 			'^installation/language',
 			'^language',
+			'^media/system/js/fields/calendar-locales',
 		],
 		// Plugins
 		'28' => ['^plugins/'],
