@@ -88,7 +88,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Fra
 			'libraries/vendor/' => ['4', '12'],
 			'media/editors/codemirror' => ['4'],
 			'media/editors/tinymce' => ['4'],
-			'media/system/js/fields/calendar-locales/el.js' => ['27'],
+			'media/system/js/fields/calendar-locales/el.js' => ['1', '27'],
 			'modules/' => ['13', '24'],
 			'phpunit.xml.dist' => ['14'],
 			'plugins/' => ['24', '28'],
