@@ -134,6 +134,8 @@ class JoomlacmsPullsListener extends AbstractListener
 		],
 		// Component com_admin
 		'42' => ['^administrator/components/com_admin'],
+		// Component com_associations
+		'72' => ['^administrator/components/com_associations'],
 		// Component com_banners
 		'43' => [
 			'^administrator/components/com_banners',
