@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0eefe4e4e91c258afeee43ca79dd142",
+    "content-hash": "64b8e5feedabc2a9b00f723666cafa11",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -1651,12 +1651,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-framework/view.git",
-                "reference": "49edb48be2537c58c9b977cd37a6a59b9019f0e9"
+                "reference": "cc23d22f8f314e3f81e6e52247605a277b91aaa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-framework/view/zipball/49edb48be2537c58c9b977cd37a6a59b9019f0e9",
-                "reference": "49edb48be2537c58c9b977cd37a6a59b9019f0e9",
+                "url": "https://api.github.com/repos/joomla-framework/view/zipball/cc23d22f8f314e3f81e6e52247605a277b91aaa9",
+                "reference": "cc23d22f8f314e3f81e6e52247605a277b91aaa9",
                 "shasum": ""
             },
             "require": {
@@ -1693,7 +1693,7 @@
                 "joomla",
                 "view"
             ],
-            "time": "2017-01-28 20:01:47"
+            "time": "2017-01-28 19:57:27"
         },
         {
             "name": "league/flysystem",
