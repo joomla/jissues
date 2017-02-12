@@ -18,14 +18,6 @@ use JTracker\Helper\IpHelper;
 class IpHelperTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * Array of global variables to blacklist when the global state snapshot is taken
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $backupGlobalsBlacklist = ['container'];
-
-	/**
 	 * Test cases for the testIpInRange method
 	 *
 	 * @return  array
