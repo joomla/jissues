@@ -89,18 +89,6 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	}
 
 	/**
-	 * Returns the name of the extension.
-	 *
-	 * @return  string  The extension name.
-	 *
-	 * @since   1.0
-	 */
-	public function getName()
-	{
-		return 'tracker';
-	}
-
-	/**
 	 * Returns a list of global variables to add to the existing list.
 	 *
 	 * @return  array  An array of global variables.
@@ -127,46 +115,46 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	/**
 	 * Returns a list of functions to add to the existing list.
 	 *
-	 * @return  array  An array of functions.
+	 * @return  \Twig_Function[]  An array of functions.
 	 *
 	 * @since   1.0
 	 */
 	public function getFunctions()
 	{
 		$functions = [
-			new \Twig_SimpleFunction('translate', 'g11n3t'),
-			new \Twig_SimpleFunction('_', 'g11n3t'),
-			new \Twig_SimpleFunction('g11n4t', 'g11n4t'),
-			new \Twig_SimpleFunction('sprintf', 'sprintf'),
-			new \Twig_SimpleFunction('stripJRoot', [$this, 'stripJRoot']),
-			new \Twig_SimpleFunction('asset', [$this, 'getAssetUrl']),
-			new \Twig_SimpleFunction('avatar', [$this, 'fetchAvatar']),
-			new \Twig_SimpleFunction('prioClass', [$this, 'getPrioClass']),
-			new \Twig_SimpleFunction('priorities', [$this, 'getPriorities']),
-			new \Twig_SimpleFunction('getPriority', [$this, 'getPriority']),
-			new \Twig_SimpleFunction('status', [$this, 'getStatus']),
-			new \Twig_SimpleFunction('getStatuses', [$this, 'getStatuses']),
-			new \Twig_SimpleFunction('translateStatus', [$this, 'translateStatus']),
-			new \Twig_SimpleFunction('relation', [$this, 'getRelation']),
-			new \Twig_SimpleFunction('issueLink', [$this, 'issueLink']),
-			new \Twig_SimpleFunction('getRelTypes', [$this, 'getRelTypes']),
-			new \Twig_SimpleFunction('getRelType', [$this, 'getRelType']),
-			new \Twig_SimpleFunction('getTimezones', [$this, 'getTimezones']),
-			new \Twig_SimpleFunction('getContrastColor', [$this, 'getContrastColor']),
-			new \Twig_SimpleFunction('renderDiff', [$this, 'renderDiff']),
-			new \Twig_SimpleFunction('renderLabels', [$this, 'renderLabels']),
-			new \Twig_SimpleFunction('arrayDiff', [$this, 'arrayDiff']),
-			new \Twig_SimpleFunction('userTestOptions', [$this, 'getUserTestOptions']),
-			new \Twig_SimpleFunction('getMilestoneTitle', [$this, 'getMilestoneTitle']),
-			new \Twig_SimpleFunction('cdn_footer', [$this, 'getCdnFooter']),
-			new \Twig_SimpleFunction('cdn_menu', [$this, 'getCdnMenu']),
-			new \Twig_SimpleFunction('datepicker_locale_js', [$this, 'getDatepickerLocaleJs']),
-			new \Twig_SimpleFunction('datepicker_locale_code', [$this, 'getDatepickerLocaleCode']),
+			new \Twig_Function('translate', 'g11n3t'),
+			new \Twig_Function('_', 'g11n3t'),
+			new \Twig_Function('g11n4t', 'g11n4t'),
+			new \Twig_Function('sprintf', 'sprintf'),
+			new \Twig_Function('stripJRoot', [$this, 'stripJRoot']),
+			new \Twig_Function('asset', [$this, 'getAssetUrl']),
+			new \Twig_Function('avatar', [$this, 'fetchAvatar']),
+			new \Twig_Function('prioClass', [$this, 'getPrioClass']),
+			new \Twig_Function('priorities', [$this, 'getPriorities']),
+			new \Twig_Function('getPriority', [$this, 'getPriority']),
+			new \Twig_Function('status', [$this, 'getStatus']),
+			new \Twig_Function('getStatuses', [$this, 'getStatuses']),
+			new \Twig_Function('translateStatus', [$this, 'translateStatus']),
+			new \Twig_Function('relation', [$this, 'getRelation']),
+			new \Twig_Function('issueLink', [$this, 'issueLink']),
+			new \Twig_Function('getRelTypes', [$this, 'getRelTypes']),
+			new \Twig_Function('getRelType', [$this, 'getRelType']),
+			new \Twig_Function('getTimezones', [$this, 'getTimezones']),
+			new \Twig_Function('getContrastColor', [$this, 'getContrastColor']),
+			new \Twig_Function('renderDiff', [$this, 'renderDiff']),
+			new \Twig_Function('renderLabels', [$this, 'renderLabels']),
+			new \Twig_Function('arrayDiff', [$this, 'arrayDiff']),
+			new \Twig_Function('userTestOptions', [$this, 'getUserTestOptions']),
+			new \Twig_Function('getMilestoneTitle', [$this, 'getMilestoneTitle']),
+			new \Twig_Function('cdn_footer', [$this, 'getCdnFooter']),
+			new \Twig_Function('cdn_menu', [$this, 'getCdnMenu']),
+			new \Twig_Function('datepicker_locale_js', [$this, 'getDatepickerLocaleJs']),
+			new \Twig_Function('datepicker_locale_code', [$this, 'getDatepickerLocaleCode']),
 		];
 
 		if (!JDEBUG)
 		{
-			array_push($functions, new \Twig_SimpleFunction('dump', [$this, 'dump']));
+			array_push($functions, new \Twig_Function('dump', [$this, 'dump']));
 		}
 
 		return $functions;
@@ -175,23 +163,23 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 	/**
 	 * Returns a list of filters to add to the existing list.
 	 *
-	 * @return  array  An array of filters
+	 * @return  \Twig_Filter[]  An array of filters
 	 *
 	 * @since   1.0
 	 */
 	public function getFilters()
 	{
 		return [
-			new \Twig_SimpleFilter('basename', 'basename'),
-			new \Twig_SimpleFilter('get_class', 'get_class'),
-			new \Twig_SimpleFilter('json_decode', 'json_decode'),
-			new \Twig_SimpleFilter('stripJRoot', [$this, 'stripJRoot']),
-			new \Twig_SimpleFilter('contrastColor', [$this, 'getContrastColor']),
-			new \Twig_SimpleFilter('labels', [$this, 'renderLabels']),
-			new \Twig_SimpleFilter('yesno', [$this, 'yesNo']),
-			new \Twig_SimpleFilter('_', 'g11n3t'),
-			new \Twig_SimpleFilter('mergeStatus', [$this, 'getMergeStatus']),
-			new \Twig_SimpleFilter('mergeBadge', [$this, 'renderMergeBadge']),
+			new \Twig_Filter('basename', 'basename'),
+			new \Twig_Filter('get_class', 'get_class'),
+			new \Twig_Filter('json_decode', 'json_decode'),
+			new \Twig_Filter('stripJRoot', [$this, 'stripJRoot']),
+			new \Twig_Filter('contrastColor', [$this, 'getContrastColor']),
+			new \Twig_Filter('labels', [$this, 'renderLabels']),
+			new \Twig_Filter('yesno', [$this, 'yesNo']),
+			new \Twig_Filter('_', 'g11n3t'),
+			new \Twig_Filter('mergeStatus', [$this, 'getMergeStatus']),
+			new \Twig_Filter('mergeBadge', [$this, 'renderMergeBadge']),
 		];
 	}
 

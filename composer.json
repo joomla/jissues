@@ -32,7 +32,7 @@
         "joomla/view": "dev-2.0-dev#cc23d22f8f314e3f81e6e52247605a277b91aaa9",
         "symfony/asset": "3.2.*",
         "symfony/http-foundation": "3.2.*",
-        "twig/twig": "~1.23",
+        "twig/twig": "~2.0",
         "elkuku/g11n": "~3.0",
         "elkuku/console-progressbar": "1.0",
         "elkuku/crowdin-api": "~1.0",
