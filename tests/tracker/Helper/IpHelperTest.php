@@ -9,13 +9,14 @@
 namespace JTracker\Tests\Helper;
 
 use JTracker\Helper\IpHelper;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test class for \JTracker\Helper\IpHelper
  *
  * @since  1.0
  */
-class IpHelperTest extends \PHPUnit_Framework_TestCase
+class IpHelperTest extends TestCase
 {
 	/**
 	 * Test cases for the testIpInRange method

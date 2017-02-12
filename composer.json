@@ -48,7 +48,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~1.11",
         "mustache/mustache": "2.1.*",
-        "phpunit/phpunit"  : "4.*",
+        "phpunit/phpunit"  : "~6.0",
         "squizlabs/php_codesniffer": "1.*",
         "sebastian/phpcpd": "*",
         "phploc/phploc": "*",

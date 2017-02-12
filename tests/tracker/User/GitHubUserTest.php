@@ -9,17 +9,16 @@
 namespace Joomla\Tracker\Tests\Authentication\GitHub;
 
 use App\Projects\TrackerProject;
-
 use Joomla\Database\DatabaseDriver;
-
 use JTracker\Authentication\GitHub\GitHubUser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class GitHubUserTest.
  *
  * @since  1.0
  */
-class GitHubUserTest extends \PHPUnit_Framework_TestCase
+class GitHubUserTest extends TestCase
 {
 	/**
 	 * @var    GitHubUser

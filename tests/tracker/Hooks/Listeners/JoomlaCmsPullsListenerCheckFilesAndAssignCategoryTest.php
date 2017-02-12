@@ -9,13 +9,14 @@
 namespace Joomla\Tracker\Tests\Hooks\Listeners;
 
 use JTracker\Tests\Mocks\JoomlaCmsPullsListenerMock;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest
  *
  * @since  1.0
  */
-class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Framework_TestCase
+class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 {
 	/**
 	 * @var    JoomlaCmsPullsListenerMock
