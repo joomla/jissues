@@ -11,7 +11,7 @@ include jissues
 class jissues {
   file { '/var/www/jissues':
     target  => '/vagrant/www',
-    ensure  => 'link',
+    ensure  => link,
     require => Package['apache2'],
     notify  => Service['apache2'],
   }
@@ -24,11 +24,32 @@ class system {
     ensure  => installed,
     require => Exec['apt-get update'],
   }
+
   file { '/etc/environment':
     ensure  => present,
     source  => '/vagrant/build/puppet/files/etc/environment',
     owner => 'root',
     group => 'root';
+  }
+}
+
+include dotdeb
+
+class dotdeb {
+  exec { 'get-dotdeb':
+    command => 'wget https://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg'
+  }
+
+  file { '/etc/apt/sources.list.d/dotdeb.list':
+    ensure  => present,
+    source  => '/vagrant/build/puppet/files/etc/dotdeb.list',
+    owner => 'root',
+    group => 'root';
+  }
+
+  exec { 'update-cache':
+    command => 'aptitude update',
+    require => File['/etc/apt/sources.list.d/dotdeb.list']
   }
 }
 
@@ -75,7 +96,7 @@ class mysql {
   }
 
   service { 'mysql':
-    ensure  => 'running',
+    ensure  => running,
     require => Package['mysql-server'],
   }
 }
@@ -84,26 +105,26 @@ include php
 
 class php {
   package { [
-    'php5',
-    'php5-mysql',
-    'php5-curl',
-    'php5-xdebug',
-    'php5-cli',
-    'php5-intl'
+    'php7.0',
+    'php7.0-mysql',
+    'php7.0-curl',
+    'php7.0-xdebug',
+    'php7.0-cli',
+    'php7.0-intl'
   ]:
-    ensure  => 'installed',
-    require => Exec['apt-get update'],
+    ensure  => installed,
+    require => Exec[update-cache]
   }
 
-  file { '/etc/php5/apache2/conf.d/21-xdebug.ini':
+  file { '/etc/php/7.0/apache2/conf.d/98-xdebug.ini':
     ensure  => present,
-    require => Package['php5'],
-    source  => '/vagrant/build/puppet/files/php/21-xdebug.ini';
+    require => Package['php7.0'],
+    source  => '/vagrant/build/puppet/files/php/xdebug.ini';
   }
 
-  file { '/etc/php5/apache2/conf.d/99-php.ini':
+  file { '/etc/php/7.0/apache2/conf.d/99-php.ini':
     ensure  => present,
-    require => Package['php5'],
-    source  => '/vagrant/build/puppet/files/php/99-php.ini';
+    require => Package['php7.0'],
+    source  => '/vagrant/build/puppet/files/php/php.ini';
   }
 }
