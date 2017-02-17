@@ -9,22 +9,15 @@
 namespace Joomla\Tracker\Tests\Hooks\Listeners;
 
 use JTracker\Tests\Mocks\JoomlaCmsPullsListenerMock;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest
  *
  * @since  1.0
  */
-class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends \PHPUnit_Framework_TestCase
+class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 {
-	/**
-	 * Array of global variables to blacklist when the global state snapshot is taken
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $backupGlobalsBlacklist = ['container'];
-
 	/**
 	 * @var    JoomlaCmsPullsListenerMock
 	 * @since  1.0

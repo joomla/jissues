@@ -9,26 +9,17 @@
 namespace Joomla\Tracker\Tests\Authentication\GitHub;
 
 use App\Projects\TrackerProject;
-
 use Joomla\Database\DatabaseDriver;
-
 use JTracker\Authentication\GitHub\GitHubUser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class GitHubUserTest.
  *
  * @since  1.0
  */
-class GitHubUserTest extends \PHPUnit_Framework_TestCase
+class GitHubUserTest extends TestCase
 {
-	/**
-	 * Array of global variables to blacklist when the global state snapshot is taken
-	 *
-	 * @var    array
-	 * @since  1.0
-	 */
-	protected $backupGlobalsBlacklist = ['container'];
-
 	/**
 	 * @var    GitHubUser
 	 * @since  1.0

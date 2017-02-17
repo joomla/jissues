@@ -8,7 +8,7 @@
 
 namespace Application\Command\Test;
 
-use PHPUnit_TextUI_Command;
+use PHPUnit\TextUI\Command;
 
 /**
  * Class for running PHPUnit tests.
@@ -40,7 +40,7 @@ class Phpunit extends Test
 	{
 		$this->getApplication()->outputTitle(g11n3t('Test PHPUnit'));
 
-		$command = new PHPUnit_TextUI_Command;
+		$command = new Command;
 
 		$options = [
 			'--configuration=' . JPATH_ROOT . '/phpunit.xml',
