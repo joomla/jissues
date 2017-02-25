@@ -1,12 +1,12 @@
 ## Dependencies for joomla/tracker 1.0.0-beta
 
-Issue Tracking application built on the Joomla! Framework integrating with GitHub to replace the existing Joomlacode solution.
+Issue tracking application extending GitHub's issues and pull requests for the Joomla! project.
 
 * Source URL: https://github.com/joomla/jissues
 
 ### Core
 
-* PHP version: &gt;=5.5
+* PHP version: &gt;=7.0
 * Database: MySQL
 
 ### PHP - Production
@@ -22,15 +22,22 @@ Issue Tracking application built on the Joomla! Framework integrating with GitHu
 
 
 
-* Installed:
-* Source URL:
+* Installed:  
+* Source URL: 
 
 #### joomla/application (~1.4)
 
 Joomla Application Package
 
-* Installed: 1.6.0 
+* Installed: 1.7.0 
 * Source URL: https://github.com/joomla-framework/application.git
+
+#### joomla/cache (~2.0@dev)
+
+Joomla Cache Package
+
+* Installed: dev-2.0-dev 
+* Source URL: https://github.com/joomla-framework/cache.git
 
 #### joomla/controller (~1.1)
 
@@ -43,14 +50,14 @@ Joomla Controller Package
 
 Joomla Database Package
 
-* Installed: 1.4.2 
+* Installed: 1.5.0 
 * Source URL: https://github.com/joomla-framework/database.git
 
 #### joomla/date (~1.1)
 
 Joomla Date Package
 
-* Installed: 1.1.1 
+* Installed: 1.1.3 
 * Source URL: https://github.com/joomla-framework/date.git
 
 #### joomla/di (~1.1)
@@ -71,21 +78,21 @@ Joomla Event Package
 
 Joomla Filter Package
 
-* Installed: 1.2.0 
+* Installed: 1.3.0 
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (~1.2)
 
 Joomla Github Package
 
-* Installed: 1.4.0 
+* Installed: 1.5.3 
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1)
 
 Joomla HTTP Package
 
-* Installed: 1.2.2 
+* Installed: 1.3.0 
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1)
@@ -99,14 +106,14 @@ Joomla Input Package
 
 Joomla Model Package
 
-* Installed: 1.2.0 
+* Installed: 1.3.0 
 * Source URL: https://github.com/joomla-framework/model.git
 
 #### joomla/oauth2 (~1.1)
 
 Joomla OAuth2 Package
 
-* Installed: 1.1.4
+* Installed: 1.1.4 
 * Source URL: https://github.com/joomla-framework/oauth2.git
 
 #### joomla/profiler (~1.1)
@@ -127,7 +134,7 @@ Joomla Registry Package
 
 Joomla Renderer Package
 
-* Installed: dev-master af4fe2a19d3f5d46a9b517b1b4d615c02d6341f1
+* Installed: dev-master b0e67e4bf3056ef2d2cd68c149733275bb17ebdb
 * Source URL: https://github.com/joomla-framework/renderer.git
 
 #### joomla/router (~1.1)
@@ -141,7 +148,7 @@ Joomla Router Package
 
 Joomla String Package
 
-* Installed: 1.4.0 
+* Installed: 1.4.1 
 * Source URL: https://github.com/joomla-framework/string.git
 
 #### joomla/uri (~1.1)
@@ -155,35 +162,42 @@ Joomla Uri Package
 
 Joomla Utilities Package
 
-* Installed: 1.4.0 
+* Installed: 1.4.1 
 * Source URL: https://github.com/joomla-framework/utilities.git
 
-#### joomla/view (~2.0@dev)
+#### joomla/view (dev-2.0-dev#cc23d22f8f314e3f81e6e52247605a277b91aaa9)
 
 Joomla View Package
 
 * Installed: dev-2.0-dev 
 * Source URL: https://github.com/joomla-framework/view.git
 
-#### symfony/http-foundation (2.8.*)
+#### symfony/asset (3.2.*)
+
+Symfony Asset Component
+
+* Installed: v3.2.3 
+* Source URL: https://github.com/symfony/asset.git
+
+#### symfony/http-foundation (3.2.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v2.8.8
+* Installed: v3.2.3 
 * Source URL: https://github.com/symfony/http-foundation.git
 
-#### twig/twig (~1.23)
+#### twig/twig (~2.0)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v1.24.1 
+* Installed: v2.1.0 
 * Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (~3.0)
 
 The g11n language library
 
-* Installed: 3.0
+* Installed: 3.0 
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -197,7 +211,7 @@ This class provides you with an easy-to-use interface to progress bars.
 
 A crowdin API implementation in PHP
 
-* Installed: 1.1 
+* Installed: 1.1.1 
 * Source URL: https://github.com/elkuku/crowdin-api.git
 
 #### babdev/transifex (~1.0)
@@ -218,21 +232,21 @@ Handle file uploads with extensible validation and storage strategies
 
 php error handling for cool kids
 
-* Installed: 2.1.2 
+* Installed: 2.1.5 
 * Source URL: https://github.com/filp/whoops.git
 
 #### league/flysystem (~1.0)
 
 Filesystem abstraction: Many filesystems, one API.
 
-* Installed: 1.0.24 
+* Installed: 1.0.35 
 * Source URL: https://github.com/thephpleague/flysystem.git
 
 #### monolog/monolog (1.*)
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.20.0
+* Installed: 1.22.0 
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (~1.0)
@@ -249,7 +263,21 @@ A comprehensive library for generating differences between two hashable objects 
 * Installed: v1.0.3 
 * Source URL: https://github.com/adaptivemedia/php-text-difference.git
 
+#### pulse00/monolog-parser (^0.0.3)
+
+A parser for monolog log entries
+
+* Installed: 0.0.3 
+* Source URL: https://github.com/pulse00/monolog-parser.git
+
 ### PHP - Development
+
+#### friendsofphp/php-cs-fixer (~1.11)
+
+A tool to automatically fix PHP code style
+
+* Installed: v1.13.1 
+* Source URL: https://github.com/FriendsOfPHP/PHP-CS-Fixer.git
 
 #### mustache/mustache (2.1.*)
 
@@ -258,11 +286,11 @@ A Mustache implementation in PHP.
 * Installed: v2.1.0 
 * Source URL: https://github.com/bobthecow/mustache.php.git
 
-#### phpunit/phpunit (4.*)
+#### phpunit/phpunit (~6.0)
 
 The PHP Unit Testing framework.
 
-* Installed: 4.8.26 
+* Installed: 6.0.6 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*)
@@ -283,7 +311,7 @@ Copy/Paste Detector (CPD) for PHP code.
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: 3.0.1
+* Installed: 3.0.1 
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
@@ -301,7 +329,7 @@ jQuery component
 
 * Source URL: https://github.com/jquery/jquery-dist
 
-#### jquery-validation (1.15.0)
+#### jquery-validation (1.15.1)
 
 Form validation made easy
 
@@ -403,11 +431,17 @@ Transition - Semantic UI
 
 * Source URL: http://www.semantic-ui.com
 
-#### octicons (4.2.0)
+#### octicons (4.3.0)
 
 
 
 * Source URL: https://github.com/github/octicons
+
+#### bootstrap-datepicker (1.6.4)
+
+
+
+* Source URL: https://github.com/eternicode/bootstrap-datepicker
 
 
 ## Credits
