@@ -363,7 +363,7 @@ class Save extends AbstractTrackerController
 			// The milestone and labels are silently dropped,
 			// so try to update the milestone and/or labels if they are not set.
 			if ((!empty($milestone) && empty($gitHubResponse->milestone)
-				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone->number)))
 			{
 				$needUpdate = true;
 			}
@@ -440,7 +440,7 @@ class Save extends AbstractTrackerController
 			// The milestone and labels are silently dropped,
 			// so try to update the milestone and/or labels if they are not set.
 			if ((!empty($milestone) && empty($gitHubResponse->milestone)
-				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone)))
+				|| (!empty($milestone) && $milestone != $gitHubResponse->milestone->number)))
 			{
 				$needUpdate = true;
 			}
