@@ -14,8 +14,8 @@ use ElKuKu\G11n\Support\ExtensionHelper as g11nExtensionHelper;
 
 use JTracker\Helper\LanguageHelper;
 
-use Mustache_Engine;
-use Mustache_Loader_FilesystemLoader;
+use Twig_Environment;
+use Twig_Loader_Filesystem;
 
 /**
  * Class for generating a dependency file.
@@ -112,12 +112,14 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-		$contents = (new Mustache_Engine)
-			->render(
-				(new Mustache_Loader_FilesystemLoader(__DIR__ . '/tpl'))
-					->load('depfile'),
-				$this
-			);
+		$twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__ . '/tpl'));
+
+		$twig->setCache(false);
+
+		$contents = $twig->render(
+			'dependencies.twig',
+			['dependencies' => $this->dependencies, 'product' => $this->product]
+		);
 
 		$fileName = $this->getOption('file');
 

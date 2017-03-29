@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "066a25e04a9e121e3d09ec7872e2f7ff",
+    "content-hash": "7aa43c5c4c3d0e823cfc294f9720db26",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -2716,48 +2716,6 @@
             ],
             "description": "Builds a Dependency Graph from a composer.json file",
             "time": "2013-05-15T18:04:27+00:00"
-        },
-        {
-            "name": "mustache/mustache",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
-                "reference": "6ac9cf03e47a0ca38257ef0aca765d0733f3c62c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mustache": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
-                }
-            ],
-            "description": "A Mustache implementation in PHP.",
-            "homepage": "https://github.com/bobthecow/mustache.php",
-            "keywords": [
-                "mustache",
-                "templating"
-            ],
-            "time": "2013-01-12T07:18:03+00:00"
         },
         {
             "name": "myclabs/deep-copy",

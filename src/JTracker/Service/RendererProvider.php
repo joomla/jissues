@@ -10,7 +10,6 @@ namespace JTracker\Service;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Renderer\MustacheRenderer;
 use Joomla\Renderer\TwigRenderer;
 use JTracker\View\Renderer\ApplicationContext;
 use JTracker\View\Renderer\DebugPathPackage;
@@ -76,22 +75,6 @@ class RendererProvider implements ServiceProviderInterface
 					);
 
 					return new TwigRenderer($environment);
-				},
-				true
-			);
-
-		$container->alias('renderer.mustache', MustacheRenderer::class)
-			->share(
-				MustacheRenderer::class,
-				function (Container $container) {
-					$engine = new \Mustache_Engine(
-						[
-							'loader'          => new \Mustache_Loader_FilesystemLoader(JPATH_TEMPLATES),
-							'partials_loader' => new \Mustache_Loader_FilesystemLoader(JPATH_TEMPLATES),
-						]
-					);
-
-					return new MustacheRenderer($engine);
 				},
 				true
 			);
