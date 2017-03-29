@@ -1,6 +1,6 @@
 ## Dependencies for joomla/tracker 1.0.0-beta
 
-Issue tracking application extending GitHub's issues and pull requests for the Joomla! project.
+Issue tracking application extending GitHub&#039;s issues and pull requests for the Joomla! project.
 
 * Source URL: https://github.com/joomla/jissues
 
@@ -13,17 +13,7 @@ Issue tracking application extending GitHub's issues and pull requests for the J
 
 #### ext-curl (*)
 
-
-
-* Installed:  
-* Source URL: 
-
 #### ext-intl (*)
-
-
-
-* Installed:  
-* Source URL: 
 
 #### joomla/application (~1.4)
 
@@ -134,7 +124,7 @@ Joomla Registry Package
 
 Joomla Renderer Package
 
-* Installed: dev-master b0e67e4bf3056ef2d2cd68c149733275bb17ebdb
+* Installed: dev-master 653175a30e3a08ddc6436794df457b20082f5407
 * Source URL: https://github.com/joomla-framework/renderer.git
 
 #### joomla/router (~1.1)
@@ -176,21 +166,21 @@ Joomla View Package
 
 Symfony Asset Component
 
-* Installed: v3.2.3 
+* Installed: v3.2.6 
 * Source URL: https://github.com/symfony/asset.git
 
 #### symfony/http-foundation (3.2.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v3.2.3 
+* Installed: v3.2.6 
 * Source URL: https://github.com/symfony/http-foundation.git
 
 #### twig/twig (~2.0)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v2.1.0 
+* Installed: v2.3.0 
 * Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (~3.0)
@@ -232,29 +222,29 @@ Handle file uploads with extensible validation and storage strategies
 
 php error handling for cool kids
 
-* Installed: 2.1.5 
+* Installed: 2.1.8 
 * Source URL: https://github.com/filp/whoops.git
 
 #### league/flysystem (~1.0)
 
 Filesystem abstraction: Many filesystems, one API.
 
-* Installed: 1.0.35 
+* Installed: 1.0.37 
 * Source URL: https://github.com/thephpleague/flysystem.git
 
 #### monolog/monolog (1.*)
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.22.0 
+* Installed: 1.22.1 
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### raveren/kint (~1.0)
 
 Kint - debugging helper for PHP developers
 
-* Installed: 1.0.10 
-* Source URL: https://github.com/raveren/kint.git
+* Installed: 1.1 
+* Source URL: https://github.com/kint-php/kint.git
 
 #### adaptive/php-text-difference (1.*)
 
@@ -279,18 +269,11 @@ A tool to automatically fix PHP code style
 * Installed: v1.13.1 
 * Source URL: https://github.com/FriendsOfPHP/PHP-CS-Fixer.git
 
-#### mustache/mustache (2.1.*)
-
-A Mustache implementation in PHP.
-
-* Installed: v2.1.0 
-* Source URL: https://github.com/bobthecow/mustache.php.git
-
 #### phpunit/phpunit (~6.0)
 
 The PHP Unit Testing framework.
 
-* Installed: 6.0.6 
+* Installed: 6.0.10 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*)
@@ -337,8 +320,6 @@ Form validation made easy
 
 #### bootstrap (2.3.2)
 
-
-
 * Source URL: https://github.com/twbs/bootstrap
 
 #### bootstrap-switch (3.3.2)
@@ -348,8 +329,6 @@ Turn checkboxes and radio buttons in toggle switches.
 * Source URL: https://github.com/nostalgiaz/bootstrap-switch
 
 #### markitup (1.1.14)
-
-
 
 * Source URL: https://github.com/markitup/1.x
 
@@ -361,8 +340,6 @@ Turn checkboxes and radio buttons in toggle switches.
 
 #### blueimp-canvas-to-blob (3.3.0)
 
-
-
 * Source URL: https://github.com/blueimp/JavaScript-Canvas-to-Blob
 
 #### blueimp-file-upload (9.3.0)
@@ -372,8 +349,6 @@ File Upload widget with multiple file selection, drag&amp;amp;drop support, prog
 * Source URL: https://github.com/blueimp/jQuery-File-Upload
 
 #### jquery-textrange (1.3.3)
-
-
 
 * Source URL: https://github.com/dwieeb/jquery-textrange
 
@@ -391,8 +366,6 @@ jQuery simple pagination plugin for bootstrap-style webpages
 
 #### bootstrap-select (1.10.0)
 
-
-
 * Source URL: http://silviomoreto.github.io/bootstrap-select
 
 #### d3 (3.5.16)
@@ -409,13 +382,9 @@ A dead-simple jQuery color picker.
 
 #### Caret.js (0.3.1)
 
-
-
 * Source URL: https://github.com/ichord/Caret.js
 
 #### jquery.atwho (1.5.0)
-
-
 
 * Source URL: https://github.com/ichord/At.js
 
@@ -433,16 +402,11 @@ Transition - Semantic UI
 
 #### octicons (4.3.0)
 
-
-
 * Source URL: https://github.com/github/octicons
 
 #### bootstrap-datepicker (1.6.4)
 
-
-
 * Source URL: https://github.com/eternicode/bootstrap-datepicker
-
 
 ## Credits
 
@@ -450,13 +414,9 @@ Transition - Semantic UI
 
 #### jQuery File Tree
 
-
-
 * https://www.abeautifulsite.net/jquery-file-tree
 
 #### Flags Icons
-
-
 
 * http://forum.tsgk.com/viewtopic.php?t=4921
 

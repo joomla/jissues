@@ -112,14 +112,14 @@ class Depfile extends Make
 
 		$this->dependencies = $this->getSorted($defined, $packages);
 
-        $twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__ . '/tpl'));
+		$twig = new Twig_Environment(new Twig_Loader_Filesystem(__DIR__ . '/tpl'));
 
-        $twig->setCache(false);
+		$twig->setCache(false);
 
-        $contents = $twig->render(
-            'dependencies.twig',
-            ['dependencies' => $this->dependencies, 'product' => $this->product]
-        );
+		$contents = $twig->render(
+			'dependencies.twig',
+			['dependencies' => $this->dependencies, 'product' => $this->product]
+		);
 
 		$fileName = $this->getOption('file');
 
