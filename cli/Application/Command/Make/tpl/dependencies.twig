@@ -1,0 +1,66 @@
+## Dependencies for {{ product.name }} {{ product.version }}
+
+{{ product.description}}
+
+* Source URL: {{ product.homepage }}
+
+### Core
+
+* PHP version: {{ dependencies['php-version'] }}
+* Database: MySQL
+
+### PHP - Production
+{% for d in dependencies.php %}
+
+#### {{ d.packageName }} ({{ d.version }})
+{% if d.description %}
+
+{{ d.description }}
+
+{% endif %}
+{% if d.installed %}
+* Installed: {{ d.installed }} {{ d.sourceRef }}
+{% endif %}
+{% if d.sourceURL %}
+* Source URL: {{ d.sourceURL }}
+{% endif %}
+{% endfor %}
+
+### PHP - Development
+
+{% for d in dependencies['php-dev'] %}
+#### {{ d.packageName }} ({{ d.version }})
+
+{{ d.description }}
+
+* Installed: {{ d.installed }} {{ d.sourceRef }}
+* Source URL: {{ d.sourceURL }}
+
+{% endfor %}
+### JavaScript
+
+{% for d in dependencies.javascript %}
+#### {{ d.packageName }} ({{ d.version }})
+{% if d.description %}
+
+{{ d.description }}
+{% endif %}
+
+* Source URL: {{ d.sourceURL }}
+
+{% endfor %}
+## Credits
+{% for c in dependencies.credits %}
+
+### {{ c.group }}
+{% for i in c.items %}
+
+#### {{ i.title }}
+{% if i.description %}
+
+{{ i.description }}
+{% endif %}
+
+* {{ i.homepage }}
+{% endfor %}
+{% endfor %}
