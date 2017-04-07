@@ -73,8 +73,8 @@
 
     {# If in debug mode, load each file individually, otherwise use the combined source loaded by the template #}
     {% if templateDebug %}
-    <script src="{{ asset('js/vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
-    <script src="{{ asset('js/vendor/jquery-simple-color/src/jquery.simple-color.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/blueimp-tmpl/js/tmpl.js', 'noversion') }}"></script>
+    <script src="{{ asset('vendor/jquery-simple-color/src/jquery.simple-color.js', 'noversion') }}"></script>
     {% endif %}
 
     <script src="{{ asset('js/jtracker-tmpl.js', 'debug') }}"></script>

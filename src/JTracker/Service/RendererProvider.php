@@ -111,7 +111,7 @@ class RendererProvider implements ServiceProviderInterface
 							$context,
 							$container->get('app')->get('debug.template', false)
 						),
-						'noversion' => new PathPackage('media', new EmptyVersionStrategy, $context),
+						'noversion' => new PathPackage('', new EmptyVersionStrategy, $context),
 					]
 				);
 			}
