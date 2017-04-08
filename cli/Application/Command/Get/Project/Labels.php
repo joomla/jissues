@@ -111,7 +111,7 @@ class Labels extends Project
 				++ $cntNew;
 			}
 
-			$names[] = $label->name;
+			$names[] = $db->quote($label->name);
 		}
 
 		// Check for deleted labels
@@ -120,7 +120,7 @@ class Labels extends Project
 				->from($db->quoteName($table->getTableName()))
 				->select('label_id')
 				->where($db->quoteName('project_id') . ' = ' . $this->project->project_id)
-				->where($db->quoteName('name') . ' NOT IN (\'' . implode("', '", $names) . '\')')
+				->where($db->quoteName('name') . ' NOT IN (' . implode(', ', $names) . ')')
 		)->loadColumn();
 
 		if ($ids)
