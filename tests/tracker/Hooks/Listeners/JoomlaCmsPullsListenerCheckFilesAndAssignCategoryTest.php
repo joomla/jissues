@@ -98,7 +98,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 			'.drone.yml' => ['14'],
 			'.gitignore' => ['36'],
 			'.php_cs' => ['36'],
-			'.travis.yml' => ['36'],
+			'.travis.yml' => ['14'],
 			'appveyor-phpunit.xml' => ['14'],
 			'Gemfile' => ['36'],
 			'grunt-settings.yaml' => ['36'],
