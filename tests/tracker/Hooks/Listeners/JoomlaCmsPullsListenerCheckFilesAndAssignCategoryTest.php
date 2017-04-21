@@ -100,8 +100,6 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 			'.php_cs' => ['36'],
 			'.travis.yml' => ['36'],
 			'appveyor-phpunit.xml' => ['36'],
-			'composer.json' => ['36'],
-			'composer.lock' => ['36'],
 			'Gemfile' => ['36'],
 			'grunt-settings.yaml' => ['36'],
 			'grunt-readme.md' => ['36'],

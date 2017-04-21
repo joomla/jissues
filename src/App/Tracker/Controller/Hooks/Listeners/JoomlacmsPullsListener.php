@@ -131,8 +131,6 @@ class JoomlacmsPullsListener extends AbstractListener
 			'.php_cs',
 			'.travis.yml',
 			'appveyor-phpunit.xml',
-			'composer.json',
-			'composer.lock',
 			'Gemfile',
 			'grunt-settings.yaml',
 			'grunt-readme.md',
