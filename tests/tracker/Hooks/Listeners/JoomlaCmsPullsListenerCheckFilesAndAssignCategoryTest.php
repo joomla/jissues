@@ -108,7 +108,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 			'phpunit.xml.dist' => ['14'],
 			'scss-lint-report.xml' => ['36'],
 			'sccs-lint.yml' => ['36'],
-			'travisci-phpunit.xml' => ['36'],
+			'travisci-phpunit.xml' => ['14'],
 		];
 
 		$f = new \stdClass;
