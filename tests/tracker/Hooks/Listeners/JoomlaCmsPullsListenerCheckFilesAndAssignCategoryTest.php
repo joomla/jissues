@@ -105,7 +105,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 			'grunt-readme.md' => ['36'],
 			'Gruntfile.js' => ['36'],
 			'karma.conf.js' => ['14'],
-			'phpunit.xml.dist' => ['36'],
+			'phpunit.xml.dist' => ['14'],
 			'scss-lint-report.xml' => ['36'],
 			'sccs-lint.yml' => ['36'],
 			'travisci-phpunit.xml' => ['36'],
