@@ -20,7 +20,7 @@ class LinkFormat
 	 *
 	 * @var    string
 	 * @since  1.0
-	 * @see    http://xdebug.org/docs/all_settings#file_link_format
+	 * @link   https://xdebug.org/docs/all_settings#file_link_format
 	 */
 	private $linkFormat;
 

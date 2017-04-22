@@ -33,7 +33,7 @@ class Phploc extends Test
 	/**
 	 * Execute the command.
 	 *
-	 * @return  $this.
+	 * @return  $this
 	 *
 	 * @since   1.0
 	 * @throws  \UnexpectedValueException
