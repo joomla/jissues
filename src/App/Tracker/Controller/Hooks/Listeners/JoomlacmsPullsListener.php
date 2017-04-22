@@ -78,6 +78,10 @@ class JoomlacmsPullsListener extends AbstractListener
 			'.travis.yml',
 			'phpunit.xml.dist',
 			'travisci-phpunit.xml',
+			'appveyor-phpunit.xml',
+			'.appveyor.yml',
+			'.drone.yml',
+			'karma.conf.js',
 		],
 		// Layout
 		'15' => ['^layouts/'],
@@ -122,10 +126,17 @@ class JoomlacmsPullsListener extends AbstractListener
 			'^build/',
 			'^.github/',
 			'.gitignore',
-			'CONTRIBUTING.md',
 			'README.md',
 			'README.txt',
 			'build.xml',
+			'.gitignore',
+			'.php_cs',
+			'Gemfile',
+			'grunt-settings.yaml',
+			'grunt-readme.md',
+			'Gruntfile.js',
+			'scss-lint-report.xml',
+			'sccs-lint.yml',
 		],
 		// Component com_ajax
 		'41' => [
@@ -581,7 +592,11 @@ class JoomlacmsPullsListener extends AbstractListener
 			{
 				// Check for files & paths regarding the Unit/System Tests
 				if (strpos($file->filename, 'tests') === 0
+					|| $file->filename == '.appveyor.yml'
+					|| $file->filename == '.drone.yml'
 					|| $file->filename == '.travis.yml'
+					|| $file->filename == 'appveyor-phpunit.xml'
+					|| $file->filename == 'karma.conf.js'
 					|| $file->filename == 'phpunit.xml.dist'
 					|| $file->filename == 'travisci-phpunit.xml')
 				{
