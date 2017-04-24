@@ -850,22 +850,23 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
-		// If there are no changed files do nothing here.
-		if (!empty($files))
+		if (empty($files))
 		{
-				// The new categories based on the current code of the PR
-				$newCategories = $this->checkFilesAndAssignCategory($files);
-
-				// Merge the current and the new categories
-				$categories = array_merge($newCategories, $categoriesThatShouldStay);
-
-				// Make sure we have no duplicate entries here
-				$categories = array_unique($categories);
-
-				// Add the categories we need
-				$this->setCategories($hookData, $logger, $project, $table, $categories);
+			// If there are no changed files do nothing here.
+			return;
 		}
 
+		// The new categories based on the current code of the PR
+		$newCategories = $this->checkFilesAndAssignCategory($files);
+
+		// Merge the current and the new categories
+		$categories = array_merge($newCategories, $categoriesThatShouldStay);
+
+		// Make sure we have no duplicate entries here
+		$categories = array_unique($categories);
+
+		// Add the categories we need
+		$this->setCategories($hookData, $logger, $project, $table, $categories);
 	}
 
 	/**
