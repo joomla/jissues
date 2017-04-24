@@ -444,7 +444,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		// Get the files modified by the pull request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
-		if (empty($files)
+		if (empty($files))
 		{
 			// If there are no changed files return
 			return;
