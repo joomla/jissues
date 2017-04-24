@@ -853,19 +853,18 @@ class JoomlacmsPullsListener extends AbstractListener
 		// If there are no changed files do nothing here.
 		if (!empty($files))
 		{
-				// The new categories based on the current code of the PR
-				$newCategories = $this->checkFilesAndAssignCategory($files);
+			// The new categories based on the current code of the PR
+			$newCategories = $this->checkFilesAndAssignCategory($files);
 
-				// Merge the current and the new categories
-				$categories = array_merge($newCategories, $categoriesThatShouldStay);
+			// Merge the current and the new categories
+			$categories = array_merge($newCategories, $categoriesThatShouldStay);
 
-				// Make sure we have no duplicate entries here
-				$categories = array_unique($categories);
+			// Make sure we have no duplicate entries here
+			$categories = array_unique($categories);
 
-				// Add the categories we need
-				$this->setCategories($hookData, $logger, $project, $table, $categories);
+			// Add the categories we need
+			$this->setCategories($hookData, $logger, $project, $table, $categories);
 		}
-
 	}
 
 	/**
