@@ -8,18 +8,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="blue" />
     <meta property="og:description" content="{% block metaDescription %}Issue tracking platform for the Joomla! project{% endblock %}" />
-    <meta property="og:image" content="https://cdn.joomla.org/images/joomla-org-og.jpg" />
+    <meta property="og:image" content="https://cdn.joomla.org/images/sharing/joomla-org-og.jpg" />
     <meta property="og:site_name" content="Joomla! Issue Tracker" />
     <meta property="og:title" content="{{ block('title') }}" />
     <meta property="og:url" content="{{ uri.request }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:description" content="{{ block('metaDescription') }}" />
-    <meta name="twitter:image" content="https://cdn.joomla.org/images/joomla-twitter-card.jpg" />
+    <meta name="twitter:image" content="https://cdn.joomla.org/images/sharing/joomla-twitter-card.png" />
     <meta name="twitter:site" content="@joomla" />
     <meta name="twitter:title" content="{{ block('title') }}" />
     {% block metadata %}{% endblock %}
     {% if useCDN %}
-    <link rel="stylesheet" href="https://cdn.joomla.org/template/css/template_2.1.1.min.css" media="screen" />
+    <link rel="stylesheet" href="https://cdn.joomla.org/template/css/template_2.2.0.min.css" media="screen" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
     {% else %}
     <link rel="stylesheet" href="{{ asset('css/template.min.css', 'debug') }}" />
