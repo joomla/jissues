@@ -451,16 +451,23 @@ class JoomlacmsPullsListener extends AbstractListener
 		$composerLabel        = 'Composer Dependency Changed';
 		$addLabels            = [];
 		$removeLabels         = [];
-		$prLabelSet           = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
+
+		// Get the files modified by the pull request
+		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
+
+		if (empty($files))
+		{
+			// If there are no changed files return
+			return;
+		}
+
+		$prLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $prLabel);
 
 		// Add the PR label if it isn't already set
 		if (!$prLabelSet)
 		{
 			$addLabels[] = $prLabel;
 		}
-
-		// Get the files modified by the pull request
-		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
 
 		$composerChange   = $this->checkComposerChange($files);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
@@ -857,6 +864,12 @@ class JoomlacmsPullsListener extends AbstractListener
 
 		// Get the files tha gets changed with this Pull Request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
+
+		if (empty($files))
+		{
+			// If there are no changed files do nothing here.
+			return;
+		}
 
 		// The new categories based on the current code of the PR
 		$newCategories = $this->checkFilesAndAssignCategory($files);
