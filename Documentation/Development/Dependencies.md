@@ -68,7 +68,7 @@ Joomla Event Package
 
 Joomla Filter Package
 
-* Installed: 1.3.0 
+* Installed: 1.3.1 
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (~1.2)
@@ -166,21 +166,21 @@ Joomla View Package
 
 Symfony Asset Component
 
-* Installed: v3.2.6 
+* Installed: v3.2.8 
 * Source URL: https://github.com/symfony/asset.git
 
 #### symfony/http-foundation (3.2.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v3.2.6 
+* Installed: v3.2.8 
 * Source URL: https://github.com/symfony/http-foundation.git
 
 #### twig/twig (~2.0)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v2.3.0 
+* Installed: v2.3.2 
 * Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (~3.0)
@@ -229,7 +229,7 @@ php error handling for cool kids
 
 Filesystem abstraction: Many filesystems, one API.
 
-* Installed: 1.0.37 
+* Installed: 1.0.40 
 * Source URL: https://github.com/thephpleague/flysystem.git
 
 #### monolog/monolog (1.*)
@@ -239,11 +239,11 @@ Sends your logs to files, sockets, inboxes, databases and various web services
 * Installed: 1.22.1 
 * Source URL: https://github.com/Seldaek/monolog.git
 
-#### raveren/kint (~1.0)
+#### kint-php/kint (^2.0)
 
-Kint - debugging helper for PHP developers
+Kint - debugging tool for PHP developers
 
-* Installed: 1.1 
+* Installed: 2.0 
 * Source URL: https://github.com/kint-php/kint.git
 
 #### adaptive/php-text-difference (1.*)
@@ -273,7 +273,7 @@ A tool to automatically fix PHP code style
 
 The PHP Unit Testing framework.
 
-* Installed: 6.0.10 
+* Installed: 6.1.3 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*)
