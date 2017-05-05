@@ -154,7 +154,7 @@ To have your language files created and managed **automatically** you will need:
 
 The gettext utilities should be available or installable on all *nix based systems, as well as some sons/daugthers and parents (like BSDs and apple stuff).
 If you are stuck on windows, your best bet may be [cygwin](http://www.cygwin.com/) (as always). There is also [MinGW](http://www.mingw.org/), a [sourceforge project](http://sourceforge.net/projects/gettext/), as well as [this site](http://franco-bez.4lima.de/index.php?option=com_content&view=article&id=55&Itemid=64&lang=en).
-I have not tried any of the above currently beside my own linux box, but I believe that if would be no problem for a windows developer with decent skills to modify the script ;)
+I have not tried any of the above currently beside my own linux box, but I believe that it should be no problem for a windows developer with decent skills to modify the script ;)
 
 #### Known issues
 
@@ -164,7 +164,7 @@ I have not tried any of the above currently beside my own linux box, but I belie
 
 #### Usage in the virtual environment
 
-The [virtual environment](https://github.com/joomla/jissues/blob/framework/Documentation/virtual-test-server.md) already has the gettext package added, so creating and updating language files can be done from here, in case a developer can/will not install gettext on his/her operating system.
+The [virtual environment](../Development/Virtual-Test-Server.md) already has the gettext package added, so creating and updating language files can be done from here, in case a developer can/will not install gettext on his/her operating system.
 
 It goes like this:
 
