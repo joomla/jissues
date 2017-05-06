@@ -483,7 +483,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $composerLabel;
 		}
 
-		$languageChange   = $this->checkLanguageChange($files);
+		$languageChange   = $this->checkLanguageChange($files);	
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
 		// Add the label if we change the language files and it isn't already set
@@ -500,6 +500,31 @@ class JoomlacmsPullsListener extends AbstractListener
 		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
 		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
+		// DEBUG
+		if ($unitSystemTestsChange)
+		{
+			$logger->info(
+				sprintf(
+					'We detected a unittest change for the pullrequest %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		else
+		{
+			$logger->info(
+				sprintf(
+					'We NOT detected a unittest change for the pullrequest %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		// DEBUG
+		
 		// Add the label if we change the Unit/System Tests and it isn't already set
 		if ($unitSystemTestsChange && !$unitSystemTestsLabelSet)
 		{
