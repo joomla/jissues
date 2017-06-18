@@ -1,0 +1,527 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2017-06-18 18:32-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Serbian (Latin)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sr-CS\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/jtracker-template_en.po\n"
+"Language: sr_CS\n"
+
+#: /templates/footerMenu.twig:18
+msgid "Home"
+msgstr "Početna"
+
+#: /templates/footerMenu.twig:19
+#: /templates/topMenu.twig:30
+#: /templates/trackerMenu.twig:193
+msgid "About"
+msgstr "O nama"
+
+#: /templates/footerMenu.twig:20
+#: /templates/topMenu.twig:40
+msgid "Community"
+msgstr "Zajednica"
+
+#: /templates/footerMenu.twig:21
+msgid "Forum"
+msgstr "Forum"
+
+#: /templates/footerMenu.twig:22
+msgid "Extensions"
+msgstr "Ekstenzije (dodaci)"
+
+#: /templates/footerMenu.twig:23
+msgid "Resources"
+msgstr "Resursi"
+
+#: /templates/footerMenu.twig:24
+msgid "Docs"
+msgstr "Dokumentacija"
+
+#: /templates/footerMenu.twig:25
+msgid "Developer"
+msgstr "Programeri"
+
+#: /templates/footerMenu.twig:26
+msgid "Shop"
+msgstr "Prodavnica"
+
+#: /templates/footerMenu.twig:30
+msgid "Accessibility Statement"
+msgstr "Izjava o dostupnosti"
+
+#: /templates/footerMenu.twig:31
+msgid "Privacy Policy"
+msgstr "Politika Privatnosti"
+
+#: /templates/footerMenu.twig:32
+msgid "Report an Issue"
+msgstr "Prijavite problem"
+
+#: /templates/footerMenu.twig:34
+msgid "Log out"
+msgstr "Odjavi se"
+
+#: /templates/footerMenu.twig:36
+msgid "Log in"
+msgstr "Prijavi se"
+
+#: /templates/footerMenu.twig:40
+msgid "&copy; 2005 - %currentYear% %osm% All Rights Reserved."
+msgstr "&copy; 2017 - %currentYear% %osm% Sva Prava Zadržana."
+
+#: /templates/footerMenu.twig:44
+msgid "Joomla! Hosting by %provider%"
+msgstr "Joomla! Hosting by %provider%"
+
+#: /templates/index.twig:85
+msgid "Download"
+msgstr "Download"
+
+#: /templates/index.twig:88
+msgid "Demo"
+msgstr "Demo"
+
+#: /templates/fields.twig:44
+msgid "Select Categories..."
+msgstr "Selektuj Kategorije..."
+
+#: /templates/fields.twig:59
+msgid "Select Milestone..."
+msgstr "Obeleži Milestone..."
+
+#: /templates/fields.twig:60
+msgid "No Milestone"
+msgstr "Ne Postoji Milestone"
+
+#: /templates/fields.twig:73
+msgid "Select labels..."
+msgstr "Obeleži Oznake..."
+
+#: /templates/testcontainer.twig:6
+#: /templates/testcontainer.twig:47
+msgid "Submit test result"
+msgstr "Pošaljite rezultate testiranja"
+
+#: /templates/testcontainer.twig:8
+msgid "I have tested this item"
+msgstr "Ja sam testirao/la ovu stvar"
+
+#: /templates/testcontainer.twig:19
+msgid "Not tested"
+msgstr "Nije Testirano"
+
+#: /templates/testcontainer.twig:25
+msgid "Tested successfully"
+msgstr "Uspešno Testirano"
+
+#: /templates/testcontainer.twig:31
+msgid "Tested unsuccessfully"
+msgstr "Neuspešno je testirano"
+
+#: /templates/testcontainer.twig:40
+msgid "Leave a comment (optional)"
+msgstr "Ostavite komentar (opciono)"
+
+#: /templates/testcontainer.twig:53
+#: /templates/testcontainer.twig:68
+msgid "Alter test result"
+msgstr "Promenjeni rezultati testiranja"
+
+#: /templates/testcontainer.twig:55
+#, php-format
+msgid "Set the test result for user %s to %s"
+msgstr "Postavite testni rezultat za korisnika %s do %s"
+
+#: /templates/testcontainer.twig:55
+msgid "username"
+msgstr "korisničko ime"
+
+#: /templates/uploader.full.twig:14
+msgid "Add files..."
+msgstr "Dodaj fajl..."
+
+#: /templates/uploader.full.twig:18
+msgid "Start upload"
+msgstr "Počni sa uploadom"
+
+#: /templates/uploader.full.twig:21
+msgid "Cancel upload"
+msgstr "Otkaži upload"
+
+#: /templates/uploader.full.twig:24
+#: /templates/uploader.full.twig:101
+msgid "Delete"
+msgstr "Obriši"
+
+#: /templates/uploader.full.twig:33
+msgid "Upload Notes"
+msgstr "Napomena uz upload"
+
+#: /templates/uploader.full.twig:35
+#, php-format
+msgid "The maximum file size for uploads is %s."
+msgstr "Maksimalna veličina fajla koji se uploduje jeste %s."
+
+#: /templates/uploader.full.twig:36
+#, php-format
+msgid "The following file types are allowed: %s"
+msgstr "Sledeći tipovi fajlova su dozvoljeni za upload: %s"
+
+#: /templates/uploader.full.twig:37
+msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
+msgstr "Vi takođe možete falove da prebacite sa desktopa metodom <strong>drag i drop</strong>."
+
+#: /templates/uploader.full.twig:52
+msgid "Processing..."
+msgstr "Obrađuje se..."
+
+#: /templates/uploader.full.twig:58
+msgid "Start"
+msgstr "Početak"
+
+#: /templates/uploader.full.twig:63
+#: /templates/uploader.full.twig:106
+msgid "Cancel"
+msgstr "Otkaži"
+
+#: /templates/uploader.full.twig:76
+#: /templates/trackerMenu.twig:151
+msgid "Error"
+msgstr "Greška"
+
+#: /templates/lang-switcher.twig:9
+msgid "Select Language"
+msgstr "Izaberi jezik"
+
+#: /templates/topMenu.twig:16
+msgid "Joomla! Home"
+msgstr "Joomla! Početna"
+
+#: /templates/topMenu.twig:18
+msgid "Recent News"
+msgstr "Skorašnje novosti"
+
+#: /templates/topMenu.twig:19
+msgid "Announcements"
+msgstr "Najave"
+
+#: /templates/topMenu.twig:20
+msgid "Blogs"
+msgstr "Blogovi"
+
+#: /templates/topMenu.twig:21
+msgid "Magazine"
+msgstr "Magazin"
+
+#: /templates/topMenu.twig:23
+msgid "Support Joomla!"
+msgstr "Podržite Joomla!"
+
+#: /templates/topMenu.twig:24
+msgid "Contribute"
+msgstr "Doprinesite"
+
+#: /templates/topMenu.twig:25
+msgid "Shop Joomla Gear"
+msgstr "Prodavnica Joomla Artikala"
+
+#: /templates/topMenu.twig:26
+msgid "Sponsorship"
+msgstr "Sponzorstvo"
+
+#: /templates/topMenu.twig:32
+msgid "About Joomla!"
+msgstr "O Joomla!"
+
+#: /templates/topMenu.twig:33
+msgid "Core Features"
+msgstr "Osnovne Mogućnosti"
+
+#: /templates/topMenu.twig:34
+msgid "The Project"
+msgstr "Projekat"
+
+#: /templates/topMenu.twig:35
+msgid "Leadership"
+msgstr "Vođstvo"
+
+#: /templates/topMenu.twig:42
+msgid "Joomla! Community Portal"
+msgstr "Joomla! Portal Zajednice"
+
+#: /templates/topMenu.twig:43
+msgid "Joomla! Events"
+msgstr "Joomla! Događaji"
+
+#: /templates/topMenu.twig:44
+msgid "Joomla! Trademark & Licensing"
+msgstr "Joomla! Trademark i Licenca"
+
+#: /templates/topMenu.twig:45
+msgid "Joomla! User Groups"
+msgstr "Joomla! Korisničke Grupe"
+
+#: /templates/topMenu.twig:46
+msgid "Joomla! Volunteers Portal"
+msgstr "Joomla! Portal Za Volontere"
+
+#: /templates/topMenu.twig:50
+msgid "Support"
+msgstr "Podrška"
+
+#: /templates/topMenu.twig:52
+msgid "Joomla! Forum"
+msgstr "Joomla! Forum"
+
+#: /templates/topMenu.twig:53
+msgid "Joomla! Documentation"
+msgstr "Joomla! Dokumentacija"
+
+#: /templates/topMenu.twig:54
+msgid "Joomla! Issue Tracker"
+msgstr "Joomla! Praćenje Problema"
+
+#: /templates/topMenu.twig:55
+msgid "Joomla! Resources"
+msgstr "Joomla! Resursi"
+
+#: /templates/topMenu.twig:59
+msgid "Read"
+msgstr "Pročitano"
+
+#: /templates/topMenu.twig:61
+msgid "Joomla! Magazine"
+msgstr "Joomla! Magazin"
+
+#: /templates/topMenu.twig:62
+msgid "Joomla! Connect"
+msgstr "Joomla! Povezivanje"
+
+#: /templates/topMenu.twig:63
+msgid "Joomla! Mailing Lists"
+msgstr "Joomla! Lista Za Mejlove"
+
+#: /templates/topMenu.twig:66
+msgid "Extend"
+msgstr "Proširite"
+
+#: /templates/topMenu.twig:68
+msgid "Extension Directory"
+msgstr "Direktorijum Ekstenzija"
+
+#: /templates/topMenu.twig:69
+msgid "Showcase Directory"
+msgstr "Predstavljanje Primera"
+
+#: /templates/topMenu.twig:70
+#: /templates/topMenu.twig:92
+msgid "Language Packages"
+msgstr "Paketi Sa Prevodom"
+
+#: /templates/topMenu.twig:71
+msgid "Certification Program"
+msgstr "Program Za Sertifikaciju"
+
+#: /templates/topMenu.twig:75
+msgid "Developers"
+msgstr "Programeri"
+
+#: /templates/topMenu.twig:77
+msgid "Developer Network"
+msgstr "Mreža Programera"
+
+#: /templates/topMenu.twig:78
+#: /templates/trackerMenu.twig:203
+msgid "Documentation"
+msgstr "Dokumentacija"
+
+#: /templates/topMenu.twig:79
+msgid "Joomla! Bug Squad"
+msgstr "Joomla! Grupa Za Bagove"
+
+#: /templates/topMenu.twig:80
+msgid "Joomla! API"
+msgstr "Joomla! API"
+
+#: /templates/topMenu.twig:81
+msgid "JoomlaCode"
+msgstr "JoomlaCode"
+
+#: /templates/topMenu.twig:82
+msgid "Joomla! Framework"
+msgstr "Joomla! Framework"
+
+#: /templates/topMenu.twig:93
+msgid "Multilingual Demo"
+msgstr "Višejezični Demo"
+
+#: /templates/topMenu.twig:94
+msgid "Translation Working Group"
+msgstr "Radna Grupa Za Prevođenje"
+
+#: /templates/topMenu.twig:95
+msgid "Translations Forum"
+msgstr "Forum Za Prevođenje"
+
+#: /templates/editor.twig:5
+msgid "Markdown Help"
+msgstr "Markdown Pomoć"
+
+#: /templates/editor.twig:6
+msgid "Write"
+msgstr "Napiši"
+
+#: /templates/editor.twig:7
+msgid "Preview"
+msgstr "Pregled"
+
+#: /templates/trackerMenu.twig:8
+msgid "Tracker"
+msgstr "Sistem za praćenje"
+
+#: /templates/trackerMenu.twig:14
+msgid "Project"
+msgstr "Projekti"
+
+#: /templates/trackerMenu.twig:24
+msgid "Show"
+msgstr "Prikaži"
+
+#: /templates/trackerMenu.twig:28
+msgid "Project Activity"
+msgstr "Aktivnost projekta"
+
+#: /templates/trackerMenu.twig:32
+msgid "Snapshot"
+msgstr "Snimak"
+
+#: /templates/trackerMenu.twig:36
+msgid "User Activity"
+msgstr "Aktivnosti Korisnika"
+
+#: /templates/trackerMenu.twig:44
+msgid "Edit"
+msgstr "Uredi"
+
+#: /templates/trackerMenu.twig:55
+msgid "Access Groups"
+msgstr "Pristupi Grupi"
+
+#: /templates/trackerMenu.twig:61
+msgid "Labels"
+msgstr "Oznake"
+
+#: /templates/trackerMenu.twig:67
+msgid "Milestones"
+msgstr "Milestone"
+
+#: /templates/trackerMenu.twig:73
+msgid "Categories"
+msgstr "Kategorije"
+
+#: /templates/trackerMenu.twig:83
+msgid "Projects"
+msgstr "Projekat"
+
+#: /templates/trackerMenu.twig:88
+msgid "Users"
+msgstr "Korisnici"
+
+#: /templates/trackerMenu.twig:95
+msgid "System"
+msgstr "Sistem"
+
+#: /templates/trackerMenu.twig:102
+msgid "Configuration"
+msgstr "Konfiguracija"
+
+#: /templates/trackerMenu.twig:108
+msgid "phpinfo()"
+msgstr "phpinfo()"
+
+#: /templates/trackerMenu.twig:114
+msgid "Logs"
+msgstr "Logovi"
+
+#: /templates/trackerMenu.twig:118
+msgid "Application"
+msgstr "Aplikacija"
+
+#: /templates/trackerMenu.twig:121
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
+#: /templates/trackerMenu.twig:126
+msgid "Database"
+msgstr "Baza podataka"
+
+#: /templates/trackerMenu.twig:132
+msgid "GitHub Issues"
+msgstr "GitHub Problem"
+
+#: /templates/trackerMenu.twig:138
+msgid "GitHub Comments"
+msgstr "GitHub Komentari"
+
+#: /templates/trackerMenu.twig:144
+msgid "GitHub Pulls"
+msgstr "GitHub Povezivanje"
+
+#: /templates/trackerMenu.twig:148
+msgid "PHP"
+msgstr "PHP"
+
+#: /templates/trackerMenu.twig:158
+msgid "Icons"
+msgstr "Ikonice"
+
+#: /templates/trackerMenu.twig:164
+msgid "Routes"
+msgstr "Rute"
+
+#: /templates/trackerMenu.twig:170
+msgid "Text"
+msgstr "Tekst"
+
+#: /templates/trackerMenu.twig:176
+msgid "Clear Cache"
+msgstr "Obriši keš"
+
+#: /templates/trackerMenu.twig:198
+msgid "Markdown"
+msgstr "Markdown"
+
+#: /templates/trackerMenu.twig:222
+msgid "Admin"
+msgstr "Administrator"
+
+#: /templates/trackerMenu.twig:227
+msgid "View profile"
+msgstr "Pregledaj Profil"
+
+#: /templates/trackerMenu.twig:233
+msgid "Edit profile"
+msgstr "Uredi profil"
+
+#: /templates/trackerMenu.twig:240
+msgid "Logout"
+msgstr "Odjava"
+
+#: /templates/trackerMenu.twig:249
+msgid "Login with GitHub"
+msgstr "Prijavi se sa GitHub"
+
+#: /templates/trackerMenu.twig:253
+msgid "No GitHub credentials set in config"
+msgstr "Nema GitHub potvrde podešene u konfiguraciji"
+

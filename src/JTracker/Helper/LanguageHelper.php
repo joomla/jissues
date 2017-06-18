@@ -34,6 +34,7 @@ abstract class LanguageHelper
 		'nl-BE' => 'nl-BE',
 		'pt-BR' => 'pt-BR',
 		'pt-PT' => 'pt-PT',
+		'sr-CS' => 'sr-CS',
 		'zh-CN' => 'zh-CN',
 	];
 
@@ -163,6 +164,11 @@ abstract class LanguageHelper
 			'iso' => 'sl',
 			'name' => 'Slovenian',
 			'display' => 'slovenski jezik',
+		],
+		'sr-CS' => [
+			'iso' => 'sr-CS',
+			'name' => 'Serbian (Latin)',
+			'display' => 'српски језик (Latin)',
 		],
 		'zh-CN' => [
 			'iso' => 'cn',

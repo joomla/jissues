@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2017-06-18 18:32-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Serbian (Latin)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sr-CS\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/projects-app_en.po\n"
+"Language: sr_CS\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projekti"
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Uredi"
+
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Obriši"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr "Projekat %s Praćenje"
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr "Projekat %s na GitHub"
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Statistika"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr "Hooks"
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:62
+msgid "Groups"
+msgstr "Grupe"
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr "Oznake"
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Kategorije"
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "Dodaj Projekat"
+
+#: /templates/projects/project.add.twig:11
+#: /templates/projects/project.edit.twig:11
+msgid "Save"
+msgstr "Sačuvaj"
+
+#: /templates/projects/project.add.twig:20
+#: /templates/projects/project.edit.twig:30
+msgid "New project"
+msgstr "Novi projekat"
+
+#: /templates/projects/project.add.twig:24
+#: /templates/projects/project.edit.twig:35
+msgid "Details"
+msgstr "Detalji"
+
+#: /templates/projects/project.add.twig:28
+#: /templates/projects/project.edit.twig:37
+msgid "Title"
+msgstr "Naslov"
+
+#: /templates/projects/project.add.twig:33
+#: /templates/projects/project.edit.twig:44
+msgid "Short Title"
+msgstr "Skaćeni Naslov"
+
+#: /templates/projects/project.add.twig:38
+#: /templates/projects/project.edit.twig:51
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.add.twig:43
+#: /templates/projects/project.edit.twig:58
+msgid "GitHub Owner"
+msgstr "GitHub Vlasnik"
+
+#: /templates/projects/project.add.twig:48
+#: /templates/projects/project.edit.twig:65
+msgid "GitHub Repo"
+msgstr "GitHub Repo"
+
+#: /templates/projects/project.add.twig:53
+#: /templates/projects/project.edit.twig:86
+msgid "External Tracker Link"
+msgstr "Praćenje Spoljnog Linka"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projekat"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Novi Projekat"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Lista Projekata"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Sistem za praćenje"
+
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:30
+msgid "Actions"
+msgstr "Akcije"
+
+#: /templates/projects/projects.index.twig:33
+msgid "ID"
+msgstr "ID"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Stats"
+msgstr "Statistika"
+
+#: /templates/projects/projects.index.twig:57
+msgid "Show"
+msgstr "Prikaži"
+
+#: /templates/projects/projects.index.twig:58
+msgid "Project Activity"
+msgstr "Aktivnost projekta"
+
+#: /templates/projects/projects.index.twig:59
+msgid "Snapshot"
+msgstr "Snimak"
+
+#: /templates/projects/projects.index.twig:60
+msgid "User Activity"
+msgstr "Aktivnosti Korisnika"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Uredi Projekat"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Uredi Projekat"
+
+#: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr "GitHub Editbot user"
+
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr "GitHub Editbot password"
+
+#: /src/App/Projects/Table/ProjectsTable.php:59
+msgid "A title is required"
+msgstr "Naslov je neophodan"
+
+#: /src/App/Projects/Table/ProjectsTable.php:64
+msgid "A short title is required"
+msgstr "Kratki naslov je neophodan"
+

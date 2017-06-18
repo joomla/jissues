@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2017-06-18 18:32-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Serbian (Latin)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sr-CS\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/text-app_en.po\n"
+"Language: sr_CS\n"
+
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
+msgid "Edit Article"
+msgstr "Uredi Članak"
+
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
+#: /templates/text/articles.index.twig:25
+msgid "New Article"
+msgstr "Novi Članak"
+
+#: /templates/text/article.edit.twig:25
+msgid "Save"
+msgstr "Sačuvaj"
+
+#: /templates/text/article.edit.twig:30
+msgid "Cancel"
+msgstr "Otkaži"
+
+#: /templates/text/article.edit.twig:47
+msgid "Title"
+msgstr "Naslov"
+
+#: /templates/text/article.edit.twig:54
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/text/articles.index.twig:6
+#: /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Članak"
+
+#: /templates/text/articles.index.twig:36
+msgid "Articles List"
+msgstr "Lista članaka"
+
+#: /templates/text/articles.index.twig:41
+msgid "Title/Alias"
+msgstr "Naslov/Članak"
+
+#: /templates/text/articles.index.twig:42
+msgid "Actions"
+msgstr "Akcije"
+
+#: /templates/text/articles.index.twig:58
+msgid "View"
+msgstr "Pogledaj"
+
+#: /templates/text/articles.index.twig:61
+msgid "Delete"
+msgstr "Obriši"
+
+#: /templates/text/articles.index.twig:67
+msgid "No articles found"
+msgstr "Nema pronađenih članaka"
+
+#: /src/App/Text/Controller/Article/Delete.php:48
+msgid "The article has been deleted."
+msgstr "Ovaj članak je obrisan."
+
+#: /src/App/Text/Controller/Article/Save.php:52
+msgid "The article has been saved."
+msgstr "Ovaj članak je sačuvan."
+
+#: /src/App/Text/Table/ArticlesTable.php:93
+msgid "An alias or a title is required."
+msgstr "Potreban je alias ili naslov."
+
+#: /src/App/Text/Table/ArticlesTable.php:99
+msgid "Some text is required."
+msgstr "Potrebno je upisati nešto teksta."
+
