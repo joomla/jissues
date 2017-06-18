@@ -169,7 +169,7 @@ abstract class LanguageHelper
 		'sr-CS' => [
 			'iso' => 'sr-CS',
 			'name' => 'Serbian (Latin)',
-			'display' => 'српски језик (Latin)',
+			'display' => 'srpski',
 		],
 		'sr-YU' => [
 			'iso' => 'sr',
