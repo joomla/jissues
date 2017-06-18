@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese, Brazilian\n"
 "MIME-Version: 1.0\n"
@@ -48,15 +48,15 @@ msgstr "Projeto"
 #: /src/App/Debug/TrackerDebugger.php:288
 #: /src/App/Debug/TrackerDebugger.php:435
 msgid "Request"
-msgstr ""
+msgstr "Solicitação"
 
 #: /src/App/Debug/TrackerDebugger.php:296
 msgid "Language Strings"
-msgstr "Strings de Idioma"
+msgstr "Linhas de idioma"
 
 #: /src/App/Debug/TrackerDebugger.php:301
 msgid "Language Files"
-msgstr "Arquivos de Idioma"
+msgstr "Arquivos de idioma"
 
 #: /src/App/Debug/TrackerDebugger.php:343
 msgid "Go up"
@@ -86,7 +86,7 @@ msgstr[1] "%d arquivos de idiooma carregados"
 
 #: /src/App/Debug/TrackerDebugger.php:400
 msgid "No Project"
-msgstr "Nenhum Porjeto"
+msgstr "Sem projeto"
 
 #: /src/App/Debug/TrackerDebugger.php:423
 msgid "Guest"
@@ -94,7 +94,7 @@ msgstr "Convidado"
 
 #: /src/App/Debug/TrackerDebugger.php:433
 msgid "Request variables"
-msgstr ""
+msgstr "Variáveis do pedido"
 
 #: /src/App/Debug/TrackerDebugger.php:442
 msgid "Build"
@@ -111,10 +111,10 @@ msgstr "Arquivo (linha)"
 
 #: /src/App/Debug/TrackerDebugger.php:741
 msgid "String"
-msgstr "String"
+msgstr "Linha"
 
 #: /src/App/Debug/View/Logs/LogsHtmlView.php:73
 #, php-format
 msgid "No %s log file found."
-msgstr "Arquivo log %s não encontrado"
+msgstr "Nenhum arquivo %s de registo encontrado."
 

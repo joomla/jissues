@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Tidak Aktif"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr "Deaktivasi"
+msgstr "Menonaktifkan"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
@@ -130,11 +130,11 @@ msgstr "Tambah Label"
 #: /templates/github/milestones.index.twig:21
 #, php-format
 msgid "%s - Milestones"
-msgstr "%s - Jejak"
+msgstr "%s - Versi Rilis"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr "Jejak Baru"
+msgstr "Versi Rilis Baru"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74
@@ -148,7 +148,7 @@ msgstr "Judul"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr "Judul jejak"
+msgstr "Judul versi rilis"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
@@ -187,5 +187,5 @@ msgstr "Edit"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
-msgstr "Tidak ada pratinjau..."
+msgstr "Tidak ada untuk ditinjau..."
 

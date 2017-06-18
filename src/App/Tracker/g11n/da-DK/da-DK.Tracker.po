@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -118,11 +118,11 @@ msgstr "Gemmer..."
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- Status -"
-msgstr ""
+msgstr "- Status -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- Priority -"
-msgstr ""
+msgstr "- Prioritet -"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -154,19 +154,19 @@ msgstr "Du deltog i"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "- Categories -"
-msgstr ""
+msgstr "- Kategorier -"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No Categories"
-msgstr ""
+msgstr "Ingen kategorier"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
-msgstr ""
+msgstr "- Labels -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- Tests -"
-msgstr ""
+msgstr "- Tests -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
@@ -182,7 +182,7 @@ msgstr "Behøver tests"
 
 #: /templates/tracker/tracker.filters.twig:87
 msgid "- Easy -"
-msgstr ""
+msgstr "- Let -"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
@@ -196,7 +196,7 @@ msgstr "Ja"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "- Type -"
-msgstr ""
+msgstr "- Type -"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
@@ -208,7 +208,7 @@ msgstr "Pull-anmodning"
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
-msgstr ""
+msgstr "- Milepæle -"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
@@ -225,7 +225,7 @@ msgstr "Alle"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search Tools"
-msgstr ""
+msgstr "Søgeværktøjer"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -253,7 +253,7 @@ msgstr "Filtrer listen efter ID, resume eller beskrivelse."
 #: /templates/tracker/tpl/filters.twig:102
 #: /templates/tracker/tpl/filters.twig:103
 msgid "Filter the list by creator."
-msgstr ""
+msgstr "Filtrer listen efter ophavsmand."
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
@@ -281,7 +281,7 @@ msgstr "Alias"
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
 msgid "Colour"
-msgstr ""
+msgstr "Farve"
 
 #: /templates/tracker/tpl/activities.twig:24
 #: /templates/tracker/issue.add.twig:113
@@ -324,7 +324,7 @@ msgstr "Ret kategori"
 #: /templates/tracker/issues.index.twig:6
 #, php-format
 msgid "%s Issues"
-msgstr ""
+msgstr "%s problemer"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
@@ -353,7 +353,7 @@ msgstr "Rediger"
 
 #: /templates/tracker/issues.index.twig:135
 msgid "Created by"
-msgstr ""
+msgstr "Oprettet af"
 
 #: /templates/tracker/issues.index.twig:146
 msgid "GitHub ID"
@@ -373,7 +373,7 @@ msgstr "Ændret"
 
 #: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
-msgstr ""
+msgstr "Milepæl: "
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Critical"
@@ -393,7 +393,7 @@ msgstr "Lav"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Very Low"
-msgstr ""
+msgstr "Meget lille"
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
@@ -405,20 +405,20 @@ msgstr "Ingen elementer fundet."
 
 #: /templates/tracker/issues.index.twig:322
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 #: /templates/tracker/issues.index.twig:324
 #: /templates/tracker/issues.index.twig:339
 msgid "Pending"
-msgstr ""
+msgstr "Afventer"
 
 #: /templates/tracker/issues.index.twig:326
 msgid "Error"
-msgstr ""
+msgstr "Fejl"
 
 #: /templates/tracker/issues.index.twig:328
 msgid "Failure"
-msgstr ""
+msgstr "Fejl"
 
 #: /templates/tracker/issues.index.twig:337
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
@@ -427,63 +427,63 @@ msgstr "Ny"
 
 #: /templates/tracker/issues.index.twig:338
 msgid "Confirmed"
-msgstr ""
+msgstr "Bekræftet"
 
 #: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
-msgstr ""
+msgstr "Klar til at indsende"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr ""
+msgstr "Rettet i kodebasen"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
-msgstr ""
+msgstr "Skal gennemses"
 
 #: /templates/tracker/issues.index.twig:343
 msgid "Information Required"
-msgstr ""
+msgstr "Information mangler"
 
 #: /templates/tracker/issues.index.twig:344
 msgid "Unconfirmed Report"
-msgstr ""
+msgstr "Ubekræftet rapport"
 
 #: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
-msgstr ""
+msgstr "Intet svar"
 
 #: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
-msgstr ""
+msgstr "Forventet opførsel"
 
 #: /templates/tracker/issues.index.twig:348
 msgid "Known Issue"
-msgstr ""
+msgstr "Kendte problemer"
 
 #: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
-msgstr ""
+msgstr "Duplikat rapport"
 
 #: /templates/tracker/issues.index.twig:350
 msgid "Discussion"
-msgstr ""
+msgstr "Diskussion"
 
 #: /templates/tracker/issues.index.twig:413
 msgid "First"
-msgstr ""
+msgstr "Først"
 
 #: /templates/tracker/issues.index.twig:414
 msgid "Previous"
-msgstr ""
+msgstr "Forrige"
 
 #: /templates/tracker/issues.index.twig:415
 msgid "Next"
-msgstr ""
+msgstr "Næste"
 
 #: /templates/tracker/issues.index.twig:416
 msgid "Last"
-msgstr ""
+msgstr "Sidst"
 
 #: /templates/tracker/issue.index.twig:59
 msgid "That issue does not exist, or the ID you typed is incorrect."
@@ -499,23 +499,23 @@ msgstr "# af succesfulde tests"
 
 #: /templates/tracker/issue.index.twig:133
 msgid "To comment"
-msgstr ""
+msgstr "Til kommentar"
 
 #: /templates/tracker/issue.index.twig:142
 msgid "View this issue on GitHub"
-msgstr ""
+msgstr "Se dette problem på GitHub"
 
 #: /templates/tracker/issue.index.twig:152
 msgid "View a plain diff for this pull request"
-msgstr ""
+msgstr "Vis en ren diff for denne pull forespørgsel"
 
 #: /templates/tracker/issue.index.twig:154
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: /templates/tracker/issue.index.twig:170
 msgid "Download this fork as a ZIP file"
-msgstr ""
+msgstr "Download denne gren som en ZIP fil"
 
 #: /templates/tracker/issue.index.twig:226
 msgid "Categories:"
@@ -527,7 +527,7 @@ msgstr "Opført som"
 
 #: /templates/tracker/issue.index.twig:289
 msgid "User tests:"
-msgstr ""
+msgstr "Brugeretests:"
 
 #: /templates/tracker/issue.index.twig:290
 #, php-format
@@ -565,7 +565,7 @@ msgstr "Stem"
 
 #: /templates/tracker/issue.index.twig:497
 msgid "The description was changed"
-msgstr ""
+msgstr "Beskrivelsen blev ændret"
 
 #: /templates/tracker/issue.index.twig:576
 msgid "Post Comment"
@@ -577,11 +577,11 @@ msgstr "Log ind med GitHub for at sende en kommentar"
 
 #: /templates/tracker/issue.index.twig:596
 msgid "Older"
-msgstr ""
+msgstr "Ældre"
 
 #: /templates/tracker/issue.index.twig:599
 msgid "Newer"
-msgstr ""
+msgstr "Nyere"
 
 #: /templates/tracker/issue.add.twig:12
 #: /templates/tracker/issue.add.twig:130
@@ -602,7 +602,7 @@ msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
 msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr ""
+msgstr "Den prioritet som dette problem burde være løst med. Se venligst siden <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\"> Bug Tracking processen</a> for detaljerede oplysninger om projektets prioriteter."
 
 #: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
@@ -610,11 +610,11 @@ msgstr "Versionen(erne) af projektet for hvilket dette issue er fundet."
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "Vælg en eller flere kategorier her der passer til dit problem."
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+msgstr "Rapportere sikkerhedsproblemer til Joomla! Security Strike Team (JSST) via <a %class1% %href1%> security@joomla.org</a> eller via <a %class2% %href2%> JSST kontakt formular</a>, brug venligst ikke den offentlige problem tracker til sikkerhedsspørgsmål."
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
@@ -701,11 +701,11 @@ msgstr "Længden på alias må ikke overskride 150 tegn."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "Farve skal repræsenteres som Hex værdi."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr ""
+msgstr "Issue id skal angives"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."

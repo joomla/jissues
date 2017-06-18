@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -77,11 +77,11 @@ msgstr "Войти"
 
 #: /templates/footerMenu.twig:40
 msgid "&copy; 2005 - %currentYear% %osm% All Rights Reserved."
-msgstr ""
+msgstr "&copy; 2005 - %currentYear% %osm% все права защищены."
 
 #: /templates/footerMenu.twig:44
 msgid "Joomla! Hosting by %provider%"
-msgstr ""
+msgstr "Joomla! Хостинг %provider%"
 
 #: /templates/index.twig:85
 msgid "Download"
@@ -170,12 +170,12 @@ msgstr "Примечание по загрузке"
 #: /templates/uploader.full.twig:35
 #, php-format
 msgid "The maximum file size for uploads is %s."
-msgstr ""
+msgstr "Максимальный размер файла для загрузки: %s."
 
 #: /templates/uploader.full.twig:36
 #, php-format
 msgid "The following file types are allowed: %s"
-msgstr ""
+msgstr "Допустимы следующие типы файлов: %s"
 
 #: /templates/uploader.full.twig:37
 msgid "You can <strong>drag & drop</strong> files from your desktop on this webpage."
@@ -419,7 +419,7 @@ msgstr "Группы доступа"
 
 #: /templates/trackerMenu.twig:61
 msgid "Labels"
-msgstr "Лейблы"
+msgstr "Метки"
 
 #: /templates/trackerMenu.twig:67
 msgid "Milestones"

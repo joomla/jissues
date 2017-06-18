@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Estonian\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Loobu"
 #: /templates/tracker/issues.index.twig:155
 #: /templates/tracker/issue.index.twig:184
 msgid "Foreign ID"
-msgstr ""
+msgstr "Väline ID"
 
 #: /templates/tracker/issue.edit.twig:107
 #: /templates/tracker/tpl/activities.twig:58
@@ -204,7 +204,7 @@ msgstr "Probleem"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Pull Request"
-msgstr ""
+msgstr "Veaparandus"
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
@@ -507,7 +507,7 @@ msgstr "Vaata probleemi GitHubis"
 
 #: /templates/tracker/issue.index.twig:152
 msgid "View a plain diff for this pull request"
-msgstr ""
+msgstr "Vaata antud veaparanduse muudatuste eristust"
 
 #: /templates/tracker/issue.index.twig:154
 msgid "Diff"
@@ -602,31 +602,31 @@ msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
 msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr ""
+msgstr "Probleemi lahendamise olulisus. Projekti tähtsusjärjekorra kohta vaata üksikasjalikumat lisainfot lehelt <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Vigade jälgimise protsess</a>."
 
 #: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
-msgstr ""
+msgstr "Projekti versioon(id), millest see probleem on."
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "Palun vali üks või mitu kategooriat, mis sobivad sinu probleemiga."
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+msgstr "Turvaprobleemidest teavita Joomla! Turvalisuse Meeskonda (JSST) aadressil <a %class1% %href1%>security@joomla.org</a> või kasutades <a %class2% %href2%>JSST kontaktivormi</a>. Palun ära kasuta seda avalikku saiti turvaprobleemidest teavitamiseks."
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr ""
+msgstr "Joomla! veast teavitamiseks pead sa lisama vearaporti. Pärast vearaporti lisamist kontrollivad seda arendajad ning võtavad vajadusel ette sammud selle lahendamiseks."
 
 #: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr ""
+msgstr "Kirjelda mõne sõnaga, mis probleem sul on. Kui see on sinu esimene kord veast teavitada, siis on üldiselt hea mõte kasutada eeskujuna olemasolevaid veakirjeldusi."
 
 #: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr ""
+msgstr "See on veast teavitamise juures kõige tähtsam osa. Kirjelda siin samm sammu haaval, kuidas sa veateate said. Lisa kogu info, mida on vaja sinu sammude järgi tegemiseks ja probleemi nägemiseks. Pea meeles: sinu poolt leitud viga ei parandata, kui teised seda probleemi ei näe. Seega ole nii selge ja lisa nii palju üksikasju kui võimalik. Hea vearaporti lisamiseks ei pea sa teadma midagi programmeerimisest. Aga kui sa saad lähtekoodist aru ja tead, kuidas viga parandada, siis lisa ka see oma vearaportisse."
 
 #: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."

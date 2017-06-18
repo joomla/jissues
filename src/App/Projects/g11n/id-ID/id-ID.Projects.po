@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -144,7 +144,7 @@ msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
-msgstr "Stat"
+msgstr "Statistik"
 
 #: /templates/projects/projects.index.twig:57
 msgid "Show"
@@ -156,7 +156,7 @@ msgstr "Aktivitas Proyek"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr "Gambar layar"
+msgstr "Rekam gambar layar"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
@@ -180,9 +180,9 @@ msgstr "Sandi Editbot GitHub"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"
-msgstr "Judul wajib"
+msgstr "Judul adalah wajib"
 
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
-msgstr "Judul singkat wajib"
+msgstr "Judul singkat adalah wajib"
 

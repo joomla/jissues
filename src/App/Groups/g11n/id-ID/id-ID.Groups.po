@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgstr "nama pengguna"
 #: /templates/groups/group.edit.twig:238
 #: /templates/groups/group.edit.twig:246
 msgid "Remove user"
-msgstr "Buang pengguna"
+msgstr "Hapus pengguna"
 
 #: /templates/groups/group.edit.twig:251
 msgid "List assigned users"
@@ -127,13 +127,13 @@ msgstr "Daftar pengguna yang memiliki tugas"
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
-msgstr "Simpan kelompok untuk menugaskan pengguna."
+msgstr "Simpan kelompok tersebut untuk menugaskan pengguna."
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."
-msgstr "Kelompok telah dihapus."
+msgstr "Kelompok tersebut telah dihapus."
 
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"
-msgstr "Judul wajib"
+msgstr "Judul adalah wajib"
 

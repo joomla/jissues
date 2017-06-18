@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: French, Canada\n"
 "MIME-Version: 1.0\n"
@@ -146,11 +146,11 @@ msgstr "Activité des anomalies ouvertes et fermées du projet - %s"
 
 #: /templates/activity/projectactivity.index.twig:25
 msgid "Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was a duplicate issue or not considered to be a bug."
-msgstr "Remarque : une anomalie présente sur le suiveur d'anomalies peut être fermée de l'une des deux façons suivantes. Elle peut être résolue par une modification du code, ou fermée en cas d'anomalie dupliquée ou n'étant pas considérée comme étant un bug."
+msgstr "Remarque : une anomalie présente sur le suiveur d'anomalies peut être fermée de l'une des deux façons suivantes. Elle peut être résolue par une modification du code, ou fermée en cas d'anomalie dupliquée ou n'étant pas considérée comme étant un bogue."
 
 #: /templates/activity/projectactivity.index.twig:26
 msgid "Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed because they were duplicate reports or not bugs."
-msgstr "Les anomalies résolues correspondent aux anomalies dont une modification de code a permis leur résolution. Les autres anomalies fermées correspondent à des anomalies ayant été signalées comme étant des doublons ou n'étant pas des bugs."
+msgstr "Les anomalies résolues correspondent aux anomalies dont une modification de code a permis leur résolution. Les autres anomalies fermées correspondent à des anomalies ayant été signalées comme étant des doublons ou n'étant pas des bogues."
 
 #: /templates/activity/projectactivity.index.twig:27
 msgid "Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so."

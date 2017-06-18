@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:21-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Penting"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:246
 msgid "Medium"
-msgstr "Menengah"
+msgstr "Sedang"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:247
 msgid "Low"
@@ -81,7 +81,7 @@ msgstr "Ditunda"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:356
 #: /src/JTracker/View/Renderer/TrackerExtension.php:380
 msgid "Ready To Commit"
-msgstr "Siap Untuk Komit"
+msgstr "Siap Commit (RTC)"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:357
 #: /src/JTracker/View/Renderer/TrackerExtension.php:381
@@ -101,7 +101,7 @@ msgstr "Diskusi"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:365
 #: /src/JTracker/View/Renderer/TrackerExtension.php:384
 msgid "Fixed in Code Base"
-msgstr "Diperbaiki di Basis Kode"
+msgstr "Telah Diperbaiki dalam Kode Dasar"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:366
 #: /src/JTracker/View/Renderer/TrackerExtension.php:385
@@ -111,7 +111,7 @@ msgstr "Laporan Tidak Dikonfirmasi"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:367
 #: /src/JTracker/View/Renderer/TrackerExtension.php:386
 msgid "No Reply"
-msgstr "Tidak Ada Balasan"
+msgstr "Tidak ada Balasan"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:368
 #: /src/JTracker/View/Renderer/TrackerExtension.php:387
@@ -126,7 +126,7 @@ msgstr "Perilaku Yang Diharapkan"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:370
 #: /src/JTracker/View/Renderer/TrackerExtension.php:389
 msgid "Known Issue"
-msgstr "Isu Yang Dikenal"
+msgstr "Isu Yang Dikenali"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:371
 #: /src/JTracker/View/Renderer/TrackerExtension.php:390

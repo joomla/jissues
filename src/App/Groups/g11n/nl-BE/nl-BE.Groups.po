@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch, Belgium\n"
 "MIME-Version: 1.0\n"
@@ -18,122 +18,122 @@ msgstr ""
 
 #: /templates/groups/groups.index.twig:6
 msgid "Groups"
-msgstr ""
+msgstr "Groepen"
 
 #: /templates/groups/groups.index.twig:11
 msgid "Add Group"
-msgstr ""
+msgstr "Groep toevoegen"
 
 #: /templates/groups/groups.index.twig:22
 msgid "Access Groups"
-msgstr ""
+msgstr "Toegang Gebruikersgroepen"
 
 #: /templates/groups/groups.index.twig:27
 #: /templates/groups/group.edit.twig:164
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: /templates/groups/groups.index.twig:28
 #: /templates/groups/group.edit.twig:181
 msgid "View"
-msgstr ""
+msgstr "Weergeven"
 
 #: /templates/groups/groups.index.twig:29
 #: /templates/groups/group.edit.twig:188
 msgid "Create"
-msgstr ""
+msgstr "Aanmaken"
 
 #: /templates/groups/groups.index.twig:30
 #: /templates/groups/group.edit.twig:195
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: /templates/groups/groups.index.twig:31
 #: /templates/groups/group.edit.twig:202
 msgid "Edit own"
-msgstr ""
+msgstr "Bewerk eigen"
 
 #: /templates/groups/groups.index.twig:32
 #: /templates/groups/group.edit.twig:209
 msgid "Manage"
-msgstr ""
+msgstr "Beheren"
 
 #: /templates/groups/groups.index.twig:33
 msgid "Actions"
-msgstr ""
+msgstr "Acties"
 
 #: /templates/groups/groups.index.twig:35
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/groups/groups.index.twig:64
 msgid "System"
-msgstr ""
+msgstr "Systeem"
 
 #: /templates/groups/groups.index.twig:67
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: /templates/groups/groups.index.twig:79
 msgid "No groups defined!"
-msgstr ""
+msgstr "Er zijn nog geen groepen omschreven"
 
 #: /templates/groups/group.edit.twig:6
 msgid "Edit Group"
-msgstr ""
+msgstr "Groep bewerken"
 
 #: /templates/groups/group.edit.twig:11
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: /templates/groups/group.edit.twig:145
 msgid "Edit Access Group"
-msgstr ""
+msgstr "Toegang Gebruikersgroep bewerken"
 
 #: /templates/groups/group.edit.twig:147
 msgid "Add Access Group"
-msgstr ""
+msgstr "Toegang Gebruikersgroep toevoegen"
 
 #: /templates/groups/group.edit.twig:156
 msgid "Details"
-msgstr ""
+msgstr "Gegevens"
 
 #: /templates/groups/group.edit.twig:174
 msgid "Permissions"
-msgstr ""
+msgstr "Rechten"
 
 #: /templates/groups/group.edit.twig:222
 msgid "Users"
-msgstr ""
+msgstr "Gebruikers"
 
 #: /templates/groups/group.edit.twig:226
 #: /templates/groups/group.edit.twig:234
 msgid "Add user"
-msgstr ""
+msgstr "Voeg gebruiker toe"
 
 #: /templates/groups/group.edit.twig:228
 #: /templates/groups/group.edit.twig:241
 msgid "username"
-msgstr ""
+msgstr "gebruikersnaam"
 
 #: /templates/groups/group.edit.twig:238
 #: /templates/groups/group.edit.twig:246
 msgid "Remove user"
-msgstr ""
+msgstr "Gebruiker verwijderen"
 
 #: /templates/groups/group.edit.twig:251
 msgid "List assigned users"
-msgstr ""
+msgstr "Lijst toegewezen gebruikers"
 
 #: /templates/groups/group.edit.twig:263
 msgid "Save the group to assign users."
-msgstr ""
+msgstr "Groep opslaan om gebruikers toe te wijzen."
 
 #: /src/App/Groups/Controller/Group/Delete.php:82
 msgid "The group has been deleted."
-msgstr ""
+msgstr "De groep is verwijderd."
 
 #: /src/App/Groups/Table/GroupsTable.php:99
 msgid "A title is required"
-msgstr ""
+msgstr "Een titel is vereist"
 

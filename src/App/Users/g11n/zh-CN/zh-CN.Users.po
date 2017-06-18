@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-14 16:01-0500\n"
-"PO-Revision-Date: 2016-09-23 04:28-0400\n"
+"PO-Revision-Date: 2017-06-18 18:23-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -60,11 +60,11 @@ msgstr "用户列表"
 #: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
-msgstr ""
+msgstr "按会员筛选列表"
 
 #: /templates/users/users.index.twig:34
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: /templates/users/users.index.twig:41
 #: /templates/users/users.index.twig:73
@@ -128,11 +128,11 @@ msgstr "已经取消这个用户的分配"
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorised to edit this user."
-msgstr ""
+msgstr "您没有编辑此用户的权限"
 
 #: /src/App/Users/Controller/User/Refresh.php:47
 msgid "You are not authorised to refresh this user."
-msgstr ""
+msgstr "您没有刷新此用户资料的权限"
 
 #: /src/App/Users/Controller/User/Refresh.php:73
 msgid "The profile has been refreshed."

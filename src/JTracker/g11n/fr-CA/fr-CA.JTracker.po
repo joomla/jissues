@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:21-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: French, Canada\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Très faible"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:292
 msgid "Duplicate of"
-msgstr "Doublon de"
+msgstr "Duplicata de"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:293
 msgid "Related to"
@@ -131,7 +131,7 @@ msgstr "Anomalie connue"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:371
 #: /src/JTracker/View/Renderer/TrackerExtension.php:390
 msgid "Duplicate Report"
-msgstr "Rapport de doublon"
+msgstr "Rapport dupliqué"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:562
 msgid "No"

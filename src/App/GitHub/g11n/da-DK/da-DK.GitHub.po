@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -20,17 +20,17 @@ msgstr ""
 #: /templates/github/stats.index.twig:56
 #, php-format
 msgid "%s - Statistics"
-msgstr "%s - Statistik"
+msgstr "%s - Statistikker"
 
 #: /templates/github/hooks.index.twig:6
 #: /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
-msgstr "%s - Hooks"
+msgstr "%s - Kroge"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr "List hooks"
+msgstr "List kroge"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
@@ -45,7 +45,7 @@ msgstr "URL"
 #: /templates/github/hooks.index.twig:26
 #: /templates/github/hooks.index.twig:88
 msgid "Events"
-msgstr "Handlinger"
+msgstr "Begivenheder"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
@@ -53,7 +53,7 @@ msgstr "NOTE: kommasepareret, ingen mellemrum"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr "Tilføj hook"
+msgstr "Tilføj krog"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"

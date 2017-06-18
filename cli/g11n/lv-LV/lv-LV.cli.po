@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:21-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Latvian\n"
 "MIME-Version: 1.0\n"
@@ -18,27 +18,27 @@ msgstr ""
 
 #: /cli/Application/Application.php:113
 msgid "Be quiet - suppress output."
-msgstr ""
+msgstr "Kluss - aizliegt izvadi."
 
 #: /cli/Application/Application.php:118
 msgid "Verbose output for debugging purpose."
-msgstr ""
+msgstr "Verbāla izvade priekš atkļūdošanas."
 
 #: /cli/Application/Application.php:123
 msgid "Suppress ANSI colours on unsupported terminals."
-msgstr ""
+msgstr "Aizliegt ANSI krāsas terminālos kuri netiek atbalstīti."
 
 #: /cli/Application/Application.php:128
 msgid "Optionally log output to the specified log file."
-msgstr ""
+msgstr "Log failu izvade uz norādīto log failu."
 
 #: /cli/Application/Application.php:133
 msgid "Set the language used by the application."
-msgstr ""
+msgstr "Iestatīt aplikācijas lietošanas valodu."
 
 #: /cli/Application/Application.php:160
 msgid "Joomla! Tracker CLI Application"
-msgstr ""
+msgstr "Joomla! Trekera CLI Aplikācija"
 
 #: /cli/Application/Application.php:181
 #, php-format
@@ -61,11 +61,11 @@ msgstr "Izpildīšanas laiks: <b>%d sek.</b>"
 #: /cli/Application/Application.php:388
 #, php-format
 msgid "The argument \"%s\" is not recognized."
-msgstr ""
+msgstr "Arguments \"%s\" nav atpazīts."
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
-msgstr ""
+msgstr "GitHub apjoma limits:..."
 
 #: /cli/Application/Command/Clear/Cache.php:29
 msgid "Clear the g11n language directory."
@@ -81,7 +81,7 @@ msgstr "g11n keša direktorija tika iztīrīta."
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
-msgstr ""
+msgstr "Iztīrīs visu."
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
@@ -101,11 +101,11 @@ msgstr "Twig keša direktorija tika iztīrīta."
 
 #: /cli/Application/Command/Database/Database.php:27
 msgid "This will track the database status."
-msgstr ""
+msgstr "Atsokot datu bāzes statusu."
 
 #: /cli/Application/Command/Database/Migrate.php:29
 msgid "Migrate the database schema to a newer version."
-msgstr ""
+msgstr "Migrēt datu bāzes shēmu uz jaunāku versiju."
 
 #: /cli/Application/Command/Database/Migrate.php:34
 msgid "Apply a specific database version."
@@ -157,23 +157,23 @@ msgstr "Pēdējā versija: %1$s"
 #: /cli/Application/Command/Database/Status.php:68
 #, php-format
 msgid "To update, run the %1$s command."
-msgstr ""
+msgstr "Lai atjaunotu, palaidiet %1$s komandu."
 
 #: /cli/Application/Command/Export/Langfiles.php:45
 msgid "Backup language files to a given folder."
-msgstr ""
+msgstr "Nokopēt rezerves kopiju valodas failiem uz norādīto korektoriju."
 
 #: /cli/Application/Command/Export/Langfiles.php:50
 msgid "Export also language template files."
-msgstr ""
+msgstr "Eksportēt arī valodas šablona failus."
 
 #: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
-msgstr ""
+msgstr "Eksportēt valodas failus"
 
 #: /cli/Application/Command/Export/Langfiles.php:84
 msgid "Start exporting language files."
-msgstr ""
+msgstr "Sākt valodas failu eksportu."
 
 #: /cli/Application/Command/Export/Langfiles.php:87
 #: /cli/Application/Command/Get/Avatars.php:56
@@ -196,95 +196,95 @@ msgstr ""
 #: /cli/Application/Command/Update/Languagefiles.php:86
 #: /cli/Application/Command/Update/Pulls.php:69
 msgid "Finished."
-msgstr ""
+msgstr "Gatavs."
 
 #: /cli/Application/Command/Export/Langfiles.php:133
 #: /cli/Application/Command/Get/Languagefiles.php:139
 msgid "Processing %domain% %extension%... "
-msgstr ""
+msgstr "Apstrādā %domain% %extension%... "
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
-msgstr ""
+msgstr "Pieprasīt avataru attēlus no GitHub."
 
 #: /cli/Application/Command/Get/Avatars.php:50
 msgid "Retrieve Avatars"
-msgstr ""
+msgstr "Pieprasīt avatarus"
 
 #: /cli/Application/Command/Get/Avatars.php:52
 msgid "Start retrieving Avatars."
-msgstr ""
+msgstr "Sākt avataru pieprasīšanu."
 
 #: /cli/Application/Command/Get/Avatars.php:81
 #: /cli/Application/Command/Get/Users.php:87
 msgid "No users found in database."
-msgstr ""
+msgstr "Datu bāzē nav atrasti lietotāji."
 
 #: /cli/Application/Command/Get/Avatars.php:87
 #, php-format
 msgid "Processing avatars for one user."
 msgid_plural "Processing avatars for %d users."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Apstrādā lietotāja avatarus."
+msgstr[1] "Apstrādā lietotāja avatarus."
+msgstr[2] "Apstrādā %d lietotāju avatarus."
 
 #: /cli/Application/Command/Get/Avatars.php:113
 #, php-format
 msgid "User avatar already fetched for user %s"
-msgstr ""
+msgstr "Lietotājam %s avatars ir jau nolasīts"
 
 #: /cli/Application/Command/Get/Avatars.php:122
 #, php-format
 msgid "Fetching avatar for user: %s"
-msgstr ""
+msgstr "Nolasa lietotāja %s avataru"
 
 #: /cli/Application/Command/Get/Avatars.php:134
 #, php-format
 msgid "Copy default image for user: %s"
-msgstr ""
+msgstr "Nokopēt lietotājam %s noklusēto attēlu"
 
 #: /cli/Application/Command/Get/Avatars.php:151
 #, php-format
 msgid "Added one new user avatar"
 msgid_plural "Added %d new user avatars"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Pievienots jauns lietotāja avatars"
+msgstr[1] "Pievienots jauns lietotāja avatars"
+msgstr[2] "Pievienoti %d jauni lietotāja avatari"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
-msgstr ""
+msgstr "Pieprasīt projekta tagu sarakstu no GitHub un parādīt to instalētās versijas."
 
 #: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
-msgstr ""
+msgstr "Rādīt visus tagus vai tikai aktuālos."
 
 #: /cli/Application/Command/Get/Composertags.php:50
 msgid "Retrieve Composer tags"
-msgstr ""
+msgstr "Saņemt Kompozitora tagus"
 
 #. TRANSLATORS: %s refers to a file system path.
 #: /cli/Application/Command/Get/Composertags.php:59
 #, php-format
 msgid "Can not read the packages file at %s"
-msgstr ""
+msgstr "Nevar nolasīt pakotnes failu %s"
 
 #: /cli/Application/Command/Get/Composertags.php:62
 msgid "Start getting Composer tags."
-msgstr ""
+msgstr "Sākt Kompozitora tagu saņemšanu."
 
 #: /cli/Application/Command/Get/Composertags.php:104
 msgid "Installed"
-msgstr ""
+msgstr "Instalēts"
 
 #: /cli/Application/Command/Get/Composertags.php:121
 #, php-format
 msgid "Installed: %s"
-msgstr ""
+msgstr "Instalēts: %s"
 
 #: /cli/Application/Command/Get/Get.php:84
 msgid "Retrieve Information from various sources."
-msgstr ""
+msgstr "Pieprasīt informāciju no dažādiem avotiem."
 
 #: /cli/Application/Command/Get/Get.php:90
 #: /cli/Application/Command/Test/Hook.php:66
@@ -296,11 +296,11 @@ msgstr ""
 #: /cli/Application/Command/Make/Make.php:41
 #: /cli/Application/Command/Update/Update.php:78
 msgid "Don't use a progress bar."
-msgstr ""
+msgstr "Nelietot progresa skalu."
 
 #: /cli/Application/Command/Get/Languagefiles.php:49
 msgid "Retrieve language files."
-msgstr ""
+msgstr "Pieprasīt valodas failus."
 
 #: /cli/Application/Command/Get/Languagefiles.php:54
 msgid "Optionally specify a single language to fetch."
@@ -313,7 +313,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Languagefiles.php:74
 msgid "Get Translations"
-msgstr ""
+msgstr "Iegūt tulkojumus"
 
 #: /cli/Application/Command/Get/Languagefiles.php:79
 msgid "Start fetching translations."
@@ -345,7 +345,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project.php:112
 msgid "Retrieve Project"
-msgstr ""
+msgstr "Pieprasīt Projektu"
 
 #: /cli/Application/Command/Get/Project.php:114
 msgid "Bulk Start retrieve Project"
@@ -450,11 +450,11 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
-msgstr ""
+msgstr "Pieprasīt notikumus"
 
 #: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
-msgstr ""
+msgstr "Sākt Notikumu pieprasīšanu"
 
 #: /cli/Application/Command/Get/Project/Events.php:98
 #, php-format

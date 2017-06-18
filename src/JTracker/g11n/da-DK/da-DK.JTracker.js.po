@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: /www/media/js/jtracker.js:19
 msgid "Loading preview..."
-msgstr "Loader visning..."
+msgstr "Loader forhåndsvisning..."
 
 #: /www/media/js/jtracker.js:30
 #: /www/media/js/jtracker.js:58
@@ -44,5 +44,5 @@ msgstr "Vælg venligst en bruger"
 
 #: /www/media/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
-msgstr "Vælg venligst først en editor som dit upload kan tilføjes til."
+msgstr "Vælg venligst først en editor, som dit upload kan tilføjes til."
 

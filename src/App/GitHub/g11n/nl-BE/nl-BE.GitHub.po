@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch, Belgium\n"
 "MIME-Version: 1.0\n"
@@ -26,15 +26,15 @@ msgstr "%s - Statistieken"
 #: /templates/github/hooks.index.twig:10
 #, php-format
 msgid "%s - Hooks"
-msgstr "%s - hooks"
+msgstr "%s - haakjes"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr ""
+msgstr "Lijst haken"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr "Nieuwe Hook"
+msgstr "Nieuwe haak"
 
 #: /templates/github/hooks.index.twig:22
 #: /templates/github/hooks.index.twig:87
@@ -45,15 +45,15 @@ msgstr "URL"
 #: /templates/github/hooks.index.twig:26
 #: /templates/github/hooks.index.twig:88
 msgid "Events"
-msgstr ""
+msgstr "Gebeurtenissen"
 
 #: /templates/github/hooks.index.twig:28
 msgid "NOTE: comma separated, no spaces"
-msgstr "NOTA: komma gescheiden, geen spaties"
+msgstr "Opmerking: door een komma gescheiden, geen spaties"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr "Hook Toevoegen"
+msgstr "Haken Toevoegen"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
@@ -74,15 +74,15 @@ msgstr "Actief"
 
 #: /templates/github/hooks.index.twig:101
 msgid "Inactive"
-msgstr "Inactief"
+msgstr "Niet actief"
 
 #: /templates/github/hooks.index.twig:110
 msgid "Deactivate"
-msgstr "Deactiveren"
+msgstr "Uitschakelen"
 
 #: /templates/github/hooks.index.twig:115
 msgid "Activate"
-msgstr "Activeren"
+msgstr "Inschakelen"
 
 #: /templates/github/hooks.index.twig:120
 #: /templates/github/labels.index.twig:59
@@ -148,12 +148,12 @@ msgstr "Titel"
 
 #: /templates/github/milestones.index.twig:36
 msgid "Milestone title"
-msgstr ""
+msgstr "Titel mijlpaal"
 
 #: /templates/github/milestones.index.twig:39
 #: /templates/github/milestones.index.twig:78
 msgid "Due on"
-msgstr ""
+msgstr "Verschuldigd op"
 
 #: /templates/github/milestones.index.twig:40
 msgid "Date"
@@ -179,7 +179,7 @@ msgstr "Omschrijving"
 
 #: /templates/github/milestones.index.twig:59
 msgid "Save"
-msgstr "Oplsaan"
+msgstr "Opslaan"
 
 #: /templates/github/milestones.index.twig:94
 msgid "Edit"
@@ -187,5 +187,5 @@ msgstr "Bewerken"
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
 msgid "Nothing to preview..."
-msgstr "Geen voorbeeld..."
+msgstr "Niets om te bekijken..."
 

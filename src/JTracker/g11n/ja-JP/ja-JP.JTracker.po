@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"PO-Revision-Date: 2017-06-18 18:21-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "非常に低い"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:292
 msgid "Duplicate of"
-msgstr ""
+msgstr "複製"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:293
 msgid "Related to"
@@ -56,7 +56,7 @@ msgstr "関連先"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:294
 msgid "Not before"
-msgstr ""
+msgstr "以前はなし"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:295
 msgid "Pull Request for"
@@ -81,7 +81,7 @@ msgstr "保留"
 #: /src/JTracker/View/Renderer/TrackerExtension.php:356
 #: /src/JTracker/View/Renderer/TrackerExtension.php:380
 msgid "Ready To Commit"
-msgstr "コミットできます"
+msgstr "コミット可"
 
 #: /src/JTracker/View/Renderer/TrackerExtension.php:357
 #: /src/JTracker/View/Renderer/TrackerExtension.php:381

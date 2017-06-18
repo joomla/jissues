@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -30,11 +30,11 @@ msgstr "%s - Ganchos"
 
 #: /templates/github/hooks.index.twig:12
 msgid "List Hooks"
-msgstr "Listar Ganchos"
+msgstr "Listar ganchos"
 
 #: /templates/github/hooks.index.twig:17
 msgid "New Hook"
-msgstr "Novo Gancho"
+msgstr "Novo gancho"
 
 #: /templates/github/hooks.index.twig:22
 #: /templates/github/hooks.index.twig:87
@@ -53,7 +53,7 @@ msgstr "Nota: separar por vírgula, sem espaços"
 
 #: /templates/github/hooks.index.twig:31
 msgid "Add Hook"
-msgstr "Adicionar Gancho"
+msgstr "Adicionar gancho"
 
 #: /templates/github/hooks.index.twig:85
 msgid "Type"
@@ -134,7 +134,7 @@ msgstr "%s - Marcos"
 
 #: /templates/github/milestones.index.twig:11
 msgid "New Milestone"
-msgstr "Novo Marco"
+msgstr "Novo marco"
 
 #: /templates/github/milestones.index.twig:31
 #: /templates/github/milestones.index.twig:74

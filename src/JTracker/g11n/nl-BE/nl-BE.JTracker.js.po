@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-20 08:40-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch, Belgium\n"
 "MIME-Version: 1.0\n"
@@ -44,5 +44,5 @@ msgstr "Selecteer een gebruiker"
 
 #: /www/media/js/uploader-img.js:38
 msgid "First please select an editor to attach the uploads to."
-msgstr "Kies eerst een invoerscherm om de bestanden aan te koppelen."
+msgstr "Kies eerst een tekstverwerker om de bestanden aan te koppelen."
 

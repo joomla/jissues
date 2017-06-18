@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:21-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Подробный вывод для отладки."
 
 #: /cli/Application/Application.php:123
 msgid "Suppress ANSI colours on unsupported terminals."
-msgstr ""
+msgstr "Подавлять цвета ANSI на неподдерживаемых терминалах."
 
 #: /cli/Application/Application.php:128
 msgid "Optionally log output to the specified log file."
@@ -34,7 +34,7 @@ msgstr "Опционально логируй выход в указанный �
 
 #: /cli/Application/Application.php:133
 msgid "Set the language used by the application."
-msgstr ""
+msgstr "Установка языка, используемого приложением."
 
 #: /cli/Application/Application.php:160
 msgid "Joomla! Tracker CLI Application"
@@ -61,23 +61,23 @@ msgstr "Время выполнения: <b>%d сек.</b>"
 #: /cli/Application/Application.php:388
 #, php-format
 msgid "The argument \"%s\" is not recognized."
-msgstr ""
+msgstr "Аргумент «%s» не признается."
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
-msgstr ""
+msgstr "Предел скорости GitHub:..."
 
 #: /cli/Application/Command/Clear/Cache.php:29
 msgid "Clear the g11n language directory."
-msgstr ""
+msgstr "Очистить каталог g11n языка."
 
 #: /cli/Application/Command/Clear/Cache.php:41
 msgid "Clear g11n Cache Directory"
-msgstr ""
+msgstr "Очистить кэша каталога g11n"
 
 #: /cli/Application/Command/Clear/Cache.php:48
 msgid "The g11n cache directory has been cleared."
-msgstr ""
+msgstr "Кэш каталога g11n был очищен."
 
 #: /cli/Application/Command/Clear/Clear.php:27
 msgid "This will clear things."
@@ -85,23 +85,23 @@ msgstr ""
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
-msgstr ""
+msgstr "Очистите кэш Twig."
 
 #: /cli/Application/Command/Clear/Twig.php:42
 msgid "Clear Twig Cache Directory"
-msgstr ""
+msgstr "Очистить каталог кэша Twig"
 
 #: /cli/Application/Command/Clear/Twig.php:46
 msgid "Twig caching is not enabled."
-msgstr ""
+msgstr "Кэширование Twig не включено."
 
 #: /cli/Application/Command/Clear/Twig.php:64
 msgid "The Twig cache directory has been cleared."
-msgstr ""
+msgstr "Каталог кэша Twig был очищен."
 
 #: /cli/Application/Command/Database/Database.php:27
 msgid "This will track the database status."
-msgstr ""
+msgstr "Будет отслеживать состояние базы данных."
 
 #: /cli/Application/Command/Database/Migrate.php:29
 msgid "Migrate the database schema to a newer version."
@@ -134,7 +134,7 @@ msgstr ""
 
 #: /cli/Application/Command/Database/Status.php:48
 msgid "Your database is up-to-date."
-msgstr ""
+msgstr "Ваша база данных актуальна."
 
 #: /cli/Application/Command/Database/Status.php:56
 #, php-format
@@ -147,17 +147,17 @@ msgstr[2] ""
 #: /cli/Application/Command/Database/Status.php:65
 #, php-format
 msgid "Current Version: %1$s"
-msgstr ""
+msgstr "Текущая версия: %1$s"
 
 #: /cli/Application/Command/Database/Status.php:66
 #, php-format
 msgid "Latest Version: %1$s"
-msgstr ""
+msgstr "Последняя версия: %1$s"
 
 #: /cli/Application/Command/Database/Status.php:68
 #, php-format
 msgid "To update, run the %1$s command."
-msgstr ""
+msgstr "Для обновления, выполните команду: %1$s."
 
 #: /cli/Application/Command/Export/Langfiles.php:45
 msgid "Backup language files to a given folder."
@@ -169,7 +169,7 @@ msgstr ""
 
 #: /cli/Application/Command/Export/Langfiles.php:81
 msgid "Export language files"
-msgstr ""
+msgstr "Экспортировать языковой пакет"
 
 #: /cli/Application/Command/Export/Langfiles.php:84
 msgid "Start exporting language files."
@@ -201,7 +201,7 @@ msgstr "Готово."
 #: /cli/Application/Command/Export/Langfiles.php:133
 #: /cli/Application/Command/Get/Languagefiles.php:139
 msgid "Processing %domain% %extension%... "
-msgstr ""
+msgstr "Обработка %domain% %extension%... "
 
 #: /cli/Application/Command/Get/Avatars.php:29
 msgid "Retrieve avatar images from GitHub."
@@ -247,9 +247,9 @@ msgstr "Копирую дефолтное изображение для поль
 #, php-format
 msgid "Added one new user avatar"
 msgid_plural "Added %d new user avatars"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Добавлен один пользовательский аватар"
+msgstr[1] "Добавлено %d пользовательских аватаров"
+msgstr[2] "Добавлено %d пользовательских аватаров"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
@@ -610,16 +610,16 @@ msgstr ""
 
 #: /cli/Application/Command/Help/Help.php:71
 msgid "options"
-msgstr ""
+msgstr "опции"
 
 #: /cli/Application/Command/Help/Help.php:78
 msgid "Available commands:"
-msgstr ""
+msgstr "Доступные команды:"
 
 #: /cli/Application/Command/Help/Help.php:94
 #, php-format
 msgid "<b>For more information use</b>: %s"
-msgstr ""
+msgstr "<b>Подробнее об этом</b>: %s"
 
 #: /cli/Application/Command/Help/Help.php:101
 msgid "Application command <opt>options</opt>"
@@ -629,7 +629,7 @@ msgstr ""
 #: /cli/Application/Command/Help/Help.php:125
 #, php-format
 msgid "Unknown: %s"
-msgstr ""
+msgstr "Неизвестно: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 #: /cli/Application/Command/TrackerCommand.php:233
@@ -639,12 +639,12 @@ msgstr "Команда: %s"
 
 #: /cli/Application/Command/Help/Help.php:135
 msgid "action"
-msgstr ""
+msgstr "действие"
 
 #: /cli/Application/Command/Help/Help.php:142
 #: /cli/Application/Command/Help/Help.php:165
 msgid "Available options:"
-msgstr ""
+msgstr "Доступные опции:"
 
 #: /cli/Application/Command/Help/Help.php:153
 msgid "Available <cmd>actions</cmd>:"
@@ -668,7 +668,7 @@ msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:73
 msgid "Do you want to reinstall?"
-msgstr ""
+msgstr "Хотите переустановить?"
 
 #: /cli/Application/Command/Install/Install.php:75
 msgid "Yes"
@@ -746,11 +746,11 @@ msgstr ""
 #: /cli/Application/Command/Make/Composergraph.php:46
 #: /cli/Application/Command/Make/Depfile.php:57
 msgid "Write output to a file."
-msgstr ""
+msgstr "Записывать выходные данные в файл."
 
 #: /cli/Application/Command/Make/Composergraph.php:52
 msgid "The image type."
-msgstr ""
+msgstr "Тип изображения."
 
 #: /cli/Application/Command/Make/Composergraph.php:66
 msgid "Make Composer graph"
@@ -763,7 +763,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Composergraph.php:140
 #, php-format
 msgid "The file has been written to %s"
-msgstr ""
+msgstr "Файл был записан в %s"
 
 #: /cli/Application/Command/Make/Composergraph.php:157
 #, php-format
@@ -937,16 +937,16 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Hook.php:81
 msgid "Test Hooks"
-msgstr ""
+msgstr "Тест хуков"
 
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
 msgid "Check language files"
-msgstr ""
+msgstr "Проверка языковых файлов"
 
 #: /cli/Application/Command/Test/Langfiles.php:109
 msgid "There have been errors."
-msgstr ""
+msgstr "Были допущены ошибки."
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
@@ -970,27 +970,27 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Phpunit.php:55
 msgid "Finished with errors."
-msgstr ""
+msgstr "Завершено с ошибками."
 
 #: /cli/Application/Command/Test/Run.php:27
 msgid "Run all tests"
-msgstr ""
+msgstr "Запустить все тесты"
 
 #: /cli/Application/Command/Test/Run.php:39
 msgid "Test Suite"
-msgstr ""
+msgstr "Список тестов"
 
 #: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
-msgstr ""
+msgstr "Список тестов завершен с ошибками."
 
 #: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
-msgstr ""
+msgstr "Спсок тестов завершен."
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
-msgstr ""
+msgstr "Обработчик тестов"
 
 #: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
@@ -1042,7 +1042,7 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
-msgstr ""
+msgstr "Обновление перевода"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
@@ -1054,7 +1054,7 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Pulls.php:49
 msgid "Start Updating Project"
-msgstr ""
+msgstr "Начать обновление проекта"
 
 #: /cli/Application/Command/Update/Pulls.php:59
 #, php-format
@@ -1098,7 +1098,7 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Update.php:66
 msgid "Used to update resources"
-msgstr ""
+msgstr "Используется для обновления ресурсов"
 
 #: /cli/tracker.php:99 /cli/tracker.php:131
 #, php-format

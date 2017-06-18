@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Projekt"
 #: /templates/projects/project.index.twig:14
 #: /templates/projects/projects.index.twig:63
 msgid "Edit"
-msgstr "Ret"
+msgstr "Rediger"
 
 #: /templates/projects/project.index.twig:15
 #: /templates/projects/projects.index.twig:64
@@ -44,12 +44,12 @@ msgstr "Projekter %s på GitHub"
 
 #: /templates/projects/project.index.twig:39
 msgid "Statistics"
-msgstr "Statistik"
+msgstr "Statistikker"
 
 #: /templates/projects/project.index.twig:45
 #: /templates/projects/projects.index.twig:45
 msgid "Hooks"
-msgstr "Hooks"
+msgstr "Kroge"
 
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62

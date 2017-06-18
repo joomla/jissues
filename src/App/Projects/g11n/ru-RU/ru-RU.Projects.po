@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +140,7 @@ msgstr "Действия"
 
 #: /templates/projects/projects.index.twig:33
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
@@ -152,11 +152,11 @@ msgstr "Показать"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr "Активность в проекте"
+msgstr "Активность проекта"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
-msgstr "Набросок"
+msgstr "Скриншот"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"

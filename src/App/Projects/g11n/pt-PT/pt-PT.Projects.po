@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Eliminar"
 #: /templates/projects/project.index.twig:26
 #, php-format
 msgid "Project %s Tracker"
-msgstr "Rastreador do Projeto %s"
+msgstr "Rastreador do projeto %s"
 
 #: /templates/projects/project.index.twig:35
 #, php-format
@@ -67,7 +67,7 @@ msgstr "Categorias"
 
 #: /templates/projects/project.add.twig:6
 msgid "Add Project"
-msgstr "Adicionar Projeto"
+msgstr "Adicionar projeto"
 
 #: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
@@ -77,7 +77,7 @@ msgstr "Guardar"
 #: /templates/projects/project.add.twig:20
 #: /templates/projects/project.edit.twig:30
 msgid "New project"
-msgstr "Novo Projeto"
+msgstr "Novo projeto"
 
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
@@ -112,7 +112,7 @@ msgstr "Repositório do GitHub"
 #: /templates/projects/project.add.twig:53
 #: /templates/projects/project.edit.twig:86
 msgid "External Tracker Link"
-msgstr "Link do Rastreador Externo"
+msgstr "Link do rastreador externo"
 
 #: /templates/projects/projects.index.twig:6
 msgid "Projects"
@@ -120,7 +120,7 @@ msgstr "Projetos"
 
 #: /templates/projects/projects.index.twig:12
 msgid "New Project"
-msgstr "Novo Projeto"
+msgstr "Novo projeto"
 
 #: /templates/projects/projects.index.twig:23
 msgid "Projects List"
@@ -152,7 +152,7 @@ msgstr "Exibir"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr "Atividade do Projeto"
+msgstr "Atividade do projeto"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
@@ -168,7 +168,7 @@ msgstr "Editar projeto"
 
 #: /templates/projects/project.edit.twig:28
 msgid "Edit project"
-msgstr "Editar Projeto"
+msgstr "Editar projeto"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
@@ -176,7 +176,7 @@ msgstr "Nome de utilizador do Editbot do GitHub"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
-msgstr "Palavra-passe do Editbot do GitHub"
+msgstr "Senha do Editbot do GitHub"
 
 #: /src/App/Projects/Table/ProjectsTable.php:59
 msgid "A title is required"

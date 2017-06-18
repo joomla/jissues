@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"PO-Revision-Date: 2017-06-18 18:21-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: /cli/Application/Application.php:113
 msgid "Be quiet - suppress output."
-msgstr ""
+msgstr "静かに - 出力を抑制します。"
 
 #: /cli/Application/Application.php:118
 msgid "Verbose output for debugging purpose."
@@ -47,7 +47,7 @@ msgstr "無効なコマンド: %s"
 
 #: /cli/Application/Application.php:188
 msgid "Did you mean one of this?"
-msgstr ""
+msgstr "この1つを意味しますか？"
 
 #: /cli/Application/Application.php:219
 msgid "Process aborted."
@@ -85,11 +85,11 @@ msgstr "これは物事をクリアします。"
 
 #: /cli/Application/Command/Clear/Twig.php:30
 msgid "Clear the Twig cache."
-msgstr ""
+msgstr "Twig キャッシュをクリアします。"
 
 #: /cli/Application/Command/Clear/Twig.php:42
 msgid "Clear Twig Cache Directory"
-msgstr ""
+msgstr "Twig キャッシュディレクトリをクリア"
 
 #: /cli/Application/Command/Clear/Twig.php:46
 msgid "Twig caching is not enabled."
@@ -251,7 +251,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
-msgstr ""
+msgstr "すべてのタグを表示するか、最新のタグだけを表示します。"
 
 #: /cli/Application/Command/Get/Composertags.php:50
 msgid "Retrieve Composer tags"
@@ -274,7 +274,7 @@ msgstr "インストール済"
 #: /cli/Application/Command/Get/Composertags.php:121
 #, php-format
 msgid "Installed: %s"
-msgstr ""
+msgstr "インストール済: %s"
 
 #: /cli/Application/Command/Get/Get.php:84
 msgid "Retrieve Information from various sources."
@@ -457,11 +457,11 @@ msgstr "イベントをデータベースに追加しています..."
 #: /cli/Application/Command/Get/Project/Events.php:328
 #, php-format
 msgid "Added %d new issue events to the database"
-msgstr ""
+msgstr "データベースに追加された %d 新規課題イベント"
 
 #: /cli/Application/Command/Get/Project/Issues.php:71
 msgid "<n> Process only an issue of given status."
-msgstr ""
+msgstr "<n> 指定されたステータスの問題のみを処理します。"
 
 #: /cli/Application/Command/Get/Project/Issues.php:75
 msgid "Retrieve issues from GitHub."
@@ -477,7 +477,7 @@ msgstr "問題の取得を開始"
 
 #: /cli/Application/Command/Get/Project/Issues.php:126
 msgid "Select GitHub issues status?"
-msgstr ""
+msgstr "GitHubのイシューステータスを選択しますか？"
 
 #: /cli/Application/Command/Get/Project/Issues.php:129
 msgid "Open"
@@ -509,7 +509,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Labels.php:31
 msgid "Retrieve project labels from GitHub."
-msgstr ""
+msgstr "GitHubからプロジェクトラベルを取得します。"
 
 #: /cli/Application/Command/Get/Project/Labels.php:43
 msgid "Retrieve Labels"
@@ -530,36 +530,36 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
-msgstr ""
+msgstr "GitHubからプロジェクトのマイルストーンを取得します。"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:45
 msgid "Retrieve Milestones"
-msgstr ""
+msgstr "マイルス トーンを取得"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:47
 msgid "Start retrieving Milestones"
-msgstr ""
+msgstr "マイルストーンの取得を開始"
 
 #: /cli/Application/Command/Get/Project/Milestones.php:64
 msgid "Fetching milestones..."
-msgstr ""
+msgstr "マイルストーンをフェッチしています..."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:151
 #, php-format
 msgid "Milestones: %1$d new, %2$d updated, %3$d deleted."
-msgstr ""
+msgstr "マイルストーン: %1$d 新規、 %2$d 更新、 %3$d 削除しました。"
 
 #: /cli/Application/Command/Get/Users.php:32
 msgid "Retrieve user info from GitHub."
-msgstr ""
+msgstr "GitHub からユーザ情報を取得します。"
 
 #: /cli/Application/Command/Get/Users.php:53
 msgid "Retrieve Users"
-msgstr ""
+msgstr "ユーザの取得"
 
 #: /cli/Application/Command/Get/Users.php:55
 msgid "Start retrieving Users."
-msgstr ""
+msgstr "ユーザの取得を開始します。"
 
 #: /cli/Application/Command/Get/Users.php:93
 #, php-format
@@ -570,15 +570,15 @@ msgstr[0] ""
 #: /cli/Application/Command/Get/Users.php:115
 #, php-format
 msgid "Fetching User Info for user: %s"
-msgstr ""
+msgstr "ユーザ：%s のユーザ情報を取得中"
 
 #: /cli/Application/Command/Get/Users.php:139
 msgid "User information has been refreshed."
-msgstr ""
+msgstr "ユーザー情報を更新しました。"
 
 #: /cli/Application/Command/Help/Help.php:39
 msgid "Displays helpful information"
-msgstr ""
+msgstr "有用な情報を表示"
 
 #: /cli/Application/Command/Help/Help.php:71
 #, php-format
@@ -683,7 +683,7 @@ msgstr "既存のテーブルを削除しています..."
 #: /cli/Application/Command/Install/Install.php:178
 #, php-format
 msgid "Install SQL file for %s not found."
-msgstr ""
+msgstr "%s のインストール SQL ファイルが見つかりません。"
 
 #: /cli/Application/Command/Install/Install.php:185
 msgid "SQL file corrupted."
@@ -692,11 +692,11 @@ msgstr "SQL ファイルが破損しています。"
 #: /cli/Application/Command/Install/Install.php:188
 #, php-format
 msgid "Creating tables from file %s"
-msgstr ""
+msgstr "ファイル %s からテーブルを作成中"
 
 #: /cli/Application/Command/Make/Autocomplete.php:51
 msgid "Generate autocomplete files."
-msgstr ""
+msgstr "オートコンプリート ファイルを生成します。"
 
 #: /cli/Application/Command/Make/Autocomplete.php:56
 #, php-format
@@ -709,7 +709,7 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Autocomplete.php:76
 msgid "Make Auto complete"
-msgstr ""
+msgstr "オートコンプリートにする"
 
 #: /cli/Application/Command/Make/Autocomplete.php:90
 #, php-format
@@ -728,7 +728,7 @@ msgstr ""
 #: /cli/Application/Command/Make/Composergraph.php:46
 #: /cli/Application/Command/Make/Depfile.php:57
 msgid "Write output to a file."
-msgstr ""
+msgstr "出力をファイルに書き込みます。"
 
 #: /cli/Application/Command/Make/Composergraph.php:52
 msgid "The image type."
@@ -762,16 +762,16 @@ msgstr "テーブルのコメントを作成"
 
 #: /cli/Application/Command/Make/Depfile.php:52
 msgid "Create and update a dependency file."
-msgstr ""
+msgstr "依存ファイルを作成して更新します。"
 
 #: /cli/Application/Command/Make/Depfile.php:126
 #, php-format
 msgid "Writing contents to: %s"
-msgstr ""
+msgstr "%s に内容を書き込んでいます"
 
 #: /cli/Application/Command/Make/Depfile.php:269
 msgid "Language file not found: %tag%, %extension%, %domain%"
-msgstr ""
+msgstr "言語ファイルが見つかりません: %tag%, %extension%, %domain%"
 
 #: /cli/Application/Command/Make/Docu.php:29
 msgid "Compile documentation using GitHub Flavored Markdown"
@@ -784,7 +784,7 @@ msgstr "ドキュメントの作成"
 #: /cli/Application/Command/Make/Docu.php:63
 #, php-format
 msgid "Compiling documentation in: %s"
-msgstr ""
+msgstr "%s のドキュメントをコンパイルしています"
 
 #: /cli/Application/Command/Make/Langfiles.php:36
 msgid "Create and update language files."
@@ -840,7 +840,7 @@ msgstr "処理しています：%1$s %2$s"
 #: /cli/Application/Command/Make/Langtemplates.php:161
 #, php-format
 msgid "Processing App: %s"
-msgstr ""
+msgstr "アプリを処理しています: %s"
 
 #: /cli/Application/Command/Make/Langtemplates.php:338
 msgid "Your template has been created"
@@ -860,7 +860,7 @@ msgstr ""
 
 #: /cli/Application/Command/Make/Languageflags.php:56
 msgid "Compile Language flag images"
-msgstr ""
+msgstr "言語国旗画像をコンパイル"
 
 #: /cli/Application/Command/Make/Languageflags.php:111
 #, php-format
@@ -909,15 +909,15 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Copypaste.php:43
 msgid "Run Copy/Paste Detector"
-msgstr ""
+msgstr "コピー / 貼り付け検出器を実行"
 
 #: /cli/Application/Command/Test/Hook.php:61
 msgid "Tests web hooks"
-msgstr ""
+msgstr "web hooks をテスト"
 
 #: /cli/Application/Command/Test/Hook.php:81
 msgid "Test Hooks"
-msgstr ""
+msgstr "Hooks をテスト"
 
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
@@ -930,7 +930,7 @@ msgstr "エラーがありました。"
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
-msgstr ""
+msgstr "言語ファイルのシンタックス OK"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
@@ -942,15 +942,15 @@ msgstr ""
 
 #: /cli/Application/Command/Test/Phpunit.php:29
 msgid "Run PHPUnit tests."
-msgstr ""
+msgstr "PHPUnit のテストを実行します。"
 
 #: /cli/Application/Command/Test/Phpunit.php:41
 msgid "Test PHPUnit"
-msgstr ""
+msgstr "PHPUnit をテスト"
 
 #: /cli/Application/Command/Test/Phpunit.php:55
 msgid "Finished with errors."
-msgstr ""
+msgstr "エラーで終了しました。"
 
 #: /cli/Application/Command/Test/Run.php:27
 msgid "Run all tests"
@@ -979,7 +979,7 @@ msgstr ""
 
 #: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
-msgstr ""
+msgstr "次のいずれかのページをお試しください:"
 
 #: /cli/Application/Command/TrackerCommand.php:348
 msgid "Available projects:"
@@ -1001,7 +1001,7 @@ msgstr "無効なプロジェクト"
 #: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
 msgid "Processing project: %s"
-msgstr ""
+msgstr "処理中のプロジェクト： %s"
 
 #: /cli/Application/Command/TrackerCommand.php:431
 #: /cli/Application/Command/TrackerCommand.php:433
@@ -1010,7 +1010,7 @@ msgstr "不明なエラーが発生しました"
 
 #: /cli/Application/Command/Update/Languagefiles.php:46
 msgid "Updates language files on a translation service."
-msgstr ""
+msgstr "翻訳サービスで言語ファイルを更新します。"
 
 #: /cli/Application/Command/Update/Languagefiles.php:57
 msgid "Flag if resources should be created."
@@ -1066,7 +1066,7 @@ msgstr ""
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
 msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
-msgstr ""
+msgstr "GitHub アイテム %s/%s #%d は、そのマージ ステータスを「エラー」に設定しました。"
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
@@ -1074,11 +1074,11 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Server.php:38
 msgid "An optional version number to update to."
-msgstr ""
+msgstr "更新するためのオプションのバージョン番号です。"
 
 #: /cli/Application/Command/Update/Update.php:66
 msgid "Used to update resources"
-msgstr ""
+msgstr "リソースを更新するために使用"
 
 #: /cli/tracker.php:99 /cli/tracker.php:131
 #, php-format

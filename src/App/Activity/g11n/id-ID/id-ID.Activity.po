@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr "Kode"
 #: /templates/activity/totaluseractivity.index.twig:43
 #: /templates/activity/projectactivity.index.twig:40
 msgid "Update Chart"
-msgstr "Perbarui Grafik"
+msgstr "Update Grafik"
 
 #: /templates/activity/useractivity.index.twig:49
 msgid "Start Date"
@@ -146,15 +146,15 @@ msgstr "Aktivitas Proyek Terbuka & Tutup - %s"
 
 #: /templates/activity/projectactivity.index.twig:25
 msgid "Note: An issue in the tracker may be closed in one of two ways. It may be fixed with a code change, or it may be closed because it was a duplicate issue or not considered to be a bug."
-msgstr "Catatan: Sebuah isu di penelusur mungkin ditutup dalam salah satu cara berikut. Mungkin ia sudah diperbaiki dengan sebuah penggantian kode, atau mungkin ditutup karena merupakan duplikasi isu atau tidak dianggap sebagai sebuah bug."
+msgstr "Catatan: Sebuah isu di penelusur mungkin saja ditutup disebabkan salah satu dari alasan berikut ini. Mungkin sudah diperbaiki dengan cara penggantian kode, atau merupakan duplikasi atau tidak dianggap sebagai sebuah bug."
 
 #: /templates/activity/projectactivity.index.twig:26
 msgid "Fixed issues are issues for which a code change was made to fix the issue. Other Closed issues are issues that were closed because they were duplicate reports or not bugs."
-msgstr "Isu Diperbaiki adalah permasalahan yang sudah dibuatkan penggantian kodenya. Isu Ditutup Lainnya adalah permasalahan yang sudah ditutup karena merupakan duplikat laporan atau bukan bug."
+msgstr "Isu Telah Diperbaiki adalah permasalahan yang sudah dibuatkan penggantian kodenya. Isu Ditutup Lainnya adalah permasalahan yang sudah ditutup karena merupakan duplikasi laporan atau tidak dianggap sebagai sebuah bug."
 
 #: /templates/activity/projectactivity.index.twig:27
 msgid "Please note that pull requests merged before 12 March 2016 may not have the correct status and are included in the Other Closed issues count if so."
-msgstr "Mohon dicatat bahwa tarik permintaan yang digabungkan sebelum 12 Maret 2016 mungkin berstatus tidak benar dan termasuk ke dalam isu Ditutup Lainnya."
+msgstr "Mohon dicatat bahwa, tarik permintaan yang digabungkan sebelum 12 Maret 2016 mungkin berstatus tidak benar dan termasuk dalam isu-isu yang Ditutup Lainnya."
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:54
 msgid "New"
@@ -170,7 +170,7 @@ msgstr "Ditunda"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:57
 msgid "Ready To Commit"
-msgstr "Siap Untuk Komit"
+msgstr "Siap Commit (RTC)"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:58
 msgid "Needs Review"
@@ -178,7 +178,7 @@ msgstr "Perlu Ulasan"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:59
 msgid "Information Required"
-msgstr "Wajib Informasi"
+msgstr "Informasi Wajib"
 
 #: /src/App/Activity/Controller/Ajax/ActivitySnapshot.php:60
 msgid "Discussion"
@@ -206,7 +206,7 @@ msgstr "Minggu"
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:70
 #, php-format
 msgid "Issues Opened and Closed for Past Four %1$s"
-msgstr "Isu Terbuka dan Ditutup untuk Empat Sebelumnya %1$s"
+msgstr "Isu Terbuka dan Ditutup untuk Empat %1$s Sebelumnya"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:75
 msgid "Opened"
@@ -214,7 +214,7 @@ msgstr "Terbuka"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:76
 msgid "Fixed"
-msgstr "Diperbaiki"
+msgstr "Telah Diperbaiki"
 
 #: /src/App/Activity/Controller/Ajax/ProjectActivity.php:77
 msgid "Other Closed"
@@ -242,7 +242,7 @@ msgstr "Kustom"
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:101
 #, php-format
 msgid "%1$s Points From %2$s Through %3$s"
-msgstr "Poin %1$s Dari %2$s Melalui %3$s"
+msgstr "Poin %1$s Dari %2$s Sampai %3$s"
 
 #: /src/App/Activity/Controller/Ajax/UserActivity.php:106
 #, php-format

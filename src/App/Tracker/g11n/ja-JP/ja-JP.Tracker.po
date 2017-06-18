@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:41-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -247,7 +247,7 @@ msgstr "要約や説明で一覧をフィルタリングします。"
 #: /templates/tracker/tpl/filters.twig:61
 #: /templates/tracker/tpl/filters.twig:62
 msgid "Filter the list by ID, summary, or description."
-msgstr ""
+msgstr "ID、要約または説明で一覧をフィルタリングします。"
 
 #: /templates/tracker/tpl/filters.twig:99
 #: /templates/tracker/tpl/filters.twig:102
@@ -330,7 +330,7 @@ msgstr "%s の問題"
 #: /templates/tracker/issue.add.twig:6
 #: /templates/tracker/issue.add.twig:103
 msgid "New Item"
-msgstr "新しいアイテム"
+msgstr "新規アイテム"
 
 #: /templates/tracker/issues.index.twig:44
 #: /templates/tracker/categories.index.twig:48
@@ -423,7 +423,7 @@ msgstr "失敗"
 #: /templates/tracker/issues.index.twig:337
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
 msgid "New"
-msgstr "New"
+msgstr "新規"
 
 #: /templates/tracker/issues.index.twig:338
 msgid "Confirmed"
@@ -523,7 +523,7 @@ msgstr "カテゴリ："
 
 #: /templates/tracker/issue.index.twig:251
 msgid "Referenced as"
-msgstr ""
+msgstr "参照"
 
 #: /templates/tracker/issue.index.twig:289
 msgid "User tests:"
@@ -545,11 +545,11 @@ msgstr "評価"
 
 #: /templates/tracker/issue.index.twig:341
 msgid "# of Users Experiencing Issue"
-msgstr ""
+msgstr "問題を経験しているユーザ数"
 
 #: /templates/tracker/issue.index.twig:345
 msgid "Average Importance Score"
-msgstr ""
+msgstr "平均重要度スコア"
 
 #: /templates/tracker/issue.index.twig:354
 msgid "I've experienced this issue"
@@ -614,19 +614,19 @@ msgstr "あなたの問題に一致するカテゴリをここで 1 つ以上選
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+msgstr "Joomla! Security Strike Team (JSST) にセキュリティ上の問題を<a %class1% %href1%>security@joomla.org</a>宛または<a %class2% %href2%>JSST コンタクトフォーム</a>から報告。セキュリティ上の問題はパブリックトラッカーを使用しないでください。"
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr ""
+msgstr "Joomla! バグトラッカーでバグを報告するには、トラッカーアイテムを作成する必要があります。 トラッカーアイテムが作成されると、開発者はそのトラッカーアイテムの正当性をチェックし、それに応じて行動します。"
 
 #: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr ""
+msgstr "あなたが抱えている問題をいくつか言葉で説明してください。バグを初めて報告する場合は、既存のトラッカーアイテムを例として使用することは、一般的には良い考えです。"
 
 #: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr ""
+msgstr "これはバグを報告する上で最も重要な部分です。あなたが気づいているエラーがどのように起こったのかを、ここでステップバイステップで説明してください。 誰かがステップを再トレースして問題を確認するために必要な情報をすべて含めてください。あなたのバグは他人が問題を見ることができない限り修正されないので、できるだけ明確で詳細に説明することが重要です。 偉大なバグレポートを書くためにプログラミングについて知る必要はありません。 しかし、コードを理解し、バグを修正する方法が分かっている場合は、レポートにこれを含めてください。"
 
 #: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."

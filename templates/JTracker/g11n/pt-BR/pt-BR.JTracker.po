@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2016-09-23 04:26-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese, Brazilian\n"
 "MIME-Version: 1.0\n"
@@ -69,11 +69,11 @@ msgstr "Relatar um problema"
 
 #: /templates/footerMenu.twig:34
 msgid "Log out"
-msgstr "Sair"
+msgstr "Finalizar sessão"
 
 #: /templates/footerMenu.twig:36
 msgid "Log in"
-msgstr "Acessar"
+msgstr "Iniciar sessão"
 
 #: /templates/footerMenu.twig:40
 msgid "&copy; 2005 - %currentYear% %osm% All Rights Reserved."
@@ -144,7 +144,7 @@ msgstr "Ajustar o resultado do teste do usuário %s para %s"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
-msgstr "nome do usuário"
+msgstr "nome de usuário"
 
 #: /templates/uploader.full.twig:14
 msgid "Add files..."
@@ -152,11 +152,11 @@ msgstr "Adicionar arquivos..."
 
 #: /templates/uploader.full.twig:18
 msgid "Start upload"
-msgstr "Começar upload"
+msgstr "Iniciar envio"
 
 #: /templates/uploader.full.twig:21
 msgid "Cancel upload"
-msgstr "Cancelar upload"
+msgstr "Cancelar envio"
 
 #: /templates/uploader.full.twig:24
 #: /templates/uploader.full.twig:101
@@ -165,12 +165,12 @@ msgstr "Excluir"
 
 #: /templates/uploader.full.twig:33
 msgid "Upload Notes"
-msgstr "Notas do Upload"
+msgstr "Notas do envio"
 
 #: /templates/uploader.full.twig:35
 #, php-format
 msgid "The maximum file size for uploads is %s."
-msgstr "O tamanho máximo de arquivo para uploads é %s."
+msgstr "O tamanho máximo de arquivo para envios é %s."
 
 #: /templates/uploader.full.twig:36
 #, php-format
@@ -205,7 +205,7 @@ msgstr "Selecionar idioma"
 
 #: /templates/topMenu.twig:16
 msgid "Joomla! Home"
-msgstr "Joomla! Início"
+msgstr "Página inicial do Joomla!"
 
 #: /templates/topMenu.twig:18
 msgid "Recent News"
@@ -423,7 +423,7 @@ msgstr "Etiquetas"
 
 #: /templates/trackerMenu.twig:67
 msgid "Milestones"
-msgstr ""
+msgstr "Marcos"
 
 #: /templates/trackerMenu.twig:73
 msgid "Categories"
@@ -447,7 +447,7 @@ msgstr "Configuração"
 
 #: /templates/trackerMenu.twig:108
 msgid "phpinfo()"
-msgstr ""
+msgstr "phpinfo()"
 
 #: /templates/trackerMenu.twig:114
 msgid "Logs"
@@ -467,7 +467,7 @@ msgstr "Banco de Dados"
 
 #: /templates/trackerMenu.twig:132
 msgid "GitHub Issues"
-msgstr ""
+msgstr "Problemas no GitHub"
 
 #: /templates/trackerMenu.twig:138
 msgid "GitHub Comments"
@@ -515,11 +515,11 @@ msgstr "Editar perfil"
 
 #: /templates/trackerMenu.twig:240
 msgid "Logout"
-msgstr "Logout"
+msgstr "Sair"
 
 #: /templates/trackerMenu.twig:249
 msgid "Login with GitHub"
-msgstr "Login com GitHub"
+msgstr "Iniciar sessão com GitHub"
 
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"

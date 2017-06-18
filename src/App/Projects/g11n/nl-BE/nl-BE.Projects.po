@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-25 13:00-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch, Belgium\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Statistieken"
 #: /templates/projects/project.index.twig:45
 #: /templates/projects/projects.index.twig:45
 msgid "Hooks"
-msgstr "Hooks"
+msgstr "Haken"
 
 #: /templates/projects/project.index.twig:51
 #: /templates/projects/projects.index.twig:62
@@ -72,7 +72,7 @@ msgstr "Project toevoegen"
 #: /templates/projects/project.add.twig:11
 #: /templates/projects/project.edit.twig:11
 msgid "Save"
-msgstr "Oplsaan"
+msgstr "Opslaan"
 
 #: /templates/projects/project.add.twig:20
 #: /templates/projects/project.edit.twig:30
@@ -82,7 +82,7 @@ msgstr "Nieuw project"
 #: /templates/projects/project.add.twig:24
 #: /templates/projects/project.edit.twig:35
 msgid "Details"
-msgstr "Details"
+msgstr "Gegevens"
 
 #: /templates/projects/project.add.twig:28
 #: /templates/projects/project.edit.twig:37
@@ -92,7 +92,7 @@ msgstr "Titel"
 #: /templates/projects/project.add.twig:33
 #: /templates/projects/project.edit.twig:44
 msgid "Short Title"
-msgstr "Korte titel"
+msgstr "Korte Titel"
 
 #: /templates/projects/project.add.twig:38
 #: /templates/projects/project.edit.twig:51
@@ -102,7 +102,7 @@ msgstr "Alias"
 #: /templates/projects/project.add.twig:43
 #: /templates/projects/project.edit.twig:58
 msgid "GitHub Owner"
-msgstr "GitHub eigenaar"
+msgstr "GitHub Eigenaar"
 
 #: /templates/projects/project.add.twig:48
 #: /templates/projects/project.edit.twig:65
@@ -140,7 +140,7 @@ msgstr "Acties"
 
 #: /templates/projects/projects.index.twig:33
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/projects/projects.index.twig:48
 msgid "Stats"
@@ -152,7 +152,7 @@ msgstr "Tonen"
 
 #: /templates/projects/projects.index.twig:58
 msgid "Project Activity"
-msgstr "Projectactiviteit"
+msgstr "Project bedrijvigheid"
 
 #: /templates/projects/projects.index.twig:59
 msgid "Snapshot"
@@ -160,7 +160,7 @@ msgstr "Momentopname"
 
 #: /templates/projects/projects.index.twig:60
 msgid "User Activity"
-msgstr "Gebruikersactiviteit"
+msgstr "Gebruikers bedrijvigheid"
 
 #: /templates/projects/project.edit.twig:6
 msgid "Edit Project"
@@ -172,7 +172,7 @@ msgstr "Project bewerken"
 
 #: /templates/projects/project.edit.twig:72
 msgid "GitHub Editbot user"
-msgstr ""
+msgstr "GitHub Editbot gebruiker"
 
 #: /templates/projects/project.edit.twig:79
 msgid "GitHub Editbot password"
@@ -184,5 +184,5 @@ msgstr "Een titel is vereist"
 
 #: /src/App/Projects/Table/ProjectsTable.php:64
 msgid "A short title is required"
-msgstr "Een korte titel is vereist"
+msgstr "Een korte titel moet verplicht ingevuld worden"
 

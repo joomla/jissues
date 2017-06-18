@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-14 16:01-0500\n"
-"PO-Revision-Date: 2016-09-23 04:28-0400\n"
+"PO-Revision-Date: 2017-06-18 18:23-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -128,11 +128,11 @@ msgstr "Назначение снято с пользователя."
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorised to edit this user."
-msgstr ""
+msgstr "Вы не авторизованы для редактирования этого пользователя."
 
 #: /src/App/Users/Controller/User/Refresh.php:47
 msgid "You are not authorised to refresh this user."
-msgstr ""
+msgstr "У вас нет прав для обновления этого пользователя."
 
 #: /src/App/Users/Controller/User/Refresh.php:73
 msgid "The profile has been refreshed."

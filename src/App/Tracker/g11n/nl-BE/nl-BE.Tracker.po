@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Dutch, Belgium\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr "Voeg een opmerking toe"
 #: /templates/tracker/issue.edit.twig:214
 #: /templates/tracker/issue.index.twig:567
 msgid "Leave a comment"
-msgstr "Schrijf een opmerking"
+msgstr "Een opmerking achterlaten"
 
 #: /templates/tracker/issue.edit.twig:314
 #: /templates/tracker/issue.add.twig:224
@@ -118,11 +118,11 @@ msgstr "Opslaan..."
 
 #: /templates/tracker/tracker.filters.twig:7
 msgid "- Status -"
-msgstr ""
+msgstr "- Status -"
 
 #: /templates/tracker/tracker.filters.twig:16
 msgid "- Priority -"
-msgstr ""
+msgstr "-Met voorrang-"
 
 #: /templates/tracker/tracker.filters.twig:25
 msgid "Least recently updated"
@@ -154,19 +154,19 @@ msgstr "U nam deel in"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "- Categories -"
-msgstr ""
+msgstr "-Categorieën-"
 
 #: /templates/tracker/tracker.filters.twig:50
 msgid "No Categories"
-msgstr ""
+msgstr "Geen categorieën"
 
 #: /templates/tracker/tracker.filters.twig:63
 msgid "- Labels -"
-msgstr ""
+msgstr "- Labels -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "- Tests -"
-msgstr ""
+msgstr "- Testen -"
 
 #: /templates/tracker/tracker.filters.twig:74
 msgid "Has two tests"
@@ -182,7 +182,7 @@ msgstr "Testen vereist"
 
 #: /templates/tracker/tracker.filters.twig:87
 msgid "- Easy -"
-msgstr ""
+msgstr "- Gemakkelijk -"
 
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:361
@@ -196,19 +196,19 @@ msgstr "Ja"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "- Type -"
-msgstr ""
+msgstr "- Type -"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Issue"
-msgstr "Issue"
+msgstr "Probleem"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "Pull Request"
-msgstr "Pull Request"
+msgstr "Pull verzoek"
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
-msgstr ""
+msgstr "- Mijlpalen -"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
@@ -225,7 +225,7 @@ msgstr "Alle"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search Tools"
-msgstr ""
+msgstr "Zoek hulpmiddelen"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -281,7 +281,7 @@ msgstr "Alias"
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
 msgid "Colour"
-msgstr ""
+msgstr "Kleur"
 
 #: /templates/tracker/tpl/activities.twig:24
 #: /templates/tracker/issue.add.twig:113
@@ -324,7 +324,7 @@ msgstr "Bewerk categorie"
 #: /templates/tracker/issues.index.twig:6
 #, php-format
 msgid "%s Issues"
-msgstr ""
+msgstr "%s problemen"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
@@ -393,7 +393,7 @@ msgstr "Laag"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Very Low"
-msgstr ""
+msgstr "Zeer laag"
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
@@ -467,7 +467,7 @@ msgstr "Dubbel rapport"
 
 #: /templates/tracker/issues.index.twig:350
 msgid "Discussion"
-msgstr ""
+msgstr "Discussie"
 
 #: /templates/tracker/issues.index.twig:413
 msgid "First"
@@ -577,11 +577,11 @@ msgstr "Log in met GitHub om een opmerking te plaatsen"
 
 #: /templates/tracker/issue.index.twig:596
 msgid "Older"
-msgstr ""
+msgstr "Oudere"
 
 #: /templates/tracker/issue.index.twig:599
 msgid "Newer"
-msgstr ""
+msgstr "Nieuwere"
 
 #: /templates/tracker/issue.add.twig:12
 #: /templates/tracker/issue.add.twig:130
@@ -602,7 +602,7 @@ msgstr "Pro"
 
 #: /templates/tracker/issue.add.twig:54
 msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr ""
+msgstr "De prioriteit waarmee dit probleem dient te worden opgelost. Kijk op de <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Proces</a> pagina voor gedetailleerde informatie over de prioriteiten van het project."
 
 #: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
@@ -614,7 +614,7 @@ msgstr "Selecteer één of meer categorieën die passen bij uw probleem."
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+msgstr "Meld beveiligingsproblemen bij het het Joomla! Security Strike Team (JSST) via <a %class1% %href1%>security@joomla.org</a> of op het <a %class2% %href2%>JSST contactformulier</a>, gebruik alstublieft de openbare tracker NIET voor beveiligingslekken."
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
@@ -701,11 +701,11 @@ msgstr "De lengte van de alias mag niet langer zijn dan 150 tekens."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "De kleur dient een hexadecimale waarde te zijn."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr ""
+msgstr "Probleem-ID is nodig"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."

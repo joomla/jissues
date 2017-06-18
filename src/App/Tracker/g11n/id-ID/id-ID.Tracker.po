@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2016-09-23 04:27-0400\n"
+"PO-Revision-Date: 2017-06-18 18:22-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "Label"
 #: /templates/tracker/tpl/activities.twig:131
 #: /templates/tracker/issue.add.twig:83
 msgid "Milestone"
-msgstr "Jejak"
+msgstr "Versi Rilis"
 
 #: /templates/tracker/issue.edit.twig:184
 #: /templates/tracker/category.add.twig:27
@@ -208,7 +208,7 @@ msgstr "Tarik Permintaan"
 
 #: /templates/tracker/tracker.filters.twig:111
 msgid "- Milestones -"
-msgstr "- Jejak -"
+msgstr "- Versi Rilis -"
 
 #: /templates/tracker/tpl/filters.twig:10
 msgid "Open"
@@ -225,7 +225,7 @@ msgstr "Semua"
 
 #: /templates/tracker/tpl/filters.twig:25
 msgid "Search Tools"
-msgstr "Perangkat Pencarian"
+msgstr "Alat Penelusuran"
 
 #: /templates/tracker/tpl/filters.twig:30
 msgid "Clear"
@@ -242,18 +242,18 @@ msgstr "Pranala"
 
 #: /templates/tracker/tpl/filters.twig:58
 msgid "Filter the list by summary or description."
-msgstr "Filter daftar ini berdasarkan kesimpulan atau keterangan."
+msgstr "Filter berdasarkan kesimpulan atau keterangan."
 
 #: /templates/tracker/tpl/filters.twig:61
 #: /templates/tracker/tpl/filters.twig:62
 msgid "Filter the list by ID, summary, or description."
-msgstr "Filter daftar ini berdasarkan ID, kesimpulan, atau keterangan."
+msgstr "Filter berdasarkan ID, kesimpulan, atau keterangan."
 
 #: /templates/tracker/tpl/filters.twig:99
 #: /templates/tracker/tpl/filters.twig:102
 #: /templates/tracker/tpl/filters.twig:103
 msgid "Filter the list by creator."
-msgstr "Filter daftar ini berdasarkan pembuat."
+msgstr "Filter berdasarkan pembuat."
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
@@ -343,7 +343,7 @@ msgstr "Kesimpulan"
 
 #: /templates/tracker/issues.index.twig:52
 msgid "Loading, please wait..."
-msgstr "Sedang memuat, mohon tunggul..."
+msgstr "Sedang memuat, mohon tunggu..."
 
 #: /templates/tracker/issues.index.twig:114
 #: /templates/tracker/issue.index.twig:79
@@ -373,7 +373,7 @@ msgstr "Dimodifikasi "
 
 #: /templates/tracker/issues.index.twig:183
 msgid "Milestone: "
-msgstr "Jejak: "
+msgstr "Versi Rilis: "
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Critical"
@@ -385,7 +385,7 @@ msgstr "Penting"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Medium"
-msgstr "Menengah"
+msgstr "Sedang"
 
 #: /templates/tracker/issues.index.twig:188
 msgid "Low"
@@ -401,7 +401,7 @@ msgstr "Status penggabungan GitHub"
 
 #: /templates/tracker/issues.index.twig:205
 msgid "No items found."
-msgstr "Tidak ada butir ditemukan."
+msgstr "Tidak ada butir yang ditemukan."
 
 #: /templates/tracker/issues.index.twig:322
 msgid "Success"
@@ -431,11 +431,11 @@ msgstr "Dikonfirmasi"
 
 #: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
-msgstr "Siap Untuk Komit"
+msgstr "Siap Commit (RTC)"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr "Diperbaiki di Basis Kode"
+msgstr "Telah Diperbaiki dalam Kode Dasar"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
@@ -451,7 +451,7 @@ msgstr "Laporan Tidak Dikonfirmasi"
 
 #: /templates/tracker/issues.index.twig:345
 msgid "No Reply"
-msgstr "Tidak Ada Balasan"
+msgstr "Tidak ada Balasan"
 
 #: /templates/tracker/issues.index.twig:347
 msgid "Expected Behaviour"
@@ -487,7 +487,7 @@ msgstr "Terakhir"
 
 #: /templates/tracker/issue.index.twig:59
 msgid "That issue does not exist, or the ID you typed is incorrect."
-msgstr "Isu itu tidak ada, atau ID yang Anda ketikkan tidak benar."
+msgstr "Isu tersebut tidak ada, atau ID yang Anda ketik salah."
 
 #: /templates/tracker/issue.index.twig:115
 msgid "Easy Test"
@@ -541,7 +541,7 @@ msgstr "Tidak Berhasil: %s"
 
 #: /templates/tracker/issue.index.twig:331
 msgid "Votes"
-msgstr "Voting"
+msgstr "Nilai"
 
 #: /templates/tracker/issue.index.twig:341
 msgid "# of Users Experiencing Issue"
@@ -561,7 +561,7 @@ msgstr "Isu yang penting bagi saya"
 
 #: /templates/tracker/issue.index.twig:391
 msgid "Vote"
-msgstr "Voting"
+msgstr "Nilai"
 
 #: /templates/tracker/issue.index.twig:497
 msgid "The description was changed"
@@ -590,7 +590,7 @@ msgstr "Kirim"
 
 #: /templates/tracker/issue.add.twig:44
 msgid "View Mode"
-msgstr "Mode Lihat"
+msgstr "Mode Tampilan"
 
 #: /templates/tracker/issue.add.twig:45
 msgid "Help"
@@ -610,7 +610,7 @@ msgstr "Versi dari proyek dimana isu ini ditemukan."
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
-msgstr "Pilihlah satu atau lebih Kategori yang ada disini yang cocok dengan isu Anda."
+msgstr "Pilihlah satu atau lebih Kategori yang cocok dengan isu Anda."
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
@@ -618,15 +618,15 @@ msgstr "Laporkan isu-isu keamanan kepada Joomla! Security Strike Team (JSST) di 
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr "Untuk melaporkan sebuah bug ke penelusur bug Joomla, Anda perlu membuat sebuah butir penelusur terlebih dahulu. Bila butir penelusur sudah dibuat, para pengembang akan memeriksa validitasnya dan melakukan tindakan yang sesuai."
+msgstr "Untuk melaporkan sebuah bug ke penelusur bug Joomla, Anda perlu membuat sebuah butir penelusur terlebih dahulu. Bila sudah, maka para pengembang akan memeriksa validitasnya dan melakukan tindakan yang sesuai."
 
 #: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr "Jelaskan dalam beberapa kata isu yang Anda hadapi, adalah baik bila menggunakan contoh butir penelusur yang sudah ada jika ini adalah pertama kalinya Anda melaporkan sebuah bug."
+msgstr "Jelaskan dengan singkat isu yang Anda hadapi, adalah baik bila menggunakan contoh butir penelusur yang sudah ada jika ini adalah pertama kalinya Anda melaporkan sebuah bug."
 
 #: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr "Ini adalah bagian terpenting dalam pelaporan bug. Jelaskan disini langkah demi langkah bagaimana Anda bisa menemukan galat tersebut, sertakan semua informasi yang diperlukan oleh orang lain untuk mengikuti kembali langkah-langkah Anda dan untuk melihat permasalahannya. Ingat: bug Anda tidak akan diperbaiki kecuali orang lain dapat melihat permasalahannya, jadi Anda harus sejelas mungkin dan sedetail mungkin. Anda tidak perlu ahli dalam hal pemrograman untuk menuliskan sebuah laporan bug yang hebat. Tapi bila Anda memahami pengkodean dan Anda tahu bagaimana memperbaiki bug, sertakanlah dalam laporan ini."
+msgstr "Ini adalah bagian terpenting dalam pelaporan bug. Jelaskan langkah demi langkah bagaimana Anda bisa menemukan galat tersebut. Sertakan informasi-informasi yang akan diperlukan oleh orang lain untuk mengulang kembali langkah-langkah Anda tersebut dan memahami permasalahannya. Ingat: bug Anda tidak akan diperbaiki kecuali orang lain dapat melihat dan memahami permasalahannya, jadi Anda harus sejelas mungkin dan sedetail mungkin. Anda tidak perlu ahli dalam hal pemrograman untuk dapat menuliskan sebuah laporan bug yang hebat. Tapi, bila Anda memahami pengkodean dan tahu bagaimana memperbaiki bug, sertakanlah dalam laporan ini."
 
 #: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
@@ -660,7 +660,7 @@ msgstr "Komentar Anda telah dikirimkan"
 
 #: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
 msgid "Vote successfully added"
-msgstr "Pilihan berhasil ditambahkan"
+msgstr "Penilaian telah berhasil ditambahkan"
 
 #: /src/App/Tracker/Controller/Issue/Submit.php:173
 msgid "Your report has been submitted."
@@ -705,15 +705,15 @@ msgstr "Warna harus dalam nilai hex."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr "ID isu wajib"
+msgstr "ID isu adalah wajib"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
-msgstr "ID kategori diperlukan."
+msgstr "ID kategori adalah wajib."
 
 #: /src/App/Tracker/Table/IssuesTable.php:135
 msgid "A title is required."
-msgstr "Judul wajib."
+msgstr "Judul adalah wajib."
 
 #: /src/App/Tracker/Table/IssuesTable.php:139
 msgid "The title max length is 255 chars."
@@ -721,7 +721,7 @@ msgstr "Panjang maksimal judul adalah 255 karakter."
 
 #: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
-msgstr "Versi wajib."
+msgstr "Versi adalah wajib."
 
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
