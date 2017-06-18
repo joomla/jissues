@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2017-06-18 18:57-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sk\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/debug-app_en.po\n"
+"Language: sk_SK\n"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:104
+#, php-format
+msgid "Failed EXPLAIN on query: %s"
+msgstr "Zlyhalo VYSVETLENIE dotazu: %s"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:133
+#, php-format
+msgid "%s database is not supported yet."
+msgstr "Databáza %s zatiaľ nie je podporovaná."
+
+#: /src/App/Debug/TrackerDebugger.php:264
+msgid "Database"
+msgstr "Databáza"
+
+#: /src/App/Debug/TrackerDebugger.php:273
+#: /src/App/Debug/TrackerDebugger.php:364
+msgid "Profile"
+msgstr "Profil"
+
+#: /src/App/Debug/TrackerDebugger.php:278
+#: /src/App/Debug/TrackerDebugger.php:421
+msgid "User"
+msgstr "Používateľ"
+
+#: /src/App/Debug/TrackerDebugger.php:283
+#: /src/App/Debug/TrackerDebugger.php:427
+msgid "Project"
+msgstr "Projekt"
+
+#: /src/App/Debug/TrackerDebugger.php:288
+#: /src/App/Debug/TrackerDebugger.php:435
+msgid "Request"
+msgstr "Žiadosť"
+
+#: /src/App/Debug/TrackerDebugger.php:296
+msgid "Language Strings"
+msgstr "Jazykové reťazce"
+
+#: /src/App/Debug/TrackerDebugger.php:301
+msgid "Language Files"
+msgstr "Jazykové súbory"
+
+#: /src/App/Debug/TrackerDebugger.php:343
+msgid "Go up"
+msgstr "Prejsť hore"
+
+#: /src/App/Debug/TrackerDebugger.php:353
+#: /src/App/Debug/TrackerDebugger.php:658
+#, php-format
+msgid "One database query"
+msgid_plural "%d database queries"
+msgstr[0] "Databázový dotaz"
+msgstr[1] "%d databázové dotazy"
+msgstr[2] "%d databázových dotazov"
+
+#: /src/App/Debug/TrackerDebugger.php:381
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] "Jeden nepreložený reťazec z %2$d"
+msgstr[1] "%1$d nepreložené reťazce z %2$d"
+msgstr[2] "%1$d nepreložených reťazcov z %2$d"
+
+#: /src/App/Debug/TrackerDebugger.php:389
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] "Jazykový súbor bol nahratý"
+msgstr[1] "%d jazykové súbory boli nahraté"
+msgstr[2] "%d jazykových súborov bolo nahratých"
+
+#: /src/App/Debug/TrackerDebugger.php:400
+msgid "No Project"
+msgstr "Žiadny projekt"
+
+#: /src/App/Debug/TrackerDebugger.php:423
+msgid "Guest"
+msgstr "Hosť"
+
+#: /src/App/Debug/TrackerDebugger.php:433
+msgid "Request variables"
+msgstr "Požadované premenné"
+
+#: /src/App/Debug/TrackerDebugger.php:442
+msgid "Build"
+msgstr "Vytvoriť"
+
+#: /src/App/Debug/TrackerDebugger.php:508
+#, php-format
+msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr "Tvary množných čísel <code>%1$d</code><br />Funkcie množných čísel:<code>%2$s</code>"
+
+#: /src/App/Debug/TrackerDebugger.php:741
+msgid "File (line)"
+msgstr "Súbor (riadok)"
+
+#: /src/App/Debug/TrackerDebugger.php:741
+msgid "String"
+msgstr "Reťazec"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
+msgstr "Našiel sa žiadny súbor denníka %s."
+

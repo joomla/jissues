@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-25 13:00-0500\n"
+"PO-Revision-Date: 2017-06-18 18:57-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sk\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/projects-app_en.po\n"
+"Language: sk_SK\n"
+
+#: /templates/projects/project.index.twig:6
+#: /templates/projects/project.index.twig:8
+msgid "Project"
+msgstr "Projekt"
+
+#: /templates/projects/project.index.twig:14
+#: /templates/projects/projects.index.twig:63
+msgid "Edit"
+msgstr "Upraviť"
+
+#: /templates/projects/project.index.twig:15
+#: /templates/projects/projects.index.twig:64
+#: /templates/projects/project.edit.twig:17
+msgid "Delete"
+msgstr "Vymazať"
+
+#: /templates/projects/project.index.twig:26
+#, php-format
+msgid "Project %s Tracker"
+msgstr "Stopár projektu %s"
+
+#: /templates/projects/project.index.twig:35
+#, php-format
+msgid "Project %s on GitHub"
+msgstr "Projekt %s na GitHub"
+
+#: /templates/projects/project.index.twig:39
+msgid "Statistics"
+msgstr "Štatistiky"
+
+#: /templates/projects/project.index.twig:45
+#: /templates/projects/projects.index.twig:45
+msgid "Hooks"
+msgstr "Háčiky"
+
+#: /templates/projects/project.index.twig:51
+#: /templates/projects/projects.index.twig:62
+msgid "Groups"
+msgstr "Skupiny"
+
+#: /templates/projects/project.index.twig:54
+#: /templates/projects/projects.index.twig:46
+msgid "Labels"
+msgstr "Menovky"
+
+#: /templates/projects/project.index.twig:57
+msgid "Categories"
+msgstr "Kategórie"
+
+#: /templates/projects/project.add.twig:6
+msgid "Add Project"
+msgstr "Pridať projekt"
+
+#: /templates/projects/project.add.twig:11
+#: /templates/projects/project.edit.twig:11
+msgid "Save"
+msgstr "Uložiť"
+
+#: /templates/projects/project.add.twig:20
+#: /templates/projects/project.edit.twig:30
+msgid "New project"
+msgstr "Nový projekt"
+
+#: /templates/projects/project.add.twig:24
+#: /templates/projects/project.edit.twig:35
+msgid "Details"
+msgstr "Dataily"
+
+#: /templates/projects/project.add.twig:28
+#: /templates/projects/project.edit.twig:37
+msgid "Title"
+msgstr "Názov"
+
+#: /templates/projects/project.add.twig:33
+#: /templates/projects/project.edit.twig:44
+msgid "Short Title"
+msgstr "Skrátený názov"
+
+#: /templates/projects/project.add.twig:38
+#: /templates/projects/project.edit.twig:51
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/projects/project.add.twig:43
+#: /templates/projects/project.edit.twig:58
+msgid "GitHub Owner"
+msgstr "Vlastník v GitHub"
+
+#: /templates/projects/project.add.twig:48
+#: /templates/projects/project.edit.twig:65
+msgid "GitHub Repo"
+msgstr "GitHub Repo"
+
+#: /templates/projects/project.add.twig:53
+#: /templates/projects/project.edit.twig:86
+msgid "External Tracker Link"
+msgstr "Externý sledovací odkaz"
+
+#: /templates/projects/projects.index.twig:6
+msgid "Projects"
+msgstr "Projekty"
+
+#: /templates/projects/projects.index.twig:12
+msgid "New Project"
+msgstr "Nový projekt"
+
+#: /templates/projects/projects.index.twig:23
+msgid "Projects List"
+msgstr "Zoznam projektov"
+
+#: /templates/projects/projects.index.twig:28
+msgid "Tracker"
+msgstr "Stopár"
+
+#: /templates/projects/projects.index.twig:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: /templates/projects/projects.index.twig:30
+msgid "Actions"
+msgstr "Akcie"
+
+#: /templates/projects/projects.index.twig:33
+msgid "ID"
+msgstr "ID"
+
+#: /templates/projects/projects.index.twig:48
+msgid "Stats"
+msgstr "Štatistiky"
+
+#: /templates/projects/projects.index.twig:57
+msgid "Show"
+msgstr "Zobraziť"
+
+#: /templates/projects/projects.index.twig:58
+msgid "Project Activity"
+msgstr "Aktivity v projekte"
+
+#: /templates/projects/projects.index.twig:59
+msgid "Snapshot"
+msgstr "Snímka"
+
+#: /templates/projects/projects.index.twig:60
+msgid "User Activity"
+msgstr "Aktivita používateľa"
+
+#: /templates/projects/project.edit.twig:6
+msgid "Edit Project"
+msgstr "Upraviť projekt"
+
+#: /templates/projects/project.edit.twig:28
+msgid "Edit project"
+msgstr "Upraviť projekt"
+
+#: /templates/projects/project.edit.twig:72
+msgid "GitHub Editbot user"
+msgstr "GitHub Editbot používateľa"
+
+#: /templates/projects/project.edit.twig:79
+msgid "GitHub Editbot password"
+msgstr "GitHub Editbot heslo"
+
+#: /src/App/Projects/Table/ProjectsTable.php:59
+msgid "A title is required"
+msgstr "Vyžaduje sa názov"
+
+#: /src/App/Projects/Table/ProjectsTable.php:64
+msgid "A short title is required"
+msgstr "Skrátený názov je povinný"
+

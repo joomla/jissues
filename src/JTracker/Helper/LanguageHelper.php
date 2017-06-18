@@ -161,6 +161,11 @@ abstract class LanguageHelper
 			'name' => 'Russian',
 			'display' => 'Русский',
 		],
+		'sk-SK' => [
+			'iso' => 'sk',
+			'name' => 'Slovak',
+			'display' => 'slovenčina',
+		],
 		'sl-SI' => [
 			'iso' => 'sl',
 			'name' => 'Slovenian',

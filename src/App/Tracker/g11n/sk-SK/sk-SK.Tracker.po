@@ -1,0 +1,729 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2017-06-18 18:57-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sk\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/tracker-app_en.po\n"
+"Language: sk_SK\n"
+
+#: /templates/tracker/issue.edit.twig:52
+#: /templates/tracker/issue.edit.twig:217
+#: /templates/tracker/category.add.twig:11
+#: /templates/tracker/category.edit.twig:11
+msgid "Save"
+msgstr "Uložiť"
+
+#: /templates/tracker/issue.edit.twig:58
+#: /templates/tracker/issue.index.twig:279
+msgid "Test this"
+msgstr "Otestovať toto"
+
+#: /templates/tracker/issue.edit.twig:62
+#: /templates/tracker/issue.index.twig:284
+msgid "Alter test"
+msgstr "Úprava testu"
+
+#: /templates/tracker/issue.edit.twig:67
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: /templates/tracker/issue.edit.twig:84
+#: /templates/tracker/issues.index.twig:155
+#: /templates/tracker/issue.index.twig:184
+msgid "Foreign ID"
+msgstr "Externé ID"
+
+#: /templates/tracker/issue.edit.twig:107
+#: /templates/tracker/tpl/activities.twig:58
+#: /templates/tracker/issues.index.twig:47
+msgid "Status"
+msgstr "Stav"
+
+#: /templates/tracker/issue.edit.twig:115
+#: /templates/tracker/tpl/activities.twig:92
+#: /templates/tracker/issues.index.twig:46
+#: /templates/tracker/issue.add.twig:49
+msgid "Priority"
+msgstr "Priorita"
+
+#: /templates/tracker/issue.edit.twig:124
+msgid "Item"
+msgstr "Položka"
+
+#: /templates/tracker/issue.edit.twig:141
+#: /templates/tracker/issue.index.twig:107
+#: /templates/tracker/issue.add.twig:60
+msgid "Build"
+msgstr "Vytvoriť"
+
+#: /templates/tracker/issue.edit.twig:146
+msgid "Easy test"
+msgstr "Jednoduchý test"
+
+#: /templates/tracker/issue.edit.twig:155
+#: /templates/tracker/issue.add.twig:68
+msgid "Categories"
+msgstr "Kategórie"
+
+#: /templates/tracker/issue.edit.twig:164
+#: /templates/tracker/tpl/activities.twig:113
+#: /templates/tracker/issue.add.twig:78
+msgid "Labels"
+msgstr "Menovky"
+
+#: /templates/tracker/issue.edit.twig:171
+#: /templates/tracker/tpl/activities.twig:131
+#: /templates/tracker/issue.add.twig:83
+msgid "Milestone"
+msgstr "Míľnik"
+
+#: /templates/tracker/issue.edit.twig:184
+#: /templates/tracker/category.add.twig:27
+#: /templates/tracker/tpl/activities.twig:41
+#: /templates/tracker/category.edit.twig:27
+#: /templates/tracker/issue.add.twig:106
+#: /templates/tracker/categories.index.twig:40
+msgid "Title"
+msgstr "Názov"
+
+#: /templates/tracker/issue.edit.twig:206
+#: /templates/tracker/issue.index.twig:554
+msgid "Add a Comment"
+msgstr "Pridať komentár"
+
+#: /templates/tracker/issue.edit.twig:214
+#: /templates/tracker/issue.index.twig:567
+msgid "Leave a comment"
+msgstr "Zanechať komentár"
+
+#: /templates/tracker/issue.edit.twig:314
+#: /templates/tracker/issue.add.twig:224
+msgid "Some fields are invalid. They have been highlighted."
+msgstr "Niektoré polia sú neplatné. Tieto polia boli zvýraznené."
+
+#: /templates/tracker/issue.edit.twig:324
+#: /templates/tracker/issue.edit.twig:331
+msgid "Saving..."
+msgstr "Ukladanie..."
+
+#: /templates/tracker/tracker.filters.twig:7
+msgid "- Status -"
+msgstr "- Stav -"
+
+#: /templates/tracker/tracker.filters.twig:16
+msgid "- Priority -"
+msgstr "- Priorita -"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Least recently updated"
+msgstr "Najmenej nedávno aktualizované"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Newest"
+msgstr "Najnovšie"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Oldest"
+msgstr "Najstaršie"
+
+#: /templates/tracker/tracker.filters.twig:25
+msgid "Recently updated"
+msgstr "Nedávno aktualizované"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "Created by you"
+msgstr "Vami vytvorené"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "Everyone's issues"
+msgstr "Otázky od všetkých"
+
+#: /templates/tracker/tracker.filters.twig:38
+msgid "You participated in"
+msgstr "Spolupracujete v"
+
+#: /templates/tracker/tracker.filters.twig:50
+msgid "- Categories -"
+msgstr "- Kategórie -"
+
+#: /templates/tracker/tracker.filters.twig:50
+msgid "No Categories"
+msgstr "Žiadne kategórie"
+
+#: /templates/tracker/tracker.filters.twig:63
+msgid "- Labels -"
+msgstr "- Menovky -"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "- Tests -"
+msgstr "- Testy -"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Has two tests"
+msgstr "Má dva testy"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Needs one test"
+msgstr "Potrebuje jeden test"
+
+#: /templates/tracker/tracker.filters.twig:74
+msgid "Needs tests"
+msgstr "Potrebuje testy"
+
+#: /templates/tracker/tracker.filters.twig:87
+msgid "- Easy -"
+msgstr "- Jednoduché -"
+
+#: /templates/tracker/tracker.filters.twig:87
+#: /templates/tracker/issue.index.twig:361
+msgid "No"
+msgstr "Nie"
+
+#: /templates/tracker/tracker.filters.twig:87
+#: /templates/tracker/issue.index.twig:357
+msgid "Yes"
+msgstr "Áno"
+
+#: /templates/tracker/tracker.filters.twig:99
+msgid "- Type -"
+msgstr "- Typ -"
+
+#: /templates/tracker/tracker.filters.twig:99
+msgid "Issue"
+msgstr "Problém"
+
+#: /templates/tracker/tracker.filters.twig:99
+msgid "Pull Request"
+msgstr "Pull žiadosť"
+
+#: /templates/tracker/tracker.filters.twig:111
+msgid "- Milestones -"
+msgstr "- Míľniky -"
+
+#: /templates/tracker/tpl/filters.twig:10
+msgid "Open"
+msgstr "Otvorené"
+
+#: /templates/tracker/tpl/filters.twig:15
+#: /templates/tracker/issues.index.twig:346
+msgid "Closed"
+msgstr "Ukončené"
+
+#: /templates/tracker/tpl/filters.twig:20
+msgid "All"
+msgstr "Všetky"
+
+#: /templates/tracker/tpl/filters.twig:25
+msgid "Search Tools"
+msgstr "Vyhľadávacie nástroje"
+
+#: /templates/tracker/tpl/filters.twig:30
+msgid "Clear"
+msgstr "Vymazať"
+
+#: /templates/tracker/tpl/filters.twig:33
+#: /templates/tracker/issue.index.twig:64
+msgid "Feeling Lucky"
+msgstr "Cítim sa šťastný"
+
+#: /templates/tracker/tpl/filters.twig:36
+msgid "Permalink"
+msgstr "Permalink"
+
+#: /templates/tracker/tpl/filters.twig:58
+msgid "Filter the list by summary or description."
+msgstr "Filtrovať zoznam podľa súhrnu alebo popisu."
+
+#: /templates/tracker/tpl/filters.twig:61
+#: /templates/tracker/tpl/filters.twig:62
+msgid "Filter the list by ID, summary, or description."
+msgstr "Filtrovať zoznam podľa ID, súhrnu alebo popisu."
+
+#: /templates/tracker/tpl/filters.twig:99
+#: /templates/tracker/tpl/filters.twig:102
+#: /templates/tracker/tpl/filters.twig:103
+msgid "Filter the list by creator."
+msgstr "Filtrovať zoznam podľa autora."
+
+#: /templates/tracker/category.add.twig:6
+msgid "Add Category"
+msgstr "Pridať kategóriu"
+
+#: /templates/tracker/category.add.twig:20
+#: /templates/tracker/categories.index.twig:12
+msgid "New Category"
+msgstr "Nová kategória"
+
+#: /templates/tracker/category.add.twig:24
+#: /templates/tracker/category.edit.twig:24
+#: /templates/tracker/issue.index.twig:202
+#: /templates/tracker/issue.index.twig:214
+msgid "Details"
+msgstr "Dataily"
+
+#: /templates/tracker/category.add.twig:35
+#: /templates/tracker/category.edit.twig:35
+#: /templates/tracker/categories.index.twig:39
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/tracker/category.add.twig:43
+#: /templates/tracker/category.edit.twig:43
+#: /templates/tracker/categories.index.twig:41
+msgid "Colour"
+msgstr "Farba"
+
+#: /templates/tracker/tpl/activities.twig:24
+#: /templates/tracker/issue.add.twig:113
+msgid "Description"
+msgstr "Popis"
+
+#: /templates/tracker/tpl/activities.twig:28
+#: /templates/tracker/tpl/activities.twig:45
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:85
+msgid "Differences"
+msgstr "Rozdiely"
+
+#: /templates/tracker/tpl/activities.twig:75
+msgid "Easy"
+msgstr "Jednoduché"
+
+#: /templates/tracker/tpl/activities.twig:118
+#: /templates/tracker/tpl/activities.twig:135
+msgid "Added"
+msgstr "Pridané"
+
+#: /templates/tracker/tpl/activities.twig:122
+#: /templates/tracker/tpl/activities.twig:139
+msgid "Removed"
+msgstr "Odstránené"
+
+#: /templates/tracker/tpl/activities.twig:148
+msgid "Relation Type"
+msgstr "Typ vzťahu"
+
+#: /templates/tracker/tpl/activities.twig:165
+msgid "Category"
+msgstr "Kategória"
+
+#: /templates/tracker/category.edit.twig:6
+#: /templates/tracker/category.edit.twig:20
+msgid "Edit Category"
+msgstr "Upraviť kategóriu"
+
+#: /templates/tracker/issues.index.twig:6
+#, php-format
+msgid "%s Issues"
+msgstr "%s problémov"
+
+#: /templates/tracker/issues.index.twig:26
+#: /templates/tracker/issue.add.twig:6
+#: /templates/tracker/issue.add.twig:103
+msgid "New Item"
+msgstr "Nová položka"
+
+#: /templates/tracker/issues.index.twig:44
+#: /templates/tracker/categories.index.twig:48
+msgid "ID"
+msgstr "ID"
+
+#: /templates/tracker/issues.index.twig:45
+msgid "Summary"
+msgstr "Súhrn"
+
+#: /templates/tracker/issues.index.twig:52
+msgid "Loading, please wait..."
+msgstr "Načítavam, prosím čakajte..."
+
+#: /templates/tracker/issues.index.twig:114
+#: /templates/tracker/issue.index.twig:79
+#: /templates/tracker/categories.index.twig:66
+msgid "Edit"
+msgstr "Upraviť"
+
+#: /templates/tracker/issues.index.twig:135
+msgid "Created by"
+msgstr "Vytvoril"
+
+#: /templates/tracker/issues.index.twig:146
+msgid "GitHub ID"
+msgstr "GitHub ID"
+
+#: /templates/tracker/issues.index.twig:165
+msgid "Opened "
+msgstr "Otvorené "
+
+#: /templates/tracker/issues.index.twig:171
+msgid "Closed "
+msgstr "Ukončené "
+
+#: /templates/tracker/issues.index.twig:177
+msgid "Modified "
+msgstr "Upravené "
+
+#: /templates/tracker/issues.index.twig:183
+msgid "Milestone: "
+msgstr "Míľnik: "
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Critical"
+msgstr "Kritická"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Urgent"
+msgstr "Urgentná"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Medium"
+msgstr "Stredná"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Low"
+msgstr "Nízka"
+
+#: /templates/tracker/issues.index.twig:188
+msgid "Very Low"
+msgstr "Veľmi nízka"
+
+#: /templates/tracker/issues.index.twig:195
+msgid "GitHub merge status"
+msgstr "Stav spájania v GitHub"
+
+#: /templates/tracker/issues.index.twig:205
+msgid "No items found."
+msgstr "Neboli nájdené žiadne položky."
+
+#: /templates/tracker/issues.index.twig:322
+msgid "Success"
+msgstr "Úspešné"
+
+#: /templates/tracker/issues.index.twig:324
+#: /templates/tracker/issues.index.twig:339
+msgid "Pending"
+msgstr "Čakajúce"
+
+#: /templates/tracker/issues.index.twig:326
+msgid "Error"
+msgstr "Chyba"
+
+#: /templates/tracker/issues.index.twig:328
+msgid "Failure"
+msgstr "Zlyhanie"
+
+#: /templates/tracker/issues.index.twig:337
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:82
+msgid "New"
+msgstr "Nové"
+
+#: /templates/tracker/issues.index.twig:338
+msgid "Confirmed"
+msgstr "Potvrdené"
+
+#: /templates/tracker/issues.index.twig:340
+msgid "Ready To Commit"
+msgstr "Pripravené na odovzdanie"
+
+#: /templates/tracker/issues.index.twig:341
+msgid "Fixed in Code Base"
+msgstr "Opravené v Code Base"
+
+#: /templates/tracker/issues.index.twig:342
+msgid "Needs Review"
+msgstr "Potrebuje revíziu"
+
+#: /templates/tracker/issues.index.twig:343
+msgid "Information Required"
+msgstr "Požadované informácie"
+
+#: /templates/tracker/issues.index.twig:344
+msgid "Unconfirmed Report"
+msgstr "Nepotvrdené správy"
+
+#: /templates/tracker/issues.index.twig:345
+msgid "No Reply"
+msgstr "Žiadna odpoveď"
+
+#: /templates/tracker/issues.index.twig:347
+msgid "Expected Behaviour"
+msgstr "Očakávané správanie"
+
+#: /templates/tracker/issues.index.twig:348
+msgid "Known Issue"
+msgstr "Známy problém"
+
+#: /templates/tracker/issues.index.twig:349
+msgid "Duplicate Report"
+msgstr "Duplicitné hlásenie"
+
+#: /templates/tracker/issues.index.twig:350
+msgid "Discussion"
+msgstr "Diskusia"
+
+#: /templates/tracker/issues.index.twig:413
+msgid "First"
+msgstr "Prvá"
+
+#: /templates/tracker/issues.index.twig:414
+msgid "Previous"
+msgstr "Predch."
+
+#: /templates/tracker/issues.index.twig:415
+msgid "Next"
+msgstr "Nasl."
+
+#: /templates/tracker/issues.index.twig:416
+msgid "Last"
+msgstr "Posledná"
+
+#: /templates/tracker/issue.index.twig:59
+msgid "That issue does not exist, or the ID you typed is incorrect."
+msgstr "Tento problém neexistuje alebo ID, ktoré ste zadali je nesprávne."
+
+#: /templates/tracker/issue.index.twig:115
+msgid "Easy Test"
+msgstr "Jednoduchý test"
+
+#: /templates/tracker/issue.index.twig:123
+msgid "# of Successful Tests"
+msgstr "# úspešných testov"
+
+#: /templates/tracker/issue.index.twig:133
+msgid "To comment"
+msgstr "Na komentovanie"
+
+#: /templates/tracker/issue.index.twig:142
+msgid "View this issue on GitHub"
+msgstr "Zobraziť tento problém na GitHub"
+
+#: /templates/tracker/issue.index.twig:152
+msgid "View a plain diff for this pull request"
+msgstr "Zobraziť čisté diff pre túto pull požiadavku"
+
+#: /templates/tracker/issue.index.twig:154
+msgid "Diff"
+msgstr "Diff"
+
+#: /templates/tracker/issue.index.twig:170
+msgid "Download this fork as a ZIP file"
+msgstr "Stiahnuť túto vetvu ako ZIP súbor"
+
+#: /templates/tracker/issue.index.twig:226
+msgid "Categories:"
+msgstr "Kategórie:"
+
+#: /templates/tracker/issue.index.twig:251
+msgid "Referenced as"
+msgstr "Uvádzané ako"
+
+#: /templates/tracker/issue.index.twig:289
+msgid "User tests:"
+msgstr "Používateľské testy:"
+
+#: /templates/tracker/issue.index.twig:290
+#, php-format
+msgid "Successful: %s"
+msgstr "Úspešné: %s"
+
+#: /templates/tracker/issue.index.twig:292
+#, php-format
+msgid "Unsuccessful: %s"
+msgstr "Neúspešné: %s"
+
+#: /templates/tracker/issue.index.twig:331
+msgid "Votes"
+msgstr "Hlasy"
+
+#: /templates/tracker/issue.index.twig:341
+msgid "# of Users Experiencing Issue"
+msgstr "# používateľov s týmto problémom"
+
+#: /templates/tracker/issue.index.twig:345
+msgid "Average Importance Score"
+msgstr "Priemerné skóre významu"
+
+#: /templates/tracker/issue.index.twig:354
+msgid "I've experienced this issue"
+msgstr "Aj ja mám tento problém"
+
+#: /templates/tracker/issue.index.twig:366
+msgid "Importance of issue to me"
+msgstr "Dôležitosť tejto chyby pre mňa"
+
+#: /templates/tracker/issue.index.twig:391
+msgid "Vote"
+msgstr "Hlasovať"
+
+#: /templates/tracker/issue.index.twig:497
+msgid "The description was changed"
+msgstr "Popis bol zmenený"
+
+#: /templates/tracker/issue.index.twig:576
+msgid "Post Comment"
+msgstr "Pridať komentár"
+
+#: /templates/tracker/issue.index.twig:591
+msgid "Login with GitHub to post a comment"
+msgstr "Prihlásiť sa cez GitHub a pridať komentár"
+
+#: /templates/tracker/issue.index.twig:596
+msgid "Older"
+msgstr "Staršie"
+
+#: /templates/tracker/issue.index.twig:599
+msgid "Newer"
+msgstr "Novšie"
+
+#: /templates/tracker/issue.add.twig:12
+#: /templates/tracker/issue.add.twig:130
+msgid "Submit"
+msgstr "Odoslať"
+
+#: /templates/tracker/issue.add.twig:44
+msgid "View Mode"
+msgstr "Režim zobrazenia"
+
+#: /templates/tracker/issue.add.twig:45
+msgid "Help"
+msgstr "Nápoveda"
+
+#: /templates/tracker/issue.add.twig:45
+msgid "Pro"
+msgstr "Pro"
+
+#: /templates/tracker/issue.add.twig:54
+msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
+msgstr "Priorita, akou by problém mal byť vyriešený. Pozrite si stránku <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Procesu sledovania chýb</a> pre bližšie informácie o prioritách projektu."
+
+#: /templates/tracker/issue.add.twig:64
+msgid "The version(s) of the project on which this issue is found."
+msgstr "Verzia projektu, v ktorej bol problém nájdený."
+
+#: /templates/tracker/issue.add.twig:71
+msgid "Please select one or more Categories here that match to your issue."
+msgstr "Zvoľte jednu alebo viac Kategórií, ktoré vyhovujú vášmu problému."
+
+#: /templates/tracker/issue.add.twig:93
+msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
+msgstr "Nahláste bezpečnostné problémy Joomla! Security Strike Teamu (JSST) na <a %class1% %href1%>security@joomla.org</a> alebo pomocou <a %class2% %href2%>kontaktného formulára JSST</a>, pre bezpečnostné problémy nepoužívajte verejné hlásenie problémov, prosím."
+
+#: /templates/tracker/issue.add.twig:100
+msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
+msgstr "Pre nahlásenie chyby v sledovačoch chýb Joomla! musíte vytvoriť položku sledovača. Po jej vytvorení vývojári skontrolujú jeho platnosť a vykonajú príslušné opatrenia."
+
+#: /templates/tracker/issue.add.twig:110
+msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
+msgstr "Popíšte niekoľkými slovami chyby, ktoré máte. Vo všeobecnosti je dobrým nápadom použiť existujúce položky hlásenia chýb ako príklady, pokiaľ je toto vaše prvé hlásenie chyby."
+
+#: /templates/tracker/issue.add.twig:126
+msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
+msgstr "Toto je najdôležitejšia časť hlásenia o chybe. Popíšte krok za krokom ako došlo k chybe, ktorú hlásite. Zahrňte všetky informácie, ktoré niekto bude potrebovať pre napodobenie vašich krokov a zobrazenie tohto problému. Pamätajte: vaša chyba nebude opravená, pokiaľ takýto problém nezaznamenajú aj iní, čiže musíte byť čo najjasnejší a najpodrobnejší. Nemusíte o programovaní vedieť vôbec nič, na to, aby ste nám napísali o velikánskom probléme. Ale ak ste pochopili kód a myslíte, že viete, ako chybu napraviť, uveďte to vo vašej správe."
+
+#: /templates/tracker/issue.add.twig:234
+msgid "Submitting..."
+msgstr "Odosielam..."
+
+#: /templates/tracker/categories.index.twig:6
+#: /templates/tracker/categories.index.twig:34
+msgid "Categories List"
+msgstr "Zoznam kategórií"
+
+#: /templates/tracker/categories.index.twig:44
+msgid "Actions"
+msgstr "Akcie"
+
+#: /templates/tracker/categories.index.twig:65
+msgid "Delete"
+msgstr "Vymazať"
+
+#: /templates/tracker/categories.index.twig:77
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "Strana %1$s z %2$s"
+
+#: /src/App/Tracker/Controller/Category/Delete.php:84
+msgid "The category has been deleted"
+msgstr "Kategória bola odstránená"
+
+#: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:58
+msgid "Your comment has been submitted"
+msgstr "Váš komentár bol odoslaný"
+
+#: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
+msgid "Vote successfully added"
+msgstr "Hlas bol započítaný"
+
+#: /src/App/Tracker/Controller/Issue/Submit.php:173
+msgid "Your report has been submitted."
+msgstr "Vaše hlásenie bolo odoslané."
+
+#: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
+#: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
+msgid "Test successfully added"
+msgstr "Test bol úspešne pridaný"
+
+#: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
+msgid "Old"
+msgstr "Staré"
+
+#: /src/App/Tracker/Model/CategoryModel.php:66
+msgid "Missing ID"
+msgstr "Chýbajúce ID"
+
+#: /src/App/Tracker/Model/CategoryModel.php:81
+msgid "Invalid Category"
+msgstr "Nesprávna kategória"
+
+#: /src/App/Tracker/Table/CategoryTable.php:54
+msgid "A name is required for the category."
+msgstr "Kategória musí mať názov."
+
+#: /src/App/Tracker/Table/CategoryTable.php:59
+msgid "The length of the name can not exceed 150 characters."
+msgstr "Dĺžka názvu nesmie prekročiť 150 znakov."
+
+#: /src/App/Tracker/Table/CategoryTable.php:64
+msgid "An alias is required for the category."
+msgstr "Kategória musí mať alias."
+
+#: /src/App/Tracker/Table/CategoryTable.php:69
+msgid "The length of the alias can not exceed 150 characters."
+msgstr "Dĺžka aliasu nesmie prekročiť 150 znakov."
+
+#: /src/App/Tracker/Table/CategoryTable.php:74
+msgid "Colour should be the hex value."
+msgstr "Farba musí byť hexadecimálna hodnota."
+
+#: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
+msgid "Issue ID is needed"
+msgstr "Je potrebné ID problému"
+
+#: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
+msgid "Category ID is needed."
+msgstr "Je potrebné ID kategórie."
+
+#: /src/App/Tracker/Table/IssuesTable.php:135
+msgid "A title is required."
+msgstr "Názov je povinný údaj."
+
+#: /src/App/Tracker/Table/IssuesTable.php:139
+msgid "The title max length is 255 chars."
+msgstr "Maximálna dĺžka názvu je 255 znakov."
+
+#: /src/App/Tracker/Table/IssuesTable.php:144
+msgid "A build is required."
+msgstr "Zostavenie je povinný údaj."
+
+#: /src/App/Tracker/Table/IssuesTable.php:148
+msgid "A build max length is 40 chars."
+msgstr "Maximálna dĺžka zostavenia je 255 znakov."
+

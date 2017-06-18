@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-20 08:40-0500\n"
+"PO-Revision-Date: 2017-06-18 18:57-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sk\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/github-app_en.po\n"
+"Language: sk_SK\n"
+
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Štatistiky"
+
+#: /templates/github/hooks.index.twig:6
+#: /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - háčiky"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "Zoznam háčikov"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "Nový hák"
+
+#: /templates/github/hooks.index.twig:22
+#: /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/hooks.index.twig:26
+#: /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "Udalosti"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "Poznámka: oddelené čiarkou, bez medzier"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "Pridať háčik"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Typ"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Stav"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "Akcie"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Aktívny"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Neaktívny"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "Vyúnúť"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "Zapnúť"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "Vymazať"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - menovky"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Zoznam menoviek"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Nová menovka"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:45
+msgid "Name"
+msgstr "Názov"
+
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "Názov menovky"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:46
+msgid "Colour"
+msgstr "Farba"
+
+#: /templates/github/labels.index.twig:28
+msgid "Label colour"
+msgstr "Farba menovky"
+
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "Pridať menovku"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr "%s - míľniky"
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr "Nový míľnik"
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr "Číslo"
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "Názov"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr "Názov medzníka"
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr "Platné od"
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "Dátum"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr "Stav"
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr "Otvorené"
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr "Ukončené"
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "Popis"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "Uložiť"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "Upraviť"
+
+#: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
+msgid "Nothing to preview..."
+msgstr "Žiadna ukážka..."
+

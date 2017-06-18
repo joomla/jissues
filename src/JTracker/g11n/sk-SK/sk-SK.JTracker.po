@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"PO-Revision-Date: 2017-06-18 18:57-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sk\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/jtracker-core_en.po\n"
+"Language: sk_SK\n"
+
+#: /src/JTracker/Pagination/TrackerPagination.php:221
+#: /src/JTracker/Pagination/TrackerPagination.php:226
+msgid "Next"
+msgstr "Nasl."
+
+#: /src/JTracker/Pagination/TrackerPagination.php:222
+#: /src/JTracker/Pagination/TrackerPagination.php:227
+msgid "Last"
+msgstr "Posledná"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:244
+msgid "Critical"
+msgstr "Kritická"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:245
+msgid "Urgent"
+msgstr "Urgentná"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:246
+msgid "Medium"
+msgstr "Stredná"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:247
+msgid "Low"
+msgstr "Nízka"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:248
+msgid "Very low"
+msgstr "Veľmi nízka"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:292
+msgid "Duplicate of"
+msgstr "Duplikát"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:293
+msgid "Related to"
+msgstr "Súvisiace s"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:294
+msgid "Not before"
+msgstr "Nie pred"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:295
+msgid "Pull Request for"
+msgstr "Pull žiadosť na"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:353
+#: /src/JTracker/View/Renderer/TrackerExtension.php:377
+msgid "New"
+msgstr "Nové"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:354
+#: /src/JTracker/View/Renderer/TrackerExtension.php:378
+msgid "Confirmed"
+msgstr "Potvrdené"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:355
+#: /src/JTracker/View/Renderer/TrackerExtension.php:379
+#: /src/JTracker/View/Renderer/TrackerExtension.php:627
+msgid "Pending"
+msgstr "Čakajúce"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:356
+#: /src/JTracker/View/Renderer/TrackerExtension.php:380
+msgid "Ready To Commit"
+msgstr "Pripravené na odovzdanie"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:357
+#: /src/JTracker/View/Renderer/TrackerExtension.php:381
+msgid "Needs Review"
+msgstr "Potrebuje revíziu"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:358
+#: /src/JTracker/View/Renderer/TrackerExtension.php:382
+msgid "Information Required"
+msgstr "Požadované informácie"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:359
+#: /src/JTracker/View/Renderer/TrackerExtension.php:383
+msgid "Discussion"
+msgstr "Diskusia"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:365
+#: /src/JTracker/View/Renderer/TrackerExtension.php:384
+msgid "Fixed in Code Base"
+msgstr "Opravené v Code Base"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:366
+#: /src/JTracker/View/Renderer/TrackerExtension.php:385
+msgid "Unconfirmed Report"
+msgstr "Nepotvrdené správy"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:367
+#: /src/JTracker/View/Renderer/TrackerExtension.php:386
+msgid "No Reply"
+msgstr "Žiadna odpoveď"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:368
+#: /src/JTracker/View/Renderer/TrackerExtension.php:387
+msgid "Closed"
+msgstr "Ukončené"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:369
+#: /src/JTracker/View/Renderer/TrackerExtension.php:388
+msgid "Expected Behaviour"
+msgstr "Očakávané správanie"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:370
+#: /src/JTracker/View/Renderer/TrackerExtension.php:389
+msgid "Known Issue"
+msgstr "Známy problém"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:371
+#: /src/JTracker/View/Renderer/TrackerExtension.php:390
+msgid "Duplicate Report"
+msgstr "Duplikovať správu"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:562
+msgid "No"
+msgstr "Nie"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:562
+msgid "Yes"
+msgstr "Áno"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:624
+msgid "Success"
+msgstr "Úspešné"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:630
+msgid "Error"
+msgstr "Chyba"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:633
+msgid "Failure"
+msgstr "Zlyhanie"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:697
+msgid "Not tested"
+msgstr "Netestované"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:698
+msgid "Tested successfully"
+msgstr "Úspešne testované"
+
+#: /src/JTracker/View/Renderer/TrackerExtension.php:699
+msgid "Tested unsuccessfully"
+msgstr "Neúspešne testované"
+

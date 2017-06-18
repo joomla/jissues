@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2017-06-18 18:57-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sk\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/text-app_en.po\n"
+"Language: sk_SK\n"
+
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
+msgid "Edit Article"
+msgstr "Upraviť článok"
+
+#: /templates/text/article.edit.twig:7
+#: /templates/text/article.edit.twig:40
+#: /templates/text/articles.index.twig:25
+msgid "New Article"
+msgstr "Nový článok"
+
+#: /templates/text/article.edit.twig:25
+msgid "Save"
+msgstr "Uložiť"
+
+#: /templates/text/article.edit.twig:30
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: /templates/text/article.edit.twig:47
+msgid "Title"
+msgstr "Názov"
+
+#: /templates/text/article.edit.twig:54
+msgid "Alias"
+msgstr "Alias"
+
+#: /templates/text/articles.index.twig:6
+#: /templates/text/articles.index.twig:8
+msgid "Articles"
+msgstr "Články"
+
+#: /templates/text/articles.index.twig:36
+msgid "Articles List"
+msgstr "Zoznam článkov"
+
+#: /templates/text/articles.index.twig:41
+msgid "Title/Alias"
+msgstr "Názov/Alias"
+
+#: /templates/text/articles.index.twig:42
+msgid "Actions"
+msgstr "Akcie"
+
+#: /templates/text/articles.index.twig:58
+msgid "View"
+msgstr "Zobraziť"
+
+#: /templates/text/articles.index.twig:61
+msgid "Delete"
+msgstr "Vymazať"
+
+#: /templates/text/articles.index.twig:67
+msgid "No articles found"
+msgstr "Neboli nájdené žiadne články"
+
+#: /src/App/Text/Controller/Article/Delete.php:48
+msgid "The article has been deleted."
+msgstr "Článok bol vymazaný."
+
+#: /src/App/Text/Controller/Article/Save.php:52
+msgid "The article has been saved."
+msgstr "Článok bol uložený."
+
+#: /src/App/Text/Table/ArticlesTable.php:93
+msgid "An alias or a title is required."
+msgstr "Alias alebo názov je povinný."
+
+#: /src/App/Text/Table/ArticlesTable.php:99
+msgid "Some text is required."
+msgstr "Je potrebný nejaký text."
+
