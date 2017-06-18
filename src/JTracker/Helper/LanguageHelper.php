@@ -36,6 +36,7 @@ abstract class LanguageHelper
 		'pt-PT' => 'pt-PT',
 		'sr-CS' => 'sr-CS',
 		'zh-CN' => 'zh-CN',
+		'zh-TW' => 'zh-TW',
 	];
 
 	/**
@@ -177,8 +178,13 @@ abstract class LanguageHelper
 		],
 		'zh-CN' => [
 			'iso' => 'cn',
-			'name' => 'Chinese',
-			'display' => '中文 (Zhōngwén)',
+			'name' => 'Chinese (Simplified)',
+			'display' => '汉语',
+		],
+		'zh-TW' => [
+			'iso' => 'zh',
+			'name' => 'Chinese (Traditional)',
+			'display' => '漢語',
 		],
 	];
 

@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-31 11:33-0500\n"
+"PO-Revision-Date: 2017-06-18 18:49-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Chinese Traditional\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/debug-app_en.po\n"
+"Language: zh_TW\n"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:104
+#, php-format
+msgid "Failed EXPLAIN on query: %s"
+msgstr "無法解釋查詢：%s"
+
+#: /src/App/Debug/Database/DatabaseDebugger.php:133
+#, php-format
+msgid "%s database is not supported yet."
+msgstr "尚未支援 %s 資料庫。"
+
+#: /src/App/Debug/TrackerDebugger.php:264
+msgid "Database"
+msgstr "資料庫"
+
+#: /src/App/Debug/TrackerDebugger.php:273
+#: /src/App/Debug/TrackerDebugger.php:364
+msgid "Profile"
+msgstr "個人檔案"
+
+#: /src/App/Debug/TrackerDebugger.php:278
+#: /src/App/Debug/TrackerDebugger.php:421
+msgid "User"
+msgstr "使用者"
+
+#: /src/App/Debug/TrackerDebugger.php:283
+#: /src/App/Debug/TrackerDebugger.php:427
+msgid "Project"
+msgstr "專案"
+
+#: /src/App/Debug/TrackerDebugger.php:288
+#: /src/App/Debug/TrackerDebugger.php:435
+msgid "Request"
+msgstr "要求"
+
+#: /src/App/Debug/TrackerDebugger.php:296
+msgid "Language Strings"
+msgstr "語言字串"
+
+#: /src/App/Debug/TrackerDebugger.php:301
+msgid "Language Files"
+msgstr "語言檔案"
+
+#: /src/App/Debug/TrackerDebugger.php:343
+msgid "Go up"
+msgstr "上"
+
+#: /src/App/Debug/TrackerDebugger.php:353
+#: /src/App/Debug/TrackerDebugger.php:658
+#, php-format
+msgid "One database query"
+msgid_plural "%d database queries"
+msgstr[0] "%d 個資料庫查詢"
+
+#: /src/App/Debug/TrackerDebugger.php:381
+#, php-format
+msgid "One untranslated string of %2$d"
+msgid_plural "%1$d untranslated strings of %2$d"
+msgstr[0] "在 %2$d 個字串中，有 %1$d 個還沒翻譯"
+
+#: /src/App/Debug/TrackerDebugger.php:389
+#, php-format
+msgid "One language file loaded"
+msgid_plural "%d language files loaded"
+msgstr[0] "%d 個語言檔案已載入"
+
+#: /src/App/Debug/TrackerDebugger.php:400
+msgid "No Project"
+msgstr "沒有專案"
+
+#: /src/App/Debug/TrackerDebugger.php:423
+msgid "Guest"
+msgstr "訪客"
+
+#: /src/App/Debug/TrackerDebugger.php:433
+msgid "Request variables"
+msgstr "要求變數"
+
+#: /src/App/Debug/TrackerDebugger.php:442
+msgid "Build"
+msgstr "版本"
+
+#: /src/App/Debug/TrackerDebugger.php:508
+#, php-format
+msgid "Plural forms: <code>%1$d</code><br />Plural function: <code>%2$s</code>"
+msgstr "複數形式：<code>%1$d</code><br />複數函數：<code>%2$s</code>"
+
+#: /src/App/Debug/TrackerDebugger.php:741
+msgid "File (line)"
+msgstr "檔案（行）"
+
+#: /src/App/Debug/TrackerDebugger.php:741
+msgid "String"
+msgstr "字串"
+
+#: /src/App/Debug/View/Logs/LogsHtmlView.php:73
+#, php-format
+msgid "No %s log file found."
+msgstr "找不到 %s 日誌檔。"
+

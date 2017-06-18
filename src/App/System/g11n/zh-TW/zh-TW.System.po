@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-12 14:02-0500\n"
+"PO-Revision-Date: 2017-06-18 18:49-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Chinese Traditional\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/system-app_en.po\n"
+"Language: zh_TW\n"
+
+#: /templates/system/config.index.twig:6
+msgid "Configuration"
+msgstr "配置"
+
+#: /templates/system/config.index.twig:12
+msgid "Save"
+msgstr "儲存"
+
+#: /templates/system/config.index.twig:37
+msgid "Edit Configuration"
+msgstr "編輯配置"
+
+#: /templates/system/config.index.twig:39
+#, php-format
+msgid "Loaded configuration file: %s"
+msgstr "載入配置檔案：%s"
+
+#: /templates/system/routes.index.twig:6
+#: /templates/system/routes.index.twig:9
+msgid "Routes"
+msgstr "路徑"
+
+#: /src/App/System/Controller/Config/Save.php:52
+msgid "The configuration file has been saved."
+msgstr "配置檔案已儲存。"
+

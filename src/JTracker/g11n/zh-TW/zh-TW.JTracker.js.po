@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-20 08:40-0500\n"
+"PO-Revision-Date: 2017-06-18 18:49-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Chinese Traditional\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: zh-TW\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/jtracker-js-corejs_en.po\n"
+"Language: zh_TW\n"
+
+#: /www/media/js/jtracker.js:19
+msgid "Loading preview..."
+msgstr "正在載入預覽......"
+
+#: /www/media/js/jtracker.js:30
+#: /www/media/js/jtracker.js:58
+msgid "Invalid response."
+msgstr "無效回應。"
+
+#: /www/media/js/jtracker.js:50
+msgid "Submitting comment..."
+msgstr "正在送出評論......"
+
+#: /www/media/js/jtracker.js:90
+msgid "Adding vote..."
+msgstr "正在增加投票......"
+
+#: /www/media/js/jtracker.js:131
+#: /www/media/js/jtracker.js:224
+msgid "Submitting test result..."
+msgstr "正在送出測試結果......"
+
+#: /www/media/js/jtracker.js:219
+msgid "Please select a user"
+msgstr "請選擇一個使用者"
+
+#: /www/media/js/uploader-img.js:38
+msgid "First please select an editor to attach the uploads to."
+msgstr "請先選擇一個編輯器夾帶到上傳文件中。"
+
