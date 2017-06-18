@@ -170,6 +170,11 @@ abstract class LanguageHelper
 			'name' => 'Serbian (Latin)',
 			'display' => 'српски језик (Latin)',
 		],
+		'sr-YU' => [
+			'iso' => 'sr',
+			'name' => 'Serbian',
+			'display' => 'српски језик',
+		],
 		'zh-CN' => [
 			'iso' => 'cn',
 			'name' => 'Chinese',

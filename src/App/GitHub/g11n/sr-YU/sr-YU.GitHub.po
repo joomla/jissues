@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: joomla-official-sites\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-20 08:40-0500\n"
+"PO-Revision-Date: 2017-06-18 18:44-0400\n"
+"Last-Translator: Joomla <crowdin@community.joomla.org>\n"
+"Language-Team: Serbian (Cyrillic)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: joomla-official-sites\n"
+"X-Crowdin-Language: sr\n"
+"X-Crowdin-File: /Joomla! Issue Tracker Website/github-app_en.po\n"
+"Language: sr_SP\n"
+
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:56
+#, php-format
+msgid "%s - Statistics"
+msgstr "%s - Статистика"
+
+#: /templates/github/hooks.index.twig:6
+#: /templates/github/hooks.index.twig:10
+#, php-format
+msgid "%s - Hooks"
+msgstr "%s - Hooks"
+
+#: /templates/github/hooks.index.twig:12
+msgid "List Hooks"
+msgstr "Листа За Hooks"
+
+#: /templates/github/hooks.index.twig:17
+msgid "New Hook"
+msgstr "Нова Hook"
+
+#: /templates/github/hooks.index.twig:22
+#: /templates/github/hooks.index.twig:87
+#: /templates/github/labels.index.twig:44
+msgid "URL"
+msgstr "URL"
+
+#: /templates/github/hooks.index.twig:26
+#: /templates/github/hooks.index.twig:88
+msgid "Events"
+msgstr "Догађаји"
+
+#: /templates/github/hooks.index.twig:28
+msgid "NOTE: comma separated, no spaces"
+msgstr "НАПОМЕНА: зарезима одвојене, без размака"
+
+#: /templates/github/hooks.index.twig:31
+msgid "Add Hook"
+msgstr "Додај Hook"
+
+#: /templates/github/hooks.index.twig:85
+msgid "Type"
+msgstr "Тип"
+
+#: /templates/github/hooks.index.twig:86
+msgid "Status"
+msgstr "Статус"
+
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/milestones.index.twig:79
+msgid "Actions"
+msgstr "Акције"
+
+#: /templates/github/hooks.index.twig:99
+msgid "Active"
+msgstr "Активно"
+
+#: /templates/github/hooks.index.twig:101
+msgid "Inactive"
+msgstr "Неактиван"
+
+#: /templates/github/hooks.index.twig:110
+msgid "Deactivate"
+msgstr "Деактивирај"
+
+#: /templates/github/hooks.index.twig:115
+msgid "Activate"
+msgstr "Активирај"
+
+#: /templates/github/hooks.index.twig:120
+#: /templates/github/labels.index.twig:59
+#: /templates/github/milestones.index.twig:98
+msgid "Delete"
+msgstr "Обриши"
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:10
+#, php-format
+msgid "%s - Labels"
+msgstr "%s - Ознаке"
+
+#: /templates/github/labels.index.twig:12
+msgid "List Labels"
+msgstr "Листа ознака"
+
+#: /templates/github/labels.index.twig:17
+msgid "New Label"
+msgstr "Нова Ознака"
+
+#: /templates/github/labels.index.twig:22
+#: /templates/github/labels.index.twig:45
+msgid "Name"
+msgstr "Име"
+
+#: /templates/github/labels.index.twig:23
+msgid "Label name"
+msgstr "Назив Ознаке"
+
+#: /templates/github/labels.index.twig:26
+#: /templates/github/labels.index.twig:46
+msgid "Colour"
+msgstr "Боја"
+
+#: /templates/github/labels.index.twig:28
+msgid "Label colour"
+msgstr "Боја Ознаке"
+
+#: /templates/github/labels.index.twig:31
+msgid "Add Label"
+msgstr "Додај Ознаку"
+
+#: /templates/github/milestones.index.twig:6
+#: /templates/github/milestones.index.twig:21
+#, php-format
+msgid "%s - Milestones"
+msgstr "%s - Milestones"
+
+#: /templates/github/milestones.index.twig:11
+msgid "New Milestone"
+msgstr "Нови Milestone"
+
+#: /templates/github/milestones.index.twig:31
+#: /templates/github/milestones.index.twig:74
+msgid "Number"
+msgstr "Број"
+
+#: /templates/github/milestones.index.twig:35
+#: /templates/github/milestones.index.twig:75
+msgid "Title"
+msgstr "Наслов"
+
+#: /templates/github/milestones.index.twig:36
+msgid "Milestone title"
+msgstr "Milestone Наслов"
+
+#: /templates/github/milestones.index.twig:39
+#: /templates/github/milestones.index.twig:78
+msgid "Due on"
+msgstr "Због"
+
+#: /templates/github/milestones.index.twig:40
+msgid "Date"
+msgstr "Датум"
+
+#: /templates/github/milestones.index.twig:43
+#: /templates/github/milestones.index.twig:77
+msgid "State"
+msgstr "Држава"
+
+#: /templates/github/milestones.index.twig:45
+msgid "Open"
+msgstr "Отворено"
+
+#: /templates/github/milestones.index.twig:46
+msgid "Closed"
+msgstr "Затворено"
+
+#: /templates/github/milestones.index.twig:51
+#: /templates/github/milestones.index.twig:76
+msgid "Description"
+msgstr "Опис"
+
+#: /templates/github/milestones.index.twig:59
+msgid "Save"
+msgstr "Сачувај"
+
+#: /templates/github/milestones.index.twig:94
+msgid "Edit"
+msgstr "Уреди"
+
+#: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
+msgid "Nothing to preview..."
+msgstr "Нема ништа за приказ..."
+
