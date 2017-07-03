@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e275e1b8db9bdc53fb094e6075ee504",
+    "content-hash": "b8be7c1cd9344db811d6ea318cf73f3e",
     "packages": [
         {
             "name": "adaptive/php-text-difference",
@@ -248,27 +248,24 @@
         },
         {
             "name": "elkuku/crowdin-api",
-            "version": "1.1.1",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elkuku/crowdin-api.git",
-                "reference": "149578b9d9417d336530b74643dff11c132b3ad9"
+                "reference": "0f8fcb9b24cb566b80ba8a443e7278d808fcf53b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elkuku/crowdin-api/zipball/149578b9d9417d336530b74643dff11c132b3ad9",
-                "reference": "149578b9d9417d336530b74643dff11c132b3ad9",
+                "url": "https://api.github.com/repos/elkuku/crowdin-api/zipball/0f8fcb9b24cb566b80ba8a443e7278d808fcf53b",
+                "reference": "0f8fcb9b24cb566b80ba8a443e7278d808fcf53b",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "6.*",
-                "php": ">=5.5|>=7.0"
+                "php": ">=7.0"
             },
             "require-dev": {
-                "phpdocumentor/phpdocumentor": "*",
-                "phpunit/phpunit": "~4.8|~5.0",
-                "phpunit/phpunit-skeleton-generator": "*",
-                "squizlabs/php_codesniffer": "1.*"
+                "phpunit/phpunit": "~6.0"
             },
             "type": "library",
             "autoload": {
@@ -287,7 +284,7 @@
                 }
             ],
             "description": "A crowdin API implementation in PHP",
-            "time": "2016-08-02T01:04:16+00:00"
+            "time": "2017-07-01T14:19:44+00:00"
         },
         {
             "name": "elkuku/g11n",
@@ -3935,7 +3932,6 @@
             "keywords": [
                 "git"
             ],
-            "abandoned": true,
             "time": "2017-01-23T20:57:12+00:00"
         },
         {
