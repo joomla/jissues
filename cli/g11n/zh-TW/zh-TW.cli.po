@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-06-18 18:49-0400\n"
+"PO-Revision-Date: 2017-07-04 12:43-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Traditional\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "無法辨識「%s」參數。"
 
 #: /cli/Application/Application.php:425
 msgid "GitHub rate limit:..."
-msgstr ""
+msgstr "GitHub 速率限制:......"
 
 #: /cli/Application/Command/Clear/Cache.php:29
 msgid "Clear the g11n language directory."
@@ -247,7 +247,7 @@ msgstr[0] "新增 %d 個新使用者的大頭貼照"
 
 #: /cli/Application/Command/Get/Composertags.php:29
 msgid "Retrieve a list of project tags from GitHub and show their installed versions."
-msgstr ""
+msgstr "自 GitHub 檢索專案標籤列表並顯示其安裝的版本。"
 
 #: /cli/Application/Command/Get/Composertags.php:35
 msgid "Show all tags or only the most recent."
@@ -255,7 +255,7 @@ msgstr "顯示所有標籤或只有最近使用過的標籤。"
 
 #: /cli/Application/Command/Get/Composertags.php:50
 msgid "Retrieve Composer tags"
-msgstr ""
+msgstr "檢索 Composer 標籤"
 
 #. TRANSLATORS: %s refers to a file system path.
 #: /cli/Application/Command/Get/Composertags.php:59
@@ -265,7 +265,7 @@ msgstr "無法讀取在 %s 的套件檔"
 
 #: /cli/Application/Command/Get/Composertags.php:62
 msgid "Start getting Composer tags."
-msgstr ""
+msgstr "開始取得 Composer 標籤。"
 
 #: /cli/Application/Command/Get/Composertags.php:104
 msgid "Installed"
@@ -284,7 +284,7 @@ msgstr "從多個來源取得資訊。"
 #: /cli/Application/Command/Test/Hook.php:66
 #: /cli/Application/Command/Update/Update.php:72
 msgid "Process the project with the given ID."
-msgstr ""
+msgstr "以提供的 ID 處理專案。"
 
 #: /cli/Application/Command/Get/Get.php:96
 #: /cli/Application/Command/Make/Make.php:41
@@ -298,12 +298,12 @@ msgstr "取得語言檔案"
 
 #: /cli/Application/Command/Get/Languagefiles.php:54
 msgid "Optionally specify a single language to fetch."
-msgstr ""
+msgstr "可選擇指定單一的語言取得。"
 
 #: /cli/Application/Command/Get/Languagefiles.php:60
 #: /cli/Application/Command/Update/Languagefiles.php:51
 msgid "The translation service provider to use."
-msgstr ""
+msgstr "使用的翻譯服務。"
 
 #: /cli/Application/Command/Get/Languagefiles.php:74
 msgid "Get Translations"
@@ -323,7 +323,7 @@ msgstr "處理所有問題。"
 
 #: /cli/Application/Command/Get/Project.php:80
 msgid "<n> Process only a single issue."
-msgstr ""
+msgstr "<n> 作業僅有單一問題。"
 
 #: /cli/Application/Command/Get/Project.php:86
 msgid "<n> First issue to process."
@@ -343,19 +343,19 @@ msgstr "檢索專案"
 
 #: /cli/Application/Command/Get/Project.php:114
 msgid "Bulk Start retrieve Project"
-msgstr ""
+msgstr "啟動大量檢索專案"
 
 #: /cli/Application/Command/Get/Project.php:124
 msgid "Updating project info for project: %user%/%project%"
-msgstr ""
+msgstr "更新專案的專案資訊： %user%/%project%"
 
 #: /cli/Application/Command/Get/Project.php:135
 msgid "Bulk Finished"
-msgstr ""
+msgstr "批量完成"
 
 #: /cli/Application/Command/Get/Project.php:308
 msgid "GitHub issues to process?"
-msgstr ""
+msgstr "GitHub 問題要處理？"
 
 #: /cli/Application/Command/Get/Project.php:310
 #: /cli/Application/Command/Get/Project/Issues.php:128
@@ -373,11 +373,11 @@ msgstr "選擇： "
 
 #: /cli/Application/Command/Get/Project.php:319
 msgid "Enter the first GitHub issue ID to process (from):"
-msgstr ""
+msgstr "輸入第一個 GitHub 問題 ID 以處理 (自)："
 
 #: /cli/Application/Command/Get/Project.php:323
 msgid "Enter the latest GitHub issue ID to process (to):"
-msgstr ""
+msgstr "輸入最後一個 GitHub 問題 ID 以處理 (至)："
 
 #: /cli/Application/Command/Get/Project/Comments.php:41
 msgid "Retrieve comments from GitHub."
@@ -395,7 +395,7 @@ msgstr "開始檢索註解"
 #, php-format
 msgid "Fetching comments for <b>one</b> modified issue from GitHub..."
 msgid_plural "Fetching comments for <b>%d</b> modified issues from GitHub..."
-msgstr[0] ""
+msgstr[0] "自 GitHub 獲取予 <b>%d</b> 修改問題的回應..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:167
 #: /cli/Application/Command/Get/Project/Events.php:168
@@ -406,12 +406,12 @@ msgstr "全部都是最新的！"
 #, php-format
 msgid "Processing comments for one modified issue..."
 msgid_plural "Processing comments for %d modified issues..."
-msgstr[0] ""
+msgstr[0] "處理予 %d 修改問題的回應..."
 
 #: /cli/Application/Command/Get/Project/Comments.php:210
 #, php-format
 msgid "No comments for issue # %d"
-msgstr ""
+msgstr "沒有給問題 # %d 的回應"
 
 #: /cli/Application/Command/Get/Project/Comments.php:219
 #, php-format
@@ -426,33 +426,33 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Comments.php:352
 msgid "Getting issue comments."
-msgstr ""
+msgstr "取得問題的回應。"
 
 #: /cli/Application/Command/Get/Project/Comments.php:381
 msgid "Deleting issues comments."
-msgstr ""
+msgstr "刪除問題的回應。"
 
 #: /cli/Application/Command/Get/Project/Events.php:42
 msgid "Retrieve issue events from GitHub."
-msgstr ""
+msgstr "自 GitHub 檢索問題事件。"
 
 #: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
-msgstr ""
+msgstr "檢索事件"
 
 #: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
-msgstr ""
+msgstr "開始檢索事件"
 
 #: /cli/Application/Command/Get/Project/Events.php:98
 #, php-format
 msgid "Fetch events for one issue from GitHub..."
 msgid_plural "Fetch events for <b>%d</b> issues from GitHub..."
-msgstr[0] ""
+msgstr[0] "自 GitHub 獲取予 <b>%d</b> 問題的事件..."
 
 #: /cli/Application/Command/Get/Project/Events.php:178
 msgid "Adding events to the database..."
-msgstr ""
+msgstr "增加事件至資料庫..."
 
 #: /cli/Application/Command/Get/Project/Events.php:328
 #, php-format
@@ -521,7 +521,7 @@ msgstr ""
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
-msgstr ""
+msgstr "獲取標籤中..."
 
 #: /cli/Application/Command/Get/Project/Labels.php:141
 #, php-format
@@ -687,7 +687,7 @@ msgstr ""
 
 #: /cli/Application/Command/Install/Install.php:185
 msgid "SQL file corrupted."
-msgstr ""
+msgstr "SQL 檔案損壞。"
 
 #: /cli/Application/Command/Install/Install.php:188
 #, php-format
@@ -896,7 +896,7 @@ msgstr ""
 #, php-format
 msgid "Finished with one error"
 msgid_plural "Finished with %d errors"
-msgstr[0] ""
+msgstr[0] "已完成，但發現 %d 個錯誤"
 
 #: /cli/Application/Command/Test/Checkstyle.php:65
 #: /cli/Application/Command/Test/Phpunit.php:56
@@ -905,11 +905,11 @@ msgstr "成功"
 
 #: /cli/Application/Command/Test/Copypaste.php:30
 msgid "Run Copy/Paste Detector (CPD) for PHP code."
-msgstr ""
+msgstr "執行 PHP 代碼的 Copy/Paste Detector (CPD)。"
 
 #: /cli/Application/Command/Test/Copypaste.php:43
 msgid "Run Copy/Paste Detector"
-msgstr ""
+msgstr "執行 Run Copy/Paste Detector"
 
 #: /cli/Application/Command/Test/Hook.php:61
 msgid "Tests web hooks"
@@ -922,95 +922,95 @@ msgstr ""
 #: /cli/Application/Command/Test/Langfiles.php:33
 #: /cli/Application/Command/Test/Langfiles.php:46
 msgid "Check language files"
-msgstr ""
+msgstr "檢查語言檔案"
 
 #: /cli/Application/Command/Test/Langfiles.php:109
 msgid "There have been errors."
-msgstr ""
+msgstr "這裡已有錯誤。"
 
 #: /cli/Application/Command/Test/Langfiles.php:110
 msgid "Language file syntax OK"
-msgstr ""
+msgstr "語言檔案語法 OK"
 
 #: /cli/Application/Command/Test/Phploc.php:30
 msgid "Run Lines Of Code (LOC) for PHP code."
-msgstr ""
+msgstr "為 PHP 代碼執行 Line Of Code (LOC)。"
 
 #: /cli/Application/Command/Test/Phploc.php:43
 msgid "Run PHP Lines Of Code"
-msgstr ""
+msgstr "執行 PHP 程式碼"
 
 #: /cli/Application/Command/Test/Phpunit.php:29
 msgid "Run PHPUnit tests."
-msgstr ""
+msgstr "執行 PHPUnit 測試。"
 
 #: /cli/Application/Command/Test/Phpunit.php:41
 msgid "Test PHPUnit"
-msgstr ""
+msgstr "測試 PHPUnit"
 
 #: /cli/Application/Command/Test/Phpunit.php:55
 msgid "Finished with errors."
-msgstr ""
+msgstr "完成，帶有錯誤。"
 
 #: /cli/Application/Command/Test/Run.php:27
 msgid "Run all tests"
-msgstr ""
+msgstr "執行所有測試"
 
 #: /cli/Application/Command/Test/Run.php:39
 msgid "Test Suite"
-msgstr ""
+msgstr "測試套件"
 
 #: /cli/Application/Command/Test/Run.php:66
 msgid "Test Suite Finished with errors."
-msgstr ""
+msgstr "測試套件已完成，但伴隨錯誤。"
 
 #: /cli/Application/Command/Test/Run.php:67
 msgid "Test Suite Finished."
-msgstr ""
+msgstr "測試套件已完成。"
 
 #: /cli/Application/Command/Test/Test.php:35
 msgid "The test engine"
-msgstr ""
+msgstr "測試引擎"
 
 #: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
-msgstr ""
+msgstr "命令缺少選項：%s"
 
 #: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
-msgstr ""
+msgstr "請用以下其中一個："
 
 #: /cli/Application/Command/TrackerCommand.php:348
 msgid "Available projects:"
-msgstr ""
+msgstr "可用的專案："
 
 #: /cli/Application/Command/TrackerCommand.php:366
 msgid "Select a project:"
-msgstr ""
+msgstr "選擇一個專案："
 
 #: /cli/Application/Command/TrackerCommand.php:372
 msgid "Aborted"
-msgstr ""
+msgstr "已終止"
 
 #: /cli/Application/Command/TrackerCommand.php:377
 #: /cli/Application/Command/TrackerCommand.php:396
 msgid "Invalid project"
-msgstr ""
+msgstr "無效的專案"
 
 #: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
 msgid "Processing project: %s"
-msgstr ""
+msgstr "正在處理專案：%s"
 
 #: /cli/Application/Command/TrackerCommand.php:431
 #: /cli/Application/Command/TrackerCommand.php:433
 msgid "An unknown error occurred"
-msgstr ""
+msgstr "發生未知的錯誤"
 
 #: /cli/Application/Command/Update/Languagefiles.php:46
 msgid "Updates language files on a translation service."
-msgstr ""
+msgstr "使用翻譯服務更新語言檔案。"
 
 #: /cli/Application/Command/Update/Languagefiles.php:57
 msgid "Flag if resources should be created."
@@ -1018,11 +1018,11 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Languagefiles.php:63
 msgid "Flag if translations should be uploaded."
-msgstr ""
+msgstr "如果翻譯檔需要上傳，請使用標記。"
 
 #: /cli/Application/Command/Update/Languagefiles.php:77
 msgid "Update Translations"
-msgstr ""
+msgstr "更新翻譯"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
@@ -1034,7 +1034,7 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Pulls.php:49
 msgid "Start Updating Project"
-msgstr ""
+msgstr "開始上傳專案"
 
 #: /cli/Application/Command/Update/Pulls.php:59
 #, php-format
@@ -1051,22 +1051,22 @@ msgstr ""
 #: /cli/Application/Command/Update/Pulls.php:285
 #, php-format
 msgid "The %s/%s project is not supported by this command at this time."
-msgstr ""
+msgstr "%s/%s 專案在此時不支援此命令。"
 
 #: /cli/Application/Command/Update/Pulls.php:201
 #, php-format
 msgid "GitHub item %s/%s #%d already has the %s label."
-msgstr ""
+msgstr "GitHub 項目 %s/%s #%d 已有 %s 標籤。"
 
 #: /cli/Application/Command/Update/Pulls.php:220
 #, php-format
 msgid "Adding %s label to %s/%s #%d"
-msgstr ""
+msgstr "增加 %s 標籤至 %s/%s #%d"
 
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
 msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
-msgstr ""
+msgstr "GitHub 項目 %s/%s #%d 有其合併狀態設置為「錯誤」。"
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
@@ -1074,11 +1074,11 @@ msgstr ""
 
 #: /cli/Application/Command/Update/Server.php:38
 msgid "An optional version number to update to."
-msgstr ""
+msgstr "更新的可選版號"
 
 #: /cli/Application/Command/Update/Update.php:66
 msgid "Used to update resources"
-msgstr ""
+msgstr "用於更新資源"
 
 #: /cli/tracker.php:99 /cli/tracker.php:131
 #, php-format

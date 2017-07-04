@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2017-06-18 18:49-0400\n"
+"PO-Revision-Date: 2017-07-04 12:44-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Traditional\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr "利用 ID、簡介或描述來篩選清單。"
 #: /templates/tracker/tpl/filters.twig:102
 #: /templates/tracker/tpl/filters.twig:103
 msgid "Filter the list by creator."
-msgstr ""
+msgstr "依建立者過濾列表"
 
 #: /templates/tracker/category.add.twig:6
 msgid "Add Category"
@@ -275,13 +275,13 @@ msgstr "詳細資料"
 #: /templates/tracker/category.edit.twig:35
 #: /templates/tracker/categories.index.twig:39
 msgid "Alias"
-msgstr ""
+msgstr "別名"
 
 #: /templates/tracker/category.add.twig:43
 #: /templates/tracker/category.edit.twig:43
 #: /templates/tracker/categories.index.twig:41
 msgid "Colour"
-msgstr ""
+msgstr "色彩"
 
 #: /templates/tracker/tpl/activities.twig:24
 #: /templates/tracker/issue.add.twig:113
@@ -310,7 +310,7 @@ msgstr "已移除"
 
 #: /templates/tracker/tpl/activities.twig:148
 msgid "Relation Type"
-msgstr ""
+msgstr "關聯的類型"
 
 #: /templates/tracker/tpl/activities.twig:165
 msgid "Category"
@@ -324,7 +324,7 @@ msgstr "編輯分類"
 #: /templates/tracker/issues.index.twig:6
 #, php-format
 msgid "%s Issues"
-msgstr ""
+msgstr "%s 問題"
 
 #: /templates/tracker/issues.index.twig:26
 #: /templates/tracker/issue.add.twig:6
@@ -361,7 +361,7 @@ msgstr "GitHub ID"
 
 #: /templates/tracker/issues.index.twig:165
 msgid "Opened "
-msgstr ""
+msgstr "已開啟 "
 
 #: /templates/tracker/issues.index.twig:171
 msgid "Closed "
@@ -397,7 +397,7 @@ msgstr "非常低度"
 
 #: /templates/tracker/issues.index.twig:195
 msgid "GitHub merge status"
-msgstr ""
+msgstr "GitHub 合併狀態"
 
 #: /templates/tracker/issues.index.twig:205
 msgid "No items found."
@@ -410,7 +410,7 @@ msgstr "成功"
 #: /templates/tracker/issues.index.twig:324
 #: /templates/tracker/issues.index.twig:339
 msgid "Pending"
-msgstr ""
+msgstr "待處理"
 
 #: /templates/tracker/issues.index.twig:326
 msgid "Error"
@@ -431,11 +431,11 @@ msgstr "已驗證"
 
 #: /templates/tracker/issues.index.twig:340
 msgid "Ready To Commit"
-msgstr ""
+msgstr "準備提交"
 
 #: /templates/tracker/issues.index.twig:341
 msgid "Fixed in Code Base"
-msgstr ""
+msgstr "代碼庫中已修正"
 
 #: /templates/tracker/issues.index.twig:342
 msgid "Needs Review"
@@ -463,7 +463,7 @@ msgstr "已知問題"
 
 #: /templates/tracker/issues.index.twig:349
 msgid "Duplicate Report"
-msgstr ""
+msgstr "重複的報告"
 
 #: /templates/tracker/issues.index.twig:350
 msgid "Discussion"
@@ -507,7 +507,7 @@ msgstr "在 GitHub 上查看這個問題"
 
 #: /templates/tracker/issue.index.twig:152
 msgid "View a plain diff for this pull request"
-msgstr ""
+msgstr "以平易方式觀看 pull request 不同處"
 
 #: /templates/tracker/issue.index.twig:154
 msgid "Diff"
@@ -515,7 +515,7 @@ msgstr "Diff"
 
 #: /templates/tracker/issue.index.twig:170
 msgid "Download this fork as a ZIP file"
-msgstr ""
+msgstr "以 ZIP 檔案下載此 fork"
 
 #: /templates/tracker/issue.index.twig:226
 msgid "Categories:"
@@ -523,11 +523,11 @@ msgstr "分類："
 
 #: /templates/tracker/issue.index.twig:251
 msgid "Referenced as"
-msgstr ""
+msgstr "引用"
 
 #: /templates/tracker/issue.index.twig:289
 msgid "User tests:"
-msgstr ""
+msgstr "使用者測試："
 
 #: /templates/tracker/issue.index.twig:290
 #, php-format
@@ -545,7 +545,7 @@ msgstr "投票"
 
 #: /templates/tracker/issue.index.twig:341
 msgid "# of Users Experiencing Issue"
-msgstr ""
+msgstr "# 個使用者遇到這個問題"
 
 #: /templates/tracker/issue.index.twig:345
 msgid "Average Importance Score"
@@ -573,7 +573,7 @@ msgstr "發表評論"
 
 #: /templates/tracker/issue.index.twig:591
 msgid "Login with GitHub to post a comment"
-msgstr ""
+msgstr "登入 GitHub 來發表評論"
 
 #: /templates/tracker/issue.index.twig:596
 msgid "Older"
@@ -602,35 +602,35 @@ msgstr "專業模式"
 
 #: /templates/tracker/issue.add.twig:54
 msgid "The priority of which this issue should be resolved. Please see the <a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">Bug Tracking Process</a> page for detailed information about the project's priorities."
-msgstr ""
+msgstr "應先解決這個問題的優先順序。請參閱<a %class% href=\"https://docs.joomla.org/Bug_Tracking_Process\" target=\"blank\">問題追蹤進度</a>頁面來得知詳細的這個專案優先順序的資訊。"
 
 #: /templates/tracker/issue.add.twig:64
 msgid "The version(s) of the project on which this issue is found."
-msgstr ""
+msgstr "這個問題在這些版本中被找到。"
 
 #: /templates/tracker/issue.add.twig:71
 msgid "Please select one or more Categories here that match to your issue."
-msgstr ""
+msgstr "請選擇一或多個符合您問題的分類。"
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+msgstr "請向 Joomla! Security Strike Team (JSST) 回報安全性問題：請使用電子郵件 <a %class1% %href1%>security@joomla.org</a> 或<a %class2% %href2%> JSST contact form</a>。請勿使用公開的追蹤器回報安全性問題。"
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr ""
+msgstr "要在「Joomla! 問題追蹤」裡回報問題，您必須建立一個追蹤器項目。當追蹤器項目建立好之後，開發人員會檢查其是否有效，並採取相對應的措施。"
 
 #: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr ""
+msgstr "請用幾個字描述您所遇到的問題。如果您是第一次回報問題，建議您可以參考其他已存在的追蹤器作為範例。"
 
 #: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr ""
+msgstr "這裡是回報錯誤程序中最重要的項目。請一步一步描述您怎麼遇到這個錯誤，並請涵蓋所有會導致這個錯誤的程序和資訊。切記：如果別人無法看到問題發生，您所遇到的錯誤將永遠不會被解決，所以描述請盡量清晰和詳細。您不需要在錯誤報告中描述程式設計或叫艱深的項目，但是如果您知道原始碼，也知道如何處理這個問題，請您一併在報告中附上。"
 
 #: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
-msgstr ""
+msgstr "提交中..."
 
 #: /templates/tracker/categories.index.twig:6
 #: /templates/tracker/categories.index.twig:34
@@ -648,7 +648,7 @@ msgstr "刪除"
 #: /templates/tracker/categories.index.twig:77
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "第 %1$s 頁，共 %2$s 頁"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
@@ -669,7 +669,7 @@ msgstr "您的回報已經送出。"
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
 #: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
 msgid "Test successfully added"
-msgstr ""
+msgstr "成功增加測試"
 
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
 msgid "Old"
@@ -677,7 +677,7 @@ msgstr "舊的"
 
 #: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
-msgstr ""
+msgstr "缺少 ID"
 
 #: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
@@ -693,15 +693,15 @@ msgstr "名稱不能超過 150 個字元。"
 
 #: /src/App/Tracker/Table/CategoryTable.php:64
 msgid "An alias is required for the category."
-msgstr ""
+msgstr "需要為這個分類加入一個別名。"
 
 #: /src/App/Tracker/Table/CategoryTable.php:69
 msgid "The length of the alias can not exceed 150 characters."
-msgstr ""
+msgstr "別名的字數不可以超過 150 字。"
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "請用十六進位數值描述顏色。"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
@@ -721,9 +721,9 @@ msgstr "標題的最大字數是 255 字。"
 
 #: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
-msgstr ""
+msgstr "需要版本資訊。"
 
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
-msgstr ""
+msgstr "build 最大長度為 40 字元。"
 

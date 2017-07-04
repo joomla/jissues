@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-06-18 18:22-0400\n"
+"PO-Revision-Date: 2017-07-04 12:43-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -289,7 +289,7 @@ msgstr "Joomla! 文档"
 
 #: /templates/topMenu.twig:54
 msgid "Joomla! Issue Tracker"
-msgstr "Joomla ！问题跟踪"
+msgstr "Joomla! 问题跟踪"
 
 #: /templates/topMenu.twig:55
 msgid "Joomla! Resources"

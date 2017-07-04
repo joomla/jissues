@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-06-18 18:21-0400\n"
+"PO-Revision-Date: 2017-07-04 12:43-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -444,7 +444,7 @@ msgstr "Obtenha eventos de problemas do GitHub."
 
 #: /cli/Application/Command/Get/Project/Events.php:54
 msgid "Retrieve Events"
-msgstr "Obter Eventos"
+msgstr "Obter eventos"
 
 #: /cli/Application/Command/Get/Project/Events.php:56
 msgid "Start retrieve Events"
@@ -480,7 +480,7 @@ msgstr "Recuperar problemas"
 
 #: /cli/Application/Command/Get/Project/Issues.php:89
 msgid "Start retrieve Issues"
-msgstr "Começar a obter Problemas"
+msgstr "Começar a obter problemas"
 
 #: /cli/Application/Command/Get/Project/Issues.php:126
 msgid "Select GitHub issues status?"
@@ -521,20 +521,20 @@ msgstr "Recuperar as etiquetas do projeto do GitHub."
 
 #: /cli/Application/Command/Get/Project/Labels.php:43
 msgid "Retrieve Labels"
-msgstr "Obter Etiquetas"
+msgstr "Obter etiquetas"
 
 #: /cli/Application/Command/Get/Project/Labels.php:45
 msgid "Start retrieve Labels"
-msgstr "Começar a obter Etiquetas"
+msgstr "Começar a obter etiquetas"
 
 #: /cli/Application/Command/Get/Project/Labels.php:62
 msgid "Fetching labels..."
-msgstr "A obter as etiquetas..."
+msgstr "A obter etiquetas..."
 
 #: /cli/Application/Command/Get/Project/Labels.php:141
 #, php-format
 msgid "Labels: %1$d new, %2$d updated, %3$d deleted."
-msgstr "Etiquetas: %1$d nova, %2$d atualizada, %3$d eliminada."
+msgstr "Etiquetas: %1$d novo, %2$d atualizado, %3$d eliminado."
 
 #: /cli/Application/Command/Get/Project/Milestones.php:33
 msgid "Retrieve project milestones from GitHub."
@@ -563,7 +563,7 @@ msgstr "Obter informação do utilizador a partir do GitHub."
 
 #: /cli/Application/Command/Get/Users.php:53
 msgid "Retrieve Users"
-msgstr "Obter Utilizadores"
+msgstr "Obter utilizadores"
 
 #: /cli/Application/Command/Get/Users.php:55
 msgid "Start retrieving Users."
@@ -714,7 +714,7 @@ msgstr "O tipo de ficheiro de preenchimento automático (actualmente suportado: 
 
 #: /cli/Application/Command/Make/Autocomplete.php:62
 msgid "Echo the output instead of writing it to a file."
-msgstr "Fazer echo do output em vez de o escrever num ficheiro."
+msgstr "Fazer echo da saída em vez de o escrever num ficheiro."
 
 #: /cli/Application/Command/Make/Autocomplete.php:76
 msgid "Make Auto complete"
@@ -1036,7 +1036,7 @@ msgstr "Atualizar traduções"
 
 #: /cli/Application/Command/Update/Pulls.php:35
 msgid "Updates selected information for pull requests on GitHub for a specified project."
-msgstr "Atualiza a informação selecionada para pull requests no GitHub para um especifico projeto."
+msgstr "Atualiza a informação selecionada de propostas de alterações no GitHub para um projeto especifico."
 
 #: /cli/Application/Command/Update/Pulls.php:47
 msgid "Update Pull Requests"
@@ -1054,14 +1054,14 @@ msgstr "A atualizar o pull request para o projeto: %s/%s"
 #: /cli/Application/Command/Update/Pulls.php:101
 #, php-format
 msgid "GitHub item %s/%s #%d has been closed because it is a pull targeting Joomla! 2.5."
-msgstr "O item %s/%s #%d do GitHub foi fechado porque é um pull para o Joomla! 2.5."
+msgstr "O item %s/%s #%d do GitHub foi fechado porque é uma proposta para o Joomla! 2.5."
 
 #: /cli/Application/Command/Update/Pulls.php:114
 #: /cli/Application/Command/Update/Pulls.php:238
 #: /cli/Application/Command/Update/Pulls.php:285
 #, php-format
 msgid "The %s/%s project is not supported by this command at this time."
-msgstr "O projeto %s/%s não é suportado por este comando ainda."
+msgstr "O projeto %s/%s não é suportado por este comando."
 
 #: /cli/Application/Command/Update/Pulls.php:201
 #, php-format
@@ -1076,11 +1076,11 @@ msgstr "A adicionar a etiqueta de %s para %s/%s #%d"
 #: /cli/Application/Command/Update/Pulls.php:272
 #, php-format
 msgid "GitHub item %s/%s #%d has had its merge status set to \"error\"."
-msgstr "Foi definido o estado de merge do item do GitHub %s/%s #%d como \"erro\"."
+msgstr "O item do GitHub %s/%s #%d viu o seu estado de fusão definido como \"erro\"."
 
 #: /cli/Application/Command/Update/Server.php:33
 msgid "Updates the local installation to either a specified version or latest git HEAD for the active branch"
-msgstr "Atualiza a instalação local ou para uma versão especifica ou para o ultimo git Head para a branch ativa"
+msgstr "Atualiza a instalação local para uma versão especifica ou para o último GIT Head do ramo ativo"
 
 #: /cli/Application/Command/Update/Server.php:38
 msgid "An optional version number to update to."

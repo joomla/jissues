@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-06-18 18:49-0400\n"
+"PO-Revision-Date: 2017-07-04 12:43-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Chinese Traditional\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "商店"
 
 #: /templates/footerMenu.twig:30
 msgid "Accessibility Statement"
-msgstr ""
+msgstr "輔助功能聲明"
 
 #: /templates/footerMenu.twig:31
 msgid "Privacy Policy"
@@ -140,7 +140,7 @@ msgstr "調整測試結果"
 #: /templates/testcontainer.twig:55
 #, php-format
 msgid "Set the test result for user %s to %s"
-msgstr ""
+msgstr "設置使用者 %s 至 %s 的測試結果"
 
 #: /templates/testcontainer.twig:55
 msgid "username"
@@ -233,7 +233,7 @@ msgstr "貢獻"
 
 #: /templates/topMenu.twig:25
 msgid "Shop Joomla Gear"
-msgstr ""
+msgstr "Shop Joomla Gear"
 
 #: /templates/topMenu.twig:26
 msgid "Sponsorship"
@@ -459,7 +459,7 @@ msgstr "應用程式"
 
 #: /templates/trackerMenu.twig:121
 msgid "Cron Jobs"
-msgstr ""
+msgstr "Cron Jobs"
 
 #: /templates/trackerMenu.twig:126
 msgid "Database"
@@ -475,7 +475,7 @@ msgstr "GitHub 評論"
 
 #: /templates/trackerMenu.twig:144
 msgid "GitHub Pulls"
-msgstr ""
+msgstr "GitHub Pulls"
 
 #: /templates/trackerMenu.twig:148
 msgid "PHP"
@@ -523,5 +523,5 @@ msgstr "用 GitHub 帳號登入"
 
 #: /templates/trackerMenu.twig:253
 msgid "No GitHub credentials set in config"
-msgstr ""
+msgstr "沒有設定 GitHub 憑證"
 

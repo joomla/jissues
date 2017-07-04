@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-14 16:01-0500\n"
-"PO-Revision-Date: 2017-06-18 18:23-0400\n"
+"PO-Revision-Date: 2017-07-04 12:44-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -19,16 +19,16 @@ msgstr ""
 #: /templates/users/user.index.twig:12
 #: /templates/users/user.edit.twig:11
 msgid "Invalid user!"
-msgstr ""
+msgstr "Utente non valido!"
 
 #: /templates/users/user.index.twig:19
 msgid "Edit profile"
-msgstr ""
+msgstr "Modifica Profilo"
 
 #: /templates/users/user.index.twig:22
 #: /templates/users/user.edit.twig:32
 msgid "Refresh profile from GitHub"
-msgstr ""
+msgstr "Aggiorna profilo da GitHub"
 
 #: /templates/users/user.index.twig:26
 msgid "My Profile"
@@ -36,17 +36,17 @@ msgstr "Mio Profilo"
 
 #: /templates/users/user.index.twig:28
 msgid "Profile"
-msgstr ""
+msgstr "Profilo"
 
 #: /templates/users/user.index.twig:57
 #, php-format
 msgid "Language: %s"
-msgstr ""
+msgstr "Lingua: %s"
 
 #: /templates/users/user.index.twig:62
 #, php-format
 msgid "Timezone: %1$s (GMT %2$s)"
-msgstr ""
+msgstr "Fuso orario: %1$s (GMT %2$s)"
 
 #: /templates/users/users.index.twig:6
 msgid "Users"
@@ -54,23 +54,23 @@ msgstr "Utenti"
 
 #: /templates/users/users.index.twig:19
 msgid "Users List"
-msgstr ""
+msgstr "Elenco utenti"
 
 #: /templates/users/users.index.twig:25
 #: /templates/users/users.index.twig:28
 #: /templates/users/users.index.twig:29
 msgid "Filter the list by user."
-msgstr ""
+msgstr "Filtra la lista per utente."
 
 #: /templates/users/users.index.twig:34
 msgid "Clear"
-msgstr ""
+msgstr "Pulisci"
 
 #: /templates/users/users.index.twig:41
 #: /templates/users/users.index.twig:73
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "Pagina %1$s di %2$s"
 
 #: /templates/users/users.index.twig:46
 msgid "Username"
@@ -82,7 +82,7 @@ msgstr "Azioni"
 
 #: /templates/users/users.index.twig:50
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: /templates/users/users.index.twig:66
 msgid "No items found."
@@ -91,7 +91,7 @@ msgstr "Nessun elemento trovato."
 #: /templates/users/user.edit.twig:6
 #: /templates/users/user.edit.twig:17
 msgid "Edit user"
-msgstr ""
+msgstr "Modifica utente"
 
 #: /templates/users/user.edit.twig:22
 msgid "Save"
@@ -103,42 +103,42 @@ msgstr "Cancella"
 
 #: /templates/users/user.edit.twig:44
 msgid "GitHub Profile"
-msgstr ""
+msgstr "Profilo di GitHub"
 
 #: /templates/users/user.edit.twig:67
 msgid "Params"
-msgstr ""
+msgstr "Parametri"
 
 #: /templates/users/user.edit.twig:70
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 #: /templates/users/user.edit.twig:77
 msgid "Timezone"
-msgstr ""
+msgstr "Fuso orario"
 
 #: /src/App/Users/Controller/Ajax/Assign.php:74
 msgid "The user has been assigned."
-msgstr ""
+msgstr "L'utente è stato assegnato."
 
 #: /src/App/Users/Controller/Ajax/Assign.php:85
 msgid "The user has been unassigned."
-msgstr ""
+msgstr "L'assegnazione all'utente è stata revocata."
 
 #: /src/App/Users/Controller/User/Edit.php:83
 #: /src/App/Users/Controller/User/Save.php:47
 msgid "You are not authorised to edit this user."
-msgstr ""
+msgstr "Non sei autorizzato a modificare questo utente."
 
 #: /src/App/Users/Controller/User/Refresh.php:47
 msgid "You are not authorised to refresh this user."
-msgstr ""
+msgstr "Non sei autorizzato ad aggiornare questo utente."
 
 #: /src/App/Users/Controller/User/Refresh.php:73
 msgid "The profile has been refreshed."
-msgstr ""
+msgstr "Il profilo è stato aggiornato."
 
 #: /src/App/Users/Controller/User/Save.php:62
 msgid "The changes have been saved."
-msgstr ""
+msgstr "Le modifiche sono state salvate."
 

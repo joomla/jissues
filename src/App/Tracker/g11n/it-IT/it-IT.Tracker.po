@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-31 11:33-0500\n"
-"PO-Revision-Date: 2017-06-18 18:22-0400\n"
+"PO-Revision-Date: 2017-07-04 12:44-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -192,7 +192,7 @@ msgstr "No"
 #: /templates/tracker/tracker.filters.twig:87
 #: /templates/tracker/issue.index.twig:357
 msgid "Yes"
-msgstr "S�"
+msgstr "Sì"
 
 #: /templates/tracker/tracker.filters.twig:99
 msgid "- Type -"
@@ -614,23 +614,23 @@ msgstr "Si prega di selezionare una o più categorie qui che corrispondono al tu
 
 #: /templates/tracker/issue.add.twig:93
 msgid "Report security issues to the Joomla! Security Strike Team (JSST) at <a %class1% %href1%>security@joomla.org</a> or with the <a %class2% %href2%>JSST contact form</a>, please do not use the public tracker for security issues."
-msgstr ""
+msgstr "Segnala i problemi di sicurezza al Joomla! Security Strike Team (JSST) a <a %class1% %href1%>security@joomla.org</a> o con il <a %class2% %href2%>modulo di contatto JSST</a>, per favore non utilizzare il tracker pubblico per i problemi di sicurezza."
 
 #: /templates/tracker/issue.add.twig:100
 msgid "To report a bug in the Joomla! bug trackers, you need to create a tracker item. Once the tracker item is created, the developers will check the validity of it and act accordingly."
-msgstr ""
+msgstr "Per segnalare un bug nel bug tracker di Joomla, devi creare un elemento tracker. Una volta creato l'elemento tracker, gli sviluppatori ne verificheranno la validità e agiranno di conseguenza."
 
 #: /templates/tracker/issue.add.twig:110
 msgid "Describe in a few words the issues you are having. It is generally a good idea to use existing tracker items as examples if this is your first time reporting a bug."
-msgstr ""
+msgstr "Descrivi in poche parole i problemi che hai riscontrato. Generalmente è una buona idea utilizzare gli elementi esistenti come esempi se è la prima volta che segnali un bug."
 
 #: /templates/tracker/issue.add.twig:126
 msgid "This is the most important part of reporting the bug. Describe here step by step how you got the error you are noticing. Include all of the information that someone will need to re-trace your steps and see the problem. Remember: your bug will not be fixed unless others can see the problem, so you want to be as clear and detailed as possible. You do not need to know anything about programming to write a great bug report. But if you do understand the code and think you know how to fix the bug, please include this in the report."
-msgstr ""
+msgstr "Questa è la parte più importante nella segnalazione di un bug. Descrivi qui passo per passo come hai ottenuto l'errore che hai riscontrato. Includi tute le informazioni necessarie per replicare le tue azioni e vedere il problema. Ricorda: il tuo bug non sarà risolto finché gli altri non possano vedere il problema, quindi dovrai essere quanto più chiaro e dettagliato possibile. Non è necessario saper programmare per scrivere una buona segnalazione di bug. Ma se ne capisci di codice e sai come correggere il problema, per favore includi anche questo nel report."
 
 #: /templates/tracker/issue.add.twig:234
 msgid "Submitting..."
-msgstr ""
+msgstr "Invio..."
 
 #: /templates/tracker/categories.index.twig:6
 #: /templates/tracker/categories.index.twig:34
@@ -648,82 +648,82 @@ msgstr "Cancella"
 #: /templates/tracker/categories.index.twig:77
 #, php-format
 msgid "Page %1$s of %2$s"
-msgstr ""
+msgstr "Pagina %1$s di %2$s"
 
 #: /src/App/Tracker/Controller/Category/Delete.php:84
 msgid "The category has been deleted"
-msgstr ""
+msgstr "La categoria è stata eliminata"
 
 #: /src/App/Tracker/Controller/Comment/Ajax/Submit.php:58
 msgid "Your comment has been submitted"
-msgstr ""
+msgstr "Il tuo commento è stato inviato"
 
 #: /src/App/Tracker/Controller/Issue/Ajax/Vote.php:65
 msgid "Vote successfully added"
-msgstr ""
+msgstr "Voto aggiunto correttamente"
 
 #: /src/App/Tracker/Controller/Issue/Submit.php:173
 msgid "Your report has been submitted."
-msgstr ""
+msgstr "La segnalazione è stata inviata."
 
 #: /src/App/Tracker/Controller/TestResult/Ajax/Alter.php:90
 #: /src/App/Tracker/Controller/TestResult/Ajax/Submit.php:113
 msgid "Test successfully added"
-msgstr ""
+msgstr "Test aggiunto correttamente"
 
 #: /src/App/Tracker/DiffRenderer/Html/Inline.php:81
 msgid "Old"
-msgstr ""
+msgstr "Vecchio"
 
 #: /src/App/Tracker/Model/CategoryModel.php:66
 msgid "Missing ID"
-msgstr ""
+msgstr "ID mancante"
 
 #: /src/App/Tracker/Model/CategoryModel.php:81
 msgid "Invalid Category"
-msgstr ""
+msgstr "Categoria non valida"
 
 #: /src/App/Tracker/Table/CategoryTable.php:54
 msgid "A name is required for the category."
-msgstr ""
+msgstr "Un nome è richiesto per la categoria."
 
 #: /src/App/Tracker/Table/CategoryTable.php:59
 msgid "The length of the name can not exceed 150 characters."
-msgstr ""
+msgstr "La lunghezza del nome non può superare i 150 caratteri."
 
 #: /src/App/Tracker/Table/CategoryTable.php:64
 msgid "An alias is required for the category."
-msgstr ""
+msgstr "Un alias è richiesto per la categoria."
 
 #: /src/App/Tracker/Table/CategoryTable.php:69
 msgid "The length of the alias can not exceed 150 characters."
-msgstr ""
+msgstr "La lunghezza dell'alias non può superare i 150 caratteri."
 
 #: /src/App/Tracker/Table/CategoryTable.php:74
 msgid "Colour should be the hex value."
-msgstr ""
+msgstr "Colore dovrebbe essere il valore esadecimale."
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:52
 msgid "Issue ID is needed"
-msgstr ""
+msgstr "ID problema necessario"
 
 #: /src/App/Tracker/Table/IssueCategoryMappingTable.php:57
 msgid "Category ID is needed."
-msgstr ""
+msgstr "ID categoria necessario."
 
 #: /src/App/Tracker/Table/IssuesTable.php:135
 msgid "A title is required."
-msgstr ""
+msgstr "È necessario un titolo."
 
 #: /src/App/Tracker/Table/IssuesTable.php:139
 msgid "The title max length is 255 chars."
-msgstr ""
+msgstr "La lunghezza massima di titolo è 255 caratteri."
 
 #: /src/App/Tracker/Table/IssuesTable.php:144
 msgid "A build is required."
-msgstr ""
+msgstr "Una build è richiesta."
 
 #: /src/App/Tracker/Table/IssuesTable.php:148
 msgid "A build max length is 40 chars."
-msgstr ""
+msgstr "La lunghezza massima della build è 40 caratteri."
 

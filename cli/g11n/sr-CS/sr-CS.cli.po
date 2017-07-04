@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: joomla-official-sites\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-03 07:47-0500\n"
-"PO-Revision-Date: 2017-06-18 18:32-0400\n"
+"PO-Revision-Date: 2017-07-04 12:43-0400\n"
 "Last-Translator: Joomla <crowdin@community.joomla.org>\n"
 "Language-Team: Serbian (Latin)\n"
 "MIME-Version: 1.0\n"
@@ -995,7 +995,7 @@ msgstr "Testiranje engine"
 #: /cli/Application/Command/TrackerCommand.php:235
 #, php-format
 msgid "Missing option for command: %s"
-msgstr "Nedostaje opcija za komandu:% s"
+msgstr "Nedostaje opcija za komandu: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:236
 msgid "Please use one of the following :"
@@ -1021,7 +1021,7 @@ msgstr "Nevažeći projekat"
 #: /cli/Application/Command/TrackerCommand.php:400
 #, php-format
 msgid "Processing project: %s"
-msgstr "Projekat obrade:% s"
+msgstr "Projekat obrade: %s"
 
 #: /cli/Application/Command/TrackerCommand.php:431
 #: /cli/Application/Command/TrackerCommand.php:433
