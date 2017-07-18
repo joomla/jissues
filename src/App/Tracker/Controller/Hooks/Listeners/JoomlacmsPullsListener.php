@@ -82,6 +82,13 @@ class JoomlacmsPullsListener extends AbstractListener
 			'.appveyor.yml',
 			'.drone.yml',
 			'karma.conf.js',
+			'codeception.yml',
+			'Jenkinsfile',
+			'jenkins-phpunit.xml',
+			'RoboFile.php',
+			'RoboFile.dist.ini',
+			'drone-package.json',
+			'.hound.yml'
 		],
 		// Layout
 		'15' => ['^layouts/'],
@@ -109,6 +116,12 @@ class JoomlacmsPullsListener extends AbstractListener
 			'^installation/language',
 			'^language',
 			'^media/system/js/fields/calendar-locales',
+			'^administrator/templates/atum/language',
+			'^administrator/templates/isis/language',
+			'^administrator/templates/hathor/language',
+			'^templates/protostar/language',
+			'^templates/beez3/language',
+			'^templates/aurora/language',
 		],
 		// Plugins
 		'28' => ['^plugins/'],
@@ -230,6 +243,12 @@ class JoomlacmsPullsListener extends AbstractListener
 		'71' => [
 			'^administrator/components/com_fields',
 			'^components/com_fields',
+		],
+		// Composer Change
+		'72' => [
+			'^libraries/vendor',
+			'composer.json',
+			'composer.lock',
 		],
 	];
 
@@ -469,7 +488,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $prLabel;
 		}
 
-		$composerChange   = $this->checkComposerChange($files);
+		$composerChange   = $this->checkChange($files, 72);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
 
 		// Add the label if we change a Composer dependency and it isn't already set
@@ -483,7 +502,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $composerLabel;
 		}
 
-		$languageChange   = $this->checkLanguageChange($files);
+		$languageChange   = $this->checkChange($files, 27);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
 		// Add the label if we change the language files and it isn't already set
@@ -497,7 +516,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $languageLabel;
 		}
 
-		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
+		$unitSystemTestsChange   = $this->checkChange($files, 14);
 		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
 		// Add the label if we change the Unit/System Tests and it isn't already set
@@ -527,87 +546,29 @@ class JoomlacmsPullsListener extends AbstractListener
 	}
 
 	/**
-	 * Check if we change a Composer dependency
+	 * Check if we change a file matching the passed category id.
 	 *
-	 * @param   array  $files  The files array
+	 * @param   array    $files  The files array
+	 * @param   integer  $id     The id of the category we should check
 	 *
-	 * @return  bool   True if we change a Composer dependency
+	 * @return  bool   True if we change a file matching the passed category id.
 	 *
 	 * @since   1.0
 	 */
-	protected function checkComposerChange($files)
+	protected function checkChange($files, $id)
 	{
 		if (!empty($files))
 		{
 			foreach ($files as $file)
 			{
-				// Check for file paths libraries/vendor at position 0 or filename is composer.json or composer.lock
-				if (strpos($file->filename, 'libraries/vendor') === 0 || in_array($file->filename, ['composer.json', 'composer.lock']))
+				foreach ($this->trackerHandledCategories[$id] as $check)
 				{
-					return true;
-				}
-			}
-		}
+					$check = str_replace('/', '\/', $check);
 
-		return false;
-	}
-
-	/**
-	 * Check if we change a language file
-	 *
-	 * @param   array  $files  The files array
-	 *
-	 * @return  bool   True if we change a language file
-	 *
-	 * @since   1.0
-	 */
-	protected function checkLanguageChange($files)
-	{
-		if (!empty($files))
-		{
-			foreach ($files as $file)
-			{
-				// Check for file paths administrator/language, installation/language,
-				// language and media/system/js/fields/calendar-locales at position 0
-				if (strpos($file->filename, 'administrator/language') === 0
-					|| strpos($file->filename, 'installation/language') === 0
-					|| strpos($file->filename, 'language') === 0
-					|| strpos($file->filename, 'media/system/js/fields/calendar-locales') === 0)
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Check if we change the Unit/System Test tests
-	 *
-	 * @param   array  $files  The files array
-	 *
-	 * @return  bool   True if we change a Unit/System Test file
-	 *
-	 * @since   1.0
-	 */
-	protected function checkUnitSystemTestsChange($files)
-	{
-		if (!empty($files))
-		{
-			foreach ($files as $file)
-			{
-				// Check for files & paths regarding the Unit/System Tests
-				if (strpos($file->filename, 'tests') === 0
-					|| $file->filename == '.appveyor.yml'
-					|| $file->filename == '.drone.yml'
-					|| $file->filename == '.travis.yml'
-					|| $file->filename == 'appveyor-phpunit.xml'
-					|| $file->filename == 'karma.conf.js'
-					|| $file->filename == 'phpunit.xml.dist'
-					|| $file->filename == 'travisci-phpunit.xml')
-				{
-					return true;
+					if (preg_match('/' . $check . '/', $file->filename))
+					{
+						return true;
+					}
 				}
 			}
 		}
