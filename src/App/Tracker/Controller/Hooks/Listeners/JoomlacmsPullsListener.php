@@ -253,9 +253,6 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Check that pull requests have certain labels
 			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-			// Check if the pull request targets the master branch
-			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
-
 			// Place the JoomlaCode ID in the issue title if it isn't already there
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
@@ -291,9 +288,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		 */
 		if ($arguments['action'] === 'opened')
 		{
-			// Check if the pull request targets the master branch
-			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
-
 			// Send a message if there is no comment in the pull request
 			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
