@@ -360,7 +360,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Event for after pull requests are created in the application
 	 *
-	 * @param   Event $event Event object
+	 * @param   Event  $event  Event object
 	 *
 	 * @return  void
 	 *
@@ -397,7 +397,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Event for after pull requests are updated in the application
 	 *
-	 * @param   Event $event Event object
+	 * @param   Event  $event  Event object
 	 *
 	 * @return  void
 	 *
@@ -452,11 +452,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks for the RTC label
 	 *
-	 * @param   object      $hookData Hook data payload
-	 * @param   Github      $github   Github object
-	 * @param   Logger      $logger   Logger object
-	 * @param   object      $project  Object containing project data
-	 * @param   IssuesTable $table    Table object
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
@@ -488,10 +488,10 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks if a pull request targets the master branch
 	 *
-	 * @param   object $hookData Hook data payload
-	 * @param   Github $github   Github object
-	 * @param   Logger $logger   Logger object
-	 * @param   object $project  Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
@@ -557,10 +557,10 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks for a PR-<branch> label
 	 *
-	 * @param   object $hookData Hook data payload
-	 * @param   Github $github   Github object
-	 * @param   Logger $logger   Logger object
-	 * @param   object $project  Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
@@ -653,8 +653,8 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Check if we change a file matching the passed category id.
 	 *
-	 * @param   array   $files The files array
-	 * @param   integer $id    The id of the category we should check
+	 * @param   array    $files  The files array
+	 * @param   integer  $id     The id of the category we should check
 	 *
 	 * @return  bool   True if we change a file matching the passed category id.
 	 *
@@ -684,9 +684,9 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Updates the local application status for an item
 	 *
-	 * @param   Logger      $logger  Logger object
-	 * @param   object      $project Object containing project data
-	 * @param   IssuesTable $table   Table object
+	 * @param   Logger       $logger   Logger object
+	 * @param   object       $project  Object containing project data
+	 * @param   IssuesTable  $table    Table object
 	 *
 	 * @return  void
 	 *
@@ -733,11 +733,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Updates a pull request title to include the JoomlaCode ID if it exists
 	 *
-	 * @param   object      $hookData Hook data payload
-	 * @param   Github      $github   Github object
-	 * @param   Logger      $logger   Logger object
-	 * @param   object      $project  Object containing project data
-	 * @param   IssuesTable $table    Table object
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
@@ -830,10 +830,10 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks if a pull request have a comment
 	 *
-	 * @param   object $hookData Hook data payload
-	 * @param   Github $github   Github object
-	 * @param   Logger $logger   Logger object
-	 * @param   object $project  Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
@@ -910,11 +910,11 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Checks the changed files and add based on that data a category (if possible)
 	 *
-	 * @param   object      $hookData Hook data payload
-	 * @param   Github      $github   Github object
-	 * @param   Logger      $logger   Logger object
-	 * @param   object      $project  Object containing project data
-	 * @param   IssuesTable $table    Table object
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 * @param   IssuesTable  $table     Table object
 	 *
 	 * @return  void
 	 *
@@ -953,7 +953,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Check the changed files and return the correct categories if possible.
 	 *
-	 * @param   array $files The files array
+	 * @param   array  $files  The files array
 	 *
 	 * @return  array  IDs of categories the file set belongs to.
 	 *
