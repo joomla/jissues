@@ -81,24 +81,20 @@ class JoomlacmsPullsListener extends AbstractListener
 	 * @since   1.0
 	 */
 	protected $trackerHandledCategories = [
-
 		self::CATEGORY_JAVASCRIPT => [
 			'.js$'
 		],
-
 		self::CATEGORY_POSTGRESQL => [
 			'^administrator/components/com_admin/sql/updates/postgresql',
 			'^installation/sql/postgresql',
 			'^libraries/joomla/database/(.*)/postgresql.php',
 		],
-
 		self::CATEGORY_SQLSERVER => [
 			'^administrator/components/com_admin/sql/updates/sqlazure',
 			'^installation/sql/sqlazure',
 			'^libraries/joomla/database/(.*)/sqlazure.php',
 			'^libraries/joomla/database/(.*)/sqlsrv.php',
 		],
-
 		self::CATEGORY_EXTERNAL_LIBRARY => [
 			'^libraries/fof/',
 			'^libraries/idna_convert/',
@@ -111,21 +107,17 @@ class JoomlacmsPullsListener extends AbstractListener
 			'composer.json',
 			'composer.lock',
 		],
-
 		self::CATEGORY_SQL => [
 			'^administrator/components/com_admin/sql/updates',
 			'^installation/sql',
 		],
-
 		self::CATEGORY_LIBRARIES => [
 			'^libraries/'
 		],
-
 		self::CATEGORY_MODULES => [
 			'^administrator/modules/',
 			'^modules/',
 		],
-
 		self::CATEGORY_UNIT_TESTS => [
 			'^tests',
 			'.travis.yml',
@@ -143,35 +135,28 @@ class JoomlacmsPullsListener extends AbstractListener
 			'drone-package.json',
 			'.hound.yml'
 		],
-
 		self::CATEGORY_LAYOUTS => [
 			'^layouts/'
 		],
-
 		self::CATEGORY_TAGS => [
 			'^administrator/components/com_tags',
 			'^components/com_tags',
 		],
-
 		self::CATEGORY_CLI => [
 			'^cli/'
 		],
-
 		self:: CATEGORY_ADMINISTRATION => [
 			'^administrator/'
 		],
-
 		self::CATEGORY_FRONTEND => [
 			'^components/',
 			'^modules/',
 			'^plugins/',
 			'^templates/',
 		],
-
 		self::CATEGORY_INSTALLATION => [
 			'^installation/'
 		],
-
 		self::CATEGORY_LANGUAGES => [
 			'^administrator/language',
 			'^installation/language',
@@ -184,24 +169,19 @@ class JoomlacmsPullsListener extends AbstractListener
 			'^templates/beez3/language',
 			'^templates/aurora/language',
 		],
-
 		self::CATEGORY_PLUGINS => [
 			'^plugins/'
 		],
-
 		self::CATEGORY_SITE_TEMPLATES => [
 			'^templates/'
 		],
-
 		self::CATEGORY_ADMIN_TEMPLATES => [
 			'^administrator/templates/'
 		],
-
 		self::CATEGORY_MEDIA_MANAGER => [
 			'^administrator/components/com_media',
 			'^components/com_media',
 		],
-
 		self::CATEGORY_REPOSITORY => [
 			'^build/',
 			'^.github/',
@@ -218,138 +198,107 @@ class JoomlacmsPullsListener extends AbstractListener
 			'scss-lint-report.xml',
 			'sccs-lint.yml',
 		],
-
 		self::CATEGORY_COM_AJAX => [
 			'^administrator/components/com_ajax',
 			'^components/com_ajax',
 		],
-
 		self::CATEGORY_COM_ADMIN => [
 			'^administrator/components/com_admin'
 		],
-
 		self::CATEGORY_COM_BANNERS => [
 			'^administrator/components/com_banners',
 			'^components/com_banners',
 		],
-
 		self::CATEGORY_COM_CACHE => [
 			'^administrator/components/com_cache'
 		],
-
 		self::CATEGORY_COM_CATEGORIES => [
 			'^administrator/components/com_categories'
 		],
-
 		self::CATEGORY_COM_CHECKIN => [
 			'^administrator/components/com_checkin'
 		],
-
 		self::CATEGORY_COM_CONFIG => [
 			'^administrator/components/com_config',
 			'^components/com_config',
 		],
-
 		self::CATEGORY_COM_CONTACT => [
 			'^administrator/components/com_contact',
 			'^components/com_contact',
 		],
-
 		self::CATEGORY_COM_CONTENT => [
 			'^administrator/components/com_content',
 			'^components/com_content',
 		],
-
 		self::CATEGORY_COM_CONTENTHISTORY => [
 			'^administrator/components/com_contenthistory',
 			'^components/com_contenthistory',
 		],
-
 		self::CATEGORY_COM_CPANEL => [
 			'^administrator/components/com_cpanel'
 		],
-
 		self::CATEGORY_COM_FINDER => [
 			'^administrator/components/com_finder',
 			'^components/com_finder',
 		],
-
 		self::CATEGORY_COM_INSTALLER => [
 			'^administrator/components/com_installer'
 		],
-
 		self::CATEGORY_COM_JOOMLAUPDATE => [
 			'^administrator/components/com_joomlaupdate'
 		],
-
 		self::CATEGORY_COM_LANGUAGES => [
 			'^administrator/components/com_languages'
 		],
-
 		self::CATEGORY_COM_LOGIN => [
 			'^administrator/components/com_login'
 		],
-
 		self::CATEGORY_COM_MENUS => [
 			'^administrator/components/com_menus'
 		],
-
 		self::CATEGORY_COM_MESSAGES => [
 			'^administrator/components/com_messages'
 		],
-
 		self::CATEGORY_COM_MODULES => [
 			'^administrator/components/com_modules',
 			'^components/com_modules',
 		],
-
 		self::CATEGORY_COM_NEWSFEEDS => [
 			'^administrator/components/com_newsfeeds',
 			'^components/com_newsfeeds',
 		],
-
 		self::CATEGORY_COM_PLUGINS => [
 			'^administrator/components/com_plugins'
 		],
-
 		self::CATEGORY_COM_POSTINSTALL => [
 			'^administrator/components/com_postinstall'
 		],
-
 		self::CATEGORY_COM_REDIRECT => [
 			'^administrator/components/com_redirect'
 		],
-
 		self::CATEGORY_COM_SEARCH => [
 			'^administrator/components/com_search'
 		],
-
 		self::CATEGORY_COM_TEMPLATES => [
 			'^administrator/components/com_templates'
 		],
-
 		self::CATEGORY_COM_USERS => [
 			'^administrator/components/com_users',
 			'^components/com_users',
 		],
-
 		self::CATEGORY_COM_MAILTO => [
 			'^components/com_mailto'
 		],
-
 		self::CATEGORY_COM_WRAPPER => [
 			'^components/com_wrapper'
 		],
-
 		self::CATEGORY_COM_FIELDS => [
 			'^administrator/components/com_fields',
 			'^components/com_fields',
 		],
-
 		self::CATEGORY_COM_ASSOCIATIONS => [
 			'^administrator/components/com_associations'
 		],
-
 		self::CATEGORY_COMPOSER => [
 			'^libraries/vendor',
 			'composer.json',
@@ -593,7 +542,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $prLabel;
 		}
 
-		$composerChange   = $this->checkChange($files, 72);
+		$composerChange   = $this->checkChange($files, self::CATEGORY_COMPOSER);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
 
 		// Add the label if we change a Composer dependency and it isn't already set
@@ -607,7 +556,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $composerLabel;
 		}
 
-		$languageChange   = $this->checkChange($files, 27);
+		$languageChange   = $this->checkChange($files, self::CATEGORY_LANGUAGES);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
 		// Add the label if we change the language files and it isn't already set
@@ -621,7 +570,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $languageLabel;
 		}
 
-		$unitSystemTestsChange   = $this->checkChange($files, 14);
+		$unitSystemTestsChange   = $this->checkChange($files, self::CATEGORY_UNIT_TESTS);
 		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
 		// Add the label if we change the Unit/System Tests and it isn't already set
