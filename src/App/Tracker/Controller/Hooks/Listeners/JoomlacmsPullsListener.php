@@ -21,10 +21,10 @@ use Monolog\Logger;
  */
 class JoomlacmsPullsListener extends AbstractListener
 {
-	const CATEGORY_JAVASCRIPT         =  1;
-	const CATEGORY_POSTGRESQL         =  2;
-	const CATEGORY_SQLSERVER          =  3;
-	const CATEGORY_EXTERNAL_LIBRARY   =  4;
+	const CATEGORY_JAVASCRIPT         = 1;
+	const CATEGORY_POSTGRESQL         = 2;
+	const CATEGORY_SQLSERVER          = 3;
+	const CATEGORY_EXTERNAL_LIBRARY   = 4;
 	const CATEGORY_SQL                = 10;
 	const CATEGORY_LIBRARIES          = 12;
 	const CATEGORY_MODULES            = 13;
