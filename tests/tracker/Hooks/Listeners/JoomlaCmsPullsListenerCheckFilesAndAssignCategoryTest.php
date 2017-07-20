@@ -78,7 +78,7 @@ class JoomlaCmsPullsListenerCheckFilesAndAssignCategoryTest extends TestCase
 			'libraries/phpass/' => ['4', '12'],
 			'libraries/phputf8/' => ['4', '12'],
 			'libraries/simplepie/' => ['4', '12'],
-			'libraries/vendor/' => ['4', '12'],
+			'libraries/vendor/' => ['4', '12', '73'],
 			'media/editors/codemirror' => ['4'],
 			'media/editors/tinymce' => ['4'],
 			'media/system/js/fields/calendar-locales/el.js' => ['1', '27'],

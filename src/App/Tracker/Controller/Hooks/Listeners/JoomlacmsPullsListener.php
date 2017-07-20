@@ -145,7 +145,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		self::CATEGORY_CLI => [
 			'^cli/'
 		],
-		self:: CATEGORY_ADMINISTRATION => [
+		self::CATEGORY_ADMINISTRATION => [
 			'^administrator/'
 		],
 		self::CATEGORY_FRONTEND => [
