@@ -253,9 +253,6 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Check that pull requests have certain labels
 			$this->checkPullLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
-			// Check if the pull request targets the master branch
-			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
-
 			// Place the JoomlaCode ID in the issue title if it isn't already there
 			$this->updatePullTitle($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 
@@ -291,9 +288,6 @@ class JoomlacmsPullsListener extends AbstractListener
 		 */
 		if ($arguments['action'] === 'opened')
 		{
-			// Check if the pull request targets the master branch
-			$this->checkMasterBranch($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
-
 			// Send a message if there is no comment in the pull request
 			$this->checkPullBody($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
@@ -358,75 +352,6 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Add the RTC label as it isn't already set
 			$labels[] = $label;
 			$this->addLabels($hookData, $github, $logger, $project, $labels);
-		}
-	}
-
-	/**
-	 * Checks if a pull request targets the master branch
-	 *
-	 * @param   object  $hookData  Hook data payload
-	 * @param   Github  $github    Github object
-	 * @param   Logger  $logger    Logger object
-	 * @param   object  $project   Object containing project data
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0
-	 */
-	protected function checkMasterBranch($hookData, Github $github, Logger $logger, $project)
-	{
-		if ($hookData->pull_request->base->ref == 'master')
-		{
-			// Post a comment on the PR asking to open a pull against staging
-			try
-			{
-				$appNote = sprintf(
-					'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
-					'https://github.com/joomla/jissues', 'J!Tracker'
-				);
-
-				$github->issues->comments->create(
-					$project->gh_user,
-					$project->gh_project,
-					$hookData->pull_request->number,
-					'Pull requests to the master branch of this repo are not accepted.  '
-					. 'Please close this pull request and submit a new one against the staging branch.' . $appNote
-				);
-
-				// Log the activity
-				$logger->info(
-					sprintf(
-						'Added incorrect branch comment to %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					)
-				);
-			}
-			catch (InvalidResponseCodeException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
-			catch (\DomainException $e)
-			{
-				$logger->error(
-					sprintf(
-						'Error posting comment to GitHub pull request %s/%s #%d',
-						$project->gh_user,
-						$project->gh_project,
-						$hookData->pull_request->number
-					),
-					['exception' => $e]
-				);
-			}
 		}
 	}
 
