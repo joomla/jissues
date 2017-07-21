@@ -9,12 +9,9 @@
 namespace App\Tracker\Controller\Hooks\Listeners;
 
 use App\Tracker\Table\IssuesTable;
-
-use Joomla\Date\Date;
 use Joomla\Event\Event;
 use Joomla\Github\Github;
 use Joomla\Http\Exception\InvalidResponseCodeException;
-
 use Monolog\Logger;
 
 /**
@@ -24,6 +21,58 @@ use Monolog\Logger;
  */
 class JoomlacmsPullsListener extends AbstractListener
 {
+	const CATEGORY_JAVASCRIPT         = 1;
+	const CATEGORY_POSTGRESQL         = 2;
+	const CATEGORY_SQLSERVER          = 3;
+	const CATEGORY_EXTERNAL_LIBRARY   = 4;
+	const CATEGORY_SQL                = 10;
+	const CATEGORY_LIBRARIES          = 12;
+	const CATEGORY_MODULES            = 13;
+	const CATEGORY_UNIT_TESTS         = 14;
+	const CATEGORY_LAYOUTS            = 15;
+	const CATEGORY_TAGS               = 16;
+	const CATEGORY_CLI                = 18;
+	const CATEGORY_ADMINISTRATION     = 23;
+	const CATEGORY_FRONTEND           = 24;
+	const CATEGORY_INSTALLATION       = 25;
+	const CATEGORY_LANGUAGES          = 27;
+	const CATEGORY_PLUGINS            = 28;
+	const CATEGORY_SITE_TEMPLATES     = 30;
+	const CATEGORY_ADMIN_TEMPLATES    = 31;
+	const CATEGORY_MEDIA_MANAGER      = 35;
+	const CATEGORY_REPOSITORY         = 36;
+	const CATEGORY_COM_AJAX           = 41;
+	const CATEGORY_COM_ADMIN          = 42;
+	const CATEGORY_COM_BANNERS        = 43;
+	const CATEGORY_COM_CACHE          = 44;
+	const CATEGORY_COM_CATEGORIES     = 45;
+	const CATEGORY_COM_CHECKIN        = 46;
+	const CATEGORY_COM_CONFIG         = 47;
+	const CATEGORY_COM_CONTACT        = 48;
+	const CATEGORY_COM_CONTENT        = 49;
+	const CATEGORY_COM_CONTENTHISTORY = 50;
+	const CATEGORY_COM_CPANEL         = 51;
+	const CATEGORY_COM_FINDER         = 52;
+	const CATEGORY_COM_INSTALLER      = 53;
+	const CATEGORY_COM_JOOMLAUPDATE   = 54;
+	const CATEGORY_COM_LANGUAGES      = 55;
+	const CATEGORY_COM_LOGIN          = 56;
+	const CATEGORY_COM_MENUS          = 58;
+	const CATEGORY_COM_MESSAGES       = 59;
+	const CATEGORY_COM_MODULES        = 60;
+	const CATEGORY_COM_NEWSFEEDS      = 61;
+	const CATEGORY_COM_PLUGINS        = 62;
+	const CATEGORY_COM_POSTINSTALL    = 63;
+	const CATEGORY_COM_REDIRECT       = 64;
+	const CATEGORY_COM_SEARCH         = 65;
+	const CATEGORY_COM_TEMPLATES      = 67;
+	const CATEGORY_COM_USERS          = 68;
+	const CATEGORY_COM_MAILTO         = 69;
+	const CATEGORY_COM_WRAPPER        = 70;
+	const CATEGORY_COM_FIELDS         = 71;
+	const CATEGORY_COM_ASSOCIATIONS   = 72;
+	const CATEGORY_COMPOSER           = 73;
+
 	/**
 	 * The Tracker Categories that are handled based on the files that changed by a pull request.
 	 *
@@ -32,23 +81,21 @@ class JoomlacmsPullsListener extends AbstractListener
 	 * @since   1.0
 	 */
 	protected $trackerHandledCategories = [
-		// JavaScript
-		'1' => ['.js$'],
-		// Postgresql
-		'2' => [
+		self::CATEGORY_JAVASCRIPT => [
+			'.js$'
+		],
+		self::CATEGORY_POSTGRESQL => [
 			'^administrator/components/com_admin/sql/updates/postgresql',
 			'^installation/sql/postgresql',
 			'^libraries/joomla/database/(.*)/postgresql.php',
 		],
-		// MS SQL
-		'3' => [
+		self::CATEGORY_SQLSERVER => [
 			'^administrator/components/com_admin/sql/updates/sqlazure',
 			'^installation/sql/sqlazure',
 			'^libraries/joomla/database/(.*)/sqlazure.php',
 			'^libraries/joomla/database/(.*)/sqlsrv.php',
 		],
-		// External Library
-		'4' => [
+		self::CATEGORY_EXTERNAL_LIBRARY => [
 			'^libraries/fof/',
 			'^libraries/idna_convert/',
 			'^libraries/phpass/',
@@ -60,20 +107,18 @@ class JoomlacmsPullsListener extends AbstractListener
 			'composer.json',
 			'composer.lock',
 		],
-		// SQL
-		'10' => [
+		self::CATEGORY_SQL => [
 			'^administrator/components/com_admin/sql/updates',
 			'^installation/sql',
 		],
-		// Libaries
-		'12' => ['^libraries/'],
-		// Modules
-		'13' => [
+		self::CATEGORY_LIBRARIES => [
+			'^libraries/'
+		],
+		self::CATEGORY_MODULES => [
 			'^administrator/modules/',
 			'^modules/',
 		],
-		// Unit Tests
-		'14' => [
+		self::CATEGORY_UNIT_TESTS => [
 			'^tests',
 			'.travis.yml',
 			'phpunit.xml.dist',
@@ -82,47 +127,62 @@ class JoomlacmsPullsListener extends AbstractListener
 			'.appveyor.yml',
 			'.drone.yml',
 			'karma.conf.js',
+			'codeception.yml',
+			'Jenkinsfile',
+			'jenkins-phpunit.xml',
+			'RoboFile.php',
+			'RoboFile.dist.ini',
+			'drone-package.json',
+			'.hound.yml'
 		],
-		// Layout
-		'15' => ['^layouts/'],
-		// Tags
-		'16' => [
+		self::CATEGORY_LAYOUTS => [
+			'^layouts/'
+		],
+		self::CATEGORY_TAGS => [
 			'^administrator/components/com_tags',
 			'^components/com_tags',
 		],
-		// CLI
-		'18' => ['^cli/'],
-		// Administration
-		'23' => ['^administrator/'],
-		// Front End
-		'24' => [
+		self::CATEGORY_CLI => [
+			'^cli/'
+		],
+		self::CATEGORY_ADMINISTRATION => [
+			'^administrator/'
+		],
+		self::CATEGORY_FRONTEND => [
 			'^components/',
 			'^modules/',
 			'^plugins/',
 			'^templates/',
 		],
-		// Installation
-		'25' => ['^installation/'],
-		// Language & Strings
-		'27' => [
+		self::CATEGORY_INSTALLATION => [
+			'^installation/'
+		],
+		self::CATEGORY_LANGUAGES => [
 			'^administrator/language',
 			'^installation/language',
 			'^language',
 			'^media/system/js/fields/calendar-locales',
+			'^administrator/templates/atum/language',
+			'^administrator/templates/isis/language',
+			'^administrator/templates/hathor/language',
+			'^templates/protostar/language',
+			'^templates/beez3/language',
+			'^templates/aurora/language',
 		],
-		// Plugins
-		'28' => ['^plugins/'],
-		// Site Template
-		'30' => ['^templates/'],
-		// Admin templates
-		'31' => ['^administrator/templates/'],
-		// Media Manager
-		'35' => [
+		self::CATEGORY_PLUGINS => [
+			'^plugins/'
+		],
+		self::CATEGORY_SITE_TEMPLATES => [
+			'^templates/'
+		],
+		self::CATEGORY_ADMIN_TEMPLATES => [
+			'^administrator/templates/'
+		],
+		self::CATEGORY_MEDIA_MANAGER => [
 			'^administrator/components/com_media',
 			'^components/com_media',
 		],
-		// Repository
-		'36' => [
+		self::CATEGORY_REPOSITORY => [
 			'^build/',
 			'^.github/',
 			'.gitignore',
@@ -138,98 +198,111 @@ class JoomlacmsPullsListener extends AbstractListener
 			'scss-lint-report.xml',
 			'sccs-lint.yml',
 		],
-		// Component com_ajax
-		'41' => [
+		self::CATEGORY_COM_AJAX => [
 			'^administrator/components/com_ajax',
 			'^components/com_ajax',
 		],
-		// Component com_admin
-		'42' => ['^administrator/components/com_admin'],
-		// Component com_associations
-		'72' => ['^administrator/components/com_associations'],
-		// Component com_banners
-		'43' => [
+		self::CATEGORY_COM_ADMIN => [
+			'^administrator/components/com_admin'
+		],
+		self::CATEGORY_COM_BANNERS => [
 			'^administrator/components/com_banners',
 			'^components/com_banners',
 		],
-		// Component com_cache
-		'44' => ['^administrator/components/com_cache'],
-		// Component com_categories
-		'45' => ['^administrator/components/com_categories'],
-		// Component com_checkin
-		'46' => ['^administrator/components/com_checkin'],
-		// Component com_config
-		'47' => [
+		self::CATEGORY_COM_CACHE => [
+			'^administrator/components/com_cache'
+		],
+		self::CATEGORY_COM_CATEGORIES => [
+			'^administrator/components/com_categories'
+		],
+		self::CATEGORY_COM_CHECKIN => [
+			'^administrator/components/com_checkin'
+		],
+		self::CATEGORY_COM_CONFIG => [
 			'^administrator/components/com_config',
 			'^components/com_config',
 		],
-		// Component com_contact
-		'48' => [
+		self::CATEGORY_COM_CONTACT => [
 			'^administrator/components/com_contact',
 			'^components/com_contact',
 		],
-		// Component com_content
-		'49' => [
+		self::CATEGORY_COM_CONTENT => [
 			'^administrator/components/com_content',
 			'^components/com_content',
 		],
-		// Component com_contenthistory
-		'50' => [
+		self::CATEGORY_COM_CONTENTHISTORY => [
 			'^administrator/components/com_contenthistory',
 			'^components/com_contenthistory',
 		],
-		// Component com_cpanel
-		'51' => ['^administrator/components/com_cpanel'],
-		// Component com_finder
-		'52' => [
+		self::CATEGORY_COM_CPANEL => [
+			'^administrator/components/com_cpanel'
+		],
+		self::CATEGORY_COM_FINDER => [
 			'^administrator/components/com_finder',
 			'^components/com_finder',
 		],
-		// Component com_installer
-		'53' => ['^administrator/components/com_installer'],
-		// Component com_joomlaupdate
-		'54' => ['^administrator/components/com_joomlaupdate'],
-		// Component com_lanuages
-		'55' => ['^administrator/components/com_languages'],
-		// Component com_login
-		'56' => ['^administrator/components/com_login'],
-		// Component com_menus
-		'58' => ['^administrator/components/com_menus'],
-		// Component com_messages
-		'59' => ['^administrator/components/com_messages'],
-		// Component com_modules
-		'60' => [
+		self::CATEGORY_COM_INSTALLER => [
+			'^administrator/components/com_installer'
+		],
+		self::CATEGORY_COM_JOOMLAUPDATE => [
+			'^administrator/components/com_joomlaupdate'
+		],
+		self::CATEGORY_COM_LANGUAGES => [
+			'^administrator/components/com_languages'
+		],
+		self::CATEGORY_COM_LOGIN => [
+			'^administrator/components/com_login'
+		],
+		self::CATEGORY_COM_MENUS => [
+			'^administrator/components/com_menus'
+		],
+		self::CATEGORY_COM_MESSAGES => [
+			'^administrator/components/com_messages'
+		],
+		self::CATEGORY_COM_MODULES => [
 			'^administrator/components/com_modules',
 			'^components/com_modules',
 		],
-		// Component com_newsfeeds
-		'61' => [
+		self::CATEGORY_COM_NEWSFEEDS => [
 			'^administrator/components/com_newsfeeds',
 			'^components/com_newsfeeds',
 		],
-		// Component com_plugins
-		'62' => ['^administrator/components/com_plugins'],
-		// Component com_postinstall
-		'63' => ['^administrator/components/com_postinstall'],
-		// Component com_redirect
-		'64' => ['^administrator/components/com_redirect'],
-		// Component com_search
-		'65' => ['^administrator/components/com_search'],
-		// Component com_templates
-		'67' => ['^administrator/components/com_templates'],
-		// Component com_users
-		'68' => [
+		self::CATEGORY_COM_PLUGINS => [
+			'^administrator/components/com_plugins'
+		],
+		self::CATEGORY_COM_POSTINSTALL => [
+			'^administrator/components/com_postinstall'
+		],
+		self::CATEGORY_COM_REDIRECT => [
+			'^administrator/components/com_redirect'
+		],
+		self::CATEGORY_COM_SEARCH => [
+			'^administrator/components/com_search'
+		],
+		self::CATEGORY_COM_TEMPLATES => [
+			'^administrator/components/com_templates'
+		],
+		self::CATEGORY_COM_USERS => [
 			'^administrator/components/com_users',
 			'^components/com_users',
 		],
-		// Component com_mailto
-		'69' => ['^components/com_mailto'],
-		// Component com_wrapper
-		'70' => ['^components/com_wrapper'],
-		// Component com_fields
-		'71' => [
+		self::CATEGORY_COM_MAILTO => [
+			'^components/com_mailto'
+		],
+		self::CATEGORY_COM_WRAPPER => [
+			'^components/com_wrapper'
+		],
+		self::CATEGORY_COM_FIELDS => [
 			'^administrator/components/com_fields',
 			'^components/com_fields',
+		],
+		self::CATEGORY_COM_ASSOCIATIONS => [
+			'^administrator/components/com_associations'
+		],
+		self::CATEGORY_COMPOSER => [
+			'^libraries/vendor',
+			'composer.json',
+			'composer.lock',
 		],
 	];
 
@@ -394,7 +467,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$addLabels[] = $prLabel;
 		}
 
-		$composerChange   = $this->checkComposerChange($files);
+		$composerChange   = $this->checkChange($files, self::CATEGORY_COMPOSER);
 		$composerLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $composerLabel);
 
 		// Add the label if we change a Composer dependency and it isn't already set
@@ -408,7 +481,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $composerLabel;
 		}
 
-		$languageChange   = $this->checkLanguageChange($files);
+		$languageChange   = $this->checkChange($files, self::CATEGORY_LANGUAGES);
 		$languageLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $languageLabel);
 
 		// Add the label if we change the language files and it isn't already set
@@ -422,7 +495,7 @@ class JoomlacmsPullsListener extends AbstractListener
 			$removeLabels[] = $languageLabel;
 		}
 
-		$unitSystemTestsChange   = $this->checkUnitSystemTestsChange($files);
+		$unitSystemTestsChange   = $this->checkChange($files, self::CATEGORY_UNIT_TESTS);
 		$unitSystemTestsLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
 
 		// Add the label if we change the Unit/System Tests and it isn't already set
@@ -452,87 +525,29 @@ class JoomlacmsPullsListener extends AbstractListener
 	}
 
 	/**
-	 * Check if we change a Composer dependency
+	 * Check if we change a file matching the passed category id.
 	 *
-	 * @param   array  $files  The files array
+	 * @param   array    $files  The files array
+	 * @param   integer  $id     The id of the category we should check
 	 *
-	 * @return  bool   True if we change a Composer dependency
+	 * @return  bool   True if we change a file matching the passed category id.
 	 *
 	 * @since   1.0
 	 */
-	protected function checkComposerChange($files)
+	protected function checkChange($files, $id)
 	{
 		if (!empty($files))
 		{
 			foreach ($files as $file)
 			{
-				// Check for file paths libraries/vendor at position 0 or filename is composer.json or composer.lock
-				if (strpos($file->filename, 'libraries/vendor') === 0 || in_array($file->filename, ['composer.json', 'composer.lock']))
+				foreach ($this->trackerHandledCategories[$id] as $check)
 				{
-					return true;
-				}
-			}
-		}
+					$check = str_replace('/', '\/', $check);
 
-		return false;
-	}
-
-	/**
-	 * Check if we change a language file
-	 *
-	 * @param   array  $files  The files array
-	 *
-	 * @return  bool   True if we change a language file
-	 *
-	 * @since   1.0
-	 */
-	protected function checkLanguageChange($files)
-	{
-		if (!empty($files))
-		{
-			foreach ($files as $file)
-			{
-				// Check for file paths administrator/language, installation/language,
-				// language and media/system/js/fields/calendar-locales at position 0
-				if (strpos($file->filename, 'administrator/language') === 0
-					|| strpos($file->filename, 'installation/language') === 0
-					|| strpos($file->filename, 'language') === 0
-					|| strpos($file->filename, 'media/system/js/fields/calendar-locales') === 0)
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Check if we change the Unit/System Test tests
-	 *
-	 * @param   array  $files  The files array
-	 *
-	 * @return  bool   True if we change a Unit/System Test file
-	 *
-	 * @since   1.0
-	 */
-	protected function checkUnitSystemTestsChange($files)
-	{
-		if (!empty($files))
-		{
-			foreach ($files as $file)
-			{
-				// Check for files & paths regarding the Unit/System Tests
-				if (strpos($file->filename, 'tests') === 0
-					|| $file->filename == '.appveyor.yml'
-					|| $file->filename == '.drone.yml'
-					|| $file->filename == '.travis.yml'
-					|| $file->filename == 'appveyor-phpunit.xml'
-					|| $file->filename == 'karma.conf.js'
-					|| $file->filename == 'phpunit.xml.dist'
-					|| $file->filename == 'travisci-phpunit.xml')
-				{
-					return true;
+					if (preg_match('/' . $check . '/', $file->filename))
+					{
+						return true;
+					}
 				}
 			}
 		}
