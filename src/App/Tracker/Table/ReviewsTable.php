@@ -29,6 +29,21 @@ use JTracker\Database\AbstractDatabaseTable;
 class ReviewsTable extends AbstractDatabaseTable
 {
 	/**
+	 * Review approved state
+	 */
+	const APPROVED_STATE = 1;
+
+	/**
+	 * Review approved state
+	 */
+	const CHANGES_REQUIRED_STATE = 2;
+
+	/**
+	 * Review approved state
+	 */
+	const DISMISSED_STATE = 3;
+
+	/**
 	 * Constructor
 	 *
 	 * @param   DatabaseDriver  $database  A database connector object.

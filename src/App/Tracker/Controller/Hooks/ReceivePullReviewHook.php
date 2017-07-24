@@ -112,11 +112,36 @@ class ReceivePullReviewHook extends AbstractHookController
 					'issue_id'         => $this->hookData->pull_request->number,
 					'project_id'       => $this->project->project_id,
 					'review_id'        => $this->hookData->review->id,
-					'review_state'     => $this->hookData->review->state,
 					'reviewed_by'      => $this->hookData->review->user->login,
 					'review_comment'   => $this->hookData->review->body,
 					'review_submitted' => (new Date($this->hookData->issue->created_at))->format($dateFormat),
 				];
+
+				// It's impossible to submit a review in a dismissed state
+				switch (strtoupper($this->hookData->review->state))
+				{
+					case 'APPROVE':
+						$data['review_state'] = ReviewsTable::APPROVED_STATE;
+						break;
+
+					case 'REQUEST_CHANGES':
+						$data['review_state'] = ReviewsTable::CHANGES_REQUIRED_STATE;
+						break;
+
+					default:
+						$logMessage = sprintf(
+							'Error parsing the review state for GitHub issue %s/%s #%d (review %d) in the tracker',
+							$this->project->gh_user,
+							$this->project->gh_project,
+							$this->hookData->pull_request->number,
+							$this->hookData->review->id
+						);
+						$this->setStatusCode(500);
+						$this->response->error = $logMessage;
+						$this->logger->error($logMessage);
+
+						return;
+				}
 
 				try
 				{
@@ -209,6 +234,7 @@ class ReceivePullReviewHook extends AbstractHookController
 				$data = [
 					'dismissed_by'      => $this->hookData->changes->body,
 					'dismissed_on'      => (new Date($this->hookData->issue->created_at))->format($dateFormat),
+					'review_state'      => ReviewsTable::DISMISSED_STATE
 					// 'dismissed_comment' => $this->hookData->changes->body,
 				];
 
