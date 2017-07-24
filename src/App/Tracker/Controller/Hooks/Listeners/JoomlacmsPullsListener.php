@@ -277,7 +277,8 @@ class JoomlacmsPullsListener extends AbstractListener
 			'^administrator/components/com_redirect'
 		],
 		self::CATEGORY_COM_SEARCH => [
-			'^administrator/components/com_search'
+			'^administrator/components/com_search',
+			'^components/com_search',
 		],
 		self::CATEGORY_COM_TEMPLATES => [
 			'^administrator/components/com_templates'
