@@ -114,7 +114,8 @@ class GitHubLoginHelper
 	 *
 	 * NOTE: A redirect is expected while fetching the avatar.
 	 *
-	 * @param   string  $username  The username to retrieve the avatar for.
+	 * @param   string   $username      The username to retrieve the avatar for.
+	 * @param   boolean  $forceRefresh  Force refreshing the avatar.
 	 *
 	 * @return  integer  The function returns the number of bytes that were written to the file, or false on failure.
 	 *
@@ -122,13 +123,21 @@ class GitHubLoginHelper
 	 * @throws  \RuntimeException
 	 * @throws  \DomainException
 	 */
-	public function saveAvatar($username)
+	public function saveAvatar($username, bool $forceRefresh = false)
 	{
 		$path = $this->avatarPath . '/' . $username . '.png';
 
 		if (file_exists($path))
 		{
-			return 1;
+			if (!$forceRefresh)
+			{
+				return 1;
+			}
+
+			if (false === unlink($path))
+			{
+				throw new \DomainException('Can not remove: ' . $path);
+			}
 		}
 
 		if (false === function_exists('curl_setopt'))
@@ -187,7 +196,7 @@ class GitHubLoginHelper
 	 *
 	 * @param   GitHubUser  $user  The GitHub user object.
 	 *
-	 * @return $this
+	 * @return  $this
 	 */
 	public function refreshUser(GitHubUser $user)
 	{
@@ -202,7 +211,7 @@ class GitHubLoginHelper
 			}
 		}
 
-		$this->saveAvatar($user->username);
+		$this->saveAvatar($user->username, true);
 
 		// Refresh user data in database.
 
