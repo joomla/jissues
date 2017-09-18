@@ -7,11 +7,11 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "jissues-debian-jessie64"
+  config.vm.box = "jissues-debian-jessie64-v2"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://atlas.hashicorp.com/debian/boxes/contrib-jessie64/versions/8.7.0/providers/virtualbox.box"
+  config.vm.box_url = "https://atlas.hashicorp.com/debian/boxes/contrib-jessie64/versions/8.8.0/providers/virtualbox.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
