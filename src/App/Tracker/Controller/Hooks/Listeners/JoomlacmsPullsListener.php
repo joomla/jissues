@@ -880,10 +880,10 @@ class JoomlacmsPullsListener extends AbstractListener
 	/**
 	 * Sends the first time contributor message
 	 *
-	 * @param   object       $hookData  Hook data payload
-	 * @param   Github       $github    Github object
-	 * @param   Logger       $logger    Logger object
-	 * @param   object       $project   Object containing project data
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
 	 *
 	 * @return  void
 	 *
@@ -906,4 +906,3 @@ class JoomlacmsPullsListener extends AbstractListener
 		$this->sendCommentAsBotUser($hookData, $github, $logger, $project, $message);
 	}
 }
-
