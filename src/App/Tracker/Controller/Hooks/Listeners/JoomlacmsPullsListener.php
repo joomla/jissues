@@ -339,6 +339,13 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Check the Categories based on the files that gets changed
 			$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
+
+		// Detect first time contributiors...
+		if ($hookData->pull_request->author_association === 'FIRST_TIME_CONTRIBUTOR' || $hookData->pull_request->author_association === 'FIRST_TIMER')
+		{
+			// ... and send the message
+			$this->sendFirstTimeContributorMessage($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		}
 	}
 
 	/**
@@ -869,4 +876,34 @@ class JoomlacmsPullsListener extends AbstractListener
 
 		return $categories;
 	}
+
+	/**
+	 * Sends the first time contributor message
+	 *
+	 * @param   object       $hookData  Hook data payload
+	 * @param   Github       $github    Github object
+	 * @param   Logger       $logger    Logger object
+	 * @param   object       $project   Object containing project data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function sendFirstTimeContributorMessage($hookData, Github $github, Logger $logger, $project)
+	{
+		// Author has not previously committed to GitHub.
+		if ($hookData->pull_request->author_association === 'FIRST_TIMER')
+		{
+			$message = sprintf('@todo @%s', $hookData->pull_request->user->login);
+		}
+
+		// Author has not previously committed to the repository.
+		if ($hookData->pull_request->author_association === 'FIRST_TIME_CONTRIBUTOR')
+		{
+			$message = sprintf('@todo @%s', $hookData->pull_request->user->login);
+		}
+
+		$this->sendCommentAsBotUser($hookData, $github, $logger, $project, $message);
+	}
 }
+
