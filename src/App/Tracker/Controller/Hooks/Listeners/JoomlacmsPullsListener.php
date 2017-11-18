@@ -891,7 +891,7 @@ class JoomlacmsPullsListener extends AbstractListener
 	 */
 	protected function sendFirstTimeContributorMessage($hookData, Github $github, Logger $logger, $project)
 	{
-		$message = 'Thank you so much for spending time creating your first pull request for Joomla! We really appreciate the time you spent creating it and hope that this will be the first of many.<br><br>It will now be reviewed and tested so please make sure you keep an eye on your email for any notifications about its progress. For example there might be some code style changes requested.<br><br>More details <a href="" </a> <a target="_blank" href="https://docs.joomla.org/Using_the_Github_UI_to_Make_Pull_Requests#And_now.3F">in our dokumentation</a>';
+		$message = 'Thank you so much for spending time creating your first pull request for Joomla! We really appreciate the time you spent creating it and hope that this will be the first of many.<br><br>It will now be reviewed and tested so please make sure you keep an eye on your email for any notifications about its progress. For example there might be some code style changes requested.<br><br>More details <a target="_blank" href="https://docs.joomla.org/Using_the_Github_UI_to_Make_Pull_Requests#And_now.3F">in our documentation</a>.';
 
 		$this->sendCommentAsBotUser($hookData, $github, $logger, $project, $message);
 	}
