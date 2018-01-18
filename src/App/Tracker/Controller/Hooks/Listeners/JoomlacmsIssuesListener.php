@@ -118,7 +118,7 @@ class JoomlacmsIssuesListener extends AbstractListener
 		$addLabels    = [];
 		$removeLabels = [];
 
-		$rfcIssue    = strpos($hookData->issue->title, '[RFC]') || substr($hookData->issue->title, 0, 5) === 'RFC';
+		$rfcIssue    = strpos($hookData->issue->title, '[RFC]') || substr($hookData->issue->title, 0, 5) === '[RFC]';
 		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
 
 		// Add the label if we have a RFC issue
