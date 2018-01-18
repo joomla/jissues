@@ -452,7 +452,7 @@ class JoomlacmsPullsListener extends AbstractListener
 		$addLabels            = [];
 		$removeLabels         = [];
 
-		$rfcIssue    = strpos($hookData->pull_request->title, '[RFC]') || substr($hookData->pull_request->title, 0, 5) === '[RFC]';
+		$rfcIssue    = strpos($hookData->pull_request->title, '[RFC]') !== false;
 		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
 
 		// Add the label if we have a RFC issue
