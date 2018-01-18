@@ -34,6 +34,8 @@ class JoomlacmsIssuesListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		$this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
 		// Only perform these events if this is a new issue, action will be 'opened'
 		if ($arguments['action'] === 'opened')
 		{
@@ -55,6 +57,8 @@ class JoomlacmsIssuesListener extends AbstractListener
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
+
+		$this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 		/*
 		 * Only perform these events if this is a new issue, action will be 'opened'
@@ -94,6 +98,7 @@ class JoomlacmsIssuesListener extends AbstractListener
 			$this->addLabels($hookData, $github, $logger, $project, $labels);
 		}
 	}
+
 	/**
 	 * Checks for issue label rules
 	 *
@@ -114,7 +119,7 @@ class JoomlacmsIssuesListener extends AbstractListener
 		$removeLabels = [];
 
 		$rfcIssue    = strpos($hookData->issue->title, '[RFC]');
-		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $unitSystemTestsLabel);
+		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
 
 		// Add the label if we have a RFC issue
 		if ($rfcIssue && !$rfcLabelSet)
