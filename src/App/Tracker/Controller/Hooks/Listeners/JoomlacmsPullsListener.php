@@ -445,11 +445,26 @@ class JoomlacmsPullsListener extends AbstractListener
 	{
 		// Set some data
 		$prLabel              = 'PR-' . $hookData->pull_request->base->ref;
+		$rfcLabel             = 'Request for Comment';
 		$languageLabel        = 'Language Change';
 		$unitSystemTestsLabel = 'Unit/System Tests';
 		$composerLabel        = 'Composer Dependency Changed';
 		$addLabels            = [];
 		$removeLabels         = [];
+
+		$rfcIssue    = strpos($hookData->pull_request->title, '[RFC]') || substr($hookData->pull_request->title, 0, 5) === '[RFC]';
+		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
+
+		// Add the label if we have a RFC issue
+		if ($rfcIssue && !$rfcLabelSet)
+		{
+			$addLabels[] = $rfcLabel;
+		}
+		// Remove the label if we don't have a RFC issue
+		elseif (!$rfcIssue && $rfcLabelSet)
+		{
+			$removeLabels[] = $rfcLabel;
+		}
 
 		// Get the files modified by the pull request
 		$files = $this->getChangedFilesByPullRequest($hookData, $github, $logger, $project);
