@@ -34,6 +34,8 @@ class JoomlacmsIssuesListener extends AbstractListener
 		// Pull the arguments array
 		$arguments = $event->getArguments();
 
+		$this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+
 		// Only perform these events if this is a new issue, action will be 'opened'
 		if ($arguments['action'] === 'opened')
 		{
@@ -55,6 +57,8 @@ class JoomlacmsIssuesListener extends AbstractListener
 	{
 		// Pull the arguments array
 		$arguments = $event->getArguments();
+
+		$this->checkIssueLabels($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
 
 		/*
 		 * Only perform these events if this is a new issue, action will be 'opened'
@@ -93,5 +97,53 @@ class JoomlacmsIssuesListener extends AbstractListener
 			$labels[] = $label;
 			$this->addLabels($hookData, $github, $logger, $project, $labels);
 		}
+	}
+
+	/**
+	 * Checks for issue label rules
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function checkIssueLabels($hookData, Github $github, Logger $logger, $project)
+	{
+		// Set some data
+		$rfcLabel     = 'Request for Comment';
+		$addLabels    = [];
+		$removeLabels = [];
+
+		$rfcIssue    = strpos($hookData->issue->title, '[RFC]') !== false;
+		$rfcLabelSet = $this->checkLabel($hookData, $github, $logger, $project, $rfcLabel);
+
+		// Add the label if we have a RFC issue
+		if ($rfcIssue && !$rfcLabelSet)
+		{
+			$addLabels[] = $rfcLabel;
+		}
+		// Remove the label if we don't have a RFC issue
+		elseif (!$rfcIssue && $rfcLabelSet)
+		{
+			$removeLabels[] = $rfcLabel;
+		}
+
+		// Add the labels if we need
+		if (!empty($addLabels))
+		{
+			$this->addLabels($hookData, $github, $logger, $project, $addLabels);
+		}
+
+		// Remove the labels if we need
+		if (!empty($removeLabels))
+		{
+			$this->removeLabels($hookData, $github, $logger, $project, $removeLabels);
+		}
+
+		return;
 	}
 }
