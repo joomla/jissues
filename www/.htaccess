@@ -4,6 +4,22 @@
 ##
 
 ###########################################
+# ======= Set basic Security header =======
+
+<IfModule mod_headers.c>
+	# X-XSS-Protection
+	Header always set X-XSS-Protection "1; mode=block"
+	# X-Frame-Options
+	Header always set X-Frame-Options DENY
+	# X-Content-Type nosniff
+	Header always set X-Content-Type-Options nosniff
+	# Referrer Policy
+	Header always set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+###########################################
+
+###########################################
 # ======= Enable the Rewrite Engine =======
 
 RewriteEngine On
