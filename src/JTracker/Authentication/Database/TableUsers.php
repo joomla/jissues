@@ -61,4 +61,24 @@ class TableUsers extends AbstractDatabaseTable
 
 		return ($check) ? $this->bind($check) : $this;
 	}
+
+	/**
+	 * Method to perform sanity checks on the AbstractDatabaseTable instance properties to ensure
+	 * they are safe to store in the database.  Child classes should override this
+	 * method to make sure the data they are storing in the database is safe and
+	 * as expected before storage.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   1.0
+	 */
+	public function check()
+	{
+		if ($this->params instanceof \Joomla\Registry\Registry)
+		{
+			$this->params = $this->params->toString();
+		}
+
+		return $this;
+	}
 }
