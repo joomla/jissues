@@ -21,6 +21,6 @@ CREATE TABLE `#__issue_reviews` (
   KEY `review_id` (`review_id`),
   KEY `issue_project_index`(`issue_id`, `project_id`),
   UNIQUE (`review_id`),
-  CONSTRAINT `#__issue_reviews_iifk` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`issue_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `#__issue_reviews_iifk` FOREIGN KEY (`issue_id`) REFERENCES `#__issues` (`issue_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `#__issue_reviews_pifk` FOREIGN KEY (`project_id`) REFERENCES `#__tracker_projects` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;

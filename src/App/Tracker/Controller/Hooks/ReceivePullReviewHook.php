@@ -54,7 +54,14 @@ class ReceivePullReviewHook extends AbstractHookController
 
 		try
 		{
-			$this->updateData();
+			if ($this->hookData->action === 'submitted')
+			{
+				$this->insertData();
+			}
+			else
+			{
+				$this->updateData();
+			}
 		}
 		catch (\Exception $e)
 		{
@@ -65,6 +72,99 @@ class ReceivePullReviewHook extends AbstractHookController
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->response->message = 'Hook data processed unsuccessfully.';
 		}
+	}
+
+	/**
+	 * Method to update data for an issue from GitHub
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function insertData()
+	{
+		$table = new ReviewsTable($this->db);
+
+		// Prepare the dates for insertion to the database
+		$dateFormat = $this->db->getDateFormat();
+
+		$data = [
+			'issue_id'         => $this->hookData->pull_request->number,
+			'project_id'       => $this->project->project_id,
+			'review_id'        => $this->hookData->review->id,
+			'reviewed_by'      => $this->hookData->review->user->login,
+			'review_comment'   => $this->hookData->review->body,
+			'review_submitted' => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
+		];
+
+		// It's impossible to submit a review in a dismissed state
+		switch (strtoupper($this->hookData->review->state))
+		{
+			case 'APPROVED':
+				$data['review_state'] = ReviewsTable::APPROVED_STATE;
+				break;
+
+			case 'CHANGES_REQUESTED':
+				$data['review_state'] = ReviewsTable::CHANGES_REQUIRED_STATE;
+				break;
+
+			default:
+				$logMessage = sprintf(
+					'Error parsing the review state for GitHub issue %s/%s #%d (review %d) in the tracker',
+					$this->project->gh_user,
+					$this->project->gh_project,
+					$this->hookData->pull_request->number,
+					$this->hookData->review->id
+				);
+				$this->setStatusCode(500);
+				$this->response->error = $logMessage;
+				$this->logger->error($logMessage);
+
+				return;
+		}
+
+		try
+		{
+			$table->save($data);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error adding GitHub review %s/%s #%d (review #%d) in the tracker',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->pull_request->number,
+				$this->hookData->review->id
+			);
+			$this->setStatusCode(500);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return;
+		}
+
+		try
+		{
+			$this->triggerEvent('onIssueAfterGithubReview', ['table' => $table, 'action' => $this->hookData->action]);
+		}
+		catch (\Exception $e)
+		{
+			$logMessage = sprintf(
+				'Error processing `onIssueAfterGithubReview` event for issue number %d, review %d',
+				$this->hookData->pull_request->number,
+				$this->hookData->review->id
+			);
+			$this->setStatusCode(500);
+			$this->response->error = $logMessage . ': ' . $e->getMessage();
+			$this->logger->error($logMessage, ['exception' => $e]);
+
+			return;
+		}
+
+		// Pull the user's avatar if it does not exist
+		$this->pullUserAvatar($this->hookData->review->user->login);
+
+		$this->response->message = 'Hook data processed successfully.';
 	}
 
 	/**
@@ -104,90 +204,6 @@ class ReceivePullReviewHook extends AbstractHookController
 
 		switch ($action)
 		{
-			case 'submitted':
-				// Prepare the dates for insertion to the database
-				$dateFormat = $this->db->getDateFormat();
-
-				$data = [
-					'issue_id'         => $this->hookData->pull_request->number,
-					'project_id'       => $this->project->project_id,
-					'review_id'        => $this->hookData->review->id,
-					'reviewed_by'      => $this->hookData->review->user->login,
-					'review_comment'   => $this->hookData->review->body,
-					'review_submitted' => (new Date($this->hookData->issue->created_at))->format($dateFormat),
-				];
-
-				// It's impossible to submit a review in a dismissed state
-				switch (strtoupper($this->hookData->review->state))
-				{
-					case 'APPROVE':
-						$data['review_state'] = ReviewsTable::APPROVED_STATE;
-						break;
-
-					case 'REQUEST_CHANGES':
-						$data['review_state'] = ReviewsTable::CHANGES_REQUIRED_STATE;
-						break;
-
-					default:
-						$logMessage = sprintf(
-							'Error parsing the review state for GitHub issue %s/%s #%d (review %d) in the tracker',
-							$this->project->gh_user,
-							$this->project->gh_project,
-							$this->hookData->pull_request->number,
-							$this->hookData->review->id
-						);
-						$this->setStatusCode(500);
-						$this->response->error = $logMessage;
-						$this->logger->error($logMessage);
-
-						return;
-				}
-
-				try
-				{
-					$table->save($data);
-				}
-				catch (\Exception $e)
-				{
-					$logMessage = sprintf(
-						'Error adding GitHub review %s/%s #%d (review #%d) in the tracker',
-						$this->project->gh_user,
-						$this->project->gh_project,
-						$this->hookData->pull_request->number,
-						$this->hookData->review->id
-					);
-					$this->setStatusCode(500);
-					$this->response->error = $logMessage . ': ' . $e->getMessage();
-					$this->logger->error($logMessage, ['exception' => $e]);
-
-					return;
-				}
-
-				try
-				{
-					$this->triggerEvent('onIssueAfterGithubReview', ['table' => $table, 'action' => $action]);
-				}
-				catch (\Exception $e)
-				{
-					$logMessage = sprintf(
-						'Error processing `onIssueAfterGithubReview` event for issue number %d, review %d',
-						$this->hookData->pull_request->number,
-						$this->hookData->review->id
-					);
-					$this->setStatusCode(500);
-					$this->response->error = $logMessage . ': ' . $e->getMessage();
-					$this->logger->error($logMessage, ['exception' => $e]);
-
-					return;
-				}
-
-				// Pull the user's avatar if it does not exist
-				$this->pullUserAvatar($this->hookData->review->user->login);
-
-				$this->response->message = 'Hook data processed successfully.';
-
-				break;
-
 			case 'edited':
 				// Prepare the dates for insertion to the database
 				$dateFormat = $this->db->getDateFormat();
