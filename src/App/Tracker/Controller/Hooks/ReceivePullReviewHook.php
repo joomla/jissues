@@ -136,6 +136,7 @@ class ReceivePullReviewHook extends AbstractHookController
 			'reviewed_by'      => $this->hookData->review->user->login,
 			'review_comment'   => $this->hookData->review->body,
 			'review_submitted' => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
+			'commit_id'        => $this->hookData->review->commit_id,
 		];
 
 		// It's impossible to submit a review in a dismissed state

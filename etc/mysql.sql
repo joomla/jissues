@@ -411,13 +411,14 @@ CREATE TABLE `#__issue_reviews` (
   `issue_id` int(11) unsigned NOT NULL COMMENT 'PK of the issue in issue table',
   `project_id` int(11) NOT NULL COMMENT 'The Project id',
   `review_id` int(11) unsigned NOT NULL COMMENT 'The GitHub ID of the review',
-  `review_state` int(11) unsigned NOT NULL COMMENT 'The ',
+  `review_state` int(11) unsigned NOT NULL COMMENT 'Integer representing the state of the review',
   `reviewed_by` varchar(150) NOT NULL COMMENT 'Reviewed by username',
   `review_comment` varchar(500) NULL DEFAULT NULL COMMENT 'The comment associated with the review',
   `review_submitted` datetime DEFAULT NULL COMMENT 'Date the review was last updated on.',
   `dismissed_by` varchar(150) NULL DEFAULT NULL COMMENT 'Reviewed by username',
   `dismissed_comment` varchar(500) NULL DEFAULT NULL COMMENT 'The comment associated with the review',
   `dismissed_on` datetime DEFAULT NULL COMMENT 'Date the review was dismissed on.',
+  `commit_id` varchar(40) NOT NULL COMMENT 'Commit SHA the review is against',
   PRIMARY KEY (`id`),
   KEY `issue_number` (`issue_id`),
   KEY `project_id` (`project_id`),
@@ -443,4 +444,5 @@ INSERT INTO `#__migrations` (`version`) VALUES
 ('20160611001'),
 ('20160612001'),
 ('20160612002'),
-('20170723001');
+('20170723001'),
+('20180218001');
