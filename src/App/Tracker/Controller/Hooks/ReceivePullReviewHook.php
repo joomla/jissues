@@ -31,6 +31,34 @@ class ReceivePullReviewHook extends AbstractHookController
 	protected $type = 'pullReview';
 
 	/**
+	 * Checks if an issue exists
+	 *
+	 * @param   integer  $reviewId  Pull Request Review ID to check
+	 *
+	 * @return  string|null  The issue ID if it exists or null
+	 *
+	 * @since   1.0
+	 */
+	protected function checkReviewExists($reviewId)
+	{
+		try
+		{
+			return $this->db->setQuery(
+				$this->db->getQuery(true)
+					->select($this->db->quoteName('review_id'))
+					->from($this->db->quoteName('#__issue_reviews'))
+					->where($this->db->quoteName('project_id') . ' = ' . (int) $this->project->project_id)
+					->where($this->db->quoteName('review_id') . ' = ' . $reviewId)
+			)->loadResult();
+		}
+		catch (\RuntimeException $e)
+		{
+			$this->logger->error('Error checking the database for the GitHub ID', ['exception' => $e]);
+			$this->getContainer()->get('app')->close();
+		}
+	}
+
+	/**
 	 * Prepare the response.
 	 *
 	 * @return  mixed
@@ -90,7 +118,7 @@ class ReceivePullReviewHook extends AbstractHookController
 	/**
 	 * Method to update data for an issue from GitHub
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @since   1.0
 	 */
@@ -137,7 +165,7 @@ class ReceivePullReviewHook extends AbstractHookController
 				$this->response->error = $logMessage;
 				$this->logger->error($logMessage);
 
-				return;
+				return false;
 		}
 
 		try
@@ -157,7 +185,7 @@ class ReceivePullReviewHook extends AbstractHookController
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
-			return;
+			return false;
 		}
 
 		try
@@ -175,13 +203,15 @@ class ReceivePullReviewHook extends AbstractHookController
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
 			$this->logger->error($logMessage, ['exception' => $e]);
 
-			return;
+			return false;
 		}
 
 		// Pull the user's avatar if it does not exist
 		$this->pullUserAvatar($this->hookData->review->user->login);
 
 		$this->response->message = 'Hook data processed successfully.';
+
+		return true;
 	}
 
 	/**
@@ -193,6 +223,23 @@ class ReceivePullReviewHook extends AbstractHookController
 	 */
 	protected function updateData()
 	{
+		if (!$this->checkReviewExists($this->hookData->review->id))
+		{
+			$logMessage = sprintf(
+				'Error finding GitHub review %s/%s #%d (review %d) in the tracker. Creating it.',
+				$this->project->gh_user,
+				$this->project->gh_project,
+				$this->hookData->pull_request->number,
+				$this->hookData->review->id
+			);
+			$this->logger->warning($logMessage);
+
+			if (!$this->insertData())
+			{
+				return;
+			}
+		}
+
 		try
 		{
 			$table = (new ReviewsTable($this->db))->load(
@@ -204,10 +251,11 @@ class ReceivePullReviewHook extends AbstractHookController
 		catch (\Exception $e)
 		{
 			$logMessage = sprintf(
-				'Error loading GitHub issue %s/%s #%d in the tracker',
+				'Error loading GitHub review %s/%s #%d (review %d) in the tracker',
 				$this->project->gh_user,
 				$this->project->gh_project,
-				$this->hookData->pull_request->number
+				$this->hookData->pull_request->number,
+				$this->hookData->review->id
 			);
 			$this->setStatusCode(500);
 			$this->response->error = $logMessage . ': ' . $e->getMessage();
