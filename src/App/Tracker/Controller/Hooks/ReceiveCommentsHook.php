@@ -356,6 +356,8 @@ class ReceiveCommentsHook extends AbstractHookController
 				$table->id
 			)
 		);
+
+		return true;
 	}
 
 	/**
