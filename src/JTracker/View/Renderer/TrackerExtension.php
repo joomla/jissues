@@ -379,11 +379,7 @@ class TrackerExtension extends \Twig_Extension implements \Twig_Extension_Global
 				. "<jdoc:include type=\"modules\" name=\"position-0\" style=\"none\" />\n\t</div>\n";
 
 			// Remove the search module
-			$body = str_replace(
-				$replace,
-				'',
-				$body
-			);
+			$body = str_replace($replace, '', $body);
 
 			return $body;
 		};
