@@ -88,7 +88,8 @@ class Hook extends Test
 
 		$this->setupGitHub();
 
-		$this->controller->execute();
+		$result = $this->controller->execute();
+		$this->logOut($result);
 	}
 
 	/**
