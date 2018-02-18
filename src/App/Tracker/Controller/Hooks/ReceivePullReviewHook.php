@@ -197,8 +197,7 @@ class ReceivePullReviewHook extends AbstractHookController
 		{
 			$table = (new ReviewsTable($this->db))->load(
 				[
-					'issue_id' => $this->hookData->pull_request->number,
-					'project_id' => $this->project->project_id,
+					'review_id' => $this->hookData->review->id,
 				]
 			);
 		}
