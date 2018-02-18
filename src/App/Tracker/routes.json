@@ -4,6 +4,7 @@
 	"hooks/issues"  : "\\Tracker\\Controller\\Hooks\\ReceiveIssuesHook",
 	"hooks/pulls"   : "\\Tracker\\Controller\\Hooks\\ReceivePullsHook",
 	"hooks/comments": "\\Tracker\\Controller\\Hooks\\ReceiveCommentsHook",
+	"hooks/pull_reviews": "\\Tracker\\Controller\\Hooks\\ReceivePullReviewHook",
 
 	"tracker/:project_alias"              : "\\Tracker\\Controller\\Issue\\Listing",
 	"tracker/:project_alias/add"          : "\\Tracker\\Controller\\Issue\\Add",

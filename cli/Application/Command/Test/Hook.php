@@ -149,7 +149,7 @@ class Hook extends Test
 		$this->controller = new $classname;
 		$this->controller->setContainer($this->getContainer());
 
-		if ($this->project->project_id === 1 && $resp === 3)
+		if ($this->project->project_id === 1 && $resp === 4)
 		{
 			$this->getApplication()->input->post->set('payload', file_get_contents(__DIR__ . '/data/cms-pull.json'));
 		}
