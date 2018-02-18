@@ -246,6 +246,11 @@ class ReceiveCommentsHook extends AbstractHookController
 		$data['modified_by']     = $this->hookData->sender->login;
 		$data['project_id']      = $this->project->project_id;
 		$data['build']           = $this->hookData->repository->default_branch;
+		$data['pr_head_user']    = (isset($this->hookData->issue->head->user))
+			? $this->hookData->issue->head->user->login
+			: 'unknown_repository';
+		$data['pr_head_ref']     = $this->hookData->issue->head->ref;
+		$data['pr_head_sha']     = $this->hookData->issue->head->sha;
 
 		// Add the closed date if the status is closed
 		if ($this->hookData->issue->closed_at)
@@ -351,6 +356,8 @@ class ReceiveCommentsHook extends AbstractHookController
 				$table->id
 			)
 		);
+
+		return true;
 	}
 
 	/**
