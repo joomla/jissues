@@ -303,7 +303,7 @@ abstract class AbstractTrackerController implements ContainerAwareInterface, Dis
 	protected function addEventListener($type)
 	{
 		/* @type \JTracker\Application $application */
-		$application = $this->getContainer()->get('app');
+		$application = $this->getContainer()->get('JTracker\\Application');
 
 		/*
 		 * Add the event listener if it exists.  Listeners are named in the format of <project><type>Listener in the Hooks\Listeners namespace.
