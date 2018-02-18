@@ -263,9 +263,11 @@ class ReceivePullReviewHook extends AbstractHookController
 				// Prepare the dates for insertion to the database
 				$dateFormat = $this->db->getDateFormat();
 
-				// TODO: GitHub doesn't submit the person who authored the dismissal OR the comment associated with
-				//       the dismissal in the webhook. We'll have to try and access it another way. The intention is
-				//       to store these in the "dismissed_comment" and "dismissed_by" fields in the DB.
+				/**
+				 * TODO: GitHub doesn't submit the person who authored the dismissal OR the comment associated with
+				 *       the dismissal in the webhook. We'll have to try and access it another way. The intention is
+				 *       to store these in the "dismissed_comment" and "dismissed_by" fields in the DB.
+				 */
 				$data = [
 					'dismissed_on'      => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
 					'review_state'      => ReviewsTable::DISMISSED_STATE
