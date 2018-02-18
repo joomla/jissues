@@ -154,7 +154,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 		}
 
 		/* @type \JTracker\Application $application */
-		$application = $this->getContainer()->get('app');
+		$application = $this->getContainer()->get('JTracker\\Application');
 
 		$application->input->set('project_alias', $alias);
 
@@ -245,7 +245,7 @@ abstract class AbstractHookController extends AbstractAjaxController implements 
 			$myIP = $parts[0];
 		}
 		// Check if request is from CLI
-		elseif (strpos($_SERVER['SCRIPT_NAME'], 'cli/tracker.php') !== false)
+		elseif (strpos($_SERVER['SCRIPT_NAME'], 'cli/tracker.php') !== false || strpos($_SERVER['SCRIPT_NAME'], 'bin/jtracker') !== false)
 		{
 			$myIP = '127.0.0.1';
 		}
