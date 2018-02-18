@@ -184,7 +184,7 @@ class ReceivePullReviewHook extends AbstractHookController
 		{
 			$table = (new ReviewsTable($this->db))->load(
 				[
-					'issue_number' => $this->hookData->pull_request->number,
+					'issue_id' => $this->hookData->pull_request->number,
 					'project_id' => $this->project->project_id,
 				]
 			);
@@ -215,7 +215,7 @@ class ReceivePullReviewHook extends AbstractHookController
 				// TODO: Do we want to save in the activities table who changed the review?
 				$data = [
 					'review_comment'   => $this->hookData->changes->body,
-					'review_submitted' => (new Date($this->hookData->issue->created_at))->format($dateFormat),
+					'review_submitted' => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
 				];
 
 				$table->load(
@@ -253,7 +253,7 @@ class ReceivePullReviewHook extends AbstractHookController
 				// TODO: Where is the dismissed comment stored in the hook data??
 				$data = [
 					'dismissed_by'      => $this->hookData->changes->body,
-					'dismissed_on'      => (new Date($this->hookData->issue->created_at))->format($dateFormat),
+					'dismissed_on'      => (new Date($this->hookData->pull_request->created_at))->format($dateFormat),
 					'review_state'      => ReviewsTable::DISMISSED_STATE
 					// 'dismissed_comment' => $this->hookData->changes->body,
 				];
