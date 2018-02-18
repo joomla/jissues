@@ -108,6 +108,10 @@ class ReceivePullReviewHook extends AbstractHookController
 				$data['review_state'] = ReviewsTable::CHANGES_REQUIRED_STATE;
 				break;
 
+			case 'COMMENTED':
+				$data['review_state'] = ReviewsTable::COMMENTED;
+				break;
+
 			default:
 				$logMessage = sprintf(
 					'Error parsing the review state for GitHub issue %s/%s #%d (review %d) in the tracker',

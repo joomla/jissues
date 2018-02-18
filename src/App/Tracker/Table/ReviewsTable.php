@@ -34,14 +34,19 @@ class ReviewsTable extends AbstractDatabaseTable
 	const APPROVED_STATE = 1;
 
 	/**
-	 * Review approved state
+	 * Review changes required state
 	 */
 	const CHANGES_REQUIRED_STATE = 2;
 
 	/**
-	 * Review approved state
+	 * Review dismissed state
 	 */
 	const DISMISSED_STATE = 3;
+
+	/**
+	 * Review with comment without explicit approval state
+	 */
+	const COMMENTED = 4;
 
 	/**
 	 * Constructor
