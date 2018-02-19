@@ -339,6 +339,13 @@ class JoomlacmsPullsListener extends AbstractListener
 			// Check the Categories based on the files that gets changed
 			$this->checkCategories($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project'], $arguments['table']);
 		}
+
+		// Detect first time contributiors...
+		if ($hookData->pull_request->author_association === 'FIRST_TIME_CONTRIBUTOR' || $hookData->pull_request->author_association === 'FIRST_TIMER')
+		{
+			// ... and send the message
+			$this->sendFirstTimeContributorMessage($arguments['hookData'], $arguments['github'], $arguments['logger'], $arguments['project']);
+		}
 	}
 
 	/**
@@ -883,5 +890,27 @@ class JoomlacmsPullsListener extends AbstractListener
 		}
 
 		return $categories;
+	}
+
+	/**
+	 * Sends the first time contributor message
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
+	 */
+	protected function sendFirstTimeContributorMessage($hookData, Github $github, Logger $logger, $project)
+	{
+		$message = 'Thank you so much for spending time creating your first pull request for Joomla! We really appreciate the time you spent creating it'
+			. ' and hope that this will be the first of many.<br><br>It will now be reviewed and tested so please make sure you keep an eye on your email'
+			. ' for any notifications about its progress. For example there might be some code style changes requested.<br><br>More details'
+			. ' <a target="_blank" href="https://docs.joomla.org/Using_the_Github_UI_to_Make_Pull_Requests#And_now.3F">in our documentation</a>.';
+
+		$this->sendCommentAsBotUser($hookData, $github, $logger, $project, $message);
 	}
 }

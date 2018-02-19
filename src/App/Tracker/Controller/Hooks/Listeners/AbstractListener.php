@@ -463,4 +463,70 @@ abstract class AbstractListener implements ContainerAwareInterface
 		// Retun "joomla-bot" as fallback
 		return 'joomla-bot';
 	}
+
+	/**
+	 * Send a comment using the bot account
+	 *
+	 * @param   object  $hookData  Hook data payload
+	 * @param   Github  $github    Github object
+	 * @param   Logger  $logger    Logger object
+	 * @param   object  $project   Object containing project data
+	 * @param   string  $message   The message the bot should send
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
+	protected function sendCommentAsBotUser($hookData, Github $github, Logger $logger, $project, $message)
+	{
+		// Post a comment with the given text
+		try
+		{
+			$appNote = sprintf(
+				'<br />*This is an automated message from the <a href="%1$s">%2$s Application</a>.*',
+				'https://github.com/joomla/jissues', 'J!Tracker'
+			);
+
+			$github->issues->comments->create(
+				$project->gh_user,
+				$project->gh_project,
+				$hookData->pull_request->number,
+				$message . $appNote
+			);
+
+			// Log the activity
+			$logger->info(
+				sprintf(
+					'Added a comment by the bot to %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				)
+			);
+		}
+		catch (InvalidResponseCodeException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error posting comment to GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+		}
+		catch (\DomainException $e)
+		{
+			$logger->error(
+				sprintf(
+					'Error posting comment to GitHub pull request %s/%s #%d',
+					$project->gh_user,
+					$project->gh_project,
+					$hookData->pull_request->number
+				),
+				['exception' => $e]
+			);
+		}
+	}
 }
