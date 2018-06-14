@@ -1,7 +1,7 @@
 /*
  * Joomla.org site template
  *
- * @copyright  Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later
  */
 /* >>> JUI >>> */
@@ -50,7 +50,7 @@
 .input-block-level {
   display: block;
   width: 100%;
-  min-height: 28px;
+  min-height: 32px;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -328,7 +328,7 @@
 
 ul,
 ol {
-  margin: 0 25px 9px 0;
+  margin: 0 25px 11px 0;
 }
 
 ul.unstyled,
@@ -344,7 +344,7 @@ ol.inline {
 }
 
 dd {
-  margin-right: 9px;
+  margin-right: 11px;
   margin-left: inherit;
 }
 
@@ -1121,7 +1121,7 @@ table th[class*="span"],
 
 .navbar .brand {
   float: right;
-  padding: 11px 0 11px 20px;
+  padding: 9px 0 9px 20px;
   margin-right: -20px;
   margin-left: inherit;
 }
@@ -1155,7 +1155,7 @@ table th[class*="span"],
 }
 
 .navbar .nav > li > a {
-  padding: 11px 0 11px 15px;
+  padding: 9px 0 9px 15px;
 }
 
 .navbar .btn-navbar {
@@ -2449,4 +2449,19 @@ input[type="url"] {
 
 .navbar .nav > li > a {
   padding: 11px 15px 11px;
+}
+
+.navbar .nav > li:first-of-type > a {
+  border-left: inherit;
+  box-shadow: inherit;
+}
+
+.navbar .nav > li:last-of-type > a {
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 0 0 #1e3b63 inset, -1px 0 0 rgba(0, 0, 0, 0.4) inset;
+}
+
+.subnav .nav-pills > li > a {
+  margin-right: 0;
+  margin-left: 1px;
 }
