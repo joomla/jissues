@@ -1,5 +1,5 @@
 # JTracker App Support 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
+# Copyright (C) 2012 - 2018 JTracker
 # This file is distributed under the same license as the JTracker package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,15 @@ msgid "Permalink"
 msgstr ""
 
 #: /templates/support/icons.index.twig:6
-#: /templates/support/icons.index.twig:10
+#: /templates/support/icons.index.twig:14
 msgid "Icons"
 msgstr ""
 
-#: /templates/support/icons.index.twig:22
+#: /templates/support/icons.index.twig:11
+msgid "All Font Icons"
+msgstr ""
+
+#: /templates/support/icons.index.twig:26
 msgid "OctIcons"
 msgstr ""
 
@@ -41,78 +45,94 @@ msgstr ""
 msgid "GitHub Flavored Markdown Preview"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:20
+#: /templates/support/markdown.index.twig:21
 msgid "Markdown TEST Page"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:22
+#: /templates/support/markdown.index.twig:24
 msgid "Info"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:23
+#: /templates/support/markdown.index.twig:25
 msgid "Headers"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:24
+#: /templates/support/markdown.index.twig:26
 msgid "Lists"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:25
-#: /templates/support/markdown.index.twig:36
+#: /templates/support/markdown.index.twig:27
+#: /templates/support/markdown.index.twig:38
 msgid "Links"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:26
+#: /templates/support/markdown.index.twig:28
 msgid "Emphasised"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:27
-#: /templates/support/markdown.index.twig:47
-#: /templates/support/markdown.index.twig:69
-#: /templates/support/markdown.index.twig:106
-#: /templates/support/markdown.index.twig:121
-#: /templates/support/markdown.index.twig:138
-#: /templates/support/markdown.index.twig:213
-#: /templates/support/markdown.index.twig:234
-#: /templates/support/markdown.index.twig:252
-#: /templates/support/markdown.index.twig:343
-#: /templates/support/markdown.index.twig:361
+#: /templates/support/markdown.index.twig:29
+#: /templates/support/markdown.index.twig:48
+#: /templates/support/markdown.index.twig:74
+#: /templates/support/markdown.index.twig:115
+#: /templates/support/markdown.index.twig:134
+#: /templates/support/markdown.index.twig:153
+#: /templates/support/markdown.index.twig:223
+#: /templates/support/markdown.index.twig:248
+#: /templates/support/markdown.index.twig:270
+#: /templates/support/markdown.index.twig:365
+#: /templates/support/markdown.index.twig:385
 msgid "Code"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:28
+#: /templates/support/markdown.index.twig:30
 msgid "Blockquotes"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:29
+#: /templates/support/markdown.index.twig:31
 msgid "HRs"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:30
+#: /templates/support/markdown.index.twig:32
 msgid "Tables"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:31
+#: /templates/support/markdown.index.twig:33
 msgid "Images"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:32
+#: /templates/support/markdown.index.twig:34
 msgid "GitHub Spice"
 msgstr ""
 
-#: /templates/support/markdown.index.twig:56
-#: /templates/support/markdown.index.twig:83
-#: /templates/support/markdown.index.twig:112
-#: /templates/support/markdown.index.twig:127
-#: /templates/support/markdown.index.twig:166
-#: /templates/support/markdown.index.twig:220
-#: /templates/support/markdown.index.twig:241
-#: /templates/support/markdown.index.twig:278
-#: /templates/support/markdown.index.twig:347
+#: /templates/support/markdown.index.twig:59
+#: /templates/support/markdown.index.twig:90
+#: /templates/support/markdown.index.twig:123
+#: /templates/support/markdown.index.twig:142
+#: /templates/support/markdown.index.twig:183
+#: /templates/support/markdown.index.twig:232
+#: /templates/support/markdown.index.twig:257
+#: /templates/support/markdown.index.twig:298
 #: /templates/support/markdown.index.twig:371
+#: /templates/support/markdown.index.twig:397
 msgid "Output"
 msgstr ""
 
-#: /src/App/Support/Controller/Clearcache.php:40
-msgid "The cache has been cleared."
+#: /src/App/Support/Controller/Clearcache.php:42
+msgid "The translation cache has been cleared."
+msgstr ""
+
+#: /src/App/Support/Controller/Clearcache.php:61
+msgid "There was an error clearing the Twig cache."
+msgstr ""
+
+#: /src/App/Support/Controller/Clearcache.php:65
+msgid "The Twig cache has been cleared."
+msgstr ""
+
+#: /src/App/Support/Controller/Clearcache.php:78
+msgid "The application cache has been cleared."
+msgstr ""
+
+#: /src/App/Support/Controller/Clearcache.php:82
+msgid "There was an error clearing the application cache."
 msgstr ""

@@ -1,5 +1,5 @@
 # JTracker App GitHub 1.0.0-beta
-# Copyright (C) 2012 - 2016 JTracker
+# Copyright (C) 2012 - 2018 JTracker
 # This file is distributed under the same license as the JTracker package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JTracker 1.0.0-beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-03 07:47-0500\n"
+"POT-Creation-Date: 2018-06-13 19:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,118 +16,82 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /templates/github/stats.index.twig:52
-#: /templates/github/stats.index.twig:56
-#, php-format
-msgid "%s - Statistics"
-msgstr ""
-
 #: /templates/github/hooks.index.twig:6
-#: /templates/github/hooks.index.twig:10
+#: /templates/github/hooks.index.twig:11
 #, php-format
 msgid "%s - Hooks"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:12
+#: /templates/github/hooks.index.twig:14
 msgid "List Hooks"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:17
+#: /templates/github/hooks.index.twig:19
 msgid "New Hook"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:22
-#: /templates/github/hooks.index.twig:87
-#: /templates/github/labels.index.twig:44
+#: /templates/github/hooks.index.twig:24
+#: /templates/github/hooks.index.twig:89
+#: /templates/github/labels.index.twig:46
 msgid "URL"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:26
-#: /templates/github/hooks.index.twig:88
+#: /templates/github/hooks.index.twig:28
+#: /templates/github/hooks.index.twig:90
 msgid "Events"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:28
+#: /templates/github/hooks.index.twig:30
 msgid "NOTE: comma separated, no spaces"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:31
+#: /templates/github/hooks.index.twig:33
 msgid "Add Hook"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:85
+#: /templates/github/hooks.index.twig:87
 msgid "Type"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:86
+#: /templates/github/hooks.index.twig:88
 msgid "Status"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:89
-#: /templates/github/milestones.index.twig:79
+#: /templates/github/hooks.index.twig:91
+#: /templates/github/milestones.index.twig:81
 msgid "Actions"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:99
+#: /templates/github/hooks.index.twig:101
 msgid "Active"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:101
+#: /templates/github/hooks.index.twig:103
 msgid "Inactive"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:110
+#: /templates/github/hooks.index.twig:112
 msgid "Deactivate"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:115
+#: /templates/github/hooks.index.twig:117
 msgid "Activate"
 msgstr ""
 
-#: /templates/github/hooks.index.twig:120
-#: /templates/github/labels.index.twig:59
-#: /templates/github/milestones.index.twig:98
+#: /templates/github/hooks.index.twig:122
+#: /templates/github/milestones.index.twig:100
+#: /templates/github/labels.index.twig:61
 msgid "Delete"
 msgstr ""
 
-#: /templates/github/labels.index.twig:6
-#: /templates/github/labels.index.twig:10
+#: /templates/github/stats.index.twig:52
+#: /templates/github/stats.index.twig:57
 #, php-format
-msgid "%s - Labels"
-msgstr ""
-
-#: /templates/github/labels.index.twig:12
-msgid "List Labels"
-msgstr ""
-
-#: /templates/github/labels.index.twig:17
-msgid "New Label"
-msgstr ""
-
-#: /templates/github/labels.index.twig:22
-#: /templates/github/labels.index.twig:45
-msgid "Name"
-msgstr ""
-
-#: /templates/github/labels.index.twig:23
-msgid "Label name"
-msgstr ""
-
-#: /templates/github/labels.index.twig:26
-#: /templates/github/labels.index.twig:46
-msgid "Colour"
-msgstr ""
-
-#: /templates/github/labels.index.twig:28
-msgid "Label colour"
-msgstr ""
-
-#: /templates/github/labels.index.twig:31
-msgid "Add Label"
+msgid "%s - Statistics"
 msgstr ""
 
 #: /templates/github/milestones.index.twig:6
-#: /templates/github/milestones.index.twig:21
+#: /templates/github/milestones.index.twig:22
 #, php-format
 msgid "%s - Milestones"
 msgstr ""
@@ -136,53 +100,89 @@ msgstr ""
 msgid "New Milestone"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:31
-#: /templates/github/milestones.index.twig:74
+#: /templates/github/milestones.index.twig:33
+#: /templates/github/milestones.index.twig:76
 msgid "Number"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:35
-#: /templates/github/milestones.index.twig:75
+#: /templates/github/milestones.index.twig:37
+#: /templates/github/milestones.index.twig:77
 msgid "Title"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:36
+#: /templates/github/milestones.index.twig:38
 msgid "Milestone title"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:39
-#: /templates/github/milestones.index.twig:78
+#: /templates/github/milestones.index.twig:41
+#: /templates/github/milestones.index.twig:80
 msgid "Due on"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:40
+#: /templates/github/milestones.index.twig:42
 msgid "Date"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:43
-#: /templates/github/milestones.index.twig:77
+#: /templates/github/milestones.index.twig:45
+#: /templates/github/milestones.index.twig:79
 msgid "State"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:45
+#: /templates/github/milestones.index.twig:47
 msgid "Open"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:46
+#: /templates/github/milestones.index.twig:48
 msgid "Closed"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:51
-#: /templates/github/milestones.index.twig:76
+#: /templates/github/milestones.index.twig:53
+#: /templates/github/milestones.index.twig:78
 msgid "Description"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:59
+#: /templates/github/milestones.index.twig:61
 msgid "Save"
 msgstr ""
 
-#: /templates/github/milestones.index.twig:94
+#: /templates/github/milestones.index.twig:96
 msgid "Edit"
+msgstr ""
+
+#: /templates/github/labels.index.twig:6
+#: /templates/github/labels.index.twig:11
+#, php-format
+msgid "%s - Labels"
+msgstr ""
+
+#: /templates/github/labels.index.twig:14
+msgid "List Labels"
+msgstr ""
+
+#: /templates/github/labels.index.twig:19
+msgid "New Label"
+msgstr ""
+
+#: /templates/github/labels.index.twig:24
+#: /templates/github/labels.index.twig:47
+msgid "Name"
+msgstr ""
+
+#: /templates/github/labels.index.twig:25
+msgid "Label name"
+msgstr ""
+
+#: /templates/github/labels.index.twig:28
+#: /templates/github/labels.index.twig:48
+msgid "Colour"
+msgstr ""
+
+#: /templates/github/labels.index.twig:30
+msgid "Label colour"
+msgstr ""
+
+#: /templates/github/labels.index.twig:33
+msgid "Add Label"
 msgstr ""
 
 #: /src/App/GitHub/Controller/Ajax/Markdown/Preview.php:40
