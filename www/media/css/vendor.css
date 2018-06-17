@@ -1442,12 +1442,12 @@ select.selectpicker {
 
 @font-face {
   font-family:"Octicons";
-  src:url("../fonts/octicons.eot?ef21c39f0ca9b1b5116e5eb7ac5eabe6");
-  src:url("../fonts/octicons.eot?#iefix") format("embedded-opentype"),
-		url("../fonts/octicons.woff2?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff2"),
-		url("../fonts/octicons.woff?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff"),
-		url("../fonts/octicons.ttf?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("truetype"),
-		url("../fonts/octicons.svg?ef21c39f0ca9b1b5116e5eb7ac5eabe6#octicons") format("svg");
+  src:url("../fonts/../fonts/octicons.eot?ef21c39f0ca9b1b5116e5eb7ac5eabe6");
+  src:url("../fonts/../fonts/octicons.eot?#iefix") format("embedded-opentype"),
+		url("../fonts/../fonts/octicons.woff2?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff2"),
+		url("../fonts/../fonts/octicons.woff?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff"),
+		url("../fonts/../fonts/octicons.ttf?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("truetype"),
+		url("../fonts/../fonts/octicons.svg?ef21c39f0ca9b1b5116e5eb7ac5eabe6#octicons") format("svg");
   font-weight:normal;
   font-style:normal;
 }
