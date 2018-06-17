@@ -11,6 +11,7 @@ namespace JTracker\Service;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\Dispatcher;
+use Joomla\Event\DispatcherInterface;
 
 /**
  * Event dispatcher service provider
@@ -30,15 +31,14 @@ class DispatcherProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->share('Joomla\\Event\\DispatcherInterface',
-			function ()
-			{
-				return new Dispatcher;
-			}
-		);
-
-		// Alias the dispatcher
-		$container->alias('dispatcher', 'Joomla\\Event\\DispatcherInterface')
-			->alias('Joomla\\Event\\Dispatcher', 'Joomla\\Event\\DispatcherInterface');
+		$container->alias('dispatcher', DispatcherInterface::class)
+			->alias(Dispatcher::class, DispatcherInterface::class)
+			->share(
+				DispatcherInterface::class,
+				function () {
+					return new Dispatcher;
+				},
+				true
+			);
 	}
 }

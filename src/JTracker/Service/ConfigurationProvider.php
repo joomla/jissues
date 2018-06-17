@@ -57,7 +57,7 @@ class ConfigurationProvider implements ServiceProviderInterface
 			throw new \RuntimeException(sprintf('Unable to parse the configuration file %s.', $file));
 		}
 
-		$this->config = (new Registry)->loadObject($configObject);
+		$this->config = new Registry($configObject);
 
 		defined('JDEBUG') || define('JDEBUG', ($this->config->get('debug.system') || $this->config->get('debug.database')));
 	}

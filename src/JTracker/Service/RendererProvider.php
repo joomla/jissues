@@ -97,7 +97,8 @@ class RendererProvider implements ServiceProviderInterface
 						'noversion' => new PathPackage('media', new EmptyVersionStrategy, $context),
 					]
 				);
-			}
+			},
+			true
 		);
 	}
 }

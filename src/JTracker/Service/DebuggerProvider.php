@@ -32,14 +32,14 @@ class DebuggerProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->set('App\\Debug\\TrackerDebugger',
-			function (Container $container)
-			{
-				return new TrackerDebugger($container);
-			}, true, true
-		);
-
-		// Alias the object
-		$container->alias('debugger', 'App\\Debug\\TrackerDebugger');
+		$container->alias('debugger', TrackerDebugger::class)
+			->share(
+				TrackerDebugger::class,
+				function (Container $container)
+				{
+					return new TrackerDebugger($container);
+				},
+				true
+			);
 	}
 }

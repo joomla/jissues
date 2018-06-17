@@ -12,6 +12,7 @@ use ElKuKu\Crowdin\Crowdin;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Registry\Registry;
 
 /**
  * Crowdin service provider
@@ -32,15 +33,18 @@ class CrowdinProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->set('ElKuKu\\Crowdin\\Crowdin',
-			function (Container $container)
-			{
-				/* @var \JTracker\Application $app */
-				$app = $container->get('app');
+		$container->alias('crowdin', Crowdin::class)
+			->share(
+				Crowdin::class,
+				function (Container $container)
+				{
+					/** @var Registry $config */
+					$config = $container->get('config');
 
-				// Instantiate Crowdin
-				return new Crowdin($app->get('crowdin.project'), $app->get('crowdin.api-key'));
-			}
-		)->alias('crowdin', 'ElKuKu\\Crowdin\\Crowdin');
+					// Instantiate Crowdin
+					return new Crowdin($config->get('crowdin.project'), $config->get('crowdin.api-key'));
+				},
+				true
+			);
 	}
 }

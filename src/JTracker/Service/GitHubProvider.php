@@ -10,7 +10,8 @@ namespace JTracker\Service;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-
+use Joomla\Github\Github as BaseGithub;
+use JTracker\GitHub\Github;
 use JTracker\Github\GithubFactory;
 
 /**
@@ -32,15 +33,16 @@ class GitHubProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->share('JTracker\\Github\\Github',
-			function (Container $container)
-			{
-				// Call the Github factory's getInstance method and inject the application; it handles the rest of the configuration
-				return GithubFactory::getInstance($container->get('app'));
-			}, true
+		$container->alias('gitHub', Github::class)
+			->alias(BaseGithub::class, Github::class)
+			->share(
+				Github::class,
+				function (Container $container)
+				{
+					// Call the Github factory's getInstance method and inject the application; it handles the rest of the configuration
+					return GithubFactory::getInstance($container->get('app'));
+				},
+				true
 		);
-
-		// Alias the object
-		$container->alias('gitHub', 'JTracker\\Github\\Github');
 	}
 }

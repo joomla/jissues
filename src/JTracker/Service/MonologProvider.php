@@ -39,19 +39,23 @@ class MonologProvider implements ServiceProviderInterface
 			function ()
 			{
 				return new PsrLogMessageProcessor;
-			}
+			},
+			true
 		);
 
 		// Register the web processor
-		$container->share('monolog.processor.web',
+		$container->share(
+			'monolog.processor.web',
 			function ()
 			{
 				return new WebProcessor;
-			}
+			},
+			true
 		);
 
 		// Register the main application handler
-		$container->share('monolog.handler.application',
+		$container->share(
+			'monolog.handler.application',
 			function (Container $container)
 			{
 				/** @var \Joomla\Registry\Registry $config */
@@ -63,11 +67,13 @@ class MonologProvider implements ServiceProviderInterface
 					$config->get('debug.log-path', JPATH_ROOT) . '/app.log',
 					constant('\\Monolog\\Logger::' . $level)
 				);
-			}
+			},
+			true
 		);
 
 		// Register the database handler
-		$container->share('monolog.handler.database',
+		$container->share(
+			'monolog.handler.database',
 			function (Container $container)
 			{
 				/** @var \Joomla\Registry\Registry $config */
@@ -80,11 +86,13 @@ class MonologProvider implements ServiceProviderInterface
 					$config->get('debug.log-path', JPATH_ROOT) . '/database.log',
 					constant('\\Monolog\\Logger::' . $level)
 				);
-			}
+			},
+			true
 		);
 
 		// Register the application Logger
-		$container->share('monolog.logger.application',
+		$container->share(
+			'monolog.logger.application',
 			function (Container $container)
 			{
 				return new Logger(
@@ -96,11 +104,13 @@ class MonologProvider implements ServiceProviderInterface
 						$container->get('monolog.processor.web'),
 					]
 				);
-			}
+			},
+			true
 		);
 
 		// Register the database Logger
-		$container->share('monolog.logger.database',
+		$container->share(
+			'monolog.logger.database',
 			function (Container $container)
 			{
 				return new Logger(
@@ -113,7 +123,8 @@ class MonologProvider implements ServiceProviderInterface
 						$container->get('monolog.processor.web'),
 					]
 				);
-			}
+			},
+			true
 		);
 	}
 }

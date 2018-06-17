@@ -10,11 +10,15 @@ namespace JTracker\Service;
 
 use Application\Application;
 
+use Joomla\Application\AbstractCliApplication;
+use Joomla\Application\Cli\CliOutput;
 use Joomla\Application\Cli\ColorStyle;
 use Joomla\Application\Cli\Output\Processor\ColorProcessor;
 use Joomla\Application\Cli\Output\Stdout;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Event\DispatcherInterface;
+use Joomla\Input\Cli as BaseCli;
 use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 
@@ -38,41 +42,44 @@ class CliApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->alias('Joomla\\Application\\AbstractCliApplication', 'Application\\Application')
+		$container->alias(AbstractCliApplication::class, Application::class)
 			->share(
-				'Application\\Application',
+				Application::class,
 				function (Container $container)
 				{
 					$application = new Application(
-						$container->get('JTracker\\Input\\Cli'),
+						$container->get(Cli::class),
 						$container->get('config'),
-						$container->get('Joomla\\Application\\Cli\\CliOutput')
+						$container->get(CliOutput::class)
 					);
 
 					// Inject extra services
 					$application->setContainer($container);
-					$application->setDispatcher($container->get('dispatcher'));
+					$application->setDispatcher($container->get(DispatcherInterface::class));
 
 					return $application;
-				}
+				},
+				true
+			);
+
+		$container->alias(BaseCli::class, Cli::class)
+			->share(
+				Cli::class,
+				function ()
+				{
+					return new Cli;
+				},
+				true
 			);
 
 		$container->share(
-			'JTracker\\Input\\Cli',
-			function ()
-			{
-				return new Cli;
-			}
-		);
-
-		$container->share(
-			'Joomla\\Application\\Cli\\Output\\Processor\\ColorProcessor',
+			ColorProcessor::class,
 			function (Container $container)
 			{
 				$processor = new ColorProcessor;
 
 				/** @var Input $input */
-				$input = $container->get('JTracker\\Input\\Cli');
+				$input = $container->get(Cli::class);
 
 				/** @var Registry $config */
 				$config = $container->get('config');
@@ -88,16 +95,18 @@ class CliApplicationProvider implements ServiceProviderInterface
 					->addStyle('ok', new ColorStyle('green', '', ['bold']));
 
 				return $processor;
-			}
+			},
+			true
 		);
 
-		$container->alias('Joomla\\Application\\Cli\\CliOutput', 'Joomla\\Application\\Cli\\Output\\Stdout')
+		$container->alias(CliOutput::class, Stdout::class)
 			->share(
-				'Joomla\\Application\\Cli\\Output\\Stdout',
+				Stdout::class,
 				function (Container $container)
 				{
-					return new Stdout($container->get('Joomla\\Application\\Cli\\Output\\Processor\\ColorProcessor'));
-				}
+					return new Stdout($container->get(ColorProcessor::class));
+				},
+				true
 			);
 	}
 }

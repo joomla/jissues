@@ -8,12 +8,16 @@
 
 namespace JTracker\Service;
 
+use Joomla\Application\AbstractWebApplication;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Event\Dispatcher;
 use Joomla\Input\Input;
+use Joomla\Router\Router;
 use JTracker\Application;
 use JTracker\Router\TrackerRouter;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Web application service provider
@@ -33,53 +37,57 @@ class WebApplicationProvider implements ServiceProviderInterface
 	 */
 	public function register(Container $container)
 	{
-		$container->alias('Joomla\\Application\\AbstractWebApplication', 'JTracker\\Application')
+		$container->alias(AbstractWebApplication::class, Application::class)
 			->share(
-				'JTracker\\Application',
+				Application::class,
 				function (Container $container)
 				{
 					$application = new Application(
-						$container->get('Symfony\\Component\\HttpFoundation\\Session\\SessionInterface'),
-						$container->get('Joomla\\Input\\Input'),
+						$container->get(SessionInterface::class),
+						$container->get(Input::class),
 						$container->get('config')
 					);
 
 					// Inject extra services
 					$application->setContainer($container);
-					$application->setDispatcher($container->get('dispatcher'));
-					$application->setRouter($container->get('router'));
+					$application->setDispatcher($container->get(Dispatcher::class));
+					$application->setRouter($container->get(TrackerRouter::class));
 
 					return $application;
-				}
+				},
+				true
 			);
 
 		$container->share(
-			'Joomla\\Input\\Input',
+			Input::class,
 			function ()
 			{
 				return new Input($_REQUEST);
-			}
+			},
+			true
 		);
 
-		$container->alias('router', 'JTracker\\Router\\TrackerRouter')
-			->alias('Joomla\\Router\\Router', 'JTracker\\Router\\TrackerRouter')
+		$container->alias('router', TrackerRouter::class)
+			->alias(Router::class, TrackerRouter::class)
 			->share(
-				'JTracker\\Router\\TrackerRouter',
+				TrackerRouter::class,
 				function (Container $container)
 				{
-					return (new TrackerRouter($container, $container->get('Joomla\\Input\\Input')))
+					return (new TrackerRouter($container, $container->get(Input::class)))
 						->setControllerPrefix('\\App')
 						->setDefaultController('\\Tracker\\Controller\\DefaultController');
-				}
+				},
+				true
 			);
 
-		$container->alias('Symfony\\Component\\HttpFoundation\\Session\\Session', 'Symfony\\Component\\HttpFoundation\\Session\\SessionInterface')
+		$container->alias(Session::class, SessionInterface::class)
 			->share(
-				'Symfony\\Component\\HttpFoundation\\Session\\SessionInterface',
-				function (Container $container)
+				SessionInterface::class,
+				function ()
 				{
 					return new Session;
-				}
+				},
+				true
 			);
 	}
 }
