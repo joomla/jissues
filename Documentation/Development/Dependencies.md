@@ -19,7 +19,7 @@ Issue tracking application extending GitHub&#039;s issues and pull requests for 
 
 Joomla Application Package
 
-* Installed: 1.7.0 
+* Installed: 1.9.1 
 * Source URL: https://github.com/joomla-framework/application.git
 
 #### joomla/cache (~2.0@dev)
@@ -47,14 +47,14 @@ Joomla Database Package
 
 Joomla Date Package
 
-* Installed: 1.1.3 
+* Installed: 1.2.0 
 * Source URL: https://github.com/joomla-framework/date.git
 
 #### joomla/di (~1.1)
 
 Joomla DI Package
 
-* Installed: 1.3.1 
+* Installed: 1.5.1 
 * Source URL: https://github.com/joomla-framework/di.git
 
 #### joomla/event (~1.1)
@@ -68,28 +68,28 @@ Joomla Event Package
 
 Joomla Filter Package
 
-* Installed: 1.3.1 
+* Installed: 1.3.5 
 * Source URL: https://github.com/joomla-framework/filter.git
 
 #### joomla/github (~1.2)
 
 Joomla Github Package
 
-* Installed: 1.5.3 
+* Installed: 1.6.0 
 * Source URL: https://github.com/joomla-framework/github-api.git
 
 #### joomla/http (~1.1)
 
 Joomla HTTP Package
 
-* Installed: 1.3.0 
+* Installed: 1.3.2 
 * Source URL: https://github.com/joomla-framework/http.git
 
 #### joomla/input (~1.1)
 
 Joomla Input Package
 
-* Installed: 1.2.0 
+* Installed: 1.2.3 
 * Source URL: https://github.com/joomla-framework/input.git
 
 #### joomla/model (~1.1)
@@ -117,21 +117,21 @@ Joomla Profiler Package
 
 Joomla Registry Package
 
-* Installed: 1.5.2 
+* Installed: 1.6.2 
 * Source URL: https://github.com/joomla-framework/registry.git
 
 #### joomla/renderer (~2.0@dev)
 
 Joomla Renderer Package
 
-* Installed: dev-master 653175a30e3a08ddc6436794df457b20082f5407
+* Installed: dev-master 0d9fc9e59267908ebdee5f2ee13f46fe35d6623c
 * Source URL: https://github.com/joomla-framework/renderer.git
 
 #### joomla/router (~1.1)
 
 Joomla Router Package
 
-* Installed: 1.1.2 
+* Installed: 1.2.0 
 * Source URL: https://github.com/joomla-framework/router.git
 
 #### joomla/string (~1.3)
@@ -152,7 +152,7 @@ Joomla Uri Package
 
 Joomla Utilities Package
 
-* Installed: 1.4.1 
+* Installed: 1.5.0 
 * Source URL: https://github.com/joomla-framework/utilities.git
 
 #### joomla/view (dev-2.0-dev#cc23d22f8f314e3f81e6e52247605a277b91aaa9)
@@ -162,32 +162,32 @@ Joomla View Package
 * Installed: dev-2.0-dev 
 * Source URL: https://github.com/joomla-framework/view.git
 
-#### symfony/asset (3.2.*)
+#### symfony/asset (3.4.*)
 
 Symfony Asset Component
 
-* Installed: v3.2.8 
+* Installed: v3.4.11 
 * Source URL: https://github.com/symfony/asset.git
 
-#### symfony/http-foundation (3.2.*)
+#### symfony/http-foundation (3.4.*)
 
 Symfony HttpFoundation Component
 
-* Installed: v3.2.8 
+* Installed: v3.4.11 
 * Source URL: https://github.com/symfony/http-foundation.git
 
 #### twig/twig (~2.0)
 
 Twig, the flexible, fast, and secure template language for PHP
 
-* Installed: v2.3.2 
+* Installed: v2.4.8 
 * Source URL: https://github.com/twigphp/Twig.git
 
 #### elkuku/g11n (~3.0)
 
 The g11n language library
 
-* Installed: 3.0 
+* Installed: 3.1 
 * Source URL: https://github.com/elkuku/g11n.git
 
 #### elkuku/console-progressbar (1.0)
@@ -197,11 +197,11 @@ This class provides you with an easy-to-use interface to progress bars.
 * Installed: 1.0 
 * Source URL: https://github.com/elkuku/ConsoleProgressBar.git
 
-#### elkuku/crowdin-api (~1.0)
+#### elkuku/crowdin-api (~2.0)
 
 A crowdin API implementation in PHP
 
-* Installed: 1.1.1 
+* Installed: 2.0 
 * Source URL: https://github.com/elkuku/crowdin-api.git
 
 #### codeguy/upload (1.3.2)
@@ -215,28 +215,28 @@ Handle file uploads with extensible validation and storage strategies
 
 php error handling for cool kids
 
-* Installed: 2.1.8 
+* Installed: 2.2.0 
 * Source URL: https://github.com/filp/whoops.git
 
 #### league/flysystem (~1.0)
 
 Filesystem abstraction: Many filesystems, one API.
 
-* Installed: 1.0.40 
+* Installed: 1.0.45 
 * Source URL: https://github.com/thephpleague/flysystem.git
 
 #### monolog/monolog (1.*)
 
 Sends your logs to files, sockets, inboxes, databases and various web services
 
-* Installed: 1.22.1 
+* Installed: 1.23.0 
 * Source URL: https://github.com/Seldaek/monolog.git
 
 #### kint-php/kint (^2.0)
 
 Kint - debugging tool for PHP developers
 
-* Installed: 2.0 
+* Installed: 2.2 
 * Source URL: https://github.com/kint-php/kint.git
 
 #### adaptive/php-text-difference (1.*)
@@ -259,14 +259,14 @@ A parser for monolog log entries
 
 A tool to automatically fix PHP code style
 
-* Installed: v1.13.1 
+* Installed: v1.13.3 
 * Source URL: https://github.com/FriendsOfPHP/PHP-CS-Fixer.git
 
 #### phpunit/phpunit (~6.0)
 
 The PHP Unit Testing framework.
 
-* Installed: 6.1.3 
+* Installed: 6.2.4 
 * Source URL: https://github.com/sebastianbergmann/phpunit.git
 
 #### squizlabs/php_codesniffer (1.*)
@@ -280,14 +280,14 @@ PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations o
 
 Copy/Paste Detector (CPD) for PHP code.
 
-* Installed: 2.0.4 
+* Installed: 3.0.1 
 * Source URL: https://github.com/sebastianbergmann/phpcpd.git
 
 #### phploc/phploc (*)
 
 A tool for quickly measuring the size of a PHP project.
 
-* Installed: 3.0.1 
+* Installed: 4.0.1 
 * Source URL: https://github.com/sebastianbergmann/phploc.git
 
 #### clue/graph-composer (*)
@@ -305,19 +305,19 @@ jQuery component
 
 * Source URL: https://github.com/jquery/jquery-dist
 
-#### jquery-validation (1.15.1)
+#### jquery-validation (1.17.0)
 
 Form validation made easy
 
-* Source URL: http://jqueryvalidation.org/
+* Source URL: https://jqueryvalidation.org/
 
 #### bootstrap (2.3.2)
 
 * Source URL: https://github.com/twbs/bootstrap
 
-#### bootstrap-switch (3.3.2)
+#### bootstrap-switch (3.3.4)
 
-Turn checkboxes and radio buttons in toggle switches.
+Turn checkboxes and radio buttons into toggle switches.
 
 * Source URL: https://github.com/nostalgiaz/bootstrap-switch
 
@@ -341,7 +341,7 @@ File Upload widget with multiple file selection, drag&amp;amp;drop support, prog
 
 * Source URL: https://github.com/blueimp/jQuery-File-Upload
 
-#### jquery-textrange (1.3.3)
+#### jquery-textrange (1.4.0)
 
 * Source URL: https://github.com/dwieeb/jquery-textrange
 
@@ -351,23 +351,23 @@ g11n is a custom language handler - made primarily for Joomla!
 
 * Source URL: https://github.com/elkuku/g11n-js
 
-#### twbs-pagination (1.3.1)
+#### twbs-pagination (1.4.1)
 
 jQuery simple pagination plugin for bootstrap-style webpages
 
 * Source URL: https://github.com/esimakin/twbs-pagination
 
-#### bootstrap-select (1.10.0)
+#### bootstrap-select (1.12.4)
 
 * Source URL: http://silviomoreto.github.io/bootstrap-select
 
-#### d3 (3.5.16)
+#### d3 (3.5.17)
 
 A JavaScript visualization library for HTML and SVG.
 
 * Source URL: https://github.com/mbostock-bower/d3-bower
 
-#### jquery-simple-color (1.2.1)
+#### jquery-simple-color (1.2.2)
 
 A dead-simple jQuery color picker.
 
@@ -377,27 +377,27 @@ A dead-simple jQuery color picker.
 
 * Source URL: https://github.com/ichord/Caret.js
 
-#### jquery.atwho (1.5.0)
+#### jquery.atwho (1.5.4)
 
 * Source URL: https://github.com/ichord/At.js
 
-#### semantic-ui-dropdown (1.10.3)
+#### semantic-ui-dropdown (1.12.3)
 
 Dropdown - Semantic UI
 
 * Source URL: http://www.semantic-ui.com
 
-#### semantic-ui-transition (1.10.4)
+#### semantic-ui-transition (1.12.3)
 
 Transition - Semantic UI
 
 * Source URL: http://www.semantic-ui.com
 
-#### octicons (4.3.0)
+#### octicons (4.4.0)
 
 * Source URL: https://github.com/github/octicons
 
-#### bootstrap-datepicker (1.6.4)
+#### bootstrap-datepicker (1.8.0)
 
 * Source URL: https://github.com/eternicode/bootstrap-datepicker
 
