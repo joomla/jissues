@@ -118,8 +118,10 @@ module.exports = function(grunt) {
                 options: {
                     separator: ';\n'
                 },
-                dest: 'www/media/js/vendor.js',
-                cssDest: 'www/media/css/vendor.css',
+                dest: {
+                    js: 'www/media/js/vendor.js',
+                    css: 'www/media/css/vendor.css'
+                },
                 mainFiles: {
                     // v2.3.2 release order: bootstrap-transition.js, bootstrap-alert.js, bootstrap-button.js, bootstrap-carousel.js, bootstrap-collapse.js, bootstrap-dropdown.js, bootstrap-modal.js, bootstrap-tooltip.js, bootstrap-popover.js, bootstrap-scrollspy.js, bootstrap-tab.js, bootstrap-typeahead.js, bootstrap-affix.js
                     'bootstrap': ['js/bootstrap-transition.js', 'js/bootstrap-collapse.js', 'js/bootstrap-dropdown.js', 'js/bootstrap-modal.js', 'js/bootstrap-tooltip.js', 'js/bootstrap-popover.js', 'js/bootstrap-tab.js', 'js/bootstrap-typeahead.js', 'js/bootstrap-affix.js'],
@@ -211,11 +213,11 @@ module.exports = function(grunt) {
         'bower_concat',
         'uglify:bower',
         'uglify:core',
-        'replace',
-        'cssmin',
         'copy:octicons',
         'copy:upload',
         'copy:validation',
-        'copy:datepicker'
+        'copy:datepicker',
+        'replace',
+        'cssmin'
     ]);
 };

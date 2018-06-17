@@ -94,12 +94,11 @@
 }
 
 /*!
- * Datepicker for Bootstrap v1.6.4 (https://github.com/eternicode/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.8.0 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
+
 .datepicker {
   padding: 4px;
   -webkit-border-radius: 4px;
@@ -110,10 +109,13 @@
 .datepicker-inline {
   width: 220px;
 }
-.datepicker.datepicker-rtl {
+.datepicker-rtl {
   direction: rtl;
 }
-.datepicker.datepicker-rtl table tr td span {
+.datepicker-rtl.dropdown-menu {
+  left: auto;
+}
+.datepicker-rtl table tr td span {
   float: right;
 }
 .datepicker-dropdown {
@@ -520,6 +522,10 @@
 .datepicker tfoot tr th:hover {
   background: #eee;
 }
+.datepicker .prev.disabled,
+.datepicker .next.disabled {
+  visibility: hidden;
+}
 .datepicker .cw {
   font-size: 10px;
   width: 12px;
@@ -565,9 +571,9 @@
 }
 /*# sourceMappingURL=bootstrap-datepicker.css.map */
 /*!
- * Bootstrap-select v1.10.0 (http://silviomoreto.github.io/bootstrap-select)
+ * Bootstrap-select v1.12.4 (http://silviomoreto.github.io/bootstrap-select)
  *
- * Copyright 2013-2016 bootstrap-select
+ * Copyright 2013-2017 bootstrap-select
  * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
  */
 
@@ -583,6 +589,12 @@ select.selectpicker {
   width: 100%;
   padding-right: 25px;
   z-index: 1;
+}
+.bootstrap-select > .dropdown-toggle.bs-placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:active {
+  color: #999;
 }
 .bootstrap-select > select {
   position: absolute !important;
@@ -628,6 +640,9 @@ select.selectpicker {
 .bootstrap-select.form-control.input-group-btn {
   z-index: auto;
 }
+.bootstrap-select.form-control.input-group-btn:not(:first-child):not(:last-child) > .btn {
+  border-radius: 0;
+}
 .bootstrap-select.btn-group:not(.input-group-btn),
 .bootstrap-select.btn-group[class*="col-"] {
   float: none;
@@ -648,6 +663,13 @@ select.selectpicker {
 .form-group-sm .bootstrap-select.btn-group.form-control {
   padding: 0;
 }
+.form-group-lg .bootstrap-select.btn-group.form-control .dropdown-toggle,
+.form-group-sm .bootstrap-select.btn-group.form-control .dropdown-toggle {
+  height: 100%;
+  font-size: inherit;
+  line-height: inherit;
+  border-radius: inherit;
+}
 .form-inline .bootstrap-select.btn-group .form-control {
   width: 100%;
 }
@@ -661,6 +683,8 @@ select.selectpicker {
 }
 .bootstrap-select.btn-group.bs-container {
   position: absolute;
+  height: 0 !important;
+  padding: 0 !important;
 }
 .bootstrap-select.btn-group.bs-container .dropdown-menu {
   z-index: 1060;
@@ -709,9 +733,9 @@ select.selectpicker {
 .bootstrap-select.btn-group .dropdown-menu li a {
   cursor: pointer;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .bootstrap-select.btn-group .dropdown-menu li a.opt {
   position: relative;
@@ -846,26 +870,14 @@ select.selectpicker {
   float: none;
 }
 /*# sourceMappingURL=bootstrap-select.css.map */
-/* ========================================================================
- * bootstrap-switch - v3.3.2
- * http://www.bootstrap-switch.org
- * ========================================================================
- * Copyright 2012-2013 Mattia Larentis
- *
- * ========================================================================
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================================
- */
+/**
+  * bootstrap-switch - Turn checkboxes and radio buttons into toggle switches.
+  *
+  * @version v3.3.4
+  * @homepage https://bttstrp.github.io/bootstrap-switch
+  * @author Mattia Larentis <mattia@larentis.eu> (http://larentis.eu)
+  * @license Apache-2.0
+  */
 
 .clearfix {
   *zoom: 1;
@@ -938,7 +950,6 @@ select.selectpicker {
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block !important;
-  height: 100%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 8px;
@@ -953,19 +964,19 @@ select.selectpicker {
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #005fcc;
-  background-image: -moz-linear-gradient(top, #0044cc, #0088cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0044cc), to(#0088cc));
-  background-image: -webkit-linear-gradient(top, #0044cc, #0088cc);
-  background-image: -o-linear-gradient(top, #0044cc, #0088cc);
-  background-image: linear-gradient(to bottom, #0044cc, #0088cc);
+  background-image: -moz-linear-gradient(top, #0044cc, #08c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0044cc), to(#08c));
+  background-image: -webkit-linear-gradient(top, #0044cc, #08c);
+  background-image: -o-linear-gradient(top, #0044cc, #08c);
+  background-image: linear-gradient(to bottom, #0044cc, #08c);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0044cc', endColorstr='#ff0088cc', GradientType=0);
-  border-color: #0088cc #0088cc #005580;
+  border-color: #08c #08c #005580;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #0088cc;
+  *background-color: #08c;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
@@ -981,8 +992,8 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary.disabled,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary[disabled],
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary[disabled] {
-  color: #ffffff;
-  background-color: #0088cc;
+  color: #fff;
+  background-color: #08c;
   *background-color: #0077b3;
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary:active,
@@ -993,7 +1004,7 @@ select.selectpicker {
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info {
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #41a7c5;
   background-image: -moz-linear-gradient(top, #2f96b4, #5bc0de);
@@ -1021,7 +1032,7 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info.disabled,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info[disabled],
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info[disabled] {
-  color: #ffffff;
+  color: #fff;
   background-color: #5bc0de;
   *background-color: #46b8da;
 }
@@ -1033,7 +1044,7 @@ select.selectpicker {
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success {
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #58b058;
   background-image: -moz-linear-gradient(top, #51a351, #62c462);
@@ -1061,7 +1072,7 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success.disabled,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success[disabled],
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success[disabled] {
-  color: #ffffff;
+  color: #fff;
   background-color: #62c462;
   *background-color: #4fbd4f;
 }
@@ -1073,7 +1084,7 @@ select.selectpicker {
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #f9a123;
   background-image: -moz-linear-gradient(top, #f89406, #fbb450);
@@ -1101,7 +1112,7 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning.disabled,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning[disabled],
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning[disabled] {
-  color: #ffffff;
+  color: #fff;
   background-color: #fbb450;
   *background-color: #faa937;
 }
@@ -1113,7 +1124,7 @@ select.selectpicker {
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #d14641;
   background-image: -moz-linear-gradient(top, #bd362f, #ee5f5b);
@@ -1141,7 +1152,7 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger.disabled,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger[disabled],
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger[disabled] {
-  color: #ffffff;
+  color: #fff;
   background-color: #ee5f5b;
   *background-color: #ec4844;
 }
@@ -1153,19 +1164,19 @@ select.selectpicker {
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
-  color: #333333;
+  color: #333;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   background-color: #f0f0f0;
-  background-image: -moz-linear-gradient(top, #e6e6e6, #ffffff);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e6e6e6), to(#ffffff));
-  background-image: -webkit-linear-gradient(top, #e6e6e6, #ffffff);
-  background-image: -o-linear-gradient(top, #e6e6e6, #ffffff);
-  background-image: linear-gradient(to bottom, #e6e6e6, #ffffff);
+  background-image: -moz-linear-gradient(top, #e6e6e6, #fff);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e6e6e6), to(#fff));
+  background-image: -webkit-linear-gradient(top, #e6e6e6, #fff);
+  background-image: -o-linear-gradient(top, #e6e6e6, #fff);
+  background-image: linear-gradient(to bottom, #e6e6e6, #fff);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe6e6e6', endColorstr='#ffffffff', GradientType=0);
-  border-color: #ffffff #ffffff #d9d9d9;
+  border-color: #fff #fff #d9d9d9;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #ffffff;
+  *background-color: #fff;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
@@ -1181,8 +1192,8 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default.disabled,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default[disabled],
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default[disabled] {
-  color: #333333;
-  background-color: #ffffff;
+  color: #333;
+  background-color: #fff;
   *background-color: #f2f2f2;
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default:active,
@@ -1196,16 +1207,16 @@ select.selectpicker {
   margin-top: -1px;
   margin-bottom: -1px;
   z-index: 100;
-  border-left: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
-  color: #333333;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  color: #333;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #f5f5f5;
-  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #fff, #e6e6e6);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
   border-color: #e6e6e6 #e6e6e6 #bfbfbf;
@@ -1220,13 +1231,16 @@ select.selectpicker {
 .bootstrap-switch .bootstrap-switch-label.active,
 .bootstrap-switch .bootstrap-switch-label.disabled,
 .bootstrap-switch .bootstrap-switch-label[disabled] {
-  color: #333333;
+  color: #333;
   background-color: #e6e6e6;
   *background-color: #d9d9d9;
 }
 .bootstrap-switch .bootstrap-switch-label:active,
 .bootstrap-switch .bootstrap-switch-label.active {
   background-color: #cccccc \9;
+}
+.bootstrap-switch span::before {
+  content: "\200b";
 }
 .bootstrap-switch .bootstrap-switch-handle-on {
   -webkit-border-top-left-radius: 4px;
@@ -1252,6 +1266,7 @@ select.selectpicker {
   opacity: 0;
   filter: alpha(opacity=0);
   z-index: -1;
+  visibility: hidden;
 }
 .bootstrap-switch input[type='radio'].form-control,
 .bootstrap-switch input[type='checkbox'].form-control {
@@ -1442,12 +1457,12 @@ select.selectpicker {
 
 @font-face {
   font-family:"Octicons";
-  src:url("../fonts/../fonts/../fonts/../fonts/octicons.eot?ef21c39f0ca9b1b5116e5eb7ac5eabe6");
-  src:url("../fonts/../fonts/../fonts/../fonts/octicons.eot?#iefix") format("embedded-opentype"),
-		url("../fonts/../fonts/../fonts/../fonts/octicons.woff2?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff2"),
-		url("../fonts/../fonts/../fonts/../fonts/octicons.woff?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff"),
-		url("../fonts/../fonts/../fonts/../fonts/octicons.ttf?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("truetype"),
-		url("../fonts/../fonts/../fonts/../fonts/octicons.svg?ef21c39f0ca9b1b5116e5eb7ac5eabe6#octicons") format("svg");
+  src:url("../fonts/octicons.eot?ef21c39f0ca9b1b5116e5eb7ac5eabe6");
+  src:url("../fonts/octicons.eot?#iefix") format("embedded-opentype"),
+		url("../fonts/octicons.woff2?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff2"),
+		url("../fonts/octicons.woff?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("woff"),
+		url("../fonts/octicons.ttf?ef21c39f0ca9b1b5116e5eb7ac5eabe6") format("truetype"),
+		url("../fonts/octicons.svg?ef21c39f0ca9b1b5116e5eb7ac5eabe6#octicons") format("svg");
   font-weight:normal;
   font-style:normal;
 }
@@ -1819,7 +1834,7 @@ select.selectpicker {
 
 
 /*!
- * # Semantic UI 1.10.3 - Dropdown
+ * # Semantic UI 1.12.3 - Dropdown
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -1899,7 +1914,7 @@ select.selectpicker {
 .ui.dropdown .menu > .item .dropdown.icon {
   width: auto;
   float: right;
-  margin: 0.2em 0em 0em 1em;
+  margin: 0em 0em 0em 1em;
 }
 .ui.dropdown .menu > .item .dropdown.icon + .text {
   margin-right: 1em;
@@ -1926,9 +1941,9 @@ select.selectpicker {
   border: none;
   height: auto;
   border-top: none;
-  line-height: 1.2em;
+  line-height: 1em;
   color: rgba(0, 0, 0, 0.8);
-  padding: 0.65rem 1.25rem !important;
+  padding: 0.71428571em 1.14285714em !important;
   font-size: 1rem;
   text-transform: none;
   font-weight: normal;
@@ -1959,7 +1974,7 @@ select.selectpicker {
 .ui.dropdown .menu .item > .flag.floated,
 .ui.dropdown .menu .item > .image.floated,
 .ui.dropdown .menu .item > img.floated {
-  margin-top: 0.2em;
+  margin-top: 0em;
 }
 
 /*--------------
@@ -1968,9 +1983,9 @@ select.selectpicker {
 
 .ui.dropdown .menu > .header {
   margin: 1rem 0rem 0.75rem;
-  padding: 0em 1.25rem;
+  padding: 0em 1.14285714em;
   color: rgba(0, 0, 0, 0.85);
-  font-size: 0.8em;
+  font-size: 0.7857rem;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -1980,7 +1995,7 @@ select.selectpicker {
   margin: 0.5em 0em;
 }
 .ui.dropdown .menu > .input {
-  margin: 0.75rem 1.25rem;
+  margin: 0.75rem 1.14285714em;
   min-width: 200px;
 }
 .ui.dropdown .menu > .header + .input {
@@ -2048,7 +2063,7 @@ select.selectpicker {
 .ui.dropdown .menu > .item > .flag,
 .ui.dropdown .menu > .item > .image,
 .ui.dropdown .menu > .item > img {
-  margin-top: 0.2em;
+  margin-top: 0em;
 }
 .ui.dropdown > .text > .icon,
 .ui.dropdown > .text > .label,
@@ -2061,6 +2076,7 @@ select.selectpicker {
 .ui.dropdown .menu > .item > .image,
 .ui.dropdown .menu > .item > img {
   margin-left: 0em;
+  float: none;
   margin-right: 0.75em;
 }
 
@@ -2153,9 +2169,9 @@ select.selectpicker {
 }
 select.ui.dropdown {
   height: 38px;
-  padding: 0em;
-  margin: 0em;
-  visibility: hidden;
+  padding: 0.5em;
+  border: 1px solid rgba(39, 41, 43, 0.15);
+  visibility: visible;
 }
 .ui.selection.dropdown > .text {
   margin-right: 2em;
@@ -2201,35 +2217,39 @@ select.ui.dropdown {
 .ui.selection.dropdown .menu:before {
   display: none;
 }
+
+/* Scrollbar in IE */
+@media all and (-ms-high-contrast: none) {
+  .ui.selection.dropdown .menu {
+    min-width: -webkit-calc(100% -  15px );
+    min-width: calc(100% -  15px );
+  }
+}
 @media only screen and (max-width: 767px) {
   .ui.selection.dropdown .menu {
-    max-height: 7.7142rem;
+    max-height: 7.49991429em;
   }
 }
 @media only screen and (min-width: 768px) {
   .ui.selection.dropdown .menu {
-    max-height: 10.2856rem;
+    max-height: 9.99988571em;
   }
 }
 @media only screen and (min-width: 992px) {
   .ui.selection.dropdown .menu {
-    max-height: 15.4284rem;
+    max-height: 14.99982857em;
   }
 }
 @media only screen and (min-width: 1920px) {
   .ui.selection.dropdown .menu {
-    max-height: 20.5712rem;
+    max-height: 19.99977143em;
   }
 }
 
 /* Menu Item */
 .ui.selection.dropdown .menu > .item {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  padding-left: 1.1em !important;
-  
-/* Add in spacing for scroll bar */
-  padding-right: -webkit-calc(2.1em) !important;
-  padding-right: calc(2.1em) !important;
+  padding: 0.71428571em 1.14285714em !important;
   white-space: normal;
   word-wrap: normal;
 }
@@ -2250,20 +2270,24 @@ select.ui.dropdown {
   opacity: 0.3 !important;
 }
 
+/* Visible */
+.ui.selection.dropdown.visible {
+  border-color: rgba(39, 41, 43, 0.3);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08);
+}
+.ui.selection.visible.dropdown .menu {
+  border-color: rgba(39, 41, 43, 0.3);
+  box-shadow: 0px 2px 6px 0px rgba(39, 41, 43, 0.15);
+}
+
 /* Visible Hover */
 .ui.selection.visible.dropdown:hover {
   border-color: rgba(39, 41, 43, 0.3);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08);
 }
-.ui.selection.visible.dropdown:hover .menu {
-  border: 1px solid rgba(39, 41, 43, 0.3);
-  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.1);
-}
-
-/* Visible */
-.ui.selection.dropdown.visible {
-  border-color: rgba(39, 41, 43, 0.15);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.08);
+.ui.selection.visible.dropdown .menu {
+  border-color: rgba(39, 41, 43, 0.3);
+  box-shadow: 0px 2px 6px 0px rgba(39, 41, 43, 0.15);
 }
 
 /* Active Item */
@@ -2352,22 +2376,22 @@ select.ui.dropdown {
 }
 @media only screen and (max-width: 767px) {
   .ui.search.dropdown .menu {
-    max-height: 7.7142rem;
+    max-height: 7.49991429em;
   }
 }
 @media only screen and (min-width: 768px) {
   .ui.search.dropdown .menu {
-    max-height: 10.2856rem;
+    max-height: 9.99988571em;
   }
 }
 @media only screen and (min-width: 992px) {
   .ui.search.dropdown .menu {
-    max-height: 15.4284rem;
+    max-height: 14.99982857em;
   }
 }
 @media only screen and (min-width: 1920px) {
   .ui.search.dropdown .menu {
-    max-height: 20.5712rem;
+    max-height: 19.99977143em;
   }
 }
 
@@ -2408,7 +2432,7 @@ select.ui.dropdown {
 .ui.dropdown .menu > .item:hover {
   background: rgba(0, 0, 0, 0.05);
   color: rgba(0, 0, 0, 0.8);
-  z-index: 12;
+  z-index: 13;
 }
 
 /*--------------------
@@ -2474,7 +2498,7 @@ select.ui.dropdown {
   visibility: hidden;
 }
 .ui.dropdown .filtered.item {
-  display: none;
+  display: none !important;
 }
 
 /*--------------------
@@ -2556,13 +2580,13 @@ select.ui.dropdown {
 .ui.dropdown .left.menu .item .dropdown.icon {
   width: auto;
   float: left;
-  margin: 0.2em 0.75em 0em 0em;
+  margin: 0em 0.75em 0em 0em;
 }
 .ui.dropdown .item .left.dropdown.icon,
 .ui.dropdown .left.menu .item .dropdown.icon {
   width: auto;
   float: left;
-  margin: 0.2em 0.75em 0em 0em;
+  margin: 0em 0.75em 0em 0em;
 }
 .ui.dropdown .item .left.dropdown.icon + .text,
 .ui.dropdown .left.menu .item .dropdown.icon + .text {
@@ -2915,7 +2939,7 @@ select.ui.dropdown {
 
 
 /*!
- * # Semantic UI 1.10.4 - Transition
+ * # Semantic UI 1.12.3 - Transition
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -3012,6 +3036,10 @@ select.ui.dropdown {
      Browse
 ---------------*/
 
+.transition.browse {
+  -webkit-animation-duration: 500ms;
+          animation-duration: 500ms;
+}
 .transition.browse.in {
   -webkit-animation-name: browseIn;
           animation-name: browseIn;
@@ -3170,8 +3198,8 @@ select.ui.dropdown {
   -webkit-transform-origin: top center;
       -ms-transform-origin: top center;
           transform-origin: top center;
-  -webkit-animation-duration: 0.5s;
-          animation-duration: 0.5s;
+  -webkit-animation-duration: 500ms;
+          animation-duration: 500ms;
   -webkit-animation-timing-function: cubic-bezier(0.34, 1.61, 0.7, 1);
           animation-timing-function: cubic-bezier(0.34, 1.61, 0.7, 1);
 }
@@ -3513,6 +3541,8 @@ select.ui.dropdown {
 
 .flip.transition.in,
 .flip.transition.out {
+  -webkit-animation-duration: 600ms;
+          animation-duration: 600ms;
   -webkit-perspective: 2000px;
           perspective: 2000px;
 }
@@ -4324,60 +4354,63 @@ select.ui.dropdown {
      Swing
 ---------------*/
 
-.transition.swing.in,
+.transition.swing {
+  -webkit-animation-duration: 800ms;
+          animation-duration: 800ms;
+}
 .transition[class*="swing down"].in {
-  -webkit-animation-name: swingInY;
-          animation-name: swingInY;
+  -webkit-animation-name: swingInX;
+          animation-name: swingInX;
   -webkit-transform-origin: top center;
       -ms-transform-origin: top center;
           transform-origin: top center;
 }
 .transition[class*="swing up"].in {
-  -webkit-animation-name: swingInY;
-          animation-name: swingInY;
+  -webkit-animation-name: swingInX;
+          animation-name: swingInX;
   -webkit-transform-origin: bottom center;
       -ms-transform-origin: bottom center;
           transform-origin: bottom center;
 }
 .transition[class*="swing left"].in {
-  -webkit-animation-name: swingInX;
-          animation-name: swingInX;
+  -webkit-animation-name: swingInY;
+          animation-name: swingInY;
   -webkit-transform-origin: center right;
       -ms-transform-origin: center right;
           transform-origin: center right;
 }
 .transition[class*="swing right"].in {
-  -webkit-animation-name: swingInX;
-          animation-name: swingInX;
+  -webkit-animation-name: swingInY;
+          animation-name: swingInY;
   -webkit-transform-origin: center left;
       -ms-transform-origin: center left;
           transform-origin: center left;
 }
 .transition.swing.out,
 .transition[class*="swing down"].out {
-  -webkit-animation-name: swingOutY;
-          animation-name: swingOutY;
+  -webkit-animation-name: swingOutX;
+          animation-name: swingOutX;
   -webkit-transform-origin: top center;
       -ms-transform-origin: top center;
           transform-origin: top center;
 }
 .transition[class*="swing up"].out {
-  -webkit-animation-name: swingOutY;
-          animation-name: swingOutY;
+  -webkit-animation-name: swingOutX;
+          animation-name: swingOutX;
   -webkit-transform-origin: bottom center;
       -ms-transform-origin: bottom center;
           transform-origin: bottom center;
 }
 .transition[class*="swing left"].out {
-  -webkit-animation-name: swingOutX;
-          animation-name: swingOutX;
+  -webkit-animation-name: swingOutY;
+          animation-name: swingOutY;
   -webkit-transform-origin: center right;
       -ms-transform-origin: center right;
           transform-origin: center right;
 }
 .transition[class*="swing right"].out {
-  -webkit-animation-name: swingOutX;
-          animation-name: swingOutX;
+  -webkit-animation-name: swingOutY;
+          animation-name: swingOutY;
   -webkit-transform-origin: center left;
       -ms-transform-origin: center left;
           transform-origin: center left;
@@ -4391,17 +4424,17 @@ select.ui.dropdown {
     opacity: 0;
   }
   40% {
-    -webkit-transform: perspective(1000px) rotateX(-20deg);
-            transform: perspective(1000px) rotateX(-20deg);
+    -webkit-transform: perspective(1000px) rotateX(-30deg);
+            transform: perspective(1000px) rotateX(-30deg);
+    opacity: 1;
   }
   60% {
-    -webkit-transform: perspective(1000px) rotateX(10deg);
-            transform: perspective(1000px) rotateX(10deg);
+    -webkit-transform: perspective(1000px) rotateX(15deg);
+            transform: perspective(1000px) rotateX(15deg);
   }
   80% {
-    -webkit-transform: perspective(1000px) rotateX(-5deg);
-            transform: perspective(1000px) rotateX(-5deg);
-    opacity: 1;
+    -webkit-transform: perspective(1000px) rotateX(-7.5deg);
+            transform: perspective(1000px) rotateX(-7.5deg);
   }
   100% {
     -webkit-transform: perspective(1000px) rotateX(0deg);
@@ -4415,17 +4448,17 @@ select.ui.dropdown {
     opacity: 0;
   }
   40% {
-    -webkit-transform: perspective(1000px) rotateX(-20deg);
-            transform: perspective(1000px) rotateX(-20deg);
+    -webkit-transform: perspective(1000px) rotateX(-30deg);
+            transform: perspective(1000px) rotateX(-30deg);
+    opacity: 1;
   }
   60% {
-    -webkit-transform: perspective(1000px) rotateX(10deg);
-            transform: perspective(1000px) rotateX(10deg);
+    -webkit-transform: perspective(1000px) rotateX(15deg);
+            transform: perspective(1000px) rotateX(15deg);
   }
   80% {
-    -webkit-transform: perspective(1000px) rotateX(-5deg);
-            transform: perspective(1000px) rotateX(-5deg);
-    opacity: 1;
+    -webkit-transform: perspective(1000px) rotateX(-7.5deg);
+            transform: perspective(1000px) rotateX(-7.5deg);
   }
   100% {
     -webkit-transform: perspective(1000px) rotateX(0deg);
@@ -4439,17 +4472,17 @@ select.ui.dropdown {
     opacity: 0;
   }
   40% {
-    -webkit-transform: perspective(1000px) rotateY(20deg);
-            transform: perspective(1000px) rotateY(20deg);
+    -webkit-transform: perspective(1000px) rotateY(30deg);
+            transform: perspective(1000px) rotateY(30deg);
+    opacity: 1;
   }
   60% {
-    -webkit-transform: perspective(1000px) rotateY(-10deg);
-            transform: perspective(1000px) rotateY(-10deg);
+    -webkit-transform: perspective(1000px) rotateY(-17.5deg);
+            transform: perspective(1000px) rotateY(-17.5deg);
   }
   80% {
-    -webkit-transform: perspective(1000px) rotateY(5deg);
-            transform: perspective(1000px) rotateY(5deg);
-    opacity: 1;
+    -webkit-transform: perspective(1000px) rotateY(7.5deg);
+            transform: perspective(1000px) rotateY(7.5deg);
   }
   100% {
     -webkit-transform: perspective(1000px) rotateY(0deg);
@@ -4463,17 +4496,17 @@ select.ui.dropdown {
     opacity: 0;
   }
   40% {
-    -webkit-transform: perspective(1000px) rotateY(20deg);
-            transform: perspective(1000px) rotateY(20deg);
+    -webkit-transform: perspective(1000px) rotateY(30deg);
+            transform: perspective(1000px) rotateY(30deg);
+    opacity: 1;
   }
   60% {
-    -webkit-transform: perspective(1000px) rotateY(-10deg);
-            transform: perspective(1000px) rotateY(-10deg);
+    -webkit-transform: perspective(1000px) rotateY(-17.5deg);
+            transform: perspective(1000px) rotateY(-17.5deg);
   }
   80% {
-    -webkit-transform: perspective(1000px) rotateY(5deg);
-            transform: perspective(1000px) rotateY(5deg);
-    opacity: 1;
+    -webkit-transform: perspective(1000px) rotateY(7.5deg);
+            transform: perspective(1000px) rotateY(7.5deg);
   }
   100% {
     -webkit-transform: perspective(1000px) rotateY(0deg);
@@ -4482,14 +4515,22 @@ select.ui.dropdown {
 }
 
 /* Out */
-@-webkit-keyframes swingOutUp {
+@-webkit-keyframes swingOutX {
   0% {
     -webkit-transform: perspective(1000px) rotateX(0deg);
             transform: perspective(1000px) rotateX(0deg);
   }
-  30% {
-    -webkit-transform: perspective(1000px) rotateX(-20deg);
-            transform: perspective(1000px) rotateX(-20deg);
+  40% {
+    -webkit-transform: perspective(1000px) rotateX(-7.5deg);
+            transform: perspective(1000px) rotateX(-7.5deg);
+  }
+  60% {
+    -webkit-transform: perspective(1000px) rotateX(17.5deg);
+            transform: perspective(1000px) rotateX(17.5deg);
+  }
+  80% {
+    -webkit-transform: perspective(1000px) rotateX(-30deg);
+            transform: perspective(1000px) rotateX(-30deg);
     opacity: 1;
   }
   100% {
@@ -4498,14 +4539,22 @@ select.ui.dropdown {
     opacity: 0;
   }
 }
-@keyframes swingOutUp {
+@keyframes swingOutX {
   0% {
     -webkit-transform: perspective(1000px) rotateX(0deg);
             transform: perspective(1000px) rotateX(0deg);
   }
-  30% {
-    -webkit-transform: perspective(1000px) rotateX(-20deg);
-            transform: perspective(1000px) rotateX(-20deg);
+  40% {
+    -webkit-transform: perspective(1000px) rotateX(-7.5deg);
+            transform: perspective(1000px) rotateX(-7.5deg);
+  }
+  60% {
+    -webkit-transform: perspective(1000px) rotateX(17.5deg);
+            transform: perspective(1000px) rotateX(17.5deg);
+  }
+  80% {
+    -webkit-transform: perspective(1000px) rotateX(-30deg);
+            transform: perspective(1000px) rotateX(-30deg);
     opacity: 1;
   }
   100% {
@@ -4514,46 +4563,22 @@ select.ui.dropdown {
     opacity: 0;
   }
 }
-@-webkit-keyframes swingOutDown {
-  0% {
-    -webkit-transform: perspective(1000px) rotateX(0deg);
-            transform: perspective(1000px) rotateX(0deg);
-  }
-  30% {
-    -webkit-transform: perspective(1000px) rotateX(20deg);
-            transform: perspective(1000px) rotateX(20deg);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: perspective(1000px) rotateX(-90deg);
-            transform: perspective(1000px) rotateX(-90deg);
-    opacity: 0;
-  }
-}
-@keyframes swingOutDown {
-  0% {
-    -webkit-transform: perspective(1000px) rotateX(0deg);
-            transform: perspective(1000px) rotateX(0deg);
-  }
-  30% {
-    -webkit-transform: perspective(1000px) rotateX(20deg);
-            transform: perspective(1000px) rotateX(20deg);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: perspective(1000px) rotateX(-90deg);
-            transform: perspective(1000px) rotateX(-90deg);
-    opacity: 0;
-  }
-}
-@-webkit-keyframes swingOutLeft {
+@-webkit-keyframes swingOutY {
   0% {
     -webkit-transform: perspective(1000px) rotateY(0deg);
             transform: perspective(1000px) rotateY(0deg);
   }
-  30% {
-    -webkit-transform: perspective(1000px) rotateY(20deg);
-            transform: perspective(1000px) rotateY(20deg);
+  40% {
+    -webkit-transform: perspective(1000px) rotateY(7.5deg);
+            transform: perspective(1000px) rotateY(7.5deg);
+  }
+  60% {
+    -webkit-transform: perspective(1000px) rotateY(-10deg);
+            transform: perspective(1000px) rotateY(-10deg);
+  }
+  80% {
+    -webkit-transform: perspective(1000px) rotateY(30deg);
+            transform: perspective(1000px) rotateY(30deg);
     opacity: 1;
   }
   100% {
@@ -4562,51 +4587,27 @@ select.ui.dropdown {
     opacity: 0;
   }
 }
-@keyframes swingOutLeft {
+@keyframes swingOutY {
   0% {
     -webkit-transform: perspective(1000px) rotateY(0deg);
             transform: perspective(1000px) rotateY(0deg);
   }
-  30% {
-    -webkit-transform: perspective(1000px) rotateY(20deg);
-            transform: perspective(1000px) rotateY(20deg);
+  40% {
+    -webkit-transform: perspective(1000px) rotateY(7.5deg);
+            transform: perspective(1000px) rotateY(7.5deg);
+  }
+  60% {
+    -webkit-transform: perspective(1000px) rotateY(-10deg);
+            transform: perspective(1000px) rotateY(-10deg);
+  }
+  80% {
+    -webkit-transform: perspective(1000px) rotateY(30deg);
+            transform: perspective(1000px) rotateY(30deg);
     opacity: 1;
   }
   100% {
     -webkit-transform: perspective(1000px) rotateY(-90deg);
             transform: perspective(1000px) rotateY(-90deg);
-    opacity: 0;
-  }
-}
-@-webkit-keyframes swingOutRight {
-  0% {
-    -webkit-transform: perspective(1000px) rotateY(0deg);
-            transform: perspective(1000px) rotateY(0deg);
-  }
-  30% {
-    -webkit-transform: perspective(1000px) rotateY(-20deg);
-            transform: perspective(1000px) rotateY(-20deg);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: perspective(1000px) rotateY(90deg);
-            transform: perspective(1000px) rotateY(90deg);
-    opacity: 0;
-  }
-}
-@keyframes swingOutRight {
-  0% {
-    -webkit-transform: perspective(1000px) rotateY(0deg);
-            transform: perspective(1000px) rotateY(0deg);
-  }
-  30% {
-    -webkit-transform: perspective(1000px) rotateY(-20deg);
-            transform: perspective(1000px) rotateY(-20deg);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: perspective(1000px) rotateY(90deg);
-            transform: perspective(1000px) rotateY(90deg);
     opacity: 0;
   }
 }
@@ -4622,26 +4623,38 @@ select.ui.dropdown {
 ---------------*/
 
 .flash.transition {
+  -webkit-animation-duration: 750ms;
+          animation-duration: 750ms;
   -webkit-animation-name: flash;
           animation-name: flash;
 }
 .shake.transition {
+  -webkit-animation-duration: 750ms;
+          animation-duration: 750ms;
   -webkit-animation-name: shake;
           animation-name: shake;
 }
 .bounce.transition {
+  -webkit-animation-duration: 750ms;
+          animation-duration: 750ms;
   -webkit-animation-name: bounce;
           animation-name: bounce;
 }
 .tada.transition {
+  -webkit-animation-duration: 750ms;
+          animation-duration: 750ms;
   -webkit-animation-name: tada;
           animation-name: tada;
 }
 .pulse.transition {
+  -webkit-animation-duration: 500ms;
+          animation-duration: 500ms;
   -webkit-animation-name: pulse;
           animation-name: pulse;
 }
 .jiggle.transition {
+  -webkit-animation-duration: 750ms;
+          animation-duration: 750ms;
   -webkit-animation-name: jiggle;
           animation-name: jiggle;
 }
